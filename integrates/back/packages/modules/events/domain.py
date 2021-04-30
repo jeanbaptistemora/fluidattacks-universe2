@@ -25,7 +25,6 @@ from starlette.datastructures import UploadFile
 from back import settings
 from backend import (
     authz,
-    mailer,
     util,
 )
 from backend.typing import (
@@ -44,6 +43,7 @@ from custom_exceptions import (
 )
 from events import dal as events_dal
 from group_access import domain as group_access_domain
+from mailer import events as events_mail
 from newutils import (
     comments as comments_utils,
     datetime as datetime_utils,
@@ -109,10 +109,13 @@ async def _send_new_event_mail(  # pylint: disable=too-many-arguments
     email_context_customers['analyst_email'] = 'Hacker at FluidIntegrates'
 
     schedule(
-        mailer.send_mail_new_event(
-            [recipients_not_customers, recipients_customers],
-            [email_context, email_context_customers]
-        )
+        collect([
+            events_mail.send_mail_new_event(mail_recipients, context)
+            for mail_recipients, context in zip(
+                [recipients_not_customers, recipients_customers],
+                [email_context, email_context_customers]
+            )
+        ])
     )
 
 
@@ -327,22 +330,6 @@ async def remove_evidence(evidence_type: str, event_id: str) -> bool:
             }
         )
     return success
-
-
-def send_comment_mail(
-    user_email: str,
-    comment_data: CommentType,
-    event: EventType
-) -> None:
-    schedule(
-        mailer.send_comment_mail(
-            comment_data,
-            'event',
-            user_email,
-            'event',
-            event
-        )
-    )
 
 
 async def solve_event(

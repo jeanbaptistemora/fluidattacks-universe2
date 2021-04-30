@@ -10,7 +10,6 @@ from typing import (
 from aioextensions import collect
 
 # Local libraries
-from backend import mailer
 from backend.api import get_new_context
 from backend.typing import (
     Event as EventType,
@@ -20,6 +19,7 @@ from backend.typing import (
 from events import domain as events_domain
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain
+from mailer import events as events_mail
 from __init__ import (
     BASE_URL,
     FI_MAIL_PROJECTS,
@@ -93,7 +93,7 @@ async def send_unsolved_events_email(context: Any, group_name: str) -> None:
     }
     if context_event['events_len'] and mail_to:
         scheduler_send_mail(
-            mailer.send_mail_unsolved_events,
+            events_mail.send_mail_unsolved_events,
             mail_to,
             context_event
         )

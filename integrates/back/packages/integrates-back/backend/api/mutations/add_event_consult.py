@@ -3,6 +3,7 @@ from time import time
 from typing import Dict
 
 # Third party
+from aioextensions import schedule
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -16,6 +17,7 @@ from backend.decorators import (
 )
 from backend.typing import AddConsultPayload
 from events import domain as events_domain
+from mailer import events as events_mail
 from redis_cluster.operations import redis_del_by_deps_soon
 
 
@@ -50,12 +52,14 @@ async def mutate(
     )
     if success:
         redis_del_by_deps_soon('add_event_consult', event_id=event_id)
-        event_loader = info.context.loaders.event
         if content.strip() not in {'#external', '#internal'}:
-            events_domain.send_comment_mail(
-                user_email,
-                comment_data,
-                await event_loader.load(event_id)
+            schedule(
+                events_mail.send_mail_comment(
+                    info.context,
+                    user_email,
+                    comment_data,
+                    event_id
+                )
             )
 
         util.cloudwatch_log(

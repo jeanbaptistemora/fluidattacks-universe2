@@ -37,6 +37,7 @@ logging.config.dictConfig(LOGGING)
 
 
 # Constants
+COMMENTS_TAG: List[str] = ['comments']
 GENERAL_TAG: List[str] = ['general']
 LOGGER_TRANSACTIONAL = logging.getLogger('transactional')
 TEMPLATES = Environment(

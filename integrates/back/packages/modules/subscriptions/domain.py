@@ -21,11 +21,9 @@ from back.settings import (
     LOGGING,
     NOEXTRA,
 )
-from backend import (
-    authz,
-    mailer,
-)
+from backend import authz
 from groups import domain as groups_domain
+from mailer import analytics as analytics_mail
 from newutils import (
     datetime as datetime_utils,
     reports,
@@ -199,7 +197,7 @@ async def send_user_to_entity_report(
 
         LOGGER_CONSOLE.info('- sending email', **NOEXTRA)
 
-        await mailer.send_mail_analytics(
+        await analytics_mail.send_mail_analytics(
             user_email,
             date=datetime_utils.get_as_str(
                 datetime_utils.get_now(), '%Y/%m/%d'

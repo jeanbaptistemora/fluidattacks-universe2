@@ -26,7 +26,6 @@ from back import settings
 from backend import authz
 from backend.typing import (
     Comment as CommentType,
-    Event as EventType,
     Finding as FindingType,
     MailContent as MailContentType,
     Project as ProjectType
@@ -149,7 +148,6 @@ async def send_comment_mail(  # pylint: disable=too-many-locals
         entity: Union[
             str,
             Dict[str, FindingType],
-            EventType,
             ProjectType
         ] = '') -> None:
     email_context: MailContentType = {
@@ -174,22 +172,6 @@ async def send_comment_mail(  # pylint: disable=too-many-locals
             ('vulns' if is_finding_released else 'drafts') +
             '/' + str(finding.get('id', '')) + '/' +
             ('consulting' if comment_type == 'comment' else 'observations')
-        )
-
-    elif entity_name == 'event':
-        event = cast(EventType, entity)
-        event_id = str(event.get('id', ''))
-        project_name = str(event.get('project_name', ''))
-        org_id = await orgs_domain.get_id_for_group(project_name)
-        org_name = await orgs_domain.get_name_by_id(org_id)
-        recipients = await group_access_domain.get_users_to_notify(
-            project_name, True
-        )
-        email_context['finding_id'] = event_id
-        email_context['finding_name'] = f'Event #{event_id}'
-        comment_url = (
-            f'{BASE_URL}/orgs/{org_name}/groups/{project_name}'
-            f'/events/{event_id}/comments'
         )
 
     elif entity_name == 'project':
@@ -249,23 +231,6 @@ async def get_email_recipients(
         recipients += project_users
 
     return recipients
-
-
-async def send_mail_analytics(
-        *email_to: str,
-        **context: str) -> None:
-    context = cast(MailContentType, context)
-    context["live_report_url"] = (
-        f'{BASE_URL}/{context["report_entity_percent"]}s/' +
-        f'{context["report_subject_percent"]}')
-    await _send_mails_async_new(
-        list(email_to),
-        context,
-        GENERAL_TAG,
-        f'Analytics for [{context["report_subject_title"]}] ' +
-        f'({context["frequency_title"]}: {context["date"]})',
-        'charts_report'
-    )
 
 
 async def send_mail_new_user(
@@ -355,39 +320,6 @@ async def send_mail_resources(
         GENERAL_TAG,
         f'Changes in resources for [{context["project"]}]',
         'resources_changes'
-    )
-
-
-async def send_mail_unsolved_events(
-        email_to: List[str],
-        context: MailContentType) -> None:
-    await _send_mails_async_new(
-        email_to,
-        context,
-        GENERAL_TAG,
-        f'Unsolved events in [{context["project"]}]',
-        'unsolved_events'
-    )
-
-
-async def send_mail_new_event(
-        email_to: List[List[str]],
-        context: List[MailContentType]) -> None:
-    await _send_mails_async_new(
-        email_to[0],
-        context[0],
-        GENERAL_TAG,
-        f'New event in [{context[0]["project"]}] - ' +
-        f'[Event#{context[0]["event_id"]}]',
-        'new_event'
-    )
-    await _send_mails_async_new(
-        email_to[1],
-        context[1],
-        GENERAL_TAG,
-        f'New event in [{context[1]["project"]}] - ' +
-        f'[Event#{context[1]["event_id"]}]',
-        'new_event'
     )
 
 
