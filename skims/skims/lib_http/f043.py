@@ -18,11 +18,13 @@ from http_headers import (
     content_security_policy,
     referrer_policy,
     strict_transport_security,
+    x_frame_options,
 )
 from http_headers.types import (
     ContentSecurityPolicyHeader,
     ReferrerPolicyHeader,
     StrictTransportSecurityHeader,
+    XFrameOptionsHeader,
 )
 from http_headers.types import (
     Header,
@@ -265,6 +267,23 @@ def _strict_transport_security(
     )
 
 
+def _x_frame_options(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
+    desc, header = "", None
+
+    if val := ctx.headers_parsed.get(XFrameOptionsHeader):
+        if val.value not in {"deny", "sameorigin"}:
+            desc = "x_frame_options.insecure"
+    else:
+        desc = "x_frame_options.missing"
+
+    return _create_vulns(
+        descriptions=[desc],
+        finding=core_model.FindingEnum.F043_DAST_XFO,
+        header=header,
+        ctx=ctx,
+    )
+
+
 async def http_headers_configuration(
     url: URLContext,
 ) -> core_model.Vulnerabilities:
@@ -280,6 +299,7 @@ async def http_headers_configuration(
             content_security_policy.parse(line),
             referrer_policy.parse(line),
             strict_transport_security.parse(line),
+            x_frame_options.parse(line),
         ]
         if header_parsed is not None
     }
@@ -309,6 +329,7 @@ CHECKS: Dict[
     core_model.FindingEnum.F043_DAST_CSP: _content_security_policy,
     core_model.FindingEnum.F043_DAST_RP: _referrer_policy,
     core_model.FindingEnum.F043_DAST_STS: _strict_transport_security,
+    core_model.FindingEnum.F043_DAST_XFO: _x_frame_options,
 }
 
 

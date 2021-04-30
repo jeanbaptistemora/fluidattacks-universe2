@@ -1,3 +1,9 @@
+lib_http.f043.x_frame_options.insecure:
+  en: Value is not DENY or SAMEORIGIN
+  es: Valor diferente a DENY o SAMEORIGIN
+lib_http.f043.x_frame_options.missing:
+  en: Missing X-Frame-Options
+  es: X-Frame-Options ausente
 utils.model.finding.enum.F043_DAST_XFO.description:
   en: The server is missing the X-Frame-Options HTTP header.
   es: El servidor carece de la cabecera HTTP X-Frame-Options.

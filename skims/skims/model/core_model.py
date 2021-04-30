@@ -501,9 +501,9 @@ class FindingEnum(Enum):
         severity_scope=0.0,
         user_interaction=0.62,
     )
-    F043_DAST_XF0: FindingMetadata = FindingMetadata.new(
+    F043_DAST_XFO: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
-        code="F043_DAST_XF0",
+        code="F043_DAST_XFO",
         cwe="644",
         attack_complexity=0.44,
         attack_vector=0.85,

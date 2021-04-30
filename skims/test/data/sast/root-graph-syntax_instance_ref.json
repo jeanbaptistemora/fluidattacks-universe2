@@ -2934,7 +2934,7 @@
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
-  "F043_DAST_XF0": {
+  "F043_DAST_XFO": {
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
