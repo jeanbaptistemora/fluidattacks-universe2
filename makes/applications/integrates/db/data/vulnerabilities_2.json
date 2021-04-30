@@ -1584,6 +1584,61 @@
           }
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "finding_id": {
+            "S": "457497318"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-09-12 08:45:48"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "integrates"
+                  },
+                  "state": {
+                    "S": "open"
+                  }
+                }
+              }
+            ]
+          },
+          "vuln_type": {
+            "S": "ports"
+          },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-09-12 08:45:48"
+                  },
+                  "treatment": {
+                    "S": "NEW"
+                  }
+                }
+              }
+            ]
+          },
+          "where": {
+            "S": "192.168.1.9"
+          },
+          "UUID": {
+            "S": "afb345f6-9319-416a-b174-0201d7cd3822"
+          },
+          "specific": {
+            "S": "6666"
+          }
+        }
+      }
     }
   ]
 }
