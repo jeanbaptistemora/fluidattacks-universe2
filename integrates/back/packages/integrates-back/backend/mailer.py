@@ -185,27 +185,27 @@ async def send_comment_mail(  # pylint: disable=too-many-locals
     email_context['comment_url'] = comment_url
     email_context['project'] = project_name
 
-    recipients_customers = [
+    # Mask Fluid Attacks' staff
+    recipients_not_masked = [
         recipient
         for recipient in recipients
-        if await authz.get_group_level_role(
-            recipient, project_name) in ['customer', 'customeradmin']
+        if ('@fluidattacks.com' in recipient)
+        or ('@fluidattacks.com' not in user_mail)
     ]
-    recipients_not_customers = [
+    recipients_masked = [
         recipient
         for recipient in recipients
-        if await authz.get_group_level_role(
-            recipient, project_name) not in ['customer', 'customeradmin']
+        if not (('@fluidattacks.com' in recipient)
+                or ('@fluidattacks.com' not in user_mail))
     ]
+    email_context_masked = email_context.copy()
+    if '@fluidattacks.com' in user_mail:
+        email_context_masked['user_email'] = f'Hacker at Fluid Attacks'
 
-    email_context_customers = email_context.copy()
-    if await authz.get_group_level_role(
-            user_mail, project_name) not in ['customer', 'customeradmin']:
-        email_context_customers['user_email'] = f'Hacker at FluidIntegrates'
     schedule(
         send_mail_comment(
-            [recipients_not_customers, recipients_customers],
-            [email_context, email_context_customers]
+            [recipients_not_masked, recipients_masked],
+            [email_context, email_context_masked]
         )
     )
 
