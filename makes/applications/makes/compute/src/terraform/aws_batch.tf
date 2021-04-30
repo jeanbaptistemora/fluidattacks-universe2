@@ -129,6 +129,18 @@ locals {
   # So just comment items, apply (to destroy the item)
   # then un-comment, modify, and apply (to create the item again from scratch)
   compute_environments = {
+    dedicated = {
+      bid_percentage      = null
+      max_vcpus           = 4
+      spot_iam_fleet_role = null
+      type                = "EC2"
+    },
+    observes = {
+      bid_percentage      = 100
+      max_vcpus           = 8
+      spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
+      type                = "SPOT"
+    },
     skims = {
       bid_percentage      = 100
       max_vcpus           = 32
@@ -137,15 +149,9 @@ locals {
     },
     spot = {
       bid_percentage      = 100
-      max_vcpus           = 16
+      max_vcpus           = 8
       spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
       type                = "SPOT"
-    },
-    dedicated = {
-      bid_percentage      = null
-      max_vcpus           = 4
-      spot_iam_fleet_role = null
-      type                = "EC2"
     },
   }
   queues = [
