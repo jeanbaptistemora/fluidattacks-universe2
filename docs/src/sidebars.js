@@ -523,6 +523,7 @@ module.exports = {
     },
     'types/f038',
     'types/f039',
+    'types/f040',
     {
       type: 'category',
       label: 'Improperly set HTTP headers',
