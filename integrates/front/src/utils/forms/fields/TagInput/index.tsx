@@ -4,7 +4,7 @@ import { WithContext as ReactTags } from "react-tag-input";
 import type { Tag } from "react-tag-input";
 import type { WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
 
-import { ValidationError } from "styles/styledComponents";
+import { ValidationError } from "utils/forms/fields/styles";
 import style from "utils/forms/index.css";
 import { translate } from "utils/translations/translate";
 import { validTextField } from "utils/validations";

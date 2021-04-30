@@ -6,7 +6,7 @@
 import type { FieldInputProps, FieldProps } from "formik";
 import React from "react";
 
-import { ValidationError } from "styles/styledComponents";
+import { ValidationError } from "utils/forms/fields/styles";
 import style from "utils/forms/index.css";
 
 interface ITextAreaProps extends FieldProps {

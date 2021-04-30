@@ -6,7 +6,7 @@ import _ from "lodash";
 import React from "react";
 import type { WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
 
-import { ValidationError } from "styles/styledComponents";
+import { ValidationError } from "utils/forms/fields/styles";
 import style from "utils/forms/index.css";
 
 interface IAutoCompleteTextProps extends WrappedFieldProps {

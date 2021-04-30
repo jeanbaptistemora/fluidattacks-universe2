@@ -632,15 +632,6 @@ const TrackingLabel: StyledComponent<
   className: "f5 mv0 w-fit-content ws-pre-wrap ww-break-word",
 })``;
 
-const ValidationError: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "dark-red",
-})``;
-
 const Well: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: string;
 }>({
@@ -728,6 +719,5 @@ export {
   TableOptionsColBtn,
   TabsContainer,
   TrackingLabel,
-  ValidationError,
   Well,
 };

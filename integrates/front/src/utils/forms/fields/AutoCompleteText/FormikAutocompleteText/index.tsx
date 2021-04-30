@@ -4,7 +4,7 @@ import React from "react";
 
 import { SuggestionItem } from "./suggestionItem";
 
-import { ValidationError } from "styles/styledComponents";
+import { StyledInput, ValidationError } from "utils/forms/fields/styles";
 
 interface IAutocompleteTextProps
   extends FieldProps<string, Record<string, string>>,
@@ -12,7 +12,7 @@ interface IAutocompleteTextProps
   suggestions: string[];
 }
 
-export const AutocompleteText: React.FC<IAutocompleteTextProps> = ({
+export const FormikAutocompleteText: React.FC<IAutocompleteTextProps> = ({
   disabled,
   field,
   form,
@@ -31,7 +31,14 @@ export const AutocompleteText: React.FC<IAutocompleteTextProps> = ({
 
   return (
     <React.Fragment>
-      <input autoComplete={"off"} disabled={disabled} type={"text"} />
+      <StyledInput
+        autoComplete={"off"}
+        disabled={disabled}
+        name={name}
+        onChange={onChange}
+        type={"text"}
+        value={value}
+      />
       {matches.length > 0 && matches[0] !== value ? (
         <ul>
           {matches.map(

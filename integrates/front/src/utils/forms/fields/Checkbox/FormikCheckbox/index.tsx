@@ -3,7 +3,7 @@ import type { FieldProps } from "formik";
 import React from "react";
 import "./index.css";
 
-import { ValidationError } from "styles/styledComponents";
+import { ValidationError } from "utils/forms/fields/styles";
 
 interface ICheckboxProps extends FieldProps {
   children: React.ReactNode;

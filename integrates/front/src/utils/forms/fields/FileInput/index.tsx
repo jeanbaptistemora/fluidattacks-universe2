@@ -9,12 +9,8 @@ import _ from "lodash";
 import React from "react";
 import type { WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
 
-import {
-  ControlLabel,
-  FormGroup,
-  InputGroup,
-  ValidationError,
-} from "styles/styledComponents";
+import { ControlLabel, FormGroup, InputGroup } from "styles/styledComponents";
+import { ValidationError } from "utils/forms/fields/styles";
 import style from "utils/forms/index.css";
 
 interface IFileInputProps extends WrappedFieldProps {

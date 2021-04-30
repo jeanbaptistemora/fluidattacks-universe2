@@ -1,17 +1,7 @@
 import type { FieldProps, FormikHandlers } from "formik";
 import React from "react";
-import styled from "styled-components";
 
-import { ValidationError } from "styles/styledComponents";
-
-const StyledInput = styled.input.attrs({
-  className: "w-100 pa2 lh-copy gray bg-white bw1 b--light-gray b--solid",
-})`
-  &:focus {
-    border-color: #d1d1d1;
-    outline: none;
-  }
-`;
+import { StyledInput, ValidationError } from "utils/forms/fields/styles";
 
 interface ITextProps extends FieldProps<string, Record<string, string>> {
   disabled: boolean;

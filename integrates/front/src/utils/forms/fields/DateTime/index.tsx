@@ -3,7 +3,7 @@ import React from "react";
 import Datetime from "react-datetime";
 import type { WrappedFieldProps } from "redux-form";
 
-import { ValidationError } from "styles/styledComponents";
+import { ValidationError } from "utils/forms/fields/styles";
 import style from "utils/forms/index.css";
 import "react-datetime/css/react-datetime.css";
 
