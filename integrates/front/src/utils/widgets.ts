@@ -26,20 +26,32 @@ const initializeDelighted: (userEmail: string, userName: string) => void = (
   }
 };
 
-const initializeZendesk: (userEmail: string, userName: string) => void = (
-  userEmail,
-  userName
-): void => {
-  const { zE } = window as typeof window & {
-    zE?: (action: string, event: string, parameters: unknown) => void;
-  };
+interface IZendesk {
+  zE: (action: string, event: string, parameters?: unknown) => void;
+}
 
-  if (zE) {
-    zE("webWidget", "setLocale", "en-US");
-    zE("webWidget", "identify", { email: userEmail, name: userName });
-  } else {
-    Logger.warning("Couldn't initialize zendesk");
-  }
+const showZendesk = (): void => {
+  const { zE } = window as IZendesk & typeof window;
+  zE("webWidget", "show");
 };
 
-export { initializeDelighted, initializeZendesk };
+const hideZendesk = (): void => {
+  const { zE } = window as IZendesk & typeof window;
+  zE("webWidget", "hide");
+};
+
+const initializeZendesk = (userEmail: string, userName: string): void => {
+  const { zE } = window as IZendesk & typeof window;
+  zE("webWidget", "hide");
+  zE("webWidget:on", "open", showZendesk);
+  zE("webWidget:on", "close", hideZendesk);
+  zE("webWidget", "setLocale", "en-US");
+  zE("webWidget", "identify", { email: userEmail, name: userName });
+};
+
+const toggleZendesk = (): void => {
+  const { zE } = window as IZendesk & typeof window;
+  zE("webWidget", "toggle");
+};
+
+export { initializeDelighted, initializeZendesk, toggleZendesk };
