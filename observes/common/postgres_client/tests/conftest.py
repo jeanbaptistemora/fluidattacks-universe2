@@ -1,4 +1,7 @@
 # Standard libraries
+import string
+import random
+
 # Third party libraries
 import pytest
 from pytest_postgresql import factories
@@ -7,7 +10,13 @@ from pytest_postgresql import factories
 from postgres_client.connection import Credentials, DatabaseID
 
 
-test_creds = Credentials(user="Light_Yagami", password="EtOn_HtAeD")
+def _rand_str(num: int) -> str:
+    return "".join(
+        random.choices(string.ascii_uppercase + string.digits, k=num)
+    )
+
+
+test_creds = Credentials(user=_rand_str(10), password=_rand_str(15))
 test_db_id = DatabaseID(db_name="TheSuperDB", host="127.0.0.1", port=44565)
 
 postgresql_my_proc = factories.postgresql_proc(
