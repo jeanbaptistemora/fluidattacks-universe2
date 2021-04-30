@@ -173,7 +173,7 @@ async def put_action_to_batch(
         )
         async with aioboto3.client(**resource_options) as batch:
             await batch.submit_job(
-                jobName='integrates-asynchronous-processing',
+                jobName=f'integrates-{action_name}',
                 jobQueue='spot_now',
                 jobDefinition='default',
                 containerOverrides={
