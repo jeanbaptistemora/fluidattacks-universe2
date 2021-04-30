@@ -61,6 +61,16 @@ data "aws_iam_policy_document" "prod-policy-data" {
       "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/dedicated*",
     ]
   }
+  statement {
+    effect = "Allow"
+    actions = [
+      "batch:CancelJob",
+      "batch:TerminateJob",
+    ]
+    resources = [
+      "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job/*",
+    ]
+  }
 
   # CloudWatch
   statement {
