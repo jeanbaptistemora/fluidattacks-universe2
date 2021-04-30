@@ -44,12 +44,20 @@ function main {
             content/pages/products/defends \
             content/pages/products/rules \
       &&  copy __envAirsNpm__/node_modules 'node_modules' \
-      &&  HOME=. ./node_modules/.bin/gatsby build --prefix-paths \
+      &&  if test -n "${CI:-}" && test "${CI_COMMIT_REF_NAME}" != "master"
+          then
+            HOME=. ./node_modules/.bin/gatsby build --prefix-paths
+          else
+            HOME=. ./node_modules/.bin/gatsby build
+          fi \
     &&  popd \
       &&  mv new-front/public . \
       &&  rm -rf new-front/* \
-      &&  copy public new-front \
-      &&  rm -rf public \
+      &&  pushd public \
+          &&  rm -rf about-us advisories careers categories contact-us cookie faq \
+                partners plans privacy products resources security subscription systems \
+      &&  popd \
+      &&  copy public . \
   &&  popd \
   ||  return 1
 }
