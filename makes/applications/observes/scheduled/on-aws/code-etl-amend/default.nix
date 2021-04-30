@@ -9,7 +9,7 @@ computeOnAws {
   attempts = 5;
   command = [ "./m" "observes.scheduled.job.code-etl-amend" ];
   jobname = "code-etl-amend";
-  jobqueue = "spot_later";
+  jobqueue = "observes_later";
   name = "observes-scheduled-on-aws-code-etl-amend";
   product = "observes";
   secrets = [

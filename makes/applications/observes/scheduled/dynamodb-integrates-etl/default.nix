@@ -9,7 +9,7 @@ let
     attempts = 5;
     command = [ "./m" "observes.job.dynamodb-table-etl" ];
     jobname = "dynamodb-etl";
-    jobqueue = "spot_soon";
+    jobqueue = "observes_soon";
     name = "aws-batch-dynamodb-etl";
     product = "observes";
     secrets = [

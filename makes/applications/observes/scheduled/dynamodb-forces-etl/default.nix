@@ -9,7 +9,7 @@ computeOnAws {
   attempts = 10;
   command = [ "./m" "observes.job.dynamodb-forces-etl" ];
   jobname = "dynamodb-forces-etl";
-  jobqueue = "spot_later";
+  jobqueue = "observes_later";
   name = "observes-scheduled-dynamodb-forces-etl";
   product = "observes";
   secrets = [

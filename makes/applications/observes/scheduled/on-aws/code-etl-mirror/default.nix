@@ -8,7 +8,7 @@ let
     attempts = 5;
     command = [ "./m" "observes.scheduled.job.code-etl-mirror" ];
     jobname = "code-etl-mirror";
-    jobqueue = "spot_soon";
+    jobqueue = "observes_soon";
     name = "aws-batch-code-etl-mirror";
     product = "observes";
     secrets = [

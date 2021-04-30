@@ -8,7 +8,7 @@ let
     attempts = 5;
     command = [ "./m" "observes.scheduled.job.code-etl-upload" ];
     jobname = "code-etl-upload";
-    jobqueue = "spot_later";
+    jobqueue = "observes_later";
     name = "aws-batch-code-etl-upload";
     product = "observes";
     secrets = [

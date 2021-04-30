@@ -5,7 +5,7 @@ computeOnAws {
   attempts = 5;
   command = [ "./m" "observes.scheduled.job.formstack-etl" ];
   jobname = "formstack-etl";
-  jobqueue = "spot_later";
+  jobqueue = "observes_later";
   name = "observes-scheduled-on-aws-formstack-etl";
   product = "observes";
   secrets = [

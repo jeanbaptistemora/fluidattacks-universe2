@@ -5,7 +5,7 @@ computeOnAws {
   attempts = 5;
   command = [ "./m" "observes.scheduled.job.dif-gitlab-etl" ];
   jobname = "dif-gitlab-etl";
-  jobqueue = "spot_later";
+  jobqueue = "observes_later";
   name = "observes-scheduled-on-aws-dif-gitlab-etl";
   product = "observes";
   secrets = [
