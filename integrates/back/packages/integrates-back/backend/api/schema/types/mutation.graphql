@@ -230,6 +230,15 @@ type Mutation {
     userEmail: String!
   ): GrantStakeholderAccessPayload!
 
+  handleOrgFindingPolicyAcceptation(
+    "ID of the policy"
+    findingPolicyId: ID!
+    "Name of the organization the finding policy is associated with"
+    organizationName: String!
+    "Whether the finding policy is approved or rejected"
+    status: OrganizationFindindPolicy!
+  ): SimplePayload!
+
   handleVulnsAcceptation(
     acceptedVulns: [String]!
     findingId: String!

@@ -202,6 +202,13 @@ ENUMS: Tuple[EnumType, ...] = (
         }
     ),
     EnumType(
+        'OrganizationFindindPolicy',
+        {
+            'APPROVED': 'APPROVED',
+            'REJECTED': 'REJECTED'
+        }
+    ),
+    EnumType(
         'OrganizationRole',
         {
             'CUSTOMER': 'CUSTOMER',

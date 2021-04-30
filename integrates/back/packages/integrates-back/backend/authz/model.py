@@ -711,6 +711,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     customeradmin=dict(
         actions={
             'backend_api_mutations_add_org_finding_policy_mutate',
+            'backend_api_mutations_handle_finding_policy_acceptation_mutate',
             'backend_api_mutations_edit_stakeholder_organization_mutate',
             (
                 'backend_api_mutations_grant_stakeholder_'
@@ -735,6 +736,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     group_manager=dict(
         actions={
             'backend_api_mutations_add_org_finding_policy_mutate',
+            'backend_api_mutations_handle_finding_policy_acceptation_mutate',
             'backend_api_mutations_edit_stakeholder_organization_mutate',
             (
                 'backend_api_mutations_grant_stakeholder_'

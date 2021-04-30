@@ -160,6 +160,11 @@ enum NameEntity {
   ORGANIZATION
 }
 
+enum OrganizationFindindPolicy {
+  APPROVED
+  REJECTED
+}
+
 enum OrganizationRole {
   CUSTOMER
   CUSTOMERADMIN

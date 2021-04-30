@@ -39,6 +39,7 @@ from backend.api.mutations import (
     edit_stakeholder,
     grant_stakeholder_access,
     grant_stakeholder_organization_access,
+    handle_finding_policy_acceptation,
     handle_vulns_acceptation,
     invalidate_access_token,
     invalidate_cache,
@@ -104,6 +105,10 @@ MUTATION.set_field(
 MUTATION.set_field(
     'grantStakeholderOrganizationAccess',
     grant_stakeholder_organization_access.mutate
+)
+MUTATION.set_field(
+    'handleOrgFindingPolicyAcceptation',
+    handle_finding_policy_acceptation.mutate
 )
 MUTATION.set_field('invalidateCache', invalidate_cache.mutate)
 MUTATION.set_field('rejectZeroRiskVuln', reject_zero_risk_vuln.mutate)
