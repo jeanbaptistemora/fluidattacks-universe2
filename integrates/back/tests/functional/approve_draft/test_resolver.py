@@ -36,6 +36,7 @@ async def test_approve_draft(populate: bool, email: str):
     [
         ['analyst@gmail.com'],
         ['closer@gmail.com'],
+        ['executive@gmail.com'],
     ]
 )
 async def test_approve_draft_fail(populate: bool, email: str):

@@ -11,12 +11,17 @@ from . import query
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('delete_finding')
-async def test_admin(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['admin@gmail.com'],
+    ]
+)
+async def test_delete_finding(populate: bool, email: str):
     assert populate
-    admin: str ='admin@gmail.com'
     finding_id: str = '475041513'
     result: Dict[str, str] = await query(
-        user=admin,
+        user=email,
         finding=finding_id,
     )
     assert 'errors' not in result
@@ -26,28 +31,19 @@ async def test_admin(populate: bool):
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('delete_finding')
-async def test_analyst(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['analyst@gmail.com'],
+        ['closer@gmail.com'],
+        ['executive@gmail.com'],
+    ]
+)
+async def test_delete_finding_fail(populate: bool, email: str):
     assert populate
-    analyst: str ='analyst@gmail.com'
-    finding_id: str = '475041514'
+    finding_id: str = '475041513'
     result: Dict[str, str] = await query(
-        user=analyst,
-        finding=finding_id,
-    )
-    assert 'errors' not in result
-    assert 'success' in result['data']['deleteFinding']
-    assert result['data']['deleteFinding']['success']
-
-
-
-@pytest.mark.asyncio
-@pytest.mark.resolver_test_group('delete_finding')
-async def test_closer(populate: bool):
-    assert populate
-    analyst: str ='closer@gmail.com'
-    finding_id: str = '475041515'
-    result: Dict[str, str] = await query(
-        user=analyst,
+        user=email,
         finding=finding_id,
     )
     assert 'errors' in result

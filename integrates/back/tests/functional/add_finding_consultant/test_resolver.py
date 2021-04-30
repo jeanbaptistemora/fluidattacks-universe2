@@ -17,6 +17,7 @@ from . import query
         ['admin@gmail.com'],
         ['analyst@gmail.com'],
         ['closer@gmail.com'],
+        ['executive@gmail.com'],
     ]
 )
 async def test_add_finding_consultant(populate: bool, email: str):

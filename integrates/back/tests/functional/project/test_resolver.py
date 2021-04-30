@@ -17,6 +17,7 @@ from . import query
         ['admin@gmail.com'],
         ['analyst@gmail.com'],
         ['closer@gmail.com'],
+        ['executive@gmail.com'],
     ]
 )
 async def test_get_project(populate: bool, email: str):
@@ -66,7 +67,6 @@ async def test_get_project(populate: bool, email: str):
     assert result['data']['project']['maxOpenSeverity'] == 4.3
     assert result['data']['project']['maxOpenSeverityFinding'] == None
     assert result['data']['project']['lastClosingVulnFinding'] == None
-    assert result['data']['project']['maxSeverityFinding'] == {'analyst': 'admin@gmail.com'}
     assert consult in [consult['content'] for consult in result['data']['project']['consulting']]
     assert finding in [finding['id'] for finding in result['data']['project']['findings']]
     assert event in [event['id'] for event in result['data']['project']['events']]

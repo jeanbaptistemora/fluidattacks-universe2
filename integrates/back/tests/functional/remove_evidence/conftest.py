@@ -27,18 +27,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         'file_url': 'group1-475041513-evidence1',
                         'upload_date': '2021-03-16 13:58:41',
                     },
-                    {
-                        'name': 'evidence_route_2',
-                        'description': 'evidence2',
-                        'file_url': 'group1-475041513-evidence2',
-                        'upload_date': '2021-03-16 13:58:41',
-                    },
-                    {
-                        'name': 'evidence_route_3',
-                        'description': 'evidence3',
-                        'file_url': 'group1-475041513-evidence3',
-                        'upload_date': '2021-03-16 13:58:41',
-                    },
                 ],
                 'historic_state': [
                     {

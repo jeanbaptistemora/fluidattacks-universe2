@@ -11,10 +11,16 @@ from . import query
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('remove_evidence')
-async def test_admin(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['admin@gmail.com'],
+    ]
+)
+async def test_remove_evidence(populate: bool, email: str):
     assert populate
     result: Dict[str, Any] = await query(
-        user='admin@gmail.com',
+        user=email,
         finding='475041513',
         evidence='EVIDENCE1',
     )
@@ -24,26 +30,39 @@ async def test_admin(populate: bool):
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('remove_evidence')
-async def test_analyst(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['analyst@gmail.com'],
+        ['closer@gmail.com'],
+    ]
+)
+async def test_remove_evidence_fail_1(populate: bool, email: str):
     assert populate
     result: Dict[str, Any] = await query(
-        user='analyst@gmail.com',
+        user=email,
         finding='475041513',
-        evidence='EVIDENCE2',
+        evidence='EVIDENCE1',
     )
-    assert 'errors' not in result
-    assert result['data']['removeEvidence']['success']
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == 'Exception - Evidence not found'
 
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('remove_evidence')
-async def test_closer(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['executive@gmail.com'],
+    ]
+)
+async def test_remove_evidence_fail_2(populate: bool, email: str):
     assert populate
     result: Dict[str, Any] = await query(
-        user='closer@gmail.com',
+        user=email,
         finding='475041513',
-        evidence='EVIDENCE3',
+        evidence='EVIDENCE1',
     )
-    assert 'errors' not in result
-    assert result['data']['removeEvidence']['success']
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == 'Access denied'

@@ -11,11 +11,17 @@ from . import query
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('submit_draft')
-async def test_admin(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['admin@gmail.com'],
+    ]
+)
+async def test_submit_draft(populate: bool, email):
     assert populate
     finding_id: str = '475041513'
     result: Dict[str, Any] = await query(
-        user='admin@gmail.com',
+        user=email,
         finding=finding_id
     )
     assert 'errors' not in result
@@ -25,25 +31,38 @@ async def test_admin(populate: bool):
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('submit_draft')
-async def test_analyst(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['analyst@gmail.com'],
+    ]
+)
+async def test_submit_draft_fail_1(populate: bool, email):
     assert populate
-    finding_id: str = '475041514'
+    finding_id: str = '475041513'
     result: Dict[str, Any] = await query(
-        user='analyst@gmail.com',
+        user=email,
         finding=finding_id
     )
-    assert 'errors' not in result
-    assert result['data']['submitDraft']['success']
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == 'Exception - This draft has already been submitted'
 
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('submit_draft')
-async def test_analyst(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['closer@gmail.com'],
+        ['executive@gmail.com'],
+    ]
+)
+async def test_submit_draft_fail_2(populate: bool, email):
     assert populate
-    finding_id: str = '475041515'
+    finding_id: str = '475041513'
     result: Dict[str, Any] = await query(
-        user='closer@gmail.com',
+        user=email,
         finding=finding_id
     )
     assert 'errors' in result
