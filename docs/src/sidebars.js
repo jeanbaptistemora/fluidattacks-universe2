@@ -605,6 +605,7 @@ module.exports = {
     'types/f096',
     'types/f097',
     'types/f098',
+    'types/f100',
   ],
   Security: [
     'security/introduction',
