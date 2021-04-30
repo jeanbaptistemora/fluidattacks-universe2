@@ -575,7 +575,7 @@ module.exports = {
         },
       ],
     },
-
+    'types/f056',
     'types/f060',
     'types/f061',
     'types/f062',
