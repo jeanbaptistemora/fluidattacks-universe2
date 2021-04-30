@@ -12,6 +12,7 @@ from http_headers import (
     content_security_policy,
     strict_transport_security,
     referrer_policy,
+    x_content_type_options,
     x_frame_options,
 )
 
@@ -204,6 +205,17 @@ def test_strict_transport_security() -> None:
     assert not header
 
     header = parse("Strict-Transport-Security-: preload")
+    assert not header
+
+
+@pytest.mark.skims_test_group("unittesting")
+def test_x_content_type_options() -> None:
+    parse = x_content_type_options.parse
+
+    header = parse("  x-content-type-options  :  VALUE  ")
+    assert header.value == "value"
+
+    header = parse("  x-content-tpe-options  :  VALUE  ")
     assert not header
 
 
