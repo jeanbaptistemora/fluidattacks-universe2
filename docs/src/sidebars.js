@@ -560,6 +560,7 @@ module.exports = {
       ],
     },
     'types/f053',
+    'types/f054',
     {
       type: 'category',
       label: 'Insecure service configuration',
@@ -574,6 +575,7 @@ module.exports = {
         },
       ],
     },
+
     'types/f060',
     'types/f061',
     'types/f062',
