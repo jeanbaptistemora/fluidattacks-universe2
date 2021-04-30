@@ -53,6 +53,9 @@
   "F043_DAST_STS": {
     "skims/test/data/sast/TestCFG.java": {}
   },
+  "F043_DAST_XCTO": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
   "F043_DAST_XFO": {
     "skims/test/data/sast/TestCFG.java": {}
   },
