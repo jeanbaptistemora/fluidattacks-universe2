@@ -1,27 +1,30 @@
 # pylint: skip-file
 # Standard libraries
+from __future__ import annotations
+from typing import (
+    NamedTuple,
+)
 
 # Third party libraries
-from typing import Callable, NamedTuple, Union
 from requests.exceptions import HTTPError
 from requests.models import Response
-from returns.maybe import Maybe
 from returns.io import (
+    IO,
     IOFailure,
     IOResult,
     IOSuccess,
 )
+from returns.maybe import Maybe
 
 # Local libraries
 from paginator.object_index import (
     PageId,
 )
+from tap_bugsnag.api.common.raw import handlers
+from tap_bugsnag.api.common.raw.handlers import RawResponse
 from tap_bugsnag.api.common.raw.client import (
     Client,
 )
-
-
-RawResponse = IOResult[Response, HTTPError]
 
 
 def _extract_http_error(response: Response) -> Maybe[HTTPError]:
@@ -48,9 +51,21 @@ def _get(client: Client, endpoint: str, page: PageId) -> RawResponse:
     return IOFailure(error.unwrap())
 
 
-def list_orgs(client: Client, page: PageId) -> RawResponse:
-    return _get(client, "/user/organizations", page)
+def _handled_get(client: Client, endpoint: str, page: PageId) -> IO[Response]:
+    return handlers.handle_rate_limit(lambda: _get(client, endpoint, page), 5)
 
 
-def list_projects(client: Client, page: PageId, org_id: str) -> RawResponse:
-    return _get(client, f"/organizations/{org_id}/projects", page)
+class RawApi(NamedTuple):
+    client: Client
+
+    def list_orgs(self, page: PageId) -> IO[Response]:
+        return _handled_get(self.client, "/user/organizations", page)
+
+    def list_projects(self, page: PageId, org_id: str) -> IO[Response]:
+        return _handled_get(
+            self.client, f"/organizations/{org_id}/projects", page
+        )
+
+    @classmethod
+    def new(cls, client: Client) -> RawApi:
+        return cls(client)
