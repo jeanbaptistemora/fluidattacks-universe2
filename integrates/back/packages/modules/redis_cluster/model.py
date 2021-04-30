@@ -167,7 +167,9 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
         attrs={
             'toe_lines',
         },
-        dependencies=set(),
+        dependencies={
+            'update_toe_lines_sorts',
+        },
     ),
     session=dict(
         args={
