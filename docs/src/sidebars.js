@@ -504,6 +504,7 @@ module.exports = {
     },
     'types/f032',
     'types/f033',
+    'types/f034',
     {
       type: 'category',
       label: 'Technical information leak',
