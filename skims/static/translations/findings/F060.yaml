@@ -1,7 +1,7 @@
 src.lib_path.f060.insecure_exceptions.description:
   en: Insecure {lang} exception in {path}
   es: Excepción insegura de {lang} en {path}
-utils.model.finding.enum.f060.description:
+F060.description:
   en: >
     The source code uses generic exceptions to handle unexpected errors.
     Catching generic exceptions obscures the problem that caused the error and
@@ -14,28 +14,28 @@ utils.model.finding.enum.f060.description:
     promueve una forma genérica de manejar diferentes categorías o fuentes de error.
     Esto puede hacer que se materialicen vulnerabilidades de seguridad, ya que algunas
     los flujos pasan desapercibidos.
-utils.model.finding.enum.f060.impact:
+F060.impact:
   en: |
     Lose the traceability necessary to identify and fix unexpected errors.
   es: >
     Perder la trazabilidad necesaria para identificar y solucionar los errores
     inesperados.
-utils.model.finding.enum.f060.recommendation:
+F060.recommendation:
   en: >
     Catch specific exceptions and provide custom treatment to every exceptional event.
   es: >
     Capturar excepciones de manera específica y dar un tratamiento especial a
     cada una de ellas.
-utils.model.finding.enum.f060.requirements:
+F060.requirements:
   en: |
     R359. Avoid using generic exceptions.
   es: |
     R359. El sistema debe usar excepciones tipeadas.
-utils.model.finding.enum.f060.threat:
+F060.threat:
   en: >
     Autenticated attacker from the Internet.
   es: >
     Atacante autenticado desde Internet.
-utils.model.finding.enum.f060.title:
+F060.title:
   en: F060. Insecure exceptions
   es: F060. Excepciones inseguras

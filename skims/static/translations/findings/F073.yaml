@@ -1,32 +1,32 @@
 src.lib_path.f073.switch_no_default:
   en: Switch without default in {path}
   es: Switch sin caso por defecto en {path}
-utils.model.finding.enum.F073.description:
+F073.description:
   en: >
     The source code has conditional statements without a default option.
     E.g. there is a switch statement without a default case.
   es: >
     El código presenta condicionales sin ninguna opción por defecto.
     Ejemplo: se tiene un switch que no contempla un caso por defecto.
-utils.model.finding.enum.F073.impact:
+F073.impact:
   en: >
     Drive the application into unexpected behaviors due to the missing default
     options.
   es: >
     Conducir la aplicación a comportamientos inesperados debido a la clausula
     por defecto faltante.
-utils.model.finding.enum.F073.recommendation:
+F073.recommendation:
   en: Define a default option for statements that do not yet have it.
   es: Definir una opción por defecto para las sentencias que aún no cuentan con esta.
-utils.model.finding.enum.F073.requirements:
+F073.requirements:
   en: R161. Define secure default options
   es: >
     R161. El código debe definir opciones por defecto seguras que
     garanticen fallos seguros en la aplicación. (try, catch/except; default en
     switches)
-utils.model.finding.enum.F073.threat:
+F073.threat:
   en: Autenticated attacker from the Internet.
   es: Atacante autenticado desde Internet.
-utils.model.finding.enum.F073.title:
+F073.title:
   en: F073. Conditional statement without a default option
   es: F073. Condicionales sin opción por defecto

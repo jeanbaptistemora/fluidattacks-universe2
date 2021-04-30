@@ -1,14 +1,14 @@
 src.lib_path.f061.swallows_exceptions.description:
   en: Empty {lang} catch in {path}
   es: Catch de {lang} vacío en {path}
-utils.model.finding.enum.f061.description:
+F061.description:
   en: >
     Application errors are handled neither by throwing an exception nor by
     triggering a logging event, which causes a loss of traceability.
   es: >
     Los errores generados en la aplicación no lanzan ninguna excepción o
     guardado en logs para saber donde se generaron.
-utils.model.finding.enum.f061.impact:
+F061.impact:
   en: |
     - Perform malicious actions within the application and leave no trace about it.
     - Make auditing and debugging difficult, as it is not possible to
@@ -17,23 +17,23 @@ utils.model.finding.enum.f061.impact:
     - Realizar acciones maliciosas en la aplicación sin dejar ningún rastro.
     - Dificultar las labores de auditoría y debug, ya que no es posible
       identificar correctamente los errores generados.
-utils.model.finding.enum.f061.recommendation:
+F061.recommendation:
   en: |
     - Use a centralized logging mechanism that supports several levels of detail.
     - Make sure all events related to successes and failures are recorded.
   es: |
     - Utilizar un mecanismo de registro centralizado que admita varios niveles de detalle.
     - Asegurarse de que se registren todos los eventos relacionados con éxitos y fracasos.
-utils.model.finding.enum.f061.requirements:
+F061.requirements:
   en: |
     R075. Record exceptional events in logs.
   es: |
     R075. El sistema debe registrar todos los eventos excepcionales y de seguridad en bitácoras.
-utils.model.finding.enum.f061.threat:
+F061.threat:
   en: >
     Autenticated attacker from the Internet.
   es: >
     Atacante autenticado desde Internet.
-utils.model.finding.enum.f061.title:
+F061.title:
   en: F061. Errors without traceability
   es: F061. Errores sin trazabilidad

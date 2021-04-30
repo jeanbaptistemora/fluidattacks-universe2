@@ -329,32 +329,32 @@ GRAPH_VULNERABILITY_PARAMETERS: Dict[
     ),
     core_model.FindingEnum.F004: GraphVulnerabilityParameters(
         cwe=("78",),
-        desc_key="utils.model.finding.enum.f004.description",
+        desc_key="F004.description",
         desc_params={},
     ),
     core_model.FindingEnum.F008: GraphVulnerabilityParameters(
         cwe=("79",),
-        desc_key="utils.model.finding.enum.f008.description",
+        desc_key="F008.description",
         desc_params={},
     ),
     core_model.FindingEnum.F021: GraphVulnerabilityParameters(
         cwe=("643",),
-        desc_key="utils.model.finding.enum.f021.description",
+        desc_key="F021.description",
         desc_params={},
     ),
     core_model.FindingEnum.F034: GraphVulnerabilityParameters(
         cwe=("330",),
-        desc_key="utils.model.finding.enum.f034.description",
+        desc_key="F034.description",
         desc_params={},
     ),
     core_model.FindingEnum.F042: GraphVulnerabilityParameters(
         cwe=("614",),
-        desc_key="utils.model.finding.enum.f042.description",
+        desc_key="F042.description",
         desc_params={},
     ),
     core_model.FindingEnum.F052: GraphVulnerabilityParameters(
         cwe=("328",),
-        desc_key="utils.model.finding.enum.F052.description",
+        desc_key="F052.description",
         desc_params={},
     ),
     core_model.FindingEnum.F063_PATH_TRAVERSAL: (
@@ -367,14 +367,14 @@ GRAPH_VULNERABILITY_PARAMETERS: Dict[
     core_model.FindingEnum.F063_TRUSTBOUND: (
         GraphVulnerabilityParameters(
             cwe=("501",),
-            desc_key="utils.model.finding.enum.f063_trustbound.description",
+            desc_key="F063_TRUSTBOUND.description",
             desc_params={},
         )
     ),
     core_model.FindingEnum.F107: (
         GraphVulnerabilityParameters(
             cwe=("90",),
-            desc_key="utils.model.finding.enum.f107.description",
+            desc_key="F107.description",
             desc_params={},
         )
     ),
