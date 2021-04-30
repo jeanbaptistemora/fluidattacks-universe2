@@ -2,6 +2,8 @@
 , ...
 }:
 pythonFormat {
-  target = "skims";
+  targets = [
+    "skims"
+  ];
   name = "skims-format";
 }

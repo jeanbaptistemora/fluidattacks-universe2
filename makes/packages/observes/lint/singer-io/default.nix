@@ -9,7 +9,7 @@ let
   src = path "/observes/common/singer_io";
   formatter = pythonFormat {
     name = "observes-pkg-format";
-    target = src;
+    targets = [ src ];
   };
 in
 makeDerivation {

@@ -2,6 +2,6 @@
 , ...
 }:
 pythonFormat {
-  target = "observes";
+  targets = [ "observes" ];
   name = "observes-job-format-code";
 }

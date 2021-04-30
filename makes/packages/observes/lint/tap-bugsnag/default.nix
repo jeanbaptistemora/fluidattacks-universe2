@@ -9,7 +9,7 @@ let
   src = path "/observes/singer/tap_bugsnag";
   formatter = pythonFormat {
     name = "observes-pkg-format";
-    target = src;
+    targets = [ src ];
   };
 in
 makeDerivation {

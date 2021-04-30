@@ -9,7 +9,7 @@ let
   src = path "/observes/singer/tap_delighted";
   formatter = pythonFormat {
     name = "observes-pkg-format";
-    target = src;
+    targets = [ src ];
   };
 in
 makeDerivation {

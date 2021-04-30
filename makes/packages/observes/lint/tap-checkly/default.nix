@@ -9,7 +9,7 @@ let
   src = path "/observes/singer/tap_checkly";
   formatter = pythonFormat {
     name = "observes-pkg-format";
-    target = src;
+    targets = [ src ];
   };
 in
 makeDerivation {

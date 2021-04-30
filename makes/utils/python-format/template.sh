@@ -1,17 +1,19 @@
 # shellcheck shell=bash
 
 function main {
-  if test -n "${CI:-}"
-  then
-    black '__envTarget__' \
-      --config '__envSettingsBlack__' \
-      --diff \
-      --check \
-      --color
-  else
-    black '__envTarget__' \
-      --config '__envSettingsBlack__'
-  fi
+  local args=(
+    --config '__envSettingsBlack__'
+  )
+  local paths=__envTargets__
+
+      if test -n "${CI:-}"
+      then
+        args+=( --diff --check --color )
+      fi \
+  &&  for path in "${paths[@]}"
+      do
+        black "${args[@]}" "${path}"
+      done
 }
 
 main "${@}"

@@ -3,6 +3,9 @@ let
   toLower = pkgs.lib.strings.toLower;
 in
 rec {
+  # Return a bash array from a nix list
+  asBashArray = args: "( ${pkgs.lib.strings.escapeShellArgs args} )";
+
   # Ensure the expression contents are read, paths are loaded, strings are left intact
   asContent = expr:
     if builtins.isPath expr
