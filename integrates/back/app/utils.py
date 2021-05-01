@@ -21,12 +21,12 @@ from starlette.responses import HTMLResponse
 from back import settings
 from backend import (
     authz,
-    mailer,
     util,
 )
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain
 from organizations import domain as orgs_domain
+from mailer import users as users_mail
 from newutils import (
     analytics,
     datetime as datetime_utils,
@@ -169,7 +169,7 @@ async def create_user(user: Dict[str, str]) -> None:
             await autoenroll_user(email)
 
         schedule(
-            mailer.send_mail_new_user(
+            users_mail.send_mail_new_user(
                 email_to=[FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS],
                 context={
                     'name_user': f'{first_name} {last_name}',

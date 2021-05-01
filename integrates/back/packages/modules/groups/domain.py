@@ -32,10 +32,7 @@ from aioextensions import (
 
 # Local libraries
 from back.settings import LOGGING
-from backend import (
-    authz,
-    mailer,
-)
+from backend import authz
 from backend.typing import (
     Invitation as InvitationType,
     MailContent as MailContentType,
@@ -57,6 +54,7 @@ from findings import domain as findings_domain
 from group_access import domain as group_access_domain
 from group_comments import domain as group_comments_domain
 from groups import dal as groups_dal
+from mailer import groups as groups_mail
 from names import domain as names_domain
 from newutils import (
     apm,
@@ -718,7 +716,7 @@ async def invite_to_group(
             'project_description': description,
             'project_url': group_url,
         }
-        schedule(mailer.send_mail_access_granted(mail_to, email_context))
+        schedule(groups_mail.send_mail_access_granted(mail_to, email_context))
     return success
 
 

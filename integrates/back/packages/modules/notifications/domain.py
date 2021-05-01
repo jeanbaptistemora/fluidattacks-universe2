@@ -17,8 +17,8 @@ from exponent_server_sdk import DeviceNotRegisteredError
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local imports
-from backend import mailer
 from backend.typing import Finding as FindingType
+from mailer import groups as groups_mail
 from newutils import datetime as datetime_utils
 from notifications import dal as notifications_dal
 from organizations import domain as orgs_domain
@@ -196,8 +196,9 @@ async def new_password_protected_report(
         send_push_notification(
             user_email,
             f'{file_type} report passphrase',
-            passphrase),
-        mailer.send_mail_project_report(
+            passphrase
+        ),
+        groups_mail.send_mail_project_report(
             [user_email],
             {
                 'filetype': file_type,

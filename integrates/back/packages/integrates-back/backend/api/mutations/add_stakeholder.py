@@ -8,7 +8,10 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from back.settings import LOGGING
-from backend import authz, mailer, util
+from backend import (
+    authz,
+    util,
+)
 from backend.decorators import (
     concurrent_decorators,
     enforce_user_level_auth_async,
@@ -16,6 +19,7 @@ from backend.decorators import (
 )
 from backend.typing import AddStakeholderPayload, MailContent
 from groups import domain as groups_domain
+from mailer import groups as groups_mail
 
 
 logging.config.dictConfig(LOGGING)
@@ -54,7 +58,7 @@ async def mutate(
             )
             mail_to = [email]
             context: MailContent = {'admin': email}
-            schedule(mailer.send_mail_access_granted(mail_to, context))
+            schedule(groups_mail.send_mail_access_granted(mail_to, context))
             success = True
         else:
             LOGGER.error(

@@ -16,13 +16,13 @@ from aioextensions import (
 )
 
 # Local libraries
-from backend import mailer
 from backend.api import get_new_context
 from backend.typing import (
     Finding as FindingType,
     MailContent as MailContentType,
 )
 from findings import domain as findings_domain
+from mailer import groups as groups_mail
 from newutils import (
     bugsnag as bugsnag_utils,
     datetime as datetime_utils,
@@ -173,10 +173,7 @@ async def get_group_statistics(context: Any, group_name: str) -> None:
     mail_context['treatments']['pending_attacks'] = treatments.get(
         'accepted_undefined_approved', 0)
     mail_to = FI_MAIL_DIGEST.split(',')
-
-    await schedule(
-        mailer.send_mail_daily_digest(mail_to, mail_context)
-    )
+    await schedule(groups_mail.send_mail_daily_digest(mail_to, mail_context))
 
 
 async def main() -> None:

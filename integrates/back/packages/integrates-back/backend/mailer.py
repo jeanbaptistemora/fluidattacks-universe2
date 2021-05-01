@@ -174,14 +174,6 @@ async def send_comment_mail(  # pylint: disable=too-many-locals
             ('consulting' if comment_type == 'comment' else 'observations')
         )
 
-    elif entity_name == 'project':
-        project_name = str(entity)
-        org_id = await orgs_domain.get_id_for_group(project_name)
-        org_name = await orgs_domain.get_name_by_id(org_id)
-        recipients = await get_email_recipients(project_name, True)
-        comment_url = f'{BASE_URL}/orgs/{org_name}/groups/' \
-                      f'{project_name}/consulting'
-
     email_context['comment_url'] = comment_url
     email_context['project'] = project_name
 
@@ -233,18 +225,6 @@ async def get_email_recipients(
     return recipients
 
 
-async def send_mail_new_user(
-        email_to: List[str],
-        context: MailContentType) -> None:
-    await _send_mails_async_new(
-        email_to,
-        context,
-        GENERAL_TAG,
-        f'New access request by {context["mail_user"]} for FLUIDIntegrates',
-        'new_user'
-    )
-
-
 async def send_mail_comment(
         email_to: List[List[str]],
         context: List[MailContentType]) -> None:
@@ -272,18 +252,6 @@ async def send_mail_comment(
     )
 
 
-async def send_mail_project_report(
-        email_to: List[str],
-        context: MailContentType) -> None:
-    await _send_mails_async_new(
-        email_to,
-        context,
-        GENERAL_TAG,
-        f'{context["filetype"]} report for [{context["projectname"]}]',
-        'project_report'
-    )
-
-
 async def send_mail_updated_treatment(
         email_to: List[str],
         context: MailContentType) -> None:
@@ -295,19 +263,6 @@ async def send_mail_updated_treatment(
         f'A vulnerability treatment has changed to {context["treatment"]} ' +
         f'in [{context["project"]}]',
         'updated_treatment'
-    )
-
-
-async def send_mail_access_granted(
-        email_to: List[str],
-        context: MailContentType) -> None:
-    await _send_mails_async_new(
-        email_to,
-        context,
-        GENERAL_TAG,
-        f'Access Granted to group {context["project"]} ' +
-        f'in Integrates by Fluid Attacks',
-        'access_granted'
     )
 
 
@@ -333,32 +288,6 @@ async def send_mail_org_deletion(
         GENERAL_TAG,
         f'Organization deletion [{context["org_name"]}]',
         'organization_deletion'
-    )
-
-
-async def send_mail_group_deletion(
-    email_to: List[str],
-    context: MailContentType
-) -> None:
-    await _send_mails_async_new(
-        email_to,
-        context,
-        GENERAL_TAG,
-        f'Group deletion [{context["group_name"]}]',
-        'group_deletion'
-    )
-
-
-async def send_mail_daily_digest(
-    email_to: List[str],
-    context: MailContentType
-) -> None:
-    await _send_mails_async_new(
-        email_to,
-        context,
-        DIGEST_TAG,
-        f'Daily Digest for [{context["project"]}]',
-        'daily_digest'
     )
 
 

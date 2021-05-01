@@ -3,6 +3,7 @@ import time
 from typing import Any
 
 # Third party libraries
+from aioextensions import schedule
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -16,6 +17,7 @@ from backend.decorators import (
 )
 from backend.typing import AddConsultPayload as AddConsultPayloadType
 from group_comments import domain as group_comments_domain
+from mailer import groups as groups_mail
 from newutils import datetime as datetime_utils
 from redis_cluster.operations import redis_del_by_deps_soon
 
@@ -31,7 +33,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     info: GraphQLResolveInfo,
     **parameters: Any
 ) -> AddConsultPayloadType:
-    project_name = parameters.get('project_name', '').lower()
+    group_name = parameters.get('project_name', '').lower()
     user_info = await util.get_jwt_content(info.context)
     user_email = user_info['user_email']
     current_time = datetime_utils.get_as_str(
@@ -52,27 +54,31 @@ async def mutate(  # pylint: disable=too-many-arguments
     }
     success = await group_comments_domain.add_comment(
         info,
-        project_name,
+        group_name,
         user_email,
         comment_data
     )
     if success:
-        redis_del_by_deps_soon('add_group_consult', group_name=project_name)
+        redis_del_by_deps_soon('add_group_consult', group_name=group_name)
         if content.strip() not in {'#external', '#internal'}:
-            group_comments_domain.send_comment_mail(
-                user_email,
-                comment_data,
-                project_name
+            schedule(
+                groups_mail.send_mail_comment(
+                    info.context,
+                    comment_data,
+                    user_email,
+                    group_name
+
+                )
             )
 
         util.cloudwatch_log(
             info.context,
-            f'Security: Added comment to {project_name} project successfully'
+            f'Security: Added comment to {group_name} project successfully'
         )
     else:
         util.cloudwatch_log(
             info.context,
-            f'Security: Attempted to add comment in {project_name} project'
+            f'Security: Attempted to add comment in {group_name} project'
         )
 
     return AddConsultPayloadType(success=success, comment_id=str(comment_id))

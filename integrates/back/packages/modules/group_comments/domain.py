@@ -5,17 +5,11 @@ from typing import (
 )
 
 # Third-party liibraries
-from aioextensions import (
-    collect,
-    schedule,
-)
+from aioextensions import collect
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from backend import (
-    authz,
-    mailer,
-)
+from backend import authz
 from backend.typing import Comment as CommentType
 from custom_exceptions import InvalidCommentParent
 from group_comments import dal as group_comments_dal
@@ -102,19 +96,3 @@ async def mask_comments(group_name: str) -> bool:
         ])
     )
     return are_comments_masked
-
-
-def send_comment_mail(
-    user_email: str,
-    comment_data: CommentType,
-    group_name: str
-) -> None:
-    schedule(
-        mailer.send_comment_mail(
-            comment_data,
-            'project',
-            user_email,
-            'project',
-            group_name
-        )
-    )

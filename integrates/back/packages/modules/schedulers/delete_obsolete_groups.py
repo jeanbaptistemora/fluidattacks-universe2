@@ -8,10 +8,10 @@ from typing import (
 from aioextensions import collect
 
 # Local libraries
-from backend import mailer
 from backend.api import get_new_context
 from backend.typing import Project as GroupType
 from groups import domain as groups_domain
+from mailer import groups as groups_mail
 from newutils import (
     datetime as datetime_utils,
     groups as groups_utils,
@@ -116,7 +116,7 @@ async def _set_group_pending_deletion_dates(
         ]
         if group_stakeholder_emails:
             scheduler_send_mail(
-                mailer.send_mail_group_deletion,
+                groups_mail.send_mail_group_deletion,
                 group_stakeholder_emails,
                 {
                     'deletion_date': group_pending_deletion_date_str,
