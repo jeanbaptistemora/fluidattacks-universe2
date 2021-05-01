@@ -17,6 +17,7 @@ from backend.decorators import (
 from backend.typing import AddConsultPayload as AddConsultPayloadType
 from custom_exceptions import PermissionDenied
 from findings import domain as findings_domain
+from mailer import findings as findings_mail
 from newutils import datetime as datetime_utils
 from redis_cluster.operations import redis_del_by_deps_soon
 
@@ -75,9 +76,10 @@ async def mutate(
     if success:
         redis_del_by_deps_soon('add_finding_consult', finding_id=finding_id)
         if content.strip() not in {'#external', '#internal'}:
-            findings_domain.send_comment_mail(
-                user_email,
+            findings_mail.send_mail_comment(
+                info.context,
                 comment_data,
+                user_email,
                 finding
             )
 

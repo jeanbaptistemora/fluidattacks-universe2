@@ -34,7 +34,6 @@ from back.settings import (
 )
 from backend import (
     authz,
-    mailer,
     util,
 )
 from backend.typing import (
@@ -781,22 +780,6 @@ async def save_severity(finding: Dict[str, FindingType]) -> bool:
     severity = cvss.calculate_severity(cvss_version, finding, cvss_parameters)
     response = await findings_dal.update(str(finding.get('id', '')), severity)
     return response
-
-
-def send_comment_mail(
-    user_email: str,
-    comment_data: CommentType,
-    finding: Dict[str, FindingType]
-) -> None:
-    schedule(
-        mailer.send_comment_mail(
-            comment_data,
-            'finding',
-            user_email,
-            str(comment_data.get('comment_type')),
-            finding
-        )
-    )
 
 
 async def send_finding_delete_mail(  # pylint: disable=too-many-arguments

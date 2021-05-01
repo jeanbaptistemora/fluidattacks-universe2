@@ -92,7 +92,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
     org_name = organization['name']
 
     email_context: MailContentType = {
-        'comment': comment_data['content'],
+        'comment': comment_data['content'].splitlines(),
         'comment_type': 'project',
         'comment_url': (
             f'{BASE_URL}/orgs/{org_name}/groups/{group_name}/consulting'

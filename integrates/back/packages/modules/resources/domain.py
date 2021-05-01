@@ -22,10 +22,7 @@ from back.settings import (
     LOGGING,
     NOEXTRA
 )
-from backend import (
-    mailer,
-    util,
-)
+from backend import util
 from backend.typing import (
     MailContent as MailContentType,
     Resource as ResourceType
@@ -33,6 +30,7 @@ from backend.typing import (
 from custom_exceptions import InvalidFileSize
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain
+from mailer import resources as resources_mail
 from newutils import (
     datetime as datetime_utils,
     resources as resources_utils,
@@ -174,10 +172,7 @@ async def send_mail(  # pylint: disable=too-many-arguments
                        f'{group_name}/resources'
     }
     schedule(
-        mailer.send_mail_resources(
-            list(recipients),
-            mail_context
-        )
+        resources_mail.send_mail_resources(list(recipients), mail_context)
     )
 
 

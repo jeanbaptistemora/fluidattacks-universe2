@@ -41,7 +41,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
     org_name = organization['name']
 
     email_context: MailContentType = {
-        'comment': comment_data['content'],
+        'comment': comment_data['content'].splitlines(),
         'comment_type': 'event',
         'comment_url': (
             f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
@@ -85,7 +85,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
             mail_recipients,
             mail_context,
             COMMENTS_TAG,
-            f'New comment in [{context["project"]}]',
+            f'New comment in [{group_name}]',
             'new_comment'
         )
         for mail_recipients, mail_context in zip(
