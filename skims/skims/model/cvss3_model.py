@@ -41,6 +41,12 @@ class IntegrityImpact(Enum):
     high: float = 0.56
 
 
+class PrivilegesRequired(Enum):
+    none: float = 0.27
+    low: float = 0.62
+    high: float = 0.85
+
+
 class RemediationLevel(Enum):
     official_fix: float = 0.95
     temporary_fix: float = 0.96
@@ -54,7 +60,11 @@ class ReportConfidence(Enum):
     confirmed: float = 1.00
 
 
-class PrivilegesRequired(Enum):
-    none: float = 0.27
-    low: float = 0.62
-    high: float = 0.85
+class SeverityScope(Enum):
+    unchanged: float = 0.0
+    changed: float = 1.0
+
+
+class UserInteraction(Enum):
+    required: float = 0.62
+    none: float = 0.85

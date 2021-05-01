@@ -24,6 +24,8 @@ from model.cvss3_model import (
     PrivilegesRequired,
     RemediationLevel,
     ReportConfidence,
+    SeverityScope,
+    UserInteraction,
 )
 
 
@@ -76,8 +78,8 @@ class FindingMetadata(NamedTuple):
         privileges_required: PrivilegesRequired,
         remediation_level: RemediationLevel,
         report_confidence: ReportConfidence,
-        severity_scope: float,
-        user_interaction: float,
+        severity_scope: SeverityScope,
+        user_interaction: UserInteraction,
     ) -> FindingMetadata:
         return FindingMetadata(
             auto_approve=auto_approve,
@@ -96,8 +98,8 @@ class FindingMetadata(NamedTuple):
                 "privilegesRequired": privileges_required.value,
                 "remediationLevel": remediation_level.value,
                 "reportConfidence": report_confidence.value,
-                "severityScope": severity_scope,
-                "userInteraction": user_interaction,
+                "severityScope": severity_scope.value,
+                "userInteraction": user_interaction.value,
             },
             threat=f"{code}.threat",
             title=f"{code}.title",
@@ -119,8 +121,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.low,
         remediation_level=RemediationLevel.unavailable,
         report_confidence=ReportConfidence.reasonable,
-        severity_scope=0.0,
-        user_interaction=0.85,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
     )
     F001_JPA: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -135,8 +137,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.low,
         remediation_level=RemediationLevel.unavailable,
         report_confidence=ReportConfidence.reasonable,
-        severity_scope=0.0,
-        user_interaction=0.85,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
     )
     F004: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -151,8 +153,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.low,
         remediation_level=RemediationLevel.unavailable,
         report_confidence=ReportConfidence.reasonable,
-        severity_scope=0.0,
-        user_interaction=0.85,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
     )
     F008: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -167,8 +169,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.low,
         remediation_level=RemediationLevel.unavailable,
         report_confidence=ReportConfidence.reasonable,
-        severity_scope=0.0,
-        user_interaction=0.62,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.required,
     )
     F009: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -183,8 +185,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.low,
         remediation_level=RemediationLevel.unavailable,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=0.0,
-        user_interaction=0.85,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
     )
     F011: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -199,8 +201,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.low,
         remediation_level=RemediationLevel.official_fix,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=0.0,
-        user_interaction=0.85,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
     )
     F020: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -215,8 +217,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.low,
         remediation_level=RemediationLevel.unavailable,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=0.0,
-        user_interaction=0.85,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
     )
     F021: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -231,8 +233,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.low,
         remediation_level=RemediationLevel.unavailable,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=0.0,
-        user_interaction=0.85,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
     )
     F022: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -247,8 +249,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.high,
         remediation_level=RemediationLevel.official_fix,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=0.0,
-        user_interaction=0.62,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.required,
     )
     F024_AWS: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -263,8 +265,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.high,
         remediation_level=RemediationLevel.official_fix,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=1.0,
-        user_interaction=0.85,
+        severity_scope=SeverityScope.changed,
+        user_interaction=UserInteraction.none,
     )
     F031_AWS: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -279,8 +281,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.low,
         remediation_level=RemediationLevel.unavailable,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=0.0,
-        user_interaction=0.85,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
     )
     F031_CWE378: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -295,8 +297,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.high,
         remediation_level=RemediationLevel.unavailable,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=0.0,
-        user_interaction=0.62,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.required,
     )
     F034: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -311,8 +313,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.low,
         remediation_level=RemediationLevel.official_fix,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=0.0,
-        user_interaction=0.85,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
     )
     F037: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -327,8 +329,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.low,
         remediation_level=RemediationLevel.unavailable,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=0.0,
-        user_interaction=0.85,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
     )
     F042: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -343,8 +345,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.none,
         remediation_level=RemediationLevel.official_fix,
         report_confidence=ReportConfidence.reasonable,
-        severity_scope=0.0,
-        user_interaction=0.62,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.required,
     )
     F043_DAST_CSP: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -359,8 +361,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.high,
         remediation_level=RemediationLevel.official_fix,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=0.0,
-        user_interaction=0.62,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.required,
     )
     F043_DAST_RP: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -375,8 +377,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.high,
         remediation_level=RemediationLevel.official_fix,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=0.0,
-        user_interaction=0.62,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.required,
     )
     F043_DAST_STS: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -391,8 +393,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.high,
         remediation_level=RemediationLevel.official_fix,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=0.0,
-        user_interaction=0.62,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.required,
     )
     F043_DAST_XCTO: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -407,8 +409,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.high,
         remediation_level=RemediationLevel.official_fix,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=0.0,
-        user_interaction=0.62,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.required,
     )
     F043_DAST_XFO: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
@@ -423,8 +425,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.high,
         remediation_level=RemediationLevel.official_fix,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=0.0,
-        user_interaction=0.62,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.required,
     )
     F052: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -439,8 +441,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.high,
         remediation_level=RemediationLevel.official_fix,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=0.0,
-        user_interaction=0.62,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.required,
     )
     F055_AWS_MISSING_ENCRYPTION: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -455,8 +457,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.low,
         remediation_level=RemediationLevel.official_fix,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=0.0,
-        user_interaction=0.85,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
     )
     F055_CORS: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -471,8 +473,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.high,
         remediation_level=RemediationLevel.unavailable,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=0.0,
-        user_interaction=0.85,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
     )
     F059: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -487,8 +489,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.none,
         remediation_level=RemediationLevel.unavailable,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=0.0,
-        user_interaction=0.85,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
     )
     F060: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -503,8 +505,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.low,
         remediation_level=RemediationLevel.official_fix,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=0.0,
-        user_interaction=0.85,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
     )
     F061: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -519,8 +521,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.low,
         remediation_level=RemediationLevel.unavailable,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=0.0,
-        user_interaction=0.85,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
     )
     F063_PATH_TRAVERSAL: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -535,8 +537,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.low,
         remediation_level=RemediationLevel.official_fix,
         report_confidence=ReportConfidence.reasonable,
-        severity_scope=0.0,
-        user_interaction=0.85,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
     )
     F063_TRUSTBOUND: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -551,8 +553,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.low,
         remediation_level=RemediationLevel.unavailable,
         report_confidence=ReportConfidence.unknown,
-        severity_scope=0.0,
-        user_interaction=0.85,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
     )
     F073: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -567,8 +569,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.low,
         remediation_level=RemediationLevel.unavailable,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=0.0,
-        user_interaction=0.85,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
     )
     F085: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -583,8 +585,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.high,
         remediation_level=RemediationLevel.official_fix,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=0.0,
-        user_interaction=0.62,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.required,
     )
     F107: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -599,8 +601,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.low,
         remediation_level=RemediationLevel.unavailable,
         report_confidence=ReportConfidence.reasonable,
-        severity_scope=0.0,
-        user_interaction=0.85,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
     )
     F117: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
@@ -615,8 +617,8 @@ class FindingEnum(Enum):
         privileges_required=PrivilegesRequired.low,
         remediation_level=RemediationLevel.unavailable,
         report_confidence=ReportConfidence.confirmed,
-        severity_scope=0.0,
-        user_interaction=0.85,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
     )
 
 
