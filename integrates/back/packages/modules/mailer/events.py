@@ -14,7 +14,13 @@ from backend.typing import (
     MailContent as MailContentType,
 )
 from group_access import domain as group_access_domain
-from __init__ import BASE_URL
+from __init__ import (
+    BASE_URL,
+    FI_MAIL_CONTINUOUS,
+    FI_MAIL_PRODUCTION,
+    FI_MAIL_PROJECTS,
+    FI_MAIL_REVIEWERS,
+)
 from .common import (
     COMMENTS_TAG,
     GENERAL_TAG,
@@ -95,20 +101,73 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
     ])
 
 
-async def send_mail_new_event(
-    email_to: List[str],
-    context: MailContentType
+async def send_mail_new_event(  # pylint: disable=too-many-arguments
+    loaders: Any,
+    org_id: str,
+    analyst: str,
+    event_id: str,
+    group_name: str,
+    subscription: str,
+    event_type: str
 ) -> None:
-    await send_mails_async_new(
-        email_to,
-        context,
-        GENERAL_TAG,
-        (
-            f'New event in [{context["project"]}] - '
-            f'[Event#{context["event_id"]}]'
+    organization_loader = loaders.organization
+    organization = await organization_loader.load(org_id)
+    org_name = organization['name']
+
+    email_context: MailContentType = {
+        'analyst_email': analyst,
+        'event_id': event_id,
+        'event_url': (
+            f'{BASE_URL}/orgs/{org_name}/groups/{group_name}/events/{event_id}'
         ),
-        'new_event'
-    )
+        'project': group_name,
+        'organization': org_name
+    }
+
+    recipients = await group_access_domain.list_group_managers(group_name)
+    recipients.append(analyst)
+    if subscription == 'oneshot':
+        recipients.append(FI_MAIL_PROJECTS)
+    elif subscription == 'continuous':
+        recipients.extend([FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS])
+    if event_type in ['CLIENT_APPROVES_CHANGE_TOE']:
+        recipients.extend([FI_MAIL_PRODUCTION] + FI_MAIL_REVIEWERS.split(','))
+
+    recipients_customers = [
+        recipient
+        for recipient in recipients
+        if await authz.get_group_level_role(
+            recipient,
+            group_name
+        ) == 'customeradmin'
+    ]
+    recipients_not_customers = [
+        recipient
+        for recipient in recipients
+        if await authz.get_group_level_role(
+            recipient,
+            group_name
+        ) != 'customeradmin'
+    ]
+    email_context_customers = email_context.copy()
+    email_context_customers['analyst_email'] = 'Hacker at FluidIntegrates'
+
+    collect([
+        send_mails_async_new(
+            mail_recipients,
+            mail_context,
+            GENERAL_TAG,
+            (
+                f'New event in [{mail_context["project"]}] - '
+                f'[Event#{mail_context["event_id"]}]'
+            ),
+            'new_event'
+        )
+        for mail_recipients, mail_context in zip(
+            [recipients_not_customers, recipients_customers],
+            [email_context, email_context_customers]
+        )
+    ])
 
 
 async def send_mail_unsolved_events(

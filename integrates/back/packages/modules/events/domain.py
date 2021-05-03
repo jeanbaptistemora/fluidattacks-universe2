@@ -30,7 +30,6 @@ from backend import (
 from backend.typing import (
     Comment as CommentType,
     Event as EventType,
-    MailContent as MailContentType,
 )
 from comments import domain as comments_domain
 from custom_exceptions import (
@@ -42,7 +41,6 @@ from custom_exceptions import (
     InvalidFileType,
 )
 from events import dal as events_dal
-from group_access import domain as group_access_domain
 from mailer import events as events_mail
 from newutils import (
     comments as comments_utils,
@@ -50,73 +48,7 @@ from newutils import (
     events as events_utils,
     validations,
 )
-from organizations import domain as orgs_domain
 from users import domain as users_domain
-from __init__ import (
-    BASE_URL,
-    FI_MAIL_CONTINUOUS,
-    FI_MAIL_PRODUCTION,
-    FI_MAIL_PROJECTS,
-    FI_MAIL_REVIEWERS,
-)
-
-
-async def _send_new_event_mail(  # pylint: disable=too-many-arguments
-    org_id: str,
-    analyst: str,
-    event_id: str,
-    group_name: str,
-    subscription: str,
-    event_type: str
-) -> None:
-    recipients = await group_access_domain.list_group_managers(group_name)
-    recipients.append(analyst)
-    org_name = await orgs_domain.get_name_by_id(org_id)
-    if subscription == 'oneshot':
-        recipients.append(FI_MAIL_PROJECTS)
-    elif subscription == 'continuous':
-        recipients += [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
-    if event_type in ['CLIENT_APPROVES_CHANGE_TOE']:
-        recipients.append(FI_MAIL_PRODUCTION)
-        recipients += FI_MAIL_REVIEWERS.split(',')
-
-    email_context: MailContentType = {
-        'analyst_email': analyst,
-        'event_id': event_id,
-        'event_url': f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
-                     f'/events/{event_id}',
-        'project': group_name,
-        'organization': org_name
-    }
-
-    recipients_customers = [
-        recipient
-        for recipient in recipients
-        if await authz.get_group_level_role(
-            recipient,
-            group_name
-        ) == 'customeradmin'
-    ]
-    recipients_not_customers = [
-        recipient
-        for recipient in recipients
-        if await authz.get_group_level_role(
-            recipient,
-            group_name
-        ) != 'customeradmin'
-    ]
-    email_context_customers = email_context.copy()
-    email_context_customers['analyst_email'] = 'Hacker at FluidIntegrates'
-
-    schedule(
-        collect([
-            events_mail.send_mail_new_event(mail_recipients, context)
-            for mail_recipients, context in zip(
-                [recipients_not_customers, recipients_customers],
-                [email_context, email_context_customers]
-            )
-        ])
-    )
 
 
 async def add_comment(
@@ -201,32 +133,24 @@ async def create_event(  # pylint: disable=too-many-locals
             list(set(event_attrs['affected_components']))
         )
 
-    if any([file, image]):
-        if file and image:
-            valid = (
-                validate_evidence('evidence_file', file) and
-                validate_evidence('evidence', image)
-            )
-        elif file:
-            valid = validate_evidence('evidence_file', file)
-        elif image:
-            valid = validate_evidence('evidence', image)
+    valid_files: bool = True
+    if file:
+        valid_files = valid_files and validate_evidence('evidence_file', file)
+    if image:
+        valid_files = valid_files and validate_evidence('evidence', image)
 
-        if (
-            valid and
-            await events_dal.create(event_id, group_name, event_attrs)
-        ):
-            if file:
-                await update_evidence(
-                    event_id,
-                    'evidence_file',
-                    file,
-                    event_date
-                )
-            if image:
-                await update_evidence(event_id, 'evidence', image, event_date)
-            success = True
-            await _send_new_event_mail(
+    success: bool = False
+    if valid_files:
+        success = await events_dal.create(event_id, group_name, event_attrs)
+
+    if success:
+        if file:
+            await update_evidence(event_id, 'evidence_file', file, event_date)
+        if image:
+            await update_evidence(event_id, 'evidence', image, event_date)
+        schedule(
+            events_mail.send_mail_new_event(
+                loaders,
                 org_id,
                 analyst_email,
                 event_id,
@@ -234,15 +158,6 @@ async def create_event(  # pylint: disable=too-many-locals
                 subscription,
                 event_attrs['event_type']
             )
-    else:
-        success = await events_dal.create(event_id, group_name, event_attrs)
-        await _send_new_event_mail(
-            org_id,
-            analyst_email,
-            event_id,
-            group_name,
-            subscription,
-            event_attrs['event_type']
         )
     return success
 
