@@ -1,30 +1,19 @@
 { makeDerivation
 , path
 , packages
-, pythonFormat
 , ...
 }:
 with packages.observes;
-let
-  src = path "/observes/common/paginator";
-  formatter = pythonFormat {
-    name = "observes-pkg-format";
-    targets = [ src ];
-  };
-in
 makeDerivation {
   name = "observes-lint-paginator";
   arguments = {
-    envSrc = src;
+    envSrc = path "/observes/common/paginator";
   };
   searchPaths = {
-    envPaths = [
-      formatter
-    ];
     envSources = [
       generic.linter
       env.paginator.development
     ];
   };
-  builder = path "/makes/packages/observes/generic/linter/builders/lint_and_format.sh";
+  builder = path "/makes/packages/observes/generic/linter/lint_builder.sh";
 }
