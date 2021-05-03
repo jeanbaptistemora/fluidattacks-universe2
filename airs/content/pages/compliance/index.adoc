@@ -1,8 +1,8 @@
-:slug: compliance/
-:description: Here you can find the international standards and regulations we consider fundamental in order to guarantee systems' and information assets' security.
-:keywords: Standards, Regulations, OWASP, PCI, HIPAA, NIST, GDPR, Pentesting, Ethical Hacking
-:phrase: At Fluid Attacks, we compile diverse international standards and regulations, focused on the security of systems and information assets, that guide us in evaluating your software.
-:template: indexof
+:page-slug: compliance/
+:page-description: Here you can find the international standards and regulations we consider fundamental in order to guarantee systems' and information assets' security.
+:page-keywords: Standards, Regulations, OWASP, PCI, HIPAA, NIST, GDPR, Pentesting, Ethical Hacking
+:page-phrase: At Fluid Attacks, we compile diverse international standards and regulations, focused on the security of systems and information assets, that guide us in evaluating your software.
+:page-template: compliances
 :arrow: image:../theme/images/arrow-btn.svg[Young hacker smiling, width=15px, height=15px]
 
 = Compliance

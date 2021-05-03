@@ -1,9 +1,9 @@
-:slug: compliance/cve/
-:category: compliance
-:description: At Fluid Attacks, we work and keep up to date with the CVE list for our findings and reports, as well as contribute to community efforts.
-:keywords: Fluid Attacks, CVE, MITRE, Continuous Hacking, Security, Standards, Ethical Hacking, Pentesting
-:banner: bg-compliance-internal
-:template: compliance
+:page-slug: compliance/cve/
+:page-category: compliance
+:page-description: At Fluid Attacks, we work and keep up to date with the CVE list for our findings and reports, as well as contribute to community efforts.
+:page-keywords: Fluid Attacks, CVE, MITRE, Continuous Hacking, Security, Standards, Ethical Hacking, Pentesting
+:page-banner: bg-compliance-internal
+:page-template: compliance
 
 = CVE
 

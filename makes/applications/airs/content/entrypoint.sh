@@ -27,17 +27,10 @@ function main {
       &&  find content/pages -type f -name "*.adoc" -exec sed -i 's|:slug|:page-slug|g' {} + \
       &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:description|:page-description|g" {} + \
       &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:keywords|:page-keywords|g" {} + \
-      &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:template: compliance|:page-template: compliance|g" {} + \
-      &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:template: indexof|:page-template: compliances|g" {} + \
-      &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:template: solution|:page-template: solution|g" {} + \
-      &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:template: solutions|:page-template: solutions|g" {} + \
-      &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:template: services/continuous|:page-template: service|g" {} + \
-      &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:template: services/one-shot|:page-template: service|g" {} + \
       &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:definition:|:page-definition:|g" {} + \
       &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:banner|:page-banner|g" {} + \
       &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:subtitle|:page-subtitle|g" {} + \
       &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:subtext|:page-subtext|g" {} + \
-      &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:solution|:page-solution|g" {} + \
       &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|../theme/images|../images|g" {} + \
       &&  rm -rf \
             content/pages/about-us/clients \
@@ -55,7 +48,7 @@ function main {
       &&  rm -rf new-front/* \
       &&  pushd public \
           &&  rm -rf about-us advisories careers categories contact-us cookie faq \
-                partners plans privacy products resources security subscription systems \
+                partners plans privacy products resources security subscription \
       &&  popd \
       &&  copy public . \
   &&  popd \

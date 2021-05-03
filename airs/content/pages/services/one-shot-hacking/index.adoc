@@ -1,8 +1,8 @@
-:slug: services/one-shot-hacking/
-:description: Our One-Shot Hacking service reports security vulnerabilities in specific versions of your applications.
-:keywords: Fluid Attacks, Services, Ethical Hacking, Security, Application, Vulnerabilities, One-Shot Hacking, Pentesting
-:template: services/one-shot
-:definition: We detect and report all vulnerability and security issues within one specific version of your application. The rigorous inspection carried out by our team allows us to detect all existing security issues with very low rates of false positives.
+:page-slug: services/one-shot-hacking/
+:page-description: Our One-Shot Hacking service reports security vulnerabilities in specific versions of your applications.
+:page-keywords: Fluid Attacks, Services, Ethical Hacking, Security, Application, Vulnerabilities, One-Shot Hacking, Pentesting
+:page-template: service
+:page-definition: We detect and report all vulnerability and security issues within one specific version of your application. The rigorous inspection carried out by our team allows us to detect all existing security issues with very low rates of false positives.
 :page-banner: bg-one-shot
 
 = One-Shot Hacking

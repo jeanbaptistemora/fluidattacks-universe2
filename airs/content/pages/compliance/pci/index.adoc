@@ -1,9 +1,9 @@
-:slug: compliance/pci/
-:category: compliance
-:description: At Fluid Attacks, through comprehensive analysis, we can help you comply with a variety of security standards for information technology, including PCI.
-:keywords: Fluid Attacks, PCI SSC, PCI DSS, Continuous Hacking, Security, Standards, Ethical Hacking, Pentesting
-:banner: bg-compliance-internal
-:template: compliance
+:page-slug: compliance/pci/
+:page-category: compliance
+:page-description: At Fluid Attacks, through comprehensive analysis, we can help you comply with a variety of security standards for information technology, including PCI.
+:page-keywords: Fluid Attacks, PCI SSC, PCI DSS, Continuous Hacking, Security, Standards, Ethical Hacking, Pentesting
+:page-banner: bg-compliance-internal
+:page-template: compliance
 
 = PCI DSS
 

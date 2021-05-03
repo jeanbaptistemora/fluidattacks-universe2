@@ -128,10 +128,10 @@ airs.lint.code:
   <<: *in_dev_branch_airs
   stage: lint-code
 
-airs.lint.content:
-  <<: *makes
-  <<: *in_dev_branch_airs
-  stage: lint-code
+# airs.lint.content:
+#   <<: *makes
+#   <<: *in_dev_branch_airs
+#   stage: lint-code
 
 airs.lint.styles:
   <<: *makes
