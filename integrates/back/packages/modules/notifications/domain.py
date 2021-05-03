@@ -198,7 +198,7 @@ async def new_password_protected_report(
             f'{file_type} report passphrase',
             passphrase
         ),
-        groups_mail.send_mail_project_report(
+        groups_mail.send_mail_group_report(
             [user_email],
             {
                 'filetype': file_type,
