@@ -1,7 +1,5 @@
 import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
@@ -12,6 +10,7 @@ import { Field } from "redux-form";
 
 import { SplitButton } from "./components/splitbutton";
 
+import { HelpWidget } from "../HelpWidget";
 import { Button } from "components/Button";
 import { MenuItem } from "components/DropdownButton";
 import { FluidIcon } from "components/FluidIcon";
@@ -38,7 +37,6 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import { alphaNumeric } from "utils/validations";
-import { toggleZendesk } from "utils/widgets";
 
 const NavbarComponent: React.FC = (): JSX.Element => {
   const { push } = useHistory();
@@ -223,7 +221,7 @@ const NavbarComponent: React.FC = (): JSX.Element => {
               </li>
             </Can>
           </Col100>
-          <FontAwesomeIcon icon={faQuestionCircle} onClick={toggleZendesk} />
+          <HelpWidget />
         </NavBarCollapse>
       </NavBar>
     </React.StrictMode>
