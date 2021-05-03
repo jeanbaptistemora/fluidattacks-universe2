@@ -53,12 +53,13 @@ data "aws_iam_policy_document" "prod-policy-data" {
     resources = ["*"]
   }
   statement {
-    effect  = "Allow"
+    effect = "Allow"
     actions = ["batch:SubmitJob"]
     resources = [
       "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-definition/default",
-      "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/spot*",
       "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/dedicated*",
+      "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/observes*",
+      "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/spot*",
     ]
   }
   statement {
