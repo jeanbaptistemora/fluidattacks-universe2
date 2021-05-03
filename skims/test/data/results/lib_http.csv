@@ -148,31 +148,3 @@ F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48
 F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48000/f043_dast_xfo_2 (namespace),Missing X-Content-Type-Options,644
 F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48000/f043_dast_xfo_3 (namespace),Missing X-Content-Type-Options,644
 F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48000/static/[filename] (namespace),Missing X-Content-Type-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/ (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/error (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_csp_0 (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_csp_1 (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_csp_10 (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_csp_11 (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_csp_12 (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_csp_13 (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_csp_2 (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_csp_3 (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_csp_4 (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_csp_5 (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_csp_6 (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_csp_7 (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_csp_8 (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_csp_9 (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_rp_0 (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_rp_1 (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_rp_2 (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_rp_3 (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_sts_0 (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_sts_1 (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_sts_2 (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_xcto_0 (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_xcto_1 (namespace),Missing X-Frame-Options,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_xfo_0 (namespace),Value is not DENY or SAMEORIGIN,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/f043_dast_xfo_3 (namespace),Value is not DENY or SAMEORIGIN,644
-F043. Missing HTTP security headers - X-Frame-Options,http://localhost:48000/static/[filename] (namespace),Missing X-Frame-Options,644

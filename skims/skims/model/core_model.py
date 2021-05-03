@@ -68,7 +68,7 @@ class FindingMetadata(NamedTuple):
         *,
         code: str,
         cwe: str,
-        auto_approve: bool,
+        auto_approve: bool = True,
         attack_complexity: AttackComplexity,
         attack_vector: AttackVector,
         availability_impact: AvailabilityImpact,
@@ -109,7 +109,6 @@ class FindingMetadata(NamedTuple):
 
 class FindingEnum(Enum):
     F001_JAVA_SQL: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F001_JAVA_SQL",
         cwe="89",
         attack_complexity=AttackComplexity.high,
@@ -125,7 +124,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F001_JPA: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F001_JPA",
         cwe="89",
         attack_complexity=AttackComplexity.high,
@@ -141,7 +139,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F004: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F004",
         cwe="78",
         attack_complexity=AttackComplexity.low,
@@ -157,7 +154,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F008: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F008",
         cwe="79",
         attack_complexity=AttackComplexity.low,
@@ -173,7 +169,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.required,
     )
     F009: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F009",
         cwe="798",
         attack_complexity=AttackComplexity.high,
@@ -189,7 +184,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F011: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F011",
         cwe="937",
         attack_complexity=AttackComplexity.low,
@@ -205,7 +199,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F020: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F020",
         cwe="311",
         attack_complexity=AttackComplexity.high,
@@ -221,7 +214,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F021: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F021",
         cwe="643",
         attack_complexity=AttackComplexity.low,
@@ -237,7 +229,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F022: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F022",
         cwe="319",
         attack_complexity=AttackComplexity.low,
@@ -253,7 +244,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.required,
     )
     F024_AWS: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F024_AWS",
         cwe="16",
         attack_complexity=AttackComplexity.high,
@@ -269,7 +259,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F031_AWS: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F031_AWS",
         cwe="250",
         attack_complexity=AttackComplexity.high,
@@ -285,7 +274,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F031_CWE378: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F031_CWE378",
         cwe="378",
         attack_complexity=AttackComplexity.high,
@@ -301,7 +289,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.required,
     )
     F034: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F034",
         cwe="330",
         attack_complexity=AttackComplexity.low,
@@ -317,7 +304,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F037: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F037",
         cwe="200",
         attack_complexity=AttackComplexity.high,
@@ -333,7 +319,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F042: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F042",
         cwe="614",
         attack_complexity=AttackComplexity.low,
@@ -349,7 +334,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.required,
     )
     F043_DAST_CSP: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F043_DAST_CSP",
         cwe="644",
         attack_complexity=AttackComplexity.low,
@@ -365,7 +349,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.required,
     )
     F043_DAST_RP: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F043_DAST_RP",
         cwe="644",
         attack_complexity=AttackComplexity.low,
@@ -381,7 +364,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.required,
     )
     F043_DAST_STS: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F043_DAST_STS",
         cwe="644",
         attack_complexity=AttackComplexity.high,
@@ -397,7 +379,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.required,
     )
     F043_DAST_XCTO: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
         code="F043_DAST_XCTO",
         cwe="644",
         attack_complexity=AttackComplexity.low,
@@ -412,24 +393,7 @@ class FindingEnum(Enum):
         severity_scope=SeverityScope.unchanged,
         user_interaction=UserInteraction.required,
     )
-    F043_DAST_XFO: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
-        code="F043_DAST_XFO",
-        cwe="644",
-        attack_complexity=AttackComplexity.low,
-        attack_vector=AttackVector.network,
-        availability_impact=AvailabilityImpact.none,
-        confidentiality_impact=ConfidentialityImpact.none,
-        exploitability=Exploitability.poc,
-        integrity_impact=IntegrityImpact.low,
-        privileges_required=PrivilegesRequired.high,
-        remediation_level=RemediationLevel.official_fix,
-        report_confidence=ReportConfidence.confirmed,
-        severity_scope=SeverityScope.unchanged,
-        user_interaction=UserInteraction.required,
-    )
     F052: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F052",
         cwe="310",
         attack_complexity=AttackComplexity.low,
@@ -445,7 +409,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.required,
     )
     F055_AWS_MISSING_ENCRYPTION: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F055_AWS_MISSING_ENCRYPTION",
         cwe="311",
         attack_complexity=AttackComplexity.high,
@@ -461,7 +424,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F055_CORS: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F055_CORS",
         cwe="942",
         attack_complexity=AttackComplexity.low,
@@ -477,7 +439,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F059: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F059",
         cwe="532",
         attack_complexity=AttackComplexity.high,
@@ -493,7 +454,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F060: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F060",
         cwe="396",
         attack_complexity=AttackComplexity.high,
@@ -509,7 +469,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F061: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F061",
         cwe="390",
         attack_complexity=AttackComplexity.high,
@@ -525,7 +484,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F063_PATH_TRAVERSAL: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F063_PATH_TRAVERSAL",
         cwe="22",
         attack_complexity=AttackComplexity.high,
@@ -541,7 +499,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F063_TRUSTBOUND: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F063_TRUSTBOUND",
         cwe="501",
         attack_complexity=AttackComplexity.low,
@@ -557,7 +514,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F073: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F073",
         cwe="478",
         attack_complexity=AttackComplexity.low,
@@ -573,7 +529,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F085: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F085",
         cwe="922",
         attack_complexity=AttackComplexity.low,
@@ -589,7 +544,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.required,
     )
     F107: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F107",
         cwe="90",
         attack_complexity=AttackComplexity.low,
@@ -605,7 +559,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F117: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
         code="F117",
         cwe="377",
         attack_complexity=AttackComplexity.low,

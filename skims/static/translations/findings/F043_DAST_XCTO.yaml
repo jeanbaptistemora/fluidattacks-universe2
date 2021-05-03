@@ -8,14 +8,8 @@ F043_DAST_XCTO.description:
   en: The server is missing the X-Content-Type-Options HTTP header.
   es: El servidor carece de la cabecera HTTP X-Content-Type-Options.
 F043_DAST_XCTO.impact:
-  en: >
-    Interpret files as a different MIME type to what is specified in the
-    Content-Type HTTP header
-    (e.g. treating text/plain as text/javascript).
-  es: >
-    Interpretar archivos como un tipo MIME diferente a lo que es especificado
-    en la cabecera HTTP Content-Type
-    (por ejemplo: tratar text/plain como text/javascript)
+  en: Interpret files as a different MIME type to what is expected.
+  es: Interpretar archivos como un tipo MIME diferente a los esperados.
 F043_DAST_XCTO.recommendation:
   en: Set the X-Content-Type-Options header to nosniff.
   es: Establecer la cabecera X-Content-Type-Options a nosniff.
