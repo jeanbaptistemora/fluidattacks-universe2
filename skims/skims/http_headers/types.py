@@ -27,6 +27,14 @@ class ReferrerPolicyHeader(NamedTuple):
     values: List[str]
 
 
+class WWWAuthenticate(NamedTuple):
+    name: str
+
+    charset: str
+    realm: str
+    type: str
+
+
 class XXSSProtectionHeader(NamedTuple):
     name: str
     enabled: bool

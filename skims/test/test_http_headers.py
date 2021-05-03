@@ -2,6 +2,9 @@
 from textwrap import (
     dedent,
 )
+from typing import (
+    Optional,
+)
 
 # Third party libraries
 import pytest
@@ -12,8 +15,12 @@ from http_headers import (
     content_security_policy,
     strict_transport_security,
     referrer_policy,
+    www_authenticate,
     x_content_type_options,
     x_frame_options,
+)
+from http_headers.types import (
+    WWWAuthenticate,
 )
 
 
@@ -206,6 +213,39 @@ def test_strict_transport_security() -> None:
 
     header = parse("Strict-Transport-Security-: preload")
     assert not header
+
+
+@pytest.mark.skims_test_group("unittesting")
+@pytest.mark.parametrize(
+    "line,expected",
+    [
+        ("www-authenticate:", None),
+        ("www-authenticate: Basic", None),
+        (
+            "www-authenticate: Basic realm=host.com",
+            WWWAuthenticate(
+                name="www-authenticate",
+                charset="",
+                realm="host.com",
+                type="Basic",
+            ),
+        ),
+        (
+            'www-authenticAte: Bearer realm="host.com", charset="UTF-8"',
+            WWWAuthenticate(
+                name="www-authenticAte",
+                charset='"UTF-8"',
+                realm='"host.com"',
+                type="Bearer",
+            ),
+        ),
+    ],
+)
+def test_www_authenticate(
+    line: str,
+    expected: Optional[WWWAuthenticate],
+) -> None:
+    assert www_authenticate.parse(line) == expected
 
 
 @pytest.mark.skims_test_group("unittesting")
