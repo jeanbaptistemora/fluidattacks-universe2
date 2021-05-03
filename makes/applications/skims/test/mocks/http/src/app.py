@@ -52,17 +52,25 @@ def home() -> Response:
     return Response(content, content_type="text/html")
 
 
-def response_header(headers: Dict[str, str]) -> Response:
-    return Response("<html></html>", headers=headers)
+def response_header(
+    headers: Dict[str, str],
+    status: int,
+) -> Response:
+    return Response("<html></html>", headers=headers, status=status)
 
 
 def _add_headers(
     finding: str,
     header: str,
-    values: List[str],
+    header_values: List[str],
+    status: int = 200,
 ) -> None:
-    for index, value in enumerate(values):
-        add_rule(finding, index, partial(response_header, {header: value}))
+    for index, value in enumerate(header_values):
+        add_rule(
+            finding,
+            index,
+            partial(response_header, headers={header: value}, status=status),
+        )
 
 
 def add_f043_dast_csp_rules() -> None:
@@ -113,6 +121,21 @@ def add_f043_dast_sts_rules() -> None:
     )
 
 
+def add_f043_dast_www_authenticate() -> None:
+    _add_headers(
+        finding="f043_dast_www_authenticate",
+        header="WWW-Authenticate",
+        header_values=[
+            "",
+            "Basic",
+            "Basic realm=host.com",
+            'Basic realm=host.com, charset="UTF-8"',
+            'Bearer realm=host.com, charset="UTF-8"',
+        ],
+        status=401,
+    )
+
+
 def add_f043_dast_xcto() -> None:
     _add_headers(
         "f043_dast_xcto",
@@ -144,5 +167,6 @@ def start() -> None:
 add_f043_dast_csp_rules()
 add_f043_dast_rp_rules()
 add_f043_dast_sts_rules()
+add_f043_dast_www_authenticate()
 add_f043_dast_xcto()
 add_f043_dast_xfo()
