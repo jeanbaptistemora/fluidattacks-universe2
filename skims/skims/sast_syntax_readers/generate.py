@@ -34,7 +34,6 @@ from sast_syntax_readers.java import (
     if_statement as java_if_statement,
     instanceof_expression as java_instanceof_expression,
     lambda_expression,
-    literal as java_literal,
     local_variable_declaration as java_local_variable_declaration,
     method_declaration as java_method_declaration,
     method_invocation as java_method_invocation,
@@ -48,6 +47,12 @@ from sast_syntax_readers.java import (
     this as java_this,
     unary_expression as java_unary_expression,
     while_statement as java_while_statement,
+)
+from sast_syntax_readers.c_sharp import (
+    method_declaration as c_sharp_method_declaration,
+)
+from sast_syntax_readers.common import (
+    literal as common_literal,
 )
 from utils import graph as g
 from utils.logs import log_blocking
@@ -83,6 +88,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
+            graph_model.GraphShardMetadataLanguage.CSHARP,
         },
         applicable_node_label_types={
             "assignment_expression",
@@ -235,6 +241,16 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     ),
     Dispatcher(
         applicable_languages={
+            graph_model.GraphShardMetadataLanguage.CSHARP,
+        },
+        applicable_node_label_types={
+            "method_declaration",
+            "constructor_declaration",
+        },
+        syntax_readers=(c_sharp_method_declaration.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
@@ -290,6 +306,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
+            graph_model.GraphShardMetadataLanguage.CSHARP,
         },
         applicable_node_label_types={
             "character_literal",
@@ -300,7 +317,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "string_literal",
             "true",
         },
-        syntax_readers=(java_literal.reader,),
+        syntax_readers=(common_literal.reader,),
     ),
     Dispatcher(
         applicable_languages={
@@ -333,6 +350,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         Dispatcher(
             applicable_languages={
                 graph_model.GraphShardMetadataLanguage.JAVA,
+                graph_model.GraphShardMetadataLanguage.CSHARP,
             },
             applicable_node_label_types={applicable_node_label_type},
             syntax_readers=(noop,),
