@@ -437,37 +437,41 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <p className={"mt0 mb1"}>{translate.t("group.findings.helpLabel")}</p>
-      <DataTableNext
-        bordered={true}
-        columnToggle={true}
-        csvFilename={`${projectName}-findings-${currentDate}.csv`}
-        dataset={formatFindings(data.project.findings)}
-        defaultSorted={JSON.parse(_.get(sessionStorage, "findingSort", "{}"))}
-        exportCsv={false}
-        extraButtons={
-          <Can I={"backend_api_resolvers_query_report__get_url_group_report"}>
-            <TooltipWrapper
-              id={"group.findings.report.btn.tooltip.id"}
-              message={translate.t("group.findings.report.btn.tooltip")}
-            >
-              <Button id={"reports"} onClick={openReportsModal}>
-                {translate.t("group.findings.report.btn.text")}
-              </Button>
-            </TooltipWrapper>
-          </Can>
-        }
-        headers={tableHeaders}
-        id={"tblFindings"}
-        isFilterEnabled={isFilterEnabled}
-        onColumnToggle={handleChange}
-        onUpdateEnableFilter={handleUpdateFilter}
-        pageSize={15}
-        rowEvents={{ onClick: goToFinding }}
-        search={true}
-        striped={true}
-        tableSize={"largeTable"}
-      />
+      <TooltipWrapper
+        id={"group.findings.help"}
+        message={translate.t("group.findings.helpLabel")}
+      >
+        <DataTableNext
+          bordered={true}
+          columnToggle={true}
+          csvFilename={`${projectName}-findings-${currentDate}.csv`}
+          dataset={formatFindings(data.project.findings)}
+          defaultSorted={JSON.parse(_.get(sessionStorage, "findingSort", "{}"))}
+          exportCsv={false}
+          extraButtons={
+            <Can I={"backend_api_resolvers_query_report__get_url_group_report"}>
+              <TooltipWrapper
+                id={"group.findings.report.btn.tooltip.id"}
+                message={translate.t("group.findings.report.btn.tooltip")}
+              >
+                <Button id={"reports"} onClick={openReportsModal}>
+                  {translate.t("group.findings.report.btn.text")}
+                </Button>
+              </TooltipWrapper>
+            </Can>
+          }
+          headers={tableHeaders}
+          id={"tblFindings"}
+          isFilterEnabled={isFilterEnabled}
+          onColumnToggle={handleChange}
+          onUpdateEnableFilter={handleUpdateFilter}
+          pageSize={15}
+          rowEvents={{ onClick: goToFinding }}
+          search={true}
+          striped={true}
+          tableSize={"largeTable"}
+        />
+      </TooltipWrapper>
       <Modal
         headerTitle={translate.t("group.findings.report.modalTitle")}
         open={isReportsModalOpen}

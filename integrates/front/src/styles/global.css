@@ -213,13 +213,13 @@ label {
 }
 
 :global .largeTable {
-  height: 78vh;
+  height: 80vh;
   overflow: auto;
 }
 
 @media (min-height: 1024px) {
   :global .largeTable {
-    height: 85vh;
+    height: 87vh;
     overflow: auto;
   }
 }
@@ -564,7 +564,7 @@ label {
 
 :local .tabContent {
   background: #fff;
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 :local .active {
