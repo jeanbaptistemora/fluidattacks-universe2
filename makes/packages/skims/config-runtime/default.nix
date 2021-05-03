@@ -50,7 +50,7 @@ makeTemplate {
             "Pillow==8.2.0"
             "pyparsing==2.4.7"
             "python-dateutil==2.8.1"
-            "python-hcl2==0.3.0" # pending to upgrade
+            "python-hcl2==1.0.0" # pending to upgrade
             "python-jose==3.2.0"
             "requests==2.25.1"
             "ruamel.yaml.clib==0.2.2"
