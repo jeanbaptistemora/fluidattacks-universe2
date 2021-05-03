@@ -84,4 +84,15 @@ MODEL_HYPERPARAMETERS = {
             'adam'
         ]),
     },
+    'gradientboostingclassifier': {
+        'loss': CategoricalParameter([
+            'deviance',
+            'exponential'
+        ]),
+        'criterion': CategoricalParameter([
+            'friedman_mse',
+            'mse',
+            'mae'
+        ])
+    }
 }
