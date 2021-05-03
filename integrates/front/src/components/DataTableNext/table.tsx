@@ -35,7 +35,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   props: Readonly<ITableWrapperProps>
 ): JSX.Element => {
   const { SearchBar } = Search;
-  const { toolkitProps, tableProps, dataset } = props;
+  const { toolkitProps, tableProps, dataset, extraButtons } = props;
   const { columnToggleProps, searchProps, baseProps } = toolkitProps;
   const defaultPages: number = 5;
   const defaultInitPages: number = 1;
@@ -85,7 +85,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     <div>
       <div className={style.tableOptions}>
         <TableOptionsColBtn>
-          {(exportCsv || columnToggle || !_.isUndefined(isFilterEnabled)) && (
+          <div>
             <ButtonToolbarLeft>
               {exportCsv && (
                 <ButtonGroup>
@@ -118,8 +118,9 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                   </TooltipWrapper>
                 </ButtonGroup>
               )}
+              <ButtonGroup>{extraButtons}</ButtonGroup>
             </ButtonToolbarLeft>
-          )}
+          </div>
         </TableOptionsColBtn>
         {search && (
           <TableOptionsColBar>

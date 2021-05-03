@@ -437,22 +437,6 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <Can I={"backend_api_resolvers_query_report__get_url_group_report"}>
-        <Row>
-          <Col100>
-            <div className={"flex flex-wrap justify-center pt1 pb0 w-100"}>
-              <TooltipWrapper
-                id={"group.findings.report.btn.tooltip.id"}
-                message={translate.t("group.findings.report.btn.tooltip")}
-              >
-                <Button id={"reports"} onClick={openReportsModal}>
-                  {translate.t("group.findings.report.btn.text")}
-                </Button>
-              </TooltipWrapper>
-            </div>
-          </Col100>
-        </Row>
-      </Can>
       <p className={"mt0 mb1"}>{translate.t("group.findings.helpLabel")}</p>
       <DataTableNext
         bordered={true}
@@ -461,6 +445,18 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
         dataset={formatFindings(data.project.findings)}
         defaultSorted={JSON.parse(_.get(sessionStorage, "findingSort", "{}"))}
         exportCsv={false}
+        extraButtons={
+          <Can I={"backend_api_resolvers_query_report__get_url_group_report"}>
+            <TooltipWrapper
+              id={"group.findings.report.btn.tooltip.id"}
+              message={translate.t("group.findings.report.btn.tooltip")}
+            >
+              <Button id={"reports"} onClick={openReportsModal}>
+                {translate.t("group.findings.report.btn.text")}
+              </Button>
+            </TooltipWrapper>
+          </Can>
+        }
         headers={tableHeaders}
         id={"tblFindings"}
         isFilterEnabled={isFilterEnabled}

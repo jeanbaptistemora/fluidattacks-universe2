@@ -18,6 +18,7 @@ interface ITableProps {
   dataset: any[];
   defaultSorted?: Sorted;
   exportCsv: boolean;
+  extraButtons?: JSX.Element;
   headerContainer?: string;
   headers: IHeaderConfig[];
   id: string;
@@ -76,6 +77,7 @@ interface ICustomToggleProps {
 
 interface ITableWrapperProps {
   dataset: Record<string, unknown>[];
+  extraButtons?: JSX.Element;
   tableProps: ITableProps;
   toolkitProps: ToolkitProviderProps;
 }
