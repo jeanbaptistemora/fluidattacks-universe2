@@ -27,7 +27,7 @@ pytestmark = [
 
 @pytest.mark.changes_db
 async def test_add_group():
-    org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'
+    org_id = 'ORG#f2e2777d-a168-4bea-93cd-d79142b294d2'  #NOSONAR
     group = 'najenda'
     assert not await orgs_domain.has_group(org_id, group)
 
@@ -78,7 +78,7 @@ async def test_create_organization():
 
 @pytest.mark.changes_db
 async def test_delete_organization():
-    org_id = 'ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de'
+    org_id = 'ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de'  #NOSONAR
     await orgs_domain.delete_organization(org_id)
 
     with pytest.raises(InvalidOrganization):
@@ -86,7 +86,7 @@ async def test_delete_organization():
 
 
 async def test_get_groups():
-    org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
+    org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'  #NOSONAR
     groups = await orgs_domain.get_groups(org_id)
     assert len(groups) == 3
     assert sorted(groups) == [
@@ -130,7 +130,7 @@ async def test_get_max_acceptance_days():
     days = await orgs_domain.get_max_acceptance_days(org_with_data)
     assert days == Decimal('60')
 
-    org_without_data = 'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86'
+    org_without_data = 'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86'  #NOSONAR
     days = await orgs_domain.get_max_acceptance_days(org_without_data)
     assert days is None
 
@@ -150,7 +150,7 @@ async def test_get_historic_max_number_acceptations():
     historic_max_acceptations = await orgs_domain.get_historic_max_number_acceptations(org_with_data)
     expected_max_acceptations = [{
         'date': '2019-11-22 15:07:57',
-        'user': 'integratesmanager@gmail.com',
+        'user': 'integratesmanager@gmail.com',  #NOSONAR
         'max_number_acceptations': Decimal('2'),
     }]
     assert historic_max_acceptations == expected_max_acceptations
@@ -212,15 +212,15 @@ async def test_get_user_organizations():
     user = 'integratesmanager@gmail.com'
     expected_orgs = [
         'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3',
-        'ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac',
+        'ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac',  #NOSONAR
         'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86',
-        'ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1'
+        'ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1'  #NOSONAR
     ]
     user_orgs = await orgs_domain.get_user_organizations(user)
     assert sorted(user_orgs) == expected_orgs
 
     assert (
-        await orgs_domain.get_user_organizations('madeupuser@gmail.com') == []
+        await orgs_domain.get_user_organizations('madeupuser@gmail.com') == []  #NOSONAR
     )
 
 
