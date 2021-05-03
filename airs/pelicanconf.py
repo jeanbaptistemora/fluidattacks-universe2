@@ -28,7 +28,6 @@ DRAFT_URL = 'drafts/{slug}'
 DRAFT_SAVE_AS = 'drafts/{slug}index.html'
 USE_FOLDER_AS_CATEGORY = False
 INDEX_SAVE_AS = 'blog/index.html'
-LANDING_SAVE_AS = 'index.html'
 ERROR_SAVE_AS = 'error/index.html'
 
 # Plugins configuration
@@ -47,7 +46,6 @@ RELATED_POSTS_MAX = 3
 DIRECT_TEMPLATES = [
     'error',
     'index',
-    'landing',
     'authors',
     'categories',
     'tags',
