@@ -61,6 +61,14 @@ async def get_urls_from_group(group: str, namespace: str) -> List[str]:
             ):
                 urls.add(f"{scope_c.scheme}://{component}")
 
+    for scope in scopes:
+        for from_, to_ in (
+            ("http://", "https://"),
+            ("https://", "http://"),
+        ):
+            if scope.startswith(from_):
+                urls.add(scope.replace(from_, to_, 1))
+
     return sorted(urls)
 
 
