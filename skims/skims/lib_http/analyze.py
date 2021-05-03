@@ -4,6 +4,7 @@ from queue import (
 )
 from typing import (
     Dict,
+    Optional,
     Set,
 )
 import urllib.parse
@@ -81,21 +82,23 @@ def should_include_url(url: URLContext) -> bool:
 
 
 @rate_limited(rpm=LIB_HTTP_DEFAULT)
-async def get_url(url: str) -> URLContext:
+async def get_url(url: str) -> Optional[URLContext]:
     async with create_session() as session:
-        response = await request(session, "GET", url)
-        content_raw = await response.content.read(1048576)
-        content = content_raw.decode("latin-1")
-        soup = bs4.BeautifulSoup(content, features="html.parser")
+        if response := await request(session, "GET", url):
+            content_raw = await response.content.read(1048576)
+            content = content_raw.decode("latin-1")
+            soup = bs4.BeautifulSoup(content, features="html.parser")
 
-        return URLContext(
-            components=urllib.parse.urlparse(url),
-            content=content,
-            headers_raw=response.headers,
-            is_html=is_html(content, soup),
-            soup=soup,
-            url=url,
-        )
+            return URLContext(
+                components=urllib.parse.urlparse(url),
+                content=content,
+                headers_raw=response.headers,
+                is_html=is_html(content, soup),
+                soup=soup,
+                url=url,
+            )
+
+    return None
 
 
 async def get_urls() -> Set[URLContext]:
@@ -108,7 +111,10 @@ async def get_urls() -> Set[URLContext]:
 
     while not urls_pending.empty():
         url = urls_pending.get()
-        url_ctx: URLContext = await get_url(url)
+        url_ctx: Optional[URLContext] = await get_url(url)
+        if url_ctx is None:
+            continue
+
         urls.add(url_ctx)
         urls_done.add(url)
 

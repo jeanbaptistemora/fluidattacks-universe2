@@ -4,6 +4,7 @@ from contextlib import (
 )
 from typing import (
     Any,
+    Optional,
 )
 
 # Third party libraries
@@ -14,7 +15,11 @@ from utils.function import (
     shield,
 )
 
-RETRY = shield(retries=3, sleep_between_retries=1)
+RETRY = shield(
+    on_error_return=None,
+    retries=3,
+    sleep_between_retries=3,
+)
 
 
 @asynccontextmanager
@@ -41,5 +46,5 @@ async def request(
     session: aiohttp.ClientSession,
     method: str,
     url: str,
-) -> aiohttp.ClientResponse:
+) -> Optional[aiohttp.ClientResponse]:
     return await session.request(method, url)
