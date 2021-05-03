@@ -1,14 +1,19 @@
 # Standard libraries
-from contextvars import ContextVar
 import logging
 from os import environ
+from multiprocessing import Manager
+from multiprocessing.managers import SyncManager
 import re
+from typing import Any
 
 # Third party libraries
 import bugsnag
 
 
-API_TOKEN: ContextVar[str] = ContextVar('API_TOKEN', default='')
+# This CTX will store constants that we need to
+# be cross-threaded, just user API_TOKEN for now
+MANAGER: SyncManager = Manager()
+CTX: Any = MANAGER.Namespace()
 
 STATIC_DIR: str = environ['SORTS_STATIC_PATH']
 

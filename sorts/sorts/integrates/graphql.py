@@ -1,5 +1,4 @@
 # Standard libraries
-from contextvars import Token
 from contextlib import contextmanager
 from typing import Iterator
 
@@ -9,14 +8,14 @@ from gql.transport.requests import RequestsHTTPTransport
 from gql.transport.transport import Transport
 
 # Local libraries
-from sorts.constants import API_TOKEN
+from sorts.constants import CTX
 
 
 @contextmanager
 def client() -> Iterator[GraphQLClient]:
-    if API_TOKEN.get():
+    if hasattr(CTX, 'api_token') and CTX.api_token:
         transport: Transport = RequestsHTTPTransport(
-            headers={'Authorization': f'Bearer {API_TOKEN.get()}'},
+            headers={'Authorization': f'Bearer {CTX.api_token}'},
             timeout=5,
             url='https://app.fluidattacks.com/api'
         )
@@ -25,9 +24,10 @@ def client() -> Iterator[GraphQLClient]:
         raise RuntimeError('create_session() must be called first')
 
 
-def create_session(api_token: str) -> Token:
-    return API_TOKEN.set(api_token)
+def create_session(api_token: str) -> str:
+    CTX.api_token = api_token
+    return CTX.api_token
 
 
-def end_session(previous: Token) -> None:
-    API_TOKEN.reset(previous)
+def end_session(previous: str) -> None:
+    CTX.api_token = previous
