@@ -53,7 +53,7 @@ data "aws_iam_policy_document" "prod-policy-data" {
     resources = ["*"]
   }
   statement {
-    effect = "Allow"
+    effect  = "Allow"
     actions = ["batch:SubmitJob"]
     resources = [
       "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-definition/default",
