@@ -18,12 +18,14 @@ from http_headers import (
     content_security_policy,
     referrer_policy,
     strict_transport_security,
+    www_authenticate,
     x_content_type_options,
 )
 from http_headers.types import (
     ContentSecurityPolicyHeader,
     ReferrerPolicyHeader,
     StrictTransportSecurityHeader,
+    WWWAuthenticate,
     XContentTypeOptionsHeader,
 )
 from http_headers.types import (
@@ -88,7 +90,10 @@ def _create_vulns(
             description.split("#", maxsplit=1),
         ]
         for translation in [
-            t(f"lib_http.f043.{description_key}", *description_args),
+            t(
+                f"lib_http.analyze_headers.{description_key}",
+                *description_args,
+            ),
         ]
     )
 
@@ -267,6 +272,25 @@ def _strict_transport_security(
     )
 
 
+def _www_authenticate(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
+    if not ctx.url.startswith("http://"):
+        # You can only see plain-text credentials over http
+        return ()
+
+    desc, header = "", None
+
+    if val := ctx.headers_parsed.get(WWWAuthenticate):
+        if val.type == "basic":
+            desc = "www_authenticate.basic"
+
+    return _create_vulns(
+        descriptions=[desc],
+        finding=core_model.FindingEnum.F015_DAST_BASIC,
+        header=header,
+        ctx=ctx,
+    )
+
+
 def _x_content_type_options(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     desc, header = "", None
 
@@ -299,6 +323,7 @@ async def http_headers_configuration(
             content_security_policy.parse(line),
             referrer_policy.parse(line),
             strict_transport_security.parse(line),
+            www_authenticate.parse(line),
             x_content_type_options.parse(line),
         ]
         if header_parsed is not None
@@ -326,6 +351,7 @@ CHECKS: Dict[
     core_model.FindingEnum,
     Callable[[HeaderCheckCtx], core_model.Vulnerabilities],
 ] = {
+    core_model.FindingEnum.F015_DAST_BASIC: _www_authenticate,
     core_model.FindingEnum.F043_DAST_CSP: _content_security_policy,
     core_model.FindingEnum.F043_DAST_RP: _referrer_policy,
     core_model.FindingEnum.F043_DAST_STS: _strict_transport_security,

@@ -199,6 +199,7 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F015_DAST_BASIC: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
         code="F015_DAST_BASIC",
         cwe="287",
         attack_complexity=AttackComplexity.low,

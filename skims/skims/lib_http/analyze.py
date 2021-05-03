@@ -18,7 +18,7 @@ import bs4
 
 # Local libraries
 from lib_http import (
-    f043,
+    analyze_headers,
 )
 from lib_http.types import (
     URLContext,
@@ -63,7 +63,9 @@ async def analyze_one(
 ) -> None:
     await log("info", "Analyzing http %s of %s: %s", index, unique_count, url)
 
-    for should_run, analyzer in ((f043.should_run, f043.analyze),):
+    for should_run, analyzer in (
+        (analyze_headers.should_run, analyze_headers.analyze),
+    ):
         if should_run():
             for vulnerabilities in analyzer(url):
                 for vulnerability in await vulnerabilities:

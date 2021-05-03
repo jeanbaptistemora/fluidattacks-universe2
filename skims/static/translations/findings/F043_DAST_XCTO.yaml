@@ -1,7 +1,7 @@
-lib_http.f043.x_content_type_options.insecure:
+lib_http.analyze_headers.x_content_type_options.insecure:
   en: Value is not nosniff
   es: Valor diferente a nosniff
-lib_http.f043.x_content_type_options.missing:
+lib_http.analyze_headers.x_content_type_options.missing:
   en: Missing X-Content-Type-Options
   es: X-Content-Type-Options ausente
 F043_DAST_XCTO.description:

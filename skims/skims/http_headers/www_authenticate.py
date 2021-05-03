@@ -42,7 +42,7 @@ def parse(line: str) -> Optional[WWWAuthenticate]:
         return WWWAuthenticate(
             name=name,
             charset=groups["charset"] or "",
-            type=groups["type"],
+            type=groups["type"].lower(),
             realm=groups["realm"],
         )
 

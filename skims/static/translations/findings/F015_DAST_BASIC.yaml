@@ -1,3 +1,6 @@
+lib_http.analyze_headers.www_authenticate.basic:
+  en: The application uses Basic authentication over HTTP
+  es: La aplicación usa autenticación de tipo Basic sobre HTTP
 F015_DAST_BASIC.description:
   en: The server uses Basic authentication over an insecure channel.
   es: El servidor usa autenticación de tipo Basic sobre un canal inseguro.

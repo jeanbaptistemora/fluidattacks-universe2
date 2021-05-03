@@ -227,7 +227,7 @@ def test_strict_transport_security() -> None:
                 name="www-authenticate",
                 charset="",
                 realm="host.com",
-                type="Basic",
+                type="basic",
             ),
         ),
         (
@@ -236,7 +236,7 @@ def test_strict_transport_security() -> None:
                 name="www-authenticAte",
                 charset='"UTF-8"',
                 realm='"host.com"',
-                type="Bearer",
+                type="bearer",
             ),
         ),
     ],
