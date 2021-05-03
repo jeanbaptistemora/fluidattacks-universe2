@@ -27,6 +27,7 @@ from backend.api.mutations import (
     create_event,
     create_group,
     create_organization,
+    deactivate_finding_policy,
     deactivate_root,
     delete_finding,
     delete_vulnerability_tags,
@@ -94,6 +95,10 @@ MUTATION.set_field('confirmZeroRiskVuln', confirm_zero_risk_vuln.mutate)
 MUTATION.set_field('createDraft', create_draft.mutate)
 MUTATION.set_field('createEvent', create_event.mutate)
 MUTATION.set_field('createOrganization', create_organization.mutate)
+MUTATION.set_field(
+    'deactivateOrgFindingPolicy',
+    deactivate_finding_policy.mutate
+)
 MUTATION.set_field('deactivateRoot', deactivate_root.mutate)
 MUTATION.set_field('deleteFinding', delete_finding.mutate)
 MUTATION.set_field('deleteVulnerability', delete_vulnerability.mutate)

@@ -149,6 +149,13 @@ type Mutation {
     hasForces: Boolean
   ): SimplePayload!
 
+  deactivateOrgFindingPolicy(
+    "ID of the policy"
+    findingPolicyId: ID!
+    "Name of the organization the finding policy is associated with"
+    organizationName: String!
+  ): SimplePayload!
+
   deactivateRoot(
     "Name of the group the root is associated with"
     groupName: String!
