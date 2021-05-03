@@ -7,7 +7,7 @@
 :cveid: Pending
 :description: Squid Cache vulnerability
 :keywords: Fluid Attacks, Security, Vulnerabilities, Squid
-:banner: asserts-bg
+:banner: advisories-bg
 :advise: yes
 :template: advisory
 

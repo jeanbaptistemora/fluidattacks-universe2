@@ -42,7 +42,7 @@ const ComplianceIndex: React.FC<IQueryData> = ({
     "div",
     Record<string, unknown>
   > = styled.div.attrs({
-    className: `airs/new-front/src/templates/compliancesTemplate.tsx
+    className: `
       roboto
       mw-1366
       ph-body

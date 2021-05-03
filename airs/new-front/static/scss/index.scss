@@ -119,6 +119,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 
 // Box Shadow Classes
 .bs-btm-h-10 { box-shadow: 0 10px 10px $shadow-gray; }
+.shadowbox-blog { box-shadow: 0 10px 10px $shadow-gray; }
 
 // Color classes
 .bc-gray-64 { border-color: $gray-64; }
@@ -143,7 +144,6 @@ $whiter-gray: rgba(241, 241, 241, 1);
 
 // Font Sizes
 .f-1125 { font-size: 1.125rem; }
-.f-18 { font-size: 1.125rem; }
 .f-375 { font-size: 3.75rem; }
 .fheader { font-size: 2.25rem; }
 
@@ -208,6 +208,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 
 // Big screen sizes
 @media screen and (min-width: 60em) {
+  .advisories-grid { grid-template-columns: repeat(2, minmax(25rem, 1fr)); }
   .bg-banner-sz { background-size: 100% 100%; }
   .mw-20 { max-width: 20rem; }
   .ph-body { padding: 0 3.75rem; }
@@ -244,6 +245,13 @@ $whiter-gray: rgba(241, 241, 241, 1);
 }
 
 // Animations
+.advisor-animation {
+  opacity: 0;
+  &:hover { opacity: 1; }
+}
+
+.advisor-transition { transition: transform 0.3s, opacity 0.3s; }
+
 .fadein { animation: fadein 0.5s; }
 
 .menulink::after {

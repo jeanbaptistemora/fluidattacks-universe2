@@ -14,6 +14,11 @@ const pageTexts: ResourceKey = {
       "projects, helping you comply with industry standards like PCI DSS, " +
       "OWASP, GDPR, HIPAA, NIST, among others.",
   },
+  advisories: {
+    buttonPhrase: "View Disclosure Policy ",
+    disclosurePhrase:
+      "For more information, you can read our Disclosure Policy ",
+  },
   clients: {
     definition:
       "Since 2001, we have helped our clients manage their cybersecurity " +

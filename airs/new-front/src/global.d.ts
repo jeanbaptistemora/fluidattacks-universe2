@@ -14,15 +14,22 @@ interface IQueryData {
         slug: string;
       };
       pageAttributes: {
+        advise: string;
+        authors: string;
         banner: string;
+        codename: string;
+        cveid: string;
+        date: string;
         definition: string;
         description: string;
         keywords: string;
         phrase: string;
+        product: string;
         slug: string;
         solution: string;
         subtext: string;
         subtitle: string;
+        writer: string;
       };
     };
   };
