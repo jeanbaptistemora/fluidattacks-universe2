@@ -633,6 +633,7 @@ module.exports = {
     'types/f117',
     'types/f118',
     'types/f119',
+    'types/f120',
   ],
   Security: [
     'security/introduction',
