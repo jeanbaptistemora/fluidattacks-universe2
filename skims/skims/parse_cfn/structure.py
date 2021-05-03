@@ -55,14 +55,16 @@ def iterate_iam_policy_documents(
         if kind.inner in {"AWS::IAM::ManagedPolicy", "AWS::IAM::Policy"}:
             yield from yield_statements_from_policy(props)
 
-        if kind.inner in {"AWS::IAM::Role", "AWS::IAM::User"}:
-            if policies := props.inner.get("Policies", None):
-                for policy in policies.data:
-                    yield from yield_statements_from_policy(policy)
+        if (kind.inner in {"AWS::IAM::Role", "AWS::IAM::User"}) and (
+            policies := props.inner.get("Policies", None)
+        ):
+            for policy in policies.data:
+                yield from yield_statements_from_policy(policy)
 
-        if kind.inner in {"AWS::IAM::Role"}:
-            if document := props.inner.get("AssumeRolePolicyDocument", None):
-                yield from yield_statements_from_policy_document(document)
+        if (kind.inner in {"AWS::IAM::Role"}) and (
+            document := props.inner.get("AssumeRolePolicyDocument", None)
+        ):
+            yield from yield_statements_from_policy_document(document)
 
 
 def iterate_managed_policy_arns(
@@ -79,7 +81,7 @@ def iter_ec2_ingress_egress(
     egress: bool = False,
 ) -> Iterator[Node]:
     for _, kind, props in iterate_resources(
-        template, "AWS::EC2::SecurityGroup"
+        template, "AWS::EC2::SecurityGroup"  # NOSONAR
     ):
         if kind.raw == "AWS::EC2::SecurityGroup":
             if ingress:
