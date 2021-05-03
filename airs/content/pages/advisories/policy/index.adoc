@@ -5,7 +5,7 @@
 
 = Disclosure Policy
 
-_This document was last updated on February 19, 2021_
+_This document was last updated on May 3, 2021_
 
 This disclosure policy ("Policy") describes how `Fluid Attacks`
 ("Fluid Attacks", "we", "us" or "our")
@@ -21,11 +21,11 @@ as they are covered by a Non-Disclosure Agreement.
 
 `Fluid Attacks'` commitment is to find all vulnerabilities
 and report them as soon as possible.
-In order to accomplish this, we adhere to the 
+In order to accomplish this, we adhere to the
 link:https://www.iso.org/standard/72311.html[ISO/IEC 29147:2018] and
 link:https://www.iso.org/standard/69725.html[ISO/IEC 30111:2019]
 standards, which describes the accepted responsible disclosure and
-vulnerability handling guidelines to ensure the maximum benefit 
+vulnerability handling guidelines to ensure the maximum benefit
 for vendors, customers and the community in general. This includes:
 
 * Providing the maximum level of detail on the vulnerabilities found
@@ -41,9 +41,14 @@ This leads to an overall risk reduction for the users.
 == Scope
 
 `Fluid Attacks` will apply this Policy
-to disclose third-party product vulnerabilities to whom we will issue 
+to disclose third-party product vulnerabilities to whom we will issue
 CVE IDs and that are not in the scope
 of another CNA (CVE Numbering Authority).
+
+The vulnerability types that we would process are the ones defined in our
+link:https://docs.fluidattacks.com/types/[findings classification].
+However, vulnerabilities that don't fit on this classification will
+be also reviewed if there is an evidenced risk.
 
 == Disclosure process
 
@@ -104,4 +109,4 @@ or to discuss any matter related to it, please send us an email to
 
 image::help.png["Help",width=200]
 
-_This document was last updated on February 19, 2021_
+_This document was last updated on May 3, 2021_
