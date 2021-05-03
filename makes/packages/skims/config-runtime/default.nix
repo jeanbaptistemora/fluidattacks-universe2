@@ -34,7 +34,7 @@ makeTemplate {
             "aiofiles==0.6.0"
             "aiogqlc==2.0.0b1"
             "aiohttp==3.7.4"
-            "bugsnag==3.8.0" # pending to upgrade
+            "bugsnag==4.0.3"
             "cfn-flip==1.2.3"
             "click==7.1.2"
             "confuse==1.4.0"

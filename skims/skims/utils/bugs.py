@@ -29,4 +29,3 @@ def initialize_bugsnag() -> None:
         release_stage=guess_environment(),
     )
     bugsnag.start_session()
-    bugsnag.send_sessions()
