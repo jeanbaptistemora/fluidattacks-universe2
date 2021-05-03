@@ -58,11 +58,12 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
             f'{"consulting" if type_ == "comment" else "observations"}'
         ),
         'finding_id': str(finding['id']),
-        'finding_name': finding['name'],
+        'finding_name': finding['title'],
         'parent': str(comment_data['parent']),
         'project': group_name,
         'user_email': user_mail,
     }
+
     # Mask Fluid Attacks' staff
     recipients = await get_email_recipients(group_name, type_)
     recipients_not_masked = [

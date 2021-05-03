@@ -56,8 +56,8 @@ async def mutate(
             schedule(
                 events_mail.send_mail_comment(
                     info.context,
-                    user_email,
                     comment_data,
+                    user_email,
                     event_id
                 )
             )

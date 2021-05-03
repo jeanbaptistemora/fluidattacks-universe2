@@ -3,6 +3,7 @@ from time import time
 from typing import Any
 
 # Third party libraries
+from aioextensions import schedule
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -76,11 +77,13 @@ async def mutate(
     if success:
         redis_del_by_deps_soon('add_finding_consult', finding_id=finding_id)
         if content.strip() not in {'#external', '#internal'}:
-            findings_mail.send_mail_comment(
-                info.context,
-                comment_data,
-                user_email,
-                finding
+            schedule(
+                findings_mail.send_mail_comment(
+                    info.context,
+                    comment_data,
+                    user_email,
+                    finding
+                )
             )
 
         util.cloudwatch_log(
