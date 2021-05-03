@@ -24,7 +24,6 @@ from sast_syntax_readers.java import (
     array_access as java_array_access,
     array_creation_expression as java_array_creation_expression,
     array_initializer as java_array_initializer,
-    assignment_expression as java_assignment_expression,
     binary_expression as java_binary_expression,
     cast_expression as java_cast_expression,
     catch_clause as java_catch_clause,
@@ -54,6 +53,7 @@ from sast_syntax_readers.c_sharp import (
 )
 from sast_syntax_readers.common import (
     literal as common_literal,
+    assignment_expression as common_assignment_expression,
 )
 from utils import graph as g
 from utils.logs import log_blocking
@@ -94,7 +94,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         applicable_node_label_types={
             "assignment_expression",
         },
-        syntax_readers=(java_assignment_expression.reader,),
+        syntax_readers=(common_assignment_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={
