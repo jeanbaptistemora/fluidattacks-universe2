@@ -73,6 +73,21 @@ def _add_headers(
         )
 
 
+def add_f015_dast_basic() -> None:
+    _add_headers(
+        finding="f015_dast_basic",
+        header="WWW-Authenticate",
+        header_values=[
+            "",
+            "Basic",
+            "Basic realm=host.com",
+            'Basic realm=host.com, charset="UTF-8"',
+            'Bearer realm=host.com, charset="UTF-8"',
+        ],
+        status=401,
+    )
+
+
 def add_f043_dast_csp_rules() -> None:
     _add_headers(
         "f043_dast_csp",
@@ -121,21 +136,6 @@ def add_f043_dast_sts_rules() -> None:
     )
 
 
-def add_f043_dast_www_authenticate() -> None:
-    _add_headers(
-        finding="f043_dast_www_authenticate",
-        header="WWW-Authenticate",
-        header_values=[
-            "",
-            "Basic",
-            "Basic realm=host.com",
-            'Basic realm=host.com, charset="UTF-8"',
-            'Bearer realm=host.com, charset="UTF-8"',
-        ],
-        status=401,
-    )
-
-
 def add_f043_dast_xcto() -> None:
     _add_headers(
         "f043_dast_xcto",
@@ -164,9 +164,9 @@ def start() -> None:
     APP.run()
 
 
+add_f015_dast_basic()
 add_f043_dast_csp_rules()
 add_f043_dast_rp_rules()
 add_f043_dast_sts_rules()
-add_f043_dast_www_authenticate()
 add_f043_dast_xcto()
 add_f043_dast_xfo()
