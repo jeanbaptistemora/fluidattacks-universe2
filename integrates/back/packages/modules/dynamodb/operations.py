@@ -10,9 +10,7 @@ from boto3.dynamodb.conditions import ConditionBase
 from botocore.exceptions import ClientError
 
 # Local
-from dynamodb.exceptions import handle_error
-from dynamodb.types import Facet, Index, Item, PrimaryKey, Table
-from newutils.context import (
+from dynamodb.context import (
     AWS_DYNAMODB_ACCESS_KEY,
     AWS_DYNAMODB_SECRET_KEY,
     AWS_SESSION_TOKEN,
@@ -20,6 +18,8 @@ from newutils.context import (
     DYNAMODB_PORT,
     ENVIRONMENT
 )
+from dynamodb.exceptions import handle_error
+from dynamodb.types import Facet, Index, Item, PrimaryKey, Table
 
 
 def _get_resource_options() -> Dict[str, Optional[str]]:

@@ -8,6 +8,7 @@ from boto3.dynamodb.conditions import Attr, Key
 
 # Local
 from dynamodb import historics, keys, operations
+from dynamodb.context import DB_MODEL_PATH
 from dynamodb.table import load_table
 from dynamodb.types import (
     FindingItem,
@@ -36,7 +37,6 @@ from dynamodb.types import (
     VulnerabilityMetadata,
     VulnerabilityState
 )
-from newutils.context import DB_MODEL_PATH
 
 
 with open(DB_MODEL_PATH, mode='r') as file:
