@@ -2,10 +2,8 @@
 id: description
 title: Description
 sidebar_label: Description
-slug: /types/037/details/ssl
+slug: /types/037
 ---
-
-## Description
 
 It is possible to obtain technical information such as:
 

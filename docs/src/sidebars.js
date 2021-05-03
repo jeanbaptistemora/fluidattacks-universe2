@@ -530,6 +530,7 @@ module.exports = {
       type: 'category',
       label: 'Improperly set HTTP headers',
       items: [
+        'types/043/description',
         {
           type: 'category',
           label: 'Details',
@@ -551,6 +552,7 @@ module.exports = {
       type: 'category',
       label: 'Insecure encryption algorithm',
       items: [
+        'types/052/description',
         {
           type: 'category',
           label: 'Details',
@@ -567,6 +569,7 @@ module.exports = {
       type: 'category',
       label: 'Insecure service configuration',
       items: [
+        'types/055/description',
         {
           type: 'category',
           label: 'Details',
