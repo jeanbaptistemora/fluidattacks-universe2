@@ -50,6 +50,7 @@ from sast_syntax_readers.java import (
 )
 from sast_syntax_readers.c_sharp import (
     method_declaration as c_sharp_method_declaration,
+    local_declaration_statement as c_sharp_local_declaration_statement,
 )
 from sast_syntax_readers.common import (
     literal as common_literal,
@@ -228,6 +229,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "local_variable_declaration",
         },
         syntax_readers=(java_local_variable_declaration.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.CSHARP,
+        },
+        applicable_node_label_types={
+            "local_declaration_statement",
+        },
+        syntax_readers=(c_sharp_local_declaration_statement.reader,),
     ),
     Dispatcher(
         applicable_languages={
