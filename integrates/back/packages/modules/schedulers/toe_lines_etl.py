@@ -139,7 +139,8 @@ def _get_toe_lines_to_update(
     return {
         toe_lines
         for toe_lines in cvs_group_toe_lines
-        if toe_lines not in group_toe_lines
+        # Exclude sortsRiskLevel from updating, it must remain
+        if set(list(toe_lines)[:-1]) not in group_toe_lines
         and toe_lines.get_hash() in group_toe_lines_hashes
     }
 
