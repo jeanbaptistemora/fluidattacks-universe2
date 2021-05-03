@@ -12,6 +12,7 @@ let
       direct = [
         "boto3==1.17.56"
         "bugsnag==4.0.2"
+        "click==7.1.2"
       ];
       inherited = [
         "botocore==1.20.56"

@@ -5,7 +5,7 @@
 }:
 makeEntrypoint {
   arguments = {
-    envEntrypoint = "from batch_stability import main";
+    envEntrypoint = "from batch_stability.cli import main";
   };
   searchPaths = {
     envSources = [
