@@ -47,14 +47,14 @@ pytestmark = [
 
 def test_is_not_a_fluid_attacks_email():
     fluid_attacks_email = 'test@fluidattacks.com'
-    not_fluid_attacks_email = 'test@test.com'
+    not_fluid_attacks_email = 'test@test.com'  # NOSONAR
     assert common.is_not_a_fluidattacks_email(not_fluid_attacks_email)
     assert not common.is_not_a_fluidattacks_email(fluid_attacks_email)
 
 def test_remove_fluid_from_recipients():
     emails = [
         'test@fluidattacks.com', 'test2@fluidattacks.com', 'test@test.com',
-        'test2@test.com'
+        'test2@test.com'  # NOSONAR
     ]
     test_data = common.remove_fluid_from_recipients(emails)
     expected_output = ['test@test.com', 'test2@test.com']
@@ -152,7 +152,7 @@ async def test_create_register_by_week():
 
 def test_create_data_format_chart():
     registers = OrderedDict(
-        [('Sep 24 - 30, 2018',
+        [('Sep 24 - 30, 2018',  # NOSONAR
             {'found': 2, 'accepted': 0, 'closed': 0, 'assumed_closed': 0,
             'opened': 2})]
     )
@@ -263,8 +263,8 @@ async def test_delete_imamura_stakeholders():
         for stakeholder in org_stakeholders
     ]
     assert org_stakeholders_emails == [
-        'deleteimamura@fluidattacks.com',
-        'nodeleteimamura@fluidattacks.com',
+        'deleteimamura@fluidattacks.com',  # NOSONAR
+        'nodeleteimamura@fluidattacks.com',  # NOSONAR
     ]
     delete_stakeholder = await users_dal.get(
         'deleteimamura@fluidattacks.com'
@@ -354,7 +354,7 @@ async def test_toe_lines_etl():
     group_toe_lines = await toe_lines_domain.get_by_group(group_name)
     assert group_toe_lines == (
         GitRootToeLines(
-            comments='comment test',
+            comments='comment test',  # NOSONAR
             filename='product/test/test#.config',
             group_name='unittesting',
             loc=8,
@@ -434,7 +434,7 @@ async def test_toe_inputs_etl(monkeypatch):
         GitRootToeInput(
             commit='hh66uu5',
             component='test.com/api/Test',
-            created_date='2000-01-01T00:00:00-05:00',
+            created_date='2000-01-01T00:00:00-05:00',  # NOSONAR
             entry_point='idTest',
             group_name='unittesting',
             seen_first_time_by='',
@@ -442,7 +442,7 @@ async def test_toe_inputs_etl(monkeypatch):
              verified='Yes',
              vulns='FIN.S.0001.Test'),
         GitRootToeInput(commit='e91320h',
-            component='test.com/test/test.aspx',
+            component='test.com/test/test.aspx',  # NOSONAR
             created_date='2020-03-14T00:00:00-05:00',
             entry_point='btnTest',
             group_name='unittesting',
