@@ -9,7 +9,6 @@ let
     name = "skims-development";
     requirements = {
       direct = [
-        "pdoc3==0.8.4"
         "pip-upgrader==1.4.15"
         "pydeps==1.9.4"
         "pytest-rerunfailures==9.0"
@@ -22,11 +21,8 @@ let
         "colorclass==2.2.0"
         "docopt==0.6.2"
         "idna==2.10"
-        "Mako==1.1.3"
-        "Markdown==3.3.3"
-        "MarkupSafe==1.1.1"
-        "more-itertools==8.6.0"
-        "packaging==20.8"
+        "more-itertools==8.7.0"
+        "packaging==20.9"
         "pluggy==0.13.1"
         "py==1.10.0"
         "pyparsing==2.4.7"

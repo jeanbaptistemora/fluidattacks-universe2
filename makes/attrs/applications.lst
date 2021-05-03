@@ -189,7 +189,6 @@ observes.tap-json
 observes.target-redshift
 reviews
 skims
-skims.docs.deploy
 skims.format
 skims.infra-deploy
 skims.infra-test

@@ -155,8 +155,3 @@ skims.test.unittesting:
 
 skims.test.vulnerableapp:
   <<: *skims_test
-
-skims.docs.deploy:
-  <<: *makes
-  <<: *skims_in_master_branch
-  stage: deploy-app
