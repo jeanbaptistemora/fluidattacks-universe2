@@ -11,7 +11,6 @@ from graphql.type import GraphQLResolveInfo
 from starlette.datastructures import UploadFile
 
 from back.tests.unit.utils import create_dummy_session
-from backend import mailer
 from backend.api import get_new_context
 from custom_exceptions import (
     InvalidAcceptanceSeverity,
@@ -28,6 +27,7 @@ from findings.domain import (
     mask_finding,
     validate_evidence,
 )
+from mailer import common as mailer_utils
 from vulnerabilities.domain import (
     list_vulnerabilities_async,
     validate_treatment_change,
@@ -43,7 +43,10 @@ async def test_get_email_recipients():
     comment_type = 'comment'
     finding_id = '436992569'
 
-    test_data = await mailer.get_email_recipients(comment_type, finding_id)
+    test_data = await mailer_utils.get_email_recipients(
+        comment_type,
+        finding_id
+    )
     assert isinstance(test_data, list)
     assert isinstance(test_data[0], str)
 

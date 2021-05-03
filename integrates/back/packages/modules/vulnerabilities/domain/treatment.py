@@ -15,7 +15,6 @@ from typing import (
 from aioextensions import (
     collect,
     in_thread,
-    schedule,
 )
 
 # Local libraries
@@ -363,13 +362,11 @@ async def send_treatment_change_mail(
         treatments_change = [
             change for change in changes if change[0] == treatment
         ]
-        schedule(
-            should_send_update_treatment(
-                context=context,
-                finding_id=finding_id,
-                updated_vulns=[change[1] for change in treatments_change],
-                treatment=treatment,
-            )
+        await should_send_update_treatment(
+            context=context,
+            finding_id=finding_id,
+            updated_vulns=[change[1] for change in treatments_change],
+            treatment=treatment,
         )
     return bool(treatments)
 

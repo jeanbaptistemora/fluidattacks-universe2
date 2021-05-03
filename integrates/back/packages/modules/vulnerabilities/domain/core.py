@@ -39,10 +39,7 @@ from back.settings import (
     LOGGING,
     NOEXTRA
 )
-from backend import (
-    mailer,
-    util,
-)
+from backend import util
 from backend.typing import (
     Finding as FindingType,
     Historic,
@@ -58,7 +55,7 @@ from custom_exceptions import (
     VulnNotInFinding,
 )
 from dynamodb.operations_legacy import start_context
-from group_access import domain as group_access_domain
+from mailer import vulnerabilities as vulns_mail
 from newutils import (
     datetime as datetime_utils,
     validations,
@@ -66,7 +63,6 @@ from newutils import (
 )
 from notifications import domain as notifications_domain
 from vulnerabilities import dal as vulns_dal
-from __init__ import BASE_URL
 
 
 logging.config.dictConfig(LOGGING)
@@ -638,39 +634,6 @@ async def request_zero_risk_vulnerabilities(
     return success
 
 
-async def send_updated_treatment_mail(
-    context: Any,
-    treatment: str,
-    finding: Dict[str, FindingType],
-    vulnerabilities: str
-) -> None:
-    group_loader = context.group_all
-    organization_loader = context.organization
-    finding_id = str(finding['finding_id'])
-    group_name = str(finding['project_name'])
-
-    group = await group_loader.load(group_name)
-    org_id = group['organization']
-    organization = await organization_loader.load(org_id)
-    org_name = organization['name']
-    managers = await group_access_domain.get_managers(group_name)
-
-    schedule(
-        mailer.send_mail_updated_treatment(
-            managers,
-            {
-                'project': group_name,
-                'treatment': treatment,
-                'finding': str(finding.get('title')),
-                'vulnerabilities': vulnerabilities,
-                'finding_link':
-                    f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
-                    f'/vulns/{finding_id}'
-            }
-        )
-    )
-
-
 def set_updated_manager_mail_content(
     vulnerabilities: Dict[str, List[Dict[str, str]]]
 ) -> str:
@@ -693,11 +656,9 @@ async def should_send_update_treatment(
     updated_vulns: List[Dict[str, FindingType]],
     treatment: str,
 ) -> None:
-    translations = {
-        'IN PROGRESS': 'In Progress',
-    }
+    translations = {'IN PROGRESS': 'In Progress'}
     if treatment in translations:
-        finding_loader = context.loaders.finding
+        finding_loader = context.finding
         finding = await finding_loader.load(finding_id)
         vulns_grouped = group_vulnerabilities(updated_vulns)
         vulns_data = vulns_utils.format_vulnerabilities(
@@ -706,11 +667,13 @@ async def should_send_update_treatment(
         mail_content = set_updated_manager_mail_content(
             cast(Dict[str, List[Dict[str, str]]], vulns_data)
         )
-        await send_updated_treatment_mail(
-            context,
-            translations[treatment],
-            finding,
-            mail_content
+        schedule(
+            vulns_mail.send_mail_updated_treatment(
+                context,
+                translations[treatment],
+                finding,
+                mail_content
+            )
         )
 
 
