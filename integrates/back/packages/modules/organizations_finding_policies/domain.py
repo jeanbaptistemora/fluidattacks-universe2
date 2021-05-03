@@ -149,9 +149,48 @@ async def handle_finding_policy_acceptation(
                 finding_name=finding_name,
                 loaders=loaders,
                 groups=groups,
+                status=status,
                 user_email=user_email
             )
         )
+
+
+async def deactivate_finding_policy(
+    *,
+    finding_policy_id: str,
+    loaders: Dataloaders,
+    org_name: str,
+    groups: List[str],
+    user_email: str
+) -> None:
+    finding_policy = await get_finding_policy(
+        org_name=org_name,
+        finding_policy_id=finding_policy_id
+    )
+    if finding_policy.state.status != 'APPROVED':
+        raise PolicyAlreadyHandled()
+
+    status: str = 'INACTIVE'
+    await update_finding_policy_status(
+        org_name=org_name,
+        finding_policy_id=finding_policy_id,
+        status=OrgFindingPolicyState(
+            modified_by=user_email,
+            modified_date=datetime_utils.get_iso_date(),
+            status=status
+        )
+    )
+
+    finding_name: str = finding_policy.metadata.name.split('.')[0].lower()
+    schedule(
+        update_treatment_in_org_groups(
+            finding_name=finding_name,
+            loaders=loaders,
+            groups=groups,
+            status=status,
+            user_email=user_email
+        )
+    )
 
 
 async def update_treatment_in_org_groups(
@@ -159,6 +198,7 @@ async def update_treatment_in_org_groups(
     finding_name: str,
     loaders: Dataloaders,
     groups: List[str],
+    status: str,
     user_email: str
 ) -> None:
     group_drafts = await loaders.group_drafts.load_many(groups)
@@ -175,20 +215,45 @@ async def update_treatment_in_org_groups(
         return
     vulns = await loaders.finding_vulns_nzr.load_many_chained(findings_ids)
 
-    await _update_treatment_in_org_groups(
+    await _apply_finding_policy(
         findings_ids=findings_ids,
         vulns=vulns,
+        status=status,
         user_email=user_email
     )
 
 
-async def _update_treatment_in_org_groups(
+async def _apply_finding_policy(
+    findings_ids: List[str],
+    vulns: List[Dict[str, Finding]],
+    status: str,
+    user_email: str,
+) -> None:
+    current_day: str = datetime_utils.get_now_as_str()
+    if status == 'APPROVED':
+        return await _add_accepted_treatment(
+            current_day=current_day,
+            findings_ids=findings_ids,
+            vulns=vulns,
+            user_email=user_email,
+        )
+
+    if status == 'INACTIVE':
+        return await _add_new_treatment(
+            current_day=current_day,
+            findings_ids=findings_ids,
+            vulns=vulns,
+            user_email=user_email,
+        )
+
+
+async def _add_accepted_treatment(
     *,
+    current_day: str,
     findings_ids: List[str],
     vulns: List[Dict[str, Finding]],
     user_email: str
 ) -> None:
-    current_day: str = datetime_utils.get_now_as_str()
     vulns_to_update = [
         vuln for vuln in vulns
         if vuln['historic_treatment'][-1] != 'ACCEPTED_UNDEFINED'
@@ -198,6 +263,38 @@ async def _update_treatment_in_org_groups(
         current_day=current_day,
         user_email=user_email
     )
+    await _update_treatment_in_org_groups(
+        findings_ids=findings_ids,
+        new_treatments=new_treatments,
+        vulns_to_update=vulns_to_update,
+    )
+
+
+async def _add_new_treatment(
+    *,
+    current_day: str,
+    findings_ids: List[str],
+    vulns: List[Dict[str, Finding]],
+    user_email: str
+) -> None:
+    new_treatments = [{
+        'date': current_day,
+        'treatment': 'NEW',
+        'user': user_email,
+    }]
+    await _update_treatment_in_org_groups(
+        findings_ids=findings_ids,
+        new_treatments=new_treatments,
+        vulns_to_update=vulns,
+    )
+
+
+async def _update_treatment_in_org_groups(
+    *,
+    findings_ids: List[str],
+    new_treatments: List[Dict[str, str]],
+    vulns_to_update: List[Dict[str, Finding]],
+) -> None:
     historics_treatments = [
         [*vuln['historic_treatment'], *new_treatments]
         for vuln in vulns_to_update
