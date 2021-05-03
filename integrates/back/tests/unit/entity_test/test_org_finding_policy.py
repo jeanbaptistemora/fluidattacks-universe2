@@ -135,3 +135,151 @@ async def test_handle_org_finding_policy_acceptation():
         vulns[0]['historicTreatment'][-1]['treatment'] == 'ACCEPTED_UNDEFINED'
     )
     assert vulns[0]['historicTreatment'][-1]['user'] == approver_user
+
+
+@pytest.mark.changes_db
+async def test_deactivate_org_finding_policy():
+    org_name = 'okada'
+    finding_name = 'F081. Ausencia de doble factor de autenticación'
+    finding_id = '475041513'
+    vulns_query = '''
+        query GetFindingVulnInfo($findingId: String!) {
+            finding(identifier: $findingId) {
+                vulnerabilities(state: "open") {
+                    historicTreatment {
+                        user
+                        treatment
+                    }
+                }
+            }
+        }
+    '''
+    vulns_data = {'query': vulns_query, 'variables': {'findingId': finding_id}}
+    result = await _get_result_async(vulns_data)
+    assert 'errors' not in result
+    vulns = result['data']['finding']['vulnerabilities']
+    assert vulns[0]['historicTreatment'][-1]['treatment'] == 'NEW'
+
+    add_mutation = '''
+        mutation AddOrgFindingPolicy($findingName: String! $orgName: String!) {
+            addOrgFindingPolicy(
+                findingName: $findingName
+                organizationName: $orgName
+            ) {
+                success
+            }
+        }
+    '''
+    data = {
+        'query': add_mutation,
+        'variables': {'orgName': org_name, 'findingName': finding_name}
+    }
+    result = await _get_result_async(data, 'integratescustomer@gmail.com')
+    assert 'errors' not in result
+    assert result['data']['addOrgFindingPolicy']['success']
+
+    approver_user = 'integratesuser@gmail.com'
+    handle_mutation = '''
+        mutation HandleOrgFindingPolicyAcceptation(
+            $findingPolicyId: ID!
+            $orgName: String!
+            $status: OrganizationFindindPolicy!
+        ) {
+            handleOrgFindingPolicyAcceptation(
+                findingPolicyId: $findingPolicyId
+                organizationName: $orgName
+                status: $status
+            ) {
+                success
+            }
+        }
+    '''
+    finding_policy = await policies_domain.get_finding_policy_by_name(
+        org_name=org_name,
+        finding_name=finding_name.split('.')[0].lower(),
+    )
+    hande_acceptation_data = {
+        'query': handle_mutation,
+        'variables': {
+            'findingPolicyId': finding_policy.id,
+            'orgName': org_name,
+            'status': 'APPROVED'
+        }
+    }
+    result = await _get_result_async(
+        hande_acceptation_data,
+        stakeholder=approver_user
+    )    
+    assert 'errors' not in result
+    assert result['data']['handleOrgFindingPolicyAcceptation']['success']
+
+    result = await _get_result_async(
+        hande_acceptation_data,
+        stakeholder='integratescustomer@gmail.com'
+    )
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == 'Access denied'
+
+    result = await _get_result_async(
+        hande_acceptation_data,
+        stakeholder=approver_user
+    )
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == str(PolicyAlreadyHandled())
+
+    vulns_data = {'query': vulns_query, 'variables': {'findingId': finding_id}}
+    result = await _get_result_async(vulns_data)
+    assert 'errors' not in result
+    vulns = result['data']['finding']['vulnerabilities']
+    assert (
+        vulns[0]['historicTreatment'][-1]['treatment'] == 'ACCEPTED_UNDEFINED'
+    )
+    assert vulns[0]['historicTreatment'][-1]['user'] == approver_user
+
+    deactivate_mutation = '''
+        mutation DeactivateOrgFindingPolicy(
+            $findingPolicyId: ID!
+            $orgName: String!
+        ) {
+            deactivateOrgFindingPolicy(
+                findingPolicyId: $findingPolicyId
+                organizationName: $orgName
+            ) {
+                success
+            }
+        }
+    '''
+    deactivate_mutation_data = {
+        'query': deactivate_mutation,
+        'variables': {
+            'findingPolicyId': finding_policy.id,
+            'orgName': org_name,
+        }
+    }
+    result = await _get_result_async(
+        deactivate_mutation_data,
+        stakeholder=approver_user
+    )    
+    assert 'errors' not in result
+    assert result['data']['deactivateOrgFindingPolicy']['success']
+
+    result = await _get_result_async(
+        deactivate_mutation_data,
+        stakeholder='integratescustomer@gmail.com'
+    )
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == 'Access denied'
+
+    result = await _get_result_async(
+        deactivate_mutation_data,
+        stakeholder=approver_user
+    )
+    assert 'errors' in result
+    assert result['errors'][0]['message'] == str(PolicyAlreadyHandled())
+
+    vulns_data = {'query': vulns_query, 'variables': {'findingId': finding_id}}
+    result = await _get_result_async(vulns_data)
+    assert 'errors' not in result
+    vulns = result['data']['finding']['vulnerabilities']
+    assert vulns[0]['historicTreatment'][-1]['treatment'] == 'NEW'
+    assert vulns[0]['historicTreatment'][-1]['user'] == approver_user
