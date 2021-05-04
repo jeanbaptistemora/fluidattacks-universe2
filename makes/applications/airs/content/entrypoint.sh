@@ -11,6 +11,7 @@ function main {
           CLOUDINARY_API_SECRET \
           CLOUDINARY_API_KEY \
           CLOUDINARY_CLOUD_NAME \
+          FONTAWESOME_NPM_AUTH_TOKEN \
     &&  copy __envAirsNewFront__ new-front \
     &&  copy __envAirsContent__ new-front/content \
     &&  copy __envAirsContentPages__ new-front/static/images \
@@ -37,6 +38,9 @@ function main {
             content/pages/products/defends \
             content/pages/products/rules \
       &&  copy __envAirsNpm__/node_modules 'node_modules' \
+      &&  npm install @fortawesome/fontawesome-pro @fortawesome/pro-duotone-svg-icons \
+            @fortawesome/pro-light-svg-icons @fortawesome/pro-regular-svg-icons \
+            @fortawesome/pro-solid-svg-icons \
       &&  if test -n "${CI:-}" && test "${CI_COMMIT_REF_NAME}" != "master"
           then
             HOME=. ./node_modules/.bin/gatsby build --prefix-paths

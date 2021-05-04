@@ -6,6 +6,7 @@ airs.infra.production.apply
 airs.infra.production.test
 airs.infra.secrets.apply
 airs.infra.secrets.test
+airs.lint.code
 airs.test.images.size
 docs
 docs.deploy

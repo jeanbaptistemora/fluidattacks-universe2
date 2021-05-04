@@ -24,6 +24,7 @@ makeEntrypoint {
       nixpkgs.findutils
       nixpkgs.gnugrep
       nixpkgs.gnused
+      nixpkgs.nodejs
       nixpkgs.utillinux
     ];
     envUtils = [
