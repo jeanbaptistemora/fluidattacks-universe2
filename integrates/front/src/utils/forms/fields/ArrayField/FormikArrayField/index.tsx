@@ -1,8 +1,9 @@
 import { faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FieldArray } from "formik";
+import { FieldArray, getIn } from "formik";
 import React from "react";
 
+import { ValidationError } from "../../styles";
 import { Button } from "components/Button";
 
 interface IArrayProps {
@@ -22,7 +23,7 @@ const FormikArrayField: React.FC<IArrayProps> = ({
 }: IArrayProps): JSX.Element => {
   return (
     <FieldArray name={name}>
-      {({ push, remove }): React.ReactNode => {
+      {({ form, push, remove }): React.ReactNode => {
         function addItem(): void {
           push(initialValue);
         }
@@ -36,6 +37,8 @@ const FormikArrayField: React.FC<IArrayProps> = ({
                 function removeItem(): void {
                   remove(index);
                 }
+                const fieldTouched = Boolean(getIn(form.errors, fieldName));
+                const error = getIn(form.errors, fieldName);
 
                 return (
                   <div className={"flex items-end"} key={fieldName}>
@@ -48,6 +51,11 @@ const FormikArrayField: React.FC<IArrayProps> = ({
                       ) : undefined}
                     </div>
                     <br />
+                    {fieldTouched && typeof error === "string" ? (
+                      <ValidationError id={"validationError"}>
+                        {error}
+                      </ValidationError>
+                    ) : undefined}
                   </div>
                 );
               }
