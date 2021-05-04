@@ -1,9 +1,9 @@
 import _ from "lodash";
-import React, { useCallback } from "react";
+import React from "react";
 import { slide as BurgerMenu } from "react-burger-menu";
 import Media from "react-media";
-import { useHistory } from "react-router-dom";
 
+import { ConfirmDialog } from "components/ConfirmDialog";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
 import logo from "resources/integrates_sidebar.svg";
 import style from "scenes/Dashboard/components/Sidebar/index.css";
@@ -18,6 +18,7 @@ import { translate } from "utils/translations/translate";
 interface ISidebarProps {
   userEmail: string;
   userRole: string | undefined;
+  onLogoClick: () => void;
   onLogoutClick: () => void;
   onOpenAccessTokenModal: () => void;
   onOpenAddOrganizationModal: () => void;
@@ -30,18 +31,12 @@ const sidebar: React.FC<ISidebarProps> = (
   const {
     userEmail,
     userRole,
+    onLogoClick,
     onLogoutClick,
     onOpenAccessTokenModal,
     onOpenAddOrganizationModal,
     onOpenAddUserModal,
   } = props;
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { push } = useHistory();
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const handleLogoClick: () => void = useCallback((): void => {
-    push("/home");
-  }, [push]);
-
   const renderMenu: (isNormalScreenSize: boolean) => JSX.Element = (
     isNormalScreenSize: boolean
   ): JSX.Element => (
@@ -58,7 +53,7 @@ const sidebar: React.FC<ISidebarProps> = (
       <img
         alt={"integrates-logo"}
         className={style.logo}
-        onClick={handleLogoClick}
+        onClick={onLogoClick}
         src={logo}
       />
       <ul className={style.menuList}>
@@ -149,15 +144,25 @@ const sidebar: React.FC<ISidebarProps> = (
           message={"Log out of Integrates"}
           placement={"right"}
         >
-          <ul className={"mt0"}>
-            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
-            <li onClick={onLogoutClick}>
-              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-              <a>
-                <span className={"icon pe-7s-power"} />
-              </a>
-            </li>
-          </ul>
+          <ConfirmDialog title={"Logout"}>
+            {(confirm): React.ReactNode => {
+              function handleLogoutClick(): void {
+                confirm(onLogoutClick);
+              }
+
+              return (
+                <ul className={"mt0"}>
+                  {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
+                  <li onClick={handleLogoutClick}>
+                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                    <a>
+                      <span className={"icon pe-7s-power"} />
+                    </a>
+                  </li>
+                </ul>
+              );
+            }}
+          </ConfirmDialog>
         </TooltipWrapper>
       </div>
     </BurgerMenu>

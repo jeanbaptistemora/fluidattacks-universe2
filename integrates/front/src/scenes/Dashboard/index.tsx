@@ -5,10 +5,14 @@ import type { PureAbility } from "@casl/ability";
 import type { GraphQLError } from "graphql";
 import { identify, people, register, reset } from "mixpanel-browser";
 import React, { useCallback, useContext, useState } from "react";
-import { Redirect, Route, Switch, useLocation } from "react-router-dom";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
 
-import { ConfirmDialog } from "components/ConfirmDialog";
-import type { IConfirmFn } from "components/ConfirmDialog";
 import { ScrollUpButton } from "components/ScrollUpButton";
 import { AddOrganizationModal } from "scenes/Dashboard/components/AddOrganizationModal";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
@@ -47,6 +51,7 @@ import { initializeDelighted, initializeZendesk } from "utils/widgets";
 
 export const Dashboard: React.FC = (): JSX.Element => {
   const { hash } = useLocation();
+  const { push } = useHistory();
 
   const orgRegex: string = ":organizationName([a-zA-Z0-9]+)";
   const groupRegex: string = ":projectName([a-zA-Z0-9]+)";
@@ -193,32 +198,29 @@ export const Dashboard: React.FC = (): JSX.Element => {
 
   const currentYear: number = new Date().getFullYear();
 
+  const handleLogoClick = useCallback((): void => {
+    push("/home");
+  }, [push]);
+
+  const handleLogout = useCallback((): void => {
+    reset();
+    location.assign("/logout");
+  }, []);
+
   return (
     <React.Fragment>
-      <ConfirmDialog title={"Logout"}>
-        {(confirm: IConfirmFn): React.ReactNode => {
-          function handleLogout(): void {
-            confirm((): void => {
-              reset();
-              location.assign("/logout");
-            });
-          }
-
-          return (
-            <Sidebar
-              onLogoutClick={handleLogout}
-              onOpenAccessTokenModal={openTokenModal}
-              onOpenAddOrganizationModal={openOrganizationModal}
-              onOpenAddUserModal={openUserModal}
-              userEmail={userEmail}
-              userRole={userRole}
-            />
-          );
-        }}
-      </ConfirmDialog>
       <div>
-        <Navbar />
+        <Sidebar
+          onLogoClick={handleLogoClick}
+          onLogoutClick={handleLogout}
+          onOpenAccessTokenModal={openTokenModal}
+          onOpenAddOrganizationModal={openOrganizationModal}
+          onOpenAddUserModal={openUserModal}
+          userEmail={userEmail}
+          userRole={userRole}
+        />
         <div className={style.container} id={"dashboard"}>
+          <Navbar />
           <Switch>
             <Route exact={true} path={"/home"}>
               <HomeView />

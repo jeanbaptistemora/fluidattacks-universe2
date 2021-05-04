@@ -340,7 +340,7 @@ const ModalTitle: StyledComponent<
 const NavBar: StyledComponent<
   "nav",
   Record<string, unknown>
-> = styled.div.attrs<{
+> = styled.nav.attrs<{
   className: string;
 }>({
   className: "ph4 pt0 pb0 navbar h-100",

@@ -268,7 +268,6 @@ label {
 
 @media (min-width: 768px) {
   :global .navbar {
-    margin-left: 210px;
     position: sticky;
     top: 0.1px;
     z-index: 5;
