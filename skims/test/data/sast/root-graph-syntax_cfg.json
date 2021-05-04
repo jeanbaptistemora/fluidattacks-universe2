@@ -89,6 +89,9 @@
   "F085": {
     "skims/test/data/sast/TestCFG.java": {}
   },
+  "F086": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
   "F107": {
     "skims/test/data/sast/TestCFG.java": {}
   },
