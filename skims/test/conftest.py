@@ -26,7 +26,7 @@ from integrates.graphql import (
 from parse_cfn.loader import (
     load_as_yaml_without_line_number,
 )
-from utils.ctx import (
+from test_helpers import (
     create_test_context,
 )
 

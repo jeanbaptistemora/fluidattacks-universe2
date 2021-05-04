@@ -21,9 +21,6 @@ from sast_symbolic_evaluation.evaluate import (
 from utils.ctx import (
     CTX,
 )
-from utils.encodings import (
-    serialize_namespace_into_vuln,
-)
 from utils.string import (
     to_snippet_blocking,
 )
@@ -58,11 +55,7 @@ def get_vulnerability_from_n_id(
         finding=finding,
         kind=core_model.VulnerabilityKindEnum.LINES,
         state=core_model.VulnerabilityStateEnum.OPEN,
-        what=serialize_namespace_into_vuln(
-            kind=core_model.VulnerabilityKindEnum.LINES,
-            namespace=CTX.config.namespace,
-            what=meta_attrs_label_path,
-        ),
+        what=meta_attrs_label_path,
         where=str(n_attrs_label_line),
         skims_metadata=core_model.SkimsVulnerabilityMetadata(
             cwe=cwe,

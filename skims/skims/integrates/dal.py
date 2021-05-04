@@ -27,9 +27,6 @@ from state.ephemeral import (
     EphemeralStore,
     get_ephemeral_store,
 )
-from utils.encodings import (
-    deserialize_namespace_from_vuln,
-)
 from utils.function import (
     rate_limited,
     shield,
@@ -295,7 +292,10 @@ async def get_finding_vulnerabilities(
     store: EphemeralStore = get_ephemeral_store()
     for vulnerability in result["data"]["finding"]["vulnerabilities"]:
         kind = core_model.VulnerabilityKindEnum(vulnerability["vulnType"])
-        what = vulnerability["where"]
+        namespace, what = core_model.Vulnerability.what_from_integrates(
+            kind=kind,
+            what_on_integrates=vulnerability["where"],
+        )
 
         await store.store(
             core_model.Vulnerability(
@@ -305,10 +305,7 @@ async def get_finding_vulnerabilities(
                         (vulnerability["currentApprovalStatus"])
                         or core_model.VulnerabilityApprovalStatusEnum.APPROVED
                     ),
-                    namespace=deserialize_namespace_from_vuln(
-                        kind=kind,
-                        what=what,
-                    ),
+                    namespace=namespace,
                     source=core_model.VulnerabilitySourceEnum(
                         vulnerability["source"]
                     ),

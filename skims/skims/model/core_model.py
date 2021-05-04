@@ -749,6 +749,35 @@ class Vulnerability(NamedTuple):
             )
         )
 
+    def what_on_integrates(self, namespace: str) -> str:
+        if self.kind == VulnerabilityKindEnum.INPUTS:
+            what = f"{self.what} ({namespace})"
+        elif self.kind == VulnerabilityKindEnum.LINES:
+            what = f"{namespace}/{self.what}"
+        elif self.kind == VulnerabilityKindEnum.PORTS:
+            what = f"{self.what} ({namespace})"
+        else:
+            raise NotImplementedError()
+
+        return what
+
+    @classmethod
+    def what_from_integrates(
+        cls, kind: VulnerabilityKindEnum, what_on_integrates: str
+    ) -> Tuple[str, str]:
+        if kind == VulnerabilityKindEnum.INPUTS:
+            what, namespace = what_on_integrates.rsplit(" (", maxsplit=1)
+            what = what[:-1]
+        elif kind == VulnerabilityKindEnum.LINES:
+            namespace, what = what_on_integrates.split("/", maxsplit=1)
+        elif kind == VulnerabilityKindEnum.PORTS:
+            what, namespace = what_on_integrates.rsplit(" (", maxsplit=1)
+            what = what[:-1]
+        else:
+            raise NotImplementedError()
+
+        return namespace, what
+
 
 Vulnerabilities = Tuple[Vulnerability, ...]
 

@@ -28,12 +28,6 @@ from model import (
 from model.core_model import (
     FindingEnum,
 )
-from utils.ctx import (
-    CTX,
-)
-from utils.encodings import (
-    serialize_namespace_into_vuln,
-)
 from utils.string import (
     to_snippet_blocking,
 )
@@ -77,11 +71,7 @@ def build_vulnerabilities(
             state=core_model.VulnerabilityStateEnum.OPEN,
             # Must start with home so integrates allows it
             stream="home,response,content",
-            what=serialize_namespace_into_vuln(
-                kind=core_model.VulnerabilityKindEnum.INPUTS,
-                namespace=CTX.config.namespace,
-                what=ctx.url,
-            ),
+            what=ctx.url.url,
             where=f"{location.line}",
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=(finding.value.cwe,),

@@ -17,7 +17,6 @@ from utils.graph import (
     export_graph_as_json,
 )
 from model import (
-    core_model,
     graph_model,
 )
 
@@ -78,54 +77,3 @@ async def yaml_dumps(element: object, *args: Any, **kwargs: Any) -> str:
     element = simplify(element)
 
     return await in_thread(yaml_dumps_blocking, element, *args, **kwargs)
-
-
-def deserialize_namespace_from_vuln(
-    kind: core_model.VulnerabilityKindEnum,
-    what: str,
-) -> str:
-    namespace: str
-
-    if kind == core_model.VulnerabilityKindEnum.INPUTS:
-        namespace = what.rsplit(" (", maxsplit=1)[0][:-1]
-    elif kind == core_model.VulnerabilityKindEnum.LINES:
-        namespace = what.split("/", maxsplit=1)[0]
-    elif kind == core_model.VulnerabilityKindEnum.PORTS:
-        namespace = what.rsplit(" (", maxsplit=1)[0][:-1]
-    else:
-        raise NotImplementedError()
-
-    return namespace
-
-
-def deserialize_what_from_vuln(
-    kind: core_model.VulnerabilityKindEnum,
-    what: str,
-) -> str:
-    if kind == core_model.VulnerabilityKindEnum.INPUTS:
-        what = what.rsplit(" (", maxsplit=1)[1][:-1]
-    elif kind == core_model.VulnerabilityKindEnum.LINES:
-        what = what.split("/", maxsplit=1)[1]
-    elif kind == core_model.VulnerabilityKindEnum.PORTS:
-        what = what.rsplit(" (", maxsplit=1)[1][:-1]
-    else:
-        raise NotImplementedError()
-
-    return what
-
-
-def serialize_namespace_into_vuln(
-    kind: core_model.VulnerabilityKindEnum,
-    namespace: str,
-    what: str,
-) -> str:
-    if kind == core_model.VulnerabilityKindEnum.INPUTS:
-        what = f"{what} ({namespace})"
-    elif kind == core_model.VulnerabilityKindEnum.LINES:
-        what = f"{namespace}/{what}"
-    elif kind == core_model.VulnerabilityKindEnum.PORTS:
-        what = f"{what} ({namespace})"
-    else:
-        raise NotImplementedError()
-
-    return what

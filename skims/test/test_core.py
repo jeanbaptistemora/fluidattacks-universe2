@@ -15,9 +15,6 @@ from state.ephemeral import (
     get_ephemeral_store,
     EphemeralStore,
 )
-from utils.encodings import (
-    serialize_namespace_into_vuln,
-)
 
 
 @run_decorator
@@ -51,11 +48,7 @@ async def test_diff_results() -> None:
             ),
             kind=common_kind,
             state=core_model.VulnerabilityStateEnum.OPEN,
-            what=serialize_namespace_into_vuln(
-                kind=common_kind,
-                namespace=namespace,
-                what="0",
-            ),
+            what="0",
             where=common_where,
         )
     )
@@ -67,11 +60,7 @@ async def test_diff_results() -> None:
             integrates_metadata=common_integrates_metadata,
             kind=common_kind,
             state=core_model.VulnerabilityStateEnum.OPEN,
-            what=serialize_namespace_into_vuln(
-                kind=common_kind,
-                namespace=namespace,
-                what="1",
-            ),
+            what="1",
             where=common_where,
         )
     )
@@ -81,11 +70,7 @@ async def test_diff_results() -> None:
             integrates_metadata=common_integrates_metadata,
             kind=common_kind,
             state=core_model.VulnerabilityStateEnum.OPEN,
-            what=serialize_namespace_into_vuln(
-                kind=common_kind,
-                namespace=namespace,
-                what="1",
-            ),
+            what="1",
             where=common_where,
         )
     )
@@ -97,11 +82,7 @@ async def test_diff_results() -> None:
             integrates_metadata=common_integrates_metadata,
             kind=common_kind,
             state=core_model.VulnerabilityStateEnum.OPEN,
-            what=serialize_namespace_into_vuln(
-                kind=common_kind,
-                namespace=namespace,
-                what="2",
-            ),
+            what="2",
             where=common_where,
         )
     )
@@ -113,11 +94,7 @@ async def test_diff_results() -> None:
             integrates_metadata=common_integrates_metadata,
             kind=common_kind,
             state=core_model.VulnerabilityStateEnum.CLOSED,
-            what=serialize_namespace_into_vuln(
-                kind=common_kind,
-                namespace=namespace,
-                what="3",
-            ),
+            what="3",
             where=common_where,
         )
     )
@@ -127,11 +104,7 @@ async def test_diff_results() -> None:
             integrates_metadata=common_integrates_metadata,
             kind=common_kind,
             state=core_model.VulnerabilityStateEnum.OPEN,
-            what=serialize_namespace_into_vuln(
-                kind=common_kind,
-                namespace=namespace,
-                what="3",
-            ),
+            what="3",
             where=common_where,
         )
     )
@@ -143,11 +116,7 @@ async def test_diff_results() -> None:
             integrates_metadata=common_integrates_metadata,
             kind=common_kind,
             state=core_model.VulnerabilityStateEnum.CLOSED,
-            what=serialize_namespace_into_vuln(
-                kind=common_kind,
-                namespace=namespace,
-                what="4",
-            ),
+            what="4",
             where=common_where,
         )
     )
@@ -160,11 +129,7 @@ async def test_diff_results() -> None:
             integrates_metadata=common_integrates_metadata_in_other_ns,
             kind=common_kind,
             state=core_model.VulnerabilityStateEnum.OPEN,
-            what=serialize_namespace_into_vuln(
-                kind=common_kind,
-                namespace=namespace,
-                what="5",
-            ),
+            what="5",
             where=common_where,
         )
     )
@@ -189,20 +154,6 @@ async def test_diff_results() -> None:
 
     # This is the smallest possible delta, just change what changed!
     assert sorted([(x.what, x.state) async for x in diff_store.iterate()]) == [
-        (
-            serialize_namespace_into_vuln(
-                kind=common_kind,
-                namespace=namespace,
-                what="2",
-            ),
-            core_model.VulnerabilityStateEnum.CLOSED,
-        ),
-        (
-            serialize_namespace_into_vuln(
-                kind=common_kind,
-                namespace=namespace,
-                what="3",
-            ),
-            core_model.VulnerabilityStateEnum.OPEN,
-        ),
+        ("2", core_model.VulnerabilityStateEnum.CLOSED),
+        ("3", core_model.VulnerabilityStateEnum.OPEN),
     ]

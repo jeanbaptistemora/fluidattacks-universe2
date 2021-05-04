@@ -51,7 +51,7 @@ async def test_build_vulnerabilities_stream() -> None:
                     ),
                     kind=core_model.VulnerabilityKindEnum.LINES,
                     state=core_model.VulnerabilityStateEnum.OPEN,
-                    what="namespace/what",
+                    what="what",
                     where="123",
                 ),
                 core_model.Vulnerability(
@@ -64,7 +64,7 @@ async def test_build_vulnerabilities_stream() -> None:
                     kind=core_model.VulnerabilityKindEnum.INPUTS,
                     state=core_model.VulnerabilityStateEnum.OPEN,
                     stream="a,b,c",
-                    what="namespace: https://example.com",
+                    what="https://example.com",
                     where="test",
                 ),
             )
@@ -75,11 +75,11 @@ async def test_build_vulnerabilities_stream() -> None:
         - field: test
           state: open
           stream: a,b,c
-          url: 'namespace: https://example.com'
+          url: https://example.com (test)
         lines:
         - commit_hash: '0000000000000000000000000000000000000000'
           line: '123'
-          path: namespace/what
+          path: test/what
           repo_nickname: test
           state: open
     """

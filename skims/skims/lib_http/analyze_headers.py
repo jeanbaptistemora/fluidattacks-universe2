@@ -33,12 +33,6 @@ from lib_http.types import (
 from model import (
     core_model,
 )
-from utils.ctx import (
-    CTX,
-)
-from utils.encodings import (
-    serialize_namespace_into_vuln,
-)
 from zone import (
     t,
 )
@@ -64,11 +58,7 @@ def _create_vulns(
             state=core_model.VulnerabilityStateEnum.OPEN,
             # Must start with home so integrates allows it
             stream="home,response,headers",
-            what=serialize_namespace_into_vuln(
-                kind=core_model.VulnerabilityKindEnum.INPUTS,
-                namespace=CTX.config.namespace,
-                what=ctx.url,
-            ),
+            what=ctx.url,
             where=translation,
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=(finding.value.cwe,),

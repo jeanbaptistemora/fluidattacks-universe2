@@ -42,12 +42,6 @@ from model import (
 from model.graph_model import (
     NAttrs,
 )
-from utils.ctx import (
-    CTX,
-)
-from utils.encodings import (
-    serialize_namespace_into_vuln,
-)
 from utils.function import (
     shield,
 )
@@ -122,11 +116,7 @@ def get_vulnerabilities_blocking(
             finding=finding,
             kind=core_model.VulnerabilityKindEnum.LINES,
             state=core_model.VulnerabilityStateEnum.OPEN,
-            what=serialize_namespace_into_vuln(
-                kind=core_model.VulnerabilityKindEnum.LINES,
-                namespace=CTX.config.namespace,
-                what=path,
-            ),
+            what=path,
             where=f"{match.start_line}",
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=tuple(cwe),
@@ -160,11 +150,7 @@ def get_vulnerabilities_from_iterator_blocking(
             finding=finding,
             kind=core_model.VulnerabilityKindEnum.LINES,
             state=core_model.VulnerabilityStateEnum.OPEN,
-            what=serialize_namespace_into_vuln(
-                kind=core_model.VulnerabilityKindEnum.LINES,
-                namespace=CTX.config.namespace,
-                what=path,
-            ),
+            what=path,
             where=f"{line_no}",
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=tuple(cwe),

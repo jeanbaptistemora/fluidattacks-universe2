@@ -38,12 +38,6 @@ from parse_json import (
 from state.cache import (
     CACHE_ETERNALLY,
 )
-from utils.ctx import (
-    CTX,
-)
-from utils.encodings import (
-    serialize_namespace_into_vuln,
-)
 from utils.function import (
     TIMEOUT_1MIN,
 )
@@ -286,16 +280,12 @@ def translate_dependencies_to_vulnerabilities(
             finding=core_model.FindingEnum.F011,
             kind=core_model.VulnerabilityKindEnum.LINES,
             state=core_model.VulnerabilityStateEnum.OPEN,
-            what=serialize_namespace_into_vuln(
-                kind=core_model.VulnerabilityKindEnum.LINES,
-                namespace=CTX.config.namespace,
-                what=" ".join(
-                    (
-                        path,
-                        f'({product["item"]} v{version["item"]})',
-                        f"[{cve}]",
-                    )
-                ),
+            what=" ".join(
+                (
+                    path,
+                    f'({product["item"]} v{version["item"]})',
+                    f"[{cve}]",
+                )
             ),
             where=f'{product["line"]}',
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
