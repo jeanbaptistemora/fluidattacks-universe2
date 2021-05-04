@@ -1,7 +1,4 @@
 # Standard library
-from itertools import (
-    chain,
-)
 from typing import (
     Callable,
     Dict,
@@ -307,7 +304,7 @@ def _x_content_type_options(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
-def analyze(url: URLContext) -> core_model.Vulnerabilities:
+def get_check_ctx(url: URLContext) -> HeaderCheckCtx:
     headers_parsed: Dict[Type[Header], Header] = {
         type(header_parsed): header_parsed
         for header_raw_name, header_raw_value in reversed(
@@ -324,21 +321,11 @@ def analyze(url: URLContext) -> core_model.Vulnerabilities:
         if header_parsed is not None
     }
 
-    return tuple(
-        chain.from_iterable(
-            (
-                check(
-                    HeaderCheckCtx(
-                        headers_parsed=headers_parsed,
-                        headers_raw=url.headers_raw,
-                        is_html=url.is_html,
-                        url=url.url,
-                    )
-                )
-                for finding, check in CHECKS.items()
-                if finding in CTX.config.checks
-            )
-        )
+    return HeaderCheckCtx(
+        headers_parsed=headers_parsed,
+        headers_raw=url.headers_raw,
+        is_html=url.is_html,
+        url=url.url,
     )
 
 
