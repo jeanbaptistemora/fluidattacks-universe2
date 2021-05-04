@@ -1,16 +1,19 @@
 /* eslint import/no-namespace:0 */
 /* eslint react/forbid-component-props: 0 */
 /* eslint import/no-unresolved:0 */
+import {
+  faFacebookF,
+  faInstagram,
+  faLinkedinIn,
+  faTwitter,
+  faYoutube,
+} from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
-import facebookIcon from "../../../../static/images/footer/icon-fb-dark.svg";
-import instagramIcon from "../../../../static/images/footer/icon-ig-dark.svg";
-import linkedinIcon from "../../../../static/images/footer/icon-linkedin-dark.svg";
-import twitterIcon from "../../../../static/images/footer/icon-tw-dark.svg";
-import youtubeIcon from "../../../../static/images/footer/icon-yt-dark.svg";
 import { translate } from "../../../utils/translations/translate";
 
 const BlueBackground: StyledComponent<
@@ -150,10 +153,9 @@ const ContactSection: React.FC = (): JSX.Element => (
               to={"https://www.facebook.com/Fluid-Attacks-267692397253577/"}
             >
               <SocialButton>
-                <img
-                  alt={"Facebook Icon"}
-                  className={"w2"}
-                  src={facebookIcon}
+                <FontAwesomeIcon
+                  className={"f3 c-gray-64 mh1"}
+                  icon={faFacebookF}
                 />
               </SocialButton>
             </Link>
@@ -162,10 +164,9 @@ const ContactSection: React.FC = (): JSX.Element => (
               to={"https://www.linkedin.com/company/fluidattacks/"}
             >
               <SocialButton>
-                <img
-                  alt={"LinkedIn Icon"}
-                  className={"w2"}
-                  src={linkedinIcon}
+                <FontAwesomeIcon
+                  className={"f3 c-gray-64"}
+                  icon={faLinkedinIn}
                 />
               </SocialButton>
             </Link>
@@ -174,7 +175,7 @@ const ContactSection: React.FC = (): JSX.Element => (
               to={"https://twitter.com/fluidattacks/"}
             >
               <SocialButton>
-                <img alt={"Twitter Icon"} className={"w2"} src={twitterIcon} />
+                <FontAwesomeIcon className={"f3 c-gray-64"} icon={faTwitter} />
               </SocialButton>
             </Link>
             <Link
@@ -182,7 +183,7 @@ const ContactSection: React.FC = (): JSX.Element => (
               to={"https://www.youtube.com/c/fluidattacks/"}
             >
               <SocialButton>
-                <img alt={"Youtube Icon"} className={"w2"} src={youtubeIcon} />
+                <FontAwesomeIcon className={"f3 c-gray-64"} icon={faYoutube} />
               </SocialButton>
             </Link>
             <Link
@@ -190,10 +191,9 @@ const ContactSection: React.FC = (): JSX.Element => (
               to={"https://www.instagram.com/fluidattacks/"}
             >
               <SocialButton>
-                <img
-                  alt={"Instagram Icon"}
-                  className={"w2"}
-                  src={instagramIcon}
+                <FontAwesomeIcon
+                  className={"f3 c-gray-64"}
+                  icon={faInstagram}
                 />
               </SocialButton>
             </Link>

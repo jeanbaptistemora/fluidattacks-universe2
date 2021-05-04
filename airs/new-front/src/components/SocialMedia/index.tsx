@@ -1,32 +1,36 @@
 /* eslint import/no-unresolved:0 */
 /* eslint import/no-namespace:0 */
+/* eslint react/forbid-component-props: 0 */
+import {
+  faFacebookF,
+  faInstagram,
+  faLinkedinIn,
+  faTwitter,
+  faYoutube,
+} from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
-import facebookLogo from "../../../static/images/social-media/social-facebook.png";
-import instagramLogo from "../../../static/images/social-media/social-instagram.png";
-import linkedinLogo from "../../../static/images/social-media/social-linkedin.png";
-import twitterLogo from "../../../static/images/social-media/social-twitter.png";
-import youtubeLogo from "../../../static/images/social-media/social-youtube.png";
 import { SocialMediaLink } from "../../styles/styledComponents";
 
 const SocialMedia: React.FC = (): JSX.Element => (
   <React.Fragment>
     <SocialMediaLink href={"https://www.instagram.com/fluidattacks/"}>
-      <img alt={"Instagram Logo"} src={instagramLogo} />
+      <FontAwesomeIcon className={"f4 c-fluid-gray"} icon={faInstagram} />
     </SocialMediaLink>
     <SocialMediaLink
       href={"https://www.facebook.com/Fluid-Attacks-267692397253577/"}
     >
-      <img alt={"Facebook Logo"} src={facebookLogo} />
+      <FontAwesomeIcon className={"f4 c-fluid-gray"} icon={faFacebookF} />
     </SocialMediaLink>
     <SocialMediaLink href={"https://www.linkedin.com/company/fluidattacks/"}>
-      <img alt={"LinkedIn Logo"} src={linkedinLogo} />
+      <FontAwesomeIcon className={"f4 c-fluid-gray"} icon={faLinkedinIn} />
     </SocialMediaLink>
     <SocialMediaLink href={"https://twitter.com/fluidattacks/"}>
-      <img alt={"Twitter Logo"} src={twitterLogo} />
+      <FontAwesomeIcon className={"f4 c-fluid-gray"} icon={faTwitter} />
     </SocialMediaLink>
     <SocialMediaLink href={"https://www.youtube.com/c/fluidattacks/"}>
-      <img alt={"Youtube Logo"} src={youtubeLogo} />
+      <FontAwesomeIcon className={"f4 c-fluid-gray"} icon={faYoutube} />
     </SocialMediaLink>
   </React.Fragment>
 );

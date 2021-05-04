@@ -2,6 +2,8 @@
 /* eslint react/forbid-component-props: 0 */
 /* eslint import/no-unresolved:0 */
 /* eslint react/jsx-no-bind:0 */
+import { faBars, faTimes } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
@@ -9,7 +11,6 @@ import styled from "styled-components";
 import { MenuDesktop } from "./MenuDesktop";
 import { MenuMobile } from "./MenuMobile";
 
-import closeMenuIcon from "../../../../static/images/cross.png";
 import {
   CenteredMaxWidthContainer,
   MenuButton,
@@ -88,11 +89,7 @@ const Menu: React.FC = (): JSX.Element => {
       <MenuButton onClick={toggle}>
         <div className={"lower"}>
           <span className={"pointer dib h2-l"} id={"openbtn"}>
-            <img
-              alt={"Menu open icon"}
-              className={"w2"}
-              src={"https://fluidattacks.com/theme/images/menu.svg"}
-            />
+            <FontAwesomeIcon className={"f2 c-fluid-bk"} icon={faBars} />
           </span>
         </div>
       </MenuButton>
@@ -104,10 +101,9 @@ const Menu: React.FC = (): JSX.Element => {
           <CenteredMaxWidthContainer className={"flex"}>
             <CloseMenuButtonContainer>
               <CloseMenuButton onClick={toggle}>
-                <img
-                  alt={"Close Menu Icon"}
-                  className={"w2"}
-                  src={closeMenuIcon}
+                <FontAwesomeIcon
+                  className={"f1 nt2 nl2 c-fluid-gray"}
+                  icon={faTimes}
                 />
               </CloseMenuButton>
             </CloseMenuButtonContainer>
