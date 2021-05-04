@@ -3,6 +3,7 @@ from typing import Dict
 
 SINGLE_JOBS = frozenset(
     [
+        "bugsnag",
         "checkly",
         "delighted",
         "formstack",
