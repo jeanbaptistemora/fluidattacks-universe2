@@ -5,8 +5,8 @@ from enum import (
 
 
 class AttackComplexity(Enum):
-    low: float = 0.44
-    high: float = 0.77
+    low: float = 0.77
+    high: float = 0.44
 
 
 class AttackVector(Enum):
@@ -42,9 +42,9 @@ class IntegrityImpact(Enum):
 
 
 class PrivilegesRequired(Enum):
-    none: float = 0.27
+    none: float = 0.85
     low: float = 0.62
-    high: float = 0.85
+    high: float = 0.27
 
 
 class RemediationLevel(Enum):
