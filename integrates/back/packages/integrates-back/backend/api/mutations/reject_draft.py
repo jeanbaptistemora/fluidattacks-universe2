@@ -2,6 +2,7 @@
 from typing import Any
 
 # Third party libraries
+from aioextensions import schedule
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -16,6 +17,7 @@ from backend.decorators import (
 )
 from backend.typing import SimplePayload as SimplePayloadType
 from findings import domain as findings_domain
+from mailer import findings as findings_mail
 from redis_cluster.operations import redis_del_by_deps_soon
 
 
@@ -43,14 +45,15 @@ async def mutate(
         if util.get_source(info.context) != 'skims':
             finding_loader = info.context.loaders.finding
             finding = await finding_loader.load(finding_id)
-            findings_domain.send_finding_mail(
-                info.context.loaders,
-                findings_domain.send_draft_reject_mail,
-                finding_id,
-                str(finding.get('title', '')),
-                str(finding.get('project_name', '')),
-                str(finding.get('analyst', '')),
-                reviewer_email
+            schedule(
+                findings_mail.send_mail_reject_draft(
+                    info.context.loaders,
+                    finding_id,
+                    str(finding.get('title', '')),
+                    str(finding.get('project_name', '')),
+                    str(finding.get('analyst', '')),
+                    reviewer_email
+                )
             )
         util.cloudwatch_log(
             info.context,

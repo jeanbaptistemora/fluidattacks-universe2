@@ -2,6 +2,7 @@
 # None
 
 # Third party
+from aioextensions import schedule
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -15,6 +16,7 @@ from backend.decorators import (
 )
 from backend.typing import SimplePayload
 from findings import domain as findings_domain
+from mailer import findings as findings_mail
 from redis_cluster.operations import redis_del_by_deps_soon
 
 
@@ -42,16 +44,17 @@ async def mutate(
         redis_del_by_deps_soon('submit_draft', finding_id=finding_id)
         finding_loader = info.context.loaders.finding
         finding = await finding_loader.load(finding_id)
-        findings_domain.send_finding_mail(
-            info.context.loaders,
-            findings_domain.send_new_draft_mail,
-            finding_id,
-            str(finding.get('title', '')),
-            str(finding.get('project_name', '')),
-            analyst_email,
-        )
         util.cloudwatch_log(
             info.context,
             f'Security: Submitted draft {finding_id} successfully'
+        )
+        schedule(
+            findings_mail.send_mail_new_draft(
+                info.context.loaders,
+                finding_id,
+                str(finding.get('title', '')),
+                str(finding.get('project_name', '')),
+                analyst_email,
+            )
         )
     return SimplePayload(success=success)

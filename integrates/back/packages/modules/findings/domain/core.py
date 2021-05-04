@@ -8,7 +8,6 @@ from decimal import Decimal
 from time import time
 from typing import (
     Any,
-    Callable,
     cast,
     Dict,
     List,
@@ -53,7 +52,6 @@ from custom_exceptions import (
 )
 from dynamodb.operations_legacy import start_context
 from findings import dal as findings_dal
-from group_access import domain as group_access_domain
 from mailer import findings as findings_mail
 from newutils import (
     comments as comments_utils,
@@ -65,10 +63,6 @@ from newutils import (
 )
 from users import domain as users_domain
 from vulnerabilities import domain as vulns_domain
-from __init__ import (
-    BASE_URL,
-    FI_MAIL_REVIEWERS,
-)
 
 
 logging.config.dictConfig(LOGGING)
@@ -759,7 +753,7 @@ async def request_vulnerability_verification(
     )
     if all(update_vulns) and update_finding:
         schedule(
-            send_remediation_email(
+            findings_mail.send_mail_remediate_finding(
                 context,
                 user_email,
                 finding_id,
@@ -780,73 +774,6 @@ async def save_severity(finding: Dict[str, FindingType]) -> bool:
     severity = cvss.calculate_severity(cvss_version, finding, cvss_parameters)
     response = await findings_dal.update(str(finding.get('id', '')), severity)
     return response
-
-
-async def send_finding_delete_mail(  # pylint: disable=too-many-arguments
-    context: Any,
-    finding_id: str,
-    finding_name: str,
-    group_name: str,
-    discoverer_email: str,
-    justification: str
-) -> None:
-    del context
-    recipients = FI_MAIL_REVIEWERS.split(',')
-    schedule(
-        findings_mail.send_mail_delete_finding(
-            recipients,
-            {
-                'analyst_email': discoverer_email,
-                'finding_name': finding_name,
-                'finding_id': finding_id,
-                'justification': justification,
-                'project': group_name,
-            }
-        )
-    )
-
-
-def send_finding_mail(
-    context: Any,
-    send_email_function: Callable,
-    finding_id: str,
-    *mail_params: Union[str, Dict[str, str]]
-) -> None:
-    schedule(send_email_function(context, finding_id, *mail_params))
-
-
-async def send_remediation_email(  # pylint: disable=too-many-arguments
-    context: Any,
-    user_email: str,
-    finding_id: str,
-    finding_name: str,
-    group_name: str,
-    justification: str
-) -> None:
-    group_loader = context.group_all
-    organization_loader = context.organization
-    group = await group_loader.load(group_name)
-    org_id = group['organization']
-    organization = await organization_loader.load(org_id)
-    org_name = organization['name']
-    recipients = await group_access_domain.get_closers(group_name)
-    schedule(
-        findings_mail.send_mail_remediate_finding(
-            recipients,
-            {
-                'project': group_name.lower(),
-                'organization': org_name,
-                'finding_name': finding_name,
-                'finding_url': (
-                    f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
-                    f'/vulns/{finding_id}/locations'
-                ),
-                'finding_id': finding_id,
-                'user_email': user_email,
-                'solution_description': justification
-            }
-        )
-    )
 
 
 async def total_vulnerabilities(

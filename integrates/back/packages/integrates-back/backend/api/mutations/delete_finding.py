@@ -2,6 +2,7 @@
 # None
 
 # Third party
+from aioextensions import schedule
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -15,6 +16,7 @@ from backend.decorators import (
 )
 from backend.typing import SimplePayload
 from findings import domain as findings_domain
+from mailer import findings as findings_mail
 from redis_cluster.operations import redis_del_by_deps_soon
 
 
@@ -50,18 +52,18 @@ async def mutate(
             'FALSE_POSITIVE': 'It is a false positive',
             'NOT_REQUIRED': 'Finding not required',
         }
-        findings_domain.send_finding_mail(
-            info.context.loaders,
-            findings_domain.send_finding_delete_mail,
-            finding_id,
-            str(finding_data.get('finding', '')),
-            group_name,
-            str(finding_data.get('analyst', '')),
-            justification_dict[justification]
-        )
         util.cloudwatch_log(
             info.context,
             f'Security: Deleted finding: {finding_id} successfully'
+        )
+        schedule(
+            findings_mail.send_mail_delete_finding(
+                finding_id,
+                str(finding_data.get('finding', '')),
+                group_name,
+                str(finding_data.get('analyst', '')),
+                justification_dict[justification]
+            )
         )
     else:
         util.cloudwatch_log(

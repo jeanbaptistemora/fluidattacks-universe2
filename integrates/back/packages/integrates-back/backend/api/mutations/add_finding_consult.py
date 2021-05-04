@@ -79,7 +79,7 @@ async def mutate(
         if content.strip() not in {'#external', '#internal'}:
             schedule(
                 findings_mail.send_mail_comment(
-                    info.context,
+                    info.context.loaders,
                     comment_data,
                     user_email,
                     finding

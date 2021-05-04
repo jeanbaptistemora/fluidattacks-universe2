@@ -22,7 +22,10 @@ from newutils import (
     findings as findings_utils,
     vulnerabilities as vulns_utils,
 )
-from __init__ import BASE_URL
+from __init__ import (
+    BASE_URL,
+    FI_MAIL_REVIEWERS,
+)
 from .common import (
     COMMENTS_TAG,
     GENERAL_TAG,
@@ -32,21 +35,24 @@ from .common import (
 )
 
 
+async def _get_organization_name(context: Any, group_name: str) -> str:
+    group_loader = context.group_all
+    group = await group_loader.load(group_name)
+    org_id = group['organization']
+
+    organization_loader = context.organization
+    organization = await organization_loader.load(org_id)
+    return organization['name']
+
+
 async def send_mail_comment(  # pylint: disable=too-many-locals
     context: Any,
     comment_data: CommentType,
     user_mail: str,
     finding: Dict[str, FindingType]
 ) -> None:
-    group_loader = context.loaders.group_all
     group_name = finding['project_name']
-    group = await group_loader.load(group_name)
-    org_id = group['organization']
-
-    organization_loader = context.loaders.organization
-    organization = await organization_loader.load(org_id)
-    org_name = organization['name']
-
+    org_name = await _get_organization_name(context, group_name)
     type_ = comment_data['comment_type']
     is_finding_released = findings_utils.is_released(finding)
     email_context: MailContentType = {
@@ -106,32 +112,59 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
 
 
 async def send_mail_delete_finding(
-    email_to: List[str],
-    context: MailContentType
+    finding_id: str,
+    finding_name: str,
+    group_name: str,
+    discoverer_email: str,
+    justification: str
 ) -> None:
+    recipients = FI_MAIL_REVIEWERS.split(',')
+    mail_context = {
+        'analyst_email': discoverer_email,
+        'finding_name': finding_name,
+        'finding_id': finding_id,
+        'justification': justification,
+        'project': group_name,
+    }
     await send_mails_async_new(
-        email_to,
-        context,
+        recipients,
+        mail_context,
         GENERAL_TAG,
         (
-            f'Finding #{context["finding_id"]} in [{context["project"]}] '
-            'was removed'
+            f'Finding #{finding_id} in '
+            f'[{group_name}] was removed'
         ),
         'delete_finding'
     )
 
 
 async def send_mail_new_draft(
-    email_to: List[str],
-    context: MailContentType
+    context: Any,
+    finding_id: str,
+    finding_title: str,
+    group_name: str,
+    analyst_email: str
 ) -> None:
+    org_name = await _get_organization_name(context, group_name)
+    recipients = FI_MAIL_REVIEWERS.split(',')
+    email_context: MailContentType = {
+        'analyst_email': analyst_email,
+        'finding_id': finding_id,
+        'finding_name': finding_title,
+        'finding_url': (
+            f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
+            f'/drafts/{finding_id}/description'
+        ),
+        'project': group_name,
+        'organization': org_name
+    }
     await send_mails_async_new(
-        email_to,
-        context,
+        recipients,
+        email_context,
         GENERAL_TAG,
         (
-            f'New draft submitted in [{context["project"]}] - '
-            f'[Finding#{context["finding_id"]}]'
+            f'New draft submitted in [{group_name}] - '
+            f'[Finding#{finding_id}]'
         ),
         'new_draft'
     )
@@ -169,37 +202,65 @@ async def send_mail_new_remediated(
     )
 
 
-async def send_mail_reject_draft(
-    email_to: List[str],
-    context: MailContentType
+async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
+    context: Any,
+    draft_id: str,
+    finding_name: str,
+    group_name: str,
+    discoverer_email: str,
+    reviewer_email: str
 ) -> None:
-    await send_mails_async_new(
-        email_to,
-        context,
-        GENERAL_TAG,
-        (
-            f'Draft unsubmitted in [{context["project"]}] - '
-            f'#{context["finding_id"]}'
+    org_name = await _get_organization_name(context, group_name)
+    recipients = FI_MAIL_REVIEWERS.split(',')
+    recipients.append(discoverer_email)
+    email_context: MailContentType = {
+        'admin_mail': reviewer_email,
+        'analyst_mail': discoverer_email,
+        'draft_url': (
+            f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
+            f'/drafts/{draft_id}/description'
         ),
+        'finding_id': draft_id,
+        'finding_name': finding_name,
+        'project': group_name,
+        'organization': org_name
+    }
+    await send_mails_async_new(
+        recipients,
+        email_context,
+        GENERAL_TAG,
+        f'Draft unsubmitted in [{group_name}] - #{draft_id}',
         'unsubmitted_draft'
     )
 
 
-async def send_mail_remediate_finding(
-    email_to: List[str],
-    context: MailContentType
+async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
+    context: Any,
+    user_email: str,
+    finding_id: str,
+    finding_name: str,
+    group_name: str,
+    justification: str
 ) -> None:
-    context['solution_description'] = (
-        f'"{context["solution_description"]}"'.splitlines()
-    )
-    await send_mails_async_new(
-        email_to,
-        context,
-        VERIFY_TAG,
-        (
-            f'New remediation in [{context["project"]}] - ' +
-            f'[Finding#{context["finding_id"]}]'
+    org_name = await _get_organization_name(context, group_name)
+    recipients = await group_access_domain.get_closers(group_name)
+    mail_context = {
+        'project': group_name.lower(),
+        'organization': org_name,
+        'finding_name': finding_name,
+        'finding_url': (
+            f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
+            f'/vulns/{finding_id}/locations'
         ),
+        'finding_id': finding_id,
+        'user_email': user_email,
+        'solution_description': justification.splitlines()
+    }
+    await send_mails_async_new(
+        recipients,
+        mail_context,
+        VERIFY_TAG,
+        f'New remediation in [{group_name}] - [Finding#{finding_id}]',
         'remediate_finding'
     )
 
@@ -212,14 +273,7 @@ async def send_mail_verified_finding(  # pylint: disable=too-many-arguments
     historic_verification: List[Dict[str, str]],
     vulnerabilities: List[str]
 ) -> None:
-    group_loader = context.group_all
-    group = await group_loader.load(group_name)
-
-    organization_loader = context.organization
-    org_id = group['organization']
-    organization = await organization_loader.load(org_id)
-    org_name = organization['name']
-
+    org_name = await _get_organization_name(context, group_name)
     all_recipients = await group_access_domain.get_users_to_notify(group_name)
     recipients = await in_process(
         vulns_utils.get_reattack_requesters,
@@ -245,8 +299,8 @@ async def send_mail_verified_finding(  # pylint: disable=too-many-arguments
         },
         VERIFY_TAG,
         (
-            f'Finding verified in [{context["project"]}] - '
-            f'[Finding#{context["finding_id"]}]'
+            f'Finding verified in [{group_name}] - '
+            f'[Finding#{finding_id}]'
         ),
         'verified_finding'
     )

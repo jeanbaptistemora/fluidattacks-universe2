@@ -10,16 +10,12 @@ from typing import (
     Tuple,
 )
 
-from aioextensions import (
-    collect,
-    schedule,
-)
+from aioextensions import collect
 from graphql.type.definition import GraphQLResolveInfo
 
 from backend import util
 from backend.typing import (
     Finding as FindingType,
-    MailContent as MailContentType,
     User as UserType,
 )
 from custom_exceptions import (
@@ -31,17 +27,12 @@ from custom_exceptions import (
     NotSubmitted,
 )
 from findings import dal as findings_dal
-from mailer import findings as findings_mail
 from newutils import (
     datetime as datetime_utils,
     findings as findings_utils,
     vulnerabilities as vulns_utils,
 )
 from vulnerabilities import domain as vulns_domain
-from __init__ import (
-    BASE_URL,
-    FI_MAIL_REVIEWERS,
-)
 
 
 async def approve_draft(
@@ -190,37 +181,6 @@ async def list_drafts(
     return cast(List[List[str]], findings)
 
 
-async def send_draft_reject_mail(  # pylint: disable=too-many-arguments
-    context: Any,
-    draft_id: str,
-    finding_name: str,
-    group_name: str,
-    discoverer_email: str,
-    reviewer_email: str
-) -> None:
-    group_loader = context.group_all
-    organization_loader = context.organization
-    group = await group_loader.load(group_name)
-    org_id = group['organization']
-    organization = await organization_loader.load(org_id)
-    org_name = organization['name']
-    recipients = FI_MAIL_REVIEWERS.split(',')
-    recipients.append(discoverer_email)
-    email_context: MailContentType = {
-        'admin_mail': reviewer_email,
-        'analyst_mail': discoverer_email,
-        'draft_url': (
-            f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
-            f'/drafts/{draft_id}/description'
-        ),
-        'finding_id': draft_id,
-        'finding_name': finding_name,
-        'project': group_name,
-        'organization': org_name
-    }
-    schedule(findings_mail.send_mail_reject_draft(recipients, email_context))
-
-
 async def reject_draft(
     context: Any,
     draft_id: str,
@@ -256,34 +216,6 @@ async def reject_draft(
     else:
         raise AlreadyApproved()
     return success
-
-
-async def send_new_draft_mail(
-    context: Any,
-    finding_id: str,
-    finding_title: str,
-    group_name: str,
-    analyst_email: str
-) -> None:
-    group_loader = context.group_all
-    organization_loader = context.organization
-    group = await group_loader.load(group_name)
-    org_id = group['organization']
-    organization = await organization_loader.load(org_id)
-    org_name = organization['name']
-    recipients = FI_MAIL_REVIEWERS.split(',')
-    email_context: MailContentType = {
-        'analyst_email': analyst_email,
-        'finding_id': finding_id,
-        'finding_name': finding_title,
-        'finding_url': (
-            f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
-            f'/drafts/{finding_id}/description'
-        ),
-        'project': group_name,
-        'organization': org_name
-    }
-    schedule(findings_mail.send_mail_new_draft(recipients, email_context))
 
 
 async def submit_draft(  # pylint: disable=too-many-locals
