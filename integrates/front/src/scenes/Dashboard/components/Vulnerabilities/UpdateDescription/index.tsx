@@ -332,7 +332,9 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   }
 
   function handleDeletion(tag: string): void {
-    void deleteTagVuln({
+    // Exception: FP(void operator is necessary)
+    // eslint-disable-next-line
+    void deleteTagVuln({ //NOSONAR
       variables: {
         findingId,
         tag,
@@ -430,7 +432,9 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                 lastTreatment.treatment !== "ACCEPTED_UNDEFINED";
 
               if (changedToRequestZeroRisk) {
-                void requestZeroRisk({
+                // Exception: FP(void operator is necessary)
+                // eslint-disable-next-line
+                void requestZeroRisk({ //NOSONAR
                   variables: {
                     findingId,
                     justification: values.justification,
@@ -441,10 +445,14 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                 });
               } else if (changedToUndefined) {
                 confirm((): void => {
-                  void handleUpdateTreatmentVuln(values);
+                  // Exception: FP(void operator is necessary)
+                  // eslint-disable-next-line
+                  void handleUpdateTreatmentVuln(values); //NOSONAR
                 });
               } else {
-                void handleUpdateTreatmentVuln(values);
+                // Exception: FP(void operator is necessary)
+                // eslint-disable-next-line
+                void handleUpdateTreatmentVuln(values); //NOSONAR
               }
             }
 
