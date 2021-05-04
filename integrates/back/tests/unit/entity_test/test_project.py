@@ -116,9 +116,9 @@ async def test_project():
     assert result['data']['project']['stakeholders'] == [
       {
           "email": "integratesserviceforces@gmail.com",
-          "firstLogin": "2018-02-28 11:54:12",
+          "firstLogin": "2018-02-28 11:54:12",  # NOSONAR
           "invitationState": "CONFIRMED",
-          "lastLogin": "2019-10-29 13:40:37",
+          "lastLogin": "2019-10-29 13:40:37",  # NOSONAR
           "phoneNumber": "-",
           "responsibility": "Test",
           "role": "service_forces",
@@ -611,7 +611,7 @@ async def test_add_git_root_black() -> None:
     result = await _get_result_async({'query': query})
 
     assert 'errors' in result
-    assert result['errors'][0]['message'] == 'Access denied'
+    assert result['errors'][0]['message'] == 'Access denied'  # NOSONAR
 
 
 @pytest.mark.changes_db  # type: ignore
@@ -654,7 +654,7 @@ async def test_add_git_root_invalid_branch() -> None:
     result = await _get_result_async({'query': query})
 
     assert 'errors' in result
-    assert 'value is not valid' in result['errors'][0]['message']
+    assert 'value is not valid' in result['errors'][0]['message']  # NOSONAR
 
 
 async def test_add_git_root_invalid_url() -> None:
@@ -905,7 +905,7 @@ async def test_update_git_root_nonexistent() -> None:
     result = await _get_result_async({'query': query})
 
     assert 'errors' in result
-    assert 'root not found' in result['errors'][0]['message']
+    assert 'root not found' in result['errors'][0]['message']  # NOSONAR
 
 
 @pytest.mark.changes_db  # type: ignore
