@@ -1,3 +1,6 @@
+# Standar library
+from typing import Set
+
 # Local libraries
 from sast.query import get_vulnerabilities_from_n_ids
 from utils import (
@@ -7,6 +10,14 @@ from model import (
     core_model,
     graph_model,
 )
+
+
+def build_qualified(graph: graph_model.GraphDB, qualified_id: str) -> str:
+    labels = [
+        graph.nodes[n_id]["label_text"]
+        for n_id in g.adj_ast(graph, qualified_id)
+    ]
+    return "".join(labels)
 
 
 def java_declaration_of_throws_for_generic_exception(
@@ -62,8 +73,62 @@ def java_declaration_of_throws_for_generic_exception(
     )
 
 
+def c_sharp_insecure_exceptions(
+    graph_db: graph_model.GraphDB,
+) -> core_model.Vulnerabilities:
+    def n_ids() -> graph_model.GraphShardNodes:
+        insecure_exceptions: Set[str] = {
+            # Generic
+            "Exception",
+            "ApplicationException",
+            "SystemException",
+            "System.Exception",
+            "System.ApplicationException",
+            "System.SystemException",
+            # Unrecoverable
+            "NullReferenceException",
+            "system.NullReferenceException",
+        }
+        for shard in graph_db.shards_by_langauge(
+            graph_model.GraphShardMetadataLanguage.CSHARP,
+        ):
+            graph = shard.graph
+
+            for catch_declaration in g.filter_nodes(
+                graph,
+                nodes=graph.nodes,
+                predicate=g.pred_has_labels(label_type="catch_declaration"),
+            ):
+                match_identifiers = g.match_ast_group(
+                    graph, catch_declaration, "identifier", "qualified_name"
+                )
+                if _qualified := match_identifiers["qualified_name"]:
+                    qualified = _qualified.pop()
+                    exception = build_qualified(graph, qualified)
+                    if exception in insecure_exceptions:
+                        yield shard, qualified
+                else:
+                    exceptions = {
+                        n_id
+                        for n_id in match_identifiers["identifier"] or set()
+                        if graph.nodes[n_id]["label_text"]
+                        in insecure_exceptions
+                    }
+                    if exceptions:
+                        yield shard, exceptions.pop()
+
+    return get_vulnerabilities_from_n_ids(
+        cwe=("396",),
+        desc_key="src.lib_path.f060.insecure_exceptions.description",
+        desc_params=dict(lang="CSharp"),
+        finding=FINDING,
+        graph_shard_nodes=n_ids(),
+    )
+
+
 # Constants
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F060
 QUERIES: graph_model.Queries = (
     (FINDING, java_declaration_of_throws_for_generic_exception),
+    (FINDING, c_sharp_insecure_exceptions),
 )

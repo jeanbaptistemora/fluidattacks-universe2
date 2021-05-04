@@ -1,6 +1,36 @@
-try {}
-catch (NullReferenceException e) when (e.ParamName == "…") { log() }
-catch (NullReferenceException) when (e.ParamName == "…") { log() }
-catch (System.ApplicationException) { log() }
-catch (System.Exception e) { log() }
-catch (SafeException e) { log() }
+class TryFinallyTest
+{
+    static void ProcessString(string s)
+    {
+        if (s == null)
+        {
+            throw new ArgumentNullException();
+        }
+    }
+
+    static void Main()
+    {
+        string s = null; // For demonstration purposes.
+
+        try
+        {
+            ProcessString(s);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("{0} Exception caught.", e);
+        }
+        catch (NullReferenceException e)
+        {
+            Console.WriteLine("{0} Exception caught.", e);
+        }
+        catch (System.ApplicationException e)
+        {
+            Console.WriteLine("{0} Exception caught.", e);
+        }
+        catch (SafeException e)
+        {
+            Console.WriteLine("{0} Exception caught.", e);
+        }
+    }
+}
