@@ -43,6 +43,9 @@ from .dal import (
     get_org_finding_policy,
     update_finding_policy_status,
 )
+from .types import (
+    OrgFindingPolicy,
+)
 
 
 async def get_finding_policy(
@@ -319,3 +322,21 @@ async def _update_treatment_in_org_groups(
         )
         for finding_id in findings_ids
     ])
+
+
+async def get_org_policies(
+    *,
+    org_name: str
+) -> Tuple[OrgFindingPolicy, ...]:
+    finding_policies = await get_org_finding_policies(
+        org_name=org_name
+    )
+    return tuple(
+        OrgFindingPolicy(
+            id=policy.id,
+            last_status_update=policy.state.modified_date,
+            name=policy.metadata.name,
+            status=policy.state.status
+        )
+        for policy in finding_policies
+    )
