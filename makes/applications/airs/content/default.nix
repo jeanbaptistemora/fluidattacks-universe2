@@ -27,6 +27,9 @@ makeEntrypoint {
       nixpkgs.nodejs
       nixpkgs.utillinux
     ];
+    envSources = [
+      packages.airs.fontawesome
+    ];
     envUtils = [
       "/makes/utils/aws"
       "/makes/utils/sops"

@@ -16,6 +16,9 @@ makeEntrypoint {
     envPaths = [
       nixpkgs.nodejs
     ];
+    envSources = [
+      packages.airs.fontawesome
+    ];
     envUtils = [
       "/makes/utils/aws"
       "/makes/utils/lint-typescript"

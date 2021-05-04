@@ -38,9 +38,7 @@ function main {
             content/pages/products/defends \
             content/pages/products/rules \
       &&  copy __envAirsNpm__/node_modules 'node_modules' \
-      &&  npm install @fortawesome/fontawesome-pro @fortawesome/pro-duotone-svg-icons \
-            @fortawesome/pro-light-svg-icons @fortawesome/pro-regular-svg-icons \
-            @fortawesome/pro-solid-svg-icons \
+      &&  install_fontawesome_pro \
       &&  if test -n "${CI:-}" && test "${CI_COMMIT_REF_NAME}" != "master"
           then
             HOME=. ./node_modules/.bin/gatsby build --prefix-paths
