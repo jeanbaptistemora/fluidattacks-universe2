@@ -50,7 +50,7 @@ def get_subscription_files_df(fusion_path: str) -> DataFrame:
 def update_integrates_toes(group_name: str, csv_name: str) -> None:
     with open(csv_name, 'r') as csv_file:
         reader = csv.DictReader(csv_file)
-        with ThreadPoolExecutor(max_workers=16) as executor:
+        with ThreadPoolExecutor(max_workers=8) as executor:
             for predicted_file in reader:
                 executor.submit(
                     update_toe_lines_sorts,

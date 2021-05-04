@@ -125,7 +125,6 @@ sorts.execute:
   <<: *sorts_in_schedule_execute
   stage: test-code
   interruptible: false
-  parallel: 15
 
 sorts.train:
   <<: *makes
