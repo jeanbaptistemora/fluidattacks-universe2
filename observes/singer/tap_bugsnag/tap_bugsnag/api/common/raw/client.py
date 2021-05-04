@@ -24,7 +24,7 @@ def _get(
 ) -> Response:
     response = requests.get(
         f"{API_URL_BASE}{endpoint}",
-        headers={"Authorization": f"token {creds.api_key}", "X-Version": 2},
+        headers={"Authorization": f"token {creds.api_key}", "X-Version": "2"},
         params=params,
     )
     return response

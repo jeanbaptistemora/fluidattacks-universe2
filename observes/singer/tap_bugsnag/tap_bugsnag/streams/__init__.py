@@ -23,9 +23,7 @@ ALL = AllPages()
 def _to_singer(
     stream: SupportedStreams, page: ApiPage
 ) -> Iterator[SingerRecord]:
-    return iter(
-        map(lambda item: SingerRecord(stream.value.lower(), item), page.data)
-    )
+    return (SingerRecord(stream.value.lower(), item) for item in page.data)
 
 
 def _emit_pages(stream: SupportedStreams, pages: Iterator[ApiPage]) -> None:

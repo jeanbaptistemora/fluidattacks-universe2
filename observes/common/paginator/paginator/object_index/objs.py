@@ -34,7 +34,7 @@ class PageResult(
     def __init__(
         self,
         data: _Data,
-        next_item: str,
+        next_item: Maybe[str],
         total_items: Maybe[int],
     ) -> None:
         super().__init__(
@@ -50,7 +50,7 @@ class PageResult(
         return self._inner_value["data"]
 
     @property
-    def next_item(self) -> str:
+    def next_item(self) -> Maybe[str]:
         return self._inner_value["next_item"]
 
     @property

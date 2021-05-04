@@ -1,6 +1,7 @@
 # pylint: skip-file
 # Standard libraries
 from __future__ import annotations
+import re
 from typing import (
     Any,
     Iterator,
@@ -44,6 +45,12 @@ def _guarantee_list_json_type(raw: Any) -> None:
     raise TypeCheckFail(f"raw is not a List[JSON]. raw: {raw}")
 
 
+def _extract_offset(link: str) -> Maybe[str]:
+    match = Maybe.from_optional(re.match("offset=([a-zA-Z0-9]+)", link))
+    is_next = re.match('rel="next"', link)
+    return match.map(lambda x: x.group(1)) if is_next else Maybe.empty
+
+
 class OrgsPage(NamedTuple):
     data: List[JSON]
 
@@ -53,7 +60,7 @@ class OrgsPage(NamedTuple):
             data = response.json()
             if not data:
                 return Maybe.empty
-            next_item = response.headers["Link"]
+            next_item = _extract_offset(response.headers["Link"])
             total: Maybe[int] = Maybe.from_optional(
                 response.headers.get("X-Total-Count", None)
             ).map(int)
