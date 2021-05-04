@@ -567,7 +567,7 @@ class FindingEnum(Enum):
         attack_vector=AttackVector.network,
         availability_impact=AvailabilityImpact.none,
         confidentiality_impact=ConfidentialityImpact.none,
-        exploitability=Exploitability.unproven,
+        exploitability=Exploitability.poc,
         integrity_impact=IntegrityImpact.low,
         privileges_required=PrivilegesRequired.none,
         remediation_level=RemediationLevel.official_fix,
