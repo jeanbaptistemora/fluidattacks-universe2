@@ -11,7 +11,6 @@ from requests.models import Response
 from returns.io import (
     IO,
     IOFailure,
-    IOResult,
     IOSuccess,
 )
 from returns.maybe import Maybe
@@ -20,6 +19,7 @@ from returns.maybe import Maybe
 from paginator.object_index import (
     PageId,
 )
+from tap_bugsnag.api.auth import Credentials
 from tap_bugsnag.api.common.raw import handlers
 from tap_bugsnag.api.common.raw.handlers import RawResponse
 from tap_bugsnag.api.common.raw.client import (
@@ -67,5 +67,9 @@ class RawApi(NamedTuple):
         )
 
     @classmethod
-    def new(cls, client: Client) -> RawApi:
+    def from_client(cls, client: Client) -> RawApi:
         return cls(client)
+
+    @classmethod
+    def new(cls, creds: Credentials) -> RawApi:
+        return RawApi.from_client(Client.new(creds))

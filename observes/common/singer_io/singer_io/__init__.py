@@ -1,7 +1,6 @@
 # Standard libraries
-from typing import (
-    Any,
-    Dict,
-)
+from singer_io.common import JSON
 
-JSON = Dict[str, Any]
+__all__ = [
+    "JSON",
+]
