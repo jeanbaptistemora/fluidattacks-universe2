@@ -11,12 +11,18 @@ from . import query
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('create_project')
-async def test_admin(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['admin@gmail.com'],
+    ]
+)
+async def test_create_project(populate: bool, email: str):
     assert populate
     org_name: str = 'orgtest'
     group_name: str = 'group1'
     result: Dict[str, Any] = await query(
-        user='admin@gmail.com',
+        user=email,
         org=org_name,
         group=group_name
     )
@@ -27,28 +33,20 @@ async def test_admin(populate: bool):
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('create_project')
-async def test_analyst(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['analyst@gmail.com'],
+        ['closer@gmail.com'],
+        ['resourcer@gmail.com'],
+    ]
+)
+async def test_create_project_fail(populate: bool, email: str):
     assert populate
     org_name: str = 'orgtest'
     group_name: str = 'group1'
     result: Dict[str, Any] = await query(
-        user='analyst@gmail.com',
-        org=org_name,
-        group=group_name
-    )
-    assert 'errors' in result
-    assert result['errors'][0]['message'] == 'Access denied'
-
-
-
-@pytest.mark.asyncio
-@pytest.mark.resolver_test_group('create_project')
-async def test_analyst(populate: bool):
-    assert populate
-    org_name: str = 'orgtest'
-    group_name: str = 'group1'
-    result: Dict[str, Any] = await query(
-        user='analyst@gmail.com',
+        user=email,
         org=org_name,
         group=group_name
     )

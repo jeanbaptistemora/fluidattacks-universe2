@@ -18,6 +18,7 @@ from . import query
         ['analyst@gmail.com'],
         ['closer@gmail.com'],
         ['executive@gmail.com'],
+        ['resourcer@gmail.com'],
     ]
 )
 async def test_get_project(populate: bool, email: str):
