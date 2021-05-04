@@ -40,17 +40,18 @@ async def mutate(
     )
     if success:
         redis_del_by_deps_soon('reject_draft', finding_id=finding_id)
-        finding_loader = info.context.loaders.finding
-        finding = await finding_loader.load(finding_id)
-        findings_domain.send_finding_mail(
-            info.context.loaders,
-            findings_domain.send_draft_reject_mail,
-            finding_id,
-            str(finding.get('title', '')),
-            str(finding.get('project_name', '')),
-            str(finding.get('analyst', '')),
-            reviewer_email
-        )
+        if util.get_source(info.context) != 'skims':
+            finding_loader = info.context.loaders.finding
+            finding = await finding_loader.load(finding_id)
+            findings_domain.send_finding_mail(
+                info.context.loaders,
+                findings_domain.send_draft_reject_mail,
+                finding_id,
+                str(finding.get('title', '')),
+                str(finding.get('project_name', '')),
+                str(finding.get('analyst', '')),
+                reviewer_email
+            )
         util.cloudwatch_log(
             info.context,
             f'Security: Draft {finding_id} rejected successfully'
