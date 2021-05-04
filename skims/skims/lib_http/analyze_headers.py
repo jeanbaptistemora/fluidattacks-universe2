@@ -71,7 +71,7 @@ def _create_vulns(
             ),
             where=translation,
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
-                cwe=("644",),
+                cwe=(finding.value.cwe,),
                 description=translation,
                 snippet=as_string.snippet(
                     url=ctx.url,

@@ -3,6 +3,8 @@ from queue import (
     SimpleQueue,
 )
 from typing import (
+    Any,
+    Callable,
     Dict,
     Optional,
     Set,
@@ -61,6 +63,11 @@ async def analyze_one(
     stores: Dict[core_model.FindingEnum, EphemeralStore],
     unique_count: int,
 ) -> None:
+    checks: Dict[
+        core_model.FindingEnum,
+        Callable[[Any], core_model.Vulnerabilities],
+    ]
+
     await log("info", "Analyzing http %s of %s: %s", index, unique_count, url)
 
     for get_check_ctx, checks in (
