@@ -1,5 +1,20 @@
 # Standard
-from typing import NamedTuple, Union
+from typing import Tuple, NamedTuple, Union
+
+
+class FindingState(NamedTuple):
+    modified_by: str
+    modified_date: str
+    source: str
+    status: str
+
+
+class FindingVerification(NamedTuple):
+    comment_id: str
+    modified_by: str
+    modified_date: str
+    status: str
+    vuln_uuids: Tuple[str, ...]
 
 
 class FindingEvidence(NamedTuple):
@@ -16,6 +31,12 @@ class FindingEvidences(NamedTuple):
     evidence4: FindingEvidence
     evidence5: FindingEvidence
     exploitation: FindingEvidence
+
+
+class FindingRecords(NamedTuple):
+    description: str
+    modified_date: str
+    url: str
 
 
 class Finding20Severity(NamedTuple):
@@ -77,10 +98,12 @@ class Finding(NamedTuple):
     scenario: str
     severity: Union[Finding20Severity, Finding31Severity]
     sorts: str
-    records: FindingEvidence
+    state: FindingState
+    records: FindingRecords
     risk: str
     recommendation: str
     requirements: str
     title: str
     threat: str
     type: str
+    verification: FindingVerification

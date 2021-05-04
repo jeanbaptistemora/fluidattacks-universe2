@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Apr 29, 2021, 06:25 PM",
+    "DateLastModified": "May 04, 2021, 09:14 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -368,6 +368,10 @@
         },
         {
           "AttributeName": "severity",
+          "AttributeType": "M"
+        },
+        {
+          "AttributeName": "records",
           "AttributeType": "M"
         },
         {
@@ -1982,6 +1986,19 @@
               },
               "attack_vector_desc": {
                 "S": "This is an updated attack vector"
+              },
+              "records": {
+                "M": {
+                  "modified_date": {
+                    "S": "2021-02-15T14:01:16Z"
+                  },
+                  "description": {
+                    "S": "Records description"
+                  },
+                  "url": {
+                    "S": "unittesting-463558592-evidence_route_1"
+                  }
+                }
               }
             }
           ],
@@ -2007,7 +2024,8 @@
             "scenario",
             "bts_url",
             "attack_vector_desc",
-            "evidences"
+            "evidences",
+            "records"
           ],
           "DataAccess": {
             "MySql": {}
