@@ -8,7 +8,7 @@
   color: #fff;
   cursor: pointer;
   font-family: "Montserrat", sans-serif;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 :local .container ul {
@@ -61,6 +61,7 @@
 
 :local .menuList {
   margin-top: 30px;
+  padding-left: 0;
 }
 
 :local .bottomBar {

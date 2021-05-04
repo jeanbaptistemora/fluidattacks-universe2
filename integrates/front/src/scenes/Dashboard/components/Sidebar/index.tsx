@@ -1,7 +1,16 @@
+import {
+  faFolderPlus,
+  faKey,
+  faSignOutAlt,
+  faUserPlus,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import React from "react";
 import { slide as BurgerMenu } from "react-burger-menu";
 import Media from "react-media";
+
+import { LogoutButton, MenuButton } from "./styles";
 
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
@@ -58,52 +67,43 @@ const sidebar: React.FC<ISidebarProps> = (
       />
       <ul className={style.menuList}>
         <Can do={"backend_api_mutations_add_stakeholder_mutate"}>
-          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
-          <li onClick={onOpenAddUserModal}>
+          <li>
             <TooltipWrapper
               id={"addUser"}
               message={translate.t("sidebar.user.tooltip")}
               placement={"right"}
             >
-              <div className={style.item}>
-                <i className={"icon pe-7s-plus"} />
-                <span className={style.label}>
-                  {translate.t("sidebar.user.text")}
-                </span>
-              </div>
+              <MenuButton onClick={onOpenAddUserModal}>
+                <FontAwesomeIcon icon={faUserPlus} />
+                {translate.t("sidebar.user.text")}
+              </MenuButton>
             </TooltipWrapper>
           </li>
         </Can>
         <Can do={"backend_api_mutations_create_organization_mutate"}>
-          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
-          <li onClick={onOpenAddOrganizationModal}>
+          <li>
             <TooltipWrapper
               id={"addOrg"}
               message={translate.t("sidebar.newOrganization.tooltip")}
               placement={"right"}
             >
-              <div className={style.item}>
-                <i className={"icon pe-7s-plus"} />
-                <span className={style.label}>
-                  {translate.t("sidebar.newOrganization.text")}
-                </span>
-              </div>
+              <MenuButton onClick={onOpenAddOrganizationModal}>
+                <FontAwesomeIcon icon={faFolderPlus} />
+                &nbsp;{translate.t("sidebar.newOrganization.text")}
+              </MenuButton>
             </TooltipWrapper>
           </li>
         </Can>
-        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
-        <li onClick={onOpenAccessTokenModal}>
+        <li>
           <TooltipWrapper
             id={"apiToken"}
             message={translate.t("sidebar.token.tooltip")}
             placement={"right"}
           >
-            <div className={style.item}>
-              <i className={"icon pe-7s-user"} />
-              <span className={style.label}>
-                {translate.t("sidebar.token.text")}
-              </span>
-            </div>
+            <MenuButton onClick={onOpenAccessTokenModal}>
+              <FontAwesomeIcon icon={faKey} />
+              &nbsp;{translate.t("sidebar.token.text")}
+            </MenuButton>
           </TooltipWrapper>
         </li>
       </ul>
@@ -151,15 +151,9 @@ const sidebar: React.FC<ISidebarProps> = (
               }
 
               return (
-                <ul className={"mt0"}>
-                  {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
-                  <li onClick={handleLogoutClick}>
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <a>
-                      <span className={"icon pe-7s-power"} />
-                    </a>
-                  </li>
-                </ul>
+                <LogoutButton onClick={handleLogoutClick}>
+                  <FontAwesomeIcon icon={faSignOutAlt} />
+                </LogoutButton>
               );
             }}
           </ConfirmDialog>
