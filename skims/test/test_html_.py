@@ -2,7 +2,7 @@
 import pytest
 
 # Local libraries
-from utils.html import (
+from html_ import (
     is_html,
 )
 

@@ -17,6 +17,10 @@ from aioextensions import (
 import bs4
 
 # Local libraries
+from html_ import (
+    get_sameorigin_urls,
+    is_html,
+)
 from lib_http import (
     analyze_headers,
 )
@@ -35,10 +39,6 @@ from utils.ctx import (
 from utils.function import (
     rate_limited,
     shield,
-)
-from utils.html import (
-    get_sameorigin_urls,
-    is_html,
 )
 from utils.http import (
     create_session,
