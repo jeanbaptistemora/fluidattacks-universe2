@@ -178,7 +178,7 @@ def enforce_group_level_auth_async(func: TVar) -> TVar:
         elif hasattr(args[1], 'context'):
             context = args[1].context
         else:
-            GraphQLError('Could not get context from request.')
+            GraphQLError('Could not get context from request.')  # NOSONAR
 
         if isinstance(context, dict):
             context = context.get('request', {})
@@ -202,7 +202,7 @@ def enforce_group_level_auth_async(func: TVar) -> TVar:
         enforcer = await authz.get_group_level_enforcer(subject, store)
         if not enforcer(object_, action):
             util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
-            raise GraphQLError('Access denied')
+            raise GraphQLError('Access denied')  # NOSONAR
         return await _func(*args, **kwargs)
     return cast(TVar, verify_and_call)
 
