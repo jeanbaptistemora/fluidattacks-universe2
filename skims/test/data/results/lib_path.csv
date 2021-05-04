@@ -234,7 +234,8 @@ F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/swift.swift,7,
 F060. Insecure exceptions,namespace/skims/test/data/lib_path/f060/swift.swift,9,396
 F060. Insecure exceptions,namespace/skims/test/data/lib_path/f061/swift.swift,7,396
 F061. Errors without traceability,namespace/skims/test/data/lib_path/f031_cwe378/Test.java,7,390
-F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/csharp.cs,2,390
+F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/csharp.cs,12,390
+F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/csharp.cs,15,390
 F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/java.java,2,390
 F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/javascript.js,3,390
 F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/javascript.js,4,390

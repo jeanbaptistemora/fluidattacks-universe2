@@ -24,7 +24,6 @@ from lib_path.common import (
     get_vulnerabilities_blocking,
     get_vulnerabilities_from_iterator_blocking,
     C_STYLE_COMMENT,
-    EXTENSIONS_CSHARP,
     EXTENSIONS_JAVA,
     EXTENSIONS_JAVASCRIPT,
     EXTENSIONS_PYTHON,
@@ -49,50 +48,6 @@ from utils.function import (
 from zone import (
     t,
 )
-
-
-def _csharp_swallows_exceptions(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    # Empty() grammar matches 'anything'
-    # ~Empty() grammar matches 'not anything' or 'nothing'
-    grammar = (
-        Keyword("catch")
-        + Optional(nestedExpr(opener="(", closer=")"))
-        + Optional(Keyword("when") + nestedExpr(opener="(", closer=")"))
-        + nestedExpr(opener="{", closer="}", content=~Empty())
-    )
-    grammar.ignore(C_STYLE_COMMENT)
-    grammar.ignore(DOUBLE_QUOTED_STRING)
-    grammar.ignore(SINGLE_QUOTED_STRING)
-
-    return get_vulnerabilities_blocking(
-        content=content,
-        cwe={"390"},
-        description=t(
-            key="src.lib_path.f061.swallows_exceptions.description",
-            lang="C#",
-            path=path,
-        ),
-        finding=core_model.FindingEnum.F061,
-        grammar=grammar,
-        path=path,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def csharp_swallows_exceptions(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _csharp_swallows_exceptions,
-        content=content,
-        path=path,
-    )
 
 
 def _javascript_swallows_exceptions(
@@ -282,14 +237,7 @@ async def analyze(
 ) -> List[Awaitable[core_model.Vulnerabilities]]:
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
-    if file_extension in EXTENSIONS_CSHARP:
-        coroutines.append(
-            csharp_swallows_exceptions(
-                content=await content_generator(),
-                path=path,
-            )
-        )
-    elif file_extension in EXTENSIONS_JAVA:
+    if file_extension in EXTENSIONS_JAVA:
         coroutines.append(
             java_swallows_exceptions(
                 content=await content_generator(),

@@ -1,2 +1,19 @@
-try {
-} catch (ArgumentException e) when (e.ParamName == "…") { /* Unhandled */ }
+class Test
+{
+    static void Main()
+    {
+        string s = null; // For demonstration purposes.
+
+        try
+        {
+            int a = 1 / 0;
+        }
+        catch (SafeException e)
+        {
+        }
+        catch (SafeException e)
+        {
+            // Empty
+        }
+    }
+}

@@ -15,6 +15,7 @@ from lib_path.common import (
 )
 from lib_root import (
     f060,
+    f061,
     f073,
 )
 from model import (
@@ -43,6 +44,7 @@ from utils.logs import (
 
 QUERIES: graph_model.Queries = (
     *f060.QUERIES,
+    *f061.QUERIES,
     *f073.QUERIES,
     *sast_query.QUERIES,
 )
