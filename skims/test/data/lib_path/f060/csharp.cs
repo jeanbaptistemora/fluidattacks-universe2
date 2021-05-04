@@ -4,7 +4,7 @@ class TryFinallyTest
     {
         if (s == null)
         {
-            throw new ArgumentNullException();
+            throw new System.IndexOutOfRangeException();
         }
     }
 
