@@ -9,6 +9,7 @@ from typing import (
 from typing_extensions import final
 
 # Third party libraries
+from returns.io import IO
 from returns.maybe import Maybe
 from returns.primitives.container import BaseContainer
 from returns.primitives.hkt import SupportsKind1
@@ -59,3 +60,4 @@ class PageResult(
 
 PageOrAll = Union[AllPages, PageId]
 PageGetter = Callable[[PageId], Maybe[PageResult[_Data]]]
+PageGetterIO = Callable[[PageId], IO[Maybe[PageResult[_Data]]]]
