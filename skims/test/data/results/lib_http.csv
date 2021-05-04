@@ -174,3 +174,8 @@ F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48
 F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48000/f043_dast_xfo_3 (namespace),Missing X-Content-Type-Options,644
 F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48000/f086_0 (namespace),Missing X-Content-Type-Options,644
 F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48000/static/[filename] (namespace),Missing X-Content-Type-Options,644
+F086. Missing subresource integrity check,http://localhost:48000/f086_0 (namespace),11,353
+F086. Missing subresource integrity check,http://localhost:48000/f086_0 (namespace),6,353
+F086. Missing subresource integrity check,http://localhost:48000/f086_0 (namespace),7,353
+F086. Missing subresource integrity check,http://localhost:48000/f086_0 (namespace),8,353
+F086. Missing subresource integrity check,http://localhost:48000/f086_0 (namespace),9,353

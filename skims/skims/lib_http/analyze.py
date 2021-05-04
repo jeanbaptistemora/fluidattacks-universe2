@@ -24,6 +24,7 @@ from html_ import (
     is_html,
 )
 from lib_http import (
+    analyze_content,
     analyze_headers,
 )
 from lib_http.types import (
@@ -70,7 +71,8 @@ async def analyze_one(
 
     await log("info", "Analyzing http %s of %s: %s", index, unique_count, url)
 
-    for get_check_ctx, checks in (
+    for get_check_ctx, checks in (  # type: ignore
+        (analyze_content.get_check_ctx, analyze_content.CHECKS),
         (analyze_headers.get_check_ctx, analyze_headers.CHECKS),
     ):
         for finding, check in checks.items():
