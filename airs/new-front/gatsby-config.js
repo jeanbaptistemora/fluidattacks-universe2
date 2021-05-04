@@ -5,7 +5,7 @@ module.exports = {
     description:
       "We're a pentesting and ethical hacking company that identifies and \
       reports all your applications and software vulnerabilities ASAP.",
-    image: "/images/logo-fluid-attacks.png", // Path to your image you placed in the 'static' folder
+    image: "https://res.cloudinary.com/fluid-attacks/image/upload/v1619554789/airs/logo-fluid-attacks-light_lsckin.webp",
     keywords:
       "Fluid Attacks, Pentesting, Ethical Hacking, Security Testing, Cybersecurity",
     siteUrl: "https://fluidattacks.com", // No trailing slash allowed!

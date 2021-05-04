@@ -3,7 +3,7 @@
 /* eslint react/forbid-component-props: 0 */
 /* eslint fp/no-mutation:0 */
 /* eslint react/jsx-no-bind:0 */
-import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft, faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import type { StyledComponent } from "styled-components";
