@@ -245,10 +245,7 @@ F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/swift.
 F061. Errors without traceability,namespace/skims/test/data/lib_path/f061/swift.swift,7,390
 F063. Lack of data validation - Path Traversal,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,22
 F063. Lack of data validation - Path Traversal,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,22
-F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/Test.cs,20,478
-F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/Test.cs,3,478
-F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/Test.cs,41,478
-F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/Test.cs,44,478
+F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/Test.cs,22,478
 F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/Test.java,44,478
 F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/Test.java,92,478
 F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/Test2.java,23,478
