@@ -26,6 +26,7 @@ from comments import dal as comments_dal
 from events import domain as events_domain
 from findings import domain as findings_domain
 from group_comments import domain as group_comments_domain
+from groups import domain as groups_domain
 from mailer import groups as groups_mail
 from newutils import (
     bugsnag as bugsnag_utils,
@@ -112,6 +113,7 @@ async def get_total_reattacks_stats(
     reattacks_requested: int = 0
     reattacks_executed: int = 0
     pending_attacks: int = 0
+    effective_reattacks: int = 0
     last_day = datetime_utils.get_now_minus_delta(hours=24)
     finding_vulns_loader = context.finding_vulns_nzr
 
@@ -131,12 +133,19 @@ async def get_total_reattacks_stats(
                 vuln.get('last_reattack_date', ''))
             if last_reattack_date >= last_day:
                 reattacks_executed += 1
+                if vuln.get('current_state', '') == 'closed':
+                    effective_reattacks += 1
         if vuln.get('verification', '') == 'Requested':
             pending_attacks += 1
+
+    reattack_effectiveness = int(
+        100 * effective_reattacks / reattacks_executed)
+
     return {
         'reattacks_requested': reattacks_requested,
         'reattacks_executed': reattacks_executed,
         'pending_attacks': pending_attacks,
+        'reattack_effectiveness': reattack_effectiveness,
     }
 
 
@@ -248,8 +257,12 @@ async def get_group_statistics(context: Any, group_name: str) -> None:
         'reattacks_executed', 0)
     mail_context['reattacks']['pending_attacks'] = reattacks.get(
         'pending_attacks', 0)
+    mail_context['reattack_effectiveness'] = reattacks.get(
+        'reattack_effectiveness', 0)
     mail_context['queries'] = await get_total_comments(
         valid_findings, group_name)
+    mail_context['remediation_time'] = int(
+        await groups_domain.get_mean_remediate(context, group_name))
 
     mail_to = FI_MAIL_DIGEST.split(',')
     await schedule(groups_mail.send_mail_daily_digest(mail_to, mail_context))
