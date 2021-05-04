@@ -63,13 +63,12 @@ async def analyze_one(
 ) -> None:
     await log("info", "Analyzing http %s of %s: %s", index, unique_count, url)
 
-    for should_run, analyzer in (
-        (analyze_headers.should_run, analyze_headers.analyze),
+    for analyzer, checks in (
+        (analyze_headers.analyze, analyze_headers.CHECKS),
     ):
-        if should_run():
-            for vulnerabilities in analyzer(url):
-                for vulnerability in await vulnerabilities:
-                    await stores[vulnerability.finding].store(vulnerability)
+        if any(finding in CTX.config.checks for finding in checks):
+            for vulnerability in analyzer(url):
+                await stores[vulnerability.finding].store(vulnerability)
 
 
 def should_include_url(url: URLContext) -> bool:

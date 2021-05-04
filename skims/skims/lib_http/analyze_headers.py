@@ -3,7 +3,6 @@ from itertools import (
     chain,
 )
 from typing import (
-    Awaitable,
     Callable,
     Dict,
     List,
@@ -308,15 +307,11 @@ def _x_content_type_options(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
-async def http_headers_configuration(
-    url: URLContext,
-) -> core_model.Vulnerabilities:
+def analyze(url: URLContext) -> core_model.Vulnerabilities:
     headers_parsed: Dict[Type[Header], Header] = {
         type(header_parsed): header_parsed
         for header_raw_name, header_raw_value in reversed(
-            tuple(
-                url.headers_raw.items(),
-            )
+            tuple(url.headers_raw.items())
         )
         for line in [f"{header_raw_name}: {header_raw_value}"]
         for header_parsed in [
@@ -357,18 +352,3 @@ CHECKS: Dict[
     core_model.FindingEnum.F043_DAST_STS: _strict_transport_security,
     core_model.FindingEnum.F043_DAST_XCTO: _x_content_type_options,
 }
-
-
-def analyze(
-    url: URLContext,
-    **_: None,
-) -> List[Awaitable[core_model.Vulnerabilities]]:
-    coroutines: List[Awaitable[core_model.Vulnerabilities]] = [
-        http_headers_configuration(url),
-    ]
-
-    return coroutines
-
-
-def should_run() -> bool:
-    return any(finding in CTX.config.checks for finding in CHECKS)
