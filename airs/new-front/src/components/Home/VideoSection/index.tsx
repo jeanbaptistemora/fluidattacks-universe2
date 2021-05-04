@@ -27,7 +27,7 @@ const VideoSection: React.FC = (): JSX.Element => {
         channel={"youtube"}
         isOpen={isOpen}
         onClose={handleClose}
-        videoId={"bT28BUzKPpg"}
+        videoId={"YqQmG3QrHj8"}
       />
       <PlayItButtonContainer onClick={handleOpen}>
         {"PLAY"}
