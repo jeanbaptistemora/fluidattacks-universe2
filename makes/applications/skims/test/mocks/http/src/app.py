@@ -2,9 +2,9 @@
 from functools import (
     partial,
 )
+import os
 from typing import (
     Callable,
-    Dict,
     List,
 )
 import urllib.parse
@@ -21,6 +21,7 @@ from flask.wrappers import (
 
 
 APP = Flask(__name__)
+ROOT = os.path.dirname(__file__)
 
 
 def add_rule(
@@ -52,11 +53,14 @@ def home() -> Response:
     return Response(content, content_type="text/html")
 
 
-def response_header(
-    headers: Dict[str, str],
-    status: int,
-) -> Response:
-    return Response("<html></html>", headers=headers, status=status)
+def _add_contents(finding: str, paths: List[str]) -> None:
+    for index, path in enumerate(paths):
+        with open(os.path.join(ROOT, path)) as handle:
+            add_rule(
+                finding,
+                index,
+                partial(Response, handle.read()),
+            )
 
 
 def _add_headers(
@@ -69,7 +73,7 @@ def _add_headers(
         add_rule(
             finding,
             index,
-            partial(response_header, headers={header: value}, status=status),
+            partial(Response, headers={header: value}, status=status),
         )
 
 
@@ -160,6 +164,15 @@ def add_f043_dast_xfo() -> None:
     )
 
 
+def add_f086() -> None:
+    _add_contents(
+        finding="f086",
+        paths=[
+            "templates/f086_0.html",
+        ],
+    )
+
+
 def start() -> None:
     APP.run()
 
@@ -170,3 +183,4 @@ add_f043_dast_rp_rules()
 add_f043_dast_sts_rules()
 add_f043_dast_xcto()
 add_f043_dast_xfo()
+add_f086()

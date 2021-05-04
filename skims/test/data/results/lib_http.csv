@@ -67,6 +67,7 @@ F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:4
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f043_dast_xfo_1 (namespace),Missing Content-Security-Policy,644
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f043_dast_xfo_2 (namespace),Missing Content-Security-Policy,644
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f043_dast_xfo_3 (namespace),Missing Content-Security-Policy,644
+F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f086_0 (namespace),Missing Content-Security-Policy,644
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/static/[filename] (namespace),Missing Content-Security-Policy,644
 F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/ (namespace),Missing Referrer-Policy,644
 F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/error (namespace),Missing Referrer-Policy,644
@@ -101,6 +102,7 @@ F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/f04
 F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/f043_dast_xfo_1 (namespace),Missing Referrer-Policy,644
 F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/f043_dast_xfo_2 (namespace),Missing Referrer-Policy,644
 F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/f043_dast_xfo_3 (namespace),Missing Referrer-Policy,644
+F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/f086_0 (namespace),Missing Referrer-Policy,644
 F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/static/[filename] (namespace),Missing Referrer-Policy,644
 F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/ (namespace),Missing Strict-Transport-Security,644
 F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/error (namespace),Missing Strict-Transport-Security,644
@@ -135,6 +137,7 @@ F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost
 F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f043_dast_xfo_1 (namespace),Missing Strict-Transport-Security,644
 F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f043_dast_xfo_2 (namespace),Missing Strict-Transport-Security,644
 F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f043_dast_xfo_3 (namespace),Missing Strict-Transport-Security,644
+F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f086_0 (namespace),Missing Strict-Transport-Security,644
 F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/static/[filename] (namespace),Missing Strict-Transport-Security,644
 F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48000/ (namespace),Missing X-Content-Type-Options,644
 F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48000/error (namespace),Missing X-Content-Type-Options,644
@@ -169,4 +172,5 @@ F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48
 F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48000/f043_dast_xfo_1 (namespace),Missing X-Content-Type-Options,644
 F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48000/f043_dast_xfo_2 (namespace),Missing X-Content-Type-Options,644
 F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48000/f043_dast_xfo_3 (namespace),Missing X-Content-Type-Options,644
+F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48000/f086_0 (namespace),Missing X-Content-Type-Options,644
 F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48000/static/[filename] (namespace),Missing X-Content-Type-Options,644
