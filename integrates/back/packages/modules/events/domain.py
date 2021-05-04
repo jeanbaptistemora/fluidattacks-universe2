@@ -135,9 +135,15 @@ async def create_event(  # pylint: disable=too-many-locals
 
     valid_files: bool = True
     if file:
-        valid_files = valid_files and validate_evidence('evidence_file', file)
+        valid_files = (
+            valid_files and
+            await validate_evidence('evidence_file', file)
+        )
     if image:
-        valid_files = valid_files and validate_evidence('evidence', image)
+        valid_files = (
+            valid_files and
+            await validate_evidence('evidence', image)
+        )
 
     success: bool = False
     if valid_files:
@@ -330,6 +336,7 @@ async def validate_evidence(evidence_type: str, file: UploadFile) -> bool:
             raise InvalidFileType('EVENT_IMAGE')
     else:
         allowed_mimes = [
+            'application/csv',
             'application/pdf',
             'application/zip',
             'text/csv',

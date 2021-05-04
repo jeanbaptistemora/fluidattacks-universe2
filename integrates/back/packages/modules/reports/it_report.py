@@ -390,7 +390,7 @@ class ITReport():
 
         tags = EMPTY
         if 'tag' in row:
-            tags = str(', '.join(cast(List[str], [row.get('tag')])))
+            tags = row.get('tag', '')
 
         self.row_values[vuln['#']] = self.row - 1
         self.row_values[vuln['Related Finding']] = str(finding.get('finding'))
