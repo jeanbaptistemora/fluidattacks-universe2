@@ -76,9 +76,8 @@ def report_queues(queues: List[str], last_hours: int) -> None:
     for job in jobs:
         for job_summary in job["jobSummaryList"]:
             # Timestamps from aws come in miliseconds
-            created_at: float = job_summary["createdAt"] / 1000
-
-            if created_at > NOW - last_hours * HOUR:
+            stopped_at: float = job_summary["stoppedAt"] / 1000
+            if stopped_at > NOW - last_hours * HOUR:
                 report_msg(
                     container=str(job_summary.get("container")),
                     identifier=job_summary["jobId"],
