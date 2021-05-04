@@ -189,6 +189,16 @@ const EvidenceView: React.FC = (): JSX.Element => {
   const MAX_FILE_SIZE = 10;
   const maxFileSize: Validator = isValidFileSize(MAX_FILE_SIZE);
 
+  function setPreffix(name: string): string {
+    if (name === "animation") {
+      return translate.t("searchFindings.tabEvidence.animationExploit");
+    }
+
+    return name === "exploitation"
+      ? translate.t("searchFindings.tabEvidence.evidenceExploit")
+      : "";
+  }
+
   return (
     <React.StrictMode>
       <ButtonToolbarRow>
@@ -244,7 +254,8 @@ const EvidenceView: React.FC = (): JSX.Element => {
                     const handleRemove: () => void = (): void => {
                       track("RemoveEvidence");
                       setEditing(false);
-                      void removeEvidence({
+                      // eslint-disable-next-line
+                      void removeEvidence({ //NOSONAR
                         variables: {
                           evidenceId: name.toUpperCase(),
                           findingId,
@@ -261,16 +272,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
                     const showEmpty: boolean =
                       _.isEmpty(evidence.url) || isRefetching;
 
-                    const preffix: string =
-                      name === "animation"
-                        ? translate.t(
-                            "searchFindings.tabEvidence.animationExploit"
-                          )
-                        : name === "exploitation"
-                        ? translate.t(
-                            "searchFindings.tabEvidence.evidenceExploit"
-                          )
-                        : "";
+                    const preffix: string = setPreffix(name);
                     const altDescription: string =
                       preffix !== "" && evidence.description !== ""
                         ? `${preffix}: ${evidence.description}`
