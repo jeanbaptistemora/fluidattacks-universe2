@@ -11,7 +11,7 @@ const Layout: React.FC<IChildrenProps> = ({
 }: IChildrenProps): JSX.Element => {
   return (
     <React.StrictMode>
-      <div className={"bg-lightgray"}>
+      <div className={"bg-lightgray lh-copy ma0"}>
         <main>{children}</main>
 
         <Footer />

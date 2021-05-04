@@ -49,7 +49,7 @@ function main {
       &&  mv new-front/public . \
       &&  rm -rf new-front/* \
       &&  pushd public \
-          &&  rm -rf about-us advisories careers categories contact-us cookie faq \
+          &&  rm -rf about-us careers categories contact-us cookie faq \
                 partners plans privacy products resources security subscription \
       &&  popd \
       &&  copy public . \

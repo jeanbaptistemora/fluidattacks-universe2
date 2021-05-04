@@ -688,6 +688,7 @@ const RegularRedButton: StyledComponent<
     br2
     bc-fluid-red
     ba
+    roboto
   `,
 })``;
 
@@ -785,6 +786,24 @@ const MarkedPhrase: StyledComponent<
   `,
 })``;
 
+const LittleBannerContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+      bg-banner-sz
+      nt-5
+      cover
+      h-banner
+      justify-center
+      items-center
+      flex bg-center
+      mw-1366
+      ml-auto
+      mr-auto
+    `,
+})``;
+
 export {
   ArticleContainer,
   ArticleTitle,
@@ -816,6 +835,7 @@ export {
   GrayDash,
   HalfScreenContainer,
   HalfScreenContainerSpaced,
+  LittleBannerContainer,
   PlayItButtonContainer,
   CenteredMaxWidthContainer,
   InnerMainContentHome,

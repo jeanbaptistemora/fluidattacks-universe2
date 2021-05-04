@@ -119,7 +119,6 @@ $whiter-gray: rgba(241, 241, 241, 1);
 
 // Box Shadow Classes
 .bs-btm-h-10 { box-shadow: 0 10px 10px $shadow-gray; }
-.shadowbox-blog { box-shadow: 0 10px 10px $shadow-gray; }
 
 // Color classes
 .bc-gray-64 { border-color: $gray-64; }
@@ -195,6 +194,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .mw-1200 { max-width: 1200px; }
 .mw-1366 { max-width: 1366px; }
 .mw-376 { max-width: 376px; }
+.mw-900 { max-width: 900px; }
 
 // Writing moce classes
 .wm-tb-rl { writing-mode: tb-rl; }
@@ -349,7 +349,6 @@ $whiter-gray: rgba(241, 241, 241, 1);
 
 .grid { display: grid; }
 
-
 .services-content,
 .solutions-content {
   background-color: $light-gray;
@@ -455,6 +454,14 @@ $whiter-gray: rgba(241, 241, 241, 1);
     margin: 0;
   }
 
+  .hljs {
+    background: #eee;
+    color: #000;
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+  }
+
   a:not(.link-hvred):not(.button-rules):not(.button-white):not(.button-asserts) {
     border-bottom: 1px solid $fluid-gray;
     color: $fluid-black;
@@ -553,6 +560,26 @@ $whiter-gray: rgba(241, 241, 241, 1);
   pre {
     overflow-y: hidden;
     white-space: pre;
+  }
+}
+
+.internal-advisory {
+  h2 {
+    font-size: 1.75rem !important;
+    margin-bottom: 24px !important;
+    margin-top: 24px !important;
+  }
+
+  p {
+    font-weight: 300 !important;
+  }
+
+  table {
+    width: 100% !important;
+  }
+
+  td {
+    padding: 0 2rem !important;
   }
 }
 
