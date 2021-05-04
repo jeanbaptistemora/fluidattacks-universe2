@@ -15,26 +15,14 @@ resource "okta_app_auto_login" "apps" {
   sign_on_url         = each.value.sign_on_url
   auto_submit_toolbar = true
 
+  groups = [
+    for app_group in local.app_groups : okta_group.groups[app_group.group].id
+    if app_group.id == each.value.id
+  ]
+
   lifecycle {
     ignore_changes = [
-      groups,
       users,
-    ]
-  }
-}
-
-resource "okta_app_group_assignment" "apps_auto_login" {
-  for_each = {
-    for app in local.app_groups : "${app.id}_${app.group}" => app
-    if app.type == "auto_login"
-  }
-
-  app_id   = okta_app_auto_login.apps[each.value.id].id
-  group_id = okta_group.groups[each.value.group].id
-
-  lifecycle {
-    ignore_changes = [
-      priority,
     ]
   }
 }
@@ -68,26 +56,14 @@ resource "okta_app_swa" "apps" {
   url                 = each.value.url
   auto_submit_toolbar = true
 
+  groups = [
+    for app_group in local.app_groups : okta_group.groups[app_group.group].id
+    if app_group.id == each.value.id
+  ]
+
   lifecycle {
     ignore_changes = [
-      groups,
       users,
-    ]
-  }
-}
-
-resource "okta_app_group_assignment" "apps_swa" {
-  for_each = {
-    for app in local.app_groups : "${app.id}_${app.group}" => app
-    if app.type == "swa"
-  }
-
-  app_id   = okta_app_swa.apps[each.value.id].id
-  group_id = okta_group.groups[each.value.group].id
-
-  lifecycle {
-    ignore_changes = [
-      priority,
     ]
   }
 }
