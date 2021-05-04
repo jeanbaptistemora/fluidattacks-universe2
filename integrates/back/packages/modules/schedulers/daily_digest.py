@@ -1,4 +1,5 @@
 # Standard libraries
+from itertools import chain
 import logging
 import logging.config
 from typing import (
@@ -16,11 +17,15 @@ from aioextensions import (
 # Local libraries
 from backend.api import get_new_context
 from backend.typing import (
+    Comment as CommentType,
     Finding as FindingType,
     Historic as HistoricType,
     MailContent as MailContentType,
 )
+from comments import dal as comments_dal
+from events import domain as events_domain
 from findings import domain as findings_domain
+from group_comments import domain as group_comments_domain
 from mailer import groups as groups_mail
 from newutils import (
     bugsnag as bugsnag_utils,
@@ -37,13 +42,64 @@ bugsnag_utils.start_scheduler_session()
 LOGGER = logging.getLogger(__name__)
 
 
+async def get_comments_for_ids(
+    identifiers: List[str],
+    comment_type: str,
+) -> List[CommentType]:
+    comments = await collect(
+        comments_dal.get_comments(
+            comment_type,
+            int(identifier),
+        )
+        for identifier in identifiers
+    )
+    return list(chain.from_iterable(comments))
+
+
+def filter_comments_last_day(comments: List[CommentType]) -> List[CommentType]:
+    last_day = datetime_utils.get_now_minus_delta(hours=24)
+    return [
+        comment
+        for comment in comments
+        if datetime_utils.get_from_str(comment['created']) >= last_day
+    ]
+
+
+async def get_total_comments(
+    findings: List[Dict[str, FindingType]],
+    group_name: str
+) -> int:
+    """Get the total comments in the group"""
+    group_comments_len = len(
+        filter_comments_last_day(
+            await group_comments_domain.get_comments(group_name)))
+
+    events_ids = await events_domain.list_group_events(group_name)
+    events_comments_len = len(
+        filter_comments_last_day(
+            await get_comments_for_ids(events_ids, 'event')))
+
+    findings_ids = [str(finding['finding_id']) for finding in findings]
+    findings_comments_len = len(
+        filter_comments_last_day(
+            await get_comments_for_ids(findings_ids, 'comment')))
+    findings_comments_len += len(
+        filter_comments_last_day(
+            await get_comments_for_ids(findings_ids, 'observation')))
+    findings_comments_len += len(
+        filter_comments_last_day(
+            await get_comments_for_ids(findings_ids, 'zero_risk')))
+
+    return group_comments_len + events_comments_len + findings_comments_len
+
+
 def filter_historic_last_day(historic: HistoricType) -> HistoricType:
     """Filter historics from the last 24 hrs"""
     last_day = datetime_utils.get_now_minus_delta(hours=24)
     filtered = [
         entry
         for entry in historic
-        if datetime_utils.get_from_str(entry.get('date')) >= last_day
+        if datetime_utils.get_from_str(entry['date']) >= last_day
     ]
     return filtered
 
@@ -65,14 +121,14 @@ async def get_total_reattacks_stats(
     ])
 
     for vuln in vulns:
-        if vuln.get('last_requested_reattack_date'):
+        if vuln.get('last_requested_reattack_date', ''):
             last_requested_reattack_date = datetime_utils.get_from_str(
-                vuln.get('last_requested_reattack_date'))
+                vuln.get('last_requested_reattack_date', ''))
             if last_requested_reattack_date >= last_day:
                 reattacks_requested += 1
-        if vuln.get('last_reattack_date'):
+        if vuln.get('last_reattack_date', ''):
             last_reattack_date = datetime_utils.get_from_str(
-                vuln.get('last_reattack_date'))
+                vuln.get('last_reattack_date', ''))
             if last_reattack_date >= last_day:
                 reattacks_executed += 1
         if vuln.get('verification', '') == 'Requested':
@@ -192,8 +248,10 @@ async def get_group_statistics(context: Any, group_name: str) -> None:
         'reattacks_executed', 0)
     mail_context['reattacks']['pending_attacks'] = reattacks.get(
         'pending_attacks', 0)
-    mail_to = FI_MAIL_DIGEST.split(',')
+    mail_context['queries'] = await get_total_comments(
+        valid_findings, group_name)
 
+    mail_to = FI_MAIL_DIGEST.split(',')
     await schedule(groups_mail.send_mail_daily_digest(mail_to, mail_context))
 
 
