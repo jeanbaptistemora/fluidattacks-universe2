@@ -12,6 +12,7 @@ from .entity_report_subscription import ENTITY_REPORT_SUBSCRIPTION
 from .event import EVENT
 from .execution_vulnerabilities import EXECUTION_VULNERABILITIES
 from .exploit_result import EXPLOIT_RESULT
+from .finding_policy import FINDING_POLICY
 from .finding import FINDING
 from .forces_execution import FORCES_EXECUTION
 from .forces_executions import FORCES_EXECUTIONS
@@ -41,6 +42,7 @@ TYPES: Tuple[ObjectType, ...] = (
     EVENT,
     EXECUTION_VULNERABILITIES,
     EXPLOIT_RESULT,
+    FINDING_POLICY,
     FINDING,
     FORCES_EXECUTION,
     FORCES_EXECUTIONS,

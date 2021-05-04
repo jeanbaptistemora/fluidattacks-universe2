@@ -1,0 +1,10 @@
+type FindingPolicy {
+  "ID of the policy"
+  id: ID
+  "Last time the finding policy status was modified"
+  lastStatusUpdate: DateTime
+  "Name of the finding the policy is associated with"
+  name: String
+  "Whether the finding policy is approved or not"
+  status: OrganizationFindindPolicy!
+}

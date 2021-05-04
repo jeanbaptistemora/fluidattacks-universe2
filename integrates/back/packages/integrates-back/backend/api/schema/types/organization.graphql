@@ -1,6 +1,7 @@
 "Organization type definition"
 type Organization {
   analytics(documentName: String!, documentType: String!): GenericScalar
+  findingPolicies: [FindingPolicy]
   id: String!
   maxAcceptanceDays: Int
   maxAcceptanceSeverity: Float!
