@@ -108,7 +108,9 @@ const findingContent: React.FC = (): JSX.Element => {
             translate.t("group.drafts.successSubmit"),
             translate.t("group.drafts.titleSuccess")
           );
-          void headerRefetch();
+          // Exception: FP(void operator is necessary)
+          // eslint-disable-next-line
+          void headerRefetch(); //NOSONAR
         }
       },
       onError: (submitError: ApolloError): void => {
@@ -125,12 +127,16 @@ const findingContent: React.FC = (): JSX.Element => {
             message === "Exception - This draft has already been submitted"
           ) {
             msgError(translate.t("groupAlerts.draftAlreadySubmitted"));
-            void headerRefetch();
+            // Exception: FP(void operator is necessary)
+            // eslint-disable-next-line
+            void headerRefetch(); //NOSONAR
           } else if (
             message === "Exception - This draft has already been approved"
           ) {
             msgError(translate.t("groupAlerts.draftAlreadyApproved"));
-            void headerRefetch();
+            // Exception: FP(void operator is necessary)
+            // eslint-disable-next-line
+            void headerRefetch(); //NOSONAR
           } else {
             msgError(translate.t("groupAlerts.errorTextsad"));
             Logger.warning("An error occurred submitting draft", submitError);
@@ -150,7 +156,9 @@ const findingContent: React.FC = (): JSX.Element => {
             translate.t("searchFindings.draftApproved"),
             translate.t("group.drafts.titleSuccess")
           );
-          void headerRefetch();
+          // Exception: FP(void operator is necessary)
+          // eslint-disable-next-line
+          void headerRefetch(); //NOSONAR
         }
       },
       onError: (approveError: ApolloError): void => {
@@ -159,11 +167,15 @@ const findingContent: React.FC = (): JSX.Element => {
             switch (message) {
               case "Exception - This draft has already been approved":
                 msgError(translate.t("groupAlerts.draftAlreadyApproved"));
-                void headerRefetch();
+                // Exception: FP(void operator is necessary)
+                // eslint-disable-next-line
+                void headerRefetch(); //NOSONAR
                 break;
               case "Exception - The draft has not been submitted yet":
                 msgError(translate.t("groupAlerts.draftNotSubmitted"));
-                void headerRefetch();
+                // Exception: FP(void operator is necessary)
+                // eslint-disable-next-line
+                void headerRefetch(); //NOSONAR
                 break;
               case "CANT_APPROVE_FINDING_WITHOUT_VULNS":
                 msgError(translate.t("groupAlerts.draftWithoutVulns"));
@@ -191,7 +203,9 @@ const findingContent: React.FC = (): JSX.Element => {
             translate.t("searchFindings.findingRejected", { findingId }),
             translate.t("group.drafts.titleSuccess")
           );
-          void headerRefetch();
+          // Exception: FP(void operator is necessary)
+          // eslint-disable-next-line
+          void headerRefetch(); //NOSONAR
         }
       },
       onError: (rejectError: ApolloError): void => {
@@ -199,11 +213,15 @@ const findingContent: React.FC = (): JSX.Element => {
           switch (message) {
             case "Exception - This draft has already been approved":
               msgError(translate.t("groupAlerts.draftAlreadyApproved"));
-              void headerRefetch();
+              // Exception: FP(void operator is necessary)
+              // eslint-disable-next-line
+              void headerRefetch(); //NOSONAR
               break;
             case "Exception - The draft has not been submitted yet":
               msgError(translate.t("groupAlerts.draftNotSubmitted"));
-              void headerRefetch();
+              // Exception: FP(void operator is necessary)
+              // eslint-disable-next-line
+              void headerRefetch(); //NOSONAR
               break;
             default:
               msgError(translate.t("groupAlerts.errorTextsad"));
@@ -238,7 +256,9 @@ const findingContent: React.FC = (): JSX.Element => {
 
   const handleDelete: (values: { justification: string }) => void = useCallback(
     (values: { justification: string }): void => {
-      void deleteFinding({
+      // Exception: FP(void operator is necessary)
+      // eslint-disable-next-line
+      void deleteFinding({ //NOSONAR
         variables: { findingId, justification: values.justification },
       });
     },
