@@ -6,17 +6,29 @@ slug: /machine/agent/installation
 ---
 
 You can use the DevSeCops agent on any OS that Docker can run on.
-You can also integrate the agent into your `CI/CD` to ensure that your software
-is built and shipped without previously reported vulnerabilities in our
-*ASM*. In order to install the agent you need to do the following:
+You can also integrate the agent into your `CI/CD`
+to ensure that your software is built and shipped
+without previously reported vulnerabilities in our *ASM*.
+In order to install the agent you need to do the following:
 
-1. Make sure you own an DevSecOps agent token. Follow this
-[link](https://announcekit.app/dashboard/post/144137) to generate it.
-1. Make sure your execution environment has the required dependencies:
+**1.** Make sure you own an DevSecOps agent token.
+This token can be generated in our ASM scope section
+(Organization>Groups>GroupName>Scope),
+where you will find the DevSecOps Agent Token section.
+
+![DevSevOps Generation Section](/img/machine/agent/installation/devsecops_token_section.png)
+
+Click on the **Manage Token** button and a pop-up will appear
+where you can **Generate** the token or click on **Reveal Token**
+in case you already generated one.
+
+![DevSevOps Generation Modal](/img/machine/agent/installation/devsecops_token_modal.png)
+
+**2.** Make sure your execution environment has the required dependencies:
     - Docker
-1. Install docker by following the official guide:
+**3.** Install docker by following the official guide:
     - https://docs.docker.com/engine/install/
-1. Having Docker installed, pull the image:
+**4.** Having Docker installed, pull the image:
 `docker pull fluidattacks/forces:new`.
 
 ## Options
