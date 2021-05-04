@@ -5,8 +5,8 @@ sidebar_label: JavaScript Console
 slug: /types/037/details/js-console
 ---
 
-In front-end programming,
-JavaScript's Console object provides access to the browser's debugging console[^1].
+In front-end programming, JavaScript's Console object
+provides access to the browser's debugging console[^1].
 Arguments passed to `log`, `warn` and `error` methods are visible to the user
 that is using the website, it's also visible to attackers.
 

@@ -12,7 +12,8 @@ attempts to access the site using HTTP to HTTPS requests instead.
 ## Exploitation scenario
 
 You log into a free WiFi access point at an airport and start surfing the web,
-visiting your online banking service to check your balance and pay a couple of bills.
+visiting your online banking service to check your balance
+and pay a couple of bills.
 Unfortunately, the access point you're using is actually a hacker's laptop,
 and they're intercepting your original HTTP request and redirecting you to a
 clone of your bank's site instead of the real thing.
@@ -30,10 +31,13 @@ It's important to note that in order for the `Strict Transport Security`
 response header to work your users **must** have accessed your website through
 HTTPS **at least once**.
 
-Configuring this header in all responses (including error pages) increases
-the effectiveness of the `Strict Transport Security` by increasing the
-probability that your users had visited the website through HTTPS at least once.
-Once this condition is met, the browser will remember (during `max-age` seconds) that your site must only be accessed through HTTPS.
+Configuring this header in all responses (including error pages)
+increases the effectiveness of the `Strict Transport Security`
+by increasing the probability that your users had visited the website
+through HTTPS at least once.
+Once this condition is met,
+the browser will remember (during `max-age` seconds) that your site
+must only be accessed through HTTPS.
 
 Using a large value for `max-age` also increases the effectiveness of the
 header.

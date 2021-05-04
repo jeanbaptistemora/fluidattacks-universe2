@@ -10,7 +10,8 @@ This allows the service to later assume the role and perform actions on your beh
 
 By giving a role or user the `iam:PassRole` permission,
 you are saying:
-> this principal is allowed to assign AWS roles to resources and services in this account.
+> this principal is allowed to assign AWS roles to resources
+and services in this account.
 
 You can limit which roles a user or service can pass to others by specifying the
 role ARN(s) in the Resource field of the policy that grants them `iam:PassRole`:
@@ -28,8 +29,8 @@ role ARN(s) in the Resource field of the policy that grants them `iam:PassRole`:
 
 As a rule of thumb you should include **only** the roles required by your
 application.
-Wildcards and over-permissive resource grants highly increase the probability of
-(or completely allow) a privilege escalation.
+Wildcards and over-permissive resource grants highly increase
+the probability of (or completely allow) a privilege escalation.
 
 # References
 

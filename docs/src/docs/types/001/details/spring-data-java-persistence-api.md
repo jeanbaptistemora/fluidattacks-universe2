@@ -74,7 +74,8 @@ This happens because `SpEL` is designed as an expression language,
 not a SQL language.
 
 In other words `SpEL Expressions Bindings` like `:#{[0]}` or `?#{[0]}`
-will just copy the value of `[0]` into the SQL operation to be executed by the database.
+will just copy the value of `[0]` into the SQL operation to be executed
+by the database.
 
 If you write a `SpEL` query like this one:
 
@@ -91,7 +92,8 @@ The evaluated query will be:
 SELECT u FROM User u WHERE u.emailAddress LIKE '%'
 ```
 
-We highly recommend you to use the `escape` function from `SpEL` context as follow:
+We highly recommend you to use the `escape` function
+from `SpEL` context as follow:
 
 ```c {3-4}
 @Query(

@@ -6,7 +6,8 @@ slug: /types/052/details/cipher-suites
 ---
 
 A cipher suite is a set of algorithms that help secure a network connection.
-Suites typically use Transport Layer Security (TLS) or its now-deprecated predecessor Secure Socket Layer (SSL).
+Suites typically use Transport Layer Security (TLS) or
+its now-deprecated predecessor Secure Socket Layer (SSL).
 The set of algorithms that cipher suites usually contain include:
 a key exchange algorithm, a bulk encryption algorithm,
 and a message authentication code (MAC) algorithm.

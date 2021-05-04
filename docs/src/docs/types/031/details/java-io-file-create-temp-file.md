@@ -41,8 +41,9 @@ If we do not the following situation can happen:
 - At moment **B** we add secure permissions to the file.
 
 After moment **B** the file is secured.
-However, between moment **A** and moment **B** the file has insecure permissions
-and an attacker had enough opportunity to get control over it.
+However, between moment **A** and moment **B**
+the file has insecure permissions and an attacker had enough opportunity
+to get control over it.
 
 ## Vulnerable implementation
 
