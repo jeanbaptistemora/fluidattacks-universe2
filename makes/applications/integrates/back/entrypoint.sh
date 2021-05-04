@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 
 function main {
+  local api_status="${2:-}"
   local env="${1:-}"
   local host='0.0.0.0'
   local port='8001'
@@ -27,7 +28,7 @@ function main {
     --worker-connections '512'
   )
 
-      source __envIntegratesEnv__ "${env}" \
+      source __envIntegratesEnv__ "${env}" "${api_status}"\
   &&  if test "${env}" == 'dev'
       then
         config+=(

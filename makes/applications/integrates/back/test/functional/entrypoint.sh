@@ -3,6 +3,7 @@
 function main {
   local resolver_test_group="${1}"
   local populate_db="${2:-false}"
+  local api_status="${3:-}"
   local pytest_args=(
     --cov 'back'
     --cov 'backend'
@@ -15,7 +16,7 @@ function main {
     --verbose
   )
 
-      source __envIntegratesEnv__ dev \
+      source __envIntegratesEnv__ dev "${api_status}"\
   &&  DAEMON=true integrates-cache \
   &&  DAEMON=true integrates-storage \
   &&  DAEMON=true POPULATE="${populate_db}" integrates-db \
