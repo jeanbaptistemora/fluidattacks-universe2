@@ -145,3 +145,16 @@ async def _get_finding(
         key_structure=key_structure,
         raw_items=results
     )
+
+
+class FindingNewLoader(DataLoader):
+    """Batches load calls within the same execution fragment."""
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self,
+        finding: Tuple[Tuple[str, str], ...]
+    ) -> Tuple[Finding, ...]:
+        return tuple(await collect(
+            _get_finding(group_name=group_name, finding_id=finding_id)
+            for group_name, finding_id in finding
+        ))

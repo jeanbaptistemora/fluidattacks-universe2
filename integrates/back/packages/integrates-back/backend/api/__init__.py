@@ -52,8 +52,8 @@ from backend.api.dataloaders.organization_tags import (
 )
 from backend.api.dataloaders.root_toe_lines import RootToeLinesLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
-
 from back import settings
+from model.findings.get import FindingNewLoader
 
 newrelic.agent.initialize(settings.NEW_RELIC_CONF_FILE)
 
@@ -61,6 +61,7 @@ newrelic.agent.initialize(settings.NEW_RELIC_CONF_FILE)
 class Dataloaders(NamedTuple):
     event: EventLoader
     finding: FindingLoader
+    finding_new: FindingNewLoader
     finding_vulns: FindingVulnsLoader  # All vulns except deleted
     finding_vulns_all: FindingVulnsNonDeletedLoader  # All vulns
     finding_vulns_nzr: FindingVulnsNonZeroRiskLoader  # Standard call
@@ -98,6 +99,7 @@ def get_new_context() -> Dataloaders:
     return Dataloaders(
         event=EventLoader(),
         finding=FindingLoader(),
+        finding_new=FindingNewLoader(),
         finding_vulns=finding_vulns_non_deleted_loader,
         finding_vulns_all=finding_vulns_loader,
         finding_vulns_nzr=finding_vulns_nzr_loader,
