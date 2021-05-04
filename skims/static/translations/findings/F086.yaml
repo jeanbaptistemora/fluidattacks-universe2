@@ -1,0 +1,31 @@
+F086.description:
+  en: >
+    The application does not properly check the integrity of resources loaded
+    from third-party servers.
+  es: >
+    La aplicación no verifica apropiadamente la integridad de los recursos
+    cargados desde servidores de terceros.
+F086.impact:
+  en: Embed compromised resources from a third party server.
+  es: Embeber recursos comprometidos desde un servidor de terceros.
+F086.recommendation:
+  en: Add the integrity attribute to HTML "script" tags.
+  es: Agregar el atributo "integrity" a las tags "script" de HTML.
+F086.requirements:
+  en: |
+    R178. Use digital signatures
+    R262. Verify third-party components
+    R330. Verify Subresource Integrity
+  es: |
+    R178. El sistema debe usar firmas digitales para garantizar la autenticidad
+    de información sensible.
+    R262. Los componentes provistos por terceros deben corresponder a versiones
+    estables, probadas y actualizadas.
+    R330. La aplicación debe validar la integridad de todos los recursos y
+    dependencias hosteados externamente usando Subresource Integrity (SRI).
+F086.threat:
+  en: Unauthorized attacker from internet network.
+  es: Atacante sin autorización desde red internet.
+F086.title:
+  en: F086. Missing subresource integrity check
+  es: F086. Falta de verificación de subresource integrity
