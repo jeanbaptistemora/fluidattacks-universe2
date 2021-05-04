@@ -136,11 +136,24 @@ def _get_toe_lines_to_update(
     group_toe_lines_hashes: Set[int],
     cvs_group_toe_lines: Set[GitRootToeLines]
 ) -> Set[GitRootToeLines]:
+    # Exclude sortsRiskLevel from updating, its value must remain
+    cvs_group_toe_lines_copy = cvs_group_toe_lines.copy()
+    for toe_lines_csv in cvs_group_toe_lines_copy:
+        group_toes = [
+            toe_lines for toe_lines in group_toe_lines
+            if toe_lines.get_hash() == toe_lines_csv.get_hash()
+        ]
+        for toe_lines in group_toes:
+            cvs_group_toe_lines.discard(toe_lines_csv)
+            toe_lines_csv = toe_lines_csv._replace(
+                sorts_risk_level=toe_lines.sorts_risk_level
+            )
+            cvs_group_toe_lines.add(toe_lines_csv)
+
     return {
         toe_lines
         for toe_lines in cvs_group_toe_lines
-        # Exclude sortsRiskLevel from updating, it must remain
-        if set(list(toe_lines)[:-1]) not in group_toe_lines
+        if toe_lines not in group_toe_lines
         and toe_lines.get_hash() in group_toe_lines_hashes
     }
 
