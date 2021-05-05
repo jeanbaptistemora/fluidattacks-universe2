@@ -1,39 +1,25 @@
 # Standard libraries
-from enum import Enum
 from typing import (
     Any,
     Dict,
-    List,
-    NamedTuple,
+    List
 )
 
-# Third-party libraries
+# Third party libraries
 from gql import gql
 from gql.transport.exceptions import TransportQueryError
 
 # Local libraries
-from integrates.graphql import client as graphql_client
-
+from sorts.integrates.graphql import client as graphql_client
+from sorts.integrates.typing import (
+    ToeLines,
+    Vulnerability,
+    VulnerabilityKindEnum
+)
 from sorts.utils.logs import (
     log,
     log_exception,
 )
-
-
-class VulnerabilityKindEnum(Enum):
-    INPUTS: str = 'inputs'
-    LINES: str = 'lines'
-    PORTS: str = 'ports'
-
-
-class Vulnerability(NamedTuple):
-    kind: VulnerabilityKindEnum
-    where: str
-
-
-class ToeLines(NamedTuple):
-    filename: str
-    sorts_risk_level: str
 
 
 def _execute(
