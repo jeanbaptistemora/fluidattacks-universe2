@@ -44,8 +44,13 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
             if match_equals["="] and (deps_id := match_equals["__0__"]):
                 deps_src = [args.generic(args.fork_n_id(deps_id))]
 
+        var_type = (
+            args.graph.nodes[var_type_id].get("label_text")
+            or args.graph.nodes[var_type_id]["label_type"]
+        )
+
         yield graph_model.SyntaxStepDeclaration(
             meta=graph_model.SyntaxStepMeta.default(args.n_id, deps_src),
             var=args.graph.nodes[type_identifier]["label_text"],
-            var_type=(args.graph.nodes[var_type_id]["label_text"]),
+            var_type=var_type,
         )

@@ -24,7 +24,6 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
     C_STYLE_COMMENT,
     DOUBLE_QUOTED_STRING,
-    EXTENSIONS_CSHARP,
     EXTENSIONS_JAVA,
     EXTENSIONS_JAVA_PROPERTIES,
     NUMBER,
@@ -106,62 +105,6 @@ async def csharp_insecure_cipher(
 ) -> core_model.Vulnerabilities:
     return await in_process(
         _csharp_insecure_cipher,
-        content=content,
-        path=path,
-    )
-
-
-def _csharp_insecure_hash(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    grammar = (
-        MatchFirst(
-            [
-                Keyword("HMACMD5"),
-                Keyword("HMACRIPEMD160"),
-                Keyword("HMACSHA1"),
-                Keyword("MACTripleDES"),
-                Keyword("MD5"),
-                Keyword("MD5Cng"),
-                Keyword("MD5CryptoServiceProvider"),
-                Keyword("MD5Managed"),
-                Keyword("RIPEMD160"),
-                Keyword("RIPEMD160Managed"),
-                Keyword("SHA1"),
-                Keyword("SHA1Cng"),
-                Keyword("SHA1CryptoServiceProvider"),
-                Keyword("SHA1Managed"),
-            ]
-        )
-        + Optional("." + Keyword("Create"))
-        + "("
-    )
-    grammar.ignore(C_STYLE_COMMENT)
-    grammar.ignore(DOUBLE_QUOTED_STRING)
-
-    return get_vulnerabilities_blocking(
-        content=content,
-        cwe={"310", "327"},
-        description=t(
-            key="src.lib_path.f052.insecure_hash.description",
-            path=path,
-        ),
-        finding=core_model.FindingEnum.F052,
-        grammar=grammar,
-        path=path,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def csharp_insecure_hash(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _csharp_insecure_hash,
         content=content,
         path=path,
     )
@@ -581,20 +524,7 @@ async def analyze(
 ) -> List[Awaitable[core_model.Vulnerabilities]]:
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
-    if file_extension in EXTENSIONS_CSHARP:
-        coroutines.append(
-            csharp_insecure_cipher(
-                content=await content_generator(),
-                path=path,
-            )
-        )
-        coroutines.append(
-            csharp_insecure_hash(
-                content=await content_generator(),
-                path=path,
-            )
-        )
-    elif file_extension in EXTENSIONS_JAVA:
+    if file_extension in EXTENSIONS_JAVA:
         coroutines.append(
             java_insecure_cipher(
                 content=await content_generator(),

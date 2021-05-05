@@ -1,6 +1,14 @@
-"RIPEMD160Managed.Create()"
-RIPEMD160 h = RIPEMD160Managed.Create();
-RC2CryptoServiceProvider.CreateDecryptor()
-RC2CryptoServiceProvider.CreateDecryptor
-new DESCryptoServiceProvider()
-"new DESCryptoServiceProvider()"
+using System.Security.Cryptography;
+
+namespace Cypher_Example
+{
+    class CypherExample
+    {
+        public static void Main()
+        {
+            MD5 myAes = MD5.Create();
+            SHA1 myAes = SHA1.Create();
+            HMACMD5 myAes = HMACMD5.Create();
+        }
+    }
+}
