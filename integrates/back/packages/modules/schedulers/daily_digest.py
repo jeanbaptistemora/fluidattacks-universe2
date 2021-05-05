@@ -43,10 +43,27 @@ bugsnag_utils.start_scheduler_session()
 LOGGER = logging.getLogger(__name__)
 
 
+async def get_remediation_rate(
+    context: Any,
+    group_name: str,
+) -> int:
+    """Percentage of closed vulns, ignoring treatments"""
+    remediation_rate: int = 0
+    open_vulns = await groups_domain.get_open_vulnerabilities(
+        context, group_name)
+    closed_vulns = await groups_domain.get_closed_vulnerabilities(
+        context, group_name)
+    if closed_vulns:
+        remediation_rate = int(
+            100 * closed_vulns / (open_vulns + closed_vulns))
+    return remediation_rate
+
+
 async def get_comments_for_ids(
     identifiers: List[str],
     comment_type: str,
 ) -> List[CommentType]:
+    """Retrieve comments for the given event/finding ids"""
     comments = await collect(
         comments_dal.get_comments(
             comment_type,
@@ -114,6 +131,7 @@ async def get_total_reattacks_stats(
     reattacks_executed: int = 0
     pending_attacks: int = 0
     effective_reattacks: int = 0
+    reattack_effectiveness: int = 0
     last_day = datetime_utils.get_now_minus_delta(hours=24)
     finding_vulns_loader = context.finding_vulns_nzr
 
@@ -138,8 +156,9 @@ async def get_total_reattacks_stats(
         if vuln.get('verification', '') == 'Requested':
             pending_attacks += 1
 
-    reattack_effectiveness = int(
-        100 * effective_reattacks / reattacks_executed)
+    if reattacks_executed:
+        reattack_effectiveness = int(
+            100 * effective_reattacks / reattacks_executed)
 
     return {
         'reattacks_requested': reattacks_requested,
@@ -263,6 +282,8 @@ async def get_group_statistics(context: Any, group_name: str) -> None:
         valid_findings, group_name)
     mail_context['remediation_time'] = int(
         await groups_domain.get_mean_remediate(context, group_name))
+    mail_context['remediation_rate'] = await get_remediation_rate(
+        context, group_name)
 
     mail_to = FI_MAIL_DIGEST.split(',')
     await schedule(groups_mail.send_mail_daily_digest(mail_to, mail_context))
