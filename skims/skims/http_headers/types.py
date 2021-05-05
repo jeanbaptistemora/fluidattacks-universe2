@@ -1,4 +1,7 @@
 # Standard library
+from datetime import (
+    datetime,
+)
 from typing import (
     Dict,
     List,
@@ -12,6 +15,11 @@ class ContentSecurityPolicyHeader(NamedTuple):
     name: str
 
     directives: Dict[str, List[str]]
+
+
+class DateHeader(NamedTuple):
+    name: str
+    date: datetime
 
 
 class StrictTransportSecurityHeader(NamedTuple):
@@ -54,6 +62,7 @@ class XFrameOptionsHeader(NamedTuple):
 Header = Optional[
     Union[
         ContentSecurityPolicyHeader,
+        DateHeader,
         ReferrerPolicyHeader,
         StrictTransportSecurityHeader,
         XXSSProtectionHeader,

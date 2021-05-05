@@ -1,4 +1,8 @@
 # Standard library
+from datetime import (
+    datetime,
+    timezone,
+)
 from textwrap import (
     dedent,
 )
@@ -13,6 +17,7 @@ import pytest
 from http_headers import (
     as_string,
     content_security_policy,
+    date,
     strict_transport_security,
     referrer_policy,
     www_authenticate,
@@ -20,6 +25,7 @@ from http_headers import (
     x_frame_options,
 )
 from http_headers.types import (
+    DateHeader,
     WWWAuthenticate,
 )
 
@@ -171,6 +177,28 @@ def test_content_security_policy() -> None:
 
     header = parse("Content-Security-Policy: upgrade-insecure-requests;")
     assert header.directives == {"upgrade-insecure-requests": []}
+
+
+@pytest.mark.skims_test_group("unittesting")
+@pytest.mark.parametrize(
+    "line,expected",
+    [
+        ("date:", None),
+        ("Date: Wed, 21 Oct 2015 07:28:00", None),
+        (
+            "Date: Wed, 21 Oct 2015 07:28:00 GMT",
+            DateHeader(
+                name="Date",
+                date=datetime(2015, 10, 21, 7, 28, 0, tzinfo=timezone.utc),
+            ),
+        ),
+    ],
+)
+def test_date(
+    line: str,
+    expected: Optional[DateHeader],
+) -> None:
+    assert date.parse(line) == expected
 
 
 @pytest.mark.skims_test_group("unittesting")
