@@ -5,8 +5,9 @@ sidebar_label: Description
 slug: /types/055
 ---
 
-One of the system services has a configuration that is considered insecure or
-enables the exploitation of other vulnerabilities.
+One of the system services
+has a configuration that is considered insecure
+or enables the exploitation of other vulnerabilities.
 
 ## Requirements
 

@@ -5,16 +5,20 @@ sidebar_label: AWS iam:PassRole
 slug: /types/031/details/aws-iam-pass-role
 ---
 
-To configure many AWS services, you must pass an IAM role to the service.
-This allows the service to later assume the role and perform actions on your behalf.
+To configure many AWS services,
+you must pass an IAM role to the service.
+This allows the service to later assume the role
+and perform actions on your behalf.
 
 By giving a role or user the `iam:PassRole` permission,
 you are saying:
 > this principal is allowed to assign AWS roles to resources
 and services in this account.
 
-You can limit which roles a user or service can pass to others by specifying the
-role ARN(s) in the Resource field of the policy that grants them `iam:PassRole`:
+You can limit which roles a user or service
+can pass to others by specifying the role ARN(s)
+in the Resource field of the policy
+that grants them `iam:PassRole`:
 
 ```json
 {
@@ -27,10 +31,12 @@ role ARN(s) in the Resource field of the policy that grants them `iam:PassRole`:
 }
 ```
 
-As a rule of thumb you should include **only** the roles required by your
-application.
-Wildcards and over-permissive resource grants highly increase
-the probability of (or completely allow) a privilege escalation.
+As a rule of thumb,
+you should include **only** the roles
+required by your application.
+Wildcards and over-permissive resource grants
+highly increase the probability of (or completely allow)
+a privilege escalation.
 
 # References
 

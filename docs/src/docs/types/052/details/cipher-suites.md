@@ -5,28 +5,39 @@ sidebar_label: Cipher Suites
 slug: /types/052/details/cipher-suites
 ---
 
-A cipher suite is a set of algorithms that help secure a network connection.
-Suites typically use Transport Layer Security (TLS) or
-its now-deprecated predecessor Secure Socket Layer (SSL).
-The set of algorithms that cipher suites usually contain include:
-a key exchange algorithm, a bulk encryption algorithm,
+A cipher suite is a set of algorithms
+that help secure a network connection.
+Suites typically use Transport Layer Security (TLS)
+or its now-deprecated predecessor Secure Socket Layer (SSL).
+The set of algorithms
+that cipher suites usually contain include:
+a key exchange algorithm,
+a bulk encryption algorithm,
 and a message authentication code (MAC) algorithm.
 
-The **key exchange algorithm** is used to exchange a key between two devices.
-This key is used to encrypt and decrypt the messages being sent between two
-machines.
+The **key exchange algorithm**
+is used to exchange a key between two devices.
+This key is used to encrypt and decrypt the messages
+being sent between two machines.
 
-The **bulk encryption algorithm** is used to encrypt the data being sent.
+The **bulk encryption algorithm**
+is used to encrypt the data being sent.
 
-The **MAC algorithm** provides data integrity checks to ensure that the data
-sent does not change in transit.
+The **MAC algorithm**
+provides data integrity checks
+to ensure that the data sent
+does not change in transit.
 In addition,
-cipher suites can include signatures and an authentication algorithm to help
-authenticate the server and or client.
+cipher suites can include signatures
+and an authentication algorithm
+to help authenticate the server and or client.
 
-A cipher suite is as secure as the algorithms that it contains.
-If the version of encryption or authentication algorithm in a cipher suite have
-known vulnerabilities the cipher suite and TLS connection is then vulnerable.
+A cipher suite is as secure
+as the algorithms that it contains.
+If the version of encryption
+or authentication algorithm in a cipher suite
+have known vulnerabilities,
+the cipher suite and TLS connection is then vulnerable.
 
 ## Vulnerable bulk encryption algorithm
 

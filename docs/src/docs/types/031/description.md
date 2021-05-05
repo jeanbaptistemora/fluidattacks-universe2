@@ -5,9 +5,10 @@ sidebar_label: Description
 slug: /types/031
 ---
 
-The application, a user or a role have more privileges than they require.
-This can be leveraged by an attacker to execute normally restricted actions on
-a system.
+The application, a user or a role
+have more privileges than they require.
+This can be leveraged by an attacker
+to execute normally restricted actions on a system.
 
 ## Requirements
 

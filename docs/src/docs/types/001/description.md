@@ -6,7 +6,8 @@ slug: /types/001
 ---
 
 *SQL* statements are generated dynamically,
-without appropriate input validation and without using parameterized statements
+without appropriate input validation
+and without using parameterized statements
 or stored procedures.
 
 ## Requirements

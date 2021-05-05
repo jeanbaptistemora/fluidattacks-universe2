@@ -5,14 +5,18 @@ sidebar_label: JavaScript Console
 slug: /types/037/details/js-console
 ---
 
-In front-end programming, JavaScript's Console object
+In front-end programming,
+JavaScript's Console object
 provides access to the browser's debugging console[^1].
-Arguments passed to `log`, `warn` and `error` methods are visible to the user
-that is using the website, it's also visible to attackers.
+Arguments passed to `log`, `warn` and `error` methods
+are visible to the user that is using the website,
+it's also visible to attackers.
 
-As per Fluid Attacks' criteria[^2] the application must not disclose internal
-system information such as stack traces because this information can be
-leveraged by to further exploit other vulnerabilities.
+As per Fluid Attacks' criteria[^2]
+the application must not disclose internal system information
+such as stack traces
+because this information can be leveraged
+to further exploit other vulnerabilities.
 
 Developers tend to do debugging the following way:
 
@@ -23,7 +27,8 @@ catch (err) {
 }
 ```
 
-But this ends in lots of information that attackers use to better understand
+But this ends in lots of information
+that attackers use to better understand
 the inner workings on the system,
 aiding them in creating and improving attack vectors.
 

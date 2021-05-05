@@ -6,12 +6,14 @@ slug: /types/043
 ---
 
 Some of the server's response headers are not properly set.
-They are needed because they make the pages it hosts less
-susceptible to attacks, such as click-jacking and XSS.
+They are needed because they make the pages it hosts
+less susceptible to attacks,
+such as click-jacking and XSS.
 
 ## Recommendation
 
-For application servers, the required HTTP headers are the following:
+For application servers,
+the required HTTP headers are the following:
 
 * [Access-Control-Allow-Origin](https://fluidattacks.gitlab.io/asserts/fluidasserts.proto.http/?highlight=is_header_access_control_allow_origin_missing#fluidasserts.proto.http.is_header_access_control_allow_origin_missing)
 
@@ -33,7 +35,8 @@ For application servers, the required HTTP headers are the following:
 
 * [X-Frame-Options](https://fluidattacks.gitlab.io/asserts/fluidasserts.proto.http/?highlight=fluidasserts%20proto%20http%20is_header_x_frame_options_missing#fluidasserts.proto.http.is_header_x_frame_options_missing)
 
-For API servers, the required HTTP headers are the following:
+For API servers,
+the required HTTP headers are the following:
 
 * [Content-Type](https://fluidattacks.gitlab.io/asserts/fluidasserts.proto.rest/?highlight=fluidasserts%20proto%20rest%20is_header_content_type_missing#fluidasserts.proto.rest.is_header_content_type_missing)
 

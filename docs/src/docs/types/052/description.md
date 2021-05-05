@@ -5,9 +5,10 @@ sidebar_label: Description
 slug: /types/052
 ---
 
-The server on which the application is hosted supports insecure encryption
-algorithms.
-Alternatively, the application uses insecure encryption algorithms.
+The server on which the application is hosted
+supports insecure encryption algorithms.
+Alternatively,
+the application uses insecure encryption algorithms.
 
 ## Requirements
 
