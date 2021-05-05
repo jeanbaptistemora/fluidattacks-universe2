@@ -35,7 +35,6 @@ class Platform(Enum):
 
 
 class Grammar(Enum):
-    CSHARP: str = "CSharp"
     JAVA9: str = "Java9"
     SCALA: str = "Scala"
 

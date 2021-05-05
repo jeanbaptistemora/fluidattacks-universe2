@@ -165,6 +165,8 @@ F031. Excessive privileges - Temporary files,namespace/skims/test/data/lib_path/
 F034. Insecure random number generation,namespace/skims/test/data/lib_path/f034/Test.java,11,330
 F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/csharp.cs,10,310 + 327
 F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/csharp.cs,11,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/csharp.cs,12,310 + 327
+F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/csharp.cs,13,310 + 327
 F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/csharp.cs,9,310 + 327
 F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,1,310 + 327
 F052. Insecure encryption algorithm,namespace/skims/test/data/lib_path/f052/java.java,12,310 + 327

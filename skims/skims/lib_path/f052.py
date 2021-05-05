@@ -15,7 +15,6 @@ from aioextensions import (
 from pyparsing import (
     Keyword,
     MatchFirst,
-    Optional,
 )
 
 # Local libraries
@@ -50,64 +49,6 @@ from utils.crypto import (
 from zone import (
     t,
 )
-
-
-def _csharp_insecure_cipher(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    grammar = (
-        MatchFirst(
-            [
-                Keyword("DES"),
-                Keyword("DESCryptoServiceProvider"),
-                Keyword("TripleDES"),
-                Keyword("TripleDESCng"),
-                Keyword("TripleDESCryptoServiceProvider"),
-                Keyword("RC2"),
-                Keyword("RC2CryptoServiceProvider"),
-            ]
-        )
-        + Optional(
-            "."
-            + MatchFirst(
-                [
-                    Keyword("Create"),
-                    Keyword("CreateDecryptor"),
-                    Keyword("CreateEncryptor"),
-                ]
-            )
-        )
-        + "("
-    )
-    grammar.ignore(C_STYLE_COMMENT)
-    grammar.ignore(DOUBLE_QUOTED_STRING)
-
-    return get_vulnerabilities_blocking(
-        content=content,
-        cwe={"310", "327"},
-        description=t(
-            key="src.lib_path.f052.insecure_cipher.description",
-            path=path,
-        ),
-        finding=core_model.FindingEnum.F052,
-        grammar=grammar,
-        path=path,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def csharp_insecure_cipher(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _csharp_insecure_cipher,
-        content=content,
-        path=path,
-    )
 
 
 def _vuln_cipher_get_instance(transformation: str) -> bool:

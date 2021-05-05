@@ -9,6 +9,8 @@ namespace Cypher_Example
             MD5 myAes = MD5.Create();
             SHA1 myAes = SHA1.Create();
             HMACMD5 myAes = HMACMD5.Create();
+            DES myAes = DES.Create();
+            TripleDES myAes = TripleDES.Create();
         }
     }
 }
