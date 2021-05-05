@@ -1,4 +1,6 @@
 import {
+  faAngleDoubleLeft,
+  faAngleDoubleRight,
   faFolderPlus,
   faKey,
   faSignOutAlt,
@@ -7,15 +9,19 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import React from "react";
-import { slide as BurgerMenu } from "react-burger-menu";
-import Media from "react-media";
 import { Link } from "react-router-dom";
 
-import { ExtraInfo, Logo, LogoutButton, MenuButton } from "./styles";
+import {
+  ExtraInfo,
+  Logo,
+  LogoutButton,
+  MenuButton,
+  SidebarContainer,
+  SidebarMenu,
+} from "./styles";
 
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
-import style from "scenes/Dashboard/components/Sidebar/index.css";
 import { Can } from "utils/authz/Can";
 import {
   CI_COMMIT_SHA,
@@ -25,38 +31,40 @@ import {
 import { translate } from "utils/translations/translate";
 
 interface ISidebarProps {
+  collapsed: boolean;
   userEmail: string;
   userRole: string | undefined;
   onLogoutClick: () => void;
   onOpenAccessTokenModal: () => void;
   onOpenAddOrganizationModal: () => void;
   onOpenAddUserModal: () => void;
+  onToggle: () => void;
 }
 
-const sidebar: React.FC<ISidebarProps> = (
+const Sidebar: React.FC<ISidebarProps> = (
   props: ISidebarProps
 ): JSX.Element => {
   const {
+    collapsed,
     userEmail,
     userRole,
     onLogoutClick,
     onOpenAccessTokenModal,
     onOpenAddOrganizationModal,
     onOpenAddUserModal,
+    onToggle,
   } = props;
-  const renderMenu: (isNormalScreenSize: boolean) => JSX.Element = (
-    isNormalScreenSize: boolean
-  ): JSX.Element => (
-    <BurgerMenu
-      burgerButtonClassName={style.burgerButton}
-      crossButtonClassName={style.closeButton}
-      disableCloseOnEsc={true}
-      isOpen={isNormalScreenSize}
-      menuClassName={style.container}
-      noOverlay={isNormalScreenSize}
-      width={210}
-    >
-      <ul className={style.menuList}>
+
+  return (
+    <SidebarContainer collapsed={collapsed}>
+      <SidebarMenu>
+        <li>
+          <MenuButton onClick={onToggle}>
+            <FontAwesomeIcon
+              icon={collapsed ? faAngleDoubleRight : faAngleDoubleLeft}
+            />
+          </MenuButton>
+        </li>
         <li>
           <Link to={"/home"}>
             <Logo />
@@ -102,8 +110,8 @@ const sidebar: React.FC<ISidebarProps> = (
             </MenuButton>
           </TooltipWrapper>
         </li>
-      </ul>
-      <div className={style.bottomBar}>
+      </SidebarMenu>
+      {collapsed ? undefined : (
         <ExtraInfo>
           <div>
             <small>{userEmail}</small>
@@ -135,8 +143,9 @@ const sidebar: React.FC<ISidebarProps> = (
             </small>
           </div>
         </ExtraInfo>
+      )}
+      <div>
         <TooltipWrapper
-          displayClass={"flex"}
           id={"logOut"}
           message={"Log out of Integrates"}
           placement={"right"}
@@ -156,14 +165,8 @@ const sidebar: React.FC<ISidebarProps> = (
           </ConfirmDialog>
         </TooltipWrapper>
       </div>
-    </BurgerMenu>
-  );
-
-  return (
-    <React.StrictMode>
-      <Media query={"(min-width: 768px)"}>{renderMenu}</Media>
-    </React.StrictMode>
+    </SidebarContainer>
   );
 };
 
-export { sidebar as Sidebar };
+export { Sidebar };

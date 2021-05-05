@@ -19,10 +19,12 @@ describe("Sidebar", (): void => {
     const wrapper: ShallowWrapper = shallow(
       <MemoryRouter initialEntries={["/home"]}>
         <Sidebar
+          collapsed={false}
           onLogoutClick={functionMock}
           onOpenAccessTokenModal={functionMock}
           onOpenAddOrganizationModal={functionMock}
           onOpenAddUserModal={functionMock}
+          onToggle={functionMock}
           userEmail={"test@test.com"}
           userRole={"Unit role"}
         />

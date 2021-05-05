@@ -3,11 +3,17 @@ import styled from "styled-components";
 import logo from "resources/integrates_sidebar.svg";
 
 const SidebarContainer = styled.aside.attrs({
-  className: "flex flex-column",
+  className: "flex flex-column overflow-x-hidden",
 })`
   background-color: #272727;
   transition: width 0.3s, left 0.3s;
-  width: 210px;
+  width: ${(props: { collapsed: boolean }): string =>
+    props.collapsed ? "50px" : "210px"};
+  @media (max-width: 768px) {
+    height: 100%;
+    position: fixed;
+    z-index: 999;
+  }
 `;
 
 const SidebarMenu = styled.ul.attrs({
@@ -24,7 +30,7 @@ const Logo = styled.img.attrs({
 `;
 
 const MenuButton = styled.button.attrs({
-  className: "white ph3 pv2 w-100 bn pointer outline-0 tl nowrap",
+  className: "white ph3 pv2 f4 w-100 bn pointer outline-0 tl nowrap",
 })`
   background: none;
   & svg {
@@ -33,11 +39,11 @@ const MenuButton = styled.button.attrs({
 `;
 
 const ExtraInfo = styled.div.attrs({
-  className: "tr flex-auto content-end white mr1",
+  className: "tr content-end white mr1",
 })``;
 
 const LogoutButton = styled.button.attrs({
-  className: "bg-red f3 w-100 white bn pointer outline-0 flex-auto content-end",
+  className: "bg-red f3 w-100 white bn pointer outline-0 content-end",
 })`
   height: 60px;
 `;

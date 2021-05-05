@@ -8,6 +8,8 @@ import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router";
 import wait from "waait";
 
+import { Sidebar } from "./components/Sidebar";
+
 import { Dashboard } from "scenes/Dashboard";
 import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
 import { GET_USER } from "scenes/Dashboard/queries";
@@ -101,7 +103,7 @@ describe("Dashboard", (): void => {
       }
     );
 
-    const sideBar: ReactWrapper = wrapper.find("sidebar");
+    const sideBar = wrapper.find(Sidebar);
     const scrollUpButton: ReactWrapper = wrapper.find("ScrollUp");
     const navBar: ReactWrapper = wrapper.find({ id: "navbar" });
 

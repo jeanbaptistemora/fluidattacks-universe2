@@ -7,8 +7,8 @@ const DashboardContainer = styled.div.attrs({
 const DashboardContent = styled.div.attrs({
   className: "flex-auto overflow-container",
 })`
-  @media (min-width: 768px) {
-    margin-left: 210px;
+  @media (max-width: 768px) {
+    margin-left: 50px;
   }
 `;
 

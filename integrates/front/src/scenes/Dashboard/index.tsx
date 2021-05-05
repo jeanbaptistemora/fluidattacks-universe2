@@ -39,6 +39,7 @@ import {
   groupLevelPermissions,
   organizationLevelPermissions,
 } from "utils/authz/config";
+import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -197,13 +198,24 @@ export const Dashboard: React.FC = (): JSX.Element => {
     location.assign("/logout");
   }, []);
 
+  const [sidebarCollapsed, setSidebarCollapsed] = useStoredState(
+    "sidebarCollapsed",
+    false,
+    localStorage
+  );
+  const toggleSidebar = useCallback((): void => {
+    setSidebarCollapsed(!sidebarCollapsed);
+  }, [setSidebarCollapsed, sidebarCollapsed]);
+
   return (
     <DashboardContainer>
       <Sidebar
+        collapsed={sidebarCollapsed}
         onLogoutClick={handleLogout}
         onOpenAccessTokenModal={openTokenModal}
         onOpenAddOrganizationModal={openOrganizationModal}
         onOpenAddUserModal={openUserModal}
+        onToggle={toggleSidebar}
         userEmail={userEmail}
         userRole={userRole}
       />
