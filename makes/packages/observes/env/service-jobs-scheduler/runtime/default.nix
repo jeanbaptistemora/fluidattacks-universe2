@@ -1,5 +1,4 @@
 { makeTemplate
-, nixpkgs
 , packages
 , path
 , ...
@@ -15,12 +14,15 @@ makeTemplate {
       self
     ];
     envPaths = [
-      nixpkgs.python38
+      env.service-jobs-scheduler.runtime.python
       scheduled.job.checkly-etl
       scheduled.job.delighted-etl
     ];
     envPythonPaths = [
       self
+    ];
+    envPython38Paths = [
+      env.service-jobs-scheduler.runtime.python
     ];
     envSources = [
       env.utils-logger.runtime
