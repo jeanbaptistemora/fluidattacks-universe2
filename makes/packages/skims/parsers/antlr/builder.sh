@@ -10,7 +10,6 @@ function compile_java {
 
 function main {
   local languages=(
-    CSharp
     Java9
     Scala
   )

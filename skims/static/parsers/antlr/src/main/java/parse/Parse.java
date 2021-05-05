@@ -69,16 +69,6 @@ public class Parse {
       Vocabulary vocabulary;
 
       switch (args[0]) {
-      case "CSharp":
-        CSharpLexer lexerCSharp = new CSharpLexer(charStream);
-        CSharpParser parserCSharp = new CSharpParser(new CommonTokenStream(lexerCSharp));
-        lexerCSharp.removeErrorListener(ConsoleErrorListener.INSTANCE);
-        parserCSharp.removeErrorListener(ConsoleErrorListener.INSTANCE);
-        parserCSharp.setTrimParseTree(true);
-        parserCSharp.setErrorHandler(new BailErrorStrategy());
-        vocabulary = parserCSharp.getVocabulary();
-        tree = parserCSharp.compilation_unit();
-        break;
       case "Java9":
         Java9Lexer lexerJava9 = new Java9Lexer(charStream);
         Java9Parser parserJava9 = new Java9Parser(new CommonTokenStream(lexerJava9));
