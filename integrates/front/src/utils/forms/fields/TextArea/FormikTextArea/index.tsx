@@ -4,6 +4,7 @@
   spreading is the best way to pass down props.
 */
 import type { FieldInputProps, FieldProps } from "formik";
+import { ErrorMessage } from "formik";
 import React from "react";
 
 import { ValidationError } from "utils/forms/fields/styles";
@@ -22,8 +23,7 @@ export const FormikTextArea: React.FC<ITextAreaProps> = (
   props: Readonly<ITextAreaProps>
 ): JSX.Element => {
   const { input, id, withCount = false, field, form, className } = props;
-  const { errors, touched } = form;
-  const fieldTouched = Boolean(touched[field.name]);
+  const { errors } = form;
   const error = errors[field.name];
   const { value }: { value: string } = field;
 
@@ -42,9 +42,9 @@ export const FormikTextArea: React.FC<ITextAreaProps> = (
         <div className={style.badge}>{value.length}</div>
       ) : undefined}
       {withCount && error !== undefined ? <br /> : undefined}
-      {fieldTouched && error !== undefined ? (
-        <ValidationError id={"validationError"}>{error}</ValidationError>
-      ) : undefined}
+      <ValidationError>
+        <ErrorMessage name={field.name} />
+      </ValidationError>
     </React.Fragment>
   );
 };

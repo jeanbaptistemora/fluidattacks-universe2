@@ -1,4 +1,5 @@
 import type { FieldProps } from "formik";
+import { ErrorMessage } from "formik";
 import React from "react";
 import Datetime from "react-datetime";
 
@@ -9,11 +10,8 @@ import "react-datetime/css/react-datetime.css";
 export const FormikDateTime: React.FC<FieldProps> = (
   props: FieldProps
 ): JSX.Element => {
-  const { field, form } = props;
+  const { field } = props;
   const { name } = field;
-  const { touched, errors } = form;
-  const error = errors[name];
-  const fieldTouched = Boolean(touched[name]);
 
   return (
     <React.Fragment>
@@ -24,11 +22,9 @@ export const FormikDateTime: React.FC<FieldProps> = (
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...field}
       />
-      {fieldTouched && error !== undefined ? (
-        <ValidationError id={"validationError"}>
-          {error as string}
-        </ValidationError>
-      ) : undefined}
+      <ValidationError>
+        <ErrorMessage name={name} />
+      </ValidationError>
     </React.Fragment>
   );
 };

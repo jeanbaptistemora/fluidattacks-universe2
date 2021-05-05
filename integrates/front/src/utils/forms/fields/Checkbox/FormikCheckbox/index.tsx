@@ -1,5 +1,6 @@
 import { Checkbox } from "antd";
 import type { FieldProps } from "formik";
+import { ErrorMessage } from "formik";
 import React from "react";
 import "./index.css";
 
@@ -13,11 +14,8 @@ interface ICheckboxProps extends FieldProps {
 export const FormikCheckbox: React.FC<ICheckboxProps> = (
   props: ICheckboxProps
 ): JSX.Element => {
-  const { field, form, children, label } = props;
+  const { field, children, label } = props;
   const { name, value } = field;
-  const { touched, errors } = form;
-  const error = errors[name];
-  const fieldTouched = Boolean(touched[name]);
 
   return (
     <React.Fragment>
@@ -30,11 +28,9 @@ export const FormikCheckbox: React.FC<ICheckboxProps> = (
         {` ${label}`}
       </Checkbox>
       {children}
-      {fieldTouched && error !== undefined ? (
-        <ValidationError id={"validationError"}>
-          {error as string}
-        </ValidationError>
-      ) : undefined}
+      <ValidationError>
+        <ErrorMessage name={name} />
+      </ValidationError>
     </React.Fragment>
   );
 };

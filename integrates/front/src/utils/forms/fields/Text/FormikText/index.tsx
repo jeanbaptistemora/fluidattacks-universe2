@@ -1,4 +1,5 @@
 import type { FieldProps, FormikHandlers } from "formik";
+import { ErrorMessage } from "formik";
 import React from "react";
 
 import { StyledInput, ValidationError } from "utils/forms/fields/styles";
@@ -20,7 +21,6 @@ export const FormikText: React.FC<ITextProps> = (
     customBlur,
     disabled,
     field,
-    form,
     id,
     max,
     min,
@@ -28,9 +28,6 @@ export const FormikText: React.FC<ITextProps> = (
     type,
   } = props;
   const { name, onBlur, onChange, value } = field;
-  const { errors, touched } = form;
-  const fieldTouched = Boolean(touched[name]);
-  const error = errors[name];
 
   function handleBlur(event: unknown): void {
     onBlur(event);
@@ -54,9 +51,9 @@ export const FormikText: React.FC<ITextProps> = (
         type={type}
         value={value}
       />
-      {fieldTouched && error !== undefined && (
-        <ValidationError id={"validationError"}>{error}</ValidationError>
-      )}
+      <ValidationError>
+        <ErrorMessage name={name} />
+      </ValidationError>
     </React.Fragment>
   );
 };
