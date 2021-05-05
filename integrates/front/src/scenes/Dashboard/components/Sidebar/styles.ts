@@ -3,7 +3,7 @@ import styled from "styled-components";
 import logo from "resources/integrates_sidebar.svg";
 
 const SidebarContainer = styled.aside.attrs({
-  className: "flex flex-column justify-between",
+  className: "flex flex-column",
 })`
   background-color: #272727;
   transition: width 0.3s, left 0.3s;
@@ -11,7 +11,7 @@ const SidebarContainer = styled.aside.attrs({
 `;
 
 const SidebarMenu = styled.ul.attrs({
-  className: "pl0 list",
+  className: "pl0 list flex-auto content-start",
 })``;
 
 const Logo = styled.img.attrs({
@@ -20,7 +20,7 @@ const Logo = styled.img.attrs({
   src: logo,
 })`
   width: 190px;
-  min-width: 123px;
+  min-width: 116px;
 `;
 
 const MenuButton = styled.button.attrs({
@@ -32,10 +32,21 @@ const MenuButton = styled.button.attrs({
   }
 `;
 
+const ExtraInfo = styled.div.attrs({
+  className: "tr flex-auto content-end white mr1",
+})``;
+
 const LogoutButton = styled.button.attrs({
-  className: "bg-red f3 w-100 white bn pointer outline-0",
+  className: "bg-red f3 w-100 white bn pointer outline-0 flex-auto content-end",
 })`
   height: 60px;
 `;
 
-export { Logo, LogoutButton, MenuButton, SidebarContainer, SidebarMenu };
+export {
+  ExtraInfo,
+  Logo,
+  LogoutButton,
+  MenuButton,
+  SidebarContainer,
+  SidebarMenu,
+};

@@ -11,7 +11,7 @@ import { slide as BurgerMenu } from "react-burger-menu";
 import Media from "react-media";
 import { Link } from "react-router-dom";
 
-import { Logo, LogoutButton, MenuButton } from "./styles";
+import { ExtraInfo, Logo, LogoutButton, MenuButton } from "./styles";
 
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
@@ -104,35 +104,37 @@ const sidebar: React.FC<ISidebarProps> = (
         </li>
       </ul>
       <div className={style.bottomBar}>
-        <div className={style.version}>
-          <small>{userEmail}</small>
-        </div>
-        {_.isUndefined(userRole) || _.isEmpty(userRole) ? undefined : (
-          <div className={style.version}>
+        <ExtraInfo>
+          <div>
+            <small>{userEmail}</small>
+          </div>
+          {_.isUndefined(userRole) || _.isEmpty(userRole) ? undefined : (
+            <div>
+              <small>
+                {translate.t("sidebar.role")}&nbsp;
+                {translate.t(`userModal.roles.${_.camelCase(userRole)}`)}
+              </small>
+            </div>
+          )}
+          <div>
             <small>
-              {translate.t("sidebar.role")}&nbsp;
-              {translate.t(`userModal.roles.${_.camelCase(userRole)}`)}
+              {translate.t("sidebar.deploymentDate")}&nbsp;
+              {INTEGRATES_DEPLOYMENT_DATE}
             </small>
           </div>
-        )}
-        <div className={style.version}>
-          <small>
-            {translate.t("sidebar.deploymentDate")}&nbsp;
-            {INTEGRATES_DEPLOYMENT_DATE}
-          </small>
-        </div>
-        <div className={style.version}>
-          <small>
-            {translate.t("sidebar.commit")}&nbsp;
-            <a
-              href={`https://gitlab.com/fluidattacks/product/-/tree/${CI_COMMIT_SHA}`}
-              rel={"noopener noreferrer"}
-              target={"_blank"}
-            >
-              {CI_COMMIT_SHORT_SHA}
-            </a>
-          </small>
-        </div>
+          <div>
+            <small>
+              {translate.t("sidebar.commit")}&nbsp;
+              <a
+                href={`https://gitlab.com/fluidattacks/product/-/tree/${CI_COMMIT_SHA}`}
+                rel={"noopener noreferrer"}
+                target={"_blank"}
+              >
+                {CI_COMMIT_SHORT_SHA}
+              </a>
+            </small>
+          </div>
+        </ExtraInfo>
         <TooltipWrapper
           displayClass={"flex"}
           id={"logOut"}
