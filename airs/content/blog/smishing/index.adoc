@@ -27,6 +27,7 @@ Your financial well-being depends on that.
 Don't give away your money so easily
 to those who try to seize your keys, credentials,
 and personal information.
+
 Smishing is how this type of scam is called.
 It represents (along with phishing, vishing, and pharming)
 $54M in losses just in the United States
@@ -39,6 +40,7 @@ To keep criminals from robbing you like this,
 you must know the modus operandi of such scams.
 As the famous writer Frank Herbert said:
 _Knowing where the trap is – that’s the first step in evading it._
+
 Let's start with the name *smishing*.
 Since it is a type of scam
 that occurs through the Short Message Service (SMS) of our mobiles
@@ -69,8 +71,8 @@ to be a fraudulent message that motivates the victim
 to provide information or click a link.
 In this way, we could classify this fraud into link:https://www.csoonline.com/article/3538831/what-is-smishing-how-phishing-via-text-message-works.html[three categories]:
 
-. Revealing credentials +
-
+. Revealing credentials
++
 Here, criminals expect victims to provide information
 about their usernames or passwords from certain online accounts.
 To do so, criminals send victims a message that deceives them
@@ -97,13 +99,13 @@ Something similar happened in South Korea
 where the link:https://www.zdnet.com/article/south-korea-sees-rise-in-smishing-with-coronavirus-misinformation/[Ministry of Science and ICT]
 revealed in February 2020 that
 "9,688 smishing texts had been sent
-that used false information on the novel coronavirus".
+that used false information on the novel coronavirus."
 
 .link:https://www.ic3.gov/Media/PDF/AnnualReport/2020_IC3Report.pdf[Victims]
 image::image2.png[Image2]
 
-. Downloading malware +
-
+. Downloading malware
++
 In smishing, victims and not scammers do the dirty work.
 This type of scam seeks victims to click on a link
 to download malicious software on their phones.
@@ -114,14 +116,15 @@ since nowadays we tend to
 synchronize all kinds of accounts, contacts, credit information,
 and account credentials on our phones.
 
-. Sending money to someone +
-
+. Sending money to someone
++
 *Poor friend of yours!*
 He crashed into a terrible car accident
 and got lost in the middle of nowhere.
 There no emergency service will rescue him.
 Will you be _the_ good charitable soul
-who's going to make him a transaction to get him out of that mess? +
+who's going to make him a transaction to get him out of that mess?
++
 This smishing category could be the most infamous one
 because it plays with people's generosity.
 In some versions, scammers don’t play the victim,
@@ -136,7 +139,8 @@ A recent link:https://www.proofpoint.com/sites/default/files/gtd-pfpt-us-tr-stat
 (the United States, Australia, France,
 Germany, Japan, Spain, and the United Kingdom)
 showed that only 30% of respondents knew what smishing was.
-Almost a half recognized that they didn't know what that was.  +
+Almost a half recognized that they didn't know what that was.
++
 Now that you know, how can you avoid it?
 
 .link:https://www.ic3.gov/Media/PDF/AnnualReport/2020_IC3Report.pdf[Top 5 Crime Comparison]
@@ -153,9 +157,10 @@ Verify the information sent to you,
 but NEVER CLICK on the link provided!
 
 The second piece of advice is to always keep in mind link:https://www.orangecountyscu.org/stories/what-are-smishing-and-vishing/[three aspects] related to link:https://www.hsbc.co.uk/help/security-centre/[bank actions]:
-. Banks will never ask you for personal data by SMS.
-. Banks will never request credit card information by SMS.
-. Banks will never ask you to click on unknown website links.
+
+- Banks will never ask you for personal data by SMS.
+- Banks will never request credit card information by SMS.
+- Banks will never ask you to click on unknown website links.
 
 Lastly: Never think you're exempt from being a victim!
 You must be very careful as scammers are increasingly refining their methods.
@@ -172,7 +177,8 @@ Unlike computers, phones generally do not have firewalls
 or antiviruses to hinder such scams.
 
 If you want to know more about how to *protect yourself from cyberattacks*,
-we invite you to review our page. +
+we invite you to review our page.
+
 At `Fluid Attacks` we are specialized in
 cybersecurity through link:../../solutions/penetration-testing/[Pentesting] and link:../../solutions/ethical-hacking/[ethical hacking].
 For more information, don't hesitate to link:../../contact-us/[contact us!]
