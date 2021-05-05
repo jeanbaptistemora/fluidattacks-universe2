@@ -5,13 +5,9 @@ import type { PureAbility } from "@casl/ability";
 import type { GraphQLError } from "graphql";
 import { identify, people, register, reset } from "mixpanel-browser";
 import React, { useCallback, useContext, useState } from "react";
-import {
-  Redirect,
-  Route,
-  Switch,
-  useHistory,
-  useLocation,
-} from "react-router-dom";
+import { Redirect, Route, Switch, useLocation } from "react-router-dom";
+
+import { DashboardContainer, DashboardContent } from "./styles";
 
 import { ScrollUpButton } from "components/ScrollUpButton";
 import { AddOrganizationModal } from "scenes/Dashboard/components/AddOrganizationModal";
@@ -28,7 +24,6 @@ import { ProjectRoute } from "scenes/Dashboard/containers/ProjectRoute";
 import type { IStakeholderAttrs } from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
 import { TagContent } from "scenes/Dashboard/containers/TagContent";
 import { useAddStakeholder } from "scenes/Dashboard/hooks";
-import style from "scenes/Dashboard/index.css";
 import {
   ACCEPT_LEGAL_MUTATION,
   ACKNOWLEDGE_CONCURRENT_SESSION,
@@ -51,7 +46,6 @@ import { initializeDelighted, initializeZendesk } from "utils/widgets";
 
 export const Dashboard: React.FC = (): JSX.Element => {
   const { hash } = useLocation();
-  const { push } = useHistory();
 
   const orgRegex: string = ":organizationName([a-zA-Z0-9]+)";
   const groupRegex: string = ":projectName([a-zA-Z0-9]+)";
@@ -198,29 +192,24 @@ export const Dashboard: React.FC = (): JSX.Element => {
 
   const currentYear: number = new Date().getFullYear();
 
-  const handleLogoClick = useCallback((): void => {
-    push("/home");
-  }, [push]);
-
   const handleLogout = useCallback((): void => {
     reset();
     location.assign("/logout");
   }, []);
 
   return (
-    <React.Fragment>
-      <div>
-        <Sidebar
-          onLogoClick={handleLogoClick}
-          onLogoutClick={handleLogout}
-          onOpenAccessTokenModal={openTokenModal}
-          onOpenAddOrganizationModal={openOrganizationModal}
-          onOpenAddUserModal={openUserModal}
-          userEmail={userEmail}
-          userRole={userRole}
-        />
-        <div className={style.container} id={"dashboard"}>
-          <Navbar />
+    <DashboardContainer>
+      <Sidebar
+        onLogoutClick={handleLogout}
+        onOpenAccessTokenModal={openTokenModal}
+        onOpenAddOrganizationModal={openOrganizationModal}
+        onOpenAddUserModal={openUserModal}
+        userEmail={userEmail}
+        userRole={userRole}
+      />
+      <DashboardContent id={"dashboard"}>
+        <Navbar />
+        <main>
           <Switch>
             <Route exact={true} path={"/home"}>
               <HomeView />
@@ -263,8 +252,8 @@ export const Dashboard: React.FC = (): JSX.Element => {
             />
             <Redirect to={"/home"} />
           </Switch>
-        </div>
-      </div>
+        </main>
+      </DashboardContent>
       <ScrollUpButton visibleAt={400} />
       <APITokenModal onClose={closeTokenModal} open={isTokenModalOpen} />
       <AddOrganizationModal
@@ -290,6 +279,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
         onAccept={handleAccept}
         open={isLegalModalOpen}
       />
-    </React.Fragment>
+    </DashboardContainer>
   );
 };

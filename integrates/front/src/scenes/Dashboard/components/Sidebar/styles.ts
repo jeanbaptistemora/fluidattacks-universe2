@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import logo from "resources/integrates_sidebar.svg";
+
 const SidebarContainer = styled.aside.attrs({
   className: "flex flex-column justify-between",
 })`
@@ -11,6 +13,15 @@ const SidebarContainer = styled.aside.attrs({
 const SidebarMenu = styled.ul.attrs({
   className: "pl0 list",
 })``;
+
+const Logo = styled.img.attrs({
+  alt: "integrates-logo",
+  className: "ml2 pointer",
+  src: logo,
+})`
+  width: 190px;
+  min-width: 123px;
+`;
 
 const MenuButton = styled.button.attrs({
   className: "white ph3 pv2 w-100 bn pointer outline-0 tl nowrap",
@@ -27,4 +38,4 @@ const LogoutButton = styled.button.attrs({
   height: 60px;
 `;
 
-export { LogoutButton, MenuButton, SidebarContainer, SidebarMenu };
+export { Logo, LogoutButton, MenuButton, SidebarContainer, SidebarMenu };

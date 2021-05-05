@@ -9,12 +9,12 @@ import _ from "lodash";
 import React from "react";
 import { slide as BurgerMenu } from "react-burger-menu";
 import Media from "react-media";
+import { Link } from "react-router-dom";
 
-import { LogoutButton, MenuButton } from "./styles";
+import { Logo, LogoutButton, MenuButton } from "./styles";
 
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
-import logo from "resources/integrates_sidebar.svg";
 import style from "scenes/Dashboard/components/Sidebar/index.css";
 import { Can } from "utils/authz/Can";
 import {
@@ -27,7 +27,6 @@ import { translate } from "utils/translations/translate";
 interface ISidebarProps {
   userEmail: string;
   userRole: string | undefined;
-  onLogoClick: () => void;
   onLogoutClick: () => void;
   onOpenAccessTokenModal: () => void;
   onOpenAddOrganizationModal: () => void;
@@ -40,7 +39,6 @@ const sidebar: React.FC<ISidebarProps> = (
   const {
     userEmail,
     userRole,
-    onLogoClick,
     onLogoutClick,
     onOpenAccessTokenModal,
     onOpenAddOrganizationModal,
@@ -58,14 +56,12 @@ const sidebar: React.FC<ISidebarProps> = (
       noOverlay={isNormalScreenSize}
       width={210}
     >
-      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
-      <img
-        alt={"integrates-logo"}
-        className={style.logo}
-        onClick={onLogoClick}
-        src={logo}
-      />
       <ul className={style.menuList}>
+        <li>
+          <Link to={"/home"}>
+            <Logo />
+          </Link>
+        </li>
         <Can do={"backend_api_mutations_add_stakeholder_mutate"}>
           <li>
             <TooltipWrapper
@@ -129,7 +125,6 @@ const sidebar: React.FC<ISidebarProps> = (
           <small>
             {translate.t("sidebar.commit")}&nbsp;
             <a
-              // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
               href={`https://gitlab.com/fluidattacks/product/-/tree/${CI_COMMIT_SHA}`}
               rel={"noopener noreferrer"}
               target={"_blank"}
