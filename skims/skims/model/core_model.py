@@ -514,6 +514,21 @@ class FindingEnum(Enum):
         severity_scope=SeverityScope.unchanged,
         user_interaction=UserInteraction.none,
     )
+    F064_SERVER_CLOCK: FindingMetadata = FindingMetadata.new(
+        code="F064_SERVER_CLOCK",
+        cwe="778",
+        attack_complexity=AttackComplexity.low,
+        attack_vector=AttackVector.network,
+        availability_impact=AvailabilityImpact.none,
+        confidentiality_impact=ConfidentialityImpact.none,
+        exploitability=Exploitability.high,
+        integrity_impact=IntegrityImpact.low,
+        privileges_required=PrivilegesRequired.none,
+        remediation_level=RemediationLevel.official_fix,
+        report_confidence=ReportConfidence.confirmed,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
+    )
     F073: FindingMetadata = FindingMetadata.new(
         code="F073",
         cwe="478",
