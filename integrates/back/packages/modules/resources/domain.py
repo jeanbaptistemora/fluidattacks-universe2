@@ -60,7 +60,7 @@ async def create_file(
         })
     file_id = f'{project_name}/{uploaded_file.filename}'
     try:
-        file_size = 100
+        file_size = 300
         await validate_file_size(uploaded_file, file_size)
     except InvalidFileSize as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
