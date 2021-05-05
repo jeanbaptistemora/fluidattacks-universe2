@@ -10,7 +10,11 @@ from pandas import DataFrame
 
 # Local libraries
 from sorts.features.file import extract_features
-from sorts.integrates.dal import update_toe_lines_sorts
+from sorts.integrates.dal import (
+    get_toe_lines_sorts,
+    ToeLines,
+    update_toe_lines_sorts
+)
 from sorts.utils.logs import log
 from sorts.utils.predict import (
     display_results,
@@ -47,16 +51,46 @@ def get_subscription_files_df(fusion_path: str) -> DataFrame:
     return files_df
 
 
+def get_toes_to_update(
+    group_toe_lines: List[ToeLines],
+    predicted_files: csv.DictReader
+) -> List[ToeLines]:
+    toes_to_update: List[ToeLines] = []
+    pred_range_lim = 3
+    for predicted_file in predicted_files:
+        predicted_file_filename = predicted_file['file']
+        predicted_file_prob = int(float(predicted_file['prob_vuln']))
+        for toe_lines in group_toe_lines:
+            if (
+                toe_lines.filename == predicted_file_filename
+                and predicted_file_prob not in range(
+                    toe_lines.sorts_risk_level - pred_range_lim,
+                    toe_lines.sorts_risk_level + pred_range_lim
+                )
+            ):
+                toes_to_update.append(
+                    ToeLines(
+                        filename=predicted_file_filename,
+                        sorts_risk_level=predicted_file_prob
+                    )
+                )
+                break
+
+    return toes_to_update
+
+
 def update_integrates_toes(group_name: str, csv_name: str) -> None:
+    group_toe_lines: List[ToeLines] = get_toe_lines_sorts(group_name)
     with open(csv_name, 'r') as csv_file:
         reader = csv.DictReader(csv_file)
+        toes_to_update = get_toes_to_update(group_toe_lines, reader)
         with ThreadPoolExecutor(max_workers=8) as executor:
-            for predicted_file in reader:
+            for toe_lines in toes_to_update:
                 executor.submit(
                     update_toe_lines_sorts,
                     group_name,
-                    predicted_file['file'],
-                    int(float(predicted_file['prob_vuln']))
+                    toe_lines.filename,
+                    toe_lines.sorts_risk_level
                 )
         log(
             'info',
@@ -91,4 +125,5 @@ def prioritize(subscription_path: str) -> bool:
             "There is no 'fusion' folder in the path %s",
             subscription_path
         )
+
     return success
