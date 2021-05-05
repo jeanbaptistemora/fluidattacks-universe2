@@ -515,6 +515,7 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F064_SERVER_CLOCK: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
         code="F064_SERVER_CLOCK",
         cwe="778",
         attack_complexity=AttackComplexity.low,

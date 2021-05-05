@@ -54,6 +54,9 @@ from utils.logs import (
     log,
     log_blocking,
 )
+from utils.ntp import (
+    get_ntp_now,
+)
 
 
 @shield(on_error_return=[])
@@ -106,6 +109,7 @@ async def get_url(url: str) -> Optional[URLContext]:
                 headers_raw=response.headers,
                 is_html=is_html(content, soup),
                 soup=soup,
+                timestamp_ntp=get_ntp_now(),
                 url=url,
             )
 

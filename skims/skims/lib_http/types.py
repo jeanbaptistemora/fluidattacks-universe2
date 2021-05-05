@@ -2,6 +2,7 @@
 from typing import (
     Dict,
     NamedTuple,
+    Optional,
 )
 from urllib.parse import (
     ParseResult,
@@ -17,6 +18,7 @@ class URLContext(NamedTuple):
     headers_raw: Dict[str, str]
     is_html: bool
     soup: bs4.BeautifulSoup
+    timestamp_ntp: Optional[float]
     url: str
 
     def __hash__(self) -> int:

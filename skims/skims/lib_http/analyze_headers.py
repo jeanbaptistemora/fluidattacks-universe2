@@ -12,6 +12,7 @@ from typing import (
 from http_headers import (
     as_string,
     content_security_policy,
+    date,
     referrer_policy,
     strict_transport_security,
     www_authenticate,
@@ -19,6 +20,7 @@ from http_headers import (
 )
 from http_headers.types import (
     ContentSecurityPolicyHeader,
+    DateHeader,
     ReferrerPolicyHeader,
     StrictTransportSecurityHeader,
     WWWAuthenticate,
@@ -40,9 +42,7 @@ from zone import (
 
 class HeaderCheckCtx(NamedTuple):
     headers_parsed: Dict[Type[Header], Header]
-    headers_raw: Dict[str, str]
-    is_html: bool
-    url: str
+    url_ctx: URLContext
 
 
 def _create_vulns(
@@ -58,15 +58,15 @@ def _create_vulns(
             state=core_model.VulnerabilityStateEnum.OPEN,
             # Must start with home so integrates allows it
             stream="home,response,headers",
-            what=ctx.url,
+            what=ctx.url_ctx.url,
             where=translation,
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=(finding.value.cwe,),
                 description=translation,
                 snippet=as_string.snippet(
-                    url=ctx.url,
+                    url=ctx.url_ctx.url,
                     header=header.name if header else None,
-                    headers=ctx.headers_raw,
+                    headers=ctx.url_ctx.headers_raw,
                 ),
             ),
         )
@@ -192,6 +192,24 @@ def _content_security_policy(
     )
 
 
+def _date(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
+    desc, header = "", None
+
+    if header := ctx.headers_parsed.get(DateHeader):
+        if (
+            ctx.url_ctx.timestamp_ntp
+            and abs(ctx.url_ctx.timestamp_ntp - header.date.timestamp()) > 60.0
+        ):
+            desc = "date.un_synced"
+
+    return _create_vulns(
+        descriptions=[desc],
+        finding=core_model.FindingEnum.F064_SERVER_CLOCK,
+        header=header,
+        ctx=ctx,
+    )
+
+
 def _referrer_policy(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -259,7 +277,7 @@ def _strict_transport_security(
 
 
 def _www_authenticate(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
-    if not ctx.url.startswith("http://"):
+    if not ctx.url_ctx.url.startswith("http://"):
         # You can only see plain-text credentials over http
         return ()
 
@@ -303,6 +321,7 @@ def get_check_ctx(url: URLContext) -> HeaderCheckCtx:
         for line in [f"{header_raw_name}: {header_raw_value}"]
         for header_parsed in [
             content_security_policy.parse(line),
+            date.parse(line),
             referrer_policy.parse(line),
             strict_transport_security.parse(line),
             www_authenticate.parse(line),
@@ -313,9 +332,7 @@ def get_check_ctx(url: URLContext) -> HeaderCheckCtx:
 
     return HeaderCheckCtx(
         headers_parsed=headers_parsed,
-        headers_raw=url.headers_raw,
-        is_html=url.is_html,
-        url=url.url,
+        url_ctx=url,
     )
 
 
@@ -328,4 +345,5 @@ CHECKS: Dict[
     core_model.FindingEnum.F043_DAST_RP: _referrer_policy,
     core_model.FindingEnum.F043_DAST_STS: _strict_transport_security,
     core_model.FindingEnum.F043_DAST_XCTO: _x_content_type_options,
+    core_model.FindingEnum.F064_SERVER_CLOCK: _date,
 }

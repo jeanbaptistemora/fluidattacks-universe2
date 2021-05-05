@@ -1,3 +1,6 @@
+lib_http.analyze_headers.date.un_synced:
+  en: Server clock is out of date from NTP servers
+  es: El reloj del servidor esta defasado con respecto al servidor NTP
 F064_SERVER_CLOCK.description:
   en: The system's internal clock is not synced with NTP servers.
   es: El relog interno del sistema no esta sincronizado con servidores NTP.

@@ -164,6 +164,17 @@ def add_f043_dast_xfo() -> None:
     )
 
 
+def add_f064_server_clock() -> None:
+    _add_headers(
+        "f064_server_clock",
+        "Date",
+        [
+            "",
+            "Wed, 21 Oct 2015 07:28:00 GMT",
+        ],
+    )
+
+
 def add_f086() -> None:
     _add_contents(
         finding="f086",
@@ -183,4 +194,5 @@ add_f043_dast_rp_rules()
 add_f043_dast_sts_rules()
 add_f043_dast_xcto()
 add_f043_dast_xfo()
+add_f064_server_clock()
 add_f086()
