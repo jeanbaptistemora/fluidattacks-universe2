@@ -83,6 +83,11 @@ observes.lint.service-batch-stability:
   <<: *observes_in_dev_branch
   stage: lint-code
 
+observes.lint.service-jobs-scheduler:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
 observes.lint.service-migrate-tables:
   <<: *makes
   <<: *observes_in_dev_branch

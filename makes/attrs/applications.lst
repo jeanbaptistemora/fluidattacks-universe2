@@ -137,6 +137,7 @@ observes.bin.code-etl
 observes.bin.dif-gitlab-etl
 observes.bin.service.batch-stability
 observes.bin.service.job-last-success
+observes.bin.service.jobs-scheduler
 observes.bin.service.migrate-tables
 observes.bin.service.timedoctor-tokens
 observes.bin.streamer-dynamodb
