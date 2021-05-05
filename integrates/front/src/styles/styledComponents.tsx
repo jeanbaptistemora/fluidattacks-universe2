@@ -343,7 +343,7 @@ const NavBar: StyledComponent<
 > = styled.nav.attrs<{
   className: string;
 }>({
-  className: "ph4 pt0 pb0 navbar h-100",
+  className: "ph4 pt0 pb0 navbar",
 })``;
 
 const NavBarCollapse: StyledComponent<
