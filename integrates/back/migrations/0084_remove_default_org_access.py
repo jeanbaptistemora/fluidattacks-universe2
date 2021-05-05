@@ -17,7 +17,7 @@ from aioextensions import (
 from boto3.dynamodb.conditions import Attr
 
 # Local libraries
-from backend import authz
+import authz
 from groups import domain as groups_domain
 from organizations import domain as orgs_domain
 from users import dal as users_dal
@@ -48,7 +48,7 @@ async def remove_default_org_access(
         if groups:
             print(f'User {email} has access to more orgs than the default')
             return await orgs_domain.remove_user(default_org_id, email)
-    
+
     return True
 
 

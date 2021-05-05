@@ -18,10 +18,8 @@ from aioextensions import (
 )
 
 # Local libraries
-from backend import (
-    authz,
-    util,
-)
+import authz
+from backend import util
 from backend.typing import (
     Datetime,
     Finding,

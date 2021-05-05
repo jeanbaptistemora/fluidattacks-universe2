@@ -2,15 +2,16 @@
 import pytest
 
 # Local libraries
-from backend.authz import (
-    get_cached_group_service_attributes_policies,
+from authz import (
+    get_cached_group_service_policies,
     get_group_level_role,
     get_user_level_role,
     grant_group_level_role,
     grant_user_level_role,
-    revoke_user_level_role,
     revoke_group_level_role,
+    revoke_user_level_role,
 )
+
 
 # Constants
 pytestmark = [
@@ -19,7 +20,7 @@ pytestmark = [
 
 
 async def test_get_cached_group_service_attributes_policies():
-    function = get_cached_group_service_attributes_policies
+    function = get_cached_group_service_policies
 
     assert sorted(await function('not-exists... probably')) == [
     ]

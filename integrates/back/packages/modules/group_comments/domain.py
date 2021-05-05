@@ -9,11 +9,11 @@ from aioextensions import collect
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from backend import authz
+import authz
 from backend.typing import Comment as CommentType
+from comments import domain as comments_domain
 from custom_exceptions import InvalidCommentParent
 from group_comments import dal as group_comments_dal
-from newutils import comments as comments_utils
 from users import domain as users_domain
 
 
@@ -30,7 +30,7 @@ async def add_comment(
     """Add comment in a group."""
     parent = str(comment_data['parent'])
     content = str(comment_data['content'])
-    await comments_utils.validate_handle_comment_scope(
+    await authz.validate_handle_comment_scope(
         content,
         email,
         group_name,
@@ -75,7 +75,7 @@ async def get_comments(group_name: str) -> List[Dict[str, str]]:
 async def list_comments(group_name: str, user_email: str) -> List[CommentType]:
     enforcer = await authz.get_group_level_enforcer(user_email)
     comments = await collect([
-        comments_utils.fill_comment_data(group_name, user_email, comment)
+        comments_domain.fill_comment_data(group_name, user_email, comment)
         for comment in await group_comments_dal.get_comments(group_name)
     ])
 

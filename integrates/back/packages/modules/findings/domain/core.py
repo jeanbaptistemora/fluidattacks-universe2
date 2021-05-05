@@ -27,14 +27,12 @@ from aioextensions import (
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
+import authz
 from back.settings import (
     LOGGING,
     NOEXTRA,
 )
-from backend import (
-    authz,
-    util,
-)
+from backend import util
 from backend.typing import (
     Comment as CommentType,
     Finding as FindingType,
@@ -54,7 +52,6 @@ from dynamodb.operations_legacy import start_context
 from findings import dal as findings_dal
 from mailer import findings as findings_mail
 from newutils import (
-    comments as comments_utils,
     cvss,
     datetime as datetime_utils,
     findings as findings_utils,
@@ -82,7 +79,7 @@ async def add_comment(
     parent = str(comment_data['parent'])
     content = str(comment_data['content'])
 
-    await comments_utils.validate_handle_comment_scope(
+    await authz.validate_handle_comment_scope(
         content,
         user_email,
         group_name,

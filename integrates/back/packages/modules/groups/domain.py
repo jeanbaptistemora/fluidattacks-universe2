@@ -31,8 +31,8 @@ from aioextensions import (
 )
 
 # Local libraries
+import authz
 from back.settings import LOGGING
-from backend import authz
 from backend.typing import (
     Invitation as InvitationType,
     MailContent as MailContentType,
@@ -67,7 +67,6 @@ from newutils.validations import (
     validate_email_address,
     validate_field_length,
     validate_fields,
-    validate_fluidattacks_staff_on_group,
     validate_phone_field,
     validate_project_name,
     validate_string_length_between,
@@ -329,7 +328,7 @@ async def delete_group(
     if response:
         response = all([
             await collect((
-                authz.revoke_cached_group_service_attributes_policies(
+                authz.revoke_cached_group_service_policies(
                     group_name
                 ),
                 orgs_domain.remove_group(group_name, organization_id)
@@ -685,7 +684,11 @@ async def invite_to_group(
         validate_alphanumeric_field(responsibility) and
         validate_phone_field(phone_number) and
         validate_email_address(email) and
-        await validate_fluidattacks_staff_on_group(group_name, email, role)
+        await authz.validate_fluidattacks_staff_on_group(
+            group_name,
+            email,
+            role
+        )
     ):
         expiration_time = datetime_utils.get_as_epoch(
             datetime_utils.get_now_plus_delta(weeks=1)

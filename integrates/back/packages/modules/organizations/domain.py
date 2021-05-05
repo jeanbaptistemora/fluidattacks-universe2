@@ -18,8 +18,8 @@ from aioextensions import collect
 from graphql import GraphQLError
 
 # Local libraries
+import authz
 from back.settings import LOGGING
-from backend import authz
 from backend.typing import Organization as OrganizationType
 from custom_exceptions import (
     InvalidAcceptanceDays,

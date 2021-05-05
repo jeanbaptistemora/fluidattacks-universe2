@@ -13,6 +13,7 @@ from typing import (
 from aioextensions import collect
 
 # Local libraries
+from authz import policy as authz_policy
 from newutils.datetime import get_from_str
 from comments import dal as dal_comment
 from data_containers.toe_lines import GitRootToeLines
@@ -182,8 +183,8 @@ async def populate_comments(data: List[Any]) -> bool:
 async def populate_policies(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     coroutines.extend([
-        dal_users.put_subject_policy(
-            dal_users.SubjectPolicy(
+        authz_policy.put_subject_policy(
+            authz_policy.SubjectPolicy(
                 level=policy['level'],
                 subject=policy['subject'],
                 object=policy['object'],

@@ -22,11 +22,9 @@ from graphql.type.definition import GraphQLResolveInfo
 from starlette.datastructures import UploadFile
 
 # Local Libraries
+import authz
 from back import settings
-from backend import (
-    authz,
-    util,
-)
+from backend import util
 from backend.typing import (
     Comment as CommentType,
     Event as EventType,
@@ -43,7 +41,6 @@ from custom_exceptions import (
 from events import dal as events_dal
 from mailer import events as events_mail
 from newutils import (
-    comments as comments_utils,
     datetime as datetime_utils,
     events as events_utils,
     validations,
@@ -64,7 +61,7 @@ async def add_comment(
     event = await event_loader.load(event_id)
     group_name = event['project_name']
 
-    await comments_utils.validate_handle_comment_scope(
+    await authz.validate_handle_comment_scope(
         content,
         user_email,
         group_name,
@@ -193,7 +190,7 @@ async def has_access_to_event(email: str, event_id: str) -> bool:
     """ Verify if the user has access to a event submission. """
     event = await get_event(event_id)
     group = cast(str, event.get('project_name', ''))
-    return await authz.has_access_to_group(email, group)
+    return bool(await authz.has_access_to_group(email, group))
 
 
 async def list_group_events(group_name: str) -> List[str]:

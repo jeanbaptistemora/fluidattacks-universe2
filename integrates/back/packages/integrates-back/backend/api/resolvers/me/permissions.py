@@ -10,8 +10,8 @@ from typing import (
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
+import authz
 from back.settings import LOGGING
-from backend import authz
 from backend.typing import Me
 from custom_exceptions import InvalidParameter
 

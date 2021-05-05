@@ -21,13 +21,11 @@ from aioextensions import (
 from graphql import GraphQLError
 
 # Local libraries
+import authz
 from back import settings
 from back.app.views import templates
 from back.settings import LOGGING
-from backend import (
-    authz,
-    util,
-)
+from backend import util
 from custom_exceptions import (
     FindingNotFound,
     InvalidAuthorization,

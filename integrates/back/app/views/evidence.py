@@ -17,10 +17,8 @@ from starlette.responses import (
 )
 
 # Local libraries
-from backend import (
-    authz,
-    util,
-)
+import authz
+from backend import util
 from events.domain import has_access_to_event
 from findings.domain import has_access_to_finding
 from s3.operations import (

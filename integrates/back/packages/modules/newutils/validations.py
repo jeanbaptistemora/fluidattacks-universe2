@@ -1,42 +1,11 @@
 import re
 from typing import List
 
-from backend import authz
 from custom_exceptions import (
     InvalidChar,
     InvalidField,
     InvalidFieldLength,
-    UnexpectedUserRole,
 )
-
-# Constants
-FLUIDATTACKS_EMAIL_SUFFIX = '@fluidattacks.com'
-
-
-async def validate_fluidattacks_staff_on_group(
-        group: str,
-        email: str,
-        role: str) -> bool:
-    """Makes sure that Fluid Attacks groups have only Fluid attacks staff."""
-    enforcer = await authz.get_group_service_attributes_enforcer(group)
-
-    is_user_at_fluidattacks: bool = email.endswith(FLUIDATTACKS_EMAIL_SUFFIX)
-    user_has_hacker_role: bool = (
-        role in authz.get_group_level_roles_with_tag('drills', email)
-    )
-
-    group_must_only_have_fluidattacks_hackers: bool = enforcer(
-        'must_only_have_fluidattacks_hackers'
-    )
-
-    if group_must_only_have_fluidattacks_hackers:
-        if user_has_hacker_role and not is_user_at_fluidattacks:
-            raise UnexpectedUserRole(
-                'Groups with any active Fluid Attacks service can '
-                'only have Hackers provided by Fluid Attacks'
-            )
-
-    return True
 
 
 def validate_email_address(email: str) -> bool:

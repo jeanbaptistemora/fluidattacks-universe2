@@ -12,8 +12,8 @@ from aioextensions import collect
 from starlette.requests import Request
 
 # Local libraries
+import authz
 from back import settings
-from backend import authz
 from custom_exceptions import (
     ExpiredToken,
     SecureAccessException,

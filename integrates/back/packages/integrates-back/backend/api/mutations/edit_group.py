@@ -6,7 +6,8 @@ from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from backend import authz, util
+import authz
+from backend import util
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -80,7 +81,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     if success:
         loaders.group_all.clear(group_name)
         await redis_del_by_deps('edit_group', group_name=group_name)
-        await authz.revoke_cached_group_service_attributes_policies(group_name)
+        await authz.revoke_cached_group_service_policies(group_name)
         util.cloudwatch_log(
             info.context,
             f'Security: Edited group {group_name} successfully',

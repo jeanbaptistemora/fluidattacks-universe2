@@ -1,9 +1,10 @@
 import asyncio
 import logging
 import pytest
+
+import authz
 from back import settings
 
-from backend import authz
 
 logging.config.dictConfig(settings.LOGGING)
 

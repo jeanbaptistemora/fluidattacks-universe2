@@ -5,11 +5,11 @@ from typing import Dict
 import os
 
 # Local libraries
+import authz
 from back.settings import (
     LOGGING,
     NOEXTRA,
 )
-from backend import authz
 from batch.types import BatchProcessing
 from batch.dal import (
     delete_action,

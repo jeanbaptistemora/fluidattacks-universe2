@@ -4,7 +4,7 @@ from decimal import Decimal
 from aioextensions import collect
 from graphql import GraphQLError
 
-from backend import authz
+import authz
 from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,

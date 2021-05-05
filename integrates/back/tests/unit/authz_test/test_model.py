@@ -4,7 +4,7 @@
 import pytest
 
 # Local libraries
-from backend import authz
+import authz
 
 # Constants
 pytestmark = [

@@ -22,12 +22,12 @@ from rediscluster.exceptions import (
 
 # Local libraries
 from back import settings
-from newutils.serialization import (
+from __init__ import FI_REDIS_SERVER
+from . import model as redis_model
+from .serialization import (
     dump,
     load,
 )
-from __init__ import FI_REDIS_SERVER
-from . import model as redis_model
 
 
 # A cluster is different than a server

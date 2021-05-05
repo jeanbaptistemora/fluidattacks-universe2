@@ -13,7 +13,7 @@ from aioextensions import (
 from boto3.dynamodb.conditions import Attr
 
 # Local libraries
-from backend import authz
+import authz
 from dynamodb import operations_legacy as dynamodb_ops
 
 

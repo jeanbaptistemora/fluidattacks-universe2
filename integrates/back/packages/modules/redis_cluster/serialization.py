@@ -6,12 +6,8 @@ from safe_pickle import (
 )
 
 # Local libraries
-from data_containers.toe_inputs import (
-    GitRootToeInput,
-)
-from data_containers.toe_lines import (
-    GitRootToeLines,
-)
+from data_containers.toe_inputs import GitRootToeInput
+from data_containers.toe_lines import GitRootToeLines
 
 
 # Side effects

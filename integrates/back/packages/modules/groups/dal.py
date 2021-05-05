@@ -2,11 +2,9 @@
 import logging
 import logging.config
 from typing import (
-    Any,
     cast,
     Dict,
     List,
-    NamedTuple,
     Optional,
     Union,
 )
@@ -30,8 +28,6 @@ logging.config.dictConfig(LOGGING)
 # Constants
 LOGGER = logging.getLogger(__name__)
 TABLE_NAME: str = 'FI_projects'
-
-ServicePolicy = NamedTuple('ServicePolicy', [('group', str), ('service', str)])
 
 
 async def can_user_access(
@@ -178,51 +174,6 @@ async def get_groups_with_forces() -> List[str]:
         )
     ]
     return groups
-
-
-async def get_service_policies(group: str) -> List[ServicePolicy]:
-    """Return a list of policies for the given group."""
-    policies: List[ServicePolicy] = []
-    query_attrs = {
-        'KeyConditionExpression': Key('project_name').eq(group.lower()),
-        'ConsistentRead': True,
-        'ProjectionExpression': 'historic_configuration, project_status'
-    }
-    response_items = await dynamodb_ops.query(TABLE_NAME, query_attrs)
-
-    # There is no such group, let's make an early return
-    if not response_items:
-        return policies
-
-    group_attributes = response_items[0]
-    historic_config: List[Dict[str, Any]] = group_attributes[
-        'historic_configuration'
-    ]
-    has_drills: bool = historic_config[-1]['has_drills']
-    has_forces: bool = historic_config[-1]['has_forces']
-    has_integrates: bool = group_attributes['project_status'] == 'ACTIVE'
-    type_: str = historic_config[-1]['type']
-    if type_ == 'continuous':
-        policies.append(ServicePolicy(group=group, service='continuous'))
-        if has_integrates:
-            policies.append(ServicePolicy(group=group, service='integrates'))
-            if has_drills:
-                policies.append(
-                    ServicePolicy(group=group, service='drills_white')
-                )
-                if has_forces:
-                    policies.append(
-                        ServicePolicy(group=group, service='forces')
-                    )
-    elif type_ == 'oneshot':
-        if has_integrates:
-            policies.append(ServicePolicy(group=group, service='integrates'))
-            policies.append(ServicePolicy(group=group, service='drills_black'))
-    else:
-        LOGGER.critical(
-            'Group has invalid type attribute',
-            extra={'extra': dict(group=group)})
-    return policies
 
 
 async def is_alive(

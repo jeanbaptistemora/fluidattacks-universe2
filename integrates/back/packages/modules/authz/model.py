@@ -6,6 +6,7 @@ from typing import (
 
 # Constants
 FLUID_IDENTIFIER = '@fluidattacks.com'
+RoleModel = Dict[str, Dict[str, Set[str]]]
 
 # Map(role_name -> Map(actions|tags -> definition))
 GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
@@ -646,34 +647,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     ),
 )
 
-GROUP_LEVEL_ACTIONS: Set[str] = {
-    action
-    for definition in GROUP_LEVEL_ROLES.values()
-    for action in definition['actions']
-}
-
-GROUP_LEVEL_ACTIONS_FOR_FLUIDATTACKS: Set[str] = {
-    action
-    for definition in GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS.values()
-    for action in definition['actions']
-}
-
-
-def get_group_level_actions_model(
-    subject: str,
-) -> Set[str]:
-    if subject.endswith(FLUID_IDENTIFIER):
-        return GROUP_LEVEL_ACTIONS_FOR_FLUIDATTACKS
-    return GROUP_LEVEL_ACTIONS
-
-
-def get_group_level_roles_model(
-    subject: str,
-) -> Dict[str, Dict[str, Set[str]]]:
-    if subject.endswith(FLUID_IDENTIFIER):
-        return GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS
-    return GROUP_LEVEL_ROLES
-
 
 # Map(role_name -> Map(actions|tags -> definition))
 ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
@@ -803,34 +776,6 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
     )
 )
 
-ORGANIZATION_LEVEL_ACTIONS: Set[str] = {
-    action
-    for definition in ORGANIZATION_LEVEL_ROLES.values()
-    for action in definition['actions']
-}
-
-ORGANIZATION_LEVEL_ACTIONS_FOR_FLUIDATTACKS: Set[str] = {
-    action
-    for definition in ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS.values()
-    for action in definition['actions']
-}
-
-
-def get_organization_level_actions_model(
-    subject: str,
-) -> Set[str]:
-    if subject.endswith(FLUID_IDENTIFIER):
-        return ORGANIZATION_LEVEL_ACTIONS_FOR_FLUIDATTACKS
-    return ORGANIZATION_LEVEL_ACTIONS
-
-
-def get_organization_level_roles_model(
-    subject: str,
-) -> Dict[str, Dict[str, Set[str]]]:
-    if subject.endswith(FLUID_IDENTIFIER):
-        return ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS
-    return ORGANIZATION_LEVEL_ROLES
-
 
 # Map(role_name -> Map(actions|tags -> definition))
 USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
@@ -905,35 +850,6 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     ),
 )
 
-USER_LEVEL_ACTIONS: Set[str] = {
-    action
-    for definition in USER_LEVEL_ROLES.values()
-    for action in definition['actions']
-}
-
-USER_LEVEL_ACTIONS_FOR_FLUIDATTACKS: Set[str] = {
-    action
-    for definition in USER_LEVEL_ROLES_FOR_FLUIDATTACKS.values()
-    for action in definition['actions']
-}
-
-
-def get_user_level_actions_model(
-    subject: str,
-) -> Set[str]:
-    if subject.endswith(FLUID_IDENTIFIER):
-        return USER_LEVEL_ACTIONS_FOR_FLUIDATTACKS
-    return USER_LEVEL_ACTIONS
-
-
-def get_user_level_roles_model(
-    subject: str,
-) -> Dict[str, Dict[str, Set[str]]]:
-    if subject.endswith(FLUID_IDENTIFIER):
-        return USER_LEVEL_ROLES_FOR_FLUIDATTACKS
-    return USER_LEVEL_ROLES
-
-
 # Map(service -> feature)
 SERVICE_ATTRIBUTES: Dict[str, Set[str]] = dict(
     continuous={
@@ -959,8 +875,78 @@ SERVICE_ATTRIBUTES: Dict[str, Set[str]] = dict(
     },
 )
 
+# Actions
+GROUP_LEVEL_ACTIONS: Set[str] = {
+    action
+    for definition in GROUP_LEVEL_ROLES.values()
+    for action in definition['actions']
+}
+GROUP_LEVEL_ACTIONS_FOR_FLUIDATTACKS: Set[str] = {
+    action
+    for definition in GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS.values()
+    for action in definition['actions']
+}
+
+ORGANIZATION_LEVEL_ACTIONS: Set[str] = {
+    action
+    for definition in ORGANIZATION_LEVEL_ROLES.values()
+    for action in definition['actions']
+}
+ORGANIZATION_LEVEL_ACTIONS_FOR_FLUIDATTACKS: Set[str] = {
+    action
+    for definition in ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS.values()
+    for action in definition['actions']
+}
+
+USER_LEVEL_ACTIONS: Set[str] = {
+    action
+    for definition in USER_LEVEL_ROLES.values()
+    for action in definition['actions']
+}
+USER_LEVEL_ACTIONS_FOR_FLUIDATTACKS: Set[str] = {
+    action
+    for definition in USER_LEVEL_ROLES_FOR_FLUIDATTACKS.values()
+    for action in definition['actions']
+}
+
 SERVICE_ATTRIBUTES_SET: Set[str] = {
     action
     for actions in SERVICE_ATTRIBUTES.values()
     for action in actions
 }
+
+
+def get_group_level_actions_model(subject: str) -> Set[str]:
+    if subject.endswith(FLUID_IDENTIFIER):
+        return GROUP_LEVEL_ACTIONS_FOR_FLUIDATTACKS
+    return GROUP_LEVEL_ACTIONS
+
+
+def get_group_level_roles_model(subject: str) -> RoleModel:
+    if subject.endswith(FLUID_IDENTIFIER):
+        return GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS
+    return GROUP_LEVEL_ROLES
+
+
+def get_organization_level_actions_model(subject: str) -> Set[str]:
+    if subject.endswith(FLUID_IDENTIFIER):
+        return ORGANIZATION_LEVEL_ACTIONS_FOR_FLUIDATTACKS
+    return ORGANIZATION_LEVEL_ACTIONS
+
+
+def get_organization_level_roles_model(subject: str) -> RoleModel:
+    if subject.endswith(FLUID_IDENTIFIER):
+        return ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS
+    return ORGANIZATION_LEVEL_ROLES
+
+
+def get_user_level_actions_model(subject: str) -> Set[str]:
+    if subject.endswith(FLUID_IDENTIFIER):
+        return USER_LEVEL_ACTIONS_FOR_FLUIDATTACKS
+    return USER_LEVEL_ACTIONS
+
+
+def get_user_level_roles_model(subject: str,) -> RoleModel:
+    if subject.endswith(FLUID_IDENTIFIER):
+        return USER_LEVEL_ROLES_FOR_FLUIDATTACKS
+    return USER_LEVEL_ROLES

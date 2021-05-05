@@ -5,7 +5,7 @@ from typing import cast
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import authz
+import authz
 from backend.typing import Me
 from custom_exceptions import InvalidParameter
 

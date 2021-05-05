@@ -10,7 +10,7 @@ from typing import (
 
 from aioextensions import collect
 
-from backend import authz
+import authz
 from backend.typing import Tag as TagType
 from groups import domain as groups_domain
 from organizations import domain as orgs_domain

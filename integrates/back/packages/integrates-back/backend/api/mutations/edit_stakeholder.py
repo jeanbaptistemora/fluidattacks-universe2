@@ -11,8 +11,9 @@ from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
+import authz
 from back.settings import LOGGING
-from backend import authz, util
+from backend import util
 from backend.decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -25,7 +26,6 @@ from backend.typing import (
 )
 from custom_exceptions import StakeholderNotFound
 from group_access import domain as group_access_domain
-from newutils.validations import validate_fluidattacks_staff_on_group
 from redis_cluster.operations import redis_del_by_deps
 from users import domain as users_domain
 
@@ -99,8 +99,10 @@ async def mutate(
             requester_email=user_email,
         )
 
-    await validate_fluidattacks_staff_on_group(
-        project_name, modified_email, modified_role
+    await authz.validate_fluidattacks_staff_on_group(
+        project_name,
+        modified_email,
+        modified_role
     )
 
     if modified_role in allowed_roles_to_grant:

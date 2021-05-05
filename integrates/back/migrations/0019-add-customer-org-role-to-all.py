@@ -21,7 +21,7 @@ from aioextensions import (
 )
 from boto3.dynamodb.conditions import Attr
 
-from backend import authz
+import authz
 from backend.typing import Organization as OrganizationType
 from dynamodb.operations_legacy import RESOURCE_OPTIONS
 from organizations import domain as orgs_domain

@@ -9,7 +9,7 @@ from typing import (
 from aioextensions import collect
 
 # Local libraries
-from backend import authz
+import authz
 from backend.typing import (
     Project as GroupType,
     ProjectAccess as GroupAccessType,

@@ -1,12 +1,9 @@
 # Standard library
 import logging
 import logging.config
-import contextlib
 from typing import (
-    Any,
     Dict,
     List,
-    NamedTuple,
 )
 
 # Third party libraries
@@ -36,50 +33,6 @@ LOGGER = logging.getLogger(__name__)
 # Shared resources
 ACCESS_TABLE_NAME = 'FI_project_access'
 USERS_TABLE_NAME = 'FI_users'
-AUTHZ_TABLE_NAME = 'fi_authz'
-
-# Typing
-SubjectPolicy = NamedTuple(
-    'SubjectPolicy',
-    [
-        # interface for a row in fi_authz
-        ('level', str),
-        ('subject', str),
-        ('object', str),
-        ('role', str),
-    ]
-)
-
-
-def cast_dict_into_subject_policy(item: Dict[str, str]) -> SubjectPolicy:
-    # pylint: disable=protected-access
-    field_types: Dict[Any, Any] = SubjectPolicy._field_types
-
-    # Every string as lowercase
-    for field, _ in field_types.items():
-        if isinstance(item.get(field), str):
-            item[field] = item[field].lower()
-    return SubjectPolicy(**{
-        field: (
-            item[field]
-            if field in item and isinstance(item[field], typing)
-            else typing()
-        )
-        for field, typing in field_types.items()
-    })
-
-
-def cast_subject_policy_into_dict(policy: SubjectPolicy) -> Dict[str, str]:
-    """Cast a subject policy into a dict, valid to be put in dynamo."""
-    # pylint: disable=protected-access
-    return {
-        key: (
-            value.lower()
-            if isinstance(value, str)
-            else value
-        )
-        for key, value in policy._asdict().items()
-    }
 
 
 async def create(email: str, data: UserType) -> bool:
@@ -100,25 +53,6 @@ async def delete(email: str) -> bool:
     except ClientError as ex:
         LOGGER.exception(ex, extra={'extra': locals()})
     return resp
-
-
-async def delete_subject_policy(subject: str, object_: str) -> bool:
-    with contextlib.suppress(ClientError):
-        delete_attrs = DynamoDeleteType(
-            Key={
-                'subject': subject.lower(),
-                'object': object_.lower(),
-            }
-        )
-        response = await dynamodb_ops.delete_item(
-            AUTHZ_TABLE_NAME, delete_attrs
-        )
-        return response
-    LOGGER.error(
-        'Error in users_dal.delete_subject_policy',
-        extra={'extra': locals()}
-    )
-    return False
 
 
 async def get(email: str) -> UserType:
@@ -170,44 +104,6 @@ async def get_platform_users() -> List[Dict[str, UserType]]:
     )
     scan_attrs = {'FilterExpression': filter_exp}
     return await dynamodb_ops.scan(ACCESS_TABLE_NAME, scan_attrs)
-
-
-async def get_subject_policies(subject: str) -> List[SubjectPolicy]:
-    """Return a list of policies for the given subject."""
-    query_params = {
-        'ConsistentRead': True,
-        'KeyConditionExpression': Key('subject').eq(subject.lower()),
-    }
-    response = await dynamodb_ops.query(AUTHZ_TABLE_NAME, query_params)
-    return list(map(cast_dict_into_subject_policy, response))
-
-
-async def get_subject_policy(subject: str, object_: str) -> SubjectPolicy:
-    """Return a policy for the given subject over the given object."""
-    response = {}
-    query_attrs = {
-        'ConsistentRead': True,
-        'KeyConditionExpression': (
-            Key('subject').eq(subject.lower()) &
-            Key('object').eq(object_.lower())
-        )
-    }
-    response_items = await dynamodb_ops.query(AUTHZ_TABLE_NAME, query_attrs)
-    if response_items:
-        response = response_items[0]
-    return cast_dict_into_subject_policy(response)
-
-
-async def put_subject_policy(policy: SubjectPolicy) -> bool:
-    item = cast_subject_policy_into_dict(policy)
-    with contextlib.suppress(ClientError):
-        response = await dynamodb_ops.put_item(AUTHZ_TABLE_NAME, item)
-        return response
-    LOGGER.error(
-        'Error in users_dal.put_subject_policy',
-        extra={'extra': locals()}
-    )
-    return False
 
 
 async def update(email: str, data: UserType) -> bool:

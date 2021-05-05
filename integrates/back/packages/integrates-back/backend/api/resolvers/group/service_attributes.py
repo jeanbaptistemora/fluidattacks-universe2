@@ -5,7 +5,7 @@ from typing import cast, List
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import authz
+import authz
 from backend.decorators import enforce_group_level_auth_async
 from backend.typing import Project as Group
 

@@ -2,9 +2,9 @@
 
 from typing import Dict, List, Set
 
-from backend import authz
-
 from pandas import DataFrame
+
+import authz
 
 
 def create_dataframe(dataset: Dict[str, List[str]], columns: List[str],

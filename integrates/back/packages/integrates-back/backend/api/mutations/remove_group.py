@@ -3,10 +3,8 @@ from typing import Any
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-from backend import (
-    authz,
-    util,
-)
+import authz
+from backend import util
 from backend.decorators import (
     require_integrates,
     concurrent_decorators,
@@ -57,7 +55,7 @@ async def mutate(
     if success:
         loaders.group_all.clear(group_name)
         redis_del_by_deps_soon('remove_group', group_name=group_name)
-        await authz.revoke_cached_group_service_attributes_policies(group_name)
+        await authz.revoke_cached_group_service_policies(group_name)
         util.cloudwatch_log(
             info.context,
             f'Security: Deleted group {group_name} successfully',

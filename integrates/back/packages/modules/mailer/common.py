@@ -20,8 +20,8 @@ from jinja2 import (
 )
 
 # Local libraries
+import authz
 from back.settings import LOGGING
-from backend import authz
 from backend.typing import MailContent as MailContentType
 from group_access import domain as group_access_domain
 from newutils import datetime as datetime_utils

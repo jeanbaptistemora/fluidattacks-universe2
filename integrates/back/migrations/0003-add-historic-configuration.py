@@ -15,10 +15,8 @@ import os
 
 import bugsnag
 
-from backend import (
-    authz,
-    util,
-)
+import authz
+from backend import util
 from group_access import domain as group_access_domain
 from groups import dal as groups_dal
 

@@ -6,7 +6,7 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import authz
+import authz
 from backend.decorators import (
     enforce_group_level_auth_async,
     enforce_organization_level_auth_async,

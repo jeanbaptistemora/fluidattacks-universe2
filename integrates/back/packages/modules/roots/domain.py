@@ -11,7 +11,7 @@ from aioextensions import collect
 from urllib3.util.url import parse_url
 
 # Local
-from backend import authz
+import authz
 from custom_exceptions import (
     HasOpenVulns,
     InvalidParameter,

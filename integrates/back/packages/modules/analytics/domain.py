@@ -18,13 +18,11 @@ from starlette.requests import Request
 from starlette.responses import Response
 
 # Local libraries
+import authz
 from analytics import dal as analytics_dal
 from back.app.views import templates
 from back.settings import LOGGING
-from backend import (
-    authz,
-    util,
-)
+from backend import util
 from backend.typing import (
     GraphicsForEntityParameters,
     GraphicParameters,

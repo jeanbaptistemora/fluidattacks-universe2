@@ -8,7 +8,7 @@ from typing import (
 from aioextensions import collect
 
 # Local libraries
-from backend import authz
+import authz
 from backend.typing import (
     Comment as CommentType,
     Event as EventType,

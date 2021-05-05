@@ -18,11 +18,9 @@ from starlette.requests import Request
 from starlette.responses import HTMLResponse
 
 # Local libraries
+import authz
 from back import settings
-from backend import (
-    authz,
-    util,
-)
+from backend import util
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain
 from organizations import domain as orgs_domain

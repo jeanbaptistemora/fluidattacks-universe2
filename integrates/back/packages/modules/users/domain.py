@@ -15,10 +15,8 @@ from typing import (
 from aioextensions import collect
 
 # Local libraries
-from backend import (
-    authz,
-    util,
-)
+import authz
+from backend import util
 from backend.typing import (
     Invitation as InvitationType,
     Stakeholder as StakeholderType,
@@ -38,7 +36,6 @@ from newutils.validations import (
     validate_alphanumeric_field,
     validate_email_address,
     validate_field_length,
-    validate_fluidattacks_staff_on_group,
     validate_phone_field,
 )
 from users import dal as users_dal
@@ -371,7 +368,11 @@ async def update_invited_stakeholder(
         validate_alphanumeric_field(responsibility) and
         validate_phone_field(phone_number) and
         validate_email_address(email) and
-        await validate_fluidattacks_staff_on_group(group_name, email, role)
+        await authz.validate_fluidattacks_staff_on_group(
+            group_name,
+            email,
+            role
+        )
     ):
         new_invitation['phone_number'] = phone_number
         new_invitation['responsibility'] = responsibility

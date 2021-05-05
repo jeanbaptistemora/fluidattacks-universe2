@@ -16,12 +16,12 @@ from urllib.parse import quote_plus
 import botocore.exceptions
 
 # Local libraries
+import authz
 from analytics import domain as analytics_domain
 from back.settings import (
     LOGGING,
     NOEXTRA,
 )
-from backend import authz
 from groups import domain as groups_domain
 from mailer import analytics as analytics_mail
 from newutils import (

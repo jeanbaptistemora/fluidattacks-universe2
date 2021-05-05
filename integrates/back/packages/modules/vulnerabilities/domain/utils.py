@@ -5,7 +5,7 @@ from typing import (
 )
 
 # Local
-from backend import authz
+import authz
 from backend.typing import (
     Finding,
     Historic,
