@@ -295,7 +295,9 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
       (vuln: IVulnDataAttr): string => vuln.id
     );
     if (isAcceptedUndefinedSelected) {
-      void handleAcceptation({
+      // Exception: FP(void operator is necessary)
+      // eslint-disable-next-line
+      void handleAcceptation({ //NOSONAR
         variables: {
           acceptedVulns: acceptedVulnIds,
           findingId,
@@ -305,7 +307,9 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
       });
     }
     if (isConfirmZeroRiskSelected) {
-      void confirmZeroRisk({
+      // Exception: FP(void operator is necessary)
+      // eslint-disable-next-line
+      void confirmZeroRisk({ //NOSONAR
         variables: {
           findingId,
           justification: values.justification,
@@ -314,7 +318,9 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
       });
     }
     if (isRejectZeroRiskSelected) {
-      void rejectZeroRisk({
+      // Exception: FP(void operator is necessary)
+      // eslint-disable-next-line
+      void rejectZeroRisk({ //NOSONAR
         variables: {
           findingId,
           justification: values.justification,
