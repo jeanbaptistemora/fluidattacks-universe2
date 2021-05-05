@@ -6,5 +6,5 @@ type FindingPolicy {
   "Name of the finding the policy is associated with"
   name: String
   "Whether the finding policy is approved or not"
-  status: OrganizationFindindPolicy!
+  status: OrganizationFindindPolicyStatus!
 }

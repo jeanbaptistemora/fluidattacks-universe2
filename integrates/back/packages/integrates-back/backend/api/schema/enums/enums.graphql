@@ -165,6 +165,13 @@ enum OrganizationFindindPolicy {
   REJECTED
 }
 
+enum OrganizationFindindPolicyStatus {
+  APPROVED
+  INACTIVE
+  REJECTED
+  SUBMITTED
+}
+
 enum OrganizationRole {
   CUSTOMER
   CUSTOMERADMIN
