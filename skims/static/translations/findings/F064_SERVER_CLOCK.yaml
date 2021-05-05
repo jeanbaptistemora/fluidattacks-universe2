@@ -1,0 +1,18 @@
+F064_SERVER_CLOCK.description:
+  en: The system's internal clock is not synced with NTP servers.
+  es: El relog interno del sistema no esta sincronizado con servidores NTP.
+F064_SERVER_CLOCK.impact:
+  en: Write log entries with a wrong date.
+  es: Escribir entradas de logs con una fecha erronea.
+F064_SERVER_CLOCK.recommendation:
+  en: Sync the server date with a NTP server.
+  es: Sincronizar la fecha del servidor con un servidor NTP.
+F064_SERVER_CLOCK.requirements:
+  en: R075. Record exceptional events in logs.
+  es: R075. El sistema debe registrar todos los eventos excepcionales y de seguridad en bitácoras.
+F064_SERVER_CLOCK.threat:
+  en: Anonymous attacker from the Internet.
+  es: Atacante anónimo desde Internet.
+F064_SERVER_CLOCK.title:
+  en: F064. Traceability loss - Server's clock
+  es: F064. Pérdida de trazabilidad - Reloj del servidor
