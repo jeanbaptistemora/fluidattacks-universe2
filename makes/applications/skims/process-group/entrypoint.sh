@@ -5,7 +5,8 @@ function clone_group {
   export SERVICES_PROD_AWS_SECRET_ACCESS_KEY
   local group="${1}"
 
-      CI='true' \
+      echo '[INFO] Cloning repositories' \
+  &&  CI='true' \
       CI_COMMIT_REF_NAME='master' \
       PROD_AWS_ACCESS_KEY_ID="${SERVICES_PROD_AWS_ACCESS_KEY_ID}" \
       PROD_AWS_SECRET_ACCESS_KEY="${SERVICES_PROD_AWS_SECRET_ACCESS_KEY}" \
@@ -57,7 +58,6 @@ function main {
   &&  config_file=$(mktemp) \
   &&  language="$(melts misc --get-group-language "${group}")" \
   &&  use_git_repo_services \
-    &&  echo '[INFO] Cloning repositories' \
     &&  clone_group "${group}" \
     &&  for namespace in "groups/${group}/fusion/"*
         do

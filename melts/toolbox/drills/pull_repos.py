@@ -199,8 +199,7 @@ def main(subs: str, repository_name: str = 'all') -> bool:
     utils.generic.aws_login(f'continuous-{subs}')
 
     if not drills_generic.s3_path_exists(bucket, f'{subs}/'):
-        LOGGER.error('group %s does not have repos uploaded to s3', subs)
-        passed = False
+        LOGGER.info('group %s does not have repos uploaded to s3', subs)
     else:
         local_path: str = f'groups/{subs}/fusion/'
 
