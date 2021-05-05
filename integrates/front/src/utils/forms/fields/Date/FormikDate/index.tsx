@@ -3,6 +3,7 @@
   We need it to override default styles from react-bootstrap.
 */
 import type { FieldInputProps, FieldProps } from "formik";
+import { ErrorMessage } from "formik";
 import React from "react";
 
 import { ValidationError } from "utils/forms/fields/styles";
@@ -20,11 +21,8 @@ export const FormikDate: React.FC<IDateProps> = (
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   props: Readonly<IDateProps>
 ): JSX.Element => {
-  const { disabled, id, field, form } = props;
-  const { touched, errors } = form;
+  const { disabled, id, field } = props;
   const { name, onBlur, onChange } = field;
-  const error = errors[name];
-  const fieldTouched = Boolean(touched[name]);
   const { value }: { value: string } = field;
 
   return (
@@ -39,9 +37,9 @@ export const FormikDate: React.FC<IDateProps> = (
         type={"date"}
         value={value.split(" ")[0]}
       />
-      {fieldTouched && error !== undefined ? (
-        <ValidationError id={"validationError"}>{error}</ValidationError>
-      ) : undefined}
+      <ValidationError>
+        <ErrorMessage name={name} />
+      </ValidationError>
     </React.Fragment>
   );
 };

@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types, react/forbid-component-props
-  -------
-  Readonly utility type does not work on deeply nested types and we need
-  className to override default styles from react-bootstrap.
+/* eslint-disable react/forbid-component-props
+  ----
+  We need className to override default styles from react-bootstrap.
 */
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FieldInputProps, FieldProps } from "formik";
+import { ErrorMessage } from "formik";
 import _ from "lodash";
 import React from "react";
 
@@ -25,9 +25,7 @@ export const FormikFileInput: React.FC<IFileInputProps> = (
   props: Readonly<IFileInputProps>
 ): JSX.Element => {
   const { accept, className, id, field, form, onClick } = props;
-  const { touched, errors, setFieldValue } = form;
-  const fieldTouched = Boolean(touched[field.name]);
-  const error = errors[field.name];
+  const { setFieldValue } = form;
   const { name } = field;
   const { value }: { value: FileList } = field;
 
@@ -55,9 +53,9 @@ export const FormikFileInput: React.FC<IFileInputProps> = (
           </strong>
         </ControlLabel>
       </InputGroup>
-      {fieldTouched && error !== undefined ? (
-        <ValidationError id={"validationError"}>{error}</ValidationError>
-      ) : undefined}
+      <ValidationError>
+        <ErrorMessage name={name} />
+      </ValidationError>
     </FormGroup>
   );
 };

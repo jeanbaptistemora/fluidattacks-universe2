@@ -7,7 +7,7 @@ import { object, string } from "yup";
 import { FormikDate } from "utils/forms/fields/Date/FormikDate";
 
 const FormikDateSchema = object().shape({
-  textTest: string().required(),
+  dateTest: string().required(),
 });
 
 describe("Date Field", (): void => {
