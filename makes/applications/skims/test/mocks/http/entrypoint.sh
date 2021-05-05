@@ -1,8 +1,8 @@
 # shellcheck shell=bash
 
 function main {
-  local host="${1}"
-  local port="${2}"
+  local host="${1:-localhost}"
+  local port="${2:-48000}"
 
       pushd __envApp__ \
     &&  makes-kill-port "${port}" \

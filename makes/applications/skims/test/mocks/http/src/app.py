@@ -92,6 +92,29 @@ def add_f015_dast_basic() -> None:
     )
 
 
+def _add_f023_0() -> Response:
+    # Perform a ugly injection
+    if request.headers.get("host"):
+        return Response(headers={"Location": request.host_url})
+    return Response()
+
+
+def _add_f023_1() -> Response:
+    # Redirects to other "safe" url
+    if request.headers.get("host"):
+        return Response(headers={"Location": "http://localhost"})
+    return Response()
+
+
+def add_f023() -> None:
+    for index, rule in enumerate([_add_f023_0, _add_f023_1]):
+        add_rule(
+            finding="f023",
+            index=index,
+            handler=rule,
+        )
+
+
 def add_f043_dast_csp_rules() -> None:
     _add_headers(
         "f043_dast_csp",
@@ -189,6 +212,7 @@ def start() -> None:
 
 
 add_f015_dast_basic()
+add_f023()
 add_f043_dast_csp_rules()
 add_f043_dast_rp_rules()
 add_f043_dast_sts_rules()

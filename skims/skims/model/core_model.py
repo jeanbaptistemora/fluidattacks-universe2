@@ -269,7 +269,7 @@ class FindingEnum(Enum):
         exploitability=Exploitability.poc,
         integrity_impact=IntegrityImpact.none,
         privileges_required=PrivilegesRequired.none,
-        remediation_level=RemediationLevel.official_fix,
+        remediation_level=RemediationLevel.unavailable,
         report_confidence=ReportConfidence.confirmed,
         severity_scope=SeverityScope.unchanged,
         user_interaction=UserInteraction.required,
