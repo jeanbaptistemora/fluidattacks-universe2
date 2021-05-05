@@ -66,11 +66,11 @@ Para crear un nuevo usuario seguimos los siguientes pasos:
 
 . Expandimos el nodo de +Security -> Realms -> File+.
 +
-image::nodo.png[muestra nodo a acceder]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620233710/airs/products/defends/glassfish/definir-rol-seguridad/nodo_bc53cl.webp[muestra nodo a acceder]
 
 . Seleccionamos la opción de +Manage Users+, y luego +New user+.
 +
-image::opcion.png[manage users]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620233710/airs/products/defends/glassfish/definir-rol-seguridad/opcion_byogbg.webp[manage users]
 
 . Creamos un usuario nuevo.
 

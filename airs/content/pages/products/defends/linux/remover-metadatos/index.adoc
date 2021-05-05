@@ -64,7 +64,7 @@ La siguiente imagen muestra el resultado
 del procedimiento descrito anteriormente:
 +
 .Instalación del Paquete Mat
-image::step1.png["Instalación Paquete Mat"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620237360/airs/products/defends/linux/remover-metadatos/step1_re7ez6.webp["Instalación Paquete Mat"]
 
 . Dirigirse a la carpeta que contiene los archivos
 cuyos metadatos deben ser eliminados
@@ -78,7 +78,7 @@ Cambiar al directorio de destino.
 Nuestro directorio de destino se ve así:
 +
 .Cambio de directorio
-image::step2.png["Cambio de directorio"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620237359/airs/products/defends/linux/remover-metadatos/step2_zfcggy.webp["Cambio de directorio"]
 
 . Verificar que los archivos contienen metadatos utilizando un +wildcard+ (*)
 y el tipo de formato a verificar.
@@ -94,7 +94,7 @@ Cuando el comando encuentra metadatos peligrosos,
 arroja el siguiente resultado:
 +
 .Metadatos peligrosos en archivos
-image::step3.png["Metadatos peligrosos en archivos"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620237359/airs/products/defends/linux/remover-metadatos/step3_ksmljq.webp["Metadatos peligrosos en archivos"]
 
 . Eliminar los metadatos de un tipo de archivo específico,
 utilizando el siguiente comando:
@@ -108,7 +108,7 @@ Al realizar la limpieza de los metadatos,
 se despliegan los siguientes mensajes:
 +
 .Metadatos eliminados
-image::step4.png["Metadatos eliminados"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620237359/airs/products/defends/linux/remover-metadatos/step4_mxgfa5.webp["Metadatos eliminados"]
 +
 . Una vez ejecutado el comando anterior
 verificamos que los archivos quedaron libres de metadatos:
@@ -122,7 +122,7 @@ Sabemos que los metadatos fueron eliminados exitosamente
 si observamos el siguiente mensaje:
 +
 .Verificación de eliminación de metadatos
-image::step5.png["Verificación de eliminación de metadatos"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620237354/airs/products/defends/linux/remover-metadatos/step5_y4iysy.webp["Verificación de eliminación de metadatos"]
 +
 Este procedimiento se realizó con archivos +PDF+.
 Para eliminar los metadatos de otro tipo de archivos

@@ -48,19 +48,19 @@ se siguen los siguientes pasos:
 
 . Se hace doble clic en el icono de +Windows Update+.
 +
-image::controlpanel.png[controlpanel]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620240178/airs/products/defends/windows/configurar-actualizaciones/controlpanel_icnmu3.webp[controlpanel]
 
 . Después, se da clic
 sobre la opción +Check for updates+(buscar actualizaciones).
 +
-image::updates.png[updates]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620240178/airs/products/defends/windows/configurar-actualizaciones/updates_w0fugz.webp[updates]
 
 . Se muestran todas las actualizaciones disponibles.
 
 . Se selecciona +Install updates+ (instalar actualizaciones),
 así se actualiza por primera vez el sistema.
 +
-image::install.png[install-updates]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620240178/airs/products/defends/windows/configurar-actualizaciones/install_hrbhnw.webp[install-updates]
 
 . Si el sistema tiene configurado +UAC+ (Control de cuentas de usuario),
 es probable que solicite usuario y contraseña,
@@ -74,7 +74,7 @@ Esa hora es adecuada
 si se espera poco trabajo en la máquina a esta hora.
 Finalmente se hace clic en +OK+.
 +
-image::configurar.png[configuracion]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620240178/airs/products/defends/windows/configurar-actualizaciones/configurar_h0uyka.webp[configuracion]
 
 . Nota: Se deben realizar pruebas de las actualizaciones a implementar,
 previo a la instalación en los ambientes de producción.

@@ -61,7 +61,7 @@ codificarán los datos +HTML+ correctamente
 antes de volver a registrarlos en el servidor.
 +
 [[f1]]
-image::request.png[Figura 1.]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620229871/airs/products/defends/aspnet/prevenr-ataque-xss/request_udg6t0.webp[Figura 1.]
 
 . En el caso de las aplicaciones +ASP.NET MVC 3+,
 cuando tiene que registrar el +HTML+

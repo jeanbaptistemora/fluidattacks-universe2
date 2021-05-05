@@ -88,7 +88,7 @@ y guarde todos los paquetes descargados en él.
 [source, bash, linenums]
 yum check-update
 
-image::verificar.png[verificacion]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620237740/airs/products/defends/redhat/actualizar-software/verificar_dypknx.webp[verificacion]
 
 == Referencias
 

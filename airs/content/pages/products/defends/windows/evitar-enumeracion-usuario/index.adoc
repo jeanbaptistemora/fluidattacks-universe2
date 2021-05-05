@@ -41,7 +41,7 @@ para planear un ataque de fuerza bruta o de diccionario.
 . Ingresar al sistema y verificar que se solicite
 como mínimo nombre de usuario y contraseña.
 +
-image::login.png[login-enumeracion]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620240713/airs/products/defends/windows/evitar-enumeracion-usuario/login_qcpnvz.webp[login-enumeracion]
 
 . Para aplicar esta configuración a un dominio
 por medio de +Directorio Activo+,
@@ -56,7 +56,7 @@ Computer configuration/Windows Settings/Security Settings/LocalPolicies/Security
 
 . La ruta seguida puede apreciarse en la siguiente imagen:
 +
-image::ruta.png[ruta]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620240713/airs/products/defends/windows/evitar-enumeracion-usuario/ruta_qplknq.webp[ruta]
 
 . Para configurar la política de modo local,
 se abre el +Local Group Policy Editor+.
@@ -67,12 +67,12 @@ Observará que la misma ruta en el formulario difiere ligeramente
 que la de los pasos para la configuración de equipos
 pertenecientes a un dominio de +Windows+.
 +
-image::gpedit.png[gpedit]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620240713/airs/products/defends/windows/evitar-enumeracion-usuario/gpedit_a0ntdq.webp[gpedit]
 
 . Habilite la propiedad de Inicio de sesión interactivo
 +No mostrar el último nombre de usuario+.
 +
-image::sesion.png[sesion]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620240713/airs/products/defends/windows/evitar-enumeracion-usuario/sesion_sgyxz4.webp[sesion]
 
 . Para verificar que la longitud de clave sea superior a cero
 la ruta a seguir será la mostrada en la imagen.
@@ -99,12 +99,12 @@ Para esto siga la ruta:
     /Interfaz de usuario de credenciales
 ----
 +
-image::directiva.png[directivas]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620240713/airs/products/defends/windows/evitar-enumeracion-usuario/directiva_melwtw.webp[directivas]
 
 . De esta forma, cuando se requiera acceder a los recursos privilegiados
 no se informará el nombre de usuario del administrador:
 
-image::login-2.png[login]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620240713/airs/products/defends/windows/evitar-enumeracion-usuario/login-2_rrghdi.webp[login]
 
 == Referencias
 

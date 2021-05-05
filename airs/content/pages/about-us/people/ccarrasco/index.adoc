@@ -7,7 +7,7 @@
 = Carolina Carrasco
 
 [role="img-ppl"]
-image::ccarrasco.png[Carolina Carrasco]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620228142/airs/about-us/people/ccarrasco_esazxk.webp[Carolina Carrasco]
 
 Electronic Engineer specialized in Management.
 `Fluid Attacks` Senior Project Manager;

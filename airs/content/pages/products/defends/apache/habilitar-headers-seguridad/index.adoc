@@ -30,7 +30,7 @@ Estas cabeceras proporcionan información
 mediante la sintaxis +'HEADER: Valor'+
 y son enviadas automáticamente por el navegador o el servidor Web.
 
-image::headers.png[headers]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620229767/airs/products/defends/apache/habilitar-headers-seguridad/headers_qlshhi.webp[headers]
 
 En la imagen se puede apreciar tanto los +headers+ de la petición
 hecha a la página principal de +Fluid Attacks+,

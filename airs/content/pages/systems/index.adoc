@@ -3,7 +3,7 @@
 :page-keywords: Application, Web, Mobile, Thick Client, API, Microservice, Cloud, Network, IoT; OT, Pentesting, Ethical Hacking
 :page-phrase: At Fluid Attacks, we have a broad collection of information systems which we target in security testing with the aim of detecting vulnerabilities which are at risk of being exploited.
 :page-template: compliances
-:arrow: image:../theme/images/arrow-btn.svg[Young hacker smiling, width=15px, height=15px]
+:arrow: image:https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_15/v1620228633/airs/icons/arrow-btn_wktcez.webp[Arrow]
 
 = Systems
 

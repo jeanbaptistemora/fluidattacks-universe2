@@ -7,7 +7,7 @@
 = Jonathan Armas
 
 [role="img-ppl"]
-image::jarmas.png[Jonathan Armas]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620228152/airs/about-us/people/jarmas_a1epeq.webp[Jonathan Armas]
 
 Born in Caracas, Venezuela,
 he is a Systems Engineer from the `UNIMET` (Universidad Metropolitana)

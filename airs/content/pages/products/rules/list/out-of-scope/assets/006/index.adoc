@@ -62,7 +62,7 @@ so it can be used in the risks assessment.
 
 == Diagram
 
-image::../out-of-scope/assets/006/diag1.png[Diagram 1]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620242288/airs/products/rules/out-of-scope/assets/006/diag1_wuwrol.webp[Diagram 1]
 
 == Solutions
 

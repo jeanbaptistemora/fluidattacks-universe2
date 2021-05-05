@@ -16,7 +16,7 @@ from getting into the wrong hands.
 We are proud to have recently been recognized by Clutch
 as one of the link:https://clutch.co/it-services/cybersecurity[Top Cybersecurity Consulting Companies] in the world!
 
-image::rank.png["Fluid Attacks Clutch Profile"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620228368/airs/about-us/reviews/rank_nmekly.webp["Fluid Attacks Clutch Profile"]
 
 link:https://clutch.co/[Clutch] is an emerging `B2B` ratings
 and reviews platform based in Washington, DC.

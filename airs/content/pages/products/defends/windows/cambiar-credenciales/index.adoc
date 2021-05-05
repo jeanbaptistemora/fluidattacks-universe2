@@ -59,7 +59,7 @@ Nos dirigiremos a las directivas
 como se muestra en la siguiente figura:
 
 .Editor de directivas de grupo local
-image::config.png["Editor de directivas de grupo local"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620240025/airs/products/defends/windows/cambiar-credenciales/config_dilecr.webp["Editor de directivas de grupo local"]
 
 . En el +Editor de directivas de grupo local+ dirigirse a la sección
 +Configuración del Equipo+,
@@ -79,13 +79,13 @@ para modificarlo,
 como se muestra a continuación:
 +
 .Modificación de usuario invitado
-image::rename-guest.png["Modificación de usuario invitado"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620240024/airs/products/defends/windows/cambiar-credenciales/rename-guest_lwqhki.webp["Modificación de usuario invitado"]
 
 . Posteriormente ingresamos a la directiva del administrador
 y se repite el mismo procedimiento.
 +
 .Modificación de usuario administrador
-image::rename-admin.png["Modificación de usuario administrador"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620240024/airs/products/defends/windows/cambiar-credenciales/rename-admin_dfmawh.webp["Modificación de usuario administrador"]
 
 . Los cambios serán efectivos luego de reiniciar el equipo.
 

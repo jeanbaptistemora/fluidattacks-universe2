@@ -7,7 +7,7 @@
 = Andres Roldan
 
 [role="img-ppl"]
-image::aroldan.png[Andres Roldan]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620228133/airs/about-us/people/aroldan_qsqtwx.webp[Andres Roldan]
 
 Cybersecurity Specialist from the University of Maryland. `Fluid Attacks`
 partner and Offensive Team Leader with *20* years of experience in

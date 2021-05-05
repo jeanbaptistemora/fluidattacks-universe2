@@ -83,16 +83,16 @@ def function_posargs(*args)
 python pyobfuscate.py archivo.py > archivo.ofuscado.py
 ----
 +
-image::comando.png[ejecucion comando Python]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620237611/airs/products/defends/python/ofuscar-codigo-fuente/comando_tfskqu.webp[ejecucion comando Python]
 
 . Se procede a verificar que el nuevo archivo generado esta +ofuscado+.
 +
-image::ofuscado.png[codigo ofuscado]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620237611/airs/products/defends/python/ofuscar-codigo-fuente/ofuscado_lqlwns.webp[codigo ofuscado]
 
 . Se verifica que el nuevo archivo generado
 funcione exactamente igual que el original.
 +
-image::ejecucion.png[ejecucion normal]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620237611/airs/products/defends/python/ofuscar-codigo-fuente/ejecucion_u2ugen.webp[ejecucion normal]
 
 . En conclusión, la +ofuscación+ de código tiene varias ventajas,
 sobre todo en cuanto a la seguridad,

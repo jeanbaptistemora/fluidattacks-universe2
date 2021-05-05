@@ -28,10 +28,10 @@ Through our hacking services, we determine if these are met or not.
 
 == Standards
 
-image::logos01.png[Certifications 1, role="tc"]
-image::logos02.png[Certifications 2, role="tc"]
-image::logos03.png[Certifications 3, role="tc"]
-image::logos04.png[Certifications 4, role="tc"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620241864/airs/products/rules/logos01_qjswlh.webp[Certifications 1, role="tc"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620241864/airs/products/rules/logos02_taug69.webp[Certifications 2, role="tc"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620241864/airs/products/rules/logos03_kya6id.webp[Certifications 3, role="tc"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620241864/airs/products/rules/logos04_l7skrf.webp[Certifications 4, role="tc"]
 
 Rules is based on several standards
 related to information security, including the following:

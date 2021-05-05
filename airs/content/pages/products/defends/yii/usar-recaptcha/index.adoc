@@ -114,7 +114,7 @@ podemos observar que nuestro formulario ahora cuenta con un +reCAPTCHA+,
 como se muestra en la siguiente imagen:
 +
 .reCAPTCHA Implementado en los formularios de la aplicación
-image::captcha.png["reCAPTCHA implementado"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620241756/airs/products/defends/yii/usar-recaptcha/captcha_drub0z.webp["reCAPTCHA implementado"]
 
 . De esta manera el formulario será enviado únicamente
 si el usuario completa satisfactoriamente el +reCAPTCHA+,

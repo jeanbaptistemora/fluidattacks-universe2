@@ -135,13 +135,13 @@ STRDBG COBOLDEBUG
 . En este momento la aplicación solicita la clave
 para descifrar el código fuente:
 +
-image::debug-decryption-key.png[clave]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620231575/airs/products/defends/cobol/cifrar-codigo-fuente/debug-decryption-key_t1bnqv.webp[clave]
 
 . Si la clave es correcta
 podremos ver el código fuente
 y depurar normalmente el programa:
 +
-image::debug-source-code.png[depuracion]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620231575/airs/products/defends/cobol/cifrar-codigo-fuente/debug-source-code_ywaj9k.webp[depuracion]
 
 == Descargas
 

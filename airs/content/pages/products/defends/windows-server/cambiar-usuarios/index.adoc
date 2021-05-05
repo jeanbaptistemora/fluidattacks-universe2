@@ -74,7 +74,7 @@ para modificar el nombre de +guest+ (invitado).
 A continuación se muestra el procedimiento anteriormente descrito:
 +
 .Modificación de usuario guest
-image::step1.png["Modificación de usuario guest"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620241484/airs/products/defends/windows-server/cambiar-usuarios/step1_nvujzs.webp["Modificación de usuario guest"]
 
 . Para modificar el nombre de administrador,
 se repite el paso anterior para el usuario +administrator+.

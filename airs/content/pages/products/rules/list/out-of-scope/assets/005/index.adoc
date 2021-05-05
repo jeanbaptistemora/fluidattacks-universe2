@@ -68,7 +68,7 @@ to establish the monetary value of their assets.
 
 == Diagram
 
-image::../out-of-scope/assets/005/diag1-req003.png[Req003 Diagram]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620242244/airs/products/rules/out-of-scope/assets/005/diag1-req003_dlrjha.webp[Req003 Diagram]
 
 == Solutions
 

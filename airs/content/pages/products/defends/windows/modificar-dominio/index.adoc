@@ -49,12 +49,12 @@ Una forma equivalente es mediante
 +Start \Administrative Tools\Group Policy Management+
 (Administración de directivas de grupo).
 +
-image::gpm.png[group policy management]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620241407/airs/products/defends/windows/modificar-dominio/gpm_rbylgw.webp[group policy management]
 
 . Allí es posible ver en el panel izquierdo
 los dominios que están siendo administrados.
 +
-image::dominios.png[dominios administrados]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620241407/airs/products/defends/windows/modificar-dominio/dominios_ygjboh.webp[dominios administrados]
 
 . Para cambiar la configuración de algunas de las políticas,
 basta con desplegar el bosque de dominios,
@@ -72,7 +72,7 @@ se debe ir a la ruta.
 Computer Configuration\Policies\Windows Settings\Security Settings\Account Policies\Password Policy
 ----
 +
-image::password.png[password policy]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620241407/airs/products/defends/windows/modificar-dominio/password_rid1i3.webp[password policy]
 
 . Haciendo doble clic sobre cada directiva
 podrá cambiar su valor,

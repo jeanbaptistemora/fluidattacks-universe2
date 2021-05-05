@@ -65,33 +65,33 @@ Abrir +Agregar entrada de permiso+
 y configurar de la siguiente manera:
 
 .Adición dirección IP.
-image::addrule.png["Adición de dirección IP"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620234096/airs/products/defends/iis/negar-acceso-consola-admin/addrule_p5rphh.webp["Adición de dirección IP"]
 
 .Visualización de la nueva regla.
-image::restriction.png["Visualización nueva regla"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620234096/airs/products/defends/iis/negar-acceso-consola-admin/restriction_nfzz8g.webp["Visualización nueva regla"]
 
 . Para dar acceso a un rango de direcciones +IP+ dentro del mismo menú,
 abrir +Agregar entrada de permiso+ y configurar de la siguiente manera,
 donde +192.168.0.0+ es la dirección de red y +255.255.255.0+ la mascara de red:
 
 .Adición de IP y máscara de subred
-image::addrule2.png["Adición de IP y máscara de subred"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620234096/airs/products/defends/iis/negar-acceso-consola-admin/addrule2_iyimfd.webp["Adición de IP y máscara de subred"]
 
 .Actualización de la nueva regla.
-image::restriction2.png["Actualización nueva regla"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620234096/airs/products/defends/iis/negar-acceso-consola-admin/restriction2_ezqz9l.webp["Actualización nueva regla"]
 
 . Para la regla aplicada en el paso +5+,
 si el equipo con dirección IP 192.168.0.17
 ingresa a la consola administrativa, se garantiza el acceso:
 
 .Visualización de la consola de administración en el navegador
-image::console.png["Consola de administración"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620234096/airs/products/defends/iis/negar-acceso-consola-admin/console_buvhy8.webp["Consola de administración"]
 
 . Por el contrarío, si ingresa cualquier otro equipo
 diferente al +192.168.0.17+, el acceso será negado:
 
 .Resultados de la configuración visualizados en el navegador
-image::browser.png["Denegación de acceso"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620234096/airs/products/defends/iis/negar-acceso-consola-admin/browser_og7isx.webp["Denegación de acceso"]
 
 De esta forma la consola de administración permanece protegida
 para usuarios externos permitiendo el acceso

@@ -35,13 +35,13 @@ De manera detallada, se debe proceder del siguiente modo:
 . Abrir el menú de Windows ir a ejecutar y escribir +AzMan.msc+.
 +
 .Interfaz de AzMan
-image::azman-1.png[Interfaz de Azman]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620233089/airs/products/defends/csharp/esquema-autorizacion/azman-1_qktaxh.webp[Interfaz de Azman]
 
 . En el menú de acciones seleccionar +options+,
 en el dialogo se debe escoger +Developer mode+.
 +
 .Habilitando el modo desarrollador
-image::azman-2.png[Habilitando el modo desarrollador]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620233089/airs/products/defends/csharp/esquema-autorizacion/azman-2_ubzjfe.webp[Habilitando el modo desarrollador]
 
 . Se debe seleccionar el menú de acción
 y luego hacer clic en +New Authorization Store+.
@@ -50,13 +50,13 @@ Seleccionar la ubicación para el archivo +XML+
 e ingresar las descripciones requeridas.
 +
 .Contenedores de Autorización
-image::azman-3.png[Creando un nuevo contenedor de autorización]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620233089/airs/products/defends/csharp/esquema-autorizacion/azman-3_p2abwp.webp[Creando un nuevo contenedor de autorización]
 
 . En el menú de acciones, seleccionar la opción +New Application+
 y establecer un nombre de aplicación y una version.
 +
 .Creando una nueva aplicación
-image::azman-4.png[Creando un nuevo contenedor de autorización]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620233089/airs/products/defends/csharp/esquema-autorizacion/azman-4_sioz8t.webp[Creando un nuevo contenedor de autorización]
 
 . Expandir la aplicación y seleccionar la definición de operaciones
 bajo la categoría definiciones.
@@ -66,7 +66,7 @@ y seleccione la opción crear +New Operation Definition+.
 Asegúrese de dar números únicos a las operaciones creadas.
 +
 .Definición de operaciones
-image::azman-5.png[Definición de operaciones]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620233089/airs/products/defends/csharp/esquema-autorizacion/azman-5_rdkjwd.webp[Definición de operaciones]
 
 . Ahora seleccione las definiciones de tareas,
 escoja +New Task+ bajo el menú de acción
@@ -78,13 +78,13 @@ Las tareas también pueden contener otras tareas.
 Utilice nombres únicos para las tareas.
 +
 .Definición de Tareas
-image::azman-6.png[Definición de tareas]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620233089/airs/products/defends/csharp/esquema-autorizacion/azman-6_sluk4z.webp[Definición de tareas]
 
 . Ahora seleccione las definiciones de roles bajo la categoría de definiciones,
 cree un nuevo rol con descripciones para cada uno y asigne tareas.
 +
 .Asignación de Tareas
-image::azman-7.png[Asignación de tareas]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620233089/airs/products/defends/csharp/esquema-autorizacion/azman-7_f4kewr.webp[Asignación de tareas]
 
 . Hasta este punto se ha definido roles comunes y las tareas para cada rol.
 Ahora se debe asignar únicamente los roles
@@ -95,7 +95,7 @@ y luego escoja en la opción de menú +Action->Add Role+;
 de la lista, seleccione aquellos que sean adecuados.
 +
 .Asignación de Roles
-image::azman-8.png[Asignación de Roles]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620233089/airs/products/defends/csharp/esquema-autorizacion/azman-8_bis5jb.webp[Asignación de Roles]
 
 . Se ha definido las operaciones, tareas y roles.
 Se ha asignado los respectivos roles a la aplicación.
@@ -112,7 +112,7 @@ de adicionar usuarios de Windows y grupos,
 adicione todos los usuarios que son parte de los grupos.
 +
 .Adición de usuarios
-image::azman-9.png[Adición de usuarios]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620233089/airs/products/defends/csharp/esquema-autorizacion/azman-9_lfdh2x.webp[Adición de usuarios]
 
 . Una vez que se han definido todos los detalles
 de la seguridad basada en roles,
@@ -126,7 +126,7 @@ Ahora haga clic derecho en el rol
 y seleccione la opción para asignar a los grupos de la aplicación.
 +
 .Enlace de grupos a la aplicación
-image::azman-10.png[Enlace de grupos a la aplicación]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620233089/airs/products/defends/csharp/esquema-autorizacion/azman-10_o1iwzq.webp[Enlace de grupos a la aplicación]
 
 . Una vez que se ha terminado de definir
 la seguridad basada en roles para la aplicación
@@ -137,7 +137,7 @@ se puedan determinar los permisos para un alcance
 y redireccionar el flujo de la aplicación según sea conveniente.
 +
 .Creación de alcance
-image::azman-11.png[creación de alcance]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620233090/airs/products/defends/csharp/esquema-autorizacion/azman-11_pmoytf.webp[creación de alcance]
 
 . Una vez que se tiene la seguridad basada en roles en el +AzMan+,
 se puede usar en aplicaciones.

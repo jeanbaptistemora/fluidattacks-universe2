@@ -43,7 +43,7 @@ manejo de archivos, registro de eventos, administración de red, credenciales,
 
 . En el siguiente diagrama se muestra la arquitectura de +Java+ ^<<r3,[3]>>^.
 +
-image::arquitectura.png[arquitectura java]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620235296/airs/products/defends/java/establecer-politica-gui/arquitectura_pws4n6.webp[arquitectura java]
 
 . Las clases pasan por un primer control
 donde se verifica que el +bytecode+ esté bien formado.
@@ -179,21 +179,21 @@ para esto se usará la herramienta +policytool+ que viene con el +JDK+ ^<<r6,[6]
 . En el pantallazo inicial vamos a la opción archivo,
 y creamos un archivo que contendrá las políticas de seguridad.
 +
-image::policytool.png[pantalla inicial]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620235296/airs/products/defends/java/establecer-politica-gui/policytool_qtlod3.webp[pantalla inicial]
 
 . El siguiente paso es agregar una entrada, para ello,
 damos clic en +Agregar entrada de norma+.
 La base de códigos es la ruta de las clases
 sobre las cuales aplicaremos la política de seguridad.
 +
-image::policytool-1.png[agregar entrada]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620235297/airs/products/defends/java/establecer-politica-gui/policytool-1_nguh75.webp[agregar entrada]
 
 . Aplicaremos una política para el manejo de archivos +FilePermission+.
 El nombre de destino es la ruta del archivo o los archivos
 sobre los cuales la política tiene efecto,
 y las acciones +read+, +write+, +delete+, +execute+.
 +
-image::policytool-2.png[permisos]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620235297/airs/products/defends/java/establecer-politica-gui/policytool-2_vtzgy8.webp[permisos]
 
 . La nueva política de seguridad se ha creado con el siguiente contenido:
 +

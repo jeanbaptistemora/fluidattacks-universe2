@@ -83,7 +83,7 @@ y posteriormente, se va a realizar una operación de actualización,
 se sugiere utilizar variables de sesión
 como lo ilustra la siguiente gráfica:
 
-image::sesion.png[uso variables de sesion]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620234603/airs/products/defends/java/almacenar-estado-sesion-jsf/sesion_tzs7dt.webp[uso variables de sesion]
 
 == Referencias
 

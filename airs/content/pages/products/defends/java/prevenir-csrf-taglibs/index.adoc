@@ -112,7 +112,7 @@ comprobar la validez de la solicitud.
 . Examinando el código fuente generado para los formularios,
 se puede apreciar el valor de los campos ocultos.
 
-image::formulario.png[formulario]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620236837/airs/products/defends/java/prevenir-csrf-taglibs/formulario_njpqfb.webp[formulario]
 
 == Referencias
 

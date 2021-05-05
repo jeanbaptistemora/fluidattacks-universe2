@@ -195,7 +195,7 @@ ConnectionPoolFSG.java
 . Antes de iniciar el servidor y ejecutar el +servlet+
 podemos observar que no hay conexiones activas en la base de datos.
 +
-image::conexion-close.png[conexiones inactivas]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620235959/airs/products/defends/java/mantener-conexiones-db/conexion-close_yqts3m.webp[conexiones inactivas]
 
 . Al ejecutar el +servlet+, observamos que se crearon diez nuevas conexiones
 a la base de datos en espera de ser utilizadas.
@@ -203,7 +203,7 @@ Tal como se indicó con el método +setInitialSize+,
 estas conexiones se mantienen durante el tiempo de vida del servidor,
 por lo cual garantiza un alto rendimiento y soporte para alta concurrencia.
 +
-image::conexion-open.png[conexiones activas]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620235960/airs/products/defends/java/mantener-conexiones-db/conexion-open_je4tdb.webp[conexiones activas]
 
 == Descargas
 

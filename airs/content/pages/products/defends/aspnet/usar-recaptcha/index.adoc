@@ -112,7 +112,7 @@ por nuestro +PublicKey+ y +PrivateKey+ respectivamente.
 con el control de +reCAPTCHA+:
 +
 .Apariencia del control reCAPTCHA
-image::captcha.png["Control reCAPTCHA"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620229948/airs/products/defends/aspnet/usar-recaptcha/captcha_mrhik7.webp["Control reCAPTCHA"]
 
 . Posteriormente procedemos a validar su funcionamiento
 verificando que el comportamiento sea el esperado.
@@ -123,14 +123,14 @@ y se podrá proceder al envío del formulario.
 A continuación se muestra en la figura, el escenario descrito anteriormente:
 +
 .reCAPTCHA exitoso
-image::captcha-correct.png["reCAPTCHA realizado exitosamente"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620229948/airs/products/defends/aspnet/usar-recaptcha/captcha-correct_ilerxr.webp["reCAPTCHA realizado exitosamente"]
 
 . Si por el contrario, el +reCAPTCHA+ falla,
 se mostrará un mensaje de error y se pedirá al usuario volver a intentarlo.
 A continuación se muestra en la figura, el escenario descrito anteriormente:
 +
 .reCAPTCHA Fallido
-image::captcha-fail.png["reCAPTCHA fallido"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620229948/airs/products/defends/aspnet/usar-recaptcha/captcha-fail_l9iwuo.webp["reCAPTCHA fallido"]
 
 
 . De esta manera, se garantiza que el formulario sea enviado sí y sólo si

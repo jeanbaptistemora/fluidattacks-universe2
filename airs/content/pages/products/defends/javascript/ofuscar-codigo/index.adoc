@@ -54,7 +54,7 @@ alert(result);
 . En la ventana de la herramienta, pegamos el código que deseamos ofuscar,
 seleccionamos las opciones deseadas, y por último hacemos clic en +Pack+.
 +
-image::packer.png[herramienta packer]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620237287/airs/products/defends/javascript/ofuscar-codigo/packer_vurw8b.webp[herramienta packer]
 
 . El código generado es el siguiente.
 +

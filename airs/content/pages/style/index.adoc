@@ -93,7 +93,7 @@ Exceptions to the rule are:
 *Example:*
 
 .SLB Example.
-image::slb-example.png[slb]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620242348/airs/style/slb-example_qacz6k.webp[slb]
 
 For more information regarding `SLB` and their use,
 you can check out the link:http://rhodesmill.org/brandon/2012/one-sentence-per-line/[semantic linefeeds guide],
@@ -173,7 +173,7 @@ showing the result of what was explained.
 Add a description for the `gif`.
 
 .Exploit description example.
-image::exploitation.gif[gif]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620242348/airs/style/exploitation_z4npfw.gif[gif]
 
 === 9. Not permitted
 
@@ -329,7 +329,7 @@ a little bit about yourself and an image that represents you
 because at the end of the post
 the authors’s profile will be included.
 
-image::guest.png[guest]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620242347/airs/style/guest_etlyxo.webp[guest]
 
 . Author’s first and last name.
 . Short description, minimum 15 words – maximum 30.

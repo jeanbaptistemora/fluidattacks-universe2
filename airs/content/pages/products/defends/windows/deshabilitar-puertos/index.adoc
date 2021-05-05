@@ -66,7 +66,7 @@ en un equipo con +Windows+ instalado se debe:^<<r3,[3]>>^
 . En la consola, ejecutar el comando +netstat -an+.
 En la salida no deberían estar los siguientes servicios:
 +
-image::servicios.png[servicios]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620240306/airs/products/defends/windows/deshabilitar-puertos/servicios_y3pcbg.webp[servicios]
 
 . Adicionalmente, se debe hacer una verificación
 con la herramienta de servicios de +Windows+

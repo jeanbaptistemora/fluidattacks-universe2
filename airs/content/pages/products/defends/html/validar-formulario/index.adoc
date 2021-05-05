@@ -84,7 +84,7 @@ los cuales son validados por el navegador de manera automática.
 utilizando información inválida o dejando los campos vacíos,
 aparecen diversos errores en el formulario:
 +
-image::formulario.png[errores en formulario]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620234007/airs/products/defends/html/validar-formulario/formulario_ap0bq2.webp[errores en formulario]
 
 . En el caso que el navegador utilizado no sea reciente,
 no se realizará ninguna validación de los campos de los formularios.

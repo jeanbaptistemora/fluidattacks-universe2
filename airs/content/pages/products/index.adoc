@@ -6,7 +6,7 @@
 = Products
 
 [role="w-products center pt5"]
-image::product-integrates.png[link="../products/integrates/"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620229466/airs/products/product-integrates_q4zern.webp[link="../products/integrates/"]
 
 == Integrates
 
@@ -18,7 +18,7 @@ different phases and in real time.
 [button]#link:./integrates/[View Product, role="button-white"]#
 
 [role="w-products center pt3"]
-image::product-skims.png[link="../products/skims/"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620229466/airs/products/product-skims_yxdwp7.webp[link="../products/skims/"]
 
 == Skims
 
@@ -30,7 +30,7 @@ been successfully remediated.
 [button]#link:./skims/[View Product, role="button-white"]#
 
 [role="w-products center pt3"]
-image::product-drills.png[link="../products/drills/"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620229466/airs/products/product-drills_m31dox.webp[link="../products/drills/"]
 
 == Drills
 
@@ -42,7 +42,7 @@ along with source code analysis.
 [button]#link:./drills/[View Product, role="button-white"]#
 
 [role="w-products center pt3"]
-image::product-forces.png[link="../products/devsecops/"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620229466/airs/products/product-forces_pyggsx.webp[link="../products/devsecops/"]
 
 == Forces
 

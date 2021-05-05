@@ -121,7 +121,7 @@ por lo general esta librería se encuentra en la ruta.
 
 . Estructura del proyecto:
 +
-image::ejb.png[estructura del proyecto]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620237122/airs/products/defends/java/utilizar-concurrencia-ejb/ejb_inisqw.webp[estructura del proyecto]
 
 . Una vez el proyecto esté sin errores se exporta a un +JAR+.
 
@@ -242,7 +242,7 @@ para que el +ID+ no arroje ningún tipo de error.
 
 . La estructura del proyecto es:
 +
-image::estructura.png[estructura del proyecto]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620237122/airs/products/defends/java/utilizar-concurrencia-ejb/estructura_ydboey.webp[estructura del proyecto]
 
 . Una vez el proyecto esté sin errores se exporta a un +WAR+.
 

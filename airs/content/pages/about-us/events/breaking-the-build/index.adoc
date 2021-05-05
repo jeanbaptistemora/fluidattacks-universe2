@@ -41,10 +41,10 @@ Thereby, we have been able to reach the following average rates:
 |====
 a|[caption=""]
 .Average of all systems, 2020/01/01 - 2020/07/15
-image::global-average.png[Average of deployments to production in all systems]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620227871/airs/about-us/events/global-average_m9xxvl.webp[Average of deployments to production in all systems]
 a|[caption=""]
 .Highest average in a system, 2020/01/01 - 2020/07/15
-image::max-average.png[The highest average in a system]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620227871/airs/about-us/events/max-average_js7kyc.webp[The highest average in a system]
 |====
 
 == 2. Content

@@ -65,7 +65,7 @@ Para verificar se puede ingresar repetidas veces credenciales erróneas
 para un usuario y se obtendrá un mensaje de error similar al siguiente:
 +
 .Protección contra ataques de fuerza bruta
-image::login-protection.png["Protección contra ataques de fuerza bruta"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620241649/airs/products/defends/wordpress/evitar-fuerza-bruta/login-protection_udntsx.webp["Protección contra ataques de fuerza bruta"]
 
 . Como se puede apreciar, una vez instalado el nuevo +plugin+,
 si un usuario realiza muchos intentos de autenticación fallidos,

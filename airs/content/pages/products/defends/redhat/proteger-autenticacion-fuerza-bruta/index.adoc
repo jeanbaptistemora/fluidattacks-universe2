@@ -69,7 +69,7 @@ account required pam_tally2.so
 . El orden en que se insertan debe ser el descrito en la siguiente imagen.
 Esto tendrá efectos en su funcionamiento.
 +
-image::edicion.png[orden]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620237808/airs/products/defends/redhat/proteger-autenticacion-fuerza-bruta/edicion_hjlwic.webp[orden]
 
 . Reiniciamos el servicio +ssh+.
 +

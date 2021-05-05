@@ -93,7 +93,7 @@ se designa al programa bajo el nombre de +COBOLCOPYB+.
 hacemos uso de la sentencia COPY
 la cual debe seguir el siguiente formato^<<r2,[2]>>,<<r3,[3]>>^:
 +
-image::copy-format.png[formato]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620231789/airs/products/defends/cobol/usar-estructuras-optimizadas/copy-format_ylepcf.webp[formato]
 
 . Si +file-name+ no es especificado,
 el archivo +QCBLLESRC+ es asumido por defecto.

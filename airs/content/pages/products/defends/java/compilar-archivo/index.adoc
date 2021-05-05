@@ -86,7 +86,7 @@ javac -g archivo.java
 se debe hacer click en +Project+
 y seleccionar la opción +Propiedades+.
 +
-image::propiedades.png[opción propiedades]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620235066/airs/products/defends/java/compilar-archivo/propiedades_ssk3xu.webp[opción propiedades]
 
 . Luego, en la ventana que aparece,
 hay que seleccionar la opción +Java Compiler+
@@ -95,7 +95,7 @@ y después escoger las opciones
 +Add line number attributes to generated class files+ y
 +Add variable attributes to generated class files+.
 +
-image::javacompiler.png[opciones javacompiler]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620235066/airs/products/defends/java/compilar-archivo/javacompiler_sw5ays.webp[opciones javacompiler]
 
 . Para compilar una aplicación usando +Maven+
 se debe utilizar el parametro +-x+

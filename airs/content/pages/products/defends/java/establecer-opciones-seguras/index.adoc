@@ -30,14 +30,14 @@ Estas pueden ser +simples+, +dobles+, +múltiples+ y +case+.
 se limita la ejecución de un bloque de código
 dependiendo el resultado de una condición.
 
-image::simple.png[estructura condicional simple]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620235157/airs/products/defends/java/establecer-opciones-seguras/simple_qkq07n.webp[estructura condicional simple]
 
 *Dobles:* Son aquellas que ofrecen dos posibles alternativas
 para continuar la ejecución del código.
 Una de ellas se ejecutará si la condición se cumple
 y la otra alternativa se ejecutará si la condición no se cumple.
 
-image::doble.png[estructura condicional doble]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620235157/airs/products/defends/java/establecer-opciones-seguras/doble_y2fh1t.webp[estructura condicional doble]
 
 *Múltiples:* son tomas de decisión especializadas
 que permiten comparar una variable contra distintos posibles resultados.
@@ -50,7 +50,7 @@ En caso contrario se comprueba la +condición 2+;
 si es cierta se ejecutan sus respectivas instrucciones,
 y así sucesivamente hasta evaluar todas las condiciones.
 
-image::multiple.png[estructura condicional multiple]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620235157/airs/products/defends/java/establecer-opciones-seguras/multiple_sibqyk.webp[estructura condicional multiple]
 
 *Case:* Al igual que la múltiple,
 esta sentencia permite ejecutar una de entre varias acciones
@@ -58,7 +58,7 @@ en función del valor de una expresión.
 En pocas palabras, es una alternativa
 a las estructuras condicionales múltiples.
 
-image::case.png[estructura condicional case]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620235157/airs/products/defends/java/establecer-opciones-seguras/case_nelcm0.webp[estructura condicional case]
 
 En cada estructura condicional empleada en una aplicación +Java+,
 se recomienda contemplar todos los posibles escenarios.

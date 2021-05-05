@@ -65,7 +65,7 @@ introduzca la ruta de acceso de contexto que desea utilizar.
 La ventana anterior debe verse así:
 +
 .Ruta de Acceso de Contexto.
-image::procedure.png["Ruta de accesso de contexto de la consola."]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620239664/airs/products/defends/weblogic/cambiar-dir-admin/procedure_oej0de.webp["Ruta de accesso de contexto de la consola."]
 
 . Por ejemplo, si define la ruta de acceso de contexto en +myconsole+,
 utilice la siguiente dirección +URL+

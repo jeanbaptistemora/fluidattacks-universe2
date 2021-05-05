@@ -7,7 +7,7 @@
 = Rafael Alvarez
 
 [role="img-ppl"]
-image::ralvarez.png[Rafael Alvarez]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620228162/airs/about-us/people/ralvarez_wgmvdt.webp[Rafael Alvarez]
 
 Computer Engineer. `Fluid Attacks` co-founder and `CTO`,
 responsible for red team operations and product development,

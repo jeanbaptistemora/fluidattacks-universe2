@@ -63,7 +63,7 @@ un botón y un +RegularExpressionValidator+,
 tal y como se muestra en la siguiente imagen:
 +
 .Campo de texto a validar
-image::mail.png[Campo de texto a validar]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620230911/airs/products/defends/aspnet/validar-email/mail_zxu0qb.webp[Campo de texto a validar]
 +
 A continuación vamos a verificar que sea un correo valido.
 Para ello modificaremos las propiedades
@@ -89,7 +89,7 @@ También podemos utilizar nuestras propias expresiones regulares.
 Como resultado obtenemos algo similar a lo que se ve en la siguiente imagen:
 +
 .Validación utilizando RegularExpressionValidator
-image::validation.png[Validación utilizando RegularExpressionValidator]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620230911/airs/products/defends/aspnet/validar-email/validation_dpgvjy.webp[Validación utilizando RegularExpressionValidator]
 
 == Referencias
 

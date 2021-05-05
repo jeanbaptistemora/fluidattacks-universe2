@@ -74,7 +74,7 @@ debemos usar la herramienta de configuración del +framework+ de +.NET+.
 Para ejecutarla se puede ir a el panel de control->
 herramientas administrativas->.NET Framework Configuration.
 +
-image::configuration-tool.png[Configuracion de .NET Framework]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620232851/airs/products/defends/csharp/aplicar-seguridad-codigo/configuration-tool_emukdz.webp[Configuracion de .NET Framework]
 
 . Creando un nuevo grupo de permisos
 * Expanda el nodo "+Runtime Security Policy+".
@@ -82,7 +82,7 @@ Se editaran las opciones de seguridad en la política +Machine+.
 Primero, se van a crear un grupo de permisos personalizados.
 Con el clic derecho en los grupos de permisos seleccione nuevo.
 +
-image::create-permission-set.png[Creacion de Grupo de Permisos]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620232851/airs/products/defends/csharp/aplicar-seguridad-codigo/create-permission-set_tnwkch.webp[Creacion de Grupo de Permisos]
 
 * Asigne un nombre para su nuevo grupo de permisos.
 Luego, en el panel izquierdo,
@@ -91,7 +91,7 @@ Ahora se pueden seleccionar los permisos,
 si usted revisa las propiedades de +FileIO+
 puede hacer que se lea o escriba en determinadas rutas.
 +
-image::configure-permission-set.png[Configuracion de Permisos]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620232851/airs/products/defends/csharp/aplicar-seguridad-codigo/configure-permission-set_y1krce.webp[Configuracion de Permisos]
 
 * Puede asignar tantos permisos como desee y con las opciones que requiera.
 
@@ -102,7 +102,7 @@ Note que en el nodo de grupos de código,
 el nodo padre es +All_code+. Escoja +new+
 desde el clic derecho sobre +All_Code+.
 +
-image::create-code-group.png[Crear Grupo de Codigo]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620232851/airs/products/defends/csharp/aplicar-seguridad-codigo/create-code-group_fkp4k5.webp[Crear Grupo de Codigo]
 
 * Se debe seleccionar una condición
 para la membresía en ese grupo de código.
@@ -127,7 +127,7 @@ Esto se llama atributo exclusivo.
 Si se habilita esto, el entorno en tiempo de ejecución
 sólo asignará los permisos asociados a este grupo de código.
 +
-image::code-group-properties.png[Propiedades del Grupo de Código]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620232851/airs/products/defends/csharp/aplicar-seguridad-codigo/code-group-properties_ml8m5c.webp[Propiedades del Grupo de Código]
 
 --
 

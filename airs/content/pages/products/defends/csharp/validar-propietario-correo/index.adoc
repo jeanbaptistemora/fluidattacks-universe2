@@ -126,7 +126,7 @@ En este caso se utilizará el servidor +SMTP+ de +Gmail+.
 ----
 . Se observa el mensaje una vez llega al usuario:
 +
-image::email-owner.png[Correo de verificación del propietario del correo.]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620233339/airs/products/defends/csharp/validar-propietario-correo/email-owner_bydwg3.webp[Correo de verificación del propietario del correo.]
 
 . En este caso el modo de ingresar el código a la aplicación
 es mediante el método +GET+ de +HTTP+,

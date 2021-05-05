@@ -41,10 +41,10 @@ const CompliancesIndex: React.FC<IQueryData> = ({
     Record<string, unknown>
   > = styled.div.attrs({
     className: `
-      grid 
-      compliance-content 
-      compliance-grid 
-      roboto 
+      grid
+      compliance-content
+      compliance-grid
+      roboto
       w-100
     `,
   })``;

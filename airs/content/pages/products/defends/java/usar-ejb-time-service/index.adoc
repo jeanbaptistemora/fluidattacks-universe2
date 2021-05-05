@@ -145,7 +145,7 @@ el +servlet+ llamará el método +startTimer+ del +EJB+.
 tal como fue especificado en el +servlet+,
 puede observarse el tiempo exacto en el que se hace la petición.
 +
-image::peticion.png[tiempo exacto]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620236991/airs/products/defends/java/use-ejb-time-service/peticion_jqyyxx.webp[tiempo exacto]
 
 . Al consultar los +logs+ de la aplicación
 puede comprobarse que en ese mismo instante
@@ -158,7 +158,7 @@ a lo ejecutado en +delayedAction+.
 % tail -F /home/ryepes/workspace/glassfish3122eclipsedefaultdomain/logs/server.log
 ----
 
-image::log.png[entradas creadas]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620236991/airs/products/defends/java/use-ejb-time-service/log_hfzh2j.webp[entradas creadas]
 
 == Descargas
 

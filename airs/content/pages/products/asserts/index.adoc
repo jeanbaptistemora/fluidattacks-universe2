@@ -18,7 +18,7 @@ Therefore, *Asserts* can be included in `CI`/`CD` environments
 as a security gate.
 
 .Graphical representation
-image::asserts.png[Asserts]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620229656/airs/products/asserts/asserts_a0yqly.webp[Asserts]
 
 === Technology stack
 

@@ -71,14 +71,14 @@ para modificar el nombre de +guest+ (invitado).
 A continuación se muestra el procedimiento anteriormente descrito:
 +
 .Modificación de usuario guest
-image::rename-guest.png["Modificación de usuario guest"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620241555/airs/products/defends/windows-server/renombrar-usuarios/rename-guest_kfvxib.webp["Modificación de usuario guest"]
 
 . Para modificar el nombre de administrador,
 se repite el paso anterior para el usuario +administrator+,
 tal y como se muestra a continuación:
 
 .Modificación de usuario administrator
-image::rename-admin.png["Modificación de usuario guest"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620241555/airs/products/defends/windows-server/renombrar-usuarios/rename-admin_qn0zo4.webp["Modificación de usuario guest"]
 +
 . El cambio surtirá efecto en el próximo reinicio.
 

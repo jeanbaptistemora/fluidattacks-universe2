@@ -72,7 +72,7 @@ se hace clic en +Configuration -> JVM Settings+.
 
 . Hay que desactivar la casilla +Debug+, como se muestra en la imagen.
 
-image::glassfish.png[GlassFish]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620233901/airs/products/defends/glassfish/deshabilitar-depuracion/glassfish_ll5irm.webp[GlassFish]
 
 == Referencias
 

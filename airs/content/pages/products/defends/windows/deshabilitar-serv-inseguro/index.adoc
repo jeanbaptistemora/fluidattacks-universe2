@@ -50,13 +50,13 @@ debe acceder a +Panel de Control \Herramientas Administrativas\Servicios+.
 Luego de autenticarse si es el caso,
 observará una ventana como la siguiente:
 +
-image::servicios.png[servicios]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620240541/airs/products/defends/windows/deshabilitar-serv-inseguro/servicios_rtm42e.webp[servicios]
 
 . Para deshabilitar un servicio haga clic secundario y pulse +Propiedades+.
 En la opción tipo de inicio,
 seleccione +Deshabilitado+ y pulse +Aceptar+.
 +
-image::propiedades.png[propiedades]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620240541/airs/products/defends/windows/deshabilitar-serv-inseguro/propiedades_oclk6r.webp[propiedades]
 
 . Al momento de deshabilitar un servicio,
 asegúrese de que realmente no sea necesario
@@ -82,19 +82,19 @@ se listan a continuación ^<<r1,[1]>>^:
 En general son los más aptos a ser deshabilitados.
 Estos servicios fueron adaptados de la solución referenciada en ^<<r2,[2]>>^.
 +
-image::tabla.png[servicios-windows]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620240541/airs/products/defends/windows/deshabilitar-serv-inseguro/tabla_sw1sc1.webp[servicios-windows]
 
 . El listado mostrado para su sistema
 dependerá de los servicios que se hayan instalado previamente.
 Por ejemplo, el conjunto de servicios denominado +Simple TCP/IP Services+,
 dependerá de la configuración en +Panel de Control\Programas+.
 +
-image::programas.png[programas]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620240541/airs/products/defends/windows/deshabilitar-serv-inseguro/programas_vraowx.webp[programas]
 
 . Y, además, también dependerá de +características\Activar+ o +Desactivar+
 las características de +Windows+.
 +
-image::caracteristicas.png[caracteristicas]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620240541/airs/products/defends/windows/deshabilitar-serv-inseguro/caracteristicas_ktag7l.webp[caracteristicas]
 
 . Es recomendable deshabilitar todos los servicios
 que no sean necesarios para el sistema.

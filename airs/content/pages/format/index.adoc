@@ -324,13 +324,13 @@ starting with a dot
 +
 ....
 .Image Title
-image::doge.png[Doge]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620228838/airs/format/doge_e5vldn.webp[Doge]
 ....
 
 * Render
 +
 .Image Title
-image::doge.png[Doge]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620228838/airs/format/doge_e5vldn.webp[Doge]
 
 ==== Video Title
 
@@ -338,13 +338,13 @@ image::doge.png[Doge]
 +
 ....
 .Video Title
-video::he-man.mp4[He-man]
+video::https://res.cloudinary.com/fluid-attacks/video/upload/v1620228846/airs/format/he-man_avvqyi.mp4[He-man]
 ....
 
 * Render
 +
 .Video Title
-video::he-man.mp4[He-man]
+video::https://res.cloudinary.com/fluid-attacks/video/upload/v1620228846/airs/format/he-man_avvqyi.mp4[He-man]
 
 ==== Literal Title
 
@@ -455,39 +455,39 @@ print "Hello World"
 * Source
 +
 ....
-image::doge.png[Doge]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620228838/airs/format/doge_e5vldn.webp[Doge]
 ....
 
 * Render
 +
 Block Image
 +
-image::doge.png[Doge]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620228838/airs/format/doge_e5vldn.webp[Doge]
 
 ==== Inline Images
 
 * Source
 +
 ....
-image:doge.png[Doge]
+image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620228838/airs/format/doge_e5vldn.webp[Doge]
 ....
 
 * Render
 +
 Inline Image
-image:doge.png[Doge]
+image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620228838/airs/format/doge_e5vldn.webp[Doge]
 
 === Videos
 
 * Source
 +
 ....
-video::he-man.mp4[He-man]
+video::https://res.cloudinary.com/fluid-attacks/video/upload/v1620228846/airs/format/he-man_avvqyi.mp4[He-man]
 ....
 
 * Render
 +
-video::he-man.mp4[He-man]
+video::https://res.cloudinary.com/fluid-attacks/video/upload/v1620228846/airs/format/he-man_avvqyi.mp4[He-man]
 
 === Links
 
@@ -1130,15 +1130,15 @@ Use the special class `tb-alt` for this type of table.
 [cols="2*^", frame="none"]
 |====
 |Text 1
-|image:doge.png[Doge]
+|image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620228838/airs/format/doge_e5vldn.webp[Doge]
 
-|image:doge.png[Doge]
+|image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620228838/airs/format/doge_e5vldn.webp[Doge]
 |Text 2
 
 |Text 3
-|image:doge.png[Doge]
+|image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620228838/airs/format/doge_e5vldn.webp[Doge]
 
-|image:doge.png[Doge]
+|image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620228838/airs/format/doge_e5vldn.webp[Doge]
 |Text 4
 |====
 ....
@@ -1150,15 +1150,15 @@ Use the special class `tb-alt` for this type of table.
 [cols="2*^", frame="none"]
 |====
 |Text 1
-|image:doge.png[Doge]
+|image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620228838/airs/format/doge_e5vldn.webp[Doge]
 
-|image:doge.png[Doge]
+|image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620228838/airs/format/doge_e5vldn.webp[Doge]
 |Text 2
 
 |Text 3
-|image:doge.png[Doge]
+|image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620228838/airs/format/doge_e5vldn.webp[Doge]
 
-|image:doge.png[Doge]
+|image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620228838/airs/format/doge_e5vldn.webp[Doge]
 |Text 4
 |====
 
@@ -1310,17 +1310,17 @@ Text
 * Source
 +
 ....
-Term image:{tooltip}[alt="Tooltip icon",title="Additional information about the term"]
+Term image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620226925/airs/icons/tooltip_kf1mug.webp[alt="Tooltip icon",title="Additional information about the term"]
 
-Term2 image:{tooltip}[alt="Tooltip icon",title="The description can have
+Term2 image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620226925/airs/icons/tooltip_kf1mug.webp[alt="Tooltip icon",title="The description can have
 line breaks in the source code"]
 ....
 
 * Render
 +
-Term image:{tooltip}[alt="Tooltip icon",title="Additional information about the term"]
+Term image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620226925/airs/icons/tooltip_kf1mug.webp[alt="Tooltip icon",title="Additional information about the term"]
 +
-Term2 image:{tooltip}[alt="Tooltip icon",title="The description can have
+Term2 image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620226925/airs/icons/tooltip_kf1mug.webp[alt="Tooltip icon",title="The description can have
 line breaks in the source code"]
 
 ---

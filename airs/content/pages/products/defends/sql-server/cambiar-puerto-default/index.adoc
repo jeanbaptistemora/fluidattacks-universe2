@@ -51,7 +51,7 @@ y elija +Propiedades+,
 como se muestra en la siguiente figura.
 +
 .SQL Server Configuration Manager
-image::config-manager.png["SQL Server Configuration Manager"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620238893/airs/products/defends/sql-server/cambiar-puerto-default/config-manager_i5gorl.webp["SQL Server Configuration Manager"]
 
 . En el cuadro de diálogos +TCP/IP Properties+,
 seleccione la pestaña +Direcciones IP+.
@@ -64,7 +64,7 @@ excepto para la dirección +IP+ bajo +IP ALL+.
 que desea usar en +SQL Server 2008+.
 +
 .Ventana de Propiedades TCP/IP
-image::properties.png["Propiedades TCP/IP"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620238893/airs/products/defends/sql-server/cambiar-puerto-default/properties_dyu26h.webp["Propiedades TCP/IP"]
 +
 Cabe mencionar que el puerto seleccionado
 debe estar libre para poder ser ocupado por el servidor,

@@ -1,9 +1,9 @@
 :page-slug: services/comparative/
 :page-description: Know the differences between continuous hacking and one-shot hacking offered by Fluid Attacks.
 :page-keywords: Fluid Attacks, Ethical Hacking, Pentesting, Comparison, Company, Continuous Hacking, One-Shot Hacking
-:yes: image:../../images/icons/yes.png[yes]
-:no: image:../../images/icons/no.png[no]
-:info: image:../../images/icons/info.png[info]
+:yes: image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620226926/airs/icons/yes_xcsf3o.webp[yes]
+:no: image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620226925/airs/icons/no_kjwjap.webp[no]
+:info: image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620226924/airs/icons/info_orgtqu.webp[info]
 :page-banner: comparative-bg
 
 = Comparative

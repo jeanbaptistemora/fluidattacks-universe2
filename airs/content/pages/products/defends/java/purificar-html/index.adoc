@@ -171,7 +171,7 @@ basic()."img"
 . A continuación observe algunos ataques de inyección
 y su resultado luego de la purificación.
 
-image::salida.png[salida]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620236899/airs/products/defends/java/purificar-html/salida_he7oin.webp[salida]
 
 == Descargas
 

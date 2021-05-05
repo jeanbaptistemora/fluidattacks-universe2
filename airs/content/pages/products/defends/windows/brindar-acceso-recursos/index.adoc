@@ -28,11 +28,11 @@ y se hace clic en +File Services+ y +Share and Storage Manager+.
 Luego se da doble clic sobre el recurso compartido.
 Tal como se ve en la imagen.
 +
-image::manager.png[server-manager]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620239927/airs/products/defends/windows/brindar-acceso-recursos/manager_ng6kbc.webp[server-manager]
 
 . Allí damos clic sobre las pestaña +Permissions+.
 +
-image::permisos.png[permisos]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620239927/airs/products/defends/windows/brindar-acceso-recursos/permisos_lvun90.webp[permisos]
 
 . Aquí debemos definir y diferenciar
 los tipos de permisos para los recursos,
@@ -96,7 +96,7 @@ seleccione la carpeta o volumen.
 En el panel +Actions+, haga clic en +Properties+
 y en la ficha Permissions+, haga clic en +Share Permissions+.
 +
-image::permisos-2.png[permisos-recurso]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620239928/airs/products/defends/windows/brindar-acceso-recursos/permisos-2_fbdgof.webp[permisos-recurso]
 
 . Puede configurar los permisos +NTFS+ locales
 para una carpeta o volumen compartido
@@ -124,7 +124,7 @@ seleccione la carpeta o volumen,
 en el panel +Actions+, haga clic en +Properties+
 y en la ficha +Permissions+, haga clic en +NTFS Permissions+.
 
-image::permisos-3.png[permisos.ntfs]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620239928/airs/products/defends/windows/brindar-acceso-recursos/permisos-3_gkqidh.webp[permisos.ntfs]
 
 == Referencias
 

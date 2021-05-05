@@ -51,7 +51,7 @@ y luego seleccionar +Propiedades+, cambiar el nombre y pulsar en +Aceptar+.
 A continuación se muestra una imagen del procedimiento descrito anteriormente:
 +
 .Editor de Directivas de Grupo Local
-image::ban-account.png["Editor de Directivas de Grupo Local"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620239823/airs/products/defends/windows/bloquear-temporalmente/ban-account_nqjs4v.webp["Editor de Directivas de Grupo Local"]
 +
 Las opciones recomendadas a ser cambiadas son:
 +
