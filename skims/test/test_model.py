@@ -50,3 +50,31 @@ def test_model_core_model_manifest() -> None:
     ):
         with open(path) as handle_r:
             assert handle_r.read() == expected
+
+
+@pytest.mark.skims_test_group("unittesting")
+def test_model_core_model_from_integrates() -> None:
+    assert ("", "test") == core_model.Vulnerability.what_from_integrates(
+        kind=core_model.VulnerabilityKindEnum.INPUTS,
+        what_on_integrates="test",
+    )
+    assert ("", "test") == core_model.Vulnerability.what_from_integrates(
+        kind=core_model.VulnerabilityKindEnum.LINES,
+        what_on_integrates="test",
+    )
+    assert ("", "test") == core_model.Vulnerability.what_from_integrates(
+        kind=core_model.VulnerabilityKindEnum.PORTS,
+        what_on_integrates="test",
+    )
+    assert ("ns", "test") == core_model.Vulnerability.what_from_integrates(
+        kind=core_model.VulnerabilityKindEnum.INPUTS,
+        what_on_integrates="test (ns)",
+    )
+    assert ("ns", "test") == core_model.Vulnerability.what_from_integrates(
+        kind=core_model.VulnerabilityKindEnum.LINES,
+        what_on_integrates="ns/test",
+    )
+    assert ("ns", "test") == core_model.Vulnerability.what_from_integrates(
+        kind=core_model.VulnerabilityKindEnum.PORTS,
+        what_on_integrates="test (ns)",
+    )

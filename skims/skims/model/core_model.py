@@ -765,14 +765,20 @@ class Vulnerability(NamedTuple):
     def what_from_integrates(
         cls, kind: VulnerabilityKindEnum, what_on_integrates: str
     ) -> Tuple[str, str]:
-        if kind == VulnerabilityKindEnum.INPUTS:
-            what, namespace = what_on_integrates.rsplit(" (", maxsplit=1)
-            what = what[:-1]
+        if kind in {
+            VulnerabilityKindEnum.INPUTS,
+            VulnerabilityKindEnum.PORTS,
+        }:
+            if len(chunks := what_on_integrates.rsplit(" (", maxsplit=1)) == 2:
+                what, namespace = chunks
+                namespace = namespace[:-1]
+            else:
+                what, namespace = chunks[0], ""
         elif kind == VulnerabilityKindEnum.LINES:
-            namespace, what = what_on_integrates.split("/", maxsplit=1)
-        elif kind == VulnerabilityKindEnum.PORTS:
-            what, namespace = what_on_integrates.rsplit(" (", maxsplit=1)
-            what = what[:-1]
+            if len(chunks := what_on_integrates.rsplit("/", maxsplit=1)) == 2:
+                namespace, what = chunks
+            else:
+                namespace, what = "", chunks[0]
         else:
             raise NotImplementedError()
 
