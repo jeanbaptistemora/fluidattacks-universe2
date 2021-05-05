@@ -54,6 +54,7 @@ def get_vulnerability_from_n_id(
     return core_model.Vulnerability(
         finding=finding,
         kind=core_model.VulnerabilityKindEnum.LINES,
+        namespace=CTX.config.namespace,
         state=core_model.VulnerabilityStateEnum.OPEN,
         what=meta_attrs_label_path,
         where=str(n_attrs_label_line),

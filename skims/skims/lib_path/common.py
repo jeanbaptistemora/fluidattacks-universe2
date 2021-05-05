@@ -42,6 +42,9 @@ from model import (
 from model.graph_model import (
     NAttrs,
 )
+from utils.ctx import (
+    CTX,
+)
 from utils.function import (
     shield,
 )
@@ -115,6 +118,7 @@ def get_vulnerabilities_blocking(
         core_model.Vulnerability(
             finding=finding,
             kind=core_model.VulnerabilityKindEnum.LINES,
+            namespace=CTX.config.namespace,
             state=core_model.VulnerabilityStateEnum.OPEN,
             what=path,
             where=f"{match.start_line}",
@@ -149,6 +153,7 @@ def get_vulnerabilities_from_iterator_blocking(
         core_model.Vulnerability(
             finding=finding,
             kind=core_model.VulnerabilityKindEnum.LINES,
+            namespace=CTX.config.namespace,
             state=core_model.VulnerabilityStateEnum.OPEN,
             what=path,
             where=f"{line_no}",

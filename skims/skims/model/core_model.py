@@ -683,7 +683,6 @@ class GrammarMatch(NamedTuple):
 
 class IntegratesVulnerabilityMetadata(NamedTuple):
     approval_status: Optional[VulnerabilityApprovalStatusEnum] = None
-    namespace: Optional[str] = None
     source: Optional[VulnerabilitySourceEnum] = None
     uuid: Optional[str] = None
 
@@ -748,6 +747,7 @@ class Vulnerability(NamedTuple):
     state: VulnerabilityStateEnum
     what: str
     where: str
+    namespace: str
     stream: str = "skims"
 
     integrates_metadata: Optional[IntegratesVulnerabilityMetadata] = None
@@ -760,18 +760,20 @@ class Vulnerability(NamedTuple):
             (
                 self.finding,
                 self.kind,
+                self.namespace,
                 self.what,
                 self.where,
             )
         )
 
-    def what_on_integrates(self, namespace: str) -> str:
+    @property
+    def what_on_integrates(self) -> str:
         if self.kind == VulnerabilityKindEnum.INPUTS:
-            what = f"{self.what} ({namespace})"
+            what = f"{self.what} ({self.namespace})"
         elif self.kind == VulnerabilityKindEnum.LINES:
-            what = f"{namespace}/{self.what}"
+            what = f"{self.namespace}/{self.what}"
         elif self.kind == VulnerabilityKindEnum.PORTS:
-            what = f"{self.what} ({namespace})"
+            what = f"{self.what} ({self.namespace})"
         else:
             raise NotImplementedError()
 
@@ -791,7 +793,7 @@ class Vulnerability(NamedTuple):
             else:
                 what, namespace = chunks[0], ""
         elif kind == VulnerabilityKindEnum.LINES:
-            if len(chunks := what_on_integrates.rsplit("/", maxsplit=1)) == 2:
+            if len(chunks := what_on_integrates.split("/", maxsplit=1)) == 2:
                 namespace, what = chunks
             else:
                 namespace, what = "", chunks[0]

@@ -38,6 +38,9 @@ from parse_json import (
 from state.cache import (
     CACHE_ETERNALLY,
 )
+from utils.ctx import (
+    CTX,
+)
 from utils.function import (
     TIMEOUT_1MIN,
 )
@@ -279,6 +282,7 @@ def translate_dependencies_to_vulnerabilities(
         core_model.Vulnerability(
             finding=core_model.FindingEnum.F011,
             kind=core_model.VulnerabilityKindEnum.LINES,
+            namespace=CTX.config.namespace,
             state=core_model.VulnerabilityStateEnum.OPEN,
             what=" ".join(
                 (

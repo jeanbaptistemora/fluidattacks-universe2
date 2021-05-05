@@ -66,15 +66,15 @@ def test_model_core_model_from_integrates() -> None:
         kind=core_model.VulnerabilityKindEnum.PORTS,
         what_on_integrates="test",
     )
-    assert ("ns", "test") == core_model.Vulnerability.what_from_integrates(
+    assert ("ns", "test()") == core_model.Vulnerability.what_from_integrates(
         kind=core_model.VulnerabilityKindEnum.INPUTS,
-        what_on_integrates="test (ns)",
+        what_on_integrates="test() (ns)",
     )
-    assert ("ns", "test") == core_model.Vulnerability.what_from_integrates(
+    assert ("ns", "te/st") == core_model.Vulnerability.what_from_integrates(
         kind=core_model.VulnerabilityKindEnum.LINES,
-        what_on_integrates="ns/test",
+        what_on_integrates="ns/te/st",
     )
-    assert ("ns", "test") == core_model.Vulnerability.what_from_integrates(
+    assert ("ns", "test()") == core_model.Vulnerability.what_from_integrates(
         kind=core_model.VulnerabilityKindEnum.PORTS,
-        what_on_integrates="test (ns)",
+        what_on_integrates="test() (ns)",
     )

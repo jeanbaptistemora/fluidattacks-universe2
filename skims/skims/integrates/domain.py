@@ -69,7 +69,7 @@ def _build_vulnerabilities_stream(
                 field=result.where,
                 state=result.state,
                 stream=result.stream,
-                url=result.what_on_integrates(CTX.config.namespace),
+                url=result.what_on_integrates,
             )
             for result in results
             if result.kind == core_model.VulnerabilityKindEnum.INPUTS
@@ -79,7 +79,7 @@ def _build_vulnerabilities_stream(
             core_model.IntegratesVulnerabilitiesLines(
                 commit_hash=get_repo_head_hash(result.what),
                 line=result.where,
-                path=result.what_on_integrates(CTX.config.namespace),
+                path=result.what_on_integrates,
                 repo_nickname=CTX.config.namespace,
                 state=result.state,
             )

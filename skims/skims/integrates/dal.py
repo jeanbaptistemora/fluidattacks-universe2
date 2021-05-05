@@ -305,13 +305,13 @@ async def get_finding_vulnerabilities(
                         (vulnerability["currentApprovalStatus"])
                         or core_model.VulnerabilityApprovalStatusEnum.APPROVED
                     ),
-                    namespace=namespace,
                     source=core_model.VulnerabilitySourceEnum(
                         vulnerability["source"]
                     ),
                     uuid=vulnerability["id"],
                 ),
                 kind=kind,
+                namespace=namespace,
                 state=core_model.VulnerabilityStateEnum(
                     vulnerability["currentState"]
                 ),

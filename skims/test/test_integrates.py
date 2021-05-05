@@ -50,6 +50,7 @@ async def test_build_vulnerabilities_stream() -> None:
                         )
                     ),
                     kind=core_model.VulnerabilityKindEnum.LINES,
+                    namespace="test",
                     state=core_model.VulnerabilityStateEnum.OPEN,
                     what="what",
                     where="123",
@@ -62,6 +63,7 @@ async def test_build_vulnerabilities_stream() -> None:
                         )
                     ),
                     kind=core_model.VulnerabilityKindEnum.INPUTS,
+                    namespace="test",
                     state=core_model.VulnerabilityStateEnum.OPEN,
                     stream="a,b,c",
                     what="https://example.com",

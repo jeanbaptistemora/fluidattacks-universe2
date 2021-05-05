@@ -27,14 +27,7 @@ async def test_diff_results() -> None:
 
     common_finding = core_model.FindingEnum.F009
     common_integrates_metadata = core_model.IntegratesVulnerabilityMetadata(
-        namespace=namespace,
         source=core_model.VulnerabilitySourceEnum.SKIMS,
-    )
-    common_integrates_metadata_in_other_ns = (
-        core_model.IntegratesVulnerabilityMetadata(
-            namespace=namespace_other,
-            source=core_model.VulnerabilitySourceEnum.SKIMS,
-        )
     )
     common_kind = core_model.VulnerabilityKindEnum.LINES
     common_where = "file"
@@ -47,6 +40,7 @@ async def test_diff_results() -> None:
                 source=core_model.VulnerabilitySourceEnum.INTEGRATES,
             ),
             kind=common_kind,
+            namespace=namespace,
             state=core_model.VulnerabilityStateEnum.OPEN,
             what="0",
             where=common_where,
@@ -59,6 +53,7 @@ async def test_diff_results() -> None:
             finding=common_finding,
             integrates_metadata=common_integrates_metadata,
             kind=common_kind,
+            namespace=namespace,
             state=core_model.VulnerabilityStateEnum.OPEN,
             what="1",
             where=common_where,
@@ -69,6 +64,7 @@ async def test_diff_results() -> None:
             finding=common_finding,
             integrates_metadata=common_integrates_metadata,
             kind=common_kind,
+            namespace=namespace,
             state=core_model.VulnerabilityStateEnum.OPEN,
             what="1",
             where=common_where,
@@ -81,6 +77,7 @@ async def test_diff_results() -> None:
             finding=common_finding,
             integrates_metadata=common_integrates_metadata,
             kind=common_kind,
+            namespace=namespace,
             state=core_model.VulnerabilityStateEnum.OPEN,
             what="2",
             where=common_where,
@@ -93,6 +90,7 @@ async def test_diff_results() -> None:
             finding=common_finding,
             integrates_metadata=common_integrates_metadata,
             kind=common_kind,
+            namespace=namespace,
             state=core_model.VulnerabilityStateEnum.CLOSED,
             what="3",
             where=common_where,
@@ -103,6 +101,7 @@ async def test_diff_results() -> None:
             finding=common_finding,
             integrates_metadata=common_integrates_metadata,
             kind=common_kind,
+            namespace=namespace,
             state=core_model.VulnerabilityStateEnum.OPEN,
             what="3",
             where=common_where,
@@ -115,6 +114,7 @@ async def test_diff_results() -> None:
             finding=common_finding,
             integrates_metadata=common_integrates_metadata,
             kind=common_kind,
+            namespace=namespace,
             state=core_model.VulnerabilityStateEnum.CLOSED,
             what="4",
             where=common_where,
@@ -126,8 +126,9 @@ async def test_diff_results() -> None:
     await integrates_store.store(
         core_model.Vulnerability(
             finding=common_finding,
-            integrates_metadata=common_integrates_metadata_in_other_ns,
+            integrates_metadata=common_integrates_metadata,
             kind=common_kind,
+            namespace=namespace_other,
             state=core_model.VulnerabilityStateEnum.OPEN,
             what="5",
             where=common_where,
@@ -138,8 +139,9 @@ async def test_diff_results() -> None:
     await integrates_store.store(
         core_model.Vulnerability(
             finding=common_finding,
-            integrates_metadata=common_integrates_metadata_in_other_ns,
+            integrates_metadata=common_integrates_metadata,
             kind=common_kind,
+            namespace=namespace_other,
             state=core_model.VulnerabilityStateEnum.OPEN,
             what="...........",
             where=common_where,

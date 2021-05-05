@@ -136,7 +136,7 @@ async def notify_findings_as_snippets(
                     "info",
                     "{title}: {what}\n\n{snippet}\n".format(
                         title=t(result.finding.value.title),
-                        what=result.what_on_integrates(CTX.config.namespace),
+                        what=result.what_on_integrates,
                         snippet=result.skims_metadata.snippet,
                     ),
                 )
@@ -151,7 +151,7 @@ async def notify_findings_as_csv(
         {
             "cwe": " + ".join(sorted(result.skims_metadata.cwe)),
             "title": t(result.finding.value.title),
-            "what": result.what_on_integrates(CTX.config.namespace),
+            "what": result.what_on_integrates,
             "where": result.where,
         }
         for store in stores.values()

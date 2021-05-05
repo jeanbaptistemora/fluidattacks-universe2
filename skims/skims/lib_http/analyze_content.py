@@ -28,6 +28,9 @@ from model import (
 from model.core_model import (
     FindingEnum,
 )
+from utils.ctx import (
+    CTX,
+)
 from utils.string import (
     to_snippet_blocking,
 )
@@ -68,6 +71,7 @@ def build_vulnerabilities(
         core_model.Vulnerability(
             finding=finding,
             kind=core_model.VulnerabilityKindEnum.INPUTS,
+            namespace=CTX.config.namespace,
             state=core_model.VulnerabilityStateEnum.OPEN,
             # Must start with home so integrates allows it
             stream="home,response,content",

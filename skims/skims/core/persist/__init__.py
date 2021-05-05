@@ -176,6 +176,7 @@ async def diff_results(
                 source=core_model.VulnerabilitySourceEnum.SKIMS,
             ),
             kind=result.kind,
+            namespace=result.namespace,
             state=state,
             stream=result.stream,
             what=result.what,
@@ -190,10 +191,10 @@ async def diff_results(
         result.digest: result.state
         async for result in integrates_store.iterate()
         # Filter integrates results
-        if result.integrates_metadata
         # That are within the same namespace
-        and result.integrates_metadata.namespace == namespace
+        if result.namespace == namespace
         # And managed by skims
+        if result.integrates_metadata
         and result.integrates_metadata.source
         == core_model.VulnerabilitySourceEnum.SKIMS
     }
