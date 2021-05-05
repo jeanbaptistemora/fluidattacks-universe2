@@ -31,6 +31,11 @@ class Vulnerability(NamedTuple):
     where: str
 
 
+class ToeLines(NamedTuple):
+    filename: str
+    sorts_risk_level: str
+
+
 def _execute(
     *,
     query: str,
@@ -104,6 +109,42 @@ def get_user_email() -> str:
     )
 
     return result['me']['userEmail']
+
+
+def get_toe_lines_sorts(group_name: str) -> List[ToeLines]:
+    group_toe_lines: List[ToeLines] = []
+    result = _execute(
+        query="""
+            query GetToeLines($group_name: String!) {
+                group: project(projectName: $group_name) {
+                    name
+                    roots {
+                        ... on GitRoot {
+                            toeLines {
+                                filename
+                                sortsRiskLevel
+                            }
+                        }
+                    }
+                }
+            }
+        """,
+        operation='GetToeLines',
+        variables=dict(group_name=group_name)
+    )
+
+    if result:
+        group_roots = result['group']['roots']
+        group_toe_lines = [
+            ToeLines(
+                filename=toe_lines['filename'],
+                sorts_risk_level=toe_lines['sortsRiskLevel']
+            )
+            for group_root in group_roots
+            for toe_lines in group_root['toeLines']
+        ]
+
+    return group_toe_lines
 
 
 def update_toe_lines_sorts(
