@@ -44,22 +44,6 @@ pytestmark = [
     pytest.mark.asyncio,
 ]
 
-
-def test_is_not_a_fluid_attacks_email():
-    fluid_attacks_email = 'test@fluidattacks.com'
-    not_fluid_attacks_email = 'test@test.com'  # NOSONAR
-    assert common.is_not_a_fluidattacks_email(not_fluid_attacks_email)
-    assert not common.is_not_a_fluidattacks_email(fluid_attacks_email)
-
-def test_remove_fluid_from_recipients():
-    emails = [
-        'test@fluidattacks.com', 'test2@fluidattacks.com', 'test@test.com',
-        'test2@test.com'  # NOSONAR
-    ]
-    test_data = common.remove_fluid_from_recipients(emails)
-    expected_output = ['test@test.com', 'test2@test.com']
-    assert test_data == expected_output
-
 def test_is_an_unsolved_event():
     dumb_unsolved_event = {
         'id': 'testid',

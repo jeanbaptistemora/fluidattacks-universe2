@@ -4,17 +4,13 @@
 import logging
 import logging.config
 from typing import (
-    Any,
     cast,
     Dict,
     List,
 )
 
 # Third party libraries
-from aioextensions import (
-    collect,
-    schedule,
-)
+from aioextensions import collect
 from starlette.datastructures import UploadFile
 
 # Local libraries
@@ -23,24 +19,15 @@ from back.settings import (
     NOEXTRA
 )
 from backend import util
-from backend.typing import (
-    MailContent as MailContentType,
-    Resource as ResourceType
-)
+from backend.typing import Resource as ResourceType
 from custom_exceptions import InvalidFileSize
-from group_access import domain as group_access_domain
 from groups import domain as groups_domain
-from mailer import resources as resources_mail
 from newutils import (
     datetime as datetime_utils,
     resources as resources_utils,
     validations,
 )
 from resources import dal as resources_dal
-from __init__ import (
-    BASE_URL,
-    FI_MAIL_RESOURCERS,
-)
 
 
 logging.config.dictConfig(LOGGING)
@@ -99,18 +86,6 @@ async def create_file(
     return success
 
 
-def format_resource(
-    resource_list: List[ResourceType],
-    resource_type: str
-) -> List[Dict[str, str]]:
-    resource_description = []
-    for resource_item in resource_list:
-        if resource_type == 'file':
-            resource_text = str(resource_item.get('fileName', ''))
-        resource_description.append({'resource_description': resource_text})
-    return resource_description
-
-
 async def remove_file(file_name: str, project_name: str) -> bool:
     success = False
     project_name = project_name.lower()
@@ -134,46 +109,6 @@ async def remove_file(file_name: str, project_name: str) -> bool:
             resources_dal.remove(project_name, 'files', index)
         ]))
     return success
-
-
-async def send_mail(  # pylint: disable=too-many-arguments
-    context: Any,
-    group_name: str,
-    user_email: str,
-    resource_list: List[ResourceType],
-    action: str,
-    resource_type: str
-) -> None:
-    group_loader = context.group_all
-    organization_loader = context.organization
-    recipients = set(await group_access_domain.list_group_managers(group_name))
-    recipients.add(user_email)
-    recipients.update(FI_MAIL_RESOURCERS.split(','))
-    resource_description = format_resource(resource_list, resource_type)
-
-    group = await group_loader.load(group_name.lower())
-    org_id = group['organization']
-    organization = await organization_loader.load(org_id)
-    org_name = organization['name']
-
-    if len(resource_list) > 1:
-        resource_type = f'{resource_type}s'
-    else:
-        # resource_type is the same
-        pass
-    mail_context: MailContentType = {
-        'project': group_name.lower(),
-        'organization': org_name,
-        'user_email': user_email,
-        'action': action,
-        'resource_type': resource_type,
-        'resource_list': resource_description,
-        'project_url': f'{BASE_URL}/orgs/{org_name}/groups/'
-                       f'{group_name}/resources'
-    }
-    schedule(
-        resources_mail.send_mail_resources(list(recipients), mail_context)
-    )
 
 
 async def validate_file_size(

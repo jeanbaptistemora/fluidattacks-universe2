@@ -4,6 +4,7 @@ import re
 from typing import Any, Dict
 
 # Third party libraries
+from aioextensions import schedule
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -16,6 +17,7 @@ from backend.decorators import (
     require_login
 )
 from backend.typing import SimplePayload as SimplePayloadType
+from mailer import resources as resources_mail
 from resources import domain as resources_domain
 
 
@@ -47,13 +49,15 @@ async def mutate(
         project_name
     )
     if remove_file:
-        await resources_domain.send_mail(
-            info.context.loaders,
-            project_name,
-            user_email,
-            [files_data],
-            'removed',
-            'file'
+        schedule(
+            resources_mail.send_mail_update_resource(
+                info.context.loaders,
+                project_name,
+                user_email,
+                [files_data],
+                'removed',
+                'file'
+            )
         )
         success = True
     else:

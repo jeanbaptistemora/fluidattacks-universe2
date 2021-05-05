@@ -3,6 +3,7 @@ import logging
 from typing import Any
 
 # Third party libraries
+from aioextensions import schedule
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -15,6 +16,7 @@ from backend.decorators import (
     require_login
 )
 from backend.typing import SimplePayload as SimplePayloadType
+from mailer import resources as resources_mail
 from newutils import virus_scan
 from resources import domain as resources_domain
 
@@ -50,15 +52,16 @@ async def mutate(
         user_email
     )
     if add_file:
-        await resources_domain.send_mail(
-            info.context.loaders,
-            project_name,
-            user_email,
-            new_files_data,
-            'added',
-            'file'
+        schedule(
+            resources_mail.send_mail_update_resource(
+                info.context.loaders,
+                project_name,
+                user_email,
+                new_files_data,
+                'added',
+                'file'
+            )
         )
-
         success = True
     else:
         LOGGER.error('Couldn\'t upload file', extra={'extra': parameters})

@@ -11,7 +11,9 @@ from aioextensions import collect
 from backend import authz
 from backend.typing import (
     Comment as CommentType,
+    Event as EventType,
     MailContent as MailContentType,
+    Project as GroupType,
 )
 from group_access import domain as group_access_domain
 from __init__ import (
@@ -26,6 +28,22 @@ from .common import (
     GENERAL_TAG,
     send_mails_async_new,
 )
+
+
+async def _get_external_recipients(project: str) -> List[str]:
+    recipients = await group_access_domain.get_managers(project)
+    return _remove_fluid_from_recipients(recipients)
+
+
+def _is_not_a_fluidattacks_email(email: str) -> bool:
+    return 'fluidattacks.com' not in email
+
+
+def _remove_fluid_from_recipients(emails: List[str]) -> List[str]:
+    new_email_list = list(
+        filter(_is_not_a_fluidattacks_email, emails)
+    )
+    return new_email_list
 
 
 async def send_mail_comment(  # pylint: disable=too-many-locals
@@ -171,13 +189,28 @@ async def send_mail_new_event(  # pylint: disable=too-many-arguments
 
 
 async def send_mail_unsolved_events(
-    email_to: List[str],
-    context: MailContentType
+    context: Any,
+    group: GroupType,
+    events_data: List[EventType]
 ) -> None:
+    organization_loader = context.organization
+    org_id = group['organization']
+    organization = await organization_loader.load(org_id)
+    org_name = organization['name']
+    group_name = group['name']
+
+    recipients = await _get_external_recipients(group_name)
+    recipients.append(FI_MAIL_PROJECTS)
+    mail_context: MailContentType = {
+        'project': group_name.capitalize(),
+        'organization': org_name,
+        'events_len': int(len(events_data)),
+        'event_url': f'{BASE_URL}/orgs/{org_name}/groups/{group_name}/events'
+    }
     await send_mails_async_new(
-        email_to,
-        context,
+        recipients,
+        mail_context,
         GENERAL_TAG,
-        f'Unsolved events in [{context["project"]}]',
+        f'Unsolved events in [{group_name}]',
         'unsolved_events'
     )

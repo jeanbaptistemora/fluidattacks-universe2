@@ -11,15 +11,6 @@ from aioextensions import schedule
 from backend.typing import MailContent as MailContentType
 
 
-def is_not_a_fluidattacks_email(email: str) -> bool:
-    return 'fluidattacks.com' not in email
-
-
-def remove_fluid_from_recipients(emails: List[str]) -> List[str]:
-    new_email_list = list(filter(is_not_a_fluidattacks_email, emails))
-    return new_email_list
-
-
 def scheduler_send_mail(
     send_mail_function: Callable,
     mail_to: List[str],

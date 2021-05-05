@@ -7,32 +7,17 @@ from typing import (
 )
 
 # Third-party libraries
-from aioextensions import collect
+from aioextensions import (
+    collect,
+    schedule,
+)
 
 # Local libraries
 from backend.api import get_new_context
-from backend.typing import (
-    Event as EventType,
-    Historic as HistoricType,
-    MailContent as MailContentType,
-)
+from backend.typing import Event as EventType
 from events import domain as events_domain
-from group_access import domain as group_access_domain
 from groups import domain as groups_domain
 from mailer import events as events_mail
-from __init__ import (
-    BASE_URL,
-    FI_MAIL_PROJECTS,
-)
-from .common import (
-    remove_fluid_from_recipients,
-    scheduler_send_mail,
-)
-
-
-async def get_external_recipients(project: str) -> List[str]:
-    recipients = await group_access_domain.get_managers(project)
-    return remove_fluid_from_recipients(recipients)
 
 
 async def get_unsolved_events(project: str) -> List[EventType]:
@@ -60,42 +45,25 @@ def is_an_unsolved_event(event: EventType) -> bool:
     )[-1].get('state', '') == 'CREATED'
 
 
-async def send_unsolved_events_email(context: Any, group_name: str) -> None:
+async def send_unsolved_events(context: Any, group_name: str) -> None:
     group_loader = context.group_all
-    organization_loader = context.organization
-    mail_to = []
+    group = await group_loader.load(group_name)
+    historic_configuration = group['historic_configuration']
+
     events_info_for_email = []
-    group_info = await groups_domain.get_attributes(
-        group_name, ['historic_configuration']
-    )
-    historic_configuration = cast(
-        HistoricType,
-        group_info.get('historic_configuration', [{}])
-    )
-    if (group_info and
-            historic_configuration[-1].get('type', '') == 'continuous'):
-        mail_to = await get_external_recipients(group_name)
-        mail_to.append(FI_MAIL_PROJECTS)
+    if historic_configuration[-1].get('type', '') == 'continuous':
         unsolved_events = await get_unsolved_events(group_name)
         events_info_for_email = [
             extract_info_from_event_dict(x)
             for x in unsolved_events
         ]
-    group = await group_loader.load(group_name)
-    org_id = group['organization']
-    organization = await organization_loader.load(org_id)
-    org_name = organization['name']
-    context_event: MailContentType = {
-        'project': group_name.capitalize(),
-        'organization': org_name,
-        'events_len': int(len(events_info_for_email)),
-        'event_url': f'{BASE_URL}/orgs/{org_name}/groups/{group_name}/events'
-    }
-    if context_event['events_len'] and mail_to:
-        scheduler_send_mail(
-            events_mail.send_mail_unsolved_events,
-            mail_to,
-            context_event
+    if events_info_for_email:
+        schedule(
+            events_mail.send_mail_unsolved_events(
+                context,
+                group,
+                events_info_for_email
+            )
         )
 
 
@@ -104,7 +72,7 @@ async def send_unsolved_to_all() -> None:
     context = get_new_context()
     groups = await groups_domain.get_active_groups()
     await collect(
-        send_unsolved_events_email(context, group)
+        send_unsolved_events(context, group)
         for group in groups
     )
 
