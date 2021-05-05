@@ -24,6 +24,7 @@ makeTemplate {
     ];
     envPython38Paths = [
       nixpkgs.python38Packages.beautifulsoup4
+      nixpkgs.python38Packages.ntplib
       nixpkgs.python38Packages.pygraphviz
       nixpkgs.python38Packages.soupsieve
       (buildPythonRequirements {
