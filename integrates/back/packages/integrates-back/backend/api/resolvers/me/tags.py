@@ -9,15 +9,15 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from backend.decorators import require_organization_access
 from backend.typing import (
     Me as MeType,
     Tag as TagType
 )
+from decorators import require_organization_access
 from groups import domain as groups_domain
 
 
-@convert_kwargs_to_snake_case  # type: ignore
+@convert_kwargs_to_snake_case
 @require_organization_access
 async def resolve(
     parent: MeType,

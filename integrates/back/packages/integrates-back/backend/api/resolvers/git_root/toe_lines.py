@@ -1,7 +1,5 @@
 # Standard
-from functools import (
-    partial,
-)
+from functools import partial
 from typing import Tuple
 
 # Third party
@@ -9,8 +7,8 @@ from aiodataloader import DataLoader
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.decorators import enforce_group_level_auth_async
 from data_containers.toe_lines import GitRootToeLines
+from decorators import enforce_group_level_auth_async
 from redis_cluster.operations import redis_get_or_set_entity_attr
 from roots.types import GitRoot
 

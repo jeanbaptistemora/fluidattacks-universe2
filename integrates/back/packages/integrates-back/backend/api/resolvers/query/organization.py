@@ -6,16 +6,16 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.decorators import (
+from backend.typing import Organization
+from decorators import (
     concurrent_decorators,
     require_login,
     require_organization_access
 )
-from backend.typing import Organization
 from organizations import domain as orgs_domain
 
 
-@convert_kwargs_to_snake_case  # type: ignore
+@convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,
     require_organization_access,

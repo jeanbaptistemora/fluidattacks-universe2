@@ -1,13 +1,16 @@
 # Standard
-from typing import cast, List
+from typing import (
+    List,
+    cast,
+)
 
 # Third party
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 import authz
-from backend.decorators import enforce_group_level_auth_async
 from backend.typing import Project as Group
+from decorators import enforce_group_level_auth_async
 
 
 @enforce_group_level_auth_async

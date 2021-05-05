@@ -21,7 +21,6 @@ files =
   ,back/packages/integrates-back/backend/api/schema/scalars/
   ,back/packages/integrates-back/backend/api/schema/types/
   ,back/packages/integrates-back/backend/api/schema/unions/__init__.py
-  ,back/packages/integrates-back/backend/decorators.py
   ,back/packages/modules/events/
   #,back/__init__.py
   #,back/app/views/charts.py

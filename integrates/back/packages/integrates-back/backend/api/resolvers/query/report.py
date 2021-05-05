@@ -9,13 +9,13 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import util
-from backend.decorators import (
-    enforce_group_level_auth_async,
-    require_login
-)
 from backend.typing import Report
 from batch import dal as batch_dal
 from custom_exceptions import RequestedReportError
+from decorators import (
+    enforce_group_level_auth_async,
+    require_login,
+)
 
 
 @enforce_group_level_auth_async
@@ -40,7 +40,7 @@ async def _get_url_group_report(
     return url
 
 
-@convert_kwargs_to_snake_case  # type: ignore
+@convert_kwargs_to_snake_case
 @require_login
 async def resolve(
     _parent: None,

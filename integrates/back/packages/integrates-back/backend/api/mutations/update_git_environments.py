@@ -10,17 +10,17 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
-from backend.decorators import (
+from backend.typing import SimplePayload
+from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_login,
-    require_drills_white
+    require_drills_white,
 )
-from backend.typing import SimplePayload
 from roots import domain as roots_domain
 
 
-@convert_kwargs_to_snake_case  # type: ignore
+@convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,

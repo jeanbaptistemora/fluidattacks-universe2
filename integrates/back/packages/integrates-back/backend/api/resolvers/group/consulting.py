@@ -11,12 +11,12 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
-from backend.decorators import (
+from backend.typing import Comment, Project as Group
+from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
-    require_integrates
+    require_integrates,
 )
-from backend.typing import Comment, Project as Group
 from group_comments import domain as group_comments_domain
 from redis_cluster.operations import redis_get_or_set_entity_attr
 

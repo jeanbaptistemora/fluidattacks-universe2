@@ -7,11 +7,11 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from analytics import domain as analytics_domain
-from backend.decorators import enforce_organization_level_auth_async
 from backend.typing import Organization
+from decorators import enforce_organization_level_auth_async
 
 
-@convert_kwargs_to_snake_case  # type: ignore
+@convert_kwargs_to_snake_case
 @enforce_organization_level_auth_async
 async def resolve(
     parent: Organization,

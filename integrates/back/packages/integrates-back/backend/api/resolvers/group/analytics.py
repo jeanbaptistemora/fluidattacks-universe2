@@ -7,15 +7,15 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from analytics import domain as analytics_domain
-from backend.decorators import (
+from backend.typing import Project as Group
+from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
-    require_integrates
+    require_integrates,
 )
-from backend.typing import Project as Group
 
 
-@convert_kwargs_to_snake_case  # type: ignore
+@convert_kwargs_to_snake_case
 @concurrent_decorators(
     enforce_group_level_auth_async,
     require_integrates,

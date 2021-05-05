@@ -6,14 +6,14 @@ from aiodataloader import DataLoader
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.decorators import (
+from backend.typing import Event
+from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     rename_kwargs,
     require_integrates,
     require_login,
 )
-from backend.typing import Event
 
 
 @rename_kwargs({'identifier': 'event_id'})

@@ -7,15 +7,15 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
-from backend.decorators import enforce_group_level_auth_async
 from backend.typing import UpdateAccessTokenPayload
 from custom_exceptions import InvalidExpirationTime
+from decorators import enforce_group_level_auth_async
 from forces import domain as forces_domain
 from newutils import datetime as datetime_utils
 from users import domain as users_domain
 
 
-@convert_kwargs_to_snake_case  # type: ignore
+@convert_kwargs_to_snake_case
 @enforce_group_level_auth_async
 async def mutate(
     _parent: None,

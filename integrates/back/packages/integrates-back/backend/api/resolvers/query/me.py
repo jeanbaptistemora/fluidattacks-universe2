@@ -7,11 +7,11 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
-from backend.decorators import require_login
 from backend.typing import Me
+from decorators import require_login
 
 
-@convert_kwargs_to_snake_case  # type: ignore
+@convert_kwargs_to_snake_case
 @require_login
 async def resolve(
     _parent: None,

@@ -14,17 +14,17 @@ GENERIC_SCALAR = ScalarType('GenericScalar')
 TVar = TypeVar('TVar')
 
 
-@GENERIC_SCALAR.serializer  # type: ignore
+@GENERIC_SCALAR.serializer
 def serialize_genericscalar(value: TVar) -> TVar:
     return value
 
 
-@GENERIC_SCALAR.value_parser  # type: ignore
+@GENERIC_SCALAR.value_parser
 def parse_genericscalar_value(value: TVar) -> TVar:
     return value
 
 
-@GENERIC_SCALAR.literal_parser  # type: ignore
+@GENERIC_SCALAR.literal_parser
 def parse_genericscalar_literal(ast: Any) -> Any:
     if isinstance(ast, (StringValueNode, BooleanValueNode)):
         return ast.value

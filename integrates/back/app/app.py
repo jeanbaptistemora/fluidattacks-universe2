@@ -38,11 +38,11 @@ from back.settings.queue import (
 )
 from backend.api import IntegratesAPI
 from backend.api.schema import SCHEMA
-from backend.decorators import authenticate_session
 from custom_exceptions import (
     ExpiredToken,
     SecureAccessException,
 )
+from decorators import authenticate_session
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain
 from newutils import analytics

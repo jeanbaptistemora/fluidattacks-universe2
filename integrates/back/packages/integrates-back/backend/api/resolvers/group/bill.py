@@ -1,18 +1,21 @@
 # Standard
 from datetime import datetime
-from typing import cast, Dict
+from typing import (
+    Dict,
+    cast,
+)
 
 # Third party
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.decorators import (
-    concurrent_decorators,
-    enforce_group_level_auth_async,
-    require_drills_white
-)
 from backend.typing import Historic, Project as Group
 from bill import domain as bill_domain
+from decorators import (
+    concurrent_decorators,
+    enforce_group_level_auth_async,
+    require_drills_white,
+)
 from newutils import datetime as datetime_utils
 
 

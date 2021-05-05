@@ -11,12 +11,12 @@ from starlette.datastructures import UploadFile
 
 # Local
 from backend import util
-from backend.decorators import enforce_group_level_auth_async
 from backend.typing import SimplePayload
+from decorators import enforce_group_level_auth_async
 from forces import domain as forces_domain
 
 
-@convert_kwargs_to_snake_case  # type: ignore
+@convert_kwargs_to_snake_case
 @enforce_group_level_auth_async
 async def mutate(
     _parent: None,

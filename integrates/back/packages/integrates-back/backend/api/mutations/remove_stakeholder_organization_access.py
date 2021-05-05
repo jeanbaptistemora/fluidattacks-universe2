@@ -5,13 +5,13 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import util
-from backend.decorators import enforce_organization_level_auth_async
 from backend.typing import SimplePayload
+from decorators import enforce_organization_level_auth_async
 from organizations import domain as orgs_domain
 from redis_cluster.operations import redis_del_by_deps_soon
 
 
-@convert_kwargs_to_snake_case  # type: ignore
+@convert_kwargs_to_snake_case
 @enforce_organization_level_auth_async
 async def mutate(
     _parent: None,

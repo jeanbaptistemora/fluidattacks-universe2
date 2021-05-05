@@ -6,18 +6,18 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.decorators import (
+from backend.typing import ForcesExecution
+from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login,
 )
-from backend.typing import ForcesExecution
 from forces import domain as forces_domain
 from redis_cluster.operations import redis_get_or_set_entity_attr
 
 
-@convert_kwargs_to_snake_case  # type: ignore
+@convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,

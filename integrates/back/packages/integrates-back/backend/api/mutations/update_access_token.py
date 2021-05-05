@@ -7,15 +7,15 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import util
-from backend.decorators import require_login
 from backend.typing import (
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType
 )
 from custom_exceptions import InvalidExpirationTime
+from decorators import require_login
 from users import domain as users_domain
 
 
-@convert_kwargs_to_snake_case  # type: ignore
+@convert_kwargs_to_snake_case
 @require_login
 async def mutate(
     _: Any,

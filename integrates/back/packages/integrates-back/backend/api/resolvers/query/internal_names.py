@@ -5,12 +5,12 @@
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.decorators import (
+from backend.typing import InternalName
+from decorators import (
     concurrent_decorators,
     enforce_user_level_auth_async,
-    require_login
+    require_login,
 )
-from backend.typing import InternalName
 from names import domain as names_domain
 
 

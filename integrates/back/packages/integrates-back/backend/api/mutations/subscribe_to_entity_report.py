@@ -19,7 +19,7 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-@convert_kwargs_to_snake_case  # type: ignore
+@convert_kwargs_to_snake_case
 async def mutate(
     _: Any,
     info: GraphQLResolveInfo,

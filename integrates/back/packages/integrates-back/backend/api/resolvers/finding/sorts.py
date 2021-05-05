@@ -1,16 +1,19 @@
 # Standard
-from typing import cast, Dict
+from typing import (
+    Dict,
+    cast,
+)
 
 # Third party
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.decorators import (
+from backend.typing import Finding
+from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
-    require_integrates
+    require_integrates,
 )
-from backend.typing import Finding
 
 
 @concurrent_decorators(

@@ -6,8 +6,8 @@ import simplejson as json
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.decorators import require_integrates
 from backend.typing import Project as Group
+from decorators import require_integrates
 
 
 @require_integrates

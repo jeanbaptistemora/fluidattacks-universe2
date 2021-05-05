@@ -10,8 +10,11 @@ from aiodataloader import DataLoader
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.decorators import require_integrates
-from backend.typing import Finding, Project as Group
+from backend.typing import (
+    Finding,
+    Project as Group,
+)
+from decorators import require_integrates
 from redis_cluster.operations import redis_get_or_set_entity_attr
 
 

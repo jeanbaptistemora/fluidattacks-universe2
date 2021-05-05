@@ -158,6 +158,6 @@ class IntegratesAPI(GraphQL):  # type: ignore
 
         return data
 
-    @newrelic.agent.web_transaction()  # type: ignore
+    @newrelic.agent.web_transaction()
     async def graphql_http_server(self, request: Request) -> Response:
         return await super().graphql_http_server(request)

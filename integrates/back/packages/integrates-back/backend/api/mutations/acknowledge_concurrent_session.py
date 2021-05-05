@@ -12,7 +12,7 @@ from backend.typing import SimplePayload as SimplePayloadType
 from users import domain as users_domain
 
 
-@convert_kwargs_to_snake_case  # type: ignore
+@convert_kwargs_to_snake_case
 async def mutate(
     _: Any,
     info: GraphQLResolveInfo,

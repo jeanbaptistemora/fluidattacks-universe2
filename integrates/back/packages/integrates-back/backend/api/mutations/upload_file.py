@@ -7,23 +7,23 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
-from backend.decorators import (
-    concurrent_decorators,
-    enforce_group_level_auth_async,
-    require_integrates,
-    require_login
-)
 from backend.typing import SimplePayload
 from custom_exceptions import (
     ErrorUploadingFileS3,
     InvalidFileType,
+)
+from decorators import (
+    concurrent_decorators,
+    enforce_group_level_auth_async,
+    require_integrates,
+    require_login,
 )
 from organizations_finding_policies import domain as policies_domain
 from redis_cluster.operations import redis_del_by_deps
 from vulnerability_files import domain as vuln_files_domain
 
 
-@convert_kwargs_to_snake_case  # type: ignore
+@convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,

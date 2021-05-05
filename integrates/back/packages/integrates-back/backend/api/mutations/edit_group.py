@@ -8,22 +8,22 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local libraries
 import authz
 from backend import util
-from backend.decorators import (
+from backend.typing import SimplePayload as SimplePayloadType
+from custom_exceptions import PermissionDenied
+from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_login,
     require_integrates,
-    turn_args_into_kwargs
+    turn_args_into_kwargs,
 )
-from backend.typing import SimplePayload as SimplePayloadType
-from custom_exceptions import PermissionDenied
 from forces import domain as forces_domain
 from groups import domain as groups_domain
 from redis_cluster.operations import redis_del_by_deps
 from users import domain as users_domain
 
 
-@convert_kwargs_to_snake_case  # type: ignore
+@convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,

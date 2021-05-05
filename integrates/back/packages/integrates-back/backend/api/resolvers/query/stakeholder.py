@@ -7,15 +7,15 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 import authz
-from backend.decorators import (
-    enforce_group_level_auth_async,
-    enforce_organization_level_auth_async,
-    require_login
-)
 from backend.typing import Stakeholder
 from custom_exceptions import (
     InvalidParameter,
     StakeholderNotFound,
+)
+from decorators import (
+    enforce_group_level_auth_async,
+    enforce_organization_level_auth_async,
+    require_login,
 )
 from group_access import domain as group_access_domain
 from users import domain as stakeholders_domain
@@ -67,7 +67,7 @@ async def _resolve_for_group(
     raise StakeholderNotFound()
 
 
-@convert_kwargs_to_snake_case  # type: ignore
+@convert_kwargs_to_snake_case
 @require_login
 async def resolve(
     _parent: None,

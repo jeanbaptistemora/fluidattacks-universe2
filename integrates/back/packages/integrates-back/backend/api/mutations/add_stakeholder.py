@@ -10,12 +10,12 @@ from graphql.type.definition import GraphQLResolveInfo
 import authz
 from back.settings import LOGGING
 from backend import util
-from backend.decorators import (
+from backend.typing import AddStakeholderPayload, MailContent
+from decorators import (
     concurrent_decorators,
     enforce_user_level_auth_async,
-    require_login
+    require_login,
 )
-from backend.typing import AddStakeholderPayload, MailContent
 from groups import domain as groups_domain
 from mailer import groups as groups_mail
 
@@ -24,7 +24,7 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-@convert_kwargs_to_snake_case  # type: ignore
+@convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,
     enforce_user_level_auth_async,

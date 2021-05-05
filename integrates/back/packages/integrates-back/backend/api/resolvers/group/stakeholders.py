@@ -11,14 +11,14 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import util
-from backend.decorators import (
-    concurrent_decorators,
-    enforce_group_level_auth_async,
-    require_integrates
-)
 from backend.typing import (
     Project as GroupType,
     Stakeholder as StakeholderType,
+)
+from decorators import (
+    concurrent_decorators,
+    enforce_group_level_auth_async,
+    require_integrates,
 )
 from redis_cluster.operations import redis_get_or_set_entity_attr
 from users import domain as users_domain

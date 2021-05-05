@@ -7,20 +7,20 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import util
-from backend.decorators import (
+from backend.typing import EditStakeholderPayload
+from custom_exceptions import UserNotInOrganization
+from decorators import (
     concurrent_decorators,
     enforce_organization_level_auth_async,
     require_login,
-    require_organization_access
+    require_organization_access,
 )
-from backend.typing import EditStakeholderPayload
-from custom_exceptions import UserNotInOrganization
 from organizations import domain as orgs_domain
 from redis_cluster.operations import redis_del_by_deps
 from users import domain as users_domain
 
 
-@convert_kwargs_to_snake_case  # type: ignore
+@convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,
     require_organization_access,

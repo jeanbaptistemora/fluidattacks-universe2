@@ -7,16 +7,19 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.decorators import (
+from backend.typing import (
+    Project as Group,
+    Resource, Resources,
+)
+from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
-    require_login
+    require_login,
 )
-from backend.typing import Project as Group, Resource, Resources
 
 
-@convert_kwargs_to_snake_case  # type: ignore
+@convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,

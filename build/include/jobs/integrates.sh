@@ -8,7 +8,12 @@ function job_integrates_back_lint {
 
       pushd integrates \
   &&  env_prepare_python_packages \
-  &&  mypy --strict --ignore-missing-imports --follow-imports=skip --config-file back/.mypylintignore \
+  &&  mypy \
+        --strict \
+        --allow-untyped-decorators \
+        --ignore-missing-imports \
+        --follow-imports=skip \
+        --config-file back/.mypylintignore \
   &&  bandit -r --ini .bandit \
   &&  prospector -F -s veryhigh charts/ \
   &&  prospector -F -s veryhigh back \

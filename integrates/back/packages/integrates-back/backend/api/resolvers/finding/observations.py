@@ -1,19 +1,19 @@
 # Standard
-from functools import (
-    partial,
+from functools import partial
+from typing import (
+    Dict,
+    List,
+    cast,
 )
-from typing import cast, Dict, List
 
 # Third party
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
-from backend.decorators import (
-    enforce_group_level_auth_async,
-)
 from backend.typing import Comment, Finding
 from comments import domain as comments_domain
+from decorators import enforce_group_level_auth_async
 from redis_cluster.operations import redis_get_or_set_entity_attr
 
 

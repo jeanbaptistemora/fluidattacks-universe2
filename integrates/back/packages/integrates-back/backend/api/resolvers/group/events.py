@@ -1,17 +1,23 @@
 # Standard
-from typing import cast, List
+from typing import (
+    List,
+    cast,
+)
 
 # Third party
 from aiodataloader import DataLoader
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.decorators import (
+from backend.typing import (
+    Event,
+    Project as Group,
+)
+from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
-    require_integrates
+    require_integrates,
 )
-from backend.typing import Event, Project as Group
 from events import domain as events_domain
 
 

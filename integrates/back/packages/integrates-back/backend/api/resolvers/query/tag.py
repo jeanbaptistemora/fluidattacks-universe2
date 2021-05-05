@@ -9,9 +9,9 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
-from backend.decorators import require_login
 from backend.typing import Tag
 from custom_exceptions import TagNotFound
+from decorators import require_login
 from groups import domain as groups_domain
 from organizations import domain as orgs_domain
 from tags import domain as tags_domain

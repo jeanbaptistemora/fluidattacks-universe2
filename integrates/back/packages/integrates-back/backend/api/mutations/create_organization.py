@@ -7,8 +7,11 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local
 from backend import util
-from backend.decorators import require_login
-from backend.typing import CreateOrganizationPayload, Organization
+from backend.typing import (
+    CreateOrganizationPayload,
+    Organization,
+)
+from decorators import require_login
 from organizations import domain as orgs_domain
 
 

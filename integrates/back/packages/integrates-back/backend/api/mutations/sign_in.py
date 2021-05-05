@@ -84,7 +84,7 @@ async def get_provider_user_info(
             return cast(Optional[Dict[str, str]], user)
 
 
-@convert_kwargs_to_snake_case  # type: ignore
+@convert_kwargs_to_snake_case
 async def mutate(
     _: Any,
     _info: GraphQLResolveInfo,
