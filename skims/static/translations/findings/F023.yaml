@@ -1,0 +1,30 @@
+F023.description:
+  en: >
+    The server processes requests with the Host header set and redirects
+    clients to any destination.
+  es: >
+    El servidor procesa peticiones con la cabecera Host configurada y redirije
+    clientes a cualquier destino.
+F023.impact:
+  en: |
+    - Enumerate the internal network via trial and error.
+    - Perform a subset of Server Side Request Forgery attacks.
+  es: |
+    - Enumerar la red interna a través de prueba y error
+    - Realizar un subconjunto de ataques de Server Side Request Forgery.
+F023.recommendation:
+  en: Configure server to prevent third party hosts redirection.
+  es: Configurar el servidor para prevenir redirecciones a hosts de terceros.
+F023.requirements:
+  en: |
+    R173. Discard unsafe inputs
+    R324. Control redirects
+  es: |
+    R173. El sistema debe descartar toda la información potencialmente insegura que sea recibida por entradas de datos.
+    R324. Las redirecciones deben ser controladas, especialmente si dependen de entrada de datos.
+F023.threat:
+  en: Unauthorized attacker from internet network.
+  es: Atacante sin autorización desde Internet.
+F023.title:
+  en: F015. Uncontrolled external site redirect - Host header
+  es: F023. Redirección a sitios externos no controlada - cabecera Host
