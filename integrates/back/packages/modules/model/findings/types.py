@@ -1,5 +1,5 @@
 # Standard
-from typing import Tuple, NamedTuple, Union
+from typing import Tuple, NamedTuple, Union, Optional
 
 
 class FindingState(NamedTuple):
@@ -89,7 +89,7 @@ class Finding(NamedTuple):
     bts_url: str
     compromised_attributes: str
     compromised_records: int
-    cvss_version: float
+    cvss_version: str
     cwe_url: str
     description: str
     evidences: FindingEvidences
@@ -106,4 +106,4 @@ class Finding(NamedTuple):
     title: str
     threat: str
     type: str
-    verification: FindingVerification
+    verification: Optional[FindingVerification]

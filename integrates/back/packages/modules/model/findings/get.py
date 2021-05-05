@@ -1,5 +1,5 @@
 # Standard libraries
-from typing import cast, List, Tuple, Union
+from typing import cast, List, Optional, Tuple, Union
 
 # Third party libraries
 from aiodataloader import DataLoader
@@ -43,12 +43,25 @@ def _build_finding(
         historic_prefix='STATE',
         raw_items=raw_items
     )
-    verification = historics.get_latest(
-        item_id=item_id,
-        key_structure=key_structure,
-        historic_prefix='VERIFICATION',
-        raw_items=raw_items
-    )
+    try:
+        verification = historics.get_latest(
+            item_id=item_id,
+            key_structure=key_structure,
+            historic_prefix='VERIFICATION',
+            raw_items=raw_items
+        )
+        finding_verification: Optional[FindingVerification] = (
+            FindingVerification(
+                comment_id=verification['comment_id'],
+                modified_by=verification['modified_by'],
+                modified_date=verification['modified_date'],
+                status=verification['status'],
+                vuln_uuids=tuple(cast(List[str], verification['vuln_uuids'])),
+            )
+        )
+    except StopIteration:
+        finding_verification = None
+
     if metadata['cvss_version'] == '3.1':
         severity: Union[Finding20Severity, Finding31Severity] = (
             Finding31Severity(**{
@@ -101,13 +114,7 @@ def _build_finding(
             source=state['source'],
             status=state['status'],
         ),
-        verification=FindingVerification(
-            comment_id=verification['comment_id'],
-            modified_by=verification['modified_by'],
-            modified_date=verification['modified_date'],
-            status=verification['status'],
-            vuln_uuids=tuple(cast(List[str], verification['vuln_uuids'])),
-        )
+        verification=finding_verification
     )
 
 
