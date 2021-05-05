@@ -25,7 +25,10 @@ from typing import (
 
 # Third party libraries
 import boto3
-from sagemaker.tuner import CategoricalParameter
+from sagemaker.tuner import (
+    CategoricalParameter,
+    IntegerParameter
+)
 from sklearn.ensemble import (
     GradientBoostingClassifier,
     RandomForestClassifier,
@@ -93,6 +96,7 @@ MODEL_HYPERPARAMETERS = {
             'friedman_mse',
             'mse',
             'mae'
-        ])
-    }
+        ]),
+        'n_estimators': IntegerParameter(90, 110)
+    },
 }
