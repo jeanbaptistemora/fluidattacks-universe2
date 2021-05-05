@@ -29,6 +29,9 @@
   "F022": {
     "skims/test/data/sast/TestCFG.java": {}
   },
+  "F023": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
   "F024_AWS": {
     "skims/test/data/sast/TestCFG.java": {}
   },
