@@ -2,6 +2,7 @@
 from itertools import chain
 import logging
 import logging.config
+from operator import itemgetter
 from typing import (
     Any,
     Dict,
@@ -31,6 +32,7 @@ from mailer import groups as groups_mail
 from newutils import (
     bugsnag as bugsnag_utils,
     datetime as datetime_utils,
+    vulnerabilities as vulns_utils,
 )
 from __init__ import (
     FI_MAIL_DIGEST,
@@ -200,28 +202,35 @@ async def get_total_treatment_stats(
     }
 
 
-async def get_findings_new_vulns(
+async def get_oldest_open_findings(
     context: Any,
-    findings: List[Dict[str, FindingType]]
+    findings: List[Dict[str, FindingType]],
+    count: int,
 ) -> list:
-    """Get the findings with open vulns in last 24 hrs"""
+    """Get the n oldest open findings and their age"""
     finding_vulns_loader = context.finding_vulns_nzr
-    new_vulns: List[Dict[str, str]] = list()
-
-    for finding in findings:
-        vulns = await finding_vulns_loader.load(str(finding['finding_id']))
-        vulns_counter: int = 0
-        for vuln in vulns:
-            filtered_state = filter_historic_last_day(
-                vuln.get('historic_state', [{}]))
-            if 'open' in str(filtered_state):
-                vulns_counter += 1
-        if vulns_counter:
-            new_vulns.append({
-                'finding_name': finding['finding'],
-                'finding_number': str(vulns_counter),
-            })
-    return new_vulns
+    open_findings = [
+        finding
+        for finding in findings
+        if len(vulns_utils.filter_open_vulns(
+            await finding_vulns_loader.load(finding['finding_id'])))
+    ]
+    findings_age = [
+        {
+            'finding_name': finding['finding'],
+            'finding_age': await findings_domain.get_finding_open_age(
+                context,
+                finding['finding_id'],
+            ),
+        }
+        for finding in open_findings
+    ]
+    oldest = sorted(
+        findings_age,
+        key=itemgetter('finding_age'),
+        reverse=True
+    )[:count]
+    return oldest
 
 
 async def get_group_statistics(context: Any, group_name: str) -> None:
@@ -260,8 +269,8 @@ async def get_group_statistics(context: Any, group_name: str) -> None:
     ]
 
     # Get stats
-    mail_context['findings'] = await get_findings_new_vulns(
-        context, valid_findings)
+    mail_context['findings'] = await get_oldest_open_findings(
+        context, valid_findings, 3)
     treatments = await get_total_treatment_stats(context, valid_findings)
     mail_context['treatments']['temporary_applied'] = treatments.get(
         'accepted', 0)

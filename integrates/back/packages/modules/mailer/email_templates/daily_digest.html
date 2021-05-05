@@ -92,12 +92,14 @@
       display: block;
       justify-content: space-between;
       margin-bottom: 1rem;
+      height: 33%;
     }
 
     .content-number {
       color: #ff3435;
       font-weight: bold;
       float: right;
+      padding-left: 1rem;
     }
 
     @media only screen and (min-width: 320px) {
@@ -148,7 +150,7 @@
       <img alt="Fluid Attacks logo"
         src="https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/3c66db1f-0f67-491a-9193-3d8e6d1ea983.png"
         style="height: 100px; margin: 30px 0;">
-      <h4>Hello {{ name }}, here’s how your day was:</h4>
+      <h4>Hello {{ name }}, here’s how your day was at <strong>{{ project }}</strong></h4>
     </div>
 
     <!-- NUMBERS -->
@@ -179,15 +181,15 @@
         <h4>Reattacks</h4>
       </div>
       <div class="content">
-        <div style="height: 33%;">
+        <div>
           <span>Reattacks requested</span>
           <span class="content-number">{{ reattacks['reattacks_requested'] }}</span>
         </div>
-        <div style="height: 33%;">
+        <div>
           <span>Reattacks executed</span>
           <span class="content-number">{{ reattacks['reattacks_executed'] }}</span>
         </div>
-        <div style="height: 33%;">
+        <div>
           <span>Pending reattacks</span>
           <span class="content-number">{{ reattacks['pending_attacks'] }}</span>
         </div>
@@ -202,15 +204,15 @@
         <h4>Treatments</h4>
       </div>
       <div class="content">
-        <div style="height: 33%;">
+        <div>
           <span>Temporary treatments applied</span>
           <span class="content-number">{{ treatments['temporary_applied'] }}</span>
         </div>
-        <div style="height: 33%;">
+        <div>
           <span>Eternal treatments requested</span>
           <span class="content-number">{{ treatments['eternal_requested'] }}</span>
         </div>
-        <div style="height: 33%;">
+        <div>
           <span>Eternal treatments approved</span>
           <span class="content-number">{{ treatments['eternal_approved'] }}</span>
         </div>
@@ -228,7 +230,14 @@
         {% for finding in findings %}
         <div>
           <span>{{ finding['finding_name'] }}</span>
-          <span class="content-number">{{ finding['finding_number'] }}</span>
+          <span class="content-number">
+            {{ finding['finding_age'] }}
+            {% if finding['finding_age']  == 1 %}
+            day
+            {% else %}
+            days
+            {% endif %}
+          </span>
         </div>
         {% endfor %}
       </div>
