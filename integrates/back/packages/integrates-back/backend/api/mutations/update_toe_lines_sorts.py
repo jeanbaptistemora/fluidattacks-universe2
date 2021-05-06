@@ -4,8 +4,7 @@
 from typing import (
     Any,
     List,
-    Set,
-    Tuple
+    Set
 )
 
 # Third party libraries
@@ -39,8 +38,9 @@ async def mutate(
     sorts_risk_level: float
 ) -> SimplePayloadType:
     success = False
-    group_toes: Tuple[GitRootToeLines, ...] = \
-        await toe_lines_domain.get_by_group(group_name)
+    group_toe_lines_loader = info.context.loaders.group_toe_lines
+    group_toes: Set[GitRootToeLines] = \
+        await group_toe_lines_loader.load(group_name)
 
     # Rare, but we can have the same filename in different roots.
     # That's why this set
