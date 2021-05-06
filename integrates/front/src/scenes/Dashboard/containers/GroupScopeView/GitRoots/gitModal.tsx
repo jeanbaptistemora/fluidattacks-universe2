@@ -1,21 +1,18 @@
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Field, Form, Formik } from "formik";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
-import { Field, formValueSelector } from "redux-form";
-import type {
-  InjectedFormProps,
-  Validator as ValidatorField,
-} from "redux-form";
+import type { Validator as ValidatorField } from "redux-form";
+import type { BaseSchema } from "yup";
+import { array, lazy, object, string } from "yup";
 
 import type { IGitRootAttr } from "../types";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { SwitchButton } from "components/SwitchButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   Alert,
   ButtonToolbar,
@@ -26,8 +23,13 @@ import {
   Row,
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
-import { ArrayField, Checkbox, Text } from "utils/forms/fields";
-import { checked, excludeFormat, required } from "utils/validations";
+import {
+  FormikArrayField,
+  FormikCheckbox,
+  FormikText,
+} from "utils/forms/fields";
+import { translate } from "utils/translations/translate";
+import { checked, required } from "utils/validations";
 
 interface IGitModalProps {
   initialValues: IGitRootAttr | undefined;
@@ -92,16 +94,6 @@ const GitModal: React.FC<IGitModalProps> = ({
     [initialValues, nicknames, t]
   );
 
-  // State management
-  const selector: (
-    state: Record<string, unknown>,
-    field: string
-  ) => string[] = formValueSelector("gitRoot");
-  const gitIgnoreValues: string[] = useSelector(
-    (state: Record<string, unknown>): string[] =>
-      selector(state, "filter.exclude")
-  );
-
   const [confirmHealthCheck, setConfirmHealthCheck] = useState(
     initialValues.includesHealthCheck
   );
@@ -115,13 +107,45 @@ const GitModal: React.FC<IGitModalProps> = ({
       headerTitle={t(`group.scope.common.${isEditing ? "edit" : "add"}`)}
       open={true}
     >
-      <GenericForm
+      <Formik
         initialValues={initialValues}
         name={"gitRoot"}
         onSubmit={onSubmit}
+        validationSchema={lazy(
+          (values: IGitRootAttr): BaseSchema =>
+            object().shape({
+              gitignore: array().of(
+                string()
+                  .required(translate.t("validations.required"))
+                  .test(
+                    "excludeFormat",
+                    translate.t("validations.excludeFormat"),
+                    (value): boolean => {
+                      const repoUrl = values.url;
+
+                      if (!_.isUndefined(repoUrl) && !_.isUndefined(value)) {
+                        const [urlBasename] = repoUrl.split("/").slice(-1);
+                        const repoName: string = urlBasename.endsWith(".git")
+                          ? urlBasename.replace(".git", "")
+                          : urlBasename;
+
+                        return (
+                          value
+                            .toLowerCase()
+                            .split("/")
+                            .indexOf(repoName.toLowerCase()) !== 0
+                        );
+                      }
+
+                      return false;
+                    }
+                  )
+              ),
+            })
+        )}
       >
-        {({ pristine, submitting }: InjectedFormProps): JSX.Element => (
-          <React.Fragment>
+        {({ dirty, isSubmitting, values }): JSX.Element => (
+          <Form>
             <React.Fragment>
               <fieldset className={"bn"}>
                 <legend className={"f3 b"}>
@@ -134,7 +158,7 @@ const GitModal: React.FC<IGitModalProps> = ({
                       {t("group.scope.git.repo.url")}
                     </ControlLabel>
                     <Field
-                      component={Text}
+                      component={FormikText}
                       disabled={isEditing}
                       name={"url"}
                       type={"text"}
@@ -147,7 +171,7 @@ const GitModal: React.FC<IGitModalProps> = ({
                       {t("group.scope.git.repo.branch")}
                     </ControlLabel>
                     <Field
-                      component={Text}
+                      component={FormikText}
                       disabled={isEditing}
                       name={"branch"}
                       type={"text"}
@@ -165,7 +189,7 @@ const GitModal: React.FC<IGitModalProps> = ({
                           {t("group.scope.git.repo.nickname")}
                         </ControlLabel>
                         <Field
-                          component={Text}
+                          component={FormikText}
                           name={"nickname"}
                           placeholder={t("group.scope.git.repo.nicknameHint")}
                           type={"text"}
@@ -183,7 +207,7 @@ const GitModal: React.FC<IGitModalProps> = ({
                       {t("group.scope.git.repo.environment")}
                     </ControlLabel>
                     <Field
-                      component={Text}
+                      component={FormikText}
                       name={"environment"}
                       placeholder={t("group.scope.git.repo.environmentHint")}
                       type={"text"}
@@ -210,13 +234,13 @@ const GitModal: React.FC<IGitModalProps> = ({
                     />
                     {confirmHealthCheck ? (
                       <Field
-                        component={Checkbox}
+                        component={FormikCheckbox}
+                        label={t("group.scope.git.healthCheck.accept")}
                         name={"includesHealthCheck"}
                         type={"checkbox"}
                         validate={checked}
                       >
                         <RequiredField>{"*"}&nbsp;</RequiredField>
-                        {t("group.scope.git.healthCheck.accept")}
                       </Field>
                     ) : undefined}
                   </div>
@@ -239,26 +263,26 @@ const GitModal: React.FC<IGitModalProps> = ({
                   >
                     <FontAwesomeIcon icon={faQuestionCircle} />
                   </QuestionButton>
-                  {_.isUndefined(gitIgnoreValues) ? undefined : _.isEmpty(
-                      gitIgnoreValues
+                  {_.isUndefined(values.gitignore) ? undefined : _.isEmpty(
+                      values.gitignore
                     ) ? undefined : (
                     <Alert>{t("group.scope.git.filter.warning")}</Alert>
                   )}
-                  <ArrayField
+                  <FormikArrayField
                     allowEmpty={true}
+                    arrayValues={values.gitignore}
                     initialValue={""}
                     name={"gitignore"}
                   >
                     {(fieldName: string): JSX.Element => (
                       <Field
-                        component={Text}
+                        component={FormikText}
                         name={fieldName}
                         placeholder={t("group.scope.git.filter.placeholder")}
                         type={"text"}
-                        validate={[required, excludeFormat]}
                       />
                     )}
-                  </ArrayField>
+                  </FormikArrayField>
                 </fieldset>
               </Can>
             </React.Fragment>
@@ -268,7 +292,7 @@ const GitModal: React.FC<IGitModalProps> = ({
                 <ButtonToolbar>
                   <Button onClick={onClose}>{t("confirmmodal.cancel")}</Button>
                   <Button
-                    disabled={pristine || submitting}
+                    disabled={!dirty || isSubmitting}
                     id={"git-root-add-proceed"}
                     type={"submit"}
                   >
@@ -277,9 +301,9 @@ const GitModal: React.FC<IGitModalProps> = ({
                 </ButtonToolbar>
               </Col100>
             </Row>
-          </React.Fragment>
+          </Form>
         )}
-      </GenericForm>
+      </Formik>
     </Modal>
   );
 };

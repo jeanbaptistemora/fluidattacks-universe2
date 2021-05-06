@@ -2,6 +2,7 @@ import { Checkbox } from "antd";
 import type { FieldProps } from "formik";
 import { ErrorMessage } from "formik";
 import React from "react";
+import "antd/dist/antd.css";
 import "./index.css";
 
 import { ValidationError } from "utils/forms/fields/styles";
