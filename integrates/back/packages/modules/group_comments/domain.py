@@ -1,4 +1,5 @@
 # Standard libraries
+from datetime import datetime
 from typing import (
     Dict,
     List,
@@ -10,9 +11,17 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 import authz
-from backend.typing import Comment as CommentType
-from comments import domain as comments_domain
+from backend.typing import (
+    Comment as CommentType,
+    Finding as FindingType,
+)
+from comments.domain import (
+    fill_comment_data,
+    filter_comments_date,
+)
+from comments.dal import get_comments_for_ids
 from custom_exceptions import InvalidCommentParent
+from events import domain as events_domain
 from group_comments import dal as group_comments_dal
 from users import domain as users_domain
 
@@ -75,7 +84,7 @@ async def get_comments(group_name: str) -> List[Dict[str, str]]:
 async def list_comments(group_name: str, user_email: str) -> List[CommentType]:
     enforcer = await authz.get_group_level_enforcer(user_email)
     comments = await collect([
-        comments_domain.fill_comment_data(group_name, user_email, comment)
+        fill_comment_data(group_name, user_email, comment)
         for comment in await group_comments_dal.get_comments(group_name)
     ])
 
@@ -96,3 +105,36 @@ async def mask_comments(group_name: str) -> bool:
         ])
     )
     return are_comments_masked
+
+
+async def get_total_comments_date(
+    findings: List[Dict[str, FindingType]],
+    group_name: str,
+    min_date: datetime,
+) -> int:
+    """Get the total comments in the group"""
+    group_comments_len = len(
+        filter_comments_date(
+            await get_comments(group_name), min_date))
+
+    events_ids = await events_domain.list_group_events(group_name)
+    events_comments_len = len(
+        filter_comments_date(
+            await get_comments_for_ids(
+                'event', events_ids), min_date))
+
+    findings_ids = [str(finding['finding_id']) for finding in findings]
+    findings_comments_len = len(
+        filter_comments_date(
+            await get_comments_for_ids(
+                'comment', findings_ids), min_date))
+    findings_comments_len += len(
+        filter_comments_date(
+            await get_comments_for_ids(
+                'observation', findings_ids), min_date))
+    findings_comments_len += len(
+        filter_comments_date(
+            await get_comments_for_ids(
+                'zero_risk', findings_ids), min_date))
+
+    return group_comments_len + events_comments_len + findings_comments_len

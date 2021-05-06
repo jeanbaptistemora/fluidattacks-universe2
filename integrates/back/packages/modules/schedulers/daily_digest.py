@@ -1,5 +1,4 @@
 # Standard libraries
-from itertools import chain
 import logging
 import logging.config
 from operator import itemgetter
@@ -18,16 +17,16 @@ from aioextensions import (
 # Local libraries
 from backend.api import get_new_context
 from backend.typing import (
-    Comment as CommentType,
     Finding as FindingType,
     Historic as HistoricType,
     MailContent as MailContentType,
 )
-from comments import dal as comments_dal
-from events import domain as events_domain
 from findings import domain as findings_domain
-from group_comments import domain as group_comments_domain
-from groups import domain as groups_domain
+from group_comments.domain import get_total_comments_date
+from groups.domain import (
+    get_mean_remediate,
+    get_remediation_rate,
+)
 from mailer import groups as groups_mail
 from newutils import (
     bugsnag as bugsnag_utils,
@@ -43,74 +42,6 @@ from __init__ import (
 bugsnag_utils.start_scheduler_session()
 
 LOGGER = logging.getLogger(__name__)
-
-
-async def get_remediation_rate(
-    context: Any,
-    group_name: str,
-) -> int:
-    """Percentage of closed vulns, ignoring treatments"""
-    remediation_rate: int = 0
-    open_vulns = await groups_domain.get_open_vulnerabilities(
-        context, group_name)
-    closed_vulns = await groups_domain.get_closed_vulnerabilities(
-        context, group_name)
-    if closed_vulns:
-        remediation_rate = int(
-            100 * closed_vulns / (open_vulns + closed_vulns))
-    return remediation_rate
-
-
-async def get_comments_for_ids(
-    identifiers: List[str],
-    comment_type: str,
-) -> List[CommentType]:
-    """Retrieve comments for the given event/finding ids"""
-    comments = await collect(
-        comments_dal.get_comments(
-            comment_type,
-            int(identifier),
-        )
-        for identifier in identifiers
-    )
-    return list(chain.from_iterable(comments))
-
-
-def filter_comments_last_day(comments: List[CommentType]) -> List[CommentType]:
-    last_day = datetime_utils.get_now_minus_delta(hours=24)
-    return [
-        comment
-        for comment in comments
-        if datetime_utils.get_from_str(comment['created']) >= last_day
-    ]
-
-
-async def get_total_comments(
-    findings: List[Dict[str, FindingType]],
-    group_name: str
-) -> int:
-    """Get the total comments in the group"""
-    group_comments_len = len(
-        filter_comments_last_day(
-            await group_comments_domain.get_comments(group_name)))
-
-    events_ids = await events_domain.list_group_events(group_name)
-    events_comments_len = len(
-        filter_comments_last_day(
-            await get_comments_for_ids(events_ids, 'event')))
-
-    findings_ids = [str(finding['finding_id']) for finding in findings]
-    findings_comments_len = len(
-        filter_comments_last_day(
-            await get_comments_for_ids(findings_ids, 'comment')))
-    findings_comments_len += len(
-        filter_comments_last_day(
-            await get_comments_for_ids(findings_ids, 'observation')))
-    findings_comments_len += len(
-        filter_comments_last_day(
-            await get_comments_for_ids(findings_ids, 'zero_risk')))
-
-    return group_comments_len + events_comments_len + findings_comments_len
 
 
 def filter_historic_last_day(historic: HistoricType) -> HistoricType:
@@ -233,9 +164,10 @@ async def get_oldest_open_findings(
     return oldest
 
 
-async def get_group_statistics(context: Any, group_name: str) -> None:
-    # Most of the following statistics are yet to be calculated, however, the
-    # fields in mail_context are needed for rendering the initial mail
+async def get_group_digest_stats(
+    context: Any,
+    group_name: str
+) -> MailContentType:
     mail_context: MailContentType = {
         'project': group_name,
         'remediation_rate': 0,
@@ -269,6 +201,7 @@ async def get_group_statistics(context: Any, group_name: str) -> None:
     ]
 
     # Get stats
+    last_day = datetime_utils.get_now_minus_delta(hours=24)
     mail_context['findings'] = await get_oldest_open_findings(
         context, valid_findings, 3)
     treatments = await get_total_treatment_stats(context, valid_findings)
@@ -287,14 +220,22 @@ async def get_group_statistics(context: Any, group_name: str) -> None:
         'pending_attacks', 0)
     mail_context['reattack_effectiveness'] = reattacks.get(
         'reattack_effectiveness', 0)
-    mail_context['queries'] = await get_total_comments(
-        valid_findings, group_name)
+    mail_context['queries'] = await get_total_comments_date(
+        valid_findings, group_name, last_day)
     mail_context['remediation_time'] = int(
-        await groups_domain.get_mean_remediate(context, group_name))
+        await get_mean_remediate(context, group_name))
     mail_context['remediation_rate'] = await get_remediation_rate(
         context, group_name)
 
-    mail_to = FI_MAIL_DIGEST.split(',')
+    return mail_context
+
+
+async def sent_daily_digest(
+    context: Any,
+    group_name: str,
+    mail_to: List[str],
+) -> None:
+    mail_context = await get_group_digest_stats(context, group_name)
     await schedule(groups_mail.send_mail_daily_digest(mail_to, mail_context))
 
 
@@ -302,7 +243,8 @@ async def main() -> None:
     """Daily Digest mail send to each analyst at the end of the day"""
     context = get_new_context()
     groups = FI_TEST_PROJECTS_DIGEST.split(',')
+    mail_to = FI_MAIL_DIGEST.split(',')
     await collect([
-        get_group_statistics(context, group)
+        sent_daily_digest(context, group, mail_to)
         for group in groups
     ])

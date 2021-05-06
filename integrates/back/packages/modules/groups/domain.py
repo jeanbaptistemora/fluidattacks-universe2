@@ -969,3 +969,19 @@ async def after_complete_register(
         await orgs_domain.has_user_access(default_org_id, user_email)
     ):
         await orgs_domain.remove_user(default_org_id, user_email)
+
+
+async def get_remediation_rate(
+    context: Any,
+    group_name: str,
+) -> int:
+    """Percentage of closed vulns, ignoring treatments"""
+    remediation_rate: int = 0
+    open_vulns = await get_open_vulnerabilities(
+        context, group_name)
+    closed_vulns = await get_closed_vulnerabilities(
+        context, group_name)
+    if closed_vulns:
+        remediation_rate = int(
+            100 * closed_vulns / (open_vulns + closed_vulns))
+    return remediation_rate

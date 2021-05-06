@@ -1,4 +1,5 @@
 # Standard libraries
+from datetime import datetime
 from typing import (
     cast,
     Dict,
@@ -246,3 +247,15 @@ async def get_observations(
             filter(_is_scope_comment, observations)
         )
     return new_observations
+
+
+def filter_comments_date(
+    comments: List[CommentType],
+    min_date: datetime,
+) -> List[CommentType]:
+    return [
+        comment
+        for comment in comments
+        if min_date and datetime_utils.get_from_str(
+            comment['created']) >= min_date
+    ]
