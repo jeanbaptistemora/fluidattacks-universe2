@@ -193,7 +193,7 @@ const LinksSection: React.FC = (): JSX.Element => (
       />{" "}
       <br />
       <BodyLink
-        link={"https://fluidattacks.com/about-us/resources/"}
+        link={"https://fluidattacks.com/resources/"}
         name={"Resources"}
       />{" "}
       <br />
