@@ -126,16 +126,18 @@ def get_commits__stamp_integration_date__replace_until_master(
 ) -> None:
     """Recursively replace commits traversing DAG but stoping in master."""
     for parent_sha in commits[replace_sha]["parents"]:
-        if not commits[parent_sha]["is_master"]:
-            if commits[parent_sha]["visit__stamp_integration_date"]:
-                commits[parent_sha]["visit__stamp_integration_date"] = False
-                commits[parent_sha]["integration_authored_at"] = commits[
-                    replace_sha
-                ]["integration_authored_at"]
-                commits[parent_sha]["integration_committed_at"] = commits[
-                    replace_sha
-                ]["integration_committed_at"]
-                follow.append(parent_sha)
+        if (
+            not commits[parent_sha]["is_master"]
+            and commits[parent_sha]["visit__stamp_integration_date"]
+        ):
+            commits[parent_sha]["visit__stamp_integration_date"] = False
+            commits[parent_sha]["integration_authored_at"] = commits[
+                replace_sha
+            ]["integration_authored_at"]
+            commits[parent_sha]["integration_committed_at"] = commits[
+                replace_sha
+            ]["integration_committed_at"]
+            follow.append(parent_sha)
 
 
 def get_commits__stamp_time_to_master(commits: OrderedDict) -> None:
