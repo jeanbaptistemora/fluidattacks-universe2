@@ -47,7 +47,6 @@ async def _batch_load_fn(organization_names: List[str]) -> List[List[TagType]]:
             )
             for tag in organization_tags
         ]
-
     return [
         tags.get(organization_name, [])
         for organization_name in organization_names
@@ -55,7 +54,7 @@ async def _batch_load_fn(organization_names: List[str]) -> List[List[TagType]]:
 
 
 # pylint: disable=too-few-public-methods
-class OrganizationTagsLoader(DataLoader):  # type: ignore
+class OrganizationTagsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self,

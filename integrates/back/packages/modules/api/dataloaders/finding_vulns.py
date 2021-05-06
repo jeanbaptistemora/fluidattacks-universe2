@@ -1,11 +1,10 @@
 # pylint: disable=method-hidden
-
 # Standard libraries
 from collections import defaultdict
 from typing import (
-    cast,
     Dict,
-    List
+    List,
+    cast,
 )
 
 # Third party libraries
@@ -13,14 +12,15 @@ from aiodataloader import DataLoader
 
 # Local libraries
 from backend.typing import (
+    Historic as HistoricType,
     Vulnerability as VulnerabilityType,
-    Historic as HistoricType
 )
 from vulnerabilities import domain as vulns_domain
 
 
 async def batch_load_fn_vulns(
-        finding_ids: List[str]) -> List[List[VulnerabilityType]]:
+    finding_ids: List[str]
+) -> List[List[VulnerabilityType]]:
     """Batch the data load requests within the same execution fragment."""
     vulnerabilities: Dict[str, List[VulnerabilityType]] = defaultdict(list)
 
@@ -34,18 +34,20 @@ async def batch_load_fn_vulns(
         vulnerabilities[cast(str, vuln['finding_id'])].append(
             dict(
                 UUID=cast(str, vuln.get('UUID', '')),
-                id=cast(str, vuln.get('UUID', '')),
-                external_bts=cast(str, vuln.get('external_bts', '')),
-                finding_id=cast(str, vuln.get('finding_id', '')),
-                vuln_type=cast(str, vuln.get('vuln_type', '')),
-                where=cast(str, vuln.get('where', '')),
-                source=cast(
-                    HistoricType, vuln['historic_state']
-                )[0]['source'],
-                specific=cast(str, vuln.get('specific', '')),
-                historic_state=cast(
-                    HistoricType,
-                    vuln.get('historic_state', [{}])
+                analyst=cast(
+                    str,
+                    cast(
+                        HistoricType,
+                        vuln.get('historic_state', [{}])
+                    )[-1].get('analyst', '')
+                ),
+                commit_hash=str(vuln.get('commit_hash', '')),
+                current_approval_status=cast(
+                    str,
+                    cast(
+                        HistoricType,
+                        vuln.get('historic_state', [{}])
+                    )[-1].get('approval_status', '')
                 ),
                 current_state=cast(
                     str,
@@ -54,33 +56,14 @@ async def batch_load_fn_vulns(
                         vuln.get('historic_state', [{}])
                     )[-1].get('state', '')
                 ),
-                current_approval_status=cast(
-                    str,
-                    cast(
-                        HistoricType,
-                        vuln.get('historic_state', [{}])
-                    )[-1].get('approval_status', '')
-                ),
-                analyst=cast(
-                    str,
-                    cast(
-                        HistoricType,
-                        vuln.get('historic_state', [{}])
-                    )[-1].get('analyst', '')
-                ),
-                remediated=cast(
+                cycles=str(vulns_domain.get_reattack_cycles(vuln)),
+                efficacy=str(vulns_domain.get_efficacy(vuln)),
+                external_bts=cast(str, vuln.get('external_bts', '')),
+                finding_id=cast(str, vuln.get('finding_id', '')),
+                historic_state=cast(
                     HistoricType,
-                    vuln.get('historic_verification', [{}])
-                )[-1].get('status') == 'REQUESTED',
-                severity=cast(str, vuln.get('severity', '')),
-                tag=', '.join(sorted(cast(List[str], vuln.get('tag', [])))),
-                verification=cast(
-                    HistoricType,
-                    vuln.get(
-                        'historic_verification',
-                        [{}]
-                    )
-                )[-1].get('status', '').capitalize(),
+                    vuln.get('historic_state', [{}])
+                ),
                 historic_treatment=cast(
                     HistoricType,
                     vuln.get('historic_treatment', [])
@@ -93,36 +76,43 @@ async def batch_load_fn_vulns(
                     HistoricType,
                     vuln.get('historic_zero_risk', [{}])
                 ),
-                zero_risk=cast(
-                    HistoricType,
-                    vuln.get(
-                        'historic_zero_risk',
-                        [{}]
-                    )
-                )[-1].get('status', '').capitalize(),
-                commit_hash=str(vuln.get('commit_hash', '')),
-                cycles=str(vulns_domain.get_reattack_cycles(vuln)),
+                id=cast(str, vuln.get('UUID', '')),
+                last_reattack_date=vulns_domain.get_last_reattack_date(vuln),
                 last_requested_reattack_date=(
                     vulns_domain.get_last_requested_reattack_date(vuln)
                 ),
-                efficacy=str(vulns_domain.get_efficacy(vuln)),
+                remediated=cast(
+                    HistoricType,
+                    vuln.get('historic_verification', [{}])
+                )[-1].get('status') == 'REQUESTED',
                 report_date=cast(
-                    HistoricType, vuln['historic_state']
+                    HistoricType,
+                    vuln['historic_state']
                 )[0]['date'],
-                last_reattack_date=vulns_domain.get_last_reattack_date(vuln),
+                severity=cast(str, vuln.get('severity', '')),
+                source=cast(HistoricType, vuln['historic_state'])[0]['source'],
+                specific=cast(str, vuln.get('specific', '')),
                 stream=str(vuln.get('stream', '')).replace(',', ' > '),
+                tag=', '.join(sorted(cast(List[str], vuln.get('tag', [])))),
+                verification=cast(
+                    HistoricType,
+                    vuln.get('historic_verification', [{}])
+                )[-1].get('status', '').capitalize(),
+                vuln_type=cast(str, vuln.get('vuln_type', '')),
+                where=cast(str, vuln.get('where', '')),
+                zero_risk=cast(
+                    HistoricType,
+                    vuln.get('historic_zero_risk', [{}])
+                )[-1].get('status', '').capitalize(),
             )
         )
-
     return [vulnerabilities.get(finding_id, []) for finding_id in finding_ids]
 
 
 # pylint: disable=too-few-public-methods
-class FindingVulnsLoader(DataLoader):  # type: ignore
-
+class FindingVulnsLoader(DataLoader):
     async def batch_load_fn(
         self,
         finding_ids: List[str]
     ) -> List[List[VulnerabilityType]]:
-
         return await batch_load_fn_vulns(finding_ids)

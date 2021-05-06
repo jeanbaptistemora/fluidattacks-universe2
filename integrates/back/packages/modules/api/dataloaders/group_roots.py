@@ -1,7 +1,7 @@
 # Standard
 from typing import (
+    Tuple,
     cast,
-    Tuple
 )
 
 # Third party
@@ -20,14 +20,17 @@ async def get_roots(*, group_name: str) -> Tuple[Root, ...]:
     )
 
 
-class GroupRootsLoader(DataLoader):  # type: ignore
+class GroupRootsLoader(DataLoader):
     """Batches load calls within the same execution fragment."""
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self,
         group_names: Tuple[str, ...]
     ) -> Tuple[Tuple[Root, ...], ...]:
-        return cast(Tuple[Tuple[Root, ...], ...], await collect(
-            get_roots(group_name=group_name)
-            for group_name in group_names
-        ))
+        return cast(
+            Tuple[Tuple[Root, ...], ...],
+            await collect(
+                get_roots(group_name=group_name)
+                for group_name in group_names
+            )
+        )

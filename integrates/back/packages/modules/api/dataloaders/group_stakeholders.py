@@ -1,8 +1,8 @@
 # Standard libraries
 from typing import (
-    cast,
     List,
-    Tuple
+    Tuple,
+    cast,
 )
 
 # Third party libraries
@@ -14,7 +14,7 @@ from backend.typing import Stakeholder as StakeholderType
 from users import domain as users_domain
 
 
-class GroupStakeholdersLoader(DataLoader):  # type: ignore
+class GroupStakeholdersLoader(DataLoader):
     """Batches load calls within the same execution fragment."""
     # pylint: disable=method-hidden
     async def batch_load_fn(

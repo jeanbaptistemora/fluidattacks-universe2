@@ -1,19 +1,19 @@
-# Standard
+# Standard libraries
 from typing import (
-    cast,
     List,
+    cast,
 )
 
-# Third party
+# Third party libraries
 from aiodataloader import DataLoader
 from aioextensions import collect
 
-# Local
+# Local libraries
 from backend.typing import Finding
 from findings import domain as findings_domain
 
 
-class GroupDraftsLoader(DataLoader):  # type: ignore
+class GroupFindingsLoader(DataLoader):
     """Batches load calls within the same execution fragment."""
     # pylint: disable=method-hidden
     async def batch_load_fn(
@@ -22,8 +22,11 @@ class GroupDraftsLoader(DataLoader):  # type: ignore
     ) -> List[List[Finding]]:
         return cast(
             List[List[Finding]],
-            await collect(
-                findings_domain.get_drafts_by_group(group_name)
+            await collect([
+                findings_domain.get_findings_by_group(
+                    group_name,
+                    include_deleted=True
+                )
                 for group_name in group_names
-            )
+            ])
         )

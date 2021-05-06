@@ -1,8 +1,8 @@
 # Standard libraries
 from typing import (
-    cast,
     Dict,
     List,
+    cast,
 )
 
 # Third party libraries
@@ -17,8 +17,9 @@ from organizations import domain as orgs_domain
 
 async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
     groups: Dict[str, GroupType] = {}
-    groups_by_names: List[GroupType] = \
-        await groups_domain.get_many_groups(group_names)
+    groups_by_names: List[GroupType] = await groups_domain.get_many_groups(
+        group_names
+    )
     organization_ids = await collect([
         orgs_domain.get_id_for_group(group_name)
         for group_name in group_names
@@ -46,7 +47,8 @@ async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
             closed_vulnerabilities=group.get('closed_vulnerabilities', 0),
             deletion_date=(
                 historic_deletion[-1].get('deletion_date', '')
-                if 'historic_deletion' in group else ''
+                if 'historic_deletion' in group
+                else ''
             ),
             description=group.get('description', ''),
             files=group.get('files', []),
@@ -55,13 +57,9 @@ async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
             has_integrates=has_integrates,
             language=group.get('language', 'en'),
             last_closing_vuln=group.get('last_closing_date', 0),
-            last_closing_vuln_finding=group.get(
-                'last_closing_vuln_finding'
-            ),
+            last_closing_vuln_finding=group.get('last_closing_vuln_finding'),
             max_open_severity=group.get('max_open_severity', 0),
-            max_open_severity_finding=group.get(
-                'max_open_severity_finding'
-            ),
+            max_open_severity_finding=group.get('max_open_severity_finding'),
             mean_remediate_critical_severity=group.get(
                 'mean_remediate_critical_severity',
                 0
@@ -92,10 +90,10 @@ async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
             total_treatment=group.get('total_treatment', {}),
             user_deletion=(
                 historic_deletion[-1].get('user', '')
-                if 'historic_deletion' in group else ''
+                if 'historic_deletion' in group
+                else ''
             )
         )
-
     return [
         groups.get(group_name, {})
         for group_name in group_names
@@ -103,9 +101,8 @@ async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
 
 
 # pylint: disable=too-few-public-methods
-class GroupLoader(DataLoader):  # type: ignore
+class GroupLoader(DataLoader):
     """Batches load calls within the same execution fragment."""
-
     # pylint: disable=method-hidden
     async def batch_load_fn(self, group_names: List[str]) -> List[GroupType]:
         return await _batch_load_fn(group_names)

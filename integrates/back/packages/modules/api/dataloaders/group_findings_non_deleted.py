@@ -1,8 +1,8 @@
 # Standard libraries
 from itertools import chain
 from typing import (
+    List,
     cast,
-    List
 )
 
 # Third party libraries
@@ -13,7 +13,7 @@ from backend.typing import Finding as FindingType
 from newutils import findings as findings_utils
 
 
-class GroupFindingsNonDeletedLoader(DataLoader):  # type: ignore
+class GroupFindingsNonDeletedLoader(DataLoader):
 
     def __init__(self, dataloader: DataLoader) -> None:
         super(GroupFindingsNonDeletedLoader, self).__init__()
@@ -24,7 +24,6 @@ class GroupFindingsNonDeletedLoader(DataLoader):  # type: ignore
         group_names: List[str]
     ) -> List[List[FindingType]]:
         unchained_data = await self.load_many(group_names)
-
         return list(chain.from_iterable(unchained_data))
 
     # pylint: disable=method-hidden
@@ -38,5 +37,4 @@ class GroupFindingsNonDeletedLoader(DataLoader):  # type: ignore
             groups_findings[index] = (
                 findings_utils.filter_non_deleted_findings(group_findings)
             )
-
         return cast(List[List[FindingType]], groups_findings)

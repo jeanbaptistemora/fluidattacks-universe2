@@ -1,11 +1,17 @@
 # pylint: disable=method-hidden
-
 from collections import defaultdict
-from typing import Dict, List, cast
+from typing import (
+    Dict,
+    List,
+    cast,
+)
 
 from aiodataloader import DataLoader
 
-from backend.typing import Event as EventType, Historic
+from backend.typing import (
+    Event as EventType,
+    Historic,
+)
 from events import domain as events_domain
 
 
@@ -29,12 +35,16 @@ async def _batch_load_fn(event_ids: List[str]) -> List[EventType]:
             detail=event.get('detail', ''),
             event_date=history[0].get('date', ''),
             evidence_date=(
-                event['evidence_date'] if 'evidence' in event else ''
-            ),
-            evidence_file_date=(
-                event['evidence_file_date'] if 'evidence_file' in event else ''
+                event['evidence_date']
+                if 'evidence' in event
+                else ''
             ),
             evidence_file=event.get('evidence_file', ''),
+            evidence_file_date=(
+                event['evidence_file_date']
+                if 'evidence_file' in event
+                else ''
+            ),
             event_status=history[-1].get('state', ''),
             event_type=event.get('event_type', ''),
             evidence=event.get('evidence', ''),
@@ -43,11 +53,10 @@ async def _batch_load_fn(event_ids: List[str]) -> List[EventType]:
             project_name=event.get('project_name', ''),
             subscription=event.get('subscription', '')
         )
-
     return [events.get(event_id, dict()) for event_id in event_ids]
 
 
 # pylint: disable=too-few-public-methods
-class EventLoader(DataLoader):  # type: ignore
+class EventLoader(DataLoader):
     async def batch_load_fn(self, event_ids: List[str]) -> List[EventType]:
         return await _batch_load_fn(event_ids)

@@ -21,10 +21,10 @@ from aioextensions import (
 from more_itertools import chunked
 
 # Local libraries
-from backend.api.dataloaders.group_drafts import GroupDraftsLoader
-from backend.api.dataloaders.group_findings import GroupFindingsLoader
-from backend.domain.project import get_alive_projects
+from api.dataloaders.group_drafts import GroupDraftsLoader
+from api.dataloaders.group_findings import GroupFindingsLoader
 from backend.typing import Finding
+from groups.domain import get_alive_groups
 from vulnerabilities import dal as vulns_dal
 from vulnerabilities.domain import list_vulnerabilities_async
 
@@ -73,7 +73,7 @@ async def remove_duplicate_state(groups: List[str]) -> None:
 
 
 async def main() -> None:
-    groups = await get_alive_projects()
+    groups = await get_alive_groups()
     await collect(
         [remove_duplicate_state(list_group)
          for list_group in chunked (groups, 5)],

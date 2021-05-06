@@ -16,43 +16,41 @@ from starlette.requests import Request
 from starlette.responses import Response
 
 # Local libraries
-from backend import util
-from backend.api.dataloaders.event import EventLoader
-from backend.api.dataloaders.finding import FindingLoader
-from backend.api.dataloaders.finding_vulns import FindingVulnsLoader
-from backend.api.dataloaders.finding_vulns_non_deleted import (
+from api.dataloaders.event import EventLoader
+from api.dataloaders.finding import FindingLoader
+from api.dataloaders.finding_vulns import FindingVulnsLoader
+from api.dataloaders.finding_vulns_non_deleted import (
     FindingVulnsNonDeletedLoader
 )
-from backend.api.dataloaders.finding_vulns_non_zero_risk import (
+from api.dataloaders.finding_vulns_non_zero_risk import (
     FindingVulnsNonZeroRiskLoader
 )
-from backend.api.dataloaders.finding_vulns_only_zero_risk import (
+from api.dataloaders.finding_vulns_only_zero_risk import (
     FindingVulnsOnlyZeroRiskLoader
 )
-from backend.api.dataloaders.group import GroupLoader
-from backend.api.dataloaders.group_active import GroupActiveLoader
-from backend.api.dataloaders.group_drafts import GroupDraftsLoader
-from backend.api.dataloaders.group_findings import GroupFindingsLoader
-from backend.api.dataloaders.group_findings_non_deleted import (
+from api.dataloaders.group import GroupLoader
+from api.dataloaders.group_active import GroupActiveLoader
+from api.dataloaders.group_drafts import GroupDraftsLoader
+from api.dataloaders.group_findings import GroupFindingsLoader
+from api.dataloaders.group_findings_non_deleted import (
     GroupFindingsNonDeletedLoader
 )
-from backend.api.dataloaders.group_roots import GroupRootsLoader
-from backend.api.dataloaders.group_stakeholders import GroupStakeholdersLoader
-from backend.api.dataloaders.group_stakeholders_non_fluid import (
+from api.dataloaders.group_roots import GroupRootsLoader
+from api.dataloaders.group_stakeholders import GroupStakeholdersLoader
+from api.dataloaders.group_stakeholders_non_fluid import (
     GroupStakeholdersNonFluidLoader
 )
-from backend.api.dataloaders.group_toe_inputs import GroupToeInputsLoader
-from backend.api.dataloaders.group_toe_lines import GroupToeLinesLoader
-from backend.api.dataloaders.organization import OrganizationLoader
-from backend.api.dataloaders.organization_stakeholders import (
+from api.dataloaders.group_toe_inputs import GroupToeInputsLoader
+from api.dataloaders.group_toe_lines import GroupToeLinesLoader
+from api.dataloaders.organization import OrganizationLoader
+from api.dataloaders.organization_stakeholders import (
     OrganizationStakeholdersLoader
 )
-from backend.api.dataloaders.organization_tags import (
-    OrganizationTagsLoader
-)
-from backend.api.dataloaders.root_toe_lines import RootToeLinesLoader
-from backend.api.dataloaders.vulnerability import VulnerabilityLoader
+from api.dataloaders.organization_tags import OrganizationTagsLoader
+from api.dataloaders.root_toe_lines import RootToeLinesLoader
+from api.dataloaders.vulnerability import VulnerabilityLoader
 from back import settings
+from backend import util
 from model.findings.get import FindingNewLoader
 
 newrelic.agent.initialize(settings.NEW_RELIC_CONF_FILE)

@@ -30,13 +30,12 @@ async def _batch_load_fn(
             ],
             id=organization_id,
             max_acceptance_days=organization['max_acceptance_days'],
-            max_number_acceptations=organization['max_number_acceptations'],
             max_acceptance_severity=organization['max_acceptance_severity'],
+            max_number_acceptations=organization['max_number_acceptations'],
             min_acceptance_severity=organization['min_acceptance_severity'],
             name=organization['name'],
             pending_deletion_date=organization.get('pending_deletion_date'),
         )
-
     return [
         organizations.get(organization_id, {})
         for organization_id in organization_ids
@@ -44,7 +43,7 @@ async def _batch_load_fn(
 
 
 # pylint: disable=too-few-public-methods
-class OrganizationLoader(DataLoader):  # type: ignore
+class OrganizationLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self,

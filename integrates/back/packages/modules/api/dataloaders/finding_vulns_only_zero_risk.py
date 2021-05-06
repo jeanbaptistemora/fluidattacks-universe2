@@ -1,10 +1,8 @@
 # pylint: disable=method-hidden
-
 # Standard libraries
-from itertools import chain
 from typing import (
+    List,
     cast,
-    List
 )
 
 # Third party libraries
@@ -12,22 +10,15 @@ from aiodataloader import DataLoader
 
 # Local libraries
 from backend.typing import Vulnerability as VulnerabilityType
+from vulnerabilities import domain as vulns_domain
 
 
 # pylint: disable=too-few-public-methods
-class FindingVulnsNonDeletedLoader(DataLoader):  # type: ignore
+class FindingVulnsOnlyZeroRiskLoader(DataLoader):
 
     def __init__(self, dataloader: DataLoader) -> None:
-        super(FindingVulnsNonDeletedLoader, self).__init__()
+        super(FindingVulnsOnlyZeroRiskLoader, self).__init__()
         self.dataloader = dataloader
-
-    async def load_many_chained(
-        self,
-        finding_ids: List[str]
-    ) -> List[List[VulnerabilityType]]:
-        unchained_data = await self.load_many(finding_ids)
-
-        return list(chain.from_iterable(unchained_data))
 
     async def batch_load_fn(
         self,
@@ -36,12 +27,9 @@ class FindingVulnsNonDeletedLoader(DataLoader):  # type: ignore
         findings_vulns = await self.dataloader.load_many(finding_ids)
 
         for index, finding_vulns in enumerate(findings_vulns):
-            vulns = [
-                vuln for vuln in finding_vulns
-                if vuln.get(
-                    'historic_state', [{}]
-                )[-1].get('state') != 'DELETED'
-            ]
-            findings_vulns[index] = vulns
-
+            finding_vulns = (
+                vulns_domain.filter_requested_zero_risk(finding_vulns) +
+                vulns_domain.filter_confirmed_zero_risk(finding_vulns)
+            )
+            findings_vulns[index] = finding_vulns
         return cast(List[List[VulnerabilityType]], findings_vulns)

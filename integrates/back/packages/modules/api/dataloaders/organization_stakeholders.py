@@ -1,8 +1,8 @@
 # Standard libraries
 from typing import (
-    cast,
     List,
     Tuple,
+    cast,
 )
 
 # Third party libraries
@@ -21,24 +21,23 @@ async def _get_stakeholder(email: str, org_id: str) -> StakeholderType:
         email
     )
     org_role: str = await authz.get_organization_level_role(email, org_id)
-
     return {**stakeholder, 'responsibility': '', 'role': org_role}
 
 
 async def get_stakeholders_by_organization(
     organization_id: str
 ) -> Tuple[StakeholderType, ...]:
-    org_stakeholders_emails: List[str] = \
-        await orgs_domain.get_users(organization_id)
+    org_stakeholders_emails: List[str] = await orgs_domain.get_users(
+        organization_id
+    )
     org_stakeholders = await collect(
         _get_stakeholder(email, organization_id)
         for email in org_stakeholders_emails
     )
-
     return tuple(org_stakeholders)
 
 
-class OrganizationStakeholdersLoader(DataLoader):  # type: ignore
+class OrganizationStakeholdersLoader(DataLoader):
     """Batches load calls within the same execution fragment."""
     # pylint: disable=method-hidden
     async def batch_load_fn(

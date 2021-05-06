@@ -1,7 +1,5 @@
 # Standard libraries
-from typing import (
-    Tuple
-)
+from typing import Tuple
 
 # Third party libraries
 from aiodataloader import DataLoader
@@ -23,18 +21,19 @@ async def get_root_toe_lines(
             root_id=root_id
         )
     )
-
     return root_toe_lines
 
 
-class RootToeLinesLoader(DataLoader):  # type: ignore
+class RootToeLinesLoader(DataLoader):
     """Batches load calls within the same execution fragment."""
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self,
         roots: Tuple[Tuple[str, str], ...]
     ) -> Tuple[Tuple[GitRootToeLines, ...], ...]:
-        return tuple(await collect(
-            get_root_toe_lines(group_name=group_name, root_id=root_id)
-            for group_name, root_id in roots
-        ))
+        return tuple(
+            await collect(
+                get_root_toe_lines(group_name=group_name, root_id=root_id)
+                for group_name, root_id in roots
+            )
+        )

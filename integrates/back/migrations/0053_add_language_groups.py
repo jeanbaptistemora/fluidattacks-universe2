@@ -15,7 +15,6 @@ import aioboto3
 from aioextensions import run
 
 # Local
-from backend.api.dataloaders.project import ProjectLoader as GroupLoader
 from backend.dal import project as project_dal
 from backend.typing import Project as ProjectType
 from dynamodb import operations_legacy as dynamodb_ops

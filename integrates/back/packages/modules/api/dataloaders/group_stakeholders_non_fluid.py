@@ -1,8 +1,8 @@
 # Standard libraries
 from typing import (
-    cast,
     List,
-    Tuple
+    Tuple,
+    cast,
 )
 
 # Third party libraries
@@ -14,9 +14,8 @@ from backend.typing import Stakeholder as StakeholderType
 from users import domain as users_domain
 
 
-class GroupStakeholdersNonFluidLoader(DataLoader):  # type: ignore
+class GroupStakeholdersNonFluidLoader(DataLoader):
     """Batches load calls within the same execution fragment."""
-
     def __init__(self, dataloader: DataLoader) -> None:
         super(GroupStakeholdersNonFluidLoader, self).__init__()
         self.dataloader = dataloader
@@ -31,7 +30,8 @@ class GroupStakeholdersNonFluidLoader(DataLoader):  # type: ignore
         for index, group_stakeholders in enumerate(groups_stakeholders):
             group_name = group_names[index]
             group_stakeholders_emails = [
-                stakeholder['email'] for stakeholder in group_stakeholders
+                stakeholder['email']
+                for stakeholder in group_stakeholders
             ]
             group_stakeholders_filtered_emails = (
                 await users_domain.filter_non_fluid_staff(
@@ -43,5 +43,4 @@ class GroupStakeholdersNonFluidLoader(DataLoader):  # type: ignore
                 users_domain.format_stakeholder(email, group_name)
                 for email in group_stakeholders_filtered_emails
             )
-
         return cast(Tuple[List[StakeholderType], ...], groups_stakeholders)
