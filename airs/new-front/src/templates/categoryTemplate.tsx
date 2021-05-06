@@ -17,6 +17,7 @@ import styled from "styled-components";
 
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
+import { LanguagesList } from "../components/SastSupportedLanguages";
 import { Seo } from "../components/Seo";
 import {
   BannerContainer,
@@ -122,6 +123,9 @@ const CategoryIndex: React.FC<IQueryData> = ({
                 }}
               />
             </CategoryContainer>
+            {data.asciidoc.pageAttributes.slug === "categories/sast/" ? (
+              <LanguagesList />
+            ) : undefined}
           </PageArticle>
         </div>
       </Layout>
