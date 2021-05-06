@@ -106,6 +106,6 @@ social media or link:../../blog/[blog] posts.
 If you would like to contact us to learn more about this Policy
 or to discuss any matter related to it, please send us an email to
 
-image::https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_200/v1620228481/airs/advisories/help_usssdq.webp["Help"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/c_scale&#44;w_200/v1620228481/airs/advisories/help_usssdq.webp["Help"]
 
 _This document was last updated on May 3, 2021_

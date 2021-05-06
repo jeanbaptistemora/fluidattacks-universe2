@@ -146,6 +146,6 @@ If you would like to contact us to understand more about this Policy
 or wish to contact us concerning any matter relating to our use of cookies,
 you may send an email to
 
-image::https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_200/v1620228481/airs/advisories/help_usssdq.webp["Help"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/c_scale&#44;w_200/v1620228481/airs/advisories/help_usssdq.webp["Help"]
 
 _This document was last updated on July 2, 2020_

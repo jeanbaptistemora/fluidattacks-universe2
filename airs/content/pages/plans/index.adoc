@@ -5,7 +5,7 @@
 :template: plans
 :banner: clients-bg
 :yes: image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620226926/airs/icons/yes_xcsf3o.webp[Yes]
-:logo: image:https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_25/v1619617792/airs/logo-fluid-mobile_cml7pr.webp[Logo]
+:logo: image:https://res.cloudinary.com/fluid-attacks/image/upload/c_scale&#44;w_25/v1619617792/airs/logo-fluid-mobile_cml7pr.webp[Logo]
 
 = Plans
 

@@ -3,7 +3,7 @@
 :page-keywords: Standards, Regulations, OWASP, PCI, HIPAA, NIST, GDPR, Pentesting, Ethical Hacking
 :page-phrase: At Fluid Attacks, we compile diverse international standards and regulations, focused on the security of systems and information assets, that guide us in evaluating your software.
 :page-template: compliances
-:arrow: image:https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_15/v1620228633/airs/icons/arrow-btn_wktcez.webp[Arrow]
+:arrow: image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620228633/airs/icons/arrow-btn_wktcez.webp[Arrow, width=15px, height=15px]
 
 = Compliance
 
