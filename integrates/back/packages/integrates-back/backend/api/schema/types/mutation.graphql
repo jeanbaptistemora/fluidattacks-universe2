@@ -112,7 +112,9 @@ type Mutation {
     affectedSystems: String
     attackVectorDesc: String
     cwe: String
+    cweUrl: String
     description: String
+    groupName: String
     projectName: String!
     recommendation: String
     requirements: String

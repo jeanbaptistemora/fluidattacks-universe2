@@ -24,6 +24,7 @@ from backend.api.mutations import (
     approve_draft,
     confirm_zero_risk_vuln,
     create_draft,
+    create_draft_new,
     create_event,
     create_group,
     create_organization,
@@ -78,6 +79,7 @@ from backend.api.mutations import (
     upload_file,
     verify_request_vulnerability
 )
+from newutils.context import API_STATUS
 
 
 MUTATION = MutationType()
@@ -92,7 +94,6 @@ MUTATION.set_field('addUrlRoot', add_url_root.mutate)
 MUTATION.set_field('addStakeholder', add_stakeholder.mutate)
 MUTATION.set_field('approveDraft', approve_draft.mutate)
 MUTATION.set_field('confirmZeroRiskVuln', confirm_zero_risk_vuln.mutate)
-MUTATION.set_field('createDraft', create_draft.mutate)
 MUTATION.set_field('createEvent', create_event.mutate)
 MUTATION.set_field('createOrganization', create_organization.mutate)
 MUTATION.set_field(
@@ -191,3 +192,8 @@ MUTATION.set_field('downloadVulnFile', download_vulnerability_file.mutate)
 MUTATION.set_field('handleVulnsAcceptation', handle_vulns_acceptation.mutate)
 MUTATION.set_field('updateVulnsTreatment', update_vulns_treatment.mutate)
 MUTATION.set_field('updateToeLinesSorts', update_toe_lines_sorts.mutate)
+
+if API_STATUS == 'migration':
+    MUTATION.set_field('createDraft', create_draft_new.mutate)
+else:
+    MUTATION.set_field('createDraft', create_draft.mutate)
