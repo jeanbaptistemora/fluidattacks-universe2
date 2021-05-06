@@ -1,4 +1,7 @@
 # Standard library
+from __future__ import (
+    annotations,
+)
 from typing import (
     Callable,
     Dict,
@@ -48,8 +51,30 @@ class HeaderCheckCtx(NamedTuple):
     url_ctx: URLContext
 
 
+class Location(NamedTuple):
+    description: str
+
+
+class Locations(NamedTuple):
+    locations: List[Location]
+
+    def append(
+        self,
+        desc: str,
+        desc_kwargs: Optional[Dict[str, str]] = None,
+    ) -> None:
+        self.locations.append(
+            Location(
+                description=t(
+                    f"lib_http.analyze_headers.{desc}",
+                    **(desc_kwargs or {}),
+                ),
+            )
+        )
+
+
 def _create_vulns(
-    descriptions: List[str],
+    locations: Locations,
     finding: core_model.FindingEnum,
     header: Optional[Header],
     ctx: HeaderCheckCtx,
@@ -63,10 +88,10 @@ def _create_vulns(
             # Must start with home so integrates allows it
             stream="home,response,headers",
             what=ctx.url_ctx.url,
-            where=translation,
+            where=location.description,
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=(finding.value.cwe,),
-                description=translation,
+                description=location.description,
                 snippet=as_string.snippet(
                     url=ctx.url_ctx.url,
                     header=header.name if header else None,
@@ -74,61 +99,54 @@ def _create_vulns(
                 ),
             ),
         )
-        for description in descriptions
-        if description
-        for description_key, *description_args in [
-            description.split("#", maxsplit=1),
-        ]
-        for translation in [
-            t(
-                f"lib_http.analyze_headers.{description_key}",
-                *description_args,
-            ),
-        ]
+        for location in locations.locations
     )
 
 
 def _content_security_policy_wild_uri(
-    descs: List[str],
+    locations: Locations,
     value: str,
 ) -> None:
-    for arg in ("data:", "http:", "https:", "://*"):
-        if arg in value:
-            descs.append(f"content_security_policy.wild_uri#{arg}")
+    for uri in ("data:", "http:", "https:", "://*"):
+        if uri in value:
+            locations.append(
+                desc="content_security_policy.wild_uri",
+                desc_kwargs=dict(uri=uri),
+            )
 
 
 def _content_security_policy_block_all_mixed_content(
-    descs: List[str],
+    locations: Locations,
     header: Header,
 ) -> None:
     if "block-all-mixed-content" in header.directives:
-        descs.append("content_security_policy.mixed_content_deprecated")
+        locations.append("content_security_policy.mixed_content_deprecated")
 
 
 def _content_security_policy_frame_acestors(
-    descs: List[str],
+    locations: Locations,
     header: Header,
 ) -> None:
     if values := header.directives.get("frame-ancestors"):
         for value in values:
-            _content_security_policy_wild_uri(descs, value)
+            _content_security_policy_wild_uri(locations, value)
     else:
-        descs.append("content_security_policy.missing_frame_ancestors")
+        locations.append("content_security_policy.missing_frame_ancestors")
 
 
 def _content_security_policy_object_src(
-    descs: List[str],
+    locations: Locations,
     header: Header,
 ) -> None:
     if (
         "object-src" not in header.directives
         and "default-src" not in header.directives
     ):
-        descs.append("content_security_policy.missing_object_src")
+        locations.append("content_security_policy.missing_object_src")
 
 
 def _content_security_policy_script_src(
-    descs: List[str],
+    locations: Locations,
     header: Header,
 ) -> None:
     if values := (
@@ -137,9 +155,11 @@ def _content_security_policy_script_src(
     ):
         for value in values:
             if value == "'unsafe-inline'":
-                descs.append("content_security_policy.script-src.unsafeinline")
+                locations.append(
+                    "content_security_policy.script-src.unsafeinline"
+                )
 
-            _content_security_policy_wild_uri(descs, value)
+            _content_security_policy_wild_uri(locations, value)
 
             for arg in (
                 "*.amazonaws.com",
@@ -158,38 +178,39 @@ def _content_security_policy_script_src(
                 "www.google.com",
             ):
                 if arg in value:
-                    descs.append(
-                        f"content_security_policy.script-src.jsonp#{arg}"
+                    locations.append(
+                        desc="content_security_policy.script-src.jsonp",
+                        desc_kwargs=dict(host=arg),
                     )
     else:
-        descs.append("content_security_policy.missing_script_src")
+        locations.append("content_security_policy.missing_script_src")
 
 
 def _content_security_policy_upgrade_insecure_requests(
-    descs: List[str],
+    locations: Locations,
     header: Header,
 ) -> None:
     if "upgrade-insecure-requests" not in header.directives:
-        descs.append("content_security_policy.missing_upgrade_insecure")
+        locations.append("content_security_policy.missing_upgrade_insecure")
 
 
 def _content_security_policy(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
-    descs: List[str] = []
+    locations = Locations(locations=[])
     header: Optional[Header] = None
 
     if header := ctx.headers_parsed.get(ContentSecurityPolicyHeader):
-        _content_security_policy_block_all_mixed_content(descs, header)
-        _content_security_policy_frame_acestors(descs, header)
-        _content_security_policy_object_src(descs, header)
-        _content_security_policy_script_src(descs, header)
-        _content_security_policy_upgrade_insecure_requests(descs, header)
+        _content_security_policy_block_all_mixed_content(locations, header)
+        _content_security_policy_frame_acestors(locations, header)
+        _content_security_policy_object_src(locations, header)
+        _content_security_policy_script_src(locations, header)
+        _content_security_policy_upgrade_insecure_requests(locations, header)
     else:
-        descs.append("content_security_policy.missing")
+        locations.append("content_security_policy.missing")
 
     return _create_vulns(
-        descriptions=descs,
+        locations=locations,
         finding=core_model.FindingEnum.F043_DAST_CSP,
         header=header,
         ctx=ctx,
@@ -197,17 +218,18 @@ def _content_security_policy(
 
 
 def _date(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
-    desc, header = "", None
+    locations = Locations(locations=[])
+    header: Optional[Header] = None
 
     if header := ctx.headers_parsed.get(DateHeader):
         if (
             ctx.url_ctx.timestamp_ntp
             and abs(ctx.url_ctx.timestamp_ntp - header.date.timestamp()) > 60.0
         ):
-            desc = "date.un_synced"
+            locations.append("date.un_synced")
 
     return _create_vulns(
-        descriptions=[desc],
+        locations=locations,
         finding=core_model.FindingEnum.F064_SERVER_CLOCK,
         header=header,
         ctx=ctx,
@@ -217,7 +239,8 @@ def _date(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
 def _referrer_policy(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
-    desc, header = "", None
+    locations = Locations(locations=[])
+    header: Optional[Header] = None
 
     if header := ctx.headers_parsed.get(ReferrerPolicyHeader):
         for value in header.values:
@@ -235,26 +258,22 @@ def _referrer_policy(
                 "strict-origin-when-cross-origin",
                 "unsafe-url",
             }:
-                desc = (
-                    ""
-                    if value
-                    in {
-                        "no-referrer",
-                        "same-origin",
-                        "strict-origin",
-                        "strict-origin-when-cross-origin",
-                    }
-                    else "referrer_policy.weak"
-                )
+                if value not in {
+                    "no-referrer",
+                    "same-origin",
+                    "strict-origin",
+                    "strict-origin-when-cross-origin",
+                }:
+                    locations.append("referrer_policy.weak")
                 break
         else:
-            desc = "referrer_policy.weak"
+            locations.append("referrer_policy.weak")
 
     else:
-        desc = "referrer_policy.missing"
+        locations.append("referrer_policy.missing")
 
     return _create_vulns(
-        descriptions=[desc],
+        locations=locations,
         finding=core_model.FindingEnum.F043_DAST_RP,
         header=header,
         ctx=ctx,
@@ -264,16 +283,17 @@ def _referrer_policy(
 def _strict_transport_security(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
-    desc, header = "", None
+    locations = Locations(locations=[])
+    header: Optional[Header] = None
 
     if val := ctx.headers_parsed.get(StrictTransportSecurityHeader):
         if val.max_age < 31536000:
-            desc = "strict_transport_security.short_max_age"
+            locations.append("strict_transport_security.short_max_age")
     else:
-        desc = "strict_transport_security.missing"
+        locations.append("strict_transport_security.missing")
 
     return _create_vulns(
-        descriptions=[desc],
+        locations=locations,
         finding=core_model.FindingEnum.F043_DAST_STS,
         header=header,
         ctx=ctx,
@@ -285,14 +305,15 @@ def _www_authenticate(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
         # You can only see plain-text credentials over http
         return ()
 
-    desc, header = "", None
+    locations = Locations(locations=[])
+    header: Optional[Header] = None
 
     if val := ctx.headers_parsed.get(WWWAuthenticate):
         if val.type == "basic":
-            desc = "www_authenticate.basic"
+            locations.append("www_authenticate.basic")
 
     return _create_vulns(
-        descriptions=[desc],
+        locations=locations,
         finding=core_model.FindingEnum.F015_DAST_BASIC,
         header=header,
         ctx=ctx,
@@ -300,16 +321,17 @@ def _www_authenticate(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
 
 
 def _x_content_type_options(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
-    desc, header = "", None
+    locations = Locations(locations=[])
+    header: Optional[Header] = None
 
     if val := ctx.headers_parsed.get(XContentTypeOptionsHeader):
         if val.value != "nosniff":
-            desc = "x_content_type_options.insecure"
+            locations.append("x_content_type_options.insecure")
     else:
-        desc = "x_content_type_options.missing"
+        locations.append("x_content_type_options.missing")
 
     return _create_vulns(
-        descriptions=[desc],
+        locations=locations,
         finding=core_model.FindingEnum.F043_DAST_XCTO,
         header=header,
         ctx=ctx,

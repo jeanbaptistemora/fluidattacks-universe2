@@ -17,14 +17,14 @@ lib_http.analyze_headers.content_security_policy.mixed_content_deprecated:
   en: block-all-mixed-content is deprecated
   es: block-all-mixed-content esta deprecada
 lib_http.analyze_headers.content_security_policy.script-src.jsonp:
-  en: "{0} hosts JSONP"
-  es: "{0} aloja JSONP"
+  en: "{host} hosts JSONP"
+  es: "{host} aloja JSONP"
 lib_http.analyze_headers.content_security_policy.script-src.unsafeinline:
   en: script-src has unsafe-inline
   es: script-src contiene unsafe-inline
 lib_http.analyze_headers.content_security_policy.wild_uri:
-  en: "Use of {0} wildcard"
-  es: "Uso de comodín {0}"
+  en: "Use of {uri} wildcard"
+  es: "Uso de comodín {uri}"
 F043_DAST_CSP.description:
   en: >
     The server is missing the Content-Security-Policy HTTP header.
