@@ -18,6 +18,7 @@ from sorts.typings import Model as ModelType
 from training.constants import (
     FEATURES_DICTS,
     MODELS,
+    MODEL_HYPERPARAMETERS,
     RESULT_HEADERS,
     S3_BUCKET
 )
@@ -107,6 +108,18 @@ def save_model(
         ).upload_file(local_file)
 
 
+def get_model_hyperparameters(
+    model_name: str,
+    args: Dict[str, str]
+) -> Dict[str, str]:
+    model_hyperparameters = list(MODEL_HYPERPARAMETERS[model_name].keys())
+
+    return {
+        parameter: args[parameter]
+        for parameter in model_hyperparameters
+    }
+
+
 def main() -> None:  # pylint: disable=too-many-locals
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -125,18 +138,21 @@ def main() -> None:  # pylint: disable=too-many-locals
         default=os.environ['SM_CHANNEL_TRAIN']
     )
     parser.add_argument('--model', type=str, default='')
+
+    # MLPCLassifier
     parser.add_argument('--activation', type=str, default='')
     parser.add_argument('--solver', type=str, default='')
-    args = parser.parse_args()
 
-    # We compile here all hyperparameters selected for tuning
-    hyperparameters_to_tune: Dict[str, str] = {
-        'activation': args.activation,
-        'solver': args.solver
-    }
+    # XGBoost
+    parser.add_argument('--criterion', type=str, default='')
+    parser.add_argument('--loss', type=str, default='')
+    parser.add_argument('--n_estimators', type=int, default=100)
+
+    args = parser.parse_args()
 
     model_name: str = args.model.split('-')[0]
     model_features: Tuple[str, ...] = get_model_features()
+    hyperparameters_to_tune = get_model_hyperparameters(model_name, vars(args))
     model_class: ModelType = MODELS[model_name]
     model: ModelType = model_class(**hyperparameters_to_tune)
 
@@ -149,7 +165,9 @@ def main() -> None:  # pylint: disable=too-many-locals
         args.train,
         previous_results
     )
-    training_output[-1] += [', '.join(list(hyperparameters_to_tune.values()))]
+    training_output[-1] += [', '.join(list(
+        str(parameter) for parameter in hyperparameters_to_tune.values()
+    ))]
 
     update_results_csv(results_filename, training_output)
     save_model(
