@@ -45,8 +45,8 @@ let
     revision = if (builtins.hasAttr "rev" self) then self.rev else "dirty";
     system = "x86_64-linux";
     skimsBenchmarkOwaspRepo = fetchzip {
-      url = "https://github.com/owasp/benchmark/archive/b38d197949f775b3c165029bda9dc6bd890265fb.tar.gz";
-      sha256 = "vAWzTEc48sny46Y+hsv7yw1gNoQ9rBO6JL07RejRoUw=";
+      url = "https://github.com/owasp/benchmark/archive/1cfe52ea6dc49bebae12e6ceb20356196f0e9ac8.tar.gz";
+      sha256 = "pcNMJJJ2cRxh4Kgq0ElOIyBJemJu4qggxY3Debjbcms=";
     };
     skimsVulnerableAppRepo = fetchzip {
       url = "https://github.com/SasanLabs/VulnerableApp/archive/f5334e84faadbfb4beec42849a2e8acc5e37a276.tar.gz";
