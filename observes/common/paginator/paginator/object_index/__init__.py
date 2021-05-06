@@ -1,7 +1,6 @@
 # pylint: skip-file
 # Standard libraries
 from typing import (
-    Type,
     Iterator,
     TypeVar,
 )
@@ -13,12 +12,11 @@ from returns.maybe import Maybe, Nothing
 
 # Local libraries
 from paginator.object_index.objs import (
-    PageGetterIO,
     PageId,
     PageGetter,
+    PageGetterIO,
     PageOrAll,
     PageResult,
-    PageId,
 )
 
 
@@ -54,7 +52,7 @@ def io_get_until_end(
 __all__ = [
     "PageId",
     "PageGetter",
+    "PageGetterIO",
     "PageOrAll",
     "PageResult",
-    "PageId",
 ]
