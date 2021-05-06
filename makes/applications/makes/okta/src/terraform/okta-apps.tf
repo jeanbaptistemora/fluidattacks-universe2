@@ -39,47 +39,6 @@ resource "okta_app_user" "apps_auto_login" {
 }
 
 
-# SWA
-
-resource "okta_app_swa" "apps" {
-  for_each = {
-    for _, app in local.apps : app.id => app
-    if app.type == "swa"
-  }
-
-  label               = each.value.label
-  status              = each.value.status
-  preconfigured_app   = each.value.preconfigured_app
-  button_field        = each.value.button_field
-  username_field      = each.value.username_field
-  password_field      = each.value.password_field
-  url                 = each.value.url
-  auto_submit_toolbar = true
-
-  groups = [
-    for app_group in local.app_groups : okta_group.groups[app_group.group].id
-    if app_group.id == each.value.id
-  ]
-
-  lifecycle {
-    ignore_changes = [
-      users,
-    ]
-  }
-}
-
-resource "okta_app_user" "apps_swa" {
-  for_each = {
-    for app in local.app_users : "${app.id}_${app.user}" => app
-    if app.type == "swa"
-  }
-
-  app_id   = okta_app_swa.apps[each.value.id].id
-  user_id  = okta_user.users[each.value.user].id
-  username = ""
-}
-
-
 # SAML
 
 resource "okta_app_saml" "apps" {
@@ -185,4 +144,87 @@ resource "okta_app_user" "aws" {
     role         = "AmazonComprehendServiceRole-testttt"
     idpRolePairs = []
   })
+}
+
+
+# SWA
+
+resource "okta_app_swa" "apps" {
+  for_each = {
+    for _, app in local.apps : app.id => app
+    if app.type == "swa"
+  }
+
+  label               = each.value.label
+  status              = each.value.status
+  preconfigured_app   = each.value.preconfigured_app
+  button_field        = each.value.button_field
+  username_field      = each.value.username_field
+  password_field      = each.value.password_field
+  url                 = each.value.url
+  auto_submit_toolbar = true
+
+  groups = [
+    for app_group in local.app_groups : okta_group.groups[app_group.group].id
+    if app_group.id == each.value.id
+  ]
+
+  lifecycle {
+    ignore_changes = [
+      users,
+    ]
+  }
+}
+
+resource "okta_app_user" "apps_swa" {
+  for_each = {
+    for app in local.app_users : "${app.id}_${app.user}" => app
+    if app.type == "swa"
+  }
+
+  app_id   = okta_app_swa.apps[each.value.id].id
+  user_id  = okta_user.users[each.value.user].id
+  username = ""
+}
+
+
+# Three Field
+
+resource "okta_app_three_field" "apps" {
+  for_each = {
+    for _, app in local.apps : app.id => app
+    if app.type == "three_field"
+  }
+
+  label                = each.value.label
+  status               = each.value.status
+  button_selector      = each.value.button_selector
+  username_selector    = each.value.username_selector
+  password_selector    = each.value.password_selector
+  extra_field_selector = each.value.extra_field_selector
+  extra_field_value    = each.value.extra_field_value
+  url                  = each.value.url
+  auto_submit_toolbar  = true
+
+  groups = [
+    for app_group in local.app_groups : okta_group.groups[app_group.group].id
+    if app_group.id == each.value.id
+  ]
+
+  lifecycle {
+    ignore_changes = [
+      users,
+    ]
+  }
+}
+
+resource "okta_app_user" "apps_three_field" {
+  for_each = {
+    for app in local.app_users : "${app.id}_${app.user}" => app
+    if app.type == "three_field"
+  }
+
+  app_id   = okta_app_swa.apps[each.value.id].id
+  user_id  = okta_user.users[each.value.user].id
+  username = ""
 }
