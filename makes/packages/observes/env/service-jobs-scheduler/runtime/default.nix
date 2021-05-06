@@ -15,8 +15,11 @@ makeTemplate {
     ];
     envPaths = [
       env.service-jobs-scheduler.runtime.python
-      scheduled.job.checkly-etl
-      scheduled.job.delighted-etl
+      scheduled.on-aws.code-etl-amend
+      scheduled.on-aws.code-etl-mirror
+      scheduled.on-aws.code-etl-upload
+      scheduled.on-aws.dif-gitlab-etl
+      scheduled.on-aws.formstack-etl
     ];
     envPythonPaths = [
       self

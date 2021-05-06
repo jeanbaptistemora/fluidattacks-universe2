@@ -29,11 +29,10 @@ class CmdFailed(Exception):
 @impure
 def run_command(cmd: str) -> None:
     proc = subprocess.Popen(
-        cmd,
+        [cmd],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         shell=False,
-        executable="/bin/bash",
         universal_newlines=True,
     )
     stdout = Maybe.from_optional(proc.stdout).unwrap()
@@ -60,4 +59,4 @@ def main() -> None:
         if match_cron(cron, NOW):
             for job in jobs:
                 LOG.info("Executing: %s", job)
-                run_command(f"./m {job}")
+                run_command(job.replace(".", "-"))

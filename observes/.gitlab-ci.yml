@@ -238,6 +238,15 @@ observes.scheduled.job.mixpanel-integrates-etl:
     variables: [$observes_mixpanel_integrates]
   interruptible: false
 
+observes.scheduled.job.scheduler:
+  <<: *makes
+  tags: [autoscaling]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_scheduler]
+  interruptible: false
+
 observes.scheduled.job.tap-zoho-analytics:
   <<: *makes
   tags: [autoscaling]
@@ -298,51 +307,6 @@ observes.scheduled.job.zoho-crm-prepare.fluid:
   only:
     refs: [schedules]
     variables: [$observes_zoho_crm_prepare]
-  interruptible: false
-
-observes.scheduled.on-aws.code-etl-amend:
-  <<: *makes
-  only:
-    refs: [schedules]
-    variables: [$observes_code_amend_authors_on_aws]
-  stage: analytics
-  tags: [autoscaling]
-  interruptible: false
-
-observes.scheduled.on-aws.code-etl-mirror:
-  <<: *makes
-  only:
-    refs: [schedules]
-    variables: [$observes_code_mirror_all_groups_to_s3_on_aws]
-  stage: analytics
-  tags: [autoscaling]
-  interruptible: false
-
-observes.scheduled.on-aws.code-etl-upload:
-  <<: *makes
-  only:
-    refs: [schedules]
-    variables: [$observes_code_upload_all_groups_on_aws]
-  stage: analytics
-  tags: [autoscaling]
-  interruptible: false
-
-observes.scheduled.on-aws.dif-gitlab-etl:
-  <<: *makes
-  tags: [autoscaling]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_gitlab_on_aws]
-  interruptible: false
-
-observes.scheduled.on-aws.formstack-etl:
-  <<: *makes
-  tags: [autoscaling]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_formstack]
   interruptible: false
 
 observes.test.code-etl:

@@ -177,6 +177,7 @@ observes.scheduled.job.dynamodb-centralize
 observes.scheduled.job.formstack-etl
 observes.scheduled.job.mailchimp-etl
 observes.scheduled.job.mixpanel-integrates-etl
+observes.scheduled.job.scheduler
 observes.scheduled.job.tap-zoho-analytics
 observes.scheduled.job.timedoctor-backup
 observes.scheduled.job.timedoctor-etl

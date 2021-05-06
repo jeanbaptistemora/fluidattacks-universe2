@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import (
     NamedTuple,
+    Tuple,
     Union,
 )
 
@@ -11,7 +12,7 @@ class AnyTime(NamedTuple):
     pass
 
 
-CronItem = Union[int, range, AnyTime]
+CronItem = Union[int, Tuple[int, ...], range, AnyTime]
 work_days = range(1, 6)
 
 
@@ -24,7 +25,10 @@ def _valid_cron(item: CronItem, constraint: range) -> bool:
         return True
     if isinstance(item, range):
         return item.start >= constraint.start and item.stop <= constraint.stop
-    return item in constraint
+    if isinstance(item, tuple):
+        return all(i in constraint for i in item)
+    elem: int = item
+    return elem in constraint
 
 
 class PartialCron(NamedTuple):
@@ -50,9 +54,10 @@ class PartialCron(NamedTuple):
 def match_cron_item(item: CronItem, value: int) -> bool:
     if isinstance(item, AnyTime):
         return True
-    if isinstance(item, range):
+    if isinstance(item, (range, tuple)):
         return value in item
-    return item == value
+    elem: int = item
+    return elem == value
 
 
 def match_cron(cron: PartialCron, time: datetime) -> bool:
