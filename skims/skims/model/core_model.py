@@ -576,7 +576,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.required,
     )
     F086: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
         code="F086",
         cwe="353",
         attack_complexity=AttackComplexity.high,
