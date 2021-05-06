@@ -6,7 +6,7 @@
 makeEntrypoint {
   searchPaths = {
     envPaths = [
-      packages.observes.bin.tap-bugsnag
+      packages.observes.bin.tap-checkly
       packages.observes.bin.service.job-last-success
       packages.observes.tap-json
       packages.observes.target-redshift
@@ -16,6 +16,6 @@ makeEntrypoint {
       "/makes/utils/sops"
     ];
   };
-  name = "observes-scheduled-job-bugsnag-etl";
-  template = path "/makes/applications/observes/scheduled/job/bugsnag-etl/entrypoint.sh";
+  name = "observes-job-checkly-etl";
+  template = path "/makes/applications/observes/job/checkly-etl/entrypoint.sh";
 }

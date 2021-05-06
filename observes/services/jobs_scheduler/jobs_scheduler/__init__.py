@@ -54,6 +54,7 @@ def run_command(cmd: str) -> None:
 
 @impure
 def main() -> None:
+    LOG.info("Now: %s", NOW)
     for cron, jobs in SCHEDULE.items():
         LOG.debug("Evaluating %s.", cron)
         if match_cron(cron, NOW):
