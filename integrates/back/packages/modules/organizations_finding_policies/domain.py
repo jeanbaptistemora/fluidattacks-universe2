@@ -259,7 +259,7 @@ async def _add_accepted_treatment(
 ) -> None:
     vulns_to_update = [
         vuln for vuln in vulns
-        if vuln['historic_treatment'][-1] != 'ACCEPTED_UNDEFINED'
+        if vuln['historic_treatment'][-1]['treatment'] != 'ACCEPTED_UNDEFINED'
         and vuln['current_state'] == 'open'
     ]
     new_treatments = vulns_utils.get_treatment_from_org_finding_policy(
@@ -280,6 +280,10 @@ async def _add_new_treatment(
     vulns: List[Dict[str, Finding]],
     user_email: str
 ) -> None:
+    vulns_to_update = [
+        vuln for vuln in vulns
+        if vuln['historic_treatment'][-1]['treatment'] != 'NEW'
+    ]
     new_treatments = [{
         'date': current_day,
         'treatment': 'NEW',
@@ -288,7 +292,7 @@ async def _add_new_treatment(
     await _update_treatment_in_org_groups(
         findings_ids=findings_ids,
         new_treatments=new_treatments,
-        vulns_to_update=vulns,
+        vulns_to_update=vulns_to_update,
     )
 
 

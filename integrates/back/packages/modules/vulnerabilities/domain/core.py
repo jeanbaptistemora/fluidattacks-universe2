@@ -55,6 +55,7 @@ from custom_exceptions import (
     VulnNotInFinding,
 )
 from dynamodb.operations_legacy import start_context
+from dynamodb.types import OrgFindingPolicyItem
 from mailer import vulnerabilities as vulns_mail
 from newutils import (
     datetime as datetime_utils,
@@ -796,11 +797,13 @@ async def update_treatments(
 
 
 async def update_vuln_state(
+    *,
     info: GraphQLResolveInfo,
     vulnerability: Dict[str, FindingType],
     item: Dict[str, str],
     finding_id: str,
-    current_day: str
+    current_day: str,
+    finding_policy: Optional[OrgFindingPolicyItem] = None
 ) -> bool:
     """Update vulnerability state."""
     historic_state = cast(
@@ -821,6 +824,20 @@ async def update_vuln_state(
         }
         historic_state.append(current_state)
         data_to_update['historic_state'] = historic_state
+        curr_treatment = vulnerability['historic_treatment'][-1]['treatment']
+        if (
+            finding_policy and
+            item['state'] == 'open' and
+            finding_policy.state.status == 'APPROVED' and
+            curr_treatment != 'ACCEPTED_UNDEFINED'
+        ):
+            data_to_update['historic_treatment'] = [
+                *vulnerability['historic_treatment'],
+                *vulns_utils.get_treatment_from_org_finding_policy(
+                    current_day=current_day,
+                    user_email=finding_policy.state.modified_by
+                )
+            ]
 
     if item['vuln_type'] == 'inputs':
         data_to_update['stream'] = item['stream']
@@ -891,9 +908,9 @@ async def verify(
     )
     success: List[bool] = await collect(
         update_vuln_state(
-            info,
-            vuln_to_close,
-            {
+            info=info,
+            vulnerability=vuln_to_close,
+            item={
                 'commit_hash': (
                     close_item['commit_hash']
                     if close_item and close_item['vuln_type'] == 'lines'
@@ -907,8 +924,8 @@ async def verify(
                 ),
                 'vuln_type': close_item['vuln_type'] if close_item else '',
             },
-            finding_id,
-            date
+            finding_id=finding_id,
+            current_day=date
         )
         for vuln_to_close, close_item in zip_longest(
             list_closed_vulns,
