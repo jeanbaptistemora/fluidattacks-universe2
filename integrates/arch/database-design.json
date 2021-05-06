@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "May 04, 2021, 09:14 AM",
+    "DateLastModified": "May 06, 2021, 03:08 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -2047,6 +2047,120 @@
               },
               "status": {
                 "S": "CREATED"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "source": {
+                "S": "integrates"
+              },
+              "modified_by": {
+                "S": "analyst@fluidatttacks.com"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "status",
+            "modified_date",
+            "modified_by",
+            "source"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "finding_approval",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "FIN#id#APPROVAL",
+            "SortKeyAlias": "GROUP#group_name"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "FIN#475041513#APPROVAL"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "status": {
+                "S": "APPROVED"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "source": {
+                "S": "integrates"
+              },
+              "modified_by": {
+                "S": "analyst@fluidatttacks.com"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "status",
+            "modified_date",
+            "modified_by",
+            "source"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "finding_creation",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "FIN#id#CREATION",
+            "SortKeyAlias": "GROUP#group_name"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "FIN#475041513#CREATION"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "status": {
+                "S": "CREATED"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "source": {
+                "S": "integrates"
+              },
+              "modified_by": {
+                "S": "analyst@fluidatttacks.com"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "status",
+            "modified_date",
+            "modified_by",
+            "source"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "finding_submission",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "FIN#id#SUBMISSION",
+            "SortKeyAlias": "GROUP#group_name"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "FIN#475041513#SUBMISSION"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "status": {
+                "S": "SUBMITTED"
               },
               "modified_date": {
                 "S": "2021-02-15T14:01:16Z"
