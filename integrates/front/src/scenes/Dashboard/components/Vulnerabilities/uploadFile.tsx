@@ -6,17 +6,15 @@ import { useMutation } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import type { FormikHelpers } from "formik";
+import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { useDispatch } from "react-redux";
-import type { Dispatch } from "redux";
-import { Field, reset } from "redux-form";
 
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   DOWNLOAD_VULNERABILITIES,
   UPLOAD_VULNERABILITIES,
@@ -35,12 +33,12 @@ import {
   RowCenter,
 } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
-import { FileInput } from "utils/forms/fields";
+import { FormikFileInput } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgErrorStick, msgSuccess } from "utils/notifications";
 import { openUrl } from "utils/resourceHelpers";
 import { translate } from "utils/translations/translate";
-import { isValidVulnsFile } from "utils/validations";
+import { composeValidators, isValidVulnsFile } from "utils/validations";
 
 interface IUploadVulnProps {
   findingId: string;
@@ -51,8 +49,6 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
   findingId,
   groupName,
 }: IUploadVulnProps): JSX.Element => {
-  const dispatch: Dispatch = useDispatch();
-
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   function handleUploadError(updateError: ApolloError): void {
@@ -137,12 +133,6 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
         msgError(translate.t("groupAlerts.invalidSpecific"));
         Logger.warning(message);
       }
-      // Clean the files stored on input field
-      const formElement: HTMLFormElement = document.querySelector(
-        "#vulnerabilities"
-      ) as HTMLFormElement;
-      formElement.reset();
-      dispatch(reset("vulns"));
     });
   }
 
@@ -157,7 +147,6 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
             translate.t("groupAlerts.fileUpdated"),
             translate.t("groupAlerts.titleSuccess")
           );
-          dispatch(reset("vulns"));
         }
       }
     },
@@ -225,13 +214,21 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
     }
   );
 
-  function handleUploadVulnerability(values: { filename: FileList }): void {
-    void uploadVulnerability({
+  interface IUploadVulnFile {
+    filename: FileList;
+  }
+
+  async function handleUploadVulnerability(
+    values: IUploadVulnFile,
+    formikHelpers: FormikHelpers<IUploadVulnFile>
+  ): Promise<void> {
+    await uploadVulnerability({
       variables: {
         file: values.filename[0],
         findingId,
       },
     });
+    formikHelpers.resetForm();
   }
 
   function handleDownloadVulnerability(): void {
@@ -243,66 +240,73 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
   }
 
   return (
-    <GenericForm name={"vulns"} onSubmit={handleUploadVulnerability}>
-      <React.Fragment>
-        <br />
-        <RowCenter>
-          <Col33>
-            <ButtonToolbarLeft>
-              <TooltipWrapper
-                id={translate.t(
-                  "searchFindings.tabDescription.downloadVulnerabilitiesTooltip.id"
-                )}
-                message={translate.t(
-                  "searchFindings.tabDescription.downloadVulnerabilitiesTooltip"
-                )}
-              >
-                <Button
-                  disabled={loading}
-                  onClick={handleDownloadVulnerability}
+    <Formik
+      enableReinitialize={true}
+      initialValues={{ filename: (undefined as unknown) as FileList }}
+      name={"uploadVulns"}
+      onSubmit={handleUploadVulnerability}
+    >
+      {({ dirty }): React.ReactNode => (
+        <Form>
+          <br />
+          <RowCenter>
+            <Col33>
+              <ButtonToolbarLeft>
+                <TooltipWrapper
+                  id={translate.t(
+                    "searchFindings.tabDescription.downloadVulnerabilitiesTooltip.id"
+                  )}
+                  message={translate.t(
+                    "searchFindings.tabDescription.downloadVulnerabilitiesTooltip"
+                  )}
                 >
-                  <FluidIcon icon={"export"} />
-                  &nbsp;
-                  {translate.t(
-                    "searchFindings.tabDescription.downloadVulnerabilities"
+                  <Button
+                    disabled={loading}
+                    onClick={handleDownloadVulnerability}
+                  >
+                    <FluidIcon icon={"export"} />
+                    &nbsp;
+                    {translate.t(
+                      "searchFindings.tabDescription.downloadVulnerabilities"
+                    )}
+                  </Button>
+                </TooltipWrapper>
+              </ButtonToolbarLeft>
+            </Col33>
+            <Col25 className={"upload-file"}>
+              <FormGroup>
+                <Field
+                  accept={".yaml, .yml"}
+                  component={FormikFileInput}
+                  id={"filename"}
+                  name={"filename"}
+                  validate={composeValidators([isValidVulnsFile])}
+                />
+              </FormGroup>
+            </Col25>
+            <Col33>
+              <ButtonToolbarLeft>
+                <TooltipWrapper
+                  id={translate.t(
+                    "searchFindings.tabDescription.updateVulnerabilitiesTooltip.id"
                   )}
-                </Button>
-              </TooltipWrapper>
-            </ButtonToolbarLeft>
-          </Col33>
-          <Col25 className={"upload-file"}>
-            <FormGroup>
-              <Field
-                accept={".yaml, .yml"}
-                component={FileInput}
-                id={"vulnerabilities"}
-                name={"filename"}
-                validate={[isValidVulnsFile]}
-              />
-            </FormGroup>
-          </Col25>
-          <Col33>
-            <ButtonToolbarLeft>
-              <TooltipWrapper
-                id={translate.t(
-                  "searchFindings.tabDescription.updateVulnerabilitiesTooltip.id"
-                )}
-                message={translate.t(
-                  "searchFindings.tabDescription.updateVulnerabilitiesTooltip"
-                )}
-              >
-                <Button disabled={loading} type={"submit"}>
-                  <FluidIcon icon={"import"} />
-                  &nbsp;
-                  {translate.t(
-                    "searchFindings.tabDescription.updateVulnerabilities"
+                  message={translate.t(
+                    "searchFindings.tabDescription.updateVulnerabilitiesTooltip"
                   )}
-                </Button>
-              </TooltipWrapper>
-            </ButtonToolbarLeft>
-          </Col33>
-        </RowCenter>
-      </React.Fragment>
-    </GenericForm>
+                >
+                  <Button disabled={!dirty || loading} type={"submit"}>
+                    <FluidIcon icon={"import"} />
+                    &nbsp;
+                    {translate.t(
+                      "searchFindings.tabDescription.updateVulnerabilities"
+                    )}
+                  </Button>
+                </TooltipWrapper>
+              </ButtonToolbarLeft>
+            </Col33>
+          </RowCenter>
+        </Form>
+      )}
+    </Formik>
   );
 };
