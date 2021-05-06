@@ -10,6 +10,7 @@ from backend import util
 from backend.typing import SimplePayload
 from decorators import (
     concurrent_decorators,
+    delete_kwargs,
     enforce_group_level_auth_async,
     require_integrates,
     require_login,
@@ -18,6 +19,7 @@ from findings import domain as findings_domain
 
 
 @convert_kwargs_to_snake_case
+@delete_kwargs({'group_name', 'cwe_url'})
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,

@@ -7,6 +7,7 @@ from typing import (
     Any,
     Dict,
     Callable,
+    Set,
     TypeVar,
     cast,
 )
@@ -138,6 +139,28 @@ def concurrent_decorators(
         return cast(TFun, wrapper)
 
     return decorator
+
+
+def delete_kwargs(attributes: Set[str]) -> Callable[[TVar], TVar]:
+    """Decorator to delete function's kwargs.
+    Useful to perform api migration.
+    """
+
+    def wrapped(func: TVar) -> TVar:
+        _func = cast(Callable[..., Any], func)
+
+        @functools.wraps(_func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            kwargs = {
+                key: val
+                for key, val in kwargs.items()
+                if key not in attributes
+            }
+            return _func(*args, **kwargs)
+
+        return cast(TVar, decorated)
+
+    return wrapped
 
 
 def enforce_group_level_auth_async(func: TVar) -> TVar:
