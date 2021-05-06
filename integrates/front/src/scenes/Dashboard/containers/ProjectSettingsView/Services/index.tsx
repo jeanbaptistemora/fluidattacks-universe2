@@ -88,6 +88,7 @@ const Services: React.FC<IServicesProps> = (
         "forces",
         "integrates",
         "reason",
+        "skims",
         "type"
       )
   );
@@ -98,6 +99,7 @@ const Services: React.FC<IServicesProps> = (
     React.ChangeEvent<string>
   > = useCallback(
     (_0: React.ChangeEvent<string> | undefined, subsType: string): void => {
+      dispatch(change("editGroup", "skims", isContinuousType(subsType)));
       dispatch(change("editGroup", "drills", true));
       dispatch(change("editGroup", "forces", isContinuousType(subsType)));
     },
@@ -109,8 +111,19 @@ const Services: React.FC<IServicesProps> = (
     dispatch(change("editGroup", "integrates", withIntegrates));
 
     if (!withIntegrates) {
-      dispatch(change("editGroup", "forces", false));
+      dispatch(change("editGroup", "skims", false));
       dispatch(change("editGroup", "drills", false));
+      dispatch(change("editGroup", "forces", false));
+    }
+  };
+  const handleSkimsBtnChange = (withSkims: boolean): void => {
+    dispatch(change("editGroup", "skims", withSkims));
+
+    if (withSkims) {
+      dispatch(change("editGroup", "integrates", true));
+    } else {
+      dispatch(change("editGroup", "drills", false));
+      dispatch(change("editGroup", "forces", false));
     }
   };
   const handleDrillsBtnChange: (withDrills: boolean) => void = (
@@ -120,6 +133,7 @@ const Services: React.FC<IServicesProps> = (
 
     if (withDrills) {
       dispatch(change("editGroup", "integrates", true));
+      dispatch(change("editGroup", "skims", isContinuousType(formValues.type)));
     } else {
       dispatch(change("editGroup", "forces", false));
     }
@@ -137,6 +151,7 @@ const Services: React.FC<IServicesProps> = (
 
     if (withForces) {
       dispatch(change("editGroup", "integrates", true));
+      dispatch(change("editGroup", "skims", true));
       dispatch(change("editGroup", "drills", true));
     }
   };
@@ -201,6 +216,7 @@ const Services: React.FC<IServicesProps> = (
         hasDrills: formValues.drills,
         hasForces: formValues.forces,
         hasIntegrates: formValues.integrates,
+        hasSkims: formValues.skims,
         reason: formValues.reason,
         subscription: formValues.type,
       },
@@ -239,6 +255,12 @@ const Services: React.FC<IServicesProps> = (
       id: "integratesSwitch",
       onChange: handleIntegratesBtnChange,
       service: "integrates",
+    },
+    {
+      canHave: isContinuousType(formValues.type),
+      id: "skimsSwitch",
+      onChange: handleSkimsBtnChange,
+      service: "skims",
     },
     {
       canHave: true,
@@ -342,6 +364,7 @@ const Services: React.FC<IServicesProps> = (
             forces: data.project.hasForces,
             integrates: true,
             reason: "NONE",
+            skims: data.project.hasSkims,
             type: data.project.subscription.toUpperCase(),
           }}
           name={"editGroup"}

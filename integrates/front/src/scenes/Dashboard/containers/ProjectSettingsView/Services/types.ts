@@ -6,6 +6,7 @@ interface IFormData {
   integrates: boolean;
   organization: string;
   reason: string;
+  skims: boolean;
   type: string;
 }
 

@@ -29,6 +29,7 @@ async def query(
                 hasDrills: false,
                 hasForces: false,
                 hasIntegrates: false,
+                hasSkims: false,
                 reason: NONE,
             ) {{
                 success

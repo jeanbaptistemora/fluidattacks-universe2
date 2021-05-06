@@ -39,6 +39,7 @@ async def mutate(
             context=loaders,
             comments="",
             group_name=group_name,
+            has_skims=False,
             has_drills=False,
             has_forces=False,
             has_integrates=False,

@@ -93,9 +93,11 @@ async def edit_group(
     *,
     comments: str,
     group_name: str,
+    had_skims: bool,
     had_drills: bool,
     had_forces: bool,
     had_integrates: bool,
+    has_skims: bool,
     has_drills: bool,
     has_forces: bool,
     has_integrates: bool,
@@ -125,6 +127,9 @@ async def edit_group(
                 - ASM:
                     from: {translations[had_integrates]}
                     to: {translations[has_integrates]}
+                - Machine:
+                    from: {translations[had_skims]}
+                    to: {translations[has_skims]}
                 - Squad:
                     from: {translations[had_drills]}
                     to: {translations[has_drills]}

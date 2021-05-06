@@ -200,6 +200,7 @@ type Mutation {
   editGroup(
     comments: String!
     groupName: String!
+    hasSkims: Boolean!
     hasDrills: Boolean!
     hasForces: Boolean!
     hasIntegrates: Boolean!

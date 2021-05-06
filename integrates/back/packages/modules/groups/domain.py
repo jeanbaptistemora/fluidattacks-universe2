@@ -349,18 +349,18 @@ async def edit(
     has_drills: bool,
     has_forces: bool,
     has_integrates: bool,
+    has_skims: bool,
     reason: str,
     requester_email: str,
     subscription: str,
 ) -> bool:
     success: bool = False
-    is_continuous_type: bool = subscription == 'continuous'
 
     validate_fields([comments])
     validate_string_length_between(comments, 0, 250)
     validate_group_services_config(
-        is_continuous_type,
-        has_drills,
+        subscription == 'continuous',
+        has_skims,
         has_drills,
         has_forces,
         has_integrates)
@@ -384,6 +384,7 @@ async def edit(
                 [{
                     'comments': comments,
                     'date': datetime_utils.get_now_as_str(),
+                    'has_skims': has_skims,
                     'has_drills': has_drills,
                     'has_forces': has_forces,
                     'reason': reason,
@@ -407,6 +408,10 @@ async def edit(
         await notifications_domain.edit_group(
             comments=comments,
             group_name=group_name,
+            had_skims=cast(
+                List[Dict[str, bool]],
+                item['historic_configuration']
+            )[-1]['has_skims'],
             had_drills=(
                 cast(
                     bool,
@@ -428,6 +433,7 @@ async def edit(
                 if item['historic_configuration'] else False
             ),
             had_integrates=True,
+            has_skims=has_skims,
             has_drills=has_drills,
             has_forces=has_forces,
             has_integrates=has_integrates,

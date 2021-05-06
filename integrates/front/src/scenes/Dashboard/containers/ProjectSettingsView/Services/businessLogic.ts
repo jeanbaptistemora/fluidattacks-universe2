@@ -63,6 +63,11 @@ const computeConfirmationMessage: (
     serviceStateToString(form.integrates)
   ),
   serviceDiff(
+    "skims",
+    serviceStateToString(data.project.hasSkims),
+    serviceStateToString(form.skims)
+  ),
+  serviceDiff(
     "drills",
     serviceStateToString(data.project.hasDrills),
     serviceStateToString(form.drills)
@@ -88,6 +93,7 @@ const isDowngradingServices: (data: IGroupData, form: IFormData) => boolean = (
 ): boolean =>
   [
     isDowngrading(true, form.integrates),
+    isDowngrading(data.project.hasSkims, form.skims),
     isDowngrading(data.project.hasDrills, form.drills),
     isDowngrading(data.project.hasForces, form.forces),
   ].some((result: boolean): boolean => result);

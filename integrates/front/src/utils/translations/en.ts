@@ -1078,6 +1078,7 @@ export const enTranslations: ResourceKey = {
       oneshot: "One-Shot Hacking",
       service: "Service",
       services: "Services",
+      skims: "Machine",
       status: "Status",
       success: "You'll receive an email shortly",
       successTitle: "Services changed correctly!",

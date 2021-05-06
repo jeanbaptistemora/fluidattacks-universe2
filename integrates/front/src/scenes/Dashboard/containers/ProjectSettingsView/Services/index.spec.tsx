@@ -96,6 +96,7 @@ describe("Services", (): void => {
           groupName: "unittesting",
           hasDrills: false,
           hasForces: false,
+          hasSkims: false,
           language: "EN",
           subscription: "CONTINUOUS",
         },
@@ -120,7 +121,7 @@ describe("Services", (): void => {
   });
 
   [
-    { group: "unittesting", rows: 4 },
+    { group: "unittesting", rows: 5 },
     { group: "oneshottest", rows: 3 },
     { group: "not-exists", rows: 0 },
   ].forEach((test: { group: string; rows: number }): void => {
@@ -187,8 +188,9 @@ describe("Services", (): void => {
 
     const typeRow: () => ReactWrapper = (): ReactWrapper => rows().at(0);
     const integratesRow: () => ReactWrapper = (): ReactWrapper => rows().at(1);
-    const drillsRow: () => ReactWrapper = (): ReactWrapper => rows().at(2);
-    const TEST_FORCES_ROW_INDEX = 3;
+    const drillsRowIndex = 3;
+    const drillsRow = (): ReactWrapper => rows().at(drillsRowIndex);
+    const TEST_FORCES_ROW_INDEX = 4;
     const forcesRow: () => ReactWrapper = (): ReactWrapper =>
       rows().at(TEST_FORCES_ROW_INDEX);
 
@@ -201,7 +203,9 @@ describe("Services", (): void => {
     const forcesRowLeft: () => ReactWrapper = (): ReactWrapper =>
       forcesRow().find("td").first();
 
-    expect(rows()).toHaveLength(4);
+    const totalRows = 5;
+
+    expect(rows()).toHaveLength(totalRows);
     expect(typeRowLeft().text()).toStrictEqual("Subscription type");
     expect(integratesRowLeft().text()).toStrictEqual("ASM");
     expect(drillsRowLeft().text()).toStrictEqual("Squad");
@@ -221,6 +225,7 @@ describe("Services", (): void => {
       forces: true,
       integrates: true,
       reason: "NONE",
+      skims: true,
       type: "CONTINUOUS",
     });
 
@@ -233,6 +238,7 @@ describe("Services", (): void => {
       forces: false,
       integrates: false,
       reason: "NONE",
+      skims: false,
       type: "CONTINUOUS",
     });
 
@@ -245,6 +251,7 @@ describe("Services", (): void => {
       forces: false,
       integrates: true,
       reason: "NONE",
+      skims: true,
       type: "CONTINUOUS",
     });
 
@@ -257,6 +264,7 @@ describe("Services", (): void => {
       forces: false,
       integrates: true,
       reason: "NONE",
+      skims: true,
       type: "CONTINUOUS",
     });
 
@@ -278,6 +286,7 @@ describe("Services", (): void => {
       forces: true,
       integrates: true,
       reason: "NONE",
+      skims: true,
       type: "CONTINUOUS",
     });
 
@@ -290,6 +299,7 @@ describe("Services", (): void => {
       forces: false,
       integrates: true,
       reason: "NONE",
+      skims: true,
       type: "CONTINUOUS",
     });
 
@@ -302,6 +312,7 @@ describe("Services", (): void => {
       forces: true,
       integrates: true,
       reason: "NONE",
+      skims: true,
       type: "CONTINUOUS",
     });
 

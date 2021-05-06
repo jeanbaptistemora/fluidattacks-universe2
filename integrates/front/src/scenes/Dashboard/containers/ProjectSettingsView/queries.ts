@@ -21,6 +21,7 @@ const EDIT_GROUP_DATA: DocumentNode = gql`
     $hasDrills: Boolean!
     $hasForces: Boolean!
     $hasIntegrates: Boolean!
+    $hasSkims: Boolean!
     $reason: EditGroupReason!
     $subscription: SubscriptionType!
   ) {
@@ -30,6 +31,7 @@ const EDIT_GROUP_DATA: DocumentNode = gql`
       hasDrills: $hasDrills
       hasForces: $hasForces
       hasIntegrates: $hasIntegrates
+      hasSkims: $hasSkims
       reason: $reason
       subscription: $subscription
     ) {

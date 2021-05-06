@@ -74,6 +74,8 @@ def test_validate_group_services_config():
     with pytest.raises(InvalidGroupServicesConfig):
         validate_group_services_config(True, True, True, True, False)
     with pytest.raises(InvalidGroupServicesConfig):
+        validate_group_services_config(True, False, True, True, True)
+    with pytest.raises(InvalidGroupServicesConfig):
         validate_group_services_config(False, False, False, True, True)
 
 
@@ -443,18 +445,19 @@ async def test_create_project_not_user_admin():
 
 @pytest.mark.changes_db
 @pytest.mark.parametrize(
-    ['group_name', 'subscription', 'has_drills',
+    ['group_name', 'subscription', 'has_skims', 'has_drills',
         'has_forces', 'has_integrates', 'expected'],
     [
-        ['unittesting', 'continuous', True, True, True, True],
-        ['oneshottest', 'oneshot', False, False, True, True],
-        ['not-exists', 'continuous', True, True, True, False],
-        ['not-exists', 'continuous', False, False, False, False],
+        ['unittesting', 'continuous', True, True, True, True, True],
+        ['oneshottest', 'oneshot', False, False, False, True, True],
+        ['not-exists', 'continuous', True, True, True, True, False],
+        ['not-exists', 'continuous', False, False, False, False, False],
     ]
 )
 async def test_edit(
     group_name: str,
     subscription: str,
+    has_skims: bool,
     has_drills: bool,
     has_forces: bool,
     has_integrates: bool,
@@ -465,6 +468,7 @@ async def test_edit(
         comments='',
         group_name=group_name,
         subscription=subscription,
+        has_skims=has_skims,
         has_drills=has_drills,
         has_forces=has_forces,
         has_integrates=has_integrates,

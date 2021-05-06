@@ -38,6 +38,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     has_drills: bool,
     has_forces: bool,
     has_integrates: bool,
+    has_skims: bool,
     reason: str,
     subscription: str
 ) -> SimplePayloadType:
@@ -55,6 +56,7 @@ async def mutate(  # pylint: disable=too-many-arguments
             has_drills=has_drills,
             has_forces=has_forces,
             has_integrates=has_integrates,
+            has_skims=has_skims,
             reason=reason,
             requester_email=requester_email,
             subscription=subscription,

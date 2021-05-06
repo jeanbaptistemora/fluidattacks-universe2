@@ -149,6 +149,7 @@ async def test_project():
                 hasDrills: false,
                 hasForces: false,
                 hasIntegrates: false,
+                hasSkims: false,
                 reason: NONE,
             ) {{
                 success
