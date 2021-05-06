@@ -16,11 +16,6 @@ files =
   ,back/packages/integrates-back/backend/api/resolvers/event/
   ,back/packages/integrates-back/backend/api/resolvers/finding/
   ,back/packages/integrates-back/backend/api/resolvers/group/
-  ,back/packages/integrates-back/backend/api/schema/enums/__init__.py
-  ,back/packages/integrates-back/backend/api/schema/__init__.py
-  ,back/packages/integrates-back/backend/api/schema/scalars/
-  ,back/packages/integrates-back/backend/api/schema/types/
-  ,back/packages/integrates-back/backend/api/schema/unions/__init__.py
   ,back/packages/modules/events/
   #,back/__init__.py
   #,back/app/views/charts.py

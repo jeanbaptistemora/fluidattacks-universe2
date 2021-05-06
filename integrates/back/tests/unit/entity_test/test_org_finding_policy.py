@@ -9,12 +9,10 @@ import pytest
 from ariadne import graphql
 
 # Local libraries
+from api.schema import SCHEMA
 from back.tests.unit.utils import create_dummy_session
 from backend.api import apply_context_attrs
-from backend.api.schema import SCHEMA
-from custom_exceptions import (
-    PolicyAlreadyHandled,
-)
+from custom_exceptions import PolicyAlreadyHandled
 from organizations_finding_policies import domain as policies_domain
 
 
@@ -109,7 +107,7 @@ async def test_handle_org_finding_policy_acceptation():
     result = await _get_result_async(
         hande_acceptation_data,
         stakeholder=approver_user
-    )    
+    )
     assert 'errors' not in result
     assert result['data']['handleOrgFindingPolicyAcceptation']['success']
 
@@ -209,7 +207,7 @@ async def test_deactivate_org_finding_policy():
     result = await _get_result_async(
         hande_acceptation_data,
         stakeholder=approver_user
-    )    
+    )
     assert 'errors' not in result
     assert result['data']['handleOrgFindingPolicyAcceptation']['success']
 
@@ -259,7 +257,7 @@ async def test_deactivate_org_finding_policy():
     result = await _get_result_async(
         deactivate_mutation_data,
         stakeholder=approver_user
-    )    
+    )
     assert 'errors' not in result
     assert result['data']['deactivateOrgFindingPolicy']['success']
 

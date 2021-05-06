@@ -12,6 +12,7 @@ from starlette.middleware import Middleware
 from starlette.routing import Route
 
 # Local libraries
+from api.schema import SCHEMA
 from back import settings
 from back.app.middleware import ApiCustomRequestMiddleware
 from back.settings.queue import (
@@ -19,7 +20,6 @@ from back.settings.queue import (
     init_queue,
 )
 from backend.api import IntegratesAPI
-from backend.api.schema import SCHEMA
 
 
 async def queue_daemon() -> None:

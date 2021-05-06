@@ -14,7 +14,6 @@ from backend.api.resolvers.organization import (
 
 
 ORGANIZATION: ObjectType = ObjectType('Organization')
-
 ORGANIZATION.set_field('analytics', analytics.resolve)
 ORGANIZATION.set_field('projects', groups.resolve)
 ORGANIZATION.set_field('stakeholders', stakeholders.resolve)

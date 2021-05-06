@@ -13,12 +13,11 @@ from backend.api.resolvers.me import (
     remember,
     role,
     subscriptions_to_entity_report,
-    tags
+    tags,
 )
 
 
 ME = ObjectType('Me')
-
 ME.set_field('accessToken', access_token.resolve)
 ME.set_field('isConcurrentSession', is_concurrent_session.resolve)
 ME.set_field('permissions', permissions.resolve)

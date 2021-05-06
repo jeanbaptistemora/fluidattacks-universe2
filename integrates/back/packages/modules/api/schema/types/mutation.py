@@ -77,13 +77,12 @@ from backend.api.mutations import (
     update_treatment_vulnerability,
     update_vulns_treatment,
     upload_file,
-    verify_request_vulnerability
+    verify_request_vulnerability,
 )
 from newutils.context import API_STATUS
 
 
 MUTATION = MutationType()
-
 MUTATION.set_field('activateRoot', activate_root.mutate)
 MUTATION.set_field('addEventConsult', add_event_consult.mutate)
 MUTATION.set_field('addForcesExecution', add_forces_execution.mutate)

@@ -2,24 +2,24 @@
 from typing import (
     Any,
     Dict,
-    Optional
+    Optional,
 )
 import json
 import os
+import pytest
 
 # Third party libraries
-import pytest
 from ariadne import graphql
 from starlette.datastructures import UploadFile
 
 # Local libraries
+from api.schema import SCHEMA
+from back.tests.unit.utils import create_dummy_session
 from backend.api import (
     apply_context_attrs,
     get_new_context,
     Dataloaders
 )
-from backend.api.schema import SCHEMA
-from back.tests.unit.utils import create_dummy_session
 
 pytestmark = pytest.mark.asyncio
 

@@ -9,5 +9,4 @@ from backend.api.resolvers.event import consulting
 
 
 EVENT = ObjectType('Event')
-
 EVENT.set_field('consulting', consulting.resolve)

@@ -1,4 +1,9 @@
-from typing import Any, TypeVar
+from typing import (
+    Any,
+    TypeVar,
+)
+
+from ariadne import ScalarType
 from graphql.language.ast import (
     StringValueNode,
     BooleanValueNode,
@@ -8,7 +13,6 @@ from graphql.language.ast import (
     ObjectValueNode
 )
 
-from ariadne import ScalarType
 
 GENERIC_SCALAR = ScalarType('GenericScalar')
 TVar = TypeVar('TVar')

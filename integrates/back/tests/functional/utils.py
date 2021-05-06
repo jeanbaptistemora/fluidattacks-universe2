@@ -9,13 +9,13 @@ from typing import (
 from ariadne import graphql
 
 # Local libraries
+from api.schema import SCHEMA
 from back.tests.unit.utils import create_dummy_session
 from backend.api import (
     apply_context_attrs,
     get_new_context,
-    Dataloaders
+    Dataloaders,
 )
-from backend.api.schema import SCHEMA
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain
 

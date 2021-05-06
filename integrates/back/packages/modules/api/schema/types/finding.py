@@ -32,7 +32,6 @@ from backend.api.resolvers.finding import (
 
 
 FINDING = ObjectType('Finding')
-
 FINDING.set_field('age', age.resolve)
 FINDING.set_field('analyst', analyst.resolve)
 FINDING.set_field('closedVulnerabilities', closed_vulnerabilities.resolve)

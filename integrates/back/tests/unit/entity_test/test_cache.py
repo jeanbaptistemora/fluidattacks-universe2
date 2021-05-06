@@ -1,10 +1,8 @@
-from datetime import datetime, timedelta
 import pytest
 
 from ariadne import graphql
-from jose import jwt
-from backend import util
-from backend.api.schema import SCHEMA
+
+from api.schema import SCHEMA
 from back.tests.unit.utils import create_dummy_session
 
 pytestmark = pytest.mark.asyncio

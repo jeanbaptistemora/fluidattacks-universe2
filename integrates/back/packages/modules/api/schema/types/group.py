@@ -29,7 +29,6 @@ from backend.api.resolvers.group import (
 
 
 GROUP: ObjectType = ObjectType('Project')
-
 GROUP.set_field('analytics', analytics.resolve)
 GROUP.set_field('bill', bill.resolve)
 GROUP.set_field('consulting', consulting.resolve)

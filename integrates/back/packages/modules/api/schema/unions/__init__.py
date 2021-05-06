@@ -1,12 +1,23 @@
 # Standard
-from typing import Optional, Tuple
+from typing import (
+    Optional,
+    Tuple,
+)
 
 # Third party
 from ariadne import UnionType
-from graphql.type.definition import GraphQLAbstractType, GraphQLResolveInfo
+from graphql.type.definition import (
+    GraphQLAbstractType,
+    GraphQLResolveInfo,
+)
 
 # Local
-from roots.types import GitRoot, IPRoot, URLRoot, Root
+from roots.types import (
+    GitRoot,
+    IPRoot,
+    Root,
+    URLRoot,
+)
 
 
 def resolve_root_type(
@@ -20,7 +31,6 @@ def resolve_root_type(
         return 'IPRoot'
     if isinstance(result, URLRoot):
         return 'URLRoot'
-
     return None
 
 

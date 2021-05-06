@@ -1,13 +1,12 @@
 import os
 import pytest
 
-from backend.api import apply_context_attrs
 from ariadne import graphql
-from backend.api.schema import SCHEMA
+
+from api.schema import SCHEMA
 from back.tests.unit.utils import create_dummy_session
-from __init__ import (
-    STARTDIR
-)
+from backend.api import apply_context_attrs
+from __init__ import STARTDIR
 
 
 pytestmark = pytest.mark.asyncio

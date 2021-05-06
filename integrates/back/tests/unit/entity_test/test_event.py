@@ -1,15 +1,12 @@
 import os
-from datetime import datetime, timedelta
 import pytest
 
-from ariadne import graphql_sync, graphql
-from jose import jwt
+from ariadne import graphql
 from starlette.datastructures import UploadFile
 
+from api.schema import SCHEMA
 from back.tests.unit.utils import create_dummy_session
-from backend import util
 from backend.api import apply_context_attrs
-from backend.api.schema import SCHEMA
 from newutils import datetime as datetime_utils
 
 

@@ -1,10 +1,8 @@
 import pytest
-from datetime import datetime, timedelta
 
 from ariadne import graphql
-from jose import jwt
-from backend import util
-from backend.api.schema import SCHEMA
+
+from api.schema import SCHEMA
 from back.tests.unit.utils import create_dummy_session
 
 

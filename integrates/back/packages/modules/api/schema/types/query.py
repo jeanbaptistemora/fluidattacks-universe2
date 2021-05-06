@@ -22,13 +22,11 @@ from backend.api.resolvers.query import (
     stakeholder,
     tag,
     user_list_groups,
-    vulnerability
+    vulnerability,
 )
 
 
 QUERY = QueryType()
-
-# Query resolvers
 QUERY.set_field('event', event.resolve)
 QUERY.set_field('events', events.resolve)
 QUERY.set_field('finding', finding.resolve)

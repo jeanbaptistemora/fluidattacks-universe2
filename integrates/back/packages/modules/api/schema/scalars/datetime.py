@@ -1,7 +1,8 @@
 from typing import Any
-import dateutil.parser
 
+import dateutil.parser
 from ariadne import ScalarType
+
 
 DATETIME_SCALAR = ScalarType('DateTime')
 
@@ -10,7 +11,6 @@ DATETIME_SCALAR = ScalarType('DateTime')
 def serialize_datetime(value: Any) -> Any:
     if isinstance(value, str):
         value = dateutil.parser.parse(value)
-
     return value.isoformat()
 
 
@@ -18,12 +18,10 @@ def serialize_datetime(value: Any) -> Any:
 def parse_datetime_value(value: Any) -> Any:
     if value:
         return dateutil.parser.parse(value)
-
     return value
 
 
 @DATETIME_SCALAR.literal_parser
 def parse_datetime_literal(ast: Any) -> Any:
     value = str(ast.value) if ast.value else ast.value
-
     return parse_datetime_value(value)

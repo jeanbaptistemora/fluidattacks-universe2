@@ -3,19 +3,13 @@ from typing import (
     Any,
     Dict
 )
-from tempfile import NamedTemporaryFile
-from datetime import datetime, timedelta
-import json
-import os
 import pytest
 
 # Third party libraries
 from ariadne import graphql
-from jose import jwt
 
 # Local libraries
-from backend import util
-from backend.api.schema import SCHEMA
+from api.schema import SCHEMA
 from back.tests.unit.utils import create_dummy_session
 
 import pytest
