@@ -6,6 +6,7 @@ import preloader from "resources/loading.gif";
 const SidebarContainer = styled.aside.attrs({
   className: "flex flex-column overflow-x-hidden",
 })`
+  transition: all 0.3s ease;
   background-color: #272727;
   width: ${(props: { collapsed: boolean }): string =>
     props.collapsed ? "50px" : "210px"};
