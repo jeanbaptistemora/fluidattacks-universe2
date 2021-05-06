@@ -747,7 +747,7 @@ async def mask_resources(group_name: str) -> NamedTuple:
         group_name,
         ['environments', 'files', 'repositories']
     )
-    Status: NamedTuple = namedtuple(
+    status: NamedTuple = namedtuple(
         'Status',
         ('are_files_removed files_result '
          'environments_result repositories_result')
@@ -794,7 +794,7 @@ async def mask_resources(group_name: str) -> NamedTuple:
     )
     success = cast(
         NamedTuple,
-        Status(
+        status(
             are_files_removed,
             files_result,
             environments_result,
@@ -925,10 +925,9 @@ def validate_group_services_config(
     has_integrates: bool,
 ) -> None:
     if is_continuous_type:
-        if has_drills:
-            if not has_integrates:
-                raise InvalidGroupServicesConfig(
-                    'Drills is only available when Integrates is too')
+        if has_drills and not has_integrates:
+            raise InvalidGroupServicesConfig(
+                'Drills is only available when Integrates is too')
 
         if has_forces:
             if not has_integrates:
