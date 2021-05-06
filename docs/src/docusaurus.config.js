@@ -4,7 +4,7 @@ module.exports = {
   url: 'https://docs.fluidattacks.com',
   baseUrl: process.env.env == 'prod' ? '/' : `/${process.env.CI_COMMIT_REF_NAME}/`,
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenMarkdownLinks: 'throw',
   favicon: 'img/favicon.ico',
   organizationName: 'fluidattacks',
   projectName: 'product',

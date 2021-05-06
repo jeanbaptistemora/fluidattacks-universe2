@@ -15,7 +15,7 @@ Going Open Source gives our customers the confidence that what we do is
 
 In order to verify the OWASP benchmark results we'll need to:
 1.  Meet the requirements for
-    [installing Fluid Attacks' scanner](/machine/scanner#requirements)
+    [installing Fluid Attacks' scanner](/machine/scanner/plans/foss#requirements)
 
 1.  Get a copy of our source code.
     Cloning it into any folder owned by your user should work:
