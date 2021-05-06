@@ -47,6 +47,7 @@ from sast_syntax_readers import (
 from sast_transformations import (
     control_flow,
     danger_nodes,
+    program_dependencie,
     styles,
 )
 from utils.ctx import (
@@ -266,6 +267,7 @@ def _parse_one_cached(
 
     graph: Graph = _build_ast_graph(content, language, raw_tree)
     control_flow.add(graph, language)
+    program_dependencie.add(graph, language)
     syntax = generate_syntax_readers.read_from_graph(graph, language)
     danger_nodes.mark(graph, language, syntax)
     styles.add(graph)
