@@ -206,14 +206,26 @@ resource "okta_app_three_field" "apps" {
   url                  = each.value.url
   auto_submit_toolbar  = true
 
-  groups = [
-    for app_group in local.app_groups : okta_group.groups[app_group.group].id
-    if app_group.id == each.value.id
-  ]
+  lifecycle {
+    ignore_changes = [
+      groups,
+      users,
+    ]
+  }
+}
+
+resource "okta_app_group_assignment" "apps_three_field" {
+  for_each = {
+    for app in local.app_groups : "${app.id}_${app.group}" => app
+    if app.type == "three_field"
+  }
+
+  app_id   = okta_app_three_field.apps[each.value.id].id
+  group_id = okta_group.groups[each.value.group].id
 
   lifecycle {
     ignore_changes = [
-      users,
+      priority,
     ]
   }
 }
