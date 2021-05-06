@@ -18,7 +18,6 @@ from aioextensions import (
 from backend.api import get_new_context
 from backend.typing import (
     Finding as FindingType,
-    Historic as HistoricType,
     MailContent as MailContentType,
 )
 from findings import domain as findings_domain
@@ -42,95 +41,6 @@ from __init__ import (
 bugsnag_utils.start_scheduler_session()
 
 LOGGER = logging.getLogger(__name__)
-
-
-def filter_historic_last_day(historic: HistoricType) -> HistoricType:
-    """Filter historics from the last 24 hrs"""
-    last_day = datetime_utils.get_now_minus_delta(hours=24)
-    filtered = [
-        entry
-        for entry in historic
-        if datetime_utils.get_from_str(entry['date']) >= last_day
-    ]
-    return filtered
-
-
-async def get_total_reattacks_stats(
-    context: Any,
-    findings: List[Dict[str, FindingType]]
-) -> Dict[str, int]:
-    """Get the total reattacks of all the vulns"""
-    reattacks_requested: int = 0
-    reattacks_executed: int = 0
-    pending_attacks: int = 0
-    effective_reattacks: int = 0
-    reattack_effectiveness: int = 0
-    last_day = datetime_utils.get_now_minus_delta(hours=24)
-    finding_vulns_loader = context.finding_vulns_nzr
-
-    vulns = await finding_vulns_loader.load_many_chained([
-        str(finding['finding_id'])
-        for finding in findings
-    ])
-
-    for vuln in vulns:
-        if vuln.get('last_requested_reattack_date', ''):
-            last_requested_reattack_date = datetime_utils.get_from_str(
-                vuln.get('last_requested_reattack_date', ''))
-            if last_requested_reattack_date >= last_day:
-                reattacks_requested += 1
-        if vuln.get('last_reattack_date', ''):
-            last_reattack_date = datetime_utils.get_from_str(
-                vuln.get('last_reattack_date', ''))
-            if last_reattack_date >= last_day:
-                reattacks_executed += 1
-                if vuln.get('current_state', '') == 'closed':
-                    effective_reattacks += 1
-        if vuln.get('verification', '') == 'Requested':
-            pending_attacks += 1
-
-    if reattacks_executed:
-        reattack_effectiveness = int(
-            100 * effective_reattacks / reattacks_executed)
-
-    return {
-        'reattacks_requested': reattacks_requested,
-        'reattacks_executed': reattacks_executed,
-        'pending_attacks': pending_attacks,
-        'reattack_effectiveness': reattack_effectiveness,
-    }
-
-
-async def get_total_treatment_stats(
-    context: Any,
-    findings: List[Dict[str, FindingType]]
-) -> Dict[str, int]:
-    """Get the total treatment of all the vulns"""
-    accepted_vuln: int = 0
-    accepted_undefined_submited_vuln: int = 0
-    accepted_undefined_approved_vuln: int = 0
-    finding_vulns_loader = context.finding_vulns_nzr
-
-    vulns = await finding_vulns_loader.load_many_chained([
-        str(finding['finding_id'])
-        for finding in findings
-    ])
-
-    for vuln in vulns:
-        filtered_historic_as_str = str(filter_historic_last_day(
-            vuln.get('historic_treatment', [{}])))
-        # Check if any of these states occurred in the period
-        if '\'ACCEPTED\'' in filtered_historic_as_str:
-            accepted_vuln += 1
-        if 'SUBMITTED' in filtered_historic_as_str:
-            accepted_undefined_submited_vuln += 1
-        if 'APPROVED' in filtered_historic_as_str:
-            accepted_undefined_approved_vuln += 1
-    return {
-        'accepted': accepted_vuln,
-        'accepted_undefined_submitted': accepted_undefined_submited_vuln,
-        'accepted_undefined_approved': accepted_undefined_approved_vuln,
-    }
 
 
 async def get_oldest_open_findings(
@@ -204,14 +114,16 @@ async def get_group_digest_stats(
     last_day = datetime_utils.get_now_minus_delta(hours=24)
     mail_context['findings'] = await get_oldest_open_findings(
         context, valid_findings, 3)
-    treatments = await get_total_treatment_stats(context, valid_findings)
+    treatments = await findings_domain.get_total_treatment_date(
+        context, valid_findings, last_day)
     mail_context['treatments']['temporary_applied'] = treatments.get(
         'accepted', 0)
     mail_context['treatments']['eternal_requested'] = treatments.get(
         'accepted_undefined_submitted', 0)
     mail_context['treatments']['eternal_approved'] = treatments.get(
         'accepted_undefined_approved', 0)
-    reattacks = await get_total_reattacks_stats(context, valid_findings)
+    reattacks = await findings_domain.get_total_reattacks_stats(
+        context, valid_findings, last_day)
     mail_context['reattacks']['reattacks_requested'] = reattacks.get(
         'reattacks_requested', 0)
     mail_context['reattacks']['reattacks_executed'] = reattacks.get(

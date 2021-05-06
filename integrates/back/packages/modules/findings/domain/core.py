@@ -4,6 +4,7 @@ import logging
 import logging.config
 import re
 from contextlib import AsyncExitStack
+from datetime import datetime
 from decimal import Decimal
 from time import time
 from typing import (
@@ -930,3 +931,82 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     else:
         LOGGER.error('An error occurred verifying', **NOEXTRA)
     return all(success)
+
+
+async def get_total_reattacks_stats(
+    context: Any,
+    findings: List[Dict[str, FindingType]],
+    min_date: datetime,
+) -> Dict[str, int]:
+    """Get the total reattacks of all the vulns"""
+    reattacks_requested: int = 0
+    reattacks_executed: int = 0
+    pending_attacks: int = 0
+    effective_reattacks: int = 0
+    reattack_effectiveness: int = 0
+    finding_vulns_loader = context.finding_vulns_nzr
+
+    vulns = await finding_vulns_loader.load_many_chained([
+        str(finding['finding_id'])
+        for finding in findings
+    ])
+
+    for vuln in vulns:
+        if vuln.get('last_requested_reattack_date', ''):
+            last_requested_reattack_date = datetime_utils.get_from_str(
+                vuln.get('last_requested_reattack_date', ''))
+            if min_date and last_requested_reattack_date >= min_date:
+                reattacks_requested += 1
+        if vuln.get('last_reattack_date', ''):
+            last_reattack_date = datetime_utils.get_from_str(
+                vuln.get('last_reattack_date', ''))
+            if min_date and last_reattack_date >= min_date:
+                reattacks_executed += 1
+                if vuln.get('current_state', '') == 'closed':
+                    effective_reattacks += 1
+        if vuln.get('verification', '') == 'Requested':
+            pending_attacks += 1
+
+    if reattacks_executed:
+        reattack_effectiveness = int(
+            100 * effective_reattacks / reattacks_executed)
+
+    return {
+        'reattacks_requested': reattacks_requested,
+        'reattacks_executed': reattacks_executed,
+        'pending_attacks': pending_attacks,
+        'reattack_effectiveness': reattack_effectiveness,
+    }
+
+
+async def get_total_treatment_date(
+    context: Any,
+    findings: List[Dict[str, FindingType]],
+    min_date: datetime,
+) -> Dict[str, int]:
+    """Get the total treatment of all the vulns filtered by date"""
+    accepted_vuln: int = 0
+    accepted_undefined_submited_vuln: int = 0
+    accepted_undefined_approved_vuln: int = 0
+    finding_vulns_loader = context.finding_vulns_nzr
+
+    vulns = await finding_vulns_loader.load_many_chained([
+        str(finding['finding_id'])
+        for finding in findings
+    ])
+
+    for vuln in vulns:
+        filtered_historic_as_str = str(vulns_utils.filter_historic_date(
+            vuln.get('historic_treatment', [{}]), min_date))
+        # Check if any of these states occurred in the period
+        if '\'ACCEPTED\'' in filtered_historic_as_str:
+            accepted_vuln += 1
+        if 'SUBMITTED' in filtered_historic_as_str:
+            accepted_undefined_submited_vuln += 1
+        if 'APPROVED' in filtered_historic_as_str:
+            accepted_undefined_approved_vuln += 1
+    return {
+        'accepted': accepted_vuln,
+        'accepted_undefined_submitted': accepted_undefined_submited_vuln,
+        'accepted_undefined_approved': accepted_undefined_approved_vuln,
+    }

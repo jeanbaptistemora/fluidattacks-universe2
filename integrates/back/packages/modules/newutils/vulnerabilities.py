@@ -528,3 +528,16 @@ def get_treatment_from_org_finding_policy(
             'acceptance_status': 'APPROVED',
         }
     ]
+
+
+def filter_historic_date(
+    historic: HistoricType,
+    min_date: datetime,
+) -> HistoricType:
+    """Filter historics since a given date"""
+    filtered = [
+        entry
+        for entry in historic
+        if min_date and datetime_utils.get_from_str(entry['date']) >= min_date
+    ]
+    return filtered
