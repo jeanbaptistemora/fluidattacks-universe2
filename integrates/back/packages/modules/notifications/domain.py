@@ -122,13 +122,13 @@ async def edit_group(
                 Here are the details of the group:
                 - Name: {group_name}
                 - Type: {translations.get(subscription, subscription)}
-                - Integrates:
+                - ASM:
                     from: {translations[had_integrates]}
                     to: {translations[has_integrates]}
-                - Drills:
+                - Squad:
                     from: {translations[had_drills]}
                     to: {translations[has_drills]}
-                - Forces:
+                - DevSecOps agent:
                     from: {translations[had_forces]}
                     to: {translations[has_forces]}
                 - Comments: {html.escape(comments, quote=True)}

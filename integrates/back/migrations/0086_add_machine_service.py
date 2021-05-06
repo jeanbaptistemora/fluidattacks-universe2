@@ -4,8 +4,8 @@
 This migration adds an attribute for the new service in a group's
 historic configuration
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-05-06 at 15:18:09 UTC-05
+Finalization Time: 2021-05-06 at 15:18:20 UTC-05
 """
 # Standard
 import time

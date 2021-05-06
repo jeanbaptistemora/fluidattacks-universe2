@@ -26,6 +26,7 @@ describe("Info", (): void => {
           project: {
             hasDrills: true,
             hasForces: true,
+            hasSkims: true,
             language: "EN",
             name: "TEST",
             subscription: "TEST",

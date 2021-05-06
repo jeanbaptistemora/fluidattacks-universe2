@@ -52,6 +52,7 @@ async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
             ),
             description=group.get('description', ''),
             files=group.get('files', []),
+            has_skims=historic_configuration[-1].get('has_skims', False),
             has_drills=has_drills,
             has_forces=has_forces,
             has_integrates=has_integrates,

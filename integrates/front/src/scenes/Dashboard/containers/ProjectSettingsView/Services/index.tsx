@@ -30,6 +30,7 @@ import {
 } from "scenes/Dashboard/containers/ProjectSettingsView/Services/businessLogic";
 import type {
   IFormData,
+  IGroupData,
   IServicesDataSet,
   IServicesProps,
 } from "scenes/Dashboard/containers/ProjectSettingsView/Services/types";
@@ -145,7 +146,7 @@ const Services: React.FC<IServicesProps> = (
     data,
     loading: loadingGroupData,
     refetch: refetchGroupData,
-  } = useQuery(GET_GROUP_DATA, {
+  } = useQuery<IGroupData>(GET_GROUP_DATA, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("groupAlerts.errorTextsad"));
@@ -337,13 +338,10 @@ const Services: React.FC<IServicesProps> = (
           initialValues={{
             comments: "",
             confirmation: "",
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             drills: data.project.hasDrills,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             forces: data.project.hasForces,
             integrates: true,
             reason: "NONE",
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
             type: data.project.subscription.toUpperCase(),
           }}
           name={"editGroup"}

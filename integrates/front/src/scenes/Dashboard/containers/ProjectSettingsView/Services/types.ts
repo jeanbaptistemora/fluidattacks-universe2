@@ -13,6 +13,7 @@ interface IGroupData {
   project: {
     hasDrills: boolean;
     hasForces: boolean;
+    hasSkims: boolean;
     organization: {
       name: string;
     };

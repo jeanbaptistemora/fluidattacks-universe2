@@ -13,6 +13,7 @@ type Project {
   hasDrills: Boolean
   hasForces: Boolean
   hasIntegrates: Boolean
+  hasSkims: Boolean
   language: Language
   lastClosingVuln: Int
   lastClosingVulnFinding: Finding

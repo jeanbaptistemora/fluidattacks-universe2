@@ -6,6 +6,7 @@ const GET_GROUP_DATA: DocumentNode = gql`
     project(projectName: $groupName) {
       hasDrills
       hasForces
+      hasSkims
       language
       name
       subscription

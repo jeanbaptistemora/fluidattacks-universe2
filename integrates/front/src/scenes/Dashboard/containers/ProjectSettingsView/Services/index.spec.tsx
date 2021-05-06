@@ -41,6 +41,7 @@ describe("Services", (): void => {
           project: {
             hasDrills: true,
             hasForces: true,
+            hasSkims: true,
             language: "EN",
             name: "unittesting",
             subscription: "CoNtInUoUs",
@@ -60,6 +61,7 @@ describe("Services", (): void => {
           project: {
             hasDrills: true,
             hasForces: true,
+            hasSkims: true,
             language: "EN",
             name: "unittesting",
             subscription: "CoNtInUoUs",
@@ -79,6 +81,7 @@ describe("Services", (): void => {
           project: {
             hasDrills: false,
             hasForces: false,
+            hasSkims: false,
             language: "EN",
             name: "unittesting",
             subscription: "OnEsHoT",
@@ -200,9 +203,9 @@ describe("Services", (): void => {
 
     expect(rows()).toHaveLength(4);
     expect(typeRowLeft().text()).toStrictEqual("Subscription type");
-    expect(integratesRowLeft().text()).toStrictEqual("Integrates");
-    expect(drillsRowLeft().text()).toStrictEqual("Drills");
-    expect(forcesRowLeft().text()).toStrictEqual("Forces");
+    expect(integratesRowLeft().text()).toStrictEqual("ASM");
+    expect(drillsRowLeft().text()).toStrictEqual("Squad");
+    expect(forcesRowLeft().text()).toStrictEqual("DevSecOps agent");
 
     const integratesSwitch: () => ReactWrapper = (): ReactWrapper =>
       integratesRow().find("#integratesSwitch").at(0);

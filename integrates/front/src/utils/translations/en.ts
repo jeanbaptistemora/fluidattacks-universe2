@@ -1024,7 +1024,7 @@ export const enTranslations: ResourceKey = {
         warningTitle: "Warning!",
       },
       deletedsoon: "Scheduled to be deleted in 1 month",
-      drills: "Drills",
+      drills: "Squad",
       errors: {
         drillsOnlyIfContinuous:
           "Drills is only available in groups of type Continuous-Hacking",
@@ -1036,10 +1036,10 @@ export const enTranslations: ResourceKey = {
         userNotInOrganization:
           "User is not a member of the target organization",
       },
-      forces: "Forces",
+      forces: "DevSecOps agent",
       group: "Group",
       inactive: "Inactive",
-      integrates: "Integrates",
+      integrates: "ASM",
       modal: {
         budget: "Budget",
         changesToApply: "Changes to apply",
