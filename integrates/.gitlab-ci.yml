@@ -167,6 +167,12 @@ integrates.back.security:
   stage: test-code
   script: ./m integrates.back.test.functional "${CI_JOB_NAME/integrates.back.test.functional./}"
 
+.integrates.back.test.functional.migration: &integrates_back_test_functional_migration
+  <<: *makes
+  <<: *in_dev_branch_integrates
+  stage: test-code
+  script: ./m integrates.back.test.functional "${CI_JOB_NAME/integrates.back.test.functional./}" false migration
+
 integrates.back.test.functional.old:
   <<: *integrates_back_test_functional
   script: ./m integrates.back.test.functional old true
@@ -197,6 +203,9 @@ integrates.back.test.functional.approve_draft:
 
 integrates.back.test.functional.create_draft:
   <<: *integrates_back_test_functional
+
+integrates.back.test.functional.create_draft_new:
+  <<: *integrates_back_test_functional_migration
 
 integrates.back.test.functional.create_event:
   <<: *integrates_back_test_functional

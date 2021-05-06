@@ -19,6 +19,7 @@ TEST_GROUPS: Set[str] = {
     'add_tags',
     'approve_draft',
     'create_draft',
+    'create_draft_new',
     'create_event',
     'create_organization',
     'create_project',
