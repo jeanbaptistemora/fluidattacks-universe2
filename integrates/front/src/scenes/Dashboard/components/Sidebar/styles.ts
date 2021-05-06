@@ -1,13 +1,15 @@
 import styled from "styled-components";
 
 import logo from "resources/integrates_sidebar.svg";
+import preloader from "resources/loading.gif";
 
 const SidebarContainer = styled.aside.attrs({
   className: "flex flex-column overflow-x-hidden",
 })`
   background-color: #272727;
-  transition: width 0.3s, left 0.3s;
   width: ${(props: { collapsed: boolean }): string =>
+    props.collapsed ? "50px" : "210px"};
+  min-width: ${(props: { collapsed: boolean }): string =>
     props.collapsed ? "50px" : "210px"};
   @media (max-width: 768px) {
     height: 100%;
@@ -21,7 +23,7 @@ const SidebarMenu = styled.ul.attrs({
 })``;
 
 const Logo = styled.img.attrs({
-  alt: "integrates-logo",
+  alt: "App logo",
   className: "ml2 pointer",
   src: logo,
 })`
@@ -36,6 +38,14 @@ const MenuButton = styled.button.attrs({
   & svg {
     margin-right: 10px;
   }
+`;
+
+const Preloader = styled.img.attrs({
+  alt: "Loading animation",
+  className: "content-end ml-auto",
+  src: preloader,
+})`
+  width: 100px;
 `;
 
 const ExtraInfo = styled.div.attrs({
@@ -53,6 +63,7 @@ export {
   Logo,
   LogoutButton,
   MenuButton,
+  Preloader,
   SidebarContainer,
   SidebarMenu,
 };

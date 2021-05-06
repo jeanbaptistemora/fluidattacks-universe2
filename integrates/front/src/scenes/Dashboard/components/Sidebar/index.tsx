@@ -16,6 +16,7 @@ import {
   Logo,
   LogoutButton,
   MenuButton,
+  Preloader,
   SidebarContainer,
   SidebarMenu,
 } from "./styles";
@@ -32,6 +33,7 @@ import { translate } from "utils/translations/translate";
 
 interface ISidebarProps {
   collapsed: boolean;
+  isLoading: boolean;
   userEmail: string;
   userRole: string | undefined;
   onLogoutClick: () => void;
@@ -46,6 +48,7 @@ const Sidebar: React.FC<ISidebarProps> = (
 ): JSX.Element => {
   const {
     collapsed,
+    isLoading,
     userEmail,
     userRole,
     onLogoutClick,
@@ -111,6 +114,7 @@ const Sidebar: React.FC<ISidebarProps> = (
           </TooltipWrapper>
         </li>
       </SidebarMenu>
+      {isLoading ? <Preloader /> : undefined}
       {collapsed ? undefined : (
         <ExtraInfo>
           <div>

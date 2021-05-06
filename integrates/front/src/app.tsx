@@ -3,17 +3,15 @@ import {
   init as mixpanelInit,
 } from "mixpanel-browser";
 import React, { createElement, useState } from "react";
-import type { NetworkStatus } from "react-apollo-network-status";
 import { render } from "react-dom";
 import { Provider as ReduxProvider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-import { Preloader } from "components/Preloader";
 import { Dashboard } from "scenes/Dashboard";
 import { Login } from "scenes/Login";
 import store from "store";
-import { ApolloProvider, useApolloNetworkStatus } from "utils/apollo";
+import { ApolloProvider } from "utils/apollo";
 import { authContext } from "utils/auth";
 import {
   authzPermissionsContext,
@@ -27,10 +25,6 @@ import "tachyons/css/tachyons.min.css";
 import "tachyons-word-break/css/tachyons-word-break.min.css";
 
 const App: React.FC = (): JSX.Element => {
-  const status: NetworkStatus = useApolloNetworkStatus();
-  const isLoading: boolean =
-    status.numPendingQueries > 0 || status.numPendingMutations > 0;
-
   const [user, setUser] = useState({ userEmail: "", userName: "" });
 
   return (
@@ -48,7 +42,6 @@ const App: React.FC = (): JSX.Element => {
                     </Switch>
                   </authContext.Provider>
                 </secureStoreContext.Provider>
-                {isLoading ? <Preloader /> : undefined}
               </authzPermissionsContext.Provider>
             </ReduxProvider>
           </ApolloProvider>

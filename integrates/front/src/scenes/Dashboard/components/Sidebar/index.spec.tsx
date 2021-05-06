@@ -20,6 +20,7 @@ describe("Sidebar", (): void => {
       <MemoryRouter initialEntries={["/home"]}>
         <Sidebar
           collapsed={false}
+          isLoading={false}
           onLogoutClick={functionMock}
           onOpenAccessTokenModal={functionMock}
           onOpenAddOrganizationModal={functionMock}

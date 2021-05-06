@@ -30,6 +30,7 @@ import {
   GET_USER,
 } from "scenes/Dashboard/queries";
 import type { IUser } from "scenes/Dashboard/types";
+import { useApolloNetworkStatus } from "utils/apollo";
 import type { IAuthContext } from "utils/auth";
 import { authContext, setupSessionCheck } from "utils/auth";
 import {
@@ -207,10 +208,15 @@ export const Dashboard: React.FC = (): JSX.Element => {
     setSidebarCollapsed(!sidebarCollapsed);
   }, [setSidebarCollapsed, sidebarCollapsed]);
 
+  const status = useApolloNetworkStatus();
+  const isLoading: boolean =
+    status.numPendingQueries > 0 || status.numPendingMutations > 0;
+
   return (
     <DashboardContainer>
       <Sidebar
         collapsed={sidebarCollapsed}
+        isLoading={isLoading}
         onLogoutClick={handleLogout}
         onOpenAccessTokenModal={openTokenModal}
         onOpenAddOrganizationModal={openOrganizationModal}
