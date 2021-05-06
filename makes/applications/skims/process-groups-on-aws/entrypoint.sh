@@ -20,7 +20,7 @@ function main {
               done \
           &&  for check in "${checks_dev[@]}"
               do
-                    MAKES_COMPUTE_ON_AWS_JOB_QUEUE='skims_soon' \
+                    MAKES_COMPUTE_ON_AWS_JOB_QUEUE='skims_dev_later' \
                     skims-process-group-on-aws "${group}" "${check}" \
                 ||  return 1
               done \

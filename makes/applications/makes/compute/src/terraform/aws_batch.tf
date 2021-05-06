@@ -147,6 +147,12 @@ locals {
       spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
       type                = "SPOT"
     },
+    skims_dev = {
+      bid_percentage      = 100
+      max_vcpus           = 2
+      spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
+      type                = "SPOT"
+    },
     spot = {
       bid_percentage      = 100
       max_vcpus           = 10
@@ -156,12 +162,8 @@ locals {
   }
   queues = [
     {
-      name     = "now"
-      priority = 10
-    },
-    {
       name     = "soon"
-      priority = 5
+      priority = 10
     },
     {
       name     = "later"
