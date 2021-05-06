@@ -5,6 +5,7 @@ import subprocess
 from datetime import datetime
 
 # Third party libraries
+import pytz
 from returns.io import impure
 from returns.maybe import Maybe
 
@@ -19,7 +20,8 @@ utils_logger.configure(
     asynchronous=False,
 )
 LOG = utils_logger.main_log(__name__)
-NOW = datetime.now()
+tz = pytz.timezone("America/Bogota")
+NOW = datetime.now(tz)
 
 
 class CmdFailed(Exception):
