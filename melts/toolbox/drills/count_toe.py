@@ -37,13 +37,11 @@ def count_lines(file_csv: str) -> Tuple[int, int]:
 
             if row[1] != '':
                 lines += int(row[1])
-            else:
-                pass
+
             if len(row) > 2:
                 if row[2] != '':
                     tested_lines += int(row[2])
-                else:
-                    pass
+
     return (lines, tested_lines)
 
 
@@ -56,12 +54,10 @@ def count_inputs(file_csv: str) -> Tuple[int, int]:
         for row in reader:
             if row[1] != '':
                 fields += 1
-            else:
-                pass
+
             if row[2] == 'Yes':
                 tested_fields += 1
-            else:
-                pass
+
     return (fields, tested_fields)
 
 
