@@ -20,6 +20,7 @@ interface IQueryData {
         codename: string;
         cveid: string;
         date: string;
+        defaux: string;
         definition: string;
         description: string;
         keywords: string;

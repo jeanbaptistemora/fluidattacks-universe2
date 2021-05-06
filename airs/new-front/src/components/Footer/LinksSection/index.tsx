@@ -104,7 +104,7 @@ const LinksSection: React.FC = (): JSX.Element => (
       />{" "}
       <br />
       <BodyLink
-        link={"https://fluidattacks.com/categories/penetration-testing/"}
+        link={"https://fluidattacks.com/solutions/penetration-testing/"}
         name={"MPT"}
       />{" "}
       <br />

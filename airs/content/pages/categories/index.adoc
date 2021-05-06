@@ -28,7 +28,7 @@ real attacks to exploit security vulnerabilities that are
 difficult to identify by automatic methods. Through MPT,
 we can guarantee the reduction of rates of false positives
 and negatives achieved by machines. +
-[button]#link:mpt/[Go to MPT {arrow}]#
+[button]#link:/solutions/penetration-testing/[Go to MPT {arrow}]#
 
 == SCA
 We have SCA among our techniques, a method for discovering
