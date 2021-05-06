@@ -4,7 +4,7 @@ from model import TABLE
 from model.findings.types import Finding
 
 
-async def create_finding(*, finding: Finding) -> None:
+async def create(*, finding: Finding) -> None:
     items = []
     key_structure = TABLE.primary_key
     metadata_key = keys.build_key(

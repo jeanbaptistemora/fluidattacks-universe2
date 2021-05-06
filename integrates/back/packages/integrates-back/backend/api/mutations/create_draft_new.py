@@ -14,7 +14,7 @@ from decorators import (
     require_integrates,
     require_login,
 )
-from findings.domain import draft_new as findings_domain
+from findings import domain as findings_domain
 
 
 @convert_kwargs_to_snake_case
@@ -30,7 +30,7 @@ async def mutate(
     title: str,
     **kwargs: Any
 ) -> SimplePayload:
-    await findings_domain.create_draft(
+    await findings_domain.create_draft_new(
         info.context,
         group_name,
         title,

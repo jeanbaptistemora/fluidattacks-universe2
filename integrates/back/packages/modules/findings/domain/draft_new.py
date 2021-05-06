@@ -5,7 +5,7 @@ from typing import Any
 # Local libraries
 from backend import util
 from custom_exceptions import InvalidDraftTitle
-from model.findings import create as findings_create
+from model import findings
 from model.findings.types import (
     Finding,
     FindingState,
@@ -16,7 +16,7 @@ from newutils import (
 )
 
 
-async def create_draft(
+async def create_draft_new(
     context: Any,
     group_name: str,
     title: str,
@@ -52,5 +52,4 @@ async def create_draft(
         threat=kwargs.get('threat', ''),
         type=kwargs.get('type', ''),
     )
-
-    await findings_create.create_finding(finding=draft)
+    await findings.create(finding=draft)

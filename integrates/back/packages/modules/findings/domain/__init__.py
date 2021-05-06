@@ -30,6 +30,9 @@ from .core import (
     validate_finding,
     verify_vulnerabilities,
 )
+from .draft_new import (
+    create_draft_new,
+)
 from .draft import (
     approve_draft,
     create_draft,
@@ -80,6 +83,9 @@ __all__ = [
     'update_description',
     'validate_finding',
     'verify_vulnerabilities',
+
+    # drafts new
+    'create_draft_new',
 
     # drafts
     'approve_draft',

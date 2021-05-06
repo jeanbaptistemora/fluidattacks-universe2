@@ -101,7 +101,7 @@ class Finding(NamedTuple):
     scenario: str = ''
     severity: Union[Finding20Severity, Finding31Severity] = \
         Finding31Severity()
-    sorts: str = 'No'
+    sorts: str = 'NO'
     records: FindingRecords = FindingRecords()
     recommendation: str = ''
     requirements: str = ''
