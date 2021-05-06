@@ -55,6 +55,7 @@ if __name__ == '__main__':
         'KNeighborsClassifier',
         'LinearSVC',
         'GradientBoostingClassifier',
+        'AdaBoostClassifier'
     ]
     with ThreadPoolExecutor(max_workers=len(models_to_train)) as executor:
         executor.map(

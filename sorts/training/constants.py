@@ -30,6 +30,7 @@ from sagemaker.tuner import (
     IntegerParameter
 )
 from sklearn.ensemble import (
+    AdaBoostClassifier,
     GradientBoostingClassifier,
     RandomForestClassifier,
 )
@@ -65,11 +66,12 @@ RESULT_HEADERS: List[str] = [
     'Overfit'
 ]
 MODELS: Dict[str, ModelType] = {
-    'mlpclassifier': MLPClassifier,
-    'randomforestclassifier': RandomForestClassifier,
+    'adaboostclassifier': AdaBoostClassifier,
+    'gradientboostingclassifier': GradientBoostingClassifier,
     'kneighborsclassifier': KNeighborsClassifier,
     'linearsvc': LinearSVC,
-    'gradientboostingclassifier': GradientBoostingClassifier
+    'mlpclassifier': MLPClassifier,
+    'randomforestclassifier': RandomForestClassifier
 }
 
 # Hyperparameters
