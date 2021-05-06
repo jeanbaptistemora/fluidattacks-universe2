@@ -32,21 +32,20 @@ def patch_statement(stmt: Union[Any, Node]) -> Union[Any, Node]:
         allow_keys = {"Action", "NotAction", "NotResource", "Resource"}
         keys_to_change = []
         for key, value in stmt.data.items():
-            if key.inner in allow_keys:
-                if not value.data_type == Type.ARRAY:
-                    keys_to_change.append(
-                        (
-                            key,
-                            Node(
-                                data=[value],
-                                data_type=Type.ARRAY,
-                                start_column=value.start_column,
-                                start_line=value.start_line,
-                                end_column=value.end_column,
-                                end_line=value.end_line,
-                            ),
-                        )
+            if (key.inner in allow_keys) and not value.data_type == Type.ARRAY:
+                keys_to_change.append(
+                    (
+                        key,
+                        Node(
+                            data=[value],
+                            data_type=Type.ARRAY,
+                            start_column=value.start_column,
+                            start_line=value.start_line,
+                            end_column=value.end_column,
+                            end_line=value.end_line,
+                        ),
                     )
+                )
         for key, value in keys_to_change:
             stmt.data.pop(key)
             stmt.data.setdefault(key, value)
@@ -54,9 +53,8 @@ def patch_statement(stmt: Union[Any, Node]) -> Union[Any, Node]:
         stmt.setdefault("Effect", "Deny")
 
         for key in {"Action", "NotAction", "NotResource", "Resource"}:
-            if key in stmt:
-                if not isinstance(stmt[key], (list, UserList)):
-                    stmt[key] = [stmt[key]]
+            if (key in stmt) and not isinstance(stmt[key], (list, UserList)):
+                stmt[key] = [stmt[key]]
     return stmt
 
 
