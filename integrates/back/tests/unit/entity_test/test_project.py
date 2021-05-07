@@ -234,6 +234,7 @@ async def test_create_project():
             description: "This is a new project from pytest",
             projectName: "%(name)s",
             subscription: CONTINUOUS,
+            hasSkims: true,
             hasDrills: true,
             hasForces: true
         ) {

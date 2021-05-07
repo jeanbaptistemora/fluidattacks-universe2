@@ -52,6 +52,7 @@ async def create_group():
                 description: "This is a new project from pytest",
                 projectName: "{group_name}",
                 subscription: CONTINUOUS,
+                hasSkims: true,
                 hasDrills: true,
                 hasForces: true
             ) {{

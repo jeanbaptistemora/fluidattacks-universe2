@@ -146,6 +146,7 @@ type Mutation {
     organization: String
     projectName: String!
     subscription: SubscriptionType
+    hasSkims: Boolean
     hasDrills: Boolean
     hasForces: Boolean
   ): SimplePayload!

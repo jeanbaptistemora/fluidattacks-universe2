@@ -19,6 +19,7 @@ async def test_project():
                 description: "This is a new project from pytest",
                 projectName: "{group_name}",
                 subscription: CONTINUOUS,
+                hasSkims: true,
                 hasDrills: true,
                 hasForces: true
             ) {{
@@ -40,6 +41,7 @@ async def test_project():
                 description: "This is a new project from pytest",
                 projectName: "{group_name2}",
                 subscription: CONTINUOUS,
+                hasSkims: true,
                 hasDrills: true,
                 hasForces: true
             ) {{

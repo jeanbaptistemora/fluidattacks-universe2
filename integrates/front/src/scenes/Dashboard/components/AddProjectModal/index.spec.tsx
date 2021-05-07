@@ -90,7 +90,7 @@ describe("AddProjectModal component", (): void => {
         element.contains("Proceed")
       )
       .at(0);
-    const SWITCH_BUTTON_LENGTH: number = 3;
+    const SWITCH_BUTTON_LENGTH: number = 4;
 
     expect(organizationField).toHaveLength(1);
     expect(projectNameField).toHaveLength(1);
@@ -120,7 +120,9 @@ describe("AddProjectModal component", (): void => {
       .find("select")
       .simulate("change", { target: { value: "ONESHOT" } });
 
-    expect(wrapper.find({ checked: true })).toHaveLength(2);
+    const checkedLength = 3;
+
+    expect(wrapper.find({ checked: true })).toHaveLength(checkedLength);
   });
 
   it("should remove Forces Service switch", (): void => {

@@ -172,6 +172,7 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
     group_name: str,
     organization: str,
     description: str,
+    has_skims: bool = False,
     has_drills: bool = False,
     has_forces: bool = False,
     subscription: str = 'continuous',
@@ -189,6 +190,7 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
     if description.strip() and group_name.strip():
         validate_group_services_config(
             is_continuous_type,
+            has_skims,
             has_drills,
             has_forces,
             has_integrates=True
@@ -209,6 +211,7 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
                 'language': language,
                 'historic_configuration': [{
                     'date': datetime_utils.get_now_as_str(),
+                    'has_skims': has_skims,
                     'has_drills': has_drills,
                     'has_forces': has_forces,
                     'requester': user_email,
@@ -357,6 +360,7 @@ async def edit(
     validate_string_length_between(comments, 0, 250)
     validate_group_services_config(
         is_continuous_type,
+        has_drills,
         has_drills,
         has_forces,
         has_integrates)
@@ -921,14 +925,19 @@ async def update_tags(
 
 def validate_group_services_config(
     is_continuous_type: bool,
+    has_skims: bool,
     has_drills: bool,
     has_forces: bool,
     has_integrates: bool,
 ) -> None:
     if is_continuous_type:
-        if has_drills and not has_integrates:
-            raise InvalidGroupServicesConfig(
-                'Drills is only available when Integrates is too')
+        if has_drills:
+            if not has_integrates:
+                raise InvalidGroupServicesConfig(
+                    'Drills is only available when Integrates is too')
+            if not has_skims:
+                raise InvalidGroupServicesConfig(
+                    'Drills is only available when Skims is too')
 
         if has_forces:
             if not has_integrates:

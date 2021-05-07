@@ -28,6 +28,7 @@ async def query(
                 description: "This is a new project from pytest",
                 projectName: "{group}",
                 subscription: CONTINUOUS,
+                hasSkims: true,
                 hasDrills: true,
                 hasForces: true
             ) {{

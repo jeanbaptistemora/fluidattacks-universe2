@@ -804,19 +804,19 @@ export const enTranslations: ResourceKey = {
             tooltip: "Brief description to identify the group",
           },
           drills: {
-            text: "Include Drills Service?",
+            text: "Include Squad Service?",
             tooltip:
-              "Drills finds deep and zero-day vulnerabilities during software development",
+              "Squad finds deep and zero-day vulnerabilities during software development",
           },
           extraChargesMayApply: "Extra charges may apply",
           forces: {
-            text: "Include Forces Service?",
+            text: "Include DevSecOps agent?",
             tooltip:
               "Changes to the target of evaluation can be continuously tested against the closing of confirmed " +
-              "vulnerabilities. Forces can be included in CI/CD",
+              "vulnerabilities. The agent can be included in CI/CD",
           },
           integrates: {
-            text: "Include Integrates?",
+            text: "Include ASM?",
             tooltip:
               "Communication platform where all group stakeholders can interact",
           },
@@ -837,6 +837,11 @@ export const enTranslations: ResourceKey = {
             text: "Organization",
             tooltip:
               "Name of the organization that is associated with this group",
+          },
+          skims: {
+            text: "Include Machine service?",
+            tooltip:
+              "Vulnerability detection tool that scans and reports security issues in your source code",
           },
           success: "Group created successfully",
           switch: {

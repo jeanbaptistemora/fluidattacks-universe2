@@ -68,13 +68,13 @@ pytestmark = [
 
 def test_validate_group_services_config():
     with pytest.raises(InvalidGroupServicesConfig):
-        validate_group_services_config(True, True, False, False)
+        validate_group_services_config(True, True, True, False, False)
     with pytest.raises(InvalidGroupServicesConfig):
-        validate_group_services_config(True, False, True, True)
+        validate_group_services_config(True, False, False, True, True)
     with pytest.raises(InvalidGroupServicesConfig):
-        validate_group_services_config(True, True, True, False)
+        validate_group_services_config(True, True, True, True, False)
     with pytest.raises(InvalidGroupServicesConfig):
-        validate_group_services_config(False, False, True, True)
+        validate_group_services_config(False, False, False, True, True)
 
 
 @pytest.mark.changes_db
@@ -432,6 +432,7 @@ async def test_create_project_not_user_admin():
         group_name='NEWAVAILABLENAME',
         organization='okada',
         description='This is a new project',
+        has_skims=True,
         has_drills=True,
         has_forces=True,
         subscription='continuous'

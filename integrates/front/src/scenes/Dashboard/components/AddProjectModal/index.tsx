@@ -122,6 +122,7 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
       type: string;
       drills: boolean;
       forces: boolean;
+      skims: boolean;
     }): void => {
       track("AddGroup");
       void createProject({
@@ -129,6 +130,7 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
           description: values.description,
           hasDrills: values.drills,
           hasForces: values.forces,
+          hasSkims: values.skims,
           language: values.language,
           organization: values.organization,
           projectName: values.name,
@@ -178,6 +180,7 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
             language: "EN",
             name: projectName.toUpperCase(),
             organization: organization.toUpperCase(),
+            skims: true,
             type: "CONTINUOUS",
           }}
           name={"newGroup"}
@@ -185,8 +188,18 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
         >
           {({ values, dirty, setFieldValue }): JSX.Element => {
             function handleSubscriptionTypeChange(): void {
+              setFieldValue("skims", isContinuousType(values.type));
               setFieldValue("drills", true);
               setFieldValue("forces", !isContinuousType(values.type));
+            }
+
+            function handleSkimsBtnChange(): void {
+              setFieldValue("skims", !values.skims);
+
+              if (values.skims) {
+                setFieldValue("drills", false);
+                setFieldValue("forces", false);
+              }
             }
 
             function handleDrillsBtnChange(): void {
@@ -194,6 +207,8 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
 
               if (values.drills) {
                 setFieldValue("forces", false);
+              } else {
+                setFieldValue("skims", true);
               }
             }
 
@@ -385,6 +400,39 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                     </TooltipWrapper>
                   </Col40>
                 </Row>
+                {isContinuousType(values.type) ? (
+                  <Row>
+                    <Col40>
+                      <TooltipWrapper
+                        id={"organization.tabs.groups.newGroup.skims.tooltip"}
+                        message={translate.t(
+                          "organization.tabs.groups.newGroup.skims.tooltip"
+                        )}
+                        placement={"top"}
+                      >
+                        <FormGroup>
+                          <ControlLabel>
+                            {translate.t(
+                              "organization.tabs.groups.newGroup.skims.text"
+                            )}
+                            {" *"}
+                          </ControlLabel>
+                          <SwitchButton
+                            checked={values.skims}
+                            name={"skims"}
+                            offlabel={translate.t(
+                              "organization.tabs.groups.newGroup.switch.no"
+                            )}
+                            onChange={handleSkimsBtnChange}
+                            onlabel={translate.t(
+                              "organization.tabs.groups.newGroup.switch.yes"
+                            )}
+                          />
+                        </FormGroup>
+                      </TooltipWrapper>
+                    </Col40>
+                  </Row>
+                ) : undefined}
                 <Row>
                   <Col40>
                     <TooltipWrapper

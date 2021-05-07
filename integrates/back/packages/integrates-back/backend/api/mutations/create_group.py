@@ -30,6 +30,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     organization: str,
     project_name: str,
     subscription: str = 'continuous',
+    has_skims: bool = False,
     has_drills: bool = False,
     has_forces: bool = False,
     language: str = 'en'
@@ -45,6 +46,7 @@ async def mutate(  # pylint: disable=too-many-arguments
         group_name.lower(),
         organization,
         description,
+        has_skims,
         has_drills,
         has_forces,
         subscription,

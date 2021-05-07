@@ -36,6 +36,7 @@ async def test_project_fluid_user():
                 description: "This is a new project from pytest",
                 projectName: "{group_name}",
                 subscription: CONTINUOUS,
+                hasSkims: true,
                 hasDrills: true,
                 hasForces: true
             ) {{

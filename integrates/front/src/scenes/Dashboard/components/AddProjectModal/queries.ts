@@ -12,6 +12,7 @@ const PROJECTS_NAME_QUERY: DocumentNode = gql`
 const CREATE_PROJECT_MUTATION: DocumentNode = gql`
   mutation CreateProjectMutation(
     $description: String!
+    $hasSkims: Boolean
     $hasDrills: Boolean
     $hasForces: Boolean
     $language: Language
@@ -21,6 +22,7 @@ const CREATE_PROJECT_MUTATION: DocumentNode = gql`
   ) {
     createProject(
       description: $description
+      hasSkims: $hasSkims
       hasDrills: $hasDrills
       hasForces: $hasForces
       language: $language
