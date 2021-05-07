@@ -4,6 +4,10 @@ locals {
   product_raw     = "${local.product}/-/raw/master"
 }
 
+data "local_file" "headers" {
+  filename = "js/headers.js"
+}
+
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
 variable "cloudflare_email" {}

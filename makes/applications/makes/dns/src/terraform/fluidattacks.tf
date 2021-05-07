@@ -462,3 +462,17 @@ resource "cloudflare_page_rule" "install_profiles" {
     }
   }
 }
+
+
+# Workers
+
+resource "cloudflare_worker_script" "headers" {
+  name    = "makes_headers"
+  content = data.local_file.headers.content
+}
+
+resource "cloudflare_worker_route" "go_headers" {
+  zone_id     = cloudflare_zone.fluidattacks_com.id
+  pattern     = "go.${cloudflare_zone.fluidattacks_com.zone}/*"
+  script_name = cloudflare_worker_script.headers.name
+}
