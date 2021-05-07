@@ -30,10 +30,12 @@ JAVA_THIS_GET_CLASS: str = "java.this.getClass()"
 def attempt_java_this_get_class(args: EvaluatorArgs) -> bool:
     *_, parent = args.dependencies
 
-    if isinstance(parent, graph_model.SyntaxStepThis):
-        if args.syntax_step.method == ".getClass":
-            args.syntax_step.meta.value = JAVA_THIS_GET_CLASS
-            return True
+    if (
+        isinstance(parent, graph_model.SyntaxStepThis)
+        and args.syntax_step.method == ".getClass"
+    ):
+        args.syntax_step.meta.value = JAVA_THIS_GET_CLASS
+        return True
 
     return False
 
@@ -46,10 +48,12 @@ def attempt_java_this_get_class_get_class_loader(
 ) -> bool:
     *_, parent = args.dependencies
 
-    if parent.meta.value == JAVA_THIS_GET_CLASS:
-        if args.syntax_step.method == ".getClassLoader":
-            args.syntax_step.meta.value = JAVA_CLASS_LOADER
-            return True
+    if (
+        parent.meta.value == JAVA_THIS_GET_CLASS
+        and args.syntax_step.method == ".getClassLoader"
+    ):
+        args.syntax_step.meta.value = JAVA_CLASS_LOADER
+        return True
 
     return False
 
