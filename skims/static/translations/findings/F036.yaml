@@ -1,0 +1,24 @@
+F036.description:
+  en: >
+    The state information of application forms that is stored in the ViewState
+    is not encrypted.
+  es: >
+    La información de estado de formularios almacenada en el ViewState no se
+    encuentra cifrada.
+F036.impact:
+  en: Leak app state information through the ViewState value.
+  es: Fugar información de estado a través del valor del ViewState.
+F036.recommendation:
+  en: Encrypt the ViewState in the application configuration.
+  es: Establecer cifrado del ViewState en la configuración de la aplicación.
+F036.requirements:
+  en: R026. Encrypt client-side session information
+  es: >
+    R026. El sistema debe verificar la integridad y cifrar los estados de
+    sesión que están al lado del cliente.
+F036.threat:
+  en: Unauthenticated attacker with local access to the victim's browser.
+  es: Atacante no autenticado con acceso local al navegador de la victima.
+F036.title:
+  en: F036. ViewState not encrypted
+  es: F036. ViewState no cifrado
