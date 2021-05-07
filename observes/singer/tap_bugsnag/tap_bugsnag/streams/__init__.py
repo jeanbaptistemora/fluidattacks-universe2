@@ -40,7 +40,7 @@ def _stream_data(
 
 
 def all_orgs(api: ApiClient) -> None:
-    _stream_data(SupportedStreams.ORGS, api.orgs.list_orgs(ALL))
+    _stream_data(SupportedStreams.ORGS, api.user.list_orgs(ALL))
 
 
 __all__ = [

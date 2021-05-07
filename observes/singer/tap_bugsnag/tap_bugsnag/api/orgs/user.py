@@ -32,11 +32,19 @@ class OrgsPage(NamedTuple):
         return typed_page_builder(raw.list_orgs(page), cls)
 
 
-class OrgsApi(NamedTuple):
+class OrgId(NamedTuple):
+    id_str: str
+
+    @classmethod
+    def new(cls, page: OrgsPage) -> List[OrgId]:
+        return [item["id"] for item in page.data]
+
+
+class UserApi(NamedTuple):
     client: RawApi
 
     @classmethod
-    def new(cls, client: RawApi) -> OrgsApi:
+    def new(cls, client: RawApi) -> UserApi:
         return cls(client)
 
     def list_orgs(self, page: PageOrAll) -> IO[Iterator[OrgsPage]]:
