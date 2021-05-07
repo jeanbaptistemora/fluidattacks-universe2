@@ -172,12 +172,20 @@ const EditableField: React.FC<EditableFieldProps> = (
     currentValue,
   } = props;
 
-  const render: JSX.Element =
-    alignField === "horizontal"
-      ? renderHorizontal(props)
-      : alignField === "horizontalWide"
-      ? renderHorizontalWide(props)
-      : renderVertical(props);
+  function setRender(
+    properties: EditableFieldProps,
+    alignF: string
+  ): JSX.Element {
+    if (alignF === "horizontal") {
+      return renderHorizontal(properties);
+    } else if (alignF === "horizontalWide") {
+      return renderHorizontalWide(properties);
+    }
+
+    return renderVertical(properties);
+  }
+
+  const render: JSX.Element = setRender(props, alignField as string);
 
   const isVisibleWhileEditing: boolean =
     visibleWhileEditing === true || _.isUndefined(visibleWhileEditing);
