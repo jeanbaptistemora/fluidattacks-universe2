@@ -1,0 +1,209 @@
+title,what,where,cwe
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_01.cs,31,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_02.cs,33,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_03.cs,33,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_04.cs,39,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_05.cs,39,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_06.cs,38,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_07.cs,38,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_08.cs,46,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_09.cs,33,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_10.cs,33,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_11.cs,33,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_12.cs,33,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_13.cs,33,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_14.cs,33,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_15.cs,34,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_16.cs,33,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_17.cs,33,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_01.cs,31,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_02.cs,33,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_03.cs,33,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_04.cs,39,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_05.cs,39,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_06.cs,38,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_07.cs,38,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_08.cs,46,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_09.cs,33,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_10.cs,33,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_11.cs,33,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_12.cs,33,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_13.cs,33,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_14.cs,33,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_15.cs,34,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_16.cs,33,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__DES_17.cs,33,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_01.cs,29,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_02.cs,31,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_03.cs,31,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_04.cs,37,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_05.cs,37,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_06.cs,36,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_07.cs,36,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_08.cs,44,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_09.cs,31,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_10.cs,31,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_11.cs,31,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_12.cs,31,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_13.cs,31,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_14.cs,31,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_15.cs,32,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_16.cs,31,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__MD5_17.cs,31,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_01.cs,29,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_02.cs,31,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_03.cs,31,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_04.cs,37,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_05.cs,37,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_06.cs,36,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_07.cs,36,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_08.cs,44,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_09.cs,31,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_10.cs,31,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_11.cs,31,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_12.cs,31,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_13.cs,31,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_14.cs,31,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_15.cs,32,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_16.cs,31,310 + 327
+F052. Insecure encryption algorithm,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/CWE328_Reversible_One_Way_Hash__SHA1_17.cs,31,310 + 327
+F060. Insecure exceptions,NIST/src/testcases/CWE327_Use_Broken_Crypto/Program.cs,50,396
+F060. Insecure exceptions,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/Program.cs,50,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_01.cs,71,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_02.cs,106,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_02.cs,77,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_03.cs,106,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_03.cs,77,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_04.cs,112,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_04.cs,83,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_05.cs,112,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_05.cs,83,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_06.cs,111,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_06.cs,82,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_07.cs,111,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_07.cs,82,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_08.cs,119,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_08.cs,90,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_09.cs,106,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_09.cs,77,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_10.cs,106,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_10.cs,77,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_11.cs,106,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_11.cs,77,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_12.cs,120,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_12.cs,66,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_12.cs,96,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_13.cs,106,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_13.cs,77,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_14.cs,106,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_14.cs,77,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_15.cs,114,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_15.cs,83,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_16.cs,73,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_17.cs,72,396
+F060. Insecure exceptions,NIST/src/testcases/CWE390_Error_Without_Action/Program.cs,50,396
+F060. Insecure exceptions,NIST/src/testcases/CWE395_Catch_NullPointerException/CWE395_Catch_NullPointerException__basic_01.cs,39,396
+F060. Insecure exceptions,NIST/src/testcases/CWE395_Catch_NullPointerException/CWE395_Catch_NullPointerException__basic_02.cs,41,396
+F060. Insecure exceptions,NIST/src/testcases/CWE395_Catch_NullPointerException/CWE395_Catch_NullPointerException__basic_03.cs,41,396
+F060. Insecure exceptions,NIST/src/testcases/CWE395_Catch_NullPointerException/CWE395_Catch_NullPointerException__basic_04.cs,47,396
+F060. Insecure exceptions,NIST/src/testcases/CWE395_Catch_NullPointerException/CWE395_Catch_NullPointerException__basic_05.cs,47,396
+F060. Insecure exceptions,NIST/src/testcases/CWE395_Catch_NullPointerException/CWE395_Catch_NullPointerException__basic_06.cs,46,396
+F060. Insecure exceptions,NIST/src/testcases/CWE395_Catch_NullPointerException/CWE395_Catch_NullPointerException__basic_07.cs,46,396
+F060. Insecure exceptions,NIST/src/testcases/CWE395_Catch_NullPointerException/CWE395_Catch_NullPointerException__basic_08.cs,54,396
+F060. Insecure exceptions,NIST/src/testcases/CWE395_Catch_NullPointerException/CWE395_Catch_NullPointerException__basic_09.cs,41,396
+F060. Insecure exceptions,NIST/src/testcases/CWE395_Catch_NullPointerException/CWE395_Catch_NullPointerException__basic_10.cs,41,396
+F060. Insecure exceptions,NIST/src/testcases/CWE395_Catch_NullPointerException/CWE395_Catch_NullPointerException__basic_11.cs,41,396
+F060. Insecure exceptions,NIST/src/testcases/CWE395_Catch_NullPointerException/CWE395_Catch_NullPointerException__basic_12.cs,41,396
+F060. Insecure exceptions,NIST/src/testcases/CWE395_Catch_NullPointerException/CWE395_Catch_NullPointerException__basic_13.cs,41,396
+F060. Insecure exceptions,NIST/src/testcases/CWE395_Catch_NullPointerException/CWE395_Catch_NullPointerException__basic_14.cs,41,396
+F060. Insecure exceptions,NIST/src/testcases/CWE395_Catch_NullPointerException/CWE395_Catch_NullPointerException__basic_15.cs,42,396
+F060. Insecure exceptions,NIST/src/testcases/CWE395_Catch_NullPointerException/CWE395_Catch_NullPointerException__basic_16.cs,41,396
+F060. Insecure exceptions,NIST/src/testcases/CWE395_Catch_NullPointerException/CWE395_Catch_NullPointerException__basic_17.cs,41,396
+F060. Insecure exceptions,NIST/src/testcases/CWE395_Catch_NullPointerException/Program.cs,50,396
+F060. Insecure exceptions,NIST/src/testcases/CWE396_Catch_Generic_Exception/CWE396_Catch_Generic_Exception__Exception_01.cs,30,396
+F060. Insecure exceptions,NIST/src/testcases/CWE396_Catch_Generic_Exception/CWE396_Catch_Generic_Exception__Exception_02.cs,32,396
+F060. Insecure exceptions,NIST/src/testcases/CWE396_Catch_Generic_Exception/CWE396_Catch_Generic_Exception__Exception_03.cs,32,396
+F060. Insecure exceptions,NIST/src/testcases/CWE396_Catch_Generic_Exception/CWE396_Catch_Generic_Exception__Exception_04.cs,38,396
+F060. Insecure exceptions,NIST/src/testcases/CWE396_Catch_Generic_Exception/CWE396_Catch_Generic_Exception__Exception_05.cs,38,396
+F060. Insecure exceptions,NIST/src/testcases/CWE396_Catch_Generic_Exception/CWE396_Catch_Generic_Exception__Exception_06.cs,37,396
+F060. Insecure exceptions,NIST/src/testcases/CWE396_Catch_Generic_Exception/CWE396_Catch_Generic_Exception__Exception_07.cs,37,396
+F060. Insecure exceptions,NIST/src/testcases/CWE396_Catch_Generic_Exception/CWE396_Catch_Generic_Exception__Exception_08.cs,45,396
+F060. Insecure exceptions,NIST/src/testcases/CWE396_Catch_Generic_Exception/CWE396_Catch_Generic_Exception__Exception_09.cs,32,396
+F060. Insecure exceptions,NIST/src/testcases/CWE396_Catch_Generic_Exception/CWE396_Catch_Generic_Exception__Exception_10.cs,32,396
+F060. Insecure exceptions,NIST/src/testcases/CWE396_Catch_Generic_Exception/CWE396_Catch_Generic_Exception__Exception_11.cs,32,396
+F060. Insecure exceptions,NIST/src/testcases/CWE396_Catch_Generic_Exception/CWE396_Catch_Generic_Exception__Exception_12.cs,32,396
+F060. Insecure exceptions,NIST/src/testcases/CWE396_Catch_Generic_Exception/CWE396_Catch_Generic_Exception__Exception_13.cs,32,396
+F060. Insecure exceptions,NIST/src/testcases/CWE396_Catch_Generic_Exception/CWE396_Catch_Generic_Exception__Exception_14.cs,32,396
+F060. Insecure exceptions,NIST/src/testcases/CWE396_Catch_Generic_Exception/CWE396_Catch_Generic_Exception__Exception_15.cs,33,396
+F060. Insecure exceptions,NIST/src/testcases/CWE396_Catch_Generic_Exception/CWE396_Catch_Generic_Exception__Exception_16.cs,32,396
+F060. Insecure exceptions,NIST/src/testcases/CWE396_Catch_Generic_Exception/CWE396_Catch_Generic_Exception__Exception_17.cs,32,396
+F060. Insecure exceptions,NIST/src/testcases/CWE396_Catch_Generic_Exception/Program.cs,50,396
+F060. Insecure exceptions,NIST/src/testcases/CWE397_Throw_Generic_Exception/CWE397_Throw_Generic_Exception__throw_Exception_01.cs,24,396
+F060. Insecure exceptions,NIST/src/testcases/CWE397_Throw_Generic_Exception/Program.cs,50,396
+F060. Insecure exceptions,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/Program.cs,50,396
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_01.cs,48,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_01.cs,81,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_02.cs,120,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_02.cs,50,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_02.cs,87,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_03.cs,120,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_03.cs,50,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_03.cs,87,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_04.cs,126,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_04.cs,56,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_04.cs,93,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_05.cs,126,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_05.cs,56,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_05.cs,93,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_06.cs,125,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_06.cs,55,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_06.cs,92,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_07.cs,125,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_07.cs,55,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_07.cs,92,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_08.cs,100,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_08.cs,133,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_08.cs,63,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_09.cs,120,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_09.cs,50,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_09.cs,87,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_10.cs,120,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_10.cs,50,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_10.cs,87,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_11.cs,120,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_11.cs,50,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_11.cs,87,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_12.cs,110,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_12.cs,138,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_12.cs,50,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_12.cs,76,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_13.cs,120,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_13.cs,50,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_13.cs,87,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_14.cs,120,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_14.cs,50,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_14.cs,87,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_15.cs,128,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_15.cs,51,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_15.cs,93,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_16.cs,50,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_16.cs,83,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_17.cs,50,390
+F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_17.cs,82,390
+F073. Conditional statement without a default option,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/CWE478_Missing_Default_Case_in_Switch__basic_01.cs,28,478
+F073. Conditional statement without a default option,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/CWE478_Missing_Default_Case_in_Switch__basic_02.cs,30,478
+F073. Conditional statement without a default option,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/CWE478_Missing_Default_Case_in_Switch__basic_03.cs,30,478
+F073. Conditional statement without a default option,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/CWE478_Missing_Default_Case_in_Switch__basic_04.cs,36,478
+F073. Conditional statement without a default option,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/CWE478_Missing_Default_Case_in_Switch__basic_05.cs,36,478
+F073. Conditional statement without a default option,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/CWE478_Missing_Default_Case_in_Switch__basic_06.cs,35,478
+F073. Conditional statement without a default option,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/CWE478_Missing_Default_Case_in_Switch__basic_07.cs,35,478
+F073. Conditional statement without a default option,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/CWE478_Missing_Default_Case_in_Switch__basic_08.cs,43,478
+F073. Conditional statement without a default option,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/CWE478_Missing_Default_Case_in_Switch__basic_09.cs,30,478
+F073. Conditional statement without a default option,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/CWE478_Missing_Default_Case_in_Switch__basic_10.cs,30,478
+F073. Conditional statement without a default option,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/CWE478_Missing_Default_Case_in_Switch__basic_11.cs,30,478
+F073. Conditional statement without a default option,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/CWE478_Missing_Default_Case_in_Switch__basic_12.cs,30,478
+F073. Conditional statement without a default option,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/CWE478_Missing_Default_Case_in_Switch__basic_13.cs,30,478
+F073. Conditional statement without a default option,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/CWE478_Missing_Default_Case_in_Switch__basic_14.cs,30,478
+F073. Conditional statement without a default option,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/CWE478_Missing_Default_Case_in_Switch__basic_15.cs,31,478
+F073. Conditional statement without a default option,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/CWE478_Missing_Default_Case_in_Switch__basic_16.cs,30,478
+F073. Conditional statement without a default option,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/CWE478_Missing_Default_Case_in_Switch__basic_17.cs,30,478

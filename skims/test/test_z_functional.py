@@ -291,6 +291,12 @@ def test_vulnerableapp() -> None:
     _run_no_group("vulnerableapp")
 
 
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("nist_c_sharp")
+def test_nist_c_sharp() -> None:
+    _run_no_group("nist_c_sharp")
+
+
 def _run_no_group(suite: str) -> None:
     code, stdout, stderr = skims(get_suite_config(suite))
     assert code == 0, stdout
