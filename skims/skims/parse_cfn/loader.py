@@ -3,6 +3,7 @@ from typing import (
     Any,
     AsyncIterator,
     Type as TypeOf,
+    Union,
 )
 
 # Third party libraries
@@ -178,7 +179,9 @@ def load_as_json(content: str) -> Any:
     )
 
 
-async def load_templates(content: str, fmt: str) -> AsyncIterator[Node]:
+async def load_templates(
+    content: str, fmt: str
+) -> Union[AsyncIterator[Node], None]:
     try:
         templates: Node = await in_process(
             load_cfn,
@@ -190,7 +193,8 @@ async def load_templates(content: str, fmt: str) -> AsyncIterator[Node]:
             if (templates.data_type == Type.ARRAY)
             else [templates]
         ):
-            yield template
+            # Exception: FP(AsyncIterator is subtype of Iterator)
+            yield template  # NOSONAR
     except MetaloaderError as exc:
         await log_exception("error", exc)
         return
