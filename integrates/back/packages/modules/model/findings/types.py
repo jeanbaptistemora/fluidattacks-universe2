@@ -91,8 +91,10 @@ class Finding(NamedTuple):
     actor: str = ''
     affected_systems: str = ''
     attack_vector_desc: str = ''
+    approval: Optional[FindingState] = None
     bts_url: str = ''
     compromised_attributes: str = ''
+    creation: Optional[FindingState] = None
     compromised_records: int = 0
     cvss_version: str = '3.1'
     cwe: str = ''
@@ -102,6 +104,7 @@ class Finding(NamedTuple):
     severity: Union[Finding20Severity, Finding31Severity] = \
         Finding31Severity()
     sorts: str = 'NO'
+    submission: Optional[FindingState] = None
     records: FindingRecords = FindingRecords()
     recommendation: str = ''
     requirements: str = ''

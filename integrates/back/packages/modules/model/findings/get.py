@@ -1,20 +1,20 @@
-# Standard libraries
-from typing import cast, List, Optional, Tuple, Union
+# Standard
+from typing import Optional, Tuple, Union
 
-# Third party libraries
+# Third party
 from aiodataloader import DataLoader
 from aioextensions import collect
 from boto3.dynamodb.conditions import Key
 
-# Local libraries
+# Local
 from custom_exceptions import FindingNotFound
 from dynamodb import historics, keys, operations
 from dynamodb.types import (
     Item,
     PrimaryKey,
 )
-from model.__init__ import TABLE
-from model.findings.types import (
+from model import TABLE
+from .types import (
     Finding,
     FindingEvidence,
     FindingEvidences,
@@ -23,6 +23,10 @@ from model.findings.types import (
     FindingVerification,
     Finding20Severity,
     Finding31Severity,
+)
+from .utils import (
+    format_state,
+    format_verification,
 )
 
 
@@ -37,30 +41,58 @@ def _build_finding(
         key_structure=key_structure,
         raw_items=raw_items
     )
-    state = historics.get_latest(
-        item_id=item_id,
-        key_structure=key_structure,
-        historic_prefix='STATE',
-        raw_items=raw_items
-    )
-    try:
-        verification = historics.get_latest(
+    state = format_state(
+        historics.get_latest(
             item_id=item_id,
             key_structure=key_structure,
-            historic_prefix='VERIFICATION',
+            historic_prefix='STATE',
             raw_items=raw_items
         )
-        finding_verification: Optional[FindingVerification] = (
-            FindingVerification(
-                comment_id=verification['comment_id'],
-                modified_by=verification['modified_by'],
-                modified_date=verification['modified_date'],
-                status=verification['status'],
-                vuln_uuids=tuple(cast(List[str], verification['vuln_uuids'])),
+    )
+    try:
+        approval: Optional[FindingState] = format_state(
+            historics.get_latest(
+                item_id=item_id,
+                key_structure=key_structure,
+                historic_prefix='APPROVAL',
+                raw_items=raw_items
             )
         )
     except StopIteration:
-        finding_verification = None
+        approval = None
+    try:
+        creation: Optional[FindingState] = format_state(
+            historics.get_latest(
+                item_id=item_id,
+                key_structure=key_structure,
+                historic_prefix='CREATION',
+                raw_items=raw_items
+            )
+        )
+    except StopIteration:
+        creation = None
+    try:
+        submission: Optional[FindingState] = format_state(
+            historics.get_latest(
+                item_id=item_id,
+                key_structure=key_structure,
+                historic_prefix='SUBMISSION',
+                raw_items=raw_items
+            )
+        )
+    except StopIteration:
+        submission = None
+    try:
+        verification: Optional[FindingVerification] = format_verification(
+            historics.get_latest(
+                item_id=item_id,
+                key_structure=key_structure,
+                historic_prefix='VERIFICATION',
+                raw_items=raw_items
+            )
+        )
+    except StopIteration:
+        verification = None
 
     if metadata['cvss_version'] == '3.1':
         severity: Union[Finding20Severity, Finding31Severity] = (
@@ -88,10 +120,12 @@ def _build_finding(
         actor=metadata['actor'],
         affected_systems=metadata['affected_systems'],
         analyst_email=metadata['analyst_email'],
+        approval=approval,
         attack_vector_desc=metadata['attack_vector_desc'],
         bts_url=metadata['bts_url'],
         compromised_attributes=metadata['compromised_attributes'],
         compromised_records=metadata['compromised_records'],
+        creation=creation,
         cvss_version=metadata['cvss_version'],
         cwe=metadata['cwe'],
         description=metadata['description'],
@@ -101,6 +135,7 @@ def _build_finding(
         scenario=metadata['scenario'],
         severity=severity,
         sorts=metadata['sorts'],
+        submission=submission,
         records=FindingRecords(**metadata['records']),
         recommendation=metadata['recommendation'],
         requirements=metadata['requirements'],
@@ -108,13 +143,8 @@ def _build_finding(
         title=metadata['title'],
         threat=metadata['threat'],
         type=metadata['type'],
-        state=FindingState(
-            modified_by=state['modified_by'],
-            modified_date=state['modified_date'],
-            source=state['source'],
-            status=state['status'],
-        ),
-        verification=finding_verification
+        state=state,
+        verification=verification
     )
 
 
@@ -136,8 +166,11 @@ async def _get_finding(
             Key(key_structure.sort_key).begins_with(primary_key.partition_key)
         ),
         facets=(
+            TABLE.facets['finding_approval'],
+            TABLE.facets['finding_creation'],
             TABLE.facets['finding_metadata'],
             TABLE.facets['finding_state'],
+            TABLE.facets['finding_submission'],
             TABLE.facets['finding_verification'],
         ),
         index=index,

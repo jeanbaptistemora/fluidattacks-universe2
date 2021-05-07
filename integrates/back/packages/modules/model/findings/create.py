@@ -1,7 +1,11 @@
-# Local libraries
+# Local
 from dynamodb import historics, keys, operations
 from model import TABLE
-from model.findings.types import Finding
+from .types import Finding
+from .utils import (
+    format_state_item,
+    format_verification_item
+)
 
 
 async def create(*, finding: Finding) -> None:
@@ -47,9 +51,8 @@ async def create(*, finding: Finding) -> None:
         **finding_metadata
     }
     items.append(initial_metadata)
-
     historic_state = historics.build_historic(
-        attributes=finding.state._asdict(),
+        attributes=format_state_item(finding.state),
         historic_facet=TABLE.facets['finding_historic_state'],
         key_structure=key_structure,
         key_values={
@@ -62,12 +65,8 @@ async def create(*, finding: Finding) -> None:
     items.extend(historic_state)
 
     if finding.verification:
-        verification = {
-            **finding.verification._asdict(),
-            'vuln_uuids': list(finding.verification.vuln_uuids)
-        }
         historic_verification = historics.build_historic(
-            attributes=verification,
+            attributes=format_verification_item(finding.verification),
             historic_facet=TABLE.facets['finding_historic_verification'],
             key_structure=key_structure,
             key_values={
