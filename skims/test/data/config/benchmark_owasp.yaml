@@ -1,0 +1,18 @@
+checks:
+- F001_JAVA_SQL
+- F004
+- F008
+- F021
+- F034
+- F042
+- F052
+- F052
+- F063_PATH_TRAVERSAL
+- F063_TRUSTBOUND
+- F107
+namespace: OWASP
+output: Fluid-Attacks.csv
+path:
+  include:
+  - .
+working_dir: ../owasp_benchmark

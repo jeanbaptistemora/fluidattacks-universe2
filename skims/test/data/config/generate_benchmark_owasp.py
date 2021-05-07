@@ -22,7 +22,10 @@ FOLDER = "../owasp_benchmark"
 
 def get_tests_cases() -> Dict[str, List[str]]:
     tests = {}
-    pattern = re.compile(r'@WebServlet\(value="/(\w+)-', flags=re.MULTILINE)
+    pattern = re.compile(
+        r'@WebServlet\(value\s*=\s*"/(\w+)-',
+        flags=re.MULTILINE,
+    )
     test_files = sorted(
         glob.glob(
             f"{FOLDER}/src/main/java/org/owasp/benchmark/testcode/*.java",
@@ -73,22 +76,42 @@ def main() -> None:
         suite = f"benchmark_owasp_{category}"
         suites.append(suite)
 
-        content = yaml_dumps_blocking(
-            dict(
-                checks=categories.get(category, []),
-                namespace="OWASP",
-                output=f"skims/test/outputs/{suite}.csv",
-                path=dict(
-                    include=extra_files + tests_cases,
-                    lib_path=category == "crypto",
-                    lib_root=category != "crypto",
-                ),
-                working_dir=FOLDER,
+        with open(f"skims/test/data/config/{suite}.yaml", "w") as handle:
+            handle.write(
+                yaml_dumps_blocking(
+                    dict(
+                        checks=categories.get(category, []),
+                        namespace="OWASP",
+                        output=f"skims/test/outputs/{suite}.csv",
+                        path=dict(
+                            include=extra_files + tests_cases,
+                            lib_path=category == "crypto",
+                            lib_root=category != "crypto",
+                        ),
+                        working_dir=FOLDER,
+                    )
+                )
+            )
+
+    suite = "benchmark_owasp"
+    with open(f"skims/test/data/config/{suite}.yaml", "w") as handle:
+        handle.write(
+            yaml_dumps_blocking(
+                dict(
+                    checks=sorted(
+                        finding
+                        for findings in categories.values()
+                        for finding in findings
+                    ),
+                    namespace="OWASP",
+                    output="Fluid-Attacks.csv",
+                    path=dict(
+                        include=["."],
+                    ),
+                    working_dir=FOLDER,
+                )
             )
         )
-
-        with open(f"skims/test/data/config/{suite}.yaml", "w") as handle:
-            handle.write(content)
 
     print(json.dumps(suites, indent=2, sort_keys=True))
 
