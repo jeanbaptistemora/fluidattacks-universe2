@@ -11,9 +11,9 @@ from typing import (
 
 # Local libraries
 from tap_bugsnag.api.auth import Credentials
-from tap_bugsnag.api.orgs import OrgsApi, ProjectsPage
-from tap_bugsnag.api.orgs.user import OrgId, UserApi, OrgsPage
 from tap_bugsnag.api.common.raw import RawApi
+from tap_bugsnag.api.projects.orgs import OrgsApi, ProjectsPage
+from tap_bugsnag.api.projects.orgs.user import OrgId, UserApi, OrgsPage
 
 
 ApiPage = Union[

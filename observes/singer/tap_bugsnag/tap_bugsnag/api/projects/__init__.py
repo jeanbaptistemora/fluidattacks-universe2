@@ -22,29 +22,29 @@ from paginator.object_index import (
 from singer_io import JSON
 from tap_bugsnag.api.common import extractor, typed_page_builder
 from tap_bugsnag.api.common.raw import RawApi
-from tap_bugsnag.api.orgs.user import OrgId
+from .orgs import ProjId
 
 
-class ProjectsPage(NamedTuple):
+class ErrorsPage(NamedTuple):
     data: List[JSON]
 
     @classmethod
     def new(
-        cls, raw: RawApi, org: OrgId, page: PageId
-    ) -> IO[Maybe[PageResult[ProjectsPage]]]:
-        return typed_page_builder(raw.list_projects(page, org.id_str), cls)
+        cls, raw: RawApi, project: ProjId, page: PageId
+    ) -> IO[Maybe[PageResult[ErrorsPage]]]:
+        return typed_page_builder(raw.list_errors(page, project.id_str), cls)
 
 
-class OrgsApi(NamedTuple):
+class ProjectsApi(NamedTuple):
     client: RawApi
-    org: OrgId
+    project: ProjId
 
     @classmethod
-    def new(cls, client: RawApi, org: OrgId) -> OrgsApi:
-        return cls(client, org)
+    def new(cls, client: RawApi, project: ProjId) -> ProjectsApi:
+        return cls(client, project)
 
-    def list_projects(self, page: PageOrAll) -> IO[Iterator[ProjectsPage]]:
-        getter = partial(ProjectsPage.new, self.client, self.org)
+    def list_errors(self, page: PageOrAll) -> IO[Iterator[ErrorsPage]]:
+        getter = partial(ErrorsPage.new, self.client, self.project)
         return extractor.extract_page(
             lambda: io_get_until_end(PageId("", 100), getter), getter, page
         )

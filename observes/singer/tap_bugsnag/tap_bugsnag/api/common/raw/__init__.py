@@ -1,6 +1,7 @@
 # pylint: skip-file
 # Standard libraries
 from __future__ import annotations
+import logging
 from typing import (
     NamedTuple,
 )
@@ -25,6 +26,9 @@ from tap_bugsnag.api.common.raw.handlers import RawResponse
 from tap_bugsnag.api.common.raw.client import (
     Client,
 )
+
+
+LOG = logging.getLogger(__name__)
 
 
 def _extract_http_error(response: Response) -> Maybe[HTTPError]:
@@ -55,16 +59,38 @@ def _handled_get(client: Client, endpoint: str, page: PageId) -> IO[Response]:
     return handlers.handle_rate_limit(lambda: _get(client, endpoint, page), 5)
 
 
+def _debug_log(resource: str, page: PageId, response: IO[Response]) -> None:
+    LOG.debug(
+        "%s [%s]: %s\n\theaders: %s\n\tdata: %s",
+        resource,
+        page,
+        response,
+        response.map(lambda x: x.headers),
+        response.map(lambda x: x.json()),
+    )
+
+
 class RawApi(NamedTuple):
     client: Client
 
     def list_orgs(self, page: PageId) -> IO[Response]:
-        return _handled_get(self.client, "/user/organizations", page)
+        response = _handled_get(self.client, "/user/organizations", page)
+        _debug_log("organizations", page, response)
+        return response
 
     def list_projects(self, page: PageId, org_id: str) -> IO[Response]:
-        return _handled_get(
+        response = _handled_get(
             self.client, f"/organizations/{org_id}/projects", page
         )
+        _debug_log("projects", page, response)
+        return response
+
+    def list_errors(self, page: PageId, project_id: str) -> IO[Response]:
+        response = _handled_get(
+            self.client, f"/projects/{project_id}/errors", page
+        )
+        _debug_log("errors", page, response)
+        return response
 
     @classmethod
     def from_client(cls, client: Client) -> RawApi:
