@@ -107,8 +107,6 @@ def do_gen_stats() -> None:
     """print all files in the fusion repositories"""
     repos = glob.glob('fusion/*')
     # Touch the file if it does not exist
-    with open('toe/snapshot', 'w'):
-        pass
     for repo_path in repos:
         if not os.path.isdir(repo_path):
             sys.exit(f'{repo_path} Not dir')
