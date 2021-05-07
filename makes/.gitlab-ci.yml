@@ -49,16 +49,6 @@
       when: never
     - when: always
 
-.makes.okta.apply:
-  <<: *makes
-  <<: *makes_in_master_branch
-  stage: deploy-infra
-
-makes.okta.test:
-  <<: *makes
-  <<: *makes_in_dev_branch
-  stage: test-infra
-
 makes.ci.apply:
   <<: *makes
   <<: *makes_in_master_branch
@@ -100,6 +90,21 @@ makes.k8s.apply:
   stage: deploy-infra
 
 makes.k8s.test:
+  <<: *makes
+  <<: *makes_in_dev_branch
+  stage: test-infra
+
+.makes.okta.apply:
+  <<: *makes
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
+makes.okta.format:
+  <<: *makes
+  <<: *makes_in_dev_branch
+  stage: lint-code
+
+makes.okta.test:
   <<: *makes
   <<: *makes_in_dev_branch
   stage: test-infra
