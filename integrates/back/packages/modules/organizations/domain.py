@@ -200,10 +200,10 @@ def format_organization(organization: OrganizationType) -> OrganizationType:
         List[Dict[str, Decimal]],
         organization.get('historic_max_number_acceptations', [])
     )
-    max_number_acceptations: Decimal = (
+    max_number_acceptations: Optional[Decimal] = (
         historic_policies[-1]['max_number_acceptations']
         if historic_policies
-        else Decimal(0)
+        else None
     )
     return {
         **organization,
@@ -213,7 +213,6 @@ def format_organization(organization: OrganizationType) -> OrganizationType:
         ),
         'max_acceptance_days': organization.get(
             'max_acceptance_days',
-            Decimal(0)
         ),
         'max_acceptance_severity': organization.get(
             'max_acceptance_severity',

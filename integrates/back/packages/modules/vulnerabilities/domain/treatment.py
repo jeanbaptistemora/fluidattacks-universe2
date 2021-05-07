@@ -38,7 +38,6 @@ from newutils import (
     validations,
     vulnerabilities as vulns_utils
 )
-from organizations import domain as orgs_domain
 from vulnerabilities import dal as vulns_dal
 from .core import should_send_update_treatment
 from .utils import (
@@ -49,6 +48,7 @@ from .utils import (
 
 
 async def _validate_acceptance_days(
+    loaders: Any,
     values: Dict[str, str],
     organization: str
 ) -> bool:
@@ -67,11 +67,13 @@ async def _validate_acceptance_days(
             values['acceptance_date']
         )
         acceptance_days = Decimal((acceptance_date - today).days)
-        max_acceptance_days = await orgs_domain.get_max_acceptance_days(
-            organization
-        )
+        organization_data = await loaders.organization.load(organization)
+        max_acceptance_days: Optional[Decimal] = organization_data[
+            'max_acceptance_days'
+        ]
         if (
-            (max_acceptance_days and acceptance_days > max_acceptance_days) or
+            (max_acceptance_days is not None and
+                acceptance_days > max_acceptance_days) or
             acceptance_days < 0
         ):
             raise InvalidAcceptanceDays(
@@ -82,6 +84,7 @@ async def _validate_acceptance_days(
 
 
 async def _validate_acceptance_severity(
+    loaders: Any,
     values: Dict[str, str],
     severity: float,
     organization_id: str
@@ -92,23 +95,20 @@ async def _validate_acceptance_severity(
     """
     valid: bool = True
     if values.get('treatment') == 'ACCEPTED':
-        current_limits: List[Decimal] = await collect(
-            func(organization_id)
-            for func in [
-                orgs_domain.get_min_acceptance_severity,
-                orgs_domain.get_max_acceptance_severity
-            ]
-        )
+        organization_data = await loaders.organization.load(organization_id)
+        min_value: Decimal = organization_data['min_acceptance_severity']
+        max_value: Decimal = organization_data['max_acceptance_severity']
         if not (
-            current_limits[0] <=
+            min_value <=
             Decimal(severity).quantize(Decimal('0.1')) <=
-            current_limits[1]
+            max_value
         ):
             raise InvalidAcceptanceSeverity(str(severity))
     return valid
 
 
 async def _validate_number_acceptations(
+    loaders: Any,
     values: Dict[str, str],
     historic_treatment: Historic,
     organization_id: str
@@ -119,39 +119,42 @@ async def _validate_number_acceptations(
     """
     valid: bool = True
     if values['treatment'] == 'ACCEPTED':
-        current_max_number_acceptations_info = (
-            await orgs_domain.get_current_max_number_acceptations_info(
-                organization_id
-            )
-        )
-        max_acceptations = cast(
-            Optional[Decimal],
-            current_max_number_acceptations_info.get('max_number_acceptations')
-        )
+        organization_data = await loaders.organization.load(organization_id)
+        max_acceptations: Optional[Decimal] = organization_data[
+            'max_number_acceptations'
+        ]
         current_acceptations: int = sum(
             1
             for item in historic_treatment
             if item['treatment'] == 'ACCEPTED'
         )
-        if max_acceptations and current_acceptations + 1 > max_acceptations:
-            raise InvalidNumberAcceptations(cast(str, current_acceptations))
+        if (
+            max_acceptations is not None and
+            current_acceptations + 1 > max_acceptations
+        ):
+            raise InvalidNumberAcceptations(
+                str(current_acceptations) if current_acceptations else '-'
+            )
     return valid
 
 
 async def validate_treatment_change(
     info_to_check: Dict[str, Union[float, Historic, str]],
+    loaders: Any,
     organization: str,
     values: Dict[str, str],
 ) -> bool:
     validate_acceptance_days_coroutine = _validate_acceptance_days(
-        values, organization
+        loaders, values, organization
     )
     validate_acceptance_severity_coroutine = _validate_acceptance_severity(
+        loaders,
         values,
         cast(float, info_to_check['severity']),
         organization
     )
     validate_number_acceptations_coroutine = _validate_number_acceptations(
+        loaders,
         values,
         cast(Historic, info_to_check['historic_treatment']),
         organization
@@ -416,6 +419,7 @@ async def update_vulns_treatment(
                     vulnerability['historic_treatment']
                 )
             },
+            context,
             organization_id,
             updated_values
         ):

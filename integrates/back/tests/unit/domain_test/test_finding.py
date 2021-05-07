@@ -295,6 +295,7 @@ async def test_validate_acceptance_severity():
     with pytest.raises(InvalidAcceptanceSeverity):
         assert await validate_treatment_change(
             info_to_check,
+            get_new_context(),
             org_id,
             values_accepted,
         )
@@ -330,6 +331,7 @@ async def test_validate_number_acceptations():
     with pytest.raises(InvalidNumberAcceptations):
         assert await validate_treatment_change(
             info_to_check,
+            get_new_context(),
             org_id,
             values_accepted,
         )
