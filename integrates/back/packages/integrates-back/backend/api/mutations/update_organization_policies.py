@@ -25,6 +25,7 @@ async def mutate(
     organization_id = parameters.pop('organization_id')
     organization_name = parameters.pop('organization_name')
     success: bool = await orgs_domain.update_policies(
+        info.context.loaders,
         organization_id,
         organization_name,
         user_email,

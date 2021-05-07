@@ -4,6 +4,7 @@ import logging.config
 import sys
 from decimal import Decimal
 from typing import (
+    Any,
     AsyncIterator,
     cast,
     Dict,
@@ -46,89 +47,101 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def _add_updated_max_acceptance_days(
+    loaders: Any,
     organization_id: str,
     values: Dict[str, Optional[Decimal]],
-    new_policies: OrganizationType
-) -> None:
+) -> OrganizationType:
     new_max_acceptance_days = values.get('max_acceptance_days')
-    max_acceptance_days = await get_max_acceptance_days(organization_id)
+    organization_data = await loaders.organization.load(organization_id)
+    max_acceptance_days: Optional[Decimal] = organization_data[
+        'max_acceptance_days'
+    ]
     if new_max_acceptance_days != max_acceptance_days:
-        new_policies['max_acceptance_days'] = new_max_acceptance_days
+        return {'max_acceptance_days': new_max_acceptance_days}
+    return {}
 
 
 async def _add_updated_max_acceptance_severity(
+    loaders: Any,
     organization_id: str,
     values: Dict[str, Optional[Decimal]],
-    new_policies: OrganizationType
-) -> None:
+) -> OrganizationType:
     new_max_acceptance_severity = values.get('max_acceptance_severity')
-    max_acceptance_severity = await get_max_acceptance_severity(
-        organization_id
-    )
+    organization_data = await loaders.organization.load(organization_id)
+    max_acceptance_severity: Decimal = organization_data[
+        'max_acceptance_severity'
+    ]
     if new_max_acceptance_severity != max_acceptance_severity:
-        new_policies['max_acceptance_severity'] = new_max_acceptance_severity
+        return {'max_acceptance_severity': new_max_acceptance_severity}
+    return {}
 
 
 async def _add_updated_max_number_acceptations(
+    loaders: Any,
     organization_id: str,
     values: Dict[str, Optional[Decimal]],
-    new_policies: OrganizationType,
     email: str,
     date: str,
-) -> None:
+) -> OrganizationType:
     new_max_number_acceptation = values.get('max_number_acceptations')
-    current_max_number_acceptations_info = (
-        await get_current_max_number_acceptations_info(organization_id)
-    )
-    max_number_acceptations = (
-        current_max_number_acceptations_info.get('max_number_acceptations')
-    )
+    organization_data = await loaders.organization.load(organization_id)
+    max_number_acceptations: Optional[Decimal] = organization_data[
+        'max_number_acceptations'
+    ]
     if new_max_number_acceptation != max_number_acceptations:
-        historic_max_number_acceptations = (
-            await get_historic_max_number_acceptations(organization_id)
-        )
-        historic_max_number_acceptations.append({
+        historic_max_number_acceptation = organization_data[
+            'historic_max_number_acceptations'
+        ]
+        historic_max_number_acceptation.append({
             'date': date,
             'max_number_acceptations': new_max_number_acceptation,
             'user': email
         })
-        new_policies['historic_max_number_acceptations'] = (
-            historic_max_number_acceptations
-        )
+        return {
+            'historic_max_number_acceptations': historic_max_number_acceptation
+        }
+    return {}
 
 
 async def _add_updated_min_acceptance_severity(
+    loaders: Any,
     organization_id: str,
     values: Dict[str, Optional[Decimal]],
-    new_policies: OrganizationType
-) -> None:
+) -> OrganizationType:
     new_min_acceptance_severity = values.get('min_acceptance_severity')
-    min_acceptance_severity = await get_min_acceptance_severity(
-        organization_id
-    )
+    organization_data = await loaders.organization.load(organization_id)
+    min_acceptance_severity: Decimal = organization_data[
+        'min_acceptance_severity'
+    ]
     if new_min_acceptance_severity != min_acceptance_severity:
-        new_policies['min_acceptance_severity'] = new_min_acceptance_severity
+        return {'min_acceptance_severity': new_min_acceptance_severity}
+    return {}
 
 
 async def _get_new_policies(
+    loaders: Any,
     organization_id: str,
     email: str,
     values: Dict[str, Optional[Decimal]]
 ) -> Union[OrganizationType, None]:
     date = datetime_utils.get_now_as_str()
-    new_policies: OrganizationType = {}
-    await _add_updated_max_acceptance_days(
-        organization_id, values, new_policies
-    )
-    await _add_updated_max_number_acceptations(
-        organization_id, values, new_policies, email, date
-    )
-    await _add_updated_max_acceptance_severity(
-        organization_id, values, new_policies
-    )
-    await _add_updated_min_acceptance_severity(
-        organization_id, values, new_policies
-    )
+    policies = await collect([
+        _add_updated_max_acceptance_days(
+            loaders, organization_id, values
+        ),
+        _add_updated_max_number_acceptations(
+            loaders, organization_id, values, email, date
+        ),
+        _add_updated_max_acceptance_severity(
+            loaders, organization_id, values
+        ),
+        _add_updated_min_acceptance_severity(
+            loaders, organization_id, values
+        )
+    ])
+    new_policies: OrganizationType = {
+        key: val for item in policies for key, val in item.items()
+    }
     return new_policies or None
 
 
@@ -439,6 +452,7 @@ async def update_pending_deletion_date(
 
 
 async def update_policies(
+    loaders: Any,
     organization_id: str,
     organization_name: str,
     email: str,
@@ -481,7 +495,9 @@ async def update_policies(
 
     if all(valid):
         success = True
-        new_policies = await _get_new_policies(organization_id, email, values)
+        new_policies = await _get_new_policies(
+            loaders, organization_id, email, values
+        )
         if new_policies:
             success = await orgs_dal.update(
                 organization_id,

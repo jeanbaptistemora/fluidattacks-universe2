@@ -5,6 +5,7 @@ from aioextensions import collect
 from graphql import GraphQLError
 
 import authz
+from backend.api import get_new_context
 from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
@@ -309,7 +310,9 @@ async def test_update_policies():
         'max_number_acceptations': '3',
         'min_acceptance_severity': '2.2'
     }
-    await orgs_domain.update_policies(org_id, org_name, '', new_values)
+    await orgs_domain.update_policies(
+        get_new_context(), org_id, org_name, '', new_values
+    )
 
     current_max_number_acceptations_info = (
         await orgs_domain.get_current_max_number_acceptations_info(
@@ -331,25 +334,33 @@ async def test_update_policies():
     new_values = {'max_acceptance_days': '-10'}
     exe = InvalidAcceptanceDays()
     with pytest.raises(GraphQLError) as excinfo:
-        await orgs_domain.update_policies(org_id, org_name, '', new_values)
+        await orgs_domain.update_policies(
+            get_new_context(), org_id, org_name, '', new_values
+        )
     assert GraphQLError(exe.args[0]) == excinfo.value
 
     new_values = {'max_acceptance_severity': '10.5'}
     exe = InvalidAcceptanceSeverity()
     with pytest.raises(GraphQLError) as excinfo:
-        await orgs_domain.update_policies(org_id, org_name, '', new_values)
+        await orgs_domain.update_policies(
+            get_new_context(), org_id, org_name, '', new_values
+        )
     assert GraphQLError(exe.args[0]) == excinfo.value
 
     new_values = {'max_number_acceptations': '-1'}
     exe = InvalidNumberAcceptations()
     with pytest.raises(GraphQLError) as excinfo:
-        await orgs_domain.update_policies(org_id, org_name, '', new_values)
+        await orgs_domain.update_policies(
+            get_new_context(), org_id, org_name, '', new_values
+        )
     assert GraphQLError(exe.args[0]) == excinfo.value
 
     new_values = {'min_acceptance_severity': '-1.5'}
     exe = InvalidAcceptanceSeverity()
     with pytest.raises(GraphQLError) as excinfo:
-        await orgs_domain.update_policies(org_id, org_name, '', new_values)
+        await orgs_domain.update_policies(
+            get_new_context(), org_id, org_name, '', new_values
+        )
     assert GraphQLError(exe.args[0]) == excinfo.value
 
     new_values = {
@@ -358,7 +369,9 @@ async def test_update_policies():
     }
     exe = InvalidAcceptanceSeverityRange()
     with pytest.raises(GraphQLError) as excinfo:
-        await orgs_domain.update_policies(org_id, org_name, '', new_values)
+        await orgs_domain.update_policies(
+            get_new_context(), org_id, org_name, '', new_values
+        )
     assert GraphQLError(exe.args[0]) == excinfo.value
 
 
