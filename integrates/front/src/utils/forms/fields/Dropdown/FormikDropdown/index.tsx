@@ -12,6 +12,7 @@ interface IDropdownProps extends FieldProps<string, Record<string, string>> {
 const FormikDropdown: React.FC<IDropdownProps> = ({
   children,
   field,
+  form,
   customChange,
 }: IDropdownProps): JSX.Element => {
   const { name, onChange, value } = field;
@@ -24,9 +25,18 @@ const FormikDropdown: React.FC<IDropdownProps> = ({
     }
   }
 
+  function handleBlur(): void {
+    form.setFieldTouched(name, true);
+  }
+
   return (
     <React.Fragment>
-      <StyledSelect name={name} onChange={handleChange} value={value}>
+      <StyledSelect
+        name={name}
+        onBlur={handleBlur}
+        onChange={handleChange}
+        value={value}
+      >
         {children}
       </StyledSelect>
       <ValidationError>

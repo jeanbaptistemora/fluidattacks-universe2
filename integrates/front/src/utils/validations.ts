@@ -278,6 +278,12 @@ const validRecordsFile: Validator = (value: FileList): string | undefined =>
 const dateTimeBeforeToday: Validator = (date: Moment): string | undefined => {
   const today: Moment = moment();
 
+  // Formik validation needs this seemingly unnecessary undefined check
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (!(date instanceof moment)) {
+    return undefined;
+  }
+
   return date.isSameOrBefore(today)
     ? undefined
     : translate.t("validations.greaterDate");
