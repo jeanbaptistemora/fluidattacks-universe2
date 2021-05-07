@@ -3,7 +3,7 @@
 :subtitle: Learning from the red team expert Benjamin Donnelly
 :category: opinions
 :tags: cybersecurity, red-team, hacking, pentesting, ethical-hacking, blue-team
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331132/blog/tribe-of-hackers-2/cover_tdklcz.webp
 :alt: Photo by Manyu Varma on Unsplash
 :description: This post is based on the book 'Tribe of Hackers Red Team' by Carey and Jin. Here we share content from the interview with Benjamin Donnelly.
 :keywords: Cybersecurity, Red Team, Hacking, Pentesting, Ethical Hacking, Blue Team, Knowledge, Tribe
@@ -121,7 +121,7 @@ the threats posed to exactly that portion of the system
 independent of any other protective layers."
 
 .Benjamin's original picture taken from link:https://pbs.twimg.com/profile_images/1092476712741302272/Ss5tKSjh_400x400.jpg[pbs.twimg.com].
-image::benjamin.png[Benjamin Donnelly]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331130/blog/tribe-of-hackers-2/benjamin_somzhx.webp[Benjamin Donnelly]
 
 For Ben, red teams' members should not orient their work
 towards the _I'm living a hacker's life_ posture,

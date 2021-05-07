@@ -3,7 +3,7 @@
 :subtitle: A short interview with Daniel Yepes
 :category: interview
 :tags: interview, red-team, windows, software, cybersecurity, security
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330961/blog/new-red-team-expert/cover_y5115t.webp
 :alt: Photo by Gary Bendig on Unsplash
 :description: We talked to Daniel Yepes, a colleague who recently achieved his certificate as a Red Team Expert. He shared his experience and tips to obtain that certificate.
 :keywords: Interview, Red Team, CRTE, Windows, Software, Cybersecurity, Security, Pentesting, Ethical Hacking
@@ -16,7 +16,7 @@
 = A New Red Team Expert
 
 .link:https://twitter.com/fluidattacks/status/1262759918853128193/photo/1[Certificate]
-image::certified.png[Certificate]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330960/blog/new-red-team-expert/certified_kbbs6n.webp[Certificate]
 
 Daniel Yepes is a Computer Engineer
 who has been working at `Fluid Attacks` as Security Analyst for over two years.
@@ -75,7 +75,7 @@ network pivoting, application whitelisting bypass, active user simulation,
 Kerberos delegation issues, `SQL` Servers, [and] forest trusts."
 
 .Advanced Red Team Lab (image taken from link:https://www.pentesteracademy.com/redteamlab[pentesteracademy.com])
-image::lab.png[Advanced Red Team Lab]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330960/blog/new-red-team-expert/lab_ymddtq.webp[Advanced Red Team Lab]
 
 *Why did you decide
 to get this "Certified Red Team Expert" (CRTE) certificate?*

@@ -3,7 +3,7 @@
 :category: attacks
 :subtitle: What it is and how it works
 :tags: security, test, software
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331105/blog/symbolic-execution-mortals/cover_wgcfrh.webp
 :alt: Person using a magnifying glass in keyboard
 :description: In this article, we intend to explain an approach to symbolic execution, which is very useful when dealing with software assessment.
 :keywords: Symbolic, Execution, Security, Software, Test, Assestment, Ethical Hacking, Pentesting
@@ -100,7 +100,7 @@ void myFunct(int a, int b){
 Let's try to find the values that make the assert fail.
 
 .Symbolic execution tree of function myFunct()
-image::image1.png[symbolic]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331103/blog/symbolic-execution-mortals/image1_a56odm.webp[symbolic]
 
 The symbolic execution tree in the image represents the states
 the symbolic execution engine goes through during the analysis of the program,

@@ -3,7 +3,7 @@
 :subtitle: Cybersecurity risks in technology trends
 :category: techniques
 :tags: cybersecurity, business, trends
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331094/blog/security-trends/cover_v2lf0a.webp
 :alt: Screen showing performance stats. Photo by Stephen Dawson on Unsplash: https://unsplash.com/photos/qwtCeJ5cLYs
 :description: In this article, we discuss the main cybersecurity trends for 2019, how to keep your company secured, and how Fluid Attacks deals with these kinds of threats.
 :keywords: Cybersecurity, Trends, Fluid Attacks, Perspective, Techniques, Attacks, Ethical Hacking, Pentesting
@@ -36,7 +36,7 @@ giving them a whole repertoire of mechanisms
 to compromise confidential information.
 
 .IoT Targets, source: link:https://www.bankinfosecurity.com/attacks-targeting-iot-devices-windows-smb-surge-a-13082[Bank Info Security].
-image::iot-attacks.png[Main IoT Targets]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331093/blog/security-trends/iot-attacks_fvrvko.webp[Main IoT Targets]
 
 According to Bank Info Security <<r1, [1]>>,
 attackers continue targeting the same `IoT` flaws
@@ -86,7 +86,7 @@ have misconfigurations that led to sensitive data leakages:
 passwords, authentication keys, and encryption keys, among others.
 
 .AWS Alerts on bucket misconfigurations. Source: link:https://thenextweb.com/security/2017/06/02/amazon-web-services-leak-data-aws/[AWS users leaving sensitive Data].
-image::aws-alarm.png[AWS misconfigurations]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331091/blog/security-trends/aws-alarm_qu2dfx.webp[AWS misconfigurations]
 
 And what's worse is in 2018,
 more than `70` million records were leaked
@@ -161,7 +161,7 @@ These are attacks that try to trick the victim into performing actions
 that help the attacker gain control over the victim’s transactions.
 
 .Verizon Data Breach Investigations Report 2019. Source: link:https://enterprise.verizon.com/resources/reports/dbir/2019/summary-of-findings/[Summary of findings].
-image::verizon-findings.svg[alt="Verizon findings", width=500]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331092/blog/security-trends/verizon-findings_qc7unv.webp[alt="Verizon findings", width=500]
 
 According to Verizon,
 in its annual _Data Breach Investigations Report_ <<r8, ^[8]^>>,

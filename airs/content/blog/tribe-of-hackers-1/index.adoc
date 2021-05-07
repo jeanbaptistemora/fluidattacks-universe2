@@ -3,7 +3,7 @@
 :subtitle: Learning from the Red Team Expert Marcus J. Carey
 :category: opinions
 :tags: cybersecurity, red-team, hacking, pentesting, ethical-hacking, blue-team
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331129/blog/tribe-of-hackers-1/cover_yosoni.webp
 :alt: Photo by Lucas Benjamin on Unsplash
 :description: This post is based on the book 'Tribe of Hackers Red Team' by Carey and Jin. Here we share an introduction and some of the highlights of the first interview.
 :keywords: Cybersecurity, Red Team, Hacking, Pentesting, Ethical Hacking, Blue Team, Knowledge, Tribe
@@ -73,7 +73,7 @@ We are going to focus on some of his opinions in this post;
 possibly the first one of a series focused on _Tribe of Hackers Red Team_.
 
 .Marcus's photo taken from link:https://www.linkedin.com/pulse/im-unemployed-i-am-hiring-marcus-carey?articleId=6202227092038365184#comments-6202227092038365184&trk=public_profile_article_view[LinkedIn]
-image::marcus.png[Marcus J. Carey]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331128/blog/tribe-of-hackers-1/marcus_wvbmtg.webp[Marcus J. Carey]
 
 According to Marcus, "it is uncommon for people
 to start directly into red team jobs."

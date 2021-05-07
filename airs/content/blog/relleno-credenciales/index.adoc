@@ -3,7 +3,7 @@
 :subtitle: Podrías ser víctima del relleno de credenciales
 :category: techniques
 :tags: credential, password, web, application, cybersecurity, business
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331052/blog/relleno-credenciales/cover_cwi8if.webp
 :alt: Photo by Cookie the Pom on Unsplash
 :description: He escrito este post para dar una visión general del ataque Credential Stuffing y algunas breves recomendaciones para su prevención.
 :keywords: Credential Stuffing, Relleno, Credenciales, Contraseña, Website, Aplicación, Ethical Hacking, Pentesting
@@ -67,7 +67,7 @@ A partir de ahí, los atacantes procederían según sus propósitos.
 == ¿Qué hay de las herramientas?
 
 .link:https://unsplash.com/photos/gySMaocSdqs[Fotografía] por Cookie the Pom en Unsplash.
-image::pome.png[Pomeranian]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331051/blog/relleno-credenciales/pome_q4mbjt.webp[Pomeranian]
 
 Hoy en día, aunque algunos _crackers_ experimentados utilizan sus _scripts_,
 existen herramientas (aparentemente no gratuitas) diseñadas
@@ -108,7 +108,7 @@ que no tienen ni idea de cómo hacerlos.
 Esa es para ellos otra forma de obtener beneficios.
 
 .Palabras de link:https://medium.com/@mtjasny/how-to-deal-with-credential-stuffing-attacks-c1456e499093[Mateusz Jasny] (imagen de background tomada de link:https://wallhaven.cc/w/q6q92r[Wallhaven]).
-image::jasny.png[Mateusz Jasny]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331049/blog/relleno-credenciales/jasny_rwhg2o.webp[Mateusz Jasny]
 
 == ¿Alguna recomendación de prevención?
 

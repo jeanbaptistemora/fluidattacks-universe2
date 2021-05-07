@@ -3,7 +3,7 @@
 :category: opinions
 :subtitle: The meaning of Try Harder
 :tags: challenge, ethical-hacking, pentesting, security, training, exploit
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330964/blog/oscp-journey/cover_dcbd71.webp
 :alt: Man sitting facing laptop. Photo by Clint Patterson on Unsplash: https://unsplash.com/photos/dYEuFB8KQJk
 :description: The OSCP exam is one of the hardest certifications out there for pentesters. Here we show you how you can prepare yourself to do your best on it.
 :keywords: OSCP, Business, Information, Security, Protection, Hacking, Best Practices, Ethical Hacking, Pentesting
@@ -48,7 +48,7 @@ until you develop a solid enumeration strategy.
 To help with this there are services like link:https://www.hackthebox.eu/[hackthebox] and link:https://www.vulnhub.com/[vulnhub],
 where you can find vulnerable machines on which to test your skills.
 
-image::hackthebox.png[owned-machines]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330964/blog/oscp-journey/hackthebox_efxh5c.webp[owned-machines]
 
 Once there you can also practice the _gaining access_ phase
 and your privilege escalation strategies with multiple operating systems
@@ -106,7 +106,7 @@ but instead of doing the active machines
 we are going to do the ones from link:https://docs.google.com/spreadsheets/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/edit#gid=0[this list]
 (there are also some from `vulnhub`).
 
-image::url-oscp.png[oscp-like-machines]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330963/blog/oscp-journey/url-oscp_lgqddx.webp[oscp-like-machines]
 
 Try to conquer those machines listed
 without the aid of walkthroughs.
@@ -215,7 +215,7 @@ from the _scanning_ phase up to the _privilege escalation_ phase.
 Also, if you modified an exploit (even if is only one line)
 put it on the report and mark what you modified.
 
-image::oscp-win.png[oscp-win]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330964/blog/oscp-journey/oscp-win_llivv3.webp[oscp-win]
 
 == Be prepared and do your best
 

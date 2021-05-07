@@ -3,7 +3,7 @@
 :category: documentation
 :subtitle: What is a Red Team exercise?
 :tags: security, testing
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331047/blog/red-team-exercise/cover_kmvlzc.webp
 :alt: Foosball red vs blue. Photo by Stefan Steinbauer on Unsplash: https://unsplash.com/photos/va-B5dBbpr4
 :description: Here we give the reader a general context about what a Red Team does and the main strategy used during a Red Team exercise and its benefits for customers.
 :keywords: Redteam, Red, Team, Pentesting, Attack, KillChain, Hacking, Business, Ethical Hacking, Pentesting
@@ -42,7 +42,7 @@ with the attackers focusing on specific activities to achieve success.
 Therefore, in a Red Team, you will find team members with the following skills:
 
 .Possible roles in a Red Team via link:https://medium.com/@redteamwrangler/how-do-i-prepare-to-join-a-red-team-d74ffb5fdbe6[Medium.com].
-image::skillredteam.png[Possible roles in a Red Team via Medium.com.]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331046/blog/red-team-exercise/skillredteam_khyqsr.webp[Possible roles in a Red Team via Medium.com.]
 
 Regarding the information above the above,
 we spoke with Andres of `Fluid Attacks`,
@@ -91,7 +91,7 @@ of appropriate weapons to engage it.
 including any intelligence gathered at the location.
 
 .`F2T2EA` - The Kill Chain via link:http://myarick.blogspot.com/2014/02/f2t2ea.html[Biz -n- Seen Blog].
-image::f2t2ea-killchain.png[`F2T2EA` - The Kill Chain]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331046/blog/red-team-exercise/f2t2ea-killchain_lhmilw.webp[`F2T2EA` - The Kill Chain]
 
 == Cyber Kill Chain
 
@@ -119,7 +119,7 @@ individual host.
 planning on doing.
 
 .Cyber Kill Chain Phases via link:https://www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html[Lockheed Martin].
-image::cyber-kill-chain.png[Cyber Kill Chain Phases]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331045/blog/red-team-exercise/cyber-kill-chain_hq3v77.webp[Cyber Kill Chain Phases]
 
 == Cyber Kill Chain 3.0
 

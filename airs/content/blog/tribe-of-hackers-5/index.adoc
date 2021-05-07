@@ -3,7 +3,7 @@
 :subtitle: Learning from the red team expert Carlos Perez
 :category: opinions
 :tags: cybersecurity, red-team, hacking, pentesting, ethical-hacking, blue-team
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331133/blog/tribe-of-hackers-5/cover_lgtcjo.webp
 :alt: Photo by Jonathan Petersson on Unsplash
 :description: This post is based on the book 'Tribe of Hackers Red Team' by Carey and Jin. Here we share content from the interview with Carlos Perez.
 :keywords: Cybersecurity, Red Team, Hacking, Pentesting, Ethical Hacking, Blue Team, Knowledge, Tribe
@@ -105,7 +105,7 @@ Following his words, you can remind yourself that your task is to help them
 test their security and make their systems more secure.
 
 .(Carlos's original picture was taken from the referenced book.)
-image::cpq.png[cpq]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331133/blog/tribe-of-hackers-5/cpq_nti68o.webp[cpq]
 
 == For firms that in security aspire to be on the ball
 

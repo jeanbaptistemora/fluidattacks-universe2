@@ -3,7 +3,7 @@
 :subtitle: Some pieces of information about ransomware attacks
 :category: attacks
 :tags: software, security, vulnerability, hacking, mistake
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331045/blog/ransomware/cover_c0iozv.webp
 :alt: Photo by Sharon McCutcheon on Unsplash
 :description: Everyone could be a target for ransomware attacks. Here we give an introduction to this topic and tips that could help you prevent being a victim.
 :keywords: Ransomware, Software, Security, Vulnerability, Hacking, Mistake, Information, Ethical Hacking, Pentesting
@@ -38,7 +38,7 @@ such as data destruction, productivity losses, system restoration,
 reputation damage, and indispensable employee training.
 
 .on link:https://www.geekculture.com/joyoftech/joyarchives/2668.html[GeekCulture]
-image::ransomsanta.png[ransomsanta]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331045/blog/ransomware/ransomsanta_yh6m9p.webp[ransomsanta]
 
 There was a first ransomware case reported in 1989
 with a trojan called PC Cyborg, or `AIDS`,
@@ -136,7 +136,7 @@ due to the difficulty that implies cracking it,
 that is, obtaining passwords and saving files.
 
 .by link:http://cdn2.hubspot.net/hubfs/241394/Ransomware-Hostage-Rescue-Manual.pdf[KnowBe4]
-image::cita001.png[KnowBe4]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331044/blog/ransomware/cita001_h8wrud.webp[KnowBe4]
 
 Finally, the victim is notified of the instructions to follow
 for the ransom *_payment_* and the recovery of the files.
@@ -185,7 +185,7 @@ and is considered a way to strengthen ransomware business,
 and a boost for future developments and attacks.
 
 .As link:https://cybersecurityventures.com/global-ransomware-damage-costs-predicted-to-reach-20-billion-usd-by-2021/[Steve Morgan] said a few months ago
-image::cita002.png[Morgan]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331045/blog/ransomware/cita002_gdrdjd.webp[Morgan]
 
 == Prevention
 

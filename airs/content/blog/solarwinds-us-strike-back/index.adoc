@@ -3,7 +3,7 @@
 :subtitle: SolarWinds could be the start of a U.S.-Russia cyberwar
 :category: attacks
 :tags: cybersecurity, software, vulnerability, hacking, application, risk
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331099/blog/solarwinds-us-strike-back/cover_dl2om5.webp
 :alt: Photo by Christopher Skor on Unsplash
 :description: Here you can find experts' opinions about the SolarWinds attack and some suggestions that could mean cyberwar between the U.S. and Russia if implemented.
 :keywords: Malware, SolarWinds, Supply Chain Attack, U.S., Russia, Cyberwar, Hacking, Ethical Hacking, Pentesting
@@ -83,7 +83,7 @@ What implications may arise from the collection
 of mostly political and military data by the Russians? 'Nobody' knows.
 
 .Photo by link:https://unsplash.com/@miracleday[Elena Mozhvilo] on link:https://unsplash.com/photos/EIyAz8blaAk[Unsplash].
-image::russia.png[Russia]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331099/blog/solarwinds-us-strike-back/russia_lwcklb.webp[Russia]
 
 == Expert opinions
 

@@ -3,7 +3,7 @@
 :subtitle: General ideas about Software Reverse Engineering
 :category: techniques
 :tags: revert, software, engineering, security, vulnerability, hacking
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331058/blog/reverse-engineering/cover_nsktcf.webp
 :alt: Photo by Erda Estremera on Unsplash
 :description: Here we review some basic concepts of reverse engineering within information technology and through what tools it can be used for ethical and malicious hacking.
 :keywords: Revert, Software, Reverse Engineering, Security, Vulnerability, Hacking, Ethical Hacking, Pentesting
@@ -25,7 +25,7 @@ has the mission of deconstructing the program that others had worked on before.
 Just in order to renew and improve some of its performance features.
 
 .Photo by link:https://unsplash.com/@kellysikkema[Kelly Sikkema] on Unsplash
-image::child1.png[child1]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331056/blog/reverse-engineering/child1_pwhnxl.webp[child1]
 
 All of them have applied what is known as *reverse engineering*,
 which is constituted as a process of deconstruction.
@@ -85,7 +85,7 @@ to understand them in their structure and functionality.
 == Tools
 
 .Photo acquired from link:https://www.exploratorium.edu/sites/default/files/tinkering/files/open_make_april_18.jpg[Exploratorium]
-image::child2.png[child2]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331057/blog/reverse-engineering/child2_csnxly.webp[child2]
 
 According to the above information,
 `SRE` depends considerably on the use of tools,

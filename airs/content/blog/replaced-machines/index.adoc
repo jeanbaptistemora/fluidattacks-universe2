@@ -3,7 +3,7 @@
 :category: philosophy
 :subtitle: Automatic detection vs. manual detection
 :tags: application, detect, vulnerability, scanner
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331053/blog/replaced-machines/cover_yfml2t.webp
 :alt: Data has a better idea sign
 :description: Vulnerability detection by an automated tool is not enough to conclude that an app is secure. The knowledge and experience of a person are still necessary.
 :keywords: Vulnerability Detection, Manual Detection, Automatic Detection, Security, Web Application, Automated Tools, Ethical Hacking, Pentesting
@@ -45,7 +45,7 @@ What can we, information security specialist, expect from all of this?
 Are we becoming more and more expendable?
 
 .The inevitable outcome that `Hollywood` shows us
-image::terminator.png[Robot holding a firearm with an explosion in the background]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331052/blog/replaced-machines/terminator_w63xoh.webp[Robot holding a firearm with an explosion in the background]
 
 Fortunately, our future does not look so bleak.
 Even though there are many powerful automated tools
@@ -182,7 +182,7 @@ and compare them against the whole surface of the application,
 let's see what coverage was achieved.
 
 .Visual representation of the best and worst result from Table 1- `ZAP-Full` y `Wapiti`
-image::yield.png[Coverage comparison between two analyzers with the scope of an application]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331050/blog/replaced-machines/yield_p99vw1.webp[Coverage comparison between two analyzers with the scope of an application]
 
 We can see that even the best of the tools we used
 left out over half of the vulnerabilities, and
@@ -226,7 +226,7 @@ is the perfect recipe to achieve our grandest dreams.
 
 
 .Alternative outcome to the human-machine relationship
-image::coexistence.png[Handshake between a human and a robot]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331052/blog/replaced-machines/coexistence_xfdu7g.webp[Handshake between a human and a robot]
 
 == References
 

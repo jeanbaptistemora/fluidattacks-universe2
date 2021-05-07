@@ -3,7 +3,7 @@
 :subtitle: Prioritize code auditing via ML
 :category: machine-learning
 :tags: machine-learning, security, code
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331128/blog/triage-hacker/cover_qqfqe2.webp
 :alt: Photo by camilo jimenez on Unsplash: https://unsplash.com/photos/vGu08RYjO-s
 :description: This post is a high-level review of our previous discussion concerning machine learning techniques applied to vulnerability discovery and exploitation.
 :keywords: Machine Learning, Neural Network, Encoding, Parsing, Classifier, Vulnerability, Ethical Hacking, Pentesting
@@ -39,7 +39,7 @@ in the repo with the probability of it
 containing code vulnerabilities:
 
 .From a messy git log to a prioritized file breakdown
-image::log-to-triage.png[From a messy git log to a prioritized file breakdown]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331128/blog/triage-hacker/log-to-triage_cutgqe.webp[From a messy git log to a prioritized file breakdown]
 
 Next, how should this be done?
 Many different kinds of machine learning algorithms
@@ -80,7 +80,7 @@ thus obtaining a dataset.
 The flow would be as in this image:
 
 .Fetching data from Integrates and repositories
-image::fetch.png[Integrates > Checkout repositories > Build dataset]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331127/blog/triage-hacker/fetch_saa8rr.webp[Integrates > Checkout repositories > Build dataset]
 
 This poses several new challenges:
 
@@ -103,7 +103,7 @@ and further assigning an integer to each of these.
 We thus obtain a proper dataset for machine learning:
 
 .Embedding via neural network
-image::embedding.png[Embedding via neural network]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331128/blog/triage-hacker/embedding_cfsmtm.webp[Embedding via neural network]
 
 Other alternatives we will explore are
 word embeddings, such as `word2vec` and `code2vec`,
@@ -158,7 +158,7 @@ and feedback to the machine.
 That would complete the whole cycle:
 
 .ML-aided vulnerability discovery cycle
-image::process.png[ML-aided vulnerability discovery cycle]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331127/blog/triage-hacker/process_u99zzs.webp[ML-aided vulnerability discovery cycle]
 
 A lot remains to be done, of course:
 

@@ -3,7 +3,7 @@
 :category: attacks
 :subtitle: Let's protect the stack
 :tags: osee, training, exploit
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331134/blog/understanding-dep/cover_infp8m.webp
 :alt: Photo by Chris Panas on Unsplash
 :description: This post will show how the Data Execution Prevention (DEP) security mechanism works and what are the implication for exploit development.
 :keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
@@ -123,7 +123,7 @@ shellcode was placed.
 
 Let's see it in action:
 
-image::exec-stack1.gif[Executing code on the stack]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331134/blog/understanding-dep/exec-stack1_vf9ycb.gif[Executing code on the stack]
 
 As you can see, we were able to execute the instructions on our shellcode that
 we placed on the stack, as expected.
@@ -138,7 +138,7 @@ an already compiled file.
 
 In a debugger, we can check if an executable has that flag enabled:
 
-image::nxenabled.png[Modules with NXCOMPAT]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331133/blog/understanding-dep/nxenabled_ggy9vw.webp[Modules with NXCOMPAT]
 
 You can also enable `DEP` system-wide, which will force `DEP` to all
 applications, including those compiled without `/NXCOMPAT`. To do that,
@@ -147,12 +147,12 @@ you can use the following instructions:
 * Press the `Windows` key and search for `View advanced system settings`.
 * In the resulting window, click on tab `Advanced`:
 
-image::enable-dep1.png[Enabling DEP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331133/blog/understanding-dep/enable-dep1_jkzhsm.webp[Enabling DEP]
 
 * Then in `Performance` click on `Settings`.
 * Move to the tab `Data Execution Prevention`:
 
-image::enable-dep2.png[Enabling DEP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331134/blog/understanding-dep/enable-dep2_eqdu9f.webp[Enabling DEP]
 
 * The default setting is `Turn on DEP for essential Windows programs...`, but
 to turn it on for every application, you must select
@@ -177,7 +177,7 @@ exploits link:../vulnserver-gmon/[here].
 
 Now, after enabling `DEP` system-wide, let's execute our exploit again:
 
-image::exec-stack2.gif[DEP enabled]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331134/blog/understanding-dep/exec-stack2_irsdv6.gif[DEP enabled]
 
 Several things have happened:
 

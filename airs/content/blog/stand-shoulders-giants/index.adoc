@@ -3,7 +3,7 @@
 :category: attacks
 :subtitle: About software composition analysis
 :tags: testing, dependency, vulnerability
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331101/blog/stand-shoulders-giants/cover_iiuzyx.webp
 :alt: Man standing in mountain
 :description: Here we mainly develop a discussion on 'A9' of the OWASP Top 10: Using components with known vulnerabilities, in particular free and open software libraries.
 :keywords: Software Composition, Analysis, Dependency, Vulnerability, OWASP, Linux, Foss, Ethical Hacking, Pentesting
@@ -30,7 +30,7 @@ we can use `pacgraph`
 by link:http://kmkeen.com/pacgraph/[Kylee Keen]:
 
 .`libpng` reverse dependencies in `Arch Linux`
-image::libpng-pacgraph.png["libpng reverse dependencies",width=800]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331100/blog/stand-shoulders-giants/libpng-pacgraph_edml6c.webp["libpng reverse dependencies",width=800]
 
 More than `14 GiB` worth of software depends on `libpng`!
 And that is only in the `Arch Linux` repositories,
@@ -103,7 +103,7 @@ with information from external databases,
 which then become vulnerabilities in your own app:
 
 .`SCA` scans all the blocks in your app building
-image::depvuln.png["Dependency building"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331101/blog/stand-shoulders-giants/depvuln_ztp8tw.webp["Dependency building"]
 
 Instead of going from
 the alleged solution towards the source of the problem,
@@ -182,7 +182,7 @@ should integrate with your development flow is
 depicted by the following diagram provided by `Source:Clear`.
 
 .Integrating `SCA` in your development flow. Via link:https://www.sourceclear.com/product/[`Source:Clear`].
-image::source-clear-flow.png["Integrating SCA into dev flow"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331100/blog/stand-shoulders-giants/source-clear-flow_uplizt.webp["Integrating SCA into dev flow"]
 
 We see that every time code is added,
 the whole system gets scanned for
@@ -242,7 +242,7 @@ good for you!
 Here's what you're missing out on:
 
 .``Software Composition Analysis'' providers.
-image::marketing-hype.png["SCA providers collage"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331099/blog/stand-shoulders-giants/marketing-hype_pedyr7.webp["SCA providers collage"]
 
 All of these industry-leading, award-winning,
 breakthrough-makers, oracles of the tech future

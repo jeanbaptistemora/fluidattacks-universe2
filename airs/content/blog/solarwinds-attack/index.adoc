@@ -3,7 +3,7 @@
 :subtitle: A concise summary of the SolarWinds security fiasco
 :category: attacks
 :tags: cybersecurity, software, vulnerability, hacking, application, discovery
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331098/blog/solarwinds-attack/cover_bvibqb.webp
 :alt: Photo by Daniel Joshua on Unsplash
 :description: This post outlines the SolarWinds supply chain attack that has affected multiple companies and federal agencies in recent months.
 :keywords: Malware, SolarWinds, Supply Chain Attack, Network, Update, Cybersecurity, Hacking, Ethical Hacking, Pentesting
@@ -116,7 +116,7 @@ and the list keeps growing. Data, users, passwords, and source code
 are the elements to which agents involved may be having access.
 
 .Photo by Duncan Sanchez on link:https://unsplash.com/photos/QnT6nCctSz0[Unsplash].
-image::spidersun.png[SpiderSun]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331098/blog/solarwinds-attack/spidersun_o69dv8.webp[SpiderSun]
 
 link:https://www.zdnet.com/article/solarwinds-the-more-we-learn-the-worse-it-looks/[Vaughan-Nichols for ZDNet] was right on the button when he said,
 "While you've been distracted by the holidays, coronavirus, and politics,

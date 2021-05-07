@@ -3,7 +3,7 @@
 :subtitle: Confusion with the cloud shared responsibility model
 :category: philosophy
 :tags: cloud, information, cybersecurity, security, mistake, company
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331096/blog/shared-responsibility-model/cover_musv3h.webp
 :alt: Photo by Charles Deluvio on Unsplash
 :description: Do you know what is happening with those who don't understand the cloud security shared responsibility model? Find out here and get some recommendations.
 :keywords: Cloud, Security, Shared Responsibility Model, SRM, CSP, Confusion, Ethical Hacking, Pentesting
@@ -82,10 +82,10 @@ Besides, some other differences in these delimitations
 may be the product of the CSPs' particular choices.
 
 .Cloud security shared responsibility model (source: link:https://www.oracle.com/a/ocom/docs/cloud/oracle-ctr-2020-shared-responsibility.pdf[Oracle.com]).
-image::oracle.png[Oracle]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331095/blog/shared-responsibility-model/oracle_tleunv.webp[Oracle]
 
 .Types of cloud services (source: link:https://miro.medium.com/max/2800/1*hlMABmD_hJmMJlu433KIAg.png[Medium.com]; see also link:https://www.zdnet.com/article/what-is-cloud-computing-everything-you-need-to-know-about-the-cloud/[Ranger's post]).
-image::ipsaas.png[IPSaaS]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331094/blog/shared-responsibility-model/ipsaas_jzdvv4.webp[IPSaaS]
 
 In research published in 2020,
 link:https://www.oracle.com/a/ocom/docs/cloud/oracle-ctr-2020-shared-responsibility.pdf[Oracle and KPMG] surveyed cloud service subscribers' understanding of SRM.

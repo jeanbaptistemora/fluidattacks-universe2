@@ -3,7 +3,7 @@
 :category: programming
 :subtitle: Functional vs Imperative
 :tags: application, functional, imperative, stateless
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331222/blog/why-we-go-functional/cover_zdvaaw.webp
 :alt: Piece of code with a function
 :description: In this blog post, we show an analysis of why it is necessary to go functional even with non-functional languages.
 :keywords: Functional Paradigm, Object-Oriented, Stateless, Multiparadigm Application, Laziness, Programming Revolution, Ethical Hacking, Pentesting
@@ -34,7 +34,7 @@ and in large technology companies.
 Of course, `Fluid Attacks` is not the exception.
 
 .Your face until this point.
-image::weird-look.png["Little girl judging with her look"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331220/blog/why-we-go-functional/weird-look_rplmvh.webp["Little girl judging with her look"]
 
 Maybe you are wondering what are we talking about? What is functional?
 In a nutshell, functional programming aims to solve the question
@@ -113,7 +113,7 @@ This can be achieved only if the operation is deterministic
 isolated from the rest of the environment and obviously being stateless.
 
 .Main problem with imperative languages.
-image::functional-joke.png["Student asking to teacher in classroom"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331220/blog/why-we-go-functional/functional-joke_guhe3b.webp["Student asking to teacher in classroom"]
 
 == Why now?
 
@@ -131,7 +131,7 @@ functional languages ran slower than object-oriented languages,
 a problem related to the low capacity of the processors at that time.
 
 .Probably the situation of all functional languages in the nineties.
-image::haskell-back-then.png["Two people talking about functional language"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331219/blog/why-we-go-functional/haskell-back-then_ubrezx.webp["Two people talking about functional language"]
 
 Today, the hardware barrier was overcome.
 The biggest motivation to use functional is that

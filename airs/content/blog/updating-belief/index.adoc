@@ -3,7 +3,7 @@
 :subtitle: How Bayes Rule affects risk
 :category: philosophy
 :tags: business, ethical-hacking, risk
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331139/blog/updating-belief/cover_yassyb.webp
 :alt: New information. Photo by M. Parzuchowski on Unsplash: https://unsplash.com/photos/GikVY_KS9vQ
 :description: Here you can find how to use Bayes rule and basic probability theory to reduce uncertainty, refining initial estimates through evidence.
 :keywords: Risk, Probability, Impact, Measure, Quantify, Security, Ethical Hacking, Pentesting
@@ -74,7 +74,7 @@ This situation can be illustrated with a tree diagram like this:
 
 // to be changed into native
 .Probability tree diagram. Via link:https://www.mathsisfun.com/data/probability-events-conditional.html[MathsIsFun]
-image::prob-tree-marbles.png[Probability tree diagram]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331137/blog/updating-belief/prob-tree-marbles_m1oekj.webp[Probability tree diagram]
 
 We can find the probability of a branch,
 that is, of the succession of two events,
@@ -94,7 +94,7 @@ That's where
 link:https://betterexplained.com/articles/an-intuitive-and-short-explanation-of-bayes-theorem/[Bayes Rule] <<f4, ^[4]^>> comes in:
 
 .Bayes Cause Evidence
-image::bayes-cause-evidence.png["Bayes Cause Evidence"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331137/blog/updating-belief/bayes-cause-evidence_y6mmzh.webp["Bayes Cause Evidence"]
 
 If we think of the first event as the cause
 and the second one as the effect,
@@ -106,7 +106,7 @@ given the cause, i.e., P(B|R) = 50%.
 Hence
 
 .First given second
-image::first-given-second.png["First given second"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331137/blog/updating-belief/first-given-second_giftov.webp["First given second"]
 
 Notice how the extra piece of information,
 namely that the second marble is blue,
@@ -170,7 +170,7 @@ We might draw a tree diagram like this
 to describe the situation:
 
 .Probability tree cyber
-image::prob-tree-cyber.png["Probability tree cyber"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331136/blog/updating-belief/prob-tree-cyber_lh4cn3.webp["Probability tree cyber"]
 
 Probabilities in blue are the given ones.
 Since branching in a probability tree implies that
@@ -193,12 +193,12 @@ the part of the tree that is framed above.
 In that case, we have shorter branches ending in A:
 
 .Attack Positive Test
-image::attack-postest.png["Attack Positive Test"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331137/blog/updating-belief/attack-postest_a0huwb.webp["Attack Positive Test"]
 
 What if it is negative?
 
 .Attack Negative Test
-image::attack-negtest.png["Attack Negative Test"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331136/blog/updating-belief/attack-negtest_vzmoqo.webp["Attack Negative Test"]
 
 Whatever its results,
 penetration testing gives you more information
@@ -216,13 +216,13 @@ First, we find P(V) by total probability
 (ignoring all the A nodes in the third column):
 
 .Probability of Vulnerabilies
-image::prob-vuln.png["Probability of Vulnerabilies"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331137/blog/updating-belief/prob-vuln_v6f4ka.webp["Probability of Vulnerabilies"]
 
 We already know that P(A) = 1.3%, so P(~A) = 98.7%.
 Finally, by Bayes Rule:
 
 .Bayes Rule
-image::cyber-bayes.png["Bayes Rule"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331137/blog/updating-belief/cyber-bayes_bv3nqg.webp["Bayes Rule"]
 
 So even it the threat does not materialize,
 there is still a latent risk of having vulnerabilities.

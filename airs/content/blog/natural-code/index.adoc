@@ -3,7 +3,7 @@
 :subtitle: Natural language processing for code security
 :category: machine-learning
 :tags: machine-learning, vulnerability, code
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330956/blog/natural-code/cover_vftkoh.webp
 :alt: Photo by Andres Urena on Unsplash. Credits: https://unsplash.com/photos/k1osF_h2fzA
 :description: In this blog post, we present the use of Natural Language Processing in bug finding and coding conventions, both based upon the n-gram model.
 :keywords: Machine Learning, Vulnerability, Natural Language Processing, N-gram, Predict, Bug, Pentesting, Ethical Hacking
@@ -44,7 +44,7 @@ The same holds true for "star" followed by "trek", as seen in this demo for the
 link:https://proandroiddev.com/android-predictive-keyboard-e6c9df01e527[Android Predictive Keyboard]:
 
 .An n-gram based predictive keyboard at work
-image::ngram-keyboard.gif[Android Predictive Keyboard demo animation]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330955/blog/natural-code/ngram-keyboard_xogjer.gif[Android Predictive Keyboard demo animation]
 
 This is the basic idea behind _n_-gram analysis,
 a technique we have mentioned before in passing.
@@ -120,7 +120,7 @@ Take for example the following snippets from
 link:https://pig.Apache.org[Apache Pig].
 
 .Snippets found by Bugram
-image::bugram-pig.png[Snippets found by Bugram]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330955/blog/natural-code/bugram-pig_vjk4cc.webp[Snippets found by Bugram]
 
 The above snippet is buggy
 due to the lack of `toString`.
@@ -184,7 +184,7 @@ The package can be integrated in the development pipeline
 such as a `pre-commit` hook or during developing as an `Eclipse` plugin.
 
 .Naturalize Eclipse plugin at work.
-image::naturalize-eclipse.png[Naturalize Eclipse plugin at work]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330955/blog/natural-code/naturalize-eclipse_qynobj.webp[Naturalize Eclipse plugin at work]
 
 As can be seen here `each` is not considered to be
 a very descriptive or convention-conforming name,

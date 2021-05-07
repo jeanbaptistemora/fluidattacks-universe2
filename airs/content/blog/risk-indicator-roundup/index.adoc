@@ -3,7 +3,7 @@
 :subtitle: A matter of taste
 :category: philosophy
 :tags: business, ethical-hacking, risk
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331066/blog/risk-indicator-roundup/cover_azhwyk.webp
 :alt: Choices. Photo by Nathan Dumlao on Unsplash: https://unsplash.com/photos/pMW4jzELQCw
 :description: Here we compare risk indicators used in quantitative finance, giving their pros and cons. Most of them we have discussed earlier, but here we introduce the ALE.
 :keywords: Risk, Probability, Choice, Measure, Quantify, Indicator, Ethical Hacking, Pentesting
@@ -73,7 +73,7 @@ link:http://www.nematrian.com/TailValueAtRisk[Nematrian]
 to summarize both `VaR` and `tVaR`.
 
 .(t)VaR illustration
-image::../para-bellum/tvar.png[(t)VaR illustration]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330968/blog/para-bellum/tvar_fg6jpf.webp[(t)VaR illustration]
 
 Pros:
 
@@ -95,7 +95,7 @@ Remember we discussed Return on Control (`ROC`)
 to decide whether investing in a given defense is worth the hassle?
 
 .Return on control
-image::../monetizing-vulnerabilities/roc.png[Return on control]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330936/blog/monetizing-vulnerabilities/roc_qfbvd2.webp[Return on control]
 
 The change in loss was obtained from two simulated scenarios:
 one with the control and another without it.
@@ -113,7 +113,7 @@ Thus, total = reps x single.
 Too many acronyms for too little content:
 
 .You don't want to ask Chandler about his Annual Net Usage Statistics!
-image::wenus.png[Acronyms joke]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331065/blog/risk-indicator-roundup/wenus_anm8lr.webp[Acronyms joke]
 
 Experts can estimate the ARO.
 Suppose it is known that a data breach will most likely occur
@@ -157,7 +157,7 @@ for all confidence levels.
 We believe the graph speaks for itself.
 
 .Loss Exceedance Curve from link:https://www.howtomeasureanything.com/cybersecurity/[Hubbard et al.]
-image::../monetizing-vulnerabilities/simple-lec.png[Loss Exceedance Curve]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330935/blog/monetizing-vulnerabilities/simple-lec_troyzh.webp[Loss Exceedance Curve]
 
 Pros:
 

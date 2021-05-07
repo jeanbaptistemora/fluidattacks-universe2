@@ -3,7 +3,7 @@
 :subtitle: From color scales to probabilities and ranges
 :category: philosophy
 :tags: business, ethical-hacking, risk
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330977/blog/quantifying-risk/cover_hdxf8q.webp
 :alt: Risky poker move. Credits: https://unsplash.com/photos/vBpd607jLXs
 :description: Here we discuss a survey of probabilistic methods that can be applied to quantify cybersecurity risk in terms of probabilities, confidence intervals, and money.
 :keywords: Risk, Probability, Impact, Measure, Quantify, Security, Ethical Hacking, Pentesting
@@ -25,7 +25,7 @@ which are supposed to help us
 better understand risks:
 
 .Risk ``matrices''. Via link:https://safestart.com/news/think-about-risk-adds-third-dimension-risk-matrix/[Safestart].
-image::risk-matrix.png[Risk matrix]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330976/blog/quantifying-risk/risk-matrix_c3ogti.webp[Risk matrix]
 
 Discrete scales such as this have
 the obvious disadvantage that they can't be added or
@@ -63,7 +63,7 @@ let me show you what we can achieve
 by applying quantitative methods to risk measurement:
 
 .Loss Exceedance Curve <<r1, ^[1]^>>
-image::loss-exceedance-curve.png[Loss Exceedance Curve]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330976/blog/quantifying-risk/loss-exceedance-curve_tkgztp.webp[Loss Exceedance Curve]
 
 This curve tells you the probability of losing any amount of money or more.
 Thus from the graph, we can read that
@@ -158,7 +158,7 @@ and such distributions require parameters as input.
 These parameters usually determine the location and shape of the curve.
 
 .Some probability distributions
-image::distributions.png[Some probability distributions]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330976/blog/quantifying-risk/distributions_woaztd.webp[Some probability distributions]
 
 These parameters are to be estimated by experts,
 just like they estimate risk on a scale from 1 to 5.

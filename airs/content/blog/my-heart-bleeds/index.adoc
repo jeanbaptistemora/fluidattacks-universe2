@@ -3,7 +3,7 @@
 :subtitle: Understanding the flaw behind Heartbleed
 :category: attacks
 :tags: vulnerability, bug, openssl
-:image: cover.png
+:image: chttps://res.cloudinary.com/fluid-attacks/image/upload/v1620330940/blog/my-heart-bleeds/cover_qf1nze.webp
 :alt: Computer showing a pirate flag
 :description: Here we talk about Heartbleed, the result of a buggy implementation of the TLS protocol on OpenSSL, which was tempted to be a severe threat to private data.
 :keywords: TLS, HeartBeat, HeartBleed, OpenSSL, Vulnerability, Bug, Ethical Hacking, Pentesting
@@ -35,7 +35,7 @@ In this article we will see how it works,
 in a simple yet technical language.
 
 .xkcd Heartbleed
-image::heartbleedxkcd.png["Heartbleed"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330939/blog/my-heart-bleeds/heartbleedxkcd_ycopyf.webp["Heartbleed"]
 
 == TLS Protocol brief explanation
 
@@ -47,7 +47,7 @@ indicating that your communication with the website is *encrypted*,
 specially designed to prevent [red]#eavesdropping# and [red]#tampering#.
 
 .Secure URL, Green lock sample
-image::green-lock.png["Green lock provided by TLS"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330938/blog/my-heart-bleeds/green-lock_z2mz3r.webp["Green lock provided by TLS"]
 
 `TLS` accomplishes that by *encoding* your *data*
 in a way that only the recipient knows how to *decode* it.
@@ -105,7 +105,7 @@ Practically, you get more than
 the *beat*, instead, you can actually make it [red]#bleed#, literally.
 
 .Bad luck
-image::heartbleed-meme.png["Bad luck HeartBleed"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330939/blog/my-heart-bleeds/heartbleed-meme_n7nt5j.webp["Bad luck HeartBleed"]
 
 Why? You may ask.
 The message can be up to *64 kB*,
@@ -141,7 +141,7 @@ using the vulnerable version of `OpenSSL`,
 called a *Reversed HeartBleed\'s*.
 
 .xkcd Heartbleed explanation
-image::heartbleed-explanation.png["Heartbleed"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330939/blog/my-heart-bleeds/heartbleed-explanation_csomni.webp["Heartbleed"]
 
 == What caused the bug?
 
@@ -169,7 +169,7 @@ link:https://linux.die.net/man/3/memcpy[`memcpy`],
 we see the following:
 
 .memcpy function
-image::memcpy.png["memcpy linux man page"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330940/blog/my-heart-bleeds/memcpy_h7niiu.webp["memcpy linux man page"]
 
 The terms in parentheses behave like this:
 *bp* is the destination of the memory copied from *pl*,

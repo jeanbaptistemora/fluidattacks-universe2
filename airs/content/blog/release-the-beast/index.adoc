@@ -3,7 +3,7 @@
 :subtitle: Understanding the BEAST
 :category: attacks
 :tags: tls, cbc, vulnerability
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331051/blog/release-the-beast/cover_lcrn2e.webp
 :alt: Release the beast
 :description: How does a theorized attack become practical after more than 10 years? Find out here.
 :keywords: TLS, CBC, Injection, Vulnerabilty, BACPA, CPA, Ethical Hacking, Pentesting
@@ -115,7 +115,7 @@ it means, giving it more
 means more *security*.
 
 .CBC Mode - Wikipedia
-image::cbcmode.png["CBC Mode Encryption"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331048/blog/release-the-beast/cbcmode_koiybd.webp["CBC Mode Encryption"]
 
 Last but not least, the
 `initialization  vector (IV)`
@@ -134,7 +134,7 @@ for Alice and he wants to learn
 about her habits.
 
 .It was a mistake...
-image::stalker.png["Stalker"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331048/blog/release-the-beast/stalker_mirszv.webp["Stalker"]
 
 *Alice* sends a message *"I'm hungry,
 send me pizza"* to *Bob*. The only
@@ -144,7 +144,7 @@ of the time *starts* the message with
 encrypted with `DES` is: +
 
 .Message encrypted with DES
-image::message-encrypted.png["DES"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331048/blog/release-the-beast/message-encrypted_z3gaad.webp["DES"]
 
 Remeber, encryption is done on
 the message splitted in *8 bytes blocks*,
@@ -152,7 +152,7 @@ just to make it simple we will take
 the first two blocks:
 
 .DES sample
-image::des-example.png["DES sample"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331049/blog/release-the-beast/des-example_airbwt.webp["DES sample"]
 
 *D* somehow can see *Alice's* encrypted
 connection, whilst *D* does *not know*
@@ -182,7 +182,7 @@ the `Chosen-Plaintext Attack`,
 let's see that with this simple example:
 
 .CBC sample
-image::cbc-sample.png["CBC sample"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331047/blog/release-the-beast/cbc-sample_jr8tbr.webp["CBC sample"]
 
 As you may see, it's quite hard
 to guess the block that came
@@ -262,13 +262,13 @@ use the `CBC` residue and lastly
 will be encrypted:
 
 .DES encryption CBC mode
-image::tls-cbc-des.png["DES+CBC in action"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331048/blog/release-the-beast/tls-cbc-des_lutehd.webp["DES+CBC in action"]
 
 The only thing D can see from
 there is:
 
 .Output
-image::output.png["outpu"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331048/blog/release-the-beast/output_vcdc41.webp["outpu"]
 
 But performing the packet injection
 rigth there would throw an output
@@ -280,7 +280,7 @@ the sake of not extending the example - +
 as seen here:
 
 .Initial injection
-image::fail-injection.png["Failed injection attempt"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331047/blog/release-the-beast/fail-injection_iecchu.webp["Failed injection attempt"]
 
 The attacker to be able to inject
 succesfully it's own packet must
@@ -288,7 +288,7 @@ succesfully it's own packet must
 that `CBC` Residue as seen here:
 
 .Xoring with next block
-image::xor-injection.png["Xoring with next block"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331049/blog/release-the-beast/xor-injection_wy4obh.webp["Xoring with next block"]
 
 Then `XOR` that output with
 the second `CBC` residue.
@@ -299,7 +299,7 @@ commutativity propertie to be exact,
 `A xor B = B xor A`
 
 .CBC Residue XORing with injected packet
-image::stream-injection.png["CBC Residue XORing"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331048/blog/release-the-beast/stream-injection_v1qkgt.webp["CBC Residue XORing"]
 
 And if the *attacker* is *able* to
 *inject* it's *packet* on the stream
@@ -308,7 +308,7 @@ with her *key*, thus *revealing*
 the *message*, well, at least a fragment:
 
 .Injection succed
-image::injection-success.png["Injection matched"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331048/blog/release-the-beast/injection-success_tb5xxc.webp["Injection matched"]
 
 == Where is the Browser attack?
 
@@ -372,7 +372,7 @@ sent requires an specific format.
 For example,
 
 .HTTP Request format sample
-image::http-request.png["HTTP Format sample"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331048/blog/release-the-beast/http-request_qrmgpg.webp["HTTP Format sample"]
 
 As we can observe there are values
 an attacker cannot easily guess,

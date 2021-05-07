@@ -3,7 +3,7 @@
 :category: hacking
 :subtitle: Intercept applications in newer Android phones
 :tags: security, android, application, pentesting
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330925/blog/intercepting-android/cover_d3ec8a.webp
 :alt: Turned on Android smartphone. Photo by Pathum Danthanarayana on Unsplash: https://unsplash.com/photos/t8TOMKe6xZU
 :description: Android is one of the most suitable targets for hackers. Here we show how to intercept Android apps' web traffic by installing a self-signed certificate.
 :keywords: Android, Security, Intercept, Hacking, Proxy, Application, Ethical Hacking, Pentesting
@@ -214,7 +214,7 @@ on the system’s trusted credentials tab
 and the phone will accept the responses of our proxy.
 
 .Android certificate
-image::android-cert.png[Android certificate]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330921/blog/intercepting-android/android-cert_q8pnfu.webp[Android certificate]
 
 == Configuring the Proxy
 
@@ -224,7 +224,7 @@ Then move to the `Proxy` tab
 and open the `Options` tab.
 
 .Burp options
-image::burp-options.png[Burp Options]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330924/blog/intercepting-android/burp-options_iwk6fc.webp[Burp Options]
 
 The next step is to import our certificate
 by clicking on `Import / export CA certificate`,
@@ -234,10 +234,10 @@ and `fluidattacks.key.pkcs8.der` files
 that we previously created.
 
 .Import DER
-image::import-der.png[Import DER]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330924/blog/intercepting-android/import-der_uo3ssz.webp[Import DER]
 
 .Choose file
-image::cert-file.png[Choose file]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330922/blog/intercepting-android/cert-file_l1dmwv.webp[Choose file]
 
 Now, we need to set our proxy in our phones.
 Go to `WiFi` settings,
@@ -252,14 +252,14 @@ set the `Proxy` to `Manual`
 and input the `IP` address and proxy's port.
 
 .Android Proxy
-image::android-proxy.png[Android Proxy]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330924/blog/intercepting-android/android-proxy_horg4w.webp[Android Proxy]
 
 We are now capturing secure channel requests
 made from our phone applications and browsers
 without having problems with certificate failures.
 
 .Capture
-image::capture.png[Capture]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330923/blog/intercepting-android/capture_z1upry.webp[Capture]
 
 If we want to have less default traffic on our proxy,
 we can again modify the `WiFi` settings of our phones

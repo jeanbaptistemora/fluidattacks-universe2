@@ -3,7 +3,7 @@
 :subtitle: A short interview with Andres Roldan
 :category: interview
 :tags: interview, red-team, osce, training, exploit, software
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331047/blog/recent-osce/cover_qrhc7w.webp
 :alt: Photo by Clovis WOOD on Unsplash
 :description: We spoke with Andres Roldan, our Offensive Team Leader, who recently obtained his OSCE certificate. Here he shares with us a little more about his experience.
 :keywords: Interview, Red Team, OSCE, Training, Exploit, Cybersecurity, Security, Pentesting, Ethical Hacking
@@ -16,7 +16,7 @@
 = A Recent OSCE in Our Team
 
 .Certificate
-image::certificate.png[Certificate]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331047/blog/recent-osce/certificate_cwrj6y.webp[Certificate]
 
 A few days ago, `Fluid Attacks'` Offensive Team Leader link:../authors/andres-roldan/[Andres Roldan],
 published a blog post about his 'link:../osce-journey/[Journey to OSCE].'

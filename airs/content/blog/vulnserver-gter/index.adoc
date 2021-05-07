@@ -3,7 +3,7 @@
 :category: attacks
 :subtitle: Hunting eggs
 :tags: osce, vulnserver, training, exploit
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331147/blog/vulnserver-gter/cover_prsww3.webp
 :alt: Photo by Annie Spratt on Unsplash
 :description: This post will describe the steps taken to exploit the Vulnserver GTER command, using a technique called 'Egghunting.'
 :keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
@@ -34,12 +34,12 @@ It will be a backdoor that may be used by others to break into your system.
 If you launch `vulnserver.exe` with no options,
 the default port used will be *TCP/9999*.
 
-image::vulnserver1.png[vulnserver]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331147/blog/vulnserver-gter/vulnserver1_qvelza.webp[vulnserver]
 
 We can check the behavior of the `GTER` command by issuing the suggested
 syntax.
 
-image::gter1.png[GTER command syntax]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331143/blog/vulnserver-gter/gter1_bow4kj.webp[GTER command syntax]
 
 Ok, it's fuzz time.
 
@@ -66,13 +66,13 @@ that string as a fuzz point.
 
 Now we can send the fuzz attack to the victim machine:
 
-image::fuzz1.gif[Running spike]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331146/blog/vulnserver-gter/fuzz1_eahyra.gif[Running spike]
 
 Ugh! After a few iterations, `vulnserver.exe` crashed, and it seems
 that it happened when we sent 5060 bytes of data.
 Let's check the offending payload on `Wireshark`:
 
-image::wireshark1.png[Wireshark capture]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331145/blog/vulnserver-gter/wireshark1_ohyi15.webp[Wireshark capture]
 
 We can now create a `PoC` (Proof-of-Concept) file with that information:
 
@@ -98,11 +98,11 @@ This time, we'll attach `vulnserver.exe` to Immunity Debugger.
 
 Let's run the initial exploit and see what happens:
 
-image::gter2.gif[Exploit: take 1]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331144/blog/vulnserver-gter/gter2_axxim1.gif[Exploit: take 1]
 
 Look at that! We replicated the crash!
 
-image::crash1.png[Controlling EIP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331146/blog/vulnserver-gter/crash1_tnurkm.webp[Controlling EIP]
 
 Look at the state of the application at the moment of the crash.
 The first thing to notice is that the `EIP` register has the value `41414141`,
@@ -133,7 +133,7 @@ cyclic pattern.
 $ msf-pattern_create -l 400
 ----
 
-image::pattern1.png[Cyclic pattern]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331145/blog/vulnserver-gter/pattern1_rxyoot.webp[Cyclic pattern]
 
 We need now to update the exploit with that pattern:
 
@@ -157,7 +157,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And we run the exploit again:
 
-image::offset1.png[Exploit: take 2]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331145/blog/vulnserver-gter/offset1_uk8di2.webp[Exploit: take 2]
 
 This time, `EIP` has the value `41396541`.
 Let's check the offset on our cyclic pattern:
@@ -196,7 +196,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 Now run the exploit. If `EIP` gets the value `42424242`,
 which are the four bytes of our `B` buffer, we got it right:
 
-image::offset2.png[Correct offset to EIP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331145/blog/vulnserver-gter/offset2_bv13e7.webp[Correct offset to EIP]
 
 Whoohooo! Now we can start exploiting this.
 
@@ -216,7 +216,7 @@ We can use `mona.py` plugin to find that instruction:
 This will tell `mona` to look for the instruction `JMP ESP`
 and will exclude `DLL` from the `OS`.
 
-image::mona1.png[JMP ESP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331145/blog/vulnserver-gter/mona1_ooj8ce.webp[JMP ESP]
 
 We will pick the `JMP ESP` instruction at `625011C7`.
 Now we can proceed to update the exploit and replace the four `B`
@@ -246,7 +246,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 Let's verify this:
 
-image::jmp1.gif[Performing the JMP ESP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331145/blog/vulnserver-gter/jmp1_ceeuzf.gif[Performing the JMP ESP]
 
 Great!
 
@@ -267,7 +267,7 @@ to the desired address. We also need to know where to jump.
 Now look at the next image,
 which is the resulting location after our `JMP ESP` execution:
 
-image::jmp1.png[Location of our execution flow]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331145/blog/vulnserver-gter/jmp1_vnn3ms.webp[Location of our execution flow]
 
 As we can see, we are in the next instruction after the `JMP ESP`
 at the address `00CBF9C8` (this is a stack address, so it will change
@@ -277,12 +277,12 @@ every time we run the application), and we see that we have only
 If we scroll up,
 we can see that the buffer of `A` starts at `00CBF931`:
 
-image::jmp2.png[Start of buffer]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331146/blog/vulnserver-gter/jmp2_yj95iy.webp[Start of buffer]
 
 So we need to do a relative reverse jump. Using the debugger, we can
 easily calculate the offset:
 
-image::jmp3.gif[Relative backward jump]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331144/blog/vulnserver-gter/jmp3_gyybou.gif[Relative backward jump]
 
 As you can see, the resulting bytes are `E9 64 FF FF FF`.
 Let's update our exploit with that jump:
@@ -313,7 +313,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And check the result:
 
-image::jmp4.gif[Jumped back]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331144/blog/vulnserver-gter/jmp4_ebtqur.gif[Jumped back]
 
 Great! We were able to jump to the start of our buffer.
 But what now? On 147 bytes, it's hard to include a working reverse shell.
@@ -526,7 +526,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 Now, let's look the egghunter in action:
 
-image::shell1.gif[Success]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331147/blog/vulnserver-gter/shell1_whl7kp.gif[Success]
 
 Awesome! We got our shell again!
 

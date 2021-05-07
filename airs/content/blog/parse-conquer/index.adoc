@@ -3,7 +3,7 @@
 :subtitle: Why Asserts uses Parser combinators
 :category: attacks
 :tags: software, security, code
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330971/blog/parse-conquer/cover_avf8fy.webp
 :alt: Photo by Markus Spiske on Unsplash
 :description: For this blog post, we rely on the following question: Why does Asserts use parser combinators as its main static code analysis tool?
 :keywords: Parsing, Asserts, Combinators, Regex, Vulnerability, Pyparsing, Ethical Hacking, Pentesting
@@ -159,7 +159,7 @@ that means the vulnerability is open,
 hence `Asserts` will `show_open` a message like this:
 
 .Asserts open vulnerability message
-image::asserts-open-msg.png["Asserts open vulnerability message"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330969/blog/parse-conquer/asserts-open-msg_otjbo5.webp["Asserts open vulnerability message"]
 
 Otherwise it shows a similar message,
 only with fewer alarming colors.

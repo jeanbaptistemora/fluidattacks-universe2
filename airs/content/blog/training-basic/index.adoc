@@ -3,7 +3,7 @@
 :subtitle: A chat with Ricardo Yepes. Part 1.
 :category: interview
 :tags: devops, training, security
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331106/blog/training-basic/cover_adnkzv.webp
 :alt: Bookshelf with some books
 :description: We spoke to the DevOps engineer Ricardo Yepes recently, and he shared his current vision of cybersecurity. Here is the first part of our conversation.
 :keywords: Interview, DevOps, Security, Machine Learning, Philosophy, Training, Ethical Hacking, Pentesting
@@ -148,7 +148,7 @@ and artificial intelligence (`AI`).
   and most problems in real life aren’t that well defined.
 
 .Hype Cycle for Emerging Technologies, 2017.
-image::emerging-tech-hc-2017.png[Hype cicle for Emerging technologies 2017]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331106/blog/training-basic/emerging-tech-hc-2017_f5jlpr.webp[Hype cicle for Emerging technologies 2017]
 
 *Do you think ML and AI would soon help in addressing digital threats better?*
 [role="fluid-qanda"]

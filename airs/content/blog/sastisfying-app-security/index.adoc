@@ -3,7 +3,7 @@
 :category: documentation
 :subtitle: An introduction to SAST
 :tags: security, testing
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331073/blog/sastisfying-app-security/cover_pbcyaf.webp
 :alt: Photo by NESA by Makers on Unsplash
 :description: This blog post is an introduction to SAST. We share the concept, how SAST works, its types, history, and some of the benefits of implementing it in projects.
 :keywords: SAST, SDLC, Code, Automated Test, Manual Test, Vulnerabilities, Ethical Hacking, Pentesting
@@ -34,7 +34,7 @@ and also defines entry and exit criteria
 to both start and end the process.
 
 .Fagan Flow via link:https://www.secjuice.com/sast-isnt-code-review-fight-me/[secjuice.com]
-image::fagan.png[Fagan Flow via secjuice.com]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331068/blog/sastisfying-app-security/fagan_jbxgtk.webp[Fagan Flow via secjuice.com]
 
 In 1992, in his article
 _Experience with Fagan’s Inspection Method_,
@@ -51,7 +51,7 @@ and objectives of the application meet customer expectations
 and development standards.
 
 .Software Development Life Cycle stages via link:https://www.synotive.com/blog/wp-content/uploads/2017/02/software-development-life-cycle.jpg[Synotive.com]
-image::sdlc.png[Software development Life Cycle phases via Synotive.com]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331069/blog/sastisfying-app-security/sdlc_tgxhhl.webp[Software development Life Cycle phases via Synotive.com]
 
 During the `SDLC` it is important to use testing methodologies
 in the early stages of development
@@ -64,7 +64,7 @@ These vulnerabilities can be found on the following websites:
 . link:https://cwe.mitre.org/[CWE Common Weakness Enumeration].
 
 .OWASP Top Ten Project via link:https://www.owasp.org/images/5/5e/OWASP-Top-10-2017-es.pdf[owasp.org]
-image::owasp.png[OWASP Top Ten Project via owasp.org]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331070/blog/sastisfying-app-security/owasp_nks30b.webp[OWASP Top Ten Project via owasp.org]
 
 By applying Static Application Security Testing (`SAST`)
 we can detect and avoid most of the security vulnerabilities
@@ -98,7 +98,7 @@ responsible for communicating with developers,
 who then mitigate or patch the vulnerabilities.
 
 .Report of finding in manually test via link:https://www.mitre.org/sites/default/files/publications/secure-code-review-report-sample.pdf[Mitre.org]
-image::report.png[Report of finding in manually test via Mitre.org]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331068/blog/sastisfying-app-security/report_vsuvtz.webp[Report of finding in manually test via Mitre.org]
 
 *Automated tools:*
 There are many link:https://www.owasp.org/index.php/Source_Code_Analysis_Tools[tools]
@@ -119,7 +119,7 @@ The result is that vulnerabilities are reported sooner,
 especially in complex projects or projects with too many lines of code.
 
 .Report of findings in automated tests via link:https://www.oreilly.com/library/view/industrial-internet-application/9781788298599/521ecdf9-f298-4e26-9b68-5baf6602094d.xhtml[Oreilly.com]
-image::toolreport.png[Report of findings in automated tests via Oreilly.com]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331068/blog/sastisfying-app-security/toolreport_jjexvn.webp[Report of findings in automated tests via Oreilly.com]
 
 Reports are always checked by employees
 because automated tools tend to generate a large number of false positives

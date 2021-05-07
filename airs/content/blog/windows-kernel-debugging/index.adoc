@@ -3,7 +3,7 @@
 :category: attacks
 :subtitle: Getting in the deeps of the OS
 :tags: osee, training, exploit, windows, kernel, hevd
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331228/blog/windows-kernel-debugging/cover_jflria.webp
 :alt: Photo by Wesley Caribe on Unsplash
 :description: This post will guide you to setup a lab environment for start exploiting Windows Kernel drivers
 :keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
@@ -71,25 +71,25 @@ The first stage is to download and install the Windows 10 SDK. If you
 want to install only WinDBG, you can choose only the `Debugging Tools for
 Windows` option:
 
-image::windbg0.png[WinDBG]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331225/blog/windows-kernel-debugging/windbg0_kw9dff.webp[WinDBG]
 
 Once installed, if you search for `windbg` on Windows, you should get
 something like this:
 
-image::windbg1.png[WinDBG dark]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331226/blog/windows-kernel-debugging/windbg1_do951r.webp[WinDBG dark]
 
 The default `WinDBG` configuration provides a not so friendly UI. However
 we can use a dark theme for `WinDBG` (see the Pre-Requisites section). To do
 that, just download the `dark.reg` file and install it. You will get
 a much friendly UI:
 
-image::windbg2.png[WinDBG dark]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331228/blog/windows-kernel-debugging/windbg2_haqojn.webp[WinDBG dark]
 
 Next, we need to adjust the Windows symbols resolution. It is done by
 creating a new environment variable `_NT_SYMBOL_PATH` with the value
 `srv*https://msdl.microsoft.com/download/symbols`, like this:
 
-image::env1.png[Environment]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331223/blog/windows-kernel-debugging/env1_j1faww.webp[Environment]
 
 Now, we need to install our friend `mona`. To do that, we need to grab
 the `pykd.zip` file located
@@ -108,7 +108,7 @@ and move them to `C:\Program Files (x86)\Windows Kits\10\Debuggers\x86`.
 To check if that worked, load an executable on `WinDBG`, type `.load pykd.pyd`
 and then `!py mona`. You should see something like this:
 
-image::mona1.gif[Mona]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331232/blog/windows-kernel-debugging/mona1_tc67fd.gif[Mona]
 
 With that, we have now debugger machine set.
 
@@ -125,17 +125,17 @@ system. This is done by copying the `osrloaderv30.zip` and `HEVD.3.00.zip`
 files to this target OS and uncompressed them. Then, we must run
 `OSR Driver Loader` (run the one in the `WNET -> i386 -> FRE` folder)
 
-image::osr1.png[OSR Driver Loader]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331228/blog/windows-kernel-debugging/osr1_wy6ytq.webp[OSR Driver Loader]
 
 Now browse for the `HEVD.sys` file, click on `Register Service` and then
 `Start Service`:
 
-image::driver1.gif[Driver Loaded]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331224/blog/windows-kernel-debugging/driver1_wdx60n.gif[Driver Loaded]
 
 To check if that went well, open a terminal and type
 `driverquery | findstr HEVD`. You should see something like this:
 
-image::hevd1.png[Driver Loaded]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331226/blog/windows-kernel-debugging/hevd1_vomxc0.webp[Driver Loaded]
 
 Great! To ensure that the `HEVD` driver is load every time, open
 a terminal as administrator and run
@@ -145,12 +145,12 @@ a terminal as administrator and run
 > sc config HEVD start=system
 ----
 
-image::start1.png[Driver autostart]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331221/blog/windows-kernel-debugging/start1_f8d1tx.webp[Driver autostart]
 
 Now we must connect our target OS with the debugger. You need to launch a new
 terminal windows as administrator:
 
-image::cmd1.gif[CMD]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331231/blog/windows-kernel-debugging/cmd1_md0xv5.gif[CMD]
 
 And then you need to enable remote debugging by issuing the following
 command:
@@ -165,12 +165,12 @@ You need to change the `HOSTIP` param with the IP of the debugger machine.
 This will return a key that will be used for `WinDBG` to expect for a
 connection with that identifier.
 
-image::cmd2.gif[BCDEDIT]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331223/blog/windows-kernel-debugging/cmd2_zl3vuw.gif[BCDEDIT]
 
 In the debugger machine, setup `WinDBG` to listen for a connection with
 that key:
 
-image::dbg1.gif[WinDBG]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331222/blog/windows-kernel-debugging/dbg1_dzht53.gif[WinDBG]
 
 Now, we need to make Windows to start in `DEBUG` mode and restart.
 To that, we should issue the following command:
@@ -184,21 +184,21 @@ To that, we should issue the following command:
 The target OS will restart and the debugger machine should now get a
 connection from the target OS:
 
-image::dbg2.gif[WinDBG]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331231/blog/windows-kernel-debugging/dbg2_nsqhbo.gif[WinDBG]
 
 Great. Now break the execution (`Debug -> Break`) and type `.reload` to
 load the debugging symbols:
 
-image::symbols1.png[Symbols]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331222/blog/windows-kernel-debugging/symbols1_rhgguz.webp[Symbols]
 
 To check if everything's working, type `x /f nt!*Create*Process*`. This will
 list all the functions in the `NT` module that contain `Create` and `Process`.
 
-image::nt1.png[NT Create Process]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331223/blog/windows-kernel-debugging/nt1_lvlrl7.webp[NT Create Process]
 
 Now, set a breakpoint in `nt!MmCreateProcessAddressSpace` and resume execution:
 
-image::bp1.png[Breakpoint]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331223/blog/windows-kernel-debugging/bp1_lbxuo1.webp[Breakpoint]
 
 Great! But as we are going to debug `HEVD`, we must add the debugging symbols
 to our environment. If you look at the folder `HEVD.3.00\driver\vulnerable\x86`
@@ -209,17 +209,17 @@ on our debugger, follow this steps:
 * Create a folder called `C:\projects\hevd\build\driver\vulnerable\x86\HEVD`
 * Copy the `HEVD.pdb` file in that directory.
 
-image::copy1.png[HEVD symbols]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331224/blog/windows-kernel-debugging/copy1_h2vptb.webp[HEVD symbols]
 
 * On `WinDBG`, type `.reload`
 * Type `lm m HEVD` to check if the `HEVD` module is loaded.
 * And type `x HEVD!*` to check if the symbols were successfully added.
 
-image::hevdsymbols1.gif[HEVD symbols]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331226/blog/windows-kernel-debugging/hevdsymbols1_tnj3ip.gif[HEVD symbols]
 
 With that, we can start debugging our target machine's kernel space!:
 
-image::bp2.png[Breakpoint]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331225/blog/windows-kernel-debugging/bp2_dfrb1i.webp[Breakpoint]
 
 In the link:../hevd-dos/[next post], you can see a short reference of
 `WinDBG` commands that we will be using during this process.

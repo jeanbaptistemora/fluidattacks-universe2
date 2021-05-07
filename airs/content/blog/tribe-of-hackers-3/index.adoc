@@ -3,7 +3,7 @@
 :subtitle: Learning from the red team expert Georgia Weidman
 :category: opinions
 :tags: cybersecurity, red-team, hacking, pentesting, ethical-hacking, blue-team
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331131/blog/tribe-of-hackers-3/cover_rids16.webp
 :alt: Photo by Dorinel Panaite on Unsplash
 :description: This post is based on the book 'Tribe of Hackers Red Team' by Carey and Jin. Here we share content from the interview with Georgia Weidman.
 :keywords: Cybersecurity, Red Team, Hacking, Pentesting, Ethical Hacking, Blue Team, Knowledge, Tribe
@@ -33,7 +33,7 @@ and some recommendations of link:https://twitter.com/georgiaweidman[Georgia Weid
 trainer, and author"— for those of us interested in red teaming.
 
 .Photo by link:https://unsplash.com/@santabarbara77[Varvara Grabova] on link:https://unsplash.com/photos/6Jm_LSrf4Zc[Unsplash].
-image::varvara.png[Varvara]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331132/blog/tribe-of-hackers-3/varvara_v5ioff.webp[Varvara]
 
 == For those hoping to be eager beavers on red teams
 
@@ -122,7 +122,7 @@ always to ensure that the identified and reported vulnerabilities
 have been successfully closed.
 
 .Georgia's original picture taken from link:https://pbs.twimg.com/media/CrYuOfaWcAAXM3u.jpg[pbs.twimg.com].
-image::weidman.png[Georgia Weidman]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331131/blog/tribe-of-hackers-3/weidman_svdpmi.webp[Georgia Weidman]
 
 == For firms that in security aspire to be on the ball
 

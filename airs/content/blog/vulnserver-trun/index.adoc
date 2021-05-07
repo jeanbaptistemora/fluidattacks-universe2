@@ -3,7 +3,7 @@
 :category: attacks
 :subtitle: From zero to shell
 :tags: osce, vulnserver, training, exploit
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331211/blog/vulnserver-trun/cover_squjnn.webp
 :alt: Photo by David Rangel on Unsplash
 :description: This post will describe the steps taken to exploit the Vulnserver TRUN command using a direct EIP overwrite strategy.
 :keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
@@ -38,13 +38,13 @@ It will be a backdoor that may be used by others to break into your system.
 If you launch `vulnserver.exe` with no options, the default used port will
 be *TCP/9999*.
 
-image::vulnserver1.png[vulnserver]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331211/blog/vulnserver-trun/vulnserver1_tbmjrc.webp[vulnserver]
 
 If we type `HELP`, we can see the available commands. The commands commonly
 receive a single parameter and will return a simple answer.
 In this post, we are going to check the `TRUN` command.
 
-image::trun1.png[trun]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331210/blog/vulnserver-trun/trun1_ovjdbi.webp[trun]
 
 For that, we issue the `TRUN` command with a single parameter and check
 the answer.
@@ -74,13 +74,13 @@ and `s_string_variable` tells `Spike` to mutate that string.
 
 Now we can send the fuzz attack to the victim machine:
 
-image::trun2.png[Running spike]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331207/blog/vulnserver-trun/trun2_x0dg8a.webp[Running spike]
 
 Look at that: After only 3 iterations, `vulnserver.exe` stopped working,
 and it seems that it happened when we sent 5000 bytes of data.
 We can see this in `Wireshark`:
 
-image::trun3.png[Wireshark capture]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331212/blog/vulnserver-trun/trun3_esxmlu.webp[Wireshark capture]
 
 With that, we can start replicating the crash. For that, we create the
 first `PoC` (Proof-of-Concept) file:
@@ -108,11 +108,11 @@ with link:https://github.com/corelan/mona[mona.py] plugin.
 
 So, let's run the initial exploit and see what happens:
 
-image::trun4.gif[Exploit: take 1]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331210/blog/vulnserver-trun/trun4_rs2er8.gif[Exploit: take 1]
 
 Great! We were able to replicate the crash of `Vulnserver`.
 
-image::trun5.png[Controlling EIP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331207/blog/vulnserver-trun/trun5_oqfsa9.webp[Controlling EIP]
 
 If you look carefully at the image, you can see that the `EIP` register has the
 value of `41414141` which is the hex representation of our payload of `A`.
@@ -133,7 +133,7 @@ $ cd /opt/metasploit-framework/embedded/framework/tools/exploit/
 $ ./pattern_create.rb -l 5000
 ----
 
-image::pattern1.png[Cyclic pattern]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331210/blog/vulnserver-trun/pattern1_qenkwj.webp[Cyclic pattern]
 
 We then add that pattern to our exploit, replacing the buffer of `A` with
 our pattern:
@@ -157,15 +157,15 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And we run the exploit again:
 
-image::trun6.gif[Exploit: take 2]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331211/blog/vulnserver-trun/trun6_mcugty.gif[Exploit: take 2]
 
-image::trun7.png[Cyclic pattern on EIP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331208/blog/vulnserver-trun/trun7_bo0j8a.webp[Cyclic pattern on EIP]
 
 As you can see, the `EIP` register now holds the value `386F4337`.
 We need to check the exact offset of that string on our unique cyclic pattern.
 To do that, we can use `pattern_offset.rb` from `Metasploit`:
 
-image::pattern2.png[Pattern offset]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331211/blog/vulnserver-trun/pattern2_rnak0v.webp[Pattern offset]
 
 Great, it tells us that the `EIP` gets overwritten starting on the *2003*
 byte of our buffer. Let's update the exploit to verify that:
@@ -194,7 +194,7 @@ then a single 4 byte string of `B` (whose hex representation is `42`) and
 fill the rest of our 5000 buffer with `C`. If the offset is correct, `EIP` will
 hold the value of `42424242` which are the four bytes of our `B` buffer:
 
-image::trun8.gif[Correct offset to EIP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331209/blog/vulnserver-trun/trun8_q36yi7.gif[Correct offset to EIP]
 
 Awesome! Now, we know the exact structure of the vulnerability,
 and we can proceed to exploit it.
@@ -203,7 +203,7 @@ and we can proceed to exploit it.
 
 Let's look at the value of the registers at the time of the crash.
 
-image::trun9.png[Registers]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331208/blog/vulnserver-trun/trun9_exxpsn.webp[Registers]
 
 As you can see, two registers point to our injected buffer:
 `EAX`, and `ESP`.
@@ -221,7 +221,7 @@ along with the continuous space available for us to inject our shellcode.
 !mona findmsp
 ----
 
-image::mona1.png[Mona output]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331209/blog/vulnserver-trun/mona1_ckv1sd.webp[Mona output]
 
 Note that we have 984 bytes after `ESP` available for us to run anything
 we'd want. First, we must search on `vulnserver.exe` and its runtime
@@ -230,7 +230,7 @@ the memory region pointed by `ESP`.
 
 First, let's find the `Vulnserver` runtime dependencies:
 
-image::deps1.png[Runtime dependencies]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331210/blog/vulnserver-trun/deps1_wkyc6j.webp[Runtime dependencies]
 
 It is always a good idea to look for instructions on files that are not part
 of the `OS` because the address of those instructions will likely change over
@@ -247,7 +247,7 @@ modules, by running:
 !mona jmp -r esp -cp nonull -o
 ----
 
-image::esp1.png[JMP ESP instructions]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331209/blog/vulnserver-trun/esp1_nq7r8o.webp[JMP ESP instructions]
 
 As you can see, there are several `JMP ESP` instructions we can pick.
 We are going to pick the one at `62501205`.
@@ -278,7 +278,7 @@ If everything comes as expected, we will hit that `JMP ESP` instruction that
 will lead us to execute code on our `C` buffer. Let's put a breakpoint at the
 `JMP ESP` instruction and run the exploit:
 
-image::trun10.gif[Performing the JMP ESP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331210/blog/vulnserver-trun/trun10_d5p7nq.gif[Performing the JMP ESP]
 
 Great!
 
@@ -286,7 +286,7 @@ All that's left is to include a shellcode in place of the buffer of `C` so can
 execute commands on the victim machine.
 We will use a reverse shell payload as generated by `msfvenom`:
 
-image::msfvenom1.png[Generating reverse shell]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331207/blog/vulnserver-trun/msfvenom1_sggiak.webp[Generating reverse shell]
 
 As a rule of thumb, get used to generate shellcodes without bad chars that
 may break the execution flow of our attack, such as null bytes (`0x0`),
@@ -357,7 +357,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And let's check it:
 
-image::success.gif[Our reverse shell]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331208/blog/vulnserver-trun/success_kmx7zp.gif[Our reverse shell]
 
 Great! We got our shell!
 

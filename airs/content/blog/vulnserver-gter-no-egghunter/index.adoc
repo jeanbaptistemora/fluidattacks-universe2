@@ -3,7 +3,7 @@
 :category: attacks
 :subtitle: Every byte counts
 :tags: osce, vulnserver, training, exploit
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331149/blog/vulnserver-gter-no-egghunter/cover_tsjvux.webp
 :alt: Photo by Florian Klauer on Unsplash
 :description: In this post, we will use an alternative way of exploiting Vulnserver GTER command.
 :keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
@@ -558,13 +558,13 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 It looks simpler! Now, run it to see what happens:
 
-image::take1.gif[Take 1]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331147/blog/vulnserver-gter-no-egghunter/take1_y3ehtd.gif[Take 1]
 
 Uhmmm, we got the reverse connection but no shell!
 
 Let's see what is going on:
 
-image::take2.gif[Take 1]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331149/blog/vulnserver-gter-no-egghunter/take2_bsaxnn.gif[Take 1]
 
 As we can see, several things have happened:
 
@@ -575,7 +575,7 @@ As we can see, several things have happened:
 
 However, if you look carefully at this image:
 
-image::esp1.png[ESP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331147/blog/vulnserver-gter-no-egghunter/esp1_uhrqpf.webp[ESP]
 
 We can see that the `ESP` register is only 24 bytes below the end of our
 custom shellcode. That means that with every `PUSH` performed on our
@@ -584,7 +584,7 @@ and start *overwriting* it. That's not good news.
 
 This graph illustrates the issue:
 
-image::stackgrowth.png[ESP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331147/blog/vulnserver-gter-no-egghunter/stackgrowth_wqde3m.webp[ESP]
 
 As the execution flows towards a higher memory address,
 the stack grows backward and will eventually overwrite our shellcode.
@@ -667,7 +667,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And execute the exploit again:
 
-image::success.gif[Shell]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331147/blog/vulnserver-gter-no-egghunter/success_kb3rs4.gif[Shell]
 
 Whooo! We got our shell again!
 

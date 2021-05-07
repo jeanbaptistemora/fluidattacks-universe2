@@ -3,7 +3,7 @@
 :subtitle: Using parser combinators to detect flaws
 :category: attacks
 :tags: detect, injection, scanner
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330971/blog/pars-orationis-secura/cover_gvmczz.webp
 :alt: Person holding sticky note
 :description: Learn here how to use Python and pyparsing to parse application code in order to find SQL injections in bWAPP.
 :keywords: Attack, Detection, Parser, Python, Injection, SQL, BWAPP, Ethical Hacking, Pentesting
@@ -46,7 +46,7 @@ Let us consider, for example,
 this site in our favorite buggy web app:
 
 .Adding an entry to the ``blog.''
-image::add-entry.png["Add entry to blog screenshot"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330970/blog/pars-orationis-secura/add-entry_bmtgtk.webp["Add entry to blog screenshot"]
 
 Every time we load the page,
 the current entries in the blog are
@@ -183,7 +183,7 @@ Our weapon of choice will be
 `Python` and link:http://pyparsing.wikispaces.com/[`pyparsing`].
 
 .You don't need to be a wizard to use `pyparsing`!
-image::parsertongue.png["Comic about pyparsing and Harry Potter"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330971/blog/pars-orationis-secura/parsertongue_wzlpp5.webp["Comic about pyparsing and Harry Potter"]
 
 Some nice features about `pyparsing`:
 

@@ -3,7 +3,7 @@
 :category: attacks
 :subtitle: Bad chars everywhere
 :tags: osce, vulnserver, training, exploit
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331206/blog/vulnserver-lter-seh/cover_basr0i.webp
 :alt: Photo by Kevin Ku on Unsplash
 :description: This post will show how to exploit the Vulnserver LTER command on where we will need to bypass bad chars restrictions.
 :keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
@@ -73,7 +73,7 @@ LTER COMPLETE
 
 Now try with something bulkier:
 
-image::crash1.gif[Crash]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331206/blog/vulnserver-lter-seh/crash1_yts1qc.gif[Crash]
 
 Hmm, something's not right. We can create an initial exploit to test faster.
 
@@ -96,7 +96,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 Now use a debugger to see what's going on:
 
-image::crash2.gif[Crash 2]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331202/blog/vulnserver-lter-seh/crash2_kwxlzr.gif[Crash 2]
 
 Well, it seems we're facing an SEH overwrite. Please, check
 link:../vulnserver-gmon/[this post] for an explanation of SEH.
@@ -134,7 +134,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And run it:
 
-image::pattern1.gif[Pattern]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331204/blog/vulnserver-lter-seh/pattern1_drj3ub.gif[Pattern]
 
 The SEH handler was overwritten with `356F4534`. We can check the offset
 using `pattern_offset.rb`:
@@ -168,18 +168,18 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And check it:
 
-image::pattern2.gif[Pattern OK]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331204/blog/vulnserver-lter-seh/pattern2_fqkl7b.gif[Pattern OK]
 
 Great. If we trigger the exception handler, we will overwrite `EIP`.
 
-image::eip1.png[Pattern OK]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331200/blog/vulnserver-lter-seh/eip1_fld56r.webp[Pattern OK]
 
 The stack window (bottom right) shows that our buffer is 8 bytes below the
 stack pointer `ESP`, so we need to find a `POP/POP/RET` sequence on the
 executable modules of Vulnserver that makes us land directly over the `nSEH`
 field which we now control. `mona` can help us:
 
-image::poppopret1.png[POP POP RET]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331202/blog/vulnserver-lter-seh/poppopret1_fi3zbt.webp[POP POP RET]
 
 We instructed `mona` to find `POP/POP/RET` gadgets (`seh`) and exclude
 pointers with null bytes (`-cp nonull`), those with `SafeSEH` enabled
@@ -213,7 +213,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 With that, we'd be able to run that sequence that will direct the
 execution flow to our controlled buffer. Let's check it:
 
-image::badchar1.gif[Badchar return address]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331201/blog/vulnserver-lter-seh/badchar1_jtchqp.gif[Badchar return address]
 
 Hmmm, something's not quite right. We injected `625010B4`,
 but for some reason the application turned the last byte of the address
@@ -226,7 +226,7 @@ to get the available bytes we can work with.
 
 Let's look at this image:
 
-image::ansi1.png[ANSI]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331206/blog/vulnserver-lter-seh/ansi1_mfxlwx.webp[ANSI]
 
 We can see here that our application works with `ANSI` encoded strings.
 `ANSI` chars are 1 byte long, which means that
@@ -244,7 +244,7 @@ To do that, `mona` can help us again:
 
 This will create an array with all the 256 available `ANSI` chars:
 
-image::bytearray1.png[ANSI]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331203/blog/vulnserver-lter-seh/bytearray1_pjftsg.webp[ANSI]
 
 I've mentioned in other posts that it's a good idea to exclude null chars
 (`0x00`), carriage return (`0x0d`) and line feed (`0x0a`) from our shellcode.
@@ -263,7 +263,7 @@ EXCLUDE = ('0x0', '0xa', '0xd')
 BADCHARS = bytes(bytearray([x for x in range(256) if hex(x) not in EXCLUDE]))
 ----
 
-image::bytearray2.png[ANSI 2]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331207/blog/vulnserver-lter-seh/bytearray2_xhuyku.webp[ANSI 2]
 
 Now we can inject that array into our exploit:
 
@@ -294,7 +294,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 Now, run this updated exploit to check
 how the `LTER` command treats all the chars:
 
-image::check-badchars1.gif[Checking bad chars]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331201/blog/vulnserver-lter-seh/check-badchars1_ubzeez.gif[Checking bad chars]
 
 We can see several things here:
 
@@ -316,7 +316,7 @@ file `C:\mona\vulnserver\bytearray.bin` with the contents of the memory on
 where our bad chars array started. In the previous example, the
 bad chars were started to be injected on `00F0F1EE`:
 
-image::badchars-start.png[Bad chars start]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331200/blog/vulnserver-lter-seh/badchars-start_qeb2ko.webp[Bad chars start]
 
 So the `mona` command would be:
 
@@ -327,7 +327,7 @@ So the `mona` command would be:
 
 And the output would be:
 
-image::mona-cmp1.gif[Mona cmp]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331205/blog/vulnserver-lter-seh/mona-cmp1_jgfekz.gif[Mona cmp]
 
 Here is the resulting comparison table:
 
@@ -409,7 +409,7 @@ gadgets containing only ASCII bytes and excluding `0xa` and `0xd`:
 
 Fortunately for us, 3 pointers fulfill all our requirements:
 
-image::ascii-poppopret1.png[ASCII POP/POP/RET]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331206/blog/vulnserver-lter-seh/ascii-poppopret1_gliml7.webp[ASCII POP/POP/RET]
 
 Let's choose the first result at `6250172B` and update our exploit:
 
@@ -437,7 +437,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And check if this time we are able to reach the `POP/POP/RET` sequence:
 
-image::retsuccess1.gif[Return success]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331205/blog/vulnserver-lter-seh/retsuccess1_c8o1pb.gif[Return success]
 
 Yes! Things start to get better... or not?
 
@@ -513,7 +513,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 Now check if that worked:
 
-image::jmp-success1.gif[Jump success]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331203/blog/vulnserver-lter-seh/jmp-success1_rhjvra.gif[Jump success]
 
 It did! The first condition was not met, the second was, and the
 jump succeded.
@@ -536,14 +536,14 @@ Let's encode our first needed instruction: The long backward jump.
 
 First, we need to get the desired opcode:
 
-image::longjump1.png[Long jump]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331201/blog/vulnserver-lter-seh/longjump1_knhwi2.webp[Long jump]
 
 As we can see, we'd need to inject an encoded version of `E9 13 F2 FF FF`.
 
 First, we're going to try existing encoders. We will try those
 available on `msfvenom` that generate an alphanumeric shellcode:
 
-image::failed-encoders1.gif[Failed encoders]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331200/blog/vulnserver-lter-seh/failed-encoders1_wdb2n8.gif[Failed encoders]
 
 Having a restricted 41-byte buffer,
 the common alphanumeric encoders are not viable:
@@ -602,7 +602,7 @@ want it to be. Remember that it must be later on our execution path.
 
 Let's do that:
 
-image::align-esp1.gif[Align ESP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331203/blog/vulnserver-lter-seh/align-esp1_rwmput.gif[Align ESP]
 
 Note that all the resulting bytes are in our allowed charset. Now update our
 exploit with those instructions:
@@ -642,7 +642,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And check it. If it works, `ESP` must point to the very end of our `C` buffer:
 
-image::align-esp2.gif[Align ESP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331205/blog/vulnserver-lter-seh/align-esp2_gahfhu.gif[Align ESP]
 
 Great! It means that any `PUSH` instruction will put things in that place. And
 that's exactly what we wanted to do.
@@ -685,14 +685,14 @@ If we divide `909080eb` by two, we will get `48484075.8`. So we can add
 
 Let's see if that works:
 
-image::carve-eax1.gif[Carve EAX]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331203/blog/vulnserver-lter-seh/carve-eax1_fg9xhd.gif[Carve EAX]
 
 Great!
 
 We can now execute `PUSH EAX` and our desired `\xeb\x80` should emerge
 like magic:
 
-image::push-eax1.gif[Carve EAX]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331202/blog/vulnserver-lter-seh/push-eax1_pqhuob.gif[Carve EAX]
 
 Isn't it wonderful? It looks like black magic!
 
@@ -747,7 +747,7 @@ We will use the same strategy as before.
 First, we need to know the exact instruction
 of the desired long backward jump:
 
-image::long-jump2.png[Second long jump]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331199/blog/vulnserver-lter-seh/long-jump2_m5hsrq.webp[Second long jump]
 
 The resulting bytes are `E9 2D F2 FF FF`. We must perform a long jump not to
 the very start of our buffer, but somewhere in the first bytes.
@@ -818,7 +818,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And check it:
 
-image::align-esp3.gif[Align ESP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331201/blog/vulnserver-lter-seh/align-esp3_swtzxo.gif[Align ESP]
 
 Great! We can now encode our long backward jump.
 This time I will use a tool called
@@ -896,7 +896,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And check it:
 
-image::long-jump-success1.gif[Long jump success]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331200/blog/vulnserver-lter-seh/long-jump-success1_rmm8w0.gif[Long jump success]
 
 Fantastic! Now we have enough room for encoding something really useful.
 
@@ -1067,7 +1067,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And check it:
 
-image::stager2.gif[Stager success]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331206/blog/vulnserver-lter-seh/stager2_wzgle8.gif[Stager success]
 
 Weeeh! Now to finish, we can create our shellcode and insert it on our side
 channel created by the stager. As we now control the `recv()` call,
@@ -1228,7 +1228,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And check if we got a shell:
 
-image::success.gif[Success]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331202/blog/vulnserver-lter-seh/success_vaz7jm.gif[Success]
 
 Wonderful! It was easy, isn't it? No, it was not, but we learned a lot!
 

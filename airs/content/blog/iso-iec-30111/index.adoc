@@ -3,7 +3,7 @@
 :subtitle: Guidelines for the vulnerability handling processes
 :category: politics
 :tags: cybersecurity, standard, vulnerability, information, company, challenge
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330932/blog/iso-iec-30111/cover_i6aiku.webp
 :alt: Photo by Cristofer Jeschke on Unsplash
 :description: This post is related to vulnerability handling processes (ISO/IEC 30111), complementing the previous writing on vulnerability disclosure (ISO/IEC 29147).
 :keywords: Standard, ISO, Vulnerability, Handling, Verification, Remediation, Ethical Hacking, Pentesting
@@ -113,7 +113,7 @@ let's check what ISO shares for the phases
 of verification and remediation of vulnerabilities.
 
 .Photo by link:https://unsplash.com/@kovah?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText[Kovah] on link:https://unsplash.com/photos/MVjTry-e8MQ[Unsplash]
-image::kovah.png[Kovah]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330931/blog/iso-iec-30111/kovah_yh3gmn.webp[Kovah]
 
 === Verification of vulnerabilities
 

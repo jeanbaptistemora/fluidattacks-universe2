@@ -3,7 +3,7 @@
 :subtitle: Guidelines for the vulnerability disclosure processes
 :category: politics
 :tags: cybersecurity, standard, vulnerability, information, company, challenge
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330932/blog/iso-iec-29147/cover_l1aadb.webp
 :alt: Photo by Keagan Henman on Unsplash
 :description: Would you like to get a clearer idea about vulnerability disclosure? Start with reading this post based on ISO/IEC 29147:2018.
 :keywords: Standard, ISO, Vulnerability, Disclosure, Report, Remediation, Ethical Hacking, Pentesting
@@ -89,7 +89,7 @@ for those companies that want to establish or enhance
 their vulnerability disclosure policies and methods.
 
 .Photo by link:https://unsplash.com/@soymeraki?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText[Javier Allegue Barros] on link:https://unsplash.com/s/photos/guide?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText[Unsplash]
-image::barros.png[Javier Allegue Barros]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330929/blog/iso-iec-29147/barros_hobmbe.webp[Javier Allegue Barros]
 
 == Preparation
 

@@ -3,7 +3,7 @@
 :subtitle: Sharing at least a modicum about phishing attacks
 :category: techniques
 :tags: social-engineering, information, web, software, cybersecurity, business
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330974/blog/phishing/cover_tl6uyf.webp
 :alt: Photo by Glen Hooper on Unsplash
 :description: In this post, we give some general ideas about phishing, hoping to contribute to its prevention.
 :keywords: Phishing, Social Engineering, Information, Web, Software, Cybersecurity, Business, Ethical Hacking, Pentesting
@@ -57,7 +57,7 @@ link:https://www.researchgate.net/publication/221166492_Decision_strategies_and_
 (perhaps link:https://www.akamai.com/us/en/multimedia/documents/white-paper/phishing-is-no-longer-just-email-its-social-white-paper.pdf[the simplest means of entry]).
 
 .taken from link:https://www.akamai.com/us/en/multimedia/documents/white-paper/phishing-is-no-longer-just-email-its-social-white-paper.pdf[Akamai's] report. For other reports, visit link:https://docs.apwg.org/reports/apwg_trends_report_q4_2019.pdf[APWG] and link:https://www.avanan.com/hubfs/2019-Global-Phish-Report.pdf[Avanan]
-image::akamai.png[akamai]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330973/blog/phishing/akamai_zm7nm9.webp[akamai]
 
 Fraudulent emails—link:https://www.researchgate.net/publication/221166492_Decision_strategies_and_susceptibility_to_phishing[as part of a *semantic attack*]—
 ask people for sensitive information to be revealed on fraudulent websites
@@ -157,7 +157,7 @@ was delivered securely by `SSL` (Secure Sockets Layer). A cryptographic protocol
 link:http://people.ischool.berkeley.edu/~tygar/papers/Phishing/why_phishing_works.pdf["used to provide authentication and secure communications over the Internet"].
 
 .security indicator on Chrome
-image::padlock.png[padlock]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330972/blog/phishing/padlock_lsvfgs.webp[padlock]
 
 A system can be well equipped with firewalls, certificates,
 and encryption and authentication mechanisms,

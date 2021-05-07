@@ -3,7 +3,7 @@
 :subtitle: It's all about sanitization
 :category: attacks
 :tags: vulnerability, code, discovery
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331105/blog/tainted-love/cover_pkrmla.webp
 :alt: Person using a Syringe filled with bad stuff
 :description: This blog post provides a brief description of static and dynamic taint analysis or taint checking.
 :keywords: Taint Analysis, Security, Injection, Bug, Vulnerability, Flow, Ethical Hacking, Pentesting
@@ -44,7 +44,7 @@ has an input where the user is supposed to write a movie name,
 which should contain only alphanumeric characters:
 
 .bWAPP movie search
-image::../fuzzy-bugs-online/scr-bwapp-movie-search.png[bWAPP movie search]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330880/blog/fuzzy-bugs-online/scr-bwapp-movie-search_qh3gye.webp[bWAPP movie search]
 
 Some movies will occasionally have
 punctuation marks such as a dash or a question mark.
@@ -84,7 +84,7 @@ And all the movies' information is retrieved,
 along with the users' login information:
 
 .Tainted!
-image::../fuzzy-bugs-online/scr-succesful-sqli.png[bWAPP SQLi]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330880/blog/fuzzy-bugs-online/scr-succesful-sqli_vlv6cg.webp[bWAPP SQLi]
 
 The user input has become _tainted_,
 and hence the `SQL` query is now taintedas well.
@@ -116,7 +116,7 @@ and figure out if there is any sanitizers
 between each source-sink pair:
 
 .Taint analysis diagram via link:http://web.cs.iastate.edu/~weile/cs513x/5.TaintAnalysis1.pdf[Coseinc].
-image::../big-code/taint-analysis.png[Taint analysis depiction]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330670/blog/big-code/taint-analysis_fz03sg.webp[Taint analysis depiction]
 
 Then, depending on whether this taint analysis
 is _static_ (code) or _dynamic (runtime),
@@ -232,7 +232,7 @@ Here is a more friendly depiction of the process,
 in the author's own drawings:
 
 .Overview of PyT's process from <<r1,[1]>>
-image::pyt-flow.png[PyT process]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331103/blog/tainted-love/pyt-flow_tyb4na.webp[PyT process]
 
 The final step, of course,
 is reporting, so that the developer might

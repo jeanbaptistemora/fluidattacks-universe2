@@ -3,7 +3,7 @@
 :subtitle: But before doing it you must read this
 :category: techniques
 :tags: cybersecurity, social-engineering, android, risk, technology, software
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331098/blog/smishing/cover_zpfdiv.webp
 :alt: Photo by Ian Tuck on Unsplash
 :description: In this blog, you will learn how and why is smishing growing as one of the most popular forms of cyber-scam.
 :keywords: Smishing, Scam, Phones, Cybersecurity, Social Engineering, Ethical Hacking, SMS, Pentesting
@@ -62,7 +62,7 @@ But how could anyone steal information, money or
 install a malicious program via a supposedly harmless text message?
 
 .link:https://www.ic3.gov/Media/PDF/AnnualReport/2020_IC3Report.pdf[2020 Crime Types]
-image::image1.png[Image1]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331097/blog/smishing/image1_elvchj.webp[Image1]
 
 == How does smishing work?
 
@@ -102,7 +102,7 @@ revealed in February 2020 that
 that used false information on the novel coronavirus."
 
 .link:https://www.ic3.gov/Media/PDF/AnnualReport/2020_IC3Report.pdf[Victims]
-image::image2.png[Image2]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331097/blog/smishing/image2_xulcfa.webp[Image2]
 
 . Downloading malware
 +
@@ -144,7 +144,7 @@ Almost a half recognized that they didn't know what that was.
 Now that you know, how can you avoid it?
 
 .link:https://www.ic3.gov/Media/PDF/AnnualReport/2020_IC3Report.pdf[Top 5 Crime Comparison]
-image::image3.png[Image3]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331096/blog/smishing/image3_rcbhfe.webp[Image3]
 
 == Tips to avoid smishing
 

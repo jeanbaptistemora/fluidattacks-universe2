@@ -3,7 +3,7 @@
 :category: machine-learning
 :subtitle: Deep Learning for vulnerability disclosure
 :tags: machine-learning, detect, software
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331140/blog/vulnerabilities-in-deep/cover_ihaxpf.webp
 :alt: Photo by Franki Chamaki on Unsplash
 :description: In this blog post, we discuss an article from Boston University that presents new applications of Artificial Intelligence in the security field.
 :keywords: Machine Learning, Deep Learning, Detection, Vulnerability, Code, AI, Ethical Hacking, Pentesting
@@ -78,7 +78,7 @@ code from `Debian` distributions,
 and some `GitHub` public repositories.
 
 .Vulnerable code distribution link:https://arxiv.org/pdf/1807.04320.pdf[[1\]].
-image::code-distribution.png[Vulnerable code distribution.]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331139/blog/vulnerabilities-in-deep/code-distribution_c8mxlz.webp[Vulnerable code distribution.]
 
 == Labeling
 
@@ -97,7 +97,7 @@ and others, in order to classify each block of source code
 as vulnerable or non-vulnerable.
 
 .Statistics CWE vulnerabilities detected link:https://arxiv.org/pdf/1807.04320.pdf[[1\]].
-image::found-vulnerabilities.png[Found vulnerabilities.]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331139/blog/vulnerabilities-in-deep/found-vulnerabilities_ygqecc.webp[Found vulnerabilities.]
 
 == Feature Extraction
 
@@ -114,7 +114,7 @@ they passed the output through a link:https://towardsdatascience.com/understandi
 They then obtained better results and avoided overfitting.
 
 .Convolutional Neural Network Model and Random Forest link:https://arxiv.org/pdf/1807.04320.pdf[[1\]].
-image::model.png[Convolutional Neural Model]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331138/blog/vulnerabilities-in-deep/model_wrrngs.webp[Convolutional Neural Model]
 
 == Results
 
@@ -131,7 +131,7 @@ Static analyzers only identify a small portion
 of the real vulnerabilities present in the source code.
 
 .Detection of vulnerabilities link:https://arxiv.org/pdf/1807.04320.pdf[[1\]].
-image::detections.png[Detections]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331138/blog/vulnerabilities-in-deep/detections_kktube.webp[Detections]
 
 This algorithm can underline
 code blocks that might introduce a vulnerability.

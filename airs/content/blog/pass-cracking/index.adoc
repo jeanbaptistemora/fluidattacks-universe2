@@ -3,7 +3,7 @@
 :subtitle: A very short introduction to password cracking
 :category: attacks
 :tags: password, security, vulnerability, hacking, mistake
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330973/blog/pass-cracking/cover_wslpjd.webp
 :alt: Photo by Arteum.ro on Unsplash
 :description: After I wrote this post, I decided to change some of my most important passwords, and after you read it, we think you might want to modify your passwords too.
 :keywords: Password, Cracking, Security, Vulnerability, Hacking, Dictionary, Brute Force, Ethical Hacking, Pentesting
@@ -28,7 +28,7 @@ And, believe or not
 the fault is partly _yours!_
 
 .Photo by link:https://unsplash.com/@bernardhermant[Bernard Hermant] on Unsplash
-image::wtf.png[WTF]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330972/blog/pass-cracking/wtf_mofm5i.webp[WTF]
 
 Before we talk about *password cracking*,
 keep this in mind,
@@ -57,7 +57,7 @@ and an arbitrary block of data.
 Look at this image:
 
 .Using link:http://md5-hash-online.waraxe.us/[MD5] to get a hash
-image::md5.png[MD5]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330971/blog/pass-cracking/md5_ptpf4y.webp[MD5]
 
 _And what does *one-way* mean?_
 Well, you can't easily go back to the plaintext
@@ -112,7 +112,7 @@ Here are some of the best-known methods:
 === Brute Force
 
 .Photo by link:https://unsplash.com/@designer4u[Olga Guryanova] on Unsplash
-image::bf.png[Brute Force]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330972/blog/pass-cracking/bf_fwytnv.webp[Brute Force]
 
 Brute force (`BF`) attack, since the early 1990s,
 has been an exhaustive method that takes for evaluation
@@ -133,7 +133,7 @@ give an advantage to this meticulous technique.
 === Dictionary
 
 .Photo by link:https://unsplash.com/@pisitheng[Pisit Heng] on Unsplash
-image::dct.png[Dictionary]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330972/blog/pass-cracking/dct_r1wei0.webp[Dictionary]
 
 Dictionary attacks use prearranged wordlists
 with fewer words than an input space for `BF` attacks,

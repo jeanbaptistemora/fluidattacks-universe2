@@ -79,7 +79,7 @@ Blog | {{ SITENAME }}
       <div
         class="br3 shadowbox-blog hover-card mb5 relative dt-ns mt0-ns ma-auto bg-white w-card">
         {% if  article.featured_image %}
-          <img loading="lazy" src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}"
+          <img loading="lazy" src="{{ article.featured_image }}"
                alt="{{ article.alt }}"
                class="br3 br--top">
         {% endif %}

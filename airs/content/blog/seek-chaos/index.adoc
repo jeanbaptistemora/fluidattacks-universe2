@@ -3,7 +3,7 @@
 :subtitle: The Antifragile philosophy
 :category: philosophy
 :tags: business, security, risk, experiment
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331094/blog/seek-chaos/cover_bvvxp3.webp
 :alt: multicolor abstract paint on Unsplash: https://unsplash.com/photos/YQrUzrsRNes
 :description: In this article, we examine how the Antifragility concept can inform design decisions, change the mindset of cybersecurity teams, and affect your business.
 :keywords: Security, Fragile, Robust, Antifragile, Risk, Chaos, Ethical Hacking, Pentesting
@@ -92,7 +92,7 @@ and systems to small risks.
 == Netflix's Simian Army
 
 .A monkey shouting on a cave”; perhaps he is about to cause some chaos!
-image::monkey.png["Monkey in a cave"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331093/blog/seek-chaos/monkey_unzaj3.webp["Monkey in a cave"]
 
 The worst nightmare for a company like `Netflix` is downtime.
 In 2008, the company decided to migrate to a cloud infrastructure
@@ -150,7 +150,7 @@ when I became a customer.
 == Experimentation, tinkering and small risks
 
 .Richard Feynman
-image::feynman.png[Richard Feynman]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331094/blog/seek-chaos/feynman_vbcjy0.webp[Richard Feynman]
 
 [quote]
 “The test of all knowledge is experiment.

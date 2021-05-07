@@ -3,7 +3,7 @@
 :subtitle: About code as data
 :category: attacks
 :tags: testing, application, detect
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330963/blog/oracle-code/cover_fqvnfc.webp
 :alt: Code on a screen
 :description: This blog post is a description of the code-as-data approach to source code analysis.
 :keywords: Testing, Database, Code, Query Language, Semmle, Data, Ethical Hacking, Pentesting
@@ -109,7 +109,7 @@ and all that has to be shown on the tree.
 The `AST` would be like this:
 
 .Adapted from link:https://www2.eecs.berkeley.edu/Pubs/TechRpts/1983/CSD-83-164.pdf#page=31[Linton's original diagram.]
-image::ast.png["Abstract syntax tree",width=800]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330962/blog/oracle-code/ast_g4ei72.webp["Abstract syntax tree",width=800]
 
 Next, how do we make a database out of this?
 Neither `Semmle` nor
@@ -145,7 +145,7 @@ Here you can read unlabeled relations
 as `have' or `is' (generic relations).
 
 .ER diagram for a simple code snippet
-image::er.png["ER diagram for program database"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330960/blog/oracle-code/er_s9q9sb.webp["ER diagram for program database"]
 
 The most basic entity is the `statement`,
 which is basically every line of code.

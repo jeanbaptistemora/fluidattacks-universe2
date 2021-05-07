@@ -3,7 +3,7 @@
 :category: attacks
 :subtitle: Exploiting Vulnserver with ROP
 :tags: osee, training, exploit, vulnserver
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331216/blog/vulnserver-trun-rop/cover_fyj5gk.webp
 :alt: Photo by Syed Ali on Unsplash
 :description: This post will show how to create a complete, functional exploit creating a complex shellcode using ROP
 :keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
@@ -73,7 +73,7 @@ indicator.
 Let's load `vulnserver.exe` on a debugger to see if we can find one of those
 functions:
 
-image::virtualprotect1.gif[VirtualProtect()]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331221/blog/vulnserver-trun-rop/virtualprotect1_enpg6v.gif[VirtualProtect()]
 
 We were lucky. `VirtualProtect()` was found in the `IAT` (Import Address
 Table) of our executable. We will use that method.
@@ -149,7 +149,7 @@ Let's see what would be the values to that parameters:
 Ideally, we will use later the reference on the `IAT` to this function. For
 now, we found that `VirtualProtect()` is at `0x76070420`:
 
-image::virtualprotect1.png[VirtualProtect()]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331216/blog/vulnserver-trun-rop/virtualprotect1_pn6rni.webp[VirtualProtect()]
 
 . Return address for `VirtualProtect()`: This should be a pointer to a
 `JMP ESP` or `CALL ESP` instruction. This will redirect the execution flow to
@@ -157,7 +157,7 @@ our shellcode when the `ROP` chain finishes, enabling the execution flag on
 the stack. You can obtain multiple options for this value using
 `!mona jmp -n -r esp`. I will pick `0x625011AF`
 
-image::monajmp1.png[Mona JMP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331213/blog/vulnserver-trun-rop/monajmp1_tmmgoz.webp[Mona JMP]
 
 . `lpAddress`: This should be the start address on where we expect to
 store our shellcode. In our case, this should be the value of `ESP` and the
@@ -174,7 +174,7 @@ where we have write permissions. You can use the debugger to find the right
 place. Ideally this should be an address to a module without `ASRL` or
 `Rebase`. In this case I'll choose the one at `0x62504040`:
 
-image::writable1.png[Writable]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331218/blog/vulnserver-trun-rop/writable1_nlr7f6.webp[Writable]
 
 == Verifying execution
 
@@ -237,20 +237,20 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 I will now run the exploit in stages, to explain every step:
 
-image::run1.gif[Stage 1]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331214/blog/vulnserver-trun-rop/run1_rffdx0.gif[Stage 1]
 
 Here, we can see that we effectively injected the parameters on the stack
 and that our first `RETN` gave control to call `VirtualProtect()`.
 However, there are some values that need to be changed. Let's do that:
 
-image::run2.gif[Stage 2]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331214/blog/vulnserver-trun-rop/run2_bikqys.gif[Stage 2]
 
 In this part, I modified the `lpAddress` value with the current value of `ESP`,
 then modified `dwSize` making it `0x00000200` or 512 bytes, and
 `flNewProtect` was set to `0x40` (`PAGE_EXECUTE_READWRITE`). Now, let the
 exploit continues with the modified values:
 
-image::run3.gif[Stage 3]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331216/blog/vulnserver-trun-rop/run3_dy8pb2.gif[Stage 3]
 
 Wonderful! The `VirtualProtect()` call effectively marked the region
 where our shellcode was placed as executable and we could make
@@ -574,14 +574,14 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And check it:
 
-image::run4.gif[ROP Chain]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331217/blog/vulnserver-trun-rop/run4_ayeb4j.gif[ROP Chain]
 
 Isn't it wonderful? We were able to setup the call to `VirtualProtect()` with
 the required parameters using `ROP`.
 
 Let's resume the execution to check if that worked:
 
-image::run5.gif[ROP Chain]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331216/blog/vulnserver-trun-rop/run5_mxyouz.gif[ROP Chain]
 
 Indeed! Again, we were able to make `EAX = 0xdeadbeef` using a traditional
 shellcode. We can now replace that mock shellcode with one of our good ol'
@@ -744,7 +744,7 @@ around with the stack.
 
 Let's check it now:
 
-image::success.gif[Success]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331215/blog/vulnserver-trun-rop/success_y8d4wg.gif[Success]
 
 Great! We successfuly disabled `DEP` for our process and got a shell!
 

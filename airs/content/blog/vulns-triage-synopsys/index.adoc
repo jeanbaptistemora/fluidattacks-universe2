@@ -3,7 +3,7 @@
 :subtitle: BDSA and various data points for prioritization
 :category: opinions
 :tags: cybersecurity, vulnerability, standard, information, software, application
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331220/blog/vulns-triage-synopsys/cover_iesvfh.webp
 :alt: Photo by Jeremy Thomas on Unsplash
 :description: This post is based on the webinar 'Effective Vulnerability Remediation Requires More than One Data Point' by Jeff Michael and Chris Fearon from Synopsys.
 :keywords: Cybersecurity, Vulnerability, Triage, Standard, Information, Software, Application, Ethical Hacking, Pentesting
@@ -40,7 +40,7 @@ there are "more than *16,000* open source vulnerabilities disclosed each year
 (that's more than *40* per day!)."
 
 .taken from the link:https://www.brighttalk.com/webcast/13983/382758[webinar] slides
-image::sea.png[Sea of Vulnerabilities]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331219/blog/vulns-triage-synopsys/sea_edvd12.webp[Sea of Vulnerabilities]
 
 There are hundreds of thousands of vulnerabilities,
 according to the authors of the webinar,
@@ -86,7 +86,7 @@ that build an overall or complete severity report:
 Base, Temporal, and Environmental.
 
 .taken from the link:https://www.brighttalk.com/webcast/13983/382758[webinar] slides
-image::cvss.png[CVSS Metrics]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331218/blog/vulns-triage-synopsys/cvss_ebdnd1.webp[CVSS Metrics]
 
 When we visit link:https://nvd.nist.gov/[the `NVD` website]
 (which we had already mentioned within [inner]#link:../rules-new-standard/[the Rules standards]#),
@@ -131,7 +131,7 @@ They also offer comprehension about the contexts
 in which those apps are running.
 
 .taken from link:https://www.1zoom.me/big2/55/179203-Sepik.jpg[1zoom.me]
-image::duck.png[Daffy Duck]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331217/blog/vulns-triage-synopsys/duck_wib3xc.webp[Daffy Duck]
 
 `CVSS` can sometimes be quite controversial
 as it depends on the analyst's interpretations.
@@ -164,6 +164,6 @@ We use those same link:https://www.first.org/cvss/calculator/3.1[Temporal metric
 and present them in our Attack Surface Manager (see Figure 4).
 
 .an example of (Base and Temporal) metrics in Integrates
-image::integrates.png[Integrates example]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331218/blog/vulns-triage-synopsys/integrates_z1se4c.webp[Integrates example]
 
 If you want to know more about it, we invite you to [inner]#link:../../contact-us/[contact us]#.

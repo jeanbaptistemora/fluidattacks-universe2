@@ -3,7 +3,7 @@
 :subtitle: Risk management with Python
 :category: philosophy
 :tags: business, security, risk
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330978/blog/quantitative-python/cover_budpkw.webp
 :alt: Finance simulation. Photo by M. B. M. on Unsplash: https://unsplash.com/photos/ZzOa5G8hSPI
 :description: Learn how to implement risk management tools and ideas like the loss exceedance curve and value-at-risk in Python using numerical and data analysis ecosystem.
 :keywords: Risk, Probability, Impact, Measure, Quantify, Security, Ethical Hacking, Pentesting
@@ -59,7 +59,7 @@ and confidence intervals for the impact:
 
 [[inputs]]
 .Table with input data.
-image::../monetizing-vulnerabilities/loss-risks-table.png[Table with input data]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330936/blog/monetizing-vulnerabilities/loss-risks-table_rvmog1.webp[Table with input data]
 
 So we need to read those values in our script.
 Since this is tabular information of the kind that would be
@@ -75,7 +75,7 @@ events_basic.head()
 ----
 
 .Data as imported into Jupyter like in our [inner]#link:../monetizing-vulnerabilities/#input-data[Monte Carlo article]#.
-image::data-imported.png[Imported data]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330977/blog/quantitative-python/data-imported_eadlea.webp[Imported data]
 
 We declare an event happens if a number
 taken at random is beyond a certain threshold,
@@ -162,7 +162,7 @@ results_series.plot()
 ----
 
 .Raw Monte-Carlo results
-image::results-raw.png[Raw Monte-Carlo results]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330977/blog/quantitative-python/results-raw_ogxmab.webp[Raw Monte-Carlo results]
 
 It can be observed that the vast majority of them
 are in the fringe between 0 and 15 million.
@@ -190,7 +190,7 @@ results_series.hist(bins = 15)
 ----
 
 .Histogram of results
-image::results-hist.png[Histogram of results]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330977/blog/quantitative-python/results-hist_slrq6e.webp[Histogram of results]
 
 We're getting closer to the loss exceedance curve, but not there yet.
 We can estimate probabilities simply by counting occurrences
@@ -219,7 +219,7 @@ plt.plot(edges[:-1], cumrev)
 And _voilà_, we get our loss exceedance curve as we sought:
 
 .Simple loss exceedance curve like in our [inner]#link:../monetizing-vulnerabilities/#lec-simple[Monte Carlo article]#.
-image::lec-simple.png[Simple loss exceedance curve]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330976/blog/quantitative-python/lec-simple_e7eipx.webp[Simple loss exceedance curve]
 
 We can repeat the procedure with a more moderate dataset
 to obtain the inherent risk `LEC`,
@@ -243,7 +243,7 @@ plt.plot(xint, fit(xint))
 All together in a single plot:
 
 .Loss exceedance curves like in our [inner]#link:../monetizing-vulnerabilities/#lec-all[Monte Carlo article]#.
-image::risk-curves-together.png[Risk curves together]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330977/blog/quantitative-python/risk-curves-together_wqeb3t.webp[Risk curves together]
 
 == Risk measures
 
@@ -302,7 +302,7 @@ compute the `VaR` and `tVaR` for each day
 and observe how they evolve:
 
 .Fabricated VaR monitoring example like in our [inner]#link:../para-bellum/#var-monitor[VaR article]#.
-image::monitor-var-time.png[Evolution of daily VaR in month]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330977/blog/quantitative-python/monitor-var-time_kjpsdm.webp[Evolution of daily VaR in month]
 
 Since this was a made-up example and
 the probabilities are sampled simply,

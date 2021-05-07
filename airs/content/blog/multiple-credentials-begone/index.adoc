@@ -3,7 +3,7 @@
 :category: identity
 :subtitle: Security issues and solutions of SSO services
 :tags: security, credential, saml, standard
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330940/blog/multiple-credentials-begone/cover_ytxbj5.webp
 :alt: Multiple icon accounts
 :description: Here we explain how to use SAML, a popular SSO implementation standard for logging users into applications based on their sessions.
 :keywords: Security, SAML, Credentials, SSO, XML, Risks, Ethical Hacking, Pentesting
@@ -25,7 +25,7 @@ across many different industries and the focus of this article is SAML,
 Security Assertion Mark-up Language.
 
 .Single Sign-on Services and SAML
-image::image2.png[saml]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330938/blog/multiple-credentials-begone/image2_e8atbw.webp[saml]
 
 == SAML - Security Assertion Mark-up Language
 
@@ -40,7 +40,7 @@ over authentication with more traditional methods like user name/password.
 (Onelogin, 2016)
 
 .SAML flow
-image::image1.png[flow]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330938/blog/multiple-credentials-begone/image1_qyrulq.webp[flow]
 
 SAML SSO works by transferring the user’s identity from one place, the identity
 provider (IP), to another, the service provider (SP). This is done through an
@@ -68,7 +68,7 @@ the identity provider he can then intercept and modify the SAML messages being
 exchanged however he sees fit.
 
 .SAML message structure
-image::image3.png[structure]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330938/blog/multiple-credentials-begone/image3_at7umz.webp[structure]
 
 
 The most common areas of SAML messages that are prone to tampering are

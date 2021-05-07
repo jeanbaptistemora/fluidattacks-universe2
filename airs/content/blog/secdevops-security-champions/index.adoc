@@ -3,7 +3,7 @@
 :subtitle: Six recommendations for SecDevOps from Carnegie Mellon
 :category: philosophy
 :tags: security, devops, software, information, web, cloud
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331091/blog/secdevops-security-champions/cover_nkri6h.webp
 :alt: Photo by Ingo Stiller on Unsplash
 :description: Here you'll learn about Security Champions. But first, we give you five recommendations if you're considering the implementation of security in your business.
 :keywords: Security, Champions, Devops, Secdevops, Software, Information, Web, Cloud, Ethical Hacking, Pentesting, Devsecops
@@ -118,7 +118,7 @@ what the technical team is communicating to them
 == 'Security Champions' (a sixth recommendation)
 
 .link:https://unsplash.com/photos/1pdp-PGplss[Photo] by link:https://unsplash.com/@windogram[A P on Unsplash]
-image::lions.png[Security Champions]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331090/blog/secdevops-security-champions/lions_lqcl1b.webp[Security Champions]
 
 The integration of teams
 can be favored by the presence of 'champions' of each area.

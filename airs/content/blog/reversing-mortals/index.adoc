@@ -3,7 +3,7 @@
 :category: attacks
 :subtitle: Solving Yoire crackme average challenge
 :tags: revert, challenge, engineering
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331059/blog/reversing-mortals/cover_reckpt.webp
 :alt: Wrong red piece in white puzzle
 :description: In this article, we provide a first approach to reverse engineering by solving a simple but educational cracking challenge using OllyDBG.
 :keywords: Reversing, Reverse Engineering, Debugger, OllyDBG, Hacking, Assembler, Ethical Hacking, Pentesting
@@ -50,7 +50,7 @@ we will take a look at a great challenge for beginners.
 Our task here is to obtain the serial for the executable file.
 
 .Challenge Crackme Average on yoire.com
-image::image1.png[challenge]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331059/blog/reversing-mortals/image1_psxbz9.web[challenge]
 
 To accomplish our task we need a debugger.
 The debugger we will be using is *OllyDbg*.
@@ -78,7 +78,7 @@ In order to understand what the program does
 we will just enter any serial and check it.
 
 .Result after checking an incorrect serial
-image::image2.png[result]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331059/blog/reversing-mortals/image2_euxtnh.webp[result]
 
 After we enter an incorrect serial
 we get the following message:
@@ -90,7 +90,7 @@ Let's open the executable file in *Olly*
 and check out if assembly is as difficult as they say.
 
 .exe file on OllyDbg
-image::image3.png[ollydbg]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331058/blog/reversing-mortals/image3_ux0c17.webp[ollydbg]
 
 Once the file loads,
 we can see that we have the registers on the top right,
@@ -116,7 +116,7 @@ right-click on the main screen,
 "Search for" - "All referenced text strings".
 
 .Search for all referenced text strings
-image::image4.png[search]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331057/blog/reversing-mortals/image4_aqpibp.webp[search]
 
 A new window pops up with the results.
 The window contains all the strings that are referenced in the program.
@@ -124,7 +124,7 @@ Here we can see the message we set as our starting point
 and also the message that is displayed when we enter the correct serial.
 
 .Search for all referenced text strings
-image::image5.png[search-text]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331059/blog/reversing-mortals/image5_ujoauk.webp[search-text]
 
 Debugging pretty much consists on setting breakpoints where we think are needed
 and analysing the execution of the program before,
@@ -151,7 +151,7 @@ and obtain valuable information that will allow you to crack the exe.
 We will go ahead and set a break point in that function.
 
 .Setting breakpoints
-image::image6.png[breakpoint]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331058/blog/reversing-mortals/image6_vlz3hq.webp[breakpoint]
 
 With the breakpoint set, we can hit `F9` to run the program
 until it reaches the breakpoint.
@@ -165,7 +165,7 @@ in the first `CMP`
 we can see that it compares my first char 'p' with the hex 63.
 
 .Check out the CMP!!
-image::image7.png[cmp]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331059/blog/reversing-mortals/image7_cr2rij.webp[cmp]
 
 After the comparison we can note that the `JNZ` is taken.
 Since the two values compared are not equal, `JNZ` is executed.
@@ -174,7 +174,7 @@ Before we try another password
 let's understand what the program is performing all the comparisons against.
 
 .All the comparisons
-image::image8.png[comparison]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331059/blog/reversing-mortals/image8_rbcpgb.webp[comparison]
 
 We have the hex values: 63, 68, 61, 72, 62, 79, 63, 68, 61, 72.
 And note that if the last jump is not taken
@@ -185,7 +185,7 @@ and figure out the serial.
 Let's test it out.
 
 .Correct serial - Cracked!!
-image::image9.png[cracked]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331058/blog/reversing-mortals/image9_k6olx0.webp[cracked]
 
 There we have it. Our first reversing!
 

@@ -3,7 +3,7 @@
 :subtitle: Security of OSS — Fluid Attacks as a vivid example
 :category: philosophy
 :tags: security, cybersecurity, code, software, company, business
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330966/blog/oss-security/cover_ztzxzn.webp
 :alt: Photo by Karsten Winegeart on Unsplash
 :description: We want to remind you that hiding your applications' source code can often provide you only an illusion of security and that OSS is a worthwhile alternative.
 :keywords: Security, Cybersecurity, OSS, Open Source, Code, Software, Company, Ethical Hacking, Pentesting
@@ -83,7 +83,7 @@ and here is where `Fluid Attacks` comes in.
 == Fluid Attacks is safe, out of the cave
 
 .Photo by link:https://unsplash.com/@karsten116[Karsten Winegeart] on link:https://unsplash.com/photos/v_OICS4SdEA[Unsplash]
-image::karsten.png[Karsten]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330966/blog/oss-security/karsten_wowiqz.webp[Karsten]
 
 `Fluid Attacks` was born directly in the free and open-source software,
 making use of it and keeping it in that condition.

@@ -3,7 +3,7 @@
 :subtitle: How some firms (especially SMBs) can go broke
 :category: philosophy
 :tags: business, security, company, vulnerability
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331097/blog/smbs-bankruptcy/cover_ug1ssj.webp
 :alt: Photo by NeONBRAND on unplash: https://unsplash.com/photos/dDvrIJbSCkg
 :description: Do companies go bankrupt by a cybersecurity breach? Some people assure there is no evidence about it. In this blog post, we tried to dig deeper.
 :keywords: Business, Security, Company, Vulnerability, Mistake, Information, Ethical Hacking, Pentesting
@@ -70,7 +70,7 @@ _Which of them is out of business?_
 == The uncommonly known cases: small to medium-sized firms
 
 .Bankruptcy.
-image::melinda-gimpel.png[Bankruptcy]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331096/blog/smbs-bankruptcy/melinda-gimpel_wdkyur.webp[Bankruptcy]
 
 Some critical aspects of the previous section are `the size of the costs`,
 `the impact of the incidents`, and `the vulnerabilities present`,

@@ -3,7 +3,7 @@
 :category: attacks
 :subtitle: Exploiting in stages
 :tags: osce, vulnserver, training, exploit
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331152/blog/vulnserver-kstet/cover_raeprd.webp
 :alt: Photo by Ganapathy Kumar on Unsplash
 :description: This post will show how to exploit the Vulnserver KSTET command using a socket reuse method.
 :keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
@@ -66,12 +66,12 @@ then `Search for -> All referenced text strings`, right-click again, then
 Now, select the match on where `KSTET` string is presented and set a
 breakpoint:
 
-image::debug1.gif[Debugging KSTET]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331151/blog/vulnserver-kstet/debug1_o2nwuk.gif[Debugging KSTET]
 
 With that in place, we can start our connection to `Vulnserver` again
 and see what happens under the hood:
 
-image::debug2.gif[Debugging KSTET]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331151/blog/vulnserver-kstet/debug2_rkjgsp.gif[Debugging KSTET]
 
 As you can see, several things are happening:
 
@@ -85,7 +85,7 @@ without checking buffer boundaries.
 Let's see what happens when we issue something larger than a `hello` to the
 `KSTET` command:
 
-image::crash1.gif[Crash]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331152/blog/vulnserver-kstet/crash1_efnjdw.gif[Crash]
 
 Uggh! With a very short string, Vulnserver crashed, and we overwrote `EIP`,
 which means that we can control the execution flow of the application.
@@ -112,7 +112,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And check it:
 
-image::poc1.gif[Crash]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331150/blog/vulnserver-kstet/poc1_dmu3cf.gif[Crash]
 
 That's good news. However, the injected string was really short,
 and maybe we'd have a narrow buffer space to work on.
@@ -121,7 +121,7 @@ and maybe we'd have a narrow buffer space to work on.
 
 If we check the state of the application after the crash, we will see this:
 
-image::space1.png[Buffer space]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331152/blog/vulnserver-kstet/space1_qshzcz.webp[Buffer space]
 
 In the dump window (bottom left), we see our injected buffer. In the PoC,
 we sent 200 `A` chars, but as you can see here, the total amount of injected
@@ -170,7 +170,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And check it:
 
-image::offset1.gif[Cyclic pattern]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331150/blog/vulnserver-kstet/offset1_gfntrn.gif[Cyclic pattern]
 
 As you can see, `EIP` was overwritten with `63413363`. We can check the
 offset of that bytes on our cyclic pattern to get the offset on where `EIP`
@@ -206,7 +206,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And run it:
 
-image::offset2.gif[Cyclic pattern]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331148/blog/vulnserver-kstet/offset2_bhloqq.gif[Cyclic pattern]
 
 Wonderful! We know exactly how to overwrite `EIP` to get control over the
 execution flow.
@@ -228,7 +228,7 @@ This would tell `mona` to look for instructions that can be used to jump to
 `ESP` (`jmp -r esp`), excluding pointers with null bytes (`-cp nonull`) and
 omitting OS DLLs (`-o`). The result is the following:
 
-image::mona1.png[JMP ESP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331150/blog/vulnserver-kstet/mona1_jfvocq.webp[JMP ESP]
 
 We can choose any of those 9 pointers. I'll choose the one at `625011BB`.
 
@@ -258,14 +258,14 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And check it:
 
-image::jmp1.gif[JMP ESP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331150/blog/vulnserver-kstet/jmp1_izwtmw.gif[JMP ESP]
 
 Great! However, as you can see, we landed on a 20 bytes buffer where we
 put the `C` chars, but we have 66 bytes above on the buffer of the `A` chars.
 
 With a short jump backward, we can easily jump to that place:
 
-image::jmp2.gif[JMP backwards]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331148/blog/vulnserver-kstet/jmp2_qzbcsx.gif[JMP backwards]
 
 The resultant bytes were `EB B5`. We can update our exploit with that:
 
@@ -295,7 +295,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And check it:
 
-image::jmp3.gif[JMP backwards]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331149/blog/vulnserver-kstet/jmp3_pbycxb.gif[JMP backwards]
 
 But again, we were brutally reminded that we have a narrow buffer space
 to work on.
@@ -315,7 +315,7 @@ shellcode in less than 70 bytes of buffer.
 Let's check a simplified structure of a TCP server and client interaction:
 
 .taken from https://www.geeksforgeeks.org/socket-programming-cc/
-image::socket1.png[TCP Server]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331152/blog/vulnserver-kstet/socket1_j0cx68.webp[TCP Server]
 
 We can see the different functions needed by both the server and the client
 to perform a TCP communication.
@@ -359,11 +359,11 @@ To do that, we can use the debugger again, by right-clicking on the
 `CPU` window, selecting `Search for -> All intermodular calls`,
 looking for the call to `WS2_32.recv` and setting a breakpoint on it:
 
-image::recv1.gif[recv() call location]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331153/blog/vulnserver-kstet/recv1_dfbgnj.gif[recv() call location]
 
 Now create a new connection:
 
-image::recv2.gif[recv() call]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331152/blog/vulnserver-kstet/recv2_jdwr9q.gif[recv() call]
 
 Wonderful! We can see the parameters of the `recv()` call
 on the stack window (bottom right) from where we can get the value of the
@@ -487,7 +487,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And check it:
 
-image::stage1payload.gif[Stage-1 payload]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331152/blog/vulnserver-kstet/stage1payload_w7hmoo.gif[Stage-1 payload]
 
 Wonderful! Our brute forcer was able to discover the socket handle value
 on `EDI=0x144` and it's ready to receive our stage-2 payload!
@@ -622,14 +622,14 @@ handle.
 
 Let's see it in action:
 
-image::stage2payload.gif[Stage-2 payload]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331154/blog/vulnserver-kstet/stage2payload_wyl7oa.gif[Stage-2 payload]
 
 Beautiful! As you can see, the shellcode was injected below our execution flow,
 so it will eventually be reached and triggered. Also, the socket handle was
 now `0x151`, which means that our brute forcer worked just as expected.
 Let's see if we got the shell:
 
-image::success.gif[Success]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331149/blog/vulnserver-kstet/success_uidgpb.gif[Success]
 
 Woohooo! We got our shell! And in a lot more fun way than with egghunters, huh?
 

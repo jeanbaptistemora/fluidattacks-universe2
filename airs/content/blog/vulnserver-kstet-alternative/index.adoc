@@ -3,7 +3,7 @@
 :category: attacks
 :subtitle: Sideloading exploiting
 :tags: osce, vulnserver, training, exploit
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331199/blog/vulnserver-kstet-alternative/cover_rpkuwo.webp
 :alt: Photo by Philipp Katzenberger on Unsplash
 :description: This post will show how to exploit the Vulnserver KSTET command loading the payload from an external source.
 :keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
@@ -71,12 +71,12 @@ then `Search for -> All referenced text strings`, right-click again, then
 Now, select the match on where `KSTET` string is presented and set a
 breakpoint:
 
-image::debug1.gif[Debugging KSTET]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331198/blog/vulnserver-kstet-alternative/debug1_kkqjhs.gif[Debugging KSTET]
 
 With that in place, we can start our connection to `Vulnserver` again
 and see what happens under the hood:
 
-image::debug2.gif[Debugging KSTET]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331199/blog/vulnserver-kstet-alternative/debug2_wohqpl.gif[Debugging KSTET]
 
 As you can see, several things are happening:
 
@@ -90,7 +90,7 @@ without checking buffer boundaries.
 Let's see what happens when we issue something larger than a `hello` to the
 `KSTET` command:
 
-image::crash1.gif[Crash]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331199/blog/vulnserver-kstet-alternative/crash1_hdzpl8.gif[Crash]
 
 Uggh! With a very short string, Vulnserver crashed, and we overwrote `EIP`,
 which means that we can control the execution flow of the application.
@@ -117,7 +117,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And check it:
 
-image::poc1.gif[Crash]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331197/blog/vulnserver-kstet-alternative/poc1_ouzwf2.gif[Crash]
 
 That's good news. However, the injected string was really short,
 and maybe we'd have a narrow buffer space to work on.
@@ -126,7 +126,7 @@ and maybe we'd have a narrow buffer space to work on.
 
 If we check the state of the application after the crash, we will see this:
 
-image::space1.png[Buffer space]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331199/blog/vulnserver-kstet-alternative/space1_f2mosl.webp[Buffer space]
 
 In the dump window (bottom left), we see our injected buffer. In the PoC,
 we sent 200 `A` chars, but as you can see here, the total amount of injected
@@ -175,7 +175,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And check it:
 
-image::offset1.gif[Cyclic pattern]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331197/blog/vulnserver-kstet-alternative/offset1_srjfjl.gif[Cyclic pattern]
 
 As you can see, `EIP` was overwritten with `63413363`. We can check the
 offset of that bytes on our cyclic pattern to get the offset on where `EIP`
@@ -211,7 +211,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And run it:
 
-image::offset2.gif[Cyclic pattern]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331196/blog/vulnserver-kstet-alternative/offset2_rbtocx.gif[Cyclic pattern]
 
 Wonderful! We know exactly how to overwrite `EIP` to get control over the
 execution flow.
@@ -233,7 +233,7 @@ This would tell `mona` to look for instructions that can be used to jump to
 `ESP` (`jmp -r esp`), excluding pointers with null bytes (`-cp nonull`) and
 omitting OS DLLs (`-o`). The result is the following:
 
-image::mona1.png[JMP ESP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331197/blog/vulnserver-kstet-alternative/mona1_ym7y00.webp[JMP ESP]
 
 We can choose any of those 9 pointers. I'll choose the one at `625011BB`.
 
@@ -263,14 +263,14 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And check it:
 
-image::jmp1.gif[JMP ESP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331198/blog/vulnserver-kstet-alternative/jmp1_rcg7tb.gif[JMP ESP]
 
 Great! However, as you can see, we landed on a 20 bytes buffer where we
 put the `C` chars, but we have 66 bytes above on the buffer of the `A` chars.
 
 With a short jump backward, we can easily jump to that place:
 
-image::jmp2.gif[JMP backwards]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331196/blog/vulnserver-kstet-alternative/jmp2_mgivno.gif[JMP backwards]
 
 The resultant bytes were `EB B5`. We can update our exploit with that:
 
@@ -300,7 +300,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And check it:
 
-image::jmp3.gif[JMP backwards]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331196/blog/vulnserver-kstet-alternative/jmp3_abef43.gif[JMP backwards]
 
 But again, we were brutally reminded that we have a narrow buffer space
 to work on.
@@ -326,7 +326,7 @@ run-time using the OS dynamic linker.
 We can see the `DLL` files loaded using several ways. On Vulnserver,
 we will use our debugger again:
 
-image::modules1.png[Executable modules]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331198/blog/vulnserver-kstet-alternative/modules1_mmzwqz.webp[Executable modules]
 
 That means that Vulnserver (and therefore, our shellcode) can execute any
 function included on any of those modules.
@@ -472,7 +472,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And check it:
 
-image::loadlib1.gif[LoadLibrary]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331197/blog/vulnserver-kstet-alternative/loadlib1_neogoa.gif[LoadLibrary]
 
 Great! The `LoadLibraryA` function is now ready.
 
@@ -515,7 +515,7 @@ the `SMBv1` protocol.
 
 We are now ready. We can check our exploit:
 
-image::success.gif[Success]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331196/blog/vulnserver-kstet-alternative/success_mbwkf4.gif[Success]
 
 Yes! We got a shell! You can see how the victim is self-hacking by retrieving
 the payload from our attacking machine!
@@ -523,7 +523,7 @@ the payload from our attacking machine!
 You can also see that `pwn.dll` is now part of the `vulnserver.exe`
 executable modules:
 
-image::modules2.png[Executable modules]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331196/blog/vulnserver-kstet-alternative/modules2_bdsaow.webp[Executable modules]
 
 Crazy, huh? You can download the final exploit link:exploit.py[here].
 

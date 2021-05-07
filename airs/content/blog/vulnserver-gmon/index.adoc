@@ -3,7 +3,7 @@
 :category: attacks
 :subtitle: Exceptions are good
 :tags: osce, vulnserver, training, exploit
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331144/blog/vulnserver-gmon/cover_yohcmp.webp
 :alt: Photo by Roberto Gomez Angel on Unsplash
 :description: This post will show how to exploit the Vulnserver GMON command using Structured Exception Handling (SEH) overwrite.
 :keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
@@ -77,11 +77,11 @@ Here the `Next` parameter is a pointer to the next exception handler, also
 called `nSEH`, and the `Handler` parameter is a pointer to the handler itself.
 We can see the exception handler's chain on a debugger:
 
-image::seh1.png[SEH chain]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331141/blog/vulnserver-gmon/seh1_cwzur2.webp[SEH chain]
 
 And on the stack, it is shown as:
 
-image::seh2.png[SEH chain]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331143/blog/vulnserver-gmon/seh2_vg1vlp.webp[SEH chain]
 
 More information on `SEH` can be found on
 link:https://docs.microsoft.com/en-us/cpp/cpp/structured-exception-handling-c-cpp?view=vs-2019[Microsoft's site].
@@ -124,14 +124,14 @@ that string as a fuzz point.
 
 And run it:
 
-image::fuzz1.gif[Fuzzing GMON]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331143/blog/vulnserver-gmon/fuzz1_qh0ra7.gif[Fuzzing GMON]
 
 We got the crash!
 
 And as with the other Vulnserver commands, it seems that 5060 bytes of data
 triggered the crash:
 
-image::wireshark1.png[Wireshark]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331142/blog/vulnserver-gmon/wireshark1_qyfgfo.webp[Wireshark]
 
 We can create our first proof-of-concept exploit:
 
@@ -154,20 +154,20 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 Now run our exploit with `vulnserver.exe` attached to a debugger:
 
-image::crash1.gif[PoC]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331143/blog/vulnserver-gmon/crash1_hrw5ri.gif[PoC]
 
 As you can see, we effectively crashed `vulnserver.exe`,
 but `EIP` does not seem to be mangled by our buffer.
 
 However, if we look at the `SEH` chain table, we will see this:
 
-image::seh3.png[Corrupted SEH]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331141/blog/vulnserver-gmon/seh3_axexgv.webp[Corrupted SEH]
 
 That means that we effectively triggered an exception and overwrote the
 exception handler with our buffer. If we trigger the exception handler (in
 Immunity Debugger, it's done with `Shift+F9`) this will happen:
 
-image::eip1.gif[EIP control]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331142/blog/vulnserver-gmon/eip1_keniyt.gif[EIP control]
 
 We control `EIP!` That means that
 we have control over the process execution flow again.
@@ -206,7 +206,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And run it:
 
-image::pattern1.gif[Pattern offset]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331142/blog/vulnserver-gmon/pattern1_pds6g9.webp[Pattern offset]
 
 As you can see, the handler was overwritten with `346F4533`.
 To find the offset in which the `SEH` handler gets overwritten,
@@ -250,7 +250,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And the result:
 
-image::offset1.gif[Right offset]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331142/blog/vulnserver-gmon/offset1_sosm3e.gif[Right offset]
 
 Awesome!
 
@@ -259,7 +259,7 @@ Now, what would normally happen is to find a `JMP ESP` instruction.
 However, let's look at the state of the stack
 after triggering the exception handler:
 
-image::aftercrash1.png[Stack]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331143/blog/vulnserver-gmon/aftercrash1_ipm82n.webp[Stack]
 
 We can see several things here:
 
@@ -310,7 +310,7 @@ omit addresses with null characters (`-cp nonull`), omit addresses on
 modules compiled with `SafeSEH` (`-cm safeseh=off`), and omit addresses
 on modules of the `OS` (`-o`).
 
-image::mona1.png[POP POP RET]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331142/blog/vulnserver-gmon/mona1_gzwngq.webp[POP POP RET]
 
 And we got 12 different options. We can choose any of those.
 I will choose the sequence at `625011FB` just because :)
@@ -341,7 +341,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And run it:
 
-image::popret1.gif[POP POP RET]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331143/blog/vulnserver-gmon/popret1_xnh1tf.gif[POP POP RET]
 
 Weeeeeeeh! We overwrote the `SEH` handler, triggered the exception, and
 redirected to a `POP/POP/RET` sequence that returned to our controlled buffer!
@@ -410,14 +410,14 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And see if we could effectively jump over the `SEH` handler:
 
-image::jmp1.gif[Short jump]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331142/blog/vulnserver-gmon/jmp1_hsds6d.gif[Short jump]
 
 Yes! We are past our `SEH` handler. Now we have enough room of bytes to perform
 a long jump back to the start of our `A` buffer.
 With the debugger's help, we get the needed offset by simply telling it to jump
 to the start of our `A` buffer and letting it calculate the offset.
 
-image::jmp2.gif[Long jump]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331141/blog/vulnserver-gmon/jmp2_xmjgq1.gif[Long jump]
 
 As you can see, the resultant bytes are `E9 16 F2 FF FF`.
 
@@ -454,7 +454,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And check it:
 
-image::jmp3.gif[Long jump]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331140/blog/vulnserver-gmon/jmp3_pwvvyj.gif[Long jump]
 
 Great! All that's left is to insert a shellcode. Let's do that.
 
@@ -573,7 +573,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 Let's check it:
 
-image::shell1.gif[Success]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331143/blog/vulnserver-gmon/shell1_vnbwoj.gif[Success]
 
 Our shell! We are getting good at it, aren't we?
 

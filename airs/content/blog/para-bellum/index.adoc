@@ -3,7 +3,7 @@
 :subtitle: Prepare for the worst risk
 :category: philosophy
 :tags: business, security, risk
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330971/blog/para-bellum/cover_gejzbf.webp
 :alt: Fire extinguisher. Photo by Tommaso Pecchioli on Unsplash: https://unsplash.com/photos/XG_wi3W4-m8
 :description: This blog post is focused on Value at Risk (VaR), a measure of the risk of loss in the context of uncertainty, v.g., for investment.
 :keywords: Risk, VaR, Probability, Impact, Measure, Quantify, Security, Ethical Hacking, Pentesting
@@ -84,7 +84,7 @@ and standard deviation (volatility) 30%:
 // text(-70,0.002,0,{'1% of', '\downarrow area'})
 // hold off
 .Normal distribution of value
-image::normal-pdf.png[Normal distribution of value]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330968/blog/para-bellum/normal-pdf_pu34fk.webp[Normal distribution of value]
 
 Knowing the probability distribution,
 which tells us probabilities of point values,
@@ -107,7 +107,7 @@ with the corresponding _cumulative_ distribution function (`CDF`):
 // yticklabels({'0','0.001','0.01','0.1','1'})
 // title('Portfolio returns CDF')
 .Cumulative distribution function of value
-image::normal-cdf.png[Cumulative distribution function of value,width=50%]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330969/blog/para-bellum/normal-cdf_cghzbx.webp[Cumulative distribution function of value,width=50%]
 
 Looks like
 a vertically reflected `LEC`.
@@ -179,7 +179,7 @@ besides being the value with more repetitions
 if we repeatedly draw numbers from such a distribution:
 
 .Expected value of a [inner]#link:../hit-miss/[beta distribution]#. Via link:https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Beta_first_moment.svg/220px-Beta_first_moment.svg.png[Wikimedia].
-image::beta-mean.png[Expected value of a beta distribution]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330969/blog/para-bellum/beta-mean_oreqlg.webp[Expected value of a beta distribution]
 
 The `TVaR` is thus the expected value of the loss,
 given that the `VaR` has been surpassed.
@@ -188,7 +188,7 @@ it is the center of gravity
 of the "catastrophe" region of the distribution plot:
 
 .Illustration of `VaR` and `TVaR`. Via link:http://www.nematrian.com/TailValueAtRisk[Nematrian].
-image::tvar.png[Illustration of VaR and TVaR]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330968/blog/para-bellum/tvar_fg6jpf.webp[Illustration of VaR and TVaR]
 
 In our case, since we are mainly interested
 in cybersecurity risk, which we quantify
@@ -201,7 +201,7 @@ But given that the main result of our
 simulations was a loss exceedance curve:
 
 .Loss exceedance curve
-image::../monetizing-vulnerabilities/simple-lec.png[Loss exceedance curve]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330935/blog/monetizing-vulnerabilities/simple-lec_troyzh.webp[Loss exceedance curve]
 
 We can just use this to obtain the `VaR`,
 just like we did with the distribution `CDF`.
@@ -222,7 +222,7 @@ can be usefulto evaluate the performance of risk management
 or to understand events from the past:
 
 .Artificial VaR monitoring (via link:https://www.mathworks.com/help/examples/risk/win64/ValueatRiskEstimationandBacktestingExample_04.png[MathWorks]) and real example from link:https://en.wikipedia.org/wiki/Bankers_Trust[Bankers Trust], via <<r3, [3]>>.
-image::var-time.png[VaR monitoring in time]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330968/blog/para-bellum/var-time_ags4pu.webp[VaR monitoring in time]
 
 
 In the first we see a steady, if slow,

@@ -3,7 +3,7 @@
 :subtitle: Learning from the red team expert 'Tinker Secor'
 :category: opinions
 :tags: cybersecurity, red-team, hacking, pentesting, ethical-hacking, blue-team
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331134/blog/tribe-of-hackers-4/cover_ip5dcd.webp
 :alt: Photo by Chase Moyer on Unsplash
 :description: This post is based on the book 'Tribe of Hackers Red Team' by Carey and Jin. Here we share content from the interview with Tinker Secor.
 :keywords: Cybersecurity, Red Team, Hacking, Pentesting, Ethical Hacking, Blue Team, Knowledge, Tribe
@@ -25,7 +25,7 @@ So, why not make room for a fourth entry?
 Or, is this starting to look like link:https://www.imdb.com/title/tt0232500/?ref_=fn_al_tt_1[The Fast and the Furious]? I'm just kidding!
 
 .Image taken from link:https://images-cdn.9gag.com/photo/ap580RB_700b.jpg[here].
-image::ff50.png[FF50]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331132/blog/tribe-of-hackers-4/ff50_cghkzx.webp[FF50]
 
 Here I want to show you another standpoint on red teaming
 (another expert answering the same questions),
@@ -82,7 +82,7 @@ if it's possible, organizing some of them.
 Of course, don't forget to "join some reputable online groups"!
 
 .A quote from Tinker Secor.
-image::oldtrope.png[Old Trope]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331130/blog/tribe-of-hackers-4/oldtrope_w2fgvh.webp[Old Trope]
 
 == For those already sweating blood on red teams
 

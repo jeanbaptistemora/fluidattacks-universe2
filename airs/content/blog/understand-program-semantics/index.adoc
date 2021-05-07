@@ -3,7 +3,7 @@
 :subtitle: With symbolic execution
 :category: machine-learning
 :tags: machine-learning, security, code
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331136/blog/understand-program-semantics/cover_pb9jml.webp
 :alt: Rubber duckies
 :description: Here's a reflection on the need to represent code before actually feeding it into neural network based encoders, such as code2vec, word2vec, and code2seq.
 :keywords: Machine Learning, Neural Network, Encoding, Parsing, Classifier, Vulnerability, Ethical Hacking, Pentesting
@@ -85,7 +85,7 @@ so that a simple snippet like the following
 becomes two abstracted traces like this:
 
 .Abstracted traces from a snippet
-image::abstracted-traces.png[Abstracted traces from a snippet, code examples]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331136/blog/understand-program-semantics/abstracted-traces_adwalc.webp[Abstracted traces from a snippet, code examples]
 
 Incidentally, these `Call`, `Error`, `AccessPath`, etc
 type of abstractions subtly hint at an idea
@@ -130,7 +130,7 @@ The most eye-opening result is the comparison between
 syntactic and semantic based embeddings:
 
 .Syntactic vs semantic embeddings
-image::syntactic-vs-semantic.png[Syntactic vs semantic embeddings]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331135/blog/understand-program-semantics/syntactic-vs-semantic_y3j5an.webp[Syntactic vs semantic embeddings]
 
 Almost 300% better. This makes intuitive sense,
 since considering more information, and

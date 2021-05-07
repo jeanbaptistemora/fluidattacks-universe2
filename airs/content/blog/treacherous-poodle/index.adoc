@@ -3,7 +3,7 @@
 :subtitle: How does the SSL fallback's works
 :category: attacks
 :tags: ssl, flaw, cbc
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331125/blog/treacherous-poodle/cover_x0hhns.webp
 :alt: Unknown person below lights
 :description: Here we discuss the exploitation of an SSL/TLS flaw that creates a fallback on TLS usage to SSL 3.0.
 :keywords: SSL, CBC, MAC, Padding, Flaw, Exploit, Ethical Hacking, Pentesting
@@ -55,7 +55,7 @@ later. But please, bare in mind
 that i'm not an expert on oil industry.
 
 .Black poodle
-image::mephisto-black.png[blackistopheles]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331125/blog/treacherous-poodle/mephisto-black_fqauve.webp[blackistopheles]
 
 == Techninal introduction
 
@@ -112,7 +112,7 @@ Let's take a look at
 that process step by step:
 
 .Handshake step by step
-image::handshake-protocol.png[handshaking]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331124/blog/treacherous-poodle/handshake-protocol_nr9tn9.webp[handshaking]
 
 Although i will not describe each
 step in depth, it is necesary to show the
@@ -161,7 +161,7 @@ as long it fails.
 Quite like this:
 
 .Protocol downgrading
-image::downgrade-version.png[downgrade]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331125/blog/treacherous-poodle/downgrade-version_ybwkle.webp[downgrade]
 
 Hope you didn't miss the `CBC-MAC` under the
 protocol version, because this is the most
@@ -213,7 +213,7 @@ Without too much details, the client
 sends a request to the server:
 
 .Http request
-image::http-request.png[request-example]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331124/blog/treacherous-poodle/http-request_lcjscl.webp[request-example]
 
 A message request from the client which is
 going to be encrypted with `DES` using
@@ -225,7 +225,7 @@ should be computed:
 . `XOR` with each block of plaintext
 
 .Compute MAC
-image::mac.png[computing-mac]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331125/blog/treacherous-poodle/mac_azch33.webp[computing-mac]
 
 And append it to the end of the message,
 then check if the length of the message
@@ -237,7 +237,7 @@ the length of the padding, which output
 is like this:
 
 .Padded message example with MAC code
-image::http-request-fixed.png[request-example]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331124/blog/treacherous-poodle/http-request-fixed_qsd2oi.webp[request-example]
 
 NOTE: I will represent the random padding
 characters by "-", don't get confused.
@@ -248,13 +248,13 @@ as described in the
 article. Which output is:
 
 .Output of encrypted message
-image::cbc-in-action.png[Encrypted msg]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331125/blog/treacherous-poodle/cbc-in-action_u2oru6.webp[Encrypted msg]
 
 The message is then sent to the server, and now
 consider the decryption process on the server:
 
 .CBC decryption
-image::cbc-decryption.png[cbc-enc]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331125/blog/treacherous-poodle/cbc-decryption_ylqkho.webp[cbc-enc]
 
 Taking on account that the exchange
 is being made with `SSL 3.0` and the
@@ -279,7 +279,7 @@ poses a problem, which by that time
 wasn't that evident.
 
 .SSL blames SSL
-image::you.png[what]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331125/blog/treacherous-poodle/you_fkwp1x.webp[what]
 
 So, to process each block of the ciphertext, denoted as *C*, the
 recipient determines each block of the plaintext, denoted as *P*,

@@ -3,7 +3,7 @@
 :subtitle: Our SAST tool scored the highest on the OWASP Benchmark
 :category: techniques
 :tags: software, vulnerability, testing, application, cybersecurity, code
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330969/blog/owasp-benchmark-fluid-attacks/cover_lm2zfy.webp
 :alt: Photo by Silvan Arnet on Unsplash
 :description: This post shows you Fluid Attacks' most recent achievement with its SAST tool, which reached a perfect accuracy score running the OWASP Benchmark Project code.
 :keywords: OWASP, Benchmark, Vulnerability, SAST, Tool, Vulnerability, Accuracy, Ethical Hacking, Pentesting
@@ -58,7 +58,7 @@ In short, the best tools according to this benchmark
 should only report those real vulnerabilities.
 
 .Test cases in OWASP Benchmark v1.2.
-image::table.png[Table]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330968/blog/owasp-benchmark-fluid-attacks/table_s2r0gl.webp[Table]
 
 Companies have long relied on SAST and DAST solutions
 to protect their applications and verify compliance requirements.
@@ -84,7 +84,7 @@ that randomly has 50% true positives and 50% false positives.
 See the following chart:
 
 .link:https://raw.githubusercontent.com/OWASP/Benchmark/master/src/main/resources/scorecard/content/benchmark_guide.png[OWASP Benchmark Results Interpretation Guide].
-image::benchguide.png[Benchmark Guide]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330968/blog/owasp-benchmark-fluid-attacks/benchguide_vaeam7.webp[Benchmark Guide]
 
 True Positive Rate (TPR) is the percentage of true vulnerabilities
 that the tool identifies. False Positive Rate (FPR) is the percentage
@@ -106,7 +106,7 @@ and specificity (same as 1-FPR) expressed as part of a whole number.
 See this example taken from the OWASP's website:
 
 .Example of the Benchmark Score (link:https://owasp.org/www-project-benchmark/#[here in 'Scoring']).
-image::youden.png[Youden]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330967/blog/owasp-benchmark-fluid-attacks/youden_pwhumo.webp[Youden]
 
 Consequently, the Benchmark Score for a tool
 with insufficient accuracy equals 0, and for a tool
@@ -128,7 +128,7 @@ for different open-source and commercial SAST tools.
 It is now in this chart that we include the results obtained by our tool.
 
 .OWASP Benchmark results comparison.
-image::fluidscore.png[Fluid Attacks Score]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330967/blog/owasp-benchmark-fluid-attacks/fluidscore_bfripf.webp[Fluid Attacks Score]
 
 == Issues we're aware of at Fluid Attacks
 

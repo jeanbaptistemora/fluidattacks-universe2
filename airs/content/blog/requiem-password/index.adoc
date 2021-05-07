@@ -3,7 +3,7 @@
 :subtitle: Why passphrases are better than passwords
 :category: identity
 :tags: password, credential, security
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331056/blog/requiem-password/cover_iz3mck.webp
 :alt: Rusty lock
 :description: In this blog post, we mainly make a comparison between having weak or complicated passwords versus having a single strong passphrase.
 :keywords: Passphrase, Password, Security, Cracking, Policy, Diceware, Ethical Hacking, Pentesting
@@ -21,7 +21,7 @@ a simple, weak key that needs to be changed every other week,
 or a one-time-setup, state-of-the-art, virtually unpickable cruciform key?
 
 .Lock key comparison via link:http://www.locksmithledger.com/article/10837014/locksmithing-etc-jan-2013[Locksmith Ledger].
-image::key-comparison.png["Weak vs strong key"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331053/blog/requiem-password/key-comparison_cifhyb.webp["Weak vs strong key"]
 
 That's just the difference
 between rotating short passwords vs
@@ -128,7 +128,7 @@ which you can remember by linking them somehow.
 This comic from `xkcd` sums it up:
 
 .Passphrases vs passwords. Adapted from the original at link:https://xkcd.com/936/[xkcd].
-image::xkcdpw.png["A comic about passwords vs passphrases"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331053/blog/requiem-password/xkcdpw_kglffp.webp["A comic about passwords vs passphrases"]
 
 As you see, you can use mnemonic techniques
 to remember your passphrase,

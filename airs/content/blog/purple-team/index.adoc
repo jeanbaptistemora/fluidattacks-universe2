@@ -3,7 +3,7 @@
 :category: politics
 :subtitle: Understanding Purple Teams
 :tags: security, testing
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330976/blog/purple-team/cover_ohgfsv.webp
 :alt: Multicolored hallway. Photo by Efe Kurnaz on Unsplash: https://unsplash.com/photos/RnCPiXixooY
 :description: In this blog, we discuss the fundamentals of Purple Teams and possible ways to implement them in an organization successfully.
 :keywords: Purpleteam, Pentesting, Communication, Cooperation, Hacking, Organization, Ethical Hacking, Pentesting
@@ -110,7 +110,7 @@ the Red and Blue Teams as cooperating partners within the same work project.
 There are no shared metrics between them.
 
 .Red vs Blue, source: link:https://images.unsplash.com/photo-1492435793713-b1f8565c25ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80[Photo by Samuel Zeller on Unsplash].
-image::redblue.png[alt="Red vs Blue", width="600"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330974/blog/purple-team/redblue_z6vcfk.webp[alt="Red vs Blue", width="600"]
 
 If your organization has one or more of these issues,
 a Purple Team could be your solution.

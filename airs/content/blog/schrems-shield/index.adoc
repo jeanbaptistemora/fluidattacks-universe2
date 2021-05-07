@@ -3,7 +3,7 @@
 :subtitle: The EU-US Privacy Shield agreement is now invalid
 :category: politics
 :tags: policies, cybersecurity, social, information, mistake, business
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331072/blog/schrems-shield/cover_tv5m8p.webp
 :alt: Photo by James Pond on Unsplash
 :description: This blog post might give you a better understanding of what has been achieved by Max Schrems against the EU-US Privacy Shield agreement.
 :keywords: Schrems, Max, Privacy, Shield, Policy, Cybersecurity, Social Network
@@ -48,7 +48,7 @@ or the unauthorized use of such data.
 (you can watch on Netflix a link:https://www.netflix.com/co/title/80117542[documentary about this incident]).
 
 .Schrems's photo taken from link:https://www.handelsblatt.com/images/max-schrems-/20878360/4-formatOriginal.jpg[Handelsblatt]
-image::schrems.png[Max Schrems]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331071/blog/schrems-shield/schrems_l67vce.webp[Max Schrems]
 
 It was back in *2013* when our main character
 (although I said this is not a movie)

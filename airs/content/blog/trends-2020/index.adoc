@@ -3,7 +3,7 @@
 :subtitle: Fear will drive cybersecurity spending. Dear lord...
 :category: techniques
 :tags: cybersecurity, trends, mistake, technology, economics, information
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331126/blog/trends-2020/cover_hrcoli.webp
 :alt: Photo by Oleg Laptev on Unsplash
 :description: In this post, we review some cybersecurity trends published online. We discuss why it is a good idea to be wary of many of these predictions.
 :keywords: Cybersecurity, Trends, Mistake, Technology, Economics, Information, Ethical Hacking, Pentesting
@@ -17,7 +17,7 @@
 = Cybersecurity Trends 2020? F*ck...
 
 .The billionaire John link:https://twitter.com/officialmcafee/status/887024683379544065?s=20[McAfee] made a bold link:https://twitter.com/officialmcafee/status/935900326007328768?s=20[prediction] in 2017. The website link:http://dickening.com/[dickening.com] keeps track of it.
-image::mcafee.png[McAfee]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331126/blog/trends-2020/mcafee_q4lsb1.webp[McAfee]
 
 *Spoiler alert*: of course, the guy won't do that.
 
@@ -67,7 +67,7 @@ We will focus on those dubious trends.
 == Fear will drive cybersecurity spending
 
 .photo by link:https://unsplash.com/@jontyson?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText[Jon Tyson] on Unsplash
-image::what.png[What]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331126/blog/trends-2020/what_tingza.webp[What]
 
 We don’t know about you,
 but the moment we read link:https://securityboulevard.com/2020/01/10-cybersecurity-trends-in-2020-you-need-to-keep-an-eye-on/[that subtitle]
@@ -143,7 +143,7 @@ Vagueness and lack of precision populate these claims.
 == One fundamental issue with most forecasts
 
 .photo by link:https://unsplash.com/@chrisliverani[Chris Liverani] on Unsplash
-image::cards.png[Cards]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331126/blog/trends-2020/cards_dup1uo.webp[Cards]
 
 We believe these trends we mentioned are, on average, based on good faith.
 Nevertheless, most of them, if not all,
@@ -181,7 +181,7 @@ continuously testing the robustness of their software and IT infrastructure
 do find more weaknesses and achieve a higher rate of fixes.
 
 .link:https://report2020.fluidattacks.com/["State of Attacks" 2020 Report]
-image::report.png[Report]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331126/blog/trends-2020/report_nzmcbk.webp[Report]
 
 We hope you have enjoyed this post, and we look forward to hearing from you.
 [inner]#link:../../contact-us/[Do get in touch with us!]#

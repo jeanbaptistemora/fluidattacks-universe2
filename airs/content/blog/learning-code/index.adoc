@@ -3,7 +3,7 @@
 :subtitle: A chat with Ricardo Yepes. Part 2
 :category: interview
 :tags: devops, training, security
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330932/blog/learning-code/cover_xsymsp.webp
 :alt: Bookshelf with some books
 :description: In this post, the second part of our interview with Ricardo Yepes, we address topics such as cybersecurity, academic research, a learning platform, and more.
 :keywords: Interview, DevOps, Security, Best Practices, Philosophy, Training, Ethical Hacking, Pentesting
@@ -148,7 +148,7 @@ and [inner]#link:../../services/one-shot-hacking/[One-shot Hacking]# services.
 A CISO told us something very similar. Want to read about it?
 Click [inner]#link:../sensible-cybersecurity/[here]#
 
-image::pc-lock.png[Computer and Lock]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330932/blog/learning-code/pc-lock_qtjvi0.webp[Computer and Lock]
 
 *What do you think are relevant misconceptions in cybersecurity?*
 [role="fluid-qanda"]
