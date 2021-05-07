@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
@@ -5,7 +6,6 @@ import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
 
@@ -22,7 +22,6 @@ import { GroupScopeView } from ".";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { SwitchButton } from "components/SwitchButton";
-import store from "store";
 import { getCache } from "utils/apollo";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 
@@ -77,12 +76,10 @@ describe("GroupScopeView", (): void => {
       >
         <MemoryRouter initialEntries={["/orgs/okada/groups/unittesting/scope"]}>
           <MockedProvider cache={getCache()} mocks={[queryMock]}>
-            <Provider store={store}>
-              <Route
-                component={GroupScopeView}
-                path={"/orgs/:organizationName/groups/:projectName/scope"}
-              />
-            </Provider>
+            <Route
+              component={GroupScopeView}
+              path={"/orgs/:organizationName/groups/:projectName/scope"}
+            />
           </MockedProvider>
         </MemoryRouter>
       </authzGroupContext.Provider>
@@ -184,38 +181,37 @@ describe("GroupScopeView", (): void => {
     };
 
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <authzGroupContext.Provider
-          value={new PureAbility([{ action: "has_drills_white" }])}
+      <authzGroupContext.Provider
+        value={new PureAbility([{ action: "has_drills_white" }])}
+      >
+        <authzPermissionsContext.Provider
+          value={
+            new PureAbility([
+              { action: "backend_api_mutations_add_git_root_mutate" },
+            ])
+          }
         >
-          <authzPermissionsContext.Provider
-            value={
-              new PureAbility([
-                { action: "backend_api_mutations_add_git_root_mutate" },
-              ])
-            }
+          <MemoryRouter
+            initialEntries={["/orgs/okada/groups/unittesting/scope"]}
           >
-            <MemoryRouter
-              initialEntries={["/orgs/okada/groups/unittesting/scope"]}
+            <MockedProvider
+              cache={getCache()}
+              mocks={[initialQueryMock, mutationMock, finalQueryMock]}
             >
-              <MockedProvider
-                cache={getCache()}
-                mocks={[initialQueryMock, mutationMock, finalQueryMock]}
-              >
-                <Route
-                  component={GroupScopeView}
-                  path={"/orgs/:organizationName/groups/:projectName/scope"}
-                />
-              </MockedProvider>
-            </MemoryRouter>
-          </authzPermissionsContext.Provider>
-        </authzGroupContext.Provider>
-      </Provider>
+              <Route
+                component={GroupScopeView}
+                path={"/orgs/:organizationName/groups/:projectName/scope"}
+              />
+            </MockedProvider>
+          </MemoryRouter>
+        </authzPermissionsContext.Provider>
+      </authzGroupContext.Provider>
     );
 
     await act(
       async (): Promise<void> => {
-        await wait(0);
+        const delay = 100;
+        await wait(delay);
         wrapper.update();
       }
     );
@@ -241,7 +237,7 @@ describe("GroupScopeView", (): void => {
     await act(
       async (): Promise<void> => {
         wrapper.find("form").simulate("submit");
-        const delay: number = 50;
+        const delay: number = 150;
         await wait(delay);
         wrapper.update();
       }
@@ -265,9 +261,7 @@ describe("GroupScopeView", (): void => {
     );
   });
 
-  // Temporarily disabled
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip("should update git roots", async (): Promise<void> => {
+  it("should update git roots", async (): Promise<void> => {
     expect.hasAssertions();
 
     const initialQueryMock: MockedResponse = {
@@ -358,35 +352,33 @@ describe("GroupScopeView", (): void => {
     };
 
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <authzGroupContext.Provider
-          value={new PureAbility([{ action: "has_drills_white" }])}
+      <authzGroupContext.Provider
+        value={new PureAbility([{ action: "has_drills_white" }])}
+      >
+        <authzPermissionsContext.Provider
+          value={
+            new PureAbility([
+              { action: "backend_api_mutations_add_git_root_mutate" },
+              { action: "backend_api_mutations_update_git_root_mutate" },
+              { action: "update_git_root_filter" },
+            ])
+          }
         >
-          <authzPermissionsContext.Provider
-            value={
-              new PureAbility([
-                { action: "backend_api_mutations_add_git_root_mutate" },
-                { action: "backend_api_mutations_update_git_root_mutate" },
-                { action: "update_git_root_filter" },
-              ])
-            }
+          <MemoryRouter
+            initialEntries={["/orgs/okada/groups/unittesting/scope"]}
           >
-            <MemoryRouter
-              initialEntries={["/orgs/okada/groups/unittesting/scope"]}
+            <MockedProvider
+              cache={getCache()}
+              mocks={[initialQueryMock, mutationMock, finalQueryMock]}
             >
-              <MockedProvider
-                cache={getCache()}
-                mocks={[initialQueryMock, mutationMock, finalQueryMock]}
-              >
-                <Route
-                  component={GroupScopeView}
-                  path={"/orgs/:organizationName/groups/:projectName/scope"}
-                />
-              </MockedProvider>
-            </MemoryRouter>
-          </authzPermissionsContext.Provider>
-        </authzGroupContext.Provider>
-      </Provider>
+              <Route
+                component={GroupScopeView}
+                path={"/orgs/:organizationName/groups/:projectName/scope"}
+              />
+            </MockedProvider>
+          </MemoryRouter>
+        </authzPermissionsContext.Provider>
+      </authzGroupContext.Provider>
     );
 
     await act(
@@ -412,17 +404,16 @@ describe("GroupScopeView", (): void => {
 
     wrapper.find(SwitchButton).at(0).simulate("click");
     wrapper.update();
-    const includesHealthCheck: ReactWrapper = wrapper
-      .find({ name: "includesHealthCheck" })
-      .find("input");
-    includesHealthCheck.simulate("change", {
-      currentTarget: { name: "includesHealthCheck", value: true },
+    const includesHealthCheck = (): ReactWrapper =>
+      wrapper.find({ name: "includesHealthCheck" }).find("input");
+
+    includesHealthCheck().simulate("change", {
+      target: { checked: true },
     });
 
-    const path1: ReactWrapper = wrapper
-      .find({ name: "gitignore.0" })
-      .find("input");
-    path1.simulate("change", {
+    const path1 = (): ReactWrapper =>
+      wrapper.find({ name: "gitignore.0" }).find("input");
+    path1().simulate("change", {
       target: { name: "gitignore.0", value: "node_modules/*" },
     });
 
@@ -433,9 +424,10 @@ describe("GroupScopeView", (): void => {
         wrapper.update();
       }
     );
-    await wait(0);
+    const delay = 150;
+    await wait(delay);
 
-    expect(includesHealthCheck.prop("value")).toStrictEqual(true);
+    expect(includesHealthCheck().prop("value")).toStrictEqual(true);
     expect(getFirstTableRow().text()).toStrictEqual(
       [
         // Url
@@ -543,33 +535,31 @@ describe("GroupScopeView", (): void => {
     };
 
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <authzGroupContext.Provider
-          value={new PureAbility([{ action: "has_drills_white" }])}
+      <authzGroupContext.Provider
+        value={new PureAbility([{ action: "has_drills_white" }])}
+      >
+        <authzPermissionsContext.Provider
+          value={
+            new PureAbility([
+              { action: "backend_api_mutations_update_root_state_mutate" },
+            ])
+          }
         >
-          <authzPermissionsContext.Provider
-            value={
-              new PureAbility([
-                { action: "backend_api_mutations_update_root_state_mutate" },
-              ])
-            }
+          <MemoryRouter
+            initialEntries={["/orgs/okada/groups/unittesting/scope"]}
           >
-            <MemoryRouter
-              initialEntries={["/orgs/okada/groups/unittesting/scope"]}
+            <MockedProvider
+              cache={getCache()}
+              mocks={[initialQueryMock, mutationMock, finalQueryMock]}
             >
-              <MockedProvider
-                cache={getCache()}
-                mocks={[initialQueryMock, mutationMock, finalQueryMock]}
-              >
-                <Route
-                  component={GroupScopeView}
-                  path={"/orgs/:organizationName/groups/:projectName/scope"}
-                />
-              </MockedProvider>
-            </MemoryRouter>
-          </authzPermissionsContext.Provider>
-        </authzGroupContext.Provider>
-      </Provider>
+              <Route
+                component={GroupScopeView}
+                path={"/orgs/:organizationName/groups/:projectName/scope"}
+              />
+            </MockedProvider>
+          </MemoryRouter>
+        </authzPermissionsContext.Provider>
+      </authzGroupContext.Provider>
     );
 
     await act(
@@ -699,33 +689,31 @@ describe("GroupScopeView", (): void => {
       };
 
       const wrapper = mount(
-        <Provider store={store}>
-          <authzGroupContext.Provider
-            value={new PureAbility([{ action: "has_drills_white" }])}
+        <authzGroupContext.Provider
+          value={new PureAbility([{ action: "has_drills_white" }])}
+        >
+          <authzPermissionsContext.Provider
+            value={
+              new PureAbility([
+                { action: "backend_api_mutations_update_root_state_mutate" },
+              ])
+            }
           >
-            <authzPermissionsContext.Provider
-              value={
-                new PureAbility([
-                  { action: "backend_api_mutations_update_root_state_mutate" },
-                ])
-              }
+            <MemoryRouter
+              initialEntries={["/orgs/okada/groups/unittesting/scope"]}
             >
-              <MemoryRouter
-                initialEntries={["/orgs/okada/groups/unittesting/scope"]}
+              <MockedProvider
+                cache={getCache()}
+                mocks={[initialQueryMock, mutationMock, finalQueryMock]}
               >
-                <MockedProvider
-                  cache={getCache()}
-                  mocks={[initialQueryMock, mutationMock, finalQueryMock]}
-                >
-                  <Route
-                    component={GroupScopeView}
-                    path={"/orgs/:organizationName/groups/:projectName/scope"}
-                  />
-                </MockedProvider>
-              </MemoryRouter>
-            </authzPermissionsContext.Provider>
-          </authzGroupContext.Provider>
-        </Provider>
+                <Route
+                  component={GroupScopeView}
+                  path={"/orgs/:organizationName/groups/:projectName/scope"}
+                />
+              </MockedProvider>
+            </MemoryRouter>
+          </authzPermissionsContext.Provider>
+        </authzGroupContext.Provider>
       );
 
       await act(
