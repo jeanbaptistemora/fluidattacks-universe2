@@ -98,7 +98,9 @@ def save_model(
                 FEATURES_DICTS[feature].lower() for feature in model_features
             ]),
             'tune',
-            '-'.join(tuned_hyperparameters)
+            '-'.join(list(
+                str(parameter) for parameter in tuned_hyperparameters
+            ))
         ]
         model_file_name: str = '-'.join(model_name_list)
         local_file: str = os.path.join(tmp_dir, f'{model_file_name}.joblib')
