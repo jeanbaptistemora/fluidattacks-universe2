@@ -1,9 +1,31 @@
-{ terraformTest
+{ makeEntrypoint
+, nixpkgs
+, path
+, terraformTest
 , ...
 }:
-terraformTest {
+makeEntrypoint {
   name = "makes-okta-test";
-  product = "makes";
-  target = "makes/applications/makes/okta/src/terraform";
-  secretsPath = "makes/applications/makes/okta/src/terraform/data.yaml";
+  arguments = {
+    envData = path "/makes/applications/makes/okta/src/terraform/data.yaml";
+    envParser = path "/makes/applications/makes/okta/src/terraform/parser.py";
+    envPermissions = "dev";
+    envProduct = "makes";
+  };
+  searchPaths = {
+    envPaths = [
+      nixpkgs.python38
+      (terraformTest {
+        name = "terraform";
+        product = "makes";
+        target = "makes/applications/makes/okta/src/terraform";
+        secretsPath = "makes/applications/makes/okta/src/terraform/data.yaml";
+      })
+    ];
+    envUtils = [
+      "/makes/utils/aws"
+      "/makes/utils/sops"
+    ];
+  };
+  template = path "/makes/applications/makes/okta/entrypoint.sh";
 }

@@ -7,7 +7,7 @@ function main {
       then
         sops_export_vars_terraform \
           '__envSecretsPath__' \
-          '(OKTA|CLOUDFLARE)'
+          'CLOUDFLARE'
       fi \
   &&  pushd '__envTarget__' \
     &&  echo '[INFO] Initializing' \
