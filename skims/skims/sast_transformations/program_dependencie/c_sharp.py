@@ -8,16 +8,6 @@ from model.graph_model import Graph
 from utils import graph as g
 
 
-def _expression_statement(
-    graph: Graph,
-    n_id: str,
-    stack: Dict[str, str],
-) -> None:
-    for next_statement in g.adj_cfg(graph, n_id):
-        new_stack = copy.deepcopy(stack)
-        _generic(graph, next_statement, new_stack)
-
-
 def _local_declaration_statement(
     graph: Graph,
     n_id: str,
@@ -135,7 +125,6 @@ def _generic(
     stack: Dict[str, str],
 ) -> None:
     walkers = {
-        "expression_statement": _expression_statement,
         "local_declaration_statement": _local_declaration_statement,
         "assignment_expression": _assignment_expression,
         "constructor_declaration": _method_declaration,
