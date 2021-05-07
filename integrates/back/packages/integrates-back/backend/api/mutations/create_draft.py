@@ -19,7 +19,7 @@ from findings import domain as findings_domain
 
 
 @convert_kwargs_to_snake_case
-@delete_kwargs({'group_name', 'cwe_url'})
+@delete_kwargs({'group_name'})
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,

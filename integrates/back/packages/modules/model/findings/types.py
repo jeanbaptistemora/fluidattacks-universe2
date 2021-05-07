@@ -95,7 +95,7 @@ class Finding(NamedTuple):
     compromised_attributes: str = ''
     compromised_records: int = 0
     cvss_version: str = '3.1'
-    cwe_url: str = ''
+    cwe: str = ''
     description: str = ''
     evidences: FindingEvidences = FindingEvidences()
     scenario: str = ''

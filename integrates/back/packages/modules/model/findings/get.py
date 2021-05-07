@@ -93,7 +93,7 @@ def _build_finding(
         compromised_attributes=metadata['compromised_attributes'],
         compromised_records=metadata['compromised_records'],
         cvss_version=metadata['cvss_version'],
-        cwe_url=metadata['cwe_url'],
+        cwe=metadata['cwe'],
         description=metadata['description'],
         evidences=evidences,
         group_name=metadata['group_name'],

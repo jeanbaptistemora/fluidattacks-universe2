@@ -25,7 +25,7 @@ async def create(*, finding: Finding) -> None:
         'compromised_attributes': finding.compromised_attributes,
         'compromised_records': finding.compromised_records,
         'cvss_version': finding.cvss_version,
-        'cwe_url': finding.cwe_url,
+        'cwe': finding.cwe,
         'description': finding.description,
         'evidences': metadata_evidences,
         'group_name': finding.group_name,

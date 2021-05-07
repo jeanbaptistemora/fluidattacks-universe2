@@ -35,7 +35,7 @@ async def create_draft_new(
         affected_systems=kwargs.get('affected_systems', ''),
         analyst_email=analyst_email,
         attack_vector_desc=kwargs.get('attack_vector_desc', ''),
-        cwe_url=kwargs.get('cwe_url', ''),
+        cwe=kwargs.get('cwe', ''),
         description=kwargs.get('description', ''),
         group_name=group_name,
         id=finding_id,

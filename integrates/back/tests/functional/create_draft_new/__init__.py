@@ -35,8 +35,7 @@ async def query(
             createDraft(
                 affectedSystems: "{affected_systems}",
                 attackVectorDesc: "{attack_vector_desc}",
-                cwe: "",
-                cweUrl: "{cwe}",
+                cwe: "{cwe}",
                 description: "{description}",
                 groupName: "{group}",
                 projectName: "",

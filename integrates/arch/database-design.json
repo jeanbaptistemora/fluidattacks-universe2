@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "May 06, 2021, 03:08 PM",
+    "DateLastModified": "May 07, 2021, 09:34 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -332,10 +332,6 @@
         },
         {
           "AttributeName": "cvss_version",
-          "AttributeType": "S"
-        },
-        {
-          "AttributeName": "cwe_url",
           "AttributeType": "S"
         },
         {
@@ -1843,7 +1839,7 @@
               "cvss_version": {
                 "S": "3.1"
               },
-              "cwe_url": {
+              "cwe": {
                 "S": "200"
               },
               "title": {
@@ -2011,7 +2007,7 @@
             "affected_systems",
             "analyst_email",
             "cvss_version",
-            "cwe_url",
+            "cwe",
             "title",
             "id",
             "sorts",
