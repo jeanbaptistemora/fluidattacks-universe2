@@ -62,7 +62,7 @@ def get_last_date(repo: Repo, file_path: str) -> str:
 def get_lines_count(file_path: str) -> int:
     """Get the number of lines in a file if is non binary."""
     if not is_binary(file_path):
-        num_lines = sum(1 for line in open(file_path, encoding='latin-1'))
+        num_lines = len(open(file_path, encoding='latin-1').readlines())
         return num_lines
     return 0
 
