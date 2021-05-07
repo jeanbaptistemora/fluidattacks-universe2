@@ -13,7 +13,11 @@ from paginator import (
 )
 from singer_io import factory
 from singer_io.singer import SingerRecord
-from tap_bugsnag.api import ApiClient, ApiPage
+from tap_bugsnag.api import (
+    ApiClient,
+    ApiPage,
+    OrgId,
+)
 from tap_bugsnag.streams.objs import SupportedStreams
 
 
@@ -41,6 +45,18 @@ def _stream_data(
 
 def all_orgs(api: ApiClient) -> None:
     _stream_data(SupportedStreams.ORGS, api.user.list_orgs(ALL))
+
+
+def all_projects(api: ApiClient) -> None:
+    orgs = api.user.list_orgs_id(ALL)
+
+    def _stream(orgs: Iterator[OrgId]) -> None:
+        for org in orgs:
+            _stream_data(
+                SupportedStreams.PROJECTS, api.org(org).list_projects(ALL)
+            )
+
+    orgs.map(_stream)
 
 
 __all__ = [

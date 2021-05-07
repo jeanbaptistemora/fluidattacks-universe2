@@ -11,17 +11,22 @@ from typing import (
 
 # Local libraries
 from tap_bugsnag.api.auth import Credentials
-from tap_bugsnag.api.orgs.user import UserApi, OrgsPage
+from tap_bugsnag.api.orgs import OrgsApi, ProjectsPage
+from tap_bugsnag.api.orgs.user import OrgId, UserApi, OrgsPage
 from tap_bugsnag.api.common.raw import RawApi
 
 
 ApiPage = Union[
     OrgsPage,
+    ProjectsPage,
 ]
 
 
 class ApiClient(NamedTuple):
     user: UserApi
+
+    def org(self, org: OrgId) -> OrgsApi:
+        return OrgsApi.new(self.user.client, org)
 
     @classmethod
     def new(cls, creds: Credentials) -> ApiClient:
@@ -33,4 +38,5 @@ class ApiClient(NamedTuple):
 
 __all__ = [
     "Credentials",
+    "OrgId",
 ]
