@@ -143,6 +143,8 @@ resource "okta_app_user" "aws" {
     lastName     = okta_user.users[each.value.user].last_name
     role         = each.value.roles[0]
     idpRolePairs = []
+    mobilePhone  = null
+    secondEmail  = null
   })
 }
 
