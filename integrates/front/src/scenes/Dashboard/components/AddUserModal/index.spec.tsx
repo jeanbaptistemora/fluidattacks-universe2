@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable react/jsx-props-no-spreading
   --------
-  Best way to pass down props.
+  Best way to pass down props and allow lazy updates for test wrappers.
 */
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
@@ -178,9 +179,7 @@ describe("Add user modal", (): void => {
     expect(wrapper).toHaveLength(1);
   });
 
-  // Temporarily disabled until it gets properly refactored to use Formik
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip("should auto fill data on inputs", async (): Promise<void> => {
+  it("should auto fill data on inputs", async (): Promise<void> => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
@@ -188,35 +187,35 @@ describe("Add user modal", (): void => {
         <AddUserModal {...mockPropsAdd} />
       </MockedProvider>
     );
-    const emailInput: ReactWrapper = wrapper
-      .find({ name: "email", type: "text" })
-      .at(0)
-      .find("input");
-    const phoneNumberInput: ReactWrapper = wrapper
-      .find({ name: "phoneNumber", type: "text" })
-      .at(0)
-      .find("input");
-    const responsibilityInput: ReactWrapper = wrapper
-      .find({ name: "responsibility", type: "text" })
-      .at(0)
-      .find("input");
+    const emailInput = (): ReactWrapper =>
+      wrapper.find({ name: "email", type: "text" }).at(0).find("input");
+    const phoneNumberInput = (): ReactWrapper =>
+      wrapper.find({ name: "phoneNumber", type: "text" }).at(0).find("input");
+    const responsibilityInput = (): ReactWrapper =>
+      wrapper
+        .find({ name: "responsibility", type: "text" })
+        .at(0)
+        .find("input");
 
     await act(
       async (): Promise<void> => {
-        emailInput.simulate("change", {
+        emailInput().simulate("change", {
           target: { name: "email", value: "unittest@test.com" },
         });
-        emailInput.simulate("blur", {
+        emailInput().simulate("blur", {
           target: { name: "email", value: "unittest@test.com" },
         });
-        await wait(0);
+        const delay = 150;
+        await wait(delay);
 
         wrapper.update();
       }
     );
 
-    expect(phoneNumberInput.prop("value")).toStrictEqual("+57 (312) 321 0123");
-    expect(responsibilityInput.prop("value")).toStrictEqual("edited");
+    expect(phoneNumberInput().prop("value")).toStrictEqual(
+      "+57 (312) 321 0123"
+    );
+    expect(responsibilityInput().prop("value")).toStrictEqual("edited");
   });
 
   it("should handle errors when auto fill data", async (): Promise<void> => {
