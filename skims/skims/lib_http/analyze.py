@@ -113,6 +113,14 @@ async def get_url(url: str) -> Optional[URLContext]:
             return URLContext(
                 components=urllib.parse.urlparse(url),
                 content=content,
+                custom_f023=await request(
+                    session,
+                    "GET",
+                    url,
+                    headers={
+                        "Host": "fluidattacks.com",
+                    },
+                ),
                 headers_raw=response.headers,
                 is_html=is_html(content, soup),
                 soup=soup,

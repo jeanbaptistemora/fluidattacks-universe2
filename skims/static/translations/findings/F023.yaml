@@ -1,3 +1,6 @@
+lib_http.analyze_headers.location.injection:
+  en: Redirection due to Host header injection
+  es: Redirección debida a inyección en la cabecera Host
 F023.description:
   en: >
     The server processes requests with the Host header set and redirects
@@ -26,5 +29,5 @@ F023.threat:
   en: Unauthorized attacker from internet network.
   es: Atacante sin autorización desde Internet.
 F023.title:
-  en: F015. Uncontrolled external site redirect - Host header
+  en: F023. Uncontrolled external site redirect - Host header
   es: F023. Redirección a sitios externos no controlada - cabecera Host

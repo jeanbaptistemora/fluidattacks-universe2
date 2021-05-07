@@ -78,7 +78,7 @@ In order to verify the OWASP benchmark results we'll need to:
     ./createScorecards.sh
     ```
 
-1.  Open the results in yor browser.
+1.  Open the results in your browser.
 
     Example:
     ```bash

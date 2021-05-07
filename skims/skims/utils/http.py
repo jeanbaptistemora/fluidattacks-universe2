@@ -46,5 +46,7 @@ async def request(
     session: aiohttp.ClientSession,
     method: str,
     url: str,
+    *args: Any,
+    **kwargs: Any,
 ) -> Optional[aiohttp.ClientResponse]:
-    return await session.request(method, url)
+    return await session.request(method, url, *args, **kwargs)

@@ -236,6 +236,22 @@ def _date(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
+def _location(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
+    locations = Locations(locations=[])
+    header: Optional[Header] = None
+
+    if response := ctx.url_ctx.custom_f023:
+        if "fluidattacks.com" in response.headers.get("location", ""):
+            locations.append("location.injection")
+
+    return _create_vulns(
+        locations=locations,
+        finding=core_model.FindingEnum.F023,
+        header=header,
+        ctx=ctx,
+    )
+
+
 def _referrer_policy(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -367,6 +383,7 @@ CHECKS: Dict[
     Callable[[HeaderCheckCtx], core_model.Vulnerabilities],
 ] = {
     core_model.FindingEnum.F015_DAST_BASIC: _www_authenticate,
+    core_model.FindingEnum.F023: _location,
     core_model.FindingEnum.F043_DAST_CSP: _content_security_policy,
     core_model.FindingEnum.F043_DAST_RP: _referrer_policy,
     core_model.FindingEnum.F043_DAST_STS: _strict_transport_security,

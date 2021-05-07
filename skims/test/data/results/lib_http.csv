@@ -1,6 +1,7 @@
 title,what,where,cwe
 F015. Insecure authentication method - Basic,http://localhost:48000/f015_dast_basic_2 (namespace),The application uses Basic authentication over HTTP,287
 F015. Insecure authentication method - Basic,http://localhost:48000/f015_dast_basic_3 (namespace),The application uses Basic authentication over HTTP,287
+F023. Uncontrolled external site redirect - Host header,http://localhost:48000/f023_0 (namespace),Redirection due to Host header injection,601
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/ (namespace),Missing Content-Security-Policy,644
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/error (namespace),Missing Content-Security-Policy,644
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f015_dast_basic_0 (namespace),Missing Content-Security-Policy,644
