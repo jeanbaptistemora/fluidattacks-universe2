@@ -21,18 +21,18 @@ Follow these steps to generate a key pair:
 
     ```
     function okta-login {
-        eval $(aws-okta-processor authenticate --user "<user>" --pass "<password>" --organization "fluidattacks.okta.com" --role "arn:aws:iam::205810638802:role/<role>" --application "https://fluidattacks.okta.com/home/amazon_aws/0oa1ju1nmaERwnuYW357/272" --silent --duration 32400 --environment)
+        eval $(aws-okta-processor authenticate --user "<user>" --pass "<password>" --organization "fluidattacks.okta.com" --role "arn:aws:iam::205810638802:role/<role>" --application "https://fluidattacks.okta.com/home/amazon_aws/0oa9ahz3rfx1SpStS357/272" --silent --duration 32400 --environment)
         export INTEGRATES_DEV_AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
         export INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
     }
     ```
-    
+
     Replace the parameters:
     - user (email)
     - password
     - role: use `integrates-dev` or another role
 
-1. To get the credentials execute: 
+1. To get the credentials execute:
     ```
     $okta-login
     ```

@@ -368,7 +368,7 @@ def _get_okta_aws_credentials(profile: str) -> Dict:
     config: ConfigParser = ConfigParser()
     config.read(creds_file)
     url: str = 'fluidattacks.okta.com'
-    applink: str = f'https://{url}/home/amazon_aws/0oa1ju1nmaERwnuYW357/272'
+    applink: str = f'https://{url}/home/amazon_aws/0oa9ahz3rfx1SpStS357/272'
     envs: Dict = {
         'AWS_OKTA_APPLICATION': applink,
         'AWS_OKTA_ORGANIZATION': 'fluidattacks.okta.com',
