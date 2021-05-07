@@ -2,7 +2,7 @@
 
 resource "okta_app_auto_login" "apps" {
   for_each = {
-    for _, app in local.apps : app.id => app
+    for _, app in local.data.apps : app.id => app
     if app.type == "auto_login"
   }
 
@@ -16,7 +16,7 @@ resource "okta_app_auto_login" "apps" {
   auto_submit_toolbar = true
 
   groups = [
-    for app_group in local.app_groups : okta_group.groups[app_group.group].id
+    for app_group in local.data.app_groups : okta_group.groups[app_group.group].id
     if app_group.id == each.value.id
   ]
 
@@ -29,7 +29,7 @@ resource "okta_app_auto_login" "apps" {
 
 resource "okta_app_user" "apps_auto_login" {
   for_each = {
-    for app in local.app_users : "${app.id}_${app.user}" => app
+    for app in local.data.app_users : "${app.id}_${app.user}" => app
     if app.type == "auto_login"
   }
 
@@ -43,7 +43,7 @@ resource "okta_app_user" "apps_auto_login" {
 
 resource "okta_app_saml" "apps" {
   for_each = {
-    for _, app in local.apps : app.id => app
+    for _, app in local.data.apps : app.id => app
     if app.type == "saml"
   }
 
@@ -76,7 +76,7 @@ resource "okta_app_saml" "apps" {
 
 resource "okta_app_group_assignment" "apps_saml" {
   for_each = {
-    for app in local.app_groups : "${app.id}_${app.group}" => app
+    for app in local.data.app_groups : "${app.id}_${app.group}" => app
     if app.type == "saml"
   }
 
@@ -92,24 +92,24 @@ resource "okta_app_group_assignment" "apps_saml" {
 
 resource "okta_app_user" "apps_saml" {
   for_each = {
-    for app in local.app_users : "${app.id}_${app.user}" => app
+    for app in local.data.app_users : "${app.id}_${app.user}" => app
     if app.type == "saml"
   }
 
   app_id  = okta_app_saml.apps[each.value.id].id
   user_id = okta_user.users[each.value.user].id
   username = (
-    local.apps[each.value.id].single_user == null
+    local.data.apps[each.value.id].single_user == null
     ) ? (
     okta_user.users[each.value.user].login
     ) : (
-    local.apps[each.value.id].single_user
+    local.data.apps[each.value.id].single_user
   )
 }
 
 resource "okta_app_group_assignment" "aws" {
   for_each = {
-    for app in local.aws_group_roles : "${app.id}_${app.group}" => app
+    for app in local.data.aws_group_roles : "${app.id}_${app.group}" => app
   }
 
   app_id   = okta_app_saml.apps[each.value.id].id
@@ -117,7 +117,7 @@ resource "okta_app_group_assignment" "aws" {
 
   profile = jsonencode({
     samlRoles = each.value.roles
-    role      = "AmazonComprehendServiceRole-testttt"
+    role      = each.value.roles[0]
   })
 
   lifecycle {
@@ -129,7 +129,7 @@ resource "okta_app_group_assignment" "aws" {
 
 resource "okta_app_user" "aws" {
   for_each = {
-    for app in local.aws_user_roles : "${app.id}_${app.user}" => app
+    for app in local.data.aws_user_roles : "${app.id}_${app.user}" => app
   }
 
   app_id   = okta_app_saml.apps[each.value.id].id
@@ -141,7 +141,7 @@ resource "okta_app_user" "aws" {
     samlRoles    = each.value.roles
     firstName    = okta_user.users[each.value.user].first_name
     lastName     = okta_user.users[each.value.user].last_name
-    role         = "AmazonComprehendServiceRole-testttt"
+    role         = each.value.roles[0]
     idpRolePairs = []
   })
 }
@@ -151,7 +151,7 @@ resource "okta_app_user" "aws" {
 
 resource "okta_app_swa" "apps" {
   for_each = {
-    for _, app in local.apps : app.id => app
+    for _, app in local.data.apps : app.id => app
     if app.type == "swa"
   }
 
@@ -165,7 +165,7 @@ resource "okta_app_swa" "apps" {
   auto_submit_toolbar = true
 
   groups = [
-    for app_group in local.app_groups : okta_group.groups[app_group.group].id
+    for app_group in local.data.app_groups : okta_group.groups[app_group.group].id
     if app_group.id == each.value.id
   ]
 
@@ -178,7 +178,7 @@ resource "okta_app_swa" "apps" {
 
 resource "okta_app_user" "apps_swa" {
   for_each = {
-    for app in local.app_users : "${app.id}_${app.user}" => app
+    for app in local.data.app_users : "${app.id}_${app.user}" => app
     if app.type == "swa"
   }
 
@@ -192,7 +192,7 @@ resource "okta_app_user" "apps_swa" {
 
 resource "okta_app_three_field" "apps" {
   for_each = {
-    for _, app in local.apps : app.id => app
+    for _, app in local.data.apps : app.id => app
     if app.type == "three_field"
   }
 
@@ -216,7 +216,7 @@ resource "okta_app_three_field" "apps" {
 
 resource "okta_app_group_assignment" "apps_three_field" {
   for_each = {
-    for app in local.app_groups : "${app.id}_${app.group}" => app
+    for app in local.data.app_groups : "${app.id}_${app.group}" => app
     if app.type == "three_field"
   }
 
@@ -232,7 +232,7 @@ resource "okta_app_group_assignment" "apps_three_field" {
 
 resource "okta_app_user" "apps_three_field" {
   for_each = {
-    for app in local.app_users : "${app.id}_${app.user}" => app
+    for app in local.data.app_users : "${app.id}_${app.user}" => app
     if app.type == "three_field"
   }
 

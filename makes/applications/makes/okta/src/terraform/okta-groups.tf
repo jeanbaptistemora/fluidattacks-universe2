@@ -1,6 +1,6 @@
 resource "okta_group" "groups" {
   for_each = {
-    for _, group in local.groups : group.id => group
+    for _, group in local.data.groups : group.id => group
   }
 
   name        = each.value.name
@@ -15,7 +15,7 @@ resource "okta_group" "groups" {
 
 resource "okta_group_membership" "memberships" {
   for_each = {
-    for user in local.user_groups : "${user.id}_${user.group}" => user
+    for user in local.data.user_groups : "${user.id}_${user.group}" => user
   }
 
   group_id = okta_group.groups[each.value.group].id
@@ -24,7 +24,7 @@ resource "okta_group_membership" "memberships" {
 
 resource "okta_group_rule" "rules" {
   for_each = {
-    for _, rule in local.rules : rule.id => rule
+    for _, rule in local.data.rules : rule.id => rule
   }
 
   name             = each.value.name
@@ -33,7 +33,7 @@ resource "okta_group_rule" "rules" {
   expression_value = each.value.expression_value
 
   group_assignments = [
-    for group in local.groups : okta_group.groups[group.id].id
+    for group in local.data.groups : okta_group.groups[group.id].id
     if contains(group.rules, each.key)
   ]
 }
