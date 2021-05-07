@@ -449,7 +449,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
           defaultSorted={JSON.parse(_.get(sessionStorage, "findingSort", "{}"))}
           exportCsv={false}
           extraButtons={
-            <Can I={"backend_api_resolvers_query_report__get_url_group_report"}>
+            <Can I={"api_resolvers_query_report__get_url_group_report"}>
               <TooltipWrapper
                 id={"group.findings.report.btn.tooltip.id"}
                 message={translate.t("group.findings.report.btn.tooltip")}

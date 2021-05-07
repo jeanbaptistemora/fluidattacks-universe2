@@ -103,7 +103,7 @@ async def generate_report(*, item: BatchProcessing) -> None:
     enforcer = await authz.get_group_level_enforcer(item.subject)
     if enforcer(
         item.entity,
-        'backend_api_resolvers_query_report__get_url_group_report'
+        'api_resolvers_query_report__get_url_group_report'
     ):
         passphrase = get_passphrase(4)
         report_url = await get_report(item=item, passphrase=passphrase)

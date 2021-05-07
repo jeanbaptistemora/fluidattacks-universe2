@@ -76,13 +76,13 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   const { userEmail }: IAuthContext = useContext(authContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canRetrieveAnalyst: boolean = permissions.can(
-    "backend_api_resolvers_vulnerability_analyst_resolve"
+    "api_resolvers_vulnerability_analyst_resolve"
   );
   const canRetrieveZeroRisk: boolean = permissions.can(
-    "backend_api_resolvers_finding_zero_risk_resolve"
+    "api_resolvers_finding_zero_risk_resolve"
   );
   const canGetHistoricState: boolean = permissions.can(
-    "backend_api_resolvers_finding_historic_state_resolve"
+    "api_resolvers_finding_historic_state_resolve"
   );
   const canRequestZeroRiskVuln: boolean = permissions.can(
     "backend_api_mutations_request_zero_risk_vuln_mutate"
@@ -150,7 +150,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   );
 
   const { data } = useQuery<IProjectUsersAttr>(GET_PROJECT_USERS, {
-    skip: permissions.cannot("backend_api_resolvers_project__get_users"),
+    skip: permissions.cannot("api_resolvers_project__get_users"),
     variables: {
       projectName,
     },

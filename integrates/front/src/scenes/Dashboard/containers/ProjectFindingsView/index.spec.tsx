@@ -152,7 +152,7 @@ describe("ProjectFindingsView", (): void => {
     expect.hasAssertions();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_query_report__get_url_group_report" },
+      { action: "api_resolvers_query_report__get_url_group_report" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/vulns"]}>

@@ -2,7 +2,7 @@
 from ariadne import ObjectType
 
 # Local
-from backend.api.resolvers.git_root import toe_lines
+from api.resolvers.git_root import toe_lines
 
 
 GITROOT: ObjectType = ObjectType('GitRoot')

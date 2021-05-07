@@ -25,8 +25,8 @@ describe("ToeContent", (): void => {
     expect.hasAssertions();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_resolvers_git_root_toe_lines_resolve" },
-      { action: "backend_api_resolvers_group_toe_inputs_resolve" },
+      { action: "api_resolvers_git_root_toe_lines_resolve" },
+      { action: "api_resolvers_group_toe_inputs_resolve" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting/toe"]}>

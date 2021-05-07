@@ -49,13 +49,13 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canGetHistoricState: boolean = permissions.can(
-    "backend_api_resolvers_finding_historic_state_resolve"
+    "api_resolvers_finding_historic_state_resolve"
   );
   const canRetrieveAnalyst: boolean = permissions.can(
-    "backend_api_resolvers_vulnerability_analyst_resolve"
+    "api_resolvers_vulnerability_analyst_resolve"
   );
   const canRetrieveZeroRisk: boolean = permissions.can(
-    "backend_api_resolvers_finding_zero_risk_resolve"
+    "api_resolvers_finding_zero_risk_resolve"
   );
   const canHandleVulnsAcceptation: boolean = permissions.can(
     "backend_api_mutations_handle_vulns_acceptation_mutate"

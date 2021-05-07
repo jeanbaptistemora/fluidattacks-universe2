@@ -5,7 +5,7 @@
 from ariadne import ObjectType
 
 # Local
-from backend.api.resolvers.group import (
+from api.resolvers.group import (
     analytics,
     bill,
     consulting,

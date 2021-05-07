@@ -120,7 +120,7 @@ const SeverityView: React.FC = (): JSX.Element => {
         query: GET_FINDING_HEADER,
         variables: {
           canGetHistoricState: permissions.can(
-            "backend_api_resolvers_finding_historic_state_resolve"
+            "api_resolvers_finding_historic_state_resolve"
           ),
           findingId,
         },

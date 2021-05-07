@@ -83,10 +83,10 @@ export const VulnsView: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canRetrieveAnalyst: boolean = permissions.can(
-    "backend_api_resolvers_vulnerability_analyst_resolve"
+    "api_resolvers_vulnerability_analyst_resolve"
   );
   const canRetrieveZeroRisk: boolean = permissions.can(
-    "backend_api_resolvers_finding_zero_risk_resolve"
+    "api_resolvers_finding_zero_risk_resolve"
   );
 
   const [treatmentFilter, setTreatmentFilter] = useState("");

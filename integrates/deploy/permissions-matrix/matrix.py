@@ -46,7 +46,7 @@ def get_matrix_parameters(
     sorted_columns = sorted(
         roles_lenght.keys(), key=lambda k: roles_lenght[k], reverse=True)
     dataset = fill_matrix(roles_and_permissions, sorted_columns, all_actions)
-    pattern = 'backend_api_resolvers_'
+    pattern = 'api_resolvers_'
     rows = [action.replace(pattern, '') if pattern in action else action
             for action in all_actions]
 

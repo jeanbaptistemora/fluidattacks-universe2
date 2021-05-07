@@ -5,7 +5,7 @@
 from ariadne import ObjectType
 
 # Local
-from backend.api.resolvers.finding import (
+from api.resolvers.finding import (
     age,
     analyst,
     closed_vulnerabilities,

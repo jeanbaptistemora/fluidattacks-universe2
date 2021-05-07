@@ -5,7 +5,7 @@
 from ariadne import ObjectType
 
 # Local
-from backend.api.resolvers.me import (
+from api.resolvers.me import (
     access_token,
     is_concurrent_session,
     organizations,

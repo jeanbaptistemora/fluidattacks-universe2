@@ -5,7 +5,7 @@
 from ariadne import QueryType
 
 # Local
-from backend.api.resolvers.query import (
+from api.resolvers.query import (
     event,
     events,
     finding,

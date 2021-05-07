@@ -158,9 +158,7 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                     )}
                   />
                 ) : null}
-                <Can
-                  do={"backend_api_resolvers_organization_stakeholders_resolve"}
-                >
+                <Can do={"api_resolvers_organization_stakeholders_resolve"}>
                   <ContentTab
                     icon={"icon pe-7s-users"}
                     id={"usersTab"}

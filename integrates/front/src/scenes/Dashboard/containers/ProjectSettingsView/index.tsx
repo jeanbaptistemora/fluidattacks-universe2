@@ -35,7 +35,7 @@ const ProjectSettingsView: React.FC = (): JSX.Element => {
           </React.Fragment>
         </Can>
         <GroupInformation />
-        <Can do={"backend_api_resolvers_group_forces_token_resolve"}>
+        <Can do={"api_resolvers_group_forces_token_resolve"}>
           <Have I={"has_forces"}>
             <AgentToken groupName={projectName} />
           </Have>

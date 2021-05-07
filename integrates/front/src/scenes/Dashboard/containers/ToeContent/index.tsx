@@ -21,17 +21,17 @@ const toeContent: React.FC = (): JSX.Element => {
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canGetToeLines: boolean = permissions.can(
-    "backend_api_resolvers_git_root_toe_lines_resolve"
+    "api_resolvers_git_root_toe_lines_resolve"
   );
   const canGetToeInputs: boolean = permissions.can(
-    "backend_api_resolvers_group_toe_inputs_resolve"
+    "api_resolvers_group_toe_inputs_resolve"
   );
 
   return (
     <React.StrictMode>
       <StickyContainerToe>
         <TabsContainer>
-          <Can do={"backend_api_resolvers_git_root_toe_lines_resolve"}>
+          <Can do={"api_resolvers_git_root_toe_lines_resolve"}>
             <ContentTab
               icon={"icon pe-7s-menu"}
               id={"toeLinesTab"}
@@ -40,7 +40,7 @@ const toeContent: React.FC = (): JSX.Element => {
               tooltip={translate.t("group.toe.tabs.lines.tooltip")}
             />
           </Can>
-          <Can do={"backend_api_resolvers_group_toe_inputs_resolve"}>
+          <Can do={"api_resolvers_group_toe_inputs_resolve"}>
             <ContentTab
               icon={"icon pe-7s-target"}
               id={"toeInputsTab"}

@@ -39,10 +39,10 @@ const ProjectContent: React.FC = (): JSX.Element => {
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canGetToeLines: boolean = permissions.can(
-    "backend_api_resolvers_git_root_toe_lines_resolve"
+    "api_resolvers_git_root_toe_lines_resolve"
   );
   const canGetToeInputs: boolean = permissions.can(
-    "backend_api_resolvers_group_toe_inputs_resolve"
+    "api_resolvers_group_toe_inputs_resolve"
   );
 
   // Side effects
@@ -70,7 +70,7 @@ const ProjectContent: React.FC = (): JSX.Element => {
                     title={translate.t("group.tabs.findings.text")}
                     tooltip={translate.t("group.tabs.findings.tooltip")}
                   />
-                  <Can do={"backend_api_resolvers_group_drafts_resolve"}>
+                  <Can do={"api_resolvers_group_drafts_resolve"}>
                     <ContentTab
                       icon={"icon pe-7s-stopwatch"}
                       id={"draftsTab"}
@@ -101,9 +101,7 @@ const ProjectContent: React.FC = (): JSX.Element => {
                     tooltip={translate.t("group.tabs.comments.tooltip")}
                   />
                   <Can
-                    do={
-                      "backend_api_resolvers_query_stakeholder__resolve_for_group"
-                    }
+                    do={"api_resolvers_query_stakeholder__resolve_for_group"}
                   >
                     <ContentTab
                       icon={"icon pe-7s-users"}
@@ -114,7 +112,7 @@ const ProjectContent: React.FC = (): JSX.Element => {
                     />
                   </Can>
                   <Have I={"has_drills_white"}>
-                    <Can do={"backend_api_resolvers_group_bill_resolve"}>
+                    <Can do={"api_resolvers_group_bill_resolve"}>
                       <ContentTab
                         icon={"icon pe-7s-users"}
                         id={"authorsTab"}

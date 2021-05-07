@@ -85,7 +85,7 @@ type User {
 backend/api/schema/types/user.py
 ```py
 from ariadne import ObjectType
-from backend.api.resolvers.user import email
+from api.resolvers.user import email
 
 USER = ObjectType('User')
 
@@ -314,7 +314,7 @@ The reason should follow something similar to:
 This {field|mutation} is deprecated and will be removed after {date}.
 ```
 
-If it was replaced or there is an alternative, it should include: 
+If it was replaced or there is an alternative, it should include:
 ```
 Use the {alternative} {field|mutation} instead.
 ```

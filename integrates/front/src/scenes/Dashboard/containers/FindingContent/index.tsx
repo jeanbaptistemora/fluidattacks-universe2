@@ -93,7 +93,7 @@ const findingContent: React.FC = (): JSX.Element => {
     },
     variables: {
       canGetHistoricState: permissions.can(
-        "backend_api_resolvers_finding_historic_state_resolve"
+        "api_resolvers_finding_historic_state_resolve"
       ),
       findingId,
     },
@@ -367,9 +367,7 @@ const findingContent: React.FC = (): JSX.Element => {
                     title={translate.t("searchFindings.tabComments.tabTitle")}
                     tooltip={translate.t("searchFindings.tabComments.tooltip")}
                   />
-                  <Can
-                    do={"backend_api_resolvers_finding_observations_resolve"}
-                  >
+                  <Can do={"api_resolvers_finding_observations_resolve"}>
                     <ContentTab
                       icon={"icon pe-7s-note"}
                       id={"observationsItem"}
