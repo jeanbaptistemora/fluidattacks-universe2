@@ -2,12 +2,14 @@
 , makeEntrypoint
 , path
 , skimsBenchmarkOwaspRepo
+, skimsNISTTestSuites
 , skimsVulnerableAppRepo
 , ...
 }:
 makeEntrypoint {
   arguments = {
     envBenchmarkRepo = skimsBenchmarkOwaspRepo;
+    envNISTTestSuites = skimsNISTTestSuites;
     envVulnerableAppRepo = skimsVulnerableAppRepo;
   };
   name = "skims-test";

@@ -2,6 +2,7 @@
 
 function main {
   local benchmark_local_repo="${PWD}/../owasp_benchmark"
+  local nisttestsuites_local_repo="${PWD}/../NIST-SARD-Test-Suites"
   local vulnerableapp_local_repo="${PWD}/../VulnerableApp"
   local cache_local="${HOME_IMPURE}/.skims/cache"
   local cache_remote="s3://skims.data/cache/${CI_COMMIT_REF_NAME}"
@@ -9,6 +10,7 @@ function main {
 
       echo '[INFO] Creating staging area' \
   &&  copy '__envBenchmarkRepo__' "${benchmark_local_repo}" \
+  &&  copy '__envNISTTestSuites__' "${nisttestsuites_local_repo}" \
   &&  copy '__envVulnerableAppRepo__' "${vulnerableapp_local_repo}" \
   &&  aws_login_dev 'skims' \
   &&  aws_s3_sync "${cache_remote}" "${cache_local}" \
