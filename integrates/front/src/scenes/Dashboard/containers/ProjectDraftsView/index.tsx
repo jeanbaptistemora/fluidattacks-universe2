@@ -17,6 +17,8 @@ import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import type { ISuggestion } from "scenes/Dashboard/containers/ProjectDraftsView/findingNames";
+import { getFindingNames } from "scenes/Dashboard/containers/ProjectDraftsView/findingNames";
 import {
   CREATE_DRAFT_MUTATION,
   GET_DRAFTS,
@@ -132,62 +134,24 @@ const ProjectDraftsView: React.FC = (): JSX.Element => {
     },
   ];
 
-  interface ISuggestion {
-    cwe: string;
-    description: string;
-    recommendation: string;
-    requirements: string;
-    title: string;
-    type: string;
-  }
   const [suggestions, setSuggestions] = useState<ISuggestion[]>([]);
   const titleSuggestions: string[] = suggestions.map(
     (suggestion: ISuggestion): string => suggestion.title
   );
 
-  const onMount: () => void = (): void => {
-    const baseUrl: string = "https://spreadsheets.google.com/feeds/list";
-    const spreadsheetId: string =
-      "1L37WnF6enoC8Ws8vs9sr0G29qBLwbe-3ztbuopu1nvc";
-    const rowOffset: number = 2;
-    const extraParams: string = `&min-row=${rowOffset}`;
+  useEffect((): void => {
+    async function fetchData(): Promise<void> {
+      const findingNames: ISuggestion[] = await getFindingNames().catch(
+        (error: Error): ISuggestion[] => {
+          Logger.error("An error occurred getting draft suggestions", error);
 
-    interface IRowStructure {
-      gsx$cwe: { $t: string };
-      gsx$descripcion: { $t: string };
-      gsx$fin: { $t: string };
-      gsx$recomendacion: { $t: string };
-      gsx$requisito: { $t: string };
-      gsx$tipo: { $t: string };
+          return [];
+        }
+      );
+      setSuggestions(findingNames);
     }
-    fetch(`${baseUrl}/${spreadsheetId}/1/public/values?alt=json${extraParams}`)
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .then(async (httpResponse: Response): Promise<any> => httpResponse.json())
-      .then((sData: { feed: { entry: IRowStructure[] } }): void => {
-        setSuggestions(
-          sData.feed.entry.map(
-            (row: IRowStructure): ISuggestion => {
-              const cwe: RegExpMatchArray | null = row.gsx$cwe.$t.match(
-                /\d+/gu
-              );
-
-              return {
-                cwe: cwe === null ? "" : cwe[0],
-                description: row.gsx$descripcion.$t,
-                recommendation: row.gsx$recomendacion.$t,
-                requirements: row.gsx$requisito.$t,
-                title: row.gsx$fin.$t,
-                type: row.gsx$tipo.$t === "Seguridad" ? "SECURITY" : "HYGIENE",
-              };
-            }
-          )
-        );
-      })
-      .catch((error: Error): void => {
-        Logger.error("An error occurred getting draft suggestions", error);
-      });
-  };
-  useEffect(onMount, []);
+    void fetchData();
+  }, []);
 
   const handleQryError: (error: ApolloError) => void = ({
     graphQLErrors,
