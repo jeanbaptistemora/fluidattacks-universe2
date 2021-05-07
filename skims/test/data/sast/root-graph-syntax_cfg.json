@@ -44,6 +44,9 @@
   "F034": {
     "skims/test/data/sast/TestCFG.java": {}
   },
+  "F036": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
   "F042": {
     "skims/test/data/sast/TestCFG.java": {}
   },
