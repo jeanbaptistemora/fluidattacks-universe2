@@ -144,7 +144,9 @@ $whiter-gray: rgba(241, 241, 241, 1);
 // Font Sizes
 .f-1125 { font-size: 1.125rem; }
 .f-375 { font-size: 3.75rem; }
-.fheader { font-size: 2.25rem; }
+.f-225 { font-size: 2.25rem; }
+.f-error { font-size: 10rem; }
+
 
 // Height Classes
 .h-5 { height: 5rem; }
@@ -209,6 +211,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 // Big screen sizes
 @media screen and (min-width: 60em) {
   .advisories-grid { grid-template-columns: repeat(2, minmax(25rem, 1fr)); }
+  .f-error { font-size: 17rem; }
   .bg-banner-sz { background-size: 100% 100%; }
   .mw-20 { max-width: 20rem; }
   .ph-body { padding: 0 3.75rem; }
