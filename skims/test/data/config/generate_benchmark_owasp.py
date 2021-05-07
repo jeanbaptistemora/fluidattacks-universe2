@@ -1,4 +1,5 @@
 # Standard library
+import datetime
 import glob
 import json
 import os
@@ -47,6 +48,7 @@ def get_tests_cases() -> Dict[str, List[str]]:
 
 
 def main() -> None:
+    year: str = datetime.datetime.now().strftime("%Y")
     suites: List[str] = []
     categories = {
         "cmdi": [core_model.FindingEnum.F004.name],
@@ -99,12 +101,14 @@ def main() -> None:
             yaml_dumps_blocking(
                 dict(
                     checks=sorted(
-                        finding
-                        for findings in categories.values()
-                        for finding in findings
+                        set(
+                            finding
+                            for findings in categories.values()
+                            for finding in findings
+                        )
                     ),
                     namespace="OWASP",
-                    output="Fluid-Attacks.csv",
+                    output=f"Benchmark_1.2-Fluid-Attacks-v{year}.csv",
                     path=dict(
                         include=["."],
                     ),

@@ -6,12 +6,11 @@ checks:
 - F034
 - F042
 - F052
-- F052
 - F063_PATH_TRAVERSAL
 - F063_TRUSTBOUND
 - F107
 namespace: OWASP
-output: Fluid-Attacks.csv
+output: Benchmark_1.2-Fluid-Attacks-v2021.csv
 path:
   include:
   - .
