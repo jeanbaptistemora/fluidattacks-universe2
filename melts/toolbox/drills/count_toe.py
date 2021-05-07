@@ -38,9 +38,8 @@ def count_lines(file_csv: str) -> Tuple[int, int]:
             if row[1] != '':
                 lines += int(row[1])
 
-            if len(row) > 2:
-                if row[2] != '':
-                    tested_lines += int(row[2])
+            if len(row) > 2 and row[2] != '':
+                tested_lines += int(row[2])
 
     return (lines, tested_lines)
 
