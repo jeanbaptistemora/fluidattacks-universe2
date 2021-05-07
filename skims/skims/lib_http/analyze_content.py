@@ -2,12 +2,14 @@
 from __future__ import (
     annotations,
 )
+import contextlib
 from typing import (
     Any,
     Callable,
     Dict,
     List,
     NamedTuple,
+    Optional,
 )
 from urllib.parse import (
     urlparse,
@@ -17,6 +19,7 @@ from urllib.parse import (
 from bs4.element import (
     Tag,
 )
+import viewstate
 
 # Local libraries
 from lib_http.types import (
@@ -49,11 +52,14 @@ class Location(NamedTuple):
         cls: Any,
         tag: Tag,
         desc: str,
-        desc_kwargs: Dict[str, str],
+        desc_kwargs: Optional[Dict[str, str]] = None,
     ) -> Location:
         return Location(
             column=tag.sourcepos,
-            description=t(f"lib_http.analyze_content.{desc}", **desc_kwargs),
+            description=t(
+                f"lib_http.analyze_content.{desc}",
+                **(desc_kwargs or {}),
+            ),
             line=tag.sourceline,
         )
 
@@ -122,6 +128,29 @@ def _sub_resource_integrity(
     )
 
 
+def _view_state(ctx: ContentCheckCtx) -> core_model.Vulnerabilities:
+    locations: List[Location] = []
+
+    for tag in ctx.url.soup.find_all("input"):
+        if tag.get("name") == "__VIEWSTATE" and (value := tag.get("value")):
+            with contextlib.suppress(viewstate.ViewStateException):
+                view_state = viewstate.ViewState(base64=value)
+                view_state.decode()
+
+                locations.append(
+                    Location.from_soup_tag(
+                        desc="view_state.not_encrypted",
+                        tag=tag,
+                    )
+                )
+
+    return build_vulnerabilities(
+        ctx=ctx,
+        finding=FindingEnum.F036,
+        locations=locations,
+    )
+
+
 def get_check_ctx(url: URLContext) -> ContentCheckCtx:
     return ContentCheckCtx(
         url=url,
@@ -132,5 +161,6 @@ CHECKS: Dict[
     core_model.FindingEnum,
     Callable[[ContentCheckCtx], core_model.Vulnerabilities],
 ] = {
+    core_model.FindingEnum.F036: _view_state,
     core_model.FindingEnum.F086: _sub_resource_integrity,
 }

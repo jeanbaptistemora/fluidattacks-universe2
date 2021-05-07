@@ -1,3 +1,6 @@
+lib_http.analyze_content.view_state.not_encrypted:
+  en: ViewState not encrypted
+  es: ViewState no encriptado
 F036.description:
   en: >
     The state information of application forms that is stored in the ViewState
