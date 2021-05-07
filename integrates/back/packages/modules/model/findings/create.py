@@ -36,7 +36,7 @@ async def create(*, finding: Finding) -> None:
         'id': finding.id,
         'scenario': finding.scenario,
         'severity': finding.severity._asdict(),
-        'sorts': finding.sorts,
+        'sorts': finding.sorts.value,
         'records': finding.records._asdict(),
         'risk': finding.risk,
         'recommendation': finding.recommendation,
@@ -51,8 +51,9 @@ async def create(*, finding: Finding) -> None:
         **finding_metadata
     }
     items.append(initial_metadata)
+    state_item = format_state_item(finding.state)
     historic_state = historics.build_historic(
-        attributes=format_state_item(finding.state),
+        attributes=state_item,
         historic_facet=TABLE.facets['finding_historic_state'],
         key_structure=key_structure,
         key_values={
@@ -63,6 +64,16 @@ async def create(*, finding: Finding) -> None:
         latest_facet=TABLE.facets['finding_state'],
     )
     items.extend(historic_state)
+    creation_key = keys.build_key(
+        facet=TABLE.facets['finding_creation'],
+        values={'group_name': finding.group_name, 'id': finding.id},
+    )
+    creation = {
+        key_structure.partition_key: creation_key.partition_key,
+        key_structure.sort_key: creation_key.sort_key,
+        **state_item
+    }
+    items.append(creation)
 
     if finding.verification:
         historic_verification = historics.build_historic(

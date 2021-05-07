@@ -6,6 +6,7 @@ from typing import Any
 from backend import util
 from custom_exceptions import InvalidDraftTitle
 from model import findings
+from model.findings.enums import FindingStateStatus
 from model.findings.types import (
     Finding,
     FindingState,
@@ -43,7 +44,7 @@ async def create_draft_new(
             modified_by=analyst_email,
             modified_date=datetime_utils.get_iso_date(),
             source=source,
-            status='CREATED',
+            status=FindingStateStatus.CREATED,
         ),
         risk=kwargs.get('risk', ''),
         recommendation=kwargs.get('recommendation', ''),

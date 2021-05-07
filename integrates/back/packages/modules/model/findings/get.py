@@ -14,6 +14,7 @@ from dynamodb.types import (
     PrimaryKey,
 )
 from model import TABLE
+from .enums import FindingSorts
 from .types import (
     Finding,
     FindingEvidence,
@@ -134,7 +135,7 @@ def _build_finding(
         id=metadata['id'],
         scenario=metadata['scenario'],
         severity=severity,
-        sorts=metadata['sorts'],
+        sorts=FindingSorts[metadata['sorts']],
         submission=submission,
         records=FindingRecords(**metadata['records']),
         recommendation=metadata['recommendation'],

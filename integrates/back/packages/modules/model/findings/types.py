@@ -1,13 +1,17 @@
 # Standard
 from decimal import Decimal
 from typing import Tuple, NamedTuple, Union, Optional
+from .enums import (
+    FindingSorts,
+    FindingStateStatus,
+)
 
 
 class FindingState(NamedTuple):
     modified_by: str
     modified_date: str
     source: str
-    status: str
+    status: FindingStateStatus
 
 
 class FindingVerification(NamedTuple):
@@ -103,7 +107,7 @@ class Finding(NamedTuple):
     scenario: str = ''
     severity: Union[Finding20Severity, Finding31Severity] = \
         Finding31Severity()
-    sorts: str = 'NO'
+    sorts: FindingSorts = FindingSorts.NO
     submission: Optional[FindingState] = None
     records: FindingRecords = FindingRecords()
     recommendation: str = ''

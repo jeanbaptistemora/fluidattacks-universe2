@@ -3,6 +3,7 @@ from typing import cast, List
 
 # Local
 from dynamodb.types import Item
+from .enums import FindingStateStatus
 from .types import (
     FindingState,
     FindingVerification
@@ -14,7 +15,7 @@ def format_state(state_item: Item) -> FindingState:
         modified_by=state_item['modified_by'],
         modified_date=state_item['modified_date'],
         source=state_item['source'],
-        status=state_item['status'],
+        status=FindingStateStatus[state_item['status']],
     )
 
 
@@ -23,7 +24,7 @@ def format_state_item(state: FindingState) -> Item:
         'modified_by': state.modified_by,
         'modified_date': state.modified_date,
         'source': state.source,
-        'status': state.status,
+        'status': state.status.value,
     }
 
 
