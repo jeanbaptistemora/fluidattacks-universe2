@@ -31,6 +31,6 @@ makeEntrypoint {
       "/makes/utils/sops"
     ];
   };
-  name = "observes-scheduled-dynamodb-integrates-etl";
-  template = path "/makes/applications/observes/scheduled/dynamodb-integrates-etl/entrypoint.sh";
+  name = "observes-scheduled-on-aws-dynamodb-integrates-etl";
+  template = path "/makes/applications/observes/scheduled/on-aws/dynamodb-integrates-etl/entrypoint.sh";
 }

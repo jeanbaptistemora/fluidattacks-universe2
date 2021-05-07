@@ -22,6 +22,8 @@ makeTemplate {
       scheduled.on-aws.code-etl-upload
       scheduled.on-aws.delighted-etl
       scheduled.on-aws.dif-gitlab-etl
+      scheduled.on-aws.dynamodb-forces-etl
+      scheduled.on-aws.dynamodb-integrates-etl
       scheduled.on-aws.formstack-etl
     ];
     envPythonPaths = [

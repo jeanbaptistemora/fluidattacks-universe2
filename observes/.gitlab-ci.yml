@@ -148,47 +148,11 @@ observes.lint.target-redshift:
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes.scheduled.dynamodb-forces-etl:
-  <<: *makes
-  tags: [autoscaling]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_dynamodb_forces_on_aws]
-  interruptible: false
-
-observes.scheduled.dynamodb-integrates-etl:
-  <<: *makes
-  tags: [autoscaling-large]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_dynamodb]
-  interruptible: false
-
-observes.scheduled.dynamodb-integrates-etl-vulns:
-  <<: *makes
-  tags: [autoscaling-large]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_dynamodb_vulns]
-  interruptible: false
-
 observes.scheduled.job.batch-stability:
   <<: *makes
   only:
     refs: [schedules]
     variables: [$observes_batch_stability]
-  stage: analytics
-  tags: [autoscaling]
-  interruptible: false
-
-observes.scheduled.job.checkly-etl:
-  <<: *makes
-  only:
-    refs: [schedules]
-    variables: [$observes_checkly]
   stage: analytics
   tags: [autoscaling]
   interruptible: false
@@ -202,15 +166,6 @@ observes.scheduled.job.code-etl-compute-bills:
   tags: [autoscaling]
   interruptible: false
 
-observes.scheduled.job.delighted-etl:
-  <<: *makes
-  tags: [autoscaling-large]
-  stage: analytics
-  only:
-    refs: [schedules]
-    variables: [$observes_delighted_etl]
-  interruptible: false
-
 observes.scheduled.job.dynamodb-centralize:
   <<: *makes
   tags: [autoscaling-large]
@@ -218,6 +173,15 @@ observes.scheduled.job.dynamodb-centralize:
   only:
     refs: [schedules]
     variables: [$observes_dynamodb_centralize]
+  interruptible: false
+
+observes.scheduled.job.dynamodb-integrates-etl-vulns:
+  <<: *makes
+  tags: [autoscaling-large]
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$observes_dynamodb_vulns]
   interruptible: false
 
 observes.scheduled.job.mailchimp-etl:
