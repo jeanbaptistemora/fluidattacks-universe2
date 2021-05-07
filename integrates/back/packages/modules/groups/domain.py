@@ -1,3 +1,4 @@
+# pylint:disable=too-many-lines
 # Standard libraries
 import logging
 import logging.config
@@ -984,3 +985,71 @@ async def get_remediation_rate(
         remediation_rate = int(
             100 * closed_vulns / (open_vulns + closed_vulns))
     return remediation_rate
+
+
+async def get_group_digest_stats(
+    context: Any,
+    group_name: str
+) -> MailContentType:
+    content: MailContentType = {
+        'project': group_name,
+        'remediation_rate': 0,
+        'reattack_effectiveness': 0,
+        'remediation_time': 0,
+        'queries': 0,
+        'reattacks': {
+            'reattacks_requested': 0,
+            'reattacks_executed': 0,
+            'pending_attacks': 0,
+        },
+        'treatments': {
+            'temporary_applied': 0,
+            'eternal_requested': 0,
+            'eternal_approved': 0,
+        },
+        'findings': list()
+    }
+
+    # Get valid findings for the group
+    group_findings_loader = context.group_findings
+    findings = await group_findings_loader.load(group_name)
+    are_findings_valid = await collect(
+        findings_domain.validate_finding(str(finding['finding_id']))
+        for finding in findings
+    )
+    valid_findings = [
+        finding
+        for finding, is_finding_valid in zip(findings, are_findings_valid)
+        if is_finding_valid
+    ]
+
+    # Get stats
+    last_day = datetime_utils.get_now_minus_delta(hours=24)
+    content['findings'] = await findings_domain.get_oldest_open_findings(
+        context, valid_findings, 3)
+    treatments = await findings_domain.get_total_treatment_date(
+        context, valid_findings, last_day)
+    content['treatments']['temporary_applied'] = treatments.get(
+        'accepted', 0)
+    content['treatments']['eternal_requested'] = treatments.get(
+        'accepted_undefined_submitted', 0)
+    content['treatments']['eternal_approved'] = treatments.get(
+        'accepted_undefined_approved', 0)
+    reattacks = await findings_domain.get_total_reattacks_stats(
+        context, valid_findings, last_day)
+    content['reattacks']['reattacks_requested'] = reattacks.get(
+        'reattacks_requested', 0)
+    content['reattacks']['reattacks_executed'] = reattacks.get(
+        'reattacks_executed', 0)
+    content['reattacks']['pending_attacks'] = reattacks.get(
+        'pending_attacks', 0)
+    content['reattack_effectiveness'] = reattacks.get(
+        'reattack_effectiveness', 0)
+    content['queries'] = await group_comments_domain.get_total_comments_date(
+        valid_findings, group_name, last_day)
+    content['remediation_time'] = int(
+        await get_mean_remediate(context, group_name))
+    content['remediation_rate'] = await get_remediation_rate(
+        context, group_name)
+
+    return content
