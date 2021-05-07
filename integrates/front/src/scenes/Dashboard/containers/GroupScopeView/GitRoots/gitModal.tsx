@@ -76,8 +76,9 @@ const GitModal: React.FC<IGitModalProps> = ({
       } else {
         setIsDuplicated(false);
       }
-
-      return required(field) as ValidatorField;
+      // Exception: WF(Avoid unsafe return of an any typed value)
+      // eslint-disable-next-line
+      return required(field) as ValidatorField; // NOSONAR
     },
     [initialValues, nicknames]
   );
@@ -88,8 +89,9 @@ const GitModal: React.FC<IGitModalProps> = ({
       if (nicknames.includes(field) && initialNickname !== field) {
         return t("validations.requireNickname");
       }
-
-      return required(field) as ValidatorField;
+      // Exception: WF(Avoid unsafe return of an any typed value)
+      // eslint-disable-next-line
+      return required(field) as ValidatorField; // NOSONAR
     },
     [initialValues, nicknames, t]
   );
