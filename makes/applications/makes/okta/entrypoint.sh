@@ -1,3 +1,5 @@
+# shellcheck shell=bash
+
 function main {
   export TF_VAR_okta_api_token
   export TF_VAR_okta_data
