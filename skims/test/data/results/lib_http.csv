@@ -11,6 +11,7 @@ F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:4
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f015_dast_basic_4 (namespace),Missing Content-Security-Policy,644
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f023_0 (namespace),Missing Content-Security-Policy,644
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f023_1 (namespace),Missing Content-Security-Policy,644
+F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f036_0 (namespace),Missing Content-Security-Policy,644
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f043_dast_csp_0 (namespace),Missing frame-ancestors,644
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f043_dast_csp_0 (namespace),Missing object-src,644
 F043. Missing HTTP security headers - Content-Security-Policy,http://localhost:48000/f043_dast_csp_0 (namespace),Missing script-src,644
@@ -83,6 +84,7 @@ F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/f01
 F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/f015_dast_basic_4 (namespace),Missing Referrer-Policy,644
 F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/f023_0 (namespace),Missing Referrer-Policy,644
 F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/f023_1 (namespace),Missing Referrer-Policy,644
+F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/f036_0 (namespace),Missing Referrer-Policy,644
 F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/f043_dast_csp_0 (namespace),Missing Referrer-Policy,644
 F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/f043_dast_csp_1 (namespace),Missing Referrer-Policy,644
 F043. Missing HTTP security headers - Referrer-Policy,http://localhost:48000/f043_dast_csp_10 (namespace),Missing Referrer-Policy,644
@@ -122,6 +124,7 @@ F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost
 F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f015_dast_basic_4 (namespace),Missing Strict-Transport-Security,644
 F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f023_0 (namespace),Missing Strict-Transport-Security,644
 F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f023_1 (namespace),Missing Strict-Transport-Security,644
+F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f036_0 (namespace),Missing Strict-Transport-Security,644
 F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f043_dast_csp_0 (namespace),Missing Strict-Transport-Security,644
 F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f043_dast_csp_1 (namespace),Missing Strict-Transport-Security,644
 F043. Missing HTTP security headers - Strict-Transport-Security,http://localhost:48000/f043_dast_csp_10 (namespace),Missing Strict-Transport-Security,644
@@ -161,6 +164,7 @@ F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48
 F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48000/f015_dast_basic_4 (namespace),Missing X-Content-Type-Options,644
 F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48000/f023_0 (namespace),Missing X-Content-Type-Options,644
 F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48000/f023_1 (namespace),Missing X-Content-Type-Options,644
+F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48000/f036_0 (namespace),Missing X-Content-Type-Options,644
 F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48000/f043_dast_csp_0 (namespace),Missing X-Content-Type-Options,644
 F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48000/f043_dast_csp_1 (namespace),Missing X-Content-Type-Options,644
 F043. Missing HTTP security headers - X-Content-Type-Options,http://localhost:48000/f043_dast_csp_10 (namespace),Missing X-Content-Type-Options,644

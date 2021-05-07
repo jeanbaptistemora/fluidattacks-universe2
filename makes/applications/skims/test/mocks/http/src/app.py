@@ -115,6 +115,15 @@ def add_f023() -> None:
         )
 
 
+def add_f036() -> None:
+    _add_contents(
+        finding="f036",
+        paths=[
+            "templates/f036_0.html",
+        ],
+    )
+
+
 def add_f043_dast_csp_rules() -> None:
     _add_headers(
         "f043_dast_csp",
@@ -213,6 +222,7 @@ def start() -> None:
 
 add_f015_dast_basic()
 add_f023()
+add_f036()
 add_f043_dast_csp_rules()
 add_f043_dast_rp_rules()
 add_f043_dast_sts_rules()
