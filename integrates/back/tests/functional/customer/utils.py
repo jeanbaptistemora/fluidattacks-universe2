@@ -6,14 +6,15 @@ from typing import (
 )
 
 # Local libraries
-from backend.api import (
-    get_new_context,
-    Dataloaders
-)
 from back.tests.functional.utils import (
     get_graphql_result,
     complete_register,
 )
+from dataloaders import (
+    get_new_context,
+    Dataloaders
+)
+
 
 MANAGER = 'integratesmanager@gmail.com'
 CUSTOMER = 'integratescustomer@gmail.com'

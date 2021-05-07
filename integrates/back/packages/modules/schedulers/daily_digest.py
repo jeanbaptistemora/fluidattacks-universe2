@@ -13,12 +13,10 @@ from aioextensions import (
 )
 
 # Local libraries
-from backend.api import get_new_context
+from dataloaders import get_new_context
 from groups.domain import get_group_digest_stats
 from mailer import groups as groups_mail
-from newutils import (
-    bugsnag as bugsnag_utils,
-)
+from newutils import bugsnag as bugsnag_utils
 from __init__ import (
     FI_MAIL_DIGEST,
     FI_TEST_PROJECTS_DIGEST,

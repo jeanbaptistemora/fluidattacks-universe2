@@ -5,7 +5,7 @@ from typing import Any
 from aioextensions import collect
 
 # Local libraries
-from backend.api import get_new_context
+from dataloaders import get_new_context
 from groups import domain as groups_domain
 from mailer import organizations as orgs_mail
 from newutils import datetime as datetime_utils

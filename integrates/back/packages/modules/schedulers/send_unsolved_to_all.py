@@ -13,8 +13,8 @@ from aioextensions import (
 )
 
 # Local libraries
-from backend.api import get_new_context
 from backend.typing import Event as EventType
+from dataloaders import get_new_context
 from events import domain as events_domain
 from groups import domain as groups_domain
 from mailer import events as events_mail

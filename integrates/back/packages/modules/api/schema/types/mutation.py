@@ -5,7 +5,7 @@
 from ariadne import MutationType
 
 # Local
-from backend.api.mutations import (
+from api.mutations import (
     accept_legal,
     acknowledge_concurrent_session,
     activate_root,

@@ -20,15 +20,13 @@ from aioextensions import (
 )
 
 # Local libraries
-from back.settings import (
-    LOGGING,
-)
-from backend.api import get_new_context
+from back.settings import LOGGING
 from custom_exceptions import (
     GroupNameNotFound,
     RootNotFound,
 )
 from data_containers.toe_lines import GitRootToeLines
+from dataloaders import get_new_context
 from newutils import (
     bugsnag as bugsnag_utils,
     datetime as datetime_utils,

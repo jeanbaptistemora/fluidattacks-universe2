@@ -23,7 +23,7 @@ const SeverityField: React.FC<ISeverityFieldProps> = (
   } = props;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canUpdateVulnsTreatment: boolean = permissions.can(
-    "backend_api_mutations_update_vulns_treatment_mutate"
+    "api_mutations_update_vulns_treatment_mutate"
   );
 
   return (

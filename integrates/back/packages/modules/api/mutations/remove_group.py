@@ -50,7 +50,7 @@ async def mutate(
     except PermissionDenied:
         util.cloudwatch_log(
             info.context,
-            f'Security: Unauthorized role attempted to delete group'
+            'Security: Unauthorized role attempted to delete group'
         )
 
     if success:

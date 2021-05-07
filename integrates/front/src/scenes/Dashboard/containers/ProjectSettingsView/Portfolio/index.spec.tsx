@@ -95,7 +95,7 @@ describe("Portfolio", (): void => {
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_add_group_tags_mutate" },
+      { action: "api_mutations_add_group_tags_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
@@ -156,7 +156,7 @@ describe("Portfolio", (): void => {
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_remove_group_tag_mutate" },
+      { action: "api_mutations_remove_group_tag_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
@@ -252,7 +252,7 @@ describe("Portfolio", (): void => {
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_add_group_tags_mutate" },
+      { action: "api_mutations_add_group_tags_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
@@ -313,7 +313,7 @@ describe("Portfolio", (): void => {
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_remove_group_tag_mutate" },
+      { action: "api_mutations_remove_group_tag_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
@@ -361,7 +361,7 @@ describe("Portfolio", (): void => {
     expect.hasAssertions();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_add_group_tags_mutate" },
+      { action: "api_mutations_add_group_tags_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>

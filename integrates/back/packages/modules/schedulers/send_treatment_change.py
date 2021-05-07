@@ -6,7 +6,7 @@ from typing import Any
 from aioextensions import collect
 
 # Local libraries
-from backend.api import get_new_context
+from dataloaders import get_new_context
 from findings import domain as findings_domain
 from groups import domain as groups_domain
 from newutils import datetime as datetime_utils

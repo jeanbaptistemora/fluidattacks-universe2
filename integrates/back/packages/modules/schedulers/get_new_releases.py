@@ -13,8 +13,8 @@ from aioextensions import collect
 
 # Local libraries
 from back.settings import LOGGING
-from backend.api import get_new_context
 from backend.typing import MailContent as MailContentType
+from dataloaders import get_new_context
 from findings import domain as findings_domain
 from groups import domain as groups_domain
 from mailer import findings as findings_mail

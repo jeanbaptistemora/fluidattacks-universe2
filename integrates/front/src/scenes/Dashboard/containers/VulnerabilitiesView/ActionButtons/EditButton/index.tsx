@@ -25,13 +25,13 @@ const EditButton: React.FC<IEditButtonProps> = ({
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canUploadVulns: boolean = permissions.can(
-    "backend_api_mutations_upload_file_mutate"
+    "api_mutations_upload_file_mutate"
   );
   const canRequestZeroRiskVuln: boolean = permissions.can(
-    "backend_api_mutations_request_zero_risk_vuln_mutate"
+    "api_mutations_request_zero_risk_vuln_mutate"
   );
   const canUpdateVulnsTreatment: boolean = permissions.can(
-    "backend_api_mutations_update_vulns_treatment_mutate"
+    "api_mutations_update_vulns_treatment_mutate"
   );
   const shouldRenderEditBtn: boolean =
     !(isRequestingReattack || isVerifying) &&

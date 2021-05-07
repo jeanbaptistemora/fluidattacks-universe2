@@ -20,9 +20,9 @@ from aioextensions import (
 from more_itertools import chunked
 
 # Local libraries
-from api.dataloaders.group import GroupLoader
-from api.dataloaders.finding import FindingLoader
 from backend.typing import Finding
+from dataloaders.group import GroupLoader
+from dataloaders.finding import FindingLoader
 from findings import dal as findings_dal
 from groups.domain import get_active_groups
 

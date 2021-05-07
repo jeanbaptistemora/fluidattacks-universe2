@@ -4,8 +4,8 @@ from decimal import Decimal
 
 # Local libraries
 from back.tests.functional.group_manager.utils import get_result
-from backend.api import get_new_context
 from custom_exceptions import UserNotInOrganization
+from dataloaders import get_new_context
 
 
 @pytest.mark.asyncio

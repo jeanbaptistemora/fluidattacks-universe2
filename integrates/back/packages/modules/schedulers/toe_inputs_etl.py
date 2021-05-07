@@ -18,8 +18,8 @@ from aioextensions import (
 )
 
 # Local libraries
-from backend.api import get_new_context
 from custom_exceptions import GroupNameNotFound
+from dataloaders import get_new_context
 from newutils import (
     bugsnag as bugsnag_utils,
     datetime as datetime_utils,

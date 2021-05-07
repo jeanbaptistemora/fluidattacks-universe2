@@ -1,5 +1,6 @@
 # Standard
 import logging
+import logging.config
 from typing import Dict
 
 # Third party

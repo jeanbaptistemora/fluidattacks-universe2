@@ -18,10 +18,10 @@ const TreatmentField: React.FC<ITreatmentFieldProps> = (
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canRequestZeroRiskVuln: boolean = permissions.can(
-    "backend_api_mutations_request_zero_risk_vuln_mutate"
+    "api_mutations_request_zero_risk_vuln_mutate"
   );
   const canUpdateVulnsTreatment: boolean = permissions.can(
-    "backend_api_mutations_update_vulns_treatment_mutate"
+    "api_mutations_update_vulns_treatment_mutate"
   );
 
   const isAcceptedUndefinedPendingToApproved: boolean =

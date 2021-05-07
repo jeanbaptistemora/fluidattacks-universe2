@@ -2,7 +2,7 @@
 import pytest
 
 # Local libraries
-from backend.api import get_new_context
+from dataloaders import get_new_context
 from roots import domain as roots_domain
 
 # Constants

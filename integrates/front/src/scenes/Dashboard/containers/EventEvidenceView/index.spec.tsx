@@ -238,7 +238,7 @@ describe("EventEvidenceView", (): void => {
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_update_event_evidence_mutate" },
+      { action: "api_mutations_update_event_evidence_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>

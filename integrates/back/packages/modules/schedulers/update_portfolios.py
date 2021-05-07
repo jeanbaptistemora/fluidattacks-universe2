@@ -17,8 +17,8 @@ from aioextensions import collect
 
 # Local libraries
 from back.settings import LOGGING
-from backend.api import get_new_context
 from backend.typing import Project as GroupType
+from dataloaders import get_new_context
 from groups import domain as groups_domain
 from organizations import domain as orgs_domain
 from tags import domain as tags_domain

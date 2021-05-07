@@ -129,7 +129,7 @@ describe("Files", (): void => {
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_add_files_mutate" },
+      { action: "api_mutations_add_files_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
@@ -240,7 +240,7 @@ describe("Files", (): void => {
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_remove_files_mutate" },
+      { action: "api_mutations_remove_files_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
@@ -317,7 +317,7 @@ describe("Files", (): void => {
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_remove_files_mutate" },
+      { action: "api_mutations_remove_files_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
@@ -399,7 +399,7 @@ describe("Files", (): void => {
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_add_files_mutate" },
+      { action: "api_mutations_add_files_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
@@ -460,7 +460,7 @@ describe("Files", (): void => {
     expect.hasAssertions();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_add_files_mutate" },
+      { action: "api_mutations_add_files_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>

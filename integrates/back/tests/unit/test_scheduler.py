@@ -8,9 +8,9 @@ from unittest.mock import patch
 
 from freezegun import freeze_time
 
-from backend.api import get_new_context
 from data_containers.toe_inputs import GitRootToeInput
 from data_containers.toe_lines import GitRootToeLines
+from dataloaders import get_new_context
 from findings.domain import get_findings_by_group
 from groups import domain as groups_domain
 from newutils import (

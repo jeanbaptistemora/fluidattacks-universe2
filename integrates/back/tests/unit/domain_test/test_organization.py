@@ -5,7 +5,6 @@ from aioextensions import collect
 from graphql import GraphQLError
 
 import authz
-from backend.api import get_new_context
 from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
@@ -14,6 +13,7 @@ from custom_exceptions import (
     InvalidOrganization,
     UserNotInOrganization
 )
+from dataloaders import get_new_context
 from group_access import domain as group_access_domain
 from organizations import (
     domain as orgs_domain,

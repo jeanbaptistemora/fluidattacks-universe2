@@ -369,7 +369,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     <React.Fragment>
       <h2>{t("group.scope.git.title")}</h2>
       <ButtonToolbarRow>
-        <Can do={"backend_api_mutations_add_git_root_mutate"}>
+        <Can do={"api_mutations_add_git_root_mutate"}>
           <div className={"mb3"}>
             <TooltipWrapper
               id={t("group.scope.common.addTooltip.id")}
@@ -382,7 +382,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
             </TooltipWrapper>
           </div>
         </Can>
-        <Can do={"backend_api_mutations_update_git_root_mutate"}>
+        <Can do={"api_mutations_update_git_root_mutate"}>
           <div className={"mb3"}>
             <TooltipWrapper
               id={t("group.scope.common.editTooltip.id")}
@@ -395,7 +395,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
             </TooltipWrapper>
           </div>
         </Can>
-        <Can do={"backend_api_mutations_update_git_environments_mutate"}>
+        <Can do={"api_mutations_update_git_environments_mutate"}>
           <div className={"mb3"}>
             <TooltipWrapper
               id={t("group.scope.git.manageEnvsTooltip.id")}
@@ -484,7 +484,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                       options: selectOptionsState,
                     }),
                     formatter: permissions.can(
-                      "backend_api_mutations_update_root_state_mutate"
+                      "api_mutations_update_root_state_mutate"
                     )
                       ? changeFormatter
                       : statusFormatter,
@@ -535,7 +535,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                 selectionMode={{
                   clickToSelect: true,
                   hideSelectColumn: permissions.cannot(
-                    "backend_api_mutations_update_git_root_mutate"
+                    "api_mutations_update_git_root_mutate"
                   ),
                   mode: "radio",
                   onSelect: handleRowSelect,

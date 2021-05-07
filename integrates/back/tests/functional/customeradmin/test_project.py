@@ -7,8 +7,8 @@ import pytest
 # Local libraries
 from back.tests.functional.customeradmin.utils import get_result
 from back.tests.functional.utils import complete_register
-from backend.api import get_new_context
 from custom_exceptions import UserNotInOrganization
+from dataloaders import get_new_context
 from names.domain import get_name
 
 

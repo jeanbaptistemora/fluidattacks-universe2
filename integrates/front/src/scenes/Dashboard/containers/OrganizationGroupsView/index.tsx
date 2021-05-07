@@ -151,7 +151,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     <React.StrictMode>
       <div className={style.container}>
         <Row>
-          <Can do={"backend_api_mutations_create_group_mutate"}>
+          <Can do={"api_mutations_create_group_mutate"}>
             <ButtonToolbarCenter>
               <TooltipWrapper
                 id={"organization.tabs.groups.newGroup.new.tooltip.btn"}

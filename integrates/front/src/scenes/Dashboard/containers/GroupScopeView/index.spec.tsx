@@ -186,9 +186,7 @@ describe("GroupScopeView", (): void => {
       >
         <authzPermissionsContext.Provider
           value={
-            new PureAbility([
-              { action: "backend_api_mutations_add_git_root_mutate" },
-            ])
+            new PureAbility([{ action: "api_mutations_add_git_root_mutate" }])
           }
         >
           <MemoryRouter
@@ -358,8 +356,8 @@ describe("GroupScopeView", (): void => {
         <authzPermissionsContext.Provider
           value={
             new PureAbility([
-              { action: "backend_api_mutations_add_git_root_mutate" },
-              { action: "backend_api_mutations_update_git_root_mutate" },
+              { action: "api_mutations_add_git_root_mutate" },
+              { action: "api_mutations_update_git_root_mutate" },
               { action: "update_git_root_filter" },
             ])
           }
@@ -541,7 +539,7 @@ describe("GroupScopeView", (): void => {
         <authzPermissionsContext.Provider
           value={
             new PureAbility([
-              { action: "backend_api_mutations_update_root_state_mutate" },
+              { action: "api_mutations_update_root_state_mutate" },
             ])
           }
         >
@@ -695,7 +693,7 @@ describe("GroupScopeView", (): void => {
           <authzPermissionsContext.Provider
             value={
               new PureAbility([
-                { action: "backend_api_mutations_update_root_state_mutate" },
+                { action: "api_mutations_update_root_state_mutate" },
               ])
             }
           >

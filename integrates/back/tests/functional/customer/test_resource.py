@@ -9,7 +9,7 @@ from urllib.parse import quote
 
 # Local libraries
 from back.tests.functional.customer.utils import get_result
-from backend.api import get_new_context
+from dataloaders import get_new_context
 from newutils import datetime as datetime_utils
 
 

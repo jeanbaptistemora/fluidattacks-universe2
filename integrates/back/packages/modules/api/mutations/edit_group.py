@@ -64,7 +64,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     except PermissionDenied:
         util.cloudwatch_log(
             info.context,
-            f'Security: Unauthorized role attempted to edit group'
+            'Security: Unauthorized role attempted to edit group'
         )
 
     if success and has_forces:

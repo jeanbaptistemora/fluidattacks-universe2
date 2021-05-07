@@ -7,8 +7,8 @@ import textwrap
 from starlette.datastructures import UploadFile
 
 # Local libraries
-from backend.api import get_new_context
 from back.tests.functional.service_forces.utils import get_result
+from dataloaders import get_new_context
 
 
 @pytest.mark.asyncio

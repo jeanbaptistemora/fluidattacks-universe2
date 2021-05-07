@@ -55,8 +55,8 @@ from aioextensions import (
 from more_itertools import chunked
 
 # Local libraries
-from api.dataloaders.group import GroupLoader
 from backend.typing import Vulnerability
+from dataloaders.group import GroupLoader
 from groups.domain import get_active_groups
 from vulnerabilities import (
     dal as vulns_dal,

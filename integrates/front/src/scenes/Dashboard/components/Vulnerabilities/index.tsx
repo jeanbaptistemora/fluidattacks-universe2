@@ -55,17 +55,16 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   const { t } = useTranslation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canDeleteVulnsTags: boolean = permissions.can(
-    "backend_api_mutations_delete_vulnerability_tags_mutate"
+    "api_mutations_delete_vulnerability_tags_mutate"
   );
   const canRequestZeroRiskVuln: boolean = permissions.can(
-    "backend_api_mutations_request_zero_risk_vuln_mutate"
+    "api_mutations_request_zero_risk_vuln_mutate"
   );
   const canUpdateVulnsTreatment: boolean = permissions.can(
-    "backend_api_mutations_update_vulns_treatment_mutate"
+    "api_mutations_update_vulns_treatment_mutate"
   );
   const canDeleteVulns: boolean =
-    isEditing &&
-    permissions.can("backend_api_mutations_delete_vulnerability_mutate");
+    isEditing && permissions.can("api_mutations_delete_vulnerability_mutate");
 
   const [selectedVulnerabilities, setSelectedVulnerabilities] = useState<
     IVulnRowAttr[]
@@ -263,7 +262,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
               <br />
             </React.Fragment>
           ) : undefined}
-          <Can do={"backend_api_mutations_upload_file_mutate"}>
+          <Can do={"api_mutations_upload_file_mutate"}>
             <UploadVulnerabilities
               findingId={findingId}
               groupName={groupName}

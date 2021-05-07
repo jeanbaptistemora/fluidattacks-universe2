@@ -6,7 +6,7 @@ from starlette.datastructures import UploadFile
 
 from api.schema import SCHEMA
 from back.tests.unit.utils import create_dummy_session
-from backend.api import apply_context_attrs
+from dataloaders import apply_context_attrs
 from newutils import datetime as datetime_utils
 
 

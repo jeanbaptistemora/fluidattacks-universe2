@@ -15,11 +15,12 @@ from starlette.datastructures import UploadFile
 # Local libraries
 from api.schema import SCHEMA
 from back.tests.unit.utils import create_dummy_session
-from backend.api import (
+from dataloaders import (
+    Dataloaders,
     apply_context_attrs,
     get_new_context,
-    Dataloaders
 )
+
 
 pytestmark = pytest.mark.asyncio
 

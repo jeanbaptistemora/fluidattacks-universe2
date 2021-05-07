@@ -9,7 +9,7 @@ from aioextensions import (
 
 # Local libraries
 from backend import util
-from backend.api import get_new_context
+from dataloaders import get_new_context
 from findings import domain as findings_domain
 from groups import domain as groups_domain
 from vulnerabilities import domain as vulns_domain

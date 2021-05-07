@@ -8,8 +8,8 @@ from aioextensions import (
 )
 
 # Local libraries
-from backend.api import get_new_context
 from charts import utils
+from dataloaders import get_new_context
 from findings import domain as findings_domain
 
 

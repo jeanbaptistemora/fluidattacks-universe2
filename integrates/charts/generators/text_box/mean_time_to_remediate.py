@@ -17,8 +17,8 @@ from aioextensions import (
 from async_lru import alru_cache
 
 # Local libraries
-from backend.api import get_new_context
 from charts import utils
+from dataloaders import get_new_context
 from groups.domain import get_mean_remediate
 from newutils import datetime as datetime_utils
 

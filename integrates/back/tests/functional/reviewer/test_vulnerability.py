@@ -7,7 +7,7 @@ from starlette.datastructures import UploadFile
 
 # Local libraries
 from back.tests.functional.reviewer.utils import get_result
-from backend.api import get_new_context
+from dataloaders import get_new_context
 from newutils import datetime as datetime_utils
 
 

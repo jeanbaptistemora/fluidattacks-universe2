@@ -43,8 +43,8 @@ from aioextensions import (
 from more_itertools import chunked
 
 # Local libraries
-from api.dataloaders.group import GroupLoader
 from backend.typing import Vulnerability
+from dataloaders.group import GroupLoader
 from findings import domain as findings_domain
 from groups.domain import get_active_groups
 from newutils import findings as finding_utils

@@ -21,9 +21,9 @@ from aioextensions import (
 from more_itertools import chunked
 
 # Local libraries
-from api.dataloaders.group_drafts import GroupDraftsLoader
-from api.dataloaders.group_findings import GroupFindingsLoader
 from backend.typing import Finding
+from dataloaders.group_drafts import GroupDraftsLoader
+from dataloaders.group_findings import GroupFindingsLoader
 from groups.domain import get_alive_groups
 from vulnerabilities import dal as vulns_dal
 from vulnerabilities.domain import list_vulnerabilities_async

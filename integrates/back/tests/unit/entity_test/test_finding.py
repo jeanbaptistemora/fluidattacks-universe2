@@ -16,12 +16,12 @@ from starlette.datastructures import UploadFile
 # Local libraries
 from api.schema import SCHEMA
 from back.tests.unit.utils import create_dummy_session
-from backend.api import (
-  apply_context_attrs,
+from custom_exceptions import FindingNotFound
+from dataloaders import (
   Dataloaders,
+  apply_context_attrs,
   get_new_context,
 )
-from custom_exceptions import FindingNotFound
 from findings import dal as findings_dal
 from findings.domain import get_finding
 from groups.domain import get_open_vulnerabilities

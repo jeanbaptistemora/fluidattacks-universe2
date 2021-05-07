@@ -16,9 +16,9 @@ from aioextensions import (
 )
 
 # Local libraries
-from backend.api import get_new_context
 from backend.typing import Finding
 from charts import utils
+from dataloaders import get_new_context
 
 
 FindingsTags = NamedTuple('FindingsTags', [

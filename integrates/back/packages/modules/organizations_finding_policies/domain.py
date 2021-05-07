@@ -1,6 +1,7 @@
 # Standard libraries
 from itertools import chain
 from typing import (
+    Any,
     Dict,
     List,
     Optional,
@@ -15,7 +16,6 @@ from aioextensions import (
 )
 
 # Local libraries
-from backend.api import Dataloaders
 from backend.typing import (
     Finding,
 )
@@ -122,7 +122,7 @@ async def add_finding_policy(
 async def handle_finding_policy_acceptation(
     *,
     finding_policy_id: str,
-    loaders: Dataloaders,
+    loaders: Any,
     org_name: str,
     status: str,
     groups: List[str],
@@ -161,7 +161,7 @@ async def handle_finding_policy_acceptation(
 async def deactivate_finding_policy(
     *,
     finding_policy_id: str,
-    loaders: Dataloaders,
+    loaders: Any,
     org_name: str,
     groups: List[str],
     user_email: str
@@ -199,7 +199,7 @@ async def deactivate_finding_policy(
 async def update_treatment_in_org_groups(
     *,
     finding_name: str,
-    loaders: Dataloaders,
+    loaders: Any,
     groups: List[str],
     status: str,
     user_email: str

@@ -15,9 +15,9 @@ describe("VulnComponent", (): void => {
   const numberOfDaysOldThanAWeek: number = 12;
   const numberOfDays: number = 5;
   const mockedPermissions: PureAbility<string> = new PureAbility([
-    { action: "backend_api_mutations_request_zero_risk_vuln_mutate" },
-    { action: "backend_api_mutations_update_treatment_vulnerability_mutate" },
-    { action: "backend_api_mutations_update_vulns_treatment_mutate" },
+    { action: "api_mutations_request_zero_risk_vuln_mutate" },
+    { action: "api_mutations_update_treatment_vulnerability_mutate" },
+    { action: "api_mutations_update_vulns_treatment_mutate" },
   ]);
   const mocks: IVulnRowAttr[] = [
     {

@@ -194,7 +194,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
             <div>
               <Row>
                 <ButtonToolbar>
-                  <Can do={"backend_api_mutations_solve_event_mutate"}>
+                  <Can do={"api_mutations_solve_event_mutate"}>
                     <Button
                       disabled={data.event.eventStatus === "SOLVED"}
                       onClick={openSolvingModal}

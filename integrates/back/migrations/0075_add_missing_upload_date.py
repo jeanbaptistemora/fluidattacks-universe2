@@ -14,8 +14,8 @@ from aioextensions import (
 )
 
 # Local libraries
-from api.dataloaders.event import EventLoader
 from backend.typing import Event
+from dataloaders.event import EventLoader
 from events import dal as events_dal
 from events.domain import list_group_events
 from groups.domain import get_alive_groups

@@ -115,7 +115,7 @@ describe("Organization groups view", (): void => {
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_create_group_mutate" },
+      { action: "api_mutations_create_group_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/groups"]}>
@@ -363,7 +363,7 @@ describe("Organization groups view", (): void => {
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_create_group_mutate" },
+      { action: "api_mutations_create_group_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/groups"]}>

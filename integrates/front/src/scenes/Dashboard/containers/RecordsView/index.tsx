@@ -125,7 +125,7 @@ const RecordsView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <React.Fragment>
-        <Can do={"backend_api_mutations_update_evidence_mutate"}>
+        <Can do={"api_mutations_update_evidence_mutate"}>
           <Row>
             {/* eslint-disable-next-line react/forbid-component-props */}
             <Col100 className={"pa0"}>

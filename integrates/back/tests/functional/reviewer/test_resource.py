@@ -7,7 +7,6 @@ import pytest
 from starlette.datastructures import UploadFile
 
 # Local libraries
-from backend.api import get_new_context
 from back.tests.functional.reviewer.utils import get_result
 
 

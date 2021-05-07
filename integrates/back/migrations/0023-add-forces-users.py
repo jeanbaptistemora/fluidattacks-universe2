@@ -13,8 +13,8 @@ from aioextensions import run
 from botocore.exceptions import ClientError
 
 # Local library
-from backend.api.resolvers import user
-from backend.api.resolvers.user import _create_new_user
+from api.resolvers import user
+from api.resolvers.user import _create_new_user
 from groups.dal import get_active_groups
 from groups.domain import get_many_groups
 from forces.domain import format_forces_user_email

@@ -197,7 +197,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
             <Row>
               <Col45>
                 <Can
-                  do={"backend_api_mutations_update_finding_description_mutate"}
+                  do={"api_mutations_update_finding_description_mutate"}
                   passThrough={true}
                 >
                   {(canEdit: boolean): JSX.Element => (
@@ -240,7 +240,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
                 </Col45>
               </Can>
             </Row>
-            <Can do={"backend_api_mutations_update_finding_description_mutate"}>
+            <Can do={"api_mutations_update_finding_description_mutate"}>
               {isEditing ? (
                 <Row>
                   <Col100>
@@ -279,7 +279,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
             <Row>
               <Col100>
                 <Can
-                  do={"backend_api_mutations_update_finding_description_mutate"}
+                  do={"api_mutations_update_finding_description_mutate"}
                   passThrough={true}
                 >
                   {(canEdit: boolean): JSX.Element => (
@@ -310,7 +310,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
             <Row>
               <Col100>
                 <Can
-                  do={"backend_api_mutations_update_finding_description_mutate"}
+                  do={"api_mutations_update_finding_description_mutate"}
                   passThrough={true}
                 >
                   {(canEdit: boolean): JSX.Element => (
@@ -341,7 +341,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
             <Row>
               <Col45>
                 <Can
-                  do={"backend_api_mutations_update_finding_description_mutate"}
+                  do={"api_mutations_update_finding_description_mutate"}
                   passThrough={true}
                 >
                   {(canEdit: boolean): JSX.Element => (
@@ -366,7 +366,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
               </Col45>
               <Col45>
                 <Can
-                  do={"backend_api_mutations_update_finding_description_mutate"}
+                  do={"api_mutations_update_finding_description_mutate"}
                   passThrough={true}
                 >
                   {(canEdit: boolean): JSX.Element => (
@@ -399,7 +399,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
             <Row>
               <Col45>
                 <Can
-                  do={"backend_api_mutations_update_finding_description_mutate"}
+                  do={"api_mutations_update_finding_description_mutate"}
                   passThrough={true}
                 >
                   {(canEdit: boolean): JSX.Element => (
@@ -424,7 +424,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
               </Col45>
               <Col45>
                 <Can
-                  do={"backend_api_mutations_update_finding_description_mutate"}
+                  do={"api_mutations_update_finding_description_mutate"}
                   passThrough={true}
                 >
                   {(canEdit: boolean): JSX.Element => (
@@ -451,7 +451,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
             <Row>
               <Col100>
                 <Can
-                  do={"backend_api_mutations_update_finding_description_mutate"}
+                  do={"api_mutations_update_finding_description_mutate"}
                   passThrough={true}
                 >
                   {(canEdit: boolean): JSX.Element => (
@@ -484,7 +484,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
             <Row>
               <Col45>
                 <Can
-                  do={"backend_api_mutations_update_finding_description_mutate"}
+                  do={"api_mutations_update_finding_description_mutate"}
                   passThrough={true}
                 >
                   {(canEdit: boolean): JSX.Element => (
@@ -514,7 +514,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
               </Col45>
               <Col45>
                 <Can
-                  do={"backend_api_mutations_update_finding_description_mutate"}
+                  do={"api_mutations_update_finding_description_mutate"}
                   passThrough={true}
                 >
                   {(canEdit: boolean): JSX.Element => (
@@ -542,7 +542,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
                 </Can>
               </Col45>
             </Row>
-            <Can do={"backend_api_mutations_update_finding_description_mutate"}>
+            <Can do={"api_mutations_update_finding_description_mutate"}>
               {isEditing ? (
                 <Row>
                   <Col45>

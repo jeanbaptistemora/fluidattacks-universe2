@@ -23,7 +23,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = (
 
   return (
     <ButtonToolbarRow>
-      <Can do={"backend_api_mutations_update_finding_description_mutate"}>
+      <Can do={"api_mutations_update_finding_description_mutate"}>
         {isEditing ? (
           <TooltipWrapper
             id={"searchFindings.tabDescription.save.tooltip.btn"}

@@ -12,11 +12,11 @@ from starlette.datastructures import (
 )
 
 # Local libraries
-from backend.api import (
-    get_new_context,
-)
 from back.tests.functional.utils import (
     get_graphql_result,
+)
+from dataloaders import (
+    get_new_context,
 )
 
 

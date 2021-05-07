@@ -12,13 +12,13 @@ import { required } from "utils/validations";
 const TreatmentField: React.FC = (): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canHandleVulnsAcceptation: boolean = permissions.can(
-    "backend_api_mutations_handle_vulns_acceptation_mutate"
+    "api_mutations_handle_vulns_acceptation_mutate"
   );
   const canConfirmZeroRiskVuln: boolean = permissions.can(
-    "backend_api_mutations_confirm_zero_risk_vuln_mutate"
+    "api_mutations_confirm_zero_risk_vuln_mutate"
   );
   const canRejectZeroRiskVuln: boolean = permissions.can(
-    "backend_api_mutations_reject_zero_risk_vuln_mutate"
+    "api_mutations_reject_zero_risk_vuln_mutate"
   );
 
   return (

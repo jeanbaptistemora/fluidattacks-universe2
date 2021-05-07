@@ -10,12 +10,12 @@ from aioextensions import (
 from async_lru import alru_cache
 
 # Local libraries
-from backend.api import get_new_context
 from charts import utils
 from charts.colors import (
     RISK,
     TREATMENT,
 )
+from dataloaders import get_new_context
 
 
 def get_severity_level(severity: float) -> str:

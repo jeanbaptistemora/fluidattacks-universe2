@@ -58,10 +58,10 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
     "api_resolvers_finding_zero_risk_resolve"
   );
   const canHandleVulnsAcceptation: boolean = permissions.can(
-    "backend_api_mutations_handle_vulns_acceptation_mutate"
+    "api_mutations_handle_vulns_acceptation_mutate"
   );
   const canConfirmZeroRiskVuln: boolean = permissions.can(
-    "backend_api_mutations_confirm_zero_risk_vuln_mutate"
+    "api_mutations_confirm_zero_risk_vuln_mutate"
   );
 
   const dispatch: Dispatch = useDispatch();

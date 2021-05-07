@@ -241,7 +241,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         <Col60 className={"pa0"}>
           <h2>{translate.t("searchFindings.tabResources.files.title")}</h2>
         </Col60>
-        <Can do={"backend_api_mutations_add_files_mutate"}>
+        <Can do={"api_mutations_add_files_mutate"}>
           {/* eslint-disable-next-line react/forbid-component-props */}
           <Col40 className={"pa0"}>
             <ButtonToolbar>
@@ -285,7 +285,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         onSubmit={handleUpload} // eslint-disable-line react/jsx-no-bind -- Unexpected behaviour with no-bind
         uploadProgress={uploadProgress}
       />
-      <Can do={"backend_api_mutations_remove_files_mutate"} passThrough={true}>
+      <Can do={"api_mutations_remove_files_mutate"} passThrough={true}>
         {(canRemove: boolean): JSX.Element => (
           <FileOptionsModal
             canRemove={canRemove}

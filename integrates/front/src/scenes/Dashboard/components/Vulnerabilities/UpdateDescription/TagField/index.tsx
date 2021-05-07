@@ -22,10 +22,10 @@ const TagField: React.FC<ITagFieldProps> = (
   } = props;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canUpdateVulnsTreatment: boolean = permissions.can(
-    "backend_api_mutations_update_vulns_treatment_mutate"
+    "api_mutations_update_vulns_treatment_mutate"
   );
   const canDeleteVulnsTags: boolean = permissions.can(
-    "backend_api_mutations_delete_vulnerability_tags_mutate"
+    "api_mutations_delete_vulnerability_tags_mutate"
   );
 
   return (

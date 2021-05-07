@@ -1,5 +1,6 @@
 # Standard library
 import logging
+import logging.config
 from typing import Any
 
 # Third party libraries

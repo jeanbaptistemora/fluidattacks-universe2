@@ -1,5 +1,6 @@
 # Standard library
 import logging
+import logging.config
 import json
 from typing import (
     Any,

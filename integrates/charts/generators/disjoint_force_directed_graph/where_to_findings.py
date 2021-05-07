@@ -5,8 +5,8 @@ from aioextensions import run
 from frozendict import frozendict
 
 # Local libraries
-from backend.api import get_new_context
 from charts import utils
+from dataloaders import get_new_context
 
 
 async def generate_one(group: str):

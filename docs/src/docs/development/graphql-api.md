@@ -63,7 +63,7 @@ You can access it on:
 ### Types
 
 Integrates GraphQL types are defined in
-[backend/api/schema/types](https://gitlab.com/fluidattacks/product/-/tree/master/integrates/back/packages/integrates-back/backend/api/schema/types)
+[api/schema/types](https://gitlab.com/fluidattacks/product/-/tree/master/integrates/back/packages/modules/api/schema/types)
 
 There are two approaches to defining a `GraphQL` schema
 
@@ -75,14 +75,14 @@ We use the latter, which implies defining the structure using `GraphQL SDL`
 
 For example:
 
-backend/api/schema/types/user.graphql
+api/schema/types/user.graphql
 ```
 type User {
   email: String!
 }
 ```
 
-backend/api/schema/types/user.py
+api/schema/types/user.py
 ```py
 from ariadne import ObjectType
 from api.resolvers.user import email
@@ -100,9 +100,9 @@ Further reading:
 ### Enums
 
 Integrates GraphQL enums are defined in
-[backend/api/schema/enums](https://gitlab.com/fluidattacks/product/-/tree/master/integrates/back/packages/integrates-back/backend/api/schema/enums)
+[api/schema/enums](https://gitlab.com/fluidattacks/product/-/tree/master/integrates/back/packages/modules/api/schema/enums)
 
-backend/api/schema/enums/enums.graphql
+api/schema/enums/enums.graphql
 ```
 enum AuthProvider {
   BITBUCKET
@@ -115,7 +115,7 @@ enum AuthProvider {
 
 To map the value to something else, you can specify it in the enums binding index, for example:
 
-backend/api/schema/enums/\__init__\.py
+api/schema/enums/\__init__\.py
 ```py
 from ariadne import EnumType
 
@@ -136,7 +136,7 @@ ENUMS: Tuple[EnumType, ...] = (
 ### Scalars
 
 Integrates GraphQL scalars are defined in
-[backend/api/schema/scalars](https://gitlab.com/fluidattacks/product/-/tree/master/integrates/back/packages/integrates-back/backend/api/schema/scalars)
+[api/schema/scalars](https://gitlab.com/fluidattacks/product/-/tree/master/integrates/back/packages/modules/api/schema/scalars)
 
 GraphQL provides some primitive scalars, such as String, Int and Boolean, but in some cases,
 it is required to define custom ones that aren't included by default due to not (yet) being
@@ -149,7 +149,7 @@ Further reading:
 ### Resolvers
 
 Integrates GraphQL resolvers are defined in
-[backend/api/resolvers](https://gitlab.com/fluidattacks/product/-/tree/master/integrates/back/packages/integrates-back/backend/api/resolvers)
+[api/resolvers](https://gitlab.com/fluidattacks/product/-/tree/master/integrates/back/packages/modules/api/resolvers)
 
 A resolver is a function that receives two arguments:
 
@@ -160,7 +160,7 @@ AST and the HTTP request.
 
 It will also receive keyword arguments if the GraphQL field defines any.
 
-backend/api/resolvers/user/email.py
+api/resolvers/user/email.py
 ```py
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -180,7 +180,7 @@ Further reading:
 ### Mutations
 
 Integrates GraphQL mutations are defined in
-[backend/api/mutations](https://gitlab.com/fluidattacks/product/-/tree/master/integrates/back/packages/integrates-back/backend/api/mutations)
+[api/mutations](https://gitlab.com/fluidattacks/product/-/tree/master/integrates/back/packages/modules/api/mutations)
 
 Mutations are a kind of GraphQL operation explicitly meant to change data.
 
@@ -190,16 +190,16 @@ separating concerns, and just like a resolver function, they receive the parent 
 
 Most mutations only return `{'success': bool}` also known as "SimplePayload",
 but they aren't limited to that. If you need your mutation to return other data,
-just define the type in `backend/api/schema/types/mutation_payloads.graphql` and use it
+just define the type in `api/schema/types/mutation_payloads.graphql` and use it
 
-backend/api/schema/types/mutation.graphql
+api/schema/types/mutation.graphql
 ```
 type Mutation {
   createUser(email: String!): SimplePayload!
 }
 ```
 
-backend/api/mutations/create_user.py
+api/mutations/create_user.py
 ```py
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -208,10 +208,10 @@ def mutate(parent: None, info: GraphQLResolveInfo, **kwargs: Dict[str, Any]):
     return {'success': True}
 ```
 
-backend/api/schema/types/mutation.py
+api/schema/types/mutation.py
 ```py
 from ariadne import MutationType
-from backend.api.mutations import create_user
+from api.mutations import create_user
 
 MUTATION = MutationType()
 
@@ -243,7 +243,7 @@ The Integrates API enforces authentication by checking for the presence and vali
 in the request cookies or headers
 
 For resolvers or mutations that require authenticated users, decorate the function with the
-`@require_login` from `backend.decorators`
+`@require_login` from `decorators`
 
 ### Authorization
 
@@ -257,10 +257,10 @@ There are currently three levels of authorization
 
 The system then validates if the user can perform the action in a certain authz level according
 to the policies defined in
-[backend/authz/model.py](https://gitlab.com/fluidattacks/product/-/tree/master/integrates/back/packages/integrates-back/backend/authz/model.py)
+[authz/model.py](https://gitlab.com/fluidattacks/product/-/tree/master/integrates/back/packages/modules/authz/model.py)
 
 For resolvers or mutations that require authorized users, decorate the function with the
-appropriate decorator from `backend.decorators`
+appropriate decorator from `decorators`
 
 - @enforce_user_level_auth_async
 - @enforce_organization_level_auth_async

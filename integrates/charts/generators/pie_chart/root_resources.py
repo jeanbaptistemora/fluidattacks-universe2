@@ -10,9 +10,9 @@ from typing import (
 from aioextensions import run
 
 # Local libraries
-from backend.api import get_new_context
 from charts import utils
 from charts.colors import OTHER
+from dataloaders import get_new_context
 from roots.types import GitRoot
 
 

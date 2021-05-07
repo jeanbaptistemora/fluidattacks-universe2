@@ -5,7 +5,6 @@ from aniso8601 import parse_datetime
 
 from starlette.datastructures import UploadFile
 
-from backend.api import get_new_context
 from custom_exceptions import (
     EventAlreadyClosed,
     EventNotFound,
@@ -13,6 +12,7 @@ from custom_exceptions import (
     InvalidFileSize,
     InvalidFileType,
 )
+from dataloaders import get_new_context
 from events import dal as events_dal
 from back.tests.unit.utils import create_dummy_session
 from graphql.type import GraphQLResolveInfo

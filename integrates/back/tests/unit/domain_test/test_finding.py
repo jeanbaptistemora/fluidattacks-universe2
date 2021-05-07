@@ -11,12 +11,12 @@ from graphql.type import GraphQLResolveInfo
 from starlette.datastructures import UploadFile
 
 from back.tests.unit.utils import create_dummy_session
-from backend.api import get_new_context
 from custom_exceptions import (
     InvalidAcceptanceSeverity,
     InvalidFileType,
     InvalidNumberAcceptations,
 )
+from dataloaders import get_new_context
 from findings import dal as findings_dal
 from findings.domain import (
     add_comment,

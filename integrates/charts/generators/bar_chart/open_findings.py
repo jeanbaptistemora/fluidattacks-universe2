@@ -10,10 +10,10 @@ from aioextensions import (
 from async_lru import alru_cache
 
 # Local libraries
-from backend.api import get_new_context
 from charts import utils
 from charts.colors import RISK
 from charts.generators.pie_chart.utils import PortfoliosGroupsInfo
+from dataloaders import get_new_context
 from groups import domain as groups_domain
 
 

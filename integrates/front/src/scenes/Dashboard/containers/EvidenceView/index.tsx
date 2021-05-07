@@ -202,7 +202,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <ButtonToolbarRow>
-        <Can do={"backend_api_mutations_update_evidence_mutate"}>
+        <Can do={"api_mutations_update_evidence_mutate"}>
           <TooltipWrapper
             id={"searchFindings.tabEvidence.editableTooltip.id"}
             message={translate.t("searchFindings.tabEvidence.editableTooltip")}

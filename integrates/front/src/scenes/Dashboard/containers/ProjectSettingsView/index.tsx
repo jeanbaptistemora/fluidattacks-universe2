@@ -28,7 +28,7 @@ const ProjectSettingsView: React.FC = (): JSX.Element => {
         <Files projectName={projectName} />
         <hr />
         <Portfolio projectName={projectName} />
-        <Can do={"backend_api_mutations_edit_group_mutate"}>
+        <Can do={"api_mutations_edit_group_mutate"}>
           <React.Fragment>
             <hr />
             <Services groupName={projectName} />
@@ -40,13 +40,13 @@ const ProjectSettingsView: React.FC = (): JSX.Element => {
             <AgentToken groupName={projectName} />
           </Have>
         </Can>
-        <Can do={"backend_api_mutations_unsubscribe_from_group_mutate"}>
+        <Can do={"api_mutations_unsubscribe_from_group_mutate"}>
           <React.Fragment>
             <hr />
             <Unsubscribe />
           </React.Fragment>
         </Can>
-        <Can do={"backend_api_mutations_remove_group_mutate"}>
+        <Can do={"api_mutations_remove_group_mutate"}>
           <React.Fragment>
             <hr />
             <DeleteGroup />

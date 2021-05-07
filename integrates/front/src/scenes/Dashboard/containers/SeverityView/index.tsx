@@ -167,7 +167,7 @@ const SeverityView: React.FC = (): JSX.Element => {
       <Row>
         <Col100>
           <React.Fragment>
-            <Can do={"backend_api_mutations_update_severity_mutate"}>
+            <Can do={"api_mutations_update_severity_mutate"}>
               <ButtonToolbarRow>
                 <TooltipWrapper
                   id={translate.t(

@@ -227,7 +227,7 @@ describe("Organization policies view", (): void => {
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_update_organization_policies_mutate" },
+      { action: "api_mutations_update_organization_policies_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
@@ -525,7 +525,7 @@ describe("Organization policies view", (): void => {
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_update_organization_policies_mutate" },
+      { action: "api_mutations_update_organization_policies_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/policies"]}>

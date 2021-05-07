@@ -6,8 +6,8 @@ from typing import (
 )
 
 # Local libraries
-from backend.api import Dataloaders
 from back.tests.functional.utils import get_graphql_result
+from dataloaders import Dataloaders
 
 
 async def get_result(

@@ -247,7 +247,7 @@ describe("Project users view", (): void => {
     expect.hasAssertions();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_grant_stakeholder_access_mutate" },
+      { action: "api_mutations_grant_stakeholder_access_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
@@ -302,7 +302,7 @@ describe("Project users view", (): void => {
     expect.hasAssertions();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_edit_stakeholder_mutate" },
+      { action: "api_mutations_edit_stakeholder_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
@@ -385,7 +385,7 @@ describe("Project users view", (): void => {
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_grant_stakeholder_access_mutate" },
+      { action: "api_mutations_grant_stakeholder_access_mutate" },
       { action: "grant_group_level_role:analyst" },
     ]);
     const wrapper: ReactWrapper = mount(
@@ -496,7 +496,7 @@ describe("Project users view", (): void => {
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_remove_stakeholder_access_mutate" },
+      { action: "api_mutations_remove_stakeholder_access_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
@@ -576,7 +576,7 @@ describe("Project users view", (): void => {
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_edit_stakeholder_mutate" },
+      { action: "api_mutations_edit_stakeholder_mutate" },
       { action: "grant_group_level_role:analyst" },
     ]);
     const wrapper: ReactWrapper = mount(
@@ -699,7 +699,7 @@ describe("Project users view", (): void => {
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_grant_stakeholder_access_mutate" },
+      { action: "api_mutations_grant_stakeholder_access_mutate" },
       { action: "grant_group_level_role:analyst" },
     ]);
     const wrapper: ReactWrapper = mount(
@@ -804,7 +804,7 @@ describe("Project users view", (): void => {
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_remove_stakeholder_access_mutate" },
+      { action: "api_mutations_remove_stakeholder_access_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
@@ -889,7 +889,7 @@ describe("Project users view", (): void => {
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_edit_stakeholder_mutate" },
+      { action: "api_mutations_edit_stakeholder_mutate" },
       { action: "grant_group_level_role:analyst" },
     ]);
     const wrapper: ReactWrapper = mount(

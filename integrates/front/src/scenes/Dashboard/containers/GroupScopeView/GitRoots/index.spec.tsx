@@ -48,8 +48,8 @@ describe("GitRoots", (): void => {
           <authzPermissionsContext.Provider
             value={
               new PureAbility([
-                { action: "backend_api_mutations_add_git_root_mutate" },
-                { action: "backend_api_mutations_update_git_root_mutate" },
+                { action: "api_mutations_add_git_root_mutate" },
+                { action: "api_mutations_update_git_root_mutate" },
               ])
             }
           >

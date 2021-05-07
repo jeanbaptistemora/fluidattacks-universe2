@@ -11,8 +11,8 @@ from ariadne import graphql
 # Local libraries
 from api.schema import SCHEMA
 from back.tests.unit.utils import create_dummy_session
-from backend.api import apply_context_attrs
 from custom_exceptions import PolicyAlreadyHandled
+from dataloaders import apply_context_attrs
 from organizations_finding_policies import domain as policies_domain
 
 

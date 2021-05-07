@@ -22,8 +22,8 @@ from botocore.exceptions import ClientError
 
 # Local libraries
 from back.settings import LOGGING
-from backend.api import get_new_context
 from backend.typing import Finding as FindingType
+from dataloaders import get_new_context
 from findings import domain as findings_domain
 from groups import domain as groups_domain
 from newutils import (

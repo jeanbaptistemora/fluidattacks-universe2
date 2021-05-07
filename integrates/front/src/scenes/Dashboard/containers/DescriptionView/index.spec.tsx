@@ -100,7 +100,7 @@ describe("Finding Description", (): void => {
     expect.hasAssertions();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_update_finding_description_mutate" },
+      { action: "api_mutations_update_finding_description_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/413372600/description"]}>

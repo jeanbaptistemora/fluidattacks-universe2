@@ -7,8 +7,8 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from backend import util
-from backend.api import Dataloaders
 from backend.typing import SimplePayload
+from dataloaders import Dataloaders
 from decorators import (
     concurrent_decorators,
     enforce_organization_level_auth_async,

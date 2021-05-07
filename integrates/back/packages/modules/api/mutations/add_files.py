@@ -1,7 +1,7 @@
 # Standard library
 import logging
-import re
-from typing import Any, Dict
+import logging.config
+from typing import Any
 
 # Third party libraries
 from aioextensions import schedule
@@ -18,6 +18,7 @@ from decorators import (
     require_login,
 )
 from mailer import resources as resources_mail
+from newutils import virus_scan
 from resources import domain as resources_domain
 
 
@@ -33,53 +34,51 @@ LOGGER = logging.getLogger(__name__)
 async def mutate(
     _: Any,
     info: GraphQLResolveInfo,
-    files_data: Dict[str, Any],
-    project_name: str
+    **parameters: Any
 ) -> SimplePayloadType:
     success = False
-    files_data = {
-        re.sub(r'_([a-z])', lambda x: x.group(1).upper(), k): v
-        for k, v in files_data.items()
-    }
-    file_name = files_data.get('fileName')
+    files_data = parameters['files_data']
+    new_files_data = util.camel_case_list_dict(files_data)
+    uploaded_file = parameters['file']
     user_info = await util.get_jwt_content(info.context)
     user_email = user_info['user_email']
-    remove_file = await resources_domain.remove_file(
-        str(file_name),
-        project_name
+    project_name = parameters['project_name']
+
+    virus_scan.scan_file(uploaded_file, user_email, project_name)
+
+    add_file = await resources_domain.create_file(
+        new_files_data,
+        uploaded_file,
+        project_name,
+        user_email
     )
-    if remove_file:
+    if add_file:
         schedule(
             resources_mail.send_mail_update_resource(
                 info.context.loaders,
                 project_name,
                 user_email,
-                [files_data],
-                'removed',
+                new_files_data,
+                'added',
                 'file'
             )
         )
         success = True
     else:
-        LOGGER.error(
-            'Couldn\'t remove file',
-            extra={
-                'extra': {
-                    'file_name': file_name,
-                    'project_name': project_name,
-                }
-            })
+        LOGGER.error('Couldn\'t upload file', extra={'extra': parameters})
     if success:
         info.context.loaders.group.clear(project_name)
         info.context.loaders.group_all.clear(project_name)
         util.cloudwatch_log(
             info.context,
-            f'Security: Removed Files from {project_name} project successfully'
+            f'Security: Added resource files to {project_name} '
+            f'project successfully'
         )
     else:
         util.cloudwatch_log(
             info.context,
-            f'Security: Attempted to remove files from {project_name} project'
+            f'Security: Attempted to add resource files '
+            f'from {project_name} project'
         )
 
     return SimplePayloadType(success=success)

@@ -33,7 +33,7 @@ const VerifyVunButton: React.FC<IVerifyVunButtonProps> = ({
     !isVerified && !(isEditing || isRequestingReattack);
 
   return (
-    <Can do={"backend_api_mutations_verify_request_vulnerability_mutate"}>
+    <Can do={"api_mutations_verify_request_vulnerability_mutate"}>
       {isVerifying ? (
         <Button disabled={!areVulnsSelected} onClick={openModal}>
           <FluidIcon icon={"verified"} />

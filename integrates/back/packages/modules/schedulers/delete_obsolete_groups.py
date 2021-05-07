@@ -8,8 +8,8 @@ from typing import (
 from aioextensions import collect
 
 # Local libraries
-from backend.api import get_new_context
 from backend.typing import Project as GroupType
+from dataloaders import get_new_context
 from groups import domain as groups_domain
 from mailer import groups as groups_mail
 from newutils import (

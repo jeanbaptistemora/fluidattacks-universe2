@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-member-access 
+/* eslint-disable @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-member-access
 --- Needed annotations as DB queries use "any" type
 */
 import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
@@ -176,7 +176,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <React.Fragment>
         <ButtonToolbarRow>
-          <Can do={"backend_api_mutations_update_event_evidence_mutate"}>
+          <Can do={"api_mutations_update_event_evidence_mutate"}>
             <TooltipWrapper
               id={translate.t("group.events.evidence.editTooltip.id")}
               message={translate.t("group.events.evidence.editTooltip")}

@@ -40,7 +40,7 @@ const findingActions: React.FC<IFindingActionsProps> = (
     <ButtonToolbar>
       {isDraft ? (
         <React.Fragment>
-          <Can do={"backend_api_mutations_submit_draft_mutate"}>
+          <Can do={"api_mutations_submit_draft_mutate"}>
             {hasSubmission ? undefined : (
               <TooltipWrapper
                 displayClass={"dib"}
@@ -53,7 +53,7 @@ const findingActions: React.FC<IFindingActionsProps> = (
               </TooltipWrapper>
             )}
           </Can>
-          <Can do={"backend_api_mutations_approve_draft_mutate"}>
+          <Can do={"api_mutations_approve_draft_mutate"}>
             <ConfirmDialog title={translate.t("group.drafts.approve.title")}>
               {(confirm: IConfirmFn): React.ReactNode => {
                 const handleClick: () => void = (): void => {
@@ -81,7 +81,7 @@ const findingActions: React.FC<IFindingActionsProps> = (
               }}
             </ConfirmDialog>
           </Can>
-          <Can do={"backend_api_mutations_reject_draft_mutate"}>
+          <Can do={"api_mutations_reject_draft_mutate"}>
             <ConfirmDialog title={translate.t("group.drafts.reject.title")}>
               {(confirm: IConfirmFn): React.ReactNode => {
                 const handleClick: () => void = (): void => {
@@ -110,7 +110,7 @@ const findingActions: React.FC<IFindingActionsProps> = (
           </Can>
         </React.Fragment>
       ) : undefined}
-      <Can do={"backend_api_mutations_delete_finding_mutate"}>
+      <Can do={"api_mutations_delete_finding_mutate"}>
         <TooltipWrapper
           displayClass={"dib"}
           id={"searchFindings.delete.btn.tooltip"}

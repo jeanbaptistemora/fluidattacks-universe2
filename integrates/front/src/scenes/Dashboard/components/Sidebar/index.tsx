@@ -73,7 +73,7 @@ const Sidebar: React.FC<ISidebarProps> = (
             <Logo />
           </Link>
         </li>
-        <Can do={"backend_api_mutations_add_stakeholder_mutate"}>
+        <Can do={"api_mutations_add_stakeholder_mutate"}>
           <li>
             <TooltipWrapper
               id={"addUser"}
@@ -87,7 +87,7 @@ const Sidebar: React.FC<ISidebarProps> = (
             </TooltipWrapper>
           </li>
         </Can>
-        <Can do={"backend_api_mutations_create_organization_mutate"}>
+        <Can do={"api_mutations_create_organization_mutate"}>
           <li>
             <TooltipWrapper
               id={"addOrg"}

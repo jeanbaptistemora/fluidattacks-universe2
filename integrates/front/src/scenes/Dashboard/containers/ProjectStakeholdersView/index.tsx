@@ -299,9 +299,7 @@ const ProjectStakeholdersView: React.FC = (): JSX.Element => {
             <Row>
               <Col100>
                 <ButtonToolbar>
-                  <Can
-                    do={"backend_api_mutations_grant_stakeholder_access_mutate"}
-                  >
+                  <Can do={"api_mutations_grant_stakeholder_access_mutate"}>
                     <TooltipWrapper
                       displayClass={"dib"}
                       id={"searchFindings.tabUsers.addButton.tooltip.id"}
@@ -316,7 +314,7 @@ const ProjectStakeholdersView: React.FC = (): JSX.Element => {
                       </Button>
                     </TooltipWrapper>
                   </Can>
-                  <Can do={"backend_api_mutations_edit_stakeholder_mutate"}>
+                  <Can do={"api_mutations_edit_stakeholder_mutate"}>
                     <TooltipWrapper
                       displayClass={"dib"}
                       id={"searchFindings.tabUsers.editButton.tooltip.id"}
@@ -335,11 +333,7 @@ const ProjectStakeholdersView: React.FC = (): JSX.Element => {
                       </Button>
                     </TooltipWrapper>
                   </Can>
-                  <Can
-                    do={
-                      "backend_api_mutations_remove_stakeholder_access_mutate"
-                    }
-                  >
+                  <Can do={"api_mutations_remove_stakeholder_access_mutate"}>
                     <TooltipWrapper
                       displayClass={"dib"}
                       id={"searchFindings.tabUsers.removeUserButton.tooltip.id"}
@@ -378,10 +372,10 @@ const ProjectStakeholdersView: React.FC = (): JSX.Element => {
                     clickToSelect: true,
                     hideSelectColumn:
                       permissions.cannot(
-                        "backend_api_mutations_edit_stakeholder_mutate"
+                        "api_mutations_edit_stakeholder_mutate"
                       ) ||
                       permissions.cannot(
-                        "backend_api_mutations_remove_stakeholder_access_mutate"
+                        "api_mutations_remove_stakeholder_access_mutate"
                       ),
                     mode: "radio",
                     onSelect: setCurrentRow,

@@ -277,9 +277,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
               search={false}
               striped={true}
             />
-            <Can
-              do={"backend_api_mutations_update_organization_policies_mutate"}
-            >
+            <Can do={"api_mutations_update_organization_policies_mutate"}>
               {pristine || loadingPolicies || savingPolicies ? undefined : (
                 <ButtonToolbar>
                   <Button onClick={handleSubmit}>

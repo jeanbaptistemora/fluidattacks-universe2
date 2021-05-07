@@ -24,7 +24,7 @@ describe("ActionButtons", (): void => {
     expect.hasAssertions();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_update_finding_description_mutate" },
+      { action: "api_mutations_update_finding_description_mutate" },
     ]);
     const { isEditing, isPristine, onEdit, onUpdate } = baseMockedProps;
     const wrapper: ReactWrapper = mount(

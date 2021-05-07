@@ -6,7 +6,7 @@ from starlette.responses import Response
 
 from back import settings
 from backend import util
-from backend.api import apply_context_attrs
+from dataloaders import apply_context_attrs
 from newutils import token as token_helper
 from redis_cluster.operations import redis_set_entity_attr
 

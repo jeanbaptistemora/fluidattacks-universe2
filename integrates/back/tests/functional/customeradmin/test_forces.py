@@ -2,8 +2,8 @@
 import pytest
 
 # Local libraries
-from backend.api import get_new_context
 from back.tests.functional.customeradmin.utils import get_result
+from dataloaders import get_new_context
 
 
 @pytest.mark.asyncio

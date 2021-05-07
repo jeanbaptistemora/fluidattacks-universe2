@@ -89,7 +89,7 @@ describe("SeverityView", (): void => {
 
     const { t } = useTranslation();
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_update_severity_mutate" },
+      { action: "api_mutations_update_severity_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/severity"]}>
@@ -182,7 +182,7 @@ describe("SeverityView", (): void => {
     expect.hasAssertions();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_update_severity_mutate" },
+      { action: "api_mutations_update_severity_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/severity"]}>

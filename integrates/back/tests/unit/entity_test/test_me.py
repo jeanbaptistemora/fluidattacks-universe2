@@ -7,8 +7,8 @@ from datetime import (
 from ariadne import graphql
 
 from api.schema import SCHEMA
-from backend.api import apply_context_attrs
 from back.tests.unit.utils import create_dummy_session
+from dataloaders import apply_context_attrs
 
 
 pytestmark = pytest.mark.asyncio

@@ -11,11 +11,11 @@ from pytz import timezone
 
 from back import settings
 from back.tests.unit.utils import create_dummy_session
-from backend.api import get_new_context
 from custom_exceptions import (
     InvalidGroupServicesConfig,
     RepeatedValues,
 )
+from dataloaders import get_new_context
 from events.domain import list_group_events
 from findings import dal as findings_dal
 from findings.domain import (

@@ -12,11 +12,11 @@ from aioextensions import (
 from async_lru import alru_cache
 
 # Local libraries
-from backend.api import get_new_context
 from backend.typing import Vulnerability
 from charts import utils
 from charts.colors import OTHER
 from charts.generators.pie_chart.utils import MAX_GROUPS_DISPLAYED
+from dataloaders import get_new_context
 
 
 def get_treatment_changes(vuln: Vulnerability) -> int:

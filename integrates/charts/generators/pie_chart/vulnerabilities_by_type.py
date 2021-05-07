@@ -12,9 +12,9 @@ from aioextensions import (
 from async_lru import alru_cache
 
 # Local libraries
-from backend.api import get_new_context
 from charts import utils
 from charts.colors import OTHER
+from dataloaders import get_new_context
 
 
 @alru_cache(maxsize=None, typed=True)

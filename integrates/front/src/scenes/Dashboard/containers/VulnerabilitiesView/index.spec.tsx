@@ -174,7 +174,7 @@ describe("VulnerabilitiesView", (): void => {
     expect.hasAssertions();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "backend_api_mutations_confirm_zero_risk_vuln_mutate" },
+      { action: "api_mutations_confirm_zero_risk_vuln_mutate" },
       { action: "api_resolvers_vulnerability_analyst_resolve" },
     ]);
     const wrapper: ReactWrapper = mount(

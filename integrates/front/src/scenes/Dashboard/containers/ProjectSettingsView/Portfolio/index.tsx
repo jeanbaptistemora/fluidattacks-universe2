@@ -167,7 +167,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
         {/* eslint-disable-next-line react/forbid-component-props */}
         <Col40 className={"pa0"}>
           <ButtonToolbar>
-            <Can do={"backend_api_mutations_add_group_tags_mutate"}>
+            <Can do={"api_mutations_add_group_tags_mutate"}>
               <TooltipWrapper
                 displayClass={"dib"}
                 id={"searchFindings.tabResources.tags.addTooltip.id"}
@@ -183,7 +183,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
                 </Button>
               </TooltipWrapper>
             </Can>
-            <Can do={"backend_api_mutations_remove_group_tag_mutate"}>
+            <Can do={"api_mutations_remove_group_tag_mutate"}>
               <TooltipWrapper
                 displayClass={"dib"}
                 id={"searchFindings.tabResources.tags.removeTooltip.id"}
@@ -206,10 +206,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
           </ButtonToolbar>
         </Col40>
       </Row>
-      <Can
-        do={"backend_api_mutations_remove_group_tag_mutate"}
-        passThrough={true}
-      >
+      <Can do={"api_mutations_remove_group_tag_mutate"} passThrough={true}>
         {(canDelete: boolean): JSX.Element => (
           <DataTableNext
             bordered={true}

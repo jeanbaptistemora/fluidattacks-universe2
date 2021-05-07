@@ -3,12 +3,12 @@ import json
 import pytest
 
 # Local libraries
-from backend.api import get_new_context
 from back.tests.functional.utils import complete_register
 from back.tests.functional.customer.utils import (
     get_result,
     create_group,
 )
+from dataloaders import get_new_context
 
 
 @pytest.mark.asyncio

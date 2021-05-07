@@ -23,6 +23,7 @@ from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 
 # Local libraries
+from api import IntegratesAPI
 from api.schema import SCHEMA
 from back import settings
 from back.app import utils
@@ -37,7 +38,6 @@ from back.settings.queue import (
     get_task,
     init_queue,
 )
-from backend.api import IntegratesAPI
 from custom_exceptions import (
     ExpiredToken,
     SecureAccessException,

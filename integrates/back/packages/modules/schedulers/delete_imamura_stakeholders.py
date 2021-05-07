@@ -4,7 +4,7 @@
 from aioextensions import collect
 
 # Local libraries
-from backend.api import get_new_context
+from dataloaders import get_new_context
 from newutils import datetime as datetime_utils
 from organizations import domain as orgs_domain
 
