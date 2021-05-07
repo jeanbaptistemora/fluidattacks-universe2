@@ -94,7 +94,7 @@ makes.k8s.test:
   <<: *makes_in_dev_branch
   stage: test-infra
 
-.makes.okta.apply:
+makes.okta.apply:
   <<: *makes
   <<: *makes_in_master_branch
   stage: deploy-infra

@@ -64,7 +64,7 @@ resource "aws_iam_user_policy_attachment" "okta-access-user-attach-policy" {
 resource "aws_iam_saml_provider" "okta-saml-provider" {
   name                   = "okta-saml-provider"
   saml_metadata_document = <<-EOL
-    <?xml version="1.0" encoding="UTF-8"?><md:EntityDescriptor entityID="http://www.okta.com/exk1ju1nm9nVJE9Zb357" xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"><md:IDPSSODescriptor WantAuthnRequestsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol"><md:KeyDescriptor use="signing"><ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:X509Data><ds:X509Certificate>MIIDqDCCApCgAwIBAgIGAW2yeIqDMA0GCSqGSIb3DQEBCwUAMIGUMQswCQYDVQQGEwJVUzETMBEG
+    <?xml version="1.0" encoding="UTF-8"?><md:EntityDescriptor entityID="http://www.okta.com/exk9ahz3reGbi064Y357" xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"><md:IDPSSODescriptor WantAuthnRequestsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol"><md:KeyDescriptor use="signing"><ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:X509Data><ds:X509Certificate>MIIDqDCCApCgAwIBAgIGAW2yeIqDMA0GCSqGSIb3DQEBCwUAMIGUMQswCQYDVQQGEwJVUzETMBEG
     A1UECAwKQ2FsaWZvcm5pYTEWMBQGA1UEBwwNU2FuIEZyYW5jaXNjbzENMAsGA1UECgwET2t0YTEU
     MBIGA1UECwwLU1NPUHJvdmlkZXIxFTATBgNVBAMMDGZsdWlkYXR0YWNrczEcMBoGCSqGSIb3DQEJ
     ARYNaW5mb0Bva3RhLmNvbTAeFw0xOTEwMDkyMTQwNDdaFw0yOTEwMDkyMTQxNDdaMIGUMQswCQYD
@@ -80,7 +80,7 @@ resource "aws_iam_saml_provider" "okta-saml-provider" {
     Fd/p3ztmrhMCy/QqY901JaGvdUgtelPpVZ5uO9pXAhbY/rXK2jfZCWPu98oIxdWf4p8roTtIzdtw
     lVWI/jhY7rAHn95Vbjrh+OU7O7mTuyguVDXSXNkE3fSR7pp5YxFEw18Q2lJbduTtUDI/DxrXT+Yn
     J1ufkupsSdNt7VAVjA/sBE2qmnE9c4+uaWnR/nUYrRkLLRXRF7+Gdge5HqJ1H/XGPyt0RT9UaJsV
-    5pBqdjpXGt+eZOKx4yze9tfx9rP+OUbzjZwBUw==</ds:X509Certificate></ds:X509Data></ds:KeyInfo></md:KeyDescriptor><md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</md:NameIDFormat><md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:unspecified</md:NameIDFormat><md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://fluidattacks.okta.com/app/amazon_aws/exk1ju1nm9nVJE9Zb357/sso/saml"/><md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://fluidattacks.okta.com/app/amazon_aws/exk1ju1nm9nVJE9Zb357/sso/saml"/></md:IDPSSODescriptor></md:EntityDescriptor>
+    5pBqdjpXGt+eZOKx4yze9tfx9rP+OUbzjZwBUw==</ds:X509Certificate></ds:X509Data></ds:KeyInfo></md:KeyDescriptor><md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</md:NameIDFormat><md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:unspecified</md:NameIDFormat><md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://fluidattacks.okta.com/app/amazon_aws/exk9ahz3reGbi064Y357/sso/saml"/><md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://fluidattacks.okta.com/app/amazon_aws/exk9ahz3reGbi064Y357/sso/saml"/></md:IDPSSODescriptor></md:EntityDescriptor>
   EOL
 }
 
