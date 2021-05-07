@@ -79,6 +79,7 @@ makes.lint
 makes.lint-commit-msg
 makes.okta.apply
 makes.okta.format
+makes.okta.lint
 makes.okta.test
 makes.profiles
 makes.review-mr

@@ -8,7 +8,7 @@ makeEntrypoint {
   name = "makes-okta-apply";
   arguments = {
     envData = path "/makes/applications/makes/okta/src/terraform/data.yaml";
-    envParser = path "/makes/applications/makes/okta/src/terraform/parser.py";
+    envParser = path "/makes/applications/makes/okta/src/terraform/parser/__init__.py";
     envPermissions = "prod";
     envProduct = "makes";
   };

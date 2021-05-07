@@ -104,6 +104,11 @@ makes.okta.format:
   <<: *makes_in_dev_branch
   stage: lint-code
 
+makes.okta.lint:
+  <<: *makes
+  <<: *makes_in_dev_branch
+  stage: lint-code
+
 makes.okta.test:
   <<: *makes
   <<: *makes_in_dev_branch
