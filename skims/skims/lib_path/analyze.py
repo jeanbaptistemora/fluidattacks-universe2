@@ -123,6 +123,7 @@ async def analyze(
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
     if not any(finding in CTX.config.checks for finding, _ in CHECKS):
+        # No findings will be executed, early abort
         return
 
     unique_paths: Set[str] = await resolve_paths(

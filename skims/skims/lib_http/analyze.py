@@ -8,6 +8,7 @@ from typing import (
     Dict,
     Optional,
     Set,
+    Tuple,
 )
 import urllib.parse
 
@@ -58,6 +59,20 @@ from utils.ntp import (
     get_ntp_now,
 )
 
+CHECKS: Tuple[
+    Tuple[
+        Callable[[URLContext], Any],
+        Dict[
+            core_model.FindingEnum,
+            Callable[[Any], core_model.Vulnerabilities],
+        ],
+    ],
+    ...,
+] = (
+    (analyze_content.get_check_ctx, analyze_content.CHECKS),
+    (analyze_headers.get_check_ctx, analyze_headers.CHECKS),
+)
+
 
 @shield(on_error_return=[])
 async def analyze_one(
@@ -67,17 +82,9 @@ async def analyze_one(
     stores: Dict[core_model.FindingEnum, EphemeralStore],
     unique_count: int,
 ) -> None:
-    checks: Dict[
-        core_model.FindingEnum,
-        Callable[[Any], core_model.Vulnerabilities],
-    ]
-
     await log("info", "Analyzing http %s of %s: %s", index, unique_count, url)
 
-    for get_check_ctx, checks in (  # type: ignore
-        (analyze_content.get_check_ctx, analyze_content.CHECKS),
-        (analyze_headers.get_check_ctx, analyze_headers.CHECKS),
-    ):
+    for get_check_ctx, checks in CHECKS:
         for finding, check in checks.items():
             if finding in CTX.config.checks:
                 for vulnerability in check(get_check_ctx(url)):
@@ -145,6 +152,13 @@ async def analyze(
     *,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
+    if not any(
+        finding in CTX.config.checks
+        for _, checks in CHECKS
+        for finding in checks
+    ):
+        return
+
     unique_urls: Set[URLContext] = await get_urls()
     unique_urls = set(filter(should_include_url, unique_urls))
     unique_count: int = len(unique_urls)
