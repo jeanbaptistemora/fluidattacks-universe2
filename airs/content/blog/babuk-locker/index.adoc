@@ -3,7 +3,7 @@
 :subtitle: The first ransomware (as a gift) for this new year
 :category: attacks
 :tags: software, security, vulnerability, hacking, mistake
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330676/blog/babuk-locker/cover_dy5uwm.webp
 :alt: Photo by Guido Hofmann on Unsplash
 :description: Here's a post dedicated to the new form of ransomware, Babuk Locker. I mention its encryption scheme, its injection, operation, and other basic things about it.
 :keywords: Ransomware, Babuk, Locker, Software, Security, Vulnerability, Hacking, Ethical Hacking, Pentesting
@@ -38,7 +38,7 @@ being enough to prevent victims from recovering their systems and files
 efficiently and for free.
 
 .Photo by Glen Carrie on link:https://unsplash.com/photos/TGeFx4x4NHU[Unsplash].
-image::january.png[January]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330673/blog/babuk-locker/january_x6we4g.webp[January]
 
 == Babuk Locker's encryption scheme
 
@@ -104,7 +104,7 @@ including a link to a link:https://www.torproject.org/[Tor] page
 link:../dark-web/[a few weeks ago]) to establish negotiation.
 
 .Image taken from link:http://chuongdong.com/uploads/RansomNote.PNG[chuongdong.com].
-image::ransomnote.png[RansomNote]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330670/blog/babuk-locker/ransomnote_cinngo.webp[RansomNote]
 
 In addition, the ransomware operators
 can reveal the victims' names in their notes and demonstrate through images

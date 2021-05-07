@@ -3,7 +3,7 @@
 :category: attacks
 :subtitle: The story of David and Goliath
 :tags: security, vulnerability
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330667/blog/asymmetric-dos-slow-http-attack/cover_hdty39.webp
 :alt: greek statue with small angels.
 :description: Here you'll learn how a slow HTTP attack works, how to inspect HTTP requests and responses, and you'll see how to perform an asymmetric denial of service.
 :keywords: DoS, Vulnerability, Slowhttptest, Slow Body, HTTP, Asymmetric Attacks, Ethical Hacking, Pentesting
@@ -100,7 +100,7 @@ First, let’s run a
 server on ip _192.168.56.101_.
 
 .BWAPP server
-image::bwapp-running.png[bwapp-running]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330667/blog/asymmetric-dos-slow-http-attack/bwapp-running_lncq1r.webp[bwapp-running]
 
 For now, let’s assume that we are at:
 
@@ -111,7 +111,7 @@ For now, let’s assume that we are at:
 And we entered in the form:
 
 .XSS page and input
-image::xss-login-form.png[xss-login-form]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330666/blog/asymmetric-dos-slow-http-attack/xss-login-form_gbaxlz.webp[xss-login-form]
 
 Once we access a page,
 the browser is going to ask the server for some resources
@@ -255,17 +255,17 @@ While the attack is running a user that tries to access the service is going
 to see:
 
 .BWAPP is trying to connect without success
-image::bwapp-while-attacking.png[bwapp-while-attacking]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330664/blog/asymmetric-dos-slow-http-attack/bwapp-while-attacking_rqvn9n.webp[bwapp-while-attacking]
 
 If the attack is long enough, it is going to get timed out:
 
 .BWAPP gets timed-out
-image::bwapp-timed-out.png[bwapp-timed-out]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330664/blog/asymmetric-dos-slow-http-attack/bwapp-timed-out_zqmfbc.webp[bwapp-timed-out]
 
 Once the attack is finished everything returns to a normal state:
 
 .BWAPP working normally after attack
-image::bwapp-attack-finished.png[bwapp-attack-finished]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330666/blog/asymmetric-dos-slow-http-attack/bwapp-attack-finished_ka1ois.webp[bwapp-attack-finished]
 
 Since we only need a few resources (the internet and a laptop)
 we can even do it on a low-bandwidth connection.

@@ -3,7 +3,7 @@
 :subtitle: What is the Dark Web and what do we find there?
 :category: philosophy
 :tags: web, information, credential, password, security, cybersecurity
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330845/blog/dark-web/cover_a24zzf.webp
 :alt: Photo by eberhard grossgasteiger on Unsplash
 :description: I wrote this post to give you an overview of what the Dark Web is, how we get in, and what we can find within it.
 :keywords: Dark Web, Deep Web, Information, Credential, Password, Cybersecurity, Ethical Hacking, Pentesting
@@ -95,7 +95,7 @@ link:https://www.csoonline.com/article/3249765/what-is-the-dark-web-how-to-acces
 Still and all, what can we find inside the Dark Web?
 
 .Photo by link:https://unsplash.com/@k8_iv[K8] on link:https://unsplash.com/photos/0_fkPHulv-M[Unsplash]
-image::onion.png[Onion by K8]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330844/blog/dark-web/onion_t47cb4.webp[Onion by K8]
 
 == Dark Web's content
 

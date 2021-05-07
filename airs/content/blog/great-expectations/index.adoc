@@ -3,7 +3,7 @@
 :subtitle: What to expect when you're at risk
 :category: philosophy
 :tags: business, security, risk
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330887/blog/great-expectations/cover_cdvu5f.webp
 :alt: Chess strategy. Photo by Inactive. on Unsplash: https://unsplash.com/photos/nAjil1z3eLk
 :description: This blog post is a review of a paper from the adversarial risk analysis field applied to cybersecurity.
 :keywords: Risk, Probability, Impact, Measure, Quantify, Security, Pentesting, Ethical Hacking
@@ -48,7 +48,7 @@ in terms of rewards or penalties (_utilities_),
 which rational agents are supposed to maximize.
 
 .Diagram
-image::diagraminf.png["Diagram"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330886/blog/great-expectations/diagraminf_kuo720.webp["Diagram"]
 
 In this _influence diagram_,
 solid arrows indicate that the node at the tip depends probabilistically
@@ -83,7 +83,7 @@ With that in mind, the following model for cybersecurity attacks
 can be easily understood:
 
 .Influence diagram for a cybersecurity situation
-image::baid.png[Influence diagram]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330886/blog/great-expectations/baid_zlvkd1.webp[Influence diagram]
 
 It looks a bit busy, but bear with us.
 Keep in mind the layer arrangement described above,
@@ -116,7 +116,7 @@ The expected value is not unlike an average taken from a sample.
 Say you want the average age of people in a room:
 
 .Average 1
-image::average1.png[Average 1]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330885/blog/great-expectations/average1_kyybdx.webp[Average 1]
 
 So, if you had to guess a person's age,
 it would make sense to go for 22 o 23.
@@ -125,20 +125,20 @@ Why not group them instead, count how many are each age,
 and _weight_ each value with that count?
 
 .Average 2
-image::average2.png[Average 2]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330887/blog/great-expectations/average2_cr8mmn.webp[Average 2]
 
 This can be interpreted in terms of probabilities.
 If we break up that fraction, we can rewrite that sum as
 
 .Average 3
-image::average3.png[Average 3]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330886/blog/great-expectations/average3_ioogtz.webp[Average 3]
 
 Which is nothing more than the sum of each value times its probability.
 This is just the definition of expected value
 for a discrete probability distribution:
 
 .Expected Value Discrete
-image::expected-value-discr.png[Expected Value Discrete]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330886/blog/great-expectations/expected-value-discr_gemhte.webp[Expected Value Discrete]
 
 where _v_ is each value, _p(v)_ is its probability, and
 the sums runs over all possible values.
@@ -146,7 +146,7 @@ For continuous distributions, the sum over all values is upgraded
 to a integral over all values:
 
 .Expected Value Continuous Distribution
-image::expected-value-cont.png[Expected Value Continuous Distribution]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330886/blog/great-expectations/expected-value-cont_ospjbl.webp[Expected Value Continuous Distribution]
 
 == Back to the model
 
@@ -161,7 +161,7 @@ If we have a chain of events, each depending on the last,
 that rule would imply a succession of multiplied conditional probabilities:
 
 .Expected Utility
-image::expected-utility.png[Expected Utility]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330886/blog/great-expectations/expected-utility_kafvmu.webp[Expected Utility]
 
 I know this looks like crazy math, but focus on the
 product of conditional probabilities.

@@ -3,7 +3,7 @@
 :subtitle: Documenting vulnerabilities with gherkin
 :category: documentation
 :tags: documentation, vector, software
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330662/blog/app-pickle/cover_cmww8t.webp
 :alt: Cucumber slices
 :description: Gherkin can be used for documentation and automated testing. Here we focus on its basics and how we can use it to show how a given website can be attacked.
 :keywords: Gherkin, Language, Attack Vector, Documentation, Report, Injection, Vulnerability, Pentesting, Ethical Hacking
@@ -25,7 +25,7 @@ helps minimize misunderstandings and regressions
 through precision in the definition of use-case scenarios.
 
 .Behaviour-driven development by link:http://thepaulrayner.com/about/[Paul Rayner] via link:https://cucumber.io/[cucumber]
-image::bdd-cycle.png["Behavior-driven development illustration",width=400]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330660/blog/app-pickle/bdd-cycle_a5xfdy.webp["Behavior-driven development illustration",width=400]
 
 But `Gherkin` can be used for more than just
 software specification and documentation.
@@ -111,7 +111,7 @@ Consider the following website from
 a very buggy web app.
 
 .`bWAPP` DNS lookup site
-image::scr-normal-use-case.png["bWAPP DNS lookup site"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330660/blog/app-pickle/scr-normal-use-case_p2arvd.webp["bWAPP DNS lookup site"]
 
 It has a very simple function:
 give it a valid `URL` and
@@ -190,7 +190,7 @@ the simple command `ls -aR /`, which
 i.e., all files in the server:
 
 .`UNIX` command injection in the same site
-image::scr-ls-injected.png["Same site, UNIX command injected"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330660/blog/app-pickle/scr-ls-injected_rbvn0e.webp["Same site, UNIX command injected"]
 
 It does!
 If we can ``inject'' that command,

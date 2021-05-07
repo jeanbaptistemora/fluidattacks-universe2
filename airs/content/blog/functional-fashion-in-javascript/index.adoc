@@ -3,7 +3,7 @@
 :category: programming
 :subtitle: Functional programming in JavaScript
 :tags: application, functional, javascript, eslint
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330877/blog/functional-fashion-in-javascript/cover_ixmn8l.webp
 :alt: Cup with message in front of screen with code
 :description: Here we talk about some first steps in functional JavaScript and recommendations for migration. Functional JavaScript: fleeting fashion or imminent future?
 :keywords: Functional Paradigm, JavaScript, Object-oriented, Linter, Multiparadigm Application, Eslint, Programming Future, Ethical Hacking, Pentesting
@@ -40,7 +40,7 @@ then you have a JavaScript console at your disposal.
 == Divided opinions
 
 .What people is talking about.
-image::functional-js-meme.png["Two people taking in a theater"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330876/blog/functional-fashion-in-javascript/functional-js-meme_vzir6v.webp["Two people taking in a theater"]
 
 We already know that JavaScript is a famous language
 and its functional version is a fashionable subject.

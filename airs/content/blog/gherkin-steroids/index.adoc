@@ -3,7 +3,7 @@
 :subtitle: How to document detailed attack vectors
 :category: documentation
 :tags: documentation, vector, software
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330882/blog/gherkin-steroids/cover_iwilpg.webp
 :alt: Cucumber lot
 :description: In this post, we work on how to use Gherkin to document attack vectors in vulnerable applications, employing more advanced keywords from the Gherkin syntax.
 :keywords: Gherkin, Attack Vector, Documentation, Report, Vulnerability, Inclusion, Ethical Hacking, Pentesting
@@ -102,7 +102,7 @@ link:http://itsecgames.blogspot.com.co/[bWAPP],
 which simply gives us a cryptic message:
 
 .A mysterious message
-image::default-file.png["Page with mysterious message"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330881/blog/gherkin-steroids/default-file_eg7655.webp["Page with mysterious message"]
 
 No matter how dumb it might seem,
 this is the first thing we need to document:
@@ -170,7 +170,7 @@ What if we change it to another text file?
 Let's try `/commandi.php`.
 
 .Abusing the website
-image::source.png["Screenshot of abused page"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330882/blog/gherkin-steroids/source_tib0qk.webp["Screenshot of abused page"]
 
 Notice two things here:
 first, the `PHP` code and text commentaries are shown.
@@ -195,7 +195,7 @@ Let us try to display it in this page,
 setting `page=/etc/passwd`:
 
 .Listing users in the `bWAPP` servers
-image::passwd.png["Viewing the contents of a system file in the page"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330881/blog/gherkin-steroids/passwd_r3cgvo.webp["Viewing the contents of a system file in the page"]
 
 We can document that using `Gherkin` data tables,
 in a scenario of its own,
@@ -241,7 +241,7 @@ unlike the `passwd` file,
 is protected:
 
 .A failure
-image::protected.png["foo bar"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330881/blog/gherkin-steroids/protected_rphxjb.webp["foo bar"]
 
 'Drat!' Well, we'll find a way around it,
 sooner or later.

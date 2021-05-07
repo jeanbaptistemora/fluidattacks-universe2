@@ -3,7 +3,7 @@
 :subtitle: Should CEOs discuss software defects?
 :category: philosophy
 :tags: business, security, company
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330831/blog/ceo-bugs/cover_o47lbb.webp
 :alt: Broken blue ceramic plate on Unsplash: https://unsplash.com/photos/WdJkXFQ4VHY
 :description: Software quality management, including security weaknesses, has become of strategic relevance. Here we discuss an article calling for CEOs' attention to bugs.
 :keywords: Business, CEO, Security, Bugs, Software, Information, Ethical Hacking, Pentesting
@@ -30,7 +30,7 @@ Much of the time, consciously or not,
 our lives develop over software grounds.
 
 .Software is eating the world by Gerd Leonhard. Source link:https://flic.kr/p/2ePju9R[flickr]
-image::sw-eating.png[width=630, alt="Softare is eating the world"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330830/blog/ceo-bugs/sw-eating_qrw3cd.webp[width=630, alt="Softare is eating the world"]
 
 Corporations have brought us software.
 They now depend heavily
@@ -102,7 +102,7 @@ in C-level discussions
 about product and service development and delivery.
 
 .Electronics related recalls from 2007 to 2016. Source link:https://emarketing.alixpartners.com/rs/emsimages/2018/pubs/EI/AP_Auto_Industry_Recall_Problem_Jan_2018.pdf[Alixpartners].
-image::electronic-recall.png[Electronics related recalls from 2007 to 2016]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330830/blog/ceo-bugs/electronic-recall_idury6.webp[Electronics related recalls from 2007 to 2016]
 
 == What can be done about this?
 
@@ -151,7 +151,7 @@ based on quality awareness and response to bugs.
 `Fluid Attacks` can help you moving towards the upper-right.
 
 .Bowens performance matrix. Source <<r1, [1]>>.
-image::awareness-matrix.png[Bowens Matrix]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330830/blog/ceo-bugs/awareness-matrix_ddbvl7.webp[Bowens Matrix]
 
 == But, do not just ask for bug reports.
 

@@ -3,7 +3,7 @@
 :subtitle: Glimpsing the trends for 2021
 :category: opinions
 :tags: security, cybersecurity, trends, security-testing, technology, company
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330843/blog/cybersecurity-2020-21-iii/cover_rhdzrv.webp
 :alt: Photo by Jr Korpa on Unsplash
 :description: In this final part of the state of cybersecurity 2020-21, we want to share with you some predictions and possible trends in cybersecurity for 2021.
 :keywords: Security, Cybersecurity, Predictions, Trends, Security Testing, Company, Ethical Hacking, Pentesting
@@ -74,7 +74,7 @@ At this point, we want to highlight some preventive approaches
 that we believe will continue being trends in the coming year.
 
 .Photo by link:https://unsplash.com/@korpa[Jr Korpa] on link:https://unsplash.com/photos/blVVEIz3UZ0[Unsplash]
-image::korpa.png[Korpa]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330842/blog/cybersecurity-2020-21-iii/korpa_rcvmu1.webp[Korpa]
 
 == Some preventive trends in 2021
 

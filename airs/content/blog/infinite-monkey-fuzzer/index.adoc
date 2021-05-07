@@ -3,7 +3,7 @@
 :category: attacks
 :subtitle: Fuzz testing using American Fuzzy Lop
 :tags: fuzzing, application, hacking
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330921/blog/infinite-monkey-fuzzer/cover_a1u7uj.webp
 :alt: Photo by su fu on Unsplash
 :description: In this blog post, we are focused on how to perform basic fuzz attacks on desktop Linux C applications using American Fuzzy Lop.
 :keywords: Fuzzing, Attack, AFL, Vulnerability, Security, Application, Hacking, Ethical Hacking, Pentesting
@@ -96,7 +96,7 @@ Here you can see the sequence of images
 fed into the tested program:
 
 .Fuzzed `AFL` logo. Via link:https://en.wikipedia.org/wiki/File:AFL_Fuzz_Logo.gif[Wikimedia]
-image::afl-fuzz-logo.gif["Fuzzed image inputs"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330933/blog/infinite-monkey-fuzzer/afl-fuzz-logo_akkh66.gif["Fuzzed image inputs"]
 
 == Running AFL
 
@@ -126,7 +126,7 @@ $ afl-fuzz -i in -o out program input @@
 If everything went right, then you should see this:
 
 .`AFL` main interface
-image::scr-afl-single-677x462.png["`AFL` interface screenshot"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330919/blog/infinite-monkey-fuzzer/scr-afl-single-677x462_muo6tm.webp["`AFL` interface screenshot"]
 
 Not very exciting, huh?
 But as long as the `total paths` indicator
@@ -222,7 +222,7 @@ here is the optimised `afl-fuzz` running
 on `libpng` and `optipng` with 4 cores:
 
 .`AFL` succesful run (link:anim-afl-4-cores.gif[click] to view larger)
-image::anim-afl-4-cores.gif["AFL running on 4 cores", width=800,link="anim-afl-4-cores.gif"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330920/blog/infinite-monkey-fuzzer/anim-afl-4-cores_qegsgb.gif["AFL running on 4 cores", width=800,link="anim-afl-4-cores.gif"]
 
 We see that,
 within a few minutes,

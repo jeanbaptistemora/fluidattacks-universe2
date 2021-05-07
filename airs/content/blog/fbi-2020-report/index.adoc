@@ -3,7 +3,7 @@
 :subtitle: Get a digest of Internet crime over the last year
 :category: attacks
 :tags: cybersecurity, social, documentation, risk, social-engineering, hacking
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330873/blog/fbi-2020-report/cover_t6mon0.webp
 :alt: Photo by Joshua Sukoff on Unsplash
 :description: This post gives you an overview of the FBI's 2020 Internet Crime Report, based on the activity of the Internet Crime Complaint Center (IC3).
 :keywords: FBI, Internet Crime, Report, Coronavirus, Social Engineering, Hacking, Ethical Hacking, Pentesting
@@ -139,7 +139,7 @@ with losses above $146 million,
 of which approximately *84%* corresponded to victims over 60 years of age.
 
 .Photo by link:https://unsplash.com/@guillaumedegermain[Guillaume de Germain] on link:https://unsplash.com/photos/6Xw9wMJyHus[Unsplash].
-image::world.png[World]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330874/blog/fbi-2020-report/world_j0w85s.webp[World]
 
 Among additional data I would like to highlight
 from this FBI's report are the following:
@@ -164,7 +164,7 @@ and even recommendations on certain types of scams,
 link:https://www.ic3.gov/Media/PDF/AnnualReport/2020_IC3Report.pdf[here's the link] to the referenced report.
 
 .link:https://fluidattacks.docsend.com/view/td72dfmge9vfcid7[State of Attacks, Annual Report 2021].
-image::state.png[State of Attacks]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330872/blog/fbi-2020-report/state_gdki7a.webp[State of Attacks]
 
 Apropos of annual reports, just a week ago,
 `Fluid Attacks` released the 2021 link:https://fluidattacks.docsend.com/view/td72dfmge9vfcid7[State of Attacks] report.

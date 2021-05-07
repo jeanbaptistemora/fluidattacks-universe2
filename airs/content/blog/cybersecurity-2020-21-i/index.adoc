@@ -3,7 +3,7 @@
 :subtitle: Current trends of cybercriminals
 :category: opinions
 :tags: security, cybersecurity, trends, hacking, social, company
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330842/blog/cybersecurity-2020-21-i/cover_kb8vag.webp
 :alt: Photo by Jr Korpa on Unsplash
 :description: In this first part of the state of cybersecurity 2020-21, we want to share with you some highlights of the current trends of cybercriminals.
 :keywords: Security, Cybersecurity, Trends, Hacking, Attacks, Criminals, Company, Ethical Hacking, Pentesting
@@ -108,7 +108,7 @@ is to believe that cybersecurity is usually an exclusive problem
 for large organizations, such as banks and governments.
 
 .Photo by link:https://unsplash.com/@korpa[Jr Korpa] on link:https://unsplash.com/photos/fByGQ64Iky8[Unsplash]
-image::korpa.png[Korpa]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330841/blog/cybersecurity-2020-21-i/korpa_xppzrx.webp[Korpa]
 
 == Cybercriminals up to speed on IT
 

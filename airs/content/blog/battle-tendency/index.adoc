@@ -3,7 +3,7 @@
 :subtitle: Most relevant IT investments in 2019
 :category: documentation
 :tags: technology, investment, trends
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330669/blog/battle-tendency/cover_j9zo74.webp
 :alt: Mobile showing statistics. Photo by Austin Distel on Unsplash: https://unsplash.com/photos/EMPZ7yRZoGw
 :description: In this article, we discuss our research into the most relevant investments and budgets related to information technology in 2019 and upcoming years.
 :keywords: Technology, Innovation, Trends, IT, Investment, Budget, Ethical Hacking, Pentesting
@@ -43,7 +43,7 @@ in order to remain competitive within their market.
 Relevant factors are:
 
 .Top factors leading to IT budget increases in 2020. Source: <<r1, [1]>>.
-image::it-budget-increase.png[Top factors leading to IT budget increases in 2020]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330668/blog/battle-tendency/it-budget-increase_gwstpc.webp[Top factors leading to IT budget increases in 2020]
 
 Company size must always be taken into account
 when discussing technology and money.
@@ -52,7 +52,7 @@ the higher the budget dedicated to `IT`,
 as we see in the following comparative table <<r2, [2]>>:
 
 .IT Budget Comparison of different companies size. Source: <<r2, [2]>>.
-image::it-company-size.png[Comparative Table]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330667/blog/battle-tendency/it-company-size_akyaxx.webp[Comparative Table]
 
 However, a large investment in `IT`
 does not necessarily translate into improved security.
@@ -109,7 +109,7 @@ if we take a look at the budget allocation trends
 projected for `IT` in 2020:
 
 .IT budget allocation in 2020. Source <<r1, [1]>>.
-image::budget-allocation.png[Budget IT Allocation in 2020]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330667/blog/battle-tendency/budget-allocation_xmgoxr.webp[Budget IT Allocation in 2020]
 
 `Spiceworks'` <<r1, [1]>> research
 surveyed `1,005` European and North American companies.
@@ -129,14 +129,14 @@ of what hot topics will be trending
 in the technology field:
 
 .Adoption of technology trends according to Spiceworks. Source: <<r1, [1]>>.
-image::it-trends.png[Adoption of technology trends according to Spiceworks]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330667/blog/battle-tendency/it-trends_o6o7l4.webp[Adoption of technology trends according to Spiceworks]
 
 We can also take a glance at the `KPMG` report <<r2, [2]>>
 which offers us a similar panorama for `IT` investments
 in `740` technology companies from 12 countries:
 
 .Investment Rankings in 2019 according to KPMG. Source: <<r2, [2]>>.
-image::it-investments.png[Investment Rankings according to KPMG]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330669/blog/battle-tendency/it-investments_i3b4ya.webp[Investment Rankings according to KPMG]
 
 Now we see some patterns emerging.
 Internet of Things (`IoT`),

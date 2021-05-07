@@ -3,7 +3,7 @@
 :subtitle: Learning from open source
 :category: machine-learning
 :tags: machine-learning, vulnerability, code
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330671/blog/big-code/cover_gbuzvj.webp
 :alt: Git. Photo by Yancy Min on Unsplash: https://unsplash.com/photos/842ofHC6MaI/
 :description: Here we'll see how DeepCode works. It has a lot of potential for identifying bugs in your code by learning from the abundant sources available in Github.
 :keywords: Machine Learning, Vulnerability, Open Source, Deep Learning, Lint, Bug, DeepCode, Github, Ethical Hacking, Pentesting
@@ -48,7 +48,7 @@ to continue with the previous example.
 These points are called _sinks_.
 
 .Taint analysis diagram via link:http://web.cs.iastate.edu/~weile/cs513x/5.TaintAnalysis1.pdf[Coseinc].
-image::taint-analysis.png[Taint analysis diagram]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330670/blog/big-code/taint-analysis_fz03sg.webp[Taint analysis diagram]
 
 Along the way in the case of a secure application,
 data should encounter significant input sanitization or validation.
@@ -102,7 +102,7 @@ with the issues found.
 Here is one for link:https://github.com/eclipse/che[Eclipse Che Cloud IDE]:
 
 .Security issues dashboard for Eclipse Che, adapted from link:https://www.deepcode.ai/app/gh/eclipse/che/5be0e29f11fdef73ed4a3da5fe61e3cc0eb3e875/_/dashboard/[DeepCode demo].
-image::che-dashboard.png[Dashboard for Eclipse Che]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330670/blog/big-code/che-dashboard_chqwbk.webp[Dashboard for Eclipse Che]
 
 Here we see three instances of a possible
 path traversal vulnerability.
@@ -158,7 +158,7 @@ but still ridden with vulnerabilities,
 Perhaps it does not work as well on such tiny projects.
 
 .Zero issues in DSVW.
-image::dsvw-dashboard.png[Dashboard for DSVW]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330669/blog/big-code/dsvw-dashboard_nhzja3.webp[Dashboard for DSVW]
 
 This is, to say the least, disappointing,
 since that `DSVW` has no less than 26 different
@@ -221,7 +221,7 @@ As before, the vast majority of issues found by `DeepCode`
 are of the `lint` and `API` usage kind.
 
 .Integrates Dashboard
-image::integrates.png[Integrates Dashboard]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330669/blog/big-code/integrates_rlof4p.webp[Integrates Dashboard]
 
 In `Integrates` we see a possible
 command injection in the spreadsheet report generation function.
@@ -229,7 +229,7 @@ However, this input is not controllable by the user,
 so this does not pose a real threat at the moment:
 
 .Command Injection in Integrates?
-image:reports.py.png[Command Injection in Integrates?]
+image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620330669/blog/big-code/reports.py_nubki3.webp[Command Injection in Integrates?]
 
 However, the suggestion to sanitize the input
 via `subprocess.call()` is not bad.
@@ -245,7 +245,7 @@ Again, probably difficult to exploit,
 but should be sanitized anyway.
 
 .Asserts Dashboard
-image::asserts.png[Asserts Dashboard]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330669/blog/big-code/asserts_vtzc8h.webp[Asserts Dashboard]
 
 In `Asserts`, however, the 15 issues
 found by `DeepCode` are less worrisome, for two reasons:

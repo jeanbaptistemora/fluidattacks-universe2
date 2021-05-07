@@ -3,7 +3,7 @@
 :subtitle: Hunting missing checks with anomaly detection
 :category: machine-learning
 :tags: machine-learning, vulnerability, discovery
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330658/blog/anomaly-serial-killer-doll/cover_k3xhjm.webp
 :alt: The actual serial killer doll
 :description: Here we describe the system Chucky, which applies machine learning and natural language processing techniques to find missing-check related vulnerabilities.
 :keywords: Machine Learning, Natural Language Processing, Vulnerability, Anomaly Detection, Nearest Neighbors, Missing Check, Security, Ethical Hacking, Pentesting
@@ -68,7 +68,7 @@ the following steps are performed:
   comparing to the _k_ nearest neighbors.
 
 .Overview of the anomaly detection process. Taken from <<r1 ,[1]>>
-image::process.png[Overview of Chucky's process.]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330656/blog/anomaly-serial-killer-doll/process_abczu9.webp[Overview of Chucky's process.]
 
 In order to determine functions similar to the current one,
 the _bag of words_ approach from the field of
@@ -112,7 +112,7 @@ which sounds more like a job for [inner]#link:../symbolic-execution-mortals[symb
 and taint analysis, which is in fact what `Chucky` uses.
 
 .Tainted dependency graph (right) for the snippet to the left
-image::taint.png[holi]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330657/blog/anomaly-serial-killer-doll/taint_u8oilr.webp[holi]
 
 This graph is then traversed both in the source-to-sink
 and sink-to-source direction to determine tainted identifiers,
@@ -131,7 +131,7 @@ Thus, from the snippet above,
 we would obtain a vector representation such as this one:
 
 .AST, normalization and embedding of the above snippet
-image::embed.png[AST, normalization and embedding]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330656/blog/anomaly-serial-killer-doll/embed_skmtja.webp[AST, normalization and embedding]
 
 Now we can extract a model of "normality"
 for every source or sink of interest in every function.
@@ -167,7 +167,7 @@ The results of this experiment to determine its capability
 to find known vulnerabilities are summarized below:
 
 .Artificial test results for `Chucky`
-image::results.png[Artificial test results for Chucky]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330656/blog/anomaly-serial-killer-doll/results_zjae1t.webp[Artificial test results for Chucky]
 
 Notice that with 25 neighbors the results are perfect, i.e.
 no false positives and complete recall.

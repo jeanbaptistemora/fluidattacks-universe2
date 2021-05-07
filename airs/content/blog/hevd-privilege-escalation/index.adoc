@@ -3,7 +3,7 @@
 :category: attacks
 :subtitle: Local Privilege Escalation
 :tags: osee, training, exploit, windows, kernel, hevd
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330911/blog/hevd-privilege-escalation/cover_hrrhjs.webp
 :alt: Photo by Christina @ wocintechchat.com on Unsplash
 :description: In this article we will be able to perform a Local Privilege Escalation using an exploit to HEVD
 :keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
@@ -47,16 +47,16 @@ In Windows, when the system starts, a process called `System` is created,
 always with `PID` 4. As this process is owned by the `SYSTEM` user, we will
 use this as the target process to steal the ticket from.
 
-image::sysprocess2.png[SYSTEM processes]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330910/blog/hevd-privilege-escalation/sysprocess2_fprfev.webp[SYSTEM processes]
 
 Each process has a `EPROCESS` structure.
 
-image::eprocess1.png[EPROCESS structure]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330910/blog/hevd-privilege-escalation/eprocess1_mmonli.webp[EPROCESS structure]
 
 One of the members of that structure is `Token` which is a ticket granted
 by the `LSASS` process.
 
-image::token1.png[Security Token]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-privilege-escalation/token1_vggzjy.webp[Security Token]
 
 The token is used to perform operations on the system
 based on the permissions granted to it. For example, if a process
@@ -72,30 +72,30 @@ that process will gain `SYSTEM` privileges.
 To do that, we first need to get the offset of the `Token` field in the
 `EPROCESS` structure:
 
-image::token2.png[Security Token]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-privilege-escalation/token2_yrbmfg.webp[Security Token]
 
 As you see, it is at `_EPROCESS+0x0fc`. With that, we need to get the `SYSTEM`
 process descriptor:
 
-image::sysprocess1.png[SYSTEM process]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-privilege-escalation/sysprocess1_tpnrcu.webp[SYSTEM process]
 
 Then, we need to get the value of the token for the `SYSTEM` process:
 
-image::tokenvalue1.png[SYSTEM token value]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330911/blog/hevd-privilege-escalation/tokenvalue1_kvahmc.webp[SYSTEM token value]
 
 Now, we launch a `cmd.exe` process on the target OS and get the current
 privileges:
 
-image::before1.png[Before Privilege Escalation]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330910/blog/hevd-privilege-escalation/before1_pxrxmn.webp[Before Privilege Escalation]
 
 We must get the `cmd.exe` process descriptor:
 
-image::cmdprocess1.png[CMD process]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330910/blog/hevd-privilege-escalation/cmdprocess1_xtjbqg.webp[CMD process]
 
 Finally, we must copy the value of the token of the `SYSTEM` process to
 the `cmd.exe` process. Let's see it in action:
 
-image::lpe1.gif[Local Privilege Escalation]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330910/blog/hevd-privilege-escalation/lpe1_hb1a8f.gif[Local Privilege Escalation]
 
 Wonderful! As you can see, our `cmd.exe` is now running as
 `nt authority\system`!
@@ -133,7 +133,7 @@ mov eax, dword fs:[0x124]               ; EAX now points to _KTHREAD
 
 In the `_KTHREAD` structure we can find an offset to the `_KPROCESS`.
 
-image::kthread1.png[KTHREAD KPROCESS]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330910/blog/hevd-privilege-escalation/kthread1_ghbqtt.webp[KTHREAD KPROCESS]
 
 It turns out that `_KPROCESS` is the first field of `_EPROCESS`, which means
 that we can access the `_EPROCESS` structure at `_KTHREAD+0x150`:
@@ -152,12 +152,12 @@ information:
 holding the current running processes, and `_EPROCESS+0x0b4` points to the
 current process `PID`:
 
-image::activeprocess1.png[Active Process Links]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330910/blog/hevd-privilege-escalation/activeprocess1_krqcw8.webp[Active Process Links]
 
 * `_EPROCESS+0x140` points to `InheritedFromUniqueProcessId` which will contain
 the `PID` of the parent process, in our case the `PID` of `cmd.exe`:
 
-image::parentpid1.png[Parent Pid]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-privilege-escalation/parentpid1_msemxx.webp[Parent Pid]
 
 With that, we need to save the `PID` of `cmd.exe`:
 
@@ -245,7 +245,7 @@ mangled immediate stack frames of caller functions. If we look at the stack
 after executing the shellcode, we can see that there is a stack frame at which
 we can return to, located at `esp+0x10`:
 
-image::prev-ebp1.png[Previous unmangled stack frame]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-privilege-escalation/prev-ebp1_vmscb7.webp[Previous unmangled stack frame]
 
 With that, we can add a restore point to our shellcode:
 
@@ -395,7 +395,7 @@ sys.exit(0)
 
 And check it:
 
-image::success.gif[Success]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330910/blog/hevd-privilege-escalation/success_flunbs.gif[Success]
 
 Glorious! We were able to steal the token of the `SYSTEM` process and
 copy it to our `cmd.exe` shell. Now, we own the system!

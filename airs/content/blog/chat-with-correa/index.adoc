@@ -3,7 +3,7 @@
 :subtitle: A chat with Daniel Correa
 :category: interview
 :tags: machine-learning, cybersecurity, security, interview, risk, software
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330831/blog/chat-with-correa/cover_htrl0g.webp
 :alt: Photo by Liam Tucker on Unsplash
 :description: We had the pleasure of chatting with Daniel Correa, a Security Expert who shared his views on current threats, human factors in cybersecurity, and technology.
 :keywords: Machine Learning, Cybersecurity, Security, Interview, Risk, Software, Ethical Hacking, Pentesting
@@ -27,7 +27,7 @@ We started this conversation
 by discussing the main threats companies face these days.
 
 .Splash link:https://commons.wikimedia.org/wiki/File:2017_Petya_cyberattack_screenshot.jpg[screen of the payload] of the original version of Petya
-image::petya.png[Petya]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330830/blog/chat-with-correa/petya_srfstk.webp[Petya]
 
 *What are the leading cybersecurity threats organizations currently face?*
 [role="fluid-qanda"]
@@ -118,7 +118,7 @@ causing troubles to organizations and people?*
   those deploying these devices face complex threats.
 
 .CVSS Severity Distribution Over Time. Source: link:https://nvd.nist.gov/general/visualizations/vulnerability-visualizations/cvss-severity-distribution-over-time[NIST]
-image::cvss.png[CVSS]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330830/blog/chat-with-correa/cvss_wbm484.webp[CVSS]
 
 [role="fluid-qanda"]
   . Application and infrastructure weaknesses will always be major threats.
@@ -185,7 +185,7 @@ where people could face a threat more realistically?*
   provided that _the hole_ brings palpable consequences.
 
 .Cyber warfare specialists. June 3, 2017. link:https://media.defense.gov/2018/Mar/14/2001890169/-1/-1/0/180221-F-SK383-0012A.JPG[Air Force photo by J.M. Eddins Jr.]
-image::defense.png[Defense]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330831/blog/chat-with-correa/defense_y3aitn.webp[Defense]
 
 *How can organizations do better in their pen-testing?*
 [role="fluid-qanda"]

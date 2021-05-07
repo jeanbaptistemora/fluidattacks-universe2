@@ -3,7 +3,7 @@
 :subtitle: A chat with Andrés Gómez
 :category: interview
 :tags: security, machine-learning, testing
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330889/blog/hack-cern/cover_fqngm1.webp
 :alt: Photo by Aurélien Clément Ducret on Unsplash
 :description: For this post, we spoke with Andrés Gómez, a former Fluid Attacks' member, who is researching to protect a computer grid supporting experiments at the LHC.
 :keywords: CERN, Hacking, Security, Interview, LHC, Machine Learning, Pentesting, Ethical Hacking
@@ -28,7 +28,7 @@ had cost around `USD` `13.25` billion.
 Now you have a sense of what we will discussing in this post.
 
 .Large Hadron Collider.
-image::lhc.png[Large Hadron Collider, Source: https://commons.wikimedia.org/wiki/File:Large_Hadron_Collider.JPG]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330887/blog/hack-cern/lhc_ybns7h.webp[Large Hadron Collider, Source: https://commons.wikimedia.org/wiki/File:Large_Hadron_Collider.JPG]
 
 A good friend of ours
 and former `Fluid Attacks` security engineer,
@@ -98,7 +98,7 @@ If you want to dig deeper into Andrés' work,
 link:https://arxiv.org/abs/1801.04179[here is a link] of a recent paper.
 
 .Gomez Ramirez, et. al. (2018) Proposed Arhuaco design architecture.
-image::architecture.png[design architecture]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330887/blog/hack-cern/architecture_lhg5cz.webp[design architecture]
 
 Now, we turn to more general security-related issues with him.
 

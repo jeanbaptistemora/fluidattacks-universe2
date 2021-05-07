@@ -3,7 +3,7 @@
 :category: attacks
 :subtitle: Running instructions by reference
 :tags: osee, training, exploit
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330681/blog/bypassing-dep/cover_lrfinv.webp
 :alt: Photo by Michael Dziedzic on Unsplash
 :description: This post will show how bypass the Data Execution Prevention security mechanism using Return-Oriented Programming.
 :keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
@@ -55,7 +55,7 @@ do whatever we want. Let's find a `RETN` instruction first:
 
 This will tell `mona` to find up to 10 `RETN` instructions. The result is:
 
-image::retn1.png[RETN instructions]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330678/blog/bypassing-dep/retn1_gtil26.webp[RETN instructions]
 
 Let's take the first one at `62501022` and update the exploit of the
 link:../understanding-dep/[previous post]. This time we want to make `EAX`
@@ -90,7 +90,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And see what happens:
 
-image::rop1.gif[RETN]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330677/blog/bypassing-dep/rop1_z13yrk.gif[RETN]
 
 Here's a detail of what happened:
 
@@ -112,7 +112,7 @@ instructions: `xor eax,eax`, `add eax,0xdeadbeee` and `inc eax`. Let's check
 if we can find a pointer in the execution environment that performs the
 first (`xor eax,eax`) operation:
 
-image::find1.gif[RETN]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330677/blog/bypassing-dep/find1_it5idv.gif[RETN]
 
 We could find one at `62501162` that points to a `xor eax,eax`.
 Let's update our exploit and place that address instead of
@@ -148,7 +148,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And run it:
 
-image::rop2.gif[ROP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330677/blog/bypassing-dep/rop2_aacijn.gif[ROP]
 
 Wonderful! Here's what happened:
 
@@ -171,7 +171,7 @@ instruction on our shellcode `inc eax` and make `EAX = 0xdeadbeef`.
 That means that we need to find an address to a `pop eax` instruction
 followed by a `retn`.
 
-image::popeax1.gif[POP EAX]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330677/blog/bypassing-dep/popeax1_ikidee.gif[POP EAX]
 
 Bingo! We found it at `625011B4`. Now, do you see why this is called
 Return-Oriented Programming? It is because we always need to return back to
@@ -214,12 +214,12 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And check it:
 
-image::popeax2.gif[POP EAX]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330678/blog/bypassing-dep/popeax2_has6yi.gif[POP EAX]
 
 Beautiful! We were able to make `EAX = 0xdeadbeee` using `ROP`. Now, the final
 step is to find an `inc eax` pointer to make `EAX = 0xdeadbeef`.
 
-image::inceax.png[INC EAX]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330678/blog/bypassing-dep/inceax_zeq83l.webp[INC EAX]
 
 We found one at `00402139`. As this is the last instruction of our shellcode,
 the NULL byte won't affect the exploit. Let's update the code:
@@ -257,7 +257,7 @@ with socket.create_connection((HOST, PORT)) as fd:
 
 And check it:
 
-image::rop3.gif[ROP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330680/blog/bypassing-dep/rop3_gkn3oz.gif[ROP]
 
 Success! We were able to make `EAX = 0xdeadbeef` without executing a single
 instruction on the stack! We have bypassed `DEP`!
@@ -275,7 +275,7 @@ You just need to issue the following:
 
 And wait for `mona` to do the hard work:
 
-image::mona1.gif[Mona ROP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330687/blog/bypassing-dep/mona1_wj7c6p.gif[Mona ROP]
 
 With that, `mona` will find usable gadgets on the execution environment.
 A file called `rop.txt` is placed on the `mona` directory of the debuggee

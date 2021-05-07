@@ -3,7 +3,7 @@
 :subtitle: Vector representations of code
 :category: machine-learning
 :tags: machine-learning, security, code
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330869/blog/embed-code-vector/cover_ah0e4k.webp
 :alt: Arrows vector field
 :description: Here we discuss code2vec relation with word2vec and autoencoders to grasp better how feasible it is to represent code as vectors, which is our main interest.
 :keywords: Machine Learning, Neural Network, Encoding, Code2vec, Word2vec, Parsing, Classifier, Vulnerability, Ethical Hacking, Pentesting
@@ -47,7 +47,7 @@ These are the vectors we are looking for
 to represent each word:
 
 .The vectors are implicit in the middle layer.
-image::../vector-language/word2vec-network.png[Word2Vec network]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331138/blog/vector-language/word2vec-network_cn6omp.webp[Word2Vec network]
 
 In turn, `word2vec` is based on a more simple task:
 predict a vector from that same vector.
@@ -61,7 +61,7 @@ we get something similar to `word2vec`,
 called an _autoencoder_:
 
 .Autoencoder neural network via link:https://insights.sei.cmu.edu/sei_blog/blog_figure1_06102019.png[Carnegie Mellon].
-image::autoencoder.png[Autoencoder neural network]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330868/blog/embed-code-vector/autoencoder_yypcyp.webp[Autoencoder neural network]
 
 Autoencoders turned out to be a foundational idea
 in neural network based dimension reduction,
@@ -139,7 +139,7 @@ is a little more complicated than an autoencoder
 or a single-layer `word2vec` network:
 
 .code2vec architecture. From <<r1, Alon et al. (2018)>>.
-image::code2vec.png[code2vec architecture]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330868/blog/embed-code-vector/code2vec_b5e4ms.webp[code2vec architecture]
 
 Notice that in this diagram,
 unlike most other seen here so far,

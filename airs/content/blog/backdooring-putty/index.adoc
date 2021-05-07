@@ -3,7 +3,7 @@
 :category: attacks
 :subtitle: Trust no one
 :tags: osce, backdoor, training, exploit
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330666/blog/backdooring-putty/cover_sa53hg.webp
 :alt: Photo by Dil on Unsplash
 :description: This article will show a way of creating a backdoor that will be injected into PuTTY, a widely used software for accessing remote computers.
 :keywords: Information, Security, Protection, Hacking, Exploit, Backdoor, OSCE, PuTTY, Ethical Hacking, Pentesting
@@ -31,7 +31,7 @@ As an example, I extracted the today's
 link:https://www.clamav.net/downloads[Clamav AV signatures], picked a random
 entry:
 
-image::clamav1.png[Clamav signatures]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330666/blog/backdooring-putty/clamav1_naoaqi.webp[Clamav signatures]
 
 And put it on a file called `virus`:
 
@@ -187,15 +187,15 @@ which is a non-standard section.
 We can check its current characteristics using many tools.
 I will use link:https://github.com/petoolse/petools[PE Tools]:
 
-image::petools1.gif[PE Characteristics]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330662/blog/backdooring-putty/petools1_hfv6og.gif[PE Characteristics]
 
-image::petools2.png[PE Characteristics]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330665/blog/backdooring-putty/petools2_vm3gcp.webp[PE Characteristics]
 
 As we can see, that section has currently only permissions to be read.
 However, as we need to execute code there that will self-decode, we must
 enable the `WRITE` and `EXEC` characteristics:
 
-image::petools3.gif[New PE Characteristics]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330666/blog/backdooring-putty/petools3_tpnufm.gif[New PE Characteristics]
 
 == ASLR
 
@@ -211,7 +211,7 @@ absolute addresses.
 It can be pretty annoying during a backdooring session, but it can be disabled
 while we finish and can be enabled at the end. Let's do that:
 
-image::aslr1.gif[New PE Characteristics]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330660/blog/backdooring-putty/aslr1_qmz2rc.gif[New PE Characteristics]
 
 As you can see, I used link:https://ntcore.com/?page_id=388[CFF explorer] to
 change the `DLL Characteristics` of the `putty.exe` file and disabled the
@@ -230,7 +230,7 @@ and if it's flagged as malicious.
 
 The first check is easy:
 
-image::working0.gif[Still working]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330665/blog/backdooring-putty/working0_w3jbr0.gif[Still working]
 
 It's still working.
 
@@ -268,7 +268,7 @@ we should be able to locate it at that exact address.
 I will use link:https://x64dbg.com[x64dbg] a modern open-source debugger for
 Windows:
 
-image::codecave1.gif[Finding code cave]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330658/blog/backdooring-putty/codecave1_wuqfqt.gif[Finding code cave]
 
 Great, as you can see, our code cave it's a region full of `0x00` bytes.
 It's a good idea to change those `0x00` to something that doesn't block
@@ -276,7 +276,7 @@ the execution flow, like `NOPs` (`0x90`).
 To do that, we need to select the addresses we want to modify, then
 right-click on the `CPU` window, select `Binary` and finally `Fill with NOPs`.
 
-image::fillnops1.gif[Fill NOPs]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330661/blog/backdooring-putty/fillnops1_xbm2b5.gif[Fill NOPs]
 
 With that, we have an empty canvas to work on.
 
@@ -285,7 +285,7 @@ separate new file, so we can go back if anything's not working.
 To do that, we can issue `Ctrl+P` that will show the actual current changes
 we've made and save the "patches" to a new file.
 
-image::patch1.gif[Patch1]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330663/blog/backdooring-putty/patch1_u52yhv.gif[Patch1]
 
 With that in place, we can start injecting instructions into our code cave.
 The first thing we must do is save the current value of the CPU registers
@@ -301,7 +301,7 @@ pushad          ; Push general purpose registers to the stack
 pushfd          ; Push EFLAGS to the stack
 ----
 
-image::pushadfd1.png[Save registers and flags]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330663/blog/backdooring-putty/pushadfd1_jqpd3u.webp[Save registers and flags]
 
 At the end of our code cave, we should have to restore that information from
 the stack. We will see that later.
@@ -355,11 +355,11 @@ shellcode, we must select the output of `msfvenom` in `hex` format, then
 on the debugger select an address region large enough to fit our shellcode,
 then right-click, select `Binary` and then `Paste`.
 
-image::pasteshell1.gif[Paste shell]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330656/blog/backdooring-putty/pasteshell1_ma7nu3.gif[Paste shell]
 
 Great! We can now save the changes to a new file `putty-02.exe`:
 
-image::patch2.gif[Patch2]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330658/blog/backdooring-putty/patch2_evbeco.gif[Patch2]
 
 == Diverting execution flow
 
@@ -370,17 +370,17 @@ happen at the very start, overwriting the entry point. In this example, we
 will trigger it when the user connects to a server and the `login as:` text
 appears:
 
-image::loginas1.png[Login as]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330664/blog/backdooring-putty/loginas1_mhuzlp.webp[Login as]
 
 Using our debugger, we need to find on where the `login as:` string is
 issued:
 
-image::loginas2.gif[Login as]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330663/blog/backdooring-putty/loginas2_g70yyf.gif[Login as]
 
 We had two locations, and we need to know which of them is
 the one we need, so we had to put breakpoints and check:
 
-image::breakpoint1.gif[Breakpoint]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330667/blog/backdooring-putty/breakpoint1_q4z8dd.gif[Breakpoint]
 
 We got a hit!
 
@@ -388,17 +388,17 @@ As you can see, we hit just before a `call`. I mentioned before that
 we need to use relative calculations to overcome `ASLR` limitations.
 That's why we will divert the execution *after* the `call`, here:
 
-image::breakpoint2.png[Breakpoint]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330656/blog/backdooring-putty/breakpoint2_lt8mdu.webp[Breakpoint]
 
 Now, copy some instructions to a text file, starting at `0042D6F7`, so we
 can later restore the execution to this point:
 
-image::copy1.gif[Copy instructions]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330659/blog/backdooring-putty/copy1_u9pul4.gif[Copy instructions]
 
 Having done that, we need to make a jump to the first instruction of our code
 cave. That instruction is `pushad` located at `004BB004`. Let's do that:
 
-image::jmp1.gif[Jump to code cave]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330661/blog/backdooring-putty/jmp1_g13zyd.gif[Jump to code cave]
 
 Now I will save the modifications to `patch-03.exe`.
 
@@ -423,7 +423,7 @@ instructions.
 We can do that easily by putting a breakpoint after the `pushad/pushfd` calls
 and taking note of `ESP`:
 
-image::espbefore.gif[ESP before]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330675/blog/backdooring-putty/espbefore_ng575f.gif[ESP before]
 
 The ESP value is `0019FE30`.
 
@@ -432,7 +432,7 @@ The ESP value is `0019FE30`.
 This can be obtained after the shellcode is executed. Remember to open a
 listener in the attacker machine:
 
-image::espafter.gif[ESP after]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330657/blog/backdooring-putty/espafter_r1inhq.gif[ESP after]
 
 Great! We got the shell, and the `ESP` value is `0019FC30`.
 However, the breakpoint was reached only *after* exiting the shell.
@@ -456,7 +456,7 @@ popad
 
 We can now add that to our file:
 
-image::restore1.png[Restore]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330660/blog/backdooring-putty/restore1_z3xrgw.webp[Restore]
 
 === Restore instructions + Jump to normal flow
 
@@ -495,16 +495,16 @@ xor ecx,ecx
 jmp 0x0042D6FC
 ----
 
-image::restore2.png[Restore]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330662/blog/backdooring-putty/restore2_udhuur.webp[Restore]
 
 We can now save the changes to a new file `patch-04.exe`:
 
-image::patchrestore1.gif[Patch restore]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330665/blog/backdooring-putty/patchrestore1_fdusx4.gif[Patch restore]
 
 At this point, we should be able to launch `PuTTY`, get a shell,
 and resume normal execution:
 
-image::working1.gif[Working]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330656/blog/backdooring-putty/working1_vvddgu.gif[Working]
 
 However, as you can see, the execution is only resumed when the shell exits.
 
@@ -538,11 +538,11 @@ That value is set at this position on the shellcode:
 
 We just need to change it to a `NOP` and we should be ready:
 
-image::patching1.gif[Patching shellcode]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330657/blog/backdooring-putty/patching1_hzrnmz.gif[Patching shellcode]
 
 Let's run our saved `putty-05.exe`:
 
-image::working2.gif[Patching shellcode]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330663/blog/backdooring-putty/working2_adfozy.gif[Patching shellcode]
 
 Mission accomplished! We've got now a fully functional, yet backdoored
 `PuTTY`.
@@ -617,13 +617,13 @@ jne loop                                    ; If not, jump to the loop until we 
 
 Let's encode the shellcode first:
 
-image::encoder1.png[Encoder]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330661/blog/backdooring-putty/encoder1_fk2gug.webp[Encoder]
 
 Save that changes to a file called `putty-06.exe`.
 
 Now, we can watch the process of encoding in real-time:
 
-image::encoded1.gif[Encoder]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330662/blog/backdooring-putty/encoded1_ewvqb2.gif[Encoder]
 
 Wonderful. Now, select those modified bytes, then right-click, then
 `Binary`, then `Copy`. Restart the debugging session with `Ctrl+F2` and
@@ -636,14 +636,14 @@ We are now ready to patch the file to a new one called `putty-07.exe`.
 All that's left is to replace the encoder with the decoder on our
 `putty-07.exe` file:
 
-image::decoder1.png[Decoder]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330658/blog/backdooring-putty/decoder1_eqiq0o.webp[Decoder]
 
 And save the patches in a file called `putty-final.exe`.
 
 If everything comes as expected, `putty-final.exe` will run,
 decode itself in memory, send us a reverse shell and resume normal execution.
 
-image::success.gif[PuTTY working]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330659/blog/backdooring-putty/success_qravpz.gif[PuTTY working]
 
 Yes! Scary, huh?
 

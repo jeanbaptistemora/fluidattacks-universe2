@@ -3,7 +3,7 @@
 :subtitle: Hafnium exploits four zero-day vulnerabilities
 :category: attacks
 :tags: cybersecurity, software, vulnerability, hacking, application, discovery
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330870/blog/exchange-server-hack/cover_ep44jq.webp
 :alt: Photo by Alejandro Luengo on Unsplash
 :description: This post describes the Microsoft Exchange Server hack that has affected multiple companies and government agencies recently.
 :keywords: Microsoft Exchange Server, Software, Attack, Hafnium, Vulnerability, Update, Ethical Hacking, Pentesting
@@ -107,7 +107,7 @@ link:https://edition.cnn.com/2021/03/06/politics/microsoft-hack-task-force/index
 to deal with Microsoft hack linked to China."
 
 .Photo by link:https://unsplash.com/@pineapple[Pineapple Supply Co.] on Unsplash.
-image::four.png[Four]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330870/blog/exchange-server-hack/four_cvecsh.webp[Four]
 
 == What are the four flaws?
 

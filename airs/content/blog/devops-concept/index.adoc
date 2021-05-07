@@ -3,7 +3,7 @@
 :subtitle: The central components of DevOps definition
 :category: philosophy
 :tags: devops, software, information, web, cloud, business
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330851/blog/devops-concept/cover_gyaf3f.webp
 :alt: Photo by Michael Fenton on Unsplash
 :description: Here we introduce DevOps, a working methodology whose principles are communication, collaboration, automation, continuous release, and quick reaction.
 :keywords: DevOps, Software, Information, Web, Cloud, Business, Ethical Hacking, Pentesting
@@ -30,7 +30,7 @@ That's something we'll review in this post,
 to improve our understanding of that concept.
 
 .Word-cloud with the common terms used for definitions of DevOps in the studies analyzed, excluding 'Development' and 'Operations' —taken from link:https://dl.acm.org/doi/pdf/10.1145/2962695.2962707[Jabbari et al. (2016)]
-image::cloud.png[Word-cloud]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330850/blog/devops-concept/cloud_q0zb4z.webp[Word-cloud]
 
 == Components of DevOps definition
 
@@ -95,7 +95,7 @@ but by product (or service),
 and we then have cross-functional teams.
 
 .taken from link:http://www.quickmeme.com/meme/35gk6h[quickmeme.com]
-image::c4.png[C4]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330850/blog/devops-concept/c4_ezfxq0.webp[C4]
 
 Now, focused on *C4* (not the explosive),
 we have that `DevOps` is related to some software development methods:

@@ -3,7 +3,7 @@
 :subtitle: Learning to exploit binaries
 :category: machine-learning
 :tags: machine-learning, vulnerability, exploit
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330672/blog/binary-learning/cover_ejwzaw.webp
 :alt: Binary machine learning. Credits: https://unsplash.com/photos/h3sAF1cVURw
 :description: In this article, we describe a system named VDiscover, created from the ground up to learn vulnerabilities in binary code without access to the source.
 :keywords: Machine Learning, Vulnerability, Exploit, Dynamic Detection, Static Detection, Security, VDiscover, Ethical Hacking, Pentesting
@@ -47,7 +47,7 @@ in the _recall_ phase.
 This process can be depicted as follows:
 
 .Training (left) and recall (right) phases of `VDiscover`. Taken from link:http://www.vdiscover.org/[their site].
-image::vdisc.png[Diagram depicting training and recall phases of VDiscover]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330671/blog/binary-learning/vdisc_zba7nl.webp[Diagram depicting training and recall phases of VDiscover]
 
 In this diagram, _vulnerability discovery procedure_
 means any of the [button]#link:../categories/attacks/[tests]#

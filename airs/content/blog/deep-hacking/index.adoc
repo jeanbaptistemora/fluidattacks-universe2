@@ -3,7 +3,7 @@
 :subtitle: Deep learning for vulnerability discovery
 :category: machine-learning
 :tags: machine-learning, vulnerability, discovery
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330846/blog/deep-hacking/cover_oww6xm.webp
 :alt: Depiction of a deep neural network. Credits: https://unsplash.com/photos/R84Oy89aNKs
 :description: Here we describe the first systematic framework for using deep learning to detect vulnerabilities in source code by cutting the program into slices.
 :keywords: Machine Learning, Vulnerability, Deep Learning, Discovery, Static Detection, Security, Ethical Hacking, Pentesting
@@ -74,7 +74,7 @@ a whole statement which involves one of
 the mentioned danger situations.
 
 .Comparing image vs. code recognition
-image::comparison.png[Comparison of image vs code recognition]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330846/blog/deep-hacking/comparison_cd5exl.webp[Comparison of image vs code recognition]
 
 In order to avoid false positives, the next logical step
 is to use semantic information about the program,
@@ -115,7 +115,7 @@ vectors of a fixed length as input.
 Here is a depiction of the process for a particular piece of code:
 
 .Illustration of the process
-image::process.png[Illustration of the process]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330845/blog/deep-hacking/process_w5rzss.webp[Illustration of the process]
 
 All that remains is to train and test the neural networks.
 One of the goals of `SySeVR` was
@@ -180,7 +180,7 @@ These are, of course, the most important product of this idea and
 are summarized in the following table:
 
 .New vulnerabilities found by `SySeVR`.
-image::table.png['SySeVR results']
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330845/blog/deep-hacking/table_gyimhe.webp['SySeVR results']
 
 ''''
 

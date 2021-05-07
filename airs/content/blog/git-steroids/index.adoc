@@ -3,7 +3,7 @@
 :subtitle: From messy logs to Data Analytics
 :category: documentation
 :tags: git, software, documentation, standard, engineering, business, linters
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330885/blog/git-steroids/cover_glgn3d.webp
 :alt: Computer with do what is great sign.
 :description: Learn here, among other things, how to define a Git commit message syntax and use real-time commit message linters to improve your Git history.
 :keywords: Git, Standardization, Commitlint, Data Analytics, Efective Logging, Documentation, Ethical Hacking, Pentesting
@@ -46,7 +46,7 @@ and never again a bunch of crazy programmers
 will make a mess out of something.
 
 .It's all good
-image::thumb-up.gif["Rambo"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330887/blog/git-steroids/thumb-up_d8hk1a.gif["Rambo"]
 
 But wait a minute... Is there any other activity
 involving a creative process
@@ -111,7 +111,7 @@ of how a `Git` repository history looks
 when programmers do whatever they want:
 
 .Bad Git Log
-image::bad-log.png["Bad Log"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330884/blog/git-steroids/bad-log_q1n4bx.webp["Bad Log"]
 
 Notice how these commit messages
 do not communicate anything regarding
@@ -159,7 +159,7 @@ After setting a standard syntax for commit messages,
 your repo history will start to look like this:
 
 .Good Git Log
-image::good-log.png["Good Log"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330883/blog/git-steroids/good-log_pbxxpb.webp["Good Log"]
 
 I want you to notice the three most important details to begin with:
 
@@ -500,17 +500,17 @@ in one of our repos:
 ==== Bad commit message
 
 .Failed commit
-image::failed-commit.gif["Failed commit"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330885/blog/git-steroids/failed-commit_vnt8vj.gif["Failed commit"]
 
 The commit we entered was:
 
 .Bad Commit message
-image::bad-commit.png["Bad commit message"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330883/blog/git-steroids/bad-commit_b9awue.webp["Bad commit message"]
 
 The `Commitlint` output was:
 
 .Failed Commitlint output
-image::commitlint-fail.png["Bad commit message"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330884/blog/git-steroids/commitlint-fail_ovnl4l.webp["Bad commit message"]
 
 Notice how `Commitlint` dynamically tells the programmer
 what specific rules
@@ -523,17 +523,17 @@ their message is syntax compliant.
 ==== Good commit message
 
 .Passed commit
-image::passed-commit.gif["Passed commit"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330883/blog/git-steroids/passed-commit_mwoo1p.gif["Passed commit"]
 
 The commit we entered was:
 
 .Good Commit message
-image::good-commit.png["Good commit message"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330882/blog/git-steroids/good-commit_nbu7ax.webp["Good commit message"]
 
 The `Commitlint` output was:
 
 .Passed Commitlint output
-image::commitlint-pass.png["Passed commit message"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330883/blog/git-steroids/commitlint-pass_keuy2m.webp["Passed commit message"]
 
 Notice how `Commitlint` tells the programmer
 that all checks passed
@@ -550,7 +550,7 @@ from our link:https://gitlab.com/fluidattacks/integrates[Integrates] repository:
 === Pie chart of monthly commit types for February, 2019
 
 .Monthly commit types for February, 2019
-image::types-chart.png["Monthly commit types"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330883/blog/git-steroids/types-chart_yf7adu.webp["Monthly commit types"]
 
 This chart allows us to know
 the percentage of commits
@@ -565,7 +565,7 @@ had developing a new feature as their purpose.
 === Pie chart of monthly commit scopes for February, 2019
 
 .Monthly commit scopes
-image::scopes-chart.png["Monthly commit scopes"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330882/blog/git-steroids/scopes-chart_rfkoac.webp["Monthly commit scopes"]
 
 This chart allows us to know
 the percentage of commits
@@ -580,7 +580,7 @@ were focused on the back-end of the site.
 === Heatmap chart of monthly commit types vs scopes for February, 2019
 
 .Monthly commit heatmap
-image::heatmap-chart.png["Monthly commit heatmap"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330884/blog/git-steroids/heatmap-chart_w1uw1h.webp["Monthly commit heatmap"]
 
 This chart allows us to know:
 

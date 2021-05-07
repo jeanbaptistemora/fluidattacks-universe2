@@ -3,7 +3,7 @@
 :subtitle: Lumu's tip on continuous compromise assessment
 :category: opinions
 :tags: cybersecurity, security-testing, pentesting, vulnerability, hacking, business
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330870/blog/evolution-lumu/cover_s2kww9.webp
 :alt: Photo by Johannes Plenio on Unsplash
 :description: This post is based on the information given on February 7th by Sylvester, from Lumu, in his webinar 'Cybersecurity Testing Limitations & How to Overcome Them.'
 :keywords: Cybersecurity, Security Testing, Pentesting, Vulnerability, Hacking, Business, Ethical Hacking, Pentesting
@@ -85,7 +85,7 @@ This is intended to affect certain devices initially,
 and then "move laterally until higher value assets are found."
 
 .taken from link:https://www.youtube.com/watch?time_continue=1&v=rc8-0LV4tlU&feature=emb_logo[Sylvester's] presentation
-image::lumu.png[lumu]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330869/blog/evolution-lumu/lumu_hxgnu1.webp[lumu]
 
 These experts then propose as indispensable
 the analysis of network `metadata` for the location of compromises.

@@ -3,7 +3,7 @@
 :subtitle: La Cancillería colombiana enfrentó un grave problema
 :category: opinions
 :tags: cybersecurity, vulnerability, information, web, risk, standard
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330923/blog/insensato-reporte/cover_iye7uf.webp
 :alt: Photo by Jono Hirst on Unsplash
 :description: Aquí les doy una visión general de la reciente vulnerabilidad de seguridad de la Cancillería colombiana y su inadecuada divulgación en medios de comunicación.
 :keywords: Vulnerabilidad, Cancillería, Colombia, Visa, Datos, Web, Ethical Hacking, Pentesting
@@ -94,7 +94,7 @@ la Dirección de Tecnología cerró la brecha,
 y la Cancillería distribuyó link:https://www.cancilleria.gov.co/newsroom/news/cancilleria-informa-fue-solucionada-superada-falla-presentada-sistema-informacion[un nuevo boletín], de una sola frase.
 
 .Tomada de link:https://www.cancilleria.gov.co/newsroom/news/cancilleria-informa-falla-sistema-informacion-plataforma-visas-electronicas[cancilleria.gov.co].
-image::boletin.png[Boletín]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330921/blog/insensato-reporte/boletin_b0l6ye.webp[Boletín]
 
 ¿Cuántos atacantes podrían haber aprovechado esta vulnerabilidad?
 ¿Qué imagen de la seguridad nacional de Colombia

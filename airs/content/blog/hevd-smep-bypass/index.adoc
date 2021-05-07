@@ -3,7 +3,7 @@
 :category: attacks
 :subtitle: Bypassing OS protections
 :tags: osee, training, exploit, windows, kernel, hevd
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330914/blog/hevd-smep-bypass/cover_iwwedx.webp
 :alt: Photo by Michael Dziedzic on Unsplash
 :description: In this article we will defeat some protections using several techniques for exploting HackSys Extremely Vulnerable Driver
 :keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
@@ -97,7 +97,7 @@ offset on which `EIP` is overwritten. Just like on any other user-space
 exploitation process, we can create a cyclic pattern to find that offset.
 We can use `mona` to do that:
 
-image::mona1.gif[Mona Cyclic Pattern]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330915/blog/hevd-smep-bypass/mona1_bhfpei.gif[Mona Cyclic Pattern]
 
 Then, update our exploit:
 
@@ -132,7 +132,7 @@ HANDLE.ioctl(IOCTL_HEVD_STACK_OVERFLOW, PAYLOAD, SIZE, 0, 0)
 
 And check it:
 
-image::mona2.gif[Mona Cyclic Pattern]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330917/blog/hevd-smep-bypass/mona2_nljhdo.gif[Mona Cyclic Pattern]
 
 Good, `mona` discovered that EIP gets overwritten starting at byte `2080`.
 
@@ -197,7 +197,7 @@ HANDLE.ioctl(IOCTL_HEVD_STACK_OVERFLOW, PAYLOAD, SIZE, 0, 0)
 If everything comes as expected, `EAX` will have the value `0xdeadbeef` and
 execution will pause at the inserted breakpoint `\xcc`. Let's check it:
 
-image::smep1.gif[SMEP in action]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330917/blog/hevd-smep-bypass/smep1_zdy5uw.gif[SMEP in action]
 
 Ouch!
 
@@ -226,13 +226,13 @@ trying to run the instructions in our shellcode which was allocated at
 Technically, `SMEP` is nothing but a bit in a CPU control register,
 specifically the 20th bit of the `CR4` control register:
 
-image::cr4.png[CR4 register]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330911/blog/hevd-smep-bypass/cr4_wzdcnp.webp[CR4 register]
 
 To bypass `SMEP`, we must flip that bit (make it `0`). As can be seen,
 the current value of `CR4` with `SMEP` enabled is `001406e9`. Let's check
 what would be the value after flipping the 20th bit:
 
-image::cr42.png[CR4 register]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330912/blog/hevd-smep-bypass/cr42_abunfu.webp[CR4 register]
 
 It would be `000406e9`. We need to place that value on `CR4` to turn off
 `SMEP`.
@@ -247,29 +247,29 @@ and change the value of `CR4`. With that, we should be able to make
 In `nt!KeFlushCurrentTb`, we find a gadget that sets `CR4` from whatever
 value `EAX` may have: `mov cr4, eax # ret`
 
-image::cr4-rop.png[CR4 ROP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330913/blog/hevd-smep-bypass/cr4-rop_qsyqgw.webp[CR4 ROP]
 
 Now, we need to calculate the offset of that `ROP` gadget from the start
 of the `nt` module:
 
-image::offset1.png[CR4 ROP Offset]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330911/blog/hevd-smep-bypass/offset1_ztkull.webp[CR4 ROP Offset]
 
 The offset is `0011f8de`. We'll use that later.
 
 Now we need to find a `pop eax # ret` gadget. We can find one at
 `nt!_MapCMDevicePropertyToNtProperty+0x39`:
 
-image::popeax-rop.png[POP EAX ROP]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330912/blog/hevd-smep-bypass/popeax-rop_fuafnn.webp[POP EAX ROP]
 
 And the offset from the start of the `nt` module is `0002bbef`:
 
-image::offset2.png[POP EAX Offset]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330912/blog/hevd-smep-bypass/offset2_tzgwnp.webp[POP EAX Offset]
 
 We must remember to pad our `ROP` chain with 8 bytes because the overflowed
 function epilog uses `ret 8` which will return to the value pointed by `ESP`
 and then will pop 8 bytes from the stack:
 
-image::rop-padding.png[ROP Padding]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330911/blog/hevd-smep-bypass/rop-padding_b9rtmd.webp[ROP Padding]
 
 With that, we can now disable `SMEP`!
 
@@ -306,11 +306,11 @@ print(f'Obtained kernel base address: {hex(BASE_ADDRESS)}')
 
 And check it:
 
-image::leak1.png[Kernel Base Address]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330912/blog/hevd-smep-bypass/leak1_jtbpi1.webp[Kernel Base Address]
 
 As you can see, it matches perfectly to the address reported by `WinDBG`:
 
-image::leak2.png[Kernel Base Address]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330911/blog/hevd-smep-bypass/leak2_iwvv7t.webp[Kernel Base Address]
 
 With that, we can update our exploit, adding the `ROP` chain to disable `SMEP`,
 using the offsets of the gadgets and the value returned from that function
@@ -395,11 +395,11 @@ HANDLE.ioctl(IOCTL_HEVD_STACK_OVERFLOW, PAYLOAD, SIZE, 0, 0)
 
 Looks good. Now check it:
 
-image::success1.gif[Success]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330911/blog/hevd-smep-bypass/success1_ji7qih.gif[Success]
 
 And this is the content of the `CR4` register:
 
-image::smep-disabled.png[Success]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330912/blog/hevd-smep-bypass/smep-disabled_fsvseg.webp[Success]
 
 As you can see, we were able to disable `SMEP` and made `EAX = 0xdeadbeef`!
 

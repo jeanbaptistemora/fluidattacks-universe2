@@ -3,7 +3,7 @@
 :subtitle: The pratfall effect application on business
 :category: philosophy
 :tags: business, security, mistake, company
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330875/blog/fck-strategy/cover_ofs1fa.webp
 :alt: Broken blue ceramic plate on Unsplash: https://unsplash.com/photos/Odc4dcsjUBw
 :description: Companies should pay attention to how to handle mistakes and think about how to leverage from imperfection. Here, a F*CK statement provides a lesson.
 :keywords: Business, Mistakes, Company, Image, Cibersecurity, Pratfall Effect, Ethical Hacking, Pentesting
@@ -33,7 +33,7 @@ along with a written apology was a splendid move.
 Check it out:
 
 .KFC advertisement at the moment of handling the chicken shortage in the UK.
-image::kfc.png[KFC advertisement, source:https://www.campaignlive.co.uk/article/kfc-says-were-sorry-chicken-shortage-blunt-newspaper-ad/1457868 ]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330874/blog/fck-strategy/kfc_krcsry.webp[KFC advertisement, source:https://www.campaignlive.co.uk/article/kfc-says-were-sorry-chicken-shortage-blunt-newspaper-ad/1457868 ]
 
 The company signaled to the public that they screwed things up,
 with their brand! Very creative and smart.
@@ -79,7 +79,7 @@ who rated afterwards how likable was the participant shown.
 The clumsy one was rated better.
 
 .Avis advertising using the pratfall effect.
-image::pratfall.png[Pratfall advertising. Source: https://www.abccopywriting.com/2018/11/16/imperfection-sells-pratfall-effect]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330873/blog/fck-strategy/pratfall_scptbg.webp[Pratfall advertising. Source: https://www.abccopywriting.com/2018/11/16/imperfection-sells-pratfall-effect]
 
 We don’t have to wait for our clumsiness,
 nor to simulate something of the like
@@ -99,7 +99,7 @@ Counterintuitive.
 That’s the complexity of the human mind.
 
 .Volkswagen advertising
-image::volksw.png[Volkswagen Pin. Source: https://co.pinterest.com/pin/407505466254003581]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330873/blog/fck-strategy/volksw_gp3kb4.webp[Volkswagen Pin. Source: https://co.pinterest.com/pin/407505466254003581]
 
 [quote]
 “VW used these weaknesses to their advantage

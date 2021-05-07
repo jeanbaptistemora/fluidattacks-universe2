@@ -3,7 +3,7 @@
 :subtitle: You could be a victim of Credential Stuffing
 :category: techniques
 :tags: credential, password, web, application, cybersecurity, business
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330841/blog/credential-stuffing/cover_t0zcnj.webp
 :alt: Photo by Cookie the Pom on Unsplash
 :description: I wrote this post to give you an overview of the Credential Stuffing attack and some short recommendations for its prevention.
 :keywords: Credential Stuffing, Credential, Password, Website, Application, Cybersecurity, Attack, Technique
@@ -65,7 +65,7 @@ From there, the attackers would proceed according to their purposes.
 == What about tools?
 
 .link:https://unsplash.com/photos/gySMaocSdqs[Photo] by Cookie the Pom on Unsplash
-image::pome.png[Pomeranian]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330839/blog/credential-stuffing/pome_rt79wj.webp[Pomeranian]
 
 Nowadays, although some experienced crackers use their scripts,
 there are tools (seemingly not free)
@@ -105,7 +105,7 @@ who have no idea how to make them.
 That's another way for them to make a profit.
 
 .Words by link:https://medium.com/@mtjasny/how-to-deal-with-credential-stuffing-attacks-c1456e499093[Mateusz Jasny] (background image on link:https://wallhaven.cc/w/q6q92r[wallhaven])
-image::jasny.png[Mateusz Jasny]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330839/blog/credential-stuffing/jasny_eyxl97.webp[Mateusz Jasny]
 
 == Any recommendation for prevention?
 

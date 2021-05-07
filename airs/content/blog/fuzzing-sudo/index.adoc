@@ -3,7 +3,7 @@
 :category: attacks
 :subtitle: Replicating CVE-2021-3156 with AFL
 :tags: fuzzing, vulnerability, hacking, exploit, discovery
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330881/blog/fuzzing-sudo/cover_g2rbr6.webp
 :alt: Photo by Shannon Litt on Unsplash
 :description: In this article we will be able to reproduce the bug described on CVE-2021-3156 using fuzzing.
 :keywords: Business, Information, Security, Protection, Hacking, Exploit, Fuzzing, Ethical Hacking, Pentesting, CVE-2021-3156
@@ -223,11 +223,11 @@ $ ~/fuzz/sudo$ afl-fuzz -i input/ -o output/ -S fuzz06 /fuzz/sudo/bin/sudo
 
 It looked like this:
 
-image::parallel1.png[Parallel Fuzzing]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330879/blog/fuzzing-sudo/parallel1_dz7xvm.webp[Parallel Fuzzing]
 
 And just after a few minutes of fuzzing, one of the slaves showed 3 crashes!
 
-image::crash1.png[Parallel Fuzzing]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330879/blog/fuzzing-sudo/crash1_ylqtwu.webp[Parallel Fuzzing]
 
 You can find here the payloads that caused the crashes:
 
@@ -243,7 +243,7 @@ If we examine the contents of these payloads, we can see that they all invoked
 `sudoedit` with the `-s` and `-i` flags. `AFL` mutated the original input
 payloads and eventually triggered the bug found by Qualys.
 
-image::vuln1.png[Crash payloads]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330878/blog/fuzzing-sudo/vuln1_vdlsma.webp[Crash payloads]
 
 We can also replicate the crash
 by simply passing the offending payloads to our `sudo`:
@@ -257,7 +257,7 @@ Aborted
 
 And you can use `GDB` to start the exploitation process:
 
-image::gdb1.png[GDB]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330880/blog/fuzzing-sudo/gdb1_vzpedo.webp[GDB]
 
 == Conclusion
 

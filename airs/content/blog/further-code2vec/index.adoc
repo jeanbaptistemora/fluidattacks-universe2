@@ -3,7 +3,7 @@
 :subtitle: Vector representations of code
 :category: machine-learning
 :tags: machine-learning, security, code
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330878/blog/further-code2vec/cover_jjbv8j.webp
 :alt: Target and darts
 :description: Here is a tutorial on the usage of code2vec to predict method names, determine the accuracy of the model, and exporting the corresponding vector embeddings.
 :keywords: Machine Learning, Code2vec, Neural Network, Encoding, Parsing, Classifier, Vulnerability, Pentesting, Ethical Hacking
@@ -80,7 +80,7 @@ which all refer to the accuracy of any search,
 and are just as applicable to vulnerability search in our context:
 
 .Precision and recall via link:https://en.wikipedia.org/wiki/Precision_and_recall[Wikipedia]
-image::precision-recall.png[Precision and recall]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330877/blog/further-code2vec/precision-recall_jm6azd.webp[Precision and recall]
 
 Suppose the dots are files in a repository.
 Some might actually contain vulnerabilities,
@@ -112,7 +112,7 @@ The F1 score aims to combine both the precision and the recall
 and is defined as two times the ratio of their product to their sum
 
 .F Score
-image::fscore.png["F Score"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330877/blog/further-code2vec/fscore_fgikvr.webp["F Score"]
 
 But enough of information retrieval technicalities.
 Back to `code2vec`.
@@ -185,7 +185,7 @@ including the one above.
 For each of those, the `AST` and the predictions are shown:
 
 .Online code2vec demo
-image::code2vec-demo.png[Online code2vec demo]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330876/blog/further-code2vec/code2vec-demo_tavfag.webp[Online code2vec demo]
 
 However this is not what we're after,
 but rather the vector embeddings.

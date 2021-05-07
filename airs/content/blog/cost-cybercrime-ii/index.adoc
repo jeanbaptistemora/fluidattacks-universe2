@@ -3,7 +3,7 @@
 :subtitle: Uber cuts $120 million after discovering ad fraud...
 :category: attacks
 :tags: security, risk, vulnerability, business, policies, economics
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330837/blog/cost-cybercrime-ii/cover_vnfqpv.webp
 :alt: Photo by Jp Valery on Unsplash
 :description: Here we conclude our review of 'Measuring the cost of cybercrime' by focusing, among other things, on ad fraud, which appears to be a bit underrated.
 :keywords: Security, Risk, Vulnerability, Business, Policies, Economics, Ethical Hacking, Pentesting, WEIS
@@ -70,7 +70,7 @@ The researchers also estimate global losses
 to be a couple of billions worldwide every year.
 
 .Image by link:https://pixabay.com/users/gdj-1086657/[Gordon Johnson] from link:https://pixabay.com/vectors/real-fake-typography-type-text-3166209/[Pixabay]
-image::fake.png[Fake]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330837/blog/cost-cybercrime-ii/fake_ifrq2y.webp[Fake]
 
 An outstanding example depicts the size and impact of these frauds.
 Uber made a significant reduction in its digital marketing budget:
@@ -122,7 +122,7 @@ a request to make a wire transfer
 to a supposed valid account —controlled by the criminal— is made.
 
 .Adapted from FBI's IC3 as cited in link:https://weis2019.econinfosec.org/wp-content/uploads/sites/6/2019/05/WEIS_2019_paper_25.pdf[Anderson et al. (2019)]
-image::plot.png[plot]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330836/blog/cost-cybercrime-ii/plot_xk0lbb.webp[plot]
 
 `BEC` has been growing over the years, as can be seen in Figure 2.
 Note that complaints have grown almost linearly,

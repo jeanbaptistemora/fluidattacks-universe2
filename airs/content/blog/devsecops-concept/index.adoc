@@ -3,7 +3,7 @@
 :subtitle: An overview of DevSecOps, better SecDevOps
 :category: philosophy
 :tags: security, devops, software, information, web, cloud
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330852/blog/devsecops-concept/cover_c4reuk.webp
 :alt: Photo by Sebastian Pena Lambarri on Unsplash
 :description: Through this blog post, you will know what DevSecOps is, how it applies, and why it is recommended for IT companies.
 :keywords: Security, DevOps, DevSecOps, SecDevOps, Software, Information, Web, Cloud, Ethical Hacking, Pentesting
@@ -36,7 +36,7 @@ or requiring them to leave their development toolchain environment.
 Ok, that information might be enough. See you in the next post!
 
 .Huh? (image taken from link:https://i.imgur.com/YezxAlA.png[imgur.com])
-image::ah.png[Huh?]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330850/blog/devsecops-concept/ah_jnw9fa.webp[Huh?]
 
 What? I was just kidding! Let's talk a little more about it.
 
@@ -78,7 +78,7 @@ When we say implementation in the early stages, as shown in *Figure 2*,
 the security element has to cover the cycle from its beginning to its end.
 
 .DevSecOps (taken from link:https://images.idgesg.net/images/article/2018/01/devsecops-gartner-image-100745815-orig.jpg[images.idgesg.net], original from Gartner)
-image::devsecops.png[DevSecOps]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330850/blog/devsecops-concept/devsecops_vkkb14.webp[DevSecOps]
 
 In this approach, companies have to establish security requirements
 (to be continuously verified)
@@ -151,7 +151,7 @@ and the deployment process will be automatically stopped.
 is integrated into the client's `SDLC`," Oscar concludes.
 
 .'Break the build' means to stop the software deployment process (link:https://www.citymetric.com/sites/default/files/article_2015/01/149818154.jpg[photo-link])
-image::build.png[Break the build]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330851/blog/devsecops-concept/build_wmkfpb.webp[Break the build]
 
 *Bonus:* `Fluid Attacks` has solved a significant challenge
 as we are convinced that speed without precision is useless.

@@ -3,7 +3,7 @@
 :subtitle: Using JSON Web Token to send data
 :category: identity
 :tags: security, information, jwt
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330659/blog/another-proud-son-json/cover_udy9xc.webp
 :alt: Text editor with code highlighting
 :description: Here we introduce JSON Web Token, a simple, quick way to send secure, digital signed data from one part to another via URL using a base64 algorithm to encode.
 :keywords: JSON, Security, Digital Signature, Web Token, JWT, Information, Pentesting, Ethical Hacking
@@ -22,7 +22,7 @@ Security has become a major issue in the complex world
 of web applications and their communications.
 
 .JSON Web Token JWT
-image::image3.png[jwt]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330656/blog/another-proud-son-json/image3_qksfgj.webp[jwt]
 
 == JSON Web Token
 
@@ -43,7 +43,7 @@ signature is calculated based on the body and the payload of the JWT which
 allows a party to know if the message has been tampered with (Auth0, 2015).
 
 .JWT Structure example - link:https://jwt.io/[JWT]
-image::image1.png[jwt-structure]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330658/blog/another-proud-son-json/image1_sjqdcz.webp[jwt-structure]
 
 The JWT is made up of three parts that are separated by a single dot. Remember
 all the values are base64 encoded (header.payload.signature).
@@ -69,7 +69,7 @@ all the values are base64 encoded (header.payload.signature).
 === How it works
 
 .JWT Flow
-image::image2.png[jwt-flow]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330659/blog/another-proud-son-json/image2_hvbe9y.webp[jwt-flow]
 
 As we can see in the image above, we have three entities. The user, the
 authentication server and the application server. Here we have four steps.

@@ -3,7 +3,7 @@
 :category: attacks
 :subtitle: How to crash Windows
 :tags: osee, training, exploit, windows, kernel, hevd
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-dos/cover_cnggzc.webp
 :alt: Photo by Chaozzy Lin on Unsplash
 :description: This article will be the first approach to start exploting HackSys Extremely Vulnerable Driver with a Denial of Service
 :keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
@@ -41,7 +41,7 @@ for myself but kindly shared with you.
 
 * `g`: Short for `Go`. It will resume the execution of the debuggee.
 
-image::g1.png[g command]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330907/blog/hevd-dos/g1_tz1tgb.webp[g command]
 
 * `t`: Short for `Step Into`. It will execute the next instruction.
 If it's a `call`, it will jump into the call content.
@@ -53,48 +53,48 @@ If it's a `call`, it will execute whatever the call does and jump over it.
 instruction is found. Useful when you `Step Into` a function and want to
 return to the place it was called.
 
-image::deb1.png[execution flow commands]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330907/blog/hevd-dos/deb1_nho4cy.webp[execution flow commands]
 
 * `d*` family: Short for `Display Memory`. It will dump the contents
 of a given memory address. The most useful variation on 32 bits debugging
 is `dc` (dump double-word and ASCII chars).
 
-image::dc1.png[dt command]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330907/blog/hevd-dos/dc1_jash41.webp[dt command]
 
 * `lm`: Short for `List Loaded Modules`.
 You can filter the output using `lm m <module>`.
 
-image::lm1.png[lm command]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330908/blog/hevd-dos/lm1_enljxt.webp[lm command]
 
-image::lm2.png[lm m <module> command]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330906/blog/hevd-dos/lm2_eouttf.webp[lm m <module> command]
 
 * `dt`: Short for `Display Type`. It is used to list data structures.
 
-image::dt1.png[dt command]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330906/blog/hevd-dos/dt1_vbu2ot.webp[dt command]
 
 * `r`: Short for `Registers`. It will show the value of all the processor
 registers and flags. It's also used to change the value of a register.
 
-image::r1.png[r command]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330906/blog/hevd-dos/r1_s2jzj9.webp[r command]
 
 * `u`: Short for `Unassemble`. It will show the instructions
 at the given memory address.
 
-image::u1.png[u command]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330908/blog/hevd-dos/u1_fp4xip.webp[u command]
 
 * `x`: Short for `Examine Symbols`. It will show the symbols at a given module.
 
-image::x1.png[x command]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-dos/x1_f0wxnj.webp[x command]
 
 * `e*` family: Short for `Enter Values`. It will enter a given value to a
 specified memory location. The most used variation on 32 bits debugging
 is `ed` (enter double-word value).
 
-image::ed1.png[ed command]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330906/blog/hevd-dos/ed1_fd7mct.webp[ed command]
 
 * `?`: Evaluate expression.
 
-image::quest1.png[? command]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330908/blog/hevd-dos/quest1_wtsnn3.webp[? command]
 
 * `bp`: Short for `Breakpoint`. It will set a software breakpoint
 at a given address.
@@ -103,7 +103,7 @@ at a given address.
 
 * `bc`: Short for `Clear Breakpoint`. It will remove breakpoints.
 
-image::bp1.png[? command]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330907/blog/hevd-dos/bp1_kh0l6w.webp[? command]
 
 This is by no means a comprehensive `WinDBG` reference but will show the
 commands I use the most when debugging.
@@ -124,7 +124,7 @@ by the OS that allows talking to drivers: `IOCTL` calls.
 When a driver is installed, it sets a device name using the `IoCreateDevice`
 call.
 
-image::iocreatedevice1.png[IoCreateDevice]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-dos/iocreatedevice1_jbuhha.webp[IoCreateDevice]
 
 It then defines the routines that will expose. Commonly, those routines are
 basically functions that will interact with other layers of the OS
@@ -138,17 +138,17 @@ The driver will accept calls to that routines using `IRP` (I/O Request Packets)
 structures and will set a handler that will dispatch the specific routine,
 given a specific `IOCTL` code:
 
-image::iohandler1.png[IrpHandler]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-dos/iohandler1_qmt9l5.webp[IrpHandler]
 
 The `IrpDeviceIoCtlHandler` function in `HEVD` creates a jump table (like
 a `switch` statement) for each managed `IOCTL` code:
 
-image::jmptable1.png[JMP table]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330906/blog/hevd-dos/jmptable1_zih7lj.webp[JMP table]
 
 In `HEVD`, each `case` of that `switch` statement is handled by another
 function that will trigger a specific vulnerable function:
 
-image::jmptable2.png[JMP table]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330907/blog/hevd-dos/jmptable2_pe1rxr.webp[JMP table]
 
 Now, if we want to talk to that driver, we must get a handle on the
 driver's device name, which is `HackSysExtremeVulnerableDrive` in the
@@ -176,7 +176,7 @@ the most basic, a stack overflow.
 When we look at the jump table generated by the `IrpDeviceIoCtlHandler`
 function, the first case is this:
 
-image::case1.png[Case 1]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330908/blog/hevd-dos/case1_dmru9e.webp[Case 1]
 
 It is triggered when the `IOCTL` code is `2236419` decimal or `0x222003`
 in hex. Here, a call to `BufferOverflowStackIoctlHandler` is performed.
@@ -185,7 +185,7 @@ Inside `BufferOverflowStackIoctlHandler`, there is a check verifying if
 the `IRP` package contains user-supplied data. If it does, a call to
 `TriggerBufferOverflowStack` is performed:
 
-image::buffhandler1.png[BufferOverflowStackIoctlHandler]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330907/blog/hevd-dos/buffhandler1_unkrn3.webp[BufferOverflowStackIoctlHandler]
 
 You can also note that the pointer to the user data is placed on `EDX` and
 the pointer to the size of the user data is placed on `EAX`. That information
@@ -222,7 +222,7 @@ BufferOverflowStackIoctlHandler(
 In the `TriggerBufferOverflowStack` function, the first important thing
 to notice is that a `memset(&KernelBuffer, 0, 800h)` call is done:
 
-image::trigger1.png[TriggerBufferOverflowStack]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330907/blog/hevd-dos/trigger1_c4fsed.webp[TriggerBufferOverflowStack]
 
 This indicates that the buffer is `800h` or `2048` bytes long.
 
@@ -231,7 +231,7 @@ In the end of `TriggerBufferOverflowStack`, a call to
 which is a classic example of buffer overflow because we control both the
 `UserBuffer` data and the `SizeOfUserBuffer` value:
 
-image::trigger2.png[TriggerBufferOverflowStack]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-dos/trigger2_ft4sgf.webp[TriggerBufferOverflowStack]
 
 Great, it means that if we wanted to overflow the `KernelBuffer`
 variable, we should inject a payload with more than 2048 bytes,
@@ -267,7 +267,7 @@ HANDLE.ioctl(IOCTL_HEVD_STACK_OVERFLOW, PAYLOAD, SIZE, 0, 0)
 
 And check it:
 
-image::success1.gif[Success]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330908/blog/hevd-dos/success1_orbdny.gif[Success]
 
 Great! We were able to overwrite `EIP` with our `A` buffer! Now the
 target machine is completely unusable and our `DoS` attack was successful.

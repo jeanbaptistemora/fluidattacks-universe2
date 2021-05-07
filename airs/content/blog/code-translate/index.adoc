@@ -3,7 +3,7 @@
 :subtitle: From code to words
 :category: machine-learning
 :tags: machine-learning, security, code
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330835/blog/code-translate/cover_wmd0zp.webp
 :alt: Book in two languages
 :description: Here we talk about Code2seq, which differs in adapting neural machine translation techniques to the task of mapping a snippet of code to a sequence of words.
 :keywords: Machine Learning, Neural Network, Encoding, Parsing, Classifier, Vulnerability, Code2seq, Ethical Hacking, Pentesting
@@ -40,7 +40,7 @@ generate `JavaDoc` documentation given a `Java` method.
 A picture says more than a thousand words:
 
 .Sample prediction and generated AST via link:https://code2seq.org/[demo site].
-image::example.png[Sample prediction and generated AST]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330833/blog/code-translate/example_piygbl.webp[Sample prediction and generated AST]
 
 Notice that the `AST` says _even less_
 about what this snippet does than the code itself, in my opinion.
@@ -57,7 +57,7 @@ Again, as in `code2vec` they use randomly taken
 for the initial representation of code,
 
 .Paths in an AST. From <<r1, [1]>>.
-image::ast-paths.png[Paths in an AST]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330832/blog/code-translate/ast-paths_bkk3wi.webp[Paths in an AST]
 
 This representation, according to them,
 is fairly standard representation of code
@@ -80,7 +80,7 @@ from the previous step as a sequence of nodes.
 Otherwise the architecture is pretty similar:
 
 .`code2seq` architecture. From <<r1, [1]>>.
-image::network.png[Code2seq architecture]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330833/blog/code-translate/network_cprp7q.webp[Code2seq architecture]
 
 As with `code2vec`, their main secret sauce
 lies in the _attention_ mechanisms,
@@ -107,7 +107,7 @@ Again, this is a bit reminiscent of the autoencoder example
 and most likely stemmed from that seminal idea.
 
 .`seq2seq` diagram, via link:https://d2l.ai/_images/seq2seq.svg[d2l.ai].
-image::seq2seq.png[seq2seq diagram]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330833/blog/code-translate/seq2seq_gdwcwt.webp[seq2seq diagram]
 
 Needless to say that this kind of translator networks
 achieve better than deterministic methods,
@@ -125,7 +125,7 @@ The results are better than the current benchmarks,
 including the authors' own previous work, `code2vec`:
 
 .`code2seq` results
-image::results.png[code2seq results]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330832/blog/code-translate/results_b9vy81.webp[code2seq results]
 
 The image to the left refers to the results
 from the summarization task with `Java` source code.

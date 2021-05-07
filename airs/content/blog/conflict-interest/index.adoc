@@ -3,7 +3,7 @@
 :subtitle: You probably don’t see it.
 :category: attacks
 :tags: challenge, business, ethical-hacking, pentesting, security
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330835/blog/conflict-interest/cover_wn6toq.webp
 :alt: handshake
 :description: In cybersecurity, there's plenty of opportunities for Conflicts of Interest to emerge. Here we discuss understanding, consequences, and ways to deal with them.
 :keywords: Conflict of Interest, Hacking, Pentesting, Cybersecurity, Auditing, Business, Ethical Hacking
@@ -82,7 +82,7 @@ For example, acting as a permit to misbehavior (moral licensing)
 or to introducing large biases in advisory work (i.e., exaggerations).
 
 .Statue facing wrong
-image::statue.png[alt="Statue facing wrong", width="600"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330834/blog/conflict-interest/statue_uq24fn.webp[alt="Statue facing wrong", width="600"]
 
 Who performs penetration testing for your organization?
 It is a critical question in light of previous insights.

@@ -3,7 +3,7 @@
 :category: programming
 :subtitle: Static type checking with mypy
 :tags: application, functional, python, mypy
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330665/blog/are-you-checking-types/cover_wrwgye.webp
 :alt: Snake checking a code
 :description: What are the potential problems of untyped objects in Python? Here we work on the importance of checking types before running the code and how mypy can help.
 :keywords: Functional Paradigm, Object Oriented, Stateless, Type Checking, Python, Duck Typing, Mypy, Ethical Hacking, Pentesting
@@ -63,7 +63,7 @@ used to constantly losing games,
 then, just like in dominoes, you are not checking enough!
 
 .Dominoes can be compared with the development activity.
-image::dominoes.png["Family playing dominoes"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330662/blog/are-you-checking-types/dominoes_xtbi5m.webp["Family playing dominoes"]
 
 == Bankruptcy
 

@@ -3,7 +3,7 @@
 :subtitle: A survey of machine learning algorithms
 :category: machine-learning
 :tags: machine-learning, security, application
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330839/blog/crash-course-machine-learning/cover_itk4eg.webp
 :alt: Robot playing the piano
 :description: In this article, we give a high-level view of each of the most important ML algorithms that have a relevant application in information security.
 :keywords: Machine Learning, Clustering, Anomaly Detection, Neural Network, Deep learning, Security, Ethical Hacking, Pentesting
@@ -58,7 +58,7 @@ The difference is that the groups are not known beforehand,
 so this is an unsupervised problem.
 
 .Classification.
-image::classification.png[Classification]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330836/blog/crash-course-machine-learning/classification_klulxs.webp[Classification]
 
 Both of these problems are _discrete_, in the sense
 that categories are separate and there are no in-between
@@ -72,7 +72,7 @@ since it _learns_ a couple of parameters from the data
 and can make predictions based on those.
 
 .Linear Regression
-image::../digression-regression/regression.png[alt="Linear Regression"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330867/blog/digression-regression/regression_r3aruj.webp[alt="Linear Regression"]
 
 Two other interesting problems are
 estimating the probability distribution of a sample of points
@@ -81,7 +81,7 @@ finding a lower-dimensional representation of our inputs
 (*dimensionality reduction*):
 
 .Dimensionality reduction.
-image::dim-reduction.png[width="60%",alt="Dimensionality reduction"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330838/blog/crash-course-machine-learning/dim-reduction_waakjn.webp[width="60%",alt="Dimensionality reduction"]
 
 With these _classifications_ out of the way,
 let's go deeper into each particular technique
@@ -98,7 +98,7 @@ any new point must be on one of the two sides,
 and is thus classified as belonging to one class or the other.
 
 .Support Vector Machines in `2D` and `3D`.
-image::svm.png[alt="2D linear SVM",width="50%"]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330837/blog/crash-course-machine-learning/svm_bysz7e.webp[alt="2D linear SVM",width="50%"]
 
 More generally, if the inputs are _n_-dimensional vectors,
 an `SVM` tries to find a geometric object of dimension _n-1_ (a _hyperplane_)
@@ -121,7 +121,7 @@ Thus a measure of the compactness of a cluster could be
 the sum of the member-to-centroid distances, called the distortion:
 
 .Distortion is lower on the left than on the right, so compactness is better.
-image::distort.png[Distortion]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330837/blog/crash-course-machine-learning/distort_x1wiy2.webp[Distortion]
 
 With that defined, we can state the problem clearly
 as an optimization problem: minimize the sum of all distortions.
@@ -157,7 +157,7 @@ After training, since the whole network is fixed,
 it's only a matter of giving it input and getting the output.
 
 .A neural network with two layers.
-image::neural-network.png[Multilayer perceptron]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330838/blog/crash-course-machine-learning/neural-network_uqy2be.webp[Multilayer perceptron]
 
 The networks described above are _feed-forward_,
 but there are also
@@ -193,7 +193,7 @@ In stark contrast to the unintelligible models extracted from neural networks,
 decision trees are simple enough to understand at a glance:
 
 .A decision tree for classifying malware. Taken from <<r1, [1]>>.
-image::malwtree.png[Malware decision tree]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330837/blog/crash-course-machine-learning/malwtree_q83fjs.webp[Malware decision tree]
 
 However, decision trees have a tendency to overfit the training data,
 i.e., are sensitive to noise and extreme values in it.
@@ -222,7 +222,7 @@ essentially classifies an element according to
 the _k_ training elements closest to it.
 
 .The new point would be classified as a triangle in `3NN`, but as a square in `5NN`.
-image::k-nearest.png[k-nearest neighbors example]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330838/blog/crash-course-machine-learning/k-nearest_eo7l2b.webp[k-nearest neighbors example]
 
 The `kNN` algorithm can also be adapted to be used
 in the context of regression, classification, and anomaly detection,

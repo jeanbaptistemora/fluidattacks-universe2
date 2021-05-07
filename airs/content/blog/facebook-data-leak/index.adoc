@@ -3,7 +3,7 @@
 :subtitle: About 533 million user phone numbers now for 'free'
 :category: attacks
 :tags: cybersecurity, software, vulnerability, mistake, hacking, application
-:image: cover.png
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330872/blog/facebook-data-leak/cover_u38ho9.webp
 :alt: Photo by Barefoot Communications on Unsplash
 :description: This post outlines the most recent Facebook data leak with approximately 533 million records, including users' phone numbers, now posted for free.
 :keywords: Facebook, Data, Leak, Breach, Scraping, Vulnerability, Ethical Hacking, Pentesting
@@ -57,7 +57,7 @@ However, phone numbers, now public,
 are information that usually remains private within accounts.
 
 .link:https://www.bleepingcomputer.com/news/security/533-million-facebook-users-phone-numbers-leaked-on-hacker-forum/[Facebook's founders in data leak].
-image::founders.png[Founders in data leak]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330871/blog/facebook-data-leak/founders_hnumfx.webp[Founders in data leak]
 
 In this database, the affected users are separated by country
 (although Africa is listed, perhaps referring to South Africa).
@@ -139,7 +139,7 @@ And while there may be discussions about this inconsistency,
 nobody mentioned it in the posts I had the opportunity to review.
 
 .link:https://twitter.com/Liz_Shepherd/status/1378398417450377222[Tweet by Liz Bourgeois], Director, Strategic Response Communications at Facebook.
-image::lizb.png[Liz Bourgeois]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330871/blog/facebook-data-leak/lizb_mqlyam.webp[Liz Bourgeois]
 
 The thing now is that, for this 533M records situation,
 people are talking about 'old data' from 2019,
