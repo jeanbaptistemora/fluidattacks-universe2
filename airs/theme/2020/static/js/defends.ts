@@ -20,8 +20,7 @@ const setDefends: (() => void) = (): void => {
       (event.currentTarget as HTMLElement).classList.toggle("active");
       const defendspanel: HTMLElement = (event.currentTarget as HTMLElement).nextElementSibling as HTMLElement;
       // tslint:disable-next-line: strict-boolean-expressions
-      defendspanel.style.maxHeight ? defendspanel.style.maxHeight = "" :
-      defendspanel.style.maxHeight = "max-content";
+      defendspanel.style.maxHeight = defendspanel.style.maxHeight ? "" : "max-content";
     });
   }
 };
@@ -42,8 +41,7 @@ const anchoredPanel: (() => void) = (): void => {
         const defendspanel: HTMLElement | null = (defendsCat as HTMLElement).nextElementSibling as HTMLElement;
         (defendsCat as HTMLElement).classList.toggle("active");
         // tslint:disable-next-line: strict-boolean-expressions
-        defendspanel.style.maxHeight ? defendspanel.style.maxHeight = "" :
-        defendspanel.style.maxHeight = "fit-content";
+        defendspanel.style.maxHeight = defendspanel.style.maxHeight ? "" : "fit-content";
     }
   });
 };
