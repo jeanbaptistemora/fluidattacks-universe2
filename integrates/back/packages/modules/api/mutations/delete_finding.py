@@ -7,7 +7,6 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import util
 from backend.typing import SimplePayload
 from decorators import (
     concurrent_decorators,
@@ -17,6 +16,7 @@ from decorators import (
 )
 from findings import domain as findings_domain
 from mailer import findings as findings_mail
+from newutils import logs as logs_utils
 from redis_cluster.operations import redis_del_by_deps_soon
 
 
@@ -52,7 +52,7 @@ async def mutate(
             'FALSE_POSITIVE': 'It is a false positive',
             'NOT_REQUIRED': 'Finding not required',
         }
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Deleted finding: {finding_id} successfully'
         )
@@ -66,7 +66,7 @@ async def mutate(
             )
         )
     else:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Attempted to delete finding: {finding_id}'
         )

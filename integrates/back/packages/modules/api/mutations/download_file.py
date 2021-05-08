@@ -8,7 +8,6 @@ from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from backend import util
 from backend.typing import DownloadFilePayload as DownloadFilePayloadType
 from decorators import (
     concurrent_decorators,
@@ -18,7 +17,9 @@ from decorators import (
 )
 from newutils import (
     analytics,
+    logs as logs_utils,
     resources as resources_utils,
+    token as token_utils,
 )
 
 
@@ -39,7 +40,7 @@ async def mutate(
     success = False
     file_info = parameters['files_data']
     project_name = parameters['project_name'].lower()
-    user_info = await util.get_jwt_content(info.context)
+    user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info['user_email']
     signed_url = await resources_utils.download_file(
         file_info, project_name
@@ -49,7 +50,7 @@ async def mutate(
             f'Security: Downloaded file {parameters["files_data"]} '
             f'in project {project_name} successfully'
         )
-        util.cloudwatch_log(info.context, msg)
+        logs_utils.cloudwatch_log(info.context, msg)
         await analytics.mixpanel_track(
             user_email,
             'DownloadProjectFile',
@@ -58,7 +59,7 @@ async def mutate(
         )
         success = True
     else:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Attempted to download file '
             f'{parameters["files_data"]} in project {project_name}'

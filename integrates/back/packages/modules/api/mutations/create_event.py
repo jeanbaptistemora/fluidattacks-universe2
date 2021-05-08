@@ -10,7 +10,6 @@ from starlette.datastructures import UploadFile
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import util
 from backend.typing import SimplePayload
 from decorators import (
     concurrent_decorators,
@@ -19,6 +18,10 @@ from decorators import (
     require_login,
 )
 from events import domain as events_domain
+from newutils import (
+    logs as logs_utils,
+    token as token_utils,
+)
 from redis_cluster.operations import redis_del_by_deps_soon
 
 
@@ -37,7 +40,7 @@ async def mutate(
     **kwargs: Any
 ) -> SimplePayload:
     """Resolve create_event mutation."""
-    user_info = await util.get_jwt_content(info.context)
+    user_info = await token_utils.get_jwt_content(info.context)
     analyst_email = user_info['user_email']
     success = await events_domain.create_event(
         info.context.loaders,
@@ -48,7 +51,7 @@ async def mutate(
         **kwargs
     )
     if success:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Created event in {project_name} project successfully'
         )

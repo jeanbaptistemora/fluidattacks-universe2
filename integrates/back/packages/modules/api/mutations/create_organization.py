@@ -7,12 +7,12 @@ from typing import Dict
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import util
 from backend.typing import (
     CreateOrganizationPayload,
     Organization,
 )
 from decorators import require_login
+from newutils import token as token_utils
 from organizations import domain as orgs_domain
 
 
@@ -26,7 +26,7 @@ async def mutate(
     info: GraphQLResolveInfo,
     name: str
 ) -> CreateOrganizationPayload:
-    user_info: Dict[str, str] = await util.get_jwt_content(info.context)
+    user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info['user_email']
 
     TRANSACTIONS_LOGGER.info(

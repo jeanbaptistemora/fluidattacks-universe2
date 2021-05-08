@@ -18,12 +18,12 @@ from back.settings import (
     LOGGING,
     NOEXTRA
 )
-from backend import util
 from backend.typing import Resource as ResourceType
 from custom_exceptions import InvalidFileSize
 from groups import domain as groups_domain
 from newutils import (
     datetime as datetime_utils,
+    files as files_utils,
     resources as resources_utils,
     validations,
 )
@@ -117,6 +117,6 @@ async def validate_file_size(
 ) -> bool:
     """Validate if uploaded file size is less than a given file size."""
     mib = 1048576
-    if await util.get_file_size(uploaded_file) > file_size * mib:
+    if await files_utils.get_file_size(uploaded_file) > file_size * mib:
         raise InvalidFileSize()
     return True

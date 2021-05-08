@@ -6,7 +6,6 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import util
 from backend.typing import SimplePayload
 from custom_exceptions import (
     ErrorUploadingFileS3,
@@ -17,6 +16,10 @@ from decorators import (
     enforce_group_level_auth_async,
     require_integrates,
     require_login,
+)
+from newutils import (
+    files as files_utils,
+    logs as logs_utils,
 )
 from organizations_finding_policies import domain as policies_domain
 from redis_cluster.operations import redis_del_by_deps
@@ -40,7 +43,7 @@ async def mutate(
     finding_loader = info.context.loaders.finding
     finding_data = await finding_loader.load(finding_id)
     group_name = finding_data['project_name']
-    allowed_mime_type = await util.assert_uploaded_file_mime(
+    allowed_mime_type = await files_utils.assert_uploaded_file_mime(
         file_input,
         ['text/x-yaml', 'text/plain', 'text/html']
     )
@@ -71,12 +74,12 @@ async def mutate(
             finding_id=finding_id,
             group_name=group_name,
         )
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Uploaded file in {group_name} group successfully'
         )
     else:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Attempted to delete file from {group_name} group'
         )

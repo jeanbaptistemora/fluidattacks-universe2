@@ -8,11 +8,9 @@ from typing import (
 )
 
 # Third-party libraries
-from aioextensions import collect
 from starlette.requests import Request
 
 # Local libraries
-import authz
 from back import settings
 from custom_exceptions import (
     ExpiredToken,
@@ -21,12 +19,10 @@ from custom_exceptions import (
 from redis_cluster.model import KeyNotFound as RedisKeyNotFound
 from redis_cluster.operations import (
     redis_cmd,
-    redis_del_by_deps,
     redis_del_entity_attr,
     redis_get_entity_attr,
     redis_set_entity_attr,
 )
-from users import dal as users_dal
 
 
 async def add_element(key: str, value: Dict[str, Any], time: int) -> None:
@@ -42,32 +38,6 @@ async def check_jwt_token_validity(request: Request) -> None:
             pass
         else:
             # Jwt cookie is expired, let's logout the user
-            await remove_session_key(email, attr)
-            request.session.clear()
-            raise ExpiredToken()
-    except RedisKeyNotFound:
-        # User do not even has an active session
-        raise SecureAccessException()
-
-
-async def check_session_web_validity(request: Request) -> None:
-    email: str = request.session['username']
-    session_key: str = request.session['session_key']
-    attr: str = 'web'
-
-    # Check if the user has a concurrent session and in case they do
-    # raise the concurrent session modal flag
-    if request.session.get('is_concurrent'):
-        request.session.pop('is_concurrent')
-        await users_dal.update(email, {'is_concurrent_session': True})
-    try:
-        # Check if the user has an active session but it's different
-        # than the one in the cookie
-        if await get_session_key(email, attr) == session_key:
-            # Session and cookie are ok and up to date
-            pass
-        else:
-            # Session or the cookie are expired, let's logout the user
             await remove_session_key(email, attr)
             request.session.clear()
             raise ExpiredToken()
@@ -97,17 +67,6 @@ async def create_session_web(request: Request) -> bool:
     )
 
 
-async def delete_user(email: str) -> bool:
-    success = all(
-        await collect([
-            authz.revoke_user_level_role(email),
-            users_dal.delete(email)
-        ])
-    )
-    await logout(email)
-    return success
-
-
 async def get_session_key(email: str, attr: str) -> Optional[str]:
     session_key: Optional[str] = None
     with contextlib.suppress(RedisKeyNotFound):
@@ -117,10 +76,6 @@ async def get_session_key(email: str, attr: str) -> Optional[str]:
             email=email,
         )
     return session_key
-
-
-async def logout(email: str) -> None:
-    await redis_del_by_deps('session_logout', session_email=email)
 
 
 async def remove_session_key(email: str, attr: str) -> bool:

@@ -27,7 +27,6 @@ PROJECT_PATH: str = '/usr/src/app'
 sys.path.append(PROJECT_PATH)
 os.chdir(PROJECT_PATH)
 
-from backend import util
 from findings.dal import TABLE_NAME as FINDINGS_TABLE
 
 

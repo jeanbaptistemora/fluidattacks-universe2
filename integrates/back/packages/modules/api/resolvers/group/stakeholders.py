@@ -10,7 +10,6 @@ from typing import (
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from backend import util
 from backend.typing import (
     Project as GroupType,
     Stakeholder as StakeholderType,
@@ -20,6 +19,7 @@ from decorators import (
     enforce_group_level_auth_async,
     require_integrates,
 )
+from newutils import token as token_utils
 from redis_cluster.operations import redis_get_or_set_entity_attr
 from users import domain as users_domain
 
@@ -49,7 +49,7 @@ async def resolve_no_cache(
 ) -> List[StakeholderType]:
     group_name: str = cast(str, parent['name'])
 
-    user_data: Dict[str, str] = await util.get_jwt_content(info.context)
+    user_data: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data['user_email']
 
     if users_domain.is_fluid_staff(user_email):

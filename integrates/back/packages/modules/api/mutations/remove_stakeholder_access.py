@@ -6,7 +6,6 @@ from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from backend import util
 from backend.typing import (
     RemoveStakeholderAccessPayload as RemoveStakeholderAccessPayloadType
 )
@@ -17,6 +16,7 @@ from decorators import (
     require_login,
 )
 from groups import domain as groups_domain
+from newutils import logs as logs_utils
 from redis_cluster.operations import redis_del_by_deps_soon
 
 
@@ -47,13 +47,13 @@ async def mutate(
             f'Security: Removed stakeholder: {user_email} from {project_name} '
             f'project successfully'
         )
-        util.cloudwatch_log(info.context, msg)
+        logs_utils.cloudwatch_log(info.context, msg)
     else:
         msg = (
             f'Security: Attempted to remove stakeholder: {user_email} '
             f'from {project_name} project'
         )
-        util.cloudwatch_log(info.context, msg)
+        logs_utils.cloudwatch_log(info.context, msg)
 
     return RemoveStakeholderAccessPayloadType(
         success=success,

@@ -8,10 +8,10 @@ from aioextensions import (
 )
 
 # Local libraries
-from backend import util
 from dataloaders import get_new_context
 from findings import domain as findings_domain
 from groups import domain as groups_domain
+from newutils import reports as reports_utils
 from vulnerabilities import domain as vulns_domain
 from .report_types import (
     data as data_report,
@@ -44,7 +44,7 @@ async def get_group_report_url(
         )
         for finding, format_vuln in zip(findings, format_vulns)
     ])
-    findings_ord = util.ord_asc_by_criticality(list(format_findings))
+    findings_ord = reports_utils.ord_asc_by_criticality(list(format_findings))
     description = await groups_domain.get_description(group_name)
 
     if report_type == 'XLS':

@@ -5,9 +5,8 @@ from datetime import datetime, timedelta
 from starlette.responses import Response
 
 from back import settings
-from backend import util
 from dataloaders import apply_context_attrs
-from newutils import token as token_helper
+from newutils import token as token_utils
 from redis_cluster.operations import redis_set_entity_attr
 
 
@@ -38,9 +37,9 @@ async def create_dummy_session(
         'exp': datetime.utcnow() +
         timedelta(seconds=settings.SESSION_COOKIE_AGE),
         'sub': 'starlette_session',
-        'jti': util.calculate_hash_token()['jti'],
+        'jti': token_utils.calculate_hash_token()['jti'],
     }
-    token = token_helper.new_encoded_jwt(payload)
+    token = token_utils.new_encoded_jwt(payload)
     if session_jwt:
         request.headers['Authorization'] = f'Bearer {session_jwt}'
     else:

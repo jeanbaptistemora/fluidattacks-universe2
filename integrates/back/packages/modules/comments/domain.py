@@ -14,16 +14,13 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 import authz
-from backend import util
 from backend.typing import (
     Comment as CommentType,
     Finding as FindingType,
     User as UserType
 )
 from comments import dal as comments_dal
-from newutils import (
-    datetime as datetime_utils,
-)
+from newutils import datetime as datetime_utils
 
 
 def _fill_vuln_info(
@@ -144,11 +141,11 @@ async def fill_comment_data(
     )
     return {
         'content': data['content'],
-        'created': util.format_comment_date(data['created']),
+        'created': datetime_utils.format_comment_date(data['created']),
         'email': data['email'],
         'fullname': fullname if fullname else data['email'],
         'id': int(data['user_id']),
-        'modified': util.format_comment_date(data['modified']),
+        'modified': datetime_utils.format_comment_date(data['modified']),
         'parent': int(data['parent'])
     }
 

@@ -9,7 +9,6 @@ from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from backend import util
 from backend.typing import SimpleProjectPayload as SimpleProjectPayloadType
 from decorators import (
     concurrent_decorators,
@@ -18,6 +17,7 @@ from decorators import (
     require_integrates,
 )
 from groups import domain as groups_domain
+from newutils import logs as logs_utils
 from redis_cluster.operations import redis_del_by_deps_soon
 
 
@@ -46,12 +46,12 @@ async def mutate(  # pylint: disable=too-many-arguments
                 tags
             )
         else:
-            util.cloudwatch_log(
+            logs_utils.cloudwatch_log(
                 info.context,
                 'Security: Attempted to add tags without allowed structure'
             )
     else:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             'Security: Attempted to add tags without the allowed validations'
         )
@@ -59,7 +59,7 @@ async def mutate(  # pylint: disable=too-many-arguments
         group_loader.clear(group_name)
         info.context.loaders.group_all.clear(group_name)
         redis_del_by_deps_soon('add_group_tags', group_name=project_name)
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Added tag to {group_name} group successfully'
         )

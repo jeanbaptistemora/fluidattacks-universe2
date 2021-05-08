@@ -9,7 +9,6 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import util
 from backend.typing import SimplePayload
 from decorators import (
     concurrent_decorators,
@@ -17,6 +16,7 @@ from decorators import (
     require_login,
     require_drills_black,
 )
+from newutils import token as token_utils
 from roots import domain as roots_domain
 
 
@@ -31,7 +31,7 @@ async def mutate(
     info: GraphQLResolveInfo,
     **kwargs: Any
 ) -> SimplePayload:
-    user_info: Dict[str, str] = await util.get_jwt_content(info.context)
+    user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info['user_email']
 
     await roots_domain.add_url_root(info.context.loaders, user_email, **kwargs)

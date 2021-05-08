@@ -6,9 +6,9 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import util
 from backend.typing import Me
 from decorators import require_login
+from newutils import token as token_utils
 
 
 @convert_kwargs_to_snake_case
@@ -19,7 +19,7 @@ async def resolve(
     **kwargs: str
 ) -> Me:
     caller_origin: str = kwargs.get('caller_origin', 'API')
-    user_data: Dict[str, str] = await util.get_jwt_content(info.context)
+    user_data: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     return {
         'caller_origin': caller_origin,
         'session_expiration': user_data['exp'],

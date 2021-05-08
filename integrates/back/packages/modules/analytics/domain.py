@@ -22,13 +22,13 @@ import authz
 from analytics import dal as analytics_dal
 from back.app.views import templates
 from back.settings import LOGGING
-from backend import util
 from backend.typing import (
     GraphicsForEntityParameters,
     GraphicParameters,
     ReportParameters,
 )
 from custom_exceptions import DocumentNotFound
+from newutils import token as token_utils
 from newutils.encodings import safe_encode
 from newutils.context import CHARTS_LOGO_PATH
 from redis_cluster.operations import redis_get_or_set_entity_attr
@@ -161,7 +161,7 @@ async def handle_authz_claims(
     ],
     request: Request,
 ) -> None:
-    user_info = await util.get_jwt_content(request)
+    user_info = await token_utils.get_jwt_content(request)
     email = user_info['user_email']
     if params.subject.endswith('_30') or params.subject.endswith('_90'):
         subject = params.subject[:-3]

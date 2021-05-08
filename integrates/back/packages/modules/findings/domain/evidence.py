@@ -19,7 +19,6 @@ from starlette.datastructures import UploadFile
 
 # Local libraries
 from back.settings import LOGGING
-from backend import util
 from custom_exceptions import (
     EvidenceNotFound,
     InvalidFileSize,
@@ -28,7 +27,9 @@ from custom_exceptions import (
 from findings import dal as findings_dal
 from newutils import (
     datetime as datetime_utils,
+    files as files_utils,
     findings as finding_utils,
+    utils,
     validations,
 )
 from .core import get_finding
@@ -51,7 +52,7 @@ async def download_evidence_file(
         start = file_id.find(finding_id) + len(finding_id)
         localfile = f'/tmp{file_id[start:]}'
         ext = {'.py': '.tmp'}
-        tmp_filepath = util.replace_all(localfile, ext)
+        tmp_filepath = utils.replace_all(localfile, ext)
         await findings_dal.download_evidence(file_id, tmp_filepath)
         return cast(str, tmp_filepath)
     raise Exception('Evidence not found')
@@ -71,7 +72,7 @@ async def get_records_from_file(
             max_rows = 1000
             headers = next(csv_reader)
             file_content = [
-                util.list_to_dict(headers, row)
+                utils.list_to_dict(headers, row)
                 for row in itertools.islice(csv_reader, max_rows)
             ]
     except (csv.Error, LookupError, UnicodeDecodeError) as ex:
@@ -211,10 +212,10 @@ async def validate_evidence(evidence_id: str, file: UploadFile) -> bool:
     elif evidence_id == 'fileRecords':
         allowed_mimes = ['text/csv', 'text/plain', 'application/csv']
 
-    if not await util.assert_uploaded_file_mime(file, allowed_mimes):
+    if not await files_utils.assert_uploaded_file_mime(file, allowed_mimes):
         raise InvalidFileType()
 
-    if await util.get_file_size(file) < max_size * mib:
+    if await files_utils.get_file_size(file) < max_size * mib:
         success = True
     else:
         raise InvalidFileSize()

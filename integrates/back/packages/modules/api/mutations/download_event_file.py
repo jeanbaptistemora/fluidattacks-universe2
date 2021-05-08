@@ -6,7 +6,6 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import util
 from backend.typing import DownloadFilePayload
 from decorators import (
     concurrent_decorators,
@@ -15,6 +14,7 @@ from decorators import (
     require_login,
 )
 from events import domain as events_domain
+from newutils import logs as logs_utils
 
 
 @convert_kwargs_to_snake_case
@@ -32,13 +32,13 @@ async def mutate(
     success = False
     signed_url = await events_domain.get_evidence_link(event_id, file_name)
     if signed_url:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Downloaded file in event {event_id} successfully'
         )
         success = True
     else:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Attempted to download file in event {event_id}'
         )

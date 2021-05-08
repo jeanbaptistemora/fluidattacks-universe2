@@ -13,7 +13,6 @@ from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from backend import util
 from backend.typing import SimplePayload as SimplePayloadType
 from data_containers.toe_lines import GitRootToeLines
 from decorators import (
@@ -21,6 +20,7 @@ from decorators import (
     require_integrates,
     require_login,
 )
+from newutils import logs as logs_utils
 from redis_cluster.operations import redis_del_by_deps
 from toe.lines import domain as toe_lines_domain
 
@@ -66,13 +66,13 @@ async def mutate(
             )
             for root_id in root_ids
         ])
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Successfully updated sorts risk level '
             f'for group {group_name} in toes with filename {filename}',
         )
     else:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Tried to update sorts risk level '
             f'for group {group_name} in toes with filename {filename}',

@@ -18,9 +18,13 @@ from starlette.responses import (
 
 # Local libraries
 import authz
-from backend import util
 from events.domain import has_access_to_event
 from findings.domain import has_access_to_finding
+from newutils import (
+    files as files_utils,
+    logs as logs_utils,
+    utils,
+)
 from s3.operations import (
     download_file,
     list_files,
@@ -102,7 +106,7 @@ async def get_evidence(request: Request) -> Response:
             for evidence in evidences:
                 start = evidence.find(finding_id) + len(finding_id)
                 localfile = f'/tmp{evidence[start:]}'
-                localtmp = util.replace_all(
+                localtmp = utils.replace_all(
                     localfile,
                     {'.png': '.tmp', '.gif': '.tmp'}
                 )
@@ -117,7 +121,7 @@ async def get_evidence(request: Request) -> Response:
                 }
             )
     else:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             request,
             f'Security: Attempted to retrieve evidence without permission'
         )
@@ -135,7 +139,7 @@ async def list_s3_evidences(prefix: str) -> List[str]:
 
 
 def retrieve_image(request: Request, img_file: str) -> Response:
-    if util.assert_file_mime(
+    if files_utils.assert_file_mime(
             img_file,
             ['image/png', 'image/jpeg', 'image/gif']):
         with open(img_file, 'rb') as file_obj:

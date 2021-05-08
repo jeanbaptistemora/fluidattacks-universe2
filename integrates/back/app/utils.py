@@ -20,7 +20,6 @@ from starlette.responses import HTMLResponse
 # Local libraries
 import authz
 from back import settings
-from backend import util
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain
 from organizations import domain as orgs_domain
@@ -28,7 +27,7 @@ from mailer import users as users_mail
 from newutils import (
     analytics,
     datetime as datetime_utils,
-    token as token_helper,
+    token as token_utils,
 )
 from redis_cluster.operations import redis_set_entity_attr
 from users import domain as users_domain
@@ -40,9 +39,9 @@ from __init__ import (
 
 
 async def create_session_token(user: Dict[str, str]) -> str:
-    jti = util.calculate_hash_token()['jti']
+    jti = token_utils.calculate_hash_token()['jti']
     user_email = user['username']
-    jwt_token: str = token_helper.new_encoded_jwt(
+    jwt_token: str = token_utils.new_encoded_jwt(
         dict(
             user_email=user_email,
             first_name=user['first_name'],

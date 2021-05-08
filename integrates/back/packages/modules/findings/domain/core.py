@@ -34,7 +34,6 @@ from back.settings import (
     LOGGING,
     NOEXTRA,
 )
-from backend import util
 from backend.typing import (
     Comment as CommentType,
     Finding as FindingType,
@@ -57,6 +56,9 @@ from newutils import (
     cvss,
     datetime as datetime_utils,
     findings as findings_utils,
+    requests as requests_utils,
+    token as token_utils,
+    utils,
     validations,
     vulnerabilities as vulns_utils,
 )
@@ -180,9 +182,9 @@ async def delete_finding(
 
     if submission_history[-1].get('state') != 'DELETED':
         delete_date = datetime_utils.get_now_as_str()
-        user_info = await util.get_jwt_content(context)
+        user_info = await token_utils.get_jwt_content(context)
         analyst = user_info['user_email']
-        source = util.get_source(context)
+        source = requests_utils.get_source(context)
         submission_history.append({
             'state': 'DELETED',
             'date': delete_date,
@@ -213,7 +215,7 @@ async def delete_vulnerabilities(
 ) -> bool:
     finding_vulns_loader = context.loaders.finding_vulns
     vulnerabilities = await finding_vulns_loader.load(finding_id)
-    source = util.get_source(context)
+    source = requests_utils.get_source(context)
     return all(
         await collect(
             vulns_domain.delete_vulnerability(
@@ -825,7 +827,7 @@ async def update_description(
         for key, value in updated_values.items()
     }
     updated_values = {
-        util.camelcase_to_snakecase(k): updated_values.get(k)
+        utils.camelcase_to_snakecase(k): updated_values.get(k)
         for k in updated_values
     }
 

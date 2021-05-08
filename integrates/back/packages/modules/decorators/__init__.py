@@ -23,14 +23,17 @@ from graphql import GraphQLError
 import authz
 from back import settings
 from back.app.views import templates
-from backend import util
 from custom_exceptions import (
     InvalidAuthorization,
     FindingNotFound,
     UserNotInOrganization,
 )
 from findings import domain as findings_domain
-from newutils import function
+from newutils import (
+    function,
+    logs as logs_utils,
+    token as token_utils,
+)
 from organizations import domain as orgs_domain
 from users import domain as users_domain
 from vulnerabilities import domain as vulns_domain
@@ -178,8 +181,8 @@ def enforce_group_level_auth_async(func: TVar) -> TVar:
 
         if isinstance(context, dict):
             context = context.get('request', {})
-        store = util.get_request_store(context)
-        user_data = await util.get_jwt_content(context)
+        store = token_utils.get_request_store(context)
+        user_data = await token_utils.get_jwt_content(context)
         subject = user_data['user_email']
         object_ = await resolve_group_name(context, args, kwargs)
         action = f'{_func.__module__}.{_func.__qualname__}'.replace('.', '_')
@@ -196,7 +199,7 @@ def enforce_group_level_auth_async(func: TVar) -> TVar:
 
         enforcer = await authz.get_group_level_enforcer(subject, store)
         if not enforcer(object_, action):
-            util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
+            logs_utils.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError('Access denied')  # NOSONAR
         return await _func(*args, **kwargs)
     return cast(TVar, verify_and_call)
@@ -226,7 +229,7 @@ def enforce_organization_level_auth_async(func: TVar) -> TVar:
             if organization_identifier.startswith('ORG#')
             else await orgs_domain.get_id_by_name(organization_identifier)
         )
-        user_data = await util.get_jwt_content(context)
+        user_data = await token_utils.get_jwt_content(context)
         subject = user_data['user_email']
         object_ = organization_id.lower()
         action = f'{_func.__module__}.{_func.__qualname__}'.replace('.', '_')
@@ -240,7 +243,7 @@ def enforce_organization_level_auth_async(func: TVar) -> TVar:
                 })
         enforcer = await authz.get_organization_level_enforcer(subject)
         if not enforcer(object_, action):
-            util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
+            logs_utils.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError('Access denied')
         return await _func(*args, **kwargs)
     return cast(TVar, verify_and_call)
@@ -259,14 +262,14 @@ def enforce_user_level_auth_async(func: TVar) -> TVar:
         else:
             GraphQLError('Could not get context from request.')
 
-        user_data = await util.get_jwt_content(context)
+        user_data = await token_utils.get_jwt_content(context)
         subject = user_data['user_email']
         object_ = 'self'
         action = f'{_func.__module__}.{_func.__qualname__}'.replace('.', '_')
 
         enforcer = await authz.get_user_level_enforcer(subject)
         if not enforcer(object_, action):
-            util.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
+            logs_utils.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError('Access denied')
         return await _func(*args, **kwargs)
     return cast(TVar, verify_and_call)
@@ -310,7 +313,7 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
 
             if isinstance(context, dict):
                 context = context.get('request', {})
-            store = util.get_request_store(context)
+            store = token_utils.get_request_store(context)
             group = await resolve_group_name(context, args, kwargs)
 
             # Unique ID for this decorator function
@@ -408,7 +411,7 @@ def require_login(func: TVar) -> TVar:
         context = args[1].context if len(args) > 1 else args[0]
         if isinstance(context, dict):
             context = context.get('request', {})
-        store = util.get_request_store(context)
+        store = token_utils.get_request_store(context)
 
         # Within the context of one request we only need to check this once
         # Future calls to this decorator will be passed trough
@@ -416,8 +419,8 @@ def require_login(func: TVar) -> TVar:
             return await _func(*args, **kwargs)
 
         try:
-            user_data: Any = await util.get_jwt_content(context)
-            if util.is_api_token(user_data):
+            user_data: Any = await token_utils.get_jwt_content(context)
+            if token_utils.is_api_token(user_data):
                 await verify_jti(
                     user_data['user_email'],
                     context.headers.get('Authorization'),
@@ -452,7 +455,7 @@ def require_organization_access(func: TVar) -> TVar:
             kwargs.get('organization_name')
         )
 
-        user_data = await util.get_jwt_content(context)
+        user_data = await token_utils.get_jwt_content(context)
         user_email = user_data['user_email']
         organization_id = (
             organization_identifier
@@ -465,7 +468,7 @@ def require_organization_access(func: TVar) -> TVar:
         ])
 
         if role != 'admin' and not has_access:
-            util.cloudwatch_log(
+            logs_utils.cloudwatch_log(
                 context,
                 f'Security: User {user_email} attempted to access '
                 f'organization {organization_identifier} without permission'

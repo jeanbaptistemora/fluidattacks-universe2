@@ -6,7 +6,6 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import util
 from backend.typing import SimplePayload
 from decorators import (
     concurrent_decorators,
@@ -15,6 +14,7 @@ from decorators import (
     require_login,
 )
 from events import domain as events_domain
+from newutils import logs as logs_utils
 
 
 @convert_kwargs_to_snake_case
@@ -33,7 +33,7 @@ async def mutate(
     success = await events_domain.remove_evidence(evidence_type, event_id)
     if success:
         info.context.loaders.event.clear(event_id)
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Removed evidence in event {event_id}'
         )

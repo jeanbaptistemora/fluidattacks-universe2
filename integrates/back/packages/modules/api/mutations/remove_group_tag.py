@@ -14,7 +14,6 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local libraries
 from back.settings import LOGGING
 
-from backend import util
 from backend.typing import SimpleProjectPayload as SimpleProjectPayloadType
 from decorators import (
     concurrent_decorators,
@@ -23,6 +22,7 @@ from decorators import (
     require_integrates,
 )
 from groups import domain as groups_domain
+from newutils import logs as logs_utils
 from redis_cluster.operations import redis_del_by_deps_soon
 
 
@@ -61,12 +61,12 @@ async def mutate(  # pylint: disable=too-many-arguments
     if success:
         redis_del_by_deps_soon('remove_group_tag', group_name=group_name)
         group_loader.clear(group_name)
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Removed tag from {group_name} group successfully'
         )
     else:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Attempted to remove tag in {group_name} group'
         )

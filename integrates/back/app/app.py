@@ -49,6 +49,7 @@ from newutils import analytics
 from organizations import domain as orgs_domain
 from redis_cluster.operations import redis_del_entity_attr
 from sessions import dal as sessions_dal
+from users import domain as users_domain
 from __init__ import (
     FI_ENVIRONMENT,
     FI_STARLETTE_SESSION_KEY,
@@ -63,7 +64,7 @@ async def app(request: Request) -> HTMLResponse:
     try:
         if email:
             if FI_ENVIRONMENT == 'production':
-                await sessions_dal.check_session_web_validity(request)
+                await users_domain.check_session_web_validity(request)
 
             if not await orgs_domain.get_user_organizations(email):
                 response = templates.unauthorized(request)

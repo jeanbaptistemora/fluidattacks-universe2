@@ -20,7 +20,6 @@ from starlette.datastructures import UploadFile
 
 # Local libraries
 from back.settings import LOGGING
-from backend import util
 from backend.typing import (
     Action,
     Datetime,
@@ -35,6 +34,7 @@ from newutils import (
     cvss,
     datetime as datetime_utils,
     forms as forms_utils,
+    utils,
 )
 
 
@@ -205,7 +205,7 @@ def filter_non_submitted_findings(
 # pylint: disable=simplifiable-if-expression
 def format_data(finding: Dict[str, FindingType]) -> Dict[str, FindingType]:
     finding = {
-        util.snakecase_to_camelcase(attribute): finding.get(attribute)
+        utils.snakecase_to_camelcase(attribute): finding.get(attribute)
         for attribute in finding
     }
 
@@ -569,7 +569,7 @@ def validate_acceptance_date(values: Dict[str, str]) -> bool:
             values['acceptance_date'] = (
                 f'{values["acceptance_date"].split()[0]} {today.split()[1]}'
             )
-            if not util.is_valid_format(values['acceptance_date']):
+            if not datetime_utils.is_valid_format(values['acceptance_date']):
                 raise InvalidDateFormat()
         else:
             raise InvalidDateFormat()

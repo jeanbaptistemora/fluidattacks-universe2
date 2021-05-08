@@ -10,10 +10,10 @@ from graphql.type.definition import GraphQLResolveInfo
 from starlette.datastructures import UploadFile
 
 # Local
-from backend import util
 from backend.typing import SimplePayload
 from decorators import enforce_group_level_auth_async
 from forces import domain as forces_domain
+from newutils import logs as logs_utils
 
 
 @convert_kwargs_to_snake_case
@@ -31,7 +31,7 @@ async def mutate(
         **parameters
     )
     if success:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             (
                 f'Security: Created forces execution in {project_name} '

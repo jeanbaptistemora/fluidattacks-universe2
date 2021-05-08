@@ -6,7 +6,6 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from backend import util
 from backend.typing import SimplePayload
 from dataloaders import Dataloaders
 from decorators import (
@@ -14,6 +13,7 @@ from decorators import (
     enforce_organization_level_auth_async,
     require_login,
 )
+from newutils import token as token_utils
 from organizations import domain as orgs_domain
 from organizations_finding_policies import domain as policies_domain
 
@@ -29,7 +29,7 @@ async def mutate(
     finding_policy_id: str,
     organization_name: str,
 ) -> SimplePayload:
-    user_info: Dict[str, str] = await util.get_jwt_content(info.context)
+    user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info['user_email']
     loaders: Dataloaders = info.context.loaders
     org_id: str = await orgs_domain.get_id_by_name(organization_name)

@@ -12,12 +12,12 @@ from aiodataloader import DataLoader
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import util
 from backend.typing import (
     Finding,
     Project as Group,
 )
 from decorators import require_integrates
+from newutils import utils
 
 
 @require_integrates
@@ -40,6 +40,6 @@ async def resolve(
     if filters:
         return cast(
             List[Finding],
-            await util.get_filtered_elements(findings, filters)
+            await utils.get_filtered_elements(findings, filters)
         )
     return findings

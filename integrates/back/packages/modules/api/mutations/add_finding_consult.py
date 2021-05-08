@@ -8,7 +8,6 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from backend import util
 from backend.typing import AddConsultPayload as AddConsultPayloadType
 from custom_exceptions import PermissionDenied
 from decorators import (
@@ -19,7 +18,11 @@ from decorators import (
 )
 from findings import domain as findings_domain
 from mailer import findings as findings_mail
-from newutils import datetime as datetime_utils
+from newutils import (
+    datetime as datetime_utils,
+    logs as logs_utils,
+    token as token_utils,
+)
 from redis_cluster.operations import redis_del_by_deps_soon
 
 
@@ -36,7 +39,7 @@ async def mutate(
 ) -> AddConsultPayloadType:
     success = False
     param_type = parameters.get('type', '').lower()
-    user_data = await util.get_jwt_content(info.context)
+    user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data['user_email']
     finding_id = str(parameters.get('finding_id'))
     finding_loader = info.context.loaders.finding
@@ -69,7 +72,7 @@ async def mutate(
             group
         )
     except PermissionDenied:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             'Security: Unauthorized role attempted to add observation'
         )
@@ -86,12 +89,12 @@ async def mutate(
                 )
             )
 
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Added comment in finding {finding_id} successfully'
         )
     else:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Attempted to add comment in finding {finding_id}'
         )

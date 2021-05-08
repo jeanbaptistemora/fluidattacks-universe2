@@ -11,12 +11,12 @@ from typing import (
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import util
 from backend.typing import (
     Comment,
     Event,
 )
 from comments import domain as comments_domain
+from newutils import token as token_utils
 from redis_cluster.operations import redis_get_or_set_entity_attr
 
 
@@ -28,7 +28,7 @@ async def resolve_no_cache(
     event_id: str = cast(str, parent['id'])
     group_name: str = cast(str, parent['project_name'])
 
-    user_data: Dict[str, str] = await util.get_jwt_content(info.context)
+    user_data: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data['user_email']
 
     return cast(

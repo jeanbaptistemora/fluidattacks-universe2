@@ -9,8 +9,11 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 from back.settings import LOGGING
-from backend import util
 from backend.typing import SimplePayload as SimplePayloadType
+from newutils import (
+    logs as logs_utils,
+    token as token_utils,
+)
 from subscriptions import domain as subscriptions_domain
 
 
@@ -29,7 +32,7 @@ async def mutate(
     report_subject: str,
 ) -> SimplePayloadType:
     success: bool = False
-    user_info = await util.get_jwt_content(info.context)
+    user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info['user_email']
 
     if await subscriptions_domain.can_subscribe_user_to_entity_report(
@@ -45,7 +48,7 @@ async def mutate(
         )
 
         if success:
-            util.cloudwatch_log(
+            logs_utils.cloudwatch_log(
                 info.context,
                 f'user: {user_email} edited subscription to '
                 f'entity_report: {report_entity}/{report_subject} '
@@ -58,7 +61,7 @@ async def mutate(
                 extra={'extra': locals()}
             )
     else:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'user: {user_email} attempted to edit subscription to '
             f'entity_report: {report_entity}/{report_subject} '

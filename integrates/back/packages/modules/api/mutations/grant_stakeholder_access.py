@@ -10,7 +10,6 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local libraries
 import authz
 from back.settings import LOGGING
-from backend import util
 from backend.typing import (
     GrantStakeholderAccessPayload as GrantStakeholderAccessPayloadType,
 )
@@ -23,6 +22,10 @@ from decorators import (
 )
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain
+from newutils import (
+    logs as logs_utils,
+    token as token_utils,
+)
 from redis_cluster.operations import redis_del_by_deps
 
 
@@ -46,7 +49,7 @@ async def mutate(
 ) -> GrantStakeholderAccessPayloadType:
     project_name = query_args.get('project_name', '').lower()
     success = False
-    user_data = await util.get_jwt_content(info.context)
+    user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data['user_email']
     new_user_role = role
     new_user_email = query_args.get('email', '')
@@ -90,7 +93,7 @@ async def mutate(
             'grant_stakeholder_access',
             group_name=project_name,
         )
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Given grant access to {new_user_email} '
             f'in {project_name} project'
@@ -100,7 +103,7 @@ async def mutate(
             'Couldn\'t grant access to project',
             extra={'extra': info.context}
         )
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Attempted to grant access to {new_user_email} '
             f'in {project_name} project'

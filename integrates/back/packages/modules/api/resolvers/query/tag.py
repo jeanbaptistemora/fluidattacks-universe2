@@ -8,11 +8,11 @@ from typing import (
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import util
 from backend.typing import Tag
 from custom_exceptions import TagNotFound
 from decorators import require_login
 from groups import domain as groups_domain
+from newutils import token as token_utils
 from organizations import domain as orgs_domain
 from tags import domain as tags_domain
 
@@ -25,7 +25,7 @@ async def resolve(
 ) -> Tag:
     tag_name: str = kwargs['tag'].lower()
 
-    user_data: Dict[str, str] = await util.get_jwt_content(info.context)
+    user_data: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data['user_email']
     user_groups: List[str] = await groups_domain.get_groups_by_user(
         user_email

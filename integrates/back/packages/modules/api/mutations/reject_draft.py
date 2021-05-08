@@ -7,7 +7,6 @@ from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from backend import util
 from backend.typing import SimplePayload as SimplePayloadType
 from decorators import (
     concurrent_decorators,
@@ -18,6 +17,11 @@ from decorators import (
 )
 from findings import domain as findings_domain
 from mailer import findings as findings_mail
+from newutils import (
+    logs as logs_utils,
+    requests as requests_utils,
+    token as token_utils,
+)
 from redis_cluster.operations import redis_del_by_deps_soon
 
 
@@ -33,7 +37,7 @@ async def mutate(
     info: GraphQLResolveInfo,
     finding_id: str
 ) -> SimplePayloadType:
-    user_info = await util.get_jwt_content(info.context)
+    user_info = await token_utils.get_jwt_content(info.context)
     reviewer_email = user_info['user_email']
     success = await findings_domain.reject_draft(
         info.context,
@@ -42,7 +46,7 @@ async def mutate(
     )
     if success:
         redis_del_by_deps_soon('reject_draft', finding_id=finding_id)
-        if util.get_source(info.context) != 'skims':
+        if requests_utils.get_source(info.context) != 'skims':
             finding_loader = info.context.loaders.finding
             finding = await finding_loader.load(finding_id)
             schedule(
@@ -55,12 +59,12 @@ async def mutate(
                     reviewer_email
                 )
             )
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Draft {finding_id} rejected successfully'
         )
     else:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Attempted to reject draft {finding_id}'
         )

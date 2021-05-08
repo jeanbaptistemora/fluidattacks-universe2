@@ -14,7 +14,6 @@ from backend.typing import (
     ForcesExecution,
     ForcesExecutions,
 )
-from backend.util import datetime_utils
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -22,6 +21,7 @@ from decorators import (
     require_login,
 )
 from forces import domain as forces_domain
+from newutils import datetime as datetime_utils
 
 
 @convert_kwargs_to_snake_case

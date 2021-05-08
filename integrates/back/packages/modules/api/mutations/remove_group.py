@@ -4,7 +4,6 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 import authz
-from backend import util
 from backend.typing import SimplePayload as SimplePayloadType
 from custom_exceptions import PermissionDenied
 from decorators import (
@@ -14,6 +13,10 @@ from decorators import (
     require_login,
 )
 from groups import domain as groups_domain
+from newutils import (
+    logs as logs_utils,
+    token as token_utils,
+)
 from redis_cluster.operations import redis_del_by_deps_soon
 
 
@@ -30,7 +33,7 @@ async def mutate(
 ) -> SimplePayloadType:
     loaders = info.context.loaders
     group_name = group_name.lower()
-    user_info = await util.get_jwt_content(info.context)
+    user_info = await token_utils.get_jwt_content(info.context)
     requester_email = user_info['user_email']
     success = False
 
@@ -48,7 +51,7 @@ async def mutate(
             subscription="continuous",
         )
     except PermissionDenied:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             'Security: Unauthorized role attempted to delete group'
         )
@@ -57,7 +60,7 @@ async def mutate(
         loaders.group_all.clear(group_name)
         redis_del_by_deps_soon('remove_group', group_name=group_name)
         await authz.revoke_cached_group_service_policies(group_name)
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Deleted group {group_name} successfully',
         )

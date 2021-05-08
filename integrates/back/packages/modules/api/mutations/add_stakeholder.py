@@ -10,7 +10,6 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local
 import authz
 from back.settings import LOGGING
-from backend import util
 from backend.typing import AddStakeholderPayload, MailContent
 from decorators import (
     concurrent_decorators,
@@ -19,6 +18,10 @@ from decorators import (
 )
 from groups import domain as groups_domain
 from mailer import groups as groups_mail
+from newutils import (
+    logs as logs_utils,
+    token as token_utils,
+)
 
 
 logging.config.dictConfig(LOGGING)
@@ -38,7 +41,7 @@ async def mutate(
     phone_number: str = ''
 ) -> AddStakeholderPayload:
     success: bool = False
-    user_data = await util.get_jwt_content(info.context)
+    user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data['user_email']
     allowed_roles_to_grant = await authz.get_user_level_roles_a_user_can_grant(
         requester_email=user_email,
@@ -51,7 +54,7 @@ async def mutate(
             phone_number=phone_number,
         )
         if new_user:
-            util.cloudwatch_log(
+            logs_utils.cloudwatch_log(
                 info.context,
                 f'Security: Added stakeholder {email}'
             )

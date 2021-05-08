@@ -6,13 +6,13 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import util
 from backend.typing import SimplePayload as SimplePayloadType
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_login,
 )
+from newutils import logs as logs_utils
 from redis_cluster.operations import redis_del_by_deps
 from vulnerabilities import domain as vulns_domain
 
@@ -45,7 +45,7 @@ async def mutate(
             'request_zero_risk_vuln',
             finding_id=finding_id,
         )
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             ('Security: Requested a zero risk vuln '
              f'in finding_id: {finding_id}')  # pragma: no cover

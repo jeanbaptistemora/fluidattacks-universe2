@@ -75,7 +75,6 @@ from newutils.validations import (
 from notifications import domain as notifications_domain
 from organizations import domain as orgs_domain
 from redis_cluster.operations import redis_del_by_deps_soon
-from sessions import dal as sessions_dal
 from users import domain as users_domain
 from vulnerabilities import domain as vulns_domain
 from __init__ import (
@@ -895,7 +894,7 @@ async def remove_user(
 
         has_groups = bool(await get_groups_by_user(email))
         if not has_groups:
-            success = success and await sessions_dal.delete_user(email)
+            success = success and await users_domain.delete(email)
     return success
 
 

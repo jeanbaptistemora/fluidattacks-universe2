@@ -7,7 +7,7 @@ from starlette.responses import Response
 # Local libraries
 import back.app.utils as utils
 from analytics import domain as analytics_domain
-from backend import util
+from newutils import token as token_utils
 
 
 async def graphic(request: Request) -> Response:
@@ -31,7 +31,7 @@ async def graphics_report(request: Request) -> Response:
 
 
 async def graphics_for_entity(entity: str, request: Request) -> Response:
-    request_data = await util.get_jwt_content(request)
+    request_data = await token_utils.get_jwt_content(request)
 
     response = await analytics_domain.handle_graphics_for_entity_request(
         entity=entity,

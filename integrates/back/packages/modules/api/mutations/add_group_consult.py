@@ -8,7 +8,6 @@ from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from backend import util
 from backend.typing import AddConsultPayload as AddConsultPayloadType
 from decorators import (
     concurrent_decorators,
@@ -18,7 +17,11 @@ from decorators import (
 )
 from group_comments import domain as group_comments_domain
 from mailer import groups as groups_mail
-from newutils import datetime as datetime_utils
+from newutils import (
+    datetime as datetime_utils,
+    logs as logs_utils,
+    token as token_utils,
+)
 from redis_cluster.operations import redis_del_by_deps_soon
 
 
@@ -34,7 +37,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     **parameters: Any
 ) -> AddConsultPayloadType:
     group_name = parameters.get('project_name', '').lower()
-    user_info = await util.get_jwt_content(info.context)
+    user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info['user_email']
     current_time = datetime_utils.get_as_str(
         datetime_utils.get_now()
@@ -71,12 +74,12 @@ async def mutate(  # pylint: disable=too-many-arguments
                 )
             )
 
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Added comment to {group_name} project successfully'
         )
     else:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Attempted to add comment in {group_name} project'
         )

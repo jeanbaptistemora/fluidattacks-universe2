@@ -12,6 +12,12 @@ TZN = pytz.timezone(settings.TIME_ZONE)
 iso_format: str = '%Y-%m-%d %H:%M:%S'
 
 
+def format_comment_date(date_string: str) -> str:
+    comment_date = get_from_str(date_string)
+    formatted_date = get_as_str(comment_date, date_format='%Y/%m/%d %H:%M:%S')
+    return formatted_date
+
+
 def get_from_str(
     date_str: str,
     date_format: str = iso_format,
@@ -124,3 +130,12 @@ def get_as_epoch(date: datetime) -> int:
 
 def get_iso_date() -> str:
     return datetime.now(tz=timezone.utc).isoformat()
+
+
+def is_valid_format(date_str: str) -> bool:
+    try:
+        get_from_str(date_str)
+        resp = True
+    except ValueError:
+        resp = False
+    return resp

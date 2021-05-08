@@ -24,7 +24,6 @@ from starlette.datastructures import UploadFile
 # Local Libraries
 import authz
 from back import settings
-from backend import util
 from backend.typing import (
     Comment as CommentType,
     Event as EventType,
@@ -43,6 +42,7 @@ from mailer import events as events_mail
 from newutils import (
     datetime as datetime_utils,
     events as events_utils,
+    files as files_utils,
     validations,
 )
 from users import domain as users_domain
@@ -329,7 +329,10 @@ async def validate_evidence(evidence_type: str, file: UploadFile) -> bool:
 
     if evidence_type == 'evidence':
         allowed_mimes = ['image/gif', 'image/jpeg', 'image/png']
-        if not await util.assert_uploaded_file_mime(file, allowed_mimes):
+        if not await files_utils.assert_uploaded_file_mime(
+            file,
+            allowed_mimes
+        ):
             raise InvalidFileType('EVENT_IMAGE')
     else:
         allowed_mimes = [
@@ -339,10 +342,13 @@ async def validate_evidence(evidence_type: str, file: UploadFile) -> bool:
             'text/csv',
             'text/plain'
         ]
-        if not await util.assert_uploaded_file_mime(file, allowed_mimes):
+        if not await files_utils.assert_uploaded_file_mime(
+            file,
+            allowed_mimes
+        ):
             raise InvalidFileType('EVENT_FILE')
 
-    if await util.get_file_size(file) < 10 * mib:
+    if await files_utils.get_file_size(file) < 10 * mib:
         success = True
     else:
         raise InvalidFileSize()

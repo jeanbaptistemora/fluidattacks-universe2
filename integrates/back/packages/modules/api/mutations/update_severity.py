@@ -6,7 +6,6 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import util
 from backend.typing import SimpleFindingPayload
 from decorators import (
     concurrent_decorators,
@@ -15,6 +14,10 @@ from decorators import (
     require_login,
 )
 from findings import domain as findings_domain
+from newutils import (
+    logs as logs_utils,
+    utils,
+)
 from redis_cluster.operations import redis_del_by_deps_soon
 
 
@@ -30,7 +33,7 @@ async def mutate(
     **parameters: Any
 ) -> SimpleFindingPayload:
     data = parameters.get('data', dict())
-    data = {util.snakecase_to_camelcase(k): data[k] for k in data}
+    data = {utils.snakecase_to_camelcase(k): data[k] for k in data}
     finding_id = parameters.get('finding_id', '')
     finding_loader = info.context.loaders.finding
     finding_data = await finding_loader.load(finding_id)
@@ -44,12 +47,12 @@ async def mutate(
             finding_id=finding_id,
             group_name=group_name
         )
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Updated severity in finding {finding_id} successfully'
         )
     else:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Attempted to update severity in finding {finding_id}'
         )

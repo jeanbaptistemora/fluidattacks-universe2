@@ -6,7 +6,6 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import util
 from backend.typing import SimplePayload
 from decorators import (
     concurrent_decorators,
@@ -14,6 +13,7 @@ from decorators import (
     require_integrates,
     require_login,
 )
+from newutils import token as token_utils
 from redis_cluster.operations import redis_del_by_deps_soon
 from vulnerabilities.domain import handle_vulns_acceptation
 
@@ -32,7 +32,7 @@ async def mutate(
     accepted_vulns: List[str],
     rejected_vulns: List[str],
 ) -> SimplePayload:
-    user_info = await util.get_jwt_content(info.context)
+    user_info = await token_utils.get_jwt_content(info.context)
     email: str = user_info['user_email']
     success: bool = await handle_vulns_acceptation(
         context=info.context.loaders,

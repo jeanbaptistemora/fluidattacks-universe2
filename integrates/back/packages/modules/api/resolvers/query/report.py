@@ -6,7 +6,6 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from backend import util
 from backend.typing import Report
 from batch import dal as batch_dal
 from custom_exceptions import RequestedReportError
@@ -14,6 +13,7 @@ from decorators import (
     enforce_group_level_auth_async,
     require_login,
 )
+from newutils import token as token_utils
 
 
 @enforce_group_level_auth_async
@@ -44,7 +44,7 @@ async def resolve(
     info: GraphQLResolveInfo,
     **kwargs: str
 ) -> Report:
-    user_info: Dict[str, str] = await util.get_jwt_content(info.context)
+    user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info['user_email']
     group_name: str = kwargs['project_name']
     report_type: str = kwargs['report_type']

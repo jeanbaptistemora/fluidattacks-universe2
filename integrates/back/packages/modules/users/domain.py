@@ -13,10 +13,10 @@ from typing import (
 
 # Third-party libraries
 from aioextensions import collect
+from starlette.requests import Request
 
 # Local libraries
 import authz
-from backend import util
 from backend.typing import (
     Invitation as InvitationType,
     Stakeholder as StakeholderType,
@@ -24,12 +24,15 @@ from backend.typing import (
     User as UserType,
 )
 from custom_exceptions import (
+    ExpiredToken,
     InvalidExpirationTime,
     InvalidPushToken,
+    SecureAccessException,
 )
 from group_access import domain as group_access_domain
 from newutils import (
     datetime as datetime_utils,
+    logs as logs_utils,
     token as token_utils,
 )
 from newutils.validations import (
@@ -38,6 +41,9 @@ from newutils.validations import (
     validate_field_length,
     validate_phone_field,
 )
+from redis_cluster.model import KeyNotFound as RedisKeyNotFound
+from redis_cluster.operations import redis_del_by_deps
+from sessions import dal as sessions_dal
 from users import dal as users_dal
 
 
@@ -65,12 +71,45 @@ async def add_push_token(user_email: str, push_token: str) -> bool:
     return True
 
 
+async def check_session_web_validity(request: Request) -> None:
+    email: str = request.session['username']
+    session_key: str = request.session['session_key']
+    attr: str = 'web'
+
+    # Check if the user has a concurrent session and in case they do
+    # raise the concurrent session modal flag
+    if request.session.get('is_concurrent'):
+        request.session.pop('is_concurrent')
+        await users_dal.update(email, {'is_concurrent_session': True})
+    try:
+        # Check if the user has an active session but it's different
+        # than the one in the cookie
+        if await sessions_dal.get_session_key(email, attr) == session_key:
+            # Session and cookie are ok and up to date
+            pass
+        else:
+            # Session or the cookie are expired, let's logout the user
+            await sessions_dal.remove_session_key(email, attr)
+            request.session.clear()
+            raise ExpiredToken()
+    except RedisKeyNotFound:
+        # User do not even has an active session
+        raise SecureAccessException()
+
+
 async def create(email: str, data: UserType) -> bool:
     return await users_dal.create(email, data)
 
 
 async def delete(email: str) -> bool:
-    return await users_dal.delete(email)
+    success = all(
+        await collect([
+            authz.revoke_user_level_role(email),
+            users_dal.delete(email),
+        ])
+    )
+    await redis_del_by_deps('session_logout', session_email=email)
+    return success
 
 
 async def edit_user_information(
@@ -94,7 +133,7 @@ async def edit_user_information(
                 )
             )
         else:
-            util.cloudwatch_log(
+            logs_utils.cloudwatch_log(
                 context,
                 f'Security: {email} Attempted to add responsibility to '
                 f'project{group_name} bypassing validation'
@@ -103,7 +142,7 @@ async def edit_user_information(
     if phone and validate_phone_field(phone):
         coroutines.append(add_phone_to_user(email, phone))
     else:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             context,
             f'Security: {email} Attempted to edit '
             f'user phone bypassing validation'
@@ -259,7 +298,7 @@ async def has_valid_access_token(
     )
     resp = False
     if context and access_token:
-        resp = util.verificate_hash_token(access_token, jti)
+        resp = token_utils.verificate_hash_token(access_token, jti)
     else:
         # authorization header not present or user without access_token
         pass
@@ -299,21 +338,17 @@ async def remove_push_token(user_email: str, push_token: str) -> bool:
     return await users_dal.update(user_email, {'push_tokens': tokens})
 
 
-async def update(email: str, data_attr: str, name_attr: str) -> bool:
-    return await users_dal.update(email, {name_attr: data_attr})
-
-
 async def update_access_token(
     email: str,
     expiration_time: int,
     **kwargs_token: Any
 ) -> UpdateAccessTokenPayloadType:
     """ Update access token """
-    token_data = util.calculate_hash_token()
+    token_data = token_utils.calculate_hash_token()
     session_jwt = ''
     success = False
 
-    if util.is_valid_expiration_time(expiration_time):
+    if token_utils.is_valid_expiration_time(expiration_time):
         iat = int(datetime.utcnow().timestamp())
         session_jwt = token_utils.new_encoded_jwt(
             {

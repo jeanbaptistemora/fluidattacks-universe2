@@ -6,13 +6,13 @@ from aioextensions import (
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import util
 from backend.typing import SimplePayload
 from decorators import (
     concurrent_decorators,
     enforce_user_level_auth_async,
     require_login,
 )
+from newutils import logs as logs_utils
 from redis_cluster.operations import redis_cmd
 
 
@@ -30,7 +30,7 @@ async def mutate(
         for key in await redis_cmd('keys', pattern)
     ]))
 
-    util.cloudwatch_log(
+    logs_utils.cloudwatch_log(
         info.context,
         f'Security: Pattern {pattern} was removed from cache'
     )

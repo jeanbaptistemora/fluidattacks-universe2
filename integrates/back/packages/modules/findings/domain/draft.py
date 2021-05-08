@@ -13,7 +13,6 @@ from typing import (
 from aioextensions import collect
 from graphql.type.definition import GraphQLResolveInfo
 
-from backend import util
 from backend.typing import (
     Finding as FindingType,
     User as UserType,
@@ -30,6 +29,8 @@ from findings import dal as findings_dal
 from newutils import (
     datetime as datetime_utils,
     findings as findings_utils,
+    requests as requests_utils,
+    token as token_utils,
     vulnerabilities as vulns_utils,
 )
 from vulnerabilities import domain as vulns_domain
@@ -67,7 +68,7 @@ async def approve_draft(
                 history.append({
                     'date': release_date,
                     'analyst': reviewer_email,
-                    'source': util.get_source(context),
+                    'source': requests_utils.get_source(context),
                     'state': 'APPROVED'
                 })
                 finding_update_success = await findings_dal.update(
@@ -103,9 +104,9 @@ async def create_draft(
     finding_id = str(random.randint(last_fs_id, 1000000000))
     group_name = group_name.lower()
     creation_date = datetime_utils.get_now_as_str()
-    user_data = cast(UserType, await util.get_jwt_content(info.context))
+    user_data = cast(UserType, await token_utils.get_jwt_content(info.context))
     analyst_email = str(user_data.get('user_email', ''))
-    source = util.get_source(info.context)
+    source = requests_utils.get_source(info.context)
     submission_history = {
         'analyst': analyst_email,
         'date': creation_date,
@@ -200,7 +201,7 @@ async def reject_draft(
     if (not is_finding_approved and not is_finding_deleted):
         if is_finding_submitted:
             rejection_date = datetime_utils.get_now_as_str()
-            source = util.get_source(context)
+            source = requests_utils.get_source(context)
             history.append({
                 'date': rejection_date,
                 'analyst': reviewer_email,
@@ -257,7 +258,7 @@ async def submit_draft(  # pylint: disable=too-many-locals
                     has_vulns,
             ]):
                 report_date = datetime_utils.get_now_as_str()
-                source = util.get_source(context)
+                source = requests_utils.get_source(context)
                 history = cast(
                     List[Dict[str, str]],
                     finding['historic_state']

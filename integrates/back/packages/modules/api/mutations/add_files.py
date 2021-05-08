@@ -9,7 +9,6 @@ from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from backend import util
 from backend.typing import SimplePayload as SimplePayloadType
 from decorators import (
     concurrent_decorators,
@@ -18,7 +17,12 @@ from decorators import (
     require_login,
 )
 from mailer import resources as resources_mail
-from newutils import virus_scan
+from newutils import (
+    logs as logs_utils,
+    token as token_utils,
+    utils,
+    virus_scan,
+)
 from resources import domain as resources_domain
 
 
@@ -38,9 +42,9 @@ async def mutate(
 ) -> SimplePayloadType:
     success = False
     files_data = parameters['files_data']
-    new_files_data = util.camel_case_list_dict(files_data)
+    new_files_data = utils.camel_case_list_dict(files_data)
     uploaded_file = parameters['file']
-    user_info = await util.get_jwt_content(info.context)
+    user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info['user_email']
     project_name = parameters['project_name']
 
@@ -69,13 +73,13 @@ async def mutate(
     if success:
         info.context.loaders.group.clear(project_name)
         info.context.loaders.group_all.clear(project_name)
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Added resource files to {project_name} '
             f'project successfully'
         )
     else:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Attempted to add resource files '
             f'from {project_name} project'

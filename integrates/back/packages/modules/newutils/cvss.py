@@ -6,8 +6,8 @@ import math
 from decimal import Decimal
 from typing import Dict, Union, cast
 
-from backend import util
 from backend.typing import Finding as FindingType
+from . import utils
 
 
 def _calc_cvss2_temporal(
@@ -327,7 +327,7 @@ def calculate_severity(
             'modifiedIntegrityImpact', 'modifiedAvailabilityImpact'
         ]
         severity: Dict[str, FindingType] = {
-            util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
+            utils.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
             for k in severity_fields
         }
         unformatted_severity = {
@@ -361,7 +361,7 @@ def calculate_severity(
             'integrityRequirement', 'availabilityRequirement'
         ]
         severity = {
-            util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
+            utils.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
             for k in severity_fields
         }
         unformatted_severity = {

@@ -19,7 +19,6 @@ from aioextensions import (
 
 # Local libraries
 import authz
-from backend import util
 from backend.typing import (
     Datetime,
     Finding,
@@ -176,7 +175,7 @@ async def add_vuln_treatment(
     user_email: str,
     date: str,
 ) -> bool:
-    updated_values = util.update_treatment_values(updated_values)
+    updated_values = vulns_utils.update_treatment_values(updated_values)
     new_treatment = updated_values['treatment']
     new_state = {
         'date': date,

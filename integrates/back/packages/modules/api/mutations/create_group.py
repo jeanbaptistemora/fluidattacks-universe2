@@ -7,7 +7,6 @@ from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
 import authz
-from backend import util
 from backend.typing import SimplePayload as SimplePayloadType
 from decorators import (
     concurrent_decorators,
@@ -16,6 +15,10 @@ from decorators import (
 )
 from forces import domain as forces_domain
 from groups import domain as groups_domain
+from newutils import (
+    logs as logs_utils,
+    token as token_utils,
+)
 
 
 @convert_kwargs_to_snake_case
@@ -36,7 +39,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     language: str = 'en'
 ) -> SimplePayloadType:
     group_name = project_name
-    user_data = await util.get_jwt_content(info.context)
+    user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data['user_email']
     user_role = await authz.get_user_level_role(user_email)
 
@@ -57,7 +60,7 @@ async def mutate(  # pylint: disable=too-many-arguments
         info.context.loaders.group_all.clear(group_name)
         await forces_domain.create_forces_user(info, group_name)
     if success:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Created group {group_name.lower()} successfully',
         )

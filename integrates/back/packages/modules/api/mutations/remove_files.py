@@ -13,7 +13,6 @@ from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from backend import util
 from backend.typing import SimplePayload as SimplePayloadType
 from decorators import (
     concurrent_decorators,
@@ -22,6 +21,10 @@ from decorators import (
     require_login,
 )
 from mailer import resources as resources_mail
+from newutils import (
+    logs as logs_utils,
+    token as token_utils,
+)
 from resources import domain as resources_domain
 
 
@@ -46,7 +49,7 @@ async def mutate(
         for k, v in files_data.items()
     }
     file_name = files_data.get('fileName')
-    user_info = await util.get_jwt_content(info.context)
+    user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info['user_email']
     remove_file = await resources_domain.remove_file(
         str(file_name),
@@ -76,12 +79,12 @@ async def mutate(
     if success:
         info.context.loaders.group.clear(project_name)
         info.context.loaders.group_all.clear(project_name)
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Removed Files from {project_name} project successfully'
         )
     else:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Attempted to remove files from {project_name} project'
         )

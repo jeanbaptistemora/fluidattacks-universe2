@@ -6,12 +6,15 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import util
 from backend.typing import UpdateAccessTokenPayload
 from custom_exceptions import InvalidExpirationTime
 from decorators import enforce_group_level_auth_async
 from forces import domain as forces_domain
-from newutils import datetime as datetime_utils
+from newutils import (
+    datetime as datetime_utils,
+    logs as logs_utils,
+    token as token_utils,
+)
 from users import domain as users_domain
 
 
@@ -22,11 +25,11 @@ async def mutate(
     info: GraphQLResolveInfo,
     project_name: str
 ) -> UpdateAccessTokenPayload:
-    user_info = await util.get_jwt_content(info.context)
+    user_info = await token_utils.get_jwt_content(info.context)
 
     user_email = forces_domain.format_forces_user_email(project_name)
     if not await users_domain.ensure_user_exists(user_email):
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             (
                 f'{user_info["user_email"]} try to update token for a user '
@@ -44,7 +47,7 @@ async def mutate(
             expiration_time
         )
         if result.success:
-            util.cloudwatch_log(
+            logs_utils.cloudwatch_log(
                 info.context,
                 (
                     f'{user_info["user_email"]} update access token for '
@@ -53,12 +56,12 @@ async def mutate(
             )
             if await forces_domain.update_token(project_name,
                                                 result.session_jwt):
-                util.cloudwatch_log(
+                logs_utils.cloudwatch_log(
                     info.context,
                     (f'{user_info["user_email"]} store in secretsmanager '
                      f'forces token for {user_email}'))
         else:
-            util.cloudwatch_log(
+            logs_utils.cloudwatch_log(
                 info.context,
                 (
                     f'{user_info["user_email"]} attempted to update access '
@@ -67,7 +70,7 @@ async def mutate(
             )
         return result
     except InvalidExpirationTime as exc:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             (
                 f'{user_info["user_email"]} attempted to use expiration time '

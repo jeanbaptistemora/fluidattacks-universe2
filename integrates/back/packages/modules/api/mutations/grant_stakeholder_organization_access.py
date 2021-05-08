@@ -6,10 +6,13 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local libraries
-from backend import util
 from backend.typing import GrantStakeholderAccessPayload
 from decorators import enforce_organization_level_auth_async
 from groups import domain as groups_domain
+from newutils import (
+    logs as logs_utils,
+    token as token_utils,
+)
 from organizations import domain as orgs_domain
 from redis_cluster.operations import redis_del_by_deps
 from users import domain as users_domain
@@ -28,7 +31,7 @@ async def mutate(
     organization_id = str(parameters.get('organization_id'))
     organization_name = await orgs_domain.get_name_by_id(organization_id)
 
-    requester_data = await util.get_jwt_content(info.context)
+    requester_data = await token_utils.get_jwt_content(info.context)
     requester_email = requester_data['user_email']
 
     user_email = str(parameters.get('user_email'))
@@ -59,14 +62,14 @@ async def mutate(
             'grant_stakeholder_organization_access',
             organization_id=organization_id
         )
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Stakeholder {user_email} was granted access '
             f'to organization {organization_name} with role {user_role} '
             f'by stakeholder {requester_email}'
         )
     else:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Stakeholder {requester_email} attempted to '
             f'grant stakeholder {user_email} {user_role} access to '

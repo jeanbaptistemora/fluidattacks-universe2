@@ -6,7 +6,6 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import util
 from backend.typing import SimplePayload
 from decorators import (
     concurrent_decorators,
@@ -16,6 +15,7 @@ from decorators import (
     require_login,
 )
 from findings import domain as findings_domain
+from newutils import logs as logs_utils
 
 
 @convert_kwargs_to_snake_case
@@ -40,7 +40,7 @@ async def mutate(
     )
 
     if success:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Created draft in {project_name} project successfully'
         )

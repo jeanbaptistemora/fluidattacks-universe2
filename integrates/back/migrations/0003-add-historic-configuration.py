@@ -16,7 +16,6 @@ import os
 import bugsnag
 
 import authz
-from backend import util
 from group_access import domain as group_access_domain
 from groups import dal as groups_dal
 

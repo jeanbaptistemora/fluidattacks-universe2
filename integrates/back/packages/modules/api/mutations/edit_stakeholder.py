@@ -14,7 +14,6 @@ from graphql.type.definition import GraphQLResolveInfo
 # Local libraries
 import authz
 from back.settings import LOGGING
-from backend import util
 from backend.typing import (
     Invitation as InvitationType,
     EditStakeholderPayload as EditStakeholderPayloadType
@@ -27,6 +26,10 @@ from decorators import (
     require_login,
 )
 from group_access import domain as group_access_domain
+from newutils import (
+    logs as logs_utils,
+    token as token_utils,
+)
 from redis_cluster.operations import redis_del_by_deps
 from users import domain as users_domain
 
@@ -91,7 +94,7 @@ async def mutate(
     modified_email = updated_data['email']
 
     success = False
-    user_data = await util.get_jwt_content(info.context)
+    user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data['user_email']
 
     allowed_roles_to_grant = \
@@ -125,14 +128,14 @@ async def mutate(
             f'Security: Modified stakeholder data: {modified_email} '
             f'in {project_name} project successfully'
         )
-        util.cloudwatch_log(info.context, msg)
+        logs_utils.cloudwatch_log(info.context, msg)
     else:
         msg = (
             f'Security: Attempted to modify stakeholder '
             f'data:{modified_email} in '
             f'{project_name} project'
         )
-        util.cloudwatch_log(info.context, msg)
+        logs_utils.cloudwatch_log(info.context, msg)
 
     return EditStakeholderPayloadType(
         success=success,

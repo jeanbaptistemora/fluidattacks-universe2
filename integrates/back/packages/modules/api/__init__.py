@@ -12,8 +12,8 @@ from starlette.responses import Response
 
 # Local libraries
 from back import settings
-from backend import util
 from dataloaders import apply_context_attrs
+from newutils import logs as logs_utils
 
 
 newrelic.agent.initialize(settings.NEW_RELIC_CONF_FILE)
@@ -36,7 +36,7 @@ class IntegratesAPI(GraphQL):
 
         newrelic.agent.set_transaction_name(f'api:{name}')
         newrelic.agent.add_custom_parameters(tuple(data.items()))
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             request,
             f'API: {name} with parameters {variables}. Complete query: {query}'
         )

@@ -39,7 +39,6 @@ from back.settings import (
     LOGGING,
     NOEXTRA
 )
-from backend import util
 from backend.typing import (
     Finding as FindingType,
     Historic,
@@ -59,6 +58,10 @@ from dynamodb.types import OrgFindingPolicyItem
 from mailer import vulnerabilities as vulns_mail
 from newutils import (
     datetime as datetime_utils,
+    logs as logs_utils,
+    requests as requests_utils,
+    token as token_utils,
+    utils,
     validations,
     vulnerabilities as vulns_utils,
 )
@@ -598,7 +601,7 @@ async def request_zero_risk_vulnerabilities(
 
     comment_id = int(round(time() * 1000))
     today = datetime_utils.get_now_as_str()
-    user_info = await util.get_jwt_content(info.context)
+    user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info['user_email']
     comment_data = {
         'comment_type': 'zero_risk',
@@ -730,7 +733,7 @@ async def update_treatment_vuln(
         for key, value in new_info.items()
     }
     new_info = {
-        util.camelcase_to_snakecase(k): new_info.get(k)
+        utils.camelcase_to_snakecase(k): new_info.get(k)
         for k in new_info
     }
     result_update_vuln = await vulns_dal.update(
@@ -739,14 +742,14 @@ async def update_treatment_vuln(
         new_info
     )
     if not result_update_vuln:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Attempted to update vulnerability: '
             f'{vulnerability} from finding:{finding_id}'
         )
         success = False
     else:
-        util.cloudwatch_log(
+        logs_utils.cloudwatch_log(
             info.context,
             f'Security: Updated vulnerability: '
             f'{vulnerability} from finding: {finding_id} successfully'
@@ -813,8 +816,11 @@ async def update_vuln_state(
     last_state = historic_state[-1]
     data_to_update: Dict[str, FindingType] = {}
     if last_state.get('state') != item.get('state'):
-        user_data = cast(UserType, await util.get_jwt_content(info.context))
-        source = util.get_source(info.context)
+        user_data = cast(
+            UserType,
+            await token_utils.get_jwt_content(info.context)
+        )
+        source = requests_utils.get_source(info.context)
         analyst = str(user_data['user_email'])
         current_state = {
             'analyst': analyst,
