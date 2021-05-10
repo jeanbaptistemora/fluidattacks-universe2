@@ -4,6 +4,7 @@
   different types since this is a generic component.
 */
 import type {
+  BootstrapTableProps,
   ColumnDescription,
   SelectRowProps,
   SortOrder,
@@ -25,6 +26,7 @@ interface ITableProps {
   csvFilename?: string;
   dataset: any[];
   defaultSorted?: { dataField: string; order: SortOrder };
+  expandRow?: BootstrapTableProps["expandRow"];
   exportCsv: boolean;
   extraButtons?: JSX.Element;
   headerContainer?: string;

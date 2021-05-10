@@ -37,13 +37,15 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   props: Readonly<ITableWrapperProps>
 ): JSX.Element => {
   const { SearchBar } = Search;
-  const { toolkitProps, tableProps, dataset, extraButtons } = props;
+  const { toolkitProps, tableProps, dataset } = props;
   const { columnToggleProps, searchProps, baseProps } = toolkitProps;
   const defaultPages: number = 5;
   const defaultInitPages: number = 1;
   const {
     bordered,
     defaultSorted,
+    expandRow,
+    extraButtons,
     onUpdateEnableFilter,
     isFilterEnabled,
     numPages = defaultPages,
@@ -138,6 +140,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
         defaultSorted={
           _.isUndefined(defaultSorted) ? undefined : [defaultSorted]
         }
+        expandRow={expandRow}
         filter={filterFactory()}
         headerClasses={
           _.isUndefined(tableHeader) ? style.tableHeader : tableHeader

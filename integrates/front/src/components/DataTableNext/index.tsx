@@ -21,7 +21,6 @@ export const DataTableNext: React.FC<ITableProps> = (
     columnToggle = false,
     csvFilename = "spreadsheet.csv",
     dataset = [],
-    extraButtons,
     headers,
     id,
     isFilterEnabled,
@@ -58,7 +57,6 @@ export const DataTableNext: React.FC<ITableProps> = (
           {(toolkitProps): JSX.Element => (
             <TableWrapper
               dataset={datasetWithUniqueKeys}
-              extraButtons={extraButtons}
               tableProps={props}
               toolkitProps={toolkitProps}
             />
