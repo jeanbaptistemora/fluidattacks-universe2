@@ -94,6 +94,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'update_finding_description',
             'update_severity',
             'update_treatment_vulnerability',
+            'update_vuln_commit',
             'update_vulns_treatment',
             'upload_file',
             'verify_request_vulnerability',

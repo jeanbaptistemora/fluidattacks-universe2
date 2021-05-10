@@ -75,6 +75,7 @@ from api.mutations import (
     update_severity,
     update_toe_lines_sorts,
     update_treatment_vulnerability,
+    update_vuln_commit,
     update_vulns_treatment,
     upload_file,
     verify_request_vulnerability,
@@ -189,6 +190,7 @@ MUTATION.set_field(
 MUTATION.set_field('verifyRequestVuln', verify_request_vulnerability.mutate)
 MUTATION.set_field('downloadVulnFile', download_vulnerability_file.mutate)
 MUTATION.set_field('handleVulnsAcceptation', handle_vulns_acceptation.mutate)
+MUTATION.set_field('updateVulnCommit', update_vuln_commit.mutate)
 MUTATION.set_field('updateVulnsTreatment', update_vulns_treatment.mutate)
 MUTATION.set_field('updateToeLinesSorts', update_toe_lines_sorts.mutate)
 

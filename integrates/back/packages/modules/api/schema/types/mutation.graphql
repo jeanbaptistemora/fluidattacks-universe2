@@ -443,6 +443,10 @@ type Mutation {
     vulnerabilityId: ID!
   ): SimplePayload!
 
+  updateVulnCommit(
+    vulnId: String!
+  ): SimplePayload!
+
   updateVulnsTreatment(
     acceptanceDate: String
     findingId: String!

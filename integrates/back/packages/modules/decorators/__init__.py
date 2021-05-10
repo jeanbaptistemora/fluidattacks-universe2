@@ -503,6 +503,8 @@ async def resolve_group_name(  # noqa: MC0001
         name = await _resolve_from_finding_id(context, kwargs['draft_id'])
     elif 'event_id' in kwargs:
         name = await _resolve_from_event_id(context, kwargs['event_id'])
+    elif 'vuln_id' in kwargs:
+        name = await _resolve_from_vuln_id(context, kwargs['vuln_id'])
     elif 'vuln_uuid' in kwargs:
         name = await _resolve_from_vuln_id(context, kwargs['vuln_uuid'])
     elif settings.DEBUG:
