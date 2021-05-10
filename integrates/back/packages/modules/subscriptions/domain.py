@@ -1,5 +1,6 @@
 # Standard library
 import base64
+import itertools
 import logging
 import logging.config
 from datetime import datetime
@@ -9,11 +10,16 @@ from typing import (
     Dict,
     List,
     Optional,
+    Tuple,
+    Union,
 )
 from urllib.parse import quote_plus
 
 # Third party libraries
 import botocore.exceptions
+from aioextensions import collect
+from backend.typing import MailContent
+from dataloaders import get_new_context
 
 # Local libraries
 import authz
@@ -24,6 +30,7 @@ from back.settings import (
 )
 from groups import domain as groups_domain
 from mailer import analytics as analytics_mail
+from mailer import groups as groups_mail
 from newutils import (
     datetime as datetime_utils,
     reports,
@@ -64,8 +71,13 @@ async def can_subscribe_user_to_entity_report(
             email=user_email,
             subject=report_subject,
         )
+    elif (
+        report_entity.lower() == 'digest'
+        and report_subject.lower() == 'all_groups'
+    ):
+        success = len(await groups_domain.get_groups_by_user(user_email)) > 0
     else:
-        raise ValueError('Invalid report_entity')
+        raise ValueError('Invalid report_entity or report_subject')
 
     return success
 
@@ -151,7 +163,7 @@ def period_to_frequency(*, period: NumericType) -> str:
     return mapping[int(period)]
 
 
-async def send_user_to_entity_report(
+async def send_analytics_report(
     *,
     event_frequency: str,
     report_entity: str,
@@ -195,7 +207,7 @@ async def send_user_to_entity_report(
 
         report_subject = report_subject.lower()
 
-        LOGGER_CONSOLE.info('- sending email', **NOEXTRA)
+        LOGGER_CONSOLE.info('- sending analytics email', **NOEXTRA)
 
         await analytics_mail.send_mail_analytics(
             user_email,
@@ -212,7 +224,55 @@ async def send_user_to_entity_report(
             report_subject_percent=quote_plus(report_subject),
         )
 
-        LOGGER_CONSOLE.info('- email sent', **NOEXTRA)
+        LOGGER_CONSOLE.info('- analytics email sent', **NOEXTRA)
+
+
+async def send_digest_report(
+    user_email: str,
+    digest_stats: Union[Tuple[MailContent], Tuple],
+) -> None:
+    groups = await groups_domain.get_groups_by_user(user_email)
+    mail_contexts = list()
+    if digest_stats:
+        mail_contexts = [
+            group_stats
+            for group_stats in digest_stats
+            if group_stats['project'] in groups
+        ]
+    else:
+        mail_contexts = await collect(
+            groups_domain.get_group_digest_stats(get_new_context(), group)
+            for group in groups
+        )
+    LOGGER_CONSOLE.info('- sending digest emails', **NOEXTRA)
+    await collect(
+        groups_mail.send_mail_daily_digest([user_email], context)
+        for context in mail_contexts
+    )
+    LOGGER_CONSOLE.info('- digest emails sent', **NOEXTRA)
+    return
+
+
+async def send_user_to_entity_report(
+    *,
+    event_frequency: str,
+    report_entity: str,
+    report_subject: str,
+    user_email: str,
+    digest_stats: Union[Tuple[MailContent], Tuple],
+) -> None:
+    if report_entity.lower() == 'digest':
+        await send_digest_report(
+            user_email,
+            digest_stats,
+        )
+    else:
+        await send_analytics_report(
+            event_frequency=event_frequency,
+            report_entity=report_entity,
+            report_subject=report_subject,
+            user_email=user_email,
+        )
 
 
 async def should_not_send_report(
@@ -251,6 +311,7 @@ def should_process_event(
     *,
     bot_time: datetime,
     event_frequency: str,
+    report_entity: str,
 ) -> bool:
     """Given a job that runs every hour, should it process a periodic event?.
 
@@ -265,6 +326,11 @@ def should_process_event(
     event_frequency = event_frequency.lower()
 
     success: bool = (
+        # Monday to Friday @ 23 GMT
+        report_entity.lower() == 'digest'
+        and bot_time_hour == 23
+        and bot_time_weekday <= 4
+    ) or (
         # Firth of month @ 10 GMT
         event_frequency == 'monthly'
         and bot_time_hour == 10
@@ -319,6 +385,7 @@ async def subscribe_user_to_entity_report(
                 report_entity=report_entity,
                 report_subject=report_subject,
                 user_email=user_email,
+                digest_stats=tuple(),
             )
 
     return success
@@ -334,14 +401,47 @@ def translate_entity(entity: str) -> str:
     return entity
 
 
+async def get_digest_stats(
+    subscriptions: List[Dict[Any, Any]],
+) -> Union[Tuple[MailContent], Tuple]:
+    """Process the digest stats for each group with a subscriber"""
+    digest_suscribers = [
+        subscription['pk']['email']
+        for subscription in subscriptions
+        if subscription['sk']['entity'].lower() == 'digest'
+    ]
+
+    digest_groups = await collect([
+        groups_domain.get_groups_by_user(user_email)
+        for user_email in digest_suscribers
+    ])
+    digest_groups = set(itertools.chain.from_iterable(digest_groups))
+
+    return await collect([
+        groups_domain.get_group_digest_stats(get_new_context(), group)
+        for group in digest_groups
+    ])
+
+
 async def trigger_user_to_entity_report() -> None:
     bot_time: datetime = datetime.utcnow()
 
     LOGGER_CONSOLE.info('UTC datetime: %s', bot_time, **NOEXTRA)
 
-    for subscription in await get_subscriptions_to_entity_report(
+    subscriptions = await get_subscriptions_to_entity_report(
         audience='user',
+    )
+
+    # Prepare digest stats for any group with a subscriber
+    digest_stats: Union[Tuple[MailContent], Tuple] = tuple()
+    if should_process_event(
+        bot_time=bot_time,
+        event_frequency='DAILY',
+        report_entity='DIGEST',
     ):
+        digest_stats = await get_digest_stats(subscriptions)
+
+    for subscription in subscriptions:
         event_period: Decimal = subscription['period']
         event_frequency: str = period_to_frequency(period=event_period)
         user_email: str = subscription['pk']['email']
@@ -363,6 +463,7 @@ async def trigger_user_to_entity_report() -> None:
             if should_process_event(
                 bot_time=bot_time,
                 event_frequency=event_frequency,
+                report_entity=report_entity,
             ):
                 LOGGER_CONSOLE.info('- processing event', **NOEXTRA)
                 await send_user_to_entity_report(
@@ -370,6 +471,7 @@ async def trigger_user_to_entity_report() -> None:
                     report_entity=report_entity,
                     report_subject=report_subject,
                     user_email=user_email,
+                    digest_stats=digest_stats,
                 )
             else:
                 LOGGER_CONSOLE.info('- not processing event', **NOEXTRA)

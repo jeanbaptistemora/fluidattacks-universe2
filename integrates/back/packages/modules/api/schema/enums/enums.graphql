@@ -218,6 +218,7 @@ enum StakeholderRole {
 }
 
 enum SubscriptionReportEntity {
+  DIGEST
   GROUP
   ORGANIZATION
   PORTFOLIO

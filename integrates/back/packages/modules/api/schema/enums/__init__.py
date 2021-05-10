@@ -269,8 +269,10 @@ ENUMS: Tuple[EnumType, ...] = (
     EnumType(
         'SubscriptionReportEntity',
         {
+            'DIGEST': 'DIGEST',
             'GROUP': 'GROUP',
-            'ORGANIZATION': 'ORGANIZATION'
+            'ORGANIZATION': 'ORGANIZATION',
+            'PORTFOLIO': 'PORTFOLIO'
         }
     ),
     EnumType(
