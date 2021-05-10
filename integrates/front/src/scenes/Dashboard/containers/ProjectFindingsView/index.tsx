@@ -110,25 +110,16 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     false
   );
 
-  const selectOptionsExploitable: optionSelectFilterProps[] = [
-    { label: "Yes", value: "Yes" },
-    { label: "No", value: "No" },
-  ];
-  const selectOptionsStatus: optionSelectFilterProps[] = [
-    { label: "Open", value: "Open" },
-    { label: "Closed", value: "Closed" },
-  ];
-  const selectOptionsVerification: optionSelectFilterProps[] = [
-    { label: "Pending", value: "Pending" },
-    { label: "-", value: "-" },
-  ];
-  const selectOptionsSeverity: optionSelectFilterProps[] = [
-    { label: "None", value: "None" },
-    { label: "Low", value: "Low" },
-    { label: "Medium", value: "Medium" },
-    { label: "High", value: "High" },
-    { label: "Critical", value: "Critical" },
-  ];
+  const selectOptionsExploitable = { No: "No", Yes: "Yes" };
+  const selectOptionsStatus = { Closed: "Closed", Open: "Open" };
+  const selectOptionsVerification = { "-": "-", Pending: "Pending" };
+  const selectOptionsSeverity = {
+    Critical: "Critical",
+    High: "High",
+    Low: "Low",
+    Medium: "Medium",
+    None: "None",
+  };
   const RESTRICTION_LOW_MIN_VALUE = 0.1;
   const RESTRICTION_LOW_MAX_VALUE = 3.9;
   const RESTRICTION_MEDIUM_MIN_VALUE = 4;

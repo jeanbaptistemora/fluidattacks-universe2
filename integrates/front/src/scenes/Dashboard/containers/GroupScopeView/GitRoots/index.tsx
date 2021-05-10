@@ -157,15 +157,15 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     sessionStorage.setItem("stateScopeFilter", filterVal);
   };
 
-  const selectOptionsStatus: optionSelectFilterProps[] = [
-    { label: "Failed", value: "FAILED" },
-    { label: "Ok", value: "OK" },
-    { label: "Unknown", value: "UNKNOWN" },
-  ];
-  const selectOptionsState: optionSelectFilterProps[] = [
-    { label: "Active", value: "ACTIVE" },
-    { label: "Inactive", value: "INACTIVE" },
-  ];
+  const selectOptionsStatus = {
+    Failed: "FAILED",
+    Ok: "OK",
+    Unknown: "UNKNOWN",
+  };
+  const selectOptionsState = {
+    Active: "ACTIVE",
+    Inactive: "INACTIVE",
+  };
 
   // GraphQL operations
   const [addGitRoot] = useMutation(ADD_GIT_ROOT, {

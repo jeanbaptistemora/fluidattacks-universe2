@@ -92,47 +92,40 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
   const { projectName } = useParams<{ projectName: string }>();
   const { url } = useRouteMatch();
 
-  const selectOptionsStatus: optionSelectFilterProps[] = [
-    { label: "Solved", value: "Solved" },
-    { label: "Unsolved", value: "Unsolved" },
-  ];
-  const selectOptionType: optionSelectFilterProps[] = [
-    {
-      label: translate.t("group.events.form.type.specialAttack"),
-      value: translate.t(castEventType("AUTHORIZATION_SPECIAL_ATTACK")),
-    },
-    {
-      label: translate.t("group.events.form.type.toeChange"),
-      value: translate.t(castEventType("CLIENT_APPROVES_CHANGE_TOE")),
-    },
-    {
-      label: translate.t(castEventType("CLIENT_DETECTS_ATTACK")),
-      value: translate.t(castEventType("CLIENT_DETECTS_ATTACK")),
-    },
-    {
-      label: translate.t("group.events.form.type.highAvailability"),
-      value: translate.t(castEventType("HIGH_AVAILABILITY_APPROVAL")),
-    },
-    {
-      label: translate.t("group.events.form.type.missingSupplies"),
-      value: translate.t(castEventType("INCORRECT_MISSING_SUPPLIES")),
-    },
-    {
-      label: translate.t("group.events.form.type.toeDiffers"),
-      value: translate.t(castEventType("TOE_DIFFERS_APPROVED")),
-    },
-    {
-      label: translate.t("group.events.form.other"),
-      value: translate.t(castEventType("OTHER")),
-    },
-  ];
+  const selectOptionsStatus = {
+    Solved: "Solved",
+    Unsolved: "Unsolved",
+  };
+  const selectOptionType = {
+    [translate.t("group.events.form.type.specialAttack")]: translate.t(
+      castEventType("AUTHORIZATION_SPECIAL_ATTACK")
+    ),
+    [translate.t("group.events.form.type.toeChange")]: translate.t(
+      castEventType("CLIENT_APPROVES_CHANGE_TOE")
+    ),
+    [translate.t(castEventType("CLIENT_DETECTS_ATTACK"))]: translate.t(
+      castEventType("CLIENT_DETECTS_ATTACK")
+    ),
+    [translate.t("group.events.form.type.highAvailability")]: translate.t(
+      castEventType("HIGH_AVAILABILITY_APPROVAL")
+    ),
+    [translate.t("group.events.form.type.missingSupplies")]: translate.t(
+      castEventType("INCORRECT_MISSING_SUPPLIES")
+    ),
+    [translate.t("group.events.form.type.toeDiffers")]: translate.t(
+      castEventType("TOE_DIFFERS_APPROVED")
+    ),
+    [translate.t("group.events.form.other")]: translate.t(
+      castEventType("OTHER")
+    ),
+  };
   const [optionType, setOptionType] = useState(selectOptionType);
 
   const onSortState: (dataField: string, order: SortOrder) => void = (
     dataField: string,
     order: SortOrder
   ): void => {
-    const newSorted: Sorted = { dataField, order };
+    const newSorted = { dataField, order };
     sessionStorage.setItem("eventSort", JSON.stringify(newSorted));
   };
   const onFilterStatus: (filterVal: string) => void = (
@@ -222,9 +215,8 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
       const transEventOptions = eventOptions.map((option: string): string =>
         translate.t(castEventType(option))
       );
-      const filterOptions: optionSelectFilterProps[] = selectOptionType.filter(
-        (option: optionSelectFilterProps): boolean =>
-          _.includes(transEventOptions, option.value)
+      const filterOptions = _.pickBy(selectOptionType, (value): boolean =>
+        _.includes(transEventOptions, value)
       );
       setOptionType(filterOptions);
     }

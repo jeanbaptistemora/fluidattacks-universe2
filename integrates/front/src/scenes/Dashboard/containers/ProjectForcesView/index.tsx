@@ -53,19 +53,9 @@ const ProjectForcesView: React.FC = (): JSX.Element => {
     },
   };
 
-  const selectOptionsKind: optionSelectFilterProps[] = [
-    { label: "ALL", value: "ALL" },
-    { label: "DAST", value: "DAST" },
-    { label: "SAST", value: "SAST" },
-  ];
-  const selectOptionsStatus: optionSelectFilterProps[] = [
-    { label: "Vulnerable", value: "Vulnerable" },
-    { label: "Secure", value: "Secure" },
-  ];
-  const selectOptionsStrictness: optionSelectFilterProps[] = [
-    { label: "Tolerant", value: "Tolerant" },
-    { label: "Strict", value: "Strict" },
-  ];
+  const selectOptionsKind = { ALL: "ALL", DAST: "DAST", SAST: "SAST" };
+  const selectOptionsStatus = { Secure: "Secure", Vulnerable: "Vulnerable" };
+  const selectOptionsStrictness = { Strict: "Strict", Tolerant: "Tolerant" };
 
   const [isFilterEnabled, setFilterEnabled] = useStoredState<boolean>(
     "forcesExecutionFilters",
@@ -100,7 +90,7 @@ const ProjectForcesView: React.FC = (): JSX.Element => {
     dataField: string,
     order: SortOrder
   ): void => {
-    const newSorted: Sorted = { dataField, order };
+    const newSorted = { dataField, order };
     sessionStorage.setItem("forcesSort", JSON.stringify(newSorted));
   };
 
@@ -136,7 +126,7 @@ const ProjectForcesView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "date",
-      filter: dateFilter(),
+      filter: dateFilter({}),
       header: translate.t("group.forces.date"),
       onSort: onSortState,
     },

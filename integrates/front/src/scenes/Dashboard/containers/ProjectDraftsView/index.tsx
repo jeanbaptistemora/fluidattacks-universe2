@@ -66,14 +66,14 @@ const ProjectDraftsView: React.FC = (): JSX.Element => {
     dataField: string,
     order: SortOrder
   ): void => {
-    const newSorted: Sorted = { dataField, order };
+    const newSorted = { dataField, order };
     sessionStorage.setItem("draftSort", JSON.stringify(newSorted));
   };
-  const selectOptionsStatus: optionSelectFilterProps[] = [
-    { label: "Created", value: "Created" },
-    { label: "Submitted", value: "Submitted" },
-    { label: "Rejected", value: "Rejected" },
-  ];
+  const selectOptionsStatus = {
+    Created: "Created",
+    Rejected: "Rejected",
+    Submitted: "Submitted",
+  };
   const onFilterStatus: (filterVal: string) => void = (
     filterVal: string
   ): void => {

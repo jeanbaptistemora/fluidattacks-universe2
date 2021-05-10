@@ -120,7 +120,7 @@ interface DateFilterProps extends FilterProps<TODO> {
 
 interface optionSelectFilterProps { value: string | number, label: string }
 interface SelectFilterProps extends FilterProps<TODO> {
-    options?: optionSelectFilterProps[] | string[];
+    options?: optionSelectFilterProps[] | string[] | Record<string, string>;
     withoutEmptyOption?: boolean;
 }
 

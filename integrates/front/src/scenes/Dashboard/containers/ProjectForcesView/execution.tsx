@@ -52,20 +52,14 @@ const Execution: React.FC<IExecution> = (
     return <p>{"Loading ..."}</p>;
   }
 
-  const selectOptionsStatus: optionSelectFilterProps[] = [
-    { label: "Vulnerable", value: "Vulnerable" },
-    { label: "Secure", value: "Secure" },
-  ];
-  const selectOptionsKind: optionSelectFilterProps[] = [
-    { label: "DAST", value: "DAST" },
-    { label: "SAST", value: "SAST" },
-  ];
-  const selectOptionsExploitability: optionSelectFilterProps[] = [
-    { label: "Unproven", value: "Unproven" },
-    { label: "Proof of concept", value: "Proof of concept" },
-    { label: "Functional", value: "Functional" },
-    { label: "High", value: "High" },
-  ];
+  const selectOptionsStatus = { Secure: "Secure", Vulnerable: "Vulnerable" };
+  const selectOptionsKind = { DAST: "DAST", SAST: "SAST" };
+  const selectOptionsExploitability = {
+    Functional: "Functional",
+    High: "High",
+    "Proof of concept": "Proof of concept",
+    Unproven: "Unproven",
+  };
 
   const execution: IExecution = isOld
     ? props
