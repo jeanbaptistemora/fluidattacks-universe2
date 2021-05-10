@@ -58,7 +58,10 @@ def process_inputs_csv(subs: str) -> Objective:
 
 
 def safe_divide(num: float, den: float) -> float:
-    return (1.0 if num == 0 else 0.0) if den == 0 else num / den
+    if den == 0:
+        return 1.0 if num == 0 else 0.0
+
+    return num / den
 
 
 def get_toe_coverage(lines: Objective, inputs: Objective) -> float:
@@ -121,8 +124,6 @@ def main(subs: str) -> bool:
             commit_msg += dedent("""
             not-drills(cross)-because: <EXPLAIN HERE>
             """)
-    else:
-        pass
 
     LOGGER.info(commit_msg)
 
