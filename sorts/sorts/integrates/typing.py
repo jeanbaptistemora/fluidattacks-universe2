@@ -11,6 +11,7 @@ class VulnerabilityKindEnum(Enum):
 
 class Vulnerability(NamedTuple):  # pylint: disable=too-few-public-methods
     kind: VulnerabilityKindEnum
+    source: str
     where: str
 
 

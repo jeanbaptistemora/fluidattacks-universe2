@@ -58,6 +58,7 @@ def get_vulnerabilities(group: str) -> List[Vulnerability]:
                         vulnerabilities(state: "open") {
                             vulnType
                             where
+                            historicState
                         }
                     }
                 }
@@ -73,6 +74,7 @@ def get_vulnerabilities(group: str) -> List[Vulnerability]:
         vulnerabilities = [
             Vulnerability(
                 kind=VulnerabilityKindEnum(vuln['vulnType']),
+                source=vuln['historicState'][0]['source'],
                 where=vuln['where']
             )
             for finding in result['project']['findings']
