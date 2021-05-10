@@ -70,6 +70,7 @@ TEST_GROUPS: Set[str] = {
     'update_organization_policies',
     'update_severity',
     'update_toe_lines_sorts',
+    'update_vuln_commit',
     'upload_file',
     'verify_request_vuln',
     'vulnerability',
