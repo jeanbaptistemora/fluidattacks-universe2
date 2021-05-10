@@ -124,7 +124,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       width: "15%",
     },
     {
-      align: "left",
+      align: "center",
       dataField: "sortsRiskLevel",
       header: translate.t("group.toe.lines.sortsRiskLevel"),
       onSort,
