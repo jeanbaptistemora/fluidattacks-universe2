@@ -480,6 +480,7 @@ async def update_policies(
                 valid.append(validator_func(value))
         valid.append(
             await validate_acceptance_severity_range(
+                loaders,
                 organization_id,
                 values
             )
@@ -508,19 +509,27 @@ async def update_policies(
 
 
 async def validate_acceptance_severity_range(
+    loaders: Any,
     organization_id: str,
     values: Dict[str, Optional[Decimal]]
 ) -> bool:
     success: bool = True
+    organization_data = await loaders.organization.load(organization_id)
+    min_acceptance_severity: Decimal = organization_data[
+        'min_acceptance_severity'
+    ]
+    max_acceptance_severity: Decimal = organization_data[
+        'max_acceptance_severity'
+    ]
     min_value: Decimal = (
         cast(Decimal, values['min_acceptance_severity'])
         if values.get('min_acceptance_severity', None) is not None
-        else await get_min_acceptance_severity(organization_id)
+        else min_acceptance_severity
     )
     max_value: Decimal = (
         cast(Decimal, values['max_acceptance_severity'])
         if values.get('max_acceptance_severity', None) is not None
-        else await get_max_acceptance_severity(organization_id)
+        else max_acceptance_severity
     )
     if min_value > max_value:
         raise InvalidAcceptanceSeverityRange()
