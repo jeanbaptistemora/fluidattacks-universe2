@@ -1,15 +1,11 @@
 import React from "react";
 import type { ReactElement } from "react";
-import type { Column } from "react-bootstrap-table-next";
+import type { ColumnDescription } from "react-bootstrap-table-next";
 
 import { Flex } from "styles/styledComponents";
 
-export const filterFormatter: (
-  column: Column,
-  colIndex: number,
-  components: Record<string, ReactElement>
-) => JSX.Element = (
-  column: Column,
+export const filterFormatter = (
+  column: ColumnDescription,
   _colIndex: number,
   { filterElement, sortElement }: Record<string, ReactElement>
 ): JSX.Element => {

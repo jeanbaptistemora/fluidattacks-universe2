@@ -6,8 +6,7 @@ import { faCog } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import React, { useState } from "react";
-import type { Column } from "react-bootstrap-table-next";
-import type { ColumnToggle } from "react-bootstrap-table2-toolkit";
+import type { ColumnDescription } from "react-bootstrap-table-next";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
@@ -23,8 +22,6 @@ import {
 } from "styles/styledComponents";
 
 export const CustomToggleList: React.FC<ICustomToggleProps> = (
-  // Readonly utility type doesn't work on deeply nested types
-  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   props: Readonly<ICustomToggleProps>
 ): JSX.Element => {
   const { t } = useTranslation();
@@ -62,14 +59,14 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
             data-toggle={"buttons"}
           >
             {columns
-              .map((column: Readonly<Column>): Column & {
+              .map((column: ColumnDescription): ColumnDescription & {
                 toggle: boolean;
               } => ({
                 ...column,
-                toggle: toggles[column.dataField],
+                toggle: toggles[column.dataField as number],
               }))
               .map(
-                (column: Readonly<ColumnToggle>): JSX.Element => {
+                (column): JSX.Element => {
                   function handleClick(): void {
                     onColumnToggle(column.dataField);
 

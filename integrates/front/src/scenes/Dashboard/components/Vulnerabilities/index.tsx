@@ -3,6 +3,7 @@ import { useAbility } from "@casl/react";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useEffect, useState } from "react";
+import type { SortOrder } from "react-bootstrap-table-next";
 import { useTranslation } from "react-i18next";
 import { MemoryRouter, Route } from "react-router";
 
@@ -16,7 +17,10 @@ import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { deleteFormatter } from "components/DataTableNext/formatters";
 import { filterFormatter } from "components/DataTableNext/headerFormatters/filterFormatter";
-import type { IHeaderConfig } from "components/DataTableNext/types";
+import type {
+  IHeaderConfig,
+  ISelectRowProps,
+} from "components/DataTableNext/types";
 import { FluidIcon } from "components/FluidIcon";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -192,7 +196,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     return undefined;
   }
 
-  const selectionMode: SelectRowOptions = {
+  const selectionMode: ISelectRowProps = {
     clickToSelect: false,
     hideSelectColumn: !(
       isEditing ||
@@ -212,7 +216,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   };
 
   function onSortVulns(dataField: string, order: SortOrder): void {
-    const newSorted: Sorted = { dataField, order };
+    const newSorted = { dataField, order };
     sessionStorage.setItem("vulnerabilitiesSort", JSON.stringify(newSorted));
   }
 

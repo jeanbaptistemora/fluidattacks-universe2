@@ -4,6 +4,7 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import moment from "moment";
 import React, { useCallback } from "react";
+import type { SortOrder } from "react-bootstrap-table-next";
 import { dateFilter } from "react-bootstrap-table2-filter";
 import { useParams } from "react-router-dom";
 
@@ -43,7 +44,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     dataField: string,
     order: SortOrder
   ): void => {
-    const newSorted: Sorted = { dataField, order };
+    const newSorted = { dataField, order };
     sessionStorage.setItem("toeLinesSort", JSON.stringify(newSorted));
   };
 
@@ -94,7 +95,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "modifiedDate",
-      filter: dateFilter(),
+      filter: dateFilter({}),
       formatter: formatDate,
       header: translate.t("group.toe.lines.modifiedDate"),
       onSort,
@@ -110,7 +111,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "testedDate",
-      filter: dateFilter(),
+      filter: dateFilter({}),
       formatter: formatDate,
       header: translate.t("group.toe.lines.testedDate"),
       onSort,

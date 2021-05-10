@@ -6,6 +6,7 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
+import type { SortOrder } from "react-bootstrap-table-next";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { useSelector } from "react-redux";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";

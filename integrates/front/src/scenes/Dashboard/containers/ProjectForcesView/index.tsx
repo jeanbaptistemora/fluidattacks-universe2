@@ -3,6 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
+import type { SortOrder } from "react-bootstrap-table-next";
 import { dateFilter, selectFilter } from "react-bootstrap-table2-filter";
 import { useParams } from "react-router-dom";
 

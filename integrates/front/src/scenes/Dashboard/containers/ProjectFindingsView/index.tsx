@@ -10,6 +10,10 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
+import type {
+  SortOrder,
+  TableColumnFilterProps,
+} from "react-bootstrap-table-next";
 import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
 import { Trans } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
@@ -200,15 +204,15 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     dataField: string,
     order: SortOrder
   ): void => {
-    const newSorted: Sorted = { dataField, order };
+    const newSorted = { dataField, order };
     sessionStorage.setItem("findingSort", JSON.stringify(newSorted));
   };
-  const onFilterTitle: (filterVal: string) => void = (
+  const onFilterTitle: TableColumnFilterProps["onFilter"] = (
     filterVal: string
   ): void => {
     sessionStorage.setItem("titleFilter", filterVal);
   };
-  const onFilterWhere: (filterVal: string) => void = (
+  const onFilterWhere: TableColumnFilterProps["onFilter"] = (
     filterVal: string
   ): void => {
     sessionStorage.setItem("whereFilter", filterVal);
@@ -228,10 +232,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
   ): void => {
     sessionStorage.setItem("verificationFilter", filterVal);
   };
-  const onFilterSeverity: (
-    filterVal: string,
-    data: IFindingAttr[]
-  ) => IFindingAttr[] = (
+  const onFilterSeverity = (
     filterVal: string,
     // Exception: FP(There is not redefinition)
     // eslint-disable-next-line
@@ -306,7 +307,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
       dataField: "severityScore",
       filter: selectFilter({
         defaultValue: _.get(sessionStorage, "severityFilter"),
-        onFilter: onFilterSeverity,
+        onFilter: (onFilterSeverity as unknown) as TableColumnFilterProps["onFilter"],
         options: selectOptionsSeverity,
       }),
       header: "Severity",

@@ -8,6 +8,10 @@ import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import React from "react";
+import type {
+  PaginationOptions,
+  SelectRowProps,
+} from "react-bootstrap-table-next";
 import BootstrapTable from "react-bootstrap-table-next";
 import filterFactory from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
@@ -30,8 +34,6 @@ import {
 } from "styles/styledComponents";
 
 export const TableWrapper: React.FC<ITableWrapperProps> = (
-  // Readonly utility type doesn't seem to work on ITableWrapperProps
-  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   props: Readonly<ITableWrapperProps>
 ): JSX.Element => {
   const { SearchBar } = Search;
@@ -73,7 +75,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     numPages === defaultInitPages ||
     (!_.isEmpty(dataset) && dataset.length > pageSize);
 
-  const paginationOptions: PaginationProps = {
+  const paginationOptions = {
     onPageChange,
     onSizePerPageChange,
     paginationSize: numPages,
@@ -143,11 +145,15 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
         hover={true}
         noDataIndication={handleNoData}
         pagination={
-          isPaginationEnable ? paginationFactory(paginationOptions) : undefined
+          isPaginationEnable
+            ? paginationFactory(
+                (paginationOptions as unknown) as PaginationOptions
+              )
+            : undefined
         }
         rowClasses={_.isUndefined(tableBody) ? style.tableBody : tableBody}
         rowEvents={rowEvents}
-        selectRow={selectionMode}
+        selectRow={selectionMode as SelectRowProps<unknown>}
         striped={striped}
         wrapperClasses={`table-responsive mw-100 overflow-x-auto ${tableSize}
           ${style.tableWrapper} ${bordered ? "" : style.borderNone}`}

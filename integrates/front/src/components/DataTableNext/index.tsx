@@ -1,14 +1,11 @@
 import _ from "lodash";
 import React from "react";
+import type { SearchMatchProps } from "react-bootstrap-table2-toolkit";
 import ToolkitProvider from "react-bootstrap-table2-toolkit";
-import type { ToolkitProviderProps } from "react-bootstrap-table2-toolkit";
 
 import style from "components/DataTableNext/index.css";
 import { TableWrapper } from "components/DataTableNext/table";
-import type {
-  IHeaderConfig,
-  ITableProps,
-} from "components/DataTableNext/types";
+import type { ITableProps } from "components/DataTableNext/types";
 import {
   addUniqueKeys,
   customizeColumns,
@@ -18,8 +15,6 @@ import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.m
 import "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css";
 
 export const DataTableNext: React.FC<ITableProps> = (
-  // Readonly utility type doesn't seem to work on deeply nested types
-  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   props: ITableProps
 ): JSX.Element => {
   const {
@@ -37,14 +32,7 @@ export const DataTableNext: React.FC<ITableProps> = (
     ? dataset
     : addUniqueKeys(dataset);
 
-  interface ISearchValues {
-    searchText: string;
-    value: string;
-    column: IHeaderConfig;
-    row: Record<string, unknown>;
-  }
-
-  function onColumnMatch({ searchText, row }: ISearchValues): boolean {
+  function onColumnMatch({ searchText, row }: SearchMatchProps): boolean {
     if (_.isEmpty(searchText)) {
       return true;
     }
@@ -63,23 +51,11 @@ export const DataTableNext: React.FC<ITableProps> = (
           columnToggle={columnToggle}
           columns={customizeColumns(headers, dataset, isFilterEnabled)}
           data={datasetWithUniqueKeys}
-          exportCSV={{
-            fileName: csvFilename,
-          }}
+          exportCSV={{ fileName: csvFilename }}
           keyField={"uniqueId"}
-          search={
-            search
-              ? {
-                  onColumnMatch,
-                }
-              : undefined
-          }
+          search={search ? { onColumnMatch } : undefined}
         >
-          {(
-            // Readonly utility type doesn't work on deeply nested types
-            // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-            toolkitProps: ToolkitProviderProps
-          ): JSX.Element => (
+          {(toolkitProps): JSX.Element => (
             <TableWrapper
               dataset={datasetWithUniqueKeys}
               extraButtons={extraButtons}

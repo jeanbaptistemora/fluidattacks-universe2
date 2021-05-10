@@ -1,34 +1,19 @@
 import _ from "lodash";
-import type { CSSProperties, ReactElement } from "react";
-import type { Column } from "react-bootstrap-table-next";
+import type { CSSProperties } from "react";
+import type { ColumnDescription, SortOrder } from "react-bootstrap-table-next";
 
 import type { IHeaderConfig } from "components/DataTableNext/types";
 
-const handleFormatter: (
-  value: string,
-  row: Readonly<Record<string, string>>,
-  rowIndex: number,
-  key: Readonly<IHeaderConfig>
-) => ReactElement | string | undefined = (
-  value: string,
-  row: Readonly<Record<string, string>>,
-  rowIndex: number,
-  key: Readonly<IHeaderConfig>
-): ReactElement | string | undefined => {
-  return _.isUndefined(key.formatter)
-    ? undefined
-    : key.formatter(value, row, rowIndex, key);
-};
+interface IColumn extends ColumnDescription {
+  onSort: (dataField: string, order: SortOrder) => void;
+}
 
-const addGivenHeaders: (
-  headers: readonly Readonly<IHeaderConfig>[],
-  isFilterEnabled?: boolean
-) => Column[] = (
+const addGivenHeaders = (
   headers: readonly Readonly<IHeaderConfig>[],
   isFilterEnabled: boolean = true
-): Column[] =>
+): IColumn[] =>
   headers.map(
-    (key: Readonly<IHeaderConfig>): Column => {
+    (key: Readonly<IHeaderConfig>): IColumn => {
       const handleSort: (dataField: string, order: SortOrder) => void = (
         dataField: string,
         order: SortOrder
@@ -43,7 +28,7 @@ const addGivenHeaders: (
         dataField: key.dataField,
         filter: isFilterEnabled ? key.filter : undefined,
         formatExtraData: key,
-        formatter: _.isUndefined(key.formatter) ? undefined : handleFormatter,
+        formatter: key.formatter,
         headerFormatter: key.headerFormatter,
         headerStyle: (): CSSProperties => ({
           whiteSpace: _.isUndefined(key.wrapped)
@@ -69,14 +54,14 @@ const addGivenHeaders: (
     }
   );
 
-const addDynamicHeaders: (dataFields: readonly string[]) => Column[] = (
+const addDynamicHeaders = (
   dataFields: readonly string[]
-): Column[] => {
+): ColumnDescription[] => {
   const maxNumberOfFields: number = 10;
   const toManyFields: boolean = dataFields.length > maxNumberOfFields;
 
   return dataFields.map(
-    (key: string): Column => ({
+    (key: string): ColumnDescription => ({
       dataField: key,
       headerStyle: (): CSSProperties => ({
         width: toManyFields ? "150px" : "auto",
@@ -88,15 +73,11 @@ const addDynamicHeaders: (dataFields: readonly string[]) => Column[] = (
   );
 };
 
-export const customizeColumns: (
+export const customizeColumns = (
   headers: readonly Readonly<IHeaderConfig>[],
   dataset: readonly Readonly<Record<string, unknown>>[],
   isFilterEnabled?: boolean
-) => Column[] = (
-  headers: readonly Readonly<IHeaderConfig>[],
-  dataset: readonly Readonly<Record<string, unknown>>[],
-  isFilterEnabled?: boolean
-): Column[] =>
+): ColumnDescription[] =>
   _.isEmpty(headers)
     ? addDynamicHeaders(Object.keys(dataset[0]))
     : addGivenHeaders(headers, isFilterEnabled);

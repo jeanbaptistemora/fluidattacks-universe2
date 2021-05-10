@@ -8,7 +8,10 @@ import {
   deleteFormatter,
   statusFormatter,
 } from "components/DataTableNext/formatters";
-import type { IHeaderConfig } from "components/DataTableNext/types";
+import type {
+  IHeaderConfig,
+  ISelectRowProps,
+} from "components/DataTableNext/types";
 
 describe("Data table next", (): void => {
   it("should return a function", (): void => {
@@ -19,7 +22,7 @@ describe("Data table next", (): void => {
   it("should render an empty table", (): void => {
     expect.hasAssertions();
 
-    const selectionMode: SelectRowOptions = {
+    const selectionMode: ISelectRowProps = {
       clickToSelect: true,
       mode: "checkbox",
     };
@@ -50,7 +53,7 @@ describe("Data table next", (): void => {
         testHeader2: "value 2",
       },
     ];
-    const selectionMode: SelectRowOptions = {
+    const selectionMode: ISelectRowProps = {
       clickToSelect: true,
       mode: "checkbox",
     };
@@ -164,7 +167,7 @@ describe("Data table next", (): void => {
         statusHeader: "value",
       },
     ];
-    const selectionMode: SelectRowOptions = {
+    const selectionMode: ISelectRowProps = {
       clickToSelect: false,
       hideSelectColumn: false,
       mode: "checkbox",

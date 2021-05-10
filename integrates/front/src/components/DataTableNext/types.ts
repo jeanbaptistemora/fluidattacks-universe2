@@ -3,12 +3,20 @@
   Disabling this rule is necessary, because the dataset array may contain
   different types since this is a generic component.
 */
-import type { ReactElement } from "react";
-import type { Column } from "react-bootstrap-table-next";
 import type {
-  ColumnToggleProps,
-  ToolkitProviderProps,
-} from "react-bootstrap-table2-toolkit";
+  ColumnDescription,
+  SelectRowProps,
+  SortOrder,
+} from "react-bootstrap-table-next";
+import type { ToolkitContextType } from "react-bootstrap-table2-toolkit";
+
+interface ISelectRowProps extends Omit<SelectRowProps<any>, "onSelectAll"> {
+  onSelectAll?: (
+    isSelect: boolean,
+    rows: any[],
+    e: React.SyntheticEvent
+  ) => string[];
+}
 
 interface ITableProps {
   bodyContainer?: string;
@@ -16,7 +24,7 @@ interface ITableProps {
   columnToggle?: boolean;
   csvFilename?: string;
   dataset: any[];
-  defaultSorted?: Sorted;
+  defaultSorted?: { dataField: string; order: SortOrder };
   exportCsv: boolean;
   extraButtons?: JSX.Element;
   headerContainer?: string;
@@ -29,7 +37,7 @@ interface ITableProps {
   pageSize: number;
   rowEvents?: Record<string, unknown>;
   search: boolean;
-  selectionMode?: SelectRowOptions;
+  selectionMode?: ISelectRowProps;
   striped?: boolean;
   tableBody?: string;
   tableHeader?: string;
@@ -38,10 +46,8 @@ interface ITableProps {
   onUpdateEnableFilter?: () => void;
 }
 
-interface IHeaderConfig {
-  align?: string;
+interface IHeaderConfig extends Omit<ColumnDescription, "text" | "width"> {
   dataField: string;
-  filter?: unknown;
   header: string;
   visible?: boolean;
   width?: string;
@@ -49,37 +55,25 @@ interface IHeaderConfig {
   approveFunction?: (arg1?: Record<string, string>) => void;
   changeFunction?: (arg1: Readonly<Record<string, string>>) => void;
   deleteFunction?: (arg1?: Record<string, string>) => void;
-  formatter?: (
-    cell: any,
-    row: any,
-    rowIndex: number,
-    formatExtraData: any
-  ) => ReactElement | string;
   onSort?: (dataField: string, order: SortOrder) => void;
-  sortFunc?: (
-    a: any,
-    b: any,
-    order: "asc" | "desc",
-    rowA: any,
-    rowB: any
-  ) => number;
-  headerFormatter?: (
-    column: Column,
-    colIndex: number,
-    components: Record<string, ReactElement>
-  ) => JSX.Element;
 }
 
 interface ICustomToggleProps {
   propsTable: ITableProps;
-  propsToggle: ColumnToggleProps;
+  propsToggle: ToolkitContextType["columnToggleProps"];
 }
 
 interface ITableWrapperProps {
   dataset: Record<string, unknown>[];
   extraButtons?: JSX.Element;
   tableProps: ITableProps;
-  toolkitProps: ToolkitProviderProps;
+  toolkitProps: ToolkitContextType;
 }
 
-export { ITableProps, IHeaderConfig, ICustomToggleProps, ITableWrapperProps };
+export {
+  ICustomToggleProps,
+  IHeaderConfig,
+  ISelectRowProps,
+  ITableProps,
+  ITableWrapperProps,
+};

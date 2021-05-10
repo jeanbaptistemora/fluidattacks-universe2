@@ -1,16 +1,14 @@
 import React from "react";
+import type { ToolkitContextType } from "react-bootstrap-table2-toolkit";
 import { CSVExport } from "react-bootstrap-table2-toolkit";
-import type { ToolkitProviderProps } from "react-bootstrap-table2-toolkit";
 import { useTranslation } from "react-i18next";
 
 import style from "components/DataTableNext/index.css";
 import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
 
-export const ExportCSVButtonWrapper: React.FC<ToolkitProviderProps> = (
-  // Readonly utility type doesn't seem to work on ToolkitProviderProps
-  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-  props: ToolkitProviderProps
+export const ExportCSVButtonWrapper: React.FC<ToolkitContextType> = (
+  props: ToolkitContextType
 ): JSX.Element => {
   const { csvProps } = props;
   const { ExportCSVButton } = CSVExport;

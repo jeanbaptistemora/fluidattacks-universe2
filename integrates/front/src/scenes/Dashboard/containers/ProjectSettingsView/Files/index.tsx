@@ -6,6 +6,7 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
+import type { SortOrder } from "react-bootstrap-table-next";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
@@ -206,7 +207,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     dataField: string,
     order: SortOrder
   ): void => {
-    const newSorted: Sorted = { dataField, order };
+    const newSorted = { dataField, order };
     sessionStorage.setItem("fileSort", JSON.stringify(newSorted));
   };
 
