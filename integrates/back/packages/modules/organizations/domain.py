@@ -253,36 +253,9 @@ async def get_by_name(name: str) -> OrganizationType:
     raise OrganizationNotFound()
 
 
-async def get_current_max_number_acceptations_info(
-    organization_id: str
-) -> Dict[str, Union[Decimal, None, str]]:
-    historic_max_number_acceptations = (
-        await get_historic_max_number_acceptations(organization_id)
-    )
-    current_max_number_acceptations_info = (
-        historic_max_number_acceptations[-1]
-        if historic_max_number_acceptations else {}
-    )
-    return current_max_number_acceptations_info
-
-
 async def get_groups(organization_id: str) -> Tuple[str, ...]:
     """Return a tuple of group names for the provided organization."""
     return tuple(await orgs_dal.get_groups(organization_id))
-
-
-async def get_historic_max_number_acceptations(
-    organization_id: str
-) -> List[Dict[str, Union[Decimal, None, str]]]:
-    org_result = await orgs_dal.get_by_id(
-        organization_id,
-        ['historic_max_number_acceptations']
-    )
-    historic_max_number_acceptations = cast(
-        List[Dict[str, Union[Decimal, None, str]]],
-        org_result.get('historic_max_number_acceptations', [])
-    )
-    return historic_max_number_acceptations
 
 
 async def get_id_by_name(organization_name: str) -> str:
@@ -297,30 +270,6 @@ async def get_id_by_name(organization_name: str) -> str:
 
 async def get_id_for_group(group_name: str) -> str:
     return await orgs_dal.get_id_for_group(group_name)
-
-
-async def get_max_acceptance_days(organization_id: str) -> Optional[Decimal]:
-    result = cast(
-        Dict[str, Decimal],
-        await orgs_dal.get_by_id(organization_id, ['max_acceptance_days'])
-    )
-    return result.get('max_acceptance_days', None)
-
-
-async def get_max_acceptance_severity(organization_id: str) -> Decimal:
-    result = cast(
-        Dict[str, Decimal],
-        await orgs_dal.get_by_id(organization_id, ['max_acceptance_severity'])
-    )
-    return result.get('max_acceptance_severity', DEFAULT_MAX_SEVERITY)
-
-
-async def get_min_acceptance_severity(organization_id: str) -> Decimal:
-    result = cast(
-        Dict[str, Decimal],
-        await orgs_dal.get_by_id(organization_id, ['min_acceptance_severity'])
-    )
-    return result.get('min_acceptance_severity', DEFAULT_MIN_SEVERITY)
 
 
 async def get_name_by_id(organization_id: str) -> str:

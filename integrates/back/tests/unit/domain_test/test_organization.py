@@ -126,75 +126,6 @@ async def test_get_id_for_group():
     assert await orgs_domain.get_id_for_group('madeup-group') == ''
 
 
-async def test_get_max_acceptance_days():
-    org_with_data = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
-    days = await orgs_domain.get_max_acceptance_days(org_with_data)
-    assert days == Decimal('60')
-
-    org_without_data = 'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86'  #NOSONAR
-    days = await orgs_domain.get_max_acceptance_days(org_without_data)
-    assert days is None
-
-
-async def test_get_max_acceptance_severity():
-    org_with_data = 'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86'
-    max_severity = await orgs_domain.get_max_acceptance_severity(org_with_data)
-    assert max_severity == Decimal('6.9')
-
-    org_without_data = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
-    max_severity = await orgs_domain.get_max_acceptance_severity(org_without_data)
-    assert max_severity == Decimal('10.0')
-
-
-async def test_get_historic_max_number_acceptations():
-    org_with_data = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
-    historic_max_acceptations = await orgs_domain.get_historic_max_number_acceptations(org_with_data)
-    expected_max_acceptations = [{
-        'date': '2019-11-22 15:07:57',
-        'user': 'integratesmanager@gmail.com',  #NOSONAR
-        'max_number_acceptations': Decimal('2'),
-    }]
-    assert historic_max_acceptations == expected_max_acceptations
-
-    org_without_data = 'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86'
-    historic_max_acceptations = await orgs_domain.get_historic_max_number_acceptations(org_without_data)
-    assert historic_max_acceptations == []
-
-
-async def test_get_current_max_number_acceptations_info():
-    org_with_data = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
-    current_max_number_acceptations_info = (
-        await orgs_domain.get_current_max_number_acceptations_info(
-            org_with_data
-        )
-    )
-    max_acceptations = (
-        current_max_number_acceptations_info.get('max_number_acceptations')
-    )
-    assert max_acceptations == Decimal('2')
-
-    org_without_data = 'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86'
-    current_max_number_acceptations_info = (
-        await orgs_domain.get_current_max_number_acceptations_info(
-            org_without_data
-        )
-    )
-    max_acceptations = (
-        current_max_number_acceptations_info.get('max_number_acceptations')
-    )
-    assert max_acceptations is None
-
-
-async def test_get_min_acceptance_severity():
-    org_with_data = 'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86'
-    min_severity = await orgs_domain.get_min_acceptance_severity(org_with_data)
-    assert min_severity == Decimal('3.4')
-
-    org_without_data = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
-    min_severity = await orgs_domain.get_min_acceptance_severity(org_without_data)
-    assert min_severity == Decimal('0.0')
-
-
 @pytest.mark.changes_db
 async def test_get_or_create():
     ex_org_name = 'okada'
@@ -287,17 +218,12 @@ async def test_remove_user():
 async def test_update_policies():
     org_id = 'ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86'
     org_name = 'bulat'
-    current_max_number_acceptations_info = (
-        await orgs_domain.get_current_max_number_acceptations_info(
-            org_id
-        )
-    )
-    max_acceptance_days = await orgs_domain.get_max_acceptance_days(org_id)
-    max_acceptance_severity = await orgs_domain.get_max_acceptance_severity(org_id)
-    max_number_acceptations = (
-        current_max_number_acceptations_info.get('max_number_acceptations')
-    )
-    min_acceptance_severity = await orgs_domain.get_min_acceptance_severity(org_id)
+    loaders = get_new_context()
+    organization = await loaders.organization.load(org_id)
+    max_acceptance_days = organization['max_acceptance_days']
+    max_acceptance_severity = organization['max_acceptance_severity']
+    max_number_acceptations = organization['max_number_acceptations']
+    min_acceptance_severity = organization['min_acceptance_severity']
 
     assert max_acceptance_days is None
     assert max_acceptance_severity == Decimal('6.9')
@@ -314,17 +240,12 @@ async def test_update_policies():
         get_new_context(), org_id, org_name, '', new_values
     )
 
-    current_max_number_acceptations_info = (
-        await orgs_domain.get_current_max_number_acceptations_info(
-            org_id
-        )
-    )
-    max_acceptance_days = await orgs_domain.get_max_acceptance_days(org_id)
-    max_acceptance_severity = await orgs_domain.get_max_acceptance_severity(org_id)
-    max_number_acceptations = (
-        current_max_number_acceptations_info.get('max_number_acceptations')
-    )
-    min_acceptance_severity = await orgs_domain.get_min_acceptance_severity(org_id)
+    loaders = get_new_context()
+    organization = await loaders.organization.load(org_id)
+    max_acceptance_days = organization['max_acceptance_days']
+    max_acceptance_severity = organization['max_acceptance_severity']
+    max_number_acceptations = organization['max_number_acceptations']
+    min_acceptance_severity = organization['min_acceptance_severity']
 
     assert max_acceptance_days == Decimal('20')
     assert max_acceptance_severity == Decimal('8.3')
@@ -401,7 +322,9 @@ async def test_validate_severity_range():
         'max_acceptance_severity': Decimal('5.0')
     }
     with pytest.raises(InvalidAcceptanceSeverityRange):
-        await orgs_domain.validate_acceptance_severity_range("", values)
+        await orgs_domain.validate_acceptance_severity_range(
+            get_new_context(), "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86", values
+        )
 
 
 async def test_iterate_organizations():
