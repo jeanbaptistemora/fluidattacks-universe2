@@ -75,6 +75,24 @@ const someRequired: Validator = (
   return isValid ? undefined : translate.t("validations.someRequired");
 };
 
+function checkIfValid(
+  hasDescription: boolean,
+  hasUrl: boolean,
+  hasFileSelected: boolean
+): string | undefined {
+  if (hasDescription) {
+    if (hasUrl) {
+      return undefined;
+    }
+
+    return hasFileSelected
+      ? undefined
+      : translate.t("groupAlerts.noFileSelected");
+  }
+
+  return hasFileSelected ? translate.t("validations.required") : undefined;
+}
+
 const validEvidenceDescription: Validator = (
   _0: boolean,
   allValues: Record<string, Record<string, unknown>>,
@@ -88,15 +106,7 @@ const validEvidenceDescription: Validator = (
   const hasFileSelected: boolean = _.has(groupValues, "file");
   const hasUrl: boolean = _.has(groupValues, "url");
 
-  return hasDescription
-    ? hasUrl
-      ? undefined
-      : hasFileSelected
-      ? undefined
-      : translate.t("groupAlerts.noFileSelected")
-    : hasFileSelected
-    ? translate.t("validations.required")
-    : undefined;
+  return checkIfValid(hasDescription, hasUrl, hasFileSelected);
 };
 
 const validTextField: Validator = (value: string): string | undefined => {
