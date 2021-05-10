@@ -281,7 +281,8 @@ resource "aws_dynamodb_table" "FI_vulnerabilities" {
     range_key       = "UUID"
     projection_type = "INCLUDE"
     non_key_attributes = [
-      "historic_state"
+      "historic_state",
+      "historic_treatment"
     ]
   }
   hash_key  = "finding_id"

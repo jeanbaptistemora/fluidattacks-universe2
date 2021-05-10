@@ -75,6 +75,13 @@ async def get_root_vulns(*, nickname: str) -> Tuple[Dict[str, Any], ...]:
     )
 
 
+def _filter_open_and_accepted_undef_vulns(vuln: Dict[str, Any]) -> bool:
+    return (
+        vuln['historic_state'][-1]['state'] == 'open' and
+        vuln['historic_treatment'][-1]['treatment'] != 'ACCEPTED_UNDEFINED'
+    )
+
+
 async def has_open_vulns(*, nickname: str) -> bool:
     vulns = await get_root_vulns(nickname=nickname)
 
@@ -83,7 +90,7 @@ async def has_open_vulns(*, nickname: str) -> bool:
             (
                 vuln
                 for vuln in vulns
-                if vuln['historic_state'][-1]['state'] == 'open'
+                if _filter_open_and_accepted_undef_vulns(vuln)
             ),
             None
         )
