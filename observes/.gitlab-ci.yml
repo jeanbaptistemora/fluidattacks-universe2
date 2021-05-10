@@ -166,6 +166,24 @@ observes.scheduled.job.code-etl-compute-bills:
   tags: [autoscaling]
   interruptible: false
 
+observes.scheduled.job.code-etl-mirror:
+  <<: *makes
+  only:
+    refs: [schedules]
+    variables: [$observes_code_mirror]
+  stage: analytics
+  tags: [autoscaling]
+  interruptible: false
+
+observes.scheduled.on-aws.code-etl-upload:
+  <<: *makes
+  only:
+    refs: [schedules]
+    variables: [$observes_code_upload]
+  stage: analytics
+  tags: [autoscaling]
+  interruptible: false
+
 observes.scheduled.job.dynamodb-centralize:
   <<: *makes
   tags: [autoscaling-large]
