@@ -1,9 +1,9 @@
-:slug: plans/
-:description: Fluid Attacks offers 'Machine' and 'Squad' plans within the Continuous Hacking service to provide you with flexibility in managing your vulnerabilities.
-:keywords: Fluid Attacks, Continuous Hacking, Plan, Machine, Squad, Vulnerability, Ethical Hacking, Pentesting
-:phrase: Fluid Attacks' plans offer flexibility for your vulnerability management program
-:template: plans
-:banner: clients-bg
+:page-slug: plans/
+:page-description: Fluid Attacks offers 'Machine' and 'Squad' plans within the Continuous Hacking service to provide you with flexibility in managing your vulnerabilities.
+:page-keywords: Fluid Attacks, Continuous Hacking, Plan, Machine, Squad, Vulnerability, Ethical Hacking, Pentesting
+:page-phrase: Fluid Attacks' plans offer flexibility for your vulnerability management program
+:page-template: plans
+:page-banner: clients-bg
 :yes: image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620226926/airs/icons/yes_xcsf3o.webp[Yes]
 :logo: image:https://res.cloudinary.com/fluid-attacks/image/upload/c_scale&#44;w_25/v1619617792/airs/logo-fluid-mobile_cml7pr.webp[Logo]
 

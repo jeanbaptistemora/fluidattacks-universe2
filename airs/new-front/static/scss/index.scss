@@ -352,6 +352,26 @@ $whiter-gray: rgba(241, 241, 241, 1);
 
 .grid { display: grid; }
 
+.plans-feat {
+  .sect2 {
+    border: $lighter-gray solid;
+    border-radius: 0.5rem;
+    border-width: 0.125rem;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 2rem;
+    text-align: center;
+    width: 500px;
+  }
+  
+  .paragraph {
+    text-align: left;
+  }
+}
+
 .services-content,
 .solutions-content {
   background-color: $light-gray;
