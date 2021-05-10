@@ -5,10 +5,13 @@ sidebar_label: Get development keys
 slug: /development/get-dev-keys
 ---
 
-Developers can use Okta to get development AWS credentials.
-This is especially useful for running a local Integrates environment.
+Developers can use Okta
+to get development AWS credentials.
+This is especially useful
+for running a local Integrates environment.
 
-Follow these steps to generate a key pair:
+Follow these steps
+to generate a key pair:
 
 1. Install `awscli` and `aws-okta-processor`:
 
@@ -17,7 +20,8 @@ Follow these steps to generate a key pair:
     $ source ~/.profile
     ```
 
-1. Add the following function in your shell profile (`~/.bashrc`):
+1. Add the following function
+in your shell profile (`~/.bashrc`):
 
     ```
     function okta-login {
