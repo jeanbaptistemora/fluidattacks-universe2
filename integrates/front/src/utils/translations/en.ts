@@ -675,7 +675,7 @@ export const enTranslations: ResourceKey = {
         modifiedDate: "Modified date",
         no: "No",
         pendingLines: "Pending lines",
-        sortsRiskLevel: "Sorts Risk Level",
+        sortsRiskLevel: "Priority (IA/ML)",
         testedDate: "Attack moment",
         testedLines: "Attacked lines",
         yes: "Yes",
