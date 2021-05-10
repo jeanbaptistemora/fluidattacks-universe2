@@ -100,6 +100,16 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             'verify_request_vulnerability',
         },
     ),
+    finding_new=dict(
+        args={
+            'group',
+            'id',
+        },
+        attrs={
+            'state_new',
+        },
+        dependencies=set(),
+    ),
     forces_execution=dict(
         args={
             'group',

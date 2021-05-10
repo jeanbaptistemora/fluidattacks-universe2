@@ -13,5 +13,4 @@ def resolve(
     release_date = ''
     if parent.approval:
         release_date = parent.approval.modified_date
-
     return release_date

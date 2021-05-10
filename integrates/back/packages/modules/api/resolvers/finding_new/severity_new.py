@@ -5,8 +5,8 @@ from typing import Dict
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend import util
 from model.findings.types import Finding
+from newutils import utils
 
 
 def resolve(
@@ -15,7 +15,7 @@ def resolve(
     **_kwargs: None
 ) -> Dict[str, float]:
     severity = {
-        util.snakecase_to_camelcase(key): float(value)
+        utils.snakecase_to_camelcase(key): float(value)
         for key, value in parent.severity._asdict().items()
     }
 
