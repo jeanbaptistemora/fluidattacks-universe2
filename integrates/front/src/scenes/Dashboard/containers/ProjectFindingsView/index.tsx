@@ -242,7 +242,9 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     data: IFindingAttr[]
   ) => IFindingAttr[] = (
     filterVal: string,
-    data: IFindingAttr[]
+    // Exception: FP(There is not redefinition)
+    // eslint-disable-next-line
+    data: IFindingAttr[] // NOSONAR
   ): IFindingAttr[] => {
     sessionStorage.setItem("severityFilter", filterVal);
     if (filterVal.length === 0) {
@@ -404,20 +406,28 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     variables: { projectName },
   });
 
+  function setReportType(icon: SVGElement): string {
+    if (
+      (icon.attributes.getNamedItem("data-icon")?.value as string).includes(
+        "pdf"
+      )
+    ) {
+      return "PDF";
+    }
+
+    return (icon.attributes.getNamedItem("data-icon")
+      ?.value as string).includes("excel")
+      ? "XLS"
+      : "DATA";
+  }
+
   const handleRequestProjectReport: (
     event: React.MouseEvent<HTMLElement>
   ) => void = (event: React.MouseEvent<HTMLElement>): void => {
     const target: HTMLElement = event.currentTarget as HTMLElement;
     const icon: SVGElement | null = target.querySelector("svg");
     if (icon !== null) {
-      const reportType: string = (icon.attributes.getNamedItem("data-icon")
-        ?.value as string).includes("pdf")
-        ? "PDF"
-        : (icon.attributes.getNamedItem("data-icon")?.value as string).includes(
-            "excel"
-          )
-        ? "XLS"
-        : "DATA";
+      const reportType: string = setReportType(icon);
 
       track("GroupReportRequest", { reportType });
 
