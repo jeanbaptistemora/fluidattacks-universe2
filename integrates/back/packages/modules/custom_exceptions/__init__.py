@@ -1,5 +1,32 @@
 # Standard libraries
+from __future__ import (
+    annotations,
+)
 from typing import Sequence
+
+
+class _SingleMessageException(Exception):
+    msg: str
+
+    @classmethod
+    def new(cls) -> _SingleMessageException:
+        return cls(cls.msg)
+
+
+class ExpectedVulnToBeOfLinesType(_SingleMessageException):
+    msg: str = "Expected vulnerability to be of type: lines"
+
+
+class InvalidVulnCommitHash(_SingleMessageException):
+    msg: str = "Commit Hash should be a 40 chars long hexadecimal"
+
+
+class InvalidVulnSpecific(_SingleMessageException):
+    msg: str = "Vulnerability Specific must be integer"
+
+
+class InvalidVulnWhere(_SingleMessageException):
+    msg: str = "Vulnerability where should match: ^(?!=)+[^/]+/.+$"
 
 
 class AcceptionNotRequested(Exception):
