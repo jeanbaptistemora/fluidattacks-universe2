@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { toggleZendesk } from "utils/widgets";
 
 const StyledWidget = styled.div.attrs({
-  className: "pointer red",
+  className: "pointer gray",
 })``;
 
 export const HelpWidget: React.FC = (): JSX.Element => (

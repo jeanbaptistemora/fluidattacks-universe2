@@ -787,7 +787,7 @@ export const enTranslations: ResourceKey = {
   logout: "Log out",
   navbar: {
     newsTooltip: "Latest updates about ASM",
-    searchPlaceholder: "Group Name",
+    searchPlaceholder: "Search Group Name",
   },
   organization: {
     tabs: {

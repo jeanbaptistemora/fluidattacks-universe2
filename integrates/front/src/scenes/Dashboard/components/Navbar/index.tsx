@@ -11,9 +11,7 @@ import { Field } from "redux-form";
 import { SplitButton } from "./components/splitbutton";
 
 import { HelpWidget } from "../HelpWidget";
-import { Button } from "components/Button";
 import { MenuItem } from "components/DropdownButton";
-import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
@@ -21,7 +19,6 @@ import { stylizeBreadcrumbItem } from "scenes/Dashboard/components/Navbar/utils"
 import { NewsWidget } from "scenes/Dashboard/components/NewsWidget";
 import {
   BreadCrumb,
-  Col100,
   Col25,
   NavBar,
   NavBarCollapse,
@@ -188,6 +185,22 @@ const NavbarComponent: React.FC = (): JSX.Element => {
           </BreadCrumb>
         </NavBarHeader>
         <NavBarCollapse>
+          <Can do={"front_can_use_groups_searchbar"}>
+            <li role={"presentation"}>
+              <NavBarForm>
+                <GenericForm name={"searchBar"} onSubmit={handleSearchSubmit}>
+                  <NavBarFormGroup>
+                    <Field
+                      component={Text}
+                      name={"projectName"}
+                      placeholder={translate.t("navbar.searchPlaceholder")}
+                      validate={[alphaNumeric]}
+                    />
+                  </NavBarFormGroup>
+                </GenericForm>
+              </NavBarForm>
+            </li>
+          </Can>
           <Col25>
             <TooltipWrapper
               id={"navbar.newsTooltip.id"}
@@ -196,31 +209,6 @@ const NavbarComponent: React.FC = (): JSX.Element => {
               <NewsWidget />
             </TooltipWrapper>
           </Col25>
-          <Col100>
-            <Can do={"front_can_use_groups_searchbar"}>
-              <li role={"presentation"}>
-                <NavBarForm>
-                  <GenericForm name={"searchBar"} onSubmit={handleSearchSubmit}>
-                    <NavBarFormGroup>
-                      <Field
-                        component={Text}
-                        name={"projectName"}
-                        placeholder={translate.t("navbar.searchPlaceholder")}
-                        validate={[alphaNumeric]}
-                      />
-                      <Button
-                        // eslint-disable-next-line react/forbid-component-props
-                        className={"bg-sb b--sb outline-0"}
-                        type={"submit"}
-                      >
-                        <FluidIcon icon={"search"} />
-                      </Button>
-                    </NavBarFormGroup>
-                  </GenericForm>
-                </NavBarForm>
-              </li>
-            </Can>
-          </Col100>
           <HelpWidget />
         </NavBarCollapse>
       </NavBar>
