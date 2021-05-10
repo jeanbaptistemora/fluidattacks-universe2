@@ -7,15 +7,21 @@ slug: /development
 
 ## Fluid Attacks, Products repository
 
-We are a [cyber-security company](https://fluidattacks.com) whose only purpose is
+We are a
+[cyber-security company](https://fluidattacks.com)
+whose only purpose is
 to make the world a safer place
 
 We do this by:
-- Performing comprehensive security testing over all of your assets
-- Using cutting edge technologies and heavily trained human hackers
-- Reporting vulnerabilities back to you as accurate and fast as possible
+- Performing comprehensive security testing
+over all of your assets
+- Using cutting edge technologies
+and heavily trained human hackers
+- Reporting vulnerabilities back to you
+as accurate and fast as possible
 
-The source code of the technologies used is versioned in this repository
+The source code of the technologies used
+is versioned in this repository
 and is divided across many products:
 
 | Product | Badges |
@@ -27,13 +33,17 @@ and is divided across many products:
 
 ## Installing
 
-Most products are distributed as a standalone binary
+Most products are distributed
+as a standalone binary
 
-Before proceeding make sure you have Nix installed in your system,
-otherwise please install it as explained in the [tutorial](https://nixos.org/download.html)
+Before proceeding
+make sure you have Nix installed in your system,
+otherwise please install it
+as explained in the
+[tutorial](https://nixos.org/download.html)
 
-You can install the products of your choice by using one or many of
-the following commands:
+You can install the products of your choice
+by using one or many of the following commands:
 
 - `bash <(curl -L fluidattacks.com/install/asserts)`
 - `bash <(curl -L fluidattacks.com/install/forces)`
@@ -42,7 +52,11 @@ the following commands:
 - `bash <(curl -L fluidattacks.com/install/skims)`
 - `bash <(curl -L fluidattacks.com/install/sorts)`
 
-Once installed, you can test that they work by invoking the product
-like `skims --help`, `forces --help`, and so on
+Once installed,
+you can test that they work
+by invoking the product
+like `skims --help`, `forces --help`,
+and so on
 
-You can see installed software with: `nix-env -q` and uninstall with: `nix-env -e`
+You can see installed software with:
+`nix-env -q` and uninstall with: `nix-env -e`

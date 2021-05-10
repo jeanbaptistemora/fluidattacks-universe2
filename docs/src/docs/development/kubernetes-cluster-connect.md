@@ -7,11 +7,15 @@ slug: /development/kubernetes-cluster-connect
 
 ## Connect to cluster
 
-In order to connect to the Integrates Kubernetes Cluster, you must:
+In order to connect
+to the Integrates Kubernetes Cluster,
+you must:
 
-1. Login as an Integrates developer using [this guide](/development/get-dev-keys)
+1. Login as an Integrates developer
+using [this guide](/development/get-dev-keys)
 2. Install kubectl with `nix-env -i kubectl`
-3. Select cluster by running `aws eks update-kubeconfig --name integrates-cluster --region us-east-1`
+3. Select cluster by running
+`aws eks update-kubeconfig --name integrates-cluster --region us-east-1`
 4. Run `kubectl get node`
 
 Your input should be similar to this:
@@ -38,7 +42,8 @@ ip-192-168-7-54.ec2.internal    Ready    <none>   39d   v1.17.11-eks-cfdc40
 
 ## Common commands
 
-These are the most commonly used kubectl commands for debugging
+These are the most commonly used
+kubectl commands for debugging
 
 | Command                                                           | Example                                                                                            | Description                   |
 | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | ----------------------------- |
