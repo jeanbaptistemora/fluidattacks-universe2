@@ -11,6 +11,9 @@ from decorators import (
     require_login,
 )
 from redis_cluster.operations import redis_del_by_deps
+from vulnerabilities.domain.rebase import (
+    rebase as rebase_vuln,
+)
 
 
 @convert_kwargs_to_snake_case
@@ -22,13 +25,24 @@ from redis_cluster.operations import redis_del_by_deps
 async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
+    vuln_commit: str,
     vuln_id: str,
+    vuln_where: str,
+    vuln_specific: str,
 ) -> SimplePayload:
-    success: bool = True
     vuln_data = await info.context.loaders.vulnerability.load(vuln_id)
     finding_id: str = vuln_data["finding_id"]
     finding_data = await info.context.loaders.finding.load(finding_id)
     group_name: str = finding_data["project_name"]
+
+    success: bool = await rebase_vuln(
+        finding_id=finding_id,
+        vuln_commit=vuln_commit,
+        vuln_type=vuln_data["vuln_type"],
+        vuln_id=vuln_id,
+        vuln_where=vuln_where,
+        vuln_specific=vuln_specific,
+    )
 
     if success:
         await redis_del_by_deps(

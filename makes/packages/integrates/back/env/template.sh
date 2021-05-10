@@ -31,7 +31,8 @@ function main {
       fi \
   &&  export API_STATUS="${api_status}" \
   &&  export INTEGRATES_DB_MODEL_PATH='__envIntegrates__/arch/database-design.json' \
-  &&  export CHARTS_LOGO_PATH='__envIntegrates__/back/packages/modules/reports/resources/themes/logo.png' \
+  &&  export INTEGRATES_CHARTS_LOGO_PATH='__envIntegrates__/back/packages/modules/reports/resources/themes/logo.png' \
+  &&  export INTEGRATES_MAILER_TEMPLATES='__envIntegrates__/back/packages/modules/mailer/email_templates' \
   &&  export STARTDIR="${PWD}" \
   &&  if ! test -e 'integrates'
       then

@@ -43,10 +43,25 @@ async def populate(generic_data: Dict[str, Any]) -> None:
                             "state": "open",
                         },
                     ],
-                    "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce8",
+                    "UUID": "77b88be2-37c8-429b-a519-029b1c32fdcd",
                     "vuln_type": "ports",
                     "where": "192.168.1.20",
                     "specific": "9999",
+                },
+                {
+                    "finding_id": "475041513",
+                    "historic_state": [
+                        {
+                            "date": "2018-04-07 19:45:11",
+                            "analyst": "analyst@gmail.com",
+                            "source": "integrates",
+                            "state": "open",
+                        },
+                    ],
+                    "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce8",
+                    "vuln_type": "lines",
+                    "where": "a/b",
+                    "specific": "10",
                 },
             ],
         }

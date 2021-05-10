@@ -1,0 +1,3 @@
+import os
+
+EMAIL_TEMPLATES: str = os.environ["INTEGRATES_MAILER_TEMPLATES"]

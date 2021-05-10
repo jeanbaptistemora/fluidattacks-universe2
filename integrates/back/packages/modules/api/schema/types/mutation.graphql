@@ -444,7 +444,10 @@ type Mutation {
   ): SimplePayload!
 
   updateVulnCommit(
+    vulnCommit: String!
     vulnId: String!
+    vulnWhere: String!
+    vulnSpecific: String!
   ): SimplePayload!
 
   updateVulnsTreatment(

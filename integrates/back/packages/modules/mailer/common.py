@@ -24,6 +24,7 @@ import authz
 from back.settings import LOGGING
 from backend.typing import MailContent as MailContentType
 from group_access import domain as group_access_domain
+from mailer.context import EMAIL_TEMPLATES
 from newutils import datetime as datetime_utils
 from users import domain as users_domain
 from __init__ import (
@@ -42,7 +43,7 @@ DIGEST_TAG = ['digest']
 GENERAL_TAG: List[str] = ['general']
 LOGGER_TRANSACTIONAL = logging.getLogger('transactional')
 TEMPLATES = Environment(
-    loader=FileSystemLoader('./back/packages/modules/mailer/email_templates'),
+    loader=FileSystemLoader(EMAIL_TEMPLATES),
     autoescape=True
 )
 VERIFY_TAG: List[str] = ['verify']
