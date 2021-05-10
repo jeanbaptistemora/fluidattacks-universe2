@@ -1,9 +1,12 @@
 # Standard libraries
+from itertools import chain
 from typing import (
     Iterator,
+    TypeVar,
 )
 
 # Third party libraries
+from returns.unsafe import unsafe_perform_io
 from returns.curry import partial
 from returns.io import IO
 
@@ -16,7 +19,10 @@ from singer_io.singer import SingerRecord
 from tap_bugsnag.api import (
     ApiClient,
     ApiPage,
+    ErrorsPage,
     OrgId,
+    ProjId,
+    ProjectsPage,
 )
 from tap_bugsnag.streams.objs import SupportedStreams
 
@@ -43,20 +49,56 @@ def _stream_data(
     pages.map(partial(_emit_pages, stream))
 
 
+_Data = TypeVar("_Data")
+
+
+def _fold(items: Iterator[IO[Iterator[_Data]]]) -> IO[Iterator[_Data]]:
+    def rm_io(items: IO[Iterator[_Data]]) -> Iterator[_Data]:
+        return unsafe_perform_io(items)
+
+    raw = map(rm_io, items)
+    return IO(chain.from_iterable(raw))
+
+
+def _get_projs(
+    api: ApiClient, orgs: Iterator[OrgId]
+) -> IO[Iterator[ProjectsPage]]:
+    return _fold(iter(map(lambda org: api.org(org).list_projects(ALL), orgs)))
+
+
+def _get_projs_id(
+    api: ApiClient, orgs: Iterator[OrgId]
+) -> IO[Iterator[ProjId]]:
+    return _fold(iter(map(lambda org: api.org(org).list_projs_id(ALL), orgs)))
+
+
+def _get_errors(
+    api: ApiClient, projs: Iterator[ProjId]
+) -> IO[Iterator[ErrorsPage]]:
+    return _fold(
+        iter(map(lambda proj: api.proj(proj).list_errors(ALL), projs))
+    )
+
+
 def all_orgs(api: ApiClient) -> None:
     _stream_data(SupportedStreams.ORGS, api.user.list_orgs(ALL))
 
 
 def all_projects(api: ApiClient) -> None:
-    orgs = api.user.list_orgs_id(ALL)
+    orgs_io = api.user.list_orgs_id(ALL)
+    _stream_data(
+        SupportedStreams.ERRORS, orgs_io.bind(partial(_get_projs, api))
+    )
 
-    def _stream(orgs: Iterator[OrgId]) -> None:
-        for org in orgs:
-            _stream_data(
-                SupportedStreams.PROJECTS, api.org(org).list_projects(ALL)
-            )
 
-    orgs.map(_stream)
+def all_errors(api: ApiClient) -> None:
+    orgs_io = api.user.list_orgs_id(ALL)
+    _stream_data(
+        SupportedStreams.ERRORS,
+        orgs_io.bind(partial(_get_projs_id, api)).bind(
+            partial(_get_errors, api)
+        ),
+    )
 
 
 __all__ = [

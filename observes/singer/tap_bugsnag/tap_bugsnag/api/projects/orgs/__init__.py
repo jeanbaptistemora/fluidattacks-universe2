@@ -1,6 +1,7 @@
 # pylint: skip-file
 # Standard libraries
 from __future__ import annotations
+from itertools import chain
 from typing import (
     Iterator,
     List,
@@ -57,3 +58,8 @@ class OrgsApi(NamedTuple):
         return extractor.extract_page(
             lambda: io_get_until_end(PageId("", 100), getter), getter, page
         )
+
+    def list_projs_id(self, page: PageOrAll) -> IO[Iterator[ProjId]]:
+        projs = self.list_projects(page)
+        data = projs.map(lambda pages: iter(map(ProjId.new, pages)))
+        return data.map(chain.from_iterable)
