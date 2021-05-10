@@ -386,7 +386,9 @@ describe("GroupScopeView", (): void => {
       }
     );
     const getFirstTableRow: () => ReactWrapper = (): ReactWrapper =>
-      wrapper.find("tr").at(1) as ReactWrapper;
+      // Exception: WF(Avoid unsafe return of an any typed value)
+      // eslint-disable-next-line
+      wrapper.find("tr").at(1) as ReactWrapper; // NOSONAR
 
     getFirstTableRow().find("td").at(0).simulate("click");
 
@@ -569,8 +571,9 @@ describe("GroupScopeView", (): void => {
 
     const getStateSwitch: () => ReactWrapper = (): ReactWrapper => {
       const firstTableRow: ReactWrapper = wrapper.find("tr").at(1);
-
-      return firstTableRow.find("#rootSwitch").at(0) as ReactWrapper;
+      // Exception: WF(Avoid unsafe return of an any typed value)
+      // eslint-disable-next-line
+      return firstTableRow.find("#rootSwitch").at(0) as ReactWrapper; // NOSONAR
     };
 
     expect(getStateSwitch().prop("checked")).toStrictEqual(false);
@@ -723,8 +726,9 @@ describe("GroupScopeView", (): void => {
 
       const getStateSwitch = (): ReactWrapper => {
         const firstTableRow = wrapper.find("tr").at(1);
-
-        return firstTableRow.find("#rootSwitch").at(0) as ReactWrapper;
+        // Exception: WF(Avoid unsafe return of an any typed value)
+        // eslint-disable-next-line
+        return firstTableRow.find("#rootSwitch").at(0) as ReactWrapper; // NOSONAR
       };
 
       expect(getStateSwitch().prop("checked")).toStrictEqual(true);
