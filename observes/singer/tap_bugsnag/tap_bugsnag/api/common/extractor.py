@@ -3,13 +3,14 @@
 from __future__ import (
     annotations,
 )
+import logging
 import re
+import urllib.parse
 from typing import (
     Any,
     Callable,
     Iterator,
     List,
-    Type,
     TypeVar,
 )
 
@@ -32,6 +33,7 @@ from singer_io.common import JSON
 
 
 _Data = TypeVar("_Data")
+LOG = logging.getLogger(__name__)
 
 
 class TypeCheckFail(Exception):
@@ -49,10 +51,13 @@ def _guarantee_list_json_type(raw: Any) -> None:
     raise TypeCheckFail(f"raw is not a List[JSON]. raw: {raw}")
 
 
-def _extract_offset(link: str) -> Maybe[str]:
-    match = Maybe.from_optional(re.match("offset=([a-zA-Z0-9]+)", link))
-    is_next = re.match('rel="next"', link)
-    return match.map(lambda x: x.group(1)) if is_next else Maybe.empty
+def _extract_offset(raw_link: str) -> Maybe[str]:
+    link = urllib.parse.unquote(raw_link)
+    match = Maybe.from_optional(re.search("offset=([a-zA-Z0-9:]+)", link))
+    is_next = re.search('rel="next"', link)
+    result = match.map(lambda x: x.group(1)) if is_next else Maybe.empty
+    LOG.debug("link: %s; is_next: %s, offset: %s", link, bool(is_next), result)
+    return result
 
 
 def _extract_result_data(
@@ -65,7 +70,7 @@ def from_response(response: Response) -> Maybe[PageResult[List[JSON]]]:
     data = response.json()
     if not data:
         return Maybe.empty
-    next_item = _extract_offset(response.headers["Link"])
+    next_item = _extract_offset(response.headers.get("Link", ""))
     total: Maybe[int] = Maybe.from_optional(
         response.headers.get("X-Total-Count", None)
     ).map(int)

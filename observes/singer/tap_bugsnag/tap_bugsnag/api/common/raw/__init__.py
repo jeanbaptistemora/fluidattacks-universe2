@@ -20,6 +20,7 @@ from returns.maybe import Maybe
 from paginator.object_index import (
     PageId,
 )
+from singer_io.common import JSON
 from tap_bugsnag.api.auth import Credentials
 from tap_bugsnag.api.common.raw import handlers
 from tap_bugsnag.api.common.raw.handlers import RawResponse
@@ -39,15 +40,15 @@ def _extract_http_error(response: Response) -> Maybe[HTTPError]:
         return Maybe.from_value(error)
 
 
-def _get(client: Client, endpoint: str, page: PageId) -> RawResponse:
-    if page.page == "":
-        response = client.get(
-            endpoint,
-            {"per_page": page.per_page},
-        )
+def _get(
+    client: Client, endpoint: str, page: PageId, params: JSON = {}
+) -> RawResponse:
+    _params: JSON = {"per_page": page.per_page, **params}
+    if page.page:
+        _params["offset"] = page.page
     response = client.get(
         endpoint,
-        {"offset": page.page, "per_page": page.per_page},
+        _params,
     )
     error = _extract_http_error(response)
     if error == Maybe.empty:
@@ -55,8 +56,12 @@ def _get(client: Client, endpoint: str, page: PageId) -> RawResponse:
     return IOFailure(error.unwrap())
 
 
-def _handled_get(client: Client, endpoint: str, page: PageId) -> IO[Response]:
-    return handlers.handle_rate_limit(lambda: _get(client, endpoint, page), 5)
+def _handled_get(
+    client: Client, endpoint: str, page: PageId, params: JSON = {}
+) -> IO[Response]:
+    return handlers.handle_rate_limit(
+        lambda: _get(client, endpoint, page, params), 5
+    )
 
 
 def _debug_log(resource: str, page: PageId, response: IO[Response]) -> None:
@@ -66,7 +71,7 @@ def _debug_log(resource: str, page: PageId, response: IO[Response]) -> None:
         page,
         response,
         response.map(lambda x: x.headers),
-        response.map(lambda x: x.json()),
+        response.map(lambda x: str(x.json())[0:100] + "..."),
     )
 
 
@@ -87,7 +92,10 @@ class RawApi(NamedTuple):
 
     def list_errors(self, page: PageId, project_id: str) -> IO[Response]:
         response = _handled_get(
-            self.client, f"/projects/{project_id}/errors", page
+            self.client,
+            f"/projects/{project_id}/errors",
+            page,
+            {"sort": "unsorted"},
         )
         _debug_log("errors", page, response)
         return response

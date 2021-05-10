@@ -17,6 +17,7 @@ LOG = logging.getLogger(__name__)
 _stream_executor: Mapping[SupportedStreams, Callable[[ApiClient], None]] = {
     SupportedStreams.ORGS: streams.all_orgs,
     SupportedStreams.PROJECTS: streams.all_projects,
+    SupportedStreams.ERRORS: streams.all_errors,
 }
 
 
