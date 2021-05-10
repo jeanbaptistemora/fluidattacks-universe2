@@ -5,13 +5,19 @@ sidebar_label: Software as a Service
 slug: /machine/scanner/plans/saas
 ---
 
-When run as part of Fluid Attack's Machine plan or superior
+When run as part of
+Fluid Attack's Machine plan or superior
 we'll configure everything for you.
-The service will constantly monitor the security state of your system,
-open new security findings as they are introduced,
-and close security findings once they are no longer present in the system.
+The service will constantly monitor
+the security state of your system,
+open new security findings
+as they are introduced,
+and close security findings
+once they are no longer present
+in the system.
 
-At all moments you can read awesome reports and analytics at Fluid Attack's App:
+At all moments you can read awesome reports
+and analytics at Fluid Attack's App:
 
 - Description of the vulnerability
 

@@ -5,10 +5,14 @@ sidebar_label: Free and Open Source
 slug: /machine/scanner/plans/foss
 ---
 
-When run as as a free and Open Source CLI tool,
-you are in charge of configuring the tool.
-It will scan vulnerabilities in the target of your choice
-and report results back to you in pretty-printed or CSV format:
+When run as as a free
+and Open Source CLI tool,
+you are in charge of
+configuring the tool.
+It will scan vulnerabilities
+in the target of your choice
+and report results back to you
+in pretty-printed or CSV format:
 
 - Pretty Printed results:
 
@@ -82,8 +86,9 @@ Just execute `$ skims /path/to/config.yaml`.
 
 ### Configuration format
 
-Fluid Attack's scanner uses a configuration file in [YAML](https://yaml.org/)
-syntax.
+Fluid Attack's scanner
+uses a configuration file in
+[YAML](https://yaml.org/) syntax.
 
 ```yaml title="/path/to/config.yaml"
 # Description:
