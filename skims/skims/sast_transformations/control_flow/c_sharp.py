@@ -70,6 +70,19 @@ def switch_statement(
         _generic(graph, stmt_ids[-1], stack, edge_attrs=ALWAYS)
 
 
+def using_statement(
+    graph: Graph,
+    n_id: str,
+    stack: Stack,
+) -> None:
+    match = g.match_ast(graph, n_id, "block")
+    if block_id := match["block"]:
+        graph.add_edge(n_id, block_id, **ALWAYS)
+        _generic(graph, block_id, stack, edge_attrs=ALWAYS)
+    propagate_next_id_from_parent(stack)
+    link_to_last_node(graph, n_id, stack, _generic=_generic)
+
+
 def _generic(
     graph: Graph,
     n_id: str,
@@ -102,6 +115,12 @@ def _generic(
                 "switch_statement",
             },
             switch_statement,
+        ),
+        (
+            {
+                "using_statement",
+            },
+            using_statement,
         ),
         (
             {
