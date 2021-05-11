@@ -24,8 +24,8 @@ from unidiff import (
 DEFAULT_COMMIT: str = "0000000000000000000000000000000000000000"
 
 
-def get_repo(path: str) -> Repo:
-    return Repo(path, search_parent_directories=True)
+def get_repo(path: str, search_parent_directories: bool = True) -> Repo:
+    return Repo(path, search_parent_directories=search_parent_directories)
 
 
 def get_repo_head_hash(path: str) -> str:
@@ -132,7 +132,7 @@ def _rebase_one_commit_at_a_time(
                 elif line > hunk_source_end:
                     # The line exists after this hunk and therefore
                     # we should increase/decrease the line number
-                    line -= hunk_source_end - hunk.source_start
+                    line += hunk.added - hunk.removed
                 elif hunk.source_start <= line <= hunk_source_end:
                     # We cannot rebase because the line was modified
                     # by this hunk

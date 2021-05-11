@@ -48,6 +48,18 @@ CONFIG = partial(
         resolve_path=True,
     ),
 )
+REPO = partial(
+    click.argument,
+    "repository",
+    type=click.Path(
+        allow_dash=False,
+        dir_okay=True,
+        exists=True,
+        file_okay=False,
+        readable=True,
+        resolve_path=True,
+    ),
+)
 GROUP = partial(
     click.option,
     "--group",
@@ -121,16 +133,19 @@ def scan(
 @cli.command(help="Update vulnerability locations at Integrates.")
 @GROUP(required=True)
 @NAMESPACE(required=True)
+@REPO()
 @TOKEN(required=True)
 def rebase(
     group: str,
     namespace: str,
+    repository: str,
     token: str,
 ) -> None:
     success: bool = run(
         rebase_wrapped(
             group=group,
             namespace=namespace,
+            repository=repository,
             token=token,
         ),
     )
@@ -144,6 +159,7 @@ def rebase(
 async def rebase_wrapped(
     group: str,
     namespace: str,
+    repository: str,
     token: str,
 ) -> bool:
     # Import here to handle gracefully any errors it may throw
@@ -158,6 +174,7 @@ async def rebase_wrapped(
     success: bool = await core.rebase.main(
         group=group,
         namespace=namespace,
+        repository=repository,
         token=token,
     )
 

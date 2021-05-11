@@ -1,7 +1,10 @@
 # Standard library
+from typing import AsyncIterator
+
+# Third party libraries
+import git
 
 # Local libraries
-from typing import AsyncIterator
 from core.persist import (
     verify_permissions,
 )
@@ -17,6 +20,14 @@ from model import (
 )
 from model.core_model import (
     Vulnerability,
+)
+from utils.logs import (
+    log,
+    log_exception,
+)
+from utils.repositories import (
+    get_repo,
+    rebase,
 )
 
 
@@ -51,6 +62,7 @@ async def iterate_vulnerabilities_to_rebase(
 async def main(
     group: str,
     namespace: str,
+    repository: str,
     token: str,
 ) -> bool:
     success: bool = True
@@ -59,10 +71,39 @@ async def main(
 
     await verify_permissions(group=group)
 
-    async for _ in iterate_vulnerabilities_to_rebase(
+    repo = get_repo(repository, search_parent_directories=False)
+
+    async for vulnerability in iterate_vulnerabilities_to_rebase(
         group=group,
         namespace=namespace,
     ):
-        pass
+        try:
+            if rebase_data := rebase(
+                repo,
+                path=vulnerability.what,
+                line=int(vulnerability.where),
+                rev_a=vulnerability.integrates_metadata.commit_hash,
+                rev_b="HEAD",
+            ):
+                await log(
+                    "info",
+                    (
+                        "Vulnerability will be rebased from:\n"
+                        "  from path: %s\n"
+                        "    line: %s\n"
+                        "    commit: %s\n"
+                        "  to path:   %s:\n"
+                        "    line: %s\n"
+                        "    commit: %s\n"
+                    ),
+                    vulnerability.what,
+                    vulnerability.where,
+                    vulnerability.integrates_metadata.commit_hash,
+                    rebase_data.path,
+                    rebase_data.line,
+                    rebase_data.rev,
+                )
+        except git.GitError as exc:
+            await log_exception("error", exc)
 
     return success
