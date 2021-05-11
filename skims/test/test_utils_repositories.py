@@ -1,8 +1,11 @@
-# Third party libraries
+# Standard libraries
 from functools import (
     partial,
 )
 import textwrap
+
+# Third party libraries
+import git
 import pytest
 
 # Local libraries
@@ -41,7 +44,8 @@ def test_get_diff() -> None:
     repo = get_repo(".")
 
     # Wrong format
-    assert get_diff(repo, rev_a="xxxx", rev_b="HEAD") is None
+    with pytest.raises(git.GitError):
+        assert get_diff(repo, rev_a="xxxx", rev_b="HEAD")
 
     # Nice format
     path: str = "makes/packages/skims/config-runtime/default.nix"

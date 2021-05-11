@@ -82,7 +82,7 @@ in pretty-printed or CSV format:
 
 ## Running the scanner
 
-Just execute `$ skims /path/to/config.yaml`.
+Just execute `$ skims scan /path/to/config.yaml`.
 
 ### Configuration format
 
