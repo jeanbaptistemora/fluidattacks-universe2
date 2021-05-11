@@ -25,6 +25,7 @@ describe("Sidebar", (): void => {
           onOpenAccessTokenModal={functionMock}
           onOpenAddOrganizationModal={functionMock}
           onOpenAddUserModal={functionMock}
+          onOpenConfig={functionMock}
           onToggle={functionMock}
           userEmail={"test@test.com"}
           userRole={"Unit role"}

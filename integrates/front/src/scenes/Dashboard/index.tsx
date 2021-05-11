@@ -15,6 +15,7 @@ import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import { APITokenModal } from "scenes/Dashboard/components/APITokenModal";
 import { CompulsoryNotice } from "scenes/Dashboard/components/CompulsoryNoticeModal";
 import { ConcurrentSessionNotice } from "scenes/Dashboard/components/ConcurrentSessionNoticeModal";
+import { GlobalConfigModal } from "scenes/Dashboard/components/GlobalConfigModal";
 import { Navbar } from "scenes/Dashboard/components/Navbar";
 import { Sidebar } from "scenes/Dashboard/components/Sidebar";
 import { HomeView } from "scenes/Dashboard/containers/HomeView";
@@ -106,6 +107,14 @@ export const Dashboard: React.FC = (): JSX.Element => {
   }, []);
   const closeOrganizationModal: () => void = useCallback((): void => {
     setOrganizationModalOpen(false);
+  }, []);
+
+  const [isConfigModalOpen, setConfigModalOpen] = useState(false);
+  const openConfigModal: () => void = useCallback((): void => {
+    setConfigModalOpen(true);
+  }, []);
+  const closeConfigModal: () => void = useCallback((): void => {
+    setConfigModalOpen(false);
   }, []);
 
   const permissions: PureAbility<string> = useContext(authzPermissionsContext);
@@ -221,6 +230,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
         onOpenAccessTokenModal={openTokenModal}
         onOpenAddOrganizationModal={openOrganizationModal}
         onOpenAddUserModal={openUserModal}
+        onOpenConfig={openConfigModal}
         onToggle={toggleSidebar}
         userEmail={userEmail}
         userRole={userRole}
@@ -273,6 +283,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
         </main>
       </DashboardContent>
       <ScrollUpButton visibleAt={400} />
+      <GlobalConfigModal onClose={closeConfigModal} open={isConfigModalOpen} />
       <APITokenModal onClose={closeTokenModal} open={isTokenModalOpen} />
       <AddOrganizationModal
         onClose={closeOrganizationModal}

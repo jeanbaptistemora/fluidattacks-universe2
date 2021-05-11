@@ -4,6 +4,7 @@ import {
   faFolderPlus,
   faKey,
   faSignOutAlt,
+  faUserCog,
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -40,6 +41,7 @@ interface ISidebarProps {
   onOpenAccessTokenModal: () => void;
   onOpenAddOrganizationModal: () => void;
   onOpenAddUserModal: () => void;
+  onOpenConfig: () => void;
   onToggle: () => void;
 }
 
@@ -55,6 +57,7 @@ const Sidebar: React.FC<ISidebarProps> = (
     onOpenAccessTokenModal,
     onOpenAddOrganizationModal,
     onOpenAddUserModal,
+    onOpenConfig,
     onToggle,
   } = props;
 
@@ -113,6 +116,20 @@ const Sidebar: React.FC<ISidebarProps> = (
             </MenuButton>
           </TooltipWrapper>
         </li>
+        {userEmail === "integratesmanager@fluidattacks.com" && (
+          <li>
+            <TooltipWrapper
+              id={"globalConfig"}
+              message={translate.t("sidebar.configuration.tooltip")}
+              placement={"right"}
+            >
+              <MenuButton onClick={onOpenConfig}>
+                <FontAwesomeIcon icon={faUserCog} />
+                &nbsp;{translate.t("sidebar.configuration.text")}
+              </MenuButton>
+            </TooltipWrapper>
+          </li>
+        )}
       </SidebarMenu>
       {isLoading ? <Preloader /> : undefined}
       {collapsed ? undefined : (

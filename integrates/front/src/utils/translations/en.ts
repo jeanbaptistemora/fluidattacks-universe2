@@ -253,7 +253,7 @@ export const enTranslations: ResourceKey = {
     close: "Close",
     confirm: "Save",
     digest: {
-      label: "Daily digest:",
+      label: "Daily digest (all your groups):",
       subscribed: "Yes",
       tooltip: "Daily stats from the groups you are subscribed to",
       unsubscribed: "No",

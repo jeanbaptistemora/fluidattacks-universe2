@@ -17,7 +17,6 @@ import type { ISubscriptionsToEntityReport } from "scenes/Dashboard/components/G
 import {
   ButtonToolbar,
   Col100,
-  Col40,
   ControlLabel,
   FormGroup,
   Row,
@@ -110,31 +109,37 @@ const GlobalConfigModal: React.FC<IGlobalConfigModalProps> = (
             return (
               <Form>
                 <Row>
-                  <Col40>
+                  <Col100>
                     <TooltipWrapper
                       id={"config.digest"}
                       message={translate.t("configuration.digest.tooltip")}
                       placement={"top"}
                     >
                       <FormGroup>
-                        <ControlLabel>
-                          {translate.t("configuration.digest.label")}
-                        </ControlLabel>
-                        <SwitchButton
-                          checked={values.digest}
-                          disabled={false}
-                          name={"digest"}
-                          offlabel={translate.t(
-                            "configuration.digest.unsubscribed"
-                          )}
-                          onChange={onHandleDigestChange}
-                          onlabel={translate.t(
-                            "configuration.digest.subscribed"
-                          )}
-                        />
+                        <div
+                          className={"flex justify-between w-100 items-center"}
+                        >
+                          <ControlLabel>
+                            {translate.t("configuration.digest.label")}
+                          </ControlLabel>
+                          <span className={"fr w-40"}>
+                            <SwitchButton
+                              checked={values.digest}
+                              disabled={false}
+                              name={"digest"}
+                              offlabel={translate.t(
+                                "configuration.digest.unsubscribed"
+                              )}
+                              onChange={onHandleDigestChange}
+                              onlabel={translate.t(
+                                "configuration.digest.subscribed"
+                              )}
+                            />
+                          </span>
+                        </div>
                       </FormGroup>
                     </TooltipWrapper>
-                  </Col40>
+                  </Col100>
                 </Row>
                 <hr />
                 <Row>
