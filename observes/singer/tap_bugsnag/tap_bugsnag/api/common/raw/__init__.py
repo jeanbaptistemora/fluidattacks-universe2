@@ -100,6 +100,13 @@ class RawApi(NamedTuple):
         _debug_log("errors", page, response)
         return response
 
+    def list_events(self, page: PageId, project_id: str) -> IO[Response]:
+        response = _handled_get(
+            self.client, f"/projects/{project_id}/events", page
+        )
+        _debug_log("events", page, response)
+        return response
+
     @classmethod
     def from_client(cls, client: Client) -> RawApi:
         return cls(client)

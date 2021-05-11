@@ -14,6 +14,7 @@ from tap_bugsnag.api.auth import Credentials
 from tap_bugsnag.api.common.raw import RawApi
 from tap_bugsnag.api.projects import (
     ErrorsPage,
+    EventsPage,
     ProjectsApi,
 )
 from tap_bugsnag.api.projects.orgs import (
@@ -30,6 +31,7 @@ from tap_bugsnag.api.projects.orgs.user import (
 
 ApiPage = Union[
     ErrorsPage,
+    EventsPage,
     OrgsPage,
     ProjectsPage,
 ]
@@ -55,6 +57,7 @@ class ApiClient(NamedTuple):
 __all__ = [
     "Credentials",
     "ErrorsPage",
+    "EventsPage",
     "OrgId",
     "ProjId",
     "ProjectsPage",

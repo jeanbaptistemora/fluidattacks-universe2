@@ -35,6 +35,16 @@ class ErrorsPage(NamedTuple):
         return typed_page_builder(raw.list_errors(page, project.id_str), cls)
 
 
+class EventsPage(NamedTuple):
+    data: List[JSON]
+
+    @classmethod
+    def new(
+        cls, raw: RawApi, project: ProjId, page: PageId
+    ) -> IO[Maybe[PageResult[EventsPage]]]:
+        return typed_page_builder(raw.list_events(page, project.id_str), cls)
+
+
 class ProjectsApi(NamedTuple):
     client: RawApi
     project: ProjId
@@ -47,4 +57,10 @@ class ProjectsApi(NamedTuple):
         getter = partial(ErrorsPage.new, self.client, self.project)
         return extractor.extract_page(
             lambda: io_get_until_end(PageId("", 100), getter), getter, page
+        )
+
+    def list_events(self, page: PageOrAll) -> IO[Iterator[EventsPage]]:
+        getter = partial(EventsPage.new, self.client, self.project)
+        return extractor.extract_page(
+            lambda: io_get_until_end(PageId("", 30), getter), getter, page
         )

@@ -20,6 +20,7 @@ from tap_bugsnag.api import (
     ApiClient,
     ApiPage,
     ErrorsPage,
+    EventsPage,
     OrgId,
     ProjId,
     ProjectsPage,
@@ -80,6 +81,14 @@ def _get_errors(
     )
 
 
+def _get_events(
+    api: ApiClient, projs: Iterator[ProjId]
+) -> IO[Iterator[EventsPage]]:
+    return _fold(
+        iter(map(lambda proj: api.proj(proj).list_events(ALL), projs))
+    )
+
+
 def all_orgs(api: ApiClient) -> None:
     _stream_data(SupportedStreams.ORGS, api.user.list_orgs(ALL))
 
@@ -97,6 +106,16 @@ def all_errors(api: ApiClient) -> None:
         SupportedStreams.ERRORS,
         orgs_io.bind(partial(_get_projs_id, api)).bind(
             partial(_get_errors, api)
+        ),
+    )
+
+
+def all_events(api: ApiClient) -> None:
+    orgs_io = api.user.list_orgs_id(ALL)
+    _stream_data(
+        SupportedStreams.EVENTS,
+        orgs_io.bind(partial(_get_projs_id, api)).bind(
+            partial(_get_events, api)
         ),
     )
 
