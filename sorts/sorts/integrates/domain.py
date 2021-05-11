@@ -65,8 +65,10 @@ def get_vulnerable_files(
 def get_vulnerable_lines(group: str) -> List[str]:
     """Fetches the vulnerable files from a group"""
     vulnerabilities: List[Vulnerability] = get_vulnerabilities(group)
+
     return [
         vuln.where
         for vuln in vulnerabilities
         if vuln.kind == VulnerabilityKindEnum.LINES
+        and vuln.source != 'skims'
     ]

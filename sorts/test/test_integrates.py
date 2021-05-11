@@ -26,7 +26,7 @@ def test_client(test_integrates_api_token: str) -> None:
     "test_integrates_session"
 )
 def test_get_vulnerable_lines() -> None:
-    vulnerabilities = get_vulnerable_lines('unittesting')
+    vulnerabilities = get_vulnerable_lines('oneshottest')
     assert len(vulnerabilities) > 0
 
 
