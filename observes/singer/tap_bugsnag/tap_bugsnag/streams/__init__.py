@@ -1,12 +1,10 @@
 # Standard libraries
-from itertools import chain
+
 from typing import (
     Iterator,
-    TypeVar,
 )
 
 # Third party libraries
-from returns.unsafe import unsafe_perform_io
 from returns.curry import partial
 from returns.io import IO
 
@@ -19,11 +17,8 @@ from singer_io.singer import SingerRecord
 from tap_bugsnag.api import (
     ApiClient,
     ApiPage,
-    ErrorsPage,
-    EventsPage,
-    OrgId,
-    ProjId,
-    ProjectsPage,
+    OrgsApi,
+    ProjectsApi,
 )
 from tap_bugsnag.streams.objs import SupportedStreams
 
@@ -50,72 +45,37 @@ def _stream_data(
     pages.map(partial(_emit_pages, stream))
 
 
-_Data = TypeVar("_Data")
-
-
-def _fold(items: Iterator[IO[Iterator[_Data]]]) -> IO[Iterator[_Data]]:
-    def rm_io(items: IO[Iterator[_Data]]) -> Iterator[_Data]:
-        return unsafe_perform_io(items)
-
-    raw = map(rm_io, items)
-    return IO(chain.from_iterable(raw))
-
-
-def _get_projs(
-    api: ApiClient, orgs: Iterator[OrgId]
-) -> IO[Iterator[ProjectsPage]]:
-    return _fold(iter(map(lambda org: api.org(org).list_projects(ALL), orgs)))
-
-
-def _get_projs_id(
-    api: ApiClient, orgs: Iterator[OrgId]
-) -> IO[Iterator[ProjId]]:
-    return _fold(iter(map(lambda org: api.org(org).list_projs_id(ALL), orgs)))
-
-
-def _get_errors(
-    api: ApiClient, projs: Iterator[ProjId]
-) -> IO[Iterator[ErrorsPage]]:
-    return _fold(
-        iter(map(lambda proj: api.proj(proj).list_errors(ALL), projs))
-    )
-
-
-def _get_events(
-    api: ApiClient, projs: Iterator[ProjId]
-) -> IO[Iterator[EventsPage]]:
-    return _fold(
-        iter(map(lambda proj: api.proj(proj).list_events(ALL), projs))
-    )
-
-
 def all_orgs(api: ApiClient) -> None:
     _stream_data(SupportedStreams.ORGS, api.user.list_orgs(ALL))
 
 
 def all_projects(api: ApiClient) -> None:
     orgs_io = api.user.list_orgs_id(ALL)
+    client = api.user.client
     _stream_data(
-        SupportedStreams.ERRORS, orgs_io.bind(partial(_get_projs, api))
+        SupportedStreams.ERRORS,
+        orgs_io.bind(partial(OrgsApi.list_orgs_projs, client)),
     )
 
 
 def all_errors(api: ApiClient) -> None:
     orgs_io = api.user.list_orgs_id(ALL)
+    client = api.user.client
     _stream_data(
         SupportedStreams.ERRORS,
-        orgs_io.bind(partial(_get_projs_id, api)).bind(
-            partial(_get_errors, api)
+        orgs_io.bind(partial(OrgsApi.list_orgs_projs_id, client)).bind(
+            partial(ProjectsApi.list_projs_errors, client)
         ),
     )
 
 
 def all_events(api: ApiClient) -> None:
     orgs_io = api.user.list_orgs_id(ALL)
+    client = api.user.client
     _stream_data(
         SupportedStreams.EVENTS,
-        orgs_io.bind(partial(_get_projs_id, api)).bind(
-            partial(_get_events, api)
+        orgs_io.bind(partial(OrgsApi.list_orgs_projs_id, client)).bind(
+            partial(ProjectsApi.list_projs_events, client)
         ),
     )
 

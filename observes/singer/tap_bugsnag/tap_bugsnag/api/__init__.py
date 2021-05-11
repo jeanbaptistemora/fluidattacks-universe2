@@ -59,6 +59,9 @@ __all__ = [
     "ErrorsPage",
     "EventsPage",
     "OrgId",
-    "ProjId",
+    "OrgsApi",
+    "ProjectsApi",
     "ProjectsPage",
+    "ProjId",
+    "UserApi",
 ]

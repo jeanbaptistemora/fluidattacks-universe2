@@ -1,7 +1,9 @@
 # pylint: skip-file
 # Standard libraries
+from itertools import chain
 from typing import (
     Callable,
+    Iterator,
     List,
     TypeVar,
 )
@@ -10,6 +12,7 @@ from typing import (
 from requests.models import Response
 from returns.io import IO
 from returns.maybe import Maybe
+from returns.unsafe import unsafe_perform_io
 
 # Local libraries
 from paginator.object_index import PageResult
@@ -33,3 +36,11 @@ def typed_page_builder(
         )
 
     return response.map(_from_response)
+
+
+def fold(items: Iterator[IO[Iterator[_Data]]]) -> IO[Iterator[_Data]]:
+    def rm_io(items: IO[Iterator[_Data]]) -> Iterator[_Data]:
+        return unsafe_perform_io(items)
+
+    raw = map(rm_io, items)
+    return IO(chain.from_iterable(raw))

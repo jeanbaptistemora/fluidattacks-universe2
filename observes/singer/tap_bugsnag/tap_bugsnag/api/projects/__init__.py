@@ -13,6 +13,7 @@ from returns.io import IO
 from returns.maybe import Maybe
 
 # Local libraries
+from paginator import AllPages
 from paginator.object_index import (
     PageId,
     PageOrAll,
@@ -20,7 +21,11 @@ from paginator.object_index import (
     io_get_until_end,
 )
 from singer_io import JSON
-from tap_bugsnag.api.common import extractor, typed_page_builder
+from tap_bugsnag.api.common import (
+    extractor,
+    fold,
+    typed_page_builder,
+)
 from tap_bugsnag.api.common.raw import RawApi
 from .orgs import ProjId
 
@@ -63,4 +68,20 @@ class ProjectsApi(NamedTuple):
         getter = partial(EventsPage.new, self.client, self.project)
         return extractor.extract_page(
             lambda: io_get_until_end(PageId("", 30), getter), getter, page
+        )
+
+    @classmethod
+    def list_projs_errors(
+        cls, client: RawApi, projs: Iterator[ProjId]
+    ) -> IO[Iterator[ErrorsPage]]:
+        return fold(
+            cls.new(client, proj).list_errors(AllPages()) for proj in projs
+        )
+
+    @classmethod
+    def list_projs_events(
+        cls, client: RawApi, projs: Iterator[ProjId]
+    ) -> IO[Iterator[EventsPage]]:
+        return fold(
+            cls.new(client, proj).list_events(AllPages()) for proj in projs
         )

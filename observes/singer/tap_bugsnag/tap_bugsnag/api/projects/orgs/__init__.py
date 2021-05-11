@@ -14,6 +14,7 @@ from returns.io import IO
 from returns.maybe import Maybe
 
 # Local libraries
+from paginator import AllPages
 from paginator.object_index import (
     PageId,
     PageOrAll,
@@ -21,7 +22,11 @@ from paginator.object_index import (
     io_get_until_end,
 )
 from singer_io import JSON
-from tap_bugsnag.api.common import extractor, typed_page_builder
+from tap_bugsnag.api.common import (
+    extractor,
+    fold,
+    typed_page_builder,
+)
 from tap_bugsnag.api.common.raw import RawApi
 from tap_bugsnag.api.projects.orgs.user import OrgId
 
@@ -63,3 +68,19 @@ class OrgsApi(NamedTuple):
         projs = self.list_projects(page)
         data = projs.map(lambda pages: iter(map(ProjId.new, pages)))
         return data.map(chain.from_iterable)
+
+    @classmethod
+    def list_orgs_projs(
+        cls, client: RawApi, orgs: Iterator[OrgId]
+    ) -> IO[Iterator[ProjectsPage]]:
+        return fold(
+            cls.new(client, org).list_projects(AllPages()) for org in orgs
+        )
+
+    @classmethod
+    def list_orgs_projs_id(
+        cls, client: RawApi, orgs: Iterator[OrgId]
+    ) -> IO[Iterator[ProjId]]:
+        return fold(
+            cls.new(client, org).list_projs_id(AllPages()) for org in orgs
+        )
