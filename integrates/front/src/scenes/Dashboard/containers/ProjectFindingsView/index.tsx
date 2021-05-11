@@ -313,7 +313,6 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
           rowEvents={{ onClick: goToFinding }}
           search={true}
           striped={true}
-          tableSize={"largeTable"}
         />
       </TooltipWrapper>
       <Modal

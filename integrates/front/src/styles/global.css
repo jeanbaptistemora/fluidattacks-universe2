@@ -212,18 +212,6 @@ label {
   text-decoration: none;
 }
 
-:global .largeTable {
-  height: 80vh;
-  overflow: auto;
-}
-
-@media (min-height: 1024px) {
-  :global .largeTable {
-    height: 87vh;
-    overflow: auto;
-  }
-}
-
 :global .questionBtn {
   border: 0 !important;
   color: #ff3435;
@@ -983,4 +971,12 @@ label {
 
 :global .filter.select-filter {
   color: #272727;
+}
+
+:global .react-bootstrap-table .row-expand-slide-appear-active {
+  transition: max-height 1s ease !important;
+}
+
+:global .react-bootstrap-table .row-expand-slide-exit-active {
+  transition: max-height 0.2s ease !important;
 }

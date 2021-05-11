@@ -56,7 +56,6 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     onPageChange,
     search,
     tableHeader,
-    tableSize = "",
     rowEvents,
     tableBody,
     selectionMode,
@@ -158,7 +157,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
         rowEvents={rowEvents}
         selectRow={selectionMode as SelectRowProps<unknown>}
         striped={striped}
-        wrapperClasses={`table-responsive mw-100 overflow-x-auto ${tableSize}
+        wrapperClasses={`table-responsive mw-100 overflow-x-auto 
           ${style.tableWrapper} ${bordered ? "" : style.borderNone}`}
       />
     </div>

@@ -9,7 +9,7 @@ const StatusFormatter: StyledComponent<
 > = styled.span.attrs<{
   className: string;
 }>({
-  className: "b br0 dib pa2 white",
+  className: "b br0 pa1 white",
 })``;
 
 const statusGrayColor: string[] = ["Requested", "Unknown"];
