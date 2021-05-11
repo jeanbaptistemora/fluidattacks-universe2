@@ -43,6 +43,7 @@ async def mutate(
             report_entity=report_entity,
             report_subject=report_subject,
             user_email=user_email,
+            loaders=info.context.loaders,
         )
 
         if success:

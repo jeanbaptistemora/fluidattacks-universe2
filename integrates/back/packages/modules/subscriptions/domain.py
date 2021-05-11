@@ -25,7 +25,10 @@ from back.settings import (
     NOEXTRA,
 )
 from custom_types import MailContent
-from dataloaders import get_new_context
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
 from groups import domain as groups_domain
 from mailer import (
     analytics as analytics_mail,
@@ -189,7 +192,7 @@ async def send_analytics_report(
             ttl=604800,  # seven days
         )
     except botocore.exceptions.ClientError as ex:
-        LOGGER_CONSOLE.exception('%s', ex, **NOEXTRA)
+        LOGGER_CONSOLE.exception(f'{ex}', **NOEXTRA)
         LOGGER_ERRORS.exception(
             ex,
             extra={
@@ -228,29 +231,34 @@ async def send_analytics_report(
 
 
 async def send_digest_report(
+    *,
     user_email: str,
     digest_stats: Union[Tuple[MailContent], Tuple],
+    loaders: Dataloaders,
 ) -> None:
     groups = await groups_domain.get_groups_by_user(user_email)
-    mail_contexts = list()
+    LOGGER_CONSOLE.info(
+        f'- groups for the user {user_email}: {str(groups)}', **NOEXTRA)
+
+    mail_contents = list()
     if digest_stats:
-        mail_contexts = [
+        mail_contents = [
             group_stats
             for group_stats in digest_stats
             if group_stats['project'] in groups
         ]
     else:
-        mail_contexts = await collect(
-            groups_domain.get_group_digest_stats(get_new_context(), group)
+        mail_contents = await collect(
+            groups_domain.get_group_digest_stats(
+                loaders, group)
             for group in groups
         )
     LOGGER_CONSOLE.info('- sending digest emails', **NOEXTRA)
     await collect(
-        groups_mail.send_mail_daily_digest([user_email], context)
-        for context in mail_contexts
+        groups_mail.send_mail_daily_digest([user_email], mail_content)
+        for mail_content in mail_contents
     )
     LOGGER_CONSOLE.info('- digest emails sent', **NOEXTRA)
-    return
 
 
 async def send_user_to_entity_report(
@@ -260,11 +268,13 @@ async def send_user_to_entity_report(
     report_subject: str,
     user_email: str,
     digest_stats: Union[Tuple[MailContent], Tuple],
+    loaders: Dataloaders,
 ) -> None:
     if report_entity.lower() == 'digest':
         await send_digest_report(
-            user_email,
-            digest_stats,
+            user_email=user_email,
+            digest_stats=digest_stats,
+            loaders=loaders,
         )
     else:
         await send_analytics_report(
@@ -344,12 +354,13 @@ def should_process_event(
         # Any day @ 10 GMT
         event_frequency == 'daily'
         and bot_time_hour == 10
+        and report_entity.lower() != 'digest'
     ) or (
         # @ any hour
         event_frequency == 'hourly'
     )
 
-    LOGGER_CONSOLE.info('- %s', locals(), **NOEXTRA)
+    LOGGER_CONSOLE.info(f'- {locals()}', **NOEXTRA)
 
     return success
 
@@ -360,6 +371,7 @@ async def subscribe_user_to_entity_report(
     report_entity: str,
     report_subject: str,
     user_email: str,
+    loaders: Dataloaders,
 ) -> bool:
     success: bool
 
@@ -386,6 +398,7 @@ async def subscribe_user_to_entity_report(
                 report_subject=report_subject,
                 user_email=user_email,
                 digest_stats=tuple(),
+                loaders=loaders,
             )
 
     return success
@@ -402,6 +415,7 @@ def translate_entity(entity: str) -> str:
 
 
 async def get_digest_stats(
+    loaders: Dataloaders,
     subscriptions: List[Dict[Any, Any]],
 ) -> Union[Tuple[MailContent], Tuple]:
     """Process the digest stats for each group with a subscriber"""
@@ -417,8 +431,10 @@ async def get_digest_stats(
     ])
     digest_groups = set(itertools.chain.from_iterable(digest_groups))
 
+    LOGGER_CONSOLE.warning(
+        f'Digest: get stats for groups: {str(digest_groups)}', **NOEXTRA)
     return await collect([
-        groups_domain.get_group_digest_stats(get_new_context(), group)
+        groups_domain.get_group_digest_stats(loaders, group)
         for group in digest_groups
     ])
 
@@ -426,7 +442,7 @@ async def get_digest_stats(
 async def trigger_user_to_entity_report() -> None:
     bot_time: datetime = datetime.utcnow()
 
-    LOGGER_CONSOLE.info('UTC datetime: %s', bot_time, **NOEXTRA)
+    LOGGER_CONSOLE.info(f'UTC datetime: {bot_time}', **NOEXTRA)
 
     subscriptions = await get_subscriptions_to_entity_report(
         audience='user',
@@ -434,12 +450,15 @@ async def trigger_user_to_entity_report() -> None:
 
     # Prepare digest stats for any group with a subscriber
     digest_stats: Union[Tuple[MailContent], Tuple] = tuple()
+    loaders: Dataloaders = get_new_context()
     if should_process_event(
         bot_time=bot_time,
         event_frequency='DAILY',
         report_entity='DIGEST',
     ):
-        digest_stats = await get_digest_stats(subscriptions)
+        digest_stats = await get_digest_stats(loaders, subscriptions)
+
+    LOGGER_CONSOLE.warning(f'Subscriptions: {locals()}', **NOEXTRA)
 
     for subscription in subscriptions:
         event_period: Decimal = subscription['period']
@@ -447,8 +466,6 @@ async def trigger_user_to_entity_report() -> None:
         user_email: str = subscription['pk']['email']
         report_entity: str = subscription['sk']['entity']
         report_subject: str = subscription['sk']['subject']
-
-        LOGGER_CONSOLE.warning('Subscription: %s', locals(), **NOEXTRA)
 
         # A user may be subscribed but now he does not have access to the
         #   group or organization, so let's handle this case
@@ -472,6 +489,7 @@ async def trigger_user_to_entity_report() -> None:
                     report_subject=report_subject,
                     user_email=user_email,
                     digest_stats=digest_stats,
+                    loaders=loaders,
                 )
             else:
                 LOGGER_CONSOLE.info('- not processing event', **NOEXTRA)
