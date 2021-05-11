@@ -46,10 +46,9 @@ def is_an_unsolved_event(event: EventType) -> bool:
 async def send_unsolved_events(context: Any, group_name: str) -> None:
     group_loader = context.group_all
     group = await group_loader.load(group_name)
-    historic_configuration = group['historic_configuration']
 
     events_info_for_email = []
-    if historic_configuration[-1].get('type', '') == 'continuous':
+    if group['subscription'] == 'continuous':
         unsolved_events = await get_unsolved_events(group_name)
         events_info_for_email = [
             extract_info_from_event_dict(x)
@@ -69,10 +68,10 @@ async def send_unsolved_to_all() -> None:
     """Send email with unsolved events to all groups """
     context = get_new_context()
     groups = await groups_domain.get_active_groups()
-    await collect(
+    await collect([
         send_unsolved_events(context, group)
         for group in groups
-    )
+    ])
 
 
 async def main() -> None:
