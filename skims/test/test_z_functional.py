@@ -183,11 +183,11 @@ def test_config_with_extra_parameters() -> None:
 def test_bad_integrates_api_token(test_group: str) -> None:
     suite: str = "nothing_to_do"
     code, stdout, stderr = skims(
+        "scan",
         "--token",
         "123",
         "--group",
         test_group,
-        "scan",
         get_suite_config(suite),
     )
     assert code == 1
@@ -368,9 +368,9 @@ def test_should_report_nothing_to_integrates_run(test_group: str) -> None:
     suite: str = "nothing_to_do"
     code, stdout, stderr = skims(
         "--debug",
+        "scan",
         "--group",
         test_group,
-        "scan",
         get_suite_config(suite),
     )
     assert code == 0
@@ -395,9 +395,9 @@ async def test_should_report_nothing_to_integrates_verify(
 def test_should_report_vulns_to_namespace_run(test_group: str) -> None:
     suite: str = "integrates"
     code, stdout, stderr = skims(
+        "scan",
         "--group",
         test_group,
-        "scan",
         get_suite_config(suite),
     )
     assert code == 0
@@ -434,9 +434,9 @@ async def test_should_report_vulns_to_namespace_verify(
 def test_should_report_vulns_to_namespace2_run(test_group: str) -> None:
     suite: str = "integrates2"
     code, stdout, stderr = skims(
+        "scan",
         "--group",
         test_group,
-        "scan",
         get_suite_config(suite),
     )
     assert code == 0
@@ -475,9 +475,9 @@ async def test_should_report_vulns_to_namespace2_verify(
 def test_should_close_vulns_to_namespace_run(test_group: str) -> None:
     suite: str = "integrates3"
     code, stdout, stderr = skims(
+        "scan",
         "--group",
         test_group,
-        "scan",
         get_suite_config(suite),
     )
     assert code == 0
@@ -513,9 +513,9 @@ async def test_should_close_vulns_to_namespace_verify(
 def test_should_close_vulns_on_namespace2_run(test_group: str) -> None:
     suite: str = "integrates4"
     code, stdout, stderr = skims(
+        "scan",
         "--group",
         test_group,
-        "scan",
         get_suite_config(suite),
     )
     assert code == 0

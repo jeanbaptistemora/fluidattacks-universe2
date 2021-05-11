@@ -1,4 +1,7 @@
 # Standard libraries
+from functools import (
+    partial,
+)
 import sys
 from time import (
     time,
@@ -32,44 +35,9 @@ from utils.bugs import (
     initialize_bugsnag,
 )
 
-
-@click.group(
-    help="Deterministic vulnerability life-cycle reporting and closing tool.",
-)
-@click.option(
-    "--debug",
-    help="Enable debug mode.",
-    is_flag=True,
-)
-@click.option(
-    "--group",
-    envvar="INTEGRATES_GROUP",
-    help="Integrates group to which results will be persisted.",
-    show_envvar=True,
-)
-@click.option(
-    "--token",
-    envvar="INTEGRATES_API_TOKEN",
-    help="Integrates API token.",
-    show_envvar=True,
-)
-@click.pass_context
-def cli(
-    ctx: click.Context,
-    debug: bool,
-    group: Optional[str],
-    token: Optional[str],
-) -> None:
-    CTX.debug = debug
-    ctx.ensure_object(dict)
-    ctx.obj["group"] = group
-    ctx.obj["token"] = token
-
-
-@cli.command(
-    help="Load a config file and perform vulnerability detection.",
-)
-@click.argument(
+# Reusable components
+CONFIG = partial(
+    click.argument,
     "config",
     type=click.Path(
         allow_dash=False,
@@ -80,10 +48,51 @@ def cli(
         resolve_path=True,
     ),
 )
-@click.pass_context
+GROUP = partial(
+    click.option,
+    "--group",
+    envvar="INTEGRATES_GROUP",
+    help="Integrates group to which results will be persisted.",
+    show_envvar=True,
+)
+NAMESPACE = partial(
+    click.option,
+    "--namespace",
+    envvar="INTEGRATES_NAMESPACE",
+    help="Integrates namespace.",
+    show_envvar=True,
+)
+TOKEN = partial(
+    click.option,
+    "--token",
+    envvar="INTEGRATES_API_TOKEN",
+    help="Integrates API token.",
+    show_envvar=True,
+)
+
+
+@click.group(
+    help="Deterministic vulnerability life-cycle reporting and closing tool.",
+)
+@click.option(
+    "--debug",
+    help="Enable debug mode.",
+    is_flag=True,
+)
+def cli(
+    debug: bool,
+) -> None:
+    CTX.debug = debug
+
+
+@cli.command(help="Load a config file and perform vulnerability detection.")
+@CONFIG()
+@GROUP()
+@TOKEN()
 def scan(
-    ctx: click.Context,
     config: str,
+    group: Optional[str],
+    token: Optional[str],
 ) -> None:
     CTX.config = None
 
@@ -91,8 +100,8 @@ def scan(
     success: bool = run(
         scan_wrapped(
             config=config,
-            group=ctx.obj["group"],
-            token=ctx.obj["token"],
+            group=group,
+            token=token,
         ),
         debug=False,
     )
@@ -107,6 +116,52 @@ def scan(
         )
 
     sys.exit(0 if success else 1)
+
+
+@cli.command(help="Update vulnerability locations at Integrates.")
+@GROUP(required=True)
+@NAMESPACE(required=True)
+@TOKEN(required=True)
+def rebase(
+    group: str,
+    namespace: str,
+    token: str,
+) -> None:
+    success: bool = run(
+        rebase_wrapped(
+            group=group,
+            namespace=namespace,
+            token=token,
+        ),
+    )
+
+    log_blocking("info", "Success: %s", success)
+
+    sys.exit(0 if success else 1)
+
+
+@shield(on_error_return=False)
+async def rebase_wrapped(
+    group: str,
+    namespace: str,
+    token: str,
+) -> bool:
+    # Import here to handle gracefully any errors it may throw
+    # pylint: disable=import-outside-toplevel
+    import core.rebase
+
+    initialize_bugsnag()
+    add_bugsnag_data(
+        group=group,
+        token="set" if token else "",
+    )
+    success: bool = await core.rebase.main(
+        group=group,
+        namespace=namespace,
+        token=token,
+    )
+
+    return success
 
 
 @shield(on_error_return=False)
@@ -127,7 +182,7 @@ async def scan_wrapped(
     """
     # Import here to handle gracefully any errors it may throw
     # pylint: disable=import-outside-toplevel
-    import core.entrypoint
+    import core.scan
 
     initialize_bugsnag()
     add_bugsnag_data(
@@ -135,7 +190,7 @@ async def scan_wrapped(
         group=group or "",
         token="set" if token else "",
     )
-    success: bool = await core.entrypoint.main(
+    success: bool = await core.scan.main(
         config=config,
         group=group,
         token=token,
