@@ -668,6 +668,49 @@ async def do_update_evidence_description(
 
 
 @SHIELD
+async def do_update_vulnerability_commit(
+    *,
+    vuln_commit: str,
+    vuln_id: str,
+    vuln_what: str,
+    vuln_where: str,
+) -> bool:
+    result = await _execute(
+        query="""
+            mutation SkimsDoUpdateVulnerabilityCommit(
+                $vuln_commit: String!
+                $vuln_id: String!
+                $vuln_what: String!
+                $vuln_where: String!
+            ) {
+                updateVulnCommit(
+                    vulnCommit: $vuln_commit
+                    vulnId: $vuln_id
+                    vulnWhere: $vuln_what
+                    vulnSpecific: $vuln_where
+                ) {
+                    success
+                }
+            }
+        """,
+        operation="SkimsDoUpdateVulnerabilityCommit",
+        variables=dict(
+            vuln_commit=vuln_commit,
+            vuln_id=vuln_id,
+            vuln_what=vuln_what,
+            vuln_where=vuln_where,
+        ),
+    )
+
+    success: bool = result["data"]["updateVulnCommit"]["success"]
+
+    if not success:
+        raise RetryAndFinallyReturn(success)
+
+    return success
+
+
+@SHIELD
 async def do_upload_vulnerabilities(
     *,
     finding_id: str,
