@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration remove the group level permission for stakeholders
 that do not have group access

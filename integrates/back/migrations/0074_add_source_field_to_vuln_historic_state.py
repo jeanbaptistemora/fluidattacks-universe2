@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration uses the analyst and the date to populate the source field
 into the vulnerability historic state
@@ -43,7 +44,10 @@ async def add_source_field_to_historic_state(
             to_update = True
             is_api_skim_analyst = (
                 state_info.get('analyst', '')
-                in {'api-kamado@fluidattacks.com', 'api-drestrepo@fluidattacks.com'}
+                in {
+                    'api-kamado@fluidattacks.com',
+                    'api-drestrepo@fluidattacks.com'
+                }
             )
             is_skim_analyst = (
                 state_info.get('analyst', '')
@@ -88,7 +92,11 @@ async def add_source_field_to_historic_state(
 async def main() -> None:
     scan_attrs = {
         'ExpressionAttributeNames': {'#id': 'UUID'},
-        'ProjectionExpression': ','.join({'#id' ,'finding_id', 'historic_state'})
+        'ProjectionExpression': ','.join({
+            '#id',
+            'finding_id',
+            'historic_state'
+        })
     }
     vulns = await dynamodb_ops.scan(VULNERABILITY_TABLE, scan_attrs)
 

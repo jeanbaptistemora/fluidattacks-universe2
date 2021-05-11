@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration removes the source field from vulnerabilities
 since its historic state has the source
@@ -40,7 +41,7 @@ async def remove_source_field_from_vuln(
 async def main() -> None:
     scan_attrs = {
         'ExpressionAttributeNames': {'#id': 'UUID', '#source': 'source'},
-        'ProjectionExpression': ','.join({'#id' ,'finding_id', '#source'})
+        'ProjectionExpression': ','.join({'#id', 'finding_id', '#source'})
     }
     vulns = await dynamodb_ops.scan(VULNERABILITY_TABLE, scan_attrs)
 

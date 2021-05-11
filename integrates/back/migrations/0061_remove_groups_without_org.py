@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration removes groups without an associated organization
 
@@ -15,7 +16,7 @@ from aioextensions import (
 from boto3.dynamodb.conditions import Key
 
 # Local libraries
-from backend.dal import project as groups_dal
+from dataloaders import get_new_context
 from dynamodb import operations_legacy as dynamodb_ops
 from groups import domain as groups_domain
 from organizations import (
@@ -28,11 +29,15 @@ FINDINGS_TABLE = 'FI_findings'
 ORG_TABLE = 'fi_organizations'
 
 
-async def remove_group(
-    group_name: str
-) -> bool:
+async def remove_group(group_name: str, org_id: str) -> bool:
+    context = get_new_context()
     email = 'integrates@fluidattacks.com'
-    success = cast(bool, await groups_domain.delete_group(group_name, email))
+    success = await groups_domain.delete_group(
+        context,
+        group_name,
+        email,
+        org_id
+    )
     print(f'{group_name} was removed')
 
     return success
@@ -61,7 +66,7 @@ async def main() -> None:
     orgs_ids = [org['pk'] for org in orgs]
 
     # Remove alive groups that do not have associated org
-    group_names = await group_dal.get_alive_projects()
+    group_names = await groups_domain.get_alive_groups()
     group_org_ids = await collect(
         [
             orgs_domain.get_id_for_group(group_name)
@@ -75,8 +80,8 @@ async def main() -> None:
     ))
     success = all(await collect(
         [
-            remove_group(group_name)
-            for group_name, _ in alive_groups_to_remove
+            remove_group(group_name, org_id)
+            for group_name, org_id in alive_groups_to_remove
         ],
         workers=64
     ))

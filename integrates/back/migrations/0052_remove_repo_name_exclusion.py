@@ -1,4 +1,5 @@
 # /usr/bin/env python3
+# pylint: disable=invalid-name
 """
 This migration removes the repository name from the exclusion patterns
 used to define which file should not be reviewed by analysts

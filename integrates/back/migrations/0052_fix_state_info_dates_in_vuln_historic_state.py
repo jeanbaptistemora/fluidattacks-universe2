@@ -1,3 +1,5 @@
+
+# pylint: disable=invalid-name
 """
 This migration set the finding release date in the vuln historic state
 for those dates that are previous to the finding release

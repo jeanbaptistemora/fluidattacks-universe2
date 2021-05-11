@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration aims to remove old repos and envs data
 now that they've been replaced by git roots (new scope module)

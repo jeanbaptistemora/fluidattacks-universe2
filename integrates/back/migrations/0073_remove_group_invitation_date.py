@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration removes the date attribute for a group invitation
 in the project access table

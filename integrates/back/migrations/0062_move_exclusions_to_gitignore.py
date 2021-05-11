@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration aims to migrate the old filter field to the newer
 and simpler gitignore
@@ -8,12 +9,19 @@ Finalization Time: 2021-01-22 at 10:15:37 UTC-05
 # Standard library
 import os
 import time
-from typing import Any, Dict, List
+from typing import (
+    Any,
+    Dict,
+)
 
 # Third party libraries
-from aioextensions import collect, run
+from aioextensions import (
+    collect,
+    run,
+)
 
 # Local libraries
+from groups import dal as groups_dal
 from roots import dal as roots_dal
 
 
@@ -68,7 +76,7 @@ async def migrate(group_name: str) -> None:
 
 async def main() -> None:
     print('[INFO] Starting migration 0062')
-    groups = await group_dal.get_all(data_attr='project_name')
+    groups = await groups_dal.get_all(data_attr='project_name')
     await collect(
         migrate(group['project_name'])
         for group in groups

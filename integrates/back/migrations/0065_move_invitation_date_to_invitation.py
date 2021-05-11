@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration move the attribute invitation_date of project_access table
 to the field invitation of the same table
@@ -77,7 +78,6 @@ async def main() -> None:
     ))
 
     print(f'Success: {success}')
-
 
 
 if __name__ == '__main__':

@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration aims to add upload_date when missing,
 taking it from LastModified

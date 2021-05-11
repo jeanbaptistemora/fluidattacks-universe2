@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration tries to restore some
 masked data on DELETED projects.
@@ -11,8 +12,8 @@ import copy
 import time
 from pprint import pprint
 from typing import (
-    cast,
     Dict,
+    cast,
 )
 
 # Third party libraries
@@ -20,7 +21,7 @@ from aioextensions import (
     collect,
     run,
 )
-from boto3.dynamodb.conditions import Attr, Key
+from boto3.dynamodb.conditions import Key
 
 # Local libraries
 from custom_types import (
@@ -50,14 +51,24 @@ async def restore_historic_state(
     old_historic_state = cast(Historic, item.get('historic_state', []))
     historic_state = copy.deepcopy(old_historic_state)
 
-    restore_table = await dynamodb_ops.query(FINDINGS_TABLE_COPY, {
-            'KeyConditionExpression': Key('finding_id').eq(finding_id)
-        }) if type_item == 'finding' else await dynamodb_ops.query(VULNS_TABLE_COPY, {
-            'IndexName': 'gsi_uuid',
-            'KeyConditionExpression': Key('UUID').eq(vuln_uuid)
-        })
+    restore_table = (
+        await dynamodb_ops.query(
+            FINDINGS_TABLE_COPY,
+            {'KeyConditionExpression': Key('finding_id').eq(finding_id)}
+        ) if type_item == 'finding'
+        else await dynamodb_ops.query(
+            VULNS_TABLE_COPY,
+            {
+                'IndexName': 'gsi_uuid',
+                'KeyConditionExpression': Key('UUID').eq(vuln_uuid)
+            }
+        )
+    )
 
-    r_old_historic_state = cast(Historic, restore_table[0].get('historic_state', []))
+    r_old_historic_state = cast(
+        Historic,
+        restore_table[0].get('historic_state', [])
+    )
     r_historic_state = copy.deepcopy(r_old_historic_state)
 
     for state_info, r_state_info in zip(historic_state, r_historic_state):
@@ -150,9 +161,14 @@ async def main() -> None:
     vulns = [
         vuln
         for finding in findings
-        for vuln in await dynamodb_ops.query(VULNS_TABLE_COPY, {
-            'KeyConditionExpression': Key('finding_id').eq(finding['finding_id'])
-        })
+        for vuln in await dynamodb_ops.query(
+            VULNS_TABLE_COPY,
+            {
+                'KeyConditionExpression': (
+                    Key('finding_id').eq(finding['finding_id'])
+                )
+            }
+        )
     ]
 
     success_vulns = all(await collect(

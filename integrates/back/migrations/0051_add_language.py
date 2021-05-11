@@ -1,5 +1,6 @@
 # /usr/bin/env python3
 # -.- coding: utf-8 -.-
+# pylint: disable=invalid-name
 """
 This migration adds the language field to the project based on the config.yml
 

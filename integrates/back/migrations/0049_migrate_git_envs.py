@@ -1,5 +1,6 @@
 # /usr/bin/env python3
 # -.- coding: utf-8 -.-
+# pylint: disable=invalid-name
 """
 This migration dumps envs from services yml to the new roots table
 
@@ -147,6 +148,7 @@ async def update_envs(group_name: str) -> None:
                     envs: List[str] = get_envs_by_group(group_name)
                     await roots_domain.update_git_environments(
                         user_email='',
+                        group_name=group_name,
                         root_id=matching_root['sk'],
                         environment_urls=envs
                     )

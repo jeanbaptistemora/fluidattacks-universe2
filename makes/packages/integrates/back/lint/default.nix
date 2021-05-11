@@ -7,7 +7,7 @@
 } @ _:
 makeDerivation {
   arguments = {
-    envIntegratesBackModules = path "/integrates/back/packages/modules";
+    envIntegratesBack = path "/integrates/back";
     envIntegratesImportsConfig = path "/integrates/back/setup.imports.cfg";
   };
   builder = path "/makes/packages/integrates/back/lint/builder.sh";

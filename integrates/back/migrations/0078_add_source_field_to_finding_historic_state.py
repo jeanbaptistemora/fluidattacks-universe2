@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration uses the vulns, the analyst and the date to populate
 the source field into the finding historic state
@@ -42,7 +43,10 @@ async def add_source_field_to_historic_state(
     vulns = None
     vulns_have_skims = False
     finding_id = finding['finding_id']
-    old_finding_historic_state = cast(Historic, finding.get('historic_state', []))
+    old_finding_historic_state = cast(
+        Historic,
+        finding.get('historic_state', [])
+    )
     finding_historic_state = copy.deepcopy(old_finding_historic_state)
     vuln_query_attrs = {
         'KeyConditionExpression': Key('finding_id').eq(finding_id),
@@ -64,16 +68,20 @@ async def add_source_field_to_historic_state(
                     > datetime_utils.get_from_str('2020-08-20 00:00:00')
                 )
             ):
-                if vulns == None:
+                if vulns is None:
                     vulns = await dynamodb_ops.query(
                         VULNERABILITY_TABLE,
                         vuln_query_attrs
                     )
                     for vuln in vulns:
-                        vuln_historic_state = cast(Historic, vuln['historic_state'])
-                        for vuln_state_info in vuln_historic_state:
-                            if vuln_state_info['source'] == 'skims':
-                                vulns_have_skims = True
+                        vuln_historic_state = cast(
+                            Historic,
+                            vuln['historic_state']
+                        )
+                        vulns_have_skims = any(
+                            vuln_state_info['source'] == 'skims'
+                            for vuln_state_info in vuln_historic_state
+                        )
                 if vulns_have_skims:
                     finding_state_info['source'] = 'skims'
                 else:

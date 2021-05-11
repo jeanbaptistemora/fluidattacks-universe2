@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration moves items from fi_roots to the new single-table
 integrates_vms
@@ -8,7 +9,10 @@ Finalization Time: 2021-03-19 at 13:29:41 UTC-05
 # Standard libraries
 import time
 from datetime import timezone
-from typing import Any, Dict, List
+from typing import (
+    Any,
+    Dict,
+)
 
 # Third party libraries
 from aioextensions import collect, run
@@ -132,7 +136,7 @@ async def _migrate_root(legacy_root: Dict[str, Any]) -> None:
         )
     )
 
-    await roots_dal.create_root(group_name=group_name, root=root)
+    await roots_dal.create_root(root=root)
     await _migrate_cloning(group_name, root_id, legacy_root)
     await _migrate_state(group_name, root_id, legacy_root)
 

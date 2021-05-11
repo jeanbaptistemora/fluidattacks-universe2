@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration removes the api prefix for some analysts
 in vulnerability historic state
@@ -63,7 +64,11 @@ async def remove_analyst_prefix_in_vuln_historic_state(
 async def main() -> None:
     scan_attrs = {
         'ExpressionAttributeNames': {'#id': 'UUID'},
-        'ProjectionExpression': ','.join({'#id' ,'finding_id', 'historic_state'})
+        'ProjectionExpression': ','.join({
+            '#id'
+            'finding_id',
+            'historic_state'
+        })
     }
     vulns = await dynamodb_ops.scan(VULNERABILITY_TABLE, scan_attrs)
 

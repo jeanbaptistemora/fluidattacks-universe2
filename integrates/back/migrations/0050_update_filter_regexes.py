@@ -1,5 +1,6 @@
 # /usr/bin/env python3
 # -.- coding: utf-8 -.-
+# pylint: disable=invalid-name
 """
 This migration converts the GitRoots filters into glob expressions
 new expressions must be analyzed relative to the repository, not to the fusion

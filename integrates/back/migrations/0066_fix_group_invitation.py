@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration aims to fix those invitations that were not updated because
 it stores info in Redis instead of the project access table and remove
@@ -21,7 +22,6 @@ from boto3.dynamodb.conditions import Attr
 from custom_types import ProjectAccess as ProjectAccessType
 from dynamodb import operations_legacy as dynamodb_ops
 from group_access import domain as groups_access_domain
-
 
 
 TABLE_ACCESS_NAME = 'FI_project_access'

@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration aims to remove consecutive duplicate states in historic_state
 
@@ -56,10 +57,12 @@ async def _remove_duplicate_state(vuln: Dict[str, Finding]) -> None:
 async def remove_duplicate_state(groups: List[str]) -> None:
     groups_findings = await GroupFindingsLoader().load_many(groups)
     groups_drafts = await GroupDraftsLoader().load_many(groups)
-    findings_ids = list(chain.from_iterable(
-        [map(itemgetter('finding_id'), findings)
-        for findings in groups_findings]
-    ))
+    findings_ids = list(
+        chain.from_iterable([
+            map(itemgetter('finding_id'), findings)
+            for findings in groups_findings
+        ])
+    )
     drafts_ids = list(chain.from_iterable(
         [map(itemgetter('finding_id'), drafts) for drafts in groups_drafts]
     ))
@@ -75,8 +78,10 @@ async def remove_duplicate_state(groups: List[str]) -> None:
 async def main() -> None:
     groups = await get_alive_groups()
     await collect(
-        [remove_duplicate_state(list_group)
-         for list_group in chunked (groups, 5)],
+        [
+            remove_duplicate_state(list_group)
+            for list_group in chunked(groups, 5)
+        ],
         workers=10
     )
 

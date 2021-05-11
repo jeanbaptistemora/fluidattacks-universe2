@@ -1,5 +1,6 @@
-#/usr/bin/env python3
-#-.- coding: utf-8 -.-
+#!/usr/bin/env python3
+# -.- coding: utf-8 -.-
+# pylint: disable=invalid-name
 """
 This migration sets all toe's new sorts_risk_level attribute
 to zero
@@ -10,6 +11,7 @@ Finalization Time: 2021-04-26 at 19:35:28 UTC-05
 
 # Standard libraries
 from itertools import chain
+from typing import List
 
 # Third party libraries
 from aioextensions import (
@@ -26,7 +28,7 @@ from toe.lines.domain import (
 )
 
 
-async def update_sorts_risk_level(toe: GitRootToeLines) -> bool:
+async def update_sorts_risk_level(toe: GitRootToeLines) -> None:
     toe = toe._replace(sorts_risk_level=0)
     await update_toe(toe)
 

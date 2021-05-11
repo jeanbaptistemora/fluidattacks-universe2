@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration aims to add DELETED status to vulns
 
@@ -6,28 +7,22 @@ Finalization Time: 2020-01-08 19:03:16 UTC-5
 """
 # Standard library
 import os
-from itertools import chain
-from typing import (
-    Dict,
-    List,
-)
+from typing import Dict
 
 # Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from more_itertools import chunked
 
 # Local libraries
-from backend.domain.project import get_alive_projects
 from custom_types import Finding
 from findings.domain.core import (
     delete_vulnerabilities,
     get_findings_by_group,
     is_deleted,
 )
-from findings.domain.draft import get_drafts_by_group
+from groups.domain import get_alive_groups
 
 
 STAGE: str = os.environ['STAGE']
@@ -36,6 +31,7 @@ STAGE: str = os.environ['STAGE']
 async def _add_deleted_status(
     finding: Dict[str, Finding],
 ) -> None:
+    email = 'integrates@fluidattacks.com'
     finding_id: str = str(finding['finding_id'])
     historic_state = finding['historic_state']
     last_state = historic_state[-1]
@@ -44,6 +40,7 @@ async def _add_deleted_status(
             finding_id,
             last_state['justification'],
             last_state['analyst'],
+            email
         )
     else:
         print(f'should update vulns for finding {finding_id}')
@@ -62,7 +59,7 @@ async def add_deleted_status(group_name: str) -> None:
 
 
 async def main() -> None:
-    groups = await get_alive_projects()
+    groups = await get_alive_groups()
     await collect(
         [add_deleted_status(group) for group in groups],
         workers=10

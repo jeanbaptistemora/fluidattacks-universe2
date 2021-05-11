@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration removes the origin field from finding historic state
 

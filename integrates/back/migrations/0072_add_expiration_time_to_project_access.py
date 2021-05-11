@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration add expiration_time to project access for that stakeholder
 who has not confirmed the group invitation

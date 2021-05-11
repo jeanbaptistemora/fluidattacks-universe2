@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration copies the existing integrates tokens from an old (makeshift)
 forces infra to the new infra dedicated only for integrates
@@ -6,7 +7,6 @@ Execution Time:    Fri Feb 12 12:16:45 -05 2021
 Finalization Time: Fri Feb 12 12:18:20 -05 2021
 """
 # Standar library
-import os
 from typing import Optional
 
 # Third library
@@ -15,8 +15,8 @@ from botocore.exceptions import ClientError
 import aioextensions
 
 # Local library
-from backend.domain import project as project_domain
 from forces.domain import update_token
+from groups.domain import get_groups_with_forces
 
 
 async def get_old_forces_token(group: str) -> Optional[str]:
@@ -33,12 +33,12 @@ async def get_old_forces_token(group: str) -> Optional[str]:
     except ClientError as exc:
         print(f'[ERROR] {group}', exc)
         return None
-    return response.get('SecretString')  # type: ignore
+    return response.get('SecretString')
 
 
-@aioextensions.run_decorator  # type: ignore
+@aioextensions.run_decorator
 async def main() -> None:
-    projects = await project_domain.get_projects_with_forces()
+    projects = await get_groups_with_forces()
     for project in projects:
         print(f'[INFO] processing {project}')
         current_token = await get_old_forces_token(project)

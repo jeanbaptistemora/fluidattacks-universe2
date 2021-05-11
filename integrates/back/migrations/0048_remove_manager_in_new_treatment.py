@@ -1,3 +1,5 @@
+
+# pylint: disable=invalid-name
 """
 This migration aims to remove treatment manager when treatment is NEW
 

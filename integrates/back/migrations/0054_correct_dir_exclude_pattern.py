@@ -1,4 +1,5 @@
 # /usr/bin/env python3
+# pylint: disable=invalid-name
 """
 This migration corrects exclude patterns that aim to define a complete
 directory.
@@ -9,8 +10,6 @@ Execution Time:    2021-01-06 10:14 UTC-5
 Finalization Time: 2021-01-06 10:18 UTC-5
 """
 # Standard
-import os
-import urllib
 from typing import (
     Any,
     Dict,

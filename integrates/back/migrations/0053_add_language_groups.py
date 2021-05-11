@@ -1,4 +1,5 @@
 # /usr/bin/env python3
+# pylint: disable=invalid-name
 """
 This migration adds the attribute "language" to all groups
 
@@ -6,8 +7,6 @@ Execution Time: 2021-01-05 22:14 UTC-5
 Finalization Time: 2021-01-05 22:18 UTC-5
 """
 # Standard
-import os
-import urllib
 from typing import List
 
 # Third party
@@ -15,9 +14,9 @@ import aioboto3
 from aioextensions import run
 
 # Local
-from backend.dal import project as project_dal
 from custom_types import Project as ProjectType
 from dynamodb import operations_legacy as dynamodb_ops
+from groups.dal import TABLE_NAME as GROUPS_TABLE
 
 
 async def get_groups_without_language() -> List[ProjectType]:
@@ -31,7 +30,7 @@ async def get_groups_without_language() -> List[ProjectType]:
 
     items: List[ProjectType] = []
     async with aioboto3.resource(**dynamodb_ops.RESOURCE_OPTIONS) as resource:
-        table = await resource.Table(project_dal.TABLE_NAME)
+        table = await resource.Table(GROUPS_TABLE)
         response = await table.scan(**scan_attrs)
         items = response.get('Items', [])
         while 'LastEvaluatedKey' in response:
@@ -52,7 +51,7 @@ async def main() -> None:
         # 'language' is a reserved keyword for the DynamoAPI, so the
         # usual update function does not work
         await dynamodb_ops.update_item(
-            project_dal.TABLE_NAME,
+            GROUPS_TABLE,
             {
                 'Key': {
                     'project_name': group_name

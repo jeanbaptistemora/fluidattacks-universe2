@@ -1,5 +1,6 @@
 # /usr/bin/env python3
 # -.- coding: utf-8 -.-
+# pylint: disable=invalid-name
 """
 This migration adds an attribute for the new service in a group's
 historic configuration
@@ -17,7 +18,7 @@ from aioextensions import collect, run
 from groups.dal import get_active_groups, get_attributes, update
 
 
-async def update_group(group_name: str) -> bool:
+async def update_group(group_name: str) -> None:
     historic_config = (await get_attributes(
         group_name,
         ['historic_configuration']

@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration aims to remove duplicates in fi_roots that resulted from
 a mistake in a previous migration script

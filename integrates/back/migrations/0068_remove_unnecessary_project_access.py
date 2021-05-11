@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration remove that project access for that user that
 has not access to the group or is no pending to accept an invitation
@@ -18,6 +19,7 @@ from group_access import domain as group_access_domain
 
 
 ACCESS_TABLE_NAME = 'FI_project_access'
+
 
 async def main() -> None:
     scan_attrs = {

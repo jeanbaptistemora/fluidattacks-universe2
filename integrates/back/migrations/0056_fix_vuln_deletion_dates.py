@@ -1,7 +1,8 @@
+# pylint: disable=invalid-name
 """
-This migration fix those vuln deletion dates that have a lot of time of difference
-with the finding deletion date. Those vuln deletion dates were introduced with the
-migration 0055_add_deleted_status.
+This migration fix those vuln deletion dates that have a lot of time difference
+with the finding deletion date. Those vuln deletion dates were introduced with
+the migration 0055_add_deleted_status.
 
 Execution Time:    2021-01-14 at 09:59:47 UTC-05
 Finalization Time: 2021-01-15 at 08:00:00 UTC-05
@@ -19,12 +20,12 @@ from aioextensions import (
 )
 
 # Local libraries
-from backend.domain import project as group_domain
 from custom_types import (
     Finding as FindingType,
     Vulnerability as VulnerabilityType,
 )
 from findings import domain as findings_domain
+from groups import domain as groups_domain
 from newutils import datetime as datetime_utils
 from vulnerabilities import (
     dal as vulns_dal,
@@ -85,12 +86,17 @@ async def fix_vuln_deletion_dates_for_finding(
             include_requested_zero_risk=True,
             should_list_deleted=True
         )
-        success = all(await collect(
-            [
-                fix_vuln_deletion_dates(vuln, finding_id, finding_delation_date)
+        success = all(
+            await collect([
+                fix_vuln_deletion_dates(
+                    vuln,
+                    finding_id,
+                    finding_delation_date
+                )
                 for vuln in vulns
-            ]
-        ))
+
+            ])
+        )
 
     return success
 
@@ -113,14 +119,16 @@ async def fix_vuln_deletion_dates_for_group(
 
 
 async def main() -> None:
-    groups = await group_domain.get_alive_projects()
-    success  = all(await collect(
-        [
-            fix_vuln_deletion_dates_for_group(group)
-            for group in groups
-        ],
-        workers=10
-    ))
+    groups = await groups_domain.get_alive_groups()
+    success = all(
+        await collect(
+            [
+                fix_vuln_deletion_dates_for_group(group)
+                for group in groups
+            ],
+            workers=10
+        )
+    )
 
     print(f'Success: {success}')
 

@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration add stakeholder phone number to group invitation
 

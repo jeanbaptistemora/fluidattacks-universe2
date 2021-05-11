@@ -1,5 +1,6 @@
 # /usr/bin/env python3
 # -.- coding: utf-8 -.-
+# pylint: disable=invalid-name
 """
 This migration splits the url paths from the branch in git roots
 

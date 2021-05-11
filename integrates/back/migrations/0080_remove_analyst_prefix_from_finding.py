@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration removes the api prefix for some analysts
 into the finding historic state
