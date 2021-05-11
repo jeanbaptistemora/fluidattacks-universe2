@@ -1,17 +1,18 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { Col50, Row } from "styles/styledComponents";
 
 interface IDescriptionProps {
   description: string;
   isExploitable: boolean;
-  lastVulnerability: string;
-  openAge: string;
+  lastVulnerability: number;
+  openAge: number;
   remediated: string;
   treatment: string;
 }
 
-export const Description = ({
+const Description = ({
   description,
   isExploitable,
   lastVulnerability,
@@ -19,6 +20,7 @@ export const Description = ({
   remediated,
   treatment,
 }: IDescriptionProps): JSX.Element => {
+  const { t } = useTranslation();
   const [
     treatmentNew,
     inProgress,
@@ -28,28 +30,67 @@ export const Description = ({
 
   return (
     <div>
+      <h3>{t("group.findings.description.title")}</h3>
       <Row>
         <p>{description}</p>
       </Row>
       <Row>
-        <Col50>{lastVulnerability}</Col50>
+        <Col50>
+          {t("group.findings.description.lastReport")}&nbsp;
+          {t("group.findings.description.value", { count: lastVulnerability })}
+        </Col50>
         <Col50>{treatmentNew}</Col50>
       </Row>
       <hr />
       <Row>
-        <Col50>{openAge}</Col50>
+        <Col50>
+          {t("group.findings.description.firstSeen")}&nbsp;
+          {t("group.findings.description.value", { count: openAge })}
+        </Col50>
         <Col50>{inProgress}</Col50>
       </Row>
       <hr />
       <Row>
-        <Col50>{isExploitable ? "yes" : "no"}</Col50>
+        <Col50>
+          {t("group.findings.description.exploitable")}&nbsp;
+          {t(
+            isExploitable
+              ? "group.findings.boolean.True"
+              : "group.findings.boolean.False"
+          )}
+        </Col50>
         <Col50>{temporallyAccepted}</Col50>
       </Row>
       <hr />
       <Row>
-        <Col50>{remediated === "Pending" ? "yes" : "no"}</Col50>
+        <Col50>
+          {"Pending reattack: "}
+          {t(
+            remediated === "Pending"
+              ? "group.findings.boolean.True"
+              : "group.findings.boolean.False"
+          )}
+        </Col50>
         <Col50>{eternallyAccepted}</Col50>
       </Row>
     </div>
   );
 };
+
+export const renderDescription = ({
+  description,
+  isExploitable,
+  lastVulnerability,
+  openAge,
+  remediated,
+  treatment,
+}: IDescriptionProps): JSX.Element => (
+  <Description
+    description={description}
+    isExploitable={isExploitable}
+    lastVulnerability={lastVulnerability}
+    openAge={openAge}
+    remediated={remediated}
+    treatment={treatment}
+  />
+);

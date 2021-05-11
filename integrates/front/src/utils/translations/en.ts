@@ -401,6 +401,14 @@ export const enTranslations: ResourceKey = {
         False: "No",
         True: "Yes",
       },
+      description: {
+        exploitable: "Exploitable:",
+        firstSeen: "First seen:",
+        lastReport: "Last report:",
+        title: "Description",
+        value: "{{count}} day ago",
+        valuePlural: "{{count}} days ago",
+      },
       evidence: {
         edit: "Edit",
         noData: "There are no evidences",

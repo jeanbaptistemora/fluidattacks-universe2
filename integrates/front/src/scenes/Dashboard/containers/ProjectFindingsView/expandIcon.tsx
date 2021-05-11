@@ -6,7 +6,7 @@ interface IExpandIconProps {
   expanded: boolean;
 }
 
-export const ExpandIcon = ({ expanded }: IExpandIconProps): JSX.Element =>
+export const renderExpandIcon = ({ expanded }: IExpandIconProps): JSX.Element =>
   expanded ? (
     <FontAwesomeIcon icon={faAngleUp} />
   ) : (
