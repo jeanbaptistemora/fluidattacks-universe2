@@ -1,26 +1,24 @@
-# Standard library
+
 import logging
 import logging.config
 import os
 from tempfile import TemporaryDirectory
 from typing import (
     Any,
-    cast,
     Dict,
     List,
     Set,
+    cast,
 )
 
-# Third party libraries
-from botocore.exceptions import ClientError
 from PIL import (
     Image,
     ImageFile,
 )
+from botocore.exceptions import ClientError
 
-# Local libraries
 from back.settings import LOGGING
-from backend.typing import Finding as FindingType
+from custom_types import Finding as FindingType
 from findings import dal as findings_dal
 from reports.it_report import ITReport
 from reports.pdf import CreatorPDF

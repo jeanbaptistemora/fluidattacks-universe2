@@ -1,15 +1,13 @@
-# standard imports
+
 import logging
 import logging.config
 import uuid
 from typing import List
 
-# third-party imports
 import aioboto3
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
-# local imports
 from back.settings import LOGGING
 from custom_exceptions import EmptyPoolName
 from dynamodb.operations_legacy import RESOURCE_OPTIONS

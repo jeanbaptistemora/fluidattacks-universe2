@@ -1,10 +1,9 @@
-# Standard
+
 # None
 
-# Third party
+
 from ariadne import QueryType
 
-# Local
 from api.resolvers.query import (
     event,
     events,

@@ -1,4 +1,4 @@
-# Standard libraries
+
 import logging
 import logging.config
 from typing import (
@@ -6,29 +6,28 @@ from typing import (
     Optional,
 )
 
-# Third party libraries
 import aioboto3
 from aioextensions import collect
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
-# Local imports
 from back.settings import LOGGING
-from backend.typing import DynamoDelete
 from batch.types import BatchProcessing
+from custom_types import DynamoDelete
 from dynamodb import operations_legacy as dynamodb_ops
 from newutils.context import (
     AWS_DYNAMODB_ACCESS_KEY,
     AWS_DYNAMODB_SECRET_KEY,
     AWS_SESSION_TOKEN,
     CI_COMMIT_REF_NAME,
-    ENVIRONMENT
+    ENVIRONMENT,
 )
 from newutils.datetime import (
     get_as_epoch,
     get_now,
 )
 from newutils.encodings import safe_encode
+
 
 logging.config.dictConfig(LOGGING)
 

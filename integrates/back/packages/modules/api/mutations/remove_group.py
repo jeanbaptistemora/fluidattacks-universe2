@@ -4,12 +4,12 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 import authz
-from backend.typing import SimplePayload as SimplePayloadType
 from custom_exceptions import PermissionDenied
+from custom_types import SimplePayload as SimplePayloadType
 from decorators import (
-    require_integrates,
     concurrent_decorators,
     enforce_group_level_auth_async,
+    require_integrates,
     require_login,
 )
 from groups import domain as groups_domain

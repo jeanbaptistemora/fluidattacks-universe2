@@ -1,17 +1,15 @@
-# Standard libraries
+
 from typing import (
     List,
     Tuple,
     cast,
 )
 
-# Third party libraries
 from aiodataloader import DataLoader
 from aioextensions import collect
 
-# Local libraries
 import authz
-from backend.typing import Stakeholder as StakeholderType
+from custom_types import Stakeholder as StakeholderType
 from organizations import domain as orgs_domain
 from users import domain as stakeholders_domain
 

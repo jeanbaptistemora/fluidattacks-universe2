@@ -1,6 +1,6 @@
 """Data Access Layer to the Forces tables."""
 
-# Standard library
+
 import json
 import logging
 import logging.config
@@ -9,30 +9,28 @@ from datetime import datetime
 from typing import (
     Any,
     AsyncIterator,
-    cast,
     Optional,
+    cast,
 )
 
-# Third party libraries
 import aioboto3
 import aioextensions
 import boto3
 from boto3.dynamodb.conditions import (
-    Key,
     Attr,
+    Key,
 )
 from botocore.exceptions import ClientError
 
-# Local libraries
-from back.settings import LOGGING
-from dynamodb import operations_legacy as dynamodb_ops
-from newutils import datetime as datetime_utils
-from s3 import operations as s3_ops
 from __init__ import (
     FI_AWS_S3_FORCES_BUCKET,
     FI_AWS_SECRETSMANAGER_ACCESS_KEY,
     FI_AWS_SECRETSMANAGER_SECRET_KEY,
 )
+from back.settings import LOGGING
+from dynamodb import operations_legacy as dynamodb_ops
+from newutils import datetime as datetime_utils
+from s3 import operations as s3_ops
 
 
 logging.config.dictConfig(LOGGING)

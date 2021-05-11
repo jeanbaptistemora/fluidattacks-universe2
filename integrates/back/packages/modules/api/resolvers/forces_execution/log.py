@@ -1,11 +1,9 @@
-# Standard
+
 from typing import cast
 
-# Third party
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import ForcesExecution
+from custom_types import ForcesExecution
 from forces import domain as forces_domain
 
 

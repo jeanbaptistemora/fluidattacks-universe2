@@ -10,12 +10,11 @@ from starlette.responses import HTMLResponse
 from starlette.templating import Jinja2Templates
 
 # Local libraries
-from backend.typing import (
+from back import settings
+from custom_types import (
     GraphicParameters,
     ProjectAccess as ProjectAccessType,
 )
-
-from back import settings
 
 
 TEMPLATING_ENGINE = Jinja2Templates(directory=settings.TEMPLATES_DIR)

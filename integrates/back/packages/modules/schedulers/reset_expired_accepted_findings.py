@@ -1,16 +1,14 @@
-# Standard libraries
+
 from itertools import chain
 from typing import (
     Any,
-    cast,
     Dict,
     List,
+    cast,
 )
 
-# Third-party libraries
 from aioextensions import collect
 
-# Local libraries
 from dataloaders import get_new_context
 from groups import domain as groups_domain
 from newutils import datetime as datetime_utils

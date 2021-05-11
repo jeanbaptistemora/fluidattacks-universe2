@@ -1,19 +1,15 @@
-# Standard library
+
 import io
 import logging
 import logging.config
 import os
 from datetime import datetime
 
-# Third party libraries
 from botocore.exceptions import ClientError
 
-# Local libraries
+from __init__ import SERVICES_AWS_S3_DATA_BUCKET as SERVICES_DATA_BUCKET
 from back.settings import LOGGING
 from s3.operations import aio_client
-from __init__ import (
-    SERVICES_AWS_S3_DATA_BUCKET as SERVICES_DATA_BUCKET,
-)
 
 
 logging.config.dictConfig(LOGGING)

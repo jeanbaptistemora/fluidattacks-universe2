@@ -1,18 +1,20 @@
-# Standard libraries
+
 from typing import (
     Any,
     Dict,
     List,
 )
 
-# Third-party libraries
 from aioextensions import (
     collect,
     in_process,
 )
 
-# Local libraries
-from backend.typing import (
+from __init__ import (
+    BASE_URL,
+    FI_MAIL_REVIEWERS,
+)
+from custom_types import (
     Comment as CommentType,
     Finding as FindingType,
     MailContent as MailContentType,
@@ -22,10 +24,7 @@ from newutils import (
     findings as findings_utils,
     vulnerabilities as vulns_utils,
 )
-from __init__ import (
-    BASE_URL,
-    FI_MAIL_REVIEWERS,
-)
+
 from .common import (
     COMMENTS_TAG,
     GENERAL_TAG,

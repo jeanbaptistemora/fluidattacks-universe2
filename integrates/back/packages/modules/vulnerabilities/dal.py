@@ -1,13 +1,12 @@
-# Standard libraries
+
 import logging
 from typing import (
-    cast,
     Dict,
     List,
     Union,
+    cast,
 )
 
-# Third-party libraries
 import aioboto3
 from boto3.dynamodb.conditions import (
     Attr,
@@ -16,20 +15,17 @@ from boto3.dynamodb.conditions import (
 from botocore.exceptions import ClientError
 from starlette.datastructures import UploadFile
 
-# Local libraries
+from __init__ import FI_AWS_S3_REPORTS_BUCKET as VULNS_BUCKET
 from back.settings import LOGGING
-from backend.typing import (
+from custom_exceptions import ErrorUploadingFileS3
+from custom_types import (
     DynamoDelete as DynamoDeleteType,
     Finding as FindingType,
 )
-from custom_exceptions import ErrorUploadingFileS3
 from dynamodb import operations_legacy as dynamodb_ops
 from newutils import datetime as datetime_utils
 from s3 import operations as s3_ops
-from __init__ import (
 
-    FI_AWS_S3_REPORTS_BUCKET as VULNS_BUCKET,
-)
 
 logging.config.dictConfig(LOGGING)
 

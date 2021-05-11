@@ -1,12 +1,10 @@
-# Standard libraries
+
 import logging
 import logging.config
 from typing import Tuple
 
-# Third party libraries
 from botocore.exceptions import ClientError
 
-# Local libraries
 from back.settings import LOGGING
 from custom_exceptions import (
     RepeatedToeInput,
@@ -17,6 +15,7 @@ from data_containers.toe_inputs import GitRootToeInput
 from dynamodb import model
 from dynamodb.exceptions import ConditionalCheckFailedException
 from dynamodb.types import GitRootToeInputItem
+
 
 # Constants
 logging.config.dictConfig(LOGGING)

@@ -1,9 +1,9 @@
-# Standard libraries
+
 import importlib
-import time
-import uuid
 import subprocess
 import sys
+import time
+import uuid
 from typing import (
     Any,
     Dict,
@@ -12,7 +12,6 @@ from typing import (
     Union,
 )
 
-# Third-party libraries
 import jinja2
 import matplotlib
 from jinja2 import select_autoescape
@@ -27,13 +26,13 @@ from pylab import (  # noqa
 )
 from typing_extensions import TypedDict
 
-# Local libraries
-from backend.typing import Finding as FindingType
-from newutils.vulnerabilities import get_treatments
 from __init__ import (
     BASE_URL,
     STARTDIR,
 )
+from custom_types import Finding as FindingType
+from newutils.vulnerabilities import get_treatments
+
 from .typing import PDFWordlistEn
 
 

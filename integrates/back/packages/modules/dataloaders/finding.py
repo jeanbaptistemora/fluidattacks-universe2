@@ -8,7 +8,7 @@ from typing import (
 
 from aiodataloader import DataLoader
 
-from backend.typing import Finding as FindingType
+from custom_types import Finding as FindingType
 from findings import domain as findings_domain
 
 

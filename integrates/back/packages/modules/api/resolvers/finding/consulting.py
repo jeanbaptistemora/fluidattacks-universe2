@@ -1,4 +1,4 @@
-# Standard
+
 from functools import partial
 from typing import (
     Dict,
@@ -6,15 +6,13 @@ from typing import (
     cast,
 )
 
-# Third party
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import (
+from comments import domain as comments_domain
+from custom_types import (
     Comment,
     Finding,
 )
-from comments import domain as comments_domain
 from newutils import token as token_utils
 from redis_cluster.operations import redis_get_or_set_entity_attr
 

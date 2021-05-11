@@ -1,13 +1,11 @@
-# Standard
+
 from typing import cast
 
-# Third party
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
 from analytics import domain as analytics_domain
-from backend.typing import Project as Group
+from custom_types import Project as Group
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,

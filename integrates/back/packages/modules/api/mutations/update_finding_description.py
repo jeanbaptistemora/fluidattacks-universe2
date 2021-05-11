@@ -1,12 +1,10 @@
-# Standard library
+
 from typing import Any
 
-# Third party libraries
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local libraries
-from backend.typing import SimpleFindingPayload as SimpleFindingPayloadType
+from custom_types import SimpleFindingPayload as SimpleFindingPayloadType
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,

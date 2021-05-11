@@ -1,4 +1,4 @@
-# Standard libraries
+
 import io
 import itertools
 import logging
@@ -6,29 +6,27 @@ import logging.config
 import re
 from typing import (
     Any,
-    cast,
     Counter,
     Dict,
     List,
     Optional,
     Set,
     Tuple,
+    cast,
 )
 
-# Third-party libraries
 from starlette.datastructures import UploadFile
 
-# Local libraries
 from back.settings import LOGGING
-from backend.typing import (
+from custom_exceptions import (
+    InvalidDateFormat,
+    InvalidFileStructure,
+)
+from custom_types import (
     Action,
     Datetime,
     Finding as FindingType,
     Historic as HistoricType,
-)
-from custom_exceptions import (
-    InvalidDateFormat,
-    InvalidFileStructure,
 )
 from newutils import (
     cvss,

@@ -1,15 +1,13 @@
-# Standard
+
 from typing import (
     Dict,
     List,
     cast,
 )
 
-# Third party
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import Finding
+from custom_types import Finding
 from decorators import enforce_group_level_auth_async
 
 

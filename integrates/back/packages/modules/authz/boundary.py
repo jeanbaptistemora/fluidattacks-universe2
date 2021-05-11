@@ -1,4 +1,4 @@
-# Standard libraries
+
 import logging
 import logging.config
 from typing import (
@@ -6,10 +6,8 @@ from typing import (
     Tuple,
 )
 
-# Third-party libraries
-
-# Local libraries
 from back.settings import LOGGING
+
 from .enforcer import (
     get_group_level_enforcer,
     get_group_service_attributes_enforcer,

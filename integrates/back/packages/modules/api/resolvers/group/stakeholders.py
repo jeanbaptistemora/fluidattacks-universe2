@@ -1,4 +1,4 @@
-# Standard libraries
+
 from functools import partial
 from typing import (
     Dict,
@@ -6,11 +6,9 @@ from typing import (
     cast,
 )
 
-# Third party libraries
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local libraries
-from backend.typing import (
+from custom_types import (
     Project as GroupType,
     Stakeholder as StakeholderType,
 )

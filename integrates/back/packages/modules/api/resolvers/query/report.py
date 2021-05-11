@@ -1,14 +1,12 @@
-# Standard libraries
+
 from typing import Dict
 
-# Third party libraries
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local libraries
-from backend.typing import Report
 from batch import dal as batch_dal
 from custom_exceptions import RequestedReportError
+from custom_types import Report
 from decorators import (
     enforce_group_level_auth_async,
     require_login,

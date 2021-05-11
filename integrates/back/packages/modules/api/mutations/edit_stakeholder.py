@@ -1,24 +1,22 @@
-# Standard library
+
 import logging
 import logging.config
 from typing import (
     Any,
-    cast,
     Dict,
+    cast,
 )
 
-# Third party libraries
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local libraries
 import authz
 from back.settings import LOGGING
-from backend.typing import (
-    Invitation as InvitationType,
-    EditStakeholderPayload as EditStakeholderPayloadType
-)
 from custom_exceptions import StakeholderNotFound
+from custom_types import (
+    EditStakeholderPayload as EditStakeholderPayloadType,
+    Invitation as InvitationType,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,

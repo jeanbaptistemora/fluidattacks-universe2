@@ -1,11 +1,10 @@
-# Third party libraries
+
 import bugsnag
 
-# Local libraries
 from __init__ import (
     BASE_URL,
+    FI_BUGSNAG_API_KEY_SCHEDULER,
     FI_ENVIRONMENT,
-    FI_BUGSNAG_API_KEY_SCHEDULER
 )
 
 

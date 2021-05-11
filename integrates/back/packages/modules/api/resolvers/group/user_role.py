@@ -1,15 +1,13 @@
-# Standard
+
 from typing import (
     Dict,
     cast,
 )
 
-# Third party
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
 import authz
-from backend.typing import Project as Group
+from custom_types import Project as Group
 from newutils import token as token_utils
 
 

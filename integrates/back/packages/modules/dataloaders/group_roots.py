@@ -1,14 +1,12 @@
-# Standard
+
 from typing import (
     Tuple,
     cast,
 )
 
-# Third party
 from aiodataloader import DataLoader
 from aioextensions import collect
 
-# Local
 from roots import domain as roots_domain
 from roots.types import Root
 

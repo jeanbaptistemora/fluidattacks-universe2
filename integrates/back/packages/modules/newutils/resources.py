@@ -1,11 +1,8 @@
-# Standard libraries
+
 from typing import List
 
-# Third-party libraries
-
-# Local libraries
-from s3 import operations as s3_ops
 from __init__ import FI_AWS_S3_RESOURCES_BUCKET
+from s3 import operations as s3_ops
 
 
 async def download_file(file_info: str, group_name: str) -> str:

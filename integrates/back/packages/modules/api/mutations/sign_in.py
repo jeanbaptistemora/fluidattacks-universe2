@@ -1,29 +1,27 @@
-# Standard library
+
+import json
 import logging
 import logging.config
-import json
 from typing import (
     Any,
-    cast,
     Dict,
-    Optional
+    Optional,
+    cast,
 )
 
-# Third party libraries
 import aiohttp
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local libraries
 from back import settings
 from back.app import utils
 from back.settings import LOGGING
 from back.settings.auth import (
-    azure,
     BITBUCKET_ARGS,
-    GOOGLE_ARGS
+    GOOGLE_ARGS,
+    azure,
 )
-from backend.typing import SignInPayload as SignInPayloadType
+from custom_types import SignInPayload as SignInPayloadType
 from newutils import (
     analytics,
     datetime as datetime_utils,

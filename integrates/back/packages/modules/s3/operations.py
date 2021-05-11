@@ -1,30 +1,29 @@
-# Standard libraries
+
 import contextlib
 import io
 import logging
 import logging.config
 import os
 from tempfile import (  # type: ignore
-    _TemporaryFileWrapper as TemporaryFileWrapper
+    _TemporaryFileWrapper as TemporaryFileWrapper,
 )
 from typing import (
     List,
     Optional,
 )
 
-# Third-party libraries
 import aioboto3
 from aioextensions import in_thread
 from botocore.exceptions import ClientError
 from starlette.datastructures import UploadFile
 
-# Local libraries
-from back.settings import LOGGING
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY,
     FI_AWS_S3_SECRET_KEY,
     FI_ENVIRONMENT,
 )
+from back.settings import LOGGING
+
 
 logging.config.dictConfig(LOGGING)
 

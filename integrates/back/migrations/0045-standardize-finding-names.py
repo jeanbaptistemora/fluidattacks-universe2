@@ -22,7 +22,7 @@ from aioextensions import (
 from more_itertools import chunked
 
 # Local libraries
-from backend.typing import Finding
+from custom_types import Finding
 from dataloaders.group import GroupLoader
 from dataloaders.finding import FindingLoader
 from findings import dal as findings_dal

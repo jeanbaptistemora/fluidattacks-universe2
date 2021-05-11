@@ -1,4 +1,4 @@
-# Standard libraries
+
 from itertools import chain
 from typing import (
     Any,
@@ -9,22 +9,18 @@ from typing import (
 )
 from uuid import uuid4
 
-# Third-party libraries
 from aioextensions import (
     collect,
     schedule,
 )
 
-# Local libraries
-from backend.typing import (
-    Finding,
-)
 from custom_exceptions import (
     FindingNamePolicyNotFound,
     InvalidFindingNamePolicy,
     PolicyAlreadyHandled,
     RepeatedFindingNamePolicy,
 )
+from custom_types import Finding
 from dynamodb.types import (
     OrgFindingPolicyItem,
     OrgFindingPolicyMetadata,
@@ -33,19 +29,18 @@ from dynamodb.types import (
 from newutils import (
     datetime as datetime_utils,
     findings as findings_utils,
-    vulnerabilities as vulns_utils
+    vulnerabilities as vulns_utils,
 )
 from redis_cluster.operations import redis_del_by_deps
 from vulnerabilities import dal as vulns_dal
+
 from .dal import (
     add_org_finding_policy,
     get_org_finding_policies,
     get_org_finding_policy,
     update_finding_policy_status,
 )
-from .types import (
-    OrgFindingPolicy,
-)
+from .types import OrgFindingPolicy
 
 
 async def get_finding_policy(

@@ -1,8 +1,13 @@
-# Standard
-from typing import Dict, Set
 
-# Local
-from dynamodb.types import Facet, PrimaryKey
+from typing import (
+    Dict,
+    Set,
+)
+
+from dynamodb.types import (
+    Facet,
+    PrimaryKey,
+)
 
 
 # Constants

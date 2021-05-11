@@ -1,6 +1,10 @@
-from typing import Dict, List, cast
+from typing import (
+    Dict,
+    List,
+    cast,
+)
 
-from backend.typing import Event as EventType
+from custom_types import Event as EventType
 
 
 def format_data(event: EventType) -> EventType:

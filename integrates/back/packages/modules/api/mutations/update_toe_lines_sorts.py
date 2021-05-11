@@ -1,19 +1,17 @@
 # This mutation updates the attribute sorts_file_risk for a concrete Toe
 
-# Standard library
+
 from typing import (
     Any,
     List,
-    Set
+    Set,
 )
 
-# Third party libraries
 from aioextensions import collect
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local libraries
-from backend.typing import SimplePayload as SimplePayloadType
+from custom_types import SimplePayload as SimplePayloadType
 from data_containers.toe_lines import GitRootToeLines
 from decorators import (
     concurrent_decorators,

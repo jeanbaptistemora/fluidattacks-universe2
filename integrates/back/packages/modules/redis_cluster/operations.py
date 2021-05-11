@@ -1,4 +1,4 @@
-# Standard libraries
+
 import asyncio
 import logging
 from typing import (
@@ -9,7 +9,6 @@ from typing import (
     Set,
 )
 
-# Third party libraries
 from aioextensions import in_thread
 from redis.exceptions import RedisError
 from rediscluster import RedisCluster
@@ -20,9 +19,9 @@ from rediscluster.exceptions import (
     RedisClusterException,
 )
 
-# Local libraries
-from back import settings
 from __init__ import FI_REDIS_SERVER
+from back import settings
+
 from . import model as redis_model
 from .serialization import (
     dump,

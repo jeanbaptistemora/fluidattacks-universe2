@@ -1,29 +1,36 @@
-# Standard
-from typing import Optional, Tuple, Union
 
-# Third party
+from typing import (
+    Optional,
+    Tuple,
+    Union,
+)
+
 from aiodataloader import DataLoader
 from aioextensions import collect
 from boto3.dynamodb.conditions import Key
 
-# Local
 from custom_exceptions import FindingNotFound
-from dynamodb import historics, keys, operations
+from dynamodb import (
+    historics,
+    keys,
+    operations,
+)
 from dynamodb.types import (
     Item,
     PrimaryKey,
 )
 from model import TABLE
+
 from .enums import FindingSorts
 from .types import (
     Finding,
+    Finding20Severity,
+    Finding31Severity,
     FindingEvidence,
     FindingEvidences,
     FindingRecords,
     FindingState,
     FindingVerification,
-    Finding20Severity,
-    Finding31Severity,
 )
 from .utils import (
     format_state,

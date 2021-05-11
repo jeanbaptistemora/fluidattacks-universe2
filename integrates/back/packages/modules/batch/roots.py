@@ -1,7 +1,6 @@
-# Third party
+
 from aioextensions import collect
 
-# Local
 from batch.dal import delete_action
 from batch.types import BatchProcessing
 from roots import dal as roots_dal

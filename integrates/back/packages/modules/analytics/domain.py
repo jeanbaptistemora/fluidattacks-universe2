@@ -1,4 +1,4 @@
-# Standard library
+
 import base64
 import json
 import logging
@@ -9,30 +9,28 @@ from functools import partial
 from io import BytesIO
 from typing import Union
 
-# Third party libraries
 import botocore.exceptions
+from PIL import Image
 from aioextensions import in_thread
 from ariadne import convert_camel_case_to_snake
-from PIL import Image
 from starlette.requests import Request
 from starlette.responses import Response
 
-# Local libraries
 import authz
 from analytics import dal as analytics_dal
 from back.app.views import templates
 from back.settings import LOGGING
-from backend.typing import (
-    GraphicsForEntityParameters,
+from custom_exceptions import DocumentNotFound
+from custom_types import (
     GraphicParameters,
+    GraphicsForEntityParameters,
     ReportParameters,
 )
-from custom_exceptions import DocumentNotFound
 from newutils import token as token_utils
-from newutils.encodings import safe_encode
 from newutils.context import CHARTS_LOGO_PATH
-from redis_cluster.operations import redis_get_or_set_entity_attr
+from newutils.encodings import safe_encode
 from organizations import domain as orgs_domain
+from redis_cluster.operations import redis_get_or_set_entity_attr
 from tags import domain as tags_domain
 
 

@@ -53,7 +53,7 @@ from aioextensions import (
 )
 
 # Local libraries
-from backend.typing import Vulnerability
+from custom_types import Vulnerability
 from vulnerabilities import (
     dal as vulns_dal,
     domain as vulns_domain,

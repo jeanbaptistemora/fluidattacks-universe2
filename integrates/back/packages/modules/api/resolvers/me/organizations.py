@@ -1,15 +1,13 @@
-# Standard
+
 from typing import (
     List,
     cast,
 )
 
-# Third party
 from aioextensions import collect
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import (
+from custom_types import (
     Me,
     Organization,
 )

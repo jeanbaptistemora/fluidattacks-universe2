@@ -1,4 +1,4 @@
-# Standard libraries
+
 import json
 import logging
 import logging.config
@@ -8,7 +8,6 @@ from typing import (
     Union,
 )
 
-# Third-party libraries
 import mandrill
 from aioextensions import (
     collect,
@@ -19,19 +18,18 @@ from jinja2 import (
     FileSystemLoader,
 )
 
-# Local libraries
 import authz
-from back.settings import LOGGING
-from backend.typing import MailContent as MailContentType
-from group_access import domain as group_access_domain
-from mailer.context import EMAIL_TEMPLATES
-from newutils import datetime as datetime_utils
-from users import domain as users_domain
 from __init__ import (
     FI_MAIL_REVIEWERS,
     FI_MANDRILL_API_KEY,
     FI_TEST_PROJECTS,
 )
+from back.settings import LOGGING
+from custom_types import MailContent as MailContentType
+from group_access import domain as group_access_domain
+from mailer.context import EMAIL_TEMPLATES
+from newutils import datetime as datetime_utils
+from users import domain as users_domain
 
 
 logging.config.dictConfig(LOGGING)

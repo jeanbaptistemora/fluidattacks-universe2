@@ -1,4 +1,4 @@
-# Standard library
+
 import logging
 import logging.config
 from typing import (
@@ -6,7 +6,6 @@ from typing import (
     List,
 )
 
-# Third party libraries
 from boto3.dynamodb.conditions import (
     Attr,
     Key,
@@ -14,15 +13,14 @@ from boto3.dynamodb.conditions import (
 )
 from botocore.exceptions import ClientError
 
-# Local libraries
-from back.settings import LOGGING
-from backend.typing import (
-    DynamoDelete as DynamoDeleteType,
-    User as UserType
-)
-from custom_exceptions import UnavailabilityError
-from dynamodb import operations_legacy as dynamodb_ops
 from __init__ import FI_TEST_PROJECTS
+from back.settings import LOGGING
+from custom_exceptions import UnavailabilityError
+from custom_types import (
+    DynamoDelete as DynamoDeleteType,
+    User as UserType,
+)
+from dynamodb import operations_legacy as dynamodb_ops
 
 
 logging.config.dictConfig(LOGGING)

@@ -1,33 +1,31 @@
-# Standard Libraries
+
 import re
 from datetime import datetime
 from itertools import chain
 from typing import (
     Any,
     Awaitable,
-    cast,
     Dict,
     List,
     Union,
+    cast,
 )
 
-# Third-party libraries
 from aioextensions import collect
 from starlette.requests import Request
 
-# Local libraries
 import authz
-from backend.typing import (
-    Invitation as InvitationType,
-    Stakeholder as StakeholderType,
-    UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
-    User as UserType,
-)
 from custom_exceptions import (
     ExpiredToken,
     InvalidExpirationTime,
     InvalidPushToken,
     SecureAccessException,
+)
+from custom_types import (
+    Invitation as InvitationType,
+    Stakeholder as StakeholderType,
+    UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
+    User as UserType,
 )
 from group_access import domain as group_access_domain
 from newutils import (

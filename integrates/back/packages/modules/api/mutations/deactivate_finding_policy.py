@@ -1,12 +1,10 @@
-# Standard library
+
 from typing import Dict
 
-# Third party libraries
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local libraries
-from backend.typing import SimplePayload
+from custom_types import SimplePayload
 from dataloaders import Dataloaders
 from decorators import (
     concurrent_decorators,

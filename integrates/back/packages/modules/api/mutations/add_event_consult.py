@@ -1,14 +1,12 @@
-# Standard
+
 from time import time
 from typing import Dict
 
-# Third party
 from aioextensions import schedule
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import AddConsultPayload
+from custom_types import AddConsultPayload
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,

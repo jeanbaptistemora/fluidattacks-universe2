@@ -1,19 +1,17 @@
-# Standard libraries
+
 from typing import (
     Any,
-    cast,
     Dict,
     List,
+    cast,
 )
 
-# Third-party libraries
 from aioextensions import (
     collect,
     schedule,
 )
 
-# Local libraries
-from backend.typing import Event as EventType
+from custom_types import Event as EventType
 from dataloaders import get_new_context
 from events import domain as events_domain
 from groups import domain as groups_domain

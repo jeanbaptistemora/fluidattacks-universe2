@@ -1,13 +1,22 @@
-# Standard library
+
 import json
 from collections import defaultdict
-from typing import Optional, Tuple, Union
+from typing import (
+    Optional,
+    Tuple,
+    Union,
+)
 
-# Third party
-from boto3.dynamodb.conditions import Attr, Key
+from boto3.dynamodb.conditions import (
+    Attr,
+    Key,
+)
 
-# Local
-from dynamodb import historics, keys, operations
+from dynamodb import (
+    historics,
+    keys,
+    operations,
+)
 from dynamodb.context import DB_MODEL_PATH
 from dynamodb.table import load_table
 from dynamodb.types import (
@@ -21,17 +30,17 @@ from dynamodb.types import (
     IPRootMetadata,
     IPRootState,
     Item,
+    OrgFindingPolicyItem,
+    OrgFindingPolicyMetadata,
+    OrgFindingPolicyState,
     PrimaryKey,
     RootItem,
     URLRootItem,
     URLRootMetadata,
     URLRootState,
-    OrgFindingPolicyItem,
-    OrgFindingPolicyMetadata,
-    OrgFindingPolicyState,
     VulnerabilityItem,
     VulnerabilityMetadata,
-    VulnerabilityState
+    VulnerabilityState,
 )
 
 

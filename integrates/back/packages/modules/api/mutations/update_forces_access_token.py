@@ -1,13 +1,12 @@
-# Standard
+
 # None
 
-# Third party
+
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import UpdateAccessTokenPayload
 from custom_exceptions import InvalidExpirationTime
+from custom_types import UpdateAccessTokenPayload
 from decorators import enforce_group_level_auth_async
 from forces import domain as forces_domain
 from newutils import (

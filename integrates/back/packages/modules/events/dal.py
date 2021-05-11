@@ -1,20 +1,18 @@
 import logging
 import logging.config
 from typing import (
-    cast,
     List,
+    cast,
 )
 
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
+from __init__ import FI_AWS_S3_BUCKET
 from back.settings import LOGGING
-from backend.typing import Event as EventType
+from custom_types import Event as EventType
 from dynamodb import operations_legacy as dynamodb_ops
 from s3 import operations as s3_ops
-from __init__ import (
-    FI_AWS_S3_BUCKET,
-)
 
 
 logging.config.dictConfig(LOGGING)

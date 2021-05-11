@@ -1,12 +1,11 @@
-# Standard libraries
+
 from typing import Any
 
-# Third party libraries
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local libraries
-from backend.typing import GrantStakeholderAccessPayload
+from __init__ import FI_DEFAULT_ORG
+from custom_types import GrantStakeholderAccessPayload
 from decorators import enforce_organization_level_auth_async
 from groups import domain as groups_domain
 from newutils import (
@@ -16,7 +15,6 @@ from newutils import (
 from organizations import domain as orgs_domain
 from redis_cluster.operations import redis_del_by_deps
 from users import domain as users_domain
-from __init__ import FI_DEFAULT_ORG
 
 
 @convert_kwargs_to_snake_case

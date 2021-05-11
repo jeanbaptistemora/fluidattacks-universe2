@@ -1,16 +1,14 @@
-# Standard
+
 from functools import partial
 from typing import (
     Optional,
     cast,
 )
 
-# Third party
 from aiodataloader import DataLoader
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import (
+from custom_types import (
     Finding,
     Project as Group,
 )

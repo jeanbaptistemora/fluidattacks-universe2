@@ -1,17 +1,15 @@
-# Standard library
+
 from typing import Any
 
-# Third party libraries
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local libraries
 import authz
-from backend.typing import SimplePayload as SimplePayloadType
+from custom_types import SimplePayload as SimplePayloadType
 from decorators import (
     concurrent_decorators,
     enforce_user_level_auth_async,
-    require_login
+    require_login,
 )
 from forces import domain as forces_domain
 from groups import domain as groups_domain

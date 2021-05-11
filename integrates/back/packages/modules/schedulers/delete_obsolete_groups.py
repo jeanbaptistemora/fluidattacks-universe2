@@ -1,14 +1,12 @@
-# Standard libraries
+
 from typing import (
     Any,
     List,
 )
 
-# Third-party libraries
 from aioextensions import collect
 
-# Local libraries
-from backend.typing import Project as GroupType
+from custom_types import Project as GroupType
 from dataloaders import get_new_context
 from groups import domain as groups_domain
 from mailer import groups as groups_mail
@@ -17,6 +15,7 @@ from newutils import (
     groups as groups_utils,
 )
 from organizations import domain as orgs_domain
+
 from .common import scheduler_send_mail
 
 

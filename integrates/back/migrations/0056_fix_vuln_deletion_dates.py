@@ -20,7 +20,7 @@ from aioextensions import (
 
 # Local libraries
 from backend.domain import project as group_domain
-from backend.typing import (
+from custom_types import (
     Finding as FindingType,
     Vulnerability as VulnerabilityType,
 )

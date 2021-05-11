@@ -1,10 +1,9 @@
-# Standard library
+
 from typing import (
     Optional,
     Tuple,
 )
 
-# Local libraries
 from dynamodb import model
 from dynamodb.types import (
     OrgFindingPolicyItem,

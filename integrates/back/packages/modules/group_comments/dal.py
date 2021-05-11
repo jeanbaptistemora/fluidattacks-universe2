@@ -1,19 +1,17 @@
-# Standard libraries
+
 import logging
 import logging.config
 from typing import (
-    cast,
     Dict,
     List,
+    cast,
 )
 
-# Third-party libraries
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
-# Local libraries
 from back.settings import LOGGING
-from backend.typing import (
+from custom_types import (
     Comment as CommentType,
     DynamoDelete as DynamoDeleteType,
 )

@@ -1,15 +1,13 @@
-# Standard libraries
+
 from typing import (
-    cast,
     List,
+    cast,
 )
 
-# Third party libraries
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local libraries
-from backend.typing import (
+from custom_types import (
     Me as MeType,
     Tag as TagType,
 )

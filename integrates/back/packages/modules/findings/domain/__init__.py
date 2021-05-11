@@ -31,17 +31,15 @@ from .core import (
     validate_finding,
     verify_vulnerabilities,
 )
-from .draft_new import (
-    create_draft_new,
-)
 from .draft import (
     approve_draft,
     create_draft,
     get_drafts_by_group,
     list_drafts,
     reject_draft,
-    submit_draft
+    submit_draft,
 )
+from .draft_new import create_draft_new
 from .evidence import (
     download_evidence_file,
     get_records_from_file,
@@ -51,6 +49,7 @@ from .evidence import (
     validate_and_upload_evidence,
     validate_evidence,
 )
+
 
 __all__ = [
     # core

@@ -1,16 +1,14 @@
-# Standard
+
 from datetime import datetime
 from typing import (
     Any,
     List,
 )
 
-# Third party
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import (
+from custom_types import (
     ForcesExecution,
     ForcesExecutions,
 )

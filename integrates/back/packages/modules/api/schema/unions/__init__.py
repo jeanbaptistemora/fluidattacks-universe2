@@ -1,17 +1,15 @@
-# Standard
+
 from typing import (
     Optional,
     Tuple,
 )
 
-# Third party
 from ariadne import UnionType
 from graphql.type.definition import (
     GraphQLAbstractType,
     GraphQLResolveInfo,
 )
 
-# Local
 from roots.types import (
     GitRoot,
     IPRoot,

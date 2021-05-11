@@ -1,10 +1,9 @@
-# Standard
+
 # None
 
-# Third party
+
 from ariadne import MutationType
 
-# Local
 from api.mutations import (
     accept_legal,
     acknowledge_concurrent_session,
@@ -31,14 +30,14 @@ from api.mutations import (
     deactivate_finding_policy,
     deactivate_root,
     delete_finding,
-    delete_vulnerability_tags,
     delete_vulnerability,
+    delete_vulnerability_tags,
     download_event_file,
     download_file,
     download_vulnerability_file,
     edit_group,
-    edit_stakeholder_organization,
     edit_stakeholder,
+    edit_stakeholder_organization,
     grant_stakeholder_access,
     grant_stakeholder_organization_access,
     handle_finding_policy_acceptation,
@@ -50,8 +49,8 @@ from api.mutations import (
     remove_event_evidence,
     remove_files,
     remove_finding_evidence,
-    remove_group_tag,
     remove_group,
+    remove_group_tag,
     remove_stakeholder_access,
     remove_stakeholder_organization_access,
     request_verification_vulnerability,
@@ -63,8 +62,8 @@ from api.mutations import (
     unsubscribe_from_group,
     update_access_token,
     update_event_evidence,
-    update_evidence_description,
     update_evidence,
+    update_evidence_description,
     update_finding_description,
     update_forces_access_token,
     update_git_environments,

@@ -1,4 +1,4 @@
-# Standard
+
 from functools import partial
 from typing import (
     Dict,
@@ -7,11 +7,9 @@ from typing import (
     cast,
 )
 
-# Third party
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import Finding
+from custom_types import Finding
 from findings.domain import get_records_from_file
 from redis_cluster.operations import redis_get_or_set_entity_attr
 

@@ -1,7 +1,6 @@
-# Standard libraries
+
 import json
 
-# Local libraries
 from dynamodb.context import DB_MODEL_PATH
 from dynamodb.table import load_table
 

@@ -1,4 +1,4 @@
-# Standard libraries
+
 import contextlib
 import logging
 import logging.config
@@ -6,33 +6,32 @@ from functools import partial
 from typing import (
     Any,
     Awaitable,
-    cast,
     DefaultDict,
     Dict,
     List,
     NamedTuple,
     Optional,
     Tuple,
+    cast,
 )
 
-# Third-party libraries
 from aioextensions import collect
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
-# Local libraries
 from back.settings import LOGGING
-from backend.typing import DynamoDelete as DynamoDeleteType
+from custom_types import DynamoDelete as DynamoDeleteType
 from dynamodb import operations_legacy as dynamodb_ops
 from newutils import function
 from redis_cluster.operations import (
     redis_del_by_deps,
     redis_get_or_set_entity_attr,
 )
+
 from .model import (
-    get_user_level_roles_model,
     get_group_level_roles_model,
-    get_organization_level_roles_model
+    get_organization_level_roles_model,
+    get_user_level_roles_model,
 )
 
 

@@ -1,10 +1,9 @@
-# Standard
+
 # None
 
-# Third party
+
 from ariadne import ObjectType
 
-# Local
 from api.resolvers.group import (
     analytics,
     bill,
@@ -15,8 +14,8 @@ from api.resolvers.group import (
     forces_token,
     last_closing_vuln_finding,
     max_open_severity_finding,
-    max_severity_finding,
     max_severity,
+    max_severity_finding,
     organization,
     roots,
     service_attributes,
@@ -24,7 +23,7 @@ from api.resolvers.group import (
     toe_inputs,
     total_findings,
     total_treatment,
-    user_role
+    user_role,
 )
 
 

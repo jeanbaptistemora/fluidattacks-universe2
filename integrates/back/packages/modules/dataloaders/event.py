@@ -8,7 +8,7 @@ from typing import (
 
 from aiodataloader import DataLoader
 
-from backend.typing import (
+from custom_types import (
     Event as EventType,
     Historic,
 )

@@ -1,13 +1,10 @@
-# Standard library
-from typing import Any
 
-# Third party libraries
+from typing import Any
 
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local libraries
-from backend.typing import SimplePayload as SimplePayloadType
+from custom_types import SimplePayload as SimplePayloadType
 from newutils import token as token_utils
 from users import domain as users_domain
 

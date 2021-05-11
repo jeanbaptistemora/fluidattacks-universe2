@@ -1,17 +1,15 @@
-# Standard libraries
+
 import os
 
-# Third-party libraries
-from aioextensions import in_process
-from fpdf import FPDF
 from PyPDF4 import (
     PdfFileReader,
     PdfFileWriter,
 )
+from aioextensions import in_process
+from fpdf import FPDF
 
-# Local libraries
-from groups import dal as groups_dal
 from __init__ import STARTDIR
+from groups import dal as groups_dal
 
 
 class PDF(FPDF):

@@ -16,8 +16,8 @@ from aioextensions import (
 )
 
 # Local libraries
-from backend.typing import Finding
 from charts import utils
+from custom_types import Finding
 from dataloaders import get_new_context
 
 

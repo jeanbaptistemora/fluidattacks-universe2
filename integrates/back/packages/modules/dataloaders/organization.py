@@ -1,15 +1,13 @@
-# Standard libraries
+
 from typing import (
     Dict,
     List,
 )
 
-# Third party libraries
 from aiodataloader import DataLoader
 from aioextensions import collect
 
-# Local libraries
-from backend.typing import Organization as OrganizationType
+from custom_types import Organization as OrganizationType
 from organizations import domain as orgs_domain
 
 

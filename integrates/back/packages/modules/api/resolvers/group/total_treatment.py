@@ -1,12 +1,10 @@
-# Standard
+
 from typing import cast
 
-# Third party
 import simplejson as json
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import Project as Group
+from custom_types import Project as Group
 from decorators import require_integrates
 
 

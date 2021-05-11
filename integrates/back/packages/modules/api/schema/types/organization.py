@@ -1,15 +1,14 @@
-# Standard
+
 # None
 
-# Third party
+
 from ariadne import ObjectType
 
-# Local
 from api.resolvers.organization import (
     analytics,
     finding_policies,
     groups,
-    stakeholders
+    stakeholders,
 )
 
 

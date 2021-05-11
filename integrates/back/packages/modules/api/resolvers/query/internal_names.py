@@ -1,11 +1,10 @@
-# Standard
+
 # None
 
-# Third party
+
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import InternalName
+from custom_types import InternalName
 from decorators import (
     concurrent_decorators,
     enforce_user_level_auth_async,

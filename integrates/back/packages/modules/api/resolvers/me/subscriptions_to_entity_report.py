@@ -1,15 +1,13 @@
-# Standard
+
 from typing import (
     Dict,
     List,
     cast,
 )
 
-# Third party
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import Me
+from custom_types import Me
 from subscriptions import domain as subscriptions_domain
 
 

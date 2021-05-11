@@ -1,8 +1,15 @@
-# Standard
-from typing import Any, Dict
 
-# Local
-from dynamodb.types import Facet, Index, PrimaryKey, Table
+from typing import (
+    Any,
+    Dict,
+)
+
+from dynamodb.types import (
+    Facet,
+    Index,
+    PrimaryKey,
+    Table,
+)
 
 
 def _load_facets(model: Dict[str, Any]) -> Dict[str, Facet]:

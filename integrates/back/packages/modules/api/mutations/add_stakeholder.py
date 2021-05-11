@@ -1,16 +1,17 @@
-# Standard
+
 import logging
 import logging.config
 
-# Third party
 from aioextensions import schedule
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
 import authz
 from back.settings import LOGGING
-from backend.typing import AddStakeholderPayload, MailContent
+from custom_types import (
+    AddStakeholderPayload,
+    MailContent,
+)
 from decorators import (
     concurrent_decorators,
     enforce_user_level_auth_async,

@@ -1,20 +1,18 @@
-# Standard
+
 from typing import (
     Any,
     Dict,
 )
 
-# Third party
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import SimplePayload
+from custom_types import SimplePayload
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
-    require_login,
     require_drills_white,
+    require_login,
 )
 from newutils import (
     logs as logs_utils,

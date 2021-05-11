@@ -1,4 +1,4 @@
-# Standard
+
 from functools import partial
 from typing import (
     Dict,
@@ -6,11 +6,9 @@ from typing import (
     cast,
 )
 
-# Third party
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import (
+from custom_types import (
     Comment,
     Project as Group,
 )

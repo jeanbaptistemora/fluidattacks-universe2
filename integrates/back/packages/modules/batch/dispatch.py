@@ -1,12 +1,10 @@
-# Standard libraries
+
 import logging
 import logging.config
 import sys
 
-# Third party libraries
 from aioextensions import run
 
-# Local libraries
 from back.settings import LOGGING
 from batch.dal import (
     delete_action,
@@ -14,6 +12,7 @@ from batch.dal import (
 )
 from batch.report import generate_report
 from batch.roots import move_root
+
 
 logging.config.dictConfig(LOGGING)
 

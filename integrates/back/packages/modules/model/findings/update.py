@@ -1,9 +1,13 @@
-# Third party
+
 from boto3.dynamodb.conditions import Attr
 
-# Local
-from dynamodb import historics, keys, operations
+from dynamodb import (
+    historics,
+    keys,
+    operations,
+)
 from model import TABLE
+
 from .enums import FindingStateStatus
 from .types import FindingState
 from .utils import format_state_item

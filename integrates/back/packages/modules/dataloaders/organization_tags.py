@@ -1,16 +1,14 @@
-# Standard libraries
+
 from collections import defaultdict
 from typing import (
     Dict,
-    List
+    List,
 )
 
-# Third party libraries
 from aiodataloader import DataLoader
 from aioextensions import collect
 
-# Local libraries
-from backend.typing import Tag as TagType
+from custom_types import Tag as TagType
 from tags import domain as tags_domain
 
 

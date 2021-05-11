@@ -1,16 +1,17 @@
-# Standard
+
 from typing import (
     List,
     cast,
 )
 
-# Third party
 from aiodataloader import DataLoader
 from aioextensions import collect
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import Project as Group, Stakeholder
+from custom_types import (
+    Project as Group,
+    Stakeholder,
+)
 from groups import domain as groups_domain
 
 

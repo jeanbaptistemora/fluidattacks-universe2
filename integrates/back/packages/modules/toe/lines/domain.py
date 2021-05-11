@@ -1,9 +1,6 @@
-# Standard libraries
-from typing import (
-    Tuple,
-)
 
-# Local libraries
+from typing import Tuple
+
 from data_containers.toe_lines import GitRootToeLines
 from toe.lines import dal as toe_lines_dal
 

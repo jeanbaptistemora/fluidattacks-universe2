@@ -1,11 +1,9 @@
-# Standard libraries
+
 from datetime import datetime
 from typing import Any
 
-# Third-party libraries
 from aioextensions import collect
 
-# Local libraries
 from dataloaders import get_new_context
 from findings import domain as findings_domain
 from groups import domain as groups_domain

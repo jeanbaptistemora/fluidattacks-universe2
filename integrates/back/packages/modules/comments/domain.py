@@ -1,25 +1,23 @@
-# Standard libraries
+
 from datetime import datetime
 from typing import (
-    cast,
     Dict,
     List,
     Tuple,
     Union,
+    cast,
 )
 
-# Third party libraries
 from aioextensions import collect
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local libraries
 import authz
-from backend.typing import (
+from comments import dal as comments_dal
+from custom_types import (
     Comment as CommentType,
     Finding as FindingType,
-    User as UserType
+    User as UserType,
 )
-from comments import dal as comments_dal
 from newutils import datetime as datetime_utils
 
 

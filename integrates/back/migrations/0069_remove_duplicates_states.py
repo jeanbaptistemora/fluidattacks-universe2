@@ -21,7 +21,7 @@ from aioextensions import (
 from more_itertools import chunked
 
 # Local libraries
-from backend.typing import Finding
+from custom_types import Finding
 from dataloaders.group_drafts import GroupDraftsLoader
 from dataloaders.group_findings import GroupFindingsLoader
 from groups.domain import get_alive_groups

@@ -1,15 +1,13 @@
-# Standard libraries
+
 from itertools import chain
 from typing import (
     List,
     cast,
 )
 
-# Third party libraries
 from aiodataloader import DataLoader
 
-# Local libraries
-from backend.typing import Finding as FindingType
+from custom_types import Finding as FindingType
 from newutils import findings as findings_utils
 
 

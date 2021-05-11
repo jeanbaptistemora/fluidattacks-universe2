@@ -1,10 +1,9 @@
-# Standard
+
 # None
 
-# Third party
+
 from ariadne import ObjectType
 
-# Local
 from api.resolvers.forces_execution import (
     log,
     vulnerabilities,

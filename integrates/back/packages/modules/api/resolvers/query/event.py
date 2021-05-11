@@ -1,12 +1,11 @@
-# Standard
+
 # None
 
-# Third party
+
 from aiodataloader import DataLoader
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import Event
+from custom_types import Event
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,

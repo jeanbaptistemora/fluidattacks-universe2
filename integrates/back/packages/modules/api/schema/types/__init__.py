@@ -1,10 +1,8 @@
-# Standard
+
 from typing import Tuple
 
-# Third party
 from ariadne import ObjectType
 
-# Local
 from .bill import BILL
 from .bill_developer import BILL_DEVELOPER
 from .consult import CONSULT

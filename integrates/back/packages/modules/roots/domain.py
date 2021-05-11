@@ -1,16 +1,19 @@
-# Standard
+
 import re
-from typing import Any, List, Optional, Tuple
+from typing import (
+    Any,
+    List,
+    Optional,
+    Tuple,
+)
 from urllib.parse import unquote
 from uuid import uuid4
 
-# Third party
 import newrelic.agent
 from aiodataloader import DataLoader
 from aioextensions import collect
 from urllib3.util.url import parse_url
 
-# Local
 import authz
 from custom_exceptions import (
     HasOpenVulns,
@@ -19,7 +22,7 @@ from custom_exceptions import (
     PermissionDenied,
     RepeatedRoot,
     RepeatedValues,
-    RootNotFound
+    RootNotFound,
 )
 from dynamodb.types import (
     GitRootCloning,
@@ -32,11 +35,11 @@ from dynamodb.types import (
     RootItem,
     URLRootItem,
     URLRootMetadata,
-    URLRootState
+    URLRootState,
 )
 from newutils import (
     datetime as datetime_utils,
-    validations as validation_utils
+    validations as validation_utils,
 )
 from notifications import domain as notifications_domain
 from organizations import domain as orgs_domain

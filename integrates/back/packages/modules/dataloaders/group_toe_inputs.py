@@ -1,14 +1,12 @@
-# Standard libraries
+
 from typing import (
     List,
-    Tuple
+    Tuple,
 )
 
-# Third party libraries
 from aiodataloader import DataLoader
 from aioextensions import collect
 
-# Local libraries
 from data_containers.toe_inputs import GitRootToeInput
 from toe.inputs import domain as toe_inputs_domain
 

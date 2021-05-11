@@ -1,28 +1,26 @@
-# Standard libraries
+
 import logging
 import logging.config
 from collections import (
-    defaultdict,
     OrderedDict,
+    defaultdict,
 )
 from datetime import datetime
 from typing import (
     Any,
-    cast,
     Dict,
     List,
     Optional,
     Tuple,
     Union,
+    cast,
 )
 
-# Third-party libraries
 from aioextensions import collect
 from botocore.exceptions import ClientError
 
-# Local libraries
 from back.settings import LOGGING
-from backend.typing import Finding as FindingType
+from custom_types import Finding as FindingType
 from dataloaders import get_new_context
 from findings import domain as findings_domain
 from groups import domain as groups_domain

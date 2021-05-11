@@ -1,6 +1,12 @@
-# Standard
+
 from decimal import Decimal
-from typing import Tuple, NamedTuple, Union, Optional
+from typing import (
+    NamedTuple,
+    Optional,
+    Tuple,
+    Union,
+)
+
 from .enums import (
     FindingSorts,
     FindingStateStatus,

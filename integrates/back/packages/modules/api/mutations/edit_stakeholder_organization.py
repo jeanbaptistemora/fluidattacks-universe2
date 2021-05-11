@@ -1,13 +1,11 @@
-# Standard libraries
+
 from typing import Any
 
-# Third party libraries
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local libraries
-from backend.typing import EditStakeholderPayload
 from custom_exceptions import UserNotInOrganization
+from custom_types import EditStakeholderPayload
 from decorators import (
     concurrent_decorators,
     enforce_organization_level_auth_async,

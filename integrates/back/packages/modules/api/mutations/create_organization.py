@@ -1,13 +1,11 @@
-# Standard
+
 import logging
 import logging.config
 from typing import Dict
 
-# Third party
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import (
+from custom_types import (
     CreateOrganizationPayload,
     Organization,
 )

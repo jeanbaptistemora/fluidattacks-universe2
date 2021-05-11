@@ -29,8 +29,8 @@ from aioextensions import (
 from more_itertools import chunked
 
 from back import settings
-from backend.typing import Comment as CommentType
 from comments import dal as comments_dal
+from custom_types import Comment as CommentType
 from findings import dal as findings_dal
 from findings import domain as findings_domain
 from groups import domain as groups_domain

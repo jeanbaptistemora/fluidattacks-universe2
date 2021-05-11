@@ -1,23 +1,21 @@
-# Standard libraries
+
 import io
 import itertools
 import logging
 import logging.config
 from typing import (
     Any,
-    cast,
     Dict,
     List,
     Optional,
     Union,
+    cast,
 )
 
-# Third-party libraries
 from backports import csv
 from magic import Magic
 from starlette.datastructures import UploadFile
 
-# Local libraries
 from back.settings import LOGGING
 from custom_exceptions import (
     EvidenceNotFound,
@@ -32,6 +30,7 @@ from newutils import (
     utils,
     validations,
 )
+
 from .core import get_finding
 
 

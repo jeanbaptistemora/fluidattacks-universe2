@@ -1,15 +1,14 @@
-# Standard libraries
+
 from collections import defaultdict
 from typing import (
     NamedTuple,
     Optional,
 )
 
-# Third-party libraries
 from starlette.requests import Request
 
-# Local libraries
 from model.findings.get import FindingNewLoader
+
 from .event import EventLoader
 from .finding import FindingLoader
 from .finding_vulns import FindingVulnsLoader

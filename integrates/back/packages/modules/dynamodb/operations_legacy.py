@@ -1,4 +1,4 @@
-# Standard libraries
+
 import logging
 import os
 from contextlib import asynccontextmanager
@@ -10,22 +10,21 @@ from typing import (
     Optional,
 )
 
-# Third-party libraries
 import aioboto3
 import botocore
 from botocore.exceptions import ClientError
 
-# Local libraries
-from backend.typing import (
-    DynamoDelete as DynamoDeleteType,
-    DynamoQuery as DynamoQueryType
-)
-from custom_exceptions import UnavailabilityError
 from __init__ import (
     FI_AWS_DYNAMODB_ACCESS_KEY,
     FI_AWS_DYNAMODB_SECRET_KEY,
+    FI_DYNAMODB_HOST,
+    FI_DYNAMODB_PORT,
     FI_ENVIRONMENT,
-    FI_DYNAMODB_HOST, FI_DYNAMODB_PORT
+)
+from custom_exceptions import UnavailabilityError
+from custom_types import (
+    DynamoDelete as DynamoDeleteType,
+    DynamoQuery as DynamoQueryType,
 )
 
 

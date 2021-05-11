@@ -1,25 +1,23 @@
 """Domain functions for resources."""
 
-# Standard libraries
+
 import logging
 import logging.config
 from typing import (
-    cast,
     Dict,
     List,
+    cast,
 )
 
-# Third party libraries
 from aioextensions import collect
 from starlette.datastructures import UploadFile
 
-# Local libraries
 from back.settings import (
     LOGGING,
-    NOEXTRA
+    NOEXTRA,
 )
-from backend.typing import Resource as ResourceType
 from custom_exceptions import InvalidFileSize
+from custom_types import Resource as ResourceType
 from groups import domain as groups_domain
 from newutils import (
     datetime as datetime_utils,

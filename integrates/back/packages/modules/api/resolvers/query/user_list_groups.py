@@ -1,14 +1,12 @@
-# Standard
+
 from typing import List
 
-# Third party
 from aiodataloader import DataLoader
 from aioextensions import collect
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import Project as Group
+from custom_types import Project as Group
 from decorators import (
     concurrent_decorators,
     enforce_user_level_auth_async,

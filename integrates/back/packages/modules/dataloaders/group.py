@@ -1,16 +1,14 @@
-# Standard libraries
+
 from typing import (
     Dict,
     List,
     cast,
 )
 
-# Third party libraries
 from aiodataloader import DataLoader
 from aioextensions import collect
 
-# Local libraries
-from backend.typing import Project as GroupType
+from custom_types import Project as GroupType
 from groups import domain as groups_domain
 from organizations import domain as orgs_domain
 

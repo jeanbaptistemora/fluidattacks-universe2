@@ -1,19 +1,17 @@
-# Standard library
+
 import time
 from typing import Any
 
-# Third party libraries
 from aioextensions import schedule
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local libraries
-from backend.typing import AddConsultPayload as AddConsultPayloadType
+from custom_types import AddConsultPayload as AddConsultPayloadType
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
-    require_login,
     require_integrates,
+    require_login,
 )
 from group_comments import domain as group_comments_domain
 from mailer import groups as groups_mail

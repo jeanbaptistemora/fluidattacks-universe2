@@ -1,6 +1,6 @@
-from itertools import chain
 import logging
 import logging.config
+from itertools import chain
 from typing import List
 
 from aioextensions import collect
@@ -11,9 +11,9 @@ from boto3.dynamodb.conditions import (
 from botocore.exceptions import ClientError
 
 from back.settings import LOGGING
-from backend.typing import (
+from custom_types import (
     Comment as CommentType,
-    DynamoDelete as DynamoDeleteType
+    DynamoDelete as DynamoDeleteType,
 )
 from dynamodb import operations_legacy as dynamodb_ops
 

@@ -1,15 +1,14 @@
-# Standard libraries
+
 import logging
 import logging.config
 from typing import (
-    cast,
     Dict,
     List,
     Optional,
     Union,
+    cast,
 )
 
-# Third-party lbraries
 import aioboto3
 from boto3.dynamodb.conditions import (
     Attr,
@@ -17,9 +16,8 @@ from boto3.dynamodb.conditions import (
 )
 from botocore.exceptions import ClientError
 
-# Local libraries
 from back.settings import LOGGING
-from backend.typing import Project as GroupType
+from custom_types import Project as GroupType
 from dynamodb import operations_legacy as dynamodb_ops
 
 

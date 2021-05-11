@@ -1,5 +1,5 @@
 # pylint:disable=too-many-lines
-# Standard libraries
+
 import logging
 import logging.config
 import re
@@ -14,16 +14,15 @@ from decimal import Decimal
 from typing import (
     Any,
     Awaitable,
-    cast,
     Dict,
     List,
     NamedTuple,
     Optional,
     Set,
     Union,
+    cast,
 )
 
-# Third-party libraries
 import bugsnag
 from aioextensions import (
     collect,
@@ -31,16 +30,12 @@ from aioextensions import (
     schedule,
 )
 
-# Local libraries
 import authz
-from back.settings import LOGGING
-from backend.typing import (
-    Invitation as InvitationType,
-    MailContent as MailContentType,
-    Project as GroupType,
-    ProjectAccess as GroupAccessType,
-    User as UserType,
+from __init__ import (
+    BASE_URL,
+    FI_DEFAULT_ORG,
 )
+from back.settings import LOGGING
 from custom_exceptions import (
     AlreadyPendingDeletion,
     InvalidGroupName,
@@ -48,6 +43,13 @@ from custom_exceptions import (
     InvalidParameter,
     RepeatedValues,
     UserNotInOrganization,
+)
+from custom_types import (
+    Invitation as InvitationType,
+    MailContent as MailContentType,
+    Project as GroupType,
+    ProjectAccess as GroupAccessType,
+    User as UserType,
 )
 from dynamodb.operations_legacy import start_context
 from events import domain as events_domain
@@ -77,10 +79,6 @@ from organizations import domain as orgs_domain
 from redis_cluster.operations import redis_del_by_deps_soon
 from users import domain as users_domain
 from vulnerabilities import domain as vulns_domain
-from __init__ import (
-    BASE_URL,
-    FI_DEFAULT_ORG,
-)
 
 
 logging.config.dictConfig(LOGGING)

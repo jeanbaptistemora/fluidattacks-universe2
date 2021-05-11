@@ -1,15 +1,13 @@
-# Standard
+
 from functools import partial
 from typing import (
     Dict,
     cast,
 )
 
-# Third party
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import Finding
+from custom_types import Finding
 from findings import domain as findings_domain
 from redis_cluster.operations import redis_get_or_set_entity_attr
 

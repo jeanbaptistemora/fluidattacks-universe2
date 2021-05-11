@@ -1,15 +1,13 @@
-# Standard libraries
+
 from typing import (
     List,
     cast,
 )
 
-# Third party libraries
 from aiodataloader import DataLoader
 from aioextensions import collect
 
-# Local libraries
-from backend.typing import Finding
+from custom_types import Finding
 from findings import domain as findings_domain
 
 

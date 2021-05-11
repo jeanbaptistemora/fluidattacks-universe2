@@ -1,23 +1,21 @@
-# Standard libraries
+
 import logging
 import logging.config
 from collections import defaultdict
 from decimal import Decimal
 from typing import (
     Any,
-    cast,
     Dict,
     List,
     Tuple,
     Union,
+    cast,
 )
 
-# Third-party libraries
 from aioextensions import collect
 
-# Local libraries
 from back.settings import LOGGING
-from backend.typing import Project as GroupType
+from custom_types import Project as GroupType
 from dataloaders import get_new_context
 from groups import domain as groups_domain
 from organizations import domain as orgs_domain

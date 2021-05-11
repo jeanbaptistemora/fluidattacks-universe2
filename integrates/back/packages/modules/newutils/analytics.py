@@ -1,8 +1,8 @@
 from aioextensions import in_thread
 from mixpanel import Mixpanel
 
-from back import settings
 from __init__ import FI_ENVIRONMENT
+from back import settings
 
 
 async def mixpanel_track(email: str, event: str, **extra: str) -> None:

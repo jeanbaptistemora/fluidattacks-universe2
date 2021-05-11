@@ -1,12 +1,9 @@
-# Standard libraries
+
 import logging
 import logging.config
 
-# Third-party libraries
-
-# Local libraries
 from back.settings import LOGGING
-from backend.typing import (
+from custom_types import (
     Historic as HistoricType,
     Project as ProjectType,
 )

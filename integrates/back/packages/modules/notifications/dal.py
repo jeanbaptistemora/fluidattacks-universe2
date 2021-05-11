@@ -1,9 +1,8 @@
-# Standard library
+
 import contextlib
 import logging
 import logging.config
 
-# Third party imports
 import requests
 from exponent_server_sdk import (
     DeviceNotRegisteredError,
@@ -11,7 +10,7 @@ from exponent_server_sdk import (
     PushMessage,
     PushResponse,
     PushResponseError,
-    PushServerError
+    PushServerError,
 )
 from zenpy import Zenpy
 from zenpy.lib.api_objects import (
@@ -20,13 +19,12 @@ from zenpy.lib.api_objects import (
 )
 from zenpy.lib.exception import ZenpyException
 
-# Local imports
-from back.settings import LOGGING
 from __init__ import (
     FI_ZENDESK_EMAIL,
     FI_ZENDESK_SUBDOMAIN,
     FI_ZENDESK_TOKEN,
 )
+from back.settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

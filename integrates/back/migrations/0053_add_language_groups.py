@@ -16,7 +16,7 @@ from aioextensions import run
 
 # Local
 from backend.dal import project as project_dal
-from backend.typing import Project as ProjectType
+from custom_types import Project as ProjectType
 from dynamodb import operations_legacy as dynamodb_ops
 
 

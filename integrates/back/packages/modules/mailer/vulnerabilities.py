@@ -1,15 +1,13 @@
-# Standard libraries
+
 from typing import (
     Any,
     Dict,
 )
 
-# Third-party libraries
-
-# Local libraries
-from backend.typing import Finding as FindingType
-from group_access import domain as group_access_domain
 from __init__ import BASE_URL
+from custom_types import Finding as FindingType
+from group_access import domain as group_access_domain
+
 from .common import (
     GENERAL_TAG,
     send_mails_async_new,

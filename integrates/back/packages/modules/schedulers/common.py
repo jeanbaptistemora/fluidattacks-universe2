@@ -1,14 +1,12 @@
-# Standard libraries
+
 from typing import (
     Callable,
-    List
+    List,
 )
 
-# Third-party libraries
 from aioextensions import schedule
 
-# Local libraries
-from backend.typing import MailContent as MailContentType
+from custom_types import MailContent as MailContentType
 
 
 def scheduler_send_mail(

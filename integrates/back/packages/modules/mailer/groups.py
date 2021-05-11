@@ -1,18 +1,17 @@
-# Standard libraries
+
 from typing import (
     Any,
     List,
 )
 
-# Third-party libraries
 from aioextensions import collect
 
-# Local libraries
-from backend.typing import (
+from __init__ import BASE_URL
+from custom_types import (
     Comment as CommentType,
     MailContent as MailContentType,
 )
-from __init__ import BASE_URL
+
 from .common import (
     COMMENTS_TAG,
     DIGEST_TAG,

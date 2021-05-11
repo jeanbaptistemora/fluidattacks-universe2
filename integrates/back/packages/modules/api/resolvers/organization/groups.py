@@ -1,16 +1,14 @@
-# Standard
+
 from typing import (
     Dict,
     List,
     cast,
 )
 
-# Third party
 from aiodataloader import DataLoader
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import (
+from custom_types import (
     Organization,
     Project as Group,
 )

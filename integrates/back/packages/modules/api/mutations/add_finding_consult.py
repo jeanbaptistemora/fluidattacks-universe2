@@ -1,15 +1,13 @@
-# Standard libraries
+
 from time import time
 from typing import Any
 
-# Third party libraries
 from aioextensions import schedule
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local libraries
-from backend.typing import AddConsultPayload as AddConsultPayloadType
 from custom_exceptions import PermissionDenied
+from custom_types import AddConsultPayload as AddConsultPayloadType
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,

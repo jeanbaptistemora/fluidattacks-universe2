@@ -1,4 +1,4 @@
-# Standard library
+
 from decimal import Decimal
 from typing import (
     Any,
@@ -7,16 +7,14 @@ from typing import (
     Union,
 )
 
-# Third party libraries
 from boto3.dynamodb.conditions import Key
 
-# Local libraries
-from backend.typing import DynamoDelete
+from custom_types import DynamoDelete
+from dynamodb import operations_legacy as dynamodb_ops
 from newutils.encodings import (
     key_to_mapping,
     mapping_to_key,
 )
-from dynamodb import operations_legacy as dynamodb_ops
 
 
 # Constants

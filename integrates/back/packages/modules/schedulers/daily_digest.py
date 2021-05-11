@@ -1,4 +1,4 @@
-# Standard libraries
+
 import logging
 import logging.config
 from typing import (
@@ -6,21 +6,19 @@ from typing import (
     List,
 )
 
-# Third party libraries
 from aioextensions import (
     collect,
     schedule,
 )
 
-# Local libraries
-from dataloaders import get_new_context
-from groups.domain import get_group_digest_stats
-from mailer import groups as groups_mail
-from newutils import bugsnag as bugsnag_utils
 from __init__ import (
     FI_MAIL_DIGEST,
     FI_TEST_PROJECTS_DIGEST,
 )
+from dataloaders import get_new_context
+from groups.domain import get_group_digest_stats
+from mailer import groups as groups_mail
+from newutils import bugsnag as bugsnag_utils
 
 
 bugsnag_utils.start_scheduler_session()

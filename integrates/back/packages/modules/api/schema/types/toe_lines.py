@@ -1,4 +1,4 @@
-# Third party
+
 from ariadne import ObjectType
 
 

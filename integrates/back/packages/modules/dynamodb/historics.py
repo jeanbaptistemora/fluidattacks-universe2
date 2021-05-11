@@ -1,9 +1,15 @@
-# Standard
-from typing import Dict, Tuple
 
-# Local
+from typing import (
+    Dict,
+    Tuple,
+)
+
 from dynamodb import keys
-from dynamodb.types import Facet, Item, PrimaryKey
+from dynamodb.types import (
+    Facet,
+    Item,
+    PrimaryKey,
+)
 
 
 def get_metadata(

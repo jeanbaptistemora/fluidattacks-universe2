@@ -1,8 +1,7 @@
-# Standard libraries
+
 import random
 from typing import Any
 
-# Local libraries
 from custom_exceptions import InvalidDraftTitle
 from model import findings
 from model.findings.enums import FindingStateStatus

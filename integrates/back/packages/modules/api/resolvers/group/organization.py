@@ -1,11 +1,9 @@
-# Standard
+
 from typing import cast
 
-# Third party
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import Project as Group
+from custom_types import Project as Group
 from organizations import domain as orgs_domain
 
 

@@ -1,13 +1,11 @@
-# Standard
+
 import logging
 import logging.config
 import sys
 from typing import Optional
 
-# Third party
 from botocore.exceptions import ClientError
 
-# Local
 from back.settings import LOGGING
 
 

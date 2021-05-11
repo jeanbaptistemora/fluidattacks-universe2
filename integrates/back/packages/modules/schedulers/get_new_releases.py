@@ -1,30 +1,29 @@
-# Standard libraries
+
 import logging
 import logging.config
 from collections import defaultdict
 from typing import (
-    cast,
     Dict,
     List,
+    cast,
 )
 
-# Third-party libraries
 from aioextensions import collect
 
-# Local libraries
-from back.settings import LOGGING
-from backend.typing import MailContent as MailContentType
-from dataloaders import get_new_context
-from findings import domain as findings_domain
-from groups import domain as groups_domain
-from mailer import findings as findings_mail
-from newutils import findings as findings_utils
 from __init__ import (
     BASE_URL,
     FI_MAIL_PROJECTS,
     FI_MAIL_REVIEWERS,
     FI_TEST_PROJECTS,
 )
+from back.settings import LOGGING
+from custom_types import MailContent as MailContentType
+from dataloaders import get_new_context
+from findings import domain as findings_domain
+from groups import domain as groups_domain
+from mailer import findings as findings_mail
+from newutils import findings as findings_utils
+
 from .common import scheduler_send_mail
 
 

@@ -1,13 +1,12 @@
-# Standard library
+
 import html
 from typing import (
-    cast,
     Dict,
     List,
     Union,
+    cast,
 )
 
-# Third party imports
 from aiodataloader import DataLoader
 from aioextensions import (
     collect,
@@ -16,16 +15,13 @@ from aioextensions import (
 from exponent_server_sdk import DeviceNotRegisteredError
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local imports
-from backend.typing import Finding as FindingType
+from __init__ import BASE_URL
+from custom_types import Finding as FindingType
 from mailer import groups as groups_mail
 from newutils import datetime as datetime_utils
 from notifications import dal as notifications_dal
 from organizations import domain as orgs_domain
 from users import domain as users_domain
-from __init__ import (
-    BASE_URL,
-)
 
 
 async def _get_recipient_first_name_async(email: str) -> str:

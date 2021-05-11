@@ -14,7 +14,7 @@ from aioextensions import (
 )
 
 # Local libraries
-from backend.typing import Event
+from custom_types import Event
 from dataloaders.event import EventLoader
 from events import dal as events_dal
 from events.domain import list_group_events

@@ -1,5 +1,5 @@
 # pylint: disable=method-hidden
-# Standard libraries
+
 from collections import defaultdict
 from typing import (
     Dict,
@@ -7,11 +7,9 @@ from typing import (
     cast,
 )
 
-# Third party libraries
 from aiodataloader import DataLoader
 
-# Local libraries
-from backend.typing import (
+from custom_types import (
     Historic as HistoricType,
     Vulnerability as VulnerabilityType,
 )

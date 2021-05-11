@@ -4,9 +4,14 @@
 
 import math
 from decimal import Decimal
-from typing import Dict, Union, cast
+from typing import (
+    Dict,
+    Union,
+    cast,
+)
 
-from backend.typing import Finding as FindingType
+from custom_types import Finding as FindingType
+
 from . import utils
 
 

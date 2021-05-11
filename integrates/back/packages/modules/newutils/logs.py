@@ -1,19 +1,16 @@
-# Standard libraries
+
 import logging
 import logging.config
 
-# Third-party libraries
 from aioextensions import (
     in_thread,
     schedule,
 )
-
-# Third-party libraries
 from starlette.requests import Request
 
-# Local libraries
-from back import settings
 from __init__ import FI_ENVIRONMENT
+from back import settings
+
 from .token import get_jwt_content
 
 

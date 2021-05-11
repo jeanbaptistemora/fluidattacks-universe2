@@ -17,7 +17,7 @@ import aioboto3
 from aioextensions import run
 from boto3.dynamodb.conditions import Attr
 
-from backend.typing import DynamoDelete as DynamoDeleteType
+from custom_types import DynamoDelete as DynamoDeleteType
 from dynamodb import operations_legacy as dynamodb_ops
 from organizations import domain as orgs_domain
 

@@ -1,13 +1,11 @@
-# Standard
+
 from typing import cast
 
-# Third party
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
 import authz
-from backend.typing import Me
 from custom_exceptions import InvalidParameter
+from custom_types import Me
 
 
 async def resolve(

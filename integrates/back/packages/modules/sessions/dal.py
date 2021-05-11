@@ -1,4 +1,4 @@
-# Standard libraries
+
 import contextlib
 import json
 from typing import (
@@ -7,10 +7,8 @@ from typing import (
     Optional,
 )
 
-# Third-party libraries
 from starlette.requests import Request
 
-# Local libraries
 from back import settings
 from custom_exceptions import (
     ExpiredToken,

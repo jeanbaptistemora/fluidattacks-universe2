@@ -1,17 +1,13 @@
-# Standard library
+
 from typing import (
     Any,
     Callable,
     Optional,
 )
 
-# Third party libraries
 import tracers.function
 
-# Local libraries
-from __init__ import (
-    FI_DEBUG as DEBUG,
-)
+from __init__ import FI_DEBUG as DEBUG
 
 
 def trace(

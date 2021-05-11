@@ -1,8 +1,7 @@
-# Standard libraries
+
 import os
 from typing import List
 
-# Third-party libraries
 import magic
 from starlette.concurrency import run_in_threadpool
 from starlette.datastructures import UploadFile

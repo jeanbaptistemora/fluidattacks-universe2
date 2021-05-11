@@ -1,4 +1,4 @@
-# Standard
+
 import json
 from typing import (
     Dict,
@@ -6,11 +6,9 @@ from typing import (
     cast,
 )
 
-# Third party
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import Me
+from custom_types import Me
 from users import domain as users_domain
 
 

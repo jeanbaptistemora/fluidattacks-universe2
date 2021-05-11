@@ -13,7 +13,7 @@ from typing import (
 
 import bugsnag
 
-from backend.typing import (
+from custom_types import (
     Historic as HistoricType,
     Resource as ResourceType,
 )

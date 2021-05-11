@@ -1,7 +1,6 @@
-# Third party
+
 from ariadne import ObjectType
 
-# Local
 from api.resolvers.git_root import toe_lines
 
 

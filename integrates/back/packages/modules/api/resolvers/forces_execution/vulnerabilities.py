@@ -1,11 +1,9 @@
-# Standard
+
 from typing import cast
 
-# Third party
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import (
+from custom_types import (
     ExecutionVulnerabilities,
     ForcesExecution,
 )

@@ -7,9 +7,7 @@ from aiodataloader import DataLoader
 from graphql.type.definition import GraphQLResolveInfo
 
 # Local
-from backend.typing import (
-    Vulnerability,
-)
+from custom_types import Vulnerability
 from model.findings.types import Finding
 from redis_cluster.operations import redis_get_or_set_entity_attr
 from vulnerabilities import domain as vulns_domain

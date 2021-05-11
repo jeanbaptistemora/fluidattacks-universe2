@@ -1,4 +1,4 @@
-# Standard libraries
+
 import collections
 import re
 from typing import (
@@ -7,11 +7,9 @@ from typing import (
     List,
 )
 
-# Third-party libraries
 from aioextensions import collect
 
-# Local libraries
-from backend.typing import (
+from custom_types import (
     Finding as FindingType,
     Project as GroupType,
 )

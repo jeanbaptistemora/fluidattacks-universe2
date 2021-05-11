@@ -1,4 +1,4 @@
-# Standard libraries
+
 import logging
 import logging.config
 import sys
@@ -6,22 +6,19 @@ from decimal import Decimal
 from typing import (
     Any,
     AsyncIterator,
-    cast,
     Dict,
     List,
     Optional,
     Tuple,
     Union,
+    cast,
 )
 
-# Third-party libraries
 from aioextensions import collect
 from graphql import GraphQLError
 
-# Local libraries
 import authz
 from back.settings import LOGGING
-from backend.typing import Organization as OrganizationType
 from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
@@ -31,6 +28,7 @@ from custom_exceptions import (
     OrganizationNotFound,
     UserNotInOrganization,
 )
+from custom_types import Organization as OrganizationType
 from group_access import domain as group_access_domain
 from names import domain as names_domain
 from newutils import datetime as datetime_utils

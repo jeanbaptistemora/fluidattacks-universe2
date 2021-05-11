@@ -1,22 +1,20 @@
-# Standard libraries
+
 from typing import (
     Any,
     Dict,
     List,
 )
 
-# Third-party libraries
-
-# Local libraries
-from backend.typing import (
-    MailContent as MailContentType,
-    Resource as ResourceType,
-)
-from group_access import domain as group_access_domain
 from __init__ import (
     BASE_URL,
     FI_MAIL_RESOURCERS,
 )
+from custom_types import (
+    MailContent as MailContentType,
+    Resource as ResourceType,
+)
+from group_access import domain as group_access_domain
+
 from .common import (
     GENERAL_TAG,
     send_mails_async_new,

@@ -1,21 +1,27 @@
-# Standard
+
 import logging
 import logging.config
-from typing import Any, Dict, Optional, Tuple, Union
+from typing import (
+    Any,
+    Dict,
+    Optional,
+    Tuple,
+    Union,
+)
 
-# Third party
 from boto3.dynamodb.conditions import Key
 
-# Local
 from back.settings import LOGGING
-from dynamodb import model
-from dynamodb import operations_legacy as dynamodb_ops
+from dynamodb import (
+    model,
+    operations_legacy as dynamodb_ops,
+)
 from dynamodb.types import (
     GitRootCloning,
     GitRootState,
     IPRootState,
     RootItem,
-    URLRootState
+    URLRootState,
 )
 
 

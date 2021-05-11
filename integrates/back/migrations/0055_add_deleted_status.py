@@ -21,7 +21,7 @@ from more_itertools import chunked
 
 # Local libraries
 from backend.domain.project import get_alive_projects
-from backend.typing import Finding
+from custom_types import Finding
 from findings.domain.core import (
     delete_vulnerabilities,
     get_findings_by_group,

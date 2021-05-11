@@ -1,32 +1,30 @@
-# standard imports
+
 import logging
 import logging.config
 import uuid
 from typing import (
     AsyncIterator,
-    cast,
     Dict,
     List,
     Optional,
     Tuple,
+    cast,
 )
 
-# third-party imports
 from aioextensions import collect
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
-# local imports
 from back.settings import LOGGING
-from backend.typing import (
-    Dynamo as DynamoType,
-    DynamoDelete as DynamoDeleteType,
-    DynamoQuery as DynamoQueryType,
-    Organization as OrganizationType
-)
 from custom_exceptions import (
     InvalidOrganization,
     UnavailabilityError,
+)
+from custom_types import (
+    Dynamo as DynamoType,
+    DynamoDelete as DynamoDeleteType,
+    DynamoQuery as DynamoQueryType,
+    Organization as OrganizationType,
 )
 from dynamodb.operations_legacy import (
     client as dynamodb_client,

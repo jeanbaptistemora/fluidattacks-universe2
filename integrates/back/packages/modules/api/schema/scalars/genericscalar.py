@@ -5,12 +5,12 @@ from typing import (
 
 from ariadne import ScalarType
 from graphql.language.ast import (
-    StringValueNode,
     BooleanValueNode,
-    IntValueNode,
     FloatValueNode,
+    IntValueNode,
     ListValueNode,
-    ObjectValueNode
+    ObjectValueNode,
+    StringValueNode,
 )
 
 

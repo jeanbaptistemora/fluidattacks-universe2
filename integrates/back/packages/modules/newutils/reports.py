@@ -1,4 +1,4 @@
-# Standard library
+
 import asyncio
 import logging
 from typing import (
@@ -9,16 +9,13 @@ from typing import (
 )
 from uuid import uuid4 as uuid
 
-# Third party libraries
 from starlette.datastructures import UploadFile
 
-# Local libraries
-from backend.typing import Finding as FindingType
+from __init__ import FI_AWS_S3_REPORTS_BUCKET
 from custom_exceptions import ErrorUploadingFileS3
+from custom_types import Finding as FindingType
 from s3 import operations as s3_ops
-from __init__ import (
-    FI_AWS_S3_REPORTS_BUCKET,
-)
+
 
 # Constants
 LOGGER = logging.getLogger(__name__)

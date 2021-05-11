@@ -14,7 +14,7 @@ from aioextensions import collect, run
 from boto3.dynamodb.conditions import Key
 
 # Local libraries
-from backend.typing import DynamoDelete
+from custom_types import DynamoDelete
 from dynamodb import operations_legacy as dynamodb_ops
 from groups import dal as groups_dal
 

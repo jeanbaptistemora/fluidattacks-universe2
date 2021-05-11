@@ -1,16 +1,15 @@
-# Standard libraries
+
 import logging
 import logging.config
 from typing import (
     Any,
-    cast,
     Dict,
     List,
     Optional,
     Set,
+    cast,
 )
 
-# Third-party libraries
 import aioboto3
 from boto3.dynamodb.conditions import (
     Equals,
@@ -18,12 +17,11 @@ from boto3.dynamodb.conditions import (
 )
 from botocore.exceptions import ClientError
 
-# Local libraries
+from __init__ import FI_AWS_S3_BUCKET
 from back.settings import LOGGING
-from backend.typing import Finding as FindingType
+from custom_types import Finding as FindingType
 from dynamodb import operations_legacy as dynamodb_ops
 from s3 import operations as s3_ops
-from __init__ import FI_AWS_S3_BUCKET
 
 
 logging.config.dictConfig(LOGGING)

@@ -1,10 +1,15 @@
-# Local
-from dynamodb import historics, keys, operations
+
+from dynamodb import (
+    historics,
+    keys,
+    operations,
+)
 from model import TABLE
+
 from .types import Finding
 from .utils import (
     format_state_item,
-    format_verification_item
+    format_verification_item,
 )
 
 

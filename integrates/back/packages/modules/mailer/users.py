@@ -1,10 +1,8 @@
-# Standard libraries
+
 from typing import List
 
-# Third-party libraries
+from custom_types import MailContent as MailContentType
 
-# Local libraries
-from backend.typing import MailContent as MailContentType
 from .common import (
     GENERAL_TAG,
     send_mails_async_new,

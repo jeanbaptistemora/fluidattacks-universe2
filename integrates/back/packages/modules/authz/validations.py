@@ -1,17 +1,15 @@
-# Standard libraries
+
 from typing import (
     Any,
     DefaultDict,
 )
 
-# Third-party libraries
-
-# Local libraries
 from custom_exceptions import (
     InvalidCommentParent,
     PermissionDenied,
     UnexpectedUserRole,
 )
+
 from .boundary import get_group_level_roles_with_tag
 from .enforcer import (
     get_group_level_enforcer,

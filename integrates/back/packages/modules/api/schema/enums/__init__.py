@@ -1,10 +1,9 @@
-# Standard
+
 from typing import Tuple
 
-# Third party
 from ariadne import EnumType
 
-# Local
+
 # None
 
 

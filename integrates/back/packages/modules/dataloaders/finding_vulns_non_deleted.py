@@ -1,16 +1,14 @@
 # pylint: disable=method-hidden
-# Standard libraries
+
 from itertools import chain
 from typing import (
     List,
     cast,
 )
 
-# Third party libraries
 from aiodataloader import DataLoader
 
-# Local libraries
-from backend.typing import Vulnerability as VulnerabilityType
+from custom_types import Vulnerability as VulnerabilityType
 
 
 # pylint: disable=too-few-public-methods

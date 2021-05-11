@@ -1,12 +1,15 @@
-# Standard
-from typing import cast, List
 
-# Local
+from typing import (
+    List,
+    cast,
+)
+
 from dynamodb.types import Item
+
 from .enums import FindingStateStatus
 from .types import (
     FindingState,
-    FindingVerification
+    FindingVerification,
 )
 
 

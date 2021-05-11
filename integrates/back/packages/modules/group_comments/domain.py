@@ -1,26 +1,24 @@
-# Standard libraries
+
 from datetime import datetime
 from typing import (
     Dict,
     List,
 )
 
-# Third-party liibraries
 from aioextensions import collect
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local libraries
 import authz
-from backend.typing import (
-    Comment as CommentType,
-    Finding as FindingType,
-)
+from comments.dal import get_comments_for_ids
 from comments.domain import (
     fill_comment_data,
     filter_comments_date,
 )
-from comments.dal import get_comments_for_ids
 from custom_exceptions import InvalidCommentParent
+from custom_types import (
+    Comment as CommentType,
+    Finding as FindingType,
+)
 from events import domain as events_domain
 from group_comments import dal as group_comments_dal
 from users import domain as users_domain

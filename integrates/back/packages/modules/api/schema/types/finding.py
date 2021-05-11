@@ -1,10 +1,9 @@
-# Standard
+
 # None
 
-# Third party
+
 from ariadne import ObjectType
 
-# Local
 from api.resolvers.finding import (
     age,
     analyst,
@@ -27,7 +26,7 @@ from api.resolvers.finding import (
     tracking,
     verified,
     vulnerabilities,
-    zero_risk
+    zero_risk,
 )
 
 

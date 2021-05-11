@@ -1,13 +1,21 @@
-# Standard
+
 import os
 from ipaddress import ip_address
-from typing import List, Tuple
-from urllib.parse import ParseResult, unquote_plus, urlparse
+from typing import (
+    List,
+    Tuple,
+)
+from urllib.parse import (
+    ParseResult,
+    unquote_plus,
+    urlparse,
+)
 
-# Third party
-from git import Git, GitCommandError
+from git import (
+    Git,
+    GitCommandError,
+)
 
-# Local
 from custom_exceptions import (
     InvalidChar,
     RepeatedRootNickname,

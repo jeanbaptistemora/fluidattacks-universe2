@@ -1,16 +1,14 @@
-# Standard libraries
+
 from typing import (
     Any,
     Dict,
 )
 
-# Third party libraries
 import newrelic.agent
 from ariadne.asgi import GraphQL
 from starlette.requests import Request
 from starlette.responses import Response
 
-# Local libraries
 from back import settings
 from dataloaders import apply_context_attrs
 from newutils import logs as logs_utils

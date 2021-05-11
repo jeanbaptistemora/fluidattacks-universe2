@@ -1,16 +1,14 @@
-# Standard
+
 from typing import (
     Any,
     Optional,
 )
 
-# Third party
 from ariadne.utils import convert_kwargs_to_snake_case
-from starlette.datastructures import UploadFile
 from graphql.type.definition import GraphQLResolveInfo
+from starlette.datastructures import UploadFile
 
-# Local
-from backend.typing import SimplePayload
+from custom_types import SimplePayload
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,

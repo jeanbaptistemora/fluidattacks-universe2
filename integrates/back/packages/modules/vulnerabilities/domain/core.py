@@ -1,6 +1,6 @@
 """Domain functions for vulnerabilities."""   # pylint:disable=too-many-lines
 
-# Standard libraries
+
 import copy
 import html
 import html.parser
@@ -13,17 +13,16 @@ from operator import itemgetter
 from time import time
 from typing import (
     Any,
-    cast,
     Collection,
     Dict,
-    List,
     Iterable,
+    List,
     Optional,
     Set,
     Union,
+    cast,
 )
 
-# Third party libraries
 import aioboto3
 import yaml
 from aioextensions import (
@@ -34,16 +33,9 @@ from aioextensions import (
 from graphql.type.definition import GraphQLResolveInfo
 from starlette.datastructures import UploadFile
 
-# Local libraries
 from back.settings import (
     LOGGING,
-    NOEXTRA
-)
-from backend.typing import (
-    Finding as FindingType,
-    Historic,
-    User as UserType,
-    Vulnerability as VulnerabilityType,
+    NOEXTRA,
 )
 from comments import domain as comments_domain
 from custom_exceptions import (
@@ -52,6 +44,12 @@ from custom_exceptions import (
     NotZeroRiskRequested,
     VulnNotFound,
     VulnNotInFinding,
+)
+from custom_types import (
+    Finding as FindingType,
+    Historic,
+    User as UserType,
+    Vulnerability as VulnerabilityType,
 )
 from dynamodb.operations_legacy import start_context
 from dynamodb.types import OrgFindingPolicyItem

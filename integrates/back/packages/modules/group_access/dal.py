@@ -1,4 +1,4 @@
-# Standard libraries
+
 import logging
 import logging.config
 from typing import (
@@ -6,16 +6,14 @@ from typing import (
     List,
 )
 
-# Third-party libraries
 from boto3.dynamodb.conditions import (
     Attr,
     Key,
 )
 from botocore.exceptions import ClientError
 
-# Local libraries
 from back.settings import LOGGING
-from backend.typing import (
+from custom_types import (
     DynamoDelete as DynamoDeleteType,
     Project as GroupType,
     ProjectAccess as GroupAccessType,

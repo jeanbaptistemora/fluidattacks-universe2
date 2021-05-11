@@ -1,27 +1,25 @@
-# Standard library
-import os
+
 import json
 import logging
+import os
 import re
 import tempfile
 from datetime import datetime
 from functools import reduce
 from typing import (
     Any,
-    cast,
     Dict,
     List,
     Optional,
     Union,
+    cast,
 )
 
-# Third party libraries
 from graphql.type.definition import GraphQLResolveInfo
 from starlette.datastructures import UploadFile
 
-# Local libraries
 from back.settings import LOGGING
-from backend.typing import (
+from custom_types import (
     ExecutionVulnerabilities,
     ForcesExecution as ForcesExecutionType,
 )

@@ -13,8 +13,8 @@ from typing import (
 from aioextensions import run
 
 # Local libraries
-from backend.typing import Vulnerability as VulnerabilityType
 from charts import utils
+from custom_types import Vulnerability as VulnerabilityType
 from dataloaders import get_new_context
 from vulnerabilities import domain as vulns_domain
 

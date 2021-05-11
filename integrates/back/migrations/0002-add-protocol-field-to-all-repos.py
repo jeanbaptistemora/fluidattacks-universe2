@@ -32,7 +32,7 @@ os.chdir(PROJECT_PATH)
 
 import bugsnag
 
-from backend.typing import (
+from custom_types import (
     Project as ProjectType,
     Resource as ResourceType
 )

@@ -1,18 +1,17 @@
-# Standard
+
 from typing import (
     List,
     cast,
 )
 
-# Third party
 from aiodataloader import DataLoader
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import (
+from custom_types import (
     Project as Group,
-    Resource, Resources,
+    Resource,
+    Resources,
 )
 from decorators import (
     concurrent_decorators,

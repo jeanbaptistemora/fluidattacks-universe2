@@ -1,12 +1,11 @@
-# Standard library
+
 from decimal import Decimal
 from typing import (
-    cast,
     Dict,
+    cast,
 )
 
-# Local
-from backend.typing import (
+from custom_types import (
     Finding,
     Historic,
 )

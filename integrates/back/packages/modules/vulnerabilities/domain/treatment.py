@@ -1,29 +1,22 @@
-# Standard library libraries
+
 from decimal import Decimal
 from typing import (
     Any,
     Awaitable,
-    cast,
     Dict,
     List,
     Optional,
     Tuple,
     Union,
+    cast,
 )
 
-# Third party libraries
 from aioextensions import (
     collect,
     in_thread,
 )
 
-# Local libraries
 import authz
-from backend.typing import (
-    Datetime,
-    Finding,
-    Historic,
-)
 from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
@@ -31,13 +24,19 @@ from custom_exceptions import (
     SameValues,
     VulnNotFound,
 )
+from custom_types import (
+    Datetime,
+    Finding,
+    Historic,
+)
 from newutils import (
     datetime as datetime_utils,
     findings as finding_utils,
     validations,
-    vulnerabilities as vulns_utils
+    vulnerabilities as vulns_utils,
 )
 from vulnerabilities import dal as vulns_dal
+
 from .core import should_send_update_treatment
 from .utils import (
     compare_historic_treatments,

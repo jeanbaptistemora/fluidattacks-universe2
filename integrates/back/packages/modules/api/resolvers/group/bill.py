@@ -1,19 +1,17 @@
-# Standard
+
 from datetime import datetime
 from typing import (
     Dict,
     cast,
 )
 
-# Third party
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import (
+from bill import domain as bill_domain
+from custom_types import (
     Historic,
     Project as Group,
 )
-from bill import domain as bill_domain
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,

@@ -1,7 +1,6 @@
-# Third party
+
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
 from model.findings.types import Finding
 
 

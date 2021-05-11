@@ -1,15 +1,13 @@
-# Standard
+
 from typing import (
     Dict,
     List,
 )
 
-# Third party
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import Tag
 from custom_exceptions import TagNotFound
+from custom_types import Tag
 from decorators import require_login
 from groups import domain as groups_domain
 from newutils import token as token_utils

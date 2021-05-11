@@ -1,31 +1,29 @@
-# Standard libraries
+
 import functools
 import inspect
 import logging
 import logging.config
 from typing import (
     Any,
-    Dict,
     Callable,
+    Dict,
     Set,
     TypeVar,
     cast,
 )
 
-# Third-party libraries
 from aioextensions import (
     collect,
     schedule,
 )
 from graphql import GraphQLError
 
-# Local libraries
 import authz
 from back import settings
 from back.app.views import templates
 from custom_exceptions import (
-    InvalidAuthorization,
     FindingNotFound,
+    InvalidAuthorization,
     UserNotInOrganization,
 )
 from findings import domain as findings_domain

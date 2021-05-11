@@ -1,12 +1,10 @@
-# Standard libraries
+
 from typing import List
 
-# Third party libraries
 from aiodataloader import DataLoader
 
-# Local libraries
-from backend.typing import Project as GroupType
 from custom_exceptions import GroupNotFound
+from custom_types import Project as GroupType
 
 
 def check_status(group: GroupType) -> GroupType:

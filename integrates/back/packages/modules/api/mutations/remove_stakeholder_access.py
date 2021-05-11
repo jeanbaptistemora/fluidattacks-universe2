@@ -1,13 +1,11 @@
-# Standard library
+
 from typing import Any
 
-# Third party libraries
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local libraries
-from backend.typing import (
-    RemoveStakeholderAccessPayload as RemoveStakeholderAccessPayloadType
+from custom_types import (
+    RemoveStakeholderAccessPayload as RemoveStakeholderAccessPayloadType,
 )
 from decorators import (
     concurrent_decorators,

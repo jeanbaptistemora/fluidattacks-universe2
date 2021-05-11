@@ -12,7 +12,7 @@ from aioextensions import (
 )
 
 # Local libraries
-from backend.typing import Vulnerability
+from custom_types import Vulnerability
 from dynamodb import operations_legacy as dynamodb_ops
 from vulnerabilities import dal as vulns_dal
 

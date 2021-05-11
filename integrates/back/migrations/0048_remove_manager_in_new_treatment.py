@@ -20,7 +20,7 @@ from aioextensions import (
 from more_itertools import chunked
 
 # Local libraries
-from backend.typing import Finding
+from custom_types import Finding
 from dataloaders.group import GroupLoader
 from groups.domain import get_active_groups
 from vulnerabilities import dal as vulns_dal

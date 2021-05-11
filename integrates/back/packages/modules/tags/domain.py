@@ -1,17 +1,17 @@
 from contextlib import suppress
 from decimal import Decimal
 from typing import (
-    cast,
     Dict,
     List,
     Optional,
     Union,
+    cast,
 )
 
 from aioextensions import collect
 
 import authz
-from backend.typing import Tag as TagType
+from custom_types import Tag as TagType
 from groups import domain as groups_domain
 from organizations import domain as orgs_domain
 from tags import dal as tags_dal

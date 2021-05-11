@@ -23,7 +23,7 @@ from aioextensions import (
 from boto3.dynamodb.conditions import Attr, Key
 
 # Local libraries
-from backend.typing import (
+from custom_types import (
     Finding,
     Historic,
 )

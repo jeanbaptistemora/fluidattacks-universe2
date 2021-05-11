@@ -1,4 +1,4 @@
-# Standard libraries
+
 import html
 import itertools
 import logging
@@ -10,7 +10,6 @@ from decimal import Decimal
 from operator import itemgetter
 from typing import (
     Any,
-    cast,
     Counter,
     Dict,
     Iterable,
@@ -18,26 +17,26 @@ from typing import (
     NamedTuple,
     Optional,
     Union,
+    cast,
 )
 
-# Third-party libraries
 from aioextensions import (
     collect,
     in_process,
 )
 
-# Local libraries
 from back.settings import LOGGING
-from backend.typing import (
-    Finding as FindingType,
-    Historic as HistoricType,
-)
 from custom_exceptions import (
     AlreadyRequested,
     InvalidRange,
     NotVerificationRequested,
     VulnAlreadyClosed,
 )
+from custom_types import (
+    Finding as FindingType,
+    Historic as HistoricType,
+)
+
 from . import datetime as datetime_utils
 
 

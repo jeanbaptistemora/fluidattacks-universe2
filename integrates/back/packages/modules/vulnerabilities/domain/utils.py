@@ -1,18 +1,17 @@
-# Standard library
+
 from typing import (
-    cast,
     Dict,
+    cast,
 )
 
-# Local
 import authz
-from backend.typing import (
-    Finding,
-    Historic,
-)
 from custom_exceptions import (
     AcceptionNotRequested,
     InvalidTreatmentManager,
+)
+from custom_types import (
+    Finding,
+    Historic,
 )
 
 

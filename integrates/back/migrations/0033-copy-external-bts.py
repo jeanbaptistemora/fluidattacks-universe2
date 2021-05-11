@@ -23,7 +23,7 @@ from more_itertools import chunked
 
 # Local libraries
 from backend.dal import vulnerability as vulns_dal
-from backend.typing import Finding
+from custom_types import Finding
 from findings.domain import (
     get_findings_async,
     list_findings,

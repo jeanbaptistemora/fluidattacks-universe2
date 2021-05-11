@@ -1,7 +1,6 @@
-# Third party libraries
+
 from git import Repo
 
-# Local libraries
 from __init__ import (
     SERVICES_GITLAB_API_TOKEN,
     SERVICES_GITLAB_API_USER,

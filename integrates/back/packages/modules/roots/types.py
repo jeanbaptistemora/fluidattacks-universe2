@@ -1,5 +1,9 @@
-# Standard
-from typing import List, NamedTuple, Union
+
+from typing import (
+    List,
+    NamedTuple,
+    Union,
+)
 
 
 class GitRootCloningStatus(NamedTuple):

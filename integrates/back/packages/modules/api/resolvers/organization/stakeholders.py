@@ -1,15 +1,13 @@
-# Standard libraries
+
 from functools import partial
 from typing import (
     List,
     cast,
 )
 
-# Third party libraries
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local libraries
-from backend.typing import (
+from custom_types import (
     Organization as OrganizationType,
     Stakeholder as StakeholderType,
 )

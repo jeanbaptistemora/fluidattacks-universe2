@@ -1,11 +1,9 @@
-# Standard libraries
+
 from typing import Tuple
 
-# Third party libraries
 from aiodataloader import DataLoader
 from aioextensions import collect
 
-# Local libraries
 from data_containers.toe_lines import GitRootToeLines
 from toe.lines import domain as toe_lines_domain
 

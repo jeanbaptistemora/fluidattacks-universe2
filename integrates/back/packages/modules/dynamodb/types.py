@@ -1,5 +1,13 @@
-# Standard
-from typing import Any, Dict, List, NamedTuple, Optional, Tuple, Union
+
+from typing import (
+    Any,
+    Dict,
+    List,
+    NamedTuple,
+    Optional,
+    Tuple,
+    Union,
+)
 
 
 Item = Dict[str, Any]

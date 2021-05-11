@@ -1,14 +1,10 @@
-# Standard libraries
+
 from typing import (
     Any,
     Callable,
     DefaultDict,
-
 )
 
-# Third-party libraries
-
-# Local libraries
 from .model import (
     SERVICE_ATTRIBUTES,
     get_group_level_roles_model,

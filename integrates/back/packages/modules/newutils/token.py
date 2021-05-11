@@ -1,4 +1,4 @@
-# Standard libraries
+
 import binascii
 import collections
 import logging
@@ -14,34 +14,31 @@ from typing import (
     cast,
 )
 
-# Third party libraries
 from cryptography.exceptions import InvalidKey
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
 from jose import (
-    jwt,
     JWTError,
+    jwt,
 )
 from jwcrypto.jwe import (
-    InvalidJWEData,
     JWE,
+    InvalidJWEData,
 )
 from jwcrypto.jwk import JWK
 
-# Local libraries
+from __init__ import FI_JWT_ENCRYPTION_KEY
 from back import settings
-from backend.typing import User as UserType
 from custom_exceptions import (
     ExpiredToken,
     InvalidAuthorization,
 )
+from custom_types import User as UserType
 from newutils import encodings
 from redis_cluster.model import KeyNotFound as RedisKeyNotFound
 from redis_cluster.operations import redis_get_entity_attr
 from sessions import dal as sessions_dal
-from __init__ import (
-    FI_JWT_ENCRYPTION_KEY,
-)
+
 from . import function
 
 

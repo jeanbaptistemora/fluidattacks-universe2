@@ -1,12 +1,10 @@
-# Standard
+
 from typing import Dict
 
-# Third party
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import Me
+from custom_types import Me
 from decorators import require_login
 from newutils import token as token_utils
 

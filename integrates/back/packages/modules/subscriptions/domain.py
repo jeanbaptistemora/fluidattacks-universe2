@@ -1,4 +1,4 @@
-# Standard library
+
 import base64
 import itertools
 import logging
@@ -15,22 +15,22 @@ from typing import (
 )
 from urllib.parse import quote_plus
 
-# Third party libraries
 import botocore.exceptions
 from aioextensions import collect
-from backend.typing import MailContent
-from dataloaders import get_new_context
 
-# Local libraries
 import authz
 from analytics import domain as analytics_domain
 from back.settings import (
     LOGGING,
     NOEXTRA,
 )
+from custom_types import MailContent
+from dataloaders import get_new_context
 from groups import domain as groups_domain
-from mailer import analytics as analytics_mail
-from mailer import groups as groups_mail
+from mailer import (
+    analytics as analytics_mail,
+    groups as groups_mail,
+)
 from newutils import (
     datetime as datetime_utils,
     reports,

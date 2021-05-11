@@ -1,21 +1,12 @@
-# Standard libraries
+
 from typing import (
     Any,
     List,
 )
 
-# Third-party libraries
 from aioextensions import collect
 
-# Local libraries
 import authz
-from backend.typing import (
-    Comment as CommentType,
-    Event as EventType,
-    MailContent as MailContentType,
-    Project as GroupType,
-)
-from group_access import domain as group_access_domain
 from __init__ import (
     BASE_URL,
     FI_MAIL_CONTINUOUS,
@@ -23,6 +14,14 @@ from __init__ import (
     FI_MAIL_PROJECTS,
     FI_MAIL_REVIEWERS,
 )
+from custom_types import (
+    Comment as CommentType,
+    Event as EventType,
+    MailContent as MailContentType,
+    Project as GroupType,
+)
+from group_access import domain as group_access_domain
+
 from .common import (
     COMMENTS_TAG,
     GENERAL_TAG,

@@ -1,7 +1,6 @@
-# Standard
+
 import os
 
-# Third party
 from ariadne import (
     load_schema_from_path,
     make_executable_schema,
@@ -9,7 +8,6 @@ from ariadne import (
 )
 from graphql import GraphQLSchema
 
-# Local
 from .enums import ENUMS
 from .scalars import SCALARS
 from .types import TYPES

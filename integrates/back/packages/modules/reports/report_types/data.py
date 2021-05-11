@@ -1,4 +1,4 @@
-# Standard library
+
 import os
 import subprocess
 import tempfile
@@ -9,13 +9,13 @@ from typing import (
 )
 from uuid import uuid4
 
-# Local libraries
-from backend.typing import Finding as FindingType
+from __init__ import FI_AWS_S3_BUCKET as EVIDENCES_BUCKET
+from custom_types import Finding as FindingType
 from s3.operations import (
     download_file,
     list_files,
 )
-from __init__ import FI_AWS_S3_BUCKET as EVIDENCES_BUCKET
+
 from . import technical as technical_report
 
 

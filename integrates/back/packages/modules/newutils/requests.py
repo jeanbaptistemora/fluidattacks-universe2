@@ -1,7 +1,6 @@
-# Standard libraries
+
 from typing import Any
 
-# Local libraries
 from custom_exceptions import InvalidSource
 
 

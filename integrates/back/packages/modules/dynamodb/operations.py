@@ -1,7 +1,13 @@
-# Standard
-from typing import Any, Dict, List, Optional, Tuple, Union
 
-# Third party
+from typing import (
+    Any,
+    Dict,
+    List,
+    Optional,
+    Tuple,
+    Union,
+)
+
 import aioboto3
 import aioextensions
 import botocore
@@ -9,17 +15,22 @@ from aioboto3.dynamodb.table import CustomTableResource
 from boto3.dynamodb.conditions import ConditionBase
 from botocore.exceptions import ClientError
 
-# Local
 from dynamodb.context import (
     AWS_DYNAMODB_ACCESS_KEY,
     AWS_DYNAMODB_SECRET_KEY,
     AWS_SESSION_TOKEN,
     DYNAMODB_HOST,
     DYNAMODB_PORT,
-    ENVIRONMENT
+    ENVIRONMENT,
 )
 from dynamodb.exceptions import handle_error
-from dynamodb.types import Facet, Index, Item, PrimaryKey, Table
+from dynamodb.types import (
+    Facet,
+    Index,
+    Item,
+    PrimaryKey,
+    Table,
+)
 
 
 def _get_resource_options() -> Dict[str, Optional[str]]:

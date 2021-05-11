@@ -1,4 +1,4 @@
-# Standard
+
 from typing import NamedTuple
 
 

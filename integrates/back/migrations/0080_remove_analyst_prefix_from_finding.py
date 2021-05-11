@@ -20,7 +20,7 @@ from aioextensions import (
 )
 
 # Local libraries
-from backend.typing import (
+from custom_types import (
     Finding,
     Historic,
 )

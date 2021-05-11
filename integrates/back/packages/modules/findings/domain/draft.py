@@ -2,21 +2,17 @@ import random
 from decimal import Decimal
 from typing import (
     Any,
-    cast,
     Dict,
     List,
     Optional,
     Set,
     Tuple,
+    cast,
 )
 
 from aioextensions import collect
 from graphql.type.definition import GraphQLResolveInfo
 
-from backend.typing import (
-    Finding as FindingType,
-    User as UserType,
-)
 from custom_exceptions import (
     AlreadyApproved,
     AlreadySubmitted,
@@ -24,6 +20,10 @@ from custom_exceptions import (
     IncompleteDraft,
     InvalidDraftTitle,
     NotSubmitted,
+)
+from custom_types import (
+    Finding as FindingType,
+    User as UserType,
 )
 from findings import dal as findings_dal
 from newutils import (

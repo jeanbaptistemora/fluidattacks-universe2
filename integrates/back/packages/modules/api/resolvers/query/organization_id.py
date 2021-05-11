@@ -1,12 +1,11 @@
-# Standard
+
 # None
 
-# Third party
+
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import Organization
+from custom_types import Organization
 from decorators import (
     concurrent_decorators,
     require_login,

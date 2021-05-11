@@ -1,5 +1,5 @@
 # pylint: disable=too-many-lines
-# Standard libraries
+
 import logging
 import logging.config
 import re
@@ -10,16 +10,15 @@ from operator import itemgetter
 from time import time
 from typing import (
     Any,
-    cast,
     Dict,
     List,
     Optional,
     Set,
     Tuple,
     Union,
+    cast,
 )
 
-# Third-party libraries
 import aioboto3
 from aioextensions import (
     collect,
@@ -28,17 +27,10 @@ from aioextensions import (
 )
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local libraries
 import authz
 from back.settings import (
     LOGGING,
     NOEXTRA,
-)
-from backend.typing import (
-    Comment as CommentType,
-    Finding as FindingType,
-    Tracking as TrackingItem,
-    Vulnerability as VulnerabilityType,
 )
 from comments import domain as comments_domain
 from custom_exceptions import (
@@ -48,6 +40,12 @@ from custom_exceptions import (
     NotVerificationRequested,
     PermissionDenied,
     VulnNotFound,
+)
+from custom_types import (
+    Comment as CommentType,
+    Finding as FindingType,
+    Tracking as TrackingItem,
+    Vulnerability as VulnerabilityType,
 )
 from dynamodb.operations_legacy import start_context
 from findings import dal as findings_dal

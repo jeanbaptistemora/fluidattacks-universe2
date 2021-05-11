@@ -1,14 +1,13 @@
-# Standard libraries
+
+from datetime import datetime
 from typing import (
     Any,
-    cast,
     Dict,
     List,
     Union,
+    cast,
 )
-from datetime import datetime
 
-# Third party libraries
 from dateutil.parser import parse
 from pyexcelerate import (
     Alignment,
@@ -16,16 +15,16 @@ from pyexcelerate import (
     Format,
     Style,
     Workbook,
-    Worksheet as WorksheetType
+    Worksheet as WorksheetType,
 )
 
-# Local libraries
-from backend.typing import (
+from custom_types import (
     Finding as FindingType,
     Historic as HistoricType,
-    Vulnerability as VulnType
+    Vulnerability as VulnType,
 )
 from newutils import datetime as datetime_utils
+
 from .typing import GroupVulnsReportHeader
 
 

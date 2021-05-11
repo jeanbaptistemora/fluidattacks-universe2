@@ -1,12 +1,11 @@
-# Third party
+
 from aioextensions import (
     collect,
     schedule,
 )
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import SimplePayload
+from custom_types import SimplePayload
 from decorators import (
     concurrent_decorators,
     enforce_user_level_auth_async,

@@ -1,9 +1,5 @@
-# Standard libraries
-
-# Third-party libraries
 from aioextensions import collect
 
-# Local libraries
 from dataloaders import get_new_context
 from newutils import datetime as datetime_utils
 from organizations import domain as orgs_domain

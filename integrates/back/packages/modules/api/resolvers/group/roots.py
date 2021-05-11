@@ -1,15 +1,13 @@
-# Standard
+
 from typing import (
     Tuple,
     cast,
 )
 
-# Third party
 from aiodataloader import DataLoader
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
-from backend.typing import Project as Group
+from custom_types import Project as Group
 from roots.types import Root
 
 

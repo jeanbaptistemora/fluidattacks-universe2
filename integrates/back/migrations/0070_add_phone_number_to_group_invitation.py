@@ -16,7 +16,7 @@ from aioextensions import (
 from boto3.dynamodb.conditions import Attr
 
 # Local libraries
-from backend.typing import ProjectAccess as ProjectAccessType
+from custom_types import ProjectAccess as ProjectAccessType
 from dynamodb import operations_legacy as dynamodb_ops
 from group_access import domain as group_access_domain
 from users import dal as users_dal

@@ -1,16 +1,14 @@
-# Standard libraries
+
 from typing import (
-    cast,
     Dict,
-    List
+    List,
+    cast,
 )
 
-# Third-party libraries
 from aioextensions import collect
 
-# Local libraries
 import authz
-from backend.typing import (
+from custom_types import (
     Project as GroupType,
     ProjectAccess as GroupAccessType,
 )

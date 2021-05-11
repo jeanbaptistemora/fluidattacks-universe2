@@ -1,15 +1,13 @@
-# Standard library
+
 from typing import Any
 
-# Third party libraries
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local libraries
-from backend.typing import (
-    UpdateAccessTokenPayload as UpdateAccessTokenPayloadType
-)
 from custom_exceptions import InvalidExpirationTime
+from custom_types import (
+    UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
+)
 from decorators import require_login
 from newutils import (
     logs as logs_utils,

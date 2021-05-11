@@ -1,17 +1,15 @@
-# Standard
+
 from typing import cast
 
-# Third party
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
 import authz
-from backend.typing import Stakeholder
 from custom_exceptions import (
     InvalidParameter,
     StakeholderNotFound,
 )
+from custom_types import Stakeholder
 from decorators import (
     enforce_group_level_auth_async,
     enforce_organization_level_auth_async,

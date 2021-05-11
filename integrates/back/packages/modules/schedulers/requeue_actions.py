@@ -1,9 +1,5 @@
-# Standard libraries
-
-# Third-party libraries
 from aioextensions import collect
 
-# Local libraries
 from batch import dal as batch_dal
 
 

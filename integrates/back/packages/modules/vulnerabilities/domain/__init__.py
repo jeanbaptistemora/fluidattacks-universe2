@@ -1,4 +1,4 @@
-# Local imports
+
 from .core import (
     confirm_zero_risk_vulnerabilities,
     delete_tags,

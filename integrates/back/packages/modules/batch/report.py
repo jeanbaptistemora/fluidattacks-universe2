@@ -1,28 +1,28 @@
-# Standard libraries
+
 import logging
 import logging.config
-from typing import Dict
 import os
+from typing import Dict
 
-# Local libraries
 import authz
 from back.settings import (
     LOGGING,
     NOEXTRA,
 )
-from batch.types import BatchProcessing
 from batch.dal import (
     delete_action,
     is_action_by_key,
 )
+from batch.types import BatchProcessing
 from custom_exceptions import ErrorUploadingFileS3
-from newutils.reports import (
-    upload_report,
-    sign_url
-)
 from newutils.passphrase import get_passphrase
+from newutils.reports import (
+    sign_url,
+    upload_report,
+)
 from notifications import domain as notifications_domain
 from reports import domain as reports_domain
+
 
 logging.config.dictConfig(LOGGING)
 

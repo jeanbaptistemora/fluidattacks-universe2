@@ -1,4 +1,4 @@
-# Standard
+
 import logging
 import logging.config
 from typing import (
@@ -6,14 +6,12 @@ from typing import (
     cast,
 )
 
-# Third party
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
 import authz
 from back.settings import LOGGING
-from backend.typing import Me
 from custom_exceptions import InvalidParameter
+from custom_types import Me
 
 
 logging.config.dictConfig(LOGGING)

@@ -1,4 +1,4 @@
-# Standard libraries
+
 import csv
 import glob
 import logging
@@ -13,13 +13,11 @@ from typing import (
     Tuple,
 )
 
-# Third party libraries
 from aioextensions import (
     collect,
     in_process,
 )
 
-# Local libraries
 from back.settings import LOGGING
 from custom_exceptions import (
     GroupNameNotFound,
