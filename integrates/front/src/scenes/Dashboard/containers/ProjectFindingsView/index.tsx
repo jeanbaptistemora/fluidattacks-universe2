@@ -18,10 +18,12 @@ import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
 import { Trans } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
+import { renderDescription } from "./description";
+import { renderExpandIcon } from "./expandIcon";
+
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import {
-  limitFormatter,
   statusFormatter,
   treatmentFormatter,
 } from "components/DataTableNext/formatters";
@@ -261,14 +263,13 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
       header: "Age (days)",
       onSort: onSortState,
       visible: checkedItems.age,
-      width: "5%",
     },
     {
       align: "center",
       dataField: "openAge",
       header: "Open Age (days)",
       onSort: onSortState,
-      visible: checkedItems.openAge,
+      visible: false,
       width: "5%",
     },
     {
@@ -276,7 +277,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
       dataField: "lastVulnerability",
       header: "Last report (days)",
       onSort: onSortState,
-      visible: checkedItems.lastVulnerability,
+      visible: false,
       width: "5%",
     },
     {
@@ -290,7 +291,6 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
       header: "Type",
       onSort: onSortState,
       visible: checkedItems.title,
-      width: "11%",
       wrapped: true,
     },
     {
@@ -298,7 +298,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
       dataField: "description",
       header: "Description",
       onSort: onSortState,
-      visible: checkedItems.description,
+      visible: false,
       width: "16%",
       wrapped: true,
     },
@@ -313,7 +313,6 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
       header: "Severity",
       onSort: onSortState,
       visible: checkedItems.severityScore,
-      width: "6%",
       wrapped: true,
     },
     {
@@ -321,7 +320,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
       dataField: "openVulnerabilities",
       header: "Open",
       onSort: onSortState,
-      visible: checkedItems.openVulnerabilities,
+      visible: false,
       width: "6%",
     },
     {
@@ -336,7 +335,6 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
       header: "Status",
       onSort: onSortState,
       visible: checkedItems.state,
-      width: "7%",
       wrapped: true,
     },
     {
@@ -345,7 +343,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
       formatter: treatmentFormatter,
       header: translate.t("searchFindings.tabDescription.treatment.title"),
       onSort: onSortState,
-      visible: checkedItems.treatment,
+      visible: false,
       width: "8%",
     },
     {
@@ -356,10 +354,9 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
         onFilter: onFilterVerification,
         options: selectOptionsVerification,
       }),
-      header: "Verification",
+      header: "Reattack",
       onSort: onSortState,
       visible: checkedItems.remediated,
-      width: "8%",
       wrapped: true,
     },
     {
@@ -372,7 +369,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
       }),
       header: "Exploitable",
       onSort: onSortState,
-      visible: checkedItems.isExploitable,
+      visible: false,
       width: "8%",
       wrapped: true,
     },
@@ -384,11 +381,9 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
         delay: 1000,
         onFilter: onFilterWhere,
       }),
-      formatter: limitFormatter,
-      header: "Where",
+      header: "Locations",
       onSort: onSortState,
       visible: checkedItems.where,
-      width: "8%",
       wrapped: true,
     },
   ];
@@ -449,6 +444,13 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
           csvFilename={`${projectName}-findings-${currentDate}.csv`}
           dataset={formatFindings(data.project.findings)}
           defaultSorted={JSON.parse(_.get(sessionStorage, "findingSort", "{}"))}
+          expandRow={{
+            expandByColumnOnly: true,
+            expandColumnRenderer: renderExpandIcon,
+            onlyOneExpanding: true,
+            renderer: renderDescription,
+            showExpandColumn: true,
+          }}
           exportCsv={false}
           extraButtons={
             <Can I={"api_resolvers_query_report__get_url_group_report"}>

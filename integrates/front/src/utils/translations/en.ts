@@ -417,6 +417,7 @@ export const enTranslations: ResourceKey = {
         exploitable: "Exploitable:",
         firstSeen: "First seen:",
         lastReport: "Last report:",
+        reattack: "Pending reattack",
         title: "Description",
         value: "{{count}} day ago",
         valuePlural: "{{count}} days ago",

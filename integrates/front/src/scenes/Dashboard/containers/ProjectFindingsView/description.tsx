@@ -64,7 +64,7 @@ const Description = ({
       <hr />
       <Row>
         <Col50>
-          {"Pending reattack: "}
+          {t("group.findings.description.reattack")}&nbsp;
           {t(
             remediated === "Pending"
               ? "group.findings.boolean.True"

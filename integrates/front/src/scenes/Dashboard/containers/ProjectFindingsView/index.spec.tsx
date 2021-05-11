@@ -282,35 +282,21 @@ describe("ProjectFindingsView", (): void => {
     const tableHeader: ReactWrapper = findingTable.find("Header");
 
     expect(tableHeader.text()).toContain("Age (days)");
-    expect(tableHeader.text()).toContain("Open Age (days)");
-    expect(tableHeader.text()).toContain("Last report (days)");
     expect(tableHeader.text()).toContain("Type");
-    expect(tableHeader.text()).toContain("Description");
     expect(tableHeader.text()).toContain("Severity");
-    expect(tableHeader.text()).toContain("Open");
     expect(tableHeader.text()).toContain("Status");
-    expect(tableHeader.text()).toContain("Treatment");
-    expect(tableHeader.text()).toContain("Verification");
-    expect(tableHeader.text()).toContain("Exploitable");
-    expect(tableHeader.text()).toContain("Where");
+    expect(tableHeader.text()).toContain("Reattack");
+    expect(tableHeader.text()).toContain("Locations");
 
-    const firstRow: ReactWrapper = findingTable.find("SimpleRow");
+    const firstRow: ReactWrapper = findingTable.find("Body").find("tr");
 
     expect(firstRow.text()).toContain("252");
-    expect(firstRow.text()).toContain("99");
-    expect(firstRow.text()).toContain("33");
     expect(firstRow.text()).toContain(
       "FIN.S.0038. Fuga de informaci\u00f3n de negocio"
     );
-    expect(firstRow.text()).toContain("Test description");
     expect(firstRow.text()).toContain("2.9");
-    expect(firstRow.text()).toContain("6");
     expect(firstRow.text()).toContain("Open");
-    expect(firstRow.text()).toContain(
-      "New: 1In progress: 0Temporarily accepted: 0Eternally accepted: 0"
-    );
     expect(firstRow.text()).toContain("Pending");
-    expect(firstRow.text()).toContain("Yes");
-    expect(firstRow.text()).toContain("This is a test where");
+    expect(firstRow.text()).toContain("1");
   });
 });
