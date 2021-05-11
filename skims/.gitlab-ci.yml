@@ -152,6 +152,8 @@ skims.test.lib_http:
 
 skims.test.unittesting:
   <<: *skims_test
+  variables:
+    GIT_DEPTH: 0
 
 skims.test.vulnerableapp:
   <<: *skims_test

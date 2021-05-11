@@ -32,6 +32,7 @@ from test_helpers import (
 
 # Constants
 TEST_GROUPS = {
+    "_",  # Can be used while developing to test a single test
     "benchmark_cmdi",
     "benchmark_crypto",
     "benchmark_hash",

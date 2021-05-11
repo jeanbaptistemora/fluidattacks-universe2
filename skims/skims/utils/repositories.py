@@ -1,11 +1,18 @@
 # Standard libraries
 import contextlib
+from typing import (
+    Optional,
+)
 
 # Third party libraries
 from git import (
     Repo,
+    GitCommandError,
     InvalidGitRepositoryError,
     NoSuchPathError,
+)
+from unidiff import (
+    PatchSet,
 )
 
 # Constants
@@ -23,3 +30,25 @@ def get_repo_head_hash(path: str) -> str:
         return head_hash
 
     return DEFAULT_COMMIT
+
+
+def get_diff(
+    repo: Repo,
+    *,
+    rev_a: str,
+    rev_b: str = "HEAD",
+) -> Optional[PatchSet]:
+    with contextlib.suppress(GitCommandError):
+        patch = PatchSet(
+            repo.git.diff(
+                "--color=never",
+                "--minimal",
+                "--patch",
+                "--unified=0",
+                f"{rev_a}...{rev_b}",
+            ),
+        )
+
+        return patch
+
+    return None
