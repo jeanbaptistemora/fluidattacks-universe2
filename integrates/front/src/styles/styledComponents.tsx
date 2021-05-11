@@ -391,6 +391,15 @@ const NavItem: StyledComponent<
   className: "nav-item",
 })``;
 
+const NavBarDivSpace: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "ph3",
+})``;
+
 const NavSplitButtonContainer: StyledComponent<
   "div",
   Record<string, unknown>
@@ -689,6 +698,7 @@ export {
   NavBarForm,
   NavBarFormGroup,
   NavBarHeader,
+  NavBarDivSpace,
   NavItem,
   NavSplitButtonContainer,
   Panel,

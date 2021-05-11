@@ -19,9 +19,9 @@ import { stylizeBreadcrumbItem } from "scenes/Dashboard/components/Navbar/utils"
 import { NewsWidget } from "scenes/Dashboard/components/NewsWidget";
 import {
   BreadCrumb,
-  Col25,
   NavBar,
   NavBarCollapse,
+  NavBarDivSpace,
   NavBarForm,
   NavBarFormGroup,
   NavBarHeader,
@@ -201,14 +201,14 @@ const NavbarComponent: React.FC = (): JSX.Element => {
               </NavBarForm>
             </li>
           </Can>
-          <Col25>
+          <NavBarDivSpace>
             <TooltipWrapper
               id={"navbar.newsTooltip.id"}
               message={translate.t("navbar.newsTooltip")}
             >
               <NewsWidget />
             </TooltipWrapper>
-          </Col25>
+          </NavBarDivSpace>
           <HelpWidget />
         </NavBarCollapse>
       </NavBar>
