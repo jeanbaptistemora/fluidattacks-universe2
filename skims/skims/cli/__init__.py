@@ -2,6 +2,7 @@
 from functools import (
     partial,
 )
+import logging
 import sys
 from time import (
     time,
@@ -27,6 +28,7 @@ from utils.function import (
     shield,
 )
 from utils.logs import (
+    set_level,
     log_blocking,
     log_to_remote_blocking,
 )
@@ -95,6 +97,8 @@ def cli(
     debug: bool,
 ) -> None:
     CTX.debug = debug
+    if debug:
+        set_level(logging.DEBUG)
 
 
 @cli.command(help="Load a config file and perform vulnerability detection.")

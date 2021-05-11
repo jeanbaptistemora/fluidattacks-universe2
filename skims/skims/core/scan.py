@@ -3,7 +3,6 @@ from asyncio import (
     wait_for,
 )
 import csv
-import logging
 import os
 from typing import (
     Dict,
@@ -47,7 +46,6 @@ from utils.ctx import (
 )
 from utils.logs import (
     log,
-    set_level,
 )
 from zone import (
     t,
@@ -172,9 +170,6 @@ async def main(
     group: Optional[str],
     token: Optional[str],
 ) -> bool:
-    if CTX.debug:
-        set_level(logging.DEBUG)
-
     try:
         CTX.config = load(group, config)
         add_bugsnag_data(namespace=CTX.config.namespace)

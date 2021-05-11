@@ -9,6 +9,7 @@ from core.persist import (
     verify_permissions,
 )
 from integrates.dal import (
+    do_update_vulnerability_commit,
     get_finding_vulnerabilities,
     get_group_finding_ids,
 )
@@ -103,6 +104,13 @@ async def main(
                     rebase_data.line,
                     rebase_data.rev,
                 )
+                if not await do_update_vulnerability_commit(
+                    vuln_commit=rebase_data.rev,
+                    vuln_id=vulnerability.integrates_metadata.uuid,
+                    vuln_what=rebase_data.path,
+                    vuln_where=rebase_data.line,
+                ):
+                    success = False
         except git.GitError as exc:
             await log_exception("error", exc)
 
