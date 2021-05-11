@@ -62,7 +62,15 @@ function main {
     &&  for namespace in "groups/${group}/fusion/"*
         do
               namespace="$(basename "${namespace}")" \
-          &&  echo '[INFO] Running skims' \
+          &&  echo '[INFO] Running skims rebase' \
+          &&  {
+                    skims rebase \
+                      --group "${group}" \
+                      --namespace "${namespace}" \
+                      "groups/${group}/fusion/${namespace}" \
+                ||  true;
+              } \
+          &&  echo '[INFO] Running skims scan' \
           &&  python3 __envGetConfig__\
                 --check "${check}" \
                 --group "${group}" \
@@ -71,7 +79,7 @@ function main {
                 --out "${config_file}" \
           &&  echo '[INFO] Fetching cache' \
           &&  aws_s3_sync "${cache_remote}/${namespace}" "${cache_local}" \
-          &&  if skims --group "${group}" scan "${config_file}"
+          &&  if skims scan --group "${group}" "${config_file}"
               then
                 echo "[INFO] Succesfully processed: ${group} ${namespace}"
               else
