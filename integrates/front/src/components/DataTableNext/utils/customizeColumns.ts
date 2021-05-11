@@ -1,3 +1,4 @@
+import type { Property } from "csstype";
 import _ from "lodash";
 import type { CSSProperties } from "react";
 import type { ColumnDescription, SortOrder } from "react-bootstrap-table-next";
@@ -6,6 +7,17 @@ import type { IHeaderConfig } from "components/DataTableNext/types";
 
 interface IColumn extends ColumnDescription {
   onSort: (dataField: string, order: SortOrder) => void;
+}
+
+function defineWhitespace(
+  wrapped: boolean | undefined,
+  fallBack: Property.WhiteSpace
+): Property.WhiteSpace | undefined {
+  if (_.isUndefined(wrapped)) {
+    return fallBack;
+  }
+
+  return wrapped ? "unset" : fallBack;
 }
 
 const addGivenHeaders = (
@@ -31,11 +43,7 @@ const addGivenHeaders = (
         formatter: key.formatter,
         headerFormatter: key.headerFormatter,
         headerStyle: (): CSSProperties => ({
-          whiteSpace: _.isUndefined(key.wrapped)
-            ? "nowrap"
-            : key.wrapped
-            ? "unset"
-            : "nowrap",
+          whiteSpace: defineWhitespace(key.wrapped, "nowrap"),
           width: _.isUndefined(key.width) ? "auto" : key.width,
         }),
         hidden: _.isUndefined(key.visible) ? key.visible : !key.visible,
@@ -43,11 +51,7 @@ const addGivenHeaders = (
         sort: true,
         sortFunc: key.sortFunc,
         style: (): CSSProperties => ({
-          whiteSpace: _.isUndefined(key.wrapped)
-            ? "pre-wrap"
-            : key.wrapped
-            ? "unset"
-            : "pre-wrap",
+          whiteSpace: defineWhitespace(key.wrapped, "pre-wrap"),
         }),
         text: key.header,
       };
