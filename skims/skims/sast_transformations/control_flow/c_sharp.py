@@ -123,9 +123,7 @@ def _generic(
             using_statement,
         ),
         (
-            {
-                "catch_clause",
-            },
+            {"catch_clause", "finally_clause"},
             partial(catch_statement, _generic=_generic),
         ),
         (

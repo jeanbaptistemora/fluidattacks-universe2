@@ -123,7 +123,7 @@
               "label_ast": "AST",
               "label_index": "3"
             },
-            "125": {
+            "126": {
               "label_cfg": "CFG",
               "label_cfg_always": "cfg_always"
             }
@@ -154,12 +154,6 @@
             "122": {
               "label_ast": "AST",
               "label_index": "2"
-            }
-          },
-          "125": {
-            "126": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
             }
           },
           "126": {
@@ -767,12 +761,12 @@
             },
             "248": {
               "label_ast": "AST",
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always",
               "label_index": "1"
             },
             "249": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "2"
             },
             "259": {
@@ -802,12 +796,6 @@
             "596": {
               "label_ast": "AST",
               "label_index": "9"
-            }
-          },
-          "248": {
-            "249": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
             }
           },
           "249": {
@@ -1461,10 +1449,14 @@
             },
             "482": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_maybe": "cfg_maybe",
               "label_index": "2"
             },
             "547": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "3"
             }
           },
@@ -1498,10 +1490,6 @@
             "481": {
               "label_ast": "AST",
               "label_index": "6"
-            },
-            "482": {
-              "label_cfg": "CFG",
-              "label_cfg_maybe": "cfg_maybe"
             }
           },
           "366": {
@@ -2082,10 +2070,6 @@
               "label_cfg": "CFG",
               "label_cfg_always": "cfg_always",
               "label_index": "4"
-            },
-            "547": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
             }
           },
           "485": {
@@ -2439,6 +2423,8 @@
             },
             "549": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "1"
             }
           },
@@ -2449,6 +2435,8 @@
             },
             "551": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "1"
             },
             "595": {
@@ -2467,6 +2455,8 @@
             },
             "560": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_true": "cfg_true",
               "label_index": "2"
             }
           },
@@ -2505,6 +2495,8 @@
             },
             "562": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "1"
             },
             "594": {
@@ -2519,10 +2511,14 @@
             },
             "564": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "1"
             },
             "582": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_maybe": "cfg_maybe",
               "label_index": "2"
             }
           },
@@ -2533,6 +2529,8 @@
             },
             "566": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "1"
             },
             "575": {
@@ -2547,6 +2545,8 @@
           "566": {
             "567": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "0"
             },
             "574": {
@@ -2570,6 +2570,10 @@
             "571": {
               "label_ast": "AST",
               "label_index": "3"
+            },
+            "575": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
             }
           },
           "57": {
@@ -2599,6 +2603,8 @@
           "575": {
             "576": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "0"
             },
             "580": {
@@ -2607,6 +2613,10 @@
             }
           },
           "576": {
+            "575": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            },
             "577": {
               "label_ast": "AST",
               "label_index": "0"
@@ -2639,6 +2649,8 @@
             },
             "590": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "4"
             }
           },
@@ -6678,17 +6690,6 @@
             "type": "SyntaxStepMethodInvocation"
           }
         ],
-        "125": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "125",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          }
-        ],
         "126": [
           {
             "meta": {
@@ -6988,17 +6989,6 @@
               "danger": false,
               "dependencies": 0,
               "n_id": "246",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          }
-        ],
-        "248": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "248",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -7966,6 +7956,187 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "549": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "549",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "551": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "558",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "null",
+            "value_type": "null"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "556",
+              "value": null
+            },
+            "symbol": "fis",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "555",
+              "value": null
+            },
+            "operator": "!=",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "551",
+              "value": null
+            },
+            "n_id_false": null,
+            "n_id_true": "560",
+            "type": "SyntaxStepIf"
+          }
+        ],
+        "560": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "560",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "562": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "562",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "564": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "564",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "566": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "566",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "567": [
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "567",
+              "value": null
+            },
+            "method": "fis.close",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "575": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "575",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "576": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "579",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "null",
+            "value_type": "null"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "576",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "fis"
+          }
+        ],
+        "582": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "592",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "catch_type": "587",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "582",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
+          }
+        ],
+        "590": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "590",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "62": [
           {
             "meta": {
@@ -8220,12 +8391,12 @@
             },
             "123": {
               "label_ast": "AST",
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always",
               "label_index": "1"
             },
             "124": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "2"
             },
             "134": {
@@ -8255,12 +8426,6 @@
             "311": {
               "label_ast": "AST",
               "label_index": "9"
-            }
-          },
-          "123": {
-            "124": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
             }
           },
           "124": {
@@ -8358,7 +8523,7 @@
               "label_cfg_true": "cfg_true",
               "label_index": "2"
             },
-            "173": {
+            "174": {
               "label_cfg": "CFG",
               "label_cfg_false": "cfg_false"
             }
@@ -8478,7 +8643,7 @@
               "label_ast": "AST",
               "label_index": "2"
             },
-            "173": {
+            "174": {
               "label_cfg": "CFG",
               "label_cfg_always": "cfg_always"
             }
@@ -8513,12 +8678,6 @@
             "170": {
               "label_ast": "AST",
               "label_index": "2"
-            }
-          },
-          "173": {
-            "174": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
             }
           },
           "174": {
@@ -8678,6 +8837,8 @@
             },
             "261": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_maybe": "cfg_maybe",
               "label_index": "2"
             }
           },
@@ -8707,10 +8868,6 @@
             "260": {
               "label_ast": "AST",
               "label_index": "5"
-            },
-            "261": {
-              "label_cfg": "CFG",
-              "label_cfg_maybe": "cfg_maybe"
             }
           },
           "206": {
@@ -11575,17 +11732,6 @@
             "type": "SyntaxStepNoOp"
           }
         ],
-        "123": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "123",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          }
-        ],
         "124": [
           {
             "meta": {
@@ -11701,7 +11847,7 @@
               "n_id": "141",
               "value": null
             },
-            "n_id_false": "173",
+            "n_id_false": "174",
             "n_id_true": "157",
             "type": "SyntaxStepIf"
           }
@@ -11762,17 +11908,6 @@
             },
             "type": "SyntaxStepAssignment",
             "var": "param"
-          }
-        ],
-        "173": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "173",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
           }
         ],
         "174": [
@@ -12644,7 +12779,7 @@
               "label_cfg_true": "cfg_true",
               "label_index": "2"
             },
-            "172": {
+            "173": {
               "label_cfg": "CFG",
               "label_cfg_false": "cfg_false"
             }
@@ -12764,7 +12899,7 @@
               "label_ast": "AST",
               "label_index": "2"
             },
-            "172": {
+            "173": {
               "label_cfg": "CFG",
               "label_cfg_always": "cfg_always"
             }
@@ -12799,12 +12934,6 @@
             "169": {
               "label_ast": "AST",
               "label_index": "2"
-            }
-          },
-          "172": {
-            "173": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
             }
           },
           "173": {
@@ -14866,7 +14995,7 @@
               "label_ast": "AST",
               "label_index": "3"
             },
-            "564": {
+            "566": {
               "label_cfg": "CFG",
               "label_cfg_always": "cfg_always"
             }
@@ -14911,18 +15040,6 @@
             "561": {
               "label_ast": "AST",
               "label_index": "1"
-            }
-          },
-          "564": {
-            "565": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
-            }
-          },
-          "565": {
-            "566": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
             }
           },
           "566": {
@@ -19771,7 +19888,7 @@
               "n_id": "140",
               "value": null
             },
-            "n_id_false": "172",
+            "n_id_false": "173",
             "n_id_true": "156",
             "type": "SyntaxStepIf"
           }
@@ -19832,17 +19949,6 @@
             },
             "type": "SyntaxStepAssignment",
             "var": "param"
-          }
-        ],
-        "172": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "172",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
           }
         ],
         "173": [
@@ -21031,28 +21137,6 @@
             },
             "method": "rememberMe.setPath",
             "type": "SyntaxStepMethodInvocation"
-          }
-        ],
-        "564": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "564",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          }
-        ],
-        "565": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "565",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
           }
         ],
         "566": [

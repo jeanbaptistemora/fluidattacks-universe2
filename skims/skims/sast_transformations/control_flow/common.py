@@ -8,7 +8,6 @@ from typing import (
 # Third party libraries
 from more_itertools import (
     pairwise,
-    mark_ends,
 )
 from mypy_extensions import NamedArg
 
@@ -83,9 +82,14 @@ def step_by_step(
     if graph.nodes[n_id]["label_type"] == "block":
         stmt_ids = stmt_ids[1:-1]
 
+    stmt_ids = tuple(
+        sts
+        for sts in stmt_ids
+        if graph.nodes[sts]["label_type"] not in {"comment"}
+    )
+
     if not stmt_ids:
         return
-
     # Link to the first statement in the block
     graph.add_edge(n_id, stmt_ids[0], **ALWAYS)
 
@@ -143,18 +147,25 @@ def if_statement(
         propagate_next_id_from_parent(stack)
         _generic(graph, then_id, stack, edge_attrs=ALWAYS)
 
-    if then_id := match["__2__"]:
+    if match["else"] and (else_id := match["__2__"]):
         # Link `if` to `else` statement
-        graph.add_edge(n_id, then_id, **FALSE)
+        graph.add_edge(n_id, else_id, **FALSE)
 
         # Link whatever is inside the `then` to the next statement in chain
         propagate_next_id_from_parent(stack)
-        _generic(graph, then_id, stack, edge_attrs=ALWAYS)
+        _generic(graph, else_id, stack, edge_attrs=ALWAYS)
 
     # Link whatever is inside the `then` to the next statement in chain
-    elif next_id := get_next_id(stack):
+    elif (
+        next_id := get_next_id(stack)
+        # pylint:disable=used-before-assignment
+    ) and next_id != n_id:
         # Link `if` to the next statement after the `if`
-        graph.add_edge(n_id, next_id, **FALSE)
+        for statement in g.pred_cfg_lazy(graph, n_id, depth=-1):
+            if statement == next_id:
+                break
+        else:
+            graph.add_edge(n_id, next_id, **FALSE)
 
 
 def try_statement(
@@ -164,35 +175,27 @@ def try_statement(
     *,
     _generic: GenericType,
 ) -> None:
-    # Strain the childs over the following node types
-    children_stack = []
-    for c_id in g.adj_ast(graph, n_id):
-        c_attrs_label_type = graph.nodes[c_id]["label_type"]
-        if c_attrs_label_type in {
-            "block",
-            "finally_clause",
-            "resource_specification",
-        }:
-            children_stack.append((c_id, ALWAYS))
-        elif c_attrs_label_type == "catch_clause":
-            children_stack.append((c_id, MAYBE))
-        elif c_attrs_label_type != "try":
-            raise NotImplementedError()
+    match = g.match_ast_group(
+        graph, n_id, "block", "catch_clause", "finally_clause"
+    )
 
-    # Walk the existing blocks and link them recursively
-    p_id = n_id
-    for _, last, (c_id, edge_attrs) in mark_ends(children_stack):
-        graph.add_edge(p_id, c_id, **edge_attrs)
-        p_id = c_id
-
-        # Link child block recursively
+    if _block_id := match["block"]:
+        block_id = _block_id.pop()
+        graph.add_edge(n_id, block_id, **ALWAYS)
         propagate_next_id_from_parent(stack)
-        _generic(graph, c_id, stack, edge_attrs=edge_attrs)
+        _generic(graph, block_id, stack, edge_attrs=ALWAYS)
 
-        # If this is the last block and we should link to a next_id, do it
-        if last:
+    if _catch_ids := match.get("catch_clause", set()):
+        for catch_id in _catch_ids:
+            graph.add_edge(n_id, catch_id, **MAYBE)
             propagate_next_id_from_parent(stack)
-            _generic(graph, c_id, stack, edge_attrs=edge_attrs)
+            _generic(graph, catch_id, stack, edge_attrs=ALWAYS)
+
+    if _finally_id := match["finally_clause"]:
+        finally_id = _finally_id.pop()
+        graph.add_edge(n_id, finally_id, **ALWAYS)
+        propagate_next_id_from_parent(stack)
+        _generic(graph, finally_id, stack, edge_attrs=ALWAYS)
 
 
 def catch_statement(

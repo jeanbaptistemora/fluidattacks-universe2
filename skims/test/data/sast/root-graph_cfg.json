@@ -2547,10 +2547,14 @@
             },
             "1470": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_maybe": "cfg_maybe",
               "label_index": "2"
             },
             "1489": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_maybe": "cfg_maybe",
               "label_index": "3"
             }
           },
@@ -2568,10 +2572,6 @@
             "1469": {
               "label_ast": "AST",
               "label_index": "2"
-            },
-            "1470": {
-              "label_cfg": "CFG",
-              "label_cfg_maybe": "cfg_maybe"
             }
           },
           "1462": {
@@ -2642,10 +2642,6 @@
               "label_cfg": "CFG",
               "label_cfg_always": "cfg_always",
               "label_index": "4"
-            },
-            "1489": {
-              "label_cfg": "CFG",
-              "label_cfg_maybe": "cfg_maybe"
             }
           },
           "1473": {
@@ -2861,6 +2857,8 @@
             },
             "1521": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_maybe": "cfg_maybe",
               "label_index": "2"
             }
           },
@@ -2878,10 +2876,6 @@
             "1520": {
               "label_ast": "AST",
               "label_index": "2"
-            },
-            "1521": {
-              "label_cfg": "CFG",
-              "label_cfg_maybe": "cfg_maybe"
             }
           },
           "1513": {
@@ -3039,6 +3033,8 @@
             },
             "1553": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "2"
             }
           },
@@ -3056,10 +3052,6 @@
             "1552": {
               "label_ast": "AST",
               "label_index": "2"
-            },
-            "1553": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
             }
           },
           "1545": {
@@ -3101,11 +3093,9 @@
             },
             "1555": {
               "label_ast": "AST",
-              "label_index": "1"
-            },
-            "1567": {
               "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
+              "label_cfg_always": "cfg_always",
+              "label_index": "1"
             }
           },
           "1555": {
@@ -3115,6 +3105,8 @@
             },
             "1557": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "1"
             },
             "1565": {
@@ -3125,6 +3117,8 @@
           "1557": {
             "1558": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "0"
             },
             "1564": {
@@ -3140,6 +3134,10 @@
             "1560": {
               "label_ast": "AST",
               "label_index": "1"
+            },
+            "1567": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
             }
           },
           "1560": {
@@ -3169,33 +3167,25 @@
             },
             "1577": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "2"
             }
           },
           "1569": {
             "1570": {
               "label_ast": "AST",
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always",
               "label_index": "0"
             },
             "1571": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "1"
             },
             "1576": {
               "label_ast": "AST",
               "label_index": "2"
-            },
-            "1577": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
-            }
-          },
-          "1570": {
-            "1571": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
             }
           },
           "1571": {
@@ -3214,16 +3204,6 @@
             "1575": {
               "label_ast": "AST",
               "label_index": "3"
-            },
-            "1576": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
-            }
-          },
-          "1576": {
-            "1567": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
             }
           },
           "1577": {
@@ -5155,6 +5135,8 @@
             },
             "78": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_maybe": "cfg_maybe",
               "label_index": "2"
             }
           },
@@ -5284,10 +5266,6 @@
             "77": {
               "label_ast": "AST",
               "label_index": "3"
-            },
-            "78": {
-              "label_cfg": "CFG",
-              "label_cfg_maybe": "cfg_maybe"
             }
           },
           "472": {
@@ -20378,6 +20356,53 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "1555": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1555",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1557": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1557",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1558": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1562",
+              "value": null
+            },
+            "symbol": "e",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1558",
+              "value": null
+            },
+            "method": "log",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "1567": [
           {
             "meta": {
@@ -20395,17 +20420,6 @@
               "danger": false,
               "dependencies": 0,
               "n_id": "1569",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          }
-        ],
-        "1570": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1570",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -20434,17 +20448,6 @@
             "type": "SyntaxStepDeclaration",
             "var": "r",
             "var_type": "T"
-          }
-        ],
-        "1576": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1576",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
           }
         ],
         "1577": [

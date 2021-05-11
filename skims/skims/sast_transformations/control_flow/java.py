@@ -70,6 +70,26 @@ def _switch_statement(
         _generic(graph, stmt_ids[-1], stack, edge_attrs=ALWAYS)
 
 
+def try_with_resources_statement(
+    graph: graph_model.Graph,
+    n_id: str,
+    stack: Stack,
+) -> None:
+    match = g.match_ast(
+        graph,
+        n_id,
+        "resource_specification",
+    )
+
+    if _resources := match["resource_specification"]:
+        graph.add_edge(n_id, _resources, **ALWAYS)
+        match_resources = g.match_ast_group(graph, _resources, "resource")
+        for resource in match_resources.get("resource", set()):
+            graph.add_edge(_resources, resource, **ALWAYS)
+
+        try_statement(graph, n_id, stack, _generic=_generic)
+
+
 def _generic(
     graph: graph_model.Graph,
     n_id: str,
@@ -98,6 +118,7 @@ def _generic(
         (
             {
                 "catch_clause",
+                "finally_clause",
             },
             partial(catch_statement, _generic=_generic),
         ),
@@ -132,9 +153,14 @@ def _generic(
         (
             {
                 "try_statement",
-                "try_with_resources_statement",
             },
             partial(try_statement, _generic=_generic),
+        ),
+        (
+            {
+                "try_with_resources_statement",
+            },
+            try_with_resources_statement,
         ),
     ):
         if n_attrs_label_type in types:

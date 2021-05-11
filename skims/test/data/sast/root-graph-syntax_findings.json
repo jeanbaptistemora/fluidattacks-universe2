@@ -123,7 +123,7 @@
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {
       "23": {
-        "13-36-38-39-40-49-50-63-85-95": [
+        "13-36-39-40-50-63-85-95": [
           {
             "meta": {
               "danger": true,
@@ -161,15 +161,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "38",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
               "n_id": "39",
               "value": null
             },
@@ -198,15 +189,6 @@
             },
             "method": "response.setContentType",
             "type": "SyntaxStepMethodInvocation"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "49",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
           },
           {
             "current_instance": {

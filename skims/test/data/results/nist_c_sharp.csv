@@ -142,54 +142,22 @@ F060. Insecure exceptions,NIST/src/testcases/CWE397_Throw_Generic_Exception/CWE3
 F060. Insecure exceptions,NIST/src/testcases/CWE397_Throw_Generic_Exception/Program.cs,50,396
 F060. Insecure exceptions,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/Program.cs,50,396
 F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_01.cs,48,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_01.cs,81,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_02.cs,120,390
 F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_02.cs,50,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_02.cs,87,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_03.cs,120,390
 F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_03.cs,50,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_03.cs,87,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_04.cs,126,390
 F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_04.cs,56,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_04.cs,93,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_05.cs,126,390
 F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_05.cs,56,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_05.cs,93,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_06.cs,125,390
 F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_06.cs,55,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_06.cs,92,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_07.cs,125,390
 F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_07.cs,55,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_07.cs,92,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_08.cs,100,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_08.cs,133,390
 F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_08.cs,63,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_09.cs,120,390
 F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_09.cs,50,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_09.cs,87,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_10.cs,120,390
 F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_10.cs,50,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_10.cs,87,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_11.cs,120,390
 F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_11.cs,50,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_11.cs,87,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_12.cs,110,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_12.cs,138,390
 F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_12.cs,50,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_12.cs,76,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_13.cs,120,390
 F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_13.cs,50,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_13.cs,87,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_14.cs,120,390
 F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_14.cs,50,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_14.cs,87,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_15.cs,128,390
 F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_15.cs,51,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_15.cs,93,390
 F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_16.cs,50,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_16.cs,83,390
 F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_17.cs,50,390
-F061. Errors without traceability,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__reader_17.cs,82,390
 F073. Conditional statement without a default option,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/CWE478_Missing_Default_Case_in_Switch__basic_01.cs,28,478
 F073. Conditional statement without a default option,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/CWE478_Missing_Default_Case_in_Switch__basic_02.cs,30,478
 F073. Conditional statement without a default option,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/CWE478_Missing_Default_Case_in_Switch__basic_03.cs,30,478
