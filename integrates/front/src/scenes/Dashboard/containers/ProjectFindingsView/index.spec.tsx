@@ -256,24 +256,16 @@ describe("ProjectFindingsView", (): void => {
       .find("input");
 
     const ageCheckbox: ReactWrapper = columnFilterInputs.find({ name: "age" });
-    const openAgeCheckbox: ReactWrapper = columnFilterInputs.find({
-      name: "openAge",
-    });
     const remediatedCheckbox: ReactWrapper = columnFilterInputs.find({
       name: "remediated",
     });
     const whereCheckbox: ReactWrapper = columnFilterInputs.find({
       name: "where",
     });
-    const descriptionCheckbox: ReactWrapper = columnFilterInputs.find({
-      name: "description",
-    });
 
     ageCheckbox.simulate("change");
-    openAgeCheckbox.simulate("change");
     remediatedCheckbox.simulate("change");
     whereCheckbox.simulate("change");
-    descriptionCheckbox.simulate("change");
 
     const findingTable: ReactWrapper<ITableProps> = wrapper
       .find(DataTableNext)

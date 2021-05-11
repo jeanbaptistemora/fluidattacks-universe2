@@ -10,11 +10,8 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
-import type {
-  SortOrder,
-  TableColumnFilterProps,
-} from "react-bootstrap-table-next";
-import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
+import type { SortOrder } from "react-bootstrap-table-next";
+import { selectFilter } from "react-bootstrap-table2-filter";
 import { Trans } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
@@ -23,10 +20,7 @@ import { renderExpandIcon } from "./expandIcon";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
-import {
-  statusFormatter,
-  treatmentFormatter,
-} from "components/DataTableNext/formatters";
+import { statusFormatter } from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -36,10 +30,7 @@ import {
   GET_FINDINGS,
   REQUEST_PROJECT_REPORT,
 } from "scenes/Dashboard/containers/ProjectFindingsView/queries";
-import type {
-  IFindingAttr,
-  IProjectFindingsAttr,
-} from "scenes/Dashboard/containers/ProjectFindingsView/types";
+import type { IProjectFindingsAttr } from "scenes/Dashboard/containers/ProjectFindingsView/types";
 import { formatFindings } from "scenes/Dashboard/containers/ProjectFindingsView/utils";
 import {
   ButtonToolbar,
@@ -96,16 +87,10 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     "tableSet",
     {
       age: false,
-      description: false,
-      isExploitable: true,
-      lastVulnerability: true,
-      openAge: false,
-      openVulnerabilities: true,
       remediated: false,
       severityScore: true,
       state: true,
       title: true,
-      treatment: true,
       where: false,
     },
     localStorage
@@ -116,46 +101,8 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     false
   );
 
-  const selectOptionsExploitable = { No: "No", Yes: "Yes" };
   const selectOptionsStatus = { Closed: "Closed", Open: "Open" };
   const selectOptionsVerification = { "-": "-", Pending: "Pending" };
-  const selectOptionsSeverity = {
-    Critical: "Critical",
-    High: "High",
-    Low: "Low",
-    Medium: "Medium",
-    None: "None",
-  };
-  const RESTRICTION_LOW_MIN_VALUE = 0.1;
-  const RESTRICTION_LOW_MAX_VALUE = 3.9;
-  const RESTRICTION_MEDIUM_MIN_VALUE = 4;
-  const RESTRICTION_MEDIUM_MAX_VALUE = 6.9;
-  const RESTRICTION_HIGH_MIN_VALUE = 7;
-  const RESTRICTION_HIGH_MAX_VALUE = 8.9;
-  const RESTRICTION_CRITICAL_MIN_VALUE = 9;
-  const RESTRICTION_CRITICAL_MAX_VALUE = 10;
-  const restrictionSeverity: { restriction: number[]; value: string }[] = [
-    { restriction: [0, 0], value: "None" },
-    {
-      restriction: [RESTRICTION_LOW_MIN_VALUE, RESTRICTION_LOW_MAX_VALUE],
-      value: "Low",
-    },
-    {
-      restriction: [RESTRICTION_MEDIUM_MIN_VALUE, RESTRICTION_MEDIUM_MAX_VALUE],
-      value: "Medium",
-    },
-    {
-      restriction: [RESTRICTION_HIGH_MIN_VALUE, RESTRICTION_HIGH_MAX_VALUE],
-      value: "High",
-    },
-    {
-      restriction: [
-        RESTRICTION_CRITICAL_MIN_VALUE,
-        RESTRICTION_CRITICAL_MAX_VALUE,
-      ],
-      value: "Critical",
-    },
-  ];
 
   const handleChange: (columnName: string) => void = useCallback(
     (columnName: string): void => {
@@ -209,21 +156,6 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     const newSorted = { dataField, order };
     sessionStorage.setItem("findingSort", JSON.stringify(newSorted));
   };
-  const onFilterTitle: TableColumnFilterProps["onFilter"] = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("titleFilter", filterVal);
-  };
-  const onFilterWhere: TableColumnFilterProps["onFilter"] = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("whereFilter", filterVal);
-  };
-  const onFilterExploitable: (filterVal: string) => void = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("exploitableFilter", filterVal);
-  };
   const onFilterStatus: (filterVal: string) => void = (
     filterVal: string
   ): void => {
@@ -234,94 +166,15 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
   ): void => {
     sessionStorage.setItem("verificationFilter", filterVal);
   };
-  const onFilterSeverity = (
-    filterVal: string,
-    // Exception: FP(There is not redefinition)
-    // eslint-disable-next-line
-    data: IFindingAttr[] // NOSONAR
-  ): IFindingAttr[] => {
-    sessionStorage.setItem("severityFilter", filterVal);
-    if (filterVal.length === 0) {
-      return data;
-    }
-    const restrictions: number[] = restrictionSeverity.filter(
-      (option: { restriction: number[]; value: string }): boolean =>
-        option.value === filterVal
-    )[0].restriction;
-
-    return data.filter(
-      (row: IFindingAttr): boolean =>
-        row.severityScore >= restrictions[0] &&
-        row.severityScore <= restrictions[1]
-    );
-  };
 
   const tableHeaders: IHeaderConfig[] = [
     {
       align: "center",
-      dataField: "age",
-      header: "Age (days)",
-      onSort: onSortState,
-      visible: checkedItems.age,
-    },
-    {
-      align: "center",
-      dataField: "openAge",
-      header: "Open Age (days)",
-      onSort: onSortState,
-      visible: false,
-      width: "5%",
-    },
-    {
-      align: "center",
-      dataField: "lastVulnerability",
-      header: "Last report (days)",
-      onSort: onSortState,
-      visible: false,
-      width: "5%",
-    },
-    {
-      align: "center",
       dataField: "title",
-      filter: textFilter({
-        defaultValue: _.get(sessionStorage, "titleFilter"),
-        delay: 1000,
-        onFilter: onFilterTitle,
-      }),
       header: "Type",
       onSort: onSortState,
       visible: checkedItems.title,
       wrapped: true,
-    },
-    {
-      align: "center",
-      dataField: "description",
-      header: "Description",
-      onSort: onSortState,
-      visible: false,
-      width: "16%",
-      wrapped: true,
-    },
-    {
-      align: "center",
-      dataField: "severityScore",
-      filter: selectFilter({
-        defaultValue: _.get(sessionStorage, "severityFilter"),
-        onFilter: (onFilterSeverity as unknown) as TableColumnFilterProps["onFilter"],
-        options: selectOptionsSeverity,
-      }),
-      header: "Severity",
-      onSort: onSortState,
-      visible: checkedItems.severityScore,
-      wrapped: true,
-    },
-    {
-      align: "center",
-      dataField: "openVulnerabilities",
-      header: "Open",
-      onSort: onSortState,
-      visible: false,
-      width: "6%",
     },
     {
       align: "center",
@@ -338,13 +191,27 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      align: "left",
-      dataField: "treatment",
-      formatter: treatmentFormatter,
-      header: translate.t("searchFindings.tabDescription.treatment.title"),
+      align: "center",
+      dataField: "severityScore",
+      header: "Severity",
       onSort: onSortState,
-      visible: false,
-      width: "8%",
+      visible: checkedItems.severityScore,
+      wrapped: true,
+    },
+    {
+      align: "center",
+      dataField: "age",
+      header: "Age (days)",
+      onSort: onSortState,
+      visible: checkedItems.age,
+    },
+    {
+      align: "center",
+      dataField: "where",
+      header: "Locations",
+      onSort: onSortState,
+      visible: checkedItems.where,
+      wrapped: true,
     },
     {
       align: "center",
@@ -357,33 +224,6 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
       header: "Reattack",
       onSort: onSortState,
       visible: checkedItems.remediated,
-      wrapped: true,
-    },
-    {
-      align: "center",
-      dataField: "isExploitable",
-      filter: selectFilter({
-        defaultValue: _.get(sessionStorage, "exploitableFilter"),
-        onFilter: onFilterExploitable,
-        options: selectOptionsExploitable,
-      }),
-      header: "Exploitable",
-      onSort: onSortState,
-      visible: false,
-      width: "8%",
-      wrapped: true,
-    },
-    {
-      align: "center",
-      dataField: "where",
-      filter: textFilter({
-        defaultValue: _.get(sessionStorage, "whereFilter"),
-        delay: 1000,
-        onFilter: onFilterWhere,
-      }),
-      header: "Locations",
-      onSort: onSortState,
-      visible: checkedItems.where,
       wrapped: true,
     },
   ];
