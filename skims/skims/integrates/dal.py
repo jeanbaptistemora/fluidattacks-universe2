@@ -2,6 +2,9 @@
 from io import (
     BytesIO,
 )
+from operator import (
+    attrgetter,
+)
 from typing import (
     Any,
     Callable,
@@ -147,6 +150,12 @@ async def get_group_level_role(
 class ResultGetGroupFindings(NamedTuple):
     identifier: str
     title: str
+
+
+async def get_group_finding_ids(group: str) -> Tuple[str, ...]:
+    return tuple(
+        map(attrgetter("identifier"), await get_group_findings(group=group)),
+    )
 
 
 @SHIELD
