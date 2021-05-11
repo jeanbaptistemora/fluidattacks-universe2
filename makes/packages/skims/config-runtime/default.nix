@@ -27,6 +27,7 @@ makeTemplate {
       nixpkgs.python38Packages.ntplib
       nixpkgs.python38Packages.pygraphviz
       nixpkgs.python38Packages.soupsieve
+      nixpkgs.python38Packages.unidiff
       nixpkgs.python38Packages.viewstate
       (buildPythonRequirements {
         name = "skims-runtime";
