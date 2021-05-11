@@ -60,6 +60,7 @@ def get_diff(
 class RebaseResult(NamedTuple):
     path: str
     line: int
+    rev: str
 
 
 def rebase(
@@ -75,11 +76,17 @@ def rebase(
 
     if diff := get_diff(repo, rev_a=rev_a, rev_b=rev_b):
         for patch in diff:
+            if patch.is_removed_file:
+                # We cannot rebase something that was deleted
+                return None
 
             if patch.source_file == f"a/{path}":
                 # The original file matches the path to rebase
+                # If the file was moved or something, this updates the path
+                path = patch.target_file[2:]
+
                 # Let's process the hunks to see what should be done with
-                # the line
+                # the line numbers
                 for hunk in patch:
                     hunk_source_end = (
                         hunk.source_start + hunk.source_length - 1
@@ -100,7 +107,6 @@ def rebase(
                         # deterministically
                         return None
 
-                    print(repr(hunk))
-        return RebaseResult(path=path, line=line)
+        return RebaseResult(path=path, line=line, rev=rev_b)
 
     return None
