@@ -2,17 +2,19 @@ import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
+import type { Moment } from "moment";
 import React, { useCallback, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { selectFilter } from "react-bootstrap-table2-filter";
-import { useSelector } from "react-redux";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
-import { Field, FormSection, formValueSelector } from "redux-form";
-import type { InjectedFormProps, Validator } from "redux-form";
+import type { Validator } from "redux-form";
 import type { ConfigurableValidator } from "revalidate";
+import type { BaseSchema } from "yup";
+import { array, lazy, object } from "yup";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
@@ -20,7 +22,6 @@ import { statusFormatter } from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   CREATE_EVENT_MUTATION,
   GET_EVENTS,
@@ -39,23 +40,23 @@ import {
 import { Can } from "utils/authz/Can";
 import { castEventType } from "utils/formatHelpers";
 import {
-  Checkbox,
-  DateTime,
-  Dropdown,
-  FileInput,
-  Text,
-  TextArea,
+  FormikCheckbox,
+  FormikDateTime,
+  FormikDropdown,
+  FormikFileInput,
+  FormikText,
+  FormikTextArea,
 } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import {
+  composeValidators,
   dateTimeBeforeToday,
   isValidFileSize,
   maxLength,
   numeric,
   required,
-  someRequired,
   validDatetime,
   validEventFile,
   validEvidenceImage,
@@ -63,8 +64,15 @@ import {
 } from "utils/validations";
 
 interface IFormValues {
-  accessibility: Record<string, boolean>;
-  affectedComponents: Record<string, boolean>;
+  eventDate: Moment;
+  blockingHours: number;
+  context: string;
+  accessibility: string[];
+  affectedComponents: string[];
+  eventType: string;
+  detail: string;
+  actionBeforeBlocking: string;
+  actionAfterBlocking: string;
   file?: FileList;
   image?: FileList;
 }
@@ -252,15 +260,6 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
     setEventModalOpen(false);
   }, []);
 
-  // eslint-disable-next-line @typescript-eslint/ban-types, fp/no-rest-parameters -- Needed for compatibility with redux library
-  const selector: (state: {}, ...field: string[]) => string = formValueSelector(
-    "newEvent"
-  );
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  const eventType: string = useSelector((state: {}): string =>
-    selector(state, "eventType")
-  );
-
   const MAX_FILE_SIZE = 10;
   const maxFileSize: Validator = isValidFileSize(MAX_FILE_SIZE);
 
@@ -314,17 +313,17 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
 
   const handleSubmit: (values: IFormValues) => void = useCallback(
     (values: IFormValues): void => {
-      const selectedAccessibility: string[] = Object.keys(values.accessibility)
-        .filter((key: string): boolean => values.accessibility[key])
-        .map((key: string): string => key.toUpperCase());
+      const selectedAccessibility: string[] = values.accessibility.map(
+        (element: string): string => element.toUpperCase()
+      );
 
       const selectedComponents: string[] | undefined = _.isUndefined(
         values.affectedComponents
       )
         ? undefined
-        : Object.keys(values.affectedComponents)
-            .filter((key: string): boolean => values.affectedComponents[key])
-            .map((key: string): string => key.toUpperCase());
+        : values.affectedComponents.map((component: string): string =>
+            component.toUpperCase()
+          );
 
       void createEvent({
         variables: {
@@ -347,6 +346,20 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
   }
+
+  const initialValues = {
+    accessibility: [],
+    actionAfterBlocking: "",
+    actionBeforeBlocking: "",
+    affectedComponents: [],
+    blockingHours: ("" as unknown) as number,
+    context: "",
+    detail: "",
+    eventDate: (undefined as unknown) as Moment,
+    eventType: "",
+    file: (undefined as unknown) as FileList,
+    image: (undefined as unknown) as FileList,
+  };
 
   return (
     <React.StrictMode>
@@ -371,9 +384,27 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
         headerTitle={translate.t("group.events.new")}
         open={isEventModalOpen}
       >
-        <GenericForm name={"newEvent"} onSubmit={handleSubmit}>
-          {({ pristine }: InjectedFormProps): JSX.Element => (
-            <React.Fragment>
+        <Formik
+          initialValues={initialValues}
+          name={"newEvent"}
+          onSubmit={handleSubmit}
+          validationSchema={lazy(
+            (): BaseSchema =>
+              object().shape({
+                accessibility: array().min(
+                  1,
+                  translate.t("validations.someRequired")
+                ),
+                affectedComponents: array().when("eventType", {
+                  is: "INCORRECT_MISSING_SUPPLIES",
+                  otherwise: array().notRequired(),
+                  then: array().min(1, translate.t("validations.someRequired")),
+                }),
+              })
+          )}
+        >
+          {({ dirty, values }): JSX.Element => (
+            <Form>
               <Row>
                 <Col50>
                   <FormGroup>
@@ -381,9 +412,13 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
                       {translate.t("group.events.form.date")}
                     </ControlLabel>
                     <Field
-                      component={DateTime}
+                      component={FormikDateTime}
                       name={"eventDate"}
-                      validate={[required, validDatetime, dateTimeBeforeToday]}
+                      validate={composeValidators([
+                        required,
+                        validDatetime,
+                        dateTimeBeforeToday,
+                      ])}
                     />
                   </FormGroup>
                 </Col50>
@@ -393,7 +428,7 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
                       {translate.t("group.events.form.type.title")}
                     </ControlLabel>
                     <Field
-                      component={Dropdown}
+                      component={FormikDropdown}
                       name={"eventType"}
                       validate={required}
                     >
@@ -430,7 +465,7 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
                       {translate.t("group.events.form.context.title")}
                     </ControlLabel>
                     <Field
-                      component={Dropdown}
+                      component={FormikDropdown}
                       name={"context"}
                       validate={required}
                     >
@@ -458,31 +493,29 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
                     <ControlLabel>
                       {translate.t("group.events.form.accessibility.title")}
                     </ControlLabel>
-                    <FormSection name={"accessibility"}>
-                      <Field
-                        component={Checkbox}
-                        name={"environment"}
-                        validate={someRequired}
-                      >
-                        {` ${translate.t(
-                          "group.events.form.accessibility.environment"
-                        )}`}
-                      </Field>
-                      <br />
-                      <Field
-                        component={Checkbox}
-                        name={"repository"}
-                        validate={someRequired}
-                      >
-                        {` ${translate.t(
-                          "group.events.form.accessibility.repository"
-                        )}`}
-                      </Field>
-                    </FormSection>
+                    <br />
+                    <Field
+                      component={FormikCheckbox}
+                      label={translate.t(
+                        "group.events.form.accessibility.environment"
+                      )}
+                      name={"accessibility"}
+                      type={"checkbox"}
+                      value={"environment"}
+                    />
+                    <Field
+                      component={FormikCheckbox}
+                      label={translate.t(
+                        "group.events.form.accessibility.repository"
+                      )}
+                      name={"accessibility"}
+                      type={"checkbox"}
+                      value={"repository"}
+                    />
                   </FormGroup>
                 </Col50>
               </Row>
-              {eventType === "INCORRECT_MISSING_SUPPLIES" ? (
+              {values.eventType === "INCORRECT_MISSING_SUPPLIES" ? (
                 <Row>
                   <Col50>
                     <FormGroup>
@@ -490,10 +523,10 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
                         {translate.t("group.events.form.blockingHours")}
                       </ControlLabel>
                       <Field
-                        component={Text}
+                        component={FormikText}
                         name={"blockingHours"}
                         type={"number"}
-                        validate={[numeric, required]}
+                        validate={composeValidators([numeric, required])}
                       />
                     </FormGroup>
                   </Col50>
@@ -502,185 +535,167 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
                       <ControlLabel>
                         {translate.t("group.events.form.components.title")}
                       </ControlLabel>
-                      <FormSection name={"affectedComponents"}>
-                        <Field
-                          component={Checkbox}
-                          name={"FLUID_STATION"}
-                          validate={someRequired}
-                        >
-                          {` ${translate.t(
-                            "group.events.form.components.fluidStation"
-                          )}`}
-                        </Field>
-                        <br />
-                        <Field
-                          component={Checkbox}
-                          name={"CLIENT_STATION"}
-                          validate={someRequired}
-                        >
-                          {` ${translate.t(
-                            "group.events.form.components.clientStation"
-                          )}`}
-                        </Field>
-                        <br />
-                        <Field
-                          component={Checkbox}
-                          name={"TOE_EXCLUSSION"}
-                          validate={someRequired}
-                        >
-                          {` ${translate.t(
-                            "group.events.form.components.toeExclusion"
-                          )}`}
-                        </Field>
-                        <br />
-                        <Field
-                          component={Checkbox}
-                          name={"DOCUMENTATION"}
-                          validate={someRequired}
-                        >
-                          {` ${translate.t(
-                            "group.events.form.components.documentation"
-                          )}`}
-                        </Field>
-                        <br />
-                        <Field
-                          component={Checkbox}
-                          name={"LOCAL_CONNECTION"}
-                          validate={someRequired}
-                        >
-                          {` ${translate.t(
-                            "group.events.form.components.localConn"
-                          )}`}
-                        </Field>
-                        <br />
-                        <Field
-                          component={Checkbox}
-                          name={"INTERNET_CONNECTION"}
-                          validate={someRequired}
-                        >
-                          {` ${translate.t(
-                            "group.events.form.components.internetConn"
-                          )}`}
-                        </Field>
-                        <br />
-                        <Field
-                          component={Checkbox}
-                          name={"VPN_CONNECTION"}
-                          validate={someRequired}
-                        >
-                          {` ${translate.t(
-                            "group.events.form.components.vpnConn"
-                          )}`}
-                        </Field>
-                        <br />
-                        <Field
-                          component={Checkbox}
-                          name={"TOE_LOCATION"}
-                          validate={someRequired}
-                        >
-                          {` ${translate.t(
-                            "group.events.form.components.toeLocation"
-                          )}`}
-                        </Field>
-                        <br />
-                        <Field
-                          component={Checkbox}
-                          name={"TOE_CREDENTIALS"}
-                          validate={someRequired}
-                        >
-                          {` ${translate.t(
-                            "group.events.form.components.toeCredentials"
-                          )}`}
-                        </Field>
-                        <br />
-                        <Field
-                          component={Checkbox}
-                          name={"TOE_PRIVILEGES"}
-                          validate={someRequired}
-                        >
-                          {` ${translate.t(
-                            "group.events.form.components.toePrivileges"
-                          )}`}
-                        </Field>
-                        <br />
-                        <Field
-                          component={Checkbox}
-                          name={"TEST_DATA"}
-                          validate={someRequired}
-                        >
-                          {` ${translate.t(
-                            "group.events.form.components.testData"
-                          )}`}
-                        </Field>
-                        <br />
-                        <Field
-                          component={Checkbox}
-                          name={"TOE_UNSTABLE"}
-                          validate={someRequired}
-                        >
-                          {` ${translate.t(
-                            "group.events.form.components.toeUnstability"
-                          )}`}
-                        </Field>
-                        <br />
-                        <Field
-                          component={Checkbox}
-                          name={"TOE_UNACCESSIBLE"}
-                          validate={someRequired}
-                        >
-                          {` ${translate.t(
-                            "group.events.form.components.toeUnaccessible"
-                          )}`}
-                        </Field>
-                        <br />
-                        <Field
-                          component={Checkbox}
-                          name={"TOE_UNAVAILABLE"}
-                          validate={someRequired}
-                        >
-                          {` ${translate.t(
-                            "group.events.form.components.toeUnavailable"
-                          )}`}
-                        </Field>
-                        <br />
-                        <Field
-                          component={Checkbox}
-                          name={"TOE_ALTERATION"}
-                          validate={someRequired}
-                        >
-                          {` ${translate.t(
-                            "group.events.form.components.toeAlteration"
-                          )}`}
-                        </Field>
-                        <br />
-                        <Field
-                          component={Checkbox}
-                          name={"SOURCE_CODE"}
-                          validate={someRequired}
-                        >
-                          {` ${translate.t(
-                            "group.events.form.components.sourceCode"
-                          )}`}
-                        </Field>
-                        <br />
-                        <Field
-                          component={Checkbox}
-                          name={"COMPILE_ERROR"}
-                          validate={someRequired}
-                        >
-                          {` ${translate.t(
-                            "group.events.form.components.compileError"
-                          )}`}
-                        </Field>
-                        <br />
-                        <Field
-                          component={Checkbox}
-                          name={"OTHER"}
-                          validate={someRequired}
-                        >
-                          {` ${translate.t("group.events.form.other")}`}
-                        </Field>
-                      </FormSection>
+                      <br />
+                      <Field
+                        component={FormikCheckbox}
+                        label={translate.t(
+                          "group.events.form.components.fluidStation"
+                        )}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"FLUID_STATION"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={translate.t(
+                          "group.events.form.components.clientStation"
+                        )}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"CLIENT_STATION"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={translate.t(
+                          "group.events.form.components.toeExclusion"
+                        )}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"TOE_EXCLUSSION"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={translate.t(
+                          "group.events.form.components.documentation"
+                        )}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"DOCUMENTATION"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={translate.t(
+                          "group.events.form.components.localConn"
+                        )}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"LOCAL_CONNECTION"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={translate.t(
+                          "group.events.form.components.internetConn"
+                        )}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"INTERNET_CONNECTION"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={translate.t(
+                          "group.events.form.components.vpnConn"
+                        )}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"VPN_CONNECTION"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={translate.t(
+                          "group.events.form.components.toeLocation"
+                        )}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"TOE_LOCATION"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={translate.t(
+                          "group.events.form.components.toeCredentials"
+                        )}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"TOE_CREDENTIALS"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={translate.t(
+                          "group.events.form.components.toePrivileges"
+                        )}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"TOE_PRIVILEGES"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={translate.t(
+                          "group.events.form.components.testData"
+                        )}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"TEST_DATA"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={translate.t(
+                          "group.events.form.components.toeUnstability"
+                        )}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"TOE_UNSTABLE"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={translate.t(
+                          "group.events.form.components.toeUnaccessible"
+                        )}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"TOE_UNACCESSIBLE"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={translate.t(
+                          "group.events.form.components.toeUnavailable"
+                        )}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"TOE_UNAVAILABLE"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={translate.t(
+                          "group.events.form.components.toeAlteration"
+                        )}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"TOE_ALTERATION"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={translate.t(
+                          "group.events.form.components.sourceCode"
+                        )}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"SOURCE_CODE"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={translate.t(
+                          "group.events.form.components.compileError"
+                        )}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"COMPILE_ERROR"}
+                      />
+                      <Field
+                        component={FormikCheckbox}
+                        label={translate.t("group.events.form.other")}
+                        name={"affectedComponents"}
+                        type={"checkbox"}
+                        value={"OTHER"}
+                      />
                     </FormGroup>
                   </Col50>
                 </Row>
@@ -694,13 +709,13 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
                     <Field
                       // eslint-disable-next-line react/forbid-component-props
                       className={globalStyle.noResize}
-                      component={TextArea}
+                      component={FormikTextArea}
                       name={"detail"}
-                      validate={[
+                      validate={composeValidators([
                         required,
                         validTextField,
                         maxEventDetailsLength,
-                      ]}
+                      ])}
                     />
                   </FormGroup>
                 </Col100>
@@ -712,7 +727,7 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
                       {translate.t("group.events.form.actionBefore.title")}
                     </ControlLabel>
                     <Field
-                      component={Dropdown}
+                      component={FormikDropdown}
                       name={"actionBeforeBlocking"}
                       validate={required}
                     >
@@ -740,7 +755,7 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
                       {translate.t("group.events.form.actionAfter.title")}
                     </ControlLabel>
                     <Field
-                      component={Dropdown}
+                      component={FormikDropdown}
                       name={"actionAfterBlocking"}
                       validate={required}
                     >
@@ -774,10 +789,13 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
                     </ControlLabel>
                     <Field
                       accept={"image/gif,image/png"}
-                      component={FileInput}
+                      component={FormikFileInput}
                       id={"image"}
                       name={"image"}
-                      validate={[validEvidenceImage, maxFileSize]}
+                      validate={composeValidators([
+                        validEvidenceImage,
+                        maxFileSize,
+                      ])}
                     />
                   </FormGroup>
                 </Col50>
@@ -790,10 +808,13 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
                       accept={
                         "application/pdf,application/zip,text/csv,text/plain"
                       }
-                      component={FileInput}
+                      component={FormikFileInput}
                       id={"file"}
                       name={"file"}
-                      validate={[validEventFile, maxFileSize]}
+                      validate={composeValidators([
+                        validEventFile,
+                        maxFileSize,
+                      ])}
                     />
                   </FormGroup>
                 </Col50>
@@ -806,7 +827,7 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
                       {translate.t("confirmmodal.cancel")}
                     </Button>
                     <Button
-                      disabled={pristine || mtResult.loading}
+                      disabled={!dirty || mtResult.loading}
                       type={"submit"}
                     >
                       {translate.t("confirmmodal.proceed")}
@@ -814,9 +835,9 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
                   </ButtonToolbar>
                 </Col100>
               </Row>
-            </React.Fragment>
+            </Form>
           )}
-        </GenericForm>
+        </Formik>
       </Modal>
       <p>{translate.t("searchFindings.tabEvents.tableAdvice")}</p>
       <DataTableNext
