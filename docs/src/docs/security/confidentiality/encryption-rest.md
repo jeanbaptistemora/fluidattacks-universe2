@@ -7,7 +7,7 @@ slug: /security/confidentiality/encryption-rest
 
 All our applications and services
 have industry-standard
-[encryption at rest](https://fluidattacks.com/products/rules/list/224/).
+[encryption at rest](/criteria/cryptography/224).
 
 - All the sensitive data
 provided by our clients 
@@ -17,8 +17,8 @@ of our key management system (KMS).
 This algorithm is based on
 Advanced Encryption Standard (AES)
 in Galois Counter Mode (GCM) with
-[256-bit](https://fluidattacks.com/products/rules/list/150/)
-[private keys](https://fluidattacks.com/products/rules/list/145/).
+[256-bit](/criteria/cryptography/150)
+[private keys](/criteria/cryptography/145).
 AES256 is the
 [US government standard](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf)
 encryption algorithm used to protect top-secret information.
@@ -35,7 +35,7 @@ to the DNS records published by us.
 
 - All our clients' code repositories
 are stored in private,
-[AES256 ciphered](https://fluidattacks.com/products/rules/list/185/)
+[AES256 ciphered](/criteria/data/185)
 redundant data centers.
 
 - All the exploits are stored encrypted

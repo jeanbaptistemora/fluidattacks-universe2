@@ -23,11 +23,11 @@ Attack Surface Manager (ASM) by a user
 with a ***project manager role***.
 Once this action is performed,
 a 30-day
-[deletion window](https://fluidattacks.com/products/rules/list/317/)
+[deletion window](/criteria/privacy/317)
 begins.
 Any ***project manager*** can undo the deletion action.
 After the 30-day waiting period,
 the project source code, secrets,
 metadata and other project-related
-[data are completely removed](https://fluidattacks.com/products/rules/list/183/)
+[data are completely removed](/criteria/data/183)
 from all our systems.

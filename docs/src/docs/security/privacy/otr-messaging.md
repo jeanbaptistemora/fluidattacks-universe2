@@ -11,5 +11,5 @@ and [E2EE](https://en.wikipedia.org/wiki/End-to-end_encryption)
 for communication within the organization.
 Also,
 all chat histories
-[are reset every week](https://fluidattacks.com/products/rules/list/183/)
+[are reset every week](/criteria/data/183)
 as an extra measure to avoid leaks.

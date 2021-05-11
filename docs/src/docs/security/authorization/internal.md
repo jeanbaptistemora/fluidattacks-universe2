@@ -32,7 +32,7 @@ over our entire infrastructure.
 - **IAM:** It is possible to give
 application access at the user level,
 which allows us to give employees access
-[only to what they need](https://fluidattacks.com/products/rules/list/176/)
+[only to what they need](/criteria/data/176)
 to execute their tasks.
-[Giving or removing access to applications](https://fluidattacks.com/products/rules/list/034/)
+[Giving or removing access to applications](/criteria/authorization/034)
 is simple, and no users/passwords are leaked.

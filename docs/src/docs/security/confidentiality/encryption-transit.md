@@ -7,11 +7,11 @@ slug: /security/confidentiality/encryption-transit
 
 All our applications
 and services have industry-standard
-[encryption in transit](https://fluidattacks.com/products/rules/list/224/).
+[encryption in transit](/criteria/cryptography/224).
 
 - The [Fluid Attacks](https://fluidattacks.com/)
 domain uses the latest
-[TLSv1.3](https://fluidattacks.com/products/rules/list/181/)
+[TLSv1.3](/criteria/data/181)
 cryptographic protocol
 for maximum in transit protection.
 
@@ -47,4 +47,4 @@ we use fully encrypted VPNs.
 - [Ephemeral environments](https://fluidattacks.com/security/#EPH)
 always include a digital certificate,
 validated with ACME protocol, and
-[not self-signed](https://fluidattacks.com/products/rules/list/092/).
+[not self-signed](/criteria/certificates/092).

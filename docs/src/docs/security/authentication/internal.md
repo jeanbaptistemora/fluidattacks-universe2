@@ -16,24 +16,24 @@ of the managed applications;
 they only know their own IAM passphrase.
 Once they log in to IAM,
 they can access applications
-[assigned to them](https://fluidattacks.com/products/rules/list/096/).
+[assigned to them](/criteria/authorization/096).
 
 Some of our IAM specifications
 and requirements are listed below:
 
-- [Passphrases instead of passwords](https://fluidattacks.com/products/rules/list/132/)
+- [Passphrases instead of passwords](/criteria/credentials/132)
 (more information [here](https://fluidattacks.com/blog/requiem-password/)).
 
-- [Passphrases expire every 30 days](https://fluidattacks.com/products/rules/list/130/).
+- [Passphrases expire every 30 days](/criteria/credentials/130).
 
 - Previous passphrases can only be reused after a
-[24 reset cycle](https://fluidattacks.com/products/rules/list/129/).
+[24 reset cycle](/criteria/credentials/129).
 
-- [Multi-factor authentication](https://fluidattacks.com/products/rules/list/328/)
+- [Multi-factor authentication](/criteria/authentication/328)
 (MFA) from a mobile device must be set.
 
 - Our MFA uses
-[OOB](https://fluidattacks.com/products/rules/list/153/),
+[OOB](/criteria/authentication/153),
 a mechanism that transports all the MFA data
 through a different channel 
 han the application’s channel itself.
@@ -49,7 +49,7 @@ applications by only having our IAM active account.
 No passwords or users are needed.
 
 - In case a mobile phone supports
-[biometric authentication](https://fluidattacks.com/products/rules/list/231/),
+[biometric authentication](/criteria/authentication/231),
 our IAM enforces its usage.
 
 - All successful sessions

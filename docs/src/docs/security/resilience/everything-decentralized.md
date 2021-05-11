@@ -12,7 +12,7 @@ No hardware maintenance is needed
 as it is done by a third party.
 No local networks are used.
 We only use Wifi connections with
-[strong random generated passwords](https://fluidattacks.com/products/rules/list/253/)
+[strong random generated passwords](/criteria/authentication/235)
 and with the sole purpose of accessing the Internet.
 Connections are always encrypted
-[using WPA2-AES](https://fluidattacks.com/products/rules/list/252/).
+[using WPA2-AES](/criteria/networks/252).

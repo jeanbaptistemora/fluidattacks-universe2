@@ -18,5 +18,5 @@ All our development projects run
 [Continuous Integration](https://fluidattacks.com/security/#CI) pipelines,
 including exploits and strict linters,
 to ensure that
-[no known vulnerabilities](https://fluidattacks.com/products/rules/list/155/)
+[no known vulnerabilities](/criteria/source/155)
 are released to production.

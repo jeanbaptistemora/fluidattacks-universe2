@@ -11,7 +11,7 @@ Every employee receives a computer
 with a password-secured BIOS,
 [TPM](https://docs.microsoft.com/en-us/windows/security/information-protection/tpm/trusted-platform-module-overview)
 hardware, and
-[biometric fingerprint reader](https://fluidattacks.com/products/rules/list/231/).
+[biometric fingerprint reader](/criteria/authentication/231).
 Going to the office is the rule,
 but employees can always fill out an exception form
 to telework in case they need to.

@@ -71,9 +71,9 @@ from zero (0) to production in an automated process.
 ## Immutable infrastructure
 The infrastructure code can be audited,
 and changes can only be made by
-[changing such code](https://fluidattacks.com/products/rules/list/265/).
+[changing such code](/criteria/services/265).
 This provides full transparency on
-[what was changed, when, and who did it](https://fluidattacks.com/products/rules/list/046/).
+[what was changed, when, and who did it](/criteria/files/046).
 Also,
 no administrative protocols like ssh
 or administrative accounts are needed.

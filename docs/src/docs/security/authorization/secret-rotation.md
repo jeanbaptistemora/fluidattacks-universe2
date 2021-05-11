@@ -5,7 +5,7 @@ sidebar_label: Secret rotation
 slug: /security/authorization/secret-rotation
 ---
 
-[Key rotation](https://fluidattacks.com/products/rules/list/130/)
+[Key rotation](/criteria/credentials/130)
 is essential when dealing with sensitive data.
 The best way to prevent a key leakage
 is by changing the keys regularly.
@@ -17,7 +17,7 @@ Our rotation cycles are as follows:
 
 - **Digital Certificates:** every three months.
 
-- **IAM passphrases:** [every three months](https://fluidattacks.com/products/rules/list/089/).
+- **IAM passphrases:** [every three months](/criteria/certificates/089).
 
 Rotations are done in these two different ways:
 

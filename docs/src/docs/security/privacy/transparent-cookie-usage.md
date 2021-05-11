@@ -20,8 +20,8 @@ By doing this,
 we become compliant with security rules
 such as the following:
 
-- [Request user consent](https://fluidattacks.com/products/rules/list/310/)
+- [Request user consent](/criteria/privacy/310)
 
-- [Allow user consent revocation](https://fluidattacks.com/products/rules/list/312/)
+- [Allow user consent revocation](/criteria/privacy/312)
 
-- [Provide processed data information](https://fluidattacks.com/products/rules/list/315/)
+- [Provide processed data information](/criteria/privacy/315)
