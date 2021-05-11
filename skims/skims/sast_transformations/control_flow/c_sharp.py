@@ -159,7 +159,11 @@ def _generic(
                 and n_id != next_id
                 and n_id not in g.adj_cfg(graph, next_id)
             ):
-                graph.add_edge(n_id, next_id, **edge_attrs)
+                for statement in g.pred_cfg_lazy(graph, n_id, depth=-1):
+                    if statement == next_id:
+                        break
+                else:
+                    graph.add_edge(n_id, next_id, **edge_attrs)
 
     stack.pop()
 

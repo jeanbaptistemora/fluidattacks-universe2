@@ -18,14 +18,13 @@ def test_pdg() -> None:
 
     graph = graph_shard.graph
 
-    assert graph["24"].get("45")  # line: 6  -> 8
-    assert graph["24"].get("55")  # line: 6  -> 10
-    assert graph["24"].get("71")  # line: 6  -> 15
-    assert graph["24"].get("83")  # line: 6  -> 18
-    assert graph["33"].get("95")  # line: 7  -> 19
-    assert graph["52"].get("95")  # line: 10 -> 19
-    assert graph["62"].get("83")  # line: 14 -> 18
-    assert graph["68"].get("95")  # line: 15 -> 19
-
-
-test_pdg()
+    assert graph["23"].get("50")  # line: 6 -> 9
+    assert graph["23"].get("61")  # line: 6 -> 11
+    assert graph["61"].get("66")  # line: 11 -> 12
+    assert graph["61"].get("77")  # line: 11 -> 13
+    assert graph["83"].get("90")  # line: 14 -> 16
+    assert graph["90"].get("146")  # line: 16 -> 27
+    assert graph["96"].get("134")  # line: 17 -> 26
+    assert graph["106"].get("112")  # line: 21 -> 22
+    assert graph["106"].get("134")  # line: 21 -> 26
+    assert graph["112"].get("146")  # line: 22 -> 27
