@@ -308,13 +308,17 @@ describe("LoginView", (): void => {
         })
     );
     (authWithMicrosoft as jest.Mock).mockImplementation(
-      async (): Promise<IAuthResult> =>
+      // Exception: WF(Function implementation must be here)
+      // eslint-disable-next-line
+      async (): Promise<IAuthResult> => // NOSONAR
         Promise.resolve({
           type: "cancel",
         })
     );
     (authWithBitbucket as jest.Mock).mockImplementation(
-      async (): Promise<IAuthResult> =>
+      // Exception: WF(Function implementation must be here)
+      // eslint-disable-next-line
+      async (): Promise<IAuthResult> => // NOSONAR
         Promise.resolve({
           type: "cancel",
         })
