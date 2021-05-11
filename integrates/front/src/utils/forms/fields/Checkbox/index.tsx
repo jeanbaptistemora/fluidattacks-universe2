@@ -1,41 +1,36 @@
-import _ from "lodash";
+import { Checkbox } from "antd";
+import type { FieldProps } from "formik";
+import { ErrorMessage } from "formik";
 import React from "react";
-import type { WrappedFieldProps } from "redux-form";
+import "antd/dist/antd.css";
 
 import { ValidationError } from "utils/forms/fields/styles";
 
-interface ICheckboxProps extends WrappedFieldProps {
+interface ICheckboxProps extends FieldProps {
   children: React.ReactNode;
+  label: string;
 }
 
-export const Checkbox: React.FC<ICheckboxProps> = (
-  // Readonly utility type does not work on deeply nested types
-  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+export const FormikCheckbox: React.FC<ICheckboxProps> = (
   props: ICheckboxProps
 ): JSX.Element => {
-  const { input, meta, children } = props;
-  const { value } = input;
-  const { touched, error } = meta;
+  const { field, children, label } = props;
+  const { name, value } = field;
 
   return (
     <React.Fragment>
-      <input
+      <Checkbox
         checked={value}
-        type={"checkbox"}
         // Best way to pass down props.
         // eslint-disable-next-line react/jsx-props-no-spreading
-        {...input}
-      />
+        {...field}
+      >
+        {` ${label}`}
+      </Checkbox>
       {children}
-      {touched && !_.isUndefined(error) && (
-        <ValidationError
-          // We need it to override default styles from react-bootstrap.
-          // eslint-disable-next-line react/forbid-component-props
-          id={"validationError"}
-        >
-          {error as string}
-        </ValidationError>
-      )}
+      <ValidationError>
+        <ErrorMessage name={name} />
+      </ValidationError>
     </React.Fragment>
   );
 };

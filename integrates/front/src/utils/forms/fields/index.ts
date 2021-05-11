@@ -1,8 +1,7 @@
 export { ArrayField } from "utils/forms/fields/ArrayField";
 export { FormikArrayField } from "utils/forms/fields/ArrayField/FormikArrayField";
 export { AutoCompleteText } from "utils/forms/fields/AutoCompleteText";
-export { Checkbox } from "utils/forms/fields/Checkbox";
-export { FormikCheckbox } from "utils/forms/fields/Checkbox/FormikCheckbox";
+export { FormikCheckbox } from "utils/forms/fields/Checkbox";
 export { Date } from "utils/forms/fields/Date";
 export { FormikDate } from "utils/forms/fields/Date/FormikDate";
 export { DateTime } from "utils/forms/fields/DateTime";

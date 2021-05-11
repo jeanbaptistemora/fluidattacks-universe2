@@ -331,6 +331,7 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
           ...values,
           accessibility: selectedAccessibility,
           affectedComponents: selectedComponents,
+          blockingHours: String(values.blockingHours),
           file: _.isEmpty(values.file)
             ? undefined
             : (values.file as FileList)[0],
