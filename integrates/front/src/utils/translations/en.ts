@@ -249,6 +249,18 @@ export const enTranslations: ResourceKey = {
     reply: "Reply",
     send: "Comment",
   },
+  configuration: {
+    close: "Close",
+    confirm: "Save",
+    digest: {
+      label: "Daily digest:",
+      subscribed: "Yes",
+      tooltip: "Daily stats from the groups you are subscribed to",
+      unsubscribed: "No",
+    },
+    errorText: "An error occurred with your configuration",
+    title: "Configuration",
+  },
   confirmmodal: {
     cancel: "Cancel",
     message: "Are you sure?",
@@ -2137,6 +2149,10 @@ export const enTranslations: ResourceKey = {
   },
   sidebar: {
     commit: "Commit:",
+    configuration: {
+      text: "Config",
+      tooltip: "Some additional configurations here",
+    },
     deploymentDate: "Deploy date:",
     newOrganization: {
       modal: {
