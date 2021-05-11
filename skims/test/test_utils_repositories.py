@@ -73,7 +73,7 @@ def test_rebase() -> None:
 
     # https://gitlab.com/fluidattacks/product/-/commit/2aa90d5
     rev = "2aa90d52561c24ea3cee4e5e1abb8686f7655068"
-    rebase_ = partial(rebase, repo, rev_a=f"{rev}^1", rev_b=rev)
+    rebase_ = partial(rebase, repo, rev_a=f"{rev}~1", rev_b=rev)
 
     # This is the original file
     path = "makes/applications/skims/process-group/src/get_config.py"
@@ -92,11 +92,21 @@ def test_rebase() -> None:
     for line in range(65, 69):
         assert rebase_(path=path, line=line) is None
 
+    assert rebase(
+        repo, path=path, line=65, rev_a=f"{rev}~10", rev_b="HEAD"
+    ) == RebaseResult(
+        # Up to the parent of 2aa90d52561c24ea3cee4e5e1abb8686f7655068
+        # Which is the commit before the line was modified
+        path=path,
+        line=65,
+        rev="8deeafc8296e743ea31aef3fbc94aafdcfea509c",
+    )
+
     # The file was deleted, we cannot rebase
     # https://gitlab.com/fluidattacks/product/-/commit/ca8916e
     rev = "ca8916ee4c68596ba7c6edaf70d08b585b775f77"
     path = "airs/content/pages/products/rules/findings/hygiene/037/index.adoc"
-    assert None is rebase(repo, path=path, line=1, rev_a=f"{rev}^1", rev_b=rev)
+    assert None is rebase(repo, path=path, line=1, rev_a=f"{rev}~1", rev_b=rev)
 
     # The file was renamed, path is changed, line not
     # https://gitlab.com/fluidattacks/product/-/commit/72a8ce1
@@ -104,5 +114,5 @@ def test_rebase() -> None:
     path_a = "skims/skims/core/entrypoint.py"
     path_b = "skims/skims/core/scan.py"
     assert RebaseResult(path=path_b, line=10, rev=rev) == rebase(
-        repo, path=path_a, line=10, rev_a=f"{rev}^1", rev_b=rev
+        repo, path=path_a, line=10, rev_a=f"{rev}~1", rev_b=rev
     )

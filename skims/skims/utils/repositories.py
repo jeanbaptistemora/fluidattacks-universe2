@@ -1,6 +1,7 @@
 # Standard libraries
 import contextlib
 from typing import (
+    List,
     NamedTuple,
     Optional,
 )
@@ -11,6 +12,9 @@ from git import (
     GitCommandError,
     InvalidGitRepositoryError,
     NoSuchPathError,
+)
+from more_itertools import (
+    pairwise,
 )
 from unidiff import (
     Hunk,
@@ -71,16 +75,56 @@ def rebase(
     rev_a: str,
     rev_b: str,
 ) -> Optional[RebaseResult]:
+    rev: str = rev_a
+
+    with contextlib.suppress(GitCommandError):
+        revs_str: str = repo.git.log(
+            "--format=%H",
+            "--reverse",
+            f"{rev_a}...{rev_b}",
+        )
+        revs: List[str] = [rev_a] + revs_str.splitlines()
+
+        # Let's rebase one commit at a time,
+        # this way we reduce the probability of conflicts
+        # and ensure line numbers are updated up to the latest possible commit
+        for rev_1, rev_2 in pairwise(revs):
+            if rebase_result := _rebase_one_commit_at_a_time(
+                repo, path=path, line=line, rev_a=rev_1, rev_b=rev_2
+            ):
+                path = rebase_result.path
+                line = rebase_result.line
+                rev = rebase_result.rev
+            else:
+                # We cannot continue rebasing
+                break
+
+        if rev == rev_a:
+            # We did not rebase anything
+            return None
+
+        return RebaseResult(path=path, line=line, rev=rev)
+
+    return None
+
+
+def _rebase_one_commit_at_a_time(
+    repo: Repo,
+    *,
+    path: str,
+    line: int,
+    rev_a: str,
+    rev_b: str,
+) -> Optional[RebaseResult]:
     hunk: Hunk
     patch: PatchedFile
 
     if diff := get_diff(repo, rev_a=rev_a, rev_b=rev_b):
         for patch in diff:
-            if patch.is_removed_file:
-                # We cannot rebase something that was deleted
-                return None
-
             if patch.source_file == f"a/{path}":
+                if patch.is_removed_file:
+                    # We cannot rebase something that was deleted
+                    return None
                 # The original file matches the path to rebase
                 # If the file was moved or something, this updates the path
                 path = patch.target_file[2:]
