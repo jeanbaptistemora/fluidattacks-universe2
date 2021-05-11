@@ -144,15 +144,14 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
   function handleProjectNameError({ graphQLErrors }: ApolloError): void {
     onClose();
     graphQLErrors.forEach((error: GraphQLError): void => {
-      switch (error.message) {
-        case "Exception - There are no group names available at the moment":
-          msgError(
-            translate.t("organization.tabs.groups.newGroup.noGroupName")
-          );
-          break;
-        default:
-          msgError(translate.t("groupAlerts.errorTextsad"));
-          Logger.warning("An error occurred adding access token", error);
+      if (
+        error.message ===
+        "Exception - There are no group names available at the moment"
+      ) {
+        msgError(translate.t("organization.tabs.groups.newGroup.noGroupName"));
+      } else {
+        msgError(translate.t("groupAlerts.errorTextsad"));
+        Logger.warning("An error occurred adding access token", error);
       }
     });
   }
