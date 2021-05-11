@@ -32,12 +32,23 @@ from tap_bugsnag.api.common.raw.client import (
 LOG = logging.getLogger(__name__)
 
 
+class ResponseError(HTTPError):
+    def __init__(self, error: HTTPError) -> None:
+        super().__init__(
+            response=error.response,
+            request=error.request,
+        )
+
+    def __str__(self) -> str:
+        return f"{self.response.json()}"
+
+
 def _extract_http_error(response: Response) -> Maybe[HTTPError]:
     try:
         response.raise_for_status()
         return Maybe.empty
     except HTTPError as error:
-        return Maybe.from_value(error)
+        return Maybe.from_value(ResponseError(error))
 
 
 def _get(
@@ -81,6 +92,13 @@ class RawApi(NamedTuple):
     def list_orgs(self, page: PageId) -> IO[Response]:
         response = _handled_get(self.client, "/user/organizations", page)
         _debug_log("organizations", page, response)
+        return response
+
+    def list_collaborators(self, page: PageId, org_id: str) -> IO[Response]:
+        response = _handled_get(
+            self.client, f"/organizations/{org_id}/collaborators", page
+        )
+        _debug_log("collaborators", page, response)
         return response
 
     def list_projects(self, page: PageId, org_id: str) -> IO[Response]:

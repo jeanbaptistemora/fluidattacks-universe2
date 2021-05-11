@@ -49,6 +49,15 @@ def all_orgs(api: ApiClient) -> None:
     _stream_data(SupportedStreams.ORGS, api.user.list_orgs(ALL))
 
 
+def all_collaborators(api: ApiClient) -> None:
+    orgs_io = api.user.list_orgs_id(ALL)
+    client = api.user.client
+    _stream_data(
+        SupportedStreams.COLLABORATORS,
+        orgs_io.bind(partial(OrgsApi.list_orgs_collaborators, client)),
+    )
+
+
 def all_projects(api: ApiClient) -> None:
     orgs_io = api.user.list_orgs_id(ALL)
     client = api.user.client
