@@ -7,7 +7,8 @@ slug: /development/stack/git/commits
 
 ## Syntax
 
-Valid commit messages have the structure:
+Valid commit messages
+have the structure:
 
 ```
 [product]\[type]([scope]): #[issue-number]{.issue-part} [title] // This is the commit title
@@ -15,15 +16,28 @@ Valid commit messages have the structure:
 [body]         // This is the commit body. It CAN have multiple lines
 ```
 
-- **[variable]** are **required** variables that must be replaced in a final commit message (**[]** symbols must be removed)
-- **{variable}** are **optional** variables that must be replaced or removed in a final commit message (**{}** symbols must be removed)
-- **// Comment** are comments that must be removed in a final commit message
+- **[variable]** are **required** variables
+  that must be replaced
+  in a final commit message
+  (**[]** symbols must be removed)
+- **{variable}** are **optional** variables
+  that must be replaced
+  or removed
+  in a final commit message
+  (**{}** symbols must be removed)
+- **// Comment** are comments
+  that must be removed
+  in a final commit message
 
 ## Rules
 
-The following rules must be met for a commit message to be valid, the **product** rule only required for the integrates repository:
+The following rules must be met
+for a commit message to be valid,
+the **product** rule only required
+for the integrates repository:
 
-1. **[type]** variable has to be one of the following:
+1. **[type]** variable has to be
+   one of the following:
     ```
     rever  // Revert to a previous commit in history
     feat   // New feature
@@ -34,7 +48,8 @@ The following rules must be met for a commit message to be valid, the **product*
     style  // Do not affect the meaning of the code (formatting, etc)
     sol    // Hacking solution only for writepus and training repo
     ```
-2. **[scope]** variable has to be one of the following:
+2. **[scope]** variable has to be
+   one of the following:
     ```
     front  // Front-End change
     back   // Back-End change
@@ -48,7 +63,8 @@ The following rules must be met for a commit message to be valid, the **product*
     code   // Programming challenge solution only for training repo
     hack   // ctf-hacking challenge solution only for training repo
     ```
-3. **[product]** variable has to be one of the following:
+3. **[product]** variable has to be
+   one of the following:
 	
     ```
     forces // Changes in forces
@@ -56,27 +72,49 @@ The following rules must be met for a commit message to be valid, the **product*
     all // Changes that affect both integrates and forces
     ```
 
-3. A **Commit title** must exist.
+3. A **Commit title**
+   must exist.
 
-4. A **Commit title** must **not** contain the '**:**' character.
+4. A **Commit title**
+   must **not** contain
+   the '**:**' character.
 
-5. **Commit title** must have 60 characters or less.
+5. **Commit title**
+   must have 60 characters
+   or less.
 
-6. **Commit title** must be lower case.
+6. **Commit title**
+   must be lower case.
 
-7. **Commit title** must not finish with a dot '**.**'.
+7. **Commit title**
+   must not finish
+   with a dot '**.**'.
 
-8. **Commit title** must reference an issue.
+8. **Commit title**
+   must reference
+   an issue.
 
-9. **Commit title** must be meaningful. Avoid using things like ``feat(build)[integrates]: #5.1 feature``.
+9. **Commit title**
+   must be meaningful.
+   Avoid using things like
+   ``feat(build)[integrates]: #5.1 feature``.
 
-10. If **commit title** has **sol** type, it must reference issue **#0**.
+10. If **commit title**
+    has **sol** type,
+    it must reference
+    issue **#0**.
 
-11. A **blank line** between commit title and commit body must exist.
+11. A **blank line**
+    between commit title
+    and commit body
+    must exist.
 
-12. A **commit body** must exist.
+12. A **commit body**
+    must exist.
 
-13. Lines in **commit body** must have 72 characters or less.
+13. Lines in **commit body**
+    must have 72 characters
+    or less.
 
 ### Possible combinations
 
@@ -113,11 +151,21 @@ Where:
     - Remove file A with B purpose
     ```
 
-- Do **not** use the word '**part**' for splitting commits or MRs for a single issue. Use **#[issue-number]{.issue-part}** instead as shown in [Example](#Example)
+- Do **not** use the word '**part**'
+  for splitting commits
+  or MRs for a single issue.
+  Use **#[issue-number]{.issue-part}**
+  instead as shown in [Example](#Example)
 
 ## Example
 
-Here is an example of a compliant commit message (Notice how the issue has a '**.1**' right after, meaning that such commit is the part 1 for solving the issue):
+Here is an example
+of a compliant commit message
+(Notice how the issue has
+a '**.1**' right after,
+meaning that such commit
+is the part 1 for solving
+the issue):
 
 ```
 integrates\feat(build): #13.1 add type_check

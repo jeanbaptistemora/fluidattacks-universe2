@@ -5,32 +5,55 @@ sidebar_label: Writing fast and concurrent code, even at architectural windward
 slug: /development/writing-code-suggestions
 ---
 
-As you may have noticed, Integrates has async definitions in the top-level resolvers
-of the GraphQL API. What this means is that you can use async/await keywords in all
-downstream components.
+As you may have noticed,
+Integrates has async definitions
+in the top-level resolvers
+of the GraphQL API.
+What this means is that you can use
+async/await keywords
+in all downstream components.
 
-This is, however, catchy because:
-- Writing async/await statements do not make your code faster
-- Writing async/await statements do not make your code concurrent
+This is,
+however,
+catchy because:
+- Writing async/await statements
+do not make your code faster
+- Writing async/await statements
+do not make your code concurrent
 
-This has to be done intelligently taking into account the concepts and using high-level
-language features that I'll explain below.
+This has to be done intelligently
+taking into account the concepts
+and using high-level language features
+that I'll explain below.
 
 ## **The current architecture**
 
-There are N **main** event loops, each one is a separate thread that listens to incoming requests
-and dispatch responses into M **secondary** event loops (let's call them **executor pools**
+There are N **main** event loops,
+each one is a separate thread
+that listens to incoming requests
+and dispatch responses
+into M **secondary** event loops
+(let's call them **executor pools**
 because that's what they are).
 
-At the end of the day just develop as if there was only 1 main event loop that can
-(optionally) dispatch tasks into the executor pools (secondary event loops), N is a multiplier
-that allows us to scale horizontally by adding nodes to the cluster, and processes into the
-ASGI depending on the resources of every instance
+At the end of the day
+just develop as if there was
+only 1 main event loop
+that can (optionally) dispatch tasks
+into the executor pools
+(secondary event loops),
+N is a multiplier
+that allows us to scale horizontally
+by adding nodes to the cluster,
+and processes into the ASGI
+depending on the resources of every instance
 
 ## **Blocking tasks**
 
-Everything you are used to, code runs sequentially, and do not let the main event loop do other
-things in the mean time:
+Everything you are used to,
+code runs sequentially,
+and do not let the main event loop
+do other things in the mean time:
 
 ```py
 import time
@@ -52,7 +75,9 @@ main()
 #      1     0.00s 100.0%     3.00s    ✓ main()
 #
 ```
-It runs a, b, c, the event loop is busy in every sleep, total execution time: 3 seconds.
+It runs a, b, c,
+the event loop is busy in every sleep,
+total execution time: 3 seconds.
 
 Another example:
 ```py
@@ -75,31 +100,54 @@ asyncio.run(main())
 #      1     0.00s 100.0%     3.00s    ✓ async main()
 #
 ```
-It runs a, b, c, the event loop is busy in every sleep, total execution time: 3 seconds.
+It runs a, b, c,
+the event loop is busy in every sleep,
+total execution time: 3 seconds.
 
-**Yes, async/await stuff do not make your code faster out-of-the-box, nor asynchronous, nor concurrent.**
+**Yes,**
+**async/await stuff does not make your code**
+**faster, out-of-the-box,**
+**asynchronous, nor concurrent.**
 
-Being busy (blocked) means the event loop cannot run anything else in the meantime (blocked),
-which is a synonym for your main event loop (which runs everybody's requests at Integrates)
-not being able to handle incoming requests from other people (it's blocked!) which means
-performance bottlenecks.
+Being busy (blocked) means
+the event loop cannot run anything else
+in the meantime (blocked),
+which is a synonym for your main event loop
+(which runs everybody's requests at Integrates)
+not being able to handle incoming requests
+from other people (it's blocked!)
+which means performance bottlenecks.
 
 ## **Blocking code examples**
 
-Boto3 is blocking, which means all our current access to the database is blocking
-(it's not asynchronous)
+Boto3 is blocking,
+which means all our current access to the database
+is blocking (it's not asynchronous)
 
-Almost all libraries that we currently use as well as all `def example()` functions are blocking,
-only asyncio, and httpx libraries are asynchronous, there is probably an asynchronous version
-of the thing you need so far but we've not migrated our code.
+Almost all libraries that we currently use,
+as well as all `def example()` functions,
+are blocking,
+only asyncio and httpx libraries are asynchronous,
+there is probably an asynchronous version
+of the thing you need so far
+but we've not migrated our code.
 (We are not using aioboto3 right now for example).
 
-Unless explicitly stated in the library documentation, python code is synchronous (blocking)
+Unless explicitly stated
+in the library documentation,
+python code is synchronous (blocking)
 
-The way to avoid blocking the main event loop is to dispatch it into the executor pools with
-`sync_to_async`. These executor pools may get blocked too and work in FIFO mode when they are
-blocked, but at least allow the main event loop to listen for other requests meanwhile.
-So they are not the solution, but they are better than nothing.
+The way to avoid blocking
+the main event loop
+is to dispatch it into the executor pools
+with `sync_to_async`.
+These executor pools may get blocked too
+and work in FIFO mode
+when they are blocked,
+but at least allow the main event loop
+to listen for other requests meanwhile.
+So they are not the solution,
+but they are better than nothing.
 
 Example:
 
@@ -115,16 +163,25 @@ async def _do_remove_evidence(...):
 
 ## **Coroutines**
 
-When you call an `async def function` it returns a coroutine.
-This is an object that can be awaited (`result = await function(...)`),
-awaited coroutines are non-blocking (yay!) **BUT THEY ARE SERIAL** (non-concurrent)
-(insert here translations.text_sad) which means they are the same thing we are used to
+When you call an `async def function`
+it returns a coroutine.
+This is an object that can be awaited
+(`result = await function(...)`),
+awaited coroutines are non-blocking (yay!)
+**BUT THEY ARE SERIAL** (non-concurrent)
+(insert here translations.text_sad)
+which means they are
+the same thing we are used to
 (slow serial classic code)
 
 ## **Tasks**
 
-This is where your code starts getting faster, a task is kind of a future, it's being
-materialized in the background and it's finally materialized when you **await** it:
+This is where your code
+starts getting faster,
+a task is kind of a future,
+it's being materialized in the background
+and it's finally materialized
+when you **await** it:
 
 ```py
 import asyncio
@@ -170,12 +227,17 @@ asyncio.run(main())
 #
 ```
 
-Yes, this means `asyncio.create_task` allows us to write **really asynchronous code**.
-Code that can be run in the background, as long as it's non-blocking.
+Yes,
+this means `asyncio.create_task` allows us
+to write **really asynchronous code**.
+Code that can be run in the background,
+as long as it's non-blocking.
 
 ## **Unleashing concurrency**
 
-Mix `asyncio.create_task` with `asyncio.gather` and your code will be concurrent:
+Mix `asyncio.create_task`
+with `asyncio.gather`
+and your code will be concurrent:
 
 Dummy example:
 
@@ -228,11 +290,22 @@ Real life example:
      return await util.get_filtered_elements(projects, filters)
 ```
 
-Assuming every downstream call is non-blocking, (or it has been wrapped with synced_to_async),
-then every project is going to be loaded at the same time (**concurrency!!**), which means a
-performance improvement of `initial_time/N`, where `N` is the number of groups to load, and
-`initial_time` the time it used to take before unleashing concurrency.
+Assuming every downstream call
+is non-blocking,
+(or it has been wrapped
+with synced_to_async),
+then every project is going to be
+loaded at the same time
+(**concurrency!!**),
+which means a performance improvement
+of `initial_time/N`,
+where `N` is the number
+of groups to load,
+and `initial_time` the time it used
+to take before unleashing concurrency.
 
-Please read https://docs.python.org/3/library/asyncio-task.html for the greater good
+Please read
+https://docs.python.org/3/library/asyncio-task.html
+for the greater good
 
 Good bye!
