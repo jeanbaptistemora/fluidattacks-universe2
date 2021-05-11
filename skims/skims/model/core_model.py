@@ -698,6 +698,7 @@ class GrammarMatch(NamedTuple):
 
 class IntegratesVulnerabilityMetadata(NamedTuple):
     approval_status: Optional[VulnerabilityApprovalStatusEnum] = None
+    commit_hash: Optional[str] = None
     source: Optional[VulnerabilitySourceEnum] = None
     uuid: Optional[str] = None
 
