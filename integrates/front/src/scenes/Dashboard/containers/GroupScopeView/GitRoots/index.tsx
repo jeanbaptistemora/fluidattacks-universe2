@@ -70,7 +70,9 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { t } = useTranslation();
 
-  const nicknames: string[] = roots.map((root): string => root.nickname);
+  const nicknames: string[] = roots
+    .filter((root): boolean => root.state === "ACTIVE")
+    .map((root): string => root.nickname);
 
   // State management
   const [isManagingRoot, setManagingRoot] = useState<
@@ -158,13 +160,13 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   };
 
   const selectOptionsStatus = {
-    Failed: "FAILED",
-    Ok: "OK",
-    Unknown: "UNKNOWN",
+    FAILED: "Failed",
+    OK: "Ok",
+    UNKNOWN: "Unknown",
   };
   const selectOptionsState = {
-    Active: "ACTIVE",
-    Inactive: "INACTIVE",
+    ACTIVE: "Active",
+    INACTIVE: "Inactive",
   };
 
   // GraphQL operations

@@ -980,3 +980,7 @@ label {
 :global .b--mid-light-gray {
   border-color: #ddd;
 }
+
+:global .filter.select-filter {
+  color: #272727;
+}
