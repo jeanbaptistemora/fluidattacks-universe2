@@ -68,7 +68,7 @@ we'll need to:
 1.  Execute:
 
     ```bash
-    skims config.yaml
+    skims scan config.yaml
     ```
 
     This will take some time,

@@ -33,19 +33,8 @@ from utils.bugs import (
 )
 
 
-@click.command(
+@click.group(
     help="Deterministic vulnerability life-cycle reporting and closing tool.",
-)
-@click.argument(
-    "config",
-    type=click.Path(
-        allow_dash=False,
-        dir_okay=False,
-        exists=True,
-        file_okay=True,
-        readable=True,
-        resolve_path=True,
-    ),
 )
 @click.option(
     "--debug",
@@ -64,22 +53,46 @@ from utils.bugs import (
     help="Integrates API token.",
     show_envvar=True,
 )
-def dispatch(
-    config: str,
+@click.pass_context
+def cli(
+    ctx: click.Context,
     debug: bool,
     group: Optional[str],
     token: Optional[str],
 ) -> None:
-    """Read the execution flags from the CLI and dispatch them to Skims."""
-    CTX.config = None
     CTX.debug = debug
+    ctx.ensure_object(dict)
+    ctx.obj["group"] = group
+    ctx.obj["token"] = token
+
+
+@cli.command(
+    help="Load a config file and perform vulnerability detection.",
+)
+@click.argument(
+    "config",
+    type=click.Path(
+        allow_dash=False,
+        dir_okay=False,
+        exists=True,
+        file_okay=True,
+        readable=True,
+        resolve_path=True,
+    ),
+)
+@click.pass_context
+def scan(
+    ctx: click.Context,
+    config: str,
+) -> None:
+    CTX.config = None
 
     start_time: float = time()
     success: bool = run(
-        main_wrapped(
+        scan_wrapped(
             config=config,
-            group=group,
-            token=token,
+            group=ctx.obj["group"],
+            token=ctx.obj["token"],
         ),
         debug=False,
     )
@@ -97,7 +110,7 @@ def dispatch(
 
 
 @shield(on_error_return=False)
-async def main_wrapped(
+async def scan_wrapped(
     config: str,
     group: Optional[str],
     token: Optional[str],
@@ -132,6 +145,6 @@ async def main_wrapped(
 
 
 if __name__ == "__main__":
-    dispatch(  # pylint: disable=no-value-for-parameter,unexpected-keyword-arg
+    cli(  # pylint: disable=no-value-for-parameter,unexpected-keyword-arg
         prog_name="skims",
     )

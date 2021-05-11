@@ -23,7 +23,7 @@ import pytest
 
 # Local libraries
 from cli import (
-    dispatch,
+    cli,
 )
 from integrates.dal import (
     do_add_git_root,
@@ -56,7 +56,7 @@ def skims(*args: str) -> Tuple[int, str, str]:
     with redirect_stdout(out_buffer), redirect_stderr(err_buffer):
         try:
             configure()
-            dispatch.main(args=list(args), prog_name="skims")
+            cli.main(args=list(args), prog_name="skims")
         except SystemExit as exc:
             code: int = exc.code
 
@@ -164,7 +164,7 @@ def test_help() -> None:
 
 @pytest.mark.skims_test_group("unittesting")
 def test_non_existent_config() -> None:
-    code, stdout, stderr = skims("#")
+    code, stdout, stderr = skims("scan", "#")
     assert code == 2
     assert not stdout, stdout
     assert "File '#' does not exist." in stderr, stderr
@@ -173,7 +173,7 @@ def test_non_existent_config() -> None:
 @pytest.mark.skims_test_group("unittesting")
 def test_config_with_extra_parameters() -> None:
     suite: str = "bad_extra_things"
-    code, stdout, stderr = skims(get_suite_config(suite))
+    code, stdout, stderr = skims("scan", get_suite_config(suite))
     assert code == 1
     assert "Some keys were not recognized: unrecognized_key" in stdout, stdout
     assert not stderr, stderr
@@ -187,6 +187,7 @@ def test_bad_integrates_api_token(test_group: str) -> None:
         "123",
         "--group",
         test_group,
+        "scan",
         get_suite_config(suite),
     )
     assert code == 1
@@ -298,7 +299,7 @@ def test_nist_c_sharp() -> None:
 
 
 def _run_no_group(suite: str) -> None:
-    code, stdout, stderr = skims(get_suite_config(suite))
+    code, stdout, stderr = skims("scan", get_suite_config(suite))
     assert code == 0, stdout
     assert "[INFO] Startup working dir is:" in stdout
     assert "[INFO] An output file has been written:" in stdout
@@ -308,7 +309,7 @@ def _run_no_group(suite: str) -> None:
 
     # Execute it again to verify that cache retrievals work as expected
     # and are reproducible
-    code, stdout, stderr = skims(get_suite_config(suite))
+    code, stdout, stderr = skims("scan", get_suite_config(suite))
     check_that_csv_results_match(suite)
 
 
@@ -369,6 +370,7 @@ def test_should_report_nothing_to_integrates_run(test_group: str) -> None:
         "--debug",
         "--group",
         test_group,
+        "scan",
         get_suite_config(suite),
     )
     assert code == 0
@@ -395,6 +397,7 @@ def test_should_report_vulns_to_namespace_run(test_group: str) -> None:
     code, stdout, stderr = skims(
         "--group",
         test_group,
+        "scan",
         get_suite_config(suite),
     )
     assert code == 0
@@ -433,6 +436,7 @@ def test_should_report_vulns_to_namespace2_run(test_group: str) -> None:
     code, stdout, stderr = skims(
         "--group",
         test_group,
+        "scan",
         get_suite_config(suite),
     )
     assert code == 0
@@ -473,6 +477,7 @@ def test_should_close_vulns_to_namespace_run(test_group: str) -> None:
     code, stdout, stderr = skims(
         "--group",
         test_group,
+        "scan",
         get_suite_config(suite),
     )
     assert code == 0
@@ -510,6 +515,7 @@ def test_should_close_vulns_on_namespace2_run(test_group: str) -> None:
     code, stdout, stderr = skims(
         "--group",
         test_group,
+        "scan",
         get_suite_config(suite),
     )
     assert code == 0

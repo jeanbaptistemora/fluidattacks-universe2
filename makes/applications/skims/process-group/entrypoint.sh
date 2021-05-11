@@ -71,7 +71,7 @@ function main {
                 --out "${config_file}" \
           &&  echo '[INFO] Fetching cache' \
           &&  aws_s3_sync "${cache_remote}/${namespace}" "${cache_local}" \
-          &&  if skims --group "${group}" "${config_file}"
+          &&  if skims --group "${group}" scan "${config_file}"
               then
                 echo "[INFO] Succesfully processed: ${group} ${namespace}"
               else

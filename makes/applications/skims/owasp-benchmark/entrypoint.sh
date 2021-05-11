@@ -12,11 +12,11 @@ function score {
   &&  rm -rf 'skims/test/outputs/'* \
   &&  if test -n "${category}"
       then
-        skims "${extra_flags[@]}" "skims/test/data/config/benchmark_owasp_${category}.yaml"
+        skims scan "${extra_flags[@]}" "skims/test/data/config/benchmark_owasp_${category}.yaml"
       else
         for config in "skims/test/data/config/benchmark_owasp_"*".yaml"
         do
-              skims "${config}" \
+              skims scan "${config}" \
           ||  return 1
         done
       fi \
