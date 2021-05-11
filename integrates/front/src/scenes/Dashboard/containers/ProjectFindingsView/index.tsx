@@ -16,7 +16,7 @@ import { Trans } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { renderDescription } from "./description";
-import { renderExpandIcon } from "./expandIcon";
+import { renderExpandIcon, renderHeaderExpandIcon } from "./expandIcon";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
@@ -287,7 +287,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
           expandRow={{
             expandByColumnOnly: true,
             expandColumnRenderer: renderExpandIcon,
-            onlyOneExpanding: true,
+            expandHeaderColumnRenderer: renderHeaderExpandIcon,
             renderer: renderDescription,
             showExpandColumn: true,
           }}
