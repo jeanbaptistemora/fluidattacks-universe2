@@ -1,13 +1,18 @@
 # Third party libraries
+from functools import (
+    partial,
+)
 import textwrap
 import pytest
 
 # Local libraries
 from utils.repositories import (
     DEFAULT_COMMIT,
+    RebaseResult,
     get_diff,
     get_repo,
     get_repo_head_hash,
+    rebase,
 )
 
 
@@ -60,3 +65,29 @@ def test_get_diff() -> None:
             """,
         )[1:-1]
     )
+
+
+@pytest.mark.skims_test_group("unittesting")
+def test_rebase() -> None:
+    repo = get_repo(".")
+
+    # https://gitlab.com/fluidattacks/product/-/commit/2aa90d5
+    rebase_ = partial(
+        rebase,
+        repo,
+        rev_a="8deeafc8296e743ea31aef3fbc94aafdcfea509c",
+        rev_b="2aa90d52561c24ea3cee4e5e1abb8686f7655068",
+    )
+
+    # This is the original file
+    path = "makes/applications/skims/process-group/src/get_config.py"
+
+    # Line 69 becomes 66
+    assert rebase_(path=path, line=69) == RebaseResult(path=path, line=66)
+
+    # Line 64 becomes 64
+    assert rebase_(path=path, line=64) == RebaseResult(path=path, line=64)
+
+    # Line [65, 68] were modified, so no rebase is possible
+    for line in range(65, 69):
+        assert rebase_(path=path, line=line) is None
