@@ -1,8 +1,13 @@
 # Standard library
+from datetime import (
+    datetime,
+    timedelta,
+)
 from functools import (
     partial,
 )
 import os
+import time
 from typing import (
     Callable,
     List,
@@ -22,6 +27,9 @@ from flask.wrappers import (
 
 APP = Flask(__name__)
 ROOT = os.path.dirname(__file__)
+
+# Constants
+HEADER_DATE_FMT: str = "%a, %d %b %Y %H:%M:%S GMT"
 
 
 def add_rule(
@@ -196,14 +204,25 @@ def add_f043_dast_xfo() -> None:
     )
 
 
+def _add_f064_server_clock_1() -> Response:
+    gmt = time.gmtime()
+    gmt_str = time.strftime(HEADER_DATE_FMT, gmt)
+    date = datetime.strptime(gmt_str, HEADER_DATE_FMT) - timedelta(hours=1)
+    return Response(headers={"Date": date.strftime(HEADER_DATE_FMT)})
+
+
 def add_f064_server_clock() -> None:
     _add_headers(
         "f064_server_clock",
         "Date",
         [
             "",
-            "Wed, 21 Oct 2015 07:28:00 GMT",
         ],
+    )
+    add_rule(
+        finding="f064_server_clock",
+        index=1,
+        handler=_add_f064_server_clock_1,
     )
 
 

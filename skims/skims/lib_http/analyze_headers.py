@@ -222,11 +222,19 @@ def _date(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     header: Optional[Header] = None
 
     if header := ctx.headers_parsed.get(DateHeader):
-        if (
-            ctx.url_ctx.timestamp_ntp
-            and abs(ctx.url_ctx.timestamp_ntp - header.date.timestamp()) > 60.0
-        ):
-            locations.append("date.un_synced")
+        if ctx.url_ctx.timestamp_ntp:
+            minutes: float = (
+                abs(ctx.url_ctx.timestamp_ntp - header.date.timestamp()) / 60.0
+            )
+
+            if minutes > 1:
+                locations.append(
+                    desc="date.un_synced",
+                    desc_kwargs=dict(
+                        minutes=str(int(minutes)),
+                        minutes_plural="" if minutes == 1 else "s",
+                    ),
+                )
 
     return _create_vulns(
         locations=locations,
