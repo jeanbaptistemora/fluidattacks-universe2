@@ -12,6 +12,7 @@ function main {
     autoscaling_token_2
     autoscaling_token_3
     autoscaling_token_4
+    autoscaling_token_5
     autoscaling_access_key
     autoscaling_secret_key
     autoscaling_bastion_key_b64
