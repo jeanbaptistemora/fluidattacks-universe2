@@ -1,4 +1,7 @@
 # Standard library
+from datetime import (
+    datetime,
+)
 from queue import (
     SimpleQueue,
 )
@@ -56,7 +59,7 @@ from utils.logs import (
     log_blocking,
 )
 from utils.ntp import (
-    get_ntp_now,
+    get_offset,
 )
 
 CHECKS: Tuple[
@@ -103,7 +106,11 @@ def should_include_url(url: URLContext) -> bool:
 
 
 @rate_limited(rpm=LIB_HTTP_DEFAULT)
-async def get_url(url: str) -> Optional[URLContext]:
+async def get_url(
+    url: str,
+    *,
+    ntp_offset: Optional[float],
+) -> Optional[URLContext]:
     async with create_session() as session:
         if response := await request(session, "GET", url):
             content_raw = await response.content.read(1048576)
@@ -124,7 +131,11 @@ async def get_url(url: str) -> Optional[URLContext]:
                 headers_raw=response.headers,
                 is_html=is_html(content, soup),
                 soup=soup,
-                timestamp_ntp=get_ntp_now(),
+                timestamp_ntp=(
+                    datetime.now().timestamp() + ntp_offset
+                    if ntp_offset
+                    else None
+                ),
                 url=url,
             )
 
@@ -136,12 +147,17 @@ async def get_urls() -> Set[URLContext]:
     urls_done: Set[str] = set()
     urls_pending: SimpleQueue = SimpleQueue()
 
+    ntp_offset: Optional[float] = get_offset()
+
     for url in set(CTX.config.http.include):
         urls_pending.put(url)
 
     while not urls_pending.empty():
         url = urls_pending.get()
-        url_ctx: Optional[URLContext] = await get_url(url)
+        url_ctx: Optional[URLContext] = await get_url(
+            url,
+            ntp_offset=ntp_offset,
+        )
         if url_ctx is None:
             continue
 

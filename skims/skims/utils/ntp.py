@@ -2,9 +2,6 @@
 from contextlib import (
     suppress,
 )
-from datetime import (
-    datetime,
-)
 from typing import (
     Optional,
 )
@@ -14,13 +11,10 @@ from ntplib import (
 )
 
 
-def get_ntp_now() -> Optional[float]:
+def get_offset() -> Optional[float]:
     with suppress(NTPException):
         response = NTPClient().request("pool.ntp.org", port=123, version=3)
 
-        # System time
-        timestamp = datetime.fromtimestamp(response.tx_time).timestamp()
-
-        return timestamp
+        return response.offset
 
     return None
