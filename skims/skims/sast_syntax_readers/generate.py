@@ -24,12 +24,10 @@ from sast_syntax_readers.java import (
     array_access as java_array_access,
     array_creation_expression as java_array_creation_expression,
     array_initializer as java_array_initializer,
-    binary_expression as java_binary_expression,
     cast_expression as java_cast_expression,
     catch_clause as java_catch_clause,
     enhanced_for_statement as java_enhanced_for_statement,
     for_statement as java_for_statement,
-    identifier as java_identifier,
     if_statement as java_if_statement,
     instanceof_expression as java_instanceof_expression,
     lambda_expression,
@@ -52,8 +50,10 @@ from sast_syntax_readers.c_sharp import (
     local_declaration_statement as c_sharp_local_declaration_statement,
 )
 from sast_syntax_readers.common import (
+    binary_expression as common_binary_expression,
     literal as common_literal,
     assignment_expression as common_assignment_expression,
+    identifier as common_identifier,
 )
 from utils import graph as g
 from utils.logs import log_blocking
@@ -108,11 +108,12 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
+            graph_model.GraphShardMetadataLanguage.CSHARP,
         },
         applicable_node_label_types={
             "binary_expression",
         },
-        syntax_readers=(java_binary_expression.reader,),
+        syntax_readers=(common_binary_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={
@@ -151,12 +152,13 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
+            graph_model.GraphShardMetadataLanguage.CSHARP,
         },
         applicable_node_label_types={
             "field_access",
             "identifier",
         },
-        syntax_readers=(java_identifier.reader,),
+        syntax_readers=(common_identifier.reader,),
     ),
     Dispatcher(
         applicable_languages={
