@@ -255,6 +255,9 @@ def _location(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
 def _referrer_policy(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
+    if not ctx.url_ctx.is_html:
+        return ()
+
     locations = Locations(locations=[])
     header: Optional[Header] = None
 
