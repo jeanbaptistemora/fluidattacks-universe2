@@ -292,7 +292,9 @@ describe("Validations", (): void => {
     expect(evidenceValidType).toStrictEqual(true);
   });
 
-  it("shouldn't be a valid .png evidence", (): void => {
+  // Exception: WF(This function must contain explicit assert)
+  // eslint-disable-next-line
+  it("shouldn't be a valid .png evidence", (): void => { // NOSONAR
     expect.hasAssertions();
 
     const day: number = 8;
