@@ -3,6 +3,7 @@
 from __future__ import annotations
 import subprocess
 from datetime import datetime
+from typing import List
 
 # Third party libraries
 import pytz
@@ -29,9 +30,9 @@ class CmdFailed(Exception):
 
 
 @impure
-def run_command(cmd: str) -> None:
+def run_command(cmd: List[str]) -> None:
     proc = subprocess.Popen(
-        [cmd],
+        cmd,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         shell=False,
@@ -55,4 +56,4 @@ def main() -> None:
         if match_cron(cron, NOW):
             for job in jobs:
                 LOG.info("Executing: %s", job)
-                run_command(job.replace(".", "-"))
+                run_command(job.replace(".", "-").split())

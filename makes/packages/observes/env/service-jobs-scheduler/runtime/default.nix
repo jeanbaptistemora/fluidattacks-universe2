@@ -15,6 +15,7 @@ makeTemplate {
     ];
     envPaths = [
       env.service-jobs-scheduler.runtime.python
+      job.batch-stability
       scheduled.on-aws.bugsnag-etl
       scheduled.on-aws.checkly-etl
       scheduled.on-aws.code-etl-amend

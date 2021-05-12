@@ -12,8 +12,12 @@ from jobs_scheduler.cron import (
 )
 
 SCHEDULE: Dict[PartialCron, List[str]] = {
+    PartialCron.new(AnyTime(), AnyTime(), work_days): [
+        "observes.job.batch-stability report-failures observes",
+    ],
     PartialCron.new(0, AnyTime(), work_days): [
         "observes.scheduled.on-aws.code-etl-mirror",
+        "observes.job.batch-stability report-cancelled observes",
     ],
     PartialCron.new(6, AnyTime(), work_days): [
         "observes.scheduled.on-aws.code-etl-upload",

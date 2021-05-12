@@ -146,5 +146,5 @@ def report_failures(queues: List[str], last_hours: int) -> None:
 
 
 def default_queues(base_name: str) -> List[str]:
-    suffixes = ["_now", "_soon", "_later"]
+    suffixes = ["_soon", "_later"]
     return [f"{base_name}{suffix}" for suffix in suffixes]
