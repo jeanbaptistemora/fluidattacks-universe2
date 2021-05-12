@@ -102,7 +102,7 @@ const NestedComment: React.FC<INestedCommentProps> = (
               <CommentEditor onPost={onPost} />
             </div>
           )}
-          <hr className={"bt bw1 b--silver pa0 mt2 mb2"} />
+          <hr className={"bt bw1 b--silver pa0 mv0"} />
           {childrenComments.length > 0 &&
             orderComments(childrenComments, orderBy).map(
               (childComment: ICommentStructure): JSX.Element => (

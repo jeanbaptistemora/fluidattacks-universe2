@@ -20,20 +20,27 @@
 }
 
 :global .comment-content {
+  font-size: 1rem;
   padding: 0.5rem 0;
   white-space: pre-line;
   word-break: break-word;
 }
 
+/* Overrides antd lib class */
+:global .ant-comment-nested {
+  margin-left: 0;
+}
+
 :global .comment-author {
   color: #ff3435;
+  font-size: 1rem;
   font-weight: bold;
 }
 
 :global .comment-datetime {
   color: #777;
-  padding-left: 1rem;
   font-size: 0.9rem;
+  padding-left: 1rem;
 }
 
 :global .comment-no-bullets ul {
@@ -45,6 +52,7 @@
 :global .comment-reply {
   background-color: inherit;
   color: #ff3435;
+  font-size: 1rem;
   font-weight: normal;
   border: none;
   cursor: pointer;
