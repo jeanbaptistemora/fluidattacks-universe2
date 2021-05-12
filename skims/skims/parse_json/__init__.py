@@ -105,7 +105,8 @@ class JSONBuilder(lark.Transformer):
 
     @staticmethod
     @lark.v_args(inline=True)
-    def number(token: lark.Token) -> frozendict:
+    # Exception: WF(Cannot factorize function)
+    def number(token: lark.Token) -> frozendict:  # NOSONAR
         return frozendict(
             {
                 "column": token.column,
