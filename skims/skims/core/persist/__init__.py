@@ -207,19 +207,7 @@ async def diff_results(
         # All skims results are part of the new generation
         skims_hashes[result.digest] = result.state
 
-        # Check if this result is in the old generation and changed state
-        if integrates_hashes.get(result.digest) == result.state:
-            # The result exists in the old generation and has not changed state
-            pass
-        else:
-            # Either this is a new vulnerability or it has changed state
-            # Let's store the Skims result for persistion
-            await store.store(
-                prepare_result(
-                    result=result,
-                    state=result.state,
-                )
-            )
+        await store.store(prepare_result(result=result, state=result.state))
 
     # Walk all integrates results
     async for result in integrates_store.iterate():
@@ -228,8 +216,6 @@ async def diff_results(
             result.digest in integrates_hashes
             # And his result was not found by Skims
             and result.digest not in skims_hashes
-            # And this result is OPEN
-            and result.state == core_model.VulnerabilityStateEnum.OPEN
         ):
             # This result must be CLOSED and persisted to Integrates
             await store.store(
