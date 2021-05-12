@@ -322,7 +322,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
           isFilterEnabled={isFilterEnabled}
           onColumnToggle={handleChange}
           onUpdateEnableFilter={handleUpdateFilter}
-          pageSize={15}
+          pageSize={10}
           rowEvents={{ onClick: goToFinding }}
           search={true}
           striped={true}

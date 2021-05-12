@@ -383,7 +383,7 @@ const Services: React.FC<IServicesProps> = (
                 exportCsv={false}
                 headers={tableHeaders}
                 id={"tblServices"}
-                pageSize={5}
+                pageSize={10}
                 search={false}
                 striped={true}
               />

@@ -848,7 +848,7 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
         exportCsv={true}
         headers={tableHeaders}
         id={"tblEvents"}
-        pageSize={15}
+        pageSize={10}
         rowEvents={{ onClick: goToEvent }}
         search={true}
       />

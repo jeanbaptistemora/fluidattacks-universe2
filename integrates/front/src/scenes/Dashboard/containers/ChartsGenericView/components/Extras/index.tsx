@@ -206,7 +206,6 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (
                             </TooltipWrapper>
                           )
                         )}
-                        width={"suscribeDropdownBtn"}
                       />
                     </ButtonToolbarCenter>
                   </div>

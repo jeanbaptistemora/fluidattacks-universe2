@@ -35,7 +35,7 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
             },
           ]}
           id={"tblIPRoots"}
-          pageSize={15}
+          pageSize={10}
           search={true}
           striped={true}
         />

@@ -33,10 +33,10 @@ interface ITableProps {
   headers: IHeaderConfig[];
   id: string;
   isFilterEnabled?: boolean;
-  numPages?: number;
   onSizePerPageChange?: (sizePerPage: number, page: number) => void;
   onPageChange?: (arg1: number) => void;
-  pageSize: number;
+  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+  pageSize: 10 | 25 | 30 | 50 | 100 | 200 | 500 | 1000;
   rowEvents?: Record<string, unknown>;
   search: boolean;
   selectionMode?: ISelectRowProps;

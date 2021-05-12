@@ -270,7 +270,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         exportCsv={false}
         headers={tableHeaders}
         id={"tblFiles"}
-        pageSize={15}
+        pageSize={10}
         rowEvents={{ onClick: handleRowClick }}
         search={true}
         striped={true}

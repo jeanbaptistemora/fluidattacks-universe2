@@ -532,7 +532,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                 isFilterEnabled={isFilterEnabled}
                 onColumnToggle={handleChange}
                 onUpdateEnableFilter={handleUpdateFilter}
-                pageSize={15}
+                pageSize={10}
                 search={true}
                 selectionMode={{
                   clickToSelect: true,

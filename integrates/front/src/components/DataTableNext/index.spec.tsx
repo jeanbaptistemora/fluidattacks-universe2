@@ -181,7 +181,7 @@ describe("Data table next", (): void => {
         exportCsv={true}
         headers={testHeaders}
         id={"testTable"}
-        pageSize={1}
+        pageSize={10}
         search={true}
         selectionMode={selectionMode}
         tableBody={undefined}
@@ -204,7 +204,7 @@ describe("Data table next", (): void => {
       .at(1)
       .find("button");
     proceedDeleteFunction.simulate("click");
-    const checkboxInput: ReactWrapper = wrapper.find("SelectionCell");
+    const checkboxInput: ReactWrapper = wrapper.find("SelectionCell").at(0);
     checkboxInput.simulate("click");
 
     expect(wrapper).toHaveLength(1);
@@ -213,7 +213,6 @@ describe("Data table next", (): void => {
     );
     expect(wrapper.find("ExportCSVButton")).toHaveLength(1);
     expect(wrapper.find("SearchBar")).toHaveLength(1);
-    expect(wrapper.find("DropdownButton")).toHaveLength(1);
     expect(handleChange.mock.calls).toHaveLength(1);
     expect(handleDelete.mock.calls).toHaveLength(1);
     expect(handleOnSelect.mock.results[0].value).toBe(true);

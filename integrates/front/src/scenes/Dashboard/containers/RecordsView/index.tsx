@@ -208,7 +208,7 @@ const RecordsView: React.FC = (): JSX.Element => {
               exportCsv={false}
               headers={[]}
               id={"tblRecords"}
-              pageSize={15}
+              pageSize={10}
               search={false}
             />
           )}

@@ -273,7 +273,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
               exportCsv={false}
               headers={tableHeaders}
               id={"policiesTbl"}
-              pageSize={5}
+              pageSize={10}
               search={false}
               striped={true}
             />

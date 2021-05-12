@@ -182,7 +182,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                   exportCsv={false}
                   headers={tableHeaders}
                   id={"tblGroups"}
-                  pageSize={15}
+                  pageSize={10}
                   rowEvents={{ onClick: handleRowClick }}
                   search={true}
                 />

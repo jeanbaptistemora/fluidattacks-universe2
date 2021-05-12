@@ -29,7 +29,6 @@ export const SizePerPageRenderer = (props: ISizePerPageProps): JSX.Element => {
             />
           )
         )}
-        width={"sizePageDropdownBtn"}
       />
     </div>
   );

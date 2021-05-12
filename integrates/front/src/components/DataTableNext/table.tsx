@@ -39,8 +39,6 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   const { SearchBar } = Search;
   const { toolkitProps, tableProps, dataset } = props;
   const { columnToggleProps, searchProps, baseProps } = toolkitProps;
-  const defaultPages: number = 5;
-  const defaultInitPages: number = 1;
   const {
     bordered,
     defaultSorted,
@@ -48,7 +46,6 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     extraButtons,
     onUpdateEnableFilter,
     isFilterEnabled,
-    numPages = defaultPages,
     pageSize,
     onSizePerPageChange,
     columnToggle = false,
@@ -72,16 +69,15 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     return t("dataTableNext.noDataIndication");
   }
 
-  const isPaginationEnable: boolean =
-    numPages === defaultInitPages ||
-    (!_.isEmpty(dataset) && dataset.length > pageSize);
+  const enablePagination = dataset.length > pageSize;
 
-  const paginationOptions = {
+  const paginationOptions: PaginationOptions = {
     onPageChange,
     onSizePerPageChange,
-    paginationSize: numPages,
     sizePerPage: pageSize,
-    sizePerPageRenderer: SizePerPageRenderer,
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    sizePerPageList: [10, 25, 30, 50, 100, 200, 500, 1000],
+    sizePerPageRenderer: (SizePerPageRenderer as unknown) as PaginationOptions["sizePerPageRenderer"],
   };
 
   return (
@@ -147,11 +143,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
         hover={true}
         noDataIndication={handleNoData}
         pagination={
-          isPaginationEnable
-            ? paginationFactory(
-                (paginationOptions as unknown) as PaginationOptions
-              )
-            : undefined
+          enablePagination ? paginationFactory(paginationOptions) : undefined
         }
         rowClasses={_.isUndefined(tableBody) ? style.tableBody : tableBody}
         rowEvents={rowEvents}

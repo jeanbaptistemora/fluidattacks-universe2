@@ -59,7 +59,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
           exportCsv={false}
           headers={tableHeaders}
           id={"tblGroupInfo"}
-          pageSize={15}
+          pageSize={10}
           search={false}
           striped={true}
         />

@@ -43,7 +43,7 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
             },
           ]}
           id={"tblURLRoots"}
-          pageSize={15}
+          pageSize={10}
           search={true}
           striped={true}
         />

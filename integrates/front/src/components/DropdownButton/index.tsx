@@ -15,7 +15,6 @@ interface IDropdownButtonProps {
   content: React.ReactNode;
   id: string;
   items: React.ReactNode;
-  width: string;
 }
 
 const StyledDropdownButton: StyledComponent<
@@ -35,12 +34,12 @@ const ItemsContainer: StyledComponent<
 const DropdownButton: React.FC<IDropdownButtonProps> = (
   props: Readonly<IDropdownButtonProps>
 ): JSX.Element => {
-  const { content, id, items, width } = props;
+  const { content, id, items } = props;
 
   return (
-    <StyledDropdownButton className={width} id={id}>
+    <StyledDropdownButton id={id}>
       {content}
-      <ItemsContainer className={width}>{items}</ItemsContainer>
+      <ItemsContainer>{items}</ItemsContainer>
     </StyledDropdownButton>
   );
 };

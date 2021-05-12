@@ -282,7 +282,7 @@ const ProjectDraftsView: React.FC = (): JSX.Element => {
         exportCsv={true}
         headers={tableHeaders}
         id={"tblDrafts"}
-        pageSize={15}
+        pageSize={10}
         rowEvents={{ onClick: goToFinding }}
         search={true}
         striped={true}

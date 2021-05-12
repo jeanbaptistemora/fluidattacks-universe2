@@ -377,10 +377,6 @@ label {
   display: block;
 }
 
-:global .sizePageDropdownBtn {
-  width: 60px;
-}
-
 :global .suscribeDropdownBtn {
   width: 260px;
 }
@@ -970,6 +966,10 @@ label {
 }
 
 :global .filter.select-filter {
+  color: #272727;
+}
+
+:global .filter.text-filter {
   color: #272727;
 }
 

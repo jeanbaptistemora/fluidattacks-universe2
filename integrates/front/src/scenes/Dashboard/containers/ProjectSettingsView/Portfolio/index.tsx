@@ -218,7 +218,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
             exportCsv={false}
             headers={tableHeaders}
             id={"tblTags"}
-            pageSize={15}
+            pageSize={10}
             search={false}
             selectionMode={{
               clickToSelect: canDelete,
