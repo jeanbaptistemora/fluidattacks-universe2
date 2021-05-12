@@ -63,6 +63,7 @@ from utils.encodings import (
 from utils.graph import (
     copy_ast,
     copy_cfg,
+    copy_pdg,
     to_svg,
 )
 from utils.logs import (
@@ -309,6 +310,7 @@ def parse_one(
         to_svg(graph.graph, output)
         to_svg(copy_ast(graph.graph), f"{output}.ast")
         to_svg(copy_cfg(graph.graph), f"{output}.cfg")
+        to_svg(copy_pdg(graph.graph), f"{output}.pdg")
 
     return GraphShard(
         graph=graph.graph,
