@@ -66,7 +66,7 @@ se piensa más en la evaluación del cumplimiento de las normas.
 Se recomienda trabajar desde esta perspectiva de cumplimiento
 y establecer desde el principio requisitos
 basados en normas de seguridad públicas como link:../../compliance/gdpr/[GDPR], link:../../compliance/hipaa/[HIPAA] y link:../../compliance/pci/[PCI DSS]
-(véase nuestra recopilación denominada link:../../products/rules/list/['Rules']).
+(véase nuestra recopilación denominada link:https://docs.fluidattacks.com/criteria/[*Criteria*]).
 Estos requisitos deben ajustarse
 a la estructura y funcionalidad del software desarrollado en tu empresa.
 Además, algunos deben significar la traducción

@@ -28,7 +28,7 @@
 [cols="1, 4"]
 |====
 |*Kind*|Double-Free/Arbitrary code execution
-|*Rule* |link:/products/rules/list/345/[R345. Establish protections against overflows]
+|*Rule* |link:https://docs.fluidattacks.com/criteria/source/345[345. Establish protections against overflows]
 |*Remote*|No
 |*CVSSv3 Vector*|CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:U/C:H/I:H/A:H
 |*CVSSv3 Base Score*| 6.4 MEDIUM

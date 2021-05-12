@@ -43,7 +43,7 @@ of interesting debates at `Fluid Attacks` some time ago.
 `Fluid Attacks` keeps learning through challenges,
 as Ricardo mentioned, starting at the hiring process.
 Take a look at our products,
-like link:../../products/asserts/[Asserts] and link:../../products/rules/list/[Rules].
+like link:../../products/asserts/[Asserts] and link:https://docs.fluidattacks.com/criteria/[*Criteria*].
 
 *In cybersecurity strategy, what should organizations start*
 *and what should they stop doing?*
