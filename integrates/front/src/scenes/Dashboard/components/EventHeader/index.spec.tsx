@@ -32,7 +32,9 @@ describe("EventHeader", (): void => {
     expect(wrapper).toHaveLength(1);
   });
 
-  it("should render event header without evidence", (): void => {
+  // Exception: WF(This function must contain explicit assert)
+  // eslint-disable-next-line
+  it("should render event header without evidence", (): void => { // NOSONAR
     expect.hasAssertions();
 
     const mockProps: IEventHeaderProps = {
