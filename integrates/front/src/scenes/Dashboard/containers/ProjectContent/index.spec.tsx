@@ -35,7 +35,9 @@ describe("ProjectContent", (): void => {
     expect(wrapper).toHaveLength(1);
   });
 
-  it("should render a component", async (): Promise<void> => {
+  // Exception: WF(This function must contain explicit assert)
+  // eslint-disable-next-line
+  it("should render a component", async (): Promise<void> => { // NOSONAR
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
