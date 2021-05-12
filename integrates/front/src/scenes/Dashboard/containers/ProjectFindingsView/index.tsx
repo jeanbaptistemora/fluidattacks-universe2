@@ -90,6 +90,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     "tableSet",
     {
       age: false,
+      lastVulnerability: true,
       remediated: false,
       severityScore: true,
       state: true,
@@ -176,6 +177,13 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
   };
 
   const tableHeaders: IHeaderConfig[] = [
+    {
+      align: "center",
+      dataField: "lastVulnerability",
+      header: "Last report (days)",
+      onSort: onSortState,
+      visible: checkedItems.lastVulnerability,
+    },
     {
       align: "center",
       dataField: "title",
