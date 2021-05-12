@@ -112,16 +112,6 @@ resource "aws_launch_template" "batch_instance" {
     "management:product" = "common"
   }
   user_data = filebase64("${path.module}/aws_batch_user_data")
-
-  block_device_mappings {
-    device_name = "/dev/xvda"
-
-    ebs {
-      volume_size           = 100
-      volume_type           = "gp3"
-      delete_on_termination = true
-    }
-  }
 }
 
 locals {
@@ -195,7 +185,7 @@ resource "aws_batch_compute_environment" "default" {
     image_id      = "ami-059628695ae4c249b"
     instance_role = aws_iam_instance_profile.aws_ecs_instance_role.arn
     instance_type = [
-      "m5a.xlarge",
+      "c5ad.xlarge",
     ]
     max_vcpus = each.value.max_vcpus
     min_vcpus = 0

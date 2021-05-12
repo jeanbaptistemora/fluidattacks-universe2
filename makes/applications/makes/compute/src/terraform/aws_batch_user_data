@@ -23,4 +23,25 @@ Content-Type: text/x-shellscript; charset="us-ascii"
   echo ECS_NUM_IMAGES_DELETE_PER_CYCLE=100
   echo NON_ECS_IMAGE_MINIMUM_CLEANUP_AGE=1m
 }  >> /etc/ecs/ecs.config
+
+# Make disk gpt and create partitions
+parted /dev/nvme1n1 --script -- mklabel gpt
+parted -a optimal /dev/nvme1n1 mkpart primary 0% 100%
+
+# Wait for partitions to be visible
+sleep 3
+
+# Make partitions xfs
+mkfs -t xfs /dev/nvme1n1p1
+
+# Mount partitions
+if test -e /var/lib/docker
+then
+  mv /tmp/lib/docker /tmp/docker
+  mount /dev/nvme1n1p1 /var/lib/docker
+  mv /tmp/docker/* /var/lib/docker
+else
+  mkdir -p /var/lib/docker
+  mount /dev/nvme1n1p1 /var/lib/docker
+fi
 --==BOUNDARY==--

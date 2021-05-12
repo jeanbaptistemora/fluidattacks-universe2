@@ -23,7 +23,8 @@ let
   # so let's be greedy and grant it all
   #
   # vCPUs are what control the cost at the end of the day
-  memory = vcpus * 3600;
+  memoryPerCpuFactor = 2;
+  memory = vcpus * memoryPerCpuFactor * 900;
 in
 makeEntrypoint {
   arguments = rec {
