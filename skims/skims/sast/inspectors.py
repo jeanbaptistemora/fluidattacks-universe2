@@ -60,7 +60,8 @@ def get_metadata_java_package(graph: graph_model.Graph) -> str:
         if n_id := match["identifier"]:
             package = graph.nodes[n_id]["label_text"]
         elif n_id := match["scoped_identifier"]:
-            package = graph.nodes[n_id]["label_text"]
+            # Exception: FP(There is an assignment in conditional)
+            package = graph.nodes[n_id]["label_text"]  # NOSONAR
 
     return package
 
