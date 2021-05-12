@@ -32,6 +32,7 @@ resource "cloudflare_api_token" "integrates_production" {
       data.cloudflare_api_token_permission_groups.all.permissions["Page Rules Write"],
       data.cloudflare_api_token_permission_groups.all.permissions["Firewall Services Write"],
       data.cloudflare_api_token_permission_groups.all.permissions["DNS Write"],
+      data.cloudflare_api_token_permission_groups.all.permissions["Cache Purge"],
     ]
     resources = {
       "com.cloudflare.api.account.zone.*" = "*"

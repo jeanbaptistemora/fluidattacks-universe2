@@ -32,6 +32,7 @@ resource "cloudflare_api_token" "integrates_development" {
       data.cloudflare_api_token_permission_groups.all.permissions["DNS Read"],
       data.cloudflare_api_token_permission_groups.all.permissions["Page Rules Read"],
       data.cloudflare_api_token_permission_groups.all.permissions["Firewall Services Read"],
+      data.cloudflare_api_token_permission_groups.all.permissions["Cache Purge"],
     ]
     resources = {
       "com.cloudflare.api.account.zone.*" = "*"
