@@ -15,6 +15,7 @@ from returns.io import (
     IOSuccess,
 )
 from returns.maybe import Maybe
+from returns.pipeline import is_successful
 
 # Local libraries
 from paginator.object_index import (
@@ -52,11 +53,13 @@ def _extract_http_error(response: Response) -> Maybe[HTTPError]:
 
 
 def _get(
-    client: Client, endpoint: str, page: PageId, params: JSON = {}
+    client: Client, endpoint: str, page: Maybe[PageId], params: JSON = {}
 ) -> RawResponse:
-    _params: JSON = {"per_page": page.per_page, **params}
-    if page.page:
-        _params["offset"] = page.page
+    if is_successful(page):
+        _page = page.unwrap()
+        _params: JSON = {"per_page": _page.per_page, **params}
+        if _page.page:
+            _params["offset"] = _page.page
     response = client.get(
         endpoint,
         _params,
@@ -68,14 +71,16 @@ def _get(
 
 
 def _handled_get(
-    client: Client, endpoint: str, page: PageId, params: JSON = {}
+    client: Client, endpoint: str, page: Maybe[PageId], params: JSON = {}
 ) -> IO[Response]:
     return handlers.handle_rate_limit(
         lambda: _get(client, endpoint, page, params), 5
     )
 
 
-def _debug_log(resource: str, page: PageId, response: IO[Response]) -> None:
+def _debug_log(
+    resource: str, page: Maybe[PageId], response: IO[Response]
+) -> None:
     LOG.debug(
         "%s [%s]: %s\n\theaders: %s\n\tdata: %s",
         resource,
@@ -90,46 +95,59 @@ class RawApi(NamedTuple):
     client: Client
 
     def list_orgs(self, page: PageId) -> IO[Response]:
-        response = _handled_get(self.client, "/user/organizations", page)
-        _debug_log("organizations", page, response)
+        _page = Maybe.from_value(page)
+        response = _handled_get(self.client, "/user/organizations", _page)
+        _debug_log("organizations", _page, response)
         return response
 
     def list_collaborators(self, page: PageId, org_id: str) -> IO[Response]:
+        _page = Maybe.from_value(page)
         response = _handled_get(
-            self.client, f"/organizations/{org_id}/collaborators", page
+            self.client, f"/organizations/{org_id}/collaborators", _page
         )
-        _debug_log("collaborators", page, response)
+        _debug_log("collaborators", _page, response)
         return response
 
     def list_projects(self, page: PageId, org_id: str) -> IO[Response]:
+        _page = Maybe.from_value(page)
         response = _handled_get(
-            self.client, f"/organizations/{org_id}/projects", page
+            self.client, f"/organizations/{org_id}/projects", _page
         )
-        _debug_log("projects", page, response)
+        _debug_log("projects", _page, response)
         return response
 
     def list_errors(self, page: PageId, project_id: str) -> IO[Response]:
+        _page = Maybe.from_value(page)
         response = _handled_get(
             self.client,
             f"/projects/{project_id}/errors",
-            page,
+            _page,
             {"sort": "unsorted"},
         )
-        _debug_log("errors", page, response)
+        _debug_log("errors", _page, response)
         return response
 
     def list_events(self, page: PageId, project_id: str) -> IO[Response]:
+        _page = Maybe.from_value(page)
         response = _handled_get(
-            self.client, f"/projects/{project_id}/events", page
+            self.client, f"/projects/{project_id}/events", _page
         )
-        _debug_log("events", page, response)
+        _debug_log("events", _page, response)
         return response
 
     def list_releases(self, page: PageId, project_id: str) -> IO[Response]:
+        _page = Maybe.from_value(page)
         response = _handled_get(
-            self.client, f"/projects/{project_id}/releases", page
+            self.client, f"/projects/{project_id}/releases", _page
         )
-        _debug_log("releases", page, response)
+        _debug_log("releases", _page, response)
+        return response
+
+    def get_trend(self, project_id: str) -> IO[Response]:
+        response = _handled_get(
+            self.client, f"/projects/{project_id}/stability_trend", Maybe.empty
+        )
+        _debug_log("trend", Maybe.empty, response)
         return response
 
     @classmethod
