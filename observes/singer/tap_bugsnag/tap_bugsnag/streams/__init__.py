@@ -89,6 +89,17 @@ def all_events(api: ApiClient) -> None:
     )
 
 
+def all_releases(api: ApiClient) -> None:
+    orgs_io = api.user.list_orgs_id(ALL)
+    client = api.user.client
+    _stream_data(
+        SupportedStreams.RELEASES,
+        orgs_io.bind(partial(OrgsApi.list_orgs_projs_id, client)).bind(
+            partial(ProjectsApi.list_projs_releases, client)
+        ),
+    )
+
+
 __all__ = [
     "SupportedStreams",
 ]

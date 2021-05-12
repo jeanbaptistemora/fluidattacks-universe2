@@ -50,6 +50,16 @@ class EventsPage(NamedTuple):
         return typed_page_builder(raw.list_events(page, project.id_str), cls)
 
 
+class ReleasesPage(NamedTuple):
+    data: List[JSON]
+
+    @classmethod
+    def new(
+        cls, raw: RawApi, project: ProjId, page: PageId
+    ) -> IO[Maybe[PageResult[ReleasesPage]]]:
+        return typed_page_builder(raw.list_releases(page, project.id_str), cls)
+
+
 class ProjectsApi(NamedTuple):
     client: RawApi
     project: ProjId
@@ -70,6 +80,12 @@ class ProjectsApi(NamedTuple):
             lambda: io_get_until_end(PageId("", 30), getter), getter, page
         )
 
+    def list_releases(self, page: PageOrAll) -> IO[Iterator[ReleasesPage]]:
+        getter = partial(ReleasesPage.new, self.client, self.project)
+        return extractor.extract_page(
+            lambda: io_get_until_end(PageId("", 10), getter), getter, page
+        )
+
     @classmethod
     def list_projs_errors(
         cls, client: RawApi, projs: Iterator[ProjId]
@@ -84,4 +100,12 @@ class ProjectsApi(NamedTuple):
     ) -> IO[Iterator[EventsPage]]:
         return fold(
             cls.new(client, proj).list_events(AllPages()) for proj in projs
+        )
+
+    @classmethod
+    def list_projs_releases(
+        cls, client: RawApi, projs: Iterator[ProjId]
+    ) -> IO[Iterator[ReleasesPage]]:
+        return fold(
+            cls.new(client, proj).list_releases(AllPages()) for proj in projs
         )

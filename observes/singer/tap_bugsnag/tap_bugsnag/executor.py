@@ -19,6 +19,7 @@ _stream_executor: Mapping[SupportedStreams, Callable[[ApiClient], None]] = {
     SupportedStreams.EVENTS: streams.all_events,
     SupportedStreams.ORGS: streams.all_orgs,
     SupportedStreams.PROJECTS: streams.all_projects,
+    SupportedStreams.RELEASES: streams.all_releases,
 }
 
 

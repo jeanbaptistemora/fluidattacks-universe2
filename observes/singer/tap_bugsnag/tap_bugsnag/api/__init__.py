@@ -16,6 +16,7 @@ from tap_bugsnag.api.projects import (
     ErrorsPage,
     EventsPage,
     ProjectsApi,
+    ReleasesPage,
 )
 from tap_bugsnag.api.projects.orgs import (
     CollaboratorsPage,
@@ -36,6 +37,7 @@ ApiPage = Union[
     EventsPage,
     OrgsPage,
     ProjectsPage,
+    ReleasesPage,
 ]
 
 
