@@ -94,6 +94,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     {
       age: false,
       lastVulnerability: true,
+      locations: true,
       remediated: false,
       severityScore: true,
       state: true,
@@ -223,6 +224,13 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
       header: "Age (days)",
       onSort: onSortState,
       visible: checkedItems.age,
+    },
+    {
+      align: "center",
+      dataField: "locations",
+      header: "Locations",
+      onSort: onSortState,
+      visible: checkedItems.locations,
     },
     {
       align: "center",

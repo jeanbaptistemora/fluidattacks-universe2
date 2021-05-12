@@ -53,6 +53,7 @@ const formatFindings: (dataset: IFindingAttr[]) => IFindingAttr[] = (
   dataset: IFindingAttr[]
 ): IFindingAttr[] =>
   dataset.map((finding: IFindingAttr): IFindingAttr & {
+    locations: number;
     where: string;
   } => {
     const stateParameters: Record<string, string> = {
@@ -74,9 +75,11 @@ const formatFindings: (dataset: IFindingAttr[]) => IFindingAttr[] = (
         (vuln: { where: string }): string => vuln.where
       )
     ).join(", ");
+    const locations = finding.vulnerabilities.length;
 
     return {
       ...finding,
+      locations,
       remediated,
       state,
       treatment,
