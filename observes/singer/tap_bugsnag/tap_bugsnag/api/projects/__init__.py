@@ -22,8 +22,10 @@ from paginator.object_index import (
 )
 from singer_io import JSON
 from tap_bugsnag.api.common import (
+    UnexpectedEmptyData,
     extractor,
     fold,
+    fold_and_chain,
     typed_page_builder,
 )
 from tap_bugsnag.api.common.raw import RawApi
@@ -60,6 +62,18 @@ class ReleasesPage(NamedTuple):
         return typed_page_builder(raw.list_releases(page, project.id_str), cls)
 
 
+class StabilityTrend(NamedTuple):
+    data: JSON
+
+    @classmethod
+    def new(cls, raw: RawApi, project: ProjId) -> IO[StabilityTrend]:
+        result = raw.get_trend(project.id_str)
+        data_io = result.map(lambda response: response.json())
+        if data_io.map(bool) == IO(False):
+            raise UnexpectedEmptyData()
+        return data_io.map(cls)
+
+
 class ProjectsApi(NamedTuple):
     client: RawApi
     project: ProjId
@@ -67,6 +81,9 @@ class ProjectsApi(NamedTuple):
     @classmethod
     def new(cls, client: RawApi, project: ProjId) -> ProjectsApi:
         return cls(client, project)
+
+    def get_trend(self) -> IO[StabilityTrend]:
+        return StabilityTrend.new(self.client, self.project)
 
     def list_errors(self, page: PageOrAll) -> IO[Iterator[ErrorsPage]]:
         getter = partial(ErrorsPage.new, self.client, self.project)
@@ -90,7 +107,7 @@ class ProjectsApi(NamedTuple):
     def list_projs_errors(
         cls, client: RawApi, projs: Iterator[ProjId]
     ) -> IO[Iterator[ErrorsPage]]:
-        return fold(
+        return fold_and_chain(
             cls.new(client, proj).list_errors(AllPages()) for proj in projs
         )
 
@@ -98,7 +115,7 @@ class ProjectsApi(NamedTuple):
     def list_projs_events(
         cls, client: RawApi, projs: Iterator[ProjId]
     ) -> IO[Iterator[EventsPage]]:
-        return fold(
+        return fold_and_chain(
             cls.new(client, proj).list_events(AllPages()) for proj in projs
         )
 
@@ -106,6 +123,12 @@ class ProjectsApi(NamedTuple):
     def list_projs_releases(
         cls, client: RawApi, projs: Iterator[ProjId]
     ) -> IO[Iterator[ReleasesPage]]:
-        return fold(
+        return fold_and_chain(
             cls.new(client, proj).list_releases(AllPages()) for proj in projs
         )
+
+    @classmethod
+    def list_projs_trends(
+        cls, client: RawApi, projs: Iterator[ProjId]
+    ) -> IO[Iterator[StabilityTrend]]:
+        return fold(cls.new(client, proj).get_trend() for proj in projs)

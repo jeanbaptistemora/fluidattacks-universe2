@@ -19,7 +19,12 @@ from paginator.object_index import PageResult
 from singer_io.common import JSON
 from tap_bugsnag.api.common import extractor
 
+
 _Data = TypeVar("_Data")
+
+
+class UnexpectedEmptyData(Exception):
+    pass
 
 
 def typed_page_builder(
@@ -38,9 +43,13 @@ def typed_page_builder(
     return response.map(_from_response)
 
 
-def fold(items: Iterator[IO[Iterator[_Data]]]) -> IO[Iterator[_Data]]:
-    def rm_io(items: IO[Iterator[_Data]]) -> Iterator[_Data]:
-        return unsafe_perform_io(items)
+def fold(items: Iterator[IO[_Data]]) -> IO[Iterator[_Data]]:
+    raw: Iterator[_Data] = map(unsafe_perform_io, items)
+    return IO(raw)
 
-    raw = map(rm_io, items)
-    return IO(chain.from_iterable(raw))
+
+def fold_and_chain(
+    items: Iterator[IO[Iterator[_Data]]],
+) -> IO[Iterator[_Data]]:
+    raw = fold(items)
+    return raw.map(chain.from_iterable)

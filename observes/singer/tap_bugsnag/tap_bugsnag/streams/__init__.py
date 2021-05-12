@@ -16,7 +16,7 @@ from singer_io import factory
 from singer_io.singer import SingerRecord
 from tap_bugsnag.api import (
     ApiClient,
-    ApiPage,
+    ApiData,
     OrgsApi,
     ProjectsApi,
 )
@@ -27,12 +27,14 @@ ALL = AllPages()
 
 
 def _to_singer(
-    stream: SupportedStreams, page: ApiPage
+    stream: SupportedStreams, page: ApiData
 ) -> Iterator[SingerRecord]:
-    return (SingerRecord(stream.value.lower(), item) for item in page.data)
+    if isinstance(page.data, list):
+        return (SingerRecord(stream.value.lower(), item) for item in page.data)
+    return iter([SingerRecord(stream.value.lower(), page.data)])
 
 
-def _emit_pages(stream: SupportedStreams, pages: Iterator[ApiPage]) -> None:
+def _emit_pages(stream: SupportedStreams, pages: Iterator[ApiData]) -> None:
     for page in pages:
         for item in _to_singer(stream, page):
             factory.emit(item)
@@ -40,7 +42,7 @@ def _emit_pages(stream: SupportedStreams, pages: Iterator[ApiPage]) -> None:
 
 def _stream_data(
     stream: SupportedStreams,
-    pages: IO[Iterator[ApiPage]],
+    pages: IO[Iterator[ApiData]],
 ) -> None:
     pages.map(partial(_emit_pages, stream))
 
@@ -96,6 +98,17 @@ def all_releases(api: ApiClient) -> None:
         SupportedStreams.RELEASES,
         orgs_io.bind(partial(OrgsApi.list_orgs_projs_id, client)).bind(
             partial(ProjectsApi.list_projs_releases, client)
+        ),
+    )
+
+
+def all_trends(api: ApiClient) -> None:
+    orgs_io = api.user.list_orgs_id(ALL)
+    client = api.user.client
+    _stream_data(
+        SupportedStreams.STABILITY_TREND,
+        orgs_io.bind(partial(OrgsApi.list_orgs_projs_id, client)).bind(
+            partial(ProjectsApi.list_projs_trends, client)
         ),
     )
 

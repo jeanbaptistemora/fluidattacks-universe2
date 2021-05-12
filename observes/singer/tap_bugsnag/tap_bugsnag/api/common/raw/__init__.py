@@ -55,9 +55,10 @@ def _extract_http_error(response: Response) -> Maybe[HTTPError]:
 def _get(
     client: Client, endpoint: str, page: Maybe[PageId], params: JSON = {}
 ) -> RawResponse:
+    _params: JSON = {}
     if is_successful(page):
         _page = page.unwrap()
-        _params: JSON = {"per_page": _page.per_page, **params}
+        _params = {"per_page": _page.per_page, **params}
         if _page.page:
             _params["offset"] = _page.page
     response = client.get(

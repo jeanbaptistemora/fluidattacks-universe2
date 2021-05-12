@@ -24,7 +24,7 @@ from paginator.object_index import (
 from singer_io import JSON
 from tap_bugsnag.api.common import (
     extractor,
-    fold,
+    fold_and_chain,
     typed_page_builder,
 )
 from tap_bugsnag.api.common.raw import RawApi
@@ -93,7 +93,7 @@ class OrgsApi(NamedTuple):
     def list_orgs_collaborators(
         cls, client: RawApi, orgs: Iterator[OrgId]
     ) -> IO[Iterator[CollaboratorsPage]]:
-        return fold(
+        return fold_and_chain(
             cls.new(client, org).list_collaborators(AllPages()) for org in orgs
         )
 
@@ -101,7 +101,7 @@ class OrgsApi(NamedTuple):
     def list_orgs_projs(
         cls, client: RawApi, orgs: Iterator[OrgId]
     ) -> IO[Iterator[ProjectsPage]]:
-        return fold(
+        return fold_and_chain(
             cls.new(client, org).list_projects(AllPages()) for org in orgs
         )
 
@@ -109,6 +109,6 @@ class OrgsApi(NamedTuple):
     def list_orgs_projs_id(
         cls, client: RawApi, orgs: Iterator[OrgId]
     ) -> IO[Iterator[ProjId]]:
-        return fold(
+        return fold_and_chain(
             cls.new(client, org).list_projs_id(AllPages()) for org in orgs
         )
