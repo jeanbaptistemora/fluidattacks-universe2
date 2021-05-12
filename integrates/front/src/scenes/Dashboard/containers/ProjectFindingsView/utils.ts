@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 import { getLastTreatment } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import type { IFindingAttr } from "scenes/Dashboard/containers/ProjectFindingsView/types";
@@ -51,7 +53,7 @@ const formatFindings: (dataset: IFindingAttr[]) => IFindingAttr[] = (
   dataset: IFindingAttr[]
 ): IFindingAttr[] =>
   dataset.map((finding: IFindingAttr): IFindingAttr & {
-    where: number;
+    where: string;
   } => {
     const stateParameters: Record<string, string> = {
       closed: "searchFindings.status.closed",
@@ -67,7 +69,11 @@ const formatFindings: (dataset: IFindingAttr[]) => IFindingAttr[] = (
         ? "group.findings.remediated.True"
         : "group.findings.remediated.False"
     );
-    const where = finding.vulnerabilities.length;
+    const where: string = _.sortBy(
+      _.uniqBy(finding.vulnerabilities, "where").map(
+        (vuln: { where: string }): string => vuln.where
+      )
+    ).join(", ");
 
     return {
       ...finding,

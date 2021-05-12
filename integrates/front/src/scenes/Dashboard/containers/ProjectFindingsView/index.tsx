@@ -10,8 +10,11 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
-import type { SortOrder } from "react-bootstrap-table-next";
-import { selectFilter } from "react-bootstrap-table2-filter";
+import type {
+  SortOrder,
+  TableColumnFilterProps,
+} from "react-bootstrap-table-next";
+import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
 import { Trans } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
@@ -156,6 +159,11 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     const newSorted = { dataField, order };
     sessionStorage.setItem("findingSort", JSON.stringify(newSorted));
   };
+  const onFilterWhere: TableColumnFilterProps["onFilter"] = (
+    filterVal: string
+  ): void => {
+    sessionStorage.setItem("whereFilter", filterVal);
+  };
   const onFilterStatus: (filterVal: string) => void = (
     filterVal: string
   ): void => {
@@ -208,7 +216,12 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "where",
-      header: "Locations",
+      filter: textFilter({
+        defaultValue: _.get(sessionStorage, "whereFilter"),
+        delay: 1000,
+        onFilter: onFilterWhere,
+      }),
+      header: "Where",
       onSort: onSortState,
       visible: checkedItems.where,
       wrapped: true,

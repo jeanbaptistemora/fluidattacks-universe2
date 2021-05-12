@@ -278,7 +278,7 @@ describe("ProjectFindingsView", (): void => {
     expect(tableHeader.text()).toContain("Severity");
     expect(tableHeader.text()).toContain("Status");
     expect(tableHeader.text()).toContain("Reattack");
-    expect(tableHeader.text()).toContain("Locations");
+    expect(tableHeader.text()).toContain("Where");
 
     const firstRow: ReactWrapper = findingTable.find("Body").find("tr");
 
@@ -289,6 +289,6 @@ describe("ProjectFindingsView", (): void => {
     expect(firstRow.text()).toContain("2.9");
     expect(firstRow.text()).toContain("Open");
     expect(firstRow.text()).toContain("Pending");
-    expect(firstRow.text()).toContain("1");
+    expect(firstRow.text()).toContain("This is a test where");
   });
 });
