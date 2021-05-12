@@ -95,7 +95,7 @@ def take_snapshot(
     session: aiohttp.ClientSession,
     url: str,
 ) -> None:
-    driver.get(url)
+    driver.get(TARGET_URL)
     time.sleep(1)
 
     for cookie in session.cookie_jar:
@@ -107,6 +107,16 @@ def take_snapshot(
     element = driver.find_element_by_tag_name('body')
     with open(save_as, 'wb') as file:
         file.write(element.screenshot_as_png)
+
+
+def clear_cookies(
+    driver: webdriver.Firefox,
+    session: aiohttp.ClientSession,
+) -> None:
+    driver.get(f'{TARGET_URL}/logout')
+    session.cookie_jar.clear()
+    driver.delete_all_cookies()
+    time.sleep(1)
 
 
 @utils.retry_on_exceptions(
@@ -150,6 +160,7 @@ async def main():
                 session=session,
                 url=f'{base}&organization={percent_encode(org_id)}',
             )
+            clear_cookies(driver, session)
 
         # Group reports
         base = f'{TARGET_URL}/graphics-for-group?reportMode=true'
@@ -164,6 +175,7 @@ async def main():
                 session=session,
                 url=f'{base}&group={percent_encode(group)}',
             )
+            clear_cookies(driver, session)
 
         # Portfolio reports
         base = f'{TARGET_URL}/graphics-for-portfolio?reportMode=true'
@@ -189,6 +201,7 @@ async def main():
                     session=session,
                     url=f'{base}&portfolio={subject}'
                 )
+                clear_cookies(driver, session)
 
 
 if __name__ == '__main__':
