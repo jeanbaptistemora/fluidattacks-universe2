@@ -222,7 +222,8 @@ def _date(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     header: Optional[Header] = None
 
     if header := ctx.headers_parsed.get(DateHeader):
-        if ctx.url_ctx.timestamp_ntp:
+        # Exception: WF(Cannot factorize function)
+        if ctx.url_ctx.timestamp_ntp:  # NOSONAR
             minutes: float = (
                 abs(ctx.url_ctx.timestamp_ntp - header.date.timestamp()) / 60.0
             )
@@ -249,7 +250,10 @@ def _location(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     header: Optional[Header] = None
 
     if response := ctx.url_ctx.custom_f023:
-        if "fluidattacks.com" in response.headers.get("location", ""):
+        # Exception: WF(Cannot factorize function)
+        if "fluidattacks.com" in response.headers.get(  # NOSONAR
+            "location", ""
+        ):
             locations.append("location.injection")
 
     return _create_vulns(
@@ -336,7 +340,8 @@ def _www_authenticate(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     header: Optional[Header] = None
 
     if val := ctx.headers_parsed.get(WWWAuthenticate):
-        if val.type == "basic":
+        # Exception: WF(Cannot factorize function)
+        if val.type == "basic":  # NOSONAR
             locations.append("www_authenticate.basic")
 
     return _create_vulns(
