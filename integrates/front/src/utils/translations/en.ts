@@ -560,7 +560,7 @@ export const enTranslations: ResourceKey = {
             "There are open vulnerabilities reported for this root. " +
             "Attend them first and try again",
         },
-        lastCloningStatusUpdate: "Last cloning update",
+        lastCloningStatusUpdate: "Last status update",
         lastStateStatusUpdate: "Last state update",
         state: "State",
       },
