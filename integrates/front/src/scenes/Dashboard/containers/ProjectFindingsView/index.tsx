@@ -23,7 +23,10 @@ import { renderExpandIcon, renderHeaderExpandIcon } from "./expandIcon";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
-import { statusFormatter } from "components/DataTableNext/formatters";
+import {
+  limitFormatter,
+  statusFormatter,
+} from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -229,6 +232,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
         delay: 1000,
         onFilter: onFilterWhere,
       }),
+      formatter: limitFormatter,
       header: "Where",
       onSort: onSortState,
       visible: checkedItems.where,
