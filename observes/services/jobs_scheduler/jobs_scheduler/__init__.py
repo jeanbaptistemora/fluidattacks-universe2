@@ -33,25 +33,18 @@ def run_command(cmd: str) -> None:
     proc = subprocess.Popen(
         [cmd],
         stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
         shell=False,
         universal_newlines=True,
     )
     stdout = Maybe.from_optional(proc.stdout).unwrap()
-    stderr = Maybe.from_optional(proc.stderr).unwrap()
-    while True:
-        line = stdout.readline()
-        line2 = stderr.readline()
-        if not line and not line2:
+    for line in iter(stdout.readline, b""):
+        if proc.poll() is not None:
             break
-        if line:
-            print(line, end="")
-        if line2:
-            print(line2, end="")
+        print(line, end="")
     if proc.returncode:
         error = CmdFailed(cmd)
-        LOG.error("%s: %s", error, stderr)
-        raise error
+        LOG.error("%s: %s", cmd, error)
 
 
 @impure
