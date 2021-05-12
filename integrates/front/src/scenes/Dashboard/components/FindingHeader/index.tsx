@@ -59,16 +59,28 @@ const FindingHeader: React.FC<IFindingHeaderProps> = (
   const SEVERITY_THRESHOLD_HIGH: number = 6.9;
   const SEVERITY_THRESHOLD_MED: number = 3.9;
   const SEVERITY_THRESHOLD_LOW: number = 0.1;
-  const severityLevel: "CRITICAL" | "HIGH" | "LOW" | "MED" | "NONE" =
-    severity >= SEVERITY_THRESHOLD_CRITICAL
-      ? "CRITICAL"
-      : severity > SEVERITY_THRESHOLD_HIGH
-      ? "HIGH"
-      : severity > SEVERITY_THRESHOLD_MED
-      ? "MED"
-      : severity >= SEVERITY_THRESHOLD_LOW
-      ? "LOW"
-      : "NONE";
+  function setSeverityLevel(): "CRITICAL" | "HIGH" | "LOW" | "MED" | "NONE" {
+    if (severity >= SEVERITY_THRESHOLD_CRITICAL) {
+      return "CRITICAL";
+    }
+    if (severity > SEVERITY_THRESHOLD_HIGH) {
+      return "HIGH";
+    }
+    if (severity > SEVERITY_THRESHOLD_MED) {
+      return "MED";
+    }
+    if (severity >= SEVERITY_THRESHOLD_LOW) {
+      return "LOW";
+    }
+
+    return "NONE";
+  }
+  const severityLevel:
+    | "CRITICAL"
+    | "HIGH"
+    | "LOW"
+    | "MED"
+    | "NONE" = setSeverityLevel();
   const { color: severityColor, text: severityText } = severityConfigs[
     severityLevel
   ];
