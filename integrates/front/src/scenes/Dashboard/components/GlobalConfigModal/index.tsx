@@ -126,7 +126,7 @@ const GlobalConfigModal: React.FC<IGlobalConfigModalProps> = (
                             <SwitchButton
                               checked={values.digest}
                               disabled={false}
-                              name={"digest"}
+                              name={"config-digest-switch"}
                               offlabel={translate.t(
                                 "configuration.digest.unsubscribed"
                               )}
@@ -148,7 +148,11 @@ const GlobalConfigModal: React.FC<IGlobalConfigModalProps> = (
                       <Button id={"config-close"} onClick={onClose}>
                         {translate.t("configuration.close")}
                       </Button>
-                      <Button disabled={!dirty || loading} type={"submit"}>
+                      <Button
+                        disabled={!dirty || loading}
+                        id={"config-confirm"}
+                        type={"submit"}
+                      >
                         {translate.t("configuration.confirm")}
                       </Button>
                     </ButtonToolbar>
