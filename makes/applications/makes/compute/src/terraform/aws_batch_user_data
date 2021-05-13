@@ -5,7 +5,7 @@ MIME-Version: 1.0
 Content-Type: text/cloud-boothook; charset="us-ascii"
 #cloud-boothook
 #!/bin/bash
-cloud-init-per once docker_options echo 'OPTIONS="${OPTIONS} --storage-opt dm.basesize=20G"' >> /etc/sysconfig/docker
+cloud-init-per once docker_options echo 'OPTIONS="${OPTIONS}"' >> /etc/sysconfig/docker
 
 --==BOUNDARY==
 Content-Type: text/x-shellscript; charset="us-ascii"
@@ -24,24 +24,30 @@ Content-Type: text/x-shellscript; charset="us-ascii"
   echo NON_ECS_IMAGE_MINIMUM_CLEANUP_AGE=1m
 }  >> /etc/ecs/ecs.config
 
-# Make disk gpt and create partitions
-parted /dev/nvme1n1 --script -- mklabel gpt
-parted -a optimal /dev/nvme1n1 mkpart primary 0% 100%
+# Install dependencies
+yum install -y jq rsync
 
-# Wait for partitions to be visible
-sleep 3
+# Create and mount the partition
+mkfs.ext4 /dev/nvme1n1
+mount -t ext4 /dev/nvme1n1 /mnt/
 
-# Make partitions xfs
-mkfs -t xfs /dev/nvme1n1p1
+# Sync base docker data to the partition
+service docker stop
+rsync -avPHSX /var/lib/docker/ /mnt/docker/
 
-# Mount partitions
-if test -e /var/lib/docker
+# Configure docker to use the partition
+config=/etc/docker/daemon.json
+if ! test -e "${config}"
 then
-  mv /tmp/lib/docker /tmp/docker
-  mount /dev/nvme1n1p1 /var/lib/docker
-  mv /tmp/docker/* /var/lib/docker
-else
-  mkdir -p /var/lib/docker
-  mount /dev/nvme1n1p1 /var/lib/docker
+  echo "{}" > "${config}"
 fi
+cat "${config}" | jq -r '. * {
+  "data-root": "/mnt/docker/",
+  "storage-driver": "overlay"
+}' > "${config}2"
+mv --force "${config}2" "${config}"
+
+# Start docker again
+service docker start
+
 --==BOUNDARY==--

@@ -105,8 +105,12 @@ resource "aws_security_group" "aws_batch_compute_environment_security_group" {
 }
 
 resource "aws_launch_template" "batch_instance" {
+  block_device_mappings {
+    device_name  = "/dev/xvdcz"
+    virtual_name = "ephemeral0"
+  }
   key_name = "gitlab"
-  name = "batch_instance"
+  name     = "batch_instance"
   tags = {
     "Name"               = "batch_instance"
     "management:type"    = "production"
@@ -168,6 +172,7 @@ locals {
 }
 
 resource "aws_batch_compute_environment" "default" {
+  # https://forums.aws.amazon.com/thread.jspa?threadID=289427
   for_each = local.compute_environments
 
   compute_environment_name = each.key
@@ -178,15 +183,10 @@ resource "aws_batch_compute_environment" "default" {
 
   compute_resources {
     bid_percentage = each.value.bid_percentage
-    # We want to use this one: https://aws.amazon.com/amazon-linux-2
-    #   because it provides Docker with overlay2,
-    #   whose volumes are not limited to 10GB size but are elastic
-    # This avoids us this problem:
-    #   https://aws.amazon.com/premiumsupport/knowledge-center/increase-default-ecs-docker-limit/
-    image_id      = "ami-059628695ae4c249b"
-    instance_role = aws_iam_instance_profile.aws_ecs_instance_role.arn
+    image_id       = "ami-0c09d65d2051ada93"
+    instance_role  = aws_iam_instance_profile.aws_ecs_instance_role.arn
     instance_type = [
-      "c5ad.xlarge",
+      "c5d.xlarge",
     ]
     max_vcpus = each.value.max_vcpus
     min_vcpus = 0
