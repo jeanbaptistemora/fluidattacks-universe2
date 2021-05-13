@@ -71,6 +71,9 @@ to be a fraudulent message that motivates the victim
 to provide information or click a link.
 In this way, we could classify this fraud into link:https://www.csoonline.com/article/3538831/what-is-smishing-how-phishing-via-text-message-works.html[three categories]:
 
+.link:https://www.ic3.gov/Media/PDF/AnnualReport/2020_IC3Report.pdf[Victims]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331097/blog/smishing/image2_xulcfa.webp[Image2]
+
 . Revealing credentials
 +
 Here, criminals expect victims to provide information
@@ -100,9 +103,6 @@ where the link:https://www.zdnet.com/article/south-korea-sees-rise-in-smishing-w
 revealed in February 2020 that
 "9,688 smishing texts had been sent
 that used false information on the novel coronavirus."
-
-.link:https://www.ic3.gov/Media/PDF/AnnualReport/2020_IC3Report.pdf[Victims]
-image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331097/blog/smishing/image2_xulcfa.webp[Image2]
 
 . Downloading malware
 +
