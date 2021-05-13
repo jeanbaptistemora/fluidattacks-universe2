@@ -18,9 +18,6 @@ makeEntrypoint {
       nixpkgs.python37
       packages.makes.announce.bugsnag
     ];
-    envSources = [
-      packages.airs.fontawesome
-    ];
     envUtils = [
       "/makes/utils/aws"
     ];

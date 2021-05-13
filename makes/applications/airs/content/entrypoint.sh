@@ -12,6 +12,9 @@ function main {
           CLOUDINARY_API_KEY \
           CLOUDINARY_CLOUD_NAME \
           FONTAWESOME_NPM_AUTH_TOKEN \
+          GATSBY_ALGOLIA_APP_ID \
+          GATSBY_ALGOLIA_SEARCH_KEY \
+          ALGOLIA_ADMIN_KEY \
     &&  copy __envAirsNewFront__ new-front \
     &&  copy __envAirsContent__ new-front/content \
     &&  copy __envAirsContentPages__ new-front/static/images \

@@ -15,24 +15,26 @@ const PageMaker = (createPage) => {
   return {
     createTemplatePage(posts) {
       _.each(posts, (post) => {
-        if (post.node.pageAttributes.template == null) {
-          createPage({
-            path: post.node.pageAttributes.slug,
-            component: defaultTemplate,
-            context: {
-              id: post.node.id,
-              slug: `/${post.node.pageAttributes.slug}`,
-            },
-          });
-        } else {
-          createPage({
-            path: post.node.pageAttributes.slug,
-            component: setTemplate(post.node.pageAttributes.template),
-            context: {
-              id: post.node.id,
-              slug: `/${post.node.pageAttributes.slug}`,
-            },
-          });
+        if ((post.node.fields.slug).startsWith("/pages/")) {
+          if (post.node.pageAttributes.template == null) {
+            createPage({
+              path: `${post.node.pageAttributes.slug}`,
+              component: defaultTemplate,
+              context: {
+                id: post.node.id,
+                slug: `/pages/${post.node.pageAttributes.slug}`,
+              },
+            });
+          } else {
+            createPage({
+              path: `${post.node.pageAttributes.slug}`,
+              component: setTemplate(post.node.pageAttributes.template),
+              context: {
+                id: post.node.id,
+                slug: `/pages/${post.node.pageAttributes.slug}`,
+              },
+            });
+          }
         }
       });
     },
@@ -52,6 +54,9 @@ exports.createPages = ({ graphql, actions: { createPage } }) => {
           edges {
             node {
               id
+              fields {
+                slug
+              }
               pageAttributes {
                 slug
                 template
