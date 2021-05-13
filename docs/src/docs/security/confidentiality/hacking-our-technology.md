@@ -6,7 +6,7 @@ slug: /security/confidentiality/hacking-our-technology
 ---
 
 We have projects focused
-on hacking our software.
+on hacking our own software.
 For us,
 it is essential to set an example
 of secure software,

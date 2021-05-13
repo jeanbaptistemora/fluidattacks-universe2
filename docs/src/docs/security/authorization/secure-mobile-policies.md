@@ -12,3 +12,12 @@ before enrolling in the organization’s systems.
 This is especially useful,
 as personal mobile devices
 are common targets for malicious hackers.
+
+Some of the requirements are:
+
+- Having a separate working profile for isolating information
+  from the rest of the phone.
+- Setting a strong passphrase.
+- Setting
+  [biometric authentication](/criteria/authentication/231)
+  in case the device supports it.

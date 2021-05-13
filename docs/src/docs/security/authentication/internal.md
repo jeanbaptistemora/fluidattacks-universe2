@@ -8,8 +8,7 @@ slug: /security/authentication/internal
 ## Centralized authentication
 
 We use a centralized authentication platform (IAM)
-to manage all the applications
-we internally use.
+to manage all our internal applications.
 Our employees do not know
 any of the passwords
 of the managed applications;
@@ -35,8 +34,8 @@ and requirements are listed below:
 - Our MFA uses
 [OOB](/criteria/authentication/153),
 a mechanism that transports all the MFA data
-through a different channel 
-han the application’s channel itself.
+through a different channel
+than the application’s channel itself.
 Text messages and emails are examples of OOB.
 It reduces the risk in case a communication channel
 becomes compromised.
@@ -64,4 +63,4 @@ require developers to use a
 that verifies the developer’s identity on the Internet.
 Signatures can be found on the repository commit histories
 linked in the
-[Open Source section](https://fluidattacks.com/security/#open-source).
+[Open Source section](../transparency/open-source).

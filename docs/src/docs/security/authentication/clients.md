@@ -7,7 +7,7 @@ slug: /security/authentication/clients
 
 ASM only uses
 [SSO](https://en.wikipedia.org/wiki/Single_sign-on)
-with Google and Microsoft Accounts.
+with Bitucket, Google and Microsoft Accounts.
 [Oauth2](https://oauth.net/2/) protocol is used.
 Such protocol only accepts login attempts from trusted URLs
 and has industry-standard 2048 bytes access tokens.

@@ -8,14 +8,14 @@ slug: /security/authorization/internal
 Every application we use must have
 user-granular authorization settings
 to grant minimum-privilege policy at all times.
-Some examples are as follows:
+Some examples are:
 
 - **IAM and KMS:** These two tools
 are widely used within `Fluid Attacks`.
 They allow us to ensure
 that hackers can only access the source code,
 environments, exploits, and secrets
-of the projects they have access to.
+of the projects they are assigned to.
 Access can be easily removed should the need arise,
 with no users/passwords leaked.
 These tools also let us

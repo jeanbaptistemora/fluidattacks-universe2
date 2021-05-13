@@ -44,7 +44,7 @@ secure dynamic application hacking.
 - For the rest of our clients,
 we use fully encrypted VPNs.
 
-- [Ephemeral environments](https://fluidattacks.com/security/#EPH)
+- [Ephemeral environments](../integrity/developing-integrity#ephemeral-environments)
 always include a digital certificate,
 validated with ACME protocol, and
 [not self-signed](/criteria/certificates/092).

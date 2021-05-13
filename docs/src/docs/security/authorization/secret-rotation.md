@@ -15,7 +15,7 @@ Our rotation cycles are as follows:
 
 - **JWT Tokens:** daily.
 
-- **Digital Certificates:** every three months.
+- **Digital Certificates:** every thirty days.
 
 - **IAM passphrases:** [every three months](/criteria/certificates/089).
 

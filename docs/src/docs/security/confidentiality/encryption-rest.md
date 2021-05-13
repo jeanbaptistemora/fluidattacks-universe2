@@ -10,8 +10,8 @@ have industry-standard
 [encryption at rest](/criteria/cryptography/224).
 
 - All the sensitive data
-provided by our clients 
-repository access keys, VPN credentials, etc.)
+provided by our clients
+(repository access keys, VPN credentials, etc.)
 is encrypted using the symmetric algorithm
 of our key management system (KMS).
 This algorithm is based on
@@ -38,7 +38,7 @@ are stored in private,
 [AES256 ciphered](/criteria/data/185)
 redundant data centers.
 
-- All the exploits are stored encrypted
+- Our exploits are stored encrypted
 using AES256 keys.
 
 - All ASM data is stored
