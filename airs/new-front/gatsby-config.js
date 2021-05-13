@@ -35,7 +35,7 @@ module.exports = {
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        path: "content/pages",
+        path: "content",
         name: "pages",
       },
     },
@@ -91,6 +91,14 @@ module.exports = {
         typekit: {
           id: "gtl3fqb",
         },
+      },
+    },
+    {
+      resolve: "gatsby-plugin-algolia",
+      options: {
+        appId: process.env.GATSBY_ALGOLIA_APP_ID,
+        apiKey: process.env.ALGOLIA_ADMIN_KEY,
+        queries: require("./src/utils/algolia-queries")
       },
     },
     "gatsby-plugin-image",
