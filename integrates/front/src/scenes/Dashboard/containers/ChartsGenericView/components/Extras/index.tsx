@@ -11,6 +11,12 @@ import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React from "react";
 
+import {
+  getSubscriptionFrequency,
+  translateFrequency,
+  translateFrequencyArrivalTime,
+} from "./helpers";
+
 import { Button } from "components/Button";
 import { DropdownButton, MenuItem } from "components/DropdownButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -38,17 +44,6 @@ import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 const frequencies: string[] = ["daily", "weekly", "monthly", "never"];
-
-const translateFrequency: (
-  freq: string,
-  kind: "action" | "statement"
-) => string = (freq: string, kind: "action" | "statement"): string =>
-  translate.t(`analytics.sections.extras.frequencies.${kind}.${freq}`);
-
-const translateFrequencyArrivalTime: (freq: string) => string = (
-  freq: string
-): string =>
-  translate.t(`analytics.sections.extras.frequenciesArrivalTime.${freq}`);
 
 const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (
   props: IChartsGenericViewProps
@@ -144,9 +139,7 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (
     );
   };
 
-  const subscriptionFrequency: string = _.isEmpty(subscriptions)
-    ? "never"
-    : subscriptions[0].frequency.toLowerCase();
+  const subscriptionFrequency = getSubscriptionFrequency(subscriptions);
 
   return (
     <React.StrictMode>
