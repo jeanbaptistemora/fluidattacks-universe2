@@ -130,6 +130,26 @@ const onError: (errorHandler: ErrorHandler) => ApolloLink = (
       )
   );
 
+const statusCodeAlert = (
+  networkError: Error | ServerError | ServerParseError | undefined
+): void => {
+  const { statusCode } = networkError as { statusCode?: number };
+  switch (statusCode) {
+    case undefined:
+      Alert.alert(
+        i18next.t("common.networkError.title"),
+        i18next.t("common.networkError.msg")
+      );
+      break;
+    default:
+      Alert.alert(
+        i18next.t("common.error.title"),
+        i18next.t("common.error.msg")
+      );
+      LOGGER.warning("A network error occurred", { ...networkError });
+  }
+};
+
 // Top-level error handling
 const errorLink: (history: History) => ApolloLink = (
   history: History
@@ -142,22 +162,7 @@ const errorLink: (history: History) => ApolloLink = (
       skipForwarding,
     }: IHandledErrorAttr): void => {
       if (networkError !== undefined) {
-        const { statusCode } = networkError as { statusCode?: number };
-
-        switch (statusCode) {
-          case undefined:
-            Alert.alert(
-              i18next.t("common.networkError.title"),
-              i18next.t("common.networkError.msg")
-            );
-            break;
-          default:
-            Alert.alert(
-              i18next.t("common.error.title"),
-              i18next.t("common.error.msg")
-            );
-            LOGGER.warning("A network error occurred", { ...networkError });
-        }
+        statusCodeAlert(networkError);
       } else if (graphQLErrors !== undefined) {
         graphQLErrors.forEach(
           // eslint-disable-next-line @typescript-eslint/no-misused-promises
