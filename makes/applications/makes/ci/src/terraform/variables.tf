@@ -9,8 +9,12 @@ variable "region" {
 # Constants
 #
 
-variable "autoscaling_ci_s3_cache_bucket" {
-  default = "autoscaling-ci-cache"
+variable "ci_cache_buckets" {
+  default = {
+    autoscaling_ci_cache   = "autoscaling-ci-cache",
+    autonomicmind_ci_cache = "autonomicmind-ci-cache",
+    autonomicjump_ci_cache = "autonomicjump-ci-cache",
+  }
 }
 
 data "aws_iam_policy_document" "lambda-assume-role-policy" {
