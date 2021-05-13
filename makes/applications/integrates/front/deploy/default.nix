@@ -17,6 +17,8 @@ makeTemplate {
     ];
     envUtils = [
       "/makes/utils/aws"
+      "/makes/utils/cloudflare"
+      "/makes/utils/sops"
     ];
   };
   template = path "/makes/applications/integrates/front/deploy/template.sh";

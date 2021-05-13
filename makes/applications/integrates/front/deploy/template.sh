@@ -9,14 +9,21 @@ function _replace {
 }
 
 function deploy {
-  local env="${1}"
-  local endpoint="${2}"
+  local env_short="${1}"
+  local env="${2}"
   local branch="${3}"
   local bugsnag_key='99a64555a50340cfa856f6623c6bf35d'
   local deployment_date
+  local base_url="integrates.front.${env}.fluidattacks.com/${branch}"
+  local cached_urls=(
+    "https://${base_url}/static/dashboard/app-bundle.min.js"
+    "https://${base_url}/static/dashboard/app-style.min.css"
+  )
 
-      "aws_login_${env}" integrates \
+      "aws_login_${env_short}" integrates \
   &&  pushd integrates \
+    &&  sops_export_vars "secrets-${env}.yaml" \
+          CLOUDFLARE_API_TOKEN \
     &&  mkdir -p app/static \
     &&  copy "__envCompiledFront__/output/app/static" app/static \
     &&  deployment_date="$(date -u '+%FT%H:%M:%SZ')" \
@@ -27,9 +34,13 @@ function deploy {
     &&  _replace app '__INTEGRATES_DEPLOYMENT_DATE__' "${deployment_date}" \
     &&  aws_s3_sync \
           app \
-          "s3://integrates.front.${endpoint}.fluidattacks.com/${branch}/" \
+          "s3://${base_url}/" \
           --delete \
     &&  makes-announce-bugsnag "${bugsnag_key}" "${endpoint}" \
+    &&  cloudflare_purge_cache \
+          "${CLOUDFLARE_API_TOKEN}" \
+          "fluidattacks.com" \
+          "${cached_urls[@]}" \
   &&  popd \
   ||  return 1
 }
