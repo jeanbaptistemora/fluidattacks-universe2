@@ -26,7 +26,8 @@ async def _get_permissions(
     identifier: str,
     with_cache: bool
 ) -> Set[str]:
-    actions: Set[str] = set()
+    # Exception: WF(Cannot assign to accepted value)
+    actions: Set[str] = set()  # NOSONAR
     if entity == 'USER':
         actions = await authz.get_user_level_actions(user_email, with_cache)
     elif entity == 'PROJECT' and identifier:
