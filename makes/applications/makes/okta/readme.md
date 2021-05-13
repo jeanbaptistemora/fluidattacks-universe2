@@ -40,6 +40,8 @@ We use several technologies for accomplishing this:
 
 - Work on decreasing api calls in order to avoid hiting API rate limits:
   https://github.com/okta/terraform-provider-okta/issues/186.
+- RADIUS applications are not supported, they are being managed manually:
+  https://github.com/okta/terraform-provider-okta/issues/475
 - SWA apps do not support shared passwords yet, they are being managed manually:
   https://github.com/okta/terraform-provider-okta/issues/443.
 - Three Field apps do not support shared passwords yet, they are being managed manually:
