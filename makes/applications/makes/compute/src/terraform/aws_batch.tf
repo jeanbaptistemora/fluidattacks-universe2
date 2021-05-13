@@ -105,6 +105,7 @@ resource "aws_security_group" "aws_batch_compute_environment_security_group" {
 }
 
 resource "aws_launch_template" "batch_instance" {
+  key_name = "gitlab"
   name = "batch_instance"
   tags = {
     "Name"               = "batch_instance"
