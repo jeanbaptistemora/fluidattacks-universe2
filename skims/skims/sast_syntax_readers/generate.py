@@ -46,8 +46,11 @@ from sast_syntax_readers.java import (
     while_statement as java_while_statement,
 )
 from sast_syntax_readers.c_sharp import (
+    invocation_expression as c_sharp_invocation_expression,
     method_declaration as c_sharp_method_declaration,
     local_declaration_statement as c_sharp_local_declaration_statement,
+    argument as c_sharp_argument,
+    element_access_expression as c_sharp_element_access_expression,
 )
 from sast_syntax_readers.common import (
     binary_expression as common_binary_expression,
@@ -272,6 +275,24 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     ),
     Dispatcher(
         applicable_languages={
+            graph_model.GraphShardMetadataLanguage.CSHARP,
+        },
+        applicable_node_label_types={
+            "invocation_expression",
+        },
+        syntax_readers=(c_sharp_invocation_expression.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.CSHARP,
+        },
+        applicable_node_label_types={
+            "argument",
+        },
+        syntax_readers=(c_sharp_argument.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
@@ -287,6 +308,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "array_access",
         },
         syntax_readers=(java_array_access.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
+            "element_access_expression",
+        },
+        syntax_readers=(c_sharp_element_access_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={
