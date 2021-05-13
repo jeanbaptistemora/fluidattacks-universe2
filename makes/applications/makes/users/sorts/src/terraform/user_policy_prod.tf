@@ -113,6 +113,7 @@ data "aws_iam_policy_document" "sorts_prod_policy_data" {
     actions = [
       "kms:CreateKey",
       "kms:ListAliases",
+      "kms:TagResource",
     ]
     resources = [
       "*"
