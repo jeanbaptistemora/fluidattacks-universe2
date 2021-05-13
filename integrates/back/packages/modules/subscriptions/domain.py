@@ -336,9 +336,9 @@ def should_process_event(
     event_frequency = event_frequency.lower()
 
     success: bool = (
-        # Monday to Friday @ 23 GMT
+        # Monday to Friday @ 22 GMT
         report_entity.lower() == 'digest'
-        and bot_time_hour == 23
+        and bot_time_hour == 22
         and bot_time_weekday <= 4
     ) or (
         # Firth of month @ 10 GMT
