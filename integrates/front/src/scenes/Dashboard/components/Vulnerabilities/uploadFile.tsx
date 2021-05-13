@@ -12,6 +12,8 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 
+import { errorMessageHelper } from "./helpers";
+
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -45,24 +47,19 @@ interface IUploadVulnProps {
   groupName: string;
 }
 
-export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
+interface IErrorInfoAttr {
+  keys: string[];
+  msg: string;
+  values: string[] & string;
+}
+
+const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
   findingId,
   groupName,
 }: IUploadVulnProps): JSX.Element => {
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   function handleUploadError(updateError: ApolloError): void {
-    interface IErrorInfoAttr {
-      keys: string[];
-      msg: string;
-      values: string[] & string;
-    }
-    function formatError(errorName: string, errorValue: string): string {
-      return ` ${translate.t(errorName)} "${errorValue}" ${translate.t(
-        "groupAlerts.invalid"
-      )}. `;
-    }
-
     updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
       if (message.includes("Exception - Error in range limit numbers")) {
         const errorObject: IErrorInfoAttr = JSON.parse(message);
@@ -97,41 +94,8 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
         } else {
           msgError(translate.t("groupAlerts.invalidSchema"));
         }
-      } else if (message === "Exception - Invalid characters") {
-        msgError(translate.t("validations.invalidChar"));
-      } else if (message === "Exception - Invalid File Size") {
-        msgError(translate.t("validations.fileSize", { count: 1 }));
-      } else if (message === "Exception - Invalid File Type") {
-        msgError(translate.t("groupAlerts.fileTypeYaml"));
-      } else if (message.includes("Exception - Error in path value")) {
-        const errorObject: IErrorInfoAttr = JSON.parse(message);
-        msgErrorStick(`${translate.t("groupAlerts.pathValue")}
-          ${formatError("groupAlerts.value", errorObject.values)}`);
-      } else if (message.includes("Exception - Error in port value")) {
-        const errorObject: IErrorInfoAttr = JSON.parse(message);
-        msgErrorStick(`${translate.t("groupAlerts.portValue")}
-          ${formatError("groupAlerts.value", errorObject.values)}`);
-      } else if (message === "Exception - Error in specific value") {
-        msgError(translate.t("groupAlerts.invalidSpecific"));
-      } else if (
-        message ===
-        "Exception - You can upload a maximum of 100 vulnerabilities per file"
-      ) {
-        msgError(translate.t("groupAlerts.invalidNOfVulns"));
-      } else if (message === "Exception - Error Uploading File to S3") {
-        msgError(translate.t("groupAlerts.errorTextsad"));
-      } else if (message === "Exception - Invalid Stream") {
-        translate.t("groupAlerts.invalidSchema");
-        msgError(
-          translate.t("searchFindings.tabVuln.alerts.uploadFile.invalidStream")
-        );
-      } else if (message === "Exception - Access denied or root not found") {
-        msgError(
-          translate.t("searchFindings.tabVuln.alerts.uploadFile.invalidRoot")
-        );
       } else {
-        msgError(translate.t("groupAlerts.invalidSpecific"));
-        Logger.warning(message);
+        errorMessageHelper(message);
       }
     });
   }
@@ -310,3 +274,5 @@ export const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
     </Formik>
   );
 };
+
+export { UploadVulnerabilities, IErrorInfoAttr };
