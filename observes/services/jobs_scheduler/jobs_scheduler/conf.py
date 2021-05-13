@@ -19,13 +19,13 @@ SCHEDULE: Dict[PartialCron, List[str]] = {
         "observes.scheduled.on-aws.code-etl-mirror",
         "observes.job.batch-stability report-cancelled observes",
     ],
-    PartialCron.new(6, AnyTime(), work_days): [
-        "observes.scheduled.on-aws.code-etl-upload",
-    ],
-    PartialCron.new(14, AnyTime(), work_days): [
+    PartialCron.new(3, AnyTime(), 1): [
         "observes.scheduled.on-aws.bugsnag-etl",
         "observes.scheduled.on-aws.checkly-etl",
         "observes.scheduled.on-aws.delighted-etl",
+    ],
+    PartialCron.new(6, AnyTime(), work_days): [
+        "observes.scheduled.on-aws.code-etl-upload",
     ],
     PartialCron.new(19, AnyTime(), work_days): [
         "observes.scheduled.on-aws.dif-gitlab-etl",
