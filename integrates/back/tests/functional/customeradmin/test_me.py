@@ -30,7 +30,6 @@ async def test_me():
     assert 'success' in result['data']['signIn']
     assert not result['data']['signIn']['success']
 
-    context = get_new_context()
     expiration_time = datetime.utcnow() + timedelta(weeks=8)
     expiration_time = int(expiration_time.timestamp())
     query = f'''
