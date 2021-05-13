@@ -10,6 +10,7 @@ from typing import (
 from .enums import (
     FindingSorts,
     FindingStateStatus,
+    FindingStatus,
 )
 
 
@@ -92,6 +93,16 @@ class Finding31Severity(NamedTuple):
     user_interaction: Decimal = Decimal('0.0')
 
 
+class FindingUnreliableIndicators(NamedTuple):
+    unreliable_age: int = 0
+    unreliable_closed_vulnerabilities: int = 0
+    unreliable_is_verified: bool = True
+    unreliable_last_vulnerability: int = 0
+    unreliable_open_age: int = 0
+    unreliable_open_vulnerabilities: int = 0
+    unreliable_status: FindingStatus = FindingStatus.CLOSED
+
+
 class Finding(NamedTuple):
     analyst_email: str
     group_name: str
@@ -121,4 +132,6 @@ class Finding(NamedTuple):
     risk: str = ''
     threat: str = ''
     type: str = ''
+    unreliable_indicators: FindingUnreliableIndicators = \
+        FindingUnreliableIndicators()
     verification: Optional[FindingVerification] = None

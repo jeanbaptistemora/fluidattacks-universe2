@@ -13,3 +13,8 @@ class FindingStateStatus(Enum):
 class FindingSorts(Enum):
     NO: str = 'NO'
     YES: str = 'YES'
+
+
+class FindingStatus(Enum):
+    CLOSED: str = 'CLOSED'
+    OPEN: str = 'OPEN'

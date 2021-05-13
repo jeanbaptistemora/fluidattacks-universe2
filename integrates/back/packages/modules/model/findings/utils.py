@@ -6,9 +6,13 @@ from typing import (
 
 from dynamodb.types import Item
 
-from .enums import FindingStateStatus
+from .enums import (
+    FindingStateStatus,
+    FindingStatus,
+)
 from .types import (
     FindingState,
+    FindingUnreliableIndicators,
     FindingVerification,
 )
 
@@ -29,6 +33,46 @@ def format_state_item(state: FindingState) -> Item:
         'source': state.source,
         'status': state.status.value,
     }
+
+
+def format_unreliable_indicators_item(
+    indicators: FindingUnreliableIndicators
+) -> Item:
+    return {
+        'unreliable_age': indicators.unreliable_age,
+        'unreliable_closed_vulnerabilities': (
+            indicators.unreliable_closed_vulnerabilities
+        ),
+        'unreliable_is_verified': indicators.unreliable_is_verified,
+        'unreliable_last_vulnerability': (
+            indicators.unreliable_last_vulnerability
+        ),
+        'unreliable_open_age': indicators.unreliable_open_age,
+        'unreliable_open_vulnerabilities': (
+            indicators.unreliable_open_vulnerabilities
+        ),
+        'unreliable_status': indicators.unreliable_status.value,
+    }
+
+
+def format_unreliable_indicators(
+    indicators_item: Item
+) -> FindingUnreliableIndicators:
+    return FindingUnreliableIndicators(
+        unreliable_age=indicators_item['unreliable_age'],
+        unreliable_closed_vulnerabilities=(
+            indicators_item['unreliable_closed_vulnerabilities']
+        ),
+        unreliable_is_verified=indicators_item['unreliable_is_verified'],
+        unreliable_last_vulnerability=(
+            indicators_item['unreliable_last_vulnerability']
+        ),
+        unreliable_open_age=indicators_item['unreliable_open_age'],
+        unreliable_open_vulnerabilities=(
+            indicators_item['unreliable_open_vulnerabilities']
+        ),
+        unreliable_status=FindingStatus[indicators_item['unreliable_status']],
+    )
 
 
 def format_verification(verification_item: Item) -> FindingVerification:

@@ -9,6 +9,7 @@ from model import TABLE
 from .types import Finding
 from .utils import (
     format_state_item,
+    format_unreliable_indicators_item,
     format_verification_item,
 )
 
@@ -78,8 +79,21 @@ async def create(*, finding: Finding) -> None:
         key_structure.sort_key: creation_key.sort_key,
         **state_item
     }
-    items.append(creation)
 
+    items.append(creation)
+    unreliable_indicators_key = keys.build_key(
+        facet=TABLE.facets['finding_unreliable_indicators'],
+        values={'group_name': finding.group_name, 'id': finding.id},
+    )
+    unreliable_indicators_item = (
+        format_unreliable_indicators_item(finding.unreliable_indicators)
+    )
+    unreliable_indicators = {
+        key_structure.partition_key: unreliable_indicators_key.partition_key,
+        key_structure.sort_key: unreliable_indicators_key.sort_key,
+        **unreliable_indicators_item
+    }
+    items.append(unreliable_indicators)
     if finding.verification:
         historic_verification = historics.build_historic(
             attributes=format_verification_item(finding.verification),

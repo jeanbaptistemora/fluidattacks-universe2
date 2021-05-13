@@ -21,7 +21,9 @@ from dynamodb.types import (
 )
 from model import TABLE
 
-from .enums import FindingSorts
+from .enums import (
+    FindingSorts,
+)
 from .types import (
     Finding,
     Finding20Severity,
@@ -34,6 +36,7 @@ from .types import (
 )
 from .utils import (
     format_state,
+    format_unreliable_indicators,
     format_verification,
 )
 
@@ -57,6 +60,15 @@ def _build_finding(
             raw_items=raw_items
         )
     )
+    unreliable_indicators = format_unreliable_indicators(
+        historics.get_latest(
+            item_id=item_id,
+            key_structure=key_structure,
+            historic_prefix='UNRELIABLEINDICATORS',
+            raw_items=raw_items
+        )
+    )
+
     try:
         approval: Optional[FindingState] = format_state(
             historics.get_latest(
@@ -152,7 +164,8 @@ def _build_finding(
         threat=metadata['threat'],
         type=metadata['type'],
         state=state,
-        verification=verification
+        unreliable_indicators=unreliable_indicators,
+        verification=verification,
     )
 
 
@@ -179,6 +192,7 @@ async def _get_finding(
             TABLE.facets['finding_metadata'],
             TABLE.facets['finding_state'],
             TABLE.facets['finding_submission'],
+            TABLE.facets['finding_unreliable_indicators'],
             TABLE.facets['finding_verification'],
         ),
         index=index,
