@@ -3,6 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
+import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 
 import { Button } from "components/Button";
@@ -82,6 +83,11 @@ const GlobalConfigModal: React.FC<IGlobalConfigModalProps> = (
         },
       });
       setDigestSubscription(values.digest);
+      if (values.digest) {
+        track("DailyDigestSuscribe");
+      } else {
+        track("DailyDigestUnsuscribe");
+      }
     },
     [subscribe, setDigestSubscription]
   );

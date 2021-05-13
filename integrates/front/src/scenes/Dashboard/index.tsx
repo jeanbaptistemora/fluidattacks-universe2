@@ -3,7 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import Bugsnag from "@bugsnag/js";
 import type { PureAbility } from "@casl/ability";
 import type { GraphQLError } from "graphql";
-import { identify, people, register, reset } from "mixpanel-browser";
+import { identify, people, register, reset, track } from "mixpanel-browser";
 import React, { useCallback, useContext, useState } from "react";
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 
@@ -112,6 +112,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
   const [isConfigModalOpen, setConfigModalOpen] = useState(false);
   const openConfigModal: () => void = useCallback((): void => {
     setConfigModalOpen(true);
+    track("OpenGlobalConfig");
   }, []);
   const closeConfigModal: () => void = useCallback((): void => {
     setConfigModalOpen(false);
