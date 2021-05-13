@@ -23,6 +23,48 @@ import { translate } from "utils/translations/translate";
 const GroupToeLinesView: React.FC = (): JSX.Element => {
   const { projectName: groupName } = useParams<{ projectName: string }>();
 
+  const [checkedItems, setCheckedItems] = useStoredState<
+    Record<string, boolean>
+  >(
+    "toeLinesTableSet",
+    {
+      attacked: true,
+      comments: true,
+      coverage: true,
+      filename: true,
+      loc: true,
+      modifiedCommit: true,
+      modifiedDate: true,
+      pendingLines: true,
+      sortsRiskLevel: false,
+      testedDate: true,
+      testedLines: true,
+    },
+    localStorage
+  );
+  const handleChange: (columnName: string) => void = useCallback(
+    (columnName: string): void => {
+      if (
+        Object.values(checkedItems).filter((val: boolean): boolean => val)
+          .length === 1 &&
+        checkedItems[columnName]
+      ) {
+        // eslint-disable-next-line no-alert
+        alert(translate.t("validations.columns"));
+        setCheckedItems({
+          ...checkedItems,
+          [columnName]: true,
+        });
+      } else {
+        setCheckedItems({
+          ...checkedItems,
+          [columnName]: !checkedItems[columnName],
+        });
+      }
+    },
+    [checkedItems, setCheckedItems]
+  );
+
   const [isFilterEnabled, setFilterEnabled] = useStoredState<boolean>(
     "toeLinesFilters",
     false
@@ -54,6 +96,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       dataField: "filename",
       header: translate.t("group.toe.lines.filename"),
       onSort,
+      visible: checkedItems.filename,
       width: "40%",
     },
     {
@@ -61,6 +104,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       dataField: "attacked",
       header: translate.t("group.toe.lines.attacked"),
       onSort,
+      visible: checkedItems.attacked,
       width: "2.5%",
     },
     {
@@ -69,6 +113,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       formatter: formatPercentage,
       header: translate.t("group.toe.lines.coverage"),
       onSort,
+      visible: checkedItems.coverage,
       width: "2.5%",
     },
     {
@@ -76,6 +121,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       dataField: "loc",
       header: translate.t("group.toe.lines.loc"),
       onSort,
+      visible: checkedItems.loc,
       width: "8%",
     },
     {
@@ -83,6 +129,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       dataField: "testedLines",
       header: translate.t("group.toe.lines.testedLines"),
       onSort,
+      visible: checkedItems.testedLines,
       width: "8%",
     },
     {
@@ -90,6 +137,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       dataField: "pendingLines",
       header: translate.t("group.toe.lines.pendingLines"),
       onSort,
+      visible: checkedItems.pendingLines,
       width: "8%",
     },
     {
@@ -99,6 +147,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       formatter: formatDate,
       header: translate.t("group.toe.lines.modifiedDate"),
       onSort,
+      visible: checkedItems.modifiedDate,
       width: "5%",
     },
     {
@@ -106,6 +155,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       dataField: "modifiedCommit",
       header: translate.t("group.toe.lines.modifiedCommit"),
       onSort,
+      visible: checkedItems.modifiedCommit,
       width: "10%",
     },
     {
@@ -115,6 +165,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       formatter: formatDate,
       header: translate.t("group.toe.lines.testedDate"),
       onSort,
+      visible: checkedItems.testedDate,
       width: "5%",
     },
     {
@@ -122,6 +173,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       dataField: "comments",
       header: translate.t("group.toe.lines.comments"),
       onSort,
+      visible: checkedItems.comments,
       width: "15%",
     },
     {
@@ -129,7 +181,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
       dataField: "sortsRiskLevel",
       header: translate.t("group.toe.lines.sortsRiskLevel"),
       onSort,
-      visible: false,
+      visible: checkedItems.sortsRiskLevel,
       width: "2.5%",
     },
   ];
@@ -201,6 +253,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
         headers={headersToeLinesTable}
         id={"tblToeLines"}
         isFilterEnabled={isFilterEnabled}
+        onColumnToggle={handleChange}
         onUpdateEnableFilter={handleUpdateFilter}
         pageSize={100}
         search={true}
