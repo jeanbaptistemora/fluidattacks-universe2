@@ -106,6 +106,27 @@ data "aws_iam_policy_document" "sorts_prod_policy_data" {
       "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/sagemaker/TrainingJobs:log-stream:*"
     ]
   }
+
+  # KMS
+  statement {
+    effect = "Allow"
+    actions = [
+      "kms:CreateKey",
+      "kms:ListAliases",
+    ]
+    resources = [
+      "*"
+    ]
+  }
+  statement {
+    effect = "Allow"
+    actions = [
+      "kms:*"
+    ]
+    resources = [
+      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/sorts*"
+    ]
+  }
 }
 
 resource "aws_iam_policy" "sorts_prod_policy" {
