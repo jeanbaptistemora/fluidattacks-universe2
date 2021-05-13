@@ -4,9 +4,9 @@ from decimal import Decimal
 from statistics import mean
 from typing import (
     Any,
+    Iterable,
     List,
     Optional,
-    Tuple,
 )
 
 # Third party libraries
@@ -33,7 +33,7 @@ async def generate_one(
 
 
 async def get_many_groups(
-    groups: Tuple[str, ...],
+    groups: Iterable[str],
     context: Any,
     min_date: Optional[date] = None
 ) -> Decimal:

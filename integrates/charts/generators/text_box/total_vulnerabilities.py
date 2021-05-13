@@ -1,5 +1,5 @@
 # Standard library
-from typing import Tuple
+from typing import Iterable
 
 # Third party libraries
 from aioextensions import (
@@ -25,7 +25,7 @@ async def generate_one(group: str) -> int:
     )
 
 
-async def get_vulns_count_many_groups(groups: Tuple[str]) -> int:
+async def get_vulns_count_many_groups(groups: Iterable[str]) -> int:
     groups_vulns = await collect(map(generate_one, list(groups)))
 
     return sum(groups_vulns)
@@ -38,7 +38,7 @@ def format_data(vulns_count: int) -> dict:
     }
 
 
-async def generate_all():
+async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=format_data(

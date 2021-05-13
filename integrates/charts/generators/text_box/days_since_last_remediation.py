@@ -1,6 +1,6 @@
 # Standard library
 from decimal import Decimal
-from typing import Tuple
+from typing import Iterable
 
 # Third party libraries
 from aioextensions import (
@@ -23,7 +23,7 @@ async def generate_one(group: str) -> Decimal:
     return group_data['last_closing_vuln']
 
 
-async def get_many_groups(groups: Tuple[str]) -> Decimal:
+async def get_many_groups(groups: Iterable[str]) -> Decimal:
     groups_data = await collect(map(generate_one, list(groups)))
 
     return min(groups_data) if groups_data else Decimal('Infinity')
@@ -36,7 +36,7 @@ def format_data(last_closing_date: Decimal) -> dict:
     }
 
 
-async def generate_all():
+async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=format_data(

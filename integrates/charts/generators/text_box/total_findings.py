@@ -33,7 +33,7 @@ async def generate_one(group: str) -> int:
     return non_deleted_findings_count
 
 
-async def get_findings_count_many_groups(groups: Tuple[str]) -> int:
+async def get_findings_count_many_groups(groups: Tuple[str, ...]) -> int:
     groups_findings = await collect(map(generate_one, list(groups)))
 
     return sum(groups_findings)
@@ -46,7 +46,7 @@ def format_data(findings_count: int) -> dict:
     }
 
 
-async def generate_all():
+async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=format_data(

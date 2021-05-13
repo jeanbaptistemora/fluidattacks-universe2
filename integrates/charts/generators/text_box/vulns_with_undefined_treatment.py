@@ -20,7 +20,7 @@ async def generate_one(group: str) -> int:
     return item.get('total_treatment', {}).get('undefined', 0)
 
 
-async def get_undefined_count_many_groups(groups: Tuple[str]) -> int:
+async def get_undefined_count_many_groups(groups: Tuple[str, ...]) -> int:
     groups_undefined_vulns = await collect(map(generate_one, list(groups)))
 
     return sum(groups_undefined_vulns)
@@ -33,7 +33,7 @@ def format_data(undefined_count: int) -> dict:
     }
 
 
-async def generate_all():
+async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=format_data(

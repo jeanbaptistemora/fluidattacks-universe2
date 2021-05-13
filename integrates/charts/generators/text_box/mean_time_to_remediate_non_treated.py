@@ -3,9 +3,9 @@ from datetime import date
 from decimal import Decimal
 from statistics import mean
 from typing import (
+    Iterable,
     List,
     Optional,
-    Tuple,
 )
 
 # Third party libraries
@@ -33,7 +33,7 @@ async def generate_one(
 
 
 async def get_many_groups(
-    groups: Tuple[str, ...],
+    groups: Iterable[str],
     min_date: Optional[date] = None
 ) -> Decimal:
     groups_data = await collect(

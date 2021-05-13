@@ -19,7 +19,7 @@ async def generate_one(group: str) -> int:
     return await findings_domain.get_pending_closing_check(context, group)
 
 
-async def get_many_groups(groups: Tuple[str]) -> int:
+async def get_many_groups(groups: Tuple[str, ...]) -> int:
     groups_data = await collect(map(generate_one, list(groups)))
 
     return sum(groups_data)
@@ -32,7 +32,7 @@ def format_data(findings_reattack: int) -> dict:
     }
 
 
-async def generate_all():
+async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=format_data(findings_reattack=await generate_one(group)),

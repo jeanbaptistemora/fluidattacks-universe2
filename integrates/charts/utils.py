@@ -23,6 +23,7 @@ from urllib.parse import urlparse
 from frozendict import frozendict
 
 # Third party libraries
+from custom_types import ForcesExecutions
 from forces import domain as forces_domain
 from groups import domain as groups_domain
 from newutils.encodings import safe_encode
@@ -38,9 +39,7 @@ PortfoliosGroups = NamedTuple('PortfoliosGroups', [
 TICK_ROTATION = -45  # display group name at that rotation
 
 
-async def get_all_time_forces_executions(
-    group: str,
-) -> List[Dict[str, Union[str, int]]]:
+async def get_all_time_forces_executions(group: str,) -> ForcesExecutions:
     executions: List[Dict[str, Union[str, int]]] = []
     executions = await forces_domain.get_executions(
         from_date=datetime.utcfromtimestamp(1),
