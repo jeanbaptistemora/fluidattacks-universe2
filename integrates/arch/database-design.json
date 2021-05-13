@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "May 07, 2021, 09:34 AM",
+    "DateLastModified": "May 13, 2021, 02:08 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -401,6 +401,34 @@
         {
           "AttributeName": "vuln_uuids",
           "AttributeType": "L"
+        },
+        {
+          "AttributeName": "unreliable_last_vulnerability",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "unreliable_age",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "unreliable_open_age",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "unreliable_closed_vulnerabilities",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "unreliable_is_verified",
+          "AttributeType": "BOOL"
+        },
+        {
+          "AttributeName": "unreliable_open_vulnerabilities",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "unreliable_status",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -1821,6 +1849,23 @@
               "type": {
                 "S": "SECURITY"
               },
+              "evidences": {
+                "M": {
+                  "evidence1": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2021-02-15T14:01:16Z"
+                      },
+                      "description": {
+                        "S": "Evidence description"
+                      },
+                      "url": {
+                        "S": "unittesting-463558592-evidence_route_1"
+                      }
+                    }
+                  }
+                }
+              },
               "recommendation": {
                 "S": "solution"
               },
@@ -1830,6 +1875,9 @@
               "threat": {
                 "S": "Updated threat"
               },
+              "cwe": {
+                "S": "200"
+              },
               "affected_systems": {
                 "S": "Server bWAPP"
               },
@@ -1838,9 +1886,6 @@
               },
               "cvss_version": {
                 "S": "3.1"
-              },
-              "cwe": {
-                "S": "200"
               },
               "title": {
                 "S": "F051. Weak passwords reversed"
@@ -1951,20 +1996,16 @@
                   }
                 }
               },
-              "evidences": {
+              "records": {
                 "M": {
-                  "evidence1": {
-                    "M": {
-                      "modified_date": {
-                        "S": "2021-02-15T14:01:16Z"
-                      },
-                      "description": {
-                        "S": "Evidence description"
-                      },
-                      "url": {
-                        "S": "unittesting-463558592-evidence_route_1"
-                      }
-                    }
+                  "modified_date": {
+                    "S": "2021-02-15T14:01:16Z"
+                  },
+                  "description": {
+                    "S": "Records description"
+                  },
+                  "url": {
+                    "S": "unittesting-463558592-evidence_route_1"
                   }
                 }
               },
@@ -1982,32 +2023,20 @@
               },
               "attack_vector_desc": {
                 "S": "This is an updated attack vector"
-              },
-              "records": {
-                "M": {
-                  "modified_date": {
-                    "S": "2021-02-15T14:01:16Z"
-                  },
-                  "description": {
-                    "S": "Records description"
-                  },
-                  "url": {
-                    "S": "unittesting-463558592-evidence_route_1"
-                  }
-                }
               }
             }
           ],
           "NonKeyAttributes": [
             "description",
             "type",
+            "evidences",
             "recommendation",
             "requirements",
             "threat",
+            "cwe",
             "affected_systems",
             "analyst_email",
             "cvss_version",
-            "cwe",
             "title",
             "id",
             "sorts",
@@ -2015,13 +2044,12 @@
             "compromised_attributes",
             "group_name",
             "severity",
+            "records",
             "compromised_records",
             "risk",
             "scenario",
             "bts_url",
-            "attack_vector_desc",
-            "evidences",
-            "records"
+            "attack_vector_desc"
           ],
           "DataAccess": {
             "MySql": {}
@@ -2304,6 +2332,56 @@
             "modified_by",
             "comment_id",
             "vuln_uuids"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "finding_unreliable_indicators",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "FIN#id#UNRELIABLEINDICATORS",
+            "SortKeyAlias": "GROUP#group_name"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "FIN#475041513#UNRELIABLEINDICATORS"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "unreliable_status": {
+                "S": "OPEN"
+              },
+              "unreliable_last_vulnerability": {
+                "N": "10"
+              },
+              "unreliable_age": {
+                "N": "340"
+              },
+              "unreliable_open_age": {
+                "N": "240"
+              },
+              "unreliable_closed_vulnerabilities": {
+                "N": "4"
+              },
+              "unreliable_is_verified": {
+                "BOOL": false
+              },
+              "unreliable_open_vulnerabilities": {
+                "N": "2"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "unreliable_open_vulnerabilities",
+            "unreliable_is_verified",
+            "unreliable_closed_vulnerabilities",
+            "unreliable_open_age",
+            "unreliable_age",
+            "unreliable_last_vulnerability",
+            "unreliable_status"
           ],
           "DataAccess": {
             "MySql": {}
