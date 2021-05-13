@@ -455,6 +455,7 @@ module.exports = {
   ],
   Squad: [
     'squad/introduction',
+    'squad/agreements',
   ],
   Types: [
     'types/introduction',
