@@ -22,6 +22,45 @@ import { translate } from "utils/translations/translate";
 const GroupToeInputsView: React.FC = (): JSX.Element => {
   const { projectName: groupName } = useParams<{ projectName: string }>();
 
+  const [checkedItems, setCheckedItems] = useStoredState<
+    Record<string, boolean>
+  >(
+    "toeInputsTableSet",
+    {
+      commit: true,
+      component: true,
+      createdDate: true,
+      entryPoint: true,
+      seenFirstTimeBy: true,
+      testedDate: true,
+      verified: true,
+      vulns: true,
+    },
+    localStorage
+  );
+  const handleChange: (columnName: string) => void = useCallback(
+    (columnName: string): void => {
+      if (
+        Object.values(checkedItems).filter((val: boolean): boolean => val)
+          .length === 1 &&
+        checkedItems[columnName]
+      ) {
+        // eslint-disable-next-line no-alert
+        alert(translate.t("validations.columns"));
+        setCheckedItems({
+          ...checkedItems,
+          [columnName]: true,
+        });
+      } else {
+        setCheckedItems({
+          ...checkedItems,
+          [columnName]: !checkedItems[columnName],
+        });
+      }
+    },
+    [checkedItems, setCheckedItems]
+  );
+
   const [isFilterEnabled, setFilterEnabled] = useStoredState<boolean>(
     "toeInputsFilters",
     false
@@ -48,6 +87,7 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
       dataField: "component",
       header: translate.t("group.toe.inputs.component"),
       onSort,
+      visible: checkedItems.component,
       width: "30%",
     },
     {
@@ -55,6 +95,7 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
       dataField: "entryPoint",
       header: translate.t("group.toe.inputs.entryPoint"),
       onSort,
+      visible: checkedItems.entryPoint,
       width: "10%",
     },
     {
@@ -62,6 +103,7 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
       dataField: "verified",
       header: translate.t("group.toe.inputs.verified"),
       onSort,
+      visible: checkedItems.verified,
       width: "2.5%",
     },
     {
@@ -69,6 +111,7 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
       dataField: "commit",
       header: translate.t("group.toe.inputs.commit"),
       onSort,
+      visible: checkedItems.commit,
       width: "15%",
     },
     {
@@ -78,6 +121,7 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
       formatter: formatDate,
       header: translate.t("group.toe.inputs.testedDate"),
       onSort,
+      visible: checkedItems.testedDate,
       width: "8%",
     },
     {
@@ -85,6 +129,7 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
       dataField: "vulns",
       header: translate.t("group.toe.inputs.vulns"),
       onSort,
+      visible: checkedItems.vulns,
       width: "15%",
     },
     {
@@ -94,6 +139,7 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
       formatter: formatDate,
       header: translate.t("group.toe.inputs.createdDate"),
       onSort,
+      visible: checkedItems.createdDate,
       width: "8%",
     },
     {
@@ -101,6 +147,7 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
       dataField: "seenFirstTimeBy",
       header: translate.t("group.toe.inputs.seenFirstTimeBy"),
       onSort,
+      visible: checkedItems.seenFirstTimeBy,
       width: "15%",
     },
   ];
@@ -143,6 +190,7 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
         headers={headersToeInputsTable}
         id={"tblToeInputs"}
         isFilterEnabled={isFilterEnabled}
+        onColumnToggle={handleChange}
         onUpdateEnableFilter={handleUpdateFilter}
         pageSize={100}
         search={true}
