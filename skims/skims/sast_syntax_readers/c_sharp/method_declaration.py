@@ -20,23 +20,29 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
 def _method_declaration_parameters(
     args: SyntaxReaderArgs,
 ) -> SyntaxStepsLazy:
-    match = g.match_ast(
+    match = g.match_ast_group(
         args.graph,
         args.n_id,
         "predefined_type",
         "identifier",
     )
-    if (
-        len(match) == 2
-        and (var_type_id := match["predefined_type"])
-        and (var_id := match["identifier"])
+    # pylint:disable=used-before-assignment
+    if (_identifiers := match["identifier"]) and len(_identifiers) == 2:
+        # pylint:disable=unpacking-non-sequence
+        param_type, param_identifier = _identifiers
+    elif (_var_type_id := match["predefined_type"]) and (
+        _var_id := match["identifier"]
     ):
-        var_type_str: str = args.graph.nodes[var_type_id]["label_text"]
-
-        yield SyntaxStepDeclaration(
-            meta=SyntaxStepMeta.default(args.n_id),
-            var=args.graph.nodes[var_id]["label_text"],
-            var_type=var_type_str,
-        )
+        param_type = _var_type_id.pop()
+        param_identifier = _var_id.pop()
     else:
         raise MissingCaseHandling(args)
+
+    var_type_str: str = args.graph.nodes[param_type]["label_text"]
+    var_identifier_str: str = args.graph.nodes[param_identifier]["label_text"]
+
+    yield SyntaxStepDeclaration(
+        meta=SyntaxStepMeta.default(args.n_id),
+        var=var_identifier_str,
+        var_type=var_type_str,
+    )
