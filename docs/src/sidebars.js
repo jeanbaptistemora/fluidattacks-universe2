@@ -48,6 +48,7 @@ module.exports = {
         'criteria/credentials/r333',
         'criteria/credentials/r347',
         'criteria/credentials/r358',
+        'criteria/credentials/r367',
       ],
     },
     {
