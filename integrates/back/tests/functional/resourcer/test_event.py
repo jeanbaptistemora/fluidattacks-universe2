@@ -82,7 +82,6 @@ async def test_event():
     assert 'success' in result['data']['addEventConsult']
     assert result['data']['addEventConsult']
 
-    context = get_new_context()
     query = '''
         mutation updateEventEvidence(
             $eventId: String!, $evidenceType: EventEvidenceType!, $file: Upload!
