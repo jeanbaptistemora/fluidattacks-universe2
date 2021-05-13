@@ -18,10 +18,18 @@ interface ILoginButtonProps {
 const StyledLoginButton: StyledComponent<
   "button",
   Record<string, unknown>
-> = styled.button.attrs({
-  className:
-    "dim w-100 flex ba br0 pa2 outline-0 pointer justify-between items-center btn-login white",
-})``;
+> = styled.button.attrs(
+  ({
+    className,
+    type,
+  }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
+    className:
+      "dim w-100 flex ba br0 pa2 outline-0 pointer " +
+      "justify-between items-center btn-login white " +
+      `${className ?? ""}`,
+    type: type ?? "button",
+  })
+)``;
 
 const LoginButton: React.FC<ILoginButtonProps> = (
   props: Readonly<ILoginButtonProps>

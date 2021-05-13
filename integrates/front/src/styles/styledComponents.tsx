@@ -248,9 +248,15 @@ const FormGroup: StyledComponent<
 const GraphicButton: StyledComponent<
   "button",
   Record<string, unknown>
-> = styled.button.attrs({
-  className: "dim dib g-btn pr3 pl3 pt2 pb2 outline-0",
-})``;
+> = styled.button.attrs(
+  ({
+    className,
+    type,
+  }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
+    className: `dim dib g-btn pr3 pl3 pt2 pb2 outline-0 ${className ?? ""}`,
+    type: type ?? "button",
+  })
+)``;
 
 const GraphicPanelCollapse: StyledComponent<
   "div",
@@ -465,9 +471,15 @@ const ProjectScopeText: StyledComponent<
 const QuestionButton: StyledComponent<
   "button",
   Record<string, unknown>
-> = styled.button.attrs({
-  className: "outline-0 pa0 questionBtn",
-})``;
+> = styled.button.attrs(
+  ({
+    className,
+    type,
+  }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
+    className: `outline-0 pa0 questionBtn ${className ?? ""}`,
+    type: type ?? "button",
+  })
+)``;
 
 const RemoveItem: StyledComponent<
   "div",

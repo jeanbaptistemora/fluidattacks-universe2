@@ -8,11 +8,15 @@ import { FluidIcon } from "components/FluidIcon";
 const DeleteFormatter: StyledComponent<
   "button",
   Record<string, unknown>
-> = styled.button.attrs<{
-  className: string;
-}>({
-  className: "b--sb bg-sb svg-box20",
-})``;
+> = styled.button.attrs(
+  ({
+    className,
+    type,
+  }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
+    className: `b--sb bg-sb svg-box20 ${className ?? ""}`,
+    type: type ?? "button",
+  })
+)``;
 
 export const deleteFormatter: (
   value: string,

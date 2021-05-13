@@ -22,16 +22,28 @@ interface ISplitButtonProps {
 const LastOrg: StyledComponent<
   "button",
   Record<string, unknown>
-> = styled.button.attrs({
-  className: "br0 outline-0",
-})``;
+> = styled.button.attrs(
+  ({
+    className,
+    type,
+  }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
+    className: `br0 outline-0 ${className ?? ""}`,
+    type: type ?? "button",
+  })
+)``;
 
 const IconButton: StyledComponent<
   "button",
   Record<string, unknown>
-> = styled.button.attrs({
-  className: "br0 outline-0",
-})``;
+> = styled.button.attrs(
+  ({
+    className,
+    type,
+  }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
+    className: `br0 outline-0 ${className ?? ""}`,
+    type: type ?? "button",
+  })
+)``;
 
 const SplitButton: React.FC<ISplitButtonProps> = (
   props: Readonly<ISplitButtonProps>

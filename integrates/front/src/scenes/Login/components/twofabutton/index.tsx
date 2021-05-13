@@ -16,9 +16,15 @@ interface ITwoFaButtonProps {
 const StyledTwoFaButton: StyledComponent<
   "button",
   Record<string, unknown>
-> = styled.button.attrs({
-  className: "dim w-100 db ba br0 pointer outline-0 white",
-})``;
+> = styled.button.attrs(
+  ({
+    className,
+    type,
+  }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
+    className: `dim w-100 db ba br0 pointer outline-0 white ${className ?? ""}`,
+    type: type ?? "button",
+  })
+)``;
 
 const TwoFaButton: React.FC<ITwoFaButtonProps> = (
   props: Readonly<ITwoFaButtonProps>

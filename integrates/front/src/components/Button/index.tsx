@@ -10,16 +10,15 @@ const StyledButton: StyledComponent<
   "button",
   Record<string, unknown>
 > = styled.button.attrs(
-  (
-    props: React.ButtonHTMLAttributes<HTMLButtonElement>
-  ): {
-    className: string;
-    type: "button" | "reset" | "submit";
-  } => ({
+  ({
+    className,
+    type,
+  }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
     className:
-      "b--bd b--bh b--orgred ba bg-bd bg-bh bg-btn cna-bd color-bd color-bh hover-white " +
-      "fw100 ml2 montserrat orgred btn-pa svg-box",
-    type: props.type ?? "button",
+      "b--bd b--bh b--orgred ba bg-bd bg-bh bg-btn cna-bd " +
+      "color-bd color-bh hover-white fw100 ml2 montserrat orgred " +
+      `btn-pa svg-box ${className ?? ""}`,
+    type: type ?? "button",
   })
 )``;
 

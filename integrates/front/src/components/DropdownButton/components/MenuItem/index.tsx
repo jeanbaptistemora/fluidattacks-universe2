@@ -18,9 +18,17 @@ interface IMenuItemsProps {
 const StyledMenuItem: StyledComponent<
   "button",
   Record<string, unknown>
-> = styled.button.attrs({
-  className: "w-100 flex ba br0 pa3 outline-0 justify-center",
-})``;
+> = styled.button.attrs(
+  ({
+    className,
+    type,
+  }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
+    className: `w-100 flex ba br0 pa3 outline-0 justify-center ${
+      className ?? ""
+    }`,
+    type: type ?? "button",
+  })
+)``;
 
 const MenuItem: React.FC<IMenuItemsProps> = (
   props: Readonly<IMenuItemsProps>
