@@ -1,6 +1,6 @@
 lib_http.analyze_headers.date.un_synced:
   en: Server clock is out of time {minutes} minute{minutes_plural}
-  es: Reloj del servidor está desfasado {minutes} minute{minutes_plural}
+  es: Reloj del servidor está desfasado {minutes} minuto{minutes_plural}
 F064_SERVER_CLOCK.description:
   en: The system's internal clock is not synced with NTP servers.
   es: El reloj interno del sistema no esta sincronizado con servidores NTP.
