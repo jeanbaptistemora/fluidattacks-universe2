@@ -1,0 +1,198 @@
+# Local imports
+from model import (
+    core_model,
+    graph_model,
+)
+from sast_transformations.danger_nodes.utils import (
+    mark_function_arg,
+    mark_methods_input,
+    mark_methods_sink,
+    mark_obj_inst_input,
+    mark_obj_inst_sink,
+)
+from utils.string import build_attr_paths
+
+
+def mark_inputs(
+    graph: graph_model.Graph,
+    syntax: graph_model.GraphSyntax,
+) -> None:
+    findings = core_model.FindingEnum
+
+    for finding in (
+        findings.F001_JAVA_SQL,
+        findings.F004,
+        findings.F008,
+        findings.F021,
+        findings.F034,
+        findings.F042,
+        findings.F063_PATH_TRAVERSAL,
+        findings.F063_TRUSTBOUND,
+        findings.F107,
+    ):
+        danger_args = {
+            *build_attr_paths(
+                "javax",
+                "servlet",
+                "http",
+                "HttpServletRequest",
+            ),
+            *build_attr_paths(
+                "org",
+                "springframework",
+                "web",
+                "bind",
+                "annotation",
+                "RequestParam",
+            ),
+        }
+        mark_function_arg(finding, graph, syntax, danger_args)
+
+    mark_methods_input(
+        findings.F052,
+        graph,
+        syntax,
+        {
+            "java.security.MessageDigest.getInstance",
+        },
+    )
+    mark_obj_inst_input(
+        findings.F052,
+        graph,
+        syntax,
+        {
+            *build_attr_paths("java", "util", "Properties"),
+        },
+    )
+
+
+def mark_sinks(
+    graph: graph_model.Graph,
+    syntax: graph_model.GraphSyntax,
+) -> None:
+    findings = core_model.FindingEnum
+
+    mark_methods_sink(
+        findings.F001_JAVA_SQL,
+        graph,
+        syntax,
+        {
+            "addBatch",
+            "batchUpdate",
+            "execute",
+            "executeBatch",
+            "executeLargeBatch",
+            "executeLargeUpdate",
+            "executeQuery",
+            "executeUpdate",
+            "query",
+            "queryForInt",
+            "queryForList",
+            "queryForLong",
+            "queryForMap",
+            "queryForObject",
+            "queryForRowSet",
+        },
+    )
+    mark_methods_sink(
+        findings.F004,
+        graph,
+        syntax,
+        {
+            "command",
+            "exec",
+            "start",
+        },
+    )
+    mark_methods_sink(
+        findings.F008,
+        graph,
+        syntax,
+        {
+            "format",
+            "getWriter.format",
+            "getWriter.print",
+            "getWriter.printf",
+            "getWriter.println",
+            "getWriter.write",
+        },
+    )
+    mark_methods_sink(
+        findings.F021,
+        graph,
+        syntax,
+        {
+            "compile",
+            "evaluate",
+        },
+    )
+    mark_methods_sink(
+        findings.F034,
+        graph,
+        syntax,
+        {
+            "getSession.setAttribute",
+            "addCookie",
+        },
+    )
+    mark_methods_sink(
+        findings.F042,
+        graph,
+        syntax,
+        {
+            "addCookie",
+            "evaluate",
+        },
+    )
+    mark_methods_sink(
+        findings.F052,
+        graph,
+        syntax,
+        {
+            "java.security.MessageDigest.getInstance",
+        },
+    )
+    mark_methods_sink(
+        findings.F063_PATH_TRAVERSAL,
+        graph,
+        syntax,
+        {
+            "java.nio.file.Files.newInputStream",
+            "java.nio.file.Paths.get",
+        },
+    )
+    mark_methods_sink(
+        findings.F063_TRUSTBOUND,
+        graph,
+        syntax,
+        {
+            "putValue",
+            "setAttribute",
+        },
+    )
+    mark_methods_sink(
+        findings.F107,
+        graph,
+        syntax,
+        {
+            "search",
+        },
+    )
+    mark_obj_inst_sink(
+        findings.F004,
+        graph,
+        syntax,
+        {
+            *build_attr_paths("java", "lang", "ProcessBuilder"),
+        },
+    )
+    mark_obj_inst_sink(
+        findings.F063_PATH_TRAVERSAL,
+        graph,
+        syntax,
+        {
+            *build_attr_paths("java", "io", "File"),
+            *build_attr_paths("java", "io", "FileInputStream"),
+            *build_attr_paths("java", "io", "FileOutputStream"),
+        },
+    )

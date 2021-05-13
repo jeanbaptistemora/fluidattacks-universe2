@@ -10,9 +10,6 @@ from model import (
 from sast_syntax_readers.utils_generic import (
     get_dependencies,
 )
-from utils.string import (
-    build_attr_paths,
-)
 
 
 def _append_label(
@@ -48,191 +45,6 @@ def _append_label_sink(
     _append_label(graph, n_id, "label_sink_type", finding)
 
 
-def _mark_java_inputs(
-    graph: graph_model.Graph,
-    syntax: graph_model.GraphSyntax,
-) -> None:
-    findings = core_model.FindingEnum
-
-    for finding in (
-        findings.F001_JAVA_SQL,
-        findings.F004,
-        findings.F008,
-        findings.F021,
-        findings.F034,
-        findings.F042,
-        findings.F063_PATH_TRAVERSAL,
-        findings.F063_TRUSTBOUND,
-        findings.F107,
-    ):
-        danger_args = {
-            *build_attr_paths(
-                "javax",
-                "servlet",
-                "http",
-                "HttpServletRequest",
-            ),
-            *build_attr_paths(
-                "org",
-                "springframework",
-                "web",
-                "bind",
-                "annotation",
-                "RequestParam",
-            ),
-        }
-        _mark_function_arg(finding, graph, syntax, danger_args)
-
-    _mark_methods_input(
-        findings.F052,
-        graph,
-        syntax,
-        {
-            "java.security.MessageDigest.getInstance",
-        },
-    )
-    _mark_obj_inst_input(
-        findings.F052,
-        graph,
-        syntax,
-        {
-            *build_attr_paths("java", "util", "Properties"),
-        },
-    )
-
-
-def _mark_java_sinks(
-    graph: graph_model.Graph,
-    syntax: graph_model.GraphSyntax,
-) -> None:
-    findings = core_model.FindingEnum
-
-    _mark_methods_sink(
-        findings.F001_JAVA_SQL,
-        graph,
-        syntax,
-        {
-            "addBatch",
-            "batchUpdate",
-            "execute",
-            "executeBatch",
-            "executeLargeBatch",
-            "executeLargeUpdate",
-            "executeQuery",
-            "executeUpdate",
-            "query",
-            "queryForInt",
-            "queryForList",
-            "queryForLong",
-            "queryForMap",
-            "queryForObject",
-            "queryForRowSet",
-        },
-    )
-    _mark_methods_sink(
-        findings.F004,
-        graph,
-        syntax,
-        {
-            "command",
-            "exec",
-            "start",
-        },
-    )
-    _mark_methods_sink(
-        findings.F008,
-        graph,
-        syntax,
-        {
-            "format",
-            "getWriter.format",
-            "getWriter.print",
-            "getWriter.printf",
-            "getWriter.println",
-            "getWriter.write",
-        },
-    )
-    _mark_methods_sink(
-        findings.F021,
-        graph,
-        syntax,
-        {
-            "compile",
-            "evaluate",
-        },
-    )
-    _mark_methods_sink(
-        findings.F034,
-        graph,
-        syntax,
-        {
-            "getSession.setAttribute",
-            "addCookie",
-        },
-    )
-    _mark_methods_sink(
-        findings.F042,
-        graph,
-        syntax,
-        {
-            "addCookie",
-            "evaluate",
-        },
-    )
-    _mark_methods_sink(
-        findings.F052,
-        graph,
-        syntax,
-        {
-            "java.security.MessageDigest.getInstance",
-        },
-    )
-    _mark_methods_sink(
-        findings.F063_PATH_TRAVERSAL,
-        graph,
-        syntax,
-        {
-            "java.nio.file.Files.newInputStream",
-            "java.nio.file.Paths.get",
-        },
-    )
-    _mark_methods_sink(
-        findings.F063_TRUSTBOUND,
-        graph,
-        syntax,
-        {
-            "putValue",
-            "setAttribute",
-        },
-    )
-    _mark_methods_sink(
-        findings.F107,
-        graph,
-        syntax,
-        {
-            "search",
-        },
-    )
-    _mark_obj_inst_sink(
-        findings.F004,
-        graph,
-        syntax,
-        {
-            *build_attr_paths("java", "lang", "ProcessBuilder"),
-        },
-    )
-    _mark_obj_inst_sink(
-        findings.F063_PATH_TRAVERSAL,
-        graph,
-        syntax,
-        {
-            *build_attr_paths("java", "io", "File"),
-            *build_attr_paths("java", "io", "FileInputStream"),
-            *build_attr_paths("java", "io", "FileOutputStream"),
-        },
-    )
-
-
 def _mark_array(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
@@ -263,7 +75,7 @@ def _mark_array_input(
     )
 
 
-def _mark_function_arg(
+def mark_function_arg(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
     graph_syntax: graph_model.SyntaxSteps,
@@ -316,7 +128,7 @@ def _mark_methods(
                     marker(graph, syntax_step.meta.n_id, finding)
 
 
-def _mark_methods_input(
+def mark_methods_input(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
     graph_syntax: graph_model.SyntaxSteps,
@@ -331,7 +143,7 @@ def _mark_methods_input(
     )
 
 
-def _mark_methods_sink(
+def mark_methods_sink(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
     graph_syntax: graph_model.SyntaxSteps,
@@ -364,7 +176,7 @@ def _mark_obj_inst(
                 marker(graph, syntax_step.meta.n_id, finding)
 
 
-def _mark_obj_inst_input(
+def mark_obj_inst_input(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
     graph_syntax: graph_model.SyntaxSteps,
@@ -379,7 +191,7 @@ def _mark_obj_inst_input(
     )
 
 
-def _mark_obj_inst_sink(
+def mark_obj_inst_sink(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
     graph_syntax: graph_model.SyntaxSteps,
@@ -392,13 +204,3 @@ def _mark_obj_inst_sink(
         types,
         _append_label_sink,
     )
-
-
-def mark(
-    graph: graph_model.Graph,
-    language: graph_model.GraphShardMetadataLanguage,
-    syntax: graph_model.GraphSyntax,
-) -> None:
-    if language == graph_model.GraphShardMetadataLanguage.JAVA:
-        _mark_java_inputs(graph, syntax)
-        _mark_java_sinks(graph, syntax)
