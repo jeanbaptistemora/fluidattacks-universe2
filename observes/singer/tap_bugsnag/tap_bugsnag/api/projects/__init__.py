@@ -40,6 +40,17 @@ class KeyAlreadyExist(Exception):
     pass
 
 
+def _append_proj(project: ProjId, data: List[JSON]) -> List[JSON]:
+    items = []
+    for item in data:
+        _item = item.copy()
+        if _item.get("project_id"):
+            raise KeyAlreadyExist()
+        _item["project_id"] = project.id_str
+        items.append(_item)
+    return items
+
+
 class ErrorsPage(NamedTuple):
     data: List[JSON]
 
@@ -60,6 +71,19 @@ class EventsPage(NamedTuple):
         return typed_page_builder(raw.list_events(page, project.id_str), cls)
 
 
+class EventFieldsPage(NamedTuple):
+    data: List[JSON]
+
+    @classmethod
+    def new(
+        cls, raw: RawApi, project: ProjId, page: PageId
+    ) -> IO[Maybe[PageResult[EventFieldsPage]]]:
+        return typed_page_builder(
+            raw.list_event_fields(page, project.id_str),
+            lambda data: cls(_append_proj(project, data)),
+        )
+
+
 class PivotsPage(NamedTuple):
     data: List[JSON]
 
@@ -67,18 +91,9 @@ class PivotsPage(NamedTuple):
     def new(
         cls, raw: RawApi, project: ProjId, page: PageId
     ) -> IO[Maybe[PageResult[PivotsPage]]]:
-        def _create(data: List[JSON]) -> PivotsPage:
-            items = []
-            for item in data:
-                _item = item.copy()
-                if _item.get("project"):
-                    raise KeyAlreadyExist()
-                _item["project"] = project.id_str
-                items.append(_item)
-            return cls(items)
-
         return typed_page_builder(
-            raw.list_pivots(page, project.id_str), _create
+            raw.list_pivots(page, project.id_str),
+            lambda data: cls(_append_proj(project, data)),
         )
 
 
@@ -129,6 +144,14 @@ class ProjectsApi(NamedTuple):
             lambda: io_get_until_end(PageId("", 30), getter), getter, page
         )
 
+    def list_event_fields(
+        self, page: PageOrAll
+    ) -> IO[Iterator[EventFieldsPage]]:
+        getter = partial(EventFieldsPage.new, self.client, self.project)
+        return extractor.extract_page(
+            lambda: io_get_until_end(PageId("", 1), getter), getter, page
+        )
+
     def list_releases(self, page: PageOrAll) -> IO[Iterator[ReleasesPage]]:
         getter = partial(ReleasesPage.new, self.client, self.project)
         return extractor.extract_page(
@@ -138,7 +161,7 @@ class ProjectsApi(NamedTuple):
     def list_pivots(self, page: PageOrAll) -> IO[Iterator[PivotsPage]]:
         getter = partial(PivotsPage.new, self.client, self.project)
         return extractor.extract_page(
-            lambda: io_get_until_end(PageId("", 10), getter), getter, page
+            lambda: io_get_until_end(PageId("", 1), getter), getter, page
         )
 
     @classmethod
@@ -155,6 +178,15 @@ class ProjectsApi(NamedTuple):
     ) -> IO[Iterator[EventsPage]]:
         return fold_and_chain(
             cls.new(client, proj).list_events(AllPages()) for proj in projs
+        )
+
+    @classmethod
+    def list_projs_event_fields(
+        cls, client: RawApi, projs: Iterator[ProjId]
+    ) -> IO[Iterator[EventFieldsPage]]:
+        return fold_and_chain(
+            cls.new(client, proj).list_event_fields(AllPages())
+            for proj in projs
         )
 
     @classmethod

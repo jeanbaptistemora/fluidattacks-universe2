@@ -14,6 +14,7 @@ from tap_bugsnag.api.auth import Credentials
 from tap_bugsnag.api.common.raw import RawApi
 from tap_bugsnag.api.projects import (
     ErrorsPage,
+    EventFieldsPage,
     EventsPage,
     PivotsPage,
     ProjectsApi,
@@ -37,6 +38,7 @@ ApiData = Union[
     CollaboratorsPage,
     ErrorsPage,
     EventsPage,
+    EventFieldsPage,
     OrgsPage,
     PivotsPage,
     ProjectsPage,

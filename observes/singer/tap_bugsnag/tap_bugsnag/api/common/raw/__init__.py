@@ -138,6 +138,14 @@ class RawApi(NamedTuple):
         _debug_log("events", _page, response)
         return response
 
+    def list_event_fields(self, page: PageId, project_id: str) -> IO[Response]:
+        _page = Maybe.from_value(page)
+        response = _handled_get(
+            self.client, f"/projects/{project_id}/event_fields", _page
+        )
+        _debug_log("event_fields", _page, response)
+        return response
+
     def list_pivots(self, page: PageId, project_id: str) -> IO[Response]:
         _page = Maybe.from_value(page)
         response = _handled_get(
