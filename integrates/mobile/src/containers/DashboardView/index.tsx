@@ -29,6 +29,7 @@ import { useHistory } from "react-router-native";
 import wait from "waait";
 
 import { Header } from "./Header";
+import { getOrgs } from "./helpers";
 import { Indicators } from "./Indicators";
 import { ADD_PUSH_TOKEN_MUTATION, ORGS_QUERY } from "./queries";
 import { styles } from "./styles";
@@ -41,13 +42,19 @@ import { LOGGER } from "../../utils/logger";
 import { getPushToken } from "../../utils/notifications";
 import { logout } from "../../utils/socialAuth";
 import type { IAuthState } from "../../utils/socialAuth";
+
 import "intl";
 import "intl/locale-data/jsonp/en-US";
 import "intl/locale-data/jsonp/es-CO";
 
-const hasAnalytics: (organization: IOrganization) => boolean = (
-  organization: IOrganization
-): boolean => !_.isNil(organization.analytics);
+const emptyOrg: IOrganization = {
+  analytics: {
+    current: { closed: 0, open: 0 },
+    previous: { closed: 0, open: 0 },
+    totalGroups: 0,
+  },
+  name: "",
+};
 
 const DashboardView: React.FunctionComponent = (): JSX.Element => {
   const history: ReturnType<typeof useHistory> = useHistory();
@@ -170,19 +177,8 @@ const DashboardView: React.FunctionComponent = (): JSX.Element => {
   // We only want this to run when the component mounts.
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(onMount, []);
-  const emptyOrg: IOrganization = {
-    analytics: {
-      current: { closed: 0, open: 0 },
-      previous: { closed: 0, open: 0 },
-      totalGroups: 0,
-    },
-    name: "",
-  };
-  const orgs: IOrganization[] =
-    data === undefined ||
-    data.me.organizations.filter(hasAnalytics).length === 0
-      ? [emptyOrg]
-      : _.sortBy(data.me.organizations.filter(hasAnalytics), "name");
+
+  const orgs: IOrganization[] = getOrgs(data, emptyOrg);
 
   // Event handlers
   const handleLogout: () => void = async (): Promise<void> => {
