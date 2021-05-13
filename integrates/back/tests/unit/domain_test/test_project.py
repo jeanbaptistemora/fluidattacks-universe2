@@ -33,6 +33,7 @@ from group_access.domain import (
 )
 from group_comments.domain import (
     add_comment,
+    get_total_comments_date,
     list_comments,
 )
 from groups.domain import (
@@ -42,6 +43,7 @@ from groups.domain import (
     get_alive_group_names,
     get_closed_vulnerabilities,
     get_description,
+    get_group_digest_stats,
     get_mean_remediate,
     get_mean_remediate_non_treated,
     get_mean_remediate_severity,
@@ -485,3 +487,53 @@ async def test_get_pending_verification_findings():
     assert 'finding' in findings[0]
     assert 'finding_id' in findings[0]
     assert 'project_name' in findings[0]
+
+
+@freeze_time("2018-12-27")
+async def test_get_total_comments_date():
+    project_name = 'unittesting'
+    last_day = datetime_utils.get_now_minus_delta(hours=24)
+    context = get_new_context()
+    group_findings_loader = context.group_findings
+    findings = await group_findings_loader.load(project_name)
+    total_comments = await get_total_comments_date(findings, project_name, last_day)
+    assert total_comments == 5
+
+
+@freeze_time("2021-05-12")
+async def test_get_group_digest_stats():
+    project_name = 'unittesting'
+    context = get_new_context()
+    total_stats = await get_group_digest_stats(context, project_name)
+    expected_output = {
+        'project': project_name,
+        'remediation_rate': 19,
+        'reattack_effectiveness': 0,
+        'remediation_time': 513,
+        'queries': 0,
+        'reattacks': {
+            'reattacks_requested': 0,
+            'reattacks_executed': 0,
+            'pending_attacks': 1
+        },
+        'treatments': {
+            'temporary_applied': 0,
+            'eternal_requested': 0,
+            'eternal_approved': 0
+        },
+        'findings': [
+            {
+                'finding_name': 'F007. Cross site request forgery',
+                'finding_age': 847
+            },
+            {
+                'finding_name': 'F014. Funcionalidad insegura',
+                'finding_age': 764
+            },
+            {
+                'finding_name': 'F038. Fuga de información de negocio',
+                'finding_age': 620
+            }
+        ]
+    }
+    assert expected_output == total_stats

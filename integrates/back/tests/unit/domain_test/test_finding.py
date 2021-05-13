@@ -21,6 +21,9 @@ from findings import dal as findings_dal
 from findings.domain import (
     add_comment,
     approve_draft,
+    get_oldest_open_findings,
+    get_total_reattacks_stats,
+    get_total_treatment_date,
     get_tracking_vulnerabilities,
     list_drafts,
     list_findings,
@@ -28,6 +31,7 @@ from findings.domain import (
     validate_evidence,
 )
 from mailer import common as mailer_utils
+from newutils import datetime as datetime_utils
 from vulnerabilities.domain import (
     list_vulnerabilities_async,
     validate_treatment_change,
@@ -389,3 +393,52 @@ async def test_list_drafts_deleted() -> None:
     test_data = await list_drafts(projects_name, include_deleted=True)
     expected_output = ['818828206', '836530833', '475041524', '991607942']
     assert sorted(expected_output) == sorted(test_data[0])
+
+
+@freeze_time("2019-01-26")
+async def test_get_oldest_open_findings():
+    project_name = 'unittesting'
+    oldest_requested = 1
+    context = get_new_context()
+    group_findings_loader = context.group_findings
+    findings = await group_findings_loader.load(project_name)
+    oldest_findings = await get_oldest_open_findings(
+        context, findings, oldest_requested)
+    expected_output = [{
+        'finding_name': 'F007. Cross site request forgery',
+        'finding_age': 10,
+    }]
+    assert expected_output == oldest_findings
+
+
+@freeze_time("2018-12-27")
+async def test_get_total_reattacks_stats():
+    project_name = 'unittesting'
+    last_day = datetime_utils.get_now_minus_delta(hours=24)
+    context = get_new_context()
+    group_findings_loader = context.group_findings
+    findings = await group_findings_loader.load(project_name)
+    treatment_stats = await get_total_treatment_date(context, findings, last_day)
+    expected_output = {
+        'accepted': 3,
+        'accepted_undefined_submitted': 1,
+        'accepted_undefined_approved': 1,
+    }
+    assert expected_output == treatment_stats
+
+
+@freeze_time("2018-12-27")
+async def test_get_total_reattacks_stats():
+    project_name = 'unittesting'
+    last_day = datetime_utils.get_now_minus_delta(hours=24)
+    context = get_new_context()
+    group_findings_loader = context.group_findings
+    findings = await group_findings_loader.load(project_name)
+    reattacks_stats = await get_total_reattacks_stats(context, findings, last_day)
+    expected_output = {
+        'reattacks_requested': 2,
+        'reattacks_executed': 1,
+        'pending_attacks': 1,
+        'reattack_effectiveness': 0,
+    }
+    assert expected_output == reattacks_stats
