@@ -3,8 +3,6 @@
 function main {
   local bastion_ip='192.168.3.11'
   local bastion_user='ubuntu'
-  local config='config.toml'
-  local init='init.sh'
   local tmp_file_1
   local tmp_file_2
   local secrets_to_replace=(
@@ -12,7 +10,6 @@ function main {
     autoscaling_token_2
     autoscaling_token_3
     autoscaling_token_4
-    autoscaling_token_5
     autoscaling_access_key
     autoscaling_secret_key
     autoscaling_bastion_key_b64
@@ -35,10 +32,10 @@ function main {
     &&  echo '[INFO] Executing test: $ sudo whoami' \
     &&  ssh -i "${tmp_file_1}" "${bastion_user}@${bastion_ip}" 'sudo whoami' \
     &&  echo '[INFO] Writing config with secrets' \
-    &&  cp "${config}" "${tmp_file_2}" \
+    &&  cp "__envConfig__" "${tmp_file_2}" \
     &&  for secret in "${secrets_to_replace[@]}"
         do
-                rpl "__${secret}__" "${!secret}" "${tmp_file_2}" \
+                rpl -- "__${secret}__" "${!secret}" "${tmp_file_2}" \
             |&  grep 'Replacing' \
             |&  sed -E 's/with.*$//g' \
             ||  return 1
@@ -48,7 +45,7 @@ function main {
     &&  ssh -i "${tmp_file_1}" "${bastion_user}@${bastion_ip}" \
           'sudo mv /port/config.toml /etc/gitlab-runner/config.toml' \
     &&  echo '[INFO] Moving file to bastion: init.sh to /etc/gitlab-runner/init.sh' \
-    &&  scp -i "${tmp_file_1}" "${init}" "${bastion_user}@${bastion_ip}:/port/init.sh" \
+    &&  scp -i "${tmp_file_1}" "__envInit__" "${bastion_user}@${bastion_ip}:/port/init.sh" \
     &&  ssh -i "${tmp_file_1}" "${bastion_user}@${bastion_ip}" \
               'sudo mv /port/init.sh /etc/gitlab-runner/init.sh' \
     &&  echo '[INFO] Reloading bastion config: /etc/gitlab-runner/config.toml' \

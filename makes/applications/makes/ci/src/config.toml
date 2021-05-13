@@ -130,7 +130,7 @@ check_interval = 20
   name = "autonomic"
   limit = 1000
   url = "https://gitlab.com/"
-  token = "__autoscaling_token_4__"
+  token = "__autoscaling_token_3__"
   executor = "docker+machine"
   [runners.custom_build_dir]
   [runners.docker]
@@ -192,7 +192,7 @@ check_interval = 20
   name = "autonomicjump"
   limit = 1000
   url = "https://gitlab.com/"
-  token = "__autoscaling_token_5__"
+  token = "__autoscaling_token_4__"
   executor = "docker+machine"
   [runners.custom_build_dir]
   [runners.docker]

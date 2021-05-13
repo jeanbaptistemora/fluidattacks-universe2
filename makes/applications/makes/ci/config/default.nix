@@ -7,6 +7,10 @@ let
 in
 makeEntrypoint {
   name = "makes-ci-config";
+  arguments = {
+    envConfig = path "/makes/applications/makes/ci/src/config.toml";
+    envInit = path "/makes/applications/makes/ci/src/init.sh";
+  };
   searchPaths = {
     envPaths = [
       nixpkgs.gnugrep
