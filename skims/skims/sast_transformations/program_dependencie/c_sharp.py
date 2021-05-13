@@ -1,7 +1,6 @@
 # Standar library
 from typing import (
     Dict,
-    List,
     Optional,
 )
 import copy
@@ -10,30 +9,7 @@ import copy
 # Local imports
 from model.graph_model import Graph
 from utils import graph as g
-
-
-def _build_member_access_expression_key(
-    graph: Graph,
-    n_id: str,
-    keys: Optional[List[str]] = None,
-) -> str:
-    keys = keys or list()
-    match_access = g.match_ast_group(
-        graph,
-        n_id,
-        "identifier",
-        "member_access_expression",
-        "this_expression",
-        ".",
-    )
-    if identifiers := match_access["identifier"]:
-        keys.extend(identifiers)
-    if access := match_access["member_access_expression"]:
-        _build_member_access_expression_key(graph, access.pop(), keys)
-    if this := match_access["this_expression"]:
-        keys.append(this.pop())
-    identifiers = [graph.nodes[key]["label_text"] for key in keys]
-    return ".".join(reversed(identifiers))
+from utils.graph.transformation import build_member_access_expression_key
 
 
 def _local_declaration_statement(
@@ -79,7 +55,7 @@ def _assignment_expression(
     if graph.nodes[identifier]["label_type"] == "identifier":
         key = graph.nodes[identifier]["label_text"]
     elif graph.nodes[identifier]["label_type"] == "member_access_expression":
-        key = _build_member_access_expression_key(graph, identifier)
+        key = build_member_access_expression_key(graph, identifier)
 
     if key:
         is_in_cfg = False
@@ -110,6 +86,8 @@ def _identifier(
         identifier_name = graph.nodes[n_id]["label_text"]
         for adj in g.adj_cfg_lazy(graph, parent_a, depth=-1):
             if adj == parent_b:
+                if graph.nodes[assignment_id]["label_type"] in {"parameter"}:
+                    parent_a = assignment_id
                 graph.add_edge(
                     parent_a,
                     parent_b,
@@ -140,6 +118,10 @@ def _generic_search_identifier_usage(
             identifier_name = graph.nodes[identifier_id]["label_text"]
             for adj in g.adj_cfg_lazy(graph, parent_a, depth=-1):
                 if adj == parent_b:
+                    if graph.nodes[assignment_id]["label_type"] in {
+                        "parameter"
+                    }:
+                        parent_a = assignment_id
                     graph.add_edge(
                         parent_a,
                         parent_b,
@@ -160,11 +142,12 @@ def _method_declaration(
         g.pred_has_labels(label_type="parameter"),
     )
     for parameter_id in parameters:
-        if identifier_id := g.match_ast(
+        if identifier_id := g.match_ast_group(
             graph,
             parameter_id,
-            "identifier",
-        )["identifier"]:
+            "__0__",
+            "__1__",
+        )["__1__"]:
             stack[graph.nodes[identifier_id]["label_text"]] = parameter_id
     _generic(graph, g.adj_cfg(graph, n_id)[-1], stack)
 
@@ -176,6 +159,7 @@ def _generic(
 ) -> None:
     walkers = {
         "local_declaration_statement": _local_declaration_statement,
+        "using_statement": _local_declaration_statement,
         "assignment_expression": _assignment_expression,
         "constructor_declaration": _method_declaration,
         "method_declaration": _method_declaration,

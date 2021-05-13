@@ -52,6 +52,7 @@ from sast_syntax_readers.c_sharp import (
     local_declaration_statement as c_sharp_local_declaration_statement,
     argument as c_sharp_argument,
     element_access_expression as c_sharp_element_access_expression,
+    parameter as c_sharp_parameter,
 )
 from sast_syntax_readers.common import (
     binary_expression as common_binary_expression,
@@ -401,6 +402,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "member_access_expression",
         },
         syntax_readers=(c_sharp_member_access_expression.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.CSHARP,
+        },
+        applicable_node_label_types={
+            "parameter",
+        },
+        syntax_readers=(c_sharp_parameter.reader,),
     ),
     *[
         Dispatcher(
