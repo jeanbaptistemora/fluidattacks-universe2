@@ -53,7 +53,7 @@ function main {
       &&  rm -rf new-front/* \
       &&  pushd public \
           &&  rm -rf about-us careers contact-us cookie faq \
-                partners privacy products resources security subscription \
+                partners privacy products security subscription \
       &&  popd \
       &&  copy public . \
   &&  popd \
