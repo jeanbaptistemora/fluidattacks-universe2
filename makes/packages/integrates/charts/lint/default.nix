@@ -1,12 +1,15 @@
 { buildNodeRequirements
+, buildPythonRequirements
+, lintPython
 , nixpkgs
 , makeDerivation
+, packages
 , path
 , ...
 }:
 let
   nodeRequirements = buildNodeRequirements {
-    name = "integrates-charts-lint";
+    name = "integrates-charts-node-lint";
     node = nixpkgs.nodejs;
     requirements = {
       direct = [
@@ -163,15 +166,29 @@ let
       ];
     };
   };
+  pythonRequirements = buildPythonRequirements {
+    name = "charts-lint-python-lint";
+    python = nixpkgs.python37;
+    requirements = {
+      direct = [ "selenium==3.141.0" ];
+      inherited = [ "urllib3==1.26.4" ];
+    };
+  };
 in
 makeDerivation {
   arguments = {
-    envSrc = path "/integrates/back/app/templates/static/graphics";
+    envChartsSrc = path "/integrates/charts";
+    envGraphsSrc = path "/integrates/back/app/templates/static/graphics";
   };
   builder = path "/makes/packages/integrates/charts/lint/builder.sh";
   name = "integrates-charts-lint";
   searchPaths = {
     envNodeBinaries = [ nodeRequirements ];
     envNodeLibraries = [ nodeRequirements ];
+    envPython37Paths = [ pythonRequirements ];
+    envSources = [
+      lintPython
+      packages.integrates.back.pypi.runtime
+    ];
   };
 }
