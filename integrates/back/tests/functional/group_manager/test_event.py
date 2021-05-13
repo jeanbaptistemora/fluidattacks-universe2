@@ -36,7 +36,6 @@ async def test_event():
         }}
     '''
     data = {'query': query}
-    data = {'query': query}
     result = await get_result(data, context=context)
     assert 'errors' not in result
     assert result['data']['createEvent']
