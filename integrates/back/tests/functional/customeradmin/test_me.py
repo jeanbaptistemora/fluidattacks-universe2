@@ -142,6 +142,11 @@ async def test_me():
     )
     assert result['data']['me']['subscriptionsToEntityReport'] == [
         {
+            'entity': 'DIGEST',
+            'frequency': 'HOURLY',
+            'subject': 'ALL_GROUPS'
+        },
+        {
             'entity': entity,
             'frequency': frecuency,
             'subject': org_id
