@@ -107,7 +107,7 @@ const PlansIndex: React.FC<IQueryData> = ({
                 }}
               />
               <div className={"tc pv3"}>
-                <Link to={"/contact-us"}>
+                <Link to={"/contact-us/"}>
                   <RegularRedButton>{"Inquire now"}</RegularRedButton>
                 </Link>
               </div>

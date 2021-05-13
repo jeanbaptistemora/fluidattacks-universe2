@@ -45,6 +45,59 @@ const pageTexts: ResourceKey = {
     phrase: "HACKING WITH SPEED AND PRECISION",
     question: "ARE YOU GOING FAST IN THE WRONG DIRECTION?",
   },
+  resources: {
+    assertsButton: "Go to Asserts",
+    assertsDescription:
+      "It automates attacks to verify the status of vulnerabilities on your system",
+    assertsTitle:
+      "Asserts is an open-source tool that looks for deterministic and peripheral vulnerabilities",
+    downloadButton: "Download Now",
+    ebook1Description:
+      "Comprehensive guide on how to protect your company from attacks.",
+    ebook1Title: "eBook: Hacking With Speed and Precision",
+    report1Description:
+      "Get ideas on practices you can implement " +
+      "in your company to prevent attacks.",
+    report1Title: "State of Attacks, Annual Report 2021",
+    report2Description:
+      "Discover ideas on practices you can adopt " +
+      "to protect your company against attacks.",
+    report2Title: "State of Attacks, Annual Report 2020",
+    report3Description:
+      "You can find here a list of languages and software " +
+      "we are able to work with.",
+    report3Title: "Supported Languages, CI/CDs and Infrastructures",
+    rulesButton: "Go to Rules",
+    rulesDescription:
+      "It allows you to parametrize a pentest according to your organization's risk appetite",
+    rulesTitle: "Rules is a set of security requirements",
+    subTitle: "Find resources that help your company",
+    webinar1Description:
+      "How to Develop Products With Speed Without Sacrificing Security?",
+    webinar1Title: "Fast Development while Preserving Security",
+    webinar2Description:
+      "Learn about continuous deployment without compromising " +
+      "the security of your app.",
+    webinar2Title: "Security for Users or Time-To-Market?",
+    webinar3Description: "Elements of a successful testing strategy.",
+    webinar3Title: "When Is a Security Test Successful?",
+    webinar4Description: "What data tells us about continuous hacking.",
+    webinar4Title: "Continuous Hacking and Vulnerability Remediation",
+    webinar5Description:
+      "Learn how you can go beyond the OWASP Top 10 in security testing.",
+    webinar5Title: "OWASP No Top 10: 190 Additional Vulnerabilities",
+    webinar6Description:
+      "How would our software look if agile constructions were the norm?",
+    webinar6Title: "Developing to Resist",
+    webinar7Description:
+      "Support your decision-making regarding security testing on your systems.",
+    webinar7Title: "Elements of a Successful Testing Strategy",
+    webinar8Description:
+      "Learn how to conduct an attack using Asserts to compromise an AWS " +
+      "account.",
+    webinar8Title: "Attacks on AWS Using Asserts OSS",
+    webinarButton: "Watch Webinar",
+  },
   service: {
     oneShotParagraph:
       "If you want to achieve higher vulnerability remediation rates, we" +

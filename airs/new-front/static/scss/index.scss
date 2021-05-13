@@ -151,10 +151,6 @@ $whiter-gray: rgba(241, 241, 241, 1);
 // Height Classes
 .h-5 { height: 5rem; }
 .h-29 { min-height: 29rem; }
-.h-banner { min-height: 350px; }
-.h-navbar { min-height: 6.5rem; }
-.h-section { min-height: 50rem; }
-.min-h-25 { min-height: 25%; }
 .h-250 { min-height: 250px; }
 .h-300 { min-height: 300px; }
 .h-400 { min-height: 400px; }
@@ -162,6 +158,13 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .h-500 { min-height: 500px; }
 .h-600 { min-height: 600px; }
 .h-700 { min-height: 700px; }
+.h-banner { min-height: 350px; }
+.h-navbar { min-height: 6.5rem; }
+.h-resources-card-title { min-height: 90px; }
+.h-resources-card-description { min-height: 50px; }
+.h-resources-card { min-height: 490px; }
+.h-section { min-height: 50rem; }
+.min-h-25 { min-height: 25%; }
 
 // Hover changes classes
 .hv-fluid-black { &:hover { color: $fluid-black;} }
@@ -171,6 +174,8 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
 .hv-grow { &:hover { transform: scale(1.05); } }
 .hv-rotate-360 { &:hover { transform: rotate(360deg); } }
+.hv-card { &:hover { box-shadow: 0 20px 20px $dark-shadow; } }
+.mh-100 { max-height: 100%; }
 
 // Line Heights
 .lh-2 { line-height: 2; }
@@ -197,6 +202,8 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .mw-1366 { max-width: 1366px; }
 .mw-376 { max-width: 376px; }
 .mw-900 { max-width: 900px; }
+.w-resources-card { width: 21.875rem; }
+
 
 // Writing moce classes
 .wm-tb-rl { writing-mode: tb-rl; }
@@ -350,6 +357,8 @@ $whiter-gray: rgba(241, 241, 241, 1);
   }
 }
 
+.drop-resources { filter: drop-shadow(0 30px 30px rgba(46, 46, 56, 0.8)); }
+
 .grid { display: grid; }
 
 .plans-feat {
@@ -366,7 +375,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
     text-align: center;
     width: 500px;
   }
-  
+
   .paragraph {
     text-align: left;
   }
@@ -681,6 +690,28 @@ $whiter-gray: rgba(241, 241, 241, 1);
 
 .slide-show::-webkit-scrollbar-track {
   display: none;
+}
+
+@mixin menu-font {
+  color: $fluid-black;
+  padding-bottom: 0.2rem;
+  transition: 0.25s;
+}
+
+.all:checked~.all-tag {
+  @include menu-font;
+}
+
+.ebook:checked~.ebook-tag {
+  @include menu-font;
+}
+
+.report:checked~.report-tag {
+  @include menu-font;
+}
+
+.webinar:checked~.webinar-tag {
+  @include menu-font;
 }
 
 // Solutions Desktop Grid

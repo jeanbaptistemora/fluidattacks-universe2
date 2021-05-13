@@ -754,7 +754,7 @@ const MarkedTitleContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    bg-graylight 
+    bg-lightgray 
     center 
     flex 
     flex-wrap 
