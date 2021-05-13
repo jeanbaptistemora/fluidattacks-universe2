@@ -13,6 +13,7 @@ from returns.io import (
     IO,
     IOFailure,
     IOSuccess,
+    impure,
 )
 from returns.maybe import Maybe
 from returns.pipeline import is_successful
@@ -79,6 +80,7 @@ def _handled_get(
     )
 
 
+@impure
 def _debug_log(
     resource: str, page: Maybe[PageId], response: IO[Response]
 ) -> None:

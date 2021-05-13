@@ -1,6 +1,7 @@
 # pylint: skip-file
 # Standard libraries
 from __future__ import annotations
+import logging
 from typing import (
     Iterator,
     List,
@@ -32,6 +33,9 @@ from tap_bugsnag.api.common.raw import RawApi
 from .orgs import ProjId
 
 
+LOG = logging.getLogger(__name__)
+
+
 class ErrorsPage(NamedTuple):
     data: List[JSON]
 
@@ -59,6 +63,8 @@ class ReleasesPage(NamedTuple):
     def new(
         cls, raw: RawApi, project: ProjId, page: PageId
     ) -> IO[Maybe[PageResult[ReleasesPage]]]:
+        if page.page.isdigit() and int(page.page) % 50 == 0:
+            LOG.info("Getting release [%s]...", page)
         return typed_page_builder(raw.list_releases(page, project.id_str), cls)
 
 
