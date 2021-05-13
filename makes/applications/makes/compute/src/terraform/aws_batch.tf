@@ -205,8 +205,8 @@ resource "aws_batch_compute_environment" "default" {
     }
 
     launch_template {
-      // https://aws.amazon.com/premiumsupport/knowledge-center/batch-ebs-volumes-launch-template/
       launch_template_id = aws_launch_template.batch_instance.id
+      version            = aws_launch_template.batch_instance.latest_version
     }
   }
 
