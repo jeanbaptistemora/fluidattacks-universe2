@@ -6,6 +6,8 @@ import _ from "lodash";
 import React from "react";
 import { object, string } from "yup";
 
+import { getNewInitialValues, getUserData } from "./helpers";
+
 import { Button } from "components/Button/index";
 import { Modal } from "components/Modal";
 import { GET_USER } from "scenes/Dashboard/components/AddUserModal/queries";
@@ -64,15 +66,11 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
   const groupModal: boolean = projectName !== undefined;
   const organizationModal: boolean = type === "organization";
   const sidebarModal: boolean = type === "user" && projectName === undefined;
-  const newInitialValues: Record<string, string> =
-    action === "edit"
-      ? {
-          email: initialValues.email,
-          phoneNumber: initialValues.phoneNumber,
-          responsibility: organizationModal ? "" : initialValues.responsibility,
-          role: initialValues.role.toUpperCase(),
-        }
-      : {};
+  const newInitialValues: Record<string, string> = getNewInitialValues(
+    initialValues,
+    action,
+    organizationModal
+  );
 
   const [getUser, { data }] = useLazyQuery<IStakeholderAttrs>(GET_USER, {
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -91,9 +89,6 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
     },
   });
 
-  const userData: Record<string, string> =
-    _.isEmpty(data) || _.isUndefined(data) ? {} : data.stakeholder;
-
   function loadAutofillData(event: React.FocusEvent<HTMLInputElement>): void {
     const userEmail: string = event.target.value;
     if (!_.isEmpty(userEmail)) {
@@ -107,6 +102,8 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
       });
     }
   }
+
+  const userData = getUserData(data);
 
   const addUserModalSchema = object().shape({
     email: string()
