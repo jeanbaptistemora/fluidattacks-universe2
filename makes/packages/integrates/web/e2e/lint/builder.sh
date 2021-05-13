@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-      lint_python_module "${envSrc}" \
+      lint_python_package "${envSrc}" \
   &&  touch "${out}"
 }
 

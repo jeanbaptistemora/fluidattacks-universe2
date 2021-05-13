@@ -2,7 +2,7 @@
 
 function main {
 
-      lint_python_module "${envIntegratesBack}"/migrations \
+      lint_python_package "${envIntegratesBack}"/migrations \
   &&  lint_python_imports \
         "${envIntegratesImportsConfig}" \
         "${envIntegratesBack}/packages/modules" \
@@ -10,7 +10,7 @@ function main {
       do
             if test -d "${module}"
             then
-              lint_python_module "${module}"
+              lint_python_package "${module}"
             fi \
         ||  return 1
       done \

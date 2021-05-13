@@ -1,8 +1,8 @@
 # shellcheck shell=bash
 
 function main {
-      lint_python_module "${envSrcForcesForces}" \
-  &&  lint_python_module "${envSrcForcesTest}" \
+      lint_python_package "${envSrcForcesForces}" \
+  &&  lint_python_package "${envSrcForcesTest}" \
   &&  touch "${out}"
 }
 

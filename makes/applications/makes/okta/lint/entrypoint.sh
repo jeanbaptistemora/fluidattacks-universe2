@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  lint_python_module '__envSrcMakesOktaParser__'
+  lint_python_package '__envSrcMakesOktaParser__'
 }
 
 main "${@}"

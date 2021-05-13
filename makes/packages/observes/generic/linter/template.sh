@@ -17,7 +17,7 @@ function observes_generic_lint {
   &&  list_packages "${srcPath}" > "${pkgs}" \
   &&  while read -r pkg
       do
-            lint_python_module "${pkg}" \
+            lint_python_package "${pkg}" \
         ||  return 1
       done < "${pkgs}" \
   &&  touch "${out}"

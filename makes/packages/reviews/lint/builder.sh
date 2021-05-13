@@ -5,7 +5,7 @@ function main {
       do
             if test -d "${module}"
             then
-              lint_python_module "${module}"
+              lint_python_package "${module}"
             fi \
         ||  return 1
       done \

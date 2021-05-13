@@ -57,7 +57,10 @@ makeTemplate {
   };
   name = "utils-bash-lib-lint-python";
   searchPaths = {
-    envPaths = [ pythonRequirements ];
+    envPaths = [
+      pkgs.findutils
+      pythonRequirements
+    ];
     envPython38Paths = [ pythonRequirements ];
   };
   template = path "/makes/utils/lint-python/template.sh";
