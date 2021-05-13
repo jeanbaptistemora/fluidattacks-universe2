@@ -18,6 +18,7 @@ _stream_executor: Mapping[SupportedStreams, Callable[[ApiClient], None]] = {
     SupportedStreams.ERRORS: streams.all_errors,
     SupportedStreams.EVENTS: streams.all_events,
     SupportedStreams.ORGS: streams.all_orgs,
+    SupportedStreams.PIVOTS: streams.all_pivots,
     SupportedStreams.PROJECTS: streams.all_projects,
     SupportedStreams.RELEASES: streams.all_releases,
     SupportedStreams.STABILITY_TREND: streams.all_trends,

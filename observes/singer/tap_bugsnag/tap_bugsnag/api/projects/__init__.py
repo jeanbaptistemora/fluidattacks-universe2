@@ -36,6 +36,10 @@ from .orgs import ProjId
 LOG = logging.getLogger(__name__)
 
 
+class KeyAlreadyExist(Exception):
+    pass
+
+
 class ErrorsPage(NamedTuple):
     data: List[JSON]
 
@@ -54,6 +58,28 @@ class EventsPage(NamedTuple):
         cls, raw: RawApi, project: ProjId, page: PageId
     ) -> IO[Maybe[PageResult[EventsPage]]]:
         return typed_page_builder(raw.list_events(page, project.id_str), cls)
+
+
+class PivotsPage(NamedTuple):
+    data: List[JSON]
+
+    @classmethod
+    def new(
+        cls, raw: RawApi, project: ProjId, page: PageId
+    ) -> IO[Maybe[PageResult[PivotsPage]]]:
+        def _create(data: List[JSON]) -> PivotsPage:
+            items = []
+            for item in data:
+                _item = item.copy()
+                if _item.get("project"):
+                    raise KeyAlreadyExist()
+                _item["project"] = project.id_str
+                items.append(_item)
+            return cls(items)
+
+        return typed_page_builder(
+            raw.list_pivots(page, project.id_str), _create
+        )
 
 
 class ReleasesPage(NamedTuple):
@@ -109,6 +135,12 @@ class ProjectsApi(NamedTuple):
             lambda: io_get_until_end(PageId("", 10), getter), getter, page
         )
 
+    def list_pivots(self, page: PageOrAll) -> IO[Iterator[PivotsPage]]:
+        getter = partial(PivotsPage.new, self.client, self.project)
+        return extractor.extract_page(
+            lambda: io_get_until_end(PageId("", 10), getter), getter, page
+        )
+
     @classmethod
     def list_projs_errors(
         cls, client: RawApi, projs: Iterator[ProjId]
@@ -123,6 +155,14 @@ class ProjectsApi(NamedTuple):
     ) -> IO[Iterator[EventsPage]]:
         return fold_and_chain(
             cls.new(client, proj).list_events(AllPages()) for proj in projs
+        )
+
+    @classmethod
+    def list_projs_pivots(
+        cls, client: RawApi, projs: Iterator[ProjId]
+    ) -> IO[Iterator[PivotsPage]]:
+        return fold_and_chain(
+            cls.new(client, proj).list_pivots(AllPages()) for proj in projs
         )
 
     @classmethod

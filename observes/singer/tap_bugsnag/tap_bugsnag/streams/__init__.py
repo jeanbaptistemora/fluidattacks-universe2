@@ -91,6 +91,17 @@ def all_events(api: ApiClient) -> None:
     )
 
 
+def all_pivots(api: ApiClient) -> None:
+    orgs_io = api.user.list_orgs_id(ALL)
+    client = api.user.client
+    _stream_data(
+        SupportedStreams.PIVOTS,
+        orgs_io.bind(partial(OrgsApi.list_orgs_projs_id, client)).bind(
+            partial(ProjectsApi.list_projs_pivots, client)
+        ),
+    )
+
+
 def all_releases(api: ApiClient) -> None:
     orgs_io = api.user.list_orgs_id(ALL)
     client = api.user.client
