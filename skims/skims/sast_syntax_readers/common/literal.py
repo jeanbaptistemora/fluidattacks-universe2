@@ -12,13 +12,17 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     n_attrs = args.graph.nodes[args.n_id]
     n_attrs_label_type = n_attrs["label_type"]
 
-    if n_attrs_label_type == "decimal_integer_literal":
+    if n_attrs_label_type in {
+        "decimal_integer_literal",
+        "integer_literal",
+        "real_literal",
+    }:
         yield graph_model.SyntaxStepLiteral(
             meta=graph_model.SyntaxStepMeta.default(args.n_id),
             value=n_attrs["label_text"],
             value_type="number",
         )
-    elif n_attrs_label_type in {"false", "true"}:
+    elif n_attrs_label_type in {"false", "true", "boolean_literal"}:
         yield graph_model.SyntaxStepLiteral(
             meta=graph_model.SyntaxStepMeta.default(args.n_id),
             value=n_attrs["label_text"],
