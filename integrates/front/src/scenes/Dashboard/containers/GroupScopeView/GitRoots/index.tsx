@@ -551,7 +551,9 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       {isManagingRoot === false ? undefined : (
         <GitModal
           initialValues={
-            isManagingRoot.mode === "EDIT" ? currentRow : undefined
+            // Exception: FP(isManagingRoot scope is limited)
+            // eslint-disable-next-line
+            isManagingRoot.mode === "EDIT" ? currentRow : undefined // NOSONAR
           }
           nicknames={nicknames}
           onClose={closeModal}
