@@ -30,7 +30,7 @@ const StyledSearchRoot: StyledComponent<
 })``;
 
 const open = css`
-  background: ${({ theme }: IThemeProps): string => theme.background as string};
+  background: #f9f9f9;
   cursor: text;
   margin-left: -1.6em;
   padding-left: 1.6em;
@@ -54,17 +54,23 @@ const StyledSearchBox = styled(SearchBoxMain)`
   .SearchInput {
     border: ${({ hasFocus }: { hasFocus: boolean }): string =>
       hasFocus ? "auto" : "none"};
-    border-radius: 2px;
+    border-color: #b0b0b0;
+    border-radius: 5px;
+    border-width: 1px;
     color: ${({ theme }: IThemeProps): string => theme.foreground as string};
     font-size: 1em;
     outline: none;
+    padding: 0.5rem;
     transition: 100ms;
 
     ::placeholder {
       color: ${({ theme }: IThemeProps): string => theme.faded as string};
     }
-    ${({ hasFocus }): FlattenInterpolation<ThemeProps<string>> =>
-      hasFocus ? open : closed}
+    ${({
+      hasFocus,
+    }: {
+      hasFocus: boolean;
+    }): FlattenInterpolation<ThemeProps<string>> => (hasFocus ? open : closed)}
   }
 
   .SearchIcon {
@@ -76,9 +82,7 @@ const StyledSearchBox = styled(SearchBoxMain)`
 `;
 
 const Popover = css`
-  background: ${({ theme }: IThemeProps): string => theme.background as string};
-  border-radius: 2px;
-  box-shadow: 0 0 5px 0;
+  background: #f9f9f9;
   margin-top: 0.5em;
   max-height: 80vh;
   max-width: 30em;
@@ -86,9 +90,24 @@ const Popover = css`
   padding: 1em;
   position: absolute;
   right: 0;
-  top: 100%;
+  scrollbar-color: #b0b0b0 #f9f9f9;
+  scrollbar-width: thin;
+  top: auto;
   width: 80vw;
   z-index: 2;
+
+  ::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f9f9f9;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #b0b0b0;
+    border-radius: 15px;
+  }
 `;
 
 const StyledSearchResult = styled(SearchResult).attrs({})<{ show: boolean }>`
@@ -99,21 +118,27 @@ const StyledSearchResult = styled(SearchResult).attrs({})<{ show: boolean }>`
     justify-content: flex-end;
   }
 
-  .Hits {
+  .ais-Hits {
     ul {
       list-style: none;
       margin-left: 0;
+      padding-left: 0;
     }
 
     li.ais-Hits-item {
       margin-bottom: 1em;
 
       a {
-        color: ${({ theme }: IThemeProps): string =>
-          theme.foreground as string};
+        color: #272727 !important;
+        text-decoration: none !important;
 
         h4 {
-          margin-bottom: 0.2em;
+          margin: 0;
+          padding: 1rem 0.5rem;
+
+          &:hover {
+            color: #ff3435;
+          }
         }
       }
     }

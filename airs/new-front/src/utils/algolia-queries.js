@@ -12,6 +12,7 @@ const pageQuery = `{
           slug
         }
         pageAttributes {
+          slug
           description
         }
       }
@@ -25,7 +26,7 @@ function pageToAlgoliaRecord({ node: { id, document, fields, pageAttributes, ...
     ...document,
     ...id,
     ...fields,
-    ...pageAttributes,
+    pageAttributes,
     ...rest,
   }
 }

@@ -1,14 +1,23 @@
+/* eslint react/forbid-component-props:0 */
+import { faLink } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React from "react";
-import { Highlight, Snippet } from "react-instantsearch-dom";
+import { Snippet } from "react-instantsearch-dom";
 
-export const PageHit = ({ hit }: { hit: { slug: string } }): JSX.Element => (
-  <div>
-    <Link to={hit.slug}>
-      <h4>
-        <Highlight attribute={"title"} hit={hit} tagName={"mark"} />
-      </h4>
-    </Link>
-    <Snippet attribute={"excerpt"} hit={hit} tagName={"mark"} />
-  </div>
+export const PageHit = ({
+  hit,
+}: {
+  hit: { pageAttributes: { slug: string }; title: string };
+}): JSX.Element => (
+  <Link to={hit.pageAttributes.slug}>
+    <div className={"HitDiv bg-white pv2 ph1 br3 bs-btm-h-5 t-all-3-eio"}>
+      <h4 className={"dib t-all-3-eio"}>{hit.title}</h4>
+      <Snippet attribute={"excerpt"} hit={hit} tagName={"mark"} />
+      <FontAwesomeIcon
+        className={"fr pb4 dib pr3 c-fluid-gray f4"}
+        icon={faLink}
+      />
+    </div>
+  </Link>
 );

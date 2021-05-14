@@ -120,6 +120,14 @@ $whiter-gray: rgba(241, 241, 241, 1);
 // Box Shadow Classes
 .bs-btm-h-10 { box-shadow: 0 10px 10px $shadow-gray; }
 
+.bs-btm-h-5 {
+  box-shadow: 0 5px 5px $shadow-gray;
+
+  &:hover {
+    box-shadow: 0 7px 7px $dark-shadow;
+  }
+}
+
 // Color classes
 .bc-gray-64 { border-color: $gray-64; }
 .bc-black-gray { border-color: $black-gray; }
@@ -195,6 +203,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 
 // Scroll Behavior classes
 .scroll-smooth { scroll-behavior: smooth; }
+.scroll-touch { -webkit-overflow-scrolling: touch; }
 
 // Transitions
 .t-all-5 { transition: all 0.5s; }
@@ -779,5 +788,21 @@ $whiter-gray: rgba(241, 241, 241, 1);
   &:hover {
     border-color: $fluid-red;
     color: $fluid-red;
+  }
+}
+
+.HitDiv {
+  svg {
+    visibility: hidden;
+  }
+
+  &:hover {
+    h4 {
+      color: $fluid-red;
+    }
+
+    svg {
+      visibility: visible;
+    }
   }
 }

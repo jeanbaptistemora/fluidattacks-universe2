@@ -65,7 +65,7 @@ export const Search: React.FC<IProps> = ({ indices }: IProps): JSX.Element => {
             onFocus={(): void => setFocus(true)}
           />
           <StyledSearchResult
-            className={""}
+            className={"scroll-touch bs-btm-h-10 bn"}
             indices={indices}
             show={
               ((queryValue &&
