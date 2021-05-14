@@ -84,9 +84,9 @@ const GlobalConfigModal: React.FC<IGlobalConfigModalProps> = (
       });
       setDigestSubscription(values.digest);
       if (values.digest) {
-        track("DailyDigestSuscribe");
+        track("DailyDigestSubscribe");
       } else {
-        track("DailyDigestUnsuscribe");
+        track("DailyDigestUnsubscribe");
       }
     },
     [subscribe, setDigestSubscription]
