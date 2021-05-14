@@ -1,4 +1,5 @@
 /* eslint react/forbid-component-props: 0 */
+import { Link } from "gatsby";
 import React from "react";
 
 interface IProps {
@@ -17,9 +18,9 @@ const headLinksStyles: string = `
 `;
 
 const HeadLink: React.FC<IProps> = ({ link, name }: IProps): JSX.Element => (
-  <a className={headLinksStyles} href={link}>
+  <Link className={headLinksStyles} to={link}>
     {name}
-  </a>
+  </Link>
 );
 
 export { HeadLink };

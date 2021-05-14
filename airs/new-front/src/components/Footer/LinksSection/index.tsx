@@ -88,46 +88,14 @@ const LinksSection: React.FC = (): JSX.Element => (
       <br />
     </LinksContainer>
     <LinksContainer className={"dib-xl display-none"}>
-      <HeadLink
-        link={"https://fluidattacks.com/categories/"}
-        name={"Categories"}
-      />{" "}
-      <br />
-      <BodyLink
-        link={"https://fluidattacks.com/categories/sast/"}
-        name={"SAST"}
-      />{" "}
-      <br />
-      <BodyLink
-        link={"https://fluidattacks.com/categories/dast/"}
-        name={"DAST"}
-      />{" "}
-      <br />
-      <BodyLink
-        link={"https://fluidattacks.com/solutions/penetration-testing/"}
-        name={"MPT"}
-      />{" "}
-      <br />
-      <BodyLink
-        link={"https://fluidattacks.com/categories/sca/"}
-        name={"SCA"}
-      />{" "}
-      <br />
-      <BodyLink
-        link={"https://fluidattacks.com/categories/re/"}
-        name={"RE"}
-      />{" "}
-      <br />
-      <BodyLink
-        link={"https://fluidattacks.com/categories/ptaas/"}
-        name={"PTaaS"}
-      />{" "}
-      <br />
-      <BodyLink
-        link={"https://fluidattacks.com/categories/asm/"}
-        name={"ASM"}
-      />{" "}
-      <br />
+      <HeadLink link={"/categories/"} name={"Categories"} /> <br />
+      <BodyLink link={"/categories/sast/"} name={"SAST"} /> <br />
+      <BodyLink link={"/categories/dast/"} name={"DAST"} /> <br />
+      <BodyLink link={"/solutions/penetration-testing/"} name={"MPT"} /> <br />
+      <BodyLink link={"/categories/sca/"} name={"SCA"} /> <br />
+      <BodyLink link={"/categories/re/"} name={"RE"} /> <br />
+      <BodyLink link={"/categories/ptaas/"} name={"PTaaS"} /> <br />
+      <BodyLink link={"/categories/asm/"} name={"ASM"} /> <br />
     </LinksContainer>
     <LinksContainer className={"dib-xl display-none"}>
       <HeadLink link={"/systems/"} name={"Systems"} /> <br />
@@ -192,11 +160,7 @@ const LinksSection: React.FC = (): JSX.Element => (
         name={"Reviews"}
       />{" "}
       <br />
-      <BodyLink
-        link={"https://fluidattacks.com/resources/"}
-        name={"Resources"}
-      />{" "}
-      <br />
+      <BodyLink link={"/resources/"} name={"Resources"} /> <br />
       <BodyLink
         link={"https://fluidattacks.com/about-us/events/"}
         name={"Events"}
@@ -209,11 +173,11 @@ const LinksSection: React.FC = (): JSX.Element => (
       <br />
     </LinksContainer>
     <LinksContainer className={"dib-xl"}>
-      <HeadLink link={"/blog/"} name={"Blog"} /> <br />
+      <HeadLink link={"https://fluidattacks.com/blog/"} name={"Blog"} /> <br />
       <HeadLink link={"/partners/"} name={"Partners"} /> <br />
       <HeadLink link={"/careers/"} name={"Careers"} /> <br />
       <HeadLink link={"/advisories/"} name={"Advisories"} /> <br />
-      <HeadLink link={"/faq/"} name={"FAQ"} /> <br />
+      <HeadLink link={"https://fluidattacks.com/faq/"} name={"FAQ"} /> <br />
       <HeadLink
         link={"https://community.fluidattacks.com/"}
         name={"Community"}

@@ -63,12 +63,9 @@ const NavbarItems: React.FC = (): JSX.Element => (
     <Search indices={searchIndices} />
 
     <li className={"db-xl display-none fr mr3 pr2 pv4"}>
-      <a
-        className={"no-underline"}
-        href={"https://fluidattacks.com/resources/"}
-      >
+      <Link className={"no-underline"} to={"/resources/"}>
         <NavbarRegularButton>{"Resources"}</NavbarRegularButton>
-      </a>
+      </Link>
     </li>
 
     <li className={"db-l dn fr mr3 pr2 pv4 solutions-index"}>

@@ -425,16 +425,6 @@ const MenuMobile: React.FC = (): JSX.Element => (
                     {"People"}
                   </a>
                 </InnerListItem>
-                <InnerListItem>
-                  <a
-                    className={
-                      "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
-                    }
-                    href={"https://fluidattacks.com/about-us/security/"}
-                  >
-                    {"Security"}
-                  </a>
-                </InnerListItem>
               </InnerContentList>
             </InnerListContainer>
           </ListItem>
@@ -454,7 +444,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            href={"https://fluidattacks.com/advisories/"}
+            href={"/advisories/"}
           >
             {"Advisories"}
           </a>
@@ -464,7 +454,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            href={"https://fluidattacks.com/resources/"}
+            href={"/resources/"}
           >
             {"Resources"}
           </a>
@@ -474,7 +464,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            href={"https://fluidattacks.com/plans/"}
+            href={"/plans/"}
           >
             {"Plans"}
           </a>
@@ -484,7 +474,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            href={"https://fluidattacks.com/careers/"}
+            href={"/careers/"}
           >
             {"Careers"}
           </a>
