@@ -41,7 +41,8 @@ redundant data centers.
 - Our exploits are stored encrypted
 using AES256 keys.
 
-- All ASM data is stored
+- All [Attack Surface Manager (ASM)](https://app.fluidattacks.com/)
+data is stored
 in an AES256 encrypted database.
 
 - Most of our encrypted-at-rest secrets

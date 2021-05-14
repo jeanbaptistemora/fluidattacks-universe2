@@ -19,8 +19,8 @@ over the provided information.
 ## Data retention policy
 All the data related to a project
 can be deleted from our
-Attack Surface Manager (ASM) by a user
-with a ***project manager role***.
+[Attack Surface Manager (ASM)](https://app.fluidattacks.com/)
+by a user with a ***project manager role***.
 Once this action is performed,
 a 30-day
 [deletion window](/criteria/privacy/317)

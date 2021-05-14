@@ -5,7 +5,8 @@ sidebar_label: For clients
 slug: /security/authentication/clients
 ---
 
-ASM only uses
+[Attack Surface Manager (ASM)](https://app.fluidattacks.com/)
+only uses
 [SSO](https://en.wikipedia.org/wiki/Single_sign-on)
 with Bitucket, Google and Microsoft Accounts.
 [Oauth2](https://oauth.net/2/) protocol is used.
@@ -21,7 +22,9 @@ The only personal information we store of our clients is:
 It is also worth noting
 that if users lose their corporate email,
 [they also lose access](/criteria/authorization/114)
-to their ASM account.
+to their
+[Attack Surface Manager (ASM)](https://app.fluidattacks.com/)
+account.
 Clients can [easily manage](/criteria/authorization/034)
 who has and who does not have
 access to their projects.

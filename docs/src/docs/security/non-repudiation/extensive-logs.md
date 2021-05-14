@@ -10,15 +10,16 @@ for a non-repudiation policy to be successful.
 Currently,
 we store logs for:
 
-- **ASM’s logging system:**
-ASM stores a historical status of projects,
+- **Attack Surface Manager’s (ASM) logging system:**
+[Attack Surface Manager (ASM)](https://app.fluidattacks.com/)
+stores a historical status of projects,
 findings, vulnerabilities,
 and other critical components.
 Changes made to these components
 are always tied to a user and a date.
 The historical status never expires.
 
-- **ASM’s error tracking system:**
+- **Attack Surface Manager’s (ASM) error tracking system:**
 It provides real-time logging of errors
 that occur in its production environments.
 It is especially useful for quickly detecting

@@ -16,7 +16,8 @@ This includes contracts, portfolios,
 and other sensitive documents.
 
 ## Signed URLs
-ASM has the feature of creating
+[Attack Surface Manager (ASM)](https://app.fluidattacks.com/)
+has the feature of creating
 signed download URLs with an expiration date
 when downloading reports,
 meaning that links expire
@@ -31,18 +32,21 @@ improving privacy of the users
 and enabling more fine-grained protection.
 
 ## Passphrase protected reports
-All reports downloaded via ASM
+All reports downloaded via
+[Attack Surface Manager (ASM)](https://app.fluidattacks.com/)
 have a randomly generated four-word passphrase.
 This passphrase is sent to the email
 of the user who requested the download.
 This applies to both XLS and PDF formats.
 
 ## Watermarked reports
-Every report downloaded via ASM
+Every report downloaded via
+[Attack Surface Manager (ASM)](https://app.fluidattacks.com/)
 comes with a watermark on all its pages,
 specifying that only the individual who generated it
 is allowed to read it.
 This is used as a measure to identify
 who generated the report in the first place
 and discourage its distribution
-through channels other than ASM.
+through channels other than
+[Attack Surface Manager (ASM)](https://app.fluidattacks.com/).

@@ -32,7 +32,8 @@ to our domain goes through
 - We demand all conections to support
 at least TLSv1.2.
 
-- ASM’s database uses TLSv1.2
+- [Attack Surface Manager’s (ASM)](https://app.fluidattacks.com/)
+database uses TLSv1.2
 for in transit protection.
 
 - We possess fully dedicated network channels

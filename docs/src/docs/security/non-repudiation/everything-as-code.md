@@ -22,7 +22,7 @@ we are able to have comprehensive logs of
 Currently,
 we keep all our systems as code:
 
-- [ASM](https://gitlab.com/fluidattacks/product/-/commits/master)
+- [Attack Surface Manager (ASM)](https://gitlab.com/fluidattacks/product/-/commits/master)
 
 - [Continuous hacking](https://fluidattacks.com/services/continuous-hacking/)
 

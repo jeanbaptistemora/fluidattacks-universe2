@@ -13,14 +13,16 @@ for example:
 meaning that any file can be recovered
 or returned to a previous version.
 
-- ASM’s database has daily, weekly, quarterly,
+- [Attack Surface Manager’s (ASM)](https://app.fluidattacks.com/)
+database has daily, weekly, quarterly,
 and annual full backup schedules.
 The daily backups last one week,
 the weekly ones twelve weeks,
 the quarterly ones three years,
 and the annual ones fifteen years.
 
-- ASM’s database has point-in-time recovery
+- [Attack Surface Manager’s (ASM)](https://app.fluidattacks.com/)
+database has point-in-time recovery
 with the ability to recover the database
 to the state it was in at a specific date and time
 (hours, minutes and seconds)

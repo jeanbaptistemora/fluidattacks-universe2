@@ -17,7 +17,9 @@ for access revocation:
 By doing this,
 users lose access to all the company applications
 and client data.
-This includes ASM, mail, etc.
+This includes
+[Attack Surface Manager (ASM)](https://app.fluidattacks.com/),
+mail, etc.
 
 2. **Removing Git repository access:**
 Users can no longer see

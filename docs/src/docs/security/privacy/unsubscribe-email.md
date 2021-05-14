@@ -10,6 +10,7 @@ what information they want to receive,
 for all commercial and informative emails,
 recipients can stop getting them
 by clicking on the **"unsubscribe from this list"** link.
+
 By doing so,
 their emails are placed on a list
 of unsubscribed emails,
