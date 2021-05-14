@@ -23,6 +23,8 @@ import React, {
   useState,
 } from "react";
 
+import { DaysLabel } from "./helpers";
+
 import { Modal } from "components/Modal";
 import styles from "graphics/components/Graphic/index.css";
 import type { IGraphicProps } from "graphics/types";
@@ -281,33 +283,22 @@ export const Graphic: React.FC<IGraphicProps> = (
                         {isDocumentAllowed(documentName) ? (
                           <React.Fragment>
                             <GraphicButton onClick={changeToAll}>
-                              {subjectName === subject ? (
-                                <b>{translate.t("analytics.limitData.all")}</b>
-                              ) : (
-                                translate.t("analytics.limitData.all")
-                              )}
+                              <DaysLabel
+                                days={"allTime"}
+                                isEqual={subjectName === subject}
+                              />
                             </GraphicButton>
                             <GraphicButton onClick={changeTothirtyDays}>
-                              {subjectName === `${subject}_30` ? (
-                                <b>
-                                  {translate.t(
-                                    "analytics.limitData.thirtyDays"
-                                  )}
-                                </b>
-                              ) : (
-                                translate.t("analytics.limitData.thirtyDays")
-                              )}
+                              <DaysLabel
+                                days={"30"}
+                                isEqual={subjectName === `${subject}_30`}
+                              />
                             </GraphicButton>
                             <GraphicButton onClick={changeToNinety}>
-                              {subjectName === `${subject}_90` ? (
-                                <b>
-                                  {translate.t(
-                                    "analytics.limitData.ninetyDays"
-                                  )}
-                                </b>
-                              ) : (
-                                translate.t("analytics.limitData.ninetyDays")
-                              )}
+                              <DaysLabel
+                                days={"90"}
+                                isEqual={subjectName === `${subject}_90`}
+                              />
                             </GraphicButton>
                           </React.Fragment>
                         ) : undefined}
