@@ -7,7 +7,7 @@ from typing import (
 # Third party libraries
 # Local libraries
 from postgres_client.client import Client
-from postgres_client.cursor import CursorAction, DynamicSQLargs
+from postgres_client.cursor import act, CursorAction, DynamicSQLargs
 from postgres_client.schema import Schema
 
 
@@ -22,7 +22,7 @@ def _get_tables(db_client: Client, schema: str) -> Iterable[str]:
         cursor.execute(statement, args),
         cursor.fetchall(),
     ]
-    return list(map(lambda item: item[0], cursor.act(actions)[1]))
+    return list(map(lambda item: item[0], act(actions)[1]))
 
 
 def _exist_on_db(db_client: Client, schema: str) -> bool:
@@ -37,7 +37,7 @@ def _exist_on_db(db_client: Client, schema: str) -> bool:
         cursor.execute(statement, args),
         cursor.fetchone(),
     ]
-    return cursor.act(actions)[1][0]
+    return act(actions)[1][0]
 
 
 def _delete_on_db(db_client: Client, schema: str) -> None:

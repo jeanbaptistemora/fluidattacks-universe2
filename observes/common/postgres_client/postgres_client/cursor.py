@@ -1,4 +1,5 @@
 # Standard libraries
+from __future__ import annotations
 from enum import Enum
 from typing import (
     Any,
@@ -39,16 +40,6 @@ class CursorFetchAction(NamedTuple):
 
 
 CursorAction = Union[CursorExeAction, CursorFetchAction]
-
-
-class Cursor(NamedTuple):
-    act: Callable[[List[CursorAction]], List[Any]]
-    execute: Callable[[str, Optional[DynamicSQLargs]], CursorExeAction]
-    fetchall: Callable[[], CursorFetchAction]
-    fetchone: Callable[[], CursorFetchAction]
-    close: Callable[[], None]
-
-
 SQLidPurifier = Callable[[str, Optional[DynamicSQLargs]], str]
 DbCursor = Any
 
@@ -83,10 +74,6 @@ def _act_exe_action(
     cursor.execute(safe_stm, stm_values)
 
 
-def _act(actions: List[CursorAction]) -> List[Any]:
-    return list(map(lambda action: action.act(), actions))
-
-
 def _make_exe_action(
     cursor: DbCursor,
     statement: str,
@@ -107,31 +94,40 @@ def _make_fetch_action(
     return CursorFetchAction(act=action, fetch_type=f_action)
 
 
-def _cursor_builder(db_cursor: DbCursor) -> Cursor:
-    def exe(
-        stm: str, args: Optional[DynamicSQLargs] = None
+class Cursor(NamedTuple):
+    db_cursor: DbCursor
+
+    def execute(
+        self, stm: str, args: Optional[DynamicSQLargs] = None
     ) -> CursorExeAction:
-        return _make_exe_action(db_cursor, stm, args)
+        return _make_exe_action(self.db_cursor, stm, args)
 
-    def f_all() -> CursorFetchAction:
-        return _make_fetch_action(db_cursor, FetchAction.ALL)
+    def fetchall(self) -> CursorFetchAction:
+        return _make_fetch_action(self.db_cursor, FetchAction.ALL)
 
-    def f_one() -> CursorFetchAction:
-        return _make_fetch_action(db_cursor, FetchAction.ONE)
+    def fetchone(self) -> CursorFetchAction:
+        return _make_fetch_action(self.db_cursor, FetchAction.ONE)
 
-    return Cursor(
-        act=_act,
-        execute=exe,
-        fetchall=f_all,
-        fetchone=f_one,
-        close=db_cursor.close,
-    )
+    def close(self) -> None:
+        return self.db_cursor.close()
+
+    @classmethod
+    def new(cls, connection: DbConnection) -> Cursor:
+        db_cursor = connection.get_cursor()
+        return cls(db_cursor)
+
+    @classmethod
+    def from_raw(cls, db_cursor: DbCursor) -> Cursor:
+        return cls(db_cursor)
+
+
+def act(actions: List[CursorAction]) -> List[Any]:
+    return list(map(lambda action: action.act(), actions))
 
 
 def adapt_cursor(db_cursor: DbCursor) -> Cursor:
-    return _cursor_builder(db_cursor)
+    return Cursor.from_raw(db_cursor)
 
 
 def new_cursor(connection: DbConnection) -> Cursor:
-    db_cursor = connection.get_cursor()
-    return _cursor_builder(db_cursor)
+    return Cursor.new(connection)
