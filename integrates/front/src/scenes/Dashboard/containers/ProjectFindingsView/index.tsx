@@ -20,6 +20,7 @@ import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { renderDescription } from "./description";
 import { renderExpandIcon, renderHeaderExpandIcon } from "./expandIcon";
+import { setReportType } from "./helpers";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
@@ -265,21 +266,6 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     onError: handleQryErrors,
     variables: { projectName },
   });
-
-  function setReportType(icon: SVGElement): string {
-    if (
-      (icon.attributes.getNamedItem("data-icon")?.value as string).includes(
-        "pdf"
-      )
-    ) {
-      return "PDF";
-    }
-
-    return (icon.attributes.getNamedItem("data-icon")
-      ?.value as string).includes("excel")
-      ? "XLS"
-      : "DATA";
-  }
 
   const handleRequestProjectReport: (
     event: React.MouseEvent<HTMLElement>
