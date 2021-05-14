@@ -1,34 +1,19 @@
-{ buildPythonPackage
-, makeTemplate
-, nixpkgs
+{ makeTemplate
 , packages
-, path
 , ...
 }:
-let
-  env = packages.observes.env;
-  pkgEnv = env.streamer-zoho-crm;
-  self = buildPythonPackage {
-    name = "observes-streamer-zoho-crm";
-    packagePath = path "/observes/singer/streamer_zoho_crm";
-    python = nixpkgs.python38;
-  };
-in
+with packages.observes.env;
 makeTemplate {
   name = "observes-env-streamer-zoho-crm-development";
   searchPaths = {
-    envSources = [
-      pkgEnv.runtime
-    ];
     envPaths = [
-      pkgEnv.development.python
+      streamer-zoho-crm.development.python
     ];
     envPython38Paths = [
-      pkgEnv.development.python
-      self
+      streamer-zoho-crm.development.python
     ];
-    envMypy38Paths = [
-      self
+    envSources = [
+      streamer-zoho-crm.runtime
     ];
   };
 }

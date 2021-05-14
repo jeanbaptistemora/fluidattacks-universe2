@@ -11,6 +11,9 @@ in
 makeTemplate {
   name = "observes-env-streamer-dynamodb-runtime";
   searchPaths = {
+    envMypyPaths = [
+      self
+    ];
     envPaths = [
       pkgEnv.runtime.python
     ];
@@ -19,7 +22,6 @@ makeTemplate {
     ];
     envPython38Paths = [
       pkgEnv.runtime.python
-      self
     ];
   };
 }

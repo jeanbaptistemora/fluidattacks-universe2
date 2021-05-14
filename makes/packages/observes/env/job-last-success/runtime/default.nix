@@ -12,6 +12,9 @@ in
 makeTemplate {
   name = "observes-env-job-last-success-runtime";
   searchPaths = {
+    envMypyPaths = [
+      self
+    ];
     envPaths = [
       pkgEnv.runtime.python
     ];

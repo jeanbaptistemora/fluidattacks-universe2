@@ -35,6 +35,9 @@ in
 makeTemplate {
   name = "observes-env-runtime-batch-stability";
   searchPaths = {
+    envMypyPaths = [
+      self
+    ];
     envPaths = [
       pythonRequirements
       self
