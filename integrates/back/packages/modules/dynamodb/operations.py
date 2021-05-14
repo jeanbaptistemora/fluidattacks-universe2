@@ -207,33 +207,32 @@ async def query(
 async def update_item(
     *,
     condition_expression: Optional[ConditionBase] = None,
-    facet: Facet,
     item: Item,
     key: PrimaryKey,
     table: Table
 ) -> None:
     key_structure = table.primary_key
-    facet_item = _build_facet_item(
-        facet=facet,
-        item=item,
-        table=table
-    )
-    attr_names = {f'#{attr}': attr for attr in facet_item}
+    attr_names = {f'#{attr}': attr for attr in item}
     attr_values = {
         f':{attr}': value
-        for attr, value in facet_item.items()
+        for attr, value in item.items()
         if value is not None
     }
     attrs_to_update = ','.join(
         f'#{attr} = :{attr}'
-        for attr, value in facet_item.items()
+        for attr, value in item.items()
         if value is not None
     )
     attrs_to_remove = ','.join(
         f'#{attr}'
-        for attr, value in facet_item.items()
+        for attr, value in item.items()
         if value is None
     )
+    update_expressions = []
+    if attrs_to_update:
+        update_expressions.append(f'SET {attrs_to_update}')
+    if attrs_to_remove:
+        update_expressions.append(f'REMOVE {attrs_to_remove}')
 
     async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
@@ -245,10 +244,7 @@ async def update_item(
                 key_structure.partition_key: key.partition_key,
                 key_structure.sort_key: key.sort_key
             },
-            'UpdateExpression': ' '.join((
-                f'SET {attrs_to_update}',
-                f'REMOVE {attrs_to_remove}'
-            ))
+            'UpdateExpression': ' '.join(update_expressions)
         }
 
         try:

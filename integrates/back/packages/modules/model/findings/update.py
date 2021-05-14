@@ -1,4 +1,6 @@
 
+from enum import Enum
+
 from boto3.dynamodb.conditions import Attr
 
 from dynamodb import (
@@ -9,7 +11,10 @@ from dynamodb import (
 from model import TABLE
 
 from .enums import FindingStateStatus
-from .types import FindingState
+from .types import (
+    FindingUnreliableIndicatorsToUpdate,
+    FindingState,
+)
 from .utils import format_state_item
 
 
@@ -64,3 +69,28 @@ async def update_state(
         }
         items.append(submission)
     await operations.batch_write_item(items=tuple(items), table=TABLE)
+
+
+async def update_unreliable_indicators(
+    *,
+    group_name: str,
+    finding_id: str,
+    indicators: FindingUnreliableIndicatorsToUpdate,
+) -> None:
+    key_structure = TABLE.primary_key
+    unreliable_indicators_key = keys.build_key(
+        facet=TABLE.facets['finding_unreliable_indicators'],
+        values={'group_name': group_name, 'id': finding_id}
+    )
+    unreliable_indicators = {
+        key: value.value if isinstance(value, Enum) else value
+        for key, value in indicators._asdict().items()
+        if value is not None
+    }
+    condition_expression = Attr(key_structure.partition_key).exists()
+    await operations.update_item(
+        condition_expression=condition_expression,
+        item=unreliable_indicators,
+        key=unreliable_indicators_key,
+        table=TABLE
+    )

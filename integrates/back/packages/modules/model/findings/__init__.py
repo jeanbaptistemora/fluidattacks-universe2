@@ -1,5 +1,8 @@
 from .create import create
-from .update import update_state
+from .update import (
+    update_state,
+    update_unreliable_indicators
+)
 
 
 __all__ = [
@@ -8,4 +11,5 @@ __all__ = [
 
     # update
     'update_state',
+    'update_unreliable_indicators',
 ]

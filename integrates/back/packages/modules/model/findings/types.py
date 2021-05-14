@@ -135,3 +135,13 @@ class Finding(NamedTuple):
     unreliable_indicators: FindingUnreliableIndicators = \
         FindingUnreliableIndicators()
     verification: Optional[FindingVerification] = None
+
+
+class FindingUnreliableIndicatorsToUpdate(NamedTuple):
+    unreliable_age: Optional[int] = None
+    unreliable_closed_vulnerabilities: Optional[int] = None
+    unreliable_is_verified: Optional[bool] = None
+    unreliable_last_vulnerability: Optional[int] = None
+    unreliable_open_age: Optional[int] = None
+    unreliable_open_vulnerabilities: Optional[int] = None
+    unreliable_status: Optional[FindingStatus] = None
