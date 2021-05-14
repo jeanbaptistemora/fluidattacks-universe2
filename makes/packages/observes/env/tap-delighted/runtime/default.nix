@@ -3,9 +3,8 @@
 , path
 , ...
 }:
+with packages.observes.env;
 let
-  env = packages.observes.env;
-  pkgEnv = env.tap-delighted;
   self = path "/observes/singer/tap_delighted";
 in
 makeTemplate {
@@ -15,18 +14,18 @@ makeTemplate {
       self
     ];
     envPaths = [
-      pkgEnv.runtime.python
+      tap-delighted.runtime.python
     ];
     envPythonPaths = [
       self
     ];
     envPython38Paths = [
-      pkgEnv.runtime.python
+      tap-delighted.runtime.python
     ];
     envSources = [
-      env.paginator.runtime
-      env.singer-io.runtime
-      env.utils-logger.runtime
+      paginator.runtime
+      singer-io.runtime
+      utils-logger.runtime
     ];
   };
 }

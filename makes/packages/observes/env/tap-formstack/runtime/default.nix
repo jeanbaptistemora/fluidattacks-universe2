@@ -1,28 +1,26 @@
-{ buildPythonPackage
-, makeTemplate
-, nixpkgs
+{ makeTemplate
 , packages
 , path
 , ...
 }:
+with packages.observes.env;
 let
-  env = packages.observes.env;
-  pkgEnv = env.tap-formstack;
-  self = buildPythonPackage {
-    name = "observes-tap-formstack";
-    packagePath = path "/observes/singer/tap_formstack";
-    python = nixpkgs.python38;
-  };
+  self = path "/observes/singer/tap_formstack";
 in
 makeTemplate {
   name = "observes-env-tap-formstack-runtime";
   searchPaths = {
+    envMypyPaths = [
+      self
+    ];
     envPaths = [
-      pkgEnv.runtime.python
+      tap-formstack.runtime.python
+    ];
+    envPythonPaths = [
+      self
     ];
     envPython38Paths = [
-      pkgEnv.runtime.python
-      self
+      tap-formstack.runtime.python
     ];
   };
 }
