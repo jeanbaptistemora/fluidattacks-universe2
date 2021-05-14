@@ -678,6 +678,7 @@ module.exports = {
         'security/transparency/open-source',
         'security/transparency/public-indidents',
         'security/transparency/data-leakage-policy',
+        'security/transparency/help-channel',
         'security/transparency/status-page',
       ],
     },
@@ -741,7 +742,6 @@ module.exports = {
       items: [
         'security/availability/distributed-applications',
         'security/availability/distributed-firewall',
-        'security/availability/forever-lasting-backups',
         'security/availability/everything-backed-up',
       ],
     },

@@ -13,6 +13,15 @@ for example:
 meaning that any file can be recovered
 or returned to a previous version.
 
+- As all our backups are stored
+in decentralized data centers,
+problems like hard drive lifespans
+are not a concern.
+The backups exist seamlessly
+for as long as we want,
+giving us full traceability
+and recoverability.
+
 - [Attack Surface Manager’s (ASM)](https://app.fluidattacks.com/)
 database has daily, weekly, quarterly,
 and annual full backup schedules.

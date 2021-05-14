@@ -10,7 +10,8 @@ in our development cycle
 to reach a high integrity level.
 
 ## Monorepo
-We have a Git repository for all our applications.
+We have a [Git repository](https://gitlab.com/fluidattacks/product)
+for all our applications.
 By taking this approach instead of dividing
 applications into smaller repositories,
 we get the following:
@@ -35,9 +36,10 @@ or synchronize repositories.
 
 ## Everything as code
 As mentioned in the
-["Everything as code" previous section](https://fluidattacks.com/security/#EAC),
+["Everything as code" previous section](../non-repudation/everything-as-code),
 we try to keep as much as possible
-versioned in a Git repository.
+versioned in our
+[Git repository](https://gitlab.com/fluidattacks/product).
 The application integrity becomes
 a matter of keeping a healthy source code,
 after making the source code
@@ -45,7 +47,8 @@ the only variable affecting an application.
 
 ## Infrastructure as Code (IaC)
 Our entire infrastructure is versioned
-in a Git repository written as code.
+in our [Git repository](https://gitlab.com/fluidattacks/product)
+written as code.
 Such code can be deployed anywhere
 and has all the properties of any other source code,
 such as auditability, history,
@@ -101,9 +104,9 @@ includes steps like the following:
 - Commit deltas tests
 
 - Creation of
-[Ephemeral environment](https://fluidattacks.com/security/#EPH)
+[Ephemeral environment](#ephemeral-environments)
 
-- [Ephemeral environment](https://fluidattacks.com/security/#EPH) tests
+- [Ephemeral environment](#ephemeral-environments) tests
 
 By always building and testing everything,
 we can guarantee that every change is compliant
