@@ -1,7 +1,7 @@
 # Standard library
 from typing import (
+    Iterable,
     NamedTuple,
-    Tuple,
 )
 
 # Third party libraries
@@ -26,7 +26,7 @@ Treatment = NamedTuple('Treatment', [
 
 
 @alru_cache(maxsize=None, typed=True)
-async def get_data_one_group(group: str):
+async def get_data_one_group(group: str) -> Treatment:
     item = await groups_domain.get_attributes(group, ['total_treatment'])
 
     treatment = item.get('total_treatment', {})
@@ -39,7 +39,7 @@ async def get_data_one_group(group: str):
     )
 
 
-async def get_data_many_groups(groups: Tuple[str]):
+async def get_data_many_groups(groups: Iterable[str]) -> Treatment:
     groups_data = await collect(map(get_data_one_group, list(groups)))
 
     return Treatment(
@@ -52,7 +52,7 @@ async def get_data_many_groups(groups: Tuple[str]):
     )
 
 
-def format_data(data: Treatment):
+def format_data(data: Treatment) -> dict:
     translations = {
         'acceptedUndefined': 'Eternally accepted',
         'accepted': 'Temporarily Accepted',
@@ -85,7 +85,7 @@ def format_data(data: Treatment):
     }
 
 
-async def generate_all():
+async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=format_data(

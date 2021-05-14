@@ -41,7 +41,7 @@ async def get_data_groups(groups: List[str]) -> List[PortfoliosGroupsInfo]:
     return slice_groups(groups_data, total_vulnerabilities)
 
 
-async def generate_all():
+async def generate_all() -> None:
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
             utils.json_dump(

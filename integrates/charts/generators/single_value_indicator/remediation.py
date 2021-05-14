@@ -14,6 +14,7 @@ from aioextensions import run
 
 # Local libraries
 from charts import utils
+from charts.types import RemediationReport
 from custom_types import Vulnerability as VulnerabilityType
 from dataloaders import get_new_context
 from vulnerabilities import domain as vulns_domain
@@ -68,7 +69,9 @@ def get_totals_by_week(
     return open_vulns, closed_vulns
 
 
-async def generate_one(groups: List[str]):  # pylint: disable=too-many-locals
+async def generate_one(  # pylint: disable=too-many-locals
+    groups: Tuple[str, ...]
+) -> RemediationReport:
     context = get_new_context()
     group_findings_loader = context.group_findings
     finding_vulns_loader = context.finding_vulns
@@ -119,7 +122,7 @@ async def generate_one(groups: List[str]):  # pylint: disable=too-many-locals
     }
 
 
-async def generate_all():
+async def generate_all() -> None:
     async for org_id, _, org_groups in (
         utils.iterate_organizations_and_groups()
     ):

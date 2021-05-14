@@ -3,6 +3,8 @@ from operator import attrgetter
 from typing import (
     List,
     NamedTuple,
+    Union,
+    cast,
 )
 
 from charts.colors import RISK
@@ -43,12 +45,12 @@ def format_data(groups_data: List[PortfoliosGroupsInfo]) -> dict:
     return dict(
         data=dict(
             columns=[
-                [group.group_name] + [group.value]
-                for group in groups_data
+                cast(List[Union[Decimal, str]], [group.group_name]) +
+                [group.value]for group in groups_data
             ],
             type='pie',
             colors=dict(
-                [group.group_name] + [color]
+                (group.group_name, color)
                 for group, color in zip(groups_data, reversed(RISK))
             ),
         ),

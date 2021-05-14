@@ -103,7 +103,7 @@ def format_data(data: GroupsTags) -> dict:
     )
 
 
-async def generate_all():
+async def generate_all() -> None:
     async for org_id, _, org_groups in (
         utils.iterate_organizations_and_groups()
     ):

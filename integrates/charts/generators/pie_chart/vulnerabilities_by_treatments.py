@@ -87,7 +87,7 @@ def format_data(counters: Counter) -> dict:
     }
 
 
-async def generate_all():
+async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=format_data(counters=await get_data_one_group(group)),
