@@ -336,7 +336,9 @@ const Services: React.FC<IServicesProps> = (
           "searchFindings.servicesTable.errors.expectedGroupName",
           { groupName }
         ),
-      };
+        // Exception: FP(Implicit treatment in assignment)
+        // eslint-disable-next-line
+      }; // NOSONAR
 
       return errorsFound;
     },
