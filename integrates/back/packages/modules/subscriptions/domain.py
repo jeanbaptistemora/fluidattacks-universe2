@@ -234,7 +234,7 @@ async def send_digest_report(
     *,
     user_email: str,
     digest_stats: Union[Tuple[MailContent], Tuple],
-    loaders: Dataloaders,
+    loaders: Dataloaders = None,
 ) -> None:
     groups = await groups_domain.get_groups_by_user(user_email)
     LOGGER_CONSOLE.info(
@@ -247,12 +247,16 @@ async def send_digest_report(
             for group_stats in digest_stats
             if group_stats['project'] in groups
         ]
-    else:
+    elif loaders:
         mail_contents = await collect(
             groups_domain.get_group_digest_stats(
                 loaders, group)
             for group in groups
         )
+    else:
+        LOGGER_CONSOLE.warning('- digest email NOT sent', **NOEXTRA)
+        return
+
     LOGGER_CONSOLE.info('- sending digest emails', **NOEXTRA)
     await collect(
         groups_mail.send_mail_daily_digest([user_email], mail_content)
@@ -268,7 +272,7 @@ async def send_user_to_entity_report(
     report_subject: str,
     user_email: str,
     digest_stats: Union[Tuple[MailContent], Tuple],
-    loaders: Dataloaders,
+    loaders: Dataloaders = None,
 ) -> None:
     if report_entity.lower() == 'digest':
         await send_digest_report(
@@ -371,7 +375,7 @@ async def subscribe_user_to_entity_report(
     report_entity: str,
     report_subject: str,
     user_email: str,
-    loaders: Dataloaders,
+    loaders: Dataloaders = None,
 ) -> bool:
     success: bool
 

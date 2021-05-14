@@ -23,6 +23,7 @@ from back import settings
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain
 from organizations import domain as orgs_domain
+from subscriptions import domain as subscriptions_domain
 from mailer import users as users_mail
 from newutils import (
     analytics,
@@ -145,6 +146,14 @@ async def autoenroll_user(email: str) -> None:
                 new_user_group_level_role
             )
         ])
+
+    # Enroll new users to Daily Digest by default
+    await subscriptions_domain.subscribe_user_to_entity_report(
+        event_frequency='DAILY',
+        report_entity='DIGEST',
+        report_subject='ALL_GROUPS',
+        user_email=email
+    )
 
 
 async def create_user(user: Dict[str, str]) -> None:
