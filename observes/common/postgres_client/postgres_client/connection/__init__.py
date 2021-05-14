@@ -1,7 +1,7 @@
 # Standard libraries
+from __future__ import annotations
 from typing import (
     Any,
-    Callable,
     NamedTuple,
     Optional,
 )
@@ -11,13 +11,6 @@ import psycopg2 as postgres
 import psycopg2.extensions as postgres_extensions
 
 # Local libraries
-
-
-class DbConnection(NamedTuple):
-    close: Callable[[], None]
-    commit: Callable[[], None]
-    get_cursor: Callable[[], Any]
-    options: "Options"
 
 
 class ConnectionID(NamedTuple):
@@ -51,27 +44,54 @@ class Options(NamedTuple):
 DbConn = Any
 
 
+class DbConnection(NamedTuple):
+    raw_connection: DbConn
+    options: Options
+
+    def close(self) -> None:
+        return self.raw_connection.close()
+
+    def commit(self) -> None:
+        return self.raw_connection.commit()
+
+    def get_cursor(self) -> Any:
+        return self.raw_connection.cursor()
+
+    @classmethod
+    def from_raw(
+        cls, connection: DbConn, options: Options = Options()
+    ) -> DbConnection:
+        connection.set_session(readonly=False)
+        connection.set_isolation_level(options.isolation_lvl)
+        return cls(
+            raw_connection=connection,
+            options=options,
+        )
+
+    @classmethod
+    def new(
+        cls,
+        db_id: DatabaseID,
+        creds: Credentials,
+        options: Options = Options(),
+    ) -> DbConnection:
+        dbcon = postgres.connect(
+            dbname=db_id.db_name,
+            user=creds.user,
+            password=creds.password,
+            host=db_id.host,
+            port=db_id.port,
+        )
+        return cls.from_raw(dbcon, options)
+
+
 def adapt_connection(
     connection: DbConn, options: Options = Options()
 ) -> DbConnection:
-    connection.set_session(readonly=False)
-    connection.set_isolation_level(options.isolation_lvl)
-    return DbConnection(
-        close=connection.close,
-        get_cursor=connection.cursor,
-        commit=connection.commit,
-        options=options,
-    )
+    return DbConnection.from_raw(connection, options)
 
 
 def connect(
     db_id: DatabaseID, creds: Credentials, options: Options = Options()
 ) -> DbConnection:
-    dbcon = postgres.connect(
-        dbname=db_id.db_name,
-        user=creds.user,
-        password=creds.password,
-        host=db_id.host,
-        port=db_id.port,
-    )
-    return adapt_connection(dbcon, options)
+    return DbConnection.new(db_id, creds, options)
