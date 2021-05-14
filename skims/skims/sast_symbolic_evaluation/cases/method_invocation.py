@@ -165,7 +165,6 @@ BY_TYPE: Dict[str, Set[str]] = _complete_attrs_on_dict(
             "getValue",
         },
         "javax.servlet.http.HttpServletRequest": {
-            "getCookies",
             "getHeader",
             "getHeaderNames",
             "getHeaders",
