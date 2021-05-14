@@ -9,4 +9,14 @@ interface IPoliciesFormData {
   minAcceptanceSeverity: string;
 }
 
-export { IOrganizationPolicies, IPoliciesFormData };
+interface IOrganizationPoliciesData {
+  organization: {
+    maxAcceptanceDays: string;
+    maxAcceptanceSeverity: string;
+    maxNumberAcceptations: string;
+    minAcceptanceSeverity: string;
+    name: string;
+  };
+}
+
+export { IOrganizationPolicies, IOrganizationPoliciesData, IPoliciesFormData };

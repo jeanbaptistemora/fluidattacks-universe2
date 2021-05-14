@@ -1,5 +1,3 @@
-/* Eslint annotations needed as DB queries use "any" type */
-/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
@@ -22,6 +20,7 @@ import {
 } from "scenes/Dashboard/containers/OrganizationPoliciesView/queries";
 import type {
   IOrganizationPolicies,
+  IOrganizationPoliciesData,
   IPoliciesFormData,
 } from "scenes/Dashboard/containers/OrganizationPoliciesView/types";
 import { ButtonToolbar, Col33L, RowCenter } from "styles/styledComponents";
@@ -54,21 +53,22 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
   );
 
   // GraphQL Operations
-  const { data, loading: loadingPolicies, refetch: refetchPolicies } = useQuery(
-    GET_ORGANIZATION_POLICIES,
-    {
-      onError: ({ graphQLErrors }: ApolloError): void => {
-        graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(translate.t("groupAlerts.errorTextsad"));
-          Logger.warning(
-            "An error occurred fetching organization policies",
-            error
-          );
-        });
-      },
-      variables: { organizationId },
-    }
-  );
+  const {
+    data,
+    loading: loadingPolicies,
+    refetch: refetchPolicies,
+  } = useQuery<IOrganizationPoliciesData>(GET_ORGANIZATION_POLICIES, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("groupAlerts.errorTextsad"));
+        Logger.warning(
+          "An error occurred fetching organization policies",
+          error
+        );
+      });
+    },
+    variables: { organizationId },
+  });
 
   const [savePolicies, { loading: savingPolicies }] = useMutation(
     UPDATE_ORGANIZATION_POLICIES,

@@ -1,10 +1,12 @@
 import type { FieldProps } from "formik";
+import { useField } from "formik";
 import type { InputHTMLAttributes } from "react";
 import React from "react";
 
 import { SuggestionItem } from "./suggestionItem";
 
 import { StyledInput, ValidationError } from "utils/forms/fields/styles";
+import style from "utils/forms/index.css";
 
 interface IAutocompleteTextProps
   extends FieldProps<string, Record<string, string>>,
@@ -22,12 +24,17 @@ export const FormikAutocompleteText: React.FC<IAutocompleteTextProps> = ({
   const { errors, touched } = form;
   const fieldTouched = Boolean(touched[name]);
   const error = errors[name];
+  const [, , helpers] = useField(name);
 
   const matches = suggestions.filter(
     (suggestion: string): boolean =>
       value.trim() !== "" &&
       suggestion.toLowerCase().includes(value.toLowerCase())
   );
+
+  function handleClick(newValue: string): void {
+    helpers.setValue(newValue);
+  }
 
   return (
     <React.Fragment>
@@ -40,10 +47,14 @@ export const FormikAutocompleteText: React.FC<IAutocompleteTextProps> = ({
         value={value}
       />
       {matches.length > 0 && matches[0] !== value ? (
-        <ul>
+        <ul className={style.suggestionList}>
           {matches.map(
             (match: string): JSX.Element => (
-              <SuggestionItem key={match} onChange={onChange} value={match} />
+              <SuggestionItem
+                key={match}
+                onChange={handleClick}
+                value={match}
+              />
             )
           )}
         </ul>

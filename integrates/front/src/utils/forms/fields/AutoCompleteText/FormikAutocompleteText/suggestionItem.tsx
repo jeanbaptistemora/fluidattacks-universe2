@@ -14,7 +14,7 @@ export const SuggestionItem: React.FC<ISuggestionItemProps> = ({
   }, [onChange, value]);
 
   return (
-    <button onClick={handleClick}>
+    <button onClick={handleClick} type={"button"}>
       <li>{value}</li>
     </button>
   );

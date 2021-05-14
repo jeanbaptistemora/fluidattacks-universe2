@@ -24,12 +24,11 @@ import { translate } from "utils/translations/translate";
 jest.mock(
   "../../../../utils/notifications",
   (): Dictionary => {
-    const mockedNotifications: Dictionary = jest.requireActual(
-      "../../../../utils/notifications"
-    );
-
-    mockedNotifications.msgError = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
-    mockedNotifications.msgSuccess = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
+    const mockedNotifications: Dictionary<
+      () => Dictionary
+    > = jest.requireActual("../../../../utils/notifications");
+    jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+    jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
     return mockedNotifications;
   }
