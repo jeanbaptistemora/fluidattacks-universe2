@@ -16,6 +16,8 @@ import type { ConfigurableValidator } from "revalidate";
 import type { BaseSchema } from "yup";
 import { array, lazy, object } from "yup";
 
+import { handleCreationError, handleFileListUpload } from "./helpers";
+
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { statusFormatter } from "components/DataTableNext/formatters";
@@ -282,30 +284,6 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
     }
   };
 
-  const handleCreationError: (creationError: ApolloError) => void = (
-    creationError: ApolloError
-  ): void => {
-    creationError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-      switch (message) {
-        case "Exception - Invalid File Size":
-          msgError(translate.t("validations.fileSize", { count: 10 }));
-          break;
-        case "Exception - Invalid File Type: EVENT_IMAGE":
-          msgError(translate.t("group.events.form.wrongImageType"));
-          break;
-        case "Exception - Invalid File Type: EVENT_FILE":
-          msgError(translate.t("group.events.form.wrongFileType"));
-          break;
-        default:
-          msgError(translate.t("groupAlerts.errorTextsad"));
-          Logger.warning(
-            "An error occurred updating event evidence",
-            creationError
-          );
-      }
-    });
-  };
-
   const [createEvent, mtResult] = useMutation(CREATE_EVENT_MUTATION, {
     onCompleted: handleCreationResult,
     onError: handleCreationError,
@@ -332,12 +310,8 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
           accessibility: selectedAccessibility,
           affectedComponents: selectedComponents,
           blockingHours: String(values.blockingHours),
-          file: _.isEmpty(values.file)
-            ? undefined
-            : (values.file as FileList)[0],
-          image: _.isEmpty(values.image)
-            ? undefined
-            : (values.image as FileList)[0],
+          file: handleFileListUpload(values.file),
+          image: handleFileListUpload(values.image),
         },
       });
     },
