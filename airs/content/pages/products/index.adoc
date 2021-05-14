@@ -1,15 +1,17 @@
-:slug: products/
-:description: Fluid Attacks offers products focused on helping customers in the security testing process. Find here how Integrates, Drills, and Forces work.
-:keywords: Fluid Attacks, Security Testing, Integrates, Drills, Forces, Pentesting, Ethical Hacking
-:template: products/products
+:page-slug: products/
+:page-description: Fluid Attacks offers products focused on helping customers in the security testing process. Find here how Integrates, Drills, and Forces work.
+:page-keywords: Fluid Attacks, Security Testing, Integrates, Drills, Forces, Pentesting, Ethical Hacking
+:page-template: products/products
 
 = Products
 
 [role="w-products center pt5"]
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620229466/airs/products/product-integrates_q4zern.webp[link="../products/integrates/"]
 
+[role="f1-ns f3 tc w6-ns center w-90"]
 == Integrates
 
+[role="fw1 w-40-l w-50-m w90-s center f3-ns f5 lh-2"]
 *Integrates* is constituted as a platform to control all the remediation
 processes in any stage of the software development lifecycle.
 This is a red team management tool for reporting all project findings in the
@@ -20,8 +22,10 @@ different phases and in real time.
 [role="w-products center pt3"]
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620229466/airs/products/product-skims_yxdwp7.webp[link="../products/skims/"]
 
+[role="f1-ns f3 tc w6-ns center w-90"]
 == Skims
 
+[role="fw1 w-40-l w-50-m w90-s center f3-ns f5 lh-2"]
 *Skims* is an automatic tool based on SAST and SCA techniques, which focuses on
 detecting superficial or peripheral vulnerabilities at high speed. At the same
 time, it can verify whether the vulnerabilities identified in a system have
@@ -32,8 +36,10 @@ been successfully remediated.
 [role="w-products center pt3"]
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620229466/airs/products/product-drills_m31dox.webp[link="../products/drills/"]
 
+[role="f1-ns f3 tc w6-ns center w-90"]
 == Drills
 
+[role="fw1 w-40-l w-50-m w90-s center f3-ns f5 lh-2"]
 All vulnerabilities and security issues are continuously detected and reported
 at high speed during the entire software development lifecycle.
 *Drills* performs ethical hacking of applications and infrastructure,
@@ -44,8 +50,10 @@ along with source code analysis.
 [role="w-products center pt3"]
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620229466/airs/products/product-forces_pyggsx.webp[link="../products/devsecops/"]
 
+[role="f1-ns f3 tc w6-ns center w-90"]
 == Forces
 
+[role="fw1 w-40-l w-50-m w90-s center f3-ns f5 lh-2"]
 *Forces* is a precise and very fast robot,
 built to verify what is found in exact locations within the systems.
 It is designed for CI and has the goal of verifying the status

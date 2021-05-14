@@ -39,7 +39,11 @@ function main {
       &&  rm -rf \
             content/pages/about-us/clients \
             content/pages/products/defends \
-            content/pages/products/rules \
+            content/pages/products/skims \
+            content/pages/products/asserts \
+            content/pages/products/devsecops \
+            content/pages/products/drills \
+            content/pages/products/integrates \
       &&  copy __envAirsNpm__/node_modules 'node_modules' \
       &&  install_fontawesome_pro \
       &&  if test -n "${CI:-}" && test "${CI_COMMIT_REF_NAME}" != "master"
@@ -52,8 +56,8 @@ function main {
       &&  mv new-front/public . \
       &&  rm -rf new-front/* \
       &&  pushd public \
-          &&  rm -rf about-us careers contact-us cookie faq \
-                partners privacy products security subscription \
+          &&  rm -rf about-us contact-us faq \
+                partners subscription \
       &&  popd \
       &&  copy public . \
   &&  popd \

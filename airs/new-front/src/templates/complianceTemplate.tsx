@@ -106,6 +106,7 @@ export const query: void = graphql`
         slug
       }
       pageAttributes {
+        description
         banner
         keywords
         slug

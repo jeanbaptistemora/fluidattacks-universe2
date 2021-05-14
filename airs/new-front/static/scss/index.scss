@@ -181,12 +181,16 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .lh-2 { line-height: 2; }
 
 // Margin classes
+.mb-products { margin-bottom: 6.25rem; }
 .ml-15 { margin-left: 1.5rem; }
 .nt-5 { margin-top: -5px; }
 .nr-05 { margin-right: -0.05rem !important; }
 
 // Padding classes
-.ph-body { padding: 0 1.875rem; }
+.ph-body {
+  padding-left: 1.875rem;
+  padding-right: 1.875rem;
+}
 .pa-50 { padding: 50%; }
 
 // Scroll Behavior classes
@@ -203,10 +207,11 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .mw-1366 { max-width: 1366px; }
 .mw-376 { max-width: 376px; }
 .mw-900 { max-width: 900px; }
+.w-products { width: 31.25rem; }
 .w-resources-card { width: 21.875rem; }
 
 
-// Writing moce classes
+// Writing mode classes
 .wm-tb-rl { writing-mode: tb-rl; }
 
 // Media queries
@@ -222,7 +227,11 @@ $whiter-gray: rgba(241, 241, 241, 1);
   .f-error { font-size: 17rem; }
   .bg-banner-sz { background-size: 100% 100%; }
   .mw-20 { max-width: 20rem; }
-  .ph-body { padding: 0 3.75rem; }
+  
+  .ph-body {
+    padding-left: 3.75rem;
+    padding-right: 3.75rem;
+  }
 }
 
 @media screen and (min-width: 1200px) {
@@ -241,6 +250,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 @media screen and (min-width: 30em) and (max-width: 60em) {
   .fheader { font-size: 3.5rem; }
   .nt-125 { margin-top: -0.125rem; }
+  .w-products { width: 20rem; }
 }
 
 // Small screen sizes
@@ -248,6 +258,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
   .cover-s { background-size: cover; }
   .f1-s { font-size: 3rem;}
   .nt-125 { margin-top: -0.125rem; }
+  .w-products { width: 20rem; }
 }
 
 // Smaller screen sizes
@@ -748,4 +759,25 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .card-parent:hover .card-link,
 .card-parent:focus .card-link {
   display: block;
+}
+
+.button-white {
+  background-color: #fff;
+  border: solid 1px;
+  border-color: $button-red;
+  border-radius: 0.25rem;
+  color: $button-red;
+  cursor: pointer;
+  font-weight: 800;
+  padding-bottom: 0.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 0.5rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: $fluid-red;
+    color: $fluid-red;
+  }
 }
