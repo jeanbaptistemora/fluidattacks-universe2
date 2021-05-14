@@ -4,6 +4,8 @@ import type React from "react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 
+import { Logger } from "utils/logger";
+
 // Wrapper for React.useState that persists using the Web Storage API
 function useStoredState<T>(
   key: string,
@@ -23,13 +25,21 @@ function useStoredState<T>(
   const setAndStore: React.Dispatch<React.SetStateAction<T>> = (
     value: React.SetStateAction<T>
   ): void => {
-    storageProvider.setItem(key, JSON.stringify(value));
+    try {
+      storageProvider.setItem(
+        key,
+        JSON.stringify(value instanceof Function ? value(state) : value)
+      );
+    } catch (exception: unknown) {
+      Logger.warning("Couldn't persist state to web storage", exception);
+    }
     setState(value);
   };
 
   return [state, setAndStore] as const;
 }
 
+// Calls mixpanel track on route change
 const useTabTracking: (containerName: string) => void = (
   containerName
 ): void => {

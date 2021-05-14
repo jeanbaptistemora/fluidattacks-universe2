@@ -301,6 +301,32 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     }
   };
 
+  const [expandedRows, setExpandedRows] = useStoredState<number[]>(
+    "findingExpandedRows",
+    []
+  );
+
+  const handleRowExpand = (
+    _row: Record<string, unknown>,
+    isExpand: boolean,
+    rowIndex: number
+  ): void => {
+    setExpandedRows((currentValues): number[] =>
+      isExpand
+        ? [...currentValues, rowIndex]
+        : currentValues.filter((value): boolean => value !== rowIndex)
+    );
+  };
+
+  const handleRowExpandAll = (
+    isExpandAll: boolean,
+    results: Record<string, unknown>[]
+  ): void => {
+    setExpandedRows(
+      isExpandAll ? results.map((_value, index): number => index) : []
+    );
+  };
+
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
   }
@@ -321,6 +347,9 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
             expandByColumnOnly: true,
             expandColumnRenderer: renderExpandIcon,
             expandHeaderColumnRenderer: renderHeaderExpandIcon,
+            expanded: expandedRows,
+            onExpand: handleRowExpand,
+            onExpandAll: handleRowExpandAll,
             renderer: renderDescription,
             showExpandColumn: true,
           }}
