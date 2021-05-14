@@ -44,6 +44,7 @@ function main {
             content/pages/products/devsecops \
             content/pages/products/drills \
             content/pages/products/integrates \
+      &&  rm content/pages/products/index.adoc \
       &&  copy __envAirsNpm__/node_modules 'node_modules' \
       &&  install_fontawesome_pro \
       &&  if test -n "${CI:-}" && test "${CI_COMMIT_REF_NAME}" != "master"
