@@ -23,6 +23,7 @@ def _syntax_step_declaration_danger(args: EvaluatorArgs) -> None:
     # Analyze if the binding itself is sensitive
     no_trust_findings = {
         core_model.FindingEnum.F001_JAVA_SQL,
+        core_model.FindingEnum.F001_C_SHARP_SQL,
         core_model.FindingEnum.F004,
         core_model.FindingEnum.F008,
         core_model.FindingEnum.F021,
@@ -31,7 +32,10 @@ def _syntax_step_declaration_danger(args: EvaluatorArgs) -> None:
         core_model.FindingEnum.F063_TRUSTBOUND,
         core_model.FindingEnum.F107,
     }
-    danger_types = {"javax.servlet.http.HttpServletRequest"}
+    danger_types = {
+        "javax.servlet.http.HttpServletRequest",
+        "System.Web.HttpRequest",
+    }
     danger_modifiers = {
         "org.springframework.web.bind.annotation.RequestParam",
     }
