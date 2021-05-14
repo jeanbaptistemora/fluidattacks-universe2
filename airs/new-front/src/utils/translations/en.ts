@@ -109,7 +109,7 @@ const pageTexts: ResourceKey = {
         subTitle: "Find resources that help your company",
       },
       rules: {
-        rulesButton: "Go to Rules",
+        rulesButton: "Go to Criteria",
         rulesDescription:
           "It allows you to parametrize a pentest according to your organization's risk appetite",
         rulesTitle: "Criteria is a set of security requirements",

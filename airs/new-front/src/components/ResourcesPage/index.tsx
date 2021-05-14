@@ -71,7 +71,7 @@ const ResourcesPage: React.FC<IProps> = ({
       description={`${translate.t(
         "resources.elementsText.rules.rulesDescription"
       )}`}
-      direction={"/products/rules/"}
+      direction={"https://docs.fluidattacks.com/criteria/"}
       image={"/resources/resource-rules_roxdew"}
       imageSide={"fr-l"}
       textSide={"pl5-l fl-l"}
