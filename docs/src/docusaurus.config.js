@@ -36,7 +36,7 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'squad',
+          to: 'squad/sla',
           activeBasePath: 'squad/',
           label: 'Squad',
           position: 'left',

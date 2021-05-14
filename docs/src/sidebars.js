@@ -457,9 +457,26 @@ module.exports = {
         'machine/api/basics-api',
       ],
     },
+    {
+      type: 'category',
+      label: 'SLA',
+      items: [
+        'machine/sla/availability',
+      ],
+    },
   ],
   Squad: [
-    'squad/agreements',
+    {
+      type: 'category',
+      label: 'SLA',
+      items: [
+        'squad/sla/no-false-positives',
+        'squad/sla/no-false-negatives',
+        'squad/sla/reattacks',
+        'squad/sla/first-response',
+        'squad/sla/penalties',
+      ],
+    },
   ],
   Types: [
     'types/introduction',
