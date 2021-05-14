@@ -1,3 +1,4 @@
+# type: ignore
 # Standard library
 import datetime
 import glob

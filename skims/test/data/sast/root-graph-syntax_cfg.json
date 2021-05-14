@@ -1,4 +1,7 @@
 {
+  "F001_C_SHARP_SQL": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
   "F001_JAVA_SQL": {
     "skims/test/data/sast/TestCFG.java": {}
   },

@@ -107,6 +107,22 @@ class FindingMetadata(NamedTuple):
 
 
 class FindingEnum(Enum):
+    F001_C_SHARP_SQL: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F001_C_SHARP_SQL",
+        cwe="89",
+        attack_complexity=AttackComplexity.high,
+        attack_vector=AttackVector.network,
+        availability_impact=AvailabilityImpact.none,
+        confidentiality_impact=ConfidentialityImpact.low,
+        exploitability=Exploitability.poc,
+        integrity_impact=IntegrityImpact.low,
+        privileges_required=PrivilegesRequired.low,
+        remediation_level=RemediationLevel.unavailable,
+        report_confidence=ReportConfidence.reasonable,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
+    )
     F001_JAVA_SQL: FindingMetadata = FindingMetadata.new(
         code="F001_JAVA_SQL",
         cwe="89",

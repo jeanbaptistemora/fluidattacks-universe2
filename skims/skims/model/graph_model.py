@@ -327,6 +327,13 @@ GRAPH_VULNERABILITY_PARAMETERS: Dict[
     core_model.FindingEnum,
     GraphVulnerabilityParameters,
 ] = {
+    core_model.FindingEnum.F001_C_SHARP_SQL: (
+        GraphVulnerabilityParameters(
+            cwe=("89",),
+            desc_key="src.lib_path.F001_C_SHARP_SQL.user_controled_param",
+            desc_params={},
+        )
+    ),
     core_model.FindingEnum.F001_JAVA_SQL: (
         GraphVulnerabilityParameters(
             cwe=("89",),

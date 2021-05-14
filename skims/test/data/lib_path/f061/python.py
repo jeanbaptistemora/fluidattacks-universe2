@@ -1,4 +1,5 @@
 # flake8: noqa
+# type: ignore
 def get_cached_group_service_attributes_policies(
     group: str,
 ) -> Tuple[Tuple[str, str], ...]:
