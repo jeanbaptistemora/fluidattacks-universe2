@@ -1,9 +1,14 @@
+import type { Configuration } from "webpack";
 import { HotModuleReplacementPlugin } from "webpack";
-import type webpack from "webpack";
+import type { Configuration as DevServerConfig } from "webpack-dev-server";
 
 import { commonConfig } from "./webpack.common.config";
 
-const devConfig: webpack.Configuration = {
+interface IWebpackConfig extends Configuration {
+  devServer: DevServerConfig;
+}
+
+const devConfig: IWebpackConfig = {
   ...commonConfig,
   devServer: {
     compress: true,
@@ -12,51 +17,11 @@ const devConfig: webpack.Configuration = {
     hot: true,
     https: true,
     port: 3000,
-    publicPath: (commonConfig.output as webpack.Output).publicPath,
+    publicPath: (commonConfig.output as NonNullable<IWebpackConfig["output"]>)
+      .publicPath as string,
   },
   devtool: false,
-  entry: {
-    app: [
-      "webpack-dev-server/client?https://localhost:3000",
-      "webpack/hot/only-dev-server",
-      "./src/app.tsx",
-    ],
-    graphicsForGroup: [
-      "webpack-dev-server/client?https://localhost:3000",
-      "webpack/hot/only-dev-server",
-      "./src/graphics/views/group.tsx",
-    ],
-    graphicsForOrganization: [
-      "webpack-dev-server/client?https://localhost:3000",
-      "webpack/hot/only-dev-server",
-      "./src/graphics/views/organization.tsx",
-    ],
-    graphicsForPortfolio: [
-      "webpack-dev-server/client?https://localhost:3000",
-      "webpack/hot/only-dev-server",
-      "./src/graphics/views/portfolio.tsx",
-    ],
-  },
   mode: "development",
-  module: {
-    ...commonConfig.module,
-    rules: [
-      ...(commonConfig.module as webpack.Module).rules,
-      {
-        test: /\.(?<extension>gif|jpg|png|svg)$/u,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              name: "[hash].[ext]",
-              outputPath: "img/",
-              publicPath: "https://localhost:3000/dashboard/img/",
-            },
-          },
-        ],
-      },
-    ],
-  },
   output: {
     ...commonConfig.output,
     publicPath: "https://localhost:3000/dashboard/",

@@ -1,9 +1,9 @@
 import path from "path";
 
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import type webpack from "webpack";
+import type { Configuration } from "webpack";
 
-export const commonConfig: webpack.Configuration = {
+export const commonConfig: Configuration = {
   entry: {
     app: "./src/app.tsx",
     graphicsForGroup: "./src/graphics/views/group.tsx",
@@ -49,11 +49,18 @@ export const commonConfig: webpack.Configuration = {
           },
         ],
       },
+      {
+        generator: {
+          filename: "img/[hash][ext]",
+        },
+        test: /\.(?<extension>gif|jpg|png|svg)$/u,
+        type: "asset/resource",
+      },
     ],
   },
   output: {
+    clean: true,
     filename: "[name]-bundle.min.js",
-    futureEmitAssets: true,
     path: path.resolve(__dirname, "../app/static/dashboard/"),
   },
   plugins: [
@@ -65,6 +72,9 @@ export const commonConfig: webpack.Configuration = {
     alias: {
       components: path.join(__dirname, "src", "components"),
       graphics: path.join(__dirname, "src", "graphics"),
+      // https://github.com/react-bootstrap-table/react-bootstrap-table2/issues/1520
+      "react-bootstrap-table2-toolkit":
+        "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.js",
       resources: path.join(__dirname, "src", "resources"),
       scenes: path.join(__dirname, "src", "scenes"),
       store: path.join(__dirname, "src", "store"),
@@ -73,6 +83,10 @@ export const commonConfig: webpack.Configuration = {
       utils: path.join(__dirname, "src", "utils"),
     },
     extensions: [".js", ".jsx", ".ts", ".tsx"],
+    fallback: {
+      crypto: require.resolve("crypto-browserify"),
+      stream: require.resolve("stream-browserify"),
+    },
   },
   stats: {
     children: false,
