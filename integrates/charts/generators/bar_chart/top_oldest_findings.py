@@ -1,7 +1,12 @@
 # Standard library
 from collections import Counter
 from itertools import groupby
-from typing import List
+from typing import (
+    List,
+    Tuple,
+    Union,
+    cast,
+)
 
 # Third party libraries
 from aioextensions import (
@@ -43,41 +48,30 @@ async def get_data_many_groups(groups: List[str]) -> Counter:
 
 
 def format_data(counters: Counter) -> dict:
-    data = [
+    data: List[Tuple[str, int]] = [
         (title, open_age)
         for title, open_age in counters.most_common()
         if open_age > 0
     ]
 
-    merged_data = []
+    merged_data: List[List[Union[int, str]]] = []
 
     for axis, columns in groupby(
         sorted(
             data,
-            key=utils.get_finding_name
+            key=lambda x: utils.get_finding_name([x[0]])
         ),
-        utils.get_finding_name
+        lambda x: utils.get_finding_name([x[0]])
     ):
-        merged_data.append(
-            [
-                axis, max(
-                    [
-                        value for _, value in columns
-                    ]
-                )
-            ]
-        )
+        merged_data.append([axis, max([value for _, value in columns])])
 
     merged_data = sorted(merged_data, key=lambda x: x[1], reverse=True)[:10]
 
     return dict(
         data=dict(
             columns=[
-                ['Open Age (days)'] +
-                [
-                    open_age
-                    for _, open_age in merged_data
-                ],
+                cast(List[Union[int, str]], ['Open Age (days)']) +
+                [open_age for _, open_age in merged_data],
             ],
             colors={
                 'Open Age (days)': RISK.neutral,
@@ -90,7 +84,8 @@ def format_data(counters: Counter) -> dict:
         axis=dict(
             x=dict(
                 categories=[
-                    utils.get_finding_name([title]) for title, _ in merged_data
+                    utils.get_finding_name([str(title)])
+                    for title, _ in merged_data
                 ],
                 type='category',
                 tick=dict(
@@ -109,7 +104,7 @@ def format_data(counters: Counter) -> dict:
     )
 
 
-async def generate_all():
+async def generate_all() -> None:
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
             utils.json_dump(

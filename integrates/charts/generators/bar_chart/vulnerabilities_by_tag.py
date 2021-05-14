@@ -1,7 +1,11 @@
 # Standard library
 from collections import Counter
 from itertools import chain
-from typing import List
+from typing import (
+    List,
+    Union,
+    cast,
+)
 
 # Third party libraries
 from aioextensions import (
@@ -48,7 +52,8 @@ def format_data(counters: Counter) -> dict:
     return dict(
         data=dict(
             columns=[
-                ['Tag'] + [value for _, value in data],
+                cast(List[Union[int, str]], ['Tag']) +
+                [value for _, value in data],
             ],
             colors={
                 'Tag': RISK.neutral,
@@ -78,7 +83,7 @@ def format_data(counters: Counter) -> dict:
     )
 
 
-async def generate_all():
+async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=format_data(

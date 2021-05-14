@@ -11,7 +11,7 @@ from charts.colors import (
 )
 
 
-async def generate_one(group: str):
+async def generate_one(group: str) -> dict:
     executions = await utils.get_all_time_forces_executions(group)
 
     executions_in_strict_mode = tuple(
@@ -57,7 +57,7 @@ async def generate_one(group: str):
     }
 
 
-async def generate_all():
+async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=await generate_one(group),

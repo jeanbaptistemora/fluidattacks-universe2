@@ -1,7 +1,12 @@
 # Standard library
 from collections import Counter
 from itertools import groupby
-from typing import List
+from typing import (
+    List,
+    Tuple,
+    Union,
+    cast,
+)
 
 # Third party libraries
 from aioextensions import (
@@ -45,36 +50,27 @@ async def get_data_many_groups(groups: List[str]) -> Counter:
 
 
 def format_data(counters: Counter) -> dict:
-    data = counters.most_common()
+    data: List[Tuple[str, int]] = counters.most_common()
 
-    merged_data = []
+    merged_data: List[List[Union[int, str]]] = []
     for axis, columns in groupby(
         sorted(
             data,
-            key=utils.get_finding_name
+            key=lambda x: utils.get_finding_name([x[0]])
         ),
-        utils.get_finding_name
+        key=lambda x: utils.get_finding_name([x[0]])
     ):
-        merged_data.append(
-            [
-                axis, sum(
-                    [
-                        value for _, value in columns
-                    ]
-                )
-            ]
-        )
+        merged_data.append([
+            axis, sum([value for _, value in columns])
+        ])
 
     merged_data = sorted(merged_data, key=lambda x: x[1], reverse=True)[:10]
 
     return dict(
         data=dict(
             columns=[
-                ['# Open Vulnerabilities'] +
-                [
-                    value
-                    for _, value in merged_data
-                ],
+                cast(List[Union[int, str]], ['# Open Vulnerabilities']) +
+                [value for _, value in merged_data],
             ],
             colors={
                 '# Open Vulnerabilities': RISK.neutral,
@@ -87,7 +83,8 @@ def format_data(counters: Counter) -> dict:
         axis=dict(
             x=dict(
                 categories=[
-                    utils.get_finding_name([key]) for key, _ in merged_data
+                    utils.get_finding_name([str(key)])
+                    for key, _ in merged_data
                 ],
                 type='category',
                 tick=dict(
@@ -106,7 +103,7 @@ def format_data(counters: Counter) -> dict:
     )
 
 
-async def generate_all():
+async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=format_data(counters=await get_data_one_group(group)),

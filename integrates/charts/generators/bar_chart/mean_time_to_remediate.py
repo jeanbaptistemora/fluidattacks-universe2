@@ -94,7 +94,7 @@ def format_data(data: Remediate) -> dict:
     )
 
 
-async def generate_all():
+async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=format_data(data=await get_data_one_group(group)),

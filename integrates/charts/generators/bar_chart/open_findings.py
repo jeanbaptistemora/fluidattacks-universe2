@@ -72,7 +72,7 @@ def format_data(data: List[PortfoliosGroupsInfo]) -> dict:
     )
 
 
-async def generate_all():
+async def generate_all() -> None:
     async for org_id, org_name, _ in (
         utils.iterate_organizations_and_groups()
     ):

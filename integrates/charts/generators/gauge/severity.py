@@ -1,7 +1,7 @@
 # Standard library
 from typing import (
+    Iterable,
     NamedTuple,
-    Tuple,
 )
 
 # Third party libraries
@@ -50,7 +50,7 @@ async def generate_one(group: str) -> Severity:
     )
 
 
-async def get_data_many_groups(groups: Tuple[str, ...]) -> Severity:
+async def get_data_many_groups(groups: Iterable[str]) -> Severity:
     groups_data = await collect(map(generate_one, groups))
 
     return Severity(
@@ -90,7 +90,7 @@ def format_data(data: Severity) -> dict:
     }
 
 
-async def generate_all():
+async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=format_data(

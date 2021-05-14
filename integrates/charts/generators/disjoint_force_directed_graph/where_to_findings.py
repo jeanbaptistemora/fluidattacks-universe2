@@ -9,7 +9,7 @@ from charts import utils
 from dataloaders import get_new_context
 
 
-async def generate_one(group: str):
+async def generate_one(group: str) -> dict:
     context = get_new_context()
     finding_vulns_loader = context.finding_vulns_nzr
     group_findings_loader = context.group_findings
@@ -47,7 +47,7 @@ async def generate_one(group: str):
     return data
 
 
-async def generate_all():
+async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=await generate_one(group),
