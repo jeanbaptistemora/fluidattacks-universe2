@@ -1,10 +1,24 @@
 import pytest
 from decimal import Decimal
+from typing import Dict
 
+from model.findings.types import (
+    Finding20Severity,
+    Finding31Severity
+)
 from newutils import (
     cvss,
-    findings as finding_utils
+    cvss_new,
+    findings as finding_utils,
+    utils
 )
+
+
+def format_severity(severity: Dict[str, float]) -> Dict[str, Decimal]:
+    return {
+        utils.camelcase_to_snakecase(key): Decimal(value)
+        for key, value in severity.items()
+    }
 
 
 def test_calculate_cvss2_basescore():
@@ -17,6 +31,11 @@ def test_calculate_cvss2_basescore():
         severity, finding_utils.CVSS_PARAMETERS['2'], cvss_version)
     cvss_basescore_test = Decimal(4.3).quantize(Decimal('0.1'))
     assert cvss_basescore == cvss_basescore_test
+
+    severity_new = Finding20Severity(**format_severity(severity))
+    cvss_basescore_new = cvss_new.get_cvss2_basescore(severity_new)
+    assert cvss_basescore_new == cvss_basescore_test
+
 
 def test_calculate_cvss2_temporal():
     severity = {'confidentialityImpact': 0, 'integrityImpact': 0.275,
@@ -33,6 +52,15 @@ def test_calculate_cvss2_temporal():
     cvss_temporal_test = Decimal(3.7).quantize(Decimal('0.1'))
     assert cvss_temporal == cvss_temporal_test
 
+    severity_new = Finding20Severity(**format_severity(severity))
+    cvss_basescore_new = cvss_new.get_cvss2_basescore(severity_new)
+    cvss_temporal_new = cvss_new.get_cvss2_temporal(
+        severity_new,
+        cvss_basescore_new
+    )
+    assert cvss_temporal_new == cvss_temporal_test
+
+
 def test_calculate_cvss2_environment():
     severity = {'accessComplexity': 0.61, 'authentication': 0.704,
                 'accessVector': 1, 'confidentialityImpact': 0,
@@ -48,6 +76,7 @@ def test_calculate_cvss2_environment():
     cvss_environment_test = Decimal(0.9).quantize(Decimal('0.1'))
     assert cvss_environment == cvss_environment_test
 
+
 def test_calculate_cvss3_scope_changed_basescore():
     severity = {'confidentialityImpact': 0.22, 'integrityImpact': 0.22,
                 'availabilityImpact': 0, 'severityScope': 1,
@@ -60,6 +89,11 @@ def test_calculate_cvss3_scope_changed_basescore():
     cvss_basescore_test = Decimal(6.4).quantize(Decimal('0.1'))
     assert cvss_basescore == cvss_basescore_test
 
+    severity_new = Finding31Severity(**format_severity(severity))
+    cvss_basescore_new = cvss_new.get_cvss3_basescore(severity_new)
+    assert cvss_basescore_new == cvss_basescore_test
+
+
 def test_calculate_cvss3_scope_unchanged_basescore():
     severity = {'confidentialityImpact': 0.22, 'integrityImpact': 0.22,
                 'availabilityImpact': 0, 'severityScope': 0,
@@ -71,6 +105,11 @@ def test_calculate_cvss3_scope_unchanged_basescore():
         severity, finding_utils.CVSS_PARAMETERS['3.1'], cvss_version)
     cvss_basescore_test = Decimal(5.4).quantize(Decimal('0.1'))
     assert cvss_basescore == cvss_basescore_test
+
+    severity_new = Finding31Severity(**format_severity(severity))
+    cvss_basescore_new = cvss_new.get_cvss3_basescore(severity_new)
+    assert cvss_basescore_new == cvss_basescore_test
+
 
 def test_calculate_cvss3_scope_changed_temporal():
     severity = {'confidentialityImpact': 0.22, 'integrityImpact': 0.22,
@@ -88,6 +127,15 @@ def test_calculate_cvss3_scope_changed_temporal():
     cvss_temporal_test = Decimal(6.1).quantize(Decimal('0.1'))
     assert cvss_temporal == cvss_temporal_test
 
+    severity_new = Finding31Severity(**format_severity(severity))
+    cvss_basescore_new = cvss_new.get_cvss3_basescore(severity_new)
+    cvss_temporal_new = cvss_new.get_cvss3_temporal(
+        severity_new,
+        cvss_basescore_new
+    )
+    assert cvss_temporal_new == cvss_temporal_test
+
+
 def test_calculate_cvss3_scope_unchanged_temporal():
     severity = {'confidentialityImpact': 0.22, 'integrityImpact': 0.22,
                 'availabilityImpact': 0, 'severityScope': 0,
@@ -104,6 +152,15 @@ def test_calculate_cvss3_scope_unchanged_temporal():
     cvss_temporal_test = Decimal(5.1).quantize(Decimal('0.1'))
     assert cvss_temporal == cvss_temporal_test
 
+    severity_new = Finding31Severity(**format_severity(severity))
+    cvss_basescore_new = cvss_new.get_cvss3_basescore(severity_new)
+    cvss_temporal_new = cvss_new.get_cvss3_temporal(
+        severity_new,
+        cvss_basescore_new
+    )
+    assert cvss_temporal_new == cvss_temporal_test
+
+
 def test_calculate_cvss3_scope_changed_environment():
     severity = {'modifiedConfidentialityImpact': 0.22, 'reportConfidence': 1,
                 'modifiedIntegrityImpact': 0.22, 'modifiedAvailabilityImpact': 0.22,
@@ -118,6 +175,7 @@ def test_calculate_cvss3_scope_changed_environment():
         severity, finding_utils.CVSS_PARAMETERS['3.1'], cvss_version)
     cvss_environment_test = Decimal(5.3).quantize(Decimal('0.1'))
     assert cvss_environment == cvss_environment_test
+
 
 def test_calculate_cvss3_scope_unchanged_environment():
     severity = {'modifiedConfidentialityImpact': 0.22, 'reportConfidence': 1,

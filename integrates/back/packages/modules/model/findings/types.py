@@ -68,6 +68,14 @@ class Finding20Severity(NamedTuple):
     resolution_level: Decimal = Decimal('0.0')
 
 
+class Finding20CvssParameters(NamedTuple):
+    bs_factor_1: Decimal
+    bs_factor_2: Decimal
+    bs_factor_3: Decimal
+    impact_factor: Decimal
+    exploitability_factor: Decimal
+
+
 class Finding31Severity(NamedTuple):
     attack_complexity: Decimal = Decimal('0.0')
     attack_vector: Decimal = Decimal('0.0')
@@ -91,6 +99,25 @@ class Finding31Severity(NamedTuple):
     report_confidence: Decimal = Decimal('0.0')
     severity_scope: Decimal = Decimal('0.0')
     user_interaction: Decimal = Decimal('0.0')
+
+
+class Finding31CvssParameters(NamedTuple):
+    basescore_factor: Decimal
+    exploitability_factor_1: Decimal
+    impact_factor_1: Decimal
+    impact_factor_2: Decimal
+    impact_factor_3: Decimal
+    impact_factor_4: Decimal
+    impact_factor_5: Decimal
+    impact_factor_6: Decimal
+    mod_impact_factor_1: Decimal
+    mod_impact_factor_2: Decimal
+    mod_impact_factor_3: Decimal
+    mod_impact_factor_4: Decimal
+    mod_impact_factor_5: Decimal
+    mod_impact_factor_6: Decimal
+    mod_impact_factor_7: Decimal
+    mod_impact_factor_8: Decimal
 
 
 class FindingUnreliableIndicators(NamedTuple):
