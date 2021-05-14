@@ -258,3 +258,21 @@ resource "aws_iam_role_policy_attachment" "skims_prod" {
   role       = aws_iam_role.skims_prod.name
   policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user_provision/skims_prod_policy"
 }
+
+# Sorts
+
+resource "aws_iam_role" "sorts_prod" {
+  name               = "sorts_prod"
+  assume_role_policy = data.aws_iam_policy_document.okta-assume-role-policy-data.json
+
+  tags = {
+    "Name"               = "sorts_prod"
+    "management:type"    = "production"
+    "management:product" = "makes"
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "sorts_prod" {
+  role       = aws_iam_role.skims_prod.name
+  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user_provision/sorts_prod_policy"
+}
