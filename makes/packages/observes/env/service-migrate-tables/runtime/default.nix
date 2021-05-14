@@ -3,9 +3,8 @@
 , path
 , ...
 }:
+with packages.observes.env;
 let
-  env = packages.observes.env;
-  pkgEnv = env.service-migrate-tables;
   self = path "/observes/services/migrate_tables";
 in
 makeTemplate {
@@ -15,16 +14,16 @@ makeTemplate {
       self
     ];
     envPaths = [
-      pkgEnv.runtime.python
+      service-migrate-tables.runtime.python
     ];
     envPythonPaths = [
       self
     ];
     envPython38Paths = [
-      pkgEnv.runtime.python
+      service-migrate-tables.runtime.python
     ];
     envSources = [
-      env.postgres-client.runtime
+      postgres-client.runtime
     ];
   };
 }

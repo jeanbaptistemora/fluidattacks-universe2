@@ -3,9 +3,8 @@
 , packages
 , ...
 }:
+with packages.observes.env;
 let
-  env = packages.observes.env;
-  pkgEnv = env.streamer-dynamodb;
   self = path "/observes/singer/streamer_dynamodb";
 in
 makeTemplate {
@@ -15,13 +14,13 @@ makeTemplate {
       self
     ];
     envPaths = [
-      pkgEnv.runtime.python
+      streamer-dynamodb.runtime.python
     ];
     envPythonPaths = [
       self
     ];
     envPython38Paths = [
-      pkgEnv.runtime.python
+      streamer-dynamodb.runtime.python
     ];
   };
 }

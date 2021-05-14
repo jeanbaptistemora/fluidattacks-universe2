@@ -1,31 +1,19 @@
-{ buildPythonPackage
-, makeTemplate
-, nixpkgs
+{ makeTemplate
 , packages
-, path
 , ...
 }:
-let
-  env = packages.observes.env;
-  pkgEnv = env.tap-csv;
-  self = buildPythonPackage {
-    name = "observes-tap-csv";
-    packagePath = path "/observes/singer/tap_csv";
-    python = nixpkgs.python38;
-  };
-in
+with packages.observes.env;
 makeTemplate {
   name = "observes-env-tap-csv-development";
   searchPaths = {
-    envSources = [
-      pkgEnv.runtime
-    ];
     envPaths = [
-      pkgEnv.development.python
+      tap-csv.development.python
     ];
     envPython38Paths = [
-      pkgEnv.development.python
-      self
+      tap-csv.development.python
+    ];
+    envSources = [
+      tap-csv.runtime
     ];
   };
 }

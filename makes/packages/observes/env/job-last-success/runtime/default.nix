@@ -4,9 +4,8 @@
 , path
 , ...
 }:
+with packages.observes.env;
 let
-  env = packages.observes.env;
-  pkgEnv = env.job-last-success;
   self = path "/observes/services/job_last_success";
 in
 makeTemplate {
@@ -16,14 +15,14 @@ makeTemplate {
       self
     ];
     envPaths = [
-      pkgEnv.runtime.python
+      job-last-success.runtime.python
     ];
     envPythonPaths = [
       self
     ];
     envPython38Paths = [
       nixpkgs.python38Packages.psycopg2
-      pkgEnv.runtime.python
+      job-last-success.runtime.python
     ];
   };
 }
