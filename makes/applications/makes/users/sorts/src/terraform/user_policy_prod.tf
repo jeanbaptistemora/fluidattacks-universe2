@@ -112,9 +112,15 @@ data "aws_iam_policy_document" "sorts_prod_policy_data" {
     effect = "Allow"
     actions = [
       "kms:CreateKey",
+      "kms:CreateAlias",
+      "kms:Describe*",
       "kms:Encrypt",
-      "kms:ListAliases",
+      "kms:Get*",
+      "kms:List*",
+      "kms:PutKeyPolicy",
       "kms:TagResource",
+      "kms:UntagResource",
+      "kms:UpdateAlias",
     ]
     resources = [
       "*"
