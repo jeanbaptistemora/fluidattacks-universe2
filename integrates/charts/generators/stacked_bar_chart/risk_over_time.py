@@ -2,8 +2,12 @@
 from datetime import datetime
 from typing import (
     Dict,
+    Iterable,
     List,
+    NamedTuple,
     Optional,
+    Union,
+    cast,
 )
 
 # Third party libraries
@@ -21,7 +25,6 @@ from dataloaders import get_new_context
 
 # Constants
 DATE_FMT: str = '%Y - %m - %d'
-
 # Let's no over think it
 MONTH_TO_NUMBER = {
     'Jan': 1,
@@ -37,6 +40,18 @@ MONTH_TO_NUMBER = {
     'Nov': 11,
     'Dec': 12,
 }
+
+# Typing
+GroupDocumentData = NamedTuple(
+    'GroupDocumentData',
+    [
+        ('accepted', float),
+        ('closed', float),
+        ('opened', float),
+        ('date', datetime),
+        ('total', float)
+    ]
+)
 
 
 def translate_date(date_str: str) -> datetime:
@@ -60,8 +75,8 @@ def translate_date(date_str: str) -> datetime:
 async def get_group_document(
     group: str,
     days: Optional[int] = None
-) -> Dict[str, Dict[str, float]]:
-    data: List[list] = []
+) -> Dict[str, Dict[datetime, float]]:
+    data: List[GroupDocumentData] = []
     context = get_new_context()
     group_loader = context.group_all
 
@@ -88,42 +103,42 @@ async def get_group_document(
             group_closed_over_time,
             group_found_over_time,
         ):
-            data.append(dict(
-                accepted=accepted['y'],
-                closed=closed['y'],
-                opened=found['y'] - closed['y'] - accepted['y'],
-                date=translate_date(found['x']),
-                total=found['y'],
-            ))
+            data.append(
+                GroupDocumentData(
+                    accepted=accepted['y'],
+                    closed=closed['y'],
+                    opened=found['y'] - closed['y'] - accepted['y'],
+                    date=translate_date(found['x']),
+                    total=found['y'],
+                )
+            )
     else:
         print(f'[WARNING] {group} has no remediated_over_time attribute')
 
     return {
         'date': {
-            datum['date']: 0
+            datum.date: 0
             for datum in data
         },
         'Closed': {
-            datum['date']: datum['closed']
+            datum.date: datum.closed
             for datum in data
         },
         'Closed + Open with accepted treatment': {
-            datum['date']: datum['closed'] + datum['accepted']
+            datum.date: datum.closed + datum.accepted
             for datum in data
         },
         'Closed + Open': {
-            datum['date']: (
-                datum['closed'] + datum['accepted'] + datum['opened']
-            )
+            datum.date: datum.closed + datum.accepted + datum.opened
             for datum in data
         },
     }
 
 
 async def get_many_groups_document(
-    groups: str,
+    groups: Iterable[str],
     days: Optional[int] = None
-) -> Dict[str, Dict[str, float]]:
+) -> Dict[str, Dict[datetime, float]]:
     group_documents = await collect(
         get_group_document(group, days) for group in groups
     )
@@ -142,8 +157,9 @@ async def get_many_groups_document(
                 if date in group_document[name]:
                     last_date = date
                 elif last_date:
-                    group_document[name][date] = \
+                    group_document[name][date] = (
                         group_document[name][last_date]
+                    )
                 else:
                     group_document[name][date] = 0
 
@@ -164,12 +180,13 @@ async def get_many_groups_document(
     }
 
 
-def format_document(document: object) -> dict:
+def format_document(document: Dict[str, Dict[datetime, float]]) -> dict:
     return dict(
         data=dict(
             x='date',
             columns=[
-                [name] + [
+                cast(List[Union[float, str]], [name]) +
+                [
                     date.strftime(DATE_FMT)
                     if name == 'date'
                     else document[name][date]
@@ -220,7 +237,7 @@ def format_document(document: object) -> dict:
     )
 
 
-async def generate_all():
+async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=format_document(

@@ -2,6 +2,8 @@
 from typing import (
     List,
     NamedTuple,
+    Union,
+    cast,
 )
 
 # Third party libraries
@@ -56,8 +58,10 @@ def format_data(data: List[Status]) -> dict:
     return dict(
         data=dict(
             columns=[
-                ['Closed'] + [group.closed_vulnerabilities for group in data],
-                ['Open'] + [group.open_vulnerabilities for group in data],
+                cast(List[Union[int, str]], ['Closed']) +
+                [group.closed_vulnerabilities for group in data],
+                cast(List[Union[int, str]], ['Open']) +
+                [group.open_vulnerabilities for group in data],
             ],
             colors={
                 'Closed': RISK.more_passive,
@@ -88,7 +92,7 @@ def format_data(data: List[Status]) -> dict:
     )
 
 
-async def generate_all():
+async def generate_all() -> None:
     async for org_id, org_name, _ in (
         utils.iterate_organizations_and_groups()
     ):

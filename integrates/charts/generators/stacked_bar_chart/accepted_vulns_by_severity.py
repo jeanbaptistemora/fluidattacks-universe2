@@ -1,6 +1,10 @@
 # Standard library
 from collections import Counter
-from typing import List
+from typing import (
+    List,
+    Union,
+    cast,
+)
 
 # Third party libraries
 from aioextensions import (
@@ -42,7 +46,7 @@ async def get_data_one_group(group: str) -> Counter:
     finding_vulns = await finding_vulns_loader.load_many(
         finding_ids
     )
-    severity_counter = Counter()
+    severity_counter: Counter = Counter()
     for finding, vulns in zip(findings, finding_vulns):
         severity = get_severity_level(float(finding['severity_score']))
         for vuln in vulns:
@@ -73,10 +77,10 @@ def format_data(data: Counter) -> dict:
     return dict(
         data=dict(
             columns=[
-                ['# Accepted Vulnerabilities'] + [
-                    data[column] for column in translations
-                ],
-                ['# Open Vulnerabilities'] + [
+                cast(List[Union[int, str]], ['# Accepted Vulnerabilities']) +
+                [data[column] for column in translations],
+                cast(List[Union[int, str]], ['# Open Vulnerabilities']) +
+                [
                     data[f'{column}_open'] - data[column]
                     for column in translations
                 ],
@@ -114,7 +118,7 @@ def format_data(data: Counter) -> dict:
     )
 
 
-async def generate_all():
+async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=format_data(data=await get_data_one_group(group)),
