@@ -2,7 +2,7 @@
 id: agreements
 title: Agreements
 sidebar_label: Agreements
-slug: /squad/agreements
+slug: /squad
 ---
 
 The following sections
