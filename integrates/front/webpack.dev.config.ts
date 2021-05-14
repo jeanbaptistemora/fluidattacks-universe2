@@ -5,7 +5,16 @@ import { commonConfig } from "./webpack.common.config";
 
 const devConfig: webpack.Configuration = {
   ...commonConfig,
-  devtool: "cheap-module-source-map",
+  devServer: {
+    compress: true,
+    headers: { "Access-Control-Allow-Origin": "*" },
+    historyApiFallback: true,
+    hot: true,
+    https: true,
+    port: 3000,
+    publicPath: (commonConfig.output as webpack.Output).publicPath,
+  },
+  devtool: false,
   entry: {
     app: [
       "webpack-dev-server/client?https://localhost:3000",

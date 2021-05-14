@@ -6,6 +6,8 @@ const LoginContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: "items-center flex flex-row white h-100",
-})``;
+})`
+  background-color: #272727;
+`;
 
 export { LoginContainer };
