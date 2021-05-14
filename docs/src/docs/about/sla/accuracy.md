@@ -1,19 +1,17 @@
 ---
-id: no-false-positives
-title: No false positives
-sidebar_label: No false positives
-slug: /squad/sla
+id: accuracy
+title: Accuracy
+sidebar_label: Accuracy
+slug: /about/sla/accuracy
 ---
 
-### Description
+### Criteria
 
-**90%** of vulnerabilities
-adjusted for severity
-have some level of risk.
-
-### Preconditions
-
-- It exists in both environment and source code.
+- Applies only
+  to plan Squad.
+- It exists
+  in both environment
+  and source code.
 - Coupled environment
   (exact deployment of the branch)
 - Stable environment
@@ -24,7 +22,7 @@ have some level of risk.
 - Remote access with no human intervention
   (no captcha, OTP, etc.).
 
-### Measurement
+### Details
 
 - Measured in
   calendar quarters.
@@ -38,11 +36,18 @@ have some level of risk.
   the quarterly analisis period.
 - Percentages are determined
   using percentiles.
-- Offices hours correspond to
-  8 hours bussiness days like this,
-  8AM-12M and 1PM-5PM.
+- The severity of vulnerabilities
+  are calculated using
+  CVSSF = 4^(CVSS-4).
+- The accuracy is calculated
+  based on the false positives,
+  false negatives
+  and the F-Score model.
+- Black vulnerabilities
+  detectable only via source code
+  are not considered
+  false negatives.
 - The required transactionalities
   for measurement and penalty are:
-    - Over **500** comments,
-      reattacks 
-      and/or incidents.
+    - Less than **400** manual changes
+      per active author.

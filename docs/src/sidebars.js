@@ -18,6 +18,16 @@ module.exports = {
   About: [
     'about/faq',
     'about/glossary',
+    {
+      type: 'category',
+      label: 'SLA',
+      items: [
+        'about/sla/introduction',
+        'about/sla/availability',
+        'about/sla/accuracy',
+        'about/sla/response',
+      ],
+    },
   ],
   Criteria: [
     'criteria/introduction',
@@ -457,26 +467,8 @@ module.exports = {
         'machine/api/basics-api',
       ],
     },
-    {
-      type: 'category',
-      label: 'SLA',
-      items: [
-        'machine/sla/availability',
-      ],
-    },
   ],
   Squad: [
-    {
-      type: 'category',
-      label: 'SLA',
-      items: [
-        'squad/sla/no-false-positives',
-        'squad/sla/no-false-negatives',
-        'squad/sla/reattacks',
-        'squad/sla/first-response',
-        'squad/sla/penalties',
-      ],
-    },
   ],
   Types: [
     'types/introduction',

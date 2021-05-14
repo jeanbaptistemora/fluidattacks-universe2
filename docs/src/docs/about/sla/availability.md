@@ -2,16 +2,10 @@
 id: availability
 title: Availability
 sidebar_label: Availability
-slug: /machine/sla/availability
+slug: /about/sla/availability
 ---
 
-### Description
-
-**99%** of the planned availability time,
-the platform will be available via internet
-for its registered users.
-
-### Measurement
+### Details
 
 - Measured in
   calendar quarters.
@@ -23,9 +17,9 @@ for its registered users.
   all the historical data,
   not only that of
   the quarterly analisis period.
-- Offices hours correspond
-  to 8 hours bussiness days,
-  like this,
+- Office hours correspond
+  to eight-hour bussiness days,
+  like this:
   8AM-12M and 1PM-5PM.
 - For partial availability failures
   (only for one functionality),
