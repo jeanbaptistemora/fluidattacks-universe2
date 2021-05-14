@@ -13,14 +13,6 @@ import psycopg2.extensions as postgres_extensions
 # Local libraries
 
 
-class ConnectionID(NamedTuple):
-    dbname: str
-    user: str
-    password: str
-    host: str
-    port: str
-
-
 class DatabaseID(NamedTuple):
     db_name: str
     host: str
@@ -85,6 +77,7 @@ class DbConnection(NamedTuple):
         return cls.from_raw(dbcon, options)
 
 
+# old interface support
 def adapt_connection(
     connection: DbConn, options: Options = Options()
 ) -> DbConnection:
@@ -95,3 +88,6 @@ def connect(
     db_id: DatabaseID, creds: Credentials, options: Options = Options()
 ) -> DbConnection:
     return DbConnection.new(db_id, creds, options)
+
+
+# -- old interface support

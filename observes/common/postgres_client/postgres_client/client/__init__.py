@@ -1,7 +1,7 @@
 # Standard libraries
+from __future__ import annotations
 import json
 from typing import (
-    Callable,
     IO,
     NamedTuple,
     Tuple,
@@ -24,31 +24,6 @@ from postgres_client.cursor import (
 )
 
 
-class Client(NamedTuple):
-    cursor: Cursor
-    connection: DbConnection
-    close: Callable[[], None]
-
-
-def _drop_access_point(cursor: Cursor, connection: DbConnection) -> None:
-    cursor.close()
-    connection.close()
-
-
-def _create_client(
-    db_connection: DbConnection,
-    db_cursor: Cursor,
-) -> Client:
-    def close() -> None:
-        _drop_access_point(db_cursor, db_connection)
-
-    return Client(
-        cursor=db_cursor,
-        connection=db_connection,
-        close=close,
-    )
-
-
 def _extract_conf_info(auth_file: IO[str]) -> Tuple[DatabaseID, Credentials]:
     auth = json.load(auth_file)
     auth["db_name"] = auth["dbname"]
@@ -61,17 +36,53 @@ def _extract_conf_info(auth_file: IO[str]) -> Tuple[DatabaseID, Credentials]:
     return (DatabaseID(**db_id_raw), Credentials(**creds_raw))
 
 
+class Client(NamedTuple):
+    cursor: Cursor
+    connection: DbConnection
+
+    def close(self) -> None:
+        self.cursor.close()
+        self.connection.close()
+
+    @classmethod
+    def new(
+        cls,
+        db_connection: DbConnection,
+        db_cursor: Cursor,
+    ) -> Client:
+        return cls(
+            cursor=db_cursor,
+            connection=db_connection,
+        )
+
+    @classmethod
+    def from_creds(cls, db_id: DatabaseID, cred: Credentials) -> Client:
+        db_connection = connection_module.connect(db_id, cred)
+        db_cursor = cursor_module.new_cursor(db_connection)
+        return cls.new(db_connection, db_cursor)
+
+    @classmethod
+    def from_conf(cls, auth_file: IO[str]) -> Client:
+        return cls.from_creds(*_extract_conf_info(auth_file))
+
+    @classmethod
+    def test_client(cls, connection: DbConn) -> Client:
+        db_connection = DbConnection.from_raw(connection)
+        db_cursor = cursor_module.adapt_cursor(connection.cursor())
+        return cls.new(db_connection, db_cursor)
+
+
+# old interface support
 def new_client(db_id: DatabaseID, cred: Credentials) -> Client:
-    db_connection = connection_module.connect(db_id, cred)
-    db_cursor = cursor_module.new_cursor(db_connection)
-    return _create_client(db_connection, db_cursor)
+    return Client.from_creds(db_id, cred)
 
 
 def new_client_from_conf(auth_file: IO[str]) -> Client:
-    return new_client(*_extract_conf_info(auth_file))
+    return Client.from_conf(auth_file)
 
 
 def new_test_client(connection: DbConn) -> Client:
-    db_connection = connection_module.adapt_connection(connection)
-    db_cursor = cursor_module.adapt_cursor(connection.cursor())
-    return _create_client(db_connection, db_cursor)
+    return Client.test_client(connection)
+
+
+# -- old interface support
