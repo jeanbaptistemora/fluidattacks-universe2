@@ -240,7 +240,8 @@ async def send_digest_report(
     LOGGER_CONSOLE.info(
         f'- groups for the user {user_email}: {str(groups)}', **NOEXTRA)
 
-    mail_contents = list()
+    # Exception: WF(Cannot assign to accepted value)
+    mail_contents = list()  # NOSONAR
     if digest_stats:
         mail_contents = [
             group_stats
