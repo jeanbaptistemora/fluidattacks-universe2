@@ -332,13 +332,13 @@ const Services: React.FC<IServicesProps> = (
       }
 
       const errorsFound: { confirmation?: string } = {
-        confirmation: translate.t(
+        // Exception: FP(Implicit treatment in assignment)
+        // eslint-disable-next-line
+        confirmation: translate.t( // NOSONAR
           "searchFindings.servicesTable.errors.expectedGroupName",
           { groupName }
         ),
-        // Exception: FP(Implicit treatment in assignment)
-        // eslint-disable-next-line
-      }; // NOSONAR
+      };
 
       return errorsFound;
     },
