@@ -7,7 +7,11 @@ import { identify, people, register, reset, track } from "mixpanel-browser";
 import React, { useCallback, useContext, useState } from "react";
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 
-import { DashboardContainer, DashboardContent } from "./styles";
+import {
+  DashboardContainer,
+  DashboardContent,
+  DashboardHeader,
+} from "./styles";
 
 import { ScrollUpButton } from "components/ScrollUpButton";
 import { AddOrganizationModal } from "scenes/Dashboard/components/AddOrganizationModal";
@@ -237,7 +241,9 @@ export const Dashboard: React.FC = (): JSX.Element => {
         userRole={userRole}
       />
       <DashboardContent id={"dashboard"}>
-        <Navbar />
+        <DashboardHeader>
+          <Navbar />
+        </DashboardHeader>
         <main>
           <Switch>
             <Route exact={true} path={"/home"}>

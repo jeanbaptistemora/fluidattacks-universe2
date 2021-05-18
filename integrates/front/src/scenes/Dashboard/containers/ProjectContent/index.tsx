@@ -23,7 +23,6 @@ import { ProjectStakeholdersView } from "scenes/Dashboard/containers/ProjectStak
 import globalStyle from "styles/global.css";
 import {
   Col100,
-  Row,
   StickyContainer,
   TabsContainer,
 } from "styles/styledComponents";
@@ -51,7 +50,7 @@ const ProjectContent: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <div>
-        <Row>
+        <div>
           <Col100>
             <React.Fragment>
               <StickyContainer>
@@ -197,7 +196,7 @@ const ProjectContent: React.FC = (): JSX.Element => {
               </div>
             </React.Fragment>
           </Col100>
-        </Row>
+        </div>
       </div>
     </React.StrictMode>
   );

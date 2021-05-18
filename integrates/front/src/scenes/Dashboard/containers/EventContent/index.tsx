@@ -20,7 +20,6 @@ import { EventDescriptionView } from "scenes/Dashboard/containers/EventDescripti
 import { EventEvidenceView } from "scenes/Dashboard/containers/EventEvidenceView";
 import {
   Col100,
-  Row,
   Tab,
   TabContent,
   TabsContainer,
@@ -65,7 +64,7 @@ const EventContent: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <div>
-        <Row>
+        <div>
           <Col100>
             <EventHeader
               eventDate={eventDate}
@@ -123,7 +122,7 @@ const EventContent: React.FC = (): JSX.Element => {
               </Switch>
             </TabContent>
           </Col100>
-        </Row>
+        </div>
       </div>
     </React.StrictMode>
   );

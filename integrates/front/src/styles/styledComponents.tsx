@@ -343,15 +343,6 @@ const ModalTitle: StyledComponent<
   className: "color-inherit fw3 f3 lh-solid ma0 montserrat tc",
 })``;
 
-const NavBar: StyledComponent<
-  "nav",
-  Record<string, unknown>
-> = styled.nav.attrs<{
-  className: string;
-}>({
-  className: "ph4 pt0 pb0 navbar",
-})``;
-
 const NavBarCollapse: StyledComponent<
   "div",
   Record<string, unknown>
@@ -705,7 +696,6 @@ export {
   ModalFooter,
   ModalHeader,
   ModalTitle,
-  NavBar,
   NavBarCollapse,
   NavBarForm,
   NavBarFormGroup,

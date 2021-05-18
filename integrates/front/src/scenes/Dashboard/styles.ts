@@ -5,11 +5,19 @@ const DashboardContainer = styled.div.attrs({
 })``;
 
 const DashboardContent = styled.div.attrs({
-  className: "flex-auto overflow-container",
+  className: "flex flex-auto flex-column overflow-container",
 })`
   @media (max-width: 768px) {
     margin-left: 50px;
   }
 `;
 
-export { DashboardContainer, DashboardContent };
+const DashboardHeader = styled.header.attrs({
+  className: "top-0 z-5",
+})`
+  @media (min-width: 768px) {
+    position: sticky;
+  }
+`;
+
+export { DashboardContainer, DashboardContent, DashboardHeader };

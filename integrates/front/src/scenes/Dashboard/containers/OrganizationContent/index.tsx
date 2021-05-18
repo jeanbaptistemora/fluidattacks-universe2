@@ -35,7 +35,6 @@ import { GET_USER_PERMISSIONS } from "scenes/Dashboard/queries";
 import globalStyle from "styles/global.css";
 import {
   Col100,
-  Row,
   StickyContainerOrg,
   TabsContainer,
 } from "styles/styledComponents";
@@ -129,7 +128,7 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
   return (
     <React.StrictMode>
       <div>
-        <Row>
+        <div>
           <Col100>
             <StickyContainerOrg>
               <TabsContainer>
@@ -205,7 +204,7 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
               </Switch>
             </div>
           </Col100>
-        </Row>
+        </div>
       </div>
     </React.StrictMode>
   );

@@ -281,7 +281,7 @@ const findingContent: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <div>
-        <Row>
+        <div>
           <Col100>
             <React.Fragment>
               <Row>
@@ -424,7 +424,7 @@ const findingContent: React.FC = (): JSX.Element => {
               </TabContent>
             </React.Fragment>
           </Col100>
-        </Row>
+        </div>
       </div>
       <Modal
         headerTitle={translate.t("searchFindings.delete.title")}

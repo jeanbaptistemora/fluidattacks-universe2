@@ -9,6 +9,7 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import { Field } from "redux-form";
 
 import { SplitButton } from "./components/splitbutton";
+import { NavBarContainer } from "./styles";
 
 import { HelpWidget } from "../HelpWidget";
 import { MenuItem } from "components/DropdownButton";
@@ -19,7 +20,6 @@ import { stylizeBreadcrumbItem } from "scenes/Dashboard/components/Navbar/utils"
 import { NewsWidget } from "scenes/Dashboard/components/NewsWidget";
 import {
   BreadCrumb,
-  NavBar,
   NavBarCollapse,
   NavBarDivSpace,
   NavBarForm,
@@ -154,7 +154,7 @@ const NavbarComponent: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <NavBar id={"navbar"}>
+      <NavBarContainer id={"navbar"}>
         <NavBarHeader>
           <BreadCrumb>
             <li>
@@ -211,7 +211,7 @@ const NavbarComponent: React.FC = (): JSX.Element => {
           </NavBarDivSpace>
           <HelpWidget />
         </NavBarCollapse>
-      </NavBar>
+      </NavBarContainer>
     </React.StrictMode>
   );
 };
