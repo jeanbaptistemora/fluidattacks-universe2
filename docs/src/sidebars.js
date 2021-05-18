@@ -295,6 +295,7 @@ module.exports = {
         'criteria/cryptography/r361',
         'criteria/cryptography/r370',
         'criteria/cryptography/r371',
+        'criteria/cryptography/r372',
       ],
     },
     {
