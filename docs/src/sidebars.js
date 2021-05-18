@@ -205,6 +205,7 @@ module.exports = {
         'criteria/system/r280',
         'criteria/system/r284',
         'criteria/system/r363',
+        'criteria/system/r374',
       ],
     },
     {
@@ -662,6 +663,7 @@ module.exports = {
     'types/f118',
     'types/f119',
     'types/f120',
+    'types/f121',
   ],
   Security: [
     'security/introduction',
