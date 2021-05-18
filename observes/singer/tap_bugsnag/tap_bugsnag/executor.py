@@ -15,6 +15,7 @@ from tap_bugsnag.streams import SupportedStreams
 
 LOG = logging.getLogger(__name__)
 _stream_executor: Mapping[SupportedStreams, Callable[[ApiClient], None]] = {
+    SupportedStreams.COLLABORATORS: streams.all_collaborators,
     SupportedStreams.ERRORS: streams.all_errors,
     SupportedStreams.EVENTS: streams.all_events,
     SupportedStreams.EVENT_FIELDS: streams.all_event_fields,
