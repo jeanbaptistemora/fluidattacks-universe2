@@ -409,14 +409,20 @@ describe("Organization groups view", (): void => {
       .find("select");
 
     descriptionField.simulate("change", {
-      persist: (): void => {},
+      // Exception: WF(Empty function is necessary)
+      // eslint-disable-next-line
+      persist: (): void => {}, // NOSONAR
       target: { name: "description", value: "Test project" },
     });
     typeField.simulate("change", {
-      persist: (): void => {},
+      // Exception: WF(Empty function is necessary)
+      // eslint-disable-next-line
+      persist: (): void => {}, // NOSONAR
       target: { name: "type", value: "CONTINUOUS" },
     });
-    form.simulate("submit", { preventDefault: (): void => {} });
+    // Exception: WF(Empty function is necessary)
+    // eslint-disable-next-line
+    form.simulate("submit", { preventDefault: (): void => {} }); // NOSONAR
 
     await act(
       async (): Promise<void> => {
