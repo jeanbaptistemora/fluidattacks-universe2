@@ -2,7 +2,8 @@
 # -.- coding: utf-8 -.-
 # pylint: disable=invalid-name
 """
-This migration suscribes all active users to Daily Digest
+This migration subscribes all active users to Daily Digest,
+excluding "executive" users and those already subscribed
 
 Execution Time:
 Finalization Time:
@@ -25,7 +26,6 @@ from subscriptions.domain import (
 
 
 async def main() -> None:
-    before = len(await get_subscriptions_to_entity_report(audience='user'))
     groups = await get_active_groups()
     active_users = set(chain.from_iterable(
         await collect(
@@ -34,6 +34,21 @@ async def main() -> None:
         )
     ))
 
+    subscriptions = await get_subscriptions_to_entity_report(
+        audience='user',
+    )
+    digest_suscribers = [
+        subscription['pk']['email']
+        for subscription in subscriptions
+        if subscription['sk']['entity'].lower() == 'digest'
+    ]
+
+    to_subscribe = [
+        user
+        for user in active_users
+        if user not in digest_suscribers
+    ]
+
     await collect(
         subscribe_user_to_entity_report(
             event_frequency='DAILY',
@@ -41,10 +56,8 @@ async def main() -> None:
             report_subject='ALL_GROUPS',
             user_email=user,
         )
-        for user in active_users
+        for user in to_subscribe
     )
-    after = len(await get_subscriptions_to_entity_report(audience='user'))
-    print(f'Suscriptions performed: {str(after - before)}')
 
 
 if __name__ == '__main__':
