@@ -98,7 +98,11 @@ module.exports = {
       options: {
         appId: process.env.GATSBY_ALGOLIA_APP_ID,
         apiKey: process.env.ALGOLIA_ADMIN_KEY,
-        queries: require("./src/utils/algolia-queries")
+        enablePartialUpdates: true,
+        /* (optional) Fields to use for comparing if the index object is different from the new one */
+        /* By default it uses a field called "modified" which could be a boolean | datetime string */
+        matchFields: ['slug', 'modified'], // Array<String> default: ['modified']
+        queries: require("./src/utils/algolia-queries"),
       },
     },
     "gatsby-plugin-image",
