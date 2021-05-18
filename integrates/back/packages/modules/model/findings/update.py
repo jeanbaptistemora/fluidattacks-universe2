@@ -14,8 +14,12 @@ from .enums import FindingStateStatus
 from .types import (
     FindingUnreliableIndicatorsToUpdate,
     FindingState,
+    FindingVerification,
 )
-from .utils import format_state_item
+from .utils import (
+    format_state_item,
+    format_verification_item,
+)
 
 
 async def update_state(
@@ -94,3 +98,34 @@ async def update_unreliable_indicators(
         key=unreliable_indicators_key,
         table=TABLE
     )
+
+
+async def update_verification(
+    *,
+    group_name: str,
+    finding_id: str,
+    verification: FindingVerification
+) -> None:
+    items = []
+    key_structure = TABLE.primary_key
+    verification_item = format_verification_item(verification)
+    latest, historic = historics.build_historic(
+        attributes=verification_item,
+        historic_facet=TABLE.facets['finding_historic_verification'],
+        key_structure=key_structure,
+        key_values={
+            'iso8601utc': verification.modified_date,
+            'group_name': group_name,
+            'id': finding_id
+        },
+        latest_facet=TABLE.facets['finding_verification'],
+    )
+    condition_expression = Attr(key_structure.partition_key).exists()
+    await operations.put_item(
+        condition_expression=condition_expression,
+        facet=TABLE.facets['finding_verification'],
+        item=latest,
+        table=TABLE
+    )
+    items.append(historic)
+    await operations.batch_write_item(items=tuple(items), table=TABLE)

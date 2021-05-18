@@ -1,6 +1,7 @@
 
 from typing import (
     List,
+    Optional,
     cast,
 )
 
@@ -9,6 +10,7 @@ from dynamodb.types import Item
 from .enums import (
     FindingStateStatus,
     FindingStatus,
+    FindingVerificationStatus,
 )
 from .types import (
     FindingState,
@@ -77,18 +79,31 @@ def format_unreliable_indicators(
     )
 
 
-def format_verification(verification_item: Item) -> FindingVerification:
-    return FindingVerification(
-        comment_id=verification_item['comment_id'],
-        modified_by=verification_item['modified_by'],
-        modified_date=verification_item['modified_date'],
-        status=verification_item['status'],
-        vuln_uuids=tuple(cast(List[str], verification_item['vuln_uuids'])),
-    )
+def format_verification(
+    verification_item: Item
+) -> Optional[FindingVerification]:
+    verification = None
+    if verification_item.get('status'):
+        verification = FindingVerification(
+            comment_id=verification_item['comment_id'],
+            modified_by=verification_item['modified_by'],
+            modified_date=verification_item['modified_date'],
+            status=FindingVerificationStatus[verification_item['status']],
+            vuln_uuids=tuple(cast(List[str], verification_item['vuln_uuids'])),
+        )
+    return verification
 
 
-def format_verification_item(verification: FindingVerification) -> Item:
-    return {
-        **verification._asdict(),
-        'vuln_uuids': list(verification.vuln_uuids)
-    }
+def format_verification_item(
+    verification: Optional[FindingVerification]
+) -> Item:
+    verification_item = {}
+    if verification is not None:
+        verification_item = {
+            'comment_id': verification.comment_id,
+            'modified_by': verification.modified_by,
+            'modified_date': verification.modified_date,
+            'status': verification.status.value,
+            'vuln_uuids': list(verification.vuln_uuids)
+        }
+    return verification_item

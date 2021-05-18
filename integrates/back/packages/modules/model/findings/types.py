@@ -11,6 +11,7 @@ from .enums import (
     FindingSorts,
     FindingStateStatus,
     FindingStatus,
+    FindingVerificationStatus,
 )
 
 
@@ -25,7 +26,7 @@ class FindingVerification(NamedTuple):
     comment_id: str
     modified_by: str
     modified_date: str
-    status: str
+    status: FindingVerificationStatus
     vuln_uuids: Tuple[str, ...]
 
 

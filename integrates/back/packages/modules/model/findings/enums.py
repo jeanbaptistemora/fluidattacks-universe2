@@ -18,3 +18,8 @@ class FindingSorts(Enum):
 class FindingStatus(Enum):
     CLOSED: str = 'CLOSED'
     OPEN: str = 'OPEN'
+
+
+class FindingVerificationStatus(Enum):
+    REQUESTED: str = 'REQUESTED'
+    VERIFIED: str = 'VERIFIED'

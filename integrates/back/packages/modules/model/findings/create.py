@@ -14,7 +14,10 @@ from .utils import (
 )
 
 
-async def create(*, finding: Finding) -> None:
+async def create(  # pylint: disable=too-many-locals
+    *,
+    finding: Finding
+) -> None:
     items = []
     key_structure = TABLE.primary_key
     metadata_key = keys.build_key(
@@ -94,18 +97,21 @@ async def create(*, finding: Finding) -> None:
         **unreliable_indicators_item
     }
     items.append(unreliable_indicators)
+    latest_verification, historic_verification = historics.build_historic(
+        attributes=format_verification_item(finding.verification),
+        historic_facet=TABLE.facets['finding_historic_verification'],
+        key_structure=key_structure,
+        key_values={
+            'iso8601utc': finding.state.modified_date,
+            'group_name': finding.group_name,
+            'id': finding.id
+        },
+        latest_facet=TABLE.facets['finding_verification'],
+    )
     if finding.verification:
-        historic_verification = historics.build_historic(
-            attributes=format_verification_item(finding.verification),
-            historic_facet=TABLE.facets['finding_historic_verification'],
-            key_structure=key_structure,
-            key_values={
-                'iso8601utc': finding.state.modified_date,
-                'group_name': finding.group_name,
-                'id': finding.id
-            },
-            latest_facet=TABLE.facets['finding_verification'],
-        )
-        items.extend(historic_verification)
+        items.append(latest_verification)
+        items.append(historic_verification)
+    else:
+        items.append(latest_verification)
 
     await operations.batch_write_item(items=tuple(items), table=TABLE)

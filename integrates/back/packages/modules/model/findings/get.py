@@ -102,17 +102,14 @@ def _build_finding(
         )
     except StopIteration:
         submission = None
-    try:
-        verification: Optional[FindingVerification] = format_verification(
-            historics.get_latest(
-                item_id=item_id,
-                key_structure=key_structure,
-                historic_prefix='VERIFICATION',
-                raw_items=raw_items
-            )
+    verification: Optional[FindingVerification] = format_verification(
+        historics.get_latest(
+            item_id=item_id,
+            key_structure=key_structure,
+            historic_prefix='VERIFICATION',
+            raw_items=raw_items
         )
-    except StopIteration:
-        verification = None
+    )
 
     if metadata['cvss_version'] == '3.1':
         severity: Union[Finding20Severity, Finding31Severity] = (
