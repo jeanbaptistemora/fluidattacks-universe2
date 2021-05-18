@@ -3,9 +3,8 @@
 , path
 , ...
 }:
+with packages.observes.env;
 let
-  env = packages.observes.env;
-  pkgEnv = env.utils-logger;
   self = path "/observes/common/utils_logger";
 in
 makeTemplate {
@@ -14,11 +13,14 @@ makeTemplate {
     envMypyPaths = [
       self
     ];
+    envPaths = [
+      utils-logger.runtime.python
+    ];
     envPythonPaths = [
       self
     ];
     envPython38Paths = [
-      pkgEnv.runtime.python
+      utils-logger.runtime.python
     ];
   };
 }
