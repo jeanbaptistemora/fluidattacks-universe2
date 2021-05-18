@@ -273,6 +273,6 @@ resource "aws_iam_role" "sorts_prod" {
 }
 
 resource "aws_iam_role_policy_attachment" "sorts_prod" {
-  role       = aws_iam_role.skims_prod.name
+  role       = aws_iam_role.sorts_prod.name
   policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user_provision/sorts_prod_policy"
 }
