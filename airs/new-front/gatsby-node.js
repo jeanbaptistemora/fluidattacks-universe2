@@ -4,6 +4,7 @@ const { createFilePath } = require(`gatsby-source-filesystem`);
 
 const pagetemplate = path.resolve(`./src/templates/solutionsTemplate.tsx`);
 const defaultTemplate = path.resolve(`./src/templates/pageArticle.tsx`);
+const blogsTemplate = path.resolve(`./src/templates/blogsTemplate.tsx`);
 
 const setTemplate = (template) =>
   (result = path.resolve(`./src/templates/${template}Template.tsx`));
@@ -35,6 +36,15 @@ const PageMaker = (createPage) => {
               },
             });
           }
+        } else if ((post.node.fields.slug).startsWith("/blog/")) {
+          createPage({
+            path: `/blog/${post.node.pageAttributes.slug}`,
+            component: blogsTemplate,
+            context: {
+              id: post.node.id,
+              slug: `/blog/${post.node.pageAttributes.slug}`,
+            },
+          });
         }
       });
     },

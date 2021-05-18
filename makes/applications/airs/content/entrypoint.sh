@@ -36,6 +36,15 @@ function main {
       &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:subtitle|:page-subtitle|g" {} + \
       &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:subtext|:page-subtext|g" {} + \
       &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|../theme/images|../images|g" {} + \
+      &&  find content/blog -type f -name "*.adoc" -exec sed -i 's|:slug|:page-slug|g' {} + \
+      &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:alt|:page-alt|g" {} + \
+      &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:author|:page-author|g" {} + \
+      &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:date|:page-date|g" {} + \
+      &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:description|:page-description|g" {} + \
+      &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:image|:page-image|g" {} + \
+      &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:keywords|:page-keywords|g" {} + \
+      &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:subtitle|:page-subtitle|g" {} + \
+      &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:writer|:page-writer|g" {} + \
       &&  rm -rf \
             content/pages/about-us/clients \
             content/pages/products/defends \
