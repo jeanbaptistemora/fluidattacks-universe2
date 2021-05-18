@@ -24,7 +24,7 @@ def test_target_dates_month_start() -> None:
     target_dates = planner.target_dates(a_year_ago)
     # Assert
     assert any(target_dates.previous_ranges.contains(today)) is False
-    assert today in target_dates.actual_range
+    assert target_dates.actual_range and today in target_dates.actual_range
 
 
 @pytest.mark.freeze_time("2017-05-15")
@@ -36,7 +36,7 @@ def test_target_dates_middle_date() -> None:
     target_dates = planner.target_dates(a_year_ago)
     # Assert
     assert any(target_dates.previous_ranges.contains(today)) is False
-    assert today in target_dates.actual_range
+    assert target_dates.actual_range and today in target_dates.actual_range
 
 
 @pytest.mark.freeze_time("2017-05-31")

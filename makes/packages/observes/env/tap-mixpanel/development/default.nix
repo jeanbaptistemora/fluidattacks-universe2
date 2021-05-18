@@ -2,21 +2,18 @@
 , packages
 , ...
 }:
-let
-  env = packages.observes.env;
-  pkgEnv = env.tap-mixpanel;
-in
+with packages.observes.env;
 makeTemplate {
   name = "observes-env-tap-mixpanel-development";
   searchPaths = {
     envPaths = [
-      pkgEnv.development.python
+      tap-mixpanel.development.python
     ];
     envPython38Paths = [
-      pkgEnv.development.python
+      tap-mixpanel.development.python
     ];
     envSources = [
-      pkgEnv.runtime
+      tap-mixpanel.runtime
     ];
   };
 }

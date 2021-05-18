@@ -2,18 +2,15 @@
 , packages
 , ...
 }:
-let
-  env = packages.observes.env;
-  pkgEnv = env.tap-mailchimp;
-in
+with packages.observes.env;
 makeTemplate {
   name = "observes-env-tap-mailchimp-development";
   searchPaths = {
     envPython38Paths = [
-      pkgEnv.development.python
+      tap-mailchimp.development.python
     ];
     envSources = [
-      pkgEnv.runtime
+      tap-mailchimp.runtime
     ];
   };
 }
