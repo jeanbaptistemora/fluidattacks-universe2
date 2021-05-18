@@ -12,10 +12,11 @@ const devConfig: IWebpackConfig = {
   ...commonConfig,
   devServer: {
     compress: true,
-    headers: { "Access-Control-Allow-Origin": "*" },
+    headers: { "Access-Control-Allow-Origin": "https://localhost:8001" },
     historyApiFallback: true,
     hot: true,
     https: true,
+    overlay: true,
     port: 3000,
     publicPath: (commonConfig.output as NonNullable<IWebpackConfig["output"]>)
       .publicPath as string,
