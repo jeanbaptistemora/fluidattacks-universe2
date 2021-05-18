@@ -37,10 +37,6 @@ class Table(NamedTuple):
     add_columns: Callable[[FrozenSet[IsolatedColumn]], List[CursorExeAction]]
 
 
-class TableCreationFail(Exception):
-    pass
-
-
 def table_builder(
     db_client: Client,
     table_draft: TableDraft,
@@ -63,57 +59,15 @@ def table_builder(
 
 
 def exist(db_client: Client, table_id: TableID) -> bool:
-    """Check existence of a Table on the DB"""
-    statement = """
-        SELECT EXISTS (
-            SELECT * FROM information_schema.tables
-            WHERE table_schema = %(table_schema)s
-            AND table_name = %(table_name)s
-        );
-    """
-    action = db_client.cursor.execute(
-        statement,
-        DynamicSQLargs(
-            values={
-                "table_schema": table_id.schema,
-                "table_name": table_id.table_name,
-            }
-        ),
-    )
-    action.act()
-    f_action = db_client.cursor.fetchone()
+    f_action = queries.exist(db_client.cursor, table_id)
     result = tuple(f_action.act())
     return bool(result[0])
 
 
 def retrieve(db_client: Client, table_id: TableID) -> Optional[Table]:
-    """Retrieve Table from DB"""
-    statement = """
-        SELECT ordinal_position AS position,
-            column_name,
-            data_type,
-            CASE WHEN character_maximum_length IS not null
-                    THEN character_maximum_length
-                    ELSE numeric_precision end AS max_length,
-            is_nullable,
-            column_default AS default_value
-        FROM information_schema.columns
-        WHERE table_name = %(table_name)s
-            AND table_schema = %(table_schema)s
-        ORDER BY ordinal_position;
-    """
-    action: CursorExeAction = db_client.cursor.execute(
-        statement,
-        DynamicSQLargs(
-            values={
-                "table_schema": table_id.schema,
-                "table_name": table_id.table_name,
-            }
-        ),
-    )
-    fetch_action = db_client.cursor.fetchall()
-    action.act()
-    results = fetch_action.act()
+    actions = queries.retrieve(db_client.cursor, table_id)
+    actions[0].act()
+    results = actions[1].act()
     columns = set()
     for column in results:
         columns.add(IsolatedColumn(column[1], column[2], column[5]))
@@ -156,7 +110,7 @@ def create(
     result: Optional[Table] = retrieve(db_client, table_draft.id)
     if result:
         return result
-    raise TableCreationFail(
+    raise queries.TableCreationFail(
         "Could not create and verify the existence of table: "
         f"{table_draft.id}"
     )
