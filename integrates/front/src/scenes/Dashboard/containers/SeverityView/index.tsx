@@ -11,6 +11,7 @@ import { useParams } from "react-router";
 import type { InjectedFormProps } from "redux-form";
 import { formValueSelector } from "redux-form";
 
+import { tooltipPropHelper } from "./helpers";
 import { validateValues } from "./SeverityContent/utils";
 
 import { Button } from "components/Button/index";
@@ -250,13 +251,7 @@ const SeverityView: React.FC = (): JSX.Element => {
                               label={field.title}
                               name={field.name}
                               renderAsEditable={isEditing}
-                              tooltip={
-                                _.isEmpty(currentOption)
-                                  ? undefined
-                                  : translate.t(
-                                      currentOption.replace(/text/u, "tooltip")
-                                    )
-                              }
+                              tooltip={tooltipPropHelper(currentOption)}
                               validate={required}
                             >
                               <option value={""} />
