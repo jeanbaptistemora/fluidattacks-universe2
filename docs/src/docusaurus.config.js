@@ -24,7 +24,7 @@ module.exports = {
       },
       items: [
         {
-          to: 'about',
+          to: 'about/faq',
           activeBasePath: 'about/',
           label: 'About',
           position: 'left',

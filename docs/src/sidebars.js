@@ -16,7 +16,18 @@ module.exports = {
     Mobile: getDocs('mobile'),
   },
   About: [
-    'about/faq',
+    {
+      type: 'category',
+      label: 'FAQ',
+      items: [
+        'about/faq/general',
+        'about/faq/estimation',
+        'about/faq/requirements',
+        'about/faq/billing',
+        'about/faq/speed',
+        'about/faq/others',
+      ],
+    },
     'about/glossary',
     {
       type: 'category',
