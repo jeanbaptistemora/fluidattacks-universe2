@@ -1,9 +1,10 @@
+
 from graphql.type.definition import GraphQLResolveInfo
 
 from model.findings.types import Finding
 
 
-async def resolve(
+def resolve(
     parent: Finding,
     _info: GraphQLResolveInfo,
     **_kwargs: None

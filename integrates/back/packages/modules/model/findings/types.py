@@ -127,6 +127,7 @@ class FindingUnreliableIndicators(NamedTuple):
     unreliable_last_vulnerability: int = 0
     unreliable_open_age: int = 0
     unreliable_open_vulnerabilities: int = 0
+    unreliable_report_date: str = ''
     unreliable_status: FindingStatus = FindingStatus.CLOSED
 
 
@@ -171,4 +172,5 @@ class FindingUnreliableIndicatorsToUpdate(NamedTuple):
     unreliable_last_vulnerability: Optional[int] = None
     unreliable_open_age: Optional[int] = None
     unreliable_open_vulnerabilities: Optional[int] = None
+    unreliable_report_date: Optional[str] = None
     unreliable_status: Optional[FindingStatus] = None

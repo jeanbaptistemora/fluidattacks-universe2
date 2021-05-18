@@ -1,10 +1,8 @@
-# Standard
+
 from typing import Dict
 
-# Third party
 from graphql.type.definition import GraphQLResolveInfo
 
-# Local
 from model.findings.types import Finding
 from newutils import utils
 

@@ -51,6 +51,7 @@ def format_unreliable_indicators_item(
         'unreliable_open_vulnerabilities': (
             indicators.unreliable_open_vulnerabilities
         ),
+        'unreliable_report_date': indicators.unreliable_report_date,
         'unreliable_status': indicators.unreliable_status.value,
     }
 
@@ -71,6 +72,7 @@ def format_unreliable_indicators(
         unreliable_open_vulnerabilities=(
             indicators_item['unreliable_open_vulnerabilities']
         ),
+        unreliable_report_date=indicators_item['unreliable_report_date'],
         unreliable_status=FindingStatus[indicators_item['unreliable_status']],
     )
 

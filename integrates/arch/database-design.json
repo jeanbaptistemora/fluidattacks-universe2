@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "May 13, 2021, 02:08 PM",
+    "DateLastModified": "May 18, 2021, 11:53 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -428,6 +428,10 @@
         },
         {
           "AttributeName": "unreliable_status",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "unreliable_report_date",
           "AttributeType": "S"
         }
       ],
@@ -2351,9 +2355,6 @@
               "sk": {
                 "S": "GROUP#unittesting"
               },
-              "unreliable_status": {
-                "S": "OPEN"
-              },
               "unreliable_last_vulnerability": {
                 "N": "10"
               },
@@ -2371,17 +2372,24 @@
               },
               "unreliable_open_vulnerabilities": {
                 "N": "2"
+              },
+              "unreliable_status": {
+                "S": "OPEN"
+              },
+              "unreliable_report_date": {
+                "S": "2021-02-15T14:01:16Z"
               }
             }
           ],
           "NonKeyAttributes": [
-            "unreliable_open_vulnerabilities",
-            "unreliable_is_verified",
-            "unreliable_closed_vulnerabilities",
-            "unreliable_open_age",
-            "unreliable_age",
             "unreliable_last_vulnerability",
-            "unreliable_status"
+            "unreliable_age",
+            "unreliable_open_age",
+            "unreliable_closed_vulnerabilities",
+            "unreliable_is_verified",
+            "unreliable_open_vulnerabilities",
+            "unreliable_status",
+            "unreliable_report_date"
           ],
           "DataAccess": {
             "MySql": {}

@@ -9,4 +9,4 @@ def resolve(
     _info: GraphQLResolveInfo,
     **_kwargs: None
 ) -> str:
-    return parent.unreliable_indicators.unreliable_status.value.lower()
+    return parent.unreliable_indicators.unreliable_report_date

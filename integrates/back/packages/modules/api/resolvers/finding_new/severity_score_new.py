@@ -1,3 +1,4 @@
+
 from graphql.type.definition import GraphQLResolveInfo
 
 from findings import domain as findings_domain
