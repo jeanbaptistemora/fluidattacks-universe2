@@ -81,6 +81,7 @@ observes.env.paginator.runtime.python
 observes.env.postgres-client.development
 observes.env.postgres-client.development.python
 observes.env.postgres-client.runtime
+observes.env.postgres-client.runtime.python
 observes.env.runtime.dif-gitlab-etl
 observes.env.runtime.streamer-gitlab
 observes.env.service-batch-stability.runtime
