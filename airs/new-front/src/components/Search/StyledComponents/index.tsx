@@ -110,8 +110,11 @@ const Popover = css`
   }
 `;
 
+const display = (props: { show: boolean }): string =>
+  props.show ? `block` : `none`;
+
 const StyledSearchResult = styled(SearchResult).attrs({})<{ show: boolean }>`
-  display: ${(props): string => (props.show ? `block` : `none`)};
+  display: ${display};
   ${Popover}
   .HitCount {
     display: flex;
