@@ -19,9 +19,7 @@ const setAccordions: (() => void) = (): void => {
       (panel.nextElementSibling as HTMLElement).classList.toggle("dn");
 
       // tslint:disable-next-line: strict-boolean-expressions
-      panel.style.height ?
-      panel.style.height = ""
-      : panel.style.height = "22.5rem";
+      panel.style.height = panel.style.height ? "" : "22.5rem";
 
     });
   }
