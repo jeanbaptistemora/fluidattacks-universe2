@@ -15,6 +15,8 @@ interface IQueryData {
       };
       pageAttributes: {
         advise: string;
+        alt: string;
+        author: string;
         authors: string;
         banner: string;
         codename: string;
@@ -23,6 +25,7 @@ interface IQueryData {
         defaux: string;
         definition: string;
         description: string;
+        image: string;
         keywords: string;
         phrase: string;
         product: string;
