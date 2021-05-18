@@ -54,6 +54,15 @@ from utils.encodings import (
             ("skims/test/data/sast/TestCFG.java",),
             "cfg",
         ),
+        (
+            (
+                (
+                    "skims/test/data/benchmark/nist/"
+                    "CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs"
+                ),
+            ),
+            "nist",
+        ),
     ],
 )
 async def test_graph_generation(
