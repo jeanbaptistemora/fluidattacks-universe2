@@ -15,7 +15,6 @@ function job_integrates_back_lint {
         --follow-imports=skip \
         --config-file back/.mypylintignore \
   &&  bandit -r --ini .bandit \
-  &&  prospector -F -s veryhigh charts/ \
   &&  prospector -F -s veryhigh back \
   &&  prospector -F -s veryhigh lambda \
   &&  prospector -F -s veryhigh deploy/permissions-matrix \

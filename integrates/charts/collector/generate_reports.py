@@ -3,7 +3,7 @@ import contextlib
 import os
 import socket
 import time
-from typing import Iterator
+from typing import AsyncIterator
 from urllib.parse import quote_plus as percent_encode
 
 # Third party libraries
@@ -39,9 +39,9 @@ WIDTH: int = 1200
 
 
 @contextlib.asynccontextmanager
-async def selenium_web_driver() -> Iterator[webdriver.Firefox]:
+async def selenium_web_driver() -> AsyncIterator[webdriver.Firefox]:
 
-    def create():
+    def create() -> webdriver.Firefox:
         options = Options()
         options.add_argument(f'--width={WIDTH}')
         options.add_argument('--height=64')
@@ -59,7 +59,7 @@ async def selenium_web_driver() -> Iterator[webdriver.Firefox]:
 
 
 @contextlib.asynccontextmanager
-async def http_session() -> Iterator[aiohttp.ClientSession]:
+async def http_session() -> AsyncIterator[aiohttp.ClientSession]:
     connector = aiohttp.TCPConnector(
         ssl=False,
     )
@@ -142,7 +142,7 @@ async def insert_cookies(
     )
 
 
-async def main():
+async def main() -> None:
     base: str
 
     async with http_session() as session, selenium_web_driver() as driver:
