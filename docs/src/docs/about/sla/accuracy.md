@@ -27,10 +27,16 @@ is detected and has some level of risk.
 1. Remote access with no human intervention
   (no captcha, OTP, etc.).
 1. The required transactions
-  are less than 400 manual changes
+  are less than **400** manual changes
   per active author.
 
 ### Details
+
+Besides the
+[general measurement aspects](/about/sla/introduction#details),
+this SLA is measured
+taking into account
+the following:
 
 1. The severity of vulnerabilities
   are calculated using
@@ -43,7 +49,3 @@ is detected and has some level of risk.
   detectable only via source code
   are not considered
   false negatives.
-1. Additionally,
-  this SLA is measured
-  taking into account
-  [these aspects](/about/sla/introduction#details).

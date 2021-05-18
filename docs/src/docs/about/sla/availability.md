@@ -13,6 +13,12 @@ for its registered users.
 
 ### Details
 
+Besides the
+[general measurement aspects](/about/sla/introduction#details),
+this SLA is measured
+taking into account
+the following:
+
 1. Office hours correspond
   to eight-hour bussiness days,
   like this:
@@ -24,7 +30,3 @@ for its registered users.
   and will be adjusted
   according to the percentage
   of affected users.
-1. Additionally,
-  this SLA is measured
-  taking into account
-  [these aspects](/about/sla/introduction#details).

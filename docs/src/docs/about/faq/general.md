@@ -50,7 +50,7 @@ such as financial, transportation,
 industrial, consumer, communications,
 technology and utilities.
 
-### 19. Is it possible to hire On-the-Premises Continuous Hacking?
+### Is it possible to hire On-the-Premises Continuous Hacking?
 No.
 Due to the operational model
 that supports Continuous Hacking,
