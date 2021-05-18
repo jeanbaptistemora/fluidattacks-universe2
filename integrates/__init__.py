@@ -1,6 +1,7 @@
 import os
 
 try:
+    AWS_SESSION_TOKEN = os.environ.get('AWS_SESSION_TOKEN')
     CI_COMMIT_REF_NAME = os.environ['CI_COMMIT_REF_NAME']
     CI_COMMIT_SHA = os.environ['CI_COMMIT_SHA']
     CI_COMMIT_SHORT_SHA = CI_COMMIT_SHA[0:8]

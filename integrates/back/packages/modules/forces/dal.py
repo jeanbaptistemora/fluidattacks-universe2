@@ -26,6 +26,7 @@ from __init__ import (
     FI_AWS_S3_FORCES_BUCKET,
     FI_AWS_SECRETSMANAGER_ACCESS_KEY,
     FI_AWS_SECRETSMANAGER_SECRET_KEY,
+    AWS_SESSION_TOKEN
 )
 from back.settings import LOGGING
 from dynamodb import operations_legacy as dynamodb_ops
@@ -102,6 +103,7 @@ async def get_secret_token(project_name: str) -> Optional[str]:
         'secretsmanager',
         aws_access_key_id=FI_AWS_SECRETSMANAGER_ACCESS_KEY,
         aws_secret_access_key=FI_AWS_SECRETSMANAGER_SECRET_KEY,
+        aws_session_token=AWS_SESSION_TOKEN,
     )
     try:
         response = await aioextensions.in_thread(
@@ -146,6 +148,7 @@ async def update_secret_token(project_name: str, secret: str) -> bool:
         'secretsmanager',
         aws_access_key_id=FI_AWS_SECRETSMANAGER_ACCESS_KEY,
         aws_secret_access_key=FI_AWS_SECRETSMANAGER_SECRET_KEY,
+        aws_session_token=AWS_SESSION_TOKEN,
     )
     try:
         await aioextensions.in_thread(

@@ -302,6 +302,7 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
       "secretsmanager:DeleteSecret",
       "secretsmanager:DescribeSecret",
       "secretsmanager:GetResourcePolicy",
+      "secretsmanager:ListSecrets",
       "secretsmanager:PutSecretValue",
       "secretsmanager:RestoreSecret",
       "secretsmanager:UpdateSecret",
