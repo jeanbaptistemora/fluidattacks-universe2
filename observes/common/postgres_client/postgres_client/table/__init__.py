@@ -1,3 +1,4 @@
+# Standard libraries
 from typing import (
     Callable,
     Dict,
@@ -6,18 +7,20 @@ from typing import (
     NamedTuple,
     Optional,
 )
+
+# Third party libraries
+from returns.curry import partial
+
+# Local libraries
 from postgres_client.client import Client
 from postgres_client.cursor import CursorExeAction, DynamicSQLargs
+from postgres_client.table import _queries as queries
+from postgres_client.table.common import TableID
 from postgres_client.table.common.column import (
     Column,
     DbTypes,
     IsolatedColumn,
 )
-
-
-class TableID(NamedTuple):
-    schema: str
-    table_name: str
 
 
 class TableDraft(NamedTuple):
@@ -34,10 +37,6 @@ class Table(NamedTuple):
     add_columns: Callable[[FrozenSet[IsolatedColumn]], List[CursorExeAction]]
 
 
-class MutateColumnException(Exception):
-    pass
-
-
 class TableCreationFail(Exception):
     pass
 
@@ -49,54 +48,17 @@ def table_builder(
     def table_path() -> str:
         return f'"{table_draft.id.schema}"."{table_draft.id.table_name}"'
 
-    def add_columns(
-        new_columns: FrozenSet[IsolatedColumn],
-    ) -> List[CursorExeAction]:
-        diff_columns: FrozenSet[IsolatedColumn] = (
-            new_columns - table_draft.columns
-        )
-        diff_names: FrozenSet[str] = frozenset(
-            map(lambda c: c.name, diff_columns)
-        )
-        current_names: FrozenSet[str] = frozenset(
-            map(lambda c: c.name, table_draft.columns)
-        )
-        if not diff_names.isdisjoint(current_names):
-            raise MutateColumnException(
-                "Cannot update the type of existing columns."
-                f"Columns: {diff_names.intersection(current_names)}"
-            )
-        actions: List[CursorExeAction] = []
-        table_path: str = (
-            f'"{table_draft.id.schema}"."{table_draft.id.table_name}"'
-        )
-        for column in diff_columns:
-            statement: str = (
-                "ALTER TABLE {table_path} "
-                "ADD COLUMN {column_name} "
-                "{field_type} default %(default_val)s"
-            )
-            actions.append(
-                db_client.cursor.execute(
-                    statement,
-                    DynamicSQLargs(
-                        values={"default_val": column.default_val},
-                        identifiers={
-                            "table_path": table_path,
-                            "column_name": column.name,
-                            "field_type": column.field_type,
-                        },
-                    ),
-                )
-            )
-        return actions
-
     return Table(
         id=table_draft.id,
         primary_keys=table_draft.primary_keys,
         columns=table_draft.columns,
         table_path=table_path,
-        add_columns=add_columns,
+        add_columns=partial(
+            queries.add_columns,
+            db_client.cursor,
+            table_draft.id,
+            table_draft.columns,
+        ),
     )
 
 
@@ -204,4 +166,5 @@ __all__ = [
     "Column",
     "DbTypes",
     "IsolatedColumn",
+    "TableID",
 ]

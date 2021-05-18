@@ -9,7 +9,7 @@ from typing import (
 # Local libraries
 from postgres_client.cursor import act
 from postgres_client.client import Client
-from . import _queries as queries
+from postgres_client.schema import _queries as queries
 
 
 class Schema(NamedTuple):
