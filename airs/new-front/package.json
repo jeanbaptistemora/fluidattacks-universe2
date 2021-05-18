@@ -51,6 +51,7 @@
     "i18next": "20.1.0",
     "jest": "26.6.3",
     "modal-video-custom": "1.0.2",
+    "moment": "2.29.1",
     "postcss": "8.2.10",
     "prop-types": "15.7.2",
     "react": "16.9.0",
@@ -60,6 +61,7 @@
     "react-i18next": "11.8.12",
     "react-instantsearch-core": "6.11.0",
     "react-instantsearch-dom": "6.11.0",
+    "react-share": "4.4.0",
     "sass": "1.32.8",
     "styled-components": "5.2.3",
     "tachyons": "4.12.0"
