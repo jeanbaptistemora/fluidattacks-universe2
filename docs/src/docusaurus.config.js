@@ -36,6 +36,12 @@ module.exports = {
           position: 'left',
         },
         {
+          to: 'squad',
+          activeBasePath: 'squad/',
+          label: 'Squad',
+          position: 'left',
+        },
+        {
           to: 'criteria/',
           activeBasePath: 'criteria/',
           label: 'Criteria',

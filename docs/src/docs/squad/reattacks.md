@@ -1,8 +1,8 @@
 ---
 id: reattacks
-title: Request a reattack
-sidebar_label: Request a reattack
-slug: /machine/web/vulnerabilities/management/reattacks
+title: Re-attack
+sidebar_label: Re-attack
+slug: /squad
 ---
 
 When you have applied a solution

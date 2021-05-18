@@ -2,7 +2,7 @@
 id: consulting
 title: Consulting
 sidebar_label: Consulting
-slug: /machine/web/groups/consulting
+slug: /squad/consulting
 ---
 
 The consulting tab

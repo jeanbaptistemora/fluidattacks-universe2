@@ -391,7 +391,6 @@ module.exports = {
           label: 'Manage your groups',
           items: [
             'machine/web/groups/vulnerabilities',
-            'machine/web/groups/consulting',
             'machine/web/groups/events',
             {
               type: 'category',
@@ -416,7 +415,6 @@ module.exports = {
               items: [
                 'machine/web/vulnerabilities/management/introduction',
                 'machine/web/vulnerabilities/management/treatments',
-                'machine/web/vulnerabilities/management/reattacks',
                 'machine/web/vulnerabilities/management/tracking',
               ],
             },
@@ -472,6 +470,8 @@ module.exports = {
     },
   ],
   Squad: [
+    'squad/reattacks',
+    'squad/consulting',
   ],
   Types: [
     'types/introduction',

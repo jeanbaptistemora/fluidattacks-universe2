@@ -17,6 +17,15 @@ const features = [
     link: 'web'
   },
   {
+    title: 'Squad',
+    description: (
+      <>
+        Guides and information about our Squad plan
+      </>
+    ),
+    link: 'squad'
+  },
+  {
     title: 'Criteria',
     description: (
       <>
