@@ -1,0 +1,168 @@
+import { useMutation, useQuery } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { FormikHelpers } from "formik";
+import { Field, Form, Formik } from "formik";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
+import { track } from "mixpanel-browser";
+import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
+
+import { Button } from "components/Button";
+import { TooltipWrapper } from "components/TooltipWrapper";
+import {
+  ADD_ORGANIZATION_FINDING_POLICY,
+  GET_ORGANIZATION_FINDINGS_TITLES,
+} from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/queries";
+import type {
+  IFindingPolicies,
+  IFindingPoliciesForm,
+  IOrganizationFindingTitles,
+} from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/types";
+import { GET_ORGANIZATION_POLICIES } from "scenes/Dashboard/containers/OrganizationPoliciesView/queries";
+import { Row } from "styles/styledComponents";
+import { FormikAutocompleteText } from "utils/forms/fields";
+import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
+import {
+  composeValidators,
+  required,
+  validDraftTitle,
+} from "utils/validations";
+
+const FindingPolicies: React.FC<IFindingPolicies> = ({
+  organizationId,
+}: IFindingPolicies): JSX.Element => {
+  const { organizationName } = useParams<{ organizationName: string }>();
+  const { t } = useTranslation();
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+
+  const { data } = useQuery<IOrganizationFindingTitles>(
+    GET_ORGANIZATION_FINDINGS_TITLES,
+    {
+      fetchPolicy: "cache-first",
+      onError: (error: ApolloError): void => {
+        error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+          Logger.error("Error loading findings titles", message);
+        });
+      },
+      variables: {
+        organizationId,
+      },
+    }
+  );
+
+  const [addOrgFindingPolicy, { loading: submitting }] = useMutation(
+    ADD_ORGANIZATION_FINDING_POLICY,
+    {
+      onCompleted: (result: {
+        addOrgFindingPolicy: { success: boolean };
+      }): void => {
+        if (result.addOrgFindingPolicy.success) {
+          msgSuccess(
+            t("organization.tabs.policies.findings.addPolicies.success"),
+            t("sidebar.newOrganization.modal.successTitle")
+          );
+        }
+      },
+      onError: (error: ApolloError): void => {
+        error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+          switch (message) {
+            case "Exception - The finding name is invalid":
+              msgError(t("validations.draftTitle"));
+              break;
+            case "Exception - The finding name policy already exists":
+              msgError(
+                t("organization.tabs.policies.findings.errors.duplicateFinding")
+              );
+              break;
+            default:
+              msgError(t("groupAlerts.errorTextsad"));
+              Logger.warning("", message);
+          }
+        });
+      },
+      refetchQueries: [
+        {
+          query: GET_ORGANIZATION_POLICIES,
+          variables: {
+            organizationId,
+          },
+        },
+      ],
+    }
+  );
+
+  async function handleSubmit(
+    values: IFindingPoliciesForm,
+    formikHelpers: FormikHelpers<IFindingPoliciesForm>
+  ): Promise<void> {
+    track("addNewOrgFindingPolicies");
+    await addOrgFindingPolicy({
+      variables: { name: values.name, organizationName },
+    });
+    formikHelpers.resetForm();
+  }
+
+  useEffect((): void => {
+    const findingNames: string[] = _.flatten(
+      data?.organization.projects.map(
+        (
+          group: IOrganizationFindingTitles["organization"]["projects"][0]
+        ): string[] =>
+          group.findings.map(
+            (
+              finding: IOrganizationFindingTitles["organization"]["projects"][0]["findings"][0]
+            ): string => finding.title
+          )
+      )
+    );
+    setSuggestions(Array.from(new Set(findingNames)));
+  }, [data, organizationId]);
+
+  return (
+    <React.StrictMode>
+      <Formik
+        enableReinitialize={true}
+        initialValues={{ name: "" }}
+        name={"addNewOrgFindingPolicies"}
+        onSubmit={handleSubmit}
+      >
+        <Form>
+          <Row>
+            <div className={"w-50-l w-50-m w-auto-ns"} />
+            <div className={"w-50-l w-50-m w-100-ns"}>
+              <div className={"flex items-start"}>
+                <div className={"w-90-ns"}>
+                  <Field
+                    component={FormikAutocompleteText}
+                    name={"name"}
+                    suggestions={suggestions}
+                    validate={composeValidators([required, validDraftTitle])}
+                  />
+                </div>
+                <div className={"w-10-ns"}>
+                  <TooltipWrapper
+                    id={"addButtonToolTip"}
+                    message={t(
+                      "organization.tabs.policies.findings.tooltip.addButton"
+                    )}
+                  >
+                    <Button disabled={submitting} type={"submit"}>
+                      <FontAwesomeIcon icon={faPlus} />
+                    </Button>
+                  </TooltipWrapper>
+                </div>
+              </div>
+            </div>
+          </Row>
+        </Form>
+      </Formik>
+    </React.StrictMode>
+  );
+};
+
+export { FindingPolicies };

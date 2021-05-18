@@ -891,6 +891,18 @@ export const enTranslations: ResourceKey = {
           maxNumberAcceptations:
             "Maximum number of acceptations should be a positive integer",
         },
+        findings: {
+          addPolicies: {
+            success:
+              "Remember that the aplication of the policy requires the approval of a user with manager role",
+          },
+          errors: {
+            duplicateFinding: "The finding policy already exists",
+          },
+          tooltip: {
+            addButton: "Add organization policy pending to approve",
+          },
+        },
         policies: {
           acceptanceSeverityRange:
             "Temporal CVSS 3.1 score range between which a finding can be accepted",
