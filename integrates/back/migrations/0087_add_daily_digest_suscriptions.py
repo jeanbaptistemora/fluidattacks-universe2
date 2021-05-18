@@ -5,8 +5,8 @@
 This migration subscribes all active users to Daily Digest,
 excluding "executive" users and those already subscribed
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-05-18 at 10:53:37 UTC-05
+Finalization Time: 2021-05-18 at 11:53:39 UTC-05
 """
 
 # Standard
