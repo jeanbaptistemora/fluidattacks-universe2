@@ -24,6 +24,7 @@ from sast_syntax_readers.java import (
     array_access as java_array_access,
     array_creation_expression as java_array_creation_expression,
     array_initializer as java_array_initializer,
+    assignment_expression as java_assignment_expression,
     cast_expression as java_cast_expression,
     catch_clause as java_catch_clause,
     enhanced_for_statement as java_enhanced_for_statement,
@@ -46,6 +47,7 @@ from sast_syntax_readers.java import (
     while_statement as java_while_statement,
 )
 from sast_syntax_readers.c_sharp import (
+    assignment_expression as c_sharp_assignment_expression,
     invocation_expression as c_sharp_invocation_expression,
     method_declaration as c_sharp_method_declaration,
     member_access_expression as c_sharp_member_access_expression,
@@ -57,7 +59,6 @@ from sast_syntax_readers.c_sharp import (
 from sast_syntax_readers.common import (
     binary_expression as common_binary_expression,
     literal as common_literal,
-    assignment_expression as common_assignment_expression,
     identifier as common_identifier,
 )
 from utils import graph as g
@@ -93,13 +94,21 @@ def generic(
 DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
-            graph_model.GraphShardMetadataLanguage.JAVA,
             graph_model.GraphShardMetadataLanguage.CSHARP,
         },
         applicable_node_label_types={
             "assignment_expression",
         },
-        syntax_readers=(common_assignment_expression.reader,),
+        syntax_readers=(c_sharp_assignment_expression.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        },
+        applicable_node_label_types={
+            "assignment_expression",
+        },
+        syntax_readers=(java_assignment_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={
