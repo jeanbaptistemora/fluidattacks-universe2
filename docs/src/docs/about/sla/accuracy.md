@@ -5,49 +5,45 @@ sidebar_label: Accuracy
 slug: /about/sla/accuracy
 ---
 
+### Description
+
+**90%** of the severity of vulnerabilities
+is detected and has some level of risk.
+
 ### Criteria
 
-- Applies only
+1. Applies only
   to plan Squad.
-- It exists
+1. It exists
   in both environment
   and source code.
-- Coupled environment
+1. Pair environment
   (exact deployment of the branch)
-- Stable environment
+1. Stable environment
   (**80%** of business days
   with no open eventualities)
-- Complete dataset
+1. Complete dataset
   for the corresponding use case.
-- Remote access with no human intervention
+1. Remote access with no human intervention
   (no captcha, OTP, etc.).
+1. The required transactions
+  are less than 400 manual changes
+  per active author.
 
 ### Details
 
-- Measured in
-  calendar quarters.
-- Taking into account
-  all the groups
-  of the organization
-  over time.
-- Taking into account
-  all the historical data,
-  not only that of
-  the quarterly analisis period.
-- Percentages are determined
-  using percentiles.
-- The severity of vulnerabilities
+1. The severity of vulnerabilities
   are calculated using
   CVSSF = 4^(CVSS-4).
-- The accuracy is calculated
+1. The accuracy is calculated
   based on the false positives,
   false negatives
   and the F-Score model.
-- Black vulnerabilities
+1. Black vulnerabilities
   detectable only via source code
   are not considered
   false negatives.
-- The required transactionalities
-  for measurement and penalty are:
-    - Less than **400** manual changes
-      per active author.
+1. Additionally,
+  this SLA is measured
+  taking into account
+  [these aspects](/about/sla/introduction#details).

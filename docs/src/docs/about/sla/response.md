@@ -5,46 +5,39 @@ sidebar_label: Response
 slug: /about/sla/response
 ---
 
+### Description
+
+**90%** of comments and/or incidents
+will have median first response time
+of less than **12** office hours.
+
 ### Criteria
 
-- Applies only
+1. Applies only
   to plan Squad.
-- It exists
+1. It exists
   in both environment
   and source code.
-- Coupled environment
-  (exact deployment of the branch)
-- Stable environment
-  (**80%** of business days
-  with no open eventualities)
-- Complete dataset
-  for the corresponding use case.
-- Remote access with no human intervention
+1. Remote access
+  with no human intervention
   (no captcha, OTP, etc.).
+1. The required transactions are
+  over 500 reattacks,
+  comments
+  and/or incidents.
 
 ### Details
 
-- Measured in
-  calendar quarters.
-- Taking into account
-  all the groups
-  of the organization
-  over time.
-- Taking into account
-  all the historical data,
-  not only that of
-  the quarterly analisis period.
-- Percentages are determined
+1. Percentages are determined
   using percentiles.
-- Office hours correspond to
+1. Office hours correspond to
   eight-hour bussiness days,
   like this:
   8AM-12M and 1PM-5PM.
-- The reattacks to be considered
+1. The reattacks to be considered
   will be those that had
   its vulnerability closed.
-- The required transactionalities
-  for measurement and penalty are:
-    - Over **500** reattacks,
-      comments 
-      and/or incidents.
+1. Additionally,
+  this SLA is measured
+  taking into account
+  [these aspects](/about/sla/introduction#details).
