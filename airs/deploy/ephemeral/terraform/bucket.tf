@@ -15,6 +15,15 @@ resource "aws_s3_bucket" "web-ephemeral-bucket" {
     error_document = "error-index.html"
   }
 
+  lifecycle_rule {
+    id      = "remove_ephemerals"
+    enabled = true
+
+    expiration {
+      days = 1
+    }
+  }
+
   tags = {
     "Name"               = "web.eph.fluidattacks.com"
     "management:type"    = "development"
