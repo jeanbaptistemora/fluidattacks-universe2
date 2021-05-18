@@ -20,9 +20,9 @@ data "aws_iam_policy_document" "autoscaling_ci_policy_document_data" {
       "s3:*"
     ]
     resources = [
-      "arn:aws:s3:::autoscaling_ci_cache/*",
-      "arn:aws:s3:::autonomicmind_ci_cache/*",
-      "arn:aws:s3:::autonomicjump_ci_cache/*",
+      "arn:aws:s3:::autoscaling-ci-cache/*",
+      "arn:aws:s3:::autonomicmind-ci-cache/*",
+      "arn:aws:s3:::autonomicjump-ci-cache/*",
     ]
   }
 
