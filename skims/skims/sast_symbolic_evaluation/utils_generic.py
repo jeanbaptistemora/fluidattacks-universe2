@@ -70,13 +70,15 @@ def lookup_var_dcl_by_name(
             and syntax_step.symbol == var_name
         ):
             for var in vars_lookup:
-                if isinstance(var, graph_model.SyntaxStepDeclaration):
-                    if var.var == var_name:
-                        return graph_model.SyntaxStepDeclaration(
-                            meta=syntax_step.meta,
-                            var=var.var,
-                            var_type=var.var_type,
-                        )
+                if (
+                    isinstance(var, graph_model.SyntaxStepDeclaration)
+                    and var.var == var_name
+                ):
+                    return graph_model.SyntaxStepDeclaration(
+                        meta=syntax_step.meta,
+                        var=var.var,
+                        var_type=var.var_type,
+                    )
     return None
 
 
