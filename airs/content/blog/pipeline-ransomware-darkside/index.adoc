@@ -3,7 +3,7 @@
 :subtitle: The gang that hit Colonial Pipeline with ransomware
 :category: attacks
 :tags: cybersecurity, software, vulnerability, hacking, social-engineering, risk
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1621037564/blog/pipeline-ransomware-darkside/cover_beugnc.webp
+:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1621039654/blog/pipeline-ransomware-darkside/cover_cyypaa.webp
 :alt: Photo by Tommy van Kessel on Unsplash
 :description: America is talking about the DarkSide ransomware attack against Colonial Pipeline, one of the largest USA pipeline companies. Here is what we know about it.
 :keywords: Ransomware, Cybersecurity, Vulnerability, Software, DarkSide, Colonial Pipeline, Ethical Hacking, Pentesting
@@ -45,7 +45,7 @@ In total, link:https://www.wsj.com/articles/why-the-colonial-pipeline-shutdown-i
 which makes it the longest in the country (see Figure 1).
 
 .link:https://www.wsj.com/articles/why-the-colonial-pipeline-shutdown-is-causing-gasoline-shortages-11620898203[Colonial Pipeline.]
-image::https://res.cloudinary.com/fluid-attacks/image/upload/v1621037565/blog/pipeline-ransomware-darkside/image1_e5cbhi.webp[Figure 1]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1621039653/blog/pipeline-ransomware-darkside/image1_xfinzi.webp[Figure 1]
 
 The pipeline's primary source is in Texas,
 the state where, by far, stands the most significant number of refineries.
@@ -58,7 +58,7 @@ has paralyzed operations in several sectors
 and five military bases]; see Figure 2).
 
 .link:https://www.reuters.com/business/energy/us-govt-top-fuel-supplier-work-secure-pipelines-closure-enters-4th-day-2021-05-10/[Pipelines flow.]
-image::https://res.cloudinary.com/fluid-attacks/image/upload/v1621037565/blog/pipeline-ransomware-darkside/image2_pcf5hq.webp[Figure 2]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1621039652/blog/pipeline-ransomware-darkside/image2_myicaj.webp[Figure 2]
 
 Let's talk about DarkSide.
 It looks like they became public link:https://www.bleepingcomputer.com/news/security/darkside-new-targeted-ransomware-demands-million-dollar-ransoms/[in August of 2020],
@@ -87,7 +87,7 @@ and another 10 thousand dollars to the Water Project Receipt in October 2020.
 Both of them were rejected by the NGO's.
 
 .link:https://www.bloomberg.com/news/articles/2021-05-12/darkside-hackers-mint-money-with-ransomware-franchise[DarkSide leaks.]
-image::https://res.cloudinary.com/fluid-attacks/image/upload/v1621037565/blog/pipeline-ransomware-darkside/image3_y0j9ls.webp[Figure 3]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1621039653/blog/pipeline-ransomware-darkside/image3_cqph45.webp[Figure 3]
 
 == How did it happen?
 
@@ -122,7 +122,7 @@ and any of them open link:https://www.pcrisk.com/removal-guides/18504-darkside-r
 that redirects to .txt with the following text]:
 
 ."Welcome to Dark."
-image::https://res.cloudinary.com/fluid-attacks/image/upload/v1621037565/blog/pipeline-ransomware-darkside/image4_x9w2xm.webp[Figure 4]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1621039652/blog/pipeline-ransomware-darkside/image4_syrgzj.webp[Figure 4]
 
 link:https://malwarewarrior.com/how-to-remove-darkside-ransomware-and-decrypt-darkside-files/[The gang lists all types of stolen data
 and sends] a "personal website" URL to their victim.
@@ -134,7 +134,7 @@ In fact, in a press release posted on a Tor website in August 2020,
 link:https://www.digitalshadows.com/blog-and-research/darkside-the-new-ransomware-group-behind-highly-targeted-attacks/[they announce that].
 
 ."If you refuse to pay."
-image::https://res.cloudinary.com/fluid-attacks/image/upload/v1621037564/blog/pipeline-ransomware-darkside/image5_qcsn5z.webp[Figure 5]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1621039652/blog/pipeline-ransomware-darkside/image5_vxa4nd.webp[Figure 5]
 
 == What have we learned?
 
@@ -169,7 +169,7 @@ In this respect, what Nicole Perlroth, a New York Times cybercrime reporter,
 said last link:https://twitter.com/nicoleperlroth/status/1391794316507418624?s=20[Monday] turns very interesting:
 
 .link:https://twitter.com/nicoleperlroth[@nicoleperlroth].
-image::https://res.cloudinary.com/fluid-attacks/image/upload/v1621037563/blog/pipeline-ransomware-darkside/image6_x3r2md.webp[Figure 6]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1621039653/blog/pipeline-ransomware-darkside/image6_bsbosm.webp[Figure 6]
 
 We also learned that ransomware can jeopardize
 link:https://www.zdnet.com/article/colonial-pipeline-ransomware-attack-everything-you-need-to-know/[companies and the infrastructure] of an entire country.
