@@ -59,18 +59,11 @@ data "aws_iam_policy_document" "sorts_dev_policy_data" {
     actions = [
       "kms:Describe*",
       "kms:Get*",
-      "kms:List*",
+      "kms:List*"
     ]
     resources = [
-      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:key/*"
+      "*"
     ]
-    condition {
-      test     = "StringEquals"
-      variable = "kms:RequestAlias"
-      values = [
-        "alias/sorts_prod",
-      ]
-    }
   }
 
   # S3 access to Sorts bucket
