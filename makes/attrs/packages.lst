@@ -113,6 +113,7 @@ observes.env.tap-formstack.runtime
 observes.env.tap-formstack.runtime.python
 observes.env.tap-git.runtime
 observes.env.tap-json.runtime
+observes.env.tap-json.runtime.python
 observes.env.tap-mailchimp.development
 observes.env.tap-mailchimp.development.python
 observes.env.tap-mailchimp.runtime

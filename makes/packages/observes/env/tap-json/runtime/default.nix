@@ -1,21 +1,26 @@
-{ buildPythonPackage
-, makeTemplate
-, nixpkgs
+{ makeTemplate
+, packages
 , path
 , ...
 }:
+with packages.observes.env;
 let
-  self = buildPythonPackage {
-    name = "observes-tap-json";
-    packagePath = path "/observes/singer/tap_json";
-    python = nixpkgs.python38;
-  };
+  self = path "/observes/singer/tap_json";
 in
 makeTemplate {
   name = "observes-env-tap-json-runtime";
   searchPaths = {
-    envPython38Paths = [
+    envMypyPaths = [
       self
+    ];
+    envPaths = [
+      tap-json.runtime.python
+    ];
+    envPythonPaths = [
+      self
+    ];
+    envPython38Paths = [
+      tap-json.runtime.python
     ];
   };
 }
