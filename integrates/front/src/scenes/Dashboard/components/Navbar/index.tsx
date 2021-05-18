@@ -9,7 +9,7 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import { Field } from "redux-form";
 
 import { SplitButton } from "./components/splitbutton";
-import { NavBarContainer } from "./styles";
+import { NavbarContainer, NavbarHeader, NavbarMenu } from "./styles";
 
 import { HelpWidget } from "../HelpWidget";
 import { MenuItem } from "components/DropdownButton";
@@ -18,15 +18,7 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
 import { stylizeBreadcrumbItem } from "scenes/Dashboard/components/Navbar/utils";
 import { NewsWidget } from "scenes/Dashboard/components/NewsWidget";
-import {
-  BreadCrumb,
-  NavBarCollapse,
-  NavBarDivSpace,
-  NavBarForm,
-  NavBarFormGroup,
-  NavBarHeader,
-  NavSplitButtonContainer,
-} from "styles/styledComponents";
+import { BreadCrumb, NavSplitButtonContainer } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Text } from "utils/forms/fields";
 import { useStoredState } from "utils/hooks";
@@ -154,8 +146,8 @@ const NavbarComponent: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <NavBarContainer id={"navbar"}>
-        <NavBarHeader>
+      <NavbarContainer id={"navbar"}>
+        <NavbarHeader>
           <BreadCrumb>
             <li>
               <NavSplitButtonContainer>
@@ -183,35 +175,33 @@ const NavbarComponent: React.FC = (): JSX.Element => {
             </li>
             {breadcrumbItems}
           </BreadCrumb>
-        </NavBarHeader>
-        <NavBarCollapse>
+        </NavbarHeader>
+        <NavbarMenu>
           <Can do={"front_can_use_groups_searchbar"}>
-            <li role={"presentation"}>
-              <NavBarForm>
-                <GenericForm name={"searchBar"} onSubmit={handleSearchSubmit}>
-                  <NavBarFormGroup>
-                    <Field
-                      component={Text}
-                      name={"projectName"}
-                      placeholder={translate.t("navbar.searchPlaceholder")}
-                      validate={[alphaNumeric]}
-                    />
-                  </NavBarFormGroup>
-                </GenericForm>
-              </NavBarForm>
+            <li>
+              <GenericForm name={"searchBar"} onSubmit={handleSearchSubmit}>
+                <Field
+                  component={Text}
+                  name={"projectName"}
+                  placeholder={translate.t("navbar.searchPlaceholder")}
+                  validate={[alphaNumeric]}
+                />
+              </GenericForm>
             </li>
           </Can>
-          <NavBarDivSpace>
+          <li>
             <TooltipWrapper
               id={"navbar.newsTooltip.id"}
               message={translate.t("navbar.newsTooltip")}
             >
               <NewsWidget />
             </TooltipWrapper>
-          </NavBarDivSpace>
-          <HelpWidget />
-        </NavBarCollapse>
-      </NavBarContainer>
+          </li>
+          <li>
+            <HelpWidget />
+          </li>
+        </NavbarMenu>
+      </NavbarContainer>
     </React.StrictMode>
   );
 };

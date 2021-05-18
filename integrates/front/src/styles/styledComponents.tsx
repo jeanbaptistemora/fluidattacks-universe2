@@ -46,7 +46,7 @@ const BreadCrumb: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
-  className: "breadcrumb list mt3",
+  className: "breadcrumb list",
 })``;
 
 const Col100: StyledComponent<

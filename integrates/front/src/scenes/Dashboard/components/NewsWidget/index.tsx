@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AnnounceKit from "announcekit-react";
 import React, { useContext } from "react";
 
-import { NavItem } from "styles/styledComponents";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 
@@ -11,7 +10,7 @@ const NewsWidget: React.FC = (): JSX.Element => {
   const { userEmail }: IAuthContext = useContext(authContext);
 
   return (
-    <NavItem>
+    <div>
       <AnnounceKit
         user={{ email: userEmail, id: userEmail }}
         widget={"https://news.fluidattacks.com/widgets/v2/ZmEGk"}
@@ -19,7 +18,7 @@ const NewsWidget: React.FC = (): JSX.Element => {
       >
         <FontAwesomeIcon icon={faBullhorn} />
       </AnnounceKit>
-    </NavItem>
+    </div>
   );
 };
 
