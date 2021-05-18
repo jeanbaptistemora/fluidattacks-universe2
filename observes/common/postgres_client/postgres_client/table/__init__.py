@@ -1,4 +1,3 @@
-from enum import Enum
 from typing import (
     Callable,
     Dict,
@@ -9,27 +8,11 @@ from typing import (
 )
 from postgres_client.client import Client
 from postgres_client.cursor import CursorExeAction, DynamicSQLargs
-
-
-# Supported JSON Schema types
-class DbTypes(Enum):
-    BOOLEAN = "BOOLEAN"
-    NUMERIC = "NUMERIC(38)"
-    FLOAT = "FLOAT8"
-    VARCHAR = "VARCHAR"
-    TIMESTAMP = "TIMESTAMP"
-
-
-class IsolatedColumn(NamedTuple):
-    name: str
-    field_type: str
-    default_val: Optional[str] = None
-
-
-class Column(NamedTuple):
-    name: str
-    field_type: DbTypes
-    default_val: Optional[str] = None
+from postgres_client.table.common.column import (
+    Column,
+    DbTypes,
+    IsolatedColumn,
+)
 
 
 class TableID(NamedTuple):
@@ -215,3 +198,10 @@ def create(
         "Could not create and verify the existence of table: "
         f"{table_draft.id}"
     )
+
+
+__all__ = [
+    "Column",
+    "DbTypes",
+    "IsolatedColumn",
+]
