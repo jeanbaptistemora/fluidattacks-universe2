@@ -1,12 +1,11 @@
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
-import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { Validator as ValidatorField } from "redux-form";
-import type { BaseSchema } from "yup";
-import { array, lazy, object, string } from "yup";
+
+import { GitIgnoreAlert, gitModalSchema } from "./helpers";
 
 import type { IGitRootAttr } from "../types";
 import { Button } from "components/Button";
@@ -14,7 +13,6 @@ import { Modal } from "components/Modal";
 import { SwitchButton } from "components/SwitchButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
-  Alert,
   ButtonToolbar,
   Col100,
   ControlLabel,
@@ -28,7 +26,6 @@ import {
   FormikCheckbox,
   FormikText,
 } from "utils/forms/fields";
-import { translate } from "utils/translations/translate";
 import { checked, required } from "utils/validations";
 
 interface IGitModalProps {
@@ -113,38 +110,7 @@ const GitModal: React.FC<IGitModalProps> = ({
         initialValues={initialValues}
         name={"gitRoot"}
         onSubmit={onSubmit}
-        validationSchema={lazy(
-          (values: IGitRootAttr): BaseSchema =>
-            object().shape({
-              gitignore: array().of(
-                string()
-                  .required(translate.t("validations.required"))
-                  .test(
-                    "excludeFormat",
-                    translate.t("validations.excludeFormat"),
-                    (value): boolean => {
-                      const repoUrl = values.url;
-
-                      if (!_.isUndefined(repoUrl) && !_.isUndefined(value)) {
-                        const [urlBasename] = repoUrl.split("/").slice(-1);
-                        const repoName: string = urlBasename.endsWith(".git")
-                          ? urlBasename.replace(".git", "")
-                          : urlBasename;
-
-                        return (
-                          value
-                            .toLowerCase()
-                            .split("/")
-                            .indexOf(repoName.toLowerCase()) !== 0
-                        );
-                      }
-
-                      return false;
-                    }
-                  )
-              ),
-            })
-        )}
+        validationSchema={gitModalSchema}
       >
         {({ dirty, isSubmitting, values }): JSX.Element => (
           <Form>
@@ -265,11 +231,7 @@ const GitModal: React.FC<IGitModalProps> = ({
                   >
                     <FontAwesomeIcon icon={faQuestionCircle} />
                   </QuestionButton>
-                  {_.isUndefined(values.gitignore) ? undefined : _.isEmpty(
-                      values.gitignore
-                    ) ? undefined : (
-                    <Alert>{t("group.scope.git.filter.warning")}</Alert>
-                  )}
+                  <GitIgnoreAlert gitignore={values.gitignore} />
                   <FormikArrayField
                     allowEmpty={true}
                     arrayValues={values.gitignore}
