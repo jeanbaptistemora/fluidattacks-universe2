@@ -9,7 +9,7 @@ const BlogMainDiv: StyledComponent<
     roboto
     flex-ns
     flex-wrap-ns
-    justify-between-m
+    justify-around
     mw-1366
     ph-body
     pv4-l
@@ -57,6 +57,17 @@ const CardTitle: StyledComponent<
     tc
     hv-fluid-rd
     lh-solid
+  `,
+})``;
+
+const CardSubTitle: StyledComponent<
+  "h4",
+  Record<string, unknown>
+> = styled.h4.attrs({
+  className: `
+    c-fluid-bk
+    mb0
+    tc
   `,
 })``;
 
@@ -114,8 +125,8 @@ const CardButton: StyledComponent<
 > = styled.button.attrs({
   className: `
     outline-transparent
-    c-dkred
-    hv-fluid-rd
+    bg-button-red
+    hv-bg-fluid-rd
     hv-bd-fluid-red
     pointer
     white
@@ -132,6 +143,24 @@ const CardButton: StyledComponent<
   `,
 })``;
 
+const LoadMoreButton: StyledComponent<
+  "button",
+  Record<string, unknown>
+> = styled.button.attrs({
+  className: `
+    hv-fluid-rd
+    hv-card
+    t-all-3-eio
+    w-100
+    roboto
+    pv2
+    tc
+    outline-transparent
+    bn
+    pointer
+  `,
+})``;
+
 export {
   BlogMainDiv,
   MainBlogCard,
@@ -142,4 +171,6 @@ export {
   CardDescription,
   CardButtonContainer,
   CardButton,
+  CardSubTitle,
+  LoadMoreButton,
 };

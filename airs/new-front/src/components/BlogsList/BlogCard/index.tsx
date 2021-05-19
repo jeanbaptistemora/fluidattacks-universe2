@@ -9,6 +9,7 @@ import {
   CardButtonContainer,
   CardDescription,
   CardInnerDiv,
+  CardSubTitle,
   CardText,
   CardTitle,
   MainBlogCard,
@@ -22,6 +23,7 @@ interface IProps {
   category: string;
   description: string;
   image: string;
+  subtitle: string;
   tags: string;
   title: string;
 }
@@ -33,6 +35,7 @@ export const BlogCard: React.FC<IProps> = ({
   category,
   description,
   image,
+  subtitle,
   tags,
   title,
 }: IProps): JSX.Element => {
@@ -43,6 +46,8 @@ export const BlogCard: React.FC<IProps> = ({
         <Link className={"no-underline"} to={blogLink}>
           <CardTitle>{decode(title)}</CardTitle>
         </Link>
+        <CardSubTitle>{decode(subtitle)}</CardSubTitle>
+        <br />
         <PostInfo>
           <CardText>{`Author: ${author}`}</CardText>
           <CardText>{`Category: ${category.replace("-", " ")}`}</CardText>

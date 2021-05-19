@@ -2,7 +2,6 @@ const _ = require(`lodash`);
 const path = require(`path`);
 const { createFilePath } = require(`gatsby-source-filesystem`);
 
-const pagetemplate = path.resolve(`./src/templates/solutionsTemplate.tsx`);
 const defaultTemplate = path.resolve(`./src/templates/pageArticle.tsx`);
 const blogsTemplate = path.resolve(`./src/templates/blogsTemplate.tsx`);
 
