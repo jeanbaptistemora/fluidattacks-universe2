@@ -12,6 +12,7 @@ from sast_syntax_readers.utils_generic import (
 from utils import (
     graph as g,
 )
+from utils.string import split_on_first_dot
 from utils.graph.transformation import (
     build_member_access_expression_isd,
     build_member_access_expression_key,
@@ -44,7 +45,7 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     elif member := match["member_access_expression"]:
         identifiers = build_member_access_expression_isd(args.graph, member)
         _method_name = build_member_access_expression_key(args.graph, member)
-        method_name = ".".join(_method_name.split(".")[1:])
+        _, method_name = split_on_first_dot(_method_name)
         yield graph_model.SyntaxStepMethodInvocationChain(
             meta=graph_model.SyntaxStepMeta.default(
                 args.n_id,

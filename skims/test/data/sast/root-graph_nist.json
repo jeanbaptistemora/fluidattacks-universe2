@@ -2999,6 +2999,7 @@
             "label_field_arguments": "250",
             "label_field_function": "246",
             "label_l": 51,
+            "label_sink_type": "F001_C_SHARP_SQL",
             "label_type": "invocation_expression"
           },
           "246": {
@@ -4438,10 +4439,10 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "121",
+              "n_id": "119",
               "value": null
             },
-            "symbol": "Split",
+            "symbol": "data",
             "type": "SyntaxStepSymbolLookup"
           },
           {
@@ -4463,7 +4464,7 @@
               "n_id": "117",
               "value": null
             },
-            "method": "data",
+            "method": "Split",
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
@@ -4592,7 +4593,7 @@
               "value": null
             },
             "type": "SyntaxStepAssignment",
-            "var": "Connection.badSqlCommand"
+            "var": "badSqlCommand.Connection"
           }
         ],
         "179": [
@@ -4611,10 +4612,10 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "184",
+              "n_id": "182",
               "value": null
             },
-            "symbol": "Open",
+            "symbol": "dbConnection",
             "type": "SyntaxStepSymbolLookup"
           },
           {
@@ -4625,7 +4626,7 @@
               "n_id": "180",
               "value": null
             },
-            "method": "dbConnection",
+            "method": "Open",
             "type": "SyntaxStepMethodInvocationChain"
           }
         ],
@@ -4731,7 +4732,7 @@
               "value": null
             },
             "type": "SyntaxStepAssignment",
-            "var": "CommandText.badSqlCommand"
+            "var": "badSqlCommand.CommandText"
           }
         ],
         "237": [
@@ -4739,10 +4740,10 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "249",
+              "n_id": "247",
               "value": null
             },
-            "symbol": "ExecuteNonQuery",
+            "symbol": "badSqlCommand",
             "type": "SyntaxStepSymbolLookup"
           },
           {
@@ -4753,7 +4754,7 @@
               "n_id": "245",
               "value": null
             },
-            "method": "badSqlCommand",
+            "method": "ExecuteNonQuery",
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
@@ -4818,10 +4819,10 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "265",
+              "n_id": "263",
               "value": null
             },
-            "symbol": "WriteLine",
+            "symbol": "IO",
             "type": "SyntaxStepSymbolLookup"
           },
           {
@@ -4839,14 +4840,14 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "282",
+              "n_id": "280",
               "value": null
             },
-            "symbol": "Length",
+            "symbol": "names",
             "type": "SyntaxStepSymbolLookup"
           },
           {
-            "member": "names",
+            "member": "Length",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -4935,7 +4936,7 @@
               "n_id": "261",
               "value": null
             },
-            "method": "IO",
+            "method": "WriteLine",
             "type": "SyntaxStepMethodInvocationChain"
           }
         ],
@@ -4966,24 +4967,24 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "304",
+              "n_id": "302",
               "value": null
             },
-            "symbol": "Logger",
+            "symbol": "IO",
             "type": "SyntaxStepSymbolLookup"
           },
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "314",
+              "n_id": "312",
               "value": null
             },
-            "symbol": "LogLevel",
+            "symbol": "NLog",
             "type": "SyntaxStepSymbolLookup"
           },
           {
-            "member": "NLog.Warn",
+            "member": "LogLevel.Warn",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -5021,7 +5022,7 @@
               "n_id": "299",
               "value": null
             },
-            "method": "IO.Log",
+            "method": "Logger.Log",
             "type": "SyntaxStepMethodInvocationChain"
           }
         ],
@@ -5096,10 +5097,10 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "349",
+              "n_id": "347",
               "value": null
             },
-            "symbol": "Dispose",
+            "symbol": "badSqlCommand",
             "type": "SyntaxStepSymbolLookup"
           },
           {
@@ -5110,7 +5111,7 @@
               "n_id": "345",
               "value": null
             },
-            "method": "badSqlCommand",
+            "method": "Dispose",
             "type": "SyntaxStepMethodInvocationChain"
           }
         ],
@@ -5141,24 +5142,24 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "371",
+              "n_id": "369",
               "value": null
             },
-            "symbol": "Logger",
+            "symbol": "IO",
             "type": "SyntaxStepSymbolLookup"
           },
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "381",
+              "n_id": "379",
               "value": null
             },
-            "symbol": "LogLevel",
+            "symbol": "NLog",
             "type": "SyntaxStepSymbolLookup"
           },
           {
-            "member": "NLog.Warn",
+            "member": "LogLevel.Warn",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -5196,7 +5197,7 @@
               "n_id": "366",
               "value": null
             },
-            "method": "IO.Log",
+            "method": "Logger.Log",
             "type": "SyntaxStepMethodInvocationChain"
           }
         ],
@@ -5267,10 +5268,10 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "87",
+              "n_id": "85",
               "value": null
             },
-            "symbol": "Params",
+            "symbol": "req",
             "type": "SyntaxStepSymbolLookup"
           },
           {
@@ -5292,7 +5293,7 @@
               "n_id": "82",
               "value": null
             },
-            "method": "req.Get",
+            "method": "Params.Get",
             "type": "SyntaxStepMethodInvocationChain"
           },
           {

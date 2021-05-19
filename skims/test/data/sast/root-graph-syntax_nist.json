@@ -1,7 +1,204 @@
 {
   "F001_C_SHARP_SQL": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {
-      "61": {}
+      "61": {
+        "52-69-71-78-79-96-104-106-128-137-146-148-150-168-170-171-179-180-189-212-215-216-237": [
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "61",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "req",
+            "var_type": "HttpRequest"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "65",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "resp",
+            "var_type": "HttpResponse"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "69",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "71",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "data",
+            "var_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "78",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "85",
+              "value": null
+            },
+            "symbol": "req",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "93",
+              "value": "name"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "name",
+            "value_type": "string"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "82",
+              "value": null
+            },
+            "method": "Params.Get",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "79",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "data"
+          }
+        ],
+        "52-69-71-78-79-96-104-106-128-137-146-148-150-168-170-171-179-180-189-237": [
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "61",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "req",
+            "var_type": "HttpRequest"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "65",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "resp",
+            "var_type": "HttpResponse"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "69",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "71",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "data",
+            "var_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "78",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "85",
+              "value": null
+            },
+            "symbol": "req",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "93",
+              "value": "name"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "name",
+            "value_type": "string"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "82",
+              "value": null
+            },
+            "method": "Params.Get",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "79",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "data"
+          }
+        ]
+      }
     }
   },
   "F001_JAVA_SQL": {

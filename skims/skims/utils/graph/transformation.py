@@ -24,13 +24,13 @@ def build_member_access_expression_isd(
         ".",
     )
     if identifiers := match_access["identifier"]:
-        keys.extend(identifiers)
+        keys = [*identifiers, *keys]
     if access := match_access["member_access_expression"]:
-        build_member_access_expression_key(graph, access.pop(), keys)
+        keys = build_member_access_expression_isd(graph, access.pop(), keys)
     if this := match_access["this_expression"]:
         keys.append(this.pop())
 
-    return list(reversed(keys))
+    return keys
 
 
 def build_member_access_expression_key(
