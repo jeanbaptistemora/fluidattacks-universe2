@@ -4,6 +4,7 @@ import os
 from typing import (
     Any,
     Dict,
+    List,
 )
 
 # Third party libraries
@@ -28,10 +29,10 @@ async def query(
     path: str = os.path.dirname(os.path.abspath(__file__))
     filename: str = 'test-anim.gif'
     file_path: str = f'{path}/{filename}'
-    result: Dict[str, Any] = []
+    result: Dict[str, Any] = {}
     with open(file_path, 'rb') as test_file:
         uploaded_file: UploadFile = UploadFile(filename, test_file, 'image/gif')
-        file_data: Dict[str, str] = [
+        file_data: List[Dict[str, str]] = [
             {'description': 'test',
                 'fileName': filename,
                 'uploadDate': ''}
