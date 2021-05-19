@@ -28,4 +28,24 @@ const GET_ORGANIZATION_FINDINGS_TITLES: DocumentNode = gql`
   }
 `;
 
-export { ADD_ORGANIZATION_FINDING_POLICY, GET_ORGANIZATION_FINDINGS_TITLES };
+const HANDLE_ORGANIZATION_FINDING_POLICY: DocumentNode = gql`
+  mutation HandleOrgFindingPolicyAcceptation(
+    $findingPolicyId: ID!
+    $organizationName: String!
+    $status: OrganizationFindindPolicy!
+  ) {
+    handleOrgFindingPolicyAcceptation(
+      findingPolicyId: $findingPolicyId
+      organizationName: $organizationName
+      status: $status
+    ) {
+      success
+    }
+  }
+`;
+
+export {
+  ADD_ORGANIZATION_FINDING_POLICY,
+  GET_ORGANIZATION_FINDINGS_TITLES,
+  HANDLE_ORGANIZATION_FINDING_POLICY,
+};

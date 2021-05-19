@@ -897,10 +897,20 @@ export const enTranslations: ResourceKey = {
               "Remember that the aplication of the policy requires the approval of a user with manager role",
           },
           errors: {
+            alreadyReviewd: "The finding policy has already been reviewed",
             duplicateFinding: "The finding policy already exists",
+            notFound: "Finding policy not found",
+          },
+          handlePolicies: {
+            success: {
+              approved: "The policy will be apply it within next minutes",
+              rejected: "The policy was rejected successfully",
+            },
           },
           tooltip: {
             addButton: "Add organization policy pending to approve",
+            approveButton: "Approve organization finding policy",
+            rejectButton: "Reject organization finding policy",
           },
         },
         policies: {

@@ -1,5 +1,12 @@
 interface IFindingPolicies {
+  findingPolicies: IFindingPoliciesData[];
   organizationId: string;
+}
+interface IFindingPoliciesData {
+  id: string;
+  name: string;
+  status: "APPROVED" | "INACTIVE" | "REJECTED" | "SUBMITTED";
+  lastStatusUpdate: string;
 }
 interface IFindingPoliciesForm {
   name: string;
@@ -18,4 +25,9 @@ interface IOrganizationFindingTitles {
   };
 }
 
-export { IFindingPolicies, IFindingPoliciesForm, IOrganizationFindingTitles };
+export {
+  IFindingPolicies,
+  IFindingPoliciesData,
+  IFindingPoliciesForm,
+  IOrganizationFindingTitles,
+};

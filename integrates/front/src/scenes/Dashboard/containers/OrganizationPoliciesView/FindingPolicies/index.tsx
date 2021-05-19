@@ -13,12 +13,14 @@ import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
 import { TooltipWrapper } from "components/TooltipWrapper";
+import { OrganizationFindingPolicy } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/content";
 import {
   ADD_ORGANIZATION_FINDING_POLICY,
   GET_ORGANIZATION_FINDINGS_TITLES,
 } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/queries";
 import type {
   IFindingPolicies,
+  IFindingPoliciesData,
   IFindingPoliciesForm,
   IOrganizationFindingTitles,
 } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/types";
@@ -34,6 +36,7 @@ import {
 } from "utils/validations";
 
 const FindingPolicies: React.FC<IFindingPolicies> = ({
+  findingPolicies,
   organizationId,
 }: IFindingPolicies): JSX.Element => {
   const { organizationName } = useParams<{ organizationName: string }>();
@@ -81,7 +84,7 @@ const FindingPolicies: React.FC<IFindingPolicies> = ({
               break;
             default:
               msgError(t("groupAlerts.errorTextsad"));
-              Logger.warning("", message);
+              Logger.error("Error adding finding policy", message);
           }
         });
       },
@@ -161,6 +164,21 @@ const FindingPolicies: React.FC<IFindingPolicies> = ({
           </Row>
         </Form>
       </Formik>
+      <br />
+      <div className={"w-100 mb3"}>
+        {findingPolicies.map(
+          (policy: IFindingPoliciesData): JSX.Element => (
+            <OrganizationFindingPolicy
+              id={policy.id}
+              key={policy.id}
+              lastStatusUpdate={policy.lastStatusUpdate}
+              name={policy.name}
+              organizationId={organizationId}
+              status={policy.status}
+            />
+          )
+        )}
+      </div>
     </React.StrictMode>
   );
 };
