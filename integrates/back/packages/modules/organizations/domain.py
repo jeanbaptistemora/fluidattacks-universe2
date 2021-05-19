@@ -341,7 +341,8 @@ async def has_user_access(organization_id: str, email: str) -> bool:
 async def iterate_organizations() -> AsyncIterator[Tuple[str, str]]:
     """Yield pairs of (organization_id, organization_name)."""
     async for org_id, org_name in orgs_dal.iterate_organizations():
-        yield org_id, org_name
+        # Exception: WF(AsyncIterator is subtype of iterator)
+        yield org_id, org_name  # NOSONAR
 
 
 async def iterate_organizations_and_groups() -> AsyncIterator[
@@ -349,7 +350,8 @@ async def iterate_organizations_and_groups() -> AsyncIterator[
 ]:
     """Yield (org_id, org_name, org_groups) non-concurrently generated."""
     async for org_id, org_name in orgs_dal.iterate_organizations():
-        yield org_id, org_name, await get_groups(org_id)
+        # Exception: WF(AsyncIterator is subtype of iterator)
+        yield org_id, org_name, await get_groups(org_id)  # NOSONAR
 
 
 async def remove_group(group_name: str, organization_id: str) -> bool:
