@@ -84,6 +84,7 @@ observes.env.postgres-client.development.python
 observes.env.postgres-client.runtime
 observes.env.postgres-client.runtime.python
 observes.env.service-batch-stability.runtime
+observes.env.service-batch-stability.runtime.python
 observes.env.service-jobs-scheduler.runtime
 observes.env.service-jobs-scheduler.runtime.python
 observes.env.service-migrate-tables.runtime
