@@ -236,9 +236,10 @@ def translate_schema(json_schema: JSON) -> Dict[str, str]:
         else:
             LOGGER.warning(
                 (
-                    f"WARN: Ignoring type {stype}, "
-                    f"it's not supported by the target (yet)."
-                )
+                    "WARN: Ignoring type %s, "
+                    "it's not supported by the target (yet)."
+                ),
+                stype,
             )
         return rtype
 
@@ -281,9 +282,10 @@ def translate_record(schema: JSON, record: JSON) -> Dict[str, str]:
         if new_field not in schema:
             LOGGER.warning(
                 (
-                    f"WARN: Ignoring field {new_field}, "
-                    f"it's not in the streamed schema."
-                )
+                    "WARN: Ignoring field %s, "
+                    "it's not in the streamed schema."
+                ),
+                new_field,
             )
         elif user_value is not None:
             new_field_type = schema[new_field]
@@ -303,9 +305,10 @@ def translate_record(schema: JSON, record: JSON) -> Dict[str, str]:
             else:
                 LOGGER.warning(
                     (
-                        f"WARN: Ignoring type {new_field_type}, "
-                        f"it's not in the streamed schema."
-                    )
+                        "WARN: Ignoring type %s, "
+                        "it's not in the streamed schema."
+                    ),
+                    new_field_type,
                 )
 
             new_record[new_field] = new_value
@@ -340,7 +343,7 @@ class Batcher:
     """
 
     def __init__(self, dbcur: PGCURR, schema_name: str) -> None:
-        LOGGER.info(f"INFO: worker up at {datetime.utcnow()}.")
+        LOGGER.info("INFO: worker up at %s.", datetime.utcnow())
 
         self.initt: float = time.time()
 
@@ -364,13 +367,13 @@ class Batcher:
             postgres.ProgrammingError: When a query was corrupted.
         """
         if do_print:
-            LOGGER.info(f"EXEC: {statement}.")
+            LOGGER.info("EXEC: %s.", statement)
         try:
             self.dbcur.execute(statement)
         except postgres.ProgrammingError as exc:
-            LOGGER.error(f"EXCEPTION: {type(exc)} {exc}")
+            LOGGER.error("EXCEPTION: %s %s", type(exc), exc)
 
-    def set_field_names(self, table_name: str, field_names: List[str]):
+    def set_field_names(self, table_name: str, field_names: List[str]) -> None:
         """Set the fields for the provided table."""
         # Load queued rows in case we are changing the fields to be loaded
         self.load(table_name)
@@ -473,10 +476,11 @@ class Batcher:
         count = self.buckets[table_name]["count"]
         size = round(self.buckets[table_name]["size"] / 1.0e6, 2)
         LOGGER.info(
-            (
-                f"INFO: {count} rows ({size} MB) "
-                f"loaded to Redshift/{self.sname}/{table_name}."
-            )
+            ("INFO: %s rows (%s MB) " "loaded to Redshift/%s/%s."),
+            count,
+            size,
+            self.sname,
+            table_name,
         )
 
         self.msize -= self.buckets[table_name]["size"]
@@ -514,11 +518,11 @@ class Batcher:
                     do_print=do_print,
                 )
             except vacuum_errors:
-                LOGGER.info(f'INFO: unable to vacuum "{table_name}"')
+                LOGGER.info('INFO: unable to vacuum "%s"', table_name)
 
-    def __del__(self, *args) -> None:
-        LOGGER.info(f"INFO: worker down at {datetime.utcnow()}.")
-        LOGGER.info(f"INFO: {time.time() - self.initt} seconds elapsed.")
+    def __del__(self, *args: Any) -> None:
+        LOGGER.info("INFO: worker down at %s.", datetime.utcnow())
+        LOGGER.info("INFO: %s seconds elapsed.", time.time() - self.initt)
 
 
 def drop_schema(batcher: Batcher, schema_name: str) -> None:
@@ -532,7 +536,7 @@ def drop_schema(batcher: Batcher, schema_name: str) -> None:
     try:
         batcher.ex(f'DROP SCHEMA "{schema_name}" CASCADE', True)
     except postgres.ProgrammingError as exc:
-        LOGGER.error(f"EXCEPTION: {type(exc)} {exc}")
+        LOGGER.error("EXCEPTION: %s %s", type(exc), exc)
 
 
 def create_schema(batcher: Batcher, schema_name: str) -> None:
@@ -545,7 +549,7 @@ def create_schema(batcher: Batcher, schema_name: str) -> None:
     try:
         batcher.ex(f'CREATE SCHEMA "{schema_name}"', True)
     except postgres.ProgrammingError as exc:
-        LOGGER.error(f"EXCEPTION: {type(exc)} {exc}")
+        LOGGER.error("EXCEPTION: %s %s", type(exc), exc)
 
 
 def create_table(
@@ -579,7 +583,7 @@ def create_table(
         else:
             batcher.ex(f"CREATE TABLE {path} ({fields})")
     except postgres.ProgrammingError as exc:
-        LOGGER.error(f"EXCEPTION: {type(exc)} {exc}")
+        LOGGER.error("EXCEPTION: %s %s", type(exc), exc)
 
 
 def rename_schema(batcher: Batcher, rename_from: str, rename_to: str) -> None:
@@ -599,7 +603,7 @@ def rename_schema(batcher: Batcher, rename_from: str, rename_to: str) -> None:
         statement = f'ALTER SCHEMA "{rename_from}" RENAME TO "{rename_to}"'
         batcher.ex(statement, True)
     except postgres.ProgrammingError as exc:
-        LOGGER.error(f"EXCEPTION: {type(exc)} {exc}")
+        LOGGER.error("EXCEPTION: %s %s", type(exc), exc)
 
 
 def validate_schema(validator: JSON_VALIDATOR, schema: JSON) -> None:
@@ -608,7 +612,7 @@ def validate_schema(validator: JSON_VALIDATOR, schema: JSON) -> None:
     try:
         validator.check_schema(schema)
     except jsonschema.exceptions.SchemaError as err:
-        LOGGER.critical(f"ERROR: schema did not conform to draft 4.")
+        LOGGER.critical("ERROR: schema did not conform to draft 4.")
         LOGGER.critical(err)
         sys.exit(1)
 
@@ -619,7 +623,7 @@ def validate_record(validator: JSON_VALIDATOR, record: JSON) -> None:
     try:
         validator.validate(record)
     except jsonschema.exceptions.ValidationError as err:
-        LOGGER.warning(f"WARN: record did not conform to schema.")
+        LOGGER.warning("WARN: record did not conform to schema.")
         LOGGER.warning(err)
 
 
@@ -668,7 +672,7 @@ def persist_messages(batcher: Batcher, schema_name: str) -> None:
     batcher.vacuum()
 
 
-def main():
+def main() -> None:
     """Usual entry point."""
 
     greeting = (
