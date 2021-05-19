@@ -252,6 +252,7 @@ module.exports = {
         'criteria/logs/r085',
         'criteria/logs/r322',
         'criteria/logs/r376',
+        'criteria/logs/r377',
       ],
     },
     {
