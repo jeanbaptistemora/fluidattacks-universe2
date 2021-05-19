@@ -1,13 +1,19 @@
+import type { FetchResult } from "@apollo/client";
+import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React from "react";
+import { track } from "mixpanel-browser";
+import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import type { BaseSchema } from "yup";
 import { array, lazy, object, string } from "yup";
 
 import type { IGitRootAttr } from "../types";
 import { Alert } from "styles/styledComponents";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
+// GitModal helpers
 interface IGitIgnoreAlertProps {
   gitignore: string[];
 }
@@ -62,4 +68,154 @@ const gitModalSchema = lazy(
     })
 );
 
-export { GitIgnoreAlert, gitModalSchema };
+// Index helpers
+
+const handleCreationError = (graphQLErrors: readonly GraphQLError[]): void => {
+  graphQLErrors.forEach((error: GraphQLError): void => {
+    switch (error.message) {
+      case "Exception - Error empty value is not valid":
+        msgError(translate.t("group.scope.git.errors.invalid"));
+        break;
+      case "Exception - Active root with the same Nickname already exists":
+        msgError(translate.t("group.scope.common.errors.duplicateNickname"));
+        break;
+      case "Exception - Active root with the same URL/branch already exists":
+        msgError(translate.t("group.scope.common.errors.duplicateUrl"));
+        break;
+      case "Exception - Root name should not be included in the exception pattern":
+        msgError(translate.t("group.scope.git.errors.rootInGitignore"));
+        break;
+      default:
+        msgError(translate.t("groupAlerts.errorTextsad"));
+        Logger.error("Couldn't add git roots", error);
+    }
+  });
+};
+
+const handleUpdateError = (
+  graphQLErrors: readonly GraphQLError[],
+  scope: "envs" | "root"
+): void => {
+  graphQLErrors.forEach((error: GraphQLError): void => {
+    if (error.message === "Exception - Error empty value is not valid") {
+      msgError(translate.t("group.scope.git.errors.invalid"));
+    } else {
+      msgError(translate.t("groupAlerts.errorTextsad"));
+      Logger.error(`Couldn't update git ${scope}`, error);
+    }
+  });
+};
+
+const handleActivationError = (
+  graphQLErrors: readonly GraphQLError[]
+): void => {
+  graphQLErrors.forEach((error: GraphQLError): void => {
+    if (
+      error.message ===
+      "Exception - Active root with the same URL/branch already exists"
+    ) {
+      msgError(translate.t("group.scope.common.errors.duplicateUrl"));
+    } else {
+      msgError(translate.t("groupAlerts.errorTextsad"));
+      Logger.error("Couldn't activate root", error);
+    }
+  });
+};
+
+const handleDeactivationError = (
+  graphQLErrors: readonly GraphQLError[]
+): void => {
+  graphQLErrors.forEach((error: GraphQLError): void => {
+    if (
+      error.message ===
+      "Exception - A root with open vulns can't be deactivated"
+    ) {
+      msgError(translate.t("group.scope.common.errors.hasOpenVulns"));
+    } else {
+      msgError(translate.t("groupAlerts.errorTextsad"));
+      Logger.error("Couldn't deactivate root", error);
+    }
+  });
+};
+
+const hasCheckedItem = (
+  checkedItems: Record<string, boolean>,
+  columnName: string
+): boolean => {
+  return (
+    Object.values(checkedItems).filter((val: boolean): boolean => val)
+      .length === 1 && checkedItems[columnName]
+  );
+};
+
+function useGitSubmit(
+  addGitRoot: (
+    variables: Record<string, unknown>
+  ) => Promise<FetchResult<unknown>>,
+  groupName: string,
+  isManagingRoot: false | { mode: "ADD" | "EDIT" },
+  updateGitRoot: (
+    variables: Record<string, unknown>
+  ) => Promise<FetchResult<unknown>>
+): ({
+  branch,
+  environment,
+  gitignore,
+  id,
+  includesHealthCheck,
+  nickname,
+  url,
+}: IGitRootAttr) => Promise<void> {
+  return useCallback(
+    async ({
+      branch,
+      environment,
+      gitignore,
+      id,
+      includesHealthCheck,
+      nickname,
+      url,
+    }: IGitRootAttr): Promise<void> => {
+      if (isManagingRoot !== false) {
+        if (isManagingRoot.mode === "ADD") {
+          track("AddGitRoot");
+          await addGitRoot({
+            variables: {
+              branch,
+              environment,
+              gitignore,
+              groupName,
+              includesHealthCheck,
+              nickname,
+              url,
+            },
+          });
+        } else {
+          track("EditGitRoot");
+          await updateGitRoot({
+            variables: {
+              environment,
+              gitignore,
+              groupName,
+              id,
+              includesHealthCheck,
+              nickname,
+            },
+          });
+        }
+      }
+    },
+    [addGitRoot, groupName, isManagingRoot, updateGitRoot]
+  );
+}
+
+export {
+  GitIgnoreAlert,
+  gitModalSchema,
+  handleCreationError,
+  handleUpdateError,
+  handleActivationError,
+  handleDeactivationError,
+  hasCheckedItem,
+  useGitSubmit,
+};

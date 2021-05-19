@@ -4,15 +4,21 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { faCloud, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { useTranslation } from "react-i18next";
 
 import { EnvsModal } from "./envsModal";
 import { GitModal } from "./gitModal";
+import {
+  handleActivationError,
+  handleCreationError,
+  handleDeactivationError,
+  handleUpdateError,
+  hasCheckedItem,
+  useGitSubmit,
+} from "./helpers";
 import { Container } from "./styles";
 
 import { DeactivationModal } from "../deactivationModal";
@@ -39,8 +45,6 @@ import { ButtonToolbarRow } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
-import { Logger } from "utils/logger";
-import { msgError } from "utils/notifications";
 
 const formatList: (list: string[]) => JSX.Element = (list): JSX.Element => (
   <p>
@@ -176,25 +180,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       closeModal();
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        switch (error.message) {
-          case "Exception - Error empty value is not valid":
-            msgError(t("group.scope.git.errors.invalid"));
-            break;
-          case "Exception - Active root with the same Nickname already exists":
-            msgError(t("group.scope.common.errors.duplicateNickname"));
-            break;
-          case "Exception - Active root with the same URL/branch already exists":
-            msgError(t("group.scope.common.errors.duplicateUrl"));
-            break;
-          case "Exception - Root name should not be included in the exception pattern":
-            msgError(t("group.scope.git.errors.rootInGitignore"));
-            break;
-          default:
-            msgError(t("groupAlerts.errorTextsad"));
-            Logger.error("Couldn't add git roots", error);
-        }
-      });
+      handleCreationError(graphQLErrors);
     },
   });
 
@@ -205,14 +191,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       setCurrentRow(undefined);
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        if (error.message === "Exception - Error empty value is not valid") {
-          msgError(t("group.scope.git.errors.invalid"));
-        } else {
-          msgError(t("groupAlerts.errorTextsad"));
-          Logger.error("Couldn't update git root", error);
-        }
-      });
+      handleUpdateError(graphQLErrors, "root");
     },
   });
 
@@ -223,14 +202,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       setCurrentRow(undefined);
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        if (error.message === "Exception - Error empty value is not valid") {
-          msgError(t("group.scope.git.errors.invalid"));
-        } else {
-          msgError(t("groupAlerts.errorTextsad"));
-          Logger.error("Couldn't update git envs", error);
-        }
-      });
+      handleUpdateError(graphQLErrors, "envs");
     },
   });
 
@@ -240,17 +212,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       setCurrentRow(undefined);
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        if (
-          error.message ===
-          "Exception - Active root with the same URL/branch already exists"
-        ) {
-          msgError(t("group.scope.common.errors.duplicateUrl"));
-        } else {
-          msgError(t("groupAlerts.errorTextsad"));
-          Logger.error("Couldn't activate root", error);
-        }
-      });
+      handleActivationError(graphQLErrors);
     },
   });
 
@@ -261,17 +223,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       setCurrentRow(undefined);
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        if (
-          error.message ===
-          "Exception - A root with open vulns can't be deactivated"
-        ) {
-          msgError(t("group.scope.common.errors.hasOpenVulns"));
-        } else {
-          msgError(t("groupAlerts.errorTextsad"));
-          Logger.error("Couldn't deactivate root", error);
-        }
-      });
+      handleDeactivationError(graphQLErrors);
     },
   });
 
@@ -280,46 +232,11 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     row: IGitRootAttr
   ) => void = useCallback(setCurrentRow, [setCurrentRow]);
 
-  const handleGitSubmit = useCallback(
-    async ({
-      branch,
-      environment,
-      gitignore,
-      id,
-      includesHealthCheck,
-      nickname,
-      url,
-    }: IGitRootAttr): Promise<void> => {
-      if (isManagingRoot !== false) {
-        if (isManagingRoot.mode === "ADD") {
-          track("AddGitRoot");
-          await addGitRoot({
-            variables: {
-              branch,
-              environment,
-              gitignore,
-              groupName,
-              includesHealthCheck,
-              nickname,
-              url,
-            },
-          });
-        } else {
-          track("EditGitRoot");
-          await updateGitRoot({
-            variables: {
-              environment,
-              gitignore,
-              groupName,
-              id,
-              includesHealthCheck,
-              nickname,
-            },
-          });
-        }
-      }
-    },
-    [addGitRoot, groupName, isManagingRoot, updateGitRoot]
+  const handleGitSubmit = useGitSubmit(
+    addGitRoot,
+    groupName,
+    isManagingRoot,
+    updateGitRoot
   );
 
   const handleEnvsSubmit = useCallback(
@@ -344,11 +261,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   );
 
   function handleChange(columnName: string): void {
-    if (
-      Object.values(checkedItems).filter((val: boolean): boolean => val)
-        .length === 1 &&
-      checkedItems[columnName]
-    ) {
+    if (hasCheckedItem(checkedItems, columnName)) {
       // eslint-disable-next-line no-alert -- Deliberate usage
       alert(t("validations.columns"));
       setCheckedItems({
