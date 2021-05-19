@@ -896,6 +896,11 @@ export const enTranslations: ResourceKey = {
             success:
               "Remember that the aplication of the policy requires the approval of a user with manager role",
           },
+          deactivatePolicies: {
+            modalTitle: "Disable organization finding policy",
+            success:
+              "The finding policy was disabled successfully, changes will be apply it within next minutes",
+          },
           errors: {
             alreadyReviewd: "The finding policy has already been reviewed",
             duplicateFinding: "The finding policy already exists",
@@ -910,6 +915,7 @@ export const enTranslations: ResourceKey = {
           tooltip: {
             addButton: "Add organization policy pending to approve",
             approveButton: "Approve organization finding policy",
+            deactivateButton: "Disable organization finding policy",
             rejectButton: "Reject organization finding policy",
           },
         },
