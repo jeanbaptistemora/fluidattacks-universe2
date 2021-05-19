@@ -6,12 +6,16 @@
 }:
 let
   pythonRequirements = buildPythonRequirements {
+    dependencies = [
+      nixpkgs.postgresql
+    ];
     name = "sorts-development";
     requirements = {
       direct = [
         "boto3==1.16.29"
         "numpy==1.19.2"
         "pandas==1.1.2"
+        "psycopg2==2.8.4"
         "pytest-cov==2.10.1"
         "pytest-rerunfailures==9.1.1"
         "pytest==6.1.1"
