@@ -11,6 +11,7 @@
 /* eslint react/forbid-component-props: 0 */
 import { graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
+import { decode } from "he";
 import moment from "moment";
 import React from "react";
 import type { StyledComponent } from "styled-components";
@@ -100,7 +101,7 @@ const BlogsIndex: React.FC<IQueryData> = ({
         description={data.asciidoc.pageAttributes.description}
         image={data.asciidoc.pageAttributes.image}
         keywords={data.asciidoc.pageAttributes.keywords}
-        title={`${title} | Fluid Attacks`}
+        title={`${decode(title)} | Fluid Attacks`}
         url={data.asciidoc.pageAttributes.slug}
       />
 
@@ -108,7 +109,7 @@ const BlogsIndex: React.FC<IQueryData> = ({
         <div>
           <NavbarComponent />
           <Breadcrumb
-            crumbLabel={customCrumbLabel}
+            crumbLabel={decode(customCrumbLabel)}
             crumbSeparator={" / "}
             crumbs={crumbs}
           />
@@ -126,9 +127,9 @@ const BlogsIndex: React.FC<IQueryData> = ({
               </FullWidthContainer>
             </ArticleBannerContainer>
             <ArticleContainer>
-              <ArticleTitle>{title}</ArticleTitle>
+              <ArticleTitle>{decode(title)}</ArticleTitle>
               <ArticleSubtitle>
-                {data.asciidoc.pageAttributes.subtitle}
+                {decode(data.asciidoc.pageAttributes.subtitle)}
               </ArticleSubtitle>
               <div className={"pv3"}>
                 <p className={"f5"}>

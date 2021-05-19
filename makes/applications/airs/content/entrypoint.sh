@@ -45,6 +45,8 @@ function main {
       &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:keywords|:page-keywords|g" {} + \
       &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:subtitle|:page-subtitle|g" {} + \
       &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:writer|:page-writer|g" {} + \
+      &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:tags|:page-tags|g" {} + \
+      &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:category|:page-category|g" {} + \
       &&  rm -rf \
             content/pages/about-us/clients \
             content/pages/products/defends \
@@ -69,6 +71,7 @@ function main {
           &&  rm -rf about-us contact-us faq \
                 partners subscription \
       &&  popd \
+      &&  rm -rf .cache \
       &&  copy public . \
   &&  popd \
   ||  return 1
