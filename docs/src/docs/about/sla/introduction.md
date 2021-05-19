@@ -2,7 +2,7 @@
 id: introduction
 title: Introduction
 sidebar_label: Introduction
-slug: /about/sla/introduction
+slug: /about/sla
 ---
 
 - [Availability](/about/sla/availability):
@@ -25,11 +25,11 @@ All of the SLAs are measured
 considering the following:
 
 1. Measurement in
-  calendar quarters.
+  calendar quarters,
 1. Taking into account
   all the groups
   of the organization
-  over time.
+  over time,
 1. Taking into account
   all the historical data,
   not only that of

@@ -14,7 +14,7 @@ for its registered users.
 ### Details
 
 Besides the
-[general measurement aspects](/about/sla/introduction#details),
+[general measurement aspects](/about/sla#details),
 this SLA is measured
 taking into account
 the following:

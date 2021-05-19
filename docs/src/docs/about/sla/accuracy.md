@@ -12,39 +12,49 @@ is detected and has some level of risk.
 
 ### Criteria
 
-1. Applies only
-  to plan Squad.
-1. It exists
-  in both environment
-  and source code.
-1. Pair environment
-  (exact deployment of the branch)
+All of the following aspects
+are necessary conditions
+for the application
+of the service-level agreements:
+
+1. The group has
+  a SQUAD plan,
+1. Both the environment
+  and the source code
+  are accesible,
+1. The environment is
+  pair to the code,
+  i.e.,
+  the environment corresponds
+  to the provided branch,
 1. Stable environment
   (**80%** of business days
-  with no open eventualities)
+  with no open eventualities),
 1. Complete dataset
-  for the corresponding use case.
+  for the corresponding use case,
 1. Remote access with no human intervention
-  (no captcha, OTP, etc.).
-1. The required transactions
-  are less than **400** manual changes
-  per active author.
+  (no captcha, OTP, etc.),
+1. On average,
+  each author makes
+  **400** manual changes
+  per week.
 
 ### Details
 
 Besides the
-[general measurement aspects](/about/sla/introduction#details),
+[general measurement aspects](/about/sla#details),
 this SLA is measured
 taking into account
 the following:
 
 1. The severity of vulnerabilities
   are calculated using
-  CVSSF = 4^(CVSS-4).
+  CVSSF = 4^(CVSS-4),
 1. The accuracy is calculated
   based on the false positives,
   false negatives
-  and the F-Score model.
+  and the
+  [F-Score model](https://en.wikipedia.org/wiki/F-score),
 1. Black vulnerabilities
   detectable only via source code
   are not considered

@@ -28,7 +28,6 @@ module.exports = {
         'about/faq/others',
       ],
     },
-    'about/glossary',
     {
       type: 'category',
       label: 'SLA',
@@ -39,6 +38,7 @@ module.exports = {
         'about/sla/response',
       ],
     },
+    'about/glossary',
   ],
   Criteria: [
     'criteria/introduction',
