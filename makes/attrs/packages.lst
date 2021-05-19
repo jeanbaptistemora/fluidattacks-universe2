@@ -70,7 +70,6 @@ observes.env.code-etl.development.python
 observes.env.code-etl.runtime
 observes.env.code-etl.runtime.python
 observes.env.development.dif-gitlab-etl
-observes.env.development.streamer-gitlab
 observes.env.job-last-success.runtime
 observes.env.job-last-success.runtime.python
 observes.env.paginator.development
@@ -82,7 +81,6 @@ observes.env.postgres-client.development.python
 observes.env.postgres-client.runtime
 observes.env.postgres-client.runtime.python
 observes.env.runtime.dif-gitlab-etl
-observes.env.runtime.streamer-gitlab
 observes.env.service-batch-stability.runtime
 observes.env.service-jobs-scheduler.runtime
 observes.env.service-jobs-scheduler.runtime.python
@@ -95,6 +93,10 @@ observes.env.singer-io.development.python
 observes.env.singer-io.runtime
 observes.env.streamer-dynamodb.runtime
 observes.env.streamer-dynamodb.runtime.python
+observes.env.streamer-gitlab.development
+observes.env.streamer-gitlab.development.python
+observes.env.streamer-gitlab.runtime
+observes.env.streamer-gitlab.runtime.python
 observes.env.streamer-zoho-crm.development
 observes.env.streamer-zoho-crm.development.python
 observes.env.streamer-zoho-crm.runtime
