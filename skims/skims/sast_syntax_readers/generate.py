@@ -55,6 +55,9 @@ from sast_syntax_readers.c_sharp import (
     argument as c_sharp_argument,
     element_access_expression as c_sharp_element_access_expression,
     parameter as c_sharp_parameter,
+    if_statement as c_sharp_if_statement,
+    variable_declaration as c_sharp_variable_declaration,
+    using_statement as c_sharp_using_statement,
 )
 from sast_syntax_readers.common import (
     binary_expression as common_binary_expression,
@@ -176,6 +179,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     ),
     Dispatcher(
         applicable_languages={
+            graph_model.GraphShardMetadataLanguage.CSHARP,
+        },
+        applicable_node_label_types={
+            "if_statement",
+        },
+        syntax_readers=(c_sharp_if_statement.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
@@ -254,6 +266,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "local_declaration_statement",
         },
         syntax_readers=(c_sharp_local_declaration_statement.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.CSHARP,
+        },
+        applicable_node_label_types={
+            "variable_declaration",
+        },
+        syntax_readers=(c_sharp_variable_declaration.reader,),
     ),
     Dispatcher(
         applicable_languages={
@@ -355,6 +376,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "array_initializer",
         },
         syntax_readers=(java_array_initializer.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.CSHARP,
+        },
+        applicable_node_label_types={
+            "using_statement",
+        },
+        syntax_readers=(c_sharp_using_statement.reader,),
     ),
     Dispatcher(
         applicable_languages={

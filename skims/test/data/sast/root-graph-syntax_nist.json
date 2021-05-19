@@ -40,7 +40,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "71",
+              "n_id": "72",
               "value": null
             },
             "modifiers": null,
@@ -98,6 +98,266 @@
             },
             "type": "SyntaxStepAssignment",
             "var": "data"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "102",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "null",
+            "value_type": "null"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "100",
+              "value": null
+            },
+            "symbol": "data",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "99",
+              "value": null
+            },
+            "operator": "!=",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "96",
+              "value": null
+            },
+            "n_id_false": null,
+            "n_id_true": "104",
+            "type": "SyntaxStepIf"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "104",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "119",
+              "value": null
+            },
+            "symbol": "data",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "125",
+              "value": "-"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "-",
+            "value_type": "string"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "117",
+              "value": null
+            },
+            "method": "Split",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "107",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "names",
+            "var_type": "array_type"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "135",
+              "value": 0.0
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "0",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "129",
+              "value": 0.0
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "successCount",
+            "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "144",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "null",
+            "value_type": "null"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "138",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "badSqlCommand",
+            "var_type": "SqlCommand"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "146",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "148",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "161",
+              "value": null
+            },
+            "symbol": "IO",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "159",
+              "value": null
+            },
+            "method": "GetDBConnection",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "153",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "dbConnection",
+            "var_type": "SqlConnection"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "168",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "170",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "177",
+              "value": null
+            },
+            "symbol": "dbConnection",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "171",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "badSqlCommand.Connection"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "179",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "182",
+              "value": null
+            },
+            "symbol": "dbConnection",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "180",
+              "value": null
+            },
+            "method": "Open",
+            "type": "SyntaxStepMethodInvocationChain"
           }
         ],
         "52-69-71-78-79-96-104-106-128-137-146-148-150-168-170-171-179-180-189-237": [
@@ -138,7 +398,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "71",
+              "n_id": "72",
               "value": null
             },
             "modifiers": null,
@@ -196,6 +456,266 @@
             },
             "type": "SyntaxStepAssignment",
             "var": "data"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "102",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "null",
+            "value_type": "null"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "100",
+              "value": null
+            },
+            "symbol": "data",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "99",
+              "value": null
+            },
+            "operator": "!=",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "96",
+              "value": null
+            },
+            "n_id_false": null,
+            "n_id_true": "104",
+            "type": "SyntaxStepIf"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "104",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "119",
+              "value": null
+            },
+            "symbol": "data",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "125",
+              "value": "-"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "-",
+            "value_type": "string"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "117",
+              "value": null
+            },
+            "method": "Split",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "107",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "names",
+            "var_type": "array_type"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "135",
+              "value": 0.0
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "0",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "129",
+              "value": 0.0
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "successCount",
+            "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "144",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "null",
+            "value_type": "null"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "138",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "badSqlCommand",
+            "var_type": "SqlCommand"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "146",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "148",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "161",
+              "value": null
+            },
+            "symbol": "IO",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "159",
+              "value": null
+            },
+            "method": "GetDBConnection",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "153",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "dbConnection",
+            "var_type": "SqlConnection"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "168",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "170",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "177",
+              "value": null
+            },
+            "symbol": "dbConnection",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "171",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "badSqlCommand.Connection"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "179",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "182",
+              "value": null
+            },
+            "symbol": "dbConnection",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "180",
+              "value": null
+            },
+            "method": "Open",
+            "type": "SyntaxStepMethodInvocationChain"
           }
         ]
       }
