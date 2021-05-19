@@ -127,9 +127,8 @@ observes.env.tap-timedoctor.runtime
 observes.env.tap-toe-files.runtime
 observes.env.tap-zoho-analytics.runtime
 observes.env.tap-zoho-analytics.runtime.python
-observes.env.target-redshift.development
-observes.env.target-redshift.development.python
 observes.env.target-redshift.runtime
+observes.env.target-redshift.runtime.python
 observes.env.utils-logger.runtime
 observes.env.utils-logger.runtime.python
 observes.generic.linter
@@ -163,7 +162,6 @@ observes.test.streamer-zoho-crm
 observes.test.tap-csv
 observes.test.tap-mailchimp
 observes.test.tap-mixpanel
-observes.test.target-redshift
 reviews.lint
 reviews.runtime
 skims.config-development

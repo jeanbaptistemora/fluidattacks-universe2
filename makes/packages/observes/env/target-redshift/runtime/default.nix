@@ -3,9 +3,9 @@
 , path
 , ...
 }:
+with packages.observes.env;
 let
-  env = packages.observes.env;
-  self = path "/observes/singer/target_redshift_2";
+  self = path "/observes/singer/target_redshift";
 in
 makeTemplate {
   name = "observes-env-target-redshift-runtime";
@@ -13,12 +13,14 @@ makeTemplate {
     envMypyPaths = [
       self
     ];
+    envPaths = [
+      target-redshift.runtime.python
+    ];
     envPythonPaths = [
       self
     ];
-    envSources = [
-      env.singer-io.runtime
-      env.postgres-client.runtime
+    envPython38Paths = [
+      target-redshift.runtime.python
     ];
   };
 }
