@@ -1,6 +1,6 @@
 :slug: ciberseguridad-estrategia/
 :date: 2020-10-21
-:subtitle: Piensa estratégicamente con ciberseguridad y evita pérdidas
+:subtitle: Elabora estrategias de ciberseguridad y evita pérdidas
 :category: philosophy
 :tags: cybersecurity, mistake, risk, business, company, hacking
 :image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330844/blog/cybersecurity-strategy/cover_pxhwlz.webp
@@ -17,22 +17,22 @@
 = Ciberseguridad como estrategia
 
 Manuel Hepfer y Thomas Powell de la Universidad de Oxford
-compartieron algunas de lecciones de las empresas
+compartieron algunas lecciones de las empresas
 que se enfrentaron a ataques ransomware en los últimos años.
 Los resultados de la investigación fueron publicados
 en un link:https://sloanreview.mit.edu/article/make-cybersecurity-a-strategic-asset/[reciente artículo]
 del MIT Sloan Management Review.
 En mis palabras, el documento clama
-por cambiar la manera en la que las organizaciones ven la ciberseguridad.
+por cambiar la manera en la que las organizaciones _ven_ la ciberseguridad.
 Me sorprendieron dos aspectos:
 primero, la mayoría de las organizaciones
 todavía piensa que la ciberseguridad
 es solo instrumental para sus negocios.
-Segundo, las ciencias de la decisión
+Segundo, las ciencias del comportamiento
 pueden ofrecer valiosas herramientas
 para mejorar el enfoque organizativo de la ciberseguridad.
 En este post, trato de describir estos aspectos del artículo
-a la luz de perspectivas conductuales.
+a la luz de perspectivas comportamentales.
 
 == La ciberseguridad no es un esfuerzo perdido
 
@@ -47,8 +47,8 @@ podría estar arraigada en varios sesgos cognitivos.
 La saliencia (salience en inglés) es una pieza esencial aquí:
 aquello que se presenta ante nosotros
 impulsa nuestros juicios y fomenta nuestros comportamientos.
-El que no haya alguna violación o ataque
-no significa que se desperdicie dinero
+El que no haya alguna violación o ataque,
+significa que se desperdicia dinero
 (¿qué pasaría si se estuviera efectuando un ataque
 del que no tenemos conocimiento?).
 En cambio, si se confirma un ataque o una violación,
@@ -72,7 +72,7 @@ podrían permanecer ocultas durante algún tiempo,
 lo que terminaría amplificando riesgos y pérdidas.
 Además, dada la dinámica de las amenazas cibernéticas,
 las organizaciones deben estar preparadas continuamente para afrontarlas.
-Sólo de esta manera,
+Solo de esta manera,
 las empresas podrán reducir su exposición a tales riesgos,
 minimizando así el precio que podría esperarse de las pérdidas.
 
@@ -80,9 +80,8 @@ Algo adicional que podemos hacer es cambiar el punto de referencia.
 Para lograrlo se podría adoptar
 una actitud de transparencia plena
 en los buenos y en los malos tiempos.
-Es decir, destacar y hacer públicas
-tanto las acciones exitosas
-como las de prevención y contención a las partes interesadas,
+Es decir, destacar y hacer públicas las acciones exitosas
+de prevención y contención a las partes interesadas,
 así como revelar violaciones e incidentes que hayan causado daño.
 Hepfer y Powell también abordaron esto:
 _"Mantener los ciberataques confidenciales
@@ -91,9 +90,9 @@ para responderles no son compartidas
 y que los ejecutivos no puedan aprender
 de los ciberataques a otras empresas"_ (p.15).
 
-También podríamos abordar con los altos mandos ejecutivos
-la necesidad de considerar contrafactuales y de discutir,
-por ejemplo, preguntas como:
+También podemos trabajar con los altos mandos ejecutivos
+en la consideración de situaciones hipotéticas,
+debatiendo, por ejemplo, preguntas como las siguientes:
 
 - ¿Cuántas vulnerabilidades se han identificado y corregido?
 ¿Qué habría pasado si esas vulnerabilidades hubieran permanecido abiertas?
@@ -113,9 +112,9 @@ ni errores si no hubiéramos tenido esfuerzos de ciberseguridad?
 ¿Qué podría pasar si no cerramos esas brechas en las próximas semanas?
 
 
-Una narrativa diferente, cambiar los puntos de referencia cognitiva
-y pensar en contrafactuales realistas
-podría ayudar a posicionar mejor las operaciones de ciberseguridad.
+Una narrativa diferente, cambiar los puntos de referencia cognitivos
+y pensar en situaciones hipotéticas realistas
+puede ayudar a posicionar mejor las operaciones de ciberseguridad.
 
 .Foto de link:https://unsplash.com/@mvdheuvel?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText[Maarten van den Heuvel] en link:https://unsplash.com/s/photos/telescope?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText[Unsplash]
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330844/blog/cybersecurity-strategy/telescope_yqulie.webp[Telescope]
@@ -156,7 +155,7 @@ Esto se vuelve evidente cuando ya es demasiado tarde.
 
 Otra consecuencia de la enmarcación habitual es la inercia,
 una tendencia conductual bien conocida.
-Como afirman los profesores en su artículo,
+Como afirman los autores en su artículo,
 _"nuestra tendencia cognitiva es continuar
 con las mismas prioridades estratégicas,
 interpretando la ausencia de un ciberataque
@@ -164,8 +163,7 @@ como evidencia de que la empresa está en el camino correcto"_.
 Además, la tendencia crea y preserva
 una ilusión de control mientras no ocurre ningún ataque.
 ¿Qué pasa si hay una brecha que no se ha detectado?
-_"Los ciberataques no requieren de rutina,
-no son difíciles de planear,
+_"Los ciberataques no son rutinarios y son difíciles de planear,
 y muchos ejecutivos no han experimentado un ciberataque grave"_.
 Parece que los ejecutivos siguen el dicho inercial:
 _“si no está roto, no lo arregles"_.
@@ -188,8 +186,8 @@ y en hacer que un negocio sea sostenible
 y competitivo mediante la buena gestión de riesgos _hoy_.
 En otras palabras, la ciberseguridad
 tiene un impacto presente en los negocios.
-El problema es que nuestra cognición
-no se siente así porque _no lo vemos así_.
+El problema es que nuestra cognición no lo percibe,
+nosotros _no lo vemos_.
 
 En el artículo, los investigadores se centraron también
 en la naturaleza intertemporal de la ciberseguridad.
@@ -201,7 +199,7 @@ La junta se dio cuenta de que el impacto de un ataque
 no se limita a la TI, sino que afecta la viabilidad de todo el negocio"_.
 Para estos ejecutivos, fue necesario un ataque
 con pérdidas masivas para pensar estratégicamente en la ciberseguridad.
-El bucle de aprendizaje se cerró abruptamente.
+El ciclo de aprendizaje se cerró abruptamente.
 Como seres humanos, estamos sesgados en el presente,
 y nos involucramos con cosas que podemos disfrutar de inmediato.
 Sin este tipo de comentarios que provienen de la experiencia,
@@ -218,7 +216,7 @@ las pruebas de resistencia sísmica a las que nos referíamos antes.
 Aquí se identifican vulnerabilidades
 y los clientes pueden saber el daño potencial
 de estas en caso de permanecer abiertas
-(una aproximación a las contrafactuales).
+(una aproximación a las situaciones hipotéticas).
 Además, con nuestro Attack Surface Manager,
 una organización puede mostrarle a los interesados todo lo que,
 tras bambalinas, podría afectar al negocio.
