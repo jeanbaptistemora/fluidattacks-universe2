@@ -11,27 +11,19 @@ from . import query
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('download_file')
-async def test_admin(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['admin@gmail.com'],
+        ['analyst@gmail.com'],
+        ['closer@gmail.com'],
+    ]
+)
+async def test_download_file(populate: bool, email: str):
     assert populate
     file_name: str = 'test.zip'
     result: Dict[str, Any] = await query(
-        user='admin@gmail.com',
-        group='group1',
-        f_name=file_name,
-    )
-    assert 'errors' not in result
-    assert 'success' in result['data']['downloadFile']
-    assert result['data']['downloadFile']['success']
-    assert 'url' in result['data']['downloadFile']
-
-
-@pytest.mark.asyncio
-@pytest.mark.resolver_test_group('download_file')
-async def test_analyst(populate: bool):
-    assert populate
-    file_name: str = 'test.zip'
-    result: Dict[str, Any] = await query(
-        user='analyst@gmail.com',
+        user=email,
         group='group1',
         f_name=file_name,
     )
