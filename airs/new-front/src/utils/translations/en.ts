@@ -19,6 +19,15 @@ const pageTexts: ResourceKey = {
     disclosurePhrase:
       "For more information, you can read our Disclosure Policy ",
   },
+  blog: {
+    description:
+      "Read Fluid Attacks' blog posts about IT, pentesting, " +
+      "hacking challenges writeups, information security, " +
+      "and ethical hacking recent trends.",
+    keywords:
+      "Blog, Articles, Opinion, Challenge, Pentesting, Security," +
+      "Ethical Hacking, Trends",
+  },
   clients: {
     definition:
       "Since 2001, we have helped our clients manage their cybersecurity " +
