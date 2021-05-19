@@ -48,6 +48,7 @@ function main {
       &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:tags|:page-tags|g" {} + \
       &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:category|:page-category|g" {} + \
       &&  rm -rf \
+            content/pages/about-us/certifications \
             content/pages/about-us/clients \
             content/pages/products/defends \
             content/pages/products/skims \
@@ -68,7 +69,7 @@ function main {
       &&  mv new-front/public . \
       &&  rm -rf new-front/* \
       &&  pushd public \
-          &&  rm -rf about-us contact-us faq \
+          &&  rm -rf contact-us faq \
                 partners subscription \
       &&  popd \
       &&  rm -rf .cache \
@@ -78,4 +79,3 @@ function main {
 }
 
 main "${@}"
-
