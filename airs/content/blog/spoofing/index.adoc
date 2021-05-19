@@ -169,7 +169,6 @@ and Sender Policy Framework (SPF)
 records to their business's domain name record."
 If your company makes these small changes, it will not regret it,
 as it will send all suspicious emails to the junk folder.
-
 Once a scam is discovered, it must be reported.
 Those who live in the United States
 and have been scammed
@@ -179,7 +178,8 @@ official website. They can also go to the
 link:https://www.ic3.gov/Home/ComplaintChoice[Crime Complaint Center]
 website or find out more info
 link:https://www.fbi.gov/scams-and-safety/common-scams-and-crime[FBI's page] for this purpose.
-Now, I bet that you've heard about Pikachu, Ash Ketchum, or Pokémon.
+
+Now, I bet that you've heard about *Pikachu*, *Ash Ketchum*, or *Pokémon*.
 However, I also bet that you don't know what links one of the
 link:https://www.gamesindustry.biz/articles/2021-03-02-gotta-cash-em-all-how-pok-mon-became-the-worlds-biggest-games-franchise#:~:text=Quantifying%20Pok%C3%A9mon's%20success%20is%20tricky,website%20a%20few%20years%20back[most valued franchises in the world]
 with spoofing. So, to understand it,
