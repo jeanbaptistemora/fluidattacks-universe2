@@ -10,7 +10,14 @@ for an existing vulnerability,
 you can request a reattack
 for us to validate this.
 This can be done by clicking
-on the Reattack button
+on the Reattack button.
+This button can be found
+in the **Locations** tab
+of any of your **Open** vulnerabilities,
+it will not appear if you click on
+a **Closed** vulnerability
+and any user with access to a group
+can request a reattack.
 
 ![Enabled Reattack Button](/img/web/vulnerabilities/management/reattack_button_enabled.png)
 
