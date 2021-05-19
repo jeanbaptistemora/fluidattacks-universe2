@@ -12,7 +12,7 @@ import waitForExpect from "wait-for-expect";
 import { SplitButton } from "./SplitButton";
 
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { NavbarComponent } from "scenes/Dashboard/components/Navbar";
+import { Navbar } from "scenes/Dashboard/components/Navbar";
 import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
 import store from "store";
 import { authContext } from "utils/auth";
@@ -21,7 +21,7 @@ import { authzPermissionsContext } from "utils/authz/config";
 describe("Navbar", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof NavbarComponent).toStrictEqual("function");
+    expect(typeof Navbar).toStrictEqual("function");
   });
 
   it("should render", async (): Promise<void> => {
@@ -57,7 +57,7 @@ describe("Navbar", (): void => {
             <authContext.Provider
               value={{ userEmail: "test@fluidattacks.com", userName: "" }}
             >
-              <NavbarComponent />
+              <Navbar />
             </authContext.Provider>
           </MockedProvider>
         </Provider>

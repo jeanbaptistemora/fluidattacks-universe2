@@ -24,4 +24,20 @@ const NavbarMenu = styled.ul.attrs({
   }
 `;
 
-export { NavbarContainer, NavbarHeader, NavbarMenu };
+const MenuButton = styled.button.attrs({
+  className: "bn flex gray outline-0 pointer",
+})`
+  background: none;
+`;
+
+const DropdownMenu = styled.ul.attrs({
+  className: "absolute bg-white f5 list mt3 mr3 ph2 pv2 shadow-3",
+})`
+  min-width: 240px;
+  right: 0;
+  li {
+    color: black;
+  }
+`;
+
+export { DropdownMenu, MenuButton, NavbarContainer, NavbarHeader, NavbarMenu };

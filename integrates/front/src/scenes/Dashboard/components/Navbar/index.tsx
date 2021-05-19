@@ -4,7 +4,6 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useEffect } from "react";
-import { withRouter } from "react-router";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { Field } from "redux-form";
 
@@ -27,7 +26,7 @@ import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import { alphaNumeric } from "utils/validations";
 
-const NavbarComponent: React.FC = (): JSX.Element => {
+export const Navbar: React.FC = (): JSX.Element => {
   const { push } = useHistory();
   const { pathname } = useLocation();
   const [lastOrganization, setLastOrganization] = useStoredState(
@@ -205,7 +204,3 @@ const NavbarComponent: React.FC = (): JSX.Element => {
     </React.StrictMode>
   );
 };
-
-const Navbar: React.ComponentClass = withRouter(NavbarComponent);
-
-export { Navbar, NavbarComponent };
