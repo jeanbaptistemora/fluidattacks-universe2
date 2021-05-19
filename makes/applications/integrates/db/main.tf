@@ -282,7 +282,8 @@ resource "aws_dynamodb_table" "FI_vulnerabilities" {
     projection_type = "INCLUDE"
     non_key_attributes = [
       "historic_state",
-      "historic_treatment"
+      "historic_treatment",
+      "historic_zero_risk"
     ]
   }
   hash_key  = "finding_id"

@@ -84,7 +84,9 @@ async def get_root_vulns(*, nickname: str) -> Tuple[Dict[str, Any], ...]:
 def _filter_open_and_accepted_undef_vulns(vuln: Dict[str, Any]) -> bool:
     return (
         vuln['historic_state'][-1]['state'] == 'open' and
-        vuln['historic_treatment'][-1]['treatment'] != 'ACCEPTED_UNDEFINED'
+        vuln['historic_treatment'][-1]['treatment'] != 'ACCEPTED_UNDEFINED' and
+        vuln.get('historic_zero_risk', '') and
+        vuln['historic_zero_risk'][-1]['status'] != 'CONFIRMED'
     )
 
 
