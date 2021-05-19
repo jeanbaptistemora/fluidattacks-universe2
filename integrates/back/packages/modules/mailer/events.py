@@ -169,7 +169,7 @@ async def send_mail_new_event(  # pylint: disable=too-many-arguments
     email_context_customers = email_context.copy()
     email_context_customers['analyst_email'] = 'Hacker at FluidIntegrates'
 
-    collect([
+    await collect([
         send_mails_async_new(
             mail_recipients,
             mail_context,
