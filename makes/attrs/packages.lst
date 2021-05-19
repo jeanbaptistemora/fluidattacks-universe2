@@ -65,7 +65,6 @@ melts.config-development
 melts.config-runtime
 melts.lib
 melts.lint
-observes.config-target-redshift-runtime
 observes.env.code-etl.development
 observes.env.code-etl.development.python
 observes.env.code-etl.runtime

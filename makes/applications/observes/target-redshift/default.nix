@@ -1,15 +1,18 @@
-{ nixpkgs
+{ makeEntrypoint
 , packages
 , path
 , ...
 }:
-let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs;
-in
 makeEntrypoint {
   arguments = {
-    envSetupObservesTargetRedshiftRuntime = packages.observes.config-target-redshift-runtime;
+    envEntrypoint = "from target_redshift import main";
+  };
+  searchPaths = {
+    envSources = [
+      packages.observes.generic.runner
+      packages.observes.env.target-redshift.runtime
+    ];
   };
   name = "observes-target-redshift";
-  template = path "/makes/applications/observes/target-redshift/entrypoint.sh";
+  template = path "/makes/packages/observes/generic/runner/runner_entrypoint.sh";
 }
