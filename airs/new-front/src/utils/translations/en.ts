@@ -54,6 +54,41 @@ const pageTexts: ResourceKey = {
     phrase: "HACKING WITH SPEED AND PRECISION",
     question: "ARE YOU GOING FAST IN THE WRONG DIRECTION?",
   },
+  people: {
+    fluidAttacks: {
+      description:
+        "We are a dedicated and enthusiastic company. " +
+        "We are focused on software hacking, " +
+        "finding vulnerabilities in a wide range of information systems " +
+        "comprehensively, passionately and quickly for all our clients.",
+      title: "Fluid Attacks",
+    },
+    hackingTeam: {
+      description:
+        "Our highly certified experts make up a robust red team " +
+        "divided into sub-teams, depending on their specialties. " +
+        "They are continuously attacking and testing, " +
+        "as well as developing new applications or tools.",
+      title: "Hacking Team",
+    },
+    marketing: {
+      description:
+        "All above-mentioned experts work alongside our marketing " +
+        "and sales professionals who, " +
+        "thanks to their extensive knowledge and commitment, " +
+        "enable us to stand out from our competitors.",
+      title: "Marketing & Sales Teams",
+    },
+    product: {
+      description:
+        "In addition to having experts helping our clients " +
+        "discover their risks, we also have professionals who " +
+        "provide them with sufficient guidance regarding " +
+        "the products and solutions in their projects " +
+        "in order to offer their users secure systems.",
+      title: "Product & Projects Teams",
+    },
+  },
   resources: {
     cardsText: {
       buttons: {
