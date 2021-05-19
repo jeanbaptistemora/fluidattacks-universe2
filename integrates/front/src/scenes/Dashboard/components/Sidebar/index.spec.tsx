@@ -27,8 +27,6 @@ describe("Sidebar", (): void => {
           onOpenAddUserModal={functionMock}
           onOpenConfig={functionMock}
           onToggle={functionMock}
-          userEmail={"test@test.com"}
-          userRole={"Unit role"}
         />
       </MemoryRouter>
     );

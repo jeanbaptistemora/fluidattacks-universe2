@@ -73,8 +73,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
     return isLogin || isGoogleLogin;
   }, []);
 
-  const { userEmail }: IAuthContext = useContext(authContext);
-
   const [userRole, setUserRole] = useState<string | undefined>(undefined);
 
   const [isTokenModalOpen, setTokenModalOpen] = useState(false);
@@ -237,12 +235,10 @@ export const Dashboard: React.FC = (): JSX.Element => {
         onOpenAddUserModal={openUserModal}
         onOpenConfig={openConfigModal}
         onToggle={toggleSidebar}
-        userEmail={userEmail}
-        userRole={userRole}
       />
       <DashboardContent id={"dashboard"}>
         <DashboardHeader>
-          <Navbar />
+          <Navbar userRole={userRole} />
         </DashboardHeader>
         <main>
           <Switch>

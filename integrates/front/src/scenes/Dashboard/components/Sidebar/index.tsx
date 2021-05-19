@@ -8,7 +8,6 @@ import {
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import _ from "lodash";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -35,8 +34,6 @@ import { translate } from "utils/translations/translate";
 interface ISidebarProps {
   collapsed: boolean;
   isLoading: boolean;
-  userEmail: string;
-  userRole: string | undefined;
   onLogoutClick: () => void;
   onOpenAccessTokenModal: () => void;
   onOpenAddOrganizationModal: () => void;
@@ -51,8 +48,6 @@ const Sidebar: React.FC<ISidebarProps> = (
   const {
     collapsed,
     isLoading,
-    userEmail,
-    userRole,
     onLogoutClick,
     onOpenAccessTokenModal,
     onOpenAddOrganizationModal,
@@ -132,17 +127,6 @@ const Sidebar: React.FC<ISidebarProps> = (
       {isLoading ? <Preloader /> : undefined}
       {collapsed ? undefined : (
         <ExtraInfo>
-          <div>
-            <small>{userEmail}</small>
-          </div>
-          {_.isUndefined(userRole) || _.isEmpty(userRole) ? undefined : (
-            <div>
-              <small>
-                {translate.t("sidebar.role")}&nbsp;
-                {translate.t(`userModal.roles.${_.camelCase(userRole)}`)}
-              </small>
-            </div>
-          )}
           <div>
             <small>
               {translate.t("sidebar.deploymentDate")}&nbsp;

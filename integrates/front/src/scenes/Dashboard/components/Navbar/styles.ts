@@ -18,8 +18,6 @@ const NavbarMenu = styled.ul.attrs({
   className: "f4 flex items-center list mb0 ph0",
 })`
   li {
-    color: #777;
-    cursor: pointer;
     padding: 0 12px;
   }
 `;

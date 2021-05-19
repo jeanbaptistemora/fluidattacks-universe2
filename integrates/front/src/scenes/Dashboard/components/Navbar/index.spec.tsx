@@ -57,7 +57,7 @@ describe("Navbar", (): void => {
             <authContext.Provider
               value={{ userEmail: "test@fluidattacks.com", userName: "" }}
             >
-              <Navbar />
+              <Navbar userRole={"customer"} />
             </authContext.Provider>
           </MockedProvider>
         </Provider>

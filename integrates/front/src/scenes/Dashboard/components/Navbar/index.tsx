@@ -11,6 +11,7 @@ import { HelpWidget } from "./HelpWidget";
 import { NewsWidget } from "./NewsWidget";
 import { SplitButton } from "./SplitButton";
 import { NavbarContainer, NavbarHeader, NavbarMenu } from "./styles";
+import { UserProfile } from "./UserProfile";
 
 import { MenuItem } from "components/DropdownButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -26,7 +27,13 @@ import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import { alphaNumeric } from "utils/validations";
 
-export const Navbar: React.FC = (): JSX.Element => {
+interface INavbarProps {
+  userRole: string | undefined;
+}
+
+export const Navbar: React.FC<INavbarProps> = ({
+  userRole,
+}: INavbarProps): JSX.Element => {
   const { push } = useHistory();
   const { pathname } = useLocation();
   const [lastOrganization, setLastOrganization] = useStoredState(
@@ -198,6 +205,9 @@ export const Navbar: React.FC = (): JSX.Element => {
           </li>
           <li>
             <HelpWidget />
+          </li>
+          <li>
+            <UserProfile userRole={userRole} />
           </li>
         </NavbarMenu>
       </NavbarContainer>
