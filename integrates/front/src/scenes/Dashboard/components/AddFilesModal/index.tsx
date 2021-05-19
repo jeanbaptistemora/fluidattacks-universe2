@@ -8,7 +8,7 @@ import { mixed, object, string } from "yup";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { renderUploadBar } from "scenes/Dashboard/components/AddFilesModal/renderUploadBar";
-import { IAddFilesModalProps } from "scenes/Dashboard/components/AddFilesModal/types.ts";
+import { IAddFilesModalProps } from "scenes/Dashboard/components/AddFilesModal/types";
 import {
   ButtonToolbar,
   Col100,

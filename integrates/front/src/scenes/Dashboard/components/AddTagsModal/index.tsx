@@ -103,7 +103,7 @@ const AddTagsModal: React.FC<IAddTagsModalProps> = (
         >
           {({ pristine }: InjectedFormProps): JSX.Element => (
             <React.Fragment>
-              <FieldArray component={renderTagsFields} name={"tags"} />
+              <FieldArray component={renderTagsFields} name={"tags"} x={{}} />
               <hr />
               <Row>
                 <Col100>
