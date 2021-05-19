@@ -22,7 +22,6 @@ makeTemplate {
       self
     ];
     envPython38Paths = [
-      nixpkgs.python38Packages.psycopg2
       postgres-client.runtime.python
     ];
   };
