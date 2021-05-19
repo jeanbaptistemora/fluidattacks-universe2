@@ -8,13 +8,22 @@ import styles from './styles.module.css';
 
 const features = [
   {
-    title: 'App',
+    title: 'About',
     description: (
       <>
-        Here are our UI guides for the Attack Surface Manager
+        Here you can find some useful information about us
       </>
     ),
-    link: 'web'
+    link: 'about'
+  },
+  {
+    title: 'Machine',
+    description: (
+      <>
+        Guides and information about our Machine plan
+      </>
+    ),
+    link: 'machine'
   },
   {
     title: 'Squad',
@@ -42,6 +51,15 @@ const features = [
       </>
     ),
     link: 'types'
+  },
+  {
+    title: 'Security',
+    description: (
+      <>
+        Take a look at the principles that matter must to us as a security company
+      </>
+    ),
+    link: 'security'
   },
   {
     title: 'Development',
