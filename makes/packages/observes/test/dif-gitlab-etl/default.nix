@@ -12,7 +12,7 @@ makeDerivation {
   searchPaths = {
     envSources = [
       packages.observes.generic.tester
-      packages.observes.env.development.dif-gitlab-etl
+      packages.observes.env.gitlab-etl.development
     ];
   };
   builder = path "/makes/packages/observes/generic/tester/test_builder.sh";

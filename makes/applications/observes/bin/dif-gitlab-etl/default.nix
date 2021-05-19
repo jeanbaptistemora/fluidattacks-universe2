@@ -10,7 +10,7 @@ makeEntrypoint {
   searchPaths = {
     envSources = [
       packages.observes.generic.runner
-      packages.observes.env.runtime.dif-gitlab-etl
+      packages.observes.env.gitlab-etl.runtime
     ];
   };
   name = "observes-bin-dif-gitlab-etl";

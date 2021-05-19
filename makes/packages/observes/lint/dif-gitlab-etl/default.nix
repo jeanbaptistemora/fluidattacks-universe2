@@ -11,7 +11,7 @@ makeDerivation {
   searchPaths = {
     envSources = [
       packages.observes.generic.linter
-      packages.observes.env.development.dif-gitlab-etl
+      packages.observes.env.gitlab-etl.development
     ];
   };
   builder = path "/makes/packages/observes/generic/linter/lint_builder.sh";
