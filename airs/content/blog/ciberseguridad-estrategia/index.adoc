@@ -5,13 +5,13 @@
 :tags: cybersecurity, mistake, risk, business, company, hacking
 :image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330844/blog/cybersecurity-strategy/cover_pxhwlz.webp
 :alt: Photo by Joanna Kosinska on Unsplash
-:description: Un artículo reciente sugiere que la ciberseguridad como una incorporación estratégica y no operativa. Aquí discutimos algunas ideas de ese artículo.
+:description: Un artículo reciente sugiere elevar a la ciberseguridad de una incorporación operativa a una estratégica. Aquí discutimos algunas ideas de ese artículo.
 :keywords: Cybersecurity, Mistake, Risk, Strategy, Business, Company, Ethical Hacking, Pentesting
 :author: Julian Arango
 :writer: jarango
 :name: Julian Arango
-:about1: Estrategia comportamental
-:about2: Ciencia de datos en entrenamiento
+:about1: Estratega comportamental
+:about2: Científico de datos en formación.
 :source: https://unsplash.com/photos/1_CMoFsPfso
 
 = Ciberseguridad como estrategia
