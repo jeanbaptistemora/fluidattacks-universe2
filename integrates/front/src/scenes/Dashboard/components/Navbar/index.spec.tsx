@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 import waitForExpect from "wait-for-expect";
 
-import { SplitButton } from "./components/splitbutton";
+import { SplitButton } from "./SplitButton";
 
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { NavbarComponent } from "scenes/Dashboard/components/Navbar";

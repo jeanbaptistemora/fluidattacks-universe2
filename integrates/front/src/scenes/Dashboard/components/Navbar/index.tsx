@@ -8,16 +8,16 @@ import { withRouter } from "react-router";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { Field } from "redux-form";
 
-import { SplitButton } from "./components/splitbutton";
+import { HelpWidget } from "./HelpWidget";
+import { NewsWidget } from "./NewsWidget";
+import { SplitButton } from "./SplitButton";
 import { NavbarContainer, NavbarHeader, NavbarMenu } from "./styles";
 
-import { HelpWidget } from "../HelpWidget";
 import { MenuItem } from "components/DropdownButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
 import { stylizeBreadcrumbItem } from "scenes/Dashboard/components/Navbar/utils";
-import { NewsWidget } from "scenes/Dashboard/components/NewsWidget";
 import { BreadCrumb, NavSplitButtonContainer } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Text } from "utils/forms/fields";

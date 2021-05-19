@@ -343,60 +343,6 @@ const ModalTitle: StyledComponent<
   className: "color-inherit fw3 f3 lh-solid ma0 montserrat tc",
 })``;
 
-const NavBarCollapse: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "flex items-center nav-collapse",
-})``;
-
-const NavBarForm: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "navbar-form",
-})``;
-
-const NavBarFormGroup: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "nav-group flex items-center",
-})``;
-
-const NavBarHeader: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "flex navbar-header",
-})``;
-
-const NavItem: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "nav-item",
-})``;
-
-const NavBarDivSpace: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "ph3",
-})``;
-
 const NavSplitButtonContainer: StyledComponent<
   "div",
   Record<string, unknown>
@@ -696,12 +642,6 @@ export {
   ModalFooter,
   ModalHeader,
   ModalTitle,
-  NavBarCollapse,
-  NavBarForm,
-  NavBarFormGroup,
-  NavBarHeader,
-  NavBarDivSpace,
-  NavItem,
   NavSplitButtonContainer,
   Panel,
   PanelBody,

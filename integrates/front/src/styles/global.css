@@ -13,7 +13,6 @@ html,
 body,
 :global(#root) {
   height: 100%;
-  line-height: unset !important;
   overflow-x: hidden;
 }
 
@@ -121,10 +120,6 @@ label {
   margin-left: -1px;
 }
 
-:global .nav-item > span:hover {
-  color: #272727;
-}
-
 :global .paPoint {
   padding-left: 0.6rem;
   padding-right: 0.6rem;
@@ -220,41 +215,6 @@ label {
 :global .questionBtn:hover {
   background-color: unset !important;
   color: #272727 !important;
-}
-
-:global .navbar-form {
-  margin-bottom: 4px;
-  margin-top: 4px;
-}
-
-:global .nav-collapse {
-  list-style: none;
-}
-
-:global .nav-group input {
-  background: unset;
-  border: none;
-  border-left: 1px solid lightgray;
-  border-bottom: none;
-  border-right: none;
-}
-
-:global .nav-item {
-  color: #777;
-  padding: 10px;
-  display: inline-block;
-}
-
-@media (min-width: 768px) {
-  :global .navbar-header {
-    float: left;
-  }
-}
-
-@media (min-width: 768px) {
-  :global .nav-collapse {
-    float: right !important;
-  }
 }
 
 .light-fg {

@@ -20,7 +20,7 @@ const SidebarContainer = styled.aside.attrs({
 `;
 
 const SidebarMenu = styled.ul.attrs({
-  className: "pl0 list flex-auto content-start",
+  className: "pl0 list flex-auto",
 })``;
 
 const Logo = styled.img.attrs({
@@ -43,18 +43,18 @@ const MenuButton = styled.button.attrs({
 
 const Preloader = styled.img.attrs({
   alt: "Loading animation",
-  className: "content-end ml-auto",
+  className: "ml-auto",
   src: preloader,
 })`
   width: 100px;
 `;
 
 const ExtraInfo = styled.div.attrs({
-  className: "tr content-end white mr1",
+  className: "tr white mr1",
 })``;
 
 const LogoutButton = styled.button.attrs({
-  className: "bg-red f3 w-100 white bn pointer outline-0 content-end",
+  className: "bg-red f3 w-100 white bn pointer outline-0",
 })`
   height: 60px;
 `;

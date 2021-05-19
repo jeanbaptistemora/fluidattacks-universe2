@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const NavbarContainer = styled.nav.attrs({
-  className: "flex flex-wrap ph4",
+  className: "flex flex-wrap ph3",
 })`
   background-color: #f5f5f5;
   border-bottom: 2px #e4e4e4 solid;
@@ -15,11 +15,12 @@ const NavbarHeader = styled.div.attrs({
 })``;
 
 const NavbarMenu = styled.ul.attrs({
-  className: "flex items-center list mb0 ph0",
+  className: "f4 flex items-center list mb0 ph0",
 })`
   li {
     color: #777;
-    padding: 2px 12px;
+    cursor: pointer;
+    padding: 0 12px;
   }
 `;
 
