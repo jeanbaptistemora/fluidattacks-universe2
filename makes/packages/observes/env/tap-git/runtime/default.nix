@@ -1,21 +1,28 @@
-{ buildPythonPackage
-, makeTemplate
+{ makeTemplate
 , nixpkgs
+, packages
 , path
 , ...
 }:
+with packages.observes.env;
 let
-  self = buildPythonPackage {
-    name = "observes-tap-git";
-    packagePath = path "/observes/singer/tap_git";
-    python = nixpkgs.python38;
-  };
+  self = path "/observes/singer/tap_git";
 in
 makeTemplate {
   name = "observes-env-tap-git-runtime";
   searchPaths = {
-    envPython38Paths = [
+    envMypyPaths = [
       self
+    ];
+    envPaths = [
+      nixpkgs.git
+      tap-git.runtime.python
+    ];
+    envPythonPaths = [
+      self
+    ];
+    envPython38Paths = [
+      tap-git.runtime.python
     ];
   };
 }
