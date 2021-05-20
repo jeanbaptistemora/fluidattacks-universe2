@@ -326,7 +326,6 @@ label {
   font-weight: bold;
   box-shadow: none !important;
   text-transform: capitalize;
-  padding: 0;
 }
 
 :global .split-button > div > button + button + div > button {
@@ -347,12 +346,6 @@ label {
 :global .split-button > div > button:focus {
   outline: none !important;
   box-shadow: none !important;
-}
-
-:global .split-button > div > button:nth-child(2) {
-  padding-right: 0.5rem !important;
-  padding-left: 1rem !important;
-  top: -0.1rem !important;
 }
 
 :global .splitItems {
