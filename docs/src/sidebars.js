@@ -38,6 +38,107 @@ module.exports = {
         'about/sla/response',
       ],
     },
+    {
+      type: 'category',
+      label: 'Security',
+      items: [
+        'about/security/introduction',
+        {
+          type: 'category',
+          label: 'Transparency',
+          items: [
+            'about/security/transparency/open-source',
+            'about/security/transparency/public-indidents',
+            'about/security/transparency/data-leakage-policy',
+            'about/security/transparency/help-channel',
+            'about/security/transparency/status-page',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Confidentiality',
+          items: [
+            'about/security/confidentiality/encryption-rest',
+            'about/security/confidentiality/encryption-transit',
+            'about/security/confidentiality/hacking-our-technology',
+            'about/security/confidentiality/personnel-nda',
+            'about/security/confidentiality/hire-directly',
+            'about/security/confidentiality/formatting-data',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Authentication',
+          items: [
+            'about/security/authentication/clients',
+            'about/security/authentication/internal',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Authorization',
+          items: [
+            'about/security/authorization/clients',
+            'about/security/authorization/internal',
+            'about/security/authorization/secret-rotation',
+            'about/security/authorization/access-revocation',
+            'about/security/authorization/secure-mobile-policies',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Privacy',
+          items: [
+            'about/security/privacy/project-pseudonymization',
+            'about/security/privacy/email-obfuscation',
+            'about/security/privacy/secure-data-delivery',
+            'about/security/privacy/unsubscribe-email',
+            'about/security/privacy/transparent-cookie-usage',
+            'about/security/privacy/data-policies',
+            'about/security/privacy/otr-messaging',
+            'about/security/privacy/employee-time-tracking',
+            'about/security/privacy/polygraph-tests',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Non-repudiation',
+          items: [
+            'about/security/non-repudiation/everything-as-code',
+            'about/security/non-repudiation/extensive-logs'
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Availability',
+          items: [
+            'about/security/availability/distributed-applications',
+            'about/security/availability/distributed-firewall',
+            'about/security/availability/everything-backed-up',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Resilience',
+          items: [
+            'about/security/resilience/redundant-roles',
+            'about/security/resilience/everything-decentralized',
+            'about/security/resilience/equipment-telecommuting',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Integrity',
+          items: [
+            'about/security/integrity/certified-hackers',
+            'about/security/integrity/hiring-process',
+            'about/security/integrity/secure-emails',
+            'about/security/integrity/developing-integrity',
+            'about/security/integrity/static-website',
+          ],
+        },
+      ],
+    },
     'about/glossary',
   ],
   Criteria: [
@@ -681,103 +782,6 @@ module.exports = {
     'types/f119',
     'types/f120',
     'types/f121',
-  ],
-  Security: [
-    'security/introduction',
-    {
-      type: 'category',
-      label: 'Transparency',
-      items: [
-        'security/transparency/open-source',
-        'security/transparency/public-indidents',
-        'security/transparency/data-leakage-policy',
-        'security/transparency/help-channel',
-        'security/transparency/status-page',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Confidentiality',
-      items: [
-        'security/confidentiality/encryption-rest',
-        'security/confidentiality/encryption-transit',
-        'security/confidentiality/hacking-our-technology',
-        'security/confidentiality/personnel-nda',
-        'security/confidentiality/hire-directly',
-        'security/confidentiality/formatting-data',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Authentication',
-      items: [
-        'security/authentication/clients',
-        'security/authentication/internal',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Authorization',
-      items: [
-        'security/authorization/clients',
-        'security/authorization/internal',
-        'security/authorization/secret-rotation',
-        'security/authorization/access-revocation',
-        'security/authorization/secure-mobile-policies',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Privacy',
-      items: [
-        'security/privacy/project-pseudonymization',
-        'security/privacy/email-obfuscation',
-        'security/privacy/secure-data-delivery',
-        'security/privacy/unsubscribe-email',
-        'security/privacy/transparent-cookie-usage',
-        'security/privacy/data-policies',
-        'security/privacy/otr-messaging',
-        'security/privacy/employee-time-tracking',
-        'security/privacy/polygraph-tests',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Non-repudiation',
-      items: [
-        'security/non-repudiation/everything-as-code',
-        'security/non-repudiation/extensive-logs'
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Availability',
-      items: [
-        'security/availability/distributed-applications',
-        'security/availability/distributed-firewall',
-        'security/availability/everything-backed-up',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Resilience',
-      items: [
-        'security/resilience/redundant-roles',
-        'security/resilience/everything-decentralized',
-        'security/resilience/equipment-telecommuting',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Integrity',
-      items: [
-        'security/integrity/certified-hackers',
-        'security/integrity/hiring-process',
-        'security/integrity/secure-emails',
-        'security/integrity/developing-integrity',
-        'security/integrity/static-website',
-      ],
-    },
   ],
   Framework: {
     Framework: getDocs('framework'),

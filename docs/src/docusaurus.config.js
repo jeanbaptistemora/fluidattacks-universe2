@@ -54,12 +54,6 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'security/',
-          activeBasePath: 'security/',
-          label: 'Security',
-          position: 'left',
-        },
-        {
           to: 'development/',
           activeBasePath: 'development/',
           label: 'Development',

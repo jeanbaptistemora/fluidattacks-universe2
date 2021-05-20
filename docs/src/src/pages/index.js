@@ -53,15 +53,6 @@ const features = [
     link: 'types'
   },
   {
-    title: 'Security',
-    description: (
-      <>
-        Take a look at the principles that matter most to us as a security company
-      </>
-    ),
-    link: 'security'
-  },
-  {
     title: 'Development',
     description: (
       <>
