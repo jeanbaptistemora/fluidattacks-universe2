@@ -170,6 +170,17 @@ async def filter_non_fluid_staff(
     ]
 
 
+def get_invitation_state(
+    invitation: InvitationType,
+    stakeholder: StakeholderType
+) -> str:
+    if invitation and not invitation['is_used']:
+        return 'PENDING'
+    if not stakeholder.get('is_registered', False):
+        return 'UNREGISTERED'
+    return 'CONFIRMED'
+
+
 async def format_stakeholder(email: str, group_name: str) -> StakeholderType:
     stakeholder: StakeholderType = await get_by_email(email)
     group_access = await group_access_domain.get_user_access(
@@ -177,13 +188,7 @@ async def format_stakeholder(email: str, group_name: str) -> StakeholderType:
         group_name
     )
     invitation = cast(InvitationType, group_access.get('invitation'))
-    invitation_state = (
-        'PENDING'
-        if invitation and not invitation['is_used']
-        else 'UNREGISTERED'
-        if not stakeholder.get('is_registered', False)
-        else 'CONFIRMED'
-    )
+    invitation_state = get_invitation_state(invitation, stakeholder)
     if invitation_state == 'PENDING':
         responsibility = invitation['responsibility']
         group_role = invitation['role']
