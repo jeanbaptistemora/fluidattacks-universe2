@@ -1,4 +1,5 @@
 
+import asyncio
 import functools
 import inspect
 import logging
@@ -199,7 +200,11 @@ def enforce_group_level_auth_async(func: TVar) -> TVar:
         if not enforcer(object_, action):
             logs_utils.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError('Access denied')  # NOSONAR
-        return await _func(*args, **kwargs)
+
+        if asyncio.iscoroutinefunction(_func):
+            return await _func(*args, **kwargs)
+
+        return _func(*args, **kwargs)
     return cast(TVar, verify_and_call)
 
 

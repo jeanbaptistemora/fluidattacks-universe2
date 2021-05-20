@@ -107,6 +107,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
         },
         attrs={
             'inputs_vulns_new',
+            'lines_vulns_new',
             'ports_vulns_new',
         },
         dependencies=set(),
