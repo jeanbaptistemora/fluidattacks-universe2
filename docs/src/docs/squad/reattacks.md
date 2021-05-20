@@ -4,24 +4,37 @@ title: Re-attack
 sidebar_label: Re-attack
 slug: /squad
 ---
-
 When you have applied a solution
 for an existing vulnerability,
 you can request a reattack
 for us to validate this.
-This can be done by clicking
-on the Reattack button.
-This button can be found
-in the **Locations** tab
-of any of your **Open** vulnerabilities,
-it will not appear if you click on
-a **Closed** vulnerability
-and any user with access to a group
-can request a reattack.
+In order to do this,
+log into your ASM account
+and click on one of your groups to access it,
+when you are inside the group,
+you will be greeted
+by a list of all the types of vulnerabilities
+that the group has.
 
-![Enabled Reattack Button](/img/web/vulnerabilities/management/reattack_button_enabled.png)
+![Group Vulnerabilities Tab](/img/web/vulnerabilities/management/vuln_tab_reattacks.png)
 
-The button will deactivate
+Now look for the type of vulnerability
+that contains the individual vulnerability
+or vulnerabilities
+that you want to request a reattack for
+and click on it.
+By doing this you will land on
+the **Locations** tab of the type of vulnerability
+that you chose
+and here you will find the **Reattack** button,
+but only if the chosen vulnerability is **Open**,
+in case it is **Closed**,
+the button will not appear.
+
+![Enabled Reattacks Button](/img/web/vulnerabilities/management/reattack_button_enabled.png)
+
+When you click on it,
+the button will deactivate
 until you select the vulnerabilities
 you want to reattack
 

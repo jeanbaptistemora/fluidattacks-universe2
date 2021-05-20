@@ -23,7 +23,7 @@ const features = [
         Guides and information about our Machine plan
       </>
     ),
-    link: 'machine'
+    link: 'machine/app'
   },
   {
     title: 'Squad',
