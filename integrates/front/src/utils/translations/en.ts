@@ -805,8 +805,11 @@ export const enTranslations: ResourceKey = {
     microsoft: "Sign in with Microsoft",
     newuser: "If you are a new user, click below to sign up.",
   },
-  logout: "Log out",
   navbar: {
+    logout: {
+      text: "Log out",
+      tooltip: "Log out of Integrates",
+    },
     newsTooltip: "Latest updates about ASM",
     role: "Role:",
     searchPlaceholder: "Search Group Name",

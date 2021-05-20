@@ -2,7 +2,6 @@ import {
   faAngleDoubleLeft,
   faAngleDoubleRight,
   faFolderPlus,
-  faSignOutAlt,
   faUserCog,
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
@@ -13,14 +12,12 @@ import { Link } from "react-router-dom";
 import {
   ExtraInfo,
   Logo,
-  LogoutButton,
   Preloader,
   SidebarButton,
   SidebarContainer,
   SidebarMenu,
 } from "./styles";
 
-import { ConfirmDialog } from "components/ConfirmDialog";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
 import { Can } from "utils/authz/Can";
 import {
@@ -33,7 +30,6 @@ import { translate } from "utils/translations/translate";
 interface ISidebarProps {
   collapsed: boolean;
   isLoading: boolean;
-  onLogoutClick: () => void;
   onOpenAddOrganizationModal: () => void;
   onOpenAddUserModal: () => void;
   onOpenConfig: () => void;
@@ -46,7 +42,6 @@ const Sidebar: React.FC<ISidebarProps> = (
   const {
     collapsed,
     isLoading,
-    onLogoutClick,
     onOpenAddOrganizationModal,
     onOpenAddUserModal,
     onOpenConfig,
@@ -132,27 +127,6 @@ const Sidebar: React.FC<ISidebarProps> = (
           </div>
         </ExtraInfo>
       )}
-      <div>
-        <TooltipWrapper
-          id={"logOut"}
-          message={"Log out of Integrates"}
-          placement={"right"}
-        >
-          <ConfirmDialog title={"Logout"}>
-            {(confirm): React.ReactNode => {
-              function handleLogoutClick(): void {
-                confirm(onLogoutClick);
-              }
-
-              return (
-                <LogoutButton onClick={handleLogoutClick}>
-                  <FontAwesomeIcon icon={faSignOutAlt} />
-                </LogoutButton>
-              );
-            }}
-          </ConfirmDialog>
-        </TooltipWrapper>
-      </div>
     </SidebarContainer>
   );
 };

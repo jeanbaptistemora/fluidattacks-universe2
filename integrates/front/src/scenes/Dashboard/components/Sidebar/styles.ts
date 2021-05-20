@@ -53,16 +53,9 @@ const ExtraInfo = styled.div.attrs({
   className: "tr white mr1",
 })``;
 
-const LogoutButton = styled.button.attrs({
-  className: "bg-red f3 w-100 white bn pointer outline-0",
-})`
-  height: 60px;
-`;
-
 export {
   ExtraInfo,
   Logo,
-  LogoutButton,
   Preloader,
   SidebarButton,
   SidebarContainer,

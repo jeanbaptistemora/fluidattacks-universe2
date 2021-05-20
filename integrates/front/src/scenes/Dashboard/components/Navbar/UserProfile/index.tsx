@@ -1,16 +1,19 @@
 import {
   faCaretDown,
   faKey,
+  faSignOutAlt,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
+import { reset } from "mixpanel-browser";
 import React, { useCallback, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
 import { APITokenModal } from "../../APITokenModal";
 import { DropdownButton, DropdownMenu, NavbarButton } from "../styles";
+import { ConfirmDialog } from "components/ConfirmDialog";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { authContext } from "utils/auth";
 
@@ -73,7 +76,6 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
               <TooltipWrapper
                 id={"apiToken"}
                 message={t("navbar.token.tooltip")}
-                placement={"right"}
               >
                 <FontAwesomeIcon icon={faKey} />
                 &nbsp;
@@ -83,6 +85,32 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
             {isTokenModalOpen ? (
               <APITokenModal onClose={closeTokenModal} open={true} />
             ) : undefined}
+          </li>
+          <Divider />
+          <li>
+            <ConfirmDialog title={t("navbar.logout.text")}>
+              {(confirm): React.ReactNode => {
+                function handleLogoutClick(): void {
+                  confirm((): void => {
+                    reset();
+                    location.assign("/logout");
+                  });
+                }
+
+                return (
+                  <TooltipWrapper
+                    id={"logOut"}
+                    message={t("navbar.logout.tooltip")}
+                  >
+                    <DropdownButton onClick={handleLogoutClick}>
+                      <FontAwesomeIcon icon={faSignOutAlt} />
+                      &nbsp;
+                      {t("navbar.logout.text")}
+                    </DropdownButton>
+                  </TooltipWrapper>
+                );
+              }}
+            </ConfirmDialog>
           </li>
         </DropdownMenu>
       ) : undefined}

@@ -3,7 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import Bugsnag from "@bugsnag/js";
 import type { PureAbility } from "@casl/ability";
 import type { GraphQLError } from "graphql";
-import { identify, people, register, reset, track } from "mixpanel-browser";
+import { identify, people, register, track } from "mixpanel-browser";
 import React, { useCallback, useContext, useState } from "react";
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 
@@ -196,11 +196,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
 
   const currentYear: number = new Date().getFullYear();
 
-  const handleLogout = useCallback((): void => {
-    reset();
-    location.assign("/logout");
-  }, []);
-
   const [sidebarCollapsed, setSidebarCollapsed] = useStoredState(
     "sidebarCollapsed",
     false,
@@ -219,7 +214,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
       <Sidebar
         collapsed={sidebarCollapsed}
         isLoading={isLoading}
-        onLogoutClick={handleLogout}
         onOpenAddOrganizationModal={openOrganizationModal}
         onOpenAddUserModal={openUserModal}
         onOpenConfig={openConfigModal}
