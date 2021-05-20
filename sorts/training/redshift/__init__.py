@@ -1,7 +1,10 @@
 # Standard library
 from contextlib import contextmanager
 import os
-from typing import Iterator
+from typing import (
+    Dict,
+    Iterator
+)
 
 # Third party libraries
 from psycopg2 import connect
@@ -51,4 +54,33 @@ def initialize() -> None:
                 )
             )
             """
+        )
+
+
+def insert(training_result: Dict[str, str]) -> None:
+    with db_cursor() as cursor:
+        cursor.execute(
+            """
+                INSERT INTO sorts.training (
+                    timestamp,
+                    model,
+                    features,
+                    precision,
+                    recall,
+                    f_score,
+                    overfit,
+                    tuned_parameters
+                )
+                VALUES (
+                    get_date(),
+                    %(model)s,
+                    %(features)s,
+                    %(precision)s,
+                    %(recall)s,
+                    %(f1_score)s,
+                    %(overfit)s,
+                    %(tuned_parameters)s
+                )
+            """,
+            training_result
         )
