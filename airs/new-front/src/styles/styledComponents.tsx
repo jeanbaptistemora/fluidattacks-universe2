@@ -741,10 +741,10 @@ const MarkedTitle: StyledComponent<
   Record<string, unknown>
 > = styled.h1.attrs({
   className: `
-    c-fluid-bk 
+    c-fluid-bk
     f1-s
     f-375
-    neue 
+    neue
     ml3
   `,
 })``;
@@ -754,10 +754,10 @@ const MarkedTitleContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    bg-lightgray 
-    center 
-    flex 
-    flex-wrap 
+    bg-lightgray
+    center
+    flex
+    flex-wrap
     mw-1200
   `,
 })``;
@@ -776,12 +776,12 @@ const MarkedPhrase: StyledComponent<
   Record<string, unknown>
 > = styled.p.attrs({
   className: `
-    f3 
+    f3
     c-black-gray
-    lh-title 
-    normal 
-    roboto 
-    tl 
+    lh-title
+    normal
+    roboto
+    tl
     w-60-ns
   `,
 })``;
@@ -791,22 +791,78 @@ const LittleBannerContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-      bg-banner-sz
-      nt-5
-      cover
-      h-banner
-      justify-center
-      items-center
-      flex bg-center
-      mw-1366
-      ml-auto
-      mr-auto
-    `,
+    bg-banner-sz
+    nt-5
+    cover
+    h-banner
+    justify-center
+    items-center
+    flex bg-center
+    mw-1366
+    ml-auto
+    mr-auto
+  `,
+})``;
+
+const BlogItemTitle: StyledComponent<
+  "h1",
+  Record<string, unknown>
+> = styled.h1.attrs({
+  className: `
+    tc
+    roboto
+    pv4
+  `,
+})``;
+
+const BlogItemListContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    roboto
+    ml6-l
+    ml4-m
+  `,
+})``;
+
+const BlogItemList: StyledComponent<
+  "ul",
+  Record<string, unknown>
+> = styled.ul.attrs({
+  className: `
+    three-columns-l
+    two-columns-m
+  `,
+})``;
+
+const BlogItemItem: StyledComponent<
+  "li",
+  Record<string, unknown>
+> = styled.li.attrs({
+  className: `
+    pv2
+  `,
+})``;
+
+const BlogItemName: StyledComponent<
+  "p",
+  Record<string, unknown>
+> = styled.p.attrs({
+  className: `
+    di
+    ttc
+  `,
 })``;
 
 export {
   ArticleContainer,
   ArticleTitle,
+  BlogItemName,
+  BlogItemItem,
+  BlogItemList,
+  BlogItemListContainer,
+  BlogItemTitle,
   BannerContainer,
   BannerSubtitle,
   BannerTitle,
