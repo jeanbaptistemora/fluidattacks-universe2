@@ -144,7 +144,8 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
       "kms:Describe*",
       "kms:CreateKey",
       "kms:CreateAlias",
-      "kms:UpdateAlias"
+      "kms:DeleteAlias",
+      "kms:UpdateAlias",
     ]
     resources = ["*"]
   }
