@@ -4,10 +4,16 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { faCheck, faMinus, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { GraphQLError } from "graphql";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
+
+import {
+  handleOrgFindingPolicyDeactivation,
+  handleOrgFindingPolicyDeactivationError,
+  handleOrgFindingPolicyError,
+  handleOrgFindingPolicyNotification,
+} from "./helpers";
 
 import { Button } from "components/Button";
 import type { IConfirmFn } from "components/ConfirmDialog";
@@ -22,8 +28,6 @@ import {
 import type { IFindingPoliciesData } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/types";
 import { GET_ORGANIZATION_POLICIES } from "scenes/Dashboard/containers/OrganizationPoliciesView/queries";
 import { authzPermissionsContext } from "utils/authz/config";
-import { Logger } from "utils/logger";
-import { msgError, msgSuccess } from "utils/notifications";
 
 interface IOrganizationFindingPolicies extends IFindingPoliciesData {
   organizationId: string;
@@ -54,42 +58,10 @@ const OrganizationFindingPolicy: React.FC<IOrganizationFindingPolicies> = ({
       onCompleted: (result: {
         handleOrgFindingPolicyAcceptation: { success: boolean };
       }): void => {
-        if (result.handleOrgFindingPolicyAcceptation.success) {
-          if (handlePolicyStatus === "APPROVED") {
-            msgSuccess(
-              t(
-                "organization.tabs.policies.findings.handlePolicies.success.approved"
-              ),
-              t("sidebar.newOrganization.modal.successTitle")
-            );
-          } else {
-            msgSuccess(
-              t(
-                "organization.tabs.policies.findings.handlePolicies.success.rejected"
-              ),
-              t("sidebar.newOrganization.modal.successTitle")
-            );
-          }
-        }
+        handleOrgFindingPolicyNotification(result, handlePolicyStatus);
       },
       onError: (error: ApolloError): void => {
-        error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-          switch (message) {
-            case "Exception - Finding name policy not found":
-              msgError(
-                t("organization.tabs.policies.findings.errors.notFound")
-              );
-              break;
-            case "Exception - This policy has already been reviewed":
-              msgError(
-                t("organization.tabs.policies.findings.errors.alreadyReviewd")
-              );
-              break;
-            default:
-              msgError(t("groupAlerts.errorTextsad"));
-              Logger.error("Error handling finding policy", message);
-          }
-        });
+        handleOrgFindingPolicyError(error);
       },
       refetchQueries: [
         {
@@ -108,24 +80,10 @@ const OrganizationFindingPolicy: React.FC<IOrganizationFindingPolicies> = ({
       onCompleted: (result: {
         deactivateOrgFindingPolicy: { success: boolean };
       }): void => {
-        if (result.deactivateOrgFindingPolicy.success) {
-          msgSuccess(
-            t("organization.tabs.policies.findings.deactivatePolicies.success"),
-            t("sidebar.newOrganization.modal.successTitle")
-          );
-        }
+        handleOrgFindingPolicyDeactivation(result);
       },
       onError: (error: ApolloError): void => {
-        error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-          if (message === "Exception - This policy has already been reviewed") {
-            msgError(
-              t("organization.tabs.policies.findings.errors.alreadyReviewd")
-            );
-          } else {
-            msgError(t("groupAlerts.errorTextsad"));
-            Logger.warning("Error deactivating finding policy", message);
-          }
-        });
+        handleOrgFindingPolicyDeactivationError(error);
       },
       refetchQueries: [
         {
