@@ -29,3 +29,26 @@ def db_cursor() -> Iterator[cursor_cls]:
             cursor.close()
     finally:
         connection.close()
+
+
+def initialize() -> None:
+    with db_cursor() as cursor:
+        cursor.execute('CREATE SCHEMA IF NOT EXISTS sorts')
+        cursor.execute(
+            """
+            CREATE TABLE IF NOT EXISTS sorts.training (
+                timestamp TIMESTAMPTZ,
+                model VARCHAR(256),
+                features VARCHAR(256),
+                precision FLOAT,
+                recall FLOAT,
+                f_score FLOAT,
+                overfit FLOAT,
+                tuned_parameters VARCHAR(256)
+
+                PRIMARY KEY (
+                    timestamp
+                )
+            )
+            """
+        )
