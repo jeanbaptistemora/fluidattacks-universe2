@@ -11,12 +11,18 @@ from . import query
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('remove_stakeholder_access')
-async def test_admin(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['admin@gmail.com'],
+    ]
+)
+async def test_remove_stakeholder_access(populate: bool, email: str):
     assert populate
     stakeholder_email: str = 'admin@gmail.com'
     group_name: str = 'group1'
     result: Dict[str, Any] = await query(
-        user='admin@gmail.com',
+        user=email,
         group=group_name,
         stakeholder=stakeholder_email,
     )
@@ -26,12 +32,19 @@ async def test_admin(populate: bool):
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('remove_stakeholder_access')
-async def test_analyst(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['analyst@gmail.com'],
+        ['closer@gmail.com'],
+    ]
+)
+async def test_remove_stakeholder_access_fail(populate: bool, email: str):
     assert populate
     stakeholder_email: str = 'analyst@gmail.com'
     group_name: str = 'group1'
     result: Dict[str, Any] = await query(
-        user='analyst@gmail.com',
+        user=email,
         group=group_name,
         stakeholder=stakeholder_email,
     )
