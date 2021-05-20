@@ -44,7 +44,6 @@ import {
   groupLevelPermissions,
   organizationLevelPermissions,
 } from "utils/authz/config";
-import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -196,15 +195,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
 
   const currentYear: number = new Date().getFullYear();
 
-  const [sidebarCollapsed, setSidebarCollapsed] = useStoredState(
-    "sidebarCollapsed",
-    false,
-    localStorage
-  );
-  const toggleSidebar = useCallback((): void => {
-    setSidebarCollapsed(!sidebarCollapsed);
-  }, [setSidebarCollapsed, sidebarCollapsed]);
-
   const status = useApolloNetworkStatus();
   const isLoading: boolean =
     status.numPendingQueries > 0 || status.numPendingMutations > 0;
@@ -212,12 +202,10 @@ export const Dashboard: React.FC = (): JSX.Element => {
   return (
     <DashboardContainer>
       <Sidebar
-        collapsed={sidebarCollapsed}
         isLoading={isLoading}
         onOpenAddOrganizationModal={openOrganizationModal}
         onOpenAddUserModal={openUserModal}
         onOpenConfig={openConfigModal}
-        onToggle={toggleSidebar}
       />
       <DashboardContent id={"dashboard"}>
         <DashboardHeader>

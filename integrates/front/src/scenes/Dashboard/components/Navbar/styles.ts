@@ -18,13 +18,12 @@ const NavbarMenu = styled.ul.attrs({
   className: "f4 flex items-center list mb0 ph0",
 })`
   & li {
-    padding: 0 8px;
     position: relative;
   }
 `;
 
 const NavbarButton = styled.button.attrs({
-  className: "bn flex gray outline-0 pointer",
+  className: "bn flex gray outline-0 ph3 pv2 pointer",
 })`
   background: none;
 `;
@@ -35,13 +34,12 @@ const DropdownMenu = styled.ul.attrs({
   min-width: 240px;
   right: 0;
   & li {
-    color: black;
     padding: 0;
   }
 `;
 
 const DropdownButton = styled.button.attrs({
-  className: "bn hover-bg-light-gray outline-0 ph3 pv2 pointer tl w-100",
+  className: "bn gray hover-bg-light-gray outline-0 ph3 pv2 pointer tl w-100",
 })`
   background: none;
   & svg {

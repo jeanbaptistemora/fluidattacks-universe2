@@ -6,7 +6,7 @@ import {
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useCallback } from "react";
 import { Link } from "react-router-dom";
 
 import {
@@ -19,39 +19,34 @@ import {
 
 import { TooltipWrapper } from "components/TooltipWrapper/index";
 import { Can } from "utils/authz/Can";
+import { useStoredState } from "utils/hooks";
 import { translate } from "utils/translations/translate";
 
 interface ISidebarProps {
-  collapsed: boolean;
   isLoading: boolean;
   onOpenAddOrganizationModal: () => void;
   onOpenAddUserModal: () => void;
   onOpenConfig: () => void;
-  onToggle: () => void;
 }
 
-const Sidebar: React.FC<ISidebarProps> = (
-  props: ISidebarProps
-): JSX.Element => {
-  const {
-    collapsed,
-    isLoading,
-    onOpenAddOrganizationModal,
-    onOpenAddUserModal,
-    onOpenConfig,
-    onToggle,
-  } = props;
+const Sidebar: React.FC<ISidebarProps> = ({
+  isLoading,
+  onOpenAddOrganizationModal,
+  onOpenAddUserModal,
+  onOpenConfig,
+}: ISidebarProps): JSX.Element => {
+  const [collapsed, setCollapsed] = useStoredState(
+    "sidebarCollapsed",
+    true,
+    localStorage
+  );
+  const toggleSidebar = useCallback((): void => {
+    setCollapsed((currentValue): boolean => !currentValue);
+  }, [setCollapsed]);
 
   return (
     <SidebarContainer collapsed={collapsed}>
       <SidebarMenu>
-        <li>
-          <SidebarButton onClick={onToggle}>
-            <FontAwesomeIcon
-              icon={collapsed ? faAngleDoubleRight : faAngleDoubleLeft}
-            />
-          </SidebarButton>
-        </li>
         <li>
           <Link to={"/home"}>
             <Logo />
@@ -99,6 +94,11 @@ const Sidebar: React.FC<ISidebarProps> = (
         </li>
       </SidebarMenu>
       {isLoading ? <Preloader /> : undefined}
+      <SidebarButton onClick={toggleSidebar}>
+        <FontAwesomeIcon
+          icon={collapsed ? faAngleDoubleRight : faAngleDoubleLeft}
+        />
+      </SidebarButton>
     </SidebarContainer>
   );
 };
