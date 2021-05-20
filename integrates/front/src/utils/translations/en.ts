@@ -902,7 +902,7 @@ export const enTranslations: ResourceKey = {
         findings: {
           addPolicies: {
             success:
-              "Remember that the aplication of the policy requires the approval of a user with manager role",
+              "Remember that the application of the policy requires the approval of a user with manager role",
           },
           deactivatePolicies: {
             modalTitle: "Disable organization finding policy",
@@ -920,6 +920,7 @@ export const enTranslations: ResourceKey = {
               rejected: "The policy was rejected successfully",
             },
           },
+          title: "Organization Findings Policies",
           tooltip: {
             addButton: "Add organization policy pending to approve",
             approveButton: "Approve organization finding policy",

@@ -59,6 +59,7 @@ describe("Organization policies view", (): void => {
         result: {
           data: {
             organization: {
+              findingPolicies: [],
               maxAcceptanceDays: null,
               maxAcceptanceSeverity: 10,
               maxNumberAcceptations: null,
@@ -155,7 +156,7 @@ describe("Organization policies view", (): void => {
         await waitForExpect((): void => {
           wrapper.update();
 
-          expect(msgError).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+          expect(msgError).toHaveBeenCalledTimes(1);
           expect(wrapper.find("table")).toHaveLength(0);
         });
       }
@@ -176,6 +177,7 @@ describe("Organization policies view", (): void => {
         result: {
           data: {
             organization: {
+              findingPolicies: [],
               maxAcceptanceDays: 5,
               maxAcceptanceSeverity: 7.5,
               maxNumberAcceptations: 5,
@@ -215,6 +217,7 @@ describe("Organization policies view", (): void => {
         result: {
           data: {
             organization: {
+              findingPolicies: [],
               maxAcceptanceDays: 2,
               maxAcceptanceSeverity: 8.9,
               maxNumberAcceptations: 1,
@@ -310,7 +313,7 @@ describe("Organization policies view", (): void => {
         await waitForExpect((): void => {
           wrapper.update();
 
-          expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+          expect(msgSuccess).toHaveBeenCalledTimes(1);
           expect(
             wrapper
               .find({ name: "maxAcceptanceDays" })
@@ -336,6 +339,7 @@ describe("Organization policies view", (): void => {
         result: {
           data: {
             organization: {
+              findingPolicies: [],
               maxAcceptanceDays: 5,
               maxAcceptanceSeverity: 7.5,
               maxNumberAcceptations: 2,
@@ -417,6 +421,7 @@ describe("Organization policies view", (): void => {
         result: {
           data: {
             organization: {
+              findingPolicies: [],
               maxAcceptanceDays: 5,
               maxAcceptanceSeverity: 7.5,
               maxNumberAcceptations: 2,

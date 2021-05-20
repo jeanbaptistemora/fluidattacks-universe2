@@ -119,7 +119,7 @@ const FindingPolicies: React.FC<IFindingPolicies> = ({
           group.findings.map(
             (
               finding: IOrganizationFindingTitles["organization"]["projects"][0]["findings"][0]
-            ): string => finding.title
+            ): string => _.first(finding.title.split(" -")) as string
           )
       )
     );
@@ -138,28 +138,30 @@ const FindingPolicies: React.FC<IFindingPolicies> = ({
           <Row>
             <div className={"w-50-l w-50-m w-auto-ns"} />
             <div className={"w-50-l w-50-m w-100-ns"}>
-              <div className={"flex items-start"}>
-                <div className={"w-90-ns"}>
-                  <Field
-                    component={FormikAutocompleteText}
-                    name={"name"}
-                    suggestions={suggestions}
-                    validate={composeValidators([required, validDraftTitle])}
-                  />
+              {_.isUndefined(data) ? undefined : (
+                <div className={"flex items-start"}>
+                  <div className={"w-90-ns"}>
+                    <Field
+                      component={FormikAutocompleteText}
+                      name={"name"}
+                      suggestions={suggestions}
+                      validate={composeValidators([required, validDraftTitle])}
+                    />
+                  </div>
+                  <div className={"w-10-ns"}>
+                    <TooltipWrapper
+                      id={"addButtonToolTip"}
+                      message={t(
+                        "organization.tabs.policies.findings.tooltip.addButton"
+                      )}
+                    >
+                      <Button disabled={submitting} type={"submit"}>
+                        <FontAwesomeIcon icon={faPlus} />
+                      </Button>
+                    </TooltipWrapper>
+                  </div>
                 </div>
-                <div className={"w-10-ns"}>
-                  <TooltipWrapper
-                    id={"addButtonToolTip"}
-                    message={t(
-                      "organization.tabs.policies.findings.tooltip.addButton"
-                    )}
-                  >
-                    <Button disabled={submitting} type={"submit"}>
-                      <FontAwesomeIcon icon={faPlus} />
-                    </Button>
-                  </TooltipWrapper>
-                </div>
-              </div>
+              )}
             </div>
           </Row>
         </Form>

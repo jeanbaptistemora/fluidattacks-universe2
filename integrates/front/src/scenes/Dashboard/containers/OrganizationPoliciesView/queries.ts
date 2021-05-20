@@ -4,6 +4,12 @@ import type { DocumentNode } from "graphql";
 const GET_ORGANIZATION_POLICIES: DocumentNode = gql`
   query GetOrganizationPolicies($organizationId: String!) {
     organization(organizationId: $organizationId) {
+      findingPolicies {
+        id
+        name
+        status
+        lastStatusUpdate
+      }
       maxAcceptanceDays
       maxAcceptanceSeverity
       maxNumberAcceptations

@@ -14,6 +14,7 @@ import type { IConfirmFn } from "components/ConfirmDialog";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { dateFormatter } from "components/DataTableNext/formatters";
 import { TooltipWrapper } from "components/TooltipWrapper";
+import { statusFormatter } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/formatter";
 import {
   DEACTIVATE_ORGANIZATION_FINDING_POLICY,
   HANDLE_ORGANIZATION_FINDING_POLICY,
@@ -178,7 +179,7 @@ const OrganizationFindingPolicy: React.FC<IOrganizationFindingPolicies> = ({
           <p className={"f5 ma1 truncate"}>{name}</p>
         </div>
         <div className={"w-20-l w-20-m w-30"}>
-          <p className={"f5 ma1 ph1 truncate"}>{status}</p>
+          <p className={"f5 ma1 ph1 truncate"}>{statusFormatter(status)}</p>
         </div>
         <div className={"w-20-l w-20-m w-40"}>
           <p className={"f5 ma1 fr"}>{dateFormatter(lastStatusUpdate)}</p>

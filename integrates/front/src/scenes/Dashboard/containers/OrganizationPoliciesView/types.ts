@@ -1,3 +1,5 @@
+import type { IFindingPoliciesData } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/types";
+
 interface IOrganizationPolicies {
   organizationId: string;
 }
@@ -11,6 +13,7 @@ interface IPoliciesFormData {
 
 interface IOrganizationPoliciesData {
   organization: {
+    findingPolicies: IFindingPoliciesData[];
     maxAcceptanceDays: string;
     maxAcceptanceSeverity: string;
     maxNumberAcceptations: string;

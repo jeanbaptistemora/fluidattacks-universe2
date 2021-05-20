@@ -13,6 +13,7 @@ import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { FindingPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/index";
 import style from "scenes/Dashboard/containers/OrganizationPoliciesView/index.css";
 import {
   GET_ORGANIZATION_POLICIES,
@@ -289,6 +290,19 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
           </React.Fragment>
         )}
       </GenericForm>
+      <br />
+      <p className={"mb0 f4 tc"}>
+        <b>{translate.t("organization.tabs.policies.findings.title")}</b>
+      </p>
+      <hr className={"b--light-gray bw2 mt0"} />
+      <FindingPolicies
+        findingPolicies={_.orderBy(
+          data.organization.findingPolicies,
+          "lastStatusUpdate",
+          "desc"
+        )}
+        organizationId={organizationId}
+      />
     </React.StrictMode>
   );
 };
