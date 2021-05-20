@@ -37,19 +37,19 @@ const SocialNetworkList: React.FC<IProps> = ({ slug }: IProps): JSX.Element => (
     {"Share:"}
     <TwitterShareButton
       title={"Share on Twitter"}
-      url={`https://fluidattacks.com/${slug}`}
+      url={`https://fluidattacks.com/blog/${slug}`}
     >
       <FontAwesomeIcon className={"f4 mh2 c-fluid-gray"} icon={faTwitter} />
     </TwitterShareButton>
     <FacebookShareButton
       title={"Share on Facebook"}
-      url={`https://fluidattacks.com/${slug}`}
+      url={`https://fluidattacks.com/blog/${slug}`}
     >
       <FontAwesomeIcon className={"f4 mh2 c-fluid-gray"} icon={faFacebookF} />
     </FacebookShareButton>
     <LinkedinShareButton
       title={"Share on LinkedIn"}
-      url={`https://fluidattacks.com/${slug}`}
+      url={`https://fluidattacks.com/blog/${slug}`}
     >
       <FontAwesomeIcon className={"f4 mh2 c-fluid-gray"} icon={faLinkedinIn} />
     </LinkedinShareButton>

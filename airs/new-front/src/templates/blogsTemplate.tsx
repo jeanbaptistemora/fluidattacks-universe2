@@ -175,6 +175,7 @@ export const query: void = graphql`
         description
         image
         keywords
+        slug
         subtitle
         writer
       }
