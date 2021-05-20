@@ -2,6 +2,7 @@
 from __future__ import annotations
 from enum import Enum
 from typing import (
+    FrozenSet,
     NamedTuple,
     Optional,
 )
@@ -33,6 +34,10 @@ class IsolatedColumn(NamedTuple):
     name: str
     field_type: str
     default_val: Optional[str] = None
+
+
+def adapt_set(i_columns: FrozenSet[IsolatedColumn]) -> FrozenSet[Column]:
+    return frozenset(adapt(i_col) for i_col in i_columns)
 
 
 def adapt(i_column: IsolatedColumn) -> Column:

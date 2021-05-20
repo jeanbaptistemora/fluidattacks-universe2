@@ -1,7 +1,6 @@
 # Standard libraries
 from typing import (
     Callable,
-    Dict,
     FrozenSet,
     List,
     NamedTuple,
@@ -13,13 +12,14 @@ from returns.curry import partial
 
 # Local libraries
 from postgres_client.client import Client
-from postgres_client.cursor import CursorExeAction, DynamicSQLargs
+from postgres_client.cursor import CursorExeAction
 from postgres_client.table import _queries as queries
-from postgres_client.table.common import TableID
+from postgres_client.table.common import MetaTable, TableID
 from postgres_client.table.common.column import (
     Column,
     DbTypes,
     IsolatedColumn,
+    adapt_set,
 )
 
 
@@ -35,6 +35,12 @@ class Table(NamedTuple):
     columns: FrozenSet[IsolatedColumn]
     table_path: Callable[[], str]
     add_columns: Callable[[FrozenSet[IsolatedColumn]], List[CursorExeAction]]
+
+
+def adapt(table: Table) -> MetaTable:
+    return MetaTable.new(
+        table.id, table.primary_keys, adapt_set(table.columns)
+    )
 
 
 def table_builder(
@@ -78,41 +84,17 @@ def retrieve(db_client: Client, table_id: TableID) -> Optional[Table]:
 
 
 def create(
-    db_client: Client, table_draft: Table, if_not_exist: bool = False
+    db_client: Client, table: Table, if_not_exist: bool = False
 ) -> Table:
-    """Creates a Table in the DB and returns it"""
-    table_path: str = table_draft.table_path()
-    pkeys_fields: str = ""
-    if table_draft.primary_keys:
-        p_fields: str = ",".join(
-            [f"{{pkey_{n}}}" for n in range(len(table_draft.primary_keys))]
-        )
-        pkeys_fields = f",PRIMARY KEY({p_fields})"
-    not_exists: str = "" if not if_not_exist else "IF NOT EXISTS "
-    fields: str = ",".join(
-        [
-            f"{{name_{n}}} {{field_type_{n}}}"
-            for n in range(len(table_draft.columns))
-        ]
-    )
-    fields_def: str = f"{fields}{pkeys_fields}"
-    statement: str = f"CREATE TABLE {not_exists}{{table_path}} ({fields_def})"
-    identifiers: Dict[str, Optional[str]] = {"table_path": table_path}
-    for index, value in enumerate(table_draft.primary_keys):
-        identifiers[f"pkey_{index}"] = value
-    for index, column in enumerate(table_draft.columns):
-        identifiers[f"name_{index}"] = column.name
-        identifiers[f"field_type_{index}"] = column.field_type
-
-    db_client.cursor.execute(
-        statement, DynamicSQLargs(identifiers=identifiers)
-    )
-    result: Optional[Table] = retrieve(db_client, table_draft.id)
+    _table = adapt(table)
+    action = queries.create(db_client.cursor, _table, if_not_exist)
+    action.act()
+    result: Optional[Table] = retrieve(db_client, _table.table_id)
     if result:
         return result
     raise queries.TableCreationFail(
         "Could not create and verify the existence of table: "
-        f"{table_draft.id}"
+        f"{_table.table_id}"
     )
 
 

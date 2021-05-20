@@ -1,7 +1,9 @@
 # Standard libraries
 from typing import (
+    Dict,
     FrozenSet,
     List,
+    Optional,
     Tuple,
 )
 
@@ -12,7 +14,7 @@ from postgres_client.cursor import (
     CursorFetchAction,
     DynamicSQLargs,
 )
-from postgres_client.table.common import TableID
+from postgres_client.table.common import MetaTable, TableID
 from postgres_client.table.common.column import IsolatedColumn
 
 
@@ -112,3 +114,30 @@ def retrieve(
     )
     fetch_action = cursor.fetchall()
     return (action, fetch_action)
+
+
+def create(
+    cursor: Cursor, table: MetaTable, if_not_exist: bool = False
+) -> CursorExeAction:
+    table_path: str = table.path
+    pkeys_fields: str = ""
+    if table.primary_keys:
+        p_fields: str = ",".join(
+            [f"{{pkey_{n}}}" for n in range(len(table.primary_keys))]
+        )
+        pkeys_fields = f",PRIMARY KEY({p_fields})"
+    not_exists: str = "" if not if_not_exist else "IF NOT EXISTS "
+    fields: str = ",".join(
+        [f"{{name_{n}}} {{field_type_{n}}}" for n in range(len(table.columns))]
+    )
+    fields_def: str = f"{fields}{pkeys_fields}"
+    statement: str = f"CREATE TABLE {not_exists}{{table_path}} ({fields_def})"
+    identifiers: Dict[str, Optional[str]] = {"table_path": table_path}
+    for index, value in enumerate(table.primary_keys):
+        identifiers[f"pkey_{index}"] = value
+    for index, column in enumerate(table.columns):
+        identifiers[f"name_{index}"] = column.name
+        identifiers[f"field_type_{index}"] = column.field_type.value
+
+    action = cursor.execute(statement, DynamicSQLargs(identifiers=identifiers))
+    return action
