@@ -214,7 +214,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F015_DAST_BASIC: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
         code="F015_DAST_BASIC",
         cwe="287",
         attack_complexity=AttackComplexity.low,
@@ -275,7 +274,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.required,
     )
     F023: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
         code="F023",
         cwe="601",
         attack_complexity=AttackComplexity.low,
@@ -351,7 +349,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F036: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
         code="F036",
         cwe="319",
         attack_complexity=AttackComplexity.high,
@@ -562,7 +559,6 @@ class FindingEnum(Enum):
         user_interaction=UserInteraction.none,
     )
     F064_SERVER_CLOCK: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
         code="F064_SERVER_CLOCK",
         cwe="778",
         attack_complexity=AttackComplexity.low,
