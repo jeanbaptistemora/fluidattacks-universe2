@@ -28,7 +28,7 @@ let
         "python-git==2018.2.1"
         "python-jose==3.1.0"
         "pytz==2020.4"
-        "requests==2.24.0"
+        "requests==2.25.1"
         "retry==0.9.2"
         "ruamel.yaml.clib==0.2.2"
         "ruamel.yaml==0.16.10"
