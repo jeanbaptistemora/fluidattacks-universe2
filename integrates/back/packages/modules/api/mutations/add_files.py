@@ -3,7 +3,6 @@ import logging
 import logging.config
 from typing import Any
 
-from aioextensions import schedule
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -14,7 +13,6 @@ from decorators import (
     require_integrates,
     require_login,
 )
-from mailer import resources as resources_mail
 from newutils import (
     logs as logs_utils,
     token as token_utils,
@@ -38,7 +36,6 @@ async def mutate(
     info: GraphQLResolveInfo,
     **parameters: Any
 ) -> SimplePayloadType:
-    success = False
     files_data = parameters['files_data']
     new_files_data = utils.camel_case_list_dict(files_data)
     uploaded_file = parameters['file']
@@ -48,26 +45,12 @@ async def mutate(
 
     virus_scan.scan_file(uploaded_file, user_email, project_name)
 
-    add_file = await resources_domain.create_file(
+    success = await resources_domain.create_file(
         new_files_data,
         uploaded_file,
         project_name,
         user_email
     )
-    if add_file:
-        schedule(
-            resources_mail.send_mail_update_resource(
-                info.context.loaders,
-                project_name,
-                user_email,
-                new_files_data,
-                'added',
-                'file'
-            )
-        )
-        success = True
-    else:
-        LOGGER.error('Couldn\'t upload file', extra={'extra': parameters})
     if success:
         info.context.loaders.group.clear(project_name)
         info.context.loaders.group_all.clear(project_name)
@@ -77,6 +60,7 @@ async def mutate(
             f'project successfully'
         )
     else:
+        LOGGER.error('Couldn\'t upload file', extra={'extra': parameters})
         logs_utils.cloudwatch_log(
             info.context,
             f'Security: Attempted to add resource files '
