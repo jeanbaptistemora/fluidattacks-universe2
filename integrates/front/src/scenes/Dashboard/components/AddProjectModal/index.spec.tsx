@@ -114,13 +114,12 @@ describe("AddProjectModal component", (): void => {
         </MockedProvider>
       </Provider>
     );
-
     wrapper
       .find({ name: "type" })
       .find("select")
       .simulate("change", { target: { value: "ONESHOT" } });
 
-    const checkedLength = 3;
+    const checkedLength = 2;
 
     expect(wrapper.find({ checked: true })).toHaveLength(checkedLength);
   });

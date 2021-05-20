@@ -1,11 +1,16 @@
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { Field, Form, Formik } from "formik";
-import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback } from "react";
 import type { ConfigurableValidator } from "revalidate";
+
+import {
+  getSwitchButtonHandlers,
+  handleCreateError,
+  handleProjectNameErrorHelper,
+} from "./helpers";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
@@ -28,8 +33,7 @@ import {
   Row,
 } from "styles/styledComponents";
 import { FormikDropdown, FormikText } from "utils/forms/fields";
-import { Logger } from "utils/logger";
-import { msgError, msgSuccess } from "utils/notifications";
+import { msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import {
   alphaNumeric,
@@ -83,28 +87,6 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
     }
   };
 
-  const handleCreateError = ({ graphQLErrors }: ApolloError): void => {
-    graphQLErrors.forEach((error: GraphQLError): void => {
-      switch (error.message) {
-        case "Exception - There are no group names available at the moment":
-          msgError(
-            translate.t("organization.tabs.groups.newGroup.noGroupName")
-          );
-          break;
-        case "Exception - User is not a member of the target organization":
-          msgError(
-            translate.t(
-              "organization.tabs.groups.newGroup.userNotInOrganization"
-            )
-          );
-          break;
-        default:
-          msgError(translate.t("groupAlerts.errorTextsad"));
-          Logger.warning("An error occurred adding a project", error);
-      }
-    });
-  };
-
   const [createProject, { loading: submitting }] = useMutation(
     CREATE_PROJECT_MUTATION,
     {
@@ -143,17 +125,7 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
 
   function handleProjectNameError({ graphQLErrors }: ApolloError): void {
     onClose();
-    graphQLErrors.forEach((error: GraphQLError): void => {
-      if (
-        error.message ===
-        "Exception - There are no group names available at the moment"
-      ) {
-        msgError(translate.t("organization.tabs.groups.newGroup.noGroupName"));
-      } else {
-        msgError(translate.t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred adding access token", error);
-      }
-    });
+    handleProjectNameErrorHelper(graphQLErrors);
   }
 
   const { data } = useQuery<IProjectNameProps>(PROJECTS_NAME_QUERY, {
@@ -186,38 +158,29 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
           onSubmit={handleSubmit}
         >
           {({ values, dirty, setFieldValue }): JSX.Element => {
-            function handleSubscriptionTypeChange(): void {
-              setFieldValue("skims", isContinuousType(values.type));
-              setFieldValue("drills", true);
-              setFieldValue("forces", !isContinuousType(values.type));
-            }
+            const handleSubscriptionTypeChange = getSwitchButtonHandlers(
+              values,
+              setFieldValue,
+              "subscription"
+            );
 
-            function handleSkimsBtnChange(): void {
-              setFieldValue("skims", !values.skims);
+            const handleSkimsBtnChange = getSwitchButtonHandlers(
+              values,
+              setFieldValue,
+              "skims"
+            );
 
-              if (values.skims) {
-                setFieldValue("drills", false);
-                setFieldValue("forces", false);
-              }
-            }
+            const handleDrillsBtnChange = getSwitchButtonHandlers(
+              values,
+              setFieldValue,
+              "drills"
+            );
 
-            function handleDrillsBtnChange(): void {
-              setFieldValue("drills", !values.drills);
-
-              if (values.drills) {
-                setFieldValue("forces", false);
-              } else {
-                setFieldValue("skims", true);
-              }
-            }
-
-            function handleForcesBtnChange(): void {
-              if (values.drills) {
-                setFieldValue("forces", !values.forces);
-              } else {
-                setFieldValue("forces", false);
-              }
-            }
+            const handleForcesBtnChange = getSwitchButtonHandlers(
+              values,
+              setFieldValue,
+              "forces"
+            );
 
             return (
               <Form>
