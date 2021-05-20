@@ -120,9 +120,6 @@ resource "aws_launch_template" "batch_instance" {
 }
 
 locals {
-  # Most of the parameters cant be updated in-place
-  # So just comment items, apply (to destroy the item)
-  # then un-comment, modify, and apply (to create the item again from scratch)
   compute_environments = {
     dedicated = {
       bid_percentage      = null
@@ -175,11 +172,11 @@ resource "aws_batch_compute_environment" "default" {
   # https://forums.aws.amazon.com/thread.jspa?threadID=289427
   for_each = local.compute_environments
 
-  compute_environment_name = each.key
-  depends_on               = [aws_iam_role_policy_attachment.aws_batch_service_role]
-  service_role             = aws_iam_role.aws_batch_service_role.arn
-  state                    = "ENABLED"
-  type                     = "MANAGED"
+  compute_environment_name_prefix = "${each.key}_"
+  depends_on                      = [aws_iam_role_policy_attachment.aws_batch_service_role]
+  service_role                    = aws_iam_role.aws_batch_service_role.arn
+  state                           = "ENABLED"
+  type                            = "MANAGED"
 
   compute_resources {
     bid_percentage = each.value.bid_percentage
@@ -209,7 +206,9 @@ resource "aws_batch_compute_environment" "default" {
       version            = aws_launch_template.batch_instance.latest_version
     }
   }
-
+  lifecycle {
+    create_before_destroy = true
+  }
   tags = {
     "Name"               = "default"
     "management:type"    = "production"
