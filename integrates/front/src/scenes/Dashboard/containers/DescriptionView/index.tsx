@@ -24,11 +24,7 @@ import type {
   IFindingDescriptionData,
   IFindingDescriptionVars,
 } from "scenes/Dashboard/containers/DescriptionView/types";
-import {
-  formatCompromisedRecords,
-  formatCweUrl,
-  formatFindingType,
-} from "scenes/Dashboard/containers/DescriptionView/utils";
+import { formatCweUrl } from "scenes/Dashboard/containers/DescriptionView/utils";
 import {
   Col100,
   Col45,
@@ -57,7 +53,6 @@ const MAX_IMPACTS_LENGTH = 300;
 const MAX_AFFECTED_SYSTEMS_LENGTH = 200;
 const MAX_THREAT_LENGTH = 300;
 const MAX_RECOMENDATION_LENGTH = 300;
-const MAX_COMPROMISED_ATTRIBUTES_LENGTH = 200;
 const maxTitleLength: ConfigurableValidator = maxLength(MAX_TITLE_LENGTH);
 const maxDescriptionLength: ConfigurableValidator = maxLength(
   MAX_DESCRIPTION_LENGTH
@@ -72,9 +67,6 @@ const maxAffectedSystemsLength: ConfigurableValidator = maxLength(
 const maxThreatLength: ConfigurableValidator = maxLength(MAX_THREAT_LENGTH);
 const maxRecommendationLength: ConfigurableValidator = maxLength(
   MAX_RECOMENDATION_LENGTH
-);
-const maxCompromisedAttributesLength: ConfigurableValidator = maxLength(
-  MAX_COMPROMISED_ATTRIBUTES_LENGTH
 );
 
 const DescriptionView: React.FC = (): JSX.Element => {
@@ -195,38 +187,6 @@ const DescriptionView: React.FC = (): JSX.Element => {
         <div>
           <div>
             <Row>
-              <Col45>
-                <Can
-                  do={"api_mutations_update_finding_description_mutate"}
-                  passThrough={true}
-                >
-                  {(canEdit: boolean): JSX.Element => (
-                    <EditableField
-                      component={Dropdown}
-                      currentValue={formatFindingType(dataset.type)}
-                      label={translate.t(
-                        "searchFindings.tabDescription.type.title"
-                      )}
-                      name={"type"}
-                      renderAsEditable={isEditing}
-                      validate={required}
-                      visibleWhileEditing={canEdit}
-                    >
-                      <option value={""} />
-                      <option value={"SECURITY"}>
-                        {translate.t(
-                          "searchFindings.tabDescription.type.security"
-                        )}
-                      </option>
-                      <option value={"HYGIENE"}>
-                        {translate.t(
-                          "searchFindings.tabDescription.type.hygiene"
-                        )}
-                      </option>
-                    </EditableField>
-                  )}
-                </Can>
-              </Col45>
               <Can do={"api_resolvers_finding_analyst_resolve"}>
                 <Col45>
                   <FormGroup>
@@ -480,67 +440,6 @@ const DescriptionView: React.FC = (): JSX.Element => {
                   )}
                 </Can>
               </Col100>
-            </Row>
-            <Row>
-              <Col45>
-                <Can
-                  do={"api_mutations_update_finding_description_mutate"}
-                  passThrough={true}
-                >
-                  {(canEdit: boolean): JSX.Element => (
-                    <EditableField
-                      component={TextArea}
-                      currentValue={dataset.compromisedAttributes}
-                      id={
-                        "searchFindings.tabDescription.compromisedAttrs.tooltip"
-                      }
-                      label={translate.t(
-                        "searchFindings.tabDescription.compromisedAttrs.text"
-                      )}
-                      name={"compromisedAttributes"}
-                      renderAsEditable={isEditing}
-                      tooltip={translate.t(
-                        "searchFindings.tabDescription.compromisedAttrs.tooltip"
-                      )}
-                      type={"text"}
-                      validate={[
-                        validTextField,
-                        maxCompromisedAttributesLength,
-                      ]}
-                      visibleWhileEditing={canEdit}
-                    />
-                  )}
-                </Can>
-              </Col45>
-              <Col45>
-                <Can
-                  do={"api_mutations_update_finding_description_mutate"}
-                  passThrough={true}
-                >
-                  {(canEdit: boolean): JSX.Element => (
-                    <EditableField
-                      component={TextArea}
-                      currentValue={formatCompromisedRecords(
-                        dataset.compromisedRecords
-                      )}
-                      id={
-                        "searchFindings.tabDescription.compromisedRecords.tooltip"
-                      }
-                      label={translate.t(
-                        "searchFindings.tabDescription.compromisedRecords.text"
-                      )}
-                      name={"compromisedRecords"}
-                      renderAsEditable={isEditing}
-                      tooltip={translate.t(
-                        "searchFindings.tabDescription.compromisedRecords.tooltip"
-                      )}
-                      type={"number"}
-                      validate={[required, numeric]}
-                      visibleWhileEditing={canEdit}
-                    />
-                  )}
-                </Can>
-              </Col45>
             </Row>
             <Can do={"api_mutations_update_finding_description_mutate"}>
               {isEditing ? (

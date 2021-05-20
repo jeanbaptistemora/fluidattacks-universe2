@@ -134,7 +134,7 @@ describe("Finding Description", (): void => {
     const fieldsAsEditable: ReactWrapper = wrapper.find({
       renderAsEditable: true,
     });
-    const EXPECTED_LENGTH: number = 10;
+    const EXPECTED_LENGTH: number = 7;
 
     expect(editingComponents).toHaveLength(1);
     expect(fieldsAsEditable).toHaveLength(EXPECTED_LENGTH);

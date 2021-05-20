@@ -1202,15 +1202,6 @@ export const enTranslations: ResourceKey = {
       businessCriticality: "Level",
       cancelVerified: "Cancel",
       cancelVerify: "Cancel",
-      compromisedAttrs: {
-        text: "Compromised attributes",
-        tooltip:
-          "Type of information that can be disclosed by the vulnerability",
-      },
-      compromisedRecords: {
-        text: "Compromised records",
-        tooltip: "Number of records in risk",
-      },
       delete: "Delete",
       deleteAll: "Delete All",
       deleteAllVulns: "Delete all pending vulnerabilities",
