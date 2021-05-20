@@ -15,6 +15,7 @@ from sast_symbolic_evaluation.types import (
     LookedUpJavaClass,
 )
 from sast_symbolic_evaluation.utils_generic import (
+    complete_attrs_on_dict,
     lookup_var_dcl_by_name,
     lookup_var_state_by_name,
 )
@@ -29,14 +30,6 @@ from utils.string import (
     split_on_first_dot,
     split_on_last_dot,
 )
-
-
-def _complete_attrs_on_dict(data: Dict[str, Any]) -> Dict[str, Any]:
-    return {
-        attr: value
-        for path, value in data.items()
-        for attr in build_attr_paths(*path.split("."))
-    }
 
 
 BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set(
@@ -99,7 +92,7 @@ BY_OBJ_NO_TYPE_ARGS_PROPAG: Dict[str, Set[str]] = {
         }
     ),
 }
-BY_OBJ: Dict[str, Set[str]] = _complete_attrs_on_dict(
+BY_OBJ: Dict[str, Set[str]] = complete_attrs_on_dict(
     {
         "java.lang.String": {
             "getBytes",
@@ -138,9 +131,12 @@ BY_OBJ: Dict[str, Set[str]] = _complete_attrs_on_dict(
         "java.util.List": {
             "get",
         },
+        "System.Data.SqlClient.SqlCommand": {
+            "ExecuteNonQuery",
+        },
     }
 )
-BY_OBJ_ARGS: Dict[str, Set[str]] = _complete_attrs_on_dict(
+BY_OBJ_ARGS: Dict[str, Set[str]] = complete_attrs_on_dict(
     {
         "java.sql.Connection": {
             "prepareCall",
@@ -161,7 +157,7 @@ BY_OBJ_ARGS: Dict[str, Set[str]] = _complete_attrs_on_dict(
         },
     }
 )
-BY_TYPE: Dict[str, Set[str]] = _complete_attrs_on_dict(
+BY_TYPE: Dict[str, Set[str]] = complete_attrs_on_dict(
     {
         "javax.servlet.http.Cookie": {
             "getName",
@@ -183,7 +179,7 @@ BY_TYPE: Dict[str, Set[str]] = _complete_attrs_on_dict(
     }
 )
 BY_TYPE_AND_VALUE_FINDING: Dict[str, Dict[str, Any]] = {
-    core_model.FindingEnum.F008.name: _complete_attrs_on_dict(
+    core_model.FindingEnum.F008.name: complete_attrs_on_dict(
         {
             "javax.servlet.http.HttpServletResponse": {
                 "setHeader": {
@@ -193,7 +189,7 @@ BY_TYPE_AND_VALUE_FINDING: Dict[str, Dict[str, Any]] = {
             },
         }
     ),
-    core_model.FindingEnum.F042.name: _complete_attrs_on_dict(
+    core_model.FindingEnum.F042.name: complete_attrs_on_dict(
         {
             "javax.servlet.http.Cookie": {
                 "setSecure": {
@@ -203,7 +199,7 @@ BY_TYPE_AND_VALUE_FINDING: Dict[str, Dict[str, Any]] = {
         }
     ),
 }
-BY_TYPE_ARGS_PROPAGATION: Dict[str, Set[str]] = _complete_attrs_on_dict(
+BY_TYPE_ARGS_PROPAGATION: Dict[str, Set[str]] = complete_attrs_on_dict(
     {
         "java.io.PrintWriter": {
             "format",
@@ -214,14 +210,14 @@ BY_TYPE_ARGS_PROPAGATION: Dict[str, Set[str]] = _complete_attrs_on_dict(
     }
 )
 BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
-    core_model.FindingEnum.F042.name: _complete_attrs_on_dict(
+    core_model.FindingEnum.F042.name: complete_attrs_on_dict(
         {
             "javax.servlet.http.HttpServletResponse": {
                 "addCookie",
             },
         }
     ),
-    core_model.FindingEnum.F034.name: _complete_attrs_on_dict(
+    core_model.FindingEnum.F034.name: complete_attrs_on_dict(
         {
             "javax.servlet.http.HttpServletResponse": {
                 "addCookie",
@@ -231,7 +227,7 @@ BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
             },
         }
     ),
-    core_model.FindingEnum.F004.name: _complete_attrs_on_dict(
+    core_model.FindingEnum.F004.name: complete_attrs_on_dict(
         {
             "ProcessBuilder": {
                 "command",
@@ -241,7 +237,7 @@ BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
             },
         }
     ),
-    core_model.FindingEnum.F008.name: _complete_attrs_on_dict(
+    core_model.FindingEnum.F008.name: complete_attrs_on_dict(
         {
             "javax.servlet.http.HttpServletResponse": {
                 "getWriter.format",
@@ -252,7 +248,7 @@ BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
             },
         }
     ),
-    core_model.FindingEnum.F063_TRUSTBOUND.name: _complete_attrs_on_dict(
+    core_model.FindingEnum.F063_TRUSTBOUND.name: complete_attrs_on_dict(
         {
             "javax.servlet.http.HttpServletRequest": {
                 "getSession.putValue",
@@ -260,7 +256,7 @@ BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
             },
         }
     ),
-    core_model.FindingEnum.F107.name: _complete_attrs_on_dict(
+    core_model.FindingEnum.F107.name: complete_attrs_on_dict(
         {
             "javax.naming.directory.InitialDirContext": {
                 "search",

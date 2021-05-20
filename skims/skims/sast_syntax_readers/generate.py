@@ -35,7 +35,6 @@ from sast_syntax_readers.java import (
     local_variable_declaration as java_local_variable_declaration,
     method_declaration as java_method_declaration,
     method_invocation as java_method_invocation,
-    object_creation_expression as java_object_creation_expression,
     parenthesized_expression as java_parenthesized_expression,
     resource as java_resource,
     return_statement as java_return_statement,
@@ -64,6 +63,7 @@ from sast_syntax_readers.common import (
     binary_expression as common_binary_expression,
     literal as common_literal,
     identifier as common_identifier,
+    object_creation_expression as common_object_creation_expression,
 )
 from utils import graph as g
 from utils.logs import log_blocking
@@ -361,11 +361,12 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
+            graph_model.GraphShardMetadataLanguage.CSHARP,
         },
         applicable_node_label_types={
             "object_creation_expression",
         },
-        syntax_readers=(java_object_creation_expression.reader,),
+        syntax_readers=(common_object_creation_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={

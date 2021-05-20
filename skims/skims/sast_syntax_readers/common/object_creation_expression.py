@@ -32,9 +32,9 @@ def reader(
                 ),
             ),
             object_type=(
-                args.graph.nodes[object_type_id]["label_text"].split(
-                    "<", maxsplit=1
-                )[0]
+                args.graph.nodes[object_type_id]
+                .get("label_text", "")
+                .split("<", maxsplit=1)[0]
             ),
         )
     else:

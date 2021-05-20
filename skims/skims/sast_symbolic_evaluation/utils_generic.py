@@ -1,5 +1,7 @@
 # Standard library
 from typing import (
+    Any,
+    Dict,
     Iterator,
     Optional,
     Union,
@@ -12,6 +14,7 @@ from model import (
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
 )
+from utils.string import build_attr_paths
 
 
 def lookup_vars(
@@ -108,3 +111,11 @@ def lookup_var_state_by_name(
         ):
             return syntax_step
     return None
+
+
+def complete_attrs_on_dict(data: Dict[str, Any]) -> Dict[str, Any]:
+    return {
+        attr: value
+        for path, value in data.items()
+        for attr in build_attr_paths(*path.split("."))
+    }
