@@ -2,7 +2,7 @@
 id: files
 title: Files
 sidebar_label: Files
-slug: /machine/web/groups/scope/files
+slug: /machine/app/groups/scope/files
 ---
 
 In the Files section

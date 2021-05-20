@@ -2,7 +2,7 @@
 id: introduction
 title: Introduction
 sidebar_label: Introduction
-slug: /machine/web/vulnerabilities/introduction
+slug: /machine/app/vulnerabilities
 ---
 
 With Fluid Attacks ASM

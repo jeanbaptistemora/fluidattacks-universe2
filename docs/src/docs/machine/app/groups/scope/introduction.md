@@ -2,7 +2,7 @@
 id: introduction
 title: Introduction
 sidebar_label: Introduction
-slug: /machine/web/groups/scope/introduction
+slug: /machine/app/groups/scope
 ---
 
 This section found in the last tab

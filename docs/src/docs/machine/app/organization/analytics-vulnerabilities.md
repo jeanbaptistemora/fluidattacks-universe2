@@ -2,7 +2,7 @@
 id: analytics-vulnerabilities
 title: Vulnerability Analytics
 sidebar_label: Vulnerability Analytics
-slug: /machine/web/organization/analytics-vulnerabilities
+slug: /machine/app/organization/analytics-vulnerabilities
 ---
 
 The analytics section of your organization

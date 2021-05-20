@@ -2,7 +2,7 @@
 id: analytics-generic
 title: Generic Analytics
 sidebar_label: Generic Analytics
-slug: /machine/web/organization/analytics-generic
+slug: /machine/app/organization/analytics-generic
 ---
 
 ### Findings being re-attacked

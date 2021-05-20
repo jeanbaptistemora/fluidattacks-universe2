@@ -2,7 +2,7 @@
 id: tracking
 title: Tracking your vulnerabilities
 sidebar_label: Tracking your vulnerabilities
-slug: /machine/web/vulnerabilities/management/tracking
+slug: /machine/app/vulnerabilities/management/tracking
 ---
 
 As time passes

@@ -2,7 +2,7 @@
 id: treatments
 title: Treatments
 sidebar_label: Treatments
-slug: /machine/web/vulnerabilities/treatments
+slug: /machine/app/vulnerabilities/treatments
 ---
 
 ## Define a treatment for your vulnerabilities

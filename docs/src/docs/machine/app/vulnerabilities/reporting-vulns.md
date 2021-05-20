@@ -2,7 +2,7 @@
 id: reporting-vulns
 title: Reporting in existing types of vulnerabilities
 sidebar_label: Reporting in existing types of vulnerabilities
-slug: /machine/web/vulnerabilities/reporting-vulns
+slug: /machine/app/vulnerabilities/reporting-vulns
 ---
 
 ### Where can I report them?
@@ -118,7 +118,7 @@ query {
 }
 ```
 You can go to this
-[link](/machine/api/api-token)
+[link](/machine/api)
 in order to learn more
 about using the GraphQL API
 to access all of the information
@@ -150,4 +150,4 @@ for reporting line vulnerabilities:
   It can be **open** or **closed**.
 - **Repo_nickname:**
   This field is the same one as in the
-[inputs format](/machine/web/vulnerabilities/reporting-vulns#the-inputs-yaml-format).
+[inputs format](/machine/app/vulnerabilities/reporting-vulns#the-inputs-yaml-format).

@@ -2,7 +2,7 @@
 id: vulnerabilities
 title: Vulnerabilities
 sidebar_label: Vulnerabilities
-slug: /machine/web/groups/vulnerabilities
+slug: /machine/app/groups/vulnerabilities
 ---
 
 The tab of **Vulnerabilities**
@@ -155,6 +155,6 @@ with a passphrase
 which will be sent
 to your mobile device.
 You can check the documentation for our
-[mobile app](/machine/web/groups/vulnerabilities#reports)
+[mobile app](/machine/app/groups/vulnerabilities#reports)
 in case you encounter any trouble
 in this part of the process.

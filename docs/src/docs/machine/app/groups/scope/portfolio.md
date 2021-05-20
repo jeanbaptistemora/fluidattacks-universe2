@@ -2,7 +2,7 @@
 id: portfolio
 title: Portfolio
 sidebar_label: Portfolio
-slug: /machine/web/groups/scope/portfolio
+slug: /machine/app/groups/scope/portfolio
 ---
 
 In this section

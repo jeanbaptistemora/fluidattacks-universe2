@@ -2,7 +2,7 @@
 id: api-token
 title: Accessing ASM via API
 sidebar_label: Accessing ASM via API
-slug: /machine/api/api-token
+slug: /machine/api
 ---
 
 The ASM app allows users

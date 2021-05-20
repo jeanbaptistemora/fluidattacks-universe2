@@ -2,7 +2,7 @@
 id: events
 title: Events
 sidebar_label: Events
-slug: /machine/web/groups/events
+slug: /machine/app/groups/events
 ---
 
 Sometimes,

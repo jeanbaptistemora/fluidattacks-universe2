@@ -2,7 +2,7 @@
 id: gitroots
 title: Git Roots
 sidebar_label: Git Roots
-slug: /machine/web/groups/scope/gitroots
+slug: /machine/app/groups/scope/gitroots
 ---
 
 In this section of the Scope tab,

@@ -2,7 +2,7 @@
 id: deleting-vulns
 title: Deleting vulnerabilities
 sidebar_label: Deleting vulnerabilities
-slug: /machine/web/vulnerabilities/deleting-vulns
+slug: /machine/app/vulnerabilities/deleting-vulns
 ---
 
 Sometimes,

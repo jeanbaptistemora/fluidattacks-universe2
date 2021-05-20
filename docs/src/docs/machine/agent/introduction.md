@@ -2,7 +2,7 @@
 id: introduction
 title: DevSecOps Agent
 sidebar_label: Introduction
-slug: /machine/agent/introduction
+slug: /machine/agent
 ---
 
 The DevSecOps Agent is constituted

@@ -2,7 +2,7 @@
 id: deleting-unsubscribing
 title: Deleting or unsubscribing from a group
 sidebar_label: Deleting or unsubscribing from a group
-slug: /machine/web/groups/deleting-unsubscribing
+slug: /machine/app/groups/deleting-unsubscribing
 ---
 
 When you determine that a particular group

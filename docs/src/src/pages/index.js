@@ -56,7 +56,7 @@ const features = [
     title: 'Security',
     description: (
       <>
-        Take a look at the principles that matter must to us as a security company
+        Take a look at the principles that matter most to us as a security company
       </>
     ),
     link: 'security'
