@@ -180,45 +180,62 @@ const ClientsSection: React.FC = (): JSX.Element => {
           <SlideShow id={"clientsSlides"}>
             <CloudImage
               alt={"Logo Avianca"}
-              src={"logo-avianca"}
+              src={"airs/clients/logo-avianca"}
               styles={"mh4"}
             />
             <CloudImage
               alt={"Logo Banco General"}
-              src={"logo-banco-general"}
+              src={"airs/clients/logo-banco-general"}
               styles={"mh4"}
             />
             <CloudImage
               alt={"Logo Banco Industrial"}
-              src={"logo-banco-industrial"}
+              src={"airs/clients/logo-banco-industrial"}
               styles={"mh4"}
             />
             <CloudImage
               alt={"Logo Bancolombia"}
-              src={"logo-bancolombia"}
+              src={"airs/clients/logo-bancolombia"}
               styles={"mh4"}
             />
-            <CloudImage alt={"Logo Banesco"} src={"logo-banesco"} />
+            <CloudImage
+              alt={"Logo Banesco"}
+              src={"airs/clients/logo-banesco"}
+            />
             <CloudImage
               alt={"Logo Banistmo"}
-              src={"logo-banistmo"}
+              src={"airs/clients/logo-banistmo"}
               styles={"mh4"}
             />
-            <CloudImage alt={"Logo Bantrab"} src={"logo-bantrab"} />
+            <CloudImage
+              alt={"Logo Bantrab"}
+              src={"airs/clients/logo-bantrab"}
+            />
             <CloudImage
               alt={"Logo Colmedica"}
-              src={"logo-colmedica"}
+              src={"airs/clients/logo-colmedica"}
               styles={"mh4"}
             />
             <CloudImage
               alt={"Logo Interbank"}
-              src={"logo-interbank"}
+              src={"airs/clients/logo-interbank"}
               styles={"mh4"}
             />
-            <CloudImage alt={"Logo Itau"} src={"logo-itau"} styles={"mh4"} />
-            <CloudImage alt={"Logo Oxxo"} src={"logo-oxxo"} />
-            <CloudImage alt={"Logo Sodimac"} src={"logo-sodimac"} />
-            <CloudImage alt={"Logo Sura"} src={"logo-sura"} styles={"mh4"} />
+            <CloudImage
+              alt={"Logo Itau"}
+              src={"airs/clients/logo-itau"}
+              styles={"mh4"}
+            />
+            <CloudImage alt={"Logo Oxxo"} src={"airs/clients/logo-oxxo"} />
+            <CloudImage
+              alt={"Logo Sodimac"}
+              src={"airs/clients/logo-sodimac"}
+            />
+            <CloudImage
+              alt={"Logo Sura"}
+              src={"airs/clients/logo-sura"}
+              styles={"mh4"}
+            />
           </SlideShow>
         </ClientsContainer>
         <DefinitionContainer>

@@ -104,16 +104,14 @@ export const BlogsList: React.FC = (): JSX.Element => {
   const loopWithSlice = (start: number, end: number): void => {
     const slicedPosts: INodes[] = posts.slice(start, end);
     // eslint-disable-next-line fp/no-mutation
-    arrayForHoldingPosts = [
-      ...arrayForHoldingPosts,
-      ...slicedPosts,
-    ] as INodes[];
+    arrayForHoldingPosts = [...arrayForHoldingPosts, ...slicedPosts];
     setPostsToShow(arrayForHoldingPosts as SetStateAction<never[]>);
   };
 
   useEffect((): void => {
     loopWithSlice(0, postsPerPage);
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleShowMorePosts = (): void => {
     loopWithSlice(0, next + postsPerPage);
@@ -141,13 +139,13 @@ export const BlogsList: React.FC = (): JSX.Element => {
             )
           )}
         </BlogMainDiv>
+        {/* eslint-disable-next-line react/jsx-no-bind */}
+        <LoadMoreButton onClick={handleShowMorePosts}>
+          {"Load more"}
+          {/* eslint-disable-next-line react/forbid-component-props */}
+          <FontAwesomeIcon className={"f3 db center"} icon={faChevronDown} />
+        </LoadMoreButton>
       </PageArticle>
-      {/* eslint-disable-next-line react/jsx-no-bind */}
-      <LoadMoreButton onClick={handleShowMorePosts}>
-        {"Load more"}
-        {/* eslint-disable-next-line react/forbid-component-props */}
-        <FontAwesomeIcon className={"f3 db center"} icon={faChevronDown} />
-      </LoadMoreButton>
     </div>
   );
 };
