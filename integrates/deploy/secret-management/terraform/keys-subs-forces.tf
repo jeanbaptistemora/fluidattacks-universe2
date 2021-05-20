@@ -16,10 +16,10 @@ data "aws_iam_policy_document" "key_forces_projects" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/integrates-prod"
+        module.external.aws_iam_roles["makes_prod"].arn,
+        module.external.aws_iam_roles["integrates-prod"].arn,
+        module.external.aws_iam_users["FLUIDServes_TF"].arn,
+        module.external.aws_iam_users["integrates-prod"].arn,
       ]
     }
     actions = [
@@ -47,8 +47,8 @@ data "aws_iam_policy_document" "key_forces_projects" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/integrates-prod"
+        module.external.aws_iam_roles["integrates-prod"].arn,
+        module.external.aws_iam_users["integrates-prod"].arn,
       ]
     }
     actions = [
@@ -67,8 +67,8 @@ data "aws_iam_policy_document" "key_forces_projects" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-prod",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/integrates-prod"
+        module.external.aws_iam_roles["integrates-prod"].arn,
+        module.external.aws_iam_users["integrates-prod"].arn,
       ]
     }
     actions = [
