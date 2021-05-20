@@ -10,17 +10,17 @@ import { reset } from "mixpanel-browser";
 import React, { useCallback, useContext, useState } from "react";
 import { useDetectClickOutside } from "react-detect-click-outside";
 import { useTranslation } from "react-i18next";
-import styled from "styled-components";
 
 import { APITokenModal } from "../../APITokenModal";
-import { DropdownButton, DropdownMenu, NavbarButton } from "../styles";
+import {
+  DropdownButton,
+  DropdownDivider,
+  DropdownMenu,
+  NavbarButton,
+} from "../styles";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { authContext } from "utils/auth";
-
-const Divider = styled.hr.attrs({
-  className: "mv2",
-})``;
 
 interface IUserProfileProps {
   userRole: string | undefined;
@@ -72,7 +72,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
               )}
             </DropdownButton>
           </li>
-          <Divider />
+          <DropdownDivider />
           <li>
             <DropdownButton onClick={openTokenModal}>
               <TooltipWrapper
@@ -88,7 +88,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
               <APITokenModal onClose={closeTokenModal} open={true} />
             ) : undefined}
           </li>
-          <Divider />
+          <DropdownDivider />
           <li>
             <ConfirmDialog title={t("navbar.logout.text")}>
               {(confirm): React.ReactNode => {

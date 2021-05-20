@@ -47,8 +47,13 @@ const DropdownButton = styled.button.attrs({
   }
 `;
 
+const DropdownDivider = styled.hr.attrs({
+  className: "mv2",
+})``;
+
 export {
   DropdownButton,
+  DropdownDivider,
   DropdownMenu,
   NavbarButton,
   NavbarContainer,
