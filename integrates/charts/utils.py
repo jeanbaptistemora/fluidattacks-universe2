@@ -110,7 +110,8 @@ async def iterate_groups() -> AsyncIterator[str]:
         reverse=True
     ):
         log_info(f'Working on group: {group}')
-        yield group
+        # Exception: WF(AsyncIterator is subtype of iterator)
+        yield group  # NOSONAR
 
 
 async def iterate_organizations_and_groups() -> AsyncIterator[
@@ -122,8 +123,12 @@ async def iterate_organizations_and_groups() -> AsyncIterator[
         orgs_domain.iterate_organizations_and_groups()
     ):
         log_info(f'Working on org: {org_id} ({org_name}) {org_groups}')
-
-        yield org_id, org_name, tuple(groups.intersection(org_groups))
+        # Exception: WF(AsyncIterator is subtype of iterator)
+        yield (
+            org_id,
+            org_name,
+            tuple(groups.intersection(org_groups))
+        )  # NOSONAR
 
 
 def json_dump(

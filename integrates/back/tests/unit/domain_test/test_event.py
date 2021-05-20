@@ -172,7 +172,7 @@ async def test_validate_evidence_invalid_image_type():
     filename = os.path.join(filename, '../mock/test-file-records.csv')
     with open(filename, 'rb') as test_file:
         uploaded_file = UploadFile(test_file.name, test_file, 'text/csv')
-        with pytest.raises(InvalidFileType) as context:
+        with pytest.raises(InvalidFileType):
             await events_domain.validate_evidence(evidence_type, uploaded_file)
 
 async def test_validate_evidence_invalid_file_size():
@@ -181,7 +181,7 @@ async def test_validate_evidence_invalid_file_size():
     filename = os.path.join(filename, '../mock/test-big-image.jpg')
     with open(filename, 'rb') as test_file:
         uploaded_file = UploadFile(test_file.name, test_file, 'image/jpg')
-        with pytest.raises(InvalidFileSize) as context:
+        with pytest.raises(InvalidFileSize):
             await events_domain.validate_evidence(evidence_type, uploaded_file)
 
 @pytest.mark.changes_db
