@@ -18,7 +18,7 @@ const NavbarMenu = styled.ul.attrs({
   className: "f4 flex items-center list mb0 ph0",
 })`
   & li {
-    padding: 0 12px;
+    padding: 0 8px;
     position: relative;
   }
 `;

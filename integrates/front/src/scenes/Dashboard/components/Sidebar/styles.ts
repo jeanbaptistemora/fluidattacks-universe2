@@ -20,7 +20,7 @@ const SidebarContainer = styled.aside.attrs({
 `;
 
 const SidebarMenu = styled.ul.attrs({
-  className: "pl0 list flex-auto",
+  className: "flex-auto list mt2 pl0",
 })``;
 
 const Logo = styled.img.attrs({
@@ -49,15 +49,4 @@ const Preloader = styled.img.attrs({
   width: 100px;
 `;
 
-const ExtraInfo = styled.div.attrs({
-  className: "tr white mr1",
-})``;
-
-export {
-  ExtraInfo,
-  Logo,
-  Preloader,
-  SidebarButton,
-  SidebarContainer,
-  SidebarMenu,
-};
+export { Logo, Preloader, SidebarButton, SidebarContainer, SidebarMenu };

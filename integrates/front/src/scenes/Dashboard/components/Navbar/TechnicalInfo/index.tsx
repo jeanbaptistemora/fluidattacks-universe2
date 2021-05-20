@@ -1,0 +1,56 @@
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useCallback, useState } from "react";
+import { useDetectClickOutside } from "react-detect-click-outside";
+import { useTranslation } from "react-i18next";
+
+import { DropdownButton, DropdownMenu, NavbarButton } from "../styles";
+import {
+  CI_COMMIT_SHA,
+  CI_COMMIT_SHORT_SHA,
+  INTEGRATES_DEPLOYMENT_DATE,
+} from "utils/ctx";
+
+export const TechnicalInfo: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
+
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const toggleDropdown = useCallback((): void => {
+    setDropdownOpen((currentValue): boolean => !currentValue);
+  }, []);
+  const ref = useDetectClickOutside({
+    onTriggered: (): void => {
+      setDropdownOpen(false);
+    },
+  });
+
+  return (
+    <div ref={ref}>
+      <NavbarButton onClick={toggleDropdown}>
+        <FontAwesomeIcon icon={faInfoCircle} />
+      </NavbarButton>
+      {isDropdownOpen ? (
+        <DropdownMenu>
+          <li>
+            <DropdownButton>
+              <div>
+                {t("sidebar.commit")}&nbsp;
+                <a
+                  href={`https://gitlab.com/fluidattacks/product/-/tree/${CI_COMMIT_SHA}`}
+                  rel={"noopener noreferrer"}
+                  target={"_blank"}
+                >
+                  {CI_COMMIT_SHORT_SHA}
+                </a>
+              </div>
+              <small>
+                {t("sidebar.deploymentDate")}&nbsp;
+                {INTEGRATES_DEPLOYMENT_DATE}
+              </small>
+            </DropdownButton>
+          </li>
+        </DropdownMenu>
+      ) : undefined}
+    </div>
+  );
+};

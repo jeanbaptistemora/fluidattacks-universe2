@@ -10,7 +10,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import {
-  ExtraInfo,
   Logo,
   Preloader,
   SidebarButton,
@@ -20,11 +19,6 @@ import {
 
 import { TooltipWrapper } from "components/TooltipWrapper/index";
 import { Can } from "utils/authz/Can";
-import {
-  CI_COMMIT_SHA,
-  CI_COMMIT_SHORT_SHA,
-  INTEGRATES_DEPLOYMENT_DATE,
-} from "utils/ctx";
 import { translate } from "utils/translations/translate";
 
 interface ISidebarProps {
@@ -105,28 +99,6 @@ const Sidebar: React.FC<ISidebarProps> = (
         </li>
       </SidebarMenu>
       {isLoading ? <Preloader /> : undefined}
-      {collapsed ? undefined : (
-        <ExtraInfo>
-          <div>
-            <small>
-              {translate.t("sidebar.deploymentDate")}&nbsp;
-              {INTEGRATES_DEPLOYMENT_DATE}
-            </small>
-          </div>
-          <div>
-            <small>
-              {translate.t("sidebar.commit")}&nbsp;
-              <a
-                href={`https://gitlab.com/fluidattacks/product/-/tree/${CI_COMMIT_SHA}`}
-                rel={"noopener noreferrer"}
-                target={"_blank"}
-              >
-                {CI_COMMIT_SHORT_SHA}
-              </a>
-            </small>
-          </div>
-        </ExtraInfo>
-      )}
     </SidebarContainer>
   );
 };

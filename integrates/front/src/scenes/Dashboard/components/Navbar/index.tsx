@@ -11,6 +11,7 @@ import { HelpWidget } from "./HelpWidget";
 import { NewsWidget } from "./NewsWidget";
 import { SplitButton } from "./SplitButton";
 import { NavbarContainer, NavbarHeader, NavbarMenu } from "./styles";
+import { TechnicalInfo } from "./TechnicalInfo";
 import { UserProfile } from "./UserProfile";
 
 import { MenuItem } from "components/DropdownButton";
@@ -205,6 +206,9 @@ export const Navbar: React.FC<INavbarProps> = ({
           </li>
           <li>
             <HelpWidget />
+          </li>
+          <li>
+            <TechnicalInfo />
           </li>
           <li>
             <UserProfile userRole={userRole} />

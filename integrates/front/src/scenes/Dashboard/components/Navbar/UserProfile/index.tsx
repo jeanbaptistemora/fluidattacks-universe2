@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import { reset } from "mixpanel-browser";
 import React, { useCallback, useContext, useState } from "react";
+import { useDetectClickOutside } from "react-detect-click-outside";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
@@ -16,10 +17,6 @@ import { DropdownButton, DropdownMenu, NavbarButton } from "../styles";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { authContext } from "utils/auth";
-
-const UserInfo = styled.p.attrs({
-  className: "lh-title ph2",
-})``;
 
 const Divider = styled.hr.attrs({
   className: "mv2",
@@ -39,6 +36,11 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
   const toggleDropdown = useCallback((): void => {
     setDropdownOpen((currentValue): boolean => !currentValue);
   }, []);
+  const ref = useDetectClickOutside({
+    onTriggered: (): void => {
+      setDropdownOpen(false);
+    },
+  });
 
   const [isTokenModalOpen, setTokenModalOpen] = useState(false);
   const openTokenModal = useCallback((): void => {
@@ -49,7 +51,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
   }, []);
 
   return (
-    <div>
+    <div ref={ref}>
       <NavbarButton onClick={toggleDropdown}>
         <FontAwesomeIcon icon={faUserCircle} />
         <FontAwesomeIcon icon={faCaretDown} />
@@ -57,7 +59,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
       {isDropdownOpen ? (
         <DropdownMenu>
           <li>
-            <UserInfo>
+            <DropdownButton>
               <b>{userName}</b>
               <br />
               {userEmail}
@@ -68,7 +70,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
                   {t(`userModal.roles.${_.camelCase(userRole)}`)}
                 </React.Fragment>
               )}
-            </UserInfo>
+            </DropdownButton>
           </li>
           <Divider />
           <li>
