@@ -925,6 +925,9 @@ export const enTranslations: ResourceKey = {
             addButton: "Add organization policy pending to approve",
             approveButton: "Approve organization finding policy",
             deactivateButton: "Disable organization finding policy",
+            nameInput:
+              "Add the type of finding to which vulnerabilities in organization " +
+              "groups will apply the accepted eternally treatment",
             rejectButton: "Reject organization finding policy",
           },
         },

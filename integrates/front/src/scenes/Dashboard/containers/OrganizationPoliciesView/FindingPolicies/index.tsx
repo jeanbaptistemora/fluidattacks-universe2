@@ -136,17 +136,26 @@ const FindingPolicies: React.FC<IFindingPolicies> = ({
       >
         <Form>
           <Row>
-            <div className={"w-50-l w-50-m w-auto-ns"} />
             <div className={"w-50-l w-50-m w-100-ns"}>
               {_.isUndefined(data) ? undefined : (
-                <div className={"flex items-start"}>
+                <div className={"flex items-center"}>
                   <div className={"w-90-ns"}>
-                    <Field
-                      component={FormikAutocompleteText}
-                      name={"name"}
-                      suggestions={suggestions}
-                      validate={composeValidators([required, validDraftTitle])}
-                    />
+                    <TooltipWrapper
+                      id={"nameInputToolTip"}
+                      message={t(
+                        "organization.tabs.policies.findings.tooltip.nameInput"
+                      )}
+                    >
+                      <Field
+                        component={FormikAutocompleteText}
+                        name={"name"}
+                        suggestions={suggestions}
+                        validate={composeValidators([
+                          required,
+                          validDraftTitle,
+                        ])}
+                      />
+                    </TooltipWrapper>
                   </div>
                   <div className={"w-10-ns"}>
                     <TooltipWrapper
@@ -155,7 +164,13 @@ const FindingPolicies: React.FC<IFindingPolicies> = ({
                         "organization.tabs.policies.findings.tooltip.addButton"
                       )}
                     >
-                      <Button disabled={submitting} type={"submit"}>
+                      <Button
+                        // Use className to override default styles
+                        // eslint-disable-next-line react/forbid-component-props
+                        className={"lh-copy"}
+                        disabled={submitting}
+                        type={"submit"}
+                      >
                         <FontAwesomeIcon icon={faPlus} />
                       </Button>
                     </TooltipWrapper>
