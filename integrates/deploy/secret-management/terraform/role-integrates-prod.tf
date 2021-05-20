@@ -12,15 +12,15 @@ resource "aws_iam_role" "integrates-prod" {
 
 resource "aws_iam_role_policy_attachment" "integrates-prod-push-cloudwatch" {
   role       = aws_iam_role.integrates-prod.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+  policy_arn = module.external.aws_iam_policies["cloudwatch-push"].arn
 }
 
 resource "aws_iam_role_policy_attachment" "integrates-prod-dynamo-full-access" {
   role       = aws_iam_role.integrates-prod.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
+  policy_arn = module.external.aws_iam_policies["dynamodb-admin"].arn
 }
 
 resource "aws_iam_role_policy_attachment" "integrates-prod" {
   role       = aws_iam_role.integrates-prod.name
-  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user-provision/integrates-prod-policy"
+  policy_arn = module.external.aws_iam_policies["integrates-prod-policy"].arn
 }

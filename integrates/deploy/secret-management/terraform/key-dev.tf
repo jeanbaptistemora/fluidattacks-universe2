@@ -5,7 +5,7 @@ data "aws_iam_policy_document" "integrates-dev-key" {
     effect = "Allow"
     principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
+      identifiers = [module.external.aws_root.arn]
     }
     actions = [
       "kms:*"
