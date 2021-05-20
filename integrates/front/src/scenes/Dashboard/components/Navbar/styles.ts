@@ -17,25 +17,43 @@ const NavbarHeader = styled.div.attrs({
 const NavbarMenu = styled.ul.attrs({
   className: "f4 flex items-center list mb0 ph0",
 })`
-  li {
+  & li {
     padding: 0 12px;
+    position: relative;
   }
 `;
 
-const MenuButton = styled.button.attrs({
+const NavbarButton = styled.button.attrs({
   className: "bn flex gray outline-0 pointer",
 })`
   background: none;
 `;
 
 const DropdownMenu = styled.ul.attrs({
-  className: "absolute bg-white f5 list mt3 mr3 ph2 pv2 shadow-3",
+  className: "absolute bg-white f5 list mt3 ph0 pv2 shadow-1",
 })`
   min-width: 240px;
   right: 0;
-  li {
+  & li {
     color: black;
+    padding: 0;
   }
 `;
 
-export { DropdownMenu, MenuButton, NavbarContainer, NavbarHeader, NavbarMenu };
+const DropdownButton = styled.button.attrs({
+  className: "bn hover-bg-light-gray outline-0 ph3 pv2 pointer tl w-100",
+})`
+  background: none;
+  & svg {
+    margin-right: 5px;
+  }
+`;
+
+export {
+  DropdownButton,
+  DropdownMenu,
+  NavbarButton,
+  NavbarContainer,
+  NavbarHeader,
+  NavbarMenu,
+};

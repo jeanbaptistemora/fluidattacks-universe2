@@ -808,7 +808,12 @@ export const enTranslations: ResourceKey = {
   logout: "Log out",
   navbar: {
     newsTooltip: "Latest updates about ASM",
+    role: "Role:",
     searchPlaceholder: "Search Group Name",
+    token: {
+      text: "API",
+      tooltip: "Get an Integrates API Token",
+    },
   },
   organization: {
     tabs: {
@@ -2199,11 +2204,6 @@ export const enTranslations: ResourceKey = {
       tooltip: "Create new organization",
     },
     reports: "Reports",
-    role: "Role:",
-    token: {
-      text: "API",
-      tooltip: "Get an Integrates API Token",
-    },
     user: {
       text: "Add Stakeholder",
       tooltip: "Add a user",

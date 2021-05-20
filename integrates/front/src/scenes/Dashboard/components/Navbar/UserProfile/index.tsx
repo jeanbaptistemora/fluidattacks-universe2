@@ -1,15 +1,25 @@
-import { faCaretDown, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCaretDown,
+  faKey,
+  faUserCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import React, { useCallback, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
-import { DropdownMenu, MenuButton } from "../styles";
+import { APITokenModal } from "../../APITokenModal";
+import { DropdownButton, DropdownMenu, NavbarButton } from "../styles";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { authContext } from "utils/auth";
 
 const UserInfo = styled.p.attrs({
-  className: "lh-title",
+  className: "lh-title ph2",
+})``;
+
+const Divider = styled.hr.attrs({
+  className: "mv2",
 })``;
 
 interface IUserProfileProps {
@@ -22,18 +32,26 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
   const { userEmail, userName } = useContext(authContext);
   const { t } = useTranslation();
 
-  const [isOpen, setOpen] = useState(false);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
   const toggleDropdown = useCallback((): void => {
-    setOpen((currentValue): boolean => !currentValue);
+    setDropdownOpen((currentValue): boolean => !currentValue);
+  }, []);
+
+  const [isTokenModalOpen, setTokenModalOpen] = useState(false);
+  const openTokenModal = useCallback((): void => {
+    setTokenModalOpen(true);
+  }, []);
+  const closeTokenModal = useCallback((): void => {
+    setTokenModalOpen(false);
   }, []);
 
   return (
     <div>
-      <MenuButton onClick={toggleDropdown}>
+      <NavbarButton onClick={toggleDropdown}>
         <FontAwesomeIcon icon={faUserCircle} />
         <FontAwesomeIcon icon={faCaretDown} />
-      </MenuButton>
-      {isOpen ? (
+      </NavbarButton>
+      {isDropdownOpen ? (
         <DropdownMenu>
           <li>
             <UserInfo>
@@ -43,11 +61,28 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
               {userRole === undefined ? undefined : (
                 <React.Fragment>
                   <br />
-                  {t("sidebar.role")}&nbsp;
+                  {t("navbar.role")}&nbsp;
                   {t(`userModal.roles.${_.camelCase(userRole)}`)}
                 </React.Fragment>
               )}
             </UserInfo>
+          </li>
+          <Divider />
+          <li>
+            <DropdownButton onClick={openTokenModal}>
+              <TooltipWrapper
+                id={"apiToken"}
+                message={t("navbar.token.tooltip")}
+                placement={"right"}
+              >
+                <FontAwesomeIcon icon={faKey} />
+                &nbsp;
+                {t("navbar.token.text")}
+              </TooltipWrapper>
+            </DropdownButton>
+            {isTokenModalOpen ? (
+              <APITokenModal onClose={closeTokenModal} open={true} />
+            ) : undefined}
           </li>
         </DropdownMenu>
       ) : undefined}

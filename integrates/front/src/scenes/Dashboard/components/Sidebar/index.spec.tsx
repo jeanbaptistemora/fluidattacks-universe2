@@ -22,7 +22,6 @@ describe("Sidebar", (): void => {
           collapsed={false}
           isLoading={false}
           onLogoutClick={functionMock}
-          onOpenAccessTokenModal={functionMock}
           onOpenAddOrganizationModal={functionMock}
           onOpenAddUserModal={functionMock}
           onOpenConfig={functionMock}

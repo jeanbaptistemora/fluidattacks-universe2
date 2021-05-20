@@ -32,7 +32,7 @@ const Logo = styled.img.attrs({
   min-width: 116px;
 `;
 
-const MenuButton = styled.button.attrs({
+const SidebarButton = styled.button.attrs({
   className: "white ph3 pv2 f4 w-100 bn pointer outline-0 tl nowrap",
 })`
   background: none;
@@ -63,8 +63,8 @@ export {
   ExtraInfo,
   Logo,
   LogoutButton,
-  MenuButton,
   Preloader,
+  SidebarButton,
   SidebarContainer,
   SidebarMenu,
 };

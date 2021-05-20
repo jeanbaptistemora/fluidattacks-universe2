@@ -16,7 +16,6 @@ import {
 import { ScrollUpButton } from "components/ScrollUpButton";
 import { AddOrganizationModal } from "scenes/Dashboard/components/AddOrganizationModal";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
-import { APITokenModal } from "scenes/Dashboard/components/APITokenModal";
 import { CompulsoryNotice } from "scenes/Dashboard/components/CompulsoryNoticeModal";
 import { ConcurrentSessionNotice } from "scenes/Dashboard/components/ConcurrentSessionNoticeModal";
 import { GlobalConfigModal } from "scenes/Dashboard/components/GlobalConfigModal";
@@ -74,15 +73,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
   }, []);
 
   const [userRole, setUserRole] = useState<string | undefined>(undefined);
-
-  const [isTokenModalOpen, setTokenModalOpen] = useState(false);
-  const openTokenModal: () => void = useCallback((): void => {
-    setTokenModalOpen(true);
-  }, []);
-
-  const closeTokenModal: () => void = useCallback((): void => {
-    setTokenModalOpen(false);
-  }, []);
 
   const [
     addStakeholder,
@@ -230,7 +220,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
         collapsed={sidebarCollapsed}
         isLoading={isLoading}
         onLogoutClick={handleLogout}
-        onOpenAccessTokenModal={openTokenModal}
         onOpenAddOrganizationModal={openOrganizationModal}
         onOpenAddUserModal={openUserModal}
         onOpenConfig={openConfigModal}
@@ -287,7 +276,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
       </DashboardContent>
       <ScrollUpButton visibleAt={400} />
       <GlobalConfigModal onClose={closeConfigModal} open={isConfigModalOpen} />
-      <APITokenModal onClose={closeTokenModal} open={isTokenModalOpen} />
       <AddOrganizationModal
         onClose={closeOrganizationModal}
         open={isOrganizationModalOpen}
