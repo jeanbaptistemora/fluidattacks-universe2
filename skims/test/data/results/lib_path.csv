@@ -254,5 +254,6 @@ F085. Sensitive data stored in the client-side storage,namespace/skims/test/data
 F085. Sensitive data stored in the client-side storage,namespace/skims/test/data/lib_path/f085/react.jsx,4,922
 F085. Sensitive data stored in the client-side storage,namespace/skims/test/data/lib_path/f085/react.jsx,5,922
 F085. Sensitive data stored in the client-side storage,namespace/skims/test/data/lib_path/f085/react.jsx,6,922
+F117. Unverifiable files,namespace/skims/test/data/lib_path/f117/.project,1,377
 F117. Unverifiable files,namespace/skims/test/data/lib_path/f117/MyJar.class,1,377
 F117. Unverifiable files,namespace/skims/test/data/lib_path/f117/MyJar.jar,1,377

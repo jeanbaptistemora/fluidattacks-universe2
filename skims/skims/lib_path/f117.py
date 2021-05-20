@@ -65,22 +65,36 @@ async def analyze(
 ) -> List[Awaitable[core_model.Vulnerabilities]]:
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
-    if file_extension in {
-        "bin",
-        "class",
-        "dll",
-        "DS_Store",
-        "exec",
-        "hprof",
-        "jar",
-        "jasper",
-        "pdb",
-        "pyc",
-    } or (file_name, file_extension) in {
-        ("debug", "log"),
-        ("", "classpath"),
-        ("", "project"),
-    }:
+    if (
+        file_extension
+        in {
+            "bin",
+            "class",
+            "dll",
+            "DS_Store",
+            "exec",
+            "hprof",
+            "jar",
+            "jasper",
+            "pdb",
+            "pyc",
+        }
+        or (file_name, file_extension)
+        in {
+            ("debug", "log"),
+            ("org.eclipse.buildship.core.prefs"),
+            (".classpath", ""),
+            (".project", ""),
+            (".vscode", ""),
+        }
+        or any(
+            string in path
+            for string in (
+                "/.serverless_plugins/",
+                "/.settings/",
+            )
+        )
+    ):
         coroutines.append(
             unverifiable_files(
                 file_name=file_name,

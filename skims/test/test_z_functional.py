@@ -423,6 +423,7 @@ async def test_should_report_vulns_to_namespace_verify(
             "F117",
             "APPROVED",
             (
+                ("namespace/skims/test/data/lib_path/f117/.project", "1"),
                 ("namespace/skims/test/data/lib_path/f117/MyJar.class", "1"),
                 ("namespace/skims/test/data/lib_path/f117/MyJar.jar", "1"),
             ),
@@ -462,8 +463,10 @@ async def test_should_report_vulns_to_namespace2_verify(
             "F117",
             "APPROVED",
             (
+                ("namespace/skims/test/data/lib_path/f117/.project", "1"),
                 ("namespace/skims/test/data/lib_path/f117/MyJar.class", "1"),
                 ("namespace/skims/test/data/lib_path/f117/MyJar.jar", "1"),
+                ("namespace2/skims/test/data/lib_path/f117/.project", "1"),
                 ("namespace2/skims/test/data/lib_path/f117/MyJar.class", "1"),
                 ("namespace2/skims/test/data/lib_path/f117/MyJar.jar", "1"),
             ),
@@ -502,6 +505,7 @@ async def test_should_close_vulns_to_namespace_verify(
             "F117",
             "APPROVED",
             (
+                ("namespace2/skims/test/data/lib_path/f117/.project", "1"),
                 ("namespace2/skims/test/data/lib_path/f117/MyJar.class", "1"),
                 ("namespace2/skims/test/data/lib_path/f117/MyJar.jar", "1"),
             ),
