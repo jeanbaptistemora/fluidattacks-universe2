@@ -10,6 +10,7 @@ from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
     LookedUpJavaClass,
 )
+from sast_symbolic_evaluation.utils_generic import lookup_var_dcl_by_name
 
 
 def evaluate(args: EvaluatorArgs) -> None:
@@ -114,6 +115,14 @@ def attempt_as_method_invocation(args: EvaluatorArgs) -> bool:
         analyze_method_invocation_values(args, method)
         analyze_method_invocation(args, method)
 
+        return True
+
+    if isinstance(parent, graph_model.SyntaxStepSymbolLookup) and (
+        var := lookup_var_dcl_by_name(args, parent.symbol)
+    ):
+        method = var.var + "." + args.syntax_step.method
+        analyze_method_invocation(args, method)
+        analyze_method_invocation_values(args, method)
         return True
 
     return False

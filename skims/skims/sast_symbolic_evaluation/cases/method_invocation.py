@@ -107,6 +107,9 @@ BY_OBJ: Dict[str, Set[str]] = _complete_attrs_on_dict(
             "substring",
             "toCharArray",
         },
+        "string": {
+            "Split",
+        },
         "java.lang.StringBuilder": {
             "append",
             "append.toString",
@@ -173,6 +176,9 @@ BY_TYPE: Dict[str, Set[str]] = _complete_attrs_on_dict(
             "getParameterNames",
             "getParameterValues",
             "getQueryString",
+        },
+        "System.Web.HttpRequest": {
+            "Params.Get",
         },
     }
 )
