@@ -11,7 +11,7 @@ import wait from "waait";
 import { Sidebar } from "./components/Sidebar";
 
 import { Dashboard } from "scenes/Dashboard";
-import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
+import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/Breadcrumb/queries";
 import { GET_USER } from "scenes/Dashboard/queries";
 import type { IUser } from "scenes/Dashboard/types";
 import store from "store";

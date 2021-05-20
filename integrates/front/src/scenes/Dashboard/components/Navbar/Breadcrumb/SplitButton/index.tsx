@@ -6,8 +6,8 @@
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import type { StyledComponent } from "styled-components";
-import styled from "styled-components";
+
+import { IconButton, LastOrg } from "./styles";
 
 import { ButtonGroup } from "styles/styledComponents";
 
@@ -18,32 +18,6 @@ interface ISplitButtonProps {
   onClickIcon: () => void;
   title: React.ReactNode;
 }
-
-const LastOrg: StyledComponent<
-  "button",
-  Record<string, unknown>
-> = styled.button.attrs(
-  ({
-    className,
-    type,
-  }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
-    className: `br0 outline-0 ${className ?? ""}`,
-    type: type ?? "button",
-  })
-)``;
-
-const IconButton: StyledComponent<
-  "button",
-  Record<string, unknown>
-> = styled.button.attrs(
-  ({
-    className,
-    type,
-  }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
-    className: `br0 outline-0 ${className ?? ""}`,
-    type: type ?? "button",
-  })
-)``;
 
 const SplitButton: React.FC<ISplitButtonProps> = (
   props: Readonly<ISplitButtonProps>

@@ -9,11 +9,11 @@ import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 import waitForExpect from "wait-for-expect";
 
-import { SplitButton } from "./SplitButton";
+import { SplitButton } from "./Breadcrumb/SplitButton";
 
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { Navbar } from "scenes/Dashboard/components/Navbar";
-import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
+import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/Breadcrumb/queries";
 import store from "store";
 import { authContext } from "utils/auth";
 import { authzPermissionsContext } from "utils/authz/config";

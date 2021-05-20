@@ -124,9 +124,7 @@ describe("Evidence image", (): void => {
     component
       .find("textarea")
       .simulate("change", { target: { value: "New description" } });
-    wrapper
-      .find({ className: "sc-giIncl mb4 w-100", id: "evidence1" })
-      .simulate("submit");
+    wrapper.find(GenericForm).simulate("submit");
 
     expect(handleUpdate).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
 

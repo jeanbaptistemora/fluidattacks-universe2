@@ -6,7 +6,7 @@ import _ from "lodash";
 import React, { useCallback, useEffect } from "react";
 import { Redirect, Switch, useHistory } from "react-router-dom";
 
-import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/queries";
+import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/Breadcrumb/queries";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";

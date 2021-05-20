@@ -42,13 +42,6 @@ const ButtonToolbarRow: StyledComponent<
   className: "flex flex-wrap justify-end",
 })``;
 
-const BreadCrumb: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: "breadcrumb list",
-})``;
-
 const Col100: StyledComponent<
   "div",
   Record<string, unknown>
@@ -343,15 +336,6 @@ const ModalTitle: StyledComponent<
   className: "color-inherit fw3 f3 lh-solid ma0 montserrat tc",
 })``;
 
-const NavSplitButtonContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "split-button",
-})``;
-
 const Panel: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs(
   {
     className: "b--mid-light-gray ba bg-white br2 mb4",
@@ -598,7 +582,6 @@ const Well: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
 
 export {
   Alert,
-  BreadCrumb,
   ButtonGroup,
   ButtonToolbar,
   ButtonToolbarCenter,
@@ -642,7 +625,6 @@ export {
   ModalFooter,
   ModalHeader,
   ModalTitle,
-  NavSplitButtonContainer,
   Panel,
   PanelBody,
   PanelCollapse,
