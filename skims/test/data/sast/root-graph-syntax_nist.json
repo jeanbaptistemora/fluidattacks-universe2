@@ -358,6 +358,173 @@
             },
             "method": "Open",
             "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "198",
+              "value": 0.0
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "0",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "192",
+              "value": 0.0
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "i",
+            "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "189",
+              "value": null
+            },
+            "n_id_conditional_expression": "200",
+            "n_id_update": "208",
+            "n_id_var_declaration": "192",
+            "type": "SyntaxStepFor"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "212",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "215",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "234",
+              "value": "';"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "';",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "227",
+              "value": null
+            },
+            "symbol": "names",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "231",
+              "value": 0.0
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "226",
+              "value": null
+            },
+            "type": "SyntaxStepArrayAccess"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "224",
+              "value": "update users set hitcount=hitcount+1 where name='"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "update users set hitcount=hitcount+1 where name='",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "223",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "222",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "216",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "badSqlCommand.CommandText"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "247",
+              "value": null
+            },
+            "symbol": "badSqlCommand",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "245",
+              "value": null
+            },
+            "method": "ExecuteNonQuery",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "238",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "affectedRows",
+            "var_type": "implicit_type"
           }
         ],
         "52-69-71-78-79-96-104-106-128-137-146-148-150-168-170-171-179-180-189-237": [
@@ -716,6 +883,74 @@
             },
             "method": "Open",
             "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "198",
+              "value": 0.0
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "0",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "192",
+              "value": 0.0
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "i",
+            "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "189",
+              "value": null
+            },
+            "n_id_conditional_expression": "200",
+            "n_id_update": "208",
+            "n_id_var_declaration": "192",
+            "type": "SyntaxStepFor"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "247",
+              "value": null
+            },
+            "symbol": "badSqlCommand",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "245",
+              "value": null
+            },
+            "method": "ExecuteNonQuery",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "238",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "affectedRows",
+            "var_type": "implicit_type"
           }
         ]
       }

@@ -58,6 +58,7 @@ from sast_syntax_readers.c_sharp import (
     if_statement as c_sharp_if_statement,
     variable_declaration as c_sharp_variable_declaration,
     using_statement as c_sharp_using_statement,
+    for_statement as c_sharp_for_statement,
 )
 from sast_syntax_readers.common import (
     binary_expression as common_binary_expression,
@@ -165,6 +166,13 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         },
         applicable_node_label_types={"for_statement"},
         syntax_readers=(java_for_statement.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.CSHARP,
+        },
+        applicable_node_label_types={"for_statement"},
+        syntax_readers=(c_sharp_for_statement.reader,),
     ),
     Dispatcher(
         applicable_languages={

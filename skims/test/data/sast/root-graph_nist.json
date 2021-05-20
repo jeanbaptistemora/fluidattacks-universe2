@@ -4665,6 +4665,43 @@
             "type": "SyntaxStepMethodInvocationChain"
           }
         ],
+        "189": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "198",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "0",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "192",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "i",
+            "var_type": "int"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "189",
+              "value": null
+            },
+            "n_id_conditional_expression": "200",
+            "n_id_update": "208",
+            "n_id_var_declaration": "192",
+            "type": "SyntaxStepFor"
+          }
+        ],
         "212": [
           {
             "meta": {
