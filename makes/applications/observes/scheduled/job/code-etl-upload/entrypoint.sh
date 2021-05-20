@@ -1,5 +1,7 @@
 # shellcheck shell=bash
 
+alias code-etl="observes-bin-code-etl"
+
 function job_code_upload {
   local group="${1}"
 
@@ -32,11 +34,14 @@ function job_code_upload {
                 ||  return 1
               done \
           &&  echo "[INFO] Executing ${group}" \
-          &&  observes-bin-code-etl upload-code \
+          &&  code-etl upload-code \
                 "${group}" \
                 "groups/${group}/fusion/"* \
           &&  shopt -u nullglob \
           &&  rm -rf "groups/${group}/fusion/" \
+          &&  echo "[INFO] Executing amend authors" \
+          &&  code-etl amend-authors \
+                '.groups-mailmap' \
 
         fi \
   &&  popd \
