@@ -5,10 +5,7 @@ from typing import (
     List,
 )
 
-from aioextensions import (
-    collect,
-    in_process,
-)
+from aioextensions import collect
 
 from __init__ import (
     BASE_URL,
@@ -20,10 +17,7 @@ from custom_types import (
     MailContent as MailContentType,
 )
 from group_access import domain as group_access_domain
-from newutils import (
-    findings as findings_utils,
-    vulnerabilities as vulns_utils,
-)
+from newutils import findings as findings_utils
 
 from .common import (
     COMMENTS_TAG,
@@ -261,45 +255,4 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
         VERIFY_TAG,
         f'New remediation in [{group_name}] - [Finding#{finding_id}]',
         'remediate_finding'
-    )
-
-
-async def send_mail_verified_finding(  # pylint: disable=too-many-arguments
-    context: Any,
-    finding_id: str,
-    finding_name: str,
-    group_name: str,
-    historic_verification: List[Dict[str, str]],
-    vulnerabilities: List[str]
-) -> None:
-    org_name = await _get_organization_name(context, group_name)
-    all_recipients = await group_access_domain.get_users_to_notify(group_name)
-    recipients = await in_process(
-        vulns_utils.get_reattack_requesters,
-        historic_verification,
-        vulnerabilities
-    )
-    recipients = [
-        recipient
-        for recipient in recipients
-        if recipient in all_recipients
-    ]
-    await send_mails_async_new(
-        recipients,
-        {
-            'project': group_name,
-            'organization': org_name,
-            'finding_name': finding_name,
-            'finding_url': (
-                f'{BASE_URL}/orgs/{org_name}/groups/{group_name}'
-                f'/vulns/{finding_id}/tracking'
-            ),
-            'finding_id': finding_id
-        },
-        VERIFY_TAG,
-        (
-            f'Finding verified in [{group_name}] - '
-            f'[Finding#{finding_id}]'
-        ),
-        'verified_finding'
     )

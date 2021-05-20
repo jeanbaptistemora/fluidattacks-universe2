@@ -916,19 +916,6 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
             date=today,
             vulns_to_close_from_file=vulns_to_close_from_file
         )
-        schedule(
-            findings_mail.send_mail_verified_finding(
-                info.context.loaders,
-                finding_id,
-                str(finding.get('title', '')),
-                str(finding.get('project_name', '')),
-                cast(
-                    List[Dict[str, str]],
-                    finding.get('historic_verification', [])
-                ),
-                [str(vuln.get('UUID', '')) for vuln in vulnerabilities],
-            )
-        )
     else:
         LOGGER.error('An error occurred verifying', **NOEXTRA)
     return all(success)
