@@ -1,3 +1,4 @@
+# pylint: skip-file
 # Standard libraries
 from __future__ import annotations
 from enum import Enum
@@ -6,6 +7,7 @@ from typing import (
     Callable,
     Dict,
     Iterable,
+    Iterator,
     List,
     NamedTuple,
     Optional,
@@ -13,6 +15,9 @@ from typing import (
 )
 
 # Third party libraries
+from deprecated import deprecated
+from returns.maybe import Maybe
+from returns.io import IO, impure
 from psycopg2 import sql as postgres_sql
 
 # Local libraries
@@ -94,22 +99,50 @@ def _make_fetch_action(
     return CursorFetchAction(act=action, fetch_type=f_action)
 
 
+class Query(NamedTuple):
+    query: str
+    args: Maybe[DynamicSQLargs]
+
+    @classmethod
+    def new(cls, query: str, args: Maybe[DynamicSQLargs]) -> Query:
+        return cls(
+            query=sql_id_purifier(query, args.value_or(None)), args=args
+        )
+
+
 class Cursor(NamedTuple):
     db_cursor: DbCursor
 
+    @deprecated(reason="Use execute_query instead")
     def execute(
         self, stm: str, args: Optional[DynamicSQLargs] = None
     ) -> CursorExeAction:
         return _make_exe_action(self.db_cursor, stm, args)
 
+    @deprecated(reason="Use fetch_all instead")
     def fetchall(self) -> CursorFetchAction:
         return _make_fetch_action(self.db_cursor, FetchAction.ALL)
 
+    @deprecated(reason="Use fetch_one instead")
     def fetchone(self) -> CursorFetchAction:
         return _make_fetch_action(self.db_cursor, FetchAction.ONE)
 
+    @impure
     def close(self) -> None:
         return self.db_cursor.close()
+
+    @impure
+    def execute_query(self, query: Query) -> None:
+        stm_values: Dict[str, Optional[str]] = query.args.map(
+            lambda args: args.values
+        ).value_or({})
+        self.db_cursor.execute(query.query, stm_values)
+
+    def fetch_all(self) -> IO[Any]:
+        return self.db_cursor.fetchall()
+
+    def fetch_one(self) -> IO[Iterator[Any]]:
+        return self.db_cursor.fetchone()
 
     @classmethod
     def new(cls, connection: DbConnection) -> Cursor:
