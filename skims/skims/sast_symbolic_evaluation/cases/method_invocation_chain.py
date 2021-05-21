@@ -117,10 +117,11 @@ def attempt_as_method_invocation(args: EvaluatorArgs) -> bool:
 
         return True
 
-    if isinstance(parent, graph_model.SyntaxStepSymbolLookup) and (
-        var := lookup_var_dcl_by_name(args, parent.symbol)
-    ):
-        method = var.var + "." + args.syntax_step.method
+    if isinstance(parent, graph_model.SyntaxStepSymbolLookup):
+        if var := lookup_var_dcl_by_name(args, parent.symbol):
+            method = var.var + "." + args.syntax_step.method
+        else:
+            method = parent.symbol + "." + args.syntax_step.method
         analyze_method_invocation(args, method)
         analyze_method_invocation_values(args, method)
         return True

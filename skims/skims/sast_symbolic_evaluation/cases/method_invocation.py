@@ -68,6 +68,11 @@ STATIC_FINDING: Dict[str, Set[str]] = {
             "java.util.Random.nextGaussian",
         }
     ),
+    core_model.FindingEnum.F001_C_SHARP_SQL.name: complete_attrs_on_set(
+        {
+            "System.Console.ReadLine",
+        }
+    ),
 }
 STATIC_SIDE_EFFECTS: Dict[str, Set[str]] = {
     core_model.FindingEnum.F034.name: complete_attrs_on_set(
@@ -176,6 +181,9 @@ BY_TYPE: Dict[str, Set[str]] = complete_attrs_on_dict(
         },
         "System.Web.HttpRequest": {
             "Params.Get",
+        },
+        "StreamReader": {
+            "ReadLine",
         },
     }
 )
