@@ -99,11 +99,6 @@ makes.okta.apply:
   <<: *makes_in_master_branch
   stage: deploy-infra
 
-makes.okta.format:
-  <<: *makes
-  <<: *makes_in_dev_branch
-  stage: lint-code
-
 makes.okta.lint:
   <<: *makes
   <<: *makes_in_dev_branch

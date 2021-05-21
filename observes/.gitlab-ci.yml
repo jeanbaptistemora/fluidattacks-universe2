@@ -38,11 +38,6 @@ makes.test.observes:
   <<: *observes_in_master_branch
   stage: test-code
 
-observes.job.format-code:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
-
 observes.job.infra.apply:
   <<: *makes
   <<: *observes_in_master_branch

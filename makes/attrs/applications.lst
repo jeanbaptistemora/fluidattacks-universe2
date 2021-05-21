@@ -80,7 +80,6 @@ makes.kill-port
 makes.lint
 makes.lint-commit-msg
 makes.okta.apply
-makes.okta.format
 makes.okta.lint
 makes.okta.test
 makes.profiles
@@ -164,7 +163,6 @@ observes.job.delighted-etl
 observes.job.dynamodb-etl
 observes.job.dynamodb-forces-etl
 observes.job.dynamodb-table-etl
-observes.job.format-code
 observes.job.infra.apply
 observes.job.infra.test
 observes.job.zoho-crm-etl
