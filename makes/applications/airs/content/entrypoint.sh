@@ -27,6 +27,9 @@ function main {
           sed -i "s|pathPrefix: '/new-front'|pathPrefix: '/${CI_COMMIT_REF_NAME}'|g" new-front/gatsby-config.js
         fi \
     &&  pushd new-front \
+      &&  find content/pages -type f -name "*.adoc" -exec sed -i 's|:partnerlogo|:page-partnerlogo|g' {} + \
+      &&  find content/pages -type f -name "*.adoc" -exec sed -i 's|:alt|:page-alt|g' {} + \
+      &&  find content/pages -type f -name "*.adoc" -exec sed -i 's|:partner|:page-partner|g' {} + \
       &&  find content/pages -type f -name "*.adoc" -exec sed -i 's|:phrase|:page-phrase|g' {} + \
       &&  find content/pages -type f -name "*.adoc" -exec sed -i 's|:slug|:page-slug|g' {} + \
       &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:description|:page-description|g" {} + \
