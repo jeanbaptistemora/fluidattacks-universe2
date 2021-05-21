@@ -573,6 +573,22 @@ class FindingEnum(Enum):
         severity_scope=SeverityScope.unchanged,
         user_interaction=UserInteraction.none,
     )
+    F070_WILDCARD_IMPORT: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F070_WILDCARD_IMPORT",
+        cwe="398",
+        attack_complexity=AttackComplexity.high,
+        attack_vector=AttackVector.network,
+        availability_impact=AvailabilityImpact.none,
+        confidentiality_impact=ConfidentialityImpact.none,
+        exploitability=Exploitability.poc,
+        integrity_impact=IntegrityImpact.low,
+        privileges_required=PrivilegesRequired.high,
+        remediation_level=RemediationLevel.official_fix,
+        report_confidence=ReportConfidence.reasonable,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.required,
+    )
     F073: FindingMetadata = FindingMetadata.new(
         code="F073",
         cwe="478",

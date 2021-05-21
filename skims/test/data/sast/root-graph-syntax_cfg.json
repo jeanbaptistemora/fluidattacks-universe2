@@ -92,6 +92,9 @@
   "F064_SERVER_CLOCK": {
     "skims/test/data/sast/TestCFG.java": {}
   },
+  "F070_WILDCARD_IMPORT": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
   "F073": {
     "skims/test/data/sast/TestCFG.java": {}
   },

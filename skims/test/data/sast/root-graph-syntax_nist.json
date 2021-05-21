@@ -1046,6 +1046,9 @@
   "F064_SERVER_CLOCK": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {}
   },
+  "F070_WILDCARD_IMPORT": {
+    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {}
+  },
   "F073": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {}
   },

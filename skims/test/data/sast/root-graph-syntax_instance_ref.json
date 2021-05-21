@@ -5769,6 +5769,10 @@
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
+  "F070_WILDCARD_IMPORT": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
   "F073": {
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
