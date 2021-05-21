@@ -17,6 +17,12 @@ import {
 import { Field } from "redux-form";
 
 import { ButtonCol } from "./components/buttoncol";
+import {
+  handleDraftApproval,
+  handleDraftApprovalError,
+  handleDraftError,
+  handleSuccessfulDraft,
+} from "./helpers";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
@@ -103,45 +109,10 @@ const findingContent: React.FC = (): JSX.Element => {
     SUBMIT_DRAFT_MUTATION,
     {
       onCompleted: (result: { submitDraft: { success: boolean } }): void => {
-        if (result.submitDraft.success) {
-          msgSuccess(
-            translate.t("group.drafts.successSubmit"),
-            translate.t("group.drafts.titleSuccess")
-          );
-          // Exception: FP(void operator is necessary)
-          // eslint-disable-next-line
-          void headerRefetch(); //NOSONAR
-        }
+        handleSuccessfulDraft(result, headerRefetch);
       },
       onError: (submitError: ApolloError): void => {
-        submitError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-          if (
-            _.includes(message, "Exception - This draft has missing fields")
-          ) {
-            msgError(
-              translate.t("group.drafts.errorSubmit", {
-                missingFields: message.split("fields: ")[1],
-              })
-            );
-          } else if (
-            message === "Exception - This draft has already been submitted"
-          ) {
-            msgError(translate.t("groupAlerts.draftAlreadySubmitted"));
-            // Exception: FP(void operator is necessary)
-            // eslint-disable-next-line
-            void headerRefetch(); //NOSONAR
-          } else if (
-            message === "Exception - This draft has already been approved"
-          ) {
-            msgError(translate.t("groupAlerts.draftAlreadyApproved"));
-            // Exception: FP(void operator is necessary)
-            // eslint-disable-next-line
-            void headerRefetch(); //NOSONAR
-          } else {
-            msgError(translate.t("groupAlerts.errorTextsad"));
-            Logger.warning("An error occurred submitting draft", submitError);
-          }
-        });
+        handleDraftError(submitError, headerRefetch);
       },
       variables: { findingId },
     }
@@ -151,44 +122,10 @@ const findingContent: React.FC = (): JSX.Element => {
     APPROVE_DRAFT_MUTATION,
     {
       onCompleted: (result: { approveDraft: { success: boolean } }): void => {
-        if (result.approveDraft.success) {
-          msgSuccess(
-            translate.t("searchFindings.draftApproved"),
-            translate.t("group.drafts.titleSuccess")
-          );
-          // Exception: FP(void operator is necessary)
-          // eslint-disable-next-line
-          void headerRefetch(); //NOSONAR
-        }
+        handleDraftApproval(result, headerRefetch);
       },
       onError: (approveError: ApolloError): void => {
-        approveError.graphQLErrors.forEach(
-          ({ message }: GraphQLError): void => {
-            switch (message) {
-              case "Exception - This draft has already been approved":
-                msgError(translate.t("groupAlerts.draftAlreadyApproved"));
-                // Exception: FP(void operator is necessary)
-                // eslint-disable-next-line
-                void headerRefetch(); //NOSONAR
-                break;
-              case "Exception - The draft has not been submitted yet":
-                msgError(translate.t("groupAlerts.draftNotSubmitted"));
-                // Exception: FP(void operator is necessary)
-                // eslint-disable-next-line
-                void headerRefetch(); //NOSONAR
-                break;
-              case "CANT_APPROVE_FINDING_WITHOUT_VULNS":
-                msgError(translate.t("groupAlerts.draftWithoutVulns"));
-                break;
-              default:
-                msgError(translate.t("groupAlerts.errorTextsad"));
-                Logger.warning(
-                  "An error occurred approving draft",
-                  approveError
-                );
-            }
-          }
-        );
+        handleDraftApprovalError(approveError, headerRefetch);
       },
       variables: { findingId },
     }
