@@ -1,5 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
+import { PureAbility } from "@casl/ability";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import { GraphQLError } from "graphql";
@@ -15,6 +16,7 @@ import {
   GET_ORGANIZATION_FINDINGS_TITLES,
 } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/queries";
 import { GET_ORGANIZATION_POLICIES } from "scenes/Dashboard/containers/OrganizationPoliciesView/queries";
+import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
 jest.mock(
@@ -241,6 +243,103 @@ describe("Organization findings policies view", (): void => {
           expect(msgError).toHaveBeenCalledWith(
             t("organization.tabs.policies.findings.errors.duplicateFinding")
           );
+        });
+      }
+    );
+  });
+
+  it("organization finding policy missing handle actions permissions", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[mockFindingTitleQuery, mockQuery]}
+        >
+          <Route path={"/orgs/:organizationName/policies"}>
+            <FindingPolicies
+              findingPolicies={[
+                {
+                  id: "fd882d65-1c25-41c5-9bd1-e3ef5200e7cd",
+                  lastStatusUpdate: "2021-05-21T06:58:58",
+                  name: "F060. Insecure exceptions",
+                  status: "SUBMITTED",
+                },
+              ]}
+              organizationId={organizationId}
+            />
+          </Route>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    const firstRow: ReactWrapper = wrapper
+      .find("OrganizationFindingPolicy")
+      .first();
+
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
+
+        wrapper.update();
+
+        await waitForExpect((): void => {
+          expect(firstRow.find("Button")).toHaveLength(0);
+        });
+      }
+    );
+  });
+
+  it("organization finding policy handle actions permissions", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[mockFindingTitleQuery, mockQuery]}
+        >
+          <authzPermissionsContext.Provider
+            value={
+              new PureAbility([
+                {
+                  action:
+                    "api_mutations_handle_finding_policy_acceptation_mutate",
+                },
+              ])
+            }
+          >
+            <Route path={"/orgs/:organizationName/policies"}>
+              <FindingPolicies
+                findingPolicies={[
+                  {
+                    id: "923f081c-eae2-4ab7-9c66-36b12fd554d7",
+                    lastStatusUpdate: "2021-05-21T07:16:48",
+                    name: "F060. Insecure exceptions",
+                    status: "SUBMITTED",
+                  },
+                ]}
+                organizationId={organizationId}
+              />
+            </Route>
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    const firstRow: ReactWrapper = wrapper
+      .find("OrganizationFindingPolicy")
+      .first();
+
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
+
+        wrapper.update();
+
+        await waitForExpect((): void => {
+          expect(firstRow.find("Button")).toHaveLength(2);
         });
       }
     );
