@@ -11,6 +11,7 @@ buildNodeRequirements {
   dependencies = [
     # Libraries needed to build some node modules like sharp, used in the APK build
     nixpkgs.bash
+    nixpkgs.binutils
     nixpkgs.gcc
     nixpkgs.gnugrep
     nixpkgs.gnumake
