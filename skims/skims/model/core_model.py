@@ -698,11 +698,6 @@ class FindingReleaseStatusEnum(Enum):
     SUBMITTED: str = "SUBMITTED"
 
 
-class VulnerabilityApprovalStatusEnum(Enum):
-    APPROVED: str = "APPROVED"
-    PENDING: str = "PENDING"
-
-
 class VulnerabilityStateEnum(Enum):
     OPEN: str = "open"
     CLOSED: str = "closed"
@@ -725,7 +720,6 @@ class GrammarMatch(NamedTuple):
 
 
 class IntegratesVulnerabilityMetadata(NamedTuple):
-    approval_status: Optional[VulnerabilityApprovalStatusEnum] = None
     commit_hash: Optional[str] = None
     source: Optional[VulnerabilitySourceEnum] = None
     uuid: Optional[str] = None

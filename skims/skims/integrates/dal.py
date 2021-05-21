@@ -282,7 +282,6 @@ async def get_finding_vulnerabilities(
                 finding(identifier: $finding_id) {
                     vulnerabilities {
                         commitHash
-                        currentApprovalStatus
                         currentState
                         id
                         source
@@ -311,10 +310,6 @@ async def get_finding_vulnerabilities(
             core_model.Vulnerability(
                 finding=finding,
                 integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
-                    approval_status=core_model.VulnerabilityApprovalStatusEnum(
-                        (vulnerability["currentApprovalStatus"])
-                        or core_model.VulnerabilityApprovalStatusEnum.APPROVED
-                    ),
                     commit_hash=vulnerability["commitHash"],
                     source=core_model.VulnerabilitySourceEnum(
                         vulnerability["source"]

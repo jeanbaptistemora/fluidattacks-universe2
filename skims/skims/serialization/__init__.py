@@ -99,7 +99,6 @@ def _side_effects() -> None:
         core_model.FindingTypeEnum,
         core_model.Grammar,
         core_model.Platform,
-        core_model.VulnerabilityApprovalStatusEnum,
         core_model.VulnerabilityKindEnum,
         core_model.VulnerabilitySourceEnum,
         core_model.VulnerabilityStateEnum,
