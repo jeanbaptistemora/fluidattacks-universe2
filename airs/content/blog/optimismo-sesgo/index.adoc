@@ -28,7 +28,7 @@ lo compleja que es la "formación de juicios".
 Principalmente, *las creencias sobre eventos futuros*
 que uno puede experimentar y
 *las percepciones sobre cuán hábil
-se es* dependen de muchos factores; no profundizaré en esos detalles. +
+se es* dependen de muchos factores; no profundizaré en esos detalles.
 En cambio, me centraré en dos fuertes tendencias
 relativas a tales juicios:
 primero, en el sesgo optimista y, segundo,
@@ -79,7 +79,7 @@ calificó sus habilidades y seguridad a la hora de conducir
 El autor encontró que al menos
 el 69% de los participantes se clasificaron mejor
 que el conductor promedio;
-al menos el 77% se calificó a sí mismos
+al menos el 77% se calificó a sí mismo
 como más seguro que el conductor promedio.
 Por supuesto, esto es un disparate estadístico.
 La Asociación Americana del Automóvil (AAA)
@@ -164,7 +164,7 @@ Tenemos información limitada sobre los riesgos de ciberseguridad,
 y tendemos a aceptar datos de actores conocidos (por ejemplo, competidores).
 ¿Pero qué hay de las amenazas más distantes
 de las que tal vez no sepamos, o de las que creemos conocer,
-pero que tal vez sean el resultado de pensar con el deseo?
+pero que tal vez sean tan sólo una ilusión?
 
 Una de las fuentes del sesgo optimista
 reside en otro fenómeno psicológico:
@@ -180,7 +180,7 @@ en parte, responsables del sesgo.
 
 Ahora, piensa en la confianza que tu equipo
 tiene en la detección de todas las vulnerabilidades
-en sus aplicaciones e infraestructura.
+en tus aplicaciones e infraestructura.
 Puede ser cierto que nunca hayas
 sido hackeado... o que no hayas sido consciente de ello.
 Muchas empresas no reportan ninguna violación,
@@ -207,11 +207,12 @@ Ve más allá y haz que ese proceso
 _rompa automáticamente la compilación_
 cuando una aplicación no cumpla con los estándares de seguridad definidos.
 Y cierra ese ciclo desencadenando
-las correcciones necesarias tan pronto como sea posible,
+las correcciones necesarias, tan pronto como sea posible,
 para mantener el negocio en funcionamiento.
 Puedes tener todo eso con
-link:../../services/continuous-hacking/[Hackeo Continuo]
-y coordinar a tu equipo e inversores con un Attack Surface Manager.
+link:../../services/continuous-hacking/[Hacking Continuo]
+mientras coordinas a tu equipo y
+partes interesadas con un Attack Surface Manager.
 
 Esperamos que hayas disfrutado de este post,
 y esperamos saber de ti. +
