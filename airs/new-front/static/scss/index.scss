@@ -334,6 +334,20 @@ $whiter-gray: rgba(241, 241, 241, 1);
   width: 100%;
 }
 
+.cardgrid {
+  .accordion {
+    min-height: 350px;
+
+    img {
+      max-height: 150px;
+    }
+  }
+
+  .panel {
+    height: 0;
+  }
+}
+
 .compliance-content {
   a {
     color: $fluid-black;
