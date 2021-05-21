@@ -18,6 +18,7 @@ from . import query
         ['admin@gmail.com'],
         ['analyst@gmail.com'],
         ['closer@gmail.com'],
+        ['customer@gmail.com'],
     ]
 )
 async def test_get_events(populate: bool, email: str):
