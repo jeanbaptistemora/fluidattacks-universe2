@@ -1,3 +1,6 @@
+src.lib_path.f070_wildcard_import.wildcard_import:
+  en: Use of wildcard import
+  es: Uso del operator comodín para importar librerías
 F070_WILDCARD_IMPORT.description:
   en: >
     When importing libraries
