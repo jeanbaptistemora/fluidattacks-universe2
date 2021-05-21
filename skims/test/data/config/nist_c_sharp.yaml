@@ -10,6 +10,7 @@ path:
   include:
     # F001
     - glob(src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_*.cs)
+    - glob(src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteNonQuery_*.cs)
     # F052
     - src/testcases/CWE327_Use_Broken_Crypto/
     - src/testcases/CWE328_Reversible_One_Way_Hash/
