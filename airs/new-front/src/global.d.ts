@@ -39,6 +39,7 @@ interface IQueryData {
     };
   };
   pageContext: {
+    authorName: string;
     breadcrumb: {
       location: string;
       crumbs: [
@@ -48,6 +49,56 @@ interface IQueryData {
         }
       ];
     };
+    categoryName: string;
+    tagName: string;
     slug: string;
+  };
+}
+
+interface IData {
+  allAsciidoc: {
+    edges: [
+      {
+        node: {
+          fields: {
+            slug: string;
+          };
+          document: {
+            title: string;
+          };
+          pageAttributes: {
+            alt: string;
+            author: string;
+            category: string;
+            image: string;
+            tags: string;
+            description: string;
+            slug: string;
+            subtitle: string;
+          };
+        };
+      }
+    ];
+  };
+}
+
+interface INodes {
+  node: {
+    fields: {
+      slug: string;
+    };
+    document: {
+      title: string;
+    };
+    pageAttributes: {
+      alt: string;
+      author: string;
+      category: string;
+      image: string;
+      tags: string;
+      description: string;
+      slug: string;
+      subtitle: string;
+    };
   };
 }
