@@ -18,6 +18,7 @@ from returns.io import (
     IOResult,
     IOSuccess,
 )
+from returns.unsafe import unsafe_perform_io
 
 # Local libraries
 from postgres_client.client import Client
@@ -61,18 +62,6 @@ def _adapt_queries(
     return [_adapt_query(cursor, query) for query in queries]
 
 
-def _table_builder(table_draft: TableDraft) -> Table:
-    def table_path() -> str:
-        return f'"{table_draft.id.schema}"."{table_draft.id.table_name}"'
-
-    return Table(
-        id=table_draft.id,
-        primary_keys=table_draft.primary_keys,
-        columns=table_draft.columns,
-        table_path=table_path,
-    )
-
-
 def exist(
     db_client: Client, table_id: TableID
 ) -> IOResult[Literal[True], Literal[False]]:
@@ -86,42 +75,19 @@ def exist(
     return IOFailure(False)
 
 
-def retrieve(db_client: Client, table_id: TableID) -> IO[Optional[Table]]:
-    cursor = db_client.cursor
+def _retrieve(cursor: Cursor, table_id: TableID) -> IO[MetaTable]:
     query = queries.retrieve(table_id)
     cursor.execute_query(query)
     results = cursor.fetch_all()
 
-    def _extract(raw: Any) -> Optional[Table]:
-        columns = set()
-        for column in raw:
-            columns.add(IsolatedColumn(column[1], column[2], column[5]))
-        table_draft = TableDraft(
-            id=table_id, primary_keys=frozenset(), columns=frozenset(columns)
+    def _extract(raw: Any) -> MetaTable:
+        columns = frozenset(
+            Column(column[1], DbTypes(column[2].upper()), column[5])
+            for column in raw
         )
-        return _table_builder(table_draft)
+        return MetaTable.new(table_id, frozenset(), columns)
 
     return results.map(_extract)
-
-
-def create(
-    db_client: Client, table: Table, if_not_exist: bool = False
-) -> IO[Table]:
-    cursor = db_client.cursor
-    _table = adapt(table)
-    query = queries.create(_table, if_not_exist)
-    cursor.execute_query(query)
-    result = retrieve(db_client, _table.table_id)
-
-    def _to_table(table: Optional[Table]) -> Table:
-        if table:
-            return table
-        raise queries.TableCreationFail(
-            "Could not create and verify the existence of table: "
-            f"{_table.table_id}"
-        )
-
-    return result.map(_to_table)
 
 
 class DbTable(NamedTuple):
@@ -134,8 +100,17 @@ class DbTable(NamedTuple):
         return IO(None)
 
     @classmethod
-    def new(cls, client: Client, table: MetaTable) -> DbTable:
-        return cls(cursor=client.cursor, table=table)
+    def retrieve(cls, cursor: Cursor, table_id: TableID) -> IO[DbTable]:
+        table = unsafe_perform_io(_retrieve(cursor, table_id))
+        return IO(cls(cursor=cursor, table=table))
+
+    @classmethod
+    def new(
+        cls, cursor: Cursor, table: MetaTable, if_not_exist: bool = False
+    ) -> IO[DbTable]:
+        query = queries.create(table, if_not_exist)
+        cursor.execute_query(query)
+        return cls.retrieve(cursor, table.table_id)
 
 
 __all__ = [
