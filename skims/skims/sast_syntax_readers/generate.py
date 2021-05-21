@@ -58,6 +58,9 @@ from sast_syntax_readers.c_sharp import (
     variable_declaration as c_sharp_variable_declaration,
     using_statement as c_sharp_using_statement,
     for_statement as c_sharp_for_statement,
+    switch_statement as c_sharp_switch_statement,
+    case_switch_label as c_sharp_case_switch_label,
+    default_switch_label as c_sharp_default_switch_label,
 )
 from sast_syntax_readers.common import (
     binary_expression as common_binary_expression,
@@ -247,6 +250,33 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "switch_statement",
         },
         syntax_readers=(java_switch_statement.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.CSHARP,
+        },
+        applicable_node_label_types={
+            "switch_statement",
+        },
+        syntax_readers=(c_sharp_switch_statement.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.CSHARP,
+        },
+        applicable_node_label_types={
+            "case_switch_label",
+        },
+        syntax_readers=(c_sharp_case_switch_label.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.CSHARP,
+        },
+        applicable_node_label_types={
+            "default_switch_label",
+        },
+        syntax_readers=(c_sharp_default_switch_label.reader,),
     ),
     Dispatcher(
         applicable_languages={
