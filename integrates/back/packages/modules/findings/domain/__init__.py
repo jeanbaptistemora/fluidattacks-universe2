@@ -1,5 +1,6 @@
 from .core_new import (
     get_severity_score_new,
+    get_updated_evidence_date_new,
 )
 from .core import (
     add_comment,
@@ -59,6 +60,7 @@ from .evidence import (
 __all__ = [
     # core new
     'get_severity_score_new',
+    'get_updated_evidence_date_new',
 
     # core
     'add_comment',

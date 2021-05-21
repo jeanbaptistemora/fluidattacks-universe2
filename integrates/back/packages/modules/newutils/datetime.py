@@ -10,10 +10,10 @@ import pytz
 from back import settings
 
 
+DEFAULT_DATE_FORMAT: str = '%Y-%m-%d %H:%M:%S'
 DEFAULT_ISO_STR = '2000-01-01T00:00:00-05:00'
 DEFAULT_STR = '2000-01-01 00:00:00'
-TZN = pytz.timezone(settings.TIME_ZONE)
-iso_format: str = '%Y-%m-%d %H:%M:%S'
+TZ = pytz.timezone(settings.TIME_ZONE)
 
 
 def format_comment_date(date_string: str) -> str:
@@ -24,7 +24,7 @@ def format_comment_date(date_string: str) -> str:
 
 def get_from_str(
     date_str: str,
-    date_format: str = iso_format,
+    date_format: str = DEFAULT_DATE_FORMAT,
     zone: str = settings.TIME_ZONE,
 ) -> datetime:
     unaware_datetime = datetime.strptime(date_str, date_format)
@@ -33,9 +33,10 @@ def get_from_str(
 
 def get_as_str(
     date: datetime,
-    date_format: str = iso_format,
+    date_format: str = DEFAULT_DATE_FORMAT,
+    zone: str = settings.TIME_ZONE,
 ) -> str:
-    return date.strftime(date_format)
+    return date.astimezone(tz=pytz.timezone(zone)).strftime(date_format)
 
 
 def get_now(zone: str = settings.TIME_ZONE) -> datetime:
@@ -121,7 +122,7 @@ def get_now_minus_delta(
 
 
 def get_from_epoch(epoch: int) -> datetime:
-    date = datetime.fromtimestamp(epoch, TZN)
+    date = datetime.fromtimestamp(epoch, TZ)
 
     return date
 

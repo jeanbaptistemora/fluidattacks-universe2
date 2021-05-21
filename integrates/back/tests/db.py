@@ -208,7 +208,10 @@ async def populate_executions(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     for execution in data:
         execution['date'] = get_from_str(
-            execution['date'], date_format='%Y-%m-%dT%H:%M:%SZ')
+            execution['date'],
+            date_format='%Y-%m-%dT%H:%M:%SZ',
+            zone='UTC'
+        )
     coroutines.extend([
         dal_forces.create_execution(
             **execution

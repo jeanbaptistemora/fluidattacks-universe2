@@ -124,13 +124,10 @@ def _build_finding(
             for field in Finding20Severity._fields
         })
     evidences = FindingEvidences(
-        animation=FindingEvidence(**metadata['evidences']['animation']),
-        evidence1=FindingEvidence(**metadata['evidences']['evidence1']),
-        evidence2=FindingEvidence(**metadata['evidences']['evidence2']),
-        evidence3=FindingEvidence(**metadata['evidences']['evidence3']),
-        evidence4=FindingEvidence(**metadata['evidences']['evidence4']),
-        evidence5=FindingEvidence(**metadata['evidences']['evidence5']),
-        exploitation=FindingEvidence(**metadata['evidences']['exploitation']),
+        **{
+            name: FindingEvidence(**evidence)
+            for name, evidence in metadata['evidences'].items()
+        }
     )
 
     return Finding(

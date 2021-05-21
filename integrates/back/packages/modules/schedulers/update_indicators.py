@@ -241,11 +241,16 @@ def get_first_week_dates(
         first_date = min_date
     day_week = first_date.weekday()
     first_day_delta = datetime_utils.get_minus_delta(first_date, days=day_week)
-    first_day = datetime.combine(first_day_delta, datetime.min.time())
+    first_day = datetime.combine(
+        first_day_delta,
+        datetime.min.time(),
+        tzinfo=datetime_utils.TZ
+    )
     last_day_delta = datetime_utils.get_plus_delta(first_day, days=6)
     last_day = datetime.combine(
         last_day_delta,
-        datetime.max.time().replace(microsecond=0)
+        datetime.max.time().replace(microsecond=0),
+        tzinfo=datetime_utils.TZ
     )
     return (
         datetime_utils.get_as_str(first_day),

@@ -37,13 +37,13 @@ class FindingEvidence(NamedTuple):
 
 
 class FindingEvidences(NamedTuple):
-    animation: FindingEvidence = FindingEvidence()
-    evidence1: FindingEvidence = FindingEvidence()
-    evidence2: FindingEvidence = FindingEvidence()
-    evidence3: FindingEvidence = FindingEvidence()
-    evidence4: FindingEvidence = FindingEvidence()
-    evidence5: FindingEvidence = FindingEvidence()
-    exploitation: FindingEvidence = FindingEvidence()
+    animation: Optional[FindingEvidence] = None
+    evidence1: Optional[FindingEvidence] = None
+    evidence2: Optional[FindingEvidence] = None
+    evidence3: Optional[FindingEvidence] = None
+    evidence4: Optional[FindingEvidence] = None
+    evidence5: Optional[FindingEvidence] = None
+    exploitation: Optional[FindingEvidence] = None
 
 
 class FindingRecords(NamedTuple):

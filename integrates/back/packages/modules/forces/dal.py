@@ -50,7 +50,8 @@ async def create_execution(
     try:
         execution_attributes['date'] = datetime_utils.get_as_str(
             execution_attributes['date'],
-            date_format='%Y-%m-%dT%H:%M:%S.%f%z'
+            date_format='%Y-%m-%dT%H:%M:%S.%f%z',
+            zone='UTC'
         )
         execution_attributes['subscription'] = project_name
         execution_attributes = dynamodb_ops.serialize(execution_attributes)

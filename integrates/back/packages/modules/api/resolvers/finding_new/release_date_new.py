@@ -1,7 +1,9 @@
 
+from datetime import datetime
 from graphql.type.definition import GraphQLResolveInfo
 
 from model.findings.types import Finding
+from newutils import datetime as datetime_utils
 
 
 def resolve(
@@ -11,5 +13,6 @@ def resolve(
 ) -> str:
     release_date = ''
     if parent.approval:
-        release_date = parent.approval.modified_date
+        date = datetime.fromisoformat(parent.approval.modified_date)
+        release_date = datetime_utils.get_as_str(date)
     return release_date

@@ -28,6 +28,7 @@ async def create(  # pylint: disable=too-many-locals
         field: evidence._asdict()
         for field, evidence
         in finding.evidences._asdict().items()
+        if evidence is not None
     }
     finding_metadata = {
         'actor': finding.actor,

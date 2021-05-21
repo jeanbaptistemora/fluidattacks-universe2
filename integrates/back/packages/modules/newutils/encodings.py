@@ -60,7 +60,8 @@ def jwt_payload_encode(payload: Dict[str, Any]) -> str:
         if isinstance(obj, datetime):
             return datetime_utils.get_as_str(
                 obj,
-                date_format='%Y-%m-%dT%H:%M:%S.%f'
+                date_format='%Y-%m-%dT%H:%M:%S.%f',
+                zone='UTC'
             )
         # let JSONEncoder handle unsupported object types
         return cast(str, json.JSONEncoder().default(obj))
