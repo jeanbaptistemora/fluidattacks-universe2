@@ -8,9 +8,7 @@ from typing import (
     List,
     Literal,
     NamedTuple,
-    Optional,
 )
-from postgres_client import client
 
 # Third party libraries
 from returns.io import (
@@ -19,6 +17,7 @@ from returns.io import (
     IOResult,
     IOSuccess,
 )
+from returns.pipeline import is_successful
 from returns.unsafe import unsafe_perform_io
 
 # Local libraries
@@ -114,8 +113,19 @@ class DbTable(NamedTuple):
         self.cursor.execute_query(queries.delete(self.table.table_id))
         return IO(None)
 
-    def move(self, target: TableID) -> IO[None]:
+    def move_data(self, target: TableID) -> IO[None]:
+        """move data from source into target. target must exist."""
         self.cursor.execute_queries(queries.move(self.table.table_id, target))
+        return IO(None)
+
+    def move(self, target: TableID) -> IO[None]:
+        source = self.table.table_id
+        if is_successful(DbTable.exist(self.cursor, target)):
+            target_table = DbTable.retrieve(self.cursor, target)
+            target_table.map(lambda table: table.delete())
+        DbTable.create_like(self.cursor, source, target)
+        source_table = DbTable.retrieve(self.cursor, source)
+        source_table.map(lambda table: table.move_data(target))
         return IO(None)
 
     @classmethod
