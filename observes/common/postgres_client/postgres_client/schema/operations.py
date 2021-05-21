@@ -1,3 +1,7 @@
+# Third party libraries
+from returns.pipeline import is_successful
+
+# Local libraries
 from postgres_client import table as table_module
 from postgres_client import utils
 from postgres_client.client import Client
@@ -23,7 +27,7 @@ def migrate_all_tables(
         source_table = TableID(schema=from_schema.name, table_name=table)
         target_table = TableID(schema=to_schema.name, table_name=table)
         LOG.debug("Moving from %s to %s ", source_table, target_table)
-        if table_module.exist(db_client, target_table):
+        if is_successful(table_module.exist(db_client, target_table)):
             LOG.debug("%s already exist", target_table)
             table_ops.delete(db_client, target_table)
         table_factory.create_like(db_client, source_table, target_table)

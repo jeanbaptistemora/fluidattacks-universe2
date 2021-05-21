@@ -1,5 +1,6 @@
 # pylint: skip-file
 # Standard libraries
+from __future__ import annotations
 from typing import (
     Any,
     Callable,
@@ -42,7 +43,6 @@ class Table(NamedTuple):
     primary_keys: FrozenSet[str]
     columns: FrozenSet[IsolatedColumn]
     table_path: Callable[[], str]
-    add_columns: Callable[[FrozenSet[IsolatedColumn]], List[CursorExeAction]]
 
 
 def adapt(table: Table) -> MetaTable:
@@ -61,27 +61,15 @@ def _adapt_queries(
     return [_adapt_query(cursor, query) for query in queries]
 
 
-def table_builder(
-    db_client: Client,
-    table_draft: TableDraft,
-) -> Table:
+def _table_builder(table_draft: TableDraft) -> Table:
     def table_path() -> str:
         return f'"{table_draft.id.schema}"."{table_draft.id.table_name}"'
-
-    def _add_columns(
-        columns: FrozenSet[IsolatedColumn],
-    ) -> List[CursorExeAction]:
-        return _adapt_queries(
-            db_client.cursor,
-            queries.add_columns(table_draft.id, table_draft.columns, columns),
-        )
 
     return Table(
         id=table_draft.id,
         primary_keys=table_draft.primary_keys,
         columns=table_draft.columns,
         table_path=table_path,
-        add_columns=_add_columns,
     )
 
 
@@ -111,7 +99,7 @@ def retrieve(db_client: Client, table_id: TableID) -> IO[Optional[Table]]:
         table_draft = TableDraft(
             id=table_id, primary_keys=frozenset(), columns=frozenset(columns)
         )
-        return table_builder(db_client, table_draft)
+        return _table_builder(table_draft)
 
     return results.map(_extract)
 
@@ -134,6 +122,20 @@ def create(
         )
 
     return result.map(_to_table)
+
+
+class DbTable(NamedTuple):
+    cursor: Cursor
+    table: MetaTable
+
+    def add_columns(self, columns: FrozenSet[Column]) -> IO[None]:
+        _queries = queries.add_columns(self.table, columns)
+        self.cursor.execute_queries(_queries)
+        return IO(None)
+
+    @classmethod
+    def new(cls, client: Client, table: MetaTable) -> DbTable:
+        return cls(cursor=client.cursor, table=table)
 
 
 __all__ = [

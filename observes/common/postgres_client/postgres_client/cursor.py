@@ -131,12 +131,17 @@ class Cursor(NamedTuple):
     def close(self) -> None:
         return self.db_cursor.close()
 
-    @impure
-    def execute_query(self, query: Query) -> None:
+    def execute_query(self, query: Query) -> IO[None]:
         stm_values: Dict[str, Optional[str]] = query.args.map(
             lambda args: args.values
         ).value_or({})
         self.db_cursor.execute(query.query, stm_values)
+        return IO(None)
+
+    def execute_queries(self, queries: List[Query]) -> IO[None]:
+        for query in queries:
+            self.execute_query(query)
+        return IO(None)
 
     def fetch_all(self) -> IO[Any]:
         return IO(self.db_cursor.fetchall())

@@ -14,7 +14,7 @@ from postgres_client.cursor import (
     Query,
 )
 from postgres_client.table.common import MetaTable, TableID
-from postgres_client.table.common.column import IsolatedColumn
+from postgres_client.table.common.column import Column
 
 
 class MutateColumnException(Exception):
@@ -26,11 +26,12 @@ class TableCreationFail(Exception):
 
 
 def add_columns(
-    table_id: TableID,
-    old_columns: FrozenSet[IsolatedColumn],
-    new_columns: FrozenSet[IsolatedColumn],
+    table: MetaTable,
+    columns: FrozenSet[Column],
 ) -> List[Query]:
-    diff_columns: FrozenSet[IsolatedColumn] = new_columns - old_columns
+    old_columns = table.columns
+    new_columns = columns
+    diff_columns: FrozenSet[Column] = new_columns - old_columns
     diff_names: FrozenSet[str] = frozenset(col.name for col in diff_columns)
     current_names: FrozenSet[str] = frozenset(col.name for col in old_columns)
     if not diff_names.isdisjoint(current_names):
@@ -39,7 +40,6 @@ def add_columns(
             f"Columns: {diff_names.intersection(current_names)}"
         )
     queries: List[Query] = []
-    table_path: str = f'"{table_id.schema}"."{table_id.table_name}"'
     for column in diff_columns:
         statement: str = (
             "ALTER TABLE {table_path} "
@@ -49,9 +49,9 @@ def add_columns(
         args = DynamicSQLargs(
             values={"default_val": column.default_val},
             identifiers={
-                "table_path": table_path,
+                "table_path": table.path,
                 "column_name": column.name,
-                "field_type": column.field_type,
+                "field_type": column.field_type.value,
             },
         )
         query = Query.new(
