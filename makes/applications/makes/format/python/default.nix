@@ -7,5 +7,5 @@ pythonFormat {
     "makes/applications/skims"
     "makes/packages/skims"
   ];
-  name = "skims-format";
+  name = "makes-format-python";
 }

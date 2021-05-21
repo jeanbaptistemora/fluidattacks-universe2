@@ -73,6 +73,7 @@ makes.deploy.oci
 makes.dns.apply
 makes.dns.test
 makes.done
+makes.format.python
 makes.k8s.apply
 makes.k8s.test
 makes.kill-port
@@ -200,7 +201,6 @@ observes.tap-json
 observes.target-redshift
 reviews
 skims
-skims.format
 skims.infra-deploy
 skims.infra-test
 skims.lint

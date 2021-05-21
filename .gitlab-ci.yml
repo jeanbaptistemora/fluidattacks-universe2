@@ -97,6 +97,11 @@ makes.deploy.oci:
   <<: *common_in_master_branch
   stage: build
 
+makes.format.python:
+  <<: *makes
+  <<: *common_in_dev_branch
+  stage: lint-code
+
 makes.lint:
   <<: *makes
   <<: *common_in_dev_branch
