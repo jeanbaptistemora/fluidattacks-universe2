@@ -35,6 +35,24 @@ F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteNonQuery_16.cs,52,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteNonQuery_17.cs,52,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteNonQuery_31.cs,52,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_01.cs,45,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_02.cs,56,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_03.cs,56,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_04.cs,63,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_05.cs,62,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_06.cs,61,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_07.cs,61,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_08.cs,69,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_09.cs,56,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_10.cs,56,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_11.cs,56,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_12.cs,55,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_13.cs,56,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_14.cs,56,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_15.cs,58,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_16.cs,51,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_17.cs,51,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_31.cs,51,89
 F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_01.cs,31,310 + 327
 F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_02.cs,33,310 + 327
 F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_03.cs,33,310 + 327

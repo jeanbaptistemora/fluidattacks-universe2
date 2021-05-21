@@ -38,5 +38,6 @@ def mark_sinks(
         syntax,
         {
             "ExecuteNonQuery",
+            "ExecuteScalar",
         },
     )

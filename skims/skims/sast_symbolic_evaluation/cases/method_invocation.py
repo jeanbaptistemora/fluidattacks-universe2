@@ -133,6 +133,7 @@ BY_OBJ: Dict[str, Set[str]] = complete_attrs_on_dict(
         },
         "System.Data.SqlClient.SqlCommand": {
             "ExecuteNonQuery",
+            "ExecuteScalar",
         },
     }
 )
