@@ -11,7 +11,6 @@ from aioextensions import collect
 
 from __init__ import (
     BASE_URL,
-    FI_MAIL_CONTINUOUS,
     FI_MAIL_PROJECTS,
 )
 from back.settings import LOGGING
@@ -46,7 +45,7 @@ async def get_remediated_findings() -> None:
 
     if findings:
         try:
-            mail_to = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
+            mail_to = [FI_MAIL_PROJECTS]
             context: MailContentType = {'findings': list(), 'total': 0}
             for finding in findings:
                 cast(

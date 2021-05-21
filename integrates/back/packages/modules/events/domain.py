@@ -156,7 +156,6 @@ async def create_event(  # pylint: disable=too-many-locals
                 analyst_email,
                 event_id,
                 group_name,
-                subscription,
                 event_attrs['event_type']
             )
         )

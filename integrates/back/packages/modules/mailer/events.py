@@ -6,7 +6,6 @@ from aioextensions import collect
 import authz
 from __init__ import (
     BASE_URL,
-    FI_MAIL_CONTINUOUS,
     FI_MAIL_PRODUCTION,
     FI_MAIL_PROJECTS,
     FI_MAIL_REVIEWERS,
@@ -103,7 +102,6 @@ async def send_mail_new_event(  # pylint: disable=too-many-arguments
     analyst: str,
     event_id: str,
     group_name: str,
-    subscription: str,
     event_type: str
 ) -> None:
     organization_loader = loaders.organization
@@ -122,10 +120,7 @@ async def send_mail_new_event(  # pylint: disable=too-many-arguments
 
     recipients = await group_access_domain.list_group_managers(group_name)
     recipients.append(analyst)
-    if subscription == 'oneshot':
-        recipients.append(FI_MAIL_PROJECTS)
-    elif subscription == 'continuous':
-        recipients.extend([FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS])
+    recipients.append(FI_MAIL_PROJECTS)
     if event_type in ['CLIENT_APPROVES_CHANGE_TOE']:
         recipients.extend([FI_MAIL_PRODUCTION] + FI_MAIL_REVIEWERS.split(','))
 
