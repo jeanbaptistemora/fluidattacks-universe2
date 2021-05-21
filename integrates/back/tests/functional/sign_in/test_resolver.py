@@ -11,35 +11,19 @@ from . import query
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group('sign_in')
-async def test_admin(populate: bool):
+@pytest.mark.parametrize(
+    ['email'],
+    [
+        ['admin@gmail.com'],
+        ['analyst@gmail.com'],
+        ['closer@gmail.com'],
+        ['customer@gmail.com'],
+    ]
+)
+async def test_sign_in(populate: bool, email: str):
     assert populate
     result: Dict[str, Any] = await query(
-        user='admin@gmail.com',
-    )
-    assert 'errors' not in result
-    assert 'success' in result['data']['signIn']
-    assert not result['data']['signIn']['success']
-
-
-@pytest.mark.asyncio
-@pytest.mark.resolver_test_group('sign_in')
-async def test_analyst(populate: bool):
-    assert populate
-    result: Dict[str, Any] = await query(
-        user='analyst@gmail.com',
-    )
-    assert 'errors' not in result
-    assert 'success' in result['data']['signIn']
-    assert not result['data']['signIn']['success']
-
-
-
-@pytest.mark.asyncio
-@pytest.mark.resolver_test_group('sign_in')
-async def test_closer(populate: bool):
-    assert populate
-    result: Dict[str, Any] = await query(
-        user='closer@gmail.com',
+        user=email,
     )
     assert 'errors' not in result
     assert 'success' in result['data']['signIn']
