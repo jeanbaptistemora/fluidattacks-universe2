@@ -5,11 +5,8 @@ from aioextensions import collect
 
 from dataloaders import get_new_context
 from groups import domain as groups_domain
-from mailer import organizations as orgs_mail
 from newutils import datetime as datetime_utils
 from organizations import domain as orgs_domain
-
-from .common import scheduler_send_mail
 
 
 async def delete_obsolete_orgs() -> None:
@@ -42,15 +39,6 @@ async def delete_obsolete_orgs() -> None:
                     org_name,
                     new_org_pending_deletion_date_str
                 )
-                if org_users:
-                    scheduler_send_mail(
-                        orgs_mail.send_mail_org_deletion,
-                        org_users,
-                        {
-                            'deletion_date': new_org_pending_deletion_date_str,
-                            'org_name': org_name,
-                        }
-                    )
         else:
             await orgs_domain.update_pending_deletion_date(
                 org_id,
