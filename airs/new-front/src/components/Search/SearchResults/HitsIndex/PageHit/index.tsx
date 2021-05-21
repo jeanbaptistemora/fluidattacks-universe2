@@ -10,7 +10,7 @@ export const PageHit = ({
 }: {
   hit: { pageAttributes: { slug: string }; title: string };
 }): JSX.Element => (
-  <Link to={hit.pageAttributes.slug}>
+  <Link to={`/${hit.pageAttributes.slug}`}>
     <div className={"HitDiv bg-white pv2 ph1 br3 bs-btm-h-5 t-all-3-eio"}>
       <h4 className={"dib t-all-3-eio"}>{hit.title}</h4>
       <Snippet attribute={"excerpt"} hit={hit} tagName={"mark"} />

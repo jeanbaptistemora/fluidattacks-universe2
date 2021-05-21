@@ -1,3 +1,4 @@
+/* eslint require-unicode-regexp:0 */
 /* eslint react/forbid-component-props:0 */
 /* eslint @typescript-eslint/no-magic-numbers:0 */
 import { Link } from "gatsby";
@@ -39,6 +40,8 @@ export const BlogCard: React.FC<IProps> = ({
   tags,
   title,
 }: IProps): JSX.Element => {
+  const taglist: string[] = tags.split(", ");
+
   return (
     <MainBlogCard>
       <img alt={alt} className={"br3 br--top"} src={image} />
@@ -49,9 +52,47 @@ export const BlogCard: React.FC<IProps> = ({
         <CardSubTitle>{decode(subtitle)}</CardSubTitle>
         <br />
         <PostInfo>
-          <CardText>{`Author: ${author}`}</CardText>
-          <CardText>{`Category: ${category.replace("-", " ")}`}</CardText>
-          <CardText>{`Tags: ${tags}`}</CardText>
+          <CardText>
+            {"Author:"}&nbsp;
+            <Link
+              className={"c-fluid-gray hv-fluid-black no-underline"}
+              to={`/blog/authors/${author
+                .toLowerCase()
+                .replace(" ", "-")
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")}`}
+            >
+              {author}
+            </Link>
+          </CardText>
+          <CardText>
+            {"Category:"}&nbsp;
+            {
+              <Link
+                className={"c-fluid-gray hv-fluid-black no-underline"}
+                to={`/blog/categories/${category.toLowerCase()}`}
+              >
+                {category.replace("-", " ")}
+              </Link>
+            }
+          </CardText>
+          <CardText>
+            {"Tags:"}&nbsp;
+            {taglist.map(
+              (tag: string, index): JSX.Element =>
+                taglist.length === index + 1 ? (
+                  <Link
+                    className={"c-fluid-gray hv-fluid-black no-underline"}
+                    to={`/blog/tags/${tag}`}
+                  >{`${tag}`}</Link>
+                ) : (
+                  <Link
+                    className={"c-fluid-gray hv-fluid-black no-underline"}
+                    to={`/blog/tags/${tag}`}
+                  >{`${tag}, `}</Link>
+                )
+            )}
+          </CardText>
           <CardDescription>{`${description.slice(0, 100)}...`}</CardDescription>
           <br />
           <br />

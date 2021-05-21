@@ -9,7 +9,8 @@
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 /* eslint react/forbid-component-props: 0 */
-import { graphql } from "gatsby";
+/* eslint require-unicode-regexp:0 */
+import { Link, graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import { decode } from "he";
 import moment from "moment";
@@ -95,6 +96,12 @@ const BlogsIndex: React.FC<IQueryData> = ({
     `,
   })``;
 
+  const authorUrl: string = data.asciidoc.pageAttributes.author
+    .toLowerCase()
+    .replace(" ", "-")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
   return (
     <React.Fragment>
       <Seo
@@ -114,7 +121,7 @@ const BlogsIndex: React.FC<IQueryData> = ({
             crumbs={crumbs}
           />
 
-          <PageArticle>
+          <PageArticle className={"internal"}>
             <ArticleBannerContainer>
               <FullWidthContainer>
                 <div className={"w-100"}>
@@ -133,8 +140,11 @@ const BlogsIndex: React.FC<IQueryData> = ({
               </ArticleSubtitle>
               <div className={"pv3"}>
                 <p className={"f5"}>
-                  {`By ${data.asciidoc.pageAttributes.author} |`}&nbsp;
-                  {fDate}
+                  {"By"}&nbsp;
+                  <Link to={`/blog/authors/${authorUrl}`}>
+                    {data.asciidoc.pageAttributes.author}
+                  </Link>
+                  {` | ${fDate}`}
                 </p>
               </div>
               <div

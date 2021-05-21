@@ -1,3 +1,4 @@
+/* eslint require-unicode-regexp:0 */
 /* eslint react/forbid-component-props: 0 */
 import { faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -85,7 +86,17 @@ const BlogFooter: React.FC<IProps> = ({
       styles={"w4 br-100 dib-l"}
     />
     <ShareSection>
-      <AuthorTitle>{author}</AuthorTitle>
+      <AuthorTitle>
+        <Link
+          to={`/blog/authors/${author
+            .toLowerCase()
+            .replace(" ", "-")
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")}`}
+        >
+          {author}
+        </Link>
+      </AuthorTitle>
       <SocialNetworkList slug={slug} />
       <SuscribeContainer>
         <Link className={"sub-btn f3"} to={"/subscription/"}>
