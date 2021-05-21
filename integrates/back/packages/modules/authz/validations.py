@@ -38,12 +38,14 @@ async def validate_fluidattacks_staff_on_group(
         'must_only_have_fluidattacks_hackers'
     )
 
-    if group_must_only_have_fluidattacks_hackers:
-        if user_has_hacker_role and not is_user_at_fluidattacks:
-            raise UnexpectedUserRole(
-                'Groups with any active Fluid Attacks service can '
-                'only have Hackers provided by Fluid Attacks'
-            )
+    if (
+        group_must_only_have_fluidattacks_hackers
+        and user_has_hacker_role and not is_user_at_fluidattacks
+    ):
+        raise UnexpectedUserRole(
+            'Groups with any active Fluid Attacks service can '
+            'only have Hackers provided by Fluid Attacks'
+        )
     return True
 
 
