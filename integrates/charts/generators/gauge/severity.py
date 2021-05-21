@@ -17,10 +17,13 @@ from charts.colors import RISK
 from dataloaders import get_new_context
 
 
-Severity = NamedTuple('Severity', [
-    ('max_open_severity', float),
-    ('max_severity_found', float),
-])
+Severity = NamedTuple(
+    "Severity",
+    [
+        ("max_open_severity", float),
+        ("max_severity_found", float),
+    ],
+)
 
 
 @alru_cache(maxsize=None, typed=True)
@@ -31,18 +34,22 @@ async def generate_one(group: str) -> Severity:
     finding_loader = context.finding
 
     group_findings_data = await group_findings_loader.load(group.lower())
-    finding_ids = [finding['finding_id'] for finding in group_findings_data]
+    finding_ids = [finding["finding_id"] for finding in group_findings_data]
     findings = await finding_loader.load_many(finding_ids)
 
-    max_severity_found = 0 if not findings else max(
-        finding['severity_score']
-        for finding in findings
-        if 'current_state' in finding
-        and finding['current_state'] != 'DELETED'
+    max_severity_found = (
+        0
+        if not findings
+        else max(
+            finding["severity_score"]
+            for finding in findings
+            if "current_state" in finding
+            and finding["current_state"] != "DELETED"
+        )
     )
 
     group_data = await group_loader.load(group.lower())
-    max_open_severity = group_data['max_open_severity']
+    max_open_severity = group_data["max_open_severity"]
 
     return Severity(
         max_open_severity=max_open_severity,
@@ -54,38 +61,38 @@ async def get_data_many_groups(groups: Iterable[str]) -> Severity:
     groups_data = await collect(map(generate_one, groups))
 
     return Severity(
-        max_open_severity=0 if not groups_data else max(
-            [group.max_open_severity for group in groups_data]
-        ),
-        max_severity_found=0 if not groups_data else max(
-            [group.max_severity_found for group in groups_data]
-        ),
+        max_open_severity=0
+        if not groups_data
+        else max([group.max_open_severity for group in groups_data]),
+        max_severity_found=0
+        if not groups_data
+        else max([group.max_severity_found for group in groups_data]),
     )
 
 
 def format_data(data: Severity) -> dict:
     return {
-        'color': {
-            'pattern': [RISK.more_passive, RISK.more_agressive],
+        "color": {
+            "pattern": [RISK.more_passive, RISK.more_agressive],
         },
-        'data': {
-            'columns': [
-                ['Max severity found', data.max_severity_found],
-                ['Max open severity', data.max_open_severity],
+        "data": {
+            "columns": [
+                ["Max severity found", data.max_severity_found],
+                ["Max open severity", data.max_open_severity],
             ],
-            'type': 'gauge',
+            "type": "gauge",
         },
-        'gauge': {
-            'label': {
-                'format': None,
-                'show': True,
+        "gauge": {
+            "label": {
+                "format": None,
+                "show": True,
             },
-            'max': 10,
-            'min': 0,
+            "max": 10,
+            "min": 0,
         },
-        'gaugeClearFormat': True,
-        'legend': {
-            'position': 'right',
+        "gaugeClearFormat": True,
+        "legend": {
+            "position": "right",
         },
     }
 
@@ -96,7 +103,7 @@ async def generate_all() -> None:
             document=format_data(
                 data=await generate_one(group),
             ),
-            entity='group',
+            entity="group",
             subject=group,
         )
 
@@ -107,7 +114,7 @@ async def generate_all() -> None:
             document=format_data(
                 data=await get_data_many_groups(org_groups),
             ),
-            entity='organization',
+            entity="organization",
             subject=org_id,
         )
 
@@ -119,10 +126,10 @@ async def generate_all() -> None:
                 document=format_data(
                     data=await get_data_many_groups(groups),
                 ),
-                entity='portfolio',
-                subject=f'{org_id}PORTFOLIO#{portfolio}',
+                entity="portfolio",
+                subject=f"{org_id}PORTFOLIO#{portfolio}",
             )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(generate_all())

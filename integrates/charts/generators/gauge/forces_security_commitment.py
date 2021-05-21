@@ -17,43 +17,44 @@ async def generate_one(group: str) -> dict:
     executions_in_strict_mode = tuple(
         execution
         for execution in executions
-        if execution['strictness'] == 'strict'
+        if execution["strictness"] == "strict"
     )
 
     executions_in_any_mode_with_accepted_vulns = tuple(
         execution
         for execution in executions
-        for vulns in [execution['vulnerabilities']]
-        if vulns.get('num_of_vulnerabilities_in_accepted_exploits', 0) > 0
-        or vulns.get('num_of_accepted_vulnerabilities', 0) > 0
+        for vulns in [execution["vulnerabilities"]]
+        if vulns.get("num_of_vulnerabilities_in_accepted_exploits", 0) > 0
+        or vulns.get("num_of_accepted_vulnerabilities", 0) > 0
     )
 
     return {
-        'color': {
-            'pattern': [RISK.more_passive, TREATMENT.passive],
+        "color": {
+            "pattern": [RISK.more_passive, TREATMENT.passive],
         },
-        'data': {
-            'columns': [
-                ['Builds in strict mode',
-                 len(executions_in_strict_mode)],
-                ['Builds with accepted risk',
-                 len(executions_in_any_mode_with_accepted_vulns)],
+        "data": {
+            "columns": [
+                ["Builds in strict mode", len(executions_in_strict_mode)],
+                [
+                    "Builds with accepted risk",
+                    len(executions_in_any_mode_with_accepted_vulns),
+                ],
             ],
-            'type': 'gauge',
+            "type": "gauge",
         },
-        'gauge': {
-            'label': {
-                'format': None,
-                'show': True,
+        "gauge": {
+            "label": {
+                "format": None,
+                "show": True,
             },
-            'max': len(executions),
-            'min': 0,
+            "max": len(executions),
+            "min": 0,
         },
-        'gaugeClearFormat': True,
-        'legend': {
-            'position': 'right',
+        "gaugeClearFormat": True,
+        "legend": {
+            "position": "right",
         },
-        'paddingRatioTop': 0,
+        "paddingRatioTop": 0,
     }
 
 
@@ -61,10 +62,10 @@ async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=await generate_one(group),
-            entity='group',
+            entity="group",
             subject=group,
         )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(generate_all())

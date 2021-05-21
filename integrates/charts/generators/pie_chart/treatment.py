@@ -5,10 +5,7 @@ from typing import (
 )
 
 # Third party libraries
-from aioextensions import (
-    collect,
-    run
-)
+from aioextensions import collect, run
 from async_lru import alru_cache
 
 # Local libraries
@@ -17,25 +14,28 @@ from charts.colors import TREATMENT
 from groups import domain as groups_domain
 
 
-Treatment = NamedTuple('Treatment', [
-    ('acceptedUndefined', int),
-    ('accepted', int),
-    ('inProgress', int),
-    ('undefined', int),
-])
+Treatment = NamedTuple(
+    "Treatment",
+    [
+        ("acceptedUndefined", int),
+        ("accepted", int),
+        ("inProgress", int),
+        ("undefined", int),
+    ],
+)
 
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Treatment:
-    item = await groups_domain.get_attributes(group, ['total_treatment'])
+    item = await groups_domain.get_attributes(group, ["total_treatment"])
 
-    treatment = item.get('total_treatment', {})
+    treatment = item.get("total_treatment", {})
 
     return Treatment(
-        acceptedUndefined=treatment.get('acceptedUndefined', 0),
-        accepted=treatment.get('accepted', 0),
-        inProgress=treatment.get('inProgress', 0),
-        undefined=treatment.get('undefined', 0),
+        acceptedUndefined=treatment.get("acceptedUndefined", 0),
+        accepted=treatment.get("accepted", 0),
+        inProgress=treatment.get("inProgress", 0),
+        undefined=treatment.get("undefined", 0),
     )
 
 
@@ -54,32 +54,32 @@ async def get_data_many_groups(groups: Iterable[str]) -> Treatment:
 
 def format_data(data: Treatment) -> dict:
     translations = {
-        'acceptedUndefined': 'Eternally accepted',
-        'accepted': 'Temporarily Accepted',
-        'inProgress': 'In Progress',
-        'undefined': 'Not defined',
+        "acceptedUndefined": "Eternally accepted",
+        "accepted": "Temporarily Accepted",
+        "inProgress": "In Progress",
+        "undefined": "Not defined",
     }
 
     return {
-        'data': {
-            'columns': [
+        "data": {
+            "columns": [
                 [translations[column], getattr(data, column)]
                 for column in translations
             ],
-            'type': 'pie',
-            'colors': {
-                'Eternally accepted': TREATMENT.more_passive,
-                'Temporarily Accepted': TREATMENT.passive,
-                'In Progress': TREATMENT.neutral,
-                'Not defined': TREATMENT.more_agressive,
+            "type": "pie",
+            "colors": {
+                "Eternally accepted": TREATMENT.more_passive,
+                "Temporarily Accepted": TREATMENT.passive,
+                "In Progress": TREATMENT.neutral,
+                "Not defined": TREATMENT.more_agressive,
             },
         },
-        'legend': {
-            'position': 'right',
+        "legend": {
+            "position": "right",
         },
-        'pie': {
-            'label': {
-                'show': True,
+        "pie": {
+            "label": {
+                "show": True,
             },
         },
     }
@@ -91,7 +91,7 @@ async def generate_all() -> None:
             document=format_data(
                 data=await get_data_one_group(group),
             ),
-            entity='group',
+            entity="group",
             subject=group,
         )
 
@@ -102,7 +102,7 @@ async def generate_all() -> None:
             document=format_data(
                 data=await get_data_many_groups(org_groups),
             ),
-            entity='organization',
+            entity="organization",
             subject=org_id,
         )
 
@@ -114,10 +114,10 @@ async def generate_all() -> None:
                 document=format_data(
                     data=await get_data_many_groups(groups),
                 ),
-                entity='portfolio',
-                subject=f'{org_id}PORTFOLIO#{portfolio}',
+                entity="portfolio",
+                subject=f"{org_id}PORTFOLIO#{portfolio}",
             )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(generate_all())

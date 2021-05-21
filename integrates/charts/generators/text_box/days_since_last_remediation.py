@@ -20,29 +20,24 @@ async def generate_one(group: str) -> Decimal:
     group_loader = context.group_all
     group_data = await group_loader.load(group)
 
-    return group_data['last_closing_vuln']
+    return group_data["last_closing_vuln"]
 
 
 async def get_many_groups(groups: Iterable[str]) -> Decimal:
     groups_data = await collect(map(generate_one, list(groups)))
 
-    return min(groups_data) if groups_data else Decimal('Infinity')
+    return min(groups_data) if groups_data else Decimal("Infinity")
 
 
 def format_data(last_closing_date: Decimal) -> dict:
-    return {
-        'fontSizeRatio': 0.5,
-        'text': last_closing_date
-    }
+    return {"fontSizeRatio": 0.5, "text": last_closing_date}
 
 
 async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
-            document=format_data(
-                last_closing_date=await generate_one(group)
-            ),
-            entity='group',
+            document=format_data(last_closing_date=await generate_one(group)),
+            entity="group",
             subject=group,
         )
 
@@ -51,11 +46,9 @@ async def generate_all() -> None:
     ):
         utils.json_dump(
             document=format_data(
-                last_closing_date=await get_many_groups(
-                    org_groups
-                ),
+                last_closing_date=await get_many_groups(org_groups),
             ),
-            entity='organization',
+            entity="organization",
             subject=org_id,
         )
 
@@ -67,10 +60,10 @@ async def generate_all() -> None:
                 document=format_data(
                     last_closing_date=await get_many_groups(groups),
                 ),
-                entity='portfolio',
-                subject=f'{org_id}PORTFOLIO#{portfolio}',
+                entity="portfolio",
+                subject=f"{org_id}PORTFOLIO#{portfolio}",
             )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(generate_all())

@@ -2,10 +2,7 @@
 from typing import List
 
 # Third party libraries
-from aioextensions import (
-    collect,
-    run
-)
+from aioextensions import collect, run
 from async_lru import alru_cache
 
 # Local libraries
@@ -20,13 +17,13 @@ from groups import domain as groups_domain
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_group(group: str) -> PortfoliosGroupsInfo:
-    item = await groups_domain.get_attributes(group, ['total_treatment'])
+    item = await groups_domain.get_attributes(group, ["total_treatment"])
 
-    treatment = item.get('total_treatment', {})
+    treatment = item.get("total_treatment", {})
 
     return PortfoliosGroupsInfo(
         group_name=group.lower(),
-        value=treatment.get('acceptedUndefined', 0),
+        value=treatment.get("acceptedUndefined", 0),
     )
 
 
@@ -46,10 +43,10 @@ async def generate_all() -> None:
                 document=format_data(
                     groups_data=await get_data_groups(groups),
                 ),
-                entity='portfolio',
-                subject=f'{org_id}PORTFOLIO#{portfolio}',
+                entity="portfolio",
+                subject=f"{org_id}PORTFOLIO#{portfolio}",
             )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(generate_all())

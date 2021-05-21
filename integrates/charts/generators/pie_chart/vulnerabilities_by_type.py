@@ -24,15 +24,13 @@ async def get_data_one_group(group: str) -> Counter:
     finding_vulns_loader = context.finding_vulns
 
     group_findings_data = await group_findings_loader.load(group.lower())
-    finding_ids = [finding['finding_id'] for finding in group_findings_data]
+    finding_ids = [finding["finding_id"] for finding in group_findings_data]
 
     vulnerabilities = list(
-        chain.from_iterable(
-            await finding_vulns_loader.load_many(finding_ids)
-        )
+        chain.from_iterable(await finding_vulns_loader.load_many(finding_ids))
     )
 
-    return Counter(filter(None, map(itemgetter('vuln_type'), vulnerabilities)))
+    return Counter(filter(None, map(itemgetter("vuln_type"), vulnerabilities)))
 
 
 async def get_data_many_groups(groups: List[str]) -> Counter:
@@ -43,30 +41,30 @@ async def get_data_many_groups(groups: List[str]) -> Counter:
 
 def format_data(counters: Counter) -> dict:
     translations = {
-        'inputs': 'app',
-        'lines': 'code',
-        'ports': 'infra',
+        "inputs": "app",
+        "lines": "code",
+        "ports": "infra",
     }
 
     return {
-        'data': {
-            'columns': [
+        "data": {
+            "columns": [
                 [translations[column], counters[column]]
                 for column in translations
             ],
-            'type': 'pie',
-            'colors': {
-                'app': OTHER.more_passive,
-                'code': OTHER.neutral,
-                'infra': OTHER.more_agressive,
+            "type": "pie",
+            "colors": {
+                "app": OTHER.more_passive,
+                "code": OTHER.neutral,
+                "infra": OTHER.more_agressive,
             },
         },
-        'legend': {
-            'position': 'right',
+        "legend": {
+            "position": "right",
         },
-        'pie': {
-            'label': {
-                'show': True,
+        "pie": {
+            "label": {
+                "show": True,
             },
         },
     }
@@ -76,7 +74,7 @@ async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=format_data(counters=await get_data_one_group(group)),
-            entity='group',
+            entity="group",
             subject=group,
         )
 
@@ -87,7 +85,7 @@ async def generate_all() -> None:
             document=format_data(
                 counters=await get_data_many_groups(list(org_groups)),
             ),
-            entity='organization',
+            entity="organization",
             subject=org_id,
         )
 
@@ -97,10 +95,10 @@ async def generate_all() -> None:
                 document=format_data(
                     counters=await get_data_many_groups(groups),
                 ),
-                entity='portfolio',
-                subject=f'{org_id}PORTFOLIO#{portfolio}',
+                entity="portfolio",
+                subject=f"{org_id}PORTFOLIO#{portfolio}",
             )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(generate_all())

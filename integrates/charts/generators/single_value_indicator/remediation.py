@@ -21,50 +21,48 @@ from vulnerabilities import domain as vulns_domain
 
 
 def had_state_by_then(
-    last_day: datetime,
-    state: str,
-    vuln: VulnerabilityType
+    last_day: datetime, state: str, vuln: VulnerabilityType
 ) -> bool:
-    historic_state = reversed(vuln['historic_state'])
+    historic_state = reversed(vuln["historic_state"])
     last_state: dict = next(
         filter(
-            lambda item:
-            datetime.strptime(
-                item['date'],
-                '%Y-%m-%d %H:%M:%S'
-            ) <= last_day,
-            historic_state
+            lambda item: datetime.strptime(item["date"], "%Y-%m-%d %H:%M:%S")
+            <= last_day,
+            historic_state,
         ),
-        dict()
+        dict(),
     )
 
-    return last_state.get('state') == state
+    return last_state.get("state") == state
 
 
 def get_totals_by_week(
-    vulns: List[VulnerabilityType],
-    last_day: datetime
+    vulns: List[VulnerabilityType], last_day: datetime
 ) -> Tuple[int, int]:
-    open_vulns = len(tuple(
-        filter(
-            lambda vuln: had_state_by_then(
-                last_day=last_day,
-                state='open',
-                vuln=vuln,
-            ),
-            vulns
+    open_vulns = len(
+        tuple(
+            filter(
+                lambda vuln: had_state_by_then(
+                    last_day=last_day,
+                    state="open",
+                    vuln=vuln,
+                ),
+                vulns,
+            )
         )
-    ))
-    closed_vulns = len(tuple(
-        filter(
-            lambda vuln: had_state_by_then(
-                last_day=last_day,
-                state='closed',
-                vuln=vuln,
-            ),
-            vulns
+    )
+    closed_vulns = len(
+        tuple(
+            filter(
+                lambda vuln: had_state_by_then(
+                    last_day=last_day,
+                    state="closed",
+                    vuln=vuln,
+                ),
+                vulns,
+            )
         )
-    ))
+    )
 
     return open_vulns, closed_vulns
 
@@ -86,8 +84,9 @@ async def generate_one(  # pylint: disable=too-many-locals
     total_current_open: int = 0
     total_current_closed: int = 0
     for group_findings in groups_findings_data:
-        group_findings_ids = \
-            [finding['finding_id'] for finding in group_findings]
+        group_findings_ids = [
+            finding["finding_id"] for finding in group_findings
+        ]
         vulns = list(
             chain.from_iterable(
                 await finding_vulns_loader.load_many(group_findings_ids)
@@ -110,15 +109,15 @@ async def generate_one(  # pylint: disable=too-many-locals
         total_current_closed += currently_closed
 
     return {
-        'current': {
-            'closed': total_current_closed,
-            'open': total_current_open,
+        "current": {
+            "closed": total_current_closed,
+            "open": total_current_open,
         },
-        'previous': {
-            'closed': total_previous_closed,
-            'open': total_previous_open,
+        "previous": {
+            "closed": total_previous_closed,
+            "open": total_previous_open,
         },
-        'totalGroups': len(groups)
+        "totalGroups": len(groups),
     }
 
 
@@ -128,10 +127,10 @@ async def generate_all() -> None:
     ):
         utils.json_dump(
             document=await generate_one(org_groups),
-            entity='organization',
+            entity="organization",
             subject=org_id,
         )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(generate_all())

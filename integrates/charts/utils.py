@@ -31,15 +31,20 @@ from organizations import domain as orgs_domain
 from tags import domain as tags_domain
 
 
-PortfoliosGroups = NamedTuple('PortfoliosGroups', [
-    ('portfolio', str),
-    ('groups', List[str]),
-])
+PortfoliosGroups = NamedTuple(
+    "PortfoliosGroups",
+    [
+        ("portfolio", str),
+        ("groups", List[str]),
+    ],
+)
 
 TICK_ROTATION = -45  # display group name at that rotation
 
 
-async def get_all_time_forces_executions(group: str,) -> ForcesExecutions:
+async def get_all_time_forces_executions(
+    group: str,
+) -> ForcesExecutions:
     executions: List[Dict[str, Union[str, int]]] = []
     executions = await forces_domain.get_executions(
         from_date=datetime.utcfromtimestamp(1),
@@ -51,18 +56,18 @@ async def get_all_time_forces_executions(group: str,) -> ForcesExecutions:
 
 
 def get_finding_name(item: List[str]) -> str:
-    return item[0].split('/')[-1].split(' -')[0]
+    return item[0].split("/")[-1].split(" -")[0]
 
 
 def get_result_path(name: str) -> str:
-    return os.path.join(os.environ['RESULTS_DIR'], name)
+    return os.path.join(os.environ["RESULTS_DIR"], name)
 
 
 def get_repo_from_where(where: str) -> str:
-    if '/' in where:
-        repo = where.split('/', 1)[0]
-    elif '\\' in where:
-        repo = where.split('\\', 1)[0]
+    if "/" in where:
+        repo = where.split("/", 1)[0]
+    elif "\\" in where:
+        repo = where.split("\\", 1)[0]
     else:
         repo = where
 
@@ -70,14 +75,14 @@ def get_repo_from_where(where: str) -> str:
 
 
 def get_vulnerability_source(vulnerability: Dict[str, str]) -> str:
-    kind: str = vulnerability['vuln_type']
-    where: str = vulnerability['where'].strip()
+    kind: str = vulnerability["vuln_type"]
+    where: str = vulnerability["where"].strip()
 
-    if kind == 'lines':
+    if kind == "lines":
         root: str = get_repo_from_where(where)
-    elif kind == 'ports':
+    elif kind == "ports":
         root = where
-    elif kind == 'inputs':
+    elif kind == "inputs":
         try:
             url = urlparse(where)
         except ValueError:
@@ -91,14 +96,12 @@ def get_vulnerability_source(vulnerability: Dict[str, str]) -> str:
 
 
 async def get_portfolios_groups(org_name: str) -> List[PortfoliosGroups]:
-    portfolios = await tags_domain.get_tags(
-        org_name, ['tag', 'projects']
-    )
+    portfolios = await tags_domain.get_tags(org_name, ["tag", "projects"])
 
     return [
         PortfoliosGroups(
-            portfolio=data.get('tag', '').lower(),
-            groups=data.get('projects', [])
+            portfolio=data.get("tag", "").lower(),
+            groups=data.get("projects", []),
         )
         for data in portfolios
     ]
@@ -106,10 +109,9 @@ async def get_portfolios_groups(org_name: str) -> List[PortfoliosGroups]:
 
 async def iterate_groups() -> AsyncIterator[str]:
     for group in sorted(
-        await groups_domain.get_alive_group_names(),
-        reverse=True
+        await groups_domain.get_alive_group_names(), reverse=True
     ):
-        log_info(f'Working on group: {group}')
+        log_info(f"Working on group: {group}")
         # Exception: WF(AsyncIterator is subtype of iterator)
         yield group  # NOSONAR
 
@@ -122,12 +124,12 @@ async def iterate_organizations_and_groups() -> AsyncIterator[
     async for org_id, org_name, org_groups in (
         orgs_domain.iterate_organizations_and_groups()
     ):
-        log_info(f'Working on org: {org_id} ({org_name}) {org_groups}')
+        log_info(f"Working on org: {org_id} ({org_name}) {org_groups}")
         # Exception: WF(AsyncIterator is subtype of iterator)
         yield (  # NOSONAR
             org_id,
             org_name,
-            tuple(groups.intersection(org_groups))
+            tuple(groups.intersection(org_groups)),
         )
 
 
@@ -137,13 +139,16 @@ def json_dump(
     entity: str,
     subject: str,
 ) -> None:
-    for result_path in map(get_result_path, [
-        # Backwards compatibility
-        f'{entity}-{subject}.json',
-        # New format
-        f'{entity}:{safe_encode(subject.lower())}.json',
-    ]):
-        with open(result_path, 'w') as file:
+    for result_path in map(
+        get_result_path,
+        [
+            # Backwards compatibility
+            f"{entity}-{subject}.json",
+            # New format
+            f"{entity}:{safe_encode(subject.lower())}.json",
+        ],
+    ):
+        with open(result_path, "w") as file:
             json.dump(document, file, default=json_encoder, indent=2)
 
 
@@ -152,15 +157,9 @@ def json_encoder(obj: Any) -> Any:
     obj_type: type = type(obj)
 
     if obj_type == set:
-        casted_obj: Any = [
-            json_encoder(value)
-            for value in obj
-        ]
+        casted_obj: Any = [json_encoder(value) for value in obj]
     elif obj_type == frozendict:
-        casted_obj = {
-            key: json_encoder(value)
-            for key, value in obj.items()
-        }
+        casted_obj = {key: json_encoder(value) for key, value in obj.items()}
     elif obj_type == Decimal:
         casted_obj = float(obj)
     else:
@@ -171,7 +170,7 @@ def json_encoder(obj: Any) -> Any:
 
 # Using Any because this is a generic-input function
 def log_info(*args: Any, **kwargs: Any) -> None:
-    print('[INFO]', *args, **kwargs)
+    print("[INFO]", *args, **kwargs)
 
 
 # Using Any because this is a generic-input decorator
@@ -181,10 +180,10 @@ def retry_on_exceptions(
     exceptions: Tuple[Type[Exception], ...],
     retry_times: int,
 ) -> Callable[..., Any]:
-
     def decorator(function: Callable[..., Any]) -> Callable[..., Any]:
 
         if asyncio.iscoroutinefunction(function):
+
             @functools.wraps(function)
             async def wrapper(*args: Any, **kwargs: Any) -> Any:
                 for _ in range(retry_times):
@@ -192,7 +191,9 @@ def retry_on_exceptions(
                         return await function(*args, **kwargs)
 
                 return default_value
+
         else:
+
             @functools.wraps(function)
             def wrapper(*args: Any, **kwargs: Any) -> Any:
                 for _ in range(retry_times):

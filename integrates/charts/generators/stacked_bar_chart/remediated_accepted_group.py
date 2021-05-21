@@ -22,38 +22,44 @@ from charts.colors import (
 from groups import domain as groups_domain
 
 
-Treatment = NamedTuple('Status', [
-    ('accepted', int),
-    ('accepted_undefined', int),
-    ('group_name', str),
-    ('closed_vulnerabilities', int),
-    ('open_vulnerabilities', int),
-    ('remaining_open_vulnerabilities', int),
-])
+Treatment = NamedTuple(
+    "Status",
+    [
+        ("accepted", int),
+        ("accepted_undefined", int),
+        ("group_name", str),
+        ("closed_vulnerabilities", int),
+        ("open_vulnerabilities", int),
+        ("remaining_open_vulnerabilities", int),
+    ],
+)
 
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Treatment:
-    item = await groups_domain.get_attributes(group, [
-        'open_vulnerabilities',
-        'closed_vulnerabilities',
-        'total_treatment',
-    ])
-    treatment = item.get('total_treatment', {})
-    open_vulnerabilities: int = item.get('open_vulnerabilities', 0)
-    accepted_vulnerabilities: int = (
-        treatment.get('acceptedUndefined', 0) + treatment.get('accepted', 0)
+    item = await groups_domain.get_attributes(
+        group,
+        [
+            "open_vulnerabilities",
+            "closed_vulnerabilities",
+            "total_treatment",
+        ],
     )
+    treatment = item.get("total_treatment", {})
+    open_vulnerabilities: int = item.get("open_vulnerabilities", 0)
+    accepted_vulnerabilities: int = treatment.get(
+        "acceptedUndefined", 0
+    ) + treatment.get("accepted", 0)
 
     return Treatment(
         group_name=group.lower(),
-        accepted=treatment.get('accepted', 0),
-        accepted_undefined=treatment.get('acceptedUndefined', 0),
+        accepted=treatment.get("accepted", 0),
+        accepted_undefined=treatment.get("acceptedUndefined", 0),
         remaining_open_vulnerabilities=(
             open_vulnerabilities - accepted_vulnerabilities
         ),
         open_vulnerabilities=open_vulnerabilities,
-        closed_vulnerabilities=item.get('closed_vulnerabilities', 0),
+        closed_vulnerabilities=item.get("closed_vulnerabilities", 0),
     )
 
 
@@ -67,7 +73,7 @@ async def get_data_many_groups(groups: List[str]) -> List[Treatment]:
             / (x.closed_vulnerabilities + x.open_vulnerabilities)
             if (x.closed_vulnerabilities + x.open_vulnerabilities) > 0
             else 0
-        )
+        ),
     )
 
 
@@ -75,46 +81,43 @@ def format_data(data: List[Treatment]) -> dict:
     return dict(
         data=dict(
             columns=[
-                cast(List[Union[int, str]], ['Closed']) +
-                [group.closed_vulnerabilities for group in data],
-                cast(List[Union[int, str]], ['Temporarily Accepted']) +
-                [group.accepted for group in data],
-                cast(List[Union[int, str]], ['Eternally accepted']) +
-                [group.accepted_undefined for group in data],
-                cast(List[Union[int, str]], ['Open']) +
-                [group.remaining_open_vulnerabilities for group in data],
+                cast(List[Union[int, str]], ["Closed"])
+                + [group.closed_vulnerabilities for group in data],
+                cast(List[Union[int, str]], ["Temporarily Accepted"])
+                + [group.accepted for group in data],
+                cast(List[Union[int, str]], ["Eternally accepted"])
+                + [group.accepted_undefined for group in data],
+                cast(List[Union[int, str]], ["Open"])
+                + [group.remaining_open_vulnerabilities for group in data],
             ],
             colors={
-                'Closed': RISK.more_passive,
-                'Temporarily Accepted': TREATMENT.passive,
-                'Eternally accepted': TREATMENT.more_passive,
-                'Open': RISK.more_agressive,
+                "Closed": RISK.more_passive,
+                "Temporarily Accepted": TREATMENT.passive,
+                "Eternally accepted": TREATMENT.more_passive,
+                "Open": RISK.more_agressive,
             },
-            type='bar',
+            type="bar",
             groups=[
                 [
-                    'Closed',
-                    'Temporarily Accepted',
-                    'Eternally accepted',
-                    'Open'
+                    "Closed",
+                    "Temporarily Accepted",
+                    "Eternally accepted",
+                    "Open",
                 ],
             ],
             order=None,
             stack=dict(
                 normalize=True,
-            )
+            ),
         ),
         legend=dict(
-            position='bottom',
+            position="bottom",
         ),
         axis=dict(
             x=dict(
                 categories=[group.group_name for group in data],
-                type='category',
-                tick=dict(
-                    rotate=utils.TICK_ROTATION,
-                    multiline=False
-                )
+                type="category",
+                tick=dict(rotate=utils.TICK_ROTATION, multiline=False),
             ),
         ),
     )
@@ -129,10 +132,10 @@ async def generate_all() -> None:
                 document=format_data(
                     data=await get_data_many_groups(groups),
                 ),
-                entity='portfolio',
-                subject=f'{org_id}PORTFOLIO#{portfolio}',
+                entity="portfolio",
+                subject=f"{org_id}PORTFOLIO#{portfolio}",
             )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(generate_all())

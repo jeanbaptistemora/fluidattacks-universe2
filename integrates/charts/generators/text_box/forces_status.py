@@ -14,11 +14,10 @@ async def generate_one(group: str) -> ForcesReport:
     group_loader = context.group_all
     group_data = await group_loader.load(group)
 
-    has_forces = group_data['has_forces']
+    has_forces = group_data["has_forces"]
 
     return ForcesReport(
-        fontSizeRatio=0.5,
-        text='Active' if has_forces else 'Inactive'
+        fontSizeRatio=0.5, text="Active" if has_forces else "Inactive"
     )
 
 
@@ -26,10 +25,10 @@ async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=await generate_one(group),
-            entity='group',
+            entity="group",
             subject=group,
         )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(generate_all())

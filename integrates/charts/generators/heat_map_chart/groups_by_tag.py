@@ -20,12 +20,15 @@ from charts import utils
 from dataloaders import get_new_context
 
 
-GroupsTags = NamedTuple('GroupsTags', [
-    ('counter', Counter[str]),
-    ('counter_group', Counter[str]),
-    ('groups', List[str]),
-    ('tags', Set[str]),
-])
+GroupsTags = NamedTuple(
+    "GroupsTags",
+    [
+        ("counter", Counter[str]),
+        ("counter_group", Counter[str]),
+        ("groups", List[str]),
+        ("tags", Set[str]),
+    ],
+)
 
 
 @alru_cache(maxsize=None, typed=True)
@@ -35,23 +38,26 @@ async def get_data_one_group(group: str) -> GroupsTags:
     finding_vulns_loader = context.finding_vulns
 
     group_findings_data = await group_findings_loader.load(group.lower())
-    finding_ids = [finding['finding_id'] for finding in group_findings_data]
+    finding_ids = [finding["finding_id"] for finding in group_findings_data]
 
     vulnerabilities = list(
-        chain.from_iterable(
-            await finding_vulns_loader.load_many(finding_ids)
+        chain.from_iterable(await finding_vulns_loader.load_many(finding_ids))
+    )
+
+    tags: List[str] = list(
+        filter(
+            None,
+            chain.from_iterable(
+                map(lambda x: x["tag"].split(", "), vulnerabilities)
+            ),
         )
     )
 
-    tags: List[str] = list(filter(None, chain.from_iterable(
-        map(lambda x: x['tag'].split(', '), vulnerabilities)
-    )))
-
     return GroupsTags(
         counter=Counter(tags),
-        counter_group=Counter([f'{group.lower()}/{tag}' for tag in tags]),
+        counter_group=Counter([f"{group.lower()}/{tag}" for tag in tags]),
         groups=[group] if tags else [],
-        tags=set(tags)
+        tags=set(tags),
     )
 
 
@@ -61,15 +67,14 @@ async def get_data_many_groups(groups: List[str]) -> GroupsTags:
 
     return GroupsTags(
         counter=sum(
-            [group_data.counter for group_data in groups_data],
-            Counter()
+            [group_data.counter for group_data in groups_data], Counter()
         ),
         counter_group=sum(
-            [group_data.counter_group for group_data in groups_data],
-            Counter()
+            [group_data.counter_group for group_data in groups_data], Counter()
         ),
         groups=[
-            group.lower() for group, group_data in zip(groups, groups_data)
+            group.lower()
+            for group, group_data in zip(groups, groups_data)
             if group_data.groups
         ],
         tags=set.union(*all_tags) if all_tags else set(),
@@ -83,16 +88,16 @@ def format_data(data: GroupsTags) -> dict:
         group
         for group in data.groups
         for tag in tags
-        if data.counter_group[f'{group}/{tag}'] > 0
+        if data.counter_group[f"{group}/{tag}"] > 0
     }
 
     return dict(
         x=groups,
         grid_values=[
             {
-                'value': data.counter_group[f'{group}/{tag}'],
-                'x': group,
-                'y': tag,
+                "value": data.counter_group[f"{group}/{tag}"],
+                "x": group,
+                "y": tag,
             }
             for group in groups
             for tag in tags
@@ -111,7 +116,7 @@ async def generate_all() -> None:
             document=format_data(
                 data=await get_data_many_groups(list(org_groups)),
             ),
-            entity='organization',
+            entity="organization",
             subject=org_id,
         )
 
@@ -119,10 +124,10 @@ async def generate_all() -> None:
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
             utils.json_dump(
                 document=format_data(data=await get_data_many_groups(groups)),
-                entity='portfolio',
-                subject=f'{org_id}PORTFOLIO#{portfolio}',
+                entity="portfolio",
+                subject=f"{org_id}PORTFOLIO#{portfolio}",
             )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(generate_all())

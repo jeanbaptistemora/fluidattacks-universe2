@@ -17,22 +17,28 @@ from charts.colors import RISK
 from groups import domain as groups_domain
 
 
-Status = NamedTuple('Status', [
-    ('closed_vulnerabilities', int),
-    ('open_vulnerabilities', int),
-])
+Status = NamedTuple(
+    "Status",
+    [
+        ("closed_vulnerabilities", int),
+        ("open_vulnerabilities", int),
+    ],
+)
 
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Status:
-    item = await groups_domain.get_attributes(group, [
-        'open_vulnerabilities',
-        'closed_vulnerabilities',
-    ])
+    item = await groups_domain.get_attributes(
+        group,
+        [
+            "open_vulnerabilities",
+            "closed_vulnerabilities",
+        ],
+    )
 
     return Status(
-        open_vulnerabilities=item.get('open_vulnerabilities', 0),
-        closed_vulnerabilities=item.get('closed_vulnerabilities', 0),
+        open_vulnerabilities=item.get("open_vulnerabilities", 0),
+        closed_vulnerabilities=item.get("closed_vulnerabilities", 0),
     )
 
 
@@ -51,23 +57,23 @@ async def get_data_many_groups(groups: Iterable[str]) -> Status:
 
 def format_document(data: Status) -> dict:
     return {
-        'data': {
-            'columns': [
-                ['Closed', data.closed_vulnerabilities],
-                ['Open', data.open_vulnerabilities],
+        "data": {
+            "columns": [
+                ["Closed", data.closed_vulnerabilities],
+                ["Open", data.open_vulnerabilities],
             ],
-            'type': 'pie',
-            'colors': {
-                'Closed': RISK.more_passive,
-                'Open': RISK.more_agressive,
+            "type": "pie",
+            "colors": {
+                "Closed": RISK.more_passive,
+                "Open": RISK.more_agressive,
             },
         },
-        'legend': {
-            'position': 'right',
+        "legend": {
+            "position": "right",
         },
-        'pie': {
-            'label': {
-                'show': True,
+        "pie": {
+            "label": {
+                "show": True,
             },
         },
     }
@@ -79,7 +85,7 @@ async def generate_all() -> None:
             document=format_document(
                 data=await get_data_one_group(group),
             ),
-            entity='group',
+            entity="group",
             subject=group,
         )
 
@@ -90,7 +96,7 @@ async def generate_all() -> None:
             document=format_document(
                 data=await get_data_many_groups(org_groups),
             ),
-            entity='organization',
+            entity="organization",
             subject=org_id,
         )
 
@@ -102,10 +108,10 @@ async def generate_all() -> None:
                 document=format_document(
                     data=await get_data_many_groups(groups),
                 ),
-                entity='portfolio',
-                subject=f'{org_id}PORTFOLIO#{portfolio}',
+                entity="portfolio",
+                subject=f"{org_id}PORTFOLIO#{portfolio}",
             )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(generate_all())

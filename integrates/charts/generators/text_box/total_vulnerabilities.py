@@ -17,11 +17,11 @@ from dataloaders import get_new_context
 async def generate_one(group: str) -> int:
     context = get_new_context()
     group_loader = context.group_all
-    group_data = (await group_loader.load(group))
+    group_data = await group_loader.load(group)
 
     return (
-        group_data['closed_vulnerabilities'] +
-        group_data['open_vulnerabilities']
+        group_data["closed_vulnerabilities"]
+        + group_data["open_vulnerabilities"]
     )
 
 
@@ -33,8 +33,8 @@ async def get_vulns_count_many_groups(groups: Iterable[str]) -> int:
 
 def format_data(vulns_count: int) -> dict:
     return {
-        'fontSizeRatio': 0.5,
-        'text': vulns_count,
+        "fontSizeRatio": 0.5,
+        "text": vulns_count,
     }
 
 
@@ -44,7 +44,7 @@ async def generate_all() -> None:
             document=format_data(
                 vulns_count=await generate_one(group),
             ),
-            entity='group',
+            entity="group",
             subject=group,
         )
 
@@ -55,7 +55,7 @@ async def generate_all() -> None:
             document=format_data(
                 vulns_count=await get_vulns_count_many_groups(org_groups),
             ),
-            entity='organization',
+            entity="organization",
             subject=org_id,
         )
 
@@ -65,10 +65,10 @@ async def generate_all() -> None:
                 document=format_data(
                     vulns_count=await get_vulns_count_many_groups(groups),
                 ),
-                entity='portfolio',
-                subject=f'{org_id}PORTFOLIO#{portfolio}',
+                entity="portfolio",
+                subject=f"{org_id}PORTFOLIO#{portfolio}",
             )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(generate_all())

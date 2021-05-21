@@ -29,18 +29,18 @@ async def get_data_one_group(group: str) -> Counter:
     finding_vulns_loader = context.finding_vulns
 
     group_findings_data = await group_findings_loader.load(group.lower())
-    finding_ids = [finding['finding_id'] for finding in group_findings_data]
+    finding_ids = [finding["finding_id"] for finding in group_findings_data]
     findings = await finding_loader.load_many(finding_ids)
-    finding_vulns = await finding_vulns_loader.load_many(
-        finding_ids
-    )
+    finding_vulns = await finding_vulns_loader.load_many(finding_ids)
 
-    return Counter([
-        f'{finding["finding_id"]}/{finding["title"]}'
-        for finding, vulnerabilities in zip(findings, finding_vulns)
-        for vulnerability in vulnerabilities
-        if vulnerability['current_state'] == 'open'
-    ])
+    return Counter(
+        [
+            f'{finding["finding_id"]}/{finding["title"]}'
+            for finding, vulnerabilities in zip(findings, finding_vulns)
+            for vulnerability in vulnerabilities
+            if vulnerability["current_state"] == "open"
+        ]
+    )
 
 
 async def get_data_many_groups(groups: List[str]) -> Counter:
@@ -54,31 +54,26 @@ def format_data(counters: Counter) -> dict:
 
     merged_data: List[List[Union[int, str]]] = []
     for axis, columns in groupby(
-        sorted(
-            data,
-            key=lambda x: utils.get_finding_name([x[0]])
-        ),
-        key=lambda x: utils.get_finding_name([x[0]])
+        sorted(data, key=lambda x: utils.get_finding_name([x[0]])),
+        key=lambda x: utils.get_finding_name([x[0]]),
     ):
-        merged_data.append([
-            axis, sum([value for _, value in columns])
-        ])
+        merged_data.append([axis, sum([value for _, value in columns])])
 
     merged_data = sorted(merged_data, key=lambda x: x[1], reverse=True)[:10]
 
     return dict(
         data=dict(
             columns=[
-                cast(List[Union[int, str]], ['# Open Vulnerabilities']) +
-                [value for _, value in merged_data],
+                cast(List[Union[int, str]], ["# Open Vulnerabilities"])
+                + [value for _, value in merged_data],
             ],
             colors={
-                '# Open Vulnerabilities': RISK.neutral,
+                "# Open Vulnerabilities": RISK.neutral,
             },
-            type='bar',
+            type="bar",
         ),
         legend=dict(
-            position='bottom',
+            position="bottom",
         ),
         axis=dict(
             x=dict(
@@ -86,7 +81,7 @@ def format_data(counters: Counter) -> dict:
                     utils.get_finding_name([str(key)])
                     for key, _ in merged_data
                 ],
-                type='category',
+                type="category",
                 tick=dict(
                     outer=False,
                     rotate=12,
@@ -107,7 +102,7 @@ async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=format_data(counters=await get_data_one_group(group)),
-            entity='group',
+            entity="group",
             subject=group,
         )
 
@@ -118,7 +113,7 @@ async def generate_all() -> None:
             document=format_data(
                 counters=await get_data_many_groups(list(org_groups)),
             ),
-            entity='organization',
+            entity="organization",
             subject=org_id,
         )
 
@@ -128,10 +123,10 @@ async def generate_all() -> None:
                 document=format_data(
                     counters=await get_data_many_groups(groups),
                 ),
-                entity='portfolio',
-                subject=f'{org_id}PORTFOLIO#{portfolio}',
+                entity="portfolio",
+                subject=f"{org_id}PORTFOLIO#{portfolio}",
             )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(generate_all())

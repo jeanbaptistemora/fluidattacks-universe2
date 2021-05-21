@@ -15,20 +15,17 @@ async def generate_one(group: str) -> ForcesReport:
         for execution in executions
     )
 
-    return ForcesReport(
-        fontSizeRatio=0.5,
-        text=str(len(unique_executions))
-    )
+    return ForcesReport(fontSizeRatio=0.5, text=str(len(unique_executions)))
 
 
 async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=await generate_one(group),
-            entity='group',
+            entity="group",
             subject=group,
         )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(generate_all())

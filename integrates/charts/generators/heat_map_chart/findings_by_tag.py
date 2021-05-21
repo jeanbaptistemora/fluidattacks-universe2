@@ -21,28 +21,35 @@ from custom_types import Finding
 from dataloaders import get_new_context
 
 
-FindingsTags = NamedTuple('FindingsTags', [
-    ('counter', Counter[str]),
-    ('counter_finding', Counter[str]),
-    ('findings', List[str]),
-    ('tags', Set[str]),
-])
+FindingsTags = NamedTuple(
+    "FindingsTags",
+    [
+        ("counter", Counter[str]),
+        ("counter_finding", Counter[str]),
+        ("findings", List[str]),
+        ("tags", Set[str]),
+    ],
+)
 
 
 async def get_data_finding(
-    finding_title: str,
-    vulnerabilities: List[Dict[str, Finding]]
+    finding_title: str, vulnerabilities: List[Dict[str, Finding]]
 ) -> FindingsTags:
-    title = finding_title.split('.')[0]
-    tags: List[str] = list(filter(None, chain.from_iterable(
-        map(lambda x: x['tag'].split(', '), vulnerabilities)
-    )))
+    title = finding_title.split(".")[0]
+    tags: List[str] = list(
+        filter(
+            None,
+            chain.from_iterable(
+                map(lambda x: x["tag"].split(", "), vulnerabilities)
+            ),
+        )
+    )
 
     return FindingsTags(
         counter=Counter(tags),
-        counter_finding=Counter([f'{title}/{tag}' for tag in tags]),
+        counter_finding=Counter([f"{title}/{tag}" for tag in tags]),
         findings=[title] if tags else [],
-        tags=set(tags)
+        tags=set(tags),
     )
 
 
@@ -51,27 +58,29 @@ async def get_data(group: str) -> FindingsTags:
     group_findings_loader = context.group_findings
     finding_vulns_loader = context.finding_vulns
     group_findings_data = await group_findings_loader.load(group.lower())
-    finding_ids = [finding['finding_id'] for finding in group_findings_data]
-    findings = [finding['title'] for finding in group_findings_data]
+    finding_ids = [finding["finding_id"] for finding in group_findings_data]
+    findings = [finding["title"] for finding in group_findings_data]
     vulnerabilities = await finding_vulns_loader.load_many(finding_ids)
 
-    findings_data = await collect([
-        get_data_finding(finding_title, vulns)
-        for finding_title, vulns in zip(findings, vulnerabilities)
-    ])
+    findings_data = await collect(
+        [
+            get_data_finding(finding_title, vulns)
+            for finding_title, vulns in zip(findings, vulnerabilities)
+        ]
+    )
     all_tags = [finding_data.tags for finding_data in findings_data]
 
     return FindingsTags(
         counter=sum(
-            [finding_data.counter for finding_data in findings_data],
-            Counter()
+            [finding_data.counter for finding_data in findings_data], Counter()
         ),
         counter_finding=sum(
             [finding_data.counter_finding for finding_data in findings_data],
-            Counter()
+            Counter(),
         ),
         findings=[
-            finding_data.findings[0] for finding_data in findings_data
+            finding_data.findings[0]
+            for finding_data in findings_data
             if finding_data.findings
         ],
         tags=set.union(*all_tags) if all_tags else set(),
@@ -85,16 +94,16 @@ def format_data(data: FindingsTags) -> dict:
         finding
         for finding in data.findings
         for tag in tags
-        if data.counter_finding[f'{finding}/{tag}'] > 0
+        if data.counter_finding[f"{finding}/{tag}"] > 0
     }
 
     return dict(
         x=findings,
         grid_values=[
             {
-                'value': data.counter_finding[f'{finding}/{tag}'],
-                'x': finding,
-                'y': tag,
+                "value": data.counter_finding[f"{finding}/{tag}"],
+                "x": finding,
+                "y": tag,
             }
             for finding in findings
             for tag in tags
@@ -109,10 +118,10 @@ async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=format_data(data=await get_data(group)),
-            entity='group',
+            entity="group",
             subject=group,
         )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(generate_all())

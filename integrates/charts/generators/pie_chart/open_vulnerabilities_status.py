@@ -20,21 +20,21 @@ from groups import domain as groups_domain
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_group(group: str) -> PortfoliosGroupsInfo:
-    item = await groups_domain.get_attributes(group, [
-        'open_vulnerabilities',
-    ])
+    item = await groups_domain.get_attributes(
+        group,
+        [
+            "open_vulnerabilities",
+        ],
+    )
 
     return PortfoliosGroupsInfo(
-        group_name=group.lower(),
-        value=item.get('open_vulnerabilities', 0)
+        group_name=group.lower(), value=item.get("open_vulnerabilities", 0)
     )
 
 
 async def get_data_groups(groups: List[str]) -> List[PortfoliosGroupsInfo]:
     groups_data = await collect(map(get_data_group, groups))
-    open_vulnerabilities = sum(
-        [group.value for group in groups_data]
-    )
+    open_vulnerabilities = sum([group.value for group in groups_data])
 
     return slice_groups(groups_data, open_vulnerabilities)
 
@@ -46,10 +46,10 @@ async def generate_all() -> None:
                 document=format_data(
                     groups_data=await get_data_groups(groups),
                 ),
-                entity='portfolio',
-                subject=f'{org_id}PORTFOLIO#{portfolio}',
+                entity="portfolio",
+                subject=f"{org_id}PORTFOLIO#{portfolio}",
             )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(generate_all())

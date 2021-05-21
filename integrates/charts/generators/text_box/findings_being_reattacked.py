@@ -27,8 +27,8 @@ async def get_many_groups(groups: Tuple[str, ...]) -> int:
 
 def format_data(findings_reattack: int) -> dict:
     return {
-        'fontSizeRatio': 0.5,
-        'text': findings_reattack,
+        "fontSizeRatio": 0.5,
+        "text": findings_reattack,
     }
 
 
@@ -36,7 +36,7 @@ async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=format_data(findings_reattack=await generate_one(group)),
-            entity='group',
+            entity="group",
             subject=group,
         )
 
@@ -45,11 +45,9 @@ async def generate_all() -> None:
     ):
         utils.json_dump(
             document=format_data(
-                findings_reattack=await get_many_groups(
-                    org_groups
-                ),
+                findings_reattack=await get_many_groups(org_groups),
             ),
-            entity='organization',
+            entity="organization",
             subject=org_id,
         )
 
@@ -59,10 +57,10 @@ async def generate_all() -> None:
                 document=format_data(
                     findings_reattack=await get_many_groups(tuple(groups)),
                 ),
-                entity='portfolio',
-                subject=f'{org_id}PORTFOLIO#{portfolio}',
+                entity="portfolio",
+                subject=f"{org_id}PORTFOLIO#{portfolio}",
             )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(generate_all())

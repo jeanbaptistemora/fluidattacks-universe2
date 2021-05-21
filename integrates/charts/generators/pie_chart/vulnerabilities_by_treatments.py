@@ -20,9 +20,8 @@ from dataloaders import get_new_context
 
 
 def get_treatment_changes(vuln: Vulnerability) -> int:
-    return (
-        len(vuln['historic_treatment']) -
-        (1 if vuln['historic_treatment'][0]['treatment'] == "NEW" else 0)
+    return len(vuln["historic_treatment"]) - (
+        1 if vuln["historic_treatment"][0]["treatment"] == "NEW" else 0
     )
 
 
@@ -33,12 +32,10 @@ async def get_data_one_group(group: str) -> Counter:
     finding_vulns_loader = context.finding_vulns
 
     group_findings_data = await group_findings_loader.load(group.lower())
-    finding_ids = [finding['finding_id'] for finding in group_findings_data]
+    finding_ids = [finding["finding_id"] for finding in group_findings_data]
 
     vulnerabilities = list(
-        chain.from_iterable(
-            await finding_vulns_loader.load_many(finding_ids)
-        )
+        chain.from_iterable(await finding_vulns_loader.load_many(finding_ids))
     )
 
     return Counter(filter(None, map(get_treatment_changes, vulnerabilities)))
@@ -52,36 +49,37 @@ async def get_data_many_groups(groups: List[str]) -> Counter:
 
 def format_data(counters: Counter) -> dict:
     treatments_data = counters.most_common()
-    data = (
-        treatments_data[:MAX_GROUPS_DISPLAYED] +
-        (
-            [(
-                'others',
-                sum(map(itemgetter(1), treatments_data[MAX_GROUPS_DISPLAYED:]))
-            )]
-            if len(treatments_data) > MAX_GROUPS_DISPLAYED
-            else []
-        )
+    data = treatments_data[:MAX_GROUPS_DISPLAYED] + (
+        [
+            (
+                "others",
+                sum(
+                    map(itemgetter(1), treatments_data[MAX_GROUPS_DISPLAYED:])
+                ),
+            )
+        ]
+        if len(treatments_data) > MAX_GROUPS_DISPLAYED
+        else []
     )
 
     return {
-        'data': {
-            'columns': [
+        "data": {
+            "columns": [
                 [str(treatment_change), value]
                 for treatment_change, value in data
             ],
-            'type': 'pie',
-            'colors': {
+            "type": "pie",
+            "colors": {
                 str(treatment_change[0]): column
                 for treatment_change, column in zip(data, OTHER)
             },
         },
-        'legend': {
-            'position': 'right',
+        "legend": {
+            "position": "right",
         },
-        'pie': {
-            'label': {
-                'show': True,
+        "pie": {
+            "label": {
+                "show": True,
             },
         },
     }
@@ -91,7 +89,7 @@ async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=format_data(counters=await get_data_one_group(group)),
-            entity='group',
+            entity="group",
             subject=group,
         )
 
@@ -102,7 +100,7 @@ async def generate_all() -> None:
             document=format_data(
                 counters=await get_data_many_groups(list(org_groups)),
             ),
-            entity='organization',
+            entity="organization",
             subject=org_id,
         )
 
@@ -112,10 +110,10 @@ async def generate_all() -> None:
                 document=format_data(
                     counters=await get_data_many_groups(groups),
                 ),
-                entity='portfolio',
-                subject=f'{org_id}PORTFOLIO#{portfolio}',
+                entity="portfolio",
+                subject=f"{org_id}PORTFOLIO#{portfolio}",
             )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(generate_all())

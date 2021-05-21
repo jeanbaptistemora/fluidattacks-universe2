@@ -27,17 +27,20 @@ async def get_data_one_group(group: str) -> Counter:
     finding_vulns_loader = context.finding_vulns
 
     group_findings_data = await group_findings_loader.load(group.lower())
-    finding_ids = [finding['finding_id'] for finding in group_findings_data]
+    finding_ids = [finding["finding_id"] for finding in group_findings_data]
 
     vulnerabilities = list(
-        chain.from_iterable(
-            await finding_vulns_loader.load_many(finding_ids)
-        )
+        chain.from_iterable(await finding_vulns_loader.load_many(finding_ids))
     )
 
-    return Counter(filter(None, chain.from_iterable(
-        map(lambda x: x['tag'].split(', '), vulnerabilities)
-    )))
+    return Counter(
+        filter(
+            None,
+            chain.from_iterable(
+                map(lambda x: x["tag"].split(", "), vulnerabilities)
+            ),
+        )
+    )
 
 
 async def get_data_many_groups(groups: List[str]) -> Counter:
@@ -52,21 +55,21 @@ def format_data(counters: Counter) -> dict:
     return dict(
         data=dict(
             columns=[
-                cast(List[Union[int, str]], ['Tag']) +
-                [value for _, value in data],
+                cast(List[Union[int, str]], ["Tag"])
+                + [value for _, value in data],
             ],
             colors={
-                'Tag': RISK.neutral,
+                "Tag": RISK.neutral,
             },
-            type='bar',
+            type="bar",
         ),
         legend=dict(
-            position='bottom',
+            position="bottom",
         ),
         axis=dict(
             x=dict(
                 categories=[key for key, _ in data],
-                type='category',
+                type="category",
                 tick=dict(
                     rotate=utils.TICK_ROTATION,
                     multiline=False,
@@ -89,7 +92,7 @@ async def generate_all() -> None:
             document=format_data(
                 counters=await get_data_one_group(group),
             ),
-            entity='group',
+            entity="group",
             subject=group,
         )
 
@@ -100,7 +103,7 @@ async def generate_all() -> None:
             document=format_data(
                 counters=await get_data_many_groups(list(org_groups)),
             ),
-            entity='organization',
+            entity="organization",
             subject=org_id,
         )
 
@@ -110,10 +113,10 @@ async def generate_all() -> None:
                 document=format_data(
                     counters=await get_data_many_groups(groups),
                 ),
-                entity='portfolio',
-                subject=f'{org_id}PORTFOLIO#{portfolio}',
+                entity="portfolio",
+                subject=f"{org_id}PORTFOLIO#{portfolio}",
             )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(generate_all())

@@ -19,24 +19,30 @@ from charts.colors import RISK
 from groups import domain as groups_domain
 
 
-Status = NamedTuple('Status', [
-    ('group_name', str),
-    ('closed_vulnerabilities', int),
-    ('open_vulnerabilities', int),
-])
+Status = NamedTuple(
+    "Status",
+    [
+        ("group_name", str),
+        ("closed_vulnerabilities", int),
+        ("open_vulnerabilities", int),
+    ],
+)
 
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Status:
-    item = await groups_domain.get_attributes(group, [
-        'open_vulnerabilities',
-        'closed_vulnerabilities',
-    ])
+    item = await groups_domain.get_attributes(
+        group,
+        [
+            "open_vulnerabilities",
+            "closed_vulnerabilities",
+        ],
+    )
 
     return Status(
         group_name=group.lower(),
-        open_vulnerabilities=item.get('open_vulnerabilities', 0),
-        closed_vulnerabilities=item.get('closed_vulnerabilities', 0),
+        open_vulnerabilities=item.get("open_vulnerabilities", 0),
+        closed_vulnerabilities=item.get("closed_vulnerabilities", 0),
     )
 
 
@@ -50,7 +56,7 @@ async def get_data_many_groups(groups: List[str]) -> List[Status]:
             / (x.closed_vulnerabilities + x.open_vulnerabilities)
             if (x.closed_vulnerabilities + x.open_vulnerabilities) > 0
             else 0
-        )
+        ),
     )
 
 
@@ -58,35 +64,32 @@ def format_data(data: List[Status]) -> dict:
     return dict(
         data=dict(
             columns=[
-                cast(List[Union[int, str]], ['Closed']) +
-                [group.closed_vulnerabilities for group in data],
-                cast(List[Union[int, str]], ['Open']) +
-                [group.open_vulnerabilities for group in data],
+                cast(List[Union[int, str]], ["Closed"])
+                + [group.closed_vulnerabilities for group in data],
+                cast(List[Union[int, str]], ["Open"])
+                + [group.open_vulnerabilities for group in data],
             ],
             colors={
-                'Closed': RISK.more_passive,
-                'Open': RISK.more_agressive,
+                "Closed": RISK.more_passive,
+                "Open": RISK.more_agressive,
             },
-            type='bar',
+            type="bar",
             groups=[
-                ['Closed', 'Open'],
+                ["Closed", "Open"],
             ],
             order=None,
             stack=dict(
                 normalize=True,
-            )
+            ),
         ),
         legend=dict(
-            position='bottom',
+            position="bottom",
         ),
         axis=dict(
             x=dict(
                 categories=[group.group_name for group in data],
-                type='category',
-                tick=dict(
-                    rotate=utils.TICK_ROTATION,
-                    multiline=False
-                )
+                type="category",
+                tick=dict(rotate=utils.TICK_ROTATION, multiline=False),
             ),
         ),
     )
@@ -101,10 +104,10 @@ async def generate_all() -> None:
                 document=format_data(
                     data=await get_data_many_groups(groups),
                 ),
-                entity='portfolio',
-                subject=f'{org_id}PORTFOLIO#{portfolio}',
+                entity="portfolio",
+                subject=f"{org_id}PORTFOLIO#{portfolio}",
             )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(generate_all())
