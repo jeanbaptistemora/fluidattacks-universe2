@@ -99,9 +99,8 @@ const formatTreatment: (treatment: string, findingState: string) => string = (
         ? "searchFindings.tabDescription.treatment.new"
         : "-",
   };
-  const treatmentRes: string = translate.t(treatmentParameters[treatment]);
 
-  return treatmentRes;
+  return translate.t(treatmentParameters[treatment]);
 };
 
 export { castEventType, castEventStatus, formatDropdownField, formatTreatment };
