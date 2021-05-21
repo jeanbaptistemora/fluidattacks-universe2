@@ -9,10 +9,10 @@ def main():
     config_path = sys.argv[2]
 
     expected_layers = set(
-        module.replace('.py', '')
+        module.replace(".py", "")
         for module in os.listdir(root_path)
-        if not module.endswith('__init__.py')
-        if not module.endswith('py.typed')
+        if not module.endswith("__init__.py")
+        if not module.endswith("py.typed")
     )
 
     config = configparser.ConfigParser()
@@ -21,22 +21,22 @@ def main():
 
     layers = {
         layer.strip()
-        for layer in config['importlinter:contract:dag']['layers'].splitlines()
+        for layer in config["importlinter:contract:dag"]["layers"].splitlines()
         if layer
     }
 
     if layers == expected_layers:
         sys.exit(0)
     else:
-        print('[ERROR] Please specify all layers')
-        print('[INFO] Missing layers:')
+        print("[ERROR] Please specify all layers")
+        print("[INFO] Missing layers:")
         for layer in sorted(expected_layers - layers):
-            print(f'    {layer}')
-        print('[INFO] Extra layers:')
+            print(f"    {layer}")
+        print("[INFO] Extra layers:")
         for layer in sorted(layers - expected_layers):
-            print(f'    {layer}')
+            print(f"    {layer}")
         sys.exit(1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -25,13 +25,12 @@ from typing import (
     Type,
     TypeVar,
 )
+
 # Third party libraries
-from dateutil.parser import (
-    parse as date_parser
-)
+from dateutil.parser import parse as date_parser
 
 # Constants
-TVar = TypeVar('TVar')
+TVar = TypeVar("TVar")
 
 # Factory signature, args, kwargs
 Serialized = Tuple[Tuple[str, str], Tuple[Any, ...], Dict[str, Any]]
@@ -75,10 +74,8 @@ def _decimal_load(data: str) -> Decimal:
 
 def _dict_dump(instance: Dict[str, Any]) -> Serialized:
     return serialize(
-        instance, *(
-            (dump_raw(key), dump_raw(val))
-            for key, val in instance.items()
-        ),
+        instance,
+        *((dump_raw(key), dump_raw(val)) for key, val in instance.items()),
     )
 
 
@@ -185,7 +182,7 @@ def serialize(
     *args: Any,
     **kwargs: Any,
 ) -> Serialized:
-    signature = ALLOWED_FACTORIES[type(instance)]['signature']
+    signature = ALLOWED_FACTORIES[type(instance)]["signature"]
 
     return (signature, args, kwargs)
 
@@ -193,14 +190,14 @@ def serialize(
 def _deserialize(data: Serialized) -> Any:
     signature, args, kwargs = tuple(data[0]), data[1], data[2]
     factory: type = SIGNATURE_TO_FACTORY[signature]
-    loader: Callable[..., Any] = ALLOWED_FACTORIES[factory]['loader']
+    loader: Callable[..., Any] = ALLOWED_FACTORIES[factory]["loader"]
 
     return loader(*args, **kwargs)
 
 
 def dump_raw(instance: Any) -> Serialized:
     factory = type(instance)
-    dumper: Callable[..., Serialized] = ALLOWED_FACTORIES[factory]['dumper']
+    dumper: Callable[..., Serialized] = ALLOWED_FACTORIES[factory]["dumper"]
 
     return dumper(instance)
 
@@ -208,28 +205,26 @@ def dump_raw(instance: Any) -> Serialized:
 def dump(instance: Any, ttl: Optional[int] = None) -> bytes:
     dumped: Serialized = dump_raw(instance)
     message = {
-        'expires_at': (
-            None
-            if ttl is None
-            else datetime.now().timestamp() + ttl
+        "expires_at": (
+            None if ttl is None else datetime.now().timestamp() + ttl
         ),
-        'instance': dumped,
+        "instance": dumped,
     }
 
-    serialized: str = json.dumps(message, separators=(',', ':'))
+    serialized: str = json.dumps(message, separators=(",", ":"))
 
-    return serialized.encode('utf-8')
+    return serialized.encode("utf-8")
 
 
 def load(stream: bytes) -> Any:
     try:
         deserialized: Any = json.loads(stream)
 
-        expires_at: Optional[int] = deserialized['expires_at']
+        expires_at: Optional[int] = deserialized["expires_at"]
         if expires_at and datetime.now().timestamp() > expires_at:
-            raise LoadError('Data has expired')
+            raise LoadError("Data has expired")
 
-        return _deserialize(deserialized['instance'])
+        return _deserialize(deserialized["instance"])
     except (
         AttributeError,
         json.decoder.JSONDecodeError,
