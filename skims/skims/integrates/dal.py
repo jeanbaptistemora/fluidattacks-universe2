@@ -283,8 +283,8 @@ async def get_finding_vulnerabilities(
                     vulnerabilities {
                         commitHash
                         currentState
+                        historicState
                         id
-                        source
                         specific
                         vulnType
                         where
@@ -311,8 +311,8 @@ async def get_finding_vulnerabilities(
                 finding=finding,
                 integrates_metadata=core_model.IntegratesVulnerabilityMetadata(
                     commit_hash=vulnerability["commitHash"],
-                    source=core_model.VulnerabilitySourceEnum(
-                        vulnerability["source"]
+                    source=core_model.VulnerabilitySourceEnum.from_historic(
+                        vulnerability["historicState"]
                     ),
                     uuid=vulnerability["id"],
                 ),

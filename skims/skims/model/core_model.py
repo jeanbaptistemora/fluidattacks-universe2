@@ -7,6 +7,7 @@ from enum import (
 )
 from typing import (
     Dict,
+    List,
     NamedTuple,
     Optional,
     Set,
@@ -712,6 +713,22 @@ class VulnerabilityKindEnum(Enum):
 class VulnerabilitySourceEnum(Enum):
     INTEGRATES: str = "integrates"
     SKIMS: str = "skims"
+
+    @classmethod
+    def from_historic(
+        cls,
+        historic_states: List[Dict[str, str]],
+    ) -> VulnerabilitySourceEnum:
+        # https://gitlab.com/fluidattacks/product/-/issues/4648
+        return (
+            VulnerabilitySourceEnum.SKIMS
+            if any(
+                historic_state["source"] == VulnerabilitySourceEnum.SKIMS.value
+                for historic_state in historic_states
+            )
+            # Let's return the source that first reported the vuln
+            else VulnerabilitySourceEnum(historic_states[0]["source"])
+        )
 
 
 class GrammarMatch(NamedTuple):
