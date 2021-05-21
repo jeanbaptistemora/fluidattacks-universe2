@@ -221,11 +221,11 @@ resource "cloudflare_record" "zoho_desk" {
   ttl     = 1
 }
 
-resource "cloudflare_record" "discourse" {
+resource "cloudflare_record" "community" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "community.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "CNAME"
-  value   = "fluidattacks.hosted-by-discourse.com"
+  value   = "help.autonomicjump.com"
   proxied = false
   ttl     = 1
 }
@@ -444,6 +444,20 @@ resource "cloudflare_page_rule" "redirect_www" {
   actions {
     forwarding_url {
       url         = "https://${cloudflare_zone.fluidattacks_com.zone}/$1"
+      status_code = 301
+    }
+  }
+}
+
+resource "cloudflare_page_rule" "redirect_community" {
+  zone_id  = cloudflare_zone.fluidattacks_com.id
+  target   = "community.${cloudflare_zone.fluidattacks_com.zone}/*"
+  status   = "active"
+  priority = 99
+
+  actions {
+    forwarding_url {
+      url         = "https://help.autonomicjump.com/$1"
       status_code = 301
     }
   }
