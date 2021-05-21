@@ -479,8 +479,6 @@ async def trigger_user_to_entity_report() -> None:
             report_subject=report_subject,
             user_email=user_email,
         ):
-            LOGGER_CONSOLE.info('- can be subscribed', **NOEXTRA)
-
             # The processor is expected to run every hour
             if should_process_event(
                 bot_time=bot_time,
@@ -496,8 +494,6 @@ async def trigger_user_to_entity_report() -> None:
                     digest_stats=digest_stats,
                     loaders=loaders,
                 )
-            else:
-                LOGGER_CONSOLE.info('- not processing event', **NOEXTRA)
         else:
             LOGGER_CONSOLE.warning(
                 '- can not be subscribed, unsubscribing', **NOEXTRA,
