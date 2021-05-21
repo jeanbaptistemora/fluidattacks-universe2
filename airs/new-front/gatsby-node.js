@@ -15,7 +15,7 @@ const PageMaker = (createPage) => {
   return {
     createTemplatePage(posts) {
       _.each(posts, (post) => {
-        if ((post.node.fields.slug).startsWith("/pages/")) {
+        if (post.node.fields.slug.startsWith("/pages/")) {
           if (post.node.pageAttributes.template == null) {
             createPage({
               path: `${post.node.pageAttributes.slug}`,
@@ -35,7 +35,7 @@ const PageMaker = (createPage) => {
               },
             });
           }
-        } else if ((post.node.fields.slug).startsWith("/blog/")) {
+        } else if (post.node.fields.slug.startsWith("/blog/")) {
           createPage({
             path: `/blog/${post.node.pageAttributes.slug}`,
             component: blogsTemplate,
@@ -48,6 +48,86 @@ const PageMaker = (createPage) => {
       });
     },
   };
+};
+
+const createTagPages = (createPage, posts) => {
+  const tagTemplate = path.resolve(`./src/templates/blogTagTemplate.tsx`);
+  const tags = [];
+
+  posts.map((post) => {
+    if (
+      post.node.fields.slug.startsWith("/blog/") &&
+      post.node.pageAttributes.tags
+    ) {
+      tags.push(post.node.pageAttributes.tags.split(", "));
+    }
+  });
+
+  const tagsList = tags.flat();
+
+  tagsList.forEach((tagName) => {
+    createPage({
+      path: `blog/tags/${tagName}`,
+      component: tagTemplate,
+      context: { tagName },
+    });
+  });
+};
+
+const createCategoryPages = (createPage, posts) => {
+  const categoryTemplate = path.resolve(
+    `./src/templates/blogCategoryTemplate.tsx`
+  );
+  const categories = [];
+
+  posts.map((post) => {
+    if (
+      post.node.fields.slug.startsWith("/blog/") &&
+      post.node.pageAttributes.category
+    ) {
+      categories.push(post.node.pageAttributes.category.toLowerCase());
+    }
+  });
+
+  const categoriesList = categories.flat();
+
+  categoriesList.forEach((categoryName) => {
+    createPage({
+      path: `blog/categories/${categoryName}`,
+      component: categoryTemplate,
+      context: { categoryName },
+    });
+  });
+};
+
+const createAuthorPages = (createPage, posts) => {
+  const authorTemplate = path.resolve(`./src/templates/blogAuthorTemplate.tsx`);
+  const authors = [];
+
+  posts.map((post) => {
+    if (
+      post.node.fields.slug.startsWith("/blog/") &&
+      post.node.pageAttributes.author
+    ) {
+      authors.push(
+        post.node.pageAttributes.author
+          .toLowerCase()
+          .replace(" ", "-")
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+      );
+    }
+  });
+
+  const authorsList = authors.flat();
+
+  authorsList.forEach((authorName) => {
+    createPage({
+      path: `blog/authors/${authorName}`,
+      component: authorTemplate,
+      context: { authorName },
+    });
+  });
 };
 
 exports.createPages = ({ graphql, actions: { createPage } }) => {
@@ -69,6 +149,10 @@ exports.createPages = ({ graphql, actions: { createPage } }) => {
               pageAttributes {
                 slug
                 template
+                tags
+                category
+                author
+                writer
               }
             }
           }
@@ -83,6 +167,9 @@ exports.createPages = ({ graphql, actions: { createPage } }) => {
     const posts = result.data.allAsciidoc.edges;
 
     pageMaker.createTemplatePage(posts);
+    createTagPages(createPage, posts);
+    createAuthorPages(createPage, posts);
+    createCategoryPages(createPage, posts);
   });
 };
 

@@ -43,7 +43,7 @@ export const BlogCard: React.FC<IProps> = ({
     <MainBlogCard>
       <img alt={alt} className={"br3 br--top"} src={image} />
       <CardInnerDiv>
-        <Link className={"no-underline"} to={blogLink}>
+        <Link className={"no-underline"} to={`/blog/${blogLink}`}>
           <CardTitle>{decode(title)}</CardTitle>
         </Link>
         <CardSubTitle>{decode(subtitle)}</CardSubTitle>

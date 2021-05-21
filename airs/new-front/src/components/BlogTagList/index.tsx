@@ -35,6 +35,7 @@ const BlogTagList: React.FC<{ tagName: string }> = ({
             pageAttributes {
               alt
               author
+              category
               slug
               tags
               description
