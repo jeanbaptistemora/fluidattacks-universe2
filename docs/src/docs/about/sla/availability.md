@@ -30,3 +30,14 @@ the following:
   and will be adjusted
   according to the percentage
   of affected users.
+
+### Data
+
+Click on the following button
+to go to the page that contains
+the public availability measurements
+of all our systems:
+
+<div class="div-button">
+  <a class="button" href="https://status.fluidattacks.com/">Status</a>
+</div>
