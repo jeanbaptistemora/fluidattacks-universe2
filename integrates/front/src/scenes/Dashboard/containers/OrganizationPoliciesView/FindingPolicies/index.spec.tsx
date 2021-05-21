@@ -615,4 +615,93 @@ describe("Organization findings policies view", (): void => {
       }
     );
   });
+
+  it("handle organization findings policies mutation message error", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    jest.clearAllMocks();
+
+    const mockMutation: MockedResponse[] = [
+      {
+        request: {
+          query: HANDLE_ORGANIZATION_FINDING_POLICY,
+          variables: {
+            findingPolicyId: "97ad7167-51aa-4214-a612-16a833df6565",
+            organizationName: "okada",
+            status: "APPROVED",
+          },
+        },
+        result: {
+          errors: [
+            new GraphQLError("Exception - Finding name policy not found"),
+            new GraphQLError(
+              "Exception - This policy has already been reviewed"
+            ),
+          ],
+        },
+      },
+      mockQuery,
+    ];
+
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
+        <MockedProvider addTypename={false} mocks={mockMutation}>
+          <authzPermissionsContext.Provider
+            value={
+              new PureAbility([
+                {
+                  action:
+                    "api_mutations_handle_finding_policy_acceptation_mutate",
+                },
+              ])
+            }
+          >
+            <Route path={"/orgs/:organizationName/policies"}>
+              <FindingPolicies
+                findingPolicies={[
+                  {
+                    id: "97ad7167-51aa-4214-a612-16a833df6565",
+                    lastStatusUpdate: "2021-05-21T06:16:48",
+                    name: "F060. Insecure exceptions",
+                    status: "SUBMITTED",
+                  },
+                ]}
+                organizationId={organizationId}
+              />
+            </Route>
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
+
+        await waitForExpect((): void => {
+          wrapper.update();
+
+          expect(wrapper).toHaveLength(1);
+        });
+      }
+    );
+
+    const firstRow: ReactWrapper = wrapper
+      .find("OrganizationFindingPolicy")
+      .first();
+
+    firstRow.find("Button").first().simulate("click");
+
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
+
+        wrapper.update();
+
+        await waitForExpect((): void => {
+          expect(msgError).toHaveBeenCalledTimes(2);
+        });
+      }
+    );
+  });
 });
