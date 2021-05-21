@@ -6,6 +6,8 @@ import { track } from "mixpanel-browser";
 import React, { useCallback, useContext } from "react";
 import { useParams } from "react-router";
 
+import { handleAddCommentErrorHelper } from "./helpers";
+
 import { Comments } from "scenes/Dashboard/components/Comments";
 import type {
   ICommentStructure,
@@ -55,23 +57,7 @@ const CommentsView: React.FC = (): JSX.Element => {
     addCommentError: ApolloError
   ) => void = useCallback(
     (addCommentError: ApolloError): void => {
-      addCommentError.graphQLErrors.forEach(
-        ({ message }: GraphQLError): void => {
-          if (message === "Exception - Comment parent is invalid") {
-            msgError(
-              translate.t("validations.invalidCommentParent", {
-                count: 1,
-              })
-            );
-          } else {
-            msgError(translate.t("groupAlerts.errorTextsad"));
-            Logger.warning(
-              `An error occurred posting ${type}`,
-              addCommentError
-            );
-          }
-        }
-      );
+      handleAddCommentErrorHelper(addCommentError, type);
     },
     [type]
   );
