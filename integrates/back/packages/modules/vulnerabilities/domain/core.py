@@ -1,4 +1,4 @@
-"""Domain functions for vulnerabilities."""   # pylint:disable=too-many-lines
+"""Domain functions for vulnerabilities."""  # pylint:disable=too-many-lines
 
 
 import copy
@@ -813,12 +813,17 @@ async def update_vuln_state(
     )
     last_state = historic_state[-1]
     data_to_update: Dict[str, FindingType] = {}
-    if last_state.get('state') != item.get('state'):
+
+    source = requests_utils.get_source(info.context)
+
+    if (
+        last_state.get('source') != source or
+        last_state.get('state') != item.get('state')
+    ):
         user_data = cast(
             UserType,
             await token_utils.get_jwt_content(info.context)
         )
-        source = requests_utils.get_source(info.context)
         analyst = str(user_data['user_email'])
         current_state = {
             'analyst': analyst,
