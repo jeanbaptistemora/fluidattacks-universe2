@@ -11,7 +11,6 @@ from typing import (
 # Third party libraries
 from aioextensions import (
     collect,
-    schedule,
 )
 from authlib.integrations.starlette_client import OAuth
 from starlette.requests import Request
@@ -24,7 +23,6 @@ from group_access import domain as group_access_domain
 from groups import domain as groups_domain
 from organizations import domain as orgs_domain
 from subscriptions import domain as subscriptions_domain
-from mailer import users as users_mail
 from newutils import (
     analytics,
     datetime as datetime_utils,
@@ -34,8 +32,6 @@ from redis_cluster.operations import redis_set_entity_attr
 from users import domain as users_domain
 from __init__ import (
     FI_COMMUNITY_PROJECTS,
-    FI_MAIL_CONTINUOUS,
-    FI_MAIL_PROJECTS,
 )
 
 
@@ -174,15 +170,6 @@ async def create_user(user: Dict[str, str]) -> None:
         if not await orgs_domain.get_user_organizations(email):
             await autoenroll_user(email)
 
-        schedule(
-            users_mail.send_mail_new_user(
-                email_to=[FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS],
-                context={
-                    'name_user': f'{first_name} {last_name}',
-                    'mail_user': email,
-                }
-            )
-        )
         await users_domain.update_multiple_user_attributes(
             email, data_dict
         )
