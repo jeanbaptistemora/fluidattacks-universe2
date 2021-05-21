@@ -855,6 +855,91 @@ const BlogItemName: StyledComponent<
   `,
 })``;
 
+const CardsContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    cardgrid
+    flex-ns
+    flex-wrap-ns
+    justify-around
+  `,
+})``;
+const CardContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    br3
+    bs-btm-h-10
+    hv-card
+    relative
+    dt-ns
+    mv3
+    mh2
+    bg-white
+    w-resources-card
+  `,
+})``;
+const CardHeader: StyledComponent<
+  "button",
+  Record<string, unknown>
+> = styled.button.attrs({
+  className: `
+    accordion
+    pointer
+    pa3
+    w-100
+    bg-white
+    outline-transparent
+    bn
+    t-all-5
+  `,
+})``;
+const CardReadMore: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    absolute
+    bottom-0
+    right-0
+    left-0
+    fw3
+    fadein
+  `,
+})``;
+const CardBody: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    panel
+    pv0
+    ph2
+    bg-white
+    t-all-5
+    overflow-hidden
+    ph4
+  `,
+})``;
+const CardFooter: StyledComponent<
+  "button",
+  Record<string, unknown>
+> = styled.button.attrs({
+  className: `
+    tc
+    fw3
+    w-100
+    pointer
+    bn
+    bg-white
+    outline-transparent
+    dn
+  `,
+})``;
+
 export {
   ArticleContainer,
   ArticleTitle,
@@ -877,6 +962,12 @@ export {
   BreadcrumbLink,
   BreadcrumbList,
   Break,
+  CardBody,
+  CardContainer,
+  CardFooter,
+  CardHeader,
+  CardReadMore,
+  CardsContainer,
   CenteredSpacedContainer,
   CopyrightContainer,
   CopyrightParagraph,

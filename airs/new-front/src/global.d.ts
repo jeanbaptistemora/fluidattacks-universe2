@@ -27,6 +27,7 @@ interface IQueryData {
         description: string;
         image: string;
         keywords: string;
+        partnersindex: string;
         phrase: string;
         product: string;
         slug: string;
