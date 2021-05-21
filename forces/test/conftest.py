@@ -8,21 +8,21 @@ from typing import (
 import pytest
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def test_group() -> Iterator[str]:
-    yield 'herrin'
+    yield "herrin"
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def test_finding() -> Iterator[str]:
-    yield '940350540'
+    yield "940350540"
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def test_token() -> Iterator[str]:
-    yield os.environ['INTEGRATES_FORCES_API_TOKEN']
+    yield os.environ["INTEGRATES_FORCES_API_TOKEN"]
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def test_endpoint() -> Iterator[str]:
-    yield 'https://app.fluidattacks.com/api'
+    yield "https://app.fluidattacks.com/api"

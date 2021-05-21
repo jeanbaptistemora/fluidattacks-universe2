@@ -23,14 +23,14 @@ from forces.apis.integrates import (
 )
 
 # Context
-SESSION: ContextVar[GraphQLClient] = ContextVar('SESSION')
-TVar = TypeVar('TVar')
+SESSION: ContextVar[GraphQLClient] = ContextVar("SESSION")
+TVar = TypeVar("TVar")
 
 
 @contextlib.asynccontextmanager
 async def session(
-    api_token: str = '',
-    endpoint_url: str = 'https://app.fluidattacks.com/api',
+    api_token: str = "",
+    endpoint_url: str = "https://app.fluidattacks.com/api",
     **kwargs: str,
 ) -> AsyncIterator[GraphQLClient]:
     """Returns an Async GraphQL Client."""
@@ -43,7 +43,7 @@ async def session(
                 verify_ssl=False,
             ),
             headers={
-                'authorization': f'Bearer {api_token}',
+                "authorization": f"Bearer {api_token}",
                 **kwargs,
             },
         ) as client_session:
@@ -55,11 +55,13 @@ async def session(
                 SESSION.reset(token)
 
 
-async def execute(query: str,
-                  operation_name: str,
-                  variables: Optional[Dict[str, Any]] = None,
-                  default: Optional[Any] = None,
-                  **kwargs: Any) -> TVar:
+async def execute(
+    query: str,
+    operation_name: str,
+    variables: Optional[Dict[str, Any]] = None,
+    default: Optional[Any] = None,
+    **kwargs: Any,
+) -> TVar:
     async with session(**kwargs) as client:
         result: Any
         response: aiohttp.ClientResponse
@@ -71,8 +73,8 @@ async def execute(query: str,
         )
         result = await response.json()
 
-        if 'errors' in result.keys():
-            raise Exception(*result['errors'])
+        if "errors" in result.keys():
+            raise Exception(*result["errors"])
 
-        result = result.get('data', dict())
+        result = result.get("data", dict())
         return result or default  # type: ignore

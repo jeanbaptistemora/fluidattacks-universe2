@@ -5,7 +5,7 @@ import pytest
 from forces.apis.integrates import (
     set_api_token,
     get_api_token,
-    INTEGRATES_API_TOKEN
+    INTEGRATES_API_TOKEN,
 )
 
 

@@ -19,8 +19,8 @@ async def test_session(test_token: str, test_group: str) -> None:
             """
         response = await client.execute(
             query,
-            variables={'name': test_group},
-            operation='ForcesDoTestGetGroup',
+            variables={"name": test_group},
+            operation="ForcesDoTestGetGroup",
         )
-        result = (await response.json()).get('data')
-        assert result['project']['name'] == test_group
+        result = (await response.json()).get("data")
+        assert result["project"]["name"] == test_group

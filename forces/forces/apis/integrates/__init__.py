@@ -2,7 +2,7 @@
 # Standar Library
 from contextvars import ContextVar
 
-INTEGRATES_API_TOKEN: ContextVar[str] = ContextVar('integrates_api_token')
+INTEGRATES_API_TOKEN: ContextVar[str] = ContextVar("integrates_api_token")
 
 
 def set_api_token(token: str) -> None:

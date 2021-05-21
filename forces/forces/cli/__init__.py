@@ -24,8 +24,9 @@ from forces.utils.model import (
     ForcesConfig,
     KindEnum,
 )
+
 # Constants
-USER_PATTERN = r'forces.(?P<group>\w+)@fluidattacks.com'
+USER_PATTERN = r"forces.(?P<group>\w+)@fluidattacks.com"
 
 
 def is_forces_user(email: str) -> bool:
@@ -34,12 +35,13 @@ def is_forces_user(email: str) -> bool:
 
 
 def get_group_from_email(email: str) -> str:
-    return re.match(USER_PATTERN, email).group('group')  # type: ignore
+    return re.match(USER_PATTERN, email).group("group")  # type: ignore
 
 
 def show_banner() -> None:
     """Show forces banner."""
-    header = textwrap.dedent(r"""
+    header = textwrap.dedent(
+        r"""
         #     ______
         #    / ____/___  _____________  _____
         #   / /_  / __ \/ ___/ ___/ _ \/ ___/
@@ -50,47 +52,48 @@ def show_banner() -> None:
         # | >>|> fluid
         # |___|  attacks, we hack your software
         #
-        """)
-    blocking_log('info', '%s', header)
+        """
+    )
+    blocking_log("info", "%s", header)
 
 
-@click.command(name='forces')
+@click.command(name="forces")
+@click.option("--token", required=True, help="Integrates valid token")
+@click.option("-v", "--verbose", count=True, default=3, required=False)
 @click.option(
-    '--token',
-    required=True,
-    help='Integrates valid token')
-@click.option('-v', '--verbose', count=True, default=3, required=False)
+    "--output",
+    "-O",
+    metavar="FILE",
+    type=click.File("w", encoding="utf-8"),
+    help="save output in FILE",
+    required=False,
+)
+@click.option("--strict/--lax")
+@click.option("--dynamic", required=False, is_flag=True)
+@click.option("--static", required=False, is_flag=True)
+@click.option("--repo-path", default=("."))
 @click.option(
-    '--output',
-    '-O',
-    metavar='FILE',
-    type=click.File('w', encoding="utf-8"),
-    help='save output in FILE',
-    required=False)
-@click.option('--strict/--lax')
-@click.option('--dynamic', required=False, is_flag=True)
-@click.option('--static', required=False, is_flag=True)
-@click.option('--repo-path', default=('.'))
-@click.option(
-    '--repo-name',
+    "--repo-name",
     required=False,
     default=None,
     help="name of the repository in which it is running",
 )  # pylint: disable=too-many-arguments
-def main(token: str,  # pylint: disable=too-many-arguments
-         verbose: int,
-         strict: bool,
-         output: TextIOWrapper,
-         repo_path: str,
-         dynamic: bool,
-         static: bool,
-         repo_name: str) -> None:
+def main(
+    token: str,  # pylint: disable=too-many-arguments
+    verbose: int,
+    strict: bool,
+    output: TextIOWrapper,
+    repo_path: str,
+    dynamic: bool,
+    static: bool,
+    repo_name: str,
+) -> None:
     """Main function"""
-    kind = 'all'
+    kind = "all"
     if dynamic:
-        kind = 'dynamic'
+        kind = "dynamic"
     elif static:
-        kind = 'static'
+        kind = "static"
 
     result = run(
         main_wrapped(
@@ -101,7 +104,8 @@ def main(token: str,  # pylint: disable=too-many-arguments
             repo_path=repo_path,
             kind=kind,
             repo_name=repo_name,
-        ))
+        )
+    )
 
     sys.exit(result)
 
@@ -121,24 +125,26 @@ async def main_wrapped(  # pylint: disable=too-many-arguments
 
     group: Optional[str] = await get_forces_user(api_token=token)
     if not group:
-        await log('error', 'Ensure that you use an forces user')
+        await log("error", "Ensure that you use an forces user")
         return 1
 
-    configure_bugsnag(group=group or '')
+    configure_bugsnag(group=group or "")
     show_banner()
 
-    striccness = 'strict' if strict else 'lax'
-    await log('info', 'Running forces in %s mode', striccness)
-    await log('info', 'Running forces in %s kind', kind)
+    striccness = "strict" if strict else "lax"
+    await log("info", "Running forces in %s mode", striccness)
+    await log("info", "Running forces in %s kind", kind)
     if repo_name:
         await log(
-            'info',
-            f'Ruing forces for vulnerabilities in the repo: {repo_name}')
+            "info",
+            f"Ruing forces for vulnerabilities in the repo: {repo_name}",
+        )
 
     config = ForcesConfig(
         group=group,
-        kind=KindEnum.DYNAMIC if kind == 'dynamic' else
-        (KindEnum.STATIC if kind == 'static' else KindEnum.ALL),
+        kind=KindEnum.DYNAMIC
+        if kind == "dynamic"
+        else (KindEnum.STATIC if kind == "static" else KindEnum.ALL),
         output=output,
         repository_path=repo_path,
         repository_name=repo_name,
@@ -151,7 +157,7 @@ async def main_wrapped(  # pylint: disable=too-many-arguments
     )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main(  # pylint: disable=no-value-for-parameter,unexpected-keyword-arg
-        prog_name='forces'
+        prog_name="forces"
     )
