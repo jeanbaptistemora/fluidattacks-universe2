@@ -17,10 +17,9 @@ from fluidasserts.cloud.azure import _get_result_as_tuple, _get_credentials
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ClientException, AuthenticationError)
-def has_authentication_disabled(client_id: str,
-                                secret: str,
-                                tenant: str,
-                                subscription_id: str) -> Tuple:
+def has_authentication_disabled(
+    client_id: str, secret: str, tenant: str, subscription_id: str
+) -> Tuple:
     """
     Check if the Authentication is disabled for App Services.
 
@@ -36,31 +35,34 @@ def has_authentication_disabled(client_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Application services do not have authentication enabled.'
-    msg_closed: str = 'Application services have authentication enabled.'
+    msg_open: str = "Application services do not have authentication enabled."
+    msg_closed: str = "Application services have authentication enabled."
     vulns, safes = [], []
 
     credentials = _get_credentials(client_id, secret, tenant)
     webapps = WebSiteManagementClient(credentials, subscription_id).web_apps
 
     for web in webapps.list():
-        group_name = web.id.split('/')[4]
+        group_name = web.id.split("/")[4]
         auth_settings = webapps.get_auth_settings(group_name, web.name)
         (vulns if not auth_settings.enabled else safes).append(
-            (web.id, 'enable App Service Authentication.'))
+            (web.id, "enable App Service Authentication.")
+        )
 
     return _get_result_as_tuple(
-        objects='App Services',
+        objects="App Services",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ClientException, AuthenticationError)
-def has_client_certificates_disabled(client_id: str, secret: str, tenant: str,
-                                     subscription_id: str) -> Tuple:
+def has_client_certificates_disabled(
+    client_id: str, secret: str, tenant: str, subscription_id: str
+) -> Tuple:
     """
     Check if the client certificates are disabled for App Services.
 
@@ -79,9 +81,10 @@ def has_client_certificates_disabled(client_id: str, secret: str, tenant: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = \
-        'Application services do not have client certificates enabled.'
-    msg_closed: str = 'Application services have client certificates enabled.'
+    msg_open: str = (
+        "Application services do not have client certificates enabled."
+    )
+    msg_closed: str = "Application services have client certificates enabled."
     vulns, safes = [], []
 
     credentials = _get_credentials(client_id, secret, tenant)
@@ -89,20 +92,23 @@ def has_client_certificates_disabled(client_id: str, secret: str, tenant: str,
 
     for web in webapps.list():
         (vulns if not web.client_cert_enabled else safes).append(
-            (web.id, 'enable App Service client certificates.'))
+            (web.id, "enable App Service client certificates.")
+        )
 
     return _get_result_as_tuple(
-        objects='App Services',
+        objects="App Services",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ClientException, AuthenticationError)
-def has_https_only_disabled(client_id: str, secret: str, tenant: str,
-                            subscription_id: str) -> Tuple:
+def has_https_only_disabled(
+    client_id: str, secret: str, tenant: str, subscription_id: str
+) -> Tuple:
     """
     Check if HTTPS only is disabled for App Services.
 
@@ -121,8 +127,8 @@ def has_https_only_disabled(client_id: str, secret: str, tenant: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Application services do not have HTTPS only enabled.'
-    msg_closed: str = 'Application services have HTTPS only enabled.'
+    msg_open: str = "Application services do not have HTTPS only enabled."
+    msg_closed: str = "Application services have HTTPS only enabled."
     vulns, safes = [], []
 
     credentials = _get_credentials(client_id, secret, tenant)
@@ -130,20 +136,23 @@ def has_https_only_disabled(client_id: str, secret: str, tenant: str,
 
     for web in webapps.list():
         (vulns if not web.https_only else safes).append(
-            (web.id, 'enable HTTPS only.'))
+            (web.id, "enable HTTPS only.")
+        )
 
     return _get_result_as_tuple(
-        objects='App Services',
+        objects="App Services",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ClientException, AuthenticationError)
-def has_identity_disabled(client_id: str, secret: str, tenant: str,
-                          subscription_id: str) -> Tuple:
+def has_identity_disabled(
+    client_id: str, secret: str, tenant: str, subscription_id: str
+) -> Tuple:
     """
     Check if managed identity is disabled for App Services.
 
@@ -164,9 +173,10 @@ def has_identity_disabled(client_id: str, secret: str, tenant: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = \
-        'Application services do not have managed identity enabled.'
-    msg_closed: str = 'Application services have managed identity enabled.'
+    msg_open: str = (
+        "Application services do not have managed identity enabled."
+    )
+    msg_closed: str = "Application services have managed identity enabled."
     vulns, safes = [], []
 
     credentials = _get_credentials(client_id, secret, tenant)
@@ -174,20 +184,23 @@ def has_identity_disabled(client_id: str, secret: str, tenant: str,
 
     for web in webapps.list():
         (vulns if not web.identity else safes).append(
-            (web.id, 'enable managed identity for App Services.'))
+            (web.id, "enable managed identity for App Services.")
+        )
 
     return _get_result_as_tuple(
-        objects='App Services',
+        objects="App Services",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ClientException, AuthenticationError)
-def use_insecure_tls_version(client_id: str, secret: str, tenant: str,
-                             subscription_id: str) -> Tuple:
+def use_insecure_tls_version(
+    client_id: str, secret: str, tenant: str, subscription_id: str
+) -> Tuple:
     """
     Check if App Services use an insecure version of TLS.
 
@@ -207,22 +220,24 @@ def use_insecure_tls_version(client_id: str, secret: str, tenant: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Application services use an insecure version of TLS.'
-    msg_closed: str = 'Application services use a secure version of TLS.'
+    msg_open: str = "Application services use an insecure version of TLS."
+    msg_closed: str = "Application services use a secure version of TLS."
     vulns, safes = [], []
 
     credentials = _get_credentials(client_id, secret, tenant)
     webapps = WebSiteManagementClient(credentials, subscription_id).web_apps
 
     for web in webapps.list():
-        group_name = web.id.split('/')[4]
+        group_name = web.id.split("/")[4]
         config = webapps.get_configuration(group_name, web.name)
-        (vulns if config.min_tls_version != '1.2' else safes).append(
-            (web.id, 'set the minimum TLS version to 1.2'))
+        (vulns if config.min_tls_version != "1.2" else safes).append(
+            (web.id, "set the minimum TLS version to 1.2")
+        )
 
     return _get_result_as_tuple(
-        objects='App Services',
+        objects="App Services",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )

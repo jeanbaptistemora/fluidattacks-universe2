@@ -5,12 +5,13 @@ from fluidasserts.cloud.aws.terraform import dynamodb
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('cloud_aws_terraform')
+
+pytestmark = pytest.mark.asserts_module("cloud_aws_terraform")
 
 # Constants
-SAFE: str = 'test/static/terraform/safe'
-VULN: str = 'test/static/terraform/vulnerable'
-NOT_EXISTS: str = 'test/static/terraform/not-exists'
+SAFE: str = "test/static/terraform/safe"
+VULN: str = "test/static/terraform/vulnerable"
+NOT_EXISTS: str = "test/static/terraform/not-exists"
 
 
 def test_has_not_point_in_time_recovery():

@@ -17,9 +17,9 @@ from fluidasserts.cloud.azure import _get_result_as_tuple, _get_credentials
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ClientException, AuthenticationError)
-def has_advanced_data_security_disabled(client_id: str, secret: str,
-                                        tenant: str,
-                                        subscription_id: str) -> Tuple:
+def has_advanced_data_security_disabled(
+    client_id: str, secret: str, tenant: str, subscription_id: str
+) -> Tuple:
     """
     Check if Advanced Data Security is enabled for SQL Servers.
 
@@ -38,8 +38,8 @@ def has_advanced_data_security_disabled(client_id: str, secret: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Advanced Data Security is disabled for SQL Servers.'
-    msg_closed: str = 'Advanced Data Security is enabled for SQL Servers.'
+    msg_open: str = "Advanced Data Security is disabled for SQL Servers."
+    msg_closed: str = "Advanced Data Security is enabled for SQL Servers."
 
     vulns, safes = [], []
 
@@ -47,29 +47,32 @@ def has_advanced_data_security_disabled(client_id: str, secret: str,
     client = SqlManagementClient(credentials, subscription_id)
 
     for serve in client.servers.list():
-        group_name = serve.id.split('/')[4]
-        server_name = serve.id.split('/')[-1]
+        group_name = serve.id.split("/")[4]
+        server_name = serve.id.split("/")[-1]
         policies = list(
             client.server_security_alert_policies.list_by_server(
-                group_name, server_name))
-        vulnerable = any(list(map(lambda x: x.state == 'Disabled', policies)))
+                group_name, server_name
+            )
+        )
+        vulnerable = any(list(map(lambda x: x.state == "Disabled", policies)))
         (vulns if vulnerable else safes).append(
-            (serve.id, 'enabled advance security features.'))
+            (serve.id, "enabled advance security features.")
+        )
 
     return _get_result_as_tuple(
-        objects='Sql Servers',
+        objects="Sql Servers",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ClientException, AuthenticationError)
-def has_ad_administration_disabled(client_id: str,
-                                   secret: str,
-                                   tenant: str,
-                                   subscription_id: str) -> Tuple:
+def has_ad_administration_disabled(
+    client_id: str, secret: str, tenant: str, subscription_id: str
+) -> Tuple:
     """
     Check if Active Directory admin is enabled on all SQL servers.
 
@@ -89,8 +92,8 @@ def has_ad_administration_disabled(client_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Active Directory admin is disabled on any SQL servers.'
-    msg_closed: str = 'Active Directory admin is enabled on all SQL servers'
+    msg_open: str = "Active Directory admin is disabled on any SQL servers."
+    msg_closed: str = "Active Directory admin is enabled on all SQL servers"
 
     vulns, safes = [], []
 
@@ -98,27 +101,38 @@ def has_ad_administration_disabled(client_id: str,
     client = SqlManagementClient(credentials, subscription_id)
 
     for serve in client.servers.list():
-        group_name = serve.id.split('/')[4]
-        server_name = serve.id.split('/')[-1]
-        admins = list(client.server_azure_ad_administrators.list_by_server(
-            group_name, server_name))
-        vulnerable = not any(list(
-            map(lambda x: x.administrator_type == 'ActiveDirectory', admins)))
+        group_name = serve.id.split("/")[4]
+        server_name = serve.id.split("/")[-1]
+        admins = list(
+            client.server_azure_ad_administrators.list_by_server(
+                group_name, server_name
+            )
+        )
+        vulnerable = not any(
+            list(
+                map(
+                    lambda x: x.administrator_type == "ActiveDirectory", admins
+                )
+            )
+        )
         (vulns if vulnerable else safes).append(
-            (serve.id, 'enable Active Directory admin.'))
+            (serve.id, "enable Active Directory admin.")
+        )
 
     return _get_result_as_tuple(
-        objects='Sql Servers',
+        objects="Sql Servers",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ClientException, AuthenticationError)
-def allow_public_access(client_id: str, secret: str, tenant: str,
-                        subscription_id: str) -> Tuple:
+def allow_public_access(
+    client_id: str, secret: str, tenant: str, subscription_id: str
+) -> Tuple:
     """
     Check if SQL Servers are publicly accessible.
 
@@ -136,8 +150,8 @@ def allow_public_access(client_id: str, secret: str, tenant: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'SQL Servers are publicly accessible.'
-    msg_closed: str = 'SQL Servers are not publicly accessible.'
+    msg_open: str = "SQL Servers are publicly accessible."
+    msg_closed: str = "SQL Servers are not publicly accessible."
 
     vulns, safes = [], []
 
@@ -145,31 +159,38 @@ def allow_public_access(client_id: str, secret: str, tenant: str,
     client = SqlManagementClient(credentials, subscription_id)
 
     for serve in client.servers.list():
-        group_name = serve.id.split('/')[4]
-        server_name = serve.id.split('/')[-1]
+        group_name = serve.id.split("/")[4]
+        server_name = serve.id.split("/")[-1]
         rules = list(
-            client.firewall_rules.list_by_server(group_name, server_name))
+            client.firewall_rules.list_by_server(group_name, server_name)
+        )
         vulnerable = any(
             list(
-                map(lambda x: '0.0.0.0' in [x.end_ip_address,  # nosec
-                                            x.start_ip_address],
-                    rules)))
+                map(
+                    lambda x: "0.0.0.0"
+                    in [x.end_ip_address, x.start_ip_address],  # nosec
+                    rules,
+                )
+            )
+        )
         (vulns if vulnerable else safes).append(
-            (serve.id, 'do not allow public access.'))
+            (serve.id, "do not allow public access.")
+        )
 
     return _get_result_as_tuple(
-        objects='Sql Servers',
+        objects="Sql Servers",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ClientException, AuthenticationError)
-def has_transparent_encryption_disabled(client_id: str, secret: str,
-                                        tenant: str,
-                                        subscription_id: str) -> Tuple:
+def has_transparent_encryption_disabled(
+    client_id: str, secret: str, tenant: str, subscription_id: str
+) -> Tuple:
     """
     Check if SQL Server has transparent encryption disabled.
 
@@ -188,8 +209,8 @@ def has_transparent_encryption_disabled(client_id: str, secret: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'SQL Servers has transparent encryption disabled.'
-    msg_closed: str = 'SQL Servers has transparent encryption enabled.'
+    msg_open: str = "SQL Servers has transparent encryption disabled."
+    msg_closed: str = "SQL Servers has transparent encryption enabled."
 
     vulns, safes = [], []
 
@@ -197,30 +218,35 @@ def has_transparent_encryption_disabled(client_id: str, secret: str,
     client = SqlManagementClient(credentials, subscription_id)
 
     for serve in client.servers.list():
-        group_name = serve.id.split('/')[4]
-        server_name = serve.id.split('/')[-1]
+        group_name = serve.id.split("/")[4]
+        server_name = serve.id.split("/")[-1]
         databases = list(
-            client.databases.list_by_server(group_name, server_name))
+            client.databases.list_by_server(group_name, server_name)
+        )
 
         for database in databases:
             encryption = client.transparent_data_encryptions.get(
-                group_name, server_name, database.name)
+                group_name, server_name, database.name
+            )
 
-            (vulns if encryption.status == 'Disabled' else safes).append(
-                (database.id, 'enable transparent encryption.'))
+            (vulns if encryption.status == "Disabled" else safes).append(
+                (database.id, "enable transparent encryption.")
+            )
 
     return _get_result_as_tuple(
-        objects='Sql Servers',
+        objects="Sql Servers",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ClientException, AuthenticationError)
-def use_microsoft_managed_keys(client_id: str, secret: str, tenant: str,
-                               subscription_id: str) -> Tuple:
+def use_microsoft_managed_keys(
+    client_id: str, secret: str, tenant: str, subscription_id: str
+) -> Tuple:
     """
     Check if SQL servers use Microsoft managed keys for transparent encryption.
 
@@ -239,10 +265,12 @@ def use_microsoft_managed_keys(client_id: str, secret: str, tenant: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = \
-        'SQL servers use Microsoft managed keys for transparent encryption.'
-    msg_closed: str = \
-        'SQL servers use customer managed keys for transparent encryption.'
+    msg_open: str = (
+        "SQL servers use Microsoft managed keys for transparent encryption."
+    )
+    msg_closed: str = (
+        "SQL servers use customer managed keys for transparent encryption."
+    )
 
     vulns, safes = [], []
 
@@ -250,32 +278,43 @@ def use_microsoft_managed_keys(client_id: str, secret: str, tenant: str,
     client = SqlManagementClient(credentials, subscription_id)
 
     for serve in client.servers.list():
-        group_name = serve.id.split('/')[4]
-        server_name = serve.id.split('/')[-1]
+        group_name = serve.id.split("/")[4]
+        server_name = serve.id.split("/")[-1]
 
         protectors = list(
             client.encryption_protectors.list_by_server(
                 group_name,
                 server_name,
-            ))
-        vulnerable = any(list(map(lambda x: 'ServiceManaged' in [
-            x.server_key_name, x.server_key_type], protectors)))
+            )
+        )
+        vulnerable = any(
+            list(
+                map(
+                    lambda x: "ServiceManaged"
+                    in [x.server_key_name, x.server_key_type],
+                    protectors,
+                )
+            )
+        )
 
-        (vulns if vulnerable else safes).append((serve.id,
-                                                 'use customer managed keys.'))
+        (vulns if vulnerable else safes).append(
+            (serve.id, "use customer managed keys.")
+        )
 
     return _get_result_as_tuple(
-        objects='Sql Servers',
+        objects="Sql Servers",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ClientException, AuthenticationError)
-def has_server_auditing_disabled(client_id: str, secret: str, tenant: str,
-                                 subscription_id: str) -> Tuple:
+def has_server_auditing_disabled(
+    client_id: str, secret: str, tenant: str, subscription_id: str
+) -> Tuple:
     """
     Check if SQL Server Auditing is disabled for SQL servers.
 
@@ -293,8 +332,8 @@ def has_server_auditing_disabled(client_id: str, secret: str, tenant: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'SQL Server Auditing is disabled for SQL servers.'
-    msg_closed: str = 'SQL Server Auditing is enabled for SQL servers.'
+    msg_open: str = "SQL Server Auditing is disabled for SQL servers."
+    msg_closed: str = "SQL Server Auditing is enabled for SQL servers."
 
     vulns, safes = [], []
 
@@ -302,19 +341,23 @@ def has_server_auditing_disabled(client_id: str, secret: str, tenant: str,
     client = SqlManagementClient(credentials, subscription_id)
 
     for serve in client.servers.list():
-        group_name = serve.id.split('/')[4]
-        server_name = serve.id.split('/')[-1]
+        group_name = serve.id.split("/")[4]
+        server_name = serve.id.split("/")[-1]
         policies = list(
             client.server_blob_auditing_policies.list_by_server(
-                group_name, server_name))
-        vulnerable = any(list(map(lambda x: x.state == 'Disabled', policies)))
+                group_name, server_name
+            )
+        )
+        vulnerable = any(list(map(lambda x: x.state == "Disabled", policies)))
 
         (vulns if vulnerable else safes).append(
-            (serve.id, 'enable SQL Server Auditing.'))
+            (serve.id, "enable SQL Server Auditing.")
+        )
 
     return _get_result_as_tuple(
-        objects='Sql Servers',
+        objects="Sql Servers",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )

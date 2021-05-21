@@ -16,7 +16,8 @@ from fluidasserts.utils.decorators import api, unknown_if
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_unencrypted_volumes(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    path: str, exclude: Optional[List[str]] = None
+) -> tuple:
     """
     Check if ``FileSystem`` entities are encrypted with a **KmsKeyId**.
 
@@ -29,22 +30,26 @@ def has_unencrypted_volumes(
     """
     vulnerabilities: list = []
     for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_tf_template(
-            starting_path=path,
-            resource_types=[
-                'aws_fsx_windows_file_system',
-            ],
-            exclude=exclude):
-        is_vulnerable: bool = 'kms_key_id' not in res_props
+        starting_path=path,
+        resource_types=[
+            "aws_fsx_windows_file_system",
+        ],
+        exclude=exclude,
+    ):
+        is_vulnerable: bool = "kms_key_id" not in res_props
 
         if is_vulnerable:
             vulnerabilities.append(
                 Vulnerability(
                     path=yaml_path,
-                    entity='aws_fsx_windows_file_system',
+                    entity="aws_fsx_windows_file_system",
                     identifier=res_name,
-                    reason='volume is not encrypted'))
+                    reason="volume is not encrypted",
+                )
+            )
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='FSx File Systems are not encrypted',
-        msg_closed='FSx File Systems are encrypted')
+        msg_open="FSx File Systems are not encrypted",
+        msg_closed="FSx File Systems are encrypted",
+    )

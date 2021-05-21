@@ -11,7 +11,8 @@ from __future__ import print_function
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('proto_ldap')
+
+pytestmark = pytest.mark.asserts_module("proto_ldap")
 
 # local imports
 from fluidasserts.proto import ldap
@@ -26,7 +27,7 @@ WEAK_PORT = 389
 #
 
 
-@pytest.mark.parametrize('get_mock_ip', ['ldap_weak'], indirect=True)
+@pytest.mark.parametrize("get_mock_ip", ["ldap_weak"], indirect=True)
 def test_is_anonymous_bind_allowed_open(get_mock_ip):
     """Test if anonymous bind allowed?."""
     assert ldap.is_anonymous_bind_allowed(get_mock_ip, WEAK_PORT)

@@ -8,4 +8,4 @@ from contextvars import ContextVar
 # 3rd party imports
 from networkx import DiGraph
 
-GRAPHS = ContextVar('Graphs', default=DiGraph())
+GRAPHS = ContextVar("Graphs", default=DiGraph())

@@ -22,7 +22,8 @@ from fluidasserts.utils.decorators import api
 #
 
 
-INTROSPECTION_QUERY: str = textwrap.dedent("""
+INTROSPECTION_QUERY: str = textwrap.dedent(
+    """
     query {
         __schema {
             queryType {
@@ -157,7 +158,8 @@ INTROSPECTION_QUERY: str = textwrap.dedent("""
                 }
             }
         }
-    }""")
+    }"""
+)
 
 
 #
@@ -167,17 +169,18 @@ INTROSPECTION_QUERY: str = textwrap.dedent("""
 
 def do_query(url: str, query: str, *args, **kwargs) -> None:
     """Make a generic query to a GraphQL instance."""
-    kwargs['files'] = {'query': (None, query)}
+    kwargs["files"] = {"query": (None, query)}
     return http.HTTPSession(url, *args, **kwargs)
 
 
 async def query_async(url: str, query: str, *args, **kwargs) -> None:
     """Make a generic query to a GraphQL instance."""
-    with aiohttp.MultipartWriter('form-data') as writer_query:
+    with aiohttp.MultipartWriter("form-data") as writer_query:
         writer_query.append(
-            query, headers={'Content-Disposition': 'form-data; name="query"'})
+            query, headers={"Content-Disposition": 'form-data; name="query"'}
+        )
 
-    kwargs['data'] = writer_query
+    kwargs["data"] = writer_query
     async with aiohttp.ClientSession(trust_env=True) as session:
         async with session.post(url, *args, **kwargs) as response:
             return await response.read()
@@ -204,37 +207,42 @@ def accepts_introspection(url: str, *args, **kwargs) -> tuple:
     try:
         obj = do_query(url, INTROSPECTION_QUERY, *args, **kwargs)
     except http.ConnError as exc:
-        return UNKNOWN, f'Connection Error: {exc}'
+        return UNKNOWN, f"Connection Error: {exc}"
     except http.ParameterError as exc:
-        return UNKNOWN, f'Invalid Parameter: {exc}'
+        return UNKNOWN, f"Invalid Parameter: {exc}"
     else:
         fingerprint = obj.get_fingerprint()
 
-    units: List[Unit] = [Unit(where=url,
-                              source='GraphQL/Configuration',
-                              specific=['Introspection query'],
-                              fingerprint=fingerprint)]
+    units: List[Unit] = [
+        Unit(
+            where=url,
+            source="GraphQL/Configuration",
+            specific=["Introspection query"],
+            fingerprint=fingerprint,
+        )
+    ]
 
     try:
         obj_json = json.loads(obj.response.text)
     except json.JSONDecodeError as exc:
-        return UNKNOWN, f'Invalid JSON in GraphQL response: {exc}'
+        return UNKNOWN, f"Invalid JSON in GraphQL response: {exc}"
 
-    if obj_json.get('errors'):
+    if obj_json.get("errors"):
         res = CLOSED
-        msg = 'GraphQL does not accept introspection queries'
+        msg = "GraphQL does not accept introspection queries"
         vulns, safes = [], units
     else:
         res = OPEN
-        msg = 'GraphQL accepts introspection queries'
+        msg = "GraphQL accepts introspection queries"
         vulns, safes = units, []
 
     return res, msg, vulns, safes
 
 
 @api(risk=HIGH, kind=DAST)
-def has_dos(url: str, query: str,
-            num: int, timeout: float, *args, **kwargs) -> tuple:
+def has_dos(
+    url: str, query: str, num: int, timeout: float, *args, **kwargs
+) -> tuple:
     r"""
     Check if GraphQL is implemented in a way that allows for a DoS.
 
@@ -260,34 +268,41 @@ def has_dos(url: str, query: str,
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    kwargs['timeout'] = aiohttp.ClientTimeout(total=timeout)
+    kwargs["timeout"] = aiohttp.ClientTimeout(total=timeout)
 
     async def run_dos(url: str, qquery: str, num: int, args, kwargs):
         """Function to run multiple queries and return the errors."""
         tasks = (
-            asyncio.ensure_future(
-                query_async(url, qquery, *args, **kwargs)) for _ in range(num))
+            asyncio.ensure_future(query_async(url, qquery, *args, **kwargs))
+            for _ in range(num)
+        )
 
         responses = await asyncio.gather(*tasks, return_exceptions=True)
 
-        return \
-            tuple(filter(asynchronous.is_timeout_error, responses)), \
-            tuple(filter(asynchronous.is_parameter_error, responses)), \
-            tuple(filter(asynchronous.is_connection_error, responses))
+        return (
+            tuple(filter(asynchronous.is_timeout_error, responses)),
+            tuple(filter(asynchronous.is_parameter_error, responses)),
+            tuple(filter(asynchronous.is_connection_error, responses)),
+        )
 
     timeouts, param_errors, conn_errors = asynchronous.run_func(
-        func=run_dos, args=(((url, query, num, args, kwargs), {}),))[0]
+        func=run_dos, args=(((url, query, num, args, kwargs), {}),)
+    )[0]
 
     if param_errors:
-        return UNKNOWN, f'Some parameter errors ocurred: {param_errors}'
+        return UNKNOWN, f"Some parameter errors ocurred: {param_errors}"
     if conn_errors:
-        return UNKNOWN, f'Some connection errors ocurred: {conn_errors}'
+        return UNKNOWN, f"Some connection errors ocurred: {conn_errors}"
 
-    units: List[Unit] = [Unit(where=url,
-                              source='GraphQL/Architecture',
-                              specific=['Response time'],
-                              fingerprint=get_sha256(query))]
+    units: List[Unit] = [
+        Unit(
+            where=url,
+            source="GraphQL/Architecture",
+            specific=["Response time"],
+            fingerprint=get_sha256(query),
+        )
+    ]
 
     if timeouts:
-        return OPEN, 'GraphQL is vulnerable to a DoS', units
-    return CLOSED, 'GraphQL is vulnerable to a DoS', [], units
+        return OPEN, "GraphQL is vulnerable to a DoS", units
+    return CLOSED, "GraphQL is vulnerable to a DoS", [], units

@@ -21,7 +21,8 @@ from fluidasserts.utils.decorators import api, unknown_if
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_not_termination_protection(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    path: str, exclude: Optional[List[str]] = None
+) -> tuple:
     """
     Check if ``RDS`` clusters and instances have termination protection.
 
@@ -43,36 +44,43 @@ def has_not_termination_protection(
     """
     vulnerabilities: list = []
     for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_tf_template(
-            starting_path=path,
-            resource_types=[
-                'aws_db_instance',
-                'aws_rds_cluster',
-            ],
-            exclude=exclude):
-        res_type = res_props['type']
+        starting_path=path,
+        resource_types=[
+            "aws_db_instance",
+            "aws_rds_cluster",
+        ],
+        exclude=exclude,
+    ):
+        res_type = res_props["type"]
         deletion_protection = helper.to_boolean(
-            res_props.get('deletion_protection', False)
+            res_props.get("deletion_protection", False)
         )
         if not deletion_protection:
             vulnerabilities.append(
                 Vulnerability(
                     path=yaml_path,
-                    entity=(f'{res_type}/'
-                            f'deletion_protection/'
-                            f'{deletion_protection}'),
+                    entity=(
+                        f"{res_type}/"
+                        f"deletion_protection/"
+                        f"{deletion_protection}"
+                    ),
                     identifier=res_name,
-                    reason='has not deletion protection'))
+                    reason="has not deletion protection",
+                )
+            )
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='RDS instances or clusters have not deletion protection',
-        msg_closed='RDS instances or clusters have deletion protection')
+        msg_open="RDS instances or clusters have not deletion protection",
+        msg_closed="RDS instances or clusters have deletion protection",
+    )
 
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_unencrypted_storage(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    path: str, exclude: Optional[List[str]] = None
+) -> tuple:
     """
     Check if any RDS resource use unencrypted storage.
 
@@ -90,14 +98,15 @@ def has_unencrypted_storage(
     """
     vulnerabilities: list = []
     for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_tf_template(
-            starting_path=path,
-            resource_types=[
-                'aws_db_instance',
-                'aws_rds_cluster',
-            ],
-            exclude=exclude):
-        res_type = res_props['type']
-        res_storage_encrypted = res_props.get('storage_encrypted', False)
+        starting_path=path,
+        resource_types=[
+            "aws_db_instance",
+            "aws_rds_cluster",
+        ],
+        exclude=exclude,
+    ):
+        res_type = res_props["type"]
+        res_storage_encrypted = res_props.get("storage_encrypted", False)
 
         res_storage_encrypted = helper.to_boolean(res_storage_encrypted)
 
@@ -107,18 +116,22 @@ def has_unencrypted_storage(
                     path=yaml_path,
                     entity=res_type,
                     identifier=res_name,
-                    reason='uses unencrypted storage'))
+                    reason="uses unencrypted storage",
+                )
+            )
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='RDS clusters or instances have unencrypted storage',
-        msg_closed='RDS clusters or instances have encrypted storage')
+        msg_open="RDS clusters or instances have unencrypted storage",
+        msg_closed="RDS clusters or instances have encrypted storage",
+    )
 
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_not_automated_backups(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    path: str, exclude: Optional[List[str]] = None
+) -> tuple:
     """
     Check if any RDS does not have automated backups enabled.
 
@@ -131,37 +144,42 @@ def has_not_automated_backups(
     """
     vulnerabilities: list = []
     for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_tf_template(
-            starting_path=path,
-            resource_types=[
-                'aws_db_instance',
-                'aws_rds_cluster',
-            ],
-            exclude=exclude):
-        back_up_retention_period = res_props.get('backup_retention_period', 1)
+        starting_path=path,
+        resource_types=[
+            "aws_db_instance",
+            "aws_rds_cluster",
+        ],
+        exclude=exclude,
+    ):
+        back_up_retention_period = res_props.get("backup_retention_period", 1)
 
         if not helper.is_scalar(back_up_retention_period):
             continue
 
-        is_vulnerable: bool = back_up_retention_period in (0, '0')
+        is_vulnerable: bool = back_up_retention_period in (0, "0")
 
         if is_vulnerable:
             vulnerabilities.append(
                 Vulnerability(
                     path=yaml_path,
-                    entity=res_props['type'],
+                    entity=res_props["type"],
                     identifier=res_name,
-                    reason='has not automated backups enabled'))
+                    reason="has not automated backups enabled",
+                )
+            )
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='RDS cluster or instances have not automated backups enabled',
-        msg_closed='RDS cluster or instances have automated backups enabled')
+        msg_open="RDS cluster or instances have not automated backups enabled",
+        msg_closed="RDS cluster or instances have automated backups enabled",
+    )
 
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def is_publicly_accessible(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    path: str, exclude: Optional[List[str]] = None
+) -> tuple:
     """
     Check if any ``aws_db_instance`` is Internet facing (a.k.a. public).
 
@@ -179,31 +197,36 @@ def is_publicly_accessible(
     """
     vulnerabilities: list = []
     for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_tf_template(
-            starting_path=path,
-            resource_types=[
-                'aws_db_instance',
-            ],
-            exclude=exclude):
-        is_public: bool = res_props.get('publicly_accessible', False)
+        starting_path=path,
+        resource_types=[
+            "aws_db_instance",
+        ],
+        exclude=exclude,
+    ):
+        is_public: bool = res_props.get("publicly_accessible", False)
 
         if helper.to_boolean(is_public):
             vulnerabilities.append(
                 Vulnerability(
                     path=yaml_path,
-                    entity=res_props['type'],
+                    entity=res_props["type"],
                     identifier=res_name,
-                    reason='is publicly accessible'))
+                    reason="is publicly accessible",
+                )
+            )
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='RDS instances are publicly accessible',
-        msg_closed='RDS instances are not publicly accessible')
+        msg_open="RDS instances are publicly accessible",
+        msg_closed="RDS instances are not publicly accessible",
+    )
 
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def is_not_inside_a_db_subnet_group(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    path: str, exclude: Optional[List[str]] = None
+) -> tuple:
     """
     Check if ``DBInstance`` or ``DBCluster`` are not inside a DB Subnet Group.
 
@@ -216,26 +239,32 @@ def is_not_inside_a_db_subnet_group(
     """
     vulnerabilities: list = []
     for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_tf_template(
-            starting_path=path,
-            resource_types=[
-                'aws_db_instance',
-                'aws_rds_cluster',
-            ],
-            exclude=exclude):
-        res_type = res_props['type']
-        db_subnet_group_name: bool = res_props.get('db_subnet_group_name', '')
+        starting_path=path,
+        resource_types=[
+            "aws_db_instance",
+            "aws_rds_cluster",
+        ],
+        exclude=exclude,
+    ):
+        res_type = res_props["type"]
+        db_subnet_group_name: bool = res_props.get("db_subnet_group_name", "")
 
         if not db_subnet_group_name:
             vulnerabilities.append(
                 Vulnerability(
                     path=yaml_path,
-                    entity=(f'{res_type}'
-                            f'/db_subnet_group_name'
-                            f'/{db_subnet_group_name}'),
+                    entity=(
+                        f"{res_type}"
+                        f"/db_subnet_group_name"
+                        f"/{db_subnet_group_name}"
+                    ),
                     identifier=res_name,
-                    reason='is not inside a DB Subnet Group'))
+                    reason="is not inside a DB Subnet Group",
+                )
+            )
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='RDS Cluster or Instances are not inside a DB Subnet Group',
-        msg_closed='RDS Cluster or Instances are inside a DB Subnet Group')
+        msg_open="RDS Cluster or Instances are not inside a DB Subnet Group",
+        msg_closed="RDS Cluster or Instances are inside a DB Subnet Group",
+    )

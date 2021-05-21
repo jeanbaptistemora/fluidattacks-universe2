@@ -30,8 +30,9 @@ class ConnError(Exception):
     """
 
 
-def winrm_exec_command(server: str, username: str, password: str,
-                       command: str) -> str:
+def winrm_exec_command(
+    server: str, username: str, password: str, command: str
+) -> str:
     """
     Connect to WinRM execute a specific command.
 
@@ -43,8 +44,10 @@ def winrm_exec_command(server: str, username: str, password: str,
     try:
         session = winrm.Session(server, auth=(username, password))
         result = session.run_cmd(command)
-    except (winrm.exceptions.WinRMTransportError,
-            requests.exceptions.ConnectionError) as exc:
+    except (
+        winrm.exceptions.WinRMTransportError,
+        requests.exceptions.ConnectionError,
+    ) as exc:
         raise ConnError(exc)
 
     return result.std_out

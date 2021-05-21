@@ -14,36 +14,46 @@ from kubernetes.client.rest import ApiException
 from fluidasserts import Unit, OPEN, CLOSED
 
 
-def _get_result_as_tuple(*, host: str, objects: str, msg_open: str,
-                         msg_closed: str, vulns: List[str],
-                         safes: List[str]) -> tuple:
+def _get_result_as_tuple(
+    *,
+    host: str,
+    objects: str,
+    msg_open: str,
+    msg_closed: str,
+    vulns: List[str],
+    safes: List[str],
+) -> tuple:
     """Return the tuple version of the Result object."""
-    if host.endswith('/'):
+    if host.endswith("/"):
         host = host[:-1]
     vuln_units: List[Unit] = []
     safe_units: List[Unit] = []
 
     if vulns:
         vuln_units.extend(
-            Unit(where=f'{host}{url_}', specific=[vuln])
-            for url_, vuln in vulns)
+            Unit(where=f"{host}{url_}", specific=[vuln])
+            for url_, vuln in vulns
+        )
     if safes:
         safe_units.extend(
-            Unit(where=f'{host}{url_}', specific=[safe])
-            for url_, safe in safes)
+            Unit(where=f"{host}{url_}", specific=[safe])
+            for url_, safe in safes
+        )
 
     if vulns:
         return OPEN, msg_open, vuln_units, safe_units
     if safes:
         return CLOSED, msg_closed, vuln_units, safe_units
-    return CLOSED, f'No {objects} found to check', vuln_units, safe_units
+    return CLOSED, f"No {objects} found to check", vuln_units, safe_units
 
 
-def _get_config(host: str = None,
-                api_key: str = None,
-                username: str = None,
-                password: str = None,
-                **kwargs):
+def _get_config(
+    host: str = None,
+    api_key: str = None,
+    username: str = None,
+    password: str = None,
+    **kwargs,
+):
     """
     Configure connection to the Kubernetes API server.
 
@@ -60,8 +70,8 @@ def _get_config(host: str = None,
     configuration.host = host
     configuration.username = username
     configuration.password = password
-    configuration.api_key['authorization'] = api_key
-    configuration.api_key_prefix['authorization'] = 'Bearer'
+    configuration.api_key["authorization"] = api_key
+    configuration.api_key_prefix["authorization"] = "Bearer"
     configuration.verify_ssl = False
 
     for key, value in kwargs.items():
@@ -70,12 +80,14 @@ def _get_config(host: str = None,
     return configuration
 
 
-def _get_api_instance(api: str,
-                      host: str = None,
-                      api_key: str = None,
-                      username: str = None,
-                      password: str = None,
-                      **kwargs):
+def _get_api_instance(
+    api: str,
+    host: str = None,
+    api_key: str = None,
+    username: str = None,
+    password: str = None,
+    **kwargs,
+):
     """
     Create an instance of the api version provided to make requests.
 
@@ -87,13 +99,14 @@ def _get_api_instance(api: str,
     :param password: Password of account.
     """
     api_to_call = getattr(client, api)
-    return api_to_call(client.ApiClient(_get_config(
-        host, api_key, username, password, **kwargs)))
+    return api_to_call(
+        client.ApiClient(
+            _get_config(host, api_key, username, password, **kwargs)
+        )
+    )
 
 
-def run_function(api_instance: object,
-                 func: str,
-                 **kwargs):
+def run_function(api_instance: object, func: str, **kwargs):
     """
     Run the function provided for the API instance provided.
 

@@ -19,9 +19,9 @@ from fluidasserts.utils.decorators import unknown_if, api
 
 
 PORT: int = 22
-OLD_ACCEPT = \
-    paramiko.auth_handler.AuthHandler._client_handler_table[
-        paramiko.common.MSG_SERVICE_ACCEPT]
+OLD_ACCEPT = paramiko.auth_handler.AuthHandler._client_handler_table[
+    paramiko.common.MSG_SERVICE_ACCEPT
+]
 
 
 class BadUsername(Exception):
@@ -71,10 +71,15 @@ def _check_ssh_username(host, port, username, tried=0):
 
 
 @api(risk=MEDIUM, kind=DAST)
-@unknown_if(socket.timeout, paramiko.ssh_exception.NoValidConnectionsError,
-            paramiko.ssh_exception.SSHException, socket.error)
-def has_user_enumeration(host: str, user_list: list,
-                         fake_users: list, port: int = PORT):
+@unknown_if(
+    socket.timeout,
+    paramiko.ssh_exception.NoValidConnectionsError,
+    paramiko.ssh_exception.SSHException,
+    socket.error,
+)
+def has_user_enumeration(
+    host: str, user_list: list, fake_users: list, port: int = PORT
+):
     """
     Check if SSH is vulnerable to user enumeration.
 
@@ -85,13 +90,17 @@ def has_user_enumeration(host: str, user_list: list,
     """
     # pylint: disable=protected-access
     accept = paramiko.auth_handler.AuthHandler._client_handler_table[
-        paramiko.common.MSG_SERVICE_ACCEPT]
+        paramiko.common.MSG_SERVICE_ACCEPT
+    ]
     failure = paramiko.auth_handler.AuthHandler._client_handler_table[
-        paramiko.common.MSG_USERAUTH_FAILURE]
+        paramiko.common.MSG_USERAUTH_FAILURE
+    ]
     paramiko.auth_handler.AuthHandler._client_handler_table[
-        paramiko.common.MSG_SERVICE_ACCEPT] = _malform_packet
+        paramiko.common.MSG_SERVICE_ACCEPT
+    ] = _malform_packet
     paramiko.auth_handler.AuthHandler._client_handler_table[
-        paramiko.common.MSG_USERAUTH_FAILURE] = _call_error
+        paramiko.common.MSG_USERAUTH_FAILURE
+    ] = _call_error
     valid = []
     invalid = []
     all_users = user_list + fake_users
@@ -100,22 +109,28 @@ def has_user_enumeration(host: str, user_list: list,
             valid.append(user)
         else:
             invalid.append(user)
-    result = (set(valid) == set(user_list) and set(invalid) == set(fake_users))
+    result = set(valid) == set(user_list) and set(invalid) == set(fake_users)
     paramiko.auth_handler.AuthHandler._client_handler_table[
-        paramiko.common.MSG_SERVICE_ACCEPT] = accept
+        paramiko.common.MSG_SERVICE_ACCEPT
+    ] = accept
     paramiko.auth_handler.AuthHandler._client_handler_table[
-        paramiko.common.MSG_USERAUTH_FAILURE] = failure
+        paramiko.common.MSG_USERAUTH_FAILURE
+    ] = failure
     return _get_result_as_tuple_host_port(
-        protocol='SSH', host=host, port=port,
-        msg_open='Has user enumeration',
-        msg_closed='Does not have user enumeration',
-        open_if=result,)
+        protocol="SSH",
+        host=host,
+        port=port,
+        msg_open="Has user enumeration",
+        msg_closed="Does not have user enumeration",
+        open_if=result,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(socket.timeout, paramiko.ssh_exception.NoValidConnectionsError)
-def is_cbc_used(host: str, port: int = PORT, username: str = None,
-                password: str = None) -> tuple:
+def is_cbc_used(
+    host: str, port: int = PORT, username: str = None, password: str = None
+) -> tuple:
     """
     Check if SSH has CBC algorithms enabled.
 
@@ -132,22 +147,26 @@ def is_cbc_used(host: str, port: int = PORT, username: str = None,
             ssh_obj.connect(host, port, username=username, password=password)
             transport = ssh_obj.get_transport()
 
-        if '-cbc' in transport.remote_cipher:
+        if "-cbc" in transport.remote_cipher:
             result = True
 
     return _get_result_as_tuple_host_port(
-        protocol='SSH', host=host, port=port,
-        msg_open='Uses insecure CBC encryption algorithms',
-        msg_closed='Does not use insecure CBC encryption algorithms',
+        protocol="SSH",
+        host=host,
+        port=port,
+        msg_open="Uses insecure CBC encryption algorithms",
+        msg_closed="Does not use insecure CBC encryption algorithms",
         open_if=result,
         auth=(username, password),
-        fingerprint=fingerprint)
+        fingerprint=fingerprint,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(socket.timeout, paramiko.ssh_exception.NoValidConnectionsError)
-def is_hmac_used(host: str, port: int = PORT, username: str = None,
-                 password: str = None) -> tuple:
+def is_hmac_used(
+    host: str, port: int = PORT, username: str = None, password: str = None
+) -> tuple:
     """
     Check if SSH has weak HMAC algorithms enabled.
 
@@ -168,12 +187,15 @@ def is_hmac_used(host: str, port: int = PORT, username: str = None,
             result = True
 
     return _get_result_as_tuple_host_port(
-        protocol='SSH', host=host, port=port,
-        msg_open='Uses insecure HMAC encryption algorithms',
-        msg_closed='Does not use insecure HMAC encryption algorithms',
+        protocol="SSH",
+        host=host,
+        port=port,
+        msg_open="Uses insecure HMAC encryption algorithms",
+        msg_closed="Does not use insecure HMAC encryption algorithms",
         open_if=result,
         auth=(username, password),
-        fingerprint=fingerprint)
+        fingerprint=fingerprint,
+    )
 
 
 @api(risk=LOW, kind=DAST)
@@ -191,8 +213,11 @@ def is_version_visible(ip_address: str, port: int = PORT) -> tuple:
     result: bool = bool(version)
 
     return _get_result_as_tuple_host_port(
-        protocol='SSH', host=ip_address, port=port,
-        msg_open='Version is visible',
-        msg_closed='Version is not visible',
+        protocol="SSH",
+        host=ip_address,
+        port=port,
+        msg_open="Version is visible",
+        msg_closed="Version is not visible",
         open_if=result,
-        fingerprint=fingerprint)
+        fingerprint=fingerprint,
+    )

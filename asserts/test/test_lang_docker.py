@@ -7,7 +7,8 @@
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('lang_docker')
+
+pytestmark = pytest.mark.asserts_module("lang_docker")
 
 # local imports
 from fluidasserts.lang import docker
@@ -15,22 +16,22 @@ from fluidasserts.lang import docker
 
 # Constants
 
-CODE_DIR = 'test/static/lang/docker/'
-SECURE_DIR = 'test/static/lang/docker/closed'
+CODE_DIR = "test/static/lang/docker/"
+SECURE_DIR = "test/static/lang/docker/closed"
 SECURE_CODE = [
-    f'{SECURE_DIR}/1',
-    f'{SECURE_DIR}/2',
-    f'{SECURE_DIR}/3',
+    f"{SECURE_DIR}/1",
+    f"{SECURE_DIR}/2",
+    f"{SECURE_DIR}/3",
 ]
-INSECURE_DIR = 'test/static/lang/docker/open'
+INSECURE_DIR = "test/static/lang/docker/open"
 INSECURE_CODE = [
-    f'{INSECURE_DIR}/1',
-    f'{INSECURE_DIR}/2',
-    f'{INSECURE_DIR}/3',
-    f'{INSECURE_DIR}/4',
+    f"{INSECURE_DIR}/1",
+    f"{INSECURE_DIR}/2",
+    f"{INSECURE_DIR}/3",
+    f"{INSECURE_DIR}/4",
 ]
-NOT_EXISTANT_DIR = 'test/static/lang/docker/unknown'
-NOT_EXISTANT_CODE = 'test/static/lang/docker/unknown/1'
+NOT_EXISTANT_DIR = "test/static/lang/docker/unknown"
+NOT_EXISTANT_CODE = "test/static/lang/docker/unknown/1"
 
 
 #
@@ -55,11 +56,13 @@ def test_close_not_pinned():
     assert docker.not_pinned(SECURE_DIR).is_closed()
     for test in SECURE_CODE:
         assert docker.not_pinned(test).is_closed()
-    assert docker.not_pinned(CODE_DIR, exclude=['test']).is_closed()
+    assert docker.not_pinned(CODE_DIR, exclude=["test"]).is_closed()
+
 
 #
 # Unknown tests
 #
+
 
 def test_unknown_not_pinned():
     """Search for pinned dockerfile."""

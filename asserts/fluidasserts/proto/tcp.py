@@ -29,8 +29,8 @@ def is_port_open(ipaddress: str, port: int) -> tuple:
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Port is open'
-    msg_closed: str = 'Port is closed'
+    msg_open: str = "Port is open"
+    msg_closed: str = "Port is closed"
     port_open: bool = False
 
     with suppress(socket.error):
@@ -39,8 +39,10 @@ def is_port_open(ipaddress: str, port: int) -> tuple:
         sock.connect((ipaddress, port))
         port_open = True
 
-    unit: Unit = Unit(where=f'{ipaddress}@{port}',
-                      specific=[msg_open if port_open else msg_closed])
+    unit: Unit = Unit(
+        where=f"{ipaddress}@{port}",
+        specific=[msg_open if port_open else msg_closed],
+    )
 
     if port_open:
         return OPEN, msg_open, [unit], []
@@ -48,10 +50,9 @@ def is_port_open(ipaddress: str, port: int) -> tuple:
 
 
 @api(risk=MEDIUM, kind=DAST)
-@unknown_if(socket.timeout,
-            TimeoutError,
-            OverflowError,
-            ConnectionRefusedError)
+@unknown_if(
+    socket.timeout, TimeoutError, OverflowError, ConnectionRefusedError
+)
 def is_port_insecure(ipaddress: str, port: int) -> tuple:
     """
     Check if a given port on an IP address is insecure.
@@ -64,17 +65,21 @@ def is_port_insecure(ipaddress: str, port: int) -> tuple:
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Port does not support TLS'
-    msg_closed: str = 'Port does support TLS'
+    msg_open: str = "Port does not support TLS"
+    msg_closed: str = "Port does support TLS"
     is_vulnerable: bool = True
 
-    with suppress(tlslite.errors.TLSLocalAlert,
-                  tlslite.errors.TLSIllegalParameterException):
+    with suppress(
+        tlslite.errors.TLSLocalAlert,
+        tlslite.errors.TLSIllegalParameterException,
+    ):
         with ssl.connect(ipaddress, port):
             is_vulnerable = False
 
-    unit: Unit = Unit(where=f'{ipaddress}@{port}',
-                      specific=[msg_open if is_vulnerable else msg_closed])
+    unit: Unit = Unit(
+        where=f"{ipaddress}@{port}",
+        specific=[msg_open if is_vulnerable else msg_closed],
+    )
 
     if is_vulnerable:
         return OPEN, msg_open, [unit], []

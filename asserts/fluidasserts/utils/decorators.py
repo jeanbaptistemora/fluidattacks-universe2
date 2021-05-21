@@ -21,17 +21,24 @@ def _get_func_id(func: Callable) -> str:
 # pylint: disable=unused-argument
 def api(risk: str, kind: str, **kwargs: Any) -> Callable:
     """Pre-processing and post-processing of the function results."""
+
     def wrapper(func: Callable) -> Callable:
         """Return a wrapper to the decorated function."""
+
         @functools.wraps(func)
         def decorated(*args, **kwargs) -> Any:  # noqa
             """Pre-process and post-process the function results."""
             # Instantiate the result object
-            result = Result(risk=risk, kind=kind,
-                            func=func, func_args=args, func_kwargs=kwargs)
+            result = Result(
+                risk=risk,
+                kind=kind,
+                func=func,
+                func_args=args,
+                func_kwargs=kwargs,
+            )
 
             # Notify that the check is running
-            print(f'  check: {result.func_id}', file=sys.stderr, flush=True)
+            print(f"  check: {result.func_id}", file=sys.stderr, flush=True)
 
             # Track the function
             mp_track(result.func_id)
@@ -57,31 +64,39 @@ def api(risk: str, kind: str, **kwargs: Any) -> Callable:
 
             # Return a Result object with rich information
             return result
+
         return decorated
+
     return wrapper
 
 
 def unknown_if(*errors) -> Callable:
     """Return UNKNOWN if a function raise one of the provided errors."""
+
     def wrapper(func: Callable) -> Callable:
         """Return a wrapper to the decorated function."""
+
         @functools.wraps(func)
         def decorated(*args, **kwargs) -> Any:
             """Wrap the function in a try except block."""
             try:
                 result = func(*args, **kwargs)
             except errors as exc:
-                return UNKNOWN, f'An error occurred: {exc}'
+                return UNKNOWN, f"An error occurred: {exc}"
             return result
+
         return decorated
+
     return wrapper
 
 
 def track(func: Callable) -> Callable:
     """Log and register function usage."""
+
     @functools.wraps(func)
     def decorated(*args, **kwargs) -> Any:  # noqa
         """Log and registers function usage."""
         mp_track(_get_func_id(func))
         return func(*args, **kwargs)
+
     return decorated

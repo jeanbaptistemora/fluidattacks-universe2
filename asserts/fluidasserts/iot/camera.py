@@ -28,13 +28,13 @@ def axis_has_rce(url: str) -> tuple:
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    url = f'{url}/httpDisabled.shtml?&http_user=%p|%p'
+    url = f"{url}/httpDisabled.shtml?&http_user=%p|%p"
     sess = http.HTTPSession(url)
 
     sess.set_messages(
-        source='Camera/HTTPServer',
-        msg_open='Axis camera vulnerable to RCE',
-        msg_closed='Axis camera not vulnerable to RCE'
+        source="Camera/HTTPServer",
+        msg_open="Axis camera vulnerable to RCE",
+        msg_closed="Axis camera not vulnerable to RCE",
     )
 
     sess.add_unit(is_vulnerable=sess.response.status_code == 500)

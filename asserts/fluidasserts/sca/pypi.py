@@ -16,7 +16,7 @@ from fluidasserts.helper import sca
 from fluidasserts.utils.generic import get_dir_paths
 from fluidasserts.utils.decorators import api
 
-PKG_MNGR = 'pypi'
+PKG_MNGR = "pypi"
 
 
 def _get_requirements(path: str, exclude: tuple) -> set:
@@ -34,16 +34,20 @@ def _get_requirements(path: str, exclude: tuple) -> set:
     for full_path in get_dir_paths(path, exclude=exclude):
         with contextlib.suppress(RequirementsNotFound):
             reqs.update(
-                (req.location_defined,
-                 req.name,
-                 req.version_specs[0][1] if req.version_specs else None)
-                for req in find_requirements(full_path))
+                (
+                    req.location_defined,
+                    req.name,
+                    req.version_specs[0][1] if req.version_specs else None,
+                )
+                for req in find_requirements(full_path)
+            )
     return reqs
 
 
 @api(risk=HIGH, kind=SCA)
 def package_has_vulnerabilities(
-        package: str, version: str = None, retry: bool = True) -> tuple:
+    package: str, version: str = None, retry: bool = True
+) -> tuple:
     """
     Search vulnerabilities on given package/version.
 
@@ -57,7 +61,8 @@ def package_has_vulnerabilities(
 
 @api(risk=HIGH, kind=SCA)
 def project_has_vulnerabilities(
-        path: str, exclude: list = None, retry: bool = True) -> tuple:
+    path: str, exclude: list = None, retry: bool = True
+) -> tuple:
     """
     Search vulnerabilities on given project directory.
 

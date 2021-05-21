@@ -3,11 +3,13 @@
 import pytest  # pylint: disable=E0401
 from fluidasserts.cloud.aws.cloudformation import ec2
 
-pytestmark = pytest.mark.asserts_module('cloud_aws_cloudformation')  # pylint: disable=C0103,C0301 # noqa: E501
+pytestmark = pytest.mark.asserts_module(
+    "cloud_aws_cloudformation"
+)  # pylint: disable=C0103,C0301 # noqa: E501
 
 # Constants
-VULN = 'test/static/cloudformation/code_as_data_vulnerable'
-SAFE = 'test/static/cloudformation/code_as_data_safe'
+VULN = "test/static/cloudformation/code_as_data_vulnerable"
+SAFE = "test/static/cloudformation/code_as_data_safe"
 
 
 def test_allows_all_outbound_traffic():
@@ -95,8 +97,7 @@ def test_security_group_allows_anyone_to_admin_ports():
     result = ec2.security_group_allows_anyone_to_admin_ports(VULN)
     assert result.is_open()
     assert result.get_vulns_number() == ((2 * 7) * 2) * 2
-    assert ec2.security_group_allows_anyone_to_admin_ports(
-        SAFE).is_closed()
+    assert ec2.security_group_allows_anyone_to_admin_ports(SAFE).is_closed()
 
 
 def test_has_unrestricted_dns_access():

@@ -7,56 +7,64 @@ from urllib3.exceptions import MaxRetryError
 # local imports
 from fluidasserts import DAST, MEDIUM, LOW
 from fluidasserts.utils.decorators import api, unknown_if
-from fluidasserts.cloud.kubernetes import _get_result_as_tuple, \
-    _get_api_instance, run_function
+from fluidasserts.cloud.kubernetes import (
+    _get_result_as_tuple,
+    _get_api_instance,
+    run_function,
+)
 
 # 3rd party imports
 from kubernetes.client.rest import ApiException  # noqa
 
 
-def _get_pod_security_policies(host: str = None,
-                               api_key: str = None,
-                               username: str = None,
-                               password: str = None,
-                               **kwargs):
+def _get_pod_security_policies(
+    host: str = None,
+    api_key: str = None,
+    username: str = None,
+    password: str = None,
+    **kwargs,
+):
     """Get pod policies for all namespaces."""
-    api_instance = _get_api_instance('PolicyV1beta1Api',
-                                     host, api_key,
-                                     username,
-                                     password,
-                                     **kwargs)
-    return run_function(api_instance, 'list_pod_security_policy')
+    api_instance = _get_api_instance(
+        "PolicyV1beta1Api", host, api_key, username, password, **kwargs
+    )
+    return run_function(api_instance, "list_pod_security_policy")
 
 
-def _check_security_context_attribute(*,
-                                      host: str = None,
-                                      api_key: str = None,
-                                      username: str = None,
-                                      password: str = None,
-                                      attribute_check: dict = None):
+def _check_security_context_attribute(
+    *,
+    host: str = None,
+    api_key: str = None,
+    username: str = None,
+    password: str = None,
+    attribute_check: dict = None,
+):
     """Separate containers that compliance the conditions."""
-    api_instance = _get_api_instance('CoreV1Api', host, api_key, username,
-                                     password)
+    api_instance = _get_api_instance(
+        "CoreV1Api", host, api_key, username, password
+    )
     vulns, safes = [], []
-    pods = run_function(api_instance, 'list_pod_for_all_namespaces').items
-    for pod in filter(lambda x: x.metadata.namespace != 'kube-system', pods):
+    pods = run_function(api_instance, "list_pod_for_all_namespaces").items
+    for pod in filter(lambda x: x.metadata.namespace != "kube-system", pods):
         for container in pod.spec.containers:
             context = container.security_context
             for attribute, check in attribute_check.items():
-                (vulns
-                 if check(getattr(context, attribute)) else safes).append(
-                     pod.metadata.self_link)
+                (
+                    vulns if check(getattr(context, attribute)) else safes
+                ).append(pod.metadata.self_link)
     return (vulns, safes)
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ApiException, MaxRetryError)
-def undefined_pod_security_policies(*,
-                                    host: str = None,
-                                    api_key: str = None,
-                                    username: str = None,
-                                    password: str = None,
-                                    **kwargs):
+def undefined_pod_security_policies(
+    *,
+    host: str = None,
+    api_key: str = None,
+    username: str = None,
+    password: str = None,
+    **kwargs,
+):
     """
     Check if Pod Security Policies are undefined.
 
@@ -71,34 +79,41 @@ def undefined_pod_security_policies(*,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Pod Security Policies are undefined.'
-    msg_closed: str = 'Pod Security Policies are defined.'
+    msg_open: str = "Pod Security Policies are undefined."
+    msg_closed: str = "Pod Security Policies are defined."
     vulns, safes = [], []
 
-    pod_security_policies = _get_pod_security_policies(host, api_key, username,
-                                                       password, **kwargs)
+    pod_security_policies = _get_pod_security_policies(
+        host, api_key, username, password, **kwargs
+    )
 
     (vulns if not pod_security_policies.items else safes).append(
-        (pod_security_policies.metadata.self_link,
-         'Define Pod Security Policies.'))
+        (
+            pod_security_policies.metadata.self_link,
+            "Define Pod Security Policies.",
+        )
+    )
 
     return _get_result_as_tuple(
         host=host,
-        objects='Pods',
+        objects="Pods",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ApiException, MaxRetryError)
-def privileged_containers(*,
-                          host: str = None,
-                          api_key: str = None,
-                          username: str = None,
-                          password: str = None,
-                          **kwargs):
+def privileged_containers(
+    *,
+    host: str = None,
+    api_key: str = None,
+    username: str = None,
+    password: str = None,
+    **kwargs,
+):
     """
     Check if Pod Security Policies allow pods to run in privileged mode.
 
@@ -114,37 +129,46 @@ def privileged_containers(*,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = \
-        'Pod Security Policies allow pods to run in privileged mode.'
-    msg_closed: str = \
-        'Pod Security Policies do not allow pods to run in privileged mode.'
+    msg_open: str = (
+        "Pod Security Policies allow pods to run in privileged mode."
+    )
+    msg_closed: str = (
+        "Pod Security Policies do not allow pods to run in privileged mode."
+    )
     vulns, safes = [], []
 
-    pod_security_policies = _get_pod_security_policies(host, api_key, username,
-                                                       password, **kwargs)
+    pod_security_policies = _get_pod_security_policies(
+        host, api_key, username, password, **kwargs
+    )
 
     for policy in pod_security_policies.items:
         (vulns if policy.spec.privileged else safes).append(
-            (policy.metadata.self_link,
-             'pods are allowed to run in privileged mode.'))
+            (
+                policy.metadata.self_link,
+                "pods are allowed to run in privileged mode.",
+            )
+        )
 
     return _get_result_as_tuple(
         host=host,
-        objects='Pods',
+        objects="Pods",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ApiException, MaxRetryError)
-def write_root_file_system(*,
-                           host: str = None,
-                           api_key: str = None,
-                           username: str = None,
-                           password: str = None,
-                           **kwargs):
+def write_root_file_system(
+    *,
+    host: str = None,
+    api_key: str = None,
+    username: str = None,
+    password: str = None,
+    **kwargs,
+):
     """
     Check if Pod Security Policies allow writing to the root file system.
 
@@ -160,37 +184,46 @@ def write_root_file_system(*,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = \
-        'Pod Security Policies allow writing to the root file system.'
-    msg_closed: str = \
-        'Pod Security Policies do not allow writing to the root file system.'
+    msg_open: str = (
+        "Pod Security Policies allow writing to the root file system."
+    )
+    msg_closed: str = (
+        "Pod Security Policies do not allow writing to the root file system."
+    )
     vulns, safes = [], []
 
-    pod_security_policies = _get_pod_security_policies(host, api_key, username,
-                                                       password, **kwargs)
+    pod_security_policies = _get_pod_security_policies(
+        host, api_key, username, password, **kwargs
+    )
 
     for policy in pod_security_policies.items:
         (vulns if not policy.spec.read_only_root_filesystem else safes).append(
-            (policy.metadata.self_link,
-             'allow pods to write to the root file system.'))
+            (
+                policy.metadata.self_link,
+                "allow pods to write to the root file system.",
+            )
+        )
 
     return _get_result_as_tuple(
         host=host,
-        objects='Pods',
+        objects="Pods",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ApiException, MaxRetryError)
-def privilege_escalation(*,
-                         host: str = None,
-                         api_key: str = None,
-                         username: str = None,
-                         password: str = None,
-                         **kwargs):
+def privilege_escalation(
+    *,
+    host: str = None,
+    api_key: str = None,
+    username: str = None,
+    password: str = None,
+    **kwargs,
+):
     """
     Check if Pod Security Policies allow privilege escalation.
 
@@ -206,36 +239,42 @@ def privilege_escalation(*,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Pod Security Policies allow privilege escalation.'
-    msg_closed: str = \
-        'Pod Security Policies do not allow privilege escalation.'
+    msg_open: str = "Pod Security Policies allow privilege escalation."
+    msg_closed: str = (
+        "Pod Security Policies do not allow privilege escalation."
+    )
     vulns, safes = [], []
 
-    pod_security_policies = _get_pod_security_policies(host, api_key, username,
-                                                       password, **kwargs)
+    pod_security_policies = _get_pod_security_policies(
+        host, api_key, username, password, **kwargs
+    )
 
     for policy in pod_security_policies.items:
         privilege = policy.spec.allow_privilege_escalation
         (vulns if privilege or privilege is None else safes).append(
-            (policy.metadata.self_link, 'allow privilege escalation.'))
+            (policy.metadata.self_link, "allow privilege escalation.")
+        )
 
     return _get_result_as_tuple(
         host=host,
-        objects='Pods',
+        objects="Pods",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ApiException, MaxRetryError)
-def run_containers_as_root_user(*,
-                                host: str = None,
-                                api_key: str = None,
-                                username: str = None,
-                                password: str = None,
-                                **kwargs):
+def run_containers_as_root_user(
+    *,
+    host: str = None,
+    api_key: str = None,
+    username: str = None,
+    password: str = None,
+    **kwargs,
+):
     """
     Check if pod security policies allow containers to run as root user.
 
@@ -251,45 +290,55 @@ def run_containers_as_root_user(*,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = \
-        'Pod Security Policies that allow containers to run as root.'
-    msg_closed: str = \
-        'Pod Security Policies that do not allow containers to run as root.'
+    msg_open: str = (
+        "Pod Security Policies that allow containers to run as root."
+    )
+    msg_closed: str = (
+        "Pod Security Policies that do not allow containers to run as root."
+    )
     vulns, safes = [], []
 
-    pod_security_policies = _get_pod_security_policies(host, api_key, username,
-                                                       password, **kwargs)
+    pod_security_policies = _get_pod_security_policies(
+        host, api_key, username, password, **kwargs
+    )
 
     for policy in pod_security_policies.items:
         if policy.spec.run_as_user.ranges:
             vulnerable = any(
                 list(
-                    map(lambda r: 0 in range(r.min, r.max + 1),
-                        policy.spec.run_as_user.ranges)))
+                    map(
+                        lambda r: 0 in range(r.min, r.max + 1),
+                        policy.spec.run_as_user.ranges,
+                    )
+                )
+            )
         else:
-            vulnerable = policy.spec.run_as_user.rule != 'MustRunAsNonRoot'
+            vulnerable = policy.spec.run_as_user.rule != "MustRunAsNonRoot"
 
         (vulns if vulnerable else safes).append(
-            (policy.metadata.self_link,
-             'allow containers to run as root.'))
+            (policy.metadata.self_link, "allow containers to run as root.")
+        )
 
     return _get_result_as_tuple(
         host=host,
-        objects='Pods',
+        objects="Pods",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(ApiException, MaxRetryError)
-def has_no_memory_usage_limits(*,
-                               host: str = None,
-                               api_key: str = None,
-                               username: str = None,
-                               password: str = None,
-                               **kwargs):
+def has_no_memory_usage_limits(
+    *,
+    host: str = None,
+    api_key: str = None,
+    username: str = None,
+    password: str = None,
+    **kwargs,
+):
     """
     Check if the pod containers do not have a memory usage limit.
 
@@ -307,37 +356,45 @@ def has_no_memory_usage_limits(*,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Pods do not set memory usage limits.'
-    msg_closed: str = 'Pods set a memory usage limit.'
+    msg_open: str = "Pods do not set memory usage limits."
+    msg_closed: str = "Pods set a memory usage limit."
     vulns, safes = [], []
 
-    api_instance = _get_api_instance('CoreV1Api', host, api_key, username,
-                                     password, **kwargs)
-    pods = run_function(api_instance, 'list_pod_for_all_namespaces').items
-    for pod in filter(lambda x: x.metadata.namespace != 'kube-system', pods):
+    api_instance = _get_api_instance(
+        "CoreV1Api", host, api_key, username, password, **kwargs
+    )
+    pods = run_function(api_instance, "list_pod_for_all_namespaces").items
+    for pod in filter(lambda x: x.metadata.namespace != "kube-system", pods):
         for container in pod.spec.containers:
             limits = container.resources.limits
-            (vulns if not limits or not limits.get('memory', None) else
-             safes).append((f'{pod.metadata.self_link}',
-                            'Must set memory usage limits'))
+            (
+                vulns
+                if not limits or not limits.get("memory", None)
+                else safes
+            ).append(
+                (f"{pod.metadata.self_link}", "Must set memory usage limits")
+            )
 
     return _get_result_as_tuple(
         host=host,
-        objects='Pods',
+        objects="Pods",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(ApiException, MaxRetryError)
-def has_no_cpu_usage_limits(*,
-                            host: str = None,
-                            api_key: str = None,
-                            username: str = None,
-                            password: str = None,
-                            **kwargs):
+def has_no_cpu_usage_limits(
+    *,
+    host: str = None,
+    api_key: str = None,
+    username: str = None,
+    password: str = None,
+    **kwargs,
+):
     """
     Check if the pod containers do not have a CPU usage limit.
 
@@ -354,37 +411,43 @@ def has_no_cpu_usage_limits(*,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Pods do not set CPU usage limits.'
-    msg_closed: str = 'Pods set CPU usage limits.'
+    msg_open: str = "Pods do not set CPU usage limits."
+    msg_closed: str = "Pods set CPU usage limits."
     vulns, safes = [], []
 
-    api_instance = _get_api_instance('CoreV1Api', host, api_key, username,
-                                     password, **kwargs)
-    pods = run_function(api_instance, 'list_pod_for_all_namespaces').items
-    for pod in filter(lambda x: x.metadata.namespace != 'kube-system', pods):
+    api_instance = _get_api_instance(
+        "CoreV1Api", host, api_key, username, password, **kwargs
+    )
+    pods = run_function(api_instance, "list_pod_for_all_namespaces").items
+    for pod in filter(lambda x: x.metadata.namespace != "kube-system", pods):
         for container in pod.spec.containers:
             limits = container.resources.limits
-            (vulns
-             if not limits or not limits.get('cpu', None) else safes).append(
-                 (f'{pod.metadata.self_link}', 'Must set CPU usage limits'))
+            (
+                vulns if not limits or not limits.get("cpu", None) else safes
+            ).append(
+                (f"{pod.metadata.self_link}", "Must set CPU usage limits")
+            )
 
     return _get_result_as_tuple(
         host=host,
-        objects='Pods',
+        objects="Pods",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(ApiException, MaxRetryError)
-def has_no_memory_requests_usage_limit(*,
-                                       host: str = None,
-                                       api_key: str = None,
-                                       username: str = None,
-                                       password: str = None,
-                                       **kwargs):
+def has_no_memory_requests_usage_limit(
+    *,
+    host: str = None,
+    api_key: str = None,
+    username: str = None,
+    password: str = None,
+    **kwargs,
+):
     """
     Check if the pod containers do not have a memory requests usage limit.
 
@@ -403,37 +466,48 @@ def has_no_memory_requests_usage_limit(*,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Pods do not set memory requests usage limits.'
-    msg_closed: str = 'Pods set memory requests usage limits.'
+    msg_open: str = "Pods do not set memory requests usage limits."
+    msg_closed: str = "Pods set memory requests usage limits."
     vulns, safes = [], []
 
-    api_instance = _get_api_instance('CoreV1Api', host, api_key, username,
-                                     password, **kwargs)
-    pods = run_function(api_instance, 'list_pod_for_all_namespaces').items
-    for pod in filter(lambda x: x.metadata.namespace != 'kube-system', pods):
+    api_instance = _get_api_instance(
+        "CoreV1Api", host, api_key, username, password, **kwargs
+    )
+    pods = run_function(api_instance, "list_pod_for_all_namespaces").items
+    for pod in filter(lambda x: x.metadata.namespace != "kube-system", pods):
         for container in pod.spec.containers:
             limits = container.resources.requests
-            (vulns if not limits or not limits.get('memory', None) else
-             safes).append((f'{pod.metadata.self_link}',
-                            'Must set memory requests usage limits'))
+            (
+                vulns
+                if not limits or not limits.get("memory", None)
+                else safes
+            ).append(
+                (
+                    f"{pod.metadata.self_link}",
+                    "Must set memory requests usage limits",
+                )
+            )
 
     return _get_result_as_tuple(
         host=host,
-        objects='Pods',
+        objects="Pods",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(ApiException, MaxRetryError)
-def has_no_cpu_requests_usage_limit(*,
-                                    host: str = None,
-                                    api_key: str = None,
-                                    username: str = None,
-                                    password: str = None,
-                                    **kwargs):
+def has_no_cpu_requests_usage_limit(
+    *,
+    host: str = None,
+    api_key: str = None,
+    username: str = None,
+    password: str = None,
+    **kwargs,
+):
     """
     Check if the pod containers do not have CPU requests usage limits.
 
@@ -452,37 +526,46 @@ def has_no_cpu_requests_usage_limit(*,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Pods do not set CPU requests usage limits.'
-    msg_closed: str = 'Pods set CPU requests usage limits.'
+    msg_open: str = "Pods do not set CPU requests usage limits."
+    msg_closed: str = "Pods set CPU requests usage limits."
     vulns, safes = [], []
 
-    api_instance = _get_api_instance('CoreV1Api', host, api_key, username,
-                                     password, **kwargs)
-    pods = run_function(api_instance, 'list_pod_for_all_namespaces').items
-    for pod in filter(lambda x: x.metadata.namespace != 'kube-system', pods):
+    api_instance = _get_api_instance(
+        "CoreV1Api", host, api_key, username, password, **kwargs
+    )
+    pods = run_function(api_instance, "list_pod_for_all_namespaces").items
+    for pod in filter(lambda x: x.metadata.namespace != "kube-system", pods):
         for container in pod.spec.containers:
             limits = container.resources.limits
-            (vulns if not limits or not limits.get('cpu', None) else
-             safes).append((f'{pod.metadata.self_link}',
-                            'Must set CPU requests usage limits'))
+            (
+                vulns if not limits or not limits.get("cpu", None) else safes
+            ).append(
+                (
+                    f"{pod.metadata.self_link}",
+                    "Must set CPU requests usage limits",
+                )
+            )
 
     return _get_result_as_tuple(
         host=host,
-        objects='Pods',
+        objects="Pods",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(ApiException, MaxRetryError)
-def has_add_cap_with_sys_admin(*,
-                               host: str = None,
-                               api_key: str = None,
-                               username: str = None,
-                               password: str = None,
-                               **kwargs):
+def has_add_cap_with_sys_admin(
+    *,
+    host: str = None,
+    api_key: str = None,
+    username: str = None,
+    password: str = None,
+    **kwargs,
+):
     """
     Check if there are pod containers with ``SYS_ADMIN`` in ADD capabilities.
 
@@ -503,37 +586,47 @@ def has_add_cap_with_sys_admin(*,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Pod containers have SYS_ADMIN in ADD capabilities.'
-    msg_closed: str = \
-        'Pod containers do not have SYS_ADMIN in ADD capabilities.'
+    msg_open: str = "Pod containers have SYS_ADMIN in ADD capabilities."
+    msg_closed: str = (
+        "Pod containers do not have SYS_ADMIN in ADD capabilities."
+    )
     vulns, safes = [], []
 
-    api_instance = _get_api_instance('CoreV1Api', host, api_key, username,
-                                     password, **kwargs)
-    pods = run_function(api_instance, 'list_pod_for_all_namespaces').items
-    for pod in filter(lambda x: x.metadata.namespace != 'kube-system', pods):
+    api_instance = _get_api_instance(
+        "CoreV1Api", host, api_key, username, password, **kwargs
+    )
+    pods = run_function(api_instance, "list_pod_for_all_namespaces").items
+    for pod in filter(lambda x: x.metadata.namespace != "kube-system", pods):
         for container in pod.spec.containers:
             context = container.security_context
             if context and context.capabilities:
-                (vulns if 'SYS_ADMIN' in context.capabilities.add else
-                 safes).append((pod.metadata.self_link,
-                                'SYS_ADMIN it’s equivalent to root'))
+                (
+                    vulns if "SYS_ADMIN" in context.capabilities.add else safes
+                ).append(
+                    (
+                        pod.metadata.self_link,
+                        "SYS_ADMIN it’s equivalent to root",
+                    )
+                )
     return _get_result_as_tuple(
         host=host,
-        objects='Pods',
+        objects="Pods",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(ApiException, MaxRetryError)
-def has_containers_that_can_write_root_file_system(*,
-                                                   host: str = None,
-                                                   api_key: str = None,
-                                                   username: str = None,
-                                                   password: str = None):
+def has_containers_that_can_write_root_file_system(
+    *,
+    host: str = None,
+    api_key: str = None,
+    username: str = None,
+    password: str = None,
+):
     """
     Check if there are pod containers that can write to the root file system.
 
@@ -557,10 +650,10 @@ def has_containers_that_can_write_root_file_system(*,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Pod containers can write to the root file system.'
-    msg_closed: str = 'Pod containers can not write to the root file system.'
+    msg_open: str = "Pod containers can write to the root file system."
+    msg_closed: str = "Pod containers can not write to the root file system."
 
-    attribute = {'read_only_root_filesystem': lambda x: x is False}
+    attribute = {"read_only_root_filesystem": lambda x: x is False}
     safes = []
 
     vulns, safes = _check_security_context_attribute(
@@ -568,28 +661,32 @@ def has_containers_that_can_write_root_file_system(*,
         api_key=api_key,
         username=username,
         password=password,
-        attribute_check=attribute)
+        attribute_check=attribute,
+    )
 
-    message = 'must set read_only_root_filesystem to true'
+    message = "must set read_only_root_filesystem to true"
     vulns = map(lambda x: (x, message), vulns)
     safes = map(lambda x: (x, message), safes)
 
     return _get_result_as_tuple(
         host=host,
-        objects='Pods',
+        objects="Pods",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ApiException, MaxRetryError)
-def has_pod_containers_that_run_as_root_user(*,
-                                             host: str = None,
-                                             api_key: str = None,
-                                             username: str = None,
-                                             password: str = None):
+def has_pod_containers_that_run_as_root_user(
+    *,
+    host: str = None,
+    api_key: str = None,
+    username: str = None,
+    password: str = None,
+):
     """
     Check if there are pod containers that run as root user.
 
@@ -607,10 +704,10 @@ def has_pod_containers_that_run_as_root_user(*,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Pod containers run as root user.'
-    msg_closed: str = 'Pod containers run as non root user.'
+    msg_open: str = "Pod containers run as root user."
+    msg_closed: str = "Pod containers run as non root user."
 
-    attribute = {'run_as_non_root': lambda x: x is False}
+    attribute = {"run_as_non_root": lambda x: x is False}
     safes = []
 
     vulns, safes = _check_security_context_attribute(
@@ -618,28 +715,32 @@ def has_pod_containers_that_run_as_root_user(*,
         api_key=api_key,
         username=username,
         password=password,
-        attribute_check=attribute)
+        attribute_check=attribute,
+    )
 
-    message = 'must set run_as_non_root to true'
+    message = "must set run_as_non_root to true"
     vulns = map(lambda x: (x, message), vulns)
     safes = map(lambda x: (x, message), safes)
 
     return _get_result_as_tuple(
         host=host,
-        objects='Pods',
+        objects="Pods",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ApiException, MaxRetryError)
-def has_pod_containers_that_allow_privilege_escalation(*,
-                                                       host: str = None,
-                                                       api_key: str = None,
-                                                       username: str = None,
-                                                       password: str = None):
+def has_pod_containers_that_allow_privilege_escalation(
+    *,
+    host: str = None,
+    api_key: str = None,
+    username: str = None,
+    password: str = None,
+):
     """
     Check if there are pod containers that allow privilege escalation.
 
@@ -655,10 +756,10 @@ def has_pod_containers_that_allow_privilege_escalation(*,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Pod containers allow privilege escalation.'
-    msg_closed: str = 'Pod containers do not allow privilege escaltion.'
+    msg_open: str = "Pod containers allow privilege escalation."
+    msg_closed: str = "Pod containers do not allow privilege escaltion."
 
-    attribute = {'allow_privilege_escalation': lambda x: x is True}
+    attribute = {"allow_privilege_escalation": lambda x: x is True}
     safes = []
 
     vulns, safes = _check_security_context_attribute(
@@ -666,29 +767,33 @@ def has_pod_containers_that_allow_privilege_escalation(*,
         api_key=api_key,
         username=username,
         password=password,
-        attribute_check=attribute)
+        attribute_check=attribute,
+    )
 
-    message = 'must set allow_privilege_escalation to false'
+    message = "must set allow_privilege_escalation to false"
     vulns = map(lambda x: (x, message), vulns)
     safes = map(lambda x: (x, message), safes)
 
     return _get_result_as_tuple(
         host=host,
-        objects='Pods',
+        objects="Pods",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(ApiException, MaxRetryError)
-def has_volumes_mounted_in_docker_socket_path(*,
-                                              host: str = None,
-                                              api_key: str = None,
-                                              username: str = None,
-                                              password: str = None,
-                                              **kwargs):
+def has_volumes_mounted_in_docker_socket_path(
+    *,
+    host: str = None,
+    api_key: str = None,
+    username: str = None,
+    password: str = None,
+    **kwargs,
+):
     """
     Check if there are containers with volumes mounted in docker socket path.
 
@@ -707,37 +812,50 @@ def has_volumes_mounted_in_docker_socket_path(*,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = \
-        'Pod containers have volumes mounted in docker socket path.'
-    msg_closed: str = \
-        'Pod containers do not have volumes mounted in docker socket path.'
+    msg_open: str = (
+        "Pod containers have volumes mounted in docker socket path."
+    )
+    msg_closed: str = (
+        "Pod containers do not have volumes mounted in docker socket path."
+    )
     vulns, safes = [], []
 
-    api_instance = _get_api_instance('CoreV1Api', host, api_key, username,
-                                     password, **kwargs)
-    pods = run_function(api_instance, 'list_pod_for_all_namespaces').items
-    for pod in filter(lambda x: x.metadata.namespace != 'kube-system', pods):
+    api_instance = _get_api_instance(
+        "CoreV1Api", host, api_key, username, password, **kwargs
+    )
+    pods = run_function(api_instance, "list_pod_for_all_namespaces").items
+    for pod in filter(lambda x: x.metadata.namespace != "kube-system", pods):
         for index, volume in enumerate(pod.spec.volumes or []):
-            (vulns if '/var/run/docker.sock' in volume.host_path.path else
-             safes).append((f'{pod.metadata.self_link} spec.volumes[{index}]',
-                            'Do not mount volumes in the docker socket path'))
+            (
+                vulns
+                if "/var/run/docker.sock" in volume.host_path.path
+                else safes
+            ).append(
+                (
+                    f"{pod.metadata.self_link} spec.volumes[{index}]",
+                    "Do not mount volumes in the docker socket path",
+                )
+            )
     return _get_result_as_tuple(
         host=host,
-        objects='Pods',
+        objects="Pods",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(ApiException, MaxRetryError)
-def has_containers_with_host_ipc_enabled(*,
-                                         host: str = None,
-                                         api_key: str = None,
-                                         username: str = None,
-                                         password: str = None,
-                                         **kwargs):
+def has_containers_with_host_ipc_enabled(
+    *,
+    host: str = None,
+    api_key: str = None,
+    username: str = None,
+    password: str = None,
+    **kwargs,
+):
     """
     Check if there are containers that have HostIPC enable.
 
@@ -755,21 +873,24 @@ def has_containers_with_host_ipc_enabled(*,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Pod containers have hostIPC enable.'
-    msg_closed: str = 'Pod containers do not have hostIPC enabled.'
+    msg_open: str = "Pod containers have hostIPC enable."
+    msg_closed: str = "Pod containers do not have hostIPC enabled."
     vulns, safes = [], []
 
-    api_instance = _get_api_instance('CoreV1Api', host, api_key, username,
-                                     password, **kwargs)
-    pods = run_function(api_instance, 'list_pod_for_all_namespaces').items
-    for pod in filter(lambda x: x.metadata.namespace != 'kube-system', pods):
-        (vulns if pod.spec.host_ipc else
-         safes).append((pod.metadata.self_link, 'must set host_ipc to false'))
+    api_instance = _get_api_instance(
+        "CoreV1Api", host, api_key, username, password, **kwargs
+    )
+    pods = run_function(api_instance, "list_pod_for_all_namespaces").items
+    for pod in filter(lambda x: x.metadata.namespace != "kube-system", pods):
+        (vulns if pod.spec.host_ipc else safes).append(
+            (pod.metadata.self_link, "must set host_ipc to false")
+        )
 
     return _get_result_as_tuple(
         host=host,
-        objects='Pods',
+        objects="Pods",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )

@@ -16,7 +16,7 @@ class LineLoader(yaml_loader.CfnYamlLoader):
 def construct_mapping(self, node, deep=False):
     """Add line number to CFN resources."""
     mapping = yaml_loader.construct_mapping(self, node, deep=deep)
-    mapping['__line__'] = node.start_mark.line
+    mapping["__line__"] = node.start_mark.line
     return mapping
 
 

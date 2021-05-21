@@ -14,7 +14,7 @@ from fluidasserts.helper import sca
 from fluidasserts.utils.generic import get_paths
 from fluidasserts.utils.decorators import api
 
-PKG_MNGR = 'nuget'
+PKG_MNGR = "nuget"
 
 
 def _get_requirements(path: str, exclude: tuple) -> set:
@@ -29,18 +29,20 @@ def _get_requirements(path: str, exclude: tuple) -> set:
     reqs = set()
     if not os.path.exists(path):
         return reqs
-    endswith = ('packages.config',)
+    endswith = ("packages.config",)
     for full_path in get_paths(path, endswith=endswith, exclude=exclude):
         parsed = defusedxml.ElementTree.parse(full_path)
         reqs.update(
-            (full_path, dep.attrib['id'], dep.attrib['version'])
-            for dep in parsed.findall(".//package"))
+            (full_path, dep.attrib["id"], dep.attrib["version"])
+            for dep in parsed.findall(".//package")
+        )
     return reqs
 
 
 @api(risk=HIGH, kind=SCA)
 def package_has_vulnerabilities(
-        package: str, version: str = None, retry: bool = True) -> tuple:
+    package: str, version: str = None, retry: bool = True
+) -> tuple:
     """
     Search vulnerabilities on given package/version.
 
@@ -54,7 +56,8 @@ def package_has_vulnerabilities(
 
 @api(risk=HIGH, kind=SCA)
 def project_has_vulnerabilities(
-        path: str, exclude: list = None, retry: bool = True) -> tuple:
+    path: str, exclude: list = None, retry: bool = True
+) -> tuple:
     """
     Search vulnerabilities on given project directory.
 

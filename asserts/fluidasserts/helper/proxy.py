@@ -16,15 +16,23 @@ from mitmproxy import options
 from mitmproxy.tools.dump import DumpMaster
 
 AddOn = namedtuple(
-    'AddOn', ['request', 'response'], defaults=[None, ] * 2)
+    "AddOn",
+    ["request", "response"],
+    defaults=[
+        None,
+    ]
+    * 2,
+)
 
 
 @contextmanager
-def proxy_server(listen_host: str = '127.0.0.1',
-                 listen_port: int = 8085,
-                 addons: List[AddOn] = None,
-                 ignore_hosts: List[str] = None,
-                 **kwargs):
+def proxy_server(
+    listen_host: str = "127.0.0.1",
+    listen_port: int = 8085,
+    addons: List[AddOn] = None,
+    ignore_hosts: List[str] = None,
+    **kwargs,
+):
     """
     Create a man in the middle proxy.
 
@@ -55,11 +63,11 @@ def proxy_server(listen_host: str = '127.0.0.1',
     addons = [] if not addons else addons
 
     args = {
-        'listen_host': listen_host,
-        'listen_port': listen_port,
-        'ignore_hosts': ignore_hosts,
-        'confdir': _get_config_path(),
-        **kwargs
+        "listen_host": listen_host,
+        "listen_port": listen_port,
+        "ignore_hosts": ignore_hosts,
+        "confdir": _get_config_path(),
+        **kwargs,
     }
     opts = options.Options(**args)
 
@@ -71,7 +79,7 @@ def proxy_server(listen_host: str = '127.0.0.1',
     proxy_config = proxy.config.ProxyConfig(opts)
     master.server = proxy.server.ProxyServer(proxy_config)
 
-    processor = Process(target=master.run, name='mitmproxy')
+    processor = Process(target=master.run, name="mitmproxy")
     processor.daemon = True
     try:
         yield processor.start()
@@ -81,37 +89,37 @@ def proxy_server(listen_host: str = '127.0.0.1',
 
 
 def _refact_addon(addon: AddOn):
-    _class = type('AddOn', (object, ), {'request': None, 'response': None})
+    _class = type("AddOn", (object,), {"request": None, "response": None})
     _class.request = addon.request
     _class.response = addon.response
     if not _class.request:
         _class.request = lambda x: x
     if not _class.response:
         _class.response = lambda x: x
-    setattr(_class.request, 'name', 'request')
-    setattr(_class.response, 'name', 'response')
-    setattr(_class, 'name', _random_string())
+    setattr(_class.request, "name", "request")
+    setattr(_class.response, "name", "response")
+    setattr(_class, "name", _random_string())
     return _class
 
 
 def _get_config_path():
-    static_path = pkg_resources.resource_filename('fluidasserts', 'static/')
-    return f'{static_path}mock_data_proxy'
+    static_path = pkg_resources.resource_filename("fluidasserts", "static/")
+    return f"{static_path}mock_data_proxy"
 
 
 def get_firefox_profile_path():
     """Path of a Firefox profile that has the proxy certificate installed."""
-    static_path = pkg_resources.resource_filename('fluidasserts', 'static/')
-    return f'{static_path}mock_data_proxy/firefox_profile/'
+    static_path = pkg_resources.resource_filename("fluidasserts", "static/")
+    return f"{static_path}mock_data_proxy/firefox_profile/"
 
 
 def get_certificate_path():
     """Proxy certificate path in pem format."""
-    static_path = pkg_resources.resource_filename('fluidasserts', 'static/')
-    return f'{static_path}mock_data_proxy/mitmproxy-ca.pem'
+    static_path = pkg_resources.resource_filename("fluidasserts", "static/")
+    return f"{static_path}mock_data_proxy/mitmproxy-ca.pem"
 
 
 def _random_string(string_length=5):
     """Generate a random string of fixed length."""
     letters = string.ascii_lowercase
-    return ''.join(random.sample(letters, string_length))
+    return "".join(random.sample(letters, string_length))

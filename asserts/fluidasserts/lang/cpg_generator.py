@@ -16,6 +16,6 @@ def load_cpg(path: str, language: str, exclude: Tuple[str] = None):
     graph: DiGraph = GRAPHS.get()
 
     creator.meta_data(graph, language=language)
-    if language == 'python':
+    if language == "python":
         python3_cpg.create_cpg(path, exclude)
     return graph

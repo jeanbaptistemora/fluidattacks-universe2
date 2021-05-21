@@ -6,8 +6,13 @@
 # None
 
 # 3rd party imports
-from pyparsing import (Keyword, oneOf, Regex, cppStyleComment,
-                       pythonStyleComment)
+from pyparsing import (
+    Keyword,
+    oneOf,
+    Regex,
+    cppStyleComment,
+    pythonStyleComment,
+)
 
 # local imports
 from fluidasserts import HIGH, OPEN, CLOSED, SAST
@@ -16,10 +21,19 @@ from fluidasserts.utils.decorators import api
 
 
 LANGUAGE_SPECS = {
-    'extensions': ('php', 'php4', 'php5', 'php6', 'php7',),
-    'block_comment_start': '/*',
-    'block_comment_end': '*/',
-    'line_comment': ('#', '//',)
+    "extensions": (
+        "php",
+        "php4",
+        "php5",
+        "php6",
+        "php7",
+    ),
+    "block_comment_start": "/*",
+    "block_comment_end": "*/",
+    "line_comment": (
+        "#",
+        "//",
+    ),
 }  # type: dict
 
 
@@ -33,7 +47,7 @@ def has_preg_ce(php_dest: str, exclude: list = None) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     quote = oneOf(["'", '"'])
-    grammar = Keyword('preg_replace') + '(' + quote + Regex(r'.*/e\b') + quote
+    grammar = Keyword("preg_replace") + "(" + quote + Regex(r".*/e\b") + quote
     grammar.ignore(cppStyleComment)
     grammar.ignore(pythonStyleComment)
 
@@ -42,8 +56,9 @@ def has_preg_ce(php_dest: str, exclude: list = None) -> tuple:
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'Code may allow RCE using preg_replace()',
-            CLOSED: 'Code does not allow RCE using preg_replace()',
+            OPEN: "Code may allow RCE using preg_replace()",
+            CLOSED: "Code does not allow RCE using preg_replace()",
         },
         spec=LANGUAGE_SPECS,
-        excl=exclude)
+        excl=exclude,
+    )

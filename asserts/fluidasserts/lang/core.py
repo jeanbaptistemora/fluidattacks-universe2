@@ -9,9 +9,20 @@ from base64 import b64encode
 from typing import List
 
 # 3rd party imports
-from pyparsing import (cppStyleComment, Char, Keyword, Literal, MatchFirst,
-                       nestedExpr, Optional, QuotedString, Regex, ZeroOrMore,
-                       Suppress, ParserElement)
+from pyparsing import (
+    cppStyleComment,
+    Char,
+    Keyword,
+    Literal,
+    MatchFirst,
+    nestedExpr,
+    Optional,
+    QuotedString,
+    Regex,
+    ZeroOrMore,
+    Suppress,
+    ParserElement,
+)
 
 # local imports
 from fluidasserts import Unit, LOW, MEDIUM, HIGH, OPEN, CLOSED, UNKNOWN, SAST
@@ -36,25 +47,29 @@ def _flatten(elements, aux_list=None):
 
 
 def generic_c_has_if_without_else(
-        location: str,
-        conditions: list,
-        use_regex: bool = False,
-        lang_specs: dict = None,
-        exclude: list = None) -> tuple:
+    location: str,
+    conditions: list,
+    use_regex: bool = False,
+    lang_specs: dict = None,
+    exclude: list = None,
+) -> tuple:
     """Perform a generic has_if_without_else that can be reused."""
-    no_else_found = '__no_else_found__'
+    no_else_found = "__no_else_found__"
 
-    content = MatchFirst([
-        Regex(condition) if use_regex else Literal(condition)
-        for condition in conditions])
+    content = MatchFirst(
+        [
+            Regex(condition) if use_regex else Literal(condition)
+            for condition in conditions
+        ]
+    )
 
-    args_if = '(' + content + ')'
-    args_else_if = nestedExpr(opener='(', closer=')')
-    block = nestedExpr(opener='{', closer='}')
+    args_if = "(" + content + ")"
+    args_else_if = nestedExpr(opener="(", closer=")")
+    block = nestedExpr(opener="{", closer="}")
 
-    if_block = Keyword('if') + args_if + block
-    else_if_block = Keyword('else') + Keyword('if') + args_else_if + block
-    else_block = Optional(Keyword('else') + block, default=no_else_found)
+    if_block = Keyword("if") + args_if + block
+    else_if_block = Keyword("else") + Keyword("if") + args_else_if + block
+    else_block = Optional(Keyword("else") + block, default=no_else_found)
 
     else_block.addCondition(lambda x: no_else_found in str(x))
 
@@ -72,16 +87,17 @@ def generic_c_has_if_without_else(
             CLOSED: 'Code has "if" with "else" clause',
         },
         spec=lang_specs,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 def _switch_condition(tokens):
-    default = Literal('default') + Char(':')
+    default = Literal("default") + Char(":")
     result = []
     for item in tokens:
         iters = _flatten(item)
         for index, value in enumerate(iters):
-            if value == 'default' and iters[index + 1] == ':':
+            if value == "default" and iters[index + 1] == ":":
                 result.append(False)
             else:
                 result.append(not default.searchString(str(value)))
@@ -89,7 +105,8 @@ def _switch_condition(tokens):
 
 
 def generic_c_has_switch_without_default(
-        location: str, lang_specs: dict = None, exclude: list = None) -> tuple:
+    location: str, lang_specs: dict = None, exclude: list = None
+) -> tuple:
     r"""
     Check if all ``switch``\ es have a ``default`` clause.
 
@@ -101,8 +118,8 @@ def generic_c_has_switch_without_default(
     :param exclude: Paths that contains any string from this list are ignored.
     :rtype: :class:`fluidasserts.Result`
     """
-    switch = Keyword('switch') + nestedExpr(opener='(', closer=')')
-    grammar = Suppress(switch) + nestedExpr(opener='{', closer='}')
+    switch = Keyword("switch") + nestedExpr(opener="(", closer=")")
+    grammar = Suppress(switch) + nestedExpr(opener="{", closer="}")
     grammar.ignore(cppStyleComment)
     grammar.ignore(L_STRING)
     grammar.ignore(L_CHAR)
@@ -117,18 +134,20 @@ def generic_c_has_switch_without_default(
             CLOSED: 'Code has "switch" with "default" clause',
         },
         spec=lang_specs,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 @api(risk=LOW, kind=SAST)
-def has_text(code_dest: str,
-             expected_text: str,
-             open_message: str,
-             closed_message: str,
-             use_regex: bool =
-             False,
-             exclude: list = None,
-             lang_specs: dict = None) -> tuple:
+def has_text(
+    code_dest: str,
+    expected_text: str,
+    open_message: str,
+    closed_message: str,
+    use_regex: bool = False,
+    exclude: list = None,
+    lang_specs: dict = None,
+) -> tuple:
     """
     Check if a bad text is present in given source file.
 
@@ -154,12 +173,18 @@ def has_text(code_dest: str,
             CLOSED: closed_message,
         },
         spec=lang_specs,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 @api(risk=LOW, kind=SAST)
-def has_not_text(code_dest: str, expected_text: str, use_regex: bool = False,
-                 exclude: list = None, lang_specs: dict = None) -> tuple:
+def has_not_text(
+    code_dest: str,
+    expected_text: str,
+    use_regex: bool = False,
+    exclude: list = None,
+    lang_specs: dict = None,
+) -> tuple:
     """
     Check if a required text is not present in given source file.
 
@@ -181,17 +206,23 @@ def has_not_text(code_dest: str, expected_text: str, use_regex: bool = False,
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'Expected text not present in code',
-            CLOSED: 'Expected text present in code',
+            OPEN: "Expected text not present in code",
+            CLOSED: "Expected text present in code",
         },
         spec=lang_specs,
         excl=exclude,
-        reverse=True)
+        reverse=True,
+    )
 
 
 @api(risk=LOW, kind=SAST)
-def has_all_text(code_dest: str, expected_list: list, use_regex: bool = False,
-                 exclude: list = None, lang_specs: dict = None) -> tuple:
+def has_all_text(
+    code_dest: str,
+    expected_list: list,
+    use_regex: bool = False,
+    exclude: list = None,
+    lang_specs: dict = None,
+) -> tuple:
     """
     Check if a list of bad text is present in given source file.
 
@@ -207,7 +238,7 @@ def has_all_text(code_dest: str, expected_list: list, use_regex: bool = False,
     :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(code_dest):
-        return UNKNOWN, 'File does not exist'
+        return UNKNOWN, "File does not exist"
 
     vulns, safes = [], []
 
@@ -219,18 +250,23 @@ def has_all_text(code_dest: str, expected_list: list, use_regex: bool = False,
         _vulns, _safes = lang.parse(grammar, code_dest, lang_specs, exclude)
 
         if not _vulns:
-            return CLOSED, 'Not all expected text was found in code'
+            return CLOSED, "Not all expected text was found in code"
         vulns.extend(_vulns)
         safes.extend(_safes)
 
     if vulns:
-        return OPEN, 'All text from list was found in code', vulns, safes
-    return CLOSED, 'No files were tested', vulns, safes
+        return OPEN, "All text from list was found in code", vulns, safes
+    return CLOSED, "No files were tested", vulns, safes
 
 
 @api(risk=LOW, kind=SAST)
-def has_any_text(code_dest: str, expected_list: list, use_regex: bool = False,
-                 exclude: list = None, lang_specs: dict = None) -> tuple:
+def has_any_text(
+    code_dest: str,
+    expected_list: list,
+    use_regex: bool = False,
+    exclude: list = None,
+    lang_specs: dict = None,
+) -> tuple:
     """
     Check if any on a list of bad text is present in given source file.
 
@@ -255,17 +291,22 @@ def has_any_text(code_dest: str, expected_list: list, use_regex: bool = False,
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'An expected text is present in code',
-            CLOSED: 'No expected text was found in code',
+            OPEN: "An expected text is present in code",
+            CLOSED: "No expected text was found in code",
         },
         spec=lang_specs,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 @api(risk=LOW, kind=SAST)
-def has_not_any_text(code_dest: str,
-                     expected_list: list, use_regex: bool = False,
-                     exclude: list = None, lang_specs: dict = None) -> tuple:
+def has_not_any_text(
+    code_dest: str,
+    expected_list: list,
+    use_regex: bool = False,
+    exclude: list = None,
+    lang_specs: dict = None,
+) -> tuple:
     """
     Check if not any on a list of bad text is present in given source file.
 
@@ -290,12 +331,13 @@ def has_not_any_text(code_dest: str,
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'Expected text is not present in code',
-            CLOSED: 'Expected text is present in code',
+            OPEN: "Expected text is not present in code",
+            CLOSED: "Expected text is present in code",
         },
         spec=lang_specs,
         excl=exclude,
-        reverse=True)
+        reverse=True,
+    )
 
 
 @api(risk=LOW, kind=SAST)
@@ -307,12 +349,16 @@ def file_exists(code_file: str) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     if os.path.exists(code_file):
-        vulns = [Unit(where=code_file,
-                      source='File',
-                      specific=['Exists'],
-                      fingerprint=get_sha256(code_file))]
-        return OPEN, 'File exists', vulns
-    return CLOSED, 'File does not exist'
+        vulns = [
+            Unit(
+                where=code_file,
+                source="File",
+                specific=["Exists"],
+                fingerprint=get_sha256(code_file),
+            )
+        ]
+        return OPEN, "File exists", vulns
+    return CLOSED, "File does not exist"
 
 
 @api(risk=LOW, kind=SAST)
@@ -324,12 +370,16 @@ def file_does_not_exist(code_file: str) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(code_file):
-        vulns = [Unit(where=code_file,
-                      source='File',
-                      specific=['Does not exist'],
-                      fingerprint=get_sha256(code_file))]
-        return OPEN, 'File does not exists', vulns
-    return CLOSED, 'File exist'
+        vulns = [
+            Unit(
+                where=code_file,
+                source="File",
+                specific=["Does not exist"],
+                fingerprint=get_sha256(code_file),
+            )
+        ]
+        return OPEN, "File does not exists", vulns
+    return CLOSED, "File exist"
 
 
 @api(risk=MEDIUM, kind=SAST)
@@ -342,31 +392,43 @@ def is_file_hash_in_list(path: str, hash_list: List[str]) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(path):
-        return UNKNOWN, 'File does not exists'
+        return UNKNOWN, "File does not exists"
     vulns, safes = [], []
     for full_path in get_paths(path):
         fingerprint: str = get_sha256(full_path)
         if fingerprint in hash_list:
-            vulns.append(Unit(where=full_path,
-                              source='File',
-                              specific=['Matches hash'],
-                              fingerprint=fingerprint))
+            vulns.append(
+                Unit(
+                    where=full_path,
+                    source="File",
+                    specific=["Matches hash"],
+                    fingerprint=fingerprint,
+                )
+            )
         else:
-            safes.append(Unit(where=full_path,
-                              source='File',
-                              specific=['Does not match hash'],
-                              fingerprint=fingerprint))
+            safes.append(
+                Unit(
+                    where=full_path,
+                    source="File",
+                    specific=["Does not match hash"],
+                    fingerprint=fingerprint,
+                )
+            )
 
     if vulns:
-        msg = 'Path contain files whose hash is in given list'
+        msg = "Path contain files whose hash is in given list"
         return OPEN, msg, vulns, safes
-    msg = 'Path does not contain files whose hash is in given list'
+    msg = "Path does not contain files whose hash is in given list"
     return CLOSED, msg, vulns, safes
 
 
 @api(risk=MEDIUM, kind=SAST)
-def has_weak_cipher(code_dest: str, expected_text: str,
-                    exclude: list = None, lang_specs: dict = None) -> tuple:
+def has_weak_cipher(
+    code_dest: str,
+    expected_text: str,
+    exclude: list = None,
+    lang_specs: dict = None,
+) -> tuple:
     """
     Check if code uses base 64 to cipher confidential data.
 
@@ -385,16 +447,22 @@ def has_weak_cipher(code_dest: str, expected_text: str,
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'Code has confidential data encoded in base64',
-            CLOSED: 'Code does not have confidential data encoded in base64',
+            OPEN: "Code has confidential data encoded in base64",
+            CLOSED: "Code does not have confidential data encoded in base64",
         },
         spec=lang_specs,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 @api(risk=HIGH, kind=SAST)
-def has_secret(code_dest: str, secret: str, use_regex: bool = False,
-               exclude: list = None, lang_specs: dict = None) -> tuple:
+def has_secret(
+    code_dest: str,
+    secret: str,
+    use_regex: bool = False,
+    exclude: list = None,
+    lang_specs: dict = None,
+) -> tuple:
     """
     Check if a secret is present in given source file.
 
@@ -416,16 +484,22 @@ def has_secret(code_dest: str, secret: str, use_regex: bool = False,
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'Secret found in code',
-            CLOSED: 'Secret not found in code',
+            OPEN: "Secret found in code",
+            CLOSED: "Secret not found in code",
         },
         spec=lang_specs,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 @api(risk=HIGH, kind=SAST)
-def has_any_secret(code_dest: str, secrets_list: list, use_regex: bool = False,
-                   exclude: list = None, lang_specs: dict = None) -> tuple:
+def has_any_secret(
+    code_dest: str,
+    secrets_list: list,
+    use_regex: bool = False,
+    exclude: list = None,
+    lang_specs: dict = None,
+) -> tuple:
     """
     Check if any on a list of secrets is present in given source file.
 
@@ -450,17 +524,18 @@ def has_any_secret(code_dest: str, secrets_list: list, use_regex: bool = False,
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'Some of the expected secrets are present in code',
-            CLOSED: 'None of the expected secrets were found in code',
+            OPEN: "Some of the expected secrets are present in code",
+            CLOSED: "None of the expected secrets were found in code",
         },
         spec=lang_specs,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 @api(risk=MEDIUM, kind=SAST)
-def uses_unencrypted_sockets(code_dest: str,
-                             exclude: list = None,
-                             lang_specs: dict = None) -> tuple:
+def uses_unencrypted_sockets(
+    code_dest: str, exclude: list = None, lang_specs: dict = None
+) -> tuple:
     """
     Check if there are unencrypted web sockets URI schemes in code (`ws://`).
 
@@ -470,7 +545,7 @@ def uses_unencrypted_sockets(code_dest: str,
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
     :rtype: :class:`fluidasserts.Result`
     """
-    unencrypted_re = re.compile(r'^ws://.*$', flags=re.I)
+    unencrypted_re = re.compile(r"^ws://.*$", flags=re.I)
     grammar = MatchFirst([QuotedString('"'), QuotedString("'")])
     grammar.addCondition(lambda x: unencrypted_re.search(x[0]))
 
@@ -479,19 +554,22 @@ def uses_unencrypted_sockets(code_dest: str,
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'Code uses web sockets over an encrypted channel',
-            CLOSED: 'Code does not use web sockets over an encrypted channel',
+            OPEN: "Code uses web sockets over an encrypted channel",
+            CLOSED: "Code does not use web sockets over an encrypted channel",
         },
         spec=lang_specs,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 @api(risk=LOW, kind=SAST)
-def has_unnecessary_permissions(code_dest: str,
-                                permission: str,
-                                use_regex: bool = False,
-                                exclude: list = None,
-                                lang_specs: dict = None) -> tuple:
+def has_unnecessary_permissions(
+    code_dest: str,
+    permission: str,
+    use_regex: bool = False,
+    exclude: list = None,
+    lang_specs: dict = None,
+) -> tuple:
     """
     Check if the application has unnecessary permissions.
 
@@ -517,23 +595,28 @@ def has_unnecessary_permissions(code_dest: str,
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'Permmission found in the code.',
-            CLOSED: 'Permission not found in the code.',
+            OPEN: "Permmission found in the code.",
+            CLOSED: "Permission not found in the code.",
         },
         spec=lang_specs,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
-@api(risk=LOW,
-     kind=SAST,
-     standards={
-         'CWE': '396',
-     },)
-def has_generic_exceptions(code_dest: str,
-                           exception: str,
-                           use_regex: bool = False,
-                           exclude: list = None,
-                           lang_specs: dict = None) -> tuple:
+@api(
+    risk=LOW,
+    kind=SAST,
+    standards={
+        "CWE": "396",
+    },
+)
+def has_generic_exceptions(
+    code_dest: str,
+    exception: str,
+    use_regex: bool = False,
+    exclude: list = None,
+    lang_specs: dict = None,
+) -> tuple:
     """
     Check if a generic exception is present in given source file.
 
@@ -558,19 +641,22 @@ def has_generic_exceptions(code_dest: str,
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'Generic exception found in the code.',
-            CLOSED: 'Generic exception not found in the code.',
+            OPEN: "Generic exception found in the code.",
+            CLOSED: "Generic exception not found in the code.",
         },
         spec=lang_specs,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 @api(risk=LOW, kind=SAST)
-def leaks_technical_information(code_dest: str,
-                                pattern: str,
-                                use_regex: bool = False,
-                                exclude: list = None,
-                                lang_specs: dict = None):
+def leaks_technical_information(
+    code_dest: str,
+    pattern: str,
+    use_regex: bool = False,
+    exclude: list = None,
+    lang_specs: dict = None,
+):
     """
     Check if there are code that leaks technical information.
 
@@ -596,21 +682,28 @@ def leaks_technical_information(code_dest: str,
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: ('Text pattern that generates leakage of'
-                   ' technical information found in the code.'),
-            CLOSED: ('No text patterns that generate leaks of technical'
-                     ' information were found in code'),
+            OPEN: (
+                "Text pattern that generates leakage of"
+                " technical information found in the code."
+            ),
+            CLOSED: (
+                "No text patterns that generate leaks of technical"
+                " information were found in code"
+            ),
         },
         spec=lang_specs,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 @api(risk=LOW, kind=SAST)
-def has_insecure_settings(code_dest: str,
-                          settting: str,
-                          use_regex: bool = False,
-                          exclude: list = None,
-                          lang_specs: dict = None):
+def has_insecure_settings(
+    code_dest: str,
+    settting: str,
+    use_regex: bool = False,
+    exclude: list = None,
+    lang_specs: dict = None,
+):
     """
     Check if the code has services with insecure settings.
 
@@ -635,19 +728,22 @@ def has_insecure_settings(code_dest: str,
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'Insecure settings found in the code.',
-            CLOSED: 'Insecure settings not found in the code.',
+            OPEN: "Insecure settings found in the code.",
+            CLOSED: "Insecure settings not found in the code.",
         },
         spec=lang_specs,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 @api(risk=LOW, kind=SAST)
-def has_code_injection(code_dest: str,
-                       pattern: str,
-                       use_regex: bool = False,
-                       exclude: list = None,
-                       lang_specs: dict = None):
+def has_code_injection(
+    code_dest: str,
+    pattern: str,
+    use_regex: bool = False,
+    exclude: list = None,
+    lang_specs: dict = None,
+):
     """
     Check if the code has patterns that generate code injections.
 
@@ -669,19 +765,22 @@ def has_code_injection(code_dest: str,
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'Pattern found in code.',
-            CLOSED: 'Pattern not found in code.',
+            OPEN: "Pattern found in code.",
+            CLOSED: "Pattern not found in code.",
         },
         spec=lang_specs,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 @api(risk=LOW, kind=SAST)
-def has_vulnerable_dependencies(code_dest: str,
-                                dependence: str,
-                                use_regex: bool = False,
-                                exclude: list = None,
-                                lang_specs: dict = None):
+def has_vulnerable_dependencies(
+    code_dest: str,
+    dependence: str,
+    use_regex: bool = False,
+    exclude: list = None,
+    lang_specs: dict = None,
+):
     """
     Check if there are vulnerable dependencies.
 
@@ -703,19 +802,22 @@ def has_vulnerable_dependencies(code_dest: str,
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'Vulnerable dependencies are present.',
-            CLOSED: 'There are no vulnerable dependencies.',
+            OPEN: "Vulnerable dependencies are present.",
+            CLOSED: "There are no vulnerable dependencies.",
         },
         spec=lang_specs,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 @api(risk=LOW, kind=SAST)
-def use_insecure_methods(code_dest: str,
-                         method: str,
-                         use_regex: bool = False,
-                         exclude: list = None,
-                         lang_specs: dict = None):
+def use_insecure_methods(
+    code_dest: str,
+    method: str,
+    use_regex: bool = False,
+    exclude: list = None,
+    lang_specs: dict = None,
+):
     """
     Check if the code uses insecure methods.
 
@@ -740,19 +842,22 @@ def use_insecure_methods(code_dest: str,
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'Insecure methods are present.',
-            CLOSED: 'There are no insecure methods present.',
+            OPEN: "Insecure methods are present.",
+            CLOSED: "There are no insecure methods present.",
         },
         spec=lang_specs,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 @api(risk=LOW, kind=SAST)
-def missing_input_data_validation(code_dest: str,
-                                  pattern: str,
-                                  use_regex: bool = False,
-                                  exclude: list = None,
-                                  lang_specs: dict = None):
+def missing_input_data_validation(
+    code_dest: str,
+    pattern: str,
+    use_regex: bool = False,
+    exclude: list = None,
+    lang_specs: dict = None,
+):
     """
     Check if the code does not validate the input data.
 
@@ -777,19 +882,22 @@ def missing_input_data_validation(code_dest: str,
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'Missing validation of the input data.',
-            CLOSED: 'Validation of the input data is done.',
+            OPEN: "Missing validation of the input data.",
+            CLOSED: "Validation of the input data is done.",
         },
         spec=lang_specs,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 @api(risk=LOW, kind=SAST)
-def has_log_injection(code_dest: str,
-                      pattern: str,
-                      use_regex: bool = False,
-                      exclude: list = None,
-                      lang_specs: dict = None):
+def has_log_injection(
+    code_dest: str,
+    pattern: str,
+    use_regex: bool = False,
+    exclude: list = None,
+    lang_specs: dict = None,
+):
     """
     Check if the code allow log injection.
 
@@ -814,19 +922,22 @@ def has_log_injection(code_dest: str,
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'The code allows log injection.',
-            CLOSED: 'The code does not allow log injection.',
+            OPEN: "The code allows log injection.",
+            CLOSED: "The code does not allow log injection.",
         },
         spec=lang_specs,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 @api(risk=LOW, kind=SAST)
-def exposes_sensitive_information(code_dest: str,
-                                  pattern: str,
-                                  use_regex: bool = False,
-                                  exclude: list = None,
-                                  lang_specs: dict = None):
+def exposes_sensitive_information(
+    code_dest: str,
+    pattern: str,
+    use_regex: bool = False,
+    exclude: list = None,
+    lang_specs: dict = None,
+):
     """
     Check if the code exposes sensitive information.
 
@@ -848,19 +959,22 @@ def exposes_sensitive_information(code_dest: str,
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'The code expose sensitive information.',
-            CLOSED: 'The code does not expose sensitive information.',
+            OPEN: "The code expose sensitive information.",
+            CLOSED: "The code does not expose sensitive information.",
         },
         spec=lang_specs,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 @api(risk=LOW, kind=SAST)
-def uses_insecure_protocol(code_dest: str,
-                           pattern: str,
-                           use_regex: bool = False,
-                           exclude: list = None,
-                           lang_specs: dict = None):
+def uses_insecure_protocol(
+    code_dest: str,
+    pattern: str,
+    use_regex: bool = False,
+    exclude: list = None,
+    lang_specs: dict = None,
+):
     """
     Check if the code uses insecure protocol.
 
@@ -885,20 +999,23 @@ def uses_insecure_protocol(code_dest: str,
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'The code uses insecure protocol.',
-            CLOSED: 'The code does not use insecure protocols.',
+            OPEN: "The code uses insecure protocol.",
+            CLOSED: "The code does not use insecure protocols.",
         },
         spec=lang_specs,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 @api(risk=LOW, kind=SAST)
-def has_grammar(code_dest: str,
-                grammar: ParserElement,
-                open_message: str,
-                closed_message: str,
-                exclude: list = None,
-                lang_specs: dict = None) -> tuple:
+def has_grammar(
+    code_dest: str,
+    grammar: ParserElement,
+    open_message: str,
+    closed_message: str,
+    exclude: list = None,
+    lang_specs: dict = None,
+) -> tuple:
     """
     Check if a grammar is present in given source file.
 
@@ -920,15 +1037,18 @@ def has_grammar(code_dest: str,
             CLOSED: closed_message,
         },
         spec=lang_specs,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 @api(risk=LOW, kind=SAST)
-def has_sensible_data_in_logs(code_dest: str,
-                              expected_list: list,
-                              use_regex: bool = False,
-                              exclude: list = None,
-                              lang_specs: dict = None) -> tuple:
+def has_sensible_data_in_logs(
+    code_dest: str,
+    expected_list: list,
+    use_regex: bool = False,
+    exclude: list = None,
+    lang_specs: dict = None,
+) -> tuple:
     """
     Check if the code stores critical system or user data in the logs.
 
@@ -953,8 +1073,9 @@ def has_sensible_data_in_logs(code_dest: str,
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'There is sensitive data being stored in logs',
-            CLOSED: 'There is no sensitive data being stored in logs',
+            OPEN: "There is sensitive data being stored in logs",
+            CLOSED: "There is no sensitive data being stored in logs",
         },
         spec=lang_specs,
-        excl=exclude)
+        excl=exclude,
+    )

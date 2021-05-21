@@ -7,26 +7,27 @@
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('format')
+
+pytestmark = pytest.mark.asserts_module("format")
 
 # local imports
 from fluidasserts.format import apk
 
 
 # Constants
-DIVA_APK = 'test/static/format/apk/open/diva.apk'
-FRIDA_APK = 'test/static/format/apk/open/with_frida.apk'
-SSL_OPEN = 'test/static/format/apk/open/ssl_open.apk'
-HTTP_OPEN = 'test/static/format/apk/open/http_refs.apk'
-UNSAFE_DELETE_OPEN = 'test/static/format/apk/open/unsafe_delete.apk'
-SSL_CLOSE = 'test/static/format/apk/close/ssl_close.apk'
-UNSIGNED_APK = 'test/static/format/apk/open/unsigned.apk'
-JS_APK = 'test/static/format/apk/open/js-open.apk'
-OLD_APK = 'test/static/format/apk/open/old_sdk.apk'
-SIGNED_APK = 'test/static/format/apk/close/signed.apk'
-NO_ROOT_APK = 'test/static/format/apk/close/noroot.apk'
-NOBACKUP = 'test/static/format/apk/close/nobackup.apk'
-NOT_EXISTS_APK = 'test/static/format/apk/close/notexists.apk'
+DIVA_APK = "test/static/format/apk/open/diva.apk"
+FRIDA_APK = "test/static/format/apk/open/with_frida.apk"
+SSL_OPEN = "test/static/format/apk/open/ssl_open.apk"
+HTTP_OPEN = "test/static/format/apk/open/http_refs.apk"
+UNSAFE_DELETE_OPEN = "test/static/format/apk/open/unsafe_delete.apk"
+SSL_CLOSE = "test/static/format/apk/close/ssl_close.apk"
+UNSIGNED_APK = "test/static/format/apk/open/unsigned.apk"
+JS_APK = "test/static/format/apk/open/js-open.apk"
+OLD_APK = "test/static/format/apk/open/old_sdk.apk"
+SIGNED_APK = "test/static/format/apk/close/signed.apk"
+NO_ROOT_APK = "test/static/format/apk/close/noroot.apk"
+NOBACKUP = "test/static/format/apk/close/nobackup.apk"
+NOT_EXISTS_APK = "test/static/format/apk/close/notexists.apk"
 
 #
 # Open tests
@@ -221,6 +222,7 @@ def test_exported_close():
 def test_frida_close():
     """Test if APK Frida embedded."""
     assert not apk.has_frida(SIGNED_APK)
+
 
 #
 # Unknown tests

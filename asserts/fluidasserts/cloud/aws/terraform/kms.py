@@ -21,7 +21,8 @@ from fluidasserts.utils.decorators import api, unknown_if
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def is_key_rotation_absent_or_disabled(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    path: str, exclude: Optional[List[str]] = None
+) -> tuple:
     """
     Check if any ``aws_kms_key`` is miss configured.
 
@@ -39,13 +40,14 @@ def is_key_rotation_absent_or_disabled(
     """
     vulnerabilities: list = []
     for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_tf_template(
-            starting_path=path,
-            resource_types=[
-                'aws_kms_key',
-            ],
-            exclude=exclude):
+        starting_path=path,
+        resource_types=[
+            "aws_kms_key",
+        ],
+        exclude=exclude,
+    ):
 
-        key_rotation: bool = res_props.get('enable_key_rotation', False)
+        key_rotation: bool = res_props.get("enable_key_rotation", False)
 
         key_rotation = helper.to_boolean(key_rotation)
 
@@ -53,20 +55,24 @@ def is_key_rotation_absent_or_disabled(
             vulnerabilities.append(
                 Vulnerability(
                     path=yaml_path,
-                    entity=f'aws_kms_key',
+                    entity=f"aws_kms_key",
                     identifier=res_name,
-                    reason='has key rotation absent or disabled'))
+                    reason="has key rotation absent or disabled",
+                )
+            )
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='enable_key_rotation is absent or disabled on KMS Key',
-        msg_closed='enable_key_rotation is enabled on KMS Key')
+        msg_open="enable_key_rotation is absent or disabled on KMS Key",
+        msg_closed="enable_key_rotation is enabled on KMS Key",
+    )
 
 
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError)
 def is_deletion_window_misconfigured(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    path: str, exclude: Optional[List[str]] = None
+) -> tuple:
     """
     Check if any ``aws_kms_key`` has a wrong deletion_window_in_days.
 
@@ -81,23 +87,27 @@ def is_deletion_window_misconfigured(
     """
     vulnerabilities: list = []
     for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_tf_template(
-            starting_path=path,
-            resource_types=[
-                'aws_kms_key',
-            ],
-            exclude=exclude):
+        starting_path=path,
+        resource_types=[
+            "aws_kms_key",
+        ],
+        exclude=exclude,
+    ):
 
-        key_rotation: int = int(res_props.get('deletion_window_in_days', 30))
+        key_rotation: int = int(res_props.get("deletion_window_in_days", 30))
 
         if key_rotation != 30:
             vulnerabilities.append(
                 Vulnerability(
                     path=yaml_path,
-                    entity=f'aws_kms_key',
+                    entity=f"aws_kms_key",
                     identifier=res_name,
-                    reason='has deletion window != 30'))
+                    reason="has deletion window != 30",
+                )
+            )
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='value of deletion_window_in_days is not 30',
-        msg_closed='value of deletion_window_in_days is 30')
+        msg_open="value of deletion_window_in_days is not 30",
+        msg_closed="value of deletion_window_in_days is 30",
+    )

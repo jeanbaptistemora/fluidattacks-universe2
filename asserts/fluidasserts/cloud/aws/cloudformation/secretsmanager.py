@@ -23,55 +23,67 @@ from fluidasserts.cloud.aws.cloudformation import get_resources
 from fluidasserts.cloud.aws.cloudformation import get_ref_inverse
 
 # ASCII Constants
-NUMERICS: set = set('01234567890')
-LOWERCASE: set = set('abcdefghijklmnopqrstuvwxyz')
-UPPERCASE: set = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
-PUNCTUATION: set = set('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~')
+NUMERICS: set = set("01234567890")
+LOWERCASE: set = set("abcdefghijklmnopqrstuvwxyz")
+UPPERCASE: set = set("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+PUNCTUATION: set = set("!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~")
 
 
 def _insecure_generate_secret_string_get_reasons(
-        exclude_lower, exclude_upper, exclude_numbers,
-        exclude_punctuation, exclude_chars,
-        require_each_include_type, password_length, min_length):
+    exclude_lower,
+    exclude_upper,
+    exclude_numbers,
+    exclude_punctuation,
+    exclude_chars,
+    require_each_include_type,
+    password_length,
+    min_length,
+):
     """Helper to append vulnerabilities based on the parameters provided."""
     reasons: List[str] = []
 
     if exclude_lower:
-        reasons.append('Secret must include lowercase characters')
+        reasons.append("Secret must include lowercase characters")
 
     if exclude_upper:
-        reasons.append('Secret must include uppercase characters')
+        reasons.append("Secret must include uppercase characters")
 
     if exclude_numbers:
-        reasons.append('Secret must include numeric characters')
+        reasons.append("Secret must include numeric characters")
 
     if exclude_punctuation:
-        reasons.append('Using ExcludePunctuation is too agressive'
-                       '; use ExcludeCharacters instead')
+        reasons.append(
+            "Using ExcludePunctuation is too agressive"
+            "; use ExcludeCharacters instead"
+        )
 
-    for charset_name, charset in (('numeric', NUMERICS),
-                                  ('lowercase', LOWERCASE),
-                                  ('uppercase', UPPERCASE),
-                                  ('punctuation', PUNCTUATION)):
+    for charset_name, charset in (
+        ("numeric", NUMERICS),
+        ("lowercase", LOWERCASE),
+        ("uppercase", UPPERCASE),
+        ("punctuation", PUNCTUATION),
+    ):
         # Do not allow to entirely exclude one type of chars
         if all(c in exclude_chars for c in charset):
-            reasons.append(f'You are excluding the entire {charset_name}'
-                           f' charset with ExcludeCharacters')
+            reasons.append(
+                f"You are excluding the entire {charset_name}"
+                f" charset with ExcludeCharacters"
+            )
 
     if not require_each_include_type:
         reasons.append('RequireEachIncludedType must be "true"')
 
     if password_length < min_length:
-        reasons.append(f'PasswordLength must be >= than {min_length}')
+        reasons.append(f"PasswordLength must be >= than {min_length}")
 
     return reasons
 
 
 @api(risk=HIGH, kind=SAST)
 @unknown_if(FileNotFoundError)
-def insecure_generate_secret_string(path: str,
-                                    exclude: Optional[List[str]] = None,
-                                    min_length: int = 14) -> tuple:
+def insecure_generate_secret_string(
+    path: str, exclude: Optional[List[str]] = None, min_length: int = 14
+) -> tuple:
     """
     Check if any ``AWS::SecretsManager::Secret` is weak configured.
 
@@ -98,68 +110,116 @@ def insecure_generate_secret_string(path: str,
     templates = get_templates(graph, path, exclude)
     secrets = get_resources(
         graph,
-        map(lambda x: x[0], templates), {'AWS', 'SecretsManager', 'Secret'},
-        info=True)
+        map(lambda x: x[0], templates),
+        {"AWS", "SecretsManager", "Secret"},
+        info=True,
+    )
     for secret, resource, template in secrets:
         string = helper.get_index(
-            get_resources(graph, secret, 'GenerateSecretString'), 0)
+            get_resources(graph, secret, "GenerateSecretString"), 0
+        )
         if not string:
             continue
         exclude_chars_node: str = helper.get_index(
-            get_ref_nodes(graph,
-                          get_resources(graph, string, 'ExcludeCharacters')[0],
-                          lambda x: isinstance(x, str)), 0)
-        exclude_chars = graph.nodes[exclude_chars_node][
-            'value'] if exclude_chars_node else ''
+            get_ref_nodes(
+                graph,
+                get_resources(graph, string, "ExcludeCharacters")[0],
+                lambda x: isinstance(x, str),
+            ),
+            0,
+        )
+        exclude_chars = (
+            graph.nodes[exclude_chars_node]["value"]
+            if exclude_chars_node
+            else ""
+        )
         password_length_node: str = helper.get_index(
-            get_ref_nodes(graph,
-                          get_resources(graph, string, 'PasswordLength')[0],
-                          lambda x: isinstance(x, (float, int))), 0)
-        password_length = graph.nodes[password_length_node][
-            'value'] if password_length_node else 32
+            get_ref_nodes(
+                graph,
+                get_resources(graph, string, "PasswordLength")[0],
+                lambda x: isinstance(x, (float, int)),
+            ),
+            0,
+        )
+        password_length = (
+            graph.nodes[password_length_node]["value"]
+            if password_length_node
+            else 32
+        )
         with contextlib.suppress(CloudFormationInvalidTypeError):
             exclude_lower_node: str = helper.get_index(
-                get_ref_nodes(graph,
-                              get_resources(graph, string,
-                                            'ExcludeLowercase')[0],
-                              helper.is_boolean), 0)
-            exclude_lower: bool = helper.to_boolean(graph.nodes[
-                exclude_lower_node]['value']) if exclude_lower_node else False
+                get_ref_nodes(
+                    graph,
+                    get_resources(graph, string, "ExcludeLowercase")[0],
+                    helper.is_boolean,
+                ),
+                0,
+            )
+            exclude_lower: bool = (
+                helper.to_boolean(graph.nodes[exclude_lower_node]["value"])
+                if exclude_lower_node
+                else False
+            )
 
             exclude_upper_node: str = helper.get_index(
-                get_ref_nodes(graph,
-                              get_resources(graph, string,
-                                            'ExcludeUppercase')[0],
-                              helper.is_boolean), 0)
-            exclude_upper = helper.to_boolean(graph.nodes[exclude_upper_node][
-                'value']) if exclude_upper_node else False
+                get_ref_nodes(
+                    graph,
+                    get_resources(graph, string, "ExcludeUppercase")[0],
+                    helper.is_boolean,
+                ),
+                0,
+            )
+            exclude_upper = (
+                helper.to_boolean(graph.nodes[exclude_upper_node]["value"])
+                if exclude_upper_node
+                else False
+            )
 
             exclude_numbers_node: str = helper.get_index(
-                get_ref_nodes(graph,
-                              get_resources(graph, string,
-                                            'ExcludeNumbers')[0],
-                              helper.is_boolean), 0)
-            exclude_numbers = helper.to_boolean(
-                graph.nodes[exclude_numbers_node][
-                    'value']) if exclude_numbers_node else False
+                get_ref_nodes(
+                    graph,
+                    get_resources(graph, string, "ExcludeNumbers")[0],
+                    helper.is_boolean,
+                ),
+                0,
+            )
+            exclude_numbers = (
+                helper.to_boolean(graph.nodes[exclude_numbers_node]["value"])
+                if exclude_numbers_node
+                else False
+            )
 
             exclude_punctuation_node: str = helper.get_index(
-                get_ref_nodes(graph,
-                              get_resources(graph, string,
-                                            'ExcludePunctuation')[0],
-                              helper.is_boolean), 0)
-            exclude_punctuation = helper.to_boolean(
-                graph.nodes[exclude_punctuation_node][
-                    'value']) if exclude_punctuation_node else False
+                get_ref_nodes(
+                    graph,
+                    get_resources(graph, string, "ExcludePunctuation")[0],
+                    helper.is_boolean,
+                ),
+                0,
+            )
+            exclude_punctuation = (
+                helper.to_boolean(
+                    graph.nodes[exclude_punctuation_node]["value"]
+                )
+                if exclude_punctuation_node
+                else False
+            )
 
             require_each_include_type_node: str = helper.get_index(
-                get_ref_nodes(graph,
-                              get_resources(graph, string,
-                                            'RequireEachIncludedType')[0],
-                              helper.is_boolean), 0)
-            require_each_include_type = helper.to_boolean(
-                graph.nodes[require_each_include_type_node][
-                    'value']) if require_each_include_type_node else False
+                get_ref_nodes(
+                    graph,
+                    get_resources(graph, string, "RequireEachIncludedType")[0],
+                    helper.is_boolean,
+                ),
+                0,
+            )
+            require_each_include_type = (
+                helper.to_boolean(
+                    graph.nodes[require_each_include_type_node]["value"]
+                )
+                if require_each_include_type_node
+                else False
+            )
 
         reasons: List[str] = _insecure_generate_secret_string_get_reasons(
             exclude_lower=exclude_lower,
@@ -169,29 +229,33 @@ def insecure_generate_secret_string(path: str,
             exclude_chars=exclude_chars,
             require_each_include_type=require_each_include_type,
             password_length=password_length,
-            min_length=min_length)
+            min_length=min_length,
+        )
 
         if reasons:
             vulnerabilities.extend(
                 Vulnerability(
-                    path=template['path'],
-                    entity='AWS::SecretsManager::Secret',
-                    identifier=resource['name'],
-                    line=graph.nodes[string]['line'],
-                    reason=reason)
-                for reason in reasons)
+                    path=template["path"],
+                    entity="AWS::SecretsManager::Secret",
+                    identifier=resource["name"],
+                    line=graph.nodes[string]["line"],
+                    reason=reason,
+                )
+                for reason in reasons
+            )
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='GenerateSecretString is miss-configured',
-        msg_closed='GenerateSecretString is properly configured')
+        msg_open="GenerateSecretString is miss-configured",
+        msg_closed="GenerateSecretString is properly configured",
+    )
 
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
-def has_automatic_rotation_disabled(path: str,
-                                    exclude: Optional[List[str]]
-                                    = None) -> tuple:
+def has_automatic_rotation_disabled(
+    path: str, exclude: Optional[List[str]] = None
+) -> tuple:
     """
     Check if automatic rotation is enabled for AWS Secrets Manager secrets.
 
@@ -208,23 +272,26 @@ def has_automatic_rotation_disabled(path: str,
     buckets: List[int] = get_resources(
         graph,
         map(lambda x: x[0], templates),
-        {'AWS', 'SecretsManager', 'Secret'},
+        {"AWS", "SecretsManager", "Secret"},
         num_labels=3,
-        info=True)
+        info=True,
+    )
 
     for secret, resource, template in buckets:
-        rotation = get_ref_inverse(graph, secret,
-                                   'RotationSchedule', depth=5)
+        rotation = get_ref_inverse(graph, secret, "RotationSchedule", depth=5)
         if not rotation:
             vulnerabilities.append(
                 Vulnerability(
-                    path=template['path'],
-                    entity=f'AWS::SecretsManager::Secret',
-                    identifier=resource['name'],
-                    line=resource['line'],
-                    reason='does not have a RotationSchedule attached.'))
+                    path=template["path"],
+                    entity=f"AWS::SecretsManager::Secret",
+                    identifier=resource["name"],
+                    line=resource["line"],
+                    reason="does not have a RotationSchedule attached.",
+                )
+            )
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='Secrets have no rotation schedules',
-        msg_closed='Secrets have rotation schedules')
+        msg_open="Secrets have no rotation schedules",
+        msg_closed="Secrets have rotation schedules",
+    )

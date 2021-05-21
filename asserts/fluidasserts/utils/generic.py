@@ -51,7 +51,7 @@ def _full_paths_in_path(path: str) -> tuple:
 
 
 # pylint: disable=unused-argument
-@api(risk=LOW, kind='Generic')
+@api(risk=LOW, kind="Generic")
 @unknown_if(Exception)
 def check_function(func: Callable, *args, metadata=None, **kwargs) -> bool:
     """Run arbitrary code and return results in Asserts format.
@@ -66,16 +66,19 @@ def check_function(func: Callable, *args, metadata=None, **kwargs) -> bool:
     """
     if asyncio.iscoroutinefunction(func):
         ret = asynchronous.run_func(
-            func, ((args, kwargs),), return_exceptions=False)[0]
+            func, ((args, kwargs),), return_exceptions=False
+        )[0]
     else:
         ret = func(*args, **kwargs)
 
     is_check_open: bool = bool(ret)
-    msg_open: str = 'Check was found open'
-    msg_closed: str = 'Check was found closed'
+    msg_open: str = "Check was found open"
+    msg_closed: str = "Check was found closed"
 
-    unit = Unit(where='Custom function call',
-                specific=[msg_open if is_check_open else msg_closed])
+    unit = Unit(
+        where="Custom function call",
+        specific=[msg_open if is_check_open else msg_closed],
+    )
 
     if is_check_open:
         return OPEN, msg_open, [unit], []
@@ -83,9 +86,9 @@ def check_function(func: Callable, *args, metadata=None, **kwargs) -> bool:
 
 
 @lru_cache(maxsize=None, typed=True)
-def get_paths(path: str,
-              exclude: tuple = tuple(),
-              endswith: tuple = tuple()) -> tuple:
+def get_paths(
+    path: str, exclude: tuple = tuple(), endswith: tuple = tuple()
+) -> tuple:
     """Return a tuple of full paths to files recursively from path."""
     paths = _full_paths_in_path(path)
     if exclude:
@@ -95,25 +98,30 @@ def get_paths(path: str,
     return tuple(paths)
 
 
-def get_paths_tree(path: str,
-                   exclude: tuple = tuple(),
-                   endswith: tuple = tuple()):
+def get_paths_tree(
+    path: str, exclude: tuple = tuple(), endswith: tuple = tuple()
+):
     """Return a directory tree."""
     paths = []
     for root, dirs, files in os.walk(path):
         if exclude:
-            files = [file for file in files if not any(
-                e in f'{root}/{file}' for e in exclude)]
+            files = [
+                file
+                for file in files
+                if not any(e in f"{root}/{file}" for e in exclude)
+            ]
         if endswith:
-            files = [file for file in files if any(
-                f'{root}/{file}'.endswith(e) for e in endswith)]
+            files = [
+                file
+                for file in files
+                if any(f"{root}/{file}".endswith(e) for e in endswith)
+            ]
         paths.append((root, dirs, files))
     return paths
 
 
 @lru_cache(maxsize=None, typed=True)
-def get_dir_paths(path: str,
-                  exclude: tuple = tuple()) -> tuple:
+def get_dir_paths(path: str, exclude: tuple = tuple()) -> tuple:
     """Return a tuple of full paths to files recursively from path."""
     paths = _scan_for_dirs(path)
     if exclude:
@@ -131,7 +139,7 @@ def get_sha256(path: str) -> str:
     sha256 = hashlib.sha256()
     if path is not None and os.path.exists(path):
         for fpath in get_paths(path):
-            with open(fpath, 'rb', buffering=0) as handle:
+            with open(fpath, "rb", buffering=0) as handle:
                 block = handle.read(128 * 1024)
                 while block:
                     sha256.update(block)
@@ -145,16 +153,18 @@ def add_finding(finding: str) -> bool:
     :param finding: Current project context.
     """
     method_stats_set_owner(finding)
-    message = yaml.safe_dump({'finding': finding},
-                             default_flow_style=False,
-                             explicit_start=True,
-                             allow_unicode=True)
-    print(message, end='', flush=True, file=sys.stdout)
-    print(message, end='', flush=True, file=sys.stderr)
+    message = yaml.safe_dump(
+        {"finding": finding},
+        default_flow_style=False,
+        explicit_start=True,
+        allow_unicode=True,
+    )
+    print(message, end="", flush=True, file=sys.stdout)
+    print(message, end="", flush=True, file=sys.stderr)
     return True
 
 
-class FluidAsserts():
+class FluidAsserts:
     """
     Generic context manager to assert security assumptions.
 
@@ -203,27 +213,24 @@ class FluidAsserts():
             creator.result
     """
 
-    __name__ = 'FluidAsserts'
+    __name__ = "FluidAsserts"
 
-    def __init__(self,
-                 *,
-                 risk: str,
-                 kind: str,
-                 message: str):
+    def __init__(self, *, risk: str, kind: str, message: str):
         """Initialize the parameters for the context manager."""
         self._message: str = message
         self._open_units: List[Unit] = []
         self._closed_units: List[Unit] = []
 
-        self.result = Result(risk=risk, kind=kind,
-                             func=self,
-                             func_args=[],
-                             func_kwargs={'risk': risk,
-                                          'kind': kind,
-                                          'message': message})
+        self.result = Result(
+            risk=risk,
+            kind=kind,
+            func=self,
+            func_args=[],
+            func_kwargs={"risk": risk, "kind": kind, "message": message},
+        )
 
         # Notify that the check is running
-        print(f'  check: {self.result.func_id}', file=sys.stderr, flush=True)
+        print(f"  check: {self.result.func_id}", file=sys.stderr, flush=True)
 
         # Track the function
         mp_track(self.result.func_id)
@@ -260,7 +267,7 @@ class FluidAsserts():
         """Handle exceptions and print results."""
         if exc_type:
             status: str = UNKNOWN
-            message: str = f'An error occurred: {exc_value}'
+            message: str = f"An error occurred: {exc_value}"
         else:
             status = OPEN if self._open_units else CLOSED
             message = self._message

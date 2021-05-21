@@ -46,14 +46,15 @@ def _remove_accepted(line_numbers, lines):
     :param line_numbers: vulnerable line numbers
     :param lines: file lines to search for flag in
     """
-    regex = re.compile(r'(#|//) nosec')
+    regex = re.compile(r"(#|//) nosec")
     for line in sorted(line_numbers, reverse=True):
         if regex.search(lines[line - 1]):
             line_numbers.remove(line)
 
 
-def parse_single(grammar: ParserElement,
-                 path: str) -> Tuple[List[Unit], List[Unit]]:
+def parse_single(
+    grammar: ParserElement, path: str
+) -> Tuple[List[Unit], List[Unit]]:
     """
     Return a tuple with the results of parsing path with grammar.
 
@@ -63,11 +64,11 @@ def parse_single(grammar: ParserElement,
     :param grammar: Grammar to be searched for in path.
     :param path: Path to the destination file.
     """
-    with open(path, encoding='latin-1') as file_d:
+    with open(path, encoding="latin-1") as file_d:
         lines = file_d.read().splitlines()
 
     lines_length = tuple(map(lambda x: len(x) + 1, lines))
-    file_as_string = '\n'.join(lines)
+    file_as_string = "\n".join(lines)
 
     # Given scanString expands tabs to 'n' number of spaces
     # And we count tabs as '1' char width
@@ -80,22 +81,26 @@ def parse_single(grammar: ParserElement,
 
     line_numbers = [
         _get_line_number(start, lines_length)
-        for _, start, _ in grammar.scanString(file_as_string)]
+        for _, start, _ in grammar.scanString(file_as_string)
+    ]
 
     _remove_accepted(line_numbers, lines)
 
-    results: List[Unit] = [Unit(where=path,
-                                source='Lines',
-                                specific=list(set(line_numbers)),
-                                fingerprint=get_sha256(path))]
+    results: List[Unit] = [
+        Unit(
+            where=path,
+            source="Lines",
+            specific=list(set(line_numbers)),
+            fingerprint=get_sha256(path),
+        )
+    ]
 
     return (results, []) if line_numbers else ([], results)
 
 
-def parse(grammar: ParserElement,
-          path: str,
-          lang_spec: dict,
-          exclude: list = None) -> Tuple[List[Unit], List[Unit]]:
+def parse(
+    grammar: ParserElement, path: str, lang_spec: dict, exclude: list = None
+) -> Tuple[List[Unit], List[Unit]]:
     """
     Return a tuple with the results of parsing path with grammar.
 
@@ -109,7 +114,7 @@ def parse(grammar: ParserElement,
     """
     matched, not_matched = [], []
     exclude = tuple(exclude) if exclude else tuple()
-    extensions = lang_spec.get('extensions')
+    extensions = lang_spec.get("extensions")
     for full_path in get_paths(path, endswith=extensions, exclude=exclude):
         _matched, _not_matched = parse_single(grammar, full_path)
         matched.extend(_matched)
@@ -118,16 +123,18 @@ def parse(grammar: ParserElement,
     return matched, not_matched
 
 
-def generic_method(path: str,
-                   gmmr: Any,
-                   func: Callable,
-                   msgs: Dict[str, str],
-                   excl: list = None,
-                   spec: dict = None,
-                   reverse: bool = False) -> tuple:
+def generic_method(
+    path: str,
+    gmmr: Any,
+    func: Callable,
+    msgs: Dict[str, str],
+    excl: list = None,
+    spec: dict = None,
+    reverse: bool = False,
+) -> tuple:
     """Check grammar in a destination and propagate results upwards."""
     if not os.path.exists(path):
-        return UNKNOWN, 'File does not exist'
+        return UNKNOWN, "File does not exist"
 
     excl = excl if excl else []
     spec = spec if spec else {}
@@ -141,4 +148,4 @@ def generic_method(path: str,
         return OPEN, msgs[OPEN], vulns, safes
     if safes:
         return CLOSED, msgs[CLOSED], vulns, safes
-    return CLOSED, 'No files were tested'
+    return CLOSED, "No files were tested"

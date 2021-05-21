@@ -24,28 +24,37 @@ def has_no_password_protection(path: str) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(path):
-        return UNKNOWN, 'Path does not exist'
+        return UNKNOWN, "Path does not exist"
 
-    msg_open: str = 'Keystore is not password protected'
-    msg_closed: str = 'Keystore is password protected'
+    msg_open: str = "Keystore is not password protected"
+    msg_closed: str = "Keystore is password protected"
 
     safes: List[Unit] = []
     vulns: List[Unit] = []
-    for full_path in get_paths(path, endswith=('.jks', '.bks',)):
+    for full_path in get_paths(
+        path,
+        endswith=(
+            ".jks",
+            ".bks",
+        ),
+    ):
         vulnerable: bool = True
         try:
-            if full_path.endswith('.jks'):
-                jks.KeyStore.load(full_path, '')
-            elif full_path.endswith('.bks'):
-                jks.BksKeyStore.load(full_path, '')
+            if full_path.endswith(".jks"):
+                jks.KeyStore.load(full_path, "")
+            elif full_path.endswith(".bks"):
+                jks.BksKeyStore.load(full_path, "")
         except jks.util.KeystoreSignatureException:
             vulnerable = False
 
         (vulns if vulnerable else safes).append(
-            Unit(where=path,
-                 source='JKS/Password',
-                 specific=[msg_open if vulnerable else msg_closed],
-                 fingerprint=get_sha256(path)))
+            Unit(
+                where=path,
+                source="JKS/Password",
+                specific=[msg_open if vulnerable else msg_closed],
+                fingerprint=get_sha256(path),
+            )
+        )
 
     if vulns:
         return OPEN, msg_open, vulns, safes
@@ -60,23 +69,29 @@ def _use_passwords(path: str, passwords: list) -> tuple:
     :param passwords: passwords to test
     """
     if not os.path.exists(path):
-        return UNKNOWN, 'Path does not exist'
+        return UNKNOWN, "Path does not exist"
 
-    msg_open: str = 'Keystore is protected by a weak password'
-    msg_closed: str = 'Keystore is protected by a strong password'
+    msg_open: str = "Keystore is protected by a weak password"
+    msg_closed: str = "Keystore is protected by a strong password"
 
     safes: List[Unit] = []
     vulns: List[Unit] = []
 
-    passwords = ['', *(p for p in set(passwords))]
+    passwords = ["", *(p for p in set(passwords))]
 
-    for full_path in get_paths(path, endswith=('.jks', '.bks',)):
+    for full_path in get_paths(
+        path,
+        endswith=(
+            ".jks",
+            ".bks",
+        ),
+    ):
         vulnerable: bool = False
         for password in passwords:
             try:
-                if full_path.endswith('.jks'):
+                if full_path.endswith(".jks"):
                     jks.KeyStore.load(full_path, password)
-                elif full_path.endswith('.bks'):
+                elif full_path.endswith(".bks"):
                     jks.BksKeyStore.load(full_path, password)
             except jks.util.KeystoreSignatureException:
                 # wrong password
@@ -87,10 +102,13 @@ def _use_passwords(path: str, passwords: list) -> tuple:
                 break
 
         (vulns if vulnerable else safes).append(
-            Unit(where=path,
-                 source='JKS/Password',
-                 specific=[msg_open if vulnerable else msg_closed],
-                 fingerprint=get_sha256(path)))
+            Unit(
+                where=path,
+                source="JKS/Password",
+                specific=[msg_open if vulnerable else msg_closed],
+                fingerprint=get_sha256(path),
+            )
+        )
 
     if vulns:
         return OPEN, msg_open, vulns, safes

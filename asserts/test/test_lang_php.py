@@ -7,22 +7,24 @@
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('lang_php')
+
+pytestmark = pytest.mark.asserts_module("lang_php")
 
 # local imports
 from fluidasserts.lang import php
 
 # Constants
 
-CODE_DIR = 'test/static/lang/php/'
-SECURE_CODE = CODE_DIR + 'safe_code.php'
-INSECURE_CODE = CODE_DIR + 'vuln_code.php'
-NON_EXISTANT_CODE = CODE_DIR + 'not_exists.php'
+CODE_DIR = "test/static/lang/php/"
+SECURE_CODE = CODE_DIR + "safe_code.php"
+INSECURE_CODE = CODE_DIR + "vuln_code.php"
+NON_EXISTANT_CODE = CODE_DIR + "not_exists.php"
 
 
 #
 # Open tests
 #
+
 
 def test_has_preg_rce_open():
     """Code uses unsafe preg_replace."""
@@ -38,7 +40,7 @@ def test_has_preg_rce_open():
 def test_has_preg_rce_close():
     """Code uses unsafe preg_replace."""
     assert php.has_preg_ce(SECURE_CODE).is_closed()
-    assert php.has_preg_ce(CODE_DIR, exclude=['test']).is_closed()
+    assert php.has_preg_ce(CODE_DIR, exclude=["test"]).is_closed()
 
 
 #

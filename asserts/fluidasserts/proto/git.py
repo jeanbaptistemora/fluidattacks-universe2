@@ -11,7 +11,13 @@ from pydriller import RepositoryMining
 
 # local imports
 from fluidasserts import (
-    SAST, LOW, _get_result_as_tuple_sast, Unit, OPEN, CLOSED)
+    SAST,
+    LOW,
+    _get_result_as_tuple_sast,
+    Unit,
+    OPEN,
+    CLOSED,
+)
 from fluidasserts.utils.decorators import unknown_if, api
 
 
@@ -25,13 +31,14 @@ def commit_has_secret(repo: str, commit_id: str, secret: str) -> tuple:
     :param commit_id: Commit to test.
     :param secret: Secret to search.
     """
-    diff = git.Repo(repo).git.diff(f'{commit_id}~1..{commit_id}')
+    diff = git.Repo(repo).git.diff(f"{commit_id}~1..{commit_id}")
 
     return _get_result_as_tuple_sast(
         path=repo,
-        msg_open=f'Secret found in commit {commit_id}',
-        msg_closed=f'Secret not found in commit {commit_id}',
-        open_if=secret in diff)
+        msg_open=f"Secret found in commit {commit_id}",
+        msg_closed=f"Secret not found in commit {commit_id}",
+        open_if=secret in diff,
+    )
 
 
 @api(risk=LOW, kind=SAST)
@@ -43,14 +50,14 @@ def has_insecure_gitignore(repo: str) -> tuple:
     :param repo: Repository path.
     """
     secure_entries = (
-        '*.pem',
-        '*.key',
-        '*.p12',
-        'Thumbs.db',
-        '.DS_Store',
+        "*.pem",
+        "*.key",
+        "*.p12",
+        "Thumbs.db",
+        ".DS_Store",
     )
 
-    gitignore_path = os.path.join(repo, '.gitignore')
+    gitignore_path = os.path.join(repo, ".gitignore")
 
     with open(gitignore_path) as git_fd:
         content = git_fd.read()
@@ -59,9 +66,10 @@ def has_insecure_gitignore(repo: str) -> tuple:
 
     return _get_result_as_tuple_sast(
         path=gitignore_path,
-        msg_open='All security entries were found in .gitignore',
-        msg_closed='Not all security entries were found in .gitignore',
-        open_if=not safe_gitignore)
+        msg_open="All security entries were found in .gitignore",
+        msg_closed="Not all security entries were found in .gitignore",
+        open_if=not safe_gitignore,
+    )
 
 
 @api(risk=LOW, kind=SAST)
@@ -73,20 +81,23 @@ def has_secret_in_git_history(repo: str, file_path: str, secret: str):
     :param repo: Repository path.
     :param secret: Secret to search.
     """
-    msg_open = f'Secret found in commit history'
-    msg_closed = f'Secret not found in commit history'
+    msg_open = f"Secret found in commit history"
+    msg_closed = f"Secret not found in commit history"
     vulns, safes = [], []
     for commit in RepositoryMining(
-            repo, filepath=file_path).traverse_commits():
+        repo, filepath=file_path
+    ).traverse_commits():
         for modified_file in commit.modifications:
-            open_ = f'Secret found in commit {commit.hash}'
-            closed_ = f'Secret not found in commit {commit.hash}'
+            open_ = f"Secret found in commit {commit.hash}"
+            closed_ = f"Secret not found in commit {commit.hash}"
             (vulns if secret in modified_file.diff else safes).append(
                 Unit(
                     where=modified_file.new_path,
                     specific=[
                         open_ if secret in modified_file.diff else closed_
-                    ]))
+                    ],
+                )
+            )
 
     if vulns:
         return OPEN, msg_open, vulns, []

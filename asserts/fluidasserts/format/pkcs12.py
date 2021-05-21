@@ -21,20 +21,22 @@ def has_no_password_protection(path: str) -> tuple:
 
     :param path: path to check.
     """
-    msg_open: str = 'File is not password protected'
-    msg_closed: str = 'File is password protected'
+    msg_open: str = "File is not password protected"
+    msg_closed: str = "File is password protected"
 
     safes: List[Unit] = []
     vulns: List[Unit] = []
 
     for full_path in get_paths(
-            path, endswith=(
-                '.p12',
-                '.pfx',
-            )):
+        path,
+        endswith=(
+            ".p12",
+            ".pfx",
+        ),
+    ):
         vulnerable = True
         try:
-            with open(full_path, 'rb') as p12_file_handle:
+            with open(full_path, "rb") as p12_file_handle:
                 crypto.load_pkcs12(p12_file_handle.read())
         except crypto.Error:
             vulnerable = False
@@ -42,9 +44,11 @@ def has_no_password_protection(path: str) -> tuple:
         (vulns if vulnerable else safes).append(
             Unit(
                 where=full_path,
-                source='PKCS 12/Password',
+                source="PKCS 12/Password",
                 specific=[msg_open if vulnerable else msg_closed],
-                fingerprint=get_sha256(path)))
+                fingerprint=get_sha256(path),
+            )
+        )
     if vulns:
         return OPEN, msg_open, vulns, safes
     return CLOSED, msg_closed, vulns, safes
@@ -60,23 +64,25 @@ def use_passwords(path: str, passwords: List):
     :param passwords: passwords to test
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'PKCS is protected by a weak password'
-    msg_closed: str = 'PKCS is protected by a strong password'
+    msg_open: str = "PKCS is protected by a weak password"
+    msg_closed: str = "PKCS is protected by a strong password"
 
     safes: List[Unit] = []
     vulns: List[Unit] = []
 
-    passwords = ['', *(p for p in set(passwords))]
+    passwords = ["", *(p for p in set(passwords))]
 
     for full_path in get_paths(
-            path, endswith=(
-                '.p12',
-                '.pfx',
-            )):
+        path,
+        endswith=(
+            ".p12",
+            ".pfx",
+        ),
+    ):
         vulnerable = False
         for password in passwords:
             try:
-                with open(full_path, 'rb') as p12_file_handle:
+                with open(full_path, "rb") as p12_file_handle:
                     crypto.load_pkcs12(p12_file_handle.read(), password)
             except crypto.Error:
                 continue
@@ -87,9 +93,11 @@ def use_passwords(path: str, passwords: List):
         (vulns if vulnerable else safes).append(
             Unit(
                 where=full_path,
-                source='PKCS 12/Password',
+                source="PKCS 12/Password",
                 specific=[msg_open if vulnerable else msg_closed],
-                fingerprint=get_sha256(path)))
+                fingerprint=get_sha256(path),
+            )
+        )
     if vulns:
         return OPEN, msg_open, vulns, safes
     return CLOSED, msg_closed, vulns, safes

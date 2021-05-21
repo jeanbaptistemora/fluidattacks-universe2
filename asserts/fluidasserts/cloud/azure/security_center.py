@@ -17,9 +17,14 @@ from fluidasserts.utils.decorators import api, unknown_if
 from fluidasserts.cloud.azure import _get_result_as_tuple, _get_credentials
 
 
-def _has_monitoring_param_value(client_id: str, secret: str, tenant: str,
-                                subscription_id: str, param_name: str,
-                                param_value: str) -> Tuple:
+def _has_monitoring_param_value(
+    client_id: str,
+    secret: str,
+    tenant: str,
+    subscription_id: str,
+    param_name: str,
+    param_value: str,
+) -> Tuple:
     """
     Check if the value of a parameter is present in a policy assignment.
 
@@ -38,40 +43,58 @@ def _has_monitoring_param_value(client_id: str, secret: str, tenant: str,
     for policy in policies.list():
         if param_name in policy.parameters:
             try:
-                (success if policy.
-                 parameters[param_name]['value'] == param_value
-                 else fail).append(policy.id)
+                (
+                    success
+                    if policy.parameters[param_name]["value"] == param_value
+                    else fail
+                ).append(policy.id)
             except TypeError:
                 try:
-                    (success if policy.parameters[param_name].
-                     additional_properties['value'] == param_value
-                     else fail).append(policy.id)
+                    (
+                        success
+                        if policy.parameters[param_name].additional_properties[
+                            "value"
+                        ]
+                        == param_value
+                        else fail
+                    ).append(policy.id)
                 except KeyError:
-                    (success if policy.
-                     parameters[param_name].value == param_value
-                     else fail).append(policy.id)
+                    (
+                        success
+                        if policy.parameters[param_name].value == param_value
+                        else fail
+                    ).append(policy.id)
         else:
             pol = policies.get_by_id(policy.policy_definition_id)
             try:
-                (success
-                 if pol.parameters[param_name]['defaultValue'] == param_value
-                 else fail).append(policy.id)
+                (
+                    success
+                    if pol.parameters[param_name]["defaultValue"]
+                    == param_value
+                    else fail
+                ).append(policy.id)
             except TypeError:
-                (success
-                 if pol.parameters[param_name].
-                 additional_properties['defaultValue'] == param_value else
-                 fail).append(policy.id)
+                (
+                    success
+                    if pol.parameters[param_name].additional_properties[
+                        "defaultValue"
+                    ]
+                    == param_value
+                    else fail
+                ).append(policy.id)
 
     return (success, fail)
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ClientException, AuthenticationError)
-def has_admin_security_alerts_disabled(client_id: str,
-                                       secret: str,
-                                       tenant: str,
-                                       subscription_id: str,
-                                       region: str = 'east-us') -> Tuple:
+def has_admin_security_alerts_disabled(
+    client_id: str,
+    secret: str,
+    tenant: str,
+    subscription_id: str,
+    region: str = "east-us",
+) -> Tuple:
     """
     Check if security alerts are not configured to be sent to admins.
 
@@ -91,33 +114,37 @@ def has_admin_security_alerts_disabled(client_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Security alerts are not configured to be sent to admins.'
-    msg_closed: str = 'Security alerts are configured to be sent to admins.'
+    msg_open: str = "Security alerts are not configured to be sent to admins."
+    msg_closed: str = "Security alerts are configured to be sent to admins."
     vulns, safes = [], []
 
     credentials = _get_credentials(client_id, secret, tenant)
-    center = SecurityCenter(credentials, subscription_id,
-                            region).security_contacts
+    center = SecurityCenter(
+        credentials, subscription_id, region
+    ).security_contacts
 
-    (vulns if not list(center.list()) else
-     safes).append((f'subscriptions/{subscription_id}',
-                    'configure security alerts.'))
+    (vulns if not list(center.list()) else safes).append(
+        (f"subscriptions/{subscription_id}", "configure security alerts.")
+    )
 
     return _get_result_as_tuple(
-        objects='Security center',
+        objects="Security center",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ClientException, AuthenticationError)
-def has_high_security_alerts_disabled(client_id: str,
-                                      secret: str,
-                                      tenant: str,
-                                      subscription_id: str,
-                                      region: str = 'east-us') -> Tuple:
+def has_high_security_alerts_disabled(
+    client_id: str,
+    secret: str,
+    tenant: str,
+    subscription_id: str,
+    region: str = "east-us",
+) -> Tuple:
     """
     Check if high security alerts are disabled.
 
@@ -136,37 +163,39 @@ def has_high_security_alerts_disabled(client_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'High security alerts are disabled.'
-    msg_closed: str = 'High security alerts are enabled.'
+    msg_open: str = "High security alerts are disabled."
+    msg_closed: str = "High security alerts are enabled."
     vulns, safes = [], []
 
     credentials = _get_credentials(client_id, secret, tenant)
-    center = SecurityCenter(credentials, subscription_id,
-                            region).security_contacts
+    center = SecurityCenter(
+        credentials, subscription_id, region
+    ).security_contacts
 
     for contact in center.list():
-        (vulns if contact.alert_notifications == 'Off' else
-         safes).append((contact.id, 'enable high security alerts.'))
+        (vulns if contact.alert_notifications == "Off" else safes).append(
+            (contact.id, "enable high security alerts.")
+        )
 
     if not safes:
-        vulns.append((f'subscriptions/{subscription_id}',
-                      'configure security alerts.'))
+        vulns.append(
+            (f"subscriptions/{subscription_id}", "configure security alerts.")
+        )
 
     return _get_result_as_tuple(
-        objects='Security center',
+        objects="Security center",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ClientException, AuthenticationError)
 def has_blob_encryption_monitor_disabled(
-        client_id: str,
-        secret: str,
-        tenant: str,
-        subscription_id: str) -> Tuple:
+    client_id: str, secret: str, tenant: str, subscription_id: str
+) -> Tuple:
     """
     Check if Blob Storage Encryption monitoring is disabled.
 
@@ -186,31 +215,35 @@ def has_blob_encryption_monitor_disabled(
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Blob Storage Encryption monitoring is disabled.'
-    msg_closed: str = 'Blob Storage Encryption monitoring is enabled.'
+    msg_open: str = "Blob Storage Encryption monitoring is disabled."
+    msg_closed: str = "Blob Storage Encryption monitoring is enabled."
     vulns, safes = _has_monitoring_param_value(
-        client_id, secret, tenant, subscription_id,
-        'storageEncryptionMonitoringEffect', 'Disabled')
+        client_id,
+        secret,
+        tenant,
+        subscription_id,
+        "storageEncryptionMonitoringEffect",
+        "Disabled",
+    )
 
-    message = 'enable Blob Storage Encryption monitoring.'
+    message = "enable Blob Storage Encryption monitoring."
     vulns = list(zip(vulns, repeat(message)))
     safes = list(zip(safes, repeat(message)))
 
     return _get_result_as_tuple(
-        objects='Security center',
+        objects="Security center",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ClientException, AuthenticationError)
 def has_disk_encryption_monitor_disabled(
-        client_id: str,
-        secret: str,
-        tenant: str,
-        subscription_id: str) -> Tuple:
+    client_id: str, secret: str, tenant: str, subscription_id: str
+) -> Tuple:
     """
     Check if Disk encryption monitor is disabled.
 
@@ -230,31 +263,35 @@ def has_disk_encryption_monitor_disabled(
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Disk encryption monitor is disabled.'
-    msg_closed: str = 'Disk encryption monitor is enabled.'
+    msg_open: str = "Disk encryption monitor is disabled."
+    msg_closed: str = "Disk encryption monitor is enabled."
     vulns, safes = _has_monitoring_param_value(
-        client_id, secret, tenant, subscription_id,
-        'diskEncryptionMonitoringEffect', 'Disabled')
+        client_id,
+        secret,
+        tenant,
+        subscription_id,
+        "diskEncryptionMonitoringEffect",
+        "Disabled",
+    )
 
-    message = 'enable Disk encryption monitor.'
+    message = "enable Disk encryption monitor."
     vulns = list(zip(vulns, repeat(message)))
     safes = list(zip(safes, repeat(message)))
 
     return _get_result_as_tuple(
-        objects='Security center',
+        objects="Security center",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ClientException, AuthenticationError)
 def has_api_endpoint_monitor_disabled(
-        client_id: str,
-        secret: str,
-        tenant: str,
-        subscription_id: str) -> Tuple:
+    client_id: str, secret: str, tenant: str, subscription_id: str
+) -> Tuple:
     """
     Check if API endpoint monitor is disabled.
 
@@ -274,31 +311,35 @@ def has_api_endpoint_monitor_disabled(
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'API endpoint monitor is disabled.'
-    msg_closed: str = 'API endpoint monitor is enabled.'
+    msg_open: str = "API endpoint monitor is disabled."
+    msg_closed: str = "API endpoint monitor is enabled."
     vulns, safes = _has_monitoring_param_value(
-        client_id, secret, tenant, subscription_id,
-        'endpointProtectionMonitoringEffect', 'Disabled')
+        client_id,
+        secret,
+        tenant,
+        subscription_id,
+        "endpointProtectionMonitoringEffect",
+        "Disabled",
+    )
 
-    message = 'enable API endpoint monitor.'
+    message = "enable API endpoint monitor."
     vulns = list(zip(vulns, repeat(message)))
     safes = list(zip(safes, repeat(message)))
 
     return _get_result_as_tuple(
-        objects='Security center',
+        objects="Security center",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(ClientException, AuthenticationError)
 def has_system_updates_monitor_disabled(
-        client_id: str,
-        secret: str,
-        tenant: str,
-        subscription_id: str) -> Tuple:
+    client_id: str, secret: str, tenant: str, subscription_id: str
+) -> Tuple:
     """
     Check if System updates monitor is disabled.
 
@@ -318,31 +359,35 @@ def has_system_updates_monitor_disabled(
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'System updates monitor is disabled.'
-    msg_closed: str = 'System updates monitor is enabled.'
+    msg_open: str = "System updates monitor is disabled."
+    msg_closed: str = "System updates monitor is enabled."
     vulns, safes = _has_monitoring_param_value(
-        client_id, secret, tenant, subscription_id,
-        'systemUpdatesMonitoringEffect', 'Disabled')
+        client_id,
+        secret,
+        tenant,
+        subscription_id,
+        "systemUpdatesMonitoringEffect",
+        "Disabled",
+    )
 
-    message = 'enable System updates monitor.'
+    message = "enable System updates monitor."
     vulns = list(zip(vulns, repeat(message)))
     safes = list(zip(safes, repeat(message)))
 
     return _get_result_as_tuple(
-        objects='Security center',
+        objects="Security center",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ClientException, AuthenticationError)
 def has_vm_vulnerabilities_monitor_disabled(
-        client_id: str,
-        secret: str,
-        tenant: str,
-        subscription_id: str) -> Tuple:
+    client_id: str, secret: str, tenant: str, subscription_id: str
+) -> Tuple:
     """
     Check if Virtual Machine Vulnerability monitor is disabled.
 
@@ -363,31 +408,35 @@ def has_vm_vulnerabilities_monitor_disabled(
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Virtual Machine Vulnerability monitor is disabled.'
-    msg_closed: str = 'Virtual Machine Vulnerability monitor is disabled.'
+    msg_open: str = "Virtual Machine Vulnerability monitor is disabled."
+    msg_closed: str = "Virtual Machine Vulnerability monitor is disabled."
     vulns, safes = _has_monitoring_param_value(
-        client_id, secret, tenant, subscription_id,
-        'vulnerabilityAssesmentMonitoringEffect', 'Disabled')
+        client_id,
+        secret,
+        tenant,
+        subscription_id,
+        "vulnerabilityAssesmentMonitoringEffect",
+        "Disabled",
+    )
 
-    message = 'enable Virtual Machine Vulnerability monitor.'
+    message = "enable Virtual Machine Vulnerability monitor."
     vulns = list(zip(vulns, repeat(message)))
     safes = list(zip(safes, repeat(message)))
 
     return _get_result_as_tuple(
-        objects='Security center',
+        objects="Security center",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ClientException, AuthenticationError)
 def has_security_configuration_monitor_disabled(
-        client_id: str,
-        secret: str,
-        tenant: str,
-        subscription_id: str) -> Tuple:
+    client_id: str, secret: str, tenant: str, subscription_id: str
+) -> Tuple:
     """
     Check if System security configuration monitor is disabled.
 
@@ -408,31 +457,39 @@ def has_security_configuration_monitor_disabled(
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'System security configuration monitor is disabled.'
-    msg_closed: str = 'System security configuration monitor is enabled.'
+    msg_open: str = "System security configuration monitor is disabled."
+    msg_closed: str = "System security configuration monitor is enabled."
     vulns, safes = _has_monitoring_param_value(
-        client_id, secret, tenant, subscription_id,
-        'systemConfigurationsMonitoringEffect', 'Disabled')
+        client_id,
+        secret,
+        tenant,
+        subscription_id,
+        "systemConfigurationsMonitoringEffect",
+        "Disabled",
+    )
 
-    message = 'enable System security configuration monitor.'
+    message = "enable System security configuration monitor."
     vulns = list(zip(vulns, repeat(message)))
     safes = list(zip(safes, repeat(message)))
 
     return _get_result_as_tuple(
-        objects='Security center',
+        objects="Security center",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(ClientException, AuthenticationError)
-def has_security_contacts_disabled(client_id: str,
-                                   secret: str,
-                                   tenant: str,
-                                   subscription_id: str,
-                                   region: str = 'east-us') -> Tuple:
+def has_security_contacts_disabled(
+    client_id: str,
+    secret: str,
+    tenant: str,
+    subscription_id: str,
+    region: str = "east-us",
+) -> Tuple:
     """
     Check if security contact phone number and email address are set.
 
@@ -451,38 +508,48 @@ def has_security_contacts_disabled(client_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = \
-        'Security contact phone number and email address are not set.'
-    msg_closed: str = \
-        'Security contact phone number and email address are set.'
+    msg_open: str = (
+        "Security contact phone number and email address are not set."
+    )
+    msg_closed: str = (
+        "Security contact phone number and email address are set."
+    )
     vulns, safes = [], []
 
     credentials = _get_credentials(client_id, secret, tenant)
-    center = SecurityCenter(credentials, subscription_id,
-                            region).security_contacts
+    center = SecurityCenter(
+        credentials, subscription_id, region
+    ).security_contacts
 
     for contact in center.list():
-        (vulns if not contact.email and not contact.phone else
-         safes).append((f'subscriptions/{subscription_id}',
-                        'set a contact email or phone number.'))
+        (vulns if not contact.email and not contact.phone else safes).append(
+            (
+                f"subscriptions/{subscription_id}",
+                "set a contact email or phone number.",
+            )
+        )
     if not safes:
-        vulns.append((f'subscriptions/{subscription_id}',
-                      'configure security alerts.'))
+        vulns.append(
+            (f"subscriptions/{subscription_id}", "configure security alerts.")
+        )
     return _get_result_as_tuple(
-        objects='Security center',
+        objects="Security center",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ClientException, AuthenticationError)
-def has_auto_provisioning_disabled(client_id: str,
-                                   secret: str,
-                                   tenant: str,
-                                   subscription_id: str,
-                                   region: str = 'east-us') -> Tuple:
+def has_auto_provisioning_disabled(
+    client_id: str,
+    secret: str,
+    tenant: str,
+    subscription_id: str,
+    region: str = "east-us",
+) -> Tuple:
     """
     Check if automatic provisioning of the monitoring agent is disabled.
 
@@ -502,25 +569,30 @@ def has_auto_provisioning_disabled(client_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = \
-        'Automatic provisioning of the monitoring agent is disabled.'
-    msg_closed: str = \
-        'Automatic provisioning of the monitoring agent is enabled.'
+    msg_open: str = (
+        "Automatic provisioning of the monitoring agent is disabled."
+    )
+    msg_closed: str = (
+        "Automatic provisioning of the monitoring agent is enabled."
+    )
     vulns, safes = [], []
 
     credentials = _get_credentials(client_id, secret, tenant)
-    center = SecurityCenter(credentials, subscription_id,
-                            region).auto_provisioning_settings
+    center = SecurityCenter(
+        credentials, subscription_id, region
+    ).auto_provisioning_settings
 
     vulnerable = []
     for prov in center.list():
-        vulnerable.append(not prov.auto_provision == 'Off')
+        vulnerable.append(not prov.auto_provision == "Off")
     (vulns if not any(vulnerable) else safes).append(
-        (f'subscriptions/{subscription_id}', 'enable automatic provisioning.'))
+        (f"subscriptions/{subscription_id}", "enable automatic provisioning.")
+    )
 
     return _get_result_as_tuple(
-        objects='Security center',
+        objects="Security center",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )

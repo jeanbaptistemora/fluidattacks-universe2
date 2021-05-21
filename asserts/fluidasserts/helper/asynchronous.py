@@ -57,9 +57,9 @@ def is_parameter_error(obj: Any) -> bool:
     return isinstance(obj, PARAMETER_ERRORS)
 
 
-def run_func(func: Callable,
-             args: list,
-             return_exceptions: bool = True) -> List[Any]:
+def run_func(
+    func: Callable, args: list, return_exceptions: bool = True
+) -> List[Any]:
     """Run a function asynchronously over the list of arguments."""
     loop = asyncio.new_event_loop()
     results: list = []
@@ -71,10 +71,13 @@ def run_func(func: Callable,
     results_per_loop: int = 64
     for index in range(0, len(args), results_per_loop):
         future = asyncio.gather(
-            *(asyncio.ensure_future(func(*a, **k), loop=loop)
-              for a, k in args[index:index + results_per_loop]),
+            *(
+                asyncio.ensure_future(func(*a, **k), loop=loop)
+                for a, k in args[index : index + results_per_loop]
+            ),
             return_exceptions=return_exceptions,
-            loop=loop)
+            loop=loop,
+        )
         result = loop.run_until_complete(future)
         results.extend(result)
     loop.close()
@@ -83,10 +86,11 @@ def run_func(func: Callable,
 
 def http_retry(func: Callable) -> Callable:
     """Decorator to retry the function if a connection error is raised."""
+
     @functools.wraps(func)
     async def decorated(*args, **kwargs) -> Any:  # noqa
         """Retry the function if a ConnError is raised."""
-        if kwargs.get('retry'):
+        if kwargs.get("retry"):
             for _ in range(5):
                 try:
                     return await func(*args, **kwargs)
@@ -94,4 +98,5 @@ def http_retry(func: Callable) -> Callable:
                     # Wait some seconds and retry
                     await time.sleep(1.0)
         return await func(*args, **kwargs)
+
     return decorated

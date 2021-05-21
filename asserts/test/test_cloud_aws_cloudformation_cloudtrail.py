@@ -4,12 +4,14 @@
 import pytest  # pylint: disable=E0401
 from fluidasserts.cloud.aws.cloudformation import cloudtrail
 
-pytestmark = pytest.mark.asserts_module('cloud_aws_cloudformation')  # pylint: disable=C0103,C0301 # noqa: E501
+pytestmark = pytest.mark.asserts_module(
+    "cloud_aws_cloudformation"
+)  # pylint: disable=C0103,C0301 # noqa: E501
 
 # Constants
-SAFE: str = 'test/static/cloudformation/safe'
-VULN: str = 'test/static/cloudformation/vulnerable'
-NOT_EXISTS: str = 'test/static/cloudformation/not-exists'
+SAFE: str = "test/static/cloudformation/safe"
+VULN: str = "test/static/cloudformation/vulnerable"
+NOT_EXISTS: str = "test/static/cloudformation/not-exists"
 
 
 def test_has_not_private_access_control():

@@ -10,7 +10,8 @@ HTML se encuentra adecuadamente implementado.
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('lang_html')
+
+pytestmark = pytest.mark.asserts_module("lang_html")
 
 # local imports
 from fluidasserts.lang import html
@@ -19,11 +20,11 @@ from fluidasserts.lang import html
 # Constants
 
 
-CODE_DIR = 'test/static/lang/html/'
-SECURE_CODE = CODE_DIR + 'non-vulnerable.html'
-INSECURE_CODE = CODE_DIR + 'vulnerable.html'
-INSECURE_CODE2 = CODE_DIR + 'vulnerable2.html'
-NOT_CODE = CODE_DIR + 'notexists.html'
+CODE_DIR = "test/static/lang/html/"
+SECURE_CODE = CODE_DIR + "non-vulnerable.html"
+INSECURE_CODE = CODE_DIR + "vulnerable.html"
+INSECURE_CODE2 = CODE_DIR + "vulnerable2.html"
+NOT_CODE = CODE_DIR + "notexists.html"
 
 #
 # Open tests
@@ -58,7 +59,8 @@ def test_is_header_content_type_missing_open():
     """
     assert html.is_header_content_type_missing(INSECURE_CODE)
     assert html.is_header_content_type_missing(
-        CODE_DIR + 'content_type_weak.html')
+        CODE_DIR + "content_type_weak.html"
+    )
 
 
 def test_open_has_reverse_tab_nabbing():
@@ -108,7 +110,8 @@ def test_is_header_content_type_missing_close():
     assert not html.is_header_content_type_missing(SECURE_CODE)
     assert not html.is_header_content_type_missing(NOT_CODE)
     assert not html.is_header_content_type_missing(
-        CODE_DIR + 'content_type_safe.html')
+        CODE_DIR + "content_type_safe.html"
+    )
 
 
 def test_closed_has_reverse_tab_nabbing():

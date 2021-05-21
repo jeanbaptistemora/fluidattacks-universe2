@@ -8,7 +8,7 @@ from fluidasserts import SAST, LOW
 from fluidasserts.helper import aws as helper
 from fluidasserts.cloud.aws.terraform import (
     Vulnerability,
-    _get_result_as_tuple
+    _get_result_as_tuple,
 )
 from fluidasserts.utils.decorators import api, unknown_if
 
@@ -16,7 +16,8 @@ from fluidasserts.utils.decorators import api, unknown_if
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError)
 def default_encryption_disabled(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    path: str, exclude: Optional[List[str]] = None
+) -> tuple:
     """
     Check if there EBS volumes are not encrypted by default.
 
@@ -32,20 +33,24 @@ def default_encryption_disabled(
     """
     vulnerabilities: list = []
     for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_tf_template(
-            starting_path=path,
-            resource_types=[
-                'aws_ebs_encryption_by_default',
-            ],
-            exclude=exclude):
-        encrypted_by_default = res_props.get('enabled', 'false')
+        starting_path=path,
+        resource_types=[
+            "aws_ebs_encryption_by_default",
+        ],
+        exclude=exclude,
+    ):
+        encrypted_by_default = res_props.get("enabled", "false")
         if not helper.to_boolean(encrypted_by_default):
             vulnerabilities.append(
                 Vulnerability(
                     path=yaml_path,
-                    entity='aws_ebs_encryption_by_default',
+                    entity="aws_ebs_encryption_by_default",
                     identifier=res_name,
-                    reason='is missing or disabled'))
+                    reason="is missing or disabled",
+                )
+            )
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='EBS volumes are not encrypted by default',
-        msg_closed='EBS volumes are encrypted by default')
+        msg_open="EBS volumes are not encrypted by default",
+        msg_closed="EBS volumes are encrypted by default",
+    )

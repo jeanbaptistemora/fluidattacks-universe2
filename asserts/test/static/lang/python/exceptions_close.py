@@ -4,10 +4,10 @@ exceptions_close.py.
 This is a test module to check exceptions.
 """
 try:
-    print('Hello world')
+    print("Hello world")
 except FileNotFoundError:
-    print('Managed')
+    print("Managed")
 try:
-    print('Hello world')
+    print("Hello world")
 except IndexError:
-    print('Managed')
+    print("Managed")

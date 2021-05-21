@@ -4,9 +4,19 @@
 pythonFormat {
   targets = [
     "airs"
-    "skims"
+    "asserts"
+    "build"
+    "common"
+    # "docs"
+    # "forces"
+    # "integrates"
     "makes"
+    # "melts"
     "observes"
+    # "reviews"
+    "skims"
+    # "sorts"
+    # "teaches"
   ];
   name = "makes-format-python";
 }

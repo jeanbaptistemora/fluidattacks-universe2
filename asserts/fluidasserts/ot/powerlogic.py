@@ -27,23 +27,23 @@ def pm800_has_default_credentials(url: str) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     default_creds = {
-        ('Administrator', 'Gateway'),
-        ('admin', '0'),
-        ('8000', '0'),
-        ('user1', 'pass1'),
-        ('user2', 'pass2'),
-        ('Guest', 'Guest')
+        ("Administrator", "Gateway"),
+        ("admin", "0"),
+        ("8000", "0"),
+        ("user1", "pass1"),
+        ("user2", "pass2"),
+        ("Guest", "Guest"),
     }
     working_creds = []
     for creds in default_creds:
         sess = http.HTTPSession(url, auth=creds)
-        if sess.response.status_code == 200 and 'PM800' in sess.response.text:
+        if sess.response.status_code == 200 and "PM800" in sess.response.text:
             working_creds.append(creds)
 
     sess.set_messages(
-        source='PM800/HTTPServer',
-        msg_open='PowerLogic PM800 device has default credentials',
-        msg_closed='PowerLogic PM800 device does not have default credentials'
+        source="PM800/HTTPServer",
+        msg_open="PowerLogic PM800 device has default credentials",
+        msg_closed="PowerLogic PM800 device does not have default credentials",
     )
 
     sess.add_unit(is_vulnerable=working_creds, specific=working_creds)
@@ -62,19 +62,16 @@ def egx100_has_default_credentials(url: str) -> tuple:
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    default_creds = {
-        ('Administrator', 'Gateway'),
-        ('Guest', 'Guest')
-    }
+    default_creds = {("Administrator", "Gateway"), ("Guest", "Guest")}
     working_creds = []
     for creds in default_creds:
         sess = http.HTTPSession(url, auth=creds)
-        if sess.response.status_code == 200 and 'EGX100' in sess.response.text:
+        if sess.response.status_code == 200 and "EGX100" in sess.response.text:
             working_creds.append(creds)
     sess.set_messages(
-        source='PM800/HTTPServer',
-        msg_open='PowerLogic EGX100 device has default credentials',
-        msg_closed='PowerLogic EGX100 device does not have default credentials'
+        source="PM800/HTTPServer",
+        msg_open="PowerLogic EGX100 device has default credentials",
+        msg_closed="PowerLogic EGX100 device does not have default credentials",
     )
 
     sess.add_unit(is_vulnerable=working_creds, specific=working_creds)

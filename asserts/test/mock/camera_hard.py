@@ -13,13 +13,13 @@ from flask import Flask
 # none
 
 
-APP = Flask(__name__, static_folder='static', static_url_path='/static')
+APP = Flask(__name__, static_folder="static", static_url_path="/static")
 
 
-@APP.route('/httpDisabled.shtml', methods=['GET'])
+@APP.route("/httpDisabled.shtml", methods=["GET"])
 def axis_rce():
     """Start Axis camera."""
-    return 'Everything\'s OK'
+    return "Everything's OK"
 
 
 def start():

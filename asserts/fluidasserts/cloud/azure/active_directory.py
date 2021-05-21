@@ -16,9 +16,7 @@ from fluidasserts.cloud.azure import _get_result_as_tuple, _get_credentials
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ClientException)
-def are_valid_credentials(client_id: str,
-                          secret: str,
-                          tenant: str) -> Tuple:
+def are_valid_credentials(client_id: str, secret: str, tenant: str) -> Tuple:
     """
     Check if given Azure credentials are working.
 
@@ -33,16 +31,18 @@ def are_valid_credentials(client_id: str,
     :rtype: :class:`fluidasserts.Result`
     """
     vulns, safes = [], []
-    msg_open: str = 'Provided Azure Credentials are valid.'
-    msg_closed: str = 'Provided Azure Credentials are not valid.'
+    msg_open: str = "Provided Azure Credentials are valid."
+    msg_closed: str = "Provided Azure Credentials are not valid."
     try:
         credentials = _get_credentials(client_id, secret, tenant)
-        vulns.append((f"Users/{credentials.id}", 'are valid'))
+        vulns.append((f"Users/{credentials.id}", "are valid"))
     except AuthenticationError:
-        safes.append((f'Users/{client_id}', 'are invalid.'))
+        safes.append((f"Users/{client_id}", "are invalid."))
 
-    return _get_result_as_tuple(objects='Users',
-                                msg_open=msg_open,
-                                msg_closed=msg_closed,
-                                vulns=vulns,
-                                safes=safes)
+    return _get_result_as_tuple(
+        objects="Users",
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes,
+    )

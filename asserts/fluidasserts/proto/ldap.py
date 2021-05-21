@@ -40,7 +40,10 @@ def is_anonymous_bind_allowed(ldap_server: str, port: int = PORT) -> tuple:
             anonymous_bonded = True
 
     return _get_result_as_tuple_host_port(
-        protocol='LDAP', host=ldap_server, port=port,
-        msg_open='LDAP anonymous bind is possible',
-        msg_closed='LDAP anonymous bind is not possible',
-        open_if=anonymous_bonded)
+        protocol="LDAP",
+        host=ldap_server,
+        port=port,
+        msg_open="LDAP anonymous bind is possible",
+        msg_closed="LDAP anonymous bind is not possible",
+        open_if=anonymous_bonded,
+    )

@@ -8,7 +8,8 @@ import asyncio
 # third party imports
 import aiohttp
 import pytest
-pytestmark = pytest.mark.asserts_module('helper')
+
+pytestmark = pytest.mark.asserts_module("helper")
 
 # local imports
 from fluidasserts.helper import asynchronous
@@ -27,10 +28,12 @@ def test_is_timeout_error():
 def test_is_connection_error():
     """Test asynchronous.is_connection_error."""
     assert asynchronous.is_connection_error(
-        aiohttp.client_exceptions.ClientConnectionError())
+        aiohttp.client_exceptions.ClientConnectionError()
+    )
 
 
 def test_is_parameter_error():
     """Test asynchronous.is_parameter_error."""
     assert asynchronous.is_parameter_error(
-        aiohttp.client_exceptions.InvalidURL('localhost:8080'))
+        aiohttp.client_exceptions.InvalidURL("localhost:8080")
+    )

@@ -24,9 +24,9 @@ from fluidasserts.utils.decorators import api, unknown_if
 PORT = 443
 
 
-@unknown_if(socket.error,
-            tlslite.errors.TLSLocalAlert,
-            tlslite.errors.TLSRemoteAlert)
+@unknown_if(
+    socket.error, tlslite.errors.TLSLocalAlert, tlslite.errors.TLSRemoteAlert
+)
 def _uses_sign_alg(site: str, alg: str, port: int) -> tuple:
     """
     Check if the given hashing method was used in signing the site certificate.
@@ -39,27 +39,31 @@ def _uses_sign_alg(site: str, alg: str, port: int) -> tuple:
         __cert = connection.session.serverCertChain.x509List[0].bytes
         cert = ssl.DER_cert_to_PEM_cert(__cert)
 
-    cert_obj = load_pem_x509_certificate(cert.encode('utf-8'),
-                                         default_backend())
+    cert_obj = load_pem_x509_certificate(
+        cert.encode("utf-8"), default_backend()
+    )
 
     sign_algo: str = cert_obj.signature_hash_algorithm.name
 
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open=f'Certificate has {sign_algo} as signature algorithm',
-        msg_closed=f'Certificate has not {sign_algo} as signature algorithm',
-        open_if=alg in sign_algo)
+        msg_open=f"Certificate has {sign_algo} as signature algorithm",
+        msg_closed=f"Certificate has not {sign_algo} as signature algorithm",
+        open_if=alg in sign_algo,
+    )
 
 
-def _get_result_as_tuple(*,
-                         site: str, port: int,
-                         msg_open: str, msg_closed: str,
-                         open_if: bool) -> tuple:
+def _get_result_as_tuple(
+    *, site: str, port: int, msg_open: str, msg_closed: str, open_if: bool
+) -> tuple:
     """Return the tuple version of the Result object."""
     units: List[Unit] = [
-        Unit(where=f'{site}:{port}',
-             specific=[msg_open if open_if else msg_closed])]
+        Unit(
+            where=f"{site}:{port}",
+            specific=[msg_open if open_if else msg_closed],
+        )
+    ]
 
     if open_if:
         return OPEN, msg_open, units, []
@@ -67,9 +71,9 @@ def _get_result_as_tuple(*,
 
 
 @api(risk=MEDIUM, kind=DAST)
-@unknown_if(socket.error,
-            tlslite.errors.TLSLocalAlert,
-            tlslite.errors.TLSRemoteAlert)
+@unknown_if(
+    socket.error, tlslite.errors.TLSLocalAlert, tlslite.errors.TLSRemoteAlert
+)
 def is_cert_cn_not_equal_to_site(site: str, port: int = PORT) -> tuple:
     """
     Check if certificate Common Name (CN) is different from given sitename.
@@ -89,11 +93,12 @@ def is_cert_cn_not_equal_to_site(site: str, port: int = PORT) -> tuple:
         __cert = conn.session.serverCertChain.x509List[0].bytes
         cert = ssl.DER_cert_to_PEM_cert(__cert)
 
-    cert_obj = load_pem_x509_certificate(cert.encode('utf-8'),
-                                         default_backend())
-    cert_cn = \
-        cert_obj.subject.get_attributes_for_oid(NameOID.COMMON_NAME)[
-            0].value.lower()
+    cert_obj = load_pem_x509_certificate(
+        cert.encode("utf-8"), default_backend()
+    )
+    cert_cn = cert_obj.subject.get_attributes_for_oid(NameOID.COMMON_NAME)[
+        0
+    ].value.lower()
 
     altnames = []
     with suppress(ExtensionNotFound):
@@ -102,23 +107,26 @@ def is_cert_cn_not_equal_to_site(site: str, port: int = PORT) -> tuple:
         )
         altnames = ext.value.get_values_for_type(DNSName)
 
-    msg_open = \
-        (f'{cert_cn} CN is not equal to site {site}'
-         ' or is not listed on altnames')
-    msg_closed = \
-        f'{cert_cn} CN is equal to site {site} or is listed on altnames'
+    msg_open = (
+        f"{cert_cn} CN is not equal to site {site}"
+        " or is not listed on altnames"
+    )
+    msg_closed = (
+        f"{cert_cn} CN is equal to site {site} or is listed on altnames"
+    )
     return _get_result_as_tuple(
         site=site,
         port=port,
         msg_open=msg_open,
         msg_closed=msg_closed,
-        open_if=(site.lower() != cert_cn) and (site.lower() not in altnames))
+        open_if=(site.lower() != cert_cn) and (site.lower() not in altnames),
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
-@unknown_if(socket.error,
-            tlslite.errors.TLSLocalAlert,
-            tlslite.errors.TLSRemoteAlert)
+@unknown_if(
+    socket.error, tlslite.errors.TLSLocalAlert, tlslite.errors.TLSRemoteAlert
+)
 def is_cert_cn_using_wildcard(site: str, port: int = PORT) -> tuple:
     """
     Check if certificate uses wildcard in CN.
@@ -136,24 +144,26 @@ def is_cert_cn_using_wildcard(site: str, port: int = PORT) -> tuple:
         __cert = conn.session.serverCertChain.x509List[0].bytes
         cert = ssl.DER_cert_to_PEM_cert(__cert)
 
-    cert_obj = load_pem_x509_certificate(cert.encode('utf-8'),
-                                         default_backend())
-    cert_cn = \
-        cert_obj.subject.get_attributes_for_oid(NameOID.COMMON_NAME)[
-            0].value.lower()
+    cert_obj = load_pem_x509_certificate(
+        cert.encode("utf-8"), default_backend()
+    )
+    cert_cn = cert_obj.subject.get_attributes_for_oid(NameOID.COMMON_NAME)[
+        0
+    ].value.lower()
 
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open=f'{cert_cn} uses wildcard for site {site}',
-        msg_closed=f'{cert_cn} does not use wildcard for site {site}',
-        open_if=cert_cn.startswith('*.'))
+        msg_open=f"{cert_cn} uses wildcard for site {site}",
+        msg_closed=f"{cert_cn} does not use wildcard for site {site}",
+        open_if=cert_cn.startswith("*."),
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
-@unknown_if(socket.error,
-            tlslite.errors.TLSLocalAlert,
-            tlslite.errors.TLSRemoteAlert)
+@unknown_if(
+    socket.error, tlslite.errors.TLSLocalAlert, tlslite.errors.TLSRemoteAlert
+)
 def is_cert_inactive(site: str, port: int = PORT) -> tuple:
     """
     Check if certificate is no longer valid.
@@ -173,8 +183,9 @@ def is_cert_inactive(site: str, port: int = PORT) -> tuple:
         __cert = conn.session.serverCertChain.x509List[0].bytes
         cert = ssl.DER_cert_to_PEM_cert(__cert)
 
-    cert_obj = load_pem_x509_certificate(cert.encode('utf-8'),
-                                         default_backend())
+    cert_obj = load_pem_x509_certificate(
+        cert.encode("utf-8"), default_backend()
+    )
 
     now = datetime.datetime.now()
     cert_time = cert_obj.not_valid_after
@@ -185,9 +196,10 @@ def is_cert_inactive(site: str, port: int = PORT) -> tuple:
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open=f'Certificate is expired {now_str} > {cert_time_str}',
-        msg_closed=f'Certificate is still valid {now_str} <= {cert_time_str}',
-        open_if=now > cert_time)
+        msg_open=f"Certificate is expired {now_str} > {cert_time_str}",
+        msg_closed=f"Certificate is still valid {now_str} <= {cert_time_str}",
+        open_if=now > cert_time,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -209,20 +221,21 @@ def is_cert_untrusted(site: str, port: int = PORT) -> tuple:
         with connect_legacy(site, port, validate_cert=True):
             is_trusted = True
     except socket.error as exc:
-        if not (exc.errno == 1 and 'verify failed' in str(exc.strerror)):
+        if not (exc.errno == 1 and "verify failed" in str(exc.strerror)):
             raise exc
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open='Cert is not trusted',
-        msg_closed='Cert is trusted',
-        open_if=not is_trusted)
+        msg_open="Cert is not trusted",
+        msg_closed="Cert is trusted",
+        open_if=not is_trusted,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
-@unknown_if(socket.error,
-            tlslite.errors.TLSLocalAlert,
-            tlslite.errors.TLSRemoteAlert)
+@unknown_if(
+    socket.error, tlslite.errors.TLSLocalAlert, tlslite.errors.TLSRemoteAlert
+)
 def is_cert_validity_lifespan_unsafe(site: str, port: int = PORT) -> tuple:
     """
     Check if certificate lifespan is larger than two years which is insecure.
@@ -241,8 +254,9 @@ def is_cert_validity_lifespan_unsafe(site: str, port: int = PORT) -> tuple:
         __cert = conn.session.serverCertChain.x509List[0].bytes
         cert = ssl.DER_cert_to_PEM_cert(__cert)
 
-    cert_obj = load_pem_x509_certificate(cert.encode('utf-8'),
-                                         default_backend())
+    cert_obj = load_pem_x509_certificate(
+        cert.encode("utf-8"), default_backend()
+    )
 
     not_after = cert_obj.not_valid_after
     not_before = cert_obj.not_valid_before
@@ -251,9 +265,10 @@ def is_cert_validity_lifespan_unsafe(site: str, port: int = PORT) -> tuple:
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open=f'Certificate lifespan of {lifespan} days is insecure',
-        msg_closed=f'Certificate lifespan of {lifespan} days is safe',
-        open_if=lifespan > max_validity_days)
+        msg_open=f"Certificate lifespan of {lifespan} days is insecure",
+        msg_closed=f"Certificate lifespan of {lifespan} days is safe",
+        open_if=lifespan > max_validity_days,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -273,7 +288,7 @@ def is_sha1_used(site: str, port: int = PORT) -> tuple:
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    return _uses_sign_alg(site, 'sha1', port)
+    return _uses_sign_alg(site, "sha1", port)
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -293,4 +308,4 @@ def is_md5_used(site: str, port: int = PORT) -> tuple:
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    return _uses_sign_alg(site, 'md5', port)
+    return _uses_sign_alg(site, "md5", port)

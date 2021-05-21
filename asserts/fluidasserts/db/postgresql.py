@@ -33,50 +33,56 @@ from fluidasserts.utils.decorators import api, unknown_if
 # Containers
 #: Container with connection parameters and credentials
 ConnectionString = NamedTuple(
-    'ConnectionString', [
-        ('dbname', str),
-        ('user', str),
-        ('password', str),
-        ('host', str),
-        ('port', int),
-        ('sslmode', str),
-    ])
+    "ConnectionString",
+    [
+        ("dbname", str),
+        ("user", str),
+        ("password", str),
+        ("host", str),
+        ("port", int),
+        ("sslmode", str),
+    ],
+)
 
 
 def _is_auth_error(exception: psycopg2.Error) -> bool:
     """Return True if the exception is an authentication exception."""
-    return 'authentication' in str(exception)
+    return "authentication" in str(exception)
 
 
 def _is_ssl_error(exception: psycopg2.Error) -> bool:
     """Return True if the exception is an SSL exception."""
-    return 'SSL' in str(exception)
+    return "SSL" in str(exception)
 
 
-def _execute(connection_string: ConnectionString,
-             query: str,
-             variables: Optional[Dict[str, Any]]) -> Iterator[Any]:
+def _execute(
+    connection_string: ConnectionString,
+    query: str,
+    variables: Optional[Dict[str, Any]],
+) -> Iterator[Any]:
     """Yield the result of executing a command."""
     with database(connection_string) as (_, cursor):
         cursor.execute(query, variables)
         yield from cursor
 
 
-def _get_var(connection_string: ConnectionString,
-             variable_name: str,
-             case_insensitive: bool = True) -> str:
+def _get_var(
+    connection_string: ConnectionString,
+    variable_name: str,
+    case_insensitive: bool = True,
+) -> str:
     """Return the value of a system variable or an empty string."""
     var_value: str = str()
     query: str = """
         SELECT setting FROM pg_settings WHERE name = %(variable_name)s
         """
     variables: Dict[str, str] = {
-        'variable_name': variable_name,
+        "variable_name": variable_name,
     }
 
     for row in _execute(connection_string, query, variables):
         # Variable is defined
-        var_value, = row
+        (var_value,) = row
         break
 
     return var_value.lower() if case_insensitive else var_value
@@ -96,7 +102,8 @@ def database(connection_string: ConnectionString) -> Iterator[Tuple[Any, Any]]:
         password=connection_string.password,
         host=connection_string.host,
         port=connection_string.port,
-        sslmode=connection_string.sslmode)
+        sslmode=connection_string.sslmode,
+    )
 
     try:
         cursor = connection.cursor()
@@ -110,9 +117,9 @@ def database(connection_string: ConnectionString) -> Iterator[Tuple[Any, Any]]:
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(psycopg2.Error)
-def have_access(dbname: str,
-                user: str, password: str,
-                host: str, port: int) -> tuple:
+def have_access(
+    dbname: str, user: str, password: str, host: str, port: int
+) -> tuple:
     """
     Check if the given connection parameters allow to connect to the database.
 
@@ -126,12 +133,13 @@ def have_access(dbname: str,
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    connection_string: ConnectionString = \
-        ConnectionString(dbname, user, password, host, port, 'prefer')
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port, "prefer"
+    )
 
     success: bool = False
-    msg_open: str = 'PostgreSQL is accessible with given credentials'
-    msg_closed: str = 'PostgreSQL is not accessible with given credentials'
+    msg_open: str = "PostgreSQL is accessible with given credentials"
+    msg_closed: str = "PostgreSQL is not accessible with given credentials"
 
     try:
         with database(connection_string):
@@ -144,7 +152,8 @@ def have_access(dbname: str,
     safes: List[str] = []
 
     (vulns if success else safes).append(
-        (dbname, 'database is accessible with given credentials'))
+        (dbname, "database is accessible with given credentials")
+    )
 
     return _get_result_as_tuple(
         host=host,
@@ -152,14 +161,15 @@ def have_access(dbname: str,
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(psycopg2.Error)
-def does_not_support_ssl(dbname: str,
-                         user: str, password: str,
-                         host: str, port: int) -> tuple:
+def does_not_support_ssl(
+    dbname: str, user: str, password: str, host: str, port: int
+) -> tuple:
     """
     Check if the server supports SSL connections.
 
@@ -173,12 +183,13 @@ def does_not_support_ssl(dbname: str,
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    connection_string: ConnectionString = \
-        ConnectionString(dbname, user, password, host, port, 'require')
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port, "require"
+    )
 
     supports_ssl: bool = False
-    msg_open: str = 'PostgreSQL does not support SSL connections'
-    msg_closed: str = 'PostgreSQL supports SSL connections'
+    msg_open: str = "PostgreSQL does not support SSL connections"
+    msg_closed: str = "PostgreSQL supports SSL connections"
 
     try:
         with database(connection_string):
@@ -191,7 +202,8 @@ def does_not_support_ssl(dbname: str,
     safes: List[str] = []
 
     (safes if supports_ssl else vulns).append(
-        (dbname, 'must enable ssl connections'))
+        (dbname, "must enable ssl connections")
+    )
 
     return _get_result_as_tuple(
         host=host,
@@ -199,14 +211,15 @@ def does_not_support_ssl(dbname: str,
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(psycopg2.Error)
-def has_not_logging_enabled(dbname: str,
-                            user: str, password: str,
-                            host: str, port: int) -> tuple:
+def has_not_logging_enabled(
+    dbname: str, user: str, password: str, host: str, port: int
+) -> tuple:
     """
     Check if the PostgreSQL implementation logs all transactions.
 
@@ -224,8 +237,9 @@ def has_not_logging_enabled(dbname: str,
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    connection_string: ConnectionString = \
-        ConnectionString(dbname, user, password, host, port, 'prefer')
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port, "prefer"
+    )
 
     is_safe: bool
     vulns, safes = [], []
@@ -234,153 +248,204 @@ def has_not_logging_enabled(dbname: str,
     # Needed to enable logging
     #
 
-    is_safe = _get_var(connection_string, 'logging_collector') == 'on'
+    is_safe = _get_var(connection_string, "logging_collector") == "on"
     (safes if is_safe else vulns).append(
-        ('pg_settings.logging_collector',
-         'logging_collector must be set to on'))
+        (
+            "pg_settings.logging_collector",
+            "logging_collector must be set to on",
+        )
+    )
 
-    is_safe = _get_var(connection_string, 'log_statement') == 'all'
+    is_safe = _get_var(connection_string, "log_statement") == "all"
     (safes if is_safe else vulns).append(
-        ('pg_settings.log_statement', 'log_statement must be set to all'))
+        ("pg_settings.log_statement", "log_statement must be set to all")
+    )
 
-    is_safe = bool(_get_var(connection_string, 'log_directory'))
+    is_safe = bool(_get_var(connection_string, "log_directory"))
     (safes if is_safe else vulns).append(
-        ('pg_settings.log_directory', 'log_directory must be set'))
+        ("pg_settings.log_directory", "log_directory must be set")
+    )
 
-    is_safe = bool(_get_var(connection_string, 'log_filename'))
+    is_safe = bool(_get_var(connection_string, "log_filename"))
     (safes if is_safe else vulns).append(
-        ('pg_settings.log_filename', 'log_filename must be set'))
+        ("pg_settings.log_filename", "log_filename must be set")
+    )
 
     #
     # Below are hardening configurations
     #
 
-    is_safe = _get_var(connection_string, 'log_checkpoints') == 'on'
+    is_safe = _get_var(connection_string, "log_checkpoints") == "on"
     (safes if is_safe else vulns).append(
-        ('pg_settings.log_checkpoints', 'log_checkpoints must be set to on'))
+        ("pg_settings.log_checkpoints", "log_checkpoints must be set to on")
+    )
 
     # csvlog is just a format, syslog and eventlog have problems
     # use this in conjunction with logging_collector 'on' for a strong setting
-    is_safe = 'stderr' in _get_var(connection_string, 'log_destination')
+    is_safe = "stderr" in _get_var(connection_string, "log_destination")
     (safes if is_safe else vulns).append(
-        ('pg_settings.log_destination',
-         'log_destination must be set to stderr'))
+        (
+            "pg_settings.log_destination",
+            "log_destination must be set to stderr",
+        )
+    )
 
-    accepted = ('default', 'verbose')
-    is_safe = _get_var(connection_string, 'log_error_verbosity') in accepted
+    accepted = ("default", "verbose")
+    is_safe = _get_var(connection_string, "log_error_verbosity") in accepted
     (safes if is_safe else vulns).append(
-        ('pg_settings.log_error_verbosity',
-         'log_error_verbosity must be set to default or verbose'))
+        (
+            "pg_settings.log_error_verbosity",
+            "log_error_verbosity must be set to default or verbose",
+        )
+    )
 
     #
     # Repudiation
     #
 
-    is_safe = _get_var(connection_string, 'log_connections') == 'on'
+    is_safe = _get_var(connection_string, "log_connections") == "on"
     (safes if is_safe else vulns).append(
-        ('pg_settings.log_connections', 'log_connections must be set to on'))
+        ("pg_settings.log_connections", "log_connections must be set to on")
+    )
 
-    is_safe = _get_var(connection_string, 'log_disconnections') == 'on'
+    is_safe = _get_var(connection_string, "log_disconnections") == "on"
     (safes if is_safe else vulns).append(
-        ('pg_settings.log_disconnections',
-         'log_disconnections must be set to on'))
+        (
+            "pg_settings.log_disconnections",
+            "log_disconnections must be set to on",
+        )
+    )
 
-    log_line_prefix: str = _get_var(connection_string, 'log_line_prefix')
+    log_line_prefix: str = _get_var(connection_string, "log_line_prefix")
 
-    for prefix in ('%m', '%u', '%d', '%r', '%c'):
+    for prefix in ("%m", "%u", "%d", "%r", "%c"):
         is_safe = prefix in log_line_prefix
         (safes if is_safe else vulns).append(
-            ('pg_settings.log_line_prefix',
-             f'log_line_prefix must contain {prefix}'))
+            (
+                "pg_settings.log_line_prefix",
+                f"log_line_prefix must contain {prefix}",
+            )
+        )
 
     #
     # Performance
     #
 
-    is_safe = _get_var(connection_string, 'log_duration') == 'on'
+    is_safe = _get_var(connection_string, "log_duration") == "on"
     (safes if is_safe else vulns).append(
-        ('pg_settings.log_duration', 'log_duration must be set to on'))
+        ("pg_settings.log_duration", "log_duration must be set to on")
+    )
 
-    is_safe = _get_var(connection_string, 'log_lock_waits') == 'on'
+    is_safe = _get_var(connection_string, "log_lock_waits") == "on"
     (safes if is_safe else vulns).append(
-        ('pg_settings.log_lock_waits', 'log_lock_waits must be set to on'))
+        ("pg_settings.log_lock_waits", "log_lock_waits must be set to on")
+    )
 
     # Disable log_statement_stats
     #   Enable log_executor_stats
     #   Enable log_parser_stats
     #   Enable log_planner_stats
     # For a detailed log
-    is_safe = _get_var(connection_string, 'log_statement_stats') == 'off'
+    is_safe = _get_var(connection_string, "log_statement_stats") == "off"
     (safes if is_safe else vulns).append(
-        ('pg_settings.log_statement_stats',
-         'log_statement_stats must be set to on'))
+        (
+            "pg_settings.log_statement_stats",
+            "log_statement_stats must be set to on",
+        )
+    )
 
-    is_safe = _get_var(connection_string, 'log_executor_stats') == 'on'
+    is_safe = _get_var(connection_string, "log_executor_stats") == "on"
     (safes if is_safe else vulns).append(
-        ('pg_settings.log_executor_stats',
-         'log_executor_stats must be set to on'))
+        (
+            "pg_settings.log_executor_stats",
+            "log_executor_stats must be set to on",
+        )
+    )
 
-    is_safe = _get_var(connection_string, 'log_parser_stats') == 'on'
+    is_safe = _get_var(connection_string, "log_parser_stats") == "on"
     (safes if is_safe else vulns).append(
-        ('pg_settings.log_parser_stats', 'log_parser_stats must be set to on'))
+        ("pg_settings.log_parser_stats", "log_parser_stats must be set to on")
+    )
 
-    is_safe = _get_var(connection_string, 'log_planner_stats') == 'on'
+    is_safe = _get_var(connection_string, "log_planner_stats") == "on"
     (safes if is_safe else vulns).append(
-        ('pg_settings.log_planner_stats',
-         'log_planner_stats must be set to on'))
+        (
+            "pg_settings.log_planner_stats",
+            "log_planner_stats must be set to on",
+        )
+    )
 
-    is_safe = _get_var(connection_string, 'log_autovacuum_min_duration') == '0'
+    is_safe = _get_var(connection_string, "log_autovacuum_min_duration") == "0"
     (safes if is_safe else vulns).append(
-        ('pg_settings.log_autovacuum_min_duration',
-         'log_autovacuum_min_duration must be set to 0'))
+        (
+            "pg_settings.log_autovacuum_min_duration",
+            "log_autovacuum_min_duration must be set to 0",
+        )
+    )
 
     #
     # Logging levels
     #
 
-    is_safe = _get_var(connection_string, 'log_min_duration_statement') == '0'
+    is_safe = _get_var(connection_string, "log_min_duration_statement") == "0"
     (safes if is_safe else vulns).append(
-        ('pg_settings.log_min_duration_statement',
-         'log_min_duration_statement must be set to 0'))
+        (
+            "pg_settings.log_min_duration_statement",
+            "log_min_duration_statement must be set to 0",
+        )
+    )
 
-    is_safe = _get_var(connection_string, 'log_min_error_statement') == 'error'
+    is_safe = _get_var(connection_string, "log_min_error_statement") == "error"
     (safes if is_safe else vulns).append(
-        ('pg_settings.log_min_error_statement',
-         'log_min_error_statement must be set to error'))
+        (
+            "pg_settings.log_min_error_statement",
+            "log_min_error_statement must be set to error",
+        )
+    )
 
-    is_safe = _get_var(connection_string, 'log_min_messages') == 'warning'
+    is_safe = _get_var(connection_string, "log_min_messages") == "warning"
     (safes if is_safe else vulns).append(
-        ('pg_settings.log_min_messages',
-         'log_min_messages must be set to warning'))
+        (
+            "pg_settings.log_min_messages",
+            "log_min_messages must be set to warning",
+        )
+    )
 
-    is_safe = _get_var(connection_string, 'log_replication_commands') == 'on'
+    is_safe = _get_var(connection_string, "log_replication_commands") == "on"
     (safes if is_safe else vulns).append(
-        ('pg_settings.log_replication_commands',
-         'log_replication_commands must be set to on'))
+        (
+            "pg_settings.log_replication_commands",
+            "log_replication_commands must be set to on",
+        )
+    )
 
     #
     # Avoid overwriting logs !
     #
 
-    is_safe = _get_var(connection_string, 'log_truncate_on_rotation') == 'off'
+    is_safe = _get_var(connection_string, "log_truncate_on_rotation") == "off"
     (safes if is_safe else vulns).append(
-        ('pg_settings.log_truncate_on_rotation',
-         'log_truncate_on_rotation must be set to off'))
+        (
+            "pg_settings.log_truncate_on_rotation",
+            "log_truncate_on_rotation must be set to off",
+        )
+    )
 
     return _get_result_as_tuple(
         host=host,
         port=port,
-        msg_open='PostgreSQL has not logging enabled',
-        msg_closed='PostgreSQL has logging enabled',
+        msg_open="PostgreSQL has not logging enabled",
+        msg_closed="PostgreSQL has logging enabled",
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(psycopg2.Error)
-def has_not_data_checksums_enabled(dbname: str,
-                                   user: str, password: str,
-                                   host: str, port: int) -> tuple:
+def has_not_data_checksums_enabled(
+    dbname: str, user: str, password: str, host: str, port: int
+) -> tuple:
     """
     Check if the PostgreSQL implementation has data checksums disabled.
 
@@ -396,41 +461,49 @@ def has_not_data_checksums_enabled(dbname: str,
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    connection_string: ConnectionString = \
-        ConnectionString(dbname, user, password, host, port, 'prefer')
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port, "prefer"
+    )
 
     # data_checksums must be 'on'
-    safe_data_checksums: bool = \
-        _get_var(connection_string, 'data_checksums') == 'on'
+    safe_data_checksums: bool = (
+        _get_var(connection_string, "data_checksums") == "on"
+    )
 
     # ignore_checksum_failure must be 'off'
-    safe_ignore_checksum_fail: bool = \
-        _get_var(connection_string, 'ignore_checksum_failure') == 'off'
+    safe_ignore_checksum_fail: bool = (
+        _get_var(connection_string, "ignore_checksum_failure") == "off"
+    )
 
     vulns: List[str] = []
     safes: List[str] = []
 
     (safes if safe_data_checksums else vulns).append(
-        ('pg_settings.data_checksums', 'data_checksums must be set to on'))
+        ("pg_settings.data_checksums", "data_checksums must be set to on")
+    )
 
     (safes if safe_ignore_checksum_fail else vulns).append(
-        ('pg_settings.ignore_checksum_failure',
-         'ignore_checksum_failure must be set to off'))
+        (
+            "pg_settings.ignore_checksum_failure",
+            "ignore_checksum_failure must be set to off",
+        )
+    )
 
     return _get_result_as_tuple(
         host=host,
         port=port,
-        msg_open='PostgreSQL has data checksums disabled',
-        msg_closed='PostgreSQL has data checksums enabled',
+        msg_open="PostgreSQL has data checksums disabled",
+        msg_closed="PostgreSQL has data checksums enabled",
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(psycopg2.Error)
-def has_insecure_password_encryption(dbname: str,
-                                     user: str, password: str,
-                                     host: str, port: int) -> tuple:
+def has_insecure_password_encryption(
+    dbname: str, user: str, password: str, host: str, port: int
+) -> tuple:
     """
     Check if PostgreSQL implementation stores passwords using weak algorithms.
 
@@ -453,60 +526,78 @@ def has_insecure_password_encryption(dbname: str,
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    connection_string: ConnectionString = \
-        ConnectionString(dbname, user, password, host, port, 'prefer')
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port, "prefer"
+    )
 
     # password_encryption must not be 'off'
-    vuln_encryption_1: bool = \
-        _get_var(connection_string, 'password_encryption') == 'off'
+    vuln_encryption_1: bool = (
+        _get_var(connection_string, "password_encryption") == "off"
+    )
 
     # password_encryption must not be 'on' (alias for md5)
-    vuln_encryption_2: bool = \
-        _get_var(connection_string, 'password_encryption') == 'on'
+    vuln_encryption_2: bool = (
+        _get_var(connection_string, "password_encryption") == "on"
+    )
 
     # password_encryption must not be 'md5'
-    vuln_encryption_3: bool = \
-        _get_var(connection_string, 'password_encryption') == 'md5'
+    vuln_encryption_3: bool = (
+        _get_var(connection_string, "password_encryption") == "md5"
+    )
 
-    secure_digests: tuple = ('scram-sha-256',)
+    secure_digests: tuple = ("scram-sha-256",)
 
     # password_encryption must be any of `secure_digests`
-    safe_encryption: bool = \
-        _get_var(connection_string, 'password_encryption') in secure_digests
+    safe_encryption: bool = (
+        _get_var(connection_string, "password_encryption") in secure_digests
+    )
 
     vulns: List[str] = []
     safes: List[str] = []
 
     (vulns if vuln_encryption_1 else safes).append(
-        ('pg_settings.password_encryption',
-         'password_encryption must not be set to off'))
+        (
+            "pg_settings.password_encryption",
+            "password_encryption must not be set to off",
+        )
+    )
 
     (vulns if vuln_encryption_2 else safes).append(
-        ('pg_settings.password_encryption',
-         'password_encryption must not be set to on (alias for md5)'))
+        (
+            "pg_settings.password_encryption",
+            "password_encryption must not be set to on (alias for md5)",
+        )
+    )
 
     (vulns if vuln_encryption_3 else safes).append(
-        ('pg_settings.password_encryption',
-         'password_encryption must not be set to md5'))
+        (
+            "pg_settings.password_encryption",
+            "password_encryption must not be set to md5",
+        )
+    )
 
     (safes if safe_encryption else vulns).append(
-        ('pg_settings.password_encryption',
-         'password_encryption must be set to scram-sha-256'))
+        (
+            "pg_settings.password_encryption",
+            "password_encryption must be set to scram-sha-256",
+        )
+    )
 
     return _get_result_as_tuple(
         host=host,
         port=port,
-        msg_open='PostgreSQL has insecure password_encryption',
-        msg_closed='PostgreSQL has secure password_encryption',
+        msg_open="PostgreSQL has insecure password_encryption",
+        msg_closed="PostgreSQL has secure password_encryption",
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(psycopg2.Error)
-def has_insecurely_stored_passwords(dbname: str,
-                                    user: str, password: str,
-                                    host: str, port: int) -> tuple:
+def has_insecurely_stored_passwords(
+    dbname: str, user: str, password: str, host: str, port: int
+) -> tuple:
     """
     Check if database has passwords stored with a weak algorithm.
 
@@ -525,36 +616,38 @@ def has_insecurely_stored_passwords(dbname: str,
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    connection_string: ConnectionString = \
-        ConnectionString(dbname, user, password, host, port, 'prefer')
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port, "prefer"
+    )
 
     vulns: List[str] = []
     safes: List[str] = []
 
-    query: str = 'SELECT usename, passwd FROM pg_shadow'
+    query: str = "SELECT usename, passwd FROM pg_shadow"
 
-    safe_digests = ('scram-sha-256',)
+    safe_digests = ("scram-sha-256",)
 
     for usename, passwd in _execute(connection_string, query, {}):
         is_safe: bool = any(passwd.lower().startswith(s) for s in safe_digests)
-        assertion: str = 'securely' if is_safe else 'insecurely'
-        specific: str = f'{usename} user password is {assertion} stored'
-        (safes if is_safe else vulns).append(('pg_shadow.pg_shadow', specific))
+        assertion: str = "securely" if is_safe else "insecurely"
+        specific: str = f"{usename} user password is {assertion} stored"
+        (safes if is_safe else vulns).append(("pg_shadow.pg_shadow", specific))
 
     return _get_result_as_tuple(
         host=host,
         port=port,
-        msg_open='PostgreSQL has insecurely stored passwords',
-        msg_closed='PostgreSQL has safely stored passwords',
+        msg_open="PostgreSQL has insecurely stored passwords",
+        msg_closed="PostgreSQL has safely stored passwords",
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(psycopg2.Error)
-def has_insecure_file_permissions(dbname: str,
-                                  user: str, password: str,
-                                  host: str, port: int) -> tuple:
+def has_insecure_file_permissions(
+    dbname: str, user: str, password: str, host: str, port: int
+) -> tuple:
     """
     Check if database's data directory and log files have insecure permissions.
 
@@ -576,8 +669,9 @@ def has_insecure_file_permissions(dbname: str,
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    connection_string: ConnectionString = \
-        ConnectionString(dbname, user, password, host, port, 'prefer')
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port, "prefer"
+    )
 
     is_safe: bool
     accepted: tuple
@@ -585,43 +679,53 @@ def has_insecure_file_permissions(dbname: str,
     vulns: List[str] = []
     safes: List[str] = []
 
-    accepted = ('700', '0700')
-    is_safe = _get_var(connection_string, 'data_directory_mode') in accepted
+    accepted = ("700", "0700")
+    is_safe = _get_var(connection_string, "data_directory_mode") in accepted
     (safes if is_safe else vulns).append(
-        ('pg_settings.data_directory_mode',
-         'data_directory_mode must be set to 0700'))
+        (
+            "pg_settings.data_directory_mode",
+            "data_directory_mode must be set to 0700",
+        )
+    )
 
-    accepted = ('600', '0600')
-    is_safe = _get_var(connection_string, 'log_file_mode') in accepted
+    accepted = ("600", "0600")
+    is_safe = _get_var(connection_string, "log_file_mode") in accepted
     (safes if is_safe else vulns).append(
-        ('pg_settings.log_file_mode', 'log_file_mode must be set to 0600'))
+        ("pg_settings.log_file_mode", "log_file_mode must be set to 0600")
+    )
 
     return _get_result_as_tuple(
         host=host,
         port=port,
-        msg_open='PostgreSQL has data checksums disabled',
-        msg_closed='PostgreSQL has data checksums enabled',
+        msg_open="PostgreSQL has data checksums disabled",
+        msg_closed="PostgreSQL has data checksums enabled",
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
-@api(risk=MEDIUM,
-     kind=DAST,
-     references=[
-         'https://www.stigviewer.com/' +
-         'stig/postgresql_9.x/2017-01-20/finding/V-72863',
-         'https://www.postgresql.org/' +
-         'docs/current/runtime-config-connection.html',
-     ],
-     standards={
-         'STIG': 'V-72863',
-     })
+@api(
+    risk=MEDIUM,
+    kind=DAST,
+    references=[
+        "https://www.stigviewer.com/"
+        + "stig/postgresql_9.x/2017-01-20/finding/V-72863",
+        "https://www.postgresql.org/"
+        + "docs/current/runtime-config-connection.html",
+    ],
+    standards={
+        "STIG": "V-72863",
+    },
+)
 @unknown_if(psycopg2.Error)
-def allows_too_many_concurrent_connections(dbname: str,
-                                           user: str, password: str,
-                                           host: str, port: int,
-                                           max_connections: int = 100
-                                           ) -> tuple:
+def allows_too_many_concurrent_connections(
+    dbname: str,
+    user: str,
+    password: str,
+    host: str,
+    port: int,
+    max_connections: int = 100,
+) -> tuple:
     """
     Check if number of allowed connections exceed the organization threshold.
 
@@ -655,50 +759,63 @@ def allows_too_many_concurrent_connections(dbname: str,
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    connection_string: ConnectionString = \
-        ConnectionString(dbname, user, password, host, port, 'prefer')
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port, "prefer"
+    )
 
     vulns: List[str] = []
     safes: List[str] = []
 
-    value: str = _get_var(connection_string, 'max_connections')
+    value: str = _get_var(connection_string, "max_connections")
     is_safe: bool = bool(value) and int(value) <= max_connections
 
     (safes if is_safe else vulns).append(
-        ('pg_settings.max_connections',
-         f'max_connections must be less than {max_connections}'))
+        (
+            "pg_settings.max_connections",
+            f"max_connections must be less than {max_connections}",
+        )
+    )
 
     return _get_result_as_tuple(
         host=host,
         port=port,
-        msg_open='PostgreSQL allows too many concurrent connections',
-        msg_closed=('PostgreSQL allows a reasonable number of '
-                    'concurrent connections'),
+        msg_open="PostgreSQL allows too many concurrent connections",
+        msg_closed=(
+            "PostgreSQL allows a reasonable number of "
+            "concurrent connections"
+        ),
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
-@api(risk=MEDIUM,
-     kind=DAST,
-     references=[
-         'https://www.stigviewer.com/' +
-         'stig/postgresql_9.x/2017-01-20/finding/V-73037',
-         'https://www.postgresql.org/' +
-         'docs/current/runtime-config-client.html',
-         'https://www.postgresql.org/' +
-         'docs/current/runtime-config-connection.html',
-     ],
-     standards={
-         'STIG': 'V-73037',
-     })
+@api(
+    risk=MEDIUM,
+    kind=DAST,
+    references=[
+        "https://www.stigviewer.com/"
+        + "stig/postgresql_9.x/2017-01-20/finding/V-73037",
+        "https://www.postgresql.org/"
+        + "docs/current/runtime-config-client.html",
+        "https://www.postgresql.org/"
+        + "docs/current/runtime-config-connection.html",
+    ],
+    standards={
+        "STIG": "V-73037",
+    },
+)
 @unknown_if(psycopg2.Error)
-def does_not_invalidate_session_ids(dbname: str,
-                                    user: str, password: str,
-                                    host: str, port: int,
-                                    statement_timeout: int = 60000,
-                                    tcp_keepalives_idle: int = 7200,
-                                    tcp_keepalives_interval: int = 75,
-                                    tcp_keepalives_count: int = 9) -> tuple:
+def does_not_invalidate_session_ids(
+    dbname: str,
+    user: str,
+    password: str,
+    host: str,
+    port: int,
+    statement_timeout: int = 60000,
+    tcp_keepalives_idle: int = 7200,
+    tcp_keepalives_interval: int = 75,
+    tcp_keepalives_count: int = 9,
+) -> tuple:
     """
     Check if session IDs are properly invalidated by timing out the connection.
 
@@ -751,8 +868,9 @@ def does_not_invalidate_session_ids(dbname: str,
               would use the system defaults.
     :rtype: :class:`fluidasserts.Result`
     """
-    connection_string: ConnectionString = \
-        ConnectionString(dbname, user, password, host, port, 'prefer')
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port, "prefer"
+    )
 
     vulns: List[str] = []
     safes: List[str] = []
@@ -760,23 +878,30 @@ def does_not_invalidate_session_ids(dbname: str,
     value: str
     is_safe: bool
     vars_to_check: List[Tuple[str, int, int]] = [
-        ('statement_timeout', 1, statement_timeout),
-        ('tcp_keepalives_idle', 0, tcp_keepalives_idle),
-        ('tcp_keepalives_interval', 0, tcp_keepalives_interval),
-        ('tcp_keepalives_count', 0, tcp_keepalives_count),
+        ("statement_timeout", 1, statement_timeout),
+        ("tcp_keepalives_idle", 0, tcp_keepalives_idle),
+        ("tcp_keepalives_interval", 0, tcp_keepalives_interval),
+        ("tcp_keepalives_count", 0, tcp_keepalives_count),
     ]
 
     for var_name, min_value, max_value in vars_to_check:
         value = _get_var(connection_string, var_name)
         is_safe = bool(value) and min_value <= int(value) <= max_value
         (safes if is_safe else vulns).append(
-            ('pg_settings.max_connections', (f'{var_name} must be between'
-                                             f' {min_value} and {max_value}')))
+            (
+                "pg_settings.max_connections",
+                (
+                    f"{var_name} must be between"
+                    f" {min_value} and {max_value}"
+                ),
+            )
+        )
 
     return _get_result_as_tuple(
         host=host,
         port=port,
-        msg_open='PostgreSQL does not properly invalidate session IDs',
-        msg_closed='PostgreSQL does properly invalidate session IDs',
+        msg_open="PostgreSQL does not properly invalidate session IDs",
+        msg_closed="PostgreSQL does properly invalidate session IDs",
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )

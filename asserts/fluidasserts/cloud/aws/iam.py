@@ -30,10 +30,9 @@ def _any_to_list(_input):
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_mfa_disabled(key_id: str,
-                     secret: str,
-                     session_token: str = None,
-                     retry: bool = True) -> tuple:
+def has_mfa_disabled(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Search users with password enabled and without MFA.
 
@@ -43,37 +42,39 @@ def has_mfa_disabled(key_id: str,
     users = aws.credentials_report(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        retry=retry,
+    )
 
-    msg_open: str = 'Users have password enabled with MFA'
-    msg_closed: str = 'Users do not have password enabled or MFA'
+    msg_open: str = "Users have password enabled with MFA"
+    msg_closed: str = "Users do not have password enabled or MFA"
 
     vulns, safes = [], []
 
     for user in users:
-        user_arn = user['arn']
-        user_has_mfa: bool = user['mfa_active'] == 'false'
-        user_has_pass: bool = user['password_enabled'] == 'true'
+        user_arn = user["arn"]
+        user_has_mfa: bool = user["mfa_active"] == "false"
+        user_has_pass: bool = user["password_enabled"] == "true"
 
         (vulns if user_has_pass and not user_has_mfa else safes).append(
-            (user_arn, 'Must have MFA'))
+            (user_arn, "Must have MFA")
+        )
 
     return _get_result_as_tuple(
-        service='IAM',
-        objects='users',
+        service="IAM",
+        objects="users",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def have_old_creds_enabled(key_id: str,
-                           secret: str,
-                           session_token: str = None,
-                           retry: bool = True) -> tuple:
+def have_old_creds_enabled(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Find password not used in the last 90 days.
 
@@ -83,47 +84,50 @@ def have_old_creds_enabled(key_id: str,
     users = aws.credentials_report(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        retry=retry,
+    )
 
-    msg_open: str = 'Users have unused passwords (last 90 days)'
-    msg_closed: str = 'Users do not have unused passwords (last 90 days)'
+    msg_open: str = "Users have unused passwords (last 90 days)"
+    msg_closed: str = "Users do not have unused passwords (last 90 days)"
 
     vulns, safes = [], []
 
     three_months_ago = datetime.now() - timedelta(days=90)
     three_months_ago = three_months_ago.replace(tzinfo=pytz.UTC)
 
-    client = aws.get_aws_client(service='iam', key_id=key_id, secret=secret)
+    client = aws.get_aws_client(service="iam", key_id=key_id, secret=secret)
 
     for user in users:
-        if user['password_enabled'] != 'true':
+        if user["password_enabled"] != "true":
             continue
         try:
-            user_pass_last_used = aws.client_get_user(
-                client, user['user'])['User']['PasswordLastUsed']
+            user_pass_last_used = aws.client_get_user(client, user["user"])[
+                "User"
+            ]["PasswordLastUsed"]
             vulnerable = user_pass_last_used < three_months_ago
         except KeyError:
             vulnerable = False
 
         (vulns if vulnerable else safes).append(
-            (user['arn'], 'Must not have an unused password'))
+            (user["arn"], "Must not have an unused password")
+        )
 
     return _get_result_as_tuple(
-        service='IAM',
-        objects='users',
+        service="IAM",
+        objects="users",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def have_old_access_keys(key_id: str,
-                         secret: str,
-                         session_token: str = None,
-                         retry: bool = True) -> tuple:
+def have_old_access_keys(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Find access keys not rotated in the last 90 days.
 
@@ -133,12 +137,14 @@ def have_old_access_keys(key_id: str,
     users = aws.credentials_report(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        retry=retry,
+    )
 
-    msg_open: str = ('User access keys have not been '
-                     'rotated in the last 90 days')
-    msg_closed: str = 'User access keys have been rotated in the last 90 days'
+    msg_open: str = (
+        "User access keys have not been " "rotated in the last 90 days"
+    )
+    msg_closed: str = "User access keys have been rotated in the last 90 days"
 
     vulns, safes = [], []
 
@@ -146,35 +152,40 @@ def have_old_access_keys(key_id: str,
     three_months_ago = three_months_ago.replace(tzinfo=pytz.UTC)
 
     for user in users:
-        if any((user['access_key_1_active'] != 'true',
-                user['access_key_2_active'] != 'true')):
+        if any(
+            (
+                user["access_key_1_active"] != "true",
+                user["access_key_2_active"] != "true",
+            )
+        ):
             continue
 
-        user_arn = user['arn']
+        user_arn = user["arn"]
 
         is_vulnerable: bool = any(
             parser.parse(user[x]).replace(tzinfo=pytz.UTC) < three_months_ago
-            for x in ('access_key_1_last_rotated',
-                      'access_key_2_last_rotated'))
+            for x in ("access_key_1_last_rotated", "access_key_2_last_rotated")
+        )
 
-        (vulns if is_vulnerable else safes).append((user_arn,
-                                                    'Keys must be rotated'))
+        (vulns if is_vulnerable else safes).append(
+            (user_arn, "Keys must be rotated")
+        )
 
     return _get_result_as_tuple(
-        service='IAM',
-        objects='users',
+        service="IAM",
+        objects="users",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def root_has_access_keys(key_id: str,
-                         secret: str,
-                         session_token: str = None,
-                         retry: bool = True) -> tuple:
+def root_has_access_keys(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if root account has access keys.
 
@@ -184,40 +195,45 @@ def root_has_access_keys(key_id: str,
     users = aws.credentials_report(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        retry=retry,
+    )
 
-    msg_open: str = 'Root user has access keys'
-    msg_closed: str = 'Root user does not have access keys'
+    msg_open: str = "Root user has access keys"
+    msg_closed: str = "Root user does not have access keys"
 
     vulns, safes = [], []
 
     # Root user is always the first retrieved
     root_user = users[0]
-    root_arn = root_user['arn']
+    root_arn = root_user["arn"]
 
     root_has_active_keys: bool = any(
-        (root_user['access_key_1_active'] == 'true',
-         root_user['access_key_2_active'] == 'true'))
+        (
+            root_user["access_key_1_active"] == "true",
+            root_user["access_key_2_active"] == "true",
+        )
+    )
 
     (vulns if root_has_active_keys else safes).append(
-        (root_arn, 'Must not have access keys'))
+        (root_arn, "Must not have access keys")
+    )
 
     return _get_result_as_tuple(
-        service='IAM',
-        objects='users',
+        service="IAM",
+        objects="users",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def not_requires_uppercase(key_id: str,
-                           secret: str,
-                           session_token: str = None,
-                           retry: bool = True) -> tuple:
+def not_requires_uppercase(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if password policy requires uppercase letters.
 
@@ -227,35 +243,37 @@ def not_requires_uppercase(key_id: str,
     policy = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='iam',
-        func='get_account_password_policy',
-        param='PasswordPolicy',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="iam",
+        func="get_account_password_policy",
+        param="PasswordPolicy",
+        retry=retry,
+    )
 
-    msg_open: str = 'Password policy does not require uppercase letters'
-    msg_closed: str = 'Password policy requires uppercase letters'
+    msg_open: str = "Password policy does not require uppercase letters"
+    msg_closed: str = "Password policy requires uppercase letters"
 
     vulns, safes = [], []
 
-    (vulns if not policy['RequireUppercaseCharacters'] else safes).append(
-        ('Account/PasswordPolicy', 'Must require uppercase chars'))
+    (vulns if not policy["RequireUppercaseCharacters"] else safes).append(
+        ("Account/PasswordPolicy", "Must require uppercase chars")
+    )
 
     return _get_result_as_tuple(
-        service='IAM',
-        objects='password policies',
+        service="IAM",
+        objects="password policies",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def not_requires_lowercase(key_id: str,
-                           secret: str,
-                           session_token: str = None,
-                           retry: bool = True) -> tuple:
+def not_requires_lowercase(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if password policy requires lowercase letters.
 
@@ -265,35 +283,37 @@ def not_requires_lowercase(key_id: str,
     policy = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='iam',
-        func='get_account_password_policy',
-        param='PasswordPolicy',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="iam",
+        func="get_account_password_policy",
+        param="PasswordPolicy",
+        retry=retry,
+    )
 
-    msg_open: str = 'Password policy does not require lowercase letters'
-    msg_closed: str = 'Password policy requires lowercase letters'
+    msg_open: str = "Password policy does not require lowercase letters"
+    msg_closed: str = "Password policy requires lowercase letters"
 
     vulns, safes = [], []
 
-    (vulns if not policy['RequireLowercaseCharacters'] else safes).append(
-        ('Account/PasswordPolicy', 'Must require lowercase chars'))
+    (vulns if not policy["RequireLowercaseCharacters"] else safes).append(
+        ("Account/PasswordPolicy", "Must require lowercase chars")
+    )
 
     return _get_result_as_tuple(
-        service='IAM',
-        objects='password policies',
+        service="IAM",
+        objects="password policies",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def not_requires_symbols(key_id: str,
-                         secret: str,
-                         session_token: str = None,
-                         retry: bool = True) -> tuple:
+def not_requires_symbols(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if password policy requires symbols.
 
@@ -303,35 +323,37 @@ def not_requires_symbols(key_id: str,
     policy = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='iam',
-        func='get_account_password_policy',
-        param='PasswordPolicy',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="iam",
+        func="get_account_password_policy",
+        param="PasswordPolicy",
+        retry=retry,
+    )
 
-    msg_open: str = 'Password policy does not require symbols'
-    msg_closed: str = 'Password policy requires symbols'
+    msg_open: str = "Password policy does not require symbols"
+    msg_closed: str = "Password policy requires symbols"
 
     vulns, safes = [], []
 
-    (vulns if not policy['RequireSymbols'] else safes).append(
-        ('Account/PasswordPolicy', 'Must require symbols chars'))
+    (vulns if not policy["RequireSymbols"] else safes).append(
+        ("Account/PasswordPolicy", "Must require symbols chars")
+    )
 
     return _get_result_as_tuple(
-        service='IAM',
-        objects='password policies',
+        service="IAM",
+        objects="password policies",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def not_requires_numbers(key_id: str,
-                         secret: str,
-                         session_token: str = None,
-                         retry: bool = True) -> tuple:
+def not_requires_numbers(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if password policy requires numbers.
 
@@ -341,36 +363,41 @@ def not_requires_numbers(key_id: str,
     policy = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='iam',
-        func='get_account_password_policy',
-        param='PasswordPolicy',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="iam",
+        func="get_account_password_policy",
+        param="PasswordPolicy",
+        retry=retry,
+    )
 
-    msg_open: str = 'Password policy does not require numbers'
-    msg_closed: str = 'Password policy requires numbers'
+    msg_open: str = "Password policy does not require numbers"
+    msg_closed: str = "Password policy requires numbers"
 
     vulns, safes = [], []
 
-    (vulns if not policy['RequireNumbers'] else safes).append(
-        ('Account/PasswordPolicy', 'Must require numeric chars'))
+    (vulns if not policy["RequireNumbers"] else safes).append(
+        ("Account/PasswordPolicy", "Must require numeric chars")
+    )
 
     return _get_result_as_tuple(
-        service='IAM',
-        objects='password policies',
+        service="IAM",
+        objects="password policies",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def min_password_len_unsafe(key_id: str,
-                            secret: str,
-                            session_token: str = None,
-                            min_len=14,
-                            retry: bool = True) -> tuple:
+def min_password_len_unsafe(
+    key_id: str,
+    secret: str,
+    session_token: str = None,
+    min_len=14,
+    retry: bool = True,
+) -> tuple:
     """
     Check if password policy requires passwords greater than 14 chars.
 
@@ -381,37 +408,44 @@ def min_password_len_unsafe(key_id: str,
     policy = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='iam',
-        func='get_account_password_policy',
-        param='PasswordPolicy',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="iam",
+        func="get_account_password_policy",
+        param="PasswordPolicy",
+        retry=retry,
+    )
 
-    msg_open: str = 'Password policy does not require long enough passwords'
-    msg_closed: str = 'Password policy requires long enough passwords'
+    msg_open: str = "Password policy does not require long enough passwords"
+    msg_closed: str = "Password policy requires long enough passwords"
 
     vulns, safes = [], []
 
-    (vulns if policy['MinimumPasswordLength'] < min_len else safes).append(
-        ('Account/PasswordPolicy/MinimumPasswordLength',
-         f'Must be at least {min_len} chars long'))
+    (vulns if policy["MinimumPasswordLength"] < min_len else safes).append(
+        (
+            "Account/PasswordPolicy/MinimumPasswordLength",
+            f"Must be at least {min_len} chars long",
+        )
+    )
 
     return _get_result_as_tuple(
-        service='IAM',
-        objects='password policies',
+        service="IAM",
+        objects="password policies",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def password_reuse_unsafe(key_id: str,
-                          secret: str,
-                          session_token: str = None,
-                          min_reuse=24,
-                          retry: bool = True) -> tuple:
+def password_reuse_unsafe(
+    key_id: str,
+    secret: str,
+    session_token: str = None,
+    min_reuse=24,
+    retry: bool = True,
+) -> tuple:
     """
     Check if password policy avoids reuse of the last 24 passwords.
 
@@ -422,39 +456,46 @@ def password_reuse_unsafe(key_id: str,
     policy = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='iam',
-        func='get_account_password_policy',
-        param='PasswordPolicy',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="iam",
+        func="get_account_password_policy",
+        param="PasswordPolicy",
+        retry=retry,
+    )
 
-    msg_open: str = 'Password policy allows reusing passwords'
-    msg_closed: str = 'Password policy avoids reusing passwords'
+    msg_open: str = "Password policy allows reusing passwords"
+    msg_closed: str = "Password policy avoids reusing passwords"
 
     vulns, safes = [], []
 
-    password_reuse: int = policy.get('PasswordReusePrevention', 0)
+    password_reuse: int = policy.get("PasswordReusePrevention", 0)
 
     (vulns if password_reuse < min_reuse else safes).append(
-        ('Account/PasswordPolicy/PasswordReusePrevention',
-         f'Must be at least {min_reuse}'))
+        (
+            "Account/PasswordPolicy/PasswordReusePrevention",
+            f"Must be at least {min_reuse}",
+        )
+    )
 
     return _get_result_as_tuple(
-        service='IAM',
-        objects='password policies',
+        service="IAM",
+        objects="password policies",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def password_expiration_unsafe(key_id: str,
-                               secret: str,
-                               session_token: str = None,
-                               max_days=90,
-                               retry: bool = True) -> tuple:
+def password_expiration_unsafe(
+    key_id: str,
+    secret: str,
+    session_token: str = None,
+    max_days=90,
+    retry: bool = True,
+) -> tuple:
     """
     Check if password policy expires the passwords within 90 days or less.
 
@@ -465,38 +506,42 @@ def password_expiration_unsafe(key_id: str,
     policy = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='iam',
-        func='get_account_password_policy',
-        param='PasswordPolicy',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="iam",
+        func="get_account_password_policy",
+        param="PasswordPolicy",
+        retry=retry,
+    )
 
-    msg_open: str = 'Password policy allows reusing passwords'
-    msg_closed: str = 'Password policy avoids reusing passwords'
+    msg_open: str = "Password policy allows reusing passwords"
+    msg_closed: str = "Password policy avoids reusing passwords"
 
     vulns, safes = [], []
 
-    pasword_max_age: int = policy.get('MaxPasswordAge', max_days + 1)
+    pasword_max_age: int = policy.get("MaxPasswordAge", max_days + 1)
 
     (vulns if pasword_max_age > max_days else safes).append(
-        ('Account/PasswordPolicy/MaxPasswordAge',
-         f'Must be at less than {max_days} days'))
+        (
+            "Account/PasswordPolicy/MaxPasswordAge",
+            f"Must be at less than {max_days} days",
+        )
+    )
 
     return _get_result_as_tuple(
-        service='IAM',
-        objects='password policies',
+        service="IAM",
+        objects="password policies",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def root_without_mfa(key_id: str,
-                     secret: str,
-                     session_token: str = None,
-                     retry: bool = True) -> tuple:
+def root_without_mfa(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if root account does not have MFA.
 
@@ -506,35 +551,37 @@ def root_without_mfa(key_id: str,
     summary = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='iam',
-        func='get_account_summary',
-        param='SummaryMap',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="iam",
+        func="get_account_summary",
+        param="SummaryMap",
+        retry=retry,
+    )
 
-    msg_open: str = 'Root password has MFA disabled'
-    msg_closed: str = 'Root password has MFA enabled'
+    msg_open: str = "Root password has MFA disabled"
+    msg_closed: str = "Root password has MFA enabled"
 
     vulns, safes = [], []
 
-    (vulns if summary['AccountMFAEnabled'] != 1 else safes).append(
-        ('User:Root-Account', 'Must have MFA'))
+    (vulns if summary["AccountMFAEnabled"] != 1 else safes).append(
+        ("User:Root-Account", "Must have MFA")
+    )
 
     return _get_result_as_tuple(
-        service='IAM',
-        objects='password policies',
+        service="IAM",
+        objects="password policies",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def policies_attached_to_users(key_id: str,
-                               secret: str,
-                               session_token: str = None,
-                               retry: bool = True) -> tuple:
+def policies_attached_to_users(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if there are policies attached to users.
 
@@ -544,46 +591,49 @@ def policies_attached_to_users(key_id: str,
     users = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='iam',
-        func='list_users',
-        param='Users',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="iam",
+        func="list_users",
+        param="Users",
+        retry=retry,
+    )
 
-    msg_open: str = 'User has policies directly attached'
-    msg_closed: str = 'User does not have policies directly attached'
+    msg_open: str = "User has policies directly attached"
+    msg_closed: str = "User does not have policies directly attached"
 
     vulns, safes = [], []
 
     for user in users:
-        user_arn = user['Arn']
+        user_arn = user["Arn"]
         user_policies = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            boto3_client_kwargs={'aws_session_token': session_token},
-            service='iam',
-            func='list_attached_user_policies',
-            param='AttachedPolicies',
-            UserName=user['UserName'],
-            retry=retry)
+            boto3_client_kwargs={"aws_session_token": session_token},
+            service="iam",
+            func="list_attached_user_policies",
+            param="AttachedPolicies",
+            UserName=user["UserName"],
+            retry=retry,
+        )
         (vulns if user_policies else safes).append(
-            (user_arn, 'Must not have policies directly attached'))
+            (user_arn, "Must not have policies directly attached")
+        )
 
     return _get_result_as_tuple(
-        service='IAM',
-        objects='users',
+        service="IAM",
+        objects="users",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def have_full_access_policies(key_id: str,
-                              secret: str,
-                              session_token: str = None,
-                              retry: bool = True) -> tuple:
+def have_full_access_policies(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if there are policies that allow full administrative privileges.
 
@@ -593,59 +643,65 @@ def have_full_access_policies(key_id: str,
     policies = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='iam',
-        func='list_policies',
-        param='Policies',
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="iam",
+        func="list_policies",
+        param="Policies",
         retry=retry,
-        Scope='Local',
-        OnlyAttached=True)
+        Scope="Local",
+        OnlyAttached=True,
+    )
 
-    msg_open: str = 'Policies allow full administrative privileges'
-    msg_closed: str = 'Policies does not allow full administrative privileges'
+    msg_open: str = "Policies allow full administrative privileges"
+    msg_closed: str = "Policies does not allow full administrative privileges"
 
     vulns, safes = [], []
 
     for policy in policies:
-        pol_arn = policy['Arn']
+        pol_arn = policy["Arn"]
         pol_ver = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            boto3_client_kwargs={'aws_session_token': session_token},
-            service='iam',
-            func='get_policy_version',
-            param='PolicyVersion',
-            PolicyArn=policy['Arn'],
-            VersionId=policy['DefaultVersionId'],
-            retry=retry)
+            boto3_client_kwargs={"aws_session_token": session_token},
+            service="iam",
+            func="get_policy_version",
+            param="PolicyVersion",
+            PolicyArn=policy["Arn"],
+            VersionId=policy["DefaultVersionId"],
+            retry=retry,
+        )
 
-        pol_ver = list(pol_ver['Document']['Statement'])
+        pol_ver = list(pol_ver["Document"]["Statement"])
 
         try:
             count = sum(
-                x['Effect'] == 'Allow' and '*' in _any_to_list(x['Action'])
-                and '*' in _any_to_list(x['Resource']) for x in pol_ver)
+                x["Effect"] == "Allow"
+                and "*" in _any_to_list(x["Action"])
+                and "*" in _any_to_list(x["Resource"])
+                for x in pol_ver
+            )
         except TypeError:
             count = 0
 
         (vulns if count > 0 else safes).append(
-            (pol_arn, 'Must not allow full privileges'))
+            (pol_arn, "Must not allow full privileges")
+        )
 
     return _get_result_as_tuple(
-        service='IAM',
-        objects='policies',
+        service="IAM",
+        objects="policies",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_not_support_role(key_id: str,
-                         secret: str,
-                         session_token: str = None,
-                         retry: bool = True) -> tuple:
+def has_not_support_role(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if there is a support role.
 
@@ -655,67 +711,76 @@ def has_not_support_role(key_id: str,
     policies = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='iam',
-        func='list_policies',
-        param='Policies',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="iam",
+        func="list_policies",
+        param="Policies",
+        retry=retry,
+    )
 
-    msg_open: str = \
-        'There are not entities attached to the AWSSupportAccess policy'
-    msg_closed: str = \
-        'There are entities attached to the AWSSupportAccess policy'
+    msg_open: str = (
+        "There are not entities attached to the AWSSupportAccess policy"
+    )
+    msg_closed: str = (
+        "There are entities attached to the AWSSupportAccess policy"
+    )
 
     vulns, safes = [], []
 
     support_policies = [
-        p for p in policies
-        if p['PolicyName'] == 'AWSSupportAccess' and p['AttachmentCount'] > 0
+        p
+        for p in policies
+        if p["PolicyName"] == "AWSSupportAccess" and p["AttachmentCount"] > 0
     ]
 
     for policy in support_policies:
-        policy_arn = policy['Arn']
+        policy_arn = policy["Arn"]
 
         entities = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            boto3_client_kwargs={'aws_session_token': session_token},
-            service='iam',
-            func='list_entities_for_policy',
+            boto3_client_kwargs={"aws_session_token": session_token},
+            service="iam",
+            func="list_entities_for_policy",
             PolicyArn=policy_arn,
-            retry=retry)
+            retry=retry,
+        )
 
-        attached_times = (len(list(filter(None, entities['PolicyUsers']))) +
-                          len(list(filter(None, entities['PolicyGroups']))) +
-                          len(list(filter(None, entities['PolicyRoles']))))
+        attached_times = (
+            len(list(filter(None, entities["PolicyUsers"])))
+            + len(list(filter(None, entities["PolicyGroups"])))
+            + len(list(filter(None, entities["PolicyRoles"])))
+        )
 
         (vulns if attached_times == 0 else safes).append(
-            (policy_arn, 'Must have entities attached'))
+            (policy_arn, "Must have entities attached")
+        )
 
-    (safes if support_policies else vulns).append(('Policies/AWSSupportAccess',
-                                                   'Must be present'))
+    (safes if support_policies else vulns).append(
+        ("Policies/AWSSupportAccess", "Must be present")
+    )
 
     return _get_result_as_tuple(
-        service='IAM',
-        objects='Support Access policies',
+        service="IAM",
+        objects="Support Access policies",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(
     risk=MEDIUM,
     kind=DAST,
     standards={
-        'CWE': '250',
+        "CWE": "250",
     },
 )
 @unknown_if(BotoCoreError, RequestException)
-def has_permissive_role_policies(key_id: str,
-                                 secret: str,
-                                 session_token: str = None,
-                                 retry: bool = True) -> tuple:
+def has_permissive_role_policies(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if an IAM Role Policy grants wildcard privileges.
 
@@ -730,16 +795,19 @@ def has_permissive_role_policies(key_id: str,
     roles = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='iam',
-        func='list_roles',
-        param='Roles',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="iam",
+        func="list_roles",
+        param="Roles",
+        retry=retry,
+    )
 
-    msg_open: str = ('IAM role policies violate the '
-                     'principle of least privilege')
-    msg_closed: str = ('IAM role policies comply with '
-                       'the principle of least privilege')
+    msg_open: str = (
+        "IAM role policies violate the " "principle of least privilege"
+    )
+    msg_closed: str = (
+        "IAM role policies comply with " "the principle of least privilege"
+    )
 
     vulns, safes = [], []
 
@@ -747,10 +815,10 @@ def has_permissive_role_policies(key_id: str,
         return aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            boto3_client_kwargs={'aws_session_token': session_token},
-            service='iam',
-            func='list_role_policies',
-            param='PolicyNames',
+            boto3_client_kwargs={"aws_session_token": session_token},
+            service="iam",
+            func="list_role_policies",
+            param="PolicyNames",
             retry=retry,
             RoleName=role_name,
         )
@@ -759,38 +827,43 @@ def has_permissive_role_policies(key_id: str,
         return aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            boto3_client_kwargs={'aws_session_token': session_token},
-            service='iam',
-            func='get_role_policy',
-            param='PolicyDocument',
+            boto3_client_kwargs={"aws_session_token": session_token},
+            service="iam",
+            func="get_role_policy",
+            param="PolicyDocument",
             retry=retry,
             PolicyName=policy_name,
-            RoleName=role_name)
+            RoleName=role_name,
+        )
 
     for role in roles:
-        role_policies = get_role_policies(role['RoleName'])
+        role_policies = get_role_policies(role["RoleName"])
         for policy_name in role_policies:
-            for statement in get_policy_role(policy_name,
-                                             role['RoleName'])['Statement']:
-                (vulns if statement['Action'] == '*'
-                 and statement['Effect'] == 'Allow' else safes).append(
-                     (role['Arn'], 'IAM Role Policy Too Permissive'))
+            for statement in get_policy_role(policy_name, role["RoleName"])[
+                "Statement"
+            ]:
+                (
+                    vulns
+                    if statement["Action"] == "*"
+                    and statement["Effect"] == "Allow"
+                    else safes
+                ).append((role["Arn"], "IAM Role Policy Too Permissive"))
 
     return _get_result_as_tuple(
-        service='IAM',
-        objects='Policies',
+        service="IAM",
+        objects="Policies",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_root_active_signing_certificates(key_id: str,
-                                         secret: str,
-                                         session_token: str = None,
-                                         retry: bool = True) -> tuple:
+def has_root_active_signing_certificates(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if user root has activated signing certificates.
 
@@ -802,43 +875,48 @@ def has_root_active_signing_certificates(key_id: str,
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    users = aws.credentials_report(key_id,
-                                   secret,
-                                   boto3_client_kwargs={
-                                       'aws_session_token': session_token},
-                                   retry=retry)
+    users = aws.credentials_report(
+        key_id,
+        secret,
+        boto3_client_kwargs={"aws_session_token": session_token},
+        retry=retry,
+    )
 
-    msg_open: str = 'Root user has activated signing certificates'
-    msg_closed: str = 'Root user does not have activated signing certificates'
+    msg_open: str = "Root user has activated signing certificates"
+    msg_closed: str = "Root user does not have activated signing certificates"
 
     vulns, safes = [], []
 
     # Root user is always the first retrieved
     root_user = users[0]
-    root_arn = root_user['arn']
+    root_arn = root_user["arn"]
 
     root_has_active_signing_certs: bool = any(
-        (root_user['cert_1_active'] == 'true',
-         root_user['cert_2_active'] == 'true'))
+        (
+            root_user["cert_1_active"] == "true",
+            root_user["cert_2_active"] == "true",
+        )
+    )
 
     (vulns if root_has_active_signing_certs else safes).append(
-        (root_arn, 'Must not have activate signing certificates'))
+        (root_arn, "Must not have activate signing certificates")
+    )
 
     return _get_result_as_tuple(
-        service='IAM',
-        objects='Credentials',
+        service="IAM",
+        objects="Credentials",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def users_with_password_and_access_keys(key_id: str,
-                                        secret: str,
-                                        session_token: str = None,
-                                        retry: bool = True) -> tuple:
+def users_with_password_and_access_keys(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if there are users with password and access keys activated.
 
@@ -853,60 +931,73 @@ def users_with_password_and_access_keys(key_id: str,
     """
     vulns, safes = [], []
 
-    msg_open: str = ('Users have access keys and password '
-                     'assigned for authentication.')
-    msg_closed: str = ('Users have only keys or password '
-                       'assigned for authentication, but not both.')
+    msg_open: str = (
+        "Users have access keys and password " "assigned for authentication."
+    )
+    msg_closed: str = (
+        "Users have only keys or password "
+        "assigned for authentication, but not both."
+    )
 
     users = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='iam',
-        func='list_users',
-        param='Users',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="iam",
+        func="list_users",
+        param="Users",
+        retry=retry,
+    )
 
-    client = aws.get_aws_client('iam', key_id, secret)
+    client = aws.get_aws_client("iam", key_id, secret)
 
     for user in users:
         access_keys = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            boto3_client_kwargs={'aws_session_token': session_token},
-            service='iam',
-            func='list_access_keys',
-            param='AccessKeyMetadata',
+            boto3_client_kwargs={"aws_session_token": session_token},
+            service="iam",
+            func="list_access_keys",
+            param="AccessKeyMetadata",
             retry=retry,
-            UserName=user['UserName'])
+            UserName=user["UserName"],
+        )
         access_keys_activated: bool = any(
-            map(lambda x: x['Status'], access_keys))
+            map(lambda x: x["Status"], access_keys)
+        )
 
         login_profile = None
         with suppress(client.exceptions.NoSuchEntityException):
             login_profile = aws.client_get_login_profile(
-                client, user['UserName'])
+                client, user["UserName"]
+            )
 
-        (vulns if access_keys_activated and login_profile is not None else
-         safes).append(
-             (user['Arn'],
-              'User must have only password or access keys, but not both.'))
+        (
+            vulns
+            if access_keys_activated and login_profile is not None
+            else safes
+        ).append(
+            (
+                user["Arn"],
+                "User must have only password or access keys, but not both.",
+            )
+        )
 
     return _get_result_as_tuple(
-        service='IAM',
-        objects='Users',
+        service="IAM",
+        objects="Users",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def group_with_inline_policies(key_id: str,
-                               secret: str,
-                               session_token: str = None,
-                               retry: bool = True) -> tuple:
+def group_with_inline_policies(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if IAM groups have any inline policies attached.
 
@@ -919,48 +1010,53 @@ def group_with_inline_policies(key_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'IAM groups with inline policies attached.'
-    msg_closed: str = ' IAM groups are using managed policies.'
+    msg_open: str = "IAM groups with inline policies attached."
+    msg_closed: str = " IAM groups are using managed policies."
     vulns, safes = [], []
 
     groups = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='iam',
-        func='list_groups',
-        param='Groups',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="iam",
+        func="list_groups",
+        param="Groups",
+        retry=retry,
+    )
 
     for group in groups:
         group_policies = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            boto3_client_kwargs={'aws_session_token': session_token},
-            service='iam',
-            func='list_group_policies',
-            GroupName=group['GroupName'],
-            param='PolicyNames',
-            retry=retry)
+            boto3_client_kwargs={"aws_session_token": session_token},
+            service="iam",
+            func="list_group_policies",
+            GroupName=group["GroupName"],
+            param="PolicyNames",
+            retry=retry,
+        )
         (vulns if group_policies else safes).append(
-            (group['Arn'],
-             'Replace any inline policies with managed policies.'))
+            (
+                group["Arn"],
+                "Replace any inline policies with managed policies.",
+            )
+        )
 
         return _get_result_as_tuple(
-            service='IAM',
-            objects='Groups',
+            service="IAM",
+            objects="Groups",
             msg_open=msg_open,
             msg_closed=msg_closed,
             vulns=vulns,
-            safes=safes)
+            safes=safes,
+        )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def mfa_disabled_for_users_with_console_password(key_id: str,
-                                                 secret: str,
-                                                 session_token: str = None,
-                                                 retry: bool = True) -> tuple:
+def mfa_disabled_for_users_with_console_password(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if IAM Users with console password are not protected by MFA.
 
@@ -974,61 +1070,65 @@ def mfa_disabled_for_users_with_console_password(key_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Users with console password are not protected by MFA.'
-    msg_closed: str = 'Users with console password are protected by MFA.'
+    msg_open: str = "Users with console password are not protected by MFA."
+    msg_closed: str = "Users with console password are protected by MFA."
     vulns, safes = [], []
 
     users = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='iam',
-        func='list_users',
-        param='Users',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="iam",
+        func="list_users",
+        param="Users",
+        retry=retry,
+    )
 
     for user in users:
         try:
             aws.run_boto3_func(
                 key_id=key_id,
                 secret=secret,
-                boto3_client_kwargs={'aws_session_token': session_token},
-                service='iam',
-                func='get_login_profile',
-                UserName=user['UserName'],
-                param='LoginProfile',
+                boto3_client_kwargs={"aws_session_token": session_token},
+                service="iam",
+                func="get_login_profile",
+                UserName=user["UserName"],
+                param="LoginProfile",
                 retry=retry,
-                retry_times=3)
+                retry_times=3,
+            )
         except aws.ClientErr:
             continue
 
         mfa_devices = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            boto3_client_kwargs={'aws_session_token': session_token},
-            service='iam',
-            func='list_mfa_devices',
-            UserName=user['UserName'],
-            param='MFADevices',
-            retry=retry)
+            boto3_client_kwargs={"aws_session_token": session_token},
+            service="iam",
+            func="list_mfa_devices",
+            UserName=user["UserName"],
+            param="MFADevices",
+            retry=retry,
+        )
         (vulns if not mfa_devices else safes).append(
-            (user['Arn'], 'Enable MFA access protection for IAM user.'))
+            (user["Arn"], "Enable MFA access protection for IAM user.")
+        )
 
     return _get_result_as_tuple(
-        service='IAM',
-        objects='Users',
+        service="IAM",
+        objects="Users",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_old_ssh_public_keys(key_id: str,
-                            secret: str,
-                            session_token: str = None,
-                            retry: bool = True) -> tuple:
+def has_old_ssh_public_keys(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Find IAM users keep any outdated (older than 90 days) SSH public keys.
 
@@ -1042,9 +1142,10 @@ def has_old_ssh_public_keys(key_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = \
-        'There are users with old SSH public keys (older than 90 days).'
-    msg_closed: str = 'Users have updated SSH public keys.'
+    msg_open: str = (
+        "There are users with old SSH public keys (older than 90 days)."
+    )
+    msg_closed: str = "Users have updated SSH public keys."
     vulns, safes = [], []
 
     three_months_ago = datetime.now() - timedelta(days=90)
@@ -1053,42 +1154,46 @@ def has_old_ssh_public_keys(key_id: str,
     users = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='iam',
-        func='list_users',
-        param='Users',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="iam",
+        func="list_users",
+        param="Users",
+        retry=retry,
+    )
     for user in users:
         keys = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            boto3_client_kwargs={'aws_session_token': session_token},
-            service='iam',
-            func='list_ssh_public_keys',
-            UserName=user['UserName'],
-            param='SSHPublicKeys',
-            retry=retry)
+            boto3_client_kwargs={"aws_session_token": session_token},
+            service="iam",
+            func="list_ssh_public_keys",
+            UserName=user["UserName"],
+            param="SSHPublicKeys",
+            retry=retry,
+        )
 
         vulnerable = any(
-            map(lambda x: x['UploadDate'] < three_months_ago, keys))
+            map(lambda x: x["UploadDate"] < three_months_ago, keys)
+        )
         (vulns if vulnerable else safes).append(
-            (user['Arn'], 'Update old SSH public keys.'))
+            (user["Arn"], "Update old SSH public keys.")
+        )
 
     return _get_result_as_tuple(
-        service='IAM',
-        objects='Users',
+        service="IAM",
+        objects="Users",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_wildcard_resource_on_write_action(key_id: str,
-                                          secret: str,
-                                          session_token: str = None,
-                                          retry: bool = True) -> tuple:
+def has_wildcard_resource_on_write_action(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if write actions are allowed on all resources.
 
@@ -1105,53 +1210,59 @@ def has_wildcard_resource_on_write_action(key_id: str,
     :rtype: :class:`fluidasserts.Result`
 
     """
-    msg_open = 'Write actions are allowed for all resources.'
-    msg_closed = 'Write actions are not allowed for all resources.'
+    msg_open = "Write actions are allowed for all resources."
+    msg_closed = "Write actions are not allowed for all resources."
     vulns, safes = [], []
 
     policies = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='iam',
-        func='list_policies',
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="iam",
+        func="list_policies",
         retry=retry,
-        Scope='Local',
-        OnlyAttached=True)['Policies']
+        Scope="Local",
+        OnlyAttached=True,
+    )["Policies"]
 
     for policy in policies:
         policy_version = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            boto3_client_kwargs={'aws_session_token': session_token},
-            service='iam',
-            func='get_policy_version',
-            param='PolicyVersion',
-            PolicyArn=policy['Arn'],
-            VersionId=policy['DefaultVersionId'],
-            retry=retry)
+            boto3_client_kwargs={"aws_session_token": session_token},
+            service="iam",
+            func="get_policy_version",
+            param="PolicyVersion",
+            PolicyArn=policy["Arn"],
+            VersionId=policy["DefaultVersionId"],
+            retry=retry,
+        )
         vulnerable = aws.policy_statement_privilege(
-            policy_version['Document']['Statement'], 'Allow', 'write')
+            policy_version["Document"]["Statement"], "Allow", "write"
+        )
 
         (vulns if vulnerable else safes).append(
-            (policy['Arn'],
-             'access to only the necessary resources should be allowed.'))
+            (
+                policy["Arn"],
+                "access to only the necessary resources should be allowed.",
+            )
+        )
 
     return _get_result_as_tuple(
-        service='IAM',
-        objects='Policies',
+        service="IAM",
+        objects="Policies",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_privileges_over_iam(key_id: str,
-                            secret: str,
-                            session_token: str = None,
-                            retry: bool = True) -> tuple:
+def has_privileges_over_iam(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if a policy documents has privileges over iam.
 
@@ -1165,49 +1276,53 @@ def has_privileges_over_iam(key_id: str,
     :rtype: :class:`fluidasserts.Result`
 
     """
-    msg_open = 'Policies have privileges over iam.'
-    msg_closed = 'Policies have no privileges over iam.'
+    msg_open = "Policies have privileges over iam."
+    msg_closed = "Policies have no privileges over iam."
     vulns, safes = [], []
     policies = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='iam',
-        func='list_policies',
-        Scope='Local',
-        OnlyAttached=True)['Policies']
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="iam",
+        func="list_policies",
+        Scope="Local",
+        OnlyAttached=True,
+    )["Policies"]
 
     for policy in policies:
         policy_version = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            boto3_client_kwargs={'aws_session_token': session_token},
-            service='iam',
-            func='get_policy_version',
-            param='PolicyVersion',
-            PolicyArn=policy['Arn'],
-            VersionId=policy['DefaultVersionId'],
-            retry=retry)
+            boto3_client_kwargs={"aws_session_token": session_token},
+            service="iam",
+            func="get_policy_version",
+            param="PolicyVersion",
+            PolicyArn=policy["Arn"],
+            VersionId=policy["DefaultVersionId"],
+            retry=retry,
+        )
 
         vulnerable = aws.service_is_present_statement(
-            policy_version['Document']['Statement'], 'Allow', 'iam')
-        (vulns if vulnerable else safes).append((policy['Arn'],
-                                                 'has privileges over iam.'))
+            policy_version["Document"]["Statement"], "Allow", "iam"
+        )
+        (vulns if vulnerable else safes).append(
+            (policy["Arn"], "has privileges over iam.")
+        )
     return _get_result_as_tuple(
-        service='IAM',
-        objects='Policies',
+        service="IAM",
+        objects="Policies",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def users_with_multiple_access_keys(key_id: str,
-                                    secret: str,
-                                    session_token: str = None,
-                                    retry: bool = True) -> tuple:
+def users_with_multiple_access_keys(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if there are users with multiple access keys.
 
@@ -1222,51 +1337,60 @@ def users_with_multiple_access_keys(key_id: str,
     """
     vulns, safes = [], []
 
-    msg_open: str = 'Users have multiple access keys.'
-    msg_closed: str = 'Users have only one access keys.'
+    msg_open: str = "Users have multiple access keys."
+    msg_closed: str = "Users have only one access keys."
 
     users = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='iam',
-        func='list_users',
-        param='Users',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="iam",
+        func="list_users",
+        param="Users",
+        retry=retry,
+    )
 
     for user in users:
         access_keys = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            boto3_client_kwargs={'aws_session_token': session_token},
-            service='iam',
-            func='list_access_keys',
-            param='AccessKeyMetadata',
+            boto3_client_kwargs={"aws_session_token": session_token},
+            service="iam",
+            func="list_access_keys",
+            param="AccessKeyMetadata",
             retry=retry,
-            UserName=user['UserName'])
+            UserName=user["UserName"],
+        )
         access_keys_activated = list(
-            filter(lambda y: y == 'Active',
-                   list(map(lambda x: x['Status'], access_keys))))
+            filter(
+                lambda y: y == "Active",
+                list(map(lambda x: x["Status"], access_keys)),
+            )
+        )
 
         (vulns if len(access_keys_activated) > 1 else safes).append(
-            (user['Arn'], 'user must have only one access key.'))
+            (user["Arn"], "user must have only one access key.")
+        )
 
     return _get_result_as_tuple(
-        service='IAM',
-        objects='Users',
+        service="IAM",
+        objects="Users",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_full_access_to_ssm(key_id: str,
-                           secret: str,
-                           session_token: str = None,
-                           retry: bool = True,
-                           **boto3_kwargs):
+def has_full_access_to_ssm(
+    key_id: str,
+    secret: str,
+    session_token: str = None,
+    retry: bool = True,
+    **boto3_kwargs,
+):
     """
     Check if there are policy documents that allow full access to ssm agent.
 
@@ -1284,53 +1408,67 @@ def has_full_access_to_ssm(key_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open = 'Policies have privileges over iam.'
-    msg_closed = 'Policies have no privileges over iam.'
+    msg_open = "Policies have privileges over iam."
+    msg_closed = "Policies have no privileges over iam."
     vulns, safes = [], []
     policies = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
         boto3_client_kwargs={
-            'aws_session_token': session_token, **boto3_kwargs},
-        service='iam',
-        func='list_policies',
-        Scope='Local',
-        OnlyAttached=True)['Policies']
+            "aws_session_token": session_token,
+            **boto3_kwargs,
+        },
+        service="iam",
+        func="list_policies",
+        Scope="Local",
+        OnlyAttached=True,
+    )["Policies"]
 
     for policy in policies:
         policy_version = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
             boto3_client_kwargs={
-                'aws_session_token': session_token, **boto3_kwargs},
-            service='iam',
-            func='get_policy_version',
-            param='PolicyVersion',
-            PolicyArn=policy['Arn'],
-            VersionId=policy['DefaultVersionId'],
-            retry=retry)
+                "aws_session_token": session_token,
+                **boto3_kwargs,
+            },
+            service="iam",
+            func="get_policy_version",
+            param="PolicyVersion",
+            PolicyArn=policy["Arn"],
+            VersionId=policy["DefaultVersionId"],
+            retry=retry,
+        )
 
-        for sts in aws.force_list(policy_version['Document']['Statement']):
-            vulnerable = sts['Effect'] == 'Allow' and 'Resource' in sts and \
-                aws.resource_all(sts['Resource']) and 'ssm:*' in sts['Action']
+        for sts in aws.force_list(policy_version["Document"]["Statement"]):
+            vulnerable = (
+                sts["Effect"] == "Allow"
+                and "Resource" in sts
+                and aws.resource_all(sts["Resource"])
+                and "ssm:*" in sts["Action"]
+            )
             (vulns if vulnerable else safes).append(
-                (policy['Arn'], 'has full access over ssm agent'))
+                (policy["Arn"], "has full access over ssm agent")
+            )
     return _get_result_as_tuple(
-        service='IAM',
-        objects='Policies',
+        service="IAM",
+        objects="Policies",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def allows_priv_escalation_by_policies_versions(key_id: str,
-                                                secret: str,
-                                                session_token: str = None,
-                                                retry: bool = True,
-                                                **boto3_kwargs):
+def allows_priv_escalation_by_policies_versions(
+    key_id: str,
+    secret: str,
+    session_token: str = None,
+    retry: bool = True,
+    **boto3_kwargs,
+):
     """
     Check if there are policy documents that allow privilege escalation.
 
@@ -1348,54 +1486,67 @@ def allows_priv_escalation_by_policies_versions(key_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open = 'Allows privilege escalation by policies versions.'
-    msg_closed = 'Avoids privilege escalation by policies versions.'
+    msg_open = "Allows privilege escalation by policies versions."
+    msg_closed = "Avoids privilege escalation by policies versions."
     vulns, safes = [], []
     policies = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
         boto3_client_kwargs={
-            'aws_session_token': session_token, **boto3_kwargs},
-        service='iam',
-        func='list_policies',
-        Scope='Local',
-        OnlyAttached=True)['Policies']
+            "aws_session_token": session_token,
+            **boto3_kwargs,
+        },
+        service="iam",
+        func="list_policies",
+        Scope="Local",
+        OnlyAttached=True,
+    )["Policies"]
 
     for policy in policies:
         policy_version = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
             boto3_client_kwargs={
-                'aws_session_token': session_token, **boto3_kwargs},
-            service='iam',
-            func='get_policy_version',
-            param='PolicyVersion',
-            PolicyArn=policy['Arn'],
-            VersionId=policy['DefaultVersionId'],
-            retry=retry)
+                "aws_session_token": session_token,
+                **boto3_kwargs,
+            },
+            service="iam",
+            func="get_policy_version",
+            param="PolicyVersion",
+            PolicyArn=policy["Arn"],
+            VersionId=policy["DefaultVersionId"],
+            retry=retry,
+        )
 
-        for stm in aws.force_list(policy_version['Document']['Statement']):
-            vulnerable = stm['Effect'] == 'Allow' and 'Resource' in stm and \
-                'iam:CreatePolicyVersion' in stm['Action'] and \
-                'iam:SetDefaultPolicyVersion' in stm['Action']
+        for stm in aws.force_list(policy_version["Document"]["Statement"]):
+            vulnerable = (
+                stm["Effect"] == "Allow"
+                and "Resource" in stm
+                and "iam:CreatePolicyVersion" in stm["Action"]
+                and "iam:SetDefaultPolicyVersion" in stm["Action"]
+            )
             (vulns if vulnerable else safes).append(
-                (policy['Arn'], 'allows privilege escalation'))
+                (policy["Arn"], "allows privilege escalation")
+            )
     return _get_result_as_tuple(
-        service='IAM',
-        objects='Policies',
+        service="IAM",
+        objects="Policies",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def allows_priv_escalation_by_attach_policy(key_id: str,
-                                            secret: str,
-                                            session_token: str = None,
-                                            retry: bool = True,
-                                            **boto3_kwargs):
+def allows_priv_escalation_by_attach_policy(
+    key_id: str,
+    secret: str,
+    session_token: str = None,
+    retry: bool = True,
+    **boto3_kwargs,
+):
     """
     Check if there are policy documents that allow privilege escalation.
 
@@ -1414,41 +1565,52 @@ def allows_priv_escalation_by_attach_policy(key_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open = 'Allows privilege escalation by policies versions.'
-    msg_closed = 'Avoids privilege escalation by policies versions.'
+    msg_open = "Allows privilege escalation by policies versions."
+    msg_closed = "Avoids privilege escalation by policies versions."
     vulns, safes = [], []
     policies = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
         boto3_client_kwargs={
-            'aws_session_token': session_token, **boto3_kwargs},
-        service='iam',
-        func='list_policies',
-        Scope='Local',
-        OnlyAttached=True)['Policies']
+            "aws_session_token": session_token,
+            **boto3_kwargs,
+        },
+        service="iam",
+        func="list_policies",
+        Scope="Local",
+        OnlyAttached=True,
+    )["Policies"]
 
     for policy in policies:
         policy_version = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
             boto3_client_kwargs={
-                'aws_session_token': session_token, **boto3_kwargs},
-            service='iam',
-            func='get_policy_version',
-            param='PolicyVersion',
-            PolicyArn=policy['Arn'],
-            VersionId=policy['DefaultVersionId'],
-            retry=retry)
+                "aws_session_token": session_token,
+                **boto3_kwargs,
+            },
+            service="iam",
+            func="get_policy_version",
+            param="PolicyVersion",
+            PolicyArn=policy["Arn"],
+            VersionId=policy["DefaultVersionId"],
+            retry=retry,
+        )
 
-        for stm in aws.force_list(policy_version['Document']['Statement']):
-            vulnerable = stm['Effect'] == 'Allow' and 'Resource' in stm and \
-                'iam:AttachUserPolicy' in stm['Action']
+        for stm in aws.force_list(policy_version["Document"]["Statement"]):
+            vulnerable = (
+                stm["Effect"] == "Allow"
+                and "Resource" in stm
+                and "iam:AttachUserPolicy" in stm["Action"]
+            )
             (vulns if vulnerable else safes).append(
-                (policy['Arn'], 'allows privilege escalation'))
+                (policy["Arn"], "allows privilege escalation")
+            )
     return _get_result_as_tuple(
-        service='IAM',
-        objects='Policies',
+        service="IAM",
+        objects="Policies",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )

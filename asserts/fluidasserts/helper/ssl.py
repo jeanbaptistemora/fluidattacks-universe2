@@ -39,10 +39,12 @@ def _my_add_padding_poodle(self, data: bytes) -> bytes:
 
 
 @contextmanager
-def connect_legacy(hostname: str, port: int = PORT,
-                   ciphers: str = 'HIGH:!DH:!aNULL',
-                   validate_cert: bool = False) \
-        -> Generator[ssl.SSLSocket, None, None]:
+def connect_legacy(
+    hostname: str,
+    port: int = PORT,
+    ciphers: str = "HIGH:!DH:!aNULL",
+    validate_cert: bool = False,
+) -> Generator[ssl.SSLSocket, None, None]:
     """
     Establish a legacy SSL/TLS connection.
 
@@ -73,17 +75,18 @@ def connect_legacy(hostname: str, port: int = PORT,
 
 
 @contextmanager
-def connect(hostname,
-            port: int = PORT,
-            check: str = None,
-            min_version: Tuple[int, int] = (3, 0),
-            max_version: Tuple[int, int] = (3, 3),
-            cipher_names: List[str] = None,
-            key_exchange_names: List[str] = None,
-            anon: bool = False,
-            scsv: bool = False,
-            use_sni: bool = True
-            ) -> Generator[tlslite.TLSConnection, None, None]:
+def connect(
+    hostname,
+    port: int = PORT,
+    check: str = None,
+    min_version: Tuple[int, int] = (3, 0),
+    max_version: Tuple[int, int] = (3, 3),
+    cipher_names: List[str] = None,
+    key_exchange_names: List[str] = None,
+    anon: bool = False,
+    scsv: bool = False,
+    use_sni: bool = True,
+) -> Generator[tlslite.TLSConnection, None, None]:
     """
     Establish a SSL/TLS connection.
 
@@ -97,7 +100,7 @@ def connect(hostname,
     :param anon: Whether to make the handshake anonymously.
     :param scsv: Whether to use TLS_FALLBACK_SCSV.
     """
-    if check == 'POODLE':
+    if check == "POODLE":
         tlslite.recordlayer.RecordLayer.addPadding = _my_add_padding_poodle
     else:
         tlslite.recordlayer.RecordLayer.addPadding = ORIG_METHOD
@@ -121,11 +124,13 @@ def connect(hostname,
 
     if tlslite.utils.dns_utils.is_valid_hostname(hostname) and use_sni:
         if anon:
-            connection.handshakeClientAnonymous(settings=settings,
-                                                serverName=hostname)
+            connection.handshakeClientAnonymous(
+                settings=settings, serverName=hostname
+            )
         else:
-            connection.handshakeClientCert(settings=settings,
-                                           serverName=hostname)
+            connection.handshakeClientCert(
+                settings=settings, serverName=hostname
+            )
     else:
         if anon:
             connection.handshakeClientAnonymous(settings=settings)

@@ -5,12 +5,13 @@ from fluidasserts.cloud.aws.terraform import ec2
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('cloud_aws_terraform')
+
+pytestmark = pytest.mark.asserts_module("cloud_aws_terraform")
 
 # Constants
-SAFE: str = 'test/static/terraform/safe'
-VULN: str = 'test/static/terraform/vulnerable'
-NOT_EXISTS: str = 'test/static/terraform/not-exists'
+SAFE: str = "test/static/terraform/safe"
+VULN: str = "test/static/terraform/vulnerable"
+NOT_EXISTS: str = "test/static/terraform/not-exists"
 
 
 def test_has_unencrypted_volumes():
@@ -66,6 +67,7 @@ def test_has_not_an_iam_instance_profile():
     assert ec2.has_not_an_iam_instance_profile(SAFE).is_closed()
     assert ec2.has_not_an_iam_instance_profile(NOT_EXISTS).is_unknown()
 
+
 def test_has_not_termination_protection():
     """test ec2.has_not_termination_protection."""
     result = ec2.has_not_termination_protection(VULN)
@@ -73,6 +75,7 @@ def test_has_not_termination_protection():
     assert result.get_vulns_number() == 2
     assert ec2.has_not_termination_protection(SAFE).is_closed()
     assert ec2.has_not_termination_protection(NOT_EXISTS).is_unknown()
+
 
 def test_has_terminate_shutdown_behavior():
     """test ec2.has_terminate_shutdown_behavior."""
@@ -82,6 +85,7 @@ def test_has_terminate_shutdown_behavior():
     assert ec2.has_terminate_shutdown_behavior(SAFE).is_closed()
     assert ec2.has_terminate_shutdown_behavior(NOT_EXISTS).is_unknown()
 
+
 def test_is_associate_public_ip_address_enabled():
     """test ec2.is_associate_public_ip_address_enabled."""
     result = ec2.is_associate_public_ip_address_enabled(VULN)
@@ -89,6 +93,7 @@ def test_is_associate_public_ip_address_enabled():
     assert result.get_vulns_number() == 2
     assert ec2.is_associate_public_ip_address_enabled(SAFE).is_closed()
     assert ec2.is_associate_public_ip_address_enabled(NOT_EXISTS).is_unknown()
+
 
 def test_uses_default_security_group():
     """test ec2.uses_default_security_group."""

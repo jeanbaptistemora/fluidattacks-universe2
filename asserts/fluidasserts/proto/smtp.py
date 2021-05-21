@@ -25,19 +25,23 @@ def has_vrfy(ip_address: str, port: int = PORT) -> tuple:
     server = smtplib.SMTP(ip_address, port)
     service = banner.SMTPService(port)
     fingerprint = service.get_fingerprint(ip_address)
-    vrfy = server.verify('root')
+    vrfy = server.verify("root")
 
     return _get_result_as_tuple_host_port(
-        protocol='SMTP', host=ip_address, port=port,
-        msg_open='Has VRFY command enabled',
-        msg_closed='Has VRFY command disabled',
+        protocol="SMTP",
+        host=ip_address,
+        port=port,
+        msg_open="Has VRFY command enabled",
+        msg_closed="Has VRFY command disabled",
         open_if=502 not in vrfy,
-        fingerprint=fingerprint)
+        fingerprint=fingerprint,
+    )
 
 
 @api(risk=LOW, kind=DAST)
-def is_version_visible(ip_address: str, port: int = PORT,
-                       payload: bool = None) -> tuple:
+def is_version_visible(
+    ip_address: str, port: int = PORT, payload: bool = None
+) -> tuple:
     """
     Check if banner is visible.
 
@@ -51,8 +55,12 @@ def is_version_visible(ip_address: str, port: int = PORT,
     result: bool = bool(version)
 
     return _get_result_as_tuple_host_port(
-        protocol='SMTP', host=ip_address, port=port, extra=payload,
-        msg_open='Version is visible',
-        msg_closed='Version is not visible',
+        protocol="SMTP",
+        host=ip_address,
+        port=port,
+        extra=payload,
+        msg_open="Version is visible",
+        msg_closed="Version is not visible",
         open_if=result,
-        fingerprint=fingerprint)
+        fingerprint=fingerprint,
+    )

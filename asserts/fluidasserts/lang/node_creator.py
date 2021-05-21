@@ -24,8 +24,8 @@ def meta_data(graph: DiGraph, language: str, version: str = None) -> int:
     :param version: A version.
     """
     args = locals()
-    args.pop('graph')
-    args['type'] = 'META_DATA'
+    args.pop("graph")
+    args["type"] = "META_DATA"
     return _create_node(graph, **args)
 
 
@@ -36,15 +36,14 @@ def file(graph: DiGraph, name: str):
     :param name: Name of represented file
     """
     args = locals()
-    args.pop('graph')
-    args['type'] = 'FILE'
+    args.pop("graph")
+    args["type"] = "FILE"
     return _create_node(graph, **args)
 
 
-def namespace_block(graph: DiGraph,
-                    name: str,
-                    file_name: str,
-                    full_name: str = None):
+def namespace_block(
+    graph: DiGraph, name: str, file_name: str, full_name: str = None
+):
     """
     A reference to a namespace.
 
@@ -56,23 +55,24 @@ def namespace_block(graph: DiGraph,
       linked into corresponding FILE nodes.
     """
     args = locals()
-    args.pop('graph')
-    args['type'] = 'NAMESPACE_BLOCK'
+    args.pop("graph")
+    args["type"] = "NAMESPACE_BLOCK"
     return _create_node(graph, **args)
 
 
-def type_decl(graph: DiGraph,
-              name: str,
-              full_name: str,
-              ast_parent_type: str,
-              ast_parent_full_name: str,
-              line_number: int,
-              column_number: int,
-              line_number_end: int,
-              column_number_end: int,
-              file_name: str,
-              order: int = None,
-              ):
+def type_decl(
+    graph: DiGraph,
+    name: str,
+    full_name: str,
+    ast_parent_type: str,
+    ast_parent_full_name: str,
+    line_number: int,
+    column_number: int,
+    line_number_end: int,
+    column_number_end: int,
+    file_name: str,
+    order: int = None,
+):
     """
     A type declaration
     :param name: Name of represented type.
@@ -91,6 +91,6 @@ def type_decl(graph: DiGraph,
       linked into corresponding FILE nodes.
     """
     args = locals()
-    args.pop('graph')
-    args['type'] = 'TYPE_DECL'
+    args.pop("graph")
+    args["type"] = "TYPE_DECL"
     return _create_node(graph, **args)

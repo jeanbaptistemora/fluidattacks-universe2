@@ -31,7 +31,8 @@ from fluidasserts.utils.decorators import api, unknown_if
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_unencrypted_storage(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    path: str, exclude: Optional[List[str]] = None
+) -> tuple:
     """
     Check if any ``DBCluster`` or ``DBInstance`` use unencrypted storage.
 
@@ -51,50 +52,60 @@ def has_unencrypted_storage(
     templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
     clusters: List[int] = get_resources(
         graph,
-        map(lambda x: x[0], templates), {
-            'AWS', 'RDS', 'DBCluster', 'DBInstance'},
-        info=True, num_labels=3)
+        map(lambda x: x[0], templates),
+        {"AWS", "RDS", "DBCluster", "DBInstance"},
+        info=True,
+        num_labels=3,
+    )
     vulnerable: bool = False
     vulnerabilities: List[Vulnerability] = []
     for cluster, resource, template in clusters:
-        line = resource['line']
+        line = resource["line"]
         _encryption: List[int] = [
-            node for node in dfs_preorder_nodes(graph, cluster, 3)
-            if 'StorageEncrypted' in graph.nodes[node]['labels']
+            node
+            for node in dfs_preorder_nodes(graph, cluster, 3)
+            if "StorageEncrypted" in graph.nodes[node]["labels"]
         ]
 
         if _encryption:
             encryption: int = _encryption[0]
-            line = graph.nodes[encryption]['line']
+            line = graph.nodes[encryption]["line"]
             with contextlib.suppress(CloudFormationInvalidTypeError):
                 un_encryption: List[int] = get_ref_nodes(
-                    graph, encryption,
-                    lambda x: x not in (True, 'true', 'True', '1', 1))
+                    graph,
+                    encryption,
+                    lambda x: x not in (True, "true", "True", "1", 1),
+                )
                 if un_encryption:
-                    line = graph.nodes[un_encryption[0]]['line']
+                    line = graph.nodes[un_encryption[0]]["line"]
                     vulnerable = True
         else:
             vulnerable = True
         if vulnerable:
             vulnerabilities.append(
                 Vulnerability(
-                    path=template['path'],
-                    entity=get_type(graph, encryption, {'DBCluster',
-                                                        'DBInstance'}),
-                    identifier=resource['name'],
+                    path=template["path"],
+                    entity=get_type(
+                        graph, encryption, {"DBCluster", "DBInstance"}
+                    ),
+                    identifier=resource["name"],
                     line=line,
-                    reason='is not encrypted'))
+                    reason="is not encrypted",
+                )
+            )
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='RDS clusters are not encrypted',
-        msg_closed='RDS clusters are encrypted')
+        msg_open="RDS clusters are not encrypted",
+        msg_closed="RDS clusters are encrypted",
+    )
 
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_not_automated_backups(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    path: str, exclude: Optional[List[str]] = None
+) -> tuple:
     """
     Check if any ``DBCluster`` or ``DBInstance`` have not automated backups.
 
@@ -109,48 +120,56 @@ def has_not_automated_backups(
     templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
     clusters: List[int] = get_resources(
         graph,
-        map(lambda x: x[0], templates), {
-            'AWS', 'RDS', 'DBCluster', 'DBInstance'},
-        info=True, num_labels=3)
+        map(lambda x: x[0], templates),
+        {"AWS", "RDS", "DBCluster", "DBInstance"},
+        info=True,
+        num_labels=3,
+    )
     vulnerable: bool = False
     vulnerabilities: List[Vulnerability] = []
     for cluster, resource, template in clusters:
-        line = resource['line']
+        line = resource["line"]
         _retention: List[int] = [
-            node for node in dfs_preorder_nodes(graph, cluster, 3)
-            if 'BackupRetentionPeriod' in graph.nodes[node]['labels']
+            node
+            for node in dfs_preorder_nodes(graph, cluster, 3)
+            if "BackupRetentionPeriod" in graph.nodes[node]["labels"]
         ]
 
         if _retention:
             retention: int = _retention[0]
-            line = graph.nodes[retention]['line']
+            line = graph.nodes[retention]["line"]
             with contextlib.suppress(CloudFormationInvalidTypeError):
                 no_retention: List[int] = get_ref_nodes(
-                    graph, retention,
-                    lambda x: x in ('0', 0))
+                    graph, retention, lambda x: x in ("0", 0)
+                )
                 if no_retention:
-                    line = graph.nodes[no_retention[0]]['line']
+                    line = graph.nodes[no_retention[0]]["line"]
                     vulnerable = True
         if vulnerable:
             vulnerabilities.append(
                 Vulnerability(
-                    path=template['path'],
-                    entity=get_type(graph, retention, {'DBCluster',
-                                                       'DBInstance'}),
-                    identifier=resource['name'],
+                    path=template["path"],
+                    entity=get_type(
+                        graph, retention, {"DBCluster", "DBInstance"}
+                    ),
+                    identifier=resource["name"],
                     line=line,
-                    reason='has not automated backups enabled'))
+                    reason="has not automated backups enabled",
+                )
+            )
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='RDS cluster or instances have not automated backups enabled',
-        msg_closed='RDS cluster or instances have automated backups enabled')
+        msg_open="RDS cluster or instances have not automated backups enabled",
+        msg_closed="RDS cluster or instances have automated backups enabled",
+    )
 
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def is_publicly_accessible(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    path: str, exclude: Optional[List[str]] = None
+) -> tuple:
     """
     Check if any ``RDS::DBInstance`` is Internet facing (a.k.a. public).
 
@@ -170,47 +189,56 @@ def is_publicly_accessible(
     templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
     clusters: List[int] = get_resources(
         graph,
-        map(lambda x: x[0], templates), {
-            'AWS', 'RDS', 'DBCluster', 'DBInstance'},
-        info=True, num_labels=3)
+        map(lambda x: x[0], templates),
+        {"AWS", "RDS", "DBCluster", "DBInstance"},
+        info=True,
+        num_labels=3,
+    )
     vulnerable: bool = False
     vulnerabilities: List[Vulnerability] = []
     for cluster, resource, template in clusters:
-        line = resource['line']
+        line = resource["line"]
         _public: List[int] = [
-            node for node in dfs_preorder_nodes(graph, cluster, 3)
-            if 'PubliclyAccessible' in graph.nodes[node]['labels']
+            node
+            for node in dfs_preorder_nodes(graph, cluster, 3)
+            if "PubliclyAccessible" in graph.nodes[node]["labels"]
         ]
 
         if _public:
             public: int = _public[0]
-            line = graph.nodes[public]['line']
+            line = graph.nodes[public]["line"]
             with contextlib.suppress(CloudFormationInvalidTypeError):
                 is_public: List[int] = get_ref_nodes(
-                    graph, public,
-                    lambda x: x in (True, 'true', 'True', '1', 1))
+                    graph,
+                    public,
+                    lambda x: x in (True, "true", "True", "1", 1),
+                )
                 if is_public:
-                    line = graph.nodes[is_public[0]]['line']
+                    line = graph.nodes[is_public[0]]["line"]
                     vulnerable = True
         if vulnerable:
             vulnerabilities.append(
                 Vulnerability(
-                    path=template['path'],
-                    entity=get_type(graph, public, {'DBInstance'}),
-                    identifier=resource['name'],
+                    path=template["path"],
+                    entity=get_type(graph, public, {"DBInstance"}),
+                    identifier=resource["name"],
                     line=line,
-                    reason='is publicly accessible'))
+                    reason="is publicly accessible",
+                )
+            )
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='RDS instances are publicly accessible',
-        msg_closed='RDS instances are not publicly accessible')
+        msg_open="RDS instances are publicly accessible",
+        msg_closed="RDS instances are not publicly accessible",
+    )
 
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def is_not_inside_a_db_subnet_group(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    path: str, exclude: Optional[List[str]] = None
+) -> tuple:
     """
     Check if ``DBInstance`` or ``DBCluster`` are not inside a DB Subnet Group.
 
@@ -226,36 +254,44 @@ def is_not_inside_a_db_subnet_group(
     templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
     clusters: List[int] = get_resources(
         graph,
-        map(lambda x: x[0], templates), {
-            'AWS', 'RDS', 'DBCluster', 'DBInstance'},
-        info=True, num_labels=3)
+        map(lambda x: x[0], templates),
+        {"AWS", "RDS", "DBCluster", "DBInstance"},
+        info=True,
+        num_labels=3,
+    )
     vulnerabilities: List[Vulnerability] = []
     for cluster, resource, template in clusters:
         _subnet: List[int] = [
-            node for node in dfs_preorder_nodes(graph, cluster, 3)
-            if 'DBSubnetGroupName' in graph.nodes[node]['labels']
+            node
+            for node in dfs_preorder_nodes(graph, cluster, 3)
+            if "DBSubnetGroupName" in graph.nodes[node]["labels"]
         ]
 
         if not _subnet:
             vulnerabilities.append(
                 Vulnerability(
-                    path=template['path'],
-                    entity=get_type(graph, cluster, {'DBCluster',
-                                                     'DBInstance'}),
-                    identifier=resource['name'],
-                    line=resource['line'],
-                    reason='is not inside a DB Subnet Group'))
+                    path=template["path"],
+                    entity=get_type(
+                        graph, cluster, {"DBCluster", "DBInstance"}
+                    ),
+                    identifier=resource["name"],
+                    line=resource["line"],
+                    reason="is not inside a DB Subnet Group",
+                )
+            )
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='RDS Cluster or Instances are not inside a DB Subnet Group',
-        msg_closed='RDS Cluster or Instances are inside a DB Subnet Group')
+        msg_open="RDS Cluster or Instances are not inside a DB Subnet Group",
+        msg_closed="RDS Cluster or Instances are inside a DB Subnet Group",
+    )
 
 
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_not_termination_protection(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    path: str, exclude: Optional[List[str]] = None
+) -> tuple:
     """
     Check if ``RDS`` clusters and instances have termination protection.
 
@@ -280,51 +316,60 @@ def has_not_termination_protection(
     templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
     clusters: List[int] = get_resources(
         graph,
-        map(lambda x: x[0], templates), {
-            'AWS', 'RDS', 'DBCluster', 'DBInstance'},
-        info=True, num_labels=3)
+        map(lambda x: x[0], templates),
+        {"AWS", "RDS", "DBCluster", "DBInstance"},
+        info=True,
+        num_labels=3,
+    )
     vulnerable: bool = False
     vulnerabilities: List[Vulnerability] = []
     for cluster, resource, template in clusters:
-        line = resource['line']
+        line = resource["line"]
         _termination_protection: List[int] = [
-            node for node in dfs_preorder_nodes(graph, cluster, 3)
-            if 'DeletionProtection' in graph.nodes[node]['labels']
+            node
+            for node in dfs_preorder_nodes(graph, cluster, 3)
+            if "DeletionProtection" in graph.nodes[node]["labels"]
         ]
 
         if _termination_protection:
             termination_protection: int = _termination_protection[0]
-            line = graph.nodes[termination_protection]['line']
+            line = graph.nodes[termination_protection]["line"]
             with contextlib.suppress(CloudFormationInvalidTypeError):
                 no_protection: List[int] = get_ref_nodes(
-                    graph, termination_protection,
-                    lambda x: x not in (True, 'true', 'True', '1', 1))
+                    graph,
+                    termination_protection,
+                    lambda x: x not in (True, "true", "True", "1", 1),
+                )
                 if no_protection:
-                    line = graph.nodes[no_protection[0]]['line']
+                    line = graph.nodes[no_protection[0]]["line"]
                     vulnerable = True
         else:
             vulnerable = True
         if vulnerable:
             vulnerabilities.append(
                 Vulnerability(
-                    path=template['path'],
-                    entity=get_type(graph, cluster,
-                                    {'DBCluster',
-                                     'DBInstance'}),
-                    identifier=resource['name'],
+                    path=template["path"],
+                    entity=get_type(
+                        graph, cluster, {"DBCluster", "DBInstance"}
+                    ),
+                    identifier=resource["name"],
                     line=line,
-                    reason='has not deletion protection'))
+                    reason="has not deletion protection",
+                )
+            )
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='RDS instances or clusters have not deletion protection',
-        msg_closed='RDS instances or clusters have deletion protection')
+        msg_open="RDS instances or clusters have not deletion protection",
+        msg_closed="RDS instances or clusters have deletion protection",
+    )
 
 
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError)
 def not_uses_iam_authentication(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    path: str, exclude: Optional[List[str]] = None
+) -> tuple:
     """
     Check if ``RDS`` clusters and instances have termination protection.
 
@@ -349,42 +394,50 @@ def not_uses_iam_authentication(
     templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
     clusters: List[int] = get_resources(
         graph,
-        map(lambda x: x[0], templates), {
-            'AWS', 'RDS', 'DBCluster', 'DBInstance'},
-        info=True, num_labels=3)
+        map(lambda x: x[0], templates),
+        {"AWS", "RDS", "DBCluster", "DBInstance"},
+        info=True,
+        num_labels=3,
+    )
     vulnerable: bool = False
     vulnerabilities: List[Vulnerability] = []
     for cluster, resource, template in clusters:
-        line = resource['line']
+        line = resource["line"]
         _iam_authentication: List[int] = [
-            node for node in dfs_preorder_nodes(graph, cluster, 3)
-            if 'EnableIAMDatabaseAuthentication' in graph.nodes[node]['labels']
+            node
+            for node in dfs_preorder_nodes(graph, cluster, 3)
+            if "EnableIAMDatabaseAuthentication" in graph.nodes[node]["labels"]
         ]
 
         if _iam_authentication:
             iam_authentication: int = _iam_authentication[0]
-            line = graph.nodes[iam_authentication]['line']
+            line = graph.nodes[iam_authentication]["line"]
             with contextlib.suppress(CloudFormationInvalidTypeError):
                 no_protection: List[int] = get_ref_nodes(
-                    graph, iam_authentication,
-                    lambda x: x not in (True, 'true', 'True', '1', 1))
+                    graph,
+                    iam_authentication,
+                    lambda x: x not in (True, "true", "True", "1", 1),
+                )
                 if no_protection:
-                    line = graph.nodes[no_protection[0]]['line']
+                    line = graph.nodes[no_protection[0]]["line"]
                     vulnerable = True
         else:
             vulnerable = True
         if vulnerable:
             vulnerabilities.append(
                 Vulnerability(
-                    path=template['path'],
-                    entity=get_type(graph, cluster,
-                                    {'DBCluster',
-                                     'DBInstance'}),
-                    identifier=resource['name'],
+                    path=template["path"],
+                    entity=get_type(
+                        graph, cluster, {"DBCluster", "DBInstance"}
+                    ),
+                    identifier=resource["name"],
                     line=line,
-                    reason='does not have IAM authentication'))
+                    reason="does not have IAM authentication",
+                )
+            )
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='RDS instances or clusters do not use IAM authentication',
-        msg_closed='RDS instances or clusters use IAM authentication')
+        msg_open="RDS instances or clusters do not use IAM authentication",
+        msg_closed="RDS instances or clusters use IAM authentication",
+    )

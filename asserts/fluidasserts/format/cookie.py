@@ -15,11 +15,14 @@ from fluidasserts.utils.decorators import api, unknown_if
 
 
 @unknown_if(AssertionError, http.ConnError)
-def _generic_check_attribute(cookie_attribute: str,
-                             cookie_name: str,
-                             url: Optional[str],
-                             cookie_jar: Optional[RequestsCookieJar],
-                             *args, **kwargs) -> tuple:
+def _generic_check_attribute(
+    cookie_attribute: str,
+    cookie_name: str,
+    url: Optional[str],
+    cookie_jar: Optional[RequestsCookieJar],
+    *args,
+    **kwargs,
+) -> tuple:
     r"""
     Check if a cookie has set to a secure value the provided attribute.
 
@@ -37,7 +40,7 @@ def _generic_check_attribute(cookie_attribute: str,
                        :class:`~fluidasserts.helper.http.HTTPSession`.
     """
     kwargs = kwargs or {}
-    kwargs.update({'request_at_instantiation': False})
+    kwargs.update({"request_at_instantiation": False})
 
     canon_url: str = str(url)
     session = http.HTTPSession(canon_url, *args, **kwargs)
@@ -49,15 +52,16 @@ def _generic_check_attribute(cookie_attribute: str,
         cookielist = cookie_jar
 
     session.set_messages(
-        source=f'Cookie/Attributes/{cookie_attribute}',
-        msg_open=f'{cookie_attribute} not set in cookie {cookie_name}',
-        msg_closed=f'{cookie_attribute} is set in cookie {cookie_name}')
+        source=f"Cookie/Attributes/{cookie_attribute}",
+        msg_open=f"{cookie_attribute} not set in cookie {cookie_name}",
+        msg_closed=f"{cookie_attribute} is set in cookie {cookie_name}",
+    )
 
     if cookielist is None:
-        raise AssertionError(f'Cookie is not present {cookie_name}')
+        raise AssertionError(f"Cookie is not present {cookie_name}")
 
     if not any(c.name == cookie_name for c in cookielist):
-        raise AssertionError(f'Cookie {cookie_name} not found')
+        raise AssertionError(f"Cookie {cookie_name} not found")
 
     is_vulnerable: bool = True
 
@@ -65,15 +69,17 @@ def _generic_check_attribute(cookie_attribute: str,
         if cookie.name != cookie_name:
             continue
 
-        if cookie_attribute == 'HttpOnly' and (
-                cookie.has_nonstandard_attr('HttpOnly') or
-                cookie.has_nonstandard_attr('httponly')):
+        if cookie_attribute == "HttpOnly" and (
+            cookie.has_nonstandard_attr("HttpOnly")
+            or cookie.has_nonstandard_attr("httponly")
+        ):
             is_vulnerable = False
-        elif cookie_attribute == 'Secure' and \
-                cookie.secure:
+        elif cookie_attribute == "Secure" and cookie.secure:
             is_vulnerable = False
-        elif cookie_attribute == 'SameSite' and \
-                cookie.get_nonstandard_attr('SameSite') == 'Strict':
+        elif (
+            cookie_attribute == "SameSite"
+            and cookie.get_nonstandard_attr("SameSite") == "Strict"
+        ):
             is_vulnerable = False
 
     session.add_unit(is_vulnerable=is_vulnerable)
@@ -99,13 +105,14 @@ def has_not_httponly_set(cookie_name: str, url: str, *args, **kwargs) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     return _generic_check_attribute(
-        'HttpOnly', cookie_name, url, None, *args, **kwargs)
+        "HttpOnly", cookie_name, url, None, *args, **kwargs
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 def has_not_httponly_in_cookiejar(
-        cookie_name: str,
-        cookie_jar: RequestsCookieJar) -> tuple:
+    cookie_name: str, cookie_jar: RequestsCookieJar
+) -> tuple:
     r"""
     Check if the cookie in the **cookie_jar** has the **HttpOnly** attribute.
 
@@ -119,7 +126,7 @@ def has_not_httponly_in_cookiejar(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    return _generic_check_attribute('HttpOnly', cookie_name, None, cookie_jar)
+    return _generic_check_attribute("HttpOnly", cookie_name, None, cookie_jar)
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -140,12 +147,14 @@ def has_not_secure_set(cookie_name: str, url: str, *args, **kwargs) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     return _generic_check_attribute(
-        'Secure', cookie_name, url, None, *args, **kwargs)
+        "Secure", cookie_name, url, None, *args, **kwargs
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
-def has_not_secure_in_cookiejar(cookie_name: str,
-                                cookie_jar: RequestsCookieJar) -> tuple:
+def has_not_secure_in_cookiejar(
+    cookie_name: str, cookie_jar: RequestsCookieJar
+) -> tuple:
     r"""
     Check if the cookie in the **cookie_jar** has the **secure** attribute set.
 
@@ -159,7 +168,7 @@ def has_not_secure_in_cookiejar(cookie_name: str,
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    return _generic_check_attribute('Secure', cookie_name, None, cookie_jar)
+    return _generic_check_attribute("Secure", cookie_name, None, cookie_jar)
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -180,12 +189,14 @@ def has_not_samesite_set(cookie_name: str, url: str, *args, **kwargs) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     return _generic_check_attribute(
-        'SameSite', cookie_name, url, None, *args, **kwargs)
+        "SameSite", cookie_name, url, None, *args, **kwargs
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
-def has_not_samesite_in_cookiejar(cookie_name: str,
-                                  cookie_jar: RequestsCookieJar) -> tuple:
+def has_not_samesite_in_cookiejar(
+    cookie_name: str, cookie_jar: RequestsCookieJar
+) -> tuple:
     r"""
     Check if the cookie in the **cookie_jar** has the **samesite** attribute.
 
@@ -199,4 +210,4 @@ def has_not_samesite_in_cookiejar(cookie_name: str,
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    return _generic_check_attribute('SameSite', cookie_name, None, cookie_jar)
+    return _generic_check_attribute("SameSite", cookie_name, None, cookie_jar)

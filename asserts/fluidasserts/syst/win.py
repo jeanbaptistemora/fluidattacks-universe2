@@ -14,8 +14,9 @@ from fluidasserts.utils.decorators import api, unknown_if
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ConnError)
-def are_compilers_installed(server: str, username: str,
-                            password: str) -> tuple:
+def are_compilers_installed(
+    server: str, username: str, password: str
+) -> tuple:
     """
     Check if there is any compiler installed in Windows Server.
 
@@ -23,26 +24,32 @@ def are_compilers_installed(server: str, username: str,
     :param username: User to connect to WinRM.
     :param password: Password for given user.
     """
-    common_compilers = ('Visual', 'Python', 'Mingw', 'CygWin')
+    common_compilers = ("Visual", "Python", "Mingw", "CygWin")
 
-    query: str = ('reg query "HKLM\\Software\\Microsoft\\Windows\\'
-                  'CurrentVersion\\Uninstall" /s')
+    query: str = (
+        'reg query "HKLM\\Software\\Microsoft\\Windows\\'
+        'CurrentVersion\\Uninstall" /s'
+    )
 
     installed_software = winrm_exec_command(server, username, password, query)
 
     return _get_result_as_tuple(
-        system='Windows', host=server,
-        msg_open='Server has compilers installed',
-        msg_closed='Server does not have compilers installed',
+        system="Windows",
+        host=server,
+        msg_open="Server has compilers installed",
+        msg_closed="Server does not have compilers installed",
         open_if=any(
             re.search(compiler, installed_software, re.IGNORECASE)
-            for compiler in common_compilers))
+            for compiler in common_compilers
+        ),
+    )
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(ConnError)
-def is_antimalware_not_installed(server: str, username: str,
-                                 password: str) -> tuple:
+def is_antimalware_not_installed(
+    server: str, username: str, password: str
+) -> tuple:
     """
     Check if there is any antimalware installed in Windows Server.
 
@@ -50,21 +57,35 @@ def is_antimalware_not_installed(server: str, username: str,
     :param username: User to connect to WinRM.
     :param password: Password for given user.
     """
-    common_av = ('Symantec', 'Norton', 'AVG', 'Kaspersky', 'TrendMicro',
-                 'Panda', 'Sophos', 'McAfee', 'Eset')
+    common_av = (
+        "Symantec",
+        "Norton",
+        "AVG",
+        "Kaspersky",
+        "TrendMicro",
+        "Panda",
+        "Sophos",
+        "McAfee",
+        "Eset",
+    )
 
-    query: str = ('reg query "HKLM\\Software\\Microsoft\\Windows\\'
-                  'CurrentVersion\\Uninstall" /s')
+    query: str = (
+        'reg query "HKLM\\Software\\Microsoft\\Windows\\'
+        'CurrentVersion\\Uninstall" /s'
+    )
 
     installed_software = winrm_exec_command(server, username, password, query)
 
     return _get_result_as_tuple(
-        system='Windows', host=server,
-        msg_open='Server has an antivirus installed',
-        msg_closed='Server does not have an antivirus installed',
+        system="Windows",
+        host=server,
+        msg_open="Server has an antivirus installed",
+        msg_closed="Server does not have an antivirus installed",
         open_if=any(
             re.search(antivirus, installed_software, re.IGNORECASE)
-            for antivirus in common_av))
+            for antivirus in common_av
+        ),
+    )
 
 
 @api(risk=LOW, kind=DAST)
@@ -80,16 +101,19 @@ def are_syncookies_disabled(server: str) -> tuple:
     # On Windows, SYN Cookies are enabled by default and there's no
     # way to disable it.
     return _get_result_as_tuple(
-        system='Windows', host=server,
-        msg_open='Server has not SYN Cookies enabled',
-        msg_closed='Server has SYN Cookies enabled',
-        open_if=False)
+        system="Windows",
+        host=server,
+        msg_open="Server has not SYN Cookies enabled",
+        msg_closed="Server has SYN Cookies enabled",
+        open_if=False,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(ConnError)
-def are_protected_users_disabled(server: str, username: str,
-                                 password: str) -> tuple:
+def are_protected_users_disabled(
+    server: str, username: str, password: str
+) -> tuple:
     """
     Check if protected users is enabled on system.
 
@@ -99,39 +123,45 @@ def are_protected_users_disabled(server: str, username: str,
     :param username: User to connect to WinRM.
     :param password: Password for given user.
     """
-    security_patches = ('KB2871997',)
+    security_patches = ("KB2871997",)
 
-    msg_closed: str = 'Server has all required patches'
+    msg_closed: str = "Server has all required patches"
 
-    query: str = ('reg query "HKLM\\SOFTWARE\\Microsoft\\Windows\\'
-                  'CurrentVersion\\ComponentBased Servicing\\Packages" /s')
+    query: str = (
+        'reg query "HKLM\\SOFTWARE\\Microsoft\\Windows\\'
+        'CurrentVersion\\ComponentBased Servicing\\Packages" /s'
+    )
 
     installed_software = winrm_exec_command(server, username, password, query)
 
-    server_needed_patches = (
-        len(security_patches)
-        - sum(1
-              for patch in security_patches
-              if re.search(patch, installed_software, re.IGNORECASE)))
+    server_needed_patches = len(security_patches) - sum(
+        1
+        for patch in security_patches
+        if re.search(patch, installed_software, re.IGNORECASE)
+    )
 
     if server_needed_patches > 0:
 
-        query = ('reg query "HKLM\\System\\CurrentControlSet\\'
-                 'Control\\SecurityProviders\\WDigest" /v UseLogonCredential')
+        query = (
+            'reg query "HKLM\\System\\CurrentControlSet\\'
+            'Control\\SecurityProviders\\WDigest" /v UseLogonCredential'
+        )
 
-        logon_credentials = winrm_exec_command(server,
-                                               username,
-                                               password,
-                                               query)
+        logon_credentials = winrm_exec_command(
+            server, username, password, query
+        )
 
-        safe_use_logon_credentials: bool = bool(re.search(
-            r'UseLogonCredential.*0x0', logon_credentials, re.I))
+        safe_use_logon_credentials: bool = bool(
+            re.search(r"UseLogonCredential.*0x0", logon_credentials, re.I)
+        )
 
         if safe_use_logon_credentials:
-            msg_closed = 'Server has UseLogonCredentials set to 0x0'
+            msg_closed = "Server has UseLogonCredentials set to 0x0"
 
     return _get_result_as_tuple(
-        system='Windows', host=server,
-        msg_open='Server is missing KB2871997 update',
+        system="Windows",
+        host=server,
+        msg_open="Server is missing KB2871997 update",
         msg_closed=msg_closed,
-        open_if=server_needed_patches > 0 and not safe_use_logon_credentials)
+        open_if=server_needed_patches > 0 and not safe_use_logon_credentials,
+    )

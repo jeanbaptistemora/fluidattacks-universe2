@@ -36,9 +36,8 @@ def _get_resolver(nameserver: NAMESERVER) -> dns.resolver.Resolver:
 
 
 def _recursive_query_dns(
-        domain: DOMAIN,
-        nameserver: NAMESERVER,
-        results: Set[Tuple[DOMAIN, DOMAIN]]) -> None:
+    domain: DOMAIN, nameserver: NAMESERVER, results: Set[Tuple[DOMAIN, DOMAIN]]
+) -> None:
     """Append tuples of (origin, target) to results."""
     answers = []
 
@@ -57,18 +56,25 @@ def _recursive_query_dns(
     results.update((domain, str(target)) for target in answers)
 
 
-def _get_result_as_tuple(*,
-                         nameserver: str, domain: str,
-                         msg_open: str, msg_closed: str,
-                         open_if: bool = None,
-                         vulns: List[str] = None) -> tuple:
+def _get_result_as_tuple(
+    *,
+    nameserver: str,
+    domain: str,
+    msg_open: str,
+    msg_closed: str,
+    open_if: bool = None,
+    vulns: List[str] = None,
+) -> tuple:
     """Return the tuple version of the Result object."""
-    domain = domain.strip('.')
+    domain = domain.strip(".")
 
     units: List[Unit] = [
-        Unit(where=nameserver,
-             specific=vulns or [
-                 f'{domain} {msg_open if open_if or vulns else msg_closed}'])]
+        Unit(
+            where=nameserver,
+            specific=vulns
+            or [f"{domain} {msg_open if open_if or vulns else msg_closed}"],
+        )
+    ]
 
     if open_if or vulns:
         return OPEN, msg_open, units, []
@@ -76,15 +82,18 @@ def _get_result_as_tuple(*,
 
 
 @api(risk=MEDIUM, kind=DAST)
-@unknown_if(socket.error,
-            dns.exception.Timeout,
-            dns.exception.FormError,
-            dns.resolver.NoNameservers,
-            dns.resolver.NXDOMAIN)
+@unknown_if(
+    socket.error,
+    dns.exception.Timeout,
+    dns.exception.FormError,
+    dns.resolver.NoNameservers,
+    dns.resolver.NXDOMAIN,
+)
 def has_subdomain_takeover(
-        domain: DOMAIN,
-        nameserver: NAMESERVER,
-        attacker_controlled_domains: List[DOMAIN]) -> tuple:
+    domain: DOMAIN,
+    nameserver: NAMESERVER,
+    attacker_controlled_domains: List[DOMAIN],
+) -> tuple:
     """
     Check if DNS records point to an attacker controlled site.
 
@@ -104,18 +113,23 @@ def has_subdomain_takeover(
     _recursive_query_dns(domain, nameserver, origin_to_target)
 
     vuln_records: List[DOMAIN] = list(
-        f'Record: {origin} -> {target}'
+        f"Record: {origin} -> {target}"
         for origin, target in origin_to_target
         for controlled_domain in attacker_controlled_domains
-        if controlled_domain in target)
+        if controlled_domain in target
+    )
 
     return _get_result_as_tuple(
-        nameserver=nameserver, domain=domain,
-        msg_open=('is vulnerable to a sub-domain takeover because one of the '
-                  'records point to a site that can be controlled by an '
-                  'attacker'),
-        msg_closed='is safe against a sub-domain takeover',
-        vulns=vuln_records)
+        nameserver=nameserver,
+        domain=domain,
+        msg_open=(
+            "is vulnerable to a sub-domain takeover because one of the "
+            "records point to a site that can be controlled by an "
+            "attacker"
+        ),
+        msg_closed="is safe against a sub-domain takeover",
+        vulns=vuln_records,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -129,22 +143,26 @@ def is_xfr_enabled(domain: str, nameserver: str) -> tuple:
     """
     is_zone_transfer_enabled: bool = False
 
-    axfr_query = dns.query.xfr(nameserver, domain, timeout=5,
-                               relativize=False, lifetime=10)
+    axfr_query = dns.query.xfr(
+        nameserver, domain, timeout=5, relativize=False, lifetime=10
+    )
 
-    with suppress(NoSOA, NoNS, BadZone, dns.query.BadResponse,
-                  dns.query.TransferError):
+    with suppress(
+        NoSOA, NoNS, BadZone, dns.query.BadResponse, dns.query.TransferError
+    ):
 
         zone = from_xfr(axfr_query, relativize=False)
 
-        if str(zone.origin).rstrip('.'):
+        if str(zone.origin).rstrip("."):
             is_zone_transfer_enabled = True
 
     return _get_result_as_tuple(
-        nameserver=nameserver, domain=domain,
-        msg_open='zone transfer is enabled on name server',
-        msg_closed='zone transfer is disabled on name server',
-        open_if=is_zone_transfer_enabled)
+        nameserver=nameserver,
+        domain=domain,
+        msg_open="zone transfer is enabled on name server",
+        msg_closed="zone transfer is disabled on name server",
+        open_if=is_zone_transfer_enabled,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
@@ -160,7 +178,7 @@ def is_dynupdate_enabled(domain: str, nameserver: str) -> tuple:
 
     with suppress(dns.query.BadResponse):
         update = dns.update.Update(domain)
-        update.add('newrecord', 3600, dns.rdatatype.A, '10.10.10.10')
+        update.add("newrecord", 3600, dns.rdatatype.A, "10.10.10.10")
 
         response = dns.query.tcp(update, nameserver, timeout=5)
 
@@ -168,16 +186,20 @@ def is_dynupdate_enabled(domain: str, nameserver: str) -> tuple:
             is_zone_update_enabled = True
 
     return _get_result_as_tuple(
-        nameserver=nameserver, domain=domain,
-        msg_open='zone update is enabled on name server',
-        msg_closed='zone update is disabled on name server',
-        open_if=is_zone_update_enabled)
+        nameserver=nameserver,
+        domain=domain,
+        msg_open="zone update is enabled on name server",
+        msg_closed="zone update is disabled on name server",
+        open_if=is_zone_update_enabled,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
-@unknown_if(dns.exception.Timeout,
-            dns.exception.SyntaxError,
-            dns.resolver.NoNameservers)
+@unknown_if(
+    dns.exception.Timeout,
+    dns.exception.SyntaxError,
+    dns.resolver.NoNameservers,
+)
 def has_cache_poison(domain: str, nameserver: str) -> tuple:
     """
     Check if cache poisoning is possible.
@@ -192,7 +214,7 @@ def has_cache_poison(domain: str, nameserver: str) -> tuple:
     name = dns.name.from_text(domain)
 
     try:
-        response = _get_resolver(nameserver).query(name, 'DNSKEY')
+        response = _get_resolver(nameserver).query(name, "DNSKEY")
     except dns.resolver.NoAnswer:
         is_vulnerable = True
     else:
@@ -200,15 +222,17 @@ def has_cache_poison(domain: str, nameserver: str) -> tuple:
             is_vulnerable = True
 
     return _get_result_as_tuple(
-        nameserver=nameserver, domain=domain,
-        msg_open='cache poisoning is possible on name server',
-        msg_closed='cache poisoning is not possible on name server',
-        open_if=is_vulnerable)
+        nameserver=nameserver,
+        domain=domain,
+        msg_open="cache poisoning is possible on name server",
+        msg_closed="cache poisoning is not possible on name server",
+        open_if=is_vulnerable,
+    )
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(socket.error, dns.exception.Timeout)
-def has_cache_snooping(nameserver: str, domain: str = 'google.com.') -> tuple:
+def has_cache_snooping(nameserver: str, domain: str = "google.com.") -> tuple:
     """
     Check if nameserver has cache snooping.
 
@@ -221,16 +245,16 @@ def has_cache_snooping(nameserver: str, domain: str = 'google.com.') -> tuple:
 
     with suppress(dns.exception.SyntaxError):
         # Make a recursive request to fill out the cache
-        request = dns.message.make_query(name,
-                                         dns.rdatatype.A,
-                                         dns.rdataclass.IN)
+        request = dns.message.make_query(
+            name, dns.rdatatype.A, dns.rdataclass.IN
+        )
 
         dns.query.udp(request, nameserver, timeout=5)
 
         # Make a non-recursive request
-        request = dns.message.make_query(name,
-                                         dns.rdatatype.A,
-                                         dns.rdataclass.IN)
+        request = dns.message.make_query(
+            name, dns.rdatatype.A, dns.rdataclass.IN
+        )
 
         request.flags ^= dns.flags.RD
 
@@ -240,15 +264,17 @@ def has_cache_snooping(nameserver: str, domain: str = 'google.com.') -> tuple:
             is_vulnerable = True
 
     return _get_result_as_tuple(
-        nameserver=nameserver, domain=domain,
-        msg_open='cache snooping is possible on name server',
-        msg_closed='cache snooping is not possible on name server',
-        open_if=is_vulnerable)
+        nameserver=nameserver,
+        domain=domain,
+        msg_open="cache snooping is possible on name server",
+        msg_closed="cache snooping is not possible on name server",
+        open_if=is_vulnerable,
+    )
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(socket.error, dns.exception.Timeout)
-def has_recursion(nameserver: str, domain: str = 'google.com.') -> tuple:
+def has_recursion(nameserver: str, domain: str = "google.com.") -> tuple:
     """
     Check if nameserver has recursion enabled.
 
@@ -260,9 +286,9 @@ def has_recursion(nameserver: str, domain: str = 'google.com.') -> tuple:
 
     with suppress(dns.exception.SyntaxError):
         # Make a recursive request
-        request = dns.message.make_query(name,
-                                         dns.rdatatype.A,
-                                         dns.rdataclass.IN)
+        request = dns.message.make_query(
+            name, dns.rdatatype.A, dns.rdataclass.IN
+        )
 
         response = dns.query.udp(request, nameserver, timeout=5)
 
@@ -270,15 +296,17 @@ def has_recursion(nameserver: str, domain: str = 'google.com.') -> tuple:
             is_vulnerable = True
 
     return _get_result_as_tuple(
-        nameserver=nameserver, domain=domain,
-        msg_open='recursion is possible on name server',
-        msg_closed='recursion is not possible on name server',
-        open_if=is_vulnerable)
+        nameserver=nameserver,
+        domain=domain,
+        msg_open="recursion is possible on name server",
+        msg_closed="recursion is not possible on name server",
+        open_if=is_vulnerable,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(socket.error, dns.exception.Timeout)
-def can_amplify(nameserver: str, domain: str = 'google.com.') -> tuple:
+def can_amplify(nameserver: str, domain: str = "google.com.") -> tuple:
     """
     Check if nameserver allows amplification attacks.
 
@@ -290,18 +318,23 @@ def can_amplify(nameserver: str, domain: str = 'google.com.') -> tuple:
 
     with suppress(dns.exception.SyntaxError):
         # Make a recursive request
-        request = dns.message.make_query(name,
-                                         dns.rdatatype.A,
-                                         dns.rdataclass.IN)
+        request = dns.message.make_query(
+            name, dns.rdatatype.A, dns.rdataclass.IN
+        )
 
         response = dns.query.udp(request, nameserver, timeout=5)
 
         if response.rcode() == 0:
             request = dns.message.make_query(name, dns.rdatatype.ANY)
             request.flags |= dns.flags.AD
-            request.find_rrset(request.additional, dns.name.root, 65535,
-                               dns.rdatatype.OPT, create=True,
-                               force_unique=True)
+            request.find_rrset(
+                request.additional,
+                dns.name.root,
+                65535,
+                dns.rdatatype.OPT,
+                create=True,
+                force_unique=True,
+            )
             request_len = len(request.to_text())
 
             response = dns.query.udp(request, nameserver, timeout=5)
@@ -311,7 +344,9 @@ def can_amplify(nameserver: str, domain: str = 'google.com.') -> tuple:
                 is_vulnerable = True
 
     return _get_result_as_tuple(
-        nameserver=nameserver, domain=domain,
-        msg_open='amplification attack is possible on name server',
-        msg_closed='amplification attack  is not possible on name server',
-        open_if=is_vulnerable)
+        nameserver=nameserver,
+        domain=domain,
+        msg_open="amplification attack is possible on name server",
+        msg_closed="amplification attack  is not possible on name server",
+        open_if=is_vulnerable,
+    )

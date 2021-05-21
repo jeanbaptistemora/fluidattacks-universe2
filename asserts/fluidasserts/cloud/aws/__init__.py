@@ -15,22 +15,26 @@ from botocore.exceptions import BotoCoreError, ClientError
 from fluidasserts import Unit, OPEN, CLOSED
 
 
-def _get_identity_info(key_id: str,
-                       secret: str,
-                       session_token: str = None):
+def _get_identity_info(key_id: str, secret: str, session_token: str = None):
     """Get information about an identity."""
     client = boto3.client(
-        'sts',
+        "sts",
         aws_access_key_id=key_id,
         aws_secret_access_key=secret,
-        aws_session_token=session_token)
+        aws_session_token=session_token,
+    )
     return client.get_caller_identity()
 
 
-def _get_result_as_tuple(*,
-                         service: str, objects: str,
-                         msg_open: str, msg_closed: str,
-                         vulns: List[str], safes: List[str]) -> tuple:
+def _get_result_as_tuple(
+    *,
+    service: str,
+    objects: str,
+    msg_open: str,
+    msg_closed: str,
+    vulns: List[str],
+    safes: List[str],
+) -> tuple:
     """Return the tuple version of the Result object."""
     vuln_units: List[Unit] = []
     safe_units: List[Unit] = []
@@ -40,21 +44,30 @@ def _get_result_as_tuple(*,
     #   specific: must be used or deleted
     frm = inspect.stack()
     arg = frm[1][0].f_locals
-    account = 'unrecognized'
+    account = "unrecognized"
     with suppress(BotoCoreError, ClientError):
         identity = _get_identity_info(
-            arg['key_id'], arg['secret'], arg['session_token'])
-        account = identity['Account']
+            arg["key_id"], arg["secret"], arg["session_token"]
+        )
+        account = identity["Account"]
 
     if vulns:
-        vuln_units.extend(Unit(where=f'AWS/{service}/account:{account}/{id_}',
-                               specific=[vuln]) for id_, vuln in vulns)
+        vuln_units.extend(
+            Unit(
+                where=f"AWS/{service}/account:{account}/{id_}", specific=[vuln]
+            )
+            for id_, vuln in vulns
+        )
     if safes:
-        safe_units.extend(Unit(where=f'AWS/{service}/account:{account}/{id_}',
-                               specific=[safe]) for id_, safe in safes)
+        safe_units.extend(
+            Unit(
+                where=f"AWS/{service}/account:{account}/{id_}", specific=[safe]
+            )
+            for id_, safe in safes
+        )
 
     if vulns:
         return OPEN, msg_open, vuln_units, safe_units
     if safes:
         return CLOSED, msg_closed, vuln_units, safe_units
-    return CLOSED, f'No {objects} found to check', vuln_units, safe_units
+    return CLOSED, f"No {objects} found to check", vuln_units, safe_units

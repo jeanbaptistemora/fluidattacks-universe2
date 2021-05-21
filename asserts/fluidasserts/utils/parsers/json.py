@@ -20,24 +20,24 @@ class CustomList(UserList):  # pylint: disable=too-many-ancestors
         """Initialize a custom list."""
         super().__init__(initlist)
         if line:
-            setattr(self, '__line__', line)
+            setattr(self, "__line__", line)
 
     def __getitem__(self, index):
         """Change behavior when getting an object."""
         result = None
         tokens = []
         if isinstance(index, str):
-            tokens = index.split('.')
+            tokens = index.split(".")
             index = int(tokens[0])
-        if len(tokens) == 2 and tokens[1] == 'line':
-            if '__line__' in self.data[index]:
-                result = self.data[index]['__line__']
+        if len(tokens) == 2 and tokens[1] == "line":
+            if "__line__" in self.data[index]:
+                result = self.data[index]["__line__"]
             else:
                 result = self.data[index].__line__
         elif isinstance(self.data[index], (CustomList, list)):
             result = self.data[index]
-        elif '__item__' in self.data[index]:
-            return self.data[index]['__item__']
+        elif "__item__" in self.data[index]:
+            return self.data[index]["__item__"]
         else:
             return self.data[index]
 
@@ -54,21 +54,23 @@ class CustomDict(UserDict):  # pylint: disable=too-many-ancestors
             line = key[1]
             key = key[0]
         if isinstance(item, Tree):
-            if item.data == 'false':
-                self.data[key] = {'__item__': False, '__line__': item.line}
-            elif item.data == 'true':
-                self.data[key] = {'__item__': True, '__line__': item.line}
-            elif item.data == 'null':
-                self.data[key] = {'__item__': None, '__line__': item.line}
-            elif item.data == 'array':
+            if item.data == "false":
+                self.data[key] = {"__item__": False, "__line__": item.line}
+            elif item.data == "true":
+                self.data[key] = {"__item__": True, "__line__": item.line}
+            elif item.data == "null":
+                self.data[key] = {"__item__": None, "__line__": item.line}
+            elif item.data == "array":
                 for index, element in enumerate(item.children):
-                    item.children[index] = CustomList(
-                        element.children, item.line) if isinstance(
-                            element, Tree) else element
+                    item.children[index] = (
+                        CustomList(element.children, item.line)
+                        if isinstance(element, Tree)
+                        else element
+                    )
                 self.data[key] = CustomList(item.children, item.line)
         elif isinstance(item, (dict, CustomDict, CustomList, list)):
             if line:
-                setattr(item, '__line__', line)
+                setattr(item, "__line__", line)
             super().__setitem__(key, item)
         else:
             super().__setitem__(key, item)
@@ -76,8 +78,8 @@ class CustomDict(UserDict):  # pylint: disable=too-many-ancestors
     def get(self, key, default=None):
         """Change behavior when getting an object."""
         result = None
-        if key in self.data and '__item__' in self.data[key]:
-            result = self.data[key]['__item__']
+        if key in self.data and "__item__" in self.data[key]:
+            result = self.data[key]["__item__"]
         elif key in self.data:
             result = self.data[key]
         else:
@@ -87,20 +89,22 @@ class CustomDict(UserDict):  # pylint: disable=too-many-ancestors
     def __getitem__(self, key):
         """Change behavior when getting an object."""
         result = None
-        if isinstance(
-                key,
-                str) and '.line' in key and key.split('.')[0] in self.data:
-            if '__line__' in self.data[key.split('.')[0]]:
-                result = self.data[key.split('.')[0]]['__line__']
+        if (
+            isinstance(key, str)
+            and ".line" in key
+            and key.split(".")[0] in self.data
+        ):
+            if "__line__" in self.data[key.split(".")[0]]:
+                result = self.data[key.split(".")[0]]["__line__"]
             else:
-                result = self.data[key.split('.')[0]].__line__
+                result = self.data[key.split(".")[0]].__line__
         if key in self.data:
-            if key == '__line__':
-                result = self.data.get('__line__')
-            elif '__item__' in self.data:
-                result = self.data['__item__']
-            elif '__item__' in self.data[key]:
-                result = self.data[key]['__item__']
+            if key == "__line__":
+                result = self.data.get("__line__")
+            elif "__item__" in self.data:
+                result = self.data["__item__"]
+            elif "__item__" in self.data[key]:
+                result = self.data[key]["__item__"]
             else:
                 result = self.data[key]
         return result
@@ -112,10 +116,9 @@ class TreeToJson(Transformer):
     @v_args(inline=True)
     def string(self, tree):  # pylint: disable=no-self-use
         """Convert string values."""
-        return CustomDict({
-            '__item__': tree[1:-1].replace('\\"', '"'),
-            '__line__': tree.line
-        })
+        return CustomDict(
+            {"__item__": tree[1:-1].replace('\\"', '"'), "__line__": tree.line}
+        )
 
     @v_args(inline=True)
     def string_(self, tree):  # pylint: disable=no-self-use
@@ -128,7 +131,7 @@ class TreeToJson(Transformer):
     @v_args(inline=True)
     def number(self, tree):  # pylint: disable=no-self-use
         """Convert number values."""
-        return CustomDict({'__item__': float(tree), '__line__': tree.line})
+        return CustomDict({"__item__": float(tree), "__line__": tree.line})
 
 
 def parse(json_string: str):
@@ -159,11 +162,12 @@ def parse(json_string: str):
     """
     json_parser = Lark(
         json_grammar,
-        parser='lalr',
-        lexer='standard',
+        parser="lalr",
+        lexer="standard",
         propagate_positions=True,
         maybe_placeholders=False,
-        transformer=TreeToJson())
+        transformer=TreeToJson(),
+    )
 
     return json_parser.parse(json_string)
 

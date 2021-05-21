@@ -23,7 +23,8 @@ from fluidasserts.cloud.aws.cloudformation import get_resources
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_not_point_in_time_recovery(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    path: str, exclude: Optional[List[str]] = None
+) -> tuple:
     """
     Check if any ``Table`` has not **Point In Time Recovery** enabled.
 
@@ -40,33 +41,40 @@ def has_not_point_in_time_recovery(
     templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
     tables: List[int] = get_resources(
         graph,
-        map(lambda x: x[0], templates), {'AWS', 'DynamoDB', 'Table'},
-        info=True)
+        map(lambda x: x[0], templates),
+        {"AWS", "DynamoDB", "Table"},
+        info=True,
+    )
     for table, resource, template in tables:
-        line = resource['line']
+        line = resource["line"]
         vulnerable = True
-        specify_node = get_resources(graph, table,
-                                     'PointInTimeRecoverySpecification')
+        specify_node = get_resources(
+            graph, table, "PointInTimeRecoverySpecification"
+        )
         enabled_node = helper.get_index(
-            get_resources(graph, specify_node, 'PointInTimeRecoveryEnabled'),
-            0)
+            get_resources(graph, specify_node, "PointInTimeRecoveryEnabled"), 0
+        )
         if enabled_node:
-            line = graph.nodes[enabled_node]['line']
+            line = graph.nodes[enabled_node]["line"]
             value = get_ref_nodes(graph, enabled_node, helper.is_boolean)
             if value:
                 vulnerable = not helper.to_boolean(
-                    graph.nodes[value[0]]['value'])
+                    graph.nodes[value[0]]["value"]
+                )
 
         if vulnerable:
             vulnerabilities.append(
                 Vulnerability(
-                    path=template['path'],
-                    entity='AWS::DynamoDB::Table',
-                    identifier=resource['name'],
+                    path=template["path"],
+                    entity="AWS::DynamoDB::Table",
+                    identifier=resource["name"],
                     line=line,
-                    reason='is missing Point In Time Recovery'))
+                    reason="is missing Point In Time Recovery",
+                )
+            )
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='DynamoDB tables are missing point in time recovery',
-        msg_closed='DynamoDB tables have point in time recovery')
+        msg_open="DynamoDB tables are missing point in time recovery",
+        msg_closed="DynamoDB tables have point in time recovery",
+    )

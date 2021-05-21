@@ -20,15 +20,16 @@ from fluidasserts.utils.decorators import api, unknown_if
 def _check_port_in_seggroup(port: int, group: dict) -> list:
     """Check if port is open according to security group."""
     vuln = []
-    for perm in group['IpPermissions']:
+    for perm in group["IpPermissions"]:
         with suppress(KeyError):
-            if perm['FromPort'] <= port <= perm['ToPort']:
+            if perm["FromPort"] <= port <= perm["ToPort"]:
                 vuln += [
-                    perm for x in perm['IpRanges']
-                    if x['CidrIp'] == '0.0.0.0/0'
+                    perm
+                    for x in perm["IpRanges"]
+                    if x["CidrIp"] == "0.0.0.0/0"
                 ]
                 vuln += [
-                    perm for x in perm['Ipv6Ranges'] if x['CidrIp'] == '::/0'
+                    perm for x in perm["Ipv6Ranges"] if x["CidrIp"] == "::/0"
                 ]
     return vuln
 
@@ -45,10 +46,9 @@ def _flatten(elements, aux_list=None):
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def seggroup_allows_anyone_to_admin_ports(key_id: str,
-                                          secret: str,
-                                          session_token: str = None,
-                                          retry: bool = True) -> tuple:
+def seggroup_allows_anyone_to_admin_ports(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if security groups allows connection from anyone to SSH service.
 
@@ -75,41 +75,43 @@ def seggroup_allows_anyone_to_admin_ports(key_id: str,
     security_groups = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='ec2',
-        func='describe_security_groups',
-        param='SecurityGroups',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="ec2",
+        func="describe_security_groups",
+        param="SecurityGroups",
+        retry=retry,
+    )
 
-    msg_open: str = 'Security group allows connections to admin_ports'
-    msg_closed: str = 'Security group denies connections to admin_ports'
+    msg_open: str = "Security group allows connections to admin_ports"
+    msg_closed: str = "Security group denies connections to admin_ports"
 
     vulns, safes = [], []
 
     if security_groups:
         for group in security_groups:
-            group_id = group['GroupId']
+            group_id = group["GroupId"]
             for port in admin_ports:
                 is_vulnerable: bool = _check_port_in_seggroup(port, group)
 
                 (vulns if is_vulnerable else safes).append(
-                    (group_id, f'Must deny connections to port {port}'))
+                    (group_id, f"Must deny connections to port {port}")
+                )
 
     return _get_result_as_tuple(
-        service='EC2',
-        objects='security groups',
+        service="EC2",
+        objects="security groups",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def default_seggroup_allows_all_traffic(key_id: str,
-                                        secret: str,
-                                        session_token: str = None,
-                                        retry: bool = True) -> tuple:
+def default_seggroup_allows_all_traffic(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if default security groups allows connection to or from anyone.
 
@@ -119,52 +121,56 @@ def default_seggroup_allows_all_traffic(key_id: str,
     security_groups = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='ec2',
-        func='describe_security_groups',
-        param='SecurityGroups',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="ec2",
+        func="describe_security_groups",
+        param="SecurityGroups",
+        retry=retry,
+    )
 
-    msg_open: str = \
-        'Default security groups allows connections from/to anyone'
-    msg_closed: str = \
-        'Default security groups does not allow connections from/to anyone'
+    msg_open: str = "Default security groups allows connections from/to anyone"
+    msg_closed: str = (
+        "Default security groups does not allow connections from/to anyone"
+    )
 
     vulns, safes = [], []
 
     if security_groups:
         for group in security_groups:
-            if not group['GroupName'] == 'default':
+            if not group["GroupName"] == "default":
                 continue
 
-            group_id = group['GroupId']
+            group_id = group["GroupId"]
 
-            ip_permissions = \
-                group['IpPermissions'] + group['IpPermissionsEgress']
+            ip_permissions = (
+                group["IpPermissions"] + group["IpPermissionsEgress"]
+            )
 
             is_vulnerable: bool = any(
-                ip_range['CidrIp'] == '0.0.0.0/0'
+                ip_range["CidrIp"] == "0.0.0.0/0"
                 for ip_permission in ip_permissions
-                for ip_range in ip_permission['IpRanges'])
+                for ip_range in ip_permission["IpRanges"]
+            )
 
             (vulns if is_vulnerable else safes).append(
-                (group_id, 'Must not have 0.0.0.0/0 CIDRs'))
+                (group_id, "Must not have 0.0.0.0/0 CIDRs")
+            )
 
     return _get_result_as_tuple(
-        service='EC2',
-        objects='security groups',
+        service="EC2",
+        objects="security groups",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_unencrypted_volumes(key_id: str,
-                            secret: str,
-                            session_token: str = None,
-                            retry: bool = True) -> tuple:
+def has_unencrypted_volumes(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if there are unencrypted volumes.
 
@@ -174,38 +180,40 @@ def has_unencrypted_volumes(key_id: str,
     volumes = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='ec2',
-        func='describe_volumes',
-        param='Volumes',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="ec2",
+        func="describe_volumes",
+        param="Volumes",
+        retry=retry,
+    )
 
-    msg_open: str = 'Account have non-encrypted volumes'
-    msg_closed: str = 'All volumes are encrypted'
+    msg_open: str = "Account have non-encrypted volumes"
+    msg_closed: str = "All volumes are encrypted"
 
     vulns, safes = [], []
 
     if volumes:
         for volume in volumes:
-            volume_id = volume['VolumeId']
-            (vulns if not volume['Encrypted'] else safes).append(
-                (volume_id, 'Must be encrypted'))
+            volume_id = volume["VolumeId"]
+            (vulns if not volume["Encrypted"] else safes).append(
+                (volume_id, "Must be encrypted")
+            )
 
     return _get_result_as_tuple(
-        service='EC2',
-        objects='volumes',
+        service="EC2",
+        objects="volumes",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_unencrypted_snapshots(key_id: str,
-                              secret: str,
-                              session_token: str = None,
-                              retry: bool = True) -> tuple:
+def has_unencrypted_snapshots(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if there are unencrypted snapshots.
 
@@ -215,46 +223,49 @@ def has_unencrypted_snapshots(key_id: str,
     identity = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='sts',
-        func='get_caller_identity',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="sts",
+        func="get_caller_identity",
+        retry=retry,
+    )
     snapshots = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='ec2',
-        func='describe_snapshots',
-        param='Snapshots',
-        OwnerIds=[identity['Account']],
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="ec2",
+        func="describe_snapshots",
+        param="Snapshots",
+        OwnerIds=[identity["Account"]],
+        retry=retry,
+    )
 
-    msg_open: str = 'Account have non-encrypted snapshots'
-    msg_closed: str = 'All snapshots are encrypted'
+    msg_open: str = "Account have non-encrypted snapshots"
+    msg_closed: str = "All snapshots are encrypted"
 
     vulns, safes = [], []
 
     if snapshots:
         for snapshot in snapshots:
-            snapshot_id = snapshot['SnapshotId']
-            (vulns if not snapshot['Encrypted'] else safes).append(
-                (snapshot_id, 'Must be encrypted'))
+            snapshot_id = snapshot["SnapshotId"]
+            (vulns if not snapshot["Encrypted"] else safes).append(
+                (snapshot_id, "Must be encrypted")
+            )
 
     return _get_result_as_tuple(
-        service='EC2',
-        objects='snapshots',
+        service="EC2",
+        objects="snapshots",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_unused_seggroups(key_id: str,
-                         secret: str,
-                         session_token: str = None,
-                         retry: bool = True) -> tuple:
+def has_unused_seggroups(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if there are unused security groups.
 
@@ -264,54 +275,58 @@ def has_unused_seggroups(key_id: str,
     security_groups = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='ec2',
-        func='describe_security_groups',
-        param='SecurityGroups',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="ec2",
+        func="describe_security_groups",
+        param="SecurityGroups",
+        retry=retry,
+    )
 
-    msg_open: str = 'Some security groups are not being used'
-    msg_closed: str = 'All security groups are being used'
+    msg_open: str = "Some security groups are not being used"
+    msg_closed: str = "All security groups are being used"
 
     vulns, safes = [], []
 
     if security_groups:
         for group in security_groups:
-            group_id = group['GroupId']
+            group_id = group["GroupId"]
             net_interfaces = aws.run_boto3_func(
                 key_id=key_id,
                 secret=secret,
-                boto3_client_kwargs={'aws_session_token': session_token},
-                service='ec2',
-                func=('describe_'
-                      'network_interfaces'),
-                param='NetworkInterfaces',
-                Filters=[{
-                    'Name': 'group-id',
-                    'Values': [
-                        group['GroupId'],
-                    ]
-                }],
-                retry=retry)
+                boto3_client_kwargs={"aws_session_token": session_token},
+                service="ec2",
+                func=("describe_" "network_interfaces"),
+                param="NetworkInterfaces",
+                Filters=[
+                    {
+                        "Name": "group-id",
+                        "Values": [
+                            group["GroupId"],
+                        ],
+                    }
+                ],
+                retry=retry,
+            )
 
             (vulns if not net_interfaces else safes).append(
-                (group_id, 'Must be used or deleted'))
+                (group_id, "Must be used or deleted")
+            )
 
     return _get_result_as_tuple(
-        service='EC2',
-        objects='security groups',
+        service="EC2",
+        objects="security groups",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def vpcs_without_flowlog(key_id: str,
-                         secret: str,
-                         session_token: str = None,
-                         retry: bool = True) -> tuple:
+def vpcs_without_flowlog(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if VPCs have flow logs.
 
@@ -321,55 +336,57 @@ def vpcs_without_flowlog(key_id: str,
     virtual_clouds = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='ec2',
-        func='describe_vpcs',
-        param='Vpcs',
-        Filters=[{
-            'Name': 'state',
-            'Values': ['available']
-        }],
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="ec2",
+        func="describe_vpcs",
+        param="Vpcs",
+        Filters=[{"Name": "state", "Values": ["available"]}],
+        retry=retry,
+    )
 
-    msg_open: str = 'No Flow Logs found for VPC'
-    msg_closed: str = 'Flow Logs found for VPC'
+    msg_open: str = "No Flow Logs found for VPC"
+    msg_closed: str = "Flow Logs found for VPC"
 
     vulns, safes = [], []
 
     if virtual_clouds:
         for cloud in virtual_clouds:
-            cloud_id = cloud['VpcId']
+            cloud_id = cloud["VpcId"]
             net_interfaces = aws.run_boto3_func(
                 key_id=key_id,
                 secret=secret,
-                boto3_client_kwargs={'aws_session_token': session_token},
-                service='ec2',
-                func='describe_flow_logs',
-                param='FlowLogs',
-                Filters=[{
-                    'Name': 'resource-id',
-                    'Values': [cloud_id],
-                }],
-                retry=retry)
+                boto3_client_kwargs={"aws_session_token": session_token},
+                service="ec2",
+                func="describe_flow_logs",
+                param="FlowLogs",
+                Filters=[
+                    {
+                        "Name": "resource-id",
+                        "Values": [cloud_id],
+                    }
+                ],
+                retry=retry,
+            )
 
             (vulns if not net_interfaces else safes).append(
-                (cloud_id, 'Must be used or deleted'))
+                (cloud_id, "Must be used or deleted")
+            )
 
     return _get_result_as_tuple(
-        service='EC2',
-        objects='virtual private clouds',
+        service="EC2",
+        objects="virtual private clouds",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_instances_using_unapproved_amis(key_id: str,
-                                        secret: str,
-                                        session_token: str = None,
-                                        retry: bool = True) -> tuple:
+def has_instances_using_unapproved_amis(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if there are instances using approved Amazon Machine Images.
 
@@ -380,52 +397,61 @@ def has_instances_using_unapproved_amis(key_id: str,
     :param key_id: AWS Key Id.
     :param secret: AWS Key Secret.
     """
-    msg_open: str = ('Instances are being launched using '
-                     'unapproved Amazon Machine Images.')
-    msg_closed: str = ('Instances are being launched using '
-                       'approved Amazon Machine Images.')
+    msg_open: str = (
+        "Instances are being launched using "
+        "unapproved Amazon Machine Images."
+    )
+    msg_closed: str = (
+        "Instances are being launched using " "approved Amazon Machine Images."
+    )
     vulns, safes = [], []
 
     instances = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='ec2',
-        func='describe_instances',
-        param='Reservations',
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="ec2",
+        func="describe_instances",
+        param="Reservations",
         retry=retry,
     )
 
-    for instance in _flatten(map(lambda x: x['Instances'], instances)):
+    for instance in _flatten(map(lambda x: x["Instances"], instances)):
         images = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            boto3_client_kwargs={'aws_session_token': session_token},
-            service='ec2',
-            func='describe_images',
-            param='Images',
+            boto3_client_kwargs={"aws_session_token": session_token},
+            service="ec2",
+            func="describe_images",
+            param="Images",
             retry=retry,
-            ImageIds=[instance['ImageId']])
-        (vulns if images and 'ImageOwnerAlias' in images[0].keys()
-         and images[0]['ImageOwnerAlias'] != 'amazon' else safes).append(
-             (instance['InstanceId'],
-              'Base image must be approved by Amazon.'))
+            ImageIds=[instance["ImageId"]],
+        )
+        (
+            vulns
+            if images
+            and "ImageOwnerAlias" in images[0].keys()
+            and images[0]["ImageOwnerAlias"] != "amazon"
+            else safes
+        ).append(
+            (instance["InstanceId"], "Base image must be approved by Amazon.")
+        )
 
     return _get_result_as_tuple(
-        service='EC2',
-        objects='Instances',
+        service="EC2",
+        objects="Instances",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_insecure_port_range_in_security_group(key_id: str,
-                                              secret: str,
-                                              session_token: str = None,
-                                              retry: bool = True) -> tuple:
+def has_insecure_port_range_in_security_group(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if security groups implement range of ports to allow inbound traffic.
 
@@ -436,45 +462,49 @@ def has_insecure_port_range_in_security_group(key_id: str,
     :param key_id: AWS Key Id.
     :param secret: AWS Key Secret.
     """
-    msg_open: str = 'Security group have port ranges established.'
-    msg_closed: str = 'Security group do not have port ranges established.'
+    msg_open: str = "Security group have port ranges established."
+    msg_closed: str = "Security group do not have port ranges established."
     vulns, safes = [], []
 
     security_groups = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='ec2',
-        func='describe_security_groups',
-        param='SecurityGroups',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="ec2",
+        func="describe_security_groups",
+        param="SecurityGroups",
+        retry=retry,
+    )
     for group in security_groups:
         vulnerable = []
 
-        for rule in group['IpPermissions']:
+        for rule in group["IpPermissions"]:
             with suppress(KeyError):
-                vulnerable.append(rule['FromPort'] != rule['ToPort'])
+                vulnerable.append(rule["FromPort"] != rule["ToPort"])
 
         vulnerable = any(vulnerable)
         (vulns if vulnerable else safes).append(
-            (group['GroupId'],
-             'The security group should not implement a range of ports.'))
+            (
+                group["GroupId"],
+                "The security group should not implement a range of ports.",
+            )
+        )
 
     return _get_result_as_tuple(
-        service='EC2',
-        objects='Security Groups',
+        service="EC2",
+        objects="Security Groups",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_unrestricted_dns_access(key_id: str,
-                                secret: str,
-                                session_token: str = None,
-                                retry: bool = True) -> tuple:
+def has_unrestricted_dns_access(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if inbound rules that allow unrestricted access to port 53.
 
@@ -489,42 +519,50 @@ def has_unrestricted_dns_access(key_id: str,
     :param key_id: AWS Key Id.
     :param secret: AWS Key Secret.
     """
-    msg_open: str = 'Security groups allow access to DNS without restrictions.'
-    msg_closed: str = ('Security groups allow access to DNS to'
-                       ' the necessary IP addresses.')
+    msg_open: str = "Security groups allow access to DNS without restrictions."
+    msg_closed: str = (
+        "Security groups allow access to DNS to" " the necessary IP addresses."
+    )
     vulns, safes = [], []
 
-    filters = [{'Name': 'ip-permission.protocol', 'Values': ['tcp', 'udp']}]
+    filters = [{"Name": "ip-permission.protocol", "Values": ["tcp", "udp"]}]
 
     security_groups = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='ec2',
-        func='describe_security_groups',
-        param='SecurityGroups',
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="ec2",
+        func="describe_security_groups",
+        param="SecurityGroups",
         retry=retry,
-        Filters=filters)
+        Filters=filters,
+    )
     for group in security_groups:
         vulnerable = _check_port_in_seggroup(53, group)
         (vulns if vulnerable else safes).append(
-            (group['GroupId'], ('Group must restrict access to TCP port'
-                                ' and UDP 53 to the necessary IP addresses.')))
+            (
+                group["GroupId"],
+                (
+                    "Group must restrict access to TCP port"
+                    " and UDP 53 to the necessary IP addresses."
+                ),
+            )
+        )
     return _get_result_as_tuple(
-        service='EC2',
-        objects='Security Groups',
+        service="EC2",
+        objects="Security Groups",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_instances_using_iam_roles(key_id: str,
-                                  secret: str,
-                                  session_token: str = None,
-                                  retry: bool = True) -> tuple:
+def has_instances_using_iam_roles(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if EC2 instances uses IAM Roles Profiles instead of IAM Access Keys.
 
@@ -539,38 +577,40 @@ def has_instances_using_iam_roles(key_id: str,
     :param key_id: AWS Key Id.
     :param secret: AWS Key Secret.
     """
-    msg_open: str = 'Instances are not using IAM roles.'
-    msg_closed: str = 'Instances are using IAM roles.'
+    msg_open: str = "Instances are not using IAM roles."
+    msg_closed: str = "Instances are using IAM roles."
     vulns, safes = [], []
     instances = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='ec2',
-        func='describe_instances',
-        param='Reservations',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="ec2",
+        func="describe_instances",
+        param="Reservations",
+        retry=retry,
+    )
 
-    instances = _flatten(list(map(lambda x: x['Instances'], instances)))
+    instances = _flatten(list(map(lambda x: x["Instances"], instances)))
     for i in instances:
-        (vulns if 'IamInstanceProfile' not in i.keys() else safes).append(
-            (i['InstanceId'], 'Instance must use an IAM role.'))
+        (vulns if "IamInstanceProfile" not in i.keys() else safes).append(
+            (i["InstanceId"], "Instance must use an IAM role.")
+        )
 
     return _get_result_as_tuple(
-        service='EC2',
-        objects='Instances',
+        service="EC2",
+        objects="Instances",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_unused_ec2_key_pairs(key_id: str,
-                             secret: str,
-                             session_token: str = None,
-                             retry: bool = True) -> tuple:
+def has_unused_ec2_key_pairs(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if there are unused EC2 key pairs.
 
@@ -583,55 +623,56 @@ def has_unused_ec2_key_pairs(key_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'There are unused EC2 key pairs.'
-    msg_closed: str = 'All EC2 key pairs are in use.'
+    msg_open: str = "There are unused EC2 key pairs."
+    msg_closed: str = "All EC2 key pairs are in use."
     vulns, safes = [], []
 
     key_pairs = map(
-        lambda x: x['KeyName'],
+        lambda x: x["KeyName"],
         aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            boto3_client_kwargs={'aws_session_token': session_token},
-            service='ec2',
-            func='describe_key_pairs',
-            param='KeyPairs',
-            retry=retry))
+            boto3_client_kwargs={"aws_session_token": session_token},
+            service="ec2",
+            func="describe_key_pairs",
+            param="KeyPairs",
+            retry=retry,
+        ),
+    )
     for key in key_pairs:
-        filters = [{
-            'Name': 'instance-state-name',
-            'Values': ['running']
-        }, {
-            'Name': 'key-name',
-            'Values': [key]
-        }]
+        filters = [
+            {"Name": "instance-state-name", "Values": ["running"]},
+            {"Name": "key-name", "Values": [key]},
+        ]
 
         instances = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            boto3_client_kwargs={'aws_session_token': session_token},
-            service='ec2',
-            func='describe_instances',
-            param='Reservations',
+            boto3_client_kwargs={"aws_session_token": session_token},
+            service="ec2",
+            func="describe_instances",
+            param="Reservations",
             retry=retry,
-            Filters=filters)
+            Filters=filters,
+        )
         (vulns if not instances else safes).append(
-            (key, 'The EC2 key pair is not in use, it must be removed.'))
+            (key, "The EC2 key pair is not in use, it must be removed.")
+        )
     return _get_result_as_tuple(
-        service='EC2',
-        objects='Key Pairs',
+        service="EC2",
+        objects="Key Pairs",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_unrestricted_ftp_access(key_id: str,
-                                secret: str,
-                                session_token: str = None,
-                                retry: bool = True) -> tuple:
+def has_unrestricted_ftp_access(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check security groups allow unrestricted access to TCP ports 20 and 21.
 
@@ -649,42 +690,47 @@ def has_unrestricted_ftp_access(key_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Security groups allow access to ftp without restrictions.'
-    msg_closed: str = ('Security groups allow access to ftp to'
-                       ' the necessary IP addresses.')
+    msg_open: str = "Security groups allow access to ftp without restrictions."
+    msg_closed: str = (
+        "Security groups allow access to ftp to" " the necessary IP addresses."
+    )
     vulns, safes = [], []
 
-    filters = [{'Name': 'ip-permission.protocol', 'Values': ['tcp']}]
+    filters = [{"Name": "ip-permission.protocol", "Values": ["tcp"]}]
     security_groups = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='ec2',
-        func='describe_security_groups',
-        param='SecurityGroups',
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="ec2",
+        func="describe_security_groups",
+        param="SecurityGroups",
         retry=retry,
-        Filters=filters)
+        Filters=filters,
+    )
     for group in security_groups:
         vulnerable = any([_check_port_in_seggroup(i, group) for i in [20, 21]])
         (vulns if vulnerable else safes).append(
-            (group['GroupId'],
-             'Group must restrict access only to the necessary IP addresses.'))
+            (
+                group["GroupId"],
+                "Group must restrict access only to the necessary IP addresses.",
+            )
+        )
 
     return _get_result_as_tuple(
-        service='EC2',
-        objects='Security Groups',
+        service="EC2",
+        objects="Security Groups",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_default_security_groups_in_use(key_id: str,
-                                       secret: str,
-                                       session_token: str = None,
-                                       retry: bool = True) -> tuple:
+def has_default_security_groups_in_use(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if default security groups are in use.
 
@@ -697,44 +743,52 @@ def has_default_security_groups_in_use(key_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Default security groups are in use.'
-    msg_closed: str = 'Default security groups are not in use.'
+    msg_open: str = "Default security groups are in use."
+    msg_closed: str = "Default security groups are not in use."
     vulns, safes = [], []
 
     instances = map(
-        lambda x: x['Instances'],
+        lambda x: x["Instances"],
         aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            boto3_client_kwargs={'aws_session_token': session_token},
-            service='ec2',
-            func='describe_instances',
-            param='Reservations',
-            retry=retry))
+            boto3_client_kwargs={"aws_session_token": session_token},
+            service="ec2",
+            func="describe_instances",
+            param="Reservations",
+            retry=retry,
+        ),
+    )
 
     for instance in _flatten(list(instances)):
-        security_groups = map(lambda x: x['GroupName'],
-                              instance['SecurityGroups'])
-        (vulns if 'default' in security_groups else safes).append(
-            (instance['InstanceId'],
-             ('This instance use a default security'
-              ' group, specify a custom security group.')))
+        security_groups = map(
+            lambda x: x["GroupName"], instance["SecurityGroups"]
+        )
+        (vulns if "default" in security_groups else safes).append(
+            (
+                instance["InstanceId"],
+                (
+                    "This instance use a default security"
+                    " group, specify a custom security group."
+                ),
+            )
+        )
 
     return _get_result_as_tuple(
-        service='EC2',
-        objects='Instances',
+        service="EC2",
+        objects="Instances",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_security_groups_ip_ranges_in_rfc1918(key_id: str,
-                                             secret: str,
-                                             session_token: str = None,
-                                             retry: bool = True) -> tuple:
+def has_security_groups_ip_ranges_in_rfc1918(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if inbound rules access from IP address ranges specified in RFC-1918.
 
@@ -753,43 +807,51 @@ def has_security_groups_ip_ranges_in_rfc1918(key_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Security groups contains RFC-1918 CIDRs availables.'
-    msg_closed: str = 'Security groups not contains RFC-1918 CIDRs availables.'
+    msg_open: str = "Security groups contains RFC-1918 CIDRs availables."
+    msg_closed: str = "Security groups not contains RFC-1918 CIDRs availables."
     vulns, safes = [], []
 
-    rfc1918 = {'10.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16'}
+    rfc1918 = {"10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"}
     security_groups = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='ec2',
-        func='describe_security_groups',
-        param='SecurityGroups',
-        retry=retry)
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="ec2",
+        func="describe_security_groups",
+        param="SecurityGroups",
+        retry=retry,
+    )
 
     for group in security_groups:
-        ips = map(lambda x: x['IpRanges'], group['IpPermissions'])
+        ips = map(lambda x: x["IpRanges"], group["IpPermissions"])
         ips = set(
-            _flatten(map(lambda x: list(map(lambda y: y['CidrIp'], x)), ips)))
+            _flatten(map(lambda x: list(map(lambda y: y["CidrIp"], x)), ips))
+        )
         (vulns if not rfc1918.intersection(ips) else safes).append(
-            (group['GroupId'], ('Group must restrict access only to the'
-                                ' necessary private IP addresses.')))
+            (
+                group["GroupId"],
+                (
+                    "Group must restrict access only to the"
+                    " necessary private IP addresses."
+                ),
+            )
+        )
 
     return _get_result_as_tuple(
-        service='EC2',
-        objects='Security Groups',
+        service="EC2",
+        objects="Security Groups",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_unencrypted_amis(key_id: str,
-                         secret: str,
-                         session_token: str = None,
-                         retry: bool = True) -> tuple:
+def has_unencrypted_amis(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if there are unencrypted AMIs.
 
@@ -802,42 +864,44 @@ def has_unencrypted_amis(key_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Amazon Machine Images (AMIs) are not encrypted.'
-    msg_closed: str = 'Amazon Machine Images (AMIs) are encrypted.'
+    msg_open: str = "Amazon Machine Images (AMIs) are not encrypted."
+    msg_closed: str = "Amazon Machine Images (AMIs) are encrypted."
     vulns, safes = [], []
     images = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='ec2',
-        func='describe_images',
-        param='Images',
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="ec2",
+        func="describe_images",
+        param="Images",
         retry=retry,
-        Owners=['self'])
+        Owners=["self"],
+    )
 
     for image in images:
         vulnerable = []
-        for block in image['BlockDeviceMappings']:
+        for block in image["BlockDeviceMappings"]:
             with suppress(KeyError):
-                vulnerable.append(not block['Ebs']['Encrypted'])
+                vulnerable.append(not block["Ebs"]["Encrypted"])
         (vulns if any(vulnerable) else safes).append(
-            (image['ImageId'], 'This AMI must be encrypted.'))
+            (image["ImageId"], "This AMI must be encrypted.")
+        )
 
     return _get_result_as_tuple(
-        service='EC2',
-        objects='AMIs',
+        service="EC2",
+        objects="AMIs",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_publicly_shared_amis(key_id: str,
-                             secret: str,
-                             session_token: str = None,
-                             retry: bool = True) -> tuple:
+def has_publicly_shared_amis(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if there are any publicly accessible AMIs within AWS account.
 
@@ -850,40 +914,44 @@ def has_publicly_shared_amis(key_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = \
-        'There are any publicly accessible AMIs within AWS account.'
-    msg_closed: str = \
-        'There are not any publicly accessible AMIs within AWS account.'
+    msg_open: str = (
+        "There are any publicly accessible AMIs within AWS account."
+    )
+    msg_closed: str = (
+        "There are not any publicly accessible AMIs within AWS account."
+    )
     vulns, safes = [], []
     images = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='ec2',
-        func='describe_images',
-        param='Images',
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="ec2",
+        func="describe_images",
+        param="Images",
         retry=retry,
-        Owners=['self'])
+        Owners=["self"],
+    )
 
     for image in images:
-        (vulns if image['Public'] else safes).append(
-            (image['ImageId'], 'The AMI must be private access.'))
+        (vulns if image["Public"] else safes).append(
+            (image["ImageId"], "The AMI must be private access.")
+        )
 
     return _get_result_as_tuple(
-        service='EC2',
-        objects='AMIS',
+        service="EC2",
+        objects="AMIS",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_not_deletion_protection(key_id: str,
-                                secret: str,
-                                session_token: str = None,
-                                retry: bool = True) -> tuple:
+def has_not_deletion_protection(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Verify if EC2 instance has not deletion protection enabled.
 
@@ -905,50 +973,54 @@ def has_not_deletion_protection(key_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'EC2 instances has API termination enabled.'
-    msg_closed: str = 'EC2 instances has API termination disabled.'
+    msg_open: str = "EC2 instances has API termination enabled."
+    msg_closed: str = "EC2 instances has API termination disabled."
     vulns, safes = [], []
 
     instances = map(
-        lambda x: x['Instances'],
+        lambda x: x["Instances"],
         aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            boto3_client_kwargs={'aws_session_token': session_token},
-            service='ec2',
-            func='describe_instances',
-            param='Reservations',
-            retry=retry))
+            boto3_client_kwargs={"aws_session_token": session_token},
+            service="ec2",
+            func="describe_instances",
+            param="Reservations",
+            retry=retry,
+        ),
+    )
 
     for instance in _flatten(list(instances)):
         disable_api_termination = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            boto3_client_kwargs={'aws_session_token': session_token},
-            service='ec2',
-            func='describe_instance_attribute',
-            param='DisableApiTermination',
-            Attribute='disableApiTermination',
-            InstanceId=instance['InstanceId'],
-            retry=retry)['Value']
+            boto3_client_kwargs={"aws_session_token": session_token},
+            service="ec2",
+            func="describe_instance_attribute",
+            param="DisableApiTermination",
+            Attribute="disableApiTermination",
+            InstanceId=instance["InstanceId"],
+            retry=retry,
+        )["Value"]
         (vulns if not disable_api_termination else safes).append(
-            (instance['InstanceId'], 'must disabled api termination.'))
+            (instance["InstanceId"], "must disabled api termination.")
+        )
 
     return _get_result_as_tuple(
-        service='EC2',
-        objects='Instances',
+        service="EC2",
+        objects="Instances",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_terminate_shutdown_behavior(key_id: str,
-                                    secret: str,
-                                    session_token: str = None,
-                                    retry: bool = True) -> tuple:
+def has_terminate_shutdown_behavior(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Verify if ``EC2::instance`` has **Terminate** as Shutdown Behavior.
 
@@ -971,53 +1043,62 @@ def has_terminate_shutdown_behavior(key_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = \
-        'EC2 instances allows the shutdown command to terminate the instance'
-    msg_closed: str = ('EC2 instances disallow the shutdown command to'
-                       ' terminate the instance')
+    msg_open: str = (
+        "EC2 instances allows the shutdown command to terminate the instance"
+    )
+    msg_closed: str = (
+        "EC2 instances disallow the shutdown command to"
+        " terminate the instance"
+    )
     vulns, safes = [], []
 
     instances = map(
-        lambda x: x['Instances'],
+        lambda x: x["Instances"],
         aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            boto3_client_kwargs={'aws_session_token': session_token},
-            service='ec2',
-            func='describe_instances',
-            param='Reservations',
-            retry=retry))
+            boto3_client_kwargs={"aws_session_token": session_token},
+            service="ec2",
+            func="describe_instances",
+            param="Reservations",
+            retry=retry,
+        ),
+    )
 
     for instance in _flatten(list(instances)):
         shutdown_behavior = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            boto3_client_kwargs={'aws_session_token': session_token},
-            service='ec2',
-            func='describe_instance_attribute',
-            param='InstanceInitiatedShutdownBehavior',
-            Attribute='instanceInitiatedShutdownBehavior',
-            InstanceId=instance['InstanceId'],
-            retry=retry)['Value']
-        (vulns if shutdown_behavior == 'terminate' else safes).append(
-            (instance['InstanceId'],
-             'do not set terminate as shutdown behavior'))
+            boto3_client_kwargs={"aws_session_token": session_token},
+            service="ec2",
+            func="describe_instance_attribute",
+            param="InstanceInitiatedShutdownBehavior",
+            Attribute="instanceInitiatedShutdownBehavior",
+            InstanceId=instance["InstanceId"],
+            retry=retry,
+        )["Value"]
+        (vulns if shutdown_behavior == "terminate" else safes).append(
+            (
+                instance["InstanceId"],
+                "do not set terminate as shutdown behavior",
+            )
+        )
 
     return _get_result_as_tuple(
-        service='EC2',
-        objects='Instances',
+        service="EC2",
+        objects="Instances",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_associate_public_ip_address(key_id: str,
-                                    secret: str,
-                                    session_token: str = None,
-                                    retry: bool = True) -> tuple:
+def has_associate_public_ip_address(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if ``EC2::Instance`` has associated public IP address.
 
@@ -1030,43 +1111,52 @@ def has_associate_public_ip_address(key_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'EC2 instances has associated public ip addresses.'
-    msg_closed: str = 'EC2 instances has not associated public ip addresses.'
+    msg_open: str = "EC2 instances has associated public ip addresses."
+    msg_closed: str = "EC2 instances has not associated public ip addresses."
     vulns, safes = [], []
 
     instances = map(
-        lambda x: x['Instances'],
+        lambda x: x["Instances"],
         aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            boto3_client_kwargs={'aws_session_token': session_token},
-            service='ec2',
-            func='describe_instances',
-            param='Reservations',
-            retry=retry))
+            boto3_client_kwargs={"aws_session_token": session_token},
+            service="ec2",
+            func="describe_instances",
+            param="Reservations",
+            retry=retry,
+        ),
+    )
 
     for instance in _flatten(list(instances)):
-        for interface in instance['NetworkInterfaces']:
-            (vulns if 'Association' in interface
-             and interface['Association']['PublicIp'] else safes).append(
-                 (instance['InstanceId'],
-                  'do not associate public IP addresses.'))
+        for interface in instance["NetworkInterfaces"]:
+            (
+                vulns
+                if "Association" in interface
+                and interface["Association"]["PublicIp"]
+                else safes
+            ).append(
+                (
+                    instance["InstanceId"],
+                    "do not associate public IP addresses.",
+                )
+            )
 
     return _get_result_as_tuple(
-        service='EC2',
-        objects='Instances',
+        service="EC2",
+        objects="Instances",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_open_all_ports_to_the_public(key_id: str,
-                                     secret: str,
-                                     session_token: str = None,
-                                     retry: bool = True):
+def has_open_all_ports_to_the_public(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+):
     """
     Check if security groups has all ports or protocols open to the public.
 
@@ -1083,45 +1173,51 @@ def has_open_all_ports_to_the_public(key_id: str,
     security_groups = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
-        boto3_client_kwargs={'aws_session_token': session_token},
-        service='ec2',
-        func='describe_security_groups',
-        param='SecurityGroups',
-        retry=retry)
-    msg_open: str = 'Security groups has all ports open to the pubic.'
-    msg_closed: str = 'Security groups do not has all ports open to the pubic.'
+        boto3_client_kwargs={"aws_session_token": session_token},
+        service="ec2",
+        func="describe_security_groups",
+        param="SecurityGroups",
+        retry=retry,
+    )
+    msg_open: str = "Security groups has all ports open to the pubic."
+    msg_closed: str = "Security groups do not has all ports open to the pubic."
     vulns, safes = [], []
     for group in security_groups:
         vulnerable = []
-        for rule in group['IpPermissions']:
-            ip_permissions = group['IpPermissions'] + \
-                group['IpPermissionsEgress']
-            is_public: bool = any(ip_range['CidrIp'] == '0.0.0.0/0'
-                                  for ip_permission in ip_permissions
-                                  for ip_range in ip_permission['IpRanges'])
+        for rule in group["IpPermissions"]:
+            ip_permissions = (
+                group["IpPermissions"] + group["IpPermissionsEgress"]
+            )
+            is_public: bool = any(
+                ip_range["CidrIp"] == "0.0.0.0/0"
+                for ip_permission in ip_permissions
+                for ip_range in ip_permission["IpRanges"]
+            )
             if is_public:
                 with suppress(KeyError):
-                    vulnerable.append(rule['FromPort'] == 0
-                                      and rule['ToPort'] == 65535)
+                    vulnerable.append(
+                        rule["FromPort"] == 0 and rule["ToPort"] == 65535
+                    )
 
         (vulns if any(vulnerable) else safes).append(
-            (group['GroupId'], 'do not open all ports to the public.'))
+            (group["GroupId"], "do not open all ports to the public.")
+        )
 
     return _get_result_as_tuple(
-        service='EC2',
-        objects='Security Groups',
+        service="EC2",
+        objects="Security Groups",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_defined_user_data(key_id: str,
-                          secret: str,
-                          session_token: str = None,
-                          retry: bool = True) -> tuple:
+def has_defined_user_data(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Verify if ``EC2::instance`` has defined **userData** attribute.
 
@@ -1138,41 +1234,44 @@ def has_defined_user_data(key_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = \
-        'EC2 instances has custom userData defined'
-    msg_closed: str = ('EC2 instances has not userData defined')
+    msg_open: str = "EC2 instances has custom userData defined"
+    msg_closed: str = "EC2 instances has not userData defined"
     vulns, safes = [], []
 
     instances = map(
-        lambda x: x['Instances'],
+        lambda x: x["Instances"],
         aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            boto3_client_kwargs={'aws_session_token': session_token},
-            service='ec2',
-            func='describe_instances',
-            param='Reservations',
-            retry=retry))
+            boto3_client_kwargs={"aws_session_token": session_token},
+            service="ec2",
+            func="describe_instances",
+            param="Reservations",
+            retry=retry,
+        ),
+    )
 
     for instance in _flatten(list(instances)):
         user_data = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            boto3_client_kwargs={'aws_session_token': session_token},
-            service='ec2',
-            func='describe_instance_attribute',
-            param='UserData',
-            Attribute='userData',
-            InstanceId=instance['InstanceId'],
-            retry=retry)
+            boto3_client_kwargs={"aws_session_token": session_token},
+            service="ec2",
+            func="describe_instance_attribute",
+            param="UserData",
+            Attribute="userData",
+            InstanceId=instance["InstanceId"],
+            retry=retry,
+        )
         (vulns if user_data else safes).append(
-            (instance['InstanceId'],
-             'userData defined'))
+            (instance["InstanceId"], "userData defined")
+        )
 
     return _get_result_as_tuple(
-        service='EC2',
-        objects='Instances',
+        service="EC2",
+        objects="Instances",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )

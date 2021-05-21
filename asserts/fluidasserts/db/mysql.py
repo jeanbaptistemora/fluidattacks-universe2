@@ -17,17 +17,21 @@ from fluidasserts.utils.decorators import api, unknown_if
 
 #: Container with connection parameters and credentials
 ConnectionString = NamedTuple(
-    'ConnectionString', [
-        ('user', str),
-        ('passwd', str),
-        ('host', str),
-        ('port', int),
-    ])
+    "ConnectionString",
+    [
+        ("user", str),
+        ("passwd", str),
+        ("host", str),
+        ("port", int),
+    ],
+)
 
 
-def _execute(connection_string: ConnectionString,
-             query: str,
-             variables: Optional[Dict[str, Any]] = None) -> Iterator[Any]:
+def _execute(
+    connection_string: ConnectionString,
+    query: str,
+    variables: Optional[Dict[str, Any]] = None,
+) -> Iterator[Any]:
     """Yield the result of executing a command."""
     variables = variables or {}
     with database(connection_string) as (_, cursor):
@@ -47,7 +51,8 @@ def database(connection_string: ConnectionString) -> Iterator[Tuple[Any, Any]]:
         user=connection_string.user,
         passwd=connection_string.passwd,
         host=connection_string.host,
-        port=connection_string.port)
+        port=connection_string.port,
+    )
 
     try:
         cursor = connection.cursor()
@@ -61,8 +66,9 @@ def database(connection_string: ConnectionString) -> Iterator[Tuple[Any, Any]]:
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(mysql.connector.Error)
-def have_access(server: str, username: str, password: str,
-                port: int = 3306) -> tuple:
+def have_access(
+    server: str, username: str, password: str, port: int = 3306
+) -> tuple:
     """
     Check if there is access to database server.
 
@@ -79,22 +85,25 @@ def have_access(server: str, username: str, password: str,
     connection_string = ConnectionString(username, password, server, port)
 
     success: bool = False
-    msg_open: str = 'MySQL is accessible with given credentials'
-    msg_closed: str = 'MySQL is not accessible with given credentials'
+    msg_open: str = "MySQL is accessible with given credentials"
+    msg_closed: str = "MySQL is not accessible with given credentials"
 
     try:
         with database(connection_string):
             success = True
     except mysql.connector.Error as exc:
-        if exc.errno not in (mysql.connector.errorcode.ER_ACCESS_DENIED_ERROR,
-                             mysql.connector.errorcode.CR_CONN_HOST_ERROR):
+        if exc.errno not in (
+            mysql.connector.errorcode.ER_ACCESS_DENIED_ERROR,
+            mysql.connector.errorcode.CR_CONN_HOST_ERROR,
+        ):
             raise exc
 
     vulns: List[str] = []
     safes: List[str] = []
 
     (vulns if success else safes).append(
-        ('mysql', 'database is accessible with given credentials'))
+        ("mysql", "database is accessible with given credentials")
+    )
 
     return _get_result_as_tuple(
         host=server,
@@ -102,13 +111,15 @@ def have_access(server: str, username: str, password: str,
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(mysql.connector.Error)
-def test_db_exists(server: str, username: str, password: str,
-                   port: int = 3306) -> tuple:
+def test_db_exists(
+    server: str, username: str, password: str, port: int = 3306
+) -> tuple:
     """
     Check if "test" database exists.
 
@@ -123,18 +134,19 @@ def test_db_exists(server: str, username: str, password: str,
     """
     connection_string = ConnectionString(username, password, server, port)
 
-    msg_open: str = 'test Database is present'
-    msg_closed: str = 'test Database is not present'
+    msg_open: str = "test Database is present"
+    msg_closed: str = "test Database is not present"
 
-    vulnerable: bool = any(db == 'test'
-                           for db, in _execute(connection_string,
-                                               'SHOW DATABASES'))
+    vulnerable: bool = any(
+        db == "test" for db, in _execute(connection_string, "SHOW DATABASES")
+    )
 
     vulns: List[str] = []
     safes: List[str] = []
 
     (vulns if vulnerable else safes).append(
-        ('test', 'must delete database test'))
+        ("test", "must delete database test")
+    )
 
     return _get_result_as_tuple(
         host=server,
@@ -142,13 +154,15 @@ def test_db_exists(server: str, username: str, password: str,
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(mysql.connector.Error)
-def local_infile_enabled(server: str, username: str, password: str,
-                         port: int = 3306) -> tuple:
+def local_infile_enabled(
+    server: str, username: str, password: str, port: int = 3306
+) -> tuple:
     """
     Check if 'local_infile' parameter is set to ON.
 
@@ -171,14 +185,17 @@ def local_infile_enabled(server: str, username: str, password: str,
         WHERE Variable_name = 'local_infile'
         """
 
-    vulnerable: bool = any(row == ('local_infile', 'ON')
-                           for row in _execute(connection_string, query))
+    vulnerable: bool = any(
+        row == ("local_infile", "ON")
+        for row in _execute(connection_string, query)
+    )
 
     vulns: List[str] = []
     safes: List[str] = []
 
     (vulns if vulnerable else safes).append(
-        ('@local_infile', '@local_infile must be set to OFF'))
+        ("@local_infile", "@local_infile must be set to OFF")
+    )
 
     return _get_result_as_tuple(
         host=server,
@@ -186,13 +203,15 @@ def local_infile_enabled(server: str, username: str, password: str,
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(mysql.connector.Error)
-def symlinks_enabled(server: str, username: str, password: str,
-                     port: int = 3306) -> tuple:
+def symlinks_enabled(
+    server: str, username: str, password: str, port: int = 3306
+) -> tuple:
     """
     Check if symbolic links are enabled on MySQL server.
 
@@ -207,21 +226,24 @@ def symlinks_enabled(server: str, username: str, password: str,
     """
     connection_string = ConnectionString(username, password, server, port)
 
-    msg_open: str = 'Symbolic links are supported by server'
-    msg_closed: str = 'Symbolic links are not supported by server'
+    msg_open: str = "Symbolic links are supported by server"
+    msg_closed: str = "Symbolic links are not supported by server"
 
     query: str = """
         SHOW VARIABLES LIKE 'have_symlink'
         """
 
-    vulnerable: bool = not any(row == ('have_symlink', 'DISABLED')
-                               for row in _execute(connection_string, query))
+    vulnerable: bool = not any(
+        row == ("have_symlink", "DISABLED")
+        for row in _execute(connection_string, query)
+    )
 
     vulns: List[str] = []
     safes: List[str] = []
 
     (vulns if vulnerable else safes).append(
-        ('@have_symlink', '@have_symlink must be set to DISABLED'))
+        ("@have_symlink", "@have_symlink must be set to DISABLED")
+    )
 
     return _get_result_as_tuple(
         host=server,
@@ -229,13 +251,15 @@ def symlinks_enabled(server: str, username: str, password: str,
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(mysql.connector.Error)
-def memcached_enabled(server: str, username: str, password: str,
-                      port: int = 3306) -> tuple:
+def memcached_enabled(
+    server: str, username: str, password: str, port: int = 3306
+) -> tuple:
     """
     Check if memcached daemon is enabled on server.
 
@@ -250,8 +274,8 @@ def memcached_enabled(server: str, username: str, password: str,
     """
     connection_string = ConnectionString(username, password, server, port)
 
-    msg_open: str = 'Memcached daemon is enabled on server'
-    msg_closed: str = 'Memcached daemon is disabled on server'
+    msg_open: str = "Memcached daemon is enabled on server"
+    msg_closed: str = "Memcached daemon is disabled on server"
 
     query: str = """
         SELECT * FROM information_schema.plugins
@@ -265,8 +289,11 @@ def memcached_enabled(server: str, username: str, password: str,
     safes: List[str] = []
 
     (vulns if vulnerable else safes).append(
-        ('information_schema.plugins',
-         'daemon_memcached plugin must be disabled'))
+        (
+            "information_schema.plugins",
+            "daemon_memcached plugin must be disabled",
+        )
+    )
 
     return _get_result_as_tuple(
         host=server,
@@ -274,13 +301,15 @@ def memcached_enabled(server: str, username: str, password: str,
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(mysql.connector.Error)
-def secure_file_priv_disabled(server: str, username: str,
-                              password: str, port: int = 3306) -> tuple:
+def secure_file_priv_disabled(
+    server: str, username: str, password: str, port: int = 3306
+) -> tuple:
     """
     Check if secure_file_priv is configured on server.
 
@@ -295,8 +324,8 @@ def secure_file_priv_disabled(server: str, username: str,
     """
     connection_string = ConnectionString(username, password, server, port)
 
-    msg_open: str = 'Parameter secure_file_priv is not established'
-    msg_closed: str = 'Parameter secure_file_priv is established'
+    msg_open: str = "Parameter secure_file_priv is not established"
+    msg_closed: str = "Parameter secure_file_priv is established"
 
     query: str = """
         SHOW GLOBAL VARIABLES
@@ -310,7 +339,8 @@ def secure_file_priv_disabled(server: str, username: str,
     safes: List[str] = []
 
     (vulns if vulnerable else safes).append(
-        ('@secure_file_priv', '@secure_file_priv must be set'))
+        ("@secure_file_priv", "@secure_file_priv must be set")
+    )
 
     return _get_result_as_tuple(
         host=server,
@@ -318,13 +348,15 @@ def secure_file_priv_disabled(server: str, username: str,
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(mysql.connector.Error)
-def strict_all_tables_disabled(server: str, username: str,
-                               password: str, port: int = 3306) -> tuple:
+def strict_all_tables_disabled(
+    server: str, username: str, password: str, port: int = 3306
+) -> tuple:
     """
     Check if STRICT_ALL_TABLES is enabled on MySQL server.
 
@@ -340,22 +372,24 @@ def strict_all_tables_disabled(server: str, username: str,
     """
     connection_string = ConnectionString(username, password, server, port)
 
-    msg_open: str = 'STRICT_ALL_TABLES is not enabled on by server'
-    msg_closed: str = 'STRICT_ALL_TABLES is enabled on by server'
+    msg_open: str = "STRICT_ALL_TABLES is not enabled on by server"
+    msg_closed: str = "STRICT_ALL_TABLES is enabled on by server"
 
     query: str = """
         SHOW VARIABLES LIKE 'sql_mode'
         """
 
-    vulnerable: bool = not any(value == 'STRICT_ALL_TABLES'
-                               for _, value in _execute(connection_string,
-                                                        query))
+    vulnerable: bool = not any(
+        value == "STRICT_ALL_TABLES"
+        for _, value in _execute(connection_string, query)
+    )
 
     vulns: List[str] = []
     safes: List[str] = []
 
     (vulns if vulnerable else safes).append(
-        ('@sql_mode', '@sql_mode must be set STRICT_ALL_TABLES'))
+        ("@sql_mode", "@sql_mode must be set STRICT_ALL_TABLES")
+    )
 
     return _get_result_as_tuple(
         host=server,
@@ -363,13 +397,15 @@ def strict_all_tables_disabled(server: str, username: str,
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(mysql.connector.Error)
-def log_error_disabled(server: str, username: str, password: str,
-                       port: int = 3306) -> tuple:
+def log_error_disabled(
+    server: str, username: str, password: str, port: int = 3306
+) -> tuple:
     """
     Check if 'log_error' parameter is set on MySQL server.
 
@@ -384,21 +420,23 @@ def log_error_disabled(server: str, username: str, password: str,
     """
     connection_string = ConnectionString(username, password, server, port)
 
-    msg_open: str = 'Parameter log_error not set on server'
-    msg_closed: str = 'Parameter log_error is set on server'
+    msg_open: str = "Parameter log_error not set on server"
+    msg_closed: str = "Parameter log_error is set on server"
 
     query: str = """
         SHOW VARIABLES LIKE 'log_error'
         """
 
-    vulnerable: bool = any(row == ('log_error', '')
-                           for row in _execute(connection_string, query))
+    vulnerable: bool = any(
+        row == ("log_error", "") for row in _execute(connection_string, query)
+    )
 
     vulns: List[str] = []
     safes: List[str] = []
 
     (vulns if vulnerable else safes).append(
-        ('@log_error', '@log_error must be set'))
+        ("@log_error", "@log_error must be set")
+    )
 
     return _get_result_as_tuple(
         host=server,
@@ -406,13 +444,15 @@ def log_error_disabled(server: str, username: str, password: str,
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(mysql.connector.Error)
-def logs_on_system_fs(server: str, username: str, password: str,
-                      port: int = 3306) -> tuple:
+def logs_on_system_fs(
+    server: str, username: str, password: str, port: int = 3306
+) -> tuple:
     """
     Check if logs are stored on a system filesystem on server.
 
@@ -428,20 +468,22 @@ def logs_on_system_fs(server: str, username: str, password: str,
     """
     connection_string = ConnectionString(username, password, server, port)
 
-    msg_open: str = 'Logs are stored on system filesystems on server'
-    msg_closed: str = 'Logs are outside system filesystems on server'
+    msg_open: str = "Logs are stored on system filesystems on server"
+    msg_closed: str = "Logs are outside system filesystems on server"
 
-    query: str = 'SELECT @@global.log_bin_basename'
+    query: str = "SELECT @@global.log_bin_basename"
 
-    vulnerable: bool = any(value.startswith('/var') or value.startswith('/usr')
-                           for value, in _execute(connection_string, query))
+    vulnerable: bool = any(
+        value.startswith("/var") or value.startswith("/usr")
+        for value, in _execute(connection_string, query)
+    )
 
     vulns: List[str] = []
     safes: List[str] = []
 
     (vulns if vulnerable else safes).append(
-        ('@@global.log_bin_basename',
-         'Logs must be saved outside filesystems'))
+        ("@@global.log_bin_basename", "Logs must be saved outside filesystems")
+    )
 
     return _get_result_as_tuple(
         host=server,
@@ -449,13 +491,15 @@ def logs_on_system_fs(server: str, username: str, password: str,
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(mysql.connector.Error)
-def logs_verbosity_low(server: str, username: str, password: str,
-                       port: int = 3306) -> tuple:
+def logs_verbosity_low(
+    server: str, username: str, password: str, port: int = 3306
+) -> tuple:
     """
     Check if logs verbosity includes errors, warnings and notes.
 
@@ -471,21 +515,23 @@ def logs_verbosity_low(server: str, username: str, password: str,
     """
     connection_string = ConnectionString(username, password, server, port)
 
-    msg_open: str = 'Logs verbosity is not enough'
-    msg_closed: str = 'Logs verbosity is sufficient'
+    msg_open: str = "Logs verbosity is not enough"
+    msg_closed: str = "Logs verbosity is sufficient"
 
     query: str = """
         SHOW GLOBAL VARIABLES LIKE 'log_error_verbosity'
         """
 
-    is_safe: bool = any(value in ('2', '3')
-                        for _, value in _execute(connection_string, query))
+    is_safe: bool = any(
+        value in ("2", "3") for _, value in _execute(connection_string, query)
+    )
 
     vulns: List[str] = []
     safes: List[str] = []
 
-    (safes if is_safe else vulns).append(('@log_error_verbosity',
-                                          'Log verbosity must be 2 or 3'))
+    (safes if is_safe else vulns).append(
+        ("@log_error_verbosity", "Log verbosity must be 2 or 3")
+    )
 
     return _get_result_as_tuple(
         host=server,
@@ -493,13 +539,15 @@ def logs_verbosity_low(server: str, username: str, password: str,
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(mysql.connector.Error)
-def auto_creates_users(server: str, username: str, password: str,
-                       port: int = 3306) -> tuple:
+def auto_creates_users(
+    server: str, username: str, password: str, port: int = 3306
+) -> tuple:
     """
     Check if 'NO_AUTO_CREATE_USER' param is set.
 
@@ -524,15 +572,20 @@ def auto_creates_users(server: str, username: str, password: str,
         SELECT @@session.sql_mode
         """
 
-    is_safe: bool = any('NO_AUTO_CREATE_USER' in var
-                        for var, in _execute(connection_string, query))
+    is_safe: bool = any(
+        "NO_AUTO_CREATE_USER" in var
+        for var, in _execute(connection_string, query)
+    )
 
     vulns: List[str] = []
     safes: List[str] = []
 
     (safes if is_safe else vulns).append(
-        ('[@@global.sql_mode | SELECT @@session.sql_mode]',
-         '[@@global.sql_mode | SELECT @@session.sql_mode] must be set'))
+        (
+            "[@@global.sql_mode | SELECT @@session.sql_mode]",
+            "[@@global.sql_mode | SELECT @@session.sql_mode] must be set",
+        )
+    )
 
     return _get_result_as_tuple(
         host=server,
@@ -540,13 +593,15 @@ def auto_creates_users(server: str, username: str, password: str,
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(mysql.connector.Error)
-def has_users_without_password(server: str, username: str,
-                               password: str, port: int = 3306) -> tuple:
+def has_users_without_password(
+    server: str, username: str, password: str, port: int = 3306
+) -> tuple:
     """
     Check if users have a password set.
 
@@ -561,8 +616,8 @@ def has_users_without_password(server: str, username: str,
     """
     connection_string = ConnectionString(username, password, server, port)
 
-    msg_open: str = 'There are users without password on server'
-    msg_closed: str = 'All users have passwords on server'
+    msg_open: str = "There are users without password on server"
+    msg_closed: str = "All users have passwords on server"
 
     query: str = "SELECT user, password FROM mysql.user"
 
@@ -571,8 +626,11 @@ def has_users_without_password(server: str, username: str,
 
     for user in _execute(connection_string, query):
         (vulns if not user[1] else safes).append(
-            (f'mysql.user.{user[0]}',
-             f'must set a secure password to {user[0]}'))
+            (
+                f"mysql.user.{user[0]}",
+                f"must set a secure password to {user[0]}",
+            )
+        )
 
     return _get_result_as_tuple(
         host=server,
@@ -580,13 +638,15 @@ def has_users_without_password(server: str, username: str,
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(mysql.connector.Error)
-def password_expiration_unsafe(server: str, username: str,
-                               password: str, port: int = 3306) -> tuple:
+def password_expiration_unsafe(
+    server: str, username: str, password: str, port: int = 3306
+) -> tuple:
     """
     Check if password expiration time is safe.
 
@@ -602,8 +662,8 @@ def password_expiration_unsafe(server: str, username: str,
     """
     connection_string = ConnectionString(username, password, server, port)
 
-    msg_open: str = 'Password lifetime is unsafe'
-    msg_closed: str = 'Password lifetime is safe'
+    msg_open: str = "Password lifetime is unsafe"
+    msg_closed: str = "Password lifetime is safe"
 
     query: str = """
         SHOW VARIABLES LIKE "default_password_lifetime"
@@ -615,8 +675,11 @@ def password_expiration_unsafe(server: str, username: str,
     safes: List[str] = []
 
     (vulns if vulnerable else safes).append(
-        ('@default_password_lifetime',
-         '@default_password_lifetime must be set or be less than 90 days'))
+        (
+            "@default_password_lifetime",
+            "@default_password_lifetime must be set or be less than 90 days",
+        )
+    )
 
     return _get_result_as_tuple(
         host=server,
@@ -624,13 +687,15 @@ def password_expiration_unsafe(server: str, username: str,
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(mysql.connector.Error)
-def password_equals_to_user(server: str, username: str,
-                            password: str, port: int = 3306) -> tuple:
+def password_equals_to_user(
+    server: str, username: str, password: str, port: int = 3306
+) -> tuple:
     """
     Check if users' password is the same username.
 
@@ -646,8 +711,8 @@ def password_equals_to_user(server: str, username: str,
     """
     connection_string = ConnectionString(username, password, server, port)
 
-    msg_open: str = 'There are users whose username is their password'
-    msg_closed: str = 'There are no users whose username is their password'
+    msg_open: str = "There are users whose username is their password"
+    msg_closed: str = "There are no users whose username is their password"
 
     query: str = """
                 SELECT user,
@@ -664,8 +729,8 @@ def password_equals_to_user(server: str, username: str,
     for user in _execute(connection_string, query):
         vulnerable = user[1] in user[2:]
         (vulns if vulnerable else safes).append(
-            (f'mysql.user.{user[0]}',
-             'username and password must be distinct'))
+            (f"mysql.user.{user[0]}", "username and password must be distinct")
+        )
 
     return _get_result_as_tuple(
         host=server,
@@ -673,13 +738,15 @@ def password_equals_to_user(server: str, username: str,
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(mysql.connector.Error)
-def users_have_wildcard_host(server: str, username: str,
-                             password: str, port: int = 3306) -> tuple:
+def users_have_wildcard_host(
+    server: str, username: str, password: str, port: int = 3306
+) -> tuple:
     """
     Check if users have a wildcard host grants.
 
@@ -694,17 +761,18 @@ def users_have_wildcard_host(server: str, username: str,
     """
     connection_string = ConnectionString(username, password, server, port)
 
-    msg_open: str = 'There are users with wildcard hosts'
-    msg_closed: str = 'There are not users with wildcard hosts'
+    msg_open: str = "There are users with wildcard hosts"
+    msg_closed: str = "There are not users with wildcard hosts"
 
-    query: str = 'SELECT user, host FROM mysql.user'
+    query: str = "SELECT user, host FROM mysql.user"
 
     vulns: List[str] = []
     safes: List[str] = []
 
     for user in _execute(connection_string, query):
-        (vulns if user[1] == '%' else safes).append(
-            (f'mysql.user.{user[0]}', 'user must not has access to all hosts'))
+        (vulns if user[1] == "%" else safes).append(
+            (f"mysql.user.{user[0]}", "user must not has access to all hosts")
+        )
 
     return _get_result_as_tuple(
         host=server,
@@ -712,13 +780,15 @@ def users_have_wildcard_host(server: str, username: str,
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(mysql.connector.Error)
-def not_use_ssl(server: str, username: str, password: str,
-                port: int = 3306) -> tuple:
+def not_use_ssl(
+    server: str, username: str, password: str, port: int = 3306
+) -> tuple:
     """Check if MySQL server uses SSL.
 
     :param server: database server's host or IP address.
@@ -732,19 +802,21 @@ def not_use_ssl(server: str, username: str, password: str,
     """
     connection_string = ConnectionString(username, password, server, port)
 
-    msg_open: str = 'Server does not use SSL'
-    msg_closed: str = 'Server does use SSL'
+    msg_open: str = "Server does not use SSL"
+    msg_closed: str = "Server does use SSL"
 
     query: str = 'SHOW variables WHERE variable_name = "have_ssl"'
 
-    vulnerable: bool = any(value == 'DISABLED'
-                           for _, value in _execute(connection_string, query))
+    vulnerable: bool = any(
+        value == "DISABLED" for _, value in _execute(connection_string, query)
+    )
 
     vulns: List[str] = []
     safes: List[str] = []
 
     (vulns if vulnerable else safes).append(
-        ('@have_ssl', '@have_ssl must be set ENABLED'))
+        ("@have_ssl", "@have_ssl must be set ENABLED")
+    )
 
     return _get_result_as_tuple(
         host=server,
@@ -752,13 +824,15 @@ def not_use_ssl(server: str, username: str, password: str,
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(mysql.connector.Error)
-def ssl_unforced(server: str, username: str, password: str,
-                 port: int = 3306) -> tuple:
+def ssl_unforced(
+    server: str, username: str, password: str, port: int = 3306
+) -> tuple:
     """
     Check if users are forced to use SSL.
 
@@ -775,8 +849,8 @@ def ssl_unforced(server: str, username: str, password: str,
     """
     connection_string = ConnectionString(username, password, server, port)
 
-    msg_open: str = 'Users are not forced to use SSL'
-    msg_closed: str = 'Users are forced to use SSL'
+    msg_open: str = "Users are not forced to use SSL"
+    msg_closed: str = "Users are forced to use SSL"
 
     query: str = "SELECT user, host, ssl_type FROM mysql.user"
 
@@ -784,11 +858,12 @@ def ssl_unforced(server: str, username: str, password: str,
     safes: List[str] = []
 
     for user in _execute(connection_string, query):
-        vulnerable = user[1] not in (
-            '::1', '127.0.0.1', 'localhost') and user[2] not in ('ANY', 'X509',
-                                                                 'SPECIFIED')
+        vulnerable = user[1] not in ("::1", "127.0.0.1", "localhost") and user[
+            2
+        ] not in ("ANY", "X509", "SPECIFIED")
         (vulns if vulnerable else safes).append(
-            (f'mysql.user.{user[0]}', f'force {user[0]} to use SSL'))
+            (f"mysql.user.{user[0]}", f"force {user[0]} to use SSL")
+        )
 
     return _get_result_as_tuple(
         host=server,
@@ -796,15 +871,15 @@ def ssl_unforced(server: str, username: str, password: str,
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(mysql.connector.Error)
-def old_passwords_enabled(server: str,
-                          username: str,
-                          password: str,
-                          port: int = 3306) -> tuple:
+def old_passwords_enabled(
+    server: str, username: str, password: str, port: int = 3306
+) -> tuple:
     """
     Check if 'old_passwords' option is set to ON.
 
@@ -832,14 +907,15 @@ def old_passwords_enabled(server: str,
         """
 
     vulnerable = any(
-        list(
-            map(lambda row: row == (1, ), _execute(connection_string, query))))
+        list(map(lambda row: row == (1,), _execute(connection_string, query)))
+    )
 
     vulns: List[str] = []
     safes: List[str] = []
 
-    (vulns if vulnerable else safes).append(('@@global.old_passwords',
-                                             'Must turn OFF old_passwords'))
+    (vulns if vulnerable else safes).append(
+        ("@@global.old_passwords", "Must turn OFF old_passwords")
+    )
 
     return _get_result_as_tuple(
         host=server,
@@ -847,15 +923,15 @@ def old_passwords_enabled(server: str,
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(mysql.connector.Error)
-def has_unnamed_users(server: str,
-                      username: str,
-                      password: str,
-                      port: int = 3306) -> tuple:
+def has_unnamed_users(
+    server: str, username: str, password: str, port: int = 3306
+) -> tuple:
     """
     Check for unnamed users.
 
@@ -875,8 +951,8 @@ def has_unnamed_users(server: str,
     """
     connection_string = ConnectionString(username, password, server, port)
 
-    msg_open: str = 'There are unnamed users.'
-    msg_closed: str = 'There are no unnamed users.'
+    msg_open: str = "There are unnamed users."
+    msg_closed: str = "There are no unnamed users."
 
     query: str = """
         SELECT 1
@@ -885,14 +961,15 @@ def has_unnamed_users(server: str,
         """
 
     vulnerable = any(
-        list(
-            map(lambda row: row == (1, ), _execute(connection_string, query))))
+        list(map(lambda row: row == (1,), _execute(connection_string, query)))
+    )
 
     vulns: List[str] = []
     safes: List[str] = []
 
     (vulns if vulnerable else safes).append(
-        ('mysql.user', 'Must set user names for unnamed users'))
+        ("mysql.user", "Must set user names for unnamed users")
+    )
 
     return _get_result_as_tuple(
         host=server,
@@ -900,4 +977,5 @@ def has_unnamed_users(server: str,
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )

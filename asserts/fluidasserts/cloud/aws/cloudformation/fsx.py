@@ -21,7 +21,8 @@ from fluidasserts.cloud.aws.cloudformation import get_resources
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_unencrypted_volumes(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    path: str, exclude: Optional[List[str]] = None
+) -> tuple:
     """
     Check if ``FileSystem`` entities are encrypted with a **KmsKeyId**.
 
@@ -37,20 +38,25 @@ def has_unencrypted_volumes(
     templates: List[Tuple[int, Dict]] = get_templates(graph, path, exclude)
     files: List[int] = get_resources(
         graph,
-        map(lambda x: x[0], templates), {'AWS', 'FSx', 'FileSystem'},
-        info=True)
+        map(lambda x: x[0], templates),
+        {"AWS", "FSx", "FileSystem"},
+        info=True,
+    )
     for file, resource, template in files:
-        is_vulnerable: bool = not bool(get_resources(graph, file, 'KmsKeyId'))
+        is_vulnerable: bool = not bool(get_resources(graph, file, "KmsKeyId"))
         if is_vulnerable:
             vulnerabilities.append(
                 Vulnerability(
-                    path=template['path'],
-                    entity='AWS::FSx::FileSystem',
-                    identifier=resource['name'],
-                    line=resource['line'],
-                    reason='volume is not encrypted'))
+                    path=template["path"],
+                    entity="AWS::FSx::FileSystem",
+                    identifier=resource["name"],
+                    line=resource["line"],
+                    reason="volume is not encrypted",
+                )
+            )
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='FSx File Systems are not encrypted',
-        msg_closed='FSx File Systems are encrypted')
+        msg_open="FSx File Systems are not encrypted",
+        msg_closed="FSx File Systems are encrypted",
+    )

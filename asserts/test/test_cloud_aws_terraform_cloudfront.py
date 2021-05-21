@@ -4,13 +4,16 @@
 from fluidasserts.cloud.aws.terraform import cloudfront
 
 # 3rd party imports
-import pytest   # pylint: disable=E0401
-pytestmark = pytest.mark.asserts_module('cloud_aws_terraform')  # pylint: disable=C0103,C0301 # noqa: E501
+import pytest  # pylint: disable=E0401
+
+pytestmark = pytest.mark.asserts_module(
+    "cloud_aws_terraform"
+)  # pylint: disable=C0103,C0301 # noqa: E501
 
 # Constants
-SAFE: str = 'test/static/terraform/safe'
-VULN: str = 'test/static/terraform/vulnerable'
-NOT_EXISTS: str = 'test/static/terraform/not-exists'
+SAFE: str = "test/static/terraform/safe"
+VULN: str = "test/static/terraform/vulnerable"
+NOT_EXISTS: str = "test/static/terraform/not-exists"
 
 
 def test_serves_content_over_http():
@@ -29,4 +32,5 @@ def test_serves_content_over_insecure_protocols():
     assert result.get_vulns_number() == 2
     assert cloudfront.serves_content_over_insecure_protocols(SAFE).is_closed()
     assert cloudfront.serves_content_over_insecure_protocols(
-        NOT_EXISTS).is_unknown()
+        NOT_EXISTS
+    ).is_unknown()

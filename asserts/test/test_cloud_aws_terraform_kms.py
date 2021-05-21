@@ -5,12 +5,13 @@ from fluidasserts.cloud.aws.terraform import kms
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('cloud_aws_terraform')
+
+pytestmark = pytest.mark.asserts_module("cloud_aws_terraform")
 
 # Constants
-SAFE: str = 'test/static/terraform/safe'
-VULN: str = 'test/static/terraform/vulnerable'
-NOT_EXISTS: str = 'test/static/terraform/not-exists'
+SAFE: str = "test/static/terraform/safe"
+VULN: str = "test/static/terraform/vulnerable"
+NOT_EXISTS: str = "test/static/terraform/not-exists"
 
 
 def test_is_key_rotation_absent_or_disabled():
@@ -20,6 +21,7 @@ def test_is_key_rotation_absent_or_disabled():
     assert result.get_vulns_number() == 1
     assert kms.is_key_rotation_absent_or_disabled(SAFE).is_closed()
     assert kms.is_key_rotation_absent_or_disabled(NOT_EXISTS).is_unknown()
+
 
 def is_deletion_window_misconfigured():
     """test kms.is_deletion_window_misconfigured."""

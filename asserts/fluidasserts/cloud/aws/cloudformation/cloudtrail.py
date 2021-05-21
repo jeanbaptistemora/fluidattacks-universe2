@@ -22,8 +22,9 @@ from fluidasserts.cloud.aws.cloudformation import has_values
 
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError)
-def trails_not_multiregion(path: str,
-                           exclude: Optional[List[str]] = None) -> tuple:
+def trails_not_multiregion(
+    path: str, exclude: Optional[List[str]] = None
+) -> tuple:
     """
     Check if any ``CloudTrail Trails`` have **MultiRegion** enabled.
 
@@ -41,36 +42,45 @@ def trails_not_multiregion(path: str,
     buckets: List[int] = get_resources(
         graph,
         map(lambda x: x[0], templates),
-        {'AWS', 'CloudTrail', 'Trail'},
+        {"AWS", "CloudTrail", "Trail"},
         num_labels=3,
-        info=True)
+        info=True,
+    )
     for trail, resource, template in buckets:
-        _multiregion: int = helper.get_index(has_values(graph, trail,
-                                                        'IsMultiRegionTrail',
-                                                        ['true', 'True',
-                                                         True, '1', 1],
-                                                        depth=4), 0)
+        _multiregion: int = helper.get_index(
+            has_values(
+                graph,
+                trail,
+                "IsMultiRegionTrail",
+                ["true", "True", True, "1", 1],
+                depth=4,
+            ),
+            0,
+        )
 
         if not _multiregion:
             vulnerabilities.append(
                 Vulnerability(
-                    path=template['path'],
-                    entity=(f'AWS::CloudTrail::Trail/'
-                            f'IsMultiRegionTrail/'),
-                    identifier=resource['name'],
-                    line=resource['line'],
-                    reason='is not enabled.'))
+                    path=template["path"],
+                    entity=(f"AWS::CloudTrail::Trail/" f"IsMultiRegionTrail/"),
+                    identifier=resource["name"],
+                    line=resource["line"],
+                    reason="is not enabled.",
+                )
+            )
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='Trail has multiregion disabled',
-        msg_closed='Trail has multiregion enabled')
+        msg_open="Trail has multiregion disabled",
+        msg_closed="Trail has multiregion enabled",
+    )
 
 
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError)
-def log_files_not_validated(path: str,
-                            exclude: Optional[List[str]] = None) -> tuple:
+def log_files_not_validated(
+    path: str, exclude: Optional[List[str]] = None
+) -> tuple:
     """
     Check if any ``CloudTrail Trails`` have **LogFileValidation** enabled.
 
@@ -88,28 +98,37 @@ def log_files_not_validated(path: str,
     buckets: List[int] = get_resources(
         graph,
         map(lambda x: x[0], templates),
-        {'AWS', 'CloudTrail', 'Trail'},
+        {"AWS", "CloudTrail", "Trail"},
         num_labels=3,
-        info=True)
+        info=True,
+    )
     for trail, resource, template in buckets:
-        _validation: int = helper.get_index(has_values(graph, trail,
-                                                       ('EnableLogFile'
-                                                        'Validation'),
-                                                       ['true', 'True',
-                                                        True, '1', 1],
-                                                       depth=4), 0)
+        _validation: int = helper.get_index(
+            has_values(
+                graph,
+                trail,
+                ("EnableLogFile" "Validation"),
+                ["true", "True", True, "1", 1],
+                depth=4,
+            ),
+            0,
+        )
 
         if not _validation:
             vulnerabilities.append(
                 Vulnerability(
-                    path=template['path'],
-                    entity=(f'AWS::CloudTrail::Trail/'
-                            f'EnableLogFileValidation/'),
-                    identifier=resource['name'],
-                    line=resource['line'],
-                    reason='is not enabled.'))
+                    path=template["path"],
+                    entity=(
+                        f"AWS::CloudTrail::Trail/" f"EnableLogFileValidation/"
+                    ),
+                    identifier=resource["name"],
+                    line=resource["line"],
+                    reason="is not enabled.",
+                )
+            )
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='Trail has log file validation disabled',
-        msg_closed='Trail has log file validation enabled')
+        msg_open="Trail has log file validation disabled",
+        msg_closed="Trail has log file validation enabled",
+    )

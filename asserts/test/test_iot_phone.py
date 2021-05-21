@@ -7,7 +7,8 @@
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('iot')
+
+pytestmark = pytest.mark.asserts_module("iot")
 
 # local imports
 from fluidasserts.iot import phone
@@ -16,7 +17,7 @@ from fluidasserts.iot import phone
 # Constants
 #
 
-MOCK_SERVICE = 'localhost'
+MOCK_SERVICE = "localhost"
 #
 # Open tests
 #
@@ -24,16 +25,17 @@ MOCK_SERVICE = 'localhost'
 
 def test_unify_password_open():
     """Check if Unify phone has default credentials."""
-    assert phone.unify_has_default_credentials(MOCK_SERVICE,
-                                               proto='http',
-                                               port=8001)
+    assert phone.unify_has_default_credentials(
+        MOCK_SERVICE, proto="http", port=8001
+    )
 
 
 def test_polycom_password_open():
     """Check if Polycom phone has default credentials."""
-    assert phone.polycom_has_default_credentials(MOCK_SERVICE,
-                                                 proto='http',
-                                                 port=8001)
+    assert phone.polycom_has_default_credentials(
+        MOCK_SERVICE, proto="http", port=8001
+    )
+
 
 #
 # Closing tests

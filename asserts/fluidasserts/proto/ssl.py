@@ -31,8 +31,10 @@ TYPRECEIVE = Tuple[Optional[str], Optional[int], Optional[int]]
 
 # pylint: disable=protected-access
 
-def _my_send_finished(self, master_secret, cipher_suite=None, next_proto=None,
-                      settings=None):
+
+def _my_send_finished(
+    self, master_secret, cipher_suite=None, next_proto=None, settings=None
+):
     """Duck-tapped TLSConnection._sendFinished function."""
     self.sock.buffer_writes = True
     # Send ChangeCipherSpec
@@ -46,7 +48,7 @@ def _my_send_finished(self, master_secret, cipher_suite=None, next_proto=None,
         self._send_record_limit = self._peer_record_size_limit
         # this is TLS 1.2 and earlier method, so the real limit may be
         # lower that what's in the settings
-        self._recv_record_limit = min(2**14, settings.record_size_limit)
+        self._recv_record_limit = min(2 ** 14, settings.record_size_limit)
 
     if next_proto is not None:
         next_proto_msg = tlslite.messages.NextProtocol().create(next_proto)
@@ -54,11 +56,13 @@ def _my_send_finished(self, master_secret, cipher_suite=None, next_proto=None,
             yield result
 
     # Calculate verification data
-    verify_data = tlslite.mathtls.calcFinished(self.version,
-                                               master_secret,
-                                               cipher_suite,
-                                               self._handshake_hash,
-                                               self._client)
+    verify_data = tlslite.mathtls.calcFinished(
+        self.version,
+        master_secret,
+        cipher_suite,
+        self._handshake_hash,
+        self._client,
+    )
     if self.fault == tlslite.constants.Fault.badFinished:
         verify_data[0] = (verify_data[0] + 1) % 256
 
@@ -89,12 +93,12 @@ def _rcv_tls_record(sock: socket.socket) -> TYPRECEIVE:
             return None, None, None
         if len(tls_header) < 5:
             return None, None, None
-        typ, ver, length = struct.unpack('>BHH', tls_header)
+        typ, ver, length = struct.unpack(">BHH", tls_header)
         if typ > 24:
             return None, None, None
-        message = ''
+        message = ""
         while len(message) != length:
-            message += sock.recv(length - len(message)).decode('ISO-8859-1')
+            message += sock.recv(length - len(message)).decode("ISO-8859-1")
         if not message:
             return None, None, None
         return typ, ver, message
@@ -110,58 +114,246 @@ def _build_client_hello(tls_ver: str) -> List:
     :return: A List with the corresponding hex codes.
     """
     ssl_version_mapping = {
-        'SSLv3': 0x00,
-        'TLSv1.0': 0x01,
-        'TLSv1.1': 0x02,
-        'TLSv1.2': 0x03
+        "SSLv3": 0x00,
+        "TLSv1.0": 0x01,
+        "TLSv1.1": 0x02,
+        "TLSv1.2": 0x03,
     }
     client_hello = [
         # TLS header ( 5 bytes)
-        0x16,               # Content type (0x16 for handshake)
-        0x03, ssl_version_mapping[tls_ver],         # TLS Version
-        0x00, 0xdc,         # Length
+        0x16,  # Content type (0x16 for handshake)
+        0x03,
+        ssl_version_mapping[tls_ver],  # TLS Version
+        0x00,
+        0xDC,  # Length
         # Handshake header
-        0x01,               # Type (0x01 for ClientHello)
-        0x00, 0x00, 0xd8,   # Length
-        0x03, ssl_version_mapping[tls_ver],         # TLS Version
+        0x01,  # Type (0x01 for ClientHello)
+        0x00,
+        0x00,
+        0xD8,  # Length
+        0x03,
+        ssl_version_mapping[tls_ver],  # TLS Version
         # Random (32 byte)
-        0x53, 0x43, 0x5b, 0x90, 0x9d, 0x9b, 0x72, 0x0b,
-        0xbc, 0x0c, 0xbc, 0x2b, 0x92, 0xa8, 0x48, 0x97,
-        0xcf, 0xbd, 0x39, 0x04, 0xcc, 0x16, 0x0a, 0x85,
-        0x03, 0x90, 0x9f, 0x77, 0x04, 0x33, 0xd4, 0xde,
-        0x00,               # Session ID length
-        0x00, 0x66,         # Cipher suites length
+        0x53,
+        0x43,
+        0x5B,
+        0x90,
+        0x9D,
+        0x9B,
+        0x72,
+        0x0B,
+        0xBC,
+        0x0C,
+        0xBC,
+        0x2B,
+        0x92,
+        0xA8,
+        0x48,
+        0x97,
+        0xCF,
+        0xBD,
+        0x39,
+        0x04,
+        0xCC,
+        0x16,
+        0x0A,
+        0x85,
+        0x03,
+        0x90,
+        0x9F,
+        0x77,
+        0x04,
+        0x33,
+        0xD4,
+        0xDE,
+        0x00,  # Session ID length
+        0x00,
+        0x66,  # Cipher suites length
         # Cipher suites (51 suites)
-        0xc0, 0x14, 0xc0, 0x0a, 0xc0, 0x22, 0xc0, 0x21,
-        0x00, 0x39, 0x00, 0x38, 0x00, 0x88, 0x00, 0x87,
-        0xc0, 0x0f, 0xc0, 0x05, 0x00, 0x35, 0x00, 0x84,
-        0xc0, 0x12, 0xc0, 0x08, 0xc0, 0x1c, 0xc0, 0x1b,
-        0x00, 0x16, 0x00, 0x13, 0xc0, 0x0d, 0xc0, 0x03,
-        0x00, 0x0a, 0xc0, 0x13, 0xc0, 0x09, 0xc0, 0x1f,
-        0xc0, 0x1e, 0x00, 0x33, 0x00, 0x32, 0x00, 0x9a,
-        0x00, 0x99, 0x00, 0x45, 0x00, 0x44, 0xc0, 0x0e,
-        0xc0, 0x04, 0x00, 0x2f, 0x00, 0x96, 0x00, 0x41,
-        0xc0, 0x11, 0xc0, 0x07, 0xc0, 0x0c, 0xc0, 0x02,
-        0x00, 0x05, 0x00, 0x04, 0x00, 0x15, 0x00, 0x12,
-        0x00, 0x09, 0x00, 0x14, 0x00, 0x11, 0x00, 0x08,
-        0x00, 0x06, 0x00, 0x03, 0x00, 0xff,
-        0x01,               # Compression methods length
-        0x00,               # Compression method (0x00 for NULL)
-        0x00, 0x49,         # Extensions length
+        0xC0,
+        0x14,
+        0xC0,
+        0x0A,
+        0xC0,
+        0x22,
+        0xC0,
+        0x21,
+        0x00,
+        0x39,
+        0x00,
+        0x38,
+        0x00,
+        0x88,
+        0x00,
+        0x87,
+        0xC0,
+        0x0F,
+        0xC0,
+        0x05,
+        0x00,
+        0x35,
+        0x00,
+        0x84,
+        0xC0,
+        0x12,
+        0xC0,
+        0x08,
+        0xC0,
+        0x1C,
+        0xC0,
+        0x1B,
+        0x00,
+        0x16,
+        0x00,
+        0x13,
+        0xC0,
+        0x0D,
+        0xC0,
+        0x03,
+        0x00,
+        0x0A,
+        0xC0,
+        0x13,
+        0xC0,
+        0x09,
+        0xC0,
+        0x1F,
+        0xC0,
+        0x1E,
+        0x00,
+        0x33,
+        0x00,
+        0x32,
+        0x00,
+        0x9A,
+        0x00,
+        0x99,
+        0x00,
+        0x45,
+        0x00,
+        0x44,
+        0xC0,
+        0x0E,
+        0xC0,
+        0x04,
+        0x00,
+        0x2F,
+        0x00,
+        0x96,
+        0x00,
+        0x41,
+        0xC0,
+        0x11,
+        0xC0,
+        0x07,
+        0xC0,
+        0x0C,
+        0xC0,
+        0x02,
+        0x00,
+        0x05,
+        0x00,
+        0x04,
+        0x00,
+        0x15,
+        0x00,
+        0x12,
+        0x00,
+        0x09,
+        0x00,
+        0x14,
+        0x00,
+        0x11,
+        0x00,
+        0x08,
+        0x00,
+        0x06,
+        0x00,
+        0x03,
+        0x00,
+        0xFF,
+        0x01,  # Compression methods length
+        0x00,  # Compression method (0x00 for NULL)
+        0x00,
+        0x49,  # Extensions length
         # Extension: ec_point_formats
-        0x00, 0x0b, 0x00, 0x04, 0x03, 0x00, 0x01, 0x02,
+        0x00,
+        0x0B,
+        0x00,
+        0x04,
+        0x03,
+        0x00,
+        0x01,
+        0x02,
         # Extension: elliptic_curves
-        0x00, 0x0a, 0x00, 0x34, 0x00, 0x32, 0x00, 0x0e,
-        0x00, 0x0d, 0x00, 0x19, 0x00, 0x0b, 0x00, 0x0c,
-        0x00, 0x18, 0x00, 0x09, 0x00, 0x0a, 0x00, 0x16,
-        0x00, 0x17, 0x00, 0x08, 0x00, 0x06, 0x00, 0x07,
-        0x00, 0x14, 0x00, 0x15, 0x00, 0x04, 0x00, 0x05,
-        0x00, 0x12, 0x00, 0x13, 0x00, 0x01, 0x00, 0x02,
-        0x00, 0x03, 0x00, 0x0f, 0x00, 0x10, 0x00, 0x11,
+        0x00,
+        0x0A,
+        0x00,
+        0x34,
+        0x00,
+        0x32,
+        0x00,
+        0x0E,
+        0x00,
+        0x0D,
+        0x00,
+        0x19,
+        0x00,
+        0x0B,
+        0x00,
+        0x0C,
+        0x00,
+        0x18,
+        0x00,
+        0x09,
+        0x00,
+        0x0A,
+        0x00,
+        0x16,
+        0x00,
+        0x17,
+        0x00,
+        0x08,
+        0x00,
+        0x06,
+        0x00,
+        0x07,
+        0x00,
+        0x14,
+        0x00,
+        0x15,
+        0x00,
+        0x04,
+        0x00,
+        0x05,
+        0x00,
+        0x12,
+        0x00,
+        0x13,
+        0x00,
+        0x01,
+        0x00,
+        0x02,
+        0x00,
+        0x03,
+        0x00,
+        0x0F,
+        0x00,
+        0x10,
+        0x00,
+        0x11,
         # Extension: SessionTicket TLS
-        0x00, 0x23, 0x00, 0x00,
+        0x00,
+        0x23,
+        0x00,
+        0x00,
         # Extension: Heartbeat
-        0x00, 0x0f, 0x00, 0x01, 0x01]
+        0x00,
+        0x0F,
+        0x00,
+        0x01,
+        0x01,
+    ]
     return client_hello
 
 
@@ -173,48 +365,164 @@ def _build_freak_client_hello(tls_ver: str) -> List:
     :return: A List with the corresponding hex codes.
     """
     ssl_version_mapping = {
-        'SSLv3': 0x00,
-        'TLSv1.0': 0x01,
-        'TLSv1.1': 0x02,
-        'TLSv1.2': 0x03
+        "SSLv3": 0x00,
+        "TLSv1.0": 0x01,
+        "TLSv1.1": 0x02,
+        "TLSv1.2": 0x03,
     }
     client_hello = [
         # TLS header ( 5 bytes)
-        0x16,               # Content type (0x16 for handshake)
-        0x03, ssl_version_mapping[tls_ver],         # TLS Version
-        0x00, 0x8a,         # Length
+        0x16,  # Content type (0x16 for handshake)
+        0x03,
+        ssl_version_mapping[tls_ver],  # TLS Version
+        0x00,
+        0x8A,  # Length
         # Handshake header
-        0x01,               # Type (0x01 for ClientHello)
-        0x00, 0x00, 0x86,   # Length
-        0x03, ssl_version_mapping[tls_ver],         # TLS Version
+        0x01,  # Type (0x01 for ClientHello)
+        0x00,
+        0x00,
+        0x86,  # Length
+        0x03,
+        ssl_version_mapping[tls_ver],  # TLS Version
         # Random (32 byte)
-        0x53, 0x43, 0x5b, 0x90, 0x9d, 0x9b, 0x72, 0x0b,
-        0xbc, 0x0c, 0xbc, 0x2b, 0x92, 0xa8, 0x48, 0x97,
-        0xcf, 0xbd, 0x39, 0x04, 0xcc, 0x16, 0x0a, 0x85,
-        0x03, 0x90, 0x9f, 0x77, 0x04, 0x33, 0xd4, 0xde,
-        0x00,               # Session ID length
-        0x00, 0x14,         # Cipher suites length
+        0x53,
+        0x43,
+        0x5B,
+        0x90,
+        0x9D,
+        0x9B,
+        0x72,
+        0x0B,
+        0xBC,
+        0x0C,
+        0xBC,
+        0x2B,
+        0x92,
+        0xA8,
+        0x48,
+        0x97,
+        0xCF,
+        0xBD,
+        0x39,
+        0x04,
+        0xCC,
+        0x16,
+        0x0A,
+        0x85,
+        0x03,
+        0x90,
+        0x9F,
+        0x77,
+        0x04,
+        0x33,
+        0xD4,
+        0xDE,
+        0x00,  # Session ID length
+        0x00,
+        0x14,  # Cipher suites length
         # Cipher suites (10 suites RSA export)
-        0x00, 0x62, 0x00, 0x61, 0x00, 0x64, 0x00, 0x60,
-        0x00, 0x14, 0x00, 0x11, 0x00, 0x08, 0x00, 0x06,
-        0x00, 0x03, 0x00, 0xff,
-        0x01,               # Compression methods length
-        0x00,               # Compression method (0x00 for NULL)
-        0x00, 0x49,         # Extensions length
+        0x00,
+        0x62,
+        0x00,
+        0x61,
+        0x00,
+        0x64,
+        0x00,
+        0x60,
+        0x00,
+        0x14,
+        0x00,
+        0x11,
+        0x00,
+        0x08,
+        0x00,
+        0x06,
+        0x00,
+        0x03,
+        0x00,
+        0xFF,
+        0x01,  # Compression methods length
+        0x00,  # Compression method (0x00 for NULL)
+        0x00,
+        0x49,  # Extensions length
         # Extension: ec_point_formats
-        0x00, 0x0b, 0x00, 0x04, 0x03, 0x00, 0x01, 0x02,
+        0x00,
+        0x0B,
+        0x00,
+        0x04,
+        0x03,
+        0x00,
+        0x01,
+        0x02,
         # Extension: elliptic_curves
-        0x00, 0x0a, 0x00, 0x34, 0x00, 0x32, 0x00, 0x0e,
-        0x00, 0x0d, 0x00, 0x19, 0x00, 0x0b, 0x00, 0x0c,
-        0x00, 0x18, 0x00, 0x09, 0x00, 0x0a, 0x00, 0x16,
-        0x00, 0x17, 0x00, 0x08, 0x00, 0x06, 0x00, 0x07,
-        0x00, 0x14, 0x00, 0x15, 0x00, 0x04, 0x00, 0x05,
-        0x00, 0x12, 0x00, 0x13, 0x00, 0x01, 0x00, 0x02,
-        0x00, 0x03, 0x00, 0x0f, 0x00, 0x10, 0x00, 0x11,
+        0x00,
+        0x0A,
+        0x00,
+        0x34,
+        0x00,
+        0x32,
+        0x00,
+        0x0E,
+        0x00,
+        0x0D,
+        0x00,
+        0x19,
+        0x00,
+        0x0B,
+        0x00,
+        0x0C,
+        0x00,
+        0x18,
+        0x00,
+        0x09,
+        0x00,
+        0x0A,
+        0x00,
+        0x16,
+        0x00,
+        0x17,
+        0x00,
+        0x08,
+        0x00,
+        0x06,
+        0x00,
+        0x07,
+        0x00,
+        0x14,
+        0x00,
+        0x15,
+        0x00,
+        0x04,
+        0x00,
+        0x05,
+        0x00,
+        0x12,
+        0x00,
+        0x13,
+        0x00,
+        0x01,
+        0x00,
+        0x02,
+        0x00,
+        0x03,
+        0x00,
+        0x0F,
+        0x00,
+        0x10,
+        0x00,
+        0x11,
         # Extension: SessionTicket TLS
-        0x00, 0x23, 0x00, 0x00,
+        0x00,
+        0x23,
+        0x00,
+        0x00,
         # Extension: Heartbeat
-        0x00, 0x0f, 0x00, 0x01, 0x01]
+        0x00,
+        0x0F,
+        0x00,
+        0x01,
+        0x01,
+    ]
     return client_hello
 
 
@@ -227,48 +535,157 @@ def _build_raccoon_client_hello() -> List:
     """
     client_hello = [
         # TLS header ( 5 bytes)
-        0x16,               # Content type (0x16 for handshake)
-        0x03, 0x03,         # TLSv1.2
-        0x00, 0x8a,         # Length
+        0x16,  # Content type (0x16 for handshake)
+        0x03,
+        0x03,  # TLSv1.2
+        0x00,
+        0x8A,  # Length
         # Handshake header
-        0x01,               # Type (0x01 for ClientHello)
-        0x00, 0x00, 0x86,   # Length
-        0x03, 0x03,         # TLSv1.2
+        0x01,  # Type (0x01 for ClientHello)
+        0x00,
+        0x00,
+        0x86,  # Length
+        0x03,
+        0x03,  # TLSv1.2
         # Random (32 byte)
-        0x53, 0x43, 0x5b, 0x90, 0x9d, 0x9b, 0x72, 0x0b,
-        0xbc, 0x0c, 0xbc, 0x2b, 0x92, 0xa8, 0x48, 0x97,
-        0xcf, 0xbd, 0x39, 0x04, 0xcc, 0x16, 0x0a, 0x85,
-        0x03, 0x90, 0x9f, 0x77, 0x04, 0x33, 0xd4, 0xde,
-        0x00,               # Session ID length
-        0x00, 0x14,         # Cipher suites length
+        0x53,
+        0x43,
+        0x5B,
+        0x90,
+        0x9D,
+        0x9B,
+        0x72,
+        0x0B,
+        0xBC,
+        0x0C,
+        0xBC,
+        0x2B,
+        0x92,
+        0xA8,
+        0x48,
+        0x97,
+        0xCF,
+        0xBD,
+        0x39,
+        0x04,
+        0xCC,
+        0x16,
+        0x0A,
+        0x85,
+        0x03,
+        0x90,
+        0x9F,
+        0x77,
+        0x04,
+        0x33,
+        0xD4,
+        0xDE,
+        0x00,  # Session ID length
+        0x00,
+        0x14,  # Cipher suites length
         # Cipher suites (10 suites DHE)
-        0xcc, 0xaa,         # TLS_DHE_RSA_WITH_CHACHA20_POLY1305_SHA256
-        0x00, 0x9f,         # TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
-        0x00, 0x9e,         # TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
-        0xc0, 0x9f,         # TLS_DHE_RSA_WITH_AES_256_CCM
-        0xc0, 0x9e,         # TLS_DHE_RSA_WITH_AES_128_CCM
-        0x00, 0x6b,         # TLS_DHE_RSA_WITH_AES_256_CBC_SHA256
-        0x00, 0x67,         # TLS_DHE_RSA_WITH_AES_128_CBC_SHA256
-        0x00, 0x39,         # TLS_DHE_RSA_WITH_AES_256_CBC_SHA
-        0x00, 0x33,         # TLS_DHE_RSA_WITH_AES_128_CBC_SHA
-        0x00, 0x16,         # TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA
-        0x01,               # Compression methods length
-        0x00,               # Compression method (0x00 for NULL)
-        0x00, 0x49,         # Extensions length
+        0xCC,
+        0xAA,  # TLS_DHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+        0x00,
+        0x9F,  # TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
+        0x00,
+        0x9E,  # TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
+        0xC0,
+        0x9F,  # TLS_DHE_RSA_WITH_AES_256_CCM
+        0xC0,
+        0x9E,  # TLS_DHE_RSA_WITH_AES_128_CCM
+        0x00,
+        0x6B,  # TLS_DHE_RSA_WITH_AES_256_CBC_SHA256
+        0x00,
+        0x67,  # TLS_DHE_RSA_WITH_AES_128_CBC_SHA256
+        0x00,
+        0x39,  # TLS_DHE_RSA_WITH_AES_256_CBC_SHA
+        0x00,
+        0x33,  # TLS_DHE_RSA_WITH_AES_128_CBC_SHA
+        0x00,
+        0x16,  # TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA
+        0x01,  # Compression methods length
+        0x00,  # Compression method (0x00 for NULL)
+        0x00,
+        0x49,  # Extensions length
         # Extension: ec_point_formats
-        0x00, 0x0b, 0x00, 0x04, 0x03, 0x00, 0x01, 0x02,
+        0x00,
+        0x0B,
+        0x00,
+        0x04,
+        0x03,
+        0x00,
+        0x01,
+        0x02,
         # Extension: elliptic_curves
-        0x00, 0x0a, 0x00, 0x34, 0x00, 0x32, 0x00, 0x0e,
-        0x00, 0x0d, 0x00, 0x19, 0x00, 0x0b, 0x00, 0x0c,
-        0x00, 0x18, 0x00, 0x09, 0x00, 0x0a, 0x00, 0x16,
-        0x00, 0x17, 0x00, 0x08, 0x00, 0x06, 0x00, 0x07,
-        0x00, 0x14, 0x00, 0x15, 0x00, 0x04, 0x00, 0x05,
-        0x00, 0x12, 0x00, 0x13, 0x00, 0x01, 0x00, 0x02,
-        0x00, 0x03, 0x00, 0x0f, 0x00, 0x10, 0x00, 0x11,
+        0x00,
+        0x0A,
+        0x00,
+        0x34,
+        0x00,
+        0x32,
+        0x00,
+        0x0E,
+        0x00,
+        0x0D,
+        0x00,
+        0x19,
+        0x00,
+        0x0B,
+        0x00,
+        0x0C,
+        0x00,
+        0x18,
+        0x00,
+        0x09,
+        0x00,
+        0x0A,
+        0x00,
+        0x16,
+        0x00,
+        0x17,
+        0x00,
+        0x08,
+        0x00,
+        0x06,
+        0x00,
+        0x07,
+        0x00,
+        0x14,
+        0x00,
+        0x15,
+        0x00,
+        0x04,
+        0x00,
+        0x05,
+        0x00,
+        0x12,
+        0x00,
+        0x13,
+        0x00,
+        0x01,
+        0x00,
+        0x02,
+        0x00,
+        0x03,
+        0x00,
+        0x0F,
+        0x00,
+        0x10,
+        0x00,
+        0x11,
         # Extension: SessionTicket TLS
-        0x00, 0x23, 0x00, 0x00,
+        0x00,
+        0x23,
+        0x00,
+        0x00,
         # Extension: Heartbeat
-        0x00, 0x0f, 0x00, 0x01, 0x01]
+        0x00,
+        0x0F,
+        0x00,
+        0x01,
+        0x01,
+    ]
     return client_hello
 
 
@@ -280,45 +697,52 @@ def _build_heartbeat(tls_ver: str) -> List:
     :return: A List with the corresponding hex codes.
     """
     ssl_version_mapping = {
-        'SSLv3': 0x00,
-        'TLSv1.0': 0x01,
-        'TLSv1.1': 0x02,
-        'TLSv1.2': 0x03
+        "SSLv3": 0x00,
+        "TLSv1.0": 0x01,
+        "TLSv1.1": 0x02,
+        "TLSv1.2": 0x03,
     }
 
     heartbeat = [
-        0x18,       # Content Type (Heartbeat)
-        0x03, ssl_version_mapping[tls_ver],  # TLS version
-        0x00, 0x03,  # Length
+        0x18,  # Content Type (Heartbeat)
+        0x03,
+        ssl_version_mapping[tls_ver],  # TLS version
+        0x00,
+        0x03,  # Length
         # Payload
-        0x01,       # Type (Request)
-        0x40, 0x00  # Payload length
+        0x01,  # Type (Request)
+        0x40,
+        0x00,  # Payload length
     ]
     return heartbeat
 
 
-def _get_result_as_tuple(*,
-                         site: str, port: int,
-                         msg_open: str, msg_closed: str,
-                         open_if: bool) -> tuple:
+def _get_result_as_tuple(
+    *, site: str, port: int, msg_open: str, msg_closed: str, open_if: bool
+) -> tuple:
     """Return the tuple version of the Result object."""
     units: List[Unit] = [
-        Unit(where=f'{site}@{port}',
-             specific=[msg_open if open_if else msg_closed])]
+        Unit(
+            where=f"{site}@{port}",
+            specific=[msg_open if open_if else msg_closed],
+        )
+    ]
 
     if open_if:
         return OPEN, msg_open, units, []
     return CLOSED, msg_closed, [], units
 
 
-@api(risk=MEDIUM,
-     kind=DAST,
-     references=[
-         'https://tools.ietf.org/html/rfc4492#section-2',
-         'https://cheatsheetseries.owasp.org/cheatsheets/' +
-         'Transport_Layer_Protection_Cheat_Sheet.html' +
-         '#rule---prefer-ephemeral-key-exchanges',
-     ])
+@api(
+    risk=MEDIUM,
+    kind=DAST,
+    references=[
+        "https://tools.ietf.org/html/rfc4492#section-2",
+        "https://cheatsheetseries.owasp.org/cheatsheets/"
+        + "Transport_Layer_Protection_Cheat_Sheet.html"
+        + "#rule---prefer-ephemeral-key-exchanges",
+    ],
+)
 @unknown_if(socket.error, tlslite.errors.TLSLocalAlert)
 def is_pfs_disabled(site: str, port: int = PORT) -> tuple:
     """
@@ -344,19 +768,28 @@ def is_pfs_disabled(site: str, port: int = PORT) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     has_pfs: bool = False
-    with suppress(tlslite.errors.TLSRemoteAlert,
-                  tlslite.errors.TLSAbruptCloseError):
-        with connect(site, port=port,
-                     key_exchange_names=['dhe_rsa', 'ecdhe_rsa',
-                                         'ecdh_anon', 'dh_anon']):
+    with suppress(
+        tlslite.errors.TLSRemoteAlert, tlslite.errors.TLSAbruptCloseError
+    ):
+        with connect(
+            site,
+            port=port,
+            key_exchange_names=[
+                "dhe_rsa",
+                "ecdhe_rsa",
+                "ecdh_anon",
+                "dh_anon",
+            ],
+        ):
             has_pfs = True
 
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open='Perfect Forward Secrecy is not supported on site',
-        msg_closed='Perfect Forward Secrecy is supported on site',
-        open_if=not has_pfs)
+        msg_open="Perfect Forward Secrecy is not supported on site",
+        msg_closed="Perfect Forward Secrecy is supported on site",
+        open_if=not has_pfs,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
@@ -374,18 +807,19 @@ def is_sslv3_enabled(site: str, port: int = PORT) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     is_vulnerable: bool = False
-    with suppress(tlslite.errors.TLSRemoteAlert,
-                  tlslite.errors.TLSAbruptCloseError):
-        with connect(site, port=port,
-                     min_version=(3, 0), max_version=(3, 0)):
+    with suppress(
+        tlslite.errors.TLSRemoteAlert, tlslite.errors.TLSAbruptCloseError
+    ):
+        with connect(site, port=port, min_version=(3, 0), max_version=(3, 0)):
             is_vulnerable = True
 
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open='SSLv3 is enabled on site',
-        msg_closed='SSLv3 is not enabled on site',
-        open_if=is_vulnerable)
+        msg_open="SSLv3 is enabled on site",
+        msg_closed="SSLv3 is not enabled on site",
+        open_if=is_vulnerable,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -403,18 +837,17 @@ def is_tlsv1_enabled(site: str, port: int = PORT) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     is_vulnerable: bool = False
-    with suppress(tlslite.errors.TLSAbruptCloseError,
-                  tlslite.TLSRemoteAlert):
-        with connect(site, port=port, min_version=(3, 1),
-                     max_version=(3, 1)):
+    with suppress(tlslite.errors.TLSAbruptCloseError, tlslite.TLSRemoteAlert):
+        with connect(site, port=port, min_version=(3, 1), max_version=(3, 1)):
             is_vulnerable = True
 
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open='TLSv1 is enabled on site',
-        msg_closed='TLSv1 is disabled on site',
-        open_if=is_vulnerable)
+        msg_open="TLSv1 is enabled on site",
+        msg_closed="TLSv1 is disabled on site",
+        open_if=is_vulnerable,
+    )
 
 
 @api(risk=LOW, kind=DAST)
@@ -432,18 +865,17 @@ def is_tlsv11_enabled(site: str, port: int = PORT) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     is_vulnerable: bool = False
-    with suppress(tlslite.errors.TLSAbruptCloseError,
-                  tlslite.TLSRemoteAlert):
-        with connect(site, port=port, min_version=(3, 2),
-                     max_version=(3, 2)):
+    with suppress(tlslite.errors.TLSAbruptCloseError, tlslite.TLSRemoteAlert):
+        with connect(site, port=port, min_version=(3, 2), max_version=(3, 2)):
             is_vulnerable = True
 
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open='TLSv1.1 is enabled',
-        msg_closed='TLSv1.1 is disabled',
-        open_if=is_vulnerable)
+        msg_open="TLSv1.1 is enabled",
+        msg_closed="TLSv1.1 is disabled",
+        open_if=is_vulnerable,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
@@ -463,20 +895,25 @@ def has_poodle_tls(site: str, port: int = PORT) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     is_vulnerable: bool = False
-    with suppress(tlslite.errors.TLSRemoteAlert,
-                  tlslite.errors.TLSAbruptCloseError):
-        with connect(site, port=port,
-                     check='POODLE',
-                     cipher_names=["aes256", "aes128", "3des"],
-                     min_version=(3, 1)):
+    with suppress(
+        tlslite.errors.TLSRemoteAlert, tlslite.errors.TLSAbruptCloseError
+    ):
+        with connect(
+            site,
+            port=port,
+            check="POODLE",
+            cipher_names=["aes256", "aes128", "3des"],
+            min_version=(3, 1),
+        ):
             is_vulnerable = True
 
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open='Site is vulnerable to POODLE TLS attack',
-        msg_closed='Site is not vulnerable to POODLE TLS attack',
-        open_if=is_vulnerable)
+        msg_open="Site is vulnerable to POODLE TLS attack",
+        msg_closed="Site is not vulnerable to POODLE TLS attack",
+        open_if=is_vulnerable,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
@@ -496,21 +933,26 @@ def has_poodle_sslv3(site: str, port: int = PORT) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     is_vulnerable: bool = False
-    with suppress(tlslite.errors.TLSRemoteAlert,
-                  tlslite.errors.TLSAbruptCloseError):
-        with connect(site, port=port,
-                     check='POODLE',
-                     min_version=(3, 0),
-                     max_version=(3, 0),
-                     cipher_names=["aes256", "aes128", "3des"]):
+    with suppress(
+        tlslite.errors.TLSRemoteAlert, tlslite.errors.TLSAbruptCloseError
+    ):
+        with connect(
+            site,
+            port=port,
+            check="POODLE",
+            min_version=(3, 0),
+            max_version=(3, 0),
+            cipher_names=["aes256", "aes128", "3des"],
+        ):
             is_vulnerable = True
 
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open='Site is vulnerable to POODLE SSLv3 attack',
-        msg_closed='Site is not vulnerable to POODLE SSLv3 attack',
-        open_if=is_vulnerable)
+        msg_open="Site is vulnerable to POODLE SSLv3 attack",
+        msg_closed="Site is not vulnerable to POODLE SSLv3 attack",
+        open_if=is_vulnerable,
+    )
 
 
 @api(risk=LOW, kind=DAST)
@@ -533,24 +975,35 @@ def has_breach(site: str, port: int = PORT) -> tuple:
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    common_compressors = ['compress', 'exi', 'gzip',
-                          'identity', 'pack200-gzip', 'br', 'bzip2',
-                          'lzma', 'peerdist', 'sdch', 'xpress', 'xz']
+    common_compressors = [
+        "compress",
+        "exi",
+        "gzip",
+        "identity",
+        "pack200-gzip",
+        "br",
+        "bzip2",
+        "lzma",
+        "peerdist",
+        "sdch",
+        "xpress",
+        "xz",
+    ]
 
     session = http.HTTPSession(
-        url=f'https://{site}:{port}',
-        request_at_instantiation=False)
+        url=f"https://{site}:{port}", request_at_instantiation=False
+    )
     session.set_messages(
-        source='HTTP/Request/Headers/Content-Encoding',
-        msg_open='Site is vulnerable to BREACH attack',
-        msg_closed='Site is not vulnerable to BREACH attack')
+        source="HTTP/Request/Headers/Content-Encoding",
+        msg_open="Site is vulnerable to BREACH attack",
+        msg_closed="Site is not vulnerable to BREACH attack",
+    )
 
     for compression in common_compressors:
-        session.headers = {'Accept-Encoding': f'{compression},deflate'}
+        session.headers = {"Accept-Encoding": f"{compression},deflate"}
         session.do_request()
-        content_encoding = session.response.headers.get('Content-Encoding', '')
-        session.add_unit(
-            is_vulnerable=compression in content_encoding)
+        content_encoding = session.response.headers.get("Content-Encoding", "")
+        session.add_unit(is_vulnerable=compression in content_encoding)
 
     return session.get_tuple_result()
 
@@ -570,17 +1023,19 @@ def allows_anon_ciphers(site: str, port: int = PORT) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     is_vulnerable: bool = False
-    with suppress(tlslite.errors.TLSRemoteAlert,
-                  tlslite.errors.TLSAbruptCloseError):
+    with suppress(
+        tlslite.errors.TLSRemoteAlert, tlslite.errors.TLSAbruptCloseError
+    ):
         with connect(site, port=port, anon=True):
             is_vulnerable = True
 
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open='Site allows anonymous cipher suites',
-        msg_closed='Site does not allow anonymous cipher suites',
-        open_if=is_vulnerable)
+        msg_open="Site allows anonymous cipher suites",
+        msg_closed="Site does not allow anonymous cipher suites",
+        open_if=is_vulnerable,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
@@ -598,18 +1053,19 @@ def allows_weak_ciphers(site: str, port: int = PORT) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     is_vulnerable: bool = False
-    with suppress(tlslite.errors.TLSRemoteAlert,
-                  tlslite.errors.TLSAbruptCloseError):
-        with connect(site, port=port,
-                     cipher_names=['rc4', '3des', 'null']):
+    with suppress(
+        tlslite.errors.TLSRemoteAlert, tlslite.errors.TLSAbruptCloseError
+    ):
+        with connect(site, port=port, cipher_names=["rc4", "3des", "null"]):
             is_vulnerable = True
 
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open='Site allows weak cipher suites',
-        msg_closed='Site does not allow weak cipher suites',
-        open_if=is_vulnerable)
+        msg_open="Site allows weak cipher suites",
+        msg_closed="Site does not allow weak cipher suites",
+        open_if=is_vulnerable,
+    )
 
 
 @api(risk=LOW, kind=DAST)
@@ -629,23 +1085,28 @@ def has_beast(site: str, port: int = PORT) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     is_vulnerable: bool = False
-    with suppress(tlslite.errors.TLSRemoteAlert,
-                  tlslite.errors.TLSAbruptCloseError):
-        with connect(site, port=port,
-                     min_version=(3, 1), max_version=(3, 1)) as connection:
+    with suppress(
+        tlslite.errors.TLSRemoteAlert, tlslite.errors.TLSAbruptCloseError
+    ):
+        with connect(
+            site, port=port, min_version=(3, 1), max_version=(3, 1)
+        ) as connection:
             if connection._recordLayer.isCBCMode():
                 is_vulnerable = True
 
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open='BEAST attack is possible',
-        msg_closed='BEAST attack is not possible',
-        open_if=is_vulnerable)
+        msg_open="BEAST attack is possible",
+        msg_closed="BEAST attack is not possible",
+        open_if=is_vulnerable,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
-@unknown_if(socket.error, )
+@unknown_if(
+    socket.error,
+)
 def has_heartbleed(site: str, port: int = PORT) -> tuple:
     """
     Check if site allows Heartbleed attack.
@@ -663,7 +1124,7 @@ def has_heartbleed(site: str, port: int = PORT) -> tuple:
     """
     is_vulnerable: bool = False
     should_continue: bool = True
-    versions = ['TLSv1.2', 'TLSv1.1', 'TLSv1.0', 'SSLv3']
+    versions = ["TLSv1.2", "TLSv1.1", "TLSv1.0", "SSLv3"]
     for vers in versions:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.settimeout(5)
@@ -692,9 +1153,10 @@ def has_heartbleed(site: str, port: int = PORT) -> tuple:
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open=f'Site is vulnerable to Heartbleed attack ({vers})',
-        msg_closed='Site does not support SSL/TLS heartbeats',
-        open_if=is_vulnerable)
+        msg_open=f"Site is vulnerable to Heartbleed attack ({vers})",
+        msg_closed="Site does not support SSL/TLS heartbeats",
+        open_if=is_vulnerable,
+    )
 
 
 @api(risk=HIGH, kind=DAST)
@@ -710,14 +1172,15 @@ def allows_modified_mac(site: str, port: int = PORT) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     is_vulnerable: bool = False
-    orig_method = \
-        copy.deepcopy(tlslite.tlsconnection.TLSConnection._sendFinished)
+    orig_method = copy.deepcopy(
+        tlslite.tlsconnection.TLSConnection._sendFinished
+    )
     tlslite.tlsconnection.TLSConnection._sendFinished = _my_send_finished
     failed_bits = list()
     for mask_bit in range(0, 96):
         mask = bytearray([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
         mask_index = int((mask_bit - (mask_bit % 8)) / 8)
-        mask[mask_index] = (0x80 >> (mask_bit % 8))
+        mask[mask_index] = 0x80 >> (mask_bit % 8)
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.connect((site, port))
@@ -726,8 +1189,12 @@ def allows_modified_mac(site: str, port: int = PORT) -> tuple:
             tls.handshakeClientCert()
             tls.send(b"GET / HTTP/1.0\n\n\n")
             tls.read()
-        except (tlslite.TLSRemoteAlert, tlslite.TLSAbruptCloseError,
-                tlslite.errors.TLSLocalAlert, socket.error):
+        except (
+            tlslite.TLSRemoteAlert,
+            tlslite.TLSAbruptCloseError,
+            tlslite.errors.TLSLocalAlert,
+            socket.error,
+        ):
             continue
         else:
             failed_bits.append(mask_bit)
@@ -738,9 +1205,10 @@ def allows_modified_mac(site: str, port: int = PORT) -> tuple:
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open='Server allows messages with modified MAC',
-        msg_closed='Server rejects messages with modified MAC',
-        open_if=is_vulnerable)
+        msg_open="Server allows messages with modified MAC",
+        msg_closed="Server rejects messages with modified MAC",
+        open_if=is_vulnerable,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -761,7 +1229,7 @@ def not_tls13_enabled(site: str, port: int = PORT) -> tuple:
         with connect(site, port=port, min_version=(3, 4), max_version=(3, 4)):
             does_support_tls_1_3 = True
     except (tlslite.errors.TLSLocalAlert) as exc:
-        if exc.message and 'Too old version' in exc.message:
+        if exc.message and "Too old version" in exc.message:
             does_support_tls_1_3 = False
         else:
             raise exc
@@ -769,9 +1237,10 @@ def not_tls13_enabled(site: str, port: int = PORT) -> tuple:
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open='TLSv1.3 is not supported',
-        msg_closed='TLSv1.3 is supported',
-        open_if=not does_support_tls_1_3)
+        msg_open="TLSv1.3 is not supported",
+        msg_closed="TLSv1.3 is supported",
+        open_if=not does_support_tls_1_3,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -798,38 +1267,44 @@ def allows_insecure_downgrade(site: str, port: int = PORT) -> tuple:
                 supported.append(version)
 
     if not supported:
-        return UNKNOWN, 'Could not connect to server via SSL'
+        return UNKNOWN, "Could not connect to server via SSL"
 
     is_vulnerable: bool = False
-    msg_open: str = 'Site does not supports TLS_FALLBACK_SCSV'
-    msg_closed: str = 'Site supports TLS_FALLBACK_SCSV'
+    msg_open: str = "Site does not supports TLS_FALLBACK_SCSV"
+    msg_closed: str = "Site supports TLS_FALLBACK_SCSV"
 
     if any(x in (0, 1, 2) for x in supported):
         try:
-            with connect(site, port=port,
-                         max_version=(3, min(supported)), scsv=True):
+            with connect(
+                site, port=port, max_version=(3, min(supported)), scsv=True
+            ):
                 is_vulnerable = True
         except tlslite.errors.TLSRemoteAlert as exc:
-            denied_downgrade: Tuple[str, str] = ('inappropriate_fallback',
-                                                 'close_notify')
+            denied_downgrade: Tuple[str, str] = (
+                "inappropriate_fallback",
+                "close_notify",
+            )
             if not any(x in str(exc) for x in denied_downgrade):
                 raise exc
     else:
-        msg_closed = 'Host does not support multiple TLS versions'
+        msg_closed = "Host does not support multiple TLS versions"
 
     return _get_result_as_tuple(
         site=site,
         port=port,
         msg_open=msg_open,
         msg_closed=msg_closed,
-        open_if=is_vulnerable)
+        open_if=is_vulnerable,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
-@unknown_if(socket.error,
-            tlslite.errors.TLSLocalAlert,
-            tlslite.errors.TLSRemoteAlert,
-            tlslite.errors.TLSAbruptCloseError)
+@unknown_if(
+    socket.error,
+    tlslite.errors.TLSLocalAlert,
+    tlslite.errors.TLSRemoteAlert,
+    tlslite.errors.TLSAbruptCloseError,
+)
 def tls_uses_cbc(site: str, port: int = PORT) -> tuple:
     """
     Check if TLS connection uses CBC mode of operation.
@@ -845,16 +1320,18 @@ def tls_uses_cbc(site: str, port: int = PORT) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     uses_cbc: bool = False
-    with connect(site, port=port,
-                 min_version=(3, 1), max_version=(3, 3)) as connection:
+    with connect(
+        site, port=port, min_version=(3, 1), max_version=(3, 3)
+    ) as connection:
         uses_cbc = connection._recordLayer.isCBCMode()
 
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open='Site uses TLS CBC ciphers',
-        msg_closed='Site does not use TLS CBC ciphers',
-        open_if=uses_cbc)
+        msg_open="Site uses TLS CBC ciphers",
+        msg_closed="Site does not use TLS CBC ciphers",
+        open_if=uses_cbc,
+    )
 
 
 @api(risk=LOW, kind=DAST)
@@ -871,20 +1348,27 @@ def has_sweet32(site: str, port: int = PORT) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     is_vulnerable: bool = False
-    with suppress(socket.error,
-                  tlslite.errors.TLSRemoteAlert,
-                  tlslite.errors.TLSAbruptCloseError):
-        with connect(site, port=port,
-                     cipher_names=["3des"],
-                     min_version=(3, 1), max_version=(3, 3)):
+    with suppress(
+        socket.error,
+        tlslite.errors.TLSRemoteAlert,
+        tlslite.errors.TLSAbruptCloseError,
+    ):
+        with connect(
+            site,
+            port=port,
+            cipher_names=["3des"],
+            min_version=(3, 1),
+            max_version=(3, 3),
+        ):
             is_vulnerable = True
 
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open='SWEET32 attack is possible',
-        msg_closed='SWEET32 attack is not possible',
-        open_if=is_vulnerable)
+        msg_open="SWEET32 attack is possible",
+        msg_closed="SWEET32 attack is not possible",
+        open_if=is_vulnerable,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -903,46 +1387,60 @@ def has_tls13_downgrade_vuln(site: str, port: int = PORT) -> tuple:
     """
     supported: List[int] = []
     for version in reversed(range(0, 5)):
-        with suppress(OSError,
-                      tlslite.errors.TLSLocalAlert,
-                      tlslite.errors.TLSRemoteAlert):
-            with connect(site, port=port,
-                         min_version=(3, version),
-                         max_version=(3, version)):
+        with suppress(
+            OSError,
+            tlslite.errors.TLSLocalAlert,
+            tlslite.errors.TLSRemoteAlert,
+        ):
+            with connect(
+                site,
+                port=port,
+                min_version=(3, version),
+                max_version=(3, version),
+            ):
                 supported.append(version)
 
     if not supported:
-        return UNKNOWN, 'Could not connect to server'
+        return UNKNOWN, "Could not connect to server"
 
     if 4 not in supported:
-        return UNKNOWN, 'Site does not support TLSv1.3'
+        return UNKNOWN, "Site does not support TLSv1.3"
 
     is_vulnerable: bool = False
-    msg_open: str = ('Site supports TLSv1.3 and older versions and supports '
-                     'RSA keys without (EC)DH(E) cipher suites')
-    msg_closed: str = 'Site not vulnerable to TLSv1.3 downgrade attack'
+    msg_open: str = (
+        "Site supports TLSv1.3 and older versions and supports "
+        "RSA keys without (EC)DH(E) cipher suites"
+    )
+    msg_closed: str = "Site not vulnerable to TLSv1.3 downgrade attack"
 
     try:
-        with connect(site, port=port,
-                     min_version=(3, min(supported)),
-                     max_version=(3, min(supported)),
-                     key_exchange_names=['rsa']):
+        with connect(
+            site,
+            port=port,
+            min_version=(3, min(supported)),
+            max_version=(3, min(supported)),
+            key_exchange_names=["rsa"],
+        ):
             is_vulnerable = True
-    except (tlslite.errors.TLSRemoteAlert,
-            tlslite.errors.TLSAbruptCloseError):
-        msg_closed = ('Site supports TLSv1.3 older versions but RSA keys '
-                      'require (EC)DH(E) cipher suites')
+    except (tlslite.errors.TLSRemoteAlert, tlslite.errors.TLSAbruptCloseError):
+        msg_closed = (
+            "Site supports TLSv1.3 older versions but RSA keys "
+            "require (EC)DH(E) cipher suites"
+        )
 
     return _get_result_as_tuple(
         site=site,
         port=port,
         msg_open=msg_open,
         msg_closed=msg_closed,
-        open_if=is_vulnerable)
+        open_if=is_vulnerable,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
-@unknown_if(socket.error, )
+@unknown_if(
+    socket.error,
+)
 def has_freak(site: str, port: int = PORT) -> tuple:
     """
     Check if site allows FREAK attack.
@@ -957,7 +1455,7 @@ def has_freak(site: str, port: int = PORT) -> tuple:
     """
     is_vulnerable: bool = False
     should_continue: bool = True
-    versions = ['TLSv1.2', 'TLSv1.1', 'TLSv1.0', 'SSLv3']
+    versions = ["TLSv1.2", "TLSv1.1", "TLSv1.0", "SSLv3"]
     for vers in versions:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.settimeout(5)
@@ -973,22 +1471,28 @@ def has_freak(site: str, port: int = PORT) -> tuple:
                 is_vulnerable = False
             else:
                 units: List[Unit] = [
-                    Unit(where=f'{site}@{port}',
-                         specific=[f'SSL/Freak/Response/{typ}'])]
-                return UNKNOWN, 'Unknown response', [], units
+                    Unit(
+                        where=f"{site}@{port}",
+                        specific=[f"SSL/Freak/Response/{typ}"],
+                    )
+                ]
+                return UNKNOWN, "Unknown response", [], units
             if not should_continue:
                 break
 
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open=f'Site is vulnerable to FREAK ({vers})',
-        msg_closed='Site not vulnerable to FREAK',
-        open_if=is_vulnerable)
+        msg_open=f"Site is vulnerable to FREAK ({vers})",
+        msg_closed="Site not vulnerable to FREAK",
+        open_if=is_vulnerable,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
-@unknown_if(socket.error, )
+@unknown_if(
+    socket.error,
+)
 def has_raccoon(site: str, port: int = PORT) -> tuple:
     """
     Check if site allows Raccon Attack.
@@ -1019,13 +1523,17 @@ def has_raccoon(site: str, port: int = PORT) -> tuple:
                 is_vulnerable = False
             else:
                 units: List[Unit] = [
-                    Unit(where=f'{site}@{port}',
-                         specific=[f'SSL/Raccoon/Response/{typ}'])]
-                return UNKNOWN, 'Unknown response', [], units
+                    Unit(
+                        where=f"{site}@{port}",
+                        specific=[f"SSL/Raccoon/Response/{typ}"],
+                    )
+                ]
+                return UNKNOWN, "Unknown response", [], units
 
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open=f'Site is vulnerable to Raccoon Attack',
-        msg_closed='Site not vulnerable to Raccoon Attack',
-        open_if=is_vulnerable)
+        msg_open=f"Site is vulnerable to Raccoon Attack",
+        msg_closed="Site not vulnerable to Raccoon Attack",
+        open_if=is_vulnerable,
+    )

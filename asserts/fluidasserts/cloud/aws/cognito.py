@@ -18,20 +18,19 @@ def _get_pools(key_id, retry, secret, session_token):
         retry,
         secret,
         session_token,
-        'cognito-idp',
-        'list_user_pools',
-        'MaxResults',
-        'NextToken',
-        'UserPools'
+        "cognito-idp",
+        "list_user_pools",
+        "MaxResults",
+        "NextToken",
+        "UserPools",
     )
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def mfa_disabled(key_id: str,
-                 secret: str,
-                 session_token: str = None,
-                 retry: bool = True) -> tuple:
+def mfa_disabled(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if Cognito has Multi-factor Authentication.
 
@@ -47,36 +46,43 @@ def mfa_disabled(key_id: str,
         mfa = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            service='cognito-idp',
-            func='get_user_pool_mfa_config',
-            boto3_client_kwargs={'aws_session_token': session_token},
-            param='MfaConfiguration',
-            UserPoolId=pool['Id'],
-            retry=retry)
+            service="cognito-idp",
+            func="get_user_pool_mfa_config",
+            boto3_client_kwargs={"aws_session_token": session_token},
+            param="MfaConfiguration",
+            UserPoolId=pool["Id"],
+            retry=retry,
+        )
 
-        if not mfa == 'ON':
-            vulns.append((pool['Id'],
-                          ('User Pools must have Multi-Factor '
-                           'Authentication enabled')))
+        if not mfa == "ON":
+            vulns.append(
+                (
+                    pool["Id"],
+                    (
+                        "User Pools must have Multi-Factor "
+                        "Authentication enabled"
+                    ),
+                )
+            )
 
-    msg_open: str = f'Multi-Factor Authentication is not enabled'
-    msg_closed: str = f'Multi-Factor Authentication is enabled'
+    msg_open: str = f"Multi-Factor Authentication is not enabled"
+    msg_closed: str = f"Multi-Factor Authentication is enabled"
 
     return _get_result_as_tuple(
-        service='Cognito',
-        objects='MFA',
+        service="Cognito",
+        objects="MFA",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def advanced_security_disabled(key_id: str,
-                               secret: str,
-                               session_token: str = None,
-                               retry: bool = True) -> tuple:
+def advanced_security_disabled(
+    key_id: str, secret: str, session_token: str = None, retry: bool = True
+) -> tuple:
     """
     Check if Cognito has Advanced Security enabled.
 
@@ -92,27 +98,33 @@ def advanced_security_disabled(key_id: str,
         userpool = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
-            service='cognito-idp',
-            func='describe_user_pool',
-            boto3_client_kwargs={'aws_session_token': session_token},
-            param='UserPool',
-            UserPoolId=pool['Id'],
-            retry=retry)
-        addons = userpool.get('UserPoolAddOns', {})
+            service="cognito-idp",
+            func="describe_user_pool",
+            boto3_client_kwargs={"aws_session_token": session_token},
+            param="UserPool",
+            UserPoolId=pool["Id"],
+            retry=retry,
+        )
+        addons = userpool.get("UserPoolAddOns", {})
 
-        (vulns if not (addons
-                       and (addons.get('AdvancedSecurityMode', '') == 'ON'))
-         else safes).append((pool['Id'],
-                             'User Pools must have Advanced '
-                             'Security enabled '))
+        (
+            vulns
+            if not (
+                addons and (addons.get("AdvancedSecurityMode", "") == "ON")
+            )
+            else safes
+        ).append(
+            (pool["Id"], "User Pools must have Advanced " "Security enabled ")
+        )
 
-    msg_open: str = f'Advanced Security is not enabled'
-    msg_closed: str = f'Advanced Security is enabled'
+    msg_open: str = f"Advanced Security is not enabled"
+    msg_closed: str = f"Advanced Security is enabled"
 
     return _get_result_as_tuple(
-        service='Cognito',
-        objects='Advanced Security',
+        service="Cognito",
+        objects="Advanced Security",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
-        safes=safes)
+        safes=safes,
+    )

@@ -35,15 +35,17 @@ def is_insecure_in_image(image: str, expected_text: str) -> tuple:
 
     return _get_result_as_tuple_sast(
         path=image,
-        msg_open='Captcha is reversible by an OCR',
-        msg_closed='Captcha is safe against an OCR',
-        open_if=is_solvable_by_an_ocr)
+        msg_open="Captcha is reversible by an OCR",
+        msg_closed="Captcha is safe against an OCR",
+        open_if=is_solvable_by_an_ocr,
+    )
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(http.ConnError, http.ParameterError)
-def is_insecure_in_url(image_url: str, expected_text: str,
-                       *args, **kwargs) -> tuple:
+def is_insecure_in_url(
+    image_url: str, expected_text: str, *args, **kwargs
+) -> tuple:
     r"""
     Check if the image in the URL is an insecure CAPTCHA.
 
@@ -58,12 +60,13 @@ def is_insecure_in_url(image_url: str, expected_text: str,
         :class:`~fluidasserts.helper.http.HTTPSession`.
     """
     kwargs = kwargs or {}
-    kwargs.update({'stream': True})
+    kwargs.update({"stream": True})
     session = http.HTTPSession(image_url, *args, **kwargs)
     session.set_messages(
-        source='Captcha/Challenge/Complexity',
-        msg_open='Captcha is reversible by an OCR',
-        msg_closed='Captcha is safe against an OCR')
+        source="Captcha/Challenge/Complexity",
+        msg_open="Captcha is reversible by an OCR",
+        msg_closed="Captcha is safe against an OCR",
+    )
 
     image = session.response.raw
     image_obj = Image.open(image)

@@ -18,7 +18,7 @@ from fluidasserts.helper import asynchronous
 from fluidasserts import Unit
 from fluidasserts.utils.generic import get_sha256
 
-PKG_MNGR = 'npm'
+PKG_MNGR = "npm"
 
 
 def _get_all_versions(json_obj: dict) -> None:
@@ -44,19 +44,27 @@ def _get_all_versions(json_obj: dict) -> None:
         #        ...
         #    }
 
-        for dep, metadata in json_obj.get('dependencies', {}).items():
+        for dep, metadata in json_obj.get("dependencies", {}).items():
             if isinstance(metadata, str):
-                deps.append((dep, metadata,
-                             json_obj['dependencies'][f'{dep}.line']))
+                deps.append(
+                    (dep, metadata, json_obj["dependencies"][f"{dep}.line"])
+                )
             elif isinstance(metadata, (dict, l_json.CustomDict)):
-                if 'version' in metadata:
-                    deps.append((dep, metadata['version'],
-                                 json_obj['dependencies'][f'{dep}.line']))
-                if 'requires' in metadata and isinstance(
-                        metadata['requires'], (dict, l_json.CustomDict)):
-                    for req, version in metadata['requires'].items():
-                        deps.append((req, version,
-                                     metadata['requires'][f'{req}.line']))
+                if "version" in metadata:
+                    deps.append(
+                        (
+                            dep,
+                            metadata["version"],
+                            json_obj["dependencies"][f"{dep}.line"],
+                        )
+                    )
+                if "requires" in metadata and isinstance(
+                    metadata["requires"], (dict, l_json.CustomDict)
+                ):
+                    for req, version in metadata["requires"].items():
+                        deps.append(
+                            (req, version, metadata["requires"][f"{req}.line"])
+                        )
                 deps.extend(_get_all_versions(metadata))
     return deps
 
@@ -73,39 +81,48 @@ def _get_requirements(path: str, exclude: tuple) -> set:
     reqs = set()
     if not os.path.exists(path):
         return reqs
-    endswith = ('package.json', 'package-lock.json')
-    dictionary = {ord(c): None for c in '^~<=>'}
+    endswith = ("package.json", "package-lock.json")
+    dictionary = {ord(c): None for c in "^~<=>"}
     for fpath in get_paths(path, endswith=endswith, exclude=exclude):
         with open(fpath) as file:
             data = l_json.parse(file.read())
-        reqs.update((fpath, dep, ver.translate(dictionary), line)
-                    for dep, ver, line, in _get_all_versions(data))
+        reqs.update(
+            (fpath, dep, ver.translate(dictionary), line)
+            for dep, ver, line, in _get_all_versions(data)
+        )
     return reqs
 
 
 def _get_vuln_line(reqs: list, pkg: str, ver: str) -> int:
     """Return the line of first occurrence of pkg and version in path or 0."""
     line = list(
-        map(lambda y: y[3], filter(lambda x: x[1] == pkg and x[2] == ver,
-                                   reqs)))
+        map(
+            lambda y: y[3], filter(lambda x: x[1] == pkg and x[2] == ver, reqs)
+        )
+    )
     return line[0] if line else 0
 
 
-def _process_requirements(path: str,
-                          reqs: set,
-                          vulnerable_dependencies: dict = None,
-                          retry: bool = True) -> tuple:
+def _process_requirements(
+    path: str,
+    reqs: set,
+    vulnerable_dependencies: dict = None,
+    retry: bool = True,
+) -> tuple:
     """Return a dict mapping path to dependencies, versions and vulns."""
     vulnerable_dependencies = vulnerable_dependencies or {}
     if path and not os.path.exists(path):
-        return UNKNOWN, 'File does not exist'
+        return UNKNOWN, "File does not exist"
     if not reqs:
-        return CLOSED, 'No packages have been found in that path'
+        return CLOSED, "No packages have been found in that path"
 
-    results = asynchronous.run_func(sca.get_vulns_vulndb_async,
-                                    [(('npm', _path, dep, ver), {
-                                        'retry': retry
-                                    }) for _path, dep, ver, _ in reqs])
+    results = asynchronous.run_func(
+        sca.get_vulns_vulndb_async,
+        [
+            (("npm", _path, dep, ver), {"retry": retry})
+            for _path, dep, ver, _ in reqs
+        ],
+    )
     results = list(filter(lambda x: isinstance(x, tuple), results))
 
     has_vulns, proj_vulns = None, {}
@@ -122,23 +139,26 @@ def _process_requirements(path: str,
     vulns = [
         Unit(
             where=f'{_path} [{pkg}@{ver if ver else "unpinned"}]',
-            source='Lines',
+            source="Lines",
             specific=[_get_vuln_line(reqs, pkg, ver)],
             fingerprint={
-                'sha256': get_sha256(_path),
-                'associated_CVEs': deps[(pkg, ver)],
-            }) for _path, deps in proj_vulns.items() for pkg, ver in deps
+                "sha256": get_sha256(_path),
+                "associated_CVEs": deps[(pkg, ver)],
+            },
+        )
+        for _path, deps in proj_vulns.items()
+        for pkg, ver in deps
     ]
 
     if has_vulns:
-        return OPEN, 'Project has dependencies with vulnerabilities', vulns
-    return CLOSED, 'Project has dependencies with vulnerabilities'
+        return OPEN, "Project has dependencies with vulnerabilities", vulns
+    return CLOSED, "Project has dependencies with vulnerabilities"
 
 
 @api(risk=HIGH, kind=SCA)
-def package_has_vulnerabilities(package: str,
-                                version: str = None,
-                                retry: bool = True) -> tuple:
+def package_has_vulnerabilities(
+    package: str, version: str = None, retry: bool = True
+) -> tuple:
     """
     Search vulnerabilities on given package/version.
 
@@ -151,10 +171,12 @@ def package_has_vulnerabilities(package: str,
 
 
 @api(risk=HIGH, kind=SCA)
-def project_has_vulnerabilities(path: str,
-                                exclude: list = None,
-                                vulnerable_dependencies: dict = None,
-                                retry: bool = True) -> tuple:
+def project_has_vulnerabilities(
+    path: str,
+    exclude: list = None,
+    vulnerable_dependencies: dict = None,
+    retry: bool = True,
+) -> tuple:
     """
     Search vulnerabilities on given project directory.
 
@@ -168,4 +190,5 @@ def project_has_vulnerabilities(path: str,
         path,
         reqs,
         vulnerable_dependencies=vulnerable_dependencies,
-        retry=retry)
+        retry=retry,
+    )

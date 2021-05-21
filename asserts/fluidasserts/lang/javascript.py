@@ -3,8 +3,15 @@
 """This module allows to check JavaScript code vulnerabilities."""
 
 # 3rd party imports
-from pyparsing import (Suppress, nestedExpr, cppStyleComment,
-                       MatchFirst, Keyword, Empty, QuotedString)
+from pyparsing import (
+    Suppress,
+    nestedExpr,
+    cppStyleComment,
+    MatchFirst,
+    Keyword,
+    Empty,
+    QuotedString,
+)
 
 # local imports
 from fluidasserts import LOW, MEDIUM, OPEN, CLOSED, SAST
@@ -13,10 +20,13 @@ from fluidasserts.helper import lang
 from fluidasserts.utils.decorators import api
 
 LANGUAGE_SPECS = {
-    'extensions': ('js', 'ts',),
-    'block_comment_start': '/*',
-    'block_comment_end': '*/',
-    'line_comment': ('//',)
+    "extensions": (
+        "js",
+        "ts",
+    ),
+    "block_comment_start": "/*",
+    "block_comment_end": "*/",
+    "line_comment": ("//",),
 }  # type: dict
 
 
@@ -35,7 +45,7 @@ def uses_console_log(js_dest: str, exclude: list = None) -> tuple:
     :param exclude: Paths that contains any string from this list are ignored.
     :rtype: :class:`fluidasserts.Result`
     """
-    grammar = Keyword('console') + '.' + Keyword('log') + nestedExpr()
+    grammar = Keyword("console") + "." + Keyword("log") + nestedExpr()
     grammar.ignore(cppStyleComment)
     grammar.ignore(L_STRING)
     grammar.ignore(L_CHAR)
@@ -44,11 +54,12 @@ def uses_console_log(js_dest: str, exclude: list = None) -> tuple:
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'Code uses Console.log() method',
-            CLOSED: 'Code does not use Console.log() method',
+            OPEN: "Code uses Console.log() method",
+            CLOSED: "Code does not use Console.log() method",
         },
         spec=LANGUAGE_SPECS,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 @api(risk=MEDIUM, kind=SAST)
@@ -60,7 +71,7 @@ def uses_eval(js_dest: str, exclude: list = None) -> tuple:
     :param exclude: Paths that contains any string from this list are ignored.
     :rtype: :class:`fluidasserts.Result`
     """
-    grammar = Keyword('eval') + nestedExpr()
+    grammar = Keyword("eval") + nestedExpr()
     grammar.ignore(cppStyleComment)
     grammar.ignore(L_STRING)
     grammar.ignore(L_CHAR)
@@ -69,11 +80,12 @@ def uses_eval(js_dest: str, exclude: list = None) -> tuple:
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'Code uses eval() method',
-            CLOSED: 'Code does not use eval() method',
+            OPEN: "Code uses eval() method",
+            CLOSED: "Code does not use eval() method",
         },
         spec=LANGUAGE_SPECS,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 @api(risk=LOW, kind=SAST)
@@ -85,7 +97,7 @@ def uses_localstorage(js_dest: str, exclude: list = None) -> tuple:
     :param exclude: Paths that contains any string from this list are ignored.
     :rtype: :class:`fluidasserts.Result`
     """
-    grammar = Keyword('localStorage') + '.'
+    grammar = Keyword("localStorage") + "."
     grammar.ignore(cppStyleComment)
     grammar.ignore(L_STRING)
     grammar.ignore(L_CHAR)
@@ -94,11 +106,12 @@ def uses_localstorage(js_dest: str, exclude: list = None) -> tuple:
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'Code uses window.localStorage method',
-            CLOSED: 'Code does not use window.localStorage method',
+            OPEN: "Code uses window.localStorage method",
+            CLOSED: "Code does not use window.localStorage method",
         },
         spec=LANGUAGE_SPECS,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 @api(risk=LOW, kind=SAST)
@@ -112,7 +125,7 @@ def has_insecure_randoms(js_dest: str, exclude: list = None) -> tuple:
     :param exclude: Paths that contains any string from this list are ignored.
     :rtype: :class:`fluidasserts.Result`
     """
-    grammar = Keyword('Math') + '.' + Keyword('random') + nestedExpr()
+    grammar = Keyword("Math") + "." + Keyword("random") + nestedExpr()
     grammar.ignore(cppStyleComment)
     grammar.ignore(L_STRING)
     grammar.ignore(L_CHAR)
@@ -121,11 +134,12 @@ def has_insecure_randoms(js_dest: str, exclude: list = None) -> tuple:
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'Code uses Math.random() method',
-            CLOSED: 'Code does not use Math.random() method',
+            OPEN: "Code uses Math.random() method",
+            CLOSED: "Code does not use Math.random() method",
         },
         spec=LANGUAGE_SPECS,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 @api(risk=LOW, kind=SAST)
@@ -143,11 +157,15 @@ def swallows_exceptions(js_dest: str, exclude: list = None) -> tuple:
     """
     # Empty() grammar matches 'anything'
     # ~Empty() grammar matches 'not anything' or 'nothing'
-    classic = Suppress(Keyword('catch')) + nestedExpr(opener='(', closer=')') \
-        + nestedExpr(opener='{', closer='}', content=~Empty())
+    classic = (
+        Suppress(Keyword("catch"))
+        + nestedExpr(opener="(", closer=")")
+        + nestedExpr(opener="{", closer="}", content=~Empty())
+    )
 
-    modern = Suppress('.' + Keyword('catch')) + nestedExpr(
-        opener='(', closer=')', content=~Empty())
+    modern = Suppress("." + Keyword("catch")) + nestedExpr(
+        opener="(", closer=")", content=~Empty()
+    )
 
     grammar = MatchFirst([classic, modern])
     grammar.ignore(cppStyleComment)
@@ -162,7 +180,8 @@ def swallows_exceptions(js_dest: str, exclude: list = None) -> tuple:
             CLOSED: 'Code does not have empty "catch" blocks',
         },
         spec=LANGUAGE_SPECS,
-        excl=exclude)
+        excl=exclude,
+    )
 
 
 @api(risk=LOW, kind=SAST)
@@ -179,15 +198,17 @@ def has_switch_without_default(js_dest: str, exclude: list = None) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     return core.generic_c_has_switch_without_default(
-        js_dest, LANGUAGE_SPECS, exclude)
+        js_dest, LANGUAGE_SPECS, exclude
+    )
 
 
 @api(risk=LOW, kind=SAST)
 def has_if_without_else(
-        js_dest: str,
-        conditions: list,
-        use_regex: bool = False,
-        exclude: list = None) -> tuple:
+    js_dest: str,
+    conditions: list,
+    use_regex: bool = False,
+    exclude: list = None,
+) -> tuple:
     r"""
     Check if all ``if``\ s have an ``else`` clause.
 
@@ -201,13 +222,14 @@ def has_if_without_else(
     :rtype: :class:`fluidasserts.Result`
     """
     return core.generic_c_has_if_without_else(
-        js_dest, conditions, use_regex, LANGUAGE_SPECS, exclude)
+        js_dest, conditions, use_regex, LANGUAGE_SPECS, exclude
+    )
 
 
 @api(risk=LOW, kind=SAST)
-def has_vulnerable_dependencies(js_dest: str,
-                                dependencies: dict,
-                                exclude: list = None):
+def has_vulnerable_dependencies(
+    js_dest: str, dependencies: dict, exclude: list = None
+):
     """
     Check if there are vulnerable dependencies.
 
@@ -220,18 +242,24 @@ def has_vulnerable_dependencies(js_dest: str,
     expressions = []
     for dependency, versions in dependencies.items():
         expressions.extend(
-            [(Keyword(dependency) + Suppress(':') + Keyword(ver)).ignore('"')
-             for ver in versions])
+            [
+                (Keyword(dependency) + Suppress(":") + Keyword(ver)).ignore(
+                    '"'
+                )
+                for ver in versions
+            ]
+        )
     grammar = MatchFirst(expressions)
     specs = LANGUAGE_SPECS.copy()
-    specs['extensions'] = ('json')
+    specs["extensions"] = "json"
     return lang.generic_method(
         path=js_dest,
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'Vulnerable dependencies are present.',
-            CLOSED: 'There are no vulnerable dependencies.',
+            OPEN: "Vulnerable dependencies are present.",
+            CLOSED: "There are no vulnerable dependencies.",
         },
         spec=specs,
-        excl=exclude)
+        excl=exclude,
+    )

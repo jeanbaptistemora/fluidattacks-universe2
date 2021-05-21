@@ -29,8 +29,8 @@ def _check_password_strength(password: str, length: int) -> tuple:
     :returns: False if all conditions are met (secure),
     True otherwise (insecure).
     """
-    static_path = pkg_resources.resource_filename('fluidasserts', 'static/')
-    dictionary = static_path + 'wordlists/password.lst'
+    static_path = pkg_resources.resource_filename("fluidasserts", "static/")
+    dictionary = static_path + "wordlists/password.lst"
 
     caps = sum(1 for c in password if c.isupper())
     lower = sum(1 for c in password if c.islower())
@@ -41,23 +41,24 @@ def _check_password_strength(password: str, length: int) -> tuple:
     with open(dictionary) as dict_fd:
         words = (x.rstrip() for x in dict_fd.readlines())
 
-    msg_open: str = 'Password is insecure'
+    msg_open: str = "Password is insecure"
     is_password_secure: bool = False
 
     if len(password) < length:
-        msg_open = 'Password is too short'
+        msg_open = "Password is too short"
     elif password in words:
-        msg_open = 'Password is a dictionary password'
+        msg_open = "Password is a dictionary password"
     elif caps < 1 or lower < 1 or nums < 1 or special < 1 or spaces < 1:
-        msg_open = 'Password is too weak'
+        msg_open = "Password is too weak"
     else:
         is_password_secure = True
 
     return _get_result_as_tuple_sast(
-        path=f'Password/{password}',
+        path=f"Password/{password}",
         msg_open=msg_open,
-        msg_closed='Password is secure',
-        open_if=not is_password_secure)
+        msg_closed="Password is secure",
+        open_if=not is_password_secure,
+    )
 
 
 @api(risk=HIGH, kind=SAST)
@@ -106,10 +107,11 @@ def is_otp_token_insecure(password: str) -> tuple:
     min_password_len: int = 6
 
     return _get_result_as_tuple_sast(
-        path=f'OTP/{password}',
-        msg_open='OTP Token is too short',
-        msg_closed='OTP Token length is enough',
-        open_if=len(password) < min_password_len)
+        path=f"OTP/{password}",
+        msg_open="OTP Token is too short",
+        msg_closed="OTP Token length is enough",
+        open_if=len(password) < min_password_len,
+    )
 
 
 @api(risk=LOW, kind=SAST)
@@ -124,14 +126,15 @@ def is_ssid_insecure(ssid: str) -> tuple:
     :param ssid: SSID to be tested.
     :returns: True if insecure, False if secure.
     """
-    static_path = pkg_resources.resource_filename('fluidasserts', 'static/')
-    dictionary = static_path + 'wordlists/password.lst'
+    static_path = pkg_resources.resource_filename("fluidasserts", "static/")
+    dictionary = static_path + "wordlists/password.lst"
 
     with open(dictionary) as dict_fd:
         words = (x.rstrip() for x in dict_fd.readlines())
 
     return _get_result_as_tuple_sast(
-        path=f'SSID/{ssid}',
-        msg_open='OTP Token is too short',
-        msg_closed='OTP Token length is enough',
-        open_if=ssid in words)
+        path=f"SSID/{ssid}",
+        msg_open="OTP Token is too short",
+        msg_closed="OTP Token length is enough",
+        open_if=ssid in words,
+    )

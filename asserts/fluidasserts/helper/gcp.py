@@ -26,10 +26,11 @@ class ConnError(ConnectionRefusedError):
 
 def retry_on_errors(func: Callable) -> Callable:
     """Decorate function to retry if a ConnError/ClientErr is raised."""
+
     @functools.wraps(func)
     def decorated(*args, **kwargs) -> Any:  # noqa
         """Retry the function if a ConnError/ClientErr is raised."""
-        if kwargs.get('retry'):
+        if kwargs.get("retry"):
             for _ in range(12):
                 try:
                     return func(*args, **kwargs)
@@ -37,6 +38,7 @@ def retry_on_errors(func: Callable) -> Callable:
                     # Wait some seconds and retry
                     time.sleep(5.0)
         return func(*args, **kwargs)
+
     return decorated
 
 
@@ -44,8 +46,8 @@ def retry_on_errors(func: Callable) -> Callable:
 # pylint: disable=no-member
 @retry_on_errors
 def get_iam_policy(
-        project_id: str, credentials_file: str,
-        retry: bool = True) -> object:
+    project_id: str, credentials_file: str, retry: bool = True
+) -> object:
     """
     Get GCP IAM Policy.
 
@@ -54,22 +56,24 @@ def get_iam_policy(
     """
     credentials = service_account.Credentials.from_service_account_file(
         filename=credentials_file,
-        scopes=['https://www.googleapis.com/auth/cloud-platform'])
+        scopes=["https://www.googleapis.com/auth/cloud-platform"],
+    )
 
     service = googleapiclient.discovery.build(
-        'cloudresourcemanager', 'v1', credentials=credentials)
+        "cloudresourcemanager", "v1", credentials=credentials
+    )
 
     iam_policy = service.projects().getIamPolicy(resource=project_id, body={})
     resp = iam_policy.execute()
-    return resp['bindings']
+    return resp["bindings"]
 
 
 # pylint: disable=unused-argument
 # pylint: disable=no-member
 @retry_on_errors
 def get_service_accounts(
-        project_id: str, credentials_file: str,
-        retry: bool = True) -> object:
+    project_id: str, credentials_file: str, retry: bool = True
+) -> object:
     """
     Get GCP service accounts.
 
@@ -78,23 +82,25 @@ def get_service_accounts(
     """
     credentials = service_account.Credentials.from_service_account_file(
         filename=credentials_file,
-        scopes=['https://www.googleapis.com/auth/cloud-platform'])
+        scopes=["https://www.googleapis.com/auth/cloud-platform"],
+    )
 
     service = googleapiclient.discovery.build(
-        'iam', 'v1', credentials=credentials)
+        "iam", "v1", credentials=credentials
+    )
 
-    name = f'projects/{project_id}'
+    name = f"projects/{project_id}"
     serv_acct = service.projects().serviceAccounts().list(name=name)
     resp = serv_acct.execute()
-    return [x['name'] for x in resp['accounts']]
+    return [x["name"] for x in resp["accounts"]]
 
 
 # pylint: disable=unused-argument
 # pylint: disable=no-member
 @retry_on_errors
 def get_keys_managed_by_user(
-        user: str, credentials_file: str,
-        retry: bool = True) -> object:
+    user: str, credentials_file: str, retry: bool = True
+) -> object:
     """
     Get GCP service accounts.
 
@@ -103,13 +109,18 @@ def get_keys_managed_by_user(
     """
     credentials = service_account.Credentials.from_service_account_file(
         filename=credentials_file,
-        scopes=['https://www.googleapis.com/auth/cloud-platform'])
+        scopes=["https://www.googleapis.com/auth/cloud-platform"],
+    )
 
     service = googleapiclient.discovery.build(
-        'iam', 'v1', credentials=credentials)
+        "iam", "v1", credentials=credentials
+    )
 
     service = service.projects()
-    user_keys = service.serviceAccounts().keys().list(name=user,
-                                                      keyTypes='USER_MANAGED')
+    user_keys = (
+        service.serviceAccounts()
+        .keys()
+        .list(name=user, keyTypes="USER_MANAGED")
+    )
     resp = user_keys.execute()
-    return resp['keys'] if resp else {}
+    return resp["keys"] if resp else {}

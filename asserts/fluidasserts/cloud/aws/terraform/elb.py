@@ -16,7 +16,8 @@ from fluidasserts.utils.decorators import api, unknown_if
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_access_logging_disabled(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    path: str, exclude: Optional[List[str]] = None
+) -> tuple:
     """
     Check if any ``LoadBalancer`` **has Access Logging** disabled.
 
@@ -30,36 +31,44 @@ def has_access_logging_disabled(
     """
     vulnerabilities: list = []
     for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_tf_template(
-            starting_path=path,
-            resource_types=[
-                'aws_elb',
-            ],
-            exclude=exclude):
+        starting_path=path,
+        resource_types=[
+            "aws_elb",
+        ],
+        exclude=exclude,
+    ):
 
         is_logging_enabled = helper.to_boolean(
-            res_props.get('access_logs', {}).get('enabled', True))
+            res_props.get("access_logs", {}).get("enabled", True)
+        )
 
         if not is_logging_enabled:
             vulnerabilities.append(
                 Vulnerability(
                     path=yaml_path,
-                    entity=(f'aws_elb'
-                            f'/access_logs'
-                            f'/enabled'
-                            f'/{is_logging_enabled}'),
+                    entity=(
+                        f"aws_elb"
+                        f"/access_logs"
+                        f"/enabled"
+                        f"/{is_logging_enabled}"
+                    ),
                     identifier=res_name,
-                    reason='access logging is disabled'))
+                    reason="access logging is disabled",
+                )
+            )
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='Elastic Load Balancers have logging disabled',
-        msg_closed='Elastic Load Balancers have logging enabled')
+        msg_open="Elastic Load Balancers have logging disabled",
+        msg_closed="Elastic Load Balancers have logging enabled",
+    )
 
 
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError)
 def uses_insecure_port(
-        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    path: str, exclude: Optional[List[str]] = None
+) -> tuple:
     """
     Check if ``aws_lb_target_group`` uses **Port 443**.
 
@@ -73,28 +82,30 @@ def uses_insecure_port(
     safe_ports = (443,)
     vulnerabilities: list = []
     for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_tf_template(
-            starting_path=path,
-            resource_types=[
-                'aws_lb_target_group',
-            ],
-            exclude=exclude):
+        starting_path=path,
+        resource_types=[
+            "aws_lb_target_group",
+        ],
+        exclude=exclude,
+    ):
 
-        port = int(res_props.get('port', 80))
+        port = int(res_props.get("port", 80))
         unsafe_port = port not in safe_ports
 
-        is_port_required = not res_props.get('target_type', '') == 'lambda'
+        is_port_required = not res_props.get("target_type", "") == "lambda"
 
         if is_port_required and unsafe_port:
             vulnerabilities.append(
                 Vulnerability(
                     path=yaml_path,
-                    entity=(f'aws_lb_target_group'
-                            f'/port'
-                            f'/{port}'),
+                    entity=(f"aws_lb_target_group" f"/port" f"/{port}"),
                     identifier=res_name,
-                    reason='is not secure'))
+                    reason="is not secure",
+                )
+            )
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='Target Group does not use secure port',
-        msg_closed='Target Group uses secure port')
+        msg_open="Target Group does not use secure port",
+        msg_closed="Target Group uses secure port",
+    )

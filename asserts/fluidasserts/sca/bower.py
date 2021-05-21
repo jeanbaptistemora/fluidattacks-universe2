@@ -13,12 +13,13 @@ from fluidasserts import HIGH, SCA
 from fluidasserts.helper import sca
 from fluidasserts.utils.decorators import api
 
-PKG_MNGR = 'bower'
+PKG_MNGR = "bower"
 
 
 @api(risk=HIGH, kind=SCA)
 def package_has_vulnerabilities(
-        package: str, version: str = None, retry: bool = True) -> tuple:
+    package: str, version: str = None, retry: bool = True
+) -> tuple:
     """
     Search vulnerabilities on given package/version.
 

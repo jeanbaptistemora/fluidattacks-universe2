@@ -5,12 +5,13 @@ from fluidasserts.cloud.aws.cloudformation import elb
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('cloud_aws_cloudformation')
+
+pytestmark = pytest.mark.asserts_module("cloud_aws_cloudformation")
 
 # Constants
-SAFE: str = 'test/static/cloudformation/safe'
-VULN: str = 'test/static/cloudformation/vulnerable'
-NOT_EXISTS: str = 'test/static/cloudformation/not-exists'
+SAFE: str = "test/static/cloudformation/safe"
+VULN: str = "test/static/cloudformation/vulnerable"
+NOT_EXISTS: str = "test/static/cloudformation/not-exists"
 
 
 def test_has_access_logging_disabled():
