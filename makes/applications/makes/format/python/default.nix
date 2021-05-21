@@ -13,7 +13,7 @@ pythonFormat {
     "makes"
     # "melts"
     "observes"
-    # "reviews"
+    "reviews"
     "skims"
     "sorts"
     "teaches"

@@ -11,9 +11,9 @@ from dal.model import PullRequest
 
 def required_vars() -> List[str]:
     return [
-        'CI_MERGE_REQUEST_IID',
-        'CI_PROJECT_ID',
-        'REVIEWS_TOKEN',
+        "CI_MERGE_REQUEST_IID",
+        "CI_PROJECT_ID",
+        "REVIEWS_TOKEN",
     ]
 
 
@@ -29,12 +29,12 @@ def get_pipelines(project: Any, raw_pr: Any) -> List[Any]:
     pipelines: List[Dict[str, str]] = raw_pr.pipelines()
     new_pipelines: List[Any] = []
     for pipeline in pipelines:
-        new_pipelines.append(project.pipelines.get(pipeline['id']))
+        new_pipelines.append(project.pipelines.get(pipeline["id"]))
     return new_pipelines
 
 
 def close_pr(pull_request: PullRequest) -> None:
-    pull_request.raw.state_event = 'close'
+    pull_request.raw.state_event = "close"
     pull_request.raw.save()
 
 
@@ -42,7 +42,7 @@ def get_pr(session: Gitlab, project_id: str, pr_iid: str) -> PullRequest:
     project: Any = get_project(session, project_id)
     raw_pr: Any = project.mergerequests.get(pr_iid, lazy=False)
     return PullRequest(
-        type='gitlab',
+        type="gitlab",
         id=raw_pr.id,
         iid=raw_pr.iid,
         title=raw_pr.title,
