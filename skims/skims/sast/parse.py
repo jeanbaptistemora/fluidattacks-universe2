@@ -297,12 +297,25 @@ def parse_one(
             language=language,
             _=version,
         )
+    except ParsingError:
+        log_blocking("warning", "Grammar error: %s, ignoring", path)
+        return None
     except (
-        KeyError,
-        ParsingError,
+        ArithmeticError,
+        AttributeError,
+        BufferError,
+        EOFError,
+        LookupError,
+        MemoryError,
+        NameError,
+        OSError,
+        ReferenceError,
+        RuntimeError,
+        SystemError,
+        TypeError,
         ValueError,
     ):
-        log_blocking("warning", "Unable to parse: %s, ignoring", path)
+        log_blocking("warning", "Error while parsing: %s, ignoring", path)
         return None
 
     if CTX.debug:
