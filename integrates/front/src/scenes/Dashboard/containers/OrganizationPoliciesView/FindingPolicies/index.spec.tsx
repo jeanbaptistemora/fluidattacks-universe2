@@ -13,11 +13,14 @@ import waitForExpect from "wait-for-expect";
 import { FindingPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/index";
 import {
   ADD_ORGANIZATION_FINDING_POLICY,
+  DEACTIVATE_ORGANIZATION_FINDING_POLICY,
   GET_ORGANIZATION_FINDINGS_TITLES,
+  HANDLE_ORGANIZATION_FINDING_POLICY,
 } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/queries";
 import { GET_ORGANIZATION_POLICIES } from "scenes/Dashboard/containers/OrganizationPoliciesView/queries";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 jest.mock(
   "../../../../../utils/notifications",
@@ -103,6 +106,8 @@ describe("Organization findings policies view", (): void => {
   it("add organization findings policies mutation", async (): Promise<void> => {
     expect.hasAssertions();
 
+    jest.clearAllMocks();
+
     const mockMutation: MockedResponse = {
       request: {
         query: ADD_ORGANIZATION_FINDING_POLICY,
@@ -171,6 +176,8 @@ describe("Organization findings policies view", (): void => {
 
   it("add organization findings policies mutation message error", async (): Promise<void> => {
     expect.hasAssertions();
+
+    jest.clearAllMocks();
 
     const mockMutation: MockedResponse = {
       request: {
@@ -251,6 +258,8 @@ describe("Organization findings policies view", (): void => {
   it("organization finding policy missing handle actions permissions", async (): Promise<void> => {
     expect.hasAssertions();
 
+    jest.clearAllMocks();
+
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
         <MockedProvider
@@ -266,6 +275,12 @@ describe("Organization findings policies view", (): void => {
                   name: "F060. Insecure exceptions",
                   status: "SUBMITTED",
                 },
+                {
+                  id: "0b61d5bc-abcc-47e1-9293-f2ff76f4fc17",
+                  lastStatusUpdate: "2021-05-21T05:58:58",
+                  name: "F004. Ejecución remota de comandos",
+                  status: "APPROVED",
+                },
               ]}
               organizationId={organizationId}
             />
@@ -277,6 +292,9 @@ describe("Organization findings policies view", (): void => {
     const firstRow: ReactWrapper = wrapper
       .find("OrganizationFindingPolicy")
       .first();
+    const lastRow: ReactWrapper = wrapper
+      .find("OrganizationFindingPolicy")
+      .last();
 
     await act(
       async (): Promise<void> => {
@@ -286,6 +304,7 @@ describe("Organization findings policies view", (): void => {
 
         await waitForExpect((): void => {
           expect(firstRow.find("Button")).toHaveLength(0);
+          expect(lastRow.find("Button")).toHaveLength(0);
         });
       }
     );
@@ -294,11 +313,52 @@ describe("Organization findings policies view", (): void => {
   it("organization finding policy handle actions permissions", async (): Promise<void> => {
     expect.hasAssertions();
 
+    const mockHandleMutation: MockedResponse[] = [
+      {
+        request: {
+          query: HANDLE_ORGANIZATION_FINDING_POLICY,
+          variables: {
+            findingPolicyId: "923f081c-eae2-4ab7-9c66-36b12fd554d7",
+            organizationName: "okada",
+            status: "APPROVED",
+          },
+        },
+        result: {
+          data: {
+            handleOrgFindingPolicyAcceptation: {
+              success: true,
+            },
+          },
+        },
+      },
+      mockQuery,
+    ];
+
+    const mockDeactivateMutation: MockedResponse[] = [
+      {
+        request: {
+          query: DEACTIVATE_ORGANIZATION_FINDING_POLICY,
+          variables: {
+            findingPolicyId: "7960b957-0d57-40fb-8053-24f064d68000",
+            organizationName: "okada",
+          },
+        },
+        result: {
+          data: {
+            deactivateOrgFindingPolicy: {
+              success: true,
+            },
+          },
+        },
+      },
+      mockQuery,
+    ];
+
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
         <MockedProvider
           addTypename={false}
-          mocks={[mockFindingTitleQuery, mockQuery]}
+          mocks={[...mockDeactivateMutation, ...mockHandleMutation]}
         >
           <authzPermissionsContext.Provider
             value={
@@ -306,6 +366,9 @@ describe("Organization findings policies view", (): void => {
                 {
                   action:
                     "api_mutations_handle_finding_policy_acceptation_mutate",
+                },
+                {
+                  action: "api_mutations_deactivate_finding_policy_mutate",
                 },
               ])
             }
@@ -318,6 +381,12 @@ describe("Organization findings policies view", (): void => {
                     lastStatusUpdate: "2021-05-21T07:16:48",
                     name: "F060. Insecure exceptions",
                     status: "SUBMITTED",
+                  },
+                  {
+                    id: "7960b957-0d57-40fb-8053-24f064d68000",
+                    lastStatusUpdate: "2021-05-21T08:58:58",
+                    name: "F004. Ejecución remota de comandos",
+                    status: "APPROVED",
                   },
                 ]}
                 organizationId={organizationId}
@@ -332,6 +401,10 @@ describe("Organization findings policies view", (): void => {
       .find("OrganizationFindingPolicy")
       .first();
 
+    const lastRow: ReactWrapper = wrapper
+      .find("OrganizationFindingPolicy")
+      .last();
+
     await act(
       async (): Promise<void> => {
         expect.hasAssertions();
@@ -340,6 +413,64 @@ describe("Organization findings policies view", (): void => {
 
         await waitForExpect((): void => {
           expect(firstRow.find("Button")).toHaveLength(2);
+          expect(lastRow.find("Button")).toHaveLength(1);
+        });
+      }
+    );
+
+    firstRow.find("Button").first().simulate("click");
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
+
+        wrapper.update();
+
+        await waitForExpect((): void => {
+          expect(msgSuccess).toHaveBeenCalledWith(
+            translate.t(
+              "organization.tabs.policies.findings.handlePolicies.success.approved"
+            ),
+            translate.t("sidebar.newOrganization.modal.successTitle")
+          );
+        });
+      }
+    );
+
+    lastRow.find("Button").first().simulate("click");
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
+
+        wrapper.update();
+
+        await waitForExpect((): void => {
+          expect(wrapper.find("ConfirmDialog")).toHaveLength(1);
+        });
+      }
+    );
+
+    const confirmDialog: ReactWrapper = wrapper.find("ConfirmDialog").first();
+
+    const proceedButton: ReactWrapper = confirmDialog
+      .find("button")
+      .findWhere((element: ReactWrapper): boolean =>
+        element.contains("Proceed")
+      )
+      .first();
+    proceedButton.simulate("click");
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
+
+        wrapper.update();
+
+        await waitForExpect((): void => {
+          expect(msgSuccess).toHaveBeenCalledWith(
+            translate.t(
+              "organization.tabs.policies.findings.deactivatePolicies.success"
+            ),
+            translate.t("sidebar.newOrganization.modal.successTitle")
+          );
         });
       }
     );
