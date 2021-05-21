@@ -134,3 +134,46 @@ def create(table: MetaTable, if_not_exist: bool = False) -> Query:
 
     args = DynamicSQLargs(identifiers=identifiers)
     return Query.new(statement, Maybe.from_value(args))
+
+
+def rename(table: TableID, new_name: str) -> Query:
+    query = """
+        ALTER TABLE {schema}.{table} RENAME TO {new_name};
+    """
+    identifiers: Dict[str, Optional[str]] = {
+        "schema": table.schema,
+        "table": table.table_name,
+        "new_name": new_name,
+    }
+    args = DynamicSQLargs(identifiers=identifiers)
+    return Query.new(query, Maybe.from_value(args))
+
+
+def delete(table: TableID) -> Query:
+    query = """
+        DROP TABLE {schema}.{table} CASCADE;
+    """
+    identifiers: Dict[str, Optional[str]] = {
+        "schema": table.schema,
+        "table": table.table_name,
+    }
+    args = DynamicSQLargs(identifiers=identifiers)
+    return Query.new(query, Maybe.from_value(args))
+
+
+def move(
+    source: TableID,
+    target: TableID,
+) -> List[Query]:
+    query = """
+        ALTER TABLE {target_schema}.{target_table}
+        APPEND FROM {source_schema}.{source_table};
+    """
+    identifiers: Dict[str, Optional[str]] = {
+        "source_schema": source.schema,
+        "source_table": source.table_name,
+        "target_schema": target.schema,
+        "target_table": target.table_name,
+    }
+    args = DynamicSQLargs(identifiers=identifiers)
+    return [Query.new(query, Maybe.from_value(args)), delete(source)]

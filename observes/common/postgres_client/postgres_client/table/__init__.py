@@ -10,6 +10,7 @@ from typing import (
     NamedTuple,
     Optional,
 )
+from postgres_client import client
 
 # Third party libraries
 from returns.io import (
@@ -62,10 +63,10 @@ def _adapt_queries(
     return [_adapt_query(cursor, query) for query in queries]
 
 
-def exist(
-    db_client: Client, table_id: TableID
-) -> IOResult[Literal[True], Literal[False]]:
-    cursor = db_client.cursor
+IOResultBool = IOResult[Literal[True], Literal[False]]
+
+
+def _exist(cursor: Cursor, table_id: TableID) -> IOResultBool:
     query = queries.exist(table_id)
     cursor.execute_query(query)
     result = cursor.fetch_one()
@@ -73,6 +74,10 @@ def exist(
     if success == IO(True):
         return IOSuccess(True)
     return IOFailure(False)
+
+
+def exist(db_client: Client, table_id: TableID) -> IOResultBool:
+    return _exist(db_client.cursor, table_id)
 
 
 def _retrieve(cursor: Cursor, table_id: TableID) -> IO[MetaTable]:
@@ -98,6 +103,10 @@ class DbTable(NamedTuple):
         _queries = queries.add_columns(self.table, columns)
         self.cursor.execute_queries(_queries)
         return IO(None)
+
+    @classmethod
+    def exist(cls, cursor: Cursor, table_id: TableID) -> IOResultBool:
+        return _exist(cursor, table_id)
 
     @classmethod
     def retrieve(cls, cursor: Cursor, table_id: TableID) -> IO[DbTable]:
