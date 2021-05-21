@@ -7,11 +7,15 @@ from typing import (
 )
 
 # Third party libraries
+import click
 from psycopg2 import connect
 from psycopg2.extensions import (
     cursor as cursor_cls,
     ISOLATION_LEVEL_AUTOCOMMIT,
 )
+
+# Local libraries
+from sorts.utils.decorators import shield
 
 
 @contextmanager
@@ -84,3 +88,28 @@ def insert(training_result: Dict[str, str]) -> None:
             """,
             training_result
         )
+
+
+@click.option(
+    '--init-db',
+    is_flag=True,
+    help='Initializes Redshift schema & sorts table to store training results'
+)
+@click.option(
+    '--reset-db',
+    is_flag=True,
+    help=(
+        'Delete and create again Redshift schema & sorts '
+        'table to store training results'
+    )
+)
+@shield(on_error_return=False)
+def cli(init_db: bool, reset_db: bool) -> None:
+    del reset_db
+    if init_db:
+        initialize()
+
+
+if __name__ == '__main__':
+    # pylint: disable=no-value-for-parameter, unexpected-keyword-arg
+    cli()
