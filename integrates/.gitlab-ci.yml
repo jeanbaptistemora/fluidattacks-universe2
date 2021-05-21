@@ -590,12 +590,6 @@ integrates.scheduler.send_treatment_change:
     refs: [schedules]
     variables: [$integrates_scheduler_send_treatment_change]
 
-integrates.scheduler.send_unsolved_to_all:
-  <<: *integrates_schedulers
-  only:
-    refs: [schedules]
-    variables: [$integrates_scheduler_send_unsolved_to_all]
-
 integrates.scheduler.toe_inputs_etl:
   <<: *integrates_schedulers
   only:

@@ -26,11 +26,9 @@ from organizations.domain import (
 from toe.inputs import domain as toe_inputs_domain
 from toe.lines import domain as toe_lines_domain
 from schedulers import (
-    common,
     delete_imamura_stakeholders,
     delete_obsolete_groups,
     delete_obsolete_orgs,
-    send_unsolved_to_all,
     toe_inputs_etl,
     toe_lines_etl,
     update_indicators,
@@ -44,38 +42,6 @@ pytestmark = [
     pytest.mark.asyncio,
 ]
 
-def test_is_an_unsolved_event():
-    dumb_unsolved_event = {
-        'id': 'testid',
-        'historic_state': [{'state': 'OPEN'}, {'state': 'CREATED'}]
-    }
-    dumb_solved_event = {
-        'id': 'testid',
-        'historic_state': [
-            {'state': 'OPEN'},
-            {'state': 'CREATED'},
-            {'state': 'CLOSED'}
-        ]
-    }
-    assert send_unsolved_to_all.is_an_unsolved_event(dumb_unsolved_event)
-    assert not send_unsolved_to_all.is_an_unsolved_event(dumb_solved_event)
-
-async def test_get_unsolved_events():
-    project_name = 'unittesting'
-    test_data = await send_unsolved_to_all.get_unsolved_events(project_name)
-    assert isinstance(test_data, list)
-    assert isinstance(test_data[0], dict)
-    assert [ev for ev in test_data if ev['event_id'] == '540462628']
-
-def test_extract_info_from_event_dict():
-    dumb_event_dict = {
-        'id': 'testid', 'event_type': 'test', 'detail': 'detail'
-    }
-    test_data = send_unsolved_to_all.extract_info_from_event_dict(
-        dumb_event_dict
-    )
-    expected_output = {'type': 'test', 'details': 'detail'}
-    assert test_data == expected_output
 
 async def test_get_status_vulns_by_time_range():
     released_findings = await get_findings_by_group('UNITTESTING')
