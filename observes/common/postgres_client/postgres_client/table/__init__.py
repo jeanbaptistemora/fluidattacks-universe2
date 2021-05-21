@@ -104,6 +104,20 @@ class DbTable(NamedTuple):
         self.cursor.execute_queries(_queries)
         return IO(None)
 
+    def rename(self, new_name: str) -> IO[None]:
+        self.cursor.execute_query(
+            queries.rename(self.table.table_id, new_name)
+        )
+        return IO(None)
+
+    def delete(self) -> IO[None]:
+        self.cursor.execute_query(queries.delete(self.table.table_id))
+        return IO(None)
+
+    def move(self, target: TableID) -> IO[None]:
+        self.cursor.execute_queries(queries.move(self.table.table_id, target))
+        return IO(None)
+
     @classmethod
     def exist(cls, cursor: Cursor, table_id: TableID) -> IOResultBool:
         return _exist(cursor, table_id)
@@ -120,6 +134,14 @@ class DbTable(NamedTuple):
         query = queries.create(table, if_not_exist)
         cursor.execute_query(query)
         return cls.retrieve(cursor, table.table_id)
+
+    @classmethod
+    def create_like(
+        cls, cursor: Cursor, blueprint: TableID, new_table: TableID
+    ) -> IO[DbTable]:
+        query = queries.create_like(blueprint, new_table)
+        cursor.execute_query(query)
+        return cls.retrieve(cursor, new_table)
 
 
 __all__ = [

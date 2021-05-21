@@ -136,6 +136,22 @@ def create(table: MetaTable, if_not_exist: bool = False) -> Query:
     return Query.new(statement, Maybe.from_value(args))
 
 
+def create_like(blueprint: TableID, new_table: TableID) -> Query:
+    query = """
+        CREATE TABLE {new_schema}.{new_table} (
+            LIKE {blueprint_schema}.{blueprint_table}
+        );
+    """
+    identifiers: Dict[str, Optional[str]] = {
+        "new_schema": new_table.schema,
+        "new_table": new_table.table_name,
+        "blueprint_schema": blueprint.schema,
+        "blueprint_table": blueprint.table_name,
+    }
+    args = DynamicSQLargs(identifiers=identifiers)
+    return Query.new(query, Maybe.from_value(args))
+
+
 def rename(table: TableID, new_name: str) -> Query:
     query = """
         ALTER TABLE {schema}.{table} RENAME TO {new_name};
