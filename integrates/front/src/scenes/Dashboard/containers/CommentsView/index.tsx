@@ -57,20 +57,18 @@ const CommentsView: React.FC = (): JSX.Element => {
     (addCommentError: ApolloError): void => {
       addCommentError.graphQLErrors.forEach(
         ({ message }: GraphQLError): void => {
-          switch (message) {
-            case "Exception - Comment parent is invalid":
-              msgError(
-                translate.t("validations.invalidCommentParent", {
-                  count: 1,
-                })
-              );
-              break;
-            default:
-              msgError(translate.t("groupAlerts.errorTextsad"));
-              Logger.warning(
-                `An error occurred posting ${type}`,
-                addCommentError
-              );
+          if (message === "Exception - Comment parent is invalid") {
+            msgError(
+              translate.t("validations.invalidCommentParent", {
+                count: 1,
+              })
+            );
+          } else {
+            msgError(translate.t("groupAlerts.errorTextsad"));
+            Logger.warning(
+              `An error occurred posting ${type}`,
+              addCommentError
+            );
           }
         }
       );

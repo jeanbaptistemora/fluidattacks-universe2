@@ -55,13 +55,11 @@ const useUpdateAPIToken: (
     graphQLErrors,
   }: ApolloError): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
-      switch (error.message) {
-        case "Exception - Invalid Expiration Time":
-          msgError(t("updateAccessToken.invalidExpTime"));
-          break;
-        default:
-          Logger.warning("An error occurred adding access token", error);
-          msgError(t("groupAlerts.errorTextsad"));
+      if (error.message === "Exception - Invalid Expiration Time") {
+        msgError(t("updateAccessToken.invalidExpTime"));
+      } else {
+        Logger.warning("An error occurred adding access token", error);
+        msgError(t("groupAlerts.errorTextsad"));
       }
     });
     dispatch(reset("updateAccessToken"));

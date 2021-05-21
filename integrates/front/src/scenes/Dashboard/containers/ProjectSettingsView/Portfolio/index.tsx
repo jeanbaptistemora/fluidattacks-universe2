@@ -65,13 +65,11 @@ const Portfolio: React.FC<IPortfolioProps> = (
     },
     onError: (error: ApolloError): void => {
       error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-        switch (message) {
-          case "Exception - One or more values already exist":
-            msgError(translate.t("searchFindings.tabResources.repeatedItem"));
-            break;
-          default:
-            msgError(translate.t("groupAlerts.errorTextsad"));
-            Logger.warning("An error occurred adding tags", error);
+        if (message === "Exception - One or more values already exist") {
+          msgError(translate.t("searchFindings.tabResources.repeatedItem"));
+        } else {
+          msgError(translate.t("groupAlerts.errorTextsad"));
+          Logger.warning("An error occurred adding tags", error);
         }
       });
     },
