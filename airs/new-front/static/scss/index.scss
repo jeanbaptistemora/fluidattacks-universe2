@@ -142,6 +142,9 @@ $whiter-gray: rgba(241, 241, 241, 1);
 .c-hovered-red { color: $hovered-red; }
 .bc-darker-blue { border-color: $darker-blue; }
 
+// Columns classes
+.three-columns-l { column-count: 3; }
+
 // Display classes
 .display-none { display: none; }
 
@@ -238,6 +241,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
   .f-error { font-size: 17rem; }
   .bg-banner-sz { background-size: 100% 100%; }
   .mw-20 { max-width: 20rem; }
+  .three-columns-l { column-count: 3; }
 
   .ph-body {
     padding-left: 3.75rem;
@@ -262,6 +266,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
   .fheader { font-size: 3.5rem; }
   .nt-125 { margin-top: -0.125rem; }
   .w-products { width: 20rem; }
+  .two-columns-m { column-count: 2; }
 }
 
 // Small screen sizes
