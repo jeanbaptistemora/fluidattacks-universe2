@@ -108,7 +108,7 @@ async def main(
                     vuln_commit=rebase_data.rev,
                     vuln_id=vulnerability.integrates_metadata.uuid,
                     vuln_what=rebase_data.path,
-                    vuln_where=rebase_data.line,
+                    vuln_where=str(rebase_data.line),
                 ):
                     success = False
         except git.GitError as exc:
