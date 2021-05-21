@@ -3,6 +3,7 @@ from typing import Any
 
 # Third party libraries
 import pytest
+from returns.pipeline import is_successful
 
 # Local libraries
 from postgres_client import client
@@ -28,4 +29,4 @@ def test_create_like(postgresql_my: Any) -> None:
     new_table = TableID(schema="test_schema_2", table_name="the_table")
     new_table_id = factory.create_like(db_client, blueprint, new_table)
     db_client.connection.commit()
-    assert table.exist(db_client, new_table_id)
+    assert is_successful(table.exist(db_client, new_table_id))

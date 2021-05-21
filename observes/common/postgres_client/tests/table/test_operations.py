@@ -3,6 +3,7 @@ from typing import Any
 
 # Third party libraries
 import pytest
+from returns.pipeline import is_successful
 
 # Local libraries
 from postgres_client import client
@@ -29,8 +30,8 @@ def test_rename(postgresql_my: Any) -> None:
     db_client = client.new_test_client(postgresql_my)
     old_table = TableID(schema="test_schema", table_name="table_number_one")
     new_table_id = operations.rename(db_client, old_table, "renamed_table")
-    assert not table.exist(db_client, old_table)
-    assert table.exist(db_client, new_table_id)
+    assert not is_successful(table.exist(db_client, old_table))
+    assert is_successful(table.exist(db_client, new_table_id))
 
 
 @pytest.mark.timeout(15, method="thread")
@@ -39,7 +40,7 @@ def test_delete(postgresql_my: Any) -> None:
     db_client = client.new_test_client(postgresql_my)
     target = TableID(schema="test_schema", table_name="table_number_one")
     operations.delete(db_client, target)
-    assert not table.exist(db_client, target)
+    assert not is_successful(table.exist(db_client, target))
 
 
 @pytest.mark.skip(

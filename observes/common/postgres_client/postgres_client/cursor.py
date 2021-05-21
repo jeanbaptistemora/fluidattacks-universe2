@@ -139,10 +139,10 @@ class Cursor(NamedTuple):
         self.db_cursor.execute(query.query, stm_values)
 
     def fetch_all(self) -> IO[Any]:
-        return self.db_cursor.fetchall()
+        return IO(self.db_cursor.fetchall())
 
     def fetch_one(self) -> IO[Iterator[Any]]:
-        return self.db_cursor.fetchone()
+        return IO(self.db_cursor.fetchone())
 
     @classmethod
     def new(cls, connection: DbConnection) -> Cursor:

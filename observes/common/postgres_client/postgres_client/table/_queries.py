@@ -1,18 +1,17 @@
+# pylint: skip-file
 # Standard libraries
 from typing import (
     Dict,
     FrozenSet,
     List,
     Optional,
-    Tuple,
 )
 
 # Local libraries
+from returns.maybe import Maybe
 from postgres_client.cursor import (
-    Cursor,
-    CursorExeAction,
-    CursorFetchAction,
     DynamicSQLargs,
+    Query,
 )
 from postgres_client.table.common import MetaTable, TableID
 from postgres_client.table.common.column import IsolatedColumn
@@ -27,11 +26,10 @@ class TableCreationFail(Exception):
 
 
 def add_columns(
-    cursor: Cursor,
     table_id: TableID,
     old_columns: FrozenSet[IsolatedColumn],
     new_columns: FrozenSet[IsolatedColumn],
-) -> List[CursorExeAction]:
+) -> List[Query]:
     diff_columns: FrozenSet[IsolatedColumn] = new_columns - old_columns
     diff_names: FrozenSet[str] = frozenset(col.name for col in diff_columns)
     current_names: FrozenSet[str] = frozenset(col.name for col in old_columns)
@@ -40,7 +38,7 @@ def add_columns(
             "Cannot update the type of existing columns."
             f"Columns: {diff_names.intersection(current_names)}"
         )
-    actions: List[CursorExeAction] = []
+    queries: List[Query] = []
     table_path: str = f'"{table_id.schema}"."{table_id.table_name}"'
     for column in diff_columns:
         statement: str = (
@@ -48,22 +46,23 @@ def add_columns(
             "ADD COLUMN {column_name} "
             "{field_type} default %(default_val)s"
         )
-        action = cursor.execute(
-            statement,
-            DynamicSQLargs(
-                values={"default_val": column.default_val},
-                identifiers={
-                    "table_path": table_path,
-                    "column_name": column.name,
-                    "field_type": column.field_type,
-                },
-            ),
+        args = DynamicSQLargs(
+            values={"default_val": column.default_val},
+            identifiers={
+                "table_path": table_path,
+                "column_name": column.name,
+                "field_type": column.field_type,
+            },
         )
-        actions.append(action)
-    return actions
+        query = Query.new(
+            statement,
+            Maybe.from_value(args),
+        )
+        queries.append(query)
+    return queries
 
 
-def exist(cursor: Cursor, table_id: TableID) -> CursorFetchAction:
+def exist(table_id: TableID) -> Query:
     """Check existence of a Table on the DB"""
     statement = """
         SELECT EXISTS (
@@ -72,22 +71,19 @@ def exist(cursor: Cursor, table_id: TableID) -> CursorFetchAction:
             AND table_name = %(table_name)s
         );
     """
-    action = cursor.execute(
-        statement,
-        DynamicSQLargs(
-            values={
-                "table_schema": table_id.schema,
-                "table_name": table_id.table_name,
-            }
-        ),
+    args = DynamicSQLargs(
+        values={
+            "table_schema": table_id.schema,
+            "table_name": table_id.table_name,
+        }
     )
-    action.act()
-    return cursor.fetchone()
+    return Query.new(
+        statement,
+        Maybe.from_value(args),
+    )
 
 
-def retrieve(
-    cursor: Cursor, table_id: TableID
-) -> Tuple[CursorExeAction, CursorFetchAction]:
+def retrieve(table_id: TableID) -> Query:
     """Retrieve Table from DB"""
     statement = """
         SELECT ordinal_position AS position,
@@ -103,22 +99,19 @@ def retrieve(
             AND table_schema = %(table_schema)s
         ORDER BY ordinal_position;
     """
-    action: CursorExeAction = cursor.execute(
-        statement,
-        DynamicSQLargs(
-            values={
-                "table_schema": table_id.schema,
-                "table_name": table_id.table_name,
-            }
-        ),
+    args = DynamicSQLargs(
+        values={
+            "table_schema": table_id.schema,
+            "table_name": table_id.table_name,
+        }
     )
-    fetch_action = cursor.fetchall()
-    return (action, fetch_action)
+    return Query.new(
+        statement,
+        Maybe.from_value(args),
+    )
 
 
-def create(
-    cursor: Cursor, table: MetaTable, if_not_exist: bool = False
-) -> CursorExeAction:
+def create(table: MetaTable, if_not_exist: bool = False) -> Query:
     table_path: str = table.path
     pkeys_fields: str = ""
     if table.primary_keys:
@@ -139,5 +132,5 @@ def create(
         identifiers[f"name_{index}"] = column.name
         identifiers[f"field_type_{index}"] = column.field_type.value
 
-    action = cursor.execute(statement, DynamicSQLargs(identifiers=identifiers))
-    return action
+    args = DynamicSQLargs(identifiers=identifiers)
+    return Query.new(statement, Maybe.from_value(args))
