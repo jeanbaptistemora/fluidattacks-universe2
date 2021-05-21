@@ -61,39 +61,35 @@ from vulnerabilities import (
 )
 
 
-STAGE = os.environ['STAGE']
-ANALYST = 'daguirre@fluidattacks.com'
-FINDING_IDS = ['899615837']
+STAGE = os.environ["STAGE"]
+ANALYST = "daguirre@fluidattacks.com"
+FINDING_IDS = ["899615837"]
 
 
 # Sort historics by date
 def sort_historic_by_date(
     historic: List[Dict[str, str]]
 ) -> List[Dict[str, str]]:
-    historic_sort = sorted(historic, key=lambda i: i['date'])
+    historic_sort = sorted(historic, key=lambda i: i["date"])
     return historic_sort
 
 
 # Get the date or return the default date
 def get_date_with_format(item: Dict[str, str]) -> str:
-    return str(item.get('date', '2000-01-01 00:00:00'))
+    return str(item.get("date", "2000-01-01 00:00:00"))
 
 
 # Return the desired historic
 def get_historic_attribute(
-    vulnerability: Vulnerability,
-    attribute: str
+    vulnerability: Vulnerability, attribute: str
 ) -> List[Dict[str, str]]:
     return cast(
-        List[Dict[str, str]],
-        vulnerability.get(f'historic_{attribute}', [])
+        List[Dict[str, str]], vulnerability.get(f"historic_{attribute}", [])
     )
 
 
-def filter_by_analyst(
-    historic_state: Dict[str, str]
-) -> bool:
-    analyst = historic_state.get('analyst', '')
+def filter_by_analyst(historic_state: Dict[str, str]) -> bool:
+    analyst = historic_state.get("analyst", "")
     if ANALYST not in analyst:
         return True
     return False
@@ -104,64 +100,58 @@ def filter_by_analyst(
 async def fix_vuln_historics(
     vulnerability: Vulnerability,
 ) -> None:
-    historic_state = get_historic_attribute(vulnerability, 'state')
-    result_historic = sort_historic_by_date(list(
-        filter(filter_by_analyst, historic_state)
-    ))
+    historic_state = get_historic_attribute(vulnerability, "state")
+    result_historic = sort_historic_by_date(
+        list(filter(filter_by_analyst, historic_state))
+    )
     if result_historic and result_historic != historic_state:
         first_state = result_historic[0]
-        if first_state['state'] == 'closed':
-            date = first_state['date'].split(' ')[0]
+        if first_state["state"] == "closed":
+            date = first_state["date"].split(" ")[0]
             fixed_state = {
-                'date': f'{date} 00:00:00',
-                'analyst': ANALYST,
-                'state': 'open',
+                "date": f"{date} 00:00:00",
+                "analyst": ANALYST,
+                "state": "open",
             }
             result_historic = [fixed_state] + result_historic
-            uuid = vulnerability['UUID']
-            finding_id = vulnerability['finding_id']
-            if STAGE == 'apply':
+            uuid = vulnerability["UUID"]
+            finding_id = vulnerability["finding_id"]
+            if STAGE == "apply":
                 print(
-                    '[INFO] historic_state of vuln with UUID: ' +
-                    f'{uuid} on finding: {finding_id} will be changed'
+                    "[INFO] historic_state of vuln with UUID: "
+                    + f"{uuid} on finding: {finding_id} will be changed"
                 )
                 await vulns_dal.update(
-                    finding_id,
-                    uuid,
-                    {'historic_state': result_historic}
+                    finding_id, uuid, {"historic_state": result_historic}
                 )
             else:
                 print(
-                    '[INFO] historic_state of vuln with UUID: ' +
-                    f'{uuid} on finding: {finding_id} will be changed'
+                    "[INFO] historic_state of vuln with UUID: "
+                    + f"{uuid} on finding: {finding_id} will be changed"
                 )
-                print('-' * 20)
-                print('new_historic:')
+                print("-" * 20)
+                print("new_historic:")
                 print(result_historic)
-                print('old_historic:')
+                print("old_historic:")
                 print(historic_state)
-                print('-' * 20)
+                print("-" * 20)
 
 
 async def main() -> None:
-    print('[INFO] Starting migration 0058')
-    vulneabilities = await vulns_domain.list_vulnerabilities_async(
-        FINDING_IDS
-    )
+    print("[INFO] Starting migration 0058")
+    vulneabilities = await vulns_domain.list_vulnerabilities_async(FINDING_IDS)
     await collect(
-        [
-            fix_vuln_historics(vuln) for vuln in vulneabilities
-        ],
-        workers=4
+        [fix_vuln_historics(vuln) for vuln in vulneabilities], workers=4
     )
-    print('[INFO] Migration 0058 finished')
+    print("[INFO] Migration 0058 finished")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     execution_time = time.strftime(
-        'Execution Time:    %Y-%m-%d at %H:%M:%S UTC%Z'
+        "Execution Time:    %Y-%m-%d at %H:%M:%S UTC%Z"
     )
     run(main())
     finalization_time = time.strftime(
-        'Finalization Time: %Y-%m-%d at %H:%M:%S UTC%Z'
+        "Finalization Time: %Y-%m-%d at %H:%M:%S UTC%Z"
     )
-    print(f'{execution_time}\n{finalization_time}')
+    print(f"{execution_time}\n{finalization_time}")

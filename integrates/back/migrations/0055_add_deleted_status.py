@@ -25,46 +25,42 @@ from findings.domain.core import (
 from groups.domain import get_alive_groups
 
 
-STAGE: str = os.environ['STAGE']
+STAGE: str = os.environ["STAGE"]
 
 
 async def _add_deleted_status(
     finding: Dict[str, Finding],
 ) -> None:
-    email = 'integrates@fluidattacks.com'
-    finding_id: str = str(finding['finding_id'])
-    historic_state = finding['historic_state']
+    email = "integrates@fluidattacks.com"
+    finding_id: str = str(finding["finding_id"])
+    historic_state = finding["historic_state"]
     last_state = historic_state[-1]
-    if STAGE == 'apply':
+    if STAGE == "apply":
         await delete_vulnerabilities(
             finding_id,
-            last_state['justification'],
-            last_state['analyst'],
-            email
+            last_state["justification"],
+            last_state["analyst"],
+            email,
         )
     else:
-        print(f'should update vulns for finding {finding_id}')
+        print(f"should update vulns for finding {finding_id}")
 
 
 async def add_deleted_status(group_name: str) -> None:
-    attrs = {'finding_id', 'historic_state'}
+    attrs = {"finding_id", "historic_state"}
     group_findings = await get_findings_by_group(
         group_name, attrs, include_deleted=True
     )
     findings = [finding for finding in group_findings if is_deleted(finding)]
     await collect(
-        [_add_deleted_status(finding) for finding in findings],
-        workers=5
+        [_add_deleted_status(finding) for finding in findings], workers=5
     )
 
 
 async def main() -> None:
     groups = await get_alive_groups()
-    await collect(
-        [add_deleted_status(group) for group in groups],
-        workers=10
-    )
+    await collect([add_deleted_status(group) for group in groups], workers=10)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(main())

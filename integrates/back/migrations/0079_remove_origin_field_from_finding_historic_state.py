@@ -28,7 +28,7 @@ from dynamodb import operations_legacy as dynamodb_ops
 from findings import dal as findings_dal
 
 
-FINDING_TABLE: str = 'FI_findings'
+FINDING_TABLE: str = "FI_findings"
 
 
 async def remove_origin_from_historic_state(
@@ -36,26 +36,23 @@ async def remove_origin_from_historic_state(
 ) -> bool:
     success = True
     to_update = False
-    finding_id = finding['finding_id']
-    old_historic_state = cast(Historic, finding.get('historic_state', []))
+    finding_id = finding["finding_id"]
+    old_historic_state = cast(Historic, finding.get("historic_state", []))
     historic_state = copy.deepcopy(old_historic_state)
 
     for state_info in historic_state:
-        if state_info.get('origin'):
+        if state_info.get("origin"):
             to_update = True
-            del state_info['origin']
+            del state_info["origin"]
 
     if to_update:
         success = await findings_dal.update(
-            finding_id,
-            {
-                'historic_state': historic_state
-            }
+            finding_id, {"historic_state": historic_state}
         )
-        print(f'finding_id = {finding_id}')
-        print('old_historic_state =')
+        print(f"finding_id = {finding_id}")
+        print("old_historic_state =")
         pprint(old_historic_state)
-        print('historic_state =')
+        print("historic_state =")
         pprint(historic_state)
 
     return success
@@ -63,19 +60,21 @@ async def remove_origin_from_historic_state(
 
 async def main() -> None:
     scan_attrs = {
-        'ProjectionExpression': ','.join({'finding_id', 'historic_state'})
+        "ProjectionExpression": ",".join({"finding_id", "historic_state"})
     }
     findings = await dynamodb_ops.scan(FINDING_TABLE, scan_attrs)
 
-    success = all(await collect(
-        [
-            remove_origin_from_historic_state(finding)
-            for finding in findings
-        ]
-    ))
+    success = all(
+        await collect(
+            [
+                remove_origin_from_historic_state(finding)
+                for finding in findings
+            ]
+        )
+    )
 
-    print(f'Success: {success}')
+    print(f"Success: {success}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(main())

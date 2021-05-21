@@ -26,22 +26,22 @@ from __init__ import FI_AWS_S3_BUCKET
 
 
 async def add_missing_upload_date(event: Event) -> None:
-    event_id = str(event['id'])
-    group_name = str(event['project_name'])
-    event_evidences = ['evidence', 'evidence_file']
+    event_id = str(event["id"])
+    group_name = str(event["project_name"])
+    event_evidences = ["evidence", "evidence_file"]
     key_list = []
     date_list = []
     coroutines = []
-    event_prefix = f'{group_name}/{event_id}/'
+    event_prefix = f"{group_name}/{event_id}/"
     async with aio_client() as client:
         resp = await client.list_objects_v2(
             Bucket=FI_AWS_S3_BUCKET, Prefix=event_prefix
         )
-        key_list = [item['Key'] for item in resp.get('Contents', [])]
-        date_list = [item['LastModified'] for item in resp.get('Contents', [])]
+        key_list = [item["Key"] for item in resp.get("Contents", [])]
+        date_list = [item["LastModified"] for item in resp.get("Contents", [])]
 
     for evidence in event_evidences:
-        if evidence in event and f'{evidence}_date' not in event:
+        if evidence in event and f"{evidence}_date" not in event:
             file_url = event_prefix + event[evidence]
             if file_url in key_list:
                 file_index = key_list.index(file_url)
@@ -49,12 +49,12 @@ async def add_missing_upload_date(event: Event) -> None:
                 upload_date = datetime_utils.get_as_str(unaware_datetime)
                 coroutines.append(
                     events_dal.update(
-                        event_id, {f'{evidence}_date': upload_date}
+                        event_id, {f"{evidence}_date": upload_date}
                     )
                 )
 
     if len(coroutines) > 0:
-        print(f'should update event {event_id}')
+        print(f"should update event {event_id}")
         await collect(coroutines)
 
 
@@ -70,5 +70,5 @@ async def main() -> None:
     await collect(map(get_groups_events, groups), workers=10)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(main())

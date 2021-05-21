@@ -22,42 +22,35 @@ def migrate_all_names(dry_run: bool) -> None:
     """
     Get all groups from fi_project_names and save to integrates
     """
-    all_groups = get_all_group_names('group')
+    all_groups = get_all_group_names("group")
     if dry_run:
-        print('Available groups will be added as follows:')
+        print("Available groups will be added as follows:")
         for group_name in all_groups:
-            print('----')
-            print('pk: AVAILABLE_GROUP\n'
-                  'sk: {}'.format(group_name.upper()))
+            print("----")
+            print("pk: AVAILABLE_GROUP\n" "sk: {}".format(group_name.upper()))
     else:
         with INTEGRATES_TABLE.batch_writer() as batch:
             for group_name in all_groups:
                 batch.put_item(
-                    Item={
-                        'pk': 'AVAILABLE_GROUP',
-                        'sk': group_name.upper()
-                    }
+                    Item={"pk": "AVAILABLE_GROUP", "sk": group_name.upper()}
                 )
-        log(
-            'Migration 0004: Available groups succesfully migrated',
-            dry_run
-        )
+        log("Migration 0004: Available groups succesfully migrated", dry_run)
 
 
 def log(message: str, dry_run: bool) -> None:
     if not dry_run:
-        bugsnag.notify(Exception(message), severity='info')
+        bugsnag.notify(Exception(message), severity="info")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument('--dry-run', required=False, action='store_true')
+    ap.add_argument("--dry-run", required=False, action="store_true")
 
     args: Dict[str, bool] = vars(ap.parse_args())
-    dry_run_flag: bool = args['dry_run']
+    dry_run_flag: bool = args["dry_run"]
 
     log(
-        'Starting migration 0004 to add all group names to integrates table',
-        dry_run_flag
+        "Starting migration 0004 to add all group names to integrates table",
+        dry_run_flag,
     )
     migrate_all_names(dry_run_flag)

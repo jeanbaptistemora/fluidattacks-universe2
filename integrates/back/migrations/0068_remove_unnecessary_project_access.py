@@ -18,34 +18,35 @@ from dynamodb import operations_legacy as dynamodb_ops
 from group_access import domain as group_access_domain
 
 
-ACCESS_TABLE_NAME = 'FI_project_access'
+ACCESS_TABLE_NAME = "FI_project_access"
 
 
 async def main() -> None:
     scan_attrs = {
-        'FilterExpression': (
-            Attr('has_access').eq(False)
-            & Attr('invitation').not_exists()
+        "FilterExpression": (
+            Attr("has_access").eq(False) & Attr("invitation").not_exists()
         ),
     }
     project_accesses = await dynamodb_ops.scan(ACCESS_TABLE_NAME, scan_attrs)
 
-    print('project_accesses')
+    print("project_accesses")
     print(project_accesses)
 
-    success = all(await collect(
-        [
-            group_access_domain.remove_access(
-                project_access['user_email'],
-                project_access['project_name']
-            )
-            for project_access in project_accesses
-        ],
-        workers=64
-    ))
+    success = all(
+        await collect(
+            [
+                group_access_domain.remove_access(
+                    project_access["user_email"],
+                    project_access["project_name"],
+                )
+                for project_access in project_accesses
+            ],
+            workers=64,
+        )
+    )
 
-    print(f'Success: {success}')
+    print(f"Success: {success}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(main())

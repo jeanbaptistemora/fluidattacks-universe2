@@ -23,28 +23,24 @@ from groups import dal as groups_dal
 from users import dal as users_dal
 
 
-STAGE: str = os.environ['STAGE']
+STAGE: str = os.environ["STAGE"]
 
 
 async def main() -> None:
     group_filter: Attr = (
-        Attr('organization').exists() |
-        Attr('companies').exists()
+        Attr("organization").exists() | Attr("companies").exists()
     )
-    groups = await in_thread(
-        groups_dal.get_all, group_filter, 'project_name'
-    )
+    groups = await in_thread(groups_dal.get_all, group_filter, "project_name")
     user_filter: Attr = (
-        Attr('organization').exists() |
-        Attr('company').exists()
+        Attr("organization").exists() | Attr("company").exists()
     )
-    users = await in_thread(users_dal.get_all, user_filter, 'email')
+    users = await in_thread(users_dal.get_all, user_filter, "email")
 
-    if STAGE == 'test':
-        print('-----\n')
+    if STAGE == "test":
+        print("-----\n")
         for user in users:
             print(f'User {user["email"]} will be updated')
-        print('-----\n')
+        print("-----\n")
         for group in groups:
             print(f'Group {group["project_name"]} will be updated')
     else:
@@ -52,8 +48,8 @@ async def main() -> None:
             await collect(
                 in_thread(
                     groups_dal.update,
-                    group['project_name'],
-                    {'companies': None, 'organization': None}
+                    group["project_name"],
+                    {"companies": None, "organization": None},
                 )
                 for group in group_chunk
             )
@@ -62,8 +58,8 @@ async def main() -> None:
             await collect(
                 in_thread(
                     users_dal.update,
-                    user['email'],
-                    {'company': None, 'organization': None}
+                    user["email"],
+                    {"company": None, "organization": None},
                 )
                 for user in user_chunk
             )
@@ -71,13 +67,9 @@ async def main() -> None:
 
 async def log(message: str) -> None:
     print(message)
-    if STAGE != 'test':
-        await in_thread(
-            bugsnag.notify,
-            Exception(message),
-            severity='info'
-        )
+    if STAGE != "test":
+        await in_thread(bugsnag.notify, Exception(message), severity="info")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(main())

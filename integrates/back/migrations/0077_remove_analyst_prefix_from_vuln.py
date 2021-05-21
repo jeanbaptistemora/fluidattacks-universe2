@@ -26,36 +26,34 @@ from dynamodb import operations_legacy as dynamodb_ops
 from vulnerabilities import dal as vulns_dal
 
 
-VULNERABILITY_TABLE = 'FI_vulnerabilities'
+VULNERABILITY_TABLE = "FI_vulnerabilities"
 
 
 async def remove_analyst_prefix_in_vuln_historic_state(
-    vuln: Vulnerability
+    vuln: Vulnerability,
 ) -> bool:
     success = True
     to_update = False
-    prefix = 'api-'
-    historic_state = cast(Historic, vuln.get('historic_state', []))
+    prefix = "api-"
+    historic_state = cast(Historic, vuln.get("historic_state", []))
     old_historic_state = copy.deepcopy(historic_state)
 
     for state_info in historic_state:
-        if state_info.get('analyst', '').startswith(prefix):
+        if state_info.get("analyst", "").startswith(prefix):
             to_update = True
-            state_info['analyst'] = state_info['analyst'][len(prefix):]
+            state_info["analyst"] = state_info["analyst"][len(prefix) :]
 
     if to_update:
         success = await vulns_dal.update(
-            vuln['finding_id'],
-            vuln['UUID'],
-            {
-                'historic_state': historic_state
-            }
+            vuln["finding_id"],
+            vuln["UUID"],
+            {"historic_state": historic_state},
         )
         print(f'finding_id = {vuln["finding_id"]}')
         print(f'vuln_id = {vuln["UUID"]}')
-        print('old_historic_state =')
+        print("old_historic_state =")
         pprint(old_historic_state)
-        print('historic_state =')
+        print("historic_state =")
         pprint(historic_state)
 
     return success
@@ -63,24 +61,24 @@ async def remove_analyst_prefix_in_vuln_historic_state(
 
 async def main() -> None:
     scan_attrs = {
-        'ExpressionAttributeNames': {'#id': 'UUID'},
-        'ProjectionExpression': ','.join({
-            '#id'
-            'finding_id',
-            'historic_state'
-        })
+        "ExpressionAttributeNames": {"#id": "UUID"},
+        "ProjectionExpression": ",".join(
+            {"#id", "finding_id", "historic_state"}
+        ),
     }
     vulns = await dynamodb_ops.scan(VULNERABILITY_TABLE, scan_attrs)
 
-    success = all(await collect(
-        [
-            remove_analyst_prefix_in_vuln_historic_state(vuln)
-            for vuln in vulns
-        ]
-    ))
+    success = all(
+        await collect(
+            [
+                remove_analyst_prefix_in_vuln_historic_state(vuln)
+                for vuln in vulns
+            ]
+        )
+    )
 
-    print(f'Success: {success}')
+    print(f"Success: {success}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(main())

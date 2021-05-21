@@ -18,30 +18,26 @@ import authz
 from dynamodb import operations_legacy as dynamodb_ops
 
 
-ACCESS_TABLE_NAME = 'FI_project_access'
-AUTHZ_TABLE_NAME = 'fi_authz'
+ACCESS_TABLE_NAME = "FI_project_access"
+AUTHZ_TABLE_NAME = "fi_authz"
 
 
 async def main() -> None:
     scan_attrs = {
-        'FilterExpression': (
-            Attr('has_access').eq(True)
-        ),
+        "FilterExpression": (Attr("has_access").eq(True)),
     }
     project_accesses = await dynamodb_ops.scan(ACCESS_TABLE_NAME, scan_attrs)
     project_accesses = [
-        (project_access['user_email'], project_access['project_name'])
+        (project_access["user_email"], project_access["project_name"])
         for project_access in project_accesses
     ]
 
     scan_attrs = {
-        'FilterExpression': (
-            Attr('level').eq('group')
-        ),
+        "FilterExpression": (Attr("level").eq("group")),
     }
     group_authzes = await dynamodb_ops.scan(AUTHZ_TABLE_NAME, scan_attrs)
     group_authzes = [
-        (group_authz['subject'], group_authz['object'])
+        (group_authz["subject"], group_authz["object"])
         for group_authz in group_authzes
     ]
 
@@ -51,19 +47,21 @@ async def main() -> None:
         if group_authz not in project_accesses
     ]
 
-    print('group_authzes_to_delete')
+    print("group_authzes_to_delete")
     print(group_authzes_to_delete)
 
-    success = all(await collect(
-        [
-            authz.revoke_group_level_role(email, group_name)
-            for email, group_name in group_authzes_to_delete
-        ],
-        workers=64
-    ))
+    success = all(
+        await collect(
+            [
+                authz.revoke_group_level_role(email, group_name)
+                for email, group_name in group_authzes_to_delete
+            ],
+            workers=64,
+        )
+    )
 
-    print(f'Success: {success}')
+    print(f"Success: {success}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(main())

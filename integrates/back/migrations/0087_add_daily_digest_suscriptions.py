@@ -27,45 +27,45 @@ from subscriptions.domain import (
 
 async def main() -> None:
     groups = await get_active_groups()
-    active_users = set(chain.from_iterable(
-        await collect(
-            group_access_domain.get_users_to_notify(group)
-            for group in groups
+    active_users = set(
+        chain.from_iterable(
+            await collect(
+                group_access_domain.get_users_to_notify(group)
+                for group in groups
+            )
         )
-    ))
+    )
 
     subscriptions = await get_subscriptions_to_entity_report(
-        audience='user',
+        audience="user",
     )
     digest_suscribers = [
-        subscription['pk']['email']
+        subscription["pk"]["email"]
         for subscription in subscriptions
-        if subscription['sk']['entity'].lower() == 'digest'
+        if subscription["sk"]["entity"].lower() == "digest"
     ]
 
     to_subscribe = [
-        user
-        for user in active_users
-        if user not in digest_suscribers
+        user for user in active_users if user not in digest_suscribers
     ]
 
     await collect(
         subscribe_user_to_entity_report(
-            event_frequency='DAILY',
-            report_entity='DIGEST',
-            report_subject='ALL_GROUPS',
+            event_frequency="DAILY",
+            report_entity="DIGEST",
+            report_subject="ALL_GROUPS",
             user_email=user,
         )
         for user in to_subscribe
     )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     execution_time = time.strftime(
-        'Execution Time:    %Y-%m-%d at %H:%M:%S UTC%Z'
+        "Execution Time:    %Y-%m-%d at %H:%M:%S UTC%Z"
     )
     run(main())
     finalization_time = time.strftime(
-        'Finalization Time: %Y-%m-%d at %H:%M:%S UTC%Z'
+        "Finalization Time: %Y-%m-%d at %H:%M:%S UTC%Z"
     )
-    print(f'{execution_time}\n{finalization_time}')
+    print(f"{execution_time}\n{finalization_time}")

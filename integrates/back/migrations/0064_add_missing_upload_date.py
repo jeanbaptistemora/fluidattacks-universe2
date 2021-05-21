@@ -31,26 +31,26 @@ from s3.operations import aio_client
 from __init__ import FI_AWS_S3_BUCKET
 
 
-STAGE: str = os.environ['STAGE']
+STAGE: str = os.environ["STAGE"]
 
 
 async def add_missing_upload_date(finding: Dict[str, Finding]) -> None:
-    finding_id = str(finding['finding_id'])
-    group_name = str(finding['project_name'])
+    finding_id = str(finding["finding_id"])
+    group_name = str(finding["project_name"])
     key_list = []
     date_list = []
     coroutines = []
-    finding_prefix = f'{group_name}/{finding_id}/'
+    finding_prefix = f"{group_name}/{finding_id}/"
     async with aio_client() as client:
         resp = await client.list_objects_v2(
             Bucket=FI_AWS_S3_BUCKET, Prefix=finding_prefix
         )
-        key_list = [item['Key'] for item in resp.get('Contents', [])]
-        date_list = [item['LastModified'] for item in resp.get('Contents', [])]
+        key_list = [item["Key"] for item in resp.get("Contents", [])]
+        date_list = [item["LastModified"] for item in resp.get("Contents", [])]
 
-    for index, evidence in enumerate(finding.get('files', [])):
-        if 'upload_date' not in evidence and evidence.get('file_url'):
-            file_url = finding_prefix + evidence['file_url']
+    for index, evidence in enumerate(finding.get("files", [])):
+        if "upload_date" not in evidence and evidence.get("file_url"):
+            file_url = finding_prefix + evidence["file_url"]
             if file_url in key_list:
                 file_index = key_list.index(file_url)
                 unaware_datetime = date_list[file_index]
@@ -58,41 +58,37 @@ async def add_missing_upload_date(finding: Dict[str, Finding]) -> None:
                 coroutines.append(
                     findings_dal.update(
                         finding_id,
-                        {f'files[{index}].upload_date': upload_date}
+                        {f"files[{index}].upload_date": upload_date},
                     )
                 )
 
     if len(coroutines) > 0:
-        if STAGE == 'apply':
+        if STAGE == "apply":
             await collect(coroutines)
         else:
-            print(f'should update finding {finding_id}')
+            print(f"should update finding {finding_id}")
 
 
 async def get_groups_findings(groups: List[str]) -> None:
     groups_data = await GroupLoader().load_many(groups)
     findings_ids = list(
         chain.from_iterable(
-            group_data['findings'] + group_data['drafts']
+            group_data["findings"] + group_data["drafts"]
             for group_data in groups_data
         )
     )
     findings = await collect(map(findings_dal.get_finding, findings_ids))
 
-    await collect(
-        map(add_missing_upload_date, findings),
-        workers=10
-    )
+    await collect(map(add_missing_upload_date, findings), workers=10)
 
 
 async def main() -> None:
     groups = await get_active_groups()
     await collect(
-        [get_groups_findings(list_group)
-         for list_group in chunked(groups, 5)],
-        workers=10
+        [get_groups_findings(list_group) for list_group in chunked(groups, 5)],
+        workers=10,
     )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(main())

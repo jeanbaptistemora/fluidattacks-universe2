@@ -23,9 +23,9 @@ from dynamodb import operations_legacy as dynamodb_ops
 from organizations import domain as orgs_domain
 
 
-STAGE: str = os.environ['STAGE']
-ORGANIZATION_TABLE = 'fi_organizations'
-PORTFOLIO_TABLE = 'fi_portfolios'
+STAGE: str = os.environ["STAGE"]
+ORGANIZATION_TABLE = "fi_organizations"
+PORTFOLIO_TABLE = "fi_portfolios"
 RESOURCE_OPTIONS = dynamodb_ops.RESOURCE_OPTIONS
 ORGANIZATION_CODENAME_MAP: Dict[str, str] = {
     # Fill this dictionary with keys in the following syntax:
@@ -34,20 +34,19 @@ ORGANIZATION_CODENAME_MAP: Dict[str, str] = {
 
 
 async def dynamo_async_scan(
-    table: str,
-    scan_attrs: Dict[str, Attr]
+    table: str, scan_attrs: Dict[str, Attr]
 ) -> List[Any]:
     response_items: List[Any] = []
     async with aioboto3.resource(**RESOURCE_OPTIONS) as dynamodb_resource:
         dynamo_table = await dynamodb_resource.Table(table)
         response = await dynamo_table.scan(**scan_attrs)
-        response_items += response.get('Items', [])
-        while response.get('LastEvaluatedKey'):
-            scan_attrs.update({
-                'ExclusiveStartKey': response.get('LastEvaluatedKey')
-            })
+        response_items += response.get("Items", [])
+        while response.get("LastEvaluatedKey"):
+            scan_attrs.update(
+                {"ExclusiveStartKey": response.get("LastEvaluatedKey")}
+            )
             response = await dynamo_table.scan(**scan_attrs)
-            response_items += response['Items']
+            response_items += response["Items"]
     return response_items
 
 
@@ -56,17 +55,14 @@ async def main() -> None:
         if org_name in ORGANIZATION_CODENAME_MAP:
             new_org_name = ORGANIZATION_CODENAME_MAP[org_name].lower()
             new_item: Dict[str, str] = {
-                'pk': org_id,
-                'sk': f'INFO#{new_org_name}'
+                "pk": org_id,
+                "sk": f"INFO#{new_org_name}",
             }
             delete_item = DynamoDeleteType(
-                Key={
-                    'pk': org_id,
-                    'sk': f'INFO#{org_name}'
-                }
+                Key={"pk": org_id, "sk": f"INFO#{org_name}"}
             )
             portfolio_attrs = {
-                'FilterExpression': Attr('organization').eq(org_name)
+                "FilterExpression": Attr("organization").eq(org_name)
             }
             portfolio_items = await dynamo_async_scan(
                 PORTFOLIO_TABLE, portfolio_attrs
@@ -76,30 +72,32 @@ async def main() -> None:
                 portfolio_keys.append(
                     DynamoDeleteType(
                         Key={
-                            'organization': item['organization'],
-                            'tag': item['tag']
+                            "organization": item["organization"],
+                            "tag": item["tag"],
                         }
                     )
                 )
-                item.update({
-                    'organization': new_org_name
-                })
-            if STAGE == 'test':
-                print(f'''
+                item.update({"organization": new_org_name})
+            if STAGE == "test":
+                print(
+                    f"""
                     -----
                     Organization {org_name}:
                         The following record will be created:
                             {new_item}
                         The following record will be deleted:
                             {delete_item}
-                ''')
+                """
+                )
                 for index, item in enumerate(portfolio_items):
-                    print(f'''
+                    print(
+                        f"""
                             The following portfolio will be created:
                                 {item}
                             The following portfolio will be deleted:
                                 {portfolio_keys[index]}
-                    ''')
+                    """
+                    )
             else:
                 await dynamodb_ops.put_item(ORGANIZATION_TABLE, new_item)
                 await dynamodb_ops.delete_item(ORGANIZATION_TABLE, delete_item)
@@ -110,5 +108,5 @@ async def main() -> None:
                     )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(main())

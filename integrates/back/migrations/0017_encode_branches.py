@@ -20,59 +20,58 @@ import bugsnag
 from groups import dal as groups_dal
 
 
-STAGE: str = os.environ['STAGE']
+STAGE: str = os.environ["STAGE"]
 
 
 def log(message: str) -> None:
     print(message)
-    if STAGE != 'test':
-        bugsnag.notify(Exception(message), severity='info')
+    if STAGE != "test":
+        bugsnag.notify(Exception(message), severity="info")
 
 
 def main() -> None:
     """
     Update resources
     """
-    log('Starting migration 0017')
+    log("Starting migration 0017")
     all_groups = groups_dal.get_all(
         filtering_exp=(
-            'attribute_exists(environments) or attribute_exists(repositories)'
+            "attribute_exists(environments) or attribute_exists(repositories)"
         ),
-        data_attr='project_name,environments,repositories')
+        data_attr="project_name,environments,repositories",
+    )
 
-    if STAGE == 'test':
-        log('Resources will be updated as follows:')
+    if STAGE == "test":
+        log("Resources will be updated as follows:")
 
     for group in all_groups:
-        group_name = group.get('project_name')
+        group_name = group.get("project_name")
 
-        if STAGE == 'test':
-            log(f'---\nGroup: {group_name}')
+        if STAGE == "test":
+            log(f"---\nGroup: {group_name}")
 
-        repos = group.get('repositories', [])
+        repos = group.get("repositories", [])
         for repo in repos:
-            url = repo.get('urlRepo', '')
-            branch = repo.get('branch', '')
-            branch_enc = quote(branch, safe='')
+            url = repo.get("urlRepo", "")
+            branch = repo.get("branch", "")
+            branch_enc = quote(branch, safe="")
             # Update previously not encoded branches
-            if (
-                url == quote(unquote(url), safe='') and
-                branch != quote(unquote(branch), safe='')
+            if url == quote(unquote(url), safe="") and branch != quote(
+                unquote(branch), safe=""
             ):
-                if STAGE == 'test':
-                    log(f'---\nrepo before: {repo}')
-                repo['branch'] = branch_enc
-                if STAGE == 'test':
-                    log(f'---\nrepo after: {repo}')
+                if STAGE == "test":
+                    log(f"---\nrepo before: {repo}")
+                repo["branch"] = branch_enc
+                if STAGE == "test":
+                    log(f"---\nrepo after: {repo}")
 
-        if STAGE != 'test':
-            success : bool = groups_dal.update(
-                group_name,
-                {'repositories': repos}
+        if STAGE != "test":
+            success: bool = groups_dal.update(
+                group_name, {"repositories": repos}
             )
             if success:
-                log(f'Migration 0017: Group {group_name} succesfully encoded')
+                log(f"Migration 0017: Group {group_name} succesfully encoded")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

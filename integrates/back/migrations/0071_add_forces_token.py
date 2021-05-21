@@ -21,33 +21,33 @@ from groups.domain import get_groups_with_forces
 
 async def get_old_forces_token(group: str) -> Optional[str]:
     client = boto3.client(
-        'secretsmanager',
-        aws_access_key_id='serves_prod_key',
-        aws_secret_access_key='serves_prod_secret',
+        "secretsmanager",
+        aws_access_key_id="serves_prod_key",
+        aws_secret_access_key="serves_prod_secret",
     )  # nosec
     try:
         response = await aioextensions.in_thread(
             client.get_secret_value,
-            SecretId=f'forces-token-{group}',
+            SecretId=f"forces-token-{group}",
         )
     except ClientError as exc:
-        print(f'[ERROR] {group}', exc)
+        print(f"[ERROR] {group}", exc)
         return None
-    return response.get('SecretString')
+    return response.get("SecretString")
 
 
 @aioextensions.run_decorator
 async def main() -> None:
     projects = await get_groups_with_forces()
     for project in projects:
-        print(f'[INFO] processing {project}')
+        print(f"[INFO] processing {project}")
         current_token = await get_old_forces_token(project)
         if current_token:
             if await update_token(project, current_token):
-                print(f'[OK] {project}')
+                print(f"[OK] {project}")
             else:
-                print(f'[FAIL] {project}')
+                print(f"[FAIL] {project}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

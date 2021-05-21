@@ -21,24 +21,23 @@ from groups import dal as groups_dal
 from newutils import datetime as datetime_utils
 
 
-STAGE: str = os.environ['STAGE']
+STAGE: str = os.environ["STAGE"]
 
 
 def log(message: str) -> None:
     print(message)
-    bugsnag.notify(Exception(message), severity='info')
+    bugsnag.notify(Exception(message), severity="info")
 
 
 def guess_owner(group: str) -> str:
-    all_users = (
-        group_access_domain.get_group_users(group, active=True) +
-        group_access_domain.get_group_users(group, active=False)
-    )
+    all_users = group_access_domain.get_group_users(
+        group, active=True
+    ) + group_access_domain.get_group_users(group, active=False)
 
-    possible_owner: str = 'unknown'
+    possible_owner: str = "unknown"
 
     for email in all_users:
-        if authz.get_group_level_role(email, group) == 'customeradmin':
+        if authz.get_group_level_role(email, group) == "customeradmin":
             possible_owner = email
             break
 
@@ -46,35 +45,37 @@ def guess_owner(group: str) -> str:
 
 
 def main() -> None:
-    log('Starting migration 0003')
+    log("Starting migration 0003")
 
     for group in groups_dal.get_all():
         # Attributes
-        group_name = group['project_name']
-        has_forces = group.get('has_forces', False)
-        has_drills = group.get('has_drills', False)
-        type_ = group.get('type', 'continuous')
+        group_name = group["project_name"]
+        has_forces = group.get("has_forces", False)
+        has_drills = group.get("has_drills", False)
+        type_ = group.get("type", "continuous")
 
         log(group_name)
         new_data = {
-            'historic_configuration': [{
-                'date': datetime_utils.get_now_as_str(),
-                'has_forces': has_forces,
-                'has_drills': has_drills,
-                'requester': guess_owner(group_name),
-                'type': type_,
-            }]
+            "historic_configuration": [
+                {
+                    "date": datetime_utils.get_now_as_str(),
+                    "has_forces": has_forces,
+                    "has_drills": has_drills,
+                    "requester": guess_owner(group_name),
+                    "type": type_,
+                }
+            ]
         }
         new_data_str = json.dumps(new_data, indent=2)
 
-        if STAGE == 'test':
-            log(f'new data would be: {new_data_str}')
+        if STAGE == "test":
+            log(f"new data would be: {new_data_str}")
         else:
-            log(f'applied: {new_data_str}')
+            log(f"applied: {new_data_str}")
             groups_dal.update(group_name, new_data)
 
-        log('---')
+        log("---")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

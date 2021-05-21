@@ -18,72 +18,57 @@ from aioextensions import (
 )
 
 # Local libraries
-from custom_types import (
-    Vulnerability,
-    Historic
-)
+from custom_types import Vulnerability, Historic
 from dynamodb import operations_legacy as dynamodb_ops
 from newutils import datetime as datetime_utils
 from vulnerabilities import dal as vulns_dal
 
 
-VULNERABILITY_TABLE = 'FI_vulnerabilities'
+VULNERABILITY_TABLE = "FI_vulnerabilities"
 
 
-async def add_source_field_to_historic_state(
-    vuln: Vulnerability
-) -> bool:
+async def add_source_field_to_historic_state(vuln: Vulnerability) -> bool:
     success = True
     to_update = False
-    historic_state = cast(Historic, vuln.get('historic_state', []))
+    historic_state = cast(Historic, vuln.get("historic_state", []))
     old_historic_state = copy.deepcopy(historic_state)
     is_previous_api_skim_analyst = False
 
     for state_info in historic_state:
-        if not state_info.get('source'):
+        if not state_info.get("source"):
             to_update = True
-            is_api_skim_analyst = (
-                state_info.get('analyst', '')
-                in {
-                    'api-kamado@fluidattacks.com',
-                    'api-drestrepo@fluidattacks.com'
-                }
-            )
-            is_skim_analyst = (
-                state_info.get('analyst', '')
-                in {'kamado@fluidattacks.com', 'drestrepo@fluidattacks.com'}
-            )
+            is_api_skim_analyst = state_info.get("analyst", "") in {
+                "api-kamado@fluidattacks.com",
+                "api-drestrepo@fluidattacks.com",
+            }
+            is_skim_analyst = state_info.get("analyst", "") in {
+                "kamado@fluidattacks.com",
+                "drestrepo@fluidattacks.com",
+            }
             if is_api_skim_analyst:
                 is_previous_api_skim_analyst = True
             if (
-                (
-                    is_api_skim_analyst
-                    or (
-                        is_previous_api_skim_analyst and is_skim_analyst
-                    )
-                )
-                and (
-                    datetime_utils.get_from_str(state_info['date'])
-                    > datetime_utils.get_from_str('2020-08-20 00:00:00')
-                )
+                is_api_skim_analyst
+                or (is_previous_api_skim_analyst and is_skim_analyst)
+            ) and (
+                datetime_utils.get_from_str(state_info["date"])
+                > datetime_utils.get_from_str("2020-08-20 00:00:00")
             ):
-                state_info['source'] = 'skims'
+                state_info["source"] = "skims"
             else:
-                state_info['source'] = 'integrates'
+                state_info["source"] = "integrates"
 
     if to_update:
         success = await vulns_dal.update(
-            vuln['finding_id'],
-            vuln['UUID'],
-            {
-                'historic_state': historic_state
-            }
+            vuln["finding_id"],
+            vuln["UUID"],
+            {"historic_state": historic_state},
         )
         print(f'finding_id = {vuln["finding_id"]}')
         print(f'vuln_id = {vuln["UUID"]}')
-        print('old_historic_state =')
+        print("old_historic_state =")
         pprint(old_historic_state)
-        print('historic_state =')
+        print("historic_state =")
         pprint(historic_state)
 
     return success
@@ -91,24 +76,21 @@ async def add_source_field_to_historic_state(
 
 async def main() -> None:
     scan_attrs = {
-        'ExpressionAttributeNames': {'#id': 'UUID'},
-        'ProjectionExpression': ','.join({
-            '#id',
-            'finding_id',
-            'historic_state'
-        })
+        "ExpressionAttributeNames": {"#id": "UUID"},
+        "ProjectionExpression": ",".join(
+            {"#id", "finding_id", "historic_state"}
+        ),
     }
     vulns = await dynamodb_ops.scan(VULNERABILITY_TABLE, scan_attrs)
 
-    success = all(await collect(
-        [
-            add_source_field_to_historic_state(vuln)
-            for vuln in vulns
-        ]
-    ))
+    success = all(
+        await collect(
+            [add_source_field_to_historic_state(vuln) for vuln in vulns]
+        )
+    )
 
-    print(f'Success: {success}')
+    print(f"Success: {success}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(main())

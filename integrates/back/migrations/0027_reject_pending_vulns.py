@@ -27,52 +27,44 @@ from vulnerabilities import (
 
 
 django.setup()
-STAGE: str = os.environ['STAGE']
+STAGE: str = os.environ["STAGE"]
 
 
 async def reject_vulnerabilities(group: str) -> None:
-    findings = await findings_domain.list_findings(
-        get_new_context(),
-        [group]
-    )
+    findings = await findings_domain.list_findings(get_new_context(), [group])
     for finding_id in findings[0]:
         vulns = await vulns_domain.list_vulnerabilities_async([finding_id])
         for vuln in vulns:
-            vuln_uuid = vuln.get('UUID')
-            historic_state = vuln.get('historic_state', [{}])
+            vuln_uuid = vuln.get("UUID")
+            historic_state = vuln.get("historic_state", [{}])
             last_state = historic_state[-1]
             if (
-                'approval_status' in last_state and
-                last_state.get('approval_status') == 'PENDING'
+                "approval_status" in last_state
+                and last_state.get("approval_status") == "PENDING"
             ):
                 if not await reject_vulnerability(
-                    finding_id,
-                    historic_state,
-                    vuln_uuid
+                    finding_id, historic_state, vuln_uuid
                 ):
                     print(
-                        f'Some error happened while rejecting vuln {vuln_uuid}'
-                        f' of finding {finding_id} in group {group}'
+                        f"Some error happened while rejecting vuln {vuln_uuid}"
+                        f" of finding {finding_id} in group {group}"
                     )
                 else:
                     print(
-                        f'Success rejecting vuln {vuln_uuid}'
-                        f' of finding {finding_id} in group {group}'
+                        f"Success rejecting vuln {vuln_uuid}"
+                        f" of finding {finding_id} in group {group}"
                     )
 
 
 async def reject_vulnerability(
-        finding_id: str,
-        historic_state: List[Dict[str, str]],
-        vuln_id: str) -> bool:
+    finding_id: str, historic_state: List[Dict[str, str]], vuln_id: str
+) -> bool:
     """ old reject_vulnerability function"""
     historic_state.pop()
     response = False
     if historic_state:
         response = await vulns_dal.update(
-            finding_id,
-            vuln_id,
-            {'historic_state': historic_state}
+            finding_id, vuln_id, {"historic_state": historic_state}
         )
     else:
         response = await vulns_dal.delete(vuln_id, finding_id)
@@ -81,11 +73,8 @@ async def reject_vulnerability(
 
 async def main() -> None:
     groups = await groups_domain.get_active_projects()
-    await collect(
-        reject_vulnerabilities(group)
-        for group in groups
-    )
+    await collect(reject_vulnerabilities(group) for group in groups)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(main())

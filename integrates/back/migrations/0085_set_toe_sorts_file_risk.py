@@ -35,23 +35,19 @@ async def update_sorts_risk_level(toe: GitRootToeLines) -> None:
 
 async def main() -> None:
     groups = await get_active_groups()
-    groups_toes: List[GitRootToeLines] = list(chain.from_iterable(
-        await collect([
-            get_by_group(group)
-            for group in groups
-        ])
-    ))
-    print(f'We have {len(groups)} groups and {len(groups_toes)} toes in total')
+    groups_toes: List[GitRootToeLines] = list(
+        chain.from_iterable(
+            await collect([get_by_group(group) for group in groups])
+        )
+    )
+    print(f"We have {len(groups)} groups and {len(groups_toes)} toes in total")
 
     await collect(
-        [
-            update_sorts_risk_level(group_toe)
-            for group_toe in groups_toes
-        ],
-        workers=1024
+        [update_sorts_risk_level(group_toe) for group_toe in groups_toes],
+        workers=1024,
     )
-    print('Migration finished')
+    print("Migration finished")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(main())

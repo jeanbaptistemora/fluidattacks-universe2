@@ -40,21 +40,21 @@ from dynamodb.operations_legacy import RESOURCE_OPTIONS
 from findings.dal import update
 
 
-STAGE: str = os.environ['STAGE']
-FINDINGS_TABLE = 'FI_findings'
+STAGE: str = os.environ["STAGE"]
+FINDINGS_TABLE = "FI_findings"
 
 
 async def scan(*, table_name: str, **options: Any) -> Any:
     async with aioboto3.resource(RESOURCE_OPTIONS) as dynamodb_resource:
         table = await dynamodb_resource.Table(table_name)
         response = await table.scan(**options)
-        for elem in response.get('Items', []):
+        for elem in response.get("Items", []):
             yield elem
 
-        while 'LastEvaluatedKey' in response:
-            options['ExclusiveStartKey'] = response['LastEvaluatedKey']
+        while "LastEvaluatedKey" in response:
+            options["ExclusiveStartKey"] = response["LastEvaluatedKey"]
             response = await table.scan(**options)
-            for elem in response.get('Items', []):
+            for elem in response.get("Items", []):
                 yield elem
 
 
@@ -63,13 +63,13 @@ async def main() -> None:
     async for finding in scan(table_name=FINDINGS_TABLE):
         if (
             # We don't care about wiped findings
-            finding.get('finding') == 'WIPED'
-            or finding.get('affected_systems') == 'Masked'
+            finding.get("finding") == "WIPED"
+            or finding.get("affected_systems") == "Masked"
         ):
             continue
 
-        finding_id = finding['finding_id']
-        old_historic_state = finding.get('historic_state', [])
+        finding_id = finding["finding_id"]
+        old_historic_state = finding.get("historic_state", [])
         historic_state = old_historic_state.copy()
 
         # If has release date it was approved and the customer saw it
@@ -77,30 +77,32 @@ async def main() -> None:
         # If was deleted before being approved in the historic state
         # It means that someone deleted the finding by confusing it with a
         # draft due to the missing APPROVED state
-        release_date = finding.get('releaseDate')
-        if release_date \
-                and len(historic_state) >= 2 \
-                and historic_state[-1]['state'] == 'DELETED' \
-                and historic_state[-2] != {} \
-                and historic_state[-2]['state'] != 'APPROVED':
+        release_date = finding.get("releaseDate")
+        if (
+            release_date
+            and len(historic_state) >= 2
+            and historic_state[-1]["state"] == "DELETED"
+            and historic_state[-2] != {}
+            and historic_state[-2]["state"] != "APPROVED"
+        ):
             # Remove the last state (the deleted one)
             historic_state.pop()
 
-            print('=' * 80)
-            print(f'finding_id = {finding_id}')
+            print("=" * 80)
+            print(f"finding_id = {finding_id}")
             print(f'project_name = {finding["project_name"]}')
-            print(f'release_date = {release_date}')
-            print('old_historic_state =')
+            print(f"release_date = {release_date}")
+            print("old_historic_state =")
             pprint(old_historic_state)
-            print('historic_state =')
+            print("historic_state =")
             pprint(historic_state)
 
             updates.append(
-                update(finding_id, {'historic_state': historic_state})
+                update(finding_id, {"historic_state": historic_state})
             )
 
-    print(f'Success: {all(await collect(updates, workers=64))}')
+    print(f"Success: {all(await collect(updates, workers=64))}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(main())

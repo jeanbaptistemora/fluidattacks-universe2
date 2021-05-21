@@ -18,20 +18,14 @@ from dynamodb import operations_legacy as dynamodb_ops
 from vulnerabilities import dal as vulns_dal
 
 
-VULNERABILITY_TABLE = 'FI_vulnerabilities'
+VULNERABILITY_TABLE = "FI_vulnerabilities"
 
 
-async def remove_source_field_from_vuln(
-    vuln: Vulnerability
-) -> bool:
+async def remove_source_field_from_vuln(vuln: Vulnerability) -> bool:
     success = True
-    if vuln.get('source'):
+    if vuln.get("source"):
         success = await vulns_dal.update(
-            vuln['finding_id'],
-            vuln['UUID'],
-            {
-                'source': None
-            }
+            vuln["finding_id"], vuln["UUID"], {"source": None}
         )
         print(f'Removed source from {vuln["UUID"]}')
 
@@ -40,20 +34,17 @@ async def remove_source_field_from_vuln(
 
 async def main() -> None:
     scan_attrs = {
-        'ExpressionAttributeNames': {'#id': 'UUID', '#source': 'source'},
-        'ProjectionExpression': ','.join({'#id', 'finding_id', '#source'})
+        "ExpressionAttributeNames": {"#id": "UUID", "#source": "source"},
+        "ProjectionExpression": ",".join({"#id", "finding_id", "#source"}),
     }
     vulns = await dynamodb_ops.scan(VULNERABILITY_TABLE, scan_attrs)
 
-    success = all(await collect(
-        [
-            remove_source_field_from_vuln(vuln)
-            for vuln in vulns
-        ]
-    ))
+    success = all(
+        await collect([remove_source_field_from_vuln(vuln) for vuln in vulns])
+    )
 
-    print(f'Success: {success}')
+    print(f"Success: {success}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(main())

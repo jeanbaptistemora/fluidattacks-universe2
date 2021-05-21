@@ -10,7 +10,7 @@ pythonFormat {
     "docs"
     "forces"
     "integrates/arch"
-    # "integrates/back/migrations"
+    "integrates/back/migrations"
     # "integrates/back/packages"
     "integrates/back/tests"
     "integrates/charts"

@@ -33,10 +33,10 @@ from findings import dal as findings_dal
 from vulnerabilities import dal as vulns_dal
 
 
-FINDINGS_TABLE: str = 'FI_findings'
-FINDINGS_TABLE_COPY: str = 'fi_findings_copy2'
-VULNS_TABLE: str = 'FI_vulnerabilities'
-VULNS_TABLE_COPY: str = 'fi_vulnerabilities_copy'
+FINDINGS_TABLE: str = "FI_findings"
+FINDINGS_TABLE_COPY: str = "fi_findings_copy2"
+VULNS_TABLE: str = "FI_vulnerabilities"
+VULNS_TABLE_COPY: str = "fi_vulnerabilities_copy"
 
 
 async def restore_historic_state(
@@ -45,64 +45,57 @@ async def restore_historic_state(
 ) -> bool:
     success = True
     to_update = False
-    finding_id = item['finding_id']
-    vuln_uuid = item.get('UUID', '')
-    prefix = 'api-'
-    old_historic_state = cast(Historic, item.get('historic_state', []))
+    finding_id = item["finding_id"]
+    vuln_uuid = item.get("UUID", "")
+    prefix = "api-"
+    old_historic_state = cast(Historic, item.get("historic_state", []))
     historic_state = copy.deepcopy(old_historic_state)
 
     restore_table = (
         await dynamodb_ops.query(
             FINDINGS_TABLE_COPY,
-            {'KeyConditionExpression': Key('finding_id').eq(finding_id)}
-        ) if type_item == 'finding'
+            {"KeyConditionExpression": Key("finding_id").eq(finding_id)},
+        )
+        if type_item == "finding"
         else await dynamodb_ops.query(
             VULNS_TABLE_COPY,
             {
-                'IndexName': 'gsi_uuid',
-                'KeyConditionExpression': Key('UUID').eq(vuln_uuid)
-            }
+                "IndexName": "gsi_uuid",
+                "KeyConditionExpression": Key("UUID").eq(vuln_uuid),
+            },
         )
     )
 
     r_old_historic_state = cast(
-        Historic,
-        restore_table[0].get('historic_state', [])
+        Historic, restore_table[0].get("historic_state", [])
     )
     r_historic_state = copy.deepcopy(r_old_historic_state)
 
     for state_info, r_state_info in zip(historic_state, r_historic_state):
-        if state_info.get('analyst', '').startswith(prefix):
+        if state_info.get("analyst", "").startswith(prefix):
             to_update = True
-            state_info['analyst'] = state_info['analyst'][len(prefix):]
-        if state_info.get('analyst', '') == 'Masked':
+            state_info["analyst"] = state_info["analyst"][len(prefix) :]
+        if state_info.get("analyst", "") == "Masked":
             to_update = True
-            state_info['analyst'] = r_state_info['analyst']
-        if state_info.get('state', '') == 'Masked':
+            state_info["analyst"] = r_state_info["analyst"]
+        if state_info.get("state", "") == "Masked":
             to_update = True
-            state_info['state'] = r_state_info['state']
+            state_info["state"] = r_state_info["state"]
 
     if to_update:
-        if type_item == 'finding':
+        if type_item == "finding":
             success = await findings_dal.update(
-                finding_id,
-                {
-                    'historic_state': historic_state
-                }
+                finding_id, {"historic_state": historic_state}
             )
-            print(f'finding_id = {finding_id}')
+            print(f"finding_id = {finding_id}")
         else:
             success = await vulns_dal.update(
-                finding_id,
-                vuln_uuid,
-                {
-                    'historic_state': historic_state
-                }
+                finding_id, vuln_uuid, {"historic_state": historic_state}
             )
-            print(f'vuln_uuid = {vuln_uuid}')
-        print('old_historic_state =')
+            print(f"vuln_uuid = {vuln_uuid}")
+        print("old_historic_state =")
         pprint(old_historic_state)
-        print('historic_state =')
+        print("historic_state =")
         pprint(historic_state)
 
     return success
@@ -110,53 +103,58 @@ async def restore_historic_state(
 
 async def main() -> None:
     groups_to_restore = [
-        'whitehorse',
-        'cankuzo',
-        'varvarin',
-        'dazmur',
-        'ubombo',
-        'denver',
-        'tisina',
-        'quincy',
-        'alvin',
-        'kalaheo',
-        'chaoyang',
-        'manati',
-        'sylvania',
-        'sylvester',
-        'chickasha',
-        'vaduz',
-        'stornoway',
-        'loudon',
-        'saldus',
-        'jember',
-        'mandera',
-        'sandy',
-        'albury',
-        'sarapul',
-        'pomona',
-        'yushel',
-        'latur',
-        'orillia',
-        'anthem',
-        'tatui',
+        "whitehorse",
+        "cankuzo",
+        "varvarin",
+        "dazmur",
+        "ubombo",
+        "denver",
+        "tisina",
+        "quincy",
+        "alvin",
+        "kalaheo",
+        "chaoyang",
+        "manati",
+        "sylvania",
+        "sylvester",
+        "chickasha",
+        "vaduz",
+        "stornoway",
+        "loudon",
+        "saldus",
+        "jember",
+        "mandera",
+        "sandy",
+        "albury",
+        "sarapul",
+        "pomona",
+        "yushel",
+        "latur",
+        "orillia",
+        "anthem",
+        "tatui",
     ]
 
     findings = [
         finding
         for group in groups_to_restore
-        for finding in await dynamodb_ops.query('FI_findings', {
-            'IndexName': 'project_findings',
-            'KeyConditionExpression': Key('project_name').eq(group)
-        })
+        for finding in await dynamodb_ops.query(
+            "FI_findings",
+            {
+                "IndexName": "project_findings",
+                "KeyConditionExpression": Key("project_name").eq(group),
+            },
+        )
     ]
 
-    success_findings = all(await collect(
-        [
-            restore_historic_state(finding, 'finding')
-            for finding in findings
-        ]
-    ))
+    success_findings = all(
+        await collect(
+            [
+                restore_historic_state(finding, "finding")
+                for finding in findings
+            ]
+        )
+    )
 
     vulns = [
         vuln
@@ -164,30 +162,27 @@ async def main() -> None:
         for vuln in await dynamodb_ops.query(
             VULNS_TABLE_COPY,
             {
-                'KeyConditionExpression': (
-                    Key('finding_id').eq(finding['finding_id'])
+                "KeyConditionExpression": (
+                    Key("finding_id").eq(finding["finding_id"])
                 )
-            }
+            },
         )
     ]
 
-    success_vulns = all(await collect(
-        [
-            restore_historic_state(vuln, 'vuln')
-            for vuln in vulns
-        ]
-    ))
+    success_vulns = all(
+        await collect([restore_historic_state(vuln, "vuln") for vuln in vulns])
+    )
 
-    print(f'Success findings: {success_findings}')
-    print(f'Success vulns: {success_vulns}')
+    print(f"Success findings: {success_findings}")
+    print(f"Success vulns: {success_vulns}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     execution_time = time.strftime(
-        'Execution Time:    %Y-%m-%d at %H:%M:%S UTC%Z'
+        "Execution Time:    %Y-%m-%d at %H:%M:%S UTC%Z"
     )
     run(main())
     finalization_time = time.strftime(
-        'Finalization Time: %Y-%m-%d at %H:%M:%S UTC%Z'
+        "Finalization Time: %Y-%m-%d at %H:%M:%S UTC%Z"
     )
-    print(f'{execution_time}\n{finalization_time}')
+    print(f"{execution_time}\n{finalization_time}")

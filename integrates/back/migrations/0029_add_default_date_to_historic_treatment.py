@@ -18,61 +18,61 @@ from dynamodb.operations_legacy import RESOURCE_OPTIONS
 from findings.dal import update
 
 
-STAGE: str = os.environ['STAGE']
-FINDINGS_TABLE = 'FI_findings'
+STAGE: str = os.environ["STAGE"]
+FINDINGS_TABLE = "FI_findings"
 
 
 async def scan(*, table_name: str, **options: Any) -> Any:
     async with aioboto3.resource(RESOURCE_OPTIONS) as dynamodb_resource:
         table = await dynamodb_resource.Table(table_name)
         response = await table.scan(**options)
-        for elem in response.get('Items', []):
+        for elem in response.get("Items", []):
             yield elem
 
-        while 'LastEvaluatedKey' in response:
-            options['ExclusiveStartKey'] = response['LastEvaluatedKey']
+        while "LastEvaluatedKey" in response:
+            options["ExclusiveStartKey"] = response["LastEvaluatedKey"]
             response = await table.scan(**options)
-            for elem in response.get('Items', []):
+            for elem in response.get("Items", []):
                 yield elem
 
 
 async def main() -> None:
     async for finding in scan(table_name=FINDINGS_TABLE):
-        finding_id = finding['finding_id']
-        project_name = finding.get('project_name', '')
-        historic_treatment = finding.get('historic_treatment', [])
+        finding_id = finding["finding_id"]
+        project_name = finding.get("project_name", "")
+        historic_treatment = finding.get("historic_treatment", [])
         old_historic_treatment = copy.deepcopy(historic_treatment)
         to_update = False
         first_date = None
         last_date = None
 
         for treatment_info in historic_treatment:
-            if 'date' in treatment_info:
-                last_date = treatment_info['date']
+            if "date" in treatment_info:
+                last_date = treatment_info["date"]
                 if not first_date:
                     first_date = last_date
             elif last_date:
                 to_update = True
-                treatment_info['date'] = last_date
+                treatment_info["date"] = last_date
 
         for treatment_info in historic_treatment:
-            if 'date' not in treatment_info:
+            if "date" not in treatment_info:
                 to_update = True
-                treatment_info['date'] = first_date or '0001-01-01 00:00:00'
+                treatment_info["date"] = first_date or "0001-01-01 00:00:00"
 
         if to_update:
             success = await update(
-                finding_id,
-                {"historic_treatment": historic_treatment}
+                finding_id, {"historic_treatment": historic_treatment}
             )
-            print('old_historic_treatment =')
+            print("old_historic_treatment =")
             pprint(old_historic_treatment)
-            print('historic_treatment =')
+            print("historic_treatment =")
             pprint(historic_treatment)
             print(
-                f'{project_name} & fin {finding_id} - '
-                f'historic_treatment / Success: {success}'
+                f"{project_name} & fin {finding_id} - "
+                f"historic_treatment / Success: {success}"
             )
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     run(main())

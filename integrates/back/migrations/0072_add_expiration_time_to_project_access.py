@@ -24,33 +24,31 @@ from group_access import domain as group_access_domain
 from newutils import datetime as datetime_utils
 
 
-TABLE_ACCESS_NAME = 'FI_project_access'
+TABLE_ACCESS_NAME = "FI_project_access"
 
 
 async def add_expiration_time_to_project_access(
-    project_access: ProjectAccessType
+    project_access: ProjectAccessType,
 ) -> bool:
     success = True
-    user_email = project_access['user_email']
-    group_name = project_access['project_name']
-    invitation = project_access['invitation']
+    user_email = project_access["user_email"]
+    group_name = project_access["project_name"]
+    invitation = project_access["invitation"]
     expiration_time = datetime_utils.get_as_epoch(
         datetime_utils.get_plus_delta(
-            datetime_utils.get_from_str(invitation['date']),
-            weeks=1
+            datetime_utils.get_from_str(invitation["date"]), weeks=1
         )
     )
 
-    success = cast(bool, await group_access_domain.update(
-        user_email,
-        group_name,
-        {
-            'expiration_time': expiration_time
-        }
-    ))
-    print('project_access')
+    success = cast(
+        bool,
+        await group_access_domain.update(
+            user_email, group_name, {"expiration_time": expiration_time}
+        ),
+    )
+    print("project_access")
     pprint(project_access)
-    print('expiration_time')
+    print("expiration_time")
     pprint(expiration_time)
 
     return success
@@ -58,23 +56,24 @@ async def add_expiration_time_to_project_access(
 
 async def main() -> None:
     scan_attrs = {
-        'FilterExpression': (
-            Attr('invitation').exists() &
-            Attr('invitation.is_used').eq(False)
+        "FilterExpression": (
+            Attr("invitation").exists() & Attr("invitation.is_used").eq(False)
         ),
     }
     project_accesses = await dynamodb_ops.scan(TABLE_ACCESS_NAME, scan_attrs)
 
-    success = all(await collect(
-        [
-            add_expiration_time_to_project_access(project_access)
-            for project_access in project_accesses
-        ],
-        workers=64
-    ))
+    success = all(
+        await collect(
+            [
+                add_expiration_time_to_project_access(project_access)
+                for project_access in project_accesses
+            ],
+            workers=64,
+        )
+    )
 
-    print(f'Success: {success}')
+    print(f"Success: {success}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(main())

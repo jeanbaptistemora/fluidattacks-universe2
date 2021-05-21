@@ -20,22 +20,22 @@ django.setup()
 from social_django.models import UserSocialAuth  # pylint: disable-all
 
 
-STAGE: str = os.environ['STAGE']
+STAGE: str = os.environ["STAGE"]
 
 
 def main() -> None:
-    if STAGE == 'test':
+    if STAGE == "test":
         users_to_update = UserSocialAuth.objects.filter(
-            provider='azuread-oauth2'
+            provider="azuread-oauth2"
         )
-        print(f'{len(users_to_update)} users to update:')
+        print(f"{len(users_to_update)} users to update:")
         for user in users_to_update:
-            print(f'\tUser {user} will be updated...')
+            print(f"\tUser {user} will be updated...")
     else:
-        UserSocialAuth.objects.filter(provider='azuread-oauth2').update(
-            provider='azuread-tenant-oauth2'
+        UserSocialAuth.objects.filter(provider="azuread-oauth2").update(
+            provider="azuread-tenant-oauth2"
         )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

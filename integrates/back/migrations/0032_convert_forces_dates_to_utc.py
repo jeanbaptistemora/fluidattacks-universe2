@@ -1,4 +1,3 @@
-
 # pylint: disable=invalid-name
 """
 This migration converts all force datetimes to UTC
@@ -28,28 +27,28 @@ from groups.dal import get_active_groups
 from groups.domain import get_many_groups
 
 # Constants
-TABLE_NAME = 'bb_executions'
-TABLE_NAME_NEW_FORCES = 'FI_forces'
+TABLE_NAME = "bb_executions"
+TABLE_NAME_NEW_FORCES = "FI_forces"
 
 
 async def yield_executions_new(project_name: str) -> AsyncIterator[Any]:
-    key_condition_expresion = \
-        Key('subscription').eq(project_name)
+    key_condition_expresion = Key("subscription").eq(project_name)
 
     async with aioboto3.resource(**dynamodb_ops.RESOURCE_OPTIONS) as resource:
         table = await resource.Table(TABLE_NAME_NEW_FORCES)
-        query_params = {'KeyConditionExpression': key_condition_expresion}
+        query_params = {"KeyConditionExpression": key_condition_expresion}
         has_more = True
         while has_more:
             results = await table.query(**query_params)
-            for result in results['Items']:
+            for result in results["Items"]:
                 yield result
 
-            if results.get('LastEvaluatedKey', None):
-                query_params['ExclusiveStartKey'] = results.get(
-                    'LastEvaluatedKey')
+            if results.get("LastEvaluatedKey", None):
+                query_params["ExclusiveStartKey"] = results.get(
+                    "LastEvaluatedKey"
+                )
 
-            has_more = results.get('LastEvaluatedKey', False)
+            has_more = results.get("LastEvaluatedKey", False)
 
 
 async def get_groups_with_forces() -> List[str]:
@@ -57,35 +56,31 @@ async def get_groups_with_forces() -> List[str]:
     groups = await get_many_groups(project_names)
     group_names = []
     for group in groups:
-        configuration = group.get('historic_configuration', [])
+        configuration = group.get("historic_configuration", [])
         if not configuration:
             continue
-        if not configuration[-1].get('has_forces', False):
+        if not configuration[-1].get("has_forces", False):
             continue
-        group_names.append(group['project_name'])
+        group_names.append(group["project_name"])
     return group_names
 
 
 async def update_execution(execution: Any) -> Tuple[str, str, bool]:
-    new_date = date_parser(execution['date']).astimezone(pytz.UTC)
+    new_date = date_parser(execution["date"]).astimezone(pytz.UTC)
     update_attrs = {
         "Key": {
-            "subscription": execution['subscription'],
-            "execution_id": execution['execution_id']
+            "subscription": execution["subscription"],
+            "execution_id": execution["execution_id"],
         },
         "UpdateExpression": "SET #date_field = :date_value",
-        "ExpressionAttributeNames": {
-            "#date_field": "date"
-        },
-        "ExpressionAttributeValues": {
-            ":date_value": new_date.isoformat()
-        }
+        "ExpressionAttributeNames": {"#date_field": "date"},
+        "ExpressionAttributeValues": {":date_value": new_date.isoformat()},
     }
     success = await dynamodb_ops.update_item(
         TABLE_NAME_NEW_FORCES,
         update_attrs,
     )
-    return execution['execution_id'], execution['subscription'], success
+    return execution["execution_id"], execution["subscription"], success
 
 
 async def get_futures() -> List[Coroutine[Any, Any, Tuple[str, str, bool]]]:
@@ -102,10 +97,10 @@ async def main() -> None:
     for result in asyncio.as_completed(futures):
         execution_id, group, success = await result
         if success:
-            print(f'[SUCCESS] {group} {execution_id}')
+            print(f"[SUCCESS] {group} {execution_id}")
         else:
-            print(f'[ERROR] {group} {execution_id}')
+            print(f"[ERROR] {group} {execution_id}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     asyncio.run(main())

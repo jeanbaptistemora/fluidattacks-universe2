@@ -20,59 +20,51 @@ from dynamodb import operations_legacy as dynamodb_ops
 from groups import dal as groups_dal
 
 
-STAGE = os.environ['STAGE']
+STAGE = os.environ["STAGE"]
 
 
 async def migrate(group_name: str) -> None:
     duplicated_roots = await dynamodb_ops.query(
-        'fi_roots',
+        "fi_roots",
         {
-            'KeyConditionExpression': (
-                Key('pk').eq(f'GROUP#GROUP#{group_name}') &
-                Key('sk').begins_with('ROOT#')
+            "KeyConditionExpression": (
+                Key("pk").eq(f"GROUP#GROUP#{group_name}")
+                & Key("sk").begins_with("ROOT#")
             ),
-        }
+        },
     )
 
     if duplicated_roots:
-        if STAGE == 'test':
+        if STAGE == "test":
             print(
-                '[INFO] Will remove',
+                "[INFO] Will remove",
                 len(duplicated_roots),
-                'roots for',
-                group_name
+                "roots for",
+                group_name,
             )
         else:
             await collect(
                 dynamodb_ops.delete_item(
-                    'fi_roots',
-                    DynamoDelete(
-                        Key={
-                            'pk': root['pk'],
-                            'sk': root['sk']
-                        }
-                    )
+                    "fi_roots",
+                    DynamoDelete(Key={"pk": root["pk"], "sk": root["sk"]}),
                 )
                 for root in duplicated_roots
             )
 
 
 async def main() -> None:
-    print('[INFO] Starting migration 0063')
-    groups = await groups_dal.get_all(data_attr='project_name')
-    await collect(
-        migrate(group['project_name'])
-        for group in groups
-    )
-    print('[INFO] Migration 0063 finished')
+    print("[INFO] Starting migration 0063")
+    groups = await groups_dal.get_all(data_attr="project_name")
+    await collect(migrate(group["project_name"]) for group in groups)
+    print("[INFO] Migration 0063 finished")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     execution_time = time.strftime(
-        'Execution Time: %Y-%m-%d at %H:%M:%S UTC%Z'
+        "Execution Time: %Y-%m-%d at %H:%M:%S UTC%Z"
     )
     run(main())
     finalization_time = time.strftime(
-        'Finalization Time: %Y-%m-%d at %H:%M:%S UTC%Z'
+        "Finalization Time: %Y-%m-%d at %H:%M:%S UTC%Z"
     )
-    print(f'{execution_time}\n{finalization_time}')
+    print(f"{execution_time}\n{finalization_time}")
