@@ -7,8 +7,12 @@ F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_06.cs,68,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_07.cs,68,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_08.cs,76,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_09.cs,63,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_10.cs,63,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_11.cs,63,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_12.cs,62,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_13.cs,63,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_14.cs,63,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_17.cs,58,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_31.cs,58,89
 F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_01.cs,31,310 + 327

@@ -33,6 +33,7 @@ from sast_symbolic_evaluation.cases import (
     instanceof_expression,
     lambda_expression,
     literal,
+    member_access_expression,
     method_invocation_chain,
     method_invocation,
     no_op,
@@ -165,6 +166,9 @@ EVALUATORS: Dict[object, Evaluator] = {
     graph_model.SyntaxStepFor: no_op.evaluate,
     graph_model.SyntaxStepIf: if_.evaluate,
     graph_model.SyntaxStepInstanceofExpression: instanceof_expression.evaluate,
+    graph_model.SyntaxStepMemberAccessExpression: (
+        member_access_expression.evaluate
+    ),
     graph_model.SyntaxStepSwitch: switch_label.evaluate,
     graph_model.SyntaxStepSwitchLabelCase: switch_label_case.evaluate,
     graph_model.SyntaxStepSwitchLabelDefault: no_op.evaluate,
