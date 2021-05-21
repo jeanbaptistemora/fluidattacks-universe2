@@ -9,14 +9,11 @@ from aioextensions import collect
 from custom_types import Project as GroupType
 from dataloaders import get_new_context
 from groups import domain as groups_domain
-from mailer import groups as groups_mail
 from newutils import (
     datetime as datetime_utils,
     groups as groups_utils,
 )
 from organizations import domain as orgs_domain
-
-from .common import scheduler_send_mail
 
 
 async def _delete_groups(
@@ -81,10 +78,8 @@ async def _remove_group_pending_deletion_dates(
 
 
 async def _set_group_pending_deletion_dates(
-    loaders: Any,
     obsolete_groups: List[GroupType]
 ) -> bool:
-    group_stakeholders_loader = loaders.group_stakeholders
     group_pending_deletion_date_str = datetime_utils.get_as_str(
         datetime_utils.get_now_plus_delta(weeks=1)
     )
@@ -93,10 +88,7 @@ async def _set_group_pending_deletion_dates(
         for obsolete_group in obsolete_groups
         if not obsolete_group.get('pending_deletion_date')
     ]
-    groups_stakeholders = await group_stakeholders_loader.load_many(
-        groups_to_set_pending_deletion_date
-    )
-    success = all(
+    return all(
         await collect([
             groups_domain.update_pending_deletion_date(
                 group_name,
@@ -105,24 +97,6 @@ async def _set_group_pending_deletion_dates(
             for group_name in groups_to_set_pending_deletion_date
         ])
     )
-    for (group_name, group_stakeholders) in zip(
-        groups_to_set_pending_deletion_date,
-        groups_stakeholders
-    ):
-        group_stakeholder_emails = [
-            stakeholder['email']
-            for stakeholder in group_stakeholders
-        ]
-        if group_stakeholder_emails:
-            scheduler_send_mail(
-                groups_mail.send_mail_group_deletion,
-                group_stakeholder_emails,
-                {
-                    'deletion_date': group_pending_deletion_date_str,
-                    'group_name': group_name,
-                }
-            )
-    return success
 
 
 async def delete_obsolete_groups() -> None:
@@ -171,7 +145,7 @@ async def delete_obsolete_groups() -> None:
     ]
     await collect([
         _remove_group_pending_deletion_dates(groups, obsolete_groups),
-        _set_group_pending_deletion_dates(loaders, obsolete_groups),
+        _set_group_pending_deletion_dates(obsolete_groups),
         _delete_groups(loaders, obsolete_groups)
     ])
 
