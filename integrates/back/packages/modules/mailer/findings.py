@@ -163,22 +163,6 @@ async def send_mail_new_draft(
     )
 
 
-async def send_mail_new_releases(
-    email_to: List[str],
-    context: MailContentType
-) -> None:
-    await send_mails_async_new(
-        email_to,
-        context,
-        GENERAL_TAG,
-        (
-            f'Findings to release ({context["total_unreleased"]})'
-            f'({context["total_unsubmitted"]})'
-        ),
-        'new_releases'
-    )
-
-
 async def send_mail_new_remediated(
     email_to: List[str],
     context: MailContentType
