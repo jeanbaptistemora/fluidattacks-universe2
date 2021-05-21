@@ -1,10 +1,10 @@
-:slug: partners/agt/
-:description: Our partners allow us to complete our portfolio and offer better security testing services. Get to know them and become one of them.
-:keywords: Fluid Attacks, Partners, Services, Security Testing, Software Development, Pentesting, Ethical Hacking
+:page-slug: partners/agt/
+:page-description: Our partners allow us to complete our portfolio and offer better security testing services. Get to know them and become one of them.
+:page-keywords: Fluid Attacks, Partners, Services, Security Testing, Software Development, Pentesting, Ethical Hacking
 :germany: image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620226924/airs/icons/germany-flag_toak5k.webp[Germany Flag]
-:partnerlogo: logo-agt
-:alt: Logo AGT
-:partner: yes
+:page-partnerlogo: logo-agt
+:page-alt: Logo AGT
+:page-partner: yes
 
 = AGT Advanced German Technologies
 

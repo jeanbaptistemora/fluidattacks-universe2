@@ -1,10 +1,10 @@
-:slug: partners/
-:category: about-us
-:description: Our partners allow us to complete our portfolio and offer better security testing services. Get to know them and become one of them.
-:keywords: Fluid Attacks, Partners, Services, Security Testing, Software Development, Pentesting, Ethical Hacking
-:banner: partners-bg
-:template: about-us/cardsgen
-:partnersindex: yes
+:page-slug: partners/
+:page-category: about-us
+:page-description: Our partners allow us to complete our portfolio and offer better security testing services. Get to know them and become one of them.
+:page-keywords: Fluid Attacks, Partners, Services, Security Testing, Software Development, Pentesting, Ethical Hacking
+:page-banner: partners-bg
+:page-template: about-us/cardsgen
+:page-partnersindex: yes
 
 = Partners
 

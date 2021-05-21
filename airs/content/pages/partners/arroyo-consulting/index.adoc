@@ -1,10 +1,10 @@
-:slug: partners/arroyo-consulting/
-:description: Our partners allow us to complete our portfolio and offer better security testing services. Get to know them and become one of them.
-:keywords: Fluid Attacks, Partners, Services, Security Testing, Software Development, Pentesting, Ethical Hacking
+:page-slug: partners/arroyo-consulting/
+:page-description: Our partners allow us to complete our portfolio and offer better security testing services. Get to know them and become one of them.
+:page-keywords: Fluid Attacks, Partners, Services, Security Testing, Software Development, Pentesting, Ethical Hacking
 :usa: image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620226926/airs/icons/us-flag_qveunz.webp[USA Flag]
-:partnerlogo: logo-arroyo
-:alt: Logo Arroyo
-:partner: yes
+:page-partnerlogo: logo-arroyo
+:page-alt: Logo Arroyo
+:page-partner: yes
 
 = Arroyo Consulting
 
