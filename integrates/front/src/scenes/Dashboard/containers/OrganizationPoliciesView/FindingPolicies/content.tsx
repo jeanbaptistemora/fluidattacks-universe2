@@ -106,7 +106,7 @@ const OrganizationFindingPolicy: React.FC<IOrganizationFindingPolicies> = ({
       variables: {
         findingPolicyId: id,
         organizationName,
-        status: handlePolicyStatus,
+        status: "APPROVED",
       },
     });
   }
@@ -116,7 +116,7 @@ const OrganizationFindingPolicy: React.FC<IOrganizationFindingPolicies> = ({
       variables: {
         findingPolicyId: id,
         organizationName,
-        status: handlePolicyStatus,
+        status: "REJECTED",
       },
     });
   }

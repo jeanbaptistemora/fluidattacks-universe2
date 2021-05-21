@@ -313,6 +313,8 @@ describe("Organization findings policies view", (): void => {
   it("organization finding policy handle actions permissions", async (): Promise<void> => {
     expect.hasAssertions();
 
+    jest.clearAllMocks();
+
     const mockHandleMutation: MockedResponse[] = [
       {
         request: {
@@ -471,6 +473,144 @@ describe("Organization findings policies view", (): void => {
             ),
             translate.t("sidebar.newOrganization.modal.successTitle")
           );
+        });
+      }
+    );
+  });
+
+  it("organization finding policy handle reject action", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    jest.clearAllMocks();
+
+    const mockHandleMutation: MockedResponse[] = [
+      {
+        request: {
+          query: HANDLE_ORGANIZATION_FINDING_POLICY,
+          variables: {
+            findingPolicyId: "08207180-305f-4f97-b727-ea29d5199590",
+            organizationName: "okada",
+            status: "REJECTED",
+          },
+        },
+        result: {
+          data: {
+            handleOrgFindingPolicyAcceptation: {
+              success: true,
+            },
+          },
+        },
+      },
+      mockQuery,
+    ];
+
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
+        <MockedProvider addTypename={false} mocks={mockHandleMutation}>
+          <authzPermissionsContext.Provider
+            value={
+              new PureAbility([
+                {
+                  action:
+                    "api_mutations_handle_finding_policy_acceptation_mutate",
+                },
+                {
+                  action: "api_mutations_deactivate_finding_policy_mutate",
+                },
+              ])
+            }
+          >
+            <Route path={"/orgs/:organizationName/policies"}>
+              <FindingPolicies
+                findingPolicies={[
+                  {
+                    id: "08207180-305f-4f97-b727-ea29d5199590",
+                    lastStatusUpdate: "2021-05-21T11:16:48",
+                    name: "F060. Insecure exceptions",
+                    status: "SUBMITTED",
+                  },
+                  {
+                    id: "0e14b989-407d-4c53-a506-25e784378569",
+                    lastStatusUpdate: "2021-05-21T11:58:58",
+                    name: "F004. Ejecución remota de comandos",
+                    status: "APPROVED",
+                  },
+                ]}
+                organizationId={organizationId}
+              />
+            </Route>
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    const firstRow: ReactWrapper = wrapper
+      .find("OrganizationFindingPolicy")
+      .first();
+
+    const lastRow: ReactWrapper = wrapper
+      .find("OrganizationFindingPolicy")
+      .last();
+
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
+
+        wrapper.update();
+
+        await waitForExpect((): void => {
+          expect(firstRow.find("Button")).toHaveLength(2);
+          expect(lastRow.find("Button")).toHaveLength(1);
+        });
+      }
+    );
+
+    firstRow.find("Button").last().simulate("click");
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
+
+        wrapper.update();
+
+        await waitForExpect((): void => {
+          expect(msgSuccess).toHaveBeenCalledWith(
+            translate.t(
+              "organization.tabs.policies.findings.handlePolicies.success.rejected"
+            ),
+            translate.t("sidebar.newOrganization.modal.successTitle")
+          );
+        });
+      }
+    );
+
+    lastRow.find("Button").first().simulate("click");
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
+
+        wrapper.update();
+
+        await waitForExpect((): void => {
+          expect(wrapper.find("Modal").first().prop("open")).toBe(true);
+        });
+      }
+    );
+
+    const confirmDialog: ReactWrapper = wrapper.find("ConfirmDialog").first();
+
+    const cancelButton: ReactWrapper = confirmDialog
+      .find("button")
+      .findWhere((element: ReactWrapper): boolean => element.contains("Cancel"))
+      .first();
+    cancelButton.simulate("click");
+    await act(
+      async (): Promise<void> => {
+        expect.hasAssertions();
+
+        wrapper.update();
+
+        await waitForExpect((): void => {
+          expect(wrapper.find("Modal").first().prop("open")).toBe(false);
         });
       }
     );
