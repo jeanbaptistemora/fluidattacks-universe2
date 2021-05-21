@@ -773,6 +773,10 @@ export const enTranslations: ResourceKey = {
     zeroRiskAlreadyRequested: "Zero risk vulnerability already requested",
     zeroRiskIsNotRequested: "Zero risk vulnerability is not requested",
   },
+  info: {
+    commit: "Commit:",
+    deploymentDate: "Deploy date:",
+  },
   legalNotice: {
     acceptBtn: {
       text: "Accept and continue",
@@ -806,6 +810,10 @@ export const enTranslations: ResourceKey = {
     newuser: "If you are a new user, click below to sign up.",
   },
   navbar: {
+    config: {
+      text: "Configuration",
+      tooltip: "Some additional configurations here",
+    },
     logout: {
       text: "Log out",
       tooltip: "Log out of Integrates",
@@ -2180,12 +2188,6 @@ export const enTranslations: ResourceKey = {
     },
   },
   sidebar: {
-    commit: "Commit:",
-    configuration: {
-      text: "Config",
-      tooltip: "Some additional configurations here",
-    },
-    deploymentDate: "Deploy date:",
     newOrganization: {
       modal: {
         invalidName: "Name specified for the organization is not allowed",

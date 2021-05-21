@@ -3,15 +3,17 @@ import {
   faKey,
   faSignOutAlt,
   faUserCircle,
+  faUserCog,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import { reset } from "mixpanel-browser";
+import { reset, track } from "mixpanel-browser";
 import React, { useCallback, useContext, useState } from "react";
 import { useDetectClickOutside } from "react-detect-click-outside";
 import { useTranslation } from "react-i18next";
 
 import { APITokenModal } from "../../APITokenModal";
+import { GlobalConfigModal } from "../../GlobalConfigModal";
 import {
   DropdownButton,
   DropdownDivider,
@@ -50,6 +52,15 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
     setTokenModalOpen(false);
   }, []);
 
+  const [isConfigModalOpen, setConfigModalOpen] = useState(false);
+  const openConfigModal: () => void = useCallback((): void => {
+    setConfigModalOpen(true);
+    track("OpenGlobalConfig");
+  }, []);
+  const closeConfigModal: () => void = useCallback((): void => {
+    setConfigModalOpen(false);
+  }, []);
+
   return (
     <div ref={ref}>
       <NavbarButton onClick={toggleDropdown}>
@@ -86,6 +97,20 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
             </DropdownButton>
             {isTokenModalOpen ? (
               <APITokenModal onClose={closeTokenModal} open={true} />
+            ) : undefined}
+          </li>
+          <li>
+            <TooltipWrapper
+              id={"globalConfig"}
+              message={t("navbar.config.tooltip")}
+            >
+              <DropdownButton onClick={openConfigModal}>
+                <FontAwesomeIcon icon={faUserCog} />
+                &nbsp;{t("navbar.config.text")}
+              </DropdownButton>
+            </TooltipWrapper>
+            {isConfigModalOpen ? (
+              <GlobalConfigModal onClose={closeConfigModal} open={true} />
             ) : undefined}
           </li>
           <DropdownDivider />

@@ -3,7 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import Bugsnag from "@bugsnag/js";
 import type { PureAbility } from "@casl/ability";
 import type { GraphQLError } from "graphql";
-import { identify, people, register, track } from "mixpanel-browser";
+import { identify, people, register } from "mixpanel-browser";
 import React, { useCallback, useContext, useState } from "react";
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 
@@ -18,7 +18,6 @@ import { AddOrganizationModal } from "scenes/Dashboard/components/AddOrganizatio
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import { CompulsoryNotice } from "scenes/Dashboard/components/CompulsoryNoticeModal";
 import { ConcurrentSessionNotice } from "scenes/Dashboard/components/ConcurrentSessionNoticeModal";
-import { GlobalConfigModal } from "scenes/Dashboard/components/GlobalConfigModal";
 import { Navbar } from "scenes/Dashboard/components/Navbar";
 import { Sidebar } from "scenes/Dashboard/components/Sidebar";
 import { HomeView } from "scenes/Dashboard/containers/HomeView";
@@ -98,15 +97,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
   }, []);
   const closeOrganizationModal: () => void = useCallback((): void => {
     setOrganizationModalOpen(false);
-  }, []);
-
-  const [isConfigModalOpen, setConfigModalOpen] = useState(false);
-  const openConfigModal: () => void = useCallback((): void => {
-    setConfigModalOpen(true);
-    track("OpenGlobalConfig");
-  }, []);
-  const closeConfigModal: () => void = useCallback((): void => {
-    setConfigModalOpen(false);
   }, []);
 
   const permissions: PureAbility<string> = useContext(authzPermissionsContext);
@@ -205,7 +195,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
         isLoading={isLoading}
         onOpenAddOrganizationModal={openOrganizationModal}
         onOpenAddUserModal={openUserModal}
-        onOpenConfig={openConfigModal}
       />
       <DashboardContent id={"dashboard"}>
         <DashboardHeader>
@@ -257,7 +246,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
         </main>
       </DashboardContent>
       <ScrollUpButton visibleAt={400} />
-      <GlobalConfigModal onClose={closeConfigModal} open={isConfigModalOpen} />
       <AddOrganizationModal
         onClose={closeOrganizationModal}
         open={isOrganizationModalOpen}

@@ -34,7 +34,7 @@ export const TechnicalInfo: React.FC = (): JSX.Element => {
           <li>
             <DropdownButton>
               <div>
-                {t("sidebar.commit")}&nbsp;
+                {t("info.commit")}&nbsp;
                 <a
                   href={`https://gitlab.com/fluidattacks/product/-/tree/${CI_COMMIT_SHA}`}
                   rel={"noopener noreferrer"}
@@ -44,7 +44,7 @@ export const TechnicalInfo: React.FC = (): JSX.Element => {
                 </a>
               </div>
               <small>
-                {t("sidebar.deploymentDate")}&nbsp;
+                {t("info.deploymentDate")}&nbsp;
                 {INTEGRATES_DEPLOYMENT_DATE}
               </small>
             </DropdownButton>

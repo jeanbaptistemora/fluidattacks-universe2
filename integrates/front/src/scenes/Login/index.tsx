@@ -134,11 +134,11 @@ export const Login: React.FC = (): JSX.Element => {
         </LoginRow>
       </LoginGrid>
       <LoginDeploymentDate>
-        {t("sidebar.deploymentDate")}&nbsp;
+        {t("info.deploymentDate")}&nbsp;
         {INTEGRATES_DEPLOYMENT_DATE}
       </LoginDeploymentDate>
       <LoginCommit>
-        {t("sidebar.commit")}&nbsp;
+        {t("info.commit")}&nbsp;
         <a
           href={`https://gitlab.com/fluidattacks/product/-/tree/${CI_COMMIT_SHA}`}
           rel={"noreferrer"}

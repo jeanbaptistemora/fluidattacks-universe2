@@ -22,7 +22,6 @@ describe("Sidebar", (): void => {
           isLoading={false}
           onOpenAddOrganizationModal={functionMock}
           onOpenAddUserModal={functionMock}
-          onOpenConfig={functionMock}
         />
       </MemoryRouter>
     );
