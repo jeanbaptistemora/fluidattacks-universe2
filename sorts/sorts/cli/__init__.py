@@ -23,11 +23,11 @@ from sorts.utils.logs import (
 
 
 @click.command(
-    help='File prioritizer according to the likelihood of finding '
-    'a vulnerability'
+    help="File prioritizer according to the likelihood of finding "
+    "a vulnerability"
 )
 @click.argument(
-    'subscription',
+    "subscription",
     type=click.Path(
         allow_dash=False,
         dir_okay=True,
@@ -35,24 +35,27 @@ from sorts.utils.logs import (
         file_okay=False,
         readable=True,
         resolve_path=True,
-    )
+    ),
 )
 @click.option(
-    '--get-commit-data',
+    "--get-commit-data",
     is_flag=True,
-    help='Extract commit features from the subscription to train ML models')
+    help="Extract commit features from the subscription to train ML models",
+)
 @click.option(
-    '--get-file-data',
+    "--get-file-data",
     is_flag=True,
-    help='Extract file features from the subscription to train ML models')
+    help="Extract file features from the subscription to train ML models",
+)
 @click.option(
-    '--predict-commit',
+    "--predict-commit",
     is_flag=True,
-    help='Use the legacy predictor that sorts files based on commit features')
+    help="Use the legacy predictor that sorts files based on commit features",
+)
 @click.option(
-    '--token',
-    envvar='INTEGRATES_API_TOKEN',
-    help='Integrates API token.',
+    "--token",
+    envvar="INTEGRATES_API_TOKEN",
+    help="Integrates API token.",
     show_envvar=True,
 )
 @shield(on_error_return=False)
@@ -61,7 +64,7 @@ def execute_sorts(
     get_commit_data: bool,
     get_file_data: bool,
     predict_commit: bool,
-    token: str
+    token: str,
 ) -> None:
     configure_bugsnag()
     start_time: float = time.time()
@@ -79,35 +82,33 @@ def execute_sorts(
             success = prioritize_files(subscription)
 
         log_to_remote_info(
-            msg=f'Success: {success}',
+            msg=f"Success: {success}",
             subscription=subscription,
-            time=f'Finished after {time.time() - start_time:.2f} seconds',
+            time=f"Finished after {time.time() - start_time:.2f} seconds",
             get_commit_data=get_commit_data,
             get_file_data=get_file_data,
             predict_commit=predict_commit,
-            user=user_email
+            user=user_email,
         )
         mixpanel_track(
             user_email,
-            'sorts_execution',
+            "sorts_execution",
             subscription=subscription,
             get_commit_data=get_commit_data,
             get_file_data=get_file_data,
-            predict_commit=predict_commit
+            predict_commit=predict_commit,
         )
     else:
         log(
-            'error',
-            'Set the Integrates API token either using the option '
-            '--token or the environmental variable '
-            'INTEGRATES_API_TOKEN'
+            "error",
+            "Set the Integrates API token either using the option "
+            "--token or the environmental variable "
+            "INTEGRATES_API_TOKEN",
         )
 
     sys.exit(0 if success else 1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # pylint: disable=no-value-for-parameter, unexpected-keyword-arg
-    execute_sorts(
-        prog_name='sorts'
-    )
+    execute_sorts(prog_name="sorts")

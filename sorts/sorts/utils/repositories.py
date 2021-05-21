@@ -20,10 +20,7 @@ from numpy import ndarray
 from pydriller.metrics.process.hunks_count import HunksCount
 
 # Local libraries
-from sorts.constants import (
-    RENAME_REGEX,
-    STAT_REGEX
-)
+from sorts.constants import RENAME_REGEX, STAT_REGEX
 from sorts.utils.logs import log_exception
 
 
@@ -45,29 +42,19 @@ def get_bad_repos(fusion_path: str) -> List[str]:
 
 def get_commit_date(git_repo: Git, commit: str) -> datetime:
     """Gets the date when a commit was made"""
-    commit_date: str = git_repo.show(
-        '-s',
-        '--pretty=%aI',
-        commit
-    )
+    commit_date: str = git_repo.show("-s", "--pretty=%aI", commit)
     return datetime.fromisoformat(commit_date)
 
 
 def get_commit_files(git_repo: Git, commit: str) -> List[str]:
     """Gets a list of files modified in a certain commit"""
-    files: str = git_repo.show(
-        '--name-only',
-        '--pretty=format:',
-        commit
-    )
-    return files.split('\n')
+    files: str = git_repo.show("--name-only", "--pretty=format:", commit)
+    return files.split("\n")
 
 
 def get_commit_hunks(repo_path: str, commit: str) -> int:
     metric = HunksCount(
-        path_to_repo=repo_path,
-        from_commit=commit,
-        to_commit=commit
+        path_to_repo=repo_path, from_commit=commit, to_commit=commit
     )
     files = metric.count()
     hunks = sum(files.values())
@@ -76,105 +63,78 @@ def get_commit_hunks(repo_path: str, commit: str) -> int:
 
 def get_commit_stats(git_repo: Git, commit: str) -> str:
     """Returns the amount of changed lines a commit has"""
-    stats: str = git_repo.show(
-        '--shortstat',
-        '--pretty=format:',
-        commit
-    )
+    stats: str = git_repo.show("--shortstat", "--pretty=format:", commit)
     return stats
 
 
 def get_file_authors_history(git_repo: Git, file: str) -> List[str]:
     """Returns a list with the author of every commit that modified a file"""
     author_history: str = git_repo.log(
-        '--no-merges',
-        '--follow',
-        '--pretty=%ae',
-        file
+        "--no-merges", "--follow", "--pretty=%ae", file
     )
-    return author_history.split('\n')
+    return author_history.split("\n")
 
 
 def get_file_commit_history(git_repo: Git, file: str) -> List[str]:
     """Returns a list with the hashes of the commits that touched a file"""
     commit_history: str = git_repo.log(
-        '--no-merges',
-        '--follow',
-        '--pretty=%H',
-        file
+        "--no-merges", "--follow", "--pretty=%H", file
     )
-    return commit_history.split('\n')
+    return commit_history.split("\n")
 
 
 def get_file_date_history(git_repo: Git, file: str) -> List[str]:
     """Returns a list with dates in ISO format of every commit the file has"""
     date_history: str = git_repo.log(
-        '--no-merges',
-        '--follow',
-        '--pretty=%aI',
-        file
+        "--no-merges", "--follow", "--pretty=%aI", file
     )
-    return date_history.split('\n')
+    return date_history.split("\n")
 
 
 def get_file_stat_history(git_repo: Git, file: str) -> List[str]:
     """Returns a list with the amount of changed lines each commit has"""
     stat_history: str = git_repo.log(
-        '--no-merges',
-        '--follow',
-        '--shortstat',
-        '--pretty=',
-        file
+        "--no-merges", "--follow", "--shortstat", "--pretty=", file
     )
-    return stat_history.split('\n')
+    return stat_history.split("\n")
 
 
 def get_latest_commits(git_repo: Git, since: str) -> List[str]:
     """Gets the list of commits made to a repository since the defined date"""
     latest_commits: str = git_repo.log(
-        '--no-merges',
-        '--pretty=%H',
-        f'--since="{since}"'
+        "--no-merges", "--pretty=%H", f'--since="{since}"'
     )
-    return latest_commits.split('\n')
+    return latest_commits.split("\n")
 
 
-def get_log_file_metrics(
-    logs_dir: str,
-    repo: str,
-    file: str
-) -> GitMetrics:
+def get_log_file_metrics(logs_dir: str, repo: str, file: str) -> GitMetrics:
     """Read the log file and extract the author, hash, date and diff"""
     git_metrics: GitMetrics = GitMetrics(
-        author_email=[],
-        commit_hash=[],
-        date_iso_format=[],
-        stats=[]
+        author_email=[], commit_hash=[], date_iso_format=[], stats=[]
     )
-    cursor: str = ''
-    with open(os.path.join(logs_dir, f'{repo}.log'), 'r') as log_file:
+    cursor: str = ""
+    with open(os.path.join(logs_dir, f"{repo}.log"), "r") as log_file:
         for line in log_file:
             # An empty line marks the start of a new commit diff
-            if not line.strip('\n'):
-                cursor = 'info'
+            if not line.strip("\n"):
+                cursor = "info"
                 continue
             # Next, there is a line with the format 'Hash,Author,Date'
-            if cursor == 'info':
-                info: List[str] = line.strip('\n').split(',')
+            if cursor == "info":
+                info: List[str] = line.strip("\n").split(",")
                 commit: str = info[0]
                 author: str = info[1]
                 date: str = info[2]
-                cursor = 'diff'
+                cursor = "diff"
                 continue
             # Next, there is a list of changed files and the changed lines
             # with the format 'Additions    Deletions   File'
-            if cursor == 'diff':
+            if cursor == "diff":
                 changed_name: bool = False
                 # Keeps track of the file if its name was changed
-                if '=>' in line:
+                if "=>" in line:
                     match = re.match(
-                        RENAME_REGEX,
-                        line.strip('\n').split('\t')[2]
+                        RENAME_REGEX, line.strip("\n").split("\t")[2]
                     )
                     if match:
                         path_info: Dict[str, str] = match.groupdict()
@@ -189,22 +149,22 @@ def get_log_file_metrics(
                                 f'{path_info["post_path"]}'
                             )
                 if file in line or changed_name:
-                    git_metrics['author_email'].append(author)
-                    git_metrics['commit_hash'].append(commit)
-                    git_metrics['date_iso_format'].append(date)
+                    git_metrics["author_email"].append(author)
+                    git_metrics["commit_hash"].append(commit)
+                    git_metrics["date_iso_format"].append(date)
 
-                    stats: List[str] = line.strip('\n').split('\t')
-                    git_metrics['stats'].append(
-                        f'1 file changed, {stats[0]} insertions (+), '
-                        f'{stats[1]} deletions (-)'
+                    stats: List[str] = line.strip("\n").split("\t")
+                    git_metrics["stats"].append(
+                        f"1 file changed, {stats[0]} insertions (+), "
+                        f"{stats[1]} deletions (-)"
                     )
     return git_metrics
 
 
 def get_repository_commit_history(git_repo: Git) -> List[str]:
     """Gets the complete commit history of a git repository"""
-    commit_history: str = git_repo.log('--no-merges', '--pretty=%H')
-    return commit_history.split('\n')
+    commit_history: str = git_repo.log("--no-merges", "--pretty=%H")
+    return commit_history.split("\n")
 
 
 def get_repositories_log(dir_: str, repos_paths: ndarray) -> None:
@@ -214,23 +174,20 @@ def get_repositories_log(dir_: str, repos_paths: ndarray) -> None:
         try:
             git_repo: Git = git.Git(repo_path)
             git_log: str = git_repo.log(
-                '--no-merges',
-                '--numstat',
-                '--pretty=%n%H,%ae,%aI%n'
-            ).replace('\n\n\n', '\n')
-            with open(os.path.join(dir_, f'{repo}.log'), 'w') as log_file:
+                "--no-merges", "--numstat", "--pretty=%n%H,%ae,%aI%n"
+            ).replace("\n\n\n", "\n")
+            with open(os.path.join(dir_, f"{repo}.log"), "w") as log_file:
                 log_file.write(git_log)
         except GitCommandNotFound as exc:
-            log_exception('warning', exc, message=f"Repo {repo} doesn't exist")
+            log_exception("warning", exc, message=f"Repo {repo} doesn't exist")
 
 
 def get_repository_files(repo_path: str) -> List[str]:
     """Lists all the files inside a repository relative to the repository"""
-    ignore_dirs: List[str] = ['.git']
+    ignore_dirs: List[str] = [".git"]
     return [
         os.path.join(path, filename).replace(
-            f'{os.path.dirname(repo_path)}/',
-            ''
+            f"{os.path.dirname(repo_path)}/", ""
         )
         for path, _, files in os.walk(repo_path)
         for filename in files
@@ -244,10 +201,10 @@ def parse_git_shortstat(stat: str) -> Tuple[int, int]:
     match = re.match(STAT_REGEX, stat.strip())
     if match:
         groups: Dict[str, str] = match.groupdict()
-        if groups['insertions']:
-            insertions = int(groups['insertions'])
-        if groups['deletions']:
-            deletions = int(groups['deletions'])
+        if groups["insertions"]:
+            insertions = int(groups["insertions"])
+        if groups["deletions"]:
+            deletions = int(groups["deletions"])
     return insertions, deletions
 
 
@@ -265,13 +222,15 @@ def test_repo(repo_path: str) -> bool:
 def translate_metrics_to_git_format(metrics: List[str]) -> str:
     """Translates metrics to the format used by git pretty print"""
     metrics_dict: Dict[str, str] = {
-        'commit_hash': '%H',
-        'author_email': '%ae',
-        'date_iso_format': '%aI'
+        "commit_hash": "%H",
+        "author_email": "%ae",
+        "date_iso_format": "%aI",
     }
-    metric_git_format: str = ','.join([
-        metrics_dict[metric]
-        for metric in metrics
-        if metrics_dict.get(metric)
-    ])
+    metric_git_format: str = ",".join(
+        [
+            metrics_dict[metric]
+            for metric in metrics
+            if metrics_dict.get(metric)
+        ]
+    )
     return metric_git_format

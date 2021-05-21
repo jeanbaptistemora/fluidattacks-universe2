@@ -30,8 +30,7 @@ class RetryAndFinallyReturn(Exception):
 
 
 class StopRetrying(Exception):
-    """Raise this exception will make the `shield` decorator stop retrying.
-    """
+    """Raise this exception will make the `shield` decorator stop retrying."""
 
 
 def shield(
@@ -42,25 +41,24 @@ def shield(
         RetryAndFinallyReturn,
     ),
     retries: int = 1,
-    sleep_between_retries: int = 0
+    sleep_between_retries: int = 0,
 ) -> Callable[[TFun], TFun]:
     if retries < 1:
-        raise ValueError('retries must be >= 1')
+        raise ValueError("retries must be >= 1")
 
     def decorator(function: TFun) -> TFun:
-
         @functools.wraps(function)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
-            function_id = f'{function.__module__}.{function.__name__}'
+            function_id = f"{function.__module__}.{function.__name__}"
 
             for _, is_last, number in mark_ends(range(retries)):
                 try:
                     return function(*args, **kwargs)
                 except on_exceptions as exc:
-                    msg: str = 'Function: %s, %s: %s'
+                    msg: str = "Function: %s, %s: %s"
                     exc_msg: str = str(exc)
                     exc_type: str = type(exc).__name__
-                    log('warning', msg, function_id, exc_type, exc_msg)
+                    log("warning", msg, function_id, exc_type, exc_msg)
 
                     if is_last or isinstance(exc, StopRetrying):
                         if isinstance(exc, RetryAndFinallyReturn):
@@ -69,7 +67,7 @@ def shield(
                             raise exc
                         return on_error_return
 
-                    log('info', 'retry #%s: %s', number, function_id)
+                    log("info", "retry #%s: %s", number, function_id)
                     time.sleep(sleep_between_retries)
 
         return cast(TFun, wrapper)

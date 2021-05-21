@@ -1,11 +1,5 @@
 # Standard libraries
-from typing import (
-    Any,
-    Callable,
-    Tuple,
-    TypeVar,
-    Union
-)
+from typing import Any, Callable, Tuple, TypeVar, Union
 
 # Third party libraries
 from sklearn.ensemble import RandomForestClassifier
@@ -16,9 +10,6 @@ from sklearn.svm import LinearSVC
 
 Score = Tuple[float, float, float, None]
 Model = Union[
-    MLPClassifier,
-    RandomForestClassifier,
-    LinearSVC,
-    KNeighborsClassifier
+    MLPClassifier, RandomForestClassifier, LinearSVC, KNeighborsClassifier
 ]
-TFun = TypeVar('TFun', bound=Callable[..., Any])
+TFun = TypeVar("TFun", bound=Callable[..., Any])

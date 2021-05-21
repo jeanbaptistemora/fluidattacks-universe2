@@ -13,19 +13,19 @@ import bugsnag
 
 
 # Constants
-META: ContextVar[Optional[Dict[str, str]]] = (
-    ContextVar('META', default=None)
-)
+META: ContextVar[Optional[Dict[str, str]]] = ContextVar("META", default=None)
 
 
 def guess_environment() -> str:
-    if any((
-        'product/' in os.path.dirname(__file__),
-        os.environ.get('CI_COMMIT_REF_NAME', 'master') != 'master',
-    )):
-        return 'development'
+    if any(
+        (
+            "product/" in os.path.dirname(__file__),
+            os.environ.get("CI_COMMIT_REF_NAME", "master") != "master",
+        )
+    ):
+        return "development"
 
-    return 'production'  # pragma: no cover
+    return "production"  # pragma: no cover
 
 
 def configure_bugsnag(**data: str) -> None:

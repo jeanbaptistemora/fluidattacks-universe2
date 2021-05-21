@@ -15,8 +15,8 @@ pythonFormat {
     "observes"
     # "reviews"
     "skims"
-    # "sorts"
-    # "teaches"
+    "sorts"
+    "teaches"
   ];
   name = "makes-format-python";
 }

@@ -1,10 +1,7 @@
 # Standard libraries
 import os
 import time
-from typing import (
-    List,
-    Set
-)
+from typing import List, Set
 
 # Local libraries
 from integrates.dal import (
@@ -18,8 +15,7 @@ from sorts.utils.static import read_allowed_names
 
 
 def filter_allowed_files(
-    vuln_files: List[str],
-    ignore_repos: List[str]
+    vuln_files: List[str], ignore_repos: List[str]
 ) -> List[str]:
     """Leave files with allowed names and filter out from ignored repos"""
     allowed_vuln_files: List[str] = []
@@ -28,11 +24,12 @@ def filter_allowed_files(
         vuln_repo: str = vuln_file.split(os.path.sep)[0]
         if vuln_repo not in ignore_repos:
             vuln_file_name: str = os.path.basename(vuln_file)
-            vuln_file_extension: str = os.path.splitext(vuln_file_name)[1]\
-                .strip('.')
+            vuln_file_extension: str = os.path.splitext(vuln_file_name)[
+                1
+            ].strip(".")
             if (
-                vuln_file_extension in extensions or
-                vuln_file_name in composites
+                vuln_file_extension in extensions
+                or vuln_file_name in composites
             ):
                 allowed_vuln_files.append(vuln_file)
     return allowed_vuln_files
@@ -44,10 +41,7 @@ def get_unique_vuln_files(group: str) -> List[str]:
     return sorted(unique_vuln_files)
 
 
-def get_vulnerable_files(
-    group: str,
-    ignore_repos: List[str]
-) -> List[str]:
+def get_vulnerable_files(group: str, ignore_repos: List[str]) -> List[str]:
     """Gets vulnerable files to fill the training DataFrame"""
     timer: float = time.time()
     unique_vuln_files: List[str] = get_unique_vuln_files(group)
@@ -55,9 +49,9 @@ def get_vulnerable_files(
         unique_vuln_files, ignore_repos
     )
     log(
-        'info',
-        'Vulnerable files extracted after %.2f seconds',
-        time.time() - timer
+        "info",
+        "Vulnerable files extracted after %.2f seconds",
+        time.time() - timer,
     )
     return allowed_vuln_files
 
@@ -69,6 +63,5 @@ def get_vulnerable_lines(group: str) -> List[str]:
     return [
         vuln.where
         for vuln in vulnerabilities
-        if vuln.kind == VulnerabilityKindEnum.LINES
-        and vuln.source != 'skims'
+        if vuln.kind == VulnerabilityKindEnum.LINES and vuln.source != "skims"
     ]

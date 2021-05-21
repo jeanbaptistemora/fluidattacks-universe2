@@ -1,9 +1,5 @@
 # Standard libraries
-from typing import (
-    Any,
-    Dict,
-    List
-)
+from typing import Any, Dict, List
 
 # Third party libraries
 from gql import gql
@@ -14,7 +10,7 @@ from sorts.integrates.graphql import client as graphql_client
 from sorts.integrates.typing import (
     ToeLines,
     Vulnerability,
-    VulnerabilityKindEnum
+    VulnerabilityKindEnum,
 )
 from sorts.utils.logs import (
     log,
@@ -35,12 +31,12 @@ def _execute(
             response = client.execute(
                 document=gql(query),
                 variable_values=variables,
-                operation_name=operation
+                operation_name=operation,
             )
         except TransportQueryError as exc:
-            log_exception('error', exc)
-            log('debug', 'query %s: %s', operation, query)
-            log('debug', 'variables: %s', variables)
+            log_exception("error", exc)
+            log("debug", "query %s: %s", operation, query)
+            log("debug", "variables: %s", variables)
     return response
 
 
@@ -64,21 +60,21 @@ def get_vulnerabilities(group: str) -> List[Vulnerability]:
                 }
             }
         """,
-        operation='SortsGetVulnerabilities',
+        operation="SortsGetVulnerabilities",
         variables=dict(
             group=group,
-        )
+        ),
     )
 
     if result:
         vulnerabilities = [
             Vulnerability(
-                kind=VulnerabilityKindEnum(vuln['vulnType']),
-                source=vuln['historicState'][0]['source'],
-                where=vuln['where']
+                kind=VulnerabilityKindEnum(vuln["vulnType"]),
+                source=vuln["historicState"][0]["source"],
+                where=vuln["where"],
             )
-            for finding in result['project']['findings']
-            for vuln in finding['vulnerabilities']
+            for finding in result["project"]["findings"]
+            for vuln in finding["vulnerabilities"]
         ]
     return vulnerabilities
 
@@ -92,11 +88,11 @@ def get_user_email() -> str:
                 }
             }
         """,
-        operation='SortsGetUserInfo',
-        variables=dict()
+        operation="SortsGetUserInfo",
+        variables=dict(),
     )
 
-    return result['me']['userEmail']
+    return result["me"]["userEmail"]
 
 
 def get_toe_lines_sorts(group_name: str) -> List[ToeLines]:
@@ -117,28 +113,26 @@ def get_toe_lines_sorts(group_name: str) -> List[ToeLines]:
                 }
             }
         """,
-        operation='GetToeLines',
-        variables=dict(group_name=group_name)
+        operation="GetToeLines",
+        variables=dict(group_name=group_name),
     )
 
     if result:
-        group_roots = result['group']['roots']
+        group_roots = result["group"]["roots"]
         group_toe_lines = [
             ToeLines(
-                filename=toe_lines['filename'],
-                sorts_risk_level=toe_lines['sortsRiskLevel']
+                filename=toe_lines["filename"],
+                sorts_risk_level=toe_lines["sortsRiskLevel"],
             )
             for group_root in group_roots
-            for toe_lines in group_root['toeLines']
+            for toe_lines in group_root["toeLines"]
         ]
 
     return group_toe_lines
 
 
 def update_toe_lines_sorts(
-    group_name: str,
-    filename: str,
-    risk_level: int
+    group_name: str, filename: str, risk_level: int
 ) -> bool:
     result = _execute(
         query="""
@@ -156,12 +150,10 @@ def update_toe_lines_sorts(
                 }
             }
         """,
-        operation='SortsUpdateToeLinesSorts',
+        operation="SortsUpdateToeLinesSorts",
         variables=dict(
-            group_name=group_name,
-            filename=filename,
-            risk_level=risk_level
-        )
+            group_name=group_name, filename=filename, risk_level=risk_level
+        ),
     )
 
-    return result['updateToeLinesSorts']['success']
+    return result["updateToeLinesSorts"]["success"]

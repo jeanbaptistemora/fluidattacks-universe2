@@ -33,31 +33,25 @@ def build_training_df(group: str, fusion_path: str) -> DataFrame:
     ignore_repos: List[str] = get_bad_repos(fusion_path)
     vuln_files: List[str] = get_vulnerable_files(group, ignore_repos)
     vuln_commits, vuln_repos = get_initial_commits_and_repos(
-        vuln_files,
-        fusion_path
+        vuln_files, fusion_path
     )
     safe_commits, safe_repos = get_safe_commits_and_repos(
-        vuln_commits,
-        fusion_path,
-        ignore_repos
+        vuln_commits, fusion_path, ignore_repos
     )
-    return pd.concat([
-        pd.DataFrame({
-            'repo': vuln_repos,
-            'commit': vuln_commits,
-            'is_vuln': 1
-        }),
-        pd.DataFrame({
-            'repo': safe_repos,
-            'commit': safe_commits,
-            'is_vuln': 0
-        })
-    ])
+    return pd.concat(
+        [
+            pd.DataFrame(
+                {"repo": vuln_repos, "commit": vuln_commits, "is_vuln": 1}
+            ),
+            pd.DataFrame(
+                {"repo": safe_repos, "commit": safe_commits, "is_vuln": 0}
+            ),
+        ]
+    )
 
 
 def get_initial_commits_and_repos(
-    vuln_files: List[str],
-    fusion_path: str
+    vuln_files: List[str], fusion_path: str
 ) -> Tuple[List[str], List[str]]:
     """Gets the commit that introduced each file"""
     vuln_commits: List[str] = []
@@ -67,8 +61,7 @@ def get_initial_commits_and_repos(
         file_relative_path: str = os.path.sep.join(file.split(os.path.sep)[1:])
         git_repo: Git = git.Git(os.path.join(fusion_path, repo))
         commit_history: List[str] = get_file_commit_history(
-            git_repo,
-            file_relative_path
+            git_repo, file_relative_path
         )
         if commit_history and commit_history[-1] not in vuln_commits:
             vuln_commits.append(commit_history[-1])
@@ -78,9 +71,7 @@ def get_initial_commits_and_repos(
 
 
 def get_safe_commits_and_repos(
-    vuln_commits: List[str],
-    fusion_path: str,
-    ignore_repos: List[str]
+    vuln_commits: List[str], fusion_path: str, ignore_repos: List[str]
 ) -> Tuple[List[str], List[str]]:
     """Fetches random commits where a vulnerabile file was not introduced"""
     timer: float = time.time()
@@ -89,16 +80,14 @@ def get_safe_commits_and_repos(
     repo_commits: Dict[str, List[str]] = {}
     retries: int = 0
     allowed_repos: List[str] = [
-        repo
-        for repo in os.listdir(fusion_path)
-        if repo not in ignore_repos
+        repo for repo in os.listdir(fusion_path) if repo not in ignore_repos
     ]
     while len(safe_commits) < len(vuln_commits):
         if retries > COMMIT_MAX_RETRIES:
             log(
-                'warning',
-                'Could not find enough safe commits to balance the vulnerable '
-                'ones'
+                "warning",
+                "Could not find enough safe commits to balance the vulnerable "
+                "ones",
             )
             break
         repo = random.choice(allowed_repos)
@@ -112,9 +101,9 @@ def get_safe_commits_and_repos(
             retries = 0
         retries += 1
     log(
-        'info',
-        'Safe commits extracted after %.2f seconds',
-        time.time() - timer
+        "info",
+        "Safe commits extracted after %.2f seconds",
+        time.time() - timer,
     )
     return safe_commits, safe_repos
 
@@ -123,23 +112,23 @@ def get_subscription_commit_metadata(subscription_path: str) -> bool:
     """Creates CSV with the commit features of the subscription files"""
     success: bool = True
     group: str = os.path.basename(os.path.normpath(subscription_path))
-    fusion_path: str = os.path.join(subscription_path, 'fusion')
+    fusion_path: str = os.path.join(subscription_path, "fusion")
     if os.path.exists(fusion_path):
         training_df: DataFrame = build_training_df(group, fusion_path)
         if training_df.empty:
             success = False
             log(
-                'warning',
+                "warning",
                 'Group %s does not have any vulnerabilities of type "lines"',
-                group
+                group,
             )
         else:
             success = extract_features(training_df, fusion_path)
             if success:
-                csv_name: str = f'{group}_commit_features.csv'
+                csv_name: str = f"{group}_commit_features.csv"
                 training_df.to_csv(csv_name, index=False)
-                log('info', 'Features extracted succesfully to %s', csv_name)
+                log("info", "Features extracted succesfully to %s", csv_name)
     else:
         success = False
-        log('error', 'Fusion folder for group %s does not exist', group)
+        log("error", "Fusion folder for group %s does not exist", group)
     return success

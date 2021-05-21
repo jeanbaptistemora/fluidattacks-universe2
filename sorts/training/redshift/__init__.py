@@ -1,10 +1,7 @@
 # Standard library
 from contextlib import contextmanager
 import os
-from typing import (
-    Dict,
-    Iterator
-)
+from typing import Dict, Iterator
 
 # Third party libraries
 import click
@@ -20,11 +17,11 @@ from psycopg2.extensions import (
 @contextmanager
 def db_cursor() -> Iterator[cursor_cls]:
     connection = connect(
-        dbname=os.environ['REDSHIFT_DATABASE'],
-        host=os.environ['REDSHIFT_HOST'],
-        password=os.environ['REDSHIFT_PASSWORD'],
-        port=os.environ['REDSHIFT_PORT'],
-        user=os.environ['REDSHIFT_USER'],
+        dbname=os.environ["REDSHIFT_DATABASE"],
+        host=os.environ["REDSHIFT_HOST"],
+        password=os.environ["REDSHIFT_PASSWORD"],
+        port=os.environ["REDSHIFT_PORT"],
+        user=os.environ["REDSHIFT_USER"],
     )
     connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
     try:
@@ -39,7 +36,7 @@ def db_cursor() -> Iterator[cursor_cls]:
 
 def initialize() -> None:
     with db_cursor() as cursor:
-        cursor.execute('CREATE SCHEMA IF NOT EXISTS sorts')
+        cursor.execute("CREATE SCHEMA IF NOT EXISTS sorts")
         cursor.execute(
             """
             CREATE TABLE IF NOT EXISTS sorts.training (
@@ -85,19 +82,19 @@ def insert(training_result: Dict[str, str]) -> None:
                     %(tuned_parameters)s
                 )
             """,
-            training_result
+            training_result,
         )
 
 
 @click.group(
-    help='Redshift integration for Sorts. Handle all training results storage',
+    help="Redshift integration for Sorts. Handle all training results storage",
 )
 def cli() -> None:
     pass
 
 
 @cli.command(
-    help='Initializes Redshift schema & sorts table to store training results'
+    help="Initializes Redshift schema & sorts table to store training results"
 )
 def init_db() -> None:
     initialize()
@@ -105,13 +102,13 @@ def init_db() -> None:
 
 @cli.command(
     help=(
-        'Delete and create again Redshift schema & sorts '
-        'table to store training results'
+        "Delete and create again Redshift schema & sorts "
+        "table to store training results"
     )
 )
 def reset_db() -> None:
     pass  # incoming function
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cli()

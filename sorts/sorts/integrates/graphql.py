@@ -13,15 +13,15 @@ from sorts.constants import CTX
 
 @contextmanager
 def client() -> Iterator[GraphQLClient]:
-    if hasattr(CTX, 'api_token') and CTX.api_token:
+    if hasattr(CTX, "api_token") and CTX.api_token:
         transport: Transport = RequestsHTTPTransport(
-            headers={'Authorization': f'Bearer {CTX.api_token}'},
+            headers={"Authorization": f"Bearer {CTX.api_token}"},
             timeout=5,
-            url='https://app.fluidattacks.com/api'
+            url="https://app.fluidattacks.com/api",
         )
         yield GraphQLClient(transport=transport)
     else:
-        raise RuntimeError('create_session() must be called first')
+        raise RuntimeError("create_session() must be called first")
 
 
 def create_session(api_token: str) -> str:

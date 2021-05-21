@@ -9,26 +9,18 @@ single sagemaker
 """
 
 # Standard libraries
-from subprocess import (
-    call,
-    DEVNULL
-)
+from subprocess import call, DEVNULL
+
 call(
-    'pip install sagemaker'.split(' '),
+    "pip install sagemaker".split(" "),
     stdout=DEVNULL,
     stderr=DEVNULL,
 )
-from typing import (
-    Dict,
-    List
-)
+from typing import Dict, List
 
 # Third party libraries
 import boto3
-from sagemaker.tuner import (
-    CategoricalParameter,
-    IntegerParameter
-)
+from sagemaker.tuner import CategoricalParameter, IntegerParameter
 from sklearn.ensemble import (
     AdaBoostClassifier,
     GradientBoostingClassifier,
@@ -42,70 +34,53 @@ from sklearn.svm import LinearSVC
 from sorts.typings import Model as ModelType
 
 
-S3_BUCKET_NAME: str = 'sorts'
-S3_RESOURCE = boto3.resource('s3')
+S3_BUCKET_NAME: str = "sorts"
+S3_RESOURCE = boto3.resource("s3")
 S3_BUCKET = S3_RESOURCE.Bucket(S3_BUCKET_NAME)
 
 FEATURES_DICTS: Dict[str, str] = {
-    'num_commits': 'CM',
-    'num_unique_authors': 'AU',
-    'file_age': 'FA',
-    'midnight_commits': 'MC',
-    'risky_commits': 'RC',
-    'seldom_contributors': 'SC',
-    'num_lines': 'LC',
-    'busy_file': 'BF',
-    'commit_frequency': 'CF'
+    "num_commits": "CM",
+    "num_unique_authors": "AU",
+    "file_age": "FA",
+    "midnight_commits": "MC",
+    "risky_commits": "RC",
+    "seldom_contributors": "SC",
+    "num_lines": "LC",
+    "busy_file": "BF",
+    "commit_frequency": "CF",
 }
 RESULT_HEADERS: List[str] = [
-    'Model',
-    'Features',
-    'Precision',
-    'Recall',
-    'F1',
-    'Overfit'
+    "Model",
+    "Features",
+    "Precision",
+    "Recall",
+    "F1",
+    "Overfit",
 ]
 MODELS: Dict[str, ModelType] = {
-    'adaboostclassifier': AdaBoostClassifier,
-    'gradientboostingclassifier': GradientBoostingClassifier,
-    'kneighborsclassifier': KNeighborsClassifier,
-    'linearsvc': LinearSVC,
-    'mlpclassifier': MLPClassifier,
-    'randomforestclassifier': RandomForestClassifier
+    "adaboostclassifier": AdaBoostClassifier,
+    "gradientboostingclassifier": GradientBoostingClassifier,
+    "kneighborsclassifier": KNeighborsClassifier,
+    "linearsvc": LinearSVC,
+    "mlpclassifier": MLPClassifier,
+    "randomforestclassifier": RandomForestClassifier,
 }
 
 # Hyperparameters
 MODEL_HYPERPARAMETERS = {
-    'mlpclassifier': {
-        'activation': CategoricalParameter([
-            'relu',
-            'tanh',
-            'identity',
-            'logistic'
-        ]),
-        'solver': CategoricalParameter([
-            'lbfgs',
-            'sgd',
-            'adam'
-        ]),
+    "mlpclassifier": {
+        "activation": CategoricalParameter(
+            ["relu", "tanh", "identity", "logistic"]
+        ),
+        "solver": CategoricalParameter(["lbfgs", "sgd", "adam"]),
     },
-    'gradientboostingclassifier': {
-        'criterion': CategoricalParameter([
-            'friedman_mse',
-            'mse',
-            'mae'
-        ]),
-        'loss': CategoricalParameter([
-            'deviance',
-            'exponential'
-        ]),
-        'n_estimators': IntegerParameter(90, 110)
+    "gradientboostingclassifier": {
+        "criterion": CategoricalParameter(["friedman_mse", "mse", "mae"]),
+        "loss": CategoricalParameter(["deviance", "exponential"]),
+        "n_estimators": IntegerParameter(90, 110),
     },
-    'adaboostclassifier': {
-        'algorithm': CategoricalParameter([
-            'SAMME',
-            'SAMME.R'
-        ]),
-        'n_estimators': IntegerParameter(40, 60)
-    }
+    "adaboostclassifier": {
+        "algorithm": CategoricalParameter(["SAMME", "SAMME.R"]),
+        "n_estimators": IntegerParameter(40, 60),
+    },
 }

@@ -34,15 +34,15 @@ from sorts.utils.repositories import (
 
 
 COMMIT_FEATURES: List[str] = [
-    'hunks',
-    'additions',
-    'deletions',
-    'deltas',
-    'touched',
-    'touched_files',
-    'max_others_touchers',
-    'touches_busy_file',
-    'authored_hour'
+    "hunks",
+    "additions",
+    "deletions",
+    "deltas",
+    "touched",
+    "touched_files",
+    "max_others_touchers",
+    "touches_busy_file",
+    "authored_hour",
 ]
 
 
@@ -77,12 +77,12 @@ def get_commit_files_authors(git_repo: Git, commit: str) -> List[int]:
             # This is triggered when a file that was modified in the commit
             # does not exist in the current version of the repository
             log_exception(
-                'warning',
+                "warning",
                 exc,
                 message=(
-                    f'File {os.path.join(git_repo.working_dir, file)} '
-                    'has no git history'
-                )
+                    f"File {os.path.join(git_repo.working_dir, file)} "
+                    "has no git history"
+                ),
             )
     return files_authors
 
@@ -101,8 +101,8 @@ def get_features(row: Series, fusion_path: str) -> CommitFeatures:
     hunks: int = 0
     max_other_touchers: int = 0
     try:
-        repo: str = row['repo']
-        commit: str = row['commit']
+        repo: str = row["repo"]
+        commit: str = row["commit"]
         repo_path: str = os.path.join(fusion_path, repo)
         git_repo: Git = git.Git(repo_path)
         hunks = get_commit_hunks(repo_path, commit)
@@ -111,7 +111,7 @@ def get_features(row: Series, fusion_path: str) -> CommitFeatures:
         max_other_touchers = max(files_authors) if files_authors else 0
         authored_hour = get_commit_hour(git_repo, commit)
     except KeyError as exc:
-        log_exception('info', exc, row=row)
+        log_exception("info", exc, row=row)
     return CommitFeatures(
         hunks=hunks,
         additions=additions,
@@ -121,7 +121,7 @@ def get_features(row: Series, fusion_path: str) -> CommitFeatures:
         touched_files=len(files_authors),
         max_other_touchers=max_other_touchers,
         touches_busy_file=1 if max_other_touchers > 9 else 0,
-        authored_hour=authored_hour
+        authored_hour=authored_hour,
     )
 
 
@@ -131,15 +131,12 @@ def extract_features(training_df: DataFrame, fusion_path: str) -> bool:
     try:
         timer: float = time.time()
         training_df[COMMIT_FEATURES] = training_df.apply(
-            get_features,
-            args=(fusion_path,),
-            axis=1,
-            result_type='expand'
+            get_features, args=(fusion_path,), axis=1, result_type="expand"
         )
         log(
-            'info',
-            'Features extracted after %.2f seconds',
-            time.time() - timer
+            "info",
+            "Features extracted after %.2f seconds",
+            time.time() - timer,
         )
     except KeyError:
         success = False

@@ -22,96 +22,46 @@ from features.file import (
 )
 
 
-DATA_PATH: str = f'{os.path.dirname(__file__)}/data'
+DATA_PATH: str = f"{os.path.dirname(__file__)}/data"
 
 
 @pytest.mark.usefixtures("test_clone_repo")
 def test_bad_dataframe(caplog: LogCaptureFixture) -> None:
     training_df: DataFrame = pd.read_csv(
-        os.path.join(DATA_PATH, 'test_repo_files.csv')
+        os.path.join(DATA_PATH, "test_repo_files.csv")
     )
     extract_file_features(training_df)
-    assert 'Exception: KeyError' in caplog.text
+    assert "Exception: KeyError" in caplog.text
 
 
 def test_extract_commit_features(test_clone_repo: str) -> None:
     training_df: DataFrame = pd.read_csv(
-        os.path.join(DATA_PATH, 'test_repo_commits.csv')
+        os.path.join(DATA_PATH, "test_repo_commits.csv")
     )
-    training_df['repo'] = 'requests'
+    training_df["repo"] = "requests"
     extract_commit_features(training_df, test_clone_repo)
     assert training_df[COMMIT_FEATURES].values.tolist() == [
-        [
-            3,
-            5,
-            4,
-            1,
-            9,
-            1,
-            22,
-            1,
-            15
-        ],
-        [
-            1,
-            5,
-            2,
-            3,
-            7,
-            1,
-            198,
-            1,
-            15
-        ],
-        [
-            4,
-            12,
-            3,
-            9,
-            15,
-            1,
-            35,
-            1,
-            10
-        ],
-        [
-            4,
-            3,
-            4,
-            -1,
-            7,
-            1,
-            14,
-            1,
-            15
-        ],
-        [
-            19,
-            63,
-            14,
-            49,
-            77,
-            0,
-            0,
-            0,
-            23
-        ]
+        [3, 5, 4, 1, 9, 1, 22, 1, 15],
+        [1, 5, 2, 3, 7, 1, 198, 1, 15],
+        [4, 12, 3, 9, 15, 1, 35, 1, 10],
+        [4, 3, 4, -1, 7, 1, 14, 1, 15],
+        [19, 63, 14, 49, 77, 0, 0, 0, 23],
     ]
 
 
 def test_extract_file_features(test_clone_repo: str) -> None:
     creation_dates: List[str] = [
-        '2011-05-14T14:21:42-04:00',
-        '2011-10-23T10:56:04-04:00',
-        '2011-05-20T18:20:17+02:00',
-        '2011-08-15T16:01:26-04:00',
-        '2011-08-17T01:23:49-04:00'
+        "2011-05-14T14:21:42-04:00",
+        "2011-10-23T10:56:04-04:00",
+        "2011-05-20T18:20:17+02:00",
+        "2011-08-15T16:01:26-04:00",
+        "2011-08-17T01:23:49-04:00",
     ]
     training_df: DataFrame = pd.read_csv(
-        os.path.join(DATA_PATH, 'test_repo_files.csv')
+        os.path.join(DATA_PATH, "test_repo_files.csv")
     )
-    training_df['repo'] = training_df['file'].apply(
-        lambda x: f'{test_clone_repo}/requests'
+    training_df["repo"] = training_df["file"].apply(
+        lambda x: f"{test_clone_repo}/requests"
     )
     extract_file_features(training_df)
     file_ages: List[int] = [
@@ -129,7 +79,7 @@ def test_extract_file_features(test_clone_repo: str) -> None:
             161,
             round(137 / file_ages[0], 4),
             1,
-            'py'
+            "py",
         ],
         [
             116,
@@ -141,7 +91,7 @@ def test_extract_file_features(test_clone_repo: str) -> None:
             305,
             round(116 / file_ages[1], 4),
             1,
-            'py'
+            "py",
         ],
         [
             46,
@@ -153,7 +103,7 @@ def test_extract_file_features(test_clone_repo: str) -> None:
             123,
             round(46 / file_ages[2], 4),
             1,
-            'py'
+            "py",
         ],
         [
             323,
@@ -165,7 +115,7 @@ def test_extract_file_features(test_clone_repo: str) -> None:
             769,
             round(323 / file_ages[3], 4),
             1,
-            'py'
+            "py",
         ],
         [
             251,
@@ -177,29 +127,83 @@ def test_extract_file_features(test_clone_repo: str) -> None:
             982,
             round(251 / file_ages[4], 4),
             1,
-            'py'
-        ]
+            "py",
+        ],
     ]
 
 
 def test_encode_extensions() -> None:
     training_df: DataFrame = pd.DataFrame(
-        ['py', 'java', 'md', 'cs', 'go'],
-        columns=['extension']
+        ["py", "java", "md", "cs", "go"], columns=["extension"]
     )
     encode_extensions(training_df)
     assert training_df.loc[0].values.tolist() == [
-        'py', 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0
+        "py",
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
     ]
     assert training_df.loc[1].values.tolist() == [
-        'java', 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0
+        "java",
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
     ]
     assert training_df.loc[2].values.tolist() == [
-        'md', 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0
+        "md",
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
     ]
     assert training_df.loc[3].values.tolist() == [
-        'cs', 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1
+        "cs",
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
     ]
     assert training_df.loc[4].values.tolist() == [
-        'go', 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1
+        "go",
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1,
     ]

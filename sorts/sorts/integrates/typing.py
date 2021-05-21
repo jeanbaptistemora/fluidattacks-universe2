@@ -4,9 +4,9 @@ from typing import NamedTuple
 
 
 class VulnerabilityKindEnum(Enum):
-    INPUTS: str = 'inputs'
-    LINES: str = 'lines'
-    PORTS: str = 'ports'
+    INPUTS: str = "inputs"
+    LINES: str = "lines"
+    PORTS: str = "ports"
 
 
 class Vulnerability(NamedTuple):  # pylint: disable=too-few-public-methods

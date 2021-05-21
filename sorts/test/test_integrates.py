@@ -17,24 +17,22 @@ def test_bad_client() -> None:
 def test_client(test_integrates_api_token: str) -> None:
     with graphql_client() as client:
         assert client.transport.headers == {
-            'Authorization': f'Bearer {test_integrates_api_token}'
+            "Authorization": f"Bearer {test_integrates_api_token}"
         }
 
 
 @pytest.mark.usefixtures(
-    "test_integrates_api_token",
-    "test_integrates_session"
+    "test_integrates_api_token", "test_integrates_session"
 )
 def test_get_vulnerable_lines() -> None:
-    vulnerabilities = get_vulnerable_lines('oneshottest')
+    vulnerabilities = get_vulnerable_lines("oneshottest")
     assert len(vulnerabilities) > 0
 
 
 @pytest.mark.usefixtures(
-    "test_integrates_api_token",
-    "test_integrates_session"
+    "test_integrates_api_token", "test_integrates_session"
 )
 def test_bad_query(caplog: LogCaptureFixture) -> None:
-    vulnerabilities = get_vulnerable_lines('')
+    vulnerabilities = get_vulnerable_lines("")
     assert vulnerabilities == []
-    assert 'Exception: TransportQueryError' in caplog.text
+    assert "Exception: TransportQueryError" in caplog.text

@@ -35,7 +35,7 @@ class CustomFormatter(logging.Formatter):
         logging.INFO: grey + msg_format + reset,
         logging.WARNING: yellow + msg_format + reset,
         logging.ERROR: red + msg_format + reset,
-        logging.CRITICAL: bold_red + msg_format + reset
+        logging.CRITICAL: bold_red + msg_format + reset,
     }
 
     def format(self, record: logging.LogRecord) -> str:
@@ -68,7 +68,7 @@ def log(level: str, msg: str, *args: Any) -> None:
 
 
 def log_to_remote_info(msg: str, **meta_data: str) -> None:
-    log_to_remote(Exception(msg), severity='info', **meta_data)
+    log_to_remote(Exception(msg), severity="info", **meta_data)
 
 
 def log_exception(
@@ -78,15 +78,13 @@ def log_exception(
 ) -> None:
     exc_type: str = type(exception).__name__
     exc_msg: str = str(exception)
-    log(level, 'Exception: %s, %s, %s', exc_type, exc_msg, meta_data)
-    if level in ('warning', 'error', 'critical'):
+    log(level, "Exception: %s, %s, %s", exc_type, exc_msg, meta_data)
+    if level in ("warning", "error", "critical"):
         log_to_remote(exception, severity=level, **meta_data)
 
 
 def log_to_remote(
-    exception: BaseException,
-    severity: str,
-    **meta_data: str
+    exception: BaseException, severity: str, **meta_data: str
 ) -> None:
     meta_data.update(BUGS_META.get() or {})
     bugsnag.notify(exception, meta_data=meta_data, severity=severity)
