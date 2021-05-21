@@ -11,6 +11,13 @@ import React, { useCallback, useState } from "react";
 import { useParams } from "react-router";
 import type { InjectedFormProps, Validator } from "redux-form";
 
+import {
+  checkNotEmptyOrEditing,
+  getUpdateChanges,
+  handleUpdateEvidenceError,
+  showContent,
+} from "./helpers";
+
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -84,28 +91,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
   });
   const [updateEvidence] = useMutation(UPDATE_EVIDENCE_MUTATION, {
     onError: (updateError: ApolloError): void => {
-      updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-        switch (message) {
-          case "Exception - The event has already been closed":
-            msgError(translate.t("group.events.alreadyClosed"));
-            break;
-          case "Exception - Invalid File Size":
-            msgError(translate.t("validations.fileSize", { count: 10 }));
-            break;
-          case "Exception - Invalid File Type: EVENT_IMAGE":
-            msgError(translate.t("group.events.form.wrongImageType"));
-            break;
-          case "Exception - Invalid File Type: EVENT_FILE":
-            msgError(translate.t("group.events.form.wrongFileType"));
-            break;
-          default:
-            msgError(translate.t("groupAlerts.errorTextsad"));
-            Logger.warning(
-              "An error occurred updating event evidence",
-              updateError
-            );
-        }
-      });
+      handleUpdateEvidenceError(updateError);
     },
   });
 
@@ -113,25 +99,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
     async (values: Record<string, unknown>): Promise<void> => {
       setEditing(false);
 
-      const updateChanges: (
-        evidence: { file?: FileList },
-        key: string
-      ) => Promise<void> = async (
-        evidence: { file?: FileList },
-        key: string
-      ): Promise<void> => {
-        const { file } = evidence;
-
-        if (!_.isUndefined(file)) {
-          await updateEvidence({
-            variables: {
-              eventId,
-              evidenceType: key.toUpperCase(),
-              file: file[0],
-            },
-          });
-        }
-      };
+      const updateChanges = getUpdateChanges(eventId, updateEvidence);
 
       await Promise.all(_.map(values, updateChanges));
       setLightboxIndex(-1);
@@ -164,7 +132,8 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
     void removeEvidence({ variables: { eventId, evidenceType: "FILE" } });
   }, [eventId, removeEvidence]);
 
-  if (_.isUndefined(data) || _.isEmpty(data)) {
+  // If the data is undefined, it will return true anyway
+  if (_.isEmpty(data)) {
     return <div />;
   }
 
@@ -220,16 +189,10 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                   </TooltipWrapper>
                 </ButtonToolbarRow>
               ) : undefined}
-              {!_.isEmpty(data.event.evidence) || isEditing ? (
+              {checkNotEmptyOrEditing(data.event.evidence, isEditing) ? (
                 <EvidenceImage
                   acceptedMimes={"image/gif,image/png"}
-                  content={
-                    showEmpty ? (
-                      <div />
-                    ) : (
-                      `${location.href}/${data.event.evidence}`
-                    )
-                  }
+                  content={showContent(showEmpty, data)}
                   date={data.event.evidenceDate}
                   description={"Evidence"}
                   isDescriptionEditable={false}
@@ -241,7 +204,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                   validate={[validEvidenceImage, maxFileSize]}
                 />
               ) : undefined}
-              {!_.isEmpty(data.event.evidenceFile) || isEditing ? (
+              {checkNotEmptyOrEditing(data.event.evidenceFile, isEditing) ? (
                 <EvidenceImage
                   acceptedMimes={
                     "application/pdf,application/zip,text/csv,text/plain"
