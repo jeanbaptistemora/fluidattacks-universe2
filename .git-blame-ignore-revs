@@ -7,3 +7,14 @@
 ae84361599411f4418f4cbeec930199e39afd63f  # skims\feat(back): #4474.3 apply formatter
 909fb94f26f70838aea5587c9c99546abfa95c89  # skims\refac(back): #4504.1 format everything
 e229a0cce04ff3741e19c5b969302c5c9973e396  # observes\style(back): #4482.8 format code
+37b8524039de3b51ed2e0f38ccc8673ef0de80fc  # skims\feat(cross): #4651 use global formatter
+d7d4987f3c5fbce48eb65da472464e5231d2a52d  # observes\feat(cross): #4651.2 use global formatter
+47663b20d43552ec5f311ffb6c5ec885f32db484  # observes\refac(back): #4598.17 migrate schema
+f1ed20e4c7b7f621dc9fff73746b66a78765ddea  # airs\feat(cross): #4651.3 use global formatter
+5c204822ebee18a6256b3d9d94b20b8eb3fc94fc  # makes\feat(cross): #4651.4 use global formatter
+79cab16f246bdd5bd882fedfb1b1690aa64af04c  # asserts\feat(cross): #4651.5 use global formatter
+2039d0c1264dbcc20e2cc0afbab91cbb03140add  # forces\refac(cross): #4651.6 use global formatter
+18c3006d497b89d42043a316601976cce0bf1b4a  # sorts\refac(cross): #4651.7 use global formatter
+5edbf769810cf74d399efd4aeecfae1647fd23b0  # reviews\refac(cross): #4651.8 use global formatter
+7df1e8e621384da39d62cafec88af38262172ba7  # melts\refac(cross): #4651.9 use global formatter
+164c9e7c501140214bf1f4cee787a6ccef4a1c0a  # integrates\refac(cross): #4651.9 use global formatter
