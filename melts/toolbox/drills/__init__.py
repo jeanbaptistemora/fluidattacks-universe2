@@ -10,7 +10,7 @@ from toolbox.drills import (
     take_group_snapshot,
     update_lines,
     upload_history,
-    lint
+    lint,
 )
 
 # Imported but unused

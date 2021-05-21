@@ -11,7 +11,7 @@ pythonFormat {
     "forces"
     # "integrates"
     "makes"
-    # "melts"
+    "melts"
     "observes"
     "reviews"
     "skims"

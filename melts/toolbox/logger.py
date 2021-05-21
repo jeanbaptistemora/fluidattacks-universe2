@@ -6,7 +6,7 @@ import sys
 from toolbox import constants
 
 # Constants
-_FORMAT: str = '[%(levelname)s] %(message)s'
+_FORMAT: str = "[%(levelname)s] %(message)s"
 _LOGGER_FORMATTER: logging.Formatter = logging.Formatter(_FORMAT)
 _LOGGER_HANDLER: logging.Handler = logging.StreamHandler(sys.stderr)
 
@@ -16,6 +16,6 @@ else:
     _LOGGER_HANDLER.setLevel(logging.INFO)
 
 _LOGGER_HANDLER.setFormatter(_LOGGER_FORMATTER)
-LOGGER: logging.Logger = logging.getLogger('forces')
+LOGGER: logging.Logger = logging.getLogger("forces")
 LOGGER.setLevel(logging.INFO)
 LOGGER.addHandler(_LOGGER_HANDLER)

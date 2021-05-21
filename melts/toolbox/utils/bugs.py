@@ -16,9 +16,7 @@ from toolbox.utils.env import (
 )
 
 # Constants
-META: ContextVar[Optional[Dict[str, str]]] = (
-    ContextVar('META', default=None)
-)
+META: ContextVar[Optional[Dict[str, str]]] = ContextVar("META", default=None)
 
 
 def configure_bugsnag(**data: str) -> None:

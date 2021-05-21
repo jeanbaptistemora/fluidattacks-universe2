@@ -27,7 +27,7 @@ def _iter_full_paths(path: str) -> Iterator[str]:
         for entry in os.scandir(path):
             full_path = entry.path
             if entry.is_dir(follow_symlinks=False):
-                yield f'{entry.path}/'
+                yield f"{entry.path}/"
                 yield from _iter_full_paths(full_path)
             else:
                 yield full_path
@@ -36,7 +36,7 @@ def _iter_full_paths(path: str) -> Iterator[str]:
 def iter_rel_paths(starting_path: str) -> Iterator[str]:
     """Recursively yield relative paths to files for a given starting path."""
     yield from (
-        path.replace(starting_path, '')[1:]
+        path.replace(starting_path, "")[1:]
         for path in _iter_full_paths(starting_path)
     )
 
@@ -63,11 +63,11 @@ def is_covered(
     exclude_regexps: Tuple[str, ...],
 ) -> bool:
     """Return True if a file should be included according to the filters."""
-    is_included_in_any_rule: bool = \
-        any(map(methodcaller('match', path), _compile(include_regexps)))
-    is_excluded_in_any_rule: bool = \
-        any(map(methodcaller('match', path), _compile(exclude_regexps)))
+    is_included_in_any_rule: bool = any(
+        map(methodcaller("match", path), _compile(include_regexps))
+    )
+    is_excluded_in_any_rule: bool = any(
+        map(methodcaller("match", path), _compile(exclude_regexps))
+    )
 
-    return \
-        not is_excluded_in_any_rule \
-        and is_included_in_any_rule
+    return not is_excluded_in_any_rule and is_included_in_any_rule

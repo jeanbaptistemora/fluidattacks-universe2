@@ -23,41 +23,61 @@ from toolbox.drills import (
 )
 
 
-@command(name='drills', short_help='drills service related tools')
+@command(name="drills", short_help="drills service related tools")
 @argument(
-    'group',
+    "group",
     default=utils.generic.get_current_group(),
-    callback=utils.generic.is_valid_group)
+    callback=utils.generic.is_valid_group,
+)
 @option(
-    '--name', 'o_name',
-    help='Specific name of repository',
-    default='all',
-    type=str)
+    "--name",
+    "o_name",
+    help="Specific name of repository",
+    default="all",
+    type=str,
+)
 @option(
-    '--generate-commit-msg', 'o_generate_commit_msg',
+    "--generate-commit-msg",
+    "o_generate_commit_msg",
     is_flag=True,
-    help='Generate drills commit message')
+    help="Generate drills commit message",
+)
 @option(
-    '--update-lines', 'o_update_lines', is_flag=True,
-    help='Update a group lines.csv with the latest repo info')
-@option(
-    '--upload-history', 'o_upload_history', is_flag=True,
-    help='Show last upload dates on s3 for all groups')
-@option(
-    '--to-reattack', 'o_to_reattack',
+    "--update-lines",
+    "o_update_lines",
     is_flag=True,
-    help='Show findings pending to re-attack and verify')
+    help="Update a group lines.csv with the latest repo info",
+)
 @option(
-    '--pull-repos', 'o_pull_repos',
+    "--upload-history",
+    "o_upload_history",
     is_flag=True,
-    help='Pull repos from s3 to fusion for a subs')
+    help="Show last upload dates on s3 for all groups",
+)
 @option(
-    '--push-repos', 'o_push_repos',
+    "--to-reattack",
+    "o_to_reattack",
     is_flag=True,
-    help='Push repos from fusion to s3 for a subs')
+    help="Show findings pending to re-attack and verify",
+)
 @option(
-    '--count-toe', 'o_count_toe', is_flag=True,
-    help='Pipelines only, count coverage data and upload it to DynamoDB')
+    "--pull-repos",
+    "o_pull_repos",
+    is_flag=True,
+    help="Pull repos from s3 to fusion for a subs",
+)
+@option(
+    "--push-repos",
+    "o_push_repos",
+    is_flag=True,
+    help="Push repos from fusion to s3 for a subs",
+)
+@option(
+    "--count-toe",
+    "o_count_toe",
+    is_flag=True,
+    help="Pipelines only, count coverage data and upload it to DynamoDB",
+)
 def drills_management(  # pylint: disable=too-many-arguments
     group: str,
     o_name: str,
@@ -79,8 +99,7 @@ def drills_management(  # pylint: disable=too-many-arguments
     elif o_upload_history:
         upload_history.main()
     elif o_to_reattack:
-        group = ('all' if group == 'unspecified-subs'
-                 else group)
+        group = "all" if group == "unspecified-subs" else group
         to_reattack.main(group)
     elif o_pull_repos:
         success = pull_repos.main(group, o_name)

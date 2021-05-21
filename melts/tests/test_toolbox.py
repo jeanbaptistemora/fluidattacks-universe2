@@ -10,11 +10,11 @@ from toolbox import (
 )
 
 # Constants
-SUBS: str = 'continuoustest'
-SUBS_BAD: str = 'not-existing-group'
+SUBS: str = "continuoustest"
+SUBS_BAD: str = "not-existing-group"
 SUCCESS: int = 0
 FAILURE: int = 1
-FINDING: str = '720412598'
+FINDING: str = "720412598"
 
 
 def test_toolbox_get_group_from_commit_msg(relocate: Any) -> None:

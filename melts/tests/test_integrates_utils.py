@@ -10,13 +10,13 @@ from toolbox.utils.integrates import (
 
 def test_get_projects_with_forces() -> None:
     projects = get_projects_with_forces()
-    assert 'continuoustest' in projects
+    assert "continuoustest" in projects
 
 
 def test_has_forces() -> None:
-    assert has_forces('continuoustest')
+    assert has_forces("continuoustest")
     try:
-        assert has_forces('undefined')
+        assert has_forces("undefined")
     except IntegratesError:
         assert True
     else:
@@ -24,15 +24,15 @@ def test_has_forces() -> None:
 
 
 def test_get_repos() -> None:
-    repos = get_project_repos('continuoustest')
+    repos = get_project_repos("continuoustest")
     assert not repos
-    assert not get_project_repos('undefined')
+    assert not get_project_repos("undefined")
 
 
 def test_get_group_language() -> None:
-    assert get_group_language('continuoustest') == 'EN'
+    assert get_group_language("continuoustest") == "EN"
     try:
-        assert get_group_language('undefined')
+        assert get_group_language("undefined")
     except IntegratesError:
         assert True
     else:
@@ -40,9 +40,9 @@ def test_get_group_language() -> None:
 
 
 def test_has_drills() -> None:
-    assert has_drills('continuoustest')
+    assert has_drills("continuoustest")
     try:
-        assert has_drills('undefined')
+        assert has_drills("undefined")
     except IntegratesError:
         assert True
     else:

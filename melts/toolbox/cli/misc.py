@@ -24,26 +24,27 @@ def do_check_commit_msg() -> bool:
     if drills.commit.is_drills_commit(summary):
         success = drills.commit.is_valid_summary(summary, body)
     else:
-        success = generic.commit.is_valid_summary(summary) \
-            and generic.commit.has_short_line_length(summary, body) \
-            and generic.commit.is_under_100_deltas() \
-
+        success = (
+            generic.commit.is_valid_summary(summary)
+            and generic.commit.has_short_line_length(summary, body)
+            and generic.commit.is_under_100_deltas()
+        )
     return success
 
 
-@command(name='misc', short_help='miscellaneous checks')
+@command(name="misc", short_help="miscellaneous checks")
 @argument(
-    'group',
+    "group",
     default=utils.generic.get_current_group(),
     callback=utils.generic.is_valid_group,
 )
-@option('--check-commit-msg', is_flag=True, help='validate commit msg syntax')
-@option('--is-drills-commit', is_flag=True)
-@option('--filter-groups-with-forces')
-@option('--groups-with-forces', is_flag=True)
-@option('--get-group-language', is_flag=True)
-@option('--get-forces-token', is_flag=True)
-@option('--has-drills', is_flag=True)
+@option("--check-commit-msg", is_flag=True, help="validate commit msg syntax")
+@option("--is-drills-commit", is_flag=True)
+@option("--filter-groups-with-forces")
+@option("--groups-with-forces", is_flag=True)
+@option("--get-group-language", is_flag=True)
+@option("--get-forces-token", is_flag=True)
+@option("--has-drills", is_flag=True)
 def misc_management(  # pylint: disable=too-many-arguments
     group: str,
     check_commit_msg: bool,
@@ -66,9 +67,11 @@ def misc_management(  # pylint: disable=too-many-arguments
         success = success_message and success_content
 
     elif filter_groups_with_forces:
-        success = utils.integrates.filter_groups_with_forces_as_json_str(tuple(
-            filter_groups_with_forces.split(' '),
-        ))
+        success = utils.integrates.filter_groups_with_forces_as_json_str(
+            tuple(
+                filter_groups_with_forces.split(" "),
+            )
+        )
     elif groups_with_forces:
         success = utils.integrates.get_projects_with_forces_json_str()
     elif get_group_language:

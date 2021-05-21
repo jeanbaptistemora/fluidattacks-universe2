@@ -24,23 +24,23 @@ def s3_ls(
     path: str,
     endpoint_url: Optional[str] = None,
 ) -> List[str]:
-    client = boto3.client('s3', endpoint_url=endpoint_url)
+    client = boto3.client("s3", endpoint_url=endpoint_url)
 
-    if not path.endswith('/'):
-        path = f'{path}/'
+    if not path.endswith("/"):
+        path = f"{path}/"
 
     response = client.list_objects_v2(
         Bucket=bucket,
-        Delimiter='/',
+        Delimiter="/",
         Prefix=path,
     )
     try:
-        return list(map(lambda x: x['Prefix'], response['CommonPrefixes']))
+        return list(map(lambda x: x["Prefix"], response["CommonPrefixes"]))
     except KeyError as key_error:
-        LOGGER.error('Looks like response does not have Common Prefixes:')
+        LOGGER.error("Looks like response does not have Common Prefixes:")
         LOGGER.error(key_error)
     except json.decoder.JSONDecodeError as json_decode_error:
-        LOGGER.error('Looks like response was not parseable')
+        LOGGER.error("Looks like response was not parseable")
         LOGGER.error(json_decode_error)
     return []
 
@@ -51,21 +51,22 @@ def fill_empty_folders(path: str) -> None:
         if not dirs and not files:
             empty_folders.append(root)
     for folder in empty_folders:
-        LOGGER.info('Adding .keep at %s', folder)
-        Path(folder, '.keep').touch()
+        LOGGER.info("Adding .keep at %s", folder)
+        Path(folder, ".keep").touch()
 
 
 def git_optimize_all(path: str) -> None:
-    git_files = Path(path).glob('**/.git')
-    LOGGER.info('Git files: %s', tuple(git_files))
+    git_files = Path(path).glob("**/.git")
+    LOGGER.info("Git files: %s", tuple(git_files))
     git_folders = set(map(lambda x: x.parent, git_files))
     for folder in git_folders:
-        LOGGER.info('Git optimize at %s', folder)
+        LOGGER.info("Git optimize at %s", folder)
         try:
             git.Repo(str(folder), search_parent_directories=True).git.gc(
-                '--aggressive', '--prune=all')
+                "--aggressive", "--prune=all"
+            )
         except GitCommandError as exc:
-            LOGGER.error('Git optimization has failed at %s: ', folder)
+            LOGGER.error("Git optimization has failed at %s: ", folder)
             LOGGER.info(exc.stdout)
             LOGGER.info(exc.stderr)
             shutil.rmtree(folder)
@@ -73,23 +74,33 @@ def git_optimize_all(path: str) -> None:
 
 def s3_sync_fusion_to_s3(
     subs: str,
-    bucket: str = 'continuous-repositories',
+    bucket: str = "continuous-repositories",
     endpoint_url: Optional[str] = None,
 ) -> bool:
-    fusion_dir: str = f'groups/{subs}/fusion'
-    s3_subs_repos_path: str = f'{subs}/'
-    kwargs = dict() if generic.is_env_ci() else dict(
-        stdout=None,
-        stderr=None,
+    fusion_dir: str = f"groups/{subs}/fusion"
+    s3_subs_repos_path: str = f"{subs}/"
+    kwargs = (
+        dict()
+        if generic.is_env_ci()
+        else dict(
+            stdout=None,
+            stderr=None,
+        )
     )
 
     aws_sync_command: List[str] = [
-        'aws', 's3', 'sync',
-        '--delete',
-        '--sse', 'AES256',
-        '--exclude', "*",
-        '--include', "*/.git/*",
-        fusion_dir, f's3://{bucket}/{s3_subs_repos_path}',
+        "aws",
+        "s3",
+        "sync",
+        "--delete",
+        "--sse",
+        "AES256",
+        "--exclude",
+        "*",
+        "--include",
+        "*/.git/*",
+        fusion_dir,
+        f"s3://{bucket}/{s3_subs_repos_path}",
     ]
     # Allow upload empty folders to keep .git structure
     # and avoid errors
@@ -99,18 +110,18 @@ def s3_sync_fusion_to_s3(
         git_optimize_all(fusion_dir)
 
     if endpoint_url:
-        aws_sync_command.append('--endpoint')
+        aws_sync_command.append("--endpoint")
         aws_sync_command.append(endpoint_url)
     if generic.is_env_ci():
-        aws_sync_command.append('--quiet')
+        aws_sync_command.append("--quiet")
     status, stdout, stderr = generic.run_command(
         cmd=aws_sync_command,
-        cwd='.',
+        cwd=".",
         env={},
         **kwargs,  # type:ignore
     )
     if status:
-        LOGGER.error('Sync from bucket has failed:')
+        LOGGER.error("Sync from bucket has failed:")
         LOGGER.info(stdout)
         LOGGER.info(stderr)
         return False
@@ -120,9 +131,9 @@ def s3_sync_fusion_to_s3(
 @shield(retries=1)
 def main(
     subs: str,
-    bucket: str = 'continuous-repositories',
+    bucket: str = "continuous-repositories",
     aws_login: bool = True,
-    aws_profile: str = 'continuous-admin',
+    aws_profile: str = "continuous-admin",
     endpoint_url: Optional[str] = None,
 ) -> bool:
     """
@@ -141,11 +152,10 @@ def main(
         if aws_login:
             generic.aws_login(aws_profile)
 
-        LOGGER.info('Syncing repositories')
-        passed = passed \
-            and s3_sync_fusion_to_s3(subs, bucket, endpoint_url)
+        LOGGER.info("Syncing repositories")
+        passed = passed and s3_sync_fusion_to_s3(subs, bucket, endpoint_url)
     else:
-        LOGGER.error('Either the subs or the fusion folder does not exist')
+        LOGGER.error("Either the subs or the fusion folder does not exist")
         passed = False
 
     return passed

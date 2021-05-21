@@ -13,7 +13,7 @@ from toolbox.utils.bugs import (
 )
 
 # Private constants
-_FORMAT: str = '[%(levelname)s] %(message)s'
+_FORMAT: str = "[%(levelname)s] %(message)s"
 
 _LOGGER_FORMATTER: logging.Formatter = logging.Formatter(_FORMAT)
 
@@ -21,14 +21,14 @@ _LOGGER_HANDLER: logging.Handler = logging.StreamHandler(sys.stderr)
 _LOGGER_HANDLER.setLevel(logging.INFO)
 _LOGGER_HANDLER.setFormatter(_LOGGER_FORMATTER)
 
-_LOGGER: logging.Logger = logging.getLogger('melts')
+_LOGGER: logging.Logger = logging.getLogger("melts")
 _LOGGER.setLevel(logging.INFO)
 _LOGGER.addHandler(_LOGGER_HANDLER)
 
 _LOGGER_REMOTE_HANDLER = bugsnag.handlers.BugsnagHandler()
 _LOGGER_REMOTE_HANDLER.setLevel(logging.ERROR)
 
-_LOGGER_REMOTE: logging.Logger = logging.getLogger('melts')
+_LOGGER_REMOTE: logging.Logger = logging.getLogger("melts")
 _LOGGER_REMOTE.setLevel(logging.ERROR)
 _LOGGER_REMOTE.addHandler(_LOGGER_REMOTE_HANDLER)  # Sorry sir event-loop
 
@@ -49,8 +49,8 @@ def log_exception(
 ) -> None:
     exc_type: str = type(exception).__name__
     exc_msg: str = str(exception)
-    log(level, 'Exception: %s, %s, %s', exc_type, exc_msg, meta_data)
-    if level in ('warning', 'error', 'critical'):
+    log(level, "Exception: %s, %s, %s", exc_type, exc_msg, meta_data)
+    if level in ("warning", "error", "critical"):
         log_to_remote(exception, **meta_data)
 
 

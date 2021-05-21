@@ -17,19 +17,24 @@ from toolbox.utils import (
 )
 
 
-@command(name='utils', short_help='Generic utilities')
+@command(name="utils", short_help="Generic utilities")
 @argument(
-    'group',
+    "group",
     default=generic.get_current_group(),
-    callback=generic.is_valid_group)
+    callback=generic.is_valid_group,
+)
 @option(
-    '--does-subs-exist', 'o_does_subs_exist',
-    help='Check if a group exists.',
-    is_flag=True)
+    "--does-subs-exist",
+    "o_does_subs_exist",
+    help="Check if a group exists.",
+    is_flag=True,
+)
 @option(
-    '--get-commit-subs', 'o_get_commit_subs',
-    help='get the group name from the commmit msg.',
-    is_flag=True)
+    "--get-commit-subs",
+    "o_get_commit_subs",
+    help="get the group name from the commmit msg.",
+    is_flag=True,
+)
 def utils_management(
     group: str,
     o_does_subs_exist: bool,

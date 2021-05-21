@@ -1,3 +1,2 @@
-
 class IntegratesError(Exception):
     pass
