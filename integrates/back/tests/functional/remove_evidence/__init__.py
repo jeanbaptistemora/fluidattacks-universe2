@@ -19,11 +19,8 @@ async def query(
     finding: str,
     evidence: str,
 ) -> Dict[str, Any]:
-    variables: Dict[str, str] = {
-            'evidenceId': evidence,
-            'findingId': finding
-    }
-    query: str = '''
+    variables: Dict[str, str] = {"evidenceId": evidence, "findingId": finding}
+    query: str = """
         mutation removeEvidenceMutation(
             $evidenceId: EvidenceType!, $findingId: String!
         ) {
@@ -33,11 +30,8 @@ async def query(
                 success
             }
         }
-    '''
-    data: Dict[str, Any] = {
-        'query': query,
-        'variables': variables
-    }
+    """
+    data: Dict[str, Any] = {"query": query, "variables": variables}
     return await get_graphql_result(
         data,
         stakeholder=user,

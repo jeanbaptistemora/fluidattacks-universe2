@@ -18,7 +18,7 @@ async def query(
     user: str,
     finding: str,
 ) -> Dict[str, Any]:
-    query: str = f'''
+    query: str = f"""
         query {{
             finding(identifier: "{finding}"){{
                 id
@@ -79,9 +79,9 @@ async def query(
                 __typename
             }}
         }}
-    '''
+    """
     data: Dict[str, str] = {
-        'query': query,
+        "query": query,
     }
     return await get_graphql_result(
         data,

@@ -18,15 +18,15 @@ async def query(
     user: str,
     draft: str,
 ) -> Dict[str, Any]:
-    query: str = f'''
+    query: str = f"""
         mutation {{
             rejectDraft(findingId: "{draft}") {{
                 success
             }}
         }}
-    '''
+    """
     data: Dict[str, str] = {
-        'query': query,
+        "query": query,
     }
     return await get_graphql_result(
         data,

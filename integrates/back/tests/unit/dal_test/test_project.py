@@ -7,32 +7,31 @@ from group_access.dal import (
 from group_access.domain import list_internal_managers
 
 
-pytestmark = [pytest.mark.asyncio,]
+pytestmark = [
+    pytest.mark.asyncio,
+]
+
 
 async def test_list_internal_managers():
-    assert await list_internal_managers('oneshottest') == []
-    assert await list_internal_managers('unittesting') == \
-        ['unittest2@fluidattacks.com']
+    assert await list_internal_managers("oneshottest") == []
+    assert await list_internal_managers("unittesting") == [
+        "unittest2@fluidattacks.com"
+    ]
 
 
 async def test_update_access():
-    assert 'unittest2@fluidattacks.com' in \
-        await get_group_users('unittesting', True)
-    assert await update_access(
-        'unittest2@fluidattacks.com',
-        'unittesting',
-        {
-            'has_access': False
-        }
+    assert "unittest2@fluidattacks.com" in await get_group_users(
+        "unittesting", True
     )
-    assert 'unittest2@fluidattacks.com' in \
-        await get_group_users('unittesting', False)
     assert await update_access(
-        'unittest2@fluidattacks.com',
-        'unittesting',
-        {
-            'has_access': True
-        }
+        "unittest2@fluidattacks.com", "unittesting", {"has_access": False}
     )
-    assert 'unittest2@fluidattacks.com' in \
-        await get_group_users('unittesting', True)
+    assert "unittest2@fluidattacks.com" in await get_group_users(
+        "unittesting", False
+    )
+    assert await update_access(
+        "unittest2@fluidattacks.com", "unittesting", {"has_access": True}
+    )
+    assert "unittest2@fluidattacks.com" in await get_group_users(
+        "unittesting", True
+    )

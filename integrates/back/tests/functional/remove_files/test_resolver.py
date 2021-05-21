@@ -10,37 +10,37 @@ from . import query
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('remove_files')
+@pytest.mark.resolver_test_group("remove_files")
 @pytest.mark.parametrize(
-    ['email'],
+    ["email"],
     [
-        ['admin@gmail.com'],
-    ]
+        ["admin@gmail.com"],
+    ],
 )
 async def test_remove_files(populate: bool, email: str):
     assert populate
     result: Dict[str, Any] = await query(
         user=email,
-        group='group1',
+        group="group1",
     )
-    assert 'errors' not in result
-    assert result['data']['removeFiles']['success']
+    assert "errors" not in result
+    assert result["data"]["removeFiles"]["success"]
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('remove_files')
+@pytest.mark.resolver_test_group("remove_files")
 @pytest.mark.parametrize(
-    ['email'],
+    ["email"],
     [
-        ['analyst@gmail.com'],
-        ['closer@gmail.com'],
-    ]
+        ["analyst@gmail.com"],
+        ["closer@gmail.com"],
+    ],
 )
 async def test_remove_files_fail(populate: bool, email: str):
     assert populate
     result: Dict[str, Any] = await query(
         user=email,
-        group='group1',
+        group="group1",
     )
-    assert 'errors' in result
-    assert result['errors'][0]['message'] == 'Access denied'
+    assert "errors" in result
+    assert result["errors"][0]["message"] == "Access denied"

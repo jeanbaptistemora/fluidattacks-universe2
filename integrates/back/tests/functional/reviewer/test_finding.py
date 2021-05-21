@@ -12,23 +12,22 @@ from newutils import datetime as datetime_utils
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('old')
+@pytest.mark.resolver_test_group("old")
 async def test_finding():
     context = get_new_context()
     today = datetime_utils.get_as_str(
-        datetime_utils.get_now(),
-        date_format='%Y-%m-%d'
+        datetime_utils.get_now(), date_format="%Y-%m-%d"
     )
-    cwe = '200'
-    description = 'This is pytest created draft'
-    group_name = 'unittesting'
-    recommendation = 'Solve this finding'
-    requirements = 'REQ.0001. Apply filters'
-    risk = 'This is pytest created draft'
-    threat = 'Attacker'
-    title = 'F001. Very serious vulnerability'
-    draft_type = 'SECURITY'
-    query = f'''
+    cwe = "200"
+    description = "This is pytest created draft"
+    group_name = "unittesting"
+    recommendation = "Solve this finding"
+    requirements = "REQ.0001. Apply filters"
+    risk = "This is pytest created draft"
+    threat = "Attacker"
+    title = "F001. Very serious vulnerability"
+    draft_type = "SECURITY"
+    query = f"""
         mutation {{
             createDraft(
                 cwe: "{cwe}",
@@ -44,19 +43,17 @@ async def test_finding():
                 success
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(
-        data,
-        stakeholder='integratesanalyst@fluidattacks.com',
-        context=context
+        data, stakeholder="integratesanalyst@fluidattacks.com", context=context
     )
-    assert 'errors' not in result
-    assert 'success' in result['data']['createDraft']
-    assert result['data']['createDraft']['success']
+    assert "errors" not in result
+    assert "success" in result["data"]["createDraft"]
+    assert result["data"]["createDraft"]["success"]
 
     context = get_new_context()
-    query = f'''
+    query = f"""
         query {{
             project(projectName: "{group_name}"){{
                 drafts {{
@@ -66,30 +63,34 @@ async def test_finding():
                 }}
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    draft = [draft for draft in result['data']['project']['drafts'] if draft['title'] == title][0]
-    draft_id = draft['id']
+    assert "errors" not in result
+    draft = [
+        draft
+        for draft in result["data"]["project"]["drafts"]
+        if draft["title"] == title
+    ][0]
+    draft_id = draft["id"]
 
     context = get_new_context()
-    query = f'''{{
+    query = f"""{{
         finding(identifier: "{draft_id}"){{
             id
         }}
-    }}'''
-    data = {'query': query}
+    }}"""
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert result['data']['finding']['id'] == draft_id
+    assert "errors" not in result
+    assert result["data"]["finding"]["id"] == draft_id
 
     context = get_new_context()
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, '../../unit/mock/test-vulns.yaml')
-    with open(filename, 'rb') as test_file:
-        uploaded_file = UploadFile(test_file.name, test_file, 'text/x-yaml')
-        query = '''
+    filename = os.path.join(filename, "../../unit/mock/test-vulns.yaml")
+    with open(filename, "rb") as test_file:
+        uploaded_file = UploadFile(test_file.name, test_file, "text/x-yaml")
+        query = """
             mutation UploadFileMutation(
                 $file: Upload!, $findingId: String!
             ) {
@@ -100,18 +101,18 @@ async def test_finding():
                     success
                 }
             }
-        '''
+        """
         variables = {
-            'file': uploaded_file,
-            'findingId': draft_id,
+            "file": uploaded_file,
+            "findingId": draft_id,
         }
-        data = {'query': query, 'variables': variables}
+        data = {"query": query, "variables": variables}
         result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert result['data']['uploadFile']['success']
+    assert "errors" not in result
+    assert result["data"]["uploadFile"]["success"]
 
     context = get_new_context()
-    query = f'''
+    query = f"""
         mutation {{
             updateSeverity (
                 findingId: "{draft_id}",
@@ -135,15 +136,15 @@ async def test_finding():
                 success
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert 'success' in result['data']['updateSeverity']
-    assert result['data']['updateSeverity']['success']
+    assert "errors" not in result
+    assert "success" in result["data"]["updateSeverity"]
+    assert result["data"]["updateSeverity"]["success"]
 
     context = get_new_context()
-    query = '''
+    query = """
         mutation UpdateEvidenceMutation(
             $evidenceId: EvidenceType!, $file: Upload!, $findingId: String!
         ) {
@@ -153,27 +154,25 @@ async def test_finding():
                 success
             }
         }
-    '''
+    """
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, '../../unit/mock/test-img.png')
-    with open(filename, 'rb') as test_file:
-        uploaded_file = UploadFile(test_file.name, test_file, 'image/png')
+    filename = os.path.join(filename, "../../unit/mock/test-img.png")
+    with open(filename, "rb") as test_file:
+        uploaded_file = UploadFile(test_file.name, test_file, "image/png")
         variables = {
-            'evidenceId': 'EVIDENCE2',
-            'findingId': draft_id,
-            'file': uploaded_file
+            "evidenceId": "EVIDENCE2",
+            "findingId": draft_id,
+            "file": uploaded_file,
         }
-        data = {'query': query, 'variables': variables}
+        data = {"query": query, "variables": variables}
         result = await get_result(
-            data,
-            stakeholder='integratesmanager@gmail.com',
-            context=context
+            data, stakeholder="integratesmanager@gmail.com", context=context
         )
-        assert 'errors' not in result
-        assert 'success' in result['data']['updateEvidence']
-        assert result['data']['updateEvidence']['success']
-    evidence_description = 'this is a test description'
-    query = f'''
+        assert "errors" not in result
+        assert "success" in result["data"]["updateEvidence"]
+        assert result["data"]["updateEvidence"]["success"]
+    evidence_description = "this is a test description"
+    query = f"""
         mutation {{
             updateEvidenceDescription(
                 description: "{evidence_description}",
@@ -183,77 +182,73 @@ async def test_finding():
                 success
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert 'success' in result['data']['updateEvidenceDescription']
-    assert result['data']['updateEvidenceDescription']['success']
+    assert "errors" not in result
+    assert "success" in result["data"]["updateEvidenceDescription"]
+    assert result["data"]["updateEvidenceDescription"]["success"]
 
     context = get_new_context()
-    query = f'''
+    query = f"""
         mutation {{
             submitDraft(findingId: "{draft_id}") {{
                 success
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(
-        data,
-        stakeholder='integratesanalyst@fluidattacks.com',
-        context=context
+        data, stakeholder="integratesanalyst@fluidattacks.com", context=context
     )
-    assert 'errors' not in result
-    assert result['data']['submitDraft']['success']
+    assert "errors" not in result
+    assert result["data"]["submitDraft"]["success"]
 
     context = get_new_context()
-    query = f'''
+    query = f"""
         mutation {{
             rejectDraft(findingId: "{draft_id}") {{
                 success
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert 'success' in result['data']['rejectDraft']
-    assert result['data']['rejectDraft']['success']
+    assert "errors" not in result
+    assert "success" in result["data"]["rejectDraft"]
+    assert result["data"]["rejectDraft"]["success"]
 
     context = get_new_context()
-    query = f'''
+    query = f"""
         mutation {{
             submitDraft(findingId: "{draft_id}") {{
                 success
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(
-        data,
-        stakeholder='integratesanalyst@fluidattacks.com',
-        context=context
+        data, stakeholder="integratesanalyst@fluidattacks.com", context=context
     )
-    assert 'errors' not in result
-    assert result['data']['submitDraft']['success']
+    assert "errors" not in result
+    assert result["data"]["submitDraft"]["success"]
 
     context = get_new_context()
-    query = f'''
+    query = f"""
         mutation {{
             approveDraft(draftId: "{draft_id}") {{
                 success
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert result['data']['approveDraft']['success']
+    assert "errors" not in result
+    assert result["data"]["approveDraft"]["success"]
 
     context = get_new_context()
     finding_id = draft_id
-    query = f'''
+    query = f"""
         query {{
             project(projectName: "{group_name}"){{
                 findings {{
@@ -261,16 +256,16 @@ async def test_finding():
                 }}
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    group_findings = result['data']['project']['findings']
-    finding_ids = [finding['id'] for finding in group_findings]
+    assert "errors" not in result
+    group_findings = result["data"]["project"]["findings"]
+    finding_ids = [finding["id"] for finding in group_findings]
     assert finding_id in finding_ids
 
     context = get_new_context()
-    query = f'''{{
+    query = f"""{{
         finding(identifier: "{finding_id}"){{
             id
             projectName
@@ -327,131 +322,153 @@ async def test_finding():
             }}
             __typename
         }}
-    }}'''
-    data = {'query': query}
+    }}"""
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert result['data']['finding']['id'] == finding_id
-    assert result['data']['finding']['projectName'] == group_name
-    result['data']['finding']['releaseDate'] = (
-        result['data']['finding']['releaseDate'][:-9]
-    )
-    assert result['data']['finding']['releaseDate'] == today
-    assert result['data']['finding']['openVulnerabilities'] == 1
-    assert result['data']['finding']['closedVulnerabilities'] == 2
-    assert result['data']['finding']['tracking'] == [{
-        'accepted': 0, 'accepted_undefined': 0, 'closed': 2, 'cycle': 0, 'date': today,
-        'justification': '', 'manager': '', 'open': 0},
-        {'accepted': 0, 'accepted_undefined': 0, 'closed': 0, 'cycle': 1, 'date': today,
-         'justification': '', 'manager': '', 'open': 1
-    }]
-    assert result['data']['finding']['records'] == '[]'
-    assert result['data']['finding']['severity'] == {
-        'attackComplexity': 0.77,
-        'attackVector': 0.62,
-        'availabilityImpact': 0.0,
-        'availabilityRequirement': 1.0,
-        'confidentialityImpact': 0.0,
-        'confidentialityRequirement': 1.0,
-        'exploitability': 0.91,
-        'integrityImpact': 0.22,
-        'integrityRequirement': 1.0,
-        'modifiedAttackComplexity': 0.77,
-        'modifiedAttackVector': 0.62,
-        'modifiedAvailabilityImpact': 0.0,
-        'modifiedConfidentialityImpact': 0.0,
-        'modifiedIntegrityImpact': 0.22,
-        'modifiedPrivilegesRequired': 0.62,
-        'modifiedSeverityScope': 0.0,
-        'modifiedUserInteraction': 0.85,
-        'privilegesRequired': 0.62,
-        'remediationLevel': 0.97,
-        'reportConfidence': 0.92,
-        'severityScope': 0.0,
-        'userInteraction': 0.85
+    assert "errors" not in result
+    assert result["data"]["finding"]["id"] == finding_id
+    assert result["data"]["finding"]["projectName"] == group_name
+    result["data"]["finding"]["releaseDate"] = result["data"]["finding"][
+        "releaseDate"
+    ][:-9]
+    assert result["data"]["finding"]["releaseDate"] == today
+    assert result["data"]["finding"]["openVulnerabilities"] == 1
+    assert result["data"]["finding"]["closedVulnerabilities"] == 2
+    assert result["data"]["finding"]["tracking"] == [
+        {
+            "accepted": 0,
+            "accepted_undefined": 0,
+            "closed": 2,
+            "cycle": 0,
+            "date": today,
+            "justification": "",
+            "manager": "",
+            "open": 0,
+        },
+        {
+            "accepted": 0,
+            "accepted_undefined": 0,
+            "closed": 0,
+            "cycle": 1,
+            "date": today,
+            "justification": "",
+            "manager": "",
+            "open": 1,
+        },
+    ]
+    assert result["data"]["finding"]["records"] == "[]"
+    assert result["data"]["finding"]["severity"] == {
+        "attackComplexity": 0.77,
+        "attackVector": 0.62,
+        "availabilityImpact": 0.0,
+        "availabilityRequirement": 1.0,
+        "confidentialityImpact": 0.0,
+        "confidentialityRequirement": 1.0,
+        "exploitability": 0.91,
+        "integrityImpact": 0.22,
+        "integrityRequirement": 1.0,
+        "modifiedAttackComplexity": 0.77,
+        "modifiedAttackVector": 0.62,
+        "modifiedAvailabilityImpact": 0.0,
+        "modifiedConfidentialityImpact": 0.0,
+        "modifiedIntegrityImpact": 0.22,
+        "modifiedPrivilegesRequired": 0.62,
+        "modifiedSeverityScope": 0.0,
+        "modifiedUserInteraction": 0.85,
+        "privilegesRequired": 0.62,
+        "remediationLevel": 0.97,
+        "reportConfidence": 0.92,
+        "severityScope": 0.0,
+        "userInteraction": 0.85,
     }
-    assert result['data']['finding']['cvssVersion'] == '3.1'
-    assert len(result['data']['finding']['evidence']) == 7
-    assert result['data']['finding']['evidence']['evidence2']['description'] == evidence_description
-    assert result['data']['finding']['state'] == 'open'
-    assert result['data']['finding']['title'] == title
-    assert result['data']['finding']['scenario'] == ''
-    assert result['data']['finding']['actor'] == ''
-    assert result['data']['finding']['description'] == description
-    assert result['data']['finding']['requirements'] == requirements
-    assert result['data']['finding']['attackVectorDesc'] == ''
-    assert result['data']['finding']['threat'] == threat
-    assert result['data']['finding']['recommendation'] == recommendation
-    assert result['data']['finding']['affectedSystems'] == ''
-    assert result['data']['finding']['compromisedAttributes'] == ''
-    assert result['data']['finding']['compromisedRecords'] == 0
-    assert result['data']['finding']['cweUrl'] == cwe
-    assert result['data']['finding']['btsUrl'] == ''
-    assert result['data']['finding']['risk'] == risk
-    assert result['data']['finding']['remediated'] == False
-    assert result['data']['finding']['type'] == draft_type
-    assert result['data']['finding']['isExploitable'] == False
-    assert result['data']['finding']['severityScore'] == 2.9
-    result['data']['finding']['reportDate'] = (
-        result['data']['finding']['reportDate'][:-9]
+    assert result["data"]["finding"]["cvssVersion"] == "3.1"
+    assert len(result["data"]["finding"]["evidence"]) == 7
+    assert (
+        result["data"]["finding"]["evidence"]["evidence2"]["description"]
+        == evidence_description
     )
-    assert result['data']['finding']['reportDate'] == today
-    assert result['data']['finding']['currentState'] == 'APPROVED'
-    assert result['data']['finding']['newRemediated'] == False
-    assert result['data']['finding']['verified'] == True
-    assert result['data']['finding']['analyst'] == 'integratesanalyst@fluidattacks.com'
-    assert result['data']['finding']['observations'] == []
-    historic_state = result['data']['finding']['historicState']
+    assert result["data"]["finding"]["state"] == "open"
+    assert result["data"]["finding"]["title"] == title
+    assert result["data"]["finding"]["scenario"] == ""
+    assert result["data"]["finding"]["actor"] == ""
+    assert result["data"]["finding"]["description"] == description
+    assert result["data"]["finding"]["requirements"] == requirements
+    assert result["data"]["finding"]["attackVectorDesc"] == ""
+    assert result["data"]["finding"]["threat"] == threat
+    assert result["data"]["finding"]["recommendation"] == recommendation
+    assert result["data"]["finding"]["affectedSystems"] == ""
+    assert result["data"]["finding"]["compromisedAttributes"] == ""
+    assert result["data"]["finding"]["compromisedRecords"] == 0
+    assert result["data"]["finding"]["cweUrl"] == cwe
+    assert result["data"]["finding"]["btsUrl"] == ""
+    assert result["data"]["finding"]["risk"] == risk
+    assert result["data"]["finding"]["remediated"] == False
+    assert result["data"]["finding"]["type"] == draft_type
+    assert result["data"]["finding"]["isExploitable"] == False
+    assert result["data"]["finding"]["severityScore"] == 2.9
+    result["data"]["finding"]["reportDate"] = result["data"]["finding"][
+        "reportDate"
+    ][:-9]
+    assert result["data"]["finding"]["reportDate"] == today
+    assert result["data"]["finding"]["currentState"] == "APPROVED"
+    assert result["data"]["finding"]["newRemediated"] == False
+    assert result["data"]["finding"]["verified"] == True
+    assert (
+        result["data"]["finding"]["analyst"]
+        == "integratesanalyst@fluidattacks.com"
+    )
+    assert result["data"]["finding"]["observations"] == []
+    historic_state = result["data"]["finding"]["historicState"]
     for index in range(len(historic_state)):
-        historic_state[index]['date'] = (
-            historic_state[index]['date'][:-9]
-        )
+        historic_state[index]["date"] = historic_state[index]["date"][:-9]
     assert historic_state == [
         {
-            'analyst': 'integratesanalyst@fluidattacks.com',
-            'date': today,
-            'source': 'integrates',
-            'state': 'CREATED'
+            "analyst": "integratesanalyst@fluidattacks.com",
+            "date": today,
+            "source": "integrates",
+            "state": "CREATED",
         },
         {
-            'analyst': 'integratesanalyst@fluidattacks.com',
-            'date': today,
-            'source': 'integrates',
-            'state': 'SUBMITTED'
+            "analyst": "integratesanalyst@fluidattacks.com",
+            "date": today,
+            "source": "integrates",
+            "state": "SUBMITTED",
         },
         {
-            'analyst': 'integratesreviewer@fluidattacks.com',
-            'date': today,
-            'source': 'integrates',
-            'state': 'REJECTED'
+            "analyst": "integratesreviewer@fluidattacks.com",
+            "date": today,
+            "source": "integrates",
+            "state": "REJECTED",
         },
         {
-            'analyst': 'integratesanalyst@fluidattacks.com',
-            'date': today,
-            'source': 'integrates',
-            'state': 'SUBMITTED'
+            "analyst": "integratesanalyst@fluidattacks.com",
+            "date": today,
+            "source": "integrates",
+            "state": "SUBMITTED",
         },
         {
-            'analyst': 'integratesreviewer@fluidattacks.com',
-            'date': today,
-            'source': 'integrates',
-            'state': 'APPROVED'
-        }
+            "analyst": "integratesreviewer@fluidattacks.com",
+            "date": today,
+            "source": "integrates",
+            "state": "APPROVED",
+        },
     ]
-    actor = 'ANYONE_INTERNET'
-    affected_systems = 'Server bWAPP'
-    attack_vector_desc = 'This is an updated attack vector'
-    records = 'Clave plana'
+    actor = "ANYONE_INTERNET"
+    affected_systems = "Server bWAPP"
+    attack_vector_desc = "This is an updated attack vector"
+    records = "Clave plana"
     records_number = 12
-    cwe = '200'
-    description = 'I just have updated the description'
-    recommendation = 'Updated recommendation'
-    requirements = 'REQ.0132. Passwords (phrase type) must be at least 3 words long.'
-    scenario = 'UNAUTHORIZED_USER_EXTRANET'
-    threat = 'Updated threat'
-    title = 'F051. Weak passwords reversed'
-    finding_type = 'SECURITY'
-    query = f'''
+    cwe = "200"
+    description = "I just have updated the description"
+    recommendation = "Updated recommendation"
+    requirements = (
+        "REQ.0132. Passwords (phrase type) must be at least 3 words long."
+    )
+    scenario = "UNAUTHORIZED_USER_EXTRANET"
+    threat = "Updated threat"
+    title = "F051. Weak passwords reversed"
+    finding_type = "SECURITY"
+    query = f"""
         mutation {{
             updateDescription(
                 actor: "{actor}",
@@ -472,31 +489,29 @@ async def test_finding():
                 success
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert 'success' in result['data']['updateDescription']
-    assert result['data']['updateDescription']['success']
+    assert "errors" not in result
+    assert "success" in result["data"]["updateDescription"]
+    assert result["data"]["updateDescription"]["success"]
 
     context = get_new_context()
-    query = f'''
+    query = f"""
         mutation {{
             removeEvidence(evidenceId: EVIDENCE2, findingId: "{finding_id}") {{
                 success
             }}
         }}
-    '''
-    data = {'query': query, 'variables': variables}
+    """
+    data = {"query": query, "variables": variables}
     result = await get_result(
-        data,
-        stakeholder='integratesanalyst@fluidattacks.com',
-        context=context
+        data, stakeholder="integratesanalyst@fluidattacks.com", context=context
     )
-    assert 'errors' not in result
-    assert result['data']['removeEvidence']['success']
+    assert "errors" not in result
+    assert result["data"]["removeEvidence"]["success"]
     observation_content = "This is a observation test"
-    query = f'''
+    query = f"""
         mutation {{
             addFindingConsult(
                 content: "{observation_content}",
@@ -508,16 +523,16 @@ async def test_finding():
                 commentId
             }}
         }}
-        '''
-    data = {'query': query}
+        """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert 'success' in result['data']['addFindingConsult']
-    assert result['data']['addFindingConsult']['success']
+    assert "errors" not in result
+    assert "success" in result["data"]["addFindingConsult"]
+    assert result["data"]["addFindingConsult"]["success"]
 
     context = get_new_context()
     consult_content = "This is a comenting test"
-    query = f'''
+    query = f"""
         mutation {{
             addFindingConsult(
                 content: "{consult_content}",
@@ -529,15 +544,15 @@ async def test_finding():
                 commentId
             }}
         }}
-        '''
-    data = {'query': query}
+        """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert 'success' in result['data']['addFindingConsult']
-    assert result['data']['addFindingConsult']['success']
+    assert "errors" not in result
+    assert "success" in result["data"]["addFindingConsult"]
+    assert result["data"]["addFindingConsult"]["success"]
 
     context = get_new_context()
-    query = f'''{{
+    query = f"""{{
         finding(identifier: "{finding_id}"){{
             consulting {{
                 content
@@ -565,63 +580,67 @@ async def test_finding():
             }}
             __typename
         }}
-    }}'''
-    data = {'query': query}
+    }}"""
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert len(result['data']['finding']['evidence']) == 7
-    assert result['data']['finding']['evidence']['evidence2']['description'] == ''
-    assert result['data']['finding']['evidence']['evidence2']['url'] == ''
-    assert result['data']['finding']['title'] == title
-    assert result['data']['finding']['scenario'] == scenario
-    assert result['data']['finding']['actor'] == actor
-    assert result['data']['finding']['description'] == description
-    assert result['data']['finding']['requirements'] == requirements
-    assert result['data']['finding']['attackVectorDesc'] == attack_vector_desc
-    assert result['data']['finding']['threat'] == threat
-    assert result['data']['finding']['recommendation'] == recommendation
-    assert result['data']['finding']['affectedSystems'] == affected_systems
-    assert result['data']['finding']['compromisedAttributes'] == records
-    assert result['data']['finding']['compromisedRecords'] == records_number
-    assert result['data']['finding']['cweUrl'] == cwe
-    assert result['data']['finding']['btsUrl'] == ''
-    assert result['data']['finding']['risk'] == risk
-    assert result['data']['finding']['type'] == finding_type
-    assert result['data']['finding']['observations'] == [
+    assert "errors" not in result
+    assert len(result["data"]["finding"]["evidence"]) == 7
+    assert (
+        result["data"]["finding"]["evidence"]["evidence2"]["description"] == ""
+    )
+    assert result["data"]["finding"]["evidence"]["evidence2"]["url"] == ""
+    assert result["data"]["finding"]["title"] == title
+    assert result["data"]["finding"]["scenario"] == scenario
+    assert result["data"]["finding"]["actor"] == actor
+    assert result["data"]["finding"]["description"] == description
+    assert result["data"]["finding"]["requirements"] == requirements
+    assert result["data"]["finding"]["attackVectorDesc"] == attack_vector_desc
+    assert result["data"]["finding"]["threat"] == threat
+    assert result["data"]["finding"]["recommendation"] == recommendation
+    assert result["data"]["finding"]["affectedSystems"] == affected_systems
+    assert result["data"]["finding"]["compromisedAttributes"] == records
+    assert result["data"]["finding"]["compromisedRecords"] == records_number
+    assert result["data"]["finding"]["cweUrl"] == cwe
+    assert result["data"]["finding"]["btsUrl"] == ""
+    assert result["data"]["finding"]["risk"] == risk
+    assert result["data"]["finding"]["type"] == finding_type
+    assert result["data"]["finding"]["observations"] == [
         {
-            'content': observation_content,
-            'email': 'integratesreviewer@fluidattacks.com'
+            "content": observation_content,
+            "email": "integratesreviewer@fluidattacks.com",
         }
     ]
-    assert result['data']['finding']['consulting'] == [{'content': consult_content}]
+    assert result["data"]["finding"]["consulting"] == [
+        {"content": consult_content}
+    ]
 
     context = get_new_context()
-    query = f'''
+    query = f"""
         mutation {{
             deleteFinding(findingId: "{finding_id}", justification: NOT_REQUIRED) {{
                 success
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert 'success' in result['data']['deleteFinding']
-    assert result['data']['deleteFinding']['success']
+    assert "errors" not in result
+    assert "success" in result["data"]["deleteFinding"]
+    assert result["data"]["deleteFinding"]["success"]
 
     context = get_new_context()
-    query = f'''{{
+    query = f"""{{
         finding(identifier: "{finding_id}"){{
             id
         }}
-    }}'''
-    data = {'query': query}
+    }}"""
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' in result
-    assert result['errors'][0]['message'] == 'Access denied'
+    assert "errors" in result
+    assert result["errors"][0]["message"] == "Access denied"
 
     context = get_new_context()
-    query = f'''
+    query = f"""
         query {{
             project(projectName: "{group_name}"){{
                 findings {{
@@ -629,10 +648,10 @@ async def test_finding():
                 }}
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    group_findings = result['data']['project']['findings']
-    finding_ids = [finding['id'] for finding in group_findings]
+    assert "errors" not in result
+    group_findings = result["data"]["project"]["findings"]
+    finding_ids = [finding["id"] for finding in group_findings]
     assert finding_id not in finding_ids

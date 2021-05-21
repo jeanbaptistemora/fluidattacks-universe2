@@ -27,15 +27,15 @@ async def query(
         }
     """
     file_data: Dict[str, str] = {
-        'description': 'Test',
-        'fileName': 'test.zip',
-        'uploadDate': '2019-03-01 15:21'
+        "description": "Test",
+        "fileName": "test.zip",
+        "uploadDate": "2019-03-01 15:21",
     }
     variables: Dict[str, Any] = {
-        'filesData': json.dumps(file_data),
-        'projectName': group
+        "filesData": json.dumps(file_data),
+        "projectName": group,
     }
-    data: Dict[str, Any] = {'query': query, 'variables': variables}
+    data: Dict[str, Any] = {"query": query, "variables": variables}
     return await get_graphql_result(
         data,
         stakeholder=user,

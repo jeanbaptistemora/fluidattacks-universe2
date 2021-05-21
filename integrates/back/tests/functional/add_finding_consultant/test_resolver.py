@@ -10,24 +10,24 @@ from . import query
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('add_finding_consult')
+@pytest.mark.resolver_test_group("add_finding_consult")
 @pytest.mark.parametrize(
-    ['email'],
+    ["email"],
     [
-        ['admin@gmail.com'],
-        ['analyst@gmail.com'],
-        ['closer@gmail.com'],
-        ['customer@gmail.com'],
-        ['executive@gmail.com'],
-    ]
+        ["admin@gmail.com"],
+        ["analyst@gmail.com"],
+        ["closer@gmail.com"],
+        ["customer@gmail.com"],
+        ["executive@gmail.com"],
+    ],
 )
 async def test_add_finding_consultant(populate: bool, email: str):
     assert populate
     result: Dict[str, Any] = await query(
         user=email,
-        content='This is a observation test',
-        finding='475041513',
+        content="This is a observation test",
+        finding="475041513",
     )
-    assert 'errors' not in result
-    assert 'success' in result['data']['addFindingConsult']
-    assert result['data']['addFindingConsult']['success']
+    assert "errors" not in result
+    assert "success" in result["data"]["addFindingConsult"]
+    assert result["data"]["addFindingConsult"]["success"]

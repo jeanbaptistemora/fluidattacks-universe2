@@ -13,54 +13,56 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
 
 # Local libraries
-from model import (
-    Credentials
-)
+from model import Credentials
 
 
 def wait_for_id(driver: WebDriver, text: str, timeout: int) -> WebDriverWait:
     return WebDriverWait(driver, timeout).until(
-        ec.visibility_of_element_located((
-            By.ID,
-            text,
-        ))
+        ec.visibility_of_element_located(
+            (
+                By.ID,
+                text,
+            )
+        )
     )
 
 
 def wait_for_text(driver: WebDriver, text: str, timeout: int) -> WebDriverWait:
     return WebDriverWait(driver, timeout).until(
-        ec.presence_of_element_located((
-            By.XPATH,
-            f"//*[text()[contains(., '{text}')]]",
-        ))
+        ec.presence_of_element_located(
+            (
+                By.XPATH,
+                f"//*[text()[contains(., '{text}')]]",
+            )
+        )
     )
 
 
 def wait_for_hide_text(
-    driver: WebDriver,
-    text: str,
-    timeout: int
+    driver: WebDriver, text: str, timeout: int
 ) -> WebDriverWait:
     return WebDriverWait(driver, timeout).until_not(
-        ec.presence_of_element_located((
-            By.XPATH,
-            f"//*[text()[contains(., '{text}')]]",
-        ))
+        ec.presence_of_element_located(
+            (
+                By.XPATH,
+                f"//*[text()[contains(., '{text}')]]",
+            )
+        )
     )
 
 
 def wait_for_url(driver: WebDriver, text: str, timeout: int) -> WebDriverWait:
-    return WebDriverWait(driver, timeout).until(
-        ec.url_contains(text)
-    )
+    return WebDriverWait(driver, timeout).until(ec.url_contains(text))
 
 
 def wait_for_name(driver: WebDriver, text: str, timeout: int) -> WebDriverWait:
     return WebDriverWait(driver, timeout).until(
-        ec.presence_of_element_located((
-            By.NAME,
-            text,
-        ))
+        ec.presence_of_element_located(
+            (
+                By.NAME,
+                text,
+            )
+        )
     )
 
 
@@ -72,25 +74,32 @@ def move_to_element(driver: WebDriver, element: WebElement) -> None:
 
 
 def rand_name(prefix: str) -> str:
-    return f'{prefix}-{randint(0, 1000)}'
+    return f"{prefix}-{randint(0, 1000)}"
 
 
 def login(
-        driver: WebDriver,
-        integrates_endpoint: str,
-        credentials: Credentials) -> None:
+    driver: WebDriver, integrates_endpoint: str, credentials: Credentials
+) -> None:
     driver.get(integrates_endpoint)
     signer = TimestampSigner(credentials.key)
 
-    session_cookie = signer.sign(b64encode(json.dumps({
-        'username': credentials.user,
-        'first_name': '',
-        'last_name': '',
-        'session_key': uuid().hex,
-    }).encode())).decode()
+    session_cookie = signer.sign(
+        b64encode(
+            json.dumps(
+                {
+                    "username": credentials.user,
+                    "first_name": "",
+                    "last_name": "",
+                    "session_key": uuid().hex,
+                }
+            ).encode()
+        )
+    ).decode()
 
-    driver.add_cookie({
-        'name': 'session',
-        'domain': integrates_endpoint.replace('https://', ''),
-        'value': session_cookie,
-    })
+    driver.add_cookie(
+        {
+            "name": "session",
+            "domain": integrates_endpoint.replace("https://", ""),
+            "value": session_cookie,
+        }
+    )

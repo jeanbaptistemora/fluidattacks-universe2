@@ -7,12 +7,12 @@ from dataloaders import get_new_context
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('old')
+@pytest.mark.resolver_test_group("old")
 async def test_event():
     context = get_new_context()
-    event_id = '540462628'
-    group_name = 'unittesting'
-    query = f'''{{
+    event_id = "540462628"
+    group_name = "unittesting"
+    query = f"""{{
         event(identifier: "{event_id}"){{
             client
             evidence
@@ -34,58 +34,58 @@ async def test_event():
             }}
             __typename
         }}
-    }}'''
-    data = {'query': query}
+    }}"""
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert 'event' in result['data']
-    assert result['data']['event']['accessibility'] == 'Repositorio'
-    assert result['data']['event']['affectation'] == ''
-    assert result['data']['event']['affectedComponents'] == ''
-    assert result['data']['event']['client'] == 'Fluid Attacks'
-    assert result['data']['event']['closingDate'] == '-'
-    assert result['data']['event']['consulting'] == []
-    assert result['data']['event']['context'] == 'FLUID'
-    assert result['data']['event']['detail'] == 'test test test'
-    assert result['data']['event']['eventDate'] == '2019-04-02 03:02:00'
-    assert result['data']['event']['eventStatus'] == 'CREATED'
-    assert result['data']['event']['eventType'] == 'HIGH_AVAILABILITY_APPROVAL'
-    assert result['data']['event']['evidence'] == ''
-    assert result['data']['event']['evidenceFile'] == ''
-    assert result['data']['event']['historicState'] == [
+    assert "errors" not in result
+    assert "event" in result["data"]
+    assert result["data"]["event"]["accessibility"] == "Repositorio"
+    assert result["data"]["event"]["affectation"] == ""
+    assert result["data"]["event"]["affectedComponents"] == ""
+    assert result["data"]["event"]["client"] == "Fluid Attacks"
+    assert result["data"]["event"]["closingDate"] == "-"
+    assert result["data"]["event"]["consulting"] == []
+    assert result["data"]["event"]["context"] == "FLUID"
+    assert result["data"]["event"]["detail"] == "test test test"
+    assert result["data"]["event"]["eventDate"] == "2019-04-02 03:02:00"
+    assert result["data"]["event"]["eventStatus"] == "CREATED"
+    assert result["data"]["event"]["eventType"] == "HIGH_AVAILABILITY_APPROVAL"
+    assert result["data"]["event"]["evidence"] == ""
+    assert result["data"]["event"]["evidenceFile"] == ""
+    assert result["data"]["event"]["historicState"] == [
         {
-            'analyst': 'unittest@fluidattacks.com',
-            'date': '2019-04-02 03:02:00',
-            'state': 'OPEN'
+            "analyst": "unittest@fluidattacks.com",
+            "date": "2019-04-02 03:02:00",
+            "state": "OPEN",
         },
         {
-            'analyst': 'unittest@fluidattacks.com',
-            'date': '2019-09-25 09:36:27',
-            'state': 'CREATED'
-        }
+            "analyst": "unittest@fluidattacks.com",
+            "date": "2019-09-25 09:36:27",
+            "state": "CREATED",
+        },
     ]
-    assert result['data']['event']['projectName'] == group_name
-    assert result['data']['event']['subscription'] == 'CONTINUOUS'
+    assert result["data"]["event"]["projectName"] == group_name
+    assert result["data"]["event"]["subscription"] == "CONTINUOUS"
 
     context = get_new_context()
-    query = f'''{{
+    query = f"""{{
         events(projectName: "{group_name}"){{
             id
             projectName
             detail
         }}
-    }}'''
-    data = {'query': query}
+    }}"""
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'events' in result['data']
-    events = result['data']['events']
-    event = [event for event in events if event['id'] == event_id][0]
-    assert event['projectName'] == group_name
-    assert len(event['detail']) >= 1
+    assert "events" in result["data"]
+    events = result["data"]["events"]
+    event = [event for event in events if event["id"] == event_id][0]
+    assert event["projectName"] == group_name
+    assert len(event["detail"]) >= 1
 
     context = get_new_context()
-    consult_content = 'Test customeradmin content'
-    query = f'''
+    consult_content = "Test customeradmin content"
+    query = f"""
         mutation {{
             addEventConsult(eventId: "{event_id}",
                             parent: "0",
@@ -94,16 +94,16 @@ async def test_event():
                 commentId
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert 'success' in result['data']['addEventConsult']
-    assert result['data']['addEventConsult']
-    assert 'commentId' in result['data']['addEventConsult']
+    assert "errors" not in result
+    assert "success" in result["data"]["addEventConsult"]
+    assert result["data"]["addEventConsult"]
+    assert "commentId" in result["data"]["addEventConsult"]
 
     context = get_new_context()
-    query = f'''
+    query = f"""
         mutation {{
             downloadEventFile(
                 eventId: "{event_id}",
@@ -113,24 +113,26 @@ async def test_event():
                 url
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert 'success' in result['data']['downloadEventFile']
-    assert result['data']['downloadEventFile']
-    assert 'url' in result['data']['downloadEventFile']
+    assert "errors" not in result
+    assert "success" in result["data"]["downloadEventFile"]
+    assert result["data"]["downloadEventFile"]
+    assert "url" in result["data"]["downloadEventFile"]
 
     context = get_new_context()
-    query = f'''{{
+    query = f"""{{
         event(identifier: "{event_id}"){{
             consulting {{
                 content
             }}
         }}
-    }}'''
-    data = {'query': query}
+    }}"""
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert 'event' in result['data']
-    assert result['data']['event']['consulting'] == [{'content': consult_content}]
+    assert "errors" not in result
+    assert "event" in result["data"]
+    assert result["data"]["event"]["consulting"] == [
+        {"content": consult_content}
+    ]

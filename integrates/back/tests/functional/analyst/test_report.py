@@ -7,11 +7,11 @@ from dataloaders import get_new_context
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('old')
+@pytest.mark.resolver_test_group("old")
 async def test_report():
     context = get_new_context()
-    group_name = 'unittesting'
-    query = f'''
+    group_name = "unittesting"
+    query = f"""
         query {{
             report(
                 projectName: "{group_name}",
@@ -21,14 +21,17 @@ async def test_report():
                 url
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'url' in result['data']['report']
-    assert result['data']['report']['url'] == 'The report will be sent to integratesanalyst@fluidattacks.com shortly'
+    assert "url" in result["data"]["report"]
+    assert (
+        result["data"]["report"]["url"]
+        == "The report will be sent to integratesanalyst@fluidattacks.com shortly"
+    )
 
     context = get_new_context()
-    query = f'''
+    query = f"""
         query {{
             report(
                 projectName: "{group_name}",
@@ -37,14 +40,17 @@ async def test_report():
                 url
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'url' in result['data']['report']
-    assert result['data']['report']['url'] == 'The report will be sent to integratesanalyst@fluidattacks.com shortly'
+    assert "url" in result["data"]["report"]
+    assert (
+        result["data"]["report"]["url"]
+        == "The report will be sent to integratesanalyst@fluidattacks.com shortly"
+    )
 
     context = get_new_context()
-    query = f'''
+    query = f"""
         query {{
             report(
                 projectName: "{group_name}",
@@ -52,8 +58,11 @@ async def test_report():
                 url
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'url' in result['data']['report']
-    assert result['data']['report']['url'] == 'The report will be sent to integratesanalyst@fluidattacks.com shortly'
+    assert "url" in result["data"]["report"]
+    assert (
+        result["data"]["report"]["url"]
+        == "The report will be sent to integratesanalyst@fluidattacks.com shortly"
+    )

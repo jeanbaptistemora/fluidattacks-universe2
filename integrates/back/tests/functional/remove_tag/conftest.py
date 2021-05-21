@@ -12,28 +12,30 @@ from back.tests import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('remove_tag')
-@pytest.fixture(autouse=True, scope='session')
+@pytest.mark.resolver_test_group("remove_tag")
+@pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
-        'groups': [
+        "groups": [
             {
-                'project_name': 'group1',
-                'description': '-',
-                'language': 'en',
-                'historic_configuration': [{
-                    'date': '2020-05-20 17:00:00',
-                    'has_drills': False,
-                    'has_forces': False,
-                    'requester': 'unknown',
-                    'type': 'continuous',
-                }],
-                'project_status': 'ACTIVE',
-                'tag': [
-                    'test1',
-                    'test2',
+                "project_name": "group1",
+                "description": "-",
+                "language": "en",
+                "historic_configuration": [
+                    {
+                        "date": "2020-05-20 17:00:00",
+                        "has_drills": False,
+                        "has_forces": False,
+                        "requester": "unknown",
+                        "type": "continuous",
+                    }
+                ],
+                "project_status": "ACTIVE",
+                "tag": [
+                    "test1",
+                    "test2",
                 ],
             },
         ],
     }
-    return await db.populate({**generic_data['db_data'], **data})
+    return await db.populate({**generic_data["db_data"], **data})

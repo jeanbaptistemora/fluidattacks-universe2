@@ -37,15 +37,17 @@ async def query(
         }
     """
     path: str = os.path.dirname(os.path.abspath(__file__))
-    filename: str = f'{path}/test-anim.gif'
-    with open(filename, 'rb') as test_file:
-        uploaded_file: UploadFile = UploadFile(test_file.name, test_file, 'image/gif')
+    filename: str = f"{path}/test-anim.gif"
+    with open(filename, "rb") as test_file:
+        uploaded_file: UploadFile = UploadFile(
+            test_file.name, test_file, "image/gif"
+        )
         variables: Dict[str, Any] = {
-            'eventId': event,
-            'evidenceType': 'IMAGE',
-            'file': uploaded_file
+            "eventId": event,
+            "evidenceType": "IMAGE",
+            "file": uploaded_file,
         }
-        data: Dict[str, Any] = {'query': query, 'variables': variables}
+        data: Dict[str, Any] = {"query": query, "variables": variables}
         result: Dict[str, Any] = await get_graphql_result(
             data,
             stakeholder=user,

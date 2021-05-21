@@ -32,7 +32,7 @@ async def query(
         }}
     """
     data: Dict[str, str] = {
-        'query': query,
+        "query": query,
     }
     return await get_graphql_result(
         data,

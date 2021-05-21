@@ -17,7 +17,7 @@ async def query(
     *,
     user: str,
 ) -> Dict[str, Any]:
-    query: str = '''
+    query: str = """
         mutation {
             signIn(
                 authToken: "badtoken",
@@ -27,9 +27,9 @@ async def query(
                 success
             }
         }
-    '''
+    """
     data: Dict[str, str] = {
-        'query': query,
+        "query": query,
     }
     return await get_graphql_result(
         data,

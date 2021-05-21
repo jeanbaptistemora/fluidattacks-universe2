@@ -32,13 +32,10 @@ async def query(
         }
     """
     variables: Dict[str, Any] = {
-        'projectName': group,
-        'tagsData': json.dumps(tags)
+        "projectName": group,
+        "tagsData": json.dumps(tags),
     }
-    data: Dict[str, Any] = {
-        'query': query,
-        'variables': variables
-    }
+    data: Dict[str, Any] = {"query": query, "variables": variables}
     return await get_graphql_result(
         data,
         stakeholder=user,

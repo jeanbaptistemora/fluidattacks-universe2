@@ -11,15 +11,15 @@ pytestmark = pytest.mark.asyncio
 @pytest.mark.changes_db
 async def test_invalidate_cache():
     """Check for invalidate_cache mutation."""
-    query = '''
+    query = """
         mutation {
             invalidateCache(pattern: "unittest") {
                 success
             }
         }
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     request = await create_dummy_session()
     _, result = await graphql(SCHEMA, data, context_value=request)
-    assert 'errors' not in result
-    assert 'success' in result['data']['invalidateCache']
+    assert "errors" not in result
+    assert "success" in result["data"]["invalidateCache"]

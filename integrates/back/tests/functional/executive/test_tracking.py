@@ -7,13 +7,13 @@ from dataloaders import get_new_context
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('old')
+@pytest.mark.resolver_test_group("old")
 async def test_tracking():
     context = get_new_context()
-    finding_id = '436992569'
-    expected_output =  {
-        'id': finding_id,
-        'tracking': [
+    finding_id = "436992569"
+    expected_output = {
+        "id": finding_id,
+        "tracking": [
             {
                 "cycle": 0,
                 "open": 1,
@@ -22,7 +22,7 @@ async def test_tracking():
                 "accepted": 0,
                 "accepted_undefined": 0,
                 "justification": "",
-                "manager": ""
+                "manager": "",
             },
             {
                 "cycle": 1,
@@ -32,7 +32,7 @@ async def test_tracking():
                 "accepted": 0,
                 "accepted_undefined": 0,
                 "justification": "",
-                "manager": ""
+                "manager": "",
             },
             {
                 "cycle": 2,
@@ -42,7 +42,7 @@ async def test_tracking():
                 "accepted": 0,
                 "accepted_undefined": 0,
                 "justification": "",
-                "manager": ""
+                "manager": "",
             },
             {
                 "cycle": 3,
@@ -52,7 +52,7 @@ async def test_tracking():
                 "accepted": 0,
                 "accepted_undefined": 0,
                 "justification": "",
-                "manager": ""
+                "manager": "",
             },
             {
                 "cycle": 4,
@@ -62,27 +62,29 @@ async def test_tracking():
                 "accepted": 0,
                 "accepted_undefined": 0,
                 "justification": "",
-                "manager": ""
+                "manager": "",
             },
         ],
     }
-    query = f'''{{
+    query = f"""{{
         finding(identifier: "{finding_id}"){{
             id
             tracking
         }}
-    }}'''
-    data = {'query': query}
+    }}"""
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert result['data']['finding']['id'] == expected_output.get('id')
-    assert result['data']['finding']['tracking'] == expected_output.get('tracking')
+    assert "errors" not in result
+    assert result["data"]["finding"]["id"] == expected_output.get("id")
+    assert result["data"]["finding"]["tracking"] == expected_output.get(
+        "tracking"
+    )
 
     context = get_new_context()
-    finding_id = '422286126'
-    expected_output =  {
-        'id': finding_id,
-        'tracking': [
+    finding_id = "422286126"
+    expected_output = {
+        "id": finding_id,
+        "tracking": [
             {
                 "cycle": 0,
                 "open": 1,
@@ -91,27 +93,29 @@ async def test_tracking():
                 "date": "2020-01-03",
                 "accepted": 0,
                 "accepted_undefined": 0,
-                "manager": ""
+                "manager": "",
             }
         ],
     }
-    query = f'''{{
+    query = f"""{{
         finding(identifier: "{finding_id}"){{
             id
             tracking
         }}
-    }}'''
-    data = {'query': query}
+    }}"""
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert result['data']['finding']['id'] == expected_output.get('id')
-    assert result['data']['finding']['tracking'] == expected_output.get('tracking')
+    assert "errors" not in result
+    assert result["data"]["finding"]["id"] == expected_output.get("id")
+    assert result["data"]["finding"]["tracking"] == expected_output.get(
+        "tracking"
+    )
 
     context = get_new_context()
-    finding_id = '463558592'
-    expected_output =  {
-        'id': finding_id,
-        'tracking': [
+    finding_id = "463558592"
+    expected_output = {
+        "id": finding_id,
+        "tracking": [
             {
                 "cycle": 0,
                 "open": 1,
@@ -120,17 +124,17 @@ async def test_tracking():
                 "accepted": 0,
                 "accepted_undefined": 0,
                 "justification": "",
-                "manager": ""
+                "manager": "",
             },
             {
                 "cycle": 1,
                 "open": 0,
                 "closed": 1,
-                "date": '2019-01-15',
+                "date": "2019-01-15",
                 "accepted": 0,
                 "accepted_undefined": 0,
                 "justification": "",
-                "manager": ""
+                "manager": "",
             },
             {
                 "cycle": 2,
@@ -140,27 +144,29 @@ async def test_tracking():
                 "justification": "This is a treatment justification test",
                 "accepted": 1,
                 "accepted_undefined": 0,
-                "manager": "integratesuser@gmail.com"
-            }
+                "manager": "integratesuser@gmail.com",
+            },
         ],
     }
-    query = f'''{{
+    query = f"""{{
         finding(identifier: "{finding_id}"){{
             id
             tracking
         }}
-    }}'''
-    data = {'query': query}
+    }}"""
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert result['data']['finding']['id'] == expected_output.get('id')
-    assert result['data']['finding']['tracking'] == expected_output.get('tracking')
+    assert "errors" not in result
+    assert result["data"]["finding"]["id"] == expected_output.get("id")
+    assert result["data"]["finding"]["tracking"] == expected_output.get(
+        "tracking"
+    )
 
     context = get_new_context()
-    finding_id = '463461507'
-    expected_output =  {
-        'id': finding_id,
-        'tracking': [
+    finding_id = "463461507"
+    expected_output = {
+        "id": finding_id,
+        "tracking": [
             {
                 "cycle": 0,
                 "open": 1,
@@ -190,17 +196,19 @@ async def test_tracking():
                 "manager": "integratesuser@gmail.com",
                 "justification": "accepted justification",
                 "date": "2019-09-13",
-            }
+            },
         ],
     }
-    query = f'''{{
+    query = f"""{{
         finding(identifier: "{finding_id}"){{
             id
             tracking
         }}
-    }}'''
-    data = {'query': query}
+    }}"""
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert result['data']['finding']['id'] == expected_output.get('id')
-    assert result['data']['finding']['tracking'] == expected_output.get('tracking')
+    assert "errors" not in result
+    assert result["data"]["finding"]["id"] == expected_output.get("id")
+    assert result["data"]["finding"]["tracking"] == expected_output.get(
+        "tracking"
+    )

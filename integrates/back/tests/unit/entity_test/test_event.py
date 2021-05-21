@@ -15,7 +15,7 @@ pytestmark = pytest.mark.asyncio
 
 async def test_event():
     """Check for event."""
-    query = '''{
+    query = """{
         event(identifier: "418900971"){
             client
             evidence
@@ -37,35 +37,37 @@ async def test_event():
             }
             __typename
         }
-    }'''
-    data = {'query': query}
+    }"""
+    data = {"query": query}
     request = await create_dummy_session()
     request = apply_context_attrs(request)
     _, result = await graphql(SCHEMA, data, context_value=request)
-    assert 'errors' not in result
-    assert 'event' in result['data']
-    assert result['data']['event']['projectName'] == 'unittesting'
-    assert result['data']['event']['detail'] == 'Integrates unit test'
+    assert "errors" not in result
+    assert "event" in result["data"]
+    assert result["data"]["event"]["projectName"] == "unittesting"
+    assert result["data"]["event"]["detail"] == "Integrates unit test"
+
 
 async def test_events():
     """Check for events."""
-    query = '''{
+    query = """{
         events(projectName: "unittesting"){
             projectName
             detail
         }
-    }'''
-    data = {'query': query}
+    }"""
+    data = {"query": query}
     request = await create_dummy_session()
     _, result = await graphql(SCHEMA, data, context_value=request)
-    assert 'events' in result['data']
-    assert result['data']['events'][0]['projectName'] == 'unittesting'
-    assert len(result['data']['events'][0]['detail']) >= 1
+    assert "events" in result["data"]
+    assert result["data"]["events"][0]["projectName"] == "unittesting"
+    assert len(result["data"]["events"][0]["detail"]) >= 1
+
 
 @pytest.mark.changes_db
 async def test_create_event():
     """Check for createEvent mutation."""
-    query = '''
+    query = """
         mutation {
             createEvent(projectName: "unittesting",
                         actionAfterBlocking: TRAINING,
@@ -78,17 +80,18 @@ async def test_create_event():
                 success
             }
         }
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     request = await create_dummy_session()
     _, result = await graphql(SCHEMA, data, context_value=request)
-    assert 'errors' not in result
-    assert 'success' in result['data']['createEvent']
+    assert "errors" not in result
+    assert "success" in result["data"]["createEvent"]
+
 
 @pytest.mark.changes_db
 async def test_solve_event():
     """Check for solveEvent mutation."""
-    query = '''
+    query = """
         mutation {
             solveEvent(eventId: "418900971",
                         affectation: "1",
@@ -96,20 +99,24 @@ async def test_solve_event():
                 success
             }
         }
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     request = await create_dummy_session()
     _, result = await graphql(SCHEMA, data, context_value=request)
-    if 'errors' not in result:
-        assert 'errors' not in result
-        assert 'success' in result['data']['solveEvent']
+    if "errors" not in result:
+        assert "errors" not in result
+        assert "success" in result["data"]["solveEvent"]
     else:
-        assert 'The event has already been closed' in result['errors'][0]['message']
+        assert (
+            "The event has already been closed"
+            in result["errors"][0]["message"]
+        )
+
 
 @pytest.mark.changes_db
 async def test_add_event_consult():
     """Check for addEventConsult mutation."""
-    query = '''
+    query = """
         mutation {
             addEventConsult(eventId: "538745942",
                             parent: "0",
@@ -118,18 +125,21 @@ async def test_add_event_consult():
                 commentId
             }
         }
-    '''
-    data = {'query': query}
-    request = await create_dummy_session(username='integratesmanager@gmail.com')
+    """
+    data = {"query": query}
+    request = await create_dummy_session(
+        username="integratesmanager@gmail.com"
+    )
     _, result = await graphql(SCHEMA, data, context_value=request)
-    assert 'errors' not in result
-    assert 'success' in result['data']['addEventConsult']
-    assert 'commentId' in result['data']['addEventConsult']
+    assert "errors" not in result
+    assert "success" in result["data"]["addEventConsult"]
+    assert "commentId" in result["data"]["addEventConsult"]
+
 
 @pytest.mark.changes_db
 async def test_update_event_evidence():
     """Check for updateEventEvidence mutation."""
-    query = '''
+    query = """
         mutation updateEventEvidence(
             $eventId: String!, $evidenceType: EventEvidenceType!, $file: Upload!
             ) {
@@ -139,48 +149,49 @@ async def test_update_event_evidence():
                 success
             }
         }
-    '''
+    """
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, '../mock/test-anim.gif')
-    with open(filename, 'rb') as test_file:
-        uploaded_file = UploadFile(test_file.name, test_file, 'image/gif')
+    filename = os.path.join(filename, "../mock/test-anim.gif")
+    with open(filename, "rb") as test_file:
+        uploaded_file = UploadFile(test_file.name, test_file, "image/gif")
         variables = {
-            'eventId': '540462628',
-            'evidenceType': 'IMAGE',
-            'file': uploaded_file
+            "eventId": "540462628",
+            "evidenceType": "IMAGE",
+            "file": uploaded_file,
         }
-        data = {'query': query, 'variables': variables}
+        data = {"query": query, "variables": variables}
         request = await create_dummy_session()
         _, result = await graphql(SCHEMA, data, context_value=request)
 
-    assert 'errors' not in result
-    assert 'success' in result['data']['updateEventEvidence']
+    assert "errors" not in result
+    assert "success" in result["data"]["updateEventEvidence"]
 
     date_str = datetime_utils.get_as_str(datetime_utils.get_now())
-    query = '''
+    query = """
         query GetEvent($eventId: String!) {
             event(identifier: $eventId) {
                 evidence
                 evidenceDate
             }
         }
-    '''
-    variables = {'eventId': '540462628'}
-    data = {'query': query, 'variables': variables}
+    """
+    variables = {"eventId": "540462628"}
+    data = {"query": query, "variables": variables}
     request = await create_dummy_session()
     _, result = await graphql(SCHEMA, data, context_value=request)
-    assert 'errors' not in result
-    assert result['data']['event']['evidence'] == (
-        'unittesting-540462628-evidence.gif'
+    assert "errors" not in result
+    assert result["data"]["event"]["evidence"] == (
+        "unittesting-540462628-evidence.gif"
     )
-    assert result['data']['event']['evidenceDate'].split(' ')[0] == (
-        date_str.split(' ')[0]
+    assert result["data"]["event"]["evidenceDate"].split(" ")[0] == (
+        date_str.split(" ")[0]
     )
+
 
 @pytest.mark.changes_db
 async def test_download_event_file():
     """Check for downloadEventFile mutation."""
-    query = '''
+    query = """
         mutation {
             downloadEventFile(eventId: "484763304",
                                 fileName: "1mvStFSToOL3bl47zaVZHBpRMZUUhU0Ad") {
@@ -188,27 +199,28 @@ async def test_download_event_file():
                 url
             }
         }
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     request = await create_dummy_session()
     _, result = await graphql(SCHEMA, data, context_value=request)
-    assert 'errors' not in result
-    assert 'success' in result['data']['downloadEventFile']
-    assert 'url' in result['data']['downloadEventFile']
+    assert "errors" not in result
+    assert "success" in result["data"]["downloadEventFile"]
+    assert "url" in result["data"]["downloadEventFile"]
+
 
 @pytest.mark.changes_db
 async def test_remove_event_evidence():
     """Check for removeEventEvidence mutation."""
-    query = '''
+    query = """
         mutation {
             removeEventEvidence(eventId: "484763304",
                                 evidenceType: FILE) {
                 success
             }
         }
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     request = await create_dummy_session()
     _, result = await graphql(SCHEMA, data, context_value=request)
-    assert 'errors' not in result
-    assert 'success' in result['data']['removeEventEvidence']
+    assert "errors" not in result
+    assert "success" in result["data"]["removeEventEvidence"]

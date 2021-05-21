@@ -18,15 +18,15 @@ async def query(
     user: str,
     finding: str,
 ) -> Dict[str, Any]:
-    query: str = f'''
+    query: str = f"""
         mutation {{
             deleteFinding(findingId: "{finding}", justification: NOT_REQUIRED) {{
                 success
             }}
         }}
-    '''
+    """
     data: Dict[str, str] = {
-        'query': query,
+        "query": query,
     }
     return await get_graphql_result(
         data,

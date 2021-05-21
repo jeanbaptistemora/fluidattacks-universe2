@@ -13,49 +13,64 @@ pytestmark = [
 
 
 @pytest.mark.parametrize(
-    ['parameter', 'expected'],
+    ["parameter", "expected"],
     [
-        (authz.GROUP_LEVEL_ROLES, [
-            'admin',
-            'analyst',
-            'closer',
-            'customer',
-            'customeradmin',
-            'executive',
-            'group_manager',
-            'resourcer',
-            'reviewer',
-            'service_forces'
-        ]),
-        (authz.GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS, [
-            'admin',
-            'analyst',
-            'closer',
-            'customer',
-            'customeradmin',
-            'executive',
-            'group_manager',
-            'resourcer',
-            'reviewer',
-            'service_forces'
-        ]),
-        (authz.USER_LEVEL_ROLES, [
-            'admin',
-            'analyst',
-            'customer',
-        ]),
-        (authz.USER_LEVEL_ROLES_FOR_FLUIDATTACKS, [
-            'admin',
-            'analyst',
-            'customer',
-        ]),
-        (authz.SERVICE_ATTRIBUTES, [
-            'continuous',
-            'drills_black',
-            'drills_white',
-            'forces',
-            'integrates',
-        ])
+        (
+            authz.GROUP_LEVEL_ROLES,
+            [
+                "admin",
+                "analyst",
+                "closer",
+                "customer",
+                "customeradmin",
+                "executive",
+                "group_manager",
+                "resourcer",
+                "reviewer",
+                "service_forces",
+            ],
+        ),
+        (
+            authz.GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS,
+            [
+                "admin",
+                "analyst",
+                "closer",
+                "customer",
+                "customeradmin",
+                "executive",
+                "group_manager",
+                "resourcer",
+                "reviewer",
+                "service_forces",
+            ],
+        ),
+        (
+            authz.USER_LEVEL_ROLES,
+            [
+                "admin",
+                "analyst",
+                "customer",
+            ],
+        ),
+        (
+            authz.USER_LEVEL_ROLES_FOR_FLUIDATTACKS,
+            [
+                "admin",
+                "analyst",
+                "customer",
+            ],
+        ),
+        (
+            authz.SERVICE_ATTRIBUTES,
+            [
+                "continuous",
+                "drills_black",
+                "drills_white",
+                "forces",
+                "integrates",
+            ],
+        ),
     ],
 )
 def test_model_integrity_keys_1(parameter, expected):
@@ -63,7 +78,7 @@ def test_model_integrity_keys_1(parameter, expected):
 
 
 @pytest.mark.parametrize(
-    ['parameter'],
+    ["parameter"],
     [
         [authz.GROUP_LEVEL_ROLES],
         [authz.GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS],
@@ -73,24 +88,18 @@ def test_model_integrity_keys_1(parameter, expected):
 )
 def test_model_integrity_keys_2(parameter):
     for value in parameter.values():
-        assert sorted(value.keys()) == ['actions', 'tags']
+        assert sorted(value.keys()) == ["actions", "tags"]
 
 
 @pytest.mark.parametrize(
-    ['roles_common', 'roles_fluid'],
+    ["roles_common", "roles_fluid"],
     [
-        (
-            authz.GROUP_LEVEL_ROLES,
-            authz.GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS
-        ),
+        (authz.GROUP_LEVEL_ROLES, authz.GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS),
         (
             authz.ORGANIZATION_LEVEL_ROLES,
-            authz.ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS
+            authz.ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS,
         ),
-        (
-            authz.USER_LEVEL_ROLES,
-            authz.USER_LEVEL_ROLES_FOR_FLUIDATTACKS
-        ),
+        (authz.USER_LEVEL_ROLES, authz.USER_LEVEL_ROLES_FOR_FLUIDATTACKS),
     ],
 )
 def test_model_integrity_roles(roles_common, roles_fluid):

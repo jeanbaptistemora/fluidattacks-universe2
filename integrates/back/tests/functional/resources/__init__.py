@@ -18,15 +18,15 @@ async def query(
     user: str,
     group: str,
 ) -> Dict[str, Any]:
-    query: str = f'''{{
+    query: str = f"""{{
         resources(projectName: "{group}"){{
             projectName
             files
             __typename
         }}
-    }}'''
+    }}"""
     data: Dict[str, str] = {
-        'query': query,
+        "query": query,
     }
     return await get_graphql_result(
         data,

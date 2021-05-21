@@ -9,10 +9,10 @@ from back import settings
 logging.config.dictConfig(settings.LOGGING)
 
 
-@pytest.fixture(autouse=True, scope='session')
+@pytest.fixture(autouse=True, scope="session")
 async def load_enforcers(request):
     """Load policies from DB into the enforcers."""
-    await authz.grant_user_level_role('unittest', 'admin')
+    await authz.grant_user_level_role("unittest", "admin")
 
 
 @pytest.fixture(autouse=True)
@@ -21,7 +21,7 @@ def disable_logging():
     logging.disable(logging.INFO)
 
 
-@pytest.yield_fixture(scope='session')
+@pytest.yield_fixture(scope="session")
 def event_loop(request):
     loop = asyncio.get_event_loop_policy().new_event_loop()
     yield loop

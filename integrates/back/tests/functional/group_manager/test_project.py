@@ -8,11 +8,11 @@ from names.domain import get_name
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('old')
+@pytest.mark.resolver_test_group("old")
 async def test_project():
-    org_name = 'okada'
-    group_name = await get_name('group')
-    query = f'''
+    org_name = "okada"
+    group_name = await get_name("group")
+    query = f"""
         mutation {{
             createProject(
                 organization: "{org_name}",
@@ -26,15 +26,15 @@ async def test_project():
             success
             }}
         }}
-    '''
-    data = {'query': query}
-    result = await get_result(data, stakeholder='integratesmanager@gmail.com')
-    assert 'errors' not in result
-    assert 'success' in result['data']['createProject']
-    assert result['data']['createProject']['success']
+    """
+    data = {"query": query}
+    result = await get_result(data, stakeholder="integratesmanager@gmail.com")
+    assert "errors" not in result
+    assert "success" in result["data"]["createProject"]
+    assert result["data"]["createProject"]["success"]
 
-    group_name2 = await get_name('group')
-    query = f'''
+    group_name2 = await get_name("group")
+    query = f"""
         mutation {{
             createProject(
                 organization: "{org_name}",
@@ -48,16 +48,16 @@ async def test_project():
             success
             }}
         }}
-    '''
-    data = {'query': query}
-    result = await get_result(data, stakeholder='integratesmanager@gmail.com')
-    assert 'errors' not in result
-    assert 'success' in result['data']['createProject']
-    assert result['data']['createProject']['success']
+    """
+    data = {"query": query}
+    result = await get_result(data, stakeholder="integratesmanager@gmail.com")
+    assert "errors" not in result
+    assert "success" in result["data"]["createProject"]
+    assert result["data"]["createProject"]["success"]
 
-    role = 'GROUP_MANAGER'
-    groupmanager_email = 'unittest2@fluidattacks.com'
-    query = f'''
+    role = "GROUP_MANAGER"
+    groupmanager_email = "unittest2@fluidattacks.com"
+    query = f"""
         mutation {{
             editStakeholder (
                 email: "{groupmanager_email}",
@@ -69,13 +69,13 @@ async def test_project():
             success
             }}
         }}
-    '''
-    data = {'query': query}
-    result = await get_result(data, stakeholder='integratesmanager@gmail.com')
-    assert 'errors' not in result
-    assert  result['data']['editStakeholder']['success']
+    """
+    data = {"query": query}
+    result = await get_result(data, stakeholder="integratesmanager@gmail.com")
+    assert "errors" not in result
+    assert result["data"]["editStakeholder"]["success"]
 
-    query = f'''
+    query = f"""
         mutation {{
             editStakeholder (
                 email: "{groupmanager_email}",
@@ -87,13 +87,13 @@ async def test_project():
             success
             }}
         }}
-    '''
-    data = {'query': query}
-    result = await get_result(data, stakeholder='integratesmanager@gmail.com')
-    assert 'errors' not in result
-    assert  result['data']['editStakeholder']['success']
+    """
+    data = {"query": query}
+    result = await get_result(data, stakeholder="integratesmanager@gmail.com")
+    assert "errors" not in result
+    assert result["data"]["editStakeholder"]["success"]
 
-    query = f'''
+    query = f"""
         mutation {{
             removeGroup(
                 groupName: "{group_name2}"
@@ -101,14 +101,14 @@ async def test_project():
             success
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data)
-    assert 'errors' not in result
-    assert 'success' in result['data']['removeGroup']
-    assert result['data']['removeGroup']['success']
+    assert "errors" not in result
+    assert "success" in result["data"]["removeGroup"]
+    assert result["data"]["removeGroup"]["success"]
 
-    query = f'''
+    query = f"""
         mutation {{
             addProjectConsult(
                 content: "Test consult",
@@ -119,14 +119,14 @@ async def test_project():
                 commentId
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data)
-    assert 'errors' not in result
-    assert 'success' in result['data']['addProjectConsult']
-    assert result['data']['addProjectConsult']['success']
+    assert "errors" not in result
+    assert "success" in result["data"]["addProjectConsult"]
+    assert result["data"]["addProjectConsult"]["success"]
 
-    query = '''
+    query = """
         mutation AddTagsMutation($projectName: String!, $tagsData: JSONString!) {
             addTags (
                 tags: $tagsData,
@@ -134,18 +134,18 @@ async def test_project():
                 success
             }
         }
-    '''
+    """
     variables = {
-        'projectName': group_name,
-        'tagsData': json.dumps(['testing'])
+        "projectName": group_name,
+        "tagsData": json.dumps(["testing"]),
     }
-    data = {'query': query, 'variables': variables}
+    data = {"query": query, "variables": variables}
     result = await get_result(data)
-    assert 'errors' not in result
-    assert 'success' in result['data']['addTags']
-    assert result['data']['addTags']['success']
+    assert "errors" not in result
+    assert "success" in result["data"]["addTags"]
+    assert result["data"]["addTags"]["success"]
 
-    query = f'''
+    query = f"""
         query {{
             project(projectName: "{group_name}"){{
                 name
@@ -193,46 +193,57 @@ async def test_project():
                 __typename
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data)
-    assert 'errors' not in result
-    assert result['data']['project']['name'] == group_name
-    assert result['data']['project']['hasDrills']
-    assert result['data']['project']['hasForces']
-    assert result['data']['project']['hasIntegrates']
-    assert result['data']['project']['findings'] == []
-    assert result['data']['project']['openVulnerabilities'] == 0
-    assert result['data']['project']['closedVulnerabilities'] == 0
-    assert result['data']['project']['lastClosingVuln'] == 0
-    assert result['data']['project']['maxSeverity'] == 0.0
-    assert result['data']['project']['meanRemediate'] == 0
-    assert result['data']['project']['meanRemediateLowSeverity'] == 0
-    assert result['data']['project']['meanRemediateMediumSeverity'] == 0
-    assert result['data']['project']['openFindings'] == 0
-    assert result['data']['project']['totalFindings'] == 0
-    assert result['data']['project']['totalTreatment'] == '{}'
-    assert result['data']['project']['subscription'] == 'continuous'
-    assert result['data']['project']['deletionDate'] == ''
-    assert result['data']['project']['userDeletion'] == ''
-    assert result['data']['project']['tags'] == ['testing']
-    assert result['data']['project']['description'] == 'This is a new project from pytest'
-    assert result['data']['project']['consulting'] == [{'content': 'Test consult'}]
-    assert result['data']['project']['drafts'] == []
-    assert result['data']['project']['events'] == []
-    assert {'email': 'unittest2@fluidattacks.com', 'role': 'group_manager'} in result['data']['project']['stakeholders']
-    assert {'email': f'forces.{group_name}@fluidattacks.com', 'role': 'service_forces'} in result['data']['project']['stakeholders']
-    assert result['data']['project']['serviceAttributes'] == [
-        'has_drills_white',
-        'has_forces',
-        'has_integrates',
-        'is_continuous',
-        'is_fluidattacks_customer',
-        'must_only_have_fluidattacks_hackers',
+    assert "errors" not in result
+    assert result["data"]["project"]["name"] == group_name
+    assert result["data"]["project"]["hasDrills"]
+    assert result["data"]["project"]["hasForces"]
+    assert result["data"]["project"]["hasIntegrates"]
+    assert result["data"]["project"]["findings"] == []
+    assert result["data"]["project"]["openVulnerabilities"] == 0
+    assert result["data"]["project"]["closedVulnerabilities"] == 0
+    assert result["data"]["project"]["lastClosingVuln"] == 0
+    assert result["data"]["project"]["maxSeverity"] == 0.0
+    assert result["data"]["project"]["meanRemediate"] == 0
+    assert result["data"]["project"]["meanRemediateLowSeverity"] == 0
+    assert result["data"]["project"]["meanRemediateMediumSeverity"] == 0
+    assert result["data"]["project"]["openFindings"] == 0
+    assert result["data"]["project"]["totalFindings"] == 0
+    assert result["data"]["project"]["totalTreatment"] == "{}"
+    assert result["data"]["project"]["subscription"] == "continuous"
+    assert result["data"]["project"]["deletionDate"] == ""
+    assert result["data"]["project"]["userDeletion"] == ""
+    assert result["data"]["project"]["tags"] == ["testing"]
+    assert (
+        result["data"]["project"]["description"]
+        == "This is a new project from pytest"
+    )
+    assert result["data"]["project"]["consulting"] == [
+        {"content": "Test consult"}
     ]
-    assert result['data']['project']['bill'] ==  {'developers': []}
+    assert result["data"]["project"]["drafts"] == []
+    assert result["data"]["project"]["events"] == []
+    assert {
+        "email": "unittest2@fluidattacks.com",
+        "role": "group_manager",
+    } in result["data"]["project"]["stakeholders"]
+    assert {
+        "email": f"forces.{group_name}@fluidattacks.com",
+        "role": "service_forces",
+    } in result["data"]["project"]["stakeholders"]
+    assert result["data"]["project"]["serviceAttributes"] == [
+        "has_drills_white",
+        "has_forces",
+        "has_integrates",
+        "is_continuous",
+        "is_fluidattacks_customer",
+        "must_only_have_fluidattacks_hackers",
+    ]
+    assert result["data"]["project"]["bill"] == {"developers": []}
 
-    query = f'''
+    query = f"""
         query {{
             project(projectName: "{group_name}"){{
                 findings(filters: {{affectedSystems: "test", actor: "ANY_EMPLOYEE"}}) {{
@@ -240,13 +251,13 @@ async def test_project():
                 }}
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data)
-    assert 'errors' not in result
-    assert result['data']['project']['findings'] == []
+    assert "errors" not in result
+    assert result["data"]["project"]["findings"] == []
 
-    query = f'''
+    query = f"""
         query {{
             project(projectName: "{group_name}"){{
                 findings(filters: {{affectedSystems: "notexists"}}) {{
@@ -254,13 +265,13 @@ async def test_project():
                 }}
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data)
-    assert 'errors' not in result
-    assert result['data']['project']['findings'] == []
+    assert "errors" not in result
+    assert result["data"]["project"]["findings"] == []
 
-    query = f'''
+    query = f"""
         mutation {{
             removeTag (
                 tag: "testing",
@@ -269,26 +280,26 @@ async def test_project():
                 success
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data)
-    assert 'errors' not in result
-    assert 'success' in result['data']['removeTag']
-    assert result['data']['removeTag']['success']
+    assert "errors" not in result
+    assert "success" in result["data"]["removeTag"]
+    assert result["data"]["removeTag"]["success"]
 
-    query = f'''
+    query = f"""
         query {{
             project(projectName: "{group_name}"){{
                 tags
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data)
-    assert 'errors' not in result
-    assert result['data']['project']['tags'] == []
+    assert "errors" not in result
+    assert result["data"]["project"]["tags"] == []
 
-    query = f'''
+    query = f"""
       mutation {{
         addGitRoot(
           branch: "master"
@@ -301,12 +312,12 @@ async def test_project():
           success
         }}
       }}
-    '''
-    result = await get_result({'query': query})
-    assert 'errors' not in result
-    assert result['data']['addGitRoot']['success']
+    """
+    result = await get_result({"query": query})
+    assert "errors" not in result
+    assert result["data"]["addGitRoot"]["success"]
 
-    query = f'''
+    query = f"""
         query {{
           group: project(projectName: "{group_name}") {{
             roots {{
@@ -322,18 +333,18 @@ async def test_project():
             }}
           }}
         }}
-    '''
-    result = await get_result({'query': query})
-    assert 'errors' not in result
+    """
+    result = await get_result({"query": query})
+    assert "errors" not in result
     assert {
-        '__typename': 'GitRoot',
-        'branch': 'master',
-        'environment': 'production',
-        'environmentUrls': [],
-        'gitignore': [],
-        'includesHealthCheck': True,
-        'url': 'https://gitlab.com/fluidattacks/test5'
-    } in result['data']['group']['roots']
+        "__typename": "GitRoot",
+        "branch": "master",
+        "environment": "production",
+        "environmentUrls": [],
+        "gitignore": [],
+        "includesHealthCheck": True,
+        "url": "https://gitlab.com/fluidattacks/test5",
+    } in result["data"]["group"]["roots"]
 
     query = f"""
         mutation {{
@@ -351,13 +362,13 @@ async def test_project():
             }}
         }}
       """
-    data = {'query': query}
+    data = {"query": query}
     result = await get_result(data)
-    assert 'errors' not in result
-    assert 'success' in result['data']['editGroup']
-    assert result['data']['editGroup']['success']
+    assert "errors" not in result
+    assert "success" in result["data"]["editGroup"]
+    assert result["data"]["editGroup"]["success"]
 
-    query = f'''
+    query = f"""
         query {{
             project(projectName: "{group_name}"){{
                 hasDrills
@@ -367,8 +378,8 @@ async def test_project():
                 __typename
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data)
-    assert 'errors' in result
-    assert result['errors'][0]['message'] == str(UserNotInOrganization())
+    assert "errors" in result
+    assert result["errors"][0]["message"] == str(UserNotInOrganization())

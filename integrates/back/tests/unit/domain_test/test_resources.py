@@ -14,8 +14,8 @@ pytestmark = [
 
 async def test_validate_file_size():
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, '../mock/test-vulns.yaml')
-    with open(filename, 'rb') as test_file:
+    filename = os.path.join(filename, "../mock/test-vulns.yaml")
+    with open(filename, "rb") as test_file:
         file_to_test = UploadFile(test_file.name, test_file)
         assert await resources_domain.validate_file_size(file_to_test, 1)
         with pytest.raises(InvalidFileSize):

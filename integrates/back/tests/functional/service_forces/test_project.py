@@ -8,12 +8,12 @@ from dataloaders import get_new_context
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('old')
+@pytest.mark.resolver_test_group("old")
 async def test_project():
     context = get_new_context()
-    group_name = 'unittesting'
+    group_name = "unittesting"
 
-    query = f'''
+    query = f"""
         query {{
             project(projectName: "{group_name}"){{
                 name
@@ -41,27 +41,33 @@ async def test_project():
                 __typename
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert result['data']['project']['closedVulnerabilities'] == 8
-    assert result['data']['project']['deletionDate'] == ''
-    assert result['data']['project']['description'] == 'Integrates unit test project'
-    assert len(result['data']['project']['findings']) == 7
-    assert result['data']['project']['hasDrills']
-    assert result['data']['project']['hasForces']
-    assert result['data']['project']['hasIntegrates']
-    assert result['data']['project']['lastClosingVuln'] == 23
-    assert result['data']['project']['maxSeverity'] == 6.3
-    assert result['data']['project']['meanRemediate'] == 245
-    assert result['data']['project']['meanRemediateLowSeverity'] == 232
-    assert result['data']['project']['meanRemediateMediumSeverity'] == 287
-    assert result['data']['project']['name'] == group_name
-    assert result['data']['project']['openFindings'] == 5
-    assert result['data']['project']['openVulnerabilities'] == 31
-    assert result['data']['project']['subscription'] == 'continuous'
-    assert result['data']['project']['tags'] == ['test-projects']
-    assert result['data']['project']['totalFindings'] == 7
-    assert result['data']['project']['totalTreatment'] == '{"accepted": 1, "inProgress": 4, "acceptedUndefined": 2, "undefined": 25}'
-    assert result['data']['project']['userDeletion'] == ''
+    assert "errors" not in result
+    assert result["data"]["project"]["closedVulnerabilities"] == 8
+    assert result["data"]["project"]["deletionDate"] == ""
+    assert (
+        result["data"]["project"]["description"]
+        == "Integrates unit test project"
+    )
+    assert len(result["data"]["project"]["findings"]) == 7
+    assert result["data"]["project"]["hasDrills"]
+    assert result["data"]["project"]["hasForces"]
+    assert result["data"]["project"]["hasIntegrates"]
+    assert result["data"]["project"]["lastClosingVuln"] == 23
+    assert result["data"]["project"]["maxSeverity"] == 6.3
+    assert result["data"]["project"]["meanRemediate"] == 245
+    assert result["data"]["project"]["meanRemediateLowSeverity"] == 232
+    assert result["data"]["project"]["meanRemediateMediumSeverity"] == 287
+    assert result["data"]["project"]["name"] == group_name
+    assert result["data"]["project"]["openFindings"] == 5
+    assert result["data"]["project"]["openVulnerabilities"] == 31
+    assert result["data"]["project"]["subscription"] == "continuous"
+    assert result["data"]["project"]["tags"] == ["test-projects"]
+    assert result["data"]["project"]["totalFindings"] == 7
+    assert (
+        result["data"]["project"]["totalTreatment"]
+        == '{"accepted": 1, "inProgress": 4, "acceptedUndefined": 2, "undefined": 25}'
+    )
+    assert result["data"]["project"]["userDeletion"] == ""

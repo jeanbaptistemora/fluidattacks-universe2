@@ -19,7 +19,7 @@ async def query(
     stakeholder: str,
     group: str,
 ) -> Dict[str, Any]:
-    query: str = f'''
+    query: str = f"""
         query {{
             stakeholder(entity: PROJECT,
                     projectName: "{group}",
@@ -36,9 +36,9 @@ async def query(
                 __typename
             }}
         }}
-    '''
+    """
     data: Dict[str, str] = {
-        'query': query,
+        "query": query,
     }
     return await get_graphql_result(
         data,

@@ -3,24 +3,23 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 # Local libraries
 import utils
-from model import (
-    Credentials
-)
+from model import Credentials
 
 
 def test_finding_description(
-        driver: WebDriver,
-        credentials: Credentials,
-        integrates_endpoint: str,
-        timeout: int) -> None:
+    driver: WebDriver,
+    credentials: Credentials,
+    integrates_endpoint: str,
+    timeout: int,
+) -> None:
     # Login
     utils.login(driver, integrates_endpoint, credentials)
 
     # Enter finding
-    driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
+    driver.get(f"{integrates_endpoint}/orgs/okada/groups/unittesting/vulns")
     finding = utils.wait_for_text(
         driver,
-        'F060. Insecure exceptions',
+        "F060. Insecure exceptions",
         timeout,
     )
     finding.click()
@@ -28,30 +27,31 @@ def test_finding_description(
     # Enter finding description
     description = utils.wait_for_id(
         driver,
-        'infoItem',
+        "infoItem",
         timeout,
     )
     description.click()
     assert utils.wait_for_text(
         driver,
-        'R359. Avoid using generic exceptions.',
+        "R359. Avoid using generic exceptions.",
         timeout,
     )
 
 
 def test_finding_comments(
-        driver: WebDriver,
-        credentials: Credentials,
-        integrates_endpoint: str,
-        timeout: int) -> None:
+    driver: WebDriver,
+    credentials: Credentials,
+    integrates_endpoint: str,
+    timeout: int,
+) -> None:
     # Login
     utils.login(driver, integrates_endpoint, credentials)
 
     # Enter finding
-    driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
+    driver.get(f"{integrates_endpoint}/orgs/okada/groups/unittesting/vulns")
     finding = utils.wait_for_text(
         driver,
-        'F060. Insecure exceptions',
+        "F060. Insecure exceptions",
         timeout,
     )
     finding.click()
@@ -59,30 +59,31 @@ def test_finding_comments(
     # Enter finding comments
     comments = utils.wait_for_id(
         driver,
-        'commentItem',
+        "commentItem",
         timeout,
     )
     comments.click()
     assert utils.wait_for_text(
         driver,
-        'This is a comenting test',
+        "This is a comenting test",
         timeout,
     )
 
 
 def test_finding_evidence(
-        driver: WebDriver,
-        credentials: Credentials,
-        integrates_endpoint: str,
-        timeout: int) -> None:
+    driver: WebDriver,
+    credentials: Credentials,
+    integrates_endpoint: str,
+    timeout: int,
+) -> None:
     # Login
     utils.login(driver, integrates_endpoint, credentials)
 
     # Enter finding
-    driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
+    driver.get(f"{integrates_endpoint}/orgs/okada/groups/unittesting/vulns")
     finding = utils.wait_for_text(
         driver,
-        'F060. Insecure exceptions',
+        "F060. Insecure exceptions",
         timeout,
     )
     finding.click()
@@ -90,30 +91,31 @@ def test_finding_evidence(
     # Enter finding evidences
     evidences = utils.wait_for_id(
         driver,
-        'evidenceItem',
+        "evidenceItem",
         timeout,
     )
     evidences.click()
     assert utils.wait_for_text(
         driver,
-        'exception',
+        "exception",
         timeout,
     )
 
 
 def test_finding_severity(
-        driver: WebDriver,
-        credentials: Credentials,
-        integrates_endpoint: str,
-        timeout: int) -> None:
+    driver: WebDriver,
+    credentials: Credentials,
+    integrates_endpoint: str,
+    timeout: int,
+) -> None:
     # Login
     utils.login(driver, integrates_endpoint, credentials)
 
     # Enter finding
-    driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
+    driver.get(f"{integrates_endpoint}/orgs/okada/groups/unittesting/vulns")
     finding = utils.wait_for_text(
         driver,
-        'F060. Insecure exceptions',
+        "F060. Insecure exceptions",
         timeout,
     )
     finding.click()
@@ -121,30 +123,31 @@ def test_finding_severity(
     # Enter finding severity
     severity = utils.wait_for_id(
         driver,
-        'cssv2Item',
+        "cssv2Item",
         timeout,
     )
     severity.click()
     assert utils.wait_for_text(
         driver,
-        'Confidentiality Impact',
+        "Confidentiality Impact",
         timeout,
     )
 
 
 def test_finding_tracking(
-        driver: WebDriver,
-        credentials: Credentials,
-        integrates_endpoint: str,
-        timeout: int) -> None:
+    driver: WebDriver,
+    credentials: Credentials,
+    integrates_endpoint: str,
+    timeout: int,
+) -> None:
     # Login
     utils.login(driver, integrates_endpoint, credentials)
 
     # Enter finding
-    driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
+    driver.get(f"{integrates_endpoint}/orgs/okada/groups/unittesting/vulns")
     finding = utils.wait_for_text(
         driver,
-        'F060. Insecure exceptions',
+        "F060. Insecure exceptions",
         timeout,
     )
     finding.click()
@@ -152,30 +155,31 @@ def test_finding_tracking(
     # Enter finding tracking
     tracking = utils.wait_for_id(
         driver,
-        'trackingItem',
+        "trackingItem",
         timeout,
     )
     tracking.click()
     assert utils.wait_for_text(
         driver,
-        '2020-01-03',
+        "2020-01-03",
         timeout,
     )
 
 
 def test_finding_reattack(
-        driver: WebDriver,
-        credentials: Credentials,
-        integrates_endpoint: str,
-        timeout: int) -> None:
+    driver: WebDriver,
+    credentials: Credentials,
+    integrates_endpoint: str,
+    timeout: int,
+) -> None:
     # Login
     utils.login(driver, integrates_endpoint, credentials)
 
     # Enter finding
-    driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
+    driver.get(f"{integrates_endpoint}/orgs/okada/groups/unittesting/vulns")
     finding = utils.wait_for_text(
         driver,
-        'F060. Insecure exceptions',
+        "F060. Insecure exceptions",
         timeout,
     )
     finding.click()
@@ -183,18 +187,19 @@ def test_finding_reattack(
     # Reattack all vulnerabilities
     start_reattack = utils.wait_for_id(
         driver,
-        'start-reattack',
+        "start-reattack",
         timeout,
     )
     start_reattack.click()
     checkboxes = driver.find_elements_by_css_selector(
-        "#vulnerabilitiesTable input[type='checkbox']")
+        "#vulnerabilitiesTable input[type='checkbox']"
+    )
     for checkbox in checkboxes:
         if not checkbox.is_selected():
             checkbox.click()
     confirm_reattack = utils.wait_for_id(
         driver,
-        'confirm-reattack',
+        "confirm-reattack",
         timeout,
     )
     confirm_reattack.click()
@@ -202,32 +207,33 @@ def test_finding_reattack(
     # Cancel reattack
     treatment = utils.wait_for_name(
         driver,
-        'treatmentJustification',
+        "treatmentJustification",
         timeout,
     )
     cancel_reattack = utils.wait_for_id(
         driver,
-        'cancel-remediation',
+        "cancel-remediation",
         timeout,
     )
-    assert 'Which was the applied solution?' in driver.page_source
-    treatment.send_keys('test-justification')
+    assert "Which was the applied solution?" in driver.page_source
+    treatment.send_keys("test-justification")
     cancel_reattack.click()
 
 
 def test_finding_vulnerabilities(
-        driver: WebDriver,
-        credentials: Credentials,
-        integrates_endpoint: str,
-        timeout: int) -> None:
+    driver: WebDriver,
+    credentials: Credentials,
+    integrates_endpoint: str,
+    timeout: int,
+) -> None:
     # Login
     utils.login(driver, integrates_endpoint, credentials)
 
     # Enter finding
-    driver.get(f'{integrates_endpoint}/orgs/okada/groups/unittesting/vulns')
+    driver.get(f"{integrates_endpoint}/orgs/okada/groups/unittesting/vulns")
     finding = utils.wait_for_text(
         driver,
-        'F060. Insecure exceptions',
+        "F060. Insecure exceptions",
         timeout,
     )
     finding.click()
@@ -235,39 +241,40 @@ def test_finding_vulnerabilities(
     # Display Modal
     table_row = utils.wait_for_text(
         driver,
-        'test/data/lib_path/f060/csharp.cs',
+        "test/data/lib_path/f060/csharp.cs",
         timeout,
     )
     table_row.click()
     assert utils.wait_for_text(
         driver,
-        'Vulnerability',
+        "Vulnerability",
         timeout,
     )
-    assert 'Expiration' in driver.page_source
+    assert "Expiration" in driver.page_source
     close = utils.wait_for_id(
         driver,
-        'close-vuln-modal',
+        "close-vuln-modal",
         timeout,
     )
     close.click()
     assert utils.wait_for_hide_text(
         driver,
-        'Vulnerability',
+        "Vulnerability",
         timeout,
     )
 
     # Edit vulnerabilities
     edit_vulns = utils.wait_for_id(
         driver,
-        'vulnerabilities-edit',
+        "vulnerabilities-edit",
         timeout,
     )
     edit_vulns.click()
     checkboxes = driver.find_elements_by_css_selector(
-        "#vulnerabilitiesTable input[type='checkbox']")
+        "#vulnerabilitiesTable input[type='checkbox']"
+    )
     for checkbox in checkboxes:
         if not checkbox.is_selected():
             checkbox.click()
-    assert 'test/data/lib_path/f060/csharp.cs' in driver.page_source
+    assert "test/data/lib_path/f060/csharp.cs" in driver.page_source
     edit_vulns.click()

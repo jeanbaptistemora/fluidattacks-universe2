@@ -16,7 +16,7 @@ pytestmark = pytest.mark.asyncio
 
 async def test_me():
     """Check Me query"""
-    query = '''{
+    query = """{
         me(callerOrigin: "API") {
             accessToken
             tags(organizationId: "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3") {
@@ -31,30 +31,31 @@ async def test_me():
             callerOrigin
             __typename
         }
-    }'''
-    data = {'query': query}
-    user_email = 'integratesuser@gmail.com'
+    }"""
+    data = {"query": query}
+    user_email = "integratesuser@gmail.com"
     request = await create_dummy_session(user_email)
     request = apply_context_attrs(request)
     _, result = await graphql(SCHEMA, data, context_value=request)
-    expected_groups = ['unittesting', 'oneshottest']
-    assert 'me' in result['data']
-    assert 'role' in result['data']['me']
-    assert result['data']['me']['role'] == 'customeradmin'
-    assert result['data']['me']['permissions'] == []
-    assert result['data']['me']['callerOrigin'] == 'API'
-    assert 'tags' in result['data']['me']
-    for tag in result['data']['me']['tags']:
-        assert 'name' in tag
-        assert 'projects' in tag
-        if tag['name'] == 'test-projects':
-            output = [proj['name'] for proj in tag['projects']]
+    expected_groups = ["unittesting", "oneshottest"]
+    assert "me" in result["data"]
+    assert "role" in result["data"]["me"]
+    assert result["data"]["me"]["role"] == "customeradmin"
+    assert result["data"]["me"]["permissions"] == []
+    assert result["data"]["me"]["callerOrigin"] == "API"
+    assert "tags" in result["data"]["me"]
+    for tag in result["data"]["me"]["tags"]:
+        assert "name" in tag
+        assert "projects" in tag
+        if tag["name"] == "test-projects":
+            output = [proj["name"] for proj in tag["projects"]]
             assert sorted(output) == sorted(expected_groups)
+
 
 @pytest.mark.changes_db
 async def test_sign_in():
     """Check for signIn mutation."""
-    query = '''
+    query = """
         mutation {
             signIn(
                 authToken: "badtoken",
@@ -64,87 +65,82 @@ async def test_sign_in():
                 success
             }
         }
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     request = await create_dummy_session()
     _, result = await graphql(SCHEMA, data, context_value=request)
-    assert 'errors' not in result
-    assert not result['data']['signIn']['success']
+    assert "errors" not in result
+    assert not result["data"]["signIn"]["success"]
 
 
 @pytest.mark.changes_db
 async def test_update_access_token():
     """Check for updateAccessToken mutation."""
-    query = '''
+    query = """
         mutation updateAccessToken ($expirationTime: Int!) {
             updateAccessToken(expirationTime: $expirationTime) {
                 sessionJwt
                 success
             }
         }
-    '''
+    """
     expiration_time = datetime.utcnow() + timedelta(weeks=8)
     expiration_time = int(expiration_time.timestamp())
 
-    data = {
-        'query': query,
-        'variables': {
-            'expirationTime': expiration_time
-        }
-    }
+    data = {"query": query, "variables": {"expirationTime": expiration_time}}
     request = await create_dummy_session()
     _, result = await graphql(SCHEMA, data, context_value=request)
-    assert 'errors' not in result
-    assert 'updateAccessToken' in result['data']
-    assert 'success' in result['data']['updateAccessToken']
+    assert "errors" not in result
+    assert "updateAccessToken" in result["data"]
+    assert "success" in result["data"]["updateAccessToken"]
 
 
 @pytest.mark.changes_db
 async def test_invalidate_access_token():
     """Check invalidateAccessToken query"""
-    query = '''
+    query = """
         mutation {
             invalidateAccessToken {
                 success
             }
         }
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     request = await create_dummy_session()
     _, result = await graphql(SCHEMA, data, context_value=request)
-    assert 'invalidateAccessToken' in result['data']
-    assert 'success' in result['data']['invalidateAccessToken']
+    assert "invalidateAccessToken" in result["data"]
+    assert "success" in result["data"]["invalidateAccessToken"]
 
 
 @pytest.mark.changes_db
 async def test_accept_legal():
     """Check acceptLegal query"""
-    query = '''
+    query = """
         mutation {
             acceptLegal(remember: true) {
                 success
             }
         }
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     request = await create_dummy_session()
     _, result = await graphql(SCHEMA, data, context_value=request)
-    assert 'acceptLegal' in result['data']
-    assert 'success' in result['data']['acceptLegal']
+    assert "acceptLegal" in result["data"]
+    assert "success" in result["data"]["acceptLegal"]
 
 
 @pytest.mark.changes_db
 async def test_add_push_token():
     """Check add_push_token mutation"""
-    query = '''
+    query = """
         mutation {
             addPushToken(token: "ExponentPushToken[something123]") {
                 success
             }
         }
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     request = await create_dummy_session()
     _, result = await graphql(SCHEMA, data, context_value=request)
-    assert 'error' not in result
-    assert result['data']['addPushToken']['success']
+    assert "error" not in result
+    assert result["data"]["addPushToken"]["success"]

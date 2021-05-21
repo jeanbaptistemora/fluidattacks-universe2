@@ -11,15 +11,15 @@ from . import query
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('update_access_token')
+@pytest.mark.resolver_test_group("update_access_token")
 @pytest.mark.parametrize(
-    ['email'],
+    ["email"],
     [
-        ['admin@gmail.com'],
-        ['analyst@gmail.com'],
-        ['closer@gmail.com'],
-        ['customer@gmail.com'],
-    ]
+        ["admin@gmail.com"],
+        ["analyst@gmail.com"],
+        ["closer@gmail.com"],
+        ["customer@gmail.com"],
+    ],
 )
 async def test_update_access_token(populate: bool, email: str):
     assert populate
@@ -29,5 +29,5 @@ async def test_update_access_token(populate: bool, email: str):
         user=email,
         expiration_time=ts_expiration_time,
     )
-    assert 'errors' not in result
-    assert result['data']['updateAccessToken']['success']
+    assert "errors" not in result
+    assert result["data"]["updateAccessToken"]["success"]

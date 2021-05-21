@@ -10,41 +10,42 @@ from . import query
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('create_event')
+@pytest.mark.resolver_test_group("create_event")
 async def test_admin(populate: bool):
     assert populate
-    admin: str ='admin@gmail.com'
-    group_name: str ='group1'
+    admin: str = "admin@gmail.com"
+    group_name: str = "group1"
     result: Dict[str, str] = await query(
         user=admin,
         group=group_name,
     )
-    assert 'errors' not in result
-    assert result['data']['createEvent']
+    assert "errors" not in result
+    assert result["data"]["createEvent"]
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('create_event')
+@pytest.mark.resolver_test_group("create_event")
 async def test_analyst(populate: bool):
     assert populate
-    analyst: str ='analyst@gmail.com'
-    group_name: str ='group1'
+    analyst: str = "analyst@gmail.com"
+    group_name: str = "group1"
     result: Dict[str, str] = await query(
         user=analyst,
         group=group_name,
     )
-    assert 'errors' not in result
-    assert result['data']['createEvent']
+    assert "errors" not in result
+    assert result["data"]["createEvent"]
+
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('create_event')
+@pytest.mark.resolver_test_group("create_event")
 async def test_closer(populate: bool):
     assert populate
-    closer: str ='closer@gmail.com'
-    group_name: str ='group1'
+    closer: str = "closer@gmail.com"
+    group_name: str = "group1"
     result: Dict[str, str] = await query(
         user=closer,
         group=group_name,
     )
-    assert 'errors' not in result
-    assert result['data']['createEvent']
+    assert "errors" not in result
+    assert result["data"]["createEvent"]

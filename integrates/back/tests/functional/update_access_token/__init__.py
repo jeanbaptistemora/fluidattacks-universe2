@@ -18,16 +18,16 @@ async def query(
     user: str,
     expiration_time: int,
 ) -> Dict[str, Any]:
-    query: str = f'''
+    query: str = f"""
         mutation {{
             updateAccessToken(expirationTime: {expiration_time}) {{
                 sessionJwt
                 success
             }}
         }}
-    '''
+    """
     data: Dict[str, str] = {
-        'query': query,
+        "query": query,
     }
     return await get_graphql_result(
         data,

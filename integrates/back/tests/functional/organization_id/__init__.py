@@ -25,9 +25,7 @@ async def query(
             id
         }}
     }}"""
-    data: Dict[str, Any] = {
-        'query': query
-    }
+    data: Dict[str, Any] = {"query": query}
     return await get_graphql_result(
         data,
         stakeholder=user,

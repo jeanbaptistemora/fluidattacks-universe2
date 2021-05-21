@@ -27,9 +27,9 @@ async def test_create_execution():
 
 async def test_update_secret_token() -> None:
     with mock_secretsmanager():
-        token = 'mock token'
-        result = await update_secret_token('unittesting', token)
+        token = "mock token"
+        result = await update_secret_token("unittesting", token)
         assert result
-        assert await get_secret_token('unittesting') == token
+        assert await get_secret_token("unittesting") == token
 
-        assert await get_secret_token('unknown') is None
+        assert await get_secret_token("unknown") is None

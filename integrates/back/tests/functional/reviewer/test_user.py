@@ -7,15 +7,15 @@ from dataloaders import get_new_context
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('old')
+@pytest.mark.resolver_test_group("old")
 async def test_user():
     context = get_new_context()
-    group_name = 'unittesting'
-    stakeholder = 'stakeholder@fluidattacks.com'
-    phone_number = '3453453453'
-    responsibility = 'test'
-    role = 'EXECUTIVE'
-    query = f'''
+    group_name = "unittesting"
+    stakeholder = "stakeholder@fluidattacks.com"
+    phone_number = "3453453453"
+    responsibility = "test"
+    role = "EXECUTIVE"
+    query = f"""
         mutation {{
             grantStakeholderAccess (
                 email: "{stakeholder}",
@@ -30,14 +30,14 @@ async def test_user():
                 }}
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' in result
-    assert  result['errors'][0]['message'] == 'Access denied'
+    assert "errors" in result
+    assert result["errors"][0]["message"] == "Access denied"
 
     context = get_new_context()
-    query = f'''
+    query = f"""
         query {{
             stakeholder(entity: PROJECT,
                     projectName: "{group_name}",
@@ -54,17 +54,20 @@ async def test_user():
                 __typename
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' in result
-    assert  result['errors'][0]['message'] == 'Access denied or stakeholder not found'
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Access denied or stakeholder not found"
+    )
 
     context = get_new_context()
-    phone_number = '17364735'
-    responsibility = 'edited'
-    role = 'GROUP_MANAGER'
-    query = f'''
+    phone_number = "17364735"
+    responsibility = "edited"
+    role = "GROUP_MANAGER"
+    query = f"""
         mutation {{
             editStakeholder (
                 email: "{stakeholder}",
@@ -76,14 +79,14 @@ async def test_user():
                 success
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' in result
-    assert  result['errors'][0]['message'] == 'Access denied'
+    assert "errors" in result
+    assert result["errors"][0]["message"] == "Access denied"
 
     context = get_new_context()
-    query = f'''
+    query = f"""
         mutation {{
             removeStakeholderAccess (
                 projectName: "{group_name}",
@@ -94,8 +97,8 @@ async def test_user():
                 success
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' in result
-    assert  result['errors'][0]['message'] == 'Access denied'
+    assert "errors" in result
+    assert result["errors"][0]["message"] == "Access denied"

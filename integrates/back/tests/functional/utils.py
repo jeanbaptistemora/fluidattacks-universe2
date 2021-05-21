@@ -25,7 +25,7 @@ async def complete_register(
     group_name: str,
 ):
     project_access = await group_access_domain.get_user_access(
-        email,group_name
+        email, group_name
     )
     success = await groups_domain.complete_register_for_group_invitation(
         project_access
@@ -38,13 +38,12 @@ async def get_graphql_result(
     data: Dict[str, Any],
     stakeholder: str,
     session_jwt: Optional[str] = None,
-    context: Optional[Dataloaders] = None
+    context: Optional[Dataloaders] = None,
 ) -> Dict[str, Any]:
     """Get graphql result."""
     request = await create_dummy_session(stakeholder, session_jwt)
     request = apply_context_attrs(
-      request,
-      loaders=context if context else get_new_context()
+        request, loaders=context if context else get_new_context()
     )
     _, result = await graphql(SCHEMA, data, context_value=request)
 

@@ -12,17 +12,17 @@ from back.tests import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('create_organization')
-@pytest.fixture(autouse=True, scope='session')
+@pytest.mark.resolver_test_group("create_organization")
+@pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
-        'names': [
+        "names": [
             {
-                'entity': 'ORGANIZATION',
-                'name': 'TESTORG',
+                "entity": "ORGANIZATION",
+                "name": "TESTORG",
             },
         ],
-        'orgs': [],
-        'groups': [],
+        "orgs": [],
+        "groups": [],
     }
-    return await db.populate({**generic_data['db_data'], **data})
+    return await db.populate({**generic_data["db_data"], **data})

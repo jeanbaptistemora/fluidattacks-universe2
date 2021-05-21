@@ -12,24 +12,24 @@ from dataloaders import get_new_context
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('old')
+@pytest.mark.resolver_test_group("old")
 async def test_project():
     context = get_new_context()
-    query = '''{
+    query = """{
         internalNames(entity: GROUP){
             name
             __typename
         }
-    }'''
-    data = {'query': query}
+    }"""
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert 'internalNames' in result['data']
-    group_name = result['data']['internalNames']['name']
+    assert "errors" not in result
+    assert "internalNames" in result["data"]
+    group_name = result["data"]["internalNames"]["name"]
 
     context = get_new_context()
-    org_name = 'okada'
-    query = f'''
+    org_name = "okada"
+    query = f"""
         mutation {{
             createProject(
                 organization: "{org_name}",
@@ -43,17 +43,17 @@ async def test_project():
             success
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert result['errors'][0]['message'] == 'Access denied'
+    assert result["errors"][0]["message"] == "Access denied"
 
     # Create project with admin account since this role didn't have
     # the permission and add the stakeholder to the project
     group_name = await create_group()
 
     context = get_new_context()
-    query = f'''
+    query = f"""
         mutation {{
             addProjectConsult(
                 content: "Test consult",
@@ -64,15 +64,15 @@ async def test_project():
                 commentId
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert 'success' in result['data']['addProjectConsult']
-    assert result['data']['addProjectConsult']['success']
+    assert "errors" not in result
+    assert "success" in result["data"]["addProjectConsult"]
+    assert result["data"]["addProjectConsult"]["success"]
 
     context = get_new_context()
-    query = '''
+    query = """
         mutation AddTagsMutation($projectName: String!, $tagsData: JSONString!) {
             addTags (
                 tags: $tagsData,
@@ -80,19 +80,19 @@ async def test_project():
                 success
             }
         }
-    '''
+    """
     variables = {
-        'projectName': group_name,
-        'tagsData': json.dumps(['testing'])
+        "projectName": group_name,
+        "tagsData": json.dumps(["testing"]),
     }
-    data = {'query': query, 'variables': variables}
+    data = {"query": query, "variables": variables}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert 'success' in result['data']['addTags']
-    assert result['data']['addTags']['success']
+    assert "errors" not in result
+    assert "success" in result["data"]["addTags"]
+    assert result["data"]["addTags"]["success"]
 
     context = get_new_context()
-    query = f'''
+    query = f"""
         query {{
             project(projectName: "{group_name}"){{
                 name
@@ -128,44 +128,48 @@ async def test_project():
                 __typename
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert result['data']['project']['name'] == group_name
-    assert result['data']['project']['hasDrills']
-    assert result['data']['project']['hasForces']
-    assert result['data']['project']['hasIntegrates']
-    assert result['data']['project']['findings'] == []
-    assert result['data']['project']['openVulnerabilities'] == 0
-    assert result['data']['project']['closedVulnerabilities'] == 0
-    assert result['data']['project']['lastClosingVuln'] == 0
-    assert result['data']['project']['maxSeverity'] == 0.0
-    assert result['data']['project']['meanRemediate'] == 0
-    assert result['data']['project']['meanRemediateLowSeverity'] == 0
-    assert result['data']['project']['meanRemediateMediumSeverity'] == 0
-    assert result['data']['project']['openFindings'] == 0
-    assert result['data']['project']['totalFindings'] == 0
-    assert result['data']['project']['totalTreatment'] == '{}'
-    assert result['data']['project']['subscription'] == 'continuous'
-    assert result['data']['project']['deletionDate'] == ''
-    assert result['data']['project']['userDeletion'] == ''
-    assert result['data']['project']['tags'] == ['testing']
-    assert result['data']['project']['description'] == 'This is a new project from pytest'
-    assert result['data']['project']['consulting'] == [
-        {'content': 'Test consult'}]
-    assert result['data']['project']['events'] == []
-    assert result['data']['project']['serviceAttributes'] == [
-        'has_drills_white',
-        'has_forces',
-        'has_integrates',
-        'is_continuous',
-        'is_fluidattacks_customer',
-        'must_only_have_fluidattacks_hackers',
+    assert "errors" not in result
+    assert result["data"]["project"]["name"] == group_name
+    assert result["data"]["project"]["hasDrills"]
+    assert result["data"]["project"]["hasForces"]
+    assert result["data"]["project"]["hasIntegrates"]
+    assert result["data"]["project"]["findings"] == []
+    assert result["data"]["project"]["openVulnerabilities"] == 0
+    assert result["data"]["project"]["closedVulnerabilities"] == 0
+    assert result["data"]["project"]["lastClosingVuln"] == 0
+    assert result["data"]["project"]["maxSeverity"] == 0.0
+    assert result["data"]["project"]["meanRemediate"] == 0
+    assert result["data"]["project"]["meanRemediateLowSeverity"] == 0
+    assert result["data"]["project"]["meanRemediateMediumSeverity"] == 0
+    assert result["data"]["project"]["openFindings"] == 0
+    assert result["data"]["project"]["totalFindings"] == 0
+    assert result["data"]["project"]["totalTreatment"] == "{}"
+    assert result["data"]["project"]["subscription"] == "continuous"
+    assert result["data"]["project"]["deletionDate"] == ""
+    assert result["data"]["project"]["userDeletion"] == ""
+    assert result["data"]["project"]["tags"] == ["testing"]
+    assert (
+        result["data"]["project"]["description"]
+        == "This is a new project from pytest"
+    )
+    assert result["data"]["project"]["consulting"] == [
+        {"content": "Test consult"}
+    ]
+    assert result["data"]["project"]["events"] == []
+    assert result["data"]["project"]["serviceAttributes"] == [
+        "has_drills_white",
+        "has_forces",
+        "has_integrates",
+        "is_continuous",
+        "is_fluidattacks_customer",
+        "must_only_have_fluidattacks_hackers",
     ]
 
     context = get_new_context()
-    query = f'''
+    query = f"""
         mutation {{
             removeTag (
             tag: "testing",
@@ -174,28 +178,28 @@ async def test_project():
             success
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert 'success' in result['data']['removeTag']
-    assert result['data']['removeTag']['success']
+    assert "errors" not in result
+    assert "success" in result["data"]["removeTag"]
+    assert result["data"]["removeTag"]["success"]
 
     context = get_new_context()
-    query = f'''
+    query = f"""
         query {{
             project(projectName: "{group_name}"){{
                 tags
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert result['data']['project']['tags'] == []
+    assert "errors" not in result
+    assert result["data"]["project"]["tags"] == []
 
     context = get_new_context()
-    query = f'''
+    query = f"""
       mutation {{
         addGitRoot(
           branch: "master"
@@ -208,14 +212,14 @@ async def test_project():
           success
         }}
       }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert result['data']['addGitRoot']['success']
+    assert "errors" not in result
+    assert result["data"]["addGitRoot"]["success"]
 
     context = get_new_context()
-    query = f'''
+    query = f"""
         query {{
           group: project(projectName: "{group_name}") {{
             roots {{
@@ -231,42 +235,42 @@ async def test_project():
             }}
           }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
+    assert "errors" not in result
     assert {
-        '__typename': 'GitRoot',
-        'branch': 'master',
-        'environment': 'production',
-        'environmentUrls': [],
-        'gitignore': [],
-        'includesHealthCheck': True,
-        'url': 'https://gitlab.com/fluidattacks/test6'
-    } in result['data']['group']['roots']
+        "__typename": "GitRoot",
+        "branch": "master",
+        "environment": "production",
+        "environmentUrls": [],
+        "gitignore": [],
+        "includesHealthCheck": True,
+        "url": "https://gitlab.com/fluidattacks/test6",
+    } in result["data"]["group"]["roots"]
 
     context = get_new_context()
-    query = f'''
+    query = f"""
         mutation {{
             unsubscribeFromGroup(groupName: "{group_name}"){{
                 success
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert result['data']['unsubscribeFromGroup']['success']
+    assert "errors" not in result
+    assert result["data"]["unsubscribeFromGroup"]["success"]
 
     context = get_new_context()
-    query = f'''
+    query = f"""
         query {{
             project(projectName: "{group_name}"){{
                 name
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' in result
-    assert result['errors'][0]['message'] == 'Access denied'
+    assert "errors" in result
+    assert result["errors"][0]["message"] == "Access denied"

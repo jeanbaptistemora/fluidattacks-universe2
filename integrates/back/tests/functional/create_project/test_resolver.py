@@ -10,45 +10,41 @@ from . import query
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('create_project')
+@pytest.mark.resolver_test_group("create_project")
 @pytest.mark.parametrize(
-    ['email'],
+    ["email"],
     [
-        ['admin@gmail.com'],
-    ]
+        ["admin@gmail.com"],
+    ],
 )
 async def test_create_project(populate: bool, email: str):
     assert populate
-    org_name: str = 'orgtest'
-    group_name: str = 'group1'
+    org_name: str = "orgtest"
+    group_name: str = "group1"
     result: Dict[str, Any] = await query(
-        user=email,
-        org=org_name,
-        group=group_name
+        user=email, org=org_name, group=group_name
     )
-    assert 'errors' not in result
-    assert 'success' in result['data']['createProject']
-    assert result['data']['createProject']['success']
+    assert "errors" not in result
+    assert "success" in result["data"]["createProject"]
+    assert result["data"]["createProject"]["success"]
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('create_project')
+@pytest.mark.resolver_test_group("create_project")
 @pytest.mark.parametrize(
-    ['email'],
+    ["email"],
     [
-        ['analyst@gmail.com'],
-        ['closer@gmail.com'],
-        ['resourcer@gmail.com'],
-    ]
+        ["analyst@gmail.com"],
+        ["closer@gmail.com"],
+        ["resourcer@gmail.com"],
+    ],
 )
 async def test_create_project_fail(populate: bool, email: str):
     assert populate
-    org_name: str = 'orgtest'
-    group_name: str = 'group1'
+    org_name: str = "orgtest"
+    group_name: str = "group1"
     result: Dict[str, Any] = await query(
-        user=email,
-        org=org_name,
-        group=group_name
+        user=email, org=org_name, group=group_name
     )
-    assert 'errors' in result
-    assert result['errors'][0]['message'] == 'Access denied'
+    assert "errors" in result
+    assert result["errors"][0]["message"] == "Access denied"

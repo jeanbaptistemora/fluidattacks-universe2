@@ -12,39 +12,39 @@ from back.tests import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('add_event_consult')
-@pytest.fixture(autouse=True, scope='session')
+@pytest.mark.resolver_test_group("add_event_consult")
+@pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
-        'events': [
+        "events": [
             {
-                'project_name': 'group1',
-                'event_id': '418900971',
-                'accessibility': 'Repositorio',
-                'action_after_blocking': 'EXECUTE_OTHER_PROJECT_SAME_CLIENT',
-                'action_before_blocking': 'TEST_OTHER_PART_TOE',
-                'analyst': 'unittest@fluidattacks.com',
-                'client': 'Fluid',
-                'client_project': 'group1',
-                'closer': 'unittest',
-                'context': 'FLUID',
-                'detail': 'Integrates unit test',
-                'historic_state': [
+                "project_name": "group1",
+                "event_id": "418900971",
+                "accessibility": "Repositorio",
+                "action_after_blocking": "EXECUTE_OTHER_PROJECT_SAME_CLIENT",
+                "action_before_blocking": "TEST_OTHER_PART_TOE",
+                "analyst": "unittest@fluidattacks.com",
+                "client": "Fluid",
+                "client_project": "group1",
+                "closer": "unittest",
+                "context": "FLUID",
+                "detail": "Integrates unit test",
+                "historic_state": [
                     {
-                        'analyst': 'unittest@fluidattacks.com',
-                        'date': '2018-06-27 07:00:00',
-                        'state': 'OPEN'
+                        "analyst": "unittest@fluidattacks.com",
+                        "date": "2018-06-27 07:00:00",
+                        "state": "OPEN",
                     },
                     {
-                        'analyst': 'unittest@fluidattacks.com',
-                        'date': '2018-06-27 14:40:05',
-                        'state': 'CREATED'
+                        "analyst": "unittest@fluidattacks.com",
+                        "date": "2018-06-27 14:40:05",
+                        "state": "CREATED",
                     },
                 ],
-                'event_type': 'OTHER',
-                'hours_before_blocking': '1',
-                'subscription': 'ONESHOT',
+                "event_type": "OTHER",
+                "hours_before_blocking": "1",
+                "subscription": "ONESHOT",
             },
         ],
     }
-    return await db.populate({**generic_data['db_data'], **data})
+    return await db.populate({**generic_data["db_data"], **data})

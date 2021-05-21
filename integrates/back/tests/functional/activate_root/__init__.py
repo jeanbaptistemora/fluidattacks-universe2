@@ -7,14 +7,14 @@ from dataloaders import get_new_context
 
 
 async def query(*, email: str, group_name: str, id: str) -> Dict[str, Any]:
-    query: str = f'''
+    query: str = f"""
         mutation {{
             activateRoot(groupName: "{group_name}", id: "{id}") {{
                 success
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
 
     return await get_graphql_result(
         data,

@@ -19,20 +19,22 @@ async def query(
     *,
     user: str,
 ) -> Dict[str, Any]:
-    finding_id: str = '475041513'
-    actor: str = 'ANYONE_INTERNET'
-    affected_systems: str = 'Server bWAPP'
-    attack_vector_desc: str = 'This is an updated attack vector'
-    records: str = 'Clave plana'
+    finding_id: str = "475041513"
+    actor: str = "ANYONE_INTERNET"
+    affected_systems: str = "Server bWAPP"
+    attack_vector_desc: str = "This is an updated attack vector"
+    records: str = "Clave plana"
     records_number: int = 12
-    cwe: str = '200'
-    description: str = 'I just have updated the description'
-    recommendation: str = 'Updated recommendation'
-    requirements: str = 'REQ.0132. Passwords (phrase type) must be at least 3 words long.'
-    scenario: str = 'UNAUTHORIZED_USER_EXTRANET'
-    threat: str = 'Updated threat'
-    title: str = 'F051. Weak passwords reversed'
-    finding_type: str = 'SECURITY'
+    cwe: str = "200"
+    description: str = "I just have updated the description"
+    recommendation: str = "Updated recommendation"
+    requirements: str = (
+        "REQ.0132. Passwords (phrase type) must be at least 3 words long."
+    )
+    scenario: str = "UNAUTHORIZED_USER_EXTRANET"
+    threat: str = "Updated threat"
+    title: str = "F051. Weak passwords reversed"
+    finding_type: str = "SECURITY"
     query: str = f"""
         mutation {{
             updateDescription(
@@ -55,9 +57,7 @@ async def query(
             }}
         }}
     """
-    data: Dict[str, Any] = {
-        'query': query
-    }
+    data: Dict[str, Any] = {"query": query}
     return await get_graphql_result(
         data,
         stakeholder=user,

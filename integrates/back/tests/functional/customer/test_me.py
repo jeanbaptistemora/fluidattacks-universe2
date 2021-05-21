@@ -8,13 +8,13 @@ from dataloaders import get_new_context
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group('old')
+@pytest.mark.resolver_test_group("old")
 async def test_me():
     context = get_new_context()
-    org_id = 'ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3'
-    org_name = 'okada'
-    group_name = 'unittesting'
-    query = '''
+    org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+    org_name = "okada"
+    group_name = "unittesting"
+    query = """
         mutation {
             signIn(
                 authToken: "badtoken",
@@ -24,47 +24,47 @@ async def test_me():
                 success
             }
         }
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert 'success' in result['data']['signIn']
-    assert not result['data']['signIn']['success']
+    assert "errors" not in result
+    assert "success" in result["data"]["signIn"]
+    assert not result["data"]["signIn"]["success"]
 
     context = get_new_context()
     expiration_time = datetime.utcnow() + timedelta(weeks=8)
     expiration_time = int(expiration_time.timestamp())
-    query = f'''
+    query = f"""
         mutation {{
             updateAccessToken(expirationTime: {expiration_time}) {{
                 sessionJwt
                 success
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, context=context)
-    assert 'errors' not in result
-    assert result['data']['updateAccessToken']['success']
-    session_jwt = result['data']['updateAccessToken']['sessionJwt']
+    assert "errors" not in result
+    assert result["data"]["updateAccessToken"]["success"]
+    session_jwt = result["data"]["updateAccessToken"]["sessionJwt"]
 
     context = get_new_context()
-    query = '''
+    query = """
         mutation {
             addPushToken(token: "ExponentPushToken[something123]") {
                 success
             }
         }
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, session_jwt=session_jwt, context=context)
-    assert 'error' not in result
-    assert result['data']['addPushToken']['success']
+    assert "error" not in result
+    assert result["data"]["addPushToken"]["success"]
 
     context = get_new_context()
-    frecuency = 'MONTHLY'
-    entity = 'ORGANIZATION'
-    query = f'''
+    frecuency = "MONTHLY"
+    entity = "ORGANIZATION"
+    query = f"""
         mutation {{
             subscribeToEntityReport(
                 frequency: {frecuency},
@@ -76,27 +76,27 @@ async def test_me():
                 success
             }}
         }}
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, session_jwt=session_jwt, context=context)
-    assert 'errors' not in result
-    assert result['data']['subscribeToEntityReport']['success']
+    assert "errors" not in result
+    assert result["data"]["subscribeToEntityReport"]["success"]
 
     context = get_new_context()
-    query = '''
+    query = """
         mutation {
             acceptLegal(remember: false) {
                 success
             }
         }
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, session_jwt=session_jwt, context=context)
-    assert 'errors' not in result
-    assert result['data']['acceptLegal']['success']
+    assert "errors" not in result
+    assert result["data"]["acceptLegal"]["success"]
 
     context = get_new_context()
-    query = f'''{{
+    query = f"""{{
         me(callerOrigin: "API") {{
             accessToken
             callerOrigin
@@ -122,86 +122,82 @@ async def test_me():
             }}
             __typename
         }}
-    }}'''
-    data = {'query': query}
+    }}"""
+    data = {"query": query}
     result = await get_result(data, session_jwt=session_jwt, context=context)
-    assert 'errors' not in result
-    assert '{"hasAccessToken": true' in result['data']['me']['accessToken']
-    assert result['data']['me']['callerOrigin'] == 'API'
-    assert result['data']['me']['isConcurrentSession'] == False
-    assert result['data']['me']['organizations'] == [{'name': org_name}]
-    assert len(result['data']['me']['permissions']) == 1
-    assert result['data']['me']['remember'] == False
-    assert result['data']['me']['role'] == 'customer'
-    assert result['data']['me']['sessionExpiration'] == str(
+    assert "errors" not in result
+    assert '{"hasAccessToken": true' in result["data"]["me"]["accessToken"]
+    assert result["data"]["me"]["callerOrigin"] == "API"
+    assert result["data"]["me"]["isConcurrentSession"] == False
+    assert result["data"]["me"]["organizations"] == [{"name": org_name}]
+    assert len(result["data"]["me"]["permissions"]) == 1
+    assert result["data"]["me"]["remember"] == False
+    assert result["data"]["me"]["role"] == "customer"
+    assert result["data"]["me"]["sessionExpiration"] == str(
         datetime.fromtimestamp(expiration_time)
     )
-    assert result['data']['me']['subscriptionsToEntityReport'] == [
-        {
-            'entity': entity,
-            'frequency': frecuency,
-            'subject': org_id
-        }
+    assert result["data"]["me"]["subscriptionsToEntityReport"] == [
+        {"entity": entity, "frequency": frecuency, "subject": org_id}
     ]
-    assert result['data']['me']['tags'] == [
+    assert result["data"]["me"]["tags"] == [
         {
-            'name': 'test-projects',
-            'projects': [
-                {'name': 'oneshottest'},
-                {'name': 'unittesting'},
-            ]
+            "name": "test-projects",
+            "projects": [
+                {"name": "oneshottest"},
+                {"name": "unittesting"},
+            ],
         },
         {
-            'name': 'test-updates',
-            'projects': [
-                {'name': 'oneshottest'},
-                {'name': 'unittesting'},
-            ]
-        }
+            "name": "test-updates",
+            "projects": [
+                {"name": "oneshottest"},
+                {"name": "unittesting"},
+            ],
+        },
     ]
-    assert result['data']['me']['__typename'] == 'Me'
+    assert result["data"]["me"]["__typename"] == "Me"
 
     context = get_new_context()
-    query = f'''{{
+    query = f"""{{
         me(callerOrigin: "API") {{
             permissions(entity: PROJECT, identifier: "{group_name}")
             role(entity: PROJECT, identifier: "{group_name}")
         }}
-    }}'''
-    data = {'query': query}
+    }}"""
+    data = {"query": query}
     result = await get_result(data, session_jwt=session_jwt, context=context)
-    assert 'errors' not in result
-    assert len(result['data']['me']['permissions']) == 44
-    assert result['data']['me']['role'] == 'customer'
+    assert "errors" not in result
+    assert len(result["data"]["me"]["permissions"]) == 44
+    assert result["data"]["me"]["role"] == "customer"
 
     context = get_new_context()
-    query = f'''{{
+    query = f"""{{
         me(callerOrigin: "API") {{
             permissions(entity: ORGANIZATION, identifier: "{group_name}")
             role(entity: ORGANIZATION, identifier: "{group_name}")
         }}
-    }}'''
-    data = {'query': query}
+    }}"""
+    data = {"query": query}
     result = await get_result(data, session_jwt=session_jwt, context=context)
-    assert 'errors' not in result
-    assert len(result['data']['me']['permissions']) == 0
-    assert result['data']['me']['role'] == 'customer'
+    assert "errors" not in result
+    assert len(result["data"]["me"]["permissions"]) == 0
+    assert result["data"]["me"]["role"] == "customer"
 
     context = get_new_context()
-    query = '''
+    query = """
         mutation {
             invalidateAccessToken {
                 success
             }
         }
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, session_jwt=session_jwt, context=context)
-    assert 'errors' not in result
-    assert result['data']['invalidateAccessToken']['success']
+    assert "errors" not in result
+    assert result["data"]["invalidateAccessToken"]["success"]
 
     context = get_new_context()
-    query = f'''{{
+    query = f"""{{
         me(callerOrigin: "API") {{
             accessToken
             callerOrigin
@@ -227,21 +223,21 @@ async def test_me():
             }}
             __typename
         }}
-    }}'''
-    data = {'query': query}
+    }}"""
+    data = {"query": query}
     result = await get_result(data, session_jwt=session_jwt, context=context)
-    assert 'errors' in result
-    assert result['errors'][0]['message'] == 'Login required'
+    assert "errors" in result
+    assert result["errors"][0]["message"] == "Login required"
 
     context = get_new_context()
-    query = '''
+    query = """
         mutation {
             acknowledgeConcurrentSession {
                 success
             }
         }
-    '''
-    data = {'query': query}
+    """
+    data = {"query": query}
     result = await get_result(data, session_jwt=session_jwt, context=context)
-    assert 'errors' not in result
-    assert result['data']['acknowledgeConcurrentSession']['success']
+    assert "errors" not in result
+    assert result["data"]["acknowledgeConcurrentSession"]["success"]
