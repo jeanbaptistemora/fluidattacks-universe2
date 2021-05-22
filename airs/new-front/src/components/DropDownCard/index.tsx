@@ -13,48 +13,40 @@ import {
 import { CloudImage } from "../CloudImage";
 
 interface IProps {
+  alt: string;
+  cardType: string;
   haveTitle: boolean;
-  node: {
-    fields: {
-      slug: string;
-    };
-    document: {
-      title: string;
-    };
-    html: string;
-    pageAttributes: {
-      alt: string;
-      description: string;
-      keywords: string;
-      partner: string;
-      partnerlogo: string;
-      slug: string;
-    };
-  };
+  htmlData: string;
+  logo: string;
+  logoPaths: string;
+  slug: string;
+  title: string;
 }
 
 const DropDownCard: React.FC<IProps> = ({
-  node,
+  alt,
+  cardType,
   haveTitle,
+  htmlData,
+  logo,
+  logoPaths,
+  slug,
+  title,
 }: IProps): JSX.Element => {
-  const { pageAttributes, html: htmlData, document } = node;
   const [isTouch, setIsTouch] = useState(false);
   const handleOpenClose = useCallback((): void => {
     setIsTouch(!isTouch);
   }, [isTouch]);
 
   return (
-    <CardContainer key={pageAttributes.slug}>
+    <CardContainer className={cardType} key={slug}>
       <CardHeader onClick={handleOpenClose}>
-        <CloudImage
-          alt={pageAttributes.alt}
-          src={`/airs/partners/${pageAttributes.partnerlogo}`}
-        />
+        <CloudImage alt={alt} src={`${logoPaths}/${logo}`} />
         <br />
         {haveTitle ? (
           <React.Fragment>
             <br />
-            <h4>{document.title}</h4>
+            <h4>{title}</h4>
           </React.Fragment>
         ) : undefined}
         <CardReadMore>

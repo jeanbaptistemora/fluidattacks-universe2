@@ -5,32 +5,6 @@ import React from "react";
 import { CardsContainer } from "../../styles/styledComponents";
 import { DropDownCard } from "../DropDownCard";
 
-interface IData {
-  allAsciidoc: {
-    edges: [
-      {
-        node: {
-          fields: {
-            slug: string;
-          };
-          document: {
-            title: string;
-          };
-          html: string;
-          pageAttributes: {
-            alt: string;
-            description: string;
-            keywords: string;
-            partner: string;
-            partnerlogo: string;
-            slug: string;
-          };
-        };
-      }
-    ];
-  };
-}
-
 const PartnerPage: React.FC = (): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
     query PartnerQuery {
@@ -68,9 +42,15 @@ const PartnerPage: React.FC = (): JSX.Element => {
         {partnerInfo.map(
           ({ node }): JSX.Element => (
             <DropDownCard
+              alt={node.pageAttributes.alt}
+              cardType={"partners-cards"}
               haveTitle={false}
+              htmlData={node.html}
               key={node.pageAttributes.slug}
-              node={node}
+              logo={node.pageAttributes.partnerlogo}
+              logoPaths={"/airs/partners"}
+              slug={node.pageAttributes.slug}
+              title={node.document.title}
             />
           )
         )}
