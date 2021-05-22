@@ -34,6 +34,11 @@ import { createElement, useMemo } from "react";
 import { createNetworkStatusNotifier } from "react-apollo-network-status";
 import { useHistory } from "react-router";
 
+import {
+  handleGraphQLError,
+  operationObservSubscribeComplete,
+} from "./helpers";
+
 import { getEnvironment } from "utils/environment";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -213,12 +218,12 @@ const onError: (
                 complete: (): void => {
                   const finalHistoryState: Record<string, unknown> | null =
                     history.state;
-                  if (
-                    isForwarded &&
-                    initialHistoryState?.key === finalHistoryState?.key
-                  ) {
-                    observer.complete.bind(observer)();
-                  }
+                  operationObservSubscribeComplete(
+                    isForwarded,
+                    initialHistoryState,
+                    observer,
+                    finalHistoryState
+                  );
                 },
                 error: (networkError: ErrorResponse["networkError"]): void => {
                   errorHandler({
@@ -294,31 +299,7 @@ const errorLink: (history: History) => ApolloLink = (
         }
       } else if (graphQLErrors !== undefined) {
         graphQLErrors.forEach((error: GraphQLError): void => {
-          switch (error.message) {
-            case "Login required":
-            case "Exception - User token has expired":
-              if (response !== undefined) {
-                if (_.isFunction(skipForwarding)) {
-                  skipForwarding();
-                }
-              }
-              location.assign("/logout");
-              break;
-            case "Access denied":
-            case "Access denied or tag not found":
-            case "Exception - Event not found":
-            case "Exception - Group does not exist":
-              if (response !== undefined) {
-                if (_.isFunction(skipForwarding)) {
-                  skipForwarding();
-                }
-              }
-              msgError(translate.t("groupAlerts.accessDenied"));
-              history.replace("/home");
-              break;
-            default:
-            // Propagate
-          }
+          handleGraphQLError(error, history, skipForwarding, response);
         });
       }
     },
