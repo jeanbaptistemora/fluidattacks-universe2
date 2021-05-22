@@ -940,6 +940,44 @@ const CardFooter: StyledComponent<
   `,
 })``;
 
+const MenuItem: StyledComponent<
+  "li",
+  Record<string, unknown>
+> = styled.li.attrs({
+  className: `
+    ph2
+    di
+    `,
+})``;
+
+const RadioButton: StyledComponent<
+  "input",
+  Record<string, unknown>
+> = styled.input.attrs({
+  className: `
+    op7
+    dn
+    transparent
+    `,
+  type: `radio`,
+})``;
+
+const RadioLabel: StyledComponent<
+  "label",
+  Record<string, unknown>
+> = styled.label.attrs({
+  className: `
+    c-fluid-gray
+    f4-ns
+    f5
+    roboto
+    no-underline
+    fw3
+    hv-fluid-dkred
+    pointer
+    `,
+})``;
+
 export {
   ArticleContainer,
   ArticleTitle,
@@ -993,6 +1031,7 @@ export {
   MarkedTitleContainer,
   MarkedTitle,
   MenuButton,
+  MenuItem,
   NavbarSubcategory,
   NavbarContactButton,
   NavbarContainer,
@@ -1002,6 +1041,8 @@ export {
   NavbarRegularButton,
   PageArticle,
   PageContainer,
+  RadioButton,
+  RadioLabel,
   RedMark,
   RegularRedButton,
   SocialMediaLink,

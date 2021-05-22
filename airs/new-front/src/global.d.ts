@@ -19,6 +19,7 @@ interface IQueryData {
         author: string;
         authors: string;
         banner: string;
+        clientsindex: string;
         codename: string;
         cveid: string;
         date: string;
@@ -66,13 +67,19 @@ interface IData {
           document: {
             title: string;
           };
+          html: string;
           pageAttributes: {
             alt: string;
             author: string;
             category: string;
+            client: string;
+            clientlogo: string;
+            filter: string;
             image: string;
             tags: string;
             description: string;
+            partner: string;
+            partnerlogo: string;
             slug: string;
             subtitle: string;
           };

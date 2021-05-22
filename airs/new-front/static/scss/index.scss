@@ -756,6 +756,46 @@ $whiter-gray: rgba(241, 241, 241, 1);
   @include menu-font;
 }
 
+.all-clients:checked~.tag-all {
+  @include menu-font;
+}
+
+.banking:checked~.tag-banking {
+  @include menu-font;
+}
+
+.oil-energy:checked~.tag-oil-energy {
+  @include menu-font;
+}
+
+.automotive:checked~.tag-automotive {
+  @include menu-font;
+}
+
+.pharmaceuticals:checked~.tag-pharmaceuticals {
+  @include menu-font;
+}
+
+.healthcare:checked~.tag-healthcare {
+  @include menu-font;
+}
+
+.airlines:checked~.tag-airlines {
+  @include menu-font;
+}
+
+.telecommunications:checked~.tag-telecommunications {
+  @include menu-font;
+}
+
+.human-resources:checked~.tag-human-resources {
+  @include menu-font;
+}
+
+.technology:checked~.tag-technology {
+  @include menu-font;
+}
+
 // Solutions Desktop Grid
 .card-parent {
   height: 170px;
