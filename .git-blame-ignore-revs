@@ -17,4 +17,8 @@ f1ed20e4c7b7f621dc9fff73746b66a78765ddea  # airs\feat(cross): #4651.3 use global
 18c3006d497b89d42043a316601976cce0bf1b4a  # sorts\refac(cross): #4651.7 use global formatter
 5edbf769810cf74d399efd4aeecfae1647fd23b0  # reviews\refac(cross): #4651.8 use global formatter
 7df1e8e621384da39d62cafec88af38262172ba7  # melts\refac(cross): #4651.9 use global formatter
-164c9e7c501140214bf1f4cee787a6ccef4a1c0a  # integrates\refac(cross): #4651.9 use global formatter
+e9f700cbfa869d3870cd78d42be89871ccfbc4dd  # integrates\refac(cross): #4651.9 use global formatter
+0994282f47efbf6ed612c77caea35708e8e74f44  # integrates\refac(cross): #4651.10 use global formatter
+ba89093af46d64c50d733e9e9bcec0f6481f1bd9  # integrates\refac(cross): #4651.11 use global formatter
+382b6617e067f8ad9f8b58f30203b0ec203374cc  # integrates\refac(cross): #4651.12 use global formatter
+018c7657ee3fd2a06c6f19e4ec4e84f26a23a70c  # integrates\refac(cross): #4651.13 use global formatter
