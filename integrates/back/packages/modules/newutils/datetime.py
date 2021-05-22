@@ -10,15 +10,15 @@ import pytz
 from back import settings
 
 
-DEFAULT_DATE_FORMAT: str = '%Y-%m-%d %H:%M:%S'
-DEFAULT_ISO_STR = '2000-01-01T00:00:00-05:00'
-DEFAULT_STR = '2000-01-01 00:00:00'
+DEFAULT_DATE_FORMAT: str = "%Y-%m-%d %H:%M:%S"
+DEFAULT_ISO_STR = "2000-01-01T00:00:00-05:00"
+DEFAULT_STR = "2000-01-01 00:00:00"
 TZ = pytz.timezone(settings.TIME_ZONE)
 
 
 def format_comment_date(date_string: str) -> str:
     comment_date = get_from_str(date_string)
-    formatted_date = get_as_str(comment_date, date_format='%Y/%m/%d %H:%M:%S')
+    formatted_date = get_as_str(comment_date, date_format="%Y/%m/%d %H:%M:%S")
     return formatted_date
 
 
@@ -52,12 +52,23 @@ def get_utc_timestamp() -> float:
 
 
 def get_plus_delta(
-        date: datetime, days: float = 0, seconds: float = 0,
-        microseconds: float = 0, milliseconds: float = 0, minutes: float = 0,
-        hours: float = 0, weeks: float = 0) -> datetime:
+    date: datetime,
+    days: float = 0,
+    seconds: float = 0,
+    microseconds: float = 0,
+    milliseconds: float = 0,
+    minutes: float = 0,
+    hours: float = 0,
+    weeks: float = 0,
+) -> datetime:
     date_plus_delta = date + timedelta(
-        days=days, seconds=seconds, microseconds=microseconds,
-        milliseconds=milliseconds, minutes=minutes, hours=hours, weeks=weeks
+        days=days,
+        seconds=seconds,
+        microseconds=microseconds,
+        milliseconds=milliseconds,
+        minutes=minutes,
+        hours=hours,
+        weeks=weeks,
     )
     return date_plus_delta
 
@@ -87,12 +98,23 @@ def get_now_plus_delta(
 
 
 def get_minus_delta(
-        date: datetime, days: float = 0, seconds: float = 0,
-        microseconds: float = 0, milliseconds: float = 0, minutes: float = 0,
-        hours: float = 0, weeks: float = 0) -> datetime:
+    date: datetime,
+    days: float = 0,
+    seconds: float = 0,
+    microseconds: float = 0,
+    milliseconds: float = 0,
+    minutes: float = 0,
+    hours: float = 0,
+    weeks: float = 0,
+) -> datetime:
     date_minus_delta = date - timedelta(
-        days=days, seconds=seconds, microseconds=microseconds,
-        milliseconds=milliseconds, minutes=minutes, hours=hours, weeks=weeks
+        days=days,
+        seconds=seconds,
+        microseconds=microseconds,
+        milliseconds=milliseconds,
+        minutes=minutes,
+        hours=hours,
+        weeks=weeks,
     )
     return date_minus_delta
 

@@ -3,14 +3,14 @@
 
 
 def is_exploitable(explotability: float, version: str) -> str:
-    if version == '3.1':
+    if version == "3.1":
         if explotability >= 0.97:
-            exploitable = 'Si'
+            exploitable = "Si"
         else:
-            exploitable = 'No'
+            exploitable = "No"
     else:
         if explotability in (1.0, 0.95):
-            exploitable = 'Si'
+            exploitable = "Si"
         else:
-            exploitable = 'No'
+            exploitable = "No"
     return exploitable

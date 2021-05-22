@@ -14,8 +14,8 @@ from graphql.language.ast import (
 )
 
 
-GENERIC_SCALAR = ScalarType('GenericScalar')
-TVar = TypeVar('TVar')
+GENERIC_SCALAR = ScalarType("GenericScalar")
+TVar = TypeVar("TVar")
 
 
 @GENERIC_SCALAR.serializer

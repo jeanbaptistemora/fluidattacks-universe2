@@ -17,11 +17,8 @@ from __init__ import BASE_URL
 
 
 class CustomRequestMiddleware(BaseHTTPMiddleware):  # type: ignore
-
     async def dispatch(
-        self,
-        request: Request,
-        call_next: Callable[..., Any]
+        self, request: Request, call_next: Callable[..., Any]
     ) -> Response:
         url = str(request.url)
         traceback = url.split(BASE_URL)[-1]
@@ -32,11 +29,8 @@ class CustomRequestMiddleware(BaseHTTPMiddleware):  # type: ignore
 
 
 class ApiCustomRequestMiddleware(BaseHTTPMiddleware):  # type: ignore
-
     async def dispatch(
-        self,
-        request: Request,
-        call_next: Callable[..., Any]
+        self, request: Request, call_next: Callable[..., Any]
     ) -> Response:
         request.state.store = defaultdict(lambda: None)
         return await call_next(request)

@@ -1,4 +1,3 @@
-
 import logging
 import logging.config
 
@@ -24,16 +23,14 @@ LOGGER = logging.getLogger(__name__)
 
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates
+    require_login, enforce_group_level_auth_async, require_integrates
 )
 async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
     finding_id: str,
     evidence_id: str,
-    description: str
+    description: str,
 ) -> SimplePayload:
     success = False
     try:
@@ -43,24 +40,24 @@ async def mutate(
         if success:
             info.context.loaders.finding.clear(finding_id)
             redis_del_by_deps_soon(
-                'update_evidence_description',
+                "update_evidence_description",
                 finding_id=finding_id,
             )
             logs_utils.cloudwatch_log(
                 info.context,
                 (
-                    'Security: Evidence description successfully updated in '
-                    f'finding {finding_id}'
-                )
+                    "Security: Evidence description successfully updated in "
+                    f"finding {finding_id}"
+                ),
             )
         else:
             logs_utils.cloudwatch_log(
                 info.context,
                 (
-                    'Security: Attempted to update evidence description in '
-                    f'{finding_id}'
-                )
+                    "Security: Attempted to update evidence description in "
+                    f"{finding_id}"
+                ),
             )
     except KeyError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        LOGGER.exception(ex, extra={"extra": locals()})
     return SimplePayload(success=success)

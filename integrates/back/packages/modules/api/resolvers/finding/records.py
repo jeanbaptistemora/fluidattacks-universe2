@@ -1,4 +1,3 @@
-
 from functools import partial
 from typing import (
     Dict,
@@ -21,28 +20,25 @@ async def resolve(
 ) -> List[Dict[object, object]]:
     response: List[Dict[object, object]] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
-        entity='finding',
-        attr='records',
-        id=cast(str, parent['id']),
+        entity="finding",
+        attr="records",
+        id=cast(str, parent["id"]),
     )
     return response
 
 
 async def resolve_no_cache(
-    parent: Finding,
-    _info: GraphQLResolveInfo,
-    **_kwargs: None
+    parent: Finding, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[Dict[object, object]]:
-    finding_id: str = cast(Dict[str, str], parent)['id']
-    group_name: str = cast(Dict[str, str], parent)['project_name']
+    finding_id: str = cast(Dict[str, str], parent)["id"]
+    group_name: str = cast(Dict[str, str], parent)["project_name"]
 
     records_url: Optional[str] = cast(
-        Dict[str, Dict[str, Optional[str]]],
-        parent
-    )['records']['url']
+        Dict[str, Dict[str, Optional[str]]], parent
+    )["records"]["url"]
     if records_url:
         return cast(
             List[Dict[object, object]],
-            await get_records_from_file(group_name, finding_id, records_url)
+            await get_records_from_file(group_name, finding_id, records_url),
         )
     return []

@@ -1,4 +1,3 @@
-
 # None
 
 
@@ -12,8 +11,8 @@ from api.resolvers.organization import (
 )
 
 
-ORGANIZATION: ObjectType = ObjectType('Organization')
-ORGANIZATION.set_field('analytics', analytics.resolve)
-ORGANIZATION.set_field('projects', groups.resolve)
-ORGANIZATION.set_field('stakeholders', stakeholders.resolve)
-ORGANIZATION.set_field('findingPolicies', finding_policies.resolve)
+ORGANIZATION: ObjectType = ObjectType("Organization")
+ORGANIZATION.set_field("analytics", analytics.resolve)
+ORGANIZATION.set_field("projects", groups.resolve)
+ORGANIZATION.set_field("stakeholders", stakeholders.resolve)
+ORGANIZATION.set_field("findingPolicies", finding_policies.resolve)

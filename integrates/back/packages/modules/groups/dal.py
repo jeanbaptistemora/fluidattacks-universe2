@@ -1,4 +1,3 @@
-
 import logging
 import logging.config
 from typing import (
@@ -25,23 +24,21 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-TABLE_NAME: str = 'FI_projects'
+TABLE_NAME: str = "FI_projects"
 
 
 async def can_user_access(
-    group_name: str,
-    role: str,
-    table: aioboto3.session.Session.client = None
+    group_name: str, role: str, table: aioboto3.session.Session.client = None
 ) -> bool:
     group_data = await get_attributes(
         group_name.lower(),
         [
-            'deletion_date',
-            'historic_deletion',
-            'project_name',
-            'project_status',
+            "deletion_date",
+            "historic_deletion",
+            "project_name",
+            "project_status",
         ],
-        table
+        table,
     )
     is_user_allowed = False
     if await is_alive(group_name, group_data):
@@ -55,18 +52,16 @@ async def create(group: GroupType) -> bool:
     try:
         resp = await dynamodb_ops.put_item(TABLE_NAME, group)
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        LOGGER.exception(ex, extra={"extra": locals()})
     return resp
 
 
 async def exists(
-    group_name: str,
-    pre_computed_group_data: Optional[GroupType] = None
+    group_name: str, pre_computed_group_data: Optional[GroupType] = None
 ) -> bool:
     group = group_name.lower()
-    group_data = (
-        pre_computed_group_data or
-        await get_attributes(group, ['project_name'])
+    group_data = pre_computed_group_data or await get_attributes(
+        group, ["project_name"]
     )
     return bool(group_data)
 
@@ -74,36 +69,30 @@ async def exists(
 async def get_active_groups() -> List[str]:
     """Get active group in DynamoDB"""
     filtering_exp = (
-        Attr('project_status').eq('ACTIVE') &
-        Attr('project_status').exists()
+        Attr("project_status").eq("ACTIVE") & Attr("project_status").exists()
     )
-    groups = await get_all(filtering_exp, 'project_name')
-    return cast(
-        List[str],
-        [group['project_name'] for group in groups]
-    )
+    groups = await get_all(filtering_exp, "project_name")
+    return cast(List[str], [group["project_name"] for group in groups])
 
 
-async def get_alive_groups(data_attr: str = '') -> List[GroupType]:
+async def get_alive_groups(data_attr: str = "") -> List[GroupType]:
     """Get active and suspended groups in DynamoDB"""
-    filtering_exp = (
-        Attr('project_status').eq('ACTIVE') |
-        Attr('project_status').eq('SUSPENDED')
-    )
+    filtering_exp = Attr("project_status").eq("ACTIVE") | Attr(
+        "project_status"
+    ).eq("SUSPENDED")
     groups: List[GroupType] = await get_all(filtering_exp, data_attr)
     return groups
 
 
 async def get_all(
-    filtering_exp: object = '',
-    data_attr: str = ''
+    filtering_exp: object = "", data_attr: str = ""
 ) -> List[GroupType]:
     """Get all groups"""
     scan_attrs = {}
     if filtering_exp:
-        scan_attrs['FilterExpression'] = filtering_exp
+        scan_attrs["FilterExpression"] = filtering_exp
     if data_attr:
-        scan_attrs['ProjectionExpression'] = data_attr
+        scan_attrs["ProjectionExpression"] = data_attr
     items = await dynamodb_ops.scan(TABLE_NAME, scan_attrs)
     return cast(List[GroupType], items)
 
@@ -111,22 +100,22 @@ async def get_all(
 async def get_attributes(
     group_name: str,
     attributes: Optional[List[str]] = None,
-    table: aioboto3.session.Session.client = None
+    table: aioboto3.session.Session.client = None,
 ) -> Dict[str, Union[str, List[str]]]:
     response = {}
     query_attrs = {
-        'KeyConditionExpression': Key('project_name').eq(group_name),
-        'Limit': 1
+        "KeyConditionExpression": Key("project_name").eq(group_name),
+        "Limit": 1,
     }
     if attributes:
-        projection = ','.join(attributes)
-        query_attrs.update({'ProjectionExpression': projection})
+        projection = ",".join(attributes)
+        query_attrs.update({"ProjectionExpression": projection})
 
     if not table:
         response_items = await dynamodb_ops.query(TABLE_NAME, query_attrs)
     else:
         response_item = await table.query(**query_attrs)
-        response_items = response_item.get('Items', [])
+        response_items = response_item.get("Items", [])
 
     if response_items:
         response = response_items[0]
@@ -135,63 +124,54 @@ async def get_attributes(
 
 async def get_description(group_name: str) -> str:
     """ Get the description of a project. """
-    description = await get_attributes(group_name, ['description'])
+    description = await get_attributes(group_name, ["description"])
     group_description = (
-        str(description.get('description', ''))
-        if description
-        else ''
+        str(description.get("description", "")) if description else ""
     )
     return group_description
 
 
 async def get_group(
-    group_name: str,
-    table: aioboto3.session.Session.client
+    group_name: str, table: aioboto3.session.Session.client
 ) -> GroupType:
-    response = await table.get_item(Key={'project_name': group_name})
-    return response.get('Item', {})
+    response = await table.get_item(Key={"project_name": group_name})
+    return response.get("Item", {})
 
 
 async def get_groups_with_forces() -> List[str]:
-    filtering_exp = Attr('project_status').eq('ACTIVE')
+    filtering_exp = Attr("project_status").eq("ACTIVE")
     query_attrs = {
         "ProjectionExpression": "#name,#h_config",
         "FilterExpression": filtering_exp,
         "ExpressionAttributeNames": {
             "#name": "project_name",
             "#h_config": "historic_configuration",
-        }
+        },
     }
     response = await dynamodb_ops.scan(TABLE_NAME, query_attrs)
     groups: List[str] = [
-        group['project_name']
+        group["project_name"]
         for group in response
         if (
-            group.get('historic_configuration') is not None and
-            group['historic_configuration'][-1]['has_forces']
+            group.get("historic_configuration") is not None
+            and group["historic_configuration"][-1]["has_forces"]
         )
     ]
     return groups
 
 
 async def is_alive(
-    group_name: str,
-    pre_computed_group_data: Optional[GroupType] = None
+    group_name: str, pre_computed_group_data: Optional[GroupType] = None
 ) -> bool:
     """Validate if a group exist and is not deleted."""
     group_name = group_name.lower()
     is_valid_group: bool = True
     if await exists(group_name, pre_computed_group_data):
-        group_data = (
-            pre_computed_group_data or
-            await get_attributes(
-                group_name,
-                ['deletion_date', 'project_status']
-            )
+        group_data = pre_computed_group_data or await get_attributes(
+            group_name, ["deletion_date", "project_status"]
         )
-        if (
-            group_data.get('project_status') != 'ACTIVE' or
-            group_data.get('deletion_date')
+        if group_data.get("project_status") != "ACTIVE" or group_data.get(
+            "deletion_date"
         ):
             is_valid_group = False
     else:
@@ -201,15 +181,15 @@ async def is_alive(
 
 async def update(group_name: str, data: GroupType) -> bool:
     success = False
-    set_expression = ''
-    remove_expression = ''
+    set_expression = ""
+    remove_expression = ""
     expression_values = {}
     for attr, value in data.items():
         if value is None:
-            remove_expression += f'{attr}, '
+            remove_expression += f"{attr}, "
         else:
-            set_expression += f'{attr} = :{attr}, '
-            expression_values.update({f':{attr}': value})
+            set_expression += f"{attr} = :{attr}, "
+            expression_values.update({f":{attr}": value})
 
     if set_expression:
         set_expression = f'SET {set_expression.strip(", ")}'
@@ -217,16 +197,16 @@ async def update(group_name: str, data: GroupType) -> bool:
         remove_expression = f'REMOVE {remove_expression.strip(", ")}'
 
     update_attrs = {
-        'Key': {'project_name': group_name.lower()},
-        'UpdateExpression': f'{set_expression} {remove_expression}'.strip(),
+        "Key": {"project_name": group_name.lower()},
+        "UpdateExpression": f"{set_expression} {remove_expression}".strip(),
         # By default updates on non-existent items create a new item
         # This condition disables that effect
-        'ConditionExpression': Attr('project_name').exists(),
+        "ConditionExpression": Attr("project_name").exists(),
     }
     if expression_values:
-        update_attrs.update({'ExpressionAttributeValues': expression_values})
+        update_attrs.update({"ExpressionAttributeValues": expression_values})
     try:
         success = await dynamodb_ops.update_item(TABLE_NAME, update_attrs)
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        LOGGER.exception(ex, extra={"extra": locals()})
     return success

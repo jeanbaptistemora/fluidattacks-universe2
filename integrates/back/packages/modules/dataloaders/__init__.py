@@ -1,4 +1,3 @@
-
 from collections import defaultdict
 from typing import (
     NamedTuple,
@@ -58,11 +57,10 @@ class Dataloaders(NamedTuple):
 
 
 def apply_context_attrs(
-    context: Request,
-    loaders: Optional[Dataloaders] = None
+    context: Request, loaders: Optional[Dataloaders] = None
 ) -> Request:
-    setattr(context, 'loaders', loaders if loaders else get_new_context())
-    setattr(context, 'store', defaultdict(lambda: None))
+    setattr(context, "loaders", loaders if loaders else get_new_context())
+    setattr(context, "store", defaultdict(lambda: None))
 
     return context
 
@@ -72,14 +70,14 @@ def get_new_context() -> Dataloaders:
     group_findings_loader = GroupFindingsLoader()
     group_stakeholders_loader = GroupStakeholdersLoader()
     finding_vulns_loader = FindingVulnsLoader()
-    finding_vulns_non_deleted_loader = (
-        FindingVulnsNonDeletedLoader(finding_vulns_loader)
+    finding_vulns_non_deleted_loader = FindingVulnsNonDeletedLoader(
+        finding_vulns_loader
     )
-    finding_vulns_nzr_loader = (
-        FindingVulnsNonZeroRiskLoader(finding_vulns_non_deleted_loader)
+    finding_vulns_nzr_loader = FindingVulnsNonZeroRiskLoader(
+        finding_vulns_non_deleted_loader
     )
-    finding_vulns_zr_loader = (
-        FindingVulnsOnlyZeroRiskLoader(finding_vulns_loader)
+    finding_vulns_zr_loader = FindingVulnsOnlyZeroRiskLoader(
+        finding_vulns_loader
     )
     root_toe_lines_loader = RootToeLinesLoader()
 
@@ -107,5 +105,5 @@ def get_new_context() -> Dataloaders:
         organization_stakeholders=OrganizationStakeholdersLoader(),
         organization_tags=OrganizationTagsLoader(),
         root_toe_lines=root_toe_lines_loader,
-        vulnerability=VulnerabilityLoader()
+        vulnerability=VulnerabilityLoader(),
     )

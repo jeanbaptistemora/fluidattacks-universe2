@@ -1,4 +1,3 @@
-
 from typing import (
     Any,
     Dict,
@@ -23,27 +22,22 @@ from roots import domain as roots_domain
 
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_drills_white
+    require_login, enforce_group_level_auth_async, require_drills_white
 )
 async def mutate(
-    _parent: None,
-    info: GraphQLResolveInfo,
-    **kwargs: Any
+    _parent: None, info: GraphQLResolveInfo, **kwargs: Any
 ) -> SimplePayload:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
-    user_email: str = user_info['user_email']
+    user_email: str = user_info["user_email"]
 
     await roots_domain.update_git_environments(
         user_email,
-        kwargs['group_name'],
-        kwargs['id'],
-        kwargs['environment_urls']
+        kwargs["group_name"],
+        kwargs["id"],
+        kwargs["environment_urls"],
     )
     logs_utils.cloudwatch_log(
-        info.context,
-        f'Security: Updated git envs for root {kwargs["id"]}'
+        info.context, f'Security: Updated git envs for root {kwargs["id"]}'
     )
 
     return SimplePayload(success=True)

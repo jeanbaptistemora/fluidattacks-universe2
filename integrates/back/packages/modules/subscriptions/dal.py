@@ -1,4 +1,3 @@
-
 from decimal import Decimal
 from typing import (
     Any,
@@ -18,7 +17,7 @@ from newutils.encodings import (
 
 
 # Constants
-SUBSCRIPTIONS_TABLE = 'fi_subscriptions'
+SUBSCRIPTIONS_TABLE = "fi_subscriptions"
 NumericType = Union[Decimal, float, int]
 
 
@@ -26,8 +25,8 @@ def _unpack_items(items: List[Dict[Any, Any]]) -> List[Dict[Any, Any]]:
     return [
         {
             **item,
-            'pk': key_to_mapping(item['pk']),
-            'sk': key_to_mapping(item['sk']),
+            "pk": key_to_mapping(item["pk"]),
+            "sk": key_to_mapping(item["sk"]),
         }
         for item in items
     ]
@@ -39,10 +38,10 @@ async def get_subscriptions_to_entity_report(
 ) -> List[Dict[Any, Any]]:
     results = await dynamodb_ops.query(
         query_attrs=dict(
-            IndexName='pk_meta',
+            IndexName="pk_meta",
             KeyConditionExpression=(
-                Key('pk_meta').eq(audience)
-                & Key('sk_meta').eq('entity_report')
+                Key("pk_meta").eq(audience)
+                & Key("sk_meta").eq("entity_report")
             ),
         ),
         table=SUBSCRIPTIONS_TABLE,
@@ -56,10 +55,14 @@ async def get_user_subscriptions(
 ) -> List[Dict[Any, Any]]:
     results = await dynamodb_ops.query(
         query_attrs=dict(
-            KeyConditionExpression=Key('pk').eq(mapping_to_key({
-                'meta': 'user',
-                'email': user_email,
-            })),
+            KeyConditionExpression=Key("pk").eq(
+                mapping_to_key(
+                    {
+                        "meta": "user",
+                        "email": user_email,
+                    }
+                )
+            ),
         ),
         table=SUBSCRIPTIONS_TABLE,
     )
@@ -75,18 +78,22 @@ async def subscribe_user_to_entity_report(
 ) -> bool:
     return await dynamodb_ops.put_item(
         item=dict(
-            pk=mapping_to_key({
-                'meta': 'user',
-                'email': user_email,
-            }),
-            sk=mapping_to_key({
-                'meta': 'entity_report',
-                'entity': report_entity,
-                'subject': report_subject,
-            }),
+            pk=mapping_to_key(
+                {
+                    "meta": "user",
+                    "email": user_email,
+                }
+            ),
+            sk=mapping_to_key(
+                {
+                    "meta": "entity_report",
+                    "entity": report_entity,
+                    "subject": report_subject,
+                }
+            ),
             period=Decimal(event_period),
-            pk_meta='user',
-            sk_meta='entity_report',
+            pk_meta="user",
+            sk_meta="entity_report",
         ),
         table=SUBSCRIPTIONS_TABLE,
     )
@@ -99,16 +106,22 @@ async def unsubscribe_user_to_entity_report(
     user_email: str,
 ) -> bool:
     return await dynamodb_ops.delete_item(
-        delete_attrs=DynamoDelete(Key=dict(
-            pk=mapping_to_key({
-                'meta': 'user',
-                'email': user_email,
-            }),
-            sk=mapping_to_key({
-                'meta': 'entity_report',
-                'entity': report_entity,
-                'subject': report_subject,
-            }),
-        )),
+        delete_attrs=DynamoDelete(
+            Key=dict(
+                pk=mapping_to_key(
+                    {
+                        "meta": "user",
+                        "email": user_email,
+                    }
+                ),
+                sk=mapping_to_key(
+                    {
+                        "meta": "entity_report",
+                        "entity": report_entity,
+                        "subject": report_subject,
+                    }
+                ),
+            )
+        ),
         table=SUBSCRIPTIONS_TABLE,
     )

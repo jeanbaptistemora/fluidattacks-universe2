@@ -1,5 +1,4 @@
-
 from ariadne import ObjectType
 
 
-TOELINES = ObjectType('ToeLines')
+TOELINES = ObjectType("ToeLines")

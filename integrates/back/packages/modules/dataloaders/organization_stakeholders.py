@@ -1,4 +1,3 @@
-
 from typing import (
     List,
     Tuple,
@@ -19,11 +18,11 @@ async def _get_stakeholder(email: str, org_id: str) -> StakeholderType:
         email
     )
     org_role: str = await authz.get_organization_level_role(email, org_id)
-    return {**stakeholder, 'responsibility': '', 'role': org_role}
+    return {**stakeholder, "responsibility": "", "role": org_role}
 
 
 async def get_stakeholders_by_organization(
-    organization_id: str
+    organization_id: str,
 ) -> Tuple[StakeholderType, ...]:
     org_stakeholders_emails: List[str] = await orgs_domain.get_users(
         organization_id
@@ -37,15 +36,15 @@ async def get_stakeholders_by_organization(
 
 class OrganizationStakeholdersLoader(DataLoader):
     """Batches load calls within the same execution fragment."""
+
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self,
-        organization_names: List[str]
+        self, organization_names: List[str]
     ) -> Tuple[Tuple[StakeholderType, ...], ...]:
         return cast(
             Tuple[Tuple[StakeholderType, ...], ...],
             await collect(
                 get_stakeholders_by_organization(organization_name)
                 for organization_name in organization_names
-            )
+            ),
         )

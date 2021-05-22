@@ -1,4 +1,3 @@
-
 from typing import List
 
 from aiodataloader import DataLoader
@@ -21,15 +20,15 @@ from groups import domain as groups_domain
     enforce_user_level_auth_async,
 )
 async def resolve(
-    _parent: None,
-    info: GraphQLResolveInfo,
-    **kwargs: str
+    _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> List[Group]:
-    user_email: str = kwargs['user_email']
-    active, inactive = await collect([
-        groups_domain.get_groups_by_user(user_email),
-        groups_domain.get_groups_by_user(user_email, active=False)
-    ])
+    user_email: str = kwargs["user_email"]
+    active, inactive = await collect(
+        [
+            groups_domain.get_groups_by_user(user_email),
+            groups_domain.get_groups_by_user(user_email, active=False),
+        ]
+    )
     user_groups = active + inactive
 
     group_loader: DataLoader = info.context.loaders.group

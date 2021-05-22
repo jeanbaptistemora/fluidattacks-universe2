@@ -1,4 +1,3 @@
-
 from typing import Any
 
 from ariadne.utils import convert_kwargs_to_snake_case
@@ -17,7 +16,7 @@ from newutils import logs as logs_utils
 
 
 @convert_kwargs_to_snake_case
-@delete_kwargs({'group_name'})
+@delete_kwargs({"group_name"})
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,
@@ -28,19 +27,16 @@ async def mutate(
     info: GraphQLResolveInfo,
     project_name: str,
     title: str,
-    **kwargs: Any
+    **kwargs: Any,
 ) -> SimplePayload:
     success: bool = await findings_domain.create_draft(
-        info,
-        project_name,
-        title,
-        **kwargs
+        info, project_name, title, **kwargs
     )
 
     if success:
         logs_utils.cloudwatch_log(
             info.context,
-            f'Security: Created draft in {project_name} project successfully'
+            f"Security: Created draft in {project_name} project successfully",
         )
 
     return SimplePayload(success=success)

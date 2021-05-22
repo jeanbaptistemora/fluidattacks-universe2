@@ -1,4 +1,3 @@
-
 from typing import List
 
 from __init__ import FI_AWS_S3_RESOURCES_BUCKET
@@ -7,7 +6,7 @@ from s3 import operations as s3_ops
 
 async def download_file(file_info: str, group_name: str) -> str:
     group_name = group_name.lower()
-    file_url = f'{group_name}/{file_info}'
+    file_url = f"{group_name}/{file_info}"
     return await s3_ops.sign_url(file_url, 10, FI_AWS_S3_RESOURCES_BUCKET)
 
 
@@ -17,9 +16,7 @@ async def remove_file(file_name: str) -> bool:
 
 async def save_file(file_object: object, file_name: str) -> bool:
     return await s3_ops.upload_memory_file(
-        FI_AWS_S3_RESOURCES_BUCKET,
-        file_object,
-        file_name
+        FI_AWS_S3_RESOURCES_BUCKET, file_object, file_name
     )
 
 

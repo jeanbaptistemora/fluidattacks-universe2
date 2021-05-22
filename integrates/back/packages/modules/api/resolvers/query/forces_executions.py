@@ -1,4 +1,3 @@
-
 from datetime import datetime
 from typing import (
     Any,
@@ -29,28 +28,24 @@ from newutils import datetime as datetime_utils
     require_integrates,
 )
 async def resolve(
-    _parent: None,
-    _info: GraphQLResolveInfo,
-    **kwargs: Any
+    _parent: None, _info: GraphQLResolveInfo, **kwargs: Any
 ) -> ForcesExecutions:
-    group_name: str = kwargs['project_name'].lower()
+    group_name: str = kwargs["project_name"].lower()
     from_date: datetime = kwargs.get(
-        'from_date',
-        datetime_utils.get_now_minus_delta(weeks=1, zone='UTC'),
+        "from_date",
+        datetime_utils.get_now_minus_delta(weeks=1, zone="UTC"),
     )
     to_date: datetime = kwargs.get(
-        'to_date',
-        datetime_utils.get_now(zone='UTC'),
+        "to_date",
+        datetime_utils.get_now(zone="UTC"),
     )
 
     executions: List[ForcesExecution] = await forces_domain.get_executions(
-        from_date=from_date,
-        group_name=group_name,
-        to_date=to_date
+        from_date=from_date, group_name=group_name, to_date=to_date
     )
     return {
-        'executions': executions,
-        'from_date': from_date,
-        'project_name': group_name,
-        'to_date': to_date
+        "executions": executions,
+        "from_date": from_date,
+        "project_name": group_name,
+        "to_date": to_date,
     }

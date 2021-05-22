@@ -22,15 +22,13 @@ TEMPLATING_ENGINE = Jinja2Templates(directory=settings.TEMPLATES_DIR)
 
 def error500(request: Request) -> HTMLResponse:
     return TEMPLATING_ENGINE.TemplateResponse(
-        name='HTTP500.html',
-        context={'request': request}
+        name="HTTP500.html", context={"request": request}
     )
 
 
 def error401(request: Request) -> HTMLResponse:
     return TEMPLATING_ENGINE.TemplateResponse(
-        name='HTTP401.html',
-        context={'request': request}
+        name="HTTP401.html", context={"request": request}
     )
 
 
@@ -40,105 +38,101 @@ def invalid_invitation(
     project_access: ProjectAccessType = None,
 ) -> HTMLResponse:
     group_name = (
-        project_access.get('project_name', '')
-        if project_access else ''
+        project_access.get("project_name", "") if project_access else ""
     )
     return TEMPLATING_ENGINE.TemplateResponse(
-        name='invalid_invitation.html',
+        name="invalid_invitation.html",
         context={
-            'error': error,
-            'group_name': group_name,
-            'request': request,
-        }
+            "error": error,
+            "group_name": group_name,
+            "request": request,
+        },
     )
 
 
 async def valid_invitation(
-    request: Request,
-    project_access: ProjectAccessType
+    request: Request, project_access: ProjectAccessType
 ) -> HTMLResponse:
-    group_name = project_access['project_name']
+    group_name = project_access["project_name"]
     return TEMPLATING_ENGINE.TemplateResponse(
-        name='valid_invitation.html',
+        name="valid_invitation.html",
         context={
-            'group_name': group_name,
-            'request': request,
-        }
+            "group_name": group_name,
+            "request": request,
+        },
     )
 
 
 def unauthorized(request: Request) -> HTMLResponse:
     return TEMPLATING_ENGINE.TemplateResponse(
-        name='unauthorized.html',
+        name="unauthorized.html",
         context={
-            'request': request,
-            'debug': settings.DEBUG,
-        }
+            "request": request,
+            "debug": settings.DEBUG,
+        },
     )
 
 
 def login(request: Request) -> HTMLResponse:
     return TEMPLATING_ENGINE.TemplateResponse(
-        name='login.html',
+        name="login.html",
         context={
-            'request': request,
-            'debug': settings.DEBUG,
-            'js': f'{settings.STATIC_URL}/dashboard/app-bundle.min.js',
-            'css': f'{settings.STATIC_URL}/dashboard/app-style.min.css'
-        }
+            "request": request,
+            "debug": settings.DEBUG,
+            "js": f"{settings.STATIC_URL}/dashboard/app-bundle.min.js",
+            "css": f"{settings.STATIC_URL}/dashboard/app-style.min.css",
+        },
     )
 
 
 def main_app(request: Request) -> HTMLResponse:
     return TEMPLATING_ENGINE.TemplateResponse(
-        name='app.html',
+        name="app.html",
         context={
-            'request': request,
-            'debug': settings.DEBUG,
-            'js': f'{settings.STATIC_URL}/dashboard/app-bundle.min.js',
-            'css': f'{settings.STATIC_URL}/dashboard/app-style.min.css',
-        }
+            "request": request,
+            "debug": settings.DEBUG,
+            "js": f"{settings.STATIC_URL}/dashboard/app-bundle.min.js",
+            "css": f"{settings.STATIC_URL}/dashboard/app-style.min.css",
+        },
     )
 
 
 def graphic_error(request: Request) -> HTMLResponse:
     return TEMPLATING_ENGINE.TemplateResponse(
-        name='graphic-error.html',
+        name="graphic-error.html",
         context=dict(
             request=request,
             debug=settings.DEBUG,
-            traceback=traceback.format_exc()
-        )
+            traceback=traceback.format_exc(),
+        ),
     )
 
 
 def graphics_for_entity_view(request: Request, entity: str) -> HTMLResponse:
     entity_title = entity.title()
     return TEMPLATING_ENGINE.TemplateResponse(
-        name='graphics-for-entity.html',
+        name="graphics-for-entity.html",
         context=dict(
             request=request,
             debug=settings.DEBUG,
             entity=entity_title,
             js=(
-                f'{settings.STATIC_URL}/dashboard/'
-                f'graphicsFor{entity_title}-bundle.min.js'
+                f"{settings.STATIC_URL}/dashboard/"
+                f"graphicsFor{entity_title}-bundle.min.js"
             ),
             css=(
-                f'{settings.STATIC_URL}/dashboard/'
-                f'graphicsFor{entity_title}-style.min.css'
-            )
-        )
+                f"{settings.STATIC_URL}/dashboard/"
+                f"graphicsFor{entity_title}-style.min.css"
+            ),
+        ),
     )
 
 
 def graphic_view(
-    request: Request,
-    document: object,
-    params: GraphicParameters
+    request: Request, document: object, params: GraphicParameters
 ) -> HTMLResponse:
     return TEMPLATING_ENGINE.TemplateResponse(
-        name='graphic.html',
+        name="graphic.html",
         context=dict(
             request=request,
             args=dict(
@@ -147,14 +141,12 @@ def graphic_view(
                 width=params.width,
             ),
             generator_src=(
-                f'graphics/'
-                f'generators/'
-                f'{params.generator_type}/'
-                f'{params.generator_name}.js'
+                f"graphics/"
+                f"generators/"
+                f"{params.generator_type}/"
+                f"{params.generator_name}.js"
             ),
-            c3js=f'{settings.STATIC_URL}/external/C3/c3.js',
-            c3css=(
-                f'{settings.STATIC_URL}/external/C3/c3.css'
-            )
-        )
+            c3js=f"{settings.STATIC_URL}/external/C3/c3.js",
+            c3css=(f"{settings.STATIC_URL}/external/C3/c3.css"),
+        ),
     )

@@ -1,4 +1,3 @@
-
 from typing import List
 
 from ariadne.utils import convert_kwargs_to_snake_case
@@ -25,14 +24,11 @@ async def mutate(
     info: GraphQLResolveInfo,
     finding_id: str,
     justification: str,
-    vulnerabilities: List[str]
+    vulnerabilities: List[str],
 ) -> SimplePayloadType:
     """Resolve request_zero_risk_vuln mutation."""
     success = await vulns_domain.request_zero_risk_vulnerabilities(
-        info,
-        finding_id,
-        justification,
-        vulnerabilities
+        info, finding_id, justification, vulnerabilities
     )
     if success:
         info.context.loaders.finding.clear(finding_id)
@@ -40,12 +36,14 @@ async def mutate(
         for vuln_id in vulnerabilities:
             info.context.loaders.vulnerability.clear(vuln_id)
         await redis_del_by_deps(
-            'request_zero_risk_vuln',
+            "request_zero_risk_vuln",
             finding_id=finding_id,
         )
         logs_utils.cloudwatch_log(
             info.context,
-            ('Security: Requested a zero risk vuln '
-             f'in finding_id: {finding_id}')  # pragma: no cover
+            (
+                "Security: Requested a zero risk vuln "
+                f"in finding_id: {finding_id}"
+            ),  # pragma: no cover
         )
     return SimplePayloadType(success=success)

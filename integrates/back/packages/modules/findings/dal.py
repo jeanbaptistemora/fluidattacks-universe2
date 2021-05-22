@@ -1,4 +1,3 @@
-
 import logging
 import logging.config
 from typing import (
@@ -28,32 +27,25 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-TABLE_NAME: str = 'FI_findings'
+TABLE_NAME: str = "FI_findings"
 
 
 def _escape_alnum(string: str) -> str:
     """ Removes non-alphanumeric characters from a string """
-    return ''.join([
-        char
-        for char in string
-        if char.isalnum()
-    ])
+    return "".join([char for char in string if char.isalnum()])
 
 
 async def create(
-    finding_id: str,
-    group_name: str,
-    finding_attrs: Dict[str, FindingType]
+    finding_id: str, group_name: str, finding_attrs: Dict[str, FindingType]
 ) -> bool:
     success = False
     try:
-        finding_attrs.update({
-            'finding_id': finding_id,
-            'project_name': group_name
-        })
+        finding_attrs.update(
+            {"finding_id": finding_id, "project_name": group_name}
+        )
         success = await dynamodb_ops.put_item(TABLE_NAME, finding_attrs)
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        LOGGER.exception(ex, extra={"extra": locals()})
     return success
 
 
@@ -62,29 +54,24 @@ async def download_evidence(file_name: str, file_path: str) -> None:
 
 
 async def get(
-    finding_id: str,
-    table: aioboto3.session.Session.client
+    finding_id: str, table: aioboto3.session.Session.client
 ) -> Dict[str, FindingType]:
-    response = await table.get_item(Key={'finding_id': finding_id})
-    return cast(
-        Dict[str, FindingType],
-        response.get('Item', {})
-    )
+    response = await table.get_item(Key={"finding_id": finding_id})
+    return cast(Dict[str, FindingType], response.get("Item", {}))
 
 
 async def get_attributes(
-    finding_id: str,
-    attributes: List[str]
+    finding_id: str, attributes: List[str]
 ) -> Dict[str, FindingType]:
     """ Get a group of attributes of a finding. """
     finding_attrs: Dict[str, FindingType] = {}
-    item_attrs = {'KeyConditionExpression': Key('finding_id').eq(finding_id)}
+    item_attrs = {"KeyConditionExpression": Key("finding_id").eq(finding_id)}
     if attributes:
-        projection = ','.join(attributes)
-        item_attrs.update({'ProjectionExpression': projection})
+        projection = ",".join(attributes)
+        item_attrs.update({"ProjectionExpression": projection})
     response_item = cast(
         List[Dict[str, FindingType]],
-        await dynamodb_ops.query(TABLE_NAME, item_attrs)
+        await dynamodb_ops.query(TABLE_NAME, item_attrs),
     )
     if response_item:
         finding_attrs = response_item[0]
@@ -95,8 +82,8 @@ async def get_finding(finding_id: str) -> Dict[str, FindingType]:
     """ Retrieve all attributes from a finding """
     response = {}
     query_attrs = {
-        'KeyConditionExpression': Key('finding_id').eq(finding_id),
-        'Limit': 1
+        "KeyConditionExpression": Key("finding_id").eq(finding_id),
+        "Limit": 1,
     }
     response_items = await dynamodb_ops.query(TABLE_NAME, query_attrs)
     if response_items:
@@ -105,23 +92,20 @@ async def get_finding(finding_id: str) -> Dict[str, FindingType]:
 
 
 async def get_findings_by_group(
-    group_name: str,
-    attrs: Optional[Set[str]] = None
+    group_name: str, attrs: Optional[Set[str]] = None
 ) -> List[Dict[str, Any]]:
-    key_exp: Equals = Key('project_name').eq(group_name.lower())
+    key_exp: Equals = Key("project_name").eq(group_name.lower())
     query_attrs = {
-        'IndexName': 'project_findings',
-        'KeyConditionExpression': key_exp
+        "IndexName": "project_findings",
+        "KeyConditionExpression": key_exp,
     }
     if attrs:
-        query_attrs['ProjectionExpression'] = ','.join(attrs)
+        query_attrs["ProjectionExpression"] = ",".join(attrs)
     return await dynamodb_ops.query(TABLE_NAME, query_attrs)
 
 
 async def list_append(
-    finding_id: str,
-    attr: str,
-    data: List[FindingType]
+    finding_id: str, attr: str, data: List[FindingType]
 ) -> bool:
     """
     Adds elements to the end of a list attribute
@@ -133,13 +117,13 @@ async def list_append(
     success = False
     try:
         update_attrs = {
-            'Key': {'finding_id': finding_id},
-            'UpdateExpression': f'SET {attr} = list_append({attr}, :data)',
-            'ExpressionAttributeValues': {':data': data}
+            "Key": {"finding_id": finding_id},
+            "UpdateExpression": f"SET {attr} = list_append({attr}, :data)",
+            "ExpressionAttributeValues": {":data": data},
         }
         success = await dynamodb_ops.update_item(TABLE_NAME, update_attrs)
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        LOGGER.exception(ex, extra={"extra": locals()})
     return success
 
 
@@ -149,9 +133,7 @@ async def remove_evidence(file_name: str) -> bool:
 
 async def save_evidence(file_object: object, file_name: str) -> bool:
     return await s3_ops.upload_memory_file(
-        FI_AWS_S3_BUCKET,
-        file_object,
-        file_name
+        FI_AWS_S3_BUCKET, file_object, file_name
     )
 
 
@@ -161,15 +143,15 @@ async def search_evidence(file_name: str) -> List[str]:
 
 async def update(finding_id: str, data: Dict[str, FindingType]) -> bool:
     success = False
-    set_expression = ''
-    remove_expression = ''
+    set_expression = ""
+    remove_expression = ""
     expression_values = {}
     for attr, value in data.items():
         if value is None:
-            remove_expression += f'{attr}, '
+            remove_expression += f"{attr}, "
         else:
-            set_expression += f'{attr} = :{_escape_alnum(attr)}, '
-            expression_values.update({f':{_escape_alnum(attr)}': value})
+            set_expression += f"{attr} = :{_escape_alnum(attr)}, "
+            expression_values.update({f":{_escape_alnum(attr)}": value})
 
     if set_expression:
         set_expression = f'SET {set_expression.strip(", ")}'
@@ -177,14 +159,14 @@ async def update(finding_id: str, data: Dict[str, FindingType]) -> bool:
         remove_expression = f'REMOVE {remove_expression.strip(", ")}'
 
     update_attrs = {
-        'Key': {'finding_id': finding_id},
-        'UpdateExpression': f'{set_expression} {remove_expression}'.strip(),
+        "Key": {"finding_id": finding_id},
+        "UpdateExpression": f"{set_expression} {remove_expression}".strip(),
     }
     if expression_values:
-        update_attrs.update({'ExpressionAttributeValues': expression_values})
+        update_attrs.update({"ExpressionAttributeValues": expression_values})
 
     try:
         success = await dynamodb_ops.update_item(TABLE_NAME, update_attrs)
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        LOGGER.exception(ex, extra={"extra": locals()})
     return success

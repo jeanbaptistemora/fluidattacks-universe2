@@ -1,4 +1,3 @@
-
 import logging
 import logging.config
 import sys
@@ -39,8 +38,8 @@ from users import domain as users_domain
 logging.config.dictConfig(LOGGING)
 
 # Constants
-DEFAULT_MAX_SEVERITY = Decimal('10.0')
-DEFAULT_MIN_SEVERITY = Decimal('0.0')
+DEFAULT_MAX_SEVERITY = Decimal("10.0")
+DEFAULT_MIN_SEVERITY = Decimal("0.0")
 LOGGER = logging.getLogger(__name__)
 
 
@@ -49,13 +48,13 @@ async def _add_updated_max_acceptance_days(
     organization_id: str,
     values: Dict[str, Optional[Decimal]],
 ) -> OrganizationType:
-    new_max_acceptance_days = values.get('max_acceptance_days')
+    new_max_acceptance_days = values.get("max_acceptance_days")
     organization_data = await loaders.organization.load(organization_id)
     max_acceptance_days: Optional[Decimal] = organization_data[
-        'max_acceptance_days'
+        "max_acceptance_days"
     ]
     if new_max_acceptance_days != max_acceptance_days:
-        return {'max_acceptance_days': new_max_acceptance_days}
+        return {"max_acceptance_days": new_max_acceptance_days}
     return {}
 
 
@@ -64,13 +63,13 @@ async def _add_updated_max_acceptance_severity(
     organization_id: str,
     values: Dict[str, Optional[Decimal]],
 ) -> OrganizationType:
-    new_max_acceptance_severity = values.get('max_acceptance_severity')
+    new_max_acceptance_severity = values.get("max_acceptance_severity")
     organization_data = await loaders.organization.load(organization_id)
     max_acceptance_severity: Decimal = organization_data[
-        'max_acceptance_severity'
+        "max_acceptance_severity"
     ]
     if new_max_acceptance_severity != max_acceptance_severity:
-        return {'max_acceptance_severity': new_max_acceptance_severity}
+        return {"max_acceptance_severity": new_max_acceptance_severity}
     return {}
 
 
@@ -81,22 +80,24 @@ async def _add_updated_max_number_acceptations(
     email: str,
     date: str,
 ) -> OrganizationType:
-    new_max_number_acceptation = values.get('max_number_acceptations')
+    new_max_number_acceptation = values.get("max_number_acceptations")
     organization_data = await loaders.organization.load(organization_id)
     max_number_acceptations: Optional[Decimal] = organization_data[
-        'max_number_acceptations'
+        "max_number_acceptations"
     ]
     if new_max_number_acceptation != max_number_acceptations:
         historic_max_number_acceptation = organization_data[
-            'historic_max_number_acceptations'
+            "historic_max_number_acceptations"
         ]
-        historic_max_number_acceptation.append({
-            'date': date,
-            'max_number_acceptations': new_max_number_acceptation,
-            'user': email
-        })
+        historic_max_number_acceptation.append(
+            {
+                "date": date,
+                "max_number_acceptations": new_max_number_acceptation,
+                "user": email,
+            }
+        )
         return {
-            'historic_max_number_acceptations': historic_max_number_acceptation
+            "historic_max_number_acceptations": historic_max_number_acceptation
         }
     return {}
 
@@ -106,13 +107,13 @@ async def _add_updated_min_acceptance_severity(
     organization_id: str,
     values: Dict[str, Optional[Decimal]],
 ) -> OrganizationType:
-    new_min_acceptance_severity = values.get('min_acceptance_severity')
+    new_min_acceptance_severity = values.get("min_acceptance_severity")
     organization_data = await loaders.organization.load(organization_id)
     min_acceptance_severity: Decimal = organization_data[
-        'min_acceptance_severity'
+        "min_acceptance_severity"
     ]
     if new_min_acceptance_severity != min_acceptance_severity:
-        return {'min_acceptance_severity': new_min_acceptance_severity}
+        return {"min_acceptance_severity": new_min_acceptance_severity}
     return {}
 
 
@@ -120,23 +121,23 @@ async def _get_new_policies(
     loaders: Any,
     organization_id: str,
     email: str,
-    values: Dict[str, Optional[Decimal]]
+    values: Dict[str, Optional[Decimal]],
 ) -> Union[OrganizationType, None]:
     date = datetime_utils.get_now_as_str()
-    policies = await collect([
-        _add_updated_max_acceptance_days(
-            loaders, organization_id, values
-        ),
-        _add_updated_max_number_acceptations(
-            loaders, organization_id, values, email, date
-        ),
-        _add_updated_max_acceptance_severity(
-            loaders, organization_id, values
-        ),
-        _add_updated_min_acceptance_severity(
-            loaders, organization_id, values
-        )
-    ])
+    policies = await collect(
+        [
+            _add_updated_max_acceptance_days(loaders, organization_id, values),
+            _add_updated_max_number_acceptations(
+                loaders, organization_id, values, email, date
+            ),
+            _add_updated_max_acceptance_severity(
+                loaders, organization_id, values
+            ),
+            _add_updated_min_acceptance_severity(
+                loaders, organization_id, values
+            ),
+        ]
+    )
     new_policies: OrganizationType = {
         key: val for item in policies for key, val in item.items()
     }
@@ -151,39 +152,30 @@ async def add_group(organization_id: str, group: str) -> bool:
             authz.get_organization_level_role(user, organization_id)
             for user in users
         )
-        success = (
-            success and
-            all(
-                await collect(
-                    group_access_domain.add_user_access(
-                        user, group, 'group_manager'
-                    )
-                    for user, user_role in zip(users, users_roles)
-                    if user_role == 'group_manager'
+        success = success and all(
+            await collect(
+                group_access_domain.add_user_access(
+                    user, group, "group_manager"
                 )
+                for user, user_role in zip(users, users_roles)
+                if user_role == "group_manager"
             )
         )
     return success
 
 
 async def add_user(organization_id: str, email: str, role: str) -> bool:
-    success = (
-        await orgs_dal.add_user(organization_id, email) and
-        await authz.grant_organization_level_role(
-            email,
-            organization_id,
-            role
-        )
+    success = await orgs_dal.add_user(
+        organization_id, email
+    ) and await authz.grant_organization_level_role(
+        email, organization_id, role
     )
-    if success and role == 'group_manager':
+    if success and role == "group_manager":
         groups = await get_groups(organization_id)
-        success = (
-            success and
-            all(
-                await collect(
-                    group_access_domain.add_user_access(email, group, role)
-                    for group in groups
-                )
+        success = success and all(
+            await collect(
+                group_access_domain.add_user_access(email, group, role)
+                for group in groups
             )
         )
     return success
@@ -192,11 +184,11 @@ async def add_user(organization_id: str, email: str, role: str) -> bool:
 async def create_organization(name: str, email: str) -> OrganizationType:
     new_organization: OrganizationType = {}
 
-    if not await names_domain.exists(name, 'organization'):
+    if not await names_domain.exists(name, "organization"):
         raise InvalidOrganization()
 
     new_organization = await get_or_create(name, email)
-    await names_domain.remove(name, 'organization')
+    await names_domain.remove(name, "organization")
     return new_organization
 
 
@@ -209,31 +201,28 @@ async def delete_organization(organization_id: str) -> bool:
 def format_organization(organization: OrganizationType) -> OrganizationType:
     historic_policies: List[Dict[str, Decimal]] = cast(
         List[Dict[str, Decimal]],
-        organization.get('historic_max_number_acceptations', [])
+        organization.get("historic_max_number_acceptations", []),
     )
     max_number_acceptations: Optional[Decimal] = (
-        historic_policies[-1]['max_number_acceptations']
+        historic_policies[-1]["max_number_acceptations"]
         if historic_policies
         else None
     )
     return {
         **organization,
-        'historic_max_number_acceptations': organization.get(
-            'historic_max_number_acceptations',
-            []
+        "historic_max_number_acceptations": organization.get(
+            "historic_max_number_acceptations", []
         ),
-        'max_acceptance_days': organization.get(
-            'max_acceptance_days',
+        "max_acceptance_days": organization.get(
+            "max_acceptance_days",
         ),
-        'max_acceptance_severity': organization.get(
-            'max_acceptance_severity',
-            DEFAULT_MAX_SEVERITY
+        "max_acceptance_severity": organization.get(
+            "max_acceptance_severity", DEFAULT_MAX_SEVERITY
         ),
-        'max_number_acceptations': max_number_acceptations,
-        'min_acceptance_severity': organization.get(
-            'min_acceptance_severity',
-            DEFAULT_MIN_SEVERITY
-        )
+        "max_number_acceptations": max_number_acceptations,
+        "min_acceptance_severity": organization.get(
+            "min_acceptance_severity", DEFAULT_MIN_SEVERITY
+        ),
     }
 
 
@@ -258,12 +247,11 @@ async def get_groups(organization_id: str) -> Tuple[str, ...]:
 
 async def get_id_by_name(organization_name: str) -> str:
     result: OrganizationType = await orgs_dal.get_by_name(
-        organization_name.lower(),
-        ['id']
+        organization_name.lower(), ["id"]
     )
     if not result:
         raise InvalidOrganization()
-    return str(result['id'])
+    return str(result["id"])
 
 
 async def get_id_for_group(group_name: str) -> str:
@@ -272,48 +260,45 @@ async def get_id_for_group(group_name: str) -> str:
 
 async def get_name_by_id(organization_id: str) -> str:
     result: OrganizationType = await orgs_dal.get_by_id(
-        organization_id,
-        ['name']
+        organization_id, ["name"]
     )
     if not result:
         raise InvalidOrganization()
-    return str(result['name'])
+    return str(result["name"])
 
 
 async def get_or_create(
-    organization_name: str,
-    email: str = ''
+    organization_name: str, email: str = ""
 ) -> OrganizationType:
     """
     Return an organization, even if it does not exists,
     in which case it will be created
     """
     org_created: bool = False
-    org_role: str = 'customer'
+    org_role: str = "customer"
     organization_name = organization_name.lower().strip()
 
-    org = await orgs_dal.get_by_name(organization_name, ['id', 'name'])
+    org = await orgs_dal.get_by_name(organization_name, ["id", "name"])
     if org:
         has_access = (
-            await has_user_access(str(org['id']), email)
-            if email else True
+            await has_user_access(str(org["id"]), email) if email else True
         )
     else:
         org = await orgs_dal.create(organization_name)
         org_created = True
-        org_role = 'customeradmin'
+        org_role = "customeradmin"
 
     if email and (org_created or not has_access):
-        await add_user(str(org['id']), email, org_role)
+        await add_user(str(org["id"]), email, org_role)
     return org
 
 
 async def get_pending_deletion_date_str(organization_id: str) -> Optional[str]:
     result = cast(
         Dict[str, str],
-        await orgs_dal.get_by_id(organization_id, ['pending_deletion_date'])
+        await orgs_dal.get_by_id(organization_id, ["pending_deletion_date"]),
     )
-    return result.get('pending_deletion_date')
+    return result.get("pending_deletion_date")
 
 
 async def get_user_organizations(email: str) -> List[str]:
@@ -330,11 +315,9 @@ async def has_group(organization_id: str, group_name: str) -> bool:
 
 async def has_user_access(organization_id: str, email: str) -> bool:
     return (
-        await orgs_dal.has_user_access(organization_id, email) or
-        await authz.get_organization_level_role(
-            email,
-            organization_id
-        ) == 'admin'
+        await orgs_dal.has_user_access(organization_id, email)
+        or await authz.get_organization_level_role(email, organization_id)
+        == "admin"
     )
 
 
@@ -364,8 +347,7 @@ async def remove_user(organization_id: str, email: str) -> bool:
 
     user_removed = await orgs_dal.remove_user(organization_id, email)
     role_removed = await authz.revoke_organization_level_role(
-        email,
-        organization_id
+        email, organization_id
     )
 
     org_groups = await get_groups(organization_id)
@@ -378,25 +360,18 @@ async def remove_user(organization_id: str, email: str) -> bool:
 
     has_orgs = bool(await get_user_organizations(email))
     if not has_orgs:
-        user_removed = (
-            user_removed and
-            await users_domain.delete(email)
-        )
+        user_removed = user_removed and await users_domain.delete(email)
     return user_removed and role_removed and groups_removed
 
 
 async def update_pending_deletion_date(
     organization_id: str,
     organization_name: str,
-    pending_deletion_date: Optional[str]
+    pending_deletion_date: Optional[str],
 ) -> bool:
     """ Update pending deletion date """
-    values: OrganizationType = {'pending_deletion_date': pending_deletion_date}
-    success = await orgs_dal.update(
-        organization_id,
-        organization_name,
-        values
-    )
+    values: OrganizationType = {"pending_deletion_date": pending_deletion_date}
+    success = await orgs_dal.update(organization_id, organization_name, values)
     return success
 
 
@@ -405,7 +380,7 @@ async def update_policies(
     organization_id: str,
     organization_name: str,
     email: str,
-    values: Dict[str, Optional[Decimal]]
+    values: Dict[str, Optional[Decimal]],
 ) -> bool:
     """
     Validate setting values to update and update them
@@ -417,30 +392,27 @@ async def update_policies(
         for attr, value in values.items():
             if value is not None:
                 value = (
-                    Decimal(value).quantize(Decimal('0.1'))
+                    Decimal(value).quantize(Decimal("0.1"))
                     if isinstance(value, float)
                     else Decimal(value)
                 )
                 values[attr] = value
                 validator_func = getattr(
-                    sys.modules[__name__],
-                    f'validate_{attr}'
+                    sys.modules[__name__], f"validate_{attr}"
                 )
                 valid.append(validator_func(value))
         valid.append(
             await validate_acceptance_severity_range(
-                loaders,
-                organization_id,
-                values
+                loaders, organization_id, values
             )
         )
     except (
         InvalidAcceptanceDays,
         InvalidAcceptanceSeverity,
         InvalidAcceptanceSeverityRange,
-        InvalidNumberAcceptations
+        InvalidNumberAcceptations,
     ) as exe:
-        LOGGER.exception(exe, extra={'extra': locals()})
+        LOGGER.exception(exe, extra={"extra": locals()})
         raise GraphQLError(str(exe))
 
     if all(valid):
@@ -450,34 +422,30 @@ async def update_policies(
         )
         if new_policies:
             success = await orgs_dal.update(
-                organization_id,
-                organization_name,
-                new_policies
+                organization_id, organization_name, new_policies
             )
     return success
 
 
 async def validate_acceptance_severity_range(
-    loaders: Any,
-    organization_id: str,
-    values: Dict[str, Optional[Decimal]]
+    loaders: Any, organization_id: str, values: Dict[str, Optional[Decimal]]
 ) -> bool:
     success: bool = True
     organization_data = await loaders.organization.load(organization_id)
     min_acceptance_severity: Decimal = organization_data[
-        'min_acceptance_severity'
+        "min_acceptance_severity"
     ]
     max_acceptance_severity: Decimal = organization_data[
-        'max_acceptance_severity'
+        "max_acceptance_severity"
     ]
     min_value: Decimal = (
-        cast(Decimal, values['min_acceptance_severity'])
-        if values.get('min_acceptance_severity', None) is not None
+        cast(Decimal, values["min_acceptance_severity"])
+        if values.get("min_acceptance_severity", None) is not None
         else min_acceptance_severity
     )
     max_value: Decimal = (
-        cast(Decimal, values['max_acceptance_severity'])
-        if values.get('max_acceptance_severity', None) is not None
+        cast(Decimal, values["max_acceptance_severity"])
+        if values.get("max_acceptance_severity", None) is not None
         else max_acceptance_severity
     )
     if min_value > max_value:

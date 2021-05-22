@@ -1,4 +1,3 @@
-
 # None
 
 
@@ -20,10 +19,8 @@ from organizations import domain as orgs_domain
     require_organization_access,
 )
 async def resolve(
-    _parent: None,
-    _info: GraphQLResolveInfo,
-    **kwargs: str
+    _parent: None, _info: GraphQLResolveInfo, **kwargs: str
 ) -> Organization:
-    org_id: str = kwargs['organization_id']
+    org_id: str = kwargs["organization_id"]
     organization: Organization = await orgs_domain.get_by_id(org_id)
     return organization

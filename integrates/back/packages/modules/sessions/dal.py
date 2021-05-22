@@ -1,4 +1,3 @@
-
 import contextlib
 import json
 from typing import (
@@ -24,12 +23,12 @@ from redis_cluster.operations import (
 
 
 async def add_element(key: str, value: Dict[str, Any], time: int) -> None:
-    await redis_cmd('setex', key, time, json.dumps(value))
+    await redis_cmd("setex", key, time, json.dumps(value))
 
 
 async def check_jwt_token_validity(request: Request) -> None:
-    email: str = request.session['username']
-    attr: str = 'jwt'
+    email: str = request.session["username"]
+    attr: str = "jwt"
     try:
         if await get_session_key(email, attr):
             # Jwt cookie are ok and up to date
@@ -45,20 +44,20 @@ async def check_jwt_token_validity(request: Request) -> None:
 
 
 async def create_session_web(request: Request) -> bool:
-    email: str = request.session['username']
-    session_key: str = request.session['session_key']
+    email: str = request.session["username"]
+    session_key: str = request.session["session_key"]
 
     # Check if there is a session already
-    request.session['is_concurrent'] = bool(
-        await get_session_key(email, 'web')
+    request.session["is_concurrent"] = bool(
+        await get_session_key(email, "web")
     )
 
     # Proccede overwritting the user session
     # This means that if a session did exist before, this one will
     # take place and the other will be removed
     return await redis_set_entity_attr(
-        entity='session',
-        attr='web',
+        entity="session",
+        attr="web",
         email=email,
         value=session_key,
         ttl=settings.SESSION_COOKIE_AGE,
@@ -69,7 +68,7 @@ async def get_session_key(email: str, attr: str) -> Optional[str]:
     session_key: Optional[str] = None
     with contextlib.suppress(RedisKeyNotFound):
         session_key = await redis_get_entity_attr(
-            entity='session',
+            entity="session",
             attr=attr,
             email=email,
         )
@@ -78,7 +77,7 @@ async def get_session_key(email: str, attr: str) -> Optional[str]:
 
 async def remove_session_key(email: str, attr: str) -> bool:
     return await redis_del_entity_attr(
-        entity='session',
+        entity="session",
         attr=attr,
         email=email,
     )

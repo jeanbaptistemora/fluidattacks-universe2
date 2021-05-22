@@ -1,4 +1,3 @@
-
 import re
 from typing import (
     Any,
@@ -74,14 +73,12 @@ def format_root(root: RootItem) -> Root:
             last_state_status_update=root.state.modified_date,
             nickname=root.state.nickname,
             state=root.state.status,
-            url=root.metadata.url
+            url=root.metadata.url,
         )
 
     if isinstance(root, IPRootItem):
         return IPRoot(
-            address=root.metadata.address,
-            id=root.id,
-            port=root.metadata.port
+            address=root.metadata.address, id=root.id, port=root.metadata.port
         )
 
     return URLRoot(
@@ -89,7 +86,7 @@ def format_root(root: RootItem) -> Root:
         id=root.id,
         path=root.metadata.path,
         port=root.metadata.port,
-        protocol=root.metadata.protocol
+        protocol=root.metadata.protocol,
     )
 
 
@@ -112,20 +109,17 @@ async def get_org_roots(*, org_id: str) -> Tuple[RootItem, ...]:
 
     return tuple(
         root
-        for group_roots in await collect(tuple(
-            get_roots(group_name=group_name)
-            for group_name in org_groups
-        ))
+        for group_roots in await collect(
+            tuple(
+                get_roots(group_name=group_name) for group_name in org_groups
+            )
+        )
         for root in group_roots
     )
 
 
 async def _notify_health_check(
-    *,
-    group_name: str,
-    request: bool,
-    root: GitRootItem,
-    user_email: str
+    *, group_name: str, request: bool, root: GitRootItem, user_email: str
 ) -> None:
     if request:
         await notifications_domain.request_health_check(
@@ -144,13 +138,12 @@ async def _notify_health_check(
 
 
 def _format_git_repo_url(raw_url: str) -> str:
-    is_ssh: bool = (
-        raw_url.startswith('ssh://')
-        or bool(re.match(r'^\w+@.*', raw_url))
+    is_ssh: bool = raw_url.startswith("ssh://") or bool(
+        re.match(r"^\w+@.*", raw_url)
     )
     url = (
-        f'ssh://{raw_url}'
-        if is_ssh and not raw_url.startswith('ssh://')
+        f"ssh://{raw_url}"
+        if is_ssh and not raw_url.startswith("ssh://")
         else raw_url
     )
 
@@ -159,24 +152,20 @@ def _format_git_repo_url(raw_url: str) -> str:
 
 async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
     group_loader = context.group_all
-    group_name: str = kwargs['group_name'].lower()
-    url: str = _format_git_repo_url(kwargs['url'])
-    branch: str = kwargs['branch']
-    nickname: str = _format_root_nickname(kwargs.get('nickname', ''), url)
+    group_name: str = kwargs["group_name"].lower()
+    url: str = _format_git_repo_url(kwargs["url"])
+    branch: str = kwargs["branch"]
+    nickname: str = _format_root_nickname(kwargs.get("nickname", ""), url)
 
-    gitignore = kwargs['gitignore']
+    gitignore = kwargs["gitignore"]
     enforcer = await authz.get_group_level_enforcer(user_email)
 
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
-        nickname,
-        await get_roots(group_name=group_name)
+        nickname, await get_roots(group_name=group_name)
     )
 
-    if (
-        gitignore
-        and not enforcer(group_name, 'update_git_root_filter')
-    ):
+    if gitignore and not enforcer(group_name, "update_git_root_filter"):
         raise PermissionDenied()
     if not validations.is_exclude_valid(gitignore, url):
         raise InvalidRootExclusion()
@@ -189,57 +178,50 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
 
     group = await group_loader.load(group_name)
     if not validations.is_git_unique(
-        url,
-        branch,
-        await get_org_roots(org_id=group['organization'])
+        url, branch, await get_org_roots(org_id=group["organization"])
     ):
         raise RepeatedRoot()
 
     root = GitRootItem(
         cloning=GitRootCloning(
             modified_date=datetime_utils.get_iso_date(),
-            reason='root created',
-            status='UNKNOWN'
+            reason="root created",
+            status="UNKNOWN",
         ),
         group_name=group_name,
         id=str(uuid4()),
-        metadata=GitRootMetadata(
-            branch=branch,
-            type='Git',
-            url=url
-        ),
+        metadata=GitRootMetadata(branch=branch, type="Git", url=url),
         state=GitRootState(
             environment_urls=list(),
-            environment=kwargs['environment'],
+            environment=kwargs["environment"],
             gitignore=gitignore,
-            includes_health_check=kwargs['includes_health_check'],
+            includes_health_check=kwargs["includes_health_check"],
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
             nickname=nickname,
             other=None,
             reason=None,
-            status='ACTIVE'
-        )
+            status="ACTIVE",
+        ),
     )
     await roots_dal.create_root(root=root)
 
-    if kwargs['includes_health_check']:
+    if kwargs["includes_health_check"]:
         await _notify_health_check(
             group_name=group_name,
             request=True,
             root=root,
-            user_email=user_email
+            user_email=user_email,
         )
 
 
 async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
     group_loader = context.group_all
-    group_name: str = kwargs['group_name'].lower()
-    address: str = kwargs['address']
-    port = str(kwargs['port'])
+    group_name: str = kwargs["group_name"].lower()
+    address: str = kwargs["address"]
+    port = str(kwargs["port"])
     is_valid: bool = (
-        validations.is_valid_ip(address)
-        and 0 <= int(port) <= 65535
+        validations.is_valid_ip(address) and 0 <= int(port) <= 65535
     )
 
     if not is_valid:
@@ -248,46 +230,39 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
     group = await group_loader.load(group_name)
 
     if not validations.is_ip_unique(
-        address,
-        port,
-        await get_org_roots(org_id=group['organization'])
+        address, port, await get_org_roots(org_id=group["organization"])
     ):
         raise RepeatedValues()
 
     root = IPRootItem(
         group_name=group_name,
         id=str(uuid4()),
-        metadata=IPRootMetadata(
-            address=address,
-            port=port,
-            type='IP'
-        ),
+        metadata=IPRootMetadata(address=address, port=port, type="IP"),
         state=IPRootState(
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
             other=None,
             reason=None,
-            status='ACTIVE'
-        )
+            status="ACTIVE",
+        ),
     )
     await roots_dal.create_root(root=root)
 
 
 async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
     group_loader = context.group_all
-    group_name: str = kwargs['group_name'].lower()
-    url_attributes = parse_url(kwargs['url'])
-    is_valid = (
-        validations.is_valid_url(kwargs['url'])
-        and url_attributes.scheme in {'http', 'https'}
-    )
+    group_name: str = kwargs["group_name"].lower()
+    url_attributes = parse_url(kwargs["url"])
+    is_valid = validations.is_valid_url(
+        kwargs["url"]
+    ) and url_attributes.scheme in {"http", "https"}
 
     if not is_valid:
         raise InvalidParameter()
 
     host: str = url_attributes.host
-    path: str = url_attributes.path or '/'
-    default_port = '443' if url_attributes.scheme == 'https' else '80'
+    path: str = url_attributes.path or "/"
+    default_port = "443" if url_attributes.scheme == "https" else "80"
     port = str(url_attributes.port) or default_port
     protocol: str = url_attributes.scheme.upper()
     group = await group_loader.load(group_name)
@@ -297,7 +272,7 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
         path,
         port,
         protocol,
-        await get_org_roots(org_id=group['organization'])
+        await get_org_roots(org_id=group["organization"]),
     ):
         raise RepeatedValues()
 
@@ -305,47 +280,39 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
         group_name=group_name,
         id=str(uuid4()),
         metadata=URLRootMetadata(
-            host=host,
-            path=path,
-            port=port,
-            protocol=protocol,
-            type='URL'
+            host=host, path=path, port=port, protocol=protocol, type="URL"
         ),
         state=URLRootState(
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
             other=None,
             reason=None,
-            status='ACTIVE'
-        )
+            status="ACTIVE",
+        ),
     )
     await roots_dal.create_root(root=root)
 
 
 def _format_root_nickname(nickname: str, url: str) -> str:
-    nick = unquote(url).split('/')[-1]
+    nick = unquote(url).split("/")[-1]
     if nickname:
         nick = unquote(nickname)
     # Return the repo name as nickname
-    if nick.endswith('.git'):
+    if nick.endswith(".git"):
         return nick[:-4]
     return nick
 
 
 async def update_git_environments(
-    user_email: str,
-    group_name: str,
-    root_id: str,
-    environment_urls: List[str]
+    user_email: str, group_name: str, root_id: str, environment_urls: List[str]
 ) -> None:
     root = await get_root(group_name=group_name, root_id=root_id)
 
     if not isinstance(root, GitRootItem):
         raise InvalidParameter()
 
-    is_valid: bool = (
-        root.state.status == 'ACTIVE'
-        and all(validations.is_valid_url(url) for url in environment_urls)
+    is_valid: bool = root.state.status == "ACTIVE" and all(
+        validations.is_valid_url(url) for url in environment_urls
     )
     if not is_valid:
         raise InvalidParameter()
@@ -363,43 +330,39 @@ async def update_git_environments(
             nickname=root.state.nickname,
             other=None,
             reason=None,
-            status=root.state.status
-        )
+            status=root.state.status,
+        ),
     )
 
 
 async def update_git_root(user_email: str, **kwargs: Any) -> None:
-    root_id: str = kwargs['id']
-    group_name: str = kwargs['group_name']
+    root_id: str = kwargs["id"]
+    group_name: str = kwargs["group_name"]
     root = await get_root(group_name=group_name, root_id=root_id)
 
     if not isinstance(root, GitRootItem):
         raise InvalidParameter()
 
-    gitignore = kwargs['gitignore']
+    gitignore = kwargs["gitignore"]
     filter_changed: bool = gitignore != root.state.gitignore
     enforcer = await authz.get_group_level_enforcer(user_email)
-    if (
-        filter_changed
-        and not enforcer(group_name, 'update_git_root_filter')
-    ):
+    if filter_changed and not enforcer(group_name, "update_git_root_filter"):
         raise PermissionDenied()
     if not validations.is_exclude_valid(gitignore, root.metadata.url):
         raise InvalidRootExclusion()
 
-    if root.state.status != 'ACTIVE':
+    if root.state.status != "ACTIVE":
         raise InvalidParameter()
 
     nickname = _format_root_nickname(
-        kwargs.get('nickname', ''),
-        root.state.nickname
+        kwargs.get("nickname", ""), root.state.nickname
     )
 
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
         nickname,
         await get_roots(group_name=group_name),
-        old_nickname=root.state.nickname
+        old_nickname=root.state.nickname,
     )
 
     await roots_dal.update_root_state(
@@ -407,28 +370,27 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
         root_id=root_id,
         state=GitRootState(
             environment_urls=root.state.environment_urls,
-            environment=kwargs['environment'],
+            environment=kwargs["environment"],
             gitignore=gitignore,
-            includes_health_check=kwargs['includes_health_check'],
+            includes_health_check=kwargs["includes_health_check"],
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
             nickname=nickname,
             other=None,
             reason=None,
-            status=root.state.status
-        )
+            status=root.state.status,
+        ),
     )
 
     health_check_changed: bool = (
-        kwargs['includes_health_check']
-        != root.state.includes_health_check
+        kwargs["includes_health_check"] != root.state.includes_health_check
     )
     if health_check_changed:
         await _notify_health_check(
             group_name=group_name,
-            request=kwargs['includes_health_check'],
+            request=kwargs["includes_health_check"],
             root=root,
-            user_email=user_email
+            user_email=user_email,
         )
 
 
@@ -449,10 +411,10 @@ async def update_root_cloning_status(
             cloning=GitRootCloning(
                 modified_date=datetime_utils.get_iso_date(),
                 reason=message,
-                status=status
+                status=status,
             ),
             group_name=group_name,
-            root_id=root_id
+            root_id=root_id,
         )
 
 
@@ -461,25 +423,19 @@ async def _has_open_vulns(root: GitRootItem) -> bool:
 
 
 async def activate_root(
-    *,
-    context: Any,
-    group_name: str,
-    root_id: str,
-    user_email: str
+    *, context: Any, group_name: str, root_id: str, user_email: str
 ) -> None:
-    new_status = 'ACTIVE'
+    new_status = "ACTIVE"
     root = await get_root(group_name=group_name, root_id=root_id)
 
     if root.state.status != new_status:
         group_loader: DataLoader = context.group_all
         group = await group_loader.load(group_name)
-        org_roots = await get_org_roots(org_id=group['organization'])
+        org_roots = await get_org_roots(org_id=group["organization"])
 
         if isinstance(root, GitRootItem):
             if not validations.is_git_unique(
-                root.metadata.url,
-                root.metadata.branch,
-                org_roots
+                root.metadata.url, root.metadata.branch, org_roots
             ):
                 raise RepeatedRoot()
 
@@ -496,8 +452,8 @@ async def activate_root(
                     nickname=root.state.nickname,
                     other=None,
                     reason=None,
-                    status=new_status
-                )
+                    status=new_status,
+                ),
             )
 
             if root.state.includes_health_check:
@@ -510,9 +466,7 @@ async def activate_root(
 
         if isinstance(root, IPRootItem):
             if not validations.is_ip_unique(
-                root.metadata.address,
-                root.metadata.port,
-                org_roots
+                root.metadata.address, root.metadata.port, org_roots
             ):
                 raise RepeatedRoot()
 
@@ -524,8 +478,8 @@ async def activate_root(
                     modified_date=datetime_utils.get_iso_date(),
                     other=None,
                     reason=None,
-                    status=new_status
-                )
+                    status=new_status,
+                ),
             )
 
         if isinstance(root, URLRootItem):
@@ -534,7 +488,7 @@ async def activate_root(
                 root.metadata.path,
                 root.metadata.port,
                 root.metadata.protocol,
-                org_roots
+                org_roots,
             ):
                 raise RepeatedRoot()
 
@@ -546,8 +500,8 @@ async def activate_root(
                     modified_date=datetime_utils.get_iso_date(),
                     other=None,
                     reason=None,
-                    status=new_status
-                )
+                    status=new_status,
+                ),
             )
 
 
@@ -557,11 +511,11 @@ async def deactivate_root(
     other: Optional[str],
     reason: str,
     root_id: str,
-    user_email: str
+    user_email: str,
 ) -> None:
-    new_status = 'INACTIVE'
+    new_status = "INACTIVE"
     root = await get_root(group_name=group_name, root_id=root_id)
-    _other = other if reason == 'OTHER' else None
+    _other = other if reason == "OTHER" else None
 
     if root.state.status != new_status:
         if isinstance(root, GitRootItem):
@@ -581,8 +535,8 @@ async def deactivate_root(
                     nickname=root.state.nickname,
                     other=_other,
                     reason=reason,
-                    status=new_status
-                )
+                    status=new_status,
+                ),
             )
 
             if root.state.includes_health_check:
@@ -590,7 +544,7 @@ async def deactivate_root(
                     branch=root.metadata.branch,
                     group_name=group_name,
                     repo_url=root.metadata.url,
-                    requester_email=user_email
+                    requester_email=user_email,
                 )
 
         if isinstance(root, IPRootItem):
@@ -602,8 +556,8 @@ async def deactivate_root(
                     modified_date=datetime_utils.get_iso_date(),
                     other=_other,
                     reason=reason,
-                    status=new_status
-                )
+                    status=new_status,
+                ),
             )
 
         if isinstance(root, URLRootItem):
@@ -615,45 +569,39 @@ async def deactivate_root(
                     modified_date=datetime_utils.get_iso_date(),
                     other=_other,
                     reason=reason,
-                    status=new_status
-                )
+                    status=new_status,
+                ),
             )
 
 
 async def update_root_state(
-    context: Any,
-    user_email: str,
-    group_name: str,
-    root_id: str,
-    state: str
+    context: Any, user_email: str, group_name: str, root_id: str, state: str
 ) -> None:
-    if state == 'ACTIVE':
+    if state == "ACTIVE":
         await activate_root(
             context=context,
             group_name=group_name,
             root_id=root_id,
-            user_email=user_email
+            user_email=user_email,
         )
     else:
         await deactivate_root(
             group_name=group_name,
             other=None,
-            reason='UNKNOWN',
+            reason="UNKNOWN",
             root_id=root_id,
-            user_email=user_email
+            user_email=user_email,
         )
 
 
 def get_root_id_by_filename(
-    filename: str,
-    group_roots: Tuple[Root, ...]
+    filename: str, group_roots: Tuple[Root, ...]
 ) -> str:
-    root_nickname = filename.split('/')[0]
+    root_nickname = filename.split("/")[0]
     file_name_root_ids = [
         root.id
         for root in group_roots
-        if isinstance(root, GitRoot)
-        and root.nickname == root_nickname
+        if isinstance(root, GitRoot) and root.nickname == root_nickname
     ]
 
     if not file_name_root_ids:
@@ -663,9 +611,7 @@ def get_root_id_by_filename(
 
 
 async def get_root_by_nickname(
-    *,
-    group_name: str,
-    repo_nickname: str
+    *, group_name: str, repo_nickname: str
 ) -> GitRootItem:
     try:
         return next(
@@ -673,7 +619,7 @@ async def get_root_by_nickname(
             for root in await get_roots(group_name=group_name)
             if isinstance(root, GitRootItem)
             and root.state.nickname == repo_nickname
-            and root.state.status == 'ACTIVE'
+            and root.state.status == "ACTIVE"
         )
     except StopIteration:
         raise RootNotFound()

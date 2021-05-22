@@ -4,7 +4,7 @@ import dateutil.parser
 from ariadne import ScalarType
 
 
-DATETIME_SCALAR = ScalarType('DateTime')
+DATETIME_SCALAR = ScalarType("DateTime")
 
 
 @DATETIME_SCALAR.serializer

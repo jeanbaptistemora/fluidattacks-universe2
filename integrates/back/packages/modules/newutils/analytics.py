@@ -6,10 +6,10 @@ from back import settings
 
 
 async def mixpanel_track(email: str, event: str, **extra: str) -> None:
-    if FI_ENVIRONMENT == 'production':
+    if FI_ENVIRONMENT == "production":
         await in_thread(
             Mixpanel(settings.MIXPANEL_API_TOKEN).track,
             email,
             event,
-            {'integrates_user_email': email, **extra}
+            {"integrates_user_email": email, **extra},
         )

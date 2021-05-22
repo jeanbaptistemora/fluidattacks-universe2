@@ -1,4 +1,3 @@
-
 from typing import (
     Dict,
     cast,
@@ -23,20 +22,16 @@ async def _get_draft(finding: Finding, _info: GraphQLResolveInfo) -> Finding:
     return finding
 
 
-@rename_kwargs({'identifier': 'finding_id'})
+@rename_kwargs({"identifier": "finding_id"})
 @concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates
+    require_login, enforce_group_level_auth_async, require_integrates
 )
-@rename_kwargs({'finding_id': 'identifier'})
+@rename_kwargs({"finding_id": "identifier"})
 async def resolve(
-    _parent: None,
-    info: GraphQLResolveInfo,
-    **kwargs: str
+    _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Finding:
     finding_loader: DataLoader = info.context.loaders.finding
-    finding_id: str = kwargs['identifier']
+    finding_id: str = kwargs["identifier"]
     finding: Finding = await finding_loader.load(finding_id)
 
     is_draft = not findings_utils.is_released(

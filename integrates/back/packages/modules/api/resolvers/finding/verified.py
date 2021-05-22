@@ -1,4 +1,3 @@
-
 from functools import partial
 from typing import (
     Dict,
@@ -24,20 +23,18 @@ async def resolve(
 ) -> bool:
     response: bool = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
-        entity='finding',
-        attr='verified',
-        id=cast(str, parent['id']),
+        entity="finding",
+        attr="verified",
+        id=cast(str, parent["id"]),
     )
     return response
 
 
 async def resolve_no_cache(
-    parent: Finding,
-    info: GraphQLResolveInfo,
-    **_kwargs: None
+    parent: Finding, info: GraphQLResolveInfo, **_kwargs: None
 ) -> bool:
     finding_vulns_loader: DataLoader = info.context.loaders.finding_vulns
-    finding_id: str = cast(Dict[str, str], parent)['id']
+    finding_id: str = cast(Dict[str, str], parent)["id"]
     vulns: List[Vulnerability] = await finding_vulns_loader.load(finding_id)
     vulns = vulns_domain.filter_zero_risk(vulns)
     vulns = vulns_domain.filter_open_vulnerabilities(vulns)

@@ -1,4 +1,3 @@
-
 # None
 
 
@@ -20,9 +19,7 @@ from users import domain as users_domain
 @convert_kwargs_to_snake_case
 @enforce_group_level_auth_async
 async def mutate(
-    _parent: None,
-    info: GraphQLResolveInfo,
-    project_name: str
+    _parent: None, info: GraphQLResolveInfo, project_name: str
 ) -> UpdateAccessTokenPayload:
     user_info = await token_utils.get_jwt_content(info.context)
 
@@ -32,39 +29,42 @@ async def mutate(
             info.context,
             (
                 f'{user_info["user_email"]} try to update token for a user '
-                f'forces that does not exist {user_email}'
-            )
+                f"forces that does not exist {user_email}"
+            ),
         )
-        return UpdateAccessTokenPayload(success=False, session_jwt='')
+        return UpdateAccessTokenPayload(success=False, session_jwt="")
 
     expiration_time = int(
         datetime_utils.get_now_plus_delta(days=180).timestamp()
     )
     try:
         result = await users_domain.update_access_token(
-            user_email,
-            expiration_time
+            user_email, expiration_time
         )
         if result.success:
             logs_utils.cloudwatch_log(
                 info.context,
                 (
                     f'{user_info["user_email"]} update access token for '
-                    f'{project_name}'
-                )
+                    f"{project_name}"
+                ),
             )
-            if await forces_domain.update_token(project_name,
-                                                result.session_jwt):
+            if await forces_domain.update_token(
+                project_name, result.session_jwt
+            ):
                 logs_utils.cloudwatch_log(
                     info.context,
-                    (f'{user_info["user_email"]} store in secretsmanager '
-                     f'forces token for {user_email}'))
+                    (
+                        f'{user_info["user_email"]} store in secretsmanager '
+                        f"forces token for {user_email}"
+                    ),
+                )
         else:
             logs_utils.cloudwatch_log(
                 info.context,
                 (
                     f'{user_info["user_email"]} attempted to update access '
-                    f'token for {project_name}'
+                    f"token for {project_name}"
                 ),
             )
         return result
@@ -73,7 +73,7 @@ async def mutate(
             info.context,
             (
                 f'{user_info["user_email"]} attempted to use expiration time '
-                'greater than six months or minor than current time'
+                "greater than six months or minor than current time"
             ),
         )
         raise exc

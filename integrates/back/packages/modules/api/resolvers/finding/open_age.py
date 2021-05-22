@@ -1,4 +1,3 @@
-
 from functools import partial
 from typing import (
     Dict,
@@ -19,24 +18,21 @@ async def resolve(
 ) -> int:
     response: int = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
-        entity='finding',
-        attr='open_age',
-        id=cast(str, parent['id']),
+        entity="finding",
+        attr="open_age",
+        id=cast(str, parent["id"]),
     )
     return response
 
 
 async def resolve_no_cache(
-    parent: Dict[str, Finding],
-    info: GraphQLResolveInfo,
-    **_kwargs: None
+    parent: Dict[str, Finding], info: GraphQLResolveInfo, **_kwargs: None
 ) -> int:
-    finding_id: str = cast(str, parent['id'])
+    finding_id: str = cast(str, parent["id"])
     open_age = cast(
         int,
         await findings_domain.get_finding_open_age(
-            info.context.loaders,
-            finding_id
-        )
+            info.context.loaders, finding_id
+        ),
     )
     return open_age

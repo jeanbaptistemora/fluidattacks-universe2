@@ -1,4 +1,3 @@
-
 from datetime import datetime
 
 from ariadne.utils import convert_kwargs_to_snake_case
@@ -30,10 +29,10 @@ async def mutate(
     info: GraphQLResolveInfo,
     event_id: str,
     affectation: str,
-    date: datetime
+    date: datetime,
 ) -> SimplePayload:
     user_info = await token_utils.get_jwt_content(info.context)
-    analyst_email = user_info['user_email']
+    analyst_email = user_info["user_email"]
     success = await events_domain.solve_event(
         event_id, affectation, analyst_email, date
     )
@@ -41,16 +40,14 @@ async def mutate(
     if success:
         info.context.loaders.event.clear(event_id)
         event = await events_domain.get_event(event_id)
-        project_name = str(event.get('project_name', ''))
-        redis_del_by_deps_soon('solve_event', group_name=project_name)
+        project_name = str(event.get("project_name", ""))
+        redis_del_by_deps_soon("solve_event", group_name=project_name)
         logs_utils.cloudwatch_log(
-            info.context,
-            f'Security: Solved event {event_id} successfully'
+            info.context, f"Security: Solved event {event_id} successfully"
         )
     else:
         logs_utils.cloudwatch_log(
-            info.context,
-            'Security: Attempted to solve event {event_id}'
+            info.context, "Security: Attempted to solve event {event_id}"
         )
 
     return SimplePayload(success=success)

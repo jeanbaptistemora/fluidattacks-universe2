@@ -1,4 +1,3 @@
-
 from typing import Any
 
 from ariadne.utils import convert_kwargs_to_snake_case
@@ -26,17 +25,14 @@ async def mutate(
     info: GraphQLResolveInfo,
     group_name: str,
     title: str,
-    **kwargs: Any
+    **kwargs: Any,
 ) -> SimplePayload:
     await findings_domain.create_draft_new(
-        info.context,
-        group_name,
-        title,
-        **kwargs
+        info.context, group_name, title, **kwargs
     )
     logs_utils.cloudwatch_log(
         info.context,
-        f'Security: Created draft in {group_name} group successfully'
+        f"Security: Created draft in {group_name} group successfully",
     )
 
     return SimplePayload(success=True)

@@ -4,7 +4,7 @@ from typing import Any
 from ariadne import ScalarType
 
 
-JSON_STRING_SCALAR = ScalarType('JSONString')
+JSON_STRING_SCALAR = ScalarType("JSONString")
 
 
 @JSON_STRING_SCALAR.serializer

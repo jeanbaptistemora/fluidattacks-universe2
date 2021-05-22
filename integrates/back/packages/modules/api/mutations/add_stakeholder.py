@@ -1,4 +1,3 @@
-
 import logging
 import logging.config
 
@@ -39,11 +38,11 @@ async def mutate(
     info: GraphQLResolveInfo,
     email: str,
     role: str,
-    phone_number: str = ''
+    phone_number: str = "",
 ) -> AddStakeholderPayload:
     success: bool = False
     user_data = await token_utils.get_jwt_content(info.context)
-    user_email = user_data['user_email']
+    user_email = user_data["user_email"]
     allowed_roles_to_grant = await authz.get_user_level_roles_a_user_can_grant(
         requester_email=user_email,
     )
@@ -56,25 +55,26 @@ async def mutate(
         )
         if new_user:
             logs_utils.cloudwatch_log(
-                info.context,
-                f'Security: Added stakeholder {email}'
+                info.context, f"Security: Added stakeholder {email}"
             )
             mail_to = [email]
-            context: MailContent = {'admin': email}
+            context: MailContent = {"admin": email}
             schedule(groups_mail.send_mail_access_granted(mail_to, context))
             success = True
         else:
             LOGGER.error(
-                'Error: Couldn\'t grant stakeholder access',
-                extra={'extra': info.context})
+                "Error: Couldn't grant stakeholder access",
+                extra={"extra": info.context},
+            )
     else:
         LOGGER.error(
-            'Invalid role provided',
+            "Invalid role provided",
             extra={
-                'extra': {
-                    'email': email,
-                    'requester_email': user_email,
-                    'role': role
+                "extra": {
+                    "email": email,
+                    "requester_email": user_email,
+                    "role": role,
                 }
-            })
+            },
+        )
     return AddStakeholderPayload(success=success, email=email)

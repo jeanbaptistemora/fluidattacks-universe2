@@ -1,4 +1,3 @@
-
 from typing import cast
 
 from __init__ import BASE_URL
@@ -10,12 +9,9 @@ from .common import (
 )
 
 
-async def send_mail_analytics(
-    *email_to: str,
-    **context: str
-) -> None:
+async def send_mail_analytics(*email_to: str, **context: str) -> None:
     context = cast(MailContentType, context)
-    context['live_report_url'] = (
+    context["live_report_url"] = (
         f'{BASE_URL}/{context["report_entity_percent"]}s/'
         f'{context["report_subject_percent"]}'
     )
@@ -27,5 +23,5 @@ async def send_mail_analytics(
             f'Analytics for [{context["report_subject_title"]}] '
             f'({context["frequency_title"]}: {context["date"]})'
         ),
-        'charts_report'
+        "charts_report",
     )

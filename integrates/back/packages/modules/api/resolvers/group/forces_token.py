@@ -1,4 +1,3 @@
-
 from typing import (
     Optional,
     cast,
@@ -25,6 +24,6 @@ async def resolve(
     parent: Group,
     __: GraphQLResolveInfo,
 ) -> Optional[str]:
-    group_name: str = cast(str, parent['name'])
+    group_name: str = cast(str, parent["name"])
     token: Optional[str] = await forces_domain.get_token(group_name)
     return token

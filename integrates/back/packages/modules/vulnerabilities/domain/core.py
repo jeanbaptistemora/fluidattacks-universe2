@@ -77,75 +77,65 @@ async def confirm_zero_risk_vulnerabilities(
     finding_id: str,
     user_info: Dict[str, str],
     justification: str,
-    vuln_ids: List[str]
+    vuln_ids: List[str],
 ) -> bool:
     validate_justificaiton_length(justification)
     vulnerabilities = await get_by_finding_and_uuids(finding_id, set(vuln_ids))
     vulnerabilities = [
-        validate_requested_zero_risk_vuln(vuln)
-        for vuln in vulnerabilities
+        validate_requested_zero_risk_vuln(vuln) for vuln in vulnerabilities
     ]
     if not vulnerabilities:
         raise VulnNotFound()
 
     comment_id = int(round(time() * 1000))
     today = datetime_utils.get_now_as_str()
-    user_email: str = user_info['user_email']
+    user_email: str = user_info["user_email"]
     comment_data = {
-        'comment_type': 'zero_risk',
-        'content': justification,
-        'parent': 0,
-        'user_id': comment_id
+        "comment_type": "zero_risk",
+        "content": justification,
+        "parent": 0,
+        "user_id": comment_id,
     }
     create_comment = await comments_domain.create(
-        int(finding_id),
-        comment_data,
-        user_info
+        int(finding_id), comment_data, user_info
     )
     confirm_zero_risk_vulns = await collect(
         [
             vulns_dal.confirm_zero_risk_vulnerability(
-                user_email,
-                today,
-                comment_id,
-                vuln
+                user_email, today, comment_id, vuln
             )
             for vuln in vulnerabilities
         ]
     )
     success = all(confirm_zero_risk_vulns) and create_comment[1]
     if not success:
-        LOGGER.error('An error occurred confirming zero risk vuln', **NOEXTRA)
+        LOGGER.error("An error occurred confirming zero risk vuln", **NOEXTRA)
     return success
 
 
 async def delete_tags(
-    finding_id: str,
-    vulnerabilities: List[str],
-    tag: str
+    finding_id: str, vulnerabilities: List[str], tag: str
 ) -> bool:
     vuln_update_coroutines = []
     vuln_info = await get_by_finding_and_uuids(
-        finding_id,
-        set(vulnerabilities)
+        finding_id, set(vulnerabilities)
     )
     for index, vulnerability in enumerate(vulnerabilities):
-        tag_info: Dict[str, Optional[Set[str]]] = {'tag': set()}
+        tag_info: Dict[str, Optional[Set[str]]] = {"tag": set()}
         if tag:
             if vuln_info[index]:
-                tag_info['tag'] = cast(
-                    Set[str],
-                    vuln_info[index].get('tag', [])
+                tag_info["tag"] = cast(
+                    Set[str], vuln_info[index].get("tag", [])
                 )
-            if tag in cast(Set[str], tag_info.get('tag', [])):
-                cast(Set[str], tag_info.get('tag')).remove(tag)
-        if tag_info.get('tag') == set():
-            tag_info['tag'] = None
+            if tag in cast(Set[str], tag_info.get("tag", [])):
+                cast(Set[str], tag_info.get("tag")).remove(tag)
+        if tag_info.get("tag") == set():
+            tag_info["tag"] = None
         vuln_update_coroutines.append(
             vulns_dal.update(
                 finding_id,
                 vulnerability,
-                cast(Dict[str, FindingType], tag_info)
+                cast(Dict[str, FindingType], tag_info),
             )
         )
     success = await collect(vuln_update_coroutines)
@@ -159,31 +149,30 @@ async def delete_vulnerability(  # pylint: disable=too-many-arguments
     justification: str,
     user_email: str,
     source: str,
-    include_closed_vuln: bool = False
+    include_closed_vuln: bool = False,
 ) -> bool:
     vulnerability_loader = context.vulnerability
     vulnerability = await vulnerability_loader.load(vuln_id)
     success = False
-    if vulnerability and vulnerability['historic_state']:
+    if vulnerability and vulnerability["historic_state"]:
         all_states = cast(
-            List[Dict[str, str]],
-            vulnerability['historic_state']
+            List[Dict[str, str]], vulnerability["historic_state"]
         )
-        current_state = all_states[-1].get('state')
-        if current_state == 'open' or include_closed_vuln:
+        current_state = all_states[-1].get("state")
+        if current_state == "open" or include_closed_vuln:
             current_day = datetime_utils.get_now_as_str()
             new_state = {
-                'analyst': user_email,
-                'date': current_day,
-                'justification': justification,
-                'source': source,
-                'state': 'DELETED',
+                "analyst": user_email,
+                "date": current_day,
+                "justification": justification,
+                "source": source,
+                "state": "DELETED",
             }
             all_states.append(new_state)
             success = await vulns_dal.update(
                 finding_id,
-                str(vulnerability['id']),
-                {'historic_state': all_states}
+                str(vulnerability["id"]),
+                {"historic_state": all_states},
             )
     return success
 
@@ -194,7 +183,7 @@ def filter_closed_vulnerabilities(
     return [
         vulnerability
         for vulnerability in vulnerabilities
-        if vulnerability['current_state'] == 'closed'
+        if vulnerability["current_state"] == "closed"
     ]
 
 
@@ -204,10 +193,10 @@ def filter_confirmed_zero_risk(
     return [
         vulnerability
         for vulnerability in vulnerabilities
-        if cast(
-            Historic,
-            vulnerability.get('historic_zero_risk', [{}])
-        )[-1].get('status', '') == 'CONFIRMED'
+        if cast(Historic, vulnerability.get("historic_zero_risk", [{}]))[
+            -1
+        ].get("status", "")
+        == "CONFIRMED"
     ]
 
 
@@ -217,7 +206,7 @@ def filter_non_confirmed_zero_risk_vuln(
     return [
         vulnerability
         for vulnerability in vulnerabilities
-        if vulnerability['zero_risk'] != 'Confirmed'
+        if vulnerability["zero_risk"] != "Confirmed"
     ]
 
 
@@ -227,7 +216,7 @@ def filter_non_requested_zero_risk_vuln(
     return [
         vulnerability
         for vulnerability in vulnerabilities
-        if vulnerability['zero_risk'] != 'Requested'
+        if vulnerability["zero_risk"] != "Requested"
     ]
 
 
@@ -237,7 +226,7 @@ def filter_open_vulnerabilities(
     return [
         vulnerability
         for vulnerability in vulnerabilities
-        if vulnerability['current_state'] == 'open'
+        if vulnerability["current_state"] == "open"
     ]
 
 
@@ -247,7 +236,7 @@ def filter_remediated(
     return [
         vulnerability
         for vulnerability in vulnerabilities
-        if vulnerability['remediated']
+        if vulnerability["remediated"]
     ]
 
 
@@ -257,10 +246,10 @@ def filter_requested_zero_risk(
     return [
         vulnerability
         for vulnerability in vulnerabilities
-        if cast(
-            Historic,
-            vulnerability.get('historic_zero_risk', [{}])
-        )[-1].get('status', '') == 'REQUESTED'
+        if cast(Historic, vulnerability.get("historic_zero_risk", [{}]))[
+            -1
+        ].get("status", "")
+        == "REQUESTED"
     ]
 
 
@@ -276,31 +265,26 @@ async def get(vuln_id: str) -> Dict[str, FindingType]:
     vuln = await vulns_dal.get(vuln_id)
     if not vuln:
         raise VulnNotFound()
-    first_vuln = cast(
-        Dict[str, List[Dict[str, str]]],
-        vuln[0]
-    )
-    if first_vuln.get(
-        'historic_state', [{}]
-    )[-1].get('state', '') == 'DELETED':
+    first_vuln = cast(Dict[str, List[Dict[str, str]]], vuln[0])
+    if (
+        first_vuln.get("historic_state", [{}])[-1].get("state", "")
+        == "DELETED"
+    ):
         raise VulnNotFound()
     return vuln[0]
 
 
 async def get_by_finding(
-    finding_id: str,
-    vuln_id: str
+    finding_id: str, vuln_id: str
 ) -> Dict[str, FindingType]:
     vuln = await vulns_dal.get_by_finding(finding_id, uuid=vuln_id)
-    first_vuln = cast(
-        Dict[str, List[Dict[str, str]]],
-        vuln[0]
-    )
+    first_vuln = cast(Dict[str, List[Dict[str, str]]], vuln[0])
     if not vuln:
         raise VulnNotFound()
-    if first_vuln.get(
-        'historic_state', [{}]
-    )[-1].get('state', '') == 'DELETED':
+    if (
+        first_vuln.get("historic_state", [{}])[-1].get("state", "")
+        == "DELETED"
+    ):
         raise VulnNotFound()
     return vuln[0]
 
@@ -310,14 +294,12 @@ async def get_by_finding_and_uuids(
     vuln_ids: Set[str],
 ) -> List[Dict[str, FindingType]]:
     finding_vulns = await vulns_dal.get_by_finding(finding_id)
-    fin_vulns = [vuln for vuln in finding_vulns if vuln['UUID'] in vuln_ids]
+    fin_vulns = [vuln for vuln in finding_vulns if vuln["UUID"] in vuln_ids]
     if len(fin_vulns) != len(vuln_ids):
         raise VulnNotInFinding()
 
     vulns = [
-        vuln
-        for vuln in fin_vulns
-        if vulns_utils.filter_deleted_status(vuln)
+        vuln for vuln in fin_vulns if vulns_utils.filter_deleted_status(vuln)
     ]
     if len(vulns) != len(vuln_ids):
         raise VulnNotFound()
@@ -326,8 +308,7 @@ async def get_by_finding_and_uuids(
 
 async def get_by_ids(vulns_ids: List[str]) -> List[Dict[str, FindingType]]:
     result: List[Dict[str, FindingType]] = await collect(
-        get(vuln_id)
-        for vuln_id in vulns_ids
+        get(vuln_id) for vuln_id in vulns_ids
     )
     return result
 
@@ -340,51 +321,52 @@ async def get_open_vuln_by_type(
     finding_vulns_loader = context.finding_vulns_nzr
     vulnerabilities = await finding_vulns_loader.load(finding_id)
     finding: Dict[str, Union[int, List[Dict[str, str]]]] = {
-        'openVulnerabilities': 0,
-        'closedVulnerabilities': 0,
-        'portsVulns': [],
-        'linesVulns': [],
-        'inputsVulns': []
+        "openVulnerabilities": 0,
+        "closedVulnerabilities": 0,
+        "portsVulns": [],
+        "linesVulns": [],
+        "inputsVulns": [],
     }
-    vulns_types = ['ports', 'lines', 'inputs']
+    vulns_types = ["ports", "lines", "inputs"]
     for vuln in vulnerabilities:
         current_state = vulns_utils.get_last_status(vuln)
-        if current_state == 'open':
-            finding['openVulnerabilities'] = cast(
-                int,
-                finding['openVulnerabilities']
-            ) + 1
-            if vuln.get('vuln_type') in vulns_types:
+        if current_state == "open":
+            finding["openVulnerabilities"] = (
+                cast(int, finding["openVulnerabilities"]) + 1
+            )
+            if vuln.get("vuln_type") in vulns_types:
                 cast(
                     List[Dict[str, str]],
-                    finding[f'{vuln.get("vuln_type", "")}Vulns']
-                ).append({
-                    'where': vuln.get('where'),
-                    'specific': vuln.get('specific')
-                })
+                    finding[f'{vuln.get("vuln_type", "")}Vulns'],
+                ).append(
+                    {
+                        "where": vuln.get("where"),
+                        "specific": vuln.get("specific"),
+                    }
+                )
             else:
                 LOGGER.error(
-                    'Vulnerability does not have the right type',
+                    "Vulnerability does not have the right type",
                     extra={
-                        'extra': {
-                            'vuln_uuid': vuln.get("UUID"),
-                            'finding_id': finding_id
+                        "extra": {
+                            "vuln_uuid": vuln.get("UUID"),
+                            "finding_id": finding_id,
                         }
-                    })
-        elif current_state == 'closed':
-            finding['closedVulnerabilities'] = cast(
-                int,
-                finding['closedVulnerabilities']
-            ) + 1
+                    },
+                )
+        elif current_state == "closed":
+            finding["closedVulnerabilities"] = (
+                cast(int, finding["closedVulnerabilities"]) + 1
+            )
         else:
             LOGGER.error(
-                'Error: Vulnerability does not have the right state',
+                "Error: Vulnerability does not have the right state",
                 extra={
-                    'extra': {
-                        'vuln_uuid': vuln['UUID'],
-                        'finding_id': finding_id
+                    "extra": {
+                        "vuln_uuid": vuln["UUID"],
+                        "finding_id": finding_id,
                     }
-                }
+                },
             )
     return finding
 
@@ -392,26 +374,23 @@ async def get_open_vuln_by_type(
 async def get_vulnerabilities_async(
     finding_id: str,
     table: aioboto3.session.Session.client,
-    should_list_deleted: bool = False
+    should_list_deleted: bool = False,
 ) -> List[Dict[str, FindingType]]:
     vulnerabilities = await vulns_dal.get_vulnerabilities_async(
-        finding_id,
-        table,
-        should_list_deleted
+        finding_id, table, should_list_deleted
     )
     return [vulns_utils.format_data(vuln) for vuln in vulnerabilities]
 
 
 async def get_vulnerabilities_by_type(
-    context: Any,
-    finding_id: str
+    context: Any, finding_id: str
 ) -> Dict[str, List[FindingType]]:
     """Get vulnerabilities group by type."""
     finding_vulns_loader = context.finding_vulns_nzr
     vulnerabilities = await finding_vulns_loader.load(finding_id)
     vulnerabilities_grouped = cast(
         List[Dict[str, FindingType]],
-        await in_process(group_vulnerabilities, vulnerabilities)
+        await in_process(group_vulnerabilities, vulnerabilities),
     )
     vulnerabilities_formatted = vulns_utils.format_vulnerabilities(
         vulnerabilities_grouped
@@ -420,20 +399,17 @@ async def get_vulnerabilities_by_type(
 
 
 async def get_vulnerabilities_file(
-    context: Any,
-    finding_id: str,
-    project_name: str
+    context: Any, finding_id: str, project_name: str
 ) -> str:
     vulnerabilities = await get_vulnerabilities_by_type(context, finding_id)
-    file_name = f'/tmp/{project_name}-{finding_id}_{str(uuid.uuid4())}.yaml'
-    with open(file_name, 'w') as stream:
+    file_name = f"/tmp/{project_name}-{finding_id}_{str(uuid.uuid4())}.yaml"
+    with open(file_name, "w") as stream:
         yaml.safe_dump(vulnerabilities, stream, default_flow_style=False)
 
-    uploaded_file_url = ''
-    with open(file_name, 'rb') as bstream:
+    uploaded_file_url = ""
+    with open(file_name, "rb") as bstream:
         uploaded_file = UploadFile(
-            filename=bstream.name,
-            content_type='application/yaml'
+            filename=bstream.name, content_type="application/yaml"
         )
         await uploaded_file.write(bstream.read())
         await uploaded_file.seek(0)
@@ -446,8 +422,8 @@ def group_vulnerabilities(
     vulnerabilities: List[Dict[str, FindingType]]
 ) -> List[FindingType]:
     """Group vulnerabilities by specific field."""
-    vuln_types = ['lines', 'ports', 'inputs']
-    vuln_states = ['open', 'closed']
+    vuln_types = ["lines", "ports", "inputs"]
+    vuln_states = ["open", "closed"]
     total_vulnerabilities: Dict[str, Dict[str, FindingType]] = {}
     result_vulns: List[FindingType] = []
     for vuln_type in vuln_types:
@@ -457,14 +433,13 @@ def group_vulnerabilities(
 
     for vuln in vulnerabilities:
         all_states = cast(
-            List[Dict[str, FindingType]],
-            vuln.get('historic_state', [{}])
+            List[Dict[str, FindingType]], vuln.get("historic_state", [{}])
         )
-        current_state = str(all_states[-1].get('state', ''))
-        vuln_type = str(vuln.get('vuln_type', ''))
+        current_state = str(all_states[-1].get("state", ""))
+        vuln_type = str(vuln.get("vuln_type", ""))
         cast(
             List[Dict[str, FindingType]],
-            total_vulnerabilities[vuln_type][current_state]
+            total_vulnerabilities[vuln_type][current_state],
         ).append(vuln)
 
     for vuln_type in vuln_types:
@@ -473,11 +448,10 @@ def group_vulnerabilities(
                 Iterable[FindingType],
                 vulns_utils.group_specific(
                     cast(
-                        List[str],
-                        total_vulnerabilities[vuln_type][vuln_state]
+                        List[str], total_vulnerabilities[vuln_type][vuln_state]
                     ),
-                    vuln_type
-                )
+                    vuln_type,
+                ),
             )
             result_vulns.extend(vulns_grouped)
     return result_vulns
@@ -487,7 +461,7 @@ async def list_vulnerabilities_async(
     finding_ids: List[str],
     should_list_deleted: bool = False,
     include_requested_zero_risk: bool = False,
-    include_confirmed_zero_risk: bool = False
+    include_confirmed_zero_risk: bool = False,
 ) -> List[Dict[str, FindingType]]:
     """Retrieves all vulnerabilities for the requested findings"""
     vulns: List[Dict[str, FindingType]] = []
@@ -495,22 +469,13 @@ async def list_vulnerabilities_async(
         resource = await stack.enter_async_context(start_context())
         table = await resource.Table(vulns_dal.TABLE_NAME)
         vulns = await collect(
-            get_vulnerabilities_async(
-                finding_id,
-                table,
-                should_list_deleted
-            )
+            get_vulnerabilities_async(finding_id, table, should_list_deleted)
             for finding_id in finding_ids
         )
 
     result: List[Dict[str, FindingType]] = []
     for result_list in vulns:
-        result.extend(
-            cast(
-                Iterable[Dict[str, FindingType]],
-                result_list
-            )
-        )
+        result.extend(cast(Iterable[Dict[str, FindingType]], result_list))
     if not include_requested_zero_risk:
         result = vulns_utils.filter_non_requested_zero_risk(result)
     if not include_confirmed_zero_risk:
@@ -523,11 +488,11 @@ async def mask_vuln(finding_id: str, vuln_id: str) -> bool:
         finding_id,
         vuln_id,
         {
-            'specific': 'Masked',
-            'where': 'Masked',
-            'treatment_manager': 'Masked',
-            'treatment_justification': 'Masked',
-        }
+            "specific": "Masked",
+            "where": "Masked",
+            "treatment_manager": "Masked",
+            "treatment_justification": "Masked",
+        },
     )
     return success
 
@@ -536,45 +501,39 @@ async def reject_zero_risk_vulnerabilities(
     finding_id: str,
     user_info: Dict[str, str],
     justification: str,
-    vuln_ids: List[str]
+    vuln_ids: List[str],
 ) -> bool:
     validate_justificaiton_length(justification)
     vulnerabilities = await get_by_finding_and_uuids(finding_id, set(vuln_ids))
     vulnerabilities = [
-        validate_requested_zero_risk_vuln(vuln)
-        for vuln in vulnerabilities
+        validate_requested_zero_risk_vuln(vuln) for vuln in vulnerabilities
     ]
     if not vulnerabilities:
         raise VulnNotFound()
 
     comment_id = int(round(time() * 1000))
     today = datetime_utils.get_now_as_str()
-    user_email: str = user_info['user_email']
+    user_email: str = user_info["user_email"]
     comment_data = {
-        'comment_type': 'zero_risk',
-        'content': justification,
-        'parent': 0,
-        'user_id': comment_id
+        "comment_type": "zero_risk",
+        "content": justification,
+        "parent": 0,
+        "user_id": comment_id,
     }
     create_comment = await comments_domain.create(
-        int(finding_id),
-        comment_data,
-        user_info
+        int(finding_id), comment_data, user_info
     )
     reject_zero_risk_vulns = await collect(
         [
             vulns_dal.reject_zero_risk_vulnerability(
-                user_email,
-                today,
-                comment_id,
-                vuln
+                user_email, today, comment_id, vuln
             )
             for vuln in vulnerabilities
         ]
     )
     success = all(reject_zero_risk_vulns) and create_comment[1]
     if not success:
-        LOGGER.error('An error occurred rejecting zero risk vuln', **NOEXTRA)
+        LOGGER.error("An error occurred rejecting zero risk vuln", **NOEXTRA)
     return success
 
 
@@ -586,13 +545,12 @@ async def request_zero_risk_vulnerabilities(
     info: GraphQLResolveInfo,
     finding_id: str,
     justification: str,
-    vuln_ids: List[str]
+    vuln_ids: List[str],
 ) -> bool:
     validate_justificaiton_length(justification)
     vulnerabilities = await get_by_finding_and_uuids(finding_id, set(vuln_ids))
     vulnerabilities = [
-        validate_not_requested_zero_risk_vuln(vuln)
-        for vuln in vulnerabilities
+        validate_not_requested_zero_risk_vuln(vuln) for vuln in vulnerabilities
     ]
     if not vulnerabilities:
         raise VulnNotFound()
@@ -600,25 +558,20 @@ async def request_zero_risk_vulnerabilities(
     comment_id = int(round(time() * 1000))
     today = datetime_utils.get_now_as_str()
     user_info = await token_utils.get_jwt_content(info.context)
-    user_email = user_info['user_email']
+    user_email = user_info["user_email"]
     comment_data = {
-        'comment_type': 'zero_risk',
-        'content': justification,
-        'parent': 0,
-        'user_id': comment_id
+        "comment_type": "zero_risk",
+        "content": justification,
+        "parent": 0,
+        "user_id": comment_id,
     }
     create_comment = await comments_domain.create(
-        int(finding_id),
-        comment_data,
-        user_info
+        int(finding_id), comment_data, user_info
     )
     request_zero_risk_vulns = await collect(
         [
             vulns_dal.request_zero_risk_vulnerability(
-                user_email,
-                today,
-                comment_id,
-                vuln
+                user_email, today, comment_id, vuln
             )
             for vuln in vulnerabilities
         ]
@@ -632,22 +585,24 @@ async def request_zero_risk_vulnerabilities(
             requester_email=user_email,
         )
     else:
-        LOGGER.error('An error occurred requesting zero risk vuln', **NOEXTRA)
+        LOGGER.error("An error occurred requesting zero risk vuln", **NOEXTRA)
     return success
 
 
 def set_updated_manager_mail_content(
     vulnerabilities: Dict[str, List[Dict[str, str]]]
 ) -> str:
-    mail_content = ''
-    for vuln_type in ['ports', 'lines', 'inputs']:
+    mail_content = ""
+    for vuln_type in ["ports", "lines", "inputs"]:
         type_vulns = vulnerabilities.get(vuln_type)
         if type_vulns:
-            mail_content += '<br />'.join([
-                f'- {list(vuln.values())[0]} ({list(vuln.values())[1]})'
-                for vuln in type_vulns
-            ])
-            mail_content += '<br />'
+            mail_content += "<br />".join(
+                [
+                    f"- {list(vuln.values())[0]} ({list(vuln.values())[1]})"
+                    for vuln in type_vulns
+                ]
+            )
+            mail_content += "<br />"
     return mail_content
 
 
@@ -658,7 +613,7 @@ async def should_send_update_treatment(
     updated_vulns: List[Dict[str, FindingType]],
     treatment: str,
 ) -> None:
-    translations = {'IN PROGRESS': 'In Progress'}
+    translations = {"IN PROGRESS": "In Progress"}
     if treatment in translations:
         finding_loader = context.finding
         finding = await finding_loader.load(finding_id)
@@ -671,26 +626,19 @@ async def should_send_update_treatment(
         )
         schedule(
             vulns_mail.send_mail_updated_treatment(
-                context,
-                translations[treatment],
-                finding,
-                mail_content
+                context, translations[treatment], finding, mail_content
             )
         )
 
 
 async def update_historic_state_dates(
-    finding_id: str,
-    vuln: Dict[str, FindingType],
-    date: str
+    finding_id: str, vuln: Dict[str, FindingType], date: str
 ) -> bool:
-    historic_state = cast(Historic, vuln['historic_state'])
+    historic_state = cast(Historic, vuln["historic_state"])
     for state_info in historic_state:
-        state_info['date'] = date
+        state_info["date"] = date
     success = await vulns_dal.update(
-        finding_id,
-        cast(str, vuln['UUID']),
-        {'historic_state': historic_state}
+        finding_id, cast(str, vuln["UUID"]), {"historic_state": historic_state}
     )
     return success
 
@@ -702,55 +650,43 @@ async def update_treatment_vuln(
     info: GraphQLResolveInfo,
 ) -> bool:
     success = True
-    vulnerability = vuln_info['id']
+    vulnerability = vuln_info["id"]
     new_info = copy.copy(updated_values)
-    if new_info.get('tag'):
-        new_info['tag'] = cast(List[str], vuln_info['tags'])
-        tags = str(updated_values['tag']).split(',')
+    if new_info.get("tag"):
+        new_info["tag"] = cast(List[str], vuln_info["tags"])
+        tags = str(updated_values["tag"]).split(",")
         validations.validate_fields(tags)
         for tag in tags:
             if tag.strip():
-                cast(List[str], new_info['tag']).append(tag.strip())
-        new_info['tag'] = cast(
+                cast(List[str], new_info["tag"]).append(tag.strip())
+        new_info["tag"] = cast(
             List[str],
-            list(
-                set(
-                    cast(
-                        Iterable[Collection[str]],
-                        new_info['tag']
-                    )
-                )
-            )
+            list(set(cast(Iterable[Collection[str]], new_info["tag"]))),
         )
-        new_info['tag'] = [
-            html.unescape(tag)
-            for tag in cast(List[str], new_info['tag'])
+        new_info["tag"] = [
+            html.unescape(tag) for tag in cast(List[str], new_info["tag"])
         ]
     new_info = {
-        key: None if not value else value
-        for key, value in new_info.items()
+        key: None if not value else value for key, value in new_info.items()
     }
     new_info = {
-        utils.camelcase_to_snakecase(k): new_info.get(k)
-        for k in new_info
+        utils.camelcase_to_snakecase(k): new_info.get(k) for k in new_info
     }
     result_update_vuln = await vulns_dal.update(
-        finding_id,
-        str(vulnerability),
-        new_info
+        finding_id, str(vulnerability), new_info
     )
     if not result_update_vuln:
         logs_utils.cloudwatch_log(
             info.context,
-            f'Security: Attempted to update vulnerability: '
-            f'{vulnerability} from finding:{finding_id}'
+            f"Security: Attempted to update vulnerability: "
+            f"{vulnerability} from finding:{finding_id}",
         )
         success = False
     else:
         logs_utils.cloudwatch_log(
             info.context,
-            f'Security: Updated vulnerability: '
-            f'{vulnerability} from finding: {finding_id} successfully'
+            f"Security: Updated vulnerability: "
+            f"{vulnerability} from finding: {finding_id} successfully",
         )
     return success
 
@@ -759,15 +695,12 @@ async def update_treatment_vulns(
     vulnerability_id: str,
     finding_id: str,
     updated_values: Dict[str, FindingType],
-    info: GraphQLResolveInfo
+    info: GraphQLResolveInfo,
 ) -> bool:
-    del updated_values['finding_id']
+    del updated_values["finding_id"]
     vuln_info = await info.context.loaders.vulnerability.load(vulnerability_id)
     success: bool = await update_treatment_vuln(
-        cast(VulnerabilityType, vuln_info),
-        finding_id,
-        updated_values,
-        info
+        cast(VulnerabilityType, vuln_info), finding_id, updated_values, info
     )
     return success
 
@@ -776,24 +709,20 @@ async def update_treatments(
     vulnerability_id: str,
     finding_id: str,
     updated_values: Dict[str, FindingType],
-    info: GraphQLResolveInfo
+    info: GraphQLResolveInfo,
 ) -> bool:
-    updated_values.pop('vulnerabilities', None)
-    if updated_values.get('tag') == '':
-        updated_values.pop('tag', None)
-    if cast(int, updated_values.get('severity', 0)) < 0:
-        updated_values['severity'] = ''
-    if 'external_bts' in updated_values:
-        validations.validate_url(str(updated_values.get('external_bts', '')))
+    updated_values.pop("vulnerabilities", None)
+    if updated_values.get("tag") == "":
+        updated_values.pop("tag", None)
+    if cast(int, updated_values.get("severity", 0)) < 0:
+        updated_values["severity"] = ""
+    if "external_bts" in updated_values:
+        validations.validate_url(str(updated_values.get("external_bts", "")))
         validations.validate_field_length(
-            str(updated_values.get('external_bts', '')),
-            80
+            str(updated_values.get("external_bts", "")), 80
         )
     return await update_treatment_vulns(
-        vulnerability_id,
-        finding_id,
-        updated_values,
-        info
+        vulnerability_id, finding_id, updated_values, info
     )
 
 
@@ -804,60 +733,55 @@ async def update_vuln_state(
     item: Dict[str, str],
     finding_id: str,
     current_day: str,
-    finding_policy: Optional[OrgFindingPolicyItem] = None
+    finding_policy: Optional[OrgFindingPolicyItem] = None,
 ) -> bool:
     """Update vulnerability state."""
     historic_state = cast(
-        List[Dict[str, str]],
-        vulnerability.get('historic_state')
+        List[Dict[str, str]], vulnerability.get("historic_state")
     )
     last_state = historic_state[-1]
     data_to_update: Dict[str, FindingType] = {}
 
     source = requests_utils.get_source(info.context)
 
-    if (
-        last_state.get('source') != source or
-        last_state.get('state') != item.get('state')
-    ):
+    if last_state.get("source") != source or last_state.get(
+        "state"
+    ) != item.get("state"):
         user_data = cast(
-            UserType,
-            await token_utils.get_jwt_content(info.context)
+            UserType, await token_utils.get_jwt_content(info.context)
         )
-        analyst = str(user_data['user_email'])
+        analyst = str(user_data["user_email"])
         current_state = {
-            'analyst': analyst,
-            'date': current_day,
-            'source': source,
-            'state': item.get('state', '')
+            "analyst": analyst,
+            "date": current_day,
+            "source": source,
+            "state": item.get("state", ""),
         }
         historic_state.append(current_state)
-        data_to_update['historic_state'] = historic_state
-        curr_treatment = vulnerability['historic_treatment'][-1]['treatment']
+        data_to_update["historic_state"] = historic_state
+        curr_treatment = vulnerability["historic_treatment"][-1]["treatment"]
         if (
-            finding_policy and
-            item['state'] == 'open' and
-            finding_policy.state.status == 'APPROVED' and
-            curr_treatment != 'ACCEPTED_UNDEFINED'
+            finding_policy
+            and item["state"] == "open"
+            and finding_policy.state.status == "APPROVED"
+            and curr_treatment != "ACCEPTED_UNDEFINED"
         ):
-            data_to_update['historic_treatment'] = [
-                *vulnerability['historic_treatment'],
+            data_to_update["historic_treatment"] = [
+                *vulnerability["historic_treatment"],
                 *vulns_utils.get_treatment_from_org_finding_policy(
                     current_day=current_day,
-                    user_email=finding_policy.state.modified_by
-                )
+                    user_email=finding_policy.state.modified_by,
+                ),
             ]
 
-    if item['vuln_type'] == 'inputs':
-        data_to_update['stream'] = item['stream']
-    if item['vuln_type'] == 'lines':
-        data_to_update['commit_hash'] = item['commit_hash']
+    if item["vuln_type"] == "inputs":
+        data_to_update["stream"] = item["stream"]
+    if item["vuln_type"] == "lines":
+        data_to_update["commit_hash"] = item["commit_hash"]
 
     if data_to_update:
         return await vulns_dal.update(
-            finding_id,
-            str(vulnerability.get('UUID')),
-            data_to_update
+            finding_id, str(vulnerability.get("UUID")), data_to_update
         )
     return True
 
@@ -874,10 +798,9 @@ def validate_not_requested_zero_risk_vuln(
 ) -> Dict[str, FindingType]:
     """ Validate zero risk vuln is not already resquested """
     historic_zero_risk = cast(
-        List[Dict[str, FindingType]],
-        vuln.get('historic_zero_risk', [{}])
+        List[Dict[str, FindingType]], vuln.get("historic_zero_risk", [{}])
     )
-    if historic_zero_risk[-1].get('status', '') == 'REQUESTED':
+    if historic_zero_risk[-1].get("status", "") == "REQUESTED":
         raise AlreadyZeroRiskRequested()
     return vuln
 
@@ -887,10 +810,9 @@ def validate_requested_zero_risk_vuln(
 ) -> Dict[str, FindingType]:
     """ Validate zero risk vuln is already resquested """
     historic_zero_risk = cast(
-        List[Dict[str, FindingType]],
-        vuln.get('historic_zero_risk', [{}])
+        List[Dict[str, FindingType]], vuln.get("historic_zero_risk", [{}])
     )
-    if historic_zero_risk[-1].get('status', '') != 'REQUESTED':
+    if historic_zero_risk[-1].get("status", "") != "REQUESTED":
         raise NotZeroRiskRequested()
     return vuln
 
@@ -902,50 +824,44 @@ async def verify(
     vulnerabilities: List[Dict[str, FindingType]],
     closed_vulns: List[str],
     date: str,
-    vulns_to_close_from_file: List[Dict[str, str]]
+    vulns_to_close_from_file: List[Dict[str, str]],
 ) -> List[bool]:
     list_closed_vulns = sorted(
         [
-            [
-                vuln
-                for vuln in vulnerabilities
-                if vuln['UUID'] == closed_vuln
-            ][0]
+            [vuln for vuln in vulnerabilities if vuln["UUID"] == closed_vuln][
+                0
+            ]
             for closed_vuln in closed_vulns
         ],
-        key=itemgetter('UUID')
+        key=itemgetter("UUID"),
     )
     success: List[bool] = await collect(
         update_vuln_state(
             info=info,
             vulnerability=vuln_to_close,
             item={
-                'commit_hash': (
-                    close_item['commit_hash']
-                    if close_item and close_item['vuln_type'] == 'lines'
-                    else ''
+                "commit_hash": (
+                    close_item["commit_hash"]
+                    if close_item and close_item["vuln_type"] == "lines"
+                    else ""
                 ),
-                'state': 'closed',
-                'stream': (
-                    close_item['stream']
-                    if close_item and close_item['vuln_type'] == 'inputs'
-                    else ''
+                "state": "closed",
+                "stream": (
+                    close_item["stream"]
+                    if close_item and close_item["vuln_type"] == "inputs"
+                    else ""
                 ),
-                'vuln_type': close_item['vuln_type'] if close_item else '',
+                "vuln_type": close_item["vuln_type"] if close_item else "",
             },
             finding_id=finding_id,
-            current_day=date
+            current_day=date,
         )
         for vuln_to_close, close_item in zip_longest(
-            list_closed_vulns,
-            vulns_to_close_from_file,
-            fillvalue={}
+            list_closed_vulns, vulns_to_close_from_file, fillvalue={}
         )
     )
     return success
 
 
-async def verify_vulnerability(
-    vulnerability: Dict[str, FindingType]
-) -> bool:
+async def verify_vulnerability(vulnerability: Dict[str, FindingType]) -> bool:
     return await vulns_dal.verify_vulnerability(vulnerability)

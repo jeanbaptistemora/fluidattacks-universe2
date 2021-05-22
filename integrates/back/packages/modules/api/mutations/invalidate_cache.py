@@ -1,4 +1,3 @@
-
 from aioextensions import (
     collect,
     schedule,
@@ -20,18 +19,19 @@ from redis_cluster.operations import redis_cmd
     enforce_user_level_auth_async,
 )
 async def mutate(
-    _parent: None,
-    info: GraphQLResolveInfo,
-    pattern: str
+    _parent: None, info: GraphQLResolveInfo, pattern: str
 ) -> SimplePayload:
-    schedule(collect([
-        redis_cmd('delete', key)
-        for key in await redis_cmd('keys', pattern)
-    ]))
+    schedule(
+        collect(
+            [
+                redis_cmd("delete", key)
+                for key in await redis_cmd("keys", pattern)
+            ]
+        )
+    )
 
     logs_utils.cloudwatch_log(
-        info.context,
-        f'Security: Pattern {pattern} was removed from cache'
+        info.context, f"Security: Pattern {pattern} was removed from cache"
     )
 
     return SimplePayload(success=True)

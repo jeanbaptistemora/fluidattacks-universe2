@@ -1,4 +1,3 @@
-
 import asyncio
 import logging
 from typing import (
@@ -89,9 +88,7 @@ async def redis_cmd(cmd: str, *args: Any, **kwargs: Any) -> Any:
 async def redis_del_by_deps(dependency: str, **args: str) -> bool:
     keys: Set[str] = redis_model.build_keys_by_dependencies(dependency, **args)
     response: bool = (
-        await redis_cmd('delete', *keys) == len(keys)
-        if keys
-        else True
+        await redis_cmd("delete", *keys) == len(keys) if keys else True
     )
     return response
 
@@ -117,7 +114,7 @@ async def redis_del_entity_attr(
 ) -> bool:
     # https://redis.io/commands/del
     key: str = redis_model.build_key(entity, attr, **args)
-    response: bool = await redis_cmd('delete', key) == 1
+    response: bool = await redis_cmd("delete", key) == 1
     return response
 
 
@@ -129,7 +126,7 @@ async def redis_get_entity_attr(
 ) -> Any:
     # https://redis.io/commands/get
     key: str = redis_model.build_key(entity, attr, **args)
-    response: Optional[bytes] = await redis_cmd('get', key)
+    response: Optional[bytes] = await redis_cmd("get", key)
     if response is None:
         # Not found
         raise redis_model.KeyNotFound()
@@ -179,5 +176,5 @@ async def redis_set_entity_attr(
     # https://redis.io/commands/setex
     key: str = redis_model.build_key(entity, attr, **args)
     value_encoded: bytes = dump(value)
-    success: bool = await redis_cmd('setex', key, ttl, value_encoded)
+    success: bool = await redis_cmd("setex", key, ttl, value_encoded)
     return success

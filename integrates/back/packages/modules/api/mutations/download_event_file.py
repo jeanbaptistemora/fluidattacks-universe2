@@ -1,4 +1,3 @@
-
 # None
 
 
@@ -23,22 +22,19 @@ from newutils import logs as logs_utils
     require_integrates,
 )
 async def mutate(
-    _parent: None,
-    info: GraphQLResolveInfo,
-    event_id: str,
-    file_name: str
+    _parent: None, info: GraphQLResolveInfo, event_id: str, file_name: str
 ) -> DownloadFilePayload:
     success = False
     signed_url = await events_domain.get_evidence_link(event_id, file_name)
     if signed_url:
         logs_utils.cloudwatch_log(
             info.context,
-            f'Security: Downloaded file in event {event_id} successfully'
+            f"Security: Downloaded file in event {event_id} successfully",
         )
         success = True
     else:
         logs_utils.cloudwatch_log(
             info.context,
-            f'Security: Attempted to download file in event {event_id}'
+            f"Security: Attempted to download file in event {event_id}",
         )
     return DownloadFilePayload(success=success, url=signed_url)

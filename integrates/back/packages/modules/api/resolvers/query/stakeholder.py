@@ -1,4 +1,3 @@
-
 from typing import cast
 
 from ariadne.utils import convert_kwargs_to_snake_case
@@ -27,15 +26,10 @@ async def _resolve_for_organization(
 ) -> Stakeholder:
     stakeholder: Stakeholder = await stakeholders_domain.get_by_email(email)
     org_role: str = await authz.get_organization_level_role(
-        email,
-        organization_id
+        email, organization_id
     )
     if org_role:
-        return {
-            **stakeholder,
-            'responsibility': '',
-            'role': org_role
-        }
+        return {**stakeholder, "responsibility": "", "role": org_role}
     raise StakeholderNotFound()
 
 
@@ -49,14 +43,11 @@ async def _resolve_for_group(
     group_role: str = await authz.get_group_level_role(email, group_name)
 
     if group_role:
-        access = await group_access_domain.get_user_access(
-            email,
-            group_name
-        )
+        access = await group_access_domain.get_user_access(email, group_name)
         return {
             **stakeholder,
-            'responsibility': cast(str, access.get('responsibility', '')),
-            'role': group_role
+            "responsibility": cast(str, access.get("responsibility", "")),
+            "role": group_role,
         }
     raise StakeholderNotFound()
 
@@ -64,23 +55,21 @@ async def _resolve_for_group(
 @convert_kwargs_to_snake_case
 @require_login
 async def resolve(
-    _parent: None,
-    info: GraphQLResolveInfo,
-    **kwargs: str
+    _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Stakeholder:
-    entity: str = kwargs['entity']
-    email: str = kwargs['user_email']
+    entity: str = kwargs["entity"]
+    email: str = kwargs["user_email"]
 
-    if entity == 'ORGANIZATION' and 'organization_id' in kwargs:
-        org_id: str = kwargs['organization_id']
+    if entity == "ORGANIZATION" and "organization_id" in kwargs:
+        org_id: str = kwargs["organization_id"]
         return await _resolve_for_organization(
             info,
             email,
             organization_id=org_id,
         )
 
-    if entity == 'PROJECT' and 'project_name' in kwargs:
-        group_name: str = kwargs['project_name'].lower()
+    if entity == "PROJECT" and "project_name" in kwargs:
+        group_name: str = kwargs["project_name"].lower()
         return await _resolve_for_group(
             info,
             email,

@@ -1,4 +1,3 @@
-
 from typing import (
     Dict,
     List,
@@ -17,17 +16,14 @@ from newutils import token as token_utils
 
 
 async def resolve(
-    parent: Organization,
-    info: GraphQLResolveInfo,
-    **_kwargs: None
+    parent: Organization, info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[Group]:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
-    user_email: str = user_info['user_email']
+    user_email: str = user_info["user_email"]
 
-    org_id: str = cast(str, parent['id'])
+    org_id: str = cast(str, parent["id"])
     user_groups: List[str] = await groups_domain.get_groups_by_user(
-        user_email,
-        organization_id=org_id
+        user_email, organization_id=org_id
     )
 
     group_loader: DataLoader = info.context.loaders.group

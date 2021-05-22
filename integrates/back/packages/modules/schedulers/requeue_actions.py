@@ -16,7 +16,7 @@ async def requeue_actions() -> None:
             )
             for action in pending_actions
         ],
-        workers=20
+        workers=20,
     )
 
 

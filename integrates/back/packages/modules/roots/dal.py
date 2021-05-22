@@ -1,4 +1,3 @@
-
 import logging
 import logging.config
 from typing import (
@@ -35,10 +34,7 @@ async def create_root(*, root: RootItem) -> None:
 
 
 async def get_root(*, group_name: str, root_id: str) -> Optional[RootItem]:
-    return await model.get_root(
-        group_name=group_name,
-        root_id=root_id
-    )
+    return await model.get_root(group_name=group_name, root_id=root_id)
 
 
 async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
@@ -46,15 +42,10 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
 
 
 async def update_git_root_cloning(
-    *,
-    cloning: GitRootCloning,
-    group_name: str,
-    root_id: str
+    *, cloning: GitRootCloning, group_name: str, root_id: str
 ) -> None:
     await model.update_git_root_cloning(
-        cloning=cloning,
-        group_name=group_name,
-        root_id=root_id
+        cloning=cloning, group_name=group_name, root_id=root_id
     )
 
 
@@ -62,31 +53,29 @@ async def update_root_state(
     *,
     group_name: str,
     root_id: str,
-    state: Union[GitRootState, IPRootState, URLRootState]
+    state: Union[GitRootState, IPRootState, URLRootState],
 ) -> None:
     await model.update_root_state(
-        group_name=group_name,
-        state=state,
-        root_id=root_id
+        group_name=group_name, state=state, root_id=root_id
     )
 
 
 async def get_root_vulns(*, nickname: str) -> Tuple[Dict[str, Any], ...]:
     return await dynamodb_ops.query(
-        'FI_vulnerabilities',
+        "FI_vulnerabilities",
         {
-            'IndexName': 'repo_index',
-            'KeyConditionExpression': Key('repo_nickname').eq(nickname),
-        }
+            "IndexName": "repo_index",
+            "KeyConditionExpression": Key("repo_nickname").eq(nickname),
+        },
     )
 
 
 def _filter_open_and_accepted_undef_vulns(vuln: Dict[str, Any]) -> bool:
     return (
-        vuln['historic_state'][-1]['state'] == 'open' and
-        vuln['historic_treatment'][-1]['treatment'] != 'ACCEPTED_UNDEFINED' and
-        vuln.get('historic_zero_risk', '') and
-        vuln['historic_zero_risk'][-1]['status'] != 'CONFIRMED'
+        vuln["historic_state"][-1]["state"] == "open"
+        and vuln["historic_treatment"][-1]["treatment"] != "ACCEPTED_UNDEFINED"
+        and vuln.get("historic_zero_risk", "")
+        and vuln["historic_zero_risk"][-1]["status"] != "CONFIRMED"
     )
 
 
@@ -100,6 +89,6 @@ async def has_open_vulns(*, nickname: str) -> bool:
                 for vuln in vulns
                 if _filter_open_and_accepted_undef_vulns(vuln)
             ),
-            None
+            None,
         )
     )

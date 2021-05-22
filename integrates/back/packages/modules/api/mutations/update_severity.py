@@ -1,4 +1,3 @@
-
 from typing import Any
 
 from ariadne.utils import convert_kwargs_to_snake_case
@@ -26,33 +25,29 @@ from redis_cluster.operations import redis_del_by_deps_soon
     require_integrates,
 )
 async def mutate(
-    _parent: None,
-    info: GraphQLResolveInfo,
-    **parameters: Any
+    _parent: None, info: GraphQLResolveInfo, **parameters: Any
 ) -> SimpleFindingPayload:
-    data = parameters.get('data', dict())
+    data = parameters.get("data", dict())
     data = {utils.snakecase_to_camelcase(k): data[k] for k in data}
-    finding_id = parameters.get('finding_id', '')
+    finding_id = parameters.get("finding_id", "")
     finding_loader = info.context.loaders.finding
     finding_data = await finding_loader.load(finding_id)
-    group_name = finding_data['project_name']
+    group_name = finding_data["project_name"]
     success = False
     success = await findings_domain.save_severity(data)
     if success:
         info.context.loaders.finding.clear(finding_id)
         redis_del_by_deps_soon(
-            'update_severity',
-            finding_id=finding_id,
-            group_name=group_name
+            "update_severity", finding_id=finding_id, group_name=group_name
         )
         logs_utils.cloudwatch_log(
             info.context,
-            f'Security: Updated severity in finding {finding_id} successfully'
+            f"Security: Updated severity in finding {finding_id} successfully",
         )
     else:
         logs_utils.cloudwatch_log(
             info.context,
-            f'Security: Attempted to update severity in finding {finding_id}'
+            f"Security: Attempted to update severity in finding {finding_id}",
         )
     finding_loader = info.context.loaders.finding
     finding = await finding_loader.load(finding_id)

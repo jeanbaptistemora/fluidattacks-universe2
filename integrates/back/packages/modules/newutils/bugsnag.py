@@ -1,4 +1,3 @@
-
 import bugsnag
 
 from __init__ import (

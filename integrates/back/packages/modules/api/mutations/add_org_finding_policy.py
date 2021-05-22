@@ -1,4 +1,3 @@
-
 from typing import Dict
 
 from ariadne.utils import convert_kwargs_to_snake_case
@@ -29,16 +28,16 @@ async def mutate(
     organization_name: str,
 ) -> SimplePayload:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
-    user_email: str = user_info['user_email']
+    user_email: str = user_info["user_email"]
 
     await policies_domain.add_finding_policy(
         finding_name=finding_name.strip(),
         org_name=organization_name,
-        user_email=user_email
+        user_email=user_email,
     )
     logs_utils.cloudwatch_log(
         info.context,
-        f'Security: Added a org finding policy in {organization_name}'
+        f"Security: Added a org finding policy in {organization_name}",
     )
 
     return SimplePayload(success=True)

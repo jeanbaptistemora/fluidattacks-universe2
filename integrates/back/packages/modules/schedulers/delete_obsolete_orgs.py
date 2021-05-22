@@ -1,4 +1,3 @@
-
 from typing import Any
 
 from aioextensions import collect
@@ -12,7 +11,7 @@ from organizations import domain as orgs_domain
 async def delete_obsolete_orgs() -> None:
     """ Delete obsolete organizations """
     today = datetime_utils.get_now().date()
-    email = 'integrates@fluidattacks.com'
+    email = "integrates@fluidattacks.com"
     async for org_id, org_name in orgs_domain.iterate_organizations():
         org_pending_deletion_date_str = (
             await orgs_domain.get_pending_deletion_date_str(org_id)
@@ -25,37 +24,26 @@ async def delete_obsolete_orgs() -> None:
                     org_pending_deletion_date_str
                 )
                 if org_pending_deletion_date.date() <= today:
-                    await delete_organization(
-                        get_new_context(),
-                        org_id,
-                        email
-                    )
+                    await delete_organization(get_new_context(), org_id, email)
             else:
                 new_org_pending_deletion_date_str = datetime_utils.get_as_str(
                     datetime_utils.get_now_plus_delta(days=60)
                 )
                 await orgs_domain.update_pending_deletion_date(
-                    org_id,
-                    org_name,
-                    new_org_pending_deletion_date_str
+                    org_id, org_name, new_org_pending_deletion_date_str
                 )
         else:
             await orgs_domain.update_pending_deletion_date(
-                org_id,
-                org_name,
-                None
+                org_id, org_name, None
             )
 
 
 async def delete_organization(
-    context: Any,
-    organization_id: str,
-    email: str
+    context: Any, organization_id: str, email: str
 ) -> bool:
     users = await orgs_domain.get_users(organization_id)
     users_removed = await collect(
-        orgs_domain.remove_user(organization_id, user)
-        for user in users
+        orgs_domain.remove_user(organization_id, user) for user in users
     )
     success = all(users_removed) if users else True
 
@@ -67,9 +55,9 @@ async def delete_organization(
         )
     )
     success = (
-        success and
-        groups_removed and
-        await orgs_domain.delete_organization(organization_id)
+        success
+        and groups_removed
+        and await orgs_domain.delete_organization(organization_id)
     )
     return success
 

@@ -1,4 +1,3 @@
-
 from typing import (
     Dict,
     cast,
@@ -19,11 +18,9 @@ from decorators import (
     require_integrates,
 )
 async def resolve(
-    parent: Finding,
-    info: GraphQLResolveInfo,
-    **_kwargs: None
+    parent: Finding, info: GraphQLResolveInfo, **_kwargs: None
 ) -> str:
-    finding_id: str = cast(Dict[str, str], parent)['id']
+    finding_id: str = cast(Dict[str, str], parent)["id"]
     finding_loader = info.context.loaders.finding
     finding = await finding_loader.load(finding_id)
-    return cast(str, finding['sorts'])
+    return cast(str, finding["sorts"])

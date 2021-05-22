@@ -1,4 +1,3 @@
-
 from typing import (
     Any,
     Optional,
@@ -35,24 +34,24 @@ async def mutate(
     project_name: str,
     image: Optional[UploadFile] = None,
     file: Optional[UploadFile] = None,
-    **kwargs: Any
+    **kwargs: Any,
 ) -> SimplePayload:
     """Resolve create_event mutation."""
     user_info = await token_utils.get_jwt_content(info.context)
-    analyst_email = user_info['user_email']
+    analyst_email = user_info["user_email"]
     success = await events_domain.create_event(
         info.context.loaders,
         analyst_email,
         project_name.lower(),
         file,
         image,
-        **kwargs
+        **kwargs,
     )
     if success:
         logs_utils.cloudwatch_log(
             info.context,
-            f'Security: Created event in {project_name} project successfully'
+            f"Security: Created event in {project_name} project successfully",
         )
-        redis_del_by_deps_soon('create_event', group_name=project_name)
+        redis_del_by_deps_soon("create_event", group_name=project_name)
 
     return SimplePayload(success=success)

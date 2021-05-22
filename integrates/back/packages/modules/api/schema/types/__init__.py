@@ -1,4 +1,3 @@
-
 from typing import Tuple
 
 from ariadne import ObjectType

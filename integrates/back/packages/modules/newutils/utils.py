@@ -1,4 +1,3 @@
-
 import collections
 import re
 from typing import (
@@ -18,23 +17,19 @@ from custom_types import (
 def camel_case_list_dict(elements: List[Dict]) -> List[Dict]:
     """Convert a the keys of a list of dicts to camelcase."""
     return [
-        {
-            snakecase_to_camelcase(k): element[k]
-            for k in element
-        }
+        {snakecase_to_camelcase(k): element[k] for k in element}
         for element in elements
     ]
 
 
 def camelcase_to_snakecase(str_value: str) -> str:
     """Convert a camelcase string to snackecase."""
-    my_str = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', str_value)
-    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', my_str).lower()
+    my_str = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", str_value)
+    return re.sub("([a-z0-9])([A-Z])", r"\1_\2", my_str).lower()
 
 
 async def get_filtered_elements(
-    elements: List[FindingType],
-    filters: Dict[str, Any]
+    elements: List[FindingType], filters: Dict[str, Any]
 ) -> List[GroupType]:
     """Return filtered findings accorging to filters."""
 
@@ -55,8 +50,7 @@ async def get_filtered_elements(
 
 
 def list_to_dict(
-    keys: List[object],
-    values: List[object]
+    keys: List[object], values: List[object]
 ) -> Dict[object, object]:
     """ Merge two lists into a {key: value} dictionary """
     dct: Dict[object, object] = collections.OrderedDict()
@@ -87,7 +81,7 @@ def list_to_dict(
 
 def snakecase_to_camelcase(str_value: str) -> str:
     """Convert a snackecase string to camelcase."""
-    return re.sub('_.', lambda x: x.group()[1].upper(), str_value)
+    return re.sub("_.", lambda x: x.group()[1].upper(), str_value)
 
 
 def replace_all(text: str, dic: Dict[str, str]) -> str:

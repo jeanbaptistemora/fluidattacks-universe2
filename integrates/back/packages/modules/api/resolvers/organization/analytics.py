@@ -1,4 +1,3 @@
-
 from typing import cast
 
 from ariadne.utils import convert_kwargs_to_snake_case
@@ -12,17 +11,15 @@ from decorators import enforce_organization_level_auth_async
 @convert_kwargs_to_snake_case
 @enforce_organization_level_auth_async
 async def resolve(
-    parent: Organization,
-    _info: GraphQLResolveInfo,
-    **kwargs: str
+    parent: Organization, _info: GraphQLResolveInfo, **kwargs: str
 ) -> object:
-    document_name: str = kwargs['document_name']
-    document_type: str = kwargs['document_type']
-    org_id: str = cast(str, parent['id'])
+    document_name: str = kwargs["document_name"]
+    document_type: str = kwargs["document_type"]
+    org_id: str = cast(str, parent["id"])
 
     return await analytics_domain.get_document(
         document_name=document_name,
         document_type=document_type,
-        entity='organization',
+        entity="organization",
         subject=org_id,
     )

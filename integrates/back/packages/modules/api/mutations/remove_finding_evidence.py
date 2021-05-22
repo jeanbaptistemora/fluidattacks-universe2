@@ -1,5 +1,3 @@
-
-
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -22,10 +20,7 @@ from redis_cluster.operations import redis_del_by_deps_soon
     require_integrates,
 )
 async def mutate(
-    _parent: None,
-    info: GraphQLResolveInfo,
-    evidence_id: str,
-    finding_id: str
+    _parent: None, info: GraphQLResolveInfo, evidence_id: str, finding_id: str
 ) -> SimpleFindingPayloadType:
     """Resolve remove_evidence mutation."""
     success = await findings_domain.remove_evidence(evidence_id, finding_id)
@@ -33,13 +28,14 @@ async def mutate(
     if success:
         info.context.loaders.finding.clear(finding_id)
         redis_del_by_deps_soon(
-            'remove_finding_evidence',
+            "remove_finding_evidence",
             finding_id=finding_id,
         )
         logs_utils.cloudwatch_log(
             info.context,
-            ('Security: Removed evidence '
-             f'in finding {finding_id}')  # pragma: no cover
+            (
+                "Security: Removed evidence " f"in finding {finding_id}"
+            ),  # pragma: no cover
         )
     finding_loader = info.context.loaders.finding
     finding = await finding_loader.load(finding_id)

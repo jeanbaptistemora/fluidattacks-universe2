@@ -39,21 +39,20 @@ def start_queue_daemon() -> None:
 STARLETTE_APP = Starlette(
     debug=settings.DEBUG,
     routes=[
-        Route('/', IntegratesAPI(SCHEMA, debug=settings.DEBUG)),
+        Route("/", IntegratesAPI(SCHEMA, debug=settings.DEBUG)),
     ],
     middleware=[
         Middleware(ApiCustomRequestMiddleware),
     ],
     on_startup=[
         start_queue_daemon,
-    ]
+    ],
 )
 
 BUGSNAG_WRAP = BugsnagMiddleware(STARLETTE_APP)
 
 NEWRELIC_WRAP = newrelic.agent.ASGIApplicationWrapper(
-    BUGSNAG_WRAP,
-    framework=('Starlette', '0.13.8')
+    BUGSNAG_WRAP, framework=("Starlette", "0.13.8")
 )
 
 APP = NEWRELIC_WRAP

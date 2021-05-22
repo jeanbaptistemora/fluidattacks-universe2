@@ -1,4 +1,3 @@
-
 import safe_pickle
 from safe_pickle import (
     dump,
@@ -15,4 +14,4 @@ safe_pickle.register_namedtuple(GitRootToeInput)
 safe_pickle.register_namedtuple(GitRootToeLines)
 
 # Exported members
-__all__ = ['dump', 'load']
+__all__ = ["dump", "load"]

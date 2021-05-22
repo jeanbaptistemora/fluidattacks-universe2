@@ -1,4 +1,3 @@
-
 from datetime import datetime
 from typing import Any
 
@@ -12,9 +11,7 @@ from vulnerabilities import domain as vulns_domain
 
 
 async def send_group_treatment_change(
-    context: Any,
-    group_name: str,
-    min_date: datetime
+    context: Any, group_name: str, min_date: datetime
 ) -> None:
     findings = await findings_domain.list_findings(context, [group_name])
     await collect(
@@ -28,9 +25,11 @@ async def send_treatment_change() -> None:
     groups = await groups_domain.get_active_groups()
     min_date = datetime_utils.get_now_minus_delta(days=1)
     await collect(
-        [send_group_treatment_change(context, group_name, min_date)
-         for group_name in groups],
-        workers=20
+        [
+            send_group_treatment_change(context, group_name, min_date)
+            for group_name in groups
+        ],
+        workers=20,
     )
 
 

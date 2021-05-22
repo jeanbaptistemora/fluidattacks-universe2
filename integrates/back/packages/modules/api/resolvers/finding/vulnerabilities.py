@@ -1,4 +1,3 @@
-
 from functools import partial
 from typing import (
     Dict,
@@ -18,33 +17,29 @@ from redis_cluster.operations import redis_get_or_set_entity_attr
 
 
 async def resolve(
-    parent: Finding,
-    info: GraphQLResolveInfo,
-    **kwargs: str
+    parent: Finding, info: GraphQLResolveInfo, **kwargs: str
 ) -> List[Vulnerability]:
     vulnerabilities: List[Vulnerability] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
-        entity='finding',
-        attr='vulnerabilities',
-        id=cast(Dict[str, str], parent)['id'],
+        entity="finding",
+        attr="vulnerabilities",
+        id=cast(Dict[str, str], parent)["id"],
     )
 
-    state: Optional[str] = kwargs.get('state')
+    state: Optional[str] = kwargs.get("state")
     if state:
         vulnerabilities = [
             vulnerability
             for vulnerability in vulnerabilities
-            if vulnerability['current_state'] == state
+            if vulnerability["current_state"] == state
         ]
     return vulnerabilities
 
 
 async def resolve_no_cache(
-    parent: Finding,
-    info: GraphQLResolveInfo,
-    **_kwargs: str
+    parent: Finding, info: GraphQLResolveInfo, **_kwargs: str
 ) -> List[Vulnerability]:
-    finding_id: str = cast(Dict[str, str], parent)['id']
+    finding_id: str = cast(Dict[str, str], parent)["id"]
     finding_vulns_loader: DataLoader = info.context.loaders.finding_vulns_nzr
     vulns: List[Vulnerability] = await finding_vulns_loader.load(finding_id)
     return vulns

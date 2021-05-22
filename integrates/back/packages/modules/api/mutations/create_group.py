@@ -1,4 +1,3 @@
-
 from typing import Any
 
 from ariadne import convert_kwargs_to_snake_case
@@ -30,15 +29,15 @@ async def mutate(  # pylint: disable=too-many-arguments
     description: str,
     organization: str,
     project_name: str,
-    subscription: str = 'continuous',
+    subscription: str = "continuous",
     has_skims: bool = False,
     has_drills: bool = False,
     has_forces: bool = False,
-    language: str = 'en'
+    language: str = "en",
 ) -> SimplePayloadType:
     group_name = project_name
     user_data = await token_utils.get_jwt_content(info.context)
-    user_email = user_data['user_email']
+    user_email = user_data["user_email"]
     user_role = await authz.get_user_level_role(user_email)
 
     success = await groups_domain.create_group(
@@ -60,7 +59,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     if success:
         logs_utils.cloudwatch_log(
             info.context,
-            f'Security: Created group {group_name.lower()} successfully',
+            f"Security: Created group {group_name.lower()} successfully",
         )
 
     return SimplePayloadType(success=success)

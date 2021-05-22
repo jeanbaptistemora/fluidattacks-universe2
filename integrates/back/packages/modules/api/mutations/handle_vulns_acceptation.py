@@ -1,4 +1,3 @@
-
 from typing import List
 
 from ariadne.utils import convert_kwargs_to_snake_case
@@ -31,7 +30,7 @@ async def mutate(
     rejected_vulns: List[str],
 ) -> SimplePayload:
     user_info = await token_utils.get_jwt_content(info.context)
-    email: str = user_info['user_email']
+    email: str = user_info["user_email"]
     success: bool = await handle_vulns_acceptation(
         context=info.context.loaders,
         accepted_vulns=accepted_vulns,
@@ -42,7 +41,7 @@ async def mutate(
     )
     if success:
         redis_del_by_deps_soon(
-            'handle_vulns_acceptation',
+            "handle_vulns_acceptation",
             finding_id=finding_id,
         )
 

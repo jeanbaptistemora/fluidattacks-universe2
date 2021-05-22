@@ -1,4 +1,3 @@
-
 import base64
 import json
 import logging
@@ -38,8 +37,8 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-ALLOWED_CHARS_IN_PARAMS: str = string.ascii_letters + string.digits + '#-'
-ENTITIES = {'group', 'organization', 'portfolio'}
+ALLOWED_CHARS_IN_PARAMS: str = string.ascii_letters + string.digits + "#-"
+ENTITIES = {"group", "organization", "portfolio"}
 TRANSPARENCY_RATIO: float = 0.40
 
 
@@ -49,7 +48,7 @@ def add_watermark(base_image: Image) -> bytes:
     width = max(base_image.width, watermark_width)
     height = max(base_image.height, watermark_height)
 
-    transparent = Image.new('RGB', (width, height), (0, 0, 0, 0))
+    transparent = Image.new("RGB", (width, height), (0, 0, 0, 0))
     transparent.paste(base_image, (0, 0))
     transparent.paste(
         watermark,
@@ -58,7 +57,7 @@ def add_watermark(base_image: Image) -> bytes:
     )
 
     stream: BytesIO = BytesIO()
-    transparent.save(stream, format='png')
+    transparent.save(stream, format="png")
     stream.seek(0)
 
     image_encoded = base64.b64encode(stream.read())
@@ -71,7 +70,7 @@ def clarify(image_path: str) -> Image:
         raise FileNotFoundError(image_path)
 
     watermark = Image.open(image_path)
-    watermark_mask = watermark.convert('L').point(
+    watermark_mask = watermark.convert("L").point(
         lambda x: x * TRANSPARENCY_RATIO
     )
     watermark.putalpha(watermark_mask)
@@ -94,10 +93,10 @@ async def get_document(
             entity=entity,
             subject=subject,
         ),
-        entity='analytics',
-        attr='document',
+        entity="analytics",
+        attr="document",
         ttl=3600,
-        id=f'{document_name}-{document_type}-{entity}-{subject}',
+        id=f"{document_name}-{document_type}-{entity}-{subject}",
     )
 
     return response
@@ -114,7 +113,7 @@ async def get_document_no_cache(
         os.path.join(
             convert_camel_case_to_snake(document_type),
             convert_camel_case_to_snake(document_name),
-            f'{entity}:{safe_encode(subject.lower())}.json',
+            f"{entity}:{safe_encode(subject.lower())}.json",
         )
     )
 
@@ -128,10 +127,10 @@ async def get_graphics_report(
 ) -> bytes:
     response: bytes = await redis_get_or_set_entity_attr(
         partial(get_graphics_report_no_cache, entity=entity, subject=subject),
-        entity='analytics',
-        attr='graphics_report',
+        entity="analytics",
+        attr="graphics_report",
         ttl=3600,
-        id=f'{entity}-{subject}',
+        id=f"{entity}-{subject}",
     )
 
     return response
@@ -143,7 +142,7 @@ async def get_graphics_report_no_cache(
     subject: str,
 ) -> bytes:
     document: bytes = await analytics_dal.get_snapshot(
-        f'reports/{entity}:{safe_encode(subject.lower())}.png',
+        f"reports/{entity}:{safe_encode(subject.lower())}.png",
     )
     base_image: Image = Image.open(BytesIO(document))
 
@@ -160,35 +159,36 @@ async def handle_authz_claims(
     request: Request,
 ) -> None:
     user_info = await token_utils.get_jwt_content(request)
-    email = user_info['user_email']
-    if params.subject.endswith('_30') or params.subject.endswith('_90'):
+    email = user_info["user_email"]
+    if params.subject.endswith("_30") or params.subject.endswith("_90"):
         subject = params.subject[:-3]
     else:
         subject = params.subject
 
-    if params.entity == 'group':
+    if params.entity == "group":
         if not await authz.has_access_to_group(
             email,
             subject.lower(),
         ):
-            raise PermissionError('Access denied')
-    elif params.entity == 'organization':
+            raise PermissionError("Access denied")
+    elif params.entity == "organization":
         if not await orgs_domain.has_user_access(
             email=email,
             organization_id=subject,
         ):
-            raise PermissionError('Access denied')
-    elif params.entity == 'portfolio':
+            raise PermissionError("Access denied")
+    elif params.entity == "portfolio":
         if not await tags_domain.has_user_access(email, subject):
-            raise PermissionError('Access denied')
+            raise PermissionError("Access denied")
     else:
-        raise ValueError(f'Invalid entity: {params.entity}')
+        raise ValueError(f"Invalid entity: {params.entity}")
 
 
 async def handle_graphic_request(request: Request) -> Response:
     try:
-        params: GraphicParameters = \
-            handle_graphic_request_parameters(request=request)
+        params: GraphicParameters = handle_graphic_request_parameters(
+            request=request
+        )
 
         await handle_authz_claims(params=params, request=request)
 
@@ -208,7 +208,7 @@ async def handle_graphic_request(request: Request) -> Response:
         response = templates.graphic_error(request)
     else:
         response = templates.graphic_view(request, document, params)
-        response.headers['x-frame-options'] = 'SAMEORIGIN'
+        response.headers["x-frame-options"] = "SAMEORIGIN"
 
     return response
 
@@ -217,27 +217,27 @@ def handle_graphic_request_parameters(
     *,
     request: Request,
 ) -> GraphicParameters:
-    document_name: str = request.query_params['documentName']
-    document_type: str = request.query_params['documentType']
-    generator_name: str = request.query_params['generatorName']
-    generator_type: str = request.query_params['generatorType']
-    entity: str = request.query_params['entity']
-    height: int = int(request.query_params['height'])
-    subject: str = request.query_params['subject']
-    width: int = int(request.query_params['width'])
+    document_name: str = request.query_params["documentName"]
+    document_type: str = request.query_params["documentType"]
+    generator_name: str = request.query_params["generatorName"]
+    generator_type: str = request.query_params["generatorType"]
+    entity: str = request.query_params["entity"]
+    height: int = int(request.query_params["height"])
+    subject: str = request.query_params["subject"]
+    width: int = int(request.query_params["width"])
 
     for param_name, param_value in [
-        ('documentName', document_name),
-        ('documentType', document_type),
-        ('entity', entity),
-        ('generatorName', generator_name),
-        ('generatorType', generator_type),
-        ('subject', subject),
+        ("documentName", document_name),
+        ("documentType", document_type),
+        ("entity", entity),
+        ("generatorName", generator_name),
+        ("generatorType", generator_type),
+        ("subject", subject),
     ]:
         if set(param_value).issuperset(set(ALLOWED_CHARS_IN_PARAMS)):
             raise ValueError(
-                f'Expected [{ALLOWED_CHARS_IN_PARAMS}] '
-                f'in parameter: {param_name}',
+                f"Expected [{ALLOWED_CHARS_IN_PARAMS}] "
+                f"in parameter: {param_name}",
             )
 
     return GraphicParameters(
@@ -292,12 +292,12 @@ def handle_graphics_for_entity_request_parameters(
     subject: str = request.query_params[entity]
 
     for param_name, param_value in [
-        ('subject', subject),
+        ("subject", subject),
     ]:
         if set(param_value).issuperset(set(ALLOWED_CHARS_IN_PARAMS)):
             raise ValueError(
-                f'Expected [{ALLOWED_CHARS_IN_PARAMS}] '
-                f'in parameter: {param_name}',
+                f"Expected [{ALLOWED_CHARS_IN_PARAMS}] "
+                f"in parameter: {param_name}",
             )
 
     return GraphicsForEntityParameters(
@@ -334,7 +334,7 @@ async def handle_graphics_report_request(
         LOGGER.exception(ex, extra=dict(extra=locals()))
         response = templates.graphic_error(request)
     else:
-        response = Response(report, media_type='image/png')
+        response = Response(report, media_type="image/png")
 
     return response
 
@@ -343,7 +343,7 @@ def handle_graphics_report_request_parameters(
     *,
     request: Request,
 ) -> ReportParameters:
-    entity: str = request.query_params['entity']
+    entity: str = request.query_params["entity"]
 
     if entity not in ENTITIES:
         raise ValueError(
@@ -354,12 +354,12 @@ def handle_graphics_report_request_parameters(
     subject: str = request.query_params[entity]
 
     for param_name, param_value in [
-        ('subject', subject),
+        ("subject", subject),
     ]:
         if set(param_value).issuperset(set(ALLOWED_CHARS_IN_PARAMS)):
             raise ValueError(
-                f'Expected [{ALLOWED_CHARS_IN_PARAMS}] '
-                f'in parameter: {param_name}',
+                f"Expected [{ALLOWED_CHARS_IN_PARAMS}] "
+                f"in parameter: {param_name}",
             )
 
     return ReportParameters(

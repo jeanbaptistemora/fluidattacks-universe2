@@ -1,4 +1,3 @@
-
 import logging
 import logging.config
 import sys
@@ -20,16 +19,14 @@ class ConditionalCheckFailedException(Exception):
 
 class UnavailabilityError(Exception):
     def __init__(self) -> None:
-        msg = 'Service unavalible, please retry'
+        msg = "Service unavalible, please retry"
         super(UnavailabilityError, self).__init__(msg)
 
 
 def handle_error(*, error: ClientError) -> None:
-    code: str = error.response['Error']['Code']
+    code: str = error.response["Error"]["Code"]
     custom_exception: Optional[Exception] = getattr(
-        sys.modules[__name__],
-        code,
-        None
+        sys.modules[__name__], code, None
     )
 
     if custom_exception:

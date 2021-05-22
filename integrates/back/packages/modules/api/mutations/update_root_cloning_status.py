@@ -1,4 +1,3 @@
-
 from typing import Any
 
 from ariadne.utils import convert_kwargs_to_snake_case
@@ -25,10 +24,10 @@ async def mutate(
 ) -> SimplePayload:
 
     await roots_domain.update_root_cloning_status(
-        kwargs['group_name'],
-        kwargs['id'],
-        kwargs['status'],
-        kwargs['message'],
+        kwargs["group_name"],
+        kwargs["id"],
+        kwargs["status"],
+        kwargs["message"],
     )
 
     return SimplePayload(success=True)

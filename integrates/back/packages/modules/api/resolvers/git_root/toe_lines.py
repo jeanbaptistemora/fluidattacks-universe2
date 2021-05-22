@@ -1,4 +1,3 @@
-
 from functools import partial
 from typing import Tuple
 
@@ -17,25 +16,21 @@ CACHE_TTL = 60 * 30
 
 @enforce_group_level_auth_async
 async def resolve(
-    parent: GitRoot,
-    info: GraphQLResolveInfo,
-    **kwargs: None
+    parent: GitRoot, info: GraphQLResolveInfo, **kwargs: None
 ) -> Tuple[GitRootToeLines, ...]:
     response: Tuple[GitRootToeLines, ...] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
-        entity='root',
-        attr='toe_lines',
+        entity="root",
+        attr="toe_lines",
         ttl=CACHE_TTL,
         group=parent.group_name,
-        id=parent.id
+        id=parent.id,
     )
     return response
 
 
 async def resolve_no_cache(
-    parent: GitRoot,
-    info: GraphQLResolveInfo,
-    **_kwargs: None
+    parent: GitRoot, info: GraphQLResolveInfo, **_kwargs: None
 ) -> Tuple[GitRootToeLines, ...]:
     group_name = parent.group_name
     root_id = parent.id

@@ -1,4 +1,3 @@
-
 import os
 import subprocess
 import tempfile
@@ -25,12 +24,12 @@ async def _append_evidences(
     group: str,
 ) -> None:
     target_folders: Dict[str, str] = {
-        '': 'evidences',
-        '.csv': 'compromised-records',
-        '.gif': 'evidences',
-        '.jpg': 'evidences',
-        '.png': 'evidences',
-        '.txt': 'compromised-records',
+        "": "evidences",
+        ".csv": "compromised-records",
+        ".gif": "evidences",
+        ".jpg": "evidences",
+        ".png": "evidences",
+        ".txt": "compromised-records",
     }
 
     # Walk everything under the S3 evidences bucket and save relevant info
@@ -61,12 +60,12 @@ async def _append_pdf_report(
         description=group_description,
         findings_ord=findings_ord,
         group_name=group,
-        lang='en',
+        lang="en",
         passphrase=passphrase,
         user_email=requester_email,
     )
-    with open(os.path.join(directory, 'report.pdf'), mode='wb') as file:
-        with open(report_filename, 'rb') as report:
+    with open(os.path.join(directory, "report.pdf"), mode="wb") as file:
+        with open(report_filename, "rb") as report:
             file.write(report.read())
 
 
@@ -83,8 +82,8 @@ async def _append_xls_report(
         group_name=group_name,
         passphrase=passphrase,
     )
-    with open(os.path.join(directory, 'report.xls'), mode='wb') as file:
-        with open(report_filename, 'rb') as report:
+    with open(os.path.join(directory, "report.xls"), mode="wb") as file:
+        with open(report_filename, "rb") as report:
             file.write(report.read())
 
 
@@ -94,25 +93,31 @@ def _encrypted_zip_file(
     source_contents: List[str],
 ) -> str:
     # This value must be sanitized because it needs to be passed as OS command
-    if not all(word.isalpha() for word in passphrase.split(' ')):
+    if not all(word.isalpha() for word in passphrase.split(" ")):
         raise ValueError(
-            f'Expected words separated by spaces as passphrase: {passphrase}'
+            f"Expected words separated by spaces as passphrase: {passphrase}"
         )
 
     # If there are no source contents the current working directory is assumed
     #   by default.
     # We don't want to leave the sandbox at any point
     if not source_contents:
-        raise RuntimeError('Nothing to pack into the final file')
+        raise RuntimeError("Nothing to pack into the final file")
 
     # Impossible to predict with this uuid4
     with tempfile.NamedTemporaryFile() as temp_file:
-        target = temp_file.name + f'_{uuid4()}.7z'
+        target = temp_file.name + f"_{uuid4()}.7z"
 
     subprocess.run(
         [
-            '7z', 'a', f'-p{passphrase}', '-mhe', '-t7z',
-            '--', target, *source_contents
+            "7z",
+            "a",
+            f"-p{passphrase}",
+            "-mhe",
+            "-t7z",
+            "--",
+            target,
+            *source_contents,
         ],
         check=True,
     )
@@ -124,9 +129,11 @@ def _get_directory_contents(directory: str) -> List[str]:
         absolute
         for relative in os.listdir(directory)
         for absolute in [os.path.join(directory, relative)]
-        if (os.path.isfile(absolute) or
-            os.path.isdir(absolute) and
-            os.listdir(absolute))
+        if (
+            os.path.isfile(absolute)
+            or os.path.isdir(absolute)
+            and os.listdir(absolute)
+        )
     ]
 
 

@@ -1,4 +1,3 @@
-
 from typing import (
     Dict,
     Tuple,
@@ -13,15 +12,10 @@ from dynamodb.types import (
 
 
 def get_metadata(
-    *,
-    item_id: str,
-    key_structure: PrimaryKey,
-    raw_items: Tuple[Item, ...]
+    *, item_id: str, key_structure: PrimaryKey, raw_items: Tuple[Item, ...]
 ) -> Item:
     return next(
-        item
-        for item in raw_items
-        if item[key_structure.sort_key] == item_id
+        item for item in raw_items if item[key_structure.sort_key] == item_id
     )
 
 
@@ -30,9 +24,9 @@ def get_latest(
     item_id: str,
     key_structure: PrimaryKey,
     historic_prefix: str,
-    raw_items: Tuple[Item, ...]
+    raw_items: Tuple[Item, ...],
 ) -> Item:
-    historic_sort_key = f'{item_id}#{historic_prefix}'
+    historic_sort_key = f"{item_id}#{historic_prefix}"
 
     return next(
         item
@@ -47,20 +41,20 @@ def build_historic(
     historic_facet: Facet,
     key_structure: PrimaryKey,
     key_values: Dict[str, str],
-    latest_facet: Facet
+    latest_facet: Facet,
 ) -> Tuple[Item, Item]:
     latest_key = keys.build_key(facet=latest_facet, values=key_values)
     latest = {
         key_structure.partition_key: latest_key.partition_key,
         key_structure.sort_key: latest_key.sort_key,
-        **attributes
+        **attributes,
     }
 
     historic_key = keys.build_key(facet=historic_facet, values=key_values)
     historic = {
         key_structure.partition_key: historic_key.partition_key,
         key_structure.sort_key: historic_key.sort_key,
-        **attributes
+        **attributes,
     }
 
     return (latest, historic)

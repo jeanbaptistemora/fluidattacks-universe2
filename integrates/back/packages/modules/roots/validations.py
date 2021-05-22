@@ -1,4 +1,3 @@
-
 import os
 from ipaddress import ip_address
 from typing import (
@@ -35,11 +34,11 @@ def is_exclude_valid(exclude_patterns: List[str], url: str) -> bool:
     url_obj = urlparse(url)
     url_path = unquote_plus(url_obj.path)
     repo_name = os.path.basename(url_path)
-    if repo_name.endswith('.git'):
+    if repo_name.endswith(".git"):
         repo_name = repo_name[0:-4]
 
     for pattern in exclude_patterns:
-        pattern_as_list: List[str] = pattern.lower().split('/')
+        pattern_as_list: List[str] = pattern.lower().split("/")
         if (
             repo_name in pattern_as_list
             and pattern_as_list.index(repo_name) == 0
@@ -56,36 +55,28 @@ def is_valid_url(url: str) -> bool:
 
 def is_valid_git_branch(branch_name: str) -> bool:
     try:
-        Git().check_ref_format('--branch', branch_name)
+        Git().check_ref_format("--branch", branch_name)
         return True
     except GitCommandError:
         return False
 
 
 def validate_nickname_is_unique(
-    nickname: str,
-    roots: Tuple[RootItem, ...],
-    old_nickname: str = ''
+    nickname: str, roots: Tuple[RootItem, ...], old_nickname: str = ""
 ) -> None:
-    if (nickname != old_nickname and nickname in {
+    if nickname != old_nickname and nickname in {
         root.state.nickname
         for root in roots
-        if isinstance(root, GitRootItem)
-        and root.state.status == 'ACTIVE'
-    }):
+        if isinstance(root, GitRootItem) and root.state.status == "ACTIVE"
+    }:
         raise RepeatedRootNickname()
 
 
-def is_git_unique(
-    url: str,
-    branch: str,
-    roots: Tuple[RootItem, ...]
-) -> bool:
+def is_git_unique(url: str, branch: str, roots: Tuple[RootItem, ...]) -> bool:
     return (url, branch) not in tuple(
         (root.metadata.url, root.metadata.branch)
         for root in roots
-        if isinstance(root, GitRootItem)
-        and root.state.status == 'ACTIVE'
+        if isinstance(root, GitRootItem) and root.state.status == "ACTIVE"
     )
 
 
@@ -97,39 +88,29 @@ def is_valid_ip(address: str) -> bool:
         return False
 
 
-def is_ip_unique(
-    address: str,
-    port: str,
-    roots: Tuple[RootItem, ...]
-) -> bool:
+def is_ip_unique(address: str, port: str, roots: Tuple[RootItem, ...]) -> bool:
     return (address, port) not in tuple(
         (root.metadata.address, root.metadata.port)
         for root in roots
-        if isinstance(root, IPRootItem)
-        and root.state.status == 'ACTIVE'
+        if isinstance(root, IPRootItem) and root.state.status == "ACTIVE"
     )
 
 
 def is_url_unique(
-    host: str,
-    path: str,
-    port: str,
-    protocol: str,
-    roots: Tuple[RootItem, ...]
+    host: str, path: str, port: str, protocol: str, roots: Tuple[RootItem, ...]
 ) -> bool:
     return (host, path, port, protocol) not in tuple(
         (
             root.metadata.host,
             root.metadata.path,
             root.metadata.port,
-            root.metadata.protocol
+            root.metadata.protocol,
         )
         for root in roots
-        if isinstance(root, URLRootItem)
-        and root.state.status == 'ACTIVE'
+        if isinstance(root, URLRootItem) and root.state.status == "ACTIVE"
     )
 
 
 def validate_nickname(nickname: str) -> None:
-    if '/' in nickname:
+    if "/" in nickname:
         raise InvalidChar()

@@ -1,4 +1,3 @@
-
 import html
 from typing import (
     Dict,
@@ -25,9 +24,9 @@ from users import domain as users_domain
 
 
 async def _get_recipient_first_name_async(email: str) -> str:
-    first_name = await users_domain.get_data(email, 'first_name')
+    first_name = await users_domain.get_data(email, "first_name")
     if not first_name:
-        first_name = email.split('@')[0]
+        first_name = email.split("@")[0]
     else:
         # First name exists in database
         pass
@@ -35,14 +34,11 @@ async def _get_recipient_first_name_async(email: str) -> str:
 
 
 async def cancel_health_check(
-    requester_email: str,
-    group_name: str,
-    repo_url: str,
-    branch: str
+    requester_email: str, group_name: str, repo_url: str, branch: str
 ) -> None:
     await in_thread(
         notifications_dal.create_ticket,
-        subject=f'[Integrates] Health Check canceled: {group_name}',
+        subject=f"[Integrates] Health Check canceled: {group_name}",
         description=f"""
             You are receiving this email because you have canceled a health
             check for a repository through Integrates by Fluid Attacks.
@@ -68,7 +64,7 @@ async def delete_group(
         bool,
         await in_thread(
             notifications_dal.create_ticket,
-            subject=f'[Integrates] Group deleted: {group_name}',
+            subject=f"[Integrates] Group deleted: {group_name}",
             description=f"""
                 You are receiving this email because you have deleted a group
                 through Integrates by Fluid Attacks.
@@ -81,7 +77,7 @@ async def delete_group(
                 do not hesitate to contact us.
             """,
             requester_email=requester_email,
-        )
+        ),
     )
 
 
@@ -102,17 +98,17 @@ async def edit_group(
     subscription: str,
 ) -> bool:
     translations: Dict[Union[str, bool], str] = {
-        'continuous': 'Continuous Hacking',
-        'oneshot': 'One-Shot Hacking',
-        True: 'Active',
-        False: 'Inactive',
+        "continuous": "Continuous Hacking",
+        "oneshot": "One-Shot Hacking",
+        True: "Active",
+        False: "Inactive",
     }
 
     return cast(
         bool,
         await in_thread(
             notifications_dal.create_ticket,
-            subject=f'[Integrates] Group edited: {group_name}',
+            subject=f"[Integrates] Group edited: {group_name}",
             description=f"""
                 You are receiving this email because you have edited a group
                 through Integrates by Fluid Attacks.
@@ -139,7 +135,7 @@ async def edit_group(
                 do not hesitate to contact us.
             """,
             requester_email=requester_email,
-        )
+        ),
     )
 
 
@@ -153,17 +149,17 @@ async def new_group(
     subscription: str,
 ) -> bool:
     translations: Dict[Union[str, bool], str] = {
-        'continuous': 'Continuous Hacking',
-        'oneshot': 'One-Shot Hacking',
-        True: 'Active',
-        False: 'Inactive',
+        "continuous": "Continuous Hacking",
+        "oneshot": "One-Shot Hacking",
+        True: "Active",
+        False: "Inactive",
     }
 
     return cast(
         bool,
         await in_thread(
             notifications_dal.create_ticket,
-            subject=f'[Integrates] Group created: {group_name}',
+            subject=f"[Integrates] Group created: {group_name}",
             description=f"""
                 You are receiving this email because you have created a group
                 through Integrates by Fluid Attacks.
@@ -179,7 +175,7 @@ async def new_group(
                 do not hesitate to contact us.
             """,
             requester_email=requester_email,
-        )
+        ),
     )
 
 
@@ -188,42 +184,39 @@ async def new_password_protected_report(
     project_name: str,
     passphrase: str,
     file_type: str,
-    file_link: str = '',
+    file_link: str = "",
 ) -> None:
     today = datetime_utils.get_now()
     fname = await _get_recipient_first_name_async(user_email)
-    subject = f'{file_type} Report for [{project_name}]'
-    await collect((
-        send_push_notification(
-            user_email,
-            f'{file_type} report passphrase',
-            passphrase
-        ),
-        groups_mail.send_mail_group_report(
-            [user_email],
-            {
-                'filetype': file_type,
-                'fname': fname,
-                'date': datetime_utils.get_as_str(today, '%Y-%m-%d'),
-                'year': datetime_utils.get_as_str(today, '%Y'),
-                'time': datetime_utils.get_as_str(today, '%H:%M'),
-                'projectname': project_name,
-                'subject': subject,
-                'filelink': file_link
-            }
+    subject = f"{file_type} Report for [{project_name}]"
+    await collect(
+        (
+            send_push_notification(
+                user_email, f"{file_type} report passphrase", passphrase
+            ),
+            groups_mail.send_mail_group_report(
+                [user_email],
+                {
+                    "filetype": file_type,
+                    "fname": fname,
+                    "date": datetime_utils.get_as_str(today, "%Y-%m-%d"),
+                    "year": datetime_utils.get_as_str(today, "%Y"),
+                    "time": datetime_utils.get_as_str(today, "%H:%M"),
+                    "projectname": project_name,
+                    "subject": subject,
+                    "filelink": file_link,
+                },
+            ),
         )
-    ))
+    )
 
 
 async def request_health_check(
-    requester_email: str,
-    group_name: str,
-    repo_url: str,
-    branch: str
+    requester_email: str, group_name: str, repo_url: str, branch: str
 ) -> None:
     await in_thread(
         notifications_dal.create_ticket,
-        subject=f'[Integrates] Health Check requested: {group_name}',
+        subject=f"[Integrates] Health Check requested: {group_name}",
         description=f"""
             You are receiving this email because you have requested a health
             check for a repository through Integrates by Fluid Attacks.
@@ -243,18 +236,18 @@ async def request_zero_risk_vuln(
     info: GraphQLResolveInfo,
     finding_id: str,
     justification: str,
-    requester_email: str
+    requester_email: str,
 ) -> bool:
     finding_loader: DataLoader = info.context.loaders.finding
     finding: Dict[str, FindingType] = await finding_loader.load(finding_id)
-    group_name = cast(str, finding.get('project_name', ''))
+    group_name = cast(str, finding.get("project_name", ""))
     org_id = await orgs_domain.get_id_for_group(group_name)
     org_name = await orgs_domain.get_name_by_id(org_id)
-    finding_title = cast(str, finding.get('title', ''))
-    finding_type = cast(str, finding.get('type', ''))
+    finding_title = cast(str, finding.get("title", ""))
+    finding_type = cast(str, finding.get("type", ""))
     finding_url = (
-        f'{BASE_URL}/orgs/{org_name}/groups/{group_name}/vulns/'
-        f'{finding_id}/locations'
+        f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/vulns/"
+        f"{finding_id}/locations"
     )
     description = f"""
         You are receiving this case because a zero risk vulnerability has been
@@ -277,25 +270,25 @@ async def request_zero_risk_vuln(
         bool,
         await in_thread(
             notifications_dal.create_ticket,
-            subject='[Integrates] Requested zero risk vulnerabilities',
+            subject="[Integrates] Requested zero risk vulnerabilities",
             description=description,
             requester_email=requester_email,
-        )
+        ),
     )
 
 
 async def send_push_notification(
-    user_email: str,
-    title: str,
-    message: str
+    user_email: str, title: str, message: str
 ) -> None:
     user_attrs: dict = await users_domain.get_attributes(
-        user_email, ['push_tokens'])
-    tokens: List[str] = user_attrs.get('push_tokens', [])
+        user_email, ["push_tokens"]
+    )
+    tokens: List[str] = user_attrs.get("push_tokens", [])
 
     for token in tokens:
         try:
             notifications_dal.send_push_notification(
-                user_email, token, title, message)
+                user_email, token, title, message
+            )
         except DeviceNotRegisteredError:
             await users_domain.remove_push_token(user_email, token)

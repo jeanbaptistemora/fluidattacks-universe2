@@ -1,5 +1,4 @@
-
 from ariadne import ObjectType
 
 
-FINDING_POLICY: ObjectType = ObjectType('FindingPolicy')
+FINDING_POLICY: ObjectType = ObjectType("FindingPolicy")

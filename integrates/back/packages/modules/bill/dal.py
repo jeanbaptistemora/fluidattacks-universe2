@@ -1,4 +1,3 @@
-
 import io
 import logging
 import logging.config
@@ -19,13 +18,13 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def get_bill_buffer(*, date: datetime, group: str) -> io.BytesIO:
-    year: str = date.strftime('%Y')
-    month: str = date.strftime('%m')
+    year: str = date.strftime("%Y")
+    month: str = date.strftime("%m")
     # The day is also available after 2019-09 in case it's needed
 
     buffer = io.BytesIO()
 
-    key: str = os.path.join('bills', year, month, f'{group}.csv')
+    key: str = os.path.join("bills", year, month, f"{group}.csv")
 
     try:
         async with aio_client() as client:

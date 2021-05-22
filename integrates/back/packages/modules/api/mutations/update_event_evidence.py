@@ -1,4 +1,3 @@
-
 # None
 
 
@@ -28,7 +27,7 @@ async def mutate(
     info: GraphQLResolveInfo,
     event_id: str,
     evidence_type: str,
-    file: UploadFile
+    file: UploadFile,
 ) -> SimplePayload:
     success = False
     if await events_domain.validate_evidence(evidence_type, file):

@@ -1,4 +1,3 @@
-
 from typing import (
     List,
     cast,
@@ -28,15 +27,13 @@ from decorators import (
     require_integrates,
 )
 async def resolve(
-    _parent: None,
-    info: GraphQLResolveInfo,
-    **kwargs: str
+    _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Resources:
-    group_name: str = kwargs['project_name'].lower()
+    group_name: str = kwargs["project_name"].lower()
     group_loader: DataLoader = info.context.loaders.group
     group: Group = await group_loader.load(group_name)
 
     return {
-        'files': cast(List[Resource], group.get('files', [])),
-        'project_name': group_name,
+        "files": cast(List[Resource], group.get("files", [])),
+        "project_name": group_name,
     }

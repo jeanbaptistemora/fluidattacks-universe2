@@ -24,21 +24,19 @@ from toe.lines import domain as toe_lines_domain
 
 
 @convert_kwargs_to_snake_case
-@concurrent_decorators(
-    require_login,
-    require_integrates
-)
+@concurrent_decorators(require_login, require_integrates)
 async def mutate(
     _: Any,
     info: GraphQLResolveInfo,
     group_name: str,
     filename: str,
-    sorts_risk_level: float
+    sorts_risk_level: float,
 ) -> SimplePayloadType:
     success = False
     group_toe_lines_loader = info.context.loaders.group_toe_lines
-    group_toes: Set[GitRootToeLines] = \
-        await group_toe_lines_loader.load(group_name)
+    group_toes: Set[GitRootToeLines] = await group_toe_lines_loader.load(
+        group_name
+    )
 
     # Rare, but we can have the same filename in different roots.
     # That's why this set
@@ -51,29 +49,28 @@ async def mutate(
             root_ids.add(toe.root_id)
 
     if group_toes_to_update:
-        await collect([
-            toe_lines_domain.update(toe)
-            for toe in group_toes_to_update
-        ])
+        await collect(
+            [toe_lines_domain.update(toe) for toe in group_toes_to_update]
+        )
         success = True
-        await collect([
-            redis_del_by_deps(
-                'update_toe_lines_sorts',
-                group=group_name,
-                root_id=root_id
-            )
-            for root_id in root_ids
-        ])
+        await collect(
+            [
+                redis_del_by_deps(
+                    "update_toe_lines_sorts", group=group_name, root_id=root_id
+                )
+                for root_id in root_ids
+            ]
+        )
         logs_utils.cloudwatch_log(
             info.context,
-            f'Security: Successfully updated sorts risk level '
-            f'for group {group_name} in toes with filename {filename}',
+            f"Security: Successfully updated sorts risk level "
+            f"for group {group_name} in toes with filename {filename}",
         )
     else:
         logs_utils.cloudwatch_log(
             info.context,
-            f'Security: Tried to update sorts risk level '
-            f'for group {group_name} in toes with filename {filename}',
+            f"Security: Tried to update sorts risk level "
+            f"for group {group_name} in toes with filename {filename}",
         )
 
     return SimplePayloadType(success=success)

@@ -1,4 +1,3 @@
-
 # None
 
 
@@ -13,14 +12,9 @@ from decorators import (
 from names import domain as names_domain
 
 
-@concurrent_decorators(
-    require_login,
-    enforce_user_level_auth_async
-)
+@concurrent_decorators(require_login, enforce_user_level_auth_async)
 async def resolve(
-    _parent: None,
-    _info: GraphQLResolveInfo,
-    **kwargs: str
+    _parent: None, _info: GraphQLResolveInfo, **kwargs: str
 ) -> InternalName:
-    entity: str = kwargs['entity']
-    return {'name': await names_domain.get_name(entity.lower())}
+    entity: str = kwargs["entity"]
+    return {"name": await names_domain.get_name(entity.lower())}

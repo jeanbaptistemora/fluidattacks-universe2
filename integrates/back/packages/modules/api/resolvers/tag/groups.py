@@ -1,4 +1,3 @@
-
 from typing import (
     List,
     cast,
@@ -14,11 +13,9 @@ from custom_types import (
 
 
 async def resolve(
-    parent: Tag,
-    info: GraphQLResolveInfo,
-    **_kwargs: None
+    parent: Tag, info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[Group]:
-    group_names: str = cast(str, parent['projects'])
+    group_names: str = cast(str, parent["projects"])
     group_loader: DataLoader = info.context.loaders.group
     groups: List[Group] = await group_loader.load_many(group_names)
 

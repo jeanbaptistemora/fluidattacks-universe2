@@ -1,5 +1,4 @@
-
 from ariadne import ObjectType
 
 
-TOEINPUTS = ObjectType('ToeInputs')
+TOEINPUTS = ObjectType("ToeInputs")

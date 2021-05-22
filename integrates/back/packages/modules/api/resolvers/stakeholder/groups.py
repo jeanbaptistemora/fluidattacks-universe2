@@ -1,4 +1,3 @@
-
 from typing import (
     List,
     cast,
@@ -16,15 +15,15 @@ from groups import domain as groups_domain
 
 
 async def resolve(
-    parent: Stakeholder,
-    info: GraphQLResolveInfo,
-    **_kwargs: None
+    parent: Stakeholder, info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[Group]:
-    email: str = cast(str, parent['email'])
-    active, inactive = await collect([
-        groups_domain.get_groups_by_user(email),
-        groups_domain.get_groups_by_user(email, active=False)
-    ])
+    email: str = cast(str, parent["email"])
+    active, inactive = await collect(
+        [
+            groups_domain.get_groups_by_user(email),
+            groups_domain.get_groups_by_user(email, active=False),
+        ]
+    )
     user_groups: List[str] = active + inactive
 
     group_loader: DataLoader = info.context.loaders.group

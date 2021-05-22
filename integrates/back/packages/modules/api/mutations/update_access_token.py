@@ -1,4 +1,3 @@
-
 from typing import Any
 
 from ariadne import convert_kwargs_to_snake_case
@@ -19,34 +18,31 @@ from users import domain as users_domain
 @convert_kwargs_to_snake_case
 @require_login
 async def mutate(
-    _: Any,
-    info: GraphQLResolveInfo,
-    expiration_time: int
+    _: Any, info: GraphQLResolveInfo, expiration_time: int
 ) -> UpdateAccessTokenPayloadType:
     user_info = await token_utils.get_jwt_content(info.context)
-    email = user_info['user_email']
+    email = user_info["user_email"]
     try:
         result = await users_domain.update_access_token(
             email,
             expiration_time,
-            first_name=user_info['first_name'],
-            last_name=user_info['last_name']
+            first_name=user_info["first_name"],
+            last_name=user_info["last_name"],
         )
         if result.success:
             logs_utils.cloudwatch_log(
-                info.context,
-                f'{user_info["user_email"]} update access token'
+                info.context, f'{user_info["user_email"]} update access token'
             )
         else:
             logs_utils.cloudwatch_log(
                 info.context,
-                f'{user_info["user_email"]} attempted to update access token'
+                f'{user_info["user_email"]} attempted to update access token',
             )
         return result
     except InvalidExpirationTime as exception:
         logs_utils.cloudwatch_log(
             info.context,
             f'{user_info["user_email"]} attempted to use expiration time '
-            f'greater than six months or minor than current time'
+            f"greater than six months or minor than current time",
         )
         raise exception

@@ -1,4 +1,3 @@
-
 # None
 
 
@@ -23,17 +22,13 @@ from newutils import logs as logs_utils
     require_integrates,
 )
 async def mutate(
-    _parent: None,
-    info: GraphQLResolveInfo,
-    event_id: str,
-    evidence_type: str
+    _parent: None, info: GraphQLResolveInfo, event_id: str, evidence_type: str
 ) -> SimplePayload:
     """Resolve remove_event_evidence mutation."""
     success = await events_domain.remove_evidence(evidence_type, event_id)
     if success:
         info.context.loaders.event.clear(event_id)
         logs_utils.cloudwatch_log(
-            info.context,
-            f'Security: Removed evidence in event {event_id}'
+            info.context, f"Security: Removed evidence in event {event_id}"
         )
     return SimplePayload(success=success)

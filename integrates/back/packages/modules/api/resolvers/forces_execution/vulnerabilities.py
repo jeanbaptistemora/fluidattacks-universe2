@@ -1,4 +1,3 @@
-
 from typing import cast
 
 from graphql.type.definition import GraphQLResolveInfo
@@ -11,18 +10,15 @@ from forces import domain as forces_domain
 
 
 async def resolve(
-    parent: ForcesExecution,
-    _info: GraphQLResolveInfo,
-    **_kwargs: None
+    parent: ForcesExecution, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> ExecutionVulnerabilities:
-    group_name: str = cast(str, parent['project_name'])
-    execution_id: str = cast(str, parent['execution_id'])
+    group_name: str = cast(str, parent["project_name"])
+    execution_id: str = cast(str, parent["execution_id"])
     vulnerabilities: ExecutionVulnerabilities = cast(
-        ExecutionVulnerabilities,
-        parent.get('vulnerabilities', {})
+        ExecutionVulnerabilities, parent.get("vulnerabilities", {})
     )
 
     return {
         **vulnerabilities,
-        **await forces_domain.get_vulns_execution(group_name, execution_id)
+        **await forces_domain.get_vulns_execution(group_name, execution_id),
     }

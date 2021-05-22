@@ -1,4 +1,3 @@
-
 from typing import Any
 
 from ariadne import convert_kwargs_to_snake_case
@@ -15,7 +14,7 @@ async def mutate(
     info: GraphQLResolveInfo,
 ) -> SimplePayloadType:
     user_info = await token_utils.get_jwt_content(info.context)
-    user_email = user_info['user_email']
+    user_email = user_info["user_email"]
     success = await users_domain.acknowledge_concurrent_session(user_email)
 
     return SimplePayloadType(success=success)

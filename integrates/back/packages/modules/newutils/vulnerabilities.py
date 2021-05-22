@@ -1,4 +1,3 @@
-
 import html
 import itertools
 import logging
@@ -44,28 +43,31 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-Treatments = NamedTuple('Treatments', [
-    ('ACCEPTED', int),
-    ('ACCEPTED_UNDEFINED', int),
-    ('IN_PROGRESS', int),
-    ('NEW', int),
-])
+Treatments = NamedTuple(
+    "Treatments",
+    [
+        ("ACCEPTED", int),
+        ("ACCEPTED_UNDEFINED", int),
+        ("IN_PROGRESS", int),
+        ("NEW", int),
+    ],
+)
 
 
 def as_range(iterable: Iterable[Any]) -> str:
     """Convert range into string."""
     my_list = list(iterable)
-    range_value = ''
+    range_value = ""
     if len(my_list) > 1:
-        range_value = f'{my_list[0]}-{my_list[-1]}'
+        range_value = f"{my_list[0]}-{my_list[-1]}"
     else:
-        range_value = f'{my_list[0]}'
+        range_value = f"{my_list[0]}"
     return range_value
 
 
 def filter_deleted_status(vuln: Dict[str, FindingType]) -> bool:
-    historic_state = cast(List[Dict[str, str]], vuln['historic_state'])
-    if historic_state[-1].get('state') == 'DELETED':
+    historic_state = cast(List[Dict[str, str]], vuln["historic_state"])
+    if historic_state[-1].get("state") == "DELETED":
         return False
     return True
 
@@ -76,10 +78,10 @@ def filter_non_confirmed_zero_risk(
     return [
         vulnerability
         for vulnerability in vulnerabilities
-        if cast(
-            HistoricType,
-            vulnerability.get('historic_zero_risk', [{}])
-        )[-1].get('status', '') != 'CONFIRMED'
+        if cast(HistoricType, vulnerability.get("historic_zero_risk", [{}]))[
+            -1
+        ].get("status", "")
+        != "CONFIRMED"
     ]
 
 
@@ -89,10 +91,10 @@ def filter_non_requested_zero_risk(
     return [
         vulnerability
         for vulnerability in vulnerabilities
-        if cast(
-            HistoricType,
-            vulnerability.get('historic_zero_risk', [{}])
-        )[-1].get('status', '') != 'REQUESTED'
+        if cast(HistoricType, vulnerability.get("historic_zero_risk", [{}]))[
+            -1
+        ].get("status", "")
+        != "REQUESTED"
     ]
 
 
@@ -102,19 +104,18 @@ def filter_open_vulns(
     open_vulns = [
         vuln
         for vuln in vulnerabilities
-        if cast(
-            HistoricType,
-            vuln.get('historic_state', [{}])
-        )[-1].get('state') == 'open'
+        if cast(HistoricType, vuln.get("historic_state", [{}]))[-1].get(
+            "state"
+        )
+        == "open"
     ]
     return open_vulns
 
 
 def format_data(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
-    vuln['current_state'] = cast(
-        List[Dict[str, str]],
-        vuln.get('historic_state', [{}])
-    )[-1].get('state')
+    vuln["current_state"] = cast(
+        List[Dict[str, str]], vuln.get("historic_state", [{}])
+    )[-1].get("state")
     return vuln
 
 
@@ -123,55 +124,51 @@ def format_vulnerabilities(
 ) -> Dict[str, List[FindingType]]:
     """Format vulnerabilitites."""
     finding: Dict[str, List[FindingType]] = {
-        'ports': [],
-        'lines': [],
-        'inputs': []
+        "ports": [],
+        "lines": [],
+        "inputs": [],
     }
-    vulns_types = ['ports', 'lines', 'inputs']
+    vulns_types = ["ports", "lines", "inputs"]
     vuln_values = {
-        'ports': {
-            'where': 'host',
-            'specific': 'port',
+        "ports": {
+            "where": "host",
+            "specific": "port",
         },
-        'lines': {
-            'where': 'path',
-            'specific': 'line'
-        },
-        'inputs': {
-            'where': 'url',
-            'specific': 'field'
-        }
+        "lines": {"where": "path", "specific": "line"},
+        "inputs": {"where": "url", "specific": "field"},
     }
     for vuln in vulnerabilities:
         all_states = cast(
-            List[Dict[str, FindingType]],
-            vuln.get('historic_state')
+            List[Dict[str, FindingType]], vuln.get("historic_state")
         )
-        current_state = all_states[-1].get('state')
-        vuln_type = str(vuln.get('vuln_type', ''))
+        current_state = all_states[-1].get("state")
+        vuln_type = str(vuln.get("vuln_type", ""))
         if vuln_type in vulns_types:
-            finding[vuln_type].append({
-                vuln_values[vuln_type]['where']: (
-                    html.parser.HTMLParser().unescape(  # type: ignore
-                        vuln.get('where')
-                    )
-                ),
-                vuln_values[vuln_type]['specific']: (
-                    html.parser.HTMLParser().unescape(  # type: ignore
-                        vuln.get('specific')
-                    )
-                ),
-                'state': str(current_state)
-            })
+            finding[vuln_type].append(
+                {
+                    vuln_values[vuln_type]["where"]: (
+                        html.parser.HTMLParser().unescape(  # type: ignore
+                            vuln.get("where")
+                        )
+                    ),
+                    vuln_values[vuln_type]["specific"]: (
+                        html.parser.HTMLParser().unescape(  # type: ignore
+                            vuln.get("specific")
+                        )
+                    ),
+                    "state": str(current_state),
+                }
+            )
         else:
             LOGGER.error(
-                'Vulnerability does not have the right type',
+                "Vulnerability does not have the right type",
                 extra={
-                    'extra': {
-                        'vuln_uuid': vuln.get("UUID"),
-                        'finding_id': vuln.get("finding_id")
+                    "extra": {
+                        "vuln_uuid": vuln.get("UUID"),
+                        "finding_id": vuln.get("finding_id"),
                     }
-                })
+                },
+            )
     return finding
 
 
@@ -182,21 +179,19 @@ def format_where(where: str, vulnerabilities: List[Dict[str, str]]) -> str:
 
 
 def get_last_approved_state(vuln: Dict[str, FindingType]) -> Dict[str, str]:
-    historic_state = cast(HistoricType, vuln.get('historic_state', [{}]))
+    historic_state = cast(HistoricType, vuln.get("historic_state", [{}]))
     return historic_state[-1]
 
 
 def get_last_closing_date(
-    vulnerability: Dict[str, FindingType],
-    min_date: Optional[datetype] = None
+    vulnerability: Dict[str, FindingType], min_date: Optional[datetype] = None
 ) -> Optional[datetype]:
     """Get last closing date of a vulnerability."""
     current_state = get_last_approved_state(vulnerability)
     last_closing_date = None
-    if current_state and current_state.get('state') == 'closed':
+    if current_state and current_state.get("state") == "closed":
         last_closing_date = datetime_utils.get_from_str(
-            current_state.get('date', '').split(' ')[0],
-            date_format='%Y-%m-%d'
+            current_state.get("date", "").split(" ")[0], date_format="%Y-%m-%d"
         ).date()
         if min_date and min_date > last_closing_date:
             return None
@@ -204,13 +199,12 @@ def get_last_closing_date(
 
 
 def get_last_status(vuln: Dict[str, FindingType]) -> str:
-    historic_state = cast(HistoricType, vuln.get('historic_state', [{}]))
-    return historic_state[-1].get('state', '')
+    historic_state = cast(HistoricType, vuln.get("historic_state", [{}]))
+    return historic_state[-1].get("state", "")
 
 
 async def get_mean_remediate_vulnerabilities(
-    vulns: List[Dict[str, FindingType]],
-    min_date: Optional[datetype] = None
+    vulns: List[Dict[str, FindingType]], min_date: Optional[datetype] = None
 ) -> Decimal:
     """Get mean time to remediate a vulnerability."""
     total_vuln = 0
@@ -219,11 +213,7 @@ async def get_mean_remediate_vulnerabilities(
         in_process(get_open_vulnerability_date, vuln, min_date)
         for vuln in vulns
     )
-    filtered_open_vuln_dates = [
-        vuln
-        for vuln in open_vuln_dates
-        if vuln
-    ]
+    filtered_open_vuln_dates = [vuln for vuln in open_vuln_dates if vuln]
     closed_vuln_dates = await collect(
         in_process(get_last_closing_date, vuln, min_date)
         for vuln, open_vuln in zip(vulns, open_vuln_dates)
@@ -243,9 +233,9 @@ async def get_mean_remediate_vulnerabilities(
     if total_vuln:
         mean_vulnerabilities = Decimal(
             round(total_days / float(total_vuln))
-        ).quantize(Decimal('0.1'))
+        ).quantize(Decimal("0.1"))
     else:
-        mean_vulnerabilities = Decimal(0).quantize(Decimal('0.1'))
+        mean_vulnerabilities = Decimal(0).quantize(Decimal("0.1"))
     return mean_vulnerabilities
 
 
@@ -260,26 +250,23 @@ async def get_open_findings(
     open_findings = [
         vulns
         for vulns, last_approved in zip(finding_vulns, last_approved_status)
-        if [vuln for vuln in vulns if last_approved == 'open']
+        if [vuln for vuln in vulns if last_approved == "open"]
     ]
     return len(open_findings)
 
 
 def get_open_vulnerability_date(
-    vulnerability: Dict[str, FindingType],
-    min_date: Optional[datetype] = None
+    vulnerability: Dict[str, FindingType], min_date: Optional[datetype] = None
 ) -> Optional[datetype]:
     """Get open vulnerability date of a vulnerability."""
     open_vulnerability_date: Optional[datetype] = None
     all_states = cast(
-        List[Dict[str, str]],
-        vulnerability.get('historic_state', [{}])
+        List[Dict[str, str]], vulnerability.get("historic_state", [{}])
     )
-    open_states = [state for state in all_states if state['state'] == 'open']
+    open_states = [state for state in all_states if state["state"] == "open"]
     if open_states:
         open_vulnerability_date = datetime_utils.get_from_str(
-            open_states[-1]['date'].split(' ')[0],
-            date_format='%Y-%m-%d'
+            open_states[-1]["date"].split(" ")[0], date_format="%Y-%m-%d"
         ).date()
         if min_date and min_date > open_vulnerability_date:
             open_vulnerability_date = None
@@ -288,32 +275,29 @@ def get_open_vulnerability_date(
 
 def get_ranges(numberlist: List[int]) -> str:
     """Transform list into ranges."""
-    range_str = ','.join(
-        as_range(g) for _, g in itertools.groupby(
+    range_str = ",".join(
+        as_range(g)
+        for _, g in itertools.groupby(
             numberlist,
-            key=lambda n,    # type: ignore
-            c=itertools.count(): n - next(c)
+            key=lambda n, c=itertools.count(): n - next(c),  # type: ignore
         )
     )
     return range_str
 
 
 def get_reattack_requesters(
-    historic_verification: List[Dict[str, str]],
-    vulnerabilities: List[str]
+    historic_verification: List[Dict[str, str]], vulnerabilities: List[str]
 ) -> List[str]:
     historic_verification = list(reversed(historic_verification))
     users: List[str] = []
     for verification in historic_verification:
-        if verification.get('status', '') == 'REQUESTED':
-            vulns = cast(List[str], verification.get('vulns', []))
+        if verification.get("status", "") == "REQUESTED":
+            vulns = cast(List[str], verification.get("vulns", []))
             if any([vuln for vuln in vulns if vuln in vulnerabilities]):
                 vulnerabilities = [
-                    vuln
-                    for vuln in vulnerabilities
-                    if vuln not in vulns
+                    vuln for vuln in vulnerabilities if vuln not in vulns
                 ]
-                users.append(str(verification.get('user', '')))
+                users.append(str(verification.get("user", "")))
         if not vulnerabilities:
             break
     return list(set(users))
@@ -325,7 +309,7 @@ def get_report_dates(
     """Get report dates for vulnerabilities."""
     report_dates = [
         datetime_utils.get_from_str(
-            cast(HistoricType, vuln['historic_state'])[0]['date']
+            cast(HistoricType, vuln["historic_state"])[0]["date"]
         )
         for vuln in vulnerabilities
     ]
@@ -335,68 +319,66 @@ def get_report_dates(
 
 def get_specific(value: Dict[str, str]) -> int:
     """Get specific value."""
-    return int(value.get('specific', ''))
+    return int(value.get("specific", ""))
 
 
 def get_treatments(
     vulnerabilities: List[Dict[str, FindingType]]
 ) -> Treatments:
-    treatment_counter = Counter([
-        vuln['historic_treatment'][-1]['treatment']
-        for vuln in vulnerabilities
-        if vuln['historic_state'][-1]['state'] == 'open'
-    ])
+    treatment_counter = Counter(
+        [
+            vuln["historic_treatment"][-1]["treatment"]
+            for vuln in vulnerabilities
+            if vuln["historic_state"][-1]["state"] == "open"
+        ]
+    )
     return Treatments(
-        ACCEPTED=treatment_counter['ACCEPTED'],
-        ACCEPTED_UNDEFINED=treatment_counter['ACCEPTED_UNDEFINED'],
-        IN_PROGRESS=treatment_counter['IN PROGRESS'],
-        NEW=treatment_counter['NEW'],
+        ACCEPTED=treatment_counter["ACCEPTED"],
+        ACCEPTED_UNDEFINED=treatment_counter["ACCEPTED_UNDEFINED"],
+        IN_PROGRESS=treatment_counter["IN PROGRESS"],
+        NEW=treatment_counter["NEW"],
     )
 
 
 def group_specific(
-    specific: List[str],
-    vuln_type: str
+    specific: List[str], vuln_type: str
 ) -> List[Dict[str, FindingType]]:
     """Group vulnerabilities by its specific field."""
     sorted_specific = sort_vulnerabilities(specific)
     lines = []
-    vuln_keys = ['historic_state', 'vuln_type', 'UUID', 'finding_id']
+    vuln_keys = ["historic_state", "vuln_type", "UUID", "finding_id"]
     for key, group in itertools.groupby(
-        sorted_specific,
-        key=lambda x: x['where']  # type: ignore
+        sorted_specific, key=lambda x: x["where"]  # type: ignore
     ):
         vuln_info = list(group)
-        if vuln_type == 'inputs':
+        if vuln_type == "inputs":
             specific_grouped: List[Union[int, str]] = [
-                cast(Dict[str, str], i).get('specific', '')
-                for i in vuln_info
+                cast(Dict[str, str], i).get("specific", "") for i in vuln_info
             ]
             dictlines: Dict[str, FindingType] = {
-                'where': key,
-                'specific': ','.join(cast(List[str], specific_grouped))
+                "where": key,
+                "specific": ",".join(cast(List[str], specific_grouped)),
             }
         else:
             specific_grouped = [
-                get_specific(cast(Dict[str, str], i))
-                for i in vuln_info
+                get_specific(cast(Dict[str, str], i)) for i in vuln_info
             ]
             specific_grouped.sort()
             dictlines = {
-                'where': key,
-                'specific': get_ranges(cast(List[int], specific_grouped))
+                "where": key,
+                "specific": get_ranges(cast(List[int], specific_grouped)),
             }
-        if (
-                vuln_info and
-                all(key_vuln in vuln_info[0] for key_vuln in vuln_keys)
+        if vuln_info and all(
+            key_vuln in vuln_info[0] for key_vuln in vuln_keys
         ):
-            dictlines.update({
-                key_vuln: cast(
-                    Dict[str, FindingType],
-                    vuln_info[0]
-                ).get(key_vuln)
-                for key_vuln in vuln_keys
-            })
+            dictlines.update(
+                {
+                    key_vuln: cast(Dict[str, FindingType], vuln_info[0]).get(
+                        key_vuln
+                    )
+                    for key_vuln in vuln_keys
+                }
+            )
         else:
             # Vulnerability doesn't have more attributes.
             pass
@@ -408,50 +390,49 @@ def is_accepted_undefined_vulnerability(
     vulnerability: Dict[str, FindingType]
 ) -> bool:
     historic_treatment = cast(
-        HistoricType,
-        vulnerability['historic_treatment']
+        HistoricType, vulnerability["historic_treatment"]
     )
     return (
-        historic_treatment[-1]['treatment'] == 'ACCEPTED_UNDEFINED' and
-        get_last_status(vulnerability) == 'open'
+        historic_treatment[-1]["treatment"] == "ACCEPTED_UNDEFINED"
+        and get_last_status(vulnerability) == "open"
     )
 
 
 def is_range(specific: str) -> bool:
     """Validate if a specific field has range value."""
-    return '-' in specific
+    return "-" in specific
 
 
 def is_reattack_requested(vuln: Dict[str, FindingType]) -> bool:
     response = False
-    historic_verification = vuln.get('historic_verification', [{}])
-    if cast(
-        List[Dict[str, str]],
-        historic_verification
-    )[-1].get('status', '') == 'REQUESTED':
+    historic_verification = vuln.get("historic_verification", [{}])
+    if (
+        cast(List[Dict[str, str]], historic_verification)[-1].get("status", "")
+        == "REQUESTED"
+    ):
         response = True
     return response
 
 
 def is_sequence(specific: str) -> bool:
     """Validate if a specific field has secuence value."""
-    return ',' in specific
+    return "," in specific
 
 
 def is_vulnerability_closed(vuln: Dict[str, FindingType]) -> bool:
     """Return if a vulnerability is closed."""
-    return get_last_status(vuln) == 'closed'
+    return get_last_status(vuln) == "closed"
 
 
 def sort_vulnerabilities(item: List[str]) -> List[str]:
     """Sort a vulnerability by its where field."""
-    sorted_item = sorted(item, key=itemgetter('where'))
+    sorted_item = sorted(item, key=itemgetter("where"))
     return sorted_item
 
 
 def range_to_list(range_value: str) -> List[str]:
     """Convert a range value into list."""
-    limits = range_value.split('-')
+    limits = range_value.split("-")
     init_val = int(limits[0])
     end_val = int(limits[1]) + 1
     if end_val <= init_val:
@@ -463,7 +444,7 @@ def range_to_list(range_value: str) -> List[str]:
 
 def ungroup_specific(specific: str) -> List[str]:
     """Ungroup specific value."""
-    values = specific.split(',')
+    values = specific.split(",")
     specific_values = []
     for val in values:
         if is_range(val):
@@ -475,16 +456,15 @@ def ungroup_specific(specific: str) -> List[str]:
 
 
 def update_treatment_values(updated_values: Dict[str, str]) -> Dict[str, str]:
-    if updated_values['treatment'] == 'NEW':
-        updated_values['acceptance_date'] = ''
-    elif updated_values['treatment'] == 'ACCEPTED_UNDEFINED':
-        updated_values['acceptance_status'] = 'SUBMITTED'
+    if updated_values["treatment"] == "NEW":
+        updated_values["acceptance_date"] = ""
+    elif updated_values["treatment"] == "ACCEPTED_UNDEFINED":
+        updated_values["acceptance_status"] = "SUBMITTED"
         days = [
-            datetime_utils.get_now_plus_delta(days=x + 1)
-            for x in range(5)
+            datetime_utils.get_now_plus_delta(days=x + 1) for x in range(5)
         ]
         weekend_days = sum(1 for day in days if day.weekday() >= 5)
-        updated_values['acceptance_date'] = datetime_utils.get_as_str(
+        updated_values["acceptance_date"] = datetime_utils.get_as_str(
             datetime_utils.get_now_plus_delta(days=5 + weekend_days)
         )
     return updated_values
@@ -492,10 +472,12 @@ def update_treatment_values(updated_values: Dict[str, str]) -> Dict[str, str]:
 
 def validate_closed(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
     """ Validate vuln closed """
-    if cast(
-        List[Dict[str, FindingType]],
-        vuln.get('historic_state', [{}])
-    )[-1].get('state') == 'closed':
+    if (
+        cast(List[Dict[str, FindingType]], vuln.get("historic_state", [{}]))[
+            -1
+        ].get("state")
+        == "closed"
+    ):
         raise VulnAlreadyClosed()
     return vuln
 
@@ -505,10 +487,9 @@ def validate_requested_verification(
 ) -> Dict[str, FindingType]:
     """ Validate vuln is not resquested """
     historic_verification = cast(
-        List[Dict[str, FindingType]],
-        vuln.get('historic_verification', [{}])
+        List[Dict[str, FindingType]], vuln.get("historic_verification", [{}])
     )
-    if historic_verification[-1].get('status', '') == 'REQUESTED':
+    if historic_verification[-1].get("status", "") == "REQUESTED":
         raise AlreadyRequested()
     return vuln
 
@@ -521,27 +502,25 @@ def validate_verify(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
 
 
 def get_treatment_from_org_finding_policy(
-    *,
-    current_day: str,
-    user_email: str
+    *, current_day: str, user_email: str
 ) -> List[Dict[str, str]]:
     return [
         {
-            'treatment': 'ACCEPTED_UNDEFINED',
-            'justification': 'From org policies',
-            'user': user_email,
-            'date': current_day,
-            'treatment_manager': user_email,
-            'acceptance_status': 'SUBMITTED',
+            "treatment": "ACCEPTED_UNDEFINED",
+            "justification": "From org policies",
+            "user": user_email,
+            "date": current_day,
+            "treatment_manager": user_email,
+            "acceptance_status": "SUBMITTED",
         },
         {
-            'treatment': 'ACCEPTED_UNDEFINED',
-            'justification': 'From org policies',
-            'user': user_email,
-            'date': current_day,
-            'treatment_manager': user_email,
-            'acceptance_status': 'APPROVED',
-        }
+            "treatment": "ACCEPTED_UNDEFINED",
+            "justification": "From org policies",
+            "user": user_email,
+            "date": current_day,
+            "treatment_manager": user_email,
+            "acceptance_status": "APPROVED",
+        },
     ]
 
 
@@ -553,6 +532,6 @@ def filter_historic_date(
     filtered = [
         entry
         for entry in historic
-        if min_date and datetime_utils.get_from_str(entry['date']) >= min_date
+        if min_date and datetime_utils.get_from_str(entry["date"]) >= min_date
     ]
     return filtered

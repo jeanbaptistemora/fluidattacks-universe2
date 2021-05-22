@@ -1,4 +1,3 @@
-
 import io
 
 from botocore.exceptions import ClientError
@@ -14,7 +13,7 @@ from s3.operations import aio_client
 
 @apm.trace()
 async def get_document(key: str) -> str:
-    key = f'{CI_COMMIT_REF_NAME}/documents/{key}'
+    key = f"{CI_COMMIT_REF_NAME}/documents/{key}"
 
     with io.BytesIO() as stream:
 
@@ -34,7 +33,7 @@ async def get_document(key: str) -> str:
 
 @apm.trace()
 async def get_snapshot(key: str) -> bytes:
-    key = f'{CI_COMMIT_REF_NAME}/snapshots/{key}'
+    key = f"{CI_COMMIT_REF_NAME}/snapshots/{key}"
 
     with io.BytesIO() as stream:
 

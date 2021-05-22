@@ -18,111 +18,33 @@ from typing_extensions import TypedDict
 from boto3.dynamodb.conditions import ConditionBase
 
 
-Comment = Dict[
-    str,
-    Union[int, str, object]
-]
-DynamoQuery = Dict[
-    str,
-    Union[ConditionBase, str]
-]
-Evidence = Dict[
-    str,
-    Dict[str, str]
-]
+Comment = Dict[str, Union[int, str, object]]
+DynamoQuery = Dict[str, Union[ConditionBase, str]]
+Evidence = Dict[str, Dict[str, str]]
 ExploitResult = Dict[str, str]
-Historic = List[
-    Dict[str, str]
-]
+Historic = List[Dict[str, str]]
 InternalName = Dict[str, str]
-Invitation = Dict[
-    str,
-    Union[str, bool]
-]
-MailContent = Dict[
-    str,
-    Union[
-        int,
-        str,
-        List[Dict[str, str]]
-    ]
-]
+Invitation = Dict[str, Union[str, bool]]
+MailContent = Dict[str, Union[int, str, List[Dict[str, str]]]]
 Organization = Dict[
     str,
-    Union[
-        Decimal,
-        str,
-        List[
-            Dict[
-                str,
-                Union[Optional[Decimal], str]
-            ]
-        ],
-        None
-    ]
+    Union[Decimal, str, List[Dict[str, Union[Optional[Decimal], str]]], None],
 ]
 Project = Dict[
-    str,
-    Union[
-        str,
-        object,
-        List[Dict[str, str]],
-        List[str],
-        Set[str]
-    ]
+    str, Union[str, object, List[Dict[str, str]], List[str], Set[str]]
 ]
 Report = Dict[str, str]
 Stakeholder = Dict[
-    str,
-    Union[
-        bool,
-        str,
-        Dict[str, object],
-        List[str],
-        Set[str],
-        None
-    ]
+    str, Union[bool, str, Dict[str, object], List[str], Set[str], None]
 ]
-Tag = Dict[
-    str,
-    Union[
-        Decimal,
-        str,
-        List[str]
-    ]
-]
+Tag = Dict[str, Union[Decimal, str, List[str]]]
 User = Dict[
-    str,
-    Union[
-        bool,
-        str,
-        Dict[str, object],
-        List[str],
-        Set[str],
-        None
-    ]
+    str, Union[bool, str, Dict[str, object], List[str], Set[str], None]
 ]
 
-Dynamo = Union[
-    str,
-    Organization
-]
-Event = Dict[
-    str,
-    Union[
-        str,
-        Historic,
-        List[Comment],
-        None
-    ]
-]
-ExecutionVulnerabilities = Dict[
-    str,
-    Union[
-        int,
-        List[ExploitResult]
-    ]
-]
+Dynamo = Union[str, Organization]
+Event = Dict[str, Union[str, Historic, List[Comment], None]]
+ExecutionVulnerabilities = Dict[str, Union[int, List[ExploitResult]]]
 Finding = Union[
     Decimal,
     float,
@@ -132,230 +54,168 @@ Finding = Union[
     Evidence,
     Historic,
     List[str],
-    None
+    None,
 ]
 
-ForcesExecution = Dict[
-    str,
-    Union[
-        str,
-        datetime,
-        ExecutionVulnerabilities
-    ]
-]
-ForcesExecutions = Dict[
-    str,
-    Union[
-        datetime,
-        str,
-        List[ForcesExecution],
-        None
-    ]
-]
-Me = Dict[
-    str,
-    Union[
-        bool,
-        str,
-        List[
-            Union[Project, Tag, str]
-        ]
-    ]
-]
-ProjectAccess = Dict[
-    str,
-    Union[
-        bool,
-        int,
-        str,
-        Invitation,
-        None
-    ]
-]
-Resource = Dict[
-    str,
-    Union[
-        object,
-        str,
-        Historic
-    ]
-]
-Resources = Dict[
-    str,
-    Union[
-        str,
-        List[Resource]
-    ]
-]
-Vulnerability = Dict[
-    str,
-    Union[
-        bool,
-        str,
-        Historic,
-        List[str]
-    ]
-]
+ForcesExecution = Dict[str, Union[str, datetime, ExecutionVulnerabilities]]
+ForcesExecutions = Dict[str, Union[datetime, str, List[ForcesExecution], None]]
+Me = Dict[str, Union[bool, str, List[Union[Project, Tag, str]]]]
+ProjectAccess = Dict[str, Union[bool, int, str, Invitation, None]]
+Resource = Dict[str, Union[object, str, Historic]]
+Resources = Dict[str, Union[str, List[Resource]]]
+Vulnerability = Dict[str, Union[bool, str, Historic, List[str]]]
 
 Action = NamedTuple(
-    'Action',
+    "Action",
     [
-        ('action', str),
-        ('date', str),
-        ('justification', str),
-        ('manager', str),
-        ('times', int),
-    ]
+        ("action", str),
+        ("date", str),
+        ("justification", str),
+        ("manager", str),
+        ("times", int),
+    ],
 )
 Datetime = datetime
 Tracking = TypedDict(
-    'Tracking',
+    "Tracking",
     {
-        'cycle': int,
-        'open': int,
-        'closed': int,
-        'effectiveness': int,
-        'date': str,
-        'new': int,
-        'in_progress': int,
-        'accepted': int,
-        'accepted_undefined': int,
-        'manager': str,
-        'justification': str,
+        "cycle": int,
+        "open": int,
+        "closed": int,
+        "effectiveness": int,
+        "date": str,
+        "new": int,
+        "in_progress": int,
+        "accepted": int,
+        "accepted_undefined": int,
+        "manager": str,
+        "justification": str,
     },
-    total=False
+    total=False,
 )
 
 # Analytics
 GraphicParameters = NamedTuple(
-    'GraphicParameters',
+    "GraphicParameters",
     [
-        ('document_name', str),
-        ('document_type', str),
-        ('entity', str),
-        ('generator_name', str),
-        ('generator_type', str),
-        ('height', int),
-        ('subject', str),
-        ('width', int)
-    ]
+        ("document_name", str),
+        ("document_type", str),
+        ("entity", str),
+        ("generator_name", str),
+        ("generator_type", str),
+        ("height", int),
+        ("subject", str),
+        ("width", int),
+    ],
 )
 GraphicsForEntityParameters = NamedTuple(
-    'GraphicsForEntityParameters',
+    "GraphicsForEntityParameters",
     [
-        ('entity', str),
-        ('subject', str),
-    ]
+        ("entity", str),
+        ("subject", str),
+    ],
 )
 ReportParameters = NamedTuple(
-    'ReportParameters',
+    "ReportParameters",
     [
-        ('entity', str),
-        ('subject', str),
-    ]
+        ("entity", str),
+        ("subject", str),
+    ],
 )
 
 # Payloads
 AddConsultPayload = NamedTuple(
-    'AddConsultPayload',
+    "AddConsultPayload",
     [
-        ('success', bool),
-        ('comment_id', str),
-    ]
+        ("success", bool),
+        ("comment_id", str),
+    ],
 )
 AddStakeholderPayload = NamedTuple(
-    'AddStakeholderPayload',
+    "AddStakeholderPayload",
     [
-        ('success', bool),
-        ('email', str),
-    ]
+        ("success", bool),
+        ("email", str),
+    ],
 )
 ApproveDraftPayload = NamedTuple(
-    'ApproveDraftPayload',
+    "ApproveDraftPayload",
     [
-        ('success', bool),
-        ('release_date', str),
-    ]
+        ("success", bool),
+        ("release_date", str),
+    ],
 )
 CreateOrganizationPayload = NamedTuple(
-    'CreateOrganizationPayload',
-    [
-        ('success', bool),
-        ('organization', Organization)
-    ]
+    "CreateOrganizationPayload",
+    [("success", bool), ("organization", Organization)],
 )
 DownloadFilePayload = NamedTuple(
-    'DownloadFilePayload',
+    "DownloadFilePayload",
     [
-        ('success', bool),
-        ('url', str),
-    ]
+        ("success", bool),
+        ("url", str),
+    ],
 )
-DynamoDelete = NamedTuple(
-    'DynamoDelete',
-    [
-        ('Key', Dict[str, Any])
-    ]
-)
+DynamoDelete = NamedTuple("DynamoDelete", [("Key", Dict[str, Any])])
 EditStakeholderPayload = NamedTuple(
-    'EditStakeholderPayload',
+    "EditStakeholderPayload",
     [
-        ('success', bool),
-        ('modified_stakeholder', Stakeholder),
-    ]
+        ("success", bool),
+        ("modified_stakeholder", Stakeholder),
+    ],
 )
 ExecuteSkimsPayload = NamedTuple(
-    'ExecuteSkimsPayload',
+    "ExecuteSkimsPayload",
     [
-        ('success', bool),
-        ('pipeline_url', str),
-    ]
+        ("success", bool),
+        ("pipeline_url", str),
+    ],
 )
 GrantStakeholderAccessPayload = NamedTuple(
-    'GrantStakeholderAccessPayload',
+    "GrantStakeholderAccessPayload",
     [
-        ('success', bool),
-        ('granted_stakeholder', Stakeholder),
-    ]
+        ("success", bool),
+        ("granted_stakeholder", Stakeholder),
+    ],
 )
 RemoveStakeholderAccessPayload = NamedTuple(
-    'RemoveStakeholderAccessPayload',
+    "RemoveStakeholderAccessPayload",
     [
-        ('success', bool),
-        ('removed_email', str),
-    ]
+        ("success", bool),
+        ("removed_email", str),
+    ],
 )
 SignInPayload = NamedTuple(
-    'SignInPayload',
+    "SignInPayload",
     [
-        ('success', bool),
-        ('session_jwt', str),
-    ]
+        ("success", bool),
+        ("session_jwt", str),
+    ],
 )
 SimpleFindingPayload = NamedTuple(
-    'SimpleFindingPayload',
+    "SimpleFindingPayload",
     [
-        ('success', bool),
-        ('finding', Dict[str, Finding]),
-    ]
+        ("success", bool),
+        ("finding", Dict[str, Finding]),
+    ],
 )
 SimplePayload = NamedTuple(
-    'SimplePayload',
+    "SimplePayload",
     [
-        ('success', bool),
-    ]
+        ("success", bool),
+    ],
 )
 SimpleProjectPayload = NamedTuple(
-    'SimpleProjectPayload',
+    "SimpleProjectPayload",
     [
-        ('success', bool),
-        ('project', Project),
-    ]
+        ("success", bool),
+        ("project", Project),
+    ],
 )
 UpdateAccessTokenPayload = NamedTuple(
-    'UpdateAccessTokenPayload',
+    "UpdateAccessTokenPayload",
     [
-        ('success', bool),
-        ('session_jwt', str),
-    ]
+        ("success", bool),
+        ("session_jwt", str),
+    ],
 )

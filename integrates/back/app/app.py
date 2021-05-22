@@ -6,10 +6,7 @@ import asyncio
 # Third party libraries
 import bugsnag
 import newrelic.agent
-from aioextensions import (
-    in_thread,
-    schedule
-)
+from aioextensions import in_thread, schedule
 from bugsnag.asgi import BugsnagMiddleware
 from starlette.applications import Starlette
 from starlette.middleware import Middleware
@@ -59,11 +56,11 @@ from __init__ import (
 @authenticate_session  # type: ignore
 async def app(request: Request) -> HTMLResponse:
     """ View for authenticated users"""
-    email = request.session.get('username')
+    email = request.session.get("username")
 
     try:
         if email:
-            if FI_ENVIRONMENT == 'production':
+            if FI_ENVIRONMENT == "production":
                 await users_domain.check_session_web_validity(request)
 
             if not await orgs_domain.get_user_organizations(email):
@@ -84,27 +81,25 @@ async def app(request: Request) -> HTMLResponse:
 
 async def logout(request: Request) -> HTMLResponse:
     """Close a user's active session"""
-    if 'username' in request.session:
-        user_email = request.session['username']
-        await sessions_dal.remove_session_key(user_email, 'web')
-        await sessions_dal.remove_session_key(user_email, 'jwt')
+    if "username" in request.session:
+        user_email = request.session["username"]
+        await sessions_dal.remove_session_key(user_email, "web")
+        await sessions_dal.remove_session_key(user_email, "jwt")
         await redis_del_entity_attr(
-            entity='session',
-            attr='jti',
-            email=user_email
+            entity="session", attr="jti", email=user_email
         )
-        await analytics.mixpanel_track(user_email, 'Logout')
+        await analytics.mixpanel_track(user_email, "Logout")
 
     request.session.clear()
 
-    response = RedirectResponse('/')
+    response = RedirectResponse("/")
     response.delete_cookie(key=settings.JWT_COOKIE_NAME)
 
     return response
 
 
 async def confirm_access(request: Request) -> HTMLResponse:
-    url_token = request.path_params.get('url_token')
+    url_token = request.path_params.get("url_token")
     if url_token:
         project_access = await group_access_domain.get_access_by_url_token(
             url_token
@@ -118,29 +113,24 @@ async def confirm_access(request: Request) -> HTMLResponse:
             )
             if success:
                 response = await templates.valid_invitation(
-                    request,
-                    project_access
+                    request, project_access
                 )
                 schedule(groups_domain.after_complete_register(project_access))
             else:
                 response = templates.invalid_invitation(
                     request,
-                    'Invalid or Expired',
-                    project_access=project_access
+                    "Invalid or Expired",
+                    project_access=project_access,
                 )
         else:
             await in_thread(
-                bugsnag.notify, Exception('Invalid token'), severity='warning'
+                bugsnag.notify, Exception("Invalid token"), severity="warning"
             )
             response = templates.invalid_invitation(
-                request,
-                'Invalid or Expired'
+                request, "Invalid or Expired"
             )
     else:
-        response = templates.invalid_invitation(
-            request,
-            'Invalid or Expired'
-        )
+        response = templates.invalid_invitation(request, "Invalid or Expired")
 
     return response
 
@@ -162,49 +152,48 @@ def start_queue_daemon() -> None:
 STARLETTE_APP = Starlette(
     debug=settings.DEBUG,
     routes=[
-        Route('/', templates.login),
-        Route('/api', IntegratesAPI(SCHEMA, debug=settings.DEBUG)),
-        Route('/authz_azure', auth.authz_azure),
-        Route('/authz_bitbucket', auth.authz_bitbucket),
-        Route('/authz_google', auth.authz_google),
-        Route('/confirm_access/{url_token:path}', confirm_access),
-        Route('/dglogin', auth.do_google_login),
-        Route('/dalogin', auth.do_azure_login),
-        Route('/dblogin', auth.do_bitbucket_login),
-        Route('/error401', templates.error401),
-        Route('/error500', templates.error500),
-        Route('/graphic', charts.graphic),
-        Route('/graphics-for-group', charts.graphics_for_group),
-        Route('/graphics-for-organization', charts.graphics_for_organization),
-        Route('/graphics-for-portfolio', charts.graphics_for_portfolio),
-        Route('/graphics-report', charts.graphics_report),
-        Route('/invalid_invitation', templates.invalid_invitation),
-        Route('/logout', logout),
+        Route("/", templates.login),
+        Route("/api", IntegratesAPI(SCHEMA, debug=settings.DEBUG)),
+        Route("/authz_azure", auth.authz_azure),
+        Route("/authz_bitbucket", auth.authz_bitbucket),
+        Route("/authz_google", auth.authz_google),
+        Route("/confirm_access/{url_token:path}", confirm_access),
+        Route("/dglogin", auth.do_google_login),
+        Route("/dalogin", auth.do_azure_login),
+        Route("/dblogin", auth.do_bitbucket_login),
+        Route("/error401", templates.error401),
+        Route("/error500", templates.error500),
+        Route("/graphic", charts.graphic),
+        Route("/graphics-for-group", charts.graphics_for_group),
+        Route("/graphics-for-organization", charts.graphics_for_organization),
+        Route("/graphics-for-portfolio", charts.graphics_for_portfolio),
+        Route("/graphics-report", charts.graphics_report),
+        Route("/invalid_invitation", templates.invalid_invitation),
+        Route("/logout", logout),
         Route(
-            '/orgs/{org_name:str}/groups/'
-            '{group_name:str}/{evidence_type:str}/'
-            '{finding_id:str}/{_:str}/{file_id:str}',
-            evidence.get_evidence
+            "/orgs/{org_name:str}/groups/"
+            "{group_name:str}/{evidence_type:str}/"
+            "{finding_id:str}/{_:str}/{file_id:str}",
+            evidence.get_evidence,
         ),
         Mount(
-            '/static',
-            StaticFiles(directory=f'{settings.TEMPLATES_DIR}/static'),
-            name='static'
+            "/static",
+            StaticFiles(directory=f"{settings.TEMPLATES_DIR}/static"),
+            name="static",
         ),
-        Route('/{full_path:path}', app)
+        Route("/{full_path:path}", app),
     ],
     middleware=[
         Middleware(SessionMiddleware, secret_key=FI_STARLETTE_SESSION_KEY),
-        Middleware(CustomRequestMiddleware)
+        Middleware(CustomRequestMiddleware),
     ],
-    on_startup=[start_queue_daemon]
+    on_startup=[start_queue_daemon],
 )
 
 BUGSNAG_WRAP = BugsnagMiddleware(STARLETTE_APP)
 
 NEWRELIC_WRAP = newrelic.agent.ASGIApplicationWrapper(
-    BUGSNAG_WRAP,
-    framework=('Starlette', '0.13.8')
+    BUGSNAG_WRAP, framework=("Starlette", "0.13.8")
 )
 
 APP = NEWRELIC_WRAP

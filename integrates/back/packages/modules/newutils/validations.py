@@ -9,21 +9,21 @@ from custom_exceptions import (
 
 
 def validate_email_address(email: str) -> bool:
-    if '+' in email:
-        raise InvalidField('email address')
+    if "+" in email:
+        raise InvalidField("email address")
     try:
         check_field(
             email,
-            r'^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$'
+            r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$",
         )
         return True
     except InvalidChar:
-        raise InvalidField('email address')
+        raise InvalidField("email address")
 
 
 def validate_fields(fields: List[str]) -> None:
     allowed_chars = (
-        r'a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\x0b\x0c(),./:;%@_$#=\?-'
+        r"a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\x0b\x0c(),./:;%@_$#=\?-"
     )
     regex = fr'^[{allowed_chars.replace("=", "")}][{allowed_chars}]*$'
     for field in map(str, fields):
@@ -33,27 +33,26 @@ def validate_fields(fields: List[str]) -> None:
 
 def validate_url(url: str) -> None:
     clean_url: str = url
-    encoded_chars_whitelist: List[str] = ['%20']
+    encoded_chars_whitelist: List[str] = ["%20"]
     for encoded_char in encoded_chars_whitelist:
-        clean_url = clean_url.replace(encoded_char, '')
+        clean_url = clean_url.replace(encoded_char, "")
 
     if clean_url:
-        allowed_chars = r'a-zA-Z0-9(),./:;@_$#=\?-'
+        allowed_chars = r"a-zA-Z0-9(),./:;@_$#=\?-"
         check_field(
             clean_url,
-            fr'^[{allowed_chars.replace("=", "")}]+[{allowed_chars}]*$'
+            fr'^[{allowed_chars.replace("=", "")}]+[{allowed_chars}]*$',
         )
 
 
 def validate_file_name(name: str) -> bool:
     """ Verify that filename has valid characters. """
     name = str(name)
-    name_len = len(name.split('.'))
+    name_len = len(name.split("."))
     if name_len <= 2:
-        is_valid = bool(re.search(
-            '^[A-Za-z0-9!_.*\'()&$@=;:+,? -]*$',
-            str(name)
-        ))
+        is_valid = bool(
+            re.search("^[A-Za-z0-9!_.*'()&$@=;:+,? -]*$", str(name))
+        )
     else:
         is_valid = False
     return is_valid
@@ -65,9 +64,8 @@ def check_field(field: str, regexp: str) -> None:
 
 
 def validate_field_length(
-        field: str,
-        limit: int,
-        is_greater_than_limit: bool = False) -> bool:
+    field: str, limit: int, is_greater_than_limit: bool = False
+) -> bool:
     """
     if is_greater_than_limit equals True,
     it means we are checking if field > limit
@@ -79,7 +77,7 @@ def validate_field_length(
 
 def validate_project_name(project_name: str) -> None:
     if not project_name.isalnum():
-        raise InvalidField('project name')
+        raise InvalidField("project name")
 
 
 def validate_string_length_between(
@@ -94,12 +92,12 @@ def validate_string_length_between(
 def validate_alphanumeric_field(field: str) -> bool:
     """Optional whitespace separated string, with alphanumeric characters."""
     is_alnum = all([word.isalnum() for word in field.split()])
-    if is_alnum or field == '-' or not field:
+    if is_alnum or field == "-" or not field:
         return True
     raise InvalidField()
 
 
 def validate_phone_field(phone_field: str) -> bool:
-    if re.match((r'(^\+\d+$)|(^\d+$)|(^$)|(^-$)'), phone_field):
+    if re.match((r"(^\+\d+$)|(^\d+$)|(^$)|(^-$)"), phone_field):
         return True
-    raise InvalidField('phone number')
+    raise InvalidField("phone number")

@@ -1,4 +1,3 @@
-
 from typing import (
     List,
     cast,
@@ -24,11 +23,9 @@ from events import domain as events_domain
     require_integrates,
 )
 async def resolve(
-    parent: Group,
-    info: GraphQLResolveInfo,
-    **_kwargs: None
+    parent: Group, info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[Event]:
-    group_name: str = cast(str, parent['name'])
+    group_name: str = cast(str, parent["name"])
 
     event_ids = await events_domain.list_group_events(group_name)
     event_loader: DataLoader = info.context.loaders.event

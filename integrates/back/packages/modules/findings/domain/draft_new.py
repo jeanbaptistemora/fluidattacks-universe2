@@ -1,4 +1,3 @@
-
 import random
 from typing import Any
 
@@ -18,10 +17,7 @@ from newutils import (
 
 
 async def create_draft_new(
-    context: Any,
-    group_name: str,
-    title: str,
-    **kwargs: Any
+    context: Any, group_name: str, title: str, **kwargs: Any
 ) -> None:
     if not findings_utils.is_valid_finding_title(title):
         raise InvalidDraftTitle()
@@ -30,14 +26,14 @@ async def create_draft_new(
     last_fs_id = 550000000
     finding_id = str(random.randint(last_fs_id, 1000000000))
     user_info = await token_utils.get_jwt_content(context)
-    analyst_email = user_info['user_email']
+    analyst_email = user_info["user_email"]
     source = requests_utils.get_source(context)
     draft = Finding(
-        affected_systems=kwargs.get('affected_systems', ''),
+        affected_systems=kwargs.get("affected_systems", ""),
         analyst_email=analyst_email,
-        attack_vector_desc=kwargs.get('attack_vector_desc', ''),
-        cwe=kwargs.get('cwe', ''),
-        description=kwargs.get('description', ''),
+        attack_vector_desc=kwargs.get("attack_vector_desc", ""),
+        cwe=kwargs.get("cwe", ""),
+        description=kwargs.get("description", ""),
         group_name=group_name,
         id=finding_id,
         state=FindingState(
@@ -46,11 +42,11 @@ async def create_draft_new(
             source=source,
             status=FindingStateStatus.CREATED,
         ),
-        risk=kwargs.get('risk', ''),
-        recommendation=kwargs.get('recommendation', ''),
-        requirements=kwargs.get('requirements', ''),
+        risk=kwargs.get("risk", ""),
+        recommendation=kwargs.get("recommendation", ""),
+        requirements=kwargs.get("requirements", ""),
         title=title,
-        threat=kwargs.get('threat', ''),
-        type=kwargs.get('type', ''),
+        threat=kwargs.get("threat", ""),
+        type=kwargs.get("type", ""),
     )
     await findings.create(finding=draft)

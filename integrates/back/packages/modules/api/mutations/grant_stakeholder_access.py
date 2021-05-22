@@ -1,4 +1,3 @@
-
 import logging
 import logging.config
 from typing import Any
@@ -40,77 +39,72 @@ LOGGER = logging.getLogger(__name__)
     require_integrates,
 )
 async def mutate(
-    _: Any,
-    info: GraphQLResolveInfo,
-    role: str,
-    **query_args: str
+    _: Any, info: GraphQLResolveInfo, role: str, **query_args: str
 ) -> GrantStakeholderAccessPayloadType:
-    project_name = query_args.get('project_name', '').lower()
+    project_name = query_args.get("project_name", "").lower()
     success = False
     user_data = await token_utils.get_jwt_content(info.context)
-    user_email = user_data['user_email']
+    user_email = user_data["user_email"]
     new_user_role = role
-    new_user_email = query_args.get('email', '')
-    new_user_responsibility = query_args.get('responsibility', '-')
+    new_user_email = query_args.get("email", "")
+    new_user_responsibility = query_args.get("responsibility", "-")
 
     project_access = await group_access_domain.get_user_access(
-        new_user_email,
-        project_name
+        new_user_email, project_name
     )
-    if project_access and project_access['has_access']:
+    if project_access and project_access["has_access"]:
         raise StakeholderHasGroupAccess()
 
-    allowed_roles_to_grant = \
+    allowed_roles_to_grant = (
         await authz.get_group_level_roles_a_user_can_grant(
             group=project_name,
             requester_email=user_email,
         )
+    )
 
     if new_user_role in allowed_roles_to_grant:
         success = await groups_domain.invite_to_group(
             email=new_user_email,
             responsibility=new_user_responsibility,
             role=new_user_role,
-            phone_number=query_args.get('phone_number', ''),
-            group_name=project_name
+            phone_number=query_args.get("phone_number", ""),
+            group_name=project_name,
         )
     else:
         LOGGER.error(
-            'Invalid role provided',
+            "Invalid role provided",
             extra={
-                'extra': {
-                    'new_user_role': new_user_role,
-                    'project_name': project_name,
-                    'requester_email': user_email
+                "extra": {
+                    "new_user_role": new_user_role,
+                    "project_name": project_name,
+                    "requester_email": user_email,
                 }
-            }
+            },
         )
 
     if success:
         await redis_del_by_deps(
-            'grant_stakeholder_access',
+            "grant_stakeholder_access",
             group_name=project_name,
         )
         logs_utils.cloudwatch_log(
             info.context,
-            f'Security: Given grant access to {new_user_email} '
-            f'in {project_name} project'
+            f"Security: Given grant access to {new_user_email} "
+            f"in {project_name} project",
         )
     else:
         LOGGER.error(
-            'Couldn\'t grant access to project',
-            extra={'extra': info.context}
+            "Couldn't grant access to project", extra={"extra": info.context}
         )
         logs_utils.cloudwatch_log(
             info.context,
-            f'Security: Attempted to grant access to {new_user_email} '
-            f'in {project_name} project'
+            f"Security: Attempted to grant access to {new_user_email} "
+            f"in {project_name} project",
         )
 
     return GrantStakeholderAccessPayloadType(
         success=success,
         granted_stakeholder=dict(
-            project_name=project_name,
-            email=new_user_email
-        )
+            project_name=project_name, email=new_user_email
+        ),
     )

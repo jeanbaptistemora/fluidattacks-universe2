@@ -10,7 +10,7 @@ from asyncio.queues import Queue
 from functools import partial
 
 # Constants
-TVar = TypeVar('TVar')  # pylint: disable=invalid-name
+TVar = TypeVar("TVar")  # pylint: disable=invalid-name
 DELAY_QUEUE: Optional[Queue] = None  # type: ignore
 
 
@@ -27,7 +27,7 @@ def enqueue_task(
     if DELAY_QUEUE:
         DELAY_QUEUE.put_nowait((func, args, kwargs))
     else:
-        raise RuntimeError('Queue must be initialized')
+        raise RuntimeError("Queue must be initialized")
 
 
 async def get_task() -> Callable[..., TVar]:
@@ -35,4 +35,4 @@ async def get_task() -> Callable[..., TVar]:
         func, args, kwargs = await DELAY_QUEUE.get()
         return partial(func, *args, **kwargs)
 
-    raise RuntimeError('Queue must be initialized')
+    raise RuntimeError("Queue must be initialized")

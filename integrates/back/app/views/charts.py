@@ -15,15 +15,15 @@ async def graphic(request: Request) -> Response:
 
 
 async def graphics_for_group(request: Request) -> Response:
-    return await graphics_for_entity('group', request)
+    return await graphics_for_entity("group", request)
 
 
 async def graphics_for_organization(request: Request) -> Response:
-    return await graphics_for_entity('organization', request)
+    return await graphics_for_entity("organization", request)
 
 
 async def graphics_for_portfolio(request: Request) -> Response:
-    return await graphics_for_entity('portfolio', request)
+    return await graphics_for_entity("portfolio", request)
 
 
 async def graphics_report(request: Request) -> Response:
@@ -40,9 +40,9 @@ async def graphics_for_entity(entity: str, request: Request) -> Response:
 
     jwt_token = await utils.create_session_token(
         dict(
-            username=request_data['user_email'],
-            first_name=request_data['first_name'],
-            last_name=request_data['last_name'],
+            username=request_data["user_email"],
+            first_name=request_data["first_name"],
+            last_name=request_data["last_name"],
         )
     )
     utils.set_token_in_response(response, jwt_token)

@@ -1,4 +1,3 @@
-
 import logging
 import logging.config
 from typing import Dict
@@ -15,32 +14,29 @@ from organizations import domain as orgs_domain
 
 
 # Constants
-TRANSACTIONS_LOGGER: logging.Logger = logging.getLogger('transactional')
+TRANSACTIONS_LOGGER: logging.Logger = logging.getLogger("transactional")
 
 
 @require_login
 async def mutate(
-    _parent: None,
-    info: GraphQLResolveInfo,
-    name: str
+    _parent: None, info: GraphQLResolveInfo, name: str
 ) -> CreateOrganizationPayload:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
-    user_email: str = user_info['user_email']
+    user_email: str = user_info["user_email"]
 
     TRANSACTIONS_LOGGER.info(
-        'User %s attempted to create organization with name %s',
+        "User %s attempted to create organization with name %s",
         user_email,
-        name
+        name,
     )
     organization: Organization = await orgs_domain.create_organization(
-        name,
-        user_email
+        name, user_email
     )
     TRANSACTIONS_LOGGER.info(
-        'Organization %s with ID %s was successfully created by %s',
-        organization['name'],
-        organization['id'],
-        user_email
+        "Organization %s with ID %s was successfully created by %s",
+        organization["name"],
+        organization["id"],
+        user_email,
     )
 
     return CreateOrganizationPayload(success=True, organization=organization)

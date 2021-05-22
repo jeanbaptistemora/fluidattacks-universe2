@@ -1,4 +1,3 @@
-
 # None
 
 
@@ -10,6 +9,6 @@ from api.resolvers.forces_execution import (
 )
 
 
-FORCES_EXECUTION = ObjectType('ForcesExecution')
-FORCES_EXECUTION.set_field('log', log.resolve)
-FORCES_EXECUTION.set_field('vulnerabilities', vulnerabilities.resolve)
+FORCES_EXECUTION = ObjectType("ForcesExecution")
+FORCES_EXECUTION.set_field("log", log.resolve)
+FORCES_EXECUTION.set_field("vulnerabilities", vulnerabilities.resolve)

@@ -1,4 +1,3 @@
-
 import logging
 import logging.config
 from typing import Tuple
@@ -23,13 +22,13 @@ LOGGER = logging.getLogger(__name__)
 
 
 def _format_git_toe_lines(
-    toe_lines_item: GitRootToeLinesItem
+    toe_lines_item: GitRootToeLinesItem,
 ) -> GitRootToeLines:
     return GitRootToeLines(**toe_lines_item._asdict())
 
 
 def _format_git_toe_lines_item(
-    toe_lines: GitRootToeLines
+    toe_lines: GitRootToeLines,
 ) -> GitRootToeLinesItem:
     return GitRootToeLinesItem(**toe_lines._asdict())
 
@@ -44,47 +43,37 @@ async def create(root_toe_lines: GitRootToeLines) -> None:
         raise RepeatedToeLines()
 
 
-async def delete(
-    filename: str,
-    group_name: str,
-    root_id: str
-) -> None:
+async def delete(filename: str, group_name: str, root_id: str) -> None:
     try:
         await model.delete_git_root_toe_lines(
-            filename=filename,
-            group_name=group_name,
-            root_id=root_id
+            filename=filename, group_name=group_name, root_id=root_id
         )
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        LOGGER.exception(ex, extra={"extra": locals()})
         raise UnavailabilityError() from ex
 
 
-async def get_by_group(
-    group_name: str
-) -> Tuple[GitRootToeLines, ...]:
+async def get_by_group(group_name: str) -> Tuple[GitRootToeLines, ...]:
     try:
         toe_lines_items = await model.get_toe_lines_by_group(
             group_name=group_name
         )
         return tuple(map(_format_git_toe_lines, toe_lines_items))
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        LOGGER.exception(ex, extra={"extra": locals()})
         raise UnavailabilityError() from ex
 
 
 async def get_by_root(
-    group_name: str,
-    root_id: str
+    group_name: str, root_id: str
 ) -> Tuple[GitRootToeLines, ...]:
     try:
         toe_lines_items = await model.get_toe_lines_by_root(
-            group_name=group_name,
-            root_id=root_id
+            group_name=group_name, root_id=root_id
         )
         return tuple(map(_format_git_toe_lines, toe_lines_items))
     except ClientError as ex:
-        LOGGER.exception(ex, extra={'extra': locals()})
+        LOGGER.exception(ex, extra={"extra": locals()})
         raise UnavailabilityError() from ex
 
 

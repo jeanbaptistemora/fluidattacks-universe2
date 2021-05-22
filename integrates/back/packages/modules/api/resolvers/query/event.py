@@ -1,4 +1,3 @@
-
 # None
 
 
@@ -15,19 +14,17 @@ from decorators import (
 )
 
 
-@rename_kwargs({'identifier': 'event_id'})
+@rename_kwargs({"identifier": "event_id"})
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,
     require_integrates,
 )
-@rename_kwargs({'event_id': 'identifier'})
+@rename_kwargs({"event_id": "identifier"})
 async def resolve(
-    _parent: None,
-    info: GraphQLResolveInfo,
-    **kwargs: str
+    _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Event:
-    event_id: str = kwargs['identifier']
+    event_id: str = kwargs["identifier"]
     event_loader: DataLoader = info.context.loaders.event
     event: Event = await event_loader.load(event_id)
 

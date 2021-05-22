@@ -1,4 +1,3 @@
-
 from typing import Dict
 
 from ariadne.utils import convert_kwargs_to_snake_case
@@ -29,7 +28,7 @@ async def mutate(
     status: str,
 ) -> SimplePayload:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
-    user_email: str = user_info['user_email']
+    user_email: str = user_info["user_email"]
     loaders: Dataloaders = info.context.loaders
     org_id: str = await orgs_domain.get_id_by_name(organization_name)
     groups = await orgs_domain.get_groups(org_id)
@@ -40,7 +39,7 @@ async def mutate(
         org_name=organization_name,
         status=status,
         groups=groups,
-        user_email=user_email
+        user_email=user_email,
     )
 
     return SimplePayload(success=True)

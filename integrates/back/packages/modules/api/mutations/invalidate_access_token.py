@@ -1,4 +1,3 @@
-
 from typing import Any
 
 from ariadne import convert_kwargs_to_snake_case
@@ -21,16 +20,15 @@ async def mutate(
 ) -> SimplePayloadType:
     user_info = await token_utils.get_jwt_content(info.context)
 
-    success = await users_domain.remove_access_token(user_info['user_email'])
+    success = await users_domain.remove_access_token(user_info["user_email"])
     if success:
         logs_utils.cloudwatch_log(
-            info.context,
-            f'{user_info["user_email"]} invalidate access token'
+            info.context, f'{user_info["user_email"]} invalidate access token'
         )
     else:
         logs_utils.cloudwatch_log(
             info.context,
-            f'{user_info["user_email"]} attempted to invalidate access token'
+            f'{user_info["user_email"]} attempted to invalidate access token',
         )
 
     return SimplePayloadType(success=success)

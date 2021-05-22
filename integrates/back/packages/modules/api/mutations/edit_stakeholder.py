@@ -1,4 +1,3 @@
-
 import logging
 import logging.config
 from typing import (
@@ -39,24 +38,20 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def _update_stakeholder(
-    info: GraphQLResolveInfo,
-    updated_data: Dict[str, str]
+    info: GraphQLResolveInfo, updated_data: Dict[str, str]
 ) -> bool:
     success = False
-    group_name = updated_data['project_name'].lower()
-    modified_role = updated_data['role']
-    modified_email = updated_data['email']
+    group_name = updated_data["project_name"].lower()
+    modified_role = updated_data["role"]
+    modified_email = updated_data["email"]
     project_access = await group_access_domain.get_user_access(
-        modified_email,
-        group_name
+        modified_email, group_name
     )
     if project_access:
-        invitation = cast(InvitationType, project_access.get('invitation'))
-        if invitation and not invitation['is_used']:
+        invitation = cast(InvitationType, project_access.get("invitation"))
+        if invitation and not invitation["is_used"]:
             success = await users_domain.update_invited_stakeholder(
-                updated_data,
-                invitation,
-                group_name
+                updated_data, invitation, group_name
             )
         else:
             if await authz.grant_group_level_role(
@@ -67,8 +62,8 @@ async def _update_stakeholder(
                 )
             else:
                 LOGGER.error(
-                    'Couldn\'t update stakeholder role',
-                    extra={'extra': info.context}
+                    "Couldn't update stakeholder role",
+                    extra={"extra": info.context},
                 )
     else:
         raise StakeholderNotFound()
@@ -83,62 +78,59 @@ async def _update_stakeholder(
     require_integrates,
 )
 async def mutate(
-    _: Any,
-    info: GraphQLResolveInfo,
-    **updated_data: str
+    _: Any, info: GraphQLResolveInfo, **updated_data: str
 ) -> EditStakeholderPayloadType:
-    project_name = updated_data['project_name'].lower()
-    modified_role = updated_data['role']
-    modified_email = updated_data['email']
+    project_name = updated_data["project_name"].lower()
+    modified_role = updated_data["role"]
+    modified_email = updated_data["email"]
 
     success = False
     user_data = await token_utils.get_jwt_content(info.context)
-    user_email = user_data['user_email']
+    user_email = user_data["user_email"]
 
-    allowed_roles_to_grant = \
+    allowed_roles_to_grant = (
         await authz.get_group_level_roles_a_user_can_grant(
             group=project_name,
             requester_email=user_email,
         )
+    )
 
     await authz.validate_fluidattacks_staff_on_group(
-        project_name,
-        modified_email,
-        modified_role
+        project_name, modified_email, modified_role
     )
 
     if modified_role in allowed_roles_to_grant:
         success = await _update_stakeholder(info, updated_data)
     else:
         LOGGER.error(
-            'Invalid role provided',
+            "Invalid role provided",
             extra={
-                'extra': {
-                    'modified_user_role': modified_role,
-                    'project_name': project_name,
-                    'requester_email': user_email
+                "extra": {
+                    "modified_user_role": modified_role,
+                    "project_name": project_name,
+                    "requester_email": user_email,
                 }
-            })
+            },
+        )
 
     if success:
-        await redis_del_by_deps('edit_stakeholder', group_name=project_name)
+        await redis_del_by_deps("edit_stakeholder", group_name=project_name)
         msg = (
-            f'Security: Modified stakeholder data: {modified_email} '
-            f'in {project_name} project successfully'
+            f"Security: Modified stakeholder data: {modified_email} "
+            f"in {project_name} project successfully"
         )
         logs_utils.cloudwatch_log(info.context, msg)
     else:
         msg = (
-            f'Security: Attempted to modify stakeholder '
-            f'data:{modified_email} in '
-            f'{project_name} project'
+            f"Security: Attempted to modify stakeholder "
+            f"data:{modified_email} in "
+            f"{project_name} project"
         )
         logs_utils.cloudwatch_log(info.context, msg)
 
     return EditStakeholderPayloadType(
         success=success,
         modified_stakeholder=dict(
-            project_name=project_name,
-            email=updated_data['email']
-        )
+            project_name=project_name, email=updated_data["email"]
+        ),
     )

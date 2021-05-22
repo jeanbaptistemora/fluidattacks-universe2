@@ -1,5 +1,4 @@
-
 import os
 
 
-DB_MODEL_PATH = os.environ['INTEGRATES_DB_MODEL_PATH']
+DB_MODEL_PATH = os.environ["INTEGRATES_DB_MODEL_PATH"]

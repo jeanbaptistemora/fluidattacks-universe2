@@ -1,4 +1,3 @@
-
 import logging
 import logging.config
 import sys
@@ -37,12 +36,12 @@ async def main() -> None:
         )
         if not item:
             return
-        if action == 'report' and additional_info in {'PDF', 'XLS', 'DATA'}:
+        if action == "report" and additional_info in {"PDF", "XLS", "DATA"}:
             await generate_report(item=item)
-        elif action == 'move_root':
+        elif action == "move_root":
             await move_root(item=item)
         else:
-            LOGGER.error('Invalid action', extra=dict(extra=locals()))
+            LOGGER.error("Invalid action", extra=dict(extra=locals()))
             await delete_action(
                 action_name=item.action_name,
                 additional_info=item.additional_info,
@@ -51,8 +50,8 @@ async def main() -> None:
                 time=item.time,
             )
     except IndexError:
-        LOGGER.error('Missing arguments', extra=dict(extra=locals()))
+        LOGGER.error("Missing arguments", extra=dict(extra=locals()))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run(main())

@@ -1,4 +1,3 @@
-
 # None
 
 
@@ -20,11 +19,9 @@ from decorators import (
     enforce_group_level_auth_async,
 )
 async def resolve(
-    _parent: None,
-    info: GraphQLResolveInfo,
-    **kwargs: str
+    _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Group:
-    group_name: str = kwargs['project_name']
+    group_name: str = kwargs["project_name"]
     group_loader: DataLoader = info.context.loaders.group
     group: Group = await group_loader.load(group_name.lower())
     return group

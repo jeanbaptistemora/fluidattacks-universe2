@@ -1,4 +1,3 @@
-
 from datetime import datetime
 from decimal import Decimal
 from typing import Union
@@ -25,15 +24,12 @@ def get_severity_score_new(
 
 
 def get_updated_evidence_date_new(
-    finding: Finding,
-    evidence: FindingEvidence
+    finding: Finding, evidence: FindingEvidence
 ) -> datetime:
     evidence_date = datetime.fromisoformat(evidence.modified_date)
     updated_date = evidence_date
     if finding.approval:
-        release_date = datetime.fromisoformat(
-            finding.approval.modified_date
-        )
+        release_date = datetime.fromisoformat(finding.approval.modified_date)
         if release_date > evidence_date:
             updated_date = release_date
     return updated_date

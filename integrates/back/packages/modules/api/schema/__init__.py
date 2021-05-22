@@ -1,4 +1,3 @@
-
 import os
 
 from ariadne import (
@@ -23,5 +22,5 @@ SCHEMA: GraphQLSchema = make_executable_schema(
     *SCALARS,
     *TYPES,
     *UNIONS,
-    snake_case_fallback_resolvers
+    snake_case_fallback_resolvers,
 )

@@ -1,4 +1,3 @@
-
 import logging
 import logging.config
 import os
@@ -28,11 +27,11 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-LOGGER_TRANSACTIONAL = logging.getLogger('transactional')
+LOGGER_TRANSACTIONAL = logging.getLogger("transactional")
 
 
 async def get_report(*, item: BatchProcessing, passphrase: str) -> str:
-    report_file_name: str = ''
+    report_file_name: str = ""
     try:
         report_file_name = await reports_domain.get_group_report_url(
             report_type=item.additional_info,
@@ -49,9 +48,9 @@ async def get_report(*, item: BatchProcessing, passphrase: str) -> str:
                     group_name=item.entity,
                     user_email=item.subject,
                 )
-            )
+            ),
         )
-        return ''
+        return ""
     else:
         return uploaded_file_name
     finally:
@@ -67,17 +66,17 @@ async def send_report(
     report_url: str,
 ) -> None:
     translations: Dict[str, str] = {
-        'DATA': 'Group Data',
-        'PDF': 'Executive',
-        'XLS': 'Technical',
+        "DATA": "Group Data",
+        "PDF": "Executive",
+        "XLS": "Technical",
     }
     is_in_db = await is_action_by_key(key=item.key)
     if is_in_db:
         message = (
-            f'Send {item.additional_info} report requested by '
-            f'{item.subject} for group {item.entity}'
+            f"Send {item.additional_info} report requested by "
+            f"{item.subject} for group {item.entity}"
         )
-        LOGGER_TRANSACTIONAL.info(':'.join([item.subject, message]), **NOEXTRA)
+        LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]), **NOEXTRA)
         await notifications_domain.new_password_protected_report(
             item.subject,
             item.entity,
@@ -96,14 +95,13 @@ async def send_report(
 
 async def generate_report(*, item: BatchProcessing) -> None:
     message = (
-        f'Processing {item.additional_info} report requested by '
-        f'{item.subject} for group {item.entity}'
+        f"Processing {item.additional_info} report requested by "
+        f"{item.subject} for group {item.entity}"
     )
-    LOGGER_TRANSACTIONAL.info(':'.join([item.subject, message]), **NOEXTRA)
+    LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]), **NOEXTRA)
     enforcer = await authz.get_group_level_enforcer(item.subject)
     if enforcer(
-        item.entity,
-        'api_resolvers_query_report__get_url_group_report'
+        item.entity, "api_resolvers_query_report__get_url_group_report"
     ):
         passphrase = get_passphrase(4)
         report_url = await get_report(item=item, passphrase=passphrase)
@@ -116,12 +114,12 @@ async def generate_report(*, item: BatchProcessing) -> None:
             )
     else:
         LOGGER.error(
-            'Access denied',
+            "Access denied",
             extra=dict(
                 extra=dict(
                     action=item.action_name,
                     group_name=item.entity,
                     user_email=item.subject,
                 )
-            )
+            ),
         )

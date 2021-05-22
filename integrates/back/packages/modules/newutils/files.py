@@ -1,4 +1,3 @@
-
 import os
 from typing import List
 
@@ -13,8 +12,7 @@ def assert_file_mime(filename: str, allowed_mimes: List[str]) -> bool:
 
 
 async def assert_uploaded_file_mime(
-    file_instance: UploadFile,
-    allowed_mimes: List[str]
+    file_instance: UploadFile, allowed_mimes: List[str]
 ) -> bool:
     mime_type = await get_uploaded_file_mime(file_instance)
     return mime_type in allowed_mimes

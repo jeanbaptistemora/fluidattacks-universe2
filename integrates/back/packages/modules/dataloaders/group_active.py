@@ -1,4 +1,3 @@
-
 from typing import List
 
 from aiodataloader import DataLoader
@@ -8,7 +7,7 @@ from custom_types import Project as GroupType
 
 
 def check_status(group: GroupType) -> GroupType:
-    if group.get('project_status') == 'ACTIVE':
+    if group.get("project_status") == "ACTIVE":
         return group
     raise GroupNotFound()
 
@@ -24,7 +23,4 @@ class GroupActiveLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(self, group_names: List[str]) -> List[GroupType]:
         groups: List[GroupType] = await self.dataloader.load_many(group_names)
-        return [
-            check_status(group)
-            for group in groups
-        ]
+        return [check_status(group) for group in groups]

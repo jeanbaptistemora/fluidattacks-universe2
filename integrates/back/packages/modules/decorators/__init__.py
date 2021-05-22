@@ -1,4 +1,3 @@
-
 import asyncio
 import functools
 import inspect
@@ -43,41 +42,42 @@ logging.config.dictConfig(settings.LOGGING)
 # Constants
 LOGGER = logging.getLogger(__name__)
 UNAUTHORIZED_ROLE_MSG = (
-    'Security: Unauthorized role attempted to perform operation'
+    "Security: Unauthorized role attempted to perform operation"
 )
 
 # Typing
-TVar = TypeVar('TVar')
-TFun = TypeVar('TFun', bound=Callable[..., Any])
+TVar = TypeVar("TVar")
+TFun = TypeVar("TFun", bound=Callable[..., Any])
 
 
 async def _resolve_from_event_id(context: Any, identifier: str) -> str:
     event_loader = context.loaders.event
     data = await event_loader.load(identifier)
-    group_name: str = data['project_name']
+    group_name: str = data["project_name"]
     return group_name
 
 
 async def _resolve_from_finding_id(context: Any, identifier: str) -> str:
     finding_loader = context.loaders.finding
     data = await finding_loader.load(identifier)
-    group_name: str = data['project_name']
+    group_name: str = data["project_name"]
     return group_name
 
 
 async def _resolve_from_vuln_id(context: Any, identifier: str) -> str:
     vuln_loader = context.loaders.vulnerability
     data = await vuln_loader.load(identifier)
-    return await _resolve_from_finding_id(context, data['finding_id'])
+    return await _resolve_from_finding_id(context, data["finding_id"])
 
 
 def authenticate_session(func: TFun) -> TFun:
-
     @functools.wraps(func)
     async def authenticate_and_call(*args: Any, **kwargs: Any) -> Any:
         request = args[0]
-        if 'username' not in request.session or \
-                request.session['username'] is None:
+        if (
+            "username" not in request.session
+            or request.session["username"] is None
+        ):
             return templates.unauthorized(request)
         return await func(*args, **kwargs)
 
@@ -97,10 +97,9 @@ def concurrent_decorators(
     first task to raise.
     """
     if len(decorators) <= 1:
-        raise ValueError('Expected at least 2 decorators as arguments')
+        raise ValueError("Expected at least 2 decorators as arguments")
 
     def decorator(func: TFun) -> TFun:
-
         @functools.wraps(func)
         async def dummy(*_: Any, **__: Any) -> bool:
             """Dummy function to mimic `func`."""
@@ -113,7 +112,7 @@ def concurrent_decorators(
                 list(
                     map(
                         schedule,
-                        [dec(dummy)(*args, **kwargs) for dec in decorators]
+                        [dec(dummy)(*args, **kwargs) for dec in decorators],
                     )
                 )
             )
@@ -136,7 +135,7 @@ def concurrent_decorators(
 
             # May never happen as decorators raise something on errors
             # But it's nice to have a default value here
-            raise RuntimeError('Decorators did not success')
+            raise RuntimeError("Decorators did not success")
 
         return cast(TFun, wrapper)
 
@@ -171,40 +170,42 @@ def enforce_group_level_auth_async(func: TVar) -> TVar:
 
     @functools.wraps(_func)
     async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
-        if hasattr(args[0], 'context'):
+        if hasattr(args[0], "context"):
             context = args[0].context
-        elif hasattr(args[1], 'context'):
+        elif hasattr(args[1], "context"):
             context = args[1].context
         else:
-            GraphQLError('Could not get context from request.')  # NOSONAR
+            GraphQLError("Could not get context from request.")  # NOSONAR
 
         if isinstance(context, dict):
-            context = context.get('request', {})
+            context = context.get("request", {})
         store = token_utils.get_request_store(context)
         user_data = await token_utils.get_jwt_content(context)
-        subject = user_data['user_email']
+        subject = user_data["user_email"]
         object_ = await resolve_group_name(context, args, kwargs)
-        action = f'{_func.__module__}.{_func.__qualname__}'.replace('.', '_')
+        action = f"{_func.__module__}.{_func.__qualname__}".replace(".", "_")
 
         if not object_:
             LOGGER.error(
-                'Unable to identify project name',
+                "Unable to identify project name",
                 extra={
-                    'extra': {
-                        'action': action,
-                        'subject': subject,
+                    "extra": {
+                        "action": action,
+                        "subject": subject,
                     }
-                })
+                },
+            )
 
         enforcer = await authz.get_group_level_enforcer(subject, store)
         if not enforcer(object_, action):
             logs_utils.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
-            raise GraphQLError('Access denied')  # NOSONAR
+            raise GraphQLError("Access denied")  # NOSONAR
 
         if asyncio.iscoroutinefunction(_func):
             return await _func(*args, **kwargs)
 
         return _func(*args, **kwargs)
+
     return cast(TVar, verify_and_call)
 
 
@@ -214,41 +215,43 @@ def enforce_organization_level_auth_async(func: TVar) -> TVar:
 
     @functools.wraps(_func)
     async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
-        if hasattr(args[0], 'context'):
+        if hasattr(args[0], "context"):
             context = args[0].context
-        elif hasattr(args[1], 'context'):
+        elif hasattr(args[1], "context"):
             context = args[1].context
         else:
-            GraphQLError('Could not get context from request.')
+            GraphQLError("Could not get context from request.")
 
         organization_identifier = str(
-            kwargs.get('identifier') or
-            kwargs.get('organization_id') or
-            kwargs.get('organization_name') or
-            args[0]['id']
+            kwargs.get("identifier")
+            or kwargs.get("organization_id")
+            or kwargs.get("organization_name")
+            or args[0]["id"]
         )
         organization_id = (
             organization_identifier
-            if organization_identifier.startswith('ORG#')
+            if organization_identifier.startswith("ORG#")
             else await orgs_domain.get_id_by_name(organization_identifier)
         )
         user_data = await token_utils.get_jwt_content(context)
-        subject = user_data['user_email']
+        subject = user_data["user_email"]
         object_ = organization_id.lower()
-        action = f'{_func.__module__}.{_func.__qualname__}'.replace('.', '_')
+        action = f"{_func.__module__}.{_func.__qualname__}".replace(".", "_")
 
         if not object_:
             LOGGER.error(
-                'Unable to identify organization to check permissions',
+                "Unable to identify organization to check permissions",
                 extra={
-                    'action': action,
-                    'subject': subject,
-                })
+                    "action": action,
+                    "subject": subject,
+                },
+            )
         enforcer = await authz.get_organization_level_enforcer(subject)
         if not enforcer(object_, action):
             logs_utils.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
-            raise GraphQLError('Access denied')
+            raise GraphQLError("Access denied")
         return await _func(*args, **kwargs)
+
     return cast(TVar, verify_and_call)
 
 
@@ -258,23 +261,24 @@ def enforce_user_level_auth_async(func: TVar) -> TVar:
 
     @functools.wraps(_func)
     async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
-        if hasattr(args[0], 'context'):
+        if hasattr(args[0], "context"):
             context = args[0].context
-        elif hasattr(args[1], 'context'):
+        elif hasattr(args[1], "context"):
             context = args[1].context
         else:
-            GraphQLError('Could not get context from request.')
+            GraphQLError("Could not get context from request.")
 
         user_data = await token_utils.get_jwt_content(context)
-        subject = user_data['user_email']
-        object_ = 'self'
-        action = f'{_func.__module__}.{_func.__qualname__}'.replace('.', '_')
+        subject = user_data["user_email"]
+        object_ = "self"
+        action = f"{_func.__module__}.{_func.__qualname__}".replace(".", "_")
 
         enforcer = await authz.get_user_level_enforcer(subject)
         if not enforcer(object_, action):
             logs_utils.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
-            raise GraphQLError('Access denied')
+            raise GraphQLError("Access denied")
         return await _func(*args, **kwargs)
+
     return cast(TVar, verify_and_call)
 
 
@@ -290,8 +294,7 @@ def rename_kwargs(mapping: Dict[str, str]) -> Callable[[TVar], TVar]:
         @functools.wraps(_func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             kwargs = {
-                mapping.get(key, key): val
-                for key, val in kwargs.items()
+                mapping.get(key, key): val for key, val in kwargs.items()
             }
             return _func(*args, **kwargs)
 
@@ -301,21 +304,20 @@ def rename_kwargs(mapping: Dict[str, str]) -> Callable[[TVar], TVar]:
 
 
 def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
-
     def wrapper(func: TVar) -> TVar:
         _func = cast(Callable[..., Any], func)
 
         @functools.wraps(_func)
         async def resolve_and_call(*args: Any, **kwargs: Any) -> Any:
-            if hasattr(args[0], 'context'):
+            if hasattr(args[0], "context"):
                 context = args[0].context
-            elif hasattr(args[1], 'context'):
+            elif hasattr(args[1], "context"):
                 context = args[1].context
             else:
-                GraphQLError('Could not get context from request.')
+                GraphQLError("Could not get context from request.")
 
             if isinstance(context, dict):
-                context = context.get('request', {})
+                context = context.get("request", {})
             store = token_utils.get_request_store(context)
             group = await resolve_group_name(context, args, kwargs)
 
@@ -333,7 +335,7 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
                     group,
                 )
                 if not enforcer(attribute):
-                    raise GraphQLError('Access denied')
+                    raise GraphQLError("Access denied")
             store[context_store_key] = True
             return await _func(*args, **kwargs)
 
@@ -343,11 +345,11 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
 
 
 # Factory functions
-REQUIRE_CONTINUOUS = require_attribute('is_continuous')
-REQUIRE_INTEGRATES = require_attribute('has_integrates')
-REQUIRE_FORCES = require_attribute('has_forces')
-REQUIRE_DRILLS_BLACK = require_attribute('has_drills_black')
-REQUIRE_DRILLS_WHITE = require_attribute('has_drills_white')
+REQUIRE_CONTINUOUS = require_attribute("is_continuous")
+REQUIRE_INTEGRATES = require_attribute("has_integrates")
+REQUIRE_FORCES = require_attribute("has_forces")
+REQUIRE_DRILLS_BLACK = require_attribute("has_drills_black")
+REQUIRE_DRILLS_WHITE = require_attribute("has_drills_white")
 
 
 def require_continuous(func: TVar) -> TVar:
@@ -373,13 +375,13 @@ def require_finding_access(func: TVar) -> TVar:
     async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
         context = args[1].context
         finding_id = (
-            kwargs.get('finding_id', '')
-            if kwargs.get('identifier') is None
-            else kwargs.get('identifier')
+            kwargs.get("finding_id", "")
+            if kwargs.get("identifier") is None
+            else kwargs.get("identifier")
         )
         if not finding_id:
-            vuln = await vulns_domain.get(kwargs['vuln_uuid'])
-            finding_id = vuln['finding_id']
+            vuln = await vulns_domain.get(kwargs["vuln_uuid"])
+            finding_id = vuln["finding_id"]
 
         finding_loader = context.loaders.finding
         finding = await finding_loader.load(finding_id)
@@ -413,7 +415,7 @@ def require_login(func: TVar) -> TVar:
         # The underlying request object being served
         context = args[1].context if len(args) > 1 else args[0]
         if isinstance(context, dict):
-            context = context.get('request', {})
+            context = context.get("request", {})
         store = token_utils.get_request_store(context)
 
         # Within the context of one request we only need to check this once
@@ -425,12 +427,12 @@ def require_login(func: TVar) -> TVar:
             user_data: Any = await token_utils.get_jwt_content(context)
             if token_utils.is_api_token(user_data):
                 await verify_jti(
-                    user_data['user_email'],
-                    context.headers.get('Authorization'),
-                    user_data['jti']
+                    user_data["user_email"],
+                    context.headers.get("Authorization"),
+                    user_data["jti"],
                 )
         except InvalidAuthorization:
-            raise GraphQLError('Login required')
+            raise GraphQLError("Login required")
         else:
             store[context_store_key] = True
             return await _func(*args, **kwargs)
@@ -448,33 +450,35 @@ def require_organization_access(func: TVar) -> TVar:
 
     @functools.wraps(_func)
     async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
-        if hasattr(args[0], 'context'):
+        if hasattr(args[0], "context"):
             context = args[0].context
-        elif hasattr(args[1], 'context'):
+        elif hasattr(args[1], "context"):
             context = args[1].context
         organization_identifier = str(
-            kwargs.get('identifier') or
-            kwargs.get('organization_id') or
-            kwargs.get('organization_name')
+            kwargs.get("identifier")
+            or kwargs.get("organization_id")
+            or kwargs.get("organization_name")
         )
 
         user_data = await token_utils.get_jwt_content(context)
-        user_email = user_data['user_email']
+        user_email = user_data["user_email"]
         organization_id = (
             organization_identifier
-            if organization_identifier.startswith('ORG#')
+            if organization_identifier.startswith("ORG#")
             else await orgs_domain.get_id_by_name(organization_identifier)
         )
-        role, has_access = await collect([
-            authz.get_organization_level_role(user_email, organization_id),
-            orgs_domain.has_user_access(organization_id, user_email)
-        ])
+        role, has_access = await collect(
+            [
+                authz.get_organization_level_role(user_email, organization_id),
+                orgs_domain.has_user_access(organization_id, user_email),
+            ]
+        )
 
-        if role != 'admin' and not has_access:
+        if role != "admin" and not has_access:
             logs_utils.cloudwatch_log(
                 context,
-                f'Security: User {user_email} attempted to access '
-                f'organization {organization_identifier} without permission'
+                f"Security: User {user_email} attempted to access "
+                f"organization {organization_identifier} without permission",
             )
             raise UserNotInOrganization()
         return await _func(*args, **kwargs)
@@ -488,32 +492,32 @@ async def resolve_group_name(  # noqa: MC0001
     kwargs: Any,
 ) -> str:
     """Get project name based on args passed."""
-    if args and args[0] and 'name' in args[0]:
-        name = args[0]['name']
-    elif args and args[0] and 'project_name' in args[0]:
-        name = args[0]['project_name']
-    elif args and args[0] and hasattr(args[0], 'group_name'):
-        name = getattr(args[0], 'group_name')
-    elif args and args[0] and 'finding_id' in args[0]:
-        name = await _resolve_from_finding_id(context, args[0]['finding_id'])
-    elif 'group_name' in kwargs:
-        name = kwargs['group_name']
-    elif 'project_name' in kwargs:
-        name = kwargs['project_name']
-    elif 'finding_id' in kwargs:
-        name = await _resolve_from_finding_id(context, kwargs['finding_id'])
-    elif 'draft_id' in kwargs:
-        name = await _resolve_from_finding_id(context, kwargs['draft_id'])
-    elif 'event_id' in kwargs:
-        name = await _resolve_from_event_id(context, kwargs['event_id'])
-    elif 'vuln_id' in kwargs:
-        name = await _resolve_from_vuln_id(context, kwargs['vuln_id'])
-    elif 'vuln_uuid' in kwargs:
-        name = await _resolve_from_vuln_id(context, kwargs['vuln_uuid'])
+    if args and args[0] and "name" in args[0]:
+        name = args[0]["name"]
+    elif args and args[0] and "project_name" in args[0]:
+        name = args[0]["project_name"]
+    elif args and args[0] and hasattr(args[0], "group_name"):
+        name = getattr(args[0], "group_name")
+    elif args and args[0] and "finding_id" in args[0]:
+        name = await _resolve_from_finding_id(context, args[0]["finding_id"])
+    elif "group_name" in kwargs:
+        name = kwargs["group_name"]
+    elif "project_name" in kwargs:
+        name = kwargs["project_name"]
+    elif "finding_id" in kwargs:
+        name = await _resolve_from_finding_id(context, kwargs["finding_id"])
+    elif "draft_id" in kwargs:
+        name = await _resolve_from_finding_id(context, kwargs["draft_id"])
+    elif "event_id" in kwargs:
+        name = await _resolve_from_event_id(context, kwargs["event_id"])
+    elif "vuln_id" in kwargs:
+        name = await _resolve_from_vuln_id(context, kwargs["vuln_id"])
+    elif "vuln_uuid" in kwargs:
+        name = await _resolve_from_vuln_id(context, kwargs["vuln_uuid"])
     elif settings.DEBUG:
-        raise Exception('Unable to identify project')
+        raise Exception("Unable to identify project")
     else:
-        name = ''
+        name = ""
 
     if isinstance(name, str):
         name = name.lower()

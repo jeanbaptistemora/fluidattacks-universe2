@@ -1,4 +1,3 @@
-
 from time import time
 from typing import Dict
 
@@ -33,44 +32,37 @@ async def mutate(
     info: GraphQLResolveInfo,
     content: str,
     event_id: str,
-    parent: str
+    parent: str,
 ) -> AddConsultPayload:
     random_comment_id = int(round(time() * 1000))
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
-    user_email = str(user_info['user_email'])
+    user_email = str(user_info["user_email"])
     comment_data = {
-        'comment_type': 'event',
-        'parent': parent,
-        'content': content,
-        'user_id': random_comment_id
+        "comment_type": "event",
+        "parent": parent,
+        "content": content,
+        "user_id": random_comment_id,
     }
     comment_id, success = await events_domain.add_comment(
-        info,
-        user_email,
-        comment_data,
-        event_id,
-        parent
+        info, user_email, comment_data, event_id, parent
     )
     if success:
-        redis_del_by_deps_soon('add_event_consult', event_id=event_id)
-        if content.strip() not in {'#external', '#internal'}:
+        redis_del_by_deps_soon("add_event_consult", event_id=event_id)
+        if content.strip() not in {"#external", "#internal"}:
             schedule(
                 events_mail.send_mail_comment(
-                    info.context,
-                    comment_data,
-                    user_email,
-                    event_id
+                    info.context, comment_data, user_email, event_id
                 )
             )
 
         logs_utils.cloudwatch_log(
             info.context,
-            f'Security: Added comment to event {event_id} successfully'
+            f"Security: Added comment to event {event_id} successfully",
         )
     else:
         logs_utils.cloudwatch_log(
             info.context,
-            f'Security: Attempted to add comment in event {event_id}'
+            f"Security: Attempted to add comment in event {event_id}",
         )
 
     return AddConsultPayload(success=success, comment_id=str(comment_id))

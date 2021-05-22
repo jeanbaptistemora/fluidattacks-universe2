@@ -27,14 +27,12 @@ from redis_cluster.operations import redis_del_by_deps_soon
     require_integrates,
 )
 async def mutate(
-    _: Any,
-    info: GraphQLResolveInfo,
-    group_name: str
+    _: Any, info: GraphQLResolveInfo, group_name: str
 ) -> SimplePayloadType:
     loaders = info.context.loaders
     group_name = group_name.lower()
     user_info = await token_utils.get_jwt_content(info.context)
-    requester_email = user_info['user_email']
+    requester_email = user_info["user_email"]
     success = False
 
     try:
@@ -53,16 +51,16 @@ async def mutate(
     except PermissionDenied:
         logs_utils.cloudwatch_log(
             info.context,
-            'Security: Unauthorized role attempted to delete group'
+            "Security: Unauthorized role attempted to delete group",
         )
 
     if success:
         loaders.group_all.clear(group_name)
-        redis_del_by_deps_soon('remove_group', group_name=group_name)
+        redis_del_by_deps_soon("remove_group", group_name=group_name)
         await authz.revoke_cached_group_service_policies(group_name)
         logs_utils.cloudwatch_log(
             info.context,
-            f'Security: Deleted group {group_name} successfully',
+            f"Security: Deleted group {group_name} successfully",
         )
 
     return SimplePayloadType(success=success)

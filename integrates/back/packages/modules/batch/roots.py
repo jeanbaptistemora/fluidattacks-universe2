@@ -1,4 +1,3 @@
-
 from aioextensions import collect
 
 from batch.dal import delete_action
@@ -12,14 +11,16 @@ async def move_root(*, item: BatchProcessing) -> None:
     new_nickname = item.additional_info
     vulns = await roots_dal.get_root_vulns(nickname=old_nickname)
 
-    await collect(tuple(
-        vulns_dal.update(
-            vuln['finding_id'],
-            vuln['UUID'],
-            {'repo_nickname': new_nickname}
+    await collect(
+        tuple(
+            vulns_dal.update(
+                vuln["finding_id"],
+                vuln["UUID"],
+                {"repo_nickname": new_nickname},
+            )
+            for vuln in vulns
         )
-        for vuln in vulns
-    ))
+    )
 
     await delete_action(
         action_name=item.action_name,

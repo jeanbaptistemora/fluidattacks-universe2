@@ -1,4 +1,3 @@
-
 from typing import Any
 
 from ariadne import convert_kwargs_to_snake_case
@@ -22,32 +21,27 @@ from redis_cluster.operations import redis_del_by_deps_soon
     require_login,
     enforce_group_level_auth_async,
     require_integrates,
-    require_finding_access
+    require_finding_access,
 )
 async def mutate(
-    _: Any,
-    info: GraphQLResolveInfo,
-    finding_id: str,
-    **parameters: Any
+    _: Any, info: GraphQLResolveInfo, finding_id: str, **parameters: Any
 ) -> SimpleFindingPayloadType:
-    success = await findings_domain.update_description(
-        finding_id, parameters
-    )
+    success = await findings_domain.update_description(finding_id, parameters)
     if success:
         info.context.loaders.finding.clear(finding_id)
         redis_del_by_deps_soon(
-            'update_finding_description',
+            "update_finding_description",
             finding_id=finding_id,
         )
         logs_utils.cloudwatch_log(
             info.context,
-            f'Security: Updated description in finding '
-            f'{finding_id} with success'
+            f"Security: Updated description in finding "
+            f"{finding_id} with success",
         )
     else:
         logs_utils.cloudwatch_log(
             info.context,
-            f'Security: Tried to update description in finding {finding_id}'
+            f"Security: Tried to update description in finding {finding_id}",
         )
 
     finding_loader = info.context.loaders.finding

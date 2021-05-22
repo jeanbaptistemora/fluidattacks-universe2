@@ -1,4 +1,3 @@
-
 from typing import Any
 
 from ariadne import convert_kwargs_to_snake_case
@@ -41,12 +40,12 @@ async def mutate(  # pylint: disable=too-many-arguments
     has_integrates: bool,
     has_skims: bool,
     reason: str,
-    subscription: str
+    subscription: str,
 ) -> SimplePayloadType:
     loaders = info.context.loaders
     group_name = group_name.lower()
     user_info = await token_utils.get_jwt_content(info.context)
-    requester_email = user_info['user_email']
+    requester_email = user_info["user_email"]
     success = False
 
     try:
@@ -64,30 +63,31 @@ async def mutate(  # pylint: disable=too-many-arguments
         )
     except PermissionDenied:
         logs_utils.cloudwatch_log(
-            info.context,
-            'Security: Unauthorized role attempted to edit group'
+            info.context, "Security: Unauthorized role attempted to edit group"
         )
 
     if success and has_forces:
         await forces_domain.create_forces_user(info, group_name)
     elif (
-        success and not has_forces and has_integrates and
-        await users_domain.ensure_user_exists(
+        success
+        and not has_forces
+        and has_integrates
+        and await users_domain.ensure_user_exists(
             forces_domain.format_forces_user_email(group_name)
         )
     ):
         await groups_domain.remove_user(
             loaders,
             group_name,
-            forces_domain.format_forces_user_email(group_name)
+            forces_domain.format_forces_user_email(group_name),
         )
     if success:
         loaders.group_all.clear(group_name)
-        await redis_del_by_deps('edit_group', group_name=group_name)
+        await redis_del_by_deps("edit_group", group_name=group_name)
         await authz.revoke_cached_group_service_policies(group_name)
         logs_utils.cloudwatch_log(
             info.context,
-            f'Security: Edited group {group_name} successfully',
+            f"Security: Edited group {group_name} successfully",
         )
 
     return SimplePayloadType(success=success)

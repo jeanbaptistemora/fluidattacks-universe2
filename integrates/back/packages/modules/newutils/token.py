@@ -1,4 +1,3 @@
-
 import binascii
 import collections
 import logging
@@ -48,7 +47,7 @@ logging.config.dictConfig(settings.LOGGING)
 LOGGER = logging.getLogger(__name__)
 MAX_API_AGE_WEEKS = 26  # max exp time of access token 6 months
 NUMBER_OF_BYTES = 32  # length of the key
-SCRYPT_N = 2**14  # cpu/memory cost
+SCRYPT_N = 2 ** 14  # cpu/memory cost
 SCRYPT_R = 8  # block size
 SCRYPT_P = 1  # parallelization
 
@@ -59,13 +58,13 @@ def _encrypt_jwt_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
     key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
     claims: str = JWE(
         algs=[
-            'A256GCM',
-            'A256GCMKW',
+            "A256GCM",
+            "A256GCMKW",
         ],
-        plaintext=serialized_payload.encode('utf-8'),
+        plaintext=serialized_payload.encode("utf-8"),
         protected={
-            'alg': 'A256GCMKW',
-            'enc': 'A256GCM',
+            "alg": "A256GCMKW",
+            "enc": "A256GCM",
         },
         recipient=key,
     ).serialize()
@@ -74,14 +73,14 @@ def _encrypt_jwt_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
 
 def _decrypt_jwt_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
     """Returns the decrypted payload of a JWE"""
-    if 'ciphertext' not in payload:
+    if "ciphertext" not in payload:
         return payload
     serialized_payload = encodings.jwt_payload_encode(payload)
     key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
     result = JWE()
-    result.deserialize(serialized_payload.encode('utf-8'))
+    result.deserialize(serialized_payload.encode("utf-8"))
     result.decrypt(key)
-    return encodings.jwt_payload_decode(result.payload.decode('utf-8'))
+    return encodings.jwt_payload_decode(result.payload.decode("utf-8"))
 
 
 def calculate_hash_token() -> Dict[str, str]:
@@ -94,34 +93,27 @@ def calculate_hash_token() -> Dict[str, str]:
         n=SCRYPT_N,
         r=SCRYPT_R,
         p=SCRYPT_P,
-        backend=backend
+        backend=backend,
     ).derive(jti_token)
 
     return {
-        'jti_hashed': binascii.hexlify(jti_hashed).decode(),
-        'jti': binascii.hexlify(jti_token).decode(),
-        'salt': binascii.hexlify(salt).decode()
+        "jti_hashed": binascii.hexlify(jti_hashed).decode(),
+        "jti": binascii.hexlify(jti_token).decode(),
+        "salt": binascii.hexlify(salt).decode(),
     }
 
 
-def decode_jwt(
-    jwt_token: str,
-    api: bool = False
-) -> Dict[str, Any]:
+def decode_jwt(jwt_token: str, api: bool = False) -> Dict[str, Any]:
     """Decodes a jwt token and returns its decrypted payload"""
     secret = settings.JWT_SECRET_API if api else settings.JWT_SECRET
-    content = jwt.decode(
-        token=jwt_token,
-        key=secret,
-        algorithms=['HS512']
-    )
+    content = jwt.decode(token=jwt_token, key=secret, algorithms=["HS512"])
     return _decrypt_jwt_payload(content)
 
 
 async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
     context_store_key = function.get_id(get_jwt_content)
     if isinstance(context, dict):
-        context = context.get('request', {})
+        context = context.get("request", {})
     store = get_request_store(context)
 
     # Within the context of one request we only need to process it once
@@ -131,10 +123,10 @@ async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
     try:
         cookies = context.cookies
         cookie_token = cookies.get(settings.JWT_COOKIE_NAME)
-        header_token = context.headers.get('Authorization')
+        header_token = context.headers.get("Authorization")
         token = header_token.split()[1] if header_token else cookie_token
 
-        if context.session.get('username'):
+        if context.session.get("username"):
             await sessions_dal.check_jwt_token_validity(context)
 
         if not token:
@@ -144,14 +136,14 @@ async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
             content = decode_jwt(token, api=True)
         else:
             content = decode_jwt(token)
-            if content.get('sub') == 'starlette_session':
+            if content.get("sub") == "starlette_session":
                 try:
                     session_jti: str = await redis_get_entity_attr(
-                        entity='session',
-                        attr='jti',
-                        email=content['user_email']
+                        entity="session",
+                        attr="jti",
+                        email=content["user_email"],
                     )
-                    if session_jti != content['jti']:
+                    if session_jti != content["jti"]:
                         raise ExpiredToken()
                 except RedisKeyNotFound:
                     # Session expired (user logged out)
@@ -160,13 +152,13 @@ async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
         # Session expired
         raise InvalidAuthorization()
     except (AttributeError, IndexError) as ex:
-        LOGGER.exception(ex, extra={'extra': context})
+        LOGGER.exception(ex, extra={"extra": context})
         raise InvalidAuthorization()
     except jwt.JWTClaimsError as ex:
-        LOGGER.exception(ex, extra={'extra': context})
+        LOGGER.exception(ex, extra={"extra": context})
         raise InvalidAuthorization()
     except JWTError as ex:
-        LOGGER.exception(ex, extra={'extra': context})
+        LOGGER.exception(ex, extra={"extra": context})
         raise InvalidAuthorization()
     except InvalidJWEData:
         raise InvalidAuthorization()
@@ -177,14 +169,12 @@ async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
 
 def get_request_store(context: Any) -> collections.defaultdict:
     """ Returns customized store attribute of a Django/Starlette request"""
-    return context.store if hasattr(context, 'store') else context.state.store
+    return context.store if hasattr(context, "store") else context.state.store
 
 
 def is_api_token(user_data: UserType) -> bool:
-    return user_data.get('sub') == (
-        'api_token'
-        if 'sub' in user_data
-        else 'jti' in user_data
+    return user_data.get("sub") == (
+        "api_token" if "sub" in user_data else "jti" in user_data
     )
 
 
@@ -200,48 +190,43 @@ def jwt_has_api_token(token: str) -> bool:
     payload = _decrypt_jwt_payload(payload)
     return cast(
         bool,
-        payload.get('sub') == (
-            'api_token'
-            if 'sub' in payload
-            else 'jti' in payload
-        )
+        payload.get("sub")
+        == ("api_token" if "sub" in payload else "jti" in payload),
     )
 
 
 def new_encoded_jwt(
-    payload: Dict[str, Any],
-    api: bool = False,
-    encrypt: bool = True
+    payload: Dict[str, Any], api: bool = False, encrypt: bool = True
 ) -> str:
     """Encrypts the payload into a jwt token and returns its encoded version"""
     processed_payload = _encrypt_jwt_payload(payload) if encrypt else payload
     secret = settings.JWT_SECRET_API if api else settings.JWT_SECRET
     token: str = jwt.encode(
         processed_payload,
-        algorithm='HS512',
+        algorithm="HS512",
         key=secret,
     )
     return token
 
 
 def verificate_hash_token(
-    access_token: Dict[str, str],
-    jti_token: str
+    access_token: Dict[str, str], jti_token: str
 ) -> bool:
     resp = False
     backend = default_backend()
     token_hashed = Scrypt(
-        salt=binascii.unhexlify(access_token['salt']),
+        salt=binascii.unhexlify(access_token["salt"]),
         length=NUMBER_OF_BYTES,
         n=SCRYPT_N,
         r=SCRYPT_R,
         p=SCRYPT_P,
-        backend=backend
+        backend=backend,
     )
     try:
         token_hashed.verify(
             binascii.unhexlify(jti_token),
-            binascii.unhexlify(access_token['jti']))
+            binascii.unhexlify(access_token["jti"]),
+        )
         resp = True
     except InvalidKey as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
