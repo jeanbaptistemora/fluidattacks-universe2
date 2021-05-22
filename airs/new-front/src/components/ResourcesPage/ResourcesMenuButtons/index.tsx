@@ -1,45 +1,11 @@
 /* eslint react/forbid-component-props: 0 */
 import React, { useCallback, useState } from "react";
-import type { StyledComponent } from "styled-components";
-import styled from "styled-components";
 
-const MenuItem: StyledComponent<
-  "li",
-  Record<string, unknown>
-> = styled.li.attrs({
-  className: `
-    ph2
-    di
-    `,
-})``;
-
-const RadioButton: StyledComponent<
-  "input",
-  Record<string, unknown>
-> = styled.input.attrs({
-  className: `
-    op7
-    dn
-    transparent
-    `,
-  type: `radio`,
-})``;
-
-const RadioLabel: StyledComponent<
-  "label",
-  Record<string, unknown>
-> = styled.label.attrs({
-  className: `
-    c-fluid-gray
-    f4-ns
-    f5
-    roboto
-    no-underline
-    fw3
-    hv-fluid-dkred
-    pointer
-    `,
-})``;
+import {
+  MenuItem,
+  RadioButton,
+  RadioLabel,
+} from "../../../styles/styledComponents";
 
 const ResourcesMenuElements: React.FC = (): JSX.Element => {
   const [filter, setFilter] = useState("all");
