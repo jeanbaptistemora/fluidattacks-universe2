@@ -14,6 +14,15 @@ import type {
 } from "redux-form";
 import { Field, change, formValueSelector } from "redux-form";
 
+import {
+  editGroupDataHelper,
+  getHandleIntegratesBtnChange,
+  getHandleSkimsBtnChange,
+  handleDrillsBtnChangeHelper,
+  handleEditGroupDataError,
+  handleForcesBtnChangeHelper,
+} from "./helpers";
+
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import type { IHeaderConfig } from "components/DataTableNext/types";
@@ -105,38 +114,19 @@ const Services: React.FC<IServicesProps> = (
     },
     [dispatch]
   );
-  const handleIntegratesBtnChange: (withIntegrates: boolean) => void = (
-    withIntegrates: boolean
-  ): void => {
-    dispatch(change("editGroup", "integrates", withIntegrates));
-
-    if (!withIntegrates) {
-      dispatch(change("editGroup", "skims", false));
-      dispatch(change("editGroup", "drills", false));
-      dispatch(change("editGroup", "forces", false));
-    }
-  };
-  const handleSkimsBtnChange = (withSkims: boolean): void => {
-    dispatch(change("editGroup", "skims", withSkims));
-
-    if (withSkims) {
-      dispatch(change("editGroup", "integrates", true));
-    } else {
-      dispatch(change("editGroup", "drills", false));
-      dispatch(change("editGroup", "forces", false));
-    }
-  };
+  const handleIntegratesBtnChange = getHandleIntegratesBtnChange(dispatch);
+  const handleSkimsBtnChange = getHandleSkimsBtnChange(dispatch);
   const handleDrillsBtnChange: (withDrills: boolean) => void = (
     withDrills: boolean
   ): void => {
     dispatch(change("editGroup", "drills", withDrills));
 
-    if (withDrills) {
-      dispatch(change("editGroup", "integrates", true));
-      dispatch(change("editGroup", "skims", isContinuousType(formValues.type)));
-    } else {
-      dispatch(change("editGroup", "forces", false));
-    }
+    handleDrillsBtnChangeHelper(
+      dispatch,
+      withDrills,
+      formValues.type,
+      isContinuousType
+    );
   };
   const handleForcesBtnChange: (withForces: boolean) => void = (
     withForces: boolean
@@ -149,11 +139,7 @@ const Services: React.FC<IServicesProps> = (
       )
     );
 
-    if (withForces) {
-      dispatch(change("editGroup", "integrates", true));
-      dispatch(change("editGroup", "skims", true));
-      dispatch(change("editGroup", "drills", true));
-    }
+    handleForcesBtnChangeHelper(dispatch, withForces);
   };
 
   // GraphQL Logic
@@ -181,34 +167,15 @@ const Services: React.FC<IServicesProps> = (
           translate.t("searchFindings.servicesTable.successTitle")
         );
 
-        if (formValues.integrates) {
-          void refetchGroupData({ groupName });
-        } else {
-          push("/home");
-        }
+        editGroupDataHelper(
+          formValues.integrates,
+          groupName,
+          push,
+          refetchGroupData
+        );
       },
       onError: (error: ApolloError): void => {
-        error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-          switch (message) {
-            case "Exception - Forces is only available when Drills is too":
-              msgError(
-                translate.t(
-                  "searchFindings.servicesTable.errors.forcesOnlyIfDrills"
-                )
-              );
-              break;
-            case "Exception - Forces is only available in projects of type Continuous":
-              msgError(
-                translate.t(
-                  "searchFindings.servicesTable.errors.forcesOnlyIfContinuous"
-                )
-              );
-              break;
-            default:
-              msgError(translate.t("groupAlerts.errorTextsad"));
-              Logger.warning("An error occurred editing group services", error);
-          }
-        });
+        handleEditGroupDataError(error);
       },
       variables: {
         comments: formValues.comments,
