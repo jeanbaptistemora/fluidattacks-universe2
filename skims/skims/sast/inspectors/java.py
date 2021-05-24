@@ -15,16 +15,6 @@ from model import (
 def get_metadata(
     graph: graph_model.Graph,
     language: graph_model.GraphShardMetadataLanguage,
-) -> graph_model.GraphShardMetadata:
-    return graph_model.GraphShardMetadata(
-        java=get_metadata_java(graph, language),
-        language=language,
-    )
-
-
-def get_metadata_java(
-    graph: graph_model.Graph,
-    language: graph_model.GraphShardMetadataLanguage,
 ) -> graph_model.GraphShardMetadataJava:
     if language != graph_model.GraphShardMetadataLanguage.JAVA:
         return graph_model.GraphShardMetadataJava(
@@ -32,8 +22,8 @@ def get_metadata_java(
             package="",
         )
 
-    classes = get_metadata_java_classes(graph)
-    package = get_metadata_java_package(graph)
+    classes = _get_metadata_classes(graph)
+    package = _get_metadata_package(graph)
 
     classes_and_package = dict(())
     for key, item in classes.items():
@@ -49,7 +39,7 @@ def get_metadata_java(
     )
 
 
-def get_metadata_java_package(graph: graph_model.Graph) -> str:
+def _get_metadata_package(graph: graph_model.Graph) -> str:
     package: str = ""
 
     match = g.match_ast(graph, g.ROOT_NODE, "package_declaration")
@@ -66,7 +56,7 @@ def get_metadata_java_package(graph: graph_model.Graph) -> str:
     return package
 
 
-def get_metadata_java_classes(
+def _get_metadata_classes(
     graph: graph_model.Graph,
     n_id: str = g.ROOT_NODE,
     namespace: str = "",
@@ -82,13 +72,13 @@ def get_metadata_java_classes(
                 qualified = namespace + "." + name
                 classes[qualified] = graph_model.GraphShardMetadataJavaClass(
                     n_id=c_id,
-                    fields=get_metadata_java_class_fields(graph, c_id),
-                    methods=get_metadata_java_class_methods(graph, c_id),
+                    fields=_get_metadata_class_fields(graph, c_id),
+                    methods=_get_metadata_class_methods(graph, c_id),
                 )
 
                 # Recurse to get the class members
                 classes.update(
-                    get_metadata_java_classes(
+                    _get_metadata_classes(
                         graph,
                         c_id,
                         qualified,
@@ -99,7 +89,7 @@ def get_metadata_java_classes(
         else:
             # Recurse to get the class members
             classes.update(
-                get_metadata_java_classes(
+                _get_metadata_classes(
                     graph,
                     c_id,
                     namespace,
@@ -109,7 +99,7 @@ def get_metadata_java_classes(
     return classes
 
 
-def get_metadata_java_class_fields(
+def _get_metadata_class_fields(
     graph: graph_model.Graph,
     n_id: str,
 ) -> Dict[str, graph_model.GraphShardMetadataJavaClassField]:
@@ -145,7 +135,7 @@ def get_metadata_java_class_fields(
     return methods
 
 
-def get_metadata_java_class_methods(
+def _get_metadata_class_methods(
     graph: graph_model.Graph,
     n_id: str,
 ) -> Dict[str, graph_model.GraphShardMetadataJavaClassField]:
