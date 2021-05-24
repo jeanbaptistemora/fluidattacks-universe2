@@ -36,6 +36,7 @@ async def test_create_project(populate: bool, email: str):
     [
         ["analyst@gmail.com"],
         ["closer@gmail.com"],
+        ["customer@gmail.com"],
         ["resourcer@gmail.com"],
     ],
 )

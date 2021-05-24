@@ -16,6 +16,7 @@ from . import query
     [
         ["admin@gmail.com"],
         ["analyst@gmail.com"],
+        ["customer@gmail.com"],
     ],
 )
 async def test_admin(populate: bool, email: str):

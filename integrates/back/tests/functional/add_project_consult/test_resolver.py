@@ -15,6 +15,7 @@ from . import query
     ["email"],
     [
         ["admin@gmail.com"],
+        ["customer@gmail.com"],
         ["analyst@gmail.com"],
     ],
 )

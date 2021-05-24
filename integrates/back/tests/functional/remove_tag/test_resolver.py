@@ -12,14 +12,14 @@ from . import query
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("remove_tag")
 @pytest.mark.parametrize(
-    ["email"],
-    [
-        ["admin@gmail.com"],
-    ],
+    ("email", "tag_name"),
+    (
+        ("admin@gmail.com", "test1"),
+        ("customer@gmail.com", "test2"),
+    ),
 )
-async def test_remove_tag(populate: bool, email: str):
+async def test_remove_tag(populate: bool, email: str, tag_name: str):
     assert populate
-    tag_name: str = "test1"
     group_name: str = "group1"
     result: Dict[str, Any] = await query(
         user=email, group=group_name, tag=tag_name

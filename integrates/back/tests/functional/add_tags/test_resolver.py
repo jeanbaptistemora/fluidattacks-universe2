@@ -13,15 +13,15 @@ from . import query
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_tags")
 @pytest.mark.parametrize(
-    ["email"],
-    [
-        ["admin@gmail.com"],
-    ],
+    ("email", "tag_list"),
+    (
+        ("admin@gmail.com", ["testing1"]),
+        ("customer@gmail.com", ["testing2"]),
+    ),
 )
-async def test_add_tags(populate: bool, email: str):
+async def test_add_tags(populate: bool, email: str, tag_list: List[str]):
     assert populate
     group_name: str = "group1"
-    tag_list: List[str] = ["testing"]
     result: Dict[str, Any] = await query(
         user=email,
         group=group_name,

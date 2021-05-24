@@ -42,6 +42,7 @@ async def test_edit_stakeholder(populate: bool, email: str):
     [
         ["analyst@gmail.com"],
         ["closer@gmail.com"],
+        ["customer@gmail.com"],
     ],
 )
 async def test_edit_stakeholder(populate: bool, email: str):

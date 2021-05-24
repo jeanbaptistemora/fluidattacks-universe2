@@ -17,6 +17,7 @@ from . import query
         ["admin@gmail.com"],
         ["analyst@gmail.com"],
         ["closer@gmail.com"],
+        ["customer@gmail.com"],
         ["executive@gmail.com"],
         ["resourcer@gmail.com"],
     ],
