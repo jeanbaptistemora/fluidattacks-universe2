@@ -1,4 +1,7 @@
-from __init__ import FI_JWT_SECRET, FI_JWT_SECRET_API
+from __init__ import (
+    FI_JWT_SECRET,
+    FI_JWT_SECRET_API,
+)
 
 
 JWT_COOKIE_NAME = "integrates_session"

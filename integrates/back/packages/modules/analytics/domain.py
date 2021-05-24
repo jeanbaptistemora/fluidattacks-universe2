@@ -18,7 +18,6 @@ from starlette.responses import Response
 import authz
 from analytics import dal as analytics_dal
 from back.app.views import templates
-from back.settings import LOGGING
 from custom_exceptions import DocumentNotFound
 from custom_types import (
     GraphicParameters,
@@ -30,6 +29,7 @@ from newutils.context import CHARTS_LOGO_PATH
 from newutils.encodings import safe_encode
 from organizations import domain as orgs_domain
 from redis_cluster.operations import redis_get_or_set_entity_attr
+from settings import LOGGING
 from tags import domain as tags_domain
 
 

@@ -17,7 +17,6 @@ from aioextensions import collect
 from graphql import GraphQLError
 
 import authz
-from back.settings import LOGGING
 from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
@@ -32,6 +31,7 @@ from group_access import domain as group_access_domain
 from names import domain as names_domain
 from newutils import datetime as datetime_utils
 from organizations import dal as orgs_dal
+from settings import LOGGING
 from users import domain as users_domain
 
 

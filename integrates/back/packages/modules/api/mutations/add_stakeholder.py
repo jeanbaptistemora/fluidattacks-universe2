@@ -6,7 +6,6 @@ from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 import authz
-from back.settings import LOGGING
 from custom_types import (
     AddStakeholderPayload,
     MailContent,
@@ -22,6 +21,7 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

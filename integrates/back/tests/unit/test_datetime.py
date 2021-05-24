@@ -4,11 +4,11 @@ from datetime import datetime, timedelta
 
 from freezegun import freeze_time
 
-from back import settings
 from newutils import datetime as datetime_utils
+from settings import TIME_ZONE
 
 
-tzn = pytz.timezone(settings.TIME_ZONE)
+tzn = pytz.timezone(TIME_ZONE)
 
 
 @freeze_time("2019-12-01")

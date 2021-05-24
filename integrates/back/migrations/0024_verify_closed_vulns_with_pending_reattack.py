@@ -29,7 +29,6 @@ from aioextensions import (
 )
 from more_itertools import chunked
 
-from back import settings
 from comments import dal as comments_dal
 from custom_types import Comment as CommentType
 from dataloaders import get_new_context
@@ -37,6 +36,7 @@ from findings import dal as findings_dal
 from findings import domain as findings_domain
 from groups import domain as groups_domain
 from newutils import vulnerabilities as vulns_utils
+from settings import TIME_ZONE
 from users import domain as users_domain
 from vulnerabilities import (
     dal as vulns_dal,
@@ -95,7 +95,7 @@ async def verify_closed_vulnerabilities(
     coroutines: List[Awaitable[bool]] = []
     finding = await findings_dal.get_finding(finding_id)
     vulnerabilities = await vulns_domain.get_by_ids(closed_vulns)
-    tzn = pytz.timezone(settings.TIME_ZONE)
+    tzn = pytz.timezone(TIME_ZONE)
     today = datetime.now(tz=tzn).today().strftime("%Y-%m-%d %H:%M:%S")
     comment_id = int(round(time() * 1000))
 

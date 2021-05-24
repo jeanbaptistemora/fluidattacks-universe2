@@ -28,10 +28,10 @@ from __init__ import (
     FI_AWS_SECRETSMANAGER_SECRET_KEY,
     AWS_SESSION_TOKEN,
 )
-from back.settings import LOGGING
 from dynamodb import operations_legacy as dynamodb_ops
 from newutils import datetime as datetime_utils
 from s3 import operations as s3_ops
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

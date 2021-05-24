@@ -19,7 +19,6 @@ from aioextensions import (
 from graphql import GraphQLError
 
 import authz
-from back import settings
 from back.app.views import templates
 from custom_exceptions import (
     FindingNotFound,
@@ -33,11 +32,15 @@ from newutils import (
     token as token_utils,
 )
 from organizations import domain as orgs_domain
+from settings import (
+    DEBUG,
+    LOGGING,
+)
 from users import domain as users_domain
 from vulnerabilities import domain as vulns_domain
 
 
-logging.config.dictConfig(settings.LOGGING)
+logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
@@ -514,7 +517,7 @@ async def resolve_group_name(  # noqa: MC0001
         name = await _resolve_from_vuln_id(context, kwargs["vuln_id"])
     elif "vuln_uuid" in kwargs:
         name = await _resolve_from_vuln_id(context, kwargs["vuln_uuid"])
-    elif settings.DEBUG:
+    elif DEBUG:
         raise Exception("Unable to identify project")
     else:
         name = ""

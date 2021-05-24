@@ -18,7 +18,6 @@ from aioextensions import collect
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
-from back.settings import LOGGING
 from custom_types import DynamoDelete as DynamoDeleteType
 from dynamodb import operations_legacy as dynamodb_ops
 from newutils import function
@@ -26,6 +25,7 @@ from redis_cluster.operations import (
     redis_del_by_deps,
     redis_get_or_set_entity_attr,
 )
+from settings import LOGGING
 
 from .model import (
     get_group_level_roles_model,

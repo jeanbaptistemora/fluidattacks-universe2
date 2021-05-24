@@ -9,12 +9,12 @@ from typing import (
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
-from back.settings import LOGGING
 from custom_types import (
     Comment as CommentType,
     DynamoDelete as DynamoDeleteType,
 )
 from dynamodb import operations_legacy as dynamodb_ops
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

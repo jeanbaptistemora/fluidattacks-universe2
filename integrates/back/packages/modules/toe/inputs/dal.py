@@ -4,7 +4,6 @@ from typing import Tuple
 
 from botocore.exceptions import ClientError
 
-from back.settings import LOGGING
 from custom_exceptions import (
     RepeatedToeInput,
     ToeInputNotFound,
@@ -14,6 +13,7 @@ from data_containers.toe_inputs import GitRootToeInput
 from dynamodb import model
 from dynamodb.exceptions import ConditionalCheckFailedException
 from dynamodb.types import GitRootToeInputItem
+from settings import LOGGING
 
 
 # Constants

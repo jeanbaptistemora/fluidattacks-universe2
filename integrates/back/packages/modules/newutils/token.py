@@ -27,7 +27,6 @@ from jwcrypto.jwe import (
 from jwcrypto.jwk import JWK
 
 from __init__ import FI_JWT_ENCRYPTION_KEY
-from back import settings
 from custom_exceptions import (
     ExpiredToken,
     InvalidAuthorization,
@@ -37,11 +36,17 @@ from newutils import encodings
 from redis_cluster.model import KeyNotFound as RedisKeyNotFound
 from redis_cluster.operations import redis_get_entity_attr
 from sessions import dal as sessions_dal
+from settings import (
+    JWT_SECRET,
+    JWT_SECRET_API,
+    JWT_COOKIE_NAME,
+    LOGGING,
+)
 
 from . import function
 
 
-logging.config.dictConfig(settings.LOGGING)
+logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
@@ -105,7 +110,7 @@ def calculate_hash_token() -> Dict[str, str]:
 
 def decode_jwt(jwt_token: str, api: bool = False) -> Dict[str, Any]:
     """Decodes a jwt token and returns its decrypted payload"""
-    secret = settings.JWT_SECRET_API if api else settings.JWT_SECRET
+    secret = JWT_SECRET_API if api else JWT_SECRET
     content = jwt.decode(token=jwt_token, key=secret, algorithms=["HS512"])
     return _decrypt_jwt_payload(content)
 
@@ -122,7 +127,7 @@ async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
 
     try:
         cookies = context.cookies
-        cookie_token = cookies.get(settings.JWT_COOKIE_NAME)
+        cookie_token = cookies.get(JWT_COOKIE_NAME)
         header_token = context.headers.get("Authorization")
         token = header_token.split()[1] if header_token else cookie_token
 
@@ -200,7 +205,7 @@ def new_encoded_jwt(
 ) -> str:
     """Encrypts the payload into a jwt token and returns its encoded version"""
     processed_payload = _encrypt_jwt_payload(payload) if encrypt else payload
-    secret = settings.JWT_SECRET_API if api else settings.JWT_SECRET
+    secret = JWT_SECRET_API if api else JWT_SECRET
     token: str = jwt.encode(
         processed_payload,
         algorithm="HS512",

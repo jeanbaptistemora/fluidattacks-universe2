@@ -17,7 +17,6 @@ from aioextensions import (
     in_process,
 )
 
-from back.settings import LOGGING
 from custom_exceptions import (
     GroupNameNotFound,
     RootNotFound,
@@ -31,6 +30,7 @@ from newutils import (
 )
 from roots import domain as roots_domain
 from roots.types import Root
+from settings import LOGGING
 from toe.lines import domain as toe_lines_domain
 
 

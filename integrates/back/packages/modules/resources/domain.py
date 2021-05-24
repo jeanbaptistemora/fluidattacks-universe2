@@ -12,10 +12,6 @@ from typing import (
 from aioextensions import collect
 from starlette.datastructures import UploadFile
 
-from back.settings import (
-    LOGGING,
-    NOEXTRA,
-)
 from custom_exceptions import InvalidFileSize
 from custom_types import Resource as ResourceType
 from groups import domain as groups_domain
@@ -26,6 +22,10 @@ from newutils import (
     validations,
 )
 from resources import dal as resources_dal
+from settings import (
+    LOGGING,
+    NOEXTRA,
+)
 
 
 logging.config.dictConfig(LOGGING)

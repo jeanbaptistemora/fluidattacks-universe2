@@ -18,7 +18,6 @@ from typing import (
 from aioextensions import collect
 from botocore.exceptions import ClientError
 
-from back.settings import LOGGING
 from custom_types import Finding as FindingType
 from dataloaders import get_new_context
 from findings import domain as findings_domain
@@ -28,6 +27,7 @@ from newutils import (
     findings as findings_utils,
     vulnerabilities as vulns_utils,
 )
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

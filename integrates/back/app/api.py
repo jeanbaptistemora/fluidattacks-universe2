@@ -14,18 +14,17 @@ from starlette.routing import Route
 # Local libraries
 from api import IntegratesAPI
 from api.schema import SCHEMA
-from back import settings
 from back.app.middleware import ApiCustomRequestMiddleware
-from back.settings.queue import (
-    get_task,
-    init_queue,
+from settings import (
+    DEBUG,
+    queue,
 )
 
 
 async def queue_daemon() -> None:
-    init_queue()
+    queue.init_queue()
     while True:
-        func = await get_task()
+        func = await queue.get_task()
         if asyncio.iscoroutinefunction(func):
             await func()  # type: ignore
         else:
@@ -37,9 +36,9 @@ def start_queue_daemon() -> None:
 
 
 STARLETTE_APP = Starlette(
-    debug=settings.DEBUG,
+    debug=DEBUG,
     routes=[
-        Route("/", IntegratesAPI(SCHEMA, debug=settings.DEBUG)),
+        Route("/", IntegratesAPI(SCHEMA, debug=DEBUG)),
     ],
     middleware=[
         Middleware(ApiCustomRequestMiddleware),

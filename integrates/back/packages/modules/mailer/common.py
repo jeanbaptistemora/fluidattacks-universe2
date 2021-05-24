@@ -23,11 +23,11 @@ from __init__ import (
     FI_MANDRILL_API_KEY,
     FI_TEST_PROJECTS,
 )
-from back.settings import LOGGING
 from custom_types import MailContent as MailContentType
 from group_access import domain as group_access_domain
 from mailer.context import EMAIL_TEMPLATES
 from newutils import datetime as datetime_utils
+from settings import LOGGING
 from users import domain as users_domain
 
 

@@ -4,7 +4,6 @@ import logging.config
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-from back.settings import LOGGING
 from custom_types import SimplePayload
 from decorators import (
     concurrent_decorators,
@@ -15,6 +14,7 @@ from decorators import (
 from findings import domain as findings_domain
 from newutils import logs as logs_utils
 from redis_cluster.operations import redis_del_by_deps_soon
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

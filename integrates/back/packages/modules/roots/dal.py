@@ -10,7 +10,6 @@ from typing import (
 
 from boto3.dynamodb.conditions import Key
 
-from back.settings import LOGGING
 from dynamodb import (
     model,
     operations_legacy as dynamodb_ops,
@@ -22,6 +21,7 @@ from dynamodb.types import (
     RootItem,
     URLRootState,
 )
+from settings import LOGGING
 
 
 # Constants

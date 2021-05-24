@@ -10,7 +10,6 @@ from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 import authz
-from back.settings import LOGGING
 from custom_exceptions import StakeholderNotFound
 from custom_types import (
     EditStakeholderPayload as EditStakeholderPayloadType,
@@ -28,6 +27,7 @@ from newutils import (
     token as token_utils,
 )
 from redis_cluster.operations import redis_del_by_deps
+from settings import LOGGING
 from users import domain as users_domain
 
 

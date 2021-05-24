@@ -13,17 +13,7 @@ from typing import (
 )
 
 import pytz
-from boto3 import client
-from graphql.language.ast import (
-    ArgumentNode,
-    FieldNode,
-    NameNode,
-    ObjectFieldNode,
-    ValueNode,
-    VariableNode,
-)
 
-from back import settings
 from back.app.utils import create_user
 from back.tests.unit.utils import (
     create_dummy_session,
@@ -43,12 +33,12 @@ from redis_cluster.operations import (
     redis_set_entity_attr,
 )
 from sessions import dal as sessions_dal
-from users import domain as users_domain
-from __init__ import (
-    FI_AWS_S3_ACCESS_KEY,
-    FI_AWS_S3_SECRET_KEY,
-    FI_AWS_S3_BUCKET,
+from settings import (
+    JWT_COOKIE_NAME,
+    SESSION_COOKIE_AGE,
+    TIME_ZONE,
 )
+from users import domain as users_domain
 
 
 pytestmark = [
@@ -57,7 +47,7 @@ pytestmark = [
 
 
 def test_get_current_date():
-    tzn = pytz.timezone(settings.TIME_ZONE)
+    tzn = pytz.timezone(TIME_ZONE)
     today = datetime.now(tz=tzn)
     date = today.strftime("%Y-%m-%d %H:%M")
     test_data = datetime_utils.get_now_as_str()[:-3]
@@ -102,8 +92,7 @@ def test_assert_file_mime():
 async def test_payload_encode_decode():
     payload = {
         "user_email": "unittest",
-        "exp": datetime.utcnow()
-        + timedelta(seconds=settings.SESSION_COOKIE_AGE),
+        "exp": datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
         "sub": "starlette_session",
         "jti": token_utils.calculate_hash_token()["jti"],
     }
@@ -116,8 +105,7 @@ async def test_payload_encode_decode():
 async def test_payload_encrypt_decrypt():
     payload = {
         "user_email": "unittest",
-        "exp": datetime.utcnow()
-        + timedelta(seconds=settings.SESSION_COOKIE_AGE),
+        "exp": datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
         "sub": "starlette_session",
         "jti": token_utils.calculate_hash_token()["jti"],
     }
@@ -130,8 +118,7 @@ async def test_payload_encrypt_decrypt():
 async def test_decrypt_temp_support_for_nonencrypted():
     payload = {
         "user_email": "unittest",
-        "exp": datetime.utcnow()
-        + timedelta(seconds=settings.SESSION_COOKIE_AGE),
+        "exp": datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
         "iat": datetime.utcnow().timestamp(),
         "sub": "starlette_session",
         "jti": token_utils.calculate_hash_token()["jti"],
@@ -144,26 +131,25 @@ async def test_get_jwt_content():
     request = create_dummy_simple_session()
     payload = {
         "user_email": "unittest",
-        "exp": datetime.utcnow()
-        + timedelta(seconds=settings.SESSION_COOKIE_AGE),
+        "exp": datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
         "sub": "starlette_session",
         "jti": token_utils.calculate_hash_token()["jti"],
     }
     token = token_utils.new_encoded_jwt(payload)
-    request.cookies[settings.JWT_COOKIE_NAME] = token
+    request.cookies[JWT_COOKIE_NAME] = token
     await redis_set_entity_attr(
         entity="session",
         attr="jti",
         email=payload["user_email"],
         value=payload["jti"],
-        ttl=settings.SESSION_COOKIE_AGE,
+        ttl=SESSION_COOKIE_AGE,
     )
     await redis_set_entity_attr(
         entity="session",
         attr="jwt",
         email=payload["user_email"],
         value=token,
-        ttl=settings.SESSION_COOKIE_AGE,
+        ttl=SESSION_COOKIE_AGE,
     )
     test_data = await token_utils.get_jwt_content(request)
     expected_output = {
@@ -179,22 +165,21 @@ async def test_valid_token():
     request = create_dummy_simple_session()
     payload = {
         "user_email": "unittest",
-        "exp": datetime.utcnow()
-        + timedelta(seconds=settings.SESSION_COOKIE_AGE),
+        "exp": datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
         "sub": "session_token",
         "jti": token_utils.calculate_hash_token()["jti"],
     }
     token = token_utils.new_encoded_jwt(payload)
-    request.cookies[settings.JWT_COOKIE_NAME] = token
+    request.cookies[JWT_COOKIE_NAME] = token
     await sessions_dal.add_element(
-        f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE
+        f'fi_jwt:{payload["jti"]}', token, SESSION_COOKIE_AGE
     )
     await redis_set_entity_attr(
         entity="session",
         attr="jwt",
         email=payload["user_email"],
         value=token,
-        ttl=settings.SESSION_COOKIE_AGE,
+        ttl=SESSION_COOKIE_AGE,
     )
     test_data = await token_utils.get_jwt_content(request)
     expected_output = {
@@ -210,23 +195,22 @@ async def test_valid_api_token():
     request = create_dummy_simple_session()
     payload = {
         "user_email": "unittest",
-        "exp": datetime.utcnow()
-        + timedelta(seconds=settings.SESSION_COOKIE_AGE),
+        "exp": datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
         "iat": datetime.utcnow().timestamp(),
         "sub": "api_token",
         "jti": token_utils.calculate_hash_token()["jti"],
     }
     token = token_utils.new_encoded_jwt(payload, api=True)
-    request.cookies[settings.JWT_COOKIE_NAME] = token
+    request.cookies[JWT_COOKIE_NAME] = token
     await sessions_dal.add_element(
-        f'fi_jwt:{payload["jti"]}', token, settings.SESSION_COOKIE_AGE
+        f'fi_jwt:{payload["jti"]}', token, SESSION_COOKIE_AGE
     )
     await redis_set_entity_attr(
         entity="session",
         attr="jwt",
         email=payload["user_email"],
         value=token,
-        ttl=settings.SESSION_COOKIE_AGE,
+        ttl=SESSION_COOKIE_AGE,
     )
     test_data = await token_utils.get_jwt_content(request)
     expected_output = {
@@ -243,13 +227,12 @@ async def test_expired_token():
     request = create_dummy_simple_session()
     payload = {
         "user_email": "unittest",
-        "exp": datetime.utcnow()
-        + timedelta(seconds=settings.SESSION_COOKIE_AGE),
+        "exp": datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
         "sub": "starlette_session",
         "jti": token_utils.calculate_hash_token()["jti"],
     }
     token = token_utils.new_encoded_jwt(payload)
-    request.cookies[settings.JWT_COOKIE_NAME] = token
+    request.cookies[JWT_COOKIE_NAME] = token
     await redis_set_entity_attr(
         entity="session",
         attr="jti",
@@ -285,19 +268,18 @@ async def test_revoked_token():
     request = create_dummy_simple_session()
     payload = {
         "user_email": "unittest",
-        "exp": datetime.utcnow()
-        + timedelta(seconds=settings.SESSION_COOKIE_AGE),
+        "exp": datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
         "sub": "starlette_session",
         "jti": token_utils.calculate_hash_token()["jti"],
     }
     token = token_utils.new_encoded_jwt(payload)
-    request.cookies[settings.JWT_COOKIE_NAME] = token
+    request.cookies[JWT_COOKIE_NAME] = token
     await redis_set_entity_attr(
         entity="session",
         attr="jti",
         email=payload["user_email"],
         value=payload["jti"],
-        ttl=settings.SESSION_COOKIE_AGE,
+        ttl=SESSION_COOKIE_AGE,
     )
     await redis_del_entity_attr(
         entity="session", attr="jti", email=payload["user_email"]
@@ -344,7 +326,7 @@ def test_is_valid_format():
 
 @pytest.mark.changes_db
 async def test_create_user():
-    timezone = pytz.timezone(settings.TIME_ZONE)
+    timezone = pytz.timezone(TIME_ZONE)
 
     async def get_user_attrs(
         email: str, attrs: List[str]

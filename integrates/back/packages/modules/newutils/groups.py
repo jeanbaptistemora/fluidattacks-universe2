@@ -1,11 +1,11 @@
 import logging
 import logging.config
 
-from back.settings import LOGGING
 from custom_types import (
     Historic as HistoricType,
     Project as ProjectType,
 )
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

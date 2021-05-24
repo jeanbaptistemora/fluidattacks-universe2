@@ -9,7 +9,6 @@ from typing import (
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-from back.settings import LOGGING
 from custom_types import SimpleProjectPayload as SimpleProjectPayloadType
 from decorators import (
     concurrent_decorators,
@@ -20,6 +19,7 @@ from decorators import (
 from groups import domain as groups_domain
 from newutils import logs as logs_utils
 from redis_cluster.operations import redis_del_by_deps_soon
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

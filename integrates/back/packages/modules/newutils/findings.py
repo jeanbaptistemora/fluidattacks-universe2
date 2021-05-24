@@ -16,7 +16,6 @@ from typing import (
 
 from starlette.datastructures import UploadFile
 
-from back.settings import LOGGING
 from custom_exceptions import (
     InvalidDateFormat,
     InvalidFileStructure,
@@ -33,6 +32,7 @@ from newutils import (
     forms as forms_utils,
     utils,
 )
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

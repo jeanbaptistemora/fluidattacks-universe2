@@ -9,15 +9,19 @@ from starlette.requests import Request
 from starlette.responses import HTMLResponse
 from starlette.templating import Jinja2Templates
 
-# Local libraries
-from back import settings
+# Local librariessettings
 from custom_types import (
     GraphicParameters,
     ProjectAccess as ProjectAccessType,
 )
+from settings import (
+    DEBUG,
+    STATIC_URL,
+    TEMPLATES_DIR,
+)
 
 
-TEMPLATING_ENGINE = Jinja2Templates(directory=settings.TEMPLATES_DIR)
+TEMPLATING_ENGINE = Jinja2Templates(directory=TEMPLATES_DIR)
 
 
 def error500(request: Request) -> HTMLResponse:
@@ -68,7 +72,7 @@ def unauthorized(request: Request) -> HTMLResponse:
         name="unauthorized.html",
         context={
             "request": request,
-            "debug": settings.DEBUG,
+            "debug": DEBUG,
         },
     )
 
@@ -78,9 +82,9 @@ def login(request: Request) -> HTMLResponse:
         name="login.html",
         context={
             "request": request,
-            "debug": settings.DEBUG,
-            "js": f"{settings.STATIC_URL}/dashboard/app-bundle.min.js",
-            "css": f"{settings.STATIC_URL}/dashboard/app-style.min.css",
+            "debug": DEBUG,
+            "js": f"{STATIC_URL}/dashboard/app-bundle.min.js",
+            "css": f"{STATIC_URL}/dashboard/app-style.min.css",
         },
     )
 
@@ -90,9 +94,9 @@ def main_app(request: Request) -> HTMLResponse:
         name="app.html",
         context={
             "request": request,
-            "debug": settings.DEBUG,
-            "js": f"{settings.STATIC_URL}/dashboard/app-bundle.min.js",
-            "css": f"{settings.STATIC_URL}/dashboard/app-style.min.css",
+            "debug": DEBUG,
+            "js": f"{STATIC_URL}/dashboard/app-bundle.min.js",
+            "css": f"{STATIC_URL}/dashboard/app-style.min.css",
         },
     )
 
@@ -102,7 +106,7 @@ def graphic_error(request: Request) -> HTMLResponse:
         name="graphic-error.html",
         context=dict(
             request=request,
-            debug=settings.DEBUG,
+            debug=DEBUG,
             traceback=traceback.format_exc(),
         ),
     )
@@ -114,14 +118,14 @@ def graphics_for_entity_view(request: Request, entity: str) -> HTMLResponse:
         name="graphics-for-entity.html",
         context=dict(
             request=request,
-            debug=settings.DEBUG,
+            debug=DEBUG,
             entity=entity_title,
             js=(
-                f"{settings.STATIC_URL}/dashboard/"
+                f"{STATIC_URL}/dashboard/"
                 f"graphicsFor{entity_title}-bundle.min.js"
             ),
             css=(
-                f"{settings.STATIC_URL}/dashboard/"
+                f"{STATIC_URL}/dashboard/"
                 f"graphicsFor{entity_title}-style.min.css"
             ),
         ),
@@ -146,7 +150,7 @@ def graphic_view(
                 f"{params.generator_type}/"
                 f"{params.generator_name}.js"
             ),
-            c3js=f"{settings.STATIC_URL}/external/C3/c3.js",
-            c3css=(f"{settings.STATIC_URL}/external/C3/c3.css"),
+            c3js=f"{STATIC_URL}/external/C3/c3.js",
+            c3css=(f"{STATIC_URL}/external/C3/c3.css"),
         ),
     )

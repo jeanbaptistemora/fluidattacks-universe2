@@ -7,13 +7,13 @@ from datetime import (
 
 import pytz
 
-from back import settings
+from settings import TIME_ZONE
 
 
 DEFAULT_DATE_FORMAT: str = "%Y-%m-%d %H:%M:%S"
 DEFAULT_ISO_STR = "2000-01-01T00:00:00-05:00"
 DEFAULT_STR = "2000-01-01 00:00:00"
-TZ = pytz.timezone(settings.TIME_ZONE)
+TZ = pytz.timezone(TIME_ZONE)
 
 
 def format_comment_date(date_string: str) -> str:
@@ -25,7 +25,7 @@ def format_comment_date(date_string: str) -> str:
 def get_from_str(
     date_str: str,
     date_format: str = DEFAULT_DATE_FORMAT,
-    zone: str = settings.TIME_ZONE,
+    zone: str = TIME_ZONE,
 ) -> datetime:
     unaware_datetime = datetime.strptime(date_str, date_format)
     return pytz.timezone(zone).localize(unaware_datetime, is_dst=False)
@@ -34,16 +34,16 @@ def get_from_str(
 def get_as_str(
     date: datetime,
     date_format: str = DEFAULT_DATE_FORMAT,
-    zone: str = settings.TIME_ZONE,
+    zone: str = TIME_ZONE,
 ) -> str:
     return date.astimezone(tz=pytz.timezone(zone)).strftime(date_format)
 
 
-def get_now(zone: str = settings.TIME_ZONE) -> datetime:
+def get_now(zone: str = TIME_ZONE) -> datetime:
     return datetime.now(tz=pytz.timezone(zone))
 
 
-def get_now_as_str(zone: str = settings.TIME_ZONE) -> str:
+def get_now_as_str(zone: str = TIME_ZONE) -> str:
     return get_as_str(get_now(zone))
 
 
@@ -81,7 +81,7 @@ def get_now_plus_delta(
     minutes: float = 0,
     hours: float = 0,
     weeks: float = 0,
-    zone: str = settings.TIME_ZONE,
+    zone: str = TIME_ZONE,
 ) -> datetime:
     now = get_now(zone=zone)
     now_plus_delta = get_plus_delta(
@@ -127,7 +127,7 @@ def get_now_minus_delta(
     minutes: float = 0,
     hours: float = 0,
     weeks: float = 0,
-    zone: str = settings.TIME_ZONE,
+    zone: str = TIME_ZONE,
 ) -> datetime:
     now = get_now(zone=zone)
     now_minus_delta = get_minus_delta(

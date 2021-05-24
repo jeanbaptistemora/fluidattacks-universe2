@@ -23,7 +23,7 @@ from __init__ import (
     FI_ZENDESK_SUBDOMAIN,
     FI_ZENDESK_TOKEN,
 )
-from back.settings import LOGGING
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

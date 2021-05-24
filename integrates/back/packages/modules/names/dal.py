@@ -7,9 +7,9 @@ import aioboto3
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
-from back.settings import LOGGING
 from custom_exceptions import EmptyPoolName
 from dynamodb.operations_legacy import RESOURCE_OPTIONS
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

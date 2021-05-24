@@ -8,7 +8,6 @@ from typing import (
 
 from starlette.requests import Request
 
-from back import settings
 from custom_exceptions import (
     ExpiredToken,
     SecureAccessException,
@@ -20,6 +19,7 @@ from redis_cluster.operations import (
     redis_get_entity_attr,
     redis_set_entity_attr,
 )
+from settings import SESSION_COOKIE_AGE
 
 
 async def add_element(key: str, value: Dict[str, Any], time: int) -> None:
@@ -60,7 +60,7 @@ async def create_session_web(request: Request) -> bool:
         attr="web",
         email=email,
         value=session_key,
-        ttl=settings.SESSION_COOKIE_AGE,
+        ttl=SESSION_COOKIE_AGE,
     )
 
 

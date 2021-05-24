@@ -9,8 +9,8 @@ from __init__ import (
     FI_CLOUDMERSIVE_API_KEY,
     FI_ENVIRONMENT,
 )
-from back.settings import LOGGING
 from custom_exceptions import FileInfected
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

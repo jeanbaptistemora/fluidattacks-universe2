@@ -4,13 +4,13 @@ import sys
 
 from aioextensions import run
 
-from back.settings import LOGGING
 from batch.dal import (
     delete_action,
     get_action,
 )
 from batch.report import generate_report
 from batch.roots import move_root
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

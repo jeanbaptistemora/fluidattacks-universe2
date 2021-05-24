@@ -11,7 +11,7 @@ from functools import partial
 
 # Constants
 TVar = TypeVar("TVar")  # pylint: disable=invalid-name
-DELAY_QUEUE: Optional[Queue] = None  # type: ignore
+DELAY_QUEUE: Optional[Queue] = None
 
 
 def init_queue() -> None:

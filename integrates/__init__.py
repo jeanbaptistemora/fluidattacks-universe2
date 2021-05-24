@@ -60,6 +60,9 @@ try:
     FI_AWS_S3_RESOURCES_BUCKET = "fluidintegrates.resources"
     FI_AWS_S3_REPORTS_BUCKET = "fluidintegrates.reports"
     FI_AWS_S3_FORCES_BUCKET = "fluidintegrates.forces"
+    FI_NEW_RELIC_CONF_FILE = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "newrelic.ini"
+    )
     SERVICES_AWS_S3_DATA_BUCKET = "continuous-data"
 except KeyError as e:
     print("Environment variable " + e.args[0] + " doesn't exist")

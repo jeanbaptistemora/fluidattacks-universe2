@@ -14,7 +14,6 @@ from boto3.session import Session
 from graphql import GraphQLError
 
 # Local libraries
-from back import settings
 from custom_exceptions import (
     DocumentNotFound,
     UnavailabilityError,
@@ -26,6 +25,11 @@ from __init__ import (
     FI_AWS_CLOUDWATCH_SECRET_KEY,
     FI_BUGSNAG_ACCESS_TOKEN,
     FI_ENVIRONMENT,
+)
+
+from .various import (
+    BASE_DIR,
+    DEBUG,
 )
 
 
@@ -45,7 +49,7 @@ BOTO3_SESSION = Session(
 # pylint: disable=too-few-public-methods
 class RequireDebugFalse(logging.Filter):
     def filter(self, _: LogRecord) -> bool:
-        return not settings.DEBUG
+        return not DEBUG
 
 
 LOGGING = {
@@ -113,7 +117,7 @@ bugsnag.configure(
     app_version=CI_COMMIT_SHORT_SHA,
     asynchronous=True,
     auto_capture_sessions=True,
-    project_root=settings.BASE_DIR,
+    project_root=BASE_DIR,
     release_stage=FI_ENVIRONMENT,
     send_environment=True,
 )

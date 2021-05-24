@@ -16,12 +16,12 @@ from PIL import (
 )
 from botocore.exceptions import ClientError
 
-from back.settings import LOGGING
 from custom_types import Finding as FindingType
 from findings import dal as findings_dal
 from reports.it_report import ITReport
 from reports.pdf import CreatorPDF
 from reports.secure_pdf import SecurePDF
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

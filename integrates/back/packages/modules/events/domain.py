@@ -21,7 +21,6 @@ from graphql.type.definition import GraphQLResolveInfo
 from starlette.datastructures import UploadFile
 
 import authz
-from back import settings
 from comments import domain as comments_domain
 from custom_exceptions import (
     EventAlreadyClosed,
@@ -43,6 +42,7 @@ from newutils import (
     files as files_utils,
     validations,
 )
+from settings import TIME_ZONE
 from users import domain as users_domain
 
 
@@ -88,7 +88,7 @@ async def create_event(  # pylint: disable=too-many-locals
     validations.validate_field_length(kwargs["detail"], 300)
 
     event_id = str(random.randint(10000000, 170000000))
-    tzn = pytz.timezone(settings.TIME_ZONE)
+    tzn = pytz.timezone(TIME_ZONE)
     today = datetime_utils.get_now()
 
     group_loader = loaders.group_all

@@ -9,10 +9,10 @@ from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
 from __init__ import FI_AWS_S3_BUCKET
-from back.settings import LOGGING
 from custom_types import Event as EventType
 from dynamodb import operations_legacy as dynamodb_ops
 from s3 import operations as s3_ops
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

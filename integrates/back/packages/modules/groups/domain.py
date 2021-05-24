@@ -35,7 +35,6 @@ from __init__ import (
     BASE_URL,
     FI_DEFAULT_ORG,
 )
-from back.settings import LOGGING
 from custom_exceptions import (
     AlreadyPendingDeletion,
     InvalidGroupName,
@@ -77,6 +76,7 @@ from newutils.validations import (
 from notifications import domain as notifications_domain
 from organizations import domain as orgs_domain
 from redis_cluster.operations import redis_del_by_deps_soon
+from settings import LOGGING
 from users import domain as users_domain
 from vulnerabilities import domain as vulns_domain
 

@@ -17,7 +17,6 @@ from typing import (
 from graphql.type.definition import GraphQLResolveInfo
 from starlette.datastructures import UploadFile
 
-from back.settings import LOGGING
 from custom_types import (
     ExecutionVulnerabilities,
     ForcesExecution as ForcesExecutionType,
@@ -25,6 +24,7 @@ from custom_types import (
 from forces import dal as forces_dal
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

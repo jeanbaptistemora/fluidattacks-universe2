@@ -15,9 +15,9 @@ from boto3.dynamodb.conditions import (
 )
 from botocore.exceptions import ClientError
 
-from back.settings import LOGGING
 from custom_types import Project as GroupType
 from dynamodb import operations_legacy as dynamodb_ops
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

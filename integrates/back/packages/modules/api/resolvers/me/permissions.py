@@ -8,9 +8,9 @@ from typing import (
 from graphql.type.definition import GraphQLResolveInfo
 
 import authz
-from back.settings import LOGGING
 from custom_exceptions import InvalidParameter
 from custom_types import Me
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

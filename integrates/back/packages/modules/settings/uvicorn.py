@@ -1,9 +1,10 @@
 # IntegratesWorker class overrides uvicorn base worker to inject custom params
+from uvicorn import workers
 
-from uvicorn.workers import UvicornWorker
 
-
-class IntegratesWorker(UvicornWorker):  # type: ignore
+class IntegratesWorker(  # pylint: disable=too-few-public-methods
+    workers.UvicornWorker
+):
 
     CONFIG_KWARGS = {
         "interface": "asgi3",

@@ -21,7 +21,7 @@ from __init__ import (
     FI_AWS_S3_SECRET_KEY,
     FI_ENVIRONMENT,
 )
-from back.settings import LOGGING
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

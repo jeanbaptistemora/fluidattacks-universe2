@@ -23,7 +23,7 @@ function main {
     # Workers silent for more than this many seconds are killed and restarted. [30]
     --timeout '300'
     # The type of workers to use. [sync]
-    --worker-class 'back.settings.uvicorn.IntegratesWorker'
+    --worker-class 'settings.uvicorn.IntegratesWorker'
     # The maximum number of simultaneous clients. [1000]
     --worker-connections '512'
   )

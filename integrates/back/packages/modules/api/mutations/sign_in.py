@@ -12,19 +12,21 @@ import aiohttp
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-from back import settings
 from back.app import utils
-from back.settings import LOGGING
-from back.settings.auth import (
-    BITBUCKET_ARGS,
-    GOOGLE_ARGS,
-    azure,
-)
 from custom_types import SignInPayload as SignInPayloadType
 from newutils import (
     analytics,
     datetime as datetime_utils,
     token as token_helper,
+)
+from settings import (
+    LOGGING,
+    MOBILE_SESSION_AGE,
+)
+from settings.auth import (
+    BITBUCKET_ARGS,
+    GOOGLE_ARGS,
+    azure,
 )
 
 
@@ -99,7 +101,7 @@ async def mutate(
                 "first_name": user.get("given_name"),
                 "last_name": user.get("family_name"),
                 "exp": datetime_utils.get_now_plus_delta(
-                    seconds=settings.MOBILE_SESSION_AGE
+                    seconds=MOBILE_SESSION_AGE
                 ),
                 "sub": "session_token",
             }

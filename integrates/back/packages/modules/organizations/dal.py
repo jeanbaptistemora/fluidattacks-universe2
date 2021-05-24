@@ -14,7 +14,6 @@ from aioextensions import collect
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
-from back.settings import LOGGING
 from custom_exceptions import (
     InvalidOrganization,
     UnavailabilityError,
@@ -32,6 +31,7 @@ from dynamodb.operations_legacy import (
     query as dynamodb_query,
     update_item as dynamodb_update_item,
 )
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

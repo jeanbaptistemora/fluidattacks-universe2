@@ -3,10 +3,10 @@ import logging
 import pytest
 
 import authz
-from back import settings
+from settings import LOGGING
 
 
-logging.config.dictConfig(settings.LOGGING)
+logging.config.dictConfig(LOGGING)
 
 
 @pytest.fixture(autouse=True, scope="session")

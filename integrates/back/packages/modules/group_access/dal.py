@@ -11,7 +11,6 @@ from boto3.dynamodb.conditions import (
 )
 from botocore.exceptions import ClientError
 
-from back.settings import LOGGING
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
     Project as GroupType,
@@ -22,6 +21,7 @@ from newutils import (
     apm,
     datetime as datetime_utils,
 )
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

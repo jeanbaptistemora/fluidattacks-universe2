@@ -5,7 +5,7 @@ from typing import (
     Tuple,
 )
 
-from back.settings import LOGGING
+from settings import LOGGING
 
 from .enforcer import (
     get_group_level_enforcer,

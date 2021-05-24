@@ -5,7 +5,7 @@ from typing import Optional
 
 from botocore.exceptions import ClientError
 
-from back.settings import LOGGING
+from settings import LOGGING
 
 
 # Constants

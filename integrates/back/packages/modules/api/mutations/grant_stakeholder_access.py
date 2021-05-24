@@ -6,7 +6,6 @@ from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 import authz
-from back.settings import LOGGING
 from custom_exceptions import StakeholderHasGroupAccess
 from custom_types import (
     GrantStakeholderAccessPayload as GrantStakeholderAccessPayloadType,
@@ -24,6 +23,7 @@ from newutils import (
     token as token_utils,
 )
 from redis_cluster.operations import redis_del_by_deps
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

@@ -15,8 +15,12 @@ from authlib.common.security import generate_token
 
 # Local libraries
 import back.app.utils as utils
-from back.settings.auth import azure, BITBUCKET_ARGS, GOOGLE_ARGS
 from sessions import dal as sessions_dal
+from settings.auth import (
+    BITBUCKET_ARGS,
+    GOOGLE_ARGS,
+    azure,
+)
 
 
 OAUTH = OAuth()

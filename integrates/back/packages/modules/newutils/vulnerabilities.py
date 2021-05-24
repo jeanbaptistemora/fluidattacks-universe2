@@ -24,7 +24,6 @@ from aioextensions import (
     in_process,
 )
 
-from back.settings import LOGGING
 from custom_exceptions import (
     AlreadyRequested,
     InvalidRange,
@@ -35,6 +34,7 @@ from custom_types import (
     Finding as FindingType,
     Historic as HistoricType,
 )
+from settings import LOGGING
 
 from . import datetime as datetime_utils
 

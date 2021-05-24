@@ -8,12 +8,12 @@ from ariadne.asgi import GraphQL
 from starlette.requests import Request
 from starlette.responses import Response
 
-from back import settings
 from dataloaders import apply_context_attrs
 from newutils import logs as logs_utils
+from settings import NEW_RELIC_CONF_FILE
 
 
-newrelic.agent.initialize(settings.NEW_RELIC_CONF_FILE)
+newrelic.agent.initialize(NEW_RELIC_CONF_FILE)
 
 
 class IntegratesAPI(GraphQL):

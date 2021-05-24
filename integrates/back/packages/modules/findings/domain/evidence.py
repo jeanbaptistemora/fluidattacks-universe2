@@ -15,7 +15,6 @@ from backports import csv
 from magic import Magic
 from starlette.datastructures import UploadFile
 
-from back.settings import LOGGING
 from custom_exceptions import (
     EvidenceNotFound,
     InvalidFileSize,
@@ -29,6 +28,7 @@ from newutils import (
     utils,
     validations,
 )
+from settings import LOGGING
 
 from .core import get_finding
 

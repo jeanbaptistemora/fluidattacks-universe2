@@ -18,7 +18,6 @@ from starlette.responses import HTMLResponse
 
 # Local libraries
 import authz
-from back import settings
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain
 from organizations import domain as orgs_domain
@@ -29,6 +28,11 @@ from newutils import (
     token as token_utils,
 )
 from redis_cluster.operations import redis_set_entity_attr
+from settings import (
+    JWT_COOKIE_NAME,
+    JWT_COOKIE_SAMESITE,
+    SESSION_COOKIE_AGE,
+)
 from users import domain as users_domain
 from __init__ import (
     FI_COMMUNITY_PROJECTS,
@@ -43,10 +47,7 @@ async def create_session_token(user: Dict[str, str]) -> str:
             user_email=user_email,
             first_name=user["first_name"],
             last_name=user["last_name"],
-            exp=(
-                datetime.utcnow()
-                + timedelta(seconds=settings.SESSION_COOKIE_AGE)
-            ),
+            exp=(datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE)),
             sub="starlette_session",
             jti=jti,
         )
@@ -57,14 +58,14 @@ async def create_session_token(user: Dict[str, str]) -> str:
         attr="jti",
         email=user_email,
         value=jti,
-        ttl=settings.SESSION_COOKIE_AGE,
+        ttl=SESSION_COOKIE_AGE,
     )
     await redis_set_entity_attr(
         entity="session",
         attr="jwt",
         email=user_email,
         value=jwt_token,
-        ttl=settings.SESSION_COOKIE_AGE,
+        ttl=SESSION_COOKIE_AGE,
     )
 
     return jwt_token
@@ -72,12 +73,12 @@ async def create_session_token(user: Dict[str, str]) -> str:
 
 def set_token_in_response(response: HTMLResponse, token: str) -> HTMLResponse:
     response.set_cookie(
-        key=settings.JWT_COOKIE_NAME,
-        samesite=settings.JWT_COOKIE_SAMESITE,
+        key=JWT_COOKIE_NAME,
+        samesite=JWT_COOKIE_SAMESITE,
         value=token,
         secure=True,
         httponly=True,
-        max_age=settings.SESSION_COOKIE_AGE,
+        max_age=SESSION_COOKIE_AGE,
     )
 
     return response

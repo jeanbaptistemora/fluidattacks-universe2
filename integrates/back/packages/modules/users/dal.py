@@ -13,13 +13,13 @@ from boto3.dynamodb.conditions import (
 from botocore.exceptions import ClientError
 
 from __init__ import FI_TEST_PROJECTS
-from back.settings import LOGGING
 from custom_exceptions import UnavailabilityError
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
     User as UserType,
 )
 from dynamodb import operations_legacy as dynamodb_ops
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

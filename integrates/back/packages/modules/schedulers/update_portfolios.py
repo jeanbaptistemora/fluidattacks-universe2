@@ -13,11 +13,11 @@ from typing import (
 
 from aioextensions import collect
 
-from back.settings import LOGGING
 from custom_types import Project as GroupType
 from dataloaders import get_new_context
 from groups import domain as groups_domain
 from organizations import domain as orgs_domain
+from settings import LOGGING
 from tags import domain as tags_domain
 
 

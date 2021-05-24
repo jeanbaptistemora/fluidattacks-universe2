@@ -8,12 +8,15 @@ from aioextensions import (
 from starlette.requests import Request
 
 from __init__ import FI_ENVIRONMENT
-from back import settings
+from settings import (
+    LOGGING,
+    NOEXTRA,
+)
 
 from .token import get_jwt_content
 
 
-logging.config.dictConfig(settings.LOGGING)
+logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER_TRANSACTIONAL = logging.getLogger("transactional")
@@ -28,8 +31,4 @@ async def cloudwatch_log_async(request: Request, msg: str) -> None:
     info = [str(user_data["user_email"])]
     info.append(FI_ENVIRONMENT)
     info.append(msg)
-    schedule(
-        in_thread(
-            LOGGER_TRANSACTIONAL.info, ":".join(info), **settings.NOEXTRA
-        )
-    )
+    schedule(in_thread(LOGGER_TRANSACTIONAL.info, ":".join(info), **NOEXTRA))

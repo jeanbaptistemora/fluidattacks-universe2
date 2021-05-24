@@ -10,7 +10,6 @@ from aioextensions import collect
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
-from back.settings import LOGGING
 from batch.types import BatchProcessing
 from custom_types import DynamoDelete
 from dynamodb import operations_legacy as dynamodb_ops
@@ -26,6 +25,7 @@ from newutils.datetime import (
     get_now,
 )
 from newutils.encodings import safe_encode
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

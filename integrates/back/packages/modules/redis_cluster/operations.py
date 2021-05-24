@@ -19,7 +19,7 @@ from rediscluster.exceptions import (
 )
 
 from __init__ import FI_REDIS_SERVER
-from back import settings
+from settings import CACHE_TTL
 
 from . import model as redis_model
 from .serialization import (
@@ -140,7 +140,7 @@ async def redis_get_or_set_entity_attr(
     *,
     entity: str,
     attr: str,
-    ttl: int = settings.CACHE_TTL,
+    ttl: int = CACHE_TTL,
     **args: str,
 ) -> Any:
     try:
@@ -170,7 +170,7 @@ async def redis_set_entity_attr(
     entity: str,
     attr: str,
     value: Any,
-    ttl: int = settings.CACHE_TTL,
+    ttl: int = CACHE_TTL,
     **args: str,
 ) -> bool:
     # https://redis.io/commands/setex

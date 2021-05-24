@@ -8,7 +8,6 @@ from freezegun import freeze_time
 from graphql.type import GraphQLResolveInfo
 from pytz import timezone
 
-from back import settings
 from back.tests.unit.utils import create_dummy_session
 from custom_exceptions import (
     InvalidGroupServicesConfig,
@@ -59,6 +58,7 @@ from newutils.vulnerabilities import (
     get_open_vulnerability_date,
     is_vulnerability_closed,
 )
+from settings import TIME_ZONE
 from vulnerabilities import dal as vulns_dal
 
 
@@ -120,7 +120,7 @@ async def test_get_last_closing_vuln():
         findings_dal.get_finding(finding_id) for finding_id in findings_to_get
     )
     test_data = await get_last_closing_vuln_info(context, findings)
-    tzn = timezone(settings.TIME_ZONE)
+    tzn = timezone(TIME_ZONE)
     actual_date = datetime.now(tz=tzn).date()
     initial_date = datetime(2019, 1, 15).date()
     assert test_data[0] == (actual_date - initial_date).days

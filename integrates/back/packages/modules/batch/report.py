@@ -4,10 +4,6 @@ import os
 from typing import Dict
 
 import authz
-from back.settings import (
-    LOGGING,
-    NOEXTRA,
-)
 from batch.dal import (
     delete_action,
     is_action_by_key,
@@ -21,6 +17,10 @@ from newutils.reports import (
 )
 from notifications import domain as notifications_domain
 from reports import domain as reports_domain
+from settings import (
+    LOGGING,
+    NOEXTRA,
+)
 
 
 logging.config.dictConfig(LOGGING)

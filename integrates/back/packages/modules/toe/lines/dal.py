@@ -4,7 +4,6 @@ from typing import Tuple
 
 from botocore.exceptions import ClientError
 
-from back.settings import LOGGING
 from custom_exceptions import (
     RepeatedToeLines,
     ToeLinesNotFound,
@@ -14,6 +13,7 @@ from data_containers.toe_lines import GitRootToeLines
 from dynamodb import model
 from dynamodb.exceptions import ConditionalCheckFailedException
 from dynamodb.types import GitRootToeLinesItem
+from settings import LOGGING
 
 
 # Constants

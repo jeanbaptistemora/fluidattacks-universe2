@@ -22,7 +22,6 @@ from starlette.staticfiles import StaticFiles
 # Local libraries
 from api import IntegratesAPI
 from api.schema import SCHEMA
-from back import settings
 from back.app import utils
 from back.app.middleware import CustomRequestMiddleware
 from back.app.views import (
@@ -30,10 +29,6 @@ from back.app.views import (
     charts,
     evidence,
     templates,
-)
-from back.settings.queue import (
-    get_task,
-    init_queue,
 )
 from custom_exceptions import (
     ExpiredToken,
@@ -46,6 +41,12 @@ from newutils import analytics
 from organizations import domain as orgs_domain
 from redis_cluster.operations import redis_del_entity_attr
 from sessions import dal as sessions_dal
+from settings import (
+    DEBUG,
+    JWT_COOKIE_NAME,
+    TEMPLATES_DIR,
+    queue,
+)
 from users import domain as users_domain
 from __init__ import (
     FI_ENVIRONMENT,
@@ -72,7 +73,7 @@ async def app(request: Request) -> HTMLResponse:
                 utils.set_token_in_response(response, jwt_token)
         else:
             response = templates.unauthorized(request)
-            response.delete_cookie(key=settings.JWT_COOKIE_NAME)
+            response.delete_cookie(key=JWT_COOKIE_NAME)
     except (ExpiredToken, SecureAccessException):
         response = await logout(request)
 
@@ -93,7 +94,7 @@ async def logout(request: Request) -> HTMLResponse:
     request.session.clear()
 
     response = RedirectResponse("/")
-    response.delete_cookie(key=settings.JWT_COOKIE_NAME)
+    response.delete_cookie(key=JWT_COOKIE_NAME)
 
     return response
 
@@ -136,9 +137,9 @@ async def confirm_access(request: Request) -> HTMLResponse:
 
 
 async def queue_daemon() -> None:
-    init_queue()
+    queue.init_queue()
     while True:
-        func = await get_task()
+        func = await queue.get_task()
         if asyncio.iscoroutinefunction(func):
             await func()  # type: ignore
         else:
@@ -150,10 +151,10 @@ def start_queue_daemon() -> None:
 
 
 STARLETTE_APP = Starlette(
-    debug=settings.DEBUG,
+    debug=DEBUG,
     routes=[
         Route("/", templates.login),
-        Route("/api", IntegratesAPI(SCHEMA, debug=settings.DEBUG)),
+        Route("/api", IntegratesAPI(SCHEMA, debug=DEBUG)),
         Route("/authz_azure", auth.authz_azure),
         Route("/authz_bitbucket", auth.authz_bitbucket),
         Route("/authz_google", auth.authz_google),
@@ -178,7 +179,7 @@ STARLETTE_APP = Starlette(
         ),
         Mount(
             "/static",
-            StaticFiles(directory=f"{settings.TEMPLATES_DIR}/static"),
+            StaticFiles(directory=f"{TEMPLATES_DIR}/static"),
             name="static",
         ),
         Route("/{full_path:path}", app),

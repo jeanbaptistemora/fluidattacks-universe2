@@ -15,7 +15,6 @@ from botocore.exceptions import ClientError
 from starlette.datastructures import UploadFile
 
 from __init__ import FI_AWS_S3_REPORTS_BUCKET as VULNS_BUCKET
-from back.settings import LOGGING
 from custom_exceptions import ErrorUploadingFileS3
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
@@ -24,6 +23,7 @@ from custom_types import (
 from dynamodb import operations_legacy as dynamodb_ops
 from newutils import datetime as datetime_utils
 from s3 import operations as s3_ops
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)

@@ -28,10 +28,6 @@ from aioextensions import (
 from graphql.type.definition import GraphQLResolveInfo
 
 import authz
-from back.settings import (
-    LOGGING,
-    NOEXTRA,
-)
 from comments import domain as comments_domain
 from custom_exceptions import (
     FindingNotFound,
@@ -59,6 +55,10 @@ from newutils import (
     utils,
     validations,
     vulnerabilities as vulns_utils,
+)
+from settings import (
+    LOGGING,
+    NOEXTRA,
 )
 from users import domain as users_domain
 from vulnerabilities import domain as vulns_domain

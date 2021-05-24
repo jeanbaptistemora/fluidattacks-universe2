@@ -33,10 +33,6 @@ from aioextensions import (
 from graphql.type.definition import GraphQLResolveInfo
 from starlette.datastructures import UploadFile
 
-from back.settings import (
-    LOGGING,
-    NOEXTRA,
-)
 from comments import domain as comments_domain
 from custom_exceptions import (
     AlreadyZeroRiskRequested,
@@ -64,6 +60,10 @@ from newutils import (
     vulnerabilities as vulns_utils,
 )
 from notifications import domain as notifications_domain
+from settings import (
+    LOGGING,
+    NOEXTRA,
+)
 from vulnerabilities import dal as vulns_dal
 
 

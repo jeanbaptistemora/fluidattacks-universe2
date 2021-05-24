@@ -19,10 +19,6 @@ from aioextensions import collect
 
 import authz
 from analytics import domain as analytics_domain
-from back.settings import (
-    LOGGING,
-    NOEXTRA,
-)
 from custom_types import MailContent
 from dataloaders import (
     Dataloaders,
@@ -38,6 +34,10 @@ from newutils import (
     reports,
 )
 from organizations import domain as orgs_domain
+from settings import (
+    LOGGING,
+    NOEXTRA,
+)
 from subscriptions import dal as subscriptions_dal
 from subscriptions.dal import NumericType
 from tags import domain as tags_domain

@@ -3,8 +3,8 @@ import logging.config
 
 from botocore.exceptions import ClientError
 
-from back.settings import LOGGING
 from dynamodb import operations_legacy as dynamodb_ops
+from settings import LOGGING
 
 
 logging.config.dictConfig(LOGGING)
