@@ -3,15 +3,11 @@ from functools import (
     partial,
 )
 import logging
-from operator import (
-    attrgetter,
-)
 import sys
 from time import (
     time,
 )
 from typing import (
-    List,
     Optional,
 )
 
@@ -20,9 +16,6 @@ from aioextensions import (
     run,
 )
 import click
-from integrates.domain import (
-    title_to_finding,
-)
 from model import (
     core_model,
 )
@@ -140,20 +133,10 @@ def queue(
     group: str,
     urgent: bool,
 ) -> None:
-    findings: List[core_model.FindingEnum] = []
-
-    if finding_code is None and finding_title is None:
-        findings.append(core_model.FINDING_ENUM_FROM_STR[finding_code])
-    elif finding_title is not None:
-        findings.extend(title_to_finding(finding_title))
-    else:
-        raise click.UsageError(
-            "Either --finding-code or --finding-title must be provided"
-        )
-
     success: bool = run(
         queue_wrapped(
-            findings=findings,
+            finding_code=finding_code,
+            finding_title=finding_title,
             group=group,
             urgent=urgent,
         ),
@@ -222,7 +205,8 @@ def rebase(
 
 @shield(on_error_return=False)
 async def queue_wrapped(
-    findings: List[core_model.FindingEnum],
+    finding_code: Optional[str],
+    finding_title: Optional[str],
     group: str,
     urgent: bool,
 ) -> bool:
@@ -232,12 +216,14 @@ async def queue_wrapped(
 
     initialize_bugsnag()
     add_bugsnag_data(
-        findings=", ".join(map(attrgetter("name"), findings)),
+        finding_code=str(finding_code),
+        finding_title=str(finding_title),
         group=group,
-        urgent=str(urgent).lower(),
+        urgent=str(urgent),
     )
     success: bool = await core.queue.main(
-        findings=findings,
+        finding_code=finding_code,
+        finding_title=finding_title,
         group=group,
         urgent=urgent,
     )

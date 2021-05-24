@@ -2,11 +2,15 @@
 import asyncio
 from typing import (
     List,
+    Optional,
 )
 
 # Third party libraries
 from aioextensions import (
     collect,
+)
+from integrates.domain import (
+    title_to_finding,
 )
 
 # Local libraries
@@ -47,10 +51,18 @@ async def process_group_on_aws(
 
 
 async def main(
-    findings: List[core_model.FindingEnum],
+    finding_code: Optional[str],
+    finding_title: Optional[str],
     group: str,
     urgent: bool,
 ) -> bool:
+    findings: List[core_model.FindingEnum] = []
+
+    if finding_code is not None:
+        findings.append(core_model.FINDING_ENUM_FROM_STR[finding_code])
+    elif finding_title is not None:
+        findings.extend(title_to_finding(finding_title))
+
     success: bool = all(
         await collect(
             process_group_on_aws(
