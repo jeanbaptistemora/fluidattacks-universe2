@@ -133,61 +133,36 @@ const LinksSection: React.FC = (): JSX.Element => (
       <BodyLink link={"/compliance/cwe/"} name={"CWE"} /> <br />
     </LinksContainer>
     <LinksContainer className={"dib-xl display-none"}>
-      <HeadLink link={"https://fluidattacks.com/about-us/"} name={"About Us"} />{" "}
-      <br />
+      <HeadLink link={"/about-us/"} name={"About Us"} /> <br />
+      <BodyLink link={"/about-us/clients/"} name={"Clients"} /> <br />
       <BodyLink
-        link={"https://fluidattacks.com/about-us/clients/"}
-        name={"Clients"}
-      />{" "}
-      <br />
-      <BodyLink
-        link={"https://fluidattacks.com/about-us/certifications/"}
+        link={"/about-us/certifications/"}
         name={"Certifications"}
       />{" "}
       <br />
       <BodyLink
-        link={"https://fluidattacks.com/about-us/differentiators/"}
+        link={"/about-us/differentiators/"}
         name={"Differentiators"}
       />{" "}
       <br />
-      <BodyLink
-        link={"https://fluidattacks.com/about-us/values/"}
-        name={"Values"}
-      />{" "}
-      <br />
-      <BodyLink
-        link={"https://fluidattacks.com/about-us/reviews/"}
-        name={"Reviews"}
-      />{" "}
-      <br />
+      <BodyLink link={"/about-us/values/"} name={"Values"} /> <br />
+      <BodyLink link={"/about-us/reviews/"} name={"Reviews"} /> <br />
       <BodyLink link={"/resources/"} name={"Resources"} /> <br />
-      <BodyLink
-        link={"https://fluidattacks.com/about-us/events/"}
-        name={"Events"}
-      />{" "}
-      <br />
-      <BodyLink
-        link={"https://fluidattacks.com/about-us/people/"}
-        name={"People"}
-      />{" "}
-      <br />
+      <BodyLink link={"/about-us/events/"} name={"Events"} /> <br />
+      <BodyLink link={"/about-us/people/"} name={"People"} /> <br />
     </LinksContainer>
     <LinksContainer className={"dib-xl"}>
-      <HeadLink link={"https://fluidattacks.com/blog/"} name={"Blog"} /> <br />
+      <HeadLink link={"/blog/"} name={"Blog"} /> <br />
       <HeadLink link={"/partners/"} name={"Partners"} /> <br />
       <HeadLink link={"/careers/"} name={"Careers"} /> <br />
       <HeadLink link={"/advisories/"} name={"Advisories"} /> <br />
-      <HeadLink link={"https://fluidattacks.com/faq/"} name={"FAQ"} /> <br />
+      <HeadLink link={"/faq/"} name={"FAQ"} /> <br />
       <HeadLink
         link={"https://community.fluidattacks.com/"}
         name={"Community"}
       />{" "}
       <br />
-      <HeadLink
-        link={"https://fluidattacks.com/contact-us/"}
-        name={"Contact"}
-      />{" "}
-      <br />
+      <HeadLink link={"/contact-us/"} name={"Contact"} /> <br />
     </LinksContainer>
   </FooterMenuContainer>
 );
