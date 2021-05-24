@@ -1,8 +1,6 @@
 import { useMutation } from "@apollo/client";
-import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,16 +8,20 @@ import type { Dispatch } from "redux";
 import { formValueSelector, submit } from "redux-form";
 
 import { AcceptedUndefinedTable } from "./AcceptedUndefinedTable";
+import {
+  acceptationProps,
+  confirmZeroRiskProps,
+  isAcceptedUndefinedSelectedHelper,
+  isConfirmZeroRiskSelectedHelper,
+  isRejectZeroRiskSelectedHelper,
+  onTreatmentChangeHelper,
+  rejectZeroRiskProps,
+} from "./helpers";
 import { JustificationField } from "./JustificationField";
 import { TreatmentField } from "./TreatmentField";
 import { ZeroRiskConfirmationTable } from "./ZeroRiskConfirmationTable";
 import { ZeroRiskRejectionTable } from "./ZeroRiskRejectionTable";
 
-import { GET_FINDING_HEADER } from "../../FindingContent/queries";
-import {
-  getRequestedZeroRiskVulns,
-  getVulnsPendingOfAcceptation,
-} from "../utils";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
@@ -29,17 +31,11 @@ import {
   REJECT_ZERO_RISK_VULN,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/queries";
 import type {
-  IConfirmZeroRiskVulnResultAttr,
   IHandleVulnsAcceptationModalProps,
-  IHandleVulnsAcceptationResultAttr,
-  IRejectZeroRiskVulnResultAttr,
   IVulnDataAttr,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/types";
-import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { ButtonToolbar, Col100, Col50, Row } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
-import { Logger } from "utils/logger";
-import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
@@ -88,19 +84,13 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
 
   // Side effects
   const onTreatmentChange: () => void = (): void => {
-    if (isAcceptedUndefinedSelected) {
-      const pendingVulnsToHandleAcceptation: IVulnDataAttr[] = getVulnsPendingOfAcceptation(
-        vulns
-      );
-      setAcceptationVulns(pendingVulnsToHandleAcceptation);
-    } else if (isConfirmZeroRiskSelected || isRejectZeroRiskSelected) {
-      const requestedZeroRiskVulns: IVulnDataAttr[] = getRequestedZeroRiskVulns(
-        vulns
-      );
-      setAcceptationVulns([...requestedZeroRiskVulns]);
-    } else {
-      setAcceptationVulns([]);
-    }
+    onTreatmentChangeHelper(
+      isAcceptedUndefinedSelected,
+      vulns,
+      setAcceptationVulns,
+      isConfirmZeroRiskSelected,
+      isRejectZeroRiskSelected
+    );
   };
   useEffect(onTreatmentChange, [
     isAcceptedUndefinedSelected,
@@ -130,146 +120,38 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
   // GraphQL operations
   const [handleAcceptation, { loading: handlingAcceptation }] = useMutation(
     HANDLE_VULNS_ACCEPTATION,
-    {
-      onCompleted: (data: IHandleVulnsAcceptationResultAttr): void => {
-        if (data.handleVulnsAcceptation.success) {
-          msgSuccess(
-            translate.t("searchFindings.tabVuln.alerts.acceptationSuccess"),
-            translate.t("groupAlerts.updatedTitle")
-          );
-          refetchData();
-          handleCloseModal();
-        }
-      },
-      onError: (errors: ApolloError): void => {
-        errors.graphQLErrors.forEach((error: GraphQLError): void => {
-          switch (error.message) {
-            case "Exception - It cant handle acceptation without being requested":
-              msgError(
-                translate.t(
-                  "searchFindings.tabVuln.alerts.acceptationNotRequested"
-                )
-              );
-              break;
-            case "Exception - Vulnerability not found":
-              msgError(translate.t("groupAlerts.noFound"));
-              break;
-            case "Exception - Invalid characters":
-              msgError(translate.t("validations.invalidChar"));
-              break;
-            default:
-              msgError(translate.t("groupAlerts.errorTextsad"));
-              Logger.warning("An error occurred handling acceptation", error);
-          }
-        });
-      },
-      refetchQueries: [
-        {
-          query: GET_FINDING_VULN_INFO,
-          variables: {
-            canRetrieveAnalyst,
-            canRetrieveZeroRisk,
-            findingId,
-            groupName,
-          },
-        },
-      ],
-    }
+    acceptationProps(
+      refetchData,
+      handleCloseModal,
+      canRetrieveAnalyst,
+      canRetrieveZeroRisk,
+      findingId,
+      groupName
+    )
   );
   const [confirmZeroRisk, { loading: confirmingZeroRisk }] = useMutation(
     CONFIRM_ZERO_RISK_VULN,
-    {
-      onCompleted: (data: IConfirmZeroRiskVulnResultAttr): void => {
-        if (data.confirmZeroRiskVuln.success) {
-          msgSuccess(
-            translate.t("groupAlerts.confirmedZeroRiskSuccess"),
-            translate.t("groupAlerts.updatedTitle")
-          );
-          refetchData();
-          handleCloseModal();
-        }
-      },
-      onError: ({ graphQLErrors }: ApolloError): void => {
-        graphQLErrors.forEach((error: GraphQLError): void => {
-          if (
-            error.message ===
-            "Exception - Zero risk vulnerability is not requested"
-          ) {
-            msgError(translate.t("groupAlerts.zeroRiskIsNotRequested"));
-          } else {
-            msgError(translate.t("groupAlerts.errorTextsad"));
-            Logger.warning(
-              "An error occurred confirming zero risk vuln",
-              error
-            );
-          }
-        });
-      },
-      refetchQueries: [
-        {
-          query: GET_FINDING_VULN_INFO,
-          variables: {
-            canRetrieveAnalyst,
-            canRetrieveZeroRisk,
-            findingId,
-            groupName,
-          },
-        },
-        {
-          query: GET_FINDING_HEADER,
-          variables: {
-            canGetHistoricState,
-            findingId,
-          },
-        },
-      ],
-    }
+    confirmZeroRiskProps(
+      refetchData,
+      handleCloseModal,
+      canRetrieveAnalyst,
+      canRetrieveZeroRisk,
+      findingId,
+      groupName,
+      canGetHistoricState
+    )
   );
   const [rejectZeroRisk, { loading: rejectingZeroRisk }] = useMutation(
     REJECT_ZERO_RISK_VULN,
-    {
-      onCompleted: (data: IRejectZeroRiskVulnResultAttr): void => {
-        if (data.rejectZeroRiskVuln.success) {
-          msgSuccess(
-            translate.t("groupAlerts.rejectedZeroRiskSuccess"),
-            translate.t("groupAlerts.updatedTitle")
-          );
-          refetchData();
-          handleCloseModal();
-        }
-      },
-      onError: ({ graphQLErrors }: ApolloError): void => {
-        graphQLErrors.forEach((error: GraphQLError): void => {
-          if (
-            error.message ===
-            "Exception - Zero risk vulnerability is not requested"
-          ) {
-            msgError(translate.t("groupAlerts.zeroRiskIsNotRequested"));
-          } else {
-            msgError(translate.t("groupAlerts.errorTextsad"));
-            Logger.warning("An error occurred rejecting zero risk vuln", error);
-          }
-        });
-      },
-      refetchQueries: [
-        {
-          query: GET_FINDING_VULN_INFO,
-          variables: {
-            canRetrieveAnalyst,
-            canRetrieveZeroRisk,
-            findingId,
-            groupName,
-          },
-        },
-        {
-          query: GET_FINDING_HEADER,
-          variables: {
-            canGetHistoricState,
-            findingId,
-          },
-        },
-      ],
-    }
+    rejectZeroRiskProps(
+      refetchData,
+      handleCloseModal,
+      canRetrieveAnalyst,
+      canRetrieveZeroRisk,
+      findingId,
+      groupName,
+      canGetHistoricState
+    )
   );
 
   function handleUpdateTreatmentAcceptation(): void {
@@ -294,40 +176,28 @@ const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
     const rejectedVulnIds: string[] = rejectedVulns.map(
       (vuln: IVulnDataAttr): string => vuln.id
     );
-    if (isAcceptedUndefinedSelected) {
-      // Exception: FP(void operator is necessary)
-      // eslint-disable-next-line
-      void handleAcceptation({ //NOSONAR
-        variables: {
-          acceptedVulns: acceptedVulnIds,
-          findingId,
-          justification: values.justification,
-          rejectedVulns: rejectedVulnIds,
-        },
-      });
-    }
-    if (isConfirmZeroRiskSelected) {
-      // Exception: FP(void operator is necessary)
-      // eslint-disable-next-line
-      void confirmZeroRisk({ //NOSONAR
-        variables: {
-          findingId,
-          justification: values.justification,
-          vulnerabilities: acceptedVulnIds,
-        },
-      });
-    }
-    if (isRejectZeroRiskSelected) {
-      // Exception: FP(void operator is necessary)
-      // eslint-disable-next-line
-      void rejectZeroRisk({ //NOSONAR
-        variables: {
-          findingId,
-          justification: values.justification,
-          vulnerabilities: rejectedVulnIds,
-        },
-      });
-    }
+    isAcceptedUndefinedSelectedHelper(
+      isAcceptedUndefinedSelected,
+      handleAcceptation,
+      acceptedVulnIds,
+      findingId,
+      values,
+      rejectedVulnIds
+    );
+    isConfirmZeroRiskSelectedHelper(
+      isConfirmZeroRiskSelected,
+      confirmZeroRisk,
+      acceptedVulnIds,
+      findingId,
+      values
+    );
+    isRejectZeroRiskSelectedHelper(
+      isRejectZeroRiskSelected,
+      rejectZeroRisk,
+      findingId,
+      values,
+      rejectedVulnIds
+    );
   }
 
   const initialTreatment: string = getInitialTreatment(
