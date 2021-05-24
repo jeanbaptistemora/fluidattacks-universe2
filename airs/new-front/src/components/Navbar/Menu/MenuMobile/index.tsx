@@ -356,162 +356,162 @@ const MenuMobile: React.FC = (): JSX.Element => (
             <InnerListContainer className={"aboutus-list"}>
               <InnerContentList>
                 <InnerListItem>
-                  <a
+                  <Link
                     className={
                       "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
                     }
-                    href={"https://fluidattacks.com/about-us/clients/"}
+                    to={"/about-us/clients/"}
                   >
                     {"Clients"}
-                  </a>
+                  </Link>
                 </InnerListItem>
                 <InnerListItem>
-                  <a
+                  <Link
                     className={
                       "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
                     }
-                    href={"https://fluidattacks.com/about-us/certifications/"}
+                    to={"/about-us/certifications/"}
                   >
                     {"Certifications"}
-                  </a>
+                  </Link>
                 </InnerListItem>
                 <InnerListItem>
-                  <a
+                  <Link
                     className={
                       "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
                     }
-                    href={"https://fluidattacks.com/about-us/differentiators/"}
+                    to={"/about-us/differentiators/"}
                   >
                     {"Differentiators"}
-                  </a>
+                  </Link>
                 </InnerListItem>
                 <InnerListItem>
-                  <a
+                  <Link
                     className={
                       "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
                     }
-                    href={"https://fluidattacks.com/about-us/values/"}
+                    to={"/about-us/values/"}
                   >
                     {"Values"}
-                  </a>
+                  </Link>
                 </InnerListItem>
                 <InnerListItem>
-                  <a
+                  <Link
                     className={
                       "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
                     }
-                    href={"https://fluidattacks.com/about-us/reviews/"}
+                    to={"/about-us/reviews/"}
                   >
                     {"Reviews"}
-                  </a>
+                  </Link>
                 </InnerListItem>
                 <InnerListItem>
-                  <a
+                  <Link
                     className={
                       "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
                     }
-                    href={"https://fluidattacks.com/about-us/events/"}
+                    to={"/about-us/events/"}
                   >
                     {"Events"}
-                  </a>
+                  </Link>
                 </InnerListItem>
                 <InnerListItem>
-                  <a
+                  <Link
                     className={
                       "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
                     }
-                    href={"https://fluidattacks.com/about-us/people/"}
+                    to={"/about-us/people/"}
                   >
                     {"People"}
-                  </a>
+                  </Link>
                 </InnerListItem>
               </InnerContentList>
             </InnerListContainer>
           </ListItem>
         </div>
         <ListItem>
-          <a
+          <Link
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            href={"https://fluidattacks.com/blog/"}
+            to={"/blog/"}
           >
             {"Blog"}
-          </a>
+          </Link>
         </ListItem>
         <ListItem>
-          <a
+          <Link
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            href={"/advisories/"}
+            to={"/advisories/"}
           >
             {"Advisories"}
-          </a>
+          </Link>
         </ListItem>
         <ListItem>
-          <a
+          <Link
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            href={"/resources/"}
+            to={"/resources/"}
           >
             {"Resources"}
-          </a>
+          </Link>
         </ListItem>
         <ListItem>
-          <a
+          <Link
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            href={"/plans/"}
+            to={"/plans/"}
           >
             {"Plans"}
-          </a>
+          </Link>
         </ListItem>
         <ListItem>
-          <a
+          <Link
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            href={"/careers/"}
+            to={"/careers/"}
           >
             {"Careers"}
-          </a>
+          </Link>
         </ListItem>
         <ListItem>
-          <a
+          <Link
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            href={"https://fluidattacks.com/faq/"}
+            to={"/faq/"}
           >
             {"FAQ"}
-          </a>
+          </Link>
         </ListItem>
         <ListItem>
-          <a
+          <Link
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            href={"https://community.fluidattacks.com/"}
+            to={"https://community.fluidattacks.com/"}
           >
             {"Community"}
-          </a>
+          </Link>
         </ListItem>
       </ContentList>
     </ContentContainer>
     <FooterContainer>
       <div>
         <ContactButtonContainer>
-          <a
+          <Link
             className={
               "no-underline c-fluid-bk f-key-features menu-txt-trans roboto hv-fluid-rd nt-125"
             }
-            href={"https://fluidattacks.com/contact-us/"}
+            to={"/contact-us/"}
           >
             <ContactButton>{"Contact"}</ContactButton>
-          </a>
+          </Link>
         </ContactButtonContainer>
 
         <SocialMedia />
