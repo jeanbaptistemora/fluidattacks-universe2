@@ -100,8 +100,8 @@ const FindingHeader: React.FC<IFindingHeaderProps> = (
       <Row>
         <Col100>
           <FindingHeaderGrid>
-            <div>
-              <FindingHeaderDetail>
+            <FindingHeaderDetail>
+              <div>
                 <CircularProgressbar
                   classes={severityStyles}
                   styles={{
@@ -114,56 +114,48 @@ const FindingHeader: React.FC<IFindingHeaderProps> = (
                     CIRCULAR_PROGRESS_BAR_PARAM2
                   }
                 />
-              </FindingHeaderDetail>
-              <FindingHeaderDetail>
-                <FindingHeaderLabel>
-                  {translate.t("searchFindings.severityLabel")}
-                </FindingHeaderLabel>
+              </div>
+              <FindingHeaderLabel>
+                {translate.t("searchFindings.severityLabel")}
                 <FindingHeaderIndicator>
                   <b>{severityText}</b>
                 </FindingHeaderIndicator>
-              </FindingHeaderDetail>
-            </div>
-            <div>
-              <FindingHeaderDetail>
+              </FindingHeaderLabel>
+            </FindingHeaderDetail>
+            <FindingHeaderDetail>
+              <div>
                 <img alt={""} height={45} src={statusIcon} width={45} />
-              </FindingHeaderDetail>
-              <FindingHeaderDetail>
-                <FindingHeaderLabel>
-                  {translate.t("searchFindings.statusLabel")}
-                </FindingHeaderLabel>
+              </div>
+              <FindingHeaderLabel>
+                {translate.t("searchFindings.statusLabel")}
                 <FindingHeaderIndicator>
                   <b>{statusText}</b>
                 </FindingHeaderIndicator>
-              </FindingHeaderDetail>
-            </div>
-            <div>
-              <FindingHeaderDetail>
+              </FindingHeaderLabel>
+            </FindingHeaderDetail>
+            <FindingHeaderDetail>
+              <div>
                 <img
                   alt={""}
                   height={45}
                   src={vulnerabilitiesIcon}
                   width={45}
                 />
-              </FindingHeaderDetail>
-              <FindingHeaderDetail>
-                <FindingHeaderLabel>
-                  {translate.t("searchFindings.openVulnsLabel")}
-                </FindingHeaderLabel>
+              </div>
+              <FindingHeaderLabel>
+                {translate.t("searchFindings.openVulnsLabel")}
                 <FindingHeaderIndicator>{openVulns}</FindingHeaderIndicator>
-              </FindingHeaderDetail>
-            </div>
-            <div>
-              <FindingHeaderDetail>
+              </FindingHeaderLabel>
+            </FindingHeaderDetail>
+            <FindingHeaderDetail>
+              <div>
                 <img alt={""} height={40} src={calendarIcon} width={40} />
-              </FindingHeaderDetail>
-              <FindingHeaderDetail>
-                <FindingHeaderLabel>
-                  {translate.t("searchFindings.discoveryDateLabel")}
-                </FindingHeaderLabel>
+              </div>
+              <FindingHeaderLabel>
+                {translate.t("searchFindings.discoveryDateLabel")}
                 <FindingHeaderIndicator>{discoveryDate}</FindingHeaderIndicator>
-              </FindingHeaderDetail>
-            </div>
+              </FindingHeaderLabel>
+            </FindingHeaderDetail>
           </FindingHeaderGrid>
         </Col100>
       </Row>

@@ -201,14 +201,14 @@ const FindingHeaderDetail: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
-  className: "ph1-5 tc",
+  className: "flex flex-auto items-center justify-center",
 })``;
 
 const FindingHeaderGrid: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
-  className: "grid ph4 menu-grid mb2",
+  className: "flex flex-wrap justify-around mb2",
 })``;
 
 const FindingHeaderIndicator: StyledComponent<
@@ -222,7 +222,7 @@ const FindingHeaderLabel: StyledComponent<
   "p",
   Record<string, unknown>
 > = styled.p.attrs({
-  className: "ma0",
+  className: "ml2 ma0",
 })``;
 
 const Flex: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
