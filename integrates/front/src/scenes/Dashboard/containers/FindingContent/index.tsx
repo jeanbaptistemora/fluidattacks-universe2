@@ -16,13 +16,13 @@ import {
 } from "react-router-dom";
 import { Field } from "redux-form";
 
-import { ButtonCol } from "./components/buttoncol";
 import {
   handleDraftApproval,
   handleDraftApprovalError,
   handleDraftError,
   handleSuccessfulDraft,
 } from "./helpers";
+import { ButtonCol, Title } from "./styles";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
@@ -48,7 +48,6 @@ import { VulnsView } from "scenes/Dashboard/containers/VulnerabilitiesView/index
 import {
   ButtonToolbar,
   Col100,
-  Col60,
   ControlLabel,
   FormGroup,
   Row,
@@ -222,9 +221,7 @@ const findingContent: React.FC = (): JSX.Element => {
           <Col100>
             <React.Fragment>
               <Row>
-                <Col60>
-                  <h1>{headerData.finding.title}</h1>
-                </Col60>
+                <Title>{headerData.finding.title}</Title>
                 <ButtonCol>
                   <FindingActions
                     hasSubmission={hasSubmission}
@@ -238,7 +235,6 @@ const findingContent: React.FC = (): JSX.Element => {
                   />
                 </ButtonCol>
               </Row>
-              <hr />
               <StickyContainerFinding>
                 <FindingHeader
                   discoveryDate={
