@@ -222,6 +222,9 @@ integrates.back.test.functional.deactivate_root:
 integrates.back.test.functional.delete_finding:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.delete_tags:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.delete_vulnerability:
   <<: *integrates_back_test_functional
 
@@ -352,6 +355,9 @@ integrates.back.test.functional.update_severity:
   <<: *integrates_back_test_functional
 
 integrates.back.test.functional.update_toe_lines_sorts:
+  <<: *integrates_back_test_functional
+
+integrates.back.test.functional.update_treatment_vuln:
   <<: *integrates_back_test_functional
 
 integrates.back.test.functional.update_vuln_commit:

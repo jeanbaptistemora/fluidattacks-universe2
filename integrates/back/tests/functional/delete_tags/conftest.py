@@ -12,7 +12,7 @@ from back.tests import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("request_verification_vuln")
+@pytest.mark.resolver_test_group("delete_tags")
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
@@ -30,14 +30,14 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "historic_state": [
                     {
                         "date": "2018-04-07 19:45:11",
-                        "analyst": "analyst@gmail.com",
+                        "analyst": "test1@gmail.com",
                         "source": "source_path",
                         "state": "APPROVED",
                     },
                 ],
                 "effect_solution": "solution",
                 "vulnerability": "vulnerability",
-                "analyst": "analyst@gmail.com",
+                "analyst": "test1@gmail.com",
                 "cvss_version": "3.1",
                 "exploitability": 0.94,
                 "finding": "FIN.H.060. Insecure exceptions",
@@ -96,81 +96,26 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             {
                 "finding_id": "475041513",
                 "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce8",
+                "analyst": "test1@gmail.com",
                 "historic_state": [
                     {
                         "date": "2018-04-07 19:45:11",
-                        "analyst": "analyst@gmail.com",
+                        "analyst": "test1@gmail.com",
                         "source": "integrates",
                         "state": "open",
+                        "approval_status": "APPROVED",
                     },
                 ],
                 "historic_treatment": [
                     {
-                        "date": "2018-04-07 19:45:11",
+                        "date": "2018-04-07 17:45:11",
                         "treatment": "NEW",
                     },
                 ],
-                "vuln_type": "ports",
-                "where": "192.168.1.20",
-                "specific": "9999",
-            },
-            {
-                "finding_id": "475041513",
-                "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce9",
-                "historic_state": [
+                "historic_verification": [
                     {
-                        "date": "2018-04-07 19:45:11",
-                        "analyst": "analyst@gmail.com",
-                        "source": "integrates",
-                        "state": "open",
-                    },
-                ],
-                "historic_treatment": [
-                    {
-                        "date": "2018-04-07 19:45:11",
-                        "treatment": "NEW",
-                    },
-                ],
-                "vuln_type": "ports",
-                "where": "192.168.1.20",
-                "specific": "9999",
-            },
-            {
-                "finding_id": "475041513",
-                "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce10",
-                "historic_state": [
-                    {
-                        "date": "2018-04-07 19:45:11",
-                        "analyst": "analyst@gmail.com",
-                        "source": "integrates",
-                        "state": "open",
-                    },
-                ],
-                "historic_treatment": [
-                    {
-                        "date": "2018-04-07 19:45:11",
-                        "treatment": "NEW",
-                    },
-                ],
-                "vuln_type": "ports",
-                "where": "192.168.1.20",
-                "specific": "9999",
-            },
-            {
-                "finding_id": "475041513",
-                "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce11",
-                "historic_state": [
-                    {
-                        "date": "2018-04-07 19:45:11",
-                        "analyst": "analyst@gmail.com",
-                        "source": "integrates",
-                        "state": "open",
-                    },
-                ],
-                "historic_treatment": [
-                    {
-                        "date": "2018-04-07 19:45:11",
-                        "treatment": "NEW",
+                        "date": "2018-04-08 19:45:11",
+                        "status": "REQUESTED",
                     },
                 ],
                 "vuln_type": "ports",

@@ -15,6 +15,7 @@ from . import query
     ["email"],
     [
         ["admin@gmail.com"],
+        ["customer@gmail.com"],
     ],
 )
 async def test_add_files(populate: bool, email: str):

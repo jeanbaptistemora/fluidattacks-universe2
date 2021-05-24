@@ -17,6 +17,7 @@ from . import query
         ("admin@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce8"),
         ("analyst@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce9"),
         ("closer@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
+        ("customer@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce11"),
     ),
 )
 async def test_request_verification_vuln(

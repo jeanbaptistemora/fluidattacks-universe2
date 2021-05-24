@@ -32,11 +32,29 @@ async def test_remove_files(populate: bool, email: str):
 @pytest.mark.parametrize(
     ["email"],
     [
+        ["customer@gmail.com"],
+    ],
+)
+async def test_remove_files_fail_1(populate: bool, email: str):
+    assert populate
+    result: Dict[str, Any] = await query(
+        user=email,
+        group="group1",
+    )
+    assert "errors" not in result
+    assert not result["data"]["removeFiles"]["success"]
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("remove_files")
+@pytest.mark.parametrize(
+    ["email"],
+    [
         ["analyst@gmail.com"],
         ["closer@gmail.com"],
     ],
 )
-async def test_remove_files_fail(populate: bool, email: str):
+async def test_remove_files_fail_2(populate: bool, email: str):
     assert populate
     result: Dict[str, Any] = await query(
         user=email,
