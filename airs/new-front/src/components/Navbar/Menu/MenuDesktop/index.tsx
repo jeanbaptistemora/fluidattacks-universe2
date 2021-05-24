@@ -62,20 +62,20 @@ const MenuDesktop: React.FC = (): JSX.Element => (
         <MenuSectionContainer className={"bg-menu-systems"}>
           <MenuDesktopSectionList>
             <li className={"mb4"}>
-              <a
+              <Link
                 className={"menulink white f3 roboto no-underline nowrap"}
-                href={"/systems/"}
+                to={"/systems/"}
               >
                 {"Systems"}
-              </a>
+              </Link>
             </li>
             <li className={"mv1"}>
-              <a
+              <Link
                 className={"menulink white roboto no-underline nowrap"}
-                href={"/systems/web-apps/"}
+                to={"/systems/web-apps/"}
               >
                 {"Web Applications"}
-              </a>
+              </Link>
             </li>
             <li className={"mv1"}>
               <Link
@@ -86,52 +86,52 @@ const MenuDesktop: React.FC = (): JSX.Element => (
               </Link>
             </li>
             <li className={"mv1"}>
-              <a
+              <Link
                 className={"menulink white roboto no-underline nowrap"}
-                href={"/systems/thick-clients/"}
+                to={"/systems/thick-clients/"}
               >
                 {"Thick Clients"}
-              </a>
+              </Link>
             </li>
             <li className={"mv1"}>
-              <a
+              <Link
                 className={"menulink white roboto no-underline nowrap"}
-                href={"/systems/apis/"}
+                to={"/systems/apis/"}
               >
                 {"API's and Microservices"}
-              </a>
+              </Link>
             </li>
             <li className={"mv1"}>
-              <a
+              <Link
                 className={"menulink white roboto no-underline nowrap"}
-                href={"/systems/cloud-infrastructure/"}
+                to={"/systems/cloud-infrastructure/"}
               >
                 {"Cloud Infrastructure"}
-              </a>
+              </Link>
             </li>
             <li className={"mv1"}>
-              <a
+              <Link
                 className={"menulink white roboto no-underline nowrap"}
-                href={"/systems/networks-and-hosts/"}
+                to={"/systems/networks-and-hosts/"}
               >
                 {"Networks and Hosts"}
-              </a>
+              </Link>
             </li>
             <li className={"mv1"}>
-              <a
+              <Link
                 className={"menulink white roboto no-underline nowrap"}
-                href={"/systems/iot/"}
+                to={"/systems/iot/"}
               >
                 {"Internet of Things"}
-              </a>
+              </Link>
             </li>
             <li className={"mv1"}>
-              <a
+              <Link
                 className={"menulink white roboto no-underline nowrap"}
-                href={"/systems/ot/"}
+                to={"/systems/ot/"}
               >
                 {"SCADA and OT"}
-              </a>
+              </Link>
             </li>
           </MenuDesktopSectionList>
         </MenuSectionContainer>
@@ -293,12 +293,12 @@ const MenuDesktop: React.FC = (): JSX.Element => (
       <SidebarListContainer>
         <SidebarList>
           <SidebarListItem>
-            <a
+            <Link
               className={"c-fluid-bk roboto no-underline nowrap hv-fluid-rd"}
-              href={"/plans/"}
+              to={"/plans/"}
             >
               {"Plans"}
-            </a>
+            </Link>
           </SidebarListItem>
           <SidebarListItem>
             <Link
@@ -309,52 +309,52 @@ const MenuDesktop: React.FC = (): JSX.Element => (
             </Link>
           </SidebarListItem>
           <SidebarListItem>
-            <a
+            <Link
               className={"c-fluid-bk roboto no-underline nowrap hv-fluid-rd"}
-              href={"/partners/"}
+              to={"/partners/"}
             >
               {"Partners"}
-            </a>
+            </Link>
           </SidebarListItem>
           <SidebarListItem>
-            <a
+            <Link
               className={"c-fluid-bk roboto no-underline nowrap hv-fluid-rd"}
-              href={"/careers/"}
+              to={"/careers/"}
             >
               {"Careers"}
-            </a>
+            </Link>
           </SidebarListItem>
           <SidebarListItem>
-            <a
+            <Link
               className={"c-fluid-bk roboto no-underline nowrap hv-fluid-rd"}
-              href={"/advisories/"}
+              to={"/advisories/"}
             >
               {"Advisories"}
-            </a>
+            </Link>
           </SidebarListItem>
           <SidebarListItem>
-            <a
+            <Link
               className={"c-fluid-bk roboto no-underline nowrap hv-fluid-rd"}
-              href={"/faq/"}
+              to={"/faq/"}
             >
               {"FAQ"}
-            </a>
+            </Link>
           </SidebarListItem>
           <SidebarListItem>
-            <a
+            <Link
               className={"c-fluid-bk roboto no-underline nowrap hv-fluid-rd"}
-              href={"https://community.fluidattacks.com/"}
+              to={"https://community.fluidattacks.com/"}
             >
               {"Community"}
-            </a>
+            </Link>
           </SidebarListItem>
           <SidebarListItem>
-            <a
+            <Link
               className={"c-fluid-bk roboto no-underline nowrap hv-fluid-rd"}
-              href={"/contact-us/"}
+              to={"/contact-us/"}
             >
               {"Contact"}
-            </a>
+            </Link>
           </SidebarListItem>
         </SidebarList>
       </SidebarListContainer>
