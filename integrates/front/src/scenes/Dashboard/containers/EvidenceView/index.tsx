@@ -11,6 +11,15 @@ import React, { useCallback, useState } from "react";
 import { useParams } from "react-router";
 import type { InjectedFormProps, Validator } from "redux-form";
 
+import {
+  handleUpdateDescriptionError,
+  handleUpdateEvidenceError,
+  setAltDescription,
+  setPreffix,
+  showUrl,
+  updateChangesHelper,
+} from "./helpers";
+
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -31,6 +40,12 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import { isValidFileSize, validEvidenceImage } from "utils/validations";
+
+interface IEvidenceItem {
+  date?: string;
+  description: string;
+  url: string;
+}
 
 const EvidenceView: React.FC = (): JSX.Element => {
   const { findingId } = useParams<{ findingId: string }>();
@@ -67,43 +82,13 @@ const EvidenceView: React.FC = (): JSX.Element => {
   });
   const [updateDescription] = useMutation(UPDATE_DESCRIPTION_MUTATION, {
     onError: (updateError: ApolloError): void => {
-      updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-        switch (message) {
-          case "Exception - Invalid field in form":
-            msgError(translate.t("validations.invalidValueInField"));
-            break;
-          case "Exception - Invalid characters":
-            msgError(translate.t("validations.invalidChar"));
-            break;
-          default:
-            msgError(translate.t("groupAlerts.errorTextsad"));
-            Logger.warning(
-              "An error occurred updating finding evidence",
-              updateError
-            );
-        }
-      });
+      handleUpdateDescriptionError(updateError);
     },
   });
 
   const [updateEvidence] = useMutation(UPDATE_EVIDENCE_MUTATION, {
     onError: (updateError: ApolloError): void => {
-      updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-        switch (message) {
-          case "Exception - Invalid File Size":
-            msgError(translate.t("validations.fileSize", { count: 10 }));
-            break;
-          case "Exception - Invalid File Type":
-            msgError(translate.t("group.events.form.wrongImageType"));
-            break;
-          default:
-            msgError(translate.t("groupAlerts.errorTextsad"));
-            Logger.warning(
-              "An error occurred updating finding evidence",
-              updateError
-            );
-        }
-      });
+      handleUpdateEvidenceError(updateError);
     },
   });
 
@@ -111,11 +96,6 @@ const EvidenceView: React.FC = (): JSX.Element => {
     return <div />;
   }
 
-  interface IEvidenceItem {
-    date?: string;
-    description: string;
-    url: string;
-  }
   const evidenceImages: Dictionary<IEvidenceItem> = {
     ...data.finding.evidence,
     animation: {
@@ -149,36 +129,15 @@ const EvidenceView: React.FC = (): JSX.Element => {
       const descriptionChanged: boolean =
         description !== evidenceImages[key].description;
 
-      if (file !== undefined) {
-        const mtResult = await updateEvidence({
-          variables: {
-            evidenceId: key.toUpperCase(),
-            file: file[0],
-            findingId,
-          },
-        });
-        const { success } = (mtResult as {
-          data: { updateEvidence: { success: boolean } };
-        }).data.updateEvidence;
-
-        if (success && descriptionChanged) {
-          await updateDescription({
-            variables: {
-              description,
-              evidenceId: key.toUpperCase(),
-              findingId,
-            },
-          });
-        }
-      } else if (descriptionChanged) {
-        await updateDescription({
-          variables: {
-            description,
-            evidenceId: key.toUpperCase(),
-            findingId,
-          },
-        });
-      }
+      await updateChangesHelper(
+        updateEvidence,
+        updateDescription,
+        file,
+        key,
+        description,
+        findingId,
+        descriptionChanged
+      );
     };
 
     await Promise.all(_.map(values, updateChanges));
@@ -188,16 +147,6 @@ const EvidenceView: React.FC = (): JSX.Element => {
 
   const MAX_FILE_SIZE = 10;
   const maxFileSize: Validator = isValidFileSize(MAX_FILE_SIZE);
-
-  function setPreffix(name: string): string {
-    if (name === "animation") {
-      return translate.t("searchFindings.tabEvidence.animationExploit");
-    }
-
-    return name === "exploitation"
-      ? translate.t("searchFindings.tabEvidence.evidenceExploit")
-      : "";
-  }
 
   return (
     <React.StrictMode>
@@ -273,21 +222,12 @@ const EvidenceView: React.FC = (): JSX.Element => {
                       _.isEmpty(evidence.url) || isRefetching;
 
                     const preffix: string = setPreffix(name);
-                    const altDescription: string =
-                      preffix !== "" && evidence.description !== ""
-                        ? `${preffix}: ${evidence.description}`
-                        : `${preffix}${evidence.description}`;
+                    const altDescription = setAltDescription(preffix, evidence);
 
                     return (
                       <EvidenceImage
                         acceptedMimes={"image/gif,image/png"}
-                        content={
-                          showEmpty ? (
-                            <div />
-                          ) : (
-                            `${location.href}/${evidence.url}`
-                          )
-                        }
+                        content={showUrl(showEmpty, evidence)}
                         date={evidence.date}
                         description={altDescription}
                         isDescriptionEditable={true}
@@ -319,4 +259,4 @@ const EvidenceView: React.FC = (): JSX.Element => {
   );
 };
 
-export { EvidenceView };
+export { EvidenceView, IEvidenceItem };
