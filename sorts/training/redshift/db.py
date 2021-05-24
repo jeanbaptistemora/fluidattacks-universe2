@@ -39,20 +39,20 @@ def initialize() -> None:
         cursor.execute("CREATE SCHEMA IF NOT EXISTS sorts")
         cursor.execute(
             """
-            CREATE TABLE IF NOT EXISTS sorts.training (
-                timestamp TIMESTAMPTZ,
-                model VARCHAR(256),
-                features VARCHAR(256),
-                precision FLOAT,
-                recall FLOAT,
-                f_score FLOAT,
-                overfit FLOAT,
-                tuned_parameters VARCHAR(256)
+                CREATE TABLE IF NOT EXISTS sorts.training (
+                    timestamp TIMESTAMPTZ,
+                    model VARCHAR(256),
+                    features VARCHAR(256),
+                    precision FLOAT,
+                    recall FLOAT,
+                    f_score FLOAT,
+                    overfit FLOAT,
+                    tuned_parameters VARCHAR(256),
 
-                PRIMARY KEY (
-                    timestamp
+                    PRIMARY KEY (
+                        timestamp
+                    )
                 )
-            )
             """
         )
 
