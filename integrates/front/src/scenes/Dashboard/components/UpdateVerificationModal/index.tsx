@@ -2,9 +2,15 @@ import { useMutation } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import type { GraphQLError } from "graphql";
-import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
+
+import {
+  handleRequestVerification,
+  handleRequestVerificationError,
+  handleSubmitHelper,
+  handleVerifyRequest,
+  handleVerifyRequestError,
+} from "./helpers";
 
 import { DataTableNext } from "components/DataTableNext";
 import { changeVulnStateFormatter } from "components/DataTableNext/formatters";
@@ -21,8 +27,6 @@ import type {
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { authzPermissionsContext } from "utils/authz/config";
-import { Logger } from "utils/logger";
-import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 interface IVulnData {
@@ -75,36 +79,15 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
     REQUEST_VERIFICATION_VULN,
     {
       onCompleted: (data: IRequestVerificationVulnResult): void => {
-        if (data.requestVerificationVuln.success) {
-          msgSuccess(
-            translate.t("groupAlerts.verifiedSuccess"),
-            translate.t("groupAlerts.updatedTitle")
-          );
-          refetchData();
-          clearSelected();
-          setRequestState();
-        }
+        handleRequestVerification(
+          refetchData,
+          clearSelected,
+          setRequestState,
+          data
+        );
       },
       onError: ({ graphQLErrors }: ApolloError): void => {
-        graphQLErrors.forEach((error: GraphQLError): void => {
-          switch (error.message) {
-            case "Exception - Request verification already requested":
-              msgError(translate.t("groupAlerts.verificationAlreadyRequested"));
-              break;
-            case "Exception - The vulnerability has already been closed":
-              msgError(translate.t("groupAlerts."));
-              break;
-            case "Exception - Vulnerability not found":
-              msgError(translate.t("groupAlerts.noFound"));
-              break;
-            default:
-              msgError(translate.t("groupAlerts.errorTextsad"));
-              Logger.warning(
-                "An error occurred requesting verification",
-                error
-              );
-          }
-        });
+        handleRequestVerificationError(graphQLErrors);
       },
       refetchQueries: [
         {
@@ -128,30 +111,10 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
     VERIFY_VULNERABILITIES,
     {
       onCompleted: (data: IVerifyRequestVulnResult): void => {
-        if (data.verifyRequestVuln.success) {
-          msgSuccess(
-            translate.t("groupAlerts.verifiedSuccess"),
-            translate.t("groupAlerts.updatedTitle")
-          );
-          refetchData();
-          clearSelected();
-          setVerifyState();
-        }
+        handleVerifyRequest(refetchData, clearSelected, setVerifyState, data);
       },
       onError: ({ graphQLErrors }: ApolloError): void => {
-        graphQLErrors.forEach((error: GraphQLError): void => {
-          switch (error.message) {
-            case "Exception - Error verification not requested":
-              msgError(translate.t("groupAlerts.noVerificationRequested"));
-              break;
-            case "Exception - Vulnerability not found":
-              msgError(translate.t("groupAlerts.noFound"));
-              break;
-            default:
-              msgError(translate.t("groupAlerts.errorTextsad"));
-              Logger.warning("An error occurred verifying a request", error);
-          }
-        });
+        handleVerifyRequestError(graphQLErrors);
       },
       refetchQueries: [
         {
@@ -182,39 +145,15 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
     treatmentJustification: string;
   }) => void = useCallback(
     (values: { treatmentJustification: string }): void => {
-      if (isReattacking) {
-        const vulnerabilitiesId: string[] = vulns.map(
-          (vuln: IVulnData): string => vuln.id
-        );
-
-        track("RequestReattack");
-        requestVerification({
-          variables: {
-            findingId,
-            justification: values.treatmentJustification,
-            vulnerabilities: vulnerabilitiesId,
-          },
-        }).catch((): undefined => undefined);
-      } else {
-        const openVulnsId: string[] = vulnerabilitiesList.reduce(
-          (acc: string[], vuln: IVulnData): string[] =>
-            vuln.currentState === "open" ? [...acc, vuln.id] : acc,
-          []
-        );
-        const closedVulnsId: string[] = vulnerabilitiesList.reduce(
-          (acc: string[], vuln: IVulnData): string[] =>
-            vuln.currentState === "closed" ? [...acc, vuln.id] : acc,
-          []
-        );
-        verifyRequest({
-          variables: {
-            closedVulns: closedVulnsId,
-            findingId,
-            justification: values.treatmentJustification,
-            openVulns: openVulnsId,
-          },
-        }).catch((): undefined => undefined);
-      }
+      handleSubmitHelper(
+        requestVerification,
+        verifyRequest,
+        findingId,
+        values,
+        vulns,
+        vulnerabilitiesList,
+        isReattacking
+      );
       closeRemediationModal();
     },
     [
@@ -322,4 +261,4 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
   );
 };
 
-export { UpdateVerificationModal, IUpdateVerificationModal };
+export { UpdateVerificationModal, IUpdateVerificationModal, IVulnData };
