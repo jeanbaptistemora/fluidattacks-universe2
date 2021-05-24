@@ -16,6 +16,9 @@ from aioextensions import (
     run,
 )
 import click
+from model import (
+    core_model,
+)
 
 # Local libraries
 from utils.ctx import (
@@ -62,6 +65,20 @@ REPO = partial(
         resolve_path=True,
     ),
 )
+
+FINDING_CODE = partial(
+    click.option,
+    "--finding-code",
+    help=f"One of: {', '.join(core_model.FindingEnum.__members__)}.",
+    metavar="CODE",
+    show_choices=False,
+    type=click.Choice(tuple(core_model.FindingEnum.__members__)),
+)
+FINDING_TITLE = partial(
+    click.option,
+    "--finding-title",
+    help="Finding title.",
+)
 GROUP = partial(
     click.option,
     "--group",
@@ -99,6 +116,31 @@ def cli(
     CTX.debug = debug
     if debug:
         set_level(logging.DEBUG)
+
+
+@cli.command(help="Queue a Skims execution on AWS Batch.")
+@FINDING_CODE()
+@FINDING_TITLE()
+@GROUP(required=True)
+@click.option(
+    "--urgent",
+    help="Queue the job with the highest priority.",
+    is_flag=True,
+)
+def queue(
+    finding_code: Optional[str],
+    finding_title: Optional[str],
+    group: str,
+    urgent: bool,
+) -> None:
+    if finding_code is not None:
+        print(finding_code, group, urgent)
+    elif finding_title is not None:
+        print(finding_title, group, urgent)
+    else:
+        raise click.UsageError(
+            "Either --finding-code or --finding-title must be provided"
+        )
 
 
 @cli.command(help="Load a config file and perform vulnerability detection.")
