@@ -1,7 +1,7 @@
 :page-slug: systems/cloud-infrastructure/
 :page-description: Cloud infrastructure is among the systems that we at Fluid Attacks help you evaluate to detect security vulnerabilities that you can subsequently remediate.
 :page-keywords: Fluid Attacks, Cloud, Infrastructure, Continuous Hacking, Security, System, Ethical Hacking, Pentesting
-:bpage-anner: bg-systems
+:page-banner: bg-systems
 :page-template: compliance
 
 = Cloud Infrastructure
