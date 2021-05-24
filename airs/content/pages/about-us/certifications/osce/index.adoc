@@ -1,9 +1,9 @@
-:slug: about-us/certifications/osce/
-:description: Our team of ethical hackers and pentesters counts with high certifications related to cybersecurity information.
-:keywords: Fluid Attacks, Ethical Hackers, Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers
-:certificationlogo: logo-osce
-:alt: Logo OSCE
-:certification: yes
+:page-slug: about-us/certifications/osce/
+:page-description: Our team of ethical hackers and pentesters counts with high certifications related to cybersecurity information.
+:page-keywords: Fluid Attacks, Ethical Hackers, Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers
+:page-certificationlogo: logo-osce
+:page-alt: Logo OSCE
+:page-certification: yes
 
 = Offensive Security Certified Expert (OSCE)
 

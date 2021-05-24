@@ -19,6 +19,7 @@ interface IQueryData {
         author: string;
         authors: string;
         banner: string;
+        certificationsindex: string;
         clientsindex: string;
         codename: string;
         cveid: string;
@@ -72,6 +73,8 @@ interface IData {
             alt: string;
             author: string;
             category: string;
+            certification: string;
+            certificationlogo: string;
             client: string;
             clientlogo: string;
             filter: string;
