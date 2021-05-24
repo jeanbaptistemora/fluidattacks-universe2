@@ -1,12 +1,22 @@
+# pylint: skip-file
 # Standard libraries
 from __future__ import annotations
 from typing import (
     Iterator,
+    List,
+    Literal,
     NamedTuple,
+    NoReturn,
 )
 
 # Third party libraries
-from returns.io import IO
+from returns.io import (
+    IO,
+    IOFailure,
+    IOResult,
+    IOSuccess,
+)
+from returns.pipeline import is_successful
 from returns.unsafe import unsafe_perform_io
 
 # Local libraries
@@ -18,9 +28,29 @@ from postgres_client.table import DbTable
 from postgres_client.table.common import TableID
 
 LOG = utils.get_log(__name__)
+IOResultBool = IOResult[Literal[True], Literal[False]]
+
+
+def _raise(excep: Exception) -> NoReturn:
+    raise excep
+
+
+def _exist(cursor: Cursor, schema: str) -> IOResultBool:
+    query = queries.exist(schema)
+    cursor.execute_query(query)
+    result = cursor.fetch_one().map(lambda elem: elem[0])
+    if result == IO(True):
+        return IOSuccess(True)
+    return IOFailure(False)
+
+
+class SchemaNotExist(Exception):
+    pass
 
 
 class Schema(NamedTuple):
+    """Use SchemaFactory for building a Schema element"""
+
     cursor: Cursor
     name: str
     redshift: bool
@@ -29,11 +59,6 @@ class Schema(NamedTuple):
         query = queries.get_tables(self.name)
         self.cursor.execute_query(query)
         return (item[0] for item in unsafe_perform_io(self.cursor.fetch_all()))
-
-    def exist_on_db(self) -> bool:
-        query = queries.exist(self.name)
-        self.cursor.execute_query(query)
-        return unsafe_perform_io(self.cursor.fetch_one())[1][0]
 
     def delete_on_db(self) -> IO[None]:
         query = queries.delete(self.name)
@@ -57,6 +82,29 @@ class Schema(NamedTuple):
             move_table(table)
         return IO(None)
 
+
+class SchemaFactory(NamedTuple):
+    client: Client
+
+    def try_retrieve(
+        self, name: str, redshift: bool = True
+    ) -> IOResult[Schema, SchemaNotExist]:
+        exists = _exist(self.client.cursor, name)
+        if is_successful(exists):
+            return IOSuccess(
+                Schema(cursor=self.client.cursor, name=name, redshift=redshift)
+            )
+        return IOFailure(SchemaNotExist(name))
+
+    def retrieve(self, name: str, redshift: bool = True) -> IO[Schema]:
+        result = self.try_retrieve(name, redshift)
+        return result.alt(_raise).unwrap()
+
+    def new_schema(self, name: str, redshift: bool = True) -> IO[Schema]:
+        query = queries.create(name)
+        self.client.cursor.execute_query(query)
+        return self.retrieve(name, redshift)
+
     @classmethod
-    def new(cls, client: Client, name: str, redshift: bool = True) -> Schema:
-        return cls(cursor=client.cursor, name=name, redshift=redshift)
+    def new(cls, client: Client) -> SchemaFactory:
+        return cls(client)

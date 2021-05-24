@@ -1,12 +1,15 @@
+# pylint: skip-file
 # Standard libraries
 from typing import Any
 
 # Third party libraries
 import pytest
+from returns.io import IO
 
 # Local libraries
 from postgres_client import client
-from postgres_client.schema import Schema
+from postgres_client.schema import Schema, SchemaFactory
+from returns.pipeline import is_successful
 
 
 def foo_table(
@@ -40,38 +43,44 @@ def setup_db(postgresql_my: Any) -> None:
 def test_get_tables(postgresql_my: Any) -> None:
     setup_db(postgresql_my)
     db_client = client.new_test_client(postgresql_my)
-    db_schema = Schema.new(db_client, "test_schema")
-    tables = set(db_schema.get_tables())
-    assert tables == set(["table_number_one", "table_number_two"])
+    factory = SchemaFactory.new(db_client)
+    db_schema_io = factory.retrieve("test_schema", False)
+    tables = db_schema_io.map(lambda schema: set(schema.get_tables()))
+    assert tables == IO(set(["table_number_one", "table_number_two"]))
 
 
 @pytest.mark.timeout(15, method="thread")
 def test_exist_on_db(postgresql_my: Any) -> None:
     setup_db(postgresql_my)
     db_client = client.new_test_client(postgresql_my)
-    db_schema = Schema.new(db_client, "test_schema")
-    fake_schema = Schema.new(db_client, "non_existent_schema")
-    assert db_schema.exist_on_db()
-    assert not fake_schema.exist_on_db()
+    factory = SchemaFactory.new(db_client)
+    db_schema_result = factory.try_retrieve("test_schema", False)
+    fake_schema_result = factory.try_retrieve("non_existent_schema", False)
+    assert is_successful(db_schema_result)
+    assert not is_successful(fake_schema_result)
 
 
 @pytest.mark.timeout(15, method="thread")
 def test_delete_on_db(postgresql_my: Any) -> None:
     setup_db(postgresql_my)
     db_client = client.new_test_client(postgresql_my)
-    db_schema = Schema.new(db_client, "empty_schema")
-    assert db_schema.exist_on_db()
-    db_schema.delete_on_db()
-    assert not db_schema.exist_on_db()
+    factory = SchemaFactory.new(db_client)
+    db_schema_io = factory.retrieve("empty_schema", False)
+    db_schema_io.map(lambda schema: schema.delete_on_db())
+    result = factory.try_retrieve("empty_schema", False)
+    assert not is_successful(result)
 
 
 @pytest.mark.timeout(15, method="thread")
 def test_migrate_schema(postgresql_my: Any) -> None:
     setup_db(postgresql_my)
     db_client = client.new_test_client(postgresql_my)
-    source = Schema.new(db_client, "test_schema", False)
-    target = Schema.new(db_client, "target_schema", False)
-    source.migrate(target)
+    factory = SchemaFactory.new(db_client)
+    source = factory.retrieve("test_schema", False)
+    target = factory.retrieve("target_schema", False)
+    source.map(lambda schema: schema.migrate).bind(
+        lambda migrate: target.map(migrate)
+    )
     cursor = postgresql_my.cursor()
     assert n_rows(cursor, "target_schema", "table_number_one") == 5
     assert n_rows(cursor, "target_schema", "super_table") == 10

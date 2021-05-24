@@ -27,5 +27,5 @@ def move(
     source: TableID,
     target: TableID,
 ) -> TableID:
-    db_client.cursor.execute_queries(queries.move(source, target))
+    db_client.cursor.execute_queries(queries.redshift_move(source, target))
     return target

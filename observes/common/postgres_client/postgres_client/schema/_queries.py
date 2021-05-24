@@ -37,3 +37,9 @@ def delete(schema: str) -> Query:
     query: str = "DROP SCHEMA {schema_name}"
     args = DynamicSQLargs(identifiers={"schema_name": schema})
     return Query.new(query, Maybe.from_value(args))
+
+
+def create(schema: str) -> Query:
+    query: str = "CREATE SCHEMA {schema_name}"
+    args = DynamicSQLargs(identifiers={"schema_name": schema})
+    return Query.new(query, Maybe.from_value(args))
