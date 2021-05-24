@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import (
     Dict,
     List,
+    Set,
     Tuple,
     Union,
     cast,
@@ -17,12 +18,13 @@ from custom_types import (
     Finding as FindingType,
     User as UserType,
 )
+from model.findings.types import FindingVerification
 from newutils import datetime as datetime_utils
 
 
 def _fill_vuln_info(
     comment: Dict[str, str],
-    vulns_ids: List[str],
+    vulns_ids: Set[str],
     vulns: List[Dict[str, FindingType]],
 ) -> CommentType:
     selected_vulns = [
@@ -152,7 +154,7 @@ async def get_comments(
         comments = [
             _fill_vuln_info(
                 cast(Dict[str, str], comment),
-                cast(List[str], verification.get("vulns", [])),
+                set(cast(List[str], verification.get("vulns", []))),
                 vulns,
             )
             if comment.get("id") == verification.get("comment")
@@ -167,6 +169,46 @@ async def get_comments(
         new_comments = comments
     else:
         new_comments = list(filter(_is_scope_comment, comments))
+    return new_comments
+
+
+async def get_comments_new(
+    group_name: str, finding_id: str, user_email: str, info: GraphQLResolveInfo
+) -> Tuple[CommentType, ...]:
+    historic_verification_loader = (
+        info.context.loaders.finding_historic_verification_new
+    )
+    finding_vulns_loader = info.context.loaders.finding_vulns
+    comments = await _get_comments(
+        "comment", group_name, finding_id, user_email
+    )
+    historic_verification: Tuple[
+        FindingVerification, ...
+    ] = await historic_verification_loader.load((group_name, finding_id))
+    verified = (
+        verification
+        for verification in historic_verification
+        if verification.vuln_uuids
+    )
+    if verified:
+        vulns = await finding_vulns_loader.load(finding_id)
+        comments = [
+            _fill_vuln_info(
+                cast(Dict[str, str], comment),
+                verification.vuln_uuids,
+                vulns,
+            )
+            if str(comment["id"]) == verification.comment_id
+            else comment
+            for comment in comments
+            for verification in verified
+        ]
+    new_comments: Tuple[CommentType, ...] = tuple()
+    enforcer = await authz.get_group_level_enforcer(user_email)
+    if enforcer(group_name, "handle_comment_scope"):
+        new_comments = tuple(comments)
+    else:
+        new_comments = tuple(filter(_is_scope_comment, comments))
     return new_comments
 
 
