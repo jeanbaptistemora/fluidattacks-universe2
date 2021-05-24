@@ -121,6 +121,11 @@ def get_repository_metadata(repo_path: str = ".") -> Dict[str, str]:
 
 
 async def check_remotes(config: ForcesConfig) -> bool:
+    if not config.repository_name:
+        # if the repo is not specified, it is not required to validate
+        # the remotes
+        return True
+
     api_remotes = await get_git_remotes(config.group)
 
     match_remotes = [

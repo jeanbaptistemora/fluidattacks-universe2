@@ -9,6 +9,7 @@ from typing import (
     Any,
     Dict,
     AsyncIterator,
+    List,
     TypeVar,
     Optional,
 )
@@ -18,6 +19,7 @@ import aiohttp
 from aiogqlc import GraphQLClient
 
 # Local libraries
+from forces.utils.logs import blocking_log
 from forces.apis.integrates import (
     get_api_token,
 )
@@ -25,6 +27,16 @@ from forces.apis.integrates import (
 # Context
 SESSION: ContextVar[GraphQLClient] = ContextVar("SESSION")
 TVar = TypeVar("TVar")
+
+
+class ApiError(Exception):
+    def __init__(self, *errors: Dict[str, Any]) -> None:
+        self.messages: List[str] = list()
+        for error in errors:
+            if message := error.get("message"):
+                self.messages.append(message)
+                blocking_log("error", message)
+        super().__init__(*errors)
 
 
 @contextlib.asynccontextmanager
@@ -74,7 +86,7 @@ async def execute(
         result = await response.json()
 
         if "errors" in result.keys():
-            raise Exception(*result["errors"])
+            raise ApiError(*result["errors"])
 
         result = result.get("data", dict())
         return result or default  # type: ignore

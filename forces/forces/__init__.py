@@ -53,7 +53,7 @@ async def entrypoint(
             and metadata["git_repo"] == DEFAULT_COLUMN_VALUE
         ):
             await log(
-                "error",
+                "warning",
                 (
                     "Could not detect repository name, use"
                     " --repo-name option to specify it"
@@ -68,10 +68,11 @@ async def entrypoint(
             # else:  temporarily disable
             #     return 1
         metadata["git_repo"] = config.repository_name or metadata["git_repo"]
-        await log(
-            "info",
-            f"Running forces on the repository: {config.repository_name}",
-        )
+        if config.repository_name:
+            await log(
+                "info",
+                f"Running forces on the repository: {config.repository_name}",
+            )
 
         # check if repo is in roots
         if (

@@ -23,7 +23,7 @@ def filter_kind(
 def filter_repo(
     vuln: Dict[str, Any],
     kind: str,
-    repo_name: Optional[str],
+    repo_name: Optional[str] = None,
 ) -> bool:
     vuln_type = "SAST" if vuln["vulnType"] == "lines" else "DAST"
 

@@ -125,7 +125,7 @@ async def main_wrapped(  # pylint: disable=too-many-arguments
 
     group: Optional[str] = await get_forces_user(api_token=token)
     if not group:
-        await log("error", "Ensure that you use an forces user")
+        await log("warning", "Ensure that you use an forces user")
         return 1
 
     configure_bugsnag(group=group or "")
@@ -138,6 +138,14 @@ async def main_wrapped(  # pylint: disable=too-many-arguments
         await log(
             "info",
             f"Ruing forces for vulnerabilities in the repo: {repo_name}",
+        )
+    else:
+        await log(
+            "warning",
+            (
+                "If the repository name is not specified, it will run on all "
+                "the existing repositories in integrates"
+            ),
         )
 
     config = ForcesConfig(

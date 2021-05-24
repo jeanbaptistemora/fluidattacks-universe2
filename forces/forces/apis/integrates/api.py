@@ -18,7 +18,8 @@ from typing import (
 # 3dr Imports
 
 # Local Library
-from forces.apis.integrates.client import execute
+from forces.utils.logs import log
+from forces.apis.integrates.client import ApiError, execute
 from forces.utils.function import shield
 from forces.utils.env import guess_environment
 
@@ -288,13 +289,23 @@ async def get_projects_access(**kwargs: Any) -> List[Dict[str, str]]:
           }
         }
     """
-    response: Dict[
-        str, Dict[str, List[Dict[str, List[Dict[str, str]]]]]
-    ] = await execute(
-        query,
-        operation_name="ForcesGetMeProjects",
-        **kwargs,
-    )
+    try:
+        response: Dict[
+            str, Dict[str, List[Dict[str, List[Dict[str, str]]]]]
+        ] = await execute(
+            query,
+            operation_name="ForcesGetMeProjects",
+            **kwargs,
+        )
+    except ApiError as exc:
+        if "Login required" in exc.messages:
+            await log(
+                "error",
+                "The token has expired or the token has no permissions",
+            )
+            return list()
+        raise Exception
+
     return list(
         group
         for organization in response["me"]["organizations"]
