@@ -40,7 +40,7 @@ async def send_mail_daily_digest(
         email_to,
         context,
         DIGEST_TAG,
-        f'Daily Digest for [{context["project"]}]',
+        "Daily Digest",
         "daily_digest",
     )
 

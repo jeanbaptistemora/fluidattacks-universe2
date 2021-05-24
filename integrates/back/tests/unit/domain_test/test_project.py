@@ -511,10 +511,12 @@ async def test_get_group_digest_stats():
     total_stats = await get_group_digest_stats(context, project_name)
     expected_output = {
         "project": project_name,
-        "remediation_rate": 19,
-        "reattack_effectiveness": 0,
-        "remediation_time": 513,
-        "queries": 0,
+        "main": {
+            "remediation_rate": 19,
+            "reattack_effectiveness": 0,
+            "remediation_time": 513,
+            "queries": 0,
+        },
         "reattacks": {
             "reattacks_requested": 0,
             "reattacks_executed": 0,

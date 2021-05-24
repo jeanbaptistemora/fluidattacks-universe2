@@ -258,11 +258,8 @@ async def send_digest_report(
         LOGGER_CONSOLE.warning("- digest email NOT sent", **NOEXTRA)
         return
 
-    LOGGER_CONSOLE.info("- sending digest emails", **NOEXTRA)
-    await collect(
-        groups_mail.send_mail_daily_digest([user_email], mail_content)
-        for mail_content in mail_contents
-    )
+    user_stats = groups_domain.process_user_digest_stats(groups, mail_contents)
+    await groups_mail.send_mail_daily_digest([user_email], user_stats)
     LOGGER_CONSOLE.info("- digest emails sent", **NOEXTRA)
 
 

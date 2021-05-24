@@ -150,25 +150,25 @@
       <img alt="Fluid Attacks logo"
         src="https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/3c66db1f-0f67-491a-9193-3d8e6d1ea983.png"
         style="height: 100px; margin: 30px 0;">
-      <h4>Hello {{ name }}, here’s how your day was at <strong>{{ project }}</strong></h4>
+      <h4>Hello {{ name }}, here’s how your day was:</h4>
     </div>
 
     <!-- NUMBERS -->
     <div class="numbers">
       <div>
-        <h3>{{ remediation_rate }}%</h3>
-        <p>Remediation rate</p>
+        <h3>{{ main['remediation_rate'] }}%</h3>
+        <p>Average remediation rate</p>
       </div>
       <div>
-        <h3>{{ reattack_effectiveness }}%</h3>
-        <p>Reattack effectiveness</p>
+        <h3>{{ main['reattack_effectiveness'] }}%</h3>
+        <p>Average reattack effectiveness</p>
       </div>
       <div>
-        <h3>{{ remediation_time }}</h3>
+        <h3>{{ main['remediation_time'] }}</h3>
         <p>Average remediation time (days)</p>
       </div>
       <div>
-        <h3>{{ queries }}</h3>
+        <h3>{{ main['queries'] }}</h3>
         <p>Queries</p>
       </div>
     </div>
@@ -229,7 +229,7 @@
       <div class="content">
         {% for finding in findings %}
         <div>
-          <span>{{ finding['finding_name'] }}</span>
+          <span>{{ finding['finding_name'] }} <strong>[{{ finding['finding_project'] }}]</strong></span>
           <span class="content-number">
             {{ finding['finding_age'] }}
             {% if finding['finding_age']  == 1 %}

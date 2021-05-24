@@ -5,9 +5,11 @@ import logging.config
 import re
 import secrets
 from collections import (
+    Counter,
     defaultdict,
     namedtuple,
 )
+from operator import itemgetter
 from contextlib import AsyncExitStack
 from datetime import date
 from decimal import Decimal
@@ -54,7 +56,10 @@ from dynamodb.operations_legacy import start_context
 from events import domain as events_domain
 from findings import domain as findings_domain
 from group_access import domain as group_access_domain
-from group_comments import domain as group_comments_domain
+from group_comments.domain import (
+    get_total_comments_date,
+    mask_comments,
+)
 from groups import dal as groups_dal
 from mailer import groups as groups_mail
 from names import domain as names_domain
@@ -726,7 +731,7 @@ async def is_alive(
 
 async def mask(group_name: str) -> bool:
     today = datetime_utils.get_now()
-    are_comments_masked = await group_comments_domain.mask_comments(group_name)
+    are_comments_masked = await mask_comments(group_name)
     update_data: Dict[str, Union[str, List[str], object]] = {
         "project_status": "FINISHED",
         "deletion_date": datetime_utils.get_as_str(today),
@@ -979,10 +984,12 @@ async def get_group_digest_stats(
 ) -> MailContentType:
     content: MailContentType = {
         "project": group_name,
-        "remediation_rate": 0,
-        "reattack_effectiveness": 0,
-        "remediation_time": 0,
-        "queries": 0,
+        "main": {
+            "remediation_rate": 0,
+            "reattack_effectiveness": 0,
+            "remediation_time": 0,
+            "queries": 0,
+        },
         "reattacks": {
             "reattacks_requested": 0,
             "reattacks_executed": 0,
@@ -1036,17 +1043,58 @@ async def get_group_digest_stats(
     content["reattacks"]["pending_attacks"] = reattacks.get(
         "pending_attacks", 0
     )
-    content["reattack_effectiveness"] = reattacks.get(
+    content["main"]["reattack_effectiveness"] = reattacks.get(
         "reattack_effectiveness", 0
     )
-    content["queries"] = await group_comments_domain.get_total_comments_date(
+    content["main"]["queries"] = await get_total_comments_date(
         valid_findings, group_name, last_day
     )
-    content["remediation_time"] = int(
+    content["main"]["remediation_time"] = int(
         await get_mean_remediate(context, group_name)
     )
-    content["remediation_rate"] = await get_remediation_rate(
+    content["main"]["remediation_rate"] = await get_remediation_rate(
         context, group_name
     )
 
     return content
+
+
+def process_user_digest_stats(
+    groups: List[str],
+    groups_stats: List[MailContentType],
+) -> MailContentType:
+    """Consolidate several groups stats with precalculated data"""
+    total: MailContentType = {
+        "project": ", ".join(groups),
+        "findings": list(),
+    }
+
+    main: Counter = Counter()
+    reattacks: Counter = Counter()
+    treatments: Counter = Counter()
+    findings = list()
+    for stat in groups_stats:
+        main.update(stat["main"])
+        reattacks.update(stat["reattacks"])
+        treatments.update(stat["treatments"])
+        findings_extended = [
+            {
+                **finding,
+                "finding_project": stat["project"],
+            }
+            for finding in stat["findings"]
+        ]
+        findings.extend(findings_extended)
+
+    total["main"] = dict(main)
+    total["main"]["remediation_rate"] //= len(groups)
+    total["main"]["reattack_effectiveness"] //= len(groups)
+    total["main"]["remediation_time"] //= len(groups)
+    total["reattacks"] = dict(reattacks)
+    total["treatments"] = dict(treatments)
+
+    total["findings"] = sorted(
+        findings, key=itemgetter("finding_age"), reverse=True
+    )[:3]
+
+    return total
