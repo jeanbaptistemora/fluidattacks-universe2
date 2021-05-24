@@ -449,16 +449,6 @@ label {
   :local .tab > a {
     margin-bottom: 0;
   }
-
-  :local .stickyContainer {
-    position: sticky;
-    top: 55px;
-    z-index: 4;
-  }
-}
-
-:local .stickyContainer {
-  background-color: white;
 }
 
 :local .tabsContainer {
@@ -858,10 +848,6 @@ label {
 /* Custom media */
 
 @media (min-width: 768px) {
-  :global .sticky {
-    position: sticky;
-  }
-
   :global .w-45-ns {
     width: 45%;
   }
@@ -874,12 +860,6 @@ label {
 @media (min-width: 903px) {
   :global .top5-5 {
     top: 5.5rem !important;
-  }
-}
-
-@media (min-width: 992px) {
-  :global .sticky-find {
-    position: sticky;
   }
 }
 

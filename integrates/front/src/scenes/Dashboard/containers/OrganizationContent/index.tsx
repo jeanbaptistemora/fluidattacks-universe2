@@ -35,7 +35,7 @@ import { GET_USER_PERMISSIONS } from "scenes/Dashboard/queries";
 import globalStyle from "styles/global.css";
 import {
   Col100,
-  StickyContainerOrg,
+  StickyContainer,
   TabsContainer,
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
@@ -130,7 +130,7 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
       <div>
         <div>
           <Col100>
-            <StickyContainerOrg>
+            <StickyContainer>
               <TabsContainer>
                 <ContentTab
                   icon={"icon pe-7s-graph3"}
@@ -174,7 +174,7 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                   tooltip={translate.t("organization.tabs.policies.tooltip")}
                 />
               </TabsContainer>
-            </StickyContainerOrg>
+            </StickyContainer>
             <div className={globalStyle.tabContent}>
               <Switch>
                 <Route exact={true} path={`${path}/analytics`}>

@@ -416,41 +416,14 @@ const RowCenter: StyledComponent<
   className: "flex flex-wrap justify-center",
 })``;
 
-const StickyContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "bg-white sticky z-4",
-})``;
-
-const StickyContainerFinding: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "bg-white sticky-find z-4",
-})``;
-
-const StickyContainerOrg: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "bg-white w-100 sticky z-4",
-})``;
-
-const StickyContainerToe: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "bg-white sticky z-3",
-})``;
+const StickyContainer = styled.div.attrs({
+  className: "bg-white z-4",
+})`
+  @media (min-width: 768px) {
+    position: sticky;
+    top: 50px;
+  }
+`;
 
 const Switch: StyledComponent<
   "div",
@@ -607,9 +580,6 @@ export {
   Row,
   RowCenter,
   StickyContainer,
-  StickyContainerFinding,
-  StickyContainerOrg,
-  StickyContainerToe,
   Switch,
   SwitchHandle,
   SwitchGroup,

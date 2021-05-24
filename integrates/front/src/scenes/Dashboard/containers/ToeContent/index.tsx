@@ -8,7 +8,7 @@ import { GroupToeInputsView } from "../GroupToeInputsView";
 import { GroupToeLinesView } from "../GroupToeLinesView";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import {
-  StickyContainerToe,
+  StickyContainer,
   TabContent,
   TabsContainer,
 } from "styles/styledComponents";
@@ -29,7 +29,7 @@ const toeContent: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <StickyContainerToe>
+      <StickyContainer>
         <TabsContainer>
           <Can do={"api_resolvers_git_root_toe_lines_resolve"}>
             <ContentTab
@@ -50,7 +50,7 @@ const toeContent: React.FC = (): JSX.Element => {
             />
           </Can>
         </TabsContainer>
-      </StickyContainerToe>
+      </StickyContainer>
       <TabContent>
         <Switch>
           <Route
