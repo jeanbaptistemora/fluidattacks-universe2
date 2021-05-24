@@ -2,20 +2,19 @@ import React from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import type { CircularProgressbarDefaultProps } from "react-circular-progressbar/dist/types";
 
+import {
+  FindingHeaderContainer,
+  FindingHeaderDetail,
+  FindingHeaderIndicator,
+  FindingHeaderLabel,
+} from "./styles";
+
 import calendarIcon from "resources/calendar.svg";
 import defaultIcon from "resources/default_finding_state.svg";
 import failIcon from "resources/fail.svg";
 import okIcon from "resources/ok.svg";
 import vulnerabilitiesIcon from "resources/vulnerabilities.svg";
 import style from "scenes/Dashboard/components/FindingHeader/index.css";
-import {
-  Col100,
-  FindingHeaderDetail,
-  FindingHeaderGrid,
-  FindingHeaderIndicator,
-  FindingHeaderLabel,
-  Row,
-} from "styles/styledComponents";
 import { translate } from "utils/translations/translate";
 
 interface IFindingHeaderProps {
@@ -96,70 +95,51 @@ const FindingHeader: React.FC<IFindingHeaderProps> = (
   const CIRCULAR_PROGRESS_BAR_PARAM2: number = 100;
 
   return (
-    <React.StrictMode>
-      <Row>
-        <Col100>
-          <FindingHeaderGrid>
-            <FindingHeaderDetail>
-              <div>
-                <CircularProgressbar
-                  classes={severityStyles}
-                  styles={{
-                    path: { stroke: severityColor },
-                    text: { fill: severityColor },
-                  }}
-                  text={`${severity}`}
-                  value={
-                    (severity / CIRCULAR_PROGRESS_BAR_PARAM1) *
-                    CIRCULAR_PROGRESS_BAR_PARAM2
-                  }
-                />
-              </div>
-              <FindingHeaderLabel>
-                {translate.t("searchFindings.severityLabel")}
-                <FindingHeaderIndicator>
-                  <b>{severityText}</b>
-                </FindingHeaderIndicator>
-              </FindingHeaderLabel>
-            </FindingHeaderDetail>
-            <FindingHeaderDetail>
-              <div>
-                <img alt={""} height={45} src={statusIcon} width={45} />
-              </div>
-              <FindingHeaderLabel>
-                {translate.t("searchFindings.statusLabel")}
-                <FindingHeaderIndicator>
-                  <b>{statusText}</b>
-                </FindingHeaderIndicator>
-              </FindingHeaderLabel>
-            </FindingHeaderDetail>
-            <FindingHeaderDetail>
-              <div>
-                <img
-                  alt={""}
-                  height={45}
-                  src={vulnerabilitiesIcon}
-                  width={45}
-                />
-              </div>
-              <FindingHeaderLabel>
-                {translate.t("searchFindings.openVulnsLabel")}
-                <FindingHeaderIndicator>{openVulns}</FindingHeaderIndicator>
-              </FindingHeaderLabel>
-            </FindingHeaderDetail>
-            <FindingHeaderDetail>
-              <div>
-                <img alt={""} height={40} src={calendarIcon} width={40} />
-              </div>
-              <FindingHeaderLabel>
-                {translate.t("searchFindings.discoveryDateLabel")}
-                <FindingHeaderIndicator>{discoveryDate}</FindingHeaderIndicator>
-              </FindingHeaderLabel>
-            </FindingHeaderDetail>
-          </FindingHeaderGrid>
-        </Col100>
-      </Row>
-    </React.StrictMode>
+    <FindingHeaderContainer>
+      <FindingHeaderDetail>
+        <CircularProgressbar
+          classes={severityStyles}
+          styles={{
+            path: { stroke: severityColor },
+            text: { fill: severityColor },
+          }}
+          text={`${severity}`}
+          value={
+            (severity / CIRCULAR_PROGRESS_BAR_PARAM1) *
+            CIRCULAR_PROGRESS_BAR_PARAM2
+          }
+        />
+        <FindingHeaderLabel>
+          {translate.t("searchFindings.severityLabel")}
+          <FindingHeaderIndicator>
+            <b>{severityText}</b>
+          </FindingHeaderIndicator>
+        </FindingHeaderLabel>
+      </FindingHeaderDetail>
+      <FindingHeaderDetail>
+        <img alt={""} height={45} src={statusIcon} width={45} />
+        <FindingHeaderLabel>
+          {translate.t("searchFindings.statusLabel")}
+          <FindingHeaderIndicator>
+            <b>{statusText}</b>
+          </FindingHeaderIndicator>
+        </FindingHeaderLabel>
+      </FindingHeaderDetail>
+      <FindingHeaderDetail>
+        <img alt={""} height={45} src={vulnerabilitiesIcon} width={45} />
+        <FindingHeaderLabel>
+          {translate.t("searchFindings.openVulnsLabel")}
+          <FindingHeaderIndicator>{openVulns}</FindingHeaderIndicator>
+        </FindingHeaderLabel>
+      </FindingHeaderDetail>
+      <FindingHeaderDetail>
+        <img alt={""} height={40} src={calendarIcon} width={40} />
+        <FindingHeaderLabel>
+          {translate.t("searchFindings.discoveryDateLabel")}
+          <FindingHeaderIndicator>{discoveryDate}</FindingHeaderIndicator>
+        </FindingHeaderLabel>
+      </FindingHeaderDetail>
+    </FindingHeaderContainer>
   );
 };
 

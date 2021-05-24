@@ -20,19 +20,3 @@
 :local .severityCircleBg {
   fill: #d6d6d6;
 }
-
-:local .highlightedIndicator {
-  font-size: 23px;
-}
-
-:local .container {
-  padding-bottom: 8px;
-}
-
-:local .container p {
-  margin-bottom: 0;
-}
-
-:local .container .headerIcon {
-  text-align: right;
-}

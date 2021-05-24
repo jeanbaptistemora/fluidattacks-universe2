@@ -197,34 +197,6 @@ const ExpandableLabel: StyledComponent<
   className: "b pointer",
 })``;
 
-const FindingHeaderDetail: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: "flex flex-auto items-center justify-center",
-})``;
-
-const FindingHeaderGrid: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: "flex flex-wrap justify-around mb2",
-})``;
-
-const FindingHeaderIndicator: StyledComponent<
-  "p",
-  Record<string, unknown>
-> = styled.p.attrs({
-  className: "f3 ma0",
-})``;
-
-const FindingHeaderLabel: StyledComponent<
-  "p",
-  Record<string, unknown>
-> = styled.p.attrs({
-  className: "ml2 ma0",
-})``;
-
 const Flex: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: string;
 }>({
@@ -606,10 +578,6 @@ export {
   EventHeaderLabel,
   EvidenceDescription,
   ExpandableLabel,
-  FindingHeaderDetail,
-  FindingHeaderGrid,
-  FindingHeaderIndicator,
-  FindingHeaderLabel,
   Flex,
   FormGroup,
   GraphicButton,
