@@ -4,8 +4,6 @@ from typing import (
     List,
 )
 
-from aioextensions import collect
-
 from __init__ import (
     BASE_URL,
     FI_MAIL_REVIEWERS,
@@ -22,7 +20,7 @@ from .common import (
     COMMENTS_TAG,
     GENERAL_TAG,
     VERIFY_TAG,
-    get_email_recipients,
+    get_comment_recipients,
     send_mails_async_new,
 )
 
@@ -62,46 +60,17 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
         "user_email": user_mail,
     }
 
-    # Mask Fluid Attacks' staff
-    recipients = await get_email_recipients(group_name, type_)
-    recipients_not_masked = [
-        recipient
-        for recipient in recipients
-        if (
-            "@fluidattacks.com" in recipient
-            or "@fluidattacks.com" not in user_mail
-        )
-    ]
-    recipients_masked = [
-        recipient
-        for recipient in recipients
-        if (
-            "@fluidattacks.com" not in recipient
-            and "@fluidattacks.com" in user_mail
-        )
-    ]
-    email_context_masked = email_context.copy()
-    if "@fluidattacks.com" in user_mail:
-        email_context_masked["user_email"] = "Hacker at Fluid Attacks"
-
-    await collect(
-        [
-            send_mails_async_new(
-                mail_recipients,
-                mail_context,
-                COMMENTS_TAG,
-                (
-                    "New "
-                    + ("observation" if type_ == "observation" else "comment")
-                    + f" in [{group_name}]"
-                ),
-                "new_comment",
-            )
-            for mail_recipients, mail_context in zip(
-                [recipients_not_masked, recipients_masked],
-                [email_context, email_context_masked],
-            )
-        ]
+    recipients = await get_comment_recipients(group_name, type_)
+    await send_mails_async_new(
+        recipients,
+        email_context,
+        COMMENTS_TAG,
+        (
+            f"New "
+            f'{"observation" if type_ == "observation" else "comment"}'
+            f' in finding #{finding["id"]} for [{group_name}]'
+        ),
+        "new_comment",
     )
 
 

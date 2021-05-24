@@ -50,7 +50,7 @@ def get_content(template_name: str, context: MailContentType) -> str:
     return template.render(context)
 
 
-async def get_email_recipients(
+async def get_comment_recipients(
     group: str, comment_type: Union[str, bool]
 ) -> List[str]:
     recipients: List[str] = []
@@ -67,7 +67,13 @@ async def get_email_recipients(
         recipients.extend(analysts)
     else:
         recipients.extend(group_users)
-    return recipients
+
+    # Only Fluid Attacks staff
+    return [
+        recipient
+        for recipient in recipients
+        if "@fluidattacks.com" in recipient
+    ]
 
 
 async def get_recipient_first_name(email: str) -> str:

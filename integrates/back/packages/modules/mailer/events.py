@@ -18,6 +18,7 @@ from group_access import domain as group_access_domain
 from .common import (
     COMMENTS_TAG,
     GENERAL_TAG,
+    get_comment_recipients,
     send_mails_async_new,
 )
 
@@ -50,42 +51,13 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
         "project": group_name,
         "user_email": user_mail,
     }
-    recipients = await group_access_domain.get_users_to_notify(
-        group_name, True
-    )
-    recipients_customers = [
-        recipient
-        for recipient in recipients
-        if await authz.get_group_level_role(recipient, group_name)
-        in ["customer", "customeradmin"]
-    ]
-    recipients_not_customers = [
-        recipient
-        for recipient in recipients
-        if await authz.get_group_level_role(recipient, group_name)
-        not in ["customer", "customeradmin"]
-    ]
-
-    email_context_customers = email_context.copy()
-    if await authz.get_group_level_role(user_mail, group_name) not in [
-        "customer",
-        "customeradmin",
-    ]:
-        email_context_customers["user_email"] = "Hacker at FluidIntegrates"
-    await collect(
-        [
-            send_mails_async_new(
-                mail_recipients,
-                mail_context,
-                COMMENTS_TAG,
-                f"New comment in [{group_name}]",
-                "new_comment",
-            )
-            for mail_recipients, mail_context in zip(
-                [recipients_not_customers, recipients_customers],
-                [email_context, email_context_customers],
-            )
-        ]
+    recipients = await get_comment_recipients(group_name, "comment")
+    await send_mails_async_new(
+        recipients,
+        email_context,
+        COMMENTS_TAG,
+        f"New comment in event #{event_id} for [{group_name}]",
+        "new_comment",
     )
 
 

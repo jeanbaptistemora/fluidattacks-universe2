@@ -43,12 +43,12 @@ pytestmark = [
 ]
 
 
-async def test_get_email_recipients():
+async def test_get_comment_recipients():
+    project_name = "unittesting"
     comment_type = "comment"
-    finding_id = "436992569"
 
-    test_data = await mailer_utils.get_email_recipients(
-        comment_type, finding_id
+    test_data = await mailer_utils.get_comment_recipients(
+        project_name, comment_type
     )
     assert isinstance(test_data, list)
     assert isinstance(test_data[0], str)
