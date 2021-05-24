@@ -1,7 +1,11 @@
-:clientlogo: logo-redeban
-:alt: Logo Redeban
-:client: yes
-:filter: banking
+:page-slug: about-us/clients/redeban/
+:page-category: about-us
+:page-description: Fluid Attacks provides cybersecurity solutions, with a strong focus on Continuous Hacking, for clients in multiple industries highlighted in this section.
+:page-keywords: Fluid Attacks, Security Testing, Client, Industry, Company, Organization, Pentesting, Ethical Hacking
+:page-clientlogo: logo-redeban
+:page-alt: Logo Redeban
+:page-client: yes
+:page-filter: banking
 
 = Redeban
 

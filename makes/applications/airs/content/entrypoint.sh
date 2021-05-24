@@ -49,7 +49,6 @@ function main {
       &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:category|:page-category|g" {} + \
       &&  rm -rf \
             content/pages/about-us/certifications \
-            content/pages/about-us/clients \
             content/pages/products/defends \
             content/pages/products/skims \
             content/pages/products/asserts \

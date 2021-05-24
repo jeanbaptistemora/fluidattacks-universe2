@@ -1,7 +1,11 @@
-:clientlogo: logo-mazda
-:alt: Logo Mazda
-:client: yes
-:filter: automotive
+:page-slug: about-us/clients/mazda/
+:page-category: about-us
+:page-description: Fluid Attacks provides cybersecurity solutions, with a strong focus on Continuous Hacking, for clients in multiple industries highlighted in this section.
+:page-keywords: Fluid Attacks, Security Testing, Client, Industry, Company, Organization, Pentesting, Ethical Hacking
+:page-clientlogo: logo-mazda
+:page-alt: Logo Mazda
+:page-client: yes
+:page-filter: automotive
 
 = Mazda
 

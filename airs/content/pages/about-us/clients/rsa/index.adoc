@@ -1,7 +1,11 @@
-:clientlogo: logo-rsa
-:alt: Logo RSA
-:client: yes
-:filter: technology
+:page-slug: about-us/clients/rsa/
+:page-category: about-us
+:page-description: Fluid Attacks provides cybersecurity solutions, with a strong focus on Continuous Hacking, for clients in multiple industries highlighted in this section.
+:page-keywords: Fluid Attacks, Security Testing, Client, Industry, Company, Organization, Pentesting, Ethical Hacking
+:page-clientlogo: logo-rsa
+:page-alt: Logo RSA
+:page-client: yes
+:page-filter: technology
 
 = RSA
 

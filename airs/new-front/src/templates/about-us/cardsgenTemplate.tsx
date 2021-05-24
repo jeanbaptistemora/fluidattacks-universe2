@@ -15,6 +15,7 @@ import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
+import { ClientsPage } from "../../components/ClientsPage";
 import { Layout } from "../../components/Layout";
 import { NavbarComponent } from "../../components/Navbar";
 import { PartnerPage } from "../../components/PartnerPage";
@@ -91,6 +92,8 @@ const CardsgenIndex: React.FC<IQueryData> = ({
               />
               {data.asciidoc.pageAttributes.partnersindex === "yes" ? (
                 <PartnerPage />
+              ) : data.asciidoc.pageAttributes.clientsindex === "yes" ? (
+                <ClientsPage />
               ) : undefined}
             </CardsContainer>
           </PageArticle>
@@ -114,6 +117,7 @@ export const query: void = graphql`
       }
       pageAttributes {
         banner
+        clientsindex
         description
         keywords
         slug

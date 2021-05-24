@@ -1,7 +1,11 @@
-:clientlogo: logo-banco-industrial
-:alt: Logo Banco Industrial
-:client: yes
-:filter: banking
+:page-slug: about-us/clients/banco-industrial/
+:page-category: about-us
+:page-description: Fluid Attacks provides cybersecurity solutions, with a strong focus on Continuous Hacking, for clients in multiple industries highlighted in this section.
+:page-keywords: Fluid Attacks, Security Testing, Client, Industry, Company, Organization, Pentesting, Ethical Hacking
+:page-clientlogo: logo-banco-industrial
+:page-alt: Logo Banco Industrial
+:page-client: yes
+:page-filter: banking
 
 = Banco Industrial
 
