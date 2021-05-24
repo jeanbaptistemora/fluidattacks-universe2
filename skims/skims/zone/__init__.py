@@ -5,6 +5,7 @@ from glob import (
 from typing import (
     Any,
     Dict,
+    Optional,
 )
 
 # Third party libraries
@@ -64,10 +65,11 @@ IGNORED_CHARS = str.maketrans(
 def t(  # pylint: disable=invalid-name
     key: str,
     *args: Any,
+    locale: Optional[core_model.LocalesEnum] = None,
     **kwargs: Any,
 ) -> str:
     return (
-        TRANSLATIONS[key][CTX.config.language.value]
+        TRANSLATIONS[key][(locale or CTX.config.language).value]
         .format(*args, **kwargs)
         .translate(IGNORED_CHARS)
     )

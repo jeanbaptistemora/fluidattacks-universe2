@@ -2,6 +2,7 @@
 from typing import (
     Dict,
     List,
+    Set,
     Tuple,
     Union,
 )
@@ -267,3 +268,12 @@ async def do_release_finding(
             success = success and await do_approve_draft(finding_id=finding_id)
 
     return success
+
+
+def title_to_finding(title: str) -> Set[core_model.FindingEnum]:
+    return set(
+        finding
+        for finding in core_model.FindingEnum
+        for locale in core_model.LocalesEnum
+        if are_similar(t(finding.value.title, locale=locale), title)
+    )

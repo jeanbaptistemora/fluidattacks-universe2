@@ -3,11 +3,15 @@ from functools import (
     partial,
 )
 import logging
+from operator import (
+    attrgetter,
+)
 import sys
 from time import (
     time,
 )
 from typing import (
+    List,
     Optional,
 )
 
@@ -16,6 +20,9 @@ from aioextensions import (
     run,
 )
 import click
+from integrates.domain import (
+    title_to_finding,
+)
 from model import (
     core_model,
 )
@@ -133,14 +140,26 @@ def queue(
     group: str,
     urgent: bool,
 ) -> None:
-    if finding_code is not None:
-        print(finding_code, group, urgent)
+    findings: List[core_model.FindingEnum] = []
+
+    if finding_code is None and finding_title is None:
+        findings.append(core_model.FINDING_ENUM_FROM_STR[finding_code])
     elif finding_title is not None:
-        print(finding_title, group, urgent)
+        findings.extend(title_to_finding(finding_title))
     else:
         raise click.UsageError(
             "Either --finding-code or --finding-title must be provided"
         )
+
+    success: bool = run(
+        queue_wrapped(
+            findings=findings,
+            group=group,
+            urgent=urgent,
+        ),
+        debug=False,
+    )
+    sys.exit(0 if success else 1)
 
 
 @cli.command(help="Load a config file and perform vulnerability detection.")
@@ -199,6 +218,31 @@ def rebase(
     log_blocking("info", "Success: %s", success)
 
     sys.exit(0 if success else 1)
+
+
+@shield(on_error_return=False)
+async def queue_wrapped(
+    findings: List[core_model.FindingEnum],
+    group: str,
+    urgent: bool,
+) -> bool:
+    # Import here to handle gracefully any errors it may throw
+    # pylint: disable=import-outside-toplevel
+    import core.queue
+
+    initialize_bugsnag()
+    add_bugsnag_data(
+        findings=", ".join(map(attrgetter("name"), findings)),
+        group=group,
+        urgent=str(urgent).lower(),
+    )
+    success: bool = await core.queue.main(
+        findings=findings,
+        group=group,
+        urgent=urgent,
+    )
+
+    return success
 
 
 @shield(on_error_return=False)
