@@ -38,10 +38,7 @@ function job_code_upload {
                 "${group}" \
                 "groups/${group}/fusion/"* \
           &&  shopt -u nullglob \
-          &&  rm -rf "groups/${group}/fusion/" \
-          &&  echo "[INFO] Executing amend authors" \
-          &&  code-etl amend-authors \
-                '.groups-mailmap' \
+          &&  rm -rf "groups/${group}/fusion/"
 
         fi \
   &&  popd \
