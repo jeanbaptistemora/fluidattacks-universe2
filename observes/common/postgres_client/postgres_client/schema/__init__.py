@@ -1,6 +1,5 @@
 # Standard libraries
 from __future__ import annotations
-
 from typing import (
     Iterator,
     NamedTuple,
@@ -8,10 +7,11 @@ from typing import (
 
 # Third party libraries
 from returns.io import IO
+from returns.unsafe import unsafe_perform_io
 
 # Local libraries
 from postgres_client import utils
-from postgres_client.cursor import Cursor, act
+from postgres_client.cursor import Cursor
 from postgres_client.client import Client
 from postgres_client.schema import _queries as queries
 from postgres_client.table import DbTable
@@ -26,16 +26,19 @@ class Schema(NamedTuple):
     redshift: bool
 
     def get_tables(self) -> Iterator[str]:
-        actions = queries.get_tables(self.cursor, self.name)
-        return (item[0] for item in act(actions)[1])
+        query = queries.get_tables(self.name)
+        self.cursor.execute_query(query)
+        return (item[0] for item in unsafe_perform_io(self.cursor.fetch_all()))
 
     def exist_on_db(self) -> bool:
-        actions = queries.exist_on_db(self.cursor, self.name)
-        return act(actions)[1][0]
+        query = queries.exist(self.name)
+        self.cursor.execute_query(query)
+        return unsafe_perform_io(self.cursor.fetch_one())[1][0]
 
-    def delete_on_db(self) -> None:
-        action = queries.delete_on_db(self.cursor, self.name)
-        action.act()
+    def delete_on_db(self) -> IO[None]:
+        query = queries.delete(self.name)
+        self.cursor.execute_query(query)
+        return IO(None)
 
     def migrate(self, to_schema: Schema) -> IO[None]:
         from_schema = self

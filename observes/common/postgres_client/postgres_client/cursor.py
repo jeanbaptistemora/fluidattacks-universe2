@@ -11,6 +11,7 @@ from typing import (
     List,
     NamedTuple,
     Optional,
+    Tuple,
     Union,
 )
 
@@ -143,10 +144,10 @@ class Cursor(NamedTuple):
             self.execute_query(query)
         return IO(None)
 
-    def fetch_all(self) -> IO[Any]:
+    def fetch_all(self) -> IO[Iterator[Tuple[Any, ...]]]:
         return IO(self.db_cursor.fetchall())
 
-    def fetch_one(self) -> IO[Iterator[Any]]:
+    def fetch_one(self) -> IO[Tuple[Any, ...]]:
         return IO(self.db_cursor.fetchone())
 
     @classmethod
