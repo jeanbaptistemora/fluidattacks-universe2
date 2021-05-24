@@ -801,6 +801,7 @@ module.exports = {
             'development/stack/git/merge-requests',
           ]
         },
+        'development/stack/terraform',
       ]
     },
     'development/get-dev-keys',
