@@ -262,8 +262,9 @@ resource "aws_iam_role_policy_attachment" "skims_prod" {
 # Sorts
 
 resource "aws_iam_role" "sorts_prod" {
-  name               = "sorts_prod"
-  assume_role_policy = data.aws_iam_policy_document.okta-assume-role-policy-data.json
+  name                 = "sorts_prod"
+  assume_role_policy   = data.aws_iam_policy_document.okta-assume-role-policy-data.json
+  max_session_duration = "32400"
 
   tags = {
     "Name"               = "sorts_prod"
