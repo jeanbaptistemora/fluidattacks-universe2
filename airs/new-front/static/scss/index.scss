@@ -247,6 +247,8 @@ $whiter-gray: rgba(241, 241, 241, 1);
     padding-left: 3.75rem;
     padding-right: 3.75rem;
   }
+
+  .w36-l { width: 36rem; }
 }
 
 @media screen and (min-width: 1200px) {
@@ -274,6 +276,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
   .cover-s { background-size: cover; }
   .f1-s { font-size: 3rem;}
   .nt-125 { margin-top: -0.125rem; }
+  .w-100-s { width: 100%; }
   .w-products { width: 20rem; }
 }
 

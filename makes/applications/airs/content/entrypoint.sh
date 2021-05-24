@@ -56,7 +56,7 @@ function main {
             content/pages/products/devsecops \
             content/pages/products/drills \
             content/pages/products/integrates \
-      &&  rm content/pages/products/index.adoc \
+      &&  rm content/pages/products/index.adoc content/pages/contact-us/index.adoc\
       &&  copy __envAirsNpm__/node_modules 'node_modules' \
       &&  install_fontawesome_pro \
       &&  if test -n "${CI:-}" && test "${CI_COMMIT_REF_NAME}" != "master"
@@ -69,7 +69,7 @@ function main {
       &&  mv new-front/public . \
       &&  rm -rf new-front/* \
       &&  pushd public \
-          &&  rm -rf contact-us faq \
+          &&  rm -rf faq \
                 subscription \
       &&  popd \
       &&  rm -rf .cache \
