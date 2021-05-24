@@ -33,7 +33,6 @@ import { ActionButtons } from "scenes/Dashboard/containers/VulnerabilitiesView/A
 import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import type { IGetFindingVulnInfoAttr } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
-import { Col100, Row } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
 import style from "utils/forms/index.css";
 import { Logger } from "utils/logger";
@@ -213,8 +212,8 @@ export const VulnsView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <React.Fragment>
-        <Row>
-          <Col100>
+        <div>
+          <div>
             <ActionButtons
               areVulnsSelected={
                 remediationModalConfig.vulnerabilities.length > 0
@@ -233,11 +232,11 @@ export const VulnsView: React.FC = (): JSX.Element => {
               state={data.finding.state}
               subscription={data.project.subscription}
             />
-          </Col100>
-        </Row>
-        <Row>
-          <Col100>
-            <Row>
+          </div>
+        </div>
+        <div>
+          <div>
+            <div>
               <RowFilters>
                 <SelectContainer>
                   <Small>{t("searchFindings.tabVuln.searchText")}</Small>
@@ -325,8 +324,8 @@ export const VulnsView: React.FC = (): JSX.Element => {
                   </TooltipWrapper>
                 </SelectContainer>
               </RowFilters>
-            </Row>
-            <Row>
+            </div>
+            <div>
               <VulnComponent
                 canDisplayAnalyst={canRetrieveAnalyst}
                 findingId={findingId}
@@ -338,9 +337,9 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 onVulnSelect={openRemediationModal}
                 vulnerabilities={filterZeroRisk(vulnerabilities)}
               />
-            </Row>
-          </Col100>
-        </Row>
+            </div>
+          </div>
+        </div>
         {isOpen ? (
           <UpdateVerificationModal
             clearSelected={_.get(remediationModalConfig, "clearSelected")}

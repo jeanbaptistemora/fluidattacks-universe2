@@ -476,13 +476,8 @@ const Tab: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: "a-bg-white a-db a-gray a-pv a-relative tc nowrap",
 })``;
 
-const TabContent: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "bg-white pa4 mb5",
+const TabContent = styled.div.attrs({
+  className: "mt3",
 })``;
 
 const TableOptionsColBar: StyledComponent<
