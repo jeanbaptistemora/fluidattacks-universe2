@@ -30,10 +30,13 @@ REGEXES_GIT_REPO_FROM_ORIGIN = [
     re.compile(r"^.*visualstudio.com\/.*\/_git\/(.*)$"),
     # git@ssh.dev.azure.com:v3/xxx/repo_name
     re.compile(r"^.*azure.com:.*\/(.*)"),
-    # git@bitbucket.org:xxxxx/repo_name
-    re.compile(r"^.*bitbucket.org:.*\/(.*)"),
     # https://xxx@gitlab.com/xxx/repo_name.git
-    re.compile(r"^.*(?:gitlab|github).com(?::|\/).*\/(.*?)(?:\.git)?$"),
+    re.compile(
+        (
+            r"^.*(?:gitlab|github|bitbucket).(?:com|org)"
+            r"(?::|\/).*\/(?:(.*?)(?:\.git)?)$"
+        )
+    ),
 ]
 
 
@@ -123,7 +126,8 @@ async def check_remotes(config: ForcesConfig) -> bool:
     match_remotes = [
         remote
         for remote in api_remotes
-        if extract_repo_name(remote["url"]) == config.repository_name
+        if config.repository_name
+        in {extract_repo_name(remote["url"]), remote["nickname"]}
     ]
     if not match_remotes:
         await log(

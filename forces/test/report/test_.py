@@ -40,8 +40,8 @@ async def test_generate_report1(
         config=config,
         api_token=test_token,
     )
-    assert report["summary"]["total"] == 8
-    assert report["summary"]["open"]["total"] == 6
+    assert report["summary"]["total"] == 9
+    assert report["summary"]["open"]["total"] == 7
     assert report["summary"]["closed"]["total"] == 2
 
     findings = [

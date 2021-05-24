@@ -40,4 +40,4 @@ async def test_vulns_generator(test_token: str, test_group: str) -> None:
         vuln
         async for vuln in vulns_generator(test_group, api_token=test_token)
     ]
-    assert len(vulns) == 8
+    assert len(vulns) == 9

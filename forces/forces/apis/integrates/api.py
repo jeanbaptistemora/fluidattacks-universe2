@@ -310,6 +310,7 @@ async def get_git_remotes(group: str, **kwargs: Any) -> List[Dict[str, str]]:
               ...on GitRoot{
                 url
                 state
+                nickname
               }
             }
           }
