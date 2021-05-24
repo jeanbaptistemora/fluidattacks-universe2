@@ -8,7 +8,7 @@ from returns.pipeline import is_successful
 # Local libraries
 from postgres_client import client
 from postgres_client import table
-from postgres_client.table import operations, TableID
+from postgres_client.table import DbTable, operations, TableID
 
 
 def setup_db(postgresql_my: Any) -> None:
@@ -39,7 +39,8 @@ def test_delete(postgresql_my: Any) -> None:
     setup_db(postgresql_my)
     db_client = client.new_test_client(postgresql_my)
     target = TableID(schema="test_schema", table_name="table_number_one")
-    operations.delete(db_client, target)
+    table_io = DbTable.retrieve(db_client.cursor, target)
+    table_io.map(lambda table: table.delete())
     assert not is_successful(table.exist(db_client, target))
 
 

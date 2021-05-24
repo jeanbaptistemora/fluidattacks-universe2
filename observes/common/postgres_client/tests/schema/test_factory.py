@@ -9,16 +9,30 @@ from postgres_client import client
 from postgres_client.schema import Schema
 
 
+def foo_table(
+    temp_cur: Any, schema: str, table: str, records: int = 5
+) -> None:
+    temp_cur.execute(f"CREATE TABLE {schema}.{table} (Name VARCHAR (10))")
+    for i in range(records):
+        temp_cur.execute(
+            f"INSERT INTO {schema}.{table} (Name) VALUES ('foo{i}')"
+        )
+
+
+def n_rows(temp_cur: Any, schema: str, table: str) -> int:
+    temp_cur.execute(f"SELECT COUNT(*) FROM {schema}.{table}")
+    return temp_cur.fetchone()[0]
+
+
 def setup_db(postgresql_my: Any) -> None:
     temp_cur = postgresql_my.cursor()
     temp_cur.execute("CREATE SCHEMA test_schema")
-    temp_cur.execute(
-        "CREATE TABLE test_schema.table_number_one (Name CHARACTER (30))"
-    )
-    temp_cur.execute(
-        "CREATE TABLE test_schema.table_number_two (Name CHARACTER (30))"
-    )
+    foo_table(temp_cur, "test_schema", "table_number_one")
+    foo_table(temp_cur, "test_schema", "table_number_two")
     temp_cur.execute("CREATE SCHEMA empty_schema")
+    temp_cur.execute("CREATE SCHEMA target_schema")
+    foo_table(temp_cur, "target_schema", "table_number_one", 10)
+    foo_table(temp_cur, "target_schema", "super_table", 10)
     postgresql_my.commit()
 
 
@@ -49,3 +63,15 @@ def test_delete_on_db(postgresql_my: Any) -> None:
     assert db_schema.exist_on_db()
     db_schema.delete_on_db()
     assert not db_schema.exist_on_db()
+
+
+@pytest.mark.timeout(15, method="thread")
+def test_migrate_schema(postgresql_my: Any) -> None:
+    setup_db(postgresql_my)
+    db_client = client.new_test_client(postgresql_my)
+    source = Schema.new(db_client, "test_schema", False)
+    target = Schema.new(db_client, "target_schema", False)
+    source.migrate(target)
+    cursor = postgresql_my.cursor()
+    assert n_rows(cursor, "target_schema", "table_number_one") == 5
+    assert n_rows(cursor, "target_schema", "super_table") == 10

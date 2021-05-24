@@ -177,7 +177,7 @@ def delete(table: TableID) -> Query:
     return Query.new(query, Maybe.from_value(args))
 
 
-def move(
+def redshift_move(
     source: TableID,
     target: TableID,
 ) -> List[Query]:
@@ -193,3 +193,21 @@ def move(
     }
     args = DynamicSQLargs(identifiers=identifiers)
     return [Query.new(query, Maybe.from_value(args)), delete(source)]
+
+
+def move(
+    source: TableID,
+    target: TableID,
+) -> List[Query]:
+    """redshift_move equivalent for postgres DB"""
+    query = """
+        ALTER TABLE {source_schema}.{source_table}
+        SET SCHEMA {target_schema};
+    """
+    identifiers: Dict[str, Optional[str]] = {
+        "source_schema": source.schema,
+        "source_table": source.table_name,
+        "target_schema": target.schema,
+    }
+    args = DynamicSQLargs(identifiers=identifiers)
+    return [delete(target), Query.new(query, Maybe.from_value(args))]

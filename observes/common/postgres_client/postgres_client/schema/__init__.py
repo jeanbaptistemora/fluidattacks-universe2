@@ -21,22 +21,23 @@ LOG = utils.get_log(__name__)
 
 
 class Schema(NamedTuple):
-    client: Client
+    cursor: Cursor
     name: str
+    redshift: bool
 
     def get_tables(self) -> Iterator[str]:
-        actions = queries.get_tables(self.client.cursor, self.name)
+        actions = queries.get_tables(self.cursor, self.name)
         return (item[0] for item in act(actions)[1])
 
     def exist_on_db(self) -> bool:
-        actions = queries.exist_on_db(self.client.cursor, self.name)
+        actions = queries.exist_on_db(self.cursor, self.name)
         return act(actions)[1][0]
 
     def delete_on_db(self) -> None:
-        action = queries.delete_on_db(self.client.cursor, self.name)
+        action = queries.delete_on_db(self.cursor, self.name)
         action.act()
 
-    def move(self, cursor: Cursor, to_schema: Schema) -> IO[None]:
+    def migrate(self, to_schema: Schema) -> IO[None]:
         from_schema = self
         tables = from_schema.get_tables()
         LOG.info("Migrating %s to %s", from_schema, to_schema)
@@ -45,7 +46,7 @@ class Schema(NamedTuple):
         def move_table(table: str) -> None:
             source = TableID(schema=from_schema.name, table_name=table)
             target = TableID(schema=to_schema.name, table_name=table)
-            source_table = DbTable.retrieve(cursor, source)
+            source_table = DbTable.retrieve(self.cursor, source, self.redshift)
             LOG.debug("Moving from %s to %s ", source, target)
             source_table.map(lambda t: t.move(target))
 
@@ -54,5 +55,5 @@ class Schema(NamedTuple):
         return IO(None)
 
     @classmethod
-    def new(cls, client: Client, name: str) -> Schema:
-        return cls(client=client, name=name)
+    def new(cls, client: Client, name: str, redshift: bool = True) -> Schema:
+        return cls(cursor=client.cursor, name=name, redshift=redshift)
