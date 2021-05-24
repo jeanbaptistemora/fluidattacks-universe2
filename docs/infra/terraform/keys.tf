@@ -27,6 +27,8 @@ data "aws_iam_policy_document" "dev" {
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/docs_prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/docs_dev",
       ]
     }
     actions = [
@@ -60,6 +62,8 @@ data "aws_iam_policy_document" "dev" {
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/docs_prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/docs_dev",
       ]
     }
     actions = [
@@ -84,6 +88,8 @@ data "aws_iam_policy_document" "dev" {
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/docs_prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/docs_dev",
       ]
     }
     actions = [
@@ -150,6 +156,7 @@ data "aws_iam_policy_document" "prod" {
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/docs_prod",
       ]
     }
     actions = [
@@ -182,6 +189,7 @@ data "aws_iam_policy_document" "prod" {
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/docs_prod",
       ]
     }
     actions = [
@@ -205,6 +213,7 @@ data "aws_iam_policy_document" "prod" {
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/docs_prod",
       ]
     }
     actions = [
