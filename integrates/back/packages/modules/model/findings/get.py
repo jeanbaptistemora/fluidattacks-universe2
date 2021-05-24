@@ -36,6 +36,7 @@ from .types import (
 from .utils import (
     format_state,
     format_unreliable_indicators,
+    format_optional_verification,
     format_verification,
 )
 
@@ -99,7 +100,7 @@ def _build_finding(
         )
     except StopIteration:
         submission = None
-    verification: Optional[FindingVerification] = format_verification(
+    verification: Optional[FindingVerification] = format_optional_verification(
         historics.get_latest(
             item_id=item_id,
             key_structure=key_structure,
@@ -202,6 +203,25 @@ async def _get_finding(*, group_name: str, finding_id: str) -> Finding:
     )
 
 
+async def _get_historic_verification(
+    *, group_name: str, finding_id: str
+) -> Tuple[FindingVerification, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["finding_historic_verification"],
+        values={"group_name": group_name, "id": finding_id},
+    )
+    key_structure = TABLE.primary_key
+    results = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(TABLE.facets["finding_historic_verification"],),
+        table=TABLE,
+    )
+    return tuple(map(format_verification, results))
+
+
 class FindingNewLoader(DataLoader):
     """Batches load calls within the same execution fragment."""
 
@@ -209,9 +229,22 @@ class FindingNewLoader(DataLoader):
     async def batch_load_fn(
         self, finding: Tuple[Tuple[str, str], ...]
     ) -> Tuple[Finding, ...]:
-        return tuple(
-            await collect(
-                _get_finding(group_name=group_name, finding_id=finding_id)
-                for group_name, finding_id in finding
+        return await collect(
+            _get_finding(group_name=group_name, finding_id=finding_id)
+            for group_name, finding_id in finding
+        )
+
+
+class FindingHistoricVerificationNewLoader(DataLoader):
+    """Batches load calls within the same execution fragment."""
+
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, finding: Tuple[Tuple[str, str], ...]
+    ) -> Tuple[Tuple[FindingVerification], ...]:
+        return await collect(
+            _get_historic_verification(
+                group_name=group_name, finding_id=finding_id
             )
+            for group_name, finding_id in finding
         )

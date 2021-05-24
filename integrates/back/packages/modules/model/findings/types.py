@@ -2,7 +2,7 @@ from decimal import Decimal
 from typing import (
     NamedTuple,
     Optional,
-    Tuple,
+    Set,
     Union,
 )
 
@@ -26,7 +26,7 @@ class FindingVerification(NamedTuple):
     modified_by: str
     modified_date: str
     status: FindingVerificationStatus
-    vuln_uuids: Tuple[str, ...]
+    vuln_uuids: Set[str]
 
 
 class FindingEvidence(NamedTuple):

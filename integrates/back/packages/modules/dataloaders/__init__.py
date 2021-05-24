@@ -6,7 +6,10 @@ from typing import (
 
 from starlette.requests import Request
 
-from model.findings.get import FindingNewLoader
+from model.findings.get import (
+    FindingNewLoader,
+    FindingHistoricVerificationNewLoader,
+)
 
 from .event import EventLoader
 from .finding import FindingLoader
@@ -35,6 +38,7 @@ class Dataloaders(NamedTuple):
     event: EventLoader
     finding: FindingLoader
     finding_new: FindingNewLoader
+    finding_historic_verification_new: FindingHistoricVerificationNewLoader
     finding_vulns: FindingVulnsLoader  # All vulns except deleted
     finding_vulns_all: FindingVulnsNonDeletedLoader  # All vulns
     finding_vulns_nzr: FindingVulnsNonZeroRiskLoader  # Standard call
@@ -84,6 +88,9 @@ def get_new_context() -> Dataloaders:
     return Dataloaders(
         event=EventLoader(),
         finding=FindingLoader(),
+        finding_historic_verification_new=(
+            FindingHistoricVerificationNewLoader()
+        ),
         finding_new=FindingNewLoader(),
         finding_vulns=finding_vulns_non_deleted_loader,
         finding_vulns_all=finding_vulns_loader,

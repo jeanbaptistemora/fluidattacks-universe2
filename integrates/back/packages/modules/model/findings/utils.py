@@ -1,8 +1,4 @@
-from typing import (
-    List,
-    Optional,
-    cast,
-)
+from typing import Optional
 
 from dynamodb.types import Item
 
@@ -78,31 +74,39 @@ def format_unreliable_indicators(
     )
 
 
-def format_verification(
+def format_verification(verification_item: Item) -> FindingVerification:
+    return FindingVerification(
+        comment_id=verification_item["comment_id"],
+        modified_by=verification_item["modified_by"],
+        modified_date=verification_item["modified_date"],
+        status=FindingVerificationStatus[verification_item["status"]],
+        vuln_uuids=verification_item["vuln_uuids"],
+    )
+
+
+def format_verification_item(verification: FindingVerification) -> Item:
+    return {
+        "comment_id": verification.comment_id,
+        "modified_by": verification.modified_by,
+        "modified_date": verification.modified_date,
+        "status": verification.status.value,
+        "vuln_uuids": verification.vuln_uuids,
+    }
+
+
+def format_optional_verification(
     verification_item: Item,
 ) -> Optional[FindingVerification]:
     verification = None
     if verification_item.get("status"):
-        verification = FindingVerification(
-            comment_id=verification_item["comment_id"],
-            modified_by=verification_item["modified_by"],
-            modified_date=verification_item["modified_date"],
-            status=FindingVerificationStatus[verification_item["status"]],
-            vuln_uuids=tuple(cast(List[str], verification_item["vuln_uuids"])),
-        )
+        verification = format_verification(verification_item)
     return verification
 
 
-def format_verification_item(
+def format_optional_verification_item(
     verification: Optional[FindingVerification],
 ) -> Item:
     verification_item = {}
     if verification is not None:
-        verification_item = {
-            "comment_id": verification.comment_id,
-            "modified_by": verification.modified_by,
-            "modified_date": verification.modified_date,
-            "status": verification.status.value,
-            "vuln_uuids": list(verification.vuln_uuids),
-        }
+        verification_item = format_verification_item(verification)
     return verification_item

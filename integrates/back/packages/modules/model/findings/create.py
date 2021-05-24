@@ -9,7 +9,7 @@ from .types import Finding
 from .utils import (
     format_state_item,
     format_unreliable_indicators_item,
-    format_verification_item,
+    format_optional_verification_item,
 )
 
 
@@ -96,7 +96,7 @@ async def create(  # pylint: disable=too-many-locals
     }
     items.append(unreliable_indicators)
     latest_verification, historic_verification = historics.build_historic(
-        attributes=format_verification_item(finding.verification),
+        attributes=format_optional_verification_item(finding.verification),
         historic_facet=TABLE.facets["finding_historic_verification"],
         key_structure=key_structure,
         key_values={
