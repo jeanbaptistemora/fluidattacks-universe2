@@ -51,13 +51,13 @@ const NavbarItems: React.FC = (): JSX.Element => (
       <div className={"h3 w1 b--moon-gray br"} />
     </li>
 
+    <Search indices={searchIndices} />
+
     <li className={"db-xl display-none fr mr3 pv4"}>
       <Link className={"no-underline"} to={"/blog/"}>
         <NavbarRegularButton>{"Blog"}</NavbarRegularButton>
       </Link>
     </li>
-
-    <Search indices={searchIndices} />
 
     <li className={"db-xl display-none fr mr3 pr2 pv4"}>
       <Link className={"no-underline"} to={"/resources/"}>

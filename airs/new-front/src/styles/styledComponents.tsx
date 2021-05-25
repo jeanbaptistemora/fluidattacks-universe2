@@ -90,7 +90,6 @@ const NavbarLoginButton: StyledComponent<
 > = styled.button.attrs({
   className: `
     outline-transparent
-    c-dkred
     fw7
     f-18
     ba
