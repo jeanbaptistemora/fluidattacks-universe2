@@ -52,10 +52,33 @@ because it is based on
 continuous attacks
 on the latest version available.
 
+### If the application is stored along multiple repositories, can they all be attacked?
+Yes,
+with one condition.
+The code must be stored
+in the same branch
+in each repository.
+For example:
+If it is agreed
+that all attacks will be performed
+on the `QA` branch,
+then this same branch
+must be present
+in all of the repositories
+included for hacking.
+
 ### What type of hacking is included in the Squad plan?
 The Squad plan includes
 source code analysis,
 application hacking
-(see question 5),
+(see [this question](/about/faq/requirements#what-are-the-necessary-inputs-and-requirements-for-the-squad-plan)),
 and infrastructure hacking
-(see question 5).
+(see [this question](/about/faq/requirements#what-are-the-necessary-inputs-and-requirements-for-the-squad-plan)).
+
+### Do the repositories need to be in a specific version control system?
+The Squad plan is based
+on using `Git`
+for version control.
+Therefore,
+`Git` is necessary
+for she Squad plan.

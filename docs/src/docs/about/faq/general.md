@@ -5,28 +5,6 @@ sidebar_label: General
 slug: /about/faq
 ---
 
-### What is a vulnerability?
-A vulnerability is
-anything that represents a security risk
-(Integrity, Availability,
-Confidentiality, Non-repudiation)
-to the application.
-
-### How is the score of a vulnerability calculated?
-Fluid Attacks uses
-[CVSS](/about/glossary#cvss)
-(Common Vulnerability Scoring System),
-a “standardized framework
-used to rate the severity
-of security vulnerabilities in software.”
-It gives us a quantitative measure
-ranging from `0` to `10`,
-`0` being the lowest level of risk
-and `10` the highest
-and most critical level of risk,
-based on the qualitative characteristics
-of a vulnerability.
-
 ### What is Continuous Hacking?
 Continuous Hacking is
 a security testing service
@@ -57,17 +35,6 @@ identifying security risks,
 and internal project personnel
 (client company)
 fixing security issues without delays.
-
-### Do I get all the information about my vulnerabilities?
-Continuous Hacking has an interactive reporting platform,
-our Attack Surface Manager (`ASM`).
-`ASM` gives all project stakeholders
-access to details concerning vulnerabilities
-reported by `Fluid Attacks`.
-(We have the source code of all our
-[products](https://gitlab.com/fluidattacks/product)
-in our
-[public repository](https://gitlab.com/fluidattacks).)
 
 ### In what industries does your company have experience?
 Along our career trajectory
@@ -109,14 +76,65 @@ Cancellation can be requested
 through any communication channel
 previously defined in the contract.
 
-### What happens when a vulnerability is reported?
-After a report,
-the main objective for developers
-is to eliminate the vulnerability.
-Through `ASM`,
-a client company’s developers
-can access first-hand detailed information
-regarding a vulnerability
-in order to plan
-and execute corrective measures
-to remove it from the application.
+### Can the Squad plan be used for code developed a long time ago?
+Yes,
+it is still possible
+to use the Squad plan.
+There are two
+options available:
+
+1. A Health Check can be performed
+testing all existing code.
+Then,
+the Squad plan is executed as usual
+within the defined scope
+(see [this question](/about/faq/speed#how-are-development-cycles-not-slowed-down-by-manual-reviews)).
+This option is better suited
+for applications under development.
+
+2. Start with the standard limits
+(see [this question](/about/faq/speed#does-the-squad-plan-use-automated-tools-or-is-it-a-manual-process)),
+increasing the coverage
+on a monthly basis
+until 100% is reached.
+This option is better suited
+for applications
+no longer in development.
+
+### What can be done to review all the existing code before starting the hacking process?
+We recommend
+that application development
+and the hacking process
+begin simultaneously.
+However,
+this is not always possible.
+To catch up with developers,
+we perform a `Health Check`
+(additional fees apply).
+This means all versions of the existing code
+are attacked
+up to the contracted starting point
+in addition to the monthly test limit.
+This allows us to catch up
+with the development team
+within the first `3` contract months.
+Then,
+we continue hacking simultaneously
+with the development team
+as development continues.
+
+### What if I want the Squad plan but not the Health Check?
+This is a risky choice.
+Not performing a Health Check
+means there will be code
+that is never going to be tested and,
+therefore,
+it’s not possible to know
+what vulnerabilities may exist in it;
+those vulnerabilities
+are not going to be identified.
+We guarantee
+that `100%` of the code change
+is going to be tested,
+but what cannot be reached,
+cannot be tested.

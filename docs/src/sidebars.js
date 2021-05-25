@@ -25,6 +25,7 @@ module.exports = {
         'about/faq/requirements',
         'about/faq/billing',
         'about/faq/speed',
+        'about/faq/vulnerabilities',
         'about/faq/others',
       ],
     },
