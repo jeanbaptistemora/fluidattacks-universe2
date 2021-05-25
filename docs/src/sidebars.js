@@ -792,6 +792,15 @@ module.exports = {
         'types/f115',
       ],
     },
+    {
+      type: 'category',
+      label: 'Manipulate Data',
+      items: [
+        'types/f098',
+        'types/f103',
+        'types/f111',
+      ],
+    },
     'types/f015',
     'types/f017',
     'types/f022',
@@ -830,10 +839,7 @@ module.exports = {
     'types/f067',
     'types/f077',
     'types/f091',
-    'types/f098',
-    'types/f103',
     'types/f104',
-    'types/f111',
     'types/f121',
   ],
   Framework: {
