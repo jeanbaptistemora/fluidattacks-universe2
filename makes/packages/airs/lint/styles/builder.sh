@@ -1,8 +1,8 @@
 # shellcheck shell=bash
 
 function main {
-      copy "${envAirsNewFront}" new-front \
-  &&  pushd new-front \
+      copy "${envAirsFront}" front \
+  &&  pushd front \
     &&  copy "${envAirsNpm}/node_modules" 'node_modules' \
     &&  HOME=. ./node_modules/.bin/stylelint '**/*.scss' \
   &&  popd \

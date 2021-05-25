@@ -6,7 +6,7 @@
 }:
 makeDerivation {
   arguments = {
-    envAirsNewFront = path "/airs/new-front";
+    envAirsFront = path "/airs/front";
     envAirsNpm = packages.airs.npm;
   };
   builder = path "/makes/packages/airs/lint/styles/builder.sh";

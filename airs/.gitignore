@@ -11,7 +11,7 @@ venv/*
 .vscode
 TEMP_FD
 .cache
-new-front/public
+front/public/
 
 # Bundler
 Gemfile.lock

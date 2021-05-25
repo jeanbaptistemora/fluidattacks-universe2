@@ -1,5 +1,5 @@
 module.exports = {
-  pathPrefix: '/new-front',
+  pathPrefix: '/front',
   siteMetadata: {
     author: "Fluid Attacks",
     description:
@@ -82,7 +82,7 @@ module.exports = {
         // of crumb pathnames. default is false
         trailingSlashes: true,
         // usePathPrefix: optional, if you are using pathPrefix above
-        usePathPrefix: "/new-front",
+        usePathPrefix: "/front",
       },
     },
     {

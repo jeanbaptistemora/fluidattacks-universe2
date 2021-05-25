@@ -5,7 +5,7 @@
 , ...
 }:
 let
-  packageJsonDeps = getPackageJsonDeps "/airs/new-front/package.json";
+  packageJsonDeps = getPackageJsonDeps "/airs/front/package.json";
 in
 buildNodeRequirements {
   dependencies = [

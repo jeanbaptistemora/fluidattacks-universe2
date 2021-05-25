@@ -7,8 +7,6 @@
 makeEntrypoint {
   arguments = {
     envAirsContent = path "/airs/content";
-    envAirsContentPages = path "/airs/content/pages";
-    envAirsNewFront = path "/airs/new-front";
     envAirsNpm = packages.airs.npm;
     envAirsSecrets = path "/airs/deploy/secret-management";
   };

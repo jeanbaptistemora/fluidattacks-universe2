@@ -25,19 +25,19 @@ function patch_paths {
 function patch_paths_dev {
   local src="${1}"
 
-  patch_paths "${src}" 'http' 'localhost:8000' 'new-front'
+  patch_paths "${src}" 'http' 'localhost:8000'
 }
 
 function patch_paths_eph {
   local src="${1}"
 
-  patch_paths "${src}" 'https' "web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}/new-front" "${CI_COMMIT_REF_NAME}/new-front"
+  patch_paths "${src}" 'https' "web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" "${CI_COMMIT_REF_NAME}"
 }
 
 function patch_paths_prod {
   local src="${1}"
 
-  patch_paths "${src}" 'https' 'fluidattacks.com/' 'new-front'
+  patch_paths "${src}" 'https' 'fluidattacks.com/'
 }
 
 function compress_files {
@@ -132,11 +132,11 @@ function announce_to_bugsnag {
 
 function main {
   local env="${1:-}"
-  local out='airs/output'
+  local out='airs/front/public'
   local url_to_replace='please-replace-this-url-before-deploying'
   local path_to_replace='please-replace-this-path-before-deploying'
 
-      __envAirsContent__ "${out}" \
+      __envAirsContent__ \
   &&  case "${env}" in
         dev) patch_paths_dev "${out}";;
         eph) patch_paths_eph "${out}";;
