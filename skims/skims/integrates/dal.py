@@ -719,6 +719,13 @@ async def do_upload_vulnerabilities(
     finding_id: str,
     stream: str,
 ) -> bool:
+    await log(
+        "debug",
+        "Uploading file to finding %s with content:\n%s",
+        finding_id,
+        stream,
+    )
+
     result = await _execute(
         query="""
             mutation SkimsDoUploadVulnerabilities(
