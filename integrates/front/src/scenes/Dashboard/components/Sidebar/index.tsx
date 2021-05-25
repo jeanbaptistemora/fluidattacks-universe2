@@ -2,7 +2,6 @@ import {
   faAngleDoubleLeft,
   faAngleDoubleRight,
   faFolderPlus,
-  faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback } from "react";
@@ -24,13 +23,11 @@ import { useStoredState } from "utils/hooks";
 interface ISidebarProps {
   isLoading: boolean;
   onOpenAddOrganizationModal: () => void;
-  onOpenAddUserModal: () => void;
 }
 
 const Sidebar: React.FC<ISidebarProps> = ({
   isLoading,
   onOpenAddOrganizationModal,
-  onOpenAddUserModal,
 }: ISidebarProps): JSX.Element => {
   const { t } = useTranslation();
 
@@ -51,20 +48,6 @@ const Sidebar: React.FC<ISidebarProps> = ({
             <Logo />
           </Link>
         </li>
-        <Can do={"api_mutations_add_stakeholder_mutate"}>
-          <li>
-            <TooltipWrapper
-              id={"addUser"}
-              message={t("sidebar.user.tooltip")}
-              placement={"right"}
-            >
-              <SidebarButton onClick={onOpenAddUserModal}>
-                <FontAwesomeIcon icon={faUserPlus} />
-                {t("sidebar.user.text")}
-              </SidebarButton>
-            </TooltipWrapper>
-          </li>
-        </Can>
         <Can do={"api_mutations_create_organization_mutate"}>
           <li>
             <TooltipWrapper

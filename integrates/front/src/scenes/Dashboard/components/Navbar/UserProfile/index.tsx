@@ -4,6 +4,7 @@ import {
   faSignOutAlt,
   faUserCircle,
   faUserCog,
+  faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
@@ -12,6 +13,7 @@ import React, { useCallback, useContext, useState } from "react";
 import { useDetectClickOutside } from "react-detect-click-outside";
 import { useTranslation } from "react-i18next";
 
+import { AddUserModal } from "../../AddUserModal";
 import { APITokenModal } from "../../APITokenModal";
 import { GlobalConfigModal } from "../../GlobalConfigModal";
 import {
@@ -22,7 +24,9 @@ import {
 } from "../styles";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { TooltipWrapper } from "components/TooltipWrapper";
+import { useAddStakeholder } from "scenes/Dashboard/hooks";
 import { authContext } from "utils/auth";
+import { Can } from "utils/authz/Can";
 
 interface IUserProfileProps {
   userRole: string | undefined;
@@ -60,6 +64,24 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
   const closeConfigModal: () => void = useCallback((): void => {
     setConfigModalOpen(false);
   }, []);
+
+  const [
+    addStakeholder,
+    isStakeholderModalOpen,
+    setStakeholderModalOpen,
+  ] = useAddStakeholder();
+  const handleAddUserSubmit = useCallback(
+    (values): void => {
+      void addStakeholder({ variables: values });
+    },
+    [addStakeholder]
+  );
+  const openStakeholderModal = useCallback((): void => {
+    setStakeholderModalOpen(true);
+  }, [setStakeholderModalOpen]);
+  const closeStakeholderModal = useCallback((): void => {
+    setStakeholderModalOpen(false);
+  }, [setStakeholderModalOpen]);
 
   return (
     <div ref={ref}>
@@ -113,6 +135,28 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
               <GlobalConfigModal onClose={closeConfigModal} open={true} />
             ) : undefined}
           </li>
+          <Can do={"api_mutations_add_stakeholder_mutate"}>
+            <li>
+              <TooltipWrapper id={"addUser"} message={t("navbar.user.tooltip")}>
+                <DropdownButton onClick={openStakeholderModal}>
+                  <FontAwesomeIcon icon={faUserPlus} />
+                  {t("navbar.user.text")}
+                </DropdownButton>
+              </TooltipWrapper>
+              {isStakeholderModalOpen ? (
+                <AddUserModal
+                  action={"add"}
+                  editTitle={""}
+                  initialValues={{}}
+                  onClose={closeStakeholderModal}
+                  onSubmit={handleAddUserSubmit}
+                  open={true}
+                  title={t("navbar.user.text")}
+                  type={"user"}
+                />
+              ) : undefined}
+            </li>
+          </Can>
           <DropdownDivider />
           <li>
             <ConfirmDialog title={t("navbar.logout.text")}>

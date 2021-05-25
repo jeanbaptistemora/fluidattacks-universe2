@@ -825,6 +825,10 @@ export const enTranslations: ResourceKey = {
       text: "API",
       tooltip: "Get an Integrates API Token",
     },
+    user: {
+      text: "Add Stakeholder",
+      tooltip: "Add a user",
+    },
   },
   organization: {
     tabs: {
@@ -2202,11 +2206,6 @@ export const enTranslations: ResourceKey = {
       },
       text: "Add Organization",
       tooltip: "Create new organization",
-    },
-    reports: "Reports",
-    user: {
-      text: "Add Stakeholder",
-      tooltip: "Add a user",
     },
   },
   tagIndicator: {

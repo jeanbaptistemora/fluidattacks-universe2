@@ -15,7 +15,6 @@ import {
 
 import { ScrollUpButton } from "components/ScrollUpButton";
 import { AddOrganizationModal } from "scenes/Dashboard/components/AddOrganizationModal";
-import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import { CompulsoryNotice } from "scenes/Dashboard/components/CompulsoryNoticeModal";
 import { ConcurrentSessionNotice } from "scenes/Dashboard/components/ConcurrentSessionNoticeModal";
 import { Navbar } from "scenes/Dashboard/components/Navbar";
@@ -24,9 +23,7 @@ import { HomeView } from "scenes/Dashboard/containers/HomeView";
 import { OrganizationContent } from "scenes/Dashboard/containers/OrganizationContent";
 import { OrganizationRedirect } from "scenes/Dashboard/containers/OrganizationRedirectView";
 import { ProjectRoute } from "scenes/Dashboard/containers/ProjectRoute";
-import type { IStakeholderAttrs } from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
 import { TagContent } from "scenes/Dashboard/containers/TagContent";
-import { useAddStakeholder } from "scenes/Dashboard/hooks";
 import {
   ACCEPT_LEGAL_MUTATION,
   ACKNOWLEDGE_CONCURRENT_SESSION,
@@ -71,25 +68,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
   }, []);
 
   const [userRole, setUserRole] = useState<string | undefined>(undefined);
-
-  const [
-    addStakeholder,
-    isUserModalOpen,
-    toggleUserModal,
-  ] = useAddStakeholder();
-  const handleAddUserSubmit: (values: IStakeholderAttrs) => void = useCallback(
-    (values: IStakeholderAttrs): void => {
-      void addStakeholder({ variables: values });
-    },
-    [addStakeholder]
-  );
-
-  const openUserModal: () => void = useCallback((): void => {
-    toggleUserModal(true);
-  }, [toggleUserModal]);
-  const closeUserModal: () => void = useCallback((): void => {
-    toggleUserModal(false);
-  }, [toggleUserModal]);
 
   const [isOrganizationModalOpen, setOrganizationModalOpen] = useState(false);
   const openOrganizationModal: () => void = useCallback((): void => {
@@ -194,7 +172,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
       <Sidebar
         isLoading={isLoading}
         onOpenAddOrganizationModal={openOrganizationModal}
-        onOpenAddUserModal={openUserModal}
       />
       <DashboardContent id={"dashboard"}>
         <DashboardHeader>
@@ -249,16 +226,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
       <AddOrganizationModal
         onClose={closeOrganizationModal}
         open={isOrganizationModalOpen}
-      />
-      <AddUserModal
-        action={"add"}
-        editTitle={""}
-        initialValues={{}}
-        onClose={closeUserModal}
-        onSubmit={handleAddUserSubmit}
-        open={isUserModalOpen}
-        title={translate.t("sidebar.user.text")}
-        type={"user"}
       />
       <ConcurrentSessionNotice
         onClick={handleConcurrent}
