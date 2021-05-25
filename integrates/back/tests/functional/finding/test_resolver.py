@@ -193,6 +193,7 @@ async def test_get_finding(populate: bool, email: str):
     [
         ["closer@gmail.com"],
         ["customer@gmail.com"],
+        ["customeradmin@gmail.com"],
         ["executive@gmail.com"],
     ],
 )

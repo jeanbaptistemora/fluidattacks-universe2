@@ -58,6 +58,7 @@ async def test_get_organization_ver_1(populate: bool, email: str):
     [
         ["analyst@gmail.com"],
         ["closer@gmail.com"],
+        ["customeradmin@gmail.com"],
     ],
 )
 async def test_get_organization_ver_e(populate: bool, email: str):

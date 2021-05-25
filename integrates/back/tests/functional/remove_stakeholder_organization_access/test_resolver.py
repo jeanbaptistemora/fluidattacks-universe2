@@ -11,12 +11,20 @@ from . import query
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("remove_stakeholder_organization_access")
-async def test_admin(populate: bool):
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@gmail.com"],
+        ["customeradmin@gmail.com"],
+    ],
+)
+async def test_remove_stakeholder_organization_access(
+    populate: bool, email: str
+):
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
-    stakeholder_email: str = "admin@gmail.com"
     result: Dict[str, Any] = await query(
-        user="admin@gmail.com", org=org_id, stakeholder=stakeholder_email
+        user=email, org=org_id, stakeholder=email
     )
     assert "errors" not in result
     assert result["data"]["removeStakeholderOrganizationAccess"]["success"]
@@ -24,12 +32,20 @@ async def test_admin(populate: bool):
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("remove_stakeholder_organization_access")
-async def test_analyst(populate: bool):
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["analyst@gmail.com"],
+        ["closer@gmail.com"],
+    ],
+)
+async def test_remove_stakeholder_organization_access_fail(
+    populate: bool, email: str
+):
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
-    stakeholder_email: str = "analyst@gmail.com"
     result: Dict[str, Any] = await query(
-        user="analyst@gmail.com", org=org_id, stakeholder=stakeholder_email
+        user=email, org=org_id, stakeholder=email
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"

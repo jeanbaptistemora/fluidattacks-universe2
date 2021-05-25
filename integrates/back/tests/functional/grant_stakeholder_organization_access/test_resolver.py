@@ -11,13 +11,21 @@ from . import query
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("grant_stakeholder_organization_access")
-async def test_admin(populate: bool):
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@gmail.com"],
+    ],
+)
+async def test_grant_stakeholder_organization_access(
+    populate: bool, email: str
+):
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6dc"
     stakeholder_email: str = "test2@gmail.com"
     stakeholder_role: str = "CUSTOMER"
     result: Dict[str, Any] = await query(
-        user="admin@gmail.com",
+        user=email,
         org=org_id,
         role=stakeholder_role,
         email=stakeholder_email,
@@ -34,13 +42,24 @@ async def test_admin(populate: bool):
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("grant_stakeholder_organization_access")
-async def test_analyst(populate: bool):
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["analyst@gmail.com"],
+        ["closer@gmail.com"],
+        ["customer@gmail.com"],
+        ["customeradmin@gmail.com"],
+    ],
+)
+async def test_grant_stakeholder_organization_access_fail(
+    populate: bool, email: str
+):
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6dc"
     stakeholder_email: str = "test2@gmail.com"
     stakeholder_role: str = "CUSTOMER"
     result: Dict[str, Any] = await query(
-        user="analyst@gmail.com",
+        user=email,
         org=org_id,
         role=stakeholder_role,
         email=stakeholder_email,

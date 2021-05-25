@@ -15,6 +15,7 @@ from . import query
     ["email"],
     [
         ["admin@gmail.com"],
+        ["customeradmin@gmail.com"],
     ],
 )
 async def test_get_stakeholder(populate: bool, email: str):

@@ -15,6 +15,7 @@ from . import query
     ["email"],
     [
         ["admin@gmail.com"],
+        ["customeradmin@gmail.com"],
     ],
 )
 async def test_edit_stakeholder_organization(populate: bool, email: str):
@@ -46,6 +47,7 @@ async def test_edit_stakeholder_organization(populate: bool, email: str):
     [
         ["analyst@gmail.com"],
         ["closer@gmail.com"],
+        ["customer@gmail.com"],
     ],
 )
 async def test_edit_stakeholder_organization_fail(populate: bool, email: str):
