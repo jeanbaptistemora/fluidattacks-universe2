@@ -101,6 +101,7 @@ def _side_effects() -> None:
         core_model.Platform,
         core_model.VulnerabilityKindEnum,
         core_model.VulnerabilitySourceEnum,
+        core_model.VulnerabilityVerificationEnum,
         core_model.VulnerabilityStateEnum,
         graph_model.GraphShardMetadataLanguage,
         Type,

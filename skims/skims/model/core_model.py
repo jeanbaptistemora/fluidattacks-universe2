@@ -731,6 +731,24 @@ class VulnerabilitySourceEnum(Enum):
         )
 
 
+class VulnerabilityVerificationEnum(Enum):
+    NOT_REQUESTED: str = "NOT_REQUESTED"
+    REQUESTED: str = "REQUESTED"
+    VERIFIED: str = "VERIFIED"
+
+    @classmethod
+    def from_historic(
+        cls,
+        historic: List[Dict[str, str]],
+    ) -> VulnerabilityVerificationEnum:
+        if historic:
+            for status in VulnerabilityVerificationEnum:
+                if historic[-1]["status"] == status.value:
+                    return status
+
+        return VulnerabilityVerificationEnum.NOT_REQUESTED
+
+
 class GrammarMatch(NamedTuple):
     start_column: int
     start_line: int
