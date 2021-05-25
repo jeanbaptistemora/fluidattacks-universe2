@@ -77,6 +77,21 @@ data "aws_iam_policy_document" "sorts_prod_policy_data" {
 
   # SageMaker access
   statement {
+    sid    = "SageMakerAssumeRolePolicy"
+    effect = "Allow"
+
+    principals {
+      type = "Service"
+      identifiers = [
+        "sagemaker.amazonaws.com"
+      ]
+    }
+
+    actions = [
+      "sts:AssumeRole",
+    ]
+  }
+  statement {
     effect = "Allow"
     actions = [
       "sagemaker:AddTags",
