@@ -45,7 +45,7 @@ def main() -> None:
                     )
                 obj.delete()
 
-        if best_previous_model != best_current_model:
+        if best_current_model and best_previous_model != best_current_model:
             with open(model_name_file, "w") as file:
                 file.write(best_current_model)
             S3_RESOURCE.Object(
