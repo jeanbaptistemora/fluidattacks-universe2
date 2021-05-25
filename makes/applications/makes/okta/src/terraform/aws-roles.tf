@@ -261,9 +261,46 @@ resource "aws_iam_role_policy_attachment" "skims_prod" {
 
 # Sorts
 
+data "aws_iam_policy_document" "sorts_assume_role_policy" {
+  statement {
+    sid    = "OktaSAMLAccess"
+    effect = "Allow"
+    actions = [
+      "sts:AssumeRoleWithSAML"
+    ]
+
+    principals {
+      type        = "Federated"
+      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:saml-provider/okta-saml-provider"]
+    }
+    condition {
+      test     = "StringEquals"
+      variable = "SAML:aud"
+      values = [
+        "https://signin.aws.amazon.com/saml"
+      ]
+    }
+  }
+
+  statement {
+    sid    = "SageMakerAssumeRolePolicy"
+    effect = "Allow"
+    actions = [
+      "sts:AssumeRole",
+    ]
+
+    principals {
+      type = "Service"
+      identifiers = [
+        "sagemaker.amazonaws.com"
+      ]
+    }
+  }
+}
+
 resource "aws_iam_role" "sorts_prod" {
   name                 = "sorts_prod"
-  assume_role_policy   = data.aws_iam_policy_document.okta-assume-role-policy-data.json
+  assume_role_policy   = data.aws_iam_policy_document.sorts_assume_role_policy.json
   max_session_duration = "32400"
 
   tags = {
