@@ -65,6 +65,12 @@ const NavbarItems: React.FC = (): JSX.Element => (
       </Link>
     </li>
 
+    <li className={"db-xl display-none fr mr3 pr2 pv4"}>
+      <Link className={"no-underline"} to={"/plans/"}>
+        <NavbarRegularButton>{"Plans"}</NavbarRegularButton>
+      </Link>
+    </li>
+
     <li className={"db-l dn fr mr3 pr2 pv4 solutions-index"}>
       <Link className={"no-underline"} to={"/solutions/"}>
         <NavbarRegularButton>
