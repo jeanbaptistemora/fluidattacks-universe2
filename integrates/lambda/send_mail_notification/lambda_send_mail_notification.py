@@ -1,12 +1,24 @@
 """Send new vulnerabilities mail lambda function."""
-# pylint: disable=import-error
-# pylint: disable=unused-argument
 import json
+from typing import (
+    Any,
+    Dict,
+    Union,
+)
+
 import mandrill
 
 
-def send_mail_notification(event, context):
+# Typing
+NotificationResponse = Dict[str, Union[int, str]]
+
+
+def send_mail_notification(event: Dict, _: Any) -> NotificationResponse:
     """Lambda code."""
+    response: NotificationResponse = {
+        "statusCode": 200,
+        "body": json.dumps("Done."),
+    }
     try:
         record = event["Records"][0]
         template_name = record["attributes"]["MessageGroupId"]
@@ -15,7 +27,7 @@ def send_mail_notification(event, context):
         message = body["message"]
         api_key = body["api_key"]
     except KeyError:
-        return {
+        response = {
             "statusCode": 200,
             "body": json.dumps("An invalid message was given."),
         }
@@ -23,8 +35,8 @@ def send_mail_notification(event, context):
         mandrill_client = mandrill.Mandrill(api_key)
         mandrill_client.messages.send_template(template_name, [], message)
     except mandrill.InvalidKeyError:
-        return {
+        response = {
             "statusCode": 200,
             "body": json.dumps("An invalid key was given."),
         }
-    return {"statusCode": 200, "body": json.dumps("Done.")}
+    return response

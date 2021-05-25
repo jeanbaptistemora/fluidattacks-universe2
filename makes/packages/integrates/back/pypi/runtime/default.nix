@@ -147,7 +147,6 @@ makeTemplate {
     ];
     envPythonPaths = [
       (path "/integrates/back/packages/modules")
-      (path "/integrates/back/packages/integrates-back")
       (path "/integrates")
     ];
     envPython37Paths = [

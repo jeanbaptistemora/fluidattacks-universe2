@@ -12,7 +12,7 @@ function main {
         &&  return 1
       fi \
   &&  pushd integrates \
-    &&  python3 'back/packages/integrates-back/cli/invoker.py' "${module}" \
+    &&  python3 'back/packages/modules/cli/invoker.py' "${module}" \
   &&  popd \
   ||  return 1
 }

@@ -1,8 +1,10 @@
-# pylint: disable=import-error
+from typing import (
+    Dict,
+    List,
+    Set,
+)
 
-from typing import Dict, List, Set
-
-from pandas import DataFrame
+from pandas import DataFrame  # pylint: disable=import-error
 
 import authz
 
@@ -12,10 +14,10 @@ def create_dataframe(
     columns: List[str],
     rows: List[str],
     filename: str,
-):
+) -> None:
     dataframe = DataFrame(dataset, columns=columns, index=rows)
     html_matrix = dataframe.to_html()
-    text_file = open("deploy/permissions-matrix/" + filename + ".html", "w")
+    text_file = open("deploy/permissions_matrix/" + filename + ".html", "w")
     text_file.write(html_matrix)
     text_file.close()
 
@@ -31,7 +33,7 @@ def fill_matrix(
         for action in all_actions:
             is_action = (
                 "X"
-                if action in roles_and_permissions.get(role).get("actions")
+                if action in roles_and_permissions[role]["actions"]
                 else " "
             )
             values.append(is_action)
@@ -41,12 +43,12 @@ def fill_matrix(
 
 def get_matrix_parameters(
     roles_and_permissions: Dict[str, Dict[str, Set[str]]], filename: str
-):
+) -> None:
     all_actions = []
     columns = list(roles_and_permissions.keys())
     roles_lenght = {}
     for role in columns:
-        role_actions = roles_and_permissions.get(role).get("actions")
+        role_actions = roles_and_permissions[role]["actions"]
         roles_lenght[role] = len(role_actions)
         for action in role_actions:
             all_actions.append(action)

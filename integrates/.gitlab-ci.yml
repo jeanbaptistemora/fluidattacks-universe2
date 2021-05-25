@@ -119,7 +119,7 @@ integrates.back.authz-matrix:
   artifacts:
     expire_in: 1 day
     paths:
-      - integrates/deploy/permissions-matrix
+      - integrates/deploy/permissions_matrix
     when: on_success
 
 integrates.back.deploy.dev:

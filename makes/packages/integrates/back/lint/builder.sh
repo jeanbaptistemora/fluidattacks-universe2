@@ -3,9 +3,9 @@
 function main {
 
       lint_python_package "${envIntegrates}/back/migrations" \
-  &&  prospector --profile "${envProspectorSettings}" "${envIntegrates}/lambda" \
-  &&  prospector --profile "${envProspectorSettings}" "${envIntegrates}/deploy/permissions-matrix" \
-  &&  prospector --profile "${envProspectorSettings}" "${envIntegrates}/back/tests" \
+  &&  lint_python_package "${envIntegrates}/lambda" \
+  &&  lint_python_package "${envIntegrates}/deploy/permissions_matrix" \
+  &&  lint_python_package "${envIntegrates}/back/tests" || true \
   &&  lint_python_imports \
         "${envIntegratesImportsConfig}" \
         "${envIntegrates}/back/packages/modules" \

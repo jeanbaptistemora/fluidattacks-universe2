@@ -14,6 +14,6 @@
 /charts/generators/**/*.json
 /app
 /build
-/deploy/permissions-matrix/**/*.html
+/deploy/permissions_matrix/**/*.html
 /modules/reports/tpls/*.tpl
 expoClient.apk
