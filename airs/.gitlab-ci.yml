@@ -136,13 +136,3 @@ airs_deploy_production:
   <<: *with_nix
   <<: *in_master_branch_airs
   stage: deploy-app
-
-airs_test_lint_code:
-  <<: *with_nix
-  <<: *in_dev_branch_airs
-  stage: test-code
-
-airs_test_lint_styles:
-  <<: *with_nix
-  <<: *in_dev_branch_airs
-  stage: test-code
