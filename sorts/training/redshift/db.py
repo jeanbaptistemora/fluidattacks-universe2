@@ -57,6 +57,11 @@ def initialize() -> None:
         )
 
 
+def delete() -> None:
+    with db_cursor() as cursor:
+        cursor.execute("DROP TABLE IF EXISTS sorts.training")
+
+
 def insert(training_result: Dict[str, str]) -> None:
     with db_cursor() as cursor:
         cursor.execute(
@@ -107,7 +112,7 @@ def init_db() -> None:
     )
 )
 def reset_db() -> None:
-    pass  # incoming function
+    delete()
 
 
 if __name__ == "__main__":
