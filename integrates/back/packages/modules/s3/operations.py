@@ -16,7 +16,7 @@ from aioextensions import in_thread
 from botocore.exceptions import ClientError
 from starlette.datastructures import UploadFile
 
-from __init__ import (
+from context import (
     FI_AWS_S3_ACCESS_KEY,
     FI_AWS_S3_SECRET_KEY,
     FI_ENVIRONMENT,

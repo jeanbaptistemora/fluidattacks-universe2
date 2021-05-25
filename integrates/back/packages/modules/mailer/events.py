@@ -3,7 +3,7 @@ from typing import Any
 from aioextensions import collect
 
 import authz
-from __init__ import (
+from context import (
     BASE_URL,
     FI_MAIL_PRODUCTION,
     FI_MAIL_PROJECTS,

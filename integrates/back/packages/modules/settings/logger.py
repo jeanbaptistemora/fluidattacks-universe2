@@ -14,17 +14,17 @@ from boto3.session import Session
 from graphql import GraphQLError
 
 # Local libraries
-from custom_exceptions import (
-    DocumentNotFound,
-    UnavailabilityError,
-)
-from __init__ import (
+from context import (
     CI_COMMIT_SHA,
     CI_COMMIT_SHORT_SHA,
     FI_AWS_CLOUDWATCH_ACCESS_KEY,
     FI_AWS_CLOUDWATCH_SECRET_KEY,
     FI_BUGSNAG_ACCESS_TOKEN,
     FI_ENVIRONMENT,
+)
+from custom_exceptions import (
+    DocumentNotFound,
+    UnavailabilityError,
 )
 
 from .various import (

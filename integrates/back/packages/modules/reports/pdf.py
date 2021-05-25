@@ -25,7 +25,7 @@ from pylab import (  # noqa
 )
 from typing_extensions import TypedDict
 
-from __init__ import (
+from context import (
     BASE_URL,
     STARTDIR,
 )

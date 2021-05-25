@@ -18,7 +18,7 @@ from rediscluster.exceptions import (
     RedisClusterException,
 )
 
-from __init__ import FI_REDIS_SERVER
+from context import FI_REDIS_SERVER
 from settings import CACHE_TTL
 
 from . import model as redis_model

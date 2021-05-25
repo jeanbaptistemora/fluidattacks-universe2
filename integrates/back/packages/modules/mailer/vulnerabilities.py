@@ -3,7 +3,7 @@ from typing import (
     Dict,
 )
 
-from __init__ import BASE_URL
+from context import BASE_URL
 from custom_types import Finding as FindingType
 from group_access import domain as group_access_domain
 

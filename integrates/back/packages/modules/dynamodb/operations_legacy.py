@@ -13,7 +13,7 @@ import aioboto3
 import botocore
 from botocore.exceptions import ClientError
 
-from __init__ import (
+from context import (
     FI_AWS_DYNAMODB_ACCESS_KEY,
     FI_AWS_DYNAMODB_SECRET_KEY,
     FI_DYNAMODB_HOST,

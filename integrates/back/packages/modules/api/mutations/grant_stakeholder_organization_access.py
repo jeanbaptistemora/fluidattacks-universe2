@@ -3,7 +3,7 @@ from typing import Any
 from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-from __init__ import FI_DEFAULT_ORG
+from context import FI_DEFAULT_ORG
 from custom_types import GrantStakeholderAccessPayload
 from decorators import enforce_organization_level_auth_async
 from groups import domain as groups_domain

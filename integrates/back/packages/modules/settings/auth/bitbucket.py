@@ -1,4 +1,4 @@
-from __init__ import (
+from context import (
     FI_BITBUCKET_OAUTH2_KEY,
     FI_BITBUCKET_OAUTH2_SECRET,
 )

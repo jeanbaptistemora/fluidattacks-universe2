@@ -1,4 +1,4 @@
-from __init__ import (
+from context import (
     CI_COMMIT_REF_NAME,
     FI_ENVIRONMENT,
 )

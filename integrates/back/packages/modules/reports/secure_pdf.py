@@ -7,7 +7,7 @@ from PyPDF4 import (
 from aioextensions import in_process
 from fpdf import FPDF
 
-from __init__ import STARTDIR
+from context import STARTDIR
 from groups import dal as groups_dal
 
 

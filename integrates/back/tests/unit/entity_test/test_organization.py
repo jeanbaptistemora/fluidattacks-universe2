@@ -13,13 +13,13 @@ from ariadne import graphql
 # Local libraries
 from api.schema import SCHEMA
 from back.tests.unit.utils import create_dummy_session
+from context import FI_DEFAULT_ORG
 from custom_exceptions import (
     InvalidOrganization,
     UserNotInOrganization,
 )
 from dataloaders import apply_context_attrs
 from organizations import domain as orgs_domain
-from __init__ import FI_DEFAULT_ORG
 
 
 # Run async tests

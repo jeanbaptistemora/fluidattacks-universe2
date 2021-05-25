@@ -1,7 +1,7 @@
 from aioextensions import in_thread
 from mixpanel import Mixpanel
 
-from __init__ import FI_ENVIRONMENT
+from context import FI_ENVIRONMENT
 from settings import MIXPANEL_API_TOKEN
 
 

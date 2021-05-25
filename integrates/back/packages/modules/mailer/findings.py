@@ -4,7 +4,7 @@ from typing import (
     List,
 )
 
-from __init__ import (
+from context import (
     BASE_URL,
     FI_MAIL_REVIEWERS,
 )

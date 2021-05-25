@@ -14,13 +14,13 @@ from aioboto3.dynamodb.table import CustomTableResource
 from boto3.dynamodb.conditions import ConditionBase
 from botocore.exceptions import ClientError
 
-from dynamodb.context import (
-    AWS_DYNAMODB_ACCESS_KEY,
-    AWS_DYNAMODB_SECRET_KEY,
-    AWS_SESSION_TOKEN,
-    DYNAMODB_HOST,
-    DYNAMODB_PORT,
-    ENVIRONMENT,
+from context import (
+    FI_AWS_DYNAMODB_ACCESS_KEY,
+    FI_AWS_DYNAMODB_SECRET_KEY,
+    FI_AWS_SESSION_TOKEN,
+    FI_DYNAMODB_HOST,
+    FI_DYNAMODB_PORT,
+    FI_ENVIRONMENT,
 )
 from dynamodb.exceptions import handle_error
 from dynamodb.types import (
@@ -35,18 +35,18 @@ from dynamodb.types import (
 def _get_resource_options() -> Dict[str, Optional[str]]:
     basic_options = {
         "service_name": "dynamodb",
-        "aws_access_key_id": AWS_DYNAMODB_ACCESS_KEY,
-        "aws_secret_access_key": AWS_DYNAMODB_SECRET_KEY,
-        "aws_session_token": AWS_SESSION_TOKEN,
+        "aws_access_key_id": FI_AWS_DYNAMODB_ACCESS_KEY,
+        "aws_secret_access_key": FI_AWS_DYNAMODB_SECRET_KEY,
+        "aws_session_token": FI_AWS_SESSION_TOKEN,
         "region_name": "us-east-1",
         "config": botocore.config.Config(
             max_pool_connections=50,
         ),
     }
-    if ENVIRONMENT == "development" and DYNAMODB_HOST:
+    if FI_ENVIRONMENT == "development" and FI_DYNAMODB_HOST:
         return {
             **basic_options,
-            "endpoint_url": f"http://{DYNAMODB_HOST}:{DYNAMODB_PORT}",
+            "endpoint_url": f"http://{FI_DYNAMODB_HOST}:{FI_DYNAMODB_PORT}",
         }
     return basic_options
 

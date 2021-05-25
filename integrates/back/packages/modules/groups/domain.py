@@ -33,7 +33,7 @@ from aioextensions import (
 )
 
 import authz
-from __init__ import (
+from context import (
     BASE_URL,
     FI_DEFAULT_ORG,
 )

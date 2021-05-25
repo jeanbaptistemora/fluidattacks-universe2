@@ -10,7 +10,7 @@ from uuid import uuid4 as uuid
 
 from starlette.datastructures import UploadFile
 
-from __init__ import FI_AWS_S3_REPORTS_BUCKET
+from context import FI_AWS_S3_REPORTS_BUCKET
 from custom_exceptions import ErrorUploadingFileS3
 from custom_types import Finding as FindingType
 from s3 import operations as s3_ops

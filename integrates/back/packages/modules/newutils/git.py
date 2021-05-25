@@ -1,6 +1,6 @@
 from git import Repo
 
-from __init__ import (
+from context import (
     SERVICES_GITLAB_API_TOKEN,
     SERVICES_GITLAB_API_USER,
 )

@@ -17,6 +17,7 @@ from starlette.responses import Response
 
 import authz
 from analytics import dal as analytics_dal
+from context import FI_CHARTS_LOGO_PATH
 from custom_exceptions import DocumentNotFound
 from custom_types import (
     GraphicParameters,
@@ -27,7 +28,6 @@ from newutils import (
     templates as templates_utils,
     token as token_utils,
 )
-from newutils.context import CHARTS_LOGO_PATH
 from newutils.encodings import safe_encode
 from organizations import domain as orgs_domain
 from redis_cluster.operations import redis_get_or_set_entity_attr
@@ -45,7 +45,7 @@ TRANSPARENCY_RATIO: float = 0.40
 
 
 def add_watermark(base_image: Image) -> bytes:
-    watermark: Image = clarify(CHARTS_LOGO_PATH)
+    watermark: Image = clarify(FI_CHARTS_LOGO_PATH)
     watermark_width, watermark_height = watermark.size
     width = max(base_image.width, watermark_width)
     height = max(base_image.height, watermark_height)

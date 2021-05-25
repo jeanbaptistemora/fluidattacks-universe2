@@ -18,14 +18,14 @@ from jinja2 import (
 )
 
 import authz
-from __init__ import (
+from context import (
+    FI_EMAIL_TEMPLATES,
     FI_MAIL_REVIEWERS,
     FI_MANDRILL_API_KEY,
     FI_TEST_PROJECTS,
 )
 from custom_types import MailContent as MailContentType
 from group_access import domain as group_access_domain
-from mailer.context import EMAIL_TEMPLATES
 from newutils import datetime as datetime_utils
 from settings import LOGGING
 from users import domain as users_domain
@@ -40,7 +40,7 @@ DIGEST_TAG = ["digest"]
 GENERAL_TAG: List[str] = ["general"]
 LOGGER_TRANSACTIONAL = logging.getLogger("transactional")
 TEMPLATES = Environment(
-    loader=FileSystemLoader(EMAIL_TEMPLATES), autoescape=True
+    loader=FileSystemLoader(FI_EMAIL_TEMPLATES), autoescape=True
 )
 VERIFY_TAG: List[str] = ["verify"]
 

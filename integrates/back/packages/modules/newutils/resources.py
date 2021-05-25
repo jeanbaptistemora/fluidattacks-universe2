@@ -1,6 +1,6 @@
 from typing import List
 
-from __init__ import FI_AWS_S3_RESOURCES_BUCKET
+from context import FI_AWS_S3_RESOURCES_BUCKET
 from s3 import operations as s3_ops
 
 

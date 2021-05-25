@@ -7,7 +7,7 @@ from aioextensions import (
 )
 from starlette.requests import Request
 
-from __init__ import FI_ENVIRONMENT
+from context import FI_ENVIRONMENT
 from settings import (
     LOGGING,
     NOEXTRA,

@@ -1,4 +1,4 @@
-from __init__ import (
+from context import (
     FI_GOOGLE_OAUTH2_KEY,
     FI_GOOGLE_OAUTH2_SECRET,
 )

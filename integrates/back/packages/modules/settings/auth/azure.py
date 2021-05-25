@@ -1,4 +1,4 @@
-from __init__ import (
+from context import (
     FI_AZUREAD_OAUTH2_KEY,
     FI_AZUREAD_OAUTH2_SECRET,
 )

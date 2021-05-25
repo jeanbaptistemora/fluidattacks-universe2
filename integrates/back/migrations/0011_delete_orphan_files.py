@@ -9,11 +9,11 @@ Finalization Time:  2020-06-16 15:21 UTC-5
 import os
 from typing import List
 
+from context import FI_TEST_PROJECTS
 from dataloaders import get_new_context
 from findings import dal as findings_dal
 from findings import domain as findings_domain
 from groups import dal as groups_dal
-from __init__ import FI_TEST_PROJECTS
 
 
 TEST_PROJECTS: List[str] = FI_TEST_PROJECTS.split(",")

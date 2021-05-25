@@ -31,6 +31,7 @@ import skims_sdk
 
 import authz
 from comments import domain as comments_domain
+from context import PRODUCT_API_TOKEN
 from custom_exceptions import (
     FindingNotFound,
     InvalidCommentParent,
@@ -64,9 +65,6 @@ from settings import (
 )
 from users import domain as users_domain
 from vulnerabilities import domain as vulns_domain
-from __init__ import (
-    PRODUCT_API_TOKEN,
-)
 
 logging.config.dictConfig(LOGGING)
 

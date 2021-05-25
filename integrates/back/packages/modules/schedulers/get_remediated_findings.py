@@ -8,7 +8,7 @@ from typing import (
 
 from aioextensions import collect
 
-from __init__ import (
+from context import (
     BASE_URL,
     FI_MAIL_PROJECTS,
 )

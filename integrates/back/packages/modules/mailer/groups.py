@@ -3,7 +3,7 @@ from typing import (
     List,
 )
 
-from __init__ import BASE_URL
+from context import BASE_URL
 from custom_types import (
     Comment as CommentType,
     MailContent as MailContentType,

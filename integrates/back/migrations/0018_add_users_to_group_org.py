@@ -18,6 +18,10 @@ from aioextensions import (
     run,
 )
 
+from context import (
+    FI_COMMUNITY_PROJECTS,
+    FI_TEST_PROJECTS,
+)
 from group_access import domain as group_access_doamin
 from groups import domain as groups_domain
 from organizations import (
@@ -25,10 +29,6 @@ from organizations import (
     domain as orgs_domain,
 )
 from users import domain as users_domain
-from __init__ import (
-    FI_COMMUNITY_PROJECTS,
-    FI_TEST_PROJECTS,
-)
 
 
 STAGE: str = os.environ["STAGE"]

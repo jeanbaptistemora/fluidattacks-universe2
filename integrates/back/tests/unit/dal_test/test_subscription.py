@@ -6,12 +6,12 @@ import os
 import pytest
 
 # Local libraries
+from context import FI_CHARTS_LOGO_PATH
 from subscriptions.dal import (
     get_subscriptions_to_entity_report,
     get_user_subscriptions,
     subscribe_user_to_entity_report,
 )
-from newutils.context import CHARTS_LOGO_PATH
 
 
 pytestmark = [
@@ -20,7 +20,7 @@ pytestmark = [
 
 
 def test_image_path():
-    assert os.path.exists(CHARTS_LOGO_PATH)
+    assert os.path.exists(FI_CHARTS_LOGO_PATH)
 
 
 @pytest.mark.changes_db

@@ -12,7 +12,7 @@ from boto3.dynamodb.conditions import (
 )
 from botocore.exceptions import ClientError
 
-from __init__ import FI_TEST_PROJECTS
+from context import FI_TEST_PROJECTS
 from custom_exceptions import UnavailabilityError
 from custom_types import (
     DynamoDelete as DynamoDeleteType,

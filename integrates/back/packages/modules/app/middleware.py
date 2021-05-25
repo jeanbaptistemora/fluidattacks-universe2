@@ -15,7 +15,7 @@ from starlette.requests import Request
 from starlette.responses import Response
 
 # Local libraries
-from __init__ import BASE_URL
+from context import BASE_URL
 
 
 class CustomRequestMiddleware(BaseHTTPMiddleware):

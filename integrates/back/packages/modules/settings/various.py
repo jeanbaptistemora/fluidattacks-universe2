@@ -1,5 +1,6 @@
 import os
-from __init__ import FI_DEBUG
+
+from context import FI_DEBUG
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

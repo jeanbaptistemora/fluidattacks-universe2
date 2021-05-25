@@ -14,7 +14,7 @@ from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 import authz
-from __init__ import FI_COMMUNITY_PROJECTS
+from context import FI_COMMUNITY_PROJECTS
 from custom_types import SignInPayload as SignInPayloadType
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain

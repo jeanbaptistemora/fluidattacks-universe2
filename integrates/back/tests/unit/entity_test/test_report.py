@@ -4,9 +4,9 @@ import pytest
 from ariadne import graphql
 
 from api.schema import SCHEMA
+from context import STARTDIR
 from back.tests.unit.utils import create_dummy_session
 from dataloaders import apply_context_attrs
-from __init__ import STARTDIR
 
 
 pytestmark = pytest.mark.asyncio

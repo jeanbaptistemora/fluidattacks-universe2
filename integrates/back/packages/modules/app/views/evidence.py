@@ -18,6 +18,7 @@ from starlette.responses import (
 
 # Local libraries
 import authz
+from context import FI_AWS_S3_BUCKET
 from events.domain import has_access_to_event
 from findings.domain import has_access_to_finding
 from newutils import (
@@ -29,7 +30,6 @@ from s3.operations import (
     download_file,
     list_files,
 )
-from __init__ import FI_AWS_S3_BUCKET
 
 
 BUCKET_S3 = FI_AWS_S3_BUCKET

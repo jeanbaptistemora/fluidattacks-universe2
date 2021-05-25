@@ -18,7 +18,7 @@ from zenpy.lib.api_objects import (
 )
 from zenpy.lib.exception import ZenpyException
 
-from __init__ import (
+from context import (
     FI_ZENDESK_EMAIL,
     FI_ZENDESK_SUBDOMAIN,
     FI_ZENDESK_TOKEN,

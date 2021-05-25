@@ -1,6 +1,6 @@
 from typing import cast
 
-from __init__ import BASE_URL
+from context import BASE_URL
 from custom_types import MailContent as MailContentType
 
 from .common import (

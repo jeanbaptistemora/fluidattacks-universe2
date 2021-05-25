@@ -2,7 +2,7 @@ import io
 
 from botocore.exceptions import ClientError
 
-from __init__ import (
+from context import (
     CI_COMMIT_REF_NAME,
     FI_AWS_S3_ANALYTICS_BUCKET as BUCKET_ANALYTICS,
 )

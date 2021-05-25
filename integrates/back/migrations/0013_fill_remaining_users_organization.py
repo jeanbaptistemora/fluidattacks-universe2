@@ -25,6 +25,7 @@ from boto3.dynamodb.conditions import (
     Not,
 )
 
+from context import FI_COMMUNITY_PROJECTS
 from dynamodb.operations_legacy import RESOURCE_OPTIONS
 from group_access.domain import get_user_groups
 from groups.domain import get_attributes as get_group_attributes
@@ -36,7 +37,6 @@ from organizations.domain import (
     get_id_by_name as get_organization_id_by_name,
 )
 from users.dal import update as update_user
-from __init__ import FI_COMMUNITY_PROJECTS
 
 
 AUTOENROLLED_ORGANIZATION: str = "integrates community"

@@ -11,15 +11,15 @@ from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
 from batch.types import BatchProcessing
+from context import (
+    CI_COMMIT_REF_NAME,
+    FI_AWS_DYNAMODB_ACCESS_KEY,
+    FI_AWS_DYNAMODB_SECRET_KEY,
+    FI_AWS_SESSION_TOKEN,
+    FI_ENVIRONMENT,
+)
 from custom_types import DynamoDelete
 from dynamodb import operations_legacy as dynamodb_ops
-from newutils.context import (
-    AWS_DYNAMODB_ACCESS_KEY,
-    AWS_DYNAMODB_SECRET_KEY,
-    AWS_SESSION_TOKEN,
-    CI_COMMIT_REF_NAME,
-    ENVIRONMENT,
-)
 from newutils.datetime import (
     get_as_epoch,
     get_now,
@@ -154,14 +154,14 @@ async def put_action_to_batch(
     time: str,
     additional_info: str,
 ) -> bool:
-    if ENVIRONMENT == "development":
+    if FI_ENVIRONMENT == "development":
         return True
     try:
         resource_options = dict(
             service_name="batch",
-            aws_access_key_id=AWS_DYNAMODB_ACCESS_KEY,
-            aws_secret_access_key=AWS_DYNAMODB_SECRET_KEY,
-            aws_session_token=AWS_SESSION_TOKEN,
+            aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
+            aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
+            aws_session_token=FI_AWS_SESSION_TOKEN,
         )
         async with aioboto3.client(**resource_options) as batch:
             await batch.submit_job(
@@ -188,11 +188,11 @@ async def put_action_to_batch(
                         },
                         {
                             "name": "INTEGRATES_PROD_AWS_ACCESS_KEY_ID",
-                            "value": AWS_DYNAMODB_ACCESS_KEY,
+                            "value": FI_AWS_DYNAMODB_ACCESS_KEY,
                         },
                         {
                             "name": "INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY",
-                            "value": AWS_DYNAMODB_SECRET_KEY,
+                            "value": FI_AWS_DYNAMODB_SECRET_KEY,
                         },
                     ],
                     "memory": 7200,

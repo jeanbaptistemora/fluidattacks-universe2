@@ -26,7 +26,7 @@ from jwcrypto.jwe import (
 )
 from jwcrypto.jwk import JWK
 
-from __init__ import FI_JWT_ENCRYPTION_KEY
+from context import FI_JWT_ENCRYPTION_KEY
 from custom_exceptions import (
     ExpiredToken,
     InvalidAuthorization,

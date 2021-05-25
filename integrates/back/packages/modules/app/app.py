@@ -26,12 +26,12 @@ from starlette.routing import (
 from starlette.staticfiles import StaticFiles
 
 # Local libraries
-from __init__ import (
+from api import IntegratesAPI
+from api.schema import SCHEMA
+from context import (
     FI_ENVIRONMENT,
     FI_STARLETTE_SESSION_KEY,
 )
-from api import IntegratesAPI
-from api.schema import SCHEMA
 from custom_exceptions import (
     ExpiredToken,
     SecureAccessException,

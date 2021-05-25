@@ -1,4 +1,4 @@
-from __init__ import (
+from context import (
     FI_JWT_SECRET,
     FI_JWT_SECRET_API,
 )

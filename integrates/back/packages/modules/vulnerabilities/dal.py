@@ -14,7 +14,7 @@ from boto3.dynamodb.conditions import (
 from botocore.exceptions import ClientError
 from starlette.datastructures import UploadFile
 
-from __init__ import FI_AWS_S3_REPORTS_BUCKET as VULNS_BUCKET
+from context import FI_AWS_S3_REPORTS_BUCKET as VULNS_BUCKET
 from custom_exceptions import ErrorUploadingFileS3
 from custom_types import (
     DynamoDelete as DynamoDeleteType,

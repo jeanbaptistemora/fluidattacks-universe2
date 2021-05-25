@@ -5,7 +5,7 @@ import cloudmersive_virus_api_client
 from cloudmersive_virus_api_client.rest import ApiException
 from starlette.datastructures import UploadFile
 
-from __init__ import (
+from context import (
     FI_CLOUDMERSIVE_API_KEY,
     FI_ENVIRONMENT,
 )

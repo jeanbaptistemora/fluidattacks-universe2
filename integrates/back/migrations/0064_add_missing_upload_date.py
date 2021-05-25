@@ -22,13 +22,13 @@ from aioextensions import (
 from more_itertools import chunked
 
 # Local libraries
+from context import FI_AWS_S3_BUCKET
 from custom_types import Finding
 from dataloaders.group import GroupLoader
 from findings import dal as findings_dal
 from groups.domain import get_active_groups
 from newutils import datetime as datetime_utils
 from s3.operations import aio_client
-from __init__ import FI_AWS_S3_BUCKET
 
 
 STAGE: str = os.environ["STAGE"]

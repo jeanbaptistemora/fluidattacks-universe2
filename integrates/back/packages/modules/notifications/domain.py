@@ -14,7 +14,7 @@ from aioextensions import (
 from exponent_server_sdk import DeviceNotRegisteredError
 from graphql.type.definition import GraphQLResolveInfo
 
-from __init__ import BASE_URL
+from context import BASE_URL
 from custom_types import Finding as FindingType
 from mailer import groups as groups_mail
 from newutils import datetime as datetime_utils

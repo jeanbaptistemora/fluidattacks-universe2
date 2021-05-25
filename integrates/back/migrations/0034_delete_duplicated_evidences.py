@@ -21,7 +21,10 @@ from aioextensions import (
 )
 from botocore.exceptions import ClientError
 
-from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY
+from context import (
+    FI_AWS_S3_ACCESS_KEY,
+    FI_AWS_S3_SECRET_KEY,
+)
 from newutils import apm
 from settings import LOGGING
 

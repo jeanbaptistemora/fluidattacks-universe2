@@ -19,10 +19,10 @@ from boto3.dynamodb.conditions import Attr
 
 # Local libraries
 import authz
+from context import FI_DEFAULT_ORG
 from groups import domain as groups_domain
 from organizations import domain as orgs_domain
 from users import dal as users_dal
-from __init__ import FI_DEFAULT_ORG
 
 
 USERS_TABLE_NAME = "FI_users"

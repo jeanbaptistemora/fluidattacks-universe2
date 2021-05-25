@@ -8,7 +8,7 @@ from typing import (
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
-from __init__ import FI_AWS_S3_BUCKET
+from context import FI_AWS_S3_BUCKET
 from custom_types import Event as EventType
 from dynamodb import operations_legacy as dynamodb_ops
 from s3 import operations as s3_ops

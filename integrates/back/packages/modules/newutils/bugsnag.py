@@ -1,6 +1,6 @@
 import bugsnag
 
-from __init__ import (
+from context import (
     BASE_URL,
     FI_BUGSNAG_API_KEY_SCHEDULER,
     FI_ENVIRONMENT,

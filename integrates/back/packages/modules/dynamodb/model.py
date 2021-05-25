@@ -11,12 +11,12 @@ from boto3.dynamodb.conditions import (
     Key,
 )
 
+from context import FI_DB_MODEL_PATH
 from dynamodb import (
     historics,
     keys,
     operations,
 )
-from dynamodb.context import DB_MODEL_PATH
 from dynamodb.table import load_table
 from dynamodb.types import (
     GitRootCloning,
@@ -43,7 +43,7 @@ from dynamodb.types import (
 )
 
 
-with open(DB_MODEL_PATH, mode="r") as file:
+with open(FI_DB_MODEL_PATH, mode="r") as file:
     TABLE = load_table(json.load(file))
 
 

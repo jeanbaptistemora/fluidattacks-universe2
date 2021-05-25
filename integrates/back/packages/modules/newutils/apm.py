@@ -6,7 +6,7 @@ from typing import (
 
 import tracers.function
 
-from __init__ import FI_DEBUG as DEBUG
+from context import FI_DEBUG as DEBUG
 
 
 def trace(overridden_function: Optional[Callable[..., Any]] = None) -> Any:

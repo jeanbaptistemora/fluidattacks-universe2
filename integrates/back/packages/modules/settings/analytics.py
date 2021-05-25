@@ -1,4 +1,4 @@
-from __init__ import (
+from context import (
     FI_MIXPANEL_API_TOKEN,
     FI_NEW_RELIC_CONF_FILE,
 )
