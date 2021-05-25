@@ -17,6 +17,7 @@ integrates.back.probes.lib
 integrates.back.probes.liveness
 integrates.back.probes.readiness
 integrates.back.pypi.runtime
+integrates.back.schema.lint
 integrates.back.security
 integrates.back.structure
 integrates.back.tools

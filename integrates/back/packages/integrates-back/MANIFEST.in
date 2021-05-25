@@ -1,6 +1,0 @@
-include LICENSE
-include README.rst
-include backend/entity/schema.yaml
-include backend/api/schema/**/*.graphql
-include backend/api/schema/types/**/*.graphql
-include backend/domain/vulnerability/vuln_template.yaml

@@ -382,14 +382,10 @@ integrates.back.test.unit:
       - integrates/coverage.xml
     expire_in: 1 week
 
-integrates.coverage:
+integrates.back.schema.lint:
   <<: *makes
   <<: *in_dev_branch_integrates
-  needs:
-    - integrates.back.test.unit
-    - integrates.front.test
-    - integrates.mobile.test
-  stage: external
+  stage: lint-code
 
 integrates.back.structure:
   <<: *makes
@@ -401,6 +397,15 @@ integrates.back.structure:
     paths: [outputs]
     when: always
   stage: test-code
+
+integrates.coverage:
+  <<: *makes
+  <<: *in_dev_branch_integrates
+  needs:
+    - integrates.back.test.unit
+    - integrates.front.test
+    - integrates.mobile.test
+  stage: external
 
 integrates.front.deploy.dev:
   <<: *makes
@@ -642,10 +647,3 @@ makes.test.integrates:
   <<: *makes
   <<: *in_master_branch_integrates
   stage: test-code
-
-# Pending to migrate
-
-integrates_back_lint:
-  <<: *with_nix
-  <<: *in_dev_branch_integrates
-  stage: lint-code

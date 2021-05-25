@@ -2,11 +2,14 @@
 
 function main {
 
-      lint_python_package "${envIntegratesBack}"/migrations \
+      lint_python_package "${envIntegrates}/back/migrations" \
+  &&  prospector --profile "${envProspectorSettings}" "${envIntegrates}/lambda" \
+  &&  prospector --profile "${envProspectorSettings}" "${envIntegrates}/deploy/permissions-matrix" \
+  &&  prospector --profile "${envProspectorSettings}" "${envIntegrates}/back/tests" \
   &&  lint_python_imports \
         "${envIntegratesImportsConfig}" \
-        "${envIntegratesBack}/packages/modules" \
-  &&  for module in "${envIntegratesBack}/packages/modules"/*
+        "${envIntegrates}/back/packages/modules" \
+  &&  for module in "${envIntegrates}/back/packages/modules"/*
       do
             if test -d "${module}"
             then
