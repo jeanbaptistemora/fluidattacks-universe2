@@ -19,6 +19,7 @@ from typing import (
     cast,
 )
 
+# Third party libraries
 import aioboto3
 from aioextensions import (
     collect,
@@ -26,6 +27,7 @@ from aioextensions import (
     schedule,
 )
 from graphql.type.definition import GraphQLResolveInfo
+import skims_sdk
 
 import authz
 from comments import domain as comments_domain
@@ -62,7 +64,9 @@ from settings import (
 )
 from users import domain as users_domain
 from vulnerabilities import domain as vulns_domain
-
+from __init__ import (
+    PRODUCT_API_TOKEN,
+)
 
 logging.config.dictConfig(LOGGING)
 
@@ -707,6 +711,20 @@ async def request_vulnerability_verification(
                 justification,
             )
         )
+
+        skims_queue_kwargs = dict(
+            finding_code=None,
+            finding_title=finding["finding"],
+            group=finding["project_name"],
+            urgent=True,
+            product_api_token=PRODUCT_API_TOKEN,
+        )
+
+        if not await skims_sdk.queue(**skims_queue_kwargs):
+            LOGGER.error(
+                "Could not queue a skims execution",
+                extra={"extra": skims_queue_kwargs},
+            )
     else:
         LOGGER.error("An error occurred remediating", **NOEXTRA)
         raise NotVerificationRequested()

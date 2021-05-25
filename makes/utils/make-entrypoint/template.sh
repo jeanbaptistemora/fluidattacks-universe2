@@ -16,7 +16,7 @@ function setup {
       source __envSearchPathsBase__ \
   &&  if test -z "${HOME_IMPURE:-}"
       then
-            HOME_IMPURE="${HOME}" \
+            HOME_IMPURE="${HOME:-}" \
         &&  HOME="$(mktemp -d)"
       fi \
   &&  source __envBashLibCommon__ \

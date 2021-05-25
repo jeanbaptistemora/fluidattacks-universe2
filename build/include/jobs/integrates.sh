@@ -5,6 +5,7 @@
 function job_integrates_back_lint {
   export PYTHONPATH="${PWD}/integrates/back/packages/modules:${PYTHONPATH}"
   export PYTHONPATH="${PWD}/makes/packages/makes/python/safe-pickle/src:${PYTHONPATH}"
+  export PYTHONPATH="${PWD}/skims/skims/sdk:${PYTHONPATH}"
 
       pushd integrates \
   &&  env_prepare_python_packages \

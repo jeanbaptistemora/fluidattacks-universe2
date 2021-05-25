@@ -1,7 +1,13 @@
 # Standard library
 import asyncio
 import subprocess  # nosec
-from typing import List, Optional
+from os import (
+    environ,
+)
+from typing import (
+    List,
+    Optional,
+)
 
 # Third party libraries
 # None, NEVER, PLEASE !
@@ -12,7 +18,7 @@ from typing import List, Optional
 
 async def _run(*cmd: str, **env: str) -> bool:
     process: asyncio.subprocess.Process = await asyncio.create_subprocess_exec(
-        "skims",
+        environ["SKIMS_BIN"],
         *cmd,
         env=env,
         stderr=None,
