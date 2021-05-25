@@ -21,7 +21,10 @@ a very easy to learn structured configuration language.
 There are no master machines, agents,
 or incremental infrastructure. Instead, infrastructure
 is regenerated from scratch every time it is required.
-3. It has hundreds of open source
+1. Due to its stateless approach,
+parity between development and production environments
+is assured.
+2. It has hundreds of open source
 [providers](https://registry.terraform.io/browse/providers)
 that give it full flexibility accross many platforms.
 1. It has thousands of open source
@@ -33,17 +36,20 @@ usually takes no longer than a few minutes.
 
 ## Alternatives
 
+The following alternatives were considered
+but not chosen for the following reasons:
+
 1. [Ansible](https://www.ansible.com/):
-Not chosen as deployments were too slow.
+Deployments were too slow.
 1. [AWS CDK](https://aws.amazon.com/cdk/):
-Not chosen as it is platform-bounded.
+It is platform-bounded.
 1. [AWS Cloudformation](https://aws.amazon.com/cloudformation/):
-Not chosen as it is platform-bounded.
+It is platform-bounded.
 1. [Chef](https://www.chef.io/):
 It has a stateful approach to infastructure, including
 a master machine, agents and mutable infrastructure.
 1. [Pulumi](https://www.pulumi.com/):
-Not chosen as it is not as widely used,
+It is not as widely used,
 resulting in less
 [providers](https://www.pulumi.com/docs/intro/cloud-providers/),
 [modules](https://www.npmjs.com/search?q=pulumi&page=0&perPage=20)

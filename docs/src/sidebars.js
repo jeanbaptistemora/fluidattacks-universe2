@@ -863,6 +863,7 @@ module.exports = {
       type: 'category',
       label: 'Stack',
       items: [
+        'development/stack/cloudflare',
         {
           type: 'category',
           label: 'Git',
