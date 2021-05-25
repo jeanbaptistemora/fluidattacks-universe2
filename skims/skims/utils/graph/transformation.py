@@ -9,9 +9,10 @@ from model import graph_model
 from utils import graph as g
 
 
-def build_member_access_expression_isd(
+def _build_nested_identifier_ids(
     graph: graph_model.Graph,
     n_id: str,
+    nested_key: str,
     keys: Optional[List[str]] = None,
 ) -> List[str]:
     keys = keys or list()
@@ -19,25 +20,46 @@ def build_member_access_expression_isd(
         graph,
         n_id,
         "identifier",
-        "member_access_expression",
+        nested_key,
         "this_expression",
         ".",
     )
     if identifiers := match_access["identifier"]:
         keys = [*identifiers, *keys]
-    if access := match_access["member_access_expression"]:
-        keys = build_member_access_expression_isd(graph, access.pop(), keys)
+    if access := match_access[nested_key]:
+        keys = _build_nested_identifier_ids(
+            graph,
+            access.pop(),
+            nested_key=nested_key,
+            keys=keys,
+        )
     if this := match_access["this_expression"]:
         keys.append(this.pop())
 
     return keys
 
 
+def build_member_access_expression_isd(
+    graph: graph_model.Graph,
+    n_id: str,
+) -> List[str]:
+    return _build_nested_identifier_ids(
+        graph,
+        n_id,
+        "member_access_expression",
+    )
+
+
 def build_member_access_expression_key(
     graph: graph_model.Graph,
     n_id: str,
-    keys: Optional[List[str]] = None,
 ) -> str:
-    keys = build_member_access_expression_isd(graph, n_id, keys)
+    keys = build_member_access_expression_isd(graph, n_id)
+    identifiers = tuple(graph.nodes[key]["label_text"] for key in keys)
+    return ".".join(identifiers)
+
+
+def build_qualified_name(graph: graph_model.Graph, qualified_id: str) -> str:
+    keys = _build_nested_identifier_ids(graph, qualified_id, "qualified_name")
     identifiers = tuple(graph.nodes[key]["label_text"] for key in keys)
     return ".".join(identifiers)
