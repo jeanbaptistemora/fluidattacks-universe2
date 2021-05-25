@@ -742,6 +742,17 @@ module.exports = {
         'types/f120',
       ],
     },
+    {
+      type: 'category',
+      label: 'Probabilistic Techniques',
+      items: [
+        'types/f034',
+        'types/f035',
+        'types/f041',
+        'types/f050',
+        'types/f053',
+      ],
+    },
     'types/f005',
     'types/f006',
     'types/f007',
@@ -769,10 +780,7 @@ module.exports = {
         },
       ],
     },
-    'types/f034',
-    'types/f035',
     'types/f039',
-    'types/f041',
     'types/f042',
     {
       type: 'category',
@@ -790,9 +798,7 @@ module.exports = {
     },
     'types/f044',
     'types/f049',
-    'types/f050',
     'types/f051',
-    'types/f053',
     {
       type: 'category',
       label: 'Insecure service configuration',
