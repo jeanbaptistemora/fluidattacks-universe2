@@ -7,11 +7,11 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
 
-import { GlobalConfigModal } from "scenes/Dashboard/components/GlobalConfigModal";
+import { GlobalConfigModal } from "scenes/Dashboard/components/Navbar/UserProfile/GlobalConfigModal";
 import {
   SUBSCRIBE_TO_ENTITY_REPORT,
   SUBSCRIPTIONS_TO_ENTITY_REPORT,
-} from "scenes/Dashboard/components/GlobalConfigModal/queries";
+} from "scenes/Dashboard/components/Navbar/UserProfile/GlobalConfigModal/queries";
 import store from "store";
 
 describe("Global configuration modal", (): void => {

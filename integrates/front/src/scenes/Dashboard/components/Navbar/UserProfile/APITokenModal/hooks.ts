@@ -15,12 +15,12 @@ import {
   GET_ACCESS_TOKEN,
   INVALIDATE_ACCESS_TOKEN_MUTATION,
   UPDATE_ACCESS_TOKEN_MUTATION,
-} from "scenes/Dashboard/components/APITokenModal/queries";
+} from "scenes/Dashboard/components/Navbar/UserProfile/APITokenModal/queries";
 import type {
   IGetAccessTokenAttr,
   IInvalidateAccessTokenAttr,
   IUpdateAccessTokenAttr,
-} from "scenes/Dashboard/components/APITokenModal/types";
+} from "scenes/Dashboard/components/Navbar/UserProfile/APITokenModal/types";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 

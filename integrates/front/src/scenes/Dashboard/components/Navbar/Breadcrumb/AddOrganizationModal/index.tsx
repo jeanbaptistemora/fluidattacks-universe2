@@ -13,12 +13,12 @@ import { TooltipWrapper } from "components/TooltipWrapper/index";
 import {
   CREATE_NEW_ORGANIZATION,
   GET_AVAILABLE_ORGANIZATION_NAME,
-} from "scenes/Dashboard/components/AddOrganizationModal/queries";
+} from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal/queries";
 import type {
   IAddOrganizationModalProps,
   IAddOrganizationMtProps,
   IAddOrganizationQryProps,
-} from "scenes/Dashboard/components/AddOrganizationModal/types";
+} from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal/types";
 import {
   ButtonToolbar,
   Col100,

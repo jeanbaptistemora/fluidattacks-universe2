@@ -10,15 +10,15 @@ import { Provider } from "react-redux";
 import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
-import { APITokenModal } from "scenes/Dashboard/components/APITokenModal";
+import { APITokenModal } from "scenes/Dashboard/components/Navbar/UserProfile/APITokenModal";
 import {
   GET_ACCESS_TOKEN,
   UPDATE_ACCESS_TOKEN_MUTATION,
-} from "scenes/Dashboard/components/APITokenModal/queries";
+} from "scenes/Dashboard/components/Navbar/UserProfile/APITokenModal/queries";
 import type {
   IGetAccessTokenDictAttr,
   IUpdateAccessTokenAttr,
-} from "scenes/Dashboard/components/APITokenModal/types";
+} from "scenes/Dashboard/components/Navbar/UserProfile/APITokenModal/types";
 import store from "store";
 
 describe("Update access token modal", (): void => {

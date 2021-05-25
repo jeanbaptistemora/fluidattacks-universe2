@@ -16,7 +16,7 @@ describe("Sidebar", (): void => {
 
     const wrapper: ShallowWrapper = shallow(
       <MemoryRouter initialEntries={["/home"]}>
-        <Sidebar isLoading={false} />
+        <Sidebar />
       </MemoryRouter>
     );
 

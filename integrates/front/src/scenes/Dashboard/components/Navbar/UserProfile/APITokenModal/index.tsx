@@ -7,16 +7,16 @@ import type { InjectedFormProps } from "redux-form";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
+import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   useGetAPIToken,
   useInvalidateAPIToken,
   useUpdateAPIToken,
-} from "scenes/Dashboard/components/APITokenModal/hooks";
+} from "scenes/Dashboard/components/Navbar/UserProfile/APITokenModal/hooks";
 import type {
   IAccessTokenAttr,
   IGetAccessTokenDictAttr,
-} from "scenes/Dashboard/components/APITokenModal/types";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+} from "scenes/Dashboard/components/Navbar/UserProfile/APITokenModal/types";
 import {
   ButtonToolbar,
   ButtonToolbarLeft,

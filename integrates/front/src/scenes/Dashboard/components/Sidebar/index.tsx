@@ -14,15 +14,10 @@ import {
   SidebarMenu,
 } from "./styles";
 
+import { useApolloNetworkStatus } from "utils/apollo";
 import { useStoredState } from "utils/hooks";
 
-interface ISidebarProps {
-  isLoading: boolean;
-}
-
-const Sidebar: React.FC<ISidebarProps> = ({
-  isLoading,
-}: ISidebarProps): JSX.Element => {
+const Sidebar: React.FC = (): JSX.Element => {
   const [collapsed, setCollapsed] = useStoredState(
     "sidebarCollapsed",
     true,
@@ -31,6 +26,10 @@ const Sidebar: React.FC<ISidebarProps> = ({
   const toggleSidebar = useCallback((): void => {
     setCollapsed((currentValue): boolean => !currentValue);
   }, [setCollapsed]);
+
+  const status = useApolloNetworkStatus();
+  const isLoading: boolean =
+    status.numPendingQueries > 0 || status.numPendingMutations > 0;
 
   return (
     <SidebarContainer collapsed={collapsed}>

@@ -29,7 +29,6 @@ import {
   GET_USER,
 } from "scenes/Dashboard/queries";
 import type { IUser } from "scenes/Dashboard/types";
-import { useApolloNetworkStatus } from "utils/apollo";
 import type { IAuthContext } from "utils/auth";
 import { authContext, setupSessionCheck } from "utils/auth";
 import {
@@ -154,13 +153,9 @@ export const Dashboard: React.FC = (): JSX.Element => {
 
   const currentYear: number = new Date().getFullYear();
 
-  const status = useApolloNetworkStatus();
-  const isLoading: boolean =
-    status.numPendingQueries > 0 || status.numPendingMutations > 0;
-
   return (
     <DashboardContainer>
-      <Sidebar isLoading={isLoading} />
+      <Sidebar />
       <DashboardContent id={"dashboard"}>
         <DashboardHeader>
           <Navbar userRole={userRole} />

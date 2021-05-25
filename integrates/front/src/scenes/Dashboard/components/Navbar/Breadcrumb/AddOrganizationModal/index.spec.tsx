@@ -6,11 +6,11 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import waitForExpect from "wait-for-expect";
 
-import { AddOrganizationModal } from "scenes/Dashboard/components/AddOrganizationModal";
+import { AddOrganizationModal } from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal";
 import {
   CREATE_NEW_ORGANIZATION,
   GET_AVAILABLE_ORGANIZATION_NAME,
-} from "scenes/Dashboard/components/AddOrganizationModal/queries";
+} from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal/queries";
 
 const handleCloseModal: jest.Mock = jest.fn();
 const mockHistoryPush: jest.Mock = jest.fn();

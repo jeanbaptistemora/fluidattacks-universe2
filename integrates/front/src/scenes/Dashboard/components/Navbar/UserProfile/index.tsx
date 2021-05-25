@@ -13,9 +13,10 @@ import React, { useCallback, useContext, useState } from "react";
 import { useDetectClickOutside } from "react-detect-click-outside";
 import { useTranslation } from "react-i18next";
 
+import { APITokenModal } from "./APITokenModal";
+import { GlobalConfigModal } from "./GlobalConfigModal";
+
 import { AddUserModal } from "../../AddUserModal";
-import { APITokenModal } from "../../APITokenModal";
-import { GlobalConfigModal } from "../../GlobalConfigModal";
 import {
   DropdownButton,
   DropdownDivider,

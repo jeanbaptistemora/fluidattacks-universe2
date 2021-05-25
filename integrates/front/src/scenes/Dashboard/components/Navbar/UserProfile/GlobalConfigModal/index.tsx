@@ -13,8 +13,8 @@ import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   SUBSCRIBE_TO_ENTITY_REPORT,
   SUBSCRIPTIONS_TO_ENTITY_REPORT,
-} from "scenes/Dashboard/components/GlobalConfigModal/queries";
-import type { ISubscriptionsToEntityReport } from "scenes/Dashboard/components/GlobalConfigModal/types";
+} from "scenes/Dashboard/components/Navbar/UserProfile/GlobalConfigModal/queries";
+import type { ISubscriptionsToEntityReport } from "scenes/Dashboard/components/Navbar/UserProfile/GlobalConfigModal/types";
 import {
   ButtonToolbar,
   Col100,

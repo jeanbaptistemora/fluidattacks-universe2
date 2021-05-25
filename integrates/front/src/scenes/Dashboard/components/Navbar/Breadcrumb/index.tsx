@@ -5,12 +5,12 @@ import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
 import { Link } from "react-router-dom";
 
+import { AddOrganizationModal } from "./AddOrganizationModal";
 import { GET_USER_ORGANIZATIONS } from "./queries";
 import { SplitButton } from "./SplitButton";
 import { BreadcrumbContainer, NavSplitButtonContainer } from "./styles";
 import { stylizeBreadcrumbItem } from "./utils";
 
-import { AddOrganizationModal } from "../../AddOrganizationModal";
 import { MenuItem } from "components/DropdownButton";
 import { Can } from "utils/authz/Can";
 import { useStoredState } from "utils/hooks";
