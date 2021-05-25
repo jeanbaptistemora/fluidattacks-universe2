@@ -108,6 +108,39 @@ data "aws_iam_policy_document" "sorts_prod_policy_data" {
     ]
   }
 
+  # Redshift
+  statement {
+    effect = "Allow"
+    actions = [
+      "redshift-data:*",
+    ]
+    resources = ["*"]
+  }
+  statement {
+    effect = "Allow"
+    actions = [
+      "redshift:*",
+    ]
+    resources = [
+      "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:cluster:fluid-redshift",
+      "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:dbname:fluid-redshift/*",
+      "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:dbuser:fluid-redshift/*",
+    ]
+  }
+  statement {
+    effect = "Allow"
+    actions = [
+      "redshift:DescribeClusters",
+      "redshift:DescribeClusterSubnetGroups",
+      "redshift:DescribeEvents",
+    ]
+    resources = [
+      "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:cluster:*",
+      "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:event:*",
+      "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:subnetgroup:*",
+    ]
+  }
+
   # KMS
   statement {
     effect = "Allow"
