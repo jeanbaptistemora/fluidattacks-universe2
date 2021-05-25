@@ -809,6 +809,9 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     parameters: Dict[str, FindingType],
     vulns_to_close_from_file: List[Dict[str, str]],
 ) -> bool:
+    # All vulns must be open before verifying them
+    # we will just keep them open or close them
+    # in either case, their historic_verification is updated to VERIFIED
     finding_vulns_loader = info.context.loaders.finding_vulns_all
     finding_loader = info.context.loaders.finding
     finding = await finding_loader.load(finding_id)
@@ -836,6 +839,8 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
         List[Dict[str, Union[str, int, List[str]]]],
         finding.get("historic_verification", []),
     )
+
+    # Modify the verification state to mark the finding as verified
     historic_verification.append(
         {
             "comment": comment_id,
@@ -856,10 +861,13 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     }
     await comments_domain.create(int(finding_id), comment_data, user_info)
 
+    # Modify the verification state to mark all passed vulns as verified
     success = await collect(
         map(vulns_domain.verify_vulnerability, vulnerabilities)
     )
     if all(success) and update_finding:
+        # Open vulns that remain open are not modified in the DB
+        # Open vulns that were closed must be persisted to the DB as closed
         success = await vulns_domain.verify(
             info=info,
             finding_id=finding_id,
