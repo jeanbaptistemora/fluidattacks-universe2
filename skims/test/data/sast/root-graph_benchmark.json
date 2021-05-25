@@ -6577,6 +6577,10 @@
         }
       },
       "metadata": {
+        "c_sharp": {
+          "classes": {},
+          "package": ""
+        },
         "java": {
           "classes": {
             ".BenchmarkTest00001": {
@@ -11666,6 +11670,10 @@
         }
       },
       "metadata": {
+        "c_sharp": {
+          "classes": {},
+          "package": ""
+        },
         "java": {
           "classes": {
             ".BenchmarkTest00008": {
@@ -19707,6 +19715,10 @@
         }
       },
       "metadata": {
+        "c_sharp": {
+          "classes": {},
+          "package": ""
+        },
         "java": {
           "classes": {
             ".BenchmarkTest00167": {

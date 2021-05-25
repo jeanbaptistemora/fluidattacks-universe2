@@ -17964,6 +17964,10 @@
         }
       },
       "metadata": {
+        "c_sharp": {
+          "classes": {},
+          "package": ""
+        },
         "java": {
           "classes": {
             ".InnerTest": {

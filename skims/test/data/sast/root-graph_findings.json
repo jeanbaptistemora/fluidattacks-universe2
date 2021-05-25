@@ -699,6 +699,10 @@
         }
       },
       "metadata": {
+        "c_sharp": {
+          "classes": {},
+          "package": ""
+        },
         "java": {
           "classes": {
             ".Test": {
@@ -2099,6 +2103,10 @@
         }
       },
       "metadata": {
+        "c_sharp": {
+          "classes": {},
+          "package": ""
+        },
         "java": {
           "classes": {
             ".Test": {

@@ -292,6 +292,11 @@ class GraphShardMetadataJava(NamedTuple):
     package: str
 
 
+class GraphShardMetadataCSharp(NamedTuple):
+    classes: Dict[str, GraphShardMetadataJavaClass]
+    package: str
+
+
 class GraphShardMetadataLanguage(Enum):
     CSHARP: str = "c_sharp"
     JAVA: str = "java"
@@ -300,8 +305,15 @@ class GraphShardMetadataLanguage(Enum):
 
 
 class GraphShardMetadata(NamedTuple):
-    java: GraphShardMetadataJava
     language: GraphShardMetadataLanguage
+    java: Optional[GraphShardMetadataJava] = GraphShardMetadataJava(
+        classes={},
+        package="",
+    )
+    c_sharp: Optional[GraphShardMetadataCSharp] = GraphShardMetadataCSharp(
+        classes={},
+        package="",
+    )
 
 
 class GraphShardCacheable(NamedTuple):
