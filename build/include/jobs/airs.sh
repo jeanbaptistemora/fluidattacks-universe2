@@ -32,33 +32,18 @@ function job_airs_test_lint_styles {
 
 function job_airs_deploy_local {
       helper_common_use_pristine_workdir \
-  &&  pushd airs \
-      &&  npm cache clean --force \
-      &&  helper_airs_set_lc_all \
-      &&  helper_airs_compile 'http://localhost:8000' \
-  &&  popd \
   &&  airs dev \
   ||  return 1
 }
 
 function job_airs_deploy_ephemeral {
       helper_common_use_pristine_workdir \
-  &&  pushd airs \
-      &&  helper_airs_set_lc_all \
-      &&  helper_airs_aws_login development \
-      &&  helper_airs_compile "https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
-  &&  popd \
   &&  airs eph \
   ||  return 1
 }
 
 function job_airs_deploy_production {
       helper_common_use_pristine_workdir \
-  &&  pushd airs \
-  &&  helper_airs_set_lc_all \
-  &&  helper_airs_aws_login production \
-  &&  helper_airs_compile 'https://fluidattacks.com' \
-  &&  popd \
   &&  airs prod \
   ||  return 1
 }

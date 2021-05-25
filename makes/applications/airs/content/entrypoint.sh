@@ -4,7 +4,8 @@ function main {
   local url='https://please-replace-this-url-before-deploying'
   local out="${1}"
 
-      pushd "${out}" \
+        mkdir "${out}" \
+    &&  pushd "${out}" \
     &&  mkdir new-front \
     &&  aws_login_dev airs \
     &&  sops_export_vars __envAirsSecrets__/development.yaml \
