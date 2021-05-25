@@ -212,6 +212,7 @@ skims.process-groups-on-aws
 skims.test
 skims.test.mocks.http
 skims.test.mocks.http.env
+skims.test.sdk
 sorts
 sorts.execute
 sorts.extract-features

@@ -123,7 +123,7 @@ function create_project_variable {
   __project_variable_generic_request \
     'POST' \
     "https://gitlab.com/api/v4/projects/${repo_id}/variables" \
-    "[INFO] Variable created succesfully: ${var_name}" \
+    "[INFO] Variable created successfully: ${var_name}" \
     "[ERROR] Variable was not created: ${var_name}" \
     "${token}" \
     "${repo_id}" \
@@ -160,7 +160,7 @@ function update_project_variable {
   __project_variable_generic_request \
     'PUT' \
     "https://gitlab.com/api/v4/projects/${repo_id}/variables/${var_name}" \
-    "[INFO] Variable updated succesfully: ${var_name}" \
+    "[INFO] Variable updated successfully: ${var_name}" \
     "[ERROR] Variable was not updated: ${var_name}" \
     "${token}" \
     "${repo_id}" \

@@ -18,7 +18,7 @@ function export_product_variable {
       "PRODUCT_API_TOKEN are also not present in the environment"
   fi
 
-  if var_value="$(get_project_variable "${api_token}" "${CI_PROJECT_ID}" "${var_name}")"
+  if var_value="$(get_project_variable "${api_token}" "20741933" "${var_name}")"
   then
     export "${var_name}"="${var_value}"
   else

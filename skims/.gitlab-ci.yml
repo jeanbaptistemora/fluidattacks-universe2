@@ -145,6 +145,11 @@ skims.test.instance_references:
 skims.test.lib_http:
   <<: *skims_test
 
+skims.test.sdk:
+  <<: *makes
+  <<: *skims_in_dev_branch
+  stage: test-code
+
 skims.test.unittesting:
   <<: *skims_test
   variables:

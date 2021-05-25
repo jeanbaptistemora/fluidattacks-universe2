@@ -16,6 +16,7 @@ function lint_everything {
   &&  lint_python_package '__envSrcSkimsTest__' \
   &&  lint_python_package '__envSrcProcessGroup__' \
   &&  lint_python_package '__envSrcTestMocksHttp__' \
+  &&  lint_python_package '__envSrcSkimsTestSdk__' \
   &&  for module in "__envSrcSkimsSkims__/"*
       do
             if test -d "${module}"

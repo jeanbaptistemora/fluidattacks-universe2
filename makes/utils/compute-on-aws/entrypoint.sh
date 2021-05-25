@@ -62,7 +62,7 @@ function main {
               --job-definition 'default' \
               --retry-strategy 'attempts=__envAttempts__' \
               --timeout 'attemptDurationSeconds=__envTimeout__' \
-        &&  echo "[INFO] Job ${env_jobname} has been succesfully sent"
+        &&  echo "[INFO] Job ${env_jobname} has been successfully sent"
       else
         echo "[INFO] Job ${env_jobname} is already in queue, skipped sending it"
       fi
