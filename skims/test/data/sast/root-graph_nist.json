@@ -4416,8 +4416,31 @@
       },
       "metadata": {
         "c_sharp": {
-          "classes": {},
-          "package": ""
+          "classes": {
+            ".CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01": {
+              "fields": {},
+              "methods": {
+                ".Bad": {
+                  "class_name": ".CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01",
+                  "n_id": "52",
+                  "static": false
+                }
+              },
+              "n_id": "44"
+            },
+            "testcases.CWE89_SQL_Injection.CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01": {
+              "fields": {},
+              "methods": {
+                ".Bad": {
+                  "class_name": ".CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01",
+                  "n_id": "52",
+                  "static": false
+                }
+              },
+              "n_id": "44"
+            }
+          },
+          "package": "testcases.CWE89_SQL_Injection"
         },
         "java": {
           "classes": {},
