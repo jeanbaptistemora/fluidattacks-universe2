@@ -5,7 +5,7 @@ sidebar_label: Estimation
 slug: /about/faq/estimation
 ---
 
-### What kind of information does Fluid Attacks need in order to provide a quotation?
+### What information is needed in order to provide a quotation?
 
 To provide a proposal,
 we need to determine

@@ -5,7 +5,7 @@ sidebar_label: Requirements
 slug: /about/faq/requirements
 ---
 
-### What are the necessary inputs and requirements for Continuous Hacking?
+### What are the necessary inputs and requirements for the Squad plan?
 The necessary inputs
 and requirements are:
 
@@ -32,7 +32,7 @@ and kept in the integration branch
 of the repository referred to in Phase 1.
 This phase includes infrastructure hacking.
 
-### What are the technical conditions that I must meet for Continuous Hacking?
+### What technical conditions must I meet for the Squad plan?
 
 Access to `Git` and a monitored environment
 in the branch are required,
@@ -45,15 +45,15 @@ that requires manual interaction
 such as an `OTP` token.
 1. `VPN` Site to Site.
 
-### Why is it necessary for Continuous Hacking to have access to the source code stored in the repository?
-Continuous Hacking needs
+### In the Squad plan, why is access to the source code repository necessary?
+The Squad plan needs
 access to the source code
 because it is based on
 continuous attacks
 on the latest version available.
 
-### What type of hacking is included in Continuous Hacking?
-Continuous Hacking includes
+### What type of hacking is included in the Squad plan?
+The Squad plan includes
 source code analysis,
 application hacking
 (see question 5),

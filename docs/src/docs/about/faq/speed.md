@@ -5,18 +5,27 @@ sidebar_label: Speed
 slug: /about/faq/speed
 ---
 
-### When does Continuous Hacking begin?
-Continuous Hacking begins
-immediately after receiving
-the purchase order.
+### When does the Squad plan hacking begin?
+It begins immediately after
+receiving the purchase order.
 
-### Does Continuous Hacking use a series of automated tools or is it the result of a manual (by hand) process?
+### How is a project’s progress determined?
+A project’s progress
+and current state
+is determined
+using the following metrics: 
+
+- Source code coverage indicator.
+- Percentage of remediated (repaired)
+  security risk vulnerabilities.
+
+### Does the Squad plan use automated tools or is it a manual process?
 Automated tools,
 by themselves,
 are not capable of extracting
 sensitive business information,
 such as client or employee information.
-In our Continuous Hacking service,
+In our Squad plan service,
 we use a series of tools
 which are acquired and developed
 by us at `Fluid Attacks`,
@@ -40,8 +49,9 @@ additional vulnerabilities
 which may be an even greater security risk
 than the individual vulnerabilities alone.
 
-### If Continuous Hacking includes a manual review, how does Fluid Attacks ensure that development cycles are not slowed down?
-Continuous Hacking is first performed
+### How are development cycles not slowed down by manual reviews?
+The Squad plan hacking
+is first performed
 on the source code.
 This allows for hacking
 and development to occur simultaneously,
@@ -62,8 +72,8 @@ eligible for release and deployment,
 which improves the remediation (repair) time
 for detected vulnerabilities.
 
-### If Continuous Hacking is done manually, how can a big project move rapidly and expand as more active authors (developers) join the team?
-Standard Continuous Hacking
+### How does a big project with many developers move rapidly with the Squad plan's manual reviews?
+Standard Squad plan hacking
 covers `95%` of all business applications
 being developed,
 as the subscription is
@@ -71,7 +81,7 @@ based on the number of active developers in the project
 and this defines the amount of resources
 assigned to the project.
 
-### If Continuous Hacking is done manually, how does it move rapidly when a client has a big application portfolio that is constantly increasing?
+### How can the Squad plan's manual review keep up with a client's big and growing application portfolio?
 Based on our historical data,
 and thanks to our recruitment
 and training capabilities,

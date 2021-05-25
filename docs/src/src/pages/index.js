@@ -14,7 +14,7 @@ const features = [
         Here you can find some useful information about us
       </>
     ),
-    link: 'about'
+    link: 'about/faq'
   },
   {
     title: 'Machine',

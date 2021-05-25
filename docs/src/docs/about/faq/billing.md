@@ -5,7 +5,7 @@ sidebar_label: Billing
 slug: /about/faq/billing
 ---
 
-### What is an active author and how can I identify it?
+### What is an active author?
 An active author is a user
 with access to the `Git` repository
 who makes changes to the stored code
@@ -24,7 +24,7 @@ allocation of privileges,
 and all the necessary inputs
 to begin the review without setbacks.
 
-### Does the cost of Continuous Hacking vary according to the scope or development phases?
+### Does the cost of the Squad plan vary according to the scope or development phases?
 Yes.
 The service cost varies
 depending on the number of active authors
