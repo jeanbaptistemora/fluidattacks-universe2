@@ -1,6 +1,8 @@
 # Standard library
 from typing import (
     Dict,
+    List,
+    Optional,
 )
 
 # Local libraries
@@ -77,7 +79,7 @@ def _get_metadata_classes(
             qualified = namespace + "." + name
             classes[qualified] = graph_model.GraphShardMetadataJavaClass(
                 n_id=c_id,
-                fields={},
+                fields=_get_metadata_class_fields(graph, c_id),
                 methods=_get_metadata_class_methods(graph, c_id),
             )
 
@@ -102,6 +104,95 @@ def _get_metadata_classes(
     return classes
 
 
+def _get_assignment_value(
+    graph: graph_model.Graph, var_declarators: List[str]
+) -> Optional[str]:
+    # it can be a multiple assignment, only the last assignment has the value
+    for var_declarator in var_declarators or set():
+        match_declarator = g.match_ast(
+            graph,
+            var_declarator,
+            "identifier",
+            "equals_value_clause",
+        )
+        if equals := match_declarator["equals_value_clause"]:
+            match_equals = g.match_ast(
+                graph,
+                equals,
+                "=",
+                "__0__",
+            )
+            if id_id := match_equals["__0__"]:
+                return id_id
+    return None
+
+
+def _get_metadata_class_fields(
+    graph: graph_model.Graph,
+    n_id: str,
+) -> Dict[str, graph_model.GraphShardMetadataJavaClassField]:
+    methods: Dict[str, graph_model.GraphShardMetadataJavaClassField] = {}
+    class_body_id = g.match_ast_d(graph, n_id, "declaration_list")
+    if not class_body_id:
+        return methods
+    for field_id in (
+        g.match_ast_group(graph, class_body_id, "field_declaration")[
+            "field_declaration"
+        ]
+        or list()
+    ):
+        match_field = g.match_ast(
+            graph,
+            field_id,
+            "modifier",
+            "__0__",
+            "variable_declaration",
+        )
+        is_static = any(
+            g.match_ast(graph, modifier, "static")["static"]
+            for modifier in g.match_ast_group(graph, field_id, "modifier")[
+                "modifier"
+            ]
+            or list()
+        )
+
+        match_declaration = g.match_ast_group(
+            graph,
+            match_field["variable_declaration"],
+            "variable_declarator",
+            "__0__",
+        )
+        if not match_declaration["variable_declarator"]:
+            continue
+
+        var_type_id = match_declaration["__0__"]
+        assignment_value = _get_assignment_value(
+            graph, match_declaration["variable_declarator"]
+        )
+        for var_declarator in (
+            match_declaration["variable_declarator"] or set()
+        ):
+            match_declarator = g.match_ast(
+                graph,
+                var_declarator,
+                "identifier",
+            )
+            var_identifier = match_declarator["identifier"]
+
+            if assignment_value and (
+                var_type := graph.nodes[var_type_id].get("label_text")
+            ):
+                name = "." + graph.nodes[var_identifier]["label_text"]
+                methods[name] = graph_model.GraphShardMetadataJavaClassField(
+                    n_id=assignment_value,
+                    var=graph.nodes[var_identifier]["label_text"],
+                    var_type=var_type,
+                    static=is_static,
+                )
+
+    return methods
+
+
 def _get_metadata_class_methods(
     graph: graph_model.Graph,
     n_id: str,
@@ -124,7 +215,6 @@ def _get_metadata_class_methods(
             )
 
             if _identifiers := match_method["identifier"]:
-                # pylint: disable=unsubscriptable-object
                 name = "." + graph.nodes[_identifiers[0]]["label_text"]
                 is_static = any(
                     g.match_ast(graph, modifier, "static")["static"]
