@@ -1,7 +1,21 @@
+import type React from "react";
+import type { UseTranslationResponse } from "react-i18next";
+
 import type { IErrorInfoAttr } from "./uploadFile";
 
+import type { IDeleteVulnAttr } from "../DeleteVulnerability/types";
+import type {
+  IVulnDataTypeAttr,
+  IVulnRowAttr,
+} from "scenes/Dashboard/components/Vulnerabilities/types";
+import {
+  getNonSelectableVulnerabilitiesOnEdit,
+  getNonSelectableVulnerabilitiesOnReattack,
+  getNonSelectableVulnerabilitiesOnVerify,
+  getVulnerabilitiesIds,
+} from "scenes/Dashboard/components/Vulnerabilities/utils";
 import { Logger } from "utils/logger";
-import { msgError, msgErrorStick } from "utils/notifications";
+import { msgError, msgErrorStick, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 function formatError(errorName: string, errorValue: string): string {
@@ -49,4 +63,124 @@ const errorMessageHelper = (message: string): void => {
   }
 };
 
-export { errorMessageHelper };
+function setNonSelectable(
+  vulns: IVulnRowAttr[],
+  editing: boolean,
+  requestingReattack: boolean,
+  verifyingRequest: boolean
+): number[] | undefined {
+  if (editing) {
+    return getNonSelectableVulnerabilitiesOnEdit(vulns);
+  } else if (requestingReattack) {
+    return getNonSelectableVulnerabilitiesOnReattack(vulns);
+  } else if (verifyingRequest) {
+    return getNonSelectableVulnerabilitiesOnVerify(vulns);
+  }
+
+  return undefined;
+}
+
+const onDeleteVulnResultHelper = (
+  deleteVulnResult: IDeleteVulnAttr,
+  t: UseTranslationResponse["t"]
+): void => {
+  if (deleteVulnResult.deleteVulnerability.success) {
+    msgSuccess(
+      t("searchFindings.tabDescription.vulnDeleted"),
+      t("groupAlerts.titleSuccess")
+    );
+  } else {
+    msgError(t("deleteVulns.notSuccess"));
+  }
+};
+
+const onSelectOneVulnerabilityHelper = (
+  vulnerability: IVulnRowAttr,
+  isSelect: boolean,
+  selectedVulnerabilities: IVulnRowAttr[],
+  batchLimit: number,
+  onSelectVariousVulnerabilities: (
+    isSelect: boolean,
+    vulnerabilitiesSelected: IVulnRowAttr[]
+  ) => string[],
+  t: UseTranslationResponse["t"]
+): boolean => {
+  if (isSelect && selectedVulnerabilities.length === batchLimit) {
+    msgError(
+      t("searchFindings.tabDescription.vulnBatchLimit", {
+        count: batchLimit,
+      })
+    );
+
+    return false;
+  }
+  onSelectVariousVulnerabilities(isSelect, [vulnerability]);
+
+  return true;
+};
+
+const onSelectVariousVulnerabilitiesHelper = (
+  isSelect: boolean,
+  vulnerabilitiesSelected: IVulnRowAttr[],
+  selectedVulnerabilities: IVulnRowAttr[],
+  batchLimit: number,
+  setSelectedVulnerabilities: (
+    value: React.SetStateAction<IVulnRowAttr[]>
+  ) => void
+): string[] => {
+  if (isSelect) {
+    const vulnsToSet: IVulnRowAttr[] = Array.from(
+      new Set([...selectedVulnerabilities, ...vulnerabilitiesSelected])
+    ).slice(0, batchLimit);
+    setSelectedVulnerabilities(vulnsToSet);
+
+    return vulnsToSet.map((vuln: IVulnRowAttr): string => vuln.id);
+  }
+  const vulnerabilitiesIds: string[] = getVulnerabilitiesIds(
+    vulnerabilitiesSelected
+  );
+  setSelectedVulnerabilities(
+    Array.from(
+      new Set(
+        selectedVulnerabilities.filter(
+          (selectedVulnerability: IVulnDataTypeAttr): boolean =>
+            !vulnerabilitiesIds.includes(selectedVulnerability.id)
+        )
+      )
+    )
+  );
+
+  return selectedVulnerabilities.map((vuln: IVulnRowAttr): string => vuln.id);
+};
+
+const handleDeleteVulnerabilityHelper = (
+  vulnInfo: Record<string, string> | undefined,
+  setVulnerabilityId: (value: React.SetStateAction<string>) => void,
+  setDeleteVulnOpen: (value: React.SetStateAction<boolean>) => void
+): void => {
+  if (vulnInfo !== undefined) {
+    setVulnerabilityId(vulnInfo.id);
+    setDeleteVulnOpen(true);
+  }
+};
+
+const setColumnHelper = (
+  isEditing: boolean,
+  columnHelper: () => JSX.Element
+): JSX.Element | undefined => {
+  if (isEditing) {
+    return columnHelper();
+  }
+
+  return undefined;
+};
+
+export {
+  errorMessageHelper,
+  handleDeleteVulnerabilityHelper,
+  onDeleteVulnResultHelper,
+  onSelectOneVulnerabilityHelper,
+  onSelectVariousVulnerabilitiesHelper,
+  setColumnHelper,
+  setNonSelectable,
+};

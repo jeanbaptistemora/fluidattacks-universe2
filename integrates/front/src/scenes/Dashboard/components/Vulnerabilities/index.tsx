@@ -8,6 +8,14 @@ import { useTranslation } from "react-i18next";
 import { MemoryRouter, Route } from "react-router";
 
 import { AdditionalInfo } from "./AdditionalInfo";
+import {
+  handleDeleteVulnerabilityHelper,
+  onDeleteVulnResultHelper,
+  onSelectOneVulnerabilityHelper,
+  onSelectVariousVulnerabilitiesHelper,
+  setColumnHelper,
+  setNonSelectable,
+} from "./helpers";
 import { UpdateTreatmentModal } from "./UpdateDescription";
 import { UploadVulnerabilities } from "./uploadFile";
 
@@ -27,15 +35,10 @@ import { TooltipWrapper } from "components/TooltipWrapper";
 import { DeleteVulnerabilityModal } from "scenes/Dashboard/components/DeleteVulnerability/index";
 import type {
   IVulnComponentProps,
-  IVulnDataTypeAttr,
   IVulnRowAttr,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 import {
   formatVulnerabilities,
-  getNonSelectableVulnerabilitiesOnEdit,
-  getNonSelectableVulnerabilitiesOnReattack,
-  getNonSelectableVulnerabilitiesOnVerify,
-  getVulnerabilitiesIds,
   getVulnerabilitiesIndex,
 } from "scenes/Dashboard/components/Vulnerabilities/utils";
 import { vulnerabilityInfo } from "scenes/Dashboard/components/Vulnerabilities/vulnerabilityInfo";
@@ -43,7 +46,6 @@ import { Col100 } from "scenes/Dashboard/containers/ChartsGenericView/components
 import { RowCenter, TabsContainer } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
-import { msgError, msgSuccess } from "utils/notifications";
 
 export const VulnComponent: React.FC<IVulnComponentProps> = ({
   canDisplayAnalyst,
@@ -97,23 +99,17 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     setDeleteVulnOpen(false);
   }
   function onDeleteVulnResult(deleteVulnResult: IDeleteVulnAttr): void {
-    if (deleteVulnResult.deleteVulnerability.success) {
-      msgSuccess(
-        t("searchFindings.tabDescription.vulnDeleted"),
-        t("groupAlerts.titleSuccess")
-      );
-    } else {
-      msgError(t("deleteVulns.notSuccess"));
-    }
+    onDeleteVulnResultHelper(deleteVulnResult, t);
     setDeleteVulnOpen(false);
   }
   function handleDeleteVulnerability(
     vulnInfo: Record<string, string> | undefined
   ): void {
-    if (vulnInfo !== undefined) {
-      setVulnerabilityId(vulnInfo.id);
-      setDeleteVulnOpen(true);
-    }
+    handleDeleteVulnerabilityHelper(
+      vulnInfo,
+      setVulnerabilityId,
+      setDeleteVulnOpen
+    );
   }
   function openUpdateVulnModal(): void {
     setUpdateVulnOpen(true);
@@ -134,66 +130,27 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     isSelect: boolean,
     vulnerabilitiesSelected: IVulnRowAttr[]
   ): string[] {
-    if (isSelect) {
-      const vulnsToSet: IVulnRowAttr[] = Array.from(
-        new Set([...selectedVulnerabilities, ...vulnerabilitiesSelected])
-      ).slice(0, batchLimit);
-      setSelectedVulnerabilities(vulnsToSet);
-
-      return vulnsToSet.map((vuln: IVulnRowAttr): string => vuln.id);
-    }
-    const vulnerabilitiesIds: string[] = getVulnerabilitiesIds(
-      vulnerabilitiesSelected
+    return onSelectVariousVulnerabilitiesHelper(
+      isSelect,
+      vulnerabilitiesSelected,
+      selectedVulnerabilities,
+      batchLimit,
+      setSelectedVulnerabilities
     );
-    setSelectedVulnerabilities(
-      Array.from(
-        new Set(
-          selectedVulnerabilities.filter(
-            (selectedVulnerability: IVulnDataTypeAttr): boolean =>
-              !vulnerabilitiesIds.includes(selectedVulnerability.id)
-          )
-        )
-      )
-    );
-
-    return selectedVulnerabilities.map((vuln: IVulnRowAttr): string => vuln.id);
   }
 
   function onSelectOneVulnerability(
     vulnerability: IVulnRowAttr,
     isSelect: boolean
   ): boolean {
-    if (isSelect) {
-      if (selectedVulnerabilities.length === batchLimit) {
-        msgError(
-          t("searchFindings.tabDescription.vulnBatchLimit", {
-            count: batchLimit,
-          })
-        );
-
-        return false;
-      }
-    }
-    onSelectVariousVulnerabilities(isSelect, [vulnerability]);
-
-    return true;
-  }
-
-  function setNonSelectable(
-    vulns: IVulnRowAttr[],
-    editing: boolean,
-    requestingReattack: boolean,
-    verifyingRequest: boolean
-  ): number[] | undefined {
-    if (editing) {
-      return getNonSelectableVulnerabilitiesOnEdit(vulns);
-    } else if (requestingReattack) {
-      return getNonSelectableVulnerabilitiesOnReattack(vulns);
-    } else if (verifyingRequest) {
-      return getNonSelectableVulnerabilitiesOnVerify(vulns);
-    }
-
-    return undefined;
+    return onSelectOneVulnerabilityHelper(
+      vulnerability,
+      isSelect,
+      selectedVulnerabilities,
+      batchLimit,
+      onSelectVariousVulnerabilities,
+      t
+    );
   }
 
   const selectionMode: ISelectRowProps = {
@@ -241,42 +198,39 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     },
   ];
 
-  function setColumn(): JSX.Element | undefined {
-    if (isEditing) {
-      return (
-        <Col100>
-          {isFindingReleased &&
-          (canUpdateVulnsTreatment || canRequestZeroRiskVuln) ? (
-            <React.Fragment>
-              <RowCenter>
-                <TooltipWrapper
-                  id={t("searchFindings.tabDescription.editVulnTooltip.id")}
-                  message={t("searchFindings.tabDescription.editVulnTooltip")}
-                  placement={"top"}
+  function columnHelper(): JSX.Element {
+    return (
+      <Col100>
+        {isFindingReleased &&
+        (canUpdateVulnsTreatment || canRequestZeroRiskVuln) ? (
+          <React.Fragment>
+            <RowCenter>
+              <TooltipWrapper
+                id={t("searchFindings.tabDescription.editVulnTooltip.id")}
+                message={t("searchFindings.tabDescription.editVulnTooltip")}
+                placement={"top"}
+              >
+                <Button
+                  disabled={selectedVulnerabilities.length === 0}
+                  onClick={openUpdateVulnModal}
                 >
-                  <Button
-                    disabled={selectedVulnerabilities.length === 0}
-                    onClick={openUpdateVulnModal}
-                  >
-                    <FluidIcon icon={"edit"} />
-                    {t("searchFindings.tabDescription.editVuln")}
-                  </Button>
-                </TooltipWrapper>
-              </RowCenter>
-              <br />
-            </React.Fragment>
-          ) : undefined}
-          <Can do={"api_mutations_upload_file_mutate"}>
-            <UploadVulnerabilities
-              findingId={findingId}
-              groupName={groupName}
-            />
-          </Can>
-        </Col100>
-      );
-    }
+                  <FluidIcon icon={"edit"} />
+                  {t("searchFindings.tabDescription.editVuln")}
+                </Button>
+              </TooltipWrapper>
+            </RowCenter>
+            <br />
+          </React.Fragment>
+        ) : undefined}
+        <Can do={"api_mutations_upload_file_mutate"}>
+          <UploadVulnerabilities findingId={findingId} groupName={groupName} />
+        </Can>
+      </Col100>
+    );
+  }
 
-    return undefined;
+  function setColumn(): JSX.Element | undefined {
+    return setColumnHelper(isEditing, columnHelper);
   }
 
   return (
