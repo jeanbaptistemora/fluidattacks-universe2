@@ -4,6 +4,10 @@ import os
 import sys
 
 
+def remove_prefix(text: str, prefix: str) -> str:
+    return text[text.startswith(prefix) and len(prefix) :]
+
+
 def main():
     root_path = sys.argv[1]
     config_path = sys.argv[2]
@@ -13,14 +17,17 @@ def main():
         for module in os.listdir(root_path)
         if not module.endswith("__init__.py")
         if not module.endswith("py.typed")
+        if not module.endswith(".cfg")
+        if not module.endswith("__pycache__")
     )
 
     config = configparser.ConfigParser()
     with open(config_path) as config_handle:
         config.read_string(config_handle.read())
 
+    base_module = config["importlinter"]["root_package"].split(".")[-1]
     layers = {
-        layer.strip()
+        remove_prefix(layer.strip(), f"{base_module}.")
         for layer in config["importlinter:contract:dag"]["layers"].splitlines()
         if layer
     }
