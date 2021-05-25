@@ -425,6 +425,16 @@ const MenuMobile: React.FC = (): JSX.Element => (
                     {"People"}
                   </Link>
                 </InnerListItem>
+                <InnerListItem>
+                  <Link
+                    className={
+                      "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
+                    }
+                    to={"https://docs.fluidattacks.com/about/security/"}
+                  >
+                    {"Security"}
+                  </Link>
+                </InnerListItem>
               </InnerContentList>
             </InnerListContainer>
           </ListItem>

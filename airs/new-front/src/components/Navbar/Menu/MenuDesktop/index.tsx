@@ -279,6 +279,14 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 {"People"}
               </Link>
             </li>
+            <li className={"mv1"}>
+              <Link
+                className={"menulink white roboto no-underline nowrap"}
+                to={"https://docs.fluidattacks.com/about/security/"}
+              >
+                {"Security"}
+              </Link>
+            </li>
           </MenuDesktopSectionList>
         </MenuSectionContainer>
       </HalfWidthContainer>
