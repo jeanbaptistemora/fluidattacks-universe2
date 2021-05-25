@@ -600,8 +600,11 @@ module.exports = {
       items: [
         'types/f009',
         'types/f011',
+        'types/f017',
         'types/f019',
         'types/f020',
+        'types/f022',
+        'types/f025',
         'types/f026',
         'types/f028',
         'types/f030',
@@ -723,7 +726,7 @@ module.exports = {
         'types/f061',
         'types/f064',
         'types/f065',
-        'types/f068',
+        'types/f067',
         'types/f070',
         'types/f072',
         'types/f073',
@@ -833,25 +836,6 @@ module.exports = {
         'types/f044',
       ],
     },
-    'types/f017',
-    'types/f022',
-    'types/f025',
-    {
-      type: 'category',
-      label: 'Insecure service configuration',
-      items: [
-        'types/055/description',
-        {
-          type: 'category',
-          label: 'Details',
-          items: [
-            'types/055/details/aws-ebs-encryption',
-            'types/055/details/aws-s3-server-side-encryption',
-          ],
-        },
-      ],
-    },
-    'types/f067',
     'types/f121',
   ],
   Framework: {
