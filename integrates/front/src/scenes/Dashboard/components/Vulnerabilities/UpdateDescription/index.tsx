@@ -2,9 +2,8 @@ import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import type { ExecutionResult, GraphQLError } from "graphql";
+import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import { track } from "mixpanel-browser";
 import React, { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { Dispatch } from "redux";
@@ -13,6 +12,20 @@ import { formValueSelector, isPristine, submit } from "redux-form";
 import { AcceptanceDateField } from "./AcceptanceDateField";
 import { AcceptationUserField } from "./AcceptationUserField";
 import { ExternalBtsField } from "./ExternalBtsField";
+import {
+  dataTreatmentTrackHelper,
+  deleteTagVulnHelper,
+  getAreAllMutationValid,
+  getResults,
+  handleRequestZeroRiskError,
+  handleSubmitHelper,
+  handleUpdateTreatmentVulnError,
+  hasNewVulnsAlert,
+  isTheFormPristine,
+  requestZeroRiskHelper,
+  treatmentChangeAlert,
+  validMutationsHelper,
+} from "./helpers";
 import { JustificationField } from "./JustificationField";
 import { SeverityField } from "./SeverityField";
 import { TagField } from "./TagField";
@@ -52,18 +65,12 @@ import {
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
-import {
-  Alert,
-  ButtonToolbar,
-  Col100,
-  Col50,
-  Row,
-} from "styles/styledComponents";
+import { ButtonToolbar, Col100, Col50, Row } from "styles/styledComponents";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
-import { msgError, msgSuccess } from "utils/notifications";
+import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
@@ -122,11 +129,11 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       )
   );
 
-  const isTreatmentPristine: boolean =
-    isTreatmentValuesPristine &&
-    (_.isEmpty(formValues.justification) ||
-      (groupLastHistoricTreatment(vulnerabilities).justification as string) ===
-        formValues.justification);
+  const isTreatmentPristine = isTheFormPristine(
+    isTreatmentValuesPristine,
+    formValues,
+    vulnerabilities
+  );
 
   const dispatch: Dispatch = useDispatch();
   const [
@@ -161,14 +168,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     IDeleteTagAttr
   >(DELETE_TAGS_MUTATION, {
     onCompleted: (result: IDeleteTagResultAttr): void => {
-      if (!_.isUndefined(result)) {
-        if (result.deleteTags.success) {
-          msgSuccess(
-            translate.t("searchFindings.tabDescription.updateVulnerabilities"),
-            translate.t("groupAlerts.titleSuccess")
-          );
-        }
-      }
+      deleteTagVulnHelper(result);
     },
     onError: (updateError: ApolloError): void => {
       updateError.graphQLErrors.forEach((error: GraphQLError): void => {
@@ -189,138 +189,33 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     ],
   });
 
-  const handleUpdateTreatmentVuln: (
-    dataTreatment: IUpdateTreatmentVulnAttr
-  ) => Promise<void> = async (
+  const handleUpdateTreatmentVuln = async (
     dataTreatment: IUpdateTreatmentVulnAttr
   ): Promise<void> => {
     if (vulnerabilities.length === 0) {
       msgError(translate.t("searchFindings.tabResources.noSelection"));
     } else {
-      if (dataTreatment.tag !== undefined) {
-        track("AddVulnerabilityTag");
-      }
-      if (dataTreatment.severity !== undefined) {
-        track("AddVulnerabilityLevel");
-      }
+      dataTreatmentTrackHelper(dataTreatment);
       try {
         setRunning(true);
-        const results: ExecutionResult<IUpdateVulnDescriptionResultAttr>[] = await Promise.all(
-          vulnerabilities.map(
-            async (
-              vuln: IVulnDataTypeAttr
-            ): Promise<ExecutionResult<IUpdateVulnDescriptionResultAttr>> =>
-              updateVuln({
-                variables: {
-                  acceptanceDate: dataTreatment.acceptanceDate,
-                  externalBts: dataTreatment.externalBts,
-                  findingId,
-                  isVulnInfoChanged: !isEditPristine,
-                  isVulnTreatmentChanged: !isTreatmentPristine,
-                  justification: dataTreatment.justification,
-                  severity: _.isEmpty(dataTreatment.severity)
-                    ? -1
-                    : Number(dataTreatment.severity),
-                  tag: dataTreatment.tag,
-                  treatment: isTreatmentPristine
-                    ? "IN_PROGRESS"
-                    : dataTreatment.treatment,
-                  treatmentManager:
-                    _.isEmpty(dataTreatment.treatmentManager) ||
-                    dataTreatment.treatment !== "IN_PROGRESS"
-                      ? undefined
-                      : dataTreatment.treatmentManager,
-                  vulnerabilityId: vuln.id,
-                },
-              })
-          )
+        const results = await getResults(
+          updateVuln,
+          vulnerabilities,
+          dataTreatment,
+          findingId,
+          isEditPristine,
+          isTreatmentPristine
         );
 
-        const areAllMutationValid: boolean[] = results.map(
-          (
-            result: ExecutionResult<IUpdateVulnDescriptionResultAttr>
-          ): boolean => {
-            if (!_.isUndefined(result.data) && !_.isNull(result.data)) {
-              const updateInfoSuccess: boolean = _.isUndefined(
-                result.data.updateTreatmentVuln
-              )
-                ? true
-                : result.data.updateTreatmentVuln.success;
-              const updateTreatmentSuccess: boolean = _.isUndefined(
-                result.data.updateVulnsTreatment
-              )
-                ? true
-                : result.data.updateVulnsTreatment.success;
+        const areAllMutationValid = getAreAllMutationValid(results);
 
-              return updateInfoSuccess && updateTreatmentSuccess;
-            }
-
-            return false;
-          }
+        validMutationsHelper(
+          handleCloseModal,
+          areAllMutationValid,
+          vulnerabilities
         );
-
-        if (areAllMutationValid.every(Boolean)) {
-          track("UpdatedTreatmentVulnerabilities", {
-            batchSize: vulnerabilities.length,
-          });
-          msgSuccess(
-            translate.t("searchFindings.tabDescription.updateVulnerabilities"),
-            translate.t("groupAlerts.titleSuccess")
-          );
-          handleCloseModal();
-        }
       } catch (updateError: unknown) {
-        if (_.includes(String(updateError), "Invalid treatment manager")) {
-          msgError(translate.t("groupAlerts.invalidTreatmentMgr"));
-        } else if (
-          _.includes(
-            String(updateError),
-            translate.t(
-              "searchFindings.tabVuln.alerts.maximumNumberOfAcceptations"
-            )
-          )
-        ) {
-          msgError(
-            translate.t(
-              "searchFindings.tabVuln.alerts.maximumNumberOfAcceptations"
-            )
-          );
-        } else if (
-          _.includes(
-            String(updateError),
-            translate.t(
-              "groupAlerts.organizationPolicies.exceedsAcceptanceDate"
-            )
-          )
-        ) {
-          msgError(
-            translate.t(
-              "groupAlerts.organizationPolicies.exceedsAcceptanceDate"
-            )
-          );
-        } else if (
-          _.includes(
-            String(updateError),
-            translate.t("searchFindings.tabVuln.exceptions.severityOutOfRange")
-          )
-        ) {
-          msgError(
-            translate.t("groupAlerts.organizationPolicies.severityOutOfRange")
-          );
-        } else if (
-          _.includes(
-            String(updateError),
-            translate.t("searchFindings.tabVuln.exceptions.sameValues")
-          )
-        ) {
-          msgError(translate.t("searchFindings.tabVuln.exceptions.sameValues"));
-        } else {
-          msgError(translate.t("groupAlerts.errorTextsad"));
-          Logger.warning(
-            "An error occurred updating vuln treatment",
-            updateError
-          );
-        }
+        handleUpdateTreatmentVulnError(updateError);
       } finally {
         setRunning(false);
       }
@@ -351,30 +246,14 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       onCompleted: (
         requestZeroRiskVulnResult: IRequestZeroRiskVulnResultAttr
       ): void => {
-        if (requestZeroRiskVulnResult.requestZeroRiskVuln.success) {
-          msgSuccess(
-            translate.t("groupAlerts.requestedZeroRiskSuccess"),
-            translate.t("groupAlerts.updatedTitle")
-          );
-          handleClearSelected();
-          handleCloseModal();
-        }
+        requestZeroRiskHelper(
+          handleClearSelected,
+          handleCloseModal,
+          requestZeroRiskVulnResult
+        );
       },
       onError: ({ graphQLErrors }: ApolloError): void => {
-        graphQLErrors.forEach((error: GraphQLError): void => {
-          if (
-            error.message ===
-            "Exception - Zero risk vulnerability is already requested"
-          ) {
-            msgError(translate.t("groupAlerts.zeroRiskAlreadyRequested"));
-          } else {
-            msgError(translate.t("groupAlerts.errorTextsad"));
-            Logger.warning(
-              "An error occurred requesting zero risk vuln",
-              error
-            );
-          }
-        });
+        handleRequestZeroRiskError(graphQLErrors);
       },
       refetchQueries: [
         {
@@ -431,29 +310,16 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                 values.treatment === "ACCEPTED_UNDEFINED" &&
                 lastTreatment.treatment !== "ACCEPTED_UNDEFINED";
 
-              if (changedToRequestZeroRisk) {
-                // Exception: FP(void operator is necessary)
-                // eslint-disable-next-line
-                void requestZeroRisk({ //NOSONAR
-                  variables: {
-                    findingId,
-                    justification: values.justification,
-                    vulnerabilities: vulnerabilities.map(
-                      (vuln: IVulnDataTypeAttr): string => vuln.id
-                    ),
-                  },
-                });
-              } else if (changedToUndefined) {
-                confirm((): void => {
-                  // Exception: FP(void operator is necessary)
-                  // eslint-disable-next-line
-                  void handleUpdateTreatmentVuln(values); //NOSONAR
-                });
-              } else {
-                // Exception: FP(void operator is necessary)
-                // eslint-disable-next-line
-                void handleUpdateTreatmentVuln(values); //NOSONAR
-              }
+              handleSubmitHelper(
+                handleUpdateTreatmentVuln,
+                requestZeroRisk,
+                confirm,
+                values,
+                findingId,
+                vulnerabilities,
+                changedToRequestZeroRisk,
+                changedToUndefined
+              );
             }
 
             return (
@@ -552,27 +418,14 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                     </Col50>
                   </Row>
                 </GenericForm>
-                {isTreatmentPristine ? undefined : (
-                  <Alert>
-                    {"*"}&nbsp;
-                    {translate.t(
-                      "searchFindings.tabVuln.alerts.treatmentChange"
-                    )}
-                  </Alert>
-                )}
-                {hasNewVulns &&
-                !(
-                  isAcceptedSelected ||
-                  isAcceptedUndefinedSelected ||
+                {treatmentChangeAlert(isTreatmentPristine)}
+                {hasNewVulnsAlert(
+                  vulnerabilities,
+                  hasNewVulns,
+                  isAcceptedSelected,
+                  isAcceptedUndefinedSelected,
                   isInProgressSelected
-                ) ? (
-                  <Alert>
-                    {"*"}&nbsp;
-                    {translate.t("searchFindings.tabVuln.alerts.hasNewVulns", {
-                      count: vulnerabilities.length,
-                    })}
-                  </Alert>
-                ) : undefined}
+                )}
                 <hr />
                 <Row>
                   <Col100>
