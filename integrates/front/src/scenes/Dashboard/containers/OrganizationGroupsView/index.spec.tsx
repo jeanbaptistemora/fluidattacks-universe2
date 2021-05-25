@@ -12,7 +12,7 @@ import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router";
 import waitForExpect from "wait-for-expect";
 
-import { AddProjectModal } from "scenes/Dashboard/components/AddGroupModal";
+import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
 import {
   CREATE_PROJECT_MUTATION,
   PROJECTS_NAME_QUERY,
@@ -389,7 +389,7 @@ describe("Organization groups view", (): void => {
 
           expect(
             wrapper
-              .find(AddProjectModal)
+              .find(AddGroupModal)
               .find({ name: "name" })
               .find("input")
               .prop("value")
@@ -398,13 +398,13 @@ describe("Organization groups view", (): void => {
       }
     );
 
-    const form: ReactWrapper = wrapper.find(AddProjectModal).find("Formik");
+    const form: ReactWrapper = wrapper.find(AddGroupModal).find("Formik");
     const descriptionField: ReactWrapper = wrapper
-      .find(AddProjectModal)
+      .find(AddGroupModal)
       .find({ name: "description" })
       .find("input");
     const typeField: ReactWrapper = wrapper
-      .find(AddProjectModal)
+      .find(AddGroupModal)
       .find({ name: "type" })
       .find("select");
 

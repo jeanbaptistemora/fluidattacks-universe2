@@ -18,12 +18,12 @@ const handleCreateError = ({ graphQLErrors }: ApolloError): void => {
         break;
       default:
         msgError(translate.t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred adding a project", error);
+        Logger.warning("An error occurred adding a group", error);
     }
   });
 };
 
-function handleProjectNameErrorHelper(
+function handleGroupNameErrorHelper(
   graphQLErrors: readonly GraphQLError[]
 ): void {
   graphQLErrors.forEach((error: GraphQLError): void => {
@@ -99,6 +99,6 @@ const getSwitchButtonHandlers = (
 
 export {
   handleCreateError,
-  handleProjectNameErrorHelper,
+  handleGroupNameErrorHelper,
   getSwitchButtonHandlers,
 };

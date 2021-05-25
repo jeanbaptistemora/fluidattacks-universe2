@@ -5,13 +5,13 @@ import { mount } from "enzyme";
 import React from "react";
 import { Provider } from "react-redux";
 
-import { AddProjectModal } from "scenes/Dashboard/components/AddGroupModal";
+import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
 import { PROJECTS_NAME_QUERY } from "scenes/Dashboard/components/AddGroupModal/queries";
-import type { IProjectNameProps } from "scenes/Dashboard/components/AddGroupModal/types";
+import type { IGroupNameProps } from "scenes/Dashboard/components/AddGroupModal/types";
 import store from "store";
 
-describe("AddProjectModal component", (): void => {
-  const projectName: IProjectNameProps = { internalNames: { name: "" } };
+describe("AddGroupModal component", (): void => {
+  const groupName: IGroupNameProps = { internalNames: { name: "" } };
 
   const mocksMutation: MockedResponse[] = [
     {
@@ -19,20 +19,20 @@ describe("AddProjectModal component", (): void => {
         query: PROJECTS_NAME_QUERY,
       },
       result: {
-        data: { projectName },
+        data: { groupName },
       },
     },
   ];
 
   const handleOnClose: jest.Mock = jest.fn();
 
-  it("should render add project modal", (): void => {
+  it("should render add group modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider addTypename={false} mocks={mocksMutation}>
-          <AddProjectModal
+          <AddGroupModal
             isOpen={true}
             onClose={handleOnClose}
             organization={"okada"}
@@ -58,7 +58,7 @@ describe("AddProjectModal component", (): void => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider addTypename={false} mocks={mocksMutation}>
-          <AddProjectModal
+          <AddGroupModal
             isOpen={true}
             onClose={handleOnClose}
             organization={"okada"}
@@ -71,7 +71,7 @@ describe("AddProjectModal component", (): void => {
       .find({ name: "organization" })
       .find("input");
 
-    const projectNameField: ReactWrapper = wrapper
+    const groupNameField: ReactWrapper = wrapper
       .find({ name: "name" })
       .find("input");
 
@@ -93,7 +93,7 @@ describe("AddProjectModal component", (): void => {
     const SWITCH_BUTTON_LENGTH: number = 4;
 
     expect(organizationField).toHaveLength(1);
-    expect(projectNameField).toHaveLength(1);
+    expect(groupNameField).toHaveLength(1);
     expect(descriptionField).toHaveLength(1);
     expect(typeField).toHaveLength(1);
     expect(switchButtons).toHaveLength(SWITCH_BUTTON_LENGTH);
@@ -106,7 +106,7 @@ describe("AddProjectModal component", (): void => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider addTypename={false} mocks={mocksMutation}>
-          <AddProjectModal
+          <AddGroupModal
             isOpen={true}
             onClose={handleOnClose}
             organization={"okada"}
@@ -130,7 +130,7 @@ describe("AddProjectModal component", (): void => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider addTypename={false} mocks={mocksMutation}>
-          <AddProjectModal
+          <AddGroupModal
             isOpen={true}
             onClose={handleOnClose}
             organization={"okada"}

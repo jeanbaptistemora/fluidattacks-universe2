@@ -1,11 +1,11 @@
-interface IAddProjectModalProps {
+interface IAddGroupModalProps {
   isOpen: boolean;
   organization: string;
   onClose: () => void;
 }
 
-interface IProjectNameProps {
+interface IGroupNameProps {
   internalNames: { name: string };
 }
 
-export { IAddProjectModalProps, IProjectNameProps };
+export { IAddGroupModalProps, IGroupNameProps };

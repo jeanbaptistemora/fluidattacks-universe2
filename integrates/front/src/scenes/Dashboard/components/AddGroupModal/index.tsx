@@ -9,7 +9,7 @@ import type { ConfigurableValidator } from "revalidate";
 import {
   getSwitchButtonHandlers,
   handleCreateError,
-  handleProjectNameErrorHelper,
+  handleGroupNameErrorHelper,
 } from "./helpers";
 
 import { Button } from "components/Button";
@@ -21,8 +21,8 @@ import {
   PROJECTS_NAME_QUERY,
 } from "scenes/Dashboard/components/AddGroupModal/queries";
 import type {
-  IAddProjectModalProps,
-  IProjectNameProps,
+  IAddGroupModalProps,
+  IGroupNameProps,
 } from "scenes/Dashboard/components/AddGroupModal/types";
 import {
   ButtonToolbar,
@@ -44,30 +44,30 @@ import {
 } from "utils/validations";
 
 /*
- * Business rules to create a project:
+ * Business rules to create a group:
  *   - Integrates must enabled, because we are using Integrates right now, right?
  *   - Drills <--needs-- Integrates
  *   - Forces <--needs-- Drills
  *
- * Business rules after creating the project:
- *   - If Integrates is turned off the project will be immediately deleted
+ * Business rules after creating the group:
+ *   - If Integrates is turned off, the group will be immediately deleted
  */
 
 const MAX_DESCRIPTION_LENGTH: number = 200;
-const MAX_PROJECT_NAME_LENGTH: number = 20;
+const MAX_GROUP_NAME_LENGTH: number = 20;
 const MAX_ORGANIZATION_LENGTH: number = 50;
 
 const maxDescriptionLength: ConfigurableValidator = maxLength(
   MAX_DESCRIPTION_LENGTH
 );
-const maxProjectNameLength: ConfigurableValidator = maxLength(
-  MAX_PROJECT_NAME_LENGTH
+const maxGroupNameLength: ConfigurableValidator = maxLength(
+  MAX_GROUP_NAME_LENGTH
 );
 const maxOrganizationLength: ConfigurableValidator = maxLength(
   MAX_ORGANIZATION_LENGTH
 );
-const AddProjectModal: React.FC<IAddProjectModalProps> = (
-  props: IAddProjectModalProps
+const AddGroupModal: React.FC<IAddGroupModalProps> = (
+  props: IAddGroupModalProps
 ): JSX.Element => {
   const { onClose, organization } = props;
 
@@ -123,17 +123,17 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
     [createProject]
   );
 
-  function handleProjectNameError({ graphQLErrors }: ApolloError): void {
+  function handleGroupNameError({ graphQLErrors }: ApolloError): void {
     onClose();
-    handleProjectNameErrorHelper(graphQLErrors);
+    handleGroupNameErrorHelper(graphQLErrors);
   }
 
-  const { data } = useQuery<IProjectNameProps>(PROJECTS_NAME_QUERY, {
+  const { data } = useQuery<IGroupNameProps>(PROJECTS_NAME_QUERY, {
     fetchPolicy: "no-cache",
-    onError: handleProjectNameError,
+    onError: handleGroupNameError,
   });
 
-  const projectName: string =
+  const groupName: string =
     _.isUndefined(data) || _.isEmpty(data) ? "" : data.internalNames.name;
 
   return (
@@ -149,7 +149,7 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
             drills: true,
             forces: true,
             language: "EN",
-            name: projectName.toUpperCase(),
+            name: groupName.toUpperCase(),
             organization: organization.toUpperCase(),
             skims: true,
             type: "CONTINUOUS",
@@ -227,7 +227,7 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
                         type={"text"}
                         validate={composeValidators([
                           alphaNumeric,
-                          maxProjectNameLength,
+                          maxGroupNameLength,
                           required,
                           validTextField,
                         ])}
@@ -489,4 +489,4 @@ const AddProjectModal: React.FC<IAddProjectModalProps> = (
   );
 };
 
-export { AddProjectModal };
+export { AddGroupModal };

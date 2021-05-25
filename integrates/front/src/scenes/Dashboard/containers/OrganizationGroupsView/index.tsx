@@ -12,7 +12,7 @@ import { statusFormatter } from "components/DataTableNext/formatters";
 import { DataTableNext } from "components/DataTableNext/index";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
-import { AddProjectModal } from "scenes/Dashboard/components/AddGroupModal";
+import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
 import style from "scenes/Dashboard/containers/OrganizationGroupsView/index.css";
 import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
 import type {
@@ -189,7 +189,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
               </Row>
             </Col100>
             {isProjectModalOpen ? (
-              <AddProjectModal
+              <AddGroupModal
                 isOpen={true}
                 onClose={closeNewProjectModal}
                 organization={organizationName}
