@@ -157,7 +157,7 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (
                         href={downloadPngUrl.toString()}
                       >
                         {/* eslint-disable-next-line react/forbid-component-props*/}
-                        <Button className={"pv3"}>
+                        <Button className={"pv3 h-100"}>
                           <FontAwesomeIcon icon={faDownload} />
                           {translate.t("analytics.sections.extras.download")}
                         </Button>

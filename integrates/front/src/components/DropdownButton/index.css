@@ -76,6 +76,7 @@
   color: #333;
   margin-left: -17px;
   margin-top: 17px;
+  width: 101%;
 }
 
 :local .dropdownButton:hover :local .itemsContainer {
