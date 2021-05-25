@@ -738,3 +738,46 @@ async def do_upload_vulnerabilities(
         raise RetryAndFinallyReturn(success)
 
     return success
+
+
+@SHIELD
+async def do_verify_request_vuln(
+    *,
+    closed_vulnerabilities: Tuple[str, ...],
+    finding_id: str,
+    justification: str,
+    open_vulnerabilities: Tuple[str, ...],
+) -> bool:
+    result = await _execute(
+        query="""
+            mutation SkimsDoVerifyRequestVuln(
+                $finding_id: String!
+                $justification: String!
+                $open_vulnerabilities: [String]!
+                $closed_vulnerabilities: [String]!
+            ) {
+                verifyRequestVuln(
+                    closedVulns: $closed_vulnerabilities
+                    findingId: $finding_id
+                    justification: $justification
+                    openVulns: $open_vulnerabilities
+                ) {
+                    success
+                }
+            }
+        """,
+        operation="SkimsDoVerifyRequestVuln",
+        variables=dict(
+            closed_vulnerabilities=closed_vulnerabilities,
+            finding_id=finding_id,
+            justification=justification,
+            open_vulnerabilities=open_vulnerabilities,
+        ),
+    )
+
+    success: bool = result["data"]["verifyRequestVuln"]["success"]
+
+    if not success:
+        raise RetryAndFinallyReturn(success)
+
+    return success
