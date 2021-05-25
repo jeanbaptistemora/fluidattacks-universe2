@@ -34,10 +34,18 @@ of the service-level agreements:
   for the corresponding use case,
 1. Remote access with no human intervention
   (no captcha, OTP, etc.),
-1. On average,
-  each author makes
-  **400** manual changes
-  per week.
+1. The group potentially affected
+  by a false negative,
+  had a Health Check performed
+  to 100% of the code written
+  prior to the start
+  of the service,
+1. Since the start of the service
+  until the moment of the report
+  of the potential false negative,
+  each author made
+  an average of **400**
+  weekly manual changes.
 
 ### Details
 
