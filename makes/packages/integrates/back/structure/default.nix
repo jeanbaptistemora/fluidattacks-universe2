@@ -21,7 +21,7 @@ let
 in
 makeDerivation {
   arguments = {
-    envIntegratesBackModules = path "/integrates/back/packages/modules";
+    envIntegratesBackSrc = path "/integrates/back/src";
   };
   builder = path "/makes/packages/integrates/back/structure/builder.sh";
   name = "integrates-back-structure";

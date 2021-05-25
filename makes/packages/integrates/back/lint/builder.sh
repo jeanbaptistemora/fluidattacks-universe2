@@ -8,8 +8,8 @@ function main {
   &&  lint_python_package "${envIntegrates}/back/tests" || true \
   &&  lint_python_imports \
         "${envIntegratesImportsConfig}" \
-        "${envIntegrates}/back/packages/modules" \
-  &&  for module in "${envIntegrates}/back/packages/modules"/*
+        "${envIntegrates}/back/src" \
+  &&  for module in "${envIntegrates}/back/src"/*
       do
             if test -d "${module}"
             then

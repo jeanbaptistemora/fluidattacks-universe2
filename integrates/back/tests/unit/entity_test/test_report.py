@@ -57,7 +57,7 @@ async def test_finding_report():
 
 def test_pdf_paths():
     # secure_pdf.py paths
-    base = f"{STARTDIR}/integrates/back/packages/modules/reports"
+    base = f"{STARTDIR}/integrates/back/src/reports"
     secure_pdf_paths = [
         base,
         f"{base}/results/results_pdf/",
@@ -69,7 +69,7 @@ def test_pdf_paths():
         assert os.path.exists(path), f"path: {path} is not valid"
 
     # pdf.py paths
-    path = f"{STARTDIR}/integrates/back/packages/modules/reports"
+    path = f"{STARTDIR}/integrates/back/src/reports"
     pdf_paths = [
         path,
         f"{path}/resources/fonts",

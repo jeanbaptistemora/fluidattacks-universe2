@@ -275,7 +275,7 @@ class CreatorPDF:
 
     def __init__(self, lang: str, doctype: str, tempdir: str) -> None:
         """Class constructor."""
-        self.path = f"{STARTDIR}/integrates/back/packages/modules/reports"
+        self.path = f"{STARTDIR}/integrates/back/src/reports"
         self.tpl_img_path = tempdir
 
         self.doctype = doctype

@@ -15,5 +15,5 @@
 /app
 /build
 /deploy/permissions_matrix/**/*.html
-/modules/reports/tpls/*.tpl
+/src/reports/tpls/*.tpl
 expoClient.apk

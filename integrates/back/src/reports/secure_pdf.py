@@ -39,7 +39,7 @@ class SecurePDF:
 
     def __init__(self, passphrase: str):
         """Class constructor."""
-        self.base = f"{STARTDIR}/integrates/back/packages/modules/reports"
+        self.base = f"{STARTDIR}/integrates/back/src/reports"
         self.footer_tpl = os.path.join(
             self.base, "resources/themes/overlay_footer.pdf"
         )

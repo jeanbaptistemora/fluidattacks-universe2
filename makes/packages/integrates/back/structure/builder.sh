@@ -1,8 +1,8 @@
 # shellcheck shell=bash
 
 function main {
-      copy "${envIntegratesBackModules}" "${PWD}/modules" \
-  &&  ls -1 "${envIntegratesBackModules}" > list \
+      copy "${envIntegratesBackSrc}" "${PWD}/src" \
+  &&  ls -1 "${envIntegratesBackSrc}" > list \
   &&  mapfile -t pkgs < list \
   &&  echo "[INFO] Packages: ${pkgs[*]}" \
   &&  base_args=(
@@ -13,7 +13,7 @@ function main {
         --noshow
         --reverse
       ) \
-  &&  pushd modules \
+  &&  pushd src \
     &&  find . -wholename '*.py' \
           | sed -E 's|/__init__||g' \
           | sed -E 's|.py||g' \

@@ -61,7 +61,7 @@ in
 makeDerivation {
   arguments = {
     envNodeRequirements = nodeRequirements;
-    envIntegratesApiSchema = path "/integrates/back/packages/modules/api/schema";
+    envIntegratesApiSchema = path "/integrates/back/src/api/schema";
   };
   builder = path "/makes/packages/integrates/back/schema/lint/builder.sh";
   name = "integrates-back-schema-lint";
