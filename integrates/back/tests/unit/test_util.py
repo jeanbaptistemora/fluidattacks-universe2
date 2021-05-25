@@ -14,7 +14,7 @@ from typing import (
 
 import pytz
 
-from back.app.utils import create_user
+from api.mutations.sign_in import log_user_in
 from back.tests.unit.utils import (
     create_dummy_session,
     create_dummy_simple_session,
@@ -347,6 +347,6 @@ async def test_create_user():
     assert user_info["last_login"] < now
 
     time.sleep(1)
-    await create_user({"email": email})
+    await log_user_in({"email": email})
     user_info = await get_user_attrs(email, ["last_login"])
     assert user_info["last_login"] > now

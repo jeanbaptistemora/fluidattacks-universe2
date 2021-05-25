@@ -178,7 +178,7 @@ in
 makeDerivation {
   arguments = {
     envChartsSrc = path "/integrates/charts";
-    envGraphsSrc = path "/integrates/back/app/templates/static/graphics";
+    envGraphsSrc = path "/integrates/back/packages/modules/app/templates/static/graphics";
   };
   builder = path "/makes/packages/integrates/charts/lint/builder.sh";
   name = "integrates-charts-lint";

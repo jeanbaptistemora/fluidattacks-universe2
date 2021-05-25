@@ -11,7 +11,7 @@ makeDerivation {
       sha256 = "Wqfm34pE2NDMu1JMwBAR/1jcZZlVBfxRKGp/YPNlocU=";
     };
     envSetupIntegratesFrontDevRuntime = packages.integrates.front.config.dev-runtime;
-    envIntegratesBackAppTemplates = path "/integrates/back/app/templates/static";
+    envIntegratesBackAppTemplates = path "/integrates/back/packages/modules/app/templates/static";
     envIntegratesFront = path "/integrates/front";
   };
   builder = path "/makes/packages/integrates/front/build/builder.sh";

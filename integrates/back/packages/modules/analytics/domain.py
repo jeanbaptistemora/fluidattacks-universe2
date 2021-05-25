@@ -17,14 +17,16 @@ from starlette.responses import Response
 
 import authz
 from analytics import dal as analytics_dal
-from back.app.views import templates
 from custom_exceptions import DocumentNotFound
 from custom_types import (
     GraphicParameters,
     GraphicsForEntityParameters,
     ReportParameters,
 )
-from newutils import token as token_utils
+from newutils import (
+    templates as templates_utils,
+    token as token_utils,
+)
 from newutils.context import CHARTS_LOGO_PATH
 from newutils.encodings import safe_encode
 from organizations import domain as orgs_domain
@@ -205,9 +207,9 @@ async def handle_graphic_request(request: Request) -> Response:
         ValueError,
     ) as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
-        response = templates.graphic_error(request)
+        response = templates_utils.graphic_error(request)
     else:
-        response = templates.graphic_view(request, document, params)
+        response = templates_utils.graphic_view(request, document, params)
         response.headers["x-frame-options"] = "SAMEORIGIN"
 
     return response
@@ -271,9 +273,9 @@ async def handle_graphics_for_entity_request(
         ValueError,
     ) as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
-        response = templates.graphic_error(request)
+        response = templates_utils.graphic_error(request)
     else:
-        response = templates.graphics_for_entity_view(request, entity)
+        response = templates_utils.graphics_for_entity_view(request, entity)
 
     return response
 
@@ -332,7 +334,7 @@ async def handle_graphics_report_request(
         ValueError,
     ) as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
-        response = templates.graphic_error(request)
+        response = templates_utils.graphic_error(request)
     else:
         response = Response(report, media_type="image/png")
 

@@ -2,7 +2,10 @@
 
 # Standard library
 from collections import defaultdict
-from typing import Any, Callable
+from typing import (
+    Any,
+    Callable,
+)
 
 # Third party libraries
 import newrelic.agent
@@ -12,11 +15,10 @@ from starlette.requests import Request
 from starlette.responses import Response
 
 # Local libraries
-
 from __init__ import BASE_URL
 
 
-class CustomRequestMiddleware(BaseHTTPMiddleware):  # type: ignore
+class CustomRequestMiddleware(BaseHTTPMiddleware):
     async def dispatch(
         self, request: Request, call_next: Callable[..., Any]
     ) -> Response:
@@ -28,7 +30,7 @@ class CustomRequestMiddleware(BaseHTTPMiddleware):  # type: ignore
         return await call_next(request)
 
 
-class ApiCustomRequestMiddleware(BaseHTTPMiddleware):  # type: ignore
+class ApiCustomRequestMiddleware(BaseHTTPMiddleware):
     async def dispatch(
         self, request: Request, call_next: Callable[..., Any]
     ) -> Response:

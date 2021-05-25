@@ -14,11 +14,12 @@ from starlette.routing import Route
 # Local libraries
 from api import IntegratesAPI
 from api.schema import SCHEMA
-from back.app.middleware import ApiCustomRequestMiddleware
 from settings import (
     DEBUG,
     queue,
 )
+
+from .middleware import ApiCustomRequestMiddleware
 
 
 async def queue_daemon() -> None:
@@ -26,7 +27,7 @@ async def queue_daemon() -> None:
     while True:
         func = await queue.get_task()
         if asyncio.iscoroutinefunction(func):
-            await func()  # type: ignore
+            await func()
         else:
             await in_thread(func)
 
@@ -47,9 +48,7 @@ STARLETTE_APP = Starlette(
         start_queue_daemon,
     ],
 )
-
 BUGSNAG_WRAP = BugsnagMiddleware(STARLETTE_APP)
-
 NEWRELIC_WRAP = newrelic.agent.ASGIApplicationWrapper(
     BUGSNAG_WRAP, framework=("Starlette", "0.13.8")
 )

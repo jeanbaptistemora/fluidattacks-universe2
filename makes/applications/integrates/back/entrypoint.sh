@@ -63,7 +63,7 @@ function main {
       fi \
   &&  pushd integrates \
     &&  makes-kill-port "${port}" \
-    &&  { gunicorn "${config[@]}" 'back.app.app:APP' & } \
+    &&  { gunicorn "${config[@]}" 'app.app:APP' & } \
     &&  makes-wait 5 "${host}:${port}" \
     &&  makes-done 28001 \
     &&  echo '[INFO] Back is ready' \

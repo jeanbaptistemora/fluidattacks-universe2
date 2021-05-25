@@ -19,7 +19,6 @@ from aioextensions import (
 from graphql import GraphQLError
 
 import authz
-from back.app.views import templates
 from custom_exceptions import (
     FindingNotFound,
     InvalidAuthorization,
@@ -29,6 +28,7 @@ from findings import domain as findings_domain
 from newutils import (
     function,
     logs as logs_utils,
+    templates as templates_utils,
     token as token_utils,
 )
 from organizations import domain as orgs_domain
@@ -81,7 +81,7 @@ def authenticate_session(func: TFun) -> TFun:
             "username" not in request.session
             or request.session["username"] is None
         ):
-            return templates.unauthorized(request)
+            return templates_utils.unauthorized(request)
         return await func(*args, **kwargs)
 
     return cast(TFun, authenticate_and_call)

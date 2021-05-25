@@ -12,7 +12,7 @@ from starlette.templating import Jinja2Templates
 # Local librariessettings
 from custom_types import (
     GraphicParameters,
-    ProjectAccess as ProjectAccessType,
+    ProjectAccess as GroupAccessType,
 )
 from settings import (
     DEBUG,
@@ -24,80 +24,15 @@ from settings import (
 TEMPLATING_ENGINE = Jinja2Templates(directory=TEMPLATES_DIR)
 
 
-def error500(request: Request) -> HTMLResponse:
-    return TEMPLATING_ENGINE.TemplateResponse(
-        name="HTTP500.html", context={"request": request}
-    )
-
-
 def error401(request: Request) -> HTMLResponse:
     return TEMPLATING_ENGINE.TemplateResponse(
         name="HTTP401.html", context={"request": request}
     )
 
 
-def invalid_invitation(
-    request: Request,
-    error: str,
-    project_access: ProjectAccessType = None,
-) -> HTMLResponse:
-    group_name = (
-        project_access.get("project_name", "") if project_access else ""
-    )
+def error500(request: Request) -> HTMLResponse:
     return TEMPLATING_ENGINE.TemplateResponse(
-        name="invalid_invitation.html",
-        context={
-            "error": error,
-            "group_name": group_name,
-            "request": request,
-        },
-    )
-
-
-async def valid_invitation(
-    request: Request, project_access: ProjectAccessType
-) -> HTMLResponse:
-    group_name = project_access["project_name"]
-    return TEMPLATING_ENGINE.TemplateResponse(
-        name="valid_invitation.html",
-        context={
-            "group_name": group_name,
-            "request": request,
-        },
-    )
-
-
-def unauthorized(request: Request) -> HTMLResponse:
-    return TEMPLATING_ENGINE.TemplateResponse(
-        name="unauthorized.html",
-        context={
-            "request": request,
-            "debug": DEBUG,
-        },
-    )
-
-
-def login(request: Request) -> HTMLResponse:
-    return TEMPLATING_ENGINE.TemplateResponse(
-        name="login.html",
-        context={
-            "request": request,
-            "debug": DEBUG,
-            "js": f"{STATIC_URL}/dashboard/app-bundle.min.js",
-            "css": f"{STATIC_URL}/dashboard/app-style.min.css",
-        },
-    )
-
-
-def main_app(request: Request) -> HTMLResponse:
-    return TEMPLATING_ENGINE.TemplateResponse(
-        name="app.html",
-        context={
-            "request": request,
-            "debug": DEBUG,
-            "js": f"{STATIC_URL}/dashboard/app-bundle.min.js",
-            "css": f"{STATIC_URL}/dashboard/app-style.min.css",
-        },
+        name="HTTP500.html", context={"request": request}
     )
 
 
@@ -153,4 +88,67 @@ def graphic_view(
             c3js=f"{STATIC_URL}/external/C3/c3.js",
             c3css=(f"{STATIC_URL}/external/C3/c3.css"),
         ),
+    )
+
+
+def invalid_invitation(
+    request: Request,
+    error: str,
+    group_access: GroupAccessType = None,
+) -> HTMLResponse:
+    group_name = group_access.get("project_name", "") if group_access else ""
+    return TEMPLATING_ENGINE.TemplateResponse(
+        name="invalid_invitation.html",
+        context={
+            "error": error,
+            "group_name": group_name,
+            "request": request,
+        },
+    )
+
+
+def login(request: Request) -> HTMLResponse:
+    return TEMPLATING_ENGINE.TemplateResponse(
+        name="login.html",
+        context={
+            "request": request,
+            "debug": DEBUG,
+            "js": f"{STATIC_URL}/dashboard/app-bundle.min.js",
+            "css": f"{STATIC_URL}/dashboard/app-style.min.css",
+        },
+    )
+
+
+def main_app(request: Request) -> HTMLResponse:
+    return TEMPLATING_ENGINE.TemplateResponse(
+        name="app.html",
+        context={
+            "request": request,
+            "debug": DEBUG,
+            "js": f"{STATIC_URL}/dashboard/app-bundle.min.js",
+            "css": f"{STATIC_URL}/dashboard/app-style.min.css",
+        },
+    )
+
+
+def unauthorized(request: Request) -> HTMLResponse:
+    return TEMPLATING_ENGINE.TemplateResponse(
+        name="unauthorized.html",
+        context={
+            "request": request,
+            "debug": DEBUG,
+        },
+    )
+
+
+async def valid_invitation(
+    request: Request, group_access: GroupAccessType
+) -> HTMLResponse:
+    group_name = group_access["project_name"]
+    return TEMPLATING_ENGINE.TemplateResponse(
+        name="valid_invitation.html",
+        context={
+            "group_name": group_name,
+            "request": request,
+        },
     )

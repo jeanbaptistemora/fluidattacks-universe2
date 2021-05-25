@@ -9,16 +9,21 @@ from typing import (
 )
 
 import aiohttp
+from aioextensions import collect
 from ariadne import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
-from back.app import utils
+import authz
+from __init__ import FI_COMMUNITY_PROJECTS
 from custom_types import SignInPayload as SignInPayloadType
+from group_access import domain as group_access_domain
+from groups import domain as groups_domain
 from newutils import (
     analytics,
     datetime as datetime_utils,
     token as token_helper,
 )
+from organizations import domain as orgs_domain
 from settings import (
     LOGGING,
     MOBILE_SESSION_AGE,
@@ -28,12 +33,40 @@ from settings.auth import (
     GOOGLE_ARGS,
     azure,
 )
+from subscriptions import domain as subscriptions_domain
+from users import domain as users_domain
 
 
 logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
+
+
+async def autoenroll_user(email: str) -> None:
+    new_user_user_level_role: str = "customer"
+    new_user_group_level_role: str = "customer"
+
+    await groups_domain.create_without_group(
+        email=email, role=new_user_user_level_role
+    )
+    for group in FI_COMMUNITY_PROJECTS.split(","):
+        await collect(
+            [
+                group_access_domain.update_has_access(email, group, True),
+                authz.grant_group_level_role(
+                    email, group, new_user_group_level_role
+                ),
+            ]
+        )
+
+    # Enroll new users to Daily Digest by default
+    await subscriptions_domain.subscribe_user_to_entity_report(
+        event_frequency="DAILY",
+        report_entity="DIGEST",
+        report_subject="ALL_GROUPS",
+        user_email=email,
+    )
 
 
 async def get_provider_user_info(
@@ -93,7 +126,7 @@ async def mutate(
 
     user = await get_provider_user_info(provider, auth_token)
     if user:
-        await utils.create_user(user)
+        await log_user_in(user)
         email = user["email"].lower()
         session_jwt = token_helper.new_encoded_jwt(
             {
@@ -112,3 +145,31 @@ async def mutate(
         LOGGER.exception("Mobile login failed", extra={"extra": locals()})
 
     return SignInPayloadType(session_jwt=session_jwt, success=success)
+
+
+async def log_user_in(user: Dict[str, str]) -> None:
+    first_name = user.get("given_name", "")[:29]
+    last_name = user.get("family_name", "")[:29]
+    email = user["email"].lower()
+
+    today = datetime_utils.get_now_as_str()
+    data_dict = {
+        "first_name": first_name,
+        "last_login": today,
+        "last_name": last_name,
+        "date_joined": today,
+    }
+
+    if not await users_domain.is_registered(email):
+        await analytics.mixpanel_track(email, "Register")
+        if not await orgs_domain.get_user_organizations(email):
+            await autoenroll_user(email)
+
+        await users_domain.update_multiple_user_attributes(email, data_dict)
+    else:
+        if await users_domain.get_data(email, "first_name"):
+            await users_domain.update_last_login(email)
+        else:
+            await users_domain.update_multiple_user_attributes(
+                email, data_dict
+            )

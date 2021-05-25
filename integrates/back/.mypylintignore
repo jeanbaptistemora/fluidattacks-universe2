@@ -4,15 +4,6 @@ files =
   ,back/packages/integrates-back/setup.py
   ,back/packages/modules/events/
   #,back/__init__.py
-  #,back/app/views/charts.py
-  #,back/app/views/__init__.py
-  #,back/app/views/evidence.py
-  #,back/app/views/templates.py
-  #,back/app/views/auth.py
-  #,back/app/app.py
-  #,back/app/__init__.py
-  #,back/app/utils.py
-  #,back/app/middleware.py
   #,back/tests/functional/group_manager/
   #,back/tests/functional/admin/
   #,back/tests/functional/__init__.py

@@ -6,7 +6,10 @@ import asyncio
 # Third party libraries
 import bugsnag
 import newrelic.agent
-from aioextensions import in_thread, schedule
+from aioextensions import (
+    in_thread,
+    schedule,
+)
 from bugsnag.asgi import BugsnagMiddleware
 from starlette.applications import Starlette
 from starlette.middleware import Middleware
@@ -16,20 +19,19 @@ from starlette.responses import (
     HTMLResponse,
     RedirectResponse,
 )
-from starlette.routing import Mount, Route
+from starlette.routing import (
+    Mount,
+    Route,
+)
 from starlette.staticfiles import StaticFiles
 
 # Local libraries
+from __init__ import (
+    FI_ENVIRONMENT,
+    FI_STARLETTE_SESSION_KEY,
+)
 from api import IntegratesAPI
 from api.schema import SCHEMA
-from back.app import utils
-from back.app.middleware import CustomRequestMiddleware
-from back.app.views import (
-    auth,
-    charts,
-    evidence,
-    templates,
-)
 from custom_exceptions import (
     ExpiredToken,
     SecureAccessException,
@@ -37,7 +39,10 @@ from custom_exceptions import (
 from decorators import authenticate_session
 from group_access import domain as group_access_domain
 from groups import domain as groups_domain
-from newutils import analytics
+from newutils import (
+    analytics,
+    templates,
+)
 from organizations import domain as orgs_domain
 from redis_cluster.operations import redis_del_entity_attr
 from sessions import dal as sessions_dal
@@ -48,17 +53,20 @@ from settings import (
     queue,
 )
 from users import domain as users_domain
-from __init__ import (
-    FI_ENVIRONMENT,
-    FI_STARLETTE_SESSION_KEY,
+
+from . import utils
+from .middleware import CustomRequestMiddleware
+from .views import (
+    auth,
+    charts,
+    evidence,
 )
 
 
-@authenticate_session  # type: ignore
+@authenticate_session
 async def app(request: Request) -> HTMLResponse:
     """ View for authenticated users"""
     email = request.session.get("username")
-
     try:
         if email:
             if FI_ENVIRONMENT == "production":
@@ -68,7 +76,6 @@ async def app(request: Request) -> HTMLResponse:
                 response = templates.unauthorized(request)
             else:
                 response = templates.main_app(request)
-
                 jwt_token = await utils.create_session_token(request.session)
                 utils.set_token_in_response(response, jwt_token)
         else:
@@ -76,7 +83,41 @@ async def app(request: Request) -> HTMLResponse:
             response.delete_cookie(key=JWT_COOKIE_NAME)
     except (ExpiredToken, SecureAccessException):
         response = await logout(request)
+    return response
 
+
+async def confirm_access(request: Request) -> HTMLResponse:
+    url_token = request.path_params.get("url_token")
+    if url_token:
+        group_access = await group_access_domain.get_access_by_url_token(
+            url_token
+        )
+        if group_access:
+            success = (
+                await groups_domain.complete_register_for_group_invitation(
+                    group_access
+                )
+            )
+            if success:
+                response = await templates.valid_invitation(
+                    request, group_access
+                )
+                schedule(groups_domain.after_complete_register(group_access))
+            else:
+                response = templates.invalid_invitation(
+                    request,
+                    "Invalid or Expired",
+                    group_access=group_access,
+                )
+        else:
+            await in_thread(
+                bugsnag.notify, Exception("Invalid token"), severity="warning"
+            )
+            response = templates.invalid_invitation(
+                request, "Invalid or Expired"
+            )
+    else:
+        response = templates.invalid_invitation(request, "Invalid or Expired")
     return response
 
 
@@ -92,47 +133,8 @@ async def logout(request: Request) -> HTMLResponse:
         await analytics.mixpanel_track(user_email, "Logout")
 
     request.session.clear()
-
     response = RedirectResponse("/")
     response.delete_cookie(key=JWT_COOKIE_NAME)
-
-    return response
-
-
-async def confirm_access(request: Request) -> HTMLResponse:
-    url_token = request.path_params.get("url_token")
-    if url_token:
-        project_access = await group_access_domain.get_access_by_url_token(
-            url_token
-        )
-
-        if project_access:
-            success = (
-                await groups_domain.complete_register_for_group_invitation(
-                    project_access
-                )
-            )
-            if success:
-                response = await templates.valid_invitation(
-                    request, project_access
-                )
-                schedule(groups_domain.after_complete_register(project_access))
-            else:
-                response = templates.invalid_invitation(
-                    request,
-                    "Invalid or Expired",
-                    project_access=project_access,
-                )
-        else:
-            await in_thread(
-                bugsnag.notify, Exception("Invalid token"), severity="warning"
-            )
-            response = templates.invalid_invitation(
-                request, "Invalid or Expired"
-            )
-    else:
-        response = templates.invalid_invitation(request, "Invalid or Expired")
-
     return response
 
 
@@ -141,7 +143,7 @@ async def queue_daemon() -> None:
     while True:
         func = await queue.get_task()
         if asyncio.iscoroutinefunction(func):
-            await func()  # type: ignore
+            await func()
         else:
             await in_thread(func)
 
@@ -190,9 +192,7 @@ STARLETTE_APP = Starlette(
     ],
     on_startup=[start_queue_daemon],
 )
-
 BUGSNAG_WRAP = BugsnagMiddleware(STARLETTE_APP)
-
 NEWRELIC_WRAP = newrelic.agent.ASGIApplicationWrapper(
     BUGSNAG_WRAP, framework=("Starlette", "0.13.8")
 )

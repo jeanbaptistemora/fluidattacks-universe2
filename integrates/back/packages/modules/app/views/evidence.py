@@ -29,9 +29,7 @@ from s3.operations import (
     download_file,
     list_files,
 )
-from __init__ import (
-    FI_AWS_S3_BUCKET,
-)
+from __init__ import FI_AWS_S3_BUCKET
 
 
 BUCKET_S3 = FI_AWS_S3_BUCKET
@@ -42,7 +40,6 @@ async def enforce_group_level_role(
 ) -> Response:
     response = None
     email = request.session.get("username")
-
     if not email:
         return HTMLResponse(
             "<script> "
@@ -52,13 +49,10 @@ async def enforce_group_level_role(
             'location = "/"; '
             "</script>"
         )
-
     requester_role = await authz.get_group_level_role(email, group)
-
     if requester_role not in allowed_roles:
         response = Response("Access denied")
         response.status_code = 403
-
     return response
 
 
@@ -104,7 +98,7 @@ async def get_evidence(request: Request) -> Response:
                     localfile, {".png": ".tmp", ".gif": ".tmp"}
                 )
                 await download_file(BUCKET_S3, evidence, localtmp)
-                return retrieve_image(request, localtmp)
+                return retrieve_image(localtmp)
         else:
             return JSONResponse(
                 {
@@ -116,7 +110,7 @@ async def get_evidence(request: Request) -> Response:
     else:
         logs_utils.cloudwatch_log(
             request,
-            f"Security: Attempted to retrieve evidence without permission",
+            "Security: Attempted to retrieve evidence without permission",
         )
         return JSONResponse(
             {"data": [], "message": "Evidence type not found", "error": True}
@@ -127,7 +121,7 @@ async def list_s3_evidences(prefix: str) -> List[str]:
     return list(await list_files(BUCKET_S3, prefix))
 
 
-def retrieve_image(request: Request, img_file: str) -> Response:
+def retrieve_image(img_file: str) -> Response:
     if files_utils.assert_file_mime(
         img_file, ["image/png", "image/jpeg", "image/gif"]
     ):
