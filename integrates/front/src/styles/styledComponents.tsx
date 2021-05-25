@@ -39,7 +39,7 @@ const ButtonToolbarRow: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
-  className: "flex flex-wrap justify-end",
+  className: "flex flex-wrap items-center justify-end",
 })``;
 
 const Col100: StyledComponent<

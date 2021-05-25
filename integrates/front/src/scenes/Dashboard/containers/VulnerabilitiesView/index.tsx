@@ -12,8 +12,14 @@ import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
-import type { StyledComponent } from "styled-components";
-import styled from "styled-components";
+
+import {
+  ActionsContainer,
+  Filters,
+  SearchText,
+  Select,
+  SelectContainer,
+} from "./styles";
 
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
@@ -34,45 +40,8 @@ import { HandleAcceptationModal } from "scenes/Dashboard/containers/Vulnerabilit
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import type { IGetFindingVulnInfoAttr } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
 import { authzPermissionsContext } from "utils/authz/config";
-import style from "utils/forms/index.css";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
-
-const RowFilters: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className:
-    "flex flex-wrap-reverse flex-row-reverse justify-between pt3 w-100-ns",
-})``;
-
-const Select: StyledComponent<
-  "select",
-  Record<string, unknown>
-> = styled.select.attrs({
-  className: `${style["form-control"]} black-40 border-box`,
-})``;
-
-const SelectContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `${style["w-24-l"]} ${style["w-24-m"]} ${style["w-100-local"]}`,
-})``;
-
-const SearchText: StyledComponent<
-  "input",
-  Record<string, unknown>
-> = styled.input.attrs({
-  className: `${style["form-control"]} black-40 border-box`,
-})``;
-
-const Small: StyledComponent<
-  "small",
-  Record<string, unknown>
-> = styled.small.attrs({
-  className: "f5 black-40 db",
-})``;
 
 export const VulnsView: React.FC = (): JSX.Element => {
   const { findingId, projectName } = useParams<{
@@ -214,41 +183,16 @@ export const VulnsView: React.FC = (): JSX.Element => {
       <React.Fragment>
         <div>
           <div>
-            <ActionButtons
-              areVulnsSelected={
-                remediationModalConfig.vulnerabilities.length > 0
-              }
-              isEditing={isEditing}
-              isFindingReleased={isFindingReleased}
-              isReattackRequestedInAllVuln={data.finding.newRemediated}
-              isRequestingReattack={isRequestingVerify}
-              isVerified={data.finding.verified}
-              isVerifying={isVerifying}
-              onEdit={toggleEdit}
-              onRequestReattack={toggleRequestVerify}
-              onVerify={toggleVerify}
-              openHandleAcceptation={toggleHandleAcceptationModal}
-              openModal={toggleModal}
-              state={data.finding.state}
-              subscription={data.project.subscription}
-            />
-          </div>
-        </div>
-        <div>
-          <div>
-            <div>
-              <RowFilters>
+            <ActionsContainer>
+              <Filters>
                 <SelectContainer>
-                  <Small>{t("searchFindings.tabVuln.searchText")}</Small>
                   <SearchText
                     defaultValue={textFilter}
                     onChange={onSearchChange}
+                    placeholder={t("searchFindings.tabVuln.searchText")}
                   />
                 </SelectContainer>
                 <SelectContainer>
-                  <Small>
-                    {t("searchFindings.tabVuln.vulnTable.treatments")}
-                  </Small>
                   <TooltipWrapper
                     id={"searchFindings.tabVuln.vulnTable.treatmentsTooltip.id"}
                     message={t(
@@ -259,7 +203,9 @@ export const VulnsView: React.FC = (): JSX.Element => {
                       defaultValue={treatmentFilter}
                       onChange={onTreatmentChange}
                     >
-                      <option value={""} />
+                      <option value={""}>
+                        {t("searchFindings.tabVuln.vulnTable.treatments")}
+                      </option>
                       <option value={"NEW"}>
                         {t("searchFindings.tabDescription.treatment.new")}
                       </option>
@@ -280,9 +226,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
                   </TooltipWrapper>
                 </SelectContainer>
                 <SelectContainer>
-                  <Small>
-                    {t("searchFindings.tabVuln.vulnTable.reattacks")}
-                  </Small>
                   <TooltipWrapper
                     id={"searchFindings.tabVuln.vulnTable.reattacksTooltip.id"}
                     message={t(
@@ -293,7 +236,9 @@ export const VulnsView: React.FC = (): JSX.Element => {
                       defaultValue={verificationFilter}
                       onChange={onVerificationChange}
                     >
-                      <option value={""} />
+                      <option value={""}>
+                        {t("searchFindings.tabVuln.vulnTable.reattacks")}
+                      </option>
                       <option value={"Requested"}>
                         {t("searchFindings.tabVuln.requested")}
                       </option>
@@ -304,7 +249,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
                   </TooltipWrapper>
                 </SelectContainer>
                 <SelectContainer>
-                  <Small>{t("searchFindings.tabVuln.status")}</Small>
                   <TooltipWrapper
                     id={"searchFindings.tabVuln.statusTooltip.id"}
                     message={t("searchFindings.tabVuln.statusTooltip")}
@@ -313,7 +257,9 @@ export const VulnsView: React.FC = (): JSX.Element => {
                       defaultValue={currentStatusFilter}
                       onChange={onStatusChange}
                     >
-                      <option value={""} />
+                      <option value={""}>
+                        {t("searchFindings.tabVuln.status")}
+                      </option>
                       <option value={"open"}>
                         {t("searchFindings.tabVuln.open")}
                       </option>
@@ -323,8 +269,26 @@ export const VulnsView: React.FC = (): JSX.Element => {
                     </Select>
                   </TooltipWrapper>
                 </SelectContainer>
-              </RowFilters>
-            </div>
+              </Filters>
+              <ActionButtons
+                areVulnsSelected={
+                  remediationModalConfig.vulnerabilities.length > 0
+                }
+                isEditing={isEditing}
+                isFindingReleased={isFindingReleased}
+                isReattackRequestedInAllVuln={data.finding.newRemediated}
+                isRequestingReattack={isRequestingVerify}
+                isVerified={data.finding.verified}
+                isVerifying={isVerifying}
+                onEdit={toggleEdit}
+                onRequestReattack={toggleRequestVerify}
+                onVerify={toggleVerify}
+                openHandleAcceptation={toggleHandleAcceptationModal}
+                openModal={toggleModal}
+                state={data.finding.state}
+                subscription={data.project.subscription}
+              />
+            </ActionsContainer>
             <div>
               <VulnComponent
                 canDisplayAnalyst={canRetrieveAnalyst}
