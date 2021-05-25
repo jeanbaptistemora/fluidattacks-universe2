@@ -794,6 +794,7 @@ module.exports = {
         'types/f076',
         'types/f081',
         'types/f115',
+        'types/f121',
       ],
     },
     {
@@ -837,7 +838,6 @@ module.exports = {
         'types/f044',
       ],
     },
-    'types/f121',
   ],
   Framework: {
     Framework: getDocs('framework'),
