@@ -27,6 +27,7 @@ makeTemplate {
       nixpkgs.p7zip
     ];
     envSources = [
+      packages.skims.config-sdk
       packages.integrates.back.pypi.runtime
       packages.integrates.back.tools
       packages.integrates.secrets.list

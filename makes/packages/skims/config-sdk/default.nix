@@ -7,7 +7,7 @@ makeTemplate {
   name = "skims-config-sdk";
   searchPaths = {
     envPaths = [ packages.skims ];
-    envPython38Paths = [
+    envPythonPaths = [
       (path "/skims/skims/sdk")
     ];
   };
