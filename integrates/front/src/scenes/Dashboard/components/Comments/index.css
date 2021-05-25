@@ -21,7 +21,6 @@
 
 :global .comment-content {
   font-size: 1rem;
-  padding: 0.5rem 0;
   white-space: pre-line;
   word-break: break-word;
 }
@@ -29,6 +28,11 @@
 /* Overrides antd lib class */
 :global .ant-comment-nested {
   margin-left: 0;
+}
+
+/* Overrides antd lib class */
+:global .ant-comment-content-author {
+  justify-content: space-between;
 }
 
 :global .comment-author {
@@ -39,7 +43,10 @@
 
 :global .comment-datetime {
   color: #777;
+  display: block;
+  float: right;
   font-size: 0.9rem;
+  font-weight: normal;
   padding-left: 1rem;
 }
 
