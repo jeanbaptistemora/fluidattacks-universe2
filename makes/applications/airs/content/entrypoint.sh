@@ -18,9 +18,6 @@ function main {
     &&  copy __envAirsNewFront__ new-front \
     &&  copy __envAirsContent__ new-front/content \
     &&  copy __envAirsContentPages__ new-front/static/images \
-    &&  find new-front/static/images -type f ! -regex ".*\.\(svg\|gif\|png\|mp4\)" -delete \
-    &&  copy __envAirsContentImages__ new-front/static/images \
-    &&  copy __envAirsImages__ new-front/static/images \
     &&  sed -i "s|https://fluidattacks.com|${url}|g" new-front/gatsby-config.js \
     &&  if test -n "${CI:-}" && test "${CI_COMMIT_REF_NAME}" != "master"
         then
