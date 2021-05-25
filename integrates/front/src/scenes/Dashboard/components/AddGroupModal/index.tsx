@@ -19,11 +19,11 @@ import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   CREATE_PROJECT_MUTATION,
   PROJECTS_NAME_QUERY,
-} from "scenes/Dashboard/components/AddProjectModal/queries";
+} from "scenes/Dashboard/components/AddGroupModal/queries";
 import type {
   IAddProjectModalProps,
   IProjectNameProps,
-} from "scenes/Dashboard/components/AddProjectModal/types";
+} from "scenes/Dashboard/components/AddGroupModal/types";
 import {
   ButtonToolbar,
   Col100,

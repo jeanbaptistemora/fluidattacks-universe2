@@ -12,7 +12,7 @@ import { statusFormatter } from "components/DataTableNext/formatters";
 import { DataTableNext } from "components/DataTableNext/index";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
-import { AddProjectModal } from "scenes/Dashboard/components/AddProjectModal";
+import { AddProjectModal } from "scenes/Dashboard/components/AddGroupModal";
 import style from "scenes/Dashboard/containers/OrganizationGroupsView/index.css";
 import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
 import type {

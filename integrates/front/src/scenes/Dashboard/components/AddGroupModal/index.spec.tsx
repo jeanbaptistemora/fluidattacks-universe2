@@ -5,9 +5,9 @@ import { mount } from "enzyme";
 import React from "react";
 import { Provider } from "react-redux";
 
-import { AddProjectModal } from "scenes/Dashboard/components/AddProjectModal";
-import { PROJECTS_NAME_QUERY } from "scenes/Dashboard/components/AddProjectModal/queries";
-import type { IProjectNameProps } from "scenes/Dashboard/components/AddProjectModal/types";
+import { AddProjectModal } from "scenes/Dashboard/components/AddGroupModal";
+import { PROJECTS_NAME_QUERY } from "scenes/Dashboard/components/AddGroupModal/queries";
+import type { IProjectNameProps } from "scenes/Dashboard/components/AddGroupModal/types";
 import store from "store";
 
 describe("AddProjectModal component", (): void => {
