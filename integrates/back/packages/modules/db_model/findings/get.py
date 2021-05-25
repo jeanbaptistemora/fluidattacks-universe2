@@ -18,7 +18,7 @@ from dynamodb.types import (
     Item,
     PrimaryKey,
 )
-from model import TABLE
+from db_model import TABLE
 
 from .enums import (
     FindingSorts,

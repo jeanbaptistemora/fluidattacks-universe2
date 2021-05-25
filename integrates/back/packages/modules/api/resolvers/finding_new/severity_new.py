@@ -2,7 +2,7 @@ from typing import Dict
 
 from graphql.type.definition import GraphQLResolveInfo
 
-from model.findings.types import Finding
+from db_model.findings.types import Finding
 from newutils import utils
 
 

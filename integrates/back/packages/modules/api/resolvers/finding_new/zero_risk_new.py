@@ -6,7 +6,7 @@ from graphql.type.definition import GraphQLResolveInfo
 
 from custom_types import Vulnerability
 from decorators import enforce_group_level_auth_async
-from model.findings.types import Finding
+from db_model.findings.types import Finding
 from redis_cluster.operations import redis_get_or_set_entity_attr
 
 

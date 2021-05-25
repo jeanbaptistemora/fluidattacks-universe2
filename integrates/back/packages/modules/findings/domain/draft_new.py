@@ -2,9 +2,9 @@ import random
 from typing import Any
 
 from custom_exceptions import InvalidDraftTitle
-from model import findings
-from model.findings.enums import FindingStateStatus
-from model.findings.types import (
+from db_model import findings
+from db_model.findings.enums import FindingStateStatus
+from db_model.findings.types import (
     Finding,
     FindingState,
 )

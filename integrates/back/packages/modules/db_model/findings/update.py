@@ -7,7 +7,7 @@ from dynamodb import (
     keys,
     operations,
 )
-from model import TABLE
+from db_model import TABLE
 
 from .enums import FindingStateStatus
 from .types import (

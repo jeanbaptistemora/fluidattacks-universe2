@@ -2,7 +2,7 @@ import pytest
 from decimal import Decimal
 from typing import Dict
 
-from model.findings.types import Finding20Severity, Finding31Severity
+from db_model.findings.types import Finding20Severity, Finding31Severity
 from newutils import cvss, cvss_new, findings as finding_utils, utils
 
 

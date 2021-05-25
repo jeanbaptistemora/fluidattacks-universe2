@@ -18,7 +18,7 @@ from custom_types import (
     Finding as FindingType,
     User as UserType,
 )
-from model.findings.types import FindingVerification
+from db_model.findings.types import FindingVerification
 from newutils import datetime as datetime_utils
 
 

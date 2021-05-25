@@ -2,7 +2,7 @@ from datetime import datetime
 from decimal import Decimal
 from typing import Union
 
-from model.findings.types import (
+from db_model.findings.types import (
     Finding,
     Finding20Severity,
     Finding31Severity,

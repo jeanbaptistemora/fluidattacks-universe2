@@ -1,7 +1,7 @@
 from graphql.type.definition import GraphQLResolveInfo
 
 from decorators import enforce_group_level_auth_async
-from model.findings.types import Finding
+from db_model.findings.types import Finding
 
 
 @enforce_group_level_auth_async

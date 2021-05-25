@@ -5,7 +5,7 @@ from aiodataloader import DataLoader
 from graphql.type.definition import GraphQLResolveInfo
 
 from custom_types import Vulnerability
-from model.findings.types import Finding
+from db_model.findings.types import Finding
 from redis_cluster.operations import redis_get_or_set_entity_attr
 
 

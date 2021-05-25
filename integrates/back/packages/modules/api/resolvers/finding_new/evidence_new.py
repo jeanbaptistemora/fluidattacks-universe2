@@ -1,7 +1,7 @@
 from typing import Dict
 from graphql.type.definition import GraphQLResolveInfo
 
-from model.findings.types import Finding
+from db_model.findings.types import Finding
 from findings import domain as findings_domain
 from newutils import datetime as datetime_utils
 

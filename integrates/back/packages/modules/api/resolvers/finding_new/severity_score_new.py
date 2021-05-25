@@ -1,7 +1,7 @@
 from graphql.type.definition import GraphQLResolveInfo
 
 from findings import domain as findings_domain
-from model.findings.types import Finding
+from db_model.findings.types import Finding
 
 
 def resolve(

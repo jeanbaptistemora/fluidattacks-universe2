@@ -1,7 +1,7 @@
 from datetime import datetime
 from graphql.type.definition import GraphQLResolveInfo
 
-from model.findings.types import Finding
+from db_model.findings.types import Finding
 from newutils import datetime as datetime_utils
 
 

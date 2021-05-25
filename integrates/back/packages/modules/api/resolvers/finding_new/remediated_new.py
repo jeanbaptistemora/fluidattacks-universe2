@@ -1,7 +1,7 @@
 from graphql.type.definition import GraphQLResolveInfo
 
-from model.findings.enums import FindingVerificationStatus
-from model.findings.types import Finding
+from db_model.findings.enums import FindingVerificationStatus
+from db_model.findings.types import Finding
 
 
 def resolve(

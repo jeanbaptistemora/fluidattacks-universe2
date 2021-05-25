@@ -8,7 +8,7 @@ from decorators import (
     require_integrates,
     require_login,
 )
-from model.findings.types import Finding
+from db_model.findings.types import Finding
 
 
 @convert_kwargs_to_snake_case

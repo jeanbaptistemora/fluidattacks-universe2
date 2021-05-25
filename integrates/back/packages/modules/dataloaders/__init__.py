@@ -6,7 +6,7 @@ from typing import (
 
 from starlette.requests import Request
 
-from model.findings.get import (
+from db_model.findings.get import (
     FindingNewLoader,
     FindingHistoricStateNewLoader,
     FindingHistoricVerificationNewLoader,

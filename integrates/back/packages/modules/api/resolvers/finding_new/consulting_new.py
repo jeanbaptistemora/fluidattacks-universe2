@@ -5,7 +5,7 @@ from graphql.type.definition import GraphQLResolveInfo
 
 from comments import domain as comments_domain
 from custom_types import Comment
-from model.findings.types import Finding
+from db_model.findings.types import Finding
 from redis_cluster.operations import redis_get_or_set_entity_attr
 from newutils import token as token_utils
 

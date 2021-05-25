@@ -1,7 +1,7 @@
 import math
 from decimal import Decimal
 
-from model.findings.types import (
+from db_model.findings.types import (
     Finding20CvssParameters,
     Finding20Severity,
     Finding31CvssParameters,
