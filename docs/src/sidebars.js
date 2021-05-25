@@ -811,25 +811,31 @@ module.exports = {
         'types/f104',
       ],
     },
-    'types/f015',
+    {
+      type: 'category',
+      label: 'Protocol Manipulation',
+      items: [
+        'types/f015',
+        {
+          type: 'category',
+          label: 'Improperly set HTTP headers',
+          items: [
+            'types/043/description',
+            {
+              type: 'category',
+              label: 'Details',
+              items: [
+                'types/043/details/strict-transport-security',
+              ],
+            },
+          ],
+        },
+        'types/f044',
+      ],
+    },
     'types/f017',
     'types/f022',
     'types/f025',
-    {
-      type: 'category',
-      label: 'Improperly set HTTP headers',
-      items: [
-        'types/043/description',
-        {
-          type: 'category',
-          label: 'Details',
-          items: [
-            'types/043/details/strict-transport-security',
-          ],
-        },
-      ],
-    },
-    'types/f044',
     {
       type: 'category',
       label: 'Insecure service configuration',
