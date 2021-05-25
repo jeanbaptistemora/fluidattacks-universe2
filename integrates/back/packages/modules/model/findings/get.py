@@ -222,6 +222,25 @@ async def _get_historic_verification(
     return tuple(map(format_verification, results))
 
 
+async def _get_historic_state(
+    *, group_name: str, finding_id: str
+) -> Tuple[FindingState, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["finding_historic_state"],
+        values={"group_name": group_name, "id": finding_id},
+    )
+    key_structure = TABLE.primary_key
+    results = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(TABLE.facets["finding_historic_state"],),
+        table=TABLE,
+    )
+    return tuple(map(format_state, results))
+
+
 class FindingNewLoader(DataLoader):
     """Batches load calls within the same execution fragment."""
 
@@ -246,5 +265,18 @@ class FindingHistoricVerificationNewLoader(DataLoader):
             _get_historic_verification(
                 group_name=group_name, finding_id=finding_id
             )
+            for group_name, finding_id in finding
+        )
+
+
+class FindingHistoricStateNewLoader(DataLoader):
+    """Batches load calls within the same execution fragment."""
+
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, finding: Tuple[Tuple[str, str], ...]
+    ) -> Tuple[Tuple[FindingState], ...]:
+        return await collect(
+            _get_historic_state(group_name=group_name, finding_id=finding_id)
             for group_name, finding_id in finding
         )
