@@ -801,11 +801,20 @@ module.exports = {
         'types/f111',
       ],
     },
+    {
+      type: 'category',
+      label: 'Manipulate System',
+      items: [
+        'types/f029',
+        'types/f077',
+        'types/f091',
+        'types/f104',
+      ],
+    },
     'types/f015',
     'types/f017',
     'types/f022',
     'types/f025',
-    'types/f029',
     {
       type: 'category',
       label: 'Improperly set HTTP headers',
@@ -837,9 +846,6 @@ module.exports = {
       ],
     },
     'types/f067',
-    'types/f077',
-    'types/f091',
-    'types/f104',
     'types/f121',
   ],
   Framework: {
