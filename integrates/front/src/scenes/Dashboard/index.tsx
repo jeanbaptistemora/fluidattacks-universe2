@@ -14,7 +14,6 @@ import {
 } from "./styles";
 
 import { ScrollUpButton } from "components/ScrollUpButton";
-import { AddOrganizationModal } from "scenes/Dashboard/components/AddOrganizationModal";
 import { CompulsoryNotice } from "scenes/Dashboard/components/CompulsoryNoticeModal";
 import { ConcurrentSessionNotice } from "scenes/Dashboard/components/ConcurrentSessionNoticeModal";
 import { Navbar } from "scenes/Dashboard/components/Navbar";
@@ -68,14 +67,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
   }, []);
 
   const [userRole, setUserRole] = useState<string | undefined>(undefined);
-
-  const [isOrganizationModalOpen, setOrganizationModalOpen] = useState(false);
-  const openOrganizationModal: () => void = useCallback((): void => {
-    setOrganizationModalOpen(true);
-  }, []);
-  const closeOrganizationModal: () => void = useCallback((): void => {
-    setOrganizationModalOpen(false);
-  }, []);
 
   const permissions: PureAbility<string> = useContext(authzPermissionsContext);
 
@@ -169,10 +160,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
 
   return (
     <DashboardContainer>
-      <Sidebar
-        isLoading={isLoading}
-        onOpenAddOrganizationModal={openOrganizationModal}
-      />
+      <Sidebar isLoading={isLoading} />
       <DashboardContent id={"dashboard"}>
         <DashboardHeader>
           <Navbar userRole={userRole} />
@@ -223,10 +211,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
         </main>
       </DashboardContent>
       <ScrollUpButton visibleAt={400} />
-      <AddOrganizationModal
-        onClose={closeOrganizationModal}
-        open={isOrganizationModalOpen}
-      />
       <ConcurrentSessionNotice
         onClick={handleConcurrent}
         open={isCtSessionModalOpen}

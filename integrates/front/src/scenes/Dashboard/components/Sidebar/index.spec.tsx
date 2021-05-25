@@ -5,8 +5,6 @@ import { MemoryRouter } from "react-router-dom";
 
 import { Sidebar } from "scenes/Dashboard/components/Sidebar";
 
-const functionMock: () => JSX.Element = (): JSX.Element => <div />;
-
 describe("Sidebar", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
@@ -18,7 +16,7 @@ describe("Sidebar", (): void => {
 
     const wrapper: ShallowWrapper = shallow(
       <MemoryRouter initialEntries={["/home"]}>
-        <Sidebar isLoading={false} onOpenAddOrganizationModal={functionMock} />
+        <Sidebar isLoading={false} />
       </MemoryRouter>
     );
 

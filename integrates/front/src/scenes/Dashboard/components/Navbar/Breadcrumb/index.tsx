@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import _ from "lodash";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
 import { Link } from "react-router-dom";
@@ -10,7 +10,9 @@ import { SplitButton } from "./SplitButton";
 import { BreadcrumbContainer, NavSplitButtonContainer } from "./styles";
 import { stylizeBreadcrumbItem } from "./utils";
 
+import { AddOrganizationModal } from "../../AddOrganizationModal";
 import { MenuItem } from "components/DropdownButton";
+import { Can } from "utils/authz/Can";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -114,6 +116,14 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
     }
   );
 
+  const [isOrganizationModalOpen, setOrganizationModalOpen] = useState(false);
+  const openOrganizationModal: () => void = useCallback((): void => {
+    setOrganizationModalOpen(true);
+  }, []);
+  const closeOrganizationModal: () => void = useCallback((): void => {
+    setOrganizationModalOpen(false);
+  }, []);
+
   return (
     <BreadcrumbContainer>
       <li>
@@ -121,6 +131,19 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
           <SplitButton
             content={
               <div className={"splitItems"}>
+                <Can do={"api_mutations_create_organization_mutate"}>
+                  <MenuItem
+                    eventKey={""}
+                    itemContent={t("sidebar.newOrganization.text")}
+                    onClick={openOrganizationModal}
+                  />
+                  {isOrganizationModalOpen ? (
+                    <AddOrganizationModal
+                      onClose={closeOrganizationModal}
+                      open={true}
+                    />
+                  ) : undefined}
+                </Can>
                 {organizationList.map(
                   (organization: { name: string }): JSX.Element => (
                     <MenuItem

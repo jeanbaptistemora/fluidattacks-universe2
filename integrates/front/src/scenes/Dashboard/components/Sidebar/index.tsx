@@ -1,11 +1,9 @@
 import {
   faAngleDoubleLeft,
   faAngleDoubleRight,
-  faFolderPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback } from "react";
-import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import {
@@ -16,21 +14,15 @@ import {
   SidebarMenu,
 } from "./styles";
 
-import { TooltipWrapper } from "components/TooltipWrapper/index";
-import { Can } from "utils/authz/Can";
 import { useStoredState } from "utils/hooks";
 
 interface ISidebarProps {
   isLoading: boolean;
-  onOpenAddOrganizationModal: () => void;
 }
 
 const Sidebar: React.FC<ISidebarProps> = ({
   isLoading,
-  onOpenAddOrganizationModal,
 }: ISidebarProps): JSX.Element => {
-  const { t } = useTranslation();
-
   const [collapsed, setCollapsed] = useStoredState(
     "sidebarCollapsed",
     true,
@@ -48,20 +40,6 @@ const Sidebar: React.FC<ISidebarProps> = ({
             <Logo />
           </Link>
         </li>
-        <Can do={"api_mutations_create_organization_mutate"}>
-          <li>
-            <TooltipWrapper
-              id={"addOrg"}
-              message={t("sidebar.newOrganization.tooltip")}
-              placement={"right"}
-            >
-              <SidebarButton onClick={onOpenAddOrganizationModal}>
-                <FontAwesomeIcon icon={faFolderPlus} />
-                &nbsp;{t("sidebar.newOrganization.text")}
-              </SidebarButton>
-            </TooltipWrapper>
-          </li>
-        </Can>
       </SidebarMenu>
       {isLoading ? <Preloader /> : undefined}
       <SidebarButton onClick={toggleSidebar}>
