@@ -192,7 +192,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
                 className={"menulink white roboto no-underline nowrap"}
                 to={"/solutions/attack-simulation/"}
               >
-                {"Attack Simulation"}
+                {"Breach and Attack Simulation"}
               </Link>
             </li>
             <li className={"mv1"}>

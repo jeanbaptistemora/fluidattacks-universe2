@@ -73,7 +73,7 @@ const LinksSection: React.FC = (): JSX.Element => (
       <BodyLink link={"/solutions/red-teaming/"} name={"Red Teaming"} /> <br />
       <BodyLink
         link={"/solutions/attack-simulation/"}
-        name={"Attack Simulation"}
+        name={"Breach and Attack Simulation"}
       />{" "}
       <br />
       <BodyLink

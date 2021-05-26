@@ -103,7 +103,7 @@ const NavbarItems: React.FC = (): JSX.Element => (
         </Link>
 
         <Link className={"f-18 fw4"} to={"/solutions/attack-simulation/"}>
-          {"Attack Simulation"}
+          {"Breach and Attack Simulation"}
         </Link>
 
         <Link className={"f-18 fw4"} to={"/solutions/secure-code-review/"}>

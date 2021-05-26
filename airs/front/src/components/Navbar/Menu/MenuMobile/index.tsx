@@ -313,7 +313,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
                     }
                     to={"/solutions/attack-simulation/"}
                   >
-                    {"Attack Simulation"}
+                    {"Breach and Attack Simulation"}
                   </Link>
                 </InnerListItem>
                 <InnerListItem>
