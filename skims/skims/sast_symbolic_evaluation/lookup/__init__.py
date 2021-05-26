@@ -2,9 +2,9 @@ from typing import Optional
 from model.graph_model import GraphShard, GraphShardMetadataLanguage
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
-    LookedUpJavaClass,
-    LookedUpJavaClassField,
-    LookedUpJavaMethod,
+    LookedUpClass,
+    LookedUpClassField,
+    LookedUpMethod,
 )
 from sast_symbolic_evaluation.lookup.java import (
     lookup_class as _lookup_class_java,
@@ -17,7 +17,7 @@ from sast_symbolic_evaluation.lookup.java import (
 def lookup_class(
     args: EvaluatorArgs,
     class_name: str,
-) -> Optional[LookedUpJavaClass]:
+) -> Optional[LookedUpClass]:
     if args.shard.metadata.language == GraphShardMetadataLanguage.JAVA:
         return _lookup_class_java(args, class_name)
 
@@ -28,7 +28,7 @@ def lookup_field(
     args: EvaluatorArgs,
     field_name: str,
     field_class: Optional[str] = None,
-) -> Optional[LookedUpJavaClassField]:
+) -> Optional[LookedUpClassField]:
     if args.shard.metadata.language == GraphShardMetadataLanguage.JAVA:
         return _lookup_field_java(args, field_name, field_class)
 
@@ -39,7 +39,7 @@ def lookup_method(
     args: EvaluatorArgs,
     method_name: str,
     method_class: Optional[str] = None,
-) -> Optional[LookedUpJavaMethod]:
+) -> Optional[LookedUpMethod]:
     if args.shard.metadata.language == GraphShardMetadataLanguage.JAVA:
         return _lookup_method_java(args, method_name, method_class)
 

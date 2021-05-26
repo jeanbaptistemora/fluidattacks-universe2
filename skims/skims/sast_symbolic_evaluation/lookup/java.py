@@ -9,9 +9,9 @@ from model import (
 )
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
-    LookedUpJavaClass,
-    LookedUpJavaClassField,
-    LookedUpJavaMethod,
+    LookedUpClass,
+    LookedUpClassField,
+    LookedUpMethod,
 )
 from utils.string import (
     split_on_last_dot,
@@ -69,10 +69,10 @@ def lookup_shard_by_class(
 def lookup_class(
     args: EvaluatorArgs,
     class_name: str,
-) -> Optional[LookedUpJavaClass]:
+) -> Optional[LookedUpClass]:
     # First lookup in the current shard
     if data := _lookup_class_in_shard(args.shard, class_name):
-        return LookedUpJavaClass(
+        return LookedUpClass(
             metadata=data,
             shard_path=args.shard.path,
         )
@@ -82,7 +82,7 @@ def lookup_class(
         # pylint:disable=used-before-assignment
         data := _lookup_class_in_shard(shard, class_name)
     ):
-        return LookedUpJavaClass(
+        return LookedUpClass(
             metadata=data,
             shard_path=shard.path,
         )
@@ -110,14 +110,14 @@ def lookup_field(
     args: EvaluatorArgs,
     field_name: str,
     field_class: Optional[str] = None,
-) -> Optional[LookedUpJavaClassField]:
+) -> Optional[LookedUpClassField]:
     # method_name can be an empty string
     if not field_name:
         return None
 
     # First lookup in the current shard
     if data := _lookup_field_in_shard(args.shard, field_name):
-        return LookedUpJavaClassField(data, args.shard.path)
+        return LookedUpClassField(data, args.shard.path)
 
     # Now lookoup in other shards different than the current shard
     if (
@@ -126,13 +126,13 @@ def lookup_field(
         # pylint:disable=used-before-assignment
         and (data := _lookup_field_in_shard(shard, field_name))
     ):
-        return LookedUpJavaClassField(data, shard.path)
+        return LookedUpClassField(data, shard.path)
 
     # Can be an static field
     if (shard := lookup_shard_by_class(args, field_name)) and (
         data := _lookup_field_in_shard(shard, field_name)
     ):
-        return LookedUpJavaClassField(data, shard.path)
+        return LookedUpClassField(data, shard.path)
 
     return None
 
@@ -156,7 +156,7 @@ def lookup_method(
     args: EvaluatorArgs,
     method_name: str,
     method_class: Optional[str] = None,
-) -> Optional[LookedUpJavaMethod]:
+) -> Optional[LookedUpMethod]:
     # method_name can be an empty string
     if not method_name:
         return None
@@ -168,7 +168,7 @@ def lookup_method(
         # pylint:disable=used-before-assignment
         and (data := _lookup_method_in_shard(shard, method_name))
     ):
-        return LookedUpJavaMethod(
+        return LookedUpMethod(
             metadata=data,
             shard_path=shard.path,
         )
@@ -178,7 +178,7 @@ def lookup_method(
     if not method_class and (
         data := _lookup_method_in_shard(args.shard, method_name)
     ):
-        return LookedUpJavaMethod(
+        return LookedUpMethod(
             metadata=data,
             shard_path=args.shard.path,
         )
@@ -191,7 +191,7 @@ def lookup_method(
         and (shard := lookup_shard_by_class(args, _method_class))
         and (data := _lookup_method_in_shard(shard, method_name))
     ):
-        return LookedUpJavaMethod(
+        return LookedUpMethod(
             metadata=data,
             shard_path=shard.path,
         )

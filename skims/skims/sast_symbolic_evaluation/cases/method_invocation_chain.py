@@ -8,7 +8,7 @@ from sast_symbolic_evaluation.cases.method_invocation import (
 )
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
-    LookedUpJavaClass,
+    LookedUpClass,
 )
 from sast_symbolic_evaluation.utils_generic import lookup_var_dcl_by_name
 
@@ -81,17 +81,21 @@ def attempt_java_class_loader_get_resource_as_stream(
 def attempt_metadata_java_class(args: EvaluatorArgs) -> bool:
     *method_arguments, prnt = args.dependencies
 
-    if isinstance(prnt.meta.value, LookedUpJavaClass):
-        if args.syntax_step.method in prnt.meta.value.metadata.methods:
-            if return_step := args.eval_method(
+    if (
+        isinstance(prnt.meta.value, LookedUpClass)
+        and args.syntax_step.method in prnt.meta.value.metadata.methods
+        and (
+            return_step := args.eval_method(
                 args,
                 prnt.meta.value.metadata.methods[args.syntax_step.method].n_id,
                 method_arguments,
                 args.graph_db.shards_by_path_f(prnt.meta.value.shard_path),
-            ):
-                args.syntax_step.meta.danger = return_step.meta.danger
-                args.syntax_step.meta.value = return_step.meta.value
-                return True
+            )
+        )
+    ):
+        args.syntax_step.meta.danger = return_step.meta.danger
+        args.syntax_step.meta.value = return_step.meta.value
+        return True
 
     return False
 
