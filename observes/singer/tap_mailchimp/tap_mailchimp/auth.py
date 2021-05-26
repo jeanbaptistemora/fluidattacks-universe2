@@ -6,7 +6,7 @@ from typing import (
 # Third party libraries
 
 # Local libraries
-from tap_mailchimp.common.objs import JSON
+from singer_io import JSON
 
 
 class Credentials(NamedTuple):

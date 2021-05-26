@@ -18,14 +18,12 @@ import paginator
 from paginator import (
     PageId,
 )
+from singer_io import JSON
 from tap_mailchimp.api.common import (
     api_data,
 )
 from tap_mailchimp.api.common.api_data import (
     ApiData,
-)
-from tap_mailchimp.common.objs import (
-    JSON,
 )
 
 

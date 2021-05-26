@@ -19,9 +19,7 @@ from ratelimiter import RateLimiter
 from paginator import (
     PageId,
 )
-from tap_mailchimp.common.objs import (
-    JSON,
-)
+from singer_io import JSON
 
 
 LOG = logging.getLogger(__name__)

@@ -7,6 +7,7 @@ import json
 from paginator import (
     PageId,
 )
+from singer_io import JSON
 from tap_mailchimp import (
     api,
 )
@@ -16,9 +17,6 @@ from tap_mailchimp.api import (
 )
 from tap_mailchimp.api.common.raw import (
     RawSource,
-)
-from tap_mailchimp.common.objs import (
-    JSON,
 )
 
 
