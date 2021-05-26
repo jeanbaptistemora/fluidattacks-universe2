@@ -9,7 +9,7 @@ from dataloaders import Dataloaders
 async def get_result(
     data: Dict[str, Any],
     stakeholder: str = "integratesreviewer@fluidattacks.com",
-    session_jwt: str = None,
+    session_jwt: Optional[str] = None,
     context: Optional[Dataloaders] = None,
 ) -> Dict[str, Any]:
     """Get result for reviewer role."""

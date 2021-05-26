@@ -16,7 +16,7 @@ CUSTOMER = "integratescustomer@gmail.com"
 async def get_result(
     data: Dict[str, Any],
     stakeholder: str = CUSTOMER,
-    session_jwt: str = None,
+    session_jwt: Optional[str] = None,
     context: Optional[Dataloaders] = None,
 ) -> Dict[str, Any]:
     """Get result for customer role."""
