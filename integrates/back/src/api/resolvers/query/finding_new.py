@@ -19,7 +19,7 @@ from db_model.findings.types import Finding
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Finding:
-    finding_id: str = kwargs["finding_id"]
+    finding_id: str = kwargs["identifier"]
     group_name: str = kwargs["group_name"]
     finding_loader: DataLoader = info.context.loaders.finding_new
     finding: Finding = await finding_loader.load((group_name, finding_id))

@@ -163,7 +163,7 @@ async def test_me() -> None:
     data = {"query": query}
     result = await get_result(data, session_jwt=session_jwt, context=context)
     assert "errors" not in result
-    assert len(result["data"]["me"]["permissions"]) == 75
+    assert len(result["data"]["me"]["permissions"]) == 76
     assert result["data"]["me"]["role"] == "group_manager"
 
     context = get_new_context()

@@ -4,11 +4,13 @@ from typing import (
 )
 
 from aiodataloader import DataLoader
+from ariadne.utils import convert_kwargs_to_snake_case
 from graphql.type.definition import GraphQLResolveInfo
 
 from custom_types import Finding
 from decorators import (
     concurrent_decorators,
+    delete_kwargs,
     enforce_group_level_auth_async,
     rename_kwargs,
     require_integrates,
@@ -22,6 +24,8 @@ async def _get_draft(finding: Finding, _info: GraphQLResolveInfo) -> Finding:
     return finding
 
 
+@convert_kwargs_to_snake_case
+@delete_kwargs({"group_name"})
 @rename_kwargs({"identifier": "finding_id"})
 @concurrent_decorators(
     require_login, enforce_group_level_auth_async, require_integrates
