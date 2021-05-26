@@ -846,6 +846,16 @@ module.exports = {
     'development/products-repo-intro',
     {
       type: 'category',
+      label: 'Contributing',
+      items: [
+        'development/contributing/introduction',
+        'development/contributing/dependencies',
+        'development/contributing/editor',
+        'development/contributing/environment',
+      ]
+    },
+    {
+      type: 'category',
       label: 'Stack',
       items: [
         'development/stack/cloudflare',

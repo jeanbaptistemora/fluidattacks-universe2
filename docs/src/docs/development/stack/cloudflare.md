@@ -10,9 +10,13 @@ slug: /development/stack/cloudflare
 [CloudFlare](https://www.cloudflare.com/)
 is our [SaaS](https://en.wikipedia.org/wiki/Software_as_a_service)
 provider for some infrastructure solutions like
-[DNS](https://www.cloudflare.com/dns/),
+[DNSSEC](https://www.cloudflare.com/dns/dnssec/),
+[DDoS Protection](https://www.cloudflare.com/ddos/),
 [Rate limiting](https://www.cloudflare.com/rate-limiting/),
+[Auto-Renewable SSL certificates](https://www.cloudflare.com/ssl/),
 [Content delivery network](https://www.cloudflare.com/cdn/),
+[Web Application Firewall](https://www.cloudflare.com/lp/ppc/waf-x/),
+[Anti-bot capabilities](https://blog.cloudflare.com/super-bot-fight-mode/),
 among others.
 The main reasons why we chose it over other alternatives are:
 
@@ -121,9 +125,9 @@ on apt and yum.
 
 ## Guidelines
 
-Any changes to
+1. Any changes to
 [CloudFlare's](https://www.cloudflare.com/)
 infrastructure must be done via Merge Requests modifying its
 [Terraform module](https://gitlab.com/fluidattacks/product/-/tree/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform).
-To learn how to test and apply infrastructure via [Terraform](https://www.terraform.io/),
+1. To learn how to test and apply infrastructure via [Terraform](https://www.terraform.io/),
 visit the [Terraform Guidelines](terraform#guidelines).
