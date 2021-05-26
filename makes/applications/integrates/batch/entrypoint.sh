@@ -13,7 +13,7 @@ function main {
         &&  DAEMON=true integrates-storage
       fi \
   &&  pushd integrates \
-    &&  python3 -m back.packages.modules.batch.dispatch "${@:2}" \
+    &&  python3 -m back.src.batch.dispatch "${@:2}" \
   &&  popd \
   ||  return 1
 }

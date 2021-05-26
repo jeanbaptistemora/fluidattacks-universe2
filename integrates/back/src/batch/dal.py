@@ -17,6 +17,7 @@ from context import (
     FI_AWS_DYNAMODB_SECRET_KEY,
     FI_AWS_SESSION_TOKEN,
     FI_ENVIRONMENT,
+    PRODUCT_API_TOKEN,
 )
 from custom_types import DynamoDelete
 from dynamodb import operations_legacy as dynamodb_ops
@@ -187,12 +188,8 @@ async def put_action_to_batch(
                             "value": CI_COMMIT_REF_NAME,
                         },
                         {
-                            "name": "INTEGRATES_PROD_AWS_ACCESS_KEY_ID",
-                            "value": FI_AWS_DYNAMODB_ACCESS_KEY,
-                        },
-                        {
-                            "name": "INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY",
-                            "value": FI_AWS_DYNAMODB_SECRET_KEY,
+                            "name": "PRODUCT_API_TOKEN",
+                            "value": PRODUCT_API_TOKEN,
                         },
                     ],
                     "memory": 7200,
