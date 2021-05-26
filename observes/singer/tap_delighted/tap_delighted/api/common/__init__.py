@@ -4,7 +4,6 @@ import logging
 import time
 from typing import (
     Callable,
-    Iterator,
     TypeVar,
 )
 
@@ -21,9 +20,6 @@ from returns.curry import (
 from tap_delighted.api.common.raw import (
     RateLimitError,
     RawApiResult,
-)
-from tap_delighted.common import (
-    JSON,
 )
 
 

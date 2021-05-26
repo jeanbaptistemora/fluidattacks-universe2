@@ -24,13 +24,11 @@ from paginator import (
     PageId,
     PageOrAll,
 )
+from singer_io import JSON
 from tap_delighted.api.common import (
     extractor,
     raw,
     handle_rate_limit,
-)
-from tap_delighted.common import (
-    JSON,
 )
 
 

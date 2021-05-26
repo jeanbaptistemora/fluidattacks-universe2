@@ -16,12 +16,10 @@ from returns.curry import partial
 from returns.io import IO
 
 # Local libraries
+from singer_io import JSON
 from tap_delighted.api.common import (
     raw,
     handle_rate_limit,
-)
-from tap_delighted.common import (
-    JSON,
 )
 
 

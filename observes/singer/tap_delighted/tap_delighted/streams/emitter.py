@@ -14,15 +14,13 @@ from returns.io import (
 # Local libraries
 from singer_io import (
     factory,
+    JSON,
 )
 from singer_io.singer import (
     SingerRecord,
 )
 from tap_delighted.api import (
     ApiPage,
-)
-from tap_delighted.common import (
-    JSON,
 )
 from tap_delighted.streams.objs import (
     SupportedStreams,

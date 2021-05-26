@@ -26,9 +26,7 @@ from returns.io import (
 from paginator import (
     PageId,
 )
-from tap_delighted.common import (
-    JSON,
-)
+from singer_io import JSON
 
 
 class RateLimitError(TooManyRequestsError):
