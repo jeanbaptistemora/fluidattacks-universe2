@@ -7,7 +7,9 @@
 }:
 let
   pythonRequirements = buildPythonRequirements {
-    dependencies = [ ];
+    dependencies = [
+      nixpkgs.postgresql
+    ];
     name = "sorts-runtime";
     requirements = {
       direct = [
@@ -23,6 +25,7 @@ let
         "numpy==1.19.2"
         "pandas==1.1.2"
         "prettytable==1.0.1"
+        "psycopg2==2.8.4"
         "PyDriller==1.15.2"
         "pytz==2020.1"
         "requests==2.24.0"
