@@ -9,7 +9,7 @@ from dataloaders import get_new_context
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("old")
-async def test_me():
+async def test_me() -> None:
     context = get_new_context()
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     group_name = "unittesting"

@@ -10,7 +10,7 @@ from dataloaders import get_new_context
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("old")
-async def test_organization():
+async def test_organization() -> None:
     context = get_new_context()
     org_name = "OKADA"
     group_name = "unittesting"

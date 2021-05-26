@@ -23,7 +23,7 @@ from groups import domain as groups_domain
 async def complete_register(
     email: str,
     group_name: str,
-):
+) -> bool:
     project_access = await group_access_domain.get_user_access(
         email, group_name
     )

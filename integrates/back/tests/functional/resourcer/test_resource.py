@@ -12,7 +12,7 @@ from back.tests.functional.resourcer.utils import get_result
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("old")
-async def test_resource():
+async def test_resource() -> None:
     group_name = "unittesting"
     file_name = "test.zip"
     query = f"""{{

@@ -11,7 +11,7 @@ from newutils import datetime as datetime_utils
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("old")
-async def test_resource():
+async def test_resource() -> None:
     today = datetime_utils.get_as_str(
         datetime_utils.get_now(), date_format="%Y-%m-%d"
     )

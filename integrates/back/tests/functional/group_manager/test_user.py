@@ -7,7 +7,7 @@ from custom_exceptions import StakeholderNotFound
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("old")
-async def test_user():
+async def test_user() -> None:
     group_name = "unittesting"
     stakeholder = "stakeholder@fluidattacks.com"
     phone_number = "3453453453"

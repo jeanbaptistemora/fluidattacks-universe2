@@ -6,7 +6,7 @@ from back.tests.functional.closer.utils import get_result
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("old")
-async def test_me():
+async def test_me() -> None:
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     org_name = "okada"
     group_name = "unittesting"

@@ -8,7 +8,7 @@ from dataloaders import get_new_context
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("old")
-async def _test_forces():
+async def _test_forces() -> None:
     context = get_new_context()
     group_name = "unittesting"
     query = f"""

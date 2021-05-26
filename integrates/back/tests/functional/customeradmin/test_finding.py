@@ -8,7 +8,7 @@ from dataloaders import get_new_context
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("old")
-async def test_finding():
+async def test_finding() -> None:
     finding_id = "463558592"
     expected_output = {
         "id": finding_id,
