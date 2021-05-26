@@ -2,7 +2,7 @@
 id: introduction
 title: Introduction
 sidebar_label: Introduction
-slug: /development/stack/contributing/introduction
+slug: /development/contributing/introduction
 ---
 
 We want to be able to launch:

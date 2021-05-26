@@ -2,7 +2,7 @@
 id: editor
 title: Editor
 sidebar_label: Editor
-slug: /development/stack/contributing/editor
+slug: /development/contributing/editor
 ---
 
 We highly recommend you use Visual Studio Code because most of the team use it and works very well for our purpose

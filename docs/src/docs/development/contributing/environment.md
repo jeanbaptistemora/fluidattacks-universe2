@@ -2,7 +2,7 @@
 id: environment
 title: Environment
 sidebar_label: Environment
-slug: /development/stack/contributing/environment
+slug: /development/contributing/environment
 ---
 
 ## Others tools

@@ -2,7 +2,7 @@
 id: dependencies
 title: Dependencies
 sidebar_label: Dependencies
-slug: /development/stack/contributing/dependencies
+slug: /development/contributing/dependencies
 ---
 
 Below snippets should be added to the end of your `~/.bashrc`.
