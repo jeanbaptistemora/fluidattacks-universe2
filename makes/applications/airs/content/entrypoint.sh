@@ -40,14 +40,7 @@ function main {
     &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:writer|:page-writer|g" {} + \
     &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:tags|:page-tags|g" {} + \
     &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:category|:page-category|g" {} + \
-    &&  rm -rf \
-          content/pages/products/defends \
-          content/pages/products/skims \
-          content/pages/products/asserts \
-          content/pages/products/devsecops \
-          content/pages/products/drills \
-          content/pages/products/integrates \
-    &&  rm content/pages/products/index.adoc \
+    &&  rm -rf content/pages/products \
     &&  copy __envAirsNpm__/node_modules 'node_modules' \
     &&  install_fontawesome_pro \
     &&  if test -n "${CI:-}" && test "${CI_COMMIT_REF_NAME}" != "master"

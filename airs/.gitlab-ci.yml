@@ -120,9 +120,11 @@ airs.lint.styles:
 
 # Migrated to makes, but pending to finish gatsby migration
 
-airs_deploy_ephemeral:
-  <<: *with_nix
+airs.deploy.ephemeral:
+  <<: *makes
   <<: *in_dev_branch_airs
+  script:
+    - ./m airs eph
   stage: deploy-app
   environment:
     name: ephemeral/${CI_COMMIT_REF_NAME}
@@ -130,9 +132,11 @@ airs_deploy_ephemeral:
   cache:
     key: ${CI_JOB_NAME}-${CI_COMMIT_REF_SLUG}
     paths:
-    - airs/cache/
+    - airs/front/.cache/
 
-airs_deploy_production:
-  <<: *with_nix
+airs.deploy.production:
+  <<: *makes
   <<: *in_master_branch_airs
+  script:
+    - ./m airs prod
   stage: deploy-app
