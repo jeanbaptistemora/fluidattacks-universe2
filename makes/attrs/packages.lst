@@ -156,6 +156,7 @@ observes.lint.tap-checkly
 observes.lint.tap-csv
 observes.lint.tap-delighted
 observes.lint.tap-formstack
+observes.lint.tap-json
 observes.lint.tap-mailchimp
 observes.lint.tap-mixpanel
 observes.lint.target-redshift

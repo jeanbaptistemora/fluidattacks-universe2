@@ -136,7 +136,7 @@ def pt2st(ptype: str) -> JSON:
     raise Exception(f"pt2st(ptype): ptype={ptype} not matched")
 
 
-def prepare_env():
+def prepare_env() -> None:
     """Create/reset the staging area."""
     for _dir in (RECORDS_DIR, SCHEMAS_DIR):
         if not os.path.exists(_dir):
@@ -146,7 +146,7 @@ def prepare_env():
                 os.remove(f"{_dir}/{file}")
 
 
-def release_env():
+def release_env() -> None:
     """Clean the staging area on exit."""
     for _dir in (SCHEMAS_DIR, RECORDS_DIR):
         for file in os.listdir(_dir):
