@@ -8,18 +8,18 @@ import { useParams } from "react-router";
 
 import { DataTableNext } from "components/DataTableNext";
 import type { IHeaderConfig } from "components/DataTableNext/types";
-import styles from "scenes/Dashboard/containers/ProjectAuthorsView/index.css";
-import { GET_BILL } from "scenes/Dashboard/containers/ProjectAuthorsView/queries";
+import styles from "scenes/Dashboard/containers/GroupAuthorsView/index.css";
+import { GET_BILL } from "scenes/Dashboard/containers/GroupAuthorsView/queries";
 import type {
   IBillDeveloper,
   IData,
-} from "scenes/Dashboard/containers/ProjectAuthorsView/types";
+} from "scenes/Dashboard/containers/GroupAuthorsView/types";
 import { Col100, Row } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-const ProjectAuthorsView: React.FC = (): JSX.Element => {
+const GroupAuthorsView: React.FC = (): JSX.Element => {
   const now: Date = new Date();
   const thisYear: number = now.getFullYear();
   const thisMonth: number = now.getMonth();
@@ -147,4 +147,4 @@ const ProjectAuthorsView: React.FC = (): JSX.Element => {
   );
 };
 
-export { ProjectAuthorsView };
+export { GroupAuthorsView };

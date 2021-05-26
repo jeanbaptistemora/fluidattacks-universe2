@@ -13,7 +13,7 @@ import { GroupScopeView } from "../GroupScopeView";
 import { ToeContent } from "../ToeContent";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { ChartsForGroupView } from "scenes/Dashboard/containers/ChartsForGroupView";
-import { ProjectAuthorsView } from "scenes/Dashboard/containers/ProjectAuthorsView";
+import { GroupAuthorsView } from "scenes/Dashboard/containers/GroupAuthorsView";
 import { ProjectConsultingView } from "scenes/Dashboard/containers/ProjectConsultingView/index";
 import { ProjectDraftsView } from "scenes/Dashboard/containers/ProjectDraftsView";
 import { ProjectEventsView } from "scenes/Dashboard/containers/ProjectEventsView/index";
@@ -144,7 +144,7 @@ const ProjectContent: React.FC = (): JSX.Element => {
               <div className={globalStyle.tabContent}>
                 <Switch>
                   <Route
-                    component={ProjectAuthorsView}
+                    component={GroupAuthorsView}
                     exact={true}
                     path={`${path}/authors`}
                   />

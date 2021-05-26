@@ -11,8 +11,8 @@ import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
 
-import { ProjectAuthorsView } from "scenes/Dashboard/containers/ProjectAuthorsView";
-import { GET_BILL } from "scenes/Dashboard/containers/ProjectAuthorsView/queries";
+import { GroupAuthorsView } from "scenes/Dashboard/containers/GroupAuthorsView";
+import { GET_BILL } from "scenes/Dashboard/containers/GroupAuthorsView/queries";
 import store from "store";
 
 describe("AuthorsView", (): void => {
@@ -65,7 +65,7 @@ describe("AuthorsView", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof ProjectAuthorsView).toStrictEqual("function");
+    expect(typeof GroupAuthorsView).toStrictEqual("function");
   });
 
   it("should render an error in component", async (): Promise<void> => {
@@ -75,7 +75,7 @@ describe("AuthorsView", (): void => {
       <MemoryRouter initialEntries={["/unittesting"]}>
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mockError}>
-            <Route component={ProjectAuthorsView} path={"/:projectName"} />
+            <Route component={GroupAuthorsView} path={"/:projectName"} />
           </MockedProvider>
         </Provider>
       </MemoryRouter>
@@ -97,7 +97,7 @@ describe("AuthorsView", (): void => {
       <MemoryRouter initialEntries={["/unittesting"]}>
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mocks}>
-            <Route component={ProjectAuthorsView} path={"/:projectName"} />
+            <Route component={GroupAuthorsView} path={"/:projectName"} />
           </MockedProvider>
         </Provider>
       </MemoryRouter>
@@ -113,7 +113,7 @@ describe("AuthorsView", (): void => {
       <MemoryRouter initialEntries={["/unittesting"]}>
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mocks}>
-            <Route component={ProjectAuthorsView} path={"/:projectName"} />
+            <Route component={GroupAuthorsView} path={"/:projectName"} />
           </MockedProvider>
         </Provider>
       </MemoryRouter>
