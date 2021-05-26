@@ -55,7 +55,7 @@
     /*
      * Given exceptions for lodash, jquery and translation wildcard "t"
      */
-    "id-length": ["error", { "exceptions": ["_", "$", "t"] }],
+    "id-length": ["error", { "exceptions": ["_", "$", "t"], "properties": "never" }],
     "line-comment-position": ["error", "above"],
     /*
      * "Max" retrictions are not suitable for the present codebase due to the

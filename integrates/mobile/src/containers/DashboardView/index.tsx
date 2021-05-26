@@ -189,7 +189,7 @@ const DashboardView: React.FunctionComponent = (): JSX.Element => {
   };
 
   const handleScroll: ScrollViewProps["onScroll"] = Animated.event(
-    [{ nativeEvent: { contentOffset: { xPos: scrollPosition } } }],
+    [{ nativeEvent: { contentOffset: { x: scrollPosition } } }],
     { useNativeDriver: true }
   );
 

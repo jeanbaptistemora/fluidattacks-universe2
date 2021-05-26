@@ -4,6 +4,7 @@ import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import { GraphQLError } from "graphql";
 import React from "react";
+import type { PropsWithChildren } from "react";
 import { act } from "react-dom/test-utils";
 import { I18nextProvider } from "react-i18next";
 import { Alert, AppState } from "react-native";
@@ -13,6 +14,8 @@ import { Provider as PaperProvider } from "react-native-paper";
 import { MemoryRouter } from "react-router-native";
 import wait from "waait";
 
+import { Indicators } from "./Indicators";
+import type { IIndicatorsProps } from "./Indicators";
 import { ORGS_QUERY } from "./queries";
 
 import { DashboardView } from ".";
@@ -421,6 +424,90 @@ describe("DashboardView", (): void => {
 
     wrapper.unmount();
     jest.clearAllMocks();
+  });
+
+  it("should scroll", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const projectMock: Readonly<MockedResponse> = {
+      request: {
+        query: ORGS_QUERY,
+      },
+      result: {
+        data: {
+          me: {
+            organizations: [
+              {
+                analytics: {
+                  current: {
+                    closed: 11,
+                    open: 1,
+                  },
+                  previous: {
+                    closed: 8,
+                    open: 4,
+                  },
+                  totalGroups: 1,
+                },
+                name: "okada",
+              },
+              {
+                analytics: {
+                  current: {
+                    closed: 8,
+                    open: 0,
+                  },
+                  previous: {
+                    closed: 5,
+                    open: 3,
+                  },
+                  totalGroups: 2,
+                },
+                name: "testorg2",
+              },
+            ],
+          },
+        },
+      },
+    };
+
+    const wrapper: ReactWrapper = mount(
+      <PaperProvider>
+        <I18nextProvider i18n={i18next}>
+          <MemoryRouter
+            initialEntries={[
+              {
+                pathname: "/Dashboard",
+                state: { user: { fullName: "Test" } },
+              },
+            ]}
+          >
+            <MockedProvider addTypename={false} mocks={[projectMock]}>
+              <DashboardView />
+            </MockedProvider>
+          </MemoryRouter>
+        </I18nextProvider>
+      </PaperProvider>
+    );
+
+    await act(
+      async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      }
+    );
+
+    const scrollComponent = wrapper.find(Indicators).at(0);
+
+    expect(
+      (): ReactWrapper<PropsWithChildren<IIndicatorsProps>> =>
+        scrollComponent.simulate("scroll", {
+          deltaX: 1000,
+          nativeEvent: { contentOffset: { x: 0 } },
+        })
+    ).not.toThrow();
+
+    wrapper.unmount();
   });
 
   it("should perform logout", async (): Promise<void> => {
