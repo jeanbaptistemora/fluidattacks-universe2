@@ -354,13 +354,16 @@ async def parse_many(paths: Tuple[str, ...]) -> AsyncIterable[GraphShard]:
 async def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
     # Reproducibility
     paths = tuple(sorted(paths))
+    available_languages = {"java", "c_sharp"}
 
     graph_db = GraphDB(
         context=GraphDBContext(
             java_resources=java_resources.load(paths),
         ),
         shards=[],
-        shards_by_java_class={},
+        shards_by_language_class={
+            language: dict() for language in available_languages
+        },
         shards_by_path={},
     )
 
@@ -373,12 +376,14 @@ async def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
         graph_db.shards_by_path[shard.path] = index - 1
 
     for shard in graph_db.shards:
-        graph_db.shards_by_java_class.update(
-            {
-                f"{shard.metadata.java.package}{_class}": shard.path
-                for _class in shard.metadata.java.classes
-            }
-        )
+        for language in {"java", "c_sharp"}:
+            if shard.metadata.language.value == language:
+                graph_db.shards_by_language_class[language].update(
+                    {
+                        _class: shard.path
+                        for _class in getattr(shard.metadata, language).classes
+                    }
+                )
 
     if CTX.debug:
         output = get_debug_path("tree-sitter")

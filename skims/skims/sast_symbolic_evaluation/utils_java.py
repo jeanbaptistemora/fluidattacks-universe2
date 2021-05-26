@@ -40,15 +40,17 @@ def lookup_shard_by_class(
     args: EvaluatorArgs,
     class_name: str,
 ) -> Optional[graph_model.GraphShard]:
-    if path := args.graph_db.shards_by_java_class.get(class_name):
+    if path := args.graph_db.shards_by_language_class["java"].get(class_name):
         return args.graph_db.shards_by_path_f(path)
 
-    if path := args.graph_db.shards_by_java_class.get(f".{class_name}"):
+    if path := args.graph_db.shards_by_language_class["java"].get(
+        f".{class_name}"
+    ):
         return args.graph_db.shards_by_path_f(path)
 
     # It can be access to a static field
     _class = ".".join(class_name.split(".")[:-1])
-    if path := args.graph_db.shards_by_java_class.get(_class):
+    if path := args.graph_db.shards_by_language_class["java"].get(_class):
         return args.graph_db.shards_by_path_f(path)
 
     # la clase actual puyede estar en el shard actual
@@ -57,7 +59,7 @@ def lookup_shard_by_class(
     # Is possible that the class does not have a package
     if class_name.startswith("."):
         class_name = class_name.replace(".", "", 1)
-    for key, path in args.graph_db.shards_by_java_class.items():
+    for key, path in args.graph_db.shards_by_language_class["java"].items():
         if key.endswith(f".{class_name}"):
             return args.graph_db.shards_by_path_f(path)
 

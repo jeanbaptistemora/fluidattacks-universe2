@@ -16064,9 +16064,12 @@
       }
     }
   ],
-  "shards_by_java_class": {
-    ".App": "skims/test/data/benchmark/instance_references/src/App.java",
-    ".User": "skims/test/data/benchmark/instance_references/src/User.java"
+  "shards_by_language_class": {
+    "c_sharp": {},
+    "java": {
+      ".App": "skims/test/data/benchmark/instance_references/src/App.java",
+      ".User": "skims/test/data/benchmark/instance_references/src/User.java"
+    }
   },
   "shards_by_path": {
     "skims/test/data/benchmark/instance_references/src/App.java": 0,

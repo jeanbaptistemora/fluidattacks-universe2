@@ -2370,8 +2370,11 @@
       }
     }
   ],
-  "shards_by_java_class": {
-    ".Test": "skims/test/data/lib_path/f063_path_traversal/Test.java"
+  "shards_by_language_class": {
+    "c_sharp": {},
+    "java": {
+      ".Test": "skims/test/data/lib_path/f063_path_traversal/Test.java"
+    }
   },
   "shards_by_path": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": 0,

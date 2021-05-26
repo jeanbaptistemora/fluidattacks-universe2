@@ -414,7 +414,7 @@ class GraphDBContext(NamedTuple):
 class GraphDB(NamedTuple):
     context: GraphDBContext
     shards: List[GraphShard]
-    shards_by_java_class: Dict[str, str]
+    shards_by_language_class: Dict[str, Dict[str, str]]
     shards_by_path: Dict[str, int]
 
     def shards_by_path_f(self, path: str) -> GraphShard:
