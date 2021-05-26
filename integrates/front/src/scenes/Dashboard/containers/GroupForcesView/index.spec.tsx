@@ -10,8 +10,8 @@ import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
-import { ProjectForcesView } from "scenes/Dashboard/containers/ProjectForcesView";
-import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/ProjectForcesView/queries";
+import { GroupForcesView } from "scenes/Dashboard/containers/GroupForcesView";
+import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/GroupForcesView/queries";
 import store from "store";
 
 describe("ForcesView", (): void => {
@@ -93,7 +93,7 @@ describe("ForcesView", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof ProjectForcesView).toStrictEqual("function");
+    expect(typeof GroupForcesView).toStrictEqual("function");
   });
 
   it("should render an error in component", async (): Promise<void> => {
@@ -104,7 +104,7 @@ describe("ForcesView", (): void => {
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mockError}>
             <Route
-              component={ProjectForcesView}
+              component={GroupForcesView}
               path={"/:projectName/devsecops"}
             />
           </MockedProvider>
@@ -129,7 +129,7 @@ describe("ForcesView", (): void => {
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mocks}>
             <Route
-              component={ProjectForcesView}
+              component={GroupForcesView}
               path={"/:projectName/devsecops"}
             />
           </MockedProvider>
@@ -148,7 +148,7 @@ describe("ForcesView", (): void => {
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mocks}>
             <Route
-              component={ProjectForcesView}
+              component={GroupForcesView}
               path={"/:projectName/devsecops"}
             />
           </MockedProvider>
@@ -180,7 +180,7 @@ describe("ForcesView", (): void => {
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mocks}>
             <Route
-              component={ProjectForcesView}
+              component={GroupForcesView}
               path={"/:projectName/devsecops"}
             />
           </MockedProvider>

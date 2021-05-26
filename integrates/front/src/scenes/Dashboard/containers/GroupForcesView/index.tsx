@@ -12,19 +12,19 @@ import { DataTableNext } from "components/DataTableNext";
 import { statusFormatter } from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
-import { Execution } from "scenes/Dashboard/containers/ProjectForcesView/execution";
-import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/ProjectForcesView/queries";
+import { Execution } from "scenes/Dashboard/containers/GroupForcesView/execution";
+import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/GroupForcesView/queries";
 import type {
   IExecution,
   IFoundVulnerabilities,
-} from "scenes/Dashboard/containers/ProjectForcesView/types";
+} from "scenes/Dashboard/containers/GroupForcesView/types";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-const ProjectForcesView: React.FC = (): JSX.Element => {
+const GroupForcesView: React.FC = (): JSX.Element => {
   const { projectName } = useParams<{ projectName: string }>();
 
   // States
@@ -317,4 +317,4 @@ const ProjectForcesView: React.FC = (): JSX.Element => {
   );
 };
 
-export { ProjectForcesView };
+export { GroupForcesView };

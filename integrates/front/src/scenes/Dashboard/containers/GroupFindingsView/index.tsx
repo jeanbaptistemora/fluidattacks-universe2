@@ -36,9 +36,9 @@ import GoogleplayBadge from "resources/googleplay_badge.svg";
 import {
   GET_FINDINGS,
   REQUEST_PROJECT_REPORT,
-} from "scenes/Dashboard/containers/ProjectFindingsView/queries";
-import type { IProjectFindingsAttr } from "scenes/Dashboard/containers/ProjectFindingsView/types";
-import { formatFindings } from "scenes/Dashboard/containers/ProjectFindingsView/utils";
+} from "scenes/Dashboard/containers/GroupFindingsView/queries";
+import type { IGroupFindingsAttr } from "scenes/Dashboard/containers/GroupFindingsView/types";
+import { formatFindings } from "scenes/Dashboard/containers/GroupFindingsView/utils";
 import {
   ButtonToolbar,
   ButtonToolbarCenter,
@@ -51,7 +51,7 @@ import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-const ProjectFindingsView: React.FC = (): JSX.Element => {
+const GroupFindingsView: React.FC = (): JSX.Element => {
   const TIMEZONE_OFFSET = 60000;
   const FORMATTING_DATE_INDEX = 19;
 
@@ -84,7 +84,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     },
     onError: (error: ApolloError): void => {
       msgError(translate.t("groupAlerts.errorTextsad"));
-      Logger.warning("An error occurred requesting project report", error);
+      Logger.warning("An error occurred requesting group report", error);
     },
   });
 
@@ -153,7 +153,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred loading project data", error);
+        Logger.warning("An error occurred loading group data", error);
       });
     },
     []
@@ -264,12 +264,12 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     },
   ];
 
-  const { data } = useQuery<IProjectFindingsAttr>(GET_FINDINGS, {
+  const { data } = useQuery<IGroupFindingsAttr>(GET_FINDINGS, {
     onError: handleQryErrors,
     variables: { projectName },
   });
 
-  const handleRequestProjectReport: (
+  const handleRequestGroupReport: (
     event: React.MouseEvent<HTMLElement>
   ) => void = (event: React.MouseEvent<HTMLElement>): void => {
     const target: HTMLElement = event.currentTarget as HTMLElement;
@@ -413,7 +413,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
                     <Button
                       id={"report-pdf"}
                       // eslint-disable-next-line react/jsx-no-bind -- Needed due to nested callback
-                      onClick={handleRequestProjectReport}
+                      onClick={handleRequestGroupReport}
                     >
                       <FontAwesomeIcon icon={faFilePdf} />
                       {translate.t("group.findings.report.pdf")}
@@ -426,7 +426,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
                     <Button
                       id={"report-excel"}
                       // eslint-disable-next-line react/jsx-no-bind -- Needed due to nested callback
-                      onClick={handleRequestProjectReport}
+                      onClick={handleRequestGroupReport}
                     >
                       <FontAwesomeIcon icon={faFileExcel} />
                       {translate.t("group.findings.report.xls")}
@@ -439,7 +439,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
                     <Button
                       id={"report-zip"}
                       // eslint-disable-next-line react/jsx-no-bind -- Needed due to nested callback
-                      onClick={handleRequestProjectReport}
+                      onClick={handleRequestGroupReport}
                     >
                       <FontAwesomeIcon icon={faFileArchive} />
                       {translate.t("group.findings.report.data")}
@@ -465,4 +465,4 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
   );
 };
 
-export { ProjectFindingsView };
+export { GroupFindingsView };

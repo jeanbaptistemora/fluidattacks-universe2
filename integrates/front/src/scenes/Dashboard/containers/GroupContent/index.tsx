@@ -17,8 +17,8 @@ import { GroupAuthorsView } from "scenes/Dashboard/containers/GroupAuthorsView";
 import { GroupConsultingView } from "scenes/Dashboard/containers/GroupConsultingView/index";
 import { GroupDraftsView } from "scenes/Dashboard/containers/GroupDraftsView";
 import { GroupEventsView } from "scenes/Dashboard/containers/GroupEventsView/index";
-import { ProjectFindingsView } from "scenes/Dashboard/containers/ProjectFindingsView/index";
-import { ProjectForcesView } from "scenes/Dashboard/containers/ProjectForcesView";
+import { GroupFindingsView } from "scenes/Dashboard/containers/GroupFindingsView/index";
+import { GroupForcesView } from "scenes/Dashboard/containers/GroupForcesView";
 import { ProjectStakeholdersView } from "scenes/Dashboard/containers/ProjectStakeholdersView/index";
 import globalStyle from "styles/global.css";
 import {
@@ -154,7 +154,7 @@ const GroupContent: React.FC = (): JSX.Element => {
                     path={`${path}/analytics`}
                   />
                   <Route
-                    component={ProjectFindingsView}
+                    component={GroupFindingsView}
                     exact={true}
                     path={`${path}/vulns`}
                   />
@@ -164,7 +164,7 @@ const GroupContent: React.FC = (): JSX.Element => {
                     path={`${path}/drafts`}
                   />
                   <Route
-                    component={ProjectForcesView}
+                    component={GroupForcesView}
                     exact={true}
                     path={`${path}/devsecops`}
                   />

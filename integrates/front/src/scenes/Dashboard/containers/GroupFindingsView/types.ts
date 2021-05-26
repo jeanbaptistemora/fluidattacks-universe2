@@ -1,6 +1,6 @@
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 
-interface IProjectFindingsAttr {
+interface IGroupFindingsAttr {
   project: {
     findings: IFindingAttr[];
   };
@@ -28,10 +28,10 @@ interface IFindingAttr {
   }[];
 }
 
-interface IRequestProjectReportResult {
+interface IRequestGroupReportResult {
   requestProjectReport: {
     success: boolean;
   };
 }
 
-export { IProjectFindingsAttr, IFindingAttr, IRequestProjectReportResult };
+export { IGroupFindingsAttr, IFindingAttr, IRequestGroupReportResult };

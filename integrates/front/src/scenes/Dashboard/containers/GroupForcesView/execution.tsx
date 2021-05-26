@@ -11,14 +11,14 @@ import { DataTableNext } from "components/DataTableNext";
 import { statusFormatter } from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
-import styles from "scenes/Dashboard/containers/ProjectForcesView/index.css";
-import { GET_FORCES_EXECUTION } from "scenes/Dashboard/containers/ProjectForcesView/queries";
+import styles from "scenes/Dashboard/containers/GroupForcesView/index.css";
+import { GET_FORCES_EXECUTION } from "scenes/Dashboard/containers/GroupForcesView/queries";
 import type {
   IExecution,
   IExploitResult,
   IFoundVulnerabilities,
   IVulnerabilities,
-} from "scenes/Dashboard/containers/ProjectForcesView/types";
+} from "scenes/Dashboard/containers/GroupForcesView/types";
 import { Col33, Row, TabsContainer } from "styles/styledComponents";
 import { useStoredState } from "utils/hooks";
 import { translate } from "utils/translations/translate";

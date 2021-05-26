@@ -14,12 +14,12 @@ import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { CustomToggleList } from "components/DataTableNext/customToggleList";
 import type { ITableProps } from "components/DataTableNext/types";
-import { ProjectFindingsView } from "scenes/Dashboard/containers/ProjectFindingsView";
-import { GET_FINDINGS } from "scenes/Dashboard/containers/ProjectFindingsView/queries";
+import { GroupFindingsView } from "scenes/Dashboard/containers/GroupFindingsView";
+import { GET_FINDINGS } from "scenes/Dashboard/containers/GroupFindingsView/queries";
 import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 
-describe("ProjectFindingsView", (): void => {
+describe("GroupFindingsView", (): void => {
   const apolloDataMock: readonly MockedResponse[] = [
     {
       request: {
@@ -125,7 +125,7 @@ describe("ProjectFindingsView", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof ProjectFindingsView).toStrictEqual("function");
+    expect(typeof GroupFindingsView).toStrictEqual("function");
   });
 
   it("should render a component", async (): Promise<void> => {
@@ -136,7 +136,7 @@ describe("ProjectFindingsView", (): void => {
         <Provider store={store}>
           <MockedProvider addTypename={true} mocks={apolloDataMock}>
             <Route
-              component={ProjectFindingsView}
+              component={GroupFindingsView}
               path={"/groups/:projectName/vulns"}
             />
           </MockedProvider>
@@ -160,7 +160,7 @@ describe("ProjectFindingsView", (): void => {
           <MockedProvider addTypename={true} mocks={mocksFindings}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
-                component={ProjectFindingsView}
+                component={GroupFindingsView}
                 path={"/groups/:projectName/vulns"}
               />
             </authzPermissionsContext.Provider>
@@ -210,7 +210,7 @@ describe("ProjectFindingsView", (): void => {
         <Provider store={store}>
           <MockedProvider addTypename={true} mocks={mockError}>
             <Route
-              component={ProjectFindingsView}
+              component={GroupFindingsView}
               path={"/groups/:projectName/vulns"}
             />
           </MockedProvider>
@@ -230,7 +230,7 @@ describe("ProjectFindingsView", (): void => {
         <Provider store={store}>
           <MockedProvider addTypename={true} mocks={mocksFindings}>
             <Route
-              component={ProjectFindingsView}
+              component={GroupFindingsView}
               path={"/groups/:projectName/vulns"}
             />
           </MockedProvider>
