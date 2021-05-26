@@ -45,7 +45,7 @@ async def _get_result(
 
 
 @freeze_time("2020-12-01")
-async def test_finding_age():
+async def test_finding_age() -> None:
     """Check for finding age."""
     query = """{
       finding(identifier: "422286126"){
@@ -62,7 +62,7 @@ async def test_finding_age():
     assert result["data"]["finding"]["openAge"] == 332
 
 
-async def test_finding():
+async def test_finding() -> None:
     """Check for finding query."""
     expected_vuln = {
         "id": "0a848781-b6a4-422e-95fa-692151e6a98z",
@@ -244,7 +244,7 @@ async def test_finding():
 
 
 @pytest.mark.changes_db
-async def test_remove_evidence():
+async def test_remove_evidence() -> None:
     """Check for removeEvidence mutation."""
     query = """
         mutation RemoveEvidenceMutation($evidenceId: EvidenceType!, $findingId: String!) {
@@ -261,7 +261,7 @@ async def test_remove_evidence():
 
 
 @pytest.mark.changes_db
-async def test_update_evidence():
+async def test_update_evidence() -> None:
     """Check for updateEvidence mutation."""
     query = """
       mutation UpdateEvidenceMutation(
@@ -292,7 +292,7 @@ async def test_update_evidence():
 
 
 @pytest.mark.changes_db
-async def test_update_evidence_records_append():
+async def test_update_evidence_records_append() -> None:
     number_of_records = 4
     query = """
       query GetFindingRecords($findingId: String!) {
@@ -347,7 +347,7 @@ async def test_update_evidence_records_append():
 
 
 @pytest.mark.changes_db
-async def test_update_evidence_description():
+async def test_update_evidence_description() -> None:
     """Check for updateEvidenceDescription mutation."""
     query = """
         mutation {
@@ -367,7 +367,7 @@ async def test_update_evidence_description():
 
 
 @pytest.mark.changes_db
-async def test_update_severity():
+async def test_update_severity() -> None:
     """Check for updateSeverity mutation."""
     query = """
             mutation {
@@ -406,7 +406,7 @@ async def test_update_severity():
 
 
 @pytest.mark.changes_db
-async def test_add_finding_consult_parent_zero():
+async def test_add_finding_consult_parent_zero() -> None:
     """Check for addFindingConsult mutation."""
     query = """
       mutation {
@@ -429,7 +429,7 @@ async def test_add_finding_consult_parent_zero():
 
 
 @pytest.mark.changes_db
-async def test_add_finding_consult_parent_non_zero():
+async def test_add_finding_consult_parent_non_zero() -> None:
     """Check for addFindingConsult mutation."""
     query = """
       mutation {
@@ -452,7 +452,7 @@ async def test_add_finding_consult_parent_non_zero():
 
 
 @pytest.mark.changes_db
-async def test_update_description():
+async def test_update_description() -> None:
     """Check for updateDescription mutation."""
     query = """
         mutation UpdateFindingDescription(
@@ -515,7 +515,7 @@ async def test_update_description():
 
 
 @pytest.mark.changes_db
-async def test_reject_draft():
+async def test_reject_draft() -> None:
     """Check for rejectDraft mutation."""
     query = """
         mutation {
@@ -533,7 +533,7 @@ async def test_reject_draft():
 
 @pytest.mark.changes_db
 @freeze_time("2020-12-01")
-async def test_delete_finding():
+async def test_delete_finding() -> None:
     """Check for deleteFinding mutation."""
     query = """
       mutation {
@@ -569,7 +569,7 @@ async def test_delete_finding():
 
 
 @pytest.mark.changes_db
-async def test_approve_draft():
+async def test_approve_draft() -> None:
     """Check for approveDraft mutation."""
     query = """
       mutation {
@@ -587,7 +587,7 @@ async def test_approve_draft():
 
 
 @pytest.mark.changes_db
-async def test_create_draft():
+async def test_create_draft() -> None:
     """Check for createDraft mutation."""
     query = """
         mutation CreateDraftMutation(
@@ -635,7 +635,7 @@ async def test_create_draft():
 
 
 @pytest.mark.changes_db
-async def test_submit_draft():
+async def test_submit_draft() -> None:
     """Check for submitDraft mutation."""
     query = """
       mutation {
@@ -654,7 +654,7 @@ async def test_submit_draft():
 
 
 @pytest.mark.changes_db
-async def test_filter_deleted_findings():
+async def test_filter_deleted_findings() -> None:
     """Check if vuln of deleted vulns are filter out."""
     mutation = """
       mutation {
@@ -674,7 +674,7 @@ async def test_filter_deleted_findings():
     assert await get_open_vulnerabilities(context, "unittesting") < open_vulns
 
 
-async def test_non_existing_finding():
+async def test_non_existing_finding() -> None:
     query = """
       query GetFindingHeader($findingId: String!) {
         finding(identifier: $findingId) {

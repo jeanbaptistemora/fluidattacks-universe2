@@ -43,7 +43,7 @@ pytestmark = [
 ]
 
 
-async def test_get_comment_recipients():
+async def test_get_comment_recipients() -> None:
     project_name = "unittesting"
     comment_type = "comment"
 
@@ -54,7 +54,7 @@ async def test_get_comment_recipients():
     assert isinstance(test_data[0], str)
 
 
-async def test_get_tracking_vulnerabilities():
+async def test_get_tracking_vulnerabilities() -> None:
     finding_id = "436992569"
     vulnerabilities = await list_vulnerabilities_async([finding_id])
     test_data = get_tracking_vulnerabilities(vulnerabilities)
@@ -205,7 +205,7 @@ async def test_get_tracking_vulnerabilities():
 
 
 @pytest.mark.changes_db
-async def test_add_comment():
+async def test_add_comment() -> None:
     request = await create_dummy_session("unittest@fluidattacks.com")
     info = GraphQLResolveInfo(
         None, None, None, None, None, None, None, None, None, None, request
@@ -244,7 +244,7 @@ async def test_add_comment():
 
 
 @pytest.mark.changes_db
-async def test_mask_finding():
+async def test_mask_finding() -> None:
     finding_id = "475041524"
     context = get_new_context()
     test_data = await mask_finding(context, finding_id)
@@ -259,7 +259,7 @@ async def test_mask_finding():
     assert finding.get("affected_systems", "") == "Masked"
 
 
-async def test_validate_evidence_records():
+async def test_validate_evidence_records() -> None:
     evidence_id = "fileRecords"
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "../mock/test-file-records.csv")
@@ -272,7 +272,7 @@ async def test_validate_evidence_records():
     assert test_data == expected_output
 
 
-async def test_validate_evidence_records_invalid_type():
+async def test_validate_evidence_records_invalid_type() -> None:
     evidence_id = "fileRecords"
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "../mock/test-anim.gif")
@@ -283,7 +283,7 @@ async def test_validate_evidence_records_invalid_type():
             await validate_evidence(evidence_id, uploaded_file)
 
 
-async def test_validate_acceptance_severity():
+async def test_validate_acceptance_severity() -> None:
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
     info_to_check = {
         "historic_treatment": [
@@ -313,7 +313,7 @@ async def test_validate_acceptance_severity():
         )
 
 
-async def test_validate_number_acceptations():
+async def test_validate_number_acceptations() -> None:
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
     info_to_check = {
         "historic_treatment": [
@@ -352,7 +352,7 @@ async def test_validate_number_acceptations():
 
 @pytest.mark.changes_db
 @freeze_time("2019-12-01")
-async def test_approve_draft():
+async def test_approve_draft() -> None:
     finding_id = "475041513"
     reviewer_email = "unittest@fluidattacks.com"
     context = await create_dummy_session(reviewer_email)
@@ -408,7 +408,7 @@ async def test_list_drafts_deleted() -> None:
 
 
 @freeze_time("2019-01-26")
-async def test_get_oldest_open_findings():
+async def test_get_oldest_open_findings() -> None:
     project_name = "unittesting"
     oldest_requested = 1
     context = get_new_context()
@@ -427,7 +427,7 @@ async def test_get_oldest_open_findings():
 
 
 @freeze_time("2018-12-27")
-async def test_get_total_reattacks_stats():
+async def test_get_total_reattacks_stats() -> None:
     project_name = "unittesting"
     last_day = datetime_utils.get_now_minus_delta(hours=24)
     context = get_new_context()
@@ -445,7 +445,7 @@ async def test_get_total_reattacks_stats():
 
 
 @freeze_time("2018-12-27")
-async def test_get_total_reattacks_stats():
+async def test_get_total_reattacks_stats() -> None:
     project_name = "unittesting"
     last_day = datetime_utils.get_now_minus_delta(hours=24)
     context = get_new_context()

@@ -67,7 +67,7 @@ pytestmark = [
 ]
 
 
-def test_validate_group_services_config():
+def test_validate_group_services_config() -> None:
     with pytest.raises(InvalidGroupServicesConfig):
         validate_group_services_config(True, True, True, False, False)
     with pytest.raises(InvalidGroupServicesConfig):
@@ -81,12 +81,12 @@ def test_validate_group_services_config():
 
 
 @pytest.mark.changes_db
-async def test_remove_access():
+async def test_remove_access() -> None:
     assert await remove_access("unittest", "unittesting")
     assert not await remove_access("", "")
 
 
-async def test_validate_tags():
+async def test_validate_tags() -> None:
     assert await validate_group_tags(
         "unittesting", ["testtag", "this-is-ok", "th15-4l50"]
     )
@@ -101,19 +101,19 @@ async def test_validate_tags():
         assert await validate_group_tags("unittesting", ["test-projects"])
 
 
-async def test_is_alive():
+async def test_is_alive() -> None:
     assert await is_alive("unittesting")
     assert not await is_alive("unexisting_project")
 
 
-async def test_get_pending_closing_checks():
+async def test_get_pending_closing_checks() -> None:
     context = get_new_context()
     test_data = await get_pending_closing_check(context, "unittesting")
     expected_output = 1
     assert test_data == expected_output
 
 
-async def test_get_last_closing_vuln():
+async def test_get_last_closing_vuln() -> None:
     findings_to_get = ["463558592", "422286126"]
     context = get_new_context()
     findings = await collect(
@@ -128,7 +128,7 @@ async def test_get_last_closing_vuln():
     assert test_data[1]["finding_id"] == "463558592"
 
 
-async def test_get_last_closing_date():
+async def test_get_last_closing_date() -> None:
     closed_vulnerability = {
         "specific": "phone",
         "finding_id": "422286126",
@@ -154,7 +154,7 @@ async def test_get_last_closing_date():
     assert test_data is None
 
 
-async def test_is_vulnerability_closed():
+async def test_is_vulnerability_closed() -> None:
     closed_vulnerability = {
         "specific": "phone",
         "finding_id": "422286126",
@@ -176,7 +176,7 @@ async def test_is_vulnerability_closed():
     assert not is_vulnerability_closed(open_vulnerability[0])
 
 
-async def test_get_max_open_severity():
+async def test_get_max_open_severity() -> None:
     findings_to_get = ["463558592", "422286126"]
     findings = await collect(
         findings_dal.get_finding(finding_id) for finding_id in findings_to_get
@@ -186,7 +186,7 @@ async def test_get_max_open_severity():
     assert test_data[1]["finding_id"] == "463558592"
 
 
-async def test_get_open_vulnerabilities():
+async def test_get_open_vulnerabilities() -> None:
     project_name = "unittesting"
     expected_output = 29
     open_vulns = await get_open_vulnerabilities(
@@ -195,7 +195,7 @@ async def test_get_open_vulnerabilities():
     assert open_vulns == expected_output
 
 
-async def test_get_closed_vulnerabilities():
+async def test_get_closed_vulnerabilities() -> None:
     project_name = "unittesting"
     expected_output = 7
     closed_vulns = await get_closed_vulnerabilities(
@@ -204,14 +204,14 @@ async def test_get_closed_vulnerabilities():
     assert closed_vulns == expected_output
 
 
-async def test_get_open_finding():
+async def test_get_open_finding() -> None:
     project_name = "unittesting"
     expected_output = 5
     open_findings = await get_open_finding(get_new_context(), project_name)
     assert open_findings == expected_output
 
 
-async def test_get_open_vulnerability_date():
+async def test_get_open_vulnerability_date() -> None:
     closed_vulnerability = {
         "specific": "phone",
         "finding_id": "422286126",
@@ -235,7 +235,7 @@ async def test_get_open_vulnerability_date():
 
 
 @freeze_time("2020-12-01")
-async def test_get_mean_remediate():
+async def test_get_mean_remediate() -> None:
     context = get_new_context()
     group_name = "unittesting"
     assert await get_mean_remediate(context, group_name) == Decimal("383.0")
@@ -258,7 +258,7 @@ async def test_get_mean_remediate():
     ) == Decimal("0.0")
 
 
-async def test_get_total_treatment():
+async def test_get_total_treatment() -> None:
     context = get_new_context()
     findings_to_get = ["463558592", "422286126"]
     findings = await collect(
@@ -274,7 +274,7 @@ async def test_get_total_treatment():
     assert test_data == expected_output
 
 
-async def test_list_comments():
+async def test_list_comments() -> None:
     project_name = "unittesting"
     test_data = await list_comments(project_name, "admin")
     expected_output = {
@@ -290,7 +290,7 @@ async def test_list_comments():
 
 
 @pytest.mark.changes_db
-async def test_add_comment():
+async def test_add_comment() -> None:
     project_name = "unittesting"
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     comment_id = int(round(time.time() * 1000))
@@ -319,12 +319,12 @@ async def test_add_comment():
     )
 
 
-async def test_get_active_groups():
+async def test_get_active_groups() -> None:
     test_data = await get_active_groups()
     assert test_data is not None
 
 
-async def test_get_alive_group_names():
+async def test_get_alive_group_names() -> None:
     test_data = await get_alive_group_names()
     expected_output = [
         "asgard",
@@ -345,7 +345,7 @@ async def test_get_alive_group_names():
     assert sorted(test_data) == sorted(expected_output)
 
 
-async def test_list_events():
+async def test_list_events() -> None:
     project_name = "unittesting"
     expected_output = [
         "540462628",
@@ -357,7 +357,7 @@ async def test_list_events():
     assert expected_output == await list_group_events(project_name)
 
 
-async def test_get_managers():
+async def test_get_managers() -> None:
     project_name = "unittesting"
     expected_output = [
         "integratesuser@gmail.com",
@@ -367,13 +367,13 @@ async def test_get_managers():
     assert expected_output == await get_managers(project_name)
 
 
-async def test_get_description():
+async def test_get_description() -> None:
     project_name = "unittesting"
     expected_output = "Integrates unit test project"
     assert expected_output == await get_description(project_name)
 
 
-async def test_get_users():
+async def test_get_users() -> None:
     project_name = "unittesting"
     expected_output = [
         "integratescloser@fluidattacks.com",
@@ -395,13 +395,13 @@ async def test_get_users():
     assert expected_output == await get_group_users(project_name)
 
 
-async def test_get_closers():
+async def test_get_closers() -> None:
     closers = await get_closers("oneshottest")
     assert closers == ["integratesanalyst@fluidattacks.com"]
 
 
 @freeze_time("2020-04-12")
-async def test_get_mean_remediate_severity():
+async def test_get_mean_remediate_severity() -> None:
     context = get_new_context()
     project_name = "unittesting"
     min_severity = 0.1
@@ -421,7 +421,7 @@ async def test_get_mean_remediate_severity():
 
 
 @pytest.mark.changes_db
-async def test_create_project_not_user_admin():
+async def test_create_project_not_user_admin() -> None:
     await names_domain.create("NEWAVAILABLENAME", "group")
     user_email = "integratesuser@gmail.com"
     user_role = "customeradmin"
@@ -466,7 +466,7 @@ async def test_edit(
     has_forces: bool,
     has_integrates: bool,
     expected: bool,
-):
+) -> None:
     assert expected == await edit(
         context=get_new_context(),
         comments="",
@@ -481,7 +481,7 @@ async def test_edit(
     )
 
 
-async def test_get_pending_verification_findings():
+async def test_get_pending_verification_findings() -> None:
     project_name = "unittesting"
     context = get_new_context()
     findings = await get_pending_verification_findings(context, project_name)
@@ -492,7 +492,7 @@ async def test_get_pending_verification_findings():
 
 
 @freeze_time("2018-12-27")
-async def test_get_total_comments_date():
+async def test_get_total_comments_date() -> None:
     project_name = "unittesting"
     last_day = datetime_utils.get_now_minus_delta(hours=24)
     context = get_new_context()
@@ -505,7 +505,7 @@ async def test_get_total_comments_date():
 
 
 @freeze_time("2021-05-12")
-async def test_get_group_digest_stats():
+async def test_get_group_digest_stats() -> None:
     group_name = "unittesting"
     context = get_new_context()
     total_stats = await get_group_digest_stats(context, group_name)

@@ -43,7 +43,7 @@ pytestmark = [
 ]
 
 
-async def test_get_status_vulns_by_time_range():
+async def test_get_status_vulns_by_time_range() -> None:
     released_findings = await get_findings_by_group("UNITTESTING")
     first_day = "2019-01-01 12:00:00"
     last_day = "2019-06-30 23:59:59"
@@ -59,14 +59,14 @@ async def test_get_status_vulns_by_time_range():
     assert test_data == expected_output
 
 
-def test_create_weekly_date():
+def test_create_weekly_date() -> None:
     first_date = "2019-09-19 13:23:32"
     test_data = update_indicators.create_weekly_date(first_date)
     expected_output = "Sep 16 - 22, 2019"
     assert test_data == expected_output
 
 
-async def test_get_accepted_vulns():
+async def test_get_accepted_vulns() -> None:
     released_findings = await get_findings_by_group("UNITTESTING")
     last_day = "2019-06-30 23:59:59"
     vulns = await list_vulnerabilities_async(
@@ -84,7 +84,7 @@ async def test_get_accepted_vulns():
     assert test_data == expected_output
 
 
-async def test_get_by_time_range():
+async def test_get_by_time_range() -> None:
     last_day = "2020-09-09 23:59:59"
     vuln = await get_vuln("80d6a69f-a376-46be-98cd-2fdedcffdcc0")
     test_data = update_indicators.get_by_time_range(vuln[0], last_day)
@@ -92,7 +92,7 @@ async def test_get_by_time_range():
     assert test_data == expected_output
 
 
-async def test_create_register_by_week():
+async def test_create_register_by_week() -> None:
     context = get_new_context()
     project_name = "unittesting"
     test_data = await update_indicators.create_register_by_week(
@@ -105,7 +105,7 @@ async def test_create_register_by_week():
         assert item[0] is not None
 
 
-def test_create_data_format_chart():
+def test_create_data_format_chart() -> None:
     registers = OrderedDict(
         [
             (
@@ -131,7 +131,7 @@ def test_create_data_format_chart():
     assert test_data == expected_output
 
 
-async def test_get_first_week_dates():
+async def test_get_first_week_dates() -> None:
     vulns = await list_vulnerabilities_async(
         ["422286126"],
         include_confirmed_zero_risk=True,
@@ -142,7 +142,7 @@ async def test_get_first_week_dates():
     assert test_data == expected_output
 
 
-async def test_get_date_last_vulns():
+async def test_get_date_last_vulns() -> None:
     vulns = await list_vulnerabilities_async(
         ["422286126"],
         include_confirmed_zero_risk=True,
@@ -153,7 +153,7 @@ async def test_get_date_last_vulns():
     assert test_data == expected_output
 
 
-async def test_get_group_indicators():
+async def test_get_group_indicators() -> None:
     group_name = "unittesting"
     findings = await get_findings_by_group(group_name)
     vulns = await list_vulnerabilities_async(
@@ -201,7 +201,7 @@ async def test_get_group_indicators():
 
 @pytest.mark.changes_db
 @freeze_time("2019-12-01")
-async def test_delete_obsolete_orgs():
+async def test_delete_obsolete_orgs() -> None:
     org_id = "ORG#33c08ebd-2068-47e7-9673-e1aa03dc9448"
     org_name = "kiba"
     org_ids = []
@@ -226,7 +226,7 @@ async def test_delete_obsolete_orgs():
 
 @pytest.mark.changes_db
 @freeze_time("2021-01-01")
-async def test_delete_imamura_stakeholders():
+async def test_delete_imamura_stakeholders() -> None:
     org_name = "imamura"
     org_id = await get_id_by_name(org_name)
     loaders = get_new_context()
@@ -268,7 +268,7 @@ async def test_delete_imamura_stakeholders():
 
 
 @pytest.mark.changes_db
-async def test_delete_obsolete_groups():
+async def test_delete_obsolete_groups() -> None:
     group_attributes = {
         "project_name",
         "project_status",
@@ -309,8 +309,8 @@ async def test_delete_obsolete_groups():
 
 
 @pytest.mark.changes_db
-async def test_toe_lines_etl():
-    def clone_services_repository_mock(path):
+async def test_toe_lines_etl() -> None:
+    def clone_services_repository_mock(path) -> None:
         dirname = os.path.dirname(__file__)
         filename = os.path.join(dirname, "mock/test_lines.csv")
         os.makedirs(f"{path}/groups/unittesting/toe")
@@ -381,8 +381,8 @@ async def test_toe_lines_etl():
 
 
 @pytest.mark.changes_db
-async def test_toe_inputs_etl(monkeypatch):
-    def mocked_clone_services_repository(path):
+async def test_toe_inputs_etl(monkeypatch) -> None:
+    def mocked_clone_services_repository(path) -> None:
         print("mocked_clone_services_repository")
         dirname = os.path.dirname(__file__)
         filename = os.path.join(dirname, "mock/test_inputs.csv")
