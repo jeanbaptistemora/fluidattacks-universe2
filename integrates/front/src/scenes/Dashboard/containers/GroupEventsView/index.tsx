@@ -27,8 +27,8 @@ import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   CREATE_EVENT_MUTATION,
   GET_EVENTS,
-} from "scenes/Dashboard/containers/ProjectEventsView/queries";
-import { formatEvents } from "scenes/Dashboard/containers/ProjectEventsView/utils";
+} from "scenes/Dashboard/containers/GroupEventsView/queries";
+import { formatEvents } from "scenes/Dashboard/containers/GroupEventsView/utils";
 import globalStyle from "styles/global.css";
 import {
   ButtonToolbar,
@@ -98,7 +98,7 @@ const maxEventDetailsLength: ConfigurableValidator = maxLength(
   MAX_EVENT_DETAILS_LENGTH
 );
 
-const ProjectEventsView: React.FC = (): JSX.Element => {
+const GroupEventsView: React.FC = (): JSX.Element => {
   const { push } = useHistory();
   const { projectName } = useParams<{ projectName: string }>();
   const { url } = useRouteMatch();
@@ -236,7 +236,7 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
     graphQLErrors,
   }: ApolloError): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
-      Logger.warning("An error occurred loading project data", error);
+      Logger.warning("An error occurred loading group data", error);
       msgError(translate.t("groupAlerts.errorTextsad"));
     });
   };
@@ -830,4 +830,4 @@ const ProjectEventsView: React.FC = (): JSX.Element => {
   );
 };
 
-export { ProjectEventsView };
+export { GroupEventsView };

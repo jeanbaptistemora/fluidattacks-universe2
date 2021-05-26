@@ -15,8 +15,8 @@ import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { ChartsForGroupView } from "scenes/Dashboard/containers/ChartsForGroupView";
 import { GroupAuthorsView } from "scenes/Dashboard/containers/GroupAuthorsView";
 import { GroupConsultingView } from "scenes/Dashboard/containers/GroupConsultingView/index";
-import { ProjectDraftsView } from "scenes/Dashboard/containers/ProjectDraftsView";
-import { ProjectEventsView } from "scenes/Dashboard/containers/ProjectEventsView/index";
+import { GroupDraftsView } from "scenes/Dashboard/containers/GroupDraftsView";
+import { GroupEventsView } from "scenes/Dashboard/containers/GroupEventsView/index";
 import { ProjectFindingsView } from "scenes/Dashboard/containers/ProjectFindingsView/index";
 import { ProjectForcesView } from "scenes/Dashboard/containers/ProjectForcesView";
 import { ProjectStakeholdersView } from "scenes/Dashboard/containers/ProjectStakeholdersView/index";
@@ -159,7 +159,7 @@ const GroupContent: React.FC = (): JSX.Element => {
                     path={`${path}/vulns`}
                   />
                   <Route
-                    component={ProjectDraftsView}
+                    component={GroupDraftsView}
                     exact={true}
                     path={`${path}/drafts`}
                   />
@@ -169,7 +169,7 @@ const GroupContent: React.FC = (): JSX.Element => {
                     path={`${path}/devsecops`}
                   />
                   <Route
-                    component={ProjectEventsView}
+                    component={GroupEventsView}
                     exact={true}
                     path={`${path}/events`}
                   />

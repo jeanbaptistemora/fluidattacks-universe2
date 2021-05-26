@@ -13,8 +13,8 @@ import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
-import { ProjectEventsView } from "scenes/Dashboard/containers/ProjectEventsView";
-import { GET_EVENTS } from "scenes/Dashboard/containers/ProjectEventsView/queries";
+import { GroupEventsView } from "scenes/Dashboard/containers/GroupEventsView";
+import { GET_EVENTS } from "scenes/Dashboard/containers/GroupEventsView/queries";
 import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 
@@ -64,7 +64,7 @@ describe("EventsView", (): void => {
 
   it("should return a fuction", (): void => {
     expect.hasAssertions();
-    expect(typeof ProjectEventsView).toStrictEqual("function");
+    expect(typeof GroupEventsView).toStrictEqual("function");
   });
 
   it("should render an error in component", async (): Promise<void> => {
@@ -75,7 +75,7 @@ describe("EventsView", (): void => {
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mockError}>
             <Route
-              component={ProjectEventsView}
+              component={GroupEventsView}
               path={"/project/:projectName/events"}
             />
           </MockedProvider>
@@ -100,7 +100,7 @@ describe("EventsView", (): void => {
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mocks}>
             <Route
-              component={ProjectEventsView}
+              component={GroupEventsView}
               path={"/project/:projectName/events"}
             />
           </MockedProvider>
@@ -119,7 +119,7 @@ describe("EventsView", (): void => {
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mocks}>
             <Route
-              component={ProjectEventsView}
+              component={GroupEventsView}
               path={"/project/:projectName/events"}
             />
           </MockedProvider>
@@ -162,7 +162,7 @@ describe("EventsView", (): void => {
           <MockedProvider addTypename={false} mocks={mocks}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
-                component={ProjectEventsView}
+                component={GroupEventsView}
                 path={"/project/:projectName/events"}
               />
             </authzPermissionsContext.Provider>

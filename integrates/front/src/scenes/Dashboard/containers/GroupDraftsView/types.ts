@@ -1,4 +1,4 @@
-export interface IProjectDraftsAttr {
+export interface IGroupDraftsAttr {
   project: {
     drafts: {
       currentState: string;

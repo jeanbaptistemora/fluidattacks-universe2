@@ -10,8 +10,8 @@ import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
-import { ProjectDraftsView } from "scenes/Dashboard/containers/ProjectDraftsView";
-import { GET_DRAFTS } from "scenes/Dashboard/containers/ProjectDraftsView/queries";
+import { GroupDraftsView } from "scenes/Dashboard/containers/GroupDraftsView";
+import { GET_DRAFTS } from "scenes/Dashboard/containers/GroupDraftsView/queries";
 import store from "store";
 
 const mockedFetch: FetchMockStatic = fetch as FetchMockStatic & typeof fetch;
@@ -29,7 +29,7 @@ mockedFetch.mock(
   }
 );
 
-describe("ProjectDraftsView", (): void => {
+describe("GroupDraftsView", (): void => {
   const mocks: readonly MockedResponse[] = [
     {
       request: {
@@ -78,7 +78,7 @@ describe("ProjectDraftsView", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof ProjectDraftsView).toStrictEqual("function");
+    expect(typeof GroupDraftsView).toStrictEqual("function");
   });
 
   it("should render a component", async (): Promise<void> => {
@@ -89,7 +89,7 @@ describe("ProjectDraftsView", (): void => {
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mocks}>
             <Route
-              component={ProjectDraftsView}
+              component={GroupDraftsView}
               path={"/groups/:projectName/drafts"}
             />
           </MockedProvider>
@@ -116,7 +116,7 @@ describe("ProjectDraftsView", (): void => {
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mockError}>
             <Route
-              component={ProjectDraftsView}
+              component={GroupDraftsView}
               path={"/groups/:projectName/drafts"}
             />
           </MockedProvider>

@@ -18,14 +18,14 @@ import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import type { ISuggestion } from "scenes/Dashboard/containers/ProjectDraftsView/findingNames";
-import { getFindingNames } from "scenes/Dashboard/containers/ProjectDraftsView/findingNames";
+import type { ISuggestion } from "scenes/Dashboard/containers/GroupDraftsView/findingNames";
+import { getFindingNames } from "scenes/Dashboard/containers/GroupDraftsView/findingNames";
 import {
   CREATE_DRAFT_MUTATION,
   GET_DRAFTS,
-} from "scenes/Dashboard/containers/ProjectDraftsView/queries";
-import type { IProjectDraftsAttr } from "scenes/Dashboard/containers/ProjectDraftsView/types";
-import { formatDrafts } from "scenes/Dashboard/containers/ProjectDraftsView/utils";
+} from "scenes/Dashboard/containers/GroupDraftsView/queries";
+import type { IGroupDraftsAttr } from "scenes/Dashboard/containers/GroupDraftsView/types";
+import { formatDrafts } from "scenes/Dashboard/containers/GroupDraftsView/utils";
 import {
   ButtonToolbar,
   ButtonToolbarCenter,
@@ -38,7 +38,7 @@ import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import { required, validDraftTitle } from "utils/validations";
 
-const ProjectDraftsView: React.FC = (): JSX.Element => {
+const GroupDraftsView: React.FC = (): JSX.Element => {
   const { projectName } = useParams<{ projectName: string }>();
   const { push } = useHistory();
   const { url } = useRouteMatch();
@@ -159,11 +159,11 @@ const ProjectDraftsView: React.FC = (): JSX.Element => {
   }: ApolloError): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
       msgError(translate.t("groupAlerts.errorTextsad"));
-      Logger.warning("An error occurred getting project drafts", error);
+      Logger.warning("An error occurred getting group drafts", error);
     });
   };
 
-  const { data, refetch } = useQuery<IProjectDraftsAttr>(GET_DRAFTS, {
+  const { data, refetch } = useQuery<IGroupDraftsAttr>(GET_DRAFTS, {
     onError: handleQryError,
     variables: { projectName },
   });
@@ -191,7 +191,7 @@ const ProjectDraftsView: React.FC = (): JSX.Element => {
           break;
         default:
           msgError(translate.t("groupAlerts.errorTextsad"));
-          Logger.warning("An error occurred getting project drafts", error);
+          Logger.warning("An error occurred getting group drafts", error);
       }
     });
   };
@@ -291,4 +291,4 @@ const ProjectDraftsView: React.FC = (): JSX.Element => {
   );
 };
 
-export { ProjectDraftsView };
+export { GroupDraftsView };
