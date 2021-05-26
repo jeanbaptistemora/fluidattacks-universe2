@@ -867,6 +867,7 @@ module.exports = {
             'development/stack/git/merge-requests',
           ]
         },
+        'development/stack/mozilla-sops',
         'development/stack/terraform',
       ]
     },

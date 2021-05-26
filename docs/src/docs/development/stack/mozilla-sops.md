@@ -1,0 +1,131 @@
+---
+id: mozilla-sops
+title: Mozilla Sops
+sidebar_label: Mozilla Sops
+slug: /development/stack/mozilla-sops
+---
+
+## Rationale
+
+[Sops](https://github.com/mozilla/sops)
+is the tool we use for managing all our
+organizational secrets like passwords,
+access keys,
+[PII](https://en.wikipedia.org/wiki/Personal_data),
+among others.
+It allows us to version
+encrypted files within our
+[Git](https://git-scm.com/) repositories
+in a stateless approach.
+The main reasons why we chose
+it over other alternatives are:
+
+1. It is [Open source](https://opensource.com/resources/what-open-source).
+2. it is [Serverless](https://en.wikipedia.org/wiki/Serverless_computing),
+meaning that it does not require maintaining servers, firewalls,
+load balancers, or any other typical infrastructre required for
+common [Secrets Engines](https://www.vaultproject.io/docs/secrets).
+1. It supports [AWS KMS](https://aws.amazon.com/kms/),
+which allows to encrypt files
+using symmetric
+[AES256](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)
+keys
+that only exist within the KMS boundaries,
+granting almost-impossible key leakage.
+Access to such keys can be easily managed
+with a user-level granularity
+by using [AWS IAM](https://aws.amazon.com/iam/).
+1. It is free.
+Only costs for decrypting secret files
+using [AWS KMS](https://aws.amazon.com/kms/) are incurred
+1. As secrets are
+[written as code](https://hackernoon.com/everything-as-code-explained-0ibg32a3),
+it allows
+[software versioning](https://en.wikipedia.org/wiki/Software_versioning),
+as encrypted secret files can be
+[securely pushed to git repositories](https://gitlab.com/fluidattacks/product/-/blob/f0a6de7eee664aee9794d677083a19f45fff4ffb/makes/applications/makes/okta/src/terraform/data.yaml).
+1. It allows reproducibility and auditability
+as secrets are versioned.
+1. It is [DevOps](https://aws.amazon.com/devops/what-is-devops/) friendly,
+as secret management is now done through
+[Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/),
+allowing to run
+[CI/CD](https://docs.gitlab.com/ee/ci/introduction/) integrations
+on the secrets.
+1. Secret's [KMS](https://aws.amazon.com/kms/) keys
+are [very easy to rotate](https://github.com/mozilla/sops#key-rotation).
+1. It integrates with other services like
+[PGP](https://github.com/mozilla/sops#test-with-the-dev-pgp-key),
+[Age](https://github.com/mozilla/sops#encrypting-using-age),
+[GCP KMS](https://github.com/mozilla/sops#encrypting-using-gcp-kms),
+[Azure Key Vault](https://github.com/mozilla/sops#encrypting-using-azure-key-vault),
+and [Hashicorp Vault](https://github.com/mozilla/sops#encrypting-using-hashicorp-vault).
+1. It supports
+[Yaml, Json, Env, Ini and Binary](https://github.com/mozilla/sops/tree/2395f07610e45d507ec0d4b3ad48dbf502ed5bed#sops-secrets-operations)
+formats.
+
+## Alternatives
+
+The following alternatives were considered
+but not chosen for the following reasons:
+
+1. [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/):
+They charge on a per-secret basis.
+It is a common
+[Secrets Engine](https://www.vaultproject.io/docs/secrets),
+meaning that secrets are not stored as code,
+losing versioning, auditability, automation
+and reproducibility capabilities.
+1. [HashiCorp Vault](https://www.vaultproject.io/):
+It did not have a
+[SaaS](https://en.wikipedia.org/wiki/Software_as_a_service)
+solution at the time we tried it.
+We had to maintain the entire service on our
+[Kubernetes](https://kubernetes.io/) cluster.
+It is a common
+[Secrets Engine](https://www.vaultproject.io/docs/secrets),
+meaning that secrets are not stored as code,
+losing versioning, auditability, automation
+and reproducibility capabilities.
+2. [Torus](https://www.torus.sh/):
+We used a few years ago but it got discontinued.
+One year leater they relaunched their service.
+It is a common
+[Secrets Engine](https://www.vaultproject.io/docs/secrets),
+meaning that secrets are not stored as code,
+losing versioning, auditability, automation
+and reproducibility capabilities.
+
+## Usage
+
+Used for managing all our organizational secrets.
+Some examples are:
+
+1. [Airs](https://gitlab.com/fluidattacks/product/-/blob/master/airs/deploy/secret-management/production.yaml)
+1. [ASM](https://gitlab.com/fluidattacks/product/-/blob/f0a6de7eee664aee9794d677083a19f45fff4ffb/integrates/secrets-production.yaml)
+1. [Docs](https://gitlab.com/fluidattacks/product/-/blob/master/docs/secrets/prod.yaml)
+1. [Forces](https://gitlab.com/fluidattacks/product/-/blob/master/forces/secrets-prod.yaml)
+1. [Makes](https://gitlab.com/fluidattacks/product/-/blob/master/makes/applications/makes/secrets/src/production.yaml)
+1. [Okta](https://gitlab.com/fluidattacks/product/-/blob/f0a6de7eee664aee9794d677083a19f45fff4ffb/makes/applications/makes/okta/src/terraform/data.yaml)
+
+We do not use [Sops](https://github.com/mozilla/sops) for:
+
+1. [Gitlab CI/CD Variables](https://docs.gitlab.com/ee/ci/variables/):
+Although most of the secrets contained here were already migrated,
+there are still some that need review.
+1. Automatic secret rotation:
+As [Sops](https://github.com/mozilla/sops) secrets are versioned,
+automatically rotating them would require to directly push
+automated commits to master. We have declined to do this until today
+mainly due to consistency and stability concerns.
+
+## Guidelines
+
+1. You can install sops with `nix-env -i sops`.
+1. In order to be able to decrypt a secrets file,
+first you must assume an [IAM](https://aws.amazon.com/iam/) role
+with access to the [KMS](https://aws.amazon.com/kms/) key that encrypted it.
+You can follow
+[this guide](../get-dev-keys) to do so.
+1. Once authenticated with a role, you can decrypt a file with `sops <file>`.
+1. You can encrypt a plain file with `sops -ei --kms <kms-arn> <file>`.

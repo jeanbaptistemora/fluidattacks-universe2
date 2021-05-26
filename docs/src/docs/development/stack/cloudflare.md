@@ -127,7 +127,9 @@ on apt and yum.
 
 1. Any changes to
 [CloudFlare's](https://www.cloudflare.com/)
-infrastructure must be done via Merge Requests modifying its
+infrastructure must be done via
+[Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/)
+modifying its
 [Terraform module](https://gitlab.com/fluidattacks/product/-/tree/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform).
 1. To learn how to test and apply infrastructure via [Terraform](https://www.terraform.io/),
 visit the [Terraform Guidelines](terraform#guidelines).

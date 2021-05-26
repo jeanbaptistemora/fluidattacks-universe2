@@ -2,7 +2,7 @@
 id: introduction
 title: Introduction
 sidebar_label: Introduction
-slug: /development/contributing/introduction
+slug: /development/contributing
 ---
 
 We want to be able to launch:
