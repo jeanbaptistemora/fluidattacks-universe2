@@ -8,7 +8,7 @@ slug: /development/stack/mozilla-sops
 ## Rationale
 
 [Sops](https://github.com/mozilla/sops)
-is the tool we use for managing all our
+is the tool we use for managing most of our
 organizational secrets like passwords,
 access keys,
 [PII](https://en.wikipedia.org/wiki/Personal_data),
@@ -21,7 +21,7 @@ The main reasons why we chose
 it over other alternatives are:
 
 1. It is [Open source](https://opensource.com/resources/what-open-source).
-2. it is [Serverless](https://en.wikipedia.org/wiki/Serverless_computing),
+1. it is [Serverless](https://en.wikipedia.org/wiki/Serverless_computing),
 meaning that it does not require maintaining servers, firewalls,
 load balancers, or any other typical infrastructre required for
 common [Secrets Engines](https://www.vaultproject.io/docs/secrets).
@@ -37,7 +37,7 @@ with a user-level granularity
 by using [AWS IAM](https://aws.amazon.com/iam/).
 1. It is free.
 Only costs for decrypting secret files
-using [AWS KMS](https://aws.amazon.com/kms/) are incurred
+using [AWS KMS](https://aws.amazon.com/kms/) are incurred.
 1. As secrets are
 [written as code](https://hackernoon.com/everything-as-code-explained-0ibg32a3),
 it allows
@@ -87,7 +87,7 @@ It is a common
 meaning that secrets are not stored as code,
 losing versioning, auditability, automation
 and reproducibility capabilities.
-2. [Torus](https://www.torus.sh/):
+1. [Torus](https://www.torus.sh/):
 We used a few years ago but it got discontinued.
 One year leater they relaunched their service.
 It is a common
@@ -98,7 +98,7 @@ and reproducibility capabilities.
 
 ## Usage
 
-Used for managing all our organizational secrets.
+Used for managing most of our organizational secrets.
 Some examples are:
 
 1. [Airs](https://gitlab.com/fluidattacks/product/-/blob/master/airs/deploy/secret-management/production.yaml)
@@ -115,17 +115,27 @@ Although most of the secrets contained here were already migrated,
 there are still some that need review.
 1. Automatic secret rotation:
 As [Sops](https://github.com/mozilla/sops) secrets are versioned,
-automatically rotating them would require to directly push
-automated commits to master. We have declined to do this until today
+automatically rotating them would require
+to directly push automated commits to our main branches.
+We have declined to do this until today
 mainly due to consistency and stability concerns.
+Secrets that require automatic rotation
+are either kept within our
+[Gitlab CI/CD Variables](https://docs.gitlab.com/ee/ci/variables/)
+or
+[AWS Secrets Manager](https://aws.amazon.com/secrets-manager/).
 
 ## Guidelines
 
-1. You can install sops with `nix-env -i sops`.
+1. You can install
+[Sops](https://github.com/mozilla/sops) with `nix-env -i sops`.
 1. In order to be able to decrypt a secrets file,
 first you must assume an [IAM](https://aws.amazon.com/iam/) role
-with access to the [KMS](https://aws.amazon.com/kms/) key that encrypted it.
-You can follow
-[this guide](../get-dev-keys) to do so.
-1. Once authenticated with a role, you can decrypt a file with `sops <file>`.
-1. You can encrypt a plain file with `sops -ei --kms <kms-arn> <file>`.
+with access to the [KMS](https://aws.amazon.com/kms/) key
+that encrypted it.
+You can follow [this guide](../get-dev-keys)
+to do so.
+1. Once authenticated with a role,
+you can decrypt a file with `sops <file>`.
+2. You can encrypt a plain file
+with `sops -ei --kms <kms-arn> <file>`.
