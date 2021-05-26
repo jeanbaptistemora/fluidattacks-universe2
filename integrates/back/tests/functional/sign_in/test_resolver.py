@@ -20,7 +20,7 @@ from . import query
         ["customer@gmail.com"],
     ],
 )
-async def test_sign_in(populate: bool, email: str):
+async def test_sign_in(populate: bool, email: str) -> None:
     assert populate
     result: Dict[str, Any] = await query(
         user=email,

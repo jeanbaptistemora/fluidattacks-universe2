@@ -21,7 +21,7 @@ from . import query
         ["customer@gmail.com"],
     ],
 )
-async def test_resources(populate: bool, email: str):
+async def test_resources(populate: bool, email: str) -> None:
     assert populate
     files: List[Dict[str, str]] = [
         {

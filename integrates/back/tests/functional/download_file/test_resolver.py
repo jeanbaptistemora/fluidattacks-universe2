@@ -20,7 +20,7 @@ from . import query
         ["customer@gmail.com"],
     ],
 )
-async def test_download_file(populate: bool, email: str):
+async def test_download_file(populate: bool, email: str) -> None:
     assert populate
     file_name: str = "test.zip"
     result: Dict[str, Any] = await query(

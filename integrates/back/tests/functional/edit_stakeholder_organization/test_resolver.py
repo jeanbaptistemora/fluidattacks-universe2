@@ -18,7 +18,9 @@ from . import query
         ["customeradmin@gmail.com"],
     ],
 )
-async def test_edit_stakeholder_organization(populate: bool, email: str):
+async def test_edit_stakeholder_organization(
+    populate: bool, email: str
+) -> None:
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
     user_role: str = "CUSTOMER"
@@ -50,7 +52,9 @@ async def test_edit_stakeholder_organization(populate: bool, email: str):
         ["customer@gmail.com"],
     ],
 )
-async def test_edit_stakeholder_organization_fail(populate: bool, email: str):
+async def test_edit_stakeholder_organization_fail(
+    populate: bool, email: str
+) -> None:
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
     user_role: str = "CUSTOMER"

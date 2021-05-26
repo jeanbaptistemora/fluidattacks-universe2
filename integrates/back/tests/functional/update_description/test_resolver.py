@@ -19,7 +19,7 @@ from . import query
         ["closer@gmail.com"],
     ],
 )
-async def test_update_finding_description(populate: bool, email: str):
+async def test_update_finding_description(populate: bool, email: str) -> None:
     assert populate
     result: Dict[str, Any] = await query(user=email)
     assert "errors" not in result
@@ -35,7 +35,9 @@ async def test_update_finding_description(populate: bool, email: str):
         ["executive@gmail.com"],
     ],
 )
-async def test_update_finding_description_fail(populate: bool, email: str):
+async def test_update_finding_description_fail(
+    populate: bool, email: str
+) -> None:
     assert populate
     result: Dict[str, Any] = await query(user=email)
     assert "errors" in result

@@ -15,7 +15,7 @@ from . import query
         ("eee8b331-98b9-4e32-a3c7-ec22bd244ae8",),
     ),
 )
-async def test_activate_root(populate: bool, root_id: str):
+async def test_activate_root(populate: bool, root_id: str) -> None:
     assert populate
     result = await query(
         email="admin@gmail.com", group_name="group1", id=root_id

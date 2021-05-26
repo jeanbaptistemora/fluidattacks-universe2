@@ -19,7 +19,7 @@ from . import query
         ["customer@gmail.com"],
     ],
 )
-async def test_admin(populate: bool, email: str):
+async def test_admin(populate: bool, email: str) -> None:
     assert populate
     group: str = "group1"
     result: Dict[str, Any] = await query(
@@ -39,7 +39,7 @@ async def test_admin(populate: bool, email: str):
         ["resourcer@gmail.com"],
     ],
 )
-async def test_closer(populate: bool, email: str):
+async def test_closer(populate: bool, email: str) -> None:
     assert populate
     result: Dict[str, Any] = await query(
         user=email,

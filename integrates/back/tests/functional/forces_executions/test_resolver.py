@@ -21,7 +21,7 @@ from . import query
         ["customeradmin@gmail.com"],
     ],
 )
-async def test_get_forces_executions(populate: bool, email: str):
+async def test_get_forces_executions(populate: bool, email: str) -> None:
     assert populate
     result: Dict[str, Any] = await query(
         user=email,

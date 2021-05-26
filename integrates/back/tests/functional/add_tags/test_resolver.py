@@ -19,7 +19,9 @@ from . import query
         ("customer@gmail.com", ["testing2"]),
     ),
 )
-async def test_add_tags(populate: bool, email: str, tag_list: List[str]):
+async def test_add_tags(
+    populate: bool, email: str, tag_list: List[str]
+) -> None:
     assert populate
     group_name: str = "group1"
     result: Dict[str, Any] = await query(
@@ -42,7 +44,7 @@ async def test_add_tags(populate: bool, email: str, tag_list: List[str]):
         ["resourcer@gmail.com"],
     ],
 )
-async def test_add_tags_fail(populate: bool, email: str):
+async def test_add_tags_fail(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     tag_list: List[str] = ["testing"]

@@ -22,7 +22,7 @@ from . import query
         ["resourcer@gmail.com"],
     ],
 )
-async def test_unsubscribe_from_group(populate: bool, email: str):
+async def test_unsubscribe_from_group(populate: bool, email: str) -> None:
     assert populate
     result: Dict[str, Any] = await query(
         user=email,

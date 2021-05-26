@@ -17,7 +17,7 @@ from . import query
         ["admin@gmail.com"],
     ],
 )
-async def test_grant_stakeholder_access(populate: bool, email: str):
+async def test_grant_stakeholder_access(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group2"
     stakeholder_email: str = "analyst@gmail.com"
@@ -51,7 +51,9 @@ async def test_grant_stakeholder_access(populate: bool, email: str):
         ["resourcer@gmail.com"],
     ],
 )
-async def test_grant_stakeholder_access_fail(populate: bool, email: str):
+async def test_grant_stakeholder_access_fail(
+    populate: bool, email: str
+) -> None:
     assert populate
     group_name: str = "group2"
     stakeholder_email: str = "analyst@gmail.com"

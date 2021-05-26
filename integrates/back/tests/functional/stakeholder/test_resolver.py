@@ -18,7 +18,7 @@ from . import query
         ["customeradmin@gmail.com"],
     ],
 )
-async def test_get_stakeholder(populate: bool, email: str):
+async def test_get_stakeholder(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     result: Dict[str, Any] = await query(
@@ -45,7 +45,7 @@ async def test_get_stakeholder(populate: bool, email: str):
         ["customer@gmail.com"],
     ],
 )
-async def test_get_stakeholder_fail(populate: bool, email: str):
+async def test_get_stakeholder_fail(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     result: Dict[str, Any] = await query(

@@ -22,7 +22,7 @@ from . import query
         ["customeradmin@gmail.com"],
     ],
 )
-async def test_get_events(populate: bool, email: str):
+async def test_get_events(populate: bool, email: str) -> None:
     assert populate
     expected: List[Dict[str, str]] = [
         {

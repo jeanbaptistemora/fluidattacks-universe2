@@ -22,7 +22,7 @@ from . import query
         ["resourcer@gmail.com"],
     ],
 )
-async def test_get_project(populate: bool, email: str):
+async def test_get_project(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     consult: str = "This is a test comment"

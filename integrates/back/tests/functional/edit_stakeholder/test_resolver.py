@@ -17,7 +17,7 @@ from . import query
         ["admin@gmail.com"],
     ],
 )
-async def test_edit_stakeholder(populate: bool, email: str):
+async def test_edit_stakeholder(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     phone_number: str = "123456"
@@ -45,7 +45,7 @@ async def test_edit_stakeholder(populate: bool, email: str):
         ["customer@gmail.com"],
     ],
 )
-async def test_edit_stakeholder(populate: bool, email: str):
+async def test_edit_stakeholder(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     phone_number: str = "123456"

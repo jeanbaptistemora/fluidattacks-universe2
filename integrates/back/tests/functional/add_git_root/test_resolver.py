@@ -17,7 +17,7 @@ from . import query
         ["admin@gmail.com"],
     ],
 )
-async def test_add_git_root(populate: bool, email: str):
+async def test_add_git_root(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     result: Dict[str, Any] = await query(
@@ -36,7 +36,7 @@ async def test_add_git_root(populate: bool, email: str):
         ["customer@gmail.com"],
     ],
 )
-async def test_add_git_root_fail_1(populate: bool, email: str):
+async def test_add_git_root_fail_1(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     result: Dict[str, Any] = await query(
@@ -59,7 +59,7 @@ async def test_add_git_root_fail_1(populate: bool, email: str):
         ["closer@gmail.com"],
     ],
 )
-async def test_add_git_root_fail_2(populate: bool, email: str):
+async def test_add_git_root_fail_2(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     result: Dict[str, Any] = await query(

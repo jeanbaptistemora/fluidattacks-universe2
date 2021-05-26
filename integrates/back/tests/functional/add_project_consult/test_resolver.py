@@ -19,7 +19,7 @@ from . import query
         ["analyst@gmail.com"],
     ],
 )
-async def test_add_project_consult(populate: bool, email: str):
+async def test_add_project_consult(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     result: Dict[str, Any] = await query(
@@ -40,7 +40,7 @@ async def test_add_project_consult(populate: bool, email: str):
         ["resourcer@gmail.com"],
     ],
 )
-async def test_add_project_consult_fail(populate: bool, email: str):
+async def test_add_project_consult_fail(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     result: Dict[str, Any] = await query(

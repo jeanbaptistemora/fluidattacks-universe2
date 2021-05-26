@@ -22,7 +22,7 @@ from . import query
         ["executive@gmail.com"],
     ],
 )
-async def test_add_finding_consultant(populate: bool, email: str):
+async def test_add_finding_consultant(populate: bool, email: str) -> None:
     assert populate
     result: Dict[str, Any] = await query(
         user=email,

@@ -21,7 +21,7 @@ from . import query
         ["customer@gmail.com"],
     ],
 )
-async def test_update_access_token(populate: bool, email: str):
+async def test_update_access_token(populate: bool, email: str) -> None:
     assert populate
     expiration_time: Any = datetime.utcnow() + timedelta(weeks=8)
     ts_expiration_time: int = int(expiration_time.timestamp())

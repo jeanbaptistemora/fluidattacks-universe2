@@ -18,7 +18,7 @@ from . import query
         ["analyst@gmail.com"],
     ],
 )
-async def test_update_severity(populate: bool, email: str):
+async def test_update_severity(populate: bool, email: str) -> None:
     assert populate
     draft_id: str = "475041513"
     result: Dict[str, Any] = await query(user=email, draft=draft_id)
@@ -36,7 +36,7 @@ async def test_update_severity(populate: bool, email: str):
         ["executive@gmail.com"],
     ],
 )
-async def test_update_severity_fail(populate: bool, email: str):
+async def test_update_severity_fail(populate: bool, email: str) -> None:
     assert populate
     draft_id: str = "475041513"
     result: Dict[str, Any] = await query(user=email, draft=draft_id)

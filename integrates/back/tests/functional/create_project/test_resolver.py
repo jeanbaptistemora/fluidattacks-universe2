@@ -17,7 +17,7 @@ from . import query
         ["admin@gmail.com"],
     ],
 )
-async def test_create_project(populate: bool, email: str):
+async def test_create_project(populate: bool, email: str) -> None:
     assert populate
     org_name: str = "orgtest"
     group_name: str = "group1"
@@ -40,7 +40,7 @@ async def test_create_project(populate: bool, email: str):
         ["resourcer@gmail.com"],
     ],
 )
-async def test_create_project_fail(populate: bool, email: str):
+async def test_create_project_fail(populate: bool, email: str) -> None:
     assert populate
     org_name: str = "orgtest"
     group_name: str = "group1"

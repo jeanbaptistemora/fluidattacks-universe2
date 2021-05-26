@@ -17,7 +17,7 @@ from . import query
         ["admin@gmail.com"],
     ],
 )
-async def test_remove_stakeholder_access(populate: bool, email: str):
+async def test_remove_stakeholder_access(populate: bool, email: str) -> None:
     assert populate
     stakeholder_email: str = "admin@gmail.com"
     group_name: str = "group1"
@@ -40,7 +40,9 @@ async def test_remove_stakeholder_access(populate: bool, email: str):
         ["customer@gmail.com"],
     ],
 )
-async def test_remove_stakeholder_access_fail(populate: bool, email: str):
+async def test_remove_stakeholder_access_fail(
+    populate: bool, email: str
+) -> None:
     assert populate
     stakeholder_email: str = "analyst@gmail.com"
     group_name: str = "group1"

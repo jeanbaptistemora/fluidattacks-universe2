@@ -22,7 +22,7 @@ from . import query
 )
 async def test_request_verification_vuln(
     populate: bool, email: str, vuln_id: str
-):
+) -> None:
     assert populate
     finding_id: str = "475041513"
     result: Dict[str, Any] = await query(

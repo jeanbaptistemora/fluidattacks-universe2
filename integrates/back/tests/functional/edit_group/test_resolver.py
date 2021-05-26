@@ -17,7 +17,7 @@ from . import query
         ["admin@gmail.com"],
     ],
 )
-async def test_edit_group(populate: bool, email: str):
+async def test_edit_group(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     result: Dict[str, Any] = await query(user=email, group=group_name)
@@ -36,7 +36,7 @@ async def test_edit_group(populate: bool, email: str):
         ["resourcer@gmail.com"],
     ],
 )
-async def test_edit_group_fail(populate: bool, email: str):
+async def test_edit_group_fail(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     result: Dict[str, Any] = await query(user=email, group=group_name)

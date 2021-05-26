@@ -19,7 +19,7 @@ from . import query
         ["closer@gmail.com"],
     ],
 )
-async def test_upload_file(populate: bool, email: str):
+async def test_upload_file(populate: bool, email: str) -> None:
     assert populate
     finding_id: str = "475041513"
     result: Dict[str, Any] = await query(user=email, finding=finding_id)
@@ -35,7 +35,7 @@ async def test_upload_file(populate: bool, email: str):
         ["executive@gmail.com"],
     ],
 )
-async def test_upload_file_fail(populate: bool, email: str):
+async def test_upload_file_fail(populate: bool, email: str) -> None:
     assert populate
     finding_id: str = "475041513"
     result: Dict[str, Any] = await query(user=email, finding=finding_id)

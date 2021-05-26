@@ -26,7 +26,7 @@ from . import query
 )
 async def test_deactivate_root(
     populate: bool, root_id: str, reason: str, new_root_id: Optional[str]
-):
+) -> None:
     assert populate
     result = await query(
         email="admin@gmail.com",

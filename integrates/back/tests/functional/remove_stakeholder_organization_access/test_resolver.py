@@ -20,7 +20,7 @@ from . import query
 )
 async def test_remove_stakeholder_organization_access(
     populate: bool, email: str
-):
+) -> None:
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
     result: Dict[str, Any] = await query(
@@ -41,7 +41,7 @@ async def test_remove_stakeholder_organization_access(
 )
 async def test_remove_stakeholder_organization_access_fail(
     populate: bool, email: str
-):
+) -> None:
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
     result: Dict[str, Any] = await query(

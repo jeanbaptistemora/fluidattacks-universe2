@@ -19,7 +19,7 @@ from . import query
         ["closer@gmail.com"],
     ],
 )
-async def test_update_evidence_description(populate: bool, email: str):
+async def test_update_evidence_description(populate: bool, email: str) -> None:
     assert populate
     draft_id: str = "475041513"
     draft_description: str = "this is a test description"
@@ -43,7 +43,9 @@ async def test_update_evidence_description(populate: bool, email: str):
         ["executive@gmail.com"],
     ],
 )
-async def test_update_evidence_description_fail(populate: bool, email: str):
+async def test_update_evidence_description_fail(
+    populate: bool, email: str
+) -> None:
     assert populate
     draft_id: str = "475041513"
     draft_description: str = "this is a test description"

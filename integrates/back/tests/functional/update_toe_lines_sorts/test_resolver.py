@@ -10,7 +10,7 @@ from .constants import USERS_EMAILS
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_toe_lines_sorts")
 @pytest.mark.parametrize(["email"], USERS_EMAILS)
-async def test_update_toe_lines_sorts(populate: bool, email: str):
+async def test_update_toe_lines_sorts(populate: bool, email: str) -> None:
     assert populate
     result: Dict[str, Any] = await query(
         user=email,
@@ -67,7 +67,9 @@ async def test_update_toe_lines_sorts(populate: bool, email: str):
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_toe_lines_sorts")
 @pytest.mark.parametrize(["email"], USERS_EMAILS)
-async def test_update_toe_lines_sorts_no_filename(populate: bool, email: str):
+async def test_update_toe_lines_sorts_no_filename(
+    populate: bool, email: str
+) -> None:
     assert populate
     result: Dict[str, Any] = await query(
         user=email,

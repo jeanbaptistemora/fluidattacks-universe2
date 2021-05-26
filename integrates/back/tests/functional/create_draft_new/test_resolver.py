@@ -18,7 +18,7 @@ from . import query
         ["analyst@gmail.com"],
     ],
 )
-async def test_create_draft(populate: bool, email: str):
+async def test_create_draft(populate: bool, email: str) -> None:
     assert populate
     result: Dict[str, Any] = await query(
         user=email,
@@ -37,7 +37,7 @@ async def test_create_draft(populate: bool, email: str):
         ["executive@gmail.com"],
     ],
 )
-async def test_create_draft_fail(populate: bool, email: str):
+async def test_create_draft_fail(populate: bool, email: str) -> None:
     assert populate
     result: Dict[str, Any] = await query(
         user=email,

@@ -21,7 +21,7 @@ from . import query
         ["customeradmin@gmail.com"],
     ],
 )
-async def test_download_event_file(populate: bool, email: str):
+async def test_download_event_file(populate: bool, email: str) -> None:
     assert populate
     event_id: str = "418900971"
     result: Dict[str, Any] = await query(user=email, event=event_id)

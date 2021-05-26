@@ -17,7 +17,7 @@ from . import query
         ["admin@gmail.com"],
     ],
 )
-async def test_delete_finding(populate: bool, email: str):
+async def test_delete_finding(populate: bool, email: str) -> None:
     assert populate
     finding_id: str = "475041513"
     result: Dict[str, str] = await query(
@@ -39,7 +39,7 @@ async def test_delete_finding(populate: bool, email: str):
         ["executive@gmail.com"],
     ],
 )
-async def test_delete_finding_fail(populate: bool, email: str):
+async def test_delete_finding_fail(populate: bool, email: str) -> None:
     assert populate
     finding_id: str = "475041513"
     result: Dict[str, str] = await query(

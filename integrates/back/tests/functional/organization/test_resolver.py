@@ -18,7 +18,7 @@ from . import query
         ["admin@gmail.com"],
     ],
 )
-async def test_get_organization_ver_1(populate: bool, email: str):
+async def test_get_organization_ver_1(populate: bool, email: str) -> None:
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
     org_name: str = "orgtest"
@@ -61,7 +61,7 @@ async def test_get_organization_ver_1(populate: bool, email: str):
         ["customeradmin@gmail.com"],
     ],
 )
-async def test_get_organization_ver_e(populate: bool, email: str):
+async def test_get_organization_ver_e(populate: bool, email: str) -> None:
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
     org_name: str = "orgtest"

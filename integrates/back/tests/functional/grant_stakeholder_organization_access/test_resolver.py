@@ -19,7 +19,7 @@ from . import query
 )
 async def test_grant_stakeholder_organization_access(
     populate: bool, email: str
-):
+) -> None:
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6dc"
     stakeholder_email: str = "test2@gmail.com"
@@ -53,7 +53,7 @@ async def test_grant_stakeholder_organization_access(
 )
 async def test_grant_stakeholder_organization_access_fail(
     populate: bool, email: str
-):
+) -> None:
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6dc"
     stakeholder_email: str = "test2@gmail.com"

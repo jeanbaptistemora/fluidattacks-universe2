@@ -17,7 +17,7 @@ from . import query
         ["admin@gmail.com"],
     ],
 )
-async def test_remove_files(populate: bool, email: str):
+async def test_remove_files(populate: bool, email: str) -> None:
     assert populate
     result: Dict[str, Any] = await query(
         user=email,
@@ -35,7 +35,7 @@ async def test_remove_files(populate: bool, email: str):
         ["customer@gmail.com"],
     ],
 )
-async def test_remove_files_fail_1(populate: bool, email: str):
+async def test_remove_files_fail_1(populate: bool, email: str) -> None:
     assert populate
     result: Dict[str, Any] = await query(
         user=email,
@@ -54,7 +54,7 @@ async def test_remove_files_fail_1(populate: bool, email: str):
         ["closer@gmail.com"],
     ],
 )
-async def test_remove_files_fail_2(populate: bool, email: str):
+async def test_remove_files_fail_2(populate: bool, email: str) -> None:
     assert populate
     result: Dict[str, Any] = await query(
         user=email,

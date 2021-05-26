@@ -11,7 +11,7 @@ from . import query
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_event_evidence")
-async def test_admin(populate: bool):
+async def test_admin(populate: bool) -> None:
     assert populate
     event_id: str = "418900971"
     result: Dict[str, Any] = await query(
@@ -22,7 +22,7 @@ async def test_admin(populate: bool):
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_event_evidence")
-async def test_analyst(populate: bool):
+async def test_analyst(populate: bool) -> None:
     assert populate
     event_id: str = "418900971"
     result: Dict[str, Any] = await query(
@@ -33,7 +33,7 @@ async def test_analyst(populate: bool):
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_event_evidence")
-async def test_closer(populate: bool):
+async def test_closer(populate: bool) -> None:
     assert populate
     event_id: str = "418900971"
     result: Dict[str, Any] = await query(

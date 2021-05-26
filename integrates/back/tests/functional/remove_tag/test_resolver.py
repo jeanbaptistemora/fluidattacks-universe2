@@ -18,7 +18,7 @@ from . import query
         ("customer@gmail.com", "test2"),
     ),
 )
-async def test_remove_tag(populate: bool, email: str, tag_name: str):
+async def test_remove_tag(populate: bool, email: str, tag_name: str) -> None:
     assert populate
     group_name: str = "group1"
     result: Dict[str, Any] = await query(
@@ -39,7 +39,7 @@ async def test_remove_tag(populate: bool, email: str, tag_name: str):
         ["resourcer@gmail.com"],
     ],
 )
-async def test_remove_tag_fail(populate: bool, email: str):
+async def test_remove_tag_fail(populate: bool, email: str) -> None:
     assert populate
     tag_name: str = "test2"
     group_name: str = "group1"

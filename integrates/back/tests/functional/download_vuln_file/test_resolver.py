@@ -19,7 +19,7 @@ from . import query
         ["closer@gmail.com"],
     ],
 )
-async def test_download_vuln_file(populate: bool, email: str):
+async def test_download_vuln_file(populate: bool, email: str) -> None:
     assert populate
     group: str = "group1"
     finding_id: str = "475041513"
