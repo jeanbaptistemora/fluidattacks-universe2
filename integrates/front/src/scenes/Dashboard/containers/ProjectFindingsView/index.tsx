@@ -185,7 +185,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "lastVulnerability",
-      header: "Last report (days)",
+      header: "Last report",
       onSort: onSortState,
       visible: checkedItems.lastVulnerability,
     },
@@ -204,6 +204,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
         defaultValue: _.get(sessionStorage, "statusFilter"),
         onFilter: onFilterStatus,
         options: selectOptionsStatus,
+        placeholder: "All",
       }),
       formatter: statusFormatter,
       header: "Status",
@@ -222,7 +223,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "age",
-      header: "Age (days)",
+      header: "Age",
       onSort: onSortState,
       visible: checkedItems.age,
     },
@@ -254,6 +255,7 @@ const ProjectFindingsView: React.FC = (): JSX.Element => {
         defaultValue: _.get(sessionStorage, "verificationFilter"),
         onFilter: onFilterVerification,
         options: selectOptionsVerification,
+        placeholder: "All",
       }),
       header: "Reattack",
       onSort: onSortState,

@@ -881,6 +881,11 @@ label {
   color: #272727;
 }
 
+:global .filter {
+  display: block;
+  margin: auto;
+}
+
 :global .react-bootstrap-table .row-expand-slide-appear-active {
   transition: max-height 1s ease !important;
 }

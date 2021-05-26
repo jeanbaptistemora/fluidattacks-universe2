@@ -273,7 +273,7 @@ describe("ProjectFindingsView", (): void => {
 
     const tableHeader: ReactWrapper = findingTable.find("Header");
 
-    expect(tableHeader.text()).toContain("Age (days)");
+    expect(tableHeader.text()).toContain("Age");
     expect(tableHeader.text()).toContain("Type");
     expect(tableHeader.text()).toContain("Severity");
     expect(tableHeader.text()).toContain("Status");
