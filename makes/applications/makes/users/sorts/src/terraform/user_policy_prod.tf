@@ -79,15 +79,7 @@ data "aws_iam_policy_document" "sorts_prod_policy_data" {
   statement {
     effect = "Allow"
     actions = [
-      "sagemaker:AddTags",
-      "sagemaker:CreateHyperParameterTuningJob",
-      "sagemaker:CreateTrainingJob",
-      "sagemaker:DeleteTags",
-      "sagemaker:DescribeHyperParameterTuningJob",
-      "sagemaker:DescribeTrainingJob",
-      "sagemaker:ListTags",
-      "sagemaker:ListTrainingJobs",
-      "sagemaker:StopTrainingJob"
+      "sagemaker:*"
     ]
     resources = [
       "arn:aws:sagemaker:us-east-1:${data.aws_caller_identity.current.account_id}:training-job/sagemaker*",
