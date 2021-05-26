@@ -14,7 +14,7 @@ import {
 
 import { EventContent } from "scenes/Dashboard/containers/EventContent";
 import { FindingContent } from "scenes/Dashboard/containers/FindingContent";
-import { ProjectContent } from "scenes/Dashboard/containers/ProjectContent";
+import { GroupContent } from "scenes/Dashboard/containers/GroupContent";
 import { GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectRoute/queries";
 import type {
   IProjectData,
@@ -122,7 +122,7 @@ const ProjectRoute: React.FC<IProjectRoute> = (
             path={`${path}/:findingId(\\d+)`}
             to={`${path}/vulns/:findingId(\\d+)`}
           />
-          <Route component={ProjectContent} path={path} />
+          <Route component={GroupContent} path={path} />
         </Switch>
       </div>
     </React.StrictMode>

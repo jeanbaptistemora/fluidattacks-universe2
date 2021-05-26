@@ -32,7 +32,7 @@ import { Have } from "utils/authz/Have";
 import { useTabTracking } from "utils/hooks";
 import { translate } from "utils/translations/translate";
 
-const ProjectContent: React.FC = (): JSX.Element => {
+const GroupContent: React.FC = (): JSX.Element => {
   const { organizationName } = useParams<{ organizationName: string }>();
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
 
@@ -202,4 +202,4 @@ const ProjectContent: React.FC = (): JSX.Element => {
   );
 };
 
-export { ProjectContent };
+export { GroupContent };

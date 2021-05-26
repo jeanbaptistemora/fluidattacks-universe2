@@ -6,13 +6,13 @@ import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
-import { ProjectContent } from "scenes/Dashboard/containers/ProjectContent";
+import { GroupContent } from "scenes/Dashboard/containers/GroupContent";
 import store from "store";
 
-describe("ProjectContent", (): void => {
+describe("GroupContent", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof ProjectContent).toStrictEqual("function");
+    expect(typeof GroupContent).toStrictEqual("function");
   });
 
   it("should render an error in component", async (): Promise<void> => {
@@ -23,7 +23,7 @@ describe("ProjectContent", (): void => {
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={[]}>
             <Route
-              component={ProjectContent}
+              component={GroupContent}
               path={"/orgs/:organizationName/groups/:projectName/vulns"}
             />
           </MockedProvider>
@@ -45,7 +45,7 @@ describe("ProjectContent", (): void => {
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={[]}>
             <Route
-              component={ProjectContent}
+              component={GroupContent}
               path={"/orgs/:organizationName/groups/:projectName/vulns"}
             />
           </MockedProvider>
