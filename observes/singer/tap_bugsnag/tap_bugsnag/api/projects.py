@@ -30,7 +30,7 @@ from tap_bugsnag.api.common import (
     typed_page_builder,
 )
 from tap_bugsnag.api.common.raw import RawApi
-from .orgs import ProjId
+from tap_bugsnag.api.orgs import ProjId
 
 
 LOG = logging.getLogger(__name__)

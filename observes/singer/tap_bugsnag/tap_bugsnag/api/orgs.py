@@ -28,7 +28,7 @@ from tap_bugsnag.api.common import (
     typed_page_builder,
 )
 from tap_bugsnag.api.common.raw import RawApi
-from tap_bugsnag.api.projects.orgs.user import OrgId
+from tap_bugsnag.api.user import OrgId
 
 
 class CollaboratorsPage(NamedTuple):

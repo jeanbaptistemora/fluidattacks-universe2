@@ -21,13 +21,13 @@ from tap_bugsnag.api.projects import (
     ReleasesPage,
     StabilityTrend,
 )
-from tap_bugsnag.api.projects.orgs import (
+from tap_bugsnag.api.orgs import (
     CollaboratorsPage,
     OrgsApi,
     ProjId,
     ProjectsPage,
 )
-from tap_bugsnag.api.projects.orgs.user import (
+from tap_bugsnag.api.user import (
     OrgId,
     UserApi,
     OrgsPage,
