@@ -63,7 +63,7 @@ async def entrypoint(
                 "warning",
                 "The vulnerabilities of all repositories will be scanned",
             )
-            if config.kind == KindEnum.ALL:
+            if config.kind == KindEnum.ALL and config.strict:
                 exit_code = 1
             # else:  temporarily disable
             #     return 1
@@ -76,8 +76,8 @@ async def entrypoint(
 
         # check if repo is in roots
         if (
-            not await check_remotes(config)
-            and config.repository_name is not None
+            config.repository_name is not None
+            and not await check_remotes(config)
             and config.kind != KindEnum.ALL
         ):
             return 1
