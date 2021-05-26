@@ -3,15 +3,24 @@ import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
-import {
-  FullWidthContainer,
-  SquaredCardContainer,
-} from "../../styles/styledComponents";
+import { SquaredCardContainer } from "../../styles/styledComponents";
 
 interface IProps {
   number?: string;
   text?: string;
 }
+
+const WhiteCardContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    w-auto
+    center
+    pv3
+    flex-l
+  `,
+})``;
 
 const RedParagraph: StyledComponent<
   "p",
@@ -41,12 +50,12 @@ const WhiteShadowedCard: React.FC<IProps> = ({
   number,
   text,
 }: IProps): JSX.Element => (
-  <FullWidthContainer className={"pv3 flex-l"}>
+  <WhiteCardContainer>
     <SquaredCardContainer>
       <RedParagraph>{number}</RedParagraph>
       <SmallBlackText>{text}</SmallBlackText>
     </SquaredCardContainer>
-  </FullWidthContainer>
+  </WhiteCardContainer>
 );
 
 // eslint-disable-next-line fp/no-mutation

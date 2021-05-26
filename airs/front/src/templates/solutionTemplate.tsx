@@ -23,6 +23,7 @@ import {
   BannerTitle,
   BlackH2,
   BlackSolutionParagraph,
+  CardsContainer,
   CenteredSpacedContainer,
   FlexCenterItemsContainer,
   FullWidthContainer,
@@ -111,7 +112,7 @@ const SolutionIndex: React.FC<IQueryData> = ({
               </FullWidthContainer>
               <FullWidthContainer className={"pv4"}>
                 <BlackH2>{translate.t("solution.cardsTitle")}</BlackH2>
-                <FlexCenterItemsContainer>
+                <CardsContainer>
                   <WhiteShadowedCard
                     number={translate.t("solution.cards.vulnerabilities")}
                     text={translate.t("solution.cards.vulnerabilitiesText")}
@@ -128,7 +129,7 @@ const SolutionIndex: React.FC<IQueryData> = ({
                     number={translate.t("solution.cards.owasp")}
                     text={translate.t("solution.cards.owaspText")}
                   />
-                </FlexCenterItemsContainer>
+                </CardsContainer>
               </FullWidthContainer>
             </PageContainer>
           </PageArticle>
