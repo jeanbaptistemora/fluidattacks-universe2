@@ -15,7 +15,7 @@ def get_estimator(
 ) -> SKLearnEstimator:
     sklearn_estimator: SKLearnEstimator = SKLearn(
         entry_point=training_script,
-        dependencies=["sorts", "training"],
+        dependencies=["sorts", "training", "training/requirements.txt"],
         framework_version="0.23-1",
         instance_type="ml.m5.2xlarge",
         instance_count=1,
