@@ -121,3 +121,19 @@ were remediated or not.
 Reports and `ASM`
 will include all the information
 with nothing excluded.
+
+## Do you keep information regarding the vulnerabilities found?
+Information is only kept
+for the duration of the contract.
+Once the contract has ended,
+information is kept for
+`7` business days
+and then deleted
+from all our information systems.
+
+### How will our data be erased?
+`ASM` uses an automated erasing process,
+removing all the project information
+from our systems
+and generating a `Proof of Delivery`
+signed via `Docusign`.

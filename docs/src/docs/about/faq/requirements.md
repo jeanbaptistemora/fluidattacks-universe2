@@ -82,3 +82,22 @@ for version control.
 Therefore,
 `Git` is necessary
 for she Squad plan.
+
+### Does the Squad plan require any development methodology?
+No.
+It is independent
+of the client’s development methodology.
+The Squad plan test results
+become a planning tool
+in future development cycles.
+They do not prevent
+the continuation of development.
+
+### Does the Squad plan depend on the type of repository I use?
+No.
+The client can use
+whatever repository
+they deem appropriate.
+We only require
+access to the integration branch
+and its respective environment.

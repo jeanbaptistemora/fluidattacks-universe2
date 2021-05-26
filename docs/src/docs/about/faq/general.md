@@ -138,3 +138,43 @@ that `100%` of the code change
 is going to be tested,
 but what cannot be reached,
 cannot be tested.
+
+## Who would be performing the work?
+Our designated team of hackers.
+
+### Can we see resumes?
+Yes,
+you can access
+the LinkedIn profiles
+of some members of our team
+on our people page.
+
+### What certifications do you have?
+Please refer to our
+[certifications](https://fluidattacks.com/about-us/certifications/)
+page for further information.
+
+### With the Squad plan, is it possible to include the infrastructure associated with my app?
+We have improved the Squad plan model
+to now include infrastructure
+within the Target of Evaluation (`ToE`).
+This includes the application’s ports,
+inputs, infrastructure,
+and of course
+the application itself.
+
+### What external tools do you use to perform pentesting?
+We use [Burp Suite](https://portswigger.net/burp)
+for web testing,
+and [CANVAS](https://www.immunityinc.com/products/canvas/)
+and [Core Impact](https://www.coresecurity.com/products/core-impact)
+for infrastructure testing
+with additional exploits.
+
+### How will our data be transmitted?
+It is up to you,
+however,
+we recommend the use of `HTTPS`
+for application tests
+and `SSH` (`git`)
+for source code analysis.
