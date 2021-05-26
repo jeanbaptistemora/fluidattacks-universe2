@@ -18,6 +18,7 @@ from newutils.datetime import get_from_str
 from comments import dal as dal_comment
 from data_containers.toe_lines import GitRootToeLines
 from data_containers.toe_inputs import GitRootToeInput
+from db_model import findings
 from dynamodb.types import RootItem
 from events import dal as dal_event
 from findings import dal as dal_findings
@@ -133,6 +134,54 @@ async def populate_findings(data: List[Any]) -> bool:
     return all(await collect(coroutines))
 
 
+async def _populate_finding_unreliable_indicator(data: Dict[str, Any]) -> None:
+    finding = data["finding"]
+    if data.get("unreliable_indicator"):
+        await findings.update_unreliable_indicators(
+            group_name=finding.group_name,
+            finding_id=finding.id,
+            indicators=data["unreliable_indicator"],
+        )
+
+
+async def _populate_finding_historic_state(data: Dict[str, Any]) -> None:
+    # Update the finding state sequentially is important to
+    # not generate a race condition
+    finding = data["finding"]
+    for state in data["historic_state"]:
+        await findings.update_state(
+            group_name=finding.group_name,
+            finding_id=finding.id,
+            state=state,
+        )
+
+
+async def _populate_finding_historic_verification(
+    data: Dict[str, Any]
+) -> None:
+    # Update the finding verification sequentially is important to
+    # not generate a race condition
+    finding = data["finding"]
+    for verification in data["historic_verification"]:
+        await findings.update_verification(
+            group_name=finding.group_name,
+            finding_id=finding.id,
+            verification=verification,
+        )
+
+
+async def populate_findings_new(data: List[Dict[str, Any]]) -> bool:
+    await collect([findings.create(finding=item["finding"]) for item in data])
+    await collect([_populate_finding_historic_state(item) for item in data])
+    await collect(
+        [_populate_finding_unreliable_indicator(item) for item in data]
+    )
+    await collect(
+        [_populate_finding_historic_verification(item) for item in data]
+    )
+    return True
+
+
 async def populate_vulnerabilities(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     coroutines.extend(
@@ -141,6 +190,17 @@ async def populate_vulnerabilities(data: List[Any]) -> bool:
                 vulnerability,
             )
             for vulnerability in data
+        ]
+    )
+    coroutines.extend(
+        [
+            dal_vulns.update(
+                vulnerability["finding_id"],
+                vulnerability["UUID"],
+                {"historic_zero_risk": vulnerability["historic_zero_risk"]},
+            )
+            for vulnerability in data
+            if vulnerability.get("historic_zero_risk")
         ]
     )
     return all(await collect(coroutines))
