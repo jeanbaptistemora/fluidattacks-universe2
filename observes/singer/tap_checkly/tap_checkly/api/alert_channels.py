@@ -19,6 +19,7 @@ from paginator import (
     PageId,
     PageOrAll,
 )
+from singer_io import JSON
 from tap_checkly.api.common import (
     raw,
 )
@@ -27,9 +28,6 @@ from tap_checkly.api.common.extractor import (
 )
 from tap_checkly.api.common.raw.client import (
     Client,
-)
-from tap_checkly.common import (
-    JSON,
 )
 
 

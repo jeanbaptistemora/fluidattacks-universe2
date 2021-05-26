@@ -15,7 +15,7 @@ from returns.curry import (
 )
 
 # Local libraries
-from tap_checkly.api.auth import (
+from tap_checkly.api.common.raw.auth import (
     Credentials,
 )
 

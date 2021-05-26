@@ -15,15 +15,13 @@ from returns.io import (
 # Local libraries
 from singer_io import (
     factory,
+    JSON,
 )
 from singer_io.singer import (
     SingerRecord,
 )
 from tap_checkly.api import (
     ApiPage,
-)
-from tap_checkly.common import (
-    JSON,
 )
 from tap_checkly.streams.objs import (
     SupportedStreams,

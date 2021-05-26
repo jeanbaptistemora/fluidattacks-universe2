@@ -14,9 +14,7 @@ from tap_checkly.api.alert_channels import (
     AlertChsApi,
     AlertChsPage,
 )
-from tap_checkly.api.auth import (
-    Credentials,
-)
+
 from tap_checkly.api.checks import (
     CheckGroupsPage,
     CheckId,
@@ -24,6 +22,9 @@ from tap_checkly.api.checks import (
     CheckResultsPage,
     ChecksApi,
     ChecksPage,
+)
+from tap_checkly.api.common import (
+    Credentials,
 )
 from tap_checkly.api.common.raw.client import (
     Client,
