@@ -193,6 +193,7 @@ def train_model(
 
 def main() -> None:
     parser = argparse.ArgumentParser()
+
     # Sagemaker specific arguments. Defaults are set in environment variables.
     parser.add_argument(
         "--output-data-dir", type=str, default=os.environ["SM_OUTPUT_DATA_DIR"]
@@ -203,12 +204,25 @@ def main() -> None:
     parser.add_argument(
         "--train", type=str, default=os.environ["SM_CHANNEL_TRAIN"]
     )
+
     # Model to train sent as a hyperparamenter
     parser.add_argument("--model", type=str, default="")
+
+    # Extra args that SageMaker excution may need (fex. ENVS)
+    parser.add_argument("--envs", type=str, default="")
     args = parser.parse_args()
 
     model_name: str = args.model.lower()
     model_class: ModelType = MODELS[model_name]
+
+    # Set necessary envs
+    envs = {
+        env_key.split("=")[0]: env_key.split("=")[1]
+        for env_key in args.envs.split(",")
+    }
+    for env_key, value in envs.items():
+        os.environ[env_key] = value
+
     if model_class:
         results_filename: str = f"{model_name}_train_results.csv"
         previous_results = get_previous_training_results(results_filename)
