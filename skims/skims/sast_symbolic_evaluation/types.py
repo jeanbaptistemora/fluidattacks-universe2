@@ -65,17 +65,17 @@ Evaluator = Callable[[EvaluatorArgs], None]
 
 
 class LookedUpJavaClass(NamedTuple):
-    metadata: graph_model.GraphShardMetadataJavaClass
+    metadata: graph_model.GraphShardMetadataClass
     shard_path: str
 
 
 class LookedUpJavaMethod(NamedTuple):
-    metadata: graph_model.GraphShardMetadataJavaClassMethod
+    metadata: graph_model.GraphShardMetadataClassMethod
     shard_path: str
 
 
 class LookedUpJavaClassField(NamedTuple):
-    metadata: graph_model.GraphShardMetadataJavaClassField
+    metadata: graph_model.GraphShardMetadataClassField
     shard_path: str
 
 

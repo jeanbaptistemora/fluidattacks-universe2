@@ -21,7 +21,7 @@ from utils.string import (
 def _lookup_java_class_in_shard(
     shard: graph_model.GraphShard,
     class_name: str,
-) -> Optional[graph_model.GraphShardMetadataJavaClass]:
+) -> Optional[graph_model.GraphShardMetadataClass]:
     # First lookup the class in the current shard
     if data := shard.metadata.java.classes.get(class_name):
         return data
@@ -91,7 +91,7 @@ def lookup_java_class(
 def _lookup_java_field_in_shard(
     shard: graph_model.GraphShard,
     field_name: str,
-) -> Optional[graph_model.GraphShardMetadataJavaClassField]:
+) -> Optional[graph_model.GraphShardMetadataClassField]:
     for class_path, class_data in shard.metadata.java.classes.items():
         for field_path, field_data in class_data.fields.items():
             qualified = shard.metadata.java.package + class_path + field_path
@@ -138,7 +138,7 @@ def lookup_java_field(
 def _lookup_java_method_in_shard(
     shard: graph_model.GraphShard,
     method_name: str,
-) -> Optional[graph_model.GraphShardMetadataJavaClassMethod]:
+) -> Optional[graph_model.GraphShardMetadataClassMethod]:
     # First lookup the class in the current shard
     for class_path, class_data in shard.metadata.java.classes.items():
         for method_path, method_data in class_data.methods.items():

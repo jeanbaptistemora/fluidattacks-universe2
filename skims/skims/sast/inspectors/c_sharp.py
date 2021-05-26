@@ -36,7 +36,7 @@ def get_metadata(
             classes_and_package[key] = item
             classes_and_package[f".{key}"] = item
     classes.update(classes_and_package)
-    return graph_model.GraphShardMetadataJava(
+    return graph_model.GraphShardMetadataCSharp(
         classes=classes,
         package=package,
     )
@@ -63,8 +63,8 @@ def _get_metadata_classes(
     graph: graph_model.Graph,
     n_id: str = g.ROOT_NODE,
     namespace: str = "",
-) -> Dict[str, graph_model.GraphShardMetadataJavaClass]:
-    classes: Dict[str, graph_model.GraphShardMetadataJavaClass] = {}
+) -> Dict[str, graph_model.GraphShardMetadataClass]:
+    classes: Dict[str, graph_model.GraphShardMetadataClass] = {}
 
     for c_id in g.adj_ast(graph, n_id):
         if graph.nodes[c_id]["label_type"] == "class_declaration":
@@ -77,7 +77,7 @@ def _get_metadata_classes(
 
             name = graph.nodes[class_identifier_id]["label_text"]
             qualified = namespace + "." + name
-            classes[qualified] = graph_model.GraphShardMetadataJavaClass(
+            classes[qualified] = graph_model.GraphShardMetadataClass(
                 n_id=c_id,
                 fields=_get_metadata_class_fields(graph, c_id),
                 methods=_get_metadata_class_methods(graph, c_id),
@@ -130,8 +130,8 @@ def _get_assignment_value(
 def _get_metadata_class_fields(
     graph: graph_model.Graph,
     n_id: str,
-) -> Dict[str, graph_model.GraphShardMetadataJavaClassField]:
-    methods: Dict[str, graph_model.GraphShardMetadataJavaClassField] = {}
+) -> Dict[str, graph_model.GraphShardMetadataClassField]:
+    methods: Dict[str, graph_model.GraphShardMetadataClassField] = {}
     class_body_id = g.match_ast_d(graph, n_id, "declaration_list")
     if not class_body_id:
         return methods
@@ -183,7 +183,7 @@ def _get_metadata_class_fields(
                 var_type := graph.nodes[var_type_id].get("label_text")
             ):
                 name = "." + graph.nodes[var_identifier]["label_text"]
-                methods[name] = graph_model.GraphShardMetadataJavaClassField(
+                methods[name] = graph_model.GraphShardMetadataClassField(
                     n_id=assignment_value,
                     var=graph.nodes[var_identifier]["label_text"],
                     var_type=var_type,
@@ -196,8 +196,8 @@ def _get_metadata_class_fields(
 def _get_metadata_class_methods(
     graph: graph_model.Graph,
     n_id: str,
-) -> Dict[str, graph_model.GraphShardMetadataJavaClassField]:
-    methods: Dict[str, graph_model.GraphShardMetadataJavaClassMethod] = {}
+) -> Dict[str, graph_model.GraphShardMetadataClassField]:
+    methods: Dict[str, graph_model.GraphShardMetadataClassMethod] = {}
 
     class_body_id = g.match_ast(graph, n_id, "declaration_list")[
         "declaration_list"
@@ -220,7 +220,7 @@ def _get_metadata_class_methods(
                     g.match_ast(graph, modifier, "static")["static"]
                     for modifier in match_method["modifier"] or list()
                 )
-                methods[name] = graph_model.GraphShardMetadataJavaClassMethod(
+                methods[name] = graph_model.GraphShardMetadataClassMethod(
                     method_id,
                     class_name,
                     static=is_static,
@@ -239,7 +239,7 @@ def _get_metadata_class_methods(
                 graph.nodes[method_id]["label_field_name"]
             ]["label_text"]
             name = f".{constructor}_{params_length}"
-            methods[name] = graph_model.GraphShardMetadataJavaClassMethod(
+            methods[name] = graph_model.GraphShardMetadataClassMethod(
                 method_id,
                 class_name,
             )

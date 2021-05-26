@@ -60,8 +60,8 @@ def _get_metadata_classes(
     graph: graph_model.Graph,
     n_id: str = g.ROOT_NODE,
     namespace: str = "",
-) -> Dict[str, graph_model.GraphShardMetadataJavaClass]:
-    classes: Dict[str, graph_model.GraphShardMetadataJavaClass] = {}
+) -> Dict[str, graph_model.GraphShardMetadataClass]:
+    classes: Dict[str, graph_model.GraphShardMetadataClass] = {}
 
     for c_id in g.adj_ast(graph, n_id):
         if graph.nodes[c_id]["label_type"] == "class_declaration":
@@ -70,7 +70,7 @@ def _get_metadata_classes(
             if class_identifier_id := match["__0__"]:
                 name = graph.nodes[class_identifier_id]["label_text"]
                 qualified = namespace + "." + name
-                classes[qualified] = graph_model.GraphShardMetadataJavaClass(
+                classes[qualified] = graph_model.GraphShardMetadataClass(
                     n_id=c_id,
                     fields=_get_metadata_class_fields(graph, c_id),
                     methods=_get_metadata_class_methods(graph, c_id),
@@ -102,8 +102,8 @@ def _get_metadata_classes(
 def _get_metadata_class_fields(
     graph: graph_model.Graph,
     n_id: str,
-) -> Dict[str, graph_model.GraphShardMetadataJavaClassField]:
-    methods: Dict[str, graph_model.GraphShardMetadataJavaClassField] = {}
+) -> Dict[str, graph_model.GraphShardMetadataClassField]:
+    methods: Dict[str, graph_model.GraphShardMetadataClassField] = {}
 
     if class_body_id := g.match_ast_d(graph, n_id, "class_body"):
         for c_id in g.adj(graph, class_body_id):
@@ -125,7 +125,7 @@ def _get_metadata_class_fields(
                 and (id_id := g.match_ast_d(graph, dcl_id, "__0__"))
             ):
                 name = "." + graph.nodes[id_id]["label_text"]
-                methods[name] = graph_model.GraphShardMetadataJavaClassField(
+                methods[name] = graph_model.GraphShardMetadataClassField(
                     n_id=id_id,
                     var=graph.nodes[id_id]["label_text"],
                     var_type=graph.nodes[type_id]["label_text"],
@@ -138,8 +138,8 @@ def _get_metadata_class_fields(
 def _get_metadata_class_methods(
     graph: graph_model.Graph,
     n_id: str,
-) -> Dict[str, graph_model.GraphShardMetadataJavaClassField]:
-    methods: Dict[str, graph_model.GraphShardMetadataJavaClassMethod] = {}
+) -> Dict[str, graph_model.GraphShardMetadataClassField]:
+    methods: Dict[str, graph_model.GraphShardMetadataClassMethod] = {}
 
     match = g.match_ast(graph, n_id, "class_body")
     class_name = (
@@ -159,9 +159,7 @@ def _get_metadata_class_methods(
                         match["modifiers"],
                         "static",
                     )
-                    methods[
-                        name
-                    ] = graph_model.GraphShardMetadataJavaClassMethod(
+                    methods[name] = graph_model.GraphShardMetadataClassMethod(
                         c_id, class_name, static=bool(match_static["static"])
                     )
             elif graph.nodes[c_id]["label_type"] == "constructor_declaration":
@@ -174,7 +172,7 @@ def _get_metadata_class_methods(
                     params_length = len(params["formal_parameter"])
                 constructor = graph.nodes[identifier_id]["label_text"]
                 name = f".{constructor}_{params_length}"
-                methods[name] = graph_model.GraphShardMetadataJavaClassMethod(
+                methods[name] = graph_model.GraphShardMetadataClassMethod(
                     c_id,
                     class_name,
                 )
