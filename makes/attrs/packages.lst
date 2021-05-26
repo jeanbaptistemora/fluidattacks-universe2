@@ -6,6 +6,7 @@ airs.npm
 airs.test.images.covers
 airs.test.images.format
 docs.runtime
+forces.bundle
 forces.config-development
 forces.config-runtime
 forces.lint
@@ -62,6 +63,7 @@ makes.test.observes
 makes.test.reviews
 makes.test.skims
 makes.test.sorts
+melts.bundle
 melts.config-development
 melts.config-runtime
 melts.lib
@@ -171,6 +173,7 @@ observes.test.tap-mailchimp
 observes.test.tap-mixpanel
 reviews.lint
 reviews.runtime
+skims.bundle
 skims.config-development
 skims.config-runtime
 skims.config-sdk
@@ -179,6 +182,7 @@ skims.parsers.antlr
 skims.parsers.babel
 skims.security
 skims.structure
+sorts.bundle
 sorts.config-development
 sorts.config-runtime
 sorts.lint
