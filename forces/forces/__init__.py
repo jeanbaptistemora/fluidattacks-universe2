@@ -63,10 +63,7 @@ async def entrypoint(
                 "warning",
                 "The vulnerabilities of all repositories will be scanned",
             )
-            if config.kind == KindEnum.ALL and config.strict:
-                exit_code = 1
-            # else:  temporarily disable
-            #     return 1
+
         metadata["git_repo"] = config.repository_name or metadata["git_repo"]
         if config.repository_name:
             await log(
