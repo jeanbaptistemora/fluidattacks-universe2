@@ -518,6 +518,7 @@ async def test_get_group_digest_stats() -> None:
             "comments": 0,
         },
         "reattacks": {
+            "effective_reattacks": 0,
             "reattacks_requested": 0,
             "reattacks_executed": 0,
             "pending_attacks": 1,

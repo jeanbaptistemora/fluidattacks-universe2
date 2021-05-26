@@ -427,7 +427,7 @@ async def test_get_oldest_open_findings() -> None:
 
 
 @freeze_time("2018-12-27")
-async def test_get_total_reattacks_stats() -> None:
+async def test_get_total_treatment_stats() -> None:
     project_name = "unittesting"
     last_day = datetime_utils.get_now_minus_delta(hours=24)
     context = get_new_context()
@@ -455,6 +455,7 @@ async def test_get_total_reattacks_stats() -> None:
         context, findings, last_day
     )
     expected_output = {
+        "effective_reattacks": 0,
         "reattacks_requested": 2,
         "reattacks_executed": 1,
         "pending_attacks": 1,

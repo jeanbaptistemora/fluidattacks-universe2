@@ -924,6 +924,7 @@ async def get_total_reattacks_stats(
         )
 
     return {
+        "effective_reattacks": effective_reattacks,
         "reattacks_requested": reattacks_requested,
         "reattacks_executed": reattacks_executed,
         "pending_attacks": pending_attacks,

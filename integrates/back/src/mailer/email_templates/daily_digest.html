@@ -167,11 +167,11 @@
         </div>
         <div>
           <h3>{{ remediation_time['max'] }}</h3>
-          <p>Remediation time (days) at <strong>{{ remediation_time['max_group'] }}</strong></p>
+          <p>Max remediation time (days) at <strong>{{ remediation_time['max_group'] }}</strong></p>
         </div>
         <div>
           <h3>{{ remediation_time['min'] }}</h3>
-          <p>Remediation time (days) at <strong>{{ remediation_time['min_group'] }}</strong></p>
+          <p>Min remediation time (days) at <strong>{{ remediation_time['min_group'] }}</strong></p>
         </div>
         {% else %}
           <div>
@@ -186,7 +186,7 @@
       </div>
       <div class="numbers-row">
         <div>
-          <h3>{{ main['reattack_effectiveness'] }}%</h3>
+          <h3>{{ main['reattack_effectiveness'] }}{% if reattacks['reattacks_executed'] > 0 %}%{% endif %}</h3>
           <p>Average reattack effectiveness</p>
         </div>
         <div>

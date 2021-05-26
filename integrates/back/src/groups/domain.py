@@ -991,6 +991,7 @@ async def get_group_digest_stats(
             "comments": 0,
         },
         "reattacks": {
+            "effective_reattacks": 0,
             "reattacks_requested": 0,
             "reattacks_executed": 0,
             "pending_attacks": 0,
@@ -1033,6 +1034,9 @@ async def get_group_digest_stats(
     )
     reattacks = await findings_domain.get_total_reattacks_stats(
         context, valid_findings, last_day
+    )
+    content["reattacks"]["effective_reattacks"] = reattacks.get(
+        "effective_reattacks", 0
     )
     content["reattacks"]["reattacks_requested"] = reattacks.get(
         "reattacks_requested", 0
@@ -1113,9 +1117,17 @@ def process_user_digest_stats(
         findings.extend(findings_extended)
 
     total["main"] = dict(main)
-    total["main"]["reattack_effectiveness"] //= len(groups)
     total["reattacks"] = dict(reattacks)
     total["treatments"] = dict(treatments)
+
+    if total["reattacks"]["reattacks_executed"] == 0:
+        total["main"]["reattack_effectiveness"] = "-"
+    else:
+        total["main"]["reattack_effectiveness"] = int(
+            100
+            * total["reattacks"]["effective_reattacks"]
+            / total["reattacks"]["reattacks_executed"]
+        )
 
     total["findings"] = sorted(
         findings, key=itemgetter("finding_age"), reverse=True
