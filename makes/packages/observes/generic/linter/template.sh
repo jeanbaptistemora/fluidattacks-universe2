@@ -13,7 +13,7 @@ function list_import_confs {
     local srcPath="${1}"
 
     find "${srcPath}" \
-        -mindepth 2 -maxdepth 2 \
+        -maxdepth 2 \
         -name 'setup.imports.cfg' \
         -printf '%h\n'
 }
