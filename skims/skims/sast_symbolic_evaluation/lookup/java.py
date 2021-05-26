@@ -18,7 +18,7 @@ from utils.string import (
 )
 
 
-def _lookup_java_class_in_shard(
+def _lookup_class_in_shard(
     shard: graph_model.GraphShard,
     class_name: str,
 ) -> Optional[graph_model.GraphShardMetadataClass]:
@@ -66,12 +66,12 @@ def lookup_shard_by_class(
     return None
 
 
-def lookup_java_class(
+def lookup_class(
     args: EvaluatorArgs,
     class_name: str,
 ) -> Optional[LookedUpJavaClass]:
     # First lookup in the current shard
-    if data := _lookup_java_class_in_shard(args.shard, class_name):
+    if data := _lookup_class_in_shard(args.shard, class_name):
         return LookedUpJavaClass(
             metadata=data,
             shard_path=args.shard.path,
@@ -80,7 +80,7 @@ def lookup_java_class(
     # Now lookoup in other shards different than the current shard
     if (shard := lookup_shard_by_class(args, class_name)) and (
         # pylint:disable=used-before-assignment
-        data := _lookup_java_class_in_shard(shard, class_name)
+        data := _lookup_class_in_shard(shard, class_name)
     ):
         return LookedUpJavaClass(
             metadata=data,
@@ -90,7 +90,7 @@ def lookup_java_class(
     return None
 
 
-def _lookup_java_field_in_shard(
+def _lookup_field_in_shard(
     shard: graph_model.GraphShard,
     field_name: str,
 ) -> Optional[graph_model.GraphShardMetadataClassField]:
@@ -106,7 +106,7 @@ def _lookup_java_field_in_shard(
     return None
 
 
-def lookup_java_field(
+def lookup_field(
     args: EvaluatorArgs,
     field_name: str,
     field_class: Optional[str] = None,
@@ -116,7 +116,7 @@ def lookup_java_field(
         return None
 
     # First lookup in the current shard
-    if data := _lookup_java_field_in_shard(args.shard, field_name):
+    if data := _lookup_field_in_shard(args.shard, field_name):
         return LookedUpJavaClassField(data, args.shard.path)
 
     # Now lookoup in other shards different than the current shard
@@ -124,20 +124,20 @@ def lookup_java_field(
         field_class
         and (shard := lookup_shard_by_class(args, field_class))
         # pylint:disable=used-before-assignment
-        and (data := _lookup_java_field_in_shard(shard, field_name))
+        and (data := _lookup_field_in_shard(shard, field_name))
     ):
         return LookedUpJavaClassField(data, shard.path)
 
     # Can be an static field
     if (shard := lookup_shard_by_class(args, field_name)) and (
-        data := _lookup_java_field_in_shard(shard, field_name)
+        data := _lookup_field_in_shard(shard, field_name)
     ):
         return LookedUpJavaClassField(data, shard.path)
 
     return None
 
 
-def _lookup_java_method_in_shard(
+def _lookup_method_in_shard(
     shard: graph_model.GraphShard,
     method_name: str,
 ) -> Optional[graph_model.GraphShardMetadataClassMethod]:
@@ -152,7 +152,7 @@ def _lookup_java_method_in_shard(
     return None
 
 
-def lookup_java_method(
+def lookup_method(
     args: EvaluatorArgs,
     method_name: str,
     method_class: Optional[str] = None,
@@ -166,7 +166,7 @@ def lookup_java_method(
         method_class
         and (shard := lookup_shard_by_class(args, method_class))
         # pylint:disable=used-before-assignment
-        and (data := _lookup_java_method_in_shard(shard, method_name))
+        and (data := _lookup_method_in_shard(shard, method_name))
     ):
         return LookedUpJavaMethod(
             metadata=data,
@@ -176,7 +176,7 @@ def lookup_java_method(
         method_name = method_name.split("this.")[-1]
     # Lookup in the current shard
     if not method_class and (
-        data := _lookup_java_method_in_shard(args.shard, method_name)
+        data := _lookup_method_in_shard(args.shard, method_name)
     ):
         return LookedUpJavaMethod(
             metadata=data,
@@ -189,7 +189,7 @@ def lookup_java_method(
         _method_name
         and _method_class
         and (shard := lookup_shard_by_class(args, _method_class))
-        and (data := _lookup_java_method_in_shard(shard, method_name))
+        and (data := _lookup_method_in_shard(shard, method_name))
     ):
         return LookedUpJavaMethod(
             metadata=data,

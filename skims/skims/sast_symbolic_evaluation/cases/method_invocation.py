@@ -19,10 +19,10 @@ from sast_symbolic_evaluation.utils_generic import (
     lookup_var_dcl_by_name,
     lookup_var_state_by_name,
 )
-from sast_symbolic_evaluation.utils_java import (
-    lookup_java_class,
-    lookup_java_field,
-    lookup_java_method,
+from sast_symbolic_evaluation.lookup import (
+    lookup_field,
+    lookup_method,
+    lookup_class,
 )
 from utils.string import (
     build_attr_paths,
@@ -366,7 +366,7 @@ def attempt_by_args_propagation_no_type(
 
 def attempt_by_args_propagation(args: EvaluatorArgs, method: str) -> bool:
     method_field, method_name = split_on_last_dot(args.syntax_step.method)
-    if field := lookup_java_field(args, method_field):
+    if field := lookup_field(args, method_field):
         method = f"{field.metadata.var_type}.{method_name}"
 
     if (method in BY_ARGS_PROPAGATION) and any(
@@ -483,7 +483,7 @@ def attempt_by_type(args: EvaluatorArgs, method: str) -> bool:
         args.syntax_step.meta.danger = True
         return True
 
-    if (method_var_decl := lookup_java_field(args, method_var)) and (
+    if (method_var_decl := lookup_field(args, method_var)) and (
         method_path in BY_TYPE.get(method_var_decl.metadata.var_type, {})
     ):
         args.syntax_step.meta.danger = True
@@ -536,7 +536,7 @@ def analyze_method_invocation_external(
             args.dependencies[-1],
             graph_model.SyntaxStepObjectInstantiation,
         )
-        and lookup_java_class(
+        and lookup_class(
             args,
             args.dependencies[-1].object_type,
         )
@@ -544,7 +544,7 @@ def analyze_method_invocation_external(
         method_var_decl_type = args.dependencies[-1].object_type
 
     if method_var_decl_type and (
-        _method := lookup_java_method(
+        _method := lookup_method(
             args,
             method_path,
             method_var_decl_type,
@@ -582,7 +582,7 @@ def analyze_method_invocation_values(
             args.dependencies[-1],
             graph_model.SyntaxStepObjectInstantiation,
         )
-        and lookup_java_class(
+        and lookup_class(
             args,
             args.dependencies[-1].object_type,
         )
@@ -597,19 +597,19 @@ def analyze_method_invocation_values(
         if isinstance(dcl.meta.value, list):
             analyze_method_invocation_values_list(args, dcl, method_path)
     elif (
-        _method := lookup_java_method(
+        _method := lookup_method(
             args,
             method_path or method_var,  # can be local function
             method_var_decl_type,
         )
-        or (_method := lookup_java_method(args, method))
+        or (_method := lookup_method(args, method))
     ) :
         class_instance = (
             JavaClassInstance(
                 fields={},
                 class_name=method_var_decl_type,
             )
-            if lookup_java_class(args, _method.metadata.class_name)
+            if lookup_class(args, _method.metadata.class_name)
             else None
         )
 
