@@ -1,14 +1,14 @@
-:slug: windows-kernel-debugging/
-:date: 2020-09-09
-:category: attacks
-:subtitle: Getting in the deeps of the OS
-:tags: osee, training, exploit, windows, kernel, hevd
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331228/blog/windows-kernel-debugging/cover_jflria.webp
-:alt: Photo by Wesley Caribe on Unsplash
-:description: This post will guide you to setup a lab environment for start exploiting Windows Kernel drivers
-:keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
-:author: Andres Roldan
-:writer: aroldan
+:page-slug: windows-kernel-debugging/
+:page-date: 2020-09-09
+:page-category: attacks
+:page-subtitle: Getting in the deeps of the OS
+:page-tags: osee, training, exploit, windows, kernel, hevd
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331228/blog/windows-kernel-debugging/cover_jflria.webp
+:page-alt: Photo by Wesley Caribe on Unsplash
+:page-description: This post will guide you to setup a lab environment for start exploiting Windows Kernel drivers
+:page-keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
+:page-author: Andres Roldan
+:page-writer: aroldan
 :name: Andres Roldan
 :about1: Cybersecurity Specialist, OSCE, OSCP, CHFI
 :about2: "We don't need the key, we'll break in" RATM

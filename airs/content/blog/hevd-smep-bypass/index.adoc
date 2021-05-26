@@ -1,14 +1,14 @@
-:slug: hevd-smep-bypass/
-:date: 2020-09-18
-:category: attacks
-:subtitle: Bypassing OS protections
-:tags: osee, training, exploit, windows, kernel, hevd
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330914/blog/hevd-smep-bypass/cover_iwwedx.webp
-:alt: Photo by Michael Dziedzic on Unsplash
-:description: In this article we will defeat some protections using several techniques for exploting HackSys Extremely Vulnerable Driver
-:keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
-:author: Andres Roldan
-:writer: aroldan
+:page-slug: hevd-smep-bypass/
+:page-date: 2020-09-18
+:page-category: attacks
+:page-subtitle: Bypassing OS protections
+:page-tags: osee, training, exploit, windows, kernel, hevd
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330914/blog/hevd-smep-bypass/cover_iwwedx.webp
+:page-alt: Photo by Michael Dziedzic on Unsplash
+:page-description: In this article we will defeat some protections using several techniques for exploting HackSys Extremely Vulnerable Driver
+:page-keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
+:page-author: Andres Roldan
+:page-writer: aroldan
 :name: Andres Roldan
 :about1: Cybersecurity Specialist, OSCE, OSCP, CHFI
 :about2: "We don't need the key, we'll break in" RATM

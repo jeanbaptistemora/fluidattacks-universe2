@@ -1,7 +1,7 @@
-:slug: products/defends/cobol/comprobar-contrasena-frase/
+:page-slug: products/defends/cobol/comprobar-contrasena-frase/
 :category: cobol
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al comprobar la fortaleza de las contraseñas tipo frase. Los atacantes pueden obtener una contraseña por fuerza bruta por lo cual es importante contar con una contraseña segura.
-:keywords: Cobol, Seguridad, Fortaleza, Contraseña, Frase, Buenas prácticas.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al comprobar la fortaleza de las contraseñas tipo frase. Los atacantes pueden obtener una contraseña por fuerza bruta por lo cual es importante contar con una contraseña segura.
+:page-keywords: Cobol, Seguridad, Fortaleza, Contraseña, Frase, Buenas prácticas.
 :defends: yes
 
 = Comprobar Fortaleza de Contraseña Tipo Frase

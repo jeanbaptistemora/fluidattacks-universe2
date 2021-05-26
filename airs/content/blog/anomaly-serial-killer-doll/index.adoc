@@ -1,14 +1,14 @@
-:slug: anomaly-serial-killer-doll/
-:date: 2018-12-05
-:subtitle: Hunting missing checks with anomaly detection
-:category: machine-learning
-:tags: machine-learning, vulnerability, discovery
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330658/blog/anomaly-serial-killer-doll/cover_k3xhjm.webp
-:alt: The actual serial killer doll
-:description: Here we describe the system Chucky, which applies machine learning and natural language processing techniques to find missing-check related vulnerabilities.
-:keywords: Machine Learning, Natural Language Processing, Vulnerability, Anomaly Detection, Nearest Neighbors, Missing Check, Security, Ethical Hacking, Pentesting
-:author: Rafael Ballestas
-:writer: raballestasr
+:page-slug: anomaly-serial-killer-doll/
+:page-date: 2018-12-05
+:page-subtitle: Hunting missing checks with anomaly detection
+:page-category: machine-learning
+:page-tags: machine-learning, vulnerability, discovery
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330658/blog/anomaly-serial-killer-doll/cover_k3xhjm.webp
+:page-alt: The actual serial killer doll
+:page-description: Here we describe the system Chucky, which applies machine learning and natural language processing techniques to find missing-check related vulnerabilities.
+:page-keywords: Machine Learning, Natural Language Processing, Vulnerability, Anomaly Detection, Nearest Neighbors, Missing Check, Security, Ethical Hacking, Pentesting
+:page-author: Rafael Ballestas
+:page-writer: raballestasr
 :name: Rafael Ballestas
 :about1: Mathematician
 :about2: with an itch for CS

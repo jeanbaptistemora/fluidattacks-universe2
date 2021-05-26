@@ -1,14 +1,14 @@
-:slug: understanding-dep/
-:date: 2020-08-21
-:category: attacks
-:subtitle: Let's protect the stack
-:tags: osee, training, exploit
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331134/blog/understanding-dep/cover_infp8m.webp
-:alt: Photo by Chris Panas on Unsplash
-:description: This post will show how the Data Execution Prevention (DEP) security mechanism works and what are the implication for exploit development.
-:keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
-:author: Andres Roldan
-:writer: aroldan
+:page-slug: understanding-dep/
+:page-date: 2020-08-21
+:page-category: attacks
+:page-subtitle: Let's protect the stack
+:page-tags: osee, training, exploit
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331134/blog/understanding-dep/cover_infp8m.webp
+:page-alt: Photo by Chris Panas on Unsplash
+:page-description: This post will show how the Data Execution Prevention (DEP) security mechanism works and what are the implication for exploit development.
+:page-keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
+:page-author: Andres Roldan
+:page-writer: aroldan
 :name: Andres Roldan
 :about1: Cybersecurity Specialist, OSCE, OSCP, CHFI
 :about2: "We don't need the key, we'll break in" RATM

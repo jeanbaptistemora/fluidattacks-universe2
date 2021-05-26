@@ -1,7 +1,7 @@
-:slug: products/defends/aspnet/evitar-sesion-concurrente/
+:page-slug: products/defends/aspnet/evitar-sesion-concurrente/
 :category: aspnet
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASP.NET al evitar las sesiones concurrentes. Las aplicaciones deben notificar o tomar medidas adecuadas cuando un usuario inicia sesión desde diferentes IPs.
-:keywords: ASP.NET, Seguridad, Sesiones, Concurrentes, Usuarios, Web
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASP.NET al evitar las sesiones concurrentes. Las aplicaciones deben notificar o tomar medidas adecuadas cuando un usuario inicia sesión desde diferentes IPs.
+:page-keywords: ASP.NET, Seguridad, Sesiones, Concurrentes, Usuarios, Web
 :defends: yes
 
 = Evitar sesiones concurrentes

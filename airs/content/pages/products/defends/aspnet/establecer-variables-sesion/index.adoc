@@ -1,7 +1,7 @@
-:slug: products/defends/aspnet/establecer-variables-sesion/
+:page-slug: products/defends/aspnet/establecer-variables-sesion/
 :category: aspnet
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASPNET al establecer variables de sesión. Las variables de sesión permiten un intercambio eficiente de información entre páginas sin necesidad de enviar peticiones GET o POST.
-:keywords: ASPNET, Seguridad, Variables, Sesión, Buenas Prácticas, DotNet Framework.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASPNET al establecer variables de sesión. Las variables de sesión permiten un intercambio eficiente de información entre páginas sin necesidad de enviar peticiones GET o POST.
+:page-keywords: ASPNET, Seguridad, Variables, Sesión, Buenas Prácticas, DotNet Framework.
 :defends: yes
 
 = Establecer variables de sesión

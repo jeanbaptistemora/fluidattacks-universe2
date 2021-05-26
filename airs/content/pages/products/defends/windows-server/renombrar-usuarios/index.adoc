@@ -1,7 +1,7 @@
-:slug: products/defends/windows-server/renombrar-usuarios/
+:page-slug: products/defends/windows-server/renombrar-usuarios/
 :category: windowsserver
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad en Windows Server 2008 al cambiar los nombres de usuario predeterminados. Las configuraciones iniciales son inseguras debido a que son conocidas, por ello, modificarlas es una buena practica de seguridad.
-:keywords: Windows Server 2008, Credenciales, Predeterminados, Configuración, Seguridad, Buenas Prácticas
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad en Windows Server 2008 al cambiar los nombres de usuario predeterminados. Las configuraciones iniciales son inseguras debido a que son conocidas, por ello, modificarlas es una buena practica de seguridad.
+:page-keywords: Windows Server 2008, Credenciales, Predeterminados, Configuración, Seguridad, Buenas Prácticas
 :defends: yes
 
 = Renombrar Usuarios

@@ -1,7 +1,7 @@
-:slug: products/defends/java/definir-rol-seguridad-tomcat/
+:page-slug: products/defends/java/definir-rol-seguridad-tomcat/
 :category: java
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al definir los roles de seguridad en Tomcat. Los roles de seguridad son necesarios para permitir el acceso sólo a usuarios autorizados a la información sensible de la aplicación.
-:keywords: Java, Rol, Seguridad, Tomcat, Servlet, Apache.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al definir los roles de seguridad en Tomcat. Los roles de seguridad son necesarios para permitir el acceso sólo a usuarios autorizados a la información sensible de la aplicación.
+:page-keywords: Java, Rol, Seguridad, Tomcat, Servlet, Apache.
 :defends: yes
 
 = Definir Roles de Seguridad en Tomcat

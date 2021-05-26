@@ -1,7 +1,7 @@
-:slug: products/defends/rpg/usar-condicionales/
+:page-slug: products/defends/rpg/usar-condicionales/
 :category: rpg
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en RPG 7.1 al utilizar estructuras condicionales seguras. Para evitar fallos o comportamientos no deseados en la aplicación es necesario abarcar todos los casos posibles en las condiciones.
-:keywords: RPG 7.1, Estructuras, Condicionales, Seguras, Default, Buenas Prácticas
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en RPG 7.1 al utilizar estructuras condicionales seguras. Para evitar fallos o comportamientos no deseados en la aplicación es necesario abarcar todos los casos posibles en las condiciones.
+:page-keywords: RPG 7.1, Estructuras, Condicionales, Seguras, Default, Buenas Prácticas
 :defends: yes
 
 = Usar Estructuras Condicionales

@@ -1,7 +1,7 @@
-:slug: products/defends/java/usar-procedimientos/
+:page-slug: products/defends/java/usar-procedimientos/
 :category: java
-:description: Nuestros ethical hackers explican que son los procedimientos almacenados, para que se usan y cuales son las ventajas de utilizarlos en el desarrollo seguro de aplicaciones. POr último, muestran un ejemplo de un procedimiento almacenado y como trabajar con él desde Java.
-:keywords: Java, Seguridad, Base de Datos, Procedimiento, Almacenado, Optimizar.
+:page-description: Nuestros ethical hackers explican que son los procedimientos almacenados, para que se usan y cuales son las ventajas de utilizarlos en el desarrollo seguro de aplicaciones. POr último, muestran un ejemplo de un procedimiento almacenado y como trabajar con él desde Java.
+:page-keywords: Java, Seguridad, Base de Datos, Procedimiento, Almacenado, Optimizar.
 :defends: yes
 
 = Usar Procedimientos Almacenados

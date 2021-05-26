@@ -1,7 +1,7 @@
-:slug: products/defends/java/configurar-servlets/
+:page-slug: products/defends/java/configurar-servlets/
 :category: java
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al configurar la autorización para Servlets. En todas las aplicaciones es necesario definir los permisos de acceso para evitar el ingreso de usuarios no autorizados.
-:keywords: Java, Seguridad, Autorización, Servlets, Programación, Acceso.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al configurar la autorización para Servlets. En todas las aplicaciones es necesario definir los permisos de acceso para evitar el ingreso de usuarios no autorizados.
+:page-keywords: Java, Seguridad, Autorización, Servlets, Programación, Acceso.
 :defends: yes
 
 = Configurar Autorización para Servlets Programando

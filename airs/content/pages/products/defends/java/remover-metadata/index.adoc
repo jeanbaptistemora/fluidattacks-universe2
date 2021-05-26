@@ -1,7 +1,7 @@
-:slug: products/defends/java/remover-metadatos/
+:page-slug: products/defends/java/remover-metadatos/
 :category: java
-:description: Nuestros ethical hackers explican que son los metadatos, que tipo de información contienen y para que son usados, también explican que ese tipo de información representan un riesgo para la seguridad, por tanto, explican la manera de eliminarlos usando la ImageIO.
-:keywords: Java, Seguridad, Metadatos, Información, ImageIO, Imágenes.
+:page-description: Nuestros ethical hackers explican que son los metadatos, que tipo de información contienen y para que son usados, también explican que ese tipo de información representan un riesgo para la seguridad, por tanto, explican la manera de eliminarlos usando la ImageIO.
+:page-keywords: Java, Seguridad, Metadatos, Información, ImageIO, Imágenes.
 :defends: yes
 
 = Remover Metadatos de Imágenes

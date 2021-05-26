@@ -1,14 +1,14 @@
-:slug: embed-code-vector/
-:date: 2020-01-10
-:subtitle: Vector representations of code
-:category: machine-learning
-:tags: machine-learning, security, code
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330869/blog/embed-code-vector/cover_ah0e4k.webp
-:alt: Arrows vector field
-:description: Here we discuss code2vec relation with word2vec and autoencoders to grasp better how feasible it is to represent code as vectors, which is our main interest.
-:keywords: Machine Learning, Neural Network, Encoding, Code2vec, Word2vec, Parsing, Classifier, Vulnerability, Ethical Hacking, Pentesting
-:author: Rafael Ballestas
-:writer: raballestasr
+:page-slug: embed-code-vector/
+:page-date: 2020-01-10
+:page-subtitle: Vector representations of code
+:page-category: machine-learning
+:page-tags: machine-learning, security, code
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330869/blog/embed-code-vector/cover_ah0e4k.webp
+:page-alt: Arrows vector field
+:page-description: Here we discuss code2vec relation with word2vec and autoencoders to grasp better how feasible it is to represent code as vectors, which is our main interest.
+:page-keywords: Machine Learning, Neural Network, Encoding, Code2vec, Word2vec, Parsing, Classifier, Vulnerability, Ethical Hacking, Pentesting
+:page-author: Rafael Ballestas
+:page-writer: raballestasr
 :name: Rafael Ballestas
 :about1: Mathematician
 :about2: with an itch for CS

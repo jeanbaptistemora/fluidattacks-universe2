@@ -1,7 +1,7 @@
-:slug: products/defends/java/evitar-codigo-muerto/
+:page-slug: products/defends/java/evitar-codigo-muerto/
 :category: java
-:description: Nuestros ethical hackers explican que es el código muerto, algunas de las posibles consecuencias o problemas que se presentan al dejar dicho código en el código fuente de una aplicación y, por último, muestran un ejemplo de dicha problematica en una clase de Java.
-:keywords: Java, Validar, Formulario, Regex, Email, HTML.
+:page-description: Nuestros ethical hackers explican que es el código muerto, algunas de las posibles consecuencias o problemas que se presentan al dejar dicho código en el código fuente de una aplicación y, por último, muestran un ejemplo de dicha problematica en una clase de Java.
+:page-keywords: Java, Validar, Formulario, Regex, Email, HTML.
 :defends: yes
 
 = Evitar Código Muerto

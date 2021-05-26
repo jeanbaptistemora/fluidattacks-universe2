@@ -1,7 +1,7 @@
-:slug: products/defends/java/firmar-arreglo/
+:page-slug: products/defends/java/firmar-arreglo/
 :category: java
-:description: Nuestros ethical hackers nos explican que son las firmas digitales y la importancia que estas tienen a la hora de compartir todo tipo de información en la red. Además, mediante un ejemplo en Java, nos enseñan como firmar adecuadamente el contenido de un arreglo.
-:keywords: Java, Seguridad, Firma, Digital, Arreglo, Datos.
+:page-description: Nuestros ethical hackers nos explican que son las firmas digitales y la importancia que estas tienen a la hora de compartir todo tipo de información en la red. Además, mediante un ejemplo en Java, nos enseñan como firmar adecuadamente el contenido de un arreglo.
+:page-keywords: Java, Seguridad, Firma, Digital, Arreglo, Datos.
 :defends: yes
 
 = Firmar el Contenido de un Arreglo

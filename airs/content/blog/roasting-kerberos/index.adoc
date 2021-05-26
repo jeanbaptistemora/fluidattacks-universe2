@@ -1,14 +1,14 @@
-:slug: roasting-kerberos/
-:date: 2019-08-05
-:category: attacks
-:subtitle: Attacking a DC using kerberoast
-:tags: security, windows, vulnerability, credential
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331068/blog/roasting-kerberos/cover_ddb50u.webp
-:alt: Toasting Marshmallow. Photo by hcmorr on Unsplash: https://unsplash.com/photos/qlHRuDvaxL8
-:description: Windows Active Directory works using the Kerberos protocol, and in this blog post, we detail how we can exploit its functionality to obtain user hashes.
-:keywords: Windows, Security, Vulnerability, Hacking, Kerberos, Cracking, Ethical Hacking, Pentesting
-:author: Jonathan Armas
-:writer: johna
+:page-slug: roasting-kerberos/
+:page-date: 2019-08-05
+:page-category: attacks
+:page-subtitle: Attacking a DC using kerberoast
+:page-tags: security, windows, vulnerability, credential
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331068/blog/roasting-kerberos/cover_ddb50u.webp
+:page-alt: Toasting Marshmallow. Photo by hcmorr on Unsplash: https://unsplash.com/photos/qlHRuDvaxL8
+:page-description: Windows Active Directory works using the Kerberos protocol, and in this blog post, we detail how we can exploit its functionality to obtain user hashes.
+:page-keywords: Windows, Security, Vulnerability, Hacking, Kerberos, Cracking, Ethical Hacking, Pentesting
+:page-author: Jonathan Armas
+:page-writer: johna
 :name: Jonathan Armas
 :about1: Systems Engineer, Security+
 :about2: "Be formless, shapeless like water" Bruce Lee

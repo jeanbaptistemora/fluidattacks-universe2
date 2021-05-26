@@ -1,7 +1,7 @@
-:slug: careers/knowledge-test/
+:page-slug: careers/knowledge-test/
 :category: careers
-:description: Test your knowledge in different fields before applying to any of our positions.
-:keywords: Fluid Attacks, Careers, Knowledge, Test, Selection, Process, Pentesting, Ethical Hacking
+:page-description: Test your knowledge in different fields before applying to any of our positions.
+:page-keywords: Fluid Attacks, Careers, Knowledge, Test, Selection, Process, Pentesting, Ethical Hacking
 
 = Knowledge Test
 

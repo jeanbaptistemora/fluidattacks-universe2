@@ -1,7 +1,7 @@
-:slug: products/defends/java/manejar-sesion-jsp/
+:page-slug: products/defends/java/manejar-sesion-jsp/
 :category: java
-:description: Nuestros ethical hackers explican que son las sesiones y como son implementadas en páginas web, además, explican cómo evitar vulnerabilidades de seguridad al hacer una correcta implementación y manejo de sesiones en aplicaciones desarrolladas en Java Server Pages.
-:keywords: Java, Seguridad, Sesión, JSP, Web, Administración.
+:page-description: Nuestros ethical hackers explican que son las sesiones y como son implementadas en páginas web, además, explican cómo evitar vulnerabilidades de seguridad al hacer una correcta implementación y manejo de sesiones en aplicaciones desarrolladas en Java Server Pages.
+:page-keywords: Java, Seguridad, Sesión, JSP, Web, Administración.
 :defends: yes
 
 = Manejar Sesiones en JSP

@@ -1,14 +1,14 @@
-:slug: seek-chaos/
-:date: 2019-05-06
-:subtitle: The Antifragile philosophy
-:category: philosophy
-:tags: business, security, risk, experiment
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331094/blog/seek-chaos/cover_bvvxp3.webp
-:alt: multicolor abstract paint on Unsplash: https://unsplash.com/photos/YQrUzrsRNes
-:description: In this article, we examine how the Antifragility concept can inform design decisions, change the mindset of cybersecurity teams, and affect your business.
-:keywords: Security, Fragile, Robust, Antifragile, Risk, Chaos, Ethical Hacking, Pentesting
-:author: Julian Arango
-:writer: jarango
+:page-slug: seek-chaos/
+:page-date: 2019-05-06
+:page-subtitle: The Antifragile philosophy
+:page-category: philosophy
+:page-tags: business, security, risk, experiment
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331094/blog/seek-chaos/cover_bvvxp3.webp
+:page-alt: multicolor abstract paint on Unsplash: https://unsplash.com/photos/YQrUzrsRNes
+:page-description: In this article, we examine how the Antifragility concept can inform design decisions, change the mindset of cybersecurity teams, and affect your business.
+:page-keywords: Security, Fragile, Robust, Antifragile, Risk, Chaos, Ethical Hacking, Pentesting
+:page-author: Julian Arango
+:page-writer: jarango
 :name: Julian Arango
 :about1: Behavioral strategist
 :about2: Data scientist in training.

@@ -1,7 +1,7 @@
-:slug: products/defends/java/desactivar-xxe/
+:page-slug: products/defends/java/desactivar-xxe/
 :category: java
-:description: Nuestros ethical hackers explican que los documentos XML que usan entidades externas pueden ser vulnerables a un ataque conocido como XXE, por tanto, recomiendan desactivar dicha funcionalidad del interprete XML o usar DocumentBuilderFactory para prevenir el uso de las entidades.
-:keywords: Java, Seguridad, XXE, Ataque, XML, Entidad.
+:page-description: Nuestros ethical hackers explican que los documentos XML que usan entidades externas pueden ser vulnerables a un ataque conocido como XXE, por tanto, recomiendan desactivar dicha funcionalidad del interprete XML o usar DocumentBuilderFactory para prevenir el uso de las entidades.
+:page-keywords: Java, Seguridad, XXE, Ataque, XML, Entidad.
 :defends: yes
 
 = Desactivar Resolución de Entidades Externas XML

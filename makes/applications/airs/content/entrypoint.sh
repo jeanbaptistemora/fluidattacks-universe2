@@ -20,26 +20,6 @@ function main {
         then
           sed -i "s|pathPrefix: '/front'|pathPrefix: '/${CI_COMMIT_REF_NAME}'|g" gatsby-config.js
         fi \
-    &&  find content/pages -type f -name "*.adoc" -exec sed -i 's|:phrase|:page-phrase|g' {} + \
-    &&  find content/pages -type f -name "*.adoc" -exec sed -i 's|:slug|:page-slug|g' {} + \
-    &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:description|:page-description|g" {} + \
-    &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:keywords|:page-keywords|g" {} + \
-    &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:definition:|:page-definition:|g" {} + \
-    &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:banner|:page-banner|g" {} + \
-    &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:subtitle|:page-subtitle|g" {} + \
-    &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|:subtext|:page-subtext|g" {} + \
-    &&  find content/pages -type f -name "*.adoc" -exec sed -i "s|../theme/images|../images|g" {} + \
-    &&  find content/blog -type f -name "*.adoc" -exec sed -i 's|:slug|:page-slug|g' {} + \
-    &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:alt|:page-alt|g" {} + \
-    &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:author|:page-author|g" {} + \
-    &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:date|:page-date|g" {} + \
-    &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:description|:page-description|g" {} + \
-    &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:image|:page-image|g" {} + \
-    &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:keywords|:page-keywords|g" {} + \
-    &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:subtitle|:page-subtitle|g" {} + \
-    &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:writer|:page-writer|g" {} + \
-    &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:tags|:page-tags|g" {} + \
-    &&  find content/blog -type f -name "*.adoc" -exec sed -i "s|:category|:page-category|g" {} + \
     &&  rm -rf content/pages/products \
     &&  copy __envAirsNpm__/node_modules 'node_modules' \
     &&  install_fontawesome_pro \

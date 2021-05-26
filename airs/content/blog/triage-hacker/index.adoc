@@ -1,14 +1,14 @@
-:slug: triage-hacker/
-:date: 2019-10-18
-:subtitle: Prioritize code auditing via ML
-:category: machine-learning
-:tags: machine-learning, security, code
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331128/blog/triage-hacker/cover_qqfqe2.webp
-:alt: Photo by camilo jimenez on Unsplash: https://unsplash.com/photos/vGu08RYjO-s
-:description: This post is a high-level review of our previous discussion concerning machine learning techniques applied to vulnerability discovery and exploitation.
-:keywords: Machine Learning, Neural Network, Encoding, Parsing, Classifier, Vulnerability, Ethical Hacking, Pentesting
-:author: Rafael Ballestas
-:writer: raballestasr
+:page-slug: triage-hacker/
+:page-date: 2019-10-18
+:page-subtitle: Prioritize code auditing via ML
+:page-category: machine-learning
+:page-tags: machine-learning, security, code
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331128/blog/triage-hacker/cover_qqfqe2.webp
+:page-alt: Photo by camilo jimenez on Unsplash: https://unsplash.com/photos/vGu08RYjO-s
+:page-description: This post is a high-level review of our previous discussion concerning machine learning techniques applied to vulnerability discovery and exploitation.
+:page-keywords: Machine Learning, Neural Network, Encoding, Parsing, Classifier, Vulnerability, Ethical Hacking, Pentesting
+:page-author: Rafael Ballestas
+:page-writer: raballestasr
 :name: Rafael Ballestas
 :about1: Mathematician
 :about2: with an itch for CS

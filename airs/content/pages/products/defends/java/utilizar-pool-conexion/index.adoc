@@ -1,7 +1,7 @@
-:slug: products/defends/java/utilizar-pool-conexion/
+:page-slug: products/defends/java/utilizar-pool-conexion/
 :category: java
-:description: Nuestros ethical hackers explican que es un pool de conexiones y cuales son las ventajas de utilizarlos con respecto a una conexión cliente-servidor. Además, por medio de un ejemplo utilizando JSP enseñan la manera de crear y utilizar dicho pool de manera segura.
-:keywords: Java, Seguridad, Pool, Conexión, Base de datos, JDBC.
+:page-description: Nuestros ethical hackers explican que es un pool de conexiones y cuales son las ventajas de utilizarlos con respecto a una conexión cliente-servidor. Además, por medio de un ejemplo utilizando JSP enseñan la manera de crear y utilizar dicho pool de manera segura.
+:page-keywords: Java, Seguridad, Pool, Conexión, Base de datos, JDBC.
 :defends: yes
 
 = Utilizar Pool de Conexiones

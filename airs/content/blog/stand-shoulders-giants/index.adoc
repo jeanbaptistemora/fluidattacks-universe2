@@ -1,14 +1,14 @@
-:slug: stand-shoulders-giants/
-:date: 2018-02-14
-:category: attacks
-:subtitle: About software composition analysis
-:tags: testing, dependency, vulnerability
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331101/blog/stand-shoulders-giants/cover_iiuzyx.webp
-:alt: Man standing in mountain
-:description: Here we mainly develop a discussion on 'A9' of the OWASP Top 10: Using components with known vulnerabilities, in particular free and open software libraries.
-:keywords: Software Composition, Analysis, Dependency, Vulnerability, OWASP, Linux, Foss, Ethical Hacking, Pentesting
-:author: Rafael Ballestas
-:writer: raballestasr
+:page-slug: stand-shoulders-giants/
+:page-date: 2018-02-14
+:page-category: attacks
+:page-subtitle: About software composition analysis
+:page-tags: testing, dependency, vulnerability
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331101/blog/stand-shoulders-giants/cover_iiuzyx.webp
+:page-alt: Man standing in mountain
+:page-description: Here we mainly develop a discussion on 'A9' of the OWASP Top 10: Using components with known vulnerabilities, in particular free and open software libraries.
+:page-keywords: Software Composition, Analysis, Dependency, Vulnerability, OWASP, Linux, Foss, Ethical Hacking, Pentesting
+:page-author: Rafael Ballestas
+:page-writer: raballestasr
 :name: Rafael Ballestas
 :about1: Mathematician
 :about2: with an itch for CS

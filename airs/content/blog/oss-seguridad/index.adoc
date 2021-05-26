@@ -1,14 +1,14 @@
-:slug: oss-seguridad/
-:date: 2020-11-05
-:subtitle: Seguridad del OSS — Fluid Attacks como claro ejemplo
-:category: philosophy
-:tags: security, cybersecurity, code, software, company, business
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330967/blog/oss-seguridad/cover_mpada0.webp
-:alt: Photo by Karsten Winegeart on Unsplash
-:description: Queremos recordarte que ocultar el código fuente de tus apps a menudo puede proporcionarte una ilusión de seguridad y que el OSS es una valiosa alternativa.
-:keywords: Ciberseguridad, OSS, Open Source, Código Abierto, Software, Compañía, Ethical Hacking, Pentesting
-:author: Felipe Ruiz
-:writer: fruiz
+:page-slug: oss-seguridad/
+:page-date: 2020-11-05
+:page-subtitle: Seguridad del OSS — Fluid Attacks como claro ejemplo
+:page-category: philosophy
+:page-tags: security, cybersecurity, code, software, company, business
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330967/blog/oss-seguridad/cover_mpada0.webp
+:page-alt: Photo by Karsten Winegeart on Unsplash
+:page-description: Queremos recordarte que ocultar el código fuente de tus apps a menudo puede proporcionarte una ilusión de seguridad y que el OSS es una valiosa alternativa.
+:page-keywords: Ciberseguridad, OSS, Open Source, Código Abierto, Software, Compañía, Ethical Hacking, Pentesting
+:page-author: Felipe Ruiz
+:page-writer: fruiz
 :name: Felipe Ruiz
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/2HlidfG6ihs

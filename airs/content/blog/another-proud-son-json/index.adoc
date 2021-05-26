@@ -1,14 +1,14 @@
-:slug: another-proud-son-json/
-:date: 2017-05-04
-:subtitle: Using JSON Web Token to send data
-:category: identity
-:tags: security, information, jwt
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330659/blog/another-proud-son-json/cover_udy9xc.webp
-:alt: Text editor with code highlighting
-:description: Here we introduce JSON Web Token, a simple, quick way to send secure, digital signed data from one part to another via URL using a base64 algorithm to encode.
-:keywords: JSON, Security, Digital Signature, Web Token, JWT, Information, Pentesting, Ethical Hacking
-:author: Juan Aguirre
-:writer: juanes
+:page-slug: another-proud-son-json/
+:page-date: 2017-05-04
+:page-subtitle: Using JSON Web Token to send data
+:page-category: identity
+:page-tags: security, information, jwt
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330659/blog/another-proud-son-json/cover_udy9xc.webp
+:page-alt: Text editor with code highlighting
+:page-description: Here we introduce JSON Web Token, a simple, quick way to send secure, digital signed data from one part to another via URL using a base64 algorithm to encode.
+:page-keywords: JSON, Security, Digital Signature, Web Token, JWT, Information, Pentesting, Ethical Hacking
+:page-author: Juan Aguirre
+:page-writer: juanes
 :name: Juan Esteban Aguirre González
 :about1: Computer Engineer
 :about2: Netflix and hack.

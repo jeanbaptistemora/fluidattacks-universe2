@@ -1,14 +1,14 @@
-:slug: searching-history/
-:date: 2020-04-29
-:category: attacks
-:subtitle: Searching for credentials in a repository
-:tags: security, git, vulnerability, credential
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331090/blog/searching-history/cover_qkuncf.webp
-:alt: Photo by Mick Haupt on Unsplash
-:description: As everyone knows in our context, production credentials should be protected. In this post, we explain how to extract old credentials and how to protect them.
-:keywords: Git, Security, Vulnerability, Hacking, Repository, Credentials, Ethical Hacking, Pentesting
-:author: Jonathan Armas
-:writer: johna
+:page-slug: searching-history/
+:page-date: 2020-04-29
+:page-category: attacks
+:page-subtitle: Searching for credentials in a repository
+:page-tags: security, git, vulnerability, credential
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331090/blog/searching-history/cover_qkuncf.webp
+:page-alt: Photo by Mick Haupt on Unsplash
+:page-description: As everyone knows in our context, production credentials should be protected. In this post, we explain how to extract old credentials and how to protect them.
+:page-keywords: Git, Security, Vulnerability, Hacking, Repository, Credentials, Ethical Hacking, Pentesting
+:page-author: Jonathan Armas
+:page-writer: johna
 :name: Jonathan Armas
 :about1: Systems Engineer, OSCP - Security+
 :about2: "Be formless, shapeless like water" Bruce Lee

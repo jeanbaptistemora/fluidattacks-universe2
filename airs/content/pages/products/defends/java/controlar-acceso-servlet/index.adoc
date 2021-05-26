@@ -1,7 +1,7 @@
-:slug: products/defends/java/controlar-acceso-servlet/
+:page-slug: products/defends/java/controlar-acceso-servlet/
 :category: java
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al establecer el control de acceso para servlets de forma declarativa con anotaciones. Esto resulta util cuando se requiere un diseño personalizado para la pantalla de autenticacion.
-:keywords: Java, Control, Acceso, Servlet, Autenticación, Permisos.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al establecer el control de acceso para servlets de forma declarativa con anotaciones. Esto resulta util cuando se requiere un diseño personalizado para la pantalla de autenticacion.
+:page-keywords: Java, Control, Acceso, Servlet, Autenticación, Permisos.
 :defends: yes
 
 = Controlar el Acceso para Servlets

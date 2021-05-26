@@ -1,7 +1,7 @@
-:slug: products/defends/csharp/establecer-content-type/
+:page-slug: products/defends/csharp/establecer-content-type/
 :category: csharp
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en C Sharp al establecer las cabeceras content-type y charset de una aplicación desarrollada para evitar ataques que utilizan diferentes codificaciones, como el HTTP Request Smuggling.
-:keywords: C Sharp, Seguridad, Charset, Content-Type, Buenas Prácticas, HTTP Request Smuggling.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en C Sharp al establecer las cabeceras content-type y charset de una aplicación desarrollada para evitar ataques que utilizan diferentes codificaciones, como el HTTP Request Smuggling.
+:page-keywords: C Sharp, Seguridad, Charset, Content-Type, Buenas Prácticas, HTTP Request Smuggling.
 :defends: yes
 
 = Establecer Content-Type y Charset

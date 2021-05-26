@@ -1,7 +1,7 @@
-:slug: products/defends/java/declarar-variables-constantes/
+:page-slug: products/defends/java/declarar-variables-constantes/
 :category: java
-:description: Nuestros ethical hackers explican que es un análisis estático de software y que durante la ejecución de dicho análisis el compilador puede tomar las variables que no cambian su valor en todo el código como constantes. Por último, a través de un ejemplo en Java, muestran dicho análisis.
-:keywords: Java, Análisis, Estatico, Compilador, Optimización, Calidad.
+:page-description: Nuestros ethical hackers explican que es un análisis estático de software y que durante la ejecución de dicho análisis el compilador puede tomar las variables que no cambian su valor en todo el código como constantes. Por último, a través de un ejemplo en Java, muestran dicho análisis.
+:page-keywords: Java, Análisis, Estatico, Compilador, Optimización, Calidad.
 :defends: yes
 
 = Declarar variables locales como constantes

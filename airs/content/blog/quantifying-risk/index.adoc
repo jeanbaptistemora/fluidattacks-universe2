@@ -1,14 +1,14 @@
-:slug: quantifying-risk/
-:date: 2019-02-19
-:subtitle: From color scales to probabilities and ranges
-:category: philosophy
-:tags: business, ethical-hacking, risk
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330977/blog/quantifying-risk/cover_hdxf8q.webp
-:alt: Risky poker move. Credits: https://unsplash.com/photos/vBpd607jLXs
-:description: Here we discuss a survey of probabilistic methods that can be applied to quantify cybersecurity risk in terms of probabilities, confidence intervals, and money.
-:keywords: Risk, Probability, Impact, Measure, Quantify, Security, Ethical Hacking, Pentesting
-:author: Rafael Ballestas
-:writer: raballestasr
+:page-slug: quantifying-risk/
+:page-date: 2019-02-19
+:page-subtitle: From color scales to probabilities and ranges
+:page-category: philosophy
+:page-tags: business, ethical-hacking, risk
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330977/blog/quantifying-risk/cover_hdxf8q.webp
+:page-alt: Risky poker move. Credits: https://unsplash.com/photos/vBpd607jLXs
+:page-description: Here we discuss a survey of probabilistic methods that can be applied to quantify cybersecurity risk in terms of probabilities, confidence intervals, and money.
+:page-keywords: Risk, Probability, Impact, Measure, Quantify, Security, Ethical Hacking, Pentesting
+:page-author: Rafael Ballestas
+:page-writer: raballestasr
 :name: Rafael Ballestas
 :about1: Mathematician
 :about2: with an itch for CS

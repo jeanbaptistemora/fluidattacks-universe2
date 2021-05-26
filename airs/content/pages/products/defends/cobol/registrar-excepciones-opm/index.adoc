@@ -1,7 +1,7 @@
-:slug: products/defends/cobol/registrar-excepciones-opm/
+:page-slug: products/defends/cobol/registrar-excepciones-opm/
 :category: cobol
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al realizar un manejo adecuado de excepciones. Las excepciones se pueden presentar debido a errores durante la ejecución del programa y deben registrarse en bitácoras.
-:keywords: COBOL, OPM, Excepciones, API, QPDLOGER, Programación.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al realizar un manejo adecuado de excepciones. Las excepciones se pueden presentar debido a errores durante la ejecución del programa y deben registrarse en bitácoras.
+:page-keywords: COBOL, OPM, Excepciones, API, QPDLOGER, Programación.
 :defends: yes
 
 = Registrar Excepciones OPM

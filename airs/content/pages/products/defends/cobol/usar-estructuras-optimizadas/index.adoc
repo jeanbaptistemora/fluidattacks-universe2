@@ -1,8 +1,8 @@
-:slug: products/defends/cobol/usar-estructuras-optimizadas/
+:page-slug: products/defends/cobol/usar-estructuras-optimizadas/
 :eth: no
 :category: cobol
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al utilizar estructuras optimizadas. Las estructuras optimizadas mejoran el rendimiento del programa y pueden ser incluidas al utilizar la sentencia COPY.
-:keywords: Cobol, Seguridad, Estructuras, Optimizadas, Datos, Buenas Prácticas.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al utilizar estructuras optimizadas. Las estructuras optimizadas mejoran el rendimiento del programa y pueden ser incluidas al utilizar la sentencia COPY.
+:page-keywords: Cobol, Seguridad, Estructuras, Optimizadas, Datos, Buenas Prácticas.
 :defends: yes
 
 = Usar Estructuras Optimizadas

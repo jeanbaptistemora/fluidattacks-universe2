@@ -1,7 +1,7 @@
-:slug: products/defends/java/usar-hmac256/
+:page-slug: products/defends/java/usar-hmac256/
 :category: java
-:description: Nuestros ethical hackers explican en que consiste el código de autenticación de mensajes en clave hmac y las funciones hash criptográficas y como pueden ser combinadas con el fin de generar el algoritmo hmac256 el cual es usado para generar resúmenes criptográficos seguros.
-:keywords: Java, Seguridad, HMAC, SHA256, Criptografía, Algoritmo.
+:page-description: Nuestros ethical hackers explican en que consiste el código de autenticación de mensajes en clave hmac y las funciones hash criptográficas y como pueden ser combinadas con el fin de generar el algoritmo hmac256 el cual es usado para generar resúmenes criptográficos seguros.
+:page-keywords: Java, Seguridad, HMAC, SHA256, Criptografía, Algoritmo.
 :defends: yes
 
 = Usar HMAC-SHA256

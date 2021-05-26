@@ -1,7 +1,7 @@
-:slug: products/defends/java/usar-privilegio/
+:page-slug: products/defends/java/usar-privilegio/
 :category: java
-:description: Nuestros ethical hackers explican que son los permisos y la importancia de estos a la hora de controlar y proteger la información. Además, explican la manera de brindar permisos privilegiados a una aplicación desarrollada en Java haciendo uso de la clase AccessController.
-:keywords: Java, Seguridad, AccessController, Permisos, Acceso, Mínimo Privilegio.
+:page-description: Nuestros ethical hackers explican que son los permisos y la importancia de estos a la hora de controlar y proteger la información. Además, explican la manera de brindar permisos privilegiados a una aplicación desarrollada en Java haciendo uso de la clase AccessController.
+:page-keywords: Java, Seguridad, AccessController, Permisos, Acceso, Mínimo Privilegio.
 :defends: yes
 
 = Usar Acciones Privilegiadas

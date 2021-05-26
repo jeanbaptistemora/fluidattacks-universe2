@@ -1,7 +1,7 @@
-:slug: products/defends/java/definir-permisos/
+:page-slug: products/defends/java/definir-permisos/
 :category: java
-:description: Nuestros ethical hackers, teniendo como base el principio del mínimo privilegio, explican la manera de establecer políticas de seguridad en una aplicación realizada en Java haciendo uso de la clase AccessController y el archivo de políticas java.policy.
-:keywords: Java, Seguridad, Políticas, AccessController, Permisos, Mínimo Privilegio.
+:page-description: Nuestros ethical hackers, teniendo como base el principio del mínimo privilegio, explican la manera de establecer políticas de seguridad en una aplicación realizada en Java haciendo uso de la clase AccessController y el archivo de políticas java.policy.
+:page-keywords: Java, Seguridad, Políticas, AccessController, Permisos, Mínimo Privilegio.
 :defends: yes
 
 = Definir Permisos Usando AccessController

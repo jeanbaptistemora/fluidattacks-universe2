@@ -1,7 +1,7 @@
-:slug: products/defends/java/detener-hilos/
+:page-slug: products/defends/java/detener-hilos/
 :category: java
-:description: Nuestros ethical hackers explican que son los hilos o threads en una aplicación, además explican, mediante un ejemplo, cual es la manera adecuada de detener su ejecución en una aplicación realizada en Java ya que los métodos stop y suspend se consideran inseguros.
-:keywords: Java, Hilos, Threads, Seguridad, Métodos, Calidad.
+:page-description: Nuestros ethical hackers explican que son los hilos o threads en una aplicación, además explican, mediante un ejemplo, cual es la manera adecuada de detener su ejecución en una aplicación realizada en Java ya que los métodos stop y suspend se consideran inseguros.
+:page-keywords: Java, Hilos, Threads, Seguridad, Métodos, Calidad.
 :defends: yes
 
 = Detener Hilos

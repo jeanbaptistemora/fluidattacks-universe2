@@ -1,14 +1,14 @@
-:slug: devops-concept/
-:date: 2020-05-05
-:subtitle: The central components of DevOps definition
-:category: philosophy
-:tags: devops, software, information, web, cloud, business
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330851/blog/devops-concept/cover_gyaf3f.webp
-:alt: Photo by Michael Fenton on Unsplash
-:description: Here we introduce DevOps, a working methodology whose principles are communication, collaboration, automation, continuous release, and quick reaction.
-:keywords: DevOps, Software, Information, Web, Cloud, Business, Ethical Hacking, Pentesting
-:author: Felipe Ruiz
-:writer: fruiz
+:page-slug: devops-concept/
+:page-date: 2020-05-05
+:page-subtitle: The central components of DevOps definition
+:page-category: philosophy
+:page-tags: devops, software, information, web, cloud, business
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330851/blog/devops-concept/cover_gyaf3f.webp
+:page-alt: Photo by Michael Fenton on Unsplash
+:page-description: Here we introduce DevOps, a working methodology whose principles are communication, collaboration, automation, continuous release, and quick reaction.
+:page-keywords: DevOps, Software, Information, Web, Cloud, Business, Ethical Hacking, Pentesting
+:page-author: Felipe Ruiz
+:page-writer: fruiz
 :name: Felipe Ruiz
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/y5dUcQXzJ40

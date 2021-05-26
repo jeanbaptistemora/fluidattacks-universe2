@@ -1,14 +1,14 @@
-:slug: vulnserver-trun-rop/
-:date: 2020-08-27
-:category: attacks
-:subtitle: Exploiting Vulnserver with ROP
-:tags: osee, training, exploit, vulnserver
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331216/blog/vulnserver-trun-rop/cover_fyj5gk.webp
-:alt: Photo by Syed Ali on Unsplash
-:description: This post will show how to create a complete, functional exploit creating a complex shellcode using ROP
-:keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
-:author: Andres Roldan
-:writer: aroldan
+:page-slug: vulnserver-trun-rop/
+:page-date: 2020-08-27
+:page-category: attacks
+:page-subtitle: Exploiting Vulnserver with ROP
+:page-tags: osee, training, exploit, vulnserver
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331216/blog/vulnserver-trun-rop/cover_fyj5gk.webp
+:page-alt: Photo by Syed Ali on Unsplash
+:page-description: This post will show how to create a complete, functional exploit creating a complex shellcode using ROP
+:page-keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
+:page-author: Andres Roldan
+:page-writer: aroldan
 :name: Andres Roldan
 :about1: Cybersecurity Specialist, OSCE, OSCP, CHFI
 :about2: "We don't need the key, we'll break in" RATM

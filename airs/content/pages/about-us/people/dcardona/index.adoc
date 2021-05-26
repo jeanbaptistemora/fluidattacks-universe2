@@ -1,7 +1,7 @@
-:slug: about-us/people/dcardona/
+:page-slug: about-us/people/dcardona/
 :category: about-us
-:description: The purpose of this page is to present a small overview about the experience, education and achievements of David Cardona.
-:keywords: Fluid Attacks, Team, People, Members, David, Cardona
+:page-description: The purpose of this page is to present a small overview about the experience, education and achievements of David Cardona.
+:page-keywords: Fluid Attacks, Team, People, Members, David, Cardona
 
 = David Cardona
 

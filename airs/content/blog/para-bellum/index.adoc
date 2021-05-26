@@ -1,14 +1,14 @@
-:slug: para-bellum/
-:date: 2019-03-26
-:subtitle: Prepare for the worst risk
-:category: philosophy
-:tags: business, security, risk
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330971/blog/para-bellum/cover_gejzbf.webp
-:alt: Fire extinguisher. Photo by Tommaso Pecchioli on Unsplash: https://unsplash.com/photos/XG_wi3W4-m8
-:description: This blog post is focused on Value at Risk (VaR), a measure of the risk of loss in the context of uncertainty, v.g., for investment.
-:keywords: Risk, VaR, Probability, Impact, Measure, Quantify, Security, Ethical Hacking, Pentesting
-:author: Rafael Ballestas
-:writer: raballestasr
+:page-slug: para-bellum/
+:page-date: 2019-03-26
+:page-subtitle: Prepare for the worst risk
+:page-category: philosophy
+:page-tags: business, security, risk
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330971/blog/para-bellum/cover_gejzbf.webp
+:page-alt: Fire extinguisher. Photo by Tommaso Pecchioli on Unsplash: https://unsplash.com/photos/XG_wi3W4-m8
+:page-description: This blog post is focused on Value at Risk (VaR), a measure of the risk of loss in the context of uncertainty, v.g., for investment.
+:page-keywords: Risk, VaR, Probability, Impact, Measure, Quantify, Security, Ethical Hacking, Pentesting
+:page-author: Rafael Ballestas
+:page-writer: raballestasr
 :name: Rafael Ballestas
 :about1: Mathematician
 :about2: with an itch for CS

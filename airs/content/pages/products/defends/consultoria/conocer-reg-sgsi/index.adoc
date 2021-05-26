@@ -1,7 +1,7 @@
-:slug: products/defends/consultoria/conocer-reg-sgsi/
+:page-slug: products/defends/consultoria/conocer-reg-sgsi/
 :category: consultoria
-:description: Nuestros ethical hackers ayudan a identificar la legislación colombiana aplicable a la seguridad de la información en las organizaciones. Al conocer estas normas es posible crear un marco de referencia que permita mejorar la protección de los datos sensibles en la empresa.
-:keywords: Consultoría, Regulación, SGSI, Legislación, Colombia, Delitos Informáticos.
+:page-description: Nuestros ethical hackers ayudan a identificar la legislación colombiana aplicable a la seguridad de la información en las organizaciones. Al conocer estas normas es posible crear un marco de referencia que permita mejorar la protección de los datos sensibles en la empresa.
+:page-keywords: Consultoría, Regulación, SGSI, Legislación, Colombia, Delitos Informáticos.
 :defends: yes
 
 = Conocer Regulación SGSI

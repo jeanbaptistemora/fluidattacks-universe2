@@ -1,7 +1,7 @@
-:slug: products/defends/java/comprimir-datos-codigo/
+:page-slug: products/defends/java/comprimir-datos-codigo/
 :category: java
-:description: Nuestros ethical hackers explican que es la comprensión de datos en los mensajes de las transmisiones HTTP enseñando la manera en que ésta funciona en la comunicación. Por último, muestran la manera de configurar dicha compresión en un servidor apache tomcat.
-:keywords: Java, Apache, Tomcar, HTTP, Encodings, Comprensión.
+:page-description: Nuestros ethical hackers explican que es la comprensión de datos en los mensajes de las transmisiones HTTP enseñando la manera en que ésta funciona en la comunicación. Por último, muestran la manera de configurar dicha compresión en un servidor apache tomcat.
+:page-keywords: Java, Apache, Tomcar, HTTP, Encodings, Comprensión.
 :defends: yes
 
 = Comprimir Datos y Código Durante el Transporte

@@ -1,7 +1,7 @@
-:slug: products/defends/java/prevenir-xss-esapi/
+:page-slug: products/defends/java/prevenir-xss-esapi/
 :category: java
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al prevenir cross site scripting utilizando ESAPI. ESAPI es una librería de control que permite implementar medidas de seguridad contra distintos ataques en una aplicación web.
-:keywords: Java, Seguridad, Buenas Prácticas, ESAPI, XSS, Cross Site Scripting.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al prevenir cross site scripting utilizando ESAPI. ESAPI es una librería de control que permite implementar medidas de seguridad contra distintos ataques en una aplicación web.
+:page-keywords: Java, Seguridad, Buenas Prácticas, ESAPI, XSS, Cross Site Scripting.
 :defends: yes
 
 = Prevenir Cross Site Scripting Usando ESAPI

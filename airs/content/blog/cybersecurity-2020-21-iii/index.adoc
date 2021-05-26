@@ -1,14 +1,14 @@
-:slug: cybersecurity-2020-21-iii/
-:date: 2020-11-24
-:subtitle: Glimpsing the trends for 2021
-:category: opinions
-:tags: security, cybersecurity, trends, security-testing, technology, company
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330843/blog/cybersecurity-2020-21-iii/cover_rhdzrv.webp
-:alt: Photo by Jr Korpa on Unsplash
-:description: In this final part of the state of cybersecurity 2020-21, we want to share with you some predictions and possible trends in cybersecurity for 2021.
-:keywords: Security, Cybersecurity, Predictions, Trends, Security Testing, Company, Ethical Hacking, Pentesting
-:author: Felipe Ruiz
-:writer: fruiz
+:page-slug: cybersecurity-2020-21-iii/
+:page-date: 2020-11-24
+:page-subtitle: Glimpsing the trends for 2021
+:page-category: opinions
+:page-tags: security, cybersecurity, trends, security-testing, technology, company
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330843/blog/cybersecurity-2020-21-iii/cover_rhdzrv.webp
+:page-alt: Photo by Jr Korpa on Unsplash
+:page-description: In this final part of the state of cybersecurity 2020-21, we want to share with you some predictions and possible trends in cybersecurity for 2021.
+:page-keywords: Security, Cybersecurity, Predictions, Trends, Security Testing, Company, Ethical Hacking, Pentesting
+:page-author: Felipe Ruiz
+:page-writer: fruiz
 :name: Felipe Ruiz
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/s4_Rts1SFx0

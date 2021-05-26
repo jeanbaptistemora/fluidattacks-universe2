@@ -1,14 +1,14 @@
-:slug: requiem-password/
-:date: 2018-03-07
-:subtitle: Why passphrases are better than passwords
-:category: identity
-:tags: password, credential, security
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331056/blog/requiem-password/cover_iz3mck.webp
-:alt: Rusty lock
-:description: In this blog post, we mainly make a comparison between having weak or complicated passwords versus having a single strong passphrase.
-:keywords: Passphrase, Password, Security, Cracking, Policy, Diceware, Ethical Hacking, Pentesting
-:author: Rafael Ballestas
-:writer: raballestasr
+:page-slug: requiem-password/
+:page-date: 2018-03-07
+:page-subtitle: Why passphrases are better than passwords
+:page-category: identity
+:page-tags: password, credential, security
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331056/blog/requiem-password/cover_iz3mck.webp
+:page-alt: Rusty lock
+:page-description: In this blog post, we mainly make a comparison between having weak or complicated passwords versus having a single strong passphrase.
+:page-keywords: Passphrase, Password, Security, Cracking, Policy, Diceware, Ethical Hacking, Pentesting
+:page-author: Rafael Ballestas
+:page-writer: raballestasr
 :name: Rafael Ballestas
 :about1: Mathematician
 :about2: with an itch for CS

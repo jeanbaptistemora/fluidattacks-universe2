@@ -1,14 +1,14 @@
-:slug: smishing/
-:date: 2021-04-30
-:subtitle: But before doing it you must read this
-:category: techniques
-:tags: cybersecurity, social-engineering, android, risk, technology, software
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331098/blog/smishing/cover_zpfdiv.webp
-:alt: Photo by Ian Tuck on Unsplash
-:description: In this blog, you will learn how and why is smishing growing as one of the most popular forms of cyber-scam.
-:keywords: Smishing, Scam, Phones, Cybersecurity, Social Engineering, Ethical Hacking, SMS, Pentesting
-:author: Felipe Zárate
-:writer: fzarate
+:page-slug: smishing/
+:page-date: 2021-04-30
+:page-subtitle: But before doing it you must read this
+:page-category: techniques
+:page-tags: cybersecurity, social-engineering, android, risk, technology, software
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331098/blog/smishing/cover_zpfdiv.webp
+:page-alt: Photo by Ian Tuck on Unsplash
+:page-description: In this blog, you will learn how and why is smishing growing as one of the most popular forms of cyber-scam.
+:page-keywords: Smishing, Scam, Phones, Cybersecurity, Social Engineering, Ethical Hacking, SMS, Pentesting
+:page-author: Felipe Zárate
+:page-writer: fzarate
 :name: Felipe Zárate
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/7fNKdT8eRF0

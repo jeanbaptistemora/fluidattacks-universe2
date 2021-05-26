@@ -1,14 +1,14 @@
-:slug: shared-responsibility-model/
-:date: 2021-03-05
-:subtitle: Confusion with the cloud shared responsibility model
-:category: philosophy
-:tags: cloud, information, cybersecurity, security, mistake, company
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331096/blog/shared-responsibility-model/cover_musv3h.webp
-:alt: Photo by Charles Deluvio on Unsplash
-:description: Do you know what is happening with those who don't understand the cloud security shared responsibility model? Find out here and get some recommendations.
-:keywords: Cloud, Security, Shared Responsibility Model, SRM, CSP, Confusion, Ethical Hacking, Pentesting
-:author: Felipe Ruiz
-:writer: fruiz
+:page-slug: shared-responsibility-model/
+:page-date: 2021-03-05
+:page-subtitle: Confusion with the cloud shared responsibility model
+:page-category: philosophy
+:page-tags: cloud, information, cybersecurity, security, mistake, company
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331096/blog/shared-responsibility-model/cover_musv3h.webp
+:page-alt: Photo by Charles Deluvio on Unsplash
+:page-description: Do you know what is happening with those who don't understand the cloud security shared responsibility model? Find out here and get some recommendations.
+:page-keywords: Cloud, Security, Shared Responsibility Model, SRM, CSP, Confusion, Ethical Hacking, Pentesting
+:page-author: Felipe Ruiz
+:page-writer: fruiz
 :name: Felipe Ruiz
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/K4mSJ7kc0As

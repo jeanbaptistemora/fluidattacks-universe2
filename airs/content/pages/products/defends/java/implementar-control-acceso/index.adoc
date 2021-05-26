@@ -1,7 +1,7 @@
-:slug: products/defends/java/implementar-control-acceso/
+:page-slug: products/defends/java/implementar-control-acceso/
 :category: java
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al implementar un control de acceso discrecional. De esta manera es posible especificar para cada uno de los recursos los sujetos que pueden acceder a él.
-:keywords: Java, Seguridad, Control de Acceso, Discrecional, Recursos, Permisos.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al implementar un control de acceso discrecional. De esta manera es posible especificar para cada uno de los recursos los sujetos que pueden acceder a él.
+:page-keywords: Java, Seguridad, Control de Acceso, Discrecional, Recursos, Permisos.
 :defends: yes
 
 = Implementar Control de Acceso Discrecional

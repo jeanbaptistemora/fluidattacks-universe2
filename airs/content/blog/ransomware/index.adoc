@@ -1,14 +1,14 @@
-:slug: ransomware/
-:date: 2020-02-03
-:subtitle: Some pieces of information about ransomware attacks
-:category: attacks
-:tags: software, security, vulnerability, hacking, mistake
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331045/blog/ransomware/cover_c0iozv.webp
-:alt: Photo by Sharon McCutcheon on Unsplash
-:description: Everyone could be a target for ransomware attacks. Here we give an introduction to this topic and tips that could help you prevent being a victim.
-:keywords: Ransomware, Software, Security, Vulnerability, Hacking, Mistake, Information, Ethical Hacking, Pentesting
-:author: Felipe Ruiz
-:writer: fruiz
+:page-slug: ransomware/
+:page-date: 2020-02-03
+:page-subtitle: Some pieces of information about ransomware attacks
+:page-category: attacks
+:page-tags: software, security, vulnerability, hacking, mistake
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331045/blog/ransomware/cover_c0iozv.webp
+:page-alt: Photo by Sharon McCutcheon on Unsplash
+:page-description: Everyone could be a target for ransomware attacks. Here we give an introduction to this topic and tips that could help you prevent being a victim.
+:page-keywords: Ransomware, Software, Security, Vulnerability, Hacking, Mistake, Information, Ethical Hacking, Pentesting
+:page-author: Felipe Ruiz
+:page-writer: fruiz
 :name: Felipe Ruiz
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/@sharonmccutcheon?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText

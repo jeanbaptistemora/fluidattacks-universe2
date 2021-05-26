@@ -1,14 +1,14 @@
-:slug: cost-cybercrime-i/
-:date: 2020-01-28
-:subtitle: Impact of cybercrime today portrays a new landscape
-:category: attacks
-:tags: security, risk, vulnerability, business, policies, economics
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330836/blog/cost-cybercrime-i/cover_z8o7li.webp
-:alt: Photo by Andre Benz on Unsplash
-:description: In 2012, the study ‘Measuring the cost of cybercrime’ was presented at the WEIS. Here we highlight the findings of that updated paper discussed last year.
-:keywords: Security, Risk, Vulnerability, Business, Policies, Economics, Ethical Hacking, Pentesting, WEIS
-:author: Julian Arango
-:writer: jarango
+:page-slug: cost-cybercrime-i/
+:page-date: 2020-01-28
+:page-subtitle: Impact of cybercrime today portrays a new landscape
+:page-category: attacks
+:page-tags: security, risk, vulnerability, business, policies, economics
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330836/blog/cost-cybercrime-i/cover_z8o7li.webp
+:page-alt: Photo by Andre Benz on Unsplash
+:page-description: In 2012, the study ‘Measuring the cost of cybercrime’ was presented at the WEIS. Here we highlight the findings of that updated paper discussed last year.
+:page-keywords: Security, Risk, Vulnerability, Business, Policies, Economics, Ethical Hacking, Pentesting, WEIS
+:page-author: Julian Arango
+:page-writer: jarango
 :name: Julian Arango
 :about1: Behavioral strategist
 :about2: Data scientist in training.

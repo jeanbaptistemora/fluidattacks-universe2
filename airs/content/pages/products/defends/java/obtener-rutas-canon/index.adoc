@@ -1,7 +1,7 @@
-:slug: products/defends/java/obtener-rutas-canon/
+:page-slug: products/defends/java/obtener-rutas-canon/
 :category: java
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al obtener rutas absolutas canónicas. La validación de entradas es un proceso esencial para evitar ataques de inyección de código malicioso.
-:keywords: Java, Ruta Absoluta, Directorio, Transversal, Validación, Ruta Canónica
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al obtener rutas absolutas canónicas. La validación de entradas es un proceso esencial para evitar ataques de inyección de código malicioso.
+:page-keywords: Java, Ruta Absoluta, Directorio, Transversal, Validación, Ruta Canónica
 :defends: yes
 
 = Obtener Rutas Absolutas Canónicas

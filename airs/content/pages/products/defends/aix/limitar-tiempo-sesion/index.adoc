@@ -1,7 +1,7 @@
-:slug: products/defends/aix/limitar-tiempo-sesion/
+:page-slug: products/defends/aix/limitar-tiempo-sesion/
 :category: aix
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura en Unix del tiempo de sesión. Un atacante puede aprovecharse de un usuario inactivo para vulnerar una aplicación, es por ello que es importante limitar el tiempo de sesión de los usuarios.
-:keywords: Unix, Seguridad, Tiempo, Sesión, Limitar, Timeout.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura en Unix del tiempo de sesión. Un atacante puede aprovecharse de un usuario inactivo para vulnerar una aplicación, es por ello que es importante limitar el tiempo de sesión de los usuarios.
+:page-keywords: Unix, Seguridad, Tiempo, Sesión, Limitar, Timeout.
 :defends: yes
 
 = Limitar tiempo de sesión

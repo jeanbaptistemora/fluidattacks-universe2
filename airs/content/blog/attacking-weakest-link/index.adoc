@@ -1,14 +1,14 @@
-:slug: attacking-weakest-link/
-:date: 2019-06-04
-:category: social-engineering
-:subtitle: Attacking without borders
-:tags: social, password, information, social-engineering
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330673/blog/attacking-weakest-link/cover_g7rdsd.webp
-:alt: People manipulation
-:description: Humans are and always will be the weakest link in security. Learn how to deal with these kinds of holes and how to patch them.
-:keywords: Information, Security, Protection, Hacking, Business, Social Engineering, Ethical Hacking, Pentesting
-:author: Mateo Gutiérrez Gómez
-:writer: mgutierrez
+:page-slug: attacking-weakest-link/
+:page-date: 2019-06-04
+:page-category: social-engineering
+:page-subtitle: Attacking without borders
+:page-tags: social, password, information, social-engineering
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330673/blog/attacking-weakest-link/cover_g7rdsd.webp
+:page-alt: People manipulation
+:page-description: Humans are and always will be the weakest link in security. Learn how to deal with these kinds of holes and how to patch them.
+:page-keywords: Information, Security, Protection, Hacking, Business, Social Engineering, Ethical Hacking, Pentesting
+:page-author: Mateo Gutiérrez Gómez
+:page-writer: mgutierrez
 :name: Mateo Gutiérrez Gómez
 :about1: Systems engineering undergrad student.
 :about2: Psychology and cyber security enthusiast.

@@ -1,7 +1,7 @@
-:slug: products/defends/cobol/establecer-sent-seguras/
+:page-slug: products/defends/cobol/establecer-sent-seguras/
 :category: cobol
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad  mediante la programacion segura en COBOL al utilizar sentencias SQL dinámicas. Al utilizar bases de datos es importante definir privilegios estáticos, para evitar que los mismos usuarios puedan escalar privilegios.
-:keywords: COBOL, Sentencias Dinámicas, SQL, Base de Datos, Procesador, Procedimientos Almacenados.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad  mediante la programacion segura en COBOL al utilizar sentencias SQL dinámicas. Al utilizar bases de datos es importante definir privilegios estáticos, para evitar que los mismos usuarios puedan escalar privilegios.
+:page-keywords: COBOL, Sentencias Dinámicas, SQL, Base de Datos, Procesador, Procedimientos Almacenados.
 :defends: yes
 
 = Establecer Seguridad en Sentencias Dinámicas

@@ -1,14 +1,14 @@
-:slug: bounty-writeup/
-:date: 2018-10-29
-:category: attacks
-:subtitle: How to resolve HTB Bounty
-:tags: security, htb, pwn, web
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330675/blog/bounty-writeup/cover_plk66f.webp
-:alt: Hand holding a pirate toy
-:description: In this article, we present how to exploit a Bounty machine's vulnerabilities and how to gain access as an Administrator and obtain the root flag.
-:keywords: HTB, Security, Hack the Box, Web, Writeup, Bounty, Vulnerabilities, Hacker, Ethical Hacking, Pentesting
-:author: Jonathan Armas
-:writer: johna
+:page-slug: bounty-writeup/
+:page-date: 2018-10-29
+:page-category: attacks
+:page-subtitle: How to resolve HTB Bounty
+:page-tags: security, htb, pwn, web
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330675/blog/bounty-writeup/cover_plk66f.webp
+:page-alt: Hand holding a pirate toy
+:page-description: In this article, we present how to exploit a Bounty machine's vulnerabilities and how to gain access as an Administrator and obtain the root flag.
+:page-keywords: HTB, Security, Hack the Box, Web, Writeup, Bounty, Vulnerabilities, Hacker, Ethical Hacking, Pentesting
+:page-author: Jonathan Armas
+:page-writer: johna
 :name: Jonathan Armas
 :about1: Systems Engineer, Security+
 :about2: "Be formless, shapeless like water" Bruce Lee

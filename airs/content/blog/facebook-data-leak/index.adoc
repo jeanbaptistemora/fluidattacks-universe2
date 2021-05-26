@@ -1,14 +1,14 @@
-:slug: facebook-data-leak/
-:date: 2021-04-09
-:subtitle: About 533 million user phone numbers now for 'free'
-:category: attacks
-:tags: cybersecurity, software, vulnerability, mistake, hacking, application
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330872/blog/facebook-data-leak/cover_u38ho9.webp
-:alt: Photo by Barefoot Communications on Unsplash
-:description: This post outlines the most recent Facebook data leak with approximately 533 million records, including users' phone numbers, now posted for free.
-:keywords: Facebook, Data, Leak, Breach, Scraping, Vulnerability, Ethical Hacking, Pentesting
-:author: Felipe Ruiz
-:writer: fruiz
+:page-slug: facebook-data-leak/
+:page-date: 2021-04-09
+:page-subtitle: About 533 million user phone numbers now for 'free'
+:page-category: attacks
+:page-tags: cybersecurity, software, vulnerability, mistake, hacking, application
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330872/blog/facebook-data-leak/cover_u38ho9.webp
+:page-alt: Photo by Barefoot Communications on Unsplash
+:page-description: This post outlines the most recent Facebook data leak with approximately 533 million records, including users' phone numbers, now posted for free.
+:page-keywords: Facebook, Data, Leak, Breach, Scraping, Vulnerability, Ethical Hacking, Pentesting
+:page-author: Felipe Ruiz
+:page-writer: fruiz
 :name: Felipe Ruiz
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/z2M7JefmTEw

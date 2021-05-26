@@ -1,14 +1,14 @@
-:slug: digression-regression/
-:date: 2019-10-02
-:subtitle: Simple linear regression in scikit
-:category: machine-learning
-:tags: machine-learning, python, code
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330868/blog/digression-regression/cover_lmtulx.webp
-:alt: Computer showing a graph
-:description: In this post, we begin to tackle why vectors are the most appropriate representation for data as input to machine learning algorithms.
-:keywords: Machine Learning, Linear Regression, Python, Algorithm, Prediction, Regression, Ethical Hacking, Pentesting
-:author: Rafael Ballestas
-:writer: raballestasr
+:page-slug: digression-regression/
+:page-date: 2019-10-02
+:page-subtitle: Simple linear regression in scikit
+:page-category: machine-learning
+:page-tags: machine-learning, python, code
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330868/blog/digression-regression/cover_lmtulx.webp
+:page-alt: Computer showing a graph
+:page-description: In this post, we begin to tackle why vectors are the most appropriate representation for data as input to machine learning algorithms.
+:page-keywords: Machine Learning, Linear Regression, Python, Algorithm, Prediction, Regression, Ethical Hacking, Pentesting
+:page-author: Rafael Ballestas
+:page-writer: raballestasr
 :name: Rafael Ballestas
 :about1: Mathematician
 :about2: with an itch for CS

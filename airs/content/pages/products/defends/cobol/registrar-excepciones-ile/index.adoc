@@ -1,7 +1,7 @@
-:slug: products/defends/cobol/registrar-excepciones-ile/
+:page-slug: products/defends/cobol/registrar-excepciones-ile/
 :category: cobol
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al registrar excepciones ILE. Esto es particularmente útil a la hora de compilar objetos tipo CBLLE, y para registrar y clasificar eventos excepcionales por severidad y ocurrencia.
-:keywords: COBOL, Seguridad, Excepciones, ILE, Severidad, Ocurrencia.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al registrar excepciones ILE. Esto es particularmente útil a la hora de compilar objetos tipo CBLLE, y para registrar y clasificar eventos excepcionales por severidad y ocurrencia.
+:page-keywords: COBOL, Seguridad, Excepciones, ILE, Severidad, Ocurrencia.
 :defends: yes
 
 = Registrar Excepciones ILE

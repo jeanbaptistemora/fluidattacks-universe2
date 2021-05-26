@@ -1,14 +1,14 @@
-:slug: pipeline-ransomware-darkside/
-:date: 2021-05-14
-:subtitle: The gang that hit Colonial Pipeline with ransomware
-:category: attacks
-:tags: cybersecurity, software, vulnerability, hacking, social-engineering, risk
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1621039654/blog/pipeline-ransomware-darkside/cover_cyypaa.webp
-:alt: Photo by Tommy van Kessel on Unsplash
-:description: America is talking about the DarkSide ransomware attack against Colonial Pipeline, one of the largest USA pipeline companies. Here is what we know about it.
-:keywords: Ransomware, Cybersecurity, Vulnerability, Software, DarkSide, Colonial Pipeline, Ethical Hacking, Pentesting
-:author: Felipe Zárate
-:writer: fzarate
+:page-slug: pipeline-ransomware-darkside/
+:page-date: 2021-05-14
+:page-subtitle: The gang that hit Colonial Pipeline with ransomware
+:page-category: attacks
+:page-tags: cybersecurity, software, vulnerability, hacking, social-engineering, risk
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1621039654/blog/pipeline-ransomware-darkside/cover_cyypaa.webp
+:page-alt: Photo by Tommy van Kessel on Unsplash
+:page-description: America is talking about the DarkSide ransomware attack against Colonial Pipeline, one of the largest USA pipeline companies. Here is what we know about it.
+:page-keywords: Ransomware, Cybersecurity, Vulnerability, Software, DarkSide, Colonial Pipeline, Ethical Hacking, Pentesting
+:page-author: Felipe Zárate
+:page-writer: fzarate
 :name: Felipe Zárate
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/_sDlQf6f7gc

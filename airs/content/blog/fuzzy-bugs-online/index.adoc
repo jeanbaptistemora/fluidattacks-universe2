@@ -1,14 +1,14 @@
-:slug: fuzzy-bugs-online/
-:date: 2018-02-09
-:category: attacks
-:subtitle: Fuzz techniques for attacking web applications
-:tags: sql, fuzzing, injection
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330883/blog/fuzzy-bugs-online/cover_rsdc0v.webp
-:alt: Fuzzy caterpillar
-:description: How to make basic fuzz attacks on web apps? We fuzz over SQL injections on a vulnerable DB search site from bWAPP, using OWASP ZAProxy, obtaining mixed results.
-:keywords: SQLi, Fuzzing, Attack, Vulnerability, Security, Application, Pentesting, Ethical Hacking
-:author: Rafael Ballestas
-:writer: raballestasr
+:page-slug: fuzzy-bugs-online/
+:page-date: 2018-02-09
+:page-category: attacks
+:page-subtitle: Fuzz techniques for attacking web applications
+:page-tags: sql, fuzzing, injection
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330883/blog/fuzzy-bugs-online/cover_rsdc0v.webp
+:page-alt: Fuzzy caterpillar
+:page-description: How to make basic fuzz attacks on web apps? We fuzz over SQL injections on a vulnerable DB search site from bWAPP, using OWASP ZAProxy, obtaining mixed results.
+:page-keywords: SQLi, Fuzzing, Attack, Vulnerability, Security, Application, Pentesting, Ethical Hacking
+:page-author: Rafael Ballestas
+:page-writer: raballestasr
 :name: Rafael Ballestas
 :about1: Mathematician
 :about2: with an itch for CS

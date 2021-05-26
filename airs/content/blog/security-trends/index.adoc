@@ -1,14 +1,14 @@
-:slug: security-trends/
-:date: 2019-10-03
-:subtitle: Cybersecurity risks in technology trends
-:category: techniques
-:tags: cybersecurity, business, trends
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331094/blog/security-trends/cover_v2lf0a.webp
-:alt: Screen showing performance stats. Photo by Stephen Dawson on Unsplash: https://unsplash.com/photos/qwtCeJ5cLYs
-:description: In this article, we discuss the main cybersecurity trends for 2019, how to keep your company secured, and how Fluid Attacks deals with these kinds of threats.
-:keywords: Cybersecurity, Trends, Fluid Attacks, Perspective, Techniques, Attacks, Ethical Hacking, Pentesting
-:author: Oscar Prado
-:writer: oprado
+:page-slug: security-trends/
+:page-date: 2019-10-03
+:page-subtitle: Cybersecurity risks in technology trends
+:page-category: techniques
+:page-tags: cybersecurity, business, trends
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331094/blog/security-trends/cover_v2lf0a.webp
+:page-alt: Screen showing performance stats. Photo by Stephen Dawson on Unsplash: https://unsplash.com/photos/qwtCeJ5cLYs
+:page-description: In this article, we discuss the main cybersecurity trends for 2019, how to keep your company secured, and how Fluid Attacks deals with these kinds of threats.
+:page-keywords: Cybersecurity, Trends, Fluid Attacks, Perspective, Techniques, Attacks, Ethical Hacking, Pentesting
+:page-author: Oscar Prado
+:page-writer: oprado
 :name: Oscar Prado
 :about1: Industrial Automation Engineer
 :about2: Fluid Attacks Developer, Hacker Wannabe

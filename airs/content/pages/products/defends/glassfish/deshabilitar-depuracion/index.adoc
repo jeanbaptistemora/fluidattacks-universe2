@@ -1,7 +1,7 @@
-:slug: products/defends/glassfish/deshabilitar-depuracion/
+:page-slug: products/defends/glassfish/deshabilitar-depuracion/
 :category: glassfish
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura en GlassFish al deshabilitar el modo depuración. Los mensajes de depuración pueden contener información que ayude a un atacante a conocer el sistema e identificar vulnerabilidades.
-:keywords: Glassfish, Seguridad, Deshabilitar, Modo, Depuración, GPL.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura en GlassFish al deshabilitar el modo depuración. Los mensajes de depuración pueden contener información que ayude a un atacante a conocer el sistema e identificar vulnerabilidades.
+:page-keywords: Glassfish, Seguridad, Deshabilitar, Modo, Depuración, GPL.
 :defends: yes
 
 = Deshabilitar Modo Depuración

@@ -1,14 +1,14 @@
-:slug: trends-2020/
-:date: 2020-03-26
-:subtitle: Fear will drive cybersecurity spending. Dear lord...
-:category: techniques
-:tags: cybersecurity, trends, mistake, technology, economics, information
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331126/blog/trends-2020/cover_hrcoli.webp
-:alt: Photo by Oleg Laptev on Unsplash
-:description: In this post, we review some cybersecurity trends published online. We discuss why it is a good idea to be wary of many of these predictions.
-:keywords: Cybersecurity, Trends, Mistake, Technology, Economics, Information, Ethical Hacking, Pentesting
-:author: Julian Arango
-:writer: jarango
+:page-slug: trends-2020/
+:page-date: 2020-03-26
+:page-subtitle: Fear will drive cybersecurity spending. Dear lord...
+:page-category: techniques
+:page-tags: cybersecurity, trends, mistake, technology, economics, information
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331126/blog/trends-2020/cover_hrcoli.webp
+:page-alt: Photo by Oleg Laptev on Unsplash
+:page-description: In this post, we review some cybersecurity trends published online. We discuss why it is a good idea to be wary of many of these predictions.
+:page-keywords: Cybersecurity, Trends, Mistake, Technology, Economics, Information, Ethical Hacking, Pentesting
+:page-author: Julian Arango
+:page-writer: jarango
 :name: Julian Arango
 :about1: Behavioral strategist
 :about2: Data scientist in training.

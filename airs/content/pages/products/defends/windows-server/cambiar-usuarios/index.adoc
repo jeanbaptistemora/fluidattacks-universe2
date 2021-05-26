@@ -1,7 +1,7 @@
-:slug: products/defends/windows-server/cambiar-usuarios/
+:page-slug: products/defends/windows-server/cambiar-usuarios/
 :category: windowsserver
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad en Windows Server 2012 al cambiar los nombres de usuario predeterminados. Las configuraciones iniciales son inseguras debido a que son conocidas, por ello, modificarlas es una buena practica de seguridad.
-:keywords: Windows Server 2012, Usuarios, Predeterminados, Configuración, Seguridad, Credenciales
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad en Windows Server 2012 al cambiar los nombres de usuario predeterminados. Las configuraciones iniciales son inseguras debido a que son conocidas, por ello, modificarlas es una buena practica de seguridad.
+:page-keywords: Windows Server 2012, Usuarios, Predeterminados, Configuración, Seguridad, Credenciales
 :defends: yes
 
 = Cambiar Usuarios Predeterminados

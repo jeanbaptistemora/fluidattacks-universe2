@@ -1,7 +1,7 @@
-:slug: products/defends/java/transmitir-https/
+:page-slug: products/defends/java/transmitir-https/
 :category: java
-:description: Nuestros ethical hackers explican en que consiste el protocolo HTTPS el cual es utilizado con el fin de transmitir la información de manera segura ya que esta viaja cifrada. Además, mediante un ejemplo, enseñan como utilizarlo usando el framework HttpClient.
-:keywords: Java, Seguridad, HTTPS, HTTPClient, Protocolo, Apache.
+:page-description: Nuestros ethical hackers explican en que consiste el protocolo HTTPS el cual es utilizado con el fin de transmitir la información de manera segura ya que esta viaja cifrada. Además, mediante un ejemplo, enseñan como utilizarlo usando el framework HttpClient.
+:page-keywords: Java, Seguridad, HTTPS, HTTPClient, Protocolo, Apache.
 :defends: yes
 
 = Transmitir Información por HTTPS

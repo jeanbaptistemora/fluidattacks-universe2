@@ -1,7 +1,7 @@
-:slug: products/defends/java/cifrar-usando-aes/
+:page-slug: products/defends/java/cifrar-usando-aes/
 :category: java
-:description: Nuestros ethical hackers explican en que consiste y como funciona el algoritmo de cifrado AES (uno de los cifrados más seguros hasta el momento). Además, mediante un ejemplo desarrollado en Java enseñan como utilizarlo para cifrar y descifrar información usando.
-:keywords: Java, Seguridad, AES, Cifrado, Criptografía, Algoritmo.
+:page-description: Nuestros ethical hackers explican en que consiste y como funciona el algoritmo de cifrado AES (uno de los cifrados más seguros hasta el momento). Además, mediante un ejemplo desarrollado en Java enseñan como utilizarlo para cifrar y descifrar información usando.
+:page-keywords: Java, Seguridad, AES, Cifrado, Criptografía, Algoritmo.
 :defends: yes
 
 = Cifrar Información Usando el Algoritmo AES

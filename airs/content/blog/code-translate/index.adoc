@@ -1,14 +1,14 @@
-:slug: code-translate/
-:date: 2020-01-31
-:subtitle: From code to words
-:category: machine-learning
-:tags: machine-learning, security, code
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330835/blog/code-translate/cover_wmd0zp.webp
-:alt: Book in two languages
-:description: Here we talk about Code2seq, which differs in adapting neural machine translation techniques to the task of mapping a snippet of code to a sequence of words.
-:keywords: Machine Learning, Neural Network, Encoding, Parsing, Classifier, Vulnerability, Code2seq, Ethical Hacking, Pentesting
-:author: Rafael Ballestas
-:writer: raballestasr
+:page-slug: code-translate/
+:page-date: 2020-01-31
+:page-subtitle: From code to words
+:page-category: machine-learning
+:page-tags: machine-learning, security, code
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330835/blog/code-translate/cover_wmd0zp.webp
+:page-alt: Book in two languages
+:page-description: Here we talk about Code2seq, which differs in adapting neural machine translation techniques to the task of mapping a snippet of code to a sequence of words.
+:page-keywords: Machine Learning, Neural Network, Encoding, Parsing, Classifier, Vulnerability, Code2seq, Ethical Hacking, Pentesting
+:page-author: Rafael Ballestas
+:page-writer: raballestasr
 :name: Rafael Ballestas
 :about1: Mathematician
 :about2: with an itch for CS

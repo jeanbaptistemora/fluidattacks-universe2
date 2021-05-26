@@ -1,7 +1,7 @@
-:slug: products/defends/java/autenticar-servidor-cliente/
+:page-slug: products/defends/java/autenticar-servidor-cliente/
 :category: java
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura en Java al autenticar el servidor para clientes sin un certificado digital. Esto resulta util cuando no es práctico o implementable la generación de certificados en el lado del cliente.
-:keywords: Java, Seguridad, Autenticar, Servidor, Cliente, Certificado.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura en Java al autenticar el servidor para clientes sin un certificado digital. Esto resulta util cuando no es práctico o implementable la generación de certificados en el lado del cliente.
+:page-keywords: Java, Seguridad, Autenticar, Servidor, Cliente, Certificado.
 :defends: yes
 
 = Autenticar Servidor para Clientes Sin Certificado

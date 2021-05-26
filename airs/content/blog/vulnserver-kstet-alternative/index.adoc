@@ -1,14 +1,14 @@
-:slug: vulnserver-kstet-alternative/
-:date: 2020-07-02
-:category: attacks
-:subtitle: Sideloading exploiting
-:tags: osce, vulnserver, training, exploit
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331199/blog/vulnserver-kstet-alternative/cover_rpkuwo.webp
-:alt: Photo by Philipp Katzenberger on Unsplash
-:description: This post will show how to exploit the Vulnserver KSTET command loading the payload from an external source.
-:keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
-:author: Andres Roldan
-:writer: aroldan
+:page-slug: vulnserver-kstet-alternative/
+:page-date: 2020-07-02
+:page-category: attacks
+:page-subtitle: Sideloading exploiting
+:page-tags: osce, vulnserver, training, exploit
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331199/blog/vulnserver-kstet-alternative/cover_rpkuwo.webp
+:page-alt: Photo by Philipp Katzenberger on Unsplash
+:page-description: This post will show how to exploit the Vulnserver KSTET command loading the payload from an external source.
+:page-keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
+:page-author: Andres Roldan
+:page-writer: aroldan
 :name: Andres Roldan
 :about1: Cybersecurity Specialist, OSCP, CHFI
 :about2: "We don't need the key, we'll break in" RATM

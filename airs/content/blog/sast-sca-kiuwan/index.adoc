@@ -1,14 +1,14 @@
-:slug: sast-sca-kiuwan/
-:date: 2020-04-13
-:subtitle: An automatic process that could prove to be limited
-:category: opinions
-:tags: cybersecurity, application, software, security-testing, cloud, ethical-hacking
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331072/blog/sast-sca-kiuwan/cover_tuhbnl.webp
-:alt: Photo by Geran de Klerk on Unsplash
-:description: This blog post is based on the webinar 'Audit your App with Kiuwan Local Analyzer' by Sebastian Revuelta, Customer Manager at Kiuwan.
-:keywords: Cybersecurity, Application, Software, Security Testing, Cloud, Ethical Hacking, Pentesting
-:author: Felipe Ruiz
-:writer: fruiz
+:page-slug: sast-sca-kiuwan/
+:page-date: 2020-04-13
+:page-subtitle: An automatic process that could prove to be limited
+:page-category: opinions
+:page-tags: cybersecurity, application, software, security-testing, cloud, ethical-hacking
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331072/blog/sast-sca-kiuwan/cover_tuhbnl.webp
+:page-alt: Photo by Geran de Klerk on Unsplash
+:page-description: This blog post is based on the webinar 'Audit your App with Kiuwan Local Analyzer' by Sebastian Revuelta, Customer Manager at Kiuwan.
+:page-keywords: Cybersecurity, Application, Software, Security Testing, Cloud, Ethical Hacking, Pentesting
+:page-author: Felipe Ruiz
+:page-writer: fruiz
 :name: Felipe Ruiz
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/ADUiP4nJwds

@@ -1,7 +1,7 @@
-:slug: products/defends/csharp/evitar-direct-transversal/
+:page-slug: products/defends/csharp/evitar-direct-transversal/
 :category: csharp
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en CSharp al Evitar ataques de directorio transversal. La validación de entradas es un proceso fundamental para crear aplicaciones seguras, aquí te enseñamos cómo hacerlo.
-:keywords: CSharp, Ataque, Directorio, Transversal, Seguridad, Validación
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en CSharp al Evitar ataques de directorio transversal. La validación de entradas es un proceso fundamental para crear aplicaciones seguras, aquí te enseñamos cómo hacerlo.
+:page-keywords: CSharp, Ataque, Directorio, Transversal, Seguridad, Validación
 :defends: yes
 
 = Evitar Ataques de Directorio Transversal

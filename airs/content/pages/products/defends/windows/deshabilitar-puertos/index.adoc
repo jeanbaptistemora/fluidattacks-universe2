@@ -1,7 +1,7 @@
-:slug: products/defends/windows/deshabilitar-puertos/
+:page-slug: products/defends/windows/deshabilitar-puertos/
 :category: windows
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura de Windows. En este instructivo, explicaremos paso a paso cómo deshabilitar puertos innecesarios en un sistema operativo Windows evitando que se filtre malware utilizando dichos puertos.
-:keywords: Windows, Seguridad, Puertos, Deshabilitar, Buenas Prácticas, Innecesario.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura de Windows. En este instructivo, explicaremos paso a paso cómo deshabilitar puertos innecesarios en un sistema operativo Windows evitando que se filtre malware utilizando dichos puertos.
+:page-keywords: Windows, Seguridad, Puertos, Deshabilitar, Buenas Prácticas, Innecesario.
 :defends: yes
 
 = Deshabilitar Puertos Innecesarios

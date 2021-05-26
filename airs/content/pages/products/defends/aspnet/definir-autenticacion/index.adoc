@@ -1,7 +1,7 @@
-:slug: products/defends/aspnet/definir-autenticacion/
+:page-slug: products/defends/aspnet/definir-autenticacion/
 :category: aspnet
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura de autenticación de usuarios programando en ASP.NET con el fin de mejorar la seguridad de la aplicación ofreciendo pautas para almacenar de forma segura las credenciales de acceso.
-:keywords: ASP.NET, Seguridad, Autenticación, Credenciales, Contraseña, Almacenamiento.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura de autenticación de usuarios programando en ASP.NET con el fin de mejorar la seguridad de la aplicación ofreciendo pautas para almacenar de forma segura las credenciales de acceso.
+:page-keywords: ASP.NET, Seguridad, Autenticación, Credenciales, Contraseña, Almacenamiento.
 :defends: yes
 :table-caption: Tabla
 

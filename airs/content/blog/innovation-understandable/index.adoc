@@ -1,14 +1,14 @@
-:slug: innovation-understandable/
-:date: 2019-06-18
-:subtitle: "We make innovation more understandable, more worldly."
-:category: interview
-:tags: interview, machine-learning
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330921/blog/innovation-understandable/cover_vfweh5.webp
-:alt: Nicolás Acosta, CISO at Corona
-:description: Nicolás Acosta, CISO of Corona, shared his perspective on topics like artificial intelligence, machine learning, innovation, setbacks as CISO, among others.
-:keywords: Artificial Intelligence, Machine Learning, Innovation, Cybersecurity, Cyberintelligence, Hacking, Ethical Hacking, Pentesting
-:author: Julian Arango
-:writer: jarango
+:page-slug: innovation-understandable/
+:page-date: 2019-06-18
+:page-subtitle: "We make innovation more understandable, more worldly."
+:page-category: interview
+:page-tags: interview, machine-learning
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330921/blog/innovation-understandable/cover_vfweh5.webp
+:page-alt: Nicolás Acosta, CISO at Corona
+:page-description: Nicolás Acosta, CISO of Corona, shared his perspective on topics like artificial intelligence, machine learning, innovation, setbacks as CISO, among others.
+:page-keywords: Artificial Intelligence, Machine Learning, Innovation, Cybersecurity, Cyberintelligence, Hacking, Ethical Hacking, Pentesting
+:page-author: Julian Arango
+:page-writer: jarango
 :name: Julian Arango
 :about1: Behavioral strategist
 :about2: Data scientist in training.

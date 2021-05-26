@@ -1,7 +1,7 @@
-:slug: products/defends/weblogic/evitar-atq-repeticion/
+:page-slug: products/defends/weblogic/evitar-atq-repeticion/
 :category: weblogic
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en WebLogic 11g al desactivar la consola de administración. Esta aplicación permite realizar configuraciones dentro del servidor por lo que su acceso debe ser restringido.
-:keywords: WebLogic 11g, Desactivar, Consola, Administración, Servidor, Oracle.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en WebLogic 11g al desactivar la consola de administración. Esta aplicación permite realizar configuraciones dentro del servidor por lo que su acceso debe ser restringido.
+:page-keywords: WebLogic 11g, Desactivar, Consola, Administración, Servidor, Oracle.
 :defends: yes
 
 = Desactivar Consola de Administración

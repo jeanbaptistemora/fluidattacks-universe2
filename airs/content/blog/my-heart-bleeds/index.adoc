@@ -1,14 +1,14 @@
-:slug: my-heart-bleeds/
-:date: 2018-04-25
-:subtitle: Understanding the flaw behind Heartbleed
-:category: attacks
-:tags: vulnerability, bug, openssl
-:image: chttps://res.cloudinary.com/fluid-attacks/image/upload/v1620330940/blog/my-heart-bleeds/cover_qf1nze.webp
-:alt: Computer showing a pirate flag
-:description: Here we talk about Heartbleed, the result of a buggy implementation of the TLS protocol on OpenSSL, which was tempted to be a severe threat to private data.
-:keywords: TLS, HeartBeat, HeartBleed, OpenSSL, Vulnerability, Bug, Ethical Hacking, Pentesting
-:author: Daniel Yepes
-:writer: cestmoi
+:page-slug: my-heart-bleeds/
+:page-date: 2018-04-25
+:page-subtitle: Understanding the flaw behind Heartbleed
+:page-category: attacks
+:page-tags: vulnerability, bug, openssl
+:page-image: chttps://res.cloudinary.com/fluid-attacks/image/upload/v1620330940/blog/my-heart-bleeds/cover_qf1nze.webp
+:page-alt: Computer showing a pirate flag
+:page-description: Here we talk about Heartbleed, the result of a buggy implementation of the TLS protocol on OpenSSL, which was tempted to be a severe threat to private data.
+:page-keywords: TLS, HeartBeat, HeartBleed, OpenSSL, Vulnerability, Bug, Ethical Hacking, Pentesting
+:page-author: Daniel Yepes
+:page-writer: cestmoi
 :name: Daniel Yepes
 :about1: -
 :about2: "If the doors of perception were cleansed everything would appear to man as it is, Infinite." William Blake.

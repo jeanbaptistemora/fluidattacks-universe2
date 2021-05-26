@@ -1,7 +1,7 @@
-:slug: products/defends/ios/remover-servicios-inseguros/
+:page-slug: products/defends/ios/remover-servicios-inseguros/
 :category: ios
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura en IOS 12 al remover servicios inseguros o innecesarios. Los servicios innecesarios suponen una carga adicional para el rendimiento además de constituir una  potencial brecha de seguridad.
-:keywords: IOS 12, CISCO, Seguridad, Deshabilitar, Servicios, Innecesarios.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura en IOS 12 al remover servicios inseguros o innecesarios. Los servicios innecesarios suponen una carga adicional para el rendimiento además de constituir una  potencial brecha de seguridad.
+:page-keywords: IOS 12, CISCO, Seguridad, Deshabilitar, Servicios, Innecesarios.
 :defends: yes
 
 = Remover Servicios Innecesarios o Inseguros

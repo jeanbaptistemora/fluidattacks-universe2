@@ -1,14 +1,14 @@
-:slug: schrems-shield/
-:date: 2020-08-06
-:subtitle: The EU-US Privacy Shield agreement is now invalid
-:category: politics
-:tags: policies, cybersecurity, social, information, mistake, business
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331072/blog/schrems-shield/cover_tv5m8p.webp
-:alt: Photo by James Pond on Unsplash
-:description: This blog post might give you a better understanding of what has been achieved by Max Schrems against the EU-US Privacy Shield agreement.
-:keywords: Schrems, Max, Privacy, Shield, Policy, Cybersecurity, Social Network
-:author: Felipe Ruiz
-:writer: fruiz
+:page-slug: schrems-shield/
+:page-date: 2020-08-06
+:page-subtitle: The EU-US Privacy Shield agreement is now invalid
+:page-category: politics
+:page-tags: policies, cybersecurity, social, information, mistake, business
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331072/blog/schrems-shield/cover_tv5m8p.webp
+:page-alt: Photo by James Pond on Unsplash
+:page-description: This blog post might give you a better understanding of what has been achieved by Max Schrems against the EU-US Privacy Shield agreement.
+:page-keywords: Schrems, Max, Privacy, Shield, Policy, Cybersecurity, Social Network
+:page-author: Felipe Ruiz
+:page-writer: fruiz
 :name: Felipe Ruiz
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/HUiSySuofY0

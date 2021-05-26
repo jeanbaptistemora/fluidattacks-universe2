@@ -1,7 +1,7 @@
-:slug: products/defends/java/contextualizar-politicas/
+:page-slug: products/defends/java/contextualizar-politicas/
 :category: java
-:description: Nuestros ethical hackers explican la importancia de tener políticas claras de seguridad en la información. Además explican como estas políticas pueden ser implementadas en Java haciendo un adecuado uso de la clase Policy y sus diversas implementaciones.
-:keywords: Java, Seguridad, Políticas, Clase, Información, Permisos.
+:page-description: Nuestros ethical hackers explican la importancia de tener políticas claras de seguridad en la información. Además explican como estas políticas pueden ser implementadas en Java haciendo un adecuado uso de la clase Policy y sus diversas implementaciones.
+:page-keywords: Java, Seguridad, Políticas, Clase, Información, Permisos.
 :defends: yes
 
 = Contextualizar Sobre Soluciones de Políticas

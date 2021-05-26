@@ -1,7 +1,7 @@
-:slug: products/defends/java/controlar-tamano-archivo/
+:page-slug: products/defends/java/controlar-tamano-archivo/
 :category: java
-:description: Nuestros ethical hackers explican la importancia de controlar el tamaño de los archivos subidos por parte de los usuarios a una aplicación web. Además, explican la manera de realizar este control a través de un servlet de Java usando MultipartConfig..
-:keywords: Java, Archivos, Tamaño, Servlets, Formularios, MultipartConfig.
+:page-description: Nuestros ethical hackers explican la importancia de controlar el tamaño de los archivos subidos por parte de los usuarios a una aplicación web. Además, explican la manera de realizar este control a través de un servlet de Java usando MultipartConfig..
+:page-keywords: Java, Archivos, Tamaño, Servlets, Formularios, MultipartConfig.
 :defends: yes
 
 = Controlar Tamaño de Archivos

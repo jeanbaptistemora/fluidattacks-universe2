@@ -1,7 +1,7 @@
-:slug: products/defends/java/definir-control-clases/
+:page-slug: products/defends/java/definir-control-clases/
 :category: java
-:description: Nuestros ethical hackers explican en que consiste el control de acceso y porque es importante tenerlo en cuenta a la hora de proteger la información. Además, mediante un ejemplo explican como se establece el control de acceso por defecto en los miembros de una clase.
-:keywords: Java, Seguridad, Acceso, Control, Clases, Miembros.
+:page-description: Nuestros ethical hackers explican en que consiste el control de acceso y porque es importante tenerlo en cuenta a la hora de proteger la información. Además, mediante un ejemplo explican como se establece el control de acceso por defecto en los miembros de una clase.
+:page-keywords: Java, Seguridad, Acceso, Control, Clases, Miembros.
 :defends: yes
 
 = Definir Control de Acceso a Miembros de Clases

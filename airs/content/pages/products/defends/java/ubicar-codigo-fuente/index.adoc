@@ -1,7 +1,7 @@
-:slug: products/defends/java/ubicar-codigo-fuente/
+:page-slug: products/defends/java/ubicar-codigo-fuente/
 :category: java
-:description: Nuestros ethical hackers nos explican que son los dominios de protección y su injerencia sobre los permisos de acceso que pueden o no tener las aplicaciones. Además, mediante un ejemplo practico en Java muestran la manera de conocer la ubicación de los recursos de un dominio particular.
-:keywords: Java, Seguridad, Permisos, Dominio, Protección, Recursos.
+:page-description: Nuestros ethical hackers nos explican que son los dominios de protección y su injerencia sobre los permisos de acceso que pueden o no tener las aplicaciones. Además, mediante un ejemplo practico en Java muestran la manera de conocer la ubicación de los recursos de un dominio particular.
+:page-keywords: Java, Seguridad, Permisos, Dominio, Protección, Recursos.
 :defends: yes
 
 = Conocer la Ubicación del Código Fuente

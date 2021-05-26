@@ -1,7 +1,7 @@
-:slug: products/defends/java/evitar-inyeccion-ldap/
+:page-slug: products/defends/java/evitar-inyeccion-ldap/
 :category: java
-:description: Nuestros ethical hackers explican en que consiste el protocolo LDAP, uno de los principales ataques que se realizan contra el mismo (inyección LDAP), y la manera de prevenir dicho ataque en aplicaciones realizadas en Java mediante el uso de expresiones regulares.
-:keywords: Java, LDAP, Protocolo, Inyección, Seguridad, Ataque.
+:page-description: Nuestros ethical hackers explican en que consiste el protocolo LDAP, uno de los principales ataques que se realizan contra el mismo (inyección LDAP), y la manera de prevenir dicho ataque en aplicaciones realizadas en Java mediante el uso de expresiones regulares.
+:page-keywords: Java, LDAP, Protocolo, Inyección, Seguridad, Ataque.
 :defends: yes
 
 = Evitar Inyección LDAP

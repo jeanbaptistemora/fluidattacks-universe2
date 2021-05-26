@@ -1,7 +1,7 @@
-:slug: products/defends/glassfish/revisar-bitacora/
+:page-slug: products/defends/glassfish/revisar-bitacora/
 :category: glassfish
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura en GlassFish al permitir la revision de bitacoras. Las bitacoras contienen acontecimientos relevantes que han afectado a un proceso en particular, mostrando el comportamiento del sistema.
-:keywords: Glassfish, Seguridad, Bitácora, Log, Base de datos, Eventos.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura en GlassFish al permitir la revision de bitacoras. Las bitacoras contienen acontecimientos relevantes que han afectado a un proceso en particular, mostrando el comportamiento del sistema.
+:page-keywords: Glassfish, Seguridad, Bitácora, Log, Base de datos, Eventos.
 :defends: yes
 
 = Revisar Bitácoras

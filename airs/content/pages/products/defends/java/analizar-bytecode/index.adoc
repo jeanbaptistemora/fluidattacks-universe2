@@ -1,7 +1,7 @@
-:slug: products/defends/java/analizar-bytecode/
+:page-slug: products/defends/java/analizar-bytecode/
 :category: java
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al analizar el bytecode para determinar una adecuada optimización en la concatenación de Strings, ésto permite una reducción en los tiempos de compilación del programa.
-:keywords: Java, Seguridad, Analizar, Bytecode, Optimización, String.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al analizar el bytecode para determinar una adecuada optimización en la concatenación de Strings, ésto permite una reducción en los tiempos de compilación del programa.
+:page-keywords: Java, Seguridad, Analizar, Bytecode, Optimización, String.
 :defends: yes
 
 = Analizar Bytecode

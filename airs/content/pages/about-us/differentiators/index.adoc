@@ -1,10 +1,10 @@
-:slug: about-us/differentiators/
+:page-slug: about-us/differentiators/
 :category: about-us
-:description: We're an Ethical Hacking and Pentesting company offering services to identify cybersecurity vulnerabilities. Find here what differentiates us from competitors.
-:keywords: Fluid Attacks, Ethical Hacking, Pentesting, Differentiators, Cybersecurity
+:page-description: We're an Ethical Hacking and Pentesting company offering services to identify cybersecurity vulnerabilities. Find here what differentiates us from competitors.
+:page-keywords: Fluid Attacks, Ethical Hacking, Pentesting, Differentiators, Cybersecurity
 :yes: image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620226926/airs/icons/yes_xcsf3o.webp[yes]
 :no: image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620226925/airs/icons/no_kjwjap.webp[no]
-:banner: differentiators-bg
+:page-banner: differentiators-bg
 
 = Differentiators
 

@@ -1,7 +1,7 @@
-:slug: products/defends/cobol/eliminar-codigo-repetido/
+:page-slug: products/defends/cobol/eliminar-codigo-repetido/
 :category: cobol
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al eliminar el código repetido. Las buenas prácticas de programación contribuyen enormemente a desarrollar aplicaciones y servicios computacionalmente seguros.
-:keywords: Cobol, Programación, Buenas Prácticas, Eliminar, Código, Repetido.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al eliminar el código repetido. Las buenas prácticas de programación contribuyen enormemente a desarrollar aplicaciones y servicios computacionalmente seguros.
+:page-keywords: Cobol, Programación, Buenas Prácticas, Eliminar, Código, Repetido.
 :defends: yes
 
 = Eliminar Código Repetido

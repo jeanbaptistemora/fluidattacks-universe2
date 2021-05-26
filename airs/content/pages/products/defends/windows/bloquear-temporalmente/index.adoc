@@ -1,7 +1,7 @@
-:slug: products/defends/windows/bloquear-temporalmente/
+:page-slug: products/defends/windows/bloquear-temporalmente/
 :category: windows
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura en Windows 7 al bloquear temporalmente una cuenta. Los ataques de fuerza bruta con diccionario pueden resultar en un robo de credenciales si la aplicación no está debidamente configurada.
-:keywords: Windows 7, Bloquear, Temporalmente, Cuenta, Prevenir, Fuerza Bruta.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura en Windows 7 al bloquear temporalmente una cuenta. Los ataques de fuerza bruta con diccionario pueden resultar en un robo de credenciales si la aplicación no está debidamente configurada.
+:page-keywords: Windows 7, Bloquear, Temporalmente, Cuenta, Prevenir, Fuerza Bruta.
 :defends: yes
 
 = Bloquear cuentas temporalmente

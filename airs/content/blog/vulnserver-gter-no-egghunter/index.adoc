@@ -1,14 +1,14 @@
-:slug: vulnserver-gter-no-egghunter/
-:date: 2020-06-12
-:category: attacks
-:subtitle: Every byte counts
-:tags: osce, vulnserver, training, exploit
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331149/blog/vulnserver-gter-no-egghunter/cover_tsjvux.webp
-:alt: Photo by Florian Klauer on Unsplash
-:description: In this post, we will use an alternative way of exploiting Vulnserver GTER command.
-:keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
-:author: Andres Roldan
-:writer: aroldan
+:page-slug: vulnserver-gter-no-egghunter/
+:page-date: 2020-06-12
+:page-category: attacks
+:page-subtitle: Every byte counts
+:page-tags: osce, vulnserver, training, exploit
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331149/blog/vulnserver-gter-no-egghunter/cover_tsjvux.webp
+:page-alt: Photo by Florian Klauer on Unsplash
+:page-description: In this post, we will use an alternative way of exploiting Vulnserver GTER command.
+:page-keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
+:page-author: Andres Roldan
+:page-writer: aroldan
 :name: Andres Roldan
 :about1: Cybersecurity Specialist, OSCP, CHFI
 :about2: "We don't need the key, we'll break in" RATM

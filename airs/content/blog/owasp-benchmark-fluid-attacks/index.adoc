@@ -1,14 +1,14 @@
-:slug: owasp-benchmark-fluid-attacks/
-:date: 2021-04-14
-:subtitle: Our SAST tool scored the highest on the OWASP Benchmark
-:category: techniques
-:tags: software, vulnerability, testing, application, cybersecurity, code
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330969/blog/owasp-benchmark-fluid-attacks/cover_lm2zfy.webp
-:alt: Photo by Silvan Arnet on Unsplash
-:description: This post shows you Fluid Attacks' most recent achievement with its SAST tool, which reached a perfect accuracy score running the OWASP Benchmark Project code.
-:keywords: OWASP, Benchmark, Vulnerability, SAST, Tool, Vulnerability, Accuracy, Ethical Hacking, Pentesting
-:author: Felipe Ruiz
-:writer: fruiz
+:page-slug: owasp-benchmark-fluid-attacks/
+:page-date: 2021-04-14
+:page-subtitle: Our SAST tool scored the highest on the OWASP Benchmark
+:page-category: techniques
+:page-tags: software, vulnerability, testing, application, cybersecurity, code
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330969/blog/owasp-benchmark-fluid-attacks/cover_lm2zfy.webp
+:page-alt: Photo by Silvan Arnet on Unsplash
+:page-description: This post shows you Fluid Attacks' most recent achievement with its SAST tool, which reached a perfect accuracy score running the OWASP Benchmark Project code.
+:page-keywords: OWASP, Benchmark, Vulnerability, SAST, Tool, Vulnerability, Accuracy, Ethical Hacking, Pentesting
+:page-author: Felipe Ruiz
+:page-writer: fruiz
 :name: Felipe Ruiz
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/PFqfV5bn91A

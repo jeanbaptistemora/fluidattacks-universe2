@@ -1,7 +1,7 @@
-:slug: products/defends/cobol/manejar-errores-aritmeticos/
+:page-slug: products/defends/cobol/manejar-errores-aritmeticos/
 :category: cobol
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al manejar adecuadamente los errores en las operaciones aritméticas. Las operaciones aritméticas son susceptibles a eventos excepcionales que pueden filtrar información sensible.
-:keywords: COBOL, Seguridad, Errores, Operaciones, Aritméticas, Información Sensible.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al manejar adecuadamente los errores en las operaciones aritméticas. Las operaciones aritméticas son susceptibles a eventos excepcionales que pueden filtrar información sensible.
+:page-keywords: COBOL, Seguridad, Errores, Operaciones, Aritméticas, Información Sensible.
 :defends: yes
 
 = Manejar Errores en Operaciones Aritméticas

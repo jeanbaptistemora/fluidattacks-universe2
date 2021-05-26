@@ -1,7 +1,7 @@
-:slug: products/defends/java/determinar-archivo-ext/
+:page-slug: products/defends/java/determinar-archivo-ext/
 :category: java
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al determinar el tipo de archivo verificando su extensión. La validación de entradas es fundamental para desarrollar aplicaciones robustas y seguras.
-:keywords: Java, Validación, Tipo, Archivo, Extensión, Seguridad
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al determinar el tipo de archivo verificando su extensión. La validación de entradas es fundamental para desarrollar aplicaciones robustas y seguras.
+:page-keywords: Java, Validación, Tipo, Archivo, Extensión, Seguridad
 :defends: yes
 
 = Determinar Tipo Archivo Usando Su Extensión

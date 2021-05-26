@@ -1,7 +1,7 @@
-:slug: products/defends/wordpress/evitar-fuerza-bruta/
+:page-slug: products/defends/wordpress/evitar-fuerza-bruta/
 :category: wordpress
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en WordPress al evitar los ataques de diccionario o fuerza bruta. Los ataques de fuerza bruta pueden resultar en un robo de credenciales si la aplicación no está debidamente configurada.
-:keywords: WordPress, Seguridad, Protección, Ataque, Diccionario, Fuerza Bruta.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en WordPress al evitar los ataques de diccionario o fuerza bruta. Los ataques de fuerza bruta pueden resultar en un robo de credenciales si la aplicación no está debidamente configurada.
+:page-keywords: WordPress, Seguridad, Protección, Ataque, Diccionario, Fuerza Bruta.
 :defends: yes
 
 = Evitar Ataques de Diccionario o Fuerza Bruta

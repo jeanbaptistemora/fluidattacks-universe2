@@ -1,14 +1,14 @@
-:slug: thoughtless-reporting/
-:date: 2021-01-29
-:subtitle: The Colombian Foreign Ministry faced a big trouble
-:category: opinions
-:tags: cybersecurity, vulnerability, information, web, risk, standard
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331106/blog/thoughtless-reporting/cover_j9r5l2.webp
-:alt: Photo by Jono Hirst on Unsplash
-:description: Here I give you an overview of the recent Colombian Foreign Ministry's security problem and the inadequate disclosure of such vulnerability in the media.
-:keywords: Vulnerability, Ministry, Foreign, Visa, Data, Web, Ethical Hacking, Pentesting
-:author: Felipe Ruiz
-:writer: fruiz
+:page-slug: thoughtless-reporting/
+:page-date: 2021-01-29
+:page-subtitle: The Colombian Foreign Ministry faced a big trouble
+:page-category: opinions
+:page-tags: cybersecurity, vulnerability, information, web, risk, standard
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331106/blog/thoughtless-reporting/cover_j9r5l2.webp
+:page-alt: Photo by Jono Hirst on Unsplash
+:page-description: Here I give you an overview of the recent Colombian Foreign Ministry's security problem and the inadequate disclosure of such vulnerability in the media.
+:page-keywords: Vulnerability, Ministry, Foreign, Visa, Data, Web, Ethical Hacking, Pentesting
+:page-author: Felipe Ruiz
+:page-writer: fruiz
 :name: Felipe Ruiz
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/dKS6CQZ5mgo

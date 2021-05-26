@@ -1,14 +1,14 @@
-:slug: risk-indicator-roundup/
-:date: 2019-05-15
-:subtitle: A matter of taste
-:category: philosophy
-:tags: business, ethical-hacking, risk
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331066/blog/risk-indicator-roundup/cover_azhwyk.webp
-:alt: Choices. Photo by Nathan Dumlao on Unsplash: https://unsplash.com/photos/pMW4jzELQCw
-:description: Here we compare risk indicators used in quantitative finance, giving their pros and cons. Most of them we have discussed earlier, but here we introduce the ALE.
-:keywords: Risk, Probability, Choice, Measure, Quantify, Indicator, Ethical Hacking, Pentesting
-:author: Rafael Ballestas
-:writer: raballestasr
+:page-slug: risk-indicator-roundup/
+:page-date: 2019-05-15
+:page-subtitle: A matter of taste
+:page-category: philosophy
+:page-tags: business, ethical-hacking, risk
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331066/blog/risk-indicator-roundup/cover_azhwyk.webp
+:page-alt: Choices. Photo by Nathan Dumlao on Unsplash: https://unsplash.com/photos/pMW4jzELQCw
+:page-description: Here we compare risk indicators used in quantitative finance, giving their pros and cons. Most of them we have discussed earlier, but here we introduce the ALE.
+:page-keywords: Risk, Probability, Choice, Measure, Quantify, Indicator, Ethical Hacking, Pentesting
+:page-author: Rafael Ballestas
+:page-writer: raballestasr
 :name: Rafael Ballestas
 :about1: Mathematician
 :about2: with an itch for CS

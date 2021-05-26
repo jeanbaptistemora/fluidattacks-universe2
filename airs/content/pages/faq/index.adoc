@@ -1,10 +1,10 @@
-:slug: faq/
-:description: Here we present a Frequently Asked Questions (FAQ) section to give you a guide on our products, services, and selection process.
-:keywords: Fluid Attacks, Careers, Selection, Process, FAQ, Questions, Services, Products, Pentesting, Ethical Hacking
-:phrase: Find everything you need to know
+:page-slug: faq/
+:page-description: Here we present a Frequently Asked Questions (FAQ) section to give you a guide on our products, services, and selection process.
+:page-keywords: Fluid Attacks, Careers, Selection, Process, FAQ, Questions, Services, Products, Pentesting, Ethical Hacking
+:page-phrase: Find everything you need to know
 :faqindex: yes
 :template: faq
-:banner: bg-faq
+:page-banner: bg-faq
 
 = Frequently Asked Questions (FAQ)
 

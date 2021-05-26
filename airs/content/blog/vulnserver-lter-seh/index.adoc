@@ -1,14 +1,14 @@
-:slug: vulnserver-lter-seh/
-:date: 2020-06-23
-:category: attacks
-:subtitle: Bad chars everywhere
-:tags: osce, vulnserver, training, exploit
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331206/blog/vulnserver-lter-seh/cover_basr0i.webp
-:alt: Photo by Kevin Ku on Unsplash
-:description: This post will show how to exploit the Vulnserver LTER command on where we will need to bypass bad chars restrictions.
-:keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
-:author: Andres Roldan
-:writer: aroldan
+:page-slug: vulnserver-lter-seh/
+:page-date: 2020-06-23
+:page-category: attacks
+:page-subtitle: Bad chars everywhere
+:page-tags: osce, vulnserver, training, exploit
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331206/blog/vulnserver-lter-seh/cover_basr0i.webp
+:page-alt: Photo by Kevin Ku on Unsplash
+:page-description: This post will show how to exploit the Vulnserver LTER command on where we will need to bypass bad chars restrictions.
+:page-keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
+:page-author: Andres Roldan
+:page-writer: aroldan
 :name: Andres Roldan
 :about1: Cybersecurity Specialist, OSCP, CHFI
 :about2: "We don't need the key, we'll break in" RATM

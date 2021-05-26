@@ -1,14 +1,14 @@
-:slug: chat-with-correa/
-:date: 2020-03-30
-:subtitle: A chat with Daniel Correa
-:category: interview
-:tags: machine-learning, cybersecurity, security, interview, risk, software
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330831/blog/chat-with-correa/cover_htrl0g.webp
-:alt: Photo by Liam Tucker on Unsplash
-:description: We had the pleasure of chatting with Daniel Correa, a Security Expert who shared his views on current threats, human factors in cybersecurity, and technology.
-:keywords: Machine Learning, Cybersecurity, Security, Interview, Risk, Software, Ethical Hacking, Pentesting
-:author: Julian Arango
-:writer: jarango
+:page-slug: chat-with-correa/
+:page-date: 2020-03-30
+:page-subtitle: A chat with Daniel Correa
+:page-category: interview
+:page-tags: machine-learning, cybersecurity, security, interview, risk, software
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330831/blog/chat-with-correa/cover_htrl0g.webp
+:page-alt: Photo by Liam Tucker on Unsplash
+:page-description: We had the pleasure of chatting with Daniel Correa, a Security Expert who shared his views on current threats, human factors in cybersecurity, and technology.
+:page-keywords: Machine Learning, Cybersecurity, Security, Interview, Risk, Software, Ethical Hacking, Pentesting
+:page-author: Julian Arango
+:page-writer: jarango
 :name: Julian Arango
 :about1: Behavioral strategist
 :about2: Data scientist in training.

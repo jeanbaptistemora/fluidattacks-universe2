@@ -1,7 +1,7 @@
-:slug: products/defends/cobol/validar-correo-electronico/
+:page-slug: products/defends/cobol/validar-correo-electronico/
 :category: cobol
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al explicar cómo se debe validar una cuenta de correo electrónico. La validación de información es una tarea clave en cualquier aplicación, para evitar problemas de seguridad.
-:keywords: Validar, Correo electrónico, COBOL, Email, Dominio, Usuario.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al explicar cómo se debe validar una cuenta de correo electrónico. La validación de información es una tarea clave en cualquier aplicación, para evitar problemas de seguridad.
+:page-keywords: Validar, Correo electrónico, COBOL, Email, Dominio, Usuario.
 :defends: yes
 
 = Validar Correo Electrónico

@@ -1,14 +1,14 @@
-:slug: git-steroids/
-:date: 2019-03-04
-:subtitle: From messy logs to Data Analytics
-:category: documentation
-:tags: git, software, documentation, standard, engineering, business, linters
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330885/blog/git-steroids/cover_glgn3d.webp
-:alt: Computer with do what is great sign.
-:description: Learn here, among other things, how to define a Git commit message syntax and use real-time commit message linters to improve your Git history.
-:keywords: Git, Standardization, Commitlint, Data Analytics, Efective Logging, Documentation, Ethical Hacking, Pentesting
-:author: Daniel Salazar
-:writer: dsalazaratfluid
+:page-slug: git-steroids/
+:page-date: 2019-03-04
+:page-subtitle: From messy logs to Data Analytics
+:page-category: documentation
+:page-tags: git, software, documentation, standard, engineering, business, linters
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330885/blog/git-steroids/cover_glgn3d.webp
+:page-alt: Computer with do what is great sign.
+:page-description: Learn here, among other things, how to define a Git commit message syntax and use real-time commit message linters to improve your Git history.
+:page-keywords: Git, Standardization, Commitlint, Data Analytics, Efective Logging, Documentation, Ethical Hacking, Pentesting
+:page-author: Daniel Salazar
+:page-writer: dsalazaratfluid
 :name: Daniel Salazar
 :about1: Software Engineer
 :about2: “An intellectual says a simple thing in a hard way. An artist says a hard thing in a simple way.” Charles Bukowski

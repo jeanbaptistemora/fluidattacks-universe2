@@ -1,14 +1,14 @@
-:slug: crash-course-machine-learning/
-:date: 2018-11-19
-:subtitle: A survey of machine learning algorithms
-:category: machine-learning
-:tags: machine-learning, security, application
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330839/blog/crash-course-machine-learning/cover_itk4eg.webp
-:alt: Robot playing the piano
-:description: In this article, we give a high-level view of each of the most important ML algorithms that have a relevant application in information security.
-:keywords: Machine Learning, Clustering, Anomaly Detection, Neural Network, Deep learning, Security, Ethical Hacking, Pentesting
-:author: Rafael Ballestas
-:writer: raballestasr
+:page-slug: crash-course-machine-learning/
+:page-date: 2018-11-19
+:page-subtitle: A survey of machine learning algorithms
+:page-category: machine-learning
+:page-tags: machine-learning, security, application
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330839/blog/crash-course-machine-learning/cover_itk4eg.webp
+:page-alt: Robot playing the piano
+:page-description: In this article, we give a high-level view of each of the most important ML algorithms that have a relevant application in information security.
+:page-keywords: Machine Learning, Clustering, Anomaly Detection, Neural Network, Deep learning, Security, Ethical Hacking, Pentesting
+:page-author: Rafael Ballestas
+:page-writer: raballestasr
 :name: Rafael Ballestas
 :about1: Mathematician
 :about2: with an itch for CS

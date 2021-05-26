@@ -1,14 +1,14 @@
-:slug: symbolic-execution-mortals/
-:date: 2017-05-04
-:category: attacks
-:subtitle: What it is and how it works
-:tags: security, test, software
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331105/blog/symbolic-execution-mortals/cover_wgcfrh.webp
-:alt: Person using a magnifying glass in keyboard
-:description: In this article, we intend to explain an approach to symbolic execution, which is very useful when dealing with software assessment.
-:keywords: Symbolic, Execution, Security, Software, Test, Assestment, Ethical Hacking, Pentesting
-:author: Juan Aguirre
-:writer: juanes
+:page-slug: symbolic-execution-mortals/
+:page-date: 2017-05-04
+:page-category: attacks
+:page-subtitle: What it is and how it works
+:page-tags: security, test, software
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331105/blog/symbolic-execution-mortals/cover_wgcfrh.webp
+:page-alt: Person using a magnifying glass in keyboard
+:page-description: In this article, we intend to explain an approach to symbolic execution, which is very useful when dealing with software assessment.
+:page-keywords: Symbolic, Execution, Security, Software, Test, Assestment, Ethical Hacking, Pentesting
+:page-author: Juan Aguirre
+:page-writer: juanes
 :name: Juan Esteban Aguirre González
 :about1: Computer Engineer
 :about2: Netflix and hack.

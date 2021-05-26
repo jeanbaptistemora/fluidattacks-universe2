@@ -1,14 +1,14 @@
-:slug: reversing-mortals/
-:date: 2017-04-25
-:category: attacks
-:subtitle: Solving Yoire crackme average challenge
-:tags: revert, challenge, engineering
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331059/blog/reversing-mortals/cover_reckpt.webp
-:alt: Wrong red piece in white puzzle
-:description: In this article, we provide a first approach to reverse engineering by solving a simple but educational cracking challenge using OllyDBG.
-:keywords: Reversing, Reverse Engineering, Debugger, OllyDBG, Hacking, Assembler, Ethical Hacking, Pentesting
-:author: Juan Aguirre
-:writer: juanes
+:page-slug: reversing-mortals/
+:page-date: 2017-04-25
+:page-category: attacks
+:page-subtitle: Solving Yoire crackme average challenge
+:page-tags: revert, challenge, engineering
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331059/blog/reversing-mortals/cover_reckpt.webp
+:page-alt: Wrong red piece in white puzzle
+:page-description: In this article, we provide a first approach to reverse engineering by solving a simple but educational cracking challenge using OllyDBG.
+:page-keywords: Reversing, Reverse Engineering, Debugger, OllyDBG, Hacking, Assembler, Ethical Hacking, Pentesting
+:page-author: Juan Aguirre
+:page-writer: juanes
 :name: Juan Esteban Aguirre González
 :about1: Computer Engineer
 :about2: Netflix and hack.

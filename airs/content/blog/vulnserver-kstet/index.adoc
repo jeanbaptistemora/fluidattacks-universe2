@@ -1,14 +1,14 @@
-:slug: vulnserver-kstet/
-:date: 2020-06-17
-:category: attacks
-:subtitle: Exploiting in stages
-:tags: osce, vulnserver, training, exploit
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331152/blog/vulnserver-kstet/cover_raeprd.webp
-:alt: Photo by Ganapathy Kumar on Unsplash
-:description: This post will show how to exploit the Vulnserver KSTET command using a socket reuse method.
-:keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
-:author: Andres Roldan
-:writer: aroldan
+:page-slug: vulnserver-kstet/
+:page-date: 2020-06-17
+:page-category: attacks
+:page-subtitle: Exploiting in stages
+:page-tags: osce, vulnserver, training, exploit
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331152/blog/vulnserver-kstet/cover_raeprd.webp
+:page-alt: Photo by Ganapathy Kumar on Unsplash
+:page-description: This post will show how to exploit the Vulnserver KSTET command using a socket reuse method.
+:page-keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE, Ethical Hacking, Pentesting
+:page-author: Andres Roldan
+:page-writer: aroldan
 :name: Andres Roldan
 :about1: Cybersecurity Specialist, OSCP, CHFI
 :about2: "We don't need the key, we'll break in" RATM

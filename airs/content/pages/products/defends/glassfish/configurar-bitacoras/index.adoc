@@ -1,7 +1,7 @@
-:slug: products/defends/glassfish/configurar-bitacoras/
+:page-slug: products/defends/glassfish/configurar-bitacoras/
 :category: glassfish
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en GlassFish al configurar bitácoras. Las aplicaciones deben registrar los eventos importantes, facilitando la detección y el rastreo de ataques y situaciones no deseadas.
-:keywords: GlassFish, Bitácora, Registro, Eventos, Aplicación, Seguimiento
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en GlassFish al configurar bitácoras. Las aplicaciones deben registrar los eventos importantes, facilitando la detección y el rastreo de ataques y situaciones no deseadas.
+:page-keywords: GlassFish, Bitácora, Registro, Eventos, Aplicación, Seguimiento
 :defends: yes
 
 = Configurar Bitácoras

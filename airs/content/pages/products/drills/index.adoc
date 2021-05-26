@@ -1,6 +1,6 @@
-:slug: products/drills/
-:description: Drills finds deep and zero-day vulnerabilities during the software development lifecycle with no false positives and no false negatives.
-:keywords: Fluid Attacks, Products, Drills, Ethical Hacking, Pentesting, Security
+:page-slug: products/drills/
+:page-description: Drills finds deep and zero-day vulnerabilities during the software development lifecycle with no false positives and no false negatives.
+:page-keywords: Fluid Attacks, Products, Drills, Ethical Hacking, Pentesting, Security
 
 = Drills
 

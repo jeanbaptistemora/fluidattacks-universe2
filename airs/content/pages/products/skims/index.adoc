@@ -1,6 +1,6 @@
-:slug: products/skims/
-:description: Skims is a SAST/SCA tool used to search for and identify known vulnerabilities and then automatically verify if they have been closed.
-:keywords: Fluid Attacks, Products, Skims, SAST, SCA, Tool, Ethical Hacking, Pentesting, Security
+:page-slug: products/skims/
+:page-description: Skims is a SAST/SCA tool used to search for and identify known vulnerabilities and then automatically verify if they have been closed.
+:page-keywords: Fluid Attacks, Products, Skims, SAST, SCA, Tool, Ethical Hacking, Pentesting, Security
 
 = Skims
 

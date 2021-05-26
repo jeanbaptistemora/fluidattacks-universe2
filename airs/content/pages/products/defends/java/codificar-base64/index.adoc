@@ -1,7 +1,7 @@
-:slug: products/defends/java/codificar-base64/
+:page-slug: products/defends/java/codificar-base64/
 :category: java
-:description: Nuestros ethical hackers explican que es Base64 y como funciona su algoritmo de cifrado, además enseñan la manera de cómo codificar y decodificar en base64 una aplicación desplegada en JBoss usando la biblioteca org.apache.commons.codec.binary.Base64.
-:keywords: Java, Cifrar, Base64, JBoss, Ascii, Descifrar.
+:page-description: Nuestros ethical hackers explican que es Base64 y como funciona su algoritmo de cifrado, además enseñan la manera de cómo codificar y decodificar en base64 una aplicación desplegada en JBoss usando la biblioteca org.apache.commons.codec.binary.Base64.
+:page-keywords: Java, Cifrar, Base64, JBoss, Ascii, Descifrar.
 :defends: yes
 
 = Codificar en Base64

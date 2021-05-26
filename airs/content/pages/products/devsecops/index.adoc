@@ -1,6 +1,6 @@
-:slug: products/devsecops/
-:description: Pipeline Agent allows you to have DevSecOps in your company and breaks the build every time it is necessary to force the remediation of unaccepted vulnerabilities.
-:keywords: Fluid Attacks, Products, Forces, Ethical Hacking, Pentesting, Security, DevSecOps
+:page-slug: products/devsecops/
+:page-description: Pipeline Agent allows you to have DevSecOps in your company and breaks the build every time it is necessary to force the remediation of unaccepted vulnerabilities.
+:page-keywords: Fluid Attacks, Products, Forces, Ethical Hacking, Pentesting, Security, DevSecOps
 
 = DevSecOps
 

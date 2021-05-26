@@ -1,7 +1,7 @@
-:slug: products/defends/java/registrar-bitacora/
+:page-slug: products/defends/java/registrar-bitacora/
 :category: java
-:description: Nuestros ethical hackers explican que son las bitácoras, porque es importante utilizarlas y cual es la manera adecuada de generar dichos informes en una aplicación Java con el fin de conocer los acontecimientos relevantes que han afectado la ejecución del programa.
-:keywords: Java, Bitácora, Eventos, Seguridad, Log, Análisis.
+:page-description: Nuestros ethical hackers explican que son las bitácoras, porque es importante utilizarlas y cual es la manera adecuada de generar dichos informes en una aplicación Java con el fin de conocer los acontecimientos relevantes que han afectado la ejecución del programa.
+:page-keywords: Java, Bitácora, Eventos, Seguridad, Log, Análisis.
 :defends: yes
 
 = Registrar Eventos en Bitácoras

@@ -1,14 +1,14 @@
-:slug: reversing-vulnserver/
-:date: 2020-07-06
-:category: attacks
-:subtitle: The devil is in the details
-:tags: osce, vulnserver, training, vulnerability, exploit
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331065/blog/reversing-vulnserver/cover_u4n10o.webp
-:alt: Photo by Pierre Binet on Unsplash
-:description: This post will show how use reverse engineering techniques and tools to find vulnerabilities on Vulnserver.
-:keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE
-:author: Andres Roldan
-:writer: aroldan
+:page-slug: reversing-vulnserver/
+:page-date: 2020-07-06
+:page-category: attacks
+:page-subtitle: The devil is in the details
+:page-tags: osce, vulnserver, training, vulnerability, exploit
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331065/blog/reversing-vulnserver/cover_u4n10o.webp
+:page-alt: Photo by Pierre Binet on Unsplash
+:page-description: This post will show how use reverse engineering techniques and tools to find vulnerabilities on Vulnserver.
+:page-keywords: Business, Information, Security, Protection, Hacking, Exploit, OSCE
+:page-author: Andres Roldan
+:page-writer: aroldan
 :name: Andres Roldan
 :about1: Cybersecurity Specialist, OSCP, CHFI
 :about2: "We don't need the key, we'll break in" RATM

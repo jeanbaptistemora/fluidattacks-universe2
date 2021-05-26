@@ -1,7 +1,7 @@
-:slug: products/defends/aix/restringir-rootdir-proceso/
+:page-slug: products/defends/aix/restringir-rootdir-proceso/
 :category: aix
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Aix 6.1 al restringir el acceso al directorio raíz. Este procedimiento mejora la seguridad de la aplicación evitando ataques de tipo directorio transversal.
-:keywords: Scala, Restringir, Directorio, Raíz, Ataque, Directorio Transversal.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Aix 6.1 al restringir el acceso al directorio raíz. Este procedimiento mejora la seguridad de la aplicación evitando ataques de tipo directorio transversal.
+:page-keywords: Scala, Restringir, Directorio, Raíz, Ataque, Directorio Transversal.
 :defends: yes
 
 = Restringir el Directorio Raíz de un Proceso

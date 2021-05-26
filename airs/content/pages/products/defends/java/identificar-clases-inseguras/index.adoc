@@ -1,7 +1,7 @@
-:slug: products/defends/java/identificar-clases-inseguras/
+:page-slug: products/defends/java/identificar-clases-inseguras/
 :category: java
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al evitar el uso de elementos obsoletos. El uso de estos elementos como clases y/o métodos representan problemas de seguridad por si mismos.
-:keywords: Java, Clases, Métodos, Obsoleto, Seguridad, Deprecated.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al evitar el uso de elementos obsoletos. El uso de estos elementos como clases y/o métodos representan problemas de seguridad por si mismos.
+:page-keywords: Java, Clases, Métodos, Obsoleto, Seguridad, Deprecated.
 :defends: yes
 
 = Identificar Clases y Métodos Inseguros

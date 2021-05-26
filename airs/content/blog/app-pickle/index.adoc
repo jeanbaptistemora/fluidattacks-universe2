@@ -1,14 +1,14 @@
-:slug: app-pickle/
-:date: 2018-02-08
-:subtitle: Documenting vulnerabilities with gherkin
-:category: documentation
-:tags: documentation, vector, software
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330662/blog/app-pickle/cover_cmww8t.webp
-:alt: Cucumber slices
-:description: Gherkin can be used for documentation and automated testing. Here we focus on its basics and how we can use it to show how a given website can be attacked.
-:keywords: Gherkin, Language, Attack Vector, Documentation, Report, Injection, Vulnerability, Pentesting, Ethical Hacking
-:author: Rafael Ballestas
-:writer: raballestasr
+:page-slug: app-pickle/
+:page-date: 2018-02-08
+:page-subtitle: Documenting vulnerabilities with gherkin
+:page-category: documentation
+:page-tags: documentation, vector, software
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330662/blog/app-pickle/cover_cmww8t.webp
+:page-alt: Cucumber slices
+:page-description: Gherkin can be used for documentation and automated testing. Here we focus on its basics and how we can use it to show how a given website can be attacked.
+:page-keywords: Gherkin, Language, Attack Vector, Documentation, Report, Injection, Vulnerability, Pentesting, Ethical Hacking
+:page-author: Rafael Ballestas
+:page-writer: raballestasr
 :name: Rafael Ballestas
 :about1: Mathematician
 :about2: with an itch for CS

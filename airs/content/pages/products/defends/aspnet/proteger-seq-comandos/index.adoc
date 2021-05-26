@@ -1,7 +1,7 @@
-:slug: products/defends/aspnet/proteger-seq-comando/
+:page-slug: products/defends/aspnet/proteger-seq-comando/
 :category: aspnet
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura en ASP.NET al proteger la aplicación de ataques de secuencias de comandos. Este tipo de vulnerabilidades se puede evitar realizando validaciones adecuadas, aquí te mostramos cómo.
-:keywords: ASP.NET, Seguridad, Secuencia de Comando, Validación, HTML, Codificación
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura en ASP.NET al proteger la aplicación de ataques de secuencias de comandos. Este tipo de vulnerabilidades se puede evitar realizando validaciones adecuadas, aquí te mostramos cómo.
+:page-keywords: ASP.NET, Seguridad, Secuencia de Comando, Validación, HTML, Codificación
 :defends: yes
 
 = Proteger Ataques de Secuencias de Comandos

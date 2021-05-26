@@ -1,7 +1,7 @@
-:slug: products/defends/java/registrar-eventos-clases/
+:page-slug: products/defends/java/registrar-eventos-clases/
 :category: java
-:description: Nuestros ethical hackers explican que son las bitácoras, por que es importante utilizarlas y cual es la manera adecuada de generar dichos informes usando clases de Java y así, poder conocer los acontecimientos relevantes que han afectado la ejecución del programa.
-:keywords: Java, Seguridad, Bitacoras, Logs, Clases, Logger.
+:page-description: Nuestros ethical hackers explican que son las bitácoras, por que es importante utilizarlas y cual es la manera adecuada de generar dichos informes usando clases de Java y así, poder conocer los acontecimientos relevantes que han afectado la ejecución del programa.
+:page-keywords: Java, Seguridad, Bitacoras, Logs, Clases, Logger.
 :defends: yes
 
 = Personalizar Registro de Eventos con Clases

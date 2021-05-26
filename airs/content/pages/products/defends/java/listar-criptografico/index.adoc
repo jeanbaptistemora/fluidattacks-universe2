@@ -1,7 +1,7 @@
-:slug: products/defends/java/listar-criptografico/
+:page-slug: products/defends/java/listar-criptografico/
 :category: java
-:description: Nuestros ethical hackers explican en que consiste la criptografía y que son los servicios criptográficos. Igualmente, mediante el uso de un pequeño programa realizado en Java, muestran como consultar con cuales servicios criptográficos cuenta en kid de desarrollo.
-:keywords: Java, Seguridad, Criptografía, JDK, Servicios, Protección.
+:page-description: Nuestros ethical hackers explican en que consiste la criptografía y que son los servicios criptográficos. Igualmente, mediante el uso de un pequeño programa realizado en Java, muestran como consultar con cuales servicios criptográficos cuenta en kid de desarrollo.
+:page-keywords: Java, Seguridad, Criptografía, JDK, Servicios, Protección.
 :defends: yes
 
 = Listar Servicios Criptográficos

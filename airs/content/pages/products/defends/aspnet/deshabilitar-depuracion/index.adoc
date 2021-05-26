@@ -1,7 +1,7 @@
-:slug: products/defends/aspnet/deshabilitar-depuracion/
+:page-slug: products/defends/aspnet/deshabilitar-depuracion/
 :category: aspnet
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura de depuradores en un ambiente de producción que utiliza ASP.NET, con el fin de mejorar la seguridad de la aplicación evitando que se filtre información crítica del proceso.
-:keywords: ASP.NET, Seguridad, Deshabilitar, Debug, Binario, Producción.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura de depuradores en un ambiente de producción que utiliza ASP.NET, con el fin de mejorar la seguridad de la aplicación evitando que se filtre información crítica del proceso.
+:page-keywords: ASP.NET, Seguridad, Deshabilitar, Debug, Binario, Producción.
 :defends: yes
 
 = Deshabilitar modo depuración

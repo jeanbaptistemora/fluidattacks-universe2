@@ -1,7 +1,7 @@
-:slug: products/defends/java/esquema-autenticacion-server/
+:page-slug: products/defends/java/esquema-autenticacion-server/
 :category: java
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al establecer un esquema de autenticación para la aplicación. Una vez configurados los roles de seguridad, el paso siguiente es definir la autenticación en el servidor.
-:keywords: Java, Seguridad, Esquema, Autenticación, Servidor, Buenas Prácticas.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al establecer un esquema de autenticación para la aplicación. Una vez configurados los roles de seguridad, el paso siguiente es definir la autenticación en el servidor.
+:page-keywords: Java, Seguridad, Esquema, Autenticación, Servidor, Buenas Prácticas.
 :defends: yes
 
 =  Establecer Autenticación en Servidor

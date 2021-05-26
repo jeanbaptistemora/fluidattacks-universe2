@@ -1,7 +1,7 @@
-:slug: products/defends/java/almacenar-sesion-servlet/
+:page-slug: products/defends/java/almacenar-sesion-servlet/
 :category: java
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al almacenar el estado de sesión utilizando Servlets. Las sesiones son frecuentemente utilizadas ya que permiten guardar información accesible en diferentes páginas web.
-:keywords: Java, Seguridad, Estado , Sesión, Estándar empresarial, Servlets.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en Java al almacenar el estado de sesión utilizando Servlets. Las sesiones son frecuentemente utilizadas ya que permiten guardar información accesible en diferentes páginas web.
+:page-keywords: Java, Seguridad, Estado , Sesión, Estándar empresarial, Servlets.
 :defends: yes
 
 = Almacenar Estado de Sesión en Capa Web con Servlets

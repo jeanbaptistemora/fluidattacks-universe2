@@ -1,14 +1,14 @@
-:slug: insensato-reporte/
-:date: 2021-01-29
-:subtitle: La Cancillería colombiana enfrentó un grave problema
-:category: opinions
-:tags: cybersecurity, vulnerability, information, web, risk, standard
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330923/blog/insensato-reporte/cover_iye7uf.webp
-:alt: Photo by Jono Hirst on Unsplash
-:description: Aquí les doy una visión general de la reciente vulnerabilidad de seguridad de la Cancillería colombiana y su inadecuada divulgación en medios de comunicación.
-:keywords: Vulnerabilidad, Cancillería, Colombia, Visa, Datos, Web, Ethical Hacking, Pentesting
-:author: Felipe Ruiz
-:writer: fruiz
+:page-slug: insensato-reporte/
+:page-date: 2021-01-29
+:page-subtitle: La Cancillería colombiana enfrentó un grave problema
+:page-category: opinions
+:page-tags: cybersecurity, vulnerability, information, web, risk, standard
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330923/blog/insensato-reporte/cover_iye7uf.webp
+:page-alt: Photo by Jono Hirst on Unsplash
+:page-description: Aquí les doy una visión general de la reciente vulnerabilidad de seguridad de la Cancillería colombiana y su inadecuada divulgación en medios de comunicación.
+:page-keywords: Vulnerabilidad, Cancillería, Colombia, Visa, Datos, Web, Ethical Hacking, Pentesting
+:page-author: Felipe Ruiz
+:page-writer: fruiz
 :name: Felipe Ruiz
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/dKS6CQZ5mgo

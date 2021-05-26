@@ -1,14 +1,14 @@
-:slug: why-we-go-functional/
-:date: 2018-07-23
-:category: programming
-:subtitle: Functional vs Imperative
-:tags: application, functional, imperative, stateless
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331222/blog/why-we-go-functional/cover_zdvaaw.webp
-:alt: Piece of code with a function
-:description: In this blog post, we show an analysis of why it is necessary to go functional even with non-functional languages.
-:keywords: Functional Paradigm, Object-Oriented, Stateless, Multiparadigm Application, Laziness, Programming Revolution, Ethical Hacking, Pentesting
-:author: Oswaldo Parada
-:writer: oparada
+:page-slug: why-we-go-functional/
+:page-date: 2018-07-23
+:page-category: programming
+:page-subtitle: Functional vs Imperative
+:page-tags: application, functional, imperative, stateless
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331222/blog/why-we-go-functional/cover_zdvaaw.webp
+:page-alt: Piece of code with a function
+:page-description: In this blog post, we show an analysis of why it is necessary to go functional even with non-functional languages.
+:page-keywords: Functional Paradigm, Object-Oriented, Stateless, Multiparadigm Application, Laziness, Programming Revolution, Ethical Hacking, Pentesting
+:page-author: Oswaldo Parada
+:page-writer: oparada
 :name: Oswaldo José Parada Cuadros
 :about1: Mechanical Engineer
 :about2: Family, friends and little details. There is the answer.

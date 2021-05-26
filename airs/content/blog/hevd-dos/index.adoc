@@ -1,14 +1,14 @@
-:slug: hevd-dos/
-:date: 2020-09-14
-:category: attacks
-:subtitle: How to crash Windows
-:tags: osee, training, exploit, windows, kernel, hevd
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-dos/cover_cnggzc.webp
-:alt: Photo by Chaozzy Lin on Unsplash
-:description: This article will be the first approach to start exploting HackSys Extremely Vulnerable Driver with a Denial of Service
-:keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
-:author: Andres Roldan
-:writer: aroldan
+:page-slug: hevd-dos/
+:page-date: 2020-09-14
+:page-category: attacks
+:page-subtitle: How to crash Windows
+:page-tags: osee, training, exploit, windows, kernel, hevd
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-dos/cover_cnggzc.webp
+:page-alt: Photo by Chaozzy Lin on Unsplash
+:page-description: This article will be the first approach to start exploting HackSys Extremely Vulnerable Driver with a Denial of Service
+:page-keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
+:page-author: Andres Roldan
+:page-writer: aroldan
 :name: Andres Roldan
 :about1: Cybersecurity Specialist, OSCE, OSCP, CHFI
 :about2: "We don't need the key, we'll break in" RATM

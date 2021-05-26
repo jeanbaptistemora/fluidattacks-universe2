@@ -1,7 +1,7 @@
-:slug: products/defends/cobol/prevenir-sqli-sentencias/
+:page-slug: products/defends/cobol/prevenir-sqli-sentencias/
 :category: cobol
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al evitar que un intruso pueda realizar ataques de inyección sql para acceder a información relevante almacenada en la base de datos.
-:keywords: COBOL, Sentencias Parametrizadas, Sentencias Estáticas, Inyección SQL, Vulnerabilidad, Seguridad.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en COBOL al evitar que un intruso pueda realizar ataques de inyección sql para acceder a información relevante almacenada en la base de datos.
+:page-keywords: COBOL, Sentencias Parametrizadas, Sentencias Estáticas, Inyección SQL, Vulnerabilidad, Seguridad.
 :defends: yes
 
 = Prevenir SQLi Mediante Sentencias Parametrizadas

@@ -1,7 +1,7 @@
-:slug: products/defends/csharp/realizar-peticiones-https/
+:page-slug: products/defends/csharp/realizar-peticiones-https/
 :category: csharp
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en C Sharp al realizar peticiones seguras usando HTTPS. El protocolo HTTPS encripta la comunicación entre el servidor y el cliente, evitando que esta sea espiada o manipulada.
-:keywords: C Sharp, Peticiones, HTTPS, Seguridad, Protocolos, Servidor
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en C Sharp al realizar peticiones seguras usando HTTPS. El protocolo HTTPS encripta la comunicación entre el servidor y el cliente, evitando que esta sea espiada o manipulada.
+:page-keywords: C Sharp, Peticiones, HTTPS, Seguridad, Protocolos, Servidor
 :defends: yes
 
 = Realizar Peticiones Seguras Usando HTTPS

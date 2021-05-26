@@ -1,14 +1,14 @@
-:slug: sqli-manual-bypass/
-:date: 2020-05-20
-:category: attacks
-:subtitle: Bypassing SQLi filters manually
-:tags: security, web, vulnerability, ethical-hacking
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331101/blog/sqli-manual-bypass/cover_mbogji.webp
-:alt: Photo by Kuma Kum on Unsplash
-:description: SQL injection can be one of the most dangerous vulnerabilities. Here we will see how to bypass certain controls that developers put in their code.
-:keywords: Web, Security, Vulnerability, Hacking, SQLi, Input Validation, Ethical Hacking, Pentesting
-:author: Jonathan Armas
-:writer: johna
+:page-slug: sqli-manual-bypass/
+:page-date: 2020-05-20
+:page-category: attacks
+:page-subtitle: Bypassing SQLi filters manually
+:page-tags: security, web, vulnerability, ethical-hacking
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331101/blog/sqli-manual-bypass/cover_mbogji.webp
+:page-alt: Photo by Kuma Kum on Unsplash
+:page-description: SQL injection can be one of the most dangerous vulnerabilities. Here we will see how to bypass certain controls that developers put in their code.
+:page-keywords: Web, Security, Vulnerability, Hacking, SQLi, Input Validation, Ethical Hacking, Pentesting
+:page-author: Jonathan Armas
+:page-writer: johna
 :name: Jonathan Armas
 :about1: Systems Engineer, OSCP - Security+
 :about2: "Be formless, shapeless like water" Bruce Lee

@@ -1,6 +1,6 @@
-:slug: cookie/
-:description: This Cookie Policy describes what cookies are and how Fluid Attacks uses them on its website and any of its products or services.
-:keywords: Fluid Attacks, Cookie, Policy, Information, Website, Right.
+:page-slug: cookie/
+:page-description: This Cookie Policy describes what cookies are and how Fluid Attacks uses them on its website and any of its products or services.
+:page-keywords: Fluid Attacks, Cookie, Policy, Information, Website, Right.
 
 = Cookie Policy
 

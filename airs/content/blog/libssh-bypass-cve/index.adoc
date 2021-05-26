@@ -1,14 +1,14 @@
-:slug: libssh-bypass-cve/
-:date: 2018-10-18
-:category: attacks
-:subtitle: New vulnerability on libssh CVE-2018-10933
-:tags: security, bug, libssh, pentesting
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330935/blog/libssh-bypass-cve/cover_ad5zp7.webp
-:alt: Painting a red and blue wall
-:description: Here, we will explain a vulnerability that allows a remote attacker to bypass authentication by sending a user-authenticated packet to the server.
-:keywords: Libssh, Security, CVE, Vulnerability, Pentesting, PoC, Ethical Hacking, Pentesting
-:author: Jonathan Armas
-:writer: johna
+:page-slug: libssh-bypass-cve/
+:page-date: 2018-10-18
+:page-category: attacks
+:page-subtitle: New vulnerability on libssh CVE-2018-10933
+:page-tags: security, bug, libssh, pentesting
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330935/blog/libssh-bypass-cve/cover_ad5zp7.webp
+:page-alt: Painting a red and blue wall
+:page-description: Here, we will explain a vulnerability that allows a remote attacker to bypass authentication by sending a user-authenticated packet to the server.
+:page-keywords: Libssh, Security, CVE, Vulnerability, Pentesting, PoC, Ethical Hacking, Pentesting
+:page-author: Jonathan Armas
+:page-writer: johna
 :name: Jonathan Armas
 :about1: Systems Engineer, Security+
 :about2: "Be formless, shapeless like water" Bruce Lee

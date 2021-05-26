@@ -1,7 +1,7 @@
-:slug: products/defends/aspnet/prevenir-ataque-xss/
+:page-slug: products/defends/aspnet/prevenir-ataque-xss/
 :category: aspnet
-:description:  Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASPNET al prevenir ataques de tipo Cross Site Scripting (XSS). Éste es un tipo frecuente de ataque, es importante proteger nuestra aplicación al validar las entradas a la misma.
-:keywords: ASPNET, Seguridad, XSS, Cross Site Scripting, Buenas Prácticas, Validación.
+:page-description:  Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASPNET al prevenir ataques de tipo Cross Site Scripting (XSS). Éste es un tipo frecuente de ataque, es importante proteger nuestra aplicación al validar las entradas a la misma.
+:page-keywords: ASPNET, Seguridad, XSS, Cross Site Scripting, Buenas Prácticas, Validación.
 :defends: yes
 
 = Prevenir ataque XSS

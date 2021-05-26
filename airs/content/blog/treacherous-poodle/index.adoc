@@ -1,14 +1,14 @@
-:slug: treacherous-poodle/
-:date: 2018-05-02
-:subtitle: How does the SSL fallback's works
-:category: attacks
-:tags: ssl, flaw, cbc
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331125/blog/treacherous-poodle/cover_x0hhns.webp
-:alt: Unknown person below lights
-:description: Here we discuss the exploitation of an SSL/TLS flaw that creates a fallback on TLS usage to SSL 3.0.
-:keywords: SSL, CBC, MAC, Padding, Flaw, Exploit, Ethical Hacking, Pentesting
-:author: Daniel Yepes
-:writer: cestmoi
+:page-slug: treacherous-poodle/
+:page-date: 2018-05-02
+:page-subtitle: How does the SSL fallback's works
+:page-category: attacks
+:page-tags: ssl, flaw, cbc
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331125/blog/treacherous-poodle/cover_x0hhns.webp
+:page-alt: Unknown person below lights
+:page-description: Here we discuss the exploitation of an SSL/TLS flaw that creates a fallback on TLS usage to SSL 3.0.
+:page-keywords: SSL, CBC, MAC, Padding, Flaw, Exploit, Ethical Hacking, Pentesting
+:page-author: Daniel Yepes
+:page-writer: cestmoi
 :name: Daniel Yepes
 :about1: -
 :about2: "If the doors of perception were cleansed everything would appear to man as it is, Infinite." William Blake.

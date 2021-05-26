@@ -1,7 +1,7 @@
-:slug: careers/hiring/
+:page-slug: careers/hiring/
 :category: careers
-:description: In this page we present the required documentation to formally legalize your selection once you have successfully finished all the previous stages.
-:keywords: Fluid Attacks, Careers, Legalization, Selection, Process, Requirements.
+:page-description: In this page we present the required documentation to formally legalize your selection once you have successfully finished all the previous stages.
+:page-keywords: Fluid Attacks, Careers, Legalization, Selection, Process, Requirements.
 
 = Hiring Documents
 

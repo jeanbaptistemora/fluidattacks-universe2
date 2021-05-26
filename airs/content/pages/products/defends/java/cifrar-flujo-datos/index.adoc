@@ -1,7 +1,7 @@
-:slug: products/defends/java/cifrar-flujo-datos/
+:page-slug: products/defends/java/cifrar-flujo-datos/
 :category: java
-:description: Nuestros ethical hackers dan una breve introducción a lo que es la criptografía y el porque es necesario usarla para proteger la información, además explican la manera de cifrar y descifrar el flujo de datos de un sistema usando un algoritmo de cifrado simétrico como AES.
-:keywords: Java, Seguridad, AES, Cifrado, Flujo, Datos.
+:page-description: Nuestros ethical hackers dan una breve introducción a lo que es la criptografía y el porque es necesario usarla para proteger la información, además explican la manera de cifrar y descifrar el flujo de datos de un sistema usando un algoritmo de cifrado simétrico como AES.
+:page-keywords: Java, Seguridad, AES, Cifrado, Flujo, Datos.
 :defends: yes
 
 = Cifrar Flujo de Datos

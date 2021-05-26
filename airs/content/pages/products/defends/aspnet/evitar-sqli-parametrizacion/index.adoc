@@ -1,7 +1,7 @@
-:slug: products/defends/aspnet/evitar-sqli-parametrizacion/
+:page-slug: products/defends/aspnet/evitar-sqli-parametrizacion/
 :category: aspnet
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASPNET al prevenir las inyecciones SQL mediante parametrización. Es importante proteger las aplicaciones contra los ataques más comunes entre ellos se encuentra el SQLi.
-:keywords: ASPNET, Seguridad, SQLi, Parametrización, Buenas Prácticas, Base de Datos.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASPNET al prevenir las inyecciones SQL mediante parametrización. Es importante proteger las aplicaciones contra los ataques más comunes entre ellos se encuentra el SQLi.
+:page-keywords: ASPNET, Seguridad, SQLi, Parametrización, Buenas Prácticas, Base de Datos.
 :defends: yes
 
 = Prevenir Inyección SQL Mediante Parametrización

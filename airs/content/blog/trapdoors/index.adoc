@@ -1,14 +1,14 @@
-:slug: trapdoors/
-:date: 2019-01-08
-:subtitle: Trapdoor functions and their importance in security
-:category: math
-:tags: encryption, math, security
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331107/blog/trapdoors/cover_p6rsfq.webp
-:alt: Cats in a forest
-:description: This blog post is an overview of the mathematical concept 'Trapdoor,' the basis of information security.
-:keywords: Trapdoor, AES, Asymmetric, Encryption, Math, Symmetric, RSA, Ethical Hacking, Pentesting
-:author: Sebastian Villalobos
-:writer: sevilla
+:page-slug: trapdoors/
+:page-date: 2019-01-08
+:page-subtitle: Trapdoor functions and their importance in security
+:page-category: math
+:page-tags: encryption, math, security
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331107/blog/trapdoors/cover_p6rsfq.webp
+:page-alt: Cats in a forest
+:page-description: This blog post is an overview of the mathematical concept 'Trapdoor,' the basis of information security.
+:page-keywords: Trapdoor, AES, Asymmetric, Encryption, Math, Symmetric, RSA, Ethical Hacking, Pentesting
+:page-author: Sebastian Villalobos
+:page-writer: sevilla
 :name: Sebastian Villalobos
 :about1: Electronic Engineer
 :about2: Programming, Electronics, Math

@@ -1,7 +1,7 @@
-:slug: careers/reverse-references/
+:page-slug: careers/reverse-references/
 :category: careers
-:description: This stage of the selection process aims to validate the candidates' references from his/her previous jobs.
-:keywords: Fluid Attacks, Careers, Reverse, References, Selection Process, Jobs, Job References, Pentester, Ethical Hacker
+:page-description: This stage of the selection process aims to validate the candidates' references from his/her previous jobs.
+:page-keywords: Fluid Attacks, Careers, Reverse, References, Selection Process, Jobs, Job References, Pentester, Ethical Hacker
 
 = References
 

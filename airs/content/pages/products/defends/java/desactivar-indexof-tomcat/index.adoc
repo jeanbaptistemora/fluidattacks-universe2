@@ -1,7 +1,7 @@
-:slug: products/defends/java/desactivar-indexof-tomcat/
+:page-slug: products/defends/java/desactivar-indexof-tomcat/
 :category: java
-:description: Nuestros ethical hackers nos explican que una de las vulnerabilidades más comunes en aplicaciones web, el listado de directorios, permite a un atacante obtener acceso a información confidencial de una organización, por tanto, enseñan la manera de prevenirla en un servidor Tomcat.
-:keywords: Java, Seguridad, Tomcat, Indexof, Servlet, Vulnerabilidad.
+:page-description: Nuestros ethical hackers nos explican que una de las vulnerabilidades más comunes en aplicaciones web, el listado de directorios, permite a un atacante obtener acceso a información confidencial de una organización, por tanto, enseñan la manera de prevenirla en un servidor Tomcat.
+:page-keywords: Java, Seguridad, Tomcat, Indexof, Servlet, Vulnerabilidad.
 :defends: yes
 
 = Desactivar Listado de Directorios en Tomcat

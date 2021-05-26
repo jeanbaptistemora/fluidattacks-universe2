@@ -1,14 +1,14 @@
-:slug: relleno-credenciales/
-:date: 2020-09-25
-:subtitle: Podrías ser víctima del relleno de credenciales
-:category: techniques
-:tags: credential, password, web, application, cybersecurity, business
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331052/blog/relleno-credenciales/cover_cwi8if.webp
-:alt: Photo by Cookie the Pom on Unsplash
-:description: He escrito este post para dar una visión general del ataque Credential Stuffing y algunas breves recomendaciones para su prevención.
-:keywords: Credential Stuffing, Relleno, Credenciales, Contraseña, Website, Aplicación, Ethical Hacking, Pentesting
-:author: Felipe Ruiz
-:writer: fruiz
+:page-slug: relleno-credenciales/
+:page-date: 2020-09-25
+:page-subtitle: Podrías ser víctima del relleno de credenciales
+:page-category: techniques
+:page-tags: credential, password, web, application, cybersecurity, business
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331052/blog/relleno-credenciales/cover_cwi8if.webp
+:page-alt: Photo by Cookie the Pom on Unsplash
+:page-description: He escrito este post para dar una visión general del ataque Credential Stuffing y algunas breves recomendaciones para su prevención.
+:page-keywords: Credential Stuffing, Relleno, Credenciales, Contraseña, Website, Aplicación, Ethical Hacking, Pentesting
+:page-author: Felipe Ruiz
+:page-writer: fruiz
 :name: Felipe Ruiz
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/siNDDi9RpVY

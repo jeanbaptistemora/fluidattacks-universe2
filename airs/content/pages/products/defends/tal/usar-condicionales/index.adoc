@@ -1,7 +1,7 @@
-:slug: products/defends/tal/usar-condicionales/
+:page-slug: products/defends/tal/usar-condicionales/
 :category: tal
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en TAL al utilizar estructuras condicionales seguras. Para evitar ataques y fallos en la aplicación es necesario definir escenarios por defecto, considerando todos los posibles escenarios.
-:keywords: TAL, Seguridad, Programación, Condicionales, Default, Buenas Prácticas
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en TAL al utilizar estructuras condicionales seguras. Para evitar ataques y fallos en la aplicación es necesario definir escenarios por defecto, considerando todos los posibles escenarios.
+:page-keywords: TAL, Seguridad, Programación, Condicionales, Default, Buenas Prácticas
 :defends: yes
 
 = Usar Estructuras Condicionales

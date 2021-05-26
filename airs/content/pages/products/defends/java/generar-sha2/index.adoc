@@ -1,7 +1,7 @@
-:slug: products/defends/java/generar-sha2/
+:page-slug: products/defends/java/generar-sha2/
 :category: java
-:description: Nuestros ethical hackers explican en que consiste el algoritmo de resumen criptográfico SHA2, el cual es una evolución de SHA1. Además, explican mediante un ejemplo la manera de utilizarlo en Java con el fin de generar textos cifrados de manera segura.
-:keywords: Java, SHA2, HASH, Seguridad, Criptografía, Cifrado.
+:page-description: Nuestros ethical hackers explican en que consiste el algoritmo de resumen criptográfico SHA2, el cual es una evolución de SHA1. Además, explican mediante un ejemplo la manera de utilizarlo en Java con el fin de generar textos cifrados de manera segura.
+:page-keywords: Java, SHA2, HASH, Seguridad, Criptografía, Cifrado.
 :defends: yes
 
 = Generar Resumen SHA2 Usando Derivación de Claves

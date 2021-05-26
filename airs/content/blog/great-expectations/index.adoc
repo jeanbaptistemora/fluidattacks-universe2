@@ -1,14 +1,14 @@
-:slug: great-expectations/
-:date: 2019-05-02
-:subtitle: What to expect when you're at risk
-:category: philosophy
-:tags: business, security, risk
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330887/blog/great-expectations/cover_cdvu5f.webp
-:alt: Chess strategy. Photo by Inactive. on Unsplash: https://unsplash.com/photos/nAjil1z3eLk
-:description: This blog post is a review of a paper from the adversarial risk analysis field applied to cybersecurity.
-:keywords: Risk, Probability, Impact, Measure, Quantify, Security, Pentesting, Ethical Hacking
-:author: Rafael Ballestas
-:writer: raballestasr
+:page-slug: great-expectations/
+:page-date: 2019-05-02
+:page-subtitle: What to expect when you're at risk
+:page-category: philosophy
+:page-tags: business, security, risk
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330887/blog/great-expectations/cover_cdvu5f.webp
+:page-alt: Chess strategy. Photo by Inactive. on Unsplash: https://unsplash.com/photos/nAjil1z3eLk
+:page-description: This blog post is a review of a paper from the adversarial risk analysis field applied to cybersecurity.
+:page-keywords: Risk, Probability, Impact, Measure, Quantify, Security, Pentesting, Ethical Hacking
+:page-author: Rafael Ballestas
+:page-writer: raballestasr
 :name: Rafael Ballestas
 :about1: Mathematician
 :about2: with an itch for CS

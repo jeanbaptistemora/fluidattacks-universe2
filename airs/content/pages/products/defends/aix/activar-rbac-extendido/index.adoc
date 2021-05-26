@@ -1,7 +1,7 @@
-:slug: products/defends/aix/activar-rbac-extendido/
+:page-slug: products/defends/aix/activar-rbac-extendido/
 :category: aix
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura del modo RBAC incluido en los sistemas AIX, donde un atacante puede aprovecharse de una mala configuración de dicho modo, accediendo a funcionalidades criticas dentro del sistema.
-:keywords: AIX, Seguridad, RBAC, CLI, Sistema Operativo, Habilitar.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuracion segura del modo RBAC incluido en los sistemas AIX, donde un atacante puede aprovecharse de una mala configuración de dicho modo, accediendo a funcionalidades criticas dentro del sistema.
+:page-keywords: AIX, Seguridad, RBAC, CLI, Sistema Operativo, Habilitar.
 :defends: yes
 
 = Activar RBAC Extendido

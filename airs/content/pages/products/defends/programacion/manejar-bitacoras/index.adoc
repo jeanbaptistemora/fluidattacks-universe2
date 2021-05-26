@@ -1,7 +1,7 @@
-:slug: products/defends/programacion/manejar-bitacoras/
+:page-slug: products/defends/programacion/manejar-bitacoras/
 :category: programacion
-:description: Nuestros ethical hackers explican que son las bitácoras y porque es importante usarlas en el proceso de creación y puesta en marcha de un sistema de información. Además, mencionan algunas reglas que se deben tener en cuenta al momento de su creación.
-:keywords: Programacion, Bitacoras, Logs, Eventos, Seguridad, Error.
+:page-description: Nuestros ethical hackers explican que son las bitácoras y porque es importante usarlas en el proceso de creación y puesta en marcha de un sistema de información. Además, mencionan algunas reglas que se deben tener en cuenta al momento de su creación.
+:page-keywords: Programacion, Bitacoras, Logs, Eventos, Seguridad, Error.
 :defends: yes
 
 = Buenas Prácticas en el Manejo de Bitácoras

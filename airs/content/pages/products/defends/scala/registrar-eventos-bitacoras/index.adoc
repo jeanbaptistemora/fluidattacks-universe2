@@ -1,7 +1,7 @@
-:slug: products/defends/scala/registrar-eventos-bitacoras/
+:page-slug: products/defends/scala/registrar-eventos-bitacoras/
 :category: scala
-:description: Nuestros ethical hackers explican como programar adecuadamente en Scala al registrar eventos importantes en bitácoras. Esto facilita la labor de identificar fallas y ataques potenciales, así como realizar un seguimiento detallado de los archivos e información afectada.
-:keywords: Scala, Eventos, Bitácora, Registro, Información, Severidad.
+:page-description: Nuestros ethical hackers explican como programar adecuadamente en Scala al registrar eventos importantes en bitácoras. Esto facilita la labor de identificar fallas y ataques potenciales, así como realizar un seguimiento detallado de los archivos e información afectada.
+:page-keywords: Scala, Eventos, Bitácora, Registro, Información, Severidad.
 :defends: yes
 
 = Registrar Eventos en Bitácoras

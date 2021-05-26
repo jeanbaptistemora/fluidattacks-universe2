@@ -1,14 +1,14 @@
-:slug: release-the-beast/
-:date: 2018-04-27
-:subtitle: Understanding the BEAST
-:category: attacks
-:tags: tls, cbc, vulnerability
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331051/blog/release-the-beast/cover_lcrn2e.webp
-:alt: Release the beast
-:description: How does a theorized attack become practical after more than 10 years? Find out here.
-:keywords: TLS, CBC, Injection, Vulnerabilty, BACPA, CPA, Ethical Hacking, Pentesting
-:author: Daniel Yepes
-:writer: cestmoi
+:page-slug: release-the-beast/
+:page-date: 2018-04-27
+:page-subtitle: Understanding the BEAST
+:page-category: attacks
+:page-tags: tls, cbc, vulnerability
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331051/blog/release-the-beast/cover_lcrn2e.webp
+:page-alt: Release the beast
+:page-description: How does a theorized attack become practical after more than 10 years? Find out here.
+:page-keywords: TLS, CBC, Injection, Vulnerabilty, BACPA, CPA, Ethical Hacking, Pentesting
+:page-author: Daniel Yepes
+:page-writer: cestmoi
 :name: Daniel Yepes
 :about1: -
 :about2: "If the doors of perception were cleansed everything would appear to man as it is, Infinite." William Blake.

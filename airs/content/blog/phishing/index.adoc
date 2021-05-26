@@ -1,14 +1,14 @@
-:slug: phishing/
-:date: 2020-03-20
-:subtitle: Sharing at least a modicum about phishing attacks
-:category: techniques
-:tags: social-engineering, information, web, software, cybersecurity, business
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330974/blog/phishing/cover_tl6uyf.webp
-:alt: Photo by Glen Hooper on Unsplash
-:description: In this post, we give some general ideas about phishing, hoping to contribute to its prevention.
-:keywords: Phishing, Social Engineering, Information, Web, Software, Cybersecurity, Business, Ethical Hacking, Pentesting
-:author: Felipe Ruiz
-:writer: fruiz
+:page-slug: phishing/
+:page-date: 2020-03-20
+:page-subtitle: Sharing at least a modicum about phishing attacks
+:page-category: techniques
+:page-tags: social-engineering, information, web, software, cybersecurity, business
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330974/blog/phishing/cover_tl6uyf.webp
+:page-alt: Photo by Glen Hooper on Unsplash
+:page-description: In this post, we give some general ideas about phishing, hoping to contribute to its prevention.
+:page-keywords: Phishing, Social Engineering, Information, Web, Software, Cybersecurity, Business, Ethical Hacking, Pentesting
+:page-author: Felipe Ruiz
+:page-writer: fruiz
 :name: Felipe Ruiz
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/iK1G8rt2UAw

@@ -1,7 +1,7 @@
-:slug: products/defends/aspnet/cifrar-contrasenas-con-salt/
+:page-slug: products/defends/aspnet/cifrar-contrasenas-con-salt/
 :category: aspnet
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura de contraseñas en ASP.NET, agregando robustez a la aplicación al cifrar contraseñas con un valor aleatorio salt utilizando una función de resumen hash.
-:keywords: ASP.NET, Seguridad, Contraseña, Cifrar, Salt, Hash.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura de contraseñas en ASP.NET, agregando robustez a la aplicación al cifrar contraseñas con un valor aleatorio salt utilizando una función de resumen hash.
+:page-keywords: ASP.NET, Seguridad, Contraseña, Cifrar, Salt, Hash.
 :defends: yes
 
 = Cifrar contraseñas con salt

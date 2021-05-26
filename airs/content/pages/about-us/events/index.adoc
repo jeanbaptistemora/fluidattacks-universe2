@@ -1,8 +1,8 @@
-:slug: about-us/events/
+:page-slug: about-us/events/
 :category: about-us
-:description: As cybersecurity experts, we offer talks related to the security information field. Fluid Attacks can help you with your next conference. Check our options.
-:keywords: Fluid Attacks, Talk, Security, Experts, Cybersecurity, Conference, Events, Pentesting, Ethical Hacking
-:banner: events-bg
+:page-description: As cybersecurity experts, we offer talks related to the security information field. Fluid Attacks can help you with your next conference. Check our options.
+:page-keywords: Fluid Attacks, Talk, Security, Experts, Cybersecurity, Conference, Events, Pentesting, Ethical Hacking
+:page-banner: events-bg
 
 = Events
 

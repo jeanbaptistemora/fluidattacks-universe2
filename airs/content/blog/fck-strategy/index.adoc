@@ -1,14 +1,14 @@
-:slug: fck-strategy/
-:date: 2019-04-30
-:subtitle: The pratfall effect application on business
-:category: philosophy
-:tags: business, security, mistake, company
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330875/blog/fck-strategy/cover_ofs1fa.webp
-:alt: Broken blue ceramic plate on Unsplash: https://unsplash.com/photos/Odc4dcsjUBw
-:description: Companies should pay attention to how to handle mistakes and think about how to leverage from imperfection. Here, a F*CK statement provides a lesson.
-:keywords: Business, Mistakes, Company, Image, Cibersecurity, Pratfall Effect, Ethical Hacking, Pentesting
-:author: Julian Arango
-:writer: jarango
+:page-slug: fck-strategy/
+:page-date: 2019-04-30
+:page-subtitle: The pratfall effect application on business
+:page-category: philosophy
+:page-tags: business, security, mistake, company
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330875/blog/fck-strategy/cover_ofs1fa.webp
+:page-alt: Broken blue ceramic plate on Unsplash: https://unsplash.com/photos/Odc4dcsjUBw
+:page-description: Companies should pay attention to how to handle mistakes and think about how to leverage from imperfection. Here, a F*CK statement provides a lesson.
+:page-keywords: Business, Mistakes, Company, Image, Cibersecurity, Pratfall Effect, Ethical Hacking, Pentesting
+:page-author: Julian Arango
+:page-writer: jarango
 :name: Julian Arango
 :about1: Behavioral strategist
 :about2: Data scientist in training.

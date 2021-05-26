@@ -1,14 +1,14 @@
-:slug: tainted-love/
-:date: 2019-08-30
-:subtitle: It's all about sanitization
-:category: attacks
-:tags: vulnerability, code, discovery
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331105/blog/tainted-love/cover_pkrmla.webp
-:alt: Person using a Syringe filled with bad stuff
-:description: This blog post provides a brief description of static and dynamic taint analysis or taint checking.
-:keywords: Taint Analysis, Security, Injection, Bug, Vulnerability, Flow, Ethical Hacking, Pentesting
-:author: Rafael Ballestas
-:writer: raballestasr
+:page-slug: tainted-love/
+:page-date: 2019-08-30
+:page-subtitle: It's all about sanitization
+:page-category: attacks
+:page-tags: vulnerability, code, discovery
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331105/blog/tainted-love/cover_pkrmla.webp
+:page-alt: Person using a Syringe filled with bad stuff
+:page-description: This blog post provides a brief description of static and dynamic taint analysis or taint checking.
+:page-keywords: Taint Analysis, Security, Injection, Bug, Vulnerability, Flow, Ethical Hacking, Pentesting
+:page-author: Rafael Ballestas
+:page-writer: raballestasr
 :name: Rafael Ballestas
 :about1: Mathematician
 :about2: with an itch for CS

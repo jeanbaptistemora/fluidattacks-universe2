@@ -1,14 +1,14 @@
-:slug: recent-osce/
-:date: 2020-09-07
-:subtitle: A short interview with Andres Roldan
-:category: interview
-:tags: interview, red-team, osce, training, exploit, software
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331047/blog/recent-osce/cover_qrhc7w.webp
-:alt: Photo by Clovis WOOD on Unsplash
-:description: We spoke with Andres Roldan, our Offensive Team Leader, who recently obtained his OSCE certificate. Here he shares with us a little more about his experience.
-:keywords: Interview, Red Team, OSCE, Training, Exploit, Cybersecurity, Security, Pentesting, Ethical Hacking
-:author: Felipe Ruiz
-:writer: fruiz
+:page-slug: recent-osce/
+:page-date: 2020-09-07
+:page-subtitle: A short interview with Andres Roldan
+:page-category: interview
+:page-tags: interview, red-team, osce, training, exploit, software
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331047/blog/recent-osce/cover_qrhc7w.webp
+:page-alt: Photo by Clovis WOOD on Unsplash
+:page-description: We spoke with Andres Roldan, our Offensive Team Leader, who recently obtained his OSCE certificate. Here he shares with us a little more about his experience.
+:page-keywords: Interview, Red Team, OSCE, Training, Exploit, Cybersecurity, Security, Pentesting, Ethical Hacking
+:page-author: Felipe Ruiz
+:page-writer: fruiz
 :name: Felipe Ruiz
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/3LI8zMPWBlg

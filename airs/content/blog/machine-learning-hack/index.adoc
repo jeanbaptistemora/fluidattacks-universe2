@@ -1,14 +1,14 @@
-:slug: machine-learning-hack/
-:date: 2018-11-07
-:subtitle: Machine learning for vulnerability discovery
-:category: machine-learning
-:tags: machine-learning, vulnerability, discovery
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330936/blog/machine-learning-hack/cover_q6ydtc.webp
-:alt: Can machines learn to hack?
-:description: This post is a bird's eye view of machine learning techniques applied to vulnerability discovery in source code, reviewing papers from 2011 to 2018.
-:keywords: Machine Learning, Vulnerability, Anomaly Detection, Pattern Recognition, Deep Learning, Security, Ethical Hacking, Pentesting
-:author: Rafael Ballestas
-:writer: raballestasr
+:page-slug: machine-learning-hack/
+:page-date: 2018-11-07
+:page-subtitle: Machine learning for vulnerability discovery
+:page-category: machine-learning
+:page-tags: machine-learning, vulnerability, discovery
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330936/blog/machine-learning-hack/cover_q6ydtc.webp
+:page-alt: Can machines learn to hack?
+:page-description: This post is a bird's eye view of machine learning techniques applied to vulnerability discovery in source code, reviewing papers from 2011 to 2018.
+:page-keywords: Machine Learning, Vulnerability, Anomaly Detection, Pattern Recognition, Deep Learning, Security, Ethical Hacking, Pentesting
+:page-author: Rafael Ballestas
+:page-writer: raballestasr
 :name: Rafael Ballestas
 :about1: Mathematician
 :about2: with an itch for CS

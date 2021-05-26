@@ -1,7 +1,7 @@
-:slug: products/defends/aspnet/generar-identificador-unico/
+:page-slug: products/defends/aspnet/generar-identificador-unico/
 :category: aspnet
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASPNET al generar un Identificador Único Universal (UUID). Los UUIDs son números de 32 dígitos virtualmente únicos que sirven para identificar de forma inequívoca un recurso o proceso.
-:keywords: ASPNET, Seguridad, UUID, Identificador, Universal, Transacción.
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en ASPNET al generar un Identificador Único Universal (UUID). Los UUIDs son números de 32 dígitos virtualmente únicos que sirven para identificar de forma inequívoca un recurso o proceso.
+:page-keywords: ASPNET, Seguridad, UUID, Identificador, Universal, Transacción.
 :defends: yes
 
 = Generar identificador único para transacción

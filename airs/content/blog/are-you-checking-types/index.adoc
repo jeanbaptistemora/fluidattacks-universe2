@@ -1,14 +1,14 @@
-:slug: are-you-checking-types/
-:date: 2018-08-03
-:category: programming
-:subtitle: Static type checking with mypy
-:tags: application, functional, python, mypy
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330665/blog/are-you-checking-types/cover_wrwgye.webp
-:alt: Snake checking a code
-:description: What are the potential problems of untyped objects in Python? Here we work on the importance of checking types before running the code and how mypy can help.
-:keywords: Functional Paradigm, Object Oriented, Stateless, Type Checking, Python, Duck Typing, Mypy, Ethical Hacking, Pentesting
-:author: Oswaldo Parada
-:writer: oparada
+:page-slug: are-you-checking-types/
+:page-date: 2018-08-03
+:page-category: programming
+:page-subtitle: Static type checking with mypy
+:page-tags: application, functional, python, mypy
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330665/blog/are-you-checking-types/cover_wrwgye.webp
+:page-alt: Snake checking a code
+:page-description: What are the potential problems of untyped objects in Python? Here we work on the importance of checking types before running the code and how mypy can help.
+:page-keywords: Functional Paradigm, Object Oriented, Stateless, Type Checking, Python, Duck Typing, Mypy, Ethical Hacking, Pentesting
+:page-author: Oswaldo Parada
+:page-writer: oparada
 :name: Oswaldo José Parada Cuadros
 :about1: Mechanical Engineer
 :about2: Family, friends and little details. There is the answer.

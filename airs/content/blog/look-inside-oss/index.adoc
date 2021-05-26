@@ -1,14 +1,14 @@
-:slug: look-inside-oss/
-:date: 2020-04-27
-:subtitle: Working with OSS today can be a great advantage
-:category: politics
-:tags: security, cybersecurity, code, software, company, business
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330936/blog/look-inside-oss/cover_qrsiga.webp
-:alt: Photo by Vinayak Varma on Unsplash
-:description: Security can be significantly enhanced when codes are presented publicly. In this post, we talk about OSS and its advantages for companies using it nowadays.
-:keywords: Security, Cybersecurity, OSS, Code, Software, Company, Business, Ethical Hacking, Pentesting
-:author: Felipe Ruiz
-:writer: fruiz
+:page-slug: look-inside-oss/
+:page-date: 2020-04-27
+:page-subtitle: Working with OSS today can be a great advantage
+:page-category: politics
+:page-tags: security, cybersecurity, code, software, company, business
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330936/blog/look-inside-oss/cover_qrsiga.webp
+:page-alt: Photo by Vinayak Varma on Unsplash
+:page-description: Security can be significantly enhanced when codes are presented publicly. In this post, we talk about OSS and its advantages for companies using it nowadays.
+:page-keywords: Security, Cybersecurity, OSS, Code, Software, Company, Business, Ethical Hacking, Pentesting
+:page-author: Felipe Ruiz
+:page-writer: fruiz
 :name: Felipe Ruiz
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/K9nejptN9i8

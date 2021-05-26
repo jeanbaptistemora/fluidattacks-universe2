@@ -1,7 +1,7 @@
-:slug: products/defends/aspnet/lineamientos-seguridad/
+:page-slug: products/defends/aspnet/lineamientos-seguridad/
 :category: aspnet
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la definicion de lineamientos generales de seguridad. Una mala configuracion puede causar una brecha de seguridad que comprometa la informacion confidencial de la organizacion. Aqui te mostramos como evitarlo.
-:keywords: ASP.NET, Seguridad, Lineamientos, Protección, Datos, Desarrollo
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la definicion de lineamientos generales de seguridad. Una mala configuracion puede causar una brecha de seguridad que comprometa la informacion confidencial de la organizacion. Aqui te mostramos como evitarlo.
+:page-keywords: ASP.NET, Seguridad, Lineamientos, Protección, Datos, Desarrollo
 :defends: yes
 
 = Entender Lineamientos de Seguridad

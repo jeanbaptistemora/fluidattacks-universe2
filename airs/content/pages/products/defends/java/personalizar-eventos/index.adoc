@@ -1,7 +1,7 @@
-:slug: products/defends/java/personalizar-eventos/
+:page-slug: products/defends/java/personalizar-eventos/
 :category: java
-:description: Nuestros ethical hackers, teniendo como base que los eventos de seguridad deben ser registrados en bitácoras, explican la manera de personalizar dicho registro realizando una configuración segura del logger utilizando archivos de configuración personalizados.
-:keywords: Java, Seguridad, Bitacoras, Logs, Logger, Información.
+:page-description: Nuestros ethical hackers, teniendo como base que los eventos de seguridad deben ser registrados en bitácoras, explican la manera de personalizar dicho registro realizando una configuración segura del logger utilizando archivos de configuración personalizados.
+:page-keywords: Java, Seguridad, Bitacoras, Logs, Logger, Información.
 :defends: yes
 
 = Personalizar Registro de Eventos

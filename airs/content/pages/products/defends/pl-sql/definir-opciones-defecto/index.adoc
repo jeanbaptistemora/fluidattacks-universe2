@@ -1,7 +1,7 @@
-:slug: products/defends/pl-sql/definir-opciones-defecto/
+:page-slug: products/defends/pl-sql/definir-opciones-defecto/
 :category: pl/sql
-:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en PL/SQL al definir opciones seguras por defecto en estructuras condicionales. Es necesario establecer opciones seguras y controladas ante entradas inválidas para evitar posibles ataques.
-:keywords: PL/SQL, Opciones, Seguras, Condicionales, Seguridad, Defecto
+:page-description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programacion segura en PL/SQL al definir opciones seguras por defecto en estructuras condicionales. Es necesario establecer opciones seguras y controladas ante entradas inválidas para evitar posibles ataques.
+:page-keywords: PL/SQL, Opciones, Seguras, Condicionales, Seguridad, Defecto
 :defends: yes
 
 = Establecer Opciones por Defecto

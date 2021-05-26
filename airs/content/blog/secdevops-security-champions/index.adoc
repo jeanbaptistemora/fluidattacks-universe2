@@ -1,14 +1,14 @@
-:slug: secdevops-security-champions/
-:date: 2020-05-21
-:subtitle: Six recommendations for SecDevOps from Carnegie Mellon
-:category: philosophy
-:tags: security, devops, software, information, web, cloud
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331091/blog/secdevops-security-champions/cover_nkri6h.webp
-:alt: Photo by Ingo Stiller on Unsplash
-:description: Here you'll learn about Security Champions. But first, we give you five recommendations if you're considering the implementation of security in your business.
-:keywords: Security, Champions, Devops, Secdevops, Software, Information, Web, Cloud, Ethical Hacking, Pentesting, Devsecops
-:author: Felipe Ruiz
-:writer: fruiz
+:page-slug: secdevops-security-champions/
+:page-date: 2020-05-21
+:page-subtitle: Six recommendations for SecDevOps from Carnegie Mellon
+:page-category: philosophy
+:page-tags: security, devops, software, information, web, cloud
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331091/blog/secdevops-security-champions/cover_nkri6h.webp
+:page-alt: Photo by Ingo Stiller on Unsplash
+:page-description: Here you'll learn about Security Champions. But first, we give you five recommendations if you're considering the implementation of security in your business.
+:page-keywords: Security, Champions, Devops, Secdevops, Software, Information, Web, Cloud, Ethical Hacking, Pentesting, Devsecops
+:page-author: Felipe Ruiz
+:page-writer: fruiz
 :name: Felipe Ruiz
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/3tkxfe2GocY

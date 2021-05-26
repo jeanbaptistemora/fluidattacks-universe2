@@ -1,14 +1,14 @@
-:slug: fool-machine/
-:date: 2019-08-13
-:subtitle: Trick neural network classifiers
-:category: machine-learning
-:tags: machine-learning, vulnerability, code
-:image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330876/blog/fool-machine/cover_fbydkm.webp
-:alt: Photo by KP Bodenstein on Unsplash: https://unsplash.com/photos/ElQI4kGSbiw
-:description: You'll see how to create images that fool classifiers into thinking they see the wrong object while maintaining visual similarity to a rightly classified image.
-:keywords: Machine Learning, Vulnerability, Classification, Adversarial Example, Image, Artificial Intelligence, Ethical Hacking, Pentesting
-:author: Rafael Ballestas
-:writer: raballestasr
+:page-slug: fool-machine/
+:page-date: 2019-08-13
+:page-subtitle: Trick neural network classifiers
+:page-category: machine-learning
+:page-tags: machine-learning, vulnerability, code
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330876/blog/fool-machine/cover_fbydkm.webp
+:page-alt: Photo by KP Bodenstein on Unsplash: https://unsplash.com/photos/ElQI4kGSbiw
+:page-description: You'll see how to create images that fool classifiers into thinking they see the wrong object while maintaining visual similarity to a rightly classified image.
+:page-keywords: Machine Learning, Vulnerability, Classification, Adversarial Example, Image, Artificial Intelligence, Ethical Hacking, Pentesting
+:page-author: Rafael Ballestas
+:page-writer: raballestasr
 :name: Rafael Ballestas
 :about1: Mathematician
 :about2: with an itch for CS

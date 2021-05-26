@@ -1,7 +1,7 @@
-:slug: careers/portfolio/
+:page-slug: careers/portfolio/
 :category: careers
-:description: A portfolio is a document that describes your biggest personal, professional, and academic achievements. Do you want to show us your portfolio?
-:keywords: Fluid Attacks, Careers, Process, Selection, Portfolio, Candidate, Pentester, Ethical Hacker
+:page-description: A portfolio is a document that describes your biggest personal, professional, and academic achievements. Do you want to show us your portfolio?
+:page-keywords: Fluid Attacks, Careers, Process, Selection, Portfolio, Candidate, Pentester, Ethical Hacker
 
 = Portfolio
 
