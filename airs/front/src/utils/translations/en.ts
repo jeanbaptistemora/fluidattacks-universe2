@@ -172,6 +172,8 @@ const pageTexts: ResourceKey = {
     cards: {
       hackers: "11",
       hackersText: "hackers on average attacking your project",
+      owasp: "100",
+      owaspText: "OWASP Benchmark Accuracy Score",
       percentage: "77%",
       percentageText:
         " of continuous hacking projects with" +

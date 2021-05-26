@@ -124,6 +124,10 @@ const SolutionIndex: React.FC<IQueryData> = ({
                     number={translate.t("solution.cards.hackers")}
                     text={translate.t("solution.cards.hackersText")}
                   />
+                  <WhiteShadowedCard
+                    number={translate.t("solution.cards.owasp")}
+                    text={translate.t("solution.cards.owaspText")}
+                  />
                 </FlexCenterItemsContainer>
               </FullWidthContainer>
             </PageContainer>
