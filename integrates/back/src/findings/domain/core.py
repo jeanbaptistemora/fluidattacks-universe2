@@ -38,6 +38,7 @@ from custom_exceptions import (
     InvalidDraftTitle,
     NotVerificationRequested,
     PermissionDenied,
+    UnableToSkimsQueue,
     VulnNotFound,
 )
 from custom_types import (
@@ -723,6 +724,7 @@ async def request_vulnerability_verification(
                 "Could not queue a skims execution",
                 extra={"extra": skims_queue_kwargs},
             )
+            raise UnableToSkimsQueue()
     else:
         LOGGER.error("An error occurred remediating", **NOEXTRA)
         raise NotVerificationRequested()

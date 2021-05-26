@@ -27,6 +27,10 @@ class InvalidVulnWhere(_SingleMessageException):
     msg: str = "Vulnerability where should match: ^(?!=)+[^/]+/.+$"
 
 
+class UnableToSkimsQueue(_SingleMessageException):
+    msg: str = "Unable to queue a verification request"
+
+
 class AcceptionNotRequested(Exception):
     """Exception to control if acceptation is not valid"""
 
