@@ -22,7 +22,7 @@ from roots.validations import (
 )
 
 
-def test_validate_fields():
+def test_validate_fields() -> None:
     assert not bool(validate_fields(["valid%", " valid="]))
     assert not bool(validate_fields(["testfield", "testfield2"]))
     with pytest.raises(InvalidChar):
@@ -32,7 +32,7 @@ def test_validate_fields():
         assert validate_fields(["testfield", "<testfield2"])
 
 
-def test_validate_field_length():
+def test_validate_field_length() -> None:
     assert validate_field_length("testlength", limit=12)
     assert validate_field_length(
         "testlength", limit=2, is_greater_than_limit=True
@@ -44,32 +44,32 @@ def test_validate_field_length():
         )
 
 
-def test_validate_email_address():
+def test_validate_email_address() -> None:
     assert validate_email_address("test@unittesting.com")
     with pytest.raises(InvalidField):
         assert validate_email_address("testunittesting.com")
         assert validate_email_address("test+1@unittesting.com")
 
 
-def test_validate_project_name():
+def test_validate_project_name() -> None:
     assert not bool(validate_project_name("test"))
     with pytest.raises(InvalidField):
         assert validate_project_name("=test2@")
 
 
-def test_validate_alphanumeric_field():
+def test_validate_alphanumeric_field() -> None:
     assert validate_alphanumeric_field("one test")
     with pytest.raises(InvalidField):
         assert validate_alphanumeric_field("=test2@")
 
 
-def test_validate_phone_field():
+def test_validate_phone_field() -> None:
     assert validate_phone_field("+57123")
     with pytest.raises(InvalidField):
         assert validate_phone_field("+")
 
 
-def test_validate_file_name():
+def test_validate_file_name() -> None:
     name = "test123.py"
     invalid_name = "test.test.py"
     assert validate_file_name(name)

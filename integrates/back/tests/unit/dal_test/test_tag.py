@@ -13,7 +13,7 @@ pytestmark = [
 
 
 @pytest.mark.changes_db
-async def test_update():
+async def test_update() -> None:
     # company, tag, data
     test_1 = (
         "okada",

@@ -13,7 +13,7 @@ from newutils import datetime as datetime_utils
 pytestmark = pytest.mark.asyncio
 
 
-async def test_event():
+async def test_event() -> None:
     """Check for event."""
     query = """{
         event(identifier: "418900971"){
@@ -48,7 +48,7 @@ async def test_event():
     assert result["data"]["event"]["detail"] == "Integrates unit test"
 
 
-async def test_events():
+async def test_events() -> None:
     """Check for events."""
     query = """{
         events(projectName: "unittesting"){
@@ -65,7 +65,7 @@ async def test_events():
 
 
 @pytest.mark.changes_db
-async def test_create_event():
+async def test_create_event() -> None:
     """Check for createEvent mutation."""
     query = """
         mutation {
@@ -89,7 +89,7 @@ async def test_create_event():
 
 
 @pytest.mark.changes_db
-async def test_solve_event():
+async def test_solve_event() -> None:
     """Check for solveEvent mutation."""
     query = """
         mutation {
@@ -114,7 +114,7 @@ async def test_solve_event():
 
 
 @pytest.mark.changes_db
-async def test_add_event_consult():
+async def test_add_event_consult() -> None:
     """Check for addEventConsult mutation."""
     query = """
         mutation {
@@ -137,7 +137,7 @@ async def test_add_event_consult():
 
 
 @pytest.mark.changes_db
-async def test_update_event_evidence():
+async def test_update_event_evidence() -> None:
     """Check for updateEventEvidence mutation."""
     query = """
         mutation updateEventEvidence(
@@ -189,7 +189,7 @@ async def test_update_event_evidence():
 
 
 @pytest.mark.changes_db
-async def test_download_event_file():
+async def test_download_event_file() -> None:
     """Check for downloadEventFile mutation."""
     query = """
         mutation {
@@ -209,7 +209,7 @@ async def test_download_event_file():
 
 
 @pytest.mark.changes_db
-async def test_remove_event_evidence():
+async def test_remove_event_evidence() -> None:
     """Check for removeEventEvidence mutation."""
     query = """
         mutation {

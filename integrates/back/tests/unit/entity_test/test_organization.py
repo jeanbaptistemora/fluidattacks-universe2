@@ -40,7 +40,7 @@ async def _get_result_async(
 
 
 @pytest.mark.changes_db
-async def test_create_organization():
+async def test_create_organization() -> None:
     mutation_tpl = Template(
         """
         mutation {
@@ -78,7 +78,7 @@ async def test_create_organization():
 
 
 @pytest.mark.changes_db
-async def test_edit_stakeholder_organization():
+async def test_edit_stakeholder_organization() -> None:
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
     stakeholder = "org_testgroupmanager1@gmail.com"
     query = Template(
@@ -135,7 +135,7 @@ async def test_edit_stakeholder_organization():
 
 
 @pytest.mark.changes_db
-async def test_grant_stakeholder_organization_access():
+async def test_grant_stakeholder_organization_access() -> None:
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
     stakeholder = "org_testuser6@gmail.com"
     query = Template(
@@ -210,7 +210,7 @@ async def test_grant_stakeholder_organization_access():
 
 
 @pytest.mark.changes_db
-async def test_remove_stakeholder_organization_access():
+async def test_remove_stakeholder_organization_access() -> None:
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
     stakeholder = "org_testuser4@gmail.com"
     query = Template(
@@ -244,7 +244,7 @@ async def test_remove_stakeholder_organization_access():
 
 
 @pytest.mark.changes_db
-async def test_update_organization_policies():
+async def test_update_organization_policies() -> None:
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
     org_name = "hajime"
     query = f"""
@@ -279,7 +279,7 @@ async def test_update_organization_policies():
     assert result["errors"][0]["message"] == exe.args[0]
 
 
-async def test_get_organization_id():
+async def test_get_organization_id() -> None:
     org_name = "okada"
     expected_org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     query = Template(
@@ -308,7 +308,7 @@ async def test_get_organization_id():
     assert result["errors"][0]["message"] == exe.args[0]
 
 
-async def test_organization():
+async def test_organization() -> None:
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     expected_groups = ["oneshottest", "unittesting"]
     expected_stakeholders = [

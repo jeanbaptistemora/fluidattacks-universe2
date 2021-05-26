@@ -9,7 +9,7 @@ from settings import SESSION_COOKIE_AGE
 AGE_WEEKS = 27  # invalid expiration time
 
 
-def test_verificate_hash_token():
+def test_verificate_hash_token() -> None:
     token = token_utils.calculate_hash_token()
     access_token = {"salt": token["salt"], "jti": token["jti_hashed"]}
     different_token = token_utils.calculate_hash_token()
@@ -20,7 +20,7 @@ def test_verificate_hash_token():
     )
 
 
-def test_is_valid_expiration_time():
+def test_is_valid_expiration_time() -> None:
     exp_valid = int(time()) + SESSION_COOKIE_AGE
     exp_invalid = int(time() + timedelta(weeks=AGE_WEEKS).total_seconds())
 

@@ -8,7 +8,7 @@ pytestmark = [
 
 
 @pytest.mark.changes_db
-async def test_update():
+async def test_update() -> None:
     event = await get_event("418900979")
     assert event.get("action_before_blocking", "") == "TEST_OTHER_PART_TOE"
 

@@ -14,7 +14,7 @@ from dataloaders import apply_context_attrs
 pytestmark = pytest.mark.asyncio
 
 
-async def test_me():
+async def test_me() -> None:
     """Check Me query"""
     query = """{
         me(callerOrigin: "API") {
@@ -53,7 +53,7 @@ async def test_me():
 
 
 @pytest.mark.changes_db
-async def test_sign_in():
+async def test_sign_in() -> None:
     """Check for signIn mutation."""
     query = """
         mutation {
@@ -74,7 +74,7 @@ async def test_sign_in():
 
 
 @pytest.mark.changes_db
-async def test_update_access_token():
+async def test_update_access_token() -> None:
     """Check for updateAccessToken mutation."""
     query = """
         mutation updateAccessToken ($expirationTime: Int!) {
@@ -96,7 +96,7 @@ async def test_update_access_token():
 
 
 @pytest.mark.changes_db
-async def test_invalidate_access_token():
+async def test_invalidate_access_token() -> None:
     """Check invalidateAccessToken query"""
     query = """
         mutation {
@@ -113,7 +113,7 @@ async def test_invalidate_access_token():
 
 
 @pytest.mark.changes_db
-async def test_accept_legal():
+async def test_accept_legal() -> None:
     """Check acceptLegal query"""
     query = """
         mutation {
@@ -130,7 +130,7 @@ async def test_accept_legal():
 
 
 @pytest.mark.changes_db
-async def test_add_push_token():
+async def test_add_push_token() -> None:
     """Check add_push_token mutation"""
     query = """
         mutation {

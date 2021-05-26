@@ -9,7 +9,7 @@ pytestmark = pytest.mark.asyncio
 
 
 @pytest.mark.changes_db
-async def test_invalidate_cache():
+async def test_invalidate_cache() -> None:
     """Check for invalidate_cache mutation."""
     query = """
         mutation {

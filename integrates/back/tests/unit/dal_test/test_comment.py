@@ -9,7 +9,7 @@ pytestmark = [
 
 
 @pytest.mark.changes_db
-async def test_delete():
+async def test_delete() -> None:
     finding_id = 500592001
     comment_id = 1558048727932
     comments = await get_comments("comment", finding_id)

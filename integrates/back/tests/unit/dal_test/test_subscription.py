@@ -19,12 +19,12 @@ pytestmark = [
 ]
 
 
-def test_image_path():
+def test_image_path() -> None:
     assert os.path.exists(FI_CHARTS_LOGO_PATH)
 
 
 @pytest.mark.changes_db
-async def test_update():
+async def test_update() -> None:
     await subscribe_user_to_entity_report(
         event_period=86400,
         report_entity="test_report_entity",

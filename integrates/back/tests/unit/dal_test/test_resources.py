@@ -7,7 +7,7 @@ pytestmark = pytest.mark.asyncio
 
 
 @pytest.mark.changes_db
-async def test_remove():
+async def test_remove() -> None:
     group_name = "continuoustesting"
 
     group_info = await get_attributes(group_name, ["files"])

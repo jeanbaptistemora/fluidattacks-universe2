@@ -21,7 +21,7 @@ pytestmark = [
 
 
 @pytest.mark.changes_db
-async def test_delete():
+async def test_delete() -> None:
     test_1 = "unittest3"
     assert {
         "company": "unittest",
@@ -37,7 +37,7 @@ async def test_delete():
 
 
 @pytest.mark.changes_db
-async def test_create():
+async def test_create() -> None:
     assert await get("unittest4") == {}
 
     await create("unittest4", {"phone_number": "11111111"})
@@ -48,7 +48,7 @@ async def test_create():
 
 
 @pytest.mark.changes_db
-async def test_update():
+async def test_update() -> None:
     assert await get("unittest5") == {}
 
     await create("unittest5", {"phone_number": "22222222"})

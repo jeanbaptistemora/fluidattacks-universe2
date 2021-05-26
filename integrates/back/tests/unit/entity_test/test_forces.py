@@ -22,7 +22,7 @@ async def _get_result(data: Dict[str, Any]) -> Dict[str, Any]:
     return result
 
 
-async def test_project_name():
+async def test_project_name() -> None:
     """Check for project_name field."""
     query = """{
       forcesExecutions(projectName: "unittesting"){
@@ -35,7 +35,7 @@ async def test_project_name():
     assert result["data"]["forcesExecutions"]["projectName"] == "unittesting"
 
 
-async def _test_executions():
+async def _test_executions() -> None:
     """Check for executions field."""
     query = """
       query {

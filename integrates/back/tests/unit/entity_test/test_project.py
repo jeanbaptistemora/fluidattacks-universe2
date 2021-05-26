@@ -27,7 +27,7 @@ async def _get_result_async(
     return result
 
 
-async def test_project():
+async def test_project() -> None:
     """Check for project mutation."""
     variables = {"projectName": "unittesting"}
     query = """
@@ -189,7 +189,7 @@ async def test_project():
     ]
 
 
-async def test_project_filtered():
+async def test_project_filtered() -> None:
     """Check for project mutation."""
     query = """
       query {
@@ -207,7 +207,7 @@ async def test_project_filtered():
     assert result["data"]["project"]["findings"][0]["id"] == "463461507"
 
 
-async def test_project_filter_not_match():
+async def test_project_filter_not_match() -> None:
     """Check for project mutation."""
     query = """
       query {
@@ -225,7 +225,7 @@ async def test_project_filter_not_match():
 
 
 @pytest.mark.changes_db
-async def test_create_project():
+async def test_create_project() -> None:
     """Check for createProject mutation."""
     query = """
     mutation {
@@ -250,7 +250,7 @@ async def test_create_project():
 
 
 @pytest.mark.changes_db
-async def test_add_tags():
+async def test_add_tags() -> None:
     """Check for addTags mutation."""
     query = """
         mutation AddTagsMutation($projectName: String!, $tagsData: JSONString!) {
@@ -273,7 +273,7 @@ async def test_add_tags():
 
 
 @pytest.mark.changes_db
-async def test_remove_tag():
+async def test_remove_tag() -> None:
     """Check for removeTag mutation."""
     query = """
         mutation RemoveTagMutation($tagToRemove: String!, $projectName: String!) {
@@ -294,7 +294,7 @@ async def test_remove_tag():
 
 
 @pytest.mark.changes_db
-async def test_add_project_consult_parent_zero():
+async def test_add_project_consult_parent_zero() -> None:
     """Check for addProjectConsult mutation."""
     query = """
       mutation {
@@ -316,7 +316,7 @@ async def test_add_project_consult_parent_zero():
 
 
 @pytest.mark.changes_db
-async def test_add_project_consult_parent_non_zero():
+async def test_add_project_consult_parent_non_zero() -> None:
     """Check for addProjectConsult mutation."""
     query = """
       mutation {
@@ -361,7 +361,7 @@ async def test_edit_group_good(
     has_integrates,
     has_skims,
     expected,
-):
+) -> None:
     query = f"""
         mutation {{
             editGroup(
@@ -507,7 +507,7 @@ async def test_edit_group_bad(
     has_skims,
     reason,
     expected,
-):
+) -> None:
     query = f"""
         mutation {{
             editGroup(

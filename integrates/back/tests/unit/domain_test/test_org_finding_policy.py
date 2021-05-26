@@ -17,7 +17,7 @@ pytestmark = [
 ]
 
 
-async def test_get_by_group():
+async def test_get_by_group() -> None:
     org_name = "okada"
     finding_policy_id = "8b35ae2a-56a1-4f64-9da7-6a552683bf46"
     assert await policies_domain.get_finding_policy(

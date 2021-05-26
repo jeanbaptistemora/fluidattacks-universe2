@@ -11,7 +11,7 @@ pytestmark = [
 ]
 
 
-async def test_has_access_to_finding():
+async def test_has_access_to_finding() -> None:
     wrong_data = ["unittest@fluidattacks.com", "000000000"]
     right_data = ["unittest@fluidattacks.com", "560175507"]
     with pytest.raises(FindingNotFound):
@@ -19,11 +19,11 @@ async def test_has_access_to_finding():
     assert await has_access_to_finding(right_data[0], right_data[1])
 
 
-async def test_has_access_to_event():
+async def test_has_access_to_event() -> None:
     assert await has_access_to_event("unittest@fluidattacks.com", "418900971")
 
 
-async def test_has_valid_access_token():
+async def test_has_valid_access_token() -> None:
     jti = "ff6273146a0e4ed82715cdb4db7f5915b30dfa4bccc54c0d2cda17a61a44a5f6"
     assert await has_valid_access_token(
         "unittest@fluidattacks.com",

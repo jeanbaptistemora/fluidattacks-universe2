@@ -5,7 +5,7 @@ from users import domain as users_domain
 
 
 @pytest.mark.changes_db
-async def test_add_push_token():
+async def test_add_push_token() -> None:
     user_email = "test@mail.com"
     with pytest.raises(InvalidPushToken):
         assert await users_domain.add_push_token(
@@ -21,7 +21,7 @@ async def test_add_push_token():
 
 
 @pytest.mark.changes_db
-async def test_remove_push_token():
+async def test_remove_push_token() -> None:
     user_email = "unittest@fluidattacks.com"
     token = "ExponentPushToken[dummy]"
 

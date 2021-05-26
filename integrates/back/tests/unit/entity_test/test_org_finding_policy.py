@@ -33,7 +33,7 @@ async def _get_result_async(
 
 
 @pytest.mark.changes_db
-async def test_handle_org_finding_policy_acceptation():
+async def test_handle_org_finding_policy_acceptation() -> None:
     org_name = "okada"
     finding_name = "F037. Fuga de información técnica"
     finding_id = "457497318"
@@ -132,7 +132,7 @@ async def test_handle_org_finding_policy_acceptation():
 
 
 @pytest.mark.changes_db
-async def test_deactivate_org_finding_policy():
+async def test_deactivate_org_finding_policy() -> None:
     org_name = "okada"
     finding_name = "F081. Ausencia de doble factor de autenticación"
     finding_id = "475041513"
@@ -274,7 +274,7 @@ async def test_deactivate_org_finding_policy():
 
 
 @pytest.mark.changes_db
-async def test_add_org_finding_policy():
+async def test_add_org_finding_policy() -> None:
     org_name = "okada"
     fin_name = "F031. Permisos excesivos"
     query = """
@@ -308,7 +308,7 @@ async def test_add_org_finding_policy():
     assert result["errors"][0]["message"] == "Access denied"
 
 
-async def test_get_org_finding_policies():
+async def test_get_org_finding_policies() -> None:
     id = "8b35ae2a-56a1-4f64-9da7-6a552683bf46"
     name = "F007. Cross site request forgery"
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"

@@ -12,7 +12,7 @@ from dataloaders import apply_context_attrs
 pytestmark = pytest.mark.asyncio
 
 
-async def test_finding_report():
+async def test_finding_report() -> None:
     query_pdf = """
         query test {
             report(
@@ -55,7 +55,7 @@ async def test_finding_report():
     )
 
 
-def test_pdf_paths():
+def test_pdf_paths() -> None:
     # secure_pdf.py paths
     base = f"{STARTDIR}/integrates/back/src/reports"
     secure_pdf_paths = [

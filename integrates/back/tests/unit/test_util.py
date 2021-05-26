@@ -46,7 +46,7 @@ pytestmark = [
 ]
 
 
-def test_get_current_date():
+def test_get_current_date() -> None:
     tzn = pytz.timezone(TIME_ZONE)
     today = datetime.now(tz=tzn)
     date = today.strftime("%Y-%m-%d %H:%M")
@@ -55,7 +55,7 @@ def test_get_current_date():
     assert test_data == date
 
 
-def test_ord_asc_by_criticality():
+def test_ord_asc_by_criticality() -> None:
     sortable_data = [
         {"severityCvss": 40},
         {"severityCvss": 13},
@@ -78,7 +78,7 @@ def test_ord_asc_by_criticality():
     assert test_data == expected_output
 
 
-def test_assert_file_mime():
+def test_assert_file_mime() -> None:
     path = os.path.dirname(__file__)
     filename = os.path.join(path, "mock/test-vulns.yaml")
     non_included_filename = os.path.join(path, "mock/test.7z")
@@ -89,7 +89,7 @@ def test_assert_file_mime():
     )
 
 
-async def test_payload_encode_decode():
+async def test_payload_encode_decode() -> None:
     payload = {
         "user_email": "unittest",
         "exp": datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
@@ -102,7 +102,7 @@ async def test_payload_encode_decode():
     assert payload == result
 
 
-async def test_payload_encrypt_decrypt():
+async def test_payload_encrypt_decrypt() -> None:
     payload = {
         "user_email": "unittest",
         "exp": datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
@@ -115,7 +115,7 @@ async def test_payload_encrypt_decrypt():
     assert payload == result
 
 
-async def test_decrypt_temp_support_for_nonencrypted():
+async def test_decrypt_temp_support_for_nonencrypted() -> None:
     payload = {
         "user_email": "unittest",
         "exp": datetime.utcnow() + timedelta(seconds=SESSION_COOKIE_AGE),
@@ -127,7 +127,7 @@ async def test_decrypt_temp_support_for_nonencrypted():
     assert payload == result
 
 
-async def test_get_jwt_content():
+async def test_get_jwt_content() -> None:
     request = create_dummy_simple_session()
     payload = {
         "user_email": "unittest",
@@ -161,7 +161,7 @@ async def test_get_jwt_content():
     assert test_data == expected_output
 
 
-async def test_valid_token():
+async def test_valid_token() -> None:
     request = create_dummy_simple_session()
     payload = {
         "user_email": "unittest",
@@ -191,7 +191,7 @@ async def test_valid_token():
     assert test_data == expected_output
 
 
-async def test_valid_api_token():
+async def test_valid_api_token() -> None:
     request = create_dummy_simple_session()
     payload = {
         "user_email": "unittest",
@@ -223,7 +223,7 @@ async def test_valid_api_token():
     assert test_data == expected_output
 
 
-async def test_expired_token():
+async def test_expired_token() -> None:
     request = create_dummy_simple_session()
     payload = {
         "user_email": "unittest",
@@ -245,7 +245,7 @@ async def test_expired_token():
         assert await token_utils.get_jwt_content(request)
 
 
-async def test_token_expired():
+async def test_token_expired() -> None:
     """Check if after change jti exception is raised."""
     user_email = "integratesuser@gmail.com"
     request = await create_dummy_session(user_email)
@@ -264,7 +264,7 @@ async def test_token_expired():
     assert await token_utils.get_jwt_content(new_request)
 
 
-async def test_revoked_token():
+async def test_revoked_token() -> None:
     request = create_dummy_simple_session()
     payload = {
         "user_email": "unittest",
@@ -288,7 +288,7 @@ async def test_revoked_token():
         assert await token_utils.get_jwt_content(request)
 
 
-def test_replace_all():
+def test_replace_all() -> None:
     data = {"a": "a", "b": "b", "c": "c"}
     text = "replaced"
     test_data = utils.replace_all(text, data)
@@ -296,7 +296,7 @@ def test_replace_all():
     assert test_data == expected_output
 
 
-def test_list_to_dict():
+def test_list_to_dict() -> None:
     keys = ["item", "item2", "item3"]
     values = ["hi", "this is a", "item"]
     test_data = utils.list_to_dict(keys, values)
@@ -310,14 +310,14 @@ def test_list_to_dict():
     assert third_test_data == third_expected_output
 
 
-def test_camelcase_to_snakecase():
+def test_camelcase_to_snakecase() -> None:
     camelcase_string = "thisIsATest"
     test_data = utils.camelcase_to_snakecase(camelcase_string)
     expected_output = "this_is_a_test"
     assert test_data == expected_output
 
 
-def test_is_valid_format():
+def test_is_valid_format() -> None:
     date = "2019-03-30 00:00:00"
     invalid_date = "2019/03/30 00:00:00"
     assert datetime_utils.is_valid_format(date)
@@ -325,7 +325,7 @@ def test_is_valid_format():
 
 
 @pytest.mark.changes_db
-async def test_create_user():
+async def test_create_user() -> None:
     timezone = pytz.timezone(TIME_ZONE)
 
     async def get_user_attrs(

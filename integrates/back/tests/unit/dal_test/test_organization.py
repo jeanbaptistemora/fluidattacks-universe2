@@ -10,7 +10,7 @@ pytestmark = [
 ]
 
 
-def test__map_keys_to_domain():
+def test__map_keys_to_domain() -> None:
     test_dict = {
         "pk": "primary-key",
         "sk": "secondary-key",
@@ -26,7 +26,7 @@ def test__map_keys_to_domain():
     assert "sk" not in mapped_dict
 
 
-def test__map_keys_to_dal():
+def test__map_keys_to_dal() -> None:
     test_dict = {
         "id": "primary-key",
         "name": "secondary-key",
@@ -42,7 +42,7 @@ def test__map_keys_to_dal():
     assert "name" not in mapped_dict
 
 
-def test__map_attributes_to_dal():
+def test__map_attributes_to_dal() -> None:
     test_list = ["id", "name", "attr1", "attr2"]
     mapped_list = orgs_dal._map_attributes_to_dal(test_list)
     assert "pk" in mapped_list
@@ -54,7 +54,7 @@ def test__map_attributes_to_dal():
 
 
 @pytest.mark.changes_db
-async def test_add_group():
+async def test_add_group() -> None:
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     groups = await orgs_dal.get_groups(org_id)
 
@@ -66,7 +66,7 @@ async def test_add_group():
 
 
 @pytest.mark.changes_db
-async def test_add_user():
+async def test_add_user() -> None:
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     users = await orgs_dal.get_users(org_id)
 
@@ -78,7 +78,7 @@ async def test_add_user():
 
 
 @pytest.mark.changes_db
-async def test_create():
+async def test_create() -> None:
     org_name = "test-create-org"
     new_org = await orgs_dal.create(org_name)
     assert isinstance(new_org, dict)
@@ -89,7 +89,7 @@ async def test_create():
 
 
 @pytest.mark.changes_db
-async def test_delete():
+async def test_delete() -> None:
     org_name = "himura"
     assert await orgs_dal.exists(org_name)
 
@@ -99,7 +99,7 @@ async def test_delete():
 
 
 @pytest.mark.changes_db
-async def test_remove_group():
+async def test_remove_group() -> None:
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
     group = "kurome"
     groups = await orgs_dal.get_groups(org_id)
@@ -111,7 +111,7 @@ async def test_remove_group():
 
 
 @pytest.mark.changes_db
-async def test_remove_user():
+async def test_remove_user() -> None:
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
     user = "org_testuser2@gmail.com"
     users = await orgs_dal.get_users(org_id)
@@ -124,14 +124,14 @@ async def test_remove_user():
     assert user not in updated_users
 
 
-async def test_exists():
+async def test_exists() -> None:
     existing_group = await orgs_dal.exists("okada")
     assert existing_group
     non_existent_group = await orgs_dal.exists("no-exists")
     assert not non_existent_group
 
 
-async def test_get_by_id():
+async def test_get_by_id() -> None:
     ex_org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     not_ex_org_id = "ORG#2395b997-c81a-4094-9dae-b171a7b5428c"
     existing_org = await orgs_dal.get_by_id(ex_org_id)
@@ -142,7 +142,7 @@ async def test_get_by_id():
     assert not not_existent_org
 
 
-async def test_get_by_name():
+async def test_get_by_name() -> None:
     ex_org_name = "okada"
     not_ex_org_name = "no-exists"
     existing_org = await orgs_dal.get_by_name(ex_org_name)
@@ -153,7 +153,7 @@ async def test_get_by_name():
     assert not not_existent_org
 
 
-async def test_get_many_by_id():
+async def test_get_many_by_id() -> None:
     org_ids = [
         "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
         "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86",
@@ -165,7 +165,7 @@ async def test_get_many_by_id():
     assert not orgs[2]
 
 
-async def test_get_id_for_group():
+async def test_get_id_for_group() -> None:
     existing_group = "unittesting"
     non_existent_group = "madeup"
     org_id_1 = await orgs_dal.get_id_for_group(existing_group)
@@ -174,7 +174,7 @@ async def test_get_id_for_group():
     assert org_id_2 == ""
 
 
-async def test_get_ids_for_user():
+async def test_get_ids_for_user() -> None:
     existing_user = "integratesmanager@gmail.com"
     non_existent_user = "madeupuser@gmail.com"
     org_ids_1 = await orgs_dal.get_ids_for_user(existing_user)
@@ -188,7 +188,7 @@ async def test_get_ids_for_user():
     assert org_ids_2 == []
 
 
-async def test_get_groups():
+async def test_get_groups() -> None:
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     groups = await orgs_dal.get_groups(org_id)
     assert len(groups) == 3
@@ -199,7 +199,7 @@ async def test_get_groups():
     ]
 
 
-async def test_get_users():
+async def test_get_users() -> None:
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     users = await orgs_dal.get_users(org_id)
     assert len(users) == 14
@@ -221,7 +221,7 @@ async def test_get_users():
     ]
 
 
-async def test_has_group():
+async def test_has_group() -> None:
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     existing_group = "unittesting"
     non_existent_group = "madeupgroup"
@@ -229,7 +229,7 @@ async def test_has_group():
     assert not await orgs_dal.has_group(org_id, non_existent_group)
 
 
-async def test_has_user_access():
+async def test_has_user_access() -> None:
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     existing_user = "integratesmanager@gmail.com"
     non_existent_user = "madeupuser@gmail.com"
@@ -238,7 +238,7 @@ async def test_has_user_access():
 
 
 @pytest.mark.changes_db
-async def test_update():
+async def test_update() -> None:
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     org_name = "okada"
     org_details = await orgs_dal.get_by_id(org_id)
@@ -261,7 +261,7 @@ async def test_update():
     assert org_details["min_acceptance_severity"] == Decimal("2.5")
 
 
-async def test_iterate_organizations():
+async def test_iterate_organizations() -> None:
     expected_organizations = {
         "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3": "okada",
         "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86": "bulat",

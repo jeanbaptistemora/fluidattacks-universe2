@@ -38,7 +38,7 @@ async def _get_result(
     return result
 
 
-async def test_get_resources():
+async def test_get_resources() -> None:
     """Check for project resources"""
     query = """{
       resources(projectName: "unittesting"){
@@ -61,7 +61,7 @@ async def test_get_resources():
 
 
 @pytest.mark.changes_db
-async def test_add_files():
+async def test_add_files() -> None:
     """Check for addFiles mutation."""
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "../mock/test-anim.gif")
@@ -102,7 +102,7 @@ async def test_add_files():
 
 
 @pytest.mark.changes_db
-async def test_download_file():
+async def test_download_file() -> None:
     """Check for downloadFile mutation."""
     query = """
         mutation {
@@ -123,7 +123,7 @@ async def test_download_file():
 
 
 @pytest.mark.changes_db
-async def test_remove_files():
+async def test_remove_files() -> None:
     """Check for removeFiles mutation."""
     context = get_new_context()
     file_data = {

@@ -19,7 +19,7 @@ pytestmark = [
 ]
 
 
-async def test_get_evidence():
+async def test_get_evidence() -> None:
     finding = await get_finding("422286126")
     name = "test_name"
     item = [
@@ -45,7 +45,7 @@ async def test_get_evidence():
     assert test_data == expected_output
 
 
-async def test_download_evidence_file():
+async def test_download_evidence_file() -> None:
     project_name = "unittesting"
     finding_id = "422286126"
     file_name = "unittesting-422286126-evidence_route_1.png"
@@ -58,7 +58,7 @@ async def test_download_evidence_file():
     assert test_data == expected_output
 
 
-async def test_get_records_from_file():
+async def test_get_records_from_file() -> None:
     project_name = "unittesting"
     finding_id = "422286126"
     file_name = "unittesting-422286126-evidence_file.csv"
@@ -91,7 +91,7 @@ async def test_get_records_from_file():
     assert test_data == expected_output
 
 
-async def test_format_data():
+async def test_format_data() -> None:
     finding_id = "422286126"
     finding_to_test = await get_finding(finding_id)
     test_data = list(format_data(finding_to_test).keys())
@@ -160,7 +160,7 @@ async def test_format_data():
     assert sorted(test_data) == sorted(expected_keys)
 
 
-async def test_get_reattack_requesters():
+async def test_get_reattack_requesters() -> None:
     finding = await get_finding("463558592")
     recipients = get_reattack_requesters(
         finding.get("historic_verification", []),

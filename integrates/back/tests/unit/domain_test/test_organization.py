@@ -27,7 +27,7 @@ pytestmark = [
 
 
 @pytest.mark.changes_db
-async def test_add_group():
+async def test_add_group() -> None:
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"  # NOSONAR
     group = "najenda"
     assert not await orgs_domain.has_group(org_id, group)
@@ -43,7 +43,7 @@ async def test_add_group():
 
 
 @pytest.mark.changes_db
-async def test_add_user():
+async def test_add_user() -> None:
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
     user = "org_testgroupmanager2@gmail.com"
     assert not await orgs_domain.has_user_access(org_id, user)
@@ -62,7 +62,7 @@ async def test_add_user():
 
 
 @pytest.mark.changes_db
-async def test_create_organization():
+async def test_create_organization() -> None:
     org_name = "esdeath"
     user = "org_testusermanager1@gmail.com"
     with pytest.raises(InvalidOrganization):
@@ -81,7 +81,7 @@ async def test_create_organization():
 
 
 @pytest.mark.changes_db
-async def test_delete_organization():
+async def test_delete_organization() -> None:
     org_id = "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"  # NOSONAR
     await orgs_domain.delete_organization(org_id)
 
@@ -89,7 +89,7 @@ async def test_delete_organization():
         await orgs_domain.get_name_by_id(org_id)
 
 
-async def test_get_groups():
+async def test_get_groups() -> None:
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"  # NOSONAR
     groups = await orgs_domain.get_groups(org_id)
     assert len(groups) == 3
@@ -100,7 +100,7 @@ async def test_get_groups():
     ]
 
 
-async def test_get_id_by_name():
+async def test_get_id_by_name() -> None:
     org_name = "okada"
     expected_org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     org_id = await orgs_domain.get_id_by_name(org_name)
@@ -110,7 +110,7 @@ async def test_get_id_by_name():
         await orgs_domain.get_id_by_name("madeup-org")
 
 
-async def test_get_name_by_id():
+async def test_get_name_by_id() -> None:
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     expected_org_name = "okada"
     org_name = await orgs_domain.get_name_by_id(org_id)
@@ -120,7 +120,7 @@ async def test_get_name_by_id():
         await orgs_domain.get_name_by_id("ORG#madeup-id")
 
 
-async def test_get_id_for_group():
+async def test_get_id_for_group() -> None:
     group_name = "unittesting"
     expected_org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     org_id = await orgs_domain.get_id_for_group(group_name)
@@ -130,7 +130,7 @@ async def test_get_id_for_group():
 
 
 @pytest.mark.changes_db
-async def test_get_or_create():
+async def test_get_or_create() -> None:
     ex_org_name = "okada"
     email = "unittest@fluidattacks.com"
     not_ex_org_name = "new-org"
@@ -143,7 +143,7 @@ async def test_get_or_create():
     assert not_existent_org
 
 
-async def test_get_user_organizations():
+async def test_get_user_organizations() -> None:
     user = "integratesmanager@gmail.com"
     expected_orgs = [
         "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
@@ -160,7 +160,7 @@ async def test_get_user_organizations():
     )
 
 
-async def test_get_users():
+async def test_get_users() -> None:
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     users = await orgs_domain.get_users(org_id)
     assert len(users) == 14
@@ -182,7 +182,7 @@ async def test_get_users():
     ]
 
 
-async def test_has_group():
+async def test_has_group() -> None:
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     existing_group = "unittesting"
     non_existent_group = "madeupgroup"
@@ -190,7 +190,7 @@ async def test_has_group():
     assert not await orgs_domain.has_group(org_id, non_existent_group)
 
 
-async def test_has_user_access():
+async def test_has_user_access() -> None:
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     existing_user = "integratesmanager@gmail.com"
     non_existent_user = "madeupuser@gmail.com"
@@ -199,7 +199,7 @@ async def test_has_user_access():
 
 
 @pytest.mark.changes_db
-async def test_remove_user():
+async def test_remove_user() -> None:
     user = "org_testuser3@gmail.com"
     group = "sheele"
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
@@ -219,7 +219,7 @@ async def test_remove_user():
 
 
 @pytest.mark.changes_db
-async def test_update_policies():
+async def test_update_policies() -> None:
     org_id = "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
     org_name = "bulat"
     loaders = get_new_context()
@@ -300,7 +300,7 @@ async def test_update_policies():
     assert GraphQLError(exe.args[0]) == excinfo.value
 
 
-async def test_validate_negative_values():
+async def test_validate_negative_values() -> None:
     with pytest.raises(InvalidAcceptanceSeverity):
         orgs_domain.validate_max_acceptance_severity(Decimal("-1"))
 
@@ -314,7 +314,7 @@ async def test_validate_negative_values():
         orgs_domain.validate_max_number_acceptations(-1)
 
 
-async def test_validate_severity_range():
+async def test_validate_severity_range() -> None:
     with pytest.raises(InvalidAcceptanceSeverity):
         orgs_domain.validate_max_acceptance_severity(Decimal("10.1"))
 
@@ -333,7 +333,7 @@ async def test_validate_severity_range():
         )
 
 
-async def test_iterate_organizations():
+async def test_iterate_organizations() -> None:
     expected_organizations = {
         "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3": "okada",
         "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86": "bulat",
@@ -350,7 +350,7 @@ async def test_iterate_organizations():
     assert expected_organizations == {}
 
 
-async def test_iterate_organizations_and_groups():
+async def test_iterate_organizations_and_groups() -> None:
     expected_organizations_and_groups = {
         "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3": {
             "okada": ["oneshottest", "continuoustesting", "unittesting"]

@@ -10,7 +10,7 @@ pytestmark = pytest.mark.asyncio
 
 
 @pytest.mark.asyncio
-async def test_get_user():
+async def test_get_user() -> None:
     """Check for user."""
     expected_output = {
         "email": "continuoushacking@gmail.com",
@@ -72,7 +72,7 @@ async def test_get_user():
     assert "phoneNumber" in result["data"]["stakeholder"]
 
 
-async def test_user_list_projects():
+async def test_user_list_projects() -> None:
     """Check for user."""
     query = """
         query {
@@ -89,7 +89,7 @@ async def test_user_list_projects():
 
 
 @pytest.mark.changes_db
-async def test_add_stakeholder():
+async def test_add_stakeholder() -> None:
     """Check for addStakeholder mutation."""
     query = """
         mutation {
@@ -113,7 +113,7 @@ async def test_add_stakeholder():
 
 
 @pytest.mark.changes_db
-async def test_grant_stakeholder_access_1():
+async def test_grant_stakeholder_access_1() -> None:
     """Check for grantStakeholderAccess mutation."""
     query = """
         mutation {
@@ -148,7 +148,7 @@ async def test_grant_stakeholder_access_1():
 
 
 @pytest.mark.changes_db
-async def test_grant_stakeholder_access_2():
+async def test_grant_stakeholder_access_2() -> None:
     """Check for grantStakeholderAccess mutation."""
     query = """
         mutation {
@@ -181,7 +181,7 @@ async def test_grant_stakeholder_access_2():
 
 
 @pytest.mark.changes_db
-async def test_grant_stakeholder_access_3():
+async def test_grant_stakeholder_access_3() -> None:
     """Check for grantStakeholderAccess mutation."""
     query = """
         mutation {
@@ -216,7 +216,7 @@ async def test_grant_stakeholder_access_3():
 
 
 @pytest.mark.changes_db
-async def test_remove_stakeholder_access():
+async def test_remove_stakeholder_access() -> None:
     """Check for removeStakeholderAccess mutation."""
     query = """
         mutation {
@@ -239,7 +239,7 @@ async def test_remove_stakeholder_access():
 
 
 @pytest.mark.changes_db
-async def test_edit_stakeholder():
+async def test_edit_stakeholder() -> None:
     """Check for editStakeholder mutation."""
     query = """
         mutation {

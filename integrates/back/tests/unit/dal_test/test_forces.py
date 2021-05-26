@@ -14,7 +14,7 @@ pytestmark = pytest.mark.asyncio
 
 
 @pytest.mark.changes_db
-async def test_create_execution():
+async def test_create_execution() -> None:
     group = "unittesting"
     execution_id = "random_id"
     now = datetime_utils.get_now()

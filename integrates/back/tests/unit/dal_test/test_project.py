@@ -12,14 +12,14 @@ pytestmark = [
 ]
 
 
-async def test_list_internal_managers():
+async def test_list_internal_managers() -> None:
     assert await list_internal_managers("oneshottest") == []
     assert await list_internal_managers("unittesting") == [
         "unittest2@fluidattacks.com"
     ]
 
 
-async def test_update_access():
+async def test_update_access() -> None:
     assert "unittest2@fluidattacks.com" in await get_group_users(
         "unittesting", True
     )

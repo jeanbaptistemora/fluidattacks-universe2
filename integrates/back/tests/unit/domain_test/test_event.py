@@ -26,7 +26,7 @@ pytestmark = [
 ]
 
 
-async def test_get_event():
+async def test_get_event() -> None:
     event_id = "418900971"
     test_data = await events_domain.get_event(event_id)
     expected_output = "unittesting"
@@ -36,7 +36,7 @@ async def test_get_event():
 
 
 @pytest.mark.changes_db
-async def test_create_event():
+async def test_create_event() -> None:
     attrs = {
         "action_after_blocking": "TRAINING",
         "action_before_blocking": "DOCUMENT_PROJECT",
@@ -55,7 +55,7 @@ async def test_create_event():
 
 
 @pytest.mark.changes_db
-async def test_create_event_file_image():
+async def test_create_event_file_image() -> None:
     attrs = {
         "action_after_blocking": "TRAINING",
         "action_before_blocking": "DOCUMENT_PROJECT",
@@ -89,7 +89,7 @@ async def test_create_event_file_image():
 
 
 @pytest.mark.changes_db
-async def test_solve_event():
+async def test_solve_event() -> None:
     assert await events_domain.solve_event(
         event_id="538745942",
         affectation=1,
@@ -108,7 +108,7 @@ async def test_solve_event():
 
 
 @pytest.mark.changes_db
-async def test_add_comment():
+async def test_add_comment() -> None:
     event_id = "538745942"
     user_email = "integratesmanager@gmail.com"
     comment_id = int(round(time() * 1000))
@@ -151,7 +151,7 @@ async def test_add_comment():
 
 
 @pytest.mark.changes_db
-async def test_update_evidence():
+async def test_update_evidence() -> None:
     event_id = "418900978"
     evidence_type = "records"
     filename = os.path.dirname(os.path.abspath(__file__))
@@ -169,7 +169,7 @@ async def test_update_evidence():
     assert test_data == expected_output
 
 
-async def test_validate_evidence_invalid_image_type():
+async def test_validate_evidence_invalid_image_type() -> None:
     evidence_type = "evidence"
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "../mock/test-file-records.csv")
@@ -179,7 +179,7 @@ async def test_validate_evidence_invalid_image_type():
             await events_domain.validate_evidence(evidence_type, uploaded_file)
 
 
-async def test_validate_evidence_invalid_file_size():
+async def test_validate_evidence_invalid_file_size() -> None:
     evidence_type = "evidence"
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "../mock/test-big-image.jpg")
@@ -190,7 +190,7 @@ async def test_validate_evidence_invalid_file_size():
 
 
 @pytest.mark.changes_db
-async def test_mask_event():
+async def test_mask_event() -> None:
     event_id = "418900971"
     parent = "0"
     comment_id = int(round(time() * 1000))

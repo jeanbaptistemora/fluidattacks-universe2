@@ -13,7 +13,7 @@ def format_severity(severity: Dict[str, float]) -> Dict[str, Decimal]:
     }
 
 
-def test_calculate_cvss2_basescore():
+def test_calculate_cvss2_basescore() -> None:
     severity = {
         "confidentialityImpact": 0,
         "integrityImpact": 0.275,
@@ -34,7 +34,7 @@ def test_calculate_cvss2_basescore():
     assert cvss_basescore_new == cvss_basescore_test
 
 
-def test_calculate_cvss2_temporal():
+def test_calculate_cvss2_temporal() -> None:
     severity = {
         "confidentialityImpact": 0,
         "integrityImpact": 0.275,
@@ -64,7 +64,7 @@ def test_calculate_cvss2_temporal():
     assert cvss_temporal_new == cvss_temporal_test
 
 
-def test_calculate_cvss2_environment():
+def test_calculate_cvss2_environment() -> None:
     severity = {
         "accessComplexity": 0.61,
         "authentication": 0.704,
@@ -89,7 +89,7 @@ def test_calculate_cvss2_environment():
     assert cvss_environment == cvss_environment_test
 
 
-def test_calculate_cvss3_scope_changed_basescore():
+def test_calculate_cvss3_scope_changed_basescore() -> None:
     severity = {
         "confidentialityImpact": 0.22,
         "integrityImpact": 0.22,
@@ -112,7 +112,7 @@ def test_calculate_cvss3_scope_changed_basescore():
     assert cvss_basescore_new == cvss_basescore_test
 
 
-def test_calculate_cvss3_scope_unchanged_basescore():
+def test_calculate_cvss3_scope_unchanged_basescore() -> None:
     severity = {
         "confidentialityImpact": 0.22,
         "integrityImpact": 0.22,
@@ -135,7 +135,7 @@ def test_calculate_cvss3_scope_unchanged_basescore():
     assert cvss_basescore_new == cvss_basescore_test
 
 
-def test_calculate_cvss3_scope_changed_temporal():
+def test_calculate_cvss3_scope_changed_temporal() -> None:
     severity = {
         "confidentialityImpact": 0.22,
         "integrityImpact": 0.22,
@@ -167,7 +167,7 @@ def test_calculate_cvss3_scope_changed_temporal():
     assert cvss_temporal_new == cvss_temporal_test
 
 
-def test_calculate_cvss3_scope_unchanged_temporal():
+def test_calculate_cvss3_scope_unchanged_temporal() -> None:
     severity = {
         "confidentialityImpact": 0.22,
         "integrityImpact": 0.22,
@@ -199,7 +199,7 @@ def test_calculate_cvss3_scope_unchanged_temporal():
     assert cvss_temporal_new == cvss_temporal_test
 
 
-def test_calculate_cvss3_scope_changed_environment():
+def test_calculate_cvss3_scope_changed_environment() -> None:
     severity = {
         "modifiedConfidentialityImpact": 0.22,
         "reportConfidence": 1,
@@ -224,7 +224,7 @@ def test_calculate_cvss3_scope_changed_environment():
     assert cvss_environment == cvss_environment_test
 
 
-def test_calculate_cvss3_scope_unchanged_environment():
+def test_calculate_cvss3_scope_unchanged_environment() -> None:
     severity = {
         "modifiedConfidentialityImpact": 0.22,
         "reportConfidence": 1,

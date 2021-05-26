@@ -6,7 +6,7 @@ from numpy import arange
 from newutils.forms import is_exploitable
 
 
-def test_is_exploitable():
+def test_is_exploitable() -> None:
     version = "3.1"
     for exploitability in arange(0.0, 0.96, 0.2):
         assert is_exploitable(exploitability, version) == "No"

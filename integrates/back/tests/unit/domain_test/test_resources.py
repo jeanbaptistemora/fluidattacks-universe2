@@ -12,7 +12,7 @@ pytestmark = [
 ]
 
 
-async def test_validate_file_size():
+async def test_validate_file_size() -> None:
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "../mock/test-vulns.yaml")
     with open(filename, "rb") as test_file:

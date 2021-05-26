@@ -11,7 +11,7 @@ pytestmark = [
 ]
 
 
-async def test_get_by_group():
+async def test_get_by_group() -> None:
     group_name = "unittesting"
     group_toe_lines = await toe_lines_domain.get_by_group(group_name)
     assert group_toe_lines == (
@@ -42,7 +42,7 @@ async def test_get_by_group():
     )
 
 
-async def test_get_by_root():
+async def test_get_by_root() -> None:
     group_name = "unittesting"
     root_id = "4039d098-ffc5-4984-8ed3-eb17bca98e19"
     root_toe_lines = await toe_lines_domain.get_by_root(group_name, root_id)

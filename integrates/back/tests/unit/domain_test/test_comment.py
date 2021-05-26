@@ -12,7 +12,7 @@ pytestmark = [
 ]
 
 
-async def test_list_comments():
+async def test_list_comments() -> None:
     finding_id = "422286126"
     user_email = "unittest@fluidattacks.com"
     request = await create_dummy_session(user_email)
@@ -40,7 +40,7 @@ async def test_list_comments():
 
 
 @pytest.mark.changes_db
-async def test_fill_comment_data():
+async def test_fill_comment_data() -> None:
     test_data = {
         "content": "test content",
         "created": "2018-12-27 16:30:28",

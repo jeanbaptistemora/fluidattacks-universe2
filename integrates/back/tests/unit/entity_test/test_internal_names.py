@@ -7,7 +7,7 @@ from back.tests.unit.utils import create_dummy_session
 
 
 @pytest.mark.asyncio
-async def test_internal_project():
+async def test_internal_project() -> None:
     """Check for internal project"""
     query = """{
         internalNames(entity: GROUP){

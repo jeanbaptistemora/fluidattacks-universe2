@@ -11,7 +11,7 @@ pytestmark = pytest.mark.asyncio
 
 
 @pytest.mark.asyncio
-async def test_get_tag_query():
+async def test_get_tag_query() -> None:
     """Check for project alert."""
     query = """
         query{
@@ -46,7 +46,7 @@ async def test_get_tag_query():
     assert result["data"]["tag"]["maxSeverity"] == 4.3
 
 
-async def test_get_tag_query_access_denied():
+async def test_get_tag_query_access_denied() -> None:
     query = """
         query{
             tag(tag: "another-tag"){
