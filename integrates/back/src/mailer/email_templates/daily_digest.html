@@ -117,12 +117,12 @@
     }
 
     @media only screen and (min-width: 599px) {
-      .numbers {
+      .numbers-row {
         display: flex;
         justify-content: space-evenly;
       }
 
-      .numbers div {
+      .numbers-row div {
         width: 25%;
       }
 
@@ -155,21 +155,52 @@
 
     <!-- NUMBERS -->
     <div class="numbers">
-      <div>
-        <h3>{{ main['remediation_rate'] }}%</h3>
-        <p>Average remediation rate</p>
+      <div class="numbers-row">
+        {% if groups_len > 1 %}
+        <div>
+          <h3>{{ remediation_rate['max'] }}%</h3>
+          <p>Max remediation rate at <strong>{{ remediation_rate['max_group'] }}</strong></p>
+        </div>
+        <div>
+          <h3>{{ remediation_rate['min'] }}%</h3>
+          <p>Min remediation rate at <strong>{{ remediation_rate['min_group'] }}</strong></p>
+        </div>
+        <div>
+          <h3>{{ remediation_time['max'] }}</h3>
+          <p>Remediation time (days) at <strong>{{ remediation_time['max_group'] }}</strong></p>
+        </div>
+        <div>
+          <h3>{{ remediation_time['min'] }}</h3>
+          <p>Remediation time (days) at <strong>{{ remediation_time['min_group'] }}</strong></p>
+        </div>
+        {% else %}
+          <div>
+            <h3>{{ remediation_rate['max'] }}%</h3>
+            <p>Remediation rate at <strong>{{ remediation_rate['max_group'] }}</strong></p>
+          </div>
+          <div>
+            <h3>{{ remediation_time['max'] }}</h3>
+            <p>Remediation time (days) at <strong>{{ remediation_time['max_group'] }}</strong></p>
+          </div>
+        {% endif %}
       </div>
-      <div>
-        <h3>{{ main['reattack_effectiveness'] }}%</h3>
-        <p>Average reattack effectiveness</p>
-      </div>
-      <div>
-        <h3>{{ main['remediation_time'] }}</h3>
-        <p>Average remediation time (days)</p>
-      </div>
-      <div>
-        <h3>{{ main['queries'] }}</h3>
-        <p>Queries</p>
+      <div class="numbers-row">
+        <div>
+          <h3>{{ main['reattack_effectiveness'] }}%</h3>
+          <p>Average reattack effectiveness</p>
+        </div>
+        <div>
+          <h3>-</h3>
+          <p>Unsolved events</p>
+        </div>
+        <div>
+          <h3>-</h3>
+          <p>New events</p>
+        </div>
+        <div>
+          <h3>{{ main['comments'] }}</h3>
+          <p>Comments</p>
+        </div>
       </div>
     </div>
 
@@ -229,7 +260,7 @@
       <div class="content">
         {% for finding in findings %}
         <div {% if findings|length > 3 %}style="height: auto;"{% endif %}>
-          <span><strong>[{{ finding['finding_project'] }}] </strong>{{ finding['finding_name'] }}</span>
+          <span><strong>[{{ finding['finding_group'] }}] </strong>{{ finding['finding_name'] }}</span>
           <span class="content-number">
             {{ finding['finding_age'] }} {% if finding['finding_age']  == 1 %} day{% else %} days{% endif %}
           </span>

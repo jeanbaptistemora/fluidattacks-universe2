@@ -983,12 +983,12 @@ async def get_group_digest_stats(
     context: Any, group_name: str
 ) -> MailContentType:
     content: MailContentType = {
-        "project": group_name,
+        "group": group_name,
         "main": {
             "remediation_rate": 0,
             "reattack_effectiveness": 0,
             "remediation_time": 0,
-            "queries": 0,
+            "comments": 0,
         },
         "reattacks": {
             "reattacks_requested": 0,
@@ -1046,7 +1046,7 @@ async def get_group_digest_stats(
     content["main"]["reattack_effectiveness"] = reattacks.get(
         "reattack_effectiveness", 0
     )
-    content["main"]["queries"] = await get_total_comments_date(
+    content["main"]["comments"] = await get_total_comments_date(
         valid_findings, group_name, last_day
     )
     content["main"]["remediation_time"] = int(
@@ -1065,7 +1065,19 @@ def process_user_digest_stats(
 ) -> MailContentType:
     """Consolidate several groups stats with precalculated data"""
     total: MailContentType = {
-        "project": ", ".join(groups),
+        "groups_len": len(groups),
+        "remediation_rate": {
+            "max": 0,
+            "max_group": groups[0],
+            "min": 0,
+            "min_group": groups[0],
+        },
+        "remediation_time": {
+            "max": 0,
+            "max_group": groups[0],
+            "min": 0,
+            "min_group": groups[0],
+        },
         "findings": list(),
     }
 
@@ -1075,21 +1087,33 @@ def process_user_digest_stats(
     findings = list()
     for stat in groups_stats:
         main.update(stat["main"])
+        # Get highest among groups
+        if stat["main"]["remediation_rate"] > total["remediation_rate"]["max"]:
+            total["remediation_rate"]["max"] = stat["main"]["remediation_rate"]
+            total["remediation_rate"]["max_group"] = stat["group"]
+        if stat["main"]["remediation_time"] > total["remediation_time"]["max"]:
+            total["remediation_time"]["max"] = stat["main"]["remediation_time"]
+            total["remediation_time"]["max_group"] = stat["group"]
+        # Get lowest among groups
+        if stat["main"]["remediation_rate"] < total["remediation_rate"]["min"]:
+            total["remediation_rate"]["min"] = stat["main"]["remediation_rate"]
+            total["remediation_rate"]["min_group"] = stat["group"]
+        if stat["main"]["remediation_time"] < total["remediation_time"]["min"]:
+            total["remediation_time"]["min"] = stat["main"]["remediation_time"]
+            total["remediation_time"]["min_group"] = stat["group"]
         reattacks.update(stat["reattacks"])
         treatments.update(stat["treatments"])
         findings_extended = [
             {
                 **finding,
-                "finding_project": stat["project"],
+                "finding_group": stat["group"],
             }
             for finding in stat["findings"]
         ]
         findings.extend(findings_extended)
 
     total["main"] = dict(main)
-    total["main"]["remediation_rate"] //= len(groups)
     total["main"]["reattack_effectiveness"] //= len(groups)
-    total["main"]["remediation_time"] //= len(groups)
     total["reattacks"] = dict(reattacks)
     total["treatments"] = dict(treatments)
 

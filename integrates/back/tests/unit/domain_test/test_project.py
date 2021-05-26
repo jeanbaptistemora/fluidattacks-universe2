@@ -506,16 +506,16 @@ async def test_get_total_comments_date():
 
 @freeze_time("2021-05-12")
 async def test_get_group_digest_stats():
-    project_name = "unittesting"
+    group_name = "unittesting"
     context = get_new_context()
-    total_stats = await get_group_digest_stats(context, project_name)
+    total_stats = await get_group_digest_stats(context, group_name)
     expected_output = {
-        "project": project_name,
+        "group": group_name,
         "main": {
             "remediation_rate": 19,
             "reattack_effectiveness": 0,
             "remediation_time": 513,
-            "queries": 0,
+            "comments": 0,
         },
         "reattacks": {
             "reattacks_requested": 0,

@@ -247,7 +247,7 @@ async def send_digest_report(
         mail_contents = [
             group_stats
             for group_stats in digest_stats
-            if group_stats["project"] in groups
+            if group_stats["group"] in groups
         ]
     elif loaders:
         mail_contents = await collect(
