@@ -8,10 +8,10 @@ import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
 
 import { Comments } from "scenes/Dashboard/components/Comments";
-import { ProjectConsultingView } from "scenes/Dashboard/containers/ProjectConsultingView";
-import { GET_PROJECT_CONSULTING } from "scenes/Dashboard/containers/ProjectConsultingView/queries";
+import { GroupConsultingView } from "scenes/Dashboard/containers/GroupConsultingView";
+import { GET_PROJECT_CONSULTING } from "scenes/Dashboard/containers/GroupConsultingView/queries";
 
-describe("ProjectConsultingView", (): void => {
+describe("GroupConsultingView", (): void => {
   const mocks: readonly MockedResponse[] = [
     {
       request: {
@@ -41,7 +41,7 @@ describe("ProjectConsultingView", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof ProjectConsultingView).toStrictEqual("function");
+    expect(typeof GroupConsultingView).toStrictEqual("function");
   });
 
   it("should render a component", async (): Promise<void> => {
@@ -52,7 +52,7 @@ describe("ProjectConsultingView", (): void => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
-          <Route component={ProjectConsultingView} path={"/:projectName"} />
+          <Route component={GroupConsultingView} path={"/:projectName"} />
         </MockedProvider>
       </MemoryRouter>,
       { attachTo: container }
@@ -95,7 +95,7 @@ describe("ProjectConsultingView", (): void => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting"]}>
         <MockedProvider addTypename={false} mocks={emptyMocks}>
-          <Route component={ProjectConsultingView} path={"/:projectName"} />
+          <Route component={GroupConsultingView} path={"/:projectName"} />
         </MockedProvider>
       </MemoryRouter>,
       { attachTo: container }
@@ -120,7 +120,7 @@ describe("ProjectConsultingView", (): void => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
-          <Route component={ProjectConsultingView} path={"/:projectName"} />
+          <Route component={GroupConsultingView} path={"/:projectName"} />
         </MockedProvider>
       </MemoryRouter>,
       { attachTo: container }

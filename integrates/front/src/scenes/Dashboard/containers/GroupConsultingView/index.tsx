@@ -15,20 +15,20 @@ import type {
 import {
   ADD_PROJECT_CONSULT,
   GET_PROJECT_CONSULTING,
-} from "scenes/Dashboard/containers/ProjectConsultingView/queries";
+} from "scenes/Dashboard/containers/GroupConsultingView/queries";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-interface IProjectConsultingData {
+interface IGroupConsultingData {
   project: {
     consulting: ICommentStructure[];
   };
 }
 
-const ProjectConsultingView: React.FC = (): JSX.Element => {
+const GroupConsultingView: React.FC = (): JSX.Element => {
   const { projectName } = useParams<{ projectName: string }>();
   const { userEmail }: IAuthContext = useContext(authContext);
 
@@ -50,11 +50,11 @@ const ProjectConsultingView: React.FC = (): JSX.Element => {
   }: ApolloError): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
       msgError(translate.t("groupAlerts.errorTextsad"));
-      Logger.warning("An error occurred loading project comments", error);
+      Logger.warning("An error occurred loading group comments", error);
     });
   };
 
-  const { data, loading } = useQuery<IProjectConsultingData>(
+  const { data, loading } = useQuery<IGroupConsultingData>(
     GET_PROJECT_CONSULTING,
     {
       fetchPolicy: "network-only",
@@ -129,4 +129,4 @@ const ProjectConsultingView: React.FC = (): JSX.Element => {
   );
 };
 
-export { ProjectConsultingView };
+export { GroupConsultingView };

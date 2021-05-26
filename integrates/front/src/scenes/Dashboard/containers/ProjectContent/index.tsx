@@ -14,7 +14,7 @@ import { ToeContent } from "../ToeContent";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { ChartsForGroupView } from "scenes/Dashboard/containers/ChartsForGroupView";
 import { GroupAuthorsView } from "scenes/Dashboard/containers/GroupAuthorsView";
-import { ProjectConsultingView } from "scenes/Dashboard/containers/ProjectConsultingView/index";
+import { GroupConsultingView } from "scenes/Dashboard/containers/GroupConsultingView/index";
 import { ProjectDraftsView } from "scenes/Dashboard/containers/ProjectDraftsView";
 import { ProjectEventsView } from "scenes/Dashboard/containers/ProjectEventsView/index";
 import { ProjectFindingsView } from "scenes/Dashboard/containers/ProjectFindingsView/index";
@@ -184,7 +184,7 @@ const ProjectContent: React.FC = (): JSX.Element => {
                     path={`${path}/stakeholders`}
                   />
                   <Route
-                    component={ProjectConsultingView}
+                    component={GroupConsultingView}
                     exact={true}
                     path={`${path}/consulting`}
                   />
