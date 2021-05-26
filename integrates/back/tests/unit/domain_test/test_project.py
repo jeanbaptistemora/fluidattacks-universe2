@@ -531,15 +531,7 @@ async def test_get_group_digest_stats():
             {
                 "finding_name": "F007. Cross site request forgery",
                 "finding_age": 847,
-            },
-            {
-                "finding_name": "F014. Funcionalidad insegura",
-                "finding_age": 764,
-            },
-            {
-                "finding_name": "F038. Fuga de información de negocio",
-                "finding_age": 620,
-            },
+            }
         ],
     }
     assert expected_output == total_stats

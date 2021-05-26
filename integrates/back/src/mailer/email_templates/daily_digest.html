@@ -82,7 +82,7 @@
 
     .content {
       margin: 1.5rem;
-      padding: 1rem 0;
+      padding: 0.5rem 0;
       background-color: #ffffff;
       display: block;
       justify-content: space-evenly;
@@ -228,15 +228,10 @@
       </div>
       <div class="content">
         {% for finding in findings %}
-        <div>
-          <span>{{ finding['finding_name'] }} <strong>[{{ finding['finding_project'] }}]</strong></span>
+        <div {% if findings|length > 3 %}style="height: auto;"{% endif %}>
+          <span><strong>[{{ finding['finding_project'] }}] </strong>{{ finding['finding_name'] }}</span>
           <span class="content-number">
-            {{ finding['finding_age'] }}
-            {% if finding['finding_age']  == 1 %}
-            day
-            {% else %}
-            days
-            {% endif %}
+            {{ finding['finding_age'] }} {% if finding['finding_age']  == 1 %} day{% else %} days{% endif %}
           </span>
         </div>
         {% endfor %}

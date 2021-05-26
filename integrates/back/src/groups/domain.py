@@ -1019,7 +1019,7 @@ async def get_group_digest_stats(
     # Get stats
     last_day = datetime_utils.get_now_minus_delta(hours=24)
     content["findings"] = await findings_domain.get_oldest_open_findings(
-        context, valid_findings, 3
+        context, valid_findings, 1
     )
     treatments = await findings_domain.get_total_treatment_date(
         context, valid_findings, last_day
@@ -1095,6 +1095,6 @@ def process_user_digest_stats(
 
     total["findings"] = sorted(
         findings, key=itemgetter("finding_age"), reverse=True
-    )[:3]
+    )
 
     return total
