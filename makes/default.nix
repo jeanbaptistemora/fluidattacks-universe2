@@ -75,6 +75,7 @@ let
     buildPythonPackage = importUtility "build-python-package";
     buildPythonRequirements = importUtility "build-python-requirements";
     buildRubyRequirement = importUtility "build-ruby-requirement";
+    bundleClosure = importUtility "bundle-closure";
     computeOnAws = importUtility "compute-on-aws";
     fetchurl = nixpkgs.fetchurl;
     fetchzip = nixpkgs.fetchzip;
