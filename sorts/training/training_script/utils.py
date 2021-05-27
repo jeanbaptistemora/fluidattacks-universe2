@@ -128,3 +128,12 @@ def update_results_csv(filename: str, results: List[List[str]]) -> None:
     S3_BUCKET.Object(f"training-output/results/{filename}").upload_file(
         filename
     )
+
+
+def set_sagemaker_extra_envs(extra_sm_envs: str) -> None:
+    envs = {
+        env_key.split("=")[0]: env_key.split("=")[1]
+        for env_key in extra_sm_envs.split(",")
+    }
+    for env_key, value in envs.items():
+        os.environ[env_key] = value

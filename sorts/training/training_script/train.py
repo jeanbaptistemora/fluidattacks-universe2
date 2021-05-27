@@ -31,6 +31,7 @@ from training.training_script.utils import (
     get_model_performance_metrics,
     get_previous_training_results,
     load_training_data,
+    set_sagemaker_extra_envs,
     split_training_data,
     update_results_csv,
 )
@@ -195,7 +196,7 @@ def train_model(
     return training_output
 
 
-def main() -> None:
+def cli() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
 
     # Sagemaker specific arguments. Defaults are set in environment variables.
@@ -214,19 +215,20 @@ def main() -> None:
 
     # Extra args that SageMaker excution may need (fex. ENVS)
     parser.add_argument("--envs", type=str, default="")
-    args = parser.parse_args()
+
+    return parser.parse_args()
+
+
+def main() -> None:
+    args = cli()
 
     model_name: str = args.model.lower()
     model_class: ModelType = MODELS[model_name]
 
-    # Set necessary envs
-    envs = {
-        env_key.split("=")[0]: env_key.split("=")[1]
-        for env_key in args.envs.split(",")
-    }
-    for env_key, value in envs.items():
-        os.environ[env_key] = value
+    # Set necessary env vars that SageMaker environment needs
+    set_sagemaker_extra_envs(args.envs)
 
+    # Start training process
     if model_class:
         results_filename: str = f"{model_name}_train_results.csv"
         previous_results = get_previous_training_results(results_filename)
