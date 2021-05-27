@@ -353,7 +353,7 @@ async def test_add_project_consult_parent_non_zero() -> None:
         ["ONESHOTTEST", "ONESHOT", "false", "false", "true", "false", True],
     ],
 )
-async def test_edit_group_good(
+async def test_edit_group_good(  # type: ignore
     group_name,
     subscription,
     has_drills,
@@ -497,7 +497,7 @@ async def test_edit_group_good(
         ],
     ],
 )
-async def test_edit_group_bad(
+async def test_edit_group_bad(  # type: ignore
     comments,
     group_name,
     subscription,
@@ -693,7 +693,7 @@ async def test_add_git_root_black() -> None:
     assert result["errors"][0]["message"] == "Access denied"  # NOSONAR
 
 
-@pytest.mark.changes_db  # type: ignore
+@pytest.mark.changes_db
 async def test_add_git_root_white() -> None:
     query = """
       mutation {
@@ -757,7 +757,7 @@ async def test_add_git_root_invalid_url() -> None:
     assert "value is not valid" in result["errors"][0]["message"]
 
 
-@pytest.mark.changes_db  # type: ignore
+@pytest.mark.changes_db
 async def test_add_git_root_uniqueness() -> None:
     query = """
       mutation {
@@ -784,7 +784,7 @@ async def test_add_git_root_uniqueness() -> None:
     assert "same Nickname already exists" in result["errors"][0]["message"]
 
 
-@pytest.mark.changes_db  # type: ignore
+@pytest.mark.changes_db
 async def test_add_ip_root_black() -> None:
     query = """
       mutation {
@@ -841,7 +841,7 @@ async def test_add_ip_root_invalid_port() -> None:
     assert "value is not valid" in result["errors"][0]["message"]
 
 
-@pytest.mark.changes_db  # type: ignore
+@pytest.mark.changes_db
 async def test_add_ip_root_uniqueness() -> None:
     query = """
       mutation {
@@ -861,7 +861,7 @@ async def test_add_ip_root_uniqueness() -> None:
     assert "One or more values already exist" in result["errors"][0]["message"]
 
 
-@pytest.mark.changes_db  # type: ignore
+@pytest.mark.changes_db
 async def test_add_url_root_black() -> None:
     query = """
       mutation {
@@ -924,7 +924,7 @@ async def test_add_url_root_invalid_protocol() -> None:
     assert "value is not valid" in result["errors"][0]["message"]
 
 
-@pytest.mark.changes_db  # type: ignore
+@pytest.mark.changes_db
 async def test_add_url_root_uniqueness() -> None:
     query = """
       mutation {
@@ -944,7 +944,7 @@ async def test_add_url_root_uniqueness() -> None:
     assert "One or more values already exist" in result["errors"][0]["message"]
 
 
-@pytest.mark.changes_db  # type: ignore
+@pytest.mark.changes_db
 async def test_update_git_root() -> None:
     query = """
       mutation {
@@ -987,7 +987,7 @@ async def test_update_git_root_nonexistent() -> None:
     assert "root not found" in result["errors"][0]["message"]  # NOSONAR
 
 
-@pytest.mark.changes_db  # type: ignore
+@pytest.mark.changes_db
 async def test_update_git_environments() -> None:
     query = """
       mutation {
@@ -1006,7 +1006,7 @@ async def test_update_git_environments() -> None:
     assert result["data"]["updateGitEnvironments"]["success"]
 
 
-@pytest.mark.changes_db  # type: ignore
+@pytest.mark.changes_db
 async def test_update_root_cloning_status() -> None:
     query = """
     mutation {
@@ -1026,7 +1026,7 @@ async def test_update_root_cloning_status() -> None:
     assert result["data"]["updateRootCloningStatus"]["success"]
 
 
-@pytest.mark.changes_db  # type: ignore
+@pytest.mark.changes_db
 async def test_update_root_cloning_status_nonexistent() -> None:
     query = """
     mutation {
@@ -1046,7 +1046,7 @@ async def test_update_root_cloning_status_nonexistent() -> None:
     assert "root not found" in result["errors"][0]["message"]
 
 
-@pytest.mark.changes_db  # type: ignore
+@pytest.mark.changes_db
 async def test_update_root_state() -> None:
     query = """
       mutation {

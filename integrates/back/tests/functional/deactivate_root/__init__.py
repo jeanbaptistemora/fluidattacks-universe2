@@ -1,5 +1,5 @@
 # Standard
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 # Local
 from back.tests.functional.utils import get_graphql_result
@@ -7,7 +7,12 @@ from dataloaders import get_new_context
 
 
 async def query(
-    *, email: str, group_name: str, id: str, new_root_id: str, reason: str
+    *,
+    email: str,
+    group_name: str,
+    id: str,
+    new_root_id: Optional[str],
+    reason: str,
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{

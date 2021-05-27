@@ -25,7 +25,7 @@ async def get_result(
     return result
 
 
-async def create_group():
+async def create_group() -> str:
     query = """{
         internalNames(entity: GROUP){
             name
