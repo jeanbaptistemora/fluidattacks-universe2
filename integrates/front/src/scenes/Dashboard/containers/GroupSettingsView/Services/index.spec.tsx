@@ -15,8 +15,8 @@ import wait from "waait";
 import {
   EDIT_GROUP_DATA,
   GET_GROUP_DATA,
-} from "scenes/Dashboard/containers/ProjectSettingsView/queries";
-import { Services } from "scenes/Dashboard/containers/ProjectSettingsView/Services";
+} from "scenes/Dashboard/containers/GroupSettingsView/queries";
+import { Services } from "scenes/Dashboard/containers/GroupSettingsView/Services";
 import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 

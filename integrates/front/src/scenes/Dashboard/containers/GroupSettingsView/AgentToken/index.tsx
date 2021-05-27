@@ -7,8 +7,8 @@ import { APITokenForcesModal } from "scenes/Dashboard/components/APITokenForcesM
 import {
   ButtonToolbar,
   Flex,
-  LastProjectSetting,
-  ProjectScopeText,
+  GroupScopeText,
+  LastGroupSetting,
 } from "styles/styledComponents";
 import { translate } from "utils/translations/translate";
 
@@ -26,13 +26,13 @@ const AgentToken: React.FC<IServicesProps> = (
 
   return (
     <React.StrictMode>
-      <LastProjectSetting>
+      <LastGroupSetting>
         <Flex>
           <h2>{translate.t("searchFindings.agentTokenSection.title")}</h2>
         </Flex>
-        <ProjectScopeText>
+        <GroupScopeText>
           {t("searchFindings.agentTokenSection.about")}
-        </ProjectScopeText>
+        </GroupScopeText>
         <ButtonToolbar>
           <a
             href={"https://docs.fluidattacks.com/machine/agent/installation/"}
@@ -50,7 +50,7 @@ const AgentToken: React.FC<IServicesProps> = (
           onClose={handleChange}
           open={isModalOpen}
         />
-      </LastProjectSetting>
+      </LastGroupSetting>
     </React.StrictMode>
   );
 };

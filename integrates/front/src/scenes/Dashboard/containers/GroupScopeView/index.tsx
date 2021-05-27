@@ -10,7 +10,7 @@ import { GET_ROOTS } from "./queries";
 import type { IGitRootAttr, IIPRootAttr, IURLRootAttr, Root } from "./types";
 import { URLRoots } from "./URLRoots";
 
-import { ProjectSettingsView } from "../ProjectSettingsView";
+import { GroupSettingsView } from "../GroupSettingsView";
 import { Have } from "utils/authz/Have";
 import { Logger } from "utils/logger";
 
@@ -52,7 +52,7 @@ export const GroupScopeView: React.FC = (): JSX.Element => {
         <URLRoots roots={roots.filter(isURLRoot)} />
       </Have>
       <hr />
-      <ProjectSettingsView />
+      <GroupSettingsView />
     </React.Fragment>
   );
 };

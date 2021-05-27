@@ -4,16 +4,16 @@ import { useParams } from "react-router";
 
 import { Unsubscribe } from "./Unsubscribe";
 
-import { AgentToken } from "scenes/Dashboard/containers/ProjectSettingsView/AgentToken";
-import { DeleteGroup } from "scenes/Dashboard/containers/ProjectSettingsView/DeleteGroup";
-import { Files } from "scenes/Dashboard/containers/ProjectSettingsView/Files";
-import { GroupInformation } from "scenes/Dashboard/containers/ProjectSettingsView/Info";
-import { Portfolio } from "scenes/Dashboard/containers/ProjectSettingsView/Portfolio";
-import { Services } from "scenes/Dashboard/containers/ProjectSettingsView/Services";
+import { AgentToken } from "scenes/Dashboard/containers/GroupSettingsView/AgentToken";
+import { DeleteGroup } from "scenes/Dashboard/containers/GroupSettingsView/DeleteGroup";
+import { Files } from "scenes/Dashboard/containers/GroupSettingsView/Files";
+import { GroupInformation } from "scenes/Dashboard/containers/GroupSettingsView/Info";
+import { Portfolio } from "scenes/Dashboard/containers/GroupSettingsView/Portfolio";
+import { Services } from "scenes/Dashboard/containers/GroupSettingsView/Services";
 import { Can } from "utils/authz/Can";
 import { Have } from "utils/authz/Have";
 
-const ProjectSettingsView: React.FC = (): JSX.Element => {
+const GroupSettingsView: React.FC = (): JSX.Element => {
   const { projectName } = useParams<{ projectName: string }>();
 
   // Side effects
@@ -57,4 +57,4 @@ const ProjectSettingsView: React.FC = (): JSX.Element => {
   );
 };
 
-export { ProjectSettingsView };
+export { GroupSettingsView };

@@ -19,7 +19,7 @@ import {
   GET_FILES,
   REMOVE_FILE_MUTATION,
   UPLOAD_FILE_MUTATION,
-} from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+} from "scenes/Dashboard/containers/GroupSettingsView/queries";
 import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
@@ -64,7 +64,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred loading project files", error);
+        Logger.warning("An error occurred loading group files", error);
       });
     },
     variables: { projectName },
@@ -77,7 +77,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred downloading project files", error);
+        Logger.warning("An error occurred downloading group files", error);
       });
     },
     variables: {
@@ -98,7 +98,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred removing project files", error);
+        Logger.warning("An error occurred removing group files", error);
       });
     },
   });
@@ -151,7 +151,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
             default:
               msgError(translate.t("groupAlerts.errorTextsad"));
               Logger.warning(
-                "An error occurred adding files to project",
+                "An error occurred while adding files to the group",
                 filesError
               );
           }

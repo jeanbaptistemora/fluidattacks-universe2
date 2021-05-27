@@ -9,13 +9,13 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
 
-import { Portfolio } from "scenes/Dashboard/containers/ProjectSettingsView/Portfolio";
-import type { IPortfolioProps } from "scenes/Dashboard/containers/ProjectSettingsView/Portfolio";
+import { Portfolio } from "scenes/Dashboard/containers/GroupSettingsView/Portfolio";
+import type { IPortfolioProps } from "scenes/Dashboard/containers/GroupSettingsView/Portfolio";
 import {
   ADD_TAGS_MUTATION,
   GET_TAGS,
   REMOVE_TAG_MUTATION,
-} from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+} from "scenes/Dashboard/containers/GroupSettingsView/queries";
 import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";

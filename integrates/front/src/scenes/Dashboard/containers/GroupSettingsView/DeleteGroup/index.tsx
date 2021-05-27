@@ -12,8 +12,8 @@ import {
   ButtonToolbar,
   Col40,
   Flex,
-  LastProjectSetting,
-  ProjectScopeText,
+  GroupScopeText,
+  LastGroupSetting,
   Row,
 } from "styles/styledComponents";
 import { Logger } from "utils/logger";
@@ -57,14 +57,14 @@ const DeleteGroup: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <LastProjectSetting>
+      <LastGroupSetting>
         <Flex>
           <h2>{t("searchFindings.servicesTable.deleteGroup.deleteGroup")}</h2>
         </Flex>
         <Row>
-          <ProjectScopeText>
+          <GroupScopeText>
             {t("searchFindings.servicesTable.deleteGroup.warning")}
-          </ProjectScopeText>
+          </GroupScopeText>
           <Col40>
             <ButtonToolbar>
               <Button onClick={handleChange}>
@@ -73,7 +73,7 @@ const DeleteGroup: React.FC = (): JSX.Element => {
             </ButtonToolbar>
           </Col40>
         </Row>
-      </LastProjectSetting>
+      </LastGroupSetting>
       <DeleteGroupModal
         groupName={projectName}
         isOpen={isModalOpen}

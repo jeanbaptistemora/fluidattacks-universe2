@@ -90,7 +90,7 @@ const handleEditGroupDataError = (error: ApolloError): void => {
           translate.t("searchFindings.servicesTable.errors.forcesOnlyIfDrills")
         );
         break;
-      case "Exception - Forces is only available in projects of type Continuous":
+      case "Exception - Forces is only available in groups of type: Continuous":
         msgError(
           translate.t(
             "searchFindings.servicesTable.errors.forcesOnlyIfContinuous"

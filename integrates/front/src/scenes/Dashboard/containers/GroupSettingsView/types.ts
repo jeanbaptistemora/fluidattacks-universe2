@@ -1,4 +1,4 @@
-interface IProjectTagsAttr {
+interface IGroupTagsAttr {
   project: {
     deletionDate: string;
     name: string;
@@ -94,14 +94,14 @@ interface IAddEnvAttr {
   };
 }
 
-interface IGetProjectData {
+interface IGetGroupData {
   project: {
     deletionDate: string;
   };
 }
 
 export {
-  IProjectTagsAttr,
+  IGroupTagsAttr,
   IRemoveTagsAttr,
   IAddTagsAttr,
   IHistoricState,
@@ -112,5 +112,5 @@ export {
   IEnvironmentsAttr,
   IUpdateEnvAttr,
   IAddEnvAttr,
-  IGetProjectData,
+  IGetGroupData,
 };

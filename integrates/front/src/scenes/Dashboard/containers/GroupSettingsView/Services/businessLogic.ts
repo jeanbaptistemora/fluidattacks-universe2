@@ -1,7 +1,7 @@
 import type {
   IFormData,
   IGroupData,
-} from "scenes/Dashboard/containers/ProjectSettingsView/Services/types";
+} from "scenes/Dashboard/containers/GroupSettingsView/Services/types";
 import { translate } from "utils/translations/translate";
 
 const serviceStateToString: (value: boolean | string | undefined) => string = (

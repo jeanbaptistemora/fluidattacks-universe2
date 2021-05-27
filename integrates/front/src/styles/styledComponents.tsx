@@ -265,7 +265,7 @@ const Label: StyledComponent<
   className: "bg-lbl-gray br2 f4 fw7 ml3 nowrap pv1 ph2 tc white",
 })``;
 
-const LastProjectSetting: StyledComponent<
+const LastGroupSetting: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs<{
@@ -352,7 +352,7 @@ const ProgressBar: StyledComponent<
   width: ${(props: { theme: { width: string } }): string => props.theme.width};
 `;
 
-const ProjectScopeText: StyledComponent<
+const GroupScopeText: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs<{
@@ -555,7 +555,7 @@ export {
   GraphicPanelCollapseHeader,
   InputGroup,
   Label,
-  LastProjectSetting,
+  LastGroupSetting,
   Meter,
   ModalBody,
   ModalFooter,
@@ -567,7 +567,7 @@ export {
   PanelCollapseBody,
   PanelCollapseHeader,
   ProgressBar,
-  ProjectScopeText,
+  GroupScopeText,
   QuestionButton,
   RemoveItem,
   RemoveTag,

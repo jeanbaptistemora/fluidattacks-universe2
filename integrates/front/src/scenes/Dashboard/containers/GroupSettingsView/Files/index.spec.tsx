@@ -9,14 +9,14 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
 
-import type { IFilesProps } from "scenes/Dashboard/containers/ProjectSettingsView/Files";
-import { Files } from "scenes/Dashboard/containers/ProjectSettingsView/Files";
+import type { IFilesProps } from "scenes/Dashboard/containers/GroupSettingsView/Files";
+import { Files } from "scenes/Dashboard/containers/GroupSettingsView/Files";
 import {
   DOWNLOAD_FILE_MUTATION,
   GET_FILES,
   REMOVE_FILE_MUTATION,
   UPLOAD_FILE_MUTATION,
-} from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+} from "scenes/Dashboard/containers/GroupSettingsView/queries";
 import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";

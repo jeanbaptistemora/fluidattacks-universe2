@@ -8,11 +8,11 @@ import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
 
-import { ProjectSettingsView } from "scenes/Dashboard/containers/ProjectSettingsView";
-import { GET_TAGS } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+import { GroupSettingsView } from "scenes/Dashboard/containers/GroupSettingsView";
+import { GET_TAGS } from "scenes/Dashboard/containers/GroupSettingsView/queries";
 import store from "store";
 
-describe("ProjectSettingsView", (): void => {
+describe("GroupSettingsView", (): void => {
   const mocksTags: Readonly<MockedResponse> = {
     request: {
       query: GET_TAGS,
@@ -46,7 +46,7 @@ describe("ProjectSettingsView", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof ProjectSettingsView).toStrictEqual("function");
+    expect(typeof GroupSettingsView).toStrictEqual("function");
   });
 
   it("should render tags component", async (): Promise<void> => {
@@ -57,7 +57,7 @@ describe("ProjectSettingsView", (): void => {
         <MockedProvider addTypename={false} mocks={[mocksTags]}>
           <MemoryRouter initialEntries={["/orgs/okada/groups/TEST/scope"]}>
             <Route
-              component={ProjectSettingsView}
+              component={GroupSettingsView}
               path={"/orgs/:organizationName/groups/:projectName/scope"}
             />
           </MemoryRouter>
@@ -77,7 +77,7 @@ describe("ProjectSettingsView", (): void => {
         <MockedProvider addTypename={false} mocks={mockError}>
           <MemoryRouter initialEntries={["/orgs/okada/groups/TEST/scope"]}>
             <Route
-              component={ProjectSettingsView}
+              component={GroupSettingsView}
               path={"/orgs/:organizationName/groups/:projectName/scope"}
             />
           </MemoryRouter>
@@ -97,7 +97,7 @@ describe("ProjectSettingsView", (): void => {
         <MockedProvider addTypename={false} mocks={[mocksTags]}>
           <MemoryRouter initialEntries={["/orgs/okada/groups/TEST/scope"]}>
             <Route
-              component={ProjectSettingsView}
+              component={GroupSettingsView}
               path={"/orgs/:organizationName/groups/:projectName/scope"}
             />
           </MemoryRouter>

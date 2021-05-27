@@ -31,18 +31,18 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   EDIT_GROUP_DATA,
   GET_GROUP_DATA,
-} from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+} from "scenes/Dashboard/containers/GroupSettingsView/queries";
 import {
   computeConfirmationMessage,
   isDowngrading,
   isDowngradingServices,
-} from "scenes/Dashboard/containers/ProjectSettingsView/Services/businessLogic";
+} from "scenes/Dashboard/containers/GroupSettingsView/Services/businessLogic";
 import type {
   IFormData,
   IGroupData,
   IServicesDataSet,
   IServicesProps,
-} from "scenes/Dashboard/containers/ProjectSettingsView/Services/types";
+} from "scenes/Dashboard/containers/GroupSettingsView/Services/types";
 import {
   Alert,
   ButtonToolbar,

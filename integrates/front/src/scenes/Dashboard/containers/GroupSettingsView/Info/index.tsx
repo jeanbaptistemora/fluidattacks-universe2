@@ -7,8 +7,8 @@ import { useParams } from "react-router-dom";
 
 import { DataTableNext } from "components/DataTableNext";
 import type { IHeaderConfig } from "components/DataTableNext/types";
-import { GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
-import { Flex, LastProjectSetting } from "styles/styledComponents";
+import { GET_GROUP_DATA } from "scenes/Dashboard/containers/GroupSettingsView/queries";
+import { Flex, LastGroupSetting } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -49,7 +49,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <LastProjectSetting>
+      <LastGroupSetting>
         <Flex>
           <h2>{translate.t("searchFindings.infoTable.title")}</h2>
         </Flex>
@@ -63,7 +63,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
           search={false}
           striped={true}
         />
-      </LastProjectSetting>
+      </LastGroupSetting>
     </React.StrictMode>
   );
 };

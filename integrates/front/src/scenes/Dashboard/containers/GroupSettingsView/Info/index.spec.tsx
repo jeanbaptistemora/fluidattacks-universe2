@@ -8,8 +8,8 @@ import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
 
-import { GroupInformation } from "scenes/Dashboard/containers/ProjectSettingsView/Info";
-import { GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+import { GroupInformation } from "scenes/Dashboard/containers/GroupSettingsView/Info";
+import { GET_GROUP_DATA } from "scenes/Dashboard/containers/GroupSettingsView/queries";
 import store from "store";
 
 describe("Info", (): void => {

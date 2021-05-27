@@ -17,7 +17,7 @@ import {
   ADD_TAGS_MUTATION,
   GET_TAGS,
   REMOVE_TAG_MUTATION,
-} from "scenes/Dashboard/containers/ProjectSettingsView/queries";
+} from "scenes/Dashboard/containers/GroupSettingsView/queries";
 import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
@@ -49,7 +49,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
     notifyOnNetworkStatusChange: true,
     onError: (error: ApolloError): void => {
       msgError(translate.t("groupAlerts.errorTextsad"));
-      Logger.warning("An error occurred loading project tags", error);
+      Logger.warning("An error occurred loading group tags", error);
     },
     variables: { projectName },
   });
