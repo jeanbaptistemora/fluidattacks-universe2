@@ -38,7 +38,7 @@ function lint_shell {
   # SC2153: Possible misspelling: x may not be assigned, but y is.
   # SC2154: x is referenced but not assigned.
 
-      find ./*.sh makes -wholename '*.sh' | sort --ignore-case > "${LIST}" \
+      find makes -wholename '*.sh' | sort --ignore-case > "${LIST}" \
   &&  while read -r path
       do
             echo "[INFO] Testing: ${path}" \
