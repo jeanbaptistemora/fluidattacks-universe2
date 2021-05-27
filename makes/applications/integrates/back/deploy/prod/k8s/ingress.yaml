@@ -17,13 +17,6 @@ metadata:
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
 spec:
   rules:
-    - host: integrates.fluidattacks.com
-      http:
-        paths:
-          - path: /*
-            backend:
-              serviceName: integrates-master
-              servicePort: 81
     - host: app.fluidattacks.com
       http:
         paths:
