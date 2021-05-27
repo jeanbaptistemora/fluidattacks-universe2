@@ -84,6 +84,7 @@ export const commonConfig: Configuration = {
     },
     extensions: [".js", ".jsx", ".ts", ".tsx"],
     fallback: {
+      buffer: require.resolve("buffer"),
       crypto: require.resolve("crypto-browserify"),
       stream: require.resolve("stream-browserify"),
     },
