@@ -30,9 +30,9 @@ class FindingVerification(NamedTuple):
 
 
 class FindingEvidence(NamedTuple):
-    description: str = ""
-    modified_date: str = ""
-    url: str = ""
+    description: str
+    modified_date: str
+    url: str
 
 
 class FindingEvidences(NamedTuple):
@@ -46,9 +46,9 @@ class FindingEvidences(NamedTuple):
 
 
 class FindingRecords(NamedTuple):
-    description: str = ""
-    modified_date: str = ""
-    url: str = ""
+    description: str
+    modified_date: str
+    url: str
 
 
 class Finding20Severity(NamedTuple):
@@ -153,7 +153,7 @@ class Finding(NamedTuple):
     severity: Union[Finding20Severity, Finding31Severity] = Finding31Severity()
     sorts: FindingSorts = FindingSorts.NO
     submission: Optional[FindingState] = None
-    records: FindingRecords = FindingRecords()
+    records: Optional[FindingRecords] = None
     recommendation: str = ""
     requirements: str = ""
     risk: str = ""

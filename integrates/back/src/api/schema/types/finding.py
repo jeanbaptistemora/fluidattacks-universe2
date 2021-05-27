@@ -45,6 +45,7 @@ from api.resolvers.finding_new import (
     open_vulnerabilities_new,
     ports_vulns_new,
     project_name_new,
+    records_new,
     release_date_new,
     remediated_new,
     report_date_new,
@@ -82,6 +83,7 @@ if FI_API_STATUS == "migration":
     FINDING.set_field("openVulnerabilities", open_vulnerabilities_new.resolve)
     FINDING.set_field("portsVulns", ports_vulns_new.resolve)
     FINDING.set_field("projectName", project_name_new.resolve)
+    FINDING.set_field("records", records_new.resolve)
     FINDING.set_field("releaseDate", release_date_new.resolve)
     FINDING.set_field("remediated", remediated_new.resolve)
     FINDING.set_field("reportDate", report_date_new.resolve)

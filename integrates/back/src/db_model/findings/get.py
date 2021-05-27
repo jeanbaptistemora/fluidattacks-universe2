@@ -152,7 +152,9 @@ def _build_finding(
         severity=severity,
         sorts=FindingSorts[metadata["sorts"]],
         submission=submission,
-        records=FindingRecords(**metadata["records"]),
+        records=FindingRecords(**metadata["records"])
+        if "records" in metadata
+        else None,
         recommendation=metadata["recommendation"],
         requirements=metadata["requirements"],
         risk=metadata["risk"],
