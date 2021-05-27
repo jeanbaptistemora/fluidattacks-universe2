@@ -748,6 +748,25 @@ module.exports = {
         },
       ],
     },
+    {
+      type: 'category',
+      label: 'Compliance',
+      items: [
+        'criteria/compliance/introduction',
+        'criteria/compliance/pcidss',
+        'criteria/compliance/owaspasvs',
+        'criteria/compliance/bsimm',
+        'criteria/compliance/capec',
+        'criteria/compliance/cwe',
+        'criteria/compliance/eprivacy',
+        'criteria/compliance/gdpr',
+        'criteria/compliance/hipaa',
+        'criteria/compliance/iso',
+        'criteria/compliance/nerc',
+        'criteria/compliance/nist',
+        'criteria/compliance/owaspten',        
+      ],
+    },
   ],
   Machine: [
     {

@@ -51,7 +51,7 @@ module.exports = {
           to: 'development/',
           activeBasePath: 'development/',
           label: 'Development',
-          position: 'left',
+          position: 'right',
         },
       ],
     },
