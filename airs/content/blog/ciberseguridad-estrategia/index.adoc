@@ -6,7 +6,7 @@
 :page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330844/blog/cybersecurity-strategy/cover_pxhwlz.webp
 :page-alt: Photo by Joanna Kosinska on Unsplash
 :page-description: Un artículo reciente sugiere elevar a la ciberseguridad de una incorporación operativa a una estratégica. Aquí discutimos algunas ideas de ese artículo.
-:page-keywords: Cybersecurity, Mistake, Risk, Strategy, Business, Company, Ethical Hacking, Pentesting
+:page-keywords: Ciberseguridad, Error, Riesgo, Estrategia, Negocio, Compañía, Ethical Hacking, Pentesting
 :page-author: Julian Arango
 :page-writer: jarango
 :name: Julian Arango

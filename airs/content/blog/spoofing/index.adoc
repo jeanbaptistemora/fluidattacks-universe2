@@ -126,7 +126,7 @@ Furthermore, that replica is usually updated
 according to the original website changes,
 making it challenging to identify the farce.
 
-=== Email-Cellular-SMS combo
+=== Email-Phone-SMS combo
 
 This combo may be the one that requires minor work from the criminals’ side.
 First, they imitate a mail header
@@ -184,6 +184,7 @@ However, I also bet that you don't know what links one of the
 link:https://www.gamesindustry.biz/articles/2021-03-02-gotta-cash-em-all-how-pok-mon-became-the-worlds-biggest-games-franchise#:~:text=Quantifying%20Pok%C3%A9mon's%20success%20is%20tricky,website%20a%20few%20years%20back[most valued franchises in the world]
 with spoofing. So, to understand it,
 we have to talk a bit about Pokémon.
+
 One of the latest hits of this franchise was their collaborative success
 with the enterprise Niantic when they decided to launch Pokémon Go.
 The goal of this game is to catch Pokémon in real places.
@@ -203,7 +204,7 @@ That's why we say that each other's fun is the danger of others.
 In seeking to innocently catch more Pokémon,
 spoofing has become more popular.
 In turn, this makes more people use this type of cyberattack technique,
-making more vulnerable companies for being attacked.
+making companies more vulnerable to being attacked.
 
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620857979/blog/spoofing/google_ztrfjg.webp[Figure 3]
 
