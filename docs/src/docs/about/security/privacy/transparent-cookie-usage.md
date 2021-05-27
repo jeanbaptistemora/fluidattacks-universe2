@@ -22,8 +22,8 @@ By doing this,
 we become compliant with security rules
 such as the following:
 
-- [Request user consent](/criteria/privacy/310)
+- [Request user consent](/criteria/requirements/privacy/310)
 
-- [Allow user consent revocation](/criteria/privacy/312)
+- [Allow user consent revocation](/criteria/requirements/privacy/312)
 
-- [Provide processed data information](/criteria/privacy/315)
+- [Provide processed data information](/criteria/requirements/privacy/315)

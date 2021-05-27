@@ -5,7 +5,7 @@ sidebar_label: Secret rotation
 slug: /about/security/authorization/secret-rotation
 ---
 
-[Key rotation](/criteria/credentials/130)
+[Key rotation](/criteria/requirements/credentials/130)
 is essential when dealing with sensitive data.
 The best way to prevent a key leakage
 is by changing the keys regularly.
@@ -17,7 +17,7 @@ Our rotation cycles are as follows:
 
 - **Digital Certificates:** every thirty days.
 
-- **IAM passphrases:** [every three months](/criteria/certificates/089).
+- **IAM passphrases:** [every three months](/criteria/requirements/certificates/089).
 
 Rotations are done in these two different ways:
 

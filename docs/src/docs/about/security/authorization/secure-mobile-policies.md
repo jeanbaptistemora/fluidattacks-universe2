@@ -19,5 +19,5 @@ Some of the requirements are:
   from the rest of the phone.
 - Setting a strong passphrase.
 - Setting
-  [biometric authentication](/criteria/authentication/231)
+  [biometric authentication](/criteria/requirements/authentication/231)
   in case the device supports it.

@@ -74,9 +74,9 @@ from zero (0) to production in an automated process.
 ## Immutable infrastructure
 The infrastructure code can be audited,
 and changes can only be made by
-[changing such code](/criteria/services/265).
+[changing such code](/criteria/requirements/services/265).
 This provides full transparency on
-[what was changed, when, and who did it](/criteria/files/046).
+[what was changed, when, and who did it](/criteria/requirements/files/046).
 Also,
 no administrative protocols like ssh
 or administrative accounts are needed.

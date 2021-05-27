@@ -38,19 +38,10 @@ const features = [
     title: 'Criteria',
     description: (
       <>
-        List of security requirements considered by our organization
+        List of security requirements and vulnerabilities considered by our organization
       </>
     ),
-    link: 'criteria'
-  },
-  {
-    title: 'Types',
-    description: (
-      <>
-        List of vulnerability types related to security requirements
-      </>
-    ),
-    link: 'types'
+    link: 'criteria/introduction'
   },
   {
     title: 'Development',

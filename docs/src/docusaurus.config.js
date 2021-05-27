@@ -42,15 +42,9 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'criteria/',
+          to: 'criteria/introduction',
           activeBasePath: 'criteria/',
           label: 'Criteria',
-          position: 'left',
-        },
-        {
-          to: 'types/',
-          activeBasePath: 'types/',
-          label: 'Types',
           position: 'left',
         },
         {
