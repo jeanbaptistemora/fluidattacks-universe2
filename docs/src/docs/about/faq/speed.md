@@ -89,3 +89,143 @@ as well as our ability
 to innovate internal processes,
 we are fully capable of taking on
 between `5` and `10` new applications each month.
+
+### How long does it take you to review a new commit?
+The goal is `100%` coverage.
+Therefore,
+there will be results
+regarding system vulnerabilities
+continuously
+throughout the contract period.
+We take into account
+all pushes to the tested branch,
+which are monitored
+using automated scripts (robots)
+that extract and analyze
+the changes made to the source code
+every night.
+
+### What are the scheduled activities during the Squad plan test?
+Once the setup has been completed,
+and everything is ready
+for the service to begin,
+the security tests start.
+The steps are as follows:
+
+1. Approval request
+  (purchase order confirmed).
+
+1. Project leader assignment.
+
+1. The project leader
+  schedules the start meeting
+  (teleconference).
+
+1. Service condition validation.
+
+1. Supplies request
+  (access to environments and code).
+
+1. The project leader receives supplies,
+  and programs the setup
+  of the verification
+  and access robots.
+
+1. The project leader
+  creates an admin user
+  in [`ASM`](https://fluidattacks.com/categories/asm/)
+  for the client.
+
+1. The admin user
+  invites all project stakeholders
+  including the developers.
+  (They must have `Google Apps`
+  or `Office365`.)
+
+1. Vulnerabilities are reported in [`ASM`](https://fluidattacks.com/categories/asm/).
+
+1. Project stakeholders
+  access vulnerabilities
+  and start remediation.
+
+1. If any questions or problems arise,
+  they can be addressed
+  through the comments
+  or chat available in [`ASM`](https://fluidattacks.com/categories/asm/).
+
+1. When the client
+  has remediated
+  the reported vulnerabilities,
+  they may request validation
+  of their repairs
+  through [`ASM`](https://fluidattacks.com/categories/asm/).
+
+1. Our hacker performs
+  the closure verification
+  and updates the report.
+
+1. Steps `3` - `7` are repeated
+  until the subscription ends.
+
+### Do you test every time I make a push in the subscription branch?
+During the execution of a project,
+the following scenarios can occur:
+
+1. Application in development
+  without overdue code
+  (`100%` coverage):
+  The robot detects the change
+  and generates
+  the updated control files.
+  This means that
+  no specific file or commit
+  is audited,
+  but rather
+  the change analysis
+  performed by the robot
+  is incorporated
+  when the hackers
+  attack the application,
+  thus allowing them
+  to take into account
+  the changes made.
+
+1. Application in production
+  without overdue code
+  (`100%` coverage):
+  Even when there are no changes,
+  the application is attacked.
+  Internally,
+  we have processes
+  that help us identify
+  why we haven’t found vulnerabilities
+  in the application
+  in 7, 14 and 21 days.
+  These processes include
+  such things as
+  hacker rotations
+  or increasing the number of hackers
+  assigned to the project
+  in order to find
+  undiscovered vulnerabilities.
+
+1. Application in development
+  with overdue code
+  (`<100%` coverage):
+  Same as the first scenario,
+  but attacks are only related
+  to the change that was made.
+  The attack surface that existed
+  before the subscription point
+  is not attacked.
+
+1. Application in production
+  with overdue code
+  (`<100%` coverage):
+  Same as the second scenario,
+  but if in a specified month
+  there is no new code,
+  it is hacked only to the extent
+  of the changes made
+  by `one` active author
+  in `one` previous month.

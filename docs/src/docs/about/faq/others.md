@@ -38,6 +38,17 @@ communication is handled
 through the project manager (PM)
 as a single point of contact (SPOC).
 
+### How long does it take you to answer a question in the comment system?
+All questions made through
+the vulnerabilities comment system,
+have a `4` business hours `SLA`.
+M - F from `8AM` to `12` noon
+and `2PM` to `6PM`
+(`UTC-5` Colombia =
+same as Eastern Standard Time `USA`).
+`SLA` is not contractually defined,
+it is our value promise.
+
 ### Will you periodically do presentations via teleconferencing?
 Yes.
 We can schedule periodic presentations
@@ -60,3 +71,22 @@ Reviewing your code
 in no way compromises
 your proprietary rights
 to that code.
+
+### Who would be performing the work?
+Our designated team of hackers.
+
+### Can I see your resumes??
+Yes,
+you can access
+the LinkedIn profiles
+of some members of our team
+on our people page.
+
+### What certifications do you have?
+Please refer to our
+[certifications](https://fluidattacks.com/about-us/certifications/)
+page for further information.
+
+### Do you have liability insurance?
+Yes,
+`1M USD` coverage.

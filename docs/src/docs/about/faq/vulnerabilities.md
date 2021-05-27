@@ -122,7 +122,7 @@ Reports and `ASM`
 will include all the information
 with nothing excluded.
 
-## Do you keep information regarding the vulnerabilities found?
+### Do you keep information regarding the vulnerabilities found?
 Information is only kept
 for the duration of the contract.
 Once the contract has ended,

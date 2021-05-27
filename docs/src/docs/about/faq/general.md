@@ -5,8 +5,8 @@ sidebar_label: General
 slug: /about/faq
 ---
 
-### What is Continuous Hacking?
-Continuous Hacking is
+### What is the Squad plan?
+The Squad plan is
 a security testing service
 that allows the hacking process
 to begin at an early stage
@@ -101,7 +101,7 @@ This option is better suited
 for applications
 no longer in development.
 
-### What can be done to review all the existing code before starting the hacking process?
+### Can you review all the existing code before starting the tests?
 We recommend
 that application development
 and the hacking process
@@ -139,22 +139,7 @@ is going to be tested,
 but what cannot be reached,
 cannot be tested.
 
-## Who would be performing the work?
-Our designated team of hackers.
-
-### Can we see resumes?
-Yes,
-you can access
-the LinkedIn profiles
-of some members of our team
-on our people page.
-
-### What certifications do you have?
-Please refer to our
-[certifications](https://fluidattacks.com/about-us/certifications/)
-page for further information.
-
-### With the Squad plan, is it possible to include the infrastructure associated with my app?
+### With the Squad plan, can I include the infrastructure associated with my app?
 We have improved the Squad plan model
 to now include infrastructure
 within the Target of Evaluation (`ToE`).
@@ -171,6 +156,39 @@ and [Core Impact](https://www.coresecurity.com/products/core-impact)
 for infrastructure testing
 with additional exploits.
 
+### Where does ASM run?
+The platform,
+[`ASM`](https://fluidattacks.com/categories/asm/), 
+runs in the cloud.
+
+### Do you manage the access credentials to ASM?
+No.
+We use federated authentication.
+`Google`, `Azure` (`Microsoft 360`)
+and `Bitbucket`
+are the entities which validate
+your user access credentials.
+
+### Can I activate the double authentication token?
+Yes,
+you can,
+and we recommend you do so.
+Using double authentication
+will increase the security level
+of your credentials.
+This will help prevent unauthorized users
+from accessing and compromising your information.
+This feature is enabled
+through `Gmail` or `Azure`.
+
+### How will our data be stored?
+- AWS on the cloud (mainly S3 and DynamoDB, all security enabled)
+- Hackers' computers with disk encryption in all partitions.
+- In [this page](/about/security/confidentiality/encryption-rest)
+  you can read
+  about how we ensure
+  our clients confidentiality.
+
 ### How will our data be transmitted?
 It is up to you,
 however,
@@ -178,3 +196,73 @@ we recommend the use of `HTTPS`
 for application tests
 and `SSH` (`git`)
 for source code analysis.
+
+### What options for retesting are available?
+[One-shot Hacking](https://fluidattacks.com/services/one-shot-hacking)
+includes one retest.
+[The Squad plan](https://fluidattacks.com/services/continuous-hacking/)
+includes infinite retests
+during the subscription time.
+
+### Can I group multiple app in one subscriptions and recognize the vulnerabilities within each app? 
+According to the active authors model,
+it is possible to create
+a large cell with all the developers
+or to divide it into applications
+according to the client’s needs.
+When managing only one cell,
+it is important to consider
+the following:
+- All users in the project
+  can see all the vulnerabilities
+  of the application
+  inside the same cell.
+- When the same vulnerability
+  appears in several applications,
+  the only way to
+  identify/locate each one
+  in each individual application
+  is by checking the vulnerability report
+  under the heading "location".
+  There,
+  it will specify
+  where each vulnerability
+  can be found.
+
+### Can I change the environment when the subscription is already active?
+Yes,
+you can,
+under the condition
+that the new environment
+be the same branch environment
+where the source code is reviewed,
+thus allowing us
+to test the same version
+of the change
+both statically and dynamically.
+
+### How do you ensure the availability of my apps while you test them?
+It is possible to cause
+an accidental DoS
+during the hacking service.
+We recommendnincluding only
+the staging phase in the scope.
+However,
+many clients decide
+to also include
+the production stage
+in the tests.
+It is unusual for us
+to take down environments
+because when we foresee
+a possible breakpoint,
+we ask the client
+for a special environment
+within which to carry out the test.
+
+### What happens if I want to review different environments of the same app?
+The service includes
+the environment of the reviewed code.
+It is possible to include
+different environments
+for an additional fee.
