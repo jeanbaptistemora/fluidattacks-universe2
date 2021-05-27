@@ -245,6 +245,9 @@ integrates.back.test.functional.events:
 integrates.back.test.functional.finding:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.finding_new:
+  <<: *integrates_back_test_functional_migration
+
 integrates.back.test.functional.forces_executions:
   <<: *integrates_back_test_functional
 
