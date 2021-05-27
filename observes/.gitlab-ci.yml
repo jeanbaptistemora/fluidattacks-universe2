@@ -143,6 +143,11 @@ observes.lint.tap-mixpanel:
   <<: *observes_in_dev_branch
   stage: lint-code
 
+observes.lint.tap-timedoctor:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
 observes.lint.target-redshift:
   <<: *makes
   <<: *observes_in_dev_branch

@@ -7,6 +7,7 @@ import urllib.error
 import urllib.request
 from typing import (
     Any,
+    NamedTuple,
     Optional,
     Tuple,
 )
@@ -21,6 +22,12 @@ def current_timestamp(offset: float = 0.0) -> float:
 
 
 StatusAndResponse = Tuple[int, Any]
+
+
+class Options(NamedTuple):
+    limit: int
+    start_date: Optional[str] = None
+    end_date: Optional[str] = None
 
 
 class Worker:
@@ -82,23 +89,23 @@ class Worker:
         return self.request(resource)
 
     def get_worklogs(
-        self,  # pylint: disable=too-many-arguments
+        self,
         company_id: str,
-        limit: int,
         offset: int,
-        start_date: Optional[str] = None,
-        end_date: Optional[str] = None,
+        options: Options,
     ) -> StatusAndResponse:
         """Return a collection of users worklogs under the given company id."""
         today = datetime.date.today()
-        start_date = start_date or today.replace(today.year - 1).isoformat()
-        end_date = end_date or today.isoformat()
+        start_date = (
+            options.start_date or today.replace(today.year - 1).isoformat()
+        )
+        end_date = options.end_date or today.isoformat()
 
         resource = (
             f"{self.url}/v1.1/companies/{company_id}/worklogs"
             # fetch historical
             f"?start_date={start_date}&end_date={end_date}"
-            f"&limit={limit}&offset={offset}"
+            f"&limit={options.limit}&offset={offset}"
             # fetch working time, not breaks
             f"&breaks_only=0"
             # don't consolidate records to make information richer
@@ -108,21 +115,21 @@ class Worker:
         return self.request(resource)
 
     def get_computer_activity(
-        self,  # pylint: disable=too-many-arguments
+        self,
         company_id: str,
         user_id: str,
-        start_date: Optional[str] = None,
-        end_date: Optional[str] = None,
-        limit: int = 20000,
+        options: Options,
     ) -> StatusAndResponse:
         """Return screenshots, keystrokes, mouse activities for a user_id."""
         today = datetime.date.today()
-        start_date = start_date or today.replace(today.year - 1).isoformat()
-        end_date = end_date or today.isoformat()
+        start_date = (
+            options.start_date or today.replace(today.year - 1).isoformat()
+        )
+        end_date = options.end_date or today.isoformat()
         resource = (
             f"{self.url}/v1.1/companies/{company_id}/screenshots"
             f"?start_date={start_date}&end_date={end_date}"
             f"&user_id={user_id}"
-            f"&limit=0&screenshots_limit={limit}&offset=0"
+            f"&limit=0&screenshots_limit={options.limit}&offset=0"
         )
         return self.request(resource)

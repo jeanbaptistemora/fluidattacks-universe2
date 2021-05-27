@@ -18,7 +18,7 @@ from typing import (
 
 # Local libraries
 from tap_timedoctor import logs
-from tap_timedoctor.api import Worker
+from tap_timedoctor.api import Options, Worker
 
 # Type aliases that improve clarity
 JSON = Any
@@ -141,7 +141,7 @@ def sync_worklogs(
         #   iterate until an empty list is found
         while 1:
             status_code, response = api_worker.get_worklogs(
-                company_id, limit, offset, start_date, end_date
+                company_id, offset, Options(limit, start_date, end_date)
             )
             ensure_200(status_code)
             worklogs: JSON = json.loads(response)["worklogs"]
@@ -236,7 +236,7 @@ def sync_computer_activity(
             return default if obj is None else obj
 
         (status_code, response) = api_worker.get_computer_activity(
-            company_id, user_id, start_date, end_date
+            company_id, user_id, Options(20000, start_date, end_date)
         )
         ensure_200(status_code)
 
