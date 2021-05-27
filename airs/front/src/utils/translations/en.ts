@@ -160,6 +160,18 @@ const pageTexts: ResourceKey = {
       },
     },
   },
+  sastCategoryParagraph: {
+    bold1: "the best possible result ",
+    bold2: "TPR ",
+    bold3: "100% ",
+    bold4: "FPR ",
+    bold5: "0% ",
+    phrase1: "Our SAST tool achivied ",
+    phrase2: "against the OWASP Benchmark: A ",
+    phrase3: "(True Positive Rate) of ",
+    phrase4: "and an ",
+    phrase5: "(False Positive Rate) of ",
+  },
   service: {
     oneShotParagraph:
       "If you want to achieve higher vulnerability remediation rates, we" +

@@ -4,6 +4,8 @@ import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
 import { BlackH2 } from "../../styles/styledComponents";
+import { translate } from "../../utils/translations/translate";
+import { CloudImage } from "../CloudImage";
 
 const LanguagesListContainer: StyledComponent<
   "div",
@@ -16,6 +18,7 @@ const LanguagesListContainer: StyledComponent<
     pv5
     v-top
     mb5
+    roboto
   `,
 })``;
 const ListContainer: StyledComponent<
@@ -23,8 +26,8 @@ const ListContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    center 
-    moon-gray 
+    center
+    moon-gray
     mw8
   `,
 })``;
@@ -46,9 +49,43 @@ const ListColumn: StyledComponent<
     tl
   `,
 })``;
+const SastParagraph: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+      center
+      roboto
+      f3-l
+      f4
+      lh-2
+      pv4
+    `,
+})``;
 
-export const LanguagesList: React.FC = (): JSX.Element => (
+export const SastPageFooter: React.FC = (): JSX.Element => (
   <LanguagesListContainer>
+    <SastParagraph>
+      <div className={"flex"}>
+        <CloudImage
+          alt={"OWASP-logo"}
+          src={"/airs/categories/icon-logo-owasp-rojo"}
+          styles={"pv4 pr3 w3 h3"}
+        />
+        <p className={"lh-copy"}>
+          {translate.t("sastCategoryParagraph.phrase1")}
+          <b>{translate.t("sastCategoryParagraph.bold1")}</b>
+          {translate.t("sastCategoryParagraph.phrase2")}
+          <b>{translate.t("sastCategoryParagraph.bold2")}</b>
+          {translate.t("sastCategoryParagraph.phrase3")}
+          <b>{translate.t("sastCategoryParagraph.bold3")}</b>
+          {translate.t("sastCategoryParagraph.phrase4")}
+          <b>{translate.t("sastCategoryParagraph.bold4")}</b>
+          {translate.t("sastCategoryParagraph.phrase5")}
+          <b>{translate.t("sastCategoryParagraph.bold5")}</b>
+        </p>
+      </div>
+    </SastParagraph>
     <BlackH2 className={"roboto"}>{"Supported Languages"}</BlackH2>
     <ListContainer>
       <ListColumn>

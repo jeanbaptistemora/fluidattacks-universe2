@@ -17,7 +17,7 @@ import styled from "styled-components";
 
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
-import { LanguagesList } from "../components/SastSupportedLanguages";
+import { SastPageFooter } from "../components/SastPageFooter";
 import { Seo } from "../components/Seo";
 import {
   BannerContainer,
@@ -51,10 +51,10 @@ const CategoryIndex: React.FC<IQueryData> = ({
       center
       c-lightblack
       pv5
-      compliance-page 
-      flex 
-      flex-wrap 
-      items-center 
+      compliance-page
+      flex
+      flex-wrap
+      items-center
       justify-center
     `,
   })``;
@@ -124,7 +124,7 @@ const CategoryIndex: React.FC<IQueryData> = ({
               />
             </CategoryContainer>
             {data.asciidoc.pageAttributes.slug === "categories/sast/" ? (
-              <LanguagesList />
+              <SastPageFooter />
             ) : undefined}
           </PageArticle>
         </div>
