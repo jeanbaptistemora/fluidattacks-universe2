@@ -13,8 +13,8 @@ docs.deploy
 docs.infra.apply
 docs.infra.test
 forces
-forces.infra-apply
-forces.infra-test
+forces.infra.deploy
+forces.infra.test
 forces.oci-deploy
 forces.oci-deploy-ephemeral
 forces.process-groups

@@ -58,17 +58,15 @@ forces.test-container:
   needs:
     - forces.oci-deploy-ephemeral
 
-forces.infra-test:
+forces.infra.test:
   <<: *makes
   <<: *forces_in_dev_and_master_branch
   stage: test-code
 
-forces.infra-apply:
+forces.infra.deploy:
   <<: *makes
-  only:
-    refs: [schedules]
-    variables: [$forces_infra_apply]
-  stage: scheduler
+  <<: *forces_in_master_branch
+  stage: deploy-app
 
 forces.process-groups:
   <<: *makes
