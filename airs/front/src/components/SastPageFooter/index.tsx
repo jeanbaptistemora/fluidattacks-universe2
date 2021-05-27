@@ -83,6 +83,7 @@ export const SastPageFooter: React.FC = (): JSX.Element => (
           <b>{translate.t("sastCategoryParagraph.bold4")}</b>
           {translate.t("sastCategoryParagraph.phrase5")}
           <b>{translate.t("sastCategoryParagraph.bold5")}</b>
+          {"."}
         </p>
       </div>
     </SastParagraph>
