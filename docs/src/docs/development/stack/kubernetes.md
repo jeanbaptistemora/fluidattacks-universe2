@@ -62,10 +62,18 @@ permissions to external resources
 using a
 [least privilege](../../criteria/requirements/186)
 approach.
+1. It supports
+[resource quotas](https://kubernetes.io/docs/concepts/policy/resource-quotas/),
+allowing to easily distribute containers among physical machines using
+a granular `cpu/memory per container` approach.
 1. It has its own [package manager](https://helm.sh/),
-which makes deploying services.
+which makes deploying services
 [very easy](https://gitlab.com/fluidattacks/product/-/blob/ba230133febd3325d0f5c995f638a176b89d32a2/makes/applications/makes/k8s/src/terraform/new-relic.tf#L5).
-2. It is [Open source](https://opensource.com/resources/what-open-source).
+1. It has its own
+[local reproducibility](https://minikube.sigs.k8s.io/docs/)
+tool for simulating clusters
+in local environments.
+1. It is [Open source](https://opensource.com/resources/what-open-source).
 1. It is not platform-bounded.
 1. [Azure AKS](https://azure.microsoft.com/en-us/services/kubernetes-service/),
 [AWS EKS](https://aws.amazon.com/eks),
@@ -91,6 +99,8 @@ but not chosen for the following reasons:
 1. [AWS ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html):
 It is a serverless service
 for running containers.
+It is expensive as only one container
+exists within an entire physical machine.
 It does not support extensions.
 It is platform-bounded.
 It is not [Open source](https://opensource.com/resources/what-open-source).
@@ -99,6 +109,8 @@ It is a serverless service
 for running containers
 without administering the infrastructure
 they run upon.
+It is expensive as only one container
+exists within an entire physical machine.
 It does not support extensions.
 It is platform-bounded.
 It is not [Open source](https://opensource.com/resources/what-open-source).
@@ -109,6 +121,24 @@ actually uses it for setting up cluster workers.
 It does not support extensions.
 It is platform-bounded.
 It is not [Open source](https://opensource.com/resources/what-open-source).
+1. [HashiCorp Nomad](https://www.nomadproject.io/):
+Currently, no
+[cloud provider](https://en.wikipedia.org/wiki/Cloud_computing)
+supports it,
+which means that having to manage
+both managers and workers is required.
+It takes a simpler approach
+to orchestrating applications,
+with the downside of losing flexibility.
+1. [Docker Swarm](https://www.sumologic.com/glossary/docker-swarm/):
+Currently, no
+[cloud provider](https://en.wikipedia.org/wiki/Cloud_computing)
+supports it,
+which means that having to manage
+both managers and workers is required.
+It takes a simpler approach
+to orchestrating applications,
+with the downside of losing flexibility.
 
 ## Usage
 
