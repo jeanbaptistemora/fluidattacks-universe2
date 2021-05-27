@@ -19,8 +19,8 @@ function check_adoc_blog_categories {
     techniques
   )
 
-      check_adoc_tag_exists "${path}" 'category' \
-  &&  grep -Po '(?<=^:category: ).+$' "${target}" \
+      check_adoc_tag_exists "${path}" 'page-category' \
+  &&  grep -Po '(?<=^:page-category: ).+$' "${target}" \
         | sed -E 's|,\s*|\n|g' \
         > list \
   &&  mapfile -t categories < list \
@@ -147,8 +147,8 @@ function check_adoc_blog_tags {
     xss
   )
 
-      check_adoc_tag_exists "${path}" 'tags' \
-  &&  grep -Po '(?<=^:tags: ).+$' "${target}" \
+      check_adoc_tag_exists "${path}" 'page-tags' \
+  &&  grep -Po '(?<=^:page-tags: ).+$' "${target}" \
         | sed -E 's|,\s*|\n|g' \
         > list \
   &&  mapfile -t tags < list \
@@ -165,7 +165,7 @@ function check_adoc_keywords_casing {
   local target="${1}"
   local msg="Keywords must be: Like This"
 
-      { grep -Po '(?<=^:keywords: ).*' "${target}" || true; } \
+      { grep -Po '(?<=^:page-keywords: ).*' "${target}" || true; } \
         | sed -E 's|,\s*|\n|g;s| |\n|g' \
         > list \
   &&  mapfile -t words < list \
@@ -207,7 +207,7 @@ function check_adoc_max_columns {
   local msg='File must be at most 80 columns'
 
   if grep -v '^:' "${target}" \
-      | grep -v 'link:' \
+      | grep -v '\(link:\|image::\)' \
       | grep -P "^.{81,}"
   then
     abort "[ERROR] ${msg}: ${target}"
@@ -220,7 +220,7 @@ function check_adoc_min_keywords {
   local msg="File must contain at least ${min_keywords} keywords"
 
       keywords="$( \
-        { grep -Po '^:keywords:.*' "${target}" || true; } \
+        { grep -Po '^:page-keywords:.*' "${target}" || true; } \
           | tr ',' '\n' \
           | wc -l \
       )" \
@@ -300,7 +300,7 @@ function check_adoc_patterns {
     [no_monospace_header]='Headers must not have monospaces'
     [no_start_used]='Start attribute must not be used. Use a + sign instead'
     [numbered_references]='References must be numbered'
-    [only_local_images]='Only local images are allowed'
+    [only_external_images]='Only images uploaded to Cloudinary or an external free source are allowed'
     [only_autonomic_com]='Use autonomicmind.com'
     [separate_code_from_paragraph]='Source code must be separated from a paragraph using a + sign'
     [slug_ends_with_slash]=':slug: tag must end with a slash /'
@@ -312,7 +312,7 @@ function check_adoc_patterns {
   declare -A patterns=(
     [blank_space_header]='^=\s+.+\n.+'
     [caption_forbidden_titles]='^\.(image|table|figure) \d+'
-    [description_char_range]='(?<=^:description: )(.{0,49}|.{161,})$'
+    [description_char_range]='(?<=^:page-description: )(.{0,49}|.{161,})$'
     [four_dashes_code_block]='^-{5,}'
     [image_alt_name]='^image::.+\[\]'
     [local_relative_paths]='link:http(s)?://fluidattacks.com'
@@ -320,11 +320,11 @@ function check_adoc_patterns {
     [no_monospace_header]='^=+ \+.+\+.*'
     [no_start_used]='\[start'
     [numbered_references]='^== Referenc.+\n\n[a-zA-Z]'
-    [only_local_images]='image::?https?://'
+    [only_external_images]='image::?../'
     [only_autonomic_com]='autonomicmind.co(?!m)'
     [separate_code_from_paragraph]='^[a-zA-Z0-9].*\n.*\[source'
-    [slug_ends_with_slash]='^:slug:.*[a-z0-9-]$'
-    [slug_max_chars]='^:slug: .{44,}'
+    [slug_ends_with_slash]='^:page-slug:.*[a-z0-9-]$'
+    [slug_max_chars]='^:page-slug: .{44,}'
     [title_before_image]='image::.+\n\.[a-zA-Z]'
     [title_length_limit]='^= .{60,}'
     [title_no_double_quotes]='^={1,6} .*"'

@@ -29,7 +29,7 @@ function main {
         &&  check_adoc_max_columns "${path}" \
         &&  check_adoc_min_keywords "${path}" \
         &&  check_adoc_patterns "${path}" \
-        &&  check_adoc_tag_exists "${path}" 'description' \
+        &&  check_adoc_tag_exists "${path}" 'page-description' \
         &&  check_adoc_word_count "${path}" '1' '4500' \
         &&  check_adoc_words_case "${path}" \
         ||  return 1
@@ -47,9 +47,9 @@ function main {
         &&  check_adoc_blog_patterns "${path}" \
         &&  check_adoc_blog_tags "${path}" \
         &&  check_adoc_lix "${path}" '55' \
-        &&  check_adoc_tag_exists "${path}" 'alt' \
+        &&  check_adoc_tag_exists "${path}" 'page-alt' \
         &&  check_adoc_tag_exists "${path}" 'source' \
-        &&  check_adoc_tag_exists "${path}" 'subtitle' \
+        &&  check_adoc_tag_exists "${path}" 'page-subtitle' \
         &&  check_adoc_word_count "${path}" '800' '1600' \
         ||  return 1
       done \

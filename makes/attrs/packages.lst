@@ -3,8 +3,6 @@ airs.fontawesome
 airs.lint.content
 airs.lint.styles
 airs.npm
-airs.test.images.covers
-airs.test.images.format
 docs.runtime
 forces.bundle
 forces.config-development
