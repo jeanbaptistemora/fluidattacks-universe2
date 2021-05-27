@@ -8,6 +8,7 @@ buildPythonRequirements {
     direct = [
       "boto3==1.17.20"
       "botocore==1.20.20"
+      "pandas==1.2.4"
       "ratelimiter==1.2.0"
       "requests==2.25.1"
     ];

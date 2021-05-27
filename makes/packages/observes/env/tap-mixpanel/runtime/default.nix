@@ -11,6 +11,9 @@ in
 makeTemplate {
   name = "observes-env-tap-mixpanel-runtime";
   searchPaths = {
+    envLibraries = [
+      nixpkgs.gcc.cc.lib
+    ];
     envMypyPaths = [
       self
     ];
@@ -21,7 +24,6 @@ makeTemplate {
       self
     ];
     envPython38Paths = [
-      nixpkgs.python38Packages.pandas
       tap-mixpanel.runtime.python
     ];
     envSources = [
