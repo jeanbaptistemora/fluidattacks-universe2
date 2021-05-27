@@ -19,7 +19,7 @@ import { GroupDraftsView } from "scenes/Dashboard/containers/GroupDraftsView";
 import { GroupEventsView } from "scenes/Dashboard/containers/GroupEventsView/index";
 import { GroupFindingsView } from "scenes/Dashboard/containers/GroupFindingsView/index";
 import { GroupForcesView } from "scenes/Dashboard/containers/GroupForcesView";
-import { ProjectStakeholdersView } from "scenes/Dashboard/containers/ProjectStakeholdersView/index";
+import { GroupStakeholdersView } from "scenes/Dashboard/containers/GroupStakeholdersView/index";
 import globalStyle from "styles/global.css";
 import {
   Col100,
@@ -179,7 +179,7 @@ const GroupContent: React.FC = (): JSX.Element => {
                     path={`${path}/scope`}
                   />
                   <Route
-                    component={ProjectStakeholdersView}
+                    component={GroupStakeholdersView}
                     exact={true}
                     path={`${path}/stakeholders`}
                   />

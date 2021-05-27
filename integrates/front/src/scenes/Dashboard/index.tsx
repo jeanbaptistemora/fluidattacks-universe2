@@ -18,10 +18,10 @@ import { CompulsoryNotice } from "scenes/Dashboard/components/CompulsoryNoticeMo
 import { ConcurrentSessionNotice } from "scenes/Dashboard/components/ConcurrentSessionNoticeModal";
 import { Navbar } from "scenes/Dashboard/components/Navbar";
 import { Sidebar } from "scenes/Dashboard/components/Sidebar";
+import { GroupRoute } from "scenes/Dashboard/containers/GroupRoute";
 import { HomeView } from "scenes/Dashboard/containers/HomeView";
 import { OrganizationContent } from "scenes/Dashboard/containers/OrganizationContent";
 import { OrganizationRedirect } from "scenes/Dashboard/containers/OrganizationRedirectView";
-import { ProjectRoute } from "scenes/Dashboard/containers/ProjectRoute";
 import { TagContent } from "scenes/Dashboard/containers/TagContent";
 import {
   ACCEPT_LEGAL_MUTATION,
@@ -168,7 +168,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
             <Route path={`/orgs/${orgRegex}/groups/${groupRegex}`}>
               <authzGroupContext.Provider value={groupAttributes}>
                 <authzPermissionsContext.Provider value={groupLevelPermissions}>
-                  <ProjectRoute setUserRole={setUserRole} />
+                  <GroupRoute setUserRole={setUserRole} />
                 </authzPermissionsContext.Provider>
               </authzGroupContext.Provider>
             </Route>

@@ -13,13 +13,13 @@ import wait from "waait";
 import { DataTableNext } from "components/DataTableNext";
 import { timeFromNow } from "components/DataTableNext/formatters";
 import type { ITableProps } from "components/DataTableNext/types";
-import { ProjectStakeholdersView } from "scenes/Dashboard/containers/ProjectStakeholdersView";
+import { GroupStakeholdersView } from "scenes/Dashboard/containers/GroupStakeholdersView";
 import {
   ADD_STAKEHOLDER_MUTATION,
   EDIT_STAKEHOLDER_MUTATION,
   GET_STAKEHOLDERS,
   REMOVE_STAKEHOLDER_MUTATION,
-} from "scenes/Dashboard/containers/ProjectStakeholdersView/queries";
+} from "scenes/Dashboard/containers/GroupStakeholdersView/queries";
 import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -44,7 +44,7 @@ jest.mock(
  * https://github.com/formium/formik/issues/481#issuecomment-374970940
  */
 
-describe("Project users view", (): void => {
+describe("Group users view", (): void => {
   const mocks: readonly MockedResponse[] = [
     {
       request: {
@@ -125,7 +125,7 @@ describe("Project users view", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof ProjectStakeholdersView).toStrictEqual("function");
+    expect(typeof GroupStakeholdersView).toStrictEqual("function");
   });
 
   it("should render an error in component", async (): Promise<void> => {
@@ -136,7 +136,7 @@ describe("Project users view", (): void => {
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mockError}>
             <Route
-              component={ProjectStakeholdersView}
+              component={GroupStakeholdersView}
               path={"/groups/:projectName/stakeholders"}
             />
           </MockedProvider>
@@ -158,7 +158,7 @@ describe("Project users view", (): void => {
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mocks}>
             <Route
-              component={ProjectStakeholdersView}
+              component={GroupStakeholdersView}
               path={"/groups/:projectName/stakeholders"}
             />
           </MockedProvider>
@@ -207,7 +207,7 @@ describe("Project users view", (): void => {
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mocks}>
             <Route
-              component={ProjectStakeholdersView}
+              component={GroupStakeholdersView}
               path={"/groups/:projectName/stakeholders"}
             />
           </MockedProvider>
@@ -229,7 +229,7 @@ describe("Project users view", (): void => {
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mocks}>
             <Route
-              component={ProjectStakeholdersView}
+              component={GroupStakeholdersView}
               path={"/groups/:projectName/stakeholders"}
             />
           </MockedProvider>
@@ -255,7 +255,7 @@ describe("Project users view", (): void => {
           <MockedProvider addTypename={false} mocks={mocks}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
-                component={ProjectStakeholdersView}
+                component={GroupStakeholdersView}
                 path={"/groups/:projectName/stakeholders"}
               />
             </authzPermissionsContext.Provider>
@@ -310,7 +310,7 @@ describe("Project users view", (): void => {
           <MockedProvider addTypename={false} mocks={mocks}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
-                component={ProjectStakeholdersView}
+                component={GroupStakeholdersView}
                 path={"/groups/:projectName/stakeholders"}
               />
             </authzPermissionsContext.Provider>
@@ -357,7 +357,7 @@ describe("Project users view", (): void => {
     jest.clearAllMocks();
   });
 
-  it("should add stakeholder to the project", async (): Promise<void> => {
+  it("should add stakeholder to the group", async (): Promise<void> => {
     expect.hasAssertions();
 
     const mocksMutation: readonly MockedResponse[] = [
@@ -397,7 +397,7 @@ describe("Project users view", (): void => {
           >
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
-                component={ProjectStakeholdersView}
+                component={GroupStakeholdersView}
                 path={"/groups/:projectName/stakeholders"}
               />
             </authzPermissionsContext.Provider>
@@ -473,7 +473,7 @@ describe("Project users view", (): void => {
     jest.clearAllMocks();
   });
 
-  it("should remove stakeholder from the project", async (): Promise<void> => {
+  it("should remove stakeholder from the group", async (): Promise<void> => {
     expect.hasAssertions();
 
     const mocksMutation: readonly MockedResponse[] = [
@@ -507,7 +507,7 @@ describe("Project users view", (): void => {
           >
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
-                component={ProjectStakeholdersView}
+                component={GroupStakeholdersView}
                 path={"/groups/:projectName/stakeholders"}
               />
             </authzPermissionsContext.Provider>
@@ -548,7 +548,7 @@ describe("Project users view", (): void => {
     jest.clearAllMocks();
   });
 
-  it("should edit stakeholder from the project", async (): Promise<void> => {
+  it("should edit stakeholder from the group", async (): Promise<void> => {
     expect.hasAssertions();
 
     const mocksMutation: readonly MockedResponse[] = [
@@ -588,7 +588,7 @@ describe("Project users view", (): void => {
           >
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
-                component={ProjectStakeholdersView}
+                component={GroupStakeholdersView}
                 path={"/groups/:projectName/stakeholders"}
               />
             </authzPermissionsContext.Provider>
@@ -663,7 +663,7 @@ describe("Project users view", (): void => {
     jest.clearAllMocks();
   });
 
-  it("should handle errors when adding a stakeholder to the project", async (): Promise<void> => {
+  it("should handle errors when adding a stakeholder to the group", async (): Promise<void> => {
     expect.hasAssertions();
 
     const mocksMutation: readonly MockedResponse[] = [
@@ -711,7 +711,7 @@ describe("Project users view", (): void => {
           >
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
-                component={ProjectStakeholdersView}
+                component={GroupStakeholdersView}
                 path={"/groups/:projectName/stakeholders"}
               />
             </authzPermissionsContext.Provider>
@@ -788,7 +788,7 @@ describe("Project users view", (): void => {
     jest.clearAllMocks();
   });
 
-  it("should handle error when removing a stakeholder from the project", async (): Promise<void> => {
+  it("should handle error when removing a stakeholder from the group", async (): Promise<void> => {
     expect.hasAssertions();
 
     const mocksMutation: readonly MockedResponse[] = [
@@ -815,7 +815,7 @@ describe("Project users view", (): void => {
           >
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
-                component={ProjectStakeholdersView}
+                component={GroupStakeholdersView}
                 path={"/groups/:projectName/stakeholders"}
               />
             </authzPermissionsContext.Provider>
@@ -855,7 +855,7 @@ describe("Project users view", (): void => {
     jest.clearAllMocks();
   });
 
-  it("should handle error when editing a stakeholder from the project", async (): Promise<void> => {
+  it("should handle error when editing a stakeholder from the group", async (): Promise<void> => {
     expect.hasAssertions();
 
     const mocksMutation: readonly MockedResponse[] = [
@@ -901,7 +901,7 @@ describe("Project users view", (): void => {
           >
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
-                component={ProjectStakeholdersView}
+                component={GroupStakeholdersView}
                 path={"/groups/:projectName/stakeholders"}
               />
             </authzPermissionsContext.Provider>

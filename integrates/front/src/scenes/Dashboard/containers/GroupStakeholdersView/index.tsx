@@ -26,14 +26,14 @@ import {
   EDIT_STAKEHOLDER_MUTATION,
   GET_STAKEHOLDERS,
   REMOVE_STAKEHOLDER_MUTATION,
-} from "scenes/Dashboard/containers/ProjectStakeholdersView/queries";
+} from "scenes/Dashboard/containers/GroupStakeholdersView/queries";
 import type {
   IAddStakeholderAttr,
   IEditStakeholderAttr,
   IGetStakeholdersAttrs,
   IRemoveStakeholderAttr,
   IStakeholderAttrs,
-} from "scenes/Dashboard/containers/ProjectStakeholdersView/types";
+} from "scenes/Dashboard/containers/GroupStakeholdersView/types";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -85,7 +85,7 @@ const tableHeaders: IHeaderConfig[] = [
   },
 ];
 
-const ProjectStakeholdersView: React.FC = (): JSX.Element => {
+const GroupStakeholdersView: React.FC = (): JSX.Element => {
   const { projectName } = useParams<{ projectName: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
@@ -109,7 +109,7 @@ const ProjectStakeholdersView: React.FC = (): JSX.Element => {
   const { data, refetch } = useQuery(GET_STAKEHOLDERS, {
     onError: (error: ApolloError): void => {
       msgError(translate.t("groupAlerts.errorTextsad"));
-      Logger.warning("An error occurred loading project stakeholders", error);
+      Logger.warning("An error occurred loading group stakeholders", error);
     },
     variables: { projectName },
   });
@@ -327,4 +327,4 @@ const ProjectStakeholdersView: React.FC = (): JSX.Element => {
   );
 };
 
-export { ProjectStakeholdersView };
+export { GroupStakeholdersView };

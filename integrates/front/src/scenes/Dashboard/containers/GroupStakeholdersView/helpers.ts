@@ -41,7 +41,7 @@ const handleGrantError = (grantError: ApolloError): void => {
       default:
         msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning(
-          "An error occurred adding stakeholder to project",
+          "An error occurred while adding a stakeholder to the group",
           grantError
         );
     }

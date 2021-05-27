@@ -6,10 +6,10 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import wait from "waait";
 
-import { ProjectRoute } from "scenes/Dashboard/containers/ProjectRoute";
-import { GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectRoute/queries";
+import { GroupRoute } from "scenes/Dashboard/containers/GroupRoute";
+import { GET_GROUP_DATA } from "scenes/Dashboard/containers/GroupRoute/queries";
 
-describe("ProjectRoute", (): void => {
+describe("GroupRoute", (): void => {
   const groupMock: Readonly<MockedResponse> = {
     request: {
       query: GET_GROUP_DATA,
@@ -36,7 +36,7 @@ describe("ProjectRoute", (): void => {
 
   it("should return a function", (): void => {
     expect.hasAssertions();
-    expect(typeof ProjectRoute).toStrictEqual("function");
+    expect(typeof GroupRoute).toStrictEqual("function");
   });
 
   it("should render a component", async (): Promise<void> => {
@@ -45,7 +45,7 @@ describe("ProjectRoute", (): void => {
     const setUserRoleCallback: jest.Mock = jest.fn();
     const wrapper: ShallowWrapper = shallow(
       <MockedProvider addTypename={false} mocks={[groupMock]}>
-        <ProjectRoute setUserRole={setUserRoleCallback} />
+        <GroupRoute setUserRole={setUserRoleCallback} />
       </MockedProvider>
     );
     await act(

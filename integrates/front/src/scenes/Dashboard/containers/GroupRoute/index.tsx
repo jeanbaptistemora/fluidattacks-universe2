@@ -15,20 +15,18 @@ import {
 import { EventContent } from "scenes/Dashboard/containers/EventContent";
 import { FindingContent } from "scenes/Dashboard/containers/FindingContent";
 import { GroupContent } from "scenes/Dashboard/containers/GroupContent";
-import { GET_GROUP_DATA } from "scenes/Dashboard/containers/ProjectRoute/queries";
+import { GET_GROUP_DATA } from "scenes/Dashboard/containers/GroupRoute/queries";
 import type {
-  IProjectData,
-  IProjectRoute,
-} from "scenes/Dashboard/containers/ProjectRoute/types";
+  IGroupData,
+  IGroupRoute,
+} from "scenes/Dashboard/containers/GroupRoute/types";
 import { GET_USER_PERMISSIONS } from "scenes/Dashboard/queries";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-const ProjectRoute: React.FC<IProjectRoute> = (
-  props: IProjectRoute
-): JSX.Element => {
+const GroupRoute: React.FC<IGroupRoute> = (props: IGroupRoute): JSX.Element => {
   const { setUserRole } = props;
   const { organizationName, projectName } = useParams<{
     organizationName: string;
@@ -40,11 +38,11 @@ const ProjectRoute: React.FC<IProjectRoute> = (
   const permissions: PureAbility<string> = useContext(authzPermissionsContext);
 
   // Side effects
-  const onProjectChange: () => void = (): void => {
+  const onGroupChange: () => void = (): void => {
     attributes.update([]);
     permissions.update([]);
   };
-  useEffect(onProjectChange, [attributes, permissions, projectName]);
+  useEffect(onGroupChange, [attributes, permissions, projectName]);
 
   // GraphQL operations
   useQuery(GET_USER_PERMISSIONS, {
@@ -75,8 +73,8 @@ const ProjectRoute: React.FC<IProjectRoute> = (
     },
   });
 
-  const { data, error } = useQuery<IProjectData>(GET_GROUP_DATA, {
-    onCompleted: ({ project }: IProjectData): void => {
+  const { data, error } = useQuery<IGroupData>(GET_GROUP_DATA, {
+    onCompleted: ({ project }: IGroupData): void => {
       attributes.update(
         project.serviceAttributes.map((attribute: string): {
           action: string;
@@ -129,4 +127,4 @@ const ProjectRoute: React.FC<IProjectRoute> = (
   );
 };
 
-export { ProjectRoute };
+export { GroupRoute };

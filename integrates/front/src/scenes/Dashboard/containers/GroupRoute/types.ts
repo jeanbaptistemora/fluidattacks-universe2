@@ -1,4 +1,4 @@
-interface IProjectData {
+interface IGroupData {
   alert: {
     message: string;
     status: number;
@@ -11,8 +11,8 @@ interface IProjectData {
   };
 }
 
-interface IProjectRoute {
+interface IGroupRoute {
   setUserRole: (userRole: string | undefined) => void;
 }
 
-export { IProjectData, IProjectRoute };
+export { IGroupData, IGroupRoute };
