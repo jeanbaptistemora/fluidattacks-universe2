@@ -77,12 +77,12 @@ def insert(training_result: Dict[str, str]) -> None:
                     tuned_parameters
                 )
                 VALUES (
-                    get_date(),
+                    getdate(),
                     %(model)s,
                     %(features)s,
                     %(precision)s,
                     %(recall)s,
-                    %(f1_score)s,
+                    %(f_score)s,
                     %(overfit)s,
                     %(tuned_parameters)s
                 )

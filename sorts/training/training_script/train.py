@@ -20,6 +20,7 @@ from sklearn.neural_network import MLPClassifier
 
 # Local libraries
 from sorts.typings import Model as ModelType
+from training.redshift import db as redshift
 from training.constants import (
     FEATURES_DICTS,
     MODELS,
@@ -177,16 +178,19 @@ def train_model(
         print(f"Recall: {metrics[1]}%")
         print(f"F1-Score: {metrics[2]}%")
         print(f"Overfit: {metrics[3]}%")
-        training_output.append(
-            [
-                model.__class__.__name__,
-                " ".join(FEATURES_DICTS[x] for x in combination),
-                f"{metrics[0]:.1f}",
-                f"{metrics[1]:.1f}",
-                f"{metrics[2]:.1f}",
-                f"{metrics[3]:.1f}",
-            ]
+        combination_train_results = dict(
+            model=model.__class__.__name__,
+            features=" ".join(
+                FEATURES_DICTS[feature] for feature in combination
+            ),
+            precision=round(metrics[0], 1),
+            recall=round(metrics[1], 1),
+            f_score=round(metrics[2], 1),
+            overfit=round(metrics[3], 1),
+            tuned_parameters="n/a",
         )
+        training_output.append(list(combination_train_results.values()))
+        redshift.insert(combination_train_results)
 
     return training_output
 
