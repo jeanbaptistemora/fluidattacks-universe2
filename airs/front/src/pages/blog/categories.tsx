@@ -7,6 +7,7 @@ import { Layout } from "../../components/Layout";
 import { NavbarComponent } from "../../components/Navbar";
 import { Seo } from "../../components/Seo";
 import { PageArticle } from "../../styles/styledComponents";
+import { capitalizeCrumbs } from "../../utils/capitalizeCrumbs";
 
 const categoriesIndex: React.FC<IQueryData> = ({
   pageContext,
@@ -28,9 +29,9 @@ const categoriesIndex: React.FC<IQueryData> = ({
         <div>
           <NavbarComponent />
           <Breadcrumb
-            crumbLabel={"Authors"}
+            crumbLabel={"Categories"}
             crumbSeparator={" / "}
-            crumbs={crumbs}
+            crumbs={capitalizeCrumbs(crumbs)}
           />
 
           <PageArticle className={"internal"}>

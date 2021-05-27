@@ -11,6 +11,7 @@ import { NavbarComponent } from "../components/Navbar";
 import { PageHeader } from "../components/PageHeader";
 import { Seo } from "../components/Seo";
 import { IframeContainer, PageArticle } from "../styles/styledComponents";
+import { capitalizeCrumbs } from "../utils/capitalizeCrumbs";
 
 const SubscribeIndex: React.FC<IQueryData> = ({
   data,
@@ -40,7 +41,7 @@ const SubscribeIndex: React.FC<IQueryData> = ({
           <Breadcrumb
             crumbLabel={customCrumbLabel}
             crumbSeparator={" / "}
-            crumbs={crumbs}
+            crumbs={capitalizeCrumbs(crumbs)}
           />
 
           <PageArticle>

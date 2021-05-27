@@ -17,6 +17,7 @@ import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { ResourcesPage } from "../components/ResourcesPage";
 import { Seo } from "../components/Seo";
+import { capitalizeCrumbs } from "../utils/capitalizeCrumbs";
 
 const ResourcesIndex: React.FC<IQueryData> = ({
   data,
@@ -46,7 +47,7 @@ const ResourcesIndex: React.FC<IQueryData> = ({
           <Breadcrumb
             crumbLabel={customCrumbLabel}
             crumbSeparator={" / "}
-            crumbs={crumbs}
+            crumbs={capitalizeCrumbs(crumbs)}
           />
           <ResourcesPage bannerTitle={title} />
         </div>

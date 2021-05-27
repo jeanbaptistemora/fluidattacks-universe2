@@ -26,6 +26,7 @@ import {
   FullWidthContainer,
   PageArticle,
 } from "../styles/styledComponents";
+import { capitalizeCrumbs } from "../utils/capitalizeCrumbs";
 
 const CategoryIndex: React.FC<IQueryData> = ({
   data,
@@ -100,7 +101,7 @@ const CategoryIndex: React.FC<IQueryData> = ({
           <Breadcrumb
             crumbLabel={customCrumbLabel}
             crumbSeparator={" / "}
-            crumbs={crumbs}
+            crumbs={capitalizeCrumbs(crumbs)}
           />
 
           <PageArticle>

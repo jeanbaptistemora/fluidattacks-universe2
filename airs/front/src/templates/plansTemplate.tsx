@@ -26,6 +26,7 @@ import {
   PageArticle,
   RegularRedButton,
 } from "../styles/styledComponents";
+import { capitalizeCrumbs } from "../utils/capitalizeCrumbs";
 
 const PlansIndex: React.FC<IQueryData> = ({
   data,
@@ -87,7 +88,7 @@ const PlansIndex: React.FC<IQueryData> = ({
           <Breadcrumb
             crumbLabel={customCrumbLabel}
             crumbSeparator={" / "}
-            crumbs={crumbs}
+            crumbs={capitalizeCrumbs(crumbs)}
           />
 
           <PageArticle>

@@ -24,6 +24,7 @@ import {
   LittleBannerContainer,
   PageArticle,
 } from "../styles/styledComponents";
+import { capitalizeCrumbs } from "../utils/capitalizeCrumbs";
 
 const AdvisoryIndex: React.FC<IQueryData> = ({
   data,
@@ -73,7 +74,7 @@ const AdvisoryIndex: React.FC<IQueryData> = ({
           <Breadcrumb
             crumbLabel={customCrumbLabel}
             crumbSeparator={" / "}
-            crumbs={crumbs}
+            crumbs={capitalizeCrumbs(crumbs)}
           />
 
           <PageArticle>

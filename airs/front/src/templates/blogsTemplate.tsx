@@ -23,6 +23,7 @@ import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import { FullWidthContainer, PageArticle } from "../styles/styledComponents";
+import { capitalizeCrumbs } from "../utils/capitalizeCrumbs";
 
 const BlogsIndex: React.FC<IQueryData> = ({
   data,
@@ -118,7 +119,7 @@ const BlogsIndex: React.FC<IQueryData> = ({
           <Breadcrumb
             crumbLabel={decode(customCrumbLabel)}
             crumbSeparator={" / "}
-            crumbs={crumbs}
+            crumbs={capitalizeCrumbs(crumbs)}
           />
 
           <PageArticle className={"internal"}>

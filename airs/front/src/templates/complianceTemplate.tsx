@@ -24,6 +24,7 @@ import {
   FullWidthContainer,
   PageArticle,
 } from "../styles/styledComponents";
+import { capitalizeCrumbs } from "../utils/capitalizeCrumbs";
 
 const ComplianceIndex: React.FC<IQueryData> = ({
   data,
@@ -49,10 +50,10 @@ const ComplianceIndex: React.FC<IQueryData> = ({
       center
       c-lightblack
       pv5
-      compliance-page 
-      flex 
-      flex-wrap 
-      items-center 
+      compliance-page
+      flex
+      flex-wrap
+      items-center
       justify-center
     `,
   })``;
@@ -72,7 +73,7 @@ const ComplianceIndex: React.FC<IQueryData> = ({
           <Breadcrumb
             crumbLabel={customCrumbLabel}
             crumbSeparator={" / "}
-            crumbs={crumbs}
+            crumbs={capitalizeCrumbs(crumbs)}
           />
 
           <PageArticle>

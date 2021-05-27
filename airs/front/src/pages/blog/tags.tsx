@@ -7,6 +7,7 @@ import { NavbarComponent } from "../../components/Navbar";
 import { Seo } from "../../components/Seo";
 import { TagsList } from "../../components/TagsList";
 import { PageArticle } from "../../styles/styledComponents";
+import { capitalizeCrumbs } from "../../utils/capitalizeCrumbs";
 
 const tagsIndex: React.FC<IQueryData> = ({
   pageContext,
@@ -30,7 +31,7 @@ const tagsIndex: React.FC<IQueryData> = ({
           <Breadcrumb
             crumbLabel={"Tags"}
             crumbSeparator={" / "}
-            crumbs={crumbs}
+            crumbs={capitalizeCrumbs(crumbs)}
           />
 
           <PageArticle className={"internal"}>
