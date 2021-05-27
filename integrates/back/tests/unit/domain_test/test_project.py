@@ -534,8 +534,8 @@ async def test_get_group_digest_stats() -> None:
         },
         "findings": [
             {
-                "finding_name": "F007. Cross site request forgery",
-                "finding_age": 847,
+                "finding_name": "F038. Fuga de información de negocio",
+                "finding_age": 603,
             }
         ],
     }

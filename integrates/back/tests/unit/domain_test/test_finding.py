@@ -21,6 +21,7 @@ from findings import dal as findings_dal
 from findings.domain import (
     add_comment,
     approve_draft,
+    get_oldest_no_treatment_findings,
     get_oldest_open_findings,
     get_total_reattacks_stats,
     get_total_treatment_date,
@@ -421,6 +422,22 @@ async def test_get_oldest_open_findings() -> None:
         {
             "finding_name": "F007. Cross site request forgery",
             "finding_age": 10,
+        }
+    ]
+    assert expected_output == oldest_findings
+
+
+@freeze_time("2021-05-27")
+async def test_get_oldest_no_treatment_findings() -> None:
+    project_name = "oneshottest"
+    context = get_new_context()
+    group_findings_loader = context.group_findings
+    findings = await group_findings_loader.load(project_name)
+    oldest_findings = await get_oldest_no_treatment_findings(context, findings)
+    expected_output = [
+        {
+            "finding_name": "F037. Fuga de información técnica",
+            "finding_age": 256,
         }
     ]
     assert expected_output == oldest_findings

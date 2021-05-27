@@ -1024,8 +1024,10 @@ async def get_group_digest_stats(
 
     # Get stats
     last_day = datetime_utils.get_now_minus_delta(hours=24)
-    content["findings"] = await findings_domain.get_oldest_open_findings(
-        context, valid_findings, 1
+    content[
+        "findings"
+    ] = await findings_domain.get_oldest_no_treatment_findings(
+        context, valid_findings
     )
     treatments = await findings_domain.get_total_treatment_date(
         context, valid_findings, last_day
