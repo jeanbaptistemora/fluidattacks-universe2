@@ -10,7 +10,9 @@ slug: /development/stack/terraform
 [Terraform](https://www.terraform.io/)
 is used for writing our entire
 [infrastructure stack as code](https://en.wikipedia.org/wiki/Infrastructure_as_code).
-The main reasons why we chose it over other alternatives are:
+
+The main reasons why we chose it
+over other alternatives are:
 
 1. It is [Open source](https://opensource.com/resources/what-open-source).
 1. It is Widely used by the community.
@@ -64,7 +66,7 @@ a master machine, agents and mutable infrastructure.
 ## Usage
 
 Used for every infrastructure piece
-like databases, dns records, firewall rules,
+like databases, DNS records, firewall rules,
 computing clusters, among others.
 Some examples are:
 

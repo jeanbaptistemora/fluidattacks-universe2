@@ -182,7 +182,7 @@ module.exports = {
             'criteria/vulnerabilities/f040',
             'criteria/vulnerabilities/f046',
             'criteria/vulnerabilities/f047',
-            { 
+            {
               type: 'category',
               label: 'Insecure encryption algorithm',
               items: [
@@ -878,13 +878,13 @@ module.exports = {
             'development/stack/git/merge-requests',
           ]
         },
-        'development/stack/mozilla-sops',
+        'development/stack/kubernetes',
+        'development/stack/sops',
         'development/stack/terraform',
       ]
     },
     'development/get-dev-keys',
     'development/front-technologies',
-    'development/kubernetes-cluster-connect',
     'development/dynamodb-patterns',
     'development/graphql-api',
     'development/mobile-technologies',

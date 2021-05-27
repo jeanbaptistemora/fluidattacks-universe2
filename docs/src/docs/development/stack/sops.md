@@ -1,8 +1,8 @@
 ---
-id: mozilla-sops
-title: Mozilla Sops
-sidebar_label: Mozilla Sops
-slug: /development/stack/mozilla-sops
+id: sops
+title: Sops
+sidebar_label: Sops
+slug: /development/stack/sops
 ---
 
 ## Rationale
@@ -17,6 +17,7 @@ It allows us to version
 encrypted files within our
 [Git](https://git-scm.com/) repositories
 in a stateless approach.
+
 The main reasons why we chose
 it over other alternatives are:
 
@@ -88,7 +89,7 @@ meaning that secrets are not stored as code,
 losing versioning, auditability, automation
 and reproducibility capabilities.
 1. [Torus](https://www.torus.sh/):
-We used a few years ago but it got discontinued.
+We used it a few years ago but it got discontinued.
 One year leater they relaunched their service.
 It is a common
 [Secrets Engine](https://www.vaultproject.io/docs/secrets),

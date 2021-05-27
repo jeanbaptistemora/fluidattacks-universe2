@@ -18,7 +18,9 @@ provider for some infrastructure solutions like
 [Web Application Firewall](https://www.cloudflare.com/lp/ppc/waf-x/),
 [Anti-bot capabilities](https://blog.cloudflare.com/super-bot-fight-mode/),
 among others.
-The main reasons why we chose it over other alternatives are:
+
+The main reasons why we chose it
+over other alternatives are:
 
 1. Creating network and security solutions is very easy,
 as all its components are seamlessly connected.
@@ -104,7 +106,7 @@ It is not as flexible as
 
 ## Usage
 
-We use CloudFlare for:
+We use [CloudFlare](https://www.cloudflare.com/) for:
 
 1. [Overall network configurations](https://gitlab.com/fluidattacks/product/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform/fluidattacks.tf#L1)
 1. [DNS Records](https://gitlab.com/fluidattacks/product/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform/fluidattacks.tf#L79)
