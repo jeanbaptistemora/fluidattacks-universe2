@@ -32,25 +32,6 @@ data "aws_iam_policy_document" "forces_dev_policy_data" {
     ]
   }
 
-  # IAM read break-build and AWS SSO role
-  statement {
-    effect = "Allow"
-    actions = [
-      "iam:GetUser",
-      "iam:GetRole",
-      "iam:GetPolicy",
-      "iam:GetPolicyVersion",
-      "iam:ListAccessKeys",
-      "iam:ListAttachedUserPolicies",
-      "iam:ListAttachedRolePolicies"
-    ]
-    resources = [
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/asserts/break-build-*",
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/asserts/break-build-*",
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/break-build-*",
-    ]
-  }
-
   # KMS
   statement {
     effect = "Allow"

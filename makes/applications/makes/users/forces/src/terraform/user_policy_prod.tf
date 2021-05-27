@@ -33,20 +33,6 @@ data "aws_iam_policy_document" "forces_prod_policy_data" {
     ]
   }
 
-  # IAM Break Build and AWS SSO role
-  statement {
-    effect = "Allow"
-    actions = [
-      "iam:*"
-    ]
-    resources = [
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/asserts/break-build-*",
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/asserts/break-build-*",
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/break-build-*",
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/break-build-*",
-    ]
-  }
-
   # KMS Create Keys
   statement {
     effect = "Allow"
