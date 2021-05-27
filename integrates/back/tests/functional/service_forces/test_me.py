@@ -32,10 +32,10 @@ async def test_me() -> None:
     assert not result["data"]["signIn"]["success"]
 
     expiration_time = datetime.utcnow() + timedelta(weeks=8)
-    expiration_time = int(expiration_time.timestamp())
+    int_expiration_time = int(expiration_time.timestamp())
     query = f"""
         mutation {{
-            updateAccessToken(expirationTime: {expiration_time}) {{
+            updateAccessToken(expirationTime: {int_expiration_time}) {{
                 sessionJwt
                 success
             }}
@@ -130,7 +130,7 @@ async def test_me() -> None:
     assert result["data"]["me"]["remember"] == False
     assert result["data"]["me"]["role"] == "service_forces"
     assert result["data"]["me"]["sessionExpiration"] == str(
-        datetime.fromtimestamp(expiration_time)
+        datetime.fromtimestamp(int_expiration_time)
     )
     assert result["data"]["me"]["subscriptionsToEntityReport"] == [
         {"entity": entity, "frequency": frecuency, "subject": org_id}

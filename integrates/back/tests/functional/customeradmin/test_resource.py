@@ -26,7 +26,7 @@ async def test_resource() -> None:
     filename = os.path.join(filename, "../../unit/mock/test-anim.gif")
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile("test-anim.gif", test_file, "image/gif")
-        file_data = [
+        files_data = [
             {
                 "description": "test",
                 "fileName": test_file.name.split("/")[2],
@@ -47,7 +47,7 @@ async def test_resource() -> None:
         """
         variables = {
             "file": uploaded_file,
-            "filesData": json.dumps(file_data),
+            "filesData": json.dumps(files_data),
             "projectName": group_name,
         }
         data = {"query": query, "variables": variables}

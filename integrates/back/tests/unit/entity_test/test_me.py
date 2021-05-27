@@ -85,9 +85,12 @@ async def test_update_access_token() -> None:
         }
     """
     expiration_time = datetime.utcnow() + timedelta(weeks=8)
-    expiration_time = int(expiration_time.timestamp())
+    int_expiration_time = int(expiration_time.timestamp())
 
-    data = {"query": query, "variables": {"expirationTime": expiration_time}}
+    data = {
+        "query": query,
+        "variables": {"expirationTime": int_expiration_time},
+    }
     request = await create_dummy_session()
     _, result = await graphql(SCHEMA, data, context_value=request)
     assert "errors" not in result
