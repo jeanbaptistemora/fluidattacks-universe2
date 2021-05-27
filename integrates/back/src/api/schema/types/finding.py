@@ -51,6 +51,7 @@ from api.resolvers.finding_new import (
     report_date_new,
     severity_new,
     severity_score_new,
+    sorts_new,
     status_new,
     tracking_new,
     verified_new,
@@ -89,6 +90,7 @@ if FI_API_STATUS == "migration":
     FINDING.set_field("reportDate", report_date_new.resolve)
     FINDING.set_field("severity", severity_new.resolve)
     FINDING.set_field("severityScore", severity_score_new.resolve)
+    FINDING.set_field("sorts", sorts_new.resolve)
     FINDING.set_field("state", status_new.resolve)
     FINDING.set_field("tracking", tracking_new.resolve)
     FINDING.set_field("verified", verified_new.resolve)
