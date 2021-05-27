@@ -12,12 +12,12 @@ the application uses insecure encryption algorithms.
 
 ## Requirements
 
-- [148. Set minimum size of asymmetric encryption](/criteria/requirements/cryptography/148)
+- [148. Set minimum size of asymmetric encryption](/criteria/requirements/148)
 
-- [149. Set minimum size of symmetric encryption](/criteria/requirements/cryptography/149)
+- [149. Set minimum size of symmetric encryption](/criteria/requirements/149)
 
-- [150. Set minimum size for hash functions](/criteria/requirements/cryptography/150)
+- [150. Set minimum size for hash functions](/criteria/requirements/150)
 
-- [181. Transmit data using secure protocols](/criteria/requirements/data/181)
+- [181. Transmit data using secure protocols](/criteria/requirements/181)
 
-- [336. Disable insecure TLS versions](/criteria/requirements/cryptography/336)
+- [336. Disable insecure TLS versions](/criteria/requirements/336)

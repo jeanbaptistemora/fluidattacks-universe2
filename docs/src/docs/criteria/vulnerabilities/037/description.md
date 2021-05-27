@@ -14,6 +14,6 @@ It is possible to obtain technical information such as:
 
 ## Requirements
 
-- [077. Avoid disclosing technical information](/criteria/requirements/logs/077)
+- [077. Avoid disclosing technical information](/criteria/requirements/077)
 
-- [176. Restrict system objects](/criteria/requirements/data/176)
+- [176. Restrict system objects](/criteria/requirements/176)

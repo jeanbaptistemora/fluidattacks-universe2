@@ -12,8 +12,8 @@ to execute normally restricted actions on a system.
 
 ## Requirements
 
-- [186. Use the principle of least privilege](/criteria/requirements/system/186)
+- [186. Use the principle of least privilege](/criteria/requirements/186)
 
-- [095. Define users with privileges](/criteria/requirements/authorization/095)
+- [095. Define users with privileges](/criteria/requirements/095)
 
-- [096. Set user required privileges](/criteria/requirements/authorization/096)
+- [096. Set user required privileges](/criteria/requirements/096)

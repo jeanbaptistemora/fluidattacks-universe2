@@ -48,6 +48,6 @@ the required HTTP headers are the following:
 
 ## Requirements
 
-- [062. Define standard configurations](/criteria/requirements/architecture/062)
+- [062. Define standard configurations](/criteria/requirements/062)
 
-- [175. Protect pages from clickjacking](/criteria/requirements/source/175)
+- [175. Protect pages from clickjacking](/criteria/requirements/175)

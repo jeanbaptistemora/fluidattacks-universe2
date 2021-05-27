@@ -12,6 +12,6 @@ or stored procedures.
 
 ## Requirements
 
-- [169. Use parameterized queries](/criteria/requirements/source/169)
+- [169. Use parameterized queries](/criteria/requirements/169)
 
-- [173. Discard unsafe inputs](/criteria/requirements/source/173)
+- [173. Discard unsafe inputs](/criteria/requirements/173)

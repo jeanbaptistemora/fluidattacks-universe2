@@ -7,7 +7,7 @@ slug: /about/security/confidentiality/encryption-rest
 
 All our applications and services
 have industry-standard
-[encryption at rest](/criteria/requirements/cryptography/224).
+[encryption at rest](/criteria/requirements/224).
 
 - All the sensitive data
 provided by our clients
@@ -17,8 +17,8 @@ of our key management system (KMS).
 This algorithm is based on
 Advanced Encryption Standard (AES)
 in Galois Counter Mode (GCM) with
-[256-bit](/criteria/requirements/cryptography/150)
-[private keys](/criteria/requirements/cryptography/145).
+[256-bit](/criteria/requirements/150)
+[private keys](/criteria/requirements/145).
 AES256 is the
 [US government standard](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf)
 encryption algorithm used to protect top-secret information.
@@ -35,7 +35,7 @@ to the DNS records published by us.
 
 - All our clients' code repositories
 are stored in private,
-[AES256 ciphered](/criteria/requirements/data/185)
+[AES256 ciphered](/criteria/requirements/185)
 redundant data centers.
 
 - Our exploits are stored encrypted

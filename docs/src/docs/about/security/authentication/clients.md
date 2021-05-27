@@ -21,10 +21,10 @@ The only personal information we store of our clients is:
 
 It is also worth noting
 that if users lose their corporate email,
-[they also lose access](/criteria/requirements/authorization/114)
+[they also lose access](/criteria/requirements/114)
 to their
 [Attack Surface Manager (ASM)](https://app.fluidattacks.com/)
 account.
-Clients can [easily manage](/criteria/requirements/authorization/034)
+Clients can [easily manage](/criteria/requirements/034)
 who has and who does not have
 access to their projects.

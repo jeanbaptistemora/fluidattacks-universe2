@@ -11,6 +11,6 @@ or enables the exploitation of other vulnerabilities.
 
 ## Requirements
 
-- [119. Hide recipients](/criteria/requirements/emails/119)
+- [119. Hide recipients](/criteria/requirements/119)
 
-- [266. Disable insecure functionalities](/criteria/requirements/architecture/266)
+- [266. Disable insecure functionalities](/criteria/requirements/266)

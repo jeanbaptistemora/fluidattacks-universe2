@@ -32,7 +32,7 @@ over our entire infrastructure.
 - **IAM:** It is possible to give
 application access at the user level,
 which allows us to give employees access
-[only to what they need](/criteria/requirements/data/176)
+[only to what they need](/criteria/requirements/176)
 to execute their tasks.
-[Giving or removing access to applications](/criteria/requirements/authorization/034)
+[Giving or removing access to applications](/criteria/requirements/034)
 is simple, and no users/passwords are leaked.

@@ -18,14 +18,14 @@ that comply with the highest worldwide
 [security standards](/criteria/requirements/introduction);
 
 - acquiring only
-[compliant services and products for internal use](/criteria/requirements/authentication/226);
+[compliant services and products for internal use](/criteria/requirements/226);
 
 - implementing best security practices
 within our organization;
 
 - being completely transparent with our clients,
 especially regarding their data:
-[how we use it, and what we do to protect it](/criteria/requirements/privacy/315).
+[how we use it, and what we do to protect it](/criteria/requirements/315).
 
 These principles,
 conceived since the early days of the company,
