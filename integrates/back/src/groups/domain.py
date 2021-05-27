@@ -66,6 +66,7 @@ from names import domain as names_domain
 from newutils import (
     apm,
     datetime as datetime_utils,
+    events as events_utils,
     resources as resources_utils,
     vulnerabilities as vulns_utils,
 )
@@ -1001,6 +1002,10 @@ async def get_group_digest_stats(
             "eternal_requested": 0,
             "eternal_approved": 0,
         },
+        "events": {
+            "unsolved": 0,
+            "new": 0,
+        },
         "findings": list(),
     }
 
@@ -1059,6 +1064,10 @@ async def get_group_digest_stats(
     content["main"]["remediation_rate"] = await get_remediation_rate(
         context, group_name
     )
+    unsolved = await events_domain.get_unsolved_events(group_name)
+    new_events = await events_utils.filter_events_date(unsolved, last_day)
+    content["events"]["unsolved"] = len(unsolved)
+    content["events"]["new"] = len(new_events)
 
     return content
 
@@ -1072,15 +1081,15 @@ def process_user_digest_stats(
         "groups_len": len(groups),
         "remediation_rate": {
             "max": 0,
-            "max_group": groups[0],
-            "min": 0,
-            "min_group": groups[0],
+            "max_group": groups_stats[0]["group"],
+            "min": groups_stats[0]["main"]["remediation_rate"],
+            "min_group": groups_stats[0]["group"],
         },
         "remediation_time": {
             "max": 0,
-            "max_group": groups[0],
-            "min": 0,
-            "min_group": groups[0],
+            "max_group": groups_stats[0]["group"],
+            "min": groups_stats[0]["main"]["remediation_rate"],
+            "min_group": groups_stats[0]["group"],
         },
         "findings": list(),
     }
@@ -1088,6 +1097,7 @@ def process_user_digest_stats(
     main: Counter = Counter()
     reattacks: Counter = Counter()
     treatments: Counter = Counter()
+    events: Counter = Counter()
     findings = list()
     for stat in groups_stats:
         main.update(stat["main"])
@@ -1107,6 +1117,7 @@ def process_user_digest_stats(
             total["remediation_time"]["min_group"] = stat["group"]
         reattacks.update(stat["reattacks"])
         treatments.update(stat["treatments"])
+        events.update(stat["events"])
         findings_extended = [
             {
                 **finding,
@@ -1119,6 +1130,7 @@ def process_user_digest_stats(
     total["main"] = dict(main)
     total["reattacks"] = dict(reattacks)
     total["treatments"] = dict(treatments)
+    total["events"] = dict(events)
 
     if total["reattacks"]["reattacks_executed"] == 0:
         total["main"]["reattack_effectiveness"] = "-"

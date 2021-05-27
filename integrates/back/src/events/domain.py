@@ -172,6 +172,17 @@ async def get_events(event_ids: List[str]) -> List[EventType]:
     )
 
 
+async def get_unsolved_events(group_name: str) -> List[str]:
+    events_list = await list_group_events(group_name)
+    events = await get_events(events_list)
+    unsolved = [
+        event
+        for event in events
+        if event["historic_state"][-1]["state"] == "CREATED"
+    ]
+    return unsolved
+
+
 async def get_evidence_link(event_id: str, file_name: str) -> str:
     event = await get_event(event_id)
     group_name = event["project_name"]

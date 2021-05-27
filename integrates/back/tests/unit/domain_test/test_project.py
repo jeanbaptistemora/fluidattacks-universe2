@@ -528,6 +528,10 @@ async def test_get_group_digest_stats() -> None:
             "eternal_requested": 0,
             "eternal_approved": 0,
         },
+        "events": {
+            "unsolved": 3,
+            "new": 0,
+        },
         "findings": [
             {
                 "finding_name": "F007. Cross site request forgery",

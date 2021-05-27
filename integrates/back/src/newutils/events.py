@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import (
     Dict,
     List,
@@ -5,6 +6,7 @@ from typing import (
 )
 
 from custom_types import Event as EventType
+from newutils import datetime as datetime_utils
 
 
 def format_data(event: EventType) -> EventType:
@@ -16,3 +18,16 @@ def format_data(event: EventType) -> EventType:
         event["closing_date"] = historic_state[-2].get("date", "")
 
     return event
+
+
+async def filter_events_date(
+    events: List[EventType],
+    min_date: datetime,
+) -> List[EventType]:
+    return [
+        event
+        for event in events
+        if min_date
+        and datetime_utils.get_from_str(event["historic_state"][-1]["date"])
+        >= min_date
+    ]

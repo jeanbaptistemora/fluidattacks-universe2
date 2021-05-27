@@ -167,11 +167,11 @@
         </div>
         <div>
           <h3>{{ remediation_time['max'] }}</h3>
-          <p>Max remediation time (days) at <strong>{{ remediation_time['max_group'] }}</strong></p>
+          <p>Max Mean Time To Remediate (days) at <strong>{{ remediation_time['max_group'] }}</strong></p>
         </div>
         <div>
           <h3>{{ remediation_time['min'] }}</h3>
-          <p>Min remediation time (days) at <strong>{{ remediation_time['min_group'] }}</strong></p>
+          <p>Min Mean Time To Remediate (days) at <strong>{{ remediation_time['min_group'] }}</strong></p>
         </div>
         {% else %}
           <div>
@@ -180,7 +180,7 @@
           </div>
           <div>
             <h3>{{ remediation_time['max'] }}</h3>
-            <p>Remediation time (days) at <strong>{{ remediation_time['max_group'] }}</strong></p>
+            <p>Mean Time To Remediate (days) at <strong>{{ remediation_time['max_group'] }}</strong></p>
           </div>
         {% endif %}
       </div>
@@ -190,11 +190,11 @@
           <p>Average reattack effectiveness</p>
         </div>
         <div>
-          <h3>-</h3>
+          <h3>{{ events['unsolved'] }}</h3>
           <p>Unsolved events</p>
         </div>
         <div>
-          <h3>-</h3>
+          <h3>{{ events['new'] }}</h3>
           <p>New events</p>
         </div>
         <div>
@@ -255,7 +255,7 @@
       <div class="icon">
         <img alt="Findings logo"
           src="https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/48b502a4-b33f-4a29-be67-66e87147d669.png">
-        <h4>Findings</h4>
+        <h4>Oldest Findings</h4>
       </div>
       <div class="content">
         {% for finding in findings %}
