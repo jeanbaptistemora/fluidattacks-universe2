@@ -1,16 +1,24 @@
 """Singer tap for the Timedoctor API."""
-
+# Standard libraries
 import re
 import sys
 import json
 import argparse
 import datetime
 import unicodedata
+from typing import (
+    Iterator,
+    Optional,
+    Tuple,
+    List,
+    Any,
+)
 
-from typing import Tuple, List, Any
+# Third party libraries
 
-from . import logs
-from . import api_timedoctor
+# Local libraries
+from tap_timedoctor import logs
+from tap_timedoctor.api import Worker
 
 # Type aliases that improve clarity
 JSON = Any
@@ -20,7 +28,7 @@ _TYPE_NUMBER: JSON = {"type": "number"}
 _TYPE_DATE: JSON = {"type": "string", "format": "date-time"}
 
 
-def standard_name(name: Any):
+def standard_name(name: str) -> str:
     """Remove heading and trailing whitespaces.
 
     Puts exactly one space between words and get rid of ñ and accent marks.
@@ -45,12 +53,12 @@ def get_users_list(timedoctor_users_str: str) -> List[Tuple[str, str]]:
     return users_list
 
 
-def ensure_200(status_code: int) -> None:
+def ensure_200(status_code: Optional[int]) -> None:
     """Ensure status_code 200 or exit."""
     if not status_code == 200:
         print(f"INFO: Timedoctor API, ERROR {status_code}")
-        print(f"          The service is probably down.")
-        print(f"         You should run this script again later.")
+        print("          The service is probably down.")
+        print("         You should run this script again later.")
         sys.exit(1)
 
 
@@ -73,7 +81,10 @@ def translate_date(date_obj: Any) -> str:
 
 
 def sync_worklogs(
-    api_worker, company_id: str, start_date: str = None, end_date: str = None
+    api_worker: Worker,
+    company_id: str,
+    start_date: Optional[str] = None,
+    end_date: Optional[str] = None,
 ) -> None:
     """API version 1.1.
 
@@ -178,11 +189,11 @@ def sync_worklogs(
 
 
 def sync_computer_activity(
-    api_worker,
+    api_worker: Worker,
     company_id: str,
-    users_list: List[Tuple[str, str]],
-    start_date: str = None,
-    end_date: str = None,
+    users_list: Iterator[Tuple[str, str]],
+    start_date: Optional[str] = None,
+    end_date: Optional[str] = None,
 ) -> None:
     """Sync computer activity using API version 1.1.
 
@@ -275,11 +286,11 @@ def sync_computer_activity(
         write_records(user_id, user_name)
 
 
-def main():
+def main() -> None:
     """Usual entry point."""
 
     # user interface
-    def check_date(date):
+    def check_date(date: str) -> str:
         re_date = r"([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))"
         if not re.match(re_date, date):
             raise argparse.ArgumentTypeError(
@@ -318,12 +329,12 @@ def main():
     end_date = args.end_date or end_date
 
     access_token: str = json.load(args.auth)["access_token"]
-    api_worker = api_timedoctor.Worker(access_token)
+    api_worker = Worker(access_token)
 
     # get some account info by inspecting the admin account (the token owner)
     (status_code, response) = api_worker.get_companies()
     ensure_200(status_code)
-    account_info: str = json.loads(response)["user"]
+    account_info: dict = json.loads(response)["user"]
     company_id = str(account_info["company_id"])
 
     # get the id of all users in the company
@@ -334,7 +345,7 @@ def main():
     if args.work_logs:
         sync_worklogs(api_worker, company_id, start_date, end_date)
     if args.computer_activity:
-        users: dict = map(
+        users: Iterator[Tuple[str, str]] = map(
             lambda x: (str(x["user_id"]), x["full_name"]),
             json.loads(response)["users"],
         )

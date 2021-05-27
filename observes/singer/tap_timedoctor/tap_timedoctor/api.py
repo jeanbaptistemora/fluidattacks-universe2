@@ -1,16 +1,26 @@
 """TimeDoctor API wrapper."""
-
+# Standard libraries
 import sys
 import time
 import datetime
 import urllib.error
 import urllib.request
-from . import logs
+from typing import (
+    Any,
+    Optional,
+    Tuple,
+)
+
+# Local libraries
+from tap_timedoctor import logs
 
 
-def current_timestamp(offset=0.0):
+def current_timestamp(offset: float = 0.0) -> float:
     """Return the current timestamp."""
     return time.time() + offset
+
+
+StatusAndResponse = Tuple[int, Any]
 
 
 class Worker:
@@ -19,26 +29,26 @@ class Worker:
     It takes care of making the requests without exceeding the rate limit.
     """
 
-    def __init__(self, access_token):
+    def __init__(self, access_token: str) -> None:
         self.access_token = access_token
         self.url = "https://webapi.timedoctor.com"
 
         self.min_sslr = 0.75
         self.last_request_timestamp = current_timestamp()
 
-    def sslr(self):
+    def sslr(self) -> float:
         """Number of seconds since last request."""
         return current_timestamp() - self.last_request_timestamp
 
-    def wait(self):
+    def wait(self) -> None:
         """Wait until we can make another request to the API."""
         time.sleep(max(self.min_sslr - self.sslr(), 0.0))
         self.last_request_timestamp = current_timestamp()
 
-    def request(self, resource):
+    def request(self, resource: str) -> StatusAndResponse:
         """Make a request to the API."""
         response = None
-        status_code = None
+        status_code = 0
 
         self.wait()
 
@@ -61,24 +71,24 @@ class Worker:
 
         return (status_code, response)
 
-    def get_companies(self):
+    def get_companies(self) -> StatusAndResponse:
         """Return the account info of the access_token owner."""
         resource = f"{self.url}/v1.1/companies"
         return self.request(resource)
 
-    def get_users(self, company_id):
+    def get_users(self, company_id: str) -> StatusAndResponse:
         """Return a collection of user(s) under the given company_id."""
         resource = f"{self.url}/v1.1/companies/{company_id}/users"
         return self.request(resource)
 
     def get_worklogs(
         self,  # pylint: disable=too-many-arguments
-        company_id,
-        limit,
-        offset,
-        start_date: str = None,
-        end_date: str = None,
-    ):
+        company_id: str,
+        limit: int,
+        offset: int,
+        start_date: Optional[str] = None,
+        end_date: Optional[str] = None,
+    ) -> StatusAndResponse:
         """Return a collection of users worklogs under the given company id."""
         today = datetime.date.today()
         start_date = start_date or today.replace(today.year - 1).isoformat()
@@ -99,12 +109,12 @@ class Worker:
 
     def get_computer_activity(
         self,  # pylint: disable=too-many-arguments
-        company_id,
-        user_id,
-        start_date: str = None,
-        end_date: str = None,
+        company_id: str,
+        user_id: str,
+        start_date: Optional[str] = None,
+        end_date: Optional[str] = None,
         limit: int = 20000,
-    ):
+    ) -> StatusAndResponse:
         """Return screenshots, keystrokes, mouse activities for a user_id."""
         today = datetime.date.today()
         start_date = start_date or today.replace(today.year - 1).isoformat()
