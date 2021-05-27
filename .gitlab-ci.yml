@@ -33,16 +33,6 @@ workflow:
   rules:
     - when: always
 
-.with_nix: &with_nix
-  tags: [autoscaling]
-  image: "${CI_REGISTRY_IMAGE}/nix:${CI_JOB_NAME}"
-  needs: []
-  script:
-    - ./build.sh "${CI_JOB_NAME% *}"
-  interruptible: true
-  variables:
-    GIT_DEPTH: 5
-
 .makes: &makes
   tags: [autoscaling]
   image: "${CI_REGISTRY_IMAGE}/makes"
@@ -149,15 +139,18 @@ makes.test.profiles:
   stage: test-code
 
 makes.lint.mailmap:
-  <<: *with_nix
   <<: *common_in_dev_branch
   tags: [autoscaling]
+  needs: []
+  interruptible: true
   image: nixos/nix:2.3
   stage: lint-code
   before_script:
     - nix-env -i -f https://github.com/kamadorueda/mailmap-linter/archive/master.tar.gz
   script:
     - mailmap-linter
+  variables:
+    GIT_DEPTH: 5
 
 common_forces:
   <<: *common_in_master_branch
