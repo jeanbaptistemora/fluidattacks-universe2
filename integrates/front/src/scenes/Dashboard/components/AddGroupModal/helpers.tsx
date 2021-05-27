@@ -42,44 +42,44 @@ function handleGroupNameErrorHelper(
 const getSwitchButtonHandlers = (
   values: {
     type: string;
-    drills: boolean;
+    squad: boolean;
     forces: boolean;
-    skims: boolean;
+    machine: boolean;
   },
   setFieldValue: (
     field: string,
     value: unknown,
     shouldValidate?: boolean | undefined
   ) => void,
-  scope: "drills" | "forces" | "skims" | "subscription"
+  scope: "forces" | "machine" | "squad" | "subscription"
 ): ((checked: boolean) => void) => {
   function handleSubscriptionTypeChange(): void {
-    setFieldValue("skims", values.type !== "CONTINUOUS");
-    setFieldValue("drills", true);
+    setFieldValue("machine", values.type !== "CONTINUOUS");
+    setFieldValue("squad", true);
     setFieldValue("forces", values.type !== "CONTINUOUS");
   }
 
-  function handleSkimsBtnChange(): void {
-    setFieldValue("skims", !values.skims);
+  function handleMachineBtnChange(): void {
+    setFieldValue("machine", !values.machine);
 
-    if (values.skims) {
-      setFieldValue("drills", false);
+    if (values.machine) {
+      setFieldValue("squad", false);
       setFieldValue("forces", false);
     }
   }
 
-  function handleDrillsBtnChange(): void {
-    setFieldValue("drills", !values.drills);
+  function handleSquadBtnChange(): void {
+    setFieldValue("squad", !values.squad);
 
-    if (values.drills) {
+    if (values.squad) {
       setFieldValue("forces", false);
     } else {
-      setFieldValue("skims", true);
+      setFieldValue("machine", true);
     }
   }
 
   function handleForcesBtnChange(): void {
-    if (values.drills) {
+    if (values.squad) {
       setFieldValue("forces", !values.forces);
     } else {
       setFieldValue("forces", false);
@@ -88,10 +88,10 @@ const getSwitchButtonHandlers = (
 
   if (scope === "subscription") {
     return handleSubscriptionTypeChange;
-  } else if (scope === "skims") {
-    return handleSkimsBtnChange;
-  } else if (scope === "drills") {
-    return handleDrillsBtnChange;
+  } else if (scope === "machine") {
+    return handleMachineBtnChange;
+  } else if (scope === "squad") {
+    return handleSquadBtnChange;
   }
 
   return handleForcesBtnChange;

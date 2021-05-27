@@ -35,17 +35,17 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   const { push } = useHistory();
 
   // State management
-  const [isProjectModalOpen, setProjectModalOpen] = useState(false);
+  const [isGroupModalOpen, setGroupModalOpen] = useState(false);
 
-  const openNewProjectModal: () => void = useCallback((): void => {
-    setProjectModalOpen(true);
+  const openNewGroupModal: () => void = useCallback((): void => {
+    setGroupModalOpen(true);
   }, []);
 
   // GraphQL operations
   const { data, refetch: refetchGroups } = useQuery(GET_ORGANIZATION_GROUPS, {
     onCompleted: (paramData: IGetOrganizationGroups): void => {
       if (_.isEmpty(paramData.organization.projects)) {
-        Logger.warning("Empty projects", document.location.pathname);
+        Logger.warning("Empty groups", document.location.pathname);
       }
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -60,8 +60,8 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   });
 
   // State management
-  const closeNewProjectModal: () => void = useCallback((): void => {
-    setProjectModalOpen(false);
+  const closeNewGroupModal: () => void = useCallback((): void => {
+    setGroupModalOpen(false);
     void refetchGroups();
   }, [refetchGroups]);
   // Auxiliary functions
@@ -159,7 +159,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                   "organization.tabs.groups.newGroup.new.tooltip"
                 )}
               >
-                <Button id={"add-group"} onClick={openNewProjectModal}>
+                <Button id={"add-group"} onClick={openNewGroupModal}>
                   <FontAwesomeIcon icon={faPlus} />
                   &nbsp;
                   {translate.t("organization.tabs.groups.newGroup.new.text")}
@@ -188,10 +188,10 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                 />
               </Row>
             </Col100>
-            {isProjectModalOpen ? (
+            {isGroupModalOpen ? (
               <AddGroupModal
                 isOpen={true}
-                onClose={closeNewProjectModal}
+                onClose={closeNewGroupModal}
                 organization={organizationName}
               />
             ) : undefined}

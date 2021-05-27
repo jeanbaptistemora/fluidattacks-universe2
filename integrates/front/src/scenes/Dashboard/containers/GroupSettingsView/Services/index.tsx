@@ -17,10 +17,10 @@ import { Field, change, formValueSelector } from "redux-form";
 import {
   editGroupDataHelper,
   getHandleIntegratesBtnChange,
-  getHandleSkimsBtnChange,
-  handleDrillsBtnChangeHelper,
+  getHandleMachineBtnChange,
   handleEditGroupDataError,
   handleForcesBtnChangeHelper,
+  handleSquadBtnChangeHelper,
 } from "./helpers";
 
 import { Button } from "components/Button";
@@ -115,15 +115,15 @@ const Services: React.FC<IServicesProps> = (
     [dispatch]
   );
   const handleIntegratesBtnChange = getHandleIntegratesBtnChange(dispatch);
-  const handleSkimsBtnChange = getHandleSkimsBtnChange(dispatch);
-  const handleDrillsBtnChange: (withDrills: boolean) => void = (
-    withDrills: boolean
+  const handleMachineBtnChange = getHandleMachineBtnChange(dispatch);
+  const handleSquadBtnChange: (withSquad: boolean) => void = (
+    withSquad: boolean
   ): void => {
-    dispatch(change("editGroup", "drills", withDrills));
+    dispatch(change("editGroup", "drills", withSquad));
 
-    handleDrillsBtnChangeHelper(
+    handleSquadBtnChangeHelper(
       dispatch,
-      withDrills,
+      withSquad,
       formValues.type,
       isContinuousType
     );
@@ -226,13 +226,13 @@ const Services: React.FC<IServicesProps> = (
     {
       canHave: isContinuousType(formValues.type),
       id: "skimsSwitch",
-      onChange: handleSkimsBtnChange,
+      onChange: handleMachineBtnChange,
       service: "skims",
     },
     {
       canHave: true,
       id: "drillsSwitch",
-      onChange: handleDrillsBtnChange,
+      onChange: handleSquadBtnChange,
       service: "drills",
     },
     {

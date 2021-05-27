@@ -102,17 +102,17 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
       language: string;
       organization: string;
       type: string;
-      drills: boolean;
+      squad: boolean;
       forces: boolean;
-      skims: boolean;
+      machine: boolean;
     }): void => {
       track("AddGroup");
       void createProject({
         variables: {
           description: values.description,
-          hasDrills: values.drills,
+          hasDrills: values.squad,
           hasForces: values.forces,
-          hasSkims: values.skims,
+          hasSkims: values.machine,
           language: values.language,
           organization: values.organization,
           projectName: values.name,
@@ -146,12 +146,12 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
           enableReinitialize={true}
           initialValues={{
             description: "",
-            drills: true,
             forces: true,
             language: "EN",
+            machine: true,
             name: groupName.toUpperCase(),
             organization: organization.toUpperCase(),
-            skims: true,
+            squad: true,
             type: "CONTINUOUS",
           }}
           name={"newGroup"}
@@ -164,16 +164,16 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
               "subscription"
             );
 
-            const handleSkimsBtnChange = getSwitchButtonHandlers(
+            const handleMachineBtnChange = getSwitchButtonHandlers(
               values,
               setFieldValue,
-              "skims"
+              "machine"
             );
 
-            const handleDrillsBtnChange = getSwitchButtonHandlers(
+            const handleSquadBtnChange = getSwitchButtonHandlers(
               values,
               setFieldValue,
-              "drills"
+              "squad"
             );
 
             const handleForcesBtnChange = getSwitchButtonHandlers(
@@ -380,12 +380,12 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                             {" *"}
                           </ControlLabel>
                           <SwitchButton
-                            checked={values.skims}
-                            name={"skims"}
+                            checked={values.machine}
+                            name={"machine"}
                             offlabel={translate.t(
                               "organization.tabs.groups.newGroup.switch.no"
                             )}
-                            onChange={handleSkimsBtnChange}
+                            onChange={handleMachineBtnChange}
                             onlabel={translate.t(
                               "organization.tabs.groups.newGroup.switch.yes"
                             )}
@@ -412,12 +412,12 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                           {" *"}
                         </ControlLabel>
                         <SwitchButton
-                          checked={values.drills}
-                          name={"drills"}
+                          checked={values.squad}
+                          name={"squad"}
                           offlabel={translate.t(
                             "organization.tabs.groups.newGroup.switch.no"
                           )}
-                          onChange={handleDrillsBtnChange}
+                          onChange={handleSquadBtnChange}
                           onlabel={translate.t(
                             "organization.tabs.groups.newGroup.switch.yes"
                           )}
@@ -426,7 +426,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                     </TooltipWrapper>
                   </Col40>
                 </Row>
-                {values.drills && isContinuousType(values.type) ? (
+                {values.squad && isContinuousType(values.type) ? (
                   <Row>
                     <Col40>
                       <TooltipWrapper

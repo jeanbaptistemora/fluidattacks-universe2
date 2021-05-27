@@ -82,7 +82,7 @@ describe("Organization groups view", (): void => {
               name: "okada",
               projects: [
                 {
-                  description: "Continuous type test project",
+                  description: "Continuous type test group",
                   hasDrills: true,
                   hasForces: true,
                   hasIntegrates: true,
@@ -91,7 +91,7 @@ describe("Organization groups view", (): void => {
                   userRole: "customer",
                 },
                 {
-                  description: "One-shot type test project",
+                  description: "One-shot type test group",
                   hasDrills: true,
                   hasForces: false,
                   hasIntegrates: true,
@@ -100,7 +100,7 @@ describe("Organization groups view", (): void => {
                   userRole: "customeradmin",
                 },
                 {
-                  description: "Continuous project for deletion",
+                  description: "Continuous group for deletion",
                   hasDrills: false,
                   hasForces: false,
                   hasIntegrates: false,
@@ -263,7 +263,7 @@ describe("Organization groups view", (): void => {
               name: "okada",
               projects: [
                 {
-                  description: "Continuous type test project",
+                  description: "Continuous type test group",
                   hasDrills: true,
                   hasForces: true,
                   hasIntegrates: true,
@@ -272,7 +272,7 @@ describe("Organization groups view", (): void => {
                   userRole: "customer",
                 },
                 {
-                  description: "One-shot type test project",
+                  description: "One-shot type test group",
                   hasDrills: true,
                   hasForces: false,
                   hasIntegrates: true,
@@ -301,7 +301,7 @@ describe("Organization groups view", (): void => {
         request: {
           query: CREATE_PROJECT_MUTATION,
           variables: {
-            description: "Test project",
+            description: "Test group",
             hasDrills: true,
             hasForces: true,
             organization: "OKADA",
@@ -330,7 +330,7 @@ describe("Organization groups view", (): void => {
               name: "okada",
               projects: [
                 {
-                  description: "Continuous type test project",
+                  description: "Continuous type test group",
                   hasDrills: true,
                   hasForces: true,
                   hasIntegrates: true,
@@ -339,7 +339,7 @@ describe("Organization groups view", (): void => {
                   userRole: "customer",
                 },
                 {
-                  description: "One-shot type test project",
+                  description: "One-shot type test group",
                   hasDrills: true,
                   hasForces: false,
                   hasIntegrates: true,
@@ -348,7 +348,7 @@ describe("Organization groups view", (): void => {
                   userRole: "customeradmin",
                 },
                 {
-                  description: "Test project",
+                  description: "Test group",
                   hasDrills: true,
                   hasForces: true,
                   hasIntegrates: true,
@@ -412,7 +412,7 @@ describe("Organization groups view", (): void => {
       // Exception: WF(Empty function is necessary)
       // eslint-disable-next-line
       persist: (): void => {}, // NOSONAR
-      target: { name: "description", value: "Test project" },
+      target: { name: "description", value: "Test group" },
     });
     typeField.simulate("change", {
       // Exception: WF(Empty function is necessary)

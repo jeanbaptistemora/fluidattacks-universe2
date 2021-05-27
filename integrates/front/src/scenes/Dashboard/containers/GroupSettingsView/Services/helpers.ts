@@ -27,13 +27,13 @@ const getHandleIntegratesBtnChange = (
   };
 };
 
-const getHandleSkimsBtnChange = (
+const getHandleMachineBtnChange = (
   dispatch: Dispatch
-): ((withSkims: boolean) => void) => {
-  return (withSkims: boolean): void => {
-    dispatch(change("editGroup", "skims", withSkims));
+): ((withMachine: boolean) => void) => {
+  return (withMachine: boolean): void => {
+    dispatch(change("editGroup", "skims", withMachine));
 
-    if (withSkims) {
+    if (withMachine) {
       dispatch(change("editGroup", "integrates", true));
     } else {
       dispatch(change("editGroup", "drills", false));
@@ -42,13 +42,13 @@ const getHandleSkimsBtnChange = (
   };
 };
 
-const handleDrillsBtnChangeHelper = (
+const handleSquadBtnChangeHelper = (
   dispatch: Dispatch,
-  withDrills: boolean,
+  withSquad: boolean,
   type: string,
   isContinuousType: (type: string) => boolean
 ): void => {
-  if (withDrills) {
+  if (withSquad) {
     dispatch(change("editGroup", "integrates", true));
     dispatch(change("editGroup", "skims", isContinuousType(type)));
   } else {
@@ -106,8 +106,8 @@ const handleEditGroupDataError = (error: ApolloError): void => {
 
 export {
   getHandleIntegratesBtnChange,
-  getHandleSkimsBtnChange,
-  handleDrillsBtnChangeHelper,
+  getHandleMachineBtnChange,
+  handleSquadBtnChangeHelper,
   handleForcesBtnChangeHelper,
   editGroupDataHelper,
   handleEditGroupDataError,
