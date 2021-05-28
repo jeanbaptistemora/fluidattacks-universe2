@@ -97,7 +97,7 @@ export const BlogCard: React.FC<IProps> = ({
           <br />
           <br />
           <CardButtonContainer>
-            <Link className={"no-underline"} to={blogLink}>
+            <Link className={"no-underline"} to={`/blog/${blogLink}`}>
               <CardButton>{"Read More"}</CardButton>
             </Link>
           </CardButtonContainer>
