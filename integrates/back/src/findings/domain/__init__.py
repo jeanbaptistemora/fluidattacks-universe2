@@ -38,6 +38,7 @@ from .core import (
 )
 from .draft_new import (
     create_draft_new,
+    submit_draft_new,
 )
 from .draft import (
     approve_draft,
@@ -97,6 +98,7 @@ __all__ = [
     "verify_vulnerabilities",
     # drafts new
     "create_draft_new",
+    "submit_draft_new",
     # drafts
     "approve_draft",
     "create_draft",

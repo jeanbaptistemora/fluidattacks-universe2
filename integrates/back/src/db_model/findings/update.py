@@ -2,11 +2,13 @@ from enum import Enum
 
 from boto3.dynamodb.conditions import Attr
 
+from custom_exceptions import FindingNotFound
 from dynamodb import (
     historics,
     keys,
     operations,
 )
+from dynamodb.exceptions import ConditionalCheckFailedException
 from db_model import TABLE
 
 from .enums import FindingStateStatus
@@ -39,12 +41,15 @@ async def update_state(
         latest_facet=TABLE.facets["finding_state"],
     )
     condition_expression = Attr(key_structure.partition_key).exists()
-    await operations.put_item(
-        condition_expression=condition_expression,
-        facet=TABLE.facets["finding_state"],
-        item=latest,
-        table=TABLE,
-    )
+    try:
+        await operations.put_item(
+            condition_expression=condition_expression,
+            facet=TABLE.facets["finding_state"],
+            item=latest,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException:
+        raise FindingNotFound()
     items.append(historic)
     if state.status == FindingStateStatus.APPROVED:
         approval_key = keys.build_key(

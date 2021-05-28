@@ -1,13 +1,20 @@
+from decimal import Decimal
 import random
 from typing import Any
 
-from custom_exceptions import InvalidDraftTitle
+from custom_exceptions import (
+    AlreadyApproved,
+    AlreadySubmitted,
+    IncompleteDraft,
+    InvalidDraftTitle,
+)
 from db_model import findings
 from db_model.findings.enums import FindingStateStatus
 from db_model.findings.types import (
     Finding,
     FindingState,
 )
+from findings import domain as findings_domain
 from newutils import (
     datetime as datetime_utils,
     findings as findings_utils,
@@ -50,3 +57,45 @@ async def create_draft_new(
         type=kwargs.get("type", ""),
     )
     await findings.create(finding=draft)
+
+
+async def submit_draft_new(
+    context: Any, finding_id: str, group_name: str, analyst_email: str
+) -> None:
+    finding_vulns_loader = context.loaders.finding_vulns
+    finding_loader = context.loaders.finding_new
+    finding: Finding = await finding_loader.load((group_name, finding_id))
+    if (
+        finding.state.status == FindingStateStatus.APPROVED
+        or finding.state.status == FindingStateStatus.DELETED
+    ):
+        raise AlreadyApproved()
+
+    if finding.state.status == FindingStateStatus.SUBMITTED:
+        raise AlreadySubmitted()
+
+    has_severity = findings_domain.get_severity_score_new(
+        finding.severity
+    ) > Decimal(0)
+    has_vulns = bool(await finding_vulns_loader.load(finding_id))
+    if not has_severity or not has_vulns:
+        required_fields = {
+            "severity": has_severity,
+            "vulnerabilities": has_vulns,
+        }
+        raise IncompleteDraft(
+            [field for field in required_fields if not required_fields[field]]
+        )
+
+    source = requests_utils.get_source(context)
+    new_state = FindingState(
+        modified_by=analyst_email,
+        modified_date=datetime_utils.get_iso_date(),
+        source=source,
+        status=FindingStateStatus.SUBMITTED,
+    )
+    await findings.update_state(
+        finding_id=finding_id,
+        group_name=group_name,
+        state=new_state,
+    )
