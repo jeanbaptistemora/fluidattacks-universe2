@@ -73,12 +73,10 @@ describe("Update access token modal", (): void => {
         </MockedProvider>
       </Provider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     const revealButton: ReactWrapper = wrapper
       .find("button")
@@ -89,46 +87,42 @@ describe("Update access token modal", (): void => {
 
     revealButton.simulate("click");
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(revealButton.prop("disabled")).toBe(false);
+        expect(revealButton.prop("disabled")).toBe(false);
 
-          const tokenTextAreaBefore: ReactWrapper = wrapper
-            .find("textarea")
-            .first();
+        const tokenTextAreaBefore: ReactWrapper = wrapper
+          .find("textarea")
+          .first();
 
-          expect(tokenTextAreaBefore.text()).toBe(beforeValue);
+        expect(tokenTextAreaBefore.text()).toBe(beforeValue);
 
-          const resetButton: ReactWrapper = wrapper
-            .find("button")
-            .filterWhere((element: ReactWrapper): boolean =>
-              element.contains("Reset")
-            )
-            .first();
+        const resetButton: ReactWrapper = wrapper
+          .find("button")
+          .filterWhere((element: ReactWrapper): boolean =>
+            element.contains("Reset")
+          )
+          .first();
 
-          expect(resetButton.prop("disabled")).toBe(false);
-        });
-      }
-    );
+        expect(resetButton.prop("disabled")).toBe(false);
+      });
+    });
 
     const form: ReactWrapper = wrapper.find("genericForm");
     form.simulate("submit");
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
-          const tokenTextAreaAfter: ReactWrapper = wrapper
-            .find("textarea")
-            .first();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+        const tokenTextAreaAfter: ReactWrapper = wrapper
+          .find("textarea")
+          .first();
 
-          expect(tokenTextAreaAfter.text()).toBe(afterValue);
-        });
-      }
-    );
+        expect(tokenTextAreaAfter.text()).toBe(afterValue);
+      });
+    });
   });
 
   it("should render an token modal with token", async (): Promise<void> => {
@@ -165,12 +159,10 @@ describe("Update access token modal", (): void => {
       </Provider>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     const revealButton: ReactWrapper = wrapper
       .find("button")
@@ -180,12 +172,10 @@ describe("Update access token modal", (): void => {
       .first();
 
     revealButton.simulate("click");
-    await act(
-      async (): Promise<void> => {
-        await wait(4);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(4);
+      wrapper.update();
+    });
 
     expect(revealButton.prop("disabled")).toBe(false);
 
@@ -244,12 +234,10 @@ describe("Update access token modal", (): void => {
       </Provider>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     const componentTitle: ReactWrapper = wrapper.find("h4");
 
@@ -269,36 +257,34 @@ describe("Update access token modal", (): void => {
 
     revealButton.simulate("click");
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
-          const generateButton: ReactWrapper = wrapper
-            .find("button")
-            .filterWhere((element: ReactWrapper): boolean =>
-              element.contains("Generate")
-            )
-            .first();
-          const copyButton: ReactWrapper = wrapper
-            .find("button")
-            .filterWhere((element: ReactWrapper): boolean =>
-              element.contains("Copy")
-            )
-            .first();
-          const revealButtonAfter: ReactWrapper = wrapper
-            .find("button")
-            .filterWhere((element: ReactWrapper): boolean =>
-              element.contains("Reveal Token")
-            )
-            .first();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+        const generateButton: ReactWrapper = wrapper
+          .find("button")
+          .filterWhere((element: ReactWrapper): boolean =>
+            element.contains("Generate")
+          )
+          .first();
+        const copyButton: ReactWrapper = wrapper
+          .find("button")
+          .filterWhere((element: ReactWrapper): boolean =>
+            element.contains("Copy")
+          )
+          .first();
+        const revealButtonAfter: ReactWrapper = wrapper
+          .find("button")
+          .filterWhere((element: ReactWrapper): boolean =>
+            element.contains("Reveal Token")
+          )
+          .first();
 
-          // When the token is revealed and does not exist, it cannot be copied
-          expect(copyButton.prop("disabled")).toBe(true);
-          expect(generateButton.prop("disabled")).toBe(false);
-          expect(revealButtonAfter.prop("disabled")).toBe(true);
-        });
-      }
-    );
+        // When the token is revealed and does not exist, it cannot be copied
+        expect(copyButton.prop("disabled")).toBe(true);
+        expect(generateButton.prop("disabled")).toBe(false);
+        expect(revealButtonAfter.prop("disabled")).toBe(true);
+      });
+    });
 
     closeButton.simulate("click");
 

@@ -21,14 +21,12 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = (
 ): JSX.Element => {
   const { children, title, message } = props;
   const [isOpen, setOpen] = useState(false);
-  const [
-    confirmCallback,
-    setConfirmCallback,
-  ] = useState((): (() => void) => (): void => undefined);
-  const [
-    cancelCallback,
-    setCancelCallback,
-  ] = useState((): (() => void) => (): void => undefined);
+  const [confirmCallback, setConfirmCallback] = useState(
+    (): (() => void) => (): void => undefined
+  );
+  const [cancelCallback, setCancelCallback] = useState(
+    (): (() => void) => (): void => undefined
+  );
 
   const confirm: IConfirmFn = (
     confirmFn: () => void,
@@ -51,9 +49,8 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = (
     confirmCallback();
   }
 
-  const messageLines: string[] = (_.isUndefined(message)
-    ? translate.t("confirmmodal.message")
-    : message
+  const messageLines: string[] = (
+    _.isUndefined(message) ? translate.t("confirmmodal.message") : message
   ).split("\n");
 
   return (

@@ -45,14 +45,12 @@ describe("Compulsory notice modal", (): void => {
       </Provider>
     );
     const form: ReactWrapper = wrapper.find("Modal").find("Formik");
-    await act(
-      async (): Promise<void> => {
-        form.simulate("submit");
+    await act(async (): Promise<void> => {
+      form.simulate("submit");
 
-        await wait(0);
-        wrapper.update();
-      }
-    );
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(handleAccept.mock.calls).toHaveLength(1);
   });

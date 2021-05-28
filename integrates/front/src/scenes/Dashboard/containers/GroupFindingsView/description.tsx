@@ -21,12 +21,8 @@ const Description = ({
   treatment,
 }: IDescriptionProps): JSX.Element => {
   const { t } = useTranslation();
-  const [
-    treatmentNew,
-    inProgress,
-    temporallyAccepted,
-    eternallyAccepted,
-  ] = treatment.split(",").map((line): string => line.trim());
+  const [treatmentNew, inProgress, temporallyAccepted, eternallyAccepted] =
+    treatment.split(",").map((line): string => line.trim());
 
   return (
     <div>

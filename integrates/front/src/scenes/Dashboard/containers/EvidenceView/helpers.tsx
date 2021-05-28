@@ -92,9 +92,11 @@ const updateChangesHelper = async (
         findingId,
       },
     });
-    const { success } = (mtResult as {
-      data: { updateEvidence: { success: boolean } };
-    }).data.updateEvidence;
+    const { success } = (
+      mtResult as {
+        data: { updateEvidence: { success: boolean } };
+      }
+    ).data.updateEvidence;
 
     if (success && descriptionChanged) {
       await updateDescription({

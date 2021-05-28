@@ -3,7 +3,7 @@ import { mount, shallow } from "enzyme";
 import mixpanel from "mixpanel-browser";
 import React, { createElement, useCallback } from "react";
 import { act } from "react-dom/test-utils";
-import { MemoryRouter, useHistory } from "react-router";
+import { MemoryRouter, useHistory } from "react-router-dom";
 
 import { useStoredState, useTabTracking } from "utils/hooks";
 

@@ -64,9 +64,8 @@ const GroupForcesView: React.FC = (): JSX.Element => {
   );
 
   const [currentRow, updateRow] = useState(defaultCurrentRow);
-  const [isExecutionDetailsModalOpen, setExecutionDetailsModalOpen] = useState(
-    false
-  );
+  const [isExecutionDetailsModalOpen, setExecutionDetailsModalOpen] =
+    useState(false);
 
   const handleUpdateFilter: () => void = useCallback((): void => {
     setFilterEnabled(!isFilterEnabled);

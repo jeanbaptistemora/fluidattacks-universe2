@@ -79,9 +79,8 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     .map((root): string => root.nickname);
 
   // State management
-  const [isManagingRoot, setManagingRoot] = useState<
-    false | { mode: "ADD" | "EDIT" }
-  >(false);
+  const [isManagingRoot, setManagingRoot] =
+    useState<false | { mode: "ADD" | "EDIT" }>(false);
 
   const openAddModal: () => void = useCallback((): void => {
     setManagingRoot({ mode: "ADD" });
@@ -95,9 +94,8 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     setManagingRoot(false);
   }, []);
 
-  const [currentRow, setCurrentRow] = useState<IGitRootAttr | undefined>(
-    undefined
-  );
+  const [currentRow, setCurrentRow] =
+    useState<IGitRootAttr | undefined>(undefined);
 
   const editDisabled: boolean =
     currentRow === undefined || currentRow.state === "INACTIVE";
@@ -228,9 +226,10 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   });
 
   // Event handlers
-  const handleRowSelect: (
-    row: IGitRootAttr
-  ) => void = useCallback(setCurrentRow, [setCurrentRow]);
+  const handleRowSelect: (row: IGitRootAttr) => void = useCallback(
+    setCurrentRow,
+    [setCurrentRow]
+  );
 
   const handleGitSubmit = useGitSubmit(
     addGitRoot,

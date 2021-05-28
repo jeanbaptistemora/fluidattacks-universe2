@@ -49,13 +49,11 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   }, []);
 
   const [currentRow, setCurrentRow] = useState<Dictionary<string>>({});
-  const handleRowClick: (
-    _0: React.FormEvent,
-    row: Dictionary<string>
-  ) => void = (_0: React.FormEvent, row: Dictionary<string>): void => {
-    setCurrentRow(row);
-    setOptionsModalOpen(true);
-  };
+  const handleRowClick: (_0: React.FormEvent, row: Dictionary<string>) => void =
+    (_0: React.FormEvent, row: Dictionary<string>): void => {
+      setCurrentRow(row);
+      setOptionsModalOpen(true);
+    };
 
   const [uploadProgress, setUploadProgress] = useState(0);
 

@@ -65,31 +65,27 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
                 ...column,
                 toggle: toggles[column.dataField as number],
               }))
-              .map(
-                (column): JSX.Element => {
-                  function handleClick(): void {
-                    onColumnToggle(column.dataField);
+              .map((column): JSX.Element => {
+                function handleClick(): void {
+                  onColumnToggle(column.dataField as string);
 
-                    if (!_.isUndefined(sideEffects)) {
-                      sideEffects(column.dataField);
-                    }
+                  if (!_.isUndefined(sideEffects)) {
+                    sideEffects(column.dataField as string);
                   }
-
-                  return (
-                    <Row key={column.dataField}>
-                      <input
-                        checked={column.toggle}
-                        name={column.dataField}
-                        onChange={handleClick}
-                        type={"checkbox"}
-                      />
-                      <ControlLabel className={"ml1"}>
-                        {column.text}
-                      </ControlLabel>
-                    </Row>
-                  );
                 }
-              )}
+
+                return (
+                  <Row key={column.dataField}>
+                    <input
+                      checked={column.toggle}
+                      name={column.dataField}
+                      onChange={handleClick}
+                      type={"checkbox"}
+                    />
+                    <ControlLabel className={"ml1"}>{column.text}</ControlLabel>
+                  </Row>
+                );
+              })}
           </div>
         </RowCenter>
         <hr />

@@ -7,7 +7,7 @@ import moment from "moment";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { MemoryRouter, Route } from "react-router";
+import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
@@ -25,18 +25,15 @@ import store from "store";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-jest.mock(
-  "../../../../utils/notifications",
-  (): Dictionary => {
-    const mockedNotifications: Dictionary = jest.requireActual(
-      "../../../../utils/notifications"
-    );
-    mockedNotifications.msgError = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
-    mockedNotifications.msgSuccess = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
+jest.mock("../../../../utils/notifications", (): Dictionary => {
+  const mockedNotifications: Dictionary = jest.requireActual(
+    "../../../../utils/notifications"
+  );
+  mockedNotifications.msgError = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
+  mockedNotifications.msgSuccess = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
 
-    return mockedNotifications;
-  }
-);
+  return mockedNotifications;
+});
 
 describe("Organization users view", (): void => {
   const mockProps: IOrganizationStakeholders = {
@@ -98,19 +95,17 @@ describe("Organization users view", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(wrapper).toHaveLength(1);
+        expect(wrapper).toHaveLength(1);
 
-          const RENDER_TEST_LENGTH = 3;
+        const RENDER_TEST_LENGTH = 3;
 
-          expect(wrapper.find("tr")).toHaveLength(RENDER_TEST_LENGTH);
-        });
-      }
-    );
+        expect(wrapper.find("tr")).toHaveLength(RENDER_TEST_LENGTH);
+      });
+    });
 
     const addButton: ReactWrapper = wrapper.find("button#addUser").first();
     const editButton: ReactWrapper = wrapper.find("button#editUser").first();
@@ -270,12 +265,10 @@ describe("Organization users view", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        wrapper.update();
-        await wait(0);
-      }
-    );
+    await act(async (): Promise<void> => {
+      wrapper.update();
+      await wait(0);
+    });
 
     expect(wrapper).toHaveLength(1);
     expect(wrapper.find("tr")).toHaveLength(2);
@@ -304,39 +297,35 @@ describe("Organization users view", (): void => {
       target: { name: "email" },
     });
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(
-            wrapper
-              .find(AddUserModal)
-              .find({ name: "phoneNumber" })
-              .find("input")
-              .prop("value")
-          ).toBe("+57 (310) 444 8888");
-        });
-      }
-    );
+        expect(
+          wrapper
+            .find(AddUserModal)
+            .find({ name: "phoneNumber" })
+            .find("input")
+            .prop("value")
+        ).toBe("+57 (310) 444 8888");
+      });
+    });
 
     roleField.simulate("change", {
       target: { name: "role", value: "CUSTOMER" },
     });
     form.simulate("submit");
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(wrapper.find(AddUserModal).prop("open")).toBe(false);
+        expect(wrapper.find(AddUserModal).prop("open")).toBe(false);
 
-          expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
-          expect(wrapper.find("tr")).toHaveLength(2);
-        });
-      }
-    );
+        expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+        expect(wrapper.find("tr")).toHaveLength(2);
+      });
+    });
   });
 
   it("should edit a user", async (): Promise<void> => {
@@ -428,12 +417,10 @@ describe("Organization users view", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
     expect(wrapper.find("tr")).toHaveLength(2);
@@ -492,17 +479,15 @@ describe("Organization users view", (): void => {
     });
     form.simulate("submit");
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(wrapper.find(AddUserModal).prop("open")).toBe(false);
-          expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
-          expect(wrapper.find("tr")).toHaveLength(2);
-        });
-      }
-    );
+        expect(wrapper.find(AddUserModal).prop("open")).toBe(false);
+        expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+        expect(wrapper.find("tr")).toHaveLength(2);
+      });
+    });
   });
 
   it("should remove a user", async (): Promise<void> => {
@@ -595,45 +580,39 @@ describe("Organization users view", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          const TEST_LENGTH = 3;
+        const TEST_LENGTH = 3;
 
-          expect(wrapper).toHaveLength(1);
-          expect(wrapper.find("tr")).toHaveLength(TEST_LENGTH);
-        });
-      }
-    );
+        expect(wrapper).toHaveLength(1);
+        expect(wrapper.find("tr")).toHaveLength(TEST_LENGTH);
+      });
+    });
 
     wrapper.find("tr").at(2).simulate("click");
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(
-            wrapper.find("button#removeUser").first().prop("disabled")
-          ).toBe(false);
-        });
-      }
-    );
+        expect(wrapper.find("button#removeUser").first().prop("disabled")).toBe(
+          false
+        );
+      });
+    });
 
     wrapper.find("button#removeUser").first().simulate("click");
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
-          expect(wrapper.find("tr")).toHaveLength(2);
-        });
-      }
-    );
+        expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+        expect(wrapper.find("tr")).toHaveLength(2);
+      });
+    });
   });
 
   it("should handle query errors", async (): Promise<void> => {
@@ -668,18 +647,16 @@ describe("Organization users view", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(msgError).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
-          expect(wrapper.find("tr").at(1).find("td").at(0).text()).toBe(
-            "dataTableNext.noDataIndication"
-          );
-        });
-      }
-    );
+        expect(msgError).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+        expect(wrapper.find("tr").at(1).find("td").at(0).text()).toBe(
+          "dataTableNext.noDataIndication"
+        );
+      });
+    });
   });
 
   it("should handle mutation errors", async (): Promise<void> => {
@@ -819,12 +796,10 @@ describe("Organization users view", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
     expect(wrapper.find("tr")).toHaveLength(2);
@@ -854,86 +829,72 @@ describe("Organization users view", (): void => {
 
     submit();
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(msgError).toHaveBeenCalledWith(
-            translate.t("validations.email")
-          );
-        });
-      }
-    );
+        expect(msgError).toHaveBeenCalledWith(translate.t("validations.email"));
+      });
+    });
 
     submit();
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(msgError).toHaveBeenCalledWith(
-            translate.t("validations.invalidValueInField")
-          );
-        });
-      }
-    );
+        expect(msgError).toHaveBeenCalledWith(
+          translate.t("validations.invalidValueInField")
+        );
+      });
+    });
 
     submit();
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(msgError).toHaveBeenCalledWith(
-            translate.t("validations.invalidChar")
-          );
-        });
-      }
-    );
+        expect(msgError).toHaveBeenCalledWith(
+          translate.t("validations.invalidChar")
+        );
+      });
+    });
 
     submit();
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(msgError).toHaveBeenCalledWith(
-            translate.t("validations.invalidPhoneNumberInField")
-          );
-        });
-      }
-    );
+        expect(msgError).toHaveBeenCalledWith(
+          translate.t("validations.invalidPhoneNumberInField")
+        );
+      });
+    });
 
     submit();
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(msgError).toHaveBeenCalledWith(
-            translate.t("validations.invalidEmailInField")
-          );
-        });
-      }
-    );
+        expect(msgError).toHaveBeenCalledWith(
+          translate.t("validations.invalidEmailInField")
+        );
+      });
+    });
 
     submit();
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(msgError).toHaveBeenCalledWith(
-            translate.t("groupAlerts.errorTextsad")
-          );
-        });
-      }
-    );
+        expect(msgError).toHaveBeenCalledWith(
+          translate.t("groupAlerts.errorTextsad")
+        );
+      });
+    });
   });
 });

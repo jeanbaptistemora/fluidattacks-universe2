@@ -82,36 +82,34 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   const formatGroupData: (groupData: IGroupData[]) => IGroupData[] = (
     groupData: IGroupData[]
   ): IGroupData[] =>
-    groupData.map(
-      (group: IGroupData): IGroupData => {
-        const servicesParameters: Record<string, string> = {
-          false: "organization.tabs.groups.disabled",
-          true: "organization.tabs.groups.enabled",
-        };
-        const name: string = group.name.toUpperCase();
-        const description: string = _.capitalize(group.description);
-        const subscription: string = _.capitalize(group.subscription);
-        const drills: string = translate.t(
-          servicesParameters[group.hasDrills.toString()]
-        );
-        const forces: string = translate.t(
-          servicesParameters[group.hasForces.toString()]
-        );
-        const integrates: string = translate.t(
-          servicesParameters[group.hasIntegrates.toString()]
-        );
+    groupData.map((group: IGroupData): IGroupData => {
+      const servicesParameters: Record<string, string> = {
+        false: "organization.tabs.groups.disabled",
+        true: "organization.tabs.groups.enabled",
+      };
+      const name: string = group.name.toUpperCase();
+      const description: string = _.capitalize(group.description);
+      const subscription: string = _.capitalize(group.subscription);
+      const drills: string = translate.t(
+        servicesParameters[group.hasDrills.toString()]
+      );
+      const forces: string = translate.t(
+        servicesParameters[group.hasForces.toString()]
+      );
+      const integrates: string = translate.t(
+        servicesParameters[group.hasIntegrates.toString()]
+      );
 
-        return {
-          ...group,
-          description,
-          drills,
-          forces,
-          integrates,
-          name,
-          subscription,
-        };
-      }
-    );
+      return {
+        ...group,
+        description,
+        drills,
+        forces,
+        integrates,
+        name,
+        subscription,
+      };
+    });
 
   // Render Elements
   const tableHeaders: IHeaderConfig[] = [

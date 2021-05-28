@@ -5,7 +5,7 @@ import { track } from "mixpanel-browser";
 import React, { useEffect, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { useTranslation } from "react-i18next";
-import { MemoryRouter, Route } from "react-router";
+import { MemoryRouter, Route } from "react-router-dom";
 
 import { AdditionalInfo } from "./AdditionalInfo";
 import {
@@ -239,7 +239,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         bordered={true}
         dataset={formatVulnerabilities(vulnerabilities)}
         defaultSorted={JSON.parse(
-          _.get(sessionStorage, "vulnerabilitiesSort", "{}")
+          _.get(sessionStorage, "vulnerabilitiesSort", "{}") as string
         )}
         exportCsv={false}
         headers={[...headers, ...(canDeleteVulns ? deleteHeader : [])]}

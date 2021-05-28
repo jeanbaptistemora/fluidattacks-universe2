@@ -30,12 +30,8 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
 ): JSX.Element => {
   const { open, onClose, groupName } = props;
 
-  const [
-    getApiToken,
-    getTokenCalled,
-    getTokenData,
-    getTokenLoading,
-  ] = useGetAPIToken(groupName);
+  const [getApiToken, getTokenCalled, getTokenData, getTokenLoading] =
+    useGetAPIToken(groupName);
   const [updateApiToken, updateResponse] = useUpdateAPIToken();
 
   const currentToken: string | undefined = updateResponse.data
@@ -48,20 +44,21 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
   const handleReveal: () => void = useCallback((): void => {
     void getApiToken(); // eslint-disable-line @typescript-eslint/no-confusing-void-expression
   }, [getApiToken]);
-  const handleCopy: () => Promise<void> = useCallback(async (): Promise<void> => {
-    const { clipboard } = navigator;
+  const handleCopy: () => Promise<void> =
+    useCallback(async (): Promise<void> => {
+      const { clipboard } = navigator;
 
-    if (_.isUndefined(clipboard)) {
-      msgError(translate.t("updateForcesToken.copy.failed"));
-    } else {
-      await clipboard.writeText(currentToken ?? "");
-      document.execCommand("copy");
-      msgSuccess(
-        translate.t("updateForcesToken.copy.successfully"),
-        translate.t("updateForcesToken.copy.success")
-      );
-    }
-  }, [currentToken]);
+      if (_.isUndefined(clipboard)) {
+        msgError(translate.t("updateForcesToken.copy.failed"));
+      } else {
+        await clipboard.writeText(currentToken ?? "");
+        document.execCommand("copy");
+        msgSuccess(
+          translate.t("updateForcesToken.copy.successfully"),
+          translate.t("updateForcesToken.copy.success")
+        );
+      }
+    }, [currentToken]);
   if (
     !getTokenData?.project.forcesToken && // eslint-disable-line @typescript-eslint/strict-boolean-expressions
     getTokenCalled &&

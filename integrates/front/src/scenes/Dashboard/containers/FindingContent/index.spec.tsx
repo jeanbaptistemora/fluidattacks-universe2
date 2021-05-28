@@ -23,18 +23,15 @@ import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
-jest.mock(
-  "../../../../utils/notifications",
-  (): Dictionary => {
-    const mockedNotifications: Dictionary<
-      () => Dictionary
-    > = jest.requireActual("../../../../utils/notifications");
-    jest.spyOn(mockedNotifications, "msgError").mockImplementation();
-    jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
+jest.mock("../../../../utils/notifications", (): Dictionary => {
+  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
+    "../../../../utils/notifications"
+  );
+  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+  jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
-    return mockedNotifications;
-  }
-);
+  return mockedNotifications;
+});
 
 const mockHistoryReplace: jest.Mock = jest.fn();
 
@@ -176,11 +173,9 @@ describe("FindingContent", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+    });
 
     expect(wrapper).toHaveLength(1);
   });
@@ -205,12 +200,10 @@ describe("FindingContent", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper.text()).toContain("FIN.S.0050. Weak passwords discovered");
   });
@@ -236,12 +229,10 @@ describe("FindingContent", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const submitButton: ReactWrapper = wrapper
       .find("findingContent")
       .at(0)
@@ -274,12 +265,10 @@ describe("FindingContent", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const deleteButton: ReactWrapper = wrapper.find("button").at(0);
 
     expect(deleteButton).toHaveLength(1);
@@ -288,12 +277,10 @@ describe("FindingContent", (): void => {
 
     expect(wrapper.text()).toContain("Delete Finding");
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper.text()).toContain("It is a false positive");
 
@@ -305,12 +292,10 @@ describe("FindingContent", (): void => {
     expect(cancelButton).toHaveLength(1);
 
     cancelButton.simulate("click");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper.find("Modal").at(0).prop("open")).toStrictEqual(false);
   });
@@ -355,26 +340,22 @@ describe("FindingContent", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
-          const submitButton: ReactWrapper = wrapper
-            .find("findingContent")
-            .at(0)
-            .find("Button")
-            .filterWhere((element: ReactWrapper): boolean =>
-              element.text().includes("Submit")
-            );
-          submitButton.simulate("click");
-        });
-      }
-    );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-      }
-    );
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+        const submitButton: ReactWrapper = wrapper
+          .find("findingContent")
+          .at(0)
+          .find("Button")
+          .filterWhere((element: ReactWrapper): boolean =>
+            element.text().includes("Submit")
+          );
+        submitButton.simulate("click");
+      });
+    });
+    await act(async (): Promise<void> => {
+      await wait(0);
+    });
     const submitButtonAfterSubmit: ReactWrapper = wrapper
       .find("findingContent")
       .at(0)
@@ -427,12 +408,10 @@ describe("FindingContent", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const submitButton: ReactWrapper = wrapper
       .find("findingContent")
       .at(0)
@@ -441,11 +420,9 @@ describe("FindingContent", (): void => {
         element.text().includes("Submit")
       );
     submitButton.simulate("click");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+    });
 
     expect(msgError).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
   });
@@ -490,27 +467,23 @@ describe("FindingContent", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
-          const approveButton: ReactWrapper = wrapper
-            .find("findingContent")
-            .at(0)
-            .find("Button")
-            .filterWhere((element: ReactWrapper): boolean =>
-              element.text().includes("Approve")
-            );
-          approveButton.simulate("click");
-        });
-      }
-    );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
         wrapper.update();
-      }
-    );
+        const approveButton: ReactWrapper = wrapper
+          .find("findingContent")
+          .at(0)
+          .find("Button")
+          .filterWhere((element: ReactWrapper): boolean =>
+            element.text().includes("Approve")
+          );
+        approveButton.simulate("click");
+      });
+    });
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const confirmDialog: ReactWrapper = wrapper
       .find("findingActions")
       .find("Modal")
@@ -520,22 +493,20 @@ describe("FindingContent", (): void => {
 
     const proceedButton: ReactWrapper = confirmDialog.find("Button").at(1);
     proceedButton.simulate("click");
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
-          const approveButtonAfterProceed: ReactWrapper = wrapper
-            .find("findingContent")
-            .at(0)
-            .find("Button")
-            .filterWhere((element: ReactWrapper): boolean =>
-              element.text().includes("Approve")
-            );
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+        const approveButtonAfterProceed: ReactWrapper = wrapper
+          .find("findingContent")
+          .at(0)
+          .find("Button")
+          .filterWhere((element: ReactWrapper): boolean =>
+            element.text().includes("Approve")
+          );
 
-          expect(approveButtonAfterProceed).toHaveLength(0);
-        });
-      }
-    );
+        expect(approveButtonAfterProceed).toHaveLength(0);
+      });
+    });
   });
 
   it("should handle approval errors", async (): Promise<void> => {
@@ -579,12 +550,10 @@ describe("FindingContent", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const approveButton: ReactWrapper = wrapper
       .find("findingContent")
       .at(0)
@@ -593,12 +562,10 @@ describe("FindingContent", (): void => {
         element.text().includes("Approve")
       );
     approveButton.simulate("click");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const confirmDialog: ReactWrapper = wrapper
       .find("findingActions")
       .find("Modal")
@@ -608,11 +575,9 @@ describe("FindingContent", (): void => {
 
     const proceedButton: ReactWrapper = confirmDialog.find("Button").at(1);
     proceedButton.simulate("click");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+    });
 
     expect(msgError).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
   });
@@ -657,27 +622,23 @@ describe("FindingContent", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
-          const rejectButton: ReactWrapper = wrapper
-            .find("findingContent")
-            .at(0)
-            .find("Button")
-            .filterWhere((element: ReactWrapper): boolean =>
-              element.text().includes("Reject")
-            );
-          rejectButton.simulate("click");
-        });
-      }
-    );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
         wrapper.update();
-      }
-    );
+        const rejectButton: ReactWrapper = wrapper
+          .find("findingContent")
+          .at(0)
+          .find("Button")
+          .filterWhere((element: ReactWrapper): boolean =>
+            element.text().includes("Reject")
+          );
+        rejectButton.simulate("click");
+      });
+    });
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const confirmDialog: ReactWrapper = wrapper
       .find("findingActions")
       .find("Modal")
@@ -687,22 +648,20 @@ describe("FindingContent", (): void => {
 
     const proceedButton: ReactWrapper = confirmDialog.find("Button").at(1);
     proceedButton.simulate("click");
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
-          const rejectButtonAfterProceed: ReactWrapper = wrapper
-            .find("findingContent")
-            .at(0)
-            .find("Button")
-            .filterWhere((element: ReactWrapper): boolean =>
-              element.text().includes("Reject")
-            );
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+        const rejectButtonAfterProceed: ReactWrapper = wrapper
+          .find("findingContent")
+          .at(0)
+          .find("Button")
+          .filterWhere((element: ReactWrapper): boolean =>
+            element.text().includes("Reject")
+          );
 
-          expect(rejectButtonAfterProceed).toHaveLength(0);
-        });
-      }
-    );
+        expect(rejectButtonAfterProceed).toHaveLength(0);
+      });
+    });
   });
 
   it("should handle rejection errors", async (): Promise<void> => {
@@ -745,12 +704,10 @@ describe("FindingContent", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const rejectButton: ReactWrapper = wrapper
       .find("findingContent")
       .at(0)
@@ -759,12 +716,10 @@ describe("FindingContent", (): void => {
         element.text().includes("Reject")
       );
     rejectButton.simulate("click");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const confirmDialog: ReactWrapper = wrapper
       .find("findingActions")
       .find("Modal")
@@ -774,11 +729,9 @@ describe("FindingContent", (): void => {
 
     const proceedButton: ReactWrapper = confirmDialog.find("Button").at(1);
     proceedButton.simulate("click");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+    });
 
     expect(msgError).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
   });
@@ -824,23 +777,19 @@ describe("FindingContent", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const deleteButton: ReactWrapper = wrapper.find("button").at(0);
 
     expect(deleteButton).toHaveLength(1);
 
     deleteButton.simulate("click");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     wrapper
       .find("select")
       .simulate("change", { target: { value: "DUPLICATED" } });
@@ -848,12 +797,10 @@ describe("FindingContent", (): void => {
       .find("genericForm")
       .find({ name: "deleteFinding" });
     justificationForm.simulate("submit");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
     expect(mockHistoryReplace).toHaveBeenCalledWith("/groups/TEST/vulns");
@@ -896,23 +843,19 @@ describe("FindingContent", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const deleteButton: ReactWrapper = wrapper.find("button").at(0);
 
     expect(deleteButton).toHaveLength(1);
 
     deleteButton.simulate("click");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     wrapper
       .find("select")
       .simulate("change", { target: { value: "DUPLICATED" } });
@@ -920,11 +863,9 @@ describe("FindingContent", (): void => {
       .find("genericForm")
       .find({ name: "deleteFinding" });
     justificationForm.simulate("submit");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+    });
 
     expect(msgError).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
   });

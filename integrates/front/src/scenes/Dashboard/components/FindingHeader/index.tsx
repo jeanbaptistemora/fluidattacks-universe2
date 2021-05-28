@@ -74,15 +74,10 @@ const FindingHeader: React.FC<IFindingHeaderProps> = (
 
     return "NONE";
   }
-  const severityLevel:
-    | "CRITICAL"
-    | "HIGH"
-    | "LOW"
-    | "MED"
-    | "NONE" = setSeverityLevel();
-  const { color: severityColor, text: severityText } = severityConfigs[
-    severityLevel
-  ];
+  const severityLevel: "CRITICAL" | "HIGH" | "LOW" | "MED" | "NONE" =
+    setSeverityLevel();
+  const { color: severityColor, text: severityText } =
+    severityConfigs[severityLevel];
   const { icon: statusIcon, text: statusText } = statusConfigs[status];
   const severityStyles: CircularProgressbarDefaultProps["classes"] = {
     background: style.severityCircleBg,

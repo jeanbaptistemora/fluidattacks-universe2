@@ -29,29 +29,27 @@ const FormikArrayField: React.FC<IArrayProps> = ({
 
         return (
           <div>
-            {arrayValues.map(
-              (_, index: number): JSX.Element => {
-                const fieldName = `${name}.${index}`;
+            {arrayValues.map((_, index: number): JSX.Element => {
+              const fieldName = `${name}.${index}`;
 
-                function removeItem(): void {
-                  remove(index);
-                }
-
-                return (
-                  <div className={"flex items-end"} key={fieldName}>
-                    <div className={"w-80"}>{children(fieldName)}</div>
-                    <div className={"w-20"}>
-                      {index > 0 || allowEmpty ? (
-                        <Button onClick={removeItem}>
-                          <FontAwesomeIcon icon={faTrashAlt} />
-                        </Button>
-                      ) : undefined}
-                    </div>
-                    <br />
-                  </div>
-                );
+              function removeItem(): void {
+                remove(index);
               }
-            )}
+
+              return (
+                <div className={"flex items-end"} key={fieldName}>
+                  <div className={"w-80"}>{children(fieldName)}</div>
+                  <div className={"w-20"}>
+                    {index > 0 || allowEmpty ? (
+                      <Button onClick={removeItem}>
+                        <FontAwesomeIcon icon={faTrashAlt} />
+                      </Button>
+                    ) : undefined}
+                  </div>
+                  <br />
+                </div>
+              );
+            })}
             <div className={"mt4"}>
               <Button id={`${name}-add`} onClick={addItem}>
                 <FontAwesomeIcon icon={faPlus} />

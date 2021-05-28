@@ -63,12 +63,10 @@ describe("FindingRecordsView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const table: ReactWrapper = wrapper.find("BootstrapTable");
 
     expect(table).toHaveLength(1);
@@ -95,12 +93,10 @@ describe("FindingRecordsView", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const editButton: ReactWrapper = wrapper
       .find("button")
       .findWhere((element: ReactWrapper): boolean => element.contains("Edit"))
@@ -126,12 +122,10 @@ describe("FindingRecordsView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper.contains("Edit")).toBe(false);
   });
@@ -156,12 +150,10 @@ describe("FindingRecordsView", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const editButton: ReactWrapper = wrapper
       .find("button")
       .findWhere((element: ReactWrapper): boolean => element.contains("Edit"))
@@ -203,12 +195,10 @@ describe("FindingRecordsView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper.text()).toContain("There are no records");
   });

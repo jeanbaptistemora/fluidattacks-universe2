@@ -1,6 +1,6 @@
 import _ from "lodash";
 import React from "react";
-import { useLocation, useParams } from "react-router";
+import { useLocation, useParams } from "react-router-dom";
 
 import { ChartsGenericView } from "scenes/Dashboard/containers/ChartsGenericView";
 

@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 
 import { handleEditError, handleGrantError } from "./helpers";
 

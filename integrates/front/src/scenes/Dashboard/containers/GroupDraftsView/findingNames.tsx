@@ -28,20 +28,18 @@ async function getFindingNames(): Promise<ISuggestion[]> {
   const body: IResponseStructure | undefined = await response.json();
 
   if (body?.feed.entry) {
-    return body.feed.entry.map(
-      (row: IRowStructure): ISuggestion => {
-        const cwe: RegExpMatchArray | null = row.gsx$cwe.$t.match(/\d+/gu);
+    return body.feed.entry.map((row: IRowStructure): ISuggestion => {
+      const cwe: RegExpMatchArray | null = row.gsx$cwe.$t.match(/\d+/gu);
 
-        return {
-          cwe: cwe === null ? "" : cwe[0],
-          description: row.gsx$descripcion.$t,
-          recommendation: row.gsx$recomendacion.$t,
-          requirements: row.gsx$requisito.$t,
-          title: row.gsx$fin.$t,
-          type: row.gsx$tipo.$t === "Seguridad" ? "SECURITY" : "HYGIENE",
-        };
-      }
-    );
+      return {
+        cwe: cwe === null ? "" : cwe[0],
+        description: row.gsx$descripcion.$t,
+        recommendation: row.gsx$recomendacion.$t,
+        requirements: row.gsx$requisito.$t,
+        title: row.gsx$fin.$t,
+        type: row.gsx$tipo.$t === "Seguridad" ? "SECURITY" : "HYGIENE",
+      };
+    });
   }
 
   return [];

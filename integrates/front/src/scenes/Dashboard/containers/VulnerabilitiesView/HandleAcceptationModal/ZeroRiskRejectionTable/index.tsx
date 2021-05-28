@@ -10,26 +10,22 @@ import type { IHeaderConfig } from "components/DataTableNext/types";
 const ZeroRiskRejectionTable: React.FC<IZeroRiskRejectionTableProps> = (
   props: IZeroRiskRejectionTableProps
 ): JSX.Element => {
-  const {
-    acceptationVulns,
-    isRejectZeroRiskSelected,
-    setAcceptationVulns,
-  } = props;
+  const { acceptationVulns, isRejectZeroRiskSelected, setAcceptationVulns } =
+    props;
 
-  const handleUpdateZeroRiskRejection: (
-    vulnInfo: Dictionary<string>
-  ) => void = (vulnInfo: Dictionary<string>): void => {
-    const newVulnList: IVulnDataAttr[] = acceptationVulns.map(
-      (vuln: IVulnDataAttr): IVulnDataAttr =>
-        vuln.id === vulnInfo.id
-          ? {
-              ...vuln,
-              acceptation: vuln.acceptation === "REJECTED" ? "" : "REJECTED",
-            }
-          : vuln
-    );
-    setAcceptationVulns([...newVulnList]);
-  };
+  const handleUpdateZeroRiskRejection: (vulnInfo: Dictionary<string>) => void =
+    (vulnInfo: Dictionary<string>): void => {
+      const newVulnList: IVulnDataAttr[] = acceptationVulns.map(
+        (vuln: IVulnDataAttr): IVulnDataAttr =>
+          vuln.id === vulnInfo.id
+            ? {
+                ...vuln,
+                acceptation: vuln.acceptation === "REJECTED" ? "" : "REJECTED",
+              }
+            : vuln
+      );
+      setAcceptationVulns([...newVulnList]);
+    };
   const vulnsHeader: IHeaderConfig[] = [
     {
       align: "left",

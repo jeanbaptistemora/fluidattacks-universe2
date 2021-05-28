@@ -136,12 +136,8 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   );
 
   const dispatch: Dispatch = useDispatch();
-  const [
-    updateVuln,
-    { loading: updatingVuln },
-  ] = useMutation<IUpdateVulnDescriptionResultAttr>(
-    UPDATE_DESCRIPTION_MUTATION,
-    {
+  const [updateVuln, { loading: updatingVuln }] =
+    useMutation<IUpdateVulnDescriptionResultAttr>(UPDATE_DESCRIPTION_MUTATION, {
       refetchQueries: [
         {
           query: GET_FINDING_VULN_INFO,
@@ -153,8 +149,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
           },
         },
       ],
-    }
-  );
+    });
 
   const { data } = useQuery<IProjectUsersAttr>(GET_PROJECT_USERS, {
     skip: permissions.cannot("api_resolvers_project__get_users"),

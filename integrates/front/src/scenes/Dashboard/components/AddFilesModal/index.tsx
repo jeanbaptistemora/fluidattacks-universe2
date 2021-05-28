@@ -58,7 +58,7 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
 
   const initialValues = {
     description: "",
-    file: (undefined as unknown) as FileList,
+    file: undefined as unknown as FileList,
   };
 
   return (

@@ -165,12 +165,8 @@ const renderVertical: (props: EditableFieldProps) => JSX.Element = (
 const EditableField: React.FC<EditableFieldProps> = (
   props: EditableFieldProps
 ): JSX.Element => {
-  const {
-    alignField,
-    visibleWhileEditing,
-    renderAsEditable,
-    currentValue,
-  } = props;
+  const { alignField, visibleWhileEditing, renderAsEditable, currentValue } =
+    props;
 
   function setRender(
     properties: EditableFieldProps,

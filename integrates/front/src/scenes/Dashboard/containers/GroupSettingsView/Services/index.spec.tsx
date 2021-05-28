@@ -139,12 +139,10 @@ describe("Services", (): void => {
           </MockedProvider>
         </Provider>
       );
-      await act(
-        async (): Promise<void> => {
-          await wait(1);
-          wrapper.update();
-        }
-      );
+      await act(async (): Promise<void> => {
+        await wait(1);
+        wrapper.update();
+      });
 
       const table: ReactWrapper = wrapper.find("table");
       const tableBody: ReactWrapper = table.find("tbody");
@@ -170,12 +168,10 @@ describe("Services", (): void => {
         </MockedProvider>
       </Provider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     const formValues: () => IFormValues = (): IFormValues =>
       store.getState().form.editGroup.values;

@@ -4,7 +4,7 @@ import type { ReactWrapper, ShallowWrapper } from "enzyme";
 import { mount, shallow } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { MemoryRouter, Route } from "react-router";
+import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { EventContent } from "scenes/Dashboard/containers/EventContent";
@@ -65,12 +65,10 @@ describe("EventContent", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper.text()).toContain("Solved");
   });

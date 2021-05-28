@@ -5,7 +5,7 @@ import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { Field, formValueSelector } from "redux-form";
 import type { InjectedFormProps } from "redux-form";
 

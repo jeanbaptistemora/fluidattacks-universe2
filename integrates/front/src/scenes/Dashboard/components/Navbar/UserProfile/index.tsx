@@ -66,11 +66,8 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
     setConfigModalOpen(false);
   }, []);
 
-  const [
-    addStakeholder,
-    isStakeholderModalOpen,
-    setStakeholderModalOpen,
-  ] = useAddStakeholder();
+  const [addStakeholder, isStakeholderModalOpen, setStakeholderModalOpen] =
+    useAddStakeholder();
   const handleAddUserSubmit = useCallback(
     (values): void => {
       void addStakeholder({ variables: values });

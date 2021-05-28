@@ -58,17 +58,15 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (
   downloadPngUrl.searchParams.set("entity", entity);
   downloadPngUrl.searchParams.set(entityName, subject);
 
-  const {
-    data: dataSubscriptions,
-    refetch: refetchSubscriptions,
-  } = useQuery<ISubscriptionsToEntityReport>(SUBSCRIPTIONS_TO_ENTITY_REPORT, {
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred loading subscriptions info", error);
-      });
-    },
-  });
+  const { data: dataSubscriptions, refetch: refetchSubscriptions } =
+    useQuery<ISubscriptionsToEntityReport>(SUBSCRIPTIONS_TO_ENTITY_REPORT, {
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          msgError(translate.t("groupAlerts.errorTextsad"));
+          Logger.warning("An error occurred loading subscriptions info", error);
+        });
+      },
+    });
 
   const [subscribe, { loading: loadingSubscribe }] = useMutation(
     SUBSCRIBE_TO_ENTITY_REPORT,
@@ -86,11 +84,12 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (
     return <div />;
   }
 
-  const subscriptions: ISubscriptionToEntityReport[] = dataSubscriptions.me.subscriptionsToEntityReport.filter(
-    (value: ISubscriptionToEntityReport): boolean =>
-      value.entity.toLowerCase() === entity.toLowerCase() &&
-      value.subject.toLocaleLowerCase() === subject.toLowerCase()
-  );
+  const subscriptions: ISubscriptionToEntityReport[] =
+    dataSubscriptions.me.subscriptionsToEntityReport.filter(
+      (value: ISubscriptionToEntityReport): boolean =>
+        value.entity.toLowerCase() === entity.toLowerCase() &&
+        value.subject.toLocaleLowerCase() === subject.toLowerCase()
+    );
 
   const subscribeDropdownOnSelect: (key: string) => void = (
     key: string

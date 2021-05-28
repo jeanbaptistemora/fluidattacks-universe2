@@ -33,18 +33,15 @@ import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
-jest.mock(
-  "../../../../../utils/notifications",
-  (): Dictionary => {
-    const mockedNotifications: Dictionary<
-      () => Dictionary
-    > = jest.requireActual("../../../../../utils/notifications");
-    jest.spyOn(mockedNotifications, "msgError").mockImplementation();
-    jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
+jest.mock("../../../../../utils/notifications", (): Dictionary => {
+  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
+    "../../../../../utils/notifications"
+  );
+  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+  jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
-    return mockedNotifications;
-  }
-);
+  return mockedNotifications;
+});
 
 describe("handle vulns acceptation modal", (): void => {
   it("should handle vulns acceptation", async (): Promise<void> => {
@@ -131,15 +128,13 @@ describe("handle vulns acceptation modal", (): void => {
         wrappingComponentProps: { value: mockedPermissions },
       }
     );
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(wrapper).toHaveLength(1);
-        });
-      }
-    );
+        expect(wrapper).toHaveLength(1);
+      });
+    });
     const justification: ReactWrapper = wrapper.find("textarea");
     justification.simulate("change", {
       target: { value: "This is a justification test" },
@@ -151,20 +146,18 @@ describe("handle vulns acceptation modal", (): void => {
     const form: ReactWrapper = wrapper.find("form");
     form.at(0).simulate("submit");
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(msgSuccess).toHaveBeenCalledWith(
-            "Indefinite acceptation has been handled",
-            "Correct!"
-          );
-          expect(handleRefetchData).toHaveBeenCalledWith();
-          expect(handleOnClose).toHaveBeenCalledWith();
-        });
-      }
-    );
+        expect(msgSuccess).toHaveBeenCalledWith(
+          "Indefinite acceptation has been handled",
+          "Correct!"
+        );
+        expect(handleRefetchData).toHaveBeenCalledWith();
+        expect(handleOnClose).toHaveBeenCalledWith();
+      });
+    });
   });
 
   it("should handle vulns acceptation errors", async (): Promise<void> => {
@@ -236,32 +229,28 @@ describe("handle vulns acceptation modal", (): void => {
         wrappingComponentProps: { value: mockedPermissions },
       }
     );
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(wrapper).toHaveLength(1);
-        });
-      }
-    );
+        expect(wrapper).toHaveLength(1);
+      });
+    });
     const justification: ReactWrapper = wrapper.find("textarea");
     justification.simulate("change", {
       target: { value: "This is a justification test error" },
     });
     const form: ReactWrapper = wrapper.find("form");
     form.at(0).simulate("submit");
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
-          const expectedErrorMsgs: number = 3;
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+        const expectedErrorMsgs: number = 3;
 
-          expect(handleRefetchData).not.toHaveBeenCalled();
-          expect(msgError).toHaveBeenCalledTimes(expectedErrorMsgs);
-        });
-      }
-    );
+        expect(handleRefetchData).not.toHaveBeenCalled();
+        expect(msgError).toHaveBeenCalledTimes(expectedErrorMsgs);
+      });
+    });
   });
 
   it("should handle confirm zero risk", async (): Promise<void> => {
@@ -408,12 +397,10 @@ describe("handle vulns acceptation modal", (): void => {
 
     const form: ReactWrapper = wrapper.find("form");
     form.at(0).simulate("submit");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(handleRefetchData).toHaveBeenCalledWith();
     expect(handleCloseModal).toHaveBeenCalledWith();
@@ -573,12 +560,10 @@ describe("handle vulns acceptation modal", (): void => {
 
     const form: ReactWrapper = wrapper.find("form");
     form.at(0).simulate("submit");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(handleRefetchData).not.toHaveBeenCalledWith();
     expect(handleCloseModal).not.toHaveBeenCalledWith();
@@ -731,12 +716,10 @@ describe("handle vulns acceptation modal", (): void => {
 
     const form: ReactWrapper = wrapper.find("form");
     form.at(0).simulate("submit");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(handleRefetchData).toHaveBeenCalledWith();
     expect(handleCloseModal).toHaveBeenCalledWith();
@@ -896,12 +879,10 @@ describe("handle vulns acceptation modal", (): void => {
 
     const form: ReactWrapper = wrapper.find("form");
     form.at(0).simulate("submit");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(handleRefetchData).not.toHaveBeenCalledWith();
     expect(handleCloseModal).not.toHaveBeenCalledWith();
@@ -967,9 +948,8 @@ describe("handle vulns acceptation modal", (): void => {
     treatmentFieldDropdown.simulate("change", {
       target: { value: "CONFIRM_ZERO_RISK" },
     });
-    const justificationField: ReactWrapper<IJustificationFieldProps> = wrapper.find(
-      JustificationField
-    );
+    const justificationField: ReactWrapper<IJustificationFieldProps> =
+      wrapper.find(JustificationField);
     const expectedJustificationFieldLength: number = 1;
 
     expect(justificationField).toHaveLength(expectedJustificationFieldLength);
@@ -1054,9 +1034,8 @@ describe("handle vulns acceptation modal", (): void => {
     treatmentFieldDropdown.simulate("change", {
       target: { value: "REJECT_ZERO_RISK" },
     });
-    const justificationField: ReactWrapper<IJustificationFieldProps> = wrapper.find(
-      JustificationField
-    );
+    const justificationField: ReactWrapper<IJustificationFieldProps> =
+      wrapper.find(JustificationField);
     const expectedJustificationFieldLength: number = 1;
 
     expect(justificationField).toHaveLength(expectedJustificationFieldLength);

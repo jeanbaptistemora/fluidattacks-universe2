@@ -39,12 +39,10 @@ describe("ToeContent", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const toeLinesTab: ReactWrapper<IContentTabProps> = wrapper
       .find(ContentTab)
       .filter({ id: "toeLinesTab" });

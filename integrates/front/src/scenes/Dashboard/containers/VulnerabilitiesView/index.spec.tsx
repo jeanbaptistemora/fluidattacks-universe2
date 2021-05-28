@@ -156,18 +156,16 @@ describe("VulnerabilitiesView", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(wrapper).toHaveLength(1);
-          expect(
-            wrapper.find("BootstrapTable").find("RowPureContent")
-          ).toHaveLength(1);
-        });
-      }
-    );
+        expect(wrapper).toHaveLength(1);
+        expect(
+          wrapper.find("BootstrapTable").find("RowPureContent")
+        ).toHaveLength(1);
+      });
+    });
   });
 
   it("should render conatainer with additional permissions", async (): Promise<void> => {
@@ -198,23 +196,21 @@ describe("VulnerabilitiesView", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(wrapper).toHaveLength(1);
+        expect(wrapper).toHaveLength(1);
 
-          wrapper.find("Button#handleAcceptationButton").simulate("click");
+        wrapper.find("Button#handleAcceptationButton").simulate("click");
 
-          expect(
-            wrapper
-              .find("div#vulnsToHandleAcceptation")
-              .find("BootstrapTable")
-              .find("RowPureContent")
-          ).toHaveLength(1);
-        });
-      }
-    );
+        expect(
+          wrapper
+            .find("div#vulnsToHandleAcceptation")
+            .find("BootstrapTable")
+            .find("RowPureContent")
+        ).toHaveLength(1);
+      });
+    });
   });
 });

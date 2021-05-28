@@ -3,7 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { Field } from "redux-form";
 import type { InjectedFormProps } from "redux-form";
 

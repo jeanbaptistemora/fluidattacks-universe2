@@ -51,9 +51,8 @@ Bugsnag.start({
   releaseStage: getEnvironment(),
 });
 
-const reactPlugin: BugsnagPluginReactResult | undefined = Bugsnag.getPlugin(
-  "react"
-);
+const reactPlugin: BugsnagPluginReactResult | undefined =
+  Bugsnag.getPlugin("react");
 
 const bugsnagErrorBoundary: BugsnagErrorBoundary = _.isUndefined(reactPlugin)
   ? Fragment

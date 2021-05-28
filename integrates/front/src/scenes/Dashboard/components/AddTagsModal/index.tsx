@@ -36,45 +36,43 @@ const renderTagsFields: React.FC<WrappedFieldArrayProps> = (
 
   return (
     <React.Fragment>
-      {props.fields.map(
-        (fieldName: string, index: number): JSX.Element => {
-          function removeItem(): void {
-            props.fields.remove(index);
-          }
-
-          return (
-            <React.Fragment key={fieldName + String(index)}>
-              {index > 0 ? (
-                <React.Fragment>
-                  <br />
-                  <hr />
-                </React.Fragment>
-              ) : undefined}
-              <Row>
-                <Col80>
-                  <ControlLabel>
-                    <RequiredField>{"* "}</RequiredField>
-                    {"Tag"}
-                  </ControlLabel>
-                  <Field
-                    component={Text}
-                    name={fieldName}
-                    type={"text"}
-                    validate={[required, validTag]}
-                  />
-                </Col80>
-                {index > 0 ? (
-                  <RemoveTag>
-                    <Button onClick={removeItem}>
-                      <FontAwesomeIcon icon={faTrashAlt} />
-                    </Button>
-                  </RemoveTag>
-                ) : undefined}
-              </Row>
-            </React.Fragment>
-          );
+      {props.fields.map((fieldName: string, index: number): JSX.Element => {
+        function removeItem(): void {
+          props.fields.remove(index);
         }
-      )}
+
+        return (
+          <React.Fragment key={fieldName + String(index)}>
+            {index > 0 ? (
+              <React.Fragment>
+                <br />
+                <hr />
+              </React.Fragment>
+            ) : undefined}
+            <Row>
+              <Col80>
+                <ControlLabel>
+                  <RequiredField>{"* "}</RequiredField>
+                  {"Tag"}
+                </ControlLabel>
+                <Field
+                  component={Text}
+                  name={fieldName}
+                  type={"text"}
+                  validate={[required, validTag]}
+                />
+              </Col80>
+              {index > 0 ? (
+                <RemoveTag>
+                  <Button onClick={removeItem}>
+                    <FontAwesomeIcon icon={faTrashAlt} />
+                  </Button>
+                </RemoveTag>
+              ) : undefined}
+            </Row>
+          </React.Fragment>
+        );
+      })}
       <br />
       <Button onClick={addItem}>
         <FontAwesomeIcon icon={faPlus} />

@@ -28,7 +28,7 @@ const setupSessionCheck: (expDate: string) => void = (expDate): void => {
     const msInSec: number = 1000;
     const timeout: number = 10;
 
-    return setTimeout((): void => {
+    return window.setTimeout((): void => {
       // eslint-disable-next-line fp/no-mutation
       state.active = false;
     }, timeout * msInSec);

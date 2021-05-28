@@ -5,7 +5,7 @@ import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { MemoryRouter, Route } from "react-router";
+import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { TrackingView } from "scenes/Dashboard/containers/TrackingView";
@@ -96,12 +96,10 @@ describe("TrackingView", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     const numberOfCycles: number = 2;
 

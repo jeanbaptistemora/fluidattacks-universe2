@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import React from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 
 import { GitRoots } from "./GitRoots";
 import { IPRoots } from "./IPRoots";

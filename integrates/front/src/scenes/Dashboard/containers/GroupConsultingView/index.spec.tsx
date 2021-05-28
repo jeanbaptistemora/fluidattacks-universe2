@@ -4,7 +4,7 @@ import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { MemoryRouter, Route } from "react-router";
+import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { Comments } from "scenes/Dashboard/components/Comments";
@@ -57,12 +57,10 @@ describe("GroupConsultingView", (): void => {
       </MemoryRouter>,
       { attachTo: container }
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
     expect(wrapper.text()).toContain("Hello world");
@@ -100,12 +98,10 @@ describe("GroupConsultingView", (): void => {
       </MemoryRouter>,
       { attachTo: container }
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper.text()).toContain("No comments");
 
@@ -125,12 +121,10 @@ describe("GroupConsultingView", (): void => {
       </MemoryRouter>,
       { attachTo: container }
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper.find(Comments)).toHaveLength(1);
     expect(wrapper.text()).toContain("Hello world");

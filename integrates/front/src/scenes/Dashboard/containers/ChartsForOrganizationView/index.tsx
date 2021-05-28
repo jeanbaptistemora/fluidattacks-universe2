@@ -1,6 +1,6 @@
 import _ from "lodash";
 import React from "react";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 
 import type { IChartsForOrganizationViewProps } from "scenes/Dashboard/containers/ChartsForOrganizationView/types";
 import { ChartsGenericView } from "scenes/Dashboard/containers/ChartsGenericView";

@@ -19,18 +19,15 @@ import type { IAddStakeholderModalProps } from "scenes/Dashboard/components/AddU
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError } from "utils/notifications";
 
-jest.mock(
-  "../../../../utils/notifications",
-  (): Dictionary => {
-    const mockedNotifications: Dictionary<
-      () => Dictionary
-    > = jest.requireActual("../../../../utils/notifications");
-    jest.spyOn(mockedNotifications, "msgError").mockImplementation();
-    jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
+jest.mock("../../../../utils/notifications", (): Dictionary => {
+  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
+    "../../../../utils/notifications"
+  );
+  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+  jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
-    return mockedNotifications;
-  }
-);
+  return mockedNotifications;
+});
 
 const functionMock: () => void = (): void => undefined;
 
@@ -197,20 +194,18 @@ describe("Add user modal", (): void => {
         .at(0)
         .find("input");
 
-    await act(
-      async (): Promise<void> => {
-        emailInput().simulate("change", {
-          target: { name: "email", value: "unittest@test.com" },
-        });
-        emailInput().simulate("blur", {
-          target: { name: "email", value: "unittest@test.com" },
-        });
-        const delay = 150;
-        await wait(delay);
+    await act(async (): Promise<void> => {
+      emailInput().simulate("change", {
+        target: { name: "email", value: "unittest@test.com" },
+      });
+      emailInput().simulate("blur", {
+        target: { name: "email", value: "unittest@test.com" },
+      });
+      const delay = 150;
+      await wait(delay);
 
-        wrapper.update();
-      }
-    );
+      wrapper.update();
+    });
 
     expect(phoneNumberInput().prop("value")).toStrictEqual(
       "+57 (312) 321 0123"
@@ -230,19 +225,17 @@ describe("Add user modal", (): void => {
       .find({ name: "email", type: "text" })
       .at(0)
       .find("input");
-    await act(
-      async (): Promise<void> => {
-        emailInput.simulate("change", {
-          target: { name: "email", value: "unittest@test.com" },
-        });
-        emailInput.simulate("blur", {
-          target: { name: "email", value: "unittest@test.com" },
-        });
-        await wait(0);
+    await act(async (): Promise<void> => {
+      emailInput.simulate("change", {
+        target: { name: "email", value: "unittest@test.com" },
+      });
+      emailInput.simulate("blur", {
+        target: { name: "email", value: "unittest@test.com" },
+      });
+      await wait(0);
 
-        wrapper.update();
-      }
-    );
+      wrapper.update();
+    });
 
     expect(msgError).toHaveBeenCalledWith("There is an error :(");
   });
@@ -262,12 +255,10 @@ describe("Add user modal", (): void => {
         </authzPermissionsContext.Provider>
       </MockedProvider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const options: ReactWrapper = wrapper.find("option");
     const adminOption: ReactWrapper = options.find({ value: "ADMIN" });
 

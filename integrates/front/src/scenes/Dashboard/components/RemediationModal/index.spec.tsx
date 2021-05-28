@@ -10,10 +10,8 @@ import { RemediationModal } from "scenes/Dashboard/components/RemediationModal";
 const functionMock: () => void = (): void => undefined;
 
 describe("Remediation modal", (): void => {
-  const store: Store<
-    Record<string, unknown>,
-    Action<Record<string, unknown>>
-  > = createStore((): Record<string, unknown> => ({}));
+  const store: Store<Record<string, unknown>, Action<Record<string, unknown>>> =
+    createStore((): Record<string, unknown> => ({}));
   const wrapper: ShallowWrapper = shallow(
     <Provider store={store}>
       <RemediationModal

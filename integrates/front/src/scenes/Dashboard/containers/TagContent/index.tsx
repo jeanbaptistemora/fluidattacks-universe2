@@ -3,8 +3,13 @@ import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { useParams, useRouteMatch } from "react-router";
-import { Redirect, Route, Switch } from "react-router-dom";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useParams,
+  useRouteMatch,
+} from "react-router-dom";
 
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { ChartsForPortfolioView } from "scenes/Dashboard/containers/ChartsForPortfolioView";

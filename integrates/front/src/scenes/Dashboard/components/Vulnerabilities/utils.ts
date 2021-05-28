@@ -87,65 +87,60 @@ const getVulnerabilitiesIndex: (
 const formatVulnerabilities: (
   vulnerabilities: IVulnRowAttr[]
 ) => IVulnRowAttr[] = (vulnerabilities: IVulnRowAttr[]): IVulnRowAttr[] =>
-  vulnerabilities.map(
-    (vulnerability: IVulnRowAttr): IVulnRowAttr => {
-      const hasVulnCycles: boolean = _.toInteger(vulnerability.cycles) > 0;
-      const lastTreatment: IHistoricTreatment = getLastTreatment(
-        vulnerability.historicTreatment
-      );
-      const isPendingToApproval: boolean =
-        lastTreatment.treatment === "ACCEPTED_UNDEFINED" &&
-        lastTreatment.acceptanceStatus !== "APPROVED";
-      const isVulnOpen: boolean = vulnerability.currentState === "open";
-      const treatmentLabel: string =
-        translate.t(formatDropdownField(lastTreatment.treatment)) +
-        (isPendingToApproval
-          ? translate.t(
-              "searchFindings.tabDescription.treatment.pendingApproval"
+  vulnerabilities.map((vulnerability: IVulnRowAttr): IVulnRowAttr => {
+    const hasVulnCycles: boolean = _.toInteger(vulnerability.cycles) > 0;
+    const lastTreatment: IHistoricTreatment = getLastTreatment(
+      vulnerability.historicTreatment
+    );
+    const isPendingToApproval: boolean =
+      lastTreatment.treatment === "ACCEPTED_UNDEFINED" &&
+      lastTreatment.acceptanceStatus !== "APPROVED";
+    const isVulnOpen: boolean = vulnerability.currentState === "open";
+    const treatmentLabel: string =
+      translate.t(formatDropdownField(lastTreatment.treatment)) +
+      (isPendingToApproval
+        ? translate.t("searchFindings.tabDescription.treatment.pendingApproval")
+        : "");
+    const [firstTreatment] = vulnerability.historicTreatment;
+    const treatmentChanges: number =
+      vulnerability.historicTreatment.length -
+      (firstTreatment.treatment === "NEW" ? 1 : 0);
+    const verification: string =
+      vulnerability.verification === "Verified"
+        ? `${vulnerability.verification} (${vulnerability.currentState})`
+        : vulnerability.verification;
+    const shouldDisplayVerification: boolean =
+      !_.isEmpty(vulnerability.lastReattackDate) &&
+      vulnerability.verification === "Verified"
+        ? Boolean(
+            isWithInAWeek(
+              moment(vulnerability.lastReattackDate, "YYYY-MM-DD hh:mm:ss")
             )
-          : "");
-      const [firstTreatment] = vulnerability.historicTreatment;
-      const treatmentChanges: number =
-        vulnerability.historicTreatment.length -
-        (firstTreatment.treatment === "NEW" ? 1 : 0);
-      const verification: string =
-        vulnerability.verification === "Verified"
-          ? `${vulnerability.verification} (${vulnerability.currentState})`
-          : vulnerability.verification;
-      const shouldDisplayVerification: boolean =
-        !_.isEmpty(vulnerability.lastReattackDate) &&
-        vulnerability.verification === "Verified"
-          ? Boolean(
-              isWithInAWeek(
-                moment(vulnerability.lastReattackDate, "YYYY-MM-DD hh:mm:ss")
-              )
-            )
-          : true;
+          )
+        : true;
 
-      return {
-        ...vulnerability,
-        currentStateCapitalized: _.capitalize(
-          vulnerability.currentState
-        ) as IVulnRowAttr["currentStateCapitalized"],
-        cycles: hasVulnCycles ? vulnerability.cycles : "",
-        efficacy: hasVulnCycles ? `${vulnerability.efficacy}%` : "",
-        lastRequestedReattackDate: vulnerability.lastRequestedReattackDate.split(
-          " "
-        )[0],
-        reportDate: vulnerability.reportDate.split(" ")[0],
-        treatment: isVulnOpen ? treatmentLabel : "-",
-        treatmentChanges,
-        treatmentDate: isVulnOpen ? lastTreatment.date.split(" ")[0] : "-",
-        treatmentManager: isVulnOpen
-          ? (lastTreatment.treatmentManager as string)
-          : "-",
-        verification: shouldDisplayVerification ? verification : "",
-        vulnType: translate.t(
-          `searchFindings.tabVuln.vulnTable.vulnType.${vulnerability.vulnType}`
-        ),
-      };
-    }
-  );
+    return {
+      ...vulnerability,
+      currentStateCapitalized: _.capitalize(
+        vulnerability.currentState
+      ) as IVulnRowAttr["currentStateCapitalized"],
+      cycles: hasVulnCycles ? vulnerability.cycles : "",
+      efficacy: hasVulnCycles ? `${vulnerability.efficacy}%` : "",
+      lastRequestedReattackDate:
+        vulnerability.lastRequestedReattackDate.split(" ")[0],
+      reportDate: vulnerability.reportDate.split(" ")[0],
+      treatment: isVulnOpen ? treatmentLabel : "-",
+      treatmentChanges,
+      treatmentDate: isVulnOpen ? lastTreatment.date.split(" ")[0] : "-",
+      treatmentManager: isVulnOpen
+        ? (lastTreatment.treatmentManager as string)
+        : "-",
+      verification: shouldDisplayVerification ? verification : "",
+      vulnType: translate.t(
+        `searchFindings.tabVuln.vulnTable.vulnType.${vulnerability.vulnType}`
+      ),
+    };
+  });
 
 function filterZeroRisk(vulnerabilities: IVulnRowAttr[]): IVulnRowAttr[] {
   return vulnerabilities.filter(

@@ -24,10 +24,8 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
 ): JSX.Element => {
   const { entity, reportMode, subject } = props;
 
-  const [
-    isForcesDescriptionExpanded,
-    setIsForcesDescriptionExpanded,
-  ] = useState(reportMode);
+  const [isForcesDescriptionExpanded, setIsForcesDescriptionExpanded] =
+    useState(reportMode);
 
   const forcesPanelOnEnter: () => void = useCallback((): void => {
     setIsForcesDescriptionExpanded(true);

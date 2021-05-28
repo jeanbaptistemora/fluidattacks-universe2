@@ -20,19 +20,16 @@ import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
-jest.mock(
-  "../../../../../utils/notifications",
-  (): Dictionary => {
-    const mockedNotifications: Dictionary = jest.requireActual(
-      "../../../../../utils/notifications"
-    );
+jest.mock("../../../../../utils/notifications", (): Dictionary => {
+  const mockedNotifications: Dictionary = jest.requireActual(
+    "../../../../../utils/notifications"
+  );
 
-    mockedNotifications.msgError = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
-    mockedNotifications.msgSuccess = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
+  mockedNotifications.msgError = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
+  mockedNotifications.msgSuccess = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
 
-    return mockedNotifications;
-  }
-);
+  return mockedNotifications;
+});
 
 describe("Portfolio", (): void => {
   const mockProps: IPortfolioProps = {
@@ -109,12 +106,10 @@ describe("Portfolio", (): void => {
         </MockedProvider>
       </Provider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const addButton: ReactWrapper = wrapper
       .find("button")
       .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
@@ -128,12 +123,10 @@ describe("Portfolio", (): void => {
     tagInput.simulate("change", { target: { value: "test-new-tag" } });
     const form: ReactWrapper = addTagsModal.find("genericForm").at(0);
     form.simulate("submit");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
 
@@ -170,12 +163,10 @@ describe("Portfolio", (): void => {
         </MockedProvider>
       </Provider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const fileInfo: ReactWrapper = wrapper
       .find("tr")
       .findWhere((element: ReactWrapper): boolean =>
@@ -188,12 +179,10 @@ describe("Portfolio", (): void => {
       .findWhere((element: ReactWrapper): boolean => element.contains("Remove"))
       .at(0);
     removeButton.simulate("click");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
 
@@ -210,12 +199,10 @@ describe("Portfolio", (): void => {
         </MockedProvider>
       </Provider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const firstRowInfo: ReactWrapper = wrapper.find("RowPureContent").at(0);
 
     expect(firstRowInfo.text()).toStrictEqual("test-tag1");
@@ -266,12 +253,10 @@ describe("Portfolio", (): void => {
         </MockedProvider>
       </Provider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const addButton: ReactWrapper = wrapper
       .find("button")
       .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
@@ -285,12 +270,10 @@ describe("Portfolio", (): void => {
     tagInput.simulate("change", { target: { value: "test-new-tag" } });
     const form: ReactWrapper = addTagsModal.find("genericForm").at(0);
     form.simulate("submit");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(msgError).toHaveBeenCalledTimes(2);
 
@@ -327,12 +310,10 @@ describe("Portfolio", (): void => {
         </MockedProvider>
       </Provider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const fileInfo: ReactWrapper = wrapper
       .find("tr")
       .findWhere((element: ReactWrapper): boolean =>
@@ -345,12 +326,10 @@ describe("Portfolio", (): void => {
       .findWhere((element: ReactWrapper): boolean => element.contains("Remove"))
       .at(0);
     removeButton.simulate("click");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(msgError).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
 
@@ -372,12 +351,10 @@ describe("Portfolio", (): void => {
         </MockedProvider>
       </Provider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const addButton: ReactWrapper = wrapper
       .find("button")
       .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
@@ -391,12 +368,10 @@ describe("Portfolio", (): void => {
     tagInput.simulate("change", { target: { value: "test-tag1" } });
     const form: ReactWrapper = addTagsModal.find("genericForm").at(0);
     form.simulate("submit");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(msgError).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
 

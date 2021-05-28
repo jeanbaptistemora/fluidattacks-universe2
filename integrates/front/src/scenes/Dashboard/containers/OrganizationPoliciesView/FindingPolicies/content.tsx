@@ -48,9 +48,8 @@ const OrganizationFindingPolicy: React.FC<IOrganizationFindingPolicies> = ({
   const canHandleFindingPolicy: boolean = permissions.can(
     "api_mutations_handle_finding_policy_acceptation_mutate"
   );
-  const [handlePolicyStatus, setHandlePolicyStatus] = useState<
-    "APPROVED" | "REJECTED"
-  >("APPROVED");
+  const [handlePolicyStatus, setHandlePolicyStatus] =
+    useState<"APPROVED" | "REJECTED">("APPROVED");
 
   const [handleOrgFindingPolicy, { loading: handling }] = useMutation(
     HANDLE_ORGANIZATION_FINDING_POLICY,

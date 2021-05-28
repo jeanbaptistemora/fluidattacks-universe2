@@ -5,7 +5,7 @@ import { mount } from "enzyme";
 import { GraphQLError } from "graphql";
 import React from "react";
 import { Provider } from "react-redux";
-import { MemoryRouter, Route } from "react-router";
+import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { GroupSettingsView } from "scenes/Dashboard/containers/GroupSettingsView";

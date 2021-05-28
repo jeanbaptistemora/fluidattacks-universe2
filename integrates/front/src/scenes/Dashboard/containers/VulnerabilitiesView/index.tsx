@@ -11,7 +11,7 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 
 import {
   ActionsContainer,
@@ -44,10 +44,11 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
 export const VulnsView: React.FC = (): JSX.Element => {
-  const { findingId, projectName } = useParams<{
-    findingId: string;
-    projectName: string;
-  }>();
+  const { findingId, projectName } =
+    useParams<{
+      findingId: string;
+      projectName: string;
+    }>();
   const { t } = useTranslation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canRetrieveAnalyst: boolean = permissions.can(
@@ -66,10 +67,8 @@ export const VulnsView: React.FC = (): JSX.Element => {
     setOpen(true);
   }
 
-  const [
-    isHandleAcceptationModalOpen,
-    setHandleAcceptationModalOpen,
-  ] = useState(false);
+  const [isHandleAcceptationModalOpen, setHandleAcceptationModalOpen] =
+    useState(false);
   function toggleHandleAcceptationModal(): void {
     setHandleAcceptationModalOpen(!isHandleAcceptationModalOpen);
   }
@@ -133,9 +132,8 @@ export const VulnsView: React.FC = (): JSX.Element => {
     ? data.finding.zeroRisk
     : [];
 
-  const vulns: IVulnRowAttr[] = data.finding.vulnerabilities.concat(
-    zeroRiskVulns
-  );
+  const vulns: IVulnRowAttr[] =
+    data.finding.vulnerabilities.concat(zeroRiskVulns);
 
   function onTreatmentChange(
     event: React.ChangeEvent<HTMLSelectElement>
@@ -157,10 +155,8 @@ export const VulnsView: React.FC = (): JSX.Element => {
     vulns,
     treatmentFilter
   );
-  const filterCurrentStatusVulnerabilities: IVulnRowAttr[] = filterCurrentStatus(
-    vulns,
-    currentStatusFilter
-  );
+  const filterCurrentStatusVulnerabilities: IVulnRowAttr[] =
+    filterCurrentStatus(vulns, currentStatusFilter);
   const filterVerificationVulnerabilities: IVulnRowAttr[] = filterVerification(
     vulns,
     verificationFilter

@@ -7,7 +7,7 @@ import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import type { InjectedFormProps } from "redux-form";
 import { formValueSelector } from "redux-form";
 
@@ -129,17 +129,16 @@ const SeverityView: React.FC = (): JSX.Element => {
     ],
   });
 
-  const handleUpdateSeverity: (
-    values: Record<string, unknown>
-  ) => void = useCallback(
-    (values: Record<string, unknown>): void => {
-      setEditing(false);
-      void updateSeverity({
-        variables: { data: { ...values, id: findingId }, findingId },
-      });
-    },
-    [findingId, updateSeverity]
-  );
+  const handleUpdateSeverity: (values: Record<string, unknown>) => void =
+    useCallback(
+      (values: Record<string, unknown>): void => {
+        setEditing(false);
+        void updateSeverity({
+          variables: { data: { ...values, id: findingId }, findingId },
+        });
+      },
+      [findingId, updateSeverity]
+    );
 
   const handleFormChange: (
     values: ISeverityAttr["finding"]["severity"]

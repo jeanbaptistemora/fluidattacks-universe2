@@ -96,12 +96,10 @@ describe("GroupDraftsView", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
 
@@ -123,12 +121,10 @@ describe("GroupDraftsView", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
 

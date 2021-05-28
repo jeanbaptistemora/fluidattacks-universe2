@@ -29,11 +29,9 @@ const formatHistoricTreatment: (
   const [acceptanceDate] = _.get(treatmentEvent, "acceptanceDate", "").split(
     " "
   );
-  const [acceptanceStatus] = (_.get(
-    treatmentEvent,
-    "acceptance_status",
-    ""
-  ) as string).split(" ");
+  const [acceptanceStatus] = (
+    _.get(treatmentEvent, "acceptance_status", "") as string
+  ).split(" ");
   const treatment: string = translateTreatment
     ? formatTreatment(
         _.get(treatmentEvent, "treatment").replace(" ", "_"),
@@ -53,18 +51,15 @@ const formatHistoricTreatment: (
   };
 };
 
-const getLastTreatment: (
-  historic: IHistoricTreatment[]
-) => IHistoricTreatment = (
-  historic: IHistoricTreatment[]
-): IHistoricTreatment => {
-  const lastTreatment: IHistoricTreatment =
-    historic.length > 0
-      ? (_.last(historic) as IHistoricTreatment)
-      : { date: "", treatment: "", user: "" };
+const getLastTreatment: (historic: IHistoricTreatment[]) => IHistoricTreatment =
+  (historic: IHistoricTreatment[]): IHistoricTreatment => {
+    const lastTreatment: IHistoricTreatment =
+      historic.length > 0
+        ? (_.last(historic) as IHistoricTreatment)
+        : { date: "", treatment: "", user: "" };
 
-  return formatHistoricTreatment(lastTreatment, false);
-};
+    return formatHistoricTreatment(lastTreatment, false);
+  };
 
 export {
   formatCweUrl,

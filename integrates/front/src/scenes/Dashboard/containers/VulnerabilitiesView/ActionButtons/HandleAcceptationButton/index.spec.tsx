@@ -35,31 +35,29 @@ describe("HandleAcceptationButtons", (): void => {
         wrappingComponentProps: { value: mockedPermissions },
       }
     );
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(wrapper).toHaveLength(1);
-          expect(wrapper.find("Button")).toHaveLength(0);
+        expect(wrapper).toHaveLength(1);
+        expect(wrapper.find("Button")).toHaveLength(0);
 
-          wrapper.setProps({ isEditing: false });
-          wrapper.update();
-          const buttons: ReactWrapper = wrapper.find("Button");
+        wrapper.setProps({ isEditing: false });
+        wrapper.update();
+        const buttons: ReactWrapper = wrapper.find("Button");
 
-          expect(
-            buttons.filterWhere((button: ReactWrapper): boolean =>
-              button
-                .text()
-                .includes(t("searchFindings.tabVuln.buttons.handleAcceptation"))
-            )
-          ).toHaveLength(1);
+        expect(
+          buttons.filterWhere((button: ReactWrapper): boolean =>
+            button
+              .text()
+              .includes(t("searchFindings.tabVuln.buttons.handleAcceptation"))
+          )
+        ).toHaveLength(1);
 
-          buttons.simulate("click");
+        buttons.simulate("click");
 
-          expect(openHandleAcceptation).toHaveBeenCalledTimes(1);
-        });
-      }
-    );
+        expect(openHandleAcceptation).toHaveBeenCalledTimes(1);
+      });
+    });
   });
 });

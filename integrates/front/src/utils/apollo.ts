@@ -32,7 +32,7 @@ import type {
 import _ from "lodash";
 import { createElement, useMemo } from "react";
 import { createNetworkStatusNotifier } from "react-apollo-network-status";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 
 import {
   handleGraphQLError,
@@ -62,10 +62,8 @@ interface IErrorHandlerAttr {
 const getCookie: (name: string) => string = (name: string): string => {
   if (document.cookie !== "") {
     const cookies: string[] = document.cookie.split(";");
-    const cookieValue:
-      | string
-      | undefined = cookies.find((cookie: string): boolean =>
-      cookie.trim().startsWith(`${name}=`)
+    const cookieValue: string | undefined = cookies.find(
+      (cookie: string): boolean => cookie.trim().startsWith(`${name}=`)
     );
     if (!_.isUndefined(cookieValue)) {
       return decodeURIComponent(cookieValue.trim().substring(name.length + 1));
@@ -132,7 +130,7 @@ const extendedFetch: WindowOrWorkerGlobalScope["fetch"] = async (
 ): Promise<Response> =>
   options.notifyUploadProgress ? xhrWrapper(uri, options) : fetch(uri, options);
 
-const httpLink: ApolloLink = (createUploadLink({
+const httpLink: ApolloLink = createUploadLink({
   credentials: "same-origin",
   fetch: extendedFetch,
   headers: {
@@ -140,7 +138,7 @@ const httpLink: ApolloLink = (createUploadLink({
     accept: "application/json",
   },
   uri: `${window.location.origin}/api`,
-}) as unknown) as ApolloLink;
+}) as unknown as ApolloLink;
 
 const wsLink: ApolloLink = new WebSocketLink({
   options: {
@@ -152,9 +150,8 @@ const wsLink: ApolloLink = new WebSocketLink({
 
 const apiLink: ApolloLink = ApolloLink.split(
   ({ query }: Operation): boolean => {
-    const definition:
-      | FragmentDefinitionNode
-      | OperationDefinitionNode = getMainDefinition(query);
+    const definition: FragmentDefinitionNode | OperationDefinitionNode =
+      getMainDefinition(query);
 
     return (
       definition.kind === "OperationDefinition" &&
@@ -165,10 +162,8 @@ const apiLink: ApolloLink = ApolloLink.split(
   httpLink
 );
 
-const {
-  link: networkStatusLink,
-  useApolloNetworkStatus,
-} = createNetworkStatusNotifier();
+const { link: networkStatusLink, useApolloNetworkStatus } =
+  createNetworkStatusNotifier();
 
 const retryLink: ApolloLink = new RetryLink({
   attempts: {
@@ -202,9 +197,8 @@ const onError: (
             | ZenObservable.Subscription
             | undefined => {
             try {
-              const operationObserver: Observable<FetchResult> = forward(
-                operation
-              );
+              const operationObserver: Observable<FetchResult> =
+                forward(operation);
               // It is necessary to change the variable value
               // eslint-disable-next-line fp/no-let
               let isForwarded: boolean = true;

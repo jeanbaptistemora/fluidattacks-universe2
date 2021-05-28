@@ -4,7 +4,7 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import type { ReactElement } from "react";
 import React, { useCallback, useState } from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 
 import { DataTableNext } from "components/DataTableNext";
 import type { IHeaderConfig } from "components/DataTableNext/types";

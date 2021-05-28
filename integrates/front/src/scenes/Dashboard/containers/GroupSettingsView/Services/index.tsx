@@ -290,9 +290,9 @@ const Services: React.FC<IServicesProps> = (
   );
 
   // Using form validation instead of field validation to avoid an infinite-loop error
-  const formValidations: (values: {
-    confirmation: string;
-  }) => { confirmation?: string } = useCallback(
+  const formValidations: (values: { confirmation: string }) => {
+    confirmation?: string;
+  } = useCallback(
     (values: { confirmation: string }): { confirmation?: string } => {
       if (values.confirmation === groupName) {
         return {};

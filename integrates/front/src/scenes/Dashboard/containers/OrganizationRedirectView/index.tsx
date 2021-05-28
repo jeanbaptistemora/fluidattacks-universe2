@@ -5,7 +5,7 @@ import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { Redirect, Switch, useLocation, useParams } from "react-router";
+import { Redirect, Switch, useLocation, useParams } from "react-router-dom";
 
 import { GET_ENTITY_ORGANIZATION } from "scenes/Dashboard/containers/OrganizationRedirectView/queries";
 import type { IOrganizationRedirectProps } from "scenes/Dashboard/containers/OrganizationRedirectView/types";
@@ -17,10 +17,11 @@ const OrganizationRedirect: React.FC<IOrganizationRedirectProps> = (
   props: IOrganizationRedirectProps
 ): JSX.Element => {
   const { type } = props;
-  const { projectName, tagName } = useParams<{
-    projectName: string;
-    tagName: string;
-  }>();
+  const { projectName, tagName } =
+    useParams<{
+      projectName: string;
+      tagName: string;
+    }>();
   const { pathname } = useLocation();
 
   // GraphQL operations

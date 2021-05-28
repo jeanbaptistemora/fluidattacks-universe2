@@ -10,11 +10,8 @@ import type { IHeaderConfig } from "components/DataTableNext/types";
 const AcceptedUndefinedTable: React.FC<IAcceptedUndefinedTableProps> = (
   props: IAcceptedUndefinedTableProps
 ): JSX.Element => {
-  const {
-    acceptationVulns,
-    isAcceptedUndefinedSelected,
-    setAcceptationVulns,
-  } = props;
+  const { acceptationVulns, isAcceptedUndefinedSelected, setAcceptationVulns } =
+    props;
 
   const handleUpdateAcceptation: (vulnInfo: Dictionary<string>) => void = (
     vulnInfo: Dictionary<string>

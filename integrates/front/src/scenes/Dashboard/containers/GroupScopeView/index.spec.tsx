@@ -6,7 +6,7 @@ import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { MemoryRouter, Route } from "react-router";
+import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { DeactivationModal } from "./deactivationModal";
@@ -85,12 +85,10 @@ describe("GroupScopeView", (): void => {
       </authzGroupContext.Provider>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     const firstTableRow: ReactWrapper = wrapper.find("tr").at(1);
 
@@ -206,13 +204,11 @@ describe("GroupScopeView", (): void => {
       </authzGroupContext.Provider>
     );
 
-    await act(
-      async (): Promise<void> => {
-        const delay = 100;
-        await wait(delay);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      const delay = 100;
+      await wait(delay);
+      wrapper.update();
+    });
 
     const addButton: ReactWrapper = wrapper.find("button").at(0);
     addButton.simulate("click");
@@ -232,14 +228,12 @@ describe("GroupScopeView", (): void => {
       target: { name: "environment", value: "production" },
     });
 
-    await act(
-      async (): Promise<void> => {
-        wrapper.find("form").simulate("submit");
-        const delay: number = 150;
-        await wait(delay);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      wrapper.find("form").simulate("submit");
+      const delay: number = 150;
+      await wait(delay);
+      wrapper.update();
+    });
 
     const firstTableRow: ReactWrapper = wrapper.find("tr").at(1);
 
@@ -379,12 +373,10 @@ describe("GroupScopeView", (): void => {
       </authzGroupContext.Provider>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const getFirstTableRow: () => ReactWrapper = (): ReactWrapper =>
       // Exception: WF(Avoid unsafe return of an any typed value)
       // eslint-disable-next-line
@@ -417,13 +409,11 @@ describe("GroupScopeView", (): void => {
       target: { name: "gitignore.0", value: "node_modules/*" },
     });
 
-    await act(
-      async (): Promise<void> => {
-        wrapper.find("form").simulate("submit");
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      wrapper.find("form").simulate("submit");
+      await wait(0);
+      wrapper.update();
+    });
     const delay = 150;
     await wait(delay);
 
@@ -562,12 +552,10 @@ describe("GroupScopeView", (): void => {
       </authzGroupContext.Provider>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     const getStateSwitch: () => ReactWrapper = (): ReactWrapper => {
       const firstTableRow: ReactWrapper = wrapper.find("tr").at(1);
@@ -586,13 +574,11 @@ describe("GroupScopeView", (): void => {
       .at(1);
     proceedButton.simulate("click");
 
-    await act(
-      async (): Promise<void> => {
-        const delay: number = 50;
-        await wait(delay);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      const delay: number = 50;
+      await wait(delay);
+      wrapper.update();
+    });
 
     expect(getStateSwitch().prop("checked")).toStrictEqual(true);
   });
@@ -717,12 +703,10 @@ describe("GroupScopeView", (): void => {
         </authzGroupContext.Provider>
       );
 
-      await act(
-        async (): Promise<void> => {
-          await wait(0);
-          wrapper.update();
-        }
-      );
+      await act(async (): Promise<void> => {
+        await wait(0);
+        wrapper.update();
+      });
 
       const getStateSwitch = (): ReactWrapper => {
         const firstTableRow = wrapper.find("tr").at(1);
@@ -743,13 +727,11 @@ describe("GroupScopeView", (): void => {
 
       form.simulate("submit");
 
-      await act(
-        async (): Promise<void> => {
-          const delay: number = 50;
-          await wait(delay);
-          wrapper.update();
-        }
-      );
+      await act(async (): Promise<void> => {
+        const delay: number = 50;
+        await wait(delay);
+        wrapper.update();
+      });
 
       expect(getStateSwitch().prop("checked")).toStrictEqual(false);
     }

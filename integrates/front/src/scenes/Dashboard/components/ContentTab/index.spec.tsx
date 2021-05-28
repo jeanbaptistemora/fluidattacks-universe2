@@ -1,7 +1,7 @@
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
-import { MemoryRouter } from "react-router";
+import { MemoryRouter } from "react-router-dom";
 
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 

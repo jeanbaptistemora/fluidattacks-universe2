@@ -9,7 +9,7 @@ import { GraphQLError } from "graphql";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { MemoryRouter, Route } from "react-router";
+import { MemoryRouter, Route } from "react-router-dom";
 import waitForExpect from "wait-for-expect";
 
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
@@ -26,34 +26,27 @@ import { msgError } from "utils/notifications";
 
 const mockHistoryPush: jest.Mock = jest.fn();
 
-jest.mock(
-  "react-router-dom",
-  (): Dictionary => {
-    const mockedRouter: Dictionary<() => Dictionary> = jest.requireActual(
-      "react-router-dom"
-    );
+jest.mock("react-router-dom", (): Dictionary => {
+  const mockedRouter: Dictionary<() => Dictionary> =
+    jest.requireActual("react-router-dom");
 
-    return {
-      ...mockedRouter,
-      useHistory: (): Dictionary => ({
-        ...mockedRouter.useHistory(),
-        push: mockHistoryPush,
-      }),
-    };
-  }
-);
+  return {
+    ...mockedRouter,
+    useHistory: (): Dictionary => ({
+      ...mockedRouter.useHistory(),
+      push: mockHistoryPush,
+    }),
+  };
+});
 
-jest.mock(
-  "../../../../utils/notifications",
-  (): Dictionary => {
-    const mockedNotifications: Dictionary<
-      () => Dictionary
-    > = jest.requireActual("../../../../utils/notifications");
-    jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+jest.mock("../../../../utils/notifications", (): Dictionary => {
+  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
+    "../../../../utils/notifications"
+  );
+  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
 
-    return mockedNotifications;
-  }
-);
+  return mockedNotifications;
+});
 
 describe("Organization groups view", (): void => {
   const mockProps: IOrganizationGroupsProps = {
@@ -131,16 +124,14 @@ describe("Organization groups view", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(wrapper).toHaveLength(1);
-          expect(wrapper.find("tr")).toHaveLength(4);
-        });
-      }
-    );
+        expect(wrapper).toHaveLength(1);
+        expect(wrapper.find("tr")).toHaveLength(4);
+      });
+    });
 
     const newGroupButton: ReactWrapper = wrapper.find("button").first();
     const oneshottestRow: ReactWrapper = wrapper.find("tr").at(1);
@@ -231,17 +222,15 @@ describe("Organization groups view", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          // eslint-disable-next-line jest/prefer-called-with
-          expect(msgError).toHaveBeenCalled();
-          expect(wrapper.find("table")).toHaveLength(0);
-        });
-      }
-    );
+        // eslint-disable-next-line jest/prefer-called-with
+        expect(msgError).toHaveBeenCalled();
+        expect(wrapper.find("table")).toHaveLength(0);
+      });
+    });
   });
 
   // Temporarily disabled until it gets properly refactored to test Formik
@@ -382,21 +371,19 @@ describe("Organization groups view", (): void => {
     const newGroupButton: ReactWrapper = wrapper.find("button").first();
     newGroupButton.simulate("click");
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(
-            wrapper
-              .find(AddGroupModal)
-              .find({ name: "name" })
-              .find("input")
-              .prop("value")
-          ).toBe("AKAME");
-        });
-      }
-    );
+        expect(
+          wrapper
+            .find(AddGroupModal)
+            .find({ name: "name" })
+            .find("input")
+            .prop("value")
+        ).toBe("AKAME");
+      });
+    });
 
     const form: ReactWrapper = wrapper.find(AddGroupModal).find("Formik");
     const descriptionField: ReactWrapper = wrapper
@@ -424,14 +411,12 @@ describe("Organization groups view", (): void => {
     // eslint-disable-next-line
     form.simulate("submit", { preventDefault: (): void => {} }); // NOSONAR
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(wrapper.find("tr")).toHaveLength(4);
-        });
-      }
-    );
+        expect(wrapper.find("tr")).toHaveLength(4);
+      });
+    });
   });
 });

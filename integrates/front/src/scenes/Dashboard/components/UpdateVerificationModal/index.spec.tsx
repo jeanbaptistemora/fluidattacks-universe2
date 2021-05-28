@@ -90,12 +90,10 @@ describe("update verification component", (): void => {
     });
     const form: ReactWrapper = wrapperRequest.find("form");
     form.at(0).simulate("submit");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapperRequest.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapperRequest.update();
+    });
 
     expect(wrapperRequest).toHaveLength(1);
     expect(handleOnClose).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
@@ -166,12 +164,10 @@ describe("update verification component", (): void => {
     });
     const form: ReactWrapper = wrapper.find("form");
     form.at(0).simulate("submit");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
     expect(handleOnClose).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
@@ -255,12 +251,10 @@ describe("update verification component", (): void => {
     switchButton.simulate("click");
     const form: ReactWrapper = wrapper.find("form");
     form.at(0).simulate("submit");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
     expect(handleOnClose).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
@@ -328,12 +322,10 @@ describe("update verification component", (): void => {
     });
     const form: ReactWrapper = wrapper.find("form");
     form.at(0).simulate("submit");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
     expect(handleOnClose).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with

@@ -2,7 +2,7 @@ import _ from "lodash";
 import { track } from "mixpanel-browser";
 import type React from "react";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 
 import { Logger } from "utils/logger";
 

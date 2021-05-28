@@ -14,22 +14,18 @@ import {
 
 const handleCloseModal: jest.Mock = jest.fn();
 const mockHistoryPush: jest.Mock = jest.fn();
-jest.mock(
-  "react-router-dom",
-  (): Dictionary => {
-    const mockedRouter: Dictionary<() => Dictionary> = jest.requireActual(
-      "react-router-dom"
-    );
+jest.mock("react-router-dom", (): Dictionary => {
+  const mockedRouter: Dictionary<() => Dictionary> =
+    jest.requireActual("react-router-dom");
 
-    return {
-      ...mockedRouter,
-      useHistory: (): Dictionary => ({
-        ...mockedRouter.useHistory(),
-        push: mockHistoryPush,
-      }),
-    };
-  }
-);
+  return {
+    ...mockedRouter,
+    useHistory: (): Dictionary => ({
+      ...mockedRouter.useHistory(),
+      push: mockHistoryPush,
+    }),
+  };
+});
 
 describe("Add organization modal", (): void => {
   it("should return a function", (): void => {
@@ -60,18 +56,16 @@ describe("Add organization modal", (): void => {
       </MockedProvider>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(wrapper).toHaveLength(1);
-          expect(wrapper.find("Formik").find("input").prop("value")).toBe(
-            "ESDEATH"
-          );
-        });
-      }
-    );
+        expect(wrapper).toHaveLength(1);
+        expect(wrapper.find("Formik").find("input").prop("value")).toBe(
+          "ESDEATH"
+        );
+      });
+    });
 
     expect(wrapper.find({ name: "name" }).find("input").prop("disabled")).toBe(
       true
@@ -131,30 +125,26 @@ describe("Add organization modal", (): void => {
       </MockedProvider>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(wrapper).toHaveLength(1);
-          expect(
-            wrapper.find({ name: "name" }).find("input").prop("value")
-          ).toBe("ESDEATH");
-        });
-      }
-    );
+        expect(wrapper).toHaveLength(1);
+        expect(wrapper.find({ name: "name" }).find("input").prop("value")).toBe(
+          "ESDEATH"
+        );
+      });
+    });
 
     wrapper.find("Formik").simulate("submit");
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(handleCloseModal).toHaveBeenCalledWith(expect.anything());
-          expect(mockHistoryPush).toHaveBeenCalledWith("/orgs/esdeath/");
-        });
-      }
-    );
+        expect(handleCloseModal).toHaveBeenCalledWith(expect.anything());
+        expect(mockHistoryPush).toHaveBeenCalledWith("/orgs/esdeath/");
+      });
+    });
   });
 });

@@ -141,31 +141,30 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
     }
   );
 
-  const handleSubmit: (values: {
-    treatmentJustification: string;
-  }) => void = useCallback(
-    (values: { treatmentJustification: string }): void => {
-      handleSubmitHelper(
+  const handleSubmit: (values: { treatmentJustification: string }) => void =
+    useCallback(
+      (values: { treatmentJustification: string }): void => {
+        handleSubmitHelper(
+          requestVerification,
+          verifyRequest,
+          findingId,
+          values,
+          vulns,
+          vulnerabilitiesList,
+          isReattacking
+        );
+        closeRemediationModal();
+      },
+      [
+        closeRemediationModal,
+        findingId,
+        isReattacking,
+        vulns,
         requestVerification,
         verifyRequest,
-        findingId,
-        values,
-        vulns,
         vulnerabilitiesList,
-        isReattacking
-      );
-      closeRemediationModal();
-    },
-    [
-      closeRemediationModal,
-      findingId,
-      isReattacking,
-      vulns,
-      requestVerification,
-      verifyRequest,
-      vulnerabilitiesList,
-    ]
-  );
+      ]
+    );
 
   const renderVulnsToVerify: () => JSX.Element = (): JSX.Element => {
     const handleUpdateRepo: (vulnInfo: Dictionary<string>) => void = (

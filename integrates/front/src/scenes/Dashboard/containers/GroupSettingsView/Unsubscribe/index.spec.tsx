@@ -5,7 +5,7 @@ import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { MemoryRouter, Route } from "react-router";
+import { MemoryRouter, Route } from "react-router-dom";
 import { Field } from "redux-form";
 import wait from "waait";
 
@@ -18,17 +18,14 @@ import { Button } from "components/Button";
 import store from "store";
 import { msgSuccess } from "utils/notifications";
 
-jest.mock(
-  "../../../../../utils/notifications",
-  (): Dictionary => {
-    const mockedNotifications: Dictionary<
-      () => Dictionary
-    > = jest.requireActual("../../../../../utils/notifications");
-    jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
+jest.mock("../../../../../utils/notifications", (): Dictionary => {
+  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
+    "../../../../../utils/notifications"
+  );
+  jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
-    return mockedNotifications;
-  }
-);
+  return mockedNotifications;
+});
 
 describe("Unsubscribe from group", (): void => {
   it("should return a function", (): void => {
@@ -63,9 +60,8 @@ describe("Unsubscribe from group", (): void => {
     const unsubscribeButton: ReactWrapper = wrapper.find(Button);
     unsubscribeButton.simulate("click");
 
-    const unsubscribeModal: ReactWrapper<IUnsubscribeModalProps> = wrapper.find(
-      UnsubscribeModal
-    );
+    const unsubscribeModal: ReactWrapper<IUnsubscribeModalProps> =
+      wrapper.find(UnsubscribeModal);
     const confirmationField: ReactWrapper = unsubscribeModal
       .find(Field)
       .filter({ name: "confirmation" })
@@ -79,12 +75,10 @@ describe("Unsubscribe from group", (): void => {
       );
     proccedButton.simulate("click");
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(msgSuccess).toHaveBeenCalledWith(
       "searchFindings.servicesTable.unsubscribe.success",

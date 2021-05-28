@@ -6,7 +6,7 @@ import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { MemoryRouter, Route } from "react-router";
+import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { DescriptionView } from "scenes/Dashboard/containers/DescriptionView";
@@ -78,13 +78,11 @@ describe("Finding Description", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        const TEST_TIMEOUT: number = 50;
-        await wait(TEST_TIMEOUT);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      const TEST_TIMEOUT: number = 50;
+      await wait(TEST_TIMEOUT);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
     expect(
@@ -116,13 +114,11 @@ describe("Finding Description", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        const TEST_TIMEOUT: number = 50;
-        await wait(TEST_TIMEOUT);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      const TEST_TIMEOUT: number = 50;
+      await wait(TEST_TIMEOUT);
+      wrapper.update();
+    });
     const editButton: ReactWrapper = wrapper
       .find("Button")
       .filterWhere((element: ReactWrapper): boolean =>

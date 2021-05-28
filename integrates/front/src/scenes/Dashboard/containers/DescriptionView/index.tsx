@@ -6,7 +6,7 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import type { Dispatch } from "redux";
 import { Field, isPristine, reset, submit } from "redux-form";
 import type { ConfigurableValidator } from "revalidate";
@@ -70,10 +70,11 @@ const maxRecommendationLength: ConfigurableValidator = maxLength(
 );
 
 const DescriptionView: React.FC = (): JSX.Element => {
-  const { findingId, projectName } = useParams<{
-    findingId: string;
-    projectName: string;
-  }>();
+  const { findingId, projectName } =
+    useParams<{
+      findingId: string;
+      projectName: string;
+    }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   // State management
@@ -142,21 +143,20 @@ const DescriptionView: React.FC = (): JSX.Element => {
     },
   });
 
-  const handleDescriptionSubmit: (
-    values: Dictionary<string>
-  ) => Promise<void> = useCallback(
-    async (values: Dictionary<string>): Promise<void> => {
-      setEditing(false);
-      await updateDescription({
-        variables: {
-          ...values,
-          compromisedRecords: Number(values.compromisedRecords),
-          findingId,
-        },
-      });
-    },
-    [findingId, updateDescription]
-  );
+  const handleDescriptionSubmit: (values: Dictionary<string>) => Promise<void> =
+    useCallback(
+      async (values: Dictionary<string>): Promise<void> => {
+        setEditing(false);
+        await updateDescription({
+          variables: {
+            ...values,
+            compromisedRecords: Number(values.compromisedRecords),
+            findingId,
+          },
+        });
+      },
+      [findingId, updateDescription]
+    );
 
   const handleSubmit: () => void = useCallback((): void => {
     if (!isDescriptionPristine) {

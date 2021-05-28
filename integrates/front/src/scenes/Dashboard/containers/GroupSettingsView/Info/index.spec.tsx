@@ -5,7 +5,7 @@ import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { MemoryRouter, Route } from "react-router";
+import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { GroupInformation } from "scenes/Dashboard/containers/GroupSettingsView/Info";
@@ -56,12 +56,10 @@ describe("Info", (): void => {
         </MockedProvider>
       </Provider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const firstRowInfo: ReactWrapper = wrapper.find("RowPureContent").at(0);
 
     expect(firstRowInfo.text()).toStrictEqual("LanguageEnglish");

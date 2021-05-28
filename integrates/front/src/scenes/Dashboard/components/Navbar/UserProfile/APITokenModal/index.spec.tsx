@@ -63,12 +63,10 @@ describe("Update access token modal", (): void => {
       </Provider>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     const componentTitle: ReactWrapper = wrapper.find("h4");
 
@@ -132,35 +130,33 @@ describe("Update access token modal", (): void => {
 
     expect(wrapper).toHaveLength(1);
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          const tokenCreationLabel: ReactWrapper = wrapper.find("label");
+        const tokenCreationLabel: ReactWrapper = wrapper.find("label");
 
-          const submitButton: ReactWrapper = wrapper
-            .find("button")
-            .filterWhere(
-              (element: ReactWrapper): boolean =>
-                element.contains("Proceed") && element.prop("disabled") === true
-            )
-            .first();
+        const submitButton: ReactWrapper = wrapper
+          .find("button")
+          .filterWhere(
+            (element: ReactWrapper): boolean =>
+              element.contains("Proceed") && element.prop("disabled") === true
+          )
+          .first();
 
-          const revokeButton: ReactWrapper = wrapper
-            .find("button")
-            .filterWhere((element: ReactWrapper): boolean =>
-              element.contains("Revoke current token")
-            )
-            .first();
+        const revokeButton: ReactWrapper = wrapper
+          .find("button")
+          .filterWhere((element: ReactWrapper): boolean =>
+            element.contains("Revoke current token")
+          )
+          .first();
 
-          expect(wrapper).toHaveLength(1);
-          expect(tokenCreationLabel.text()).toMatch(/Token created at:/u);
-          expect(submitButton).toHaveLength(1);
-          expect(revokeButton).toHaveLength(1);
-        });
-      }
-    );
+        expect(wrapper).toHaveLength(1);
+        expect(tokenCreationLabel.text()).toMatch(/Token created at:/u);
+        expect(submitButton).toHaveLength(1);
+        expect(revokeButton).toHaveLength(1);
+      });
+    });
   });
 
   it("should render a new access token", async (): Promise<void> => {
@@ -244,12 +240,10 @@ describe("Update access token modal", (): void => {
     const form: ReactWrapper = wrapper.find("genericForm");
     form.simulate("submit");
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     const newTokenLabel: ReactWrapper = wrapper
       .find("label")
@@ -310,19 +304,17 @@ describe("Update access token modal", (): void => {
     expect(wrapper).toHaveLength(1);
     expect(dateField.prop("value")).toBe(expirationTime);
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          const dateFieldOnReset: ReactWrapper = wrapper
-            .find({ type: "date" })
-            .find("input");
+        const dateFieldOnReset: ReactWrapper = wrapper
+          .find({ type: "date" })
+          .find("input");
 
-          expect(wrapper).toHaveLength(1);
-          expect(dateFieldOnReset.prop("value")).toBe("");
-        });
-      }
-    );
+        expect(wrapper).toHaveLength(1);
+        expect(dateFieldOnReset.prop("value")).toBe("");
+      });
+    });
   });
 });

@@ -109,15 +109,12 @@ export const Graphic: React.FC<IGraphicProps> = (
   // Hooks
   const fullRef: React.MutableRefObject<HTMLDivElement | null> = useRef(null);
   const headRef: React.MutableRefObject<HTMLDivElement | null> = useRef(null);
-  const bodyRef: React.MutableRefObject<HTMLIFrameElement | null> = useRef(
-    null
-  );
-  const modalRef: React.MutableRefObject<HTMLIFrameElement | null> = useRef(
-    null
-  );
-  const modalBodyRef: React.MutableRefObject<HTMLIFrameElement | null> = useRef(
-    null
-  );
+  const bodyRef: React.MutableRefObject<HTMLIFrameElement | null> =
+    useRef(null);
+  const modalRef: React.MutableRefObject<HTMLIFrameElement | null> =
+    useRef(null);
+  const modalBodyRef: React.MutableRefObject<HTMLIFrameElement | null> =
+    useRef(null);
 
   // More hooks
   const fullSize: ComponentSize = useComponentSize(fullRef);

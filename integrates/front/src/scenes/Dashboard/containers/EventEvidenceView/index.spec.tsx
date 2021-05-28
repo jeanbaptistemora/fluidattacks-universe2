@@ -7,7 +7,7 @@ import _ from "lodash";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { MemoryRouter, Route } from "react-router";
+import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { EventEvidenceView } from "scenes/Dashboard/containers/EventEvidenceView";
@@ -58,11 +58,9 @@ describe("EventEvidenceView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+    });
 
     expect(wrapper).toHaveLength(1);
   });
@@ -102,12 +100,10 @@ describe("EventEvidenceView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper.text()).toContain("There are no evidences");
   });
@@ -147,12 +143,10 @@ describe("EventEvidenceView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper.containsMatchingElement(<img alt={""} />)).toBe(true);
     expect(
@@ -197,19 +191,15 @@ describe("EventEvidenceView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     wrapper.find("img").simulate("click");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper.find("ReactImageLightbox")).toHaveLength(1);
   });
@@ -254,12 +244,10 @@ describe("EventEvidenceView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(
       wrapper
@@ -313,9 +301,11 @@ describe("EventEvidenceView", (): void => {
       .fn()
       .mockReturnValue({ opener: undefined });
     // eslint-disable-next-line fp/no-mutation -- Mutation needed for the test
-    (window as {
-      open: (url: string) => { opener: undefined };
-    }).open = onOpenLink;
+    (
+      window as typeof window & {
+        open: (url: string) => { opener: undefined };
+      }
+    ).open = onOpenLink;
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/events/413372600/evidence"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
@@ -328,18 +318,14 @@ describe("EventEvidenceView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     wrapper.find("svg").find(".fa-file").simulate("click");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+    });
 
     expect(onOpenLink).toHaveBeenCalledWith(
       "https://localhost:9000/some_file.pdf",

@@ -105,19 +105,16 @@ describe("SeverityView", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
 
     const numberOfTiles: number = 11;
-    const severityTiles: ReactWrapper<ISeverityTile> = wrapper.find(
-      SeverityTile
-    );
+    const severityTiles: ReactWrapper<ISeverityTile> =
+      wrapper.find(SeverityTile);
     const reportConfidence: ReactWrapper<ISeverityTile> = severityTiles.last();
 
     type resultType = Dictionary<{ finding: ISeverityAttr["finding"] }>;
@@ -141,12 +138,10 @@ describe("SeverityView", (): void => {
 
     editButton.simulate("click");
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper.text()).toContain(
       "High: Exploit is not required or it can be automated"
@@ -168,12 +163,10 @@ describe("SeverityView", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
   });
@@ -198,12 +191,10 @@ describe("SeverityView", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const editButton: ReactWrapper = wrapper
       .find("button")
       .findWhere((element: ReactWrapper): boolean => element.contains("Edit"))
@@ -234,12 +225,10 @@ describe("SeverityView", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const editButton: ReactWrapper = wrapper
       .find("button")
       .findWhere((element: ReactWrapper): boolean => element.contains("Edit"))

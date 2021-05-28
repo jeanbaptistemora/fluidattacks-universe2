@@ -24,39 +24,37 @@ const addGivenHeaders = (
   headers: readonly Readonly<IHeaderConfig>[],
   isFilterEnabled: boolean = true
 ): IColumn[] =>
-  headers.map(
-    (key: Readonly<IHeaderConfig>): IColumn => {
-      const handleSort: (dataField: string, order: SortOrder) => void = (
-        dataField: string,
-        order: SortOrder
-      ): void => {
-        if (!_.isUndefined(key.onSort)) {
-          key.onSort(dataField, order);
-        }
-      };
+  headers.map((key: Readonly<IHeaderConfig>): IColumn => {
+    const handleSort: (dataField: string, order: SortOrder) => void = (
+      dataField: string,
+      order: SortOrder
+    ): void => {
+      if (!_.isUndefined(key.onSort)) {
+        key.onSort(dataField, order);
+      }
+    };
 
-      return {
-        align: key.align,
-        dataField: key.dataField,
-        filter: isFilterEnabled ? key.filter : undefined,
-        formatExtraData: key,
-        formatter: key.formatter,
-        headerFormatter: key.headerFormatter,
-        headerStyle: (): CSSProperties => ({
-          whiteSpace: defineWhitespace(key.wrapped, "nowrap"),
-          width: _.isUndefined(key.width) ? "auto" : key.width,
-        }),
-        hidden: _.isUndefined(key.visible) ? key.visible : !key.visible,
-        onSort: handleSort,
-        sort: true,
-        sortFunc: key.sortFunc,
-        style: (): CSSProperties => ({
-          whiteSpace: defineWhitespace(key.wrapped, "pre-wrap"),
-        }),
-        text: key.header,
-      };
-    }
-  );
+    return {
+      align: key.align,
+      dataField: key.dataField,
+      filter: isFilterEnabled ? key.filter : undefined,
+      formatExtraData: key,
+      formatter: key.formatter,
+      headerFormatter: key.headerFormatter,
+      headerStyle: (): CSSProperties => ({
+        whiteSpace: defineWhitespace(key.wrapped, "nowrap"),
+        width: _.isUndefined(key.width) ? "auto" : key.width,
+      }),
+      hidden: _.isUndefined(key.visible) ? key.visible : !key.visible,
+      onSort: handleSort,
+      sort: true,
+      sortFunc: key.sortFunc,
+      style: (): CSSProperties => ({
+        whiteSpace: defineWhitespace(key.wrapped, "pre-wrap"),
+      }),
+      text: key.header,
+    };
+  });
 
 const addDynamicHeaders = (
   dataFields: readonly string[]

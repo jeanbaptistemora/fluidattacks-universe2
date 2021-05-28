@@ -5,7 +5,7 @@ import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { MemoryRouter } from "react-router";
+import { MemoryRouter } from "react-router-dom";
 import wait from "waait";
 
 import { Sidebar } from "./components/Sidebar";
@@ -96,12 +96,10 @@ describe("Dashboard", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     const sideBar = wrapper.find(Sidebar);
     const scrollUpButton: ReactWrapper = wrapper.find("ScrollUp");

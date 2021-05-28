@@ -7,7 +7,7 @@ import { GraphQLError } from "graphql";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { MemoryRouter, Route } from "react-router";
+import { MemoryRouter, Route } from "react-router-dom";
 import waitForExpect from "wait-for-expect";
 
 import { OrganizationPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView";
@@ -21,18 +21,15 @@ import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-jest.mock(
-  "../../../../utils/notifications",
-  (): Dictionary => {
-    const mockedNotifications: Dictionary<
-      () => Dictionary
-    > = jest.requireActual("../../../../utils/notifications");
-    jest.spyOn(mockedNotifications, "msgError").mockImplementation();
-    jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
+jest.mock("../../../../utils/notifications", (): Dictionary => {
+  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
+    "../../../../utils/notifications"
+  );
+  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+  jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
-    return mockedNotifications;
-  }
-);
+  return mockedNotifications;
+});
 
 describe("Organization policies view", (): void => {
   const mockProps: IOrganizationPolicies = {
@@ -82,18 +79,16 @@ describe("Organization policies view", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        await waitForExpect((): void => {
-          wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(wrapper).toHaveLength(1);
-          expect(wrapper.find("tr")).toHaveLength(4);
-        });
-      }
-    );
+        expect(wrapper).toHaveLength(1);
+        expect(wrapper.find("tr")).toHaveLength(4);
+      });
+    });
 
     expect(
       wrapper.find({ name: "maxAcceptanceDays" }).find("input").prop("value")
@@ -149,18 +144,16 @@ describe("Organization policies view", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        await waitForExpect((): void => {
-          wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(msgError).toHaveBeenCalledTimes(1);
-          expect(wrapper.find("table")).toHaveLength(0);
-        });
-      }
-    );
+        expect(msgError).toHaveBeenCalledTimes(1);
+        expect(wrapper.find("table")).toHaveLength(0);
+      });
+    });
   });
 
   it("should update the policies", async (): Promise<void> => {
@@ -247,18 +240,16 @@ describe("Organization policies view", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        await waitForExpect((): void => {
-          wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(wrapper).toHaveLength(1);
-          expect(wrapper.find("tr")).toHaveLength(4);
-        });
-      }
-    );
+        expect(wrapper).toHaveLength(1);
+        expect(wrapper.find("tr")).toHaveLength(4);
+      });
+    });
 
     const maxAcceptanceDays: ReactWrapper = wrapper
       .find({ name: "maxAcceptanceDays" })
@@ -284,45 +275,41 @@ describe("Organization policies view", (): void => {
     maxNumberAcceptations.simulate("change", { target: { value: "1" } });
     minAcceptanceSeverity.simulate("change", { target: { value: "0" } });
 
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        await waitForExpect((): void => {
-          wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          const saveButton2: ReactWrapper = wrapper
-            .find("button")
-            .filterWhere((element: ReactWrapper): boolean =>
-              element.contains("Save")
-            )
-            .first();
+        const saveButton2: ReactWrapper = wrapper
+          .find("button")
+          .filterWhere((element: ReactWrapper): boolean =>
+            element.contains("Save")
+          )
+          .first();
 
-          expect(saveButton2).toHaveLength(1);
-        });
-      }
-    );
+        expect(saveButton2).toHaveLength(1);
+      });
+    });
 
     const form: ReactWrapper = wrapper.find("genericForm");
     form.simulate("submit");
 
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        await waitForExpect((): void => {
-          wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(msgSuccess).toHaveBeenCalledTimes(1);
-          expect(
-            wrapper
-              .find({ name: "maxAcceptanceDays" })
-              .find("input")
-              .prop("value")
-          ).toBe("2");
-        });
-      }
-    );
+        expect(msgSuccess).toHaveBeenCalledTimes(1);
+        expect(
+          wrapper
+            .find({ name: "maxAcceptanceDays" })
+            .find("input")
+            .prop("value")
+        ).toBe("2");
+      });
+    });
   });
 
   it("should not show save button", async (): Promise<void> => {
@@ -362,18 +349,16 @@ describe("Organization policies view", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        await waitForExpect((): void => {
-          wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(wrapper).toHaveLength(1);
-          expect(wrapper.find("tr")).toHaveLength(4);
-        });
-      }
-    );
+        expect(wrapper).toHaveLength(1);
+        expect(wrapper.find("tr")).toHaveLength(4);
+      });
+    });
 
     const maxAcceptanceDays: ReactWrapper = wrapper
       .find({ name: "maxAcceptanceDays" })
@@ -387,24 +372,22 @@ describe("Organization policies view", (): void => {
 
     maxAcceptanceDays.simulate("change", { target: { value: "2" } });
 
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        await waitForExpect((): void => {
-          wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          const saveButton2: ReactWrapper = wrapper
-            .find("button")
-            .filterWhere((element: ReactWrapper): boolean =>
-              element.contains("Save")
-            )
-            .first();
+        const saveButton2: ReactWrapper = wrapper
+          .find("button")
+          .filterWhere((element: ReactWrapper): boolean =>
+            element.contains("Save")
+          )
+          .first();
 
-          expect(saveButton2).toHaveLength(0);
-        });
-      }
-    );
+        expect(saveButton2).toHaveLength(0);
+      });
+    });
   });
 
   it("should handle errors", async (): Promise<void> => {
@@ -547,18 +530,16 @@ describe("Organization policies view", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        await waitForExpect((): void => {
-          wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(wrapper).toHaveLength(1);
-          expect(wrapper.find("tr")).toHaveLength(4);
-        });
-      }
-    );
+        expect(wrapper).toHaveLength(1);
+        expect(wrapper.find("tr")).toHaveLength(4);
+      });
+    });
 
     const form: ReactWrapper = wrapper.find("genericForm");
     const maxAcceptanceDays: ReactWrapper = wrapper
@@ -568,86 +549,74 @@ describe("Organization policies view", (): void => {
     maxAcceptanceDays.simulate("change", { target: { value: "1" } });
     form.simulate("submit");
 
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        await waitForExpect((): void => {
-          wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(msgError).toHaveBeenCalledWith(
-            translate.t("organization.tabs.policies.errors.maxAcceptanceDays")
-          );
-        });
-      }
-    );
+        expect(msgError).toHaveBeenCalledWith(
+          translate.t("organization.tabs.policies.errors.maxAcceptanceDays")
+        );
+      });
+    });
 
     form.simulate("submit");
 
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        await waitForExpect((): void => {
-          wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(msgError).toHaveBeenCalledWith(
-            translate.t("organization.tabs.policies.errors.acceptanceSeverity")
-          );
-        });
-      }
-    );
+        expect(msgError).toHaveBeenCalledWith(
+          translate.t("organization.tabs.policies.errors.acceptanceSeverity")
+        );
+      });
+    });
 
     form.simulate("submit");
 
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        await waitForExpect((): void => {
-          wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(msgError).toHaveBeenCalledWith(
-            translate.t(
-              "organization.tabs.policies.errors.acceptanceSeverityRange"
-            )
-          );
-        });
-      }
-    );
+        expect(msgError).toHaveBeenCalledWith(
+          translate.t(
+            "organization.tabs.policies.errors.acceptanceSeverityRange"
+          )
+        );
+      });
+    });
 
     form.simulate("submit");
 
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        await waitForExpect((): void => {
-          wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(msgError).toHaveBeenCalledWith(
-            translate.t(
-              "organization.tabs.policies.errors.maxNumberAcceptations"
-            )
-          );
-        });
-      }
-    );
+        expect(msgError).toHaveBeenCalledWith(
+          translate.t("organization.tabs.policies.errors.maxNumberAcceptations")
+        );
+      });
+    });
 
     form.simulate("submit");
 
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        await waitForExpect((): void => {
-          wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(msgError).toHaveBeenCalledWith(
-            translate.t("groupAlerts.errorTextsad")
-          );
-        });
-      }
-    );
+        expect(msgError).toHaveBeenCalledWith(
+          translate.t("groupAlerts.errorTextsad")
+        );
+      });
+    });
   });
 });

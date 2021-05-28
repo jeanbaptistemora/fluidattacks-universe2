@@ -80,12 +80,10 @@ describe("Global configuration modal", (): void => {
       </Provider>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     const componentTitle: ReactWrapper = wrapper.find("h4");
     const confirmButton: ReactWrapper = wrapper.find("#config-confirm").first();
@@ -115,12 +113,10 @@ describe("Global configuration modal", (): void => {
       </Provider>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     const digestLabel: ReactWrapper = wrapper.find("label").first();
     const digestSwitch: ReactWrapper = wrapper.find({
@@ -137,12 +133,10 @@ describe("Global configuration modal", (): void => {
     confirmButton.simulate("click");
     wrapper.find("form").simulate("submit");
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(confirmButton.prop("disabled")).toBe(true);
   });

@@ -6,7 +6,7 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
@@ -105,9 +105,8 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
   // State management
   const [currentRow, setCurrentRow] = useState<Dictionary<string>>({});
   const [isStakeholderModalOpen, setStakeholderModalOpen] = useState(false);
-  const [stakeholderModalAction, setStakeholderModalAction] = useState<
-    "add" | "edit"
-  >("add");
+  const [stakeholderModalAction, setStakeholderModalAction] =
+    useState<"add" | "edit">("add");
 
   const openAddStakeholderModal: () => void = useCallback((): void => {
     setStakeholderModalAction("add");
@@ -146,9 +145,8 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
         track("AddUserOrganzationAccess", {
           Organization: organizationName,
         });
-        const {
-          email,
-        } = mtResult.grantStakeholderOrganizationAccess.grantedStakeholder;
+        const { email } =
+          mtResult.grantStakeholderOrganizationAccess.grantedStakeholder;
         msgSuccess(
           `${email} ${translate.t(
             "organization.tabs.users.addButton.success"
@@ -163,9 +161,8 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
   const [editStakeholder] = useMutation(EDIT_STAKEHOLDER_MUTATION, {
     onCompleted: (mtResult: IEditStakeholderAttrs): void => {
       if (mtResult.editStakeholderOrganization.success) {
-        const {
-          email,
-        } = mtResult.editStakeholderOrganization.modifiedStakeholder;
+        const { email } =
+          mtResult.editStakeholderOrganization.modifiedStakeholder;
         void refetchStakeholders();
 
         track("EditUserOrganizationAccess", {

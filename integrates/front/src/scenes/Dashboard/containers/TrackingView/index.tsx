@@ -3,7 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 
 import { TrackingItem } from "scenes/Dashboard/components/TrackingItem";
 import style from "scenes/Dashboard/containers/TrackingView/index.css";

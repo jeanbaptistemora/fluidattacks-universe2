@@ -35,24 +35,21 @@ const groupExternalBts: (vulnerabilities: IVulnDataTypeAttr[]) => string = (
     : "";
 };
 
-const getLastTreatment: (
-  historic: IHistoricTreatment[]
-) => IHistoricTreatment = (
-  historic: IHistoricTreatment[]
-): IHistoricTreatment => {
-  const lastTreatment: IHistoricTreatment =
-    historic.length > 0
-      ? (_.last(historic) as IHistoricTreatment)
-      : emptyTreatment;
+const getLastTreatment: (historic: IHistoricTreatment[]) => IHistoricTreatment =
+  (historic: IHistoricTreatment[]): IHistoricTreatment => {
+    const lastTreatment: IHistoricTreatment =
+      historic.length > 0
+        ? (_.last(historic) as IHistoricTreatment)
+        : emptyTreatment;
 
-  return {
-    ...lastTreatment,
-    acceptanceDate: _.isNull(lastTreatment.acceptanceDate)
-      ? ""
-      : _.get(lastTreatment, "acceptanceDate", "").split(" ")[0],
-    treatment: lastTreatment.treatment.replace(" ", "_"),
+    return {
+      ...lastTreatment,
+      acceptanceDate: _.isNull(lastTreatment.acceptanceDate)
+        ? ""
+        : _.get(lastTreatment, "acceptanceDate", "").split(" ")[0],
+      treatment: lastTreatment.treatment.replace(" ", "_"),
+    };
   };
-};
 
 const hasNewTreatment: (vulns: IVulnDataTypeAttr[]) => boolean = (
   vulns: IVulnDataTypeAttr[]

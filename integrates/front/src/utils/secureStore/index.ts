@@ -38,7 +38,8 @@ const generateSecrets: () => void = (): void => {
 setInterval(generateSecrets, secretsLifespanInMiliseconds);
 
 // Type aliases
-declare type iFrameReferenceType = React.MutableRefObject<HTMLIFrameElement | null>;
+declare type iFrameReferenceType =
+  React.MutableRefObject<HTMLIFrameElement | null>;
 
 // Implementation
 const decrypt: (ciphertext: string) => string = (ciphertext: string): string =>
@@ -130,8 +131,7 @@ const secureStore: ISecureStoreConfig = {
   storeIframeContent,
 };
 
-const secureStoreContext: React.Context<ISecureStoreConfig> = createContext(
-  secureStore
-);
+const secureStoreContext: React.Context<ISecureStoreConfig> =
+  createContext(secureStore);
 
 export { ISecureStoreConfig, secureStore, secureStoreContext };

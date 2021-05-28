@@ -9,13 +9,9 @@ interface IEventConfig {
 export const formatEvents: (dataset: IEventConfig[]) => IEventConfig[] = (
   dataset: IEventConfig[]
 ): IEventConfig[] =>
-  dataset.map(
-    (event: IEventConfig): IEventConfig => {
-      const eventType: string = translate.t(castEventType(event.eventType));
-      const eventStatus: string = translate.t(
-        castEventStatus(event.eventStatus)
-      );
+  dataset.map((event: IEventConfig): IEventConfig => {
+    const eventType: string = translate.t(castEventType(event.eventType));
+    const eventStatus: string = translate.t(castEventStatus(event.eventStatus));
 
-      return { ...event, eventStatus, eventType };
-    }
-  );
+    return { ...event, eventStatus, eventType };
+  });

@@ -190,9 +190,8 @@ describe("VulnComponent", (): void => {
     const tableVulnsUpdated: ReactWrapper = wrapper
       .find({ id: "vulnerabilitiesTable" })
       .at(0);
-    const selectionCellUpdated: ReactWrapper = tableVulnsUpdated.find(
-      "SelectionCell"
-    );
+    const selectionCellUpdated: ReactWrapper =
+      tableVulnsUpdated.find("SelectionCell");
 
     expect(selectionCellUpdated.at(0).find("input").prop("disabled")).toBe(
       true
@@ -230,9 +229,8 @@ describe("VulnComponent", (): void => {
     const tableVulnsDraft: ReactWrapper = wrapper
       .find({ id: "vulnerabilitiesTable" })
       .at(0);
-    const selectionCellDraft: ReactWrapper = tableVulnsDraft.find(
-      "SelectionCell"
-    );
+    const selectionCellDraft: ReactWrapper =
+      tableVulnsDraft.find("SelectionCell");
     const buttons: ReactWrapper = wrapper
       .find("Button")
       .filterWhere((button: ReactWrapper): boolean =>

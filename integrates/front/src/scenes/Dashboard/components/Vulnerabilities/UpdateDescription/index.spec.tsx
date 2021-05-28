@@ -28,18 +28,15 @@ import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-jest.mock(
-  "../../../../../utils/notifications",
-  (): Dictionary => {
-    const mockedNotifications: Dictionary<
-      () => Dictionary
-    > = jest.requireActual("../../../../../utils/notifications");
-    jest.spyOn(mockedNotifications, "msgError").mockImplementation();
-    jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
+jest.mock("../../../../../utils/notifications", (): Dictionary => {
+  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
+    "../../../../../utils/notifications"
+  );
+  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+  jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
-    return mockedNotifications;
-  }
-);
+  return mockedNotifications;
+});
 
 describe("Update Description component", (): void => {
   const vulns: IVulnDataTypeAttr[] = [
@@ -173,9 +170,8 @@ describe("Update Description component", (): void => {
       },
     ];
 
-    const lastTreatment: IHistoricTreatment = groupLastHistoricTreatment(
-      vulnerabilities
-    );
+    const lastTreatment: IHistoricTreatment =
+      groupLastHistoricTreatment(vulnerabilities);
 
     expect(lastTreatment).toStrictEqual(getLastTreatment([treatment]));
   });
@@ -203,35 +199,33 @@ describe("Update Description component", (): void => {
       </Provider>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(wrapper).toHaveLength(1);
-          expect(wrapper.find({ renderAsEditable: true })).toHaveLength(2);
+        expect(wrapper).toHaveLength(1);
+        expect(wrapper.find({ renderAsEditable: true })).toHaveLength(2);
 
-          const treatment: ReactWrapper = wrapper
-            .find({ name: "treatment" })
-            .find("select")
-            .at(0);
-          treatment.simulate("change", { target: { value: "IN_PROGRESS" } });
-          wrapper.update();
+        const treatment: ReactWrapper = wrapper
+          .find({ name: "treatment" })
+          .find("select")
+          .at(0);
+        treatment.simulate("change", { target: { value: "IN_PROGRESS" } });
+        wrapper.update();
 
-          const severityInput: ReactWrapper = wrapper
-            .find({ name: "severity" })
-            .at(0)
-            .find("input");
+        const severityInput: ReactWrapper = wrapper
+          .find({ name: "severity" })
+          .at(0)
+          .find("input");
 
-          const numberOfEditableFields: number = 5;
+        const numberOfEditableFields: number = 5;
 
-          expect(wrapper.find({ renderAsEditable: true })).toHaveLength(
-            numberOfEditableFields
-          );
-          expect(severityInput.prop("value")).toStrictEqual(vulns[0].severity);
-        });
-      }
-    );
+        expect(wrapper.find({ renderAsEditable: true })).toHaveLength(
+          numberOfEditableFields
+        );
+        expect(severityInput.prop("value")).toStrictEqual(vulns[0].severity);
+      });
+    });
   });
 
   it("should handle request zero risk", async (): Promise<void> => {
@@ -290,21 +284,17 @@ describe("Update Description component", (): void => {
         value: "This is a commenting test of a request zero risk in vulns",
       },
     });
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapperRequest.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapperRequest.update();
+    });
 
     const form: ReactWrapper = wrapperRequest.find("form");
     form.at(0).simulate("submit");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapperRequest.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapperRequest.update();
+    });
 
     expect(wrapperRequest).toHaveLength(1);
     expect(handleClearSelected).toHaveBeenCalledWith();
@@ -375,21 +365,17 @@ describe("Update Description component", (): void => {
         value: "This is a commenting test of a request zero risk in vulns",
       },
     });
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapperRequest.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapperRequest.update();
+    });
 
     const form: ReactWrapper = wrapperRequest.find("form");
     form.at(0).simulate("submit");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapperRequest.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapperRequest.update();
+    });
 
     expect(wrapperRequest).toHaveLength(1);
     expect(handleClearSelected).not.toHaveBeenCalled();
@@ -480,12 +466,10 @@ describe("Update Description component", (): void => {
         </MockedProvider>
       </Provider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     const treatment: ReactWrapper = wrapper
       .find({ name: "treatment" })
@@ -493,12 +477,10 @@ describe("Update Description component", (): void => {
       .at(0);
     treatment.simulate("change", { target: { value: "IN_PROGRESS" } });
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const treatmentJustification: ReactWrapper = wrapper
       .find({ name: "justification" })
       .find("textarea")
@@ -522,21 +504,17 @@ describe("Update Description component", (): void => {
     treatmentManager
       .at(0)
       .simulate("change", { target: { value: "manager_test@test.test" } });
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     const form: ReactWrapper = wrapper.find("form");
     form.at(0).simulate("submit");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
     expect(msgSuccess).toHaveBeenCalledTimes(1);
@@ -601,12 +579,10 @@ describe("Update Description component", (): void => {
         </MockedProvider>
       </Provider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
 
@@ -622,21 +598,17 @@ describe("Update Description component", (): void => {
     treatmentJustification.simulate("change", {
       target: { value: "test justification to treatment" },
     });
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const form: ReactWrapper = wrapper.find("form");
     form.at(0).simulate("submit");
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     const proceedButton: ReactWrapper = wrapper
       .find("ConfirmDialog")
@@ -646,12 +618,10 @@ describe("Update Description component", (): void => {
       );
     proceedButton.first().simulate("click");
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(msgError).toHaveBeenCalledWith(
       translate.t("searchFindings.tabVuln.alerts.maximumNumberOfAcceptations")

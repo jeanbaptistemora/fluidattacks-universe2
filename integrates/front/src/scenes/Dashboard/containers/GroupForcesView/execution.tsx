@@ -3,7 +3,7 @@ import _ from "lodash";
 import type { ReactElement } from "react";
 import React, { useCallback } from "react";
 import { selectFilter } from "react-bootstrap-table2-filter";
-import { MemoryRouter, Route } from "react-router";
+import { MemoryRouter, Route } from "react-router-dom";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
 import monokaiSublime from "react-syntax-highlighter/dist/esm/styles/hljs/monokai-sublime";
 

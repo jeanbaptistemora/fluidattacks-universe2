@@ -327,13 +327,13 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     actionAfterBlocking: "",
     actionBeforeBlocking: "",
     affectedComponents: [],
-    blockingHours: ("" as unknown) as number,
+    blockingHours: "" as unknown as number,
     context: "",
     detail: "",
-    eventDate: (undefined as unknown) as Moment,
+    eventDate: undefined as unknown as Moment,
     eventType: "",
-    file: (undefined as unknown) as FileList,
-    image: (undefined as unknown) as FileList,
+    file: undefined as unknown as FileList,
+    image: undefined as unknown as FileList,
   };
 
   return (

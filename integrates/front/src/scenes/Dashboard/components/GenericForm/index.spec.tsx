@@ -10,10 +10,9 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 const functionMock: () => void = (): void => undefined;
 
 describe("GenericForm", (): void => {
-  const store: Store<
-    unknown,
-    Action<unknown>
-  > = createStore((): unknown => ({}));
+  const store: Store<unknown, Action<unknown>> = createStore(
+    (): unknown => ({})
+  );
   const wrapper: ShallowWrapper = shallow(
     <Provider store={store}>
       <GenericForm name={"test"} onSubmit={functionMock}>

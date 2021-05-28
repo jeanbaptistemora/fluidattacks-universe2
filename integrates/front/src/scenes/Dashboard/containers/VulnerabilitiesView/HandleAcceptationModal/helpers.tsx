@@ -37,14 +37,12 @@ const onTreatmentChangeHelper = (
   isRejectZeroRiskSelected: boolean
 ): void => {
   if (isAcceptedUndefinedSelected) {
-    const pendingVulnsToHandleAcceptation: IVulnDataAttr[] = getVulnsPendingOfAcceptation(
-      vulns
-    );
+    const pendingVulnsToHandleAcceptation: IVulnDataAttr[] =
+      getVulnsPendingOfAcceptation(vulns);
     setAcceptationVulns(pendingVulnsToHandleAcceptation);
   } else if (isConfirmZeroRiskSelected || isRejectZeroRiskSelected) {
-    const requestedZeroRiskVulns: IVulnDataAttr[] = getRequestedZeroRiskVulns(
-      vulns
-    );
+    const requestedZeroRiskVulns: IVulnDataAttr[] =
+      getRequestedZeroRiskVulns(vulns);
     setAcceptationVulns([...requestedZeroRiskVulns]);
   } else {
     setAcceptationVulns([]);

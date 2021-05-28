@@ -17,16 +17,8 @@ interface ITextProps extends FieldProps<string, Record<string, string>> {
 export const FormikText: React.FC<ITextProps> = (
   props: ITextProps
 ): JSX.Element => {
-  const {
-    customBlur,
-    disabled,
-    field,
-    id,
-    max,
-    min,
-    placeholder,
-    type,
-  } = props;
+  const { customBlur, disabled, field, id, max, min, placeholder, type } =
+    props;
   const { name, onBlur, onChange, value } = field;
 
   function handleBlur(event: unknown): void {

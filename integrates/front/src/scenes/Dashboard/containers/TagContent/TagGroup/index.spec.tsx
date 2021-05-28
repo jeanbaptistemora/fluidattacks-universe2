@@ -6,7 +6,7 @@ import { GraphQLError } from "graphql";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { MemoryRouter, Route } from "react-router";
+import { MemoryRouter, Route } from "react-router-dom";
 import waitForExpect from "wait-for-expect";
 
 import { TagsGroup } from "scenes/Dashboard/containers/TagContent/TagGroup";
@@ -16,34 +16,27 @@ import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 const mockHistoryPush: jest.Mock = jest.fn();
-jest.mock(
-  "react-router",
-  (): Dictionary => {
-    const mockedRouter: Dictionary<() => Dictionary> = jest.requireActual(
-      "react-router"
-    );
+jest.mock("react-router", (): Dictionary => {
+  const mockedRouter: Dictionary<() => Dictionary> =
+    jest.requireActual("react-router");
 
-    return {
-      ...mockedRouter,
-      useHistory: (): Dictionary => ({
-        ...mockedRouter.useHistory(),
-        push: mockHistoryPush,
-      }),
-    };
-  }
-);
-jest.mock(
-  "../../../../../utils/notifications",
-  (): Dictionary => {
-    const mockedNotifications: Dictionary = jest.requireActual(
-      "../../../../../utils/notifications"
-    );
-    // eslint-disable-next-line jest/prefer-spy-on, fp/no-mutation
-    mockedNotifications.msgError = jest.fn();
+  return {
+    ...mockedRouter,
+    useHistory: (): Dictionary => ({
+      ...mockedRouter.useHistory(),
+      push: mockHistoryPush,
+    }),
+  };
+});
+jest.mock("../../../../../utils/notifications", (): Dictionary => {
+  const mockedNotifications: Dictionary = jest.requireActual(
+    "../../../../../utils/notifications"
+  );
+  // eslint-disable-next-line jest/prefer-spy-on, fp/no-mutation
+  mockedNotifications.msgError = jest.fn();
 
-    return mockedNotifications;
-  }
-);
+  return mockedNotifications;
+});
 
 describe("Portfolio Groups", (): void => {
   const mockedResult: { description: string; name: string }[] = [
@@ -110,16 +103,14 @@ describe("Portfolio Groups", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(wrapper).toHaveLength(1);
-          expect(wrapper.find("table")).toHaveLength(1);
-        });
-      }
-    );
+        expect(wrapper).toHaveLength(1);
+        expect(wrapper.find("table")).toHaveLength(1);
+      });
+    });
 
     const table: ReactWrapper = wrapper.find("table");
     const tableBody: ReactWrapper = table.find("tbody");
@@ -150,19 +141,17 @@ describe("Portfolio Groups", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        await waitForExpect((): void => {
-          wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(wrapper).toHaveLength(1);
-          expect(msgError).toHaveBeenCalledWith(
-            translate.t("groupAlerts.errorTextsad")
-          );
-        });
-      }
-    );
+        expect(wrapper).toHaveLength(1);
+        expect(msgError).toHaveBeenCalledWith(
+          translate.t("groupAlerts.errorTextsad")
+        );
+      });
+    });
   });
 });

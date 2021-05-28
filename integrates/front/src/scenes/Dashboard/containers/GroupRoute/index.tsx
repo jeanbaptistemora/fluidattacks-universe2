@@ -28,10 +28,11 @@ import { translate } from "utils/translations/translate";
 
 const GroupRoute: React.FC<IGroupRoute> = (props: IGroupRoute): JSX.Element => {
   const { setUserRole } = props;
-  const { organizationName, projectName } = useParams<{
-    organizationName: string;
-    projectName: string;
-  }>();
+  const { organizationName, projectName } =
+    useParams<{
+      organizationName: string;
+      projectName: string;
+    }>();
   const { path } = useRouteMatch();
 
   const attributes: PureAbility<string> = useContext(authzGroupContext);

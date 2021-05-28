@@ -2,8 +2,7 @@ import { useQuery } from "@apollo/client";
 import _ from "lodash";
 import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory, useLocation } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 
 import { AddOrganizationModal } from "./AddOrganizationModal";
 import { GET_USER_ORGANIZATIONS } from "./queries";
@@ -103,8 +102,9 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathOrganization]);
 
-  const breadcrumbItems: JSX.Element[] = pathData.slice(1).map(
-    (item: string, index: number): JSX.Element => {
+  const breadcrumbItems: JSX.Element[] = pathData
+    .slice(1)
+    .map((item: string, index: number): JSX.Element => {
       const [, baseLink] = path.split("/");
       const link: string = pathData.slice(0, index + 2).join("/");
 
@@ -113,8 +113,7 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
           <Link to={`/${baseLink}/${link}`}>{stylizeBreadcrumbItem(item)}</Link>
         </li>
       );
-    }
-  );
+    });
 
   const [isOrganizationModalOpen, setOrganizationModalOpen] = useState(false);
   const openOrganizationModal: () => void = useCallback((): void => {

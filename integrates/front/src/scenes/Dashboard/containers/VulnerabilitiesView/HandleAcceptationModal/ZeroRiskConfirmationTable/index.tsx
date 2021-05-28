@@ -10,11 +10,8 @@ import type { IHeaderConfig } from "components/DataTableNext/types";
 const ZeroRiskConfirmationTable: React.FC<IZeroRiskConfirmationTableProps> = (
   props: IZeroRiskConfirmationTableProps
 ): JSX.Element => {
-  const {
-    acceptationVulns,
-    isConfirmZeroRiskSelected,
-    setAcceptationVulns,
-  } = props;
+  const { acceptationVulns, isConfirmZeroRiskSelected, setAcceptationVulns } =
+    props;
 
   const handleUpdateZeroRiskConfirmation: (
     vulnInfo: Dictionary<string>

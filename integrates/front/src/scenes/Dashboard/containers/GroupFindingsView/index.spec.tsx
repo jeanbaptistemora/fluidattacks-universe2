@@ -169,12 +169,10 @@ describe("GroupFindingsView", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     const reportsModal: ReactWrapper = wrapper.find("Button#reports");
 
@@ -238,12 +236,10 @@ describe("GroupFindingsView", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     const customToggleListButton: ReactWrapper = wrapper
       .find(CustomToggleList)

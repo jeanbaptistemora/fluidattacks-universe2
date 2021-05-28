@@ -5,7 +5,7 @@ import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { MemoryRouter, Route } from "react-router";
+import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { EvidenceView } from "scenes/Dashboard/containers/EvidenceView";
@@ -56,11 +56,9 @@ describe("FindingEvidenceView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+    });
 
     expect(wrapper).toHaveLength(1);
   });
@@ -102,12 +100,10 @@ describe("FindingEvidenceView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper.text()).toContain("There are no evidences");
   });
@@ -127,12 +123,10 @@ describe("FindingEvidenceView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper.containsMatchingElement(<img alt={""} />)).toBe(true);
   });
@@ -152,19 +146,15 @@ describe("FindingEvidenceView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     wrapper.find("img").at(0).simulate("click");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper.find("ReactImageLightbox")).toHaveLength(1);
   });

@@ -8,8 +8,7 @@ export const enTranslations: ResourceKey = {
           grey: "Each grey dot represents a resource (IP, URL, or repository).",
           redAndGreen:
             "Red and green dots represent the open and closed findings for that system, respectively.",
-          size:
-            "Size and darkness are proportional to the security impact on that system.",
+          size: "Size and darkness are proportional to the security impact on that system.",
         },
         title: "Systems Risk",
       },

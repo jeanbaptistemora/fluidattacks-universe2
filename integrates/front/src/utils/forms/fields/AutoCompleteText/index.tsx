@@ -52,23 +52,21 @@ export const AutoCompleteText: React.FC<IAutoCompleteTextProps> = (
       />
       {shouldRender && (
         <ul className={style.suggestionList}>
-          {filteredSuggestions.map(
-            (suggestion: string): JSX.Element => {
-              function handleSuggestionClick(): void {
-                onChange(suggestion);
-              }
-
-              return (
-                <button
-                  key={suggestion}
-                  onClick={handleSuggestionClick}
-                  type={"button"}
-                >
-                  <li>{suggestion}</li>
-                </button>
-              );
+          {filteredSuggestions.map((suggestion: string): JSX.Element => {
+            function handleSuggestionClick(): void {
+              onChange(suggestion);
             }
-          )}
+
+            return (
+              <button
+                key={suggestion}
+                onClick={handleSuggestionClick}
+                type={"button"}
+              >
+                <li>{suggestion}</li>
+              </button>
+            );
+          })}
         </ul>
       )}
       {meta.touched && !_.isUndefined(meta.error) && (

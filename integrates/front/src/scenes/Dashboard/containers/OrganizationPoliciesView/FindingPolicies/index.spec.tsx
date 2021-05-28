@@ -22,18 +22,15 @@ import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-jest.mock(
-  "../../../../../utils/notifications",
-  (): Dictionary => {
-    const mockedNotifications: Dictionary<
-      () => Dictionary
-    > = jest.requireActual("../../../../../utils/notifications");
-    jest.spyOn(mockedNotifications, "msgError").mockImplementation();
-    jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
+jest.mock("../../../../../utils/notifications", (): Dictionary => {
+  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
+    "../../../../../utils/notifications"
+  );
+  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+  jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
-    return mockedNotifications;
-  }
-);
+  return mockedNotifications;
+});
 
 describe("Organization findings policies view", (): void => {
   const organizationId: string = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3";
@@ -141,17 +138,15 @@ describe("Organization findings policies view", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        await waitForExpect((): void => {
-          wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(wrapper).toHaveLength(1);
-        });
-      }
-    );
+        expect(wrapper).toHaveLength(1);
+      });
+    });
 
     const name: ReactWrapper = wrapper.find({ name: "name" }).find("input");
 
@@ -161,17 +156,15 @@ describe("Organization findings policies view", (): void => {
 
     wrapper.find("Formik").simulate("submit");
 
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        wrapper.update();
+      wrapper.update();
 
-        await waitForExpect((): void => {
-          expect(msgSuccess).toHaveBeenCalledTimes(1);
-        });
-      }
-    );
+      await waitForExpect((): void => {
+        expect(msgSuccess).toHaveBeenCalledTimes(1);
+      });
+    });
   });
 
   it("add organization findings policies mutation message error", async (): Promise<void> => {
@@ -220,17 +213,15 @@ describe("Organization findings policies view", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        await waitForExpect((): void => {
-          wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(wrapper).toHaveLength(1);
-        });
-      }
-    );
+        expect(wrapper).toHaveLength(1);
+      });
+    });
 
     const name: ReactWrapper = wrapper.find({ name: "name" }).find("input");
 
@@ -240,19 +231,17 @@ describe("Organization findings policies view", (): void => {
 
     wrapper.find("Formik").simulate("submit");
 
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        wrapper.update();
+      wrapper.update();
 
-        await waitForExpect((): void => {
-          expect(msgError).toHaveBeenCalledWith(
-            t("organization.tabs.policies.findings.errors.duplicateFinding")
-          );
-        });
-      }
-    );
+      await waitForExpect((): void => {
+        expect(msgError).toHaveBeenCalledWith(
+          t("organization.tabs.policies.findings.errors.duplicateFinding")
+        );
+      });
+    });
   });
 
   it("organization finding policy missing handle actions permissions", async (): Promise<void> => {
@@ -296,18 +285,16 @@ describe("Organization findings policies view", (): void => {
       .find("OrganizationFindingPolicy")
       .last();
 
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        wrapper.update();
+      wrapper.update();
 
-        await waitForExpect((): void => {
-          expect(firstRow.find("Button")).toHaveLength(0);
-          expect(lastRow.find("Button")).toHaveLength(0);
-        });
-      }
-    );
+      await waitForExpect((): void => {
+        expect(firstRow.find("Button")).toHaveLength(0);
+        expect(lastRow.find("Button")).toHaveLength(0);
+      });
+    });
   });
 
   it("organization finding policy handle actions permissions", async (): Promise<void> => {
@@ -407,49 +394,43 @@ describe("Organization findings policies view", (): void => {
       .find("OrganizationFindingPolicy")
       .last();
 
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        wrapper.update();
+      wrapper.update();
 
-        await waitForExpect((): void => {
-          expect(firstRow.find("Button")).toHaveLength(2);
-          expect(lastRow.find("Button")).toHaveLength(1);
-        });
-      }
-    );
+      await waitForExpect((): void => {
+        expect(firstRow.find("Button")).toHaveLength(2);
+        expect(lastRow.find("Button")).toHaveLength(1);
+      });
+    });
 
     firstRow.find("Button").first().simulate("click");
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        wrapper.update();
+      wrapper.update();
 
-        await waitForExpect((): void => {
-          expect(msgSuccess).toHaveBeenCalledWith(
-            translate.t(
-              "organization.tabs.policies.findings.handlePolicies.success.approved"
-            ),
-            translate.t("sidebar.newOrganization.modal.successTitle")
-          );
-        });
-      }
-    );
+      await waitForExpect((): void => {
+        expect(msgSuccess).toHaveBeenCalledWith(
+          translate.t(
+            "organization.tabs.policies.findings.handlePolicies.success.approved"
+          ),
+          translate.t("sidebar.newOrganization.modal.successTitle")
+        );
+      });
+    });
 
     lastRow.find("Button").first().simulate("click");
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        wrapper.update();
+      wrapper.update();
 
-        await waitForExpect((): void => {
-          expect(wrapper.find("ConfirmDialog")).toHaveLength(1);
-        });
-      }
-    );
+      await waitForExpect((): void => {
+        expect(wrapper.find("ConfirmDialog")).toHaveLength(1);
+      });
+    });
 
     const confirmDialog: ReactWrapper = wrapper.find("ConfirmDialog").first();
 
@@ -460,22 +441,20 @@ describe("Organization findings policies view", (): void => {
       )
       .first();
     proceedButton.simulate("click");
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        wrapper.update();
+      wrapper.update();
 
-        await waitForExpect((): void => {
-          expect(msgSuccess).toHaveBeenCalledWith(
-            translate.t(
-              "organization.tabs.policies.findings.deactivatePolicies.success"
-            ),
-            translate.t("sidebar.newOrganization.modal.successTitle")
-          );
-        });
-      }
-    );
+      await waitForExpect((): void => {
+        expect(msgSuccess).toHaveBeenCalledWith(
+          translate.t(
+            "organization.tabs.policies.findings.deactivatePolicies.success"
+          ),
+          translate.t("sidebar.newOrganization.modal.successTitle")
+        );
+      });
+    });
   });
 
   it("organization finding policy handle reject action", async (): Promise<void> => {
@@ -552,49 +531,43 @@ describe("Organization findings policies view", (): void => {
       .find("OrganizationFindingPolicy")
       .last();
 
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        wrapper.update();
+      wrapper.update();
 
-        await waitForExpect((): void => {
-          expect(firstRow.find("Button")).toHaveLength(2);
-          expect(lastRow.find("Button")).toHaveLength(1);
-        });
-      }
-    );
+      await waitForExpect((): void => {
+        expect(firstRow.find("Button")).toHaveLength(2);
+        expect(lastRow.find("Button")).toHaveLength(1);
+      });
+    });
 
     firstRow.find("Button").last().simulate("click");
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        wrapper.update();
+      wrapper.update();
 
-        await waitForExpect((): void => {
-          expect(msgSuccess).toHaveBeenCalledWith(
-            translate.t(
-              "organization.tabs.policies.findings.handlePolicies.success.rejected"
-            ),
-            translate.t("sidebar.newOrganization.modal.successTitle")
-          );
-        });
-      }
-    );
+      await waitForExpect((): void => {
+        expect(msgSuccess).toHaveBeenCalledWith(
+          translate.t(
+            "organization.tabs.policies.findings.handlePolicies.success.rejected"
+          ),
+          translate.t("sidebar.newOrganization.modal.successTitle")
+        );
+      });
+    });
 
     lastRow.find("Button").first().simulate("click");
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        wrapper.update();
+      wrapper.update();
 
-        await waitForExpect((): void => {
-          expect(wrapper.find("Modal").first().prop("open")).toBe(true);
-        });
-      }
-    );
+      await waitForExpect((): void => {
+        expect(wrapper.find("Modal").first().prop("open")).toBe(true);
+      });
+    });
 
     const confirmDialog: ReactWrapper = wrapper.find("ConfirmDialog").first();
 
@@ -603,17 +576,15 @@ describe("Organization findings policies view", (): void => {
       .findWhere((element: ReactWrapper): boolean => element.contains("Cancel"))
       .first();
     cancelButton.simulate("click");
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        wrapper.update();
+      wrapper.update();
 
-        await waitForExpect((): void => {
-          expect(wrapper.find("Modal").first().prop("open")).toBe(false);
-        });
-      }
-    );
+      await waitForExpect((): void => {
+        expect(wrapper.find("Modal").first().prop("open")).toBe(false);
+      });
+    });
   });
 
   it("handle organization findings policies mutation message error", async (): Promise<void> => {
@@ -674,17 +645,15 @@ describe("Organization findings policies view", (): void => {
       </MemoryRouter>
     );
 
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        await waitForExpect((): void => {
-          wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(wrapper).toHaveLength(1);
-        });
-      }
-    );
+        expect(wrapper).toHaveLength(1);
+      });
+    });
 
     const firstRow: ReactWrapper = wrapper
       .find("OrganizationFindingPolicy")
@@ -692,16 +661,14 @@ describe("Organization findings policies view", (): void => {
 
     firstRow.find("Button").first().simulate("click");
 
-    await act(
-      async (): Promise<void> => {
-        expect.hasAssertions();
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
 
-        wrapper.update();
+      wrapper.update();
 
-        await waitForExpect((): void => {
-          expect(msgError).toHaveBeenCalledTimes(2);
-        });
-      }
-    );
+      await waitForExpect((): void => {
+        expect(msgError).toHaveBeenCalledTimes(2);
+      });
+    });
   });
 });

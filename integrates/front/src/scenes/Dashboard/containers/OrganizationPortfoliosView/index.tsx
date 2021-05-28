@@ -1,6 +1,6 @@
 import _ from "lodash";
 import React from "react";
-import { useHistory, useRouteMatch } from "react-router";
+import { useHistory, useRouteMatch } from "react-router-dom";
 
 import { DataTableNext } from "components/DataTableNext/index";
 import type { IHeaderConfig } from "components/DataTableNext/types";

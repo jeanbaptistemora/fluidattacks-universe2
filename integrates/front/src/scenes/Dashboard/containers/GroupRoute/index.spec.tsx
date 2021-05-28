@@ -48,11 +48,9 @@ describe("GroupRoute", (): void => {
         <GroupRoute setUserRole={setUserRoleCallback} />
       </MockedProvider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+    });
 
     expect(wrapper).toHaveLength(1);
   });

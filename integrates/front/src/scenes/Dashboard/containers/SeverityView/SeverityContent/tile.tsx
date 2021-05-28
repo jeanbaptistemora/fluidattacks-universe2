@@ -87,9 +87,9 @@ const SeverityTile: React.FC<ISeverityTile> = ({
   valueText,
 }: ISeverityTile): JSX.Element => {
   const { t } = useTranslation();
-  const imageName: string = (_.first(
-    `${name}${valueText}`.split(" ")
-  ) as string).replace(/\W/u, "");
+  const imageName: string = (
+    _.first(`${name}${valueText}`.split(" ")) as string
+  ).replace(/\W/u, "");
 
   return (
     <React.StrictMode>

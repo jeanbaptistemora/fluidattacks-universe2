@@ -4,7 +4,7 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useContext } from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 
 import { handleAddCommentErrorHelper } from "./helpers";
 
@@ -53,14 +53,13 @@ const CommentsView: React.FC = (): JSX.Element => {
     [type]
   );
 
-  const handleAddCommentError: (
-    addCommentError: ApolloError
-  ) => void = useCallback(
-    (addCommentError: ApolloError): void => {
-      handleAddCommentErrorHelper(addCommentError, type);
-    },
-    [type]
-  );
+  const handleAddCommentError: (addCommentError: ApolloError) => void =
+    useCallback(
+      (addCommentError: ApolloError): void => {
+        handleAddCommentErrorHelper(addCommentError, type);
+      },
+      [type]
+    );
 
   const { data, loading } = useQuery<ICommentsData>(
     type === "consult" ? GET_FINDING_CONSULTING : GET_FINDING_OBSERVATIONS,

@@ -10,10 +10,9 @@ import { FileOptionsModal } from "scenes/Dashboard/components/FileOptionsModal";
 const functionMock: () => void = (): void => undefined;
 
 describe("Add resources modal", (): void => {
-  const store: Store<
-    unknown,
-    Action<unknown>
-  > = createStore((): unknown => ({}));
+  const store: Store<unknown, Action<unknown>> = createStore(
+    (): unknown => ({})
+  );
   const wrapper: ShallowWrapper = shallow(
     <Provider store={store}>
       <FileOptionsModal

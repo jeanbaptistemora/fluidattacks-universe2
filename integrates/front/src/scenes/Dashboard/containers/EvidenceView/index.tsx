@@ -8,7 +8,7 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import type { InjectedFormProps, Validator } from "redux-form";
 
 import {

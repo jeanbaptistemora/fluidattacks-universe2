@@ -68,15 +68,13 @@ describe("Navbar", (): void => {
       }
     );
 
-    await act(
-      async (): Promise<void> => {
-        await waitForExpect((): void => {
-          wrapper.update();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
 
-          expect(wrapper.find(SplitButton).props().title).toBe("okada");
-          expect(wrapper.find(GenericForm).props().name).toBe("searchBar");
-        });
-      }
-    );
+        expect(wrapper.find(SplitButton).props().title).toBe("okada");
+        expect(wrapper.find(GenericForm).props().name).toBe("searchBar");
+      });
+    });
   });
 });

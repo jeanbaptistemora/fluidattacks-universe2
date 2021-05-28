@@ -30,9 +30,9 @@ const UnsubscribeModal: React.FC<IUnsubscribeModalProps> = (
   const { groupName, isOpen, onClose, onSubmit } = props;
   const { t } = useTranslation();
 
-  function formValidations(values: {
-    confirmation: string;
-  }): { confirmation?: string } {
+  function formValidations(values: { confirmation: string }): {
+    confirmation?: string;
+  } {
     return values.confirmation === groupName
       ? {}
       : {

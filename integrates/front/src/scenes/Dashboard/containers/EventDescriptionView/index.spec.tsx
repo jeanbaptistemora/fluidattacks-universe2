@@ -7,7 +7,7 @@ import _ from "lodash";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { MemoryRouter, Route } from "react-router";
+import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { EventDescriptionView } from "scenes/Dashboard/containers/EventDescriptionView";
@@ -59,12 +59,10 @@ describe("EventDescriptionView", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
   });
@@ -84,12 +82,10 @@ describe("EventDescriptionView", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper.text()).toContain("Conectividad a Internet");
   });
@@ -114,24 +110,20 @@ describe("EventDescriptionView", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const solveButton: ReactWrapper = wrapper
       .find("Button")
       .filterWhere((button: ReactWrapper): boolean =>
         _.includes(button.text(), "Mark as solved")
       );
     solveButton.simulate("click");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(
       wrapper.find("genericForm").find({ name: "solveEvent" })

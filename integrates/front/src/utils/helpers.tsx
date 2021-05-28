@@ -1,7 +1,7 @@
 import type { FetchResult } from "@apollo/client";
 import type { ExecutionResult, GraphQLError } from "graphql";
 import _ from "lodash";
-import type { useHistory } from "react-router";
+import type { useHistory } from "react-router-dom";
 
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";

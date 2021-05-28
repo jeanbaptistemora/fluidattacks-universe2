@@ -25,9 +25,8 @@ describe("Validations", (): void => {
     expect.hasAssertions();
 
     const max: number = 5;
-    const severityBetween: (
-      value: number
-    ) => string | undefined = numberBetween(0, max);
+    const severityBetween: (value: number) => string | undefined =
+      numberBetween(0, max);
 
     const severity: number = 3;
 
@@ -38,9 +37,8 @@ describe("Validations", (): void => {
     expect.hasAssertions();
 
     const max: number = 5;
-    const severityBetween: (
-      value: number
-    ) => string | undefined = numberBetween(0, max);
+    const severityBetween: (value: number) => string | undefined =
+      numberBetween(0, max);
 
     const severity: number = 6;
 
@@ -447,12 +445,10 @@ describe("Validations", (): void => {
   it("shouldn't be a valid url", (): void => {
     expect.hasAssertions();
 
-    const feedbackMissChar: string | undefined = validUrlField(
-      "test/url/fi eld#1"
-    );
-    const feedbackInvalidChar: string | undefined = validUrlField(
-      "test/url/fiéld"
-    );
+    const feedbackMissChar: string | undefined =
+      validUrlField("test/url/fi eld#1");
+    const feedbackInvalidChar: string | undefined =
+      validUrlField("test/url/fiéld");
 
     expect(feedbackMissChar).toStrictEqual(
       "URL value cannot contain the following characters: ' '"

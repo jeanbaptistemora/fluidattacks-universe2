@@ -7,7 +7,7 @@ import { GraphQLError } from "graphql";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { MemoryRouter, Route } from "react-router";
+import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { DataTableNext } from "components/DataTableNext";
@@ -24,18 +24,15 @@ import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
-jest.mock(
-  "../../../../utils/notifications",
-  (): Dictionary => {
-    const mockedNotifications: Dictionary = jest.requireActual(
-      "../../../../utils/notifications"
-    );
-    mockedNotifications.msgSuccess = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
-    mockedNotifications.msgError = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
+jest.mock("../../../../utils/notifications", (): Dictionary => {
+  const mockedNotifications: Dictionary = jest.requireActual(
+    "../../../../utils/notifications"
+  );
+  mockedNotifications.msgSuccess = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
+  mockedNotifications.msgError = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
 
-    return mockedNotifications;
-  }
-);
+  return mockedNotifications;
+});
 
 /*
  * Important Notice: When going from redux-form to Formik, some of the changes to keep
@@ -165,12 +162,10 @@ describe("Group users view", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     const stakeholderTable: ReactWrapper<ITableProps> = wrapper
       .find(DataTableNext)
@@ -263,32 +258,26 @@ describe("Group users view", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const addUserModal: ReactWrapper = wrapper
       .find("ModalBase")
       .find({ headerTitle: "Add stakeholder to this group", open: true });
 
     expect(addUserModal).toHaveLength(0);
 
-    await act(
-      async (): Promise<void> => {
-        const addButton: ReactWrapper = wrapper
-          .find("button")
-          .findWhere((element: ReactWrapper): boolean =>
-            element.contains("Add")
-          )
-          .at(0);
-        addButton.simulate("click");
+    await act(async (): Promise<void> => {
+      const addButton: ReactWrapper = wrapper
+        .find("button")
+        .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
+        .at(0);
+      addButton.simulate("click");
 
-        await wait(0);
-        wrapper.update();
-      }
-    );
+      await wait(0);
+      wrapper.update();
+    });
     const addUserModal2: ReactWrapper = wrapper
       .find("ModalBase")
       .find({ headerTitle: "Add stakeholder to this group", open: true });
@@ -318,12 +307,10 @@ describe("Group users view", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const editUserModal: ReactWrapper = wrapper
       .find("ModalBase")
       .find({ headerTitle: "Edit stakeholder information", open: true });
@@ -342,12 +329,10 @@ describe("Group users view", (): void => {
       .findWhere((element: ReactWrapper): boolean => element.contains("Edit"))
       .at(0);
     addButton.simulate("click");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const editUserModal2: ReactWrapper = wrapper
       .find("ModalBase")
       .find({ headerTitle: "Edit stakeholder information", open: true });
@@ -405,12 +390,10 @@ describe("Group users view", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const addButton: ReactWrapper = wrapper
       .find("button")
       .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
@@ -451,14 +434,12 @@ describe("Group users view", (): void => {
       .at(0);
     select.simulate("change", { target: { name: "role", value: "ANALYST" } });
     const form: ReactWrapper = addUserModal.find("Formik").at(0);
-    await act(
-      async (): Promise<void> => {
-        form.simulate("submit");
+    await act(async (): Promise<void> => {
+      form.simulate("submit");
 
-        await wait(0);
-        wrapper.update();
-      }
-    );
+      await wait(0);
+      wrapper.update();
+    });
 
     const addUserModal2: ReactWrapper = wrapper
       .find("ModalBase")
@@ -515,12 +496,10 @@ describe("Group users view", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const userInfo: ReactWrapper = wrapper
       .find("tr")
       .findWhere((element: ReactWrapper): boolean =>
@@ -532,14 +511,12 @@ describe("Group users view", (): void => {
       .find("button")
       .findWhere((element: ReactWrapper): boolean => element.contains("Remove"))
       .at(0);
-    await act(
-      async (): Promise<void> => {
-        removeButton.simulate("click");
+    await act(async (): Promise<void> => {
+      removeButton.simulate("click");
 
-        await wait(0);
-        wrapper.update();
-      }
-    );
+      await wait(0);
+      wrapper.update();
+    });
 
     await wait(0);
 
@@ -596,12 +573,10 @@ describe("Group users view", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const userInfo: ReactWrapper = wrapper
       .find("tr")
       .findWhere((element: ReactWrapper): boolean =>
@@ -642,14 +617,12 @@ describe("Group users view", (): void => {
       .at(0);
     select.simulate("change", { target: { name: "role", value: "ANALYST" } });
     const form: ReactWrapper = editUserModal.find("Formik").at(0);
-    await act(
-      async (): Promise<void> => {
-        form.simulate("submit");
+    await act(async (): Promise<void> => {
+      form.simulate("submit");
 
-        await wait(0);
-        wrapper.update();
-      }
-    );
+      await wait(0);
+      wrapper.update();
+    });
     const editUserModal2: ReactWrapper = wrapper
       .find("ModalBase")
       .find({ headerTitle: "Edit stakeholder information", open: true });
@@ -719,12 +692,10 @@ describe("Group users view", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const addButton: ReactWrapper = wrapper
       .find("button")
       .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
@@ -765,14 +736,12 @@ describe("Group users view", (): void => {
       .at(0);
     select.simulate("change", { target: { name: "role", value: "ANALYST" } });
     const form: ReactWrapper = addUserModal.find("Formik").at(0);
-    await act(
-      async (): Promise<void> => {
-        form.simulate("submit");
+    await act(async (): Promise<void> => {
+      form.simulate("submit");
 
-        await wait(0);
-        wrapper.update();
-      }
-    );
+      await wait(0);
+      wrapper.update();
+    });
     const addUserModal2: ReactWrapper = wrapper
       .find("ModalBase")
       .find({ headerTitle: "Add stakeholder to this group", open: true });
@@ -823,12 +792,10 @@ describe("Group users view", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const userInfo: ReactWrapper = wrapper
       .find("tr")
       .findWhere((element: ReactWrapper): boolean =>
@@ -840,14 +807,12 @@ describe("Group users view", (): void => {
       .find("button")
       .findWhere((element: ReactWrapper): boolean => element.contains("Remove"))
       .at(0);
-    await act(
-      async (): Promise<void> => {
-        removeButton.simulate("click");
+    await act(async (): Promise<void> => {
+      removeButton.simulate("click");
 
-        await wait(0);
-        wrapper.update();
-      }
-    );
+      await wait(0);
+      wrapper.update();
+    });
     await wait(0);
 
     expect(msgError).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
@@ -909,12 +874,10 @@ describe("Group users view", (): void => {
         </Provider>
       </MemoryRouter>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const userInfo: ReactWrapper = wrapper
       .find("tr")
       .findWhere((element: ReactWrapper): boolean =>
@@ -956,14 +919,12 @@ describe("Group users view", (): void => {
       .at(0);
     select.simulate("change", { target: { name: "role", value: "ANALYST" } });
     const form: ReactWrapper = editUserModal.find("Formik").at(0);
-    await act(
-      async (): Promise<void> => {
-        form.simulate("submit");
+    await act(async (): Promise<void> => {
+      form.simulate("submit");
 
-        await wait(0);
-        wrapper.update();
-      }
-    );
+      await wait(0);
+      wrapper.update();
+    });
     const editUserModal2: ReactWrapper = wrapper.find("ModalBase").find({
       headerTitle: "Edit stakeholder information",
       open: true,

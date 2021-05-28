@@ -20,17 +20,19 @@ import { translate } from "utils/translations/translate";
  *
  * Example: composeValidators([val1, val2, val3])
  */
-const composeValidators = (
-  // Needed for compatibility with ConfigurableValidator parameters
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  args: ((value: any) => string | undefined)[]
-): unknown => (value: unknown): string | undefined => {
-  const errors = args
-    .map((validator): string | undefined => validator(value))
-    .filter((error): boolean => error !== undefined);
+const composeValidators =
+  (
+    // Needed for compatibility with ConfigurableValidator parameters
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    args: ((value: any) => string | undefined)[]
+  ): unknown =>
+  (value: unknown): string | undefined => {
+    const errors = args
+      .map((validator): string | undefined => validator(value))
+      .filter((error): boolean => error !== undefined);
 
-  return errors[0];
-};
+    return errors[0];
+  };
 
 const required: Validator = isRequired({
   message: translate.t("validations.required"),
@@ -118,11 +120,12 @@ const validTextField: Validator = (value: string): string | undefined => {
       });
     }
 
-    // We use them for control character pattern matching.
-    // eslint-disable-next-line no-control-regex
-    const textMatch: RegExpMatchArray | null = /[^a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\x0b\x0c(),./:;@_$#=?-]/u.exec(
-      value
-    );
+    const textMatch: RegExpMatchArray | null =
+      // We use them for control character pattern matching.
+      // eslint-disable-next-line no-control-regex
+      /[^a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ \t\n\r\x0b\x0c(),./:;@_$#=?-]/u.exec(
+        value
+      );
     if (!_.isNull(textMatch)) {
       return translate.t("validations.invalidTextField", {
         chars: `'${textMatch[0]}'`,
@@ -157,9 +160,8 @@ const validUrlField: (value: string) => string | undefined = (
       });
     }
 
-    const urlMatch: RegExpMatchArray | null = /[^a-zA-Z0-9(),./:;@_$#=?-]/u.exec(
-      cleanValue
-    );
+    const urlMatch: RegExpMatchArray | null =
+      /[^a-zA-Z0-9(),./:;@_$#=?-]/u.exec(cleanValue);
     if (!_.isNull(urlMatch)) {
       return translate.t("validations.invalidUrlField", {
         chars: `'${urlMatch[0]}'`,
@@ -172,13 +174,12 @@ const validUrlField: (value: string) => string | undefined = (
   return undefined;
 };
 
-const numberBetween: (min: number, max: number) => Validator = (
-  min: number,
-  max: number
-): Validator => (value: number): string | undefined =>
-  value < min || value > max
-    ? translate.t("validations.between", { max, min })
-    : undefined;
+const numberBetween: (min: number, max: number) => Validator =
+  (min: number, max: number): Validator =>
+  (value: number): string | undefined =>
+    value < min || value > max
+      ? translate.t("validations.between", { max, min })
+      : undefined;
 
 const minLength: (min: number) => Validator = (min: number): Validator =>
   hasLengthGreaterThan(min - 1)({
@@ -190,10 +191,10 @@ const maxLength: (max: number) => Validator = (max: number): Validator =>
     message: translate.t("validations.maxLength", { count: max }),
   }) as Validator;
 
-const sameValue: (projectName: string) => Validator = (
-  projectName: string
-): Validator => (value: string): string | undefined =>
-  value === projectName ? undefined : translate.t("validations.required");
+const sameValue: (projectName: string) => Validator =
+  (projectName: string): Validator =>
+  (value: string): string | undefined =>
+    value === projectName ? undefined : translate.t("validations.required");
 
 const numeric: Validator = isNumeric({
   message: translate.t("validations.numeric"),
@@ -231,9 +232,8 @@ const isValidVulnSeverity: Validator = (value: string): string | undefined => {
       isNumeric({ message: translate.t("validations.numeric") }, value)
     )
   ) {
-    const severityBetween: (
-      input: number
-    ) => string | undefined = numberBetween(min, max);
+    const severityBetween: (input: number) => string | undefined =
+      numberBetween(min, max);
 
     return severityBetween(Number(value));
   }
@@ -346,15 +346,15 @@ const isValidFileName: Validator = (file: FileList): string | undefined => {
     : translate.t("searchFindings.tabResources.invalidChars");
 };
 
-const isValidFileSize: (maxSize: number) => Validator = (
-  maxSize: number
-): Validator => (file: FileList): string | undefined => {
-  const MIB: number = 1048576;
+const isValidFileSize: (maxSize: number) => Validator =
+  (maxSize: number): Validator =>
+  (file: FileList): string | undefined => {
+    const MIB: number = 1048576;
 
-  return _.isEmpty(file) || file[0].size < MIB * maxSize
-    ? undefined
-    : translate.t("validations.fileSize", { count: maxSize });
-};
+    return _.isEmpty(file) || file[0].size < MIB * maxSize
+      ? undefined
+      : translate.t("validations.fileSize", { count: maxSize });
+  };
 
 const isValidDateAccessToken: Validator = (
   value: string

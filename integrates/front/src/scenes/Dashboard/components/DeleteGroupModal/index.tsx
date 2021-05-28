@@ -29,9 +29,9 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
 ): JSX.Element => {
   const { groupName, isOpen, onClose, onSubmit } = props;
 
-  function formValidations(values: {
-    confirmation: string;
-  }): { confirmation?: string } {
+  function formValidations(values: { confirmation: string }): {
+    confirmation?: string;
+  } {
     return values.confirmation === groupName
       ? {}
       : {

@@ -4,13 +4,13 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback } from "react";
 import {
+  NavLink,
   Redirect,
   Route,
   Switch,
   useParams,
   useRouteMatch,
-} from "react-router";
-import { NavLink } from "react-router-dom";
+} from "react-router-dom";
 
 import { EventHeader } from "scenes/Dashboard/components/EventHeader";
 import type { IEventHeaderProps } from "scenes/Dashboard/components/EventHeader";

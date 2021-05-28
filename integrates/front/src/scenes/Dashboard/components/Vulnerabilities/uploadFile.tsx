@@ -100,51 +100,46 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
     });
   }
 
-  const [
-    uploadVulnerability,
-    { loading },
-  ] = useMutation<IUploadVulnerabilitiesResultAttr>(UPLOAD_VULNERABILITIES, {
-    onCompleted: (result: IUploadVulnerabilitiesResultAttr): void => {
-      if (!_.isUndefined(result)) {
-        if (result.uploadFile.success) {
-          msgSuccess(
-            translate.t("groupAlerts.fileUpdated"),
-            translate.t("groupAlerts.titleSuccess")
-          );
+  const [uploadVulnerability, { loading }] =
+    useMutation<IUploadVulnerabilitiesResultAttr>(UPLOAD_VULNERABILITIES, {
+      onCompleted: (result: IUploadVulnerabilitiesResultAttr): void => {
+        if (!_.isUndefined(result)) {
+          if (result.uploadFile.success) {
+            msgSuccess(
+              translate.t("groupAlerts.fileUpdated"),
+              translate.t("groupAlerts.titleSuccess")
+            );
+          }
         }
-      }
-    },
-    onError: handleUploadError,
-    refetchQueries: [
-      {
-        query: GET_FINDING_VULN_INFO,
-        variables: {
-          canRetrieveAnalyst: permissions.can(
-            "api_resolvers_vulnerability_analyst_resolve"
-          ),
-          canRetrieveZeroRisk: permissions.can(
-            "api_resolvers_finding_zero_risk_resolve"
-          ),
-          findingId,
-          groupName,
-        },
       },
-      {
-        query: GET_FINDING_HEADER,
-        variables: {
-          canGetHistoricState: permissions.can(
-            "api_resolvers_finding_historic_state_resolve"
-          ),
-          findingId,
+      onError: handleUploadError,
+      refetchQueries: [
+        {
+          query: GET_FINDING_VULN_INFO,
+          variables: {
+            canRetrieveAnalyst: permissions.can(
+              "api_resolvers_vulnerability_analyst_resolve"
+            ),
+            canRetrieveZeroRisk: permissions.can(
+              "api_resolvers_finding_zero_risk_resolve"
+            ),
+            findingId,
+            groupName,
+          },
         },
-      },
-    ],
-  });
-  const [
-    downloadVulnerability,
-  ] = useMutation<IDownloadVulnerabilitiesResultAttr>(
-    DOWNLOAD_VULNERABILITIES,
-    {
+        {
+          query: GET_FINDING_HEADER,
+          variables: {
+            canGetHistoricState: permissions.can(
+              "api_resolvers_finding_historic_state_resolve"
+            ),
+            findingId,
+          },
+        },
+      ],
+    });
+  const [downloadVulnerability] =
+    useMutation<IDownloadVulnerabilitiesResultAttr>(DOWNLOAD_VULNERABILITIES, {
       onCompleted: (result: IDownloadVulnerabilitiesResultAttr): void => {
         if (!_.isUndefined(result)) {
           if (
@@ -175,8 +170,7 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
           }
         );
       },
-    }
-  );
+    });
 
   interface IUploadVulnFile {
     filename: FileList;
@@ -206,7 +200,7 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
   return (
     <Formik
       enableReinitialize={true}
-      initialValues={{ filename: (undefined as unknown) as FileList }}
+      initialValues={{ filename: undefined as unknown as FileList }}
       name={"uploadVulns"}
       onSubmit={handleUploadVulnerability}
     >

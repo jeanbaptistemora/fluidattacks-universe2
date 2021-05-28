@@ -21,19 +21,16 @@ import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
-jest.mock(
-  "../../../../../utils/notifications",
-  (): Dictionary => {
-    const mockedNotifications: Dictionary = jest.requireActual(
-      "../../../../../utils/notifications"
-    );
+jest.mock("../../../../../utils/notifications", (): Dictionary => {
+  const mockedNotifications: Dictionary = jest.requireActual(
+    "../../../../../utils/notifications"
+  );
 
-    mockedNotifications.msgError = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
-    mockedNotifications.msgSuccess = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
+  mockedNotifications.msgError = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
+  mockedNotifications.msgSuccess = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
 
-    return mockedNotifications;
-  }
-);
+  return mockedNotifications;
+});
 
 describe("Files", (): void => {
   const mockProps: IFilesProps = {
@@ -143,12 +140,10 @@ describe("Files", (): void => {
         </MockedProvider>
       </Provider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const addButton: ReactWrapper = wrapper
       .find("button")
       .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
@@ -174,13 +169,11 @@ describe("Files", (): void => {
       target: { name: "description", value: "Test description" },
     });
     const form: ReactWrapper = addFilesModal.find("Formik").at(0);
-    await act(
-      async (): Promise<void> => {
-        form.simulate("submit");
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      form.simulate("submit");
+      await wait(0);
+      wrapper.update();
+    });
     await wait(0);
 
     expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
@@ -198,12 +191,10 @@ describe("Files", (): void => {
         </MockedProvider>
       </Provider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const firstRowInfo: ReactWrapper = wrapper.find("SimpleRow").at(0);
 
     expect(firstRowInfo.text()).toStrictEqual("test.zipTest2019-03-01 15:21");
@@ -254,12 +245,10 @@ describe("Files", (): void => {
         </MockedProvider>
       </Provider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const fileInfo: ReactWrapper = wrapper
       .find("tr")
       .findWhere((element: ReactWrapper): boolean =>
@@ -282,12 +271,10 @@ describe("Files", (): void => {
       );
     proceedButton.first().simulate("click");
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(msgSuccess).toHaveBeenCalledTimes(1);
 
@@ -331,12 +318,10 @@ describe("Files", (): void => {
         </MockedProvider>
       </Provider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const fileInfo: ReactWrapper = wrapper
       .find("tr")
       .findWhere((element: ReactWrapper): boolean =>
@@ -352,12 +337,10 @@ describe("Files", (): void => {
       )
       .at(0);
     downloadButton.simulate("click");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(open).toHaveBeenCalledWith(
       "https://test.com/file",
@@ -413,12 +396,10 @@ describe("Files", (): void => {
         </MockedProvider>
       </Provider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const addButton: ReactWrapper = wrapper
       .find("button")
       .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
@@ -438,13 +419,11 @@ describe("Files", (): void => {
       target: { name: "description", value: "Test description" },
     });
     const form: ReactWrapper = addFilesModal.find("Formik").at(0);
-    await act(
-      async (): Promise<void> => {
-        form.simulate("submit");
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      form.simulate("submit");
+      await wait(0);
+      wrapper.update();
+    });
     await wait(0);
 
     const TEST_CALLING_TIMES = 3;
@@ -471,12 +450,10 @@ describe("Files", (): void => {
         </MockedProvider>
       </Provider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
     const addButton: ReactWrapper = wrapper
       .find("button")
       .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
@@ -497,13 +474,11 @@ describe("Files", (): void => {
       target: { name: "description", value: "Test description" },
     });
     const form: ReactWrapper = addFilesModal.find("Formik").at(0);
-    await act(
-      async (): Promise<void> => {
-        form.simulate("submit");
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      form.simulate("submit");
+      await wait(0);
+      wrapper.update();
+    });
     await wait(0);
 
     expect(msgError).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with

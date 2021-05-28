@@ -1,7 +1,7 @@
 import { track } from "mixpanel-browser";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import { Field } from "redux-form";
 
 import { GenericForm } from "../../GenericForm";

@@ -1,6 +1,6 @@
 import { track } from "mixpanel-browser";
 import React, { useEffect } from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 
 import { Unsubscribe } from "./Unsubscribe";
 
