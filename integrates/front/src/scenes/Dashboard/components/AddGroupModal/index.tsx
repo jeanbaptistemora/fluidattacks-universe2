@@ -332,18 +332,16 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                 <Row>
                   <Col40>
                     <TooltipWrapper
-                      id={
-                        "organization.tabs.groups.newGroup.integrates.tooltip"
-                      }
+                      id={"organization.tabs.groups.newGroup.asm.tooltip"}
                       message={translate.t(
-                        "organization.tabs.groups.newGroup.integrates.tooltip"
+                        "organization.tabs.groups.newGroup.asm.tooltip"
                       )}
                       placement={"top"}
                     >
                       <FormGroup>
                         <ControlLabel>
                           {translate.t(
-                            "organization.tabs.groups.newGroup.integrates.text"
+                            "organization.tabs.groups.newGroup.asm.text"
                           )}
                           {" *"}
                         </ControlLabel>
@@ -398,16 +396,16 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                 <Row>
                   <Col40>
                     <TooltipWrapper
-                      id={"organization.tabs.groups.newGroup.drills.tooltip"}
+                      id={"organization.tabs.groups.newGroup.squad.tooltip"}
                       message={translate.t(
-                        "organization.tabs.groups.newGroup.drills.tooltip"
+                        "organization.tabs.groups.newGroup.squad.tooltip"
                       )}
                       placement={"top"}
                     >
                       <FormGroup>
                         <ControlLabel>
                           {translate.t(
-                            "organization.tabs.groups.newGroup.drills.text"
+                            "organization.tabs.groups.newGroup.squad.text"
                           )}
                           {" *"}
                         </ControlLabel>

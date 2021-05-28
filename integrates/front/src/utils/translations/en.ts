@@ -33,7 +33,7 @@ export const enTranslations: ResourceKey = {
       forcesSecurityCommitment: {
         footer: {
           acceptedRisk:
-            "However, accepted vulnerabilities on Integrates are ignored by the strict mode, " +
+            "However, accepted vulnerabilities on ASM are ignored by the strict mode, " +
             "and Forces will (by decision of your team) allow them to be built or deployed.",
           conclusion:
             "The maximum benefit is reached when the accepted risk is low, and the strict mode high.",
@@ -95,7 +95,7 @@ export const enTranslations: ResourceKey = {
           inProgress:
             "In progress: The system is currently being hardened by your developers.",
           intro:
-            "In Integrates, you can plan and manage the remediation of security findings:",
+            "In ASM, you can plan and manage the remediation of security findings:",
           notDefined:
             "Not defined: New vulnerabilities go here until one of your managers generates an action plan.",
         },
@@ -150,7 +150,7 @@ export const enTranslations: ResourceKey = {
           closed:
             "Closed vulnerabilities may be seen as security breaches that your system no longer has.",
           intro:
-            "In Integrates, you can track the evolution of your systems from a security point of view:",
+            "In ASM, you can track the evolution of your systems from a security point of view:",
           opened:
             "Open vulnerabilities represent a risk currently impacting your end-users and systems.",
         },
@@ -783,7 +783,7 @@ export const enTranslations: ResourceKey = {
       tooltip: "Click if you understand and accept the terms above",
     },
     description:
-      "Integrates, Copyright (c) {{currentYear}} Fluid Attacks. This platform contains " +
+      "ASM, Copyright (c) {{currentYear}} Fluid Attacks. This platform contains " +
       "information property of Fluid Attacks. The client is only allowed " +
       "to use such information for documentation purposes and without disclosing " +
       "its content to third parties because it may contain ideas, concepts, prices " +
@@ -816,14 +816,14 @@ export const enTranslations: ResourceKey = {
     },
     logout: {
       text: "Log out",
-      tooltip: "Log out of Integrates",
+      tooltip: "Log out of ASM",
     },
     newsTooltip: "Latest updates about ASM",
     role: "Role:",
     searchPlaceholder: "Search Group Name",
     token: {
       text: "API",
-      tooltip: "Get an Integrates API Token",
+      tooltip: "Get an ASM API Token",
     },
     user: {
       text: "Add Stakeholder",
@@ -840,14 +840,14 @@ export const enTranslations: ResourceKey = {
         disabled: "Disabled",
         enabled: "Enabled",
         newGroup: {
+          asm: {
+            text: "Include ASM?",
+            tooltip:
+              "Communication platform where all group stakeholders can interact",
+          },
           description: {
             text: "Description",
             tooltip: "Brief description to identify the group",
-          },
-          drills: {
-            text: "Include Squad Service?",
-            tooltip:
-              "Squad finds deep and zero-day vulnerabilities during software development",
           },
           extraChargesMayApply: "Extra charges may apply",
           forces: {
@@ -855,11 +855,6 @@ export const enTranslations: ResourceKey = {
             tooltip:
               "Changes to the target of evaluation can be continuously tested against the closing of confirmed " +
               "vulnerabilities. The agent can be included in CI/CD",
-          },
-          integrates: {
-            text: "Include ASM?",
-            tooltip:
-              "Communication platform where all group stakeholders can interact",
           },
           language: {
             EN: "English",
@@ -883,6 +878,11 @@ export const enTranslations: ResourceKey = {
             text: "Include Machine service?",
             tooltip:
               "Vulnerability detection tool that scans and reports security issues in your source code",
+          },
+          squad: {
+            text: "Include Squad Service?",
+            tooltip:
+              "Squad finds deep and zero-day vulnerabilities during software development",
           },
           success: "Group created successfully",
           switch: {
@@ -1105,11 +1105,11 @@ export const enTranslations: ResourceKey = {
       drills: "Squad",
       errors: {
         drillsOnlyIfContinuous:
-          "Drills is only available in groups of type Continuous-Hacking",
+          "Squad is only available in groups of type Continuous-Hacking",
         expectedGroupName: "Expected: {{groupName}}",
         forcesOnlyIfContinuous:
           "Forces is only available in groups of type Continuous-Hacking",
-        forcesOnlyIfDrills: "Forces is only available when Drills is too",
+        forcesOnlyIfSquad: "Forces is only available when Squad is too",
         organizationNotExists: "Target organization does not exist",
         userNotInOrganization:
           "User is not a member of the target organization",
@@ -1137,13 +1137,13 @@ export const enTranslations: ResourceKey = {
         observationsPlaceholder:
           "Please type here any observation you may have",
         other: "Other",
-        projectFinalization: "Project Finalization",
-        projectSuspension: "Project Suspension",
+        projectFinalization: "Group Finalization",
+        projectSuspension: "Group Suspension",
         title: "Change contracted services",
         typeGroupName: "Please type the group name to proceed",
         warning: "Warning",
-        warningDowngradeIntegrates:
-          "Disabling Integrates will immediately delete the group. " +
+        warningDowngradeASM:
+          "Disabling ASM will immediately delete the group. " +
           "This will remove all of its data including findings and related vulnerabilities. " +
           "This is a destructive action and cannot be undone.",
       },
@@ -1165,7 +1165,7 @@ export const enTranslations: ResourceKey = {
         warning: "Revoke access permissions to this group.",
         warningBody:
           "This action will unsubscribe you from the group. " +
-          "If you do not have more groups, you will be removed from integrates. ",
+          "If you do not have more groups, you will be removed from ASM. ",
         warningTitle: "Warning!",
       },
     },

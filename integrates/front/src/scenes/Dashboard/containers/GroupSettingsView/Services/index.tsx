@@ -439,7 +439,7 @@ const Services: React.FC<IServicesProps> = (
                     </ControlLabel>
                     <Alert>
                       {translate.t(
-                        "searchFindings.servicesTable.modal.warningDowngradeIntegrates"
+                        "searchFindings.servicesTable.modal.warningDowngradeASM"
                       )}
                     </Alert>
                   </FormGroup>

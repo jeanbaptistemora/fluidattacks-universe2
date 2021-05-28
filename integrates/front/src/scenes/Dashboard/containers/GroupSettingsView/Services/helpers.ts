@@ -87,7 +87,7 @@ const handleEditGroupDataError = (error: ApolloError): void => {
     switch (message) {
       case "Exception - Forces is only available when Drills is too":
         msgError(
-          translate.t("searchFindings.servicesTable.errors.forcesOnlyIfDrills")
+          translate.t("searchFindings.servicesTable.errors.forcesOnlyIfSquad")
         );
         break;
       case "Exception - Forces is only available in groups of type: Continuous":
