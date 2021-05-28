@@ -18,14 +18,14 @@ different things.
 
 ### Add a git root
 
-![Git Root Buttons](/img/web/groups/scope/git_root_buttons.png)
+![Git Root Buttons](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211880/docs/web/groups/scope/git_root_buttons_pviqnf.webp)
 
 By clicking on
 the "Add git root" button
 the following form
 will show up
 
-![Add New Root](/img/web/groups/scope/add_new_root.png)
+![Add New Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211896/docs/web/groups/scope/add_new_root_nql2hc.webp)
 
 In here you can specify
 the URL of your repository,
@@ -68,7 +68,7 @@ on one of the git roots you already added
 and the same form will show up again,
 albeit slightly different
 
-![Edit Root](/img/web/groups/scope/edit_root.png)
+![Edit Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211880/docs/web/groups/scope/edit_root_whbob4.webp)
 
 The form will have all the information
 of the Git Root you selected
@@ -121,7 +121,7 @@ after selecting one of your added **Git Roots**,
 you can also click on the **Manage environments** button
 for the following form to show up
 
-![Manage environments](/img/web/groups/scope/manage_envs.png)
+![Manage environments](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211895/docs/web/groups/scope/manage_envs_ywyggq.webp)
 
 You can click on the **plus(+)** button
 to add the environment URLs

@@ -10,7 +10,7 @@ of your group's dashboard
 is where you will be able to manage
 the [ToE](/about/glossary#toe "Target of Evaluation")
 
-![Scope Intro](/img/web/groups/scope/scope_introduction.png)
+![Scope Intro](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211880/docs/web/groups/scope/scope_introduction_rwylbn.webp)
 
 In order to do this,
 there are several functionalities

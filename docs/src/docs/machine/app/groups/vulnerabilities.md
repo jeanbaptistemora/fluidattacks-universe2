@@ -23,7 +23,7 @@ and you can organize them
 by clicking on the various columns
 that will be described here
 
-![Vulnerability Table First Half](/img/web/groups/vulnerabilities/vulns_table_1h.png)
+![Vulnerability Table First Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211894/docs/web/groups/vulnerabilities/vulns_table_1h_m2j4au.webp)
 
 - **Age(days):**
   This column shows the amount of days passed
@@ -60,7 +60,7 @@ that will be described here
   [CVSS](/about/glossary#cvss "Common Vulnerability Scoring System")
   standard to assign each score.
 
-![Vulnerability Table Second Half](/img/web/groups/vulnerabilities/vulns_table_2h.png)
+![Vulnerability Table Second Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211894/docs/web/groups/vulnerabilities/vulns_table_2h_s8mag6.webp)
 
 - **Open:**
   This column shows
@@ -113,12 +113,12 @@ about the vulnerabilities
 by clicking the **Reports** button
 seen in the following image
 
-![Reports Button](/img/web/groups/vulnerabilities/reports_button.png)
+![Reports Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211894/docs/web/groups/vulnerabilities/reports_button_yzszmw.webp)
 
 When you click on it,
 the following window will show up
 
-![Reports Modal](/img/web/groups/vulnerabilities/reports_modal.png)
+![Reports Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211894/docs/web/groups/vulnerabilities/reports_modal_h26dmp.webp)
 
 There are three types of report
 you can request:
@@ -148,7 +148,7 @@ you need to check your e-mail
 and click on the **Download** button
 you can see in the following image
 
-![Reports Mail](/img/web/groups/vulnerabilities/reports_mail.png)
+![Reports Mail](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211894/docs/web/groups/vulnerabilities/reports_mail_zjkigl.webp)
 
 The downloaded file will be protected
 with a passphrase

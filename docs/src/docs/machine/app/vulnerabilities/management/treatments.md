@@ -19,7 +19,7 @@ where you can see
 detailed information about it
 and also a tab called **Treatments**
 
-![Enabled Reattack Button](/img/web/vulnerabilities/management/vulnerabilities_treatments.png)
+![Enabled Reattack Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211885/docs/web/vulnerabilities/management/vulnerabilities_treatments_oxzujo.webp)
 
 In this tab
 you will be able
@@ -118,7 +118,7 @@ In order to make a Zero Risk request
 you can take the same steps
 taken to assign a normal treatment.
 
-![Request Zero Risk](/img/web/vulnerabilities/management/request_zero_risk.png)
+![Request Zero Risk](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211885/docs/web/vulnerabilities/management/request_zero_risk_pf9nod.webp)
 
 After choosing to give
 a Zero Risk treatment

@@ -25,7 +25,7 @@ when you open a group
 you can see that one of the tabs
 is called **Consulting**.
 
-![Group Consulting](/img/web/groups/consulting/consulting_ongroup.png)
+![Group Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211881/docs/web/groups/consulting/consulting_ongroup_nzutto.webp)
 
 In this section you can talk to us
 to assist you with any issues
@@ -39,7 +39,7 @@ When you click on a vulnerability,
 you can find the tab
 to the right of your screen.
 
-![Vulnerability Consulting](/img/web/groups/consulting/consulting_onvuln.png)
+![Vulnerability Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211881/docs/web/groups/consulting/consulting_onvuln_gav9nf.webp)
 
 This section will be used
 to communicate with us
@@ -60,7 +60,7 @@ inside every group.
 When you click on an event
 this comments tab will be available.
 
-![Event Consulting](/img/web/groups/consulting/consulting_onevent.png)
+![Event Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211881/docs/web/groups/consulting/consulting_onevent_k7qkeq.webp)
 
 This tab will be useful
 for when you want to ask us

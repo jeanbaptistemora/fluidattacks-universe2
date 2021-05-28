@@ -5,7 +5,7 @@ module.exports = {
   baseUrl: process.env.env == 'prod' ? '/' : `/${process.env.CI_COMMIT_REF_NAME}/`,
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'throw',
-  favicon: 'img/favicon.ico',
+  favicon: 'https://res.cloudinary.com/fluid-attacks/image/upload/v1622211888/docs/favicon_be6154.ico',
   organizationName: 'fluidattacks',
   projectName: 'product',
   themeConfig: {
@@ -20,7 +20,7 @@ module.exports = {
     navbar: {
       logo: {
         alt: 'Fluid Attacks Logo',
-        src: 'img/logo.svg',
+        src: 'https://res.cloudinary.com/fluid-attacks/image/upload/v1622211890/docs/logo_aoz2bv.svg',
       },
       items: [
         {

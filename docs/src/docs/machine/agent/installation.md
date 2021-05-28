@@ -23,7 +23,7 @@ in our ASM scope section
 where you will find
 the DevSecOps Agent Token section.
 
-![DevSevOps Generation Section](/img/machine/agent/installation/devsecops_token_section.png)
+![DevSevOps Generation Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211894/docs/machine/agent/installation/devsecops_token_section_jpex40.webp)
 
 Click on the **Manage Token** button
 and a pop-up will appear
@@ -31,7 +31,7 @@ where you can **Generate** the token
 or click on **Reveal Token**
 in case you already generated one.
 
-![DevSevOps Generation Modal](/img/machine/agent/installation/devsecops_token_modal.png)
+![DevSevOps Generation Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211889/docs/machine/agent/installation/devsecops_token_modal_ivw8th.webp)
 
 **2.** Make sure your execution environment
 has the required dependencies:

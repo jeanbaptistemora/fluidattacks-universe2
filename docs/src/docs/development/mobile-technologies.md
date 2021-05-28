@@ -152,7 +152,7 @@ by Facebook's JavaScript Foundation team.
   If you are developing on apple devices,
   make sure to allow network access
   for the Expo client
-  ![Expo Network Access](/img/development/mobile-technologies/expo_network_access.png)
+  ![Expo Network Access](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211886/docs/development/mobile-technologies/expo_network_access_f4k0se.webp)
 
 3. Lint your code
   ```

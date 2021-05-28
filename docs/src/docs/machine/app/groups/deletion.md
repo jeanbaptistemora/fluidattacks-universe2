@@ -17,7 +17,7 @@ first you need to go
 to the **Scope** section
 of the group you want to manage.
 
-![Scope Section](/img/web/groups/deletion/highlighting_scope.png)
+![Scope Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211893/docs/web/groups/deletion/highlighting_scope_rsioo0.webp)
 
 ### Deleting a group
 
@@ -30,7 +30,7 @@ Be aware that this section
 will only appear
 if you have the appropiate authorization.
 
-![Unsubscribe and Delete Section](/img/web/groups/deletion/delete_unsubscribe.png)
+![Unsubscribe and Delete Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211892/docs/web/groups/deletion/delete_unsubscribe_ym9583.webp)
 
 After clicking on this button
 a window will appear
@@ -46,7 +46,7 @@ after typing the name of the group,
 click on proceed
 to complete the deletion of the group.
 
-![Delete Modal](/img/web/groups/deletion/delete_modal.png)
+![Delete Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211893/docs/web/groups/deletion/delete_modal_mev6mj.webp)
 
 ### Unsubscribing from a group
 
@@ -63,7 +63,7 @@ from the list of groups available to you,
 and consequently,
 revoke your access to it completely.
 
-![Unsubscribe Modal](/img/web/groups/deletion/unsubscribe_modal.png)
+![Unsubscribe Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211894/docs/web/groups/deletion/unsubscribe_modal_g0anrt.webp)
 
 By clicking on **Unsubscribe**
 a window will appear

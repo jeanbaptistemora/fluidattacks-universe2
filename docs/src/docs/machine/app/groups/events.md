@@ -15,7 +15,7 @@ and manage them,
 so we can resolve them quickly and efficiently.
 This is what the **Event** tab is used for.
 
-![Event Tab View](/img/web/groups/events/event_tab_view.png)
+![Event Tab View](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211893/docs/web/groups/events/event_tab_view_lsxvmy.webp)
 
 ### Creating an event
 
@@ -25,7 +25,7 @@ that is in the **Event** tab.
 Then,
 a pop-up will appear for creating the event.
 
-![New Event Modal](/img/web/groups/events/newevent_modal.png)
+![New Event Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211891/docs/web/groups/events/newevent_modal_cod9kc.webp)
 
 Here you must enter
 all the information about the event
@@ -67,7 +67,7 @@ with no problems,
 then it is time
 to close the event.
 
-![Event Solved Button](/img/web/groups/events/markasolved_button_highlight.png)
+![Event Solved Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211892/docs/web/groups/events/markasolved_button_highlight_a9pxhv.webp)
 
 This can be done by entering the **Event** tab
 and clicking on the event that was solved,
@@ -76,7 +76,7 @@ there will be a button called **Mark as solved**.
 When you click it,
 a pop-up will appear.
 
-![Event Solved Modal](/img/web/groups/events/markasolved_modal.png)
+![Event Solved Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211892/docs/web/groups/events/markasolved_modal_kshwjp.webp)
 
 In here you must specify the date
 that the analyst was notified about

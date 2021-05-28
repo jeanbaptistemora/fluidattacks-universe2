@@ -21,14 +21,14 @@ and analytics at Fluid Attack's App:
 
 - Description of the vulnerability
 
-  ![description](/img/machine/scanner/introduction/description.png)
+  ![description](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211888/docs/machine/scanner/introduction/description_yp0fmw.webp)
 
 - Evidence that the vulnerability exists
 
-  ![evidences](/img/machine/scanner/introduction/evidences.png)
+  ![evidences](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211889/docs/machine/scanner/introduction/evidences_pxvd2z.webp)
 
 - Aggregated analytics
 
-  ![analytics](/img/machine/scanner/introduction/analytics.png)
+  ![analytics](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211889/docs/machine/scanner/introduction/analytics_bxne68.webp)
 
 - And many more features!

@@ -15,7 +15,7 @@ in the Vulnerabilities tab of your group,
 you will be greeted by a list
 with all the vulnerabilities of that type.
 
-![Enabled Reattack Button](/img/web/vulnerabilities/management/vulnerabilities_location.png)
+![Enabled Reattack Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211883/docs/web/vulnerabilities/management/vulnerabilities_location_tvf2fe.webp)
 
 At a glance you
 will be able to tell

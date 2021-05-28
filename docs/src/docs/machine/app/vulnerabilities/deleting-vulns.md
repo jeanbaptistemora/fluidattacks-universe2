@@ -31,7 +31,7 @@ you need to enter the vulnerability
 and click on the button **Bulk edit**
 to enable de edition of vulnerabilities.
 
-![Vulnerabilities Deletion Enabled](/img/web/vulnerabilities/deleting-vulns/vulns_delete_enabled.png)
+![Vulnerabilities Deletion Enabled](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211887/docs/web/vulnerabilities/deleting-vulns/vulns_delete_enabled_vhdnyp.webp)
 
 After this
 you need to locate the vulnerabilities
@@ -40,7 +40,7 @@ and then click on the trash icon
 to the right of the window
 for a pop-up to show up.
 
-![Delete Vulnerabilities Modal](/img/web/vulnerabilities/deleting-vulns/delete_vuln_modal.png)
+![Delete Vulnerabilities Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211886/docs/web/vulnerabilities/deleting-vulns/delete_vuln_modal_iwybji.webp)
 
 Here you can select
 between three options
@@ -81,7 +81,7 @@ you can click on the **Delete** button
 that is located in the upper-right corner
 of your window.
 
-![Delete Finding Button](/img/web/vulnerabilities/deleting-vulns/delete_finding_button.png)
+![Delete Finding Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211886/docs/web/vulnerabilities/deleting-vulns/delete_finding_button_vlbpgy.webp)
 
 When you click on it,
 the same pop-up for the deletion

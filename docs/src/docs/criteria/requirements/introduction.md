@@ -24,13 +24,13 @@ we determine if these are met or not.
 
 ## Standards
 
-![image01](logos01.png)
+![image01](https://res.cloudinary.com/fluid-attacks/image/upload/v1622212525/docs/criteria/requirements/logos01_etmahd.webp)
 
-![image02](logos02.png)
+![image02](https://res.cloudinary.com/fluid-attacks/image/upload/v1622212525/docs/criteria/requirements/logos02_yveq4c.webp)
 
-![image03](logos03.png)
+![image03](https://res.cloudinary.com/fluid-attacks/image/upload/v1622212525/docs/criteria/requirements/logos03_qdn2ln.webp)
 
-![image04](logos04.png)
+![image04](https://res.cloudinary.com/fluid-attacks/image/upload/v1622212525/docs/criteria/requirements/logos04_hwwnh0.webp)
 
 **Requirements** is based on several standards
 related to information security, including the following:

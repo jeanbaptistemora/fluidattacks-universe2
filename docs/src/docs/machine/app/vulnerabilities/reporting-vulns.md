@@ -16,7 +16,7 @@ you can go to the main screen
 for the specific type of vulnerability
 you want to report
 
-![Bulk Edit Button](/img/web/vulnerabilities/reporting-vulns/bulkedit_highlight.png)
+![Bulk Edit Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211882/docs/web/vulnerabilities/reporting-vulns/bulkedit_highlight_t6bbgm.webp)
 
 When you get there
 you can click on the button **Bulk edit**
@@ -24,7 +24,7 @@ and the buttons used for reporting vulnerabilities
 will appear on the bottom of the page,
 you might need to scroll down to see them
 
-![Vulnerability Report Buttons](/img/web/vulnerabilities/reporting-vulns/reportbuttons_highlight.png)
+![Vulnerability Report Buttons](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211882/docs/web/vulnerabilities/reporting-vulns/reportbuttons_highlight_xw07m2.webp)
 
 The first button
 **Download Vulnerabilities**
@@ -51,7 +51,7 @@ in order to do this
 you can write a section in the .yaml file
 starting with **inputs** or **lines** respectively
 
-![Yaml Report Format](/img/web/vulnerabilities/reporting-vulns/yaml_report_format.png)
+![Yaml Report Format](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211881/docs/web/vulnerabilities/reporting-vulns/yaml_report_format_gyphfh.webp)
 
 You can add as many vulnerabilities as you need,
 you just have to separate each one with a hyphen
@@ -99,7 +99,7 @@ First we have the fields for the inputs:
   of the **Git roots** section,
   as seen in the following image.
 
-![Repository Nickname](/img/web/vulnerabilities/reporting-vulns/reponickname_highlight.png)
+![Repository Nickname](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211883/docs/web/vulnerabilities/reporting-vulns/reponickname_highlight_ol9x9f.webp)
 
 You can also use
 the GraphQL API
