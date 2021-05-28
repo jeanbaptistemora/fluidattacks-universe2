@@ -13,10 +13,7 @@ from typing import (
 )
 
 import pytz
-from aioextensions import (
-    collect,
-    schedule,
-)
+from aioextensions import collect
 from graphql.type.definition import GraphQLResolveInfo
 from starlette.datastructures import UploadFile
 
@@ -35,7 +32,6 @@ from custom_types import (
     Event as EventType,
 )
 from events import dal as events_dal
-from mailer import events as events_mail
 from newutils import (
     datetime as datetime_utils,
     events as events_utils,
@@ -145,16 +141,6 @@ async def create_event(  # pylint: disable=too-many-locals
             await update_evidence(event_id, "evidence_file", file, event_date)
         if image:
             await update_evidence(event_id, "evidence", image, event_date)
-        schedule(
-            events_mail.send_mail_new_event(
-                loaders,
-                org_id,
-                analyst_email,
-                event_id,
-                group_name,
-                event_attrs["event_type"],
-            )
-        )
     return success
 
 

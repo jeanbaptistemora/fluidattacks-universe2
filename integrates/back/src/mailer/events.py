@@ -1,23 +1,13 @@
 from typing import Any
 
-from aioextensions import collect
-
-import authz
-from context import (
-    BASE_URL,
-    FI_MAIL_PRODUCTION,
-    FI_MAIL_PROJECTS,
-    FI_MAIL_REVIEWERS,
-)
+from context import BASE_URL
 from custom_types import (
     Comment as CommentType,
     MailContent as MailContentType,
 )
-from group_access import domain as group_access_domain
 
 from .common import (
     COMMENTS_TAG,
-    GENERAL_TAG,
     get_comment_recipients,
     send_mails_async_new,
 )
@@ -58,67 +48,4 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
         COMMENTS_TAG,
         f"New comment in event #{event_id} for [{group_name}]",
         "new_comment",
-    )
-
-
-async def send_mail_new_event(  # pylint: disable=too-many-arguments
-    loaders: Any,
-    org_id: str,
-    analyst: str,
-    event_id: str,
-    group_name: str,
-    event_type: str,
-) -> None:
-    organization_loader = loaders.organization
-    organization = await organization_loader.load(org_id)
-    org_name = organization["name"]
-
-    email_context: MailContentType = {
-        "analyst_email": analyst,
-        "event_id": event_id,
-        "event_url": (
-            f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/events/{event_id}"
-        ),
-        "project": group_name,
-        "organization": org_name,
-    }
-
-    recipients = await group_access_domain.list_group_managers(group_name)
-    recipients.append(analyst)
-    recipients.append(FI_MAIL_PROJECTS)
-    if event_type in ["CLIENT_APPROVES_CHANGE_TOE"]:
-        recipients.extend([FI_MAIL_PRODUCTION] + FI_MAIL_REVIEWERS.split(","))
-
-    recipients_customers = [
-        recipient
-        for recipient in recipients
-        if await authz.get_group_level_role(recipient, group_name)
-        == "customeradmin"
-    ]
-    recipients_not_customers = [
-        recipient
-        for recipient in recipients
-        if await authz.get_group_level_role(recipient, group_name)
-        != "customeradmin"
-    ]
-    email_context_customers = email_context.copy()
-    email_context_customers["analyst_email"] = "Hacker at FluidIntegrates"
-
-    await collect(
-        [
-            send_mails_async_new(
-                mail_recipients,
-                mail_context,
-                GENERAL_TAG,
-                (
-                    f'New event in [{mail_context["project"]}] - '
-                    f'[Event#{mail_context["event_id"]}]'
-                ),
-                "new_event",
-            )
-            for mail_recipients, mail_context in zip(
-                [recipients_not_customers, recipients_customers],
-                [email_context, email_context_customers],
-            )
-        ]
     )
