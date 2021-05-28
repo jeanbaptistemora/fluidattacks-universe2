@@ -18,6 +18,9 @@ BY_TYPE: Dict[str, Set[str]] = complete_attrs_on_dict(
         "System.Data.SqlClient.SqlCommand": {
             "CommandText",
         },
+        "System.DirectoryServices.DirectorySearcher": {
+            "Filter",
+        },
     }
 )
 

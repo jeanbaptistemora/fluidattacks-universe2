@@ -4161,7 +4161,7 @@
             "label_c": 30,
             "label_field_name": "63",
             "label_field_type": "62",
-            "label_input_type": "F001_C_SHARP_SQL",
+            "label_input_type": "F001_C_SHARP_SQL,F107",
             "label_l": 30,
             "label_type": "parameter"
           },
@@ -5083,6 +5083,16 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "member": "LogLevel",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "311",
+              "value": null
+            },
+            "type": "SyntaxStepMemberAccessExpression"
+          },
+          {
             "member": "LogLevel.Warn",
             "meta": {
               "danger": false,
@@ -5300,6 +5310,16 @@
             },
             "symbol": "NLog",
             "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "member": "LogLevel",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "378",
+              "value": null
+            },
+            "type": "SyntaxStepMemberAccessExpression"
           },
           {
             "member": "LogLevel.Warn",

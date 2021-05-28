@@ -15,7 +15,10 @@ def mark_inputs(
 ) -> None:
     findings = core_model.FindingEnum
 
-    for finding in (findings.F001_C_SHARP_SQL,):
+    for finding in (
+        findings.F001_C_SHARP_SQL,
+        findings.F107,
+    ):
         danger_args = {
             *build_attr_paths(
                 "System",
@@ -39,5 +42,13 @@ def mark_sinks(
         {
             "ExecuteNonQuery",
             "ExecuteScalar",
+        },
+    )
+    mark_methods_sink(
+        findings.F107,
+        graph,
+        syntax,
+        {
+            "FindOne",
         },
     )

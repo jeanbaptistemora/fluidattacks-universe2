@@ -20,7 +20,7 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
         bracket := match["bracketed_argument_list"]
     ):
         match_bracket = g.match_ast(
-            args.graph, bracket, "__0___", "__1__", "__2__"
+            args.graph, bracket, "__0__", "__1__", "__2__"
         )
         yield graph_model.SyntaxStepArrayAccess(
             meta=graph_model.SyntaxStepMeta.default(

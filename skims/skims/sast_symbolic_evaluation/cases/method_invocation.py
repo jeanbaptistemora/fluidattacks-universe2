@@ -140,6 +140,9 @@ BY_OBJ: Dict[str, Set[str]] = complete_attrs_on_dict(
             "ExecuteNonQuery",
             "ExecuteScalar",
         },
+        "System.DirectoryServices.DirectorySearcher": {
+            "FindOne",
+        },
     }
 )
 BY_OBJ_ARGS: Dict[str, Set[str]] = complete_attrs_on_dict(

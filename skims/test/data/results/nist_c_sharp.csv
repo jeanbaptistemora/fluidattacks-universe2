@@ -385,3 +385,23 @@ F073. Conditional statement without a default option,NIST/src/testcases/CWE478_M
 F073. Conditional statement without a default option,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/CWE478_Missing_Default_Case_in_Switch__basic_15.cs,31,478
 F073. Conditional statement without a default option,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/CWE478_Missing_Default_Case_in_Switch__basic_16.cs,30,478
 F073. Conditional statement without a default option,NIST/src/testcases/CWE478_Missing_Default_Case_in_Switch/CWE478_Missing_Default_Case_in_Switch__basic_17.cs,30,478
+F107. LDAP injection,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_01.cs,52,90
+F107. LDAP injection,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_02.cs,61,90
+F107. LDAP injection,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_03.cs,61,90
+F107. LDAP injection,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_04.cs,68,90
+F107. LDAP injection,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_05.cs,68,90
+F107. LDAP injection,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_06.cs,67,90
+F107. LDAP injection,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_07.cs,67,90
+F107. LDAP injection,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_08.cs,75,90
+F107. LDAP injection,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_09.cs,61,90
+F107. LDAP injection,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_10.cs,61,90
+F107. LDAP injection,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_11.cs,61,90
+F107. LDAP injection,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_12.cs,60,90
+F107. LDAP injection,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_13.cs,61,90
+F107. LDAP injection,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_14.cs,61,90
+F107. LDAP injection,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_15.cs,62,90
+F107. LDAP injection,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_16.cs,56,90
+F107. LDAP injection,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_17.cs,54,90
+F107. LDAP injection,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_21.cs,47,90
+F107. LDAP injection,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_31.cs,59,90
+F107. LDAP injection,NIST/src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_42.cs,58,90
