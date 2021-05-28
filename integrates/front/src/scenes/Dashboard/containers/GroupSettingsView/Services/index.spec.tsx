@@ -183,19 +183,19 @@ describe("Services", (): void => {
     const rows: () => ReactWrapper = (): ReactWrapper => tableBody().find("tr");
 
     const typeRow: () => ReactWrapper = (): ReactWrapper => rows().at(0);
-    const integratesRow: () => ReactWrapper = (): ReactWrapper => rows().at(1);
-    const drillsRowIndex = 3;
-    const drillsRow = (): ReactWrapper => rows().at(drillsRowIndex);
+    const asmRow: () => ReactWrapper = (): ReactWrapper => rows().at(1);
+    const squadRowIndex = 3;
+    const squadRow = (): ReactWrapper => rows().at(squadRowIndex);
     const TEST_FORCES_ROW_INDEX = 4;
     const forcesRow: () => ReactWrapper = (): ReactWrapper =>
       rows().at(TEST_FORCES_ROW_INDEX);
 
     const typeRowLeft: () => ReactWrapper = (): ReactWrapper =>
       typeRow().find("td").first();
-    const integratesRowLeft: () => ReactWrapper = (): ReactWrapper =>
-      integratesRow().find("td").first();
-    const drillsRowLeft: () => ReactWrapper = (): ReactWrapper =>
-      drillsRow().find("td").first();
+    const asmRowLeft: () => ReactWrapper = (): ReactWrapper =>
+      asmRow().find("td").first();
+    const squadRowLeft: () => ReactWrapper = (): ReactWrapper =>
+      squadRow().find("td").first();
     const forcesRowLeft: () => ReactWrapper = (): ReactWrapper =>
       forcesRow().find("td").first();
 
@@ -203,14 +203,14 @@ describe("Services", (): void => {
 
     expect(rows()).toHaveLength(totalRows);
     expect(typeRowLeft().text()).toStrictEqual("Subscription type");
-    expect(integratesRowLeft().text()).toStrictEqual("ASM");
-    expect(drillsRowLeft().text()).toStrictEqual("Squad");
+    expect(asmRowLeft().text()).toStrictEqual("ASM");
+    expect(squadRowLeft().text()).toStrictEqual("Squad");
     expect(forcesRowLeft().text()).toStrictEqual("DevSecOps agent");
 
-    const integratesSwitch: () => ReactWrapper = (): ReactWrapper =>
-      integratesRow().find("#integratesSwitch").at(0);
-    const drillsSwitch: () => ReactWrapper = (): ReactWrapper =>
-      drillsRow().find("#drillsSwitch").at(0);
+    const asmSwitch: () => ReactWrapper = (): ReactWrapper =>
+      asmRow().find("#integratesSwitch").at(0);
+    const squadSwitch: () => ReactWrapper = (): ReactWrapper =>
+      squadRow().find("#drillsSwitch").at(0);
     const forcesSwitch: () => ReactWrapper = (): ReactWrapper =>
       forcesRow().find("#forcesSwitch").at(0);
 
@@ -225,7 +225,7 @@ describe("Services", (): void => {
       type: "CONTINUOUS",
     });
 
-    integratesSwitch().simulate("click");
+    asmSwitch().simulate("click");
 
     expect(formValues()).toStrictEqual({
       comments: "",
@@ -238,7 +238,7 @@ describe("Services", (): void => {
       type: "CONTINUOUS",
     });
 
-    drillsSwitch().simulate("click");
+    squadSwitch().simulate("click");
 
     expect(formValues()).toStrictEqual({
       comments: "",
@@ -251,7 +251,7 @@ describe("Services", (): void => {
       type: "CONTINUOUS",
     });
 
-    drillsSwitch().simulate("click");
+    squadSwitch().simulate("click");
 
     expect(formValues()).toStrictEqual({
       comments: "",
@@ -286,7 +286,7 @@ describe("Services", (): void => {
       type: "CONTINUOUS",
     });
 
-    drillsSwitch().simulate("click");
+    squadSwitch().simulate("click");
 
     expect(formValues()).toStrictEqual({
       comments: "",

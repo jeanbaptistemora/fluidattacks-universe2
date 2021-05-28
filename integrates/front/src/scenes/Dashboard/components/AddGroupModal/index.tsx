@@ -45,12 +45,12 @@ import {
 
 /*
  * Business rules to create a group:
- *   - Integrates must enabled, because we are using Integrates right now, right?
- *   - Drills <--needs-- Integrates
- *   - Forces <--needs-- Drills
+ *   - ASM must enabled, because we are using ASM right now, right?
+ *   - Squad <--needs-- ASM
+ *   - Forces <--needs-- Squad
  *
  * Business rules after creating the group:
- *   - If Integrates is turned off, the group will be immediately deleted
+ *   - If ASM is turned off, the group will be immediately deleted
  */
 
 const MAX_DESCRIPTION_LENGTH: number = 200;
@@ -348,7 +348,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         <SwitchButton
                           checked={true}
                           disabled={true}
-                          name={"integrates"}
+                          name={"asm"}
                           offlabel={translate.t(
                             "organization.tabs.groups.newGroup.switch.no"
                           )}

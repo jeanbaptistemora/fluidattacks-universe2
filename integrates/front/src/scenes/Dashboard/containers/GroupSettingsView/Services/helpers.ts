@@ -13,13 +13,13 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-const getHandleIntegratesBtnChange = (
+const getHandleASMBtnChange = (
   dispatch: Dispatch
-): ((withIntegrates: boolean) => void) => {
-  return (withIntegrates: boolean): void => {
-    dispatch(change("editGroup", "integrates", withIntegrates));
+): ((withASM: boolean) => void) => {
+  return (withASM: boolean): void => {
+    dispatch(change("editGroup", "integrates", withASM));
 
-    if (!withIntegrates) {
+    if (!withASM) {
       dispatch(change("editGroup", "skims", false));
       dispatch(change("editGroup", "drills", false));
       dispatch(change("editGroup", "forces", false));
@@ -105,7 +105,7 @@ const handleEditGroupDataError = (error: ApolloError): void => {
 };
 
 export {
-  getHandleIntegratesBtnChange,
+  getHandleASMBtnChange,
   getHandleMachineBtnChange,
   handleSquadBtnChangeHelper,
   handleForcesBtnChangeHelper,
