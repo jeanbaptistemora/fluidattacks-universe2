@@ -44,19 +44,13 @@ at the moment the project starts,
 for an additional cost.
 
 Lastly,
-you can specify parts of the repository
-that you would like us to ignore
-while performing the penetration test.
-You can do this by clicking
-on the **plus(+)** sign
-and writing the **pattern**
-for such files and/or folders.
-You can also click
-on the **interrogation sign(?)**
-besides the word **gitignore**
-to access a web page
-that instructs you on how to write
-the pattern used here.
+there are some fields
+used to exclude
+specific paths
+from the group scope,
+you can read
+the details about this
+in [this page](/machine/app/groups/scope/exclusions).
 
 After you complete the required fields,
 you can click on **Proceed**

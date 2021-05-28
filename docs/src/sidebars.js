@@ -794,6 +794,7 @@ module.exports = {
               items: [
                 'machine/app/groups/scope/introduction',
                 'machine/app/groups/scope/gitroots',
+                'machine/app/groups/scope/exclusions',
                 'machine/app/groups/scope/files',
                 'machine/app/groups/scope/portfolio',
               ],
