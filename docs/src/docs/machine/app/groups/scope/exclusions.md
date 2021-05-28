@@ -38,7 +38,7 @@ that appears
 when you are adding or editing
 a git root in your group.
 
-![Git Root Buttons](/img/web/groups/scope/git_root_buttons.png)
+![Git Root Buttons](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211880/docs/web/groups/scope/git_root_buttons_pviqnf.webp)
 
 You just need to go
 to the scope section of your group
@@ -47,7 +47,7 @@ or **Edit root** button
 depending on what you want to do,
 and the following will show up
 
-![Edit Root](/img/web/groups/scope/edit_root.png)
+![Edit Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211880/docs/web/groups/scope/edit_root_whbob4.webp)
 
 Here you can see
 the section that says **Gitignore**,
