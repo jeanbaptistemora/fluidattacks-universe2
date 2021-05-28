@@ -19,6 +19,7 @@ from training.constants import (
     S3_BUCKET,
 )
 from training.evaluate_results import get_best_model_name
+from training.redshift import db as redshift
 from training.training_script.utils import (
     get_model_performance_metrics,
     get_previous_training_results,
@@ -47,6 +48,7 @@ def train_model(
     model_features: Tuple[str, ...],
     training_dir: str,
     previous_results: List[List[str]],
+    tuned_hyperparameters: str,
 ) -> List[List[str]]:
     start_time: float = time.time()
 
@@ -64,16 +66,19 @@ def train_model(
     print(f"Recall: {metrics[1]}%")
     print(f"F1-Score: {metrics[2]}%")
     print(f"Overfit: {metrics[3]}%")
-    training_output.append(
-        [
-            model.__class__.__name__,
-            " ".join(FEATURES_DICTS[feature] for feature in model_features),
-            f"{metrics[0]:.1f}",
-            f"{metrics[1]:.1f}",
-            f"{metrics[2]:.1f}",
-            f"{metrics[3]:.1f}",
-        ]
+    combination_train_results = dict(
+        model=model.__class__.__name__,
+        features=" ".join(
+            FEATURES_DICTS[feature] for feature in model_features
+        ),
+        precision=round(metrics[0], 1),
+        recall=round(metrics[1], 1),
+        f_score=round(metrics[2], 1),
+        overfit=round(metrics[3], 1),
+        tuned_parameters=tuned_hyperparameters,
     )
+    training_output.append(list(combination_train_results.values()))
+    redshift.insert(combination_train_results)
 
     return training_output
 
@@ -152,17 +157,17 @@ def main() -> None:
     previous_results = get_previous_training_results(results_filename)
 
     # Start training process
-    training_output = train_model(
-        model, model_features, args.train, previous_results
+    hyperparameters_to_tune_list = ", ".join(
+        list(str(parameter) for parameter in hyperparameters_to_tune.values())
     )
-    training_output[-1] += [
-        ", ".join(
-            list(
-                str(parameter)
-                for parameter in hyperparameters_to_tune.values()
-            )
-        )
-    ]
+    training_output = train_model(
+        model,
+        model_features,
+        args.train,
+        previous_results,
+        hyperparameters_to_tune_list,
+    )
+    training_output[-1] += [hyperparameters_to_tune_list]
 
     update_results_csv(results_filename, training_output)
     save_model(

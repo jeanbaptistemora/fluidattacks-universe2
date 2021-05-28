@@ -20,13 +20,13 @@ from sklearn.neural_network import MLPClassifier
 
 # Local libraries
 from sorts.typings import Model as ModelType
-from training.redshift import db as redshift
 from training.constants import (
     FEATURES_DICTS,
     MODELS,
     RESULT_HEADERS,
     S3_BUCKET,
 )
+from training.redshift import db as redshift
 from training.training_script.utils import (
     get_model_performance_metrics,
     get_previous_training_results,
