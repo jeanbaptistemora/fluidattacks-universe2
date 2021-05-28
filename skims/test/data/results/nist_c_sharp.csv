@@ -17,6 +17,7 @@ F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_NetClient_ExecuteNonQuery_16.cs,73,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_NetClient_ExecuteNonQuery_17.cs,73,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_NetClient_ExecuteNonQuery_31.cs,73,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_NetClient_ExecuteNonQuery_42.cs,73,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_NetClient_ExecuteScalar_01.cs,66,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_NetClient_ExecuteScalar_02.cs,77,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_NetClient_ExecuteScalar_03.cs,77,89
@@ -35,6 +36,7 @@ F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_NetClient_ExecuteScalar_16.cs,72,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_NetClient_ExecuteScalar_17.cs,72,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_NetClient_ExecuteScalar_31.cs,72,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_NetClient_ExecuteScalar_42.cs,72,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs,52,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_02.cs,63,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_03.cs,63,89
@@ -53,6 +55,7 @@ F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_16.cs,58,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_17.cs,58,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_31.cs,58,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_42.cs,58,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteNonQuery_01.cs,46,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteNonQuery_02.cs,57,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteNonQuery_03.cs,57,89
@@ -71,6 +74,7 @@ F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteNonQuery_16.cs,52,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteNonQuery_17.cs,52,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteNonQuery_31.cs,52,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteNonQuery_42.cs,52,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_01.cs,45,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_02.cs,56,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_03.cs,56,89
@@ -89,6 +93,7 @@ F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_16.cs,51,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_17.cs,51,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_31.cs,51,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_Params_Get_Web_ExecuteScalar_42.cs,51,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_QueryString_Web_CommandText_01.cs,58,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_QueryString_Web_CommandText_02.cs,69,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_QueryString_Web_CommandText_03.cs,69,89
@@ -107,6 +112,7 @@ F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_QueryString_Web_CommandText_16.cs,64,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_QueryString_Web_CommandText_17.cs,64,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_QueryString_Web_CommandText_31.cs,64,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_QueryString_Web_CommandText_42.cs,64,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_QueryString_Web_ExecuteNonQuery_01.cs,52,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_QueryString_Web_ExecuteNonQuery_02.cs,63,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_QueryString_Web_ExecuteNonQuery_03.cs,63,89
@@ -125,6 +131,7 @@ F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_QueryString_Web_ExecuteNonQuery_16.cs,58,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_QueryString_Web_ExecuteNonQuery_17.cs,58,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_QueryString_Web_ExecuteNonQuery_31.cs,58,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_QueryString_Web_ExecuteNonQuery_42.cs,58,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_QueryString_Web_ExecuteScalar_01.cs,51,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_QueryString_Web_ExecuteScalar_02.cs,62,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_QueryString_Web_ExecuteScalar_03.cs,62,89
@@ -143,6 +150,7 @@ F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_QueryString_Web_ExecuteScalar_16.cs,57,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_QueryString_Web_ExecuteScalar_17.cs,57,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_QueryString_Web_ExecuteScalar_31.cs,57,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_QueryString_Web_ExecuteScalar_42.cs,57,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_ReadLine_CommandText_01.cs,64,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_ReadLine_CommandText_02.cs,75,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_ReadLine_CommandText_03.cs,75,89
@@ -161,6 +169,7 @@ F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_ReadLine_CommandText_16.cs,70,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_ReadLine_CommandText_17.cs,70,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_ReadLine_CommandText_31.cs,70,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_ReadLine_CommandText_42.cs,70,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_ReadLine_ExecuteNonQuery_01.cs,58,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_ReadLine_ExecuteNonQuery_02.cs,69,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_ReadLine_ExecuteNonQuery_03.cs,69,89
@@ -179,6 +188,7 @@ F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_ReadLine_ExecuteNonQuery_16.cs,64,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_ReadLine_ExecuteNonQuery_17.cs,64,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_ReadLine_ExecuteNonQuery_31.cs,64,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_ReadLine_ExecuteNonQuery_42.cs,64,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_ReadLine_ExecuteScalar_01.cs,57,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_ReadLine_ExecuteScalar_02.cs,68,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_ReadLine_ExecuteScalar_03.cs,68,89
@@ -197,6 +207,7 @@ F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_ReadLine_ExecuteScalar_16.cs,63,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_ReadLine_ExecuteScalar_17.cs,63,89
 F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_ReadLine_ExecuteScalar_31.cs,63,89
+F001. SQL injection - C Sharp SQL API,NIST/src/testcases/CWE89_SQL_Injection/s02/CWE89_SQL_Injection__Web_ReadLine_ExecuteScalar_42.cs,63,89
 F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_01.cs,31,310 + 327
 F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_02.cs,33,310 + 327
 F052. Insecure encryption algorithm,NIST/src/testcases/CWE327_Use_Broken_Crypto/CWE327_Use_Broken_Crypto__3DES_03.cs,33,310 + 327

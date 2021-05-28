@@ -37,7 +37,6 @@ from sast_syntax_readers.java import (
     method_invocation as java_method_invocation,
     parenthesized_expression as java_parenthesized_expression,
     resource as java_resource,
-    return_statement as java_return_statement,
     switch_label as java_switch_label,
     switch_statement as java_switch_statement,
     ternary_expression as java_ternary_expression,
@@ -68,6 +67,7 @@ from sast_syntax_readers.common import (
     literal as common_literal,
     identifier as common_identifier,
     object_creation_expression as common_object_creation_expression,
+    return_statement as common_return_statement,
 )
 from utils import graph as g
 from utils.logs import log_blocking
@@ -467,11 +467,12 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
+            graph_model.GraphShardMetadataLanguage.CSHARP,
         },
         applicable_node_label_types={
             "return_statement",
         },
-        syntax_readers=(java_return_statement.reader,),
+        syntax_readers=(common_return_statement.reader,),
     ),
     Dispatcher(
         applicable_languages={

@@ -519,8 +519,38 @@ def analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
         or attempt_by_type_and_value_finding(args, method)
         or attempt_by_args_propagation(args, method)
         or attempt_by_type(args, method)
+        or analyze_method_invocation_local(args, method)
         or analyze_method_invocation_external(args, method)
     )
+
+
+def analyze_method_invocation_local(
+    args: EvaluatorArgs,
+    method: str,
+) -> bool:
+    method_var, method_path = split_on_first_dot(method)
+
+    if method_var == "this":
+        method_name = method_path
+    elif not method_path and method_var:
+        method_name = method_var
+    else:
+        return False
+
+    if (_method := lookup_method(args, method_name)) and (
+        return_step := args.eval_method(
+            args,
+            # pylint: disable=used-before-assignment
+            _method.metadata.n_id,
+            args.dependencies,
+            args.graph_db.shards_by_path_f(_method.shard_path),
+        )
+    ):
+        args.syntax_step.meta.danger = return_step.meta.danger
+        args.syntax_step.meta.value = return_step.meta.value
+        return True
+
+    return False
 
 
 def analyze_method_invocation_external(
@@ -601,14 +631,13 @@ def analyze_method_invocation_values(
             analyze_method_invocation_values_str(args, dcl, method_path)
         if isinstance(dcl.meta.value, list):
             analyze_method_invocation_values_list(args, dcl, method_path)
-    elif (
+    elif _method := lookup_method(args, method) or (
         _method := lookup_method(
             args,
             method_path or method_var,  # can be local function
             method_var_decl_type,
         )
-        or (_method := lookup_method(args, method))
-    ) :
+    ):
         class_instance = (
             JavaClassInstance(
                 fields={},
