@@ -155,6 +155,29 @@ on
 workflows.
 1. Running application performance monitoring using [New Relic](https://newrelic.com/).
 
+We do not use [Kubernetes](https://kubernetes.io/) for:
+
+1. [Metrics-based autoscaling](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/):
+Our autoscaling is based on the
+[number of replicas](https://gitlab.com/fluidattacks/product/-/blob/9581d53dc73e59cc7709981743ddc47153d7909a/makes/applications/integrates/back/deploy/prod/k8s/deployment.yaml#L7)
+we specify.
+It should instead be based
+on application load.
+1. [Rollbacks](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#rolling-back-a-deployment):
+We should version production artifacts
+in order to be able to automatically
+return to a previous working version
+of our applications.
+1. [Gitlab Runner](https://docs.gitlab.com/runner/executors/kubernetes.html):
+It was slow,
+unreliable
+and added too much overhead to workers.
+We decided to go back to
+[Autoscaling Runner](https://docs.gitlab.com/runner/configuration/runner_autoscale_aws/).
+1. [Chaos Engineering](https://github.com/chaos-mesh/chaos-mesh/):
+In order to harden ourselves against errors,
+we should create a little chaos in our infrastructure.
+
 ## Guidelines
 
 ### Connect to cluster

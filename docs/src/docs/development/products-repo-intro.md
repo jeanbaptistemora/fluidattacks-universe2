@@ -5,20 +5,21 @@ sidebar_label: Introduction
 slug: /development
 ---
 
-## Fluid Attacks, Products repository
+## Who we are
 
 We are a
 [cyber-security company](https://fluidattacks.com)
 whose only purpose is
-to make the world a safer place
+to make the world a safer place.
 
-We do this by:
-- Performing comprehensive security testing
-over all of your assets
-- Using cutting edge technologies
-and heavily trained human hackers
-- Reporting vulnerabilities back to you
-as accurate and fast as possible
+## What we do
+
+- We perform comprehensive security testing
+over all of your assets.
+- We use cutting edge technologies
+and heavily trained human hackers.
+- We report vulnerabilities back to you
+as accurate and fast as possible.
 
 The source code of the technologies used
 is versioned in this repository
@@ -34,13 +35,13 @@ and is divided across many products:
 ## Installing
 
 Most products are distributed
-as a standalone binary
+as a standalone binary.
 
 Before proceeding
 make sure you have Nix installed in your system,
 otherwise please install it
 as explained in the
-[tutorial](https://nixos.org/download.html)
+[tutorial](https://nixos.org/download.html).
 
 You can install the products of your choice
 by using one or many of the following commands:
@@ -56,7 +57,7 @@ Once installed,
 you can test that they work
 by invoking the product
 like `skims --help`, `forces --help`,
-and so on
+and so on.
 
 You can see installed software with:
-`nix-env -q` and uninstall with: `nix-env -e`
+`nix-env -q` and uninstall with: `nix-env -e`.
