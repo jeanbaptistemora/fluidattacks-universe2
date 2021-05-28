@@ -112,8 +112,10 @@ def get_model_hyperparameters(
     return {parameter: args[parameter] for parameter in model_hyperparameters}
 
 
-def main() -> None:  # pylint: disable=too-many-locals
+def cli() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
+
+    # Sagemaker specific arguments. Defaults are set in environment variables.
     parser.add_argument(
         "--output-data-dir", type=str, default=os.environ["SM_OUTPUT_DATA_DIR"]
     )
@@ -125,16 +127,20 @@ def main() -> None:  # pylint: disable=too-many-locals
     )
     parser.add_argument("--model", type=str, default="")
 
-    # MLPCLassifier
+    # MLPCLassifier parameters to tune
     parser.add_argument("--activation", type=str, default="")
     parser.add_argument("--solver", type=str, default="")
 
-    # XGBoost
+    # XGBoost parameters to tune
     parser.add_argument("--criterion", type=str, default="")
     parser.add_argument("--loss", type=str, default="")
     parser.add_argument("--n_estimators", type=int, default=100)
 
-    args = parser.parse_args()
+    return parser.parse_args()
+
+
+def main() -> None:
+    args = cli()
 
     model_name: str = args.model.split("-")[0]
     model_features: Tuple[str, ...] = get_model_features()
@@ -145,6 +151,7 @@ def main() -> None:  # pylint: disable=too-many-locals
     results_filename: str = f"{model_name}_train_results.csv"
     previous_results = get_previous_training_results(results_filename)
 
+    # Start training process
     training_output = train_model(
         model, model_features, args.train, previous_results
     )
