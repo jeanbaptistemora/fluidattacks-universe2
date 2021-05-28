@@ -41,7 +41,7 @@ const features = [
         List of security requirements and vulnerabilities considered by our organization
       </>
     ),
-    link: 'criteria/introduction'
+    link: 'criteria/'
   },
   {
     title: 'Development',

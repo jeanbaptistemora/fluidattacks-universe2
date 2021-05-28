@@ -2,7 +2,7 @@
 id: introduction
 title: Introduction
 sidebar_label: Introduction
-slug: /criteria/introduction
+slug: /criteria/
 ---
 
 Our **criteria** is divided into two categories:
