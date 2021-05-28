@@ -1,7 +1,7 @@
 ---
 id: gitroots
-title: Git Roots
-sidebar_label: Git Roots
+title: Roots
+sidebar_label: Roots
 slug: /machine/app/groups/scope/gitroots
 ---
 

@@ -1,7 +1,7 @@
 ---
 id: exclusions
-title: Excluding files
-sidebar_label: Excluding files
+title: Exclusions
+sidebar_label: Exclusions
 slug: /machine/app/groups/scope/exclusions
 ---
 

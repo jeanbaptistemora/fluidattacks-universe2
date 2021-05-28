@@ -776,7 +776,7 @@ module.exports = {
         'machine/app/asm',
         {
           type: 'category',
-          label: 'Manage your organization',
+          label: 'Organizations',
           items: [
             'machine/app/organization/analytics-vulnerabilities',
             'machine/app/organization/analytics-generic',
@@ -784,7 +784,7 @@ module.exports = {
         },
         {
           type: 'category',
-          label: 'Manage your groups',
+          label: 'Groups',
           items: [
             'machine/app/groups/vulnerabilities',
             'machine/app/groups/events',
