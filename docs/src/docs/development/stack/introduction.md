@@ -30,9 +30,9 @@ How to use the component.
 
 ## Stack
 
-1. Edge protection: [CloudFlare](stack/cloudflare)
-1. Version control system: [Git](stack/git/commits)
-1. Application hosting: [Kubernetes](stack/kubernetes)
-1. Identity management: [Okta](stack/okta)
-1. Secret management: [Sops](stack/sops)
-1. Infrastructure management: [Terraform](stack/terraform)
+1. **Edge protection: [CloudFlare](stack/cloudflare)**
+1. **Version control system: [Git](stack/git/commits)**
+1. **Application hosting: [Kubernetes](stack/kubernetes)**
+1. **Identity management: [Okta](stack/okta)**
+1. **Secret management: [Sops](stack/sops)**
+1. **Infrastructure management: [Terraform](stack/terraform)**

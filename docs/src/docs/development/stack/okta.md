@@ -8,8 +8,9 @@ slug: /development/stack/okta
 ## Rationale
 
 [Okta](https://www.okta.com/)
-is the platform we use for managing
-[SSO](https://en.wikipedia.org/wiki/Single_sign-on)
+is the
+[IAM](https://en.wikipedia.org/wiki/Identity_management)
+platform we use for managing
 access to hundreds of applications
 used accross our company.
 It allows us to give
@@ -18,12 +19,6 @@ without disclosing credentials
 and maintaining a
 [least privilege](../../criteria/requirements/186)
 approach.
-It supports protocols like
-basic authentication,
-[SAML](https://en.wikipedia.org/wiki/Security_Assertion_Markup_Language),
-[OAuth](https://en.wikipedia.org/wiki/OAuth),
-and
-[Automatic provisioning](https://help.okta.com/en/prod/Content/Topics/Apps/Provisioning_Deprovisioning_Overview.htm).
 
 The main reasons why we chose
 it over other alternatives are:
@@ -34,26 +29,47 @@ the infrastructure it relies on.
 1. Being a
 [SSO](https://en.wikipedia.org/wiki/Single_sign-on)
 platform,
-employees only need to remember their [Okta](https://www.okta.com/) password.
-Everything else can be accessed once they're inside.
+employees only need to remember their
+[Okta](https://www.okta.com/) password.
+Everything else can be accessed
+once they're inside.
 1. It provides a
 [universal directory](https://www.okta.com/products/universal-directory/)
 that allows us to have
-users, departments, applications and permissions
+users, departments,
+applications and permissions
 in a single place.
 1. It supports
 [Multi-factor authentication](https://www.okta.com/products/adaptive-multi-factor-authentication/)
-using a
-[OOB](https://doubleoctopus.com/security-wiki/authentication/out-of-band-authentication/)
-approach.
-1. It supports
-[Push notifications](https://en.wikipedia.org/wiki/Push_technology)
+by using
+[OTP's](https://en.wikipedia.org/wiki/One-time_password)
+that regenerate every thirty seconds
+and [Push notifications](https://en.wikipedia.org/wiki/Push_technology)
 through its
 [Okta Verify app](https://www.okta.com/integrations/okta-verify/)
 on both
 [IOS](https://en.wikipedia.org/wiki/IOS)
 and
 [Android](https://en.wikipedia.org/wiki/Android_(operating_system)).
+1. As
+[Multi-factor authentication](https://www.okta.com/products/adaptive-multi-factor-authentication/)
+can be done on the user's phone,
+we do not need to manage independant
+[security tokens](https://en.wikipedia.org/wiki/Security_token).
+2. Its
+[Multi-factor authentication](https://www.okta.com/products/adaptive-multi-factor-authentication/)
+uses
+[OOBA](https://doubleoctopus.com/security-wiki/authentication/out-of-band-authentication/),
+a state of the art authentication process
+that uses two different communication channels,
+one for the application itself
+and a separate one for the verification method.
+Such process reduces the chances of identity theft,
+as both channels would need to be compromised by an attacker.
+1. It enforces
+[Biometric MFA](https://www.okta.com/identity-101/biometrics-secure-authentication/)
+for both face and fingerprint
+if the device supports it.
 1. It supports
 [serverless automatic provisioning](https://help.okta.com/en/prod/Content/Topics/Apps/Provisioning_Deprovisioning_Overview.htm),
 allowing us to keep
@@ -90,7 +106,12 @@ using [Terraform](terraform).
 ## Alternatives
 
 1. [OneLogin](https://www.onelogin.com/):
-We used it for one year or so.
+We used it for three years.
+It did not support
+as many integrations.
+It's automatic provisioning
+was not as flexible.
+1. [Duo](https://duo.com/):
 It did not support
 as many integrations.
 It's automatic provisioning
