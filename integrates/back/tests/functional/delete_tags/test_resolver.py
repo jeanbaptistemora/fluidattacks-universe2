@@ -35,7 +35,6 @@ async def test_delete_tags(populate: bool, email: str) -> None:
     ["email"],
     [
         ["admin@gmail.com"],
-        ["analyst@gmail.com"],
         ["closer@gmail.com"],
     ],
 )
