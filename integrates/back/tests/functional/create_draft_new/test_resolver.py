@@ -33,7 +33,7 @@ async def test_create_draft(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["closer@gmail.com"],
+        ["customer@gmail.com"],
         ["executive@gmail.com"],
     ],
 )
