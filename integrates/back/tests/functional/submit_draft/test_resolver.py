@@ -17,7 +17,7 @@ from . import query
         ["admin@gmail.com"],
     ],
 )
-async def test_submit_draft(populate: bool, email) -> None:
+async def test_submit_draft(populate: bool, email: str) -> None:
     assert populate
     finding_id: str = "475041513"
     result: Dict[str, Any] = await query(user=email, finding=finding_id)
@@ -33,7 +33,7 @@ async def test_submit_draft(populate: bool, email) -> None:
         ["analyst@gmail.com"],
     ],
 )
-async def test_submit_draft_fail_1(populate: bool, email) -> None:
+async def test_submit_draft_fail_1(populate: bool, email: str) -> None:
     assert populate
     finding_id: str = "475041513"
     result: Dict[str, Any] = await query(user=email, finding=finding_id)
@@ -53,7 +53,7 @@ async def test_submit_draft_fail_1(populate: bool, email) -> None:
         ["executive@gmail.com"],
     ],
 )
-async def test_submit_draft_fail_2(populate: bool, email) -> None:
+async def test_submit_draft_fail_2(populate: bool, email: str) -> None:
     assert populate
     finding_id: str = "475041513"
     result: Dict[str, Any] = await query(user=email, finding=finding_id)

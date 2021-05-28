@@ -12,6 +12,8 @@ from settings import (
     SESSION_COOKIE_AGE,
 )
 
+from typing import Optional
+
 
 def create_dummy_simple_session(
     username: str = "unittest",
@@ -30,7 +32,7 @@ def create_dummy_simple_session(
 
 
 async def create_dummy_session(
-    username: str = "unittest", session_jwt=None
+    username: str = "unittest", session_jwt: Optional[str] = None
 ) -> Response:
     request = create_dummy_simple_session(username)
     payload = {

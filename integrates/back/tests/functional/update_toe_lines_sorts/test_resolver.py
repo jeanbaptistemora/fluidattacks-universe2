@@ -19,7 +19,7 @@ async def test_update_toe_lines_sorts(populate: bool, email: str) -> None:
         sorts_risk_level=10,
     )
     assert result["data"]["updateToeLinesSorts"]["success"]
-    result: Dict[str, Any] = await query_get(user=email, group_name="group1")
+    result = await query_get(user=email, group_name="group1")
     assert result["data"]["group"]["roots"] == [
         {
             "id": "63298a73-9dff-46cf-b42d-9b2f01a56690",

@@ -344,9 +344,9 @@ async def test_create_user() -> None:
     email: str = "integratescustomer@fluidattacks.com"
     user_info = await get_user_attrs(email, ["registered", "last_login"])
     assert user_info["registered"]
-    assert user_info["last_login"] < now
+    assert user_info["last_login"] < now  # type: ignore
 
     time.sleep(1)
     await log_user_in({"email": email})
     user_info = await get_user_attrs(email, ["last_login"])
-    assert user_info["last_login"] > now
+    assert user_info["last_login"] > now  # type: ignore

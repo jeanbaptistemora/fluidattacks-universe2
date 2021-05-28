@@ -9,7 +9,7 @@ from dataloaders import get_new_context
 
 
 async def query(
-    *, user: str, group_name: str, filename: str, sorts_risk_level: str
+    *, user: str, group_name: str, filename: str, sorts_risk_level: int
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{

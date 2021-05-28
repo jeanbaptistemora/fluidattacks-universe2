@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import pytest
+from _pytest.monkeypatch import MonkeyPatch
 import shutil
 from collections import OrderedDict
 from decimal import Decimal
@@ -310,7 +311,7 @@ async def test_delete_obsolete_groups() -> None:
 
 @pytest.mark.changes_db
 async def test_toe_lines_etl() -> None:
-    def clone_services_repository_mock(path) -> None:
+    def clone_services_repository_mock(path: str) -> None:
         dirname = os.path.dirname(__file__)
         filename = os.path.join(dirname, "mock/test_lines.csv")
         os.makedirs(f"{path}/groups/unittesting/toe")
@@ -381,8 +382,8 @@ async def test_toe_lines_etl() -> None:
 
 
 @pytest.mark.changes_db
-async def test_toe_inputs_etl(monkeypatch) -> None:
-    def mocked_clone_services_repository(path) -> None:
+async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
+    def mocked_clone_services_repository(path: str) -> None:
         print("mocked_clone_services_repository")
         dirname = os.path.dirname(__file__)
         filename = os.path.join(dirname, "mock/test_inputs.csv")

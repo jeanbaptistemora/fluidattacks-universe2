@@ -33,7 +33,7 @@ async def test_analyst(populate: bool) -> None:
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("remove_event_evidence")
-async def test_analyst(populate: bool) -> None:
+async def test_closer(populate: bool) -> None:
     assert populate
     event_id: str = "418900995"
     result: Dict[str, Any] = await query(
