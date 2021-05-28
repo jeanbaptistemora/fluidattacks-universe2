@@ -18,6 +18,7 @@ module.exports = {
   preset: "ts-jest",
   setupFiles: ["jest-canvas-mock"],
   setupFilesAfterEnv: ["<rootDir>/jestSetup.ts"],
+  testEnvironment: "jsdom",
   transform: {
     "^.+\\.(j|t)sx?$": "ts-jest",
   },
