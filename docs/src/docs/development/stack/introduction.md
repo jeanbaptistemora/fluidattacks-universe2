@@ -28,9 +28,9 @@ involving it.
 1. **Guidelines:**
 How to use the component.
 
-## Stack
+## Purpose
 
-1. **Edge protection: [CloudFlare](stack/cloudflare)**
+1. **Edge protection: [Cloudflare](stack/cloudflare)**
 1. **Version control system: [Git](stack/git/commits)**
 1. **Application hosting: [Kubernetes](stack/kubernetes)**
 1. **Identity management: [Okta](stack/okta)**

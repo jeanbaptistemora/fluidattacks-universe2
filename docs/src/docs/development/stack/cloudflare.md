@@ -1,13 +1,13 @@
 ---
 id: cloudflare
-title: CloudFlare
-sidebar_label: CloudFlare
+title: Cloudflare
+sidebar_label: Cloudflare
 slug: /development/stack/cloudflare
 ---
 
 ## Rationale
 
-[CloudFlare](https://www.cloudflare.com/)
+[Cloudflare](https://www.cloudflare.com/)
 is our [SaaS](https://en.wikipedia.org/wiki/Software_as_a_service)
 provider for some infrastructure solutions like
 [DNSSEC](https://www.cloudflare.com/dns/dnssec/),
@@ -77,7 +77,7 @@ community support.
 It is much more expensive and setting up
 its services seems more complicated when
 comparing it to
-[CloudFlare](https://www.cloudflare.com/).
+[Cloudflare](https://www.cloudflare.com/).
 1. [AWS Certificate Manager](https://aws.amazon.com/certificate-manager/):
 Creating digital certificates required to also manage
 [DNS](https://www.cloudflare.com/dns/)
@@ -95,18 +95,18 @@ to make things work.
 This service does not support
 [DNSSEC](https://www.cloudflare.com/dns/dnssec/),
 It is not as fast or as flexible as
-[CloudFlare's DNS](https://www.cloudflare.com/dns/).
+[Cloudflare's DNS](https://www.cloudflare.com/dns/).
 1. [AWS Web Application Firewall](https://aws.amazon.com/waf/):
 It needs to be connected to a load balancer serving
 an application, it does not work for
 [static sites](https://en.wikipedia.org/wiki/Static_web_page).
 It is not as flexible as
-[CloudFlare's Web Application Firewall](https://www.cloudflare.com/lp/ppc/waf-x/)
+[Cloudflare's Web Application Firewall](https://www.cloudflare.com/lp/ppc/waf-x/)
 .
 
 ## Usage
 
-We use [CloudFlare](https://www.cloudflare.com/) for:
+We use [Cloudflare](https://www.cloudflare.com/) for:
 
 1. [Overall network configurations](https://gitlab.com/fluidattacks/product/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform/fluidattacks.tf#L1)
 1. [DNS Records](https://gitlab.com/fluidattacks/product/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform/fluidattacks.tf#L79)
@@ -116,7 +116,7 @@ We use [CloudFlare](https://www.cloudflare.com/) for:
 1. [Managing rate limiting](https://gitlab.com/fluidattacks/product/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform/rate_limit.tf)
 1. [Managing CDN Cache](https://gitlab.com/fluidattacks/product/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/airs/deploy/production/terraform/cache.tf)
 
-We do not use the following [CloudFlare](https://www.cloudflare.com/) services:
+We do not use the following [Cloudflare](https://www.cloudflare.com/) services:
 
 1. [Argo Tunnel](https://www.cloudflare.com/products/argo-tunnel/):
 Pending to review.
@@ -128,7 +128,7 @@ on apt and yum.
 ## Guidelines
 
 1. Any changes to
-[CloudFlare's](https://www.cloudflare.com/)
+[Cloudflare's](https://www.cloudflare.com/)
 infrastructure must be done via
 [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/)
 modifying its
