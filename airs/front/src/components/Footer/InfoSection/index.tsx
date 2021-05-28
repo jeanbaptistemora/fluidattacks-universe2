@@ -20,7 +20,7 @@ const InfoSection: React.FC = (): JSX.Element => (
     </CopyrightContainer>
     <FooterInfoLinksContainer>
       <FooterInfoLink href={"https://status.fluidattacks.com/"}>
-        {"Service status"}
+        {"Service Status"}
       </FooterInfoLink>
       <GrayDash>{" - "}</GrayDash>
       <Link
