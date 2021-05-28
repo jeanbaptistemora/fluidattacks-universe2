@@ -25,5 +25,5 @@ F107.threat:
   en: Autenticated attacker from the Internet.
   es: Atacante autenticado desde Internet.
 F107.title:
-  en: F017. LDAP injection
-  es: F017. Inyección de LDAP
+  en: F107. LDAP injection
+  es: F107. Inyección de LDAP
