@@ -764,7 +764,7 @@ module.exports = {
         'criteria/compliance/iso',
         'criteria/compliance/nerc',
         'criteria/compliance/nist',
-        'criteria/compliance/owaspten',        
+        'criteria/compliance/owaspten',
       ],
     },
   ],
@@ -889,6 +889,7 @@ module.exports = {
       type: 'category',
       label: 'Stack',
       items: [
+        'development/stack/introduction',
         'development/stack/cloudflare',
         {
           type: 'category',
@@ -899,6 +900,7 @@ module.exports = {
           ]
         },
         'development/stack/kubernetes',
+        'development/stack/okta',
         'development/stack/sops',
         'development/stack/terraform',
       ]
