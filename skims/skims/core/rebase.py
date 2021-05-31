@@ -1,4 +1,5 @@
 # Standard library
+import os
 from typing import AsyncIterator
 
 # Third party libraries
@@ -107,7 +108,7 @@ async def main(
                 if not await do_update_vulnerability_commit(
                     vuln_commit=rebase_data.rev,
                     vuln_id=vulnerability.integrates_metadata.uuid,
-                    vuln_what=rebase_data.path,
+                    vuln_what=os.path.join(namespace, rebase_data.path),
                     vuln_where=str(rebase_data.line),
                 ):
                     success = False
