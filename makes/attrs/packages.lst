@@ -148,6 +148,7 @@ observes.lint.postgres-client
 observes.lint.service-batch-stability
 observes.lint.service-jobs-scheduler
 observes.lint.service-migrate-tables
+observes.lint.service-timedoctor-tokens
 observes.lint.singer-io
 observes.lint.singer-pkgs
 observes.lint.streamer-gitlab

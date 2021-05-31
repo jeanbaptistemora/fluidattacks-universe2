@@ -88,6 +88,11 @@ observes.lint.service-migrate-tables:
   <<: *observes_in_dev_branch
   stage: lint-code
 
+observes.lint.service-timedoctor-tokens:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
 observes.lint.singer-io:
   <<: *makes
   <<: *observes_in_dev_branch
