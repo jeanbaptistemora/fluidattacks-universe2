@@ -109,23 +109,13 @@ module.exports = {
     {
       resolve: "gatsby-plugin-sitemap",
       options: {
-        createLinkInHead: true,
-      }
+        excludes: ["/blog/authors", "/blog/tags", "/blog/categories"],
+      },
     },
     {
       resolve: "gatsby-plugin-robots-txt",
       options: {
-        host: "https://fluidattacks.com",
-        sitemap: "https://fluidattacks.com/sitemap/sitemap-index.xml",
-        resolveEnv: () => process.env.GATSBY_ENV,
-        env: {
-          development: {
-            policy: [{ userAgent: "*", disallow: ["/"] }],
-          },
-          production: {
-            policy: [{ userAgent: "*", disallow: "/" }],
-          },
-        },
+        policy: [{ userAgent: "*", disallow: "/" }],
       },
     },
     "gatsby-plugin-image",
