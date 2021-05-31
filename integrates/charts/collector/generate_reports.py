@@ -108,6 +108,14 @@ def take_snapshot(
         file.write(element.screenshot_as_png)
 
 
+@utils.retry_on_exceptions(
+    default_value=None,
+    exceptions=(
+        TimeoutException,
+        WebDriverException,
+    ),
+    retry_times=5,
+)
 def clear_cookies(
     driver: webdriver.Firefox,
     session: aiohttp.ClientSession,
