@@ -109,7 +109,6 @@ module.exports = {
     {
       resolve: "gatsby-plugin-sitemap",
       options: {
-        output: "/",
         createLinkInHead: true,
       }
     },
@@ -117,7 +116,7 @@ module.exports = {
       resolve: "gatsby-plugin-robots-txt",
       options: {
         host: "https://fluidattacks.com",
-        sitemap: "https://fluidattacks.com/sitemap-index.xml",
+        sitemap: "https://fluidattacks.com/sitemap/sitemap-index.xml",
         resolveEnv: () => process.env.GATSBY_ENV,
         env: {
           development: {
