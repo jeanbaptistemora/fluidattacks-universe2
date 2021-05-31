@@ -151,15 +151,16 @@ be able to deploy changes to production.
 
 We do not use [GItlab CI](https://docs.gitlab.com/ee/ci/) for:
 
-1. Highly time consuming schedules:
-For highly time consuming schedules like
+1. For highly time-consuming schedules
+that take longer than six hours,
+like
 [Analytics ETL's](https://en.wikipedia.org/wiki/Extract,_transform,_load),
 [Machine learning](https://en.wikipedia.org/wiki/Machine_learning) training,
 among others,
 we use [AWS Batch](https://aws.amazon.com/batch/) instead.
 The reason for this is that the
 [GItlab CI](https://docs.gitlab.com/ee/ci/)
-is not meant to run jobs that take so long,
+is not meant to run jobs that take that many hours,
 often resulting in jobs being terminated
 before they can finish,
 mainly due to diconnections between the
