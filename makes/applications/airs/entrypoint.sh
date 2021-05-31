@@ -25,19 +25,19 @@ function patch_paths {
 function patch_paths_dev {
   local src="${1}"
 
-  patch_paths "${src}" 'http' 'localhost:8000' 'front'
+  patch_paths "${src}" 'http' 'localhost:8000' ''
 }
 
 function patch_paths_eph {
   local src="${1}"
 
-  patch_paths "${src}" 'https' "web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}/front" "${CI_COMMIT_REF_NAME}/front"
+  patch_paths "${src}" 'https' "web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" ""
 }
 
 function patch_paths_prod {
   local src="${1}"
 
-  patch_paths "${src}" 'https' 'fluidattacks.com/' 'front'
+  patch_paths "${src}" 'https' 'fluidattacks.com/' ''
 }
 
 function compress_files {

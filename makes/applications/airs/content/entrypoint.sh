@@ -1,7 +1,6 @@
 # shellcheck shell=bash
 
 function main {
-  local url='https://please-replace-this-url-before-deploying'
   local out="airs/front"
 
         pushd "${out}" \
@@ -15,10 +14,10 @@ function main {
           GATSBY_ALGOLIA_SEARCH_KEY \
           ALGOLIA_ADMIN_KEY \
     &&  copy __envAirsContent__ content \
-    &&  sed -i "s|https://fluidattacks.com|${url}|g" gatsby-config.js \
     &&  if test -n "${CI:-}" && test "${CI_COMMIT_REF_NAME}" != "master"
         then
-          sed -i "s|pathPrefix: '/front'|pathPrefix: '/${CI_COMMIT_REF_NAME}'|g" gatsby-config.js
+              sed -i "s|pathPrefix: '/front'|pathPrefix: '/${CI_COMMIT_REF_NAME}'|g" gatsby-config.js \
+          &&  sed -i "s|https://fluidattacks.com|https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}|g" gatsby-config.js
         fi \
     &&  rm -rf content/pages/products \
     &&  copy __envAirsNpm__/node_modules 'node_modules' \
