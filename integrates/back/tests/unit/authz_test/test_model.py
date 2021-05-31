@@ -5,6 +5,11 @@ import pytest
 
 # Local libraries
 import authz
+from typing import (
+    Dict,
+    List,
+    Any,
+)
 
 # Constants
 pytestmark = [
@@ -73,7 +78,9 @@ pytestmark = [
         ),
     ],
 )
-def test_model_integrity_keys_1(parameter, expected):
+def test_model_integrity_keys_1(
+    parameter: Dict[str, Any], expected: List[str]
+) -> None:
     assert sorted(parameter.keys()) == expected
 
 
@@ -86,7 +93,7 @@ def test_model_integrity_keys_1(parameter, expected):
         [authz.USER_LEVEL_ROLES_FOR_FLUIDATTACKS],
     ],
 )
-def test_model_integrity_keys_2(parameter):
+def test_model_integrity_keys_2(parameter: Dict[str, Any]) -> None:
     for value in parameter.values():
         assert sorted(value.keys()) == ["actions", "tags"]
 
@@ -102,7 +109,9 @@ def test_model_integrity_keys_2(parameter):
         (authz.USER_LEVEL_ROLES, authz.USER_LEVEL_ROLES_FOR_FLUIDATTACKS),
     ],
 )
-def test_model_integrity_roles(roles_common, roles_fluid):
+def test_model_integrity_roles(
+    roles_common: Dict[str, Any], roles_fluid: Dict[str, Any]
+) -> None:
     assert sorted(roles_common.keys()) == sorted(roles_fluid.keys())
 
 
@@ -117,8 +126,8 @@ def test_model_integrity_roles(roles_common, roles_fluid):
     ],
 )
 def test_model_integrity_migrated_finding_permissions(
-    permission_name, permissions
-):
+    permission_name: str, permissions: Dict[str, Any]
+) -> None:
     migrated_permissions = {
         "api_mutations_create_draft_mutate": "api_mutations_create_draft_new_mutate",
         "api_mutations_submit_draft_mutate": "api_mutations_submit_draft_mutate",

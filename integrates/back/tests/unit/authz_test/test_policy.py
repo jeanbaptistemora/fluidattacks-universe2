@@ -19,7 +19,7 @@ pytestmark = [
 ]
 
 
-async def test_get_cached_group_service_attributes_policies():
+async def test_get_cached_group_service_attributes_policies() -> None:
     function = get_cached_group_service_policies
 
     assert sorted(await function("not-exists... probably")) == []
@@ -35,7 +35,7 @@ async def test_get_cached_group_service_attributes_policies():
     ]
 
 
-async def test_get_group_level_role():
+async def test_get_group_level_role() -> None:
     assert (
         await get_group_level_role(
             "continuoushacking@gmail.com", "unittesting"
@@ -61,7 +61,7 @@ async def test_get_group_level_role():
     )
 
 
-async def test_get_user_level_role():
+async def test_get_user_level_role() -> None:
     assert (
         await get_user_level_role("continuoushacking@gmail.com") == "analyst"
     )
@@ -77,7 +77,7 @@ async def test_get_user_level_role():
     assert not await get_user_level_role("asdfasdfasdfasdf@gmail.com")
 
 
-async def test_grant_user_level_role():
+async def test_grant_user_level_role() -> None:
     assert await grant_user_level_role("..TEST@gmail.com", "customer")
     assert await get_user_level_role("..test@gmail.com") == "customer"
     assert await get_user_level_role("..tEst@gmail.com") == "customer"
@@ -90,7 +90,7 @@ async def test_grant_user_level_role():
     assert str(test_raised_err.value) == "Invalid role value: breakall"
 
 
-async def test_grant_group_level_role():
+async def test_grant_group_level_role() -> None:
     assert await grant_group_level_role(
         "..TEST2@gmail.com", "group", "customer"
     )
@@ -105,7 +105,7 @@ async def test_grant_group_level_role():
     assert str(test_raised_err.value) == "Invalid role value: breakall"
 
 
-async def test_revoke_group_level_role():
+async def test_revoke_group_level_role() -> None:
     assert await grant_group_level_role(
         "revoke_group_LEVEL_role@gmail.com", "group", "customer"
     )
@@ -159,7 +159,7 @@ async def test_revoke_group_level_role():
     )
 
 
-async def test_revoke_user_level_role():
+async def test_revoke_user_level_role() -> None:
     assert await grant_user_level_role(
         "revoke_user_LEVEL_role@gmail.com", "customer"
     )

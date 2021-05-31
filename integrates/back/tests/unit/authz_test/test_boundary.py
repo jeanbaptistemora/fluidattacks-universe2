@@ -24,7 +24,7 @@ pytestmark = [
         ["integratesanalyst@fluidattacks.com"],
     ],
 )
-async def test_get_user_level_actions_model(email):
+async def test_get_user_level_actions_model(email: str) -> None:
     user_level_role = await authz.get_user_level_role(email)
 
     assert await authz.get_user_level_actions(
@@ -46,7 +46,7 @@ async def test_get_user_level_actions_model(email):
         ["integratesuser@gmail.com", "oneshottest"],
     ],
 )
-async def test_get_group_level_actions_model(email, group):
+async def test_get_group_level_actions_model(email: str, group: str) -> None:
     group_level_role = await authz.get_group_level_role(email, group)
 
     assert await authz.get_group_level_actions(
@@ -71,7 +71,9 @@ async def test_get_group_level_actions_model(email, group):
         ],
     ],
 )
-async def test_get_organization_level_actions_model(email, organization_id):
+async def test_get_organization_level_actions_model(
+    email: str, organization_id: str
+) -> None:
     organization_level_role = await authz.get_organization_level_role(
         email, organization_id
     )

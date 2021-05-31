@@ -1,6 +1,8 @@
 # Standard library
 from typing import (
     Set,
+    Tuple,
+    Any,
 )
 
 # Third party libraries
@@ -15,7 +17,7 @@ pytestmark = [
 ]
 
 
-async def test_group_level_enforcer():
+async def test_group_level_enforcer() -> None:
     test_cases = {
         # Common user, group
         ("test@tests.com", "test"),
@@ -45,7 +47,7 @@ async def test_group_level_enforcer():
                     ), f"{role} should not be able to do {action}"
 
 
-async def test_user_level_enforcer():
+async def test_user_level_enforcer() -> None:
     test_cases = {
         # Common user, object_
         ("test@tests.com", "self"),
@@ -74,11 +76,11 @@ async def test_user_level_enforcer():
                     ), f"{role} should not be able to do {action}"
 
 
-async def test_group_service_attributes_enforcer():
+async def test_group_service_attributes_enforcer() -> None:
     # All attributes must be tested for this test to succeed
     # This prevents someone to add a new attribute without testing it
 
-    attributes_remaining_to_test: Set[str] = {
+    attributes_remaining_to_test: Set[Tuple[str, Any]] = {
         (group, attr)
         for group in ("unittesting", "oneshottest", "non_existing")
         for attrs in authz.SERVICE_ATTRIBUTES.values()
