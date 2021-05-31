@@ -135,7 +135,7 @@ locals {
     },
     skims = {
       bid_percentage      = 100
-      max_vcpus           = 32
+      max_vcpus           = 48
       spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
       type                = "SPOT"
     },
