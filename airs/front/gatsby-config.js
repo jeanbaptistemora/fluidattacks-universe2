@@ -5,7 +5,8 @@ module.exports = {
     description:
       "We're a pentesting and ethical hacking company that identifies and \
       reports all your applications and software vulnerabilities ASAP.",
-    image: "https://res.cloudinary.com/fluid-attacks/image/upload/v1619554789/airs/logo-fluid-attacks-light_lsckin.webp",
+    image:
+      "https://res.cloudinary.com/fluid-attacks/image/upload/v1619554789/airs/logo-fluid-attacks-light_lsckin.webp",
     keywords:
       "Fluid Attacks, Pentesting, Ethical Hacking, Security Testing, Cybersecurity",
     siteUrl: "https://fluidattacks.com", // No trailing slash allowed!
@@ -101,8 +102,31 @@ module.exports = {
         enablePartialUpdates: true,
         /* (optional) Fields to use for comparing if the index object is different from the new one */
         /* By default it uses a field called "modified" which could be a boolean | datetime string */
-        matchFields: ['slug', 'modified'], // Array<String> default: ['modified']
+        matchFields: ["slug", "modified"], // Array<String> default: ['modified']
         queries: require("./src/utils/algolia-queries"),
+      },
+    },
+    {
+      resolve: "gatsby-plugin-sitemap",
+      options: {
+        output: "/",
+        createLinkInHead: true,
+      }
+    },
+    {
+      resolve: "gatsby-plugin-robots-txt",
+      options: {
+        host: "https://fluidattacks.com",
+        sitemap: "https://fluidattacks.com/sitemap-index.xml",
+        resolveEnv: () => process.env.GATSBY_ENV,
+        env: {
+          development: {
+            policy: [{ userAgent: "*", disallow: ["/"] }],
+          },
+          production: {
+            policy: [{ userAgent: "*", allow: "/" }],
+          },
+        },
       },
     },
     "gatsby-plugin-image",
