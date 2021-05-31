@@ -338,6 +338,53 @@ $whiter-gray: rgba(241, 241, 241, 1);
   width: 100%;
 }
 
+.blog-suscribe-button {
+  border-bottom-width: 0 !important;
+  height: 50px;
+}
+
+.blog-footer-col {
+  min-width: 250px;
+}
+
+.blog-link {
+  border: 1px solid #b0b0b0 !important;
+  min-height: 50px;
+  min-width: 50px;
+}
+
+.arrow-box {
+  background: $white;
+  border: 1px solid #b0b0b0;
+  height: 50px;
+  position: relative;
+}
+
+.arrow-box::after,
+.arrow-box::before {
+  border: solid transparent;
+  content: '';
+  height: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  width: 0;
+}
+
+.arrow-box::after {
+  border-right-color: $white;
+  border-width: 10px;
+  margin-top: -10px;
+}
+
+.arrow-box::before {
+  border-color: rgba(176, 176, 176, 0);
+  border-right-color: #b0b0b0;
+  border-width: 11px;
+  margin-top: -11px;
+}
+
 .cardgrid {
   .accordion {
     min-height: 350px;

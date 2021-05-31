@@ -28,6 +28,12 @@ const pageTexts: ResourceKey = {
       "Blog, Articles, Opinion, Challenge, Pentesting, Security," +
       "Ethical Hacking, Trends",
   },
+  blogFooter: {
+    authorHeader: "Author",
+    shareHeader: "Share on Social Networks",
+    subscribeButton: "Subscribe",
+    subscribeHeader: "Subscribe to our newsletter",
+  },
   clients: {
     definition:
       "Since 2001, we have helped our clients manage their cybersecurity " +
