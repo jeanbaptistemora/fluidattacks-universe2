@@ -314,6 +314,9 @@ integrates.back.test.functional.stakeholder:
 integrates.back.test.functional.submit_draft:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.submit_draft_new:
+  <<: *integrates_back_test_functional_migration
+
 integrates.back.test.functional.toe_inputs:
   <<: *integrates_back_test_functional
 

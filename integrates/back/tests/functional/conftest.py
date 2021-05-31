@@ -60,6 +60,7 @@ TEST_GROUPS: Set[str] = {
     "solve_event",
     "stakeholder",
     "submit_draft",
+    "submit_draft_new",
     "toe_inputs",
     "toe_lines",
     "unsubscribe_from_group",
