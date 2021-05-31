@@ -90,23 +90,24 @@ def timedoctor_refresh_url(
     )
 
 
-def timedoctor_start() -> bool:
+def code_grant_page(creds: str) -> bool:
     """Scrip to refresh the timedoctor token."""
-    project_id = os.environ["CI_PROJECT_ID"]
-    timedoctor = json.loads(os.environ["analytics_auth_timedoctor"])
-    analytics_gitlab_token = os.environ["PRODUCT_API_TOKEN"]
-
+    timedoctor = json.loads(creds)
+    print(
+        "[INFO] Visit the following link to get the code (returned on GET params)"
+    )
     print(
         timedoctor_initial_url_1(
             client_id=timedoctor["client_id"],
             redirect_uri=timedoctor["redirect_uri"],
         )
     )
-    print()
-    code = input("code: ")
-    print()
 
-    # Get the new token
+
+def get_and_update_token(creds: str, code: str) -> None:
+    project_id = os.environ["CI_PROJECT_ID"]
+    timedoctor = json.loads(creds)
+    analytics_gitlab_token = os.environ["PRODUCT_API_TOKEN"]
     new_timedoctor = json.loads(
         get_from_url(
             method="GET",
@@ -132,14 +133,13 @@ def timedoctor_start() -> bool:
         "  'false'"
     )
     run_command(cmd, raise_on_errors=True, raise_msg="unable to update var")
-    return True
 
 
-def timedoctor_refresh() -> bool:
+def timedoctor_refresh(creds: str) -> bool:
     """Scrip to refresh the timedoctor token."""
     # Get the current values
     project_id = os.environ["CI_PROJECT_ID"]
-    timedoctor = json.loads(os.environ["analytics_auth_timedoctor"])
+    timedoctor = json.loads(creds)
     analytics_gitlab_token = os.environ["PRODUCT_API_TOKEN"]
 
     # Get the new token
@@ -169,21 +169,3 @@ def timedoctor_refresh() -> bool:
     run_command(cmd, raise_on_errors=True, raise_msg="unable to update var")
 
     return True
-
-
-def main():
-    """Usual entrypoint."""
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--timedoctor-start", action="store_true")
-    parser.add_argument(
-        "--timedoctor-update", metavar="json_str", required=False
-    )
-    parser.add_argument("--timedoctor-refresh", action="store_true")
-    args = parser.parse_args()
-
-    if args.timedoctor_start:
-        timedoctor_start()
-    elif args.timedoctor_refresh:
-        timedoctor_refresh()
-    else:
-        parser.print_help()
