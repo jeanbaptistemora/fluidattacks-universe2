@@ -2,7 +2,7 @@
 id: introduction    
 title: Introduction
 sidebar_label: Introduction
-slug: /criteria/vulnerabilities/introduction
+slug: /criteria/vulnerabilities/
 ---
 
 ## Vulnerabilities

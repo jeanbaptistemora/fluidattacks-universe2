@@ -2,7 +2,7 @@
 id: introduction
 title: Introduction
 sidebar_label: Introduction
-slug: /criteria/requirements/introduction
+slug: /criteria/requirements/
 ---
 
 ## Requirements

@@ -15,7 +15,7 @@ and discipline as immovable principles
 
 - developing products
 that comply with the highest worldwide
-[security standards](/criteria/requirements/introduction);
+[security standards](/criteria/requirements/);
 
 - acquiring only
 [compliant services and products for internal use](/criteria/requirements/226);

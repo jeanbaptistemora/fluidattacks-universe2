@@ -2,7 +2,7 @@
 id: introduction
 title: Introduction
 sidebar_label: Introduction
-slug: /criteria/compliance/introduction
+slug: /criteria/compliance/
 ---
 
 These are security standards,
