@@ -899,6 +899,7 @@ module.exports = {
             'development/stack/git/merge-requests',
           ]
         },
+        'development/stack/gitlab-ci',
         'development/stack/kubernetes',
         'development/stack/okta',
         'development/stack/sops',
