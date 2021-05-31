@@ -18,7 +18,7 @@ This configuration is needed for the language server to work correctly:
 
 ```json
 {
-    "python.languageServer": "Pylance",
+    "python.languageServer": "Pylance"
 }
 ```
 
@@ -29,7 +29,7 @@ These configurations are suggested, you can add the ones you want:
     "editor.rulers": [ 80 ],
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
-    "files.trimTrailingWhitespace": true,
+    "files.trimTrailingWhitespace": true
 }
 ```
 
@@ -40,7 +40,7 @@ This configuration allows you to verify the code in real time and give the code 
     "python.linting.prospectorEnabled": true,
     "python.linting.prospectorArgs": [
         "--profile",
-        "<product_path>/makes/utils/lint-python/settings-prospector.yaml",
+        "<product_path>/makes/utils/lint-python/settings-prospector.yaml"
     ],
     "python.linting.mypyEnabled": true,
     "python.linting.mypyArgs": [
@@ -50,7 +50,16 @@ This configuration allows you to verify the code in real time and give the code 
     "python.formatting.provider": "black",
     "python.formatting.blackArgs": [
         "--config",
-        "<product_path>/makes/utils/python-format/settings-black.toml",
+        "<product_path>/makes/utils/python-format/settings-black.toml"
     ],
 }
 ```
+
+Please note that
+the entire configuration file
+must comply the JSON format
+(check you don't have trailing commas).
+If correctly formatted,
+you should be able
+to perform a `cat config-file | jq`
+without errors.

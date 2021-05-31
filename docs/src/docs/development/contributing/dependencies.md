@@ -36,6 +36,13 @@ export INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY='test'
 &&  source out/makes-dev-integrates-back
 ```
 
+### Melts
+```bash
+    cd /path/to/fluidattacks/product/repo \
+&&  ./m makes.dev.melts \
+&&  source out/makes-dev-melts
+```
+
 ### Observes
 
 #### Tap Mixpanel
