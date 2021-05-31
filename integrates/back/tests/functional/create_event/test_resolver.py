@@ -15,7 +15,7 @@ async def test_admin(populate: bool) -> None:
     assert populate
     admin: str = "admin@gmail.com"
     group_name: str = "group1"
-    result: Dict[str, str] = await query(
+    result: Dict[str, Any] = await query(
         user=admin,
         group=group_name,
     )
@@ -29,7 +29,7 @@ async def test_analyst(populate: bool) -> None:
     assert populate
     analyst: str = "analyst@gmail.com"
     group_name: str = "group1"
-    result: Dict[str, str] = await query(
+    result: Dict[str, Any] = await query(
         user=analyst,
         group=group_name,
     )
@@ -43,7 +43,7 @@ async def test_closer(populate: bool) -> None:
     assert populate
     closer: str = "closer@gmail.com"
     group_name: str = "group1"
-    result: Dict[str, str] = await query(
+    result: Dict[str, Any] = await query(
         user=closer,
         group=group_name,
     )

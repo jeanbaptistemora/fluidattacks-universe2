@@ -20,7 +20,7 @@ from . import query
 async def test_delete_finding(populate: bool, email: str) -> None:
     assert populate
     finding_id: str = "475041513"
-    result: Dict[str, str] = await query(
+    result: Dict[str, Any] = await query(
         user=email,
         finding=finding_id,
     )
@@ -42,7 +42,7 @@ async def test_delete_finding(populate: bool, email: str) -> None:
 async def test_delete_finding_fail(populate: bool, email: str) -> None:
     assert populate
     finding_id: str = "475041513"
-    result: Dict[str, str] = await query(
+    result: Dict[str, Any] = await query(
         user=email,
         finding=finding_id,
     )

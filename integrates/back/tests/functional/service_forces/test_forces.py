@@ -2,6 +2,10 @@
 import os
 import pytest
 import textwrap
+from typing import (
+    Any,
+    Dict,
+)
 
 # Third party libraries
 from starlette.datastructures import UploadFile
@@ -24,7 +28,7 @@ async def test_forces() -> None:
             }}
         }}
     """
-    data = {"query": query}
+    data: Dict[str, Any] = {"query": query}
     result = await get_result(data, context=context)
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"

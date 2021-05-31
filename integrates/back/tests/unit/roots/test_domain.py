@@ -11,7 +11,7 @@ pytestmark = [
 ]
 
 
-async def test_get_root_id_by_filename():
+async def test_get_root_id_by_filename() -> None:
     loaders = get_new_context()
     group_name = "unittesting"
     group_roots_loader = loaders.group_roots

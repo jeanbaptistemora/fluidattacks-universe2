@@ -364,7 +364,7 @@ async def test_approve_draft() -> None:
     expected_output = True, release_date
     assert isinstance(test_success, bool)
     assert isinstance(test_date, str)
-    assert test_success, test_date == expected_output
+    assert test_success, test_date == expected_output  # type: ignore
     all_vulns = await list_vulnerabilities_async(
         [finding_id],
         should_list_deleted=True,

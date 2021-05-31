@@ -19,6 +19,10 @@ from organizations import (
     domain as orgs_domain,
 )
 
+from typing import (
+    Any,
+    Dict,
+)
 
 # Run async tests
 pytestmark = [
@@ -351,7 +355,7 @@ async def test_iterate_organizations() -> None:
 
 
 async def test_iterate_organizations_and_groups() -> None:
-    expected_organizations_and_groups = {
+    expected_organizations_and_groups: Dict[str, Any] = {
         "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3": {
             "okada": ["oneshottest", "continuoustesting", "unittesting"]
         },

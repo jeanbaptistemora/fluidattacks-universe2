@@ -1,5 +1,9 @@
 # Standard
-from typing import Dict, List
+from typing import (
+    Any,
+    Dict,
+    List,
+)
 
 # Third party
 import pytest
@@ -28,7 +32,7 @@ async def test_has_open_vulns(
     status: str,
     expected_result: bool,
 ) -> None:
-    async def mocked_query(*_) -> List[Dict[str, str]]:
+    async def mocked_query(*_) -> List[Dict[str, Any]]:  # type: ignore
         return [
             {
                 "repo_nickname": "product",

@@ -36,7 +36,7 @@ async def test_list_comments() -> None:
     assert isinstance(test_data, list)
     assert isinstance(test_data[0], dict)
     assert test_data[0] is not None
-    assert sorted(test_data) == sorted(expected_output)
+    assert sorted(test_data) == sorted(expected_output)  # type: ignore
 
 
 @pytest.mark.changes_db
