@@ -43,6 +43,8 @@ const BlogFooterColsBody: StyledComponent<
       pv0-l
       pv3
       mv1
+      justify-center
+      justify-start-l
     `,
 })``;
 
@@ -53,6 +55,8 @@ const BlogFooterColsHeader: StyledComponent<
   className: `
     flex
     mv3
+    justify-center
+    justify-start-l
     `,
 })``;
 
