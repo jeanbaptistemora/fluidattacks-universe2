@@ -9,6 +9,7 @@ from typing import (
     AsyncIterable,
     Dict,
     Iterator,
+    List,
     Optional,
     Tuple,
 )
@@ -54,6 +55,7 @@ from utils.ctx import (
     CTX,
     STATE_FOLDER,
     TREE_SITTER_CSHARP,
+    TREE_SITTER_GO,
     TREE_SITTER_JAVA,
     TREE_SITTER_TSX,
 )
@@ -82,6 +84,7 @@ Language.build_library(
     LANGUAGES_SO,
     [
         TREE_SITTER_CSHARP,
+        TREE_SITTER_GO,
         TREE_SITTER_JAVA,
         TREE_SITTER_TSX,
     ],
@@ -108,6 +111,7 @@ FIELDS_BY_LANGAUGE: Dict[
     GraphShardMetadataLanguage, Dict[str, Tuple[str, ...]]
 ] = {
     GraphShardMetadataLanguage.CSHARP: get_fields(TREE_SITTER_CSHARP),
+    GraphShardMetadataLanguage.GO: get_fields(TREE_SITTER_GO),
     GraphShardMetadataLanguage.JAVA: get_fields(TREE_SITTER_JAVA),
     GraphShardMetadataLanguage.TSX: get_fields(TREE_SITTER_TSX),
 }
@@ -236,21 +240,18 @@ def _build_ast_graph(
 
 
 def decide_language(path: str) -> GraphShardMetadataLanguage:
+    language_extensions_map: Dict[str, List[str]] = {
+        GraphShardMetadataLanguage.CSHARP: [".cs"],
+        GraphShardMetadataLanguage.GO: [".go"],
+        GraphShardMetadataLanguage.JAVA: [".java"],
+        GraphShardMetadataLanguage.TSX: [".js", ".jsx", ".ts", ".tsx"],
+    }
     language = GraphShardMetadataLanguage.NOT_SUPPORTED
 
-    if path.endswith(".java"):
-        language = GraphShardMetadataLanguage.JAVA
-
-    if path.endswith(".cs"):
-        language = GraphShardMetadataLanguage.CSHARP
-
-    if (
-        path.endswith(".js")
-        or path.endswith(".jsx")
-        or path.endswith(".ts")
-        or path.endswith(".tsx")
-    ):
-        language = GraphShardMetadataLanguage.TSX
+    for lang, extensions in language_extensions_map.items():
+        if any([path.endswith(ext) for ext in extensions]):
+            language = lang
+            break
 
     return language
 
