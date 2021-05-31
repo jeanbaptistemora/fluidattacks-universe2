@@ -13,7 +13,7 @@ is the system that orchestrates all the
 workflows within our company.
 Such workflows are the backbone
 of our entire
-[DevOps development cycle](https://about.gitlab.com/stages-devops-lifecycle/).
+[development cycle](https://about.gitlab.com/stages-devops-lifecycle/).
 By using it, we become capable of:
 
 1. [Running automated processes on every commit](https://docs.gitlab.com/ee/ci/pipelines/).
@@ -136,10 +136,39 @@ We use [GItlab CI](https://docs.gitlab.com/ee/ci/) for:
 [AWS autoscaler](https://docs.gitlab.com/runner/configuration/runner_autoscale_aws/)
 as
 [code](https://gitlab.com/fluidattacks/product/-/tree/47d00a5ace02160becc82de533710f1155080b6d/makes/applications/makes/ci/src).
+1. Implementing a
+[Continuous Delivery](https://semaphoreci.com/blog/2017/07/27/what-is-the-difference-between-continuous-integration-continuous-deployment-and-continuous-delivery.html)
+approach for our
+[development cycle](https://about.gitlab.com/stages-devops-lifecycle/).
+This means that although the whole process is automatized,
+including deployments
+for both development and production,
+a manual [merge request approval](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
+from a developer other than the one
+who opened the request
+is still required in order to
+be able to deploy changes to production.
+
+We do not use [GItlab CI](https://docs.gitlab.com/ee/ci/) for:
+
+1. Highly time consuming schedules:
+For highly time consuming schedules like
+[Analytics ETL's](https://en.wikipedia.org/wiki/Extract,_transform,_load),
+[Machine learning](https://en.wikipedia.org/wiki/Machine_learning) training,
+among others,
+we use [AWS Batch](https://aws.amazon.com/batch/) instead.
+The reason for this is that the
+[GItlab CI](https://docs.gitlab.com/ee/ci/)
+is not meant to run jobs that take so long,
+often resulting in jobs being terminated
+before they can finish,
+mainly due to diconnections between the
+worker running the job and the
+[Gitlab CI Bastion](https://docs.gitlab.com/runner/configuration/autoscale.html).
 
 ## Guidelines
 
-1. Any thanges to the
+1. Any changes to the
 [CI pipelines](https://gitlab.com/fluidattacks/product/-/blob/47d00a5ace02160becc82de533710f1155080b6d/.gitlab-ci.yml)
 must be done via
 [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/).
@@ -147,7 +176,7 @@ must be done via
 [AWS autoscaler](https://docs.gitlab.com/runner/configuration/runner_autoscale_aws/)
 infrastructure must be done via
 [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/)
-modifying its
+by modifying its
 [Terraform module](https://gitlab.com/fluidattacks/product/-/tree/47d00a5ace02160becc82de533710f1155080b6d/makes/applications/makes/ci/src/terraform).
 1. To learn how to test and apply infrastructure
 via [Terraform](https://www.terraform.io/),
