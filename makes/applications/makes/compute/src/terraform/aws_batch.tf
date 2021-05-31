@@ -1,3 +1,7 @@
+data "aws_ec2_instance_type" "instance" {
+  instance_type = "c5d.xlarge"
+}
+
 resource "aws_subnet" "default" {
   availability_zone       = "${var.region}a"
   cidr_block              = "192.168.8.0/23"
@@ -123,31 +127,31 @@ locals {
   compute_environments = {
     dedicated = {
       bid_percentage      = null
-      max_vcpus           = 4
+      instances           = 1
       spot_iam_fleet_role = null
       type                = "EC2"
     },
     observes = {
       bid_percentage      = 100
-      max_vcpus           = 14
+      instances           = 3
       spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
       type                = "SPOT"
     },
     skims = {
       bid_percentage      = 100
-      max_vcpus           = 48
+      instances           = 12
       spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
       type                = "SPOT"
     },
     skims_dev = {
       bid_percentage      = 100
-      max_vcpus           = 4
+      instances           = 1
       spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
       type                = "SPOT"
     },
     spot = {
       bid_percentage      = 100
-      max_vcpus           = 10
+      instances           = 2
       spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
       type                = "SPOT"
     },
@@ -166,6 +170,11 @@ locals {
   compute_environment_names = [
     for name, _ in local.compute_environments : name
   ]
+  instance_type = data.aws_ec2_instance_type.instance.instance_type
+  instance_vcpus = (
+    data.aws_ec2_instance_type.instance.default_cores
+    * data.aws_ec2_instance_type.instance.default_threads_per_core
+  )
 }
 
 resource "aws_batch_compute_environment" "default" {
@@ -182,11 +191,9 @@ resource "aws_batch_compute_environment" "default" {
     bid_percentage = each.value.bid_percentage
     image_id       = "ami-0c09d65d2051ada93"
     instance_role  = aws_iam_instance_profile.aws_ecs_instance_role.arn
-    instance_type = [
-      "c5d.xlarge",
-    ]
-    max_vcpus = each.value.max_vcpus
-    min_vcpus = 0
+    instance_type  = [local.instance_type]
+    max_vcpus      = each.value.instances * local.instance_vcpus
+    min_vcpus      = 0
     security_group_ids = [
       aws_security_group.aws_batch_compute_environment_security_group.id,
     ]
