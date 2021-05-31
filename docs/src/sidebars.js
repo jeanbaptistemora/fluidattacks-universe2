@@ -799,8 +799,8 @@ module.exports = {
                 'machine/app/groups/scope/portfolio',
               ],
             },
-            'machine/app/groups/deleting-unsubscribing',
-          ],
+            'machine/app/groups/delete',
+            'machine/app/groups/unsubscribe',          ],
         },
         {
           type: 'category',
