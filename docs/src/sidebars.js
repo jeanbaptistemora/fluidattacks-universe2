@@ -759,6 +759,7 @@ module.exports = {
         'criteria/compliance/capec',
         'criteria/compliance/cwe',
         'criteria/compliance/eprivacy',
+        'criteria/compliance/cis',
         'criteria/compliance/gdpr',
         'criteria/compliance/hipaa',
         'criteria/compliance/iso',
