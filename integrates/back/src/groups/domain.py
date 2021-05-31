@@ -994,7 +994,9 @@ async def get_group_digest_stats(
         "reattacks": {
             "effective_reattacks": 0,
             "reattacks_requested": 0,
+            "last_requested_date": "",
             "reattacks_executed": 0,
+            "last_executed_date": "",
             "pending_attacks": 0,
         },
         "treatments": {
@@ -1048,8 +1050,14 @@ async def get_group_digest_stats(
     content["reattacks"]["reattacks_requested"] = reattacks.get(
         "reattacks_requested", 0
     )
+    content["reattacks"]["last_requested_date"] = reattacks.get(
+        "last_requested_date", ""
+    )
     content["reattacks"]["reattacks_executed"] = reattacks.get(
         "reattacks_executed", 0
+    )
+    content["reattacks"]["last_executed_date"] = reattacks.get(
+        "last_executed_date", ""
     )
     content["reattacks"]["pending_attacks"] = reattacks.get(
         "pending_attacks", 0
@@ -1097,12 +1105,12 @@ def process_user_digest_stats(
     }
 
     main: Counter = Counter()
-    reattacks: Counter = Counter()
     treatments: Counter = Counter()
     events: Counter = Counter()
-    findings = list()
     for stat in groups_stats:
         main.update(stat["main"])
+        treatments.update(stat["treatments"])
+        events.update(stat["events"])
         # Get highest among groups
         if stat["main"]["remediation_rate"] > total["remediation_rate"]["max"]:
             total["remediation_rate"]["max"] = stat["main"]["remediation_rate"]
@@ -1117,9 +1125,65 @@ def process_user_digest_stats(
         if stat["main"]["remediation_time"] < total["remediation_time"]["min"]:
             total["remediation_time"]["min"] = stat["main"]["remediation_time"]
             total["remediation_time"]["min_group"] = stat["group"]
+
+    total["main"] = dict(main)
+    total["treatments"] = dict(treatments)
+    total["events"] = dict(events)
+
+    reattacks: Counter = Counter()
+    for stat in groups_stats:
         reattacks.update(stat["reattacks"])
-        treatments.update(stat["treatments"])
-        events.update(stat["events"])
+    total["reattacks"] = dict(reattacks)
+    if total["reattacks"]["reattacks_executed"] == 0:
+        total["main"]["reattack_effectiveness"] = "-"
+        # Get groups with oldest date since last reattack
+        groups_executed_date = [
+            {
+                "age_last_executed": (
+                    datetime_utils.get_now()
+                    - datetime_utils.get_from_str(
+                        group["reattacks"]["last_executed_date"]
+                    )
+                ).days,
+                "group": group["group"],
+            }
+            for group in groups_stats
+            if not group["reattacks"]["reattacks_executed"]
+            and group["reattacks"]["last_executed_date"]
+        ]
+        # Filter out those with 0 age
+        groups_executed_date = [
+            group
+            for group in groups_executed_date
+            if group["age_last_executed"]
+        ]
+        total["reattacks"]["groups_executed"] = sorted(
+            groups_executed_date,
+            key=itemgetter("age_last_executed"),
+            reverse=True,
+        )[:3]
+    else:
+        total["main"]["reattack_effectiveness"] = int(
+            100
+            * total["reattacks"]["effective_reattacks"]
+            / total["reattacks"]["reattacks_executed"]
+        )
+        # Get groups with most reattacks executed
+        groups_executed = [
+            {
+                "reattacks_executed": group["reattacks"]["reattacks_executed"],
+                "group": group["group"],
+            }
+            for group in groups_stats
+            if group["reattacks"]["reattacks_executed"]
+        ]
+        total["reattacks"]["groups_executed"] = sorted(
+            groups_executed, key=itemgetter("reattacks_executed"), reverse=True
+        )[:3]
+
+    # Get findings with oldest vulns without treatment
+    findings = list()
+    for stat in groups_stats:
         findings_extended = [
             {
                 **finding,
@@ -1128,21 +1192,6 @@ def process_user_digest_stats(
             for finding in stat["findings"]
         ]
         findings.extend(findings_extended)
-
-    total["main"] = dict(main)
-    total["reattacks"] = dict(reattacks)
-    total["treatments"] = dict(treatments)
-    total["events"] = dict(events)
-
-    if total["reattacks"]["reattacks_executed"] == 0:
-        total["main"]["reattack_effectiveness"] = "-"
-    else:
-        total["main"]["reattack_effectiveness"] = int(
-            100
-            * total["reattacks"]["effective_reattacks"]
-            / total["reattacks"]["reattacks_executed"]
-        )
-
     total["findings"] = sorted(
         findings, key=itemgetter("finding_age"), reverse=True
     )

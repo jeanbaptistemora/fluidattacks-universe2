@@ -520,7 +520,9 @@ async def test_get_group_digest_stats() -> None:
         "reattacks": {
             "effective_reattacks": 0,
             "reattacks_requested": 0,
+            "last_requested_date": "2020-02-18 10:41:04",
             "reattacks_executed": 0,
+            "last_executed_date": "2020-02-19 10:41:04",
             "pending_attacks": 1,
         },
         "treatments": {

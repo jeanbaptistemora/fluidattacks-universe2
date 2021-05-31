@@ -894,6 +894,8 @@ async def get_total_reattacks_stats(
     pending_attacks: int = 0
     effective_reattacks: int = 0
     reattack_effectiveness: int = 0
+    min_requested_date: datetime = datetime_utils.get_now()
+    min_executed_date: datetime = datetime_utils.get_now()
     finding_vulns_loader = context.finding_vulns_nzr
 
     vulns = await finding_vulns_loader.load_many_chained(
@@ -905,12 +907,18 @@ async def get_total_reattacks_stats(
             last_requested_reattack_date = datetime_utils.get_from_str(
                 vuln.get("last_requested_reattack_date", "")
             )
+            # Get oldest reattack request date
+            min_requested_date = min(
+                min_requested_date, last_requested_reattack_date
+            )
             if min_date and last_requested_reattack_date >= min_date:
                 reattacks_requested += 1
         if vuln.get("last_reattack_date", ""):
             last_reattack_date = datetime_utils.get_from_str(
                 vuln.get("last_reattack_date", "")
             )
+            # Get oldest executed reattack date
+            min_executed_date = min(min_executed_date, last_reattack_date)
             if min_date and last_reattack_date >= min_date:
                 reattacks_executed += 1
                 if vuln.get("current_state", "") == "closed":
@@ -926,7 +934,9 @@ async def get_total_reattacks_stats(
     return {
         "effective_reattacks": effective_reattacks,
         "reattacks_requested": reattacks_requested,
+        "last_requested_date": datetime_utils.get_as_str(min_requested_date),
         "reattacks_executed": reattacks_executed,
+        "last_executed_date": datetime_utils.get_as_str(min_executed_date),
         "pending_attacks": pending_attacks,
         "reattack_effectiveness": reattack_effectiveness,
     }
