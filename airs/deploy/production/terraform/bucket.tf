@@ -12,7 +12,7 @@ resource "aws_s3_bucket" "bucket" {
 
   website {
     index_document = "index.html"
-    error_document = "error/index.html"
+    error_document = "404/index.html"
   }
 
   tags = {
