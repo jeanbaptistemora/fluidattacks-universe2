@@ -1,6 +1,10 @@
 # Standard libraries
 import os
 import pytest
+from typing import (
+    Any,
+    Dict,
+)
 
 # Third party libraries
 from starlette.datastructures import UploadFile
@@ -38,7 +42,7 @@ async def test_event() -> None:
             }}
         }}
     """
-    data = {"query": query}
+    data: Dict[str, Any] = {"query": query}
     result = await get_result(data, context=context)
     assert "errors" not in result
     assert result["data"]["createEvent"]

@@ -1,6 +1,10 @@
 import json
 
 import pytest
+from typing import (
+    Any,
+    Dict,
+)
 
 from back.tests.functional.group_manager.utils import get_result
 from custom_exceptions import UserNotInOrganization
@@ -27,7 +31,7 @@ async def test_project() -> None:
             }}
         }}
     """
-    data = {"query": query}
+    data: Dict[str, Any] = {"query": query}
     result = await get_result(data, stakeholder="integratesmanager@gmail.com")
     assert "errors" not in result
     assert "success" in result["data"]["createProject"]

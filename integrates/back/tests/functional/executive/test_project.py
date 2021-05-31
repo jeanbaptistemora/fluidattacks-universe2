@@ -1,6 +1,10 @@
 # Standard libraries
 import json
 import pytest
+from typing import (
+    Any,
+    Dict,
+)
 
 # Local libraries
 from back.tests.functional.utils import complete_register
@@ -18,7 +22,7 @@ async def test_project() -> None:
             __typename
         }
     }"""
-    data = {"query": query}
+    data: Dict[str, Any] = {"query": query}
     result = await get_result(
         data, stakeholder="integratesmanager@gmail.com", context=context
     )

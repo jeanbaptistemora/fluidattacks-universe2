@@ -2,6 +2,10 @@
 import json
 import os
 import pytest
+from typing import (
+    Any,
+    Dict,
+)
 
 # Third party libraries
 from starlette.datastructures import UploadFile
@@ -22,7 +26,7 @@ async def test_resource() -> None:
             __typename
         }}
     }}"""
-    data = {"query": query}
+    data: Dict[str, Any] = {"query": query}
     result = await get_result(data)
     assert result["data"]["resources"]["projectName"] == "unittesting"
     assert file_name in result["data"]["resources"]["files"]

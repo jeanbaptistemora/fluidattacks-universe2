@@ -1,5 +1,9 @@
 # Standard libraries
 import json
+from typing import (
+    Any,
+    Dict,
+)
 
 # Third-party libraries
 import pytest
@@ -33,7 +37,7 @@ async def test_project() -> None:
             }}
         }}
     """
-    data = {"query": query}
+    data: Dict[str, Any] = {"query": query}
     result = await get_result(
         data, stakeholder="integratesmanager@gmail.com", context=context
     )
