@@ -406,16 +406,15 @@ async def update_root_cloning_status(
     if not isinstance(root, GitRootItem):
         raise InvalidParameter()
 
-    if root.cloning.status != status:
-        await roots_dal.update_git_root_cloning(
-            cloning=GitRootCloning(
-                modified_date=datetime_utils.get_iso_date(),
-                reason=message,
-                status=status,
-            ),
-            group_name=group_name,
-            root_id=root_id,
-        )
+    await roots_dal.update_git_root_cloning(
+        cloning=GitRootCloning(
+            modified_date=datetime_utils.get_iso_date(),
+            reason=message,
+            status=status,
+        ),
+        group_name=group_name,
+        root_id=root_id,
+    )
 
 
 async def _has_open_vulns(root: GitRootItem) -> bool:
