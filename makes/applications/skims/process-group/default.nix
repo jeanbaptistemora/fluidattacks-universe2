@@ -13,6 +13,7 @@ makeEntrypoint {
     envPaths = [
       packages.melts
       packages.observes.bin.service.job-last-success
+      packages.observes.scheduled.job.code-etl-mirror
       packages.skims
       nixpkgs.jq
       nixpkgs.yq

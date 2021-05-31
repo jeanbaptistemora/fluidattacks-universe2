@@ -1,5 +1,12 @@
 # shellcheck shell=bash
 
+function update_group {
+  local group="${1}"
+
+      echo '[INFO] Updating repositories mirror on S3' \
+  &&  observes-scheduled-job-code-etl-mirror "${group}"
+}
+
 function clone_group {
   export SERVICES_PROD_AWS_ACCESS_KEY_ID
   export SERVICES_PROD_AWS_SECRET_ACCESS_KEY
@@ -50,15 +57,16 @@ function main {
       fi \
   &&  echo "[INFO] Processing ${group}" \
   &&  shopt -s nullglob \
-  &&  aws_login_prod 'skims' \
   &&  ensure_gitlab_env_vars \
         INTEGRATES_API_TOKEN \
         SERVICES_PROD_AWS_ACCESS_KEY_ID \
         SERVICES_PROD_AWS_SECRET_ACCESS_KEY \
   &&  config_file=$(mktemp) \
   &&  language="$(melts misc --get-group-language "${group}")" \
+  &&  update_group "${group}" \
   &&  use_git_repo_services \
     &&  clone_group "${group}" \
+    &&  aws_login_prod 'skims' \
     &&  for namespace in "groups/${group}/fusion/"*
         do
               namespace="$(basename "${namespace}")" \
