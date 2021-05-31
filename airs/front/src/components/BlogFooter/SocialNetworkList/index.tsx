@@ -11,49 +11,35 @@ import {
   LinkedinShareButton,
   TwitterShareButton,
 } from "react-share";
-import type { StyledComponent } from "styled-components";
-import styled from "styled-components";
 
 interface IProps {
   slug: string;
 }
-const SocialListContainer: StyledComponent<
-  "p",
-  Record<string, unknown>
-> = styled.p.attrs({
-  className: `
-      c-fluid-bk
-      fw4
-      f-1125
-      dib-l
-      v-mid
-      mh4-l
-      pv0-l
-      pv3
-    `,
-})``;
+
 const SocialNetworkList: React.FC<IProps> = ({ slug }: IProps): JSX.Element => (
-  <SocialListContainer>
-    {"Share:"}
-    <TwitterShareButton
-      title={"Share on Twitter"}
-      url={`https://fluidattacks.com/blog/${slug}`}
-    >
-      <FontAwesomeIcon className={"f4 mh2 c-fluid-gray"} icon={faTwitter} />
-    </TwitterShareButton>
+  <React.Fragment>
     <FacebookShareButton
+      className={"blog-link br3 mh1 mv1"}
       title={"Share on Facebook"}
       url={`https://fluidattacks.com/blog/${slug}`}
     >
-      <FontAwesomeIcon className={"f4 mh2 c-fluid-gray"} icon={faFacebookF} />
+      <FontAwesomeIcon className={"pa2 f4 black"} icon={faFacebookF} />
     </FacebookShareButton>
     <LinkedinShareButton
+      className={"blog-link br3 mh1 mv1"}
       title={"Share on LinkedIn"}
       url={`https://fluidattacks.com/blog/${slug}`}
     >
-      <FontAwesomeIcon className={"f4 mh2 c-fluid-gray"} icon={faLinkedinIn} />
+      <FontAwesomeIcon className={"pa2 f4 black"} icon={faLinkedinIn} />
     </LinkedinShareButton>
-  </SocialListContainer>
+    <TwitterShareButton
+      className={"blog-link br3 mh1 mv1"}
+      title={"Share on Twitter"}
+      url={`https://fluidattacks.com/blog/${slug}`}
+    >
+      <FontAwesomeIcon className={"pa2 f4 black"} icon={faTwitter} />
+    </TwitterShareButton>
+  </React.Fragment>
 );
 
 export { SocialNetworkList };
