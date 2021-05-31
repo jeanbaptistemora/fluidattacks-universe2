@@ -5,7 +5,7 @@
 }:
 makeEntrypoint {
   arguments = {
-    envEntrypoint = "from timedoctor_tokens import main";
+    envEntrypoint = "from timedoctor_tokens.core import main";
   };
   searchPaths = {
     envSources = [
