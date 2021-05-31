@@ -5,16 +5,15 @@ from timedoctor_tokens import (
 
 
 @click.command()
-@click.option("--creds", type=str, required=True)
-def code_grant_page(creds: str) -> None:
-    core.code_grant_page(creds)
+@click.option("--init-creds", type=str, required=True)
+def new_grant_code(init_creds: str) -> None:
+    core.code_grant_page(init_creds)
 
 
 @click.command()
-@click.option("--creds", type=str, required=True)
-@click.option("--grant-code", type=str, required=True)
-def get_and_update_token(creds: str, grant_code: str) -> None:
-    core.get_and_update_token(creds, grant_code)
+@click.option("--init-creds", type=str, required=True)
+def set_init_token(init_creds: str) -> None:
+    core.get_and_update_token(init_creds)
 
 
 @click.command()
@@ -29,6 +28,6 @@ def main() -> None:
     pass
 
 
-main.add_command(code_grant_page)
-main.add_command(get_and_update_token)
+main.add_command(new_grant_code)
+main.add_command(set_init_token)
 main.add_command(update_token)

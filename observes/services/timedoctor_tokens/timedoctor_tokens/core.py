@@ -44,7 +44,7 @@ def get_from_url(method: str, resource: str, **kwargs: Any) -> tuple:
         response = resp.data.decode()
         LOG.debug("get_from_url status: %s, data: %s", status, response)
     else:
-        LOG.debug("get_from_url status: %s, data: %s", status, resp.data)
+        LOG.error("get_from_url status: %s, data: %s", status, resp.data)
         raise Exception("ERROR: Unable to get resource.")
     return status, response
 
@@ -101,7 +101,7 @@ def code_grant_page(creds: str) -> None:
     )
 
 
-def get_and_update_token(creds: str, code: str) -> None:
+def get_and_update_token(creds: str) -> None:
     project_id = os.environ["CI_PROJECT_ID"]
     timedoctor = json.loads(creds)
     analytics_gitlab_token = os.environ["PRODUCT_API_TOKEN"]
@@ -109,12 +109,11 @@ def get_and_update_token(creds: str, code: str) -> None:
         get_from_url(
             method="GET",
             resource=timedoctor_initial_url_2(
-                code=code,
+                code=timedoctor["code"],
                 client_id=timedoctor["client_id"],
                 client_secret=timedoctor["client_secret"],
                 redirect_uri=timedoctor["redirect_uri"],
             ),
-            headers={"Authorization": f'Bearer {timedoctor["access_token"]}'},
         )[1]
     )
 
