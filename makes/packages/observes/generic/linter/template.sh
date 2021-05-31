@@ -39,3 +39,12 @@ function observes_generic_lint {
       done < "${pkgs}" \
   &&  touch "${out}"
 }
+
+function observes_generic_lint_pkg_container {
+  local srcPath="${1}"
+  local pkgs
+
+      pkgs=$(mktemp) \
+  &&  lint_python_imports "${srcPath}/setup.imports.cfg" "${srcPath}" \
+  &&  touch "${out}"
+}

@@ -149,6 +149,7 @@ observes.lint.service-batch-stability
 observes.lint.service-jobs-scheduler
 observes.lint.service-migrate-tables
 observes.lint.singer-io
+observes.lint.singer-pkgs
 observes.lint.streamer-gitlab
 observes.lint.streamer-zoho-crm
 observes.lint.tap-bugsnag

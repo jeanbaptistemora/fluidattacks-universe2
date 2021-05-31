@@ -93,6 +93,11 @@ observes.lint.singer-io:
   <<: *observes_in_dev_branch
   stage: lint-code
 
+observes.lint.singer-pkgs:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
 observes.lint.streamer-gitlab:
   <<: *makes
   <<: *observes_in_dev_branch
