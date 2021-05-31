@@ -15,21 +15,19 @@ export const SizePerPageRenderer = (props: ISizePerPageProps): JSX.Element => {
   }
 
   return (
-    <div>
-      <DropdownButton
-        content={currSizePerPage}
-        id={"pageSizeDropDown"}
-        items={options.map(
-          (option): JSX.Element => (
-            <MenuItem
-              eventKey={`${option.page}`}
-              itemContent={option.page}
-              key={option.text}
-              onClick={handleSelect}
-            />
-          )
-        )}
-      />
-    </div>
+    <DropdownButton
+      content={currSizePerPage}
+      id={"pageSizeDropDown"}
+      items={options.map(
+        (option): JSX.Element => (
+          <MenuItem
+            eventKey={`${option.page}`}
+            itemContent={option.page}
+            key={option.text}
+            onClick={handleSelect}
+          />
+        )
+      )}
+    />
   );
 };
