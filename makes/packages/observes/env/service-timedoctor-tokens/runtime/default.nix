@@ -23,5 +23,8 @@ makeTemplate {
     envPython38Paths = [
       service-timedoctor-tokens.runtime.python
     ];
+    envSources = [
+      utils-logger.runtime
+    ];
   };
 }

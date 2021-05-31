@@ -1,8 +1,4 @@
 # Standard libraries
-from typing import (
-    Optional,
-)
-
 # Third party libraries
 import click
 
@@ -12,7 +8,7 @@ from timedoctor_tokens import core
 
 @click.command()
 @click.option("--creds", type=str, required=True)
-def code_grant_page(creds: str):
+def code_grant_page(creds: str) -> None:
     core.code_grant_page(creds)
 
 

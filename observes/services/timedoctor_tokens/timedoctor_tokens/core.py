@@ -1,26 +1,22 @@
-#!/usr/bin/env python3
-
-"""Helper script to renew tokens from many providers."""
-
+# Standard libraries
 import json
-import argparse
 import subprocess
 import os
+import logging
+from typing import Any, Tuple
 
+# Third party libraries
 import urllib3
 
-DEBUG: bool = False
+
+LOG = logging.getLogger(__name__)
 
 
-def debug(*args, **kwargs) -> None:
-    """Print if debugging."""
-    if DEBUG:
-        print(*args, **kwargs)
-
-
-def run_command(cmd: str, raise_on_errors=True, raise_msg=""):
+def run_command(
+    cmd: str, raise_on_errors: bool = True, raise_msg: str = ""
+) -> Tuple[int, str, str]:
     """Run a command and return exit code, stdout and stderr."""
-    debug(cmd)
+    LOG.debug("Run command: %s", cmd)
     proc = subprocess.Popen(
         cmd,
         stdout=subprocess.PIPE,
@@ -30,30 +26,31 @@ def run_command(cmd: str, raise_on_errors=True, raise_msg=""):
         universal_newlines=True,
     )
     stdout, stderr = proc.communicate()
-    debug(stdout, stderr)
+    LOG.debug("stdout %s", stdout)
+    LOG.debug("stderr %s", stderr)
     if raise_on_errors and proc.returncode:
         raise Exception(f"CRITICAL: A command failed to run: {raise_msg}")
     return proc.returncode, stdout, stderr
 
 
-def get_from_url(method: str, resource: str, **kwargs) -> tuple:
+def get_from_url(method: str, resource: str, **kwargs: Any) -> tuple:
     """Return the contents of a url."""
-    debug(method, resource)
+    LOG.debug("get_from_url method: %s, resource: %s", method, resource)
 
     with urllib3.PoolManager() as manager:
         resp = manager.request(method, resource, **kwargs)
 
     status, response = resp.status, None
     if 200 <= status <= 299:
-        debug(status, resp.data.decode())
         response = resp.data.decode()
+        LOG.debug("get_from_url status: %s, data: %s", status, response)
     else:
-        debug(status, resp.data)
+        LOG.debug("get_from_url status: %s, data: %s", status, resp.data)
         raise Exception("ERROR: Unable to get resource.")
     return status, response
 
 
-def timedoctor_initial_url_1(client_id, redirect_uri) -> str:
+def timedoctor_initial_url_1(client_id: str, redirect_uri: str) -> str:
     """Return the authentication endpoint."""
     return (
         f"https://webapi.timedoctor.com/oauth/v2/auth"
@@ -64,7 +61,7 @@ def timedoctor_initial_url_1(client_id, redirect_uri) -> str:
 
 
 def timedoctor_initial_url_2(
-    code, client_id, client_secret, redirect_uri
+    code: str, client_id: str, client_secret: str, redirect_uri: str
 ) -> str:
     """Return the authentication endpoint."""
     return (
@@ -90,17 +87,18 @@ def timedoctor_refresh_url(
     )
 
 
-def code_grant_page(creds: str) -> bool:
+def code_grant_page(creds: str) -> None:
     """Scrip to refresh the timedoctor token."""
     timedoctor = json.loads(creds)
-    print(
-        "[INFO] Visit the following link to get the code (returned on GET params)"
+    LOG.info(
+        "Visit the following link to get the code (returned on GET params)"
     )
-    print(
+    LOG.info(
+        "Link: %s",
         timedoctor_initial_url_1(
             client_id=timedoctor["client_id"],
             redirect_uri=timedoctor["redirect_uri"],
-        )
+        ),
     )
 
 
