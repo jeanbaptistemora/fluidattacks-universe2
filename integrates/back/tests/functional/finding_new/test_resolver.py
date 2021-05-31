@@ -19,7 +19,7 @@ from . import query
     ],
 )
 @freeze_time("2021-03-31")
-async def test_get_finding(populate: bool, email: str):
+async def test_get_finding(populate: bool, email: str) -> None:
     assert populate
     identifier: str = "475041513"
     group_name: str = "group1"
@@ -119,7 +119,7 @@ async def test_get_finding(populate: bool, email: str):
     cwe: str = "200"
     risk: str = "This is pytest created draft"
     finding_type: str = "SECURITY"
-    tracking: List[str, Any] = [
+    tracking: List[Dict[str, Any]] = [
         {
             "cycle": 0,
             "open": 1,
@@ -243,7 +243,7 @@ async def test_get_finding(populate: bool, email: str):
     ],
 )
 @freeze_time("2021-03-31")
-async def test_get_finding_fail(populate: bool, email: str):
+async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert populate
     identifier: str = "475041513"
     group_name: str = "group1"
@@ -310,7 +310,7 @@ async def test_get_finding_fail(populate: bool, email: str):
     cwe: str = "200"
     risk: str = "This is pytest created draft"
     finding_type: str = "SECURITY"
-    tracking: List[str, Any] = [
+    tracking: List[Dict[str, Any]] = [
         {
             "cycle": 0,
             "open": 1,
