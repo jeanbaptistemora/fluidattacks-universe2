@@ -23,16 +23,16 @@ from newutils import logs as logs_utils
 async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
-    group_name: str,
+    project_name: str,
     title: str,
     **kwargs: Any,
 ) -> SimplePayload:
     await findings_domain.create_draft_new(
-        info.context, group_name, title, **kwargs
+        info.context, project_name, title, **kwargs
     )
     logs_utils.cloudwatch_log(
         info.context,
-        f"Security: Created draft in {group_name} group successfully",
+        f"Security: Created draft in {project_name} group successfully",
     )
 
     return SimplePayload(success=True)

@@ -6,7 +6,6 @@ from graphql.type.definition import GraphQLResolveInfo
 from custom_types import SimplePayload
 from decorators import (
     concurrent_decorators,
-    delete_kwargs,
     enforce_group_level_auth_async,
     require_integrates,
     require_login,
@@ -16,7 +15,6 @@ from newutils import logs as logs_utils
 
 
 @convert_kwargs_to_snake_case
-@delete_kwargs({"group_name"})
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,

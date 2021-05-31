@@ -57,6 +57,7 @@ from api.mutations import (
     sign_in,
     solve_event,
     submit_draft,
+    submit_draft_new,
     subscribe_to_entity_report,
     unsubscribe_from_group,
     update_access_token,
@@ -121,7 +122,6 @@ MUTATION.set_field(
 )
 MUTATION.set_field("requestZeroRiskVuln", request_zero_risk_vuln.mutate)
 MUTATION.set_field("solveEvent", solve_event.mutate)
-MUTATION.set_field("submitDraft", submit_draft.mutate)
 MUTATION.set_field("updateEventEvidence", update_event_evidence.mutate)
 MUTATION.set_field(
     "updateEvidenceDescription", update_evidence_description.mutate
@@ -186,5 +186,7 @@ MUTATION.set_field("updateToeLinesSorts", update_toe_lines_sorts.mutate)
 
 if FI_API_STATUS == "migration":
     MUTATION.set_field("createDraft", create_draft_new.mutate)
+    MUTATION.set_field("submitDraft", submit_draft_new.mutate)
 else:
     MUTATION.set_field("createDraft", create_draft.mutate)
+    MUTATION.set_field("submitDraft", submit_draft.mutate)

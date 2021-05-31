@@ -60,7 +60,7 @@ async def create_draft_new(
 
 
 async def submit_draft_new(
-    context: Any, finding_id: str, group_name: str, analyst_email: str
+    analyst_email: str, context: Any, finding_id: str, group_name: str
 ) -> None:
     finding_vulns_loader = context.loaders.finding_vulns
     finding_loader = context.loaders.finding_new

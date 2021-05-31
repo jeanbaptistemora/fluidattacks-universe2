@@ -9,6 +9,7 @@ from graphql.type.definition import GraphQLResolveInfo
 from custom_types import SimplePayload
 from decorators import (
     concurrent_decorators,
+    delete_kwargs,
     enforce_group_level_auth_async,
     require_integrates,
     require_login,
@@ -23,6 +24,7 @@ from redis_cluster.operations import redis_del_by_deps_soon
 
 
 @convert_kwargs_to_snake_case
+@delete_kwargs({"group_name"})
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,
