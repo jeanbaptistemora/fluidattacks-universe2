@@ -781,6 +781,7 @@ module.exports = {
           items: [
             'machine/app/organization/analytics-vulnerabilities',
             'machine/app/organization/analytics-generic',
+            'machine/app/organization/policies',
           ],
         },
         {
