@@ -12,5 +12,5 @@ computeOnAws {
     "PRODUCT_API_TOKEN"
   ];
   timeout = 14400;
-  vcpus = 2;
+  vcpus = 3;
 }
