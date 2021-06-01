@@ -19,6 +19,9 @@ type Query {
     toDate: DateTime
   ): ForcesExecutions
 
+  "Group entity"
+  group(projectName: String!): Project
+
   "List groups with forces"
   groupsWithForces: [String]
 

@@ -11,7 +11,7 @@ interface IBill {
 }
 
 interface IData {
-  project: {
+  group: {
     bill: IBill;
   };
 }

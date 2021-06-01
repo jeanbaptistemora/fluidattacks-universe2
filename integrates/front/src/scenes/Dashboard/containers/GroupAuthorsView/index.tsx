@@ -108,7 +108,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     return <div />;
   }
 
-  const dataset: IBillDeveloper[] = (data as IData).project.bill.developers;
+  const dataset: IBillDeveloper[] = (data as IData).group.bill.developers;
 
   return (
     <React.StrictMode>

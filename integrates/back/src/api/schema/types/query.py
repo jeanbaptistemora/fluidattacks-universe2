@@ -46,6 +46,9 @@ QUERY.set_field("tag", tag.resolve)
 QUERY.set_field("userListProjects", user_list_groups.resolve)
 QUERY.set_field("vulnerability", vulnerability.resolve)
 
+# Standardization Fields
+QUERY.set_field("group", group.resolve)
+
 if FI_API_STATUS == "migration":
     QUERY.set_field("finding", finding_new.resolve)
 else:

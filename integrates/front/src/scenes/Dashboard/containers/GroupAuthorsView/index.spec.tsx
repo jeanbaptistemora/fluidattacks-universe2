@@ -30,7 +30,7 @@ describe("AuthorsView", (): void => {
       },
       result: {
         data: {
-          project: {
+          group: {
             bill: {
               developers: [
                 {
