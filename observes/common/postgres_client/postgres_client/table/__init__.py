@@ -12,6 +12,9 @@ from postgres_client.cursor import (
     CursorExeAction,
     Query,
 )
+from postgres_client.data_type import (
+    to_rs_datatype,
+)
 from postgres_client.table import (
     _queries as queries,
 )
@@ -22,7 +25,6 @@ from postgres_client.table.common import (
 from postgres_client.table.common.column import (
     adapt_set,
     Column,
-    DbTypes,
     IsolatedColumn,
 )
 from returns.io import (
@@ -100,7 +102,7 @@ def _retrieve(cursor: Cursor, table_id: TableID) -> IO[MetaTable]:
 
     def _extract(raw: Any) -> MetaTable:
         columns = frozenset(
-            Column(column[1], DbTypes(column[2].upper()), column[5])
+            Column(column[1], to_rs_datatype(column[2].upper()), column[5])
             for column in raw
         )
         return MetaTable.new(table_id, frozenset(), columns)
@@ -188,7 +190,6 @@ class DbTable(NamedTuple):
 
 __all__ = [
     "Column",
-    "DbTypes",
     "IsolatedColumn",
     "TableID",
 ]

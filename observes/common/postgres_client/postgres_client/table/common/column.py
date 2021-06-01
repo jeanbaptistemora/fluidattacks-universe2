@@ -2,8 +2,9 @@ from __future__ import (
     annotations,
 )
 
-from enum import (
-    Enum,
+from postgres_client.data_type import (
+    RedshiftDataType,
+    to_rs_datatype,
 )
 from typing import (
     FrozenSet,
@@ -11,25 +12,20 @@ from typing import (
     Optional,
 )
 
-
 # Supported JSON Schema types
-class DbTypes(Enum):
-    BOOLEAN = "BOOLEAN"
-    NUMERIC = "NUMERIC(38)"
-    FLOAT = "FLOAT8"
-    VARCHAR = "VARCHAR"
-    CHARACTER_VARYING = "CHARACTER VARYING"
-    TIMESTAMP = "TIMESTAMP"
 
 
 class Column(NamedTuple):
     name: str
-    field_type: DbTypes
+    field_type: RedshiftDataType
     default_val: Optional[str] = None
 
     @classmethod
     def new(
-        cls, name: str, field_type: DbTypes, default_val: Optional[str]
+        cls,
+        name: str,
+        field_type: RedshiftDataType,
+        default_val: Optional[str],
     ) -> Column:
         return cls(name=name, field_type=field_type, default_val=default_val)
 
@@ -48,6 +44,6 @@ def adapt_set(i_columns: FrozenSet[IsolatedColumn]) -> FrozenSet[Column]:
 def adapt(i_column: IsolatedColumn) -> Column:
     return Column.new(
         i_column.name,
-        DbTypes(i_column.field_type.upper()),
+        to_rs_datatype(i_column.field_type.upper()),
         i_column.default_val,
     )

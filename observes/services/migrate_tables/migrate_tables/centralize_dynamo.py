@@ -1,6 +1,5 @@
 # pylint: skip-file
 
-# Self libraries
 from migrate_tables import (
     utils,
 )
@@ -11,9 +10,11 @@ from postgres_client.client import (
     Client,
 )
 from postgres_client.schema import (
-    operations as schema_ops,
     Schema,
     SchemaFactory,
+)
+from returns.io import (
+    IO,
 )
 from returns.pipeline import (
     is_successful,
@@ -22,28 +23,27 @@ from returns.unsafe import (
     unsafe_perform_io,
 )
 from typing import (
-    IO,
+    IO as IOData,
     List,
 )
 
 LOG = utils.get_log(__name__)
 
 
-def main(auth_file: IO[str], tables: List[str], target_schema: str) -> None:
+def main(
+    auth_file: IOData[str], tables: List[str], target_schema: str
+) -> IO[None]:
     db_client = client_module.new_client_from_conf(auth_file)
     schema_factory = SchemaFactory.new(db_client)
-    target = schema_factory.retrieve(f"{target_schema}")
+    target = unsafe_perform_io(schema_factory.retrieve(f"{target_schema}"))
     for table in tables:
         table = table.lower()
         LOG.debug("Processing dymo table: %s", table)
-        source = schema_factory.try_retrieve(f"dynamodb_{table}")
-        if is_successful(source):
-            LOG.debug("Migrating: %s", table)
-            schema_ops.migrate_all_tables(
-                db_client,
-                unsafe_perform_io(source.unwrap()),
-                unsafe_perform_io(target),
-            )
-            source.map(lambda schema: schema.delete_on_db())
+        source_result = schema_factory.try_retrieve(f"dynamodb_{table}")
+        if is_successful(source_result):
+            source = unsafe_perform_io(source_result.unwrap())
+            source.migrate(target)
+            source.delete_on_db()
         else:
-            LOG.info("Schema: %s does not exist", source)
+            LOG.info("Schema: %s does not exist", source_result)
+    return IO(None)
