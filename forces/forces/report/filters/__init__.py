@@ -1,11 +1,10 @@
-# Standard imports
+import fnmatch
 from typing import (
     Any,
     cast,
     Dict,
     Optional,
 )
-import fnmatch
 
 
 def filter_kind(

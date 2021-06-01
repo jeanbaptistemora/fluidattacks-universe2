@@ -1,13 +1,10 @@
-# Third party libraries
-import pytest
-
-# Local libraries
 from forces.apis.integrates.api import (
     get_finding,
     get_findings,
     get_vulnerabilities,
     vulns_generator,
 )
+import pytest
 
 
 @pytest.mark.asyncio

@@ -2,20 +2,17 @@
 
 # pylint: disable=import-outside-toplevel
 
-# Standard library
-import sys
-import re
-import textwrap
-from io import TextIOWrapper
-from typing import Optional
 
-# Third parties libraries
+from aioextensions import (
+    run,
+)
 import click
-from aioextensions import run
-
-# Local imports
-from forces.utils.bugs import configure_bugsnag
-from forces.utils.function import shield
+from forces.utils.bugs import (
+    configure_bugsnag,
+)
+from forces.utils.function import (
+    shield,
+)
 from forces.utils.logs import (
     blocking_log,
     log,
@@ -23,6 +20,15 @@ from forces.utils.logs import (
 from forces.utils.model import (
     ForcesConfig,
     KindEnum,
+)
+from io import (
+    TextIOWrapper,
+)
+import re
+import sys
+import textwrap
+from typing import (
+    Optional,
 )
 
 # Constants
@@ -120,8 +126,12 @@ async def main_wrapped(  # pylint: disable=too-many-arguments
     kind: str,
     repo_name: str,
 ) -> int:
-    from forces import entrypoint
-    from forces.apis.integrates.api import get_forces_user
+    from forces import (
+        entrypoint,
+    )
+    from forces.apis.integrates.api import (
+        get_forces_user,
+    )
 
     group: Optional[str] = await get_forces_user(api_token=token)
     if not group:

@@ -1,6 +1,7 @@
-# Standard library
-from os import environ
 import os
+from os import (
+    environ,
+)
 from typing import (
     Literal,
     Union,

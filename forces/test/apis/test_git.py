@@ -1,13 +1,14 @@
-# Third party libraries
-import pytest
-
-# Local libraries
 from forces.apis.git import (
-    get_repository_metadata,
     check_remotes,
+    get_repository_metadata,
 )
-from forces.apis.integrates import set_api_token
-from forces.utils.model import ForcesConfig
+from forces.apis.integrates import (
+    set_api_token,
+)
+from forces.utils.model import (
+    ForcesConfig,
+)
+import pytest
 
 
 @pytest.mark.asyncio

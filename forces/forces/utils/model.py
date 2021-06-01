@@ -1,12 +1,13 @@
-# Standard imports
 from enum import (
     Enum,
+)
+from io import (
+    TextIOWrapper,
 )
 from typing import (
     NamedTuple,
     Optional,
 )
-from io import TextIOWrapper
 
 
 class KindEnum(Enum):

@@ -1,6 +1,8 @@
 """Fluid Forces Integrates api package."""
-# Standar Library
-from contextvars import ContextVar
+
+from contextvars import (
+    ContextVar,
+)
 
 INTEGRATES_API_TOKEN: ContextVar[str] = ContextVar("integrates_api_token")
 

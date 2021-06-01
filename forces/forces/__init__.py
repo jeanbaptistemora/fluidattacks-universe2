@@ -1,19 +1,19 @@
 """Fluidattacks Forces package."""
-# Standar imports
+
+from aioextensions import (
+    in_thread,
+)
 import copy
-import os
-import uuid
-
-# Third party libraries
-from aioextensions import in_thread
-
-# Local imports
-from forces.apis.integrates import set_api_token
-from forces.apis.integrates.api import upload_report
 from forces.apis.git import (
     check_remotes,
-    get_repository_metadata,
     DEFAULT_COLUMN_VALUE,
+    get_repository_metadata,
+)
+from forces.apis.integrates import (
+    set_api_token,
+)
+from forces.apis.integrates.api import (
+    upload_report,
 )
 from forces.report import (
     generate_report,
@@ -27,6 +27,8 @@ from forces.utils.model import (
     ForcesConfig,
     KindEnum,
 )
+import os
+import uuid
 
 
 async def entrypoint(

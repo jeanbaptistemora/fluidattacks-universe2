@@ -1,10 +1,7 @@
-# Third party libraries
-import pytest
-
-# Local libraries
 from forces.apis.integrates.client import (
     session,
 )
+import pytest
 
 
 @pytest.mark.asyncio

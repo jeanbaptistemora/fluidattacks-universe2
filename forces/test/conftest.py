@@ -1,11 +1,8 @@
-# Standard library
 import os
+import pytest
 from typing import (
     Iterator,
 )
-
-# Third party libraries
-import pytest
 
 
 @pytest.fixture(scope="session")

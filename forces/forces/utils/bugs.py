@@ -1,23 +1,21 @@
-# Standard library
-import os
+from aiohttp.client_exceptions import (
+    ClientConnectorError,
+    ClientResponseError,
+)
+import bugsnag
 from contextvars import (
     ContextVar,
 )
+from forces.utils.env import (
+    BASE_DIR,
+    guess_environment,
+)
+import os
 from typing import (
     Any,
     Dict,
     Optional,
 )
-
-# Third party libraries
-import bugsnag
-from aiohttp.client_exceptions import (
-    ClientConnectorError,
-    ClientResponseError,
-)
-
-# Local libraries
-from forces.utils.env import guess_environment, BASE_DIR
 
 # Constants
 META: ContextVar[Optional[Dict[str, str]]] = ContextVar("META", default=None)

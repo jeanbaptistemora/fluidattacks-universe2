@@ -1,11 +1,10 @@
-# standar libraries
+from click.testing import (
+    CliRunner,
+)
+from forces.cli import (
+    main,
+)
 import os
-
-# Third party libraries
-from click.testing import CliRunner
-
-# Local libraries
-from forces.cli import main
 
 
 def test_cli_strict(test_token: str) -> None:

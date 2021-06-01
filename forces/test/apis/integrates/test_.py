@@ -1,12 +1,9 @@
-# Third party libraries
-import pytest
-
-# Local libraries
 from forces.apis.integrates import (
-    set_api_token,
     get_api_token,
     INTEGRATES_API_TOKEN,
+    set_api_token,
 )
+import pytest
 
 
 @pytest.mark.first

@@ -1,6 +1,18 @@
-# Standard library
-from asyncio import sleep
+import aioextensions
+from asyncio import (
+    sleep,
+)
+from forces.utils.env import (
+    guess_environment,
+)
+from forces.utils.logs import (
+    log,
+    log_to_remote,
+)
 import functools
+from more_itertools import (
+    mark_ends,
+)
 from typing import (
     Any,
     Callable,
@@ -8,17 +20,6 @@ from typing import (
     Tuple,
     Type,
     TypeVar,
-)
-
-# Third party libraries
-from more_itertools import mark_ends
-import aioextensions
-
-# Local libraries
-from forces.utils.env import guess_environment
-from forces.utils.logs import (
-    log,
-    log_to_remote,
 )
 
 # Constants

@@ -1,22 +1,19 @@
-# Standard library
+from aioextensions import (
+    in_thread,
+)
+import bugsnag
+from contextvars import (
+    ContextVar,
+)
+from forces.utils.bugs import (
+    META as BUGS_META,
+)
 import logging
 import sys
 import tempfile
 from typing import (
     Any,
     IO,
-)
-from contextvars import ContextVar
-
-# Third libraries
-import bugsnag
-from aioextensions import (
-    in_thread,
-)
-
-# Local libraries
-from forces.utils.bugs import (
-    META as BUGS_META,
 )
 
 # Private constants

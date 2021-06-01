@@ -1,12 +1,11 @@
-# Third party libraries
-import pytest
-
-# Local libraries
 from forces.report import (
     create_findings_dict,
     generate_report,
 )
-from forces.utils.model import ForcesConfig
+from forces.utils.model import (
+    ForcesConfig,
+)
+import pytest
 
 
 @pytest.mark.asyncio

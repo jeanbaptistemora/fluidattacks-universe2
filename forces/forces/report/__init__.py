@@ -1,27 +1,29 @@
 """Fluid Forces report module"""
-# Standard imports
-import asyncio
-from typing import (
-    Any,
-    Dict,
-    List,
+
+from aioextensions import (
+    in_thread,
 )
-from timeit import default_timer as timer
-
-# Third parties libraries
-import oyaml as yaml
-from aioextensions import in_thread
-
-# Local imports
+import asyncio
 from forces.apis.integrates.api import (
     get_finding,
     get_findings,
     vulns_generator,
 )
-from forces.utils.model import ForcesConfig
 from forces.report.filters import (
     filter_kind,
     filter_repo,
+)
+from forces.utils.model import (
+    ForcesConfig,
+)
+import oyaml as yaml
+from timeit import (
+    default_timer as timer,
+)
+from typing import (
+    Any,
+    Dict,
+    List,
 )
 
 
