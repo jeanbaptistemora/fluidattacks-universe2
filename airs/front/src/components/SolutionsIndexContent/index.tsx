@@ -33,7 +33,9 @@ const SolutionsIndexContent: React.FC<IProps> = ({
     <FullWidthContainer>
       <ScrollAnimation animateIn={animation} animateOnce={true}>
         <HalfScreenContainer>
-          <img alt={"devSecOps Solution"} src={image} />
+          <Link to={link}>
+            <img alt={"devSecOps Solution"} src={image} />
+          </Link>
         </HalfScreenContainer>
       </ScrollAnimation>
       <HalfScreenContainerSpaced>
