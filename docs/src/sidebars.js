@@ -901,6 +901,7 @@ module.exports = {
             'development/stack/git/merge-requests',
           ]
         },
+        'development/stack/gitlab',
         'development/stack/gitlab-ci',
         'development/stack/kubernetes',
         'development/stack/okta',

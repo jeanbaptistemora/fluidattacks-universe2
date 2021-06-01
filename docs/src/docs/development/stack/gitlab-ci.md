@@ -30,6 +30,7 @@ The main reasons why we chose
 [GItlab CI](https://docs.gitlab.com/ee/ci/)
 over other alternatives are:
 
+1. It is [Open source](https://opensource.com/resources/what-open-source).
 1. [Built-in support for Gitlab](https://docs.gitlab.com/runner/register/index.html):
 As [Gitlab](https://about.gitlab.com/)
 is the platform we use
@@ -60,7 +61,8 @@ our system must support
 1. [It supports directed acyclic graphs (DAG)](https://docs.gitlab.com/ee/ci/directed_acyclic_graph/):
 Such capability allows us to make
 our integrations as fast as possible,
-as jobs exclusively depend on what they really should.
+as [jobs](https://docs.gitlab.com/ee/ci/jobs/)
+exclusively depend on what they really should.
 It is a must when implementing a [monorepo](https://en.wikipedia.org/wiki/Monorepo)
 strategy [like ours](https://gitlab.com/fluidattacks/product).
 1. [Highly versatile configurations](https://docs.gitlab.com/ee/ci/yaml/):
@@ -151,17 +153,21 @@ be able to deploy changes to production.
 
 We do not use [GItlab CI](https://docs.gitlab.com/ee/ci/) for:
 
-1. For highly time-consuming schedules
+1. Highly time-consuming schedules
 that take longer than six hours,
 like
 [Analytics ETL's](https://en.wikipedia.org/wiki/Extract,_transform,_load),
 [Machine learning](https://en.wikipedia.org/wiki/Machine_learning) training,
-among others,
-we use [AWS Batch](https://aws.amazon.com/batch/) instead.
+among others.
+We use [AWS Batch](https://aws.amazon.com/batch/) instead.
 The reason for this is that the
 [GItlab CI](https://docs.gitlab.com/ee/ci/)
-is not meant to run jobs that take that many hours,
-often resulting in jobs being terminated
+is not meant to run
+[jobs](https://docs.gitlab.com/ee/ci/jobs/)
+that take that many hours,
+often resulting in
+[jobs](https://docs.gitlab.com/ee/ci/jobs/)
+being terminated
 before they can finish,
 mainly due to diconnections between the
 worker running the job and the

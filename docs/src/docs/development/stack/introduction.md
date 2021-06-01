@@ -32,6 +32,7 @@ How to use the component.
 
 1. **Edge protection: [Cloudflare](stack/cloudflare)**
 1. **Version control system: [Git](stack/git/commits)**
+1. **Development platform: [Gitlab](stack/gitlab)**
 1. **Continuous Integration: [Gitlab CI](stack/gitlab-ci)**
 1. **Application hosting: [Kubernetes](stack/kubernetes)**
 1. **Identity management: [Okta](stack/okta)**
