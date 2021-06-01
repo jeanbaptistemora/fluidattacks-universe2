@@ -28,7 +28,12 @@ function main {
         else
           HOME=. ./node_modules/.bin/gatsby build
         fi \
-        &&  rm -rf content \
+    &&  find content/ -name "*.adoc" -type f -delete \
+    &&  find content/ -type d -empty -delete \
+    &&  mv content/pages/advisories/ content/ \
+    &&  mv content/pages/careers/ content/ \
+    &&  copy content public \
+    &&  rm -rf content \
   &&  popd \
   ||  return 1
 }

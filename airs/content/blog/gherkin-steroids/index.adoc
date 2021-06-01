@@ -447,7 +447,4 @@ so stay tuned.
 [[apx-feature]]
 == Appendix: full feature
 
-[source,gherkin]
-----
-include::local-file-inclusion.feature[]
-----
+[button]#local-file-inclusion.feature[here]#
