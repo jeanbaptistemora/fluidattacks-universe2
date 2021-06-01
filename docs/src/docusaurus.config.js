@@ -20,7 +20,7 @@ module.exports = {
     navbar: {
       logo: {
         alt: 'Fluid Attacks Logo',
-        src: 'https://res.cloudinary.com/fluid-attacks/image/upload/v1622211890/docs/logo_aoz2bv.svg',
+        src: 'https://res.cloudinary.com/fluid-attacks/image/upload/v1622577821/docs/logo_gyivrl.svg',
       },
       items: [
         {
