@@ -11,14 +11,9 @@ from typing import (
 from utils import (
     graph as g,
 )
-
-
-def build_qualified(graph: graph_model.GraphDB, qualified_id: str) -> str:
-    labels = [
-        graph.nodes[n_id]["label_text"]
-        for n_id in g.adj_ast(graph, qualified_id)
-    ]
-    return "".join(labels)
+from utils.graph.transformation import (
+    build_qualified_name,
+)
 
 
 def java_declaration_of_throws_for_generic_exception(
@@ -105,7 +100,7 @@ def c_sharp_insecure_exceptions(
                 )
                 if _qualified := match_identifiers["qualified_name"]:
                     qualified = _qualified.pop()
-                    exception = build_qualified(graph, qualified)
+                    exception = build_qualified_name(graph, qualified)
                     if exception in insecure_exceptions:
                         yield shard, qualified
                 else:
@@ -161,7 +156,7 @@ def c_sharp_throws_for_generic_exception(
                     "qualified_name",
                 )
                 if _qualified := type_name["qualified_name"]:
-                    exception = build_qualified(graph, _qualified)
+                    exception = build_qualified_name(graph, _qualified)
                 else:
                     exception = graph.nodes[type_name["identifier"]][
                         "label_text"
