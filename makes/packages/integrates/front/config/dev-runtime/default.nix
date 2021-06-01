@@ -2,12 +2,14 @@
 , getPackageJsonDeps
 , nix
 , nixpkgs
+, path
 , ...
 }:
 let
   packageJsonDeps = getPackageJsonDeps "/integrates/front/package.json";
 in
 buildNodeRequirements {
+  baseLock = builtins.fromJSON (builtins.readFile (path "/integrates/front/package-lock.json"));
   name = "integrates-front-dev-runtime";
   node = nixpkgs.nodejs-12_x;
   requirements = {
@@ -108,7 +110,7 @@ buildNodeRequirements {
       "@types/css-modules-loader-core@1.1.0"
       "@types/cssnano@4.0.0"
       "@types/eslint-scope@3.7.0"
-      "@types/eslint@7.2.12"
+      "@types/eslint@7.2.13"
       "@types/estree@0.0.47"
       "@types/express-serve-static-core@4.17.20"
       "@types/express@4.17.12"
@@ -129,7 +131,7 @@ buildNodeRequirements {
       "@types/mime@1.3.2"
       "@types/minimatch@3.0.4"
       "@types/minimist@1.2.1"
-      "@types/node@15.6.1"
+      "@types/node@15.6.2"
       "@types/normalize-package-data@2.4.0"
       "@types/parse-json@4.0.0"
       "@types/parse5@6.0.0"
@@ -195,7 +197,7 @@ buildNodeRequirements {
       "ansi-escapes@4.3.2"
       "ansi-html@0.0.7"
       "ansi-regex@5.0.0"
-      "ansi-styles@3.2.1"
+      "ansi-styles@4.3.0"
       "anymatch@3.1.2"
       "arg@4.1.3"
       "argparse@1.0.10"
@@ -274,8 +276,8 @@ buildNodeRequirements {
       "camelcase@5.3.1"
       "camelize@1.0.0"
       "caniuse-api@3.0.0"
-      "caniuse-lite@1.0.30001232"
-      "chalk@2.4.2"
+      "caniuse-lite@1.0.30001233"
+      "chalk@4.1.1"
       "change-emitter@0.1.6"
       "char-regex@1.0.2"
       "character-entities-legacy@1.1.4"
@@ -298,8 +300,8 @@ buildNodeRequirements {
       "co@4.6.0"
       "collect-v8-coverage@1.0.1"
       "collection-visit@1.0.0"
-      "color-convert@1.9.3"
-      "color-name@1.1.3"
+      "color-convert@2.0.1"
+      "color-name@1.1.4"
       "colord@2.0.1"
       "colorette@1.2.2"
       "combined-stream@1.0.8"
@@ -396,7 +398,6 @@ buildNodeRequirements {
       "emoji-regex@8.0.0"
       "emojis-list@3.0.0"
       "encodeurl@1.0.2"
-      "encoding@0.1.13"
       "end-of-stream@1.4.4"
       "enhanced-resolve@5.8.2"
       "enquirer@2.3.6"
@@ -501,7 +502,7 @@ buildNodeRequirements {
       "harmony-reflect@1.6.2"
       "has-ansi@2.0.0"
       "has-bigints@1.0.1"
-      "has-flag@3.0.0"
+      "has-flag@4.0.0"
       "has-symbols@1.0.2"
       "has-value@1.0.0"
       "has-values@1.0.0"
@@ -734,7 +735,7 @@ buildNodeRequirements {
       "negotiator@0.6.2"
       "neo-async@2.6.2"
       "nice-try@1.0.5"
-      "node-fetch@1.7.3"
+      "node-fetch@2.6.1"
       "node-forge@0.10.0"
       "node-int64@0.4.0"
       "node-modules-regexp@1.0.0"
@@ -909,7 +910,7 @@ buildNodeRequirements {
       "react-fast-compare@2.0.4"
       "react-is@16.13.1"
       "react-lifecycles-compat@3.0.4"
-      "react-modal@3.13.1"
+      "react-modal@3.14.2"
       "react-onclickoutside@6.11.2"
       "react-router@5.2.0"
       "react-test-renderer@16.14.0"
@@ -1028,7 +1029,7 @@ buildNodeRequirements {
       "stylehacks@5.0.1"
       "stylelint-config-recommended@5.0.0"
       "sugarss@2.0.0"
-      "supports-color@6.1.0"
+      "supports-color@7.2.0"
       "supports-hyperlinks@2.2.0"
       "svg-tags@1.0.0"
       "svgo@2.3.0"
@@ -1073,7 +1074,7 @@ buildNodeRequirements {
       "ua-parser-js@0.7.28"
       "uc.micro@1.0.6"
       "unbox-primitive@1.0.1"
-      "underscore@1.9.1"
+      "underscore@1.13.1"
       "unified@9.2.1"
       "union-value@1.0.1"
       "uniqs@2.0.0"

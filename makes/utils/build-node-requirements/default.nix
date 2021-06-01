@@ -7,6 +7,7 @@ path: pkgs:
 , name
 , node
 , requirements
+, baseLock ? { }
 }:
 let
   makeDerivation = import (path "/makes/utils/make-derivation") path pkgs;
@@ -36,11 +37,13 @@ let
   parsedRequirementsList = builtins.map (builtins.match "(.+)@(.+)") requirementsList;
   parsedRequirementsSet = builtins.listToAttrs (builtins.map (x: { name = builtins.head x; value = builtins.toString (builtins.tail x); }) parsedRequirementsList);
   packageJson = builtins.toJSON { "dependencies" = parsedRequirementsSet; };
+  baseLockJson = builtins.toJSON baseLock;
 in
 makeDerivation {
   arguments = {
     envPackageJsonFile = builtins.toFile "package.json" packageJson;
     envRequirementsFile = nix.listToFileWithTrailinNewLine requirementsList;
+    envBaseLockFile = builtins.toFile "package-lock.json" baseLockJson;
   };
   builder = path "/makes/utils/build-node-requirements/builder.sh";
   name = "build-node-requirements-${name}";

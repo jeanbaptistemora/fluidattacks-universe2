@@ -26,6 +26,7 @@ function main {
 
       mkdir "${out}" \
   &&  echo "[INFO] Installing: ${dependencies[*]}" \
+  &&  copy "${envBaseLockFile}" "${out}/package-lock.json" \
   &&  copy "${envPackageJsonFile}" "${out}/package.json" \
   &&  pushd "${out}" \
     &&  HOME=. npm install --force --ignore-scripts=false --verbose \
