@@ -2,16 +2,23 @@ from aioextensions import (
     collect,
     schedule,
 )
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import SimplePayload
+from custom_types import (
+    SimplePayload,
+)
 from decorators import (
     concurrent_decorators,
     enforce_user_level_auth_async,
     require_login,
 )
-from newutils import logs as logs_utils
-from redis_cluster.operations import redis_cmd
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from newutils import (
+    logs as logs_utils,
+)
+from redis_cluster.operations import (
+    redis_cmd,
+)
 
 
 @concurrent_decorators(

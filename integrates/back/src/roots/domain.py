@@ -1,18 +1,9 @@
-import re
-from typing import (
-    Any,
-    List,
-    Optional,
-    Tuple,
+from aiodataloader import (
+    DataLoader,
 )
-from urllib.parse import unquote
-from uuid import uuid4
-
-import newrelic.agent
-from aiodataloader import DataLoader
-from aioextensions import collect
-from urllib3.util.url import parse_url
-
+from aioextensions import (
+    collect,
+)
 import authz
 from custom_exceptions import (
     HasOpenVulns,
@@ -36,12 +27,18 @@ from dynamodb.types import (
     URLRootMetadata,
     URLRootState,
 )
+import newrelic.agent
 from newutils import (
     datetime as datetime_utils,
     validations as validation_utils,
 )
-from notifications import domain as notifications_domain
-from organizations import domain as orgs_domain
+from notifications import (
+    domain as notifications_domain,
+)
+from organizations import (
+    domain as orgs_domain,
+)
+import re
 from roots import (
     dal as roots_dal,
     validations,
@@ -52,6 +49,21 @@ from roots.types import (
     IPRoot,
     Root,
     URLRoot,
+)
+from typing import (
+    Any,
+    List,
+    Optional,
+    Tuple,
+)
+from urllib3.util.url import (
+    parse_url,
+)
+from urllib.parse import (
+    unquote,
+)
+from uuid import (
+    uuid4,
 )
 
 

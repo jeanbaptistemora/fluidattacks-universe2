@@ -5,23 +5,32 @@ This migration add stakeholder phone number to group invitation
 Execution Time:    2021-02-08 at 11:35:54 UTC-05
 Finalization Time: 2021-02-08 at 11:36:19 UTC-05
 """
-# Standard library
-from pprint import pprint
-from typing import cast
 
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from boto3.dynamodb.conditions import Attr
-
-# Local libraries
-from custom_types import ProjectAccess as ProjectAccessType
-from dynamodb import operations_legacy as dynamodb_ops
-from group_access import domain as group_access_domain
-from users import dal as users_dal
-
+from boto3.dynamodb.conditions import (
+    Attr,
+)
+from custom_types import (
+    ProjectAccess as ProjectAccessType,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+from group_access import (
+    domain as group_access_domain,
+)
+from pprint import (
+    pprint,
+)
+from typing import (
+    cast,
+)
+from users import (
+    dal as users_dal,
+)
 
 TABLE_ACCESS_NAME = "FI_project_access"
 

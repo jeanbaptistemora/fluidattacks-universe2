@@ -8,23 +8,25 @@ new expressions must be analyzed relative to the repository, not to the fusion
 Execution Time:
 Finalization Time:
 """
-# Standard
+
+from aioextensions import (
+    collect,
+    run,
+)
+from groups.domain import (
+    get_active_groups,
+)
+from newutils import (
+    datetime,
+)
+from roots import (
+    dal as roots_dal,
+)
 from typing import (
     Any,
     Dict,
     List,
 )
-
-# Third party
-from aioextensions import (
-    collect,
-    run,
-)
-
-# Local
-from groups.domain import get_active_groups
-from newutils import datetime
-from roots import dal as roots_dal
 
 
 def regex_to_glob(regex: str) -> str:

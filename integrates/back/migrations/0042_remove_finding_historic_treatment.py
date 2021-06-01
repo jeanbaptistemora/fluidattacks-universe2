@@ -5,28 +5,37 @@ This migration aims to delete historic_treatment from finding
 Execution Time:    2020-12-11 11:47:27 UTC-5
 Finalization Time: 2020-12-11 11:49:21 UTC-5
 """
-# Standard library
-import os
-from itertools import chain
-from typing import (
-    Dict,
-    List,
-)
 
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from more_itertools import chunked
-
-# Local libraries
-from custom_types import Finding
-from dataloaders.group import GroupLoader
-from dataloaders.finding import FindingLoader
-from findings import dal as findings_dal
-from groups.domain import get_active_groups
-
+from custom_types import (
+    Finding,
+)
+from dataloaders.finding import (
+    FindingLoader,
+)
+from dataloaders.group import (
+    GroupLoader,
+)
+from findings import (
+    dal as findings_dal,
+)
+from groups.domain import (
+    get_active_groups,
+)
+from itertools import (
+    chain,
+)
+from more_itertools import (
+    chunked,
+)
+import os
+from typing import (
+    Dict,
+    List,
+)
 
 STAGE: str = os.environ["STAGE"]
 

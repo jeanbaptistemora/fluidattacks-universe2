@@ -1,10 +1,11 @@
-import re
-from typing import List
-
 from custom_exceptions import (
     InvalidChar,
     InvalidField,
     InvalidFieldLength,
+)
+import re
+from typing import (
+    List,
 )
 
 

@@ -1,9 +1,18 @@
-from aioextensions import collect
-
-from batch.dal import delete_action
-from batch.types import BatchProcessing
-from roots import dal as roots_dal
-from vulnerabilities import dal as vulns_dal
+from aioextensions import (
+    collect,
+)
+from batch.dal import (
+    delete_action,
+)
+from batch.types import (
+    BatchProcessing,
+)
+from roots import (
+    dal as roots_dal,
+)
+from vulnerabilities import (
+    dal as vulns_dal,
+)
 
 
 async def move_root(*, item: BatchProcessing) -> None:

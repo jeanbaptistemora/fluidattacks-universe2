@@ -1,16 +1,17 @@
-from decimal import Decimal
-from typing import (
-    NamedTuple,
-    Optional,
-    Set,
-    Union,
-)
-
 from .enums import (
     FindingSorts,
     FindingStateStatus,
     FindingStatus,
     FindingVerificationStatus,
+)
+from decimal import (
+    Decimal,
+)
+from typing import (
+    NamedTuple,
+    Optional,
+    Set,
+    Union,
 )
 
 

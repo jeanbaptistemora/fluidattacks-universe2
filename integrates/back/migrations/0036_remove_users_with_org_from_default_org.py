@@ -6,23 +6,26 @@ that already have another org.
 Execution Time:    2020-12-01 at 14:41:39 UTC-05
 Finalization Time: 2020-12-01 at 14:46:30 UTC-05
 """
-import csv
-import time
-import os
-from asyncio import run
-from typing import (
-    cast,
-    List,
+from aioextensions import (
+    collect,
 )
-
-from aioextensions import collect
-
-from custom_exceptions import UserNotInOrganization
+from asyncio import (
+    run,
+)
+import csv
+from custom_exceptions import (
+    UserNotInOrganization,
+)
 from organizations import (
     dal as orgs_dal,
     domain as orgs_domain,
 )
-
+import os
+import time
+from typing import (
+    cast,
+    List,
+)
 
 STAGE: str = os.environ["STAGE"]
 

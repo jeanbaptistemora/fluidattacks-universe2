@@ -1,14 +1,21 @@
-from aiodataloader import DataLoader
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
+from aiodataloader import (
+    DataLoader,
+)
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
+)
+from db_model.findings.types import (
+    Finding,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login,
 )
-from db_model.findings.types import Finding
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
 
 
 @enforce_group_level_auth_async

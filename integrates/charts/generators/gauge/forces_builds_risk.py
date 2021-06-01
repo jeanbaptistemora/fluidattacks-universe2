@@ -1,11 +1,12 @@
-# Standard library
-
-# Third party libraries
-from aioextensions import run
-
-# Local libraries
-from charts import utils
-from charts.colors import RISK
+from aioextensions import (
+    run,
+)
+from charts import (
+    utils,
+)
+from charts.colors import (
+    RISK,
+)
 
 
 async def generate_one(group: str) -> dict:

@@ -1,10 +1,12 @@
 # None
 
 
-from ariadne import ObjectType
-
-from api.resolvers.event import consulting
-
+from api.resolvers.event import (
+    consulting,
+)
+from ariadne import (
+    ObjectType,
+)
 
 EVENT = ObjectType("Event")
 EVENT.set_field("consulting", consulting.resolve)

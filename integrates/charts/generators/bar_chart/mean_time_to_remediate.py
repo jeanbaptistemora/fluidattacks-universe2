@@ -1,23 +1,29 @@
-# Standard library
-from decimal import Decimal
-from statistics import mean
-from typing import (
-    List,
-    NamedTuple,
-)
-
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from async_lru import alru_cache
-
-# Local libraries
-from charts import utils
-from charts.colors import RISK
-from groups import domain as groups_domain
-
+from async_lru import (
+    alru_cache,
+)
+from charts import (
+    utils,
+)
+from charts.colors import (
+    RISK,
+)
+from decimal import (
+    Decimal,
+)
+from groups import (
+    domain as groups_domain,
+)
+from statistics import (
+    mean,
+)
+from typing import (
+    List,
+    NamedTuple,
+)
 
 Remediate = NamedTuple(
     "Remediate",

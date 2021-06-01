@@ -1,10 +1,9 @@
-# Standard library
-
-# Third party libraries
-from aioextensions import run
-
-# Local libraries
-from charts import utils
+from aioextensions import (
+    run,
+)
+from charts import (
+    utils,
+)
 from charts.colors import (
     RISK,
     TREATMENT,

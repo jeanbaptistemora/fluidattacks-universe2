@@ -1,14 +1,11 @@
-# Standard library
-import re
-from string import (
-    hexdigits,
-)
-
-# Local libraries
 from custom_exceptions import (
     InvalidVulnCommitHash,
     InvalidVulnSpecific,
     InvalidVulnWhere,
+)
+import re
+from string import (
+    hexdigits,
 )
 
 

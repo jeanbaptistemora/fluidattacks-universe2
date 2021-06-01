@@ -7,31 +7,36 @@ masked data on DELETED projects.
 Execution Time:    2021-03-04 at 09:23:37 UTC-05
 Finalization Time: 2021-03-04 at 09:27:43 UTC-05
 """
-# Standard libraries
-import copy
-import time
-from pprint import pprint
-from typing import (
-    Dict,
-    cast,
-)
 
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from boto3.dynamodb.conditions import Key
-
-# Local libraries
+from boto3.dynamodb.conditions import (
+    Key,
+)
+import copy
 from custom_types import (
     Finding,
     Historic,
 )
-from dynamodb import operations_legacy as dynamodb_ops
-from findings import dal as findings_dal
-from vulnerabilities import dal as vulns_dal
-
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+from findings import (
+    dal as findings_dal,
+)
+from pprint import (
+    pprint,
+)
+import time
+from typing import (
+    cast,
+    Dict,
+)
+from vulnerabilities import (
+    dal as vulns_dal,
+)
 
 FINDINGS_TABLE: str = "FI_findings"
 FINDINGS_TABLE_COPY: str = "fi_findings_copy2"

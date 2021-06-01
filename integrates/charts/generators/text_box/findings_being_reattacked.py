@@ -1,16 +1,19 @@
-# Standard library
-from typing import Tuple
-
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-
-# Local libraries
-from charts import utils
-from dataloaders import get_new_context
-from findings import domain as findings_domain
+from charts import (
+    utils,
+)
+from dataloaders import (
+    get_new_context,
+)
+from findings import (
+    domain as findings_domain,
+)
+from typing import (
+    Tuple,
+)
 
 
 async def generate_one(group: str) -> int:

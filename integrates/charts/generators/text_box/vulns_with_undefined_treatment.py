@@ -1,16 +1,19 @@
-# Standard library
-from typing import Tuple
-
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from async_lru import alru_cache
-
-# Local libraries
-from charts import utils
-from groups import domain as groups_domain
+from async_lru import (
+    alru_cache,
+)
+from charts import (
+    utils,
+)
+from groups import (
+    domain as groups_domain,
+)
+from typing import (
+    Tuple,
+)
 
 
 @alru_cache(maxsize=None, typed=True)

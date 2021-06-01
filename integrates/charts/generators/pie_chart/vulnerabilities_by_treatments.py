@@ -1,22 +1,37 @@
-# Standard library
-from collections import Counter
-from itertools import chain
-from operator import itemgetter
-from typing import List
-
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from async_lru import alru_cache
-
-# Local libraries
-from charts import utils
-from charts.colors import OTHER
-from charts.generators.pie_chart.utils import MAX_GROUPS_DISPLAYED
-from custom_types import Vulnerability
-from dataloaders import get_new_context
+from async_lru import (
+    alru_cache,
+)
+from charts import (
+    utils,
+)
+from charts.colors import (
+    OTHER,
+)
+from charts.generators.pie_chart.utils import (
+    MAX_GROUPS_DISPLAYED,
+)
+from collections import (
+    Counter,
+)
+from custom_types import (
+    Vulnerability,
+)
+from dataloaders import (
+    get_new_context,
+)
+from itertools import (
+    chain,
+)
+from operator import (
+    itemgetter,
+)
+from typing import (
+    List,
+)
 
 
 def get_treatment_changes(vuln: Vulnerability) -> int:

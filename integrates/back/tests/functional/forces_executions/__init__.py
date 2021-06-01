@@ -1,15 +1,12 @@
-# Standard libraries
-from typing import (
-    Any,
-    Dict,
-)
-
-# Local libraries
 from back.tests.functional.utils import (
     get_graphql_result,
 )
 from dataloaders import (
     get_new_context,
+)
+from typing import (
+    Any,
+    Dict,
 )
 
 

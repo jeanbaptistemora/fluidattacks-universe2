@@ -1,9 +1,40 @@
+from aioextensions import (
+    collect,
+    in_process,
+)
 import csv
+from custom_exceptions import (
+    GroupNameNotFound,
+    RootNotFound,
+)
+from data_containers.toe_lines import (
+    GitRootToeLines,
+)
+from dataloaders import (
+    get_new_context,
+)
 import glob
 import logging
 import logging.config
+from newutils import (
+    bugsnag as bugsnag_utils,
+    datetime as datetime_utils,
+    git as git_utils,
+)
 import re
+from roots import (
+    domain as roots_domain,
+)
+from roots.types import (
+    Root,
+)
+from settings import (
+    LOGGING,
+)
 import tempfile
+from toe.lines import (
+    domain as toe_lines_domain,
+)
 from typing import (
     Any,
     Callable,
@@ -11,28 +42,6 @@ from typing import (
     Set,
     Tuple,
 )
-
-from aioextensions import (
-    collect,
-    in_process,
-)
-
-from custom_exceptions import (
-    GroupNameNotFound,
-    RootNotFound,
-)
-from data_containers.toe_lines import GitRootToeLines
-from dataloaders import get_new_context
-from newutils import (
-    bugsnag as bugsnag_utils,
-    datetime as datetime_utils,
-    git as git_utils,
-)
-from roots import domain as roots_domain
-from roots.types import Root
-from settings import LOGGING
-from toe.lines import domain as toe_lines_domain
-
 
 # Constants
 DEFAULT_FILENAMES = (

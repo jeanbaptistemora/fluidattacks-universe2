@@ -1,32 +1,42 @@
 # Starlette authz-related views/functions
 
-# Standard library
-import uuid
-from typing import Dict
 
-# Third party libraries
 import aiohttp
-from starlette.requests import Request
+from api.mutations.sign_in import (
+    log_user_in,
+)
+from app import (
+    utils,
+)
+from authlib.common.security import (
+    generate_token,
+)
+from authlib.integrations.httpx_client import (
+    AsyncOAuth2Client,
+)
+from authlib.integrations.starlette_client import (
+    OAuth,
+)
+from sessions import (
+    dal as sessions_dal,
+)
+from settings.auth import (
+    azure,
+    BITBUCKET_ARGS,
+    GOOGLE_ARGS,
+)
+from starlette.requests import (
+    Request,
+)
 from starlette.responses import (
     HTMLResponse,
     RedirectResponse,
     Response,
 )
-
-from authlib.integrations.httpx_client import AsyncOAuth2Client
-from authlib.integrations.starlette_client import OAuth
-from authlib.common.security import generate_token
-
-# Local libraries
-from app import utils
-from api.mutations.sign_in import log_user_in
-from sessions import dal as sessions_dal
-from settings.auth import (
-    BITBUCKET_ARGS,
-    GOOGLE_ARGS,
-    azure,
+from typing import (
+    Dict,
 )
-
+import uuid
 
 OAUTH = OAuth()
 OAUTH.register(**GOOGLE_ARGS)

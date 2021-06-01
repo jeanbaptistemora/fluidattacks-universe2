@@ -1,6 +1,9 @@
-# 3rd party
-from appium.webdriver.webdriver import WebDriver
-from appium.webdriver.webelement import WebElement
+from appium.webdriver.webdriver import (
+    WebDriver,
+)
+from appium.webdriver.webelement import (
+    WebElement,
+)
 
 
 def test_01_init_page(driver: WebDriver) -> None:

@@ -1,29 +1,10 @@
-import html
-import itertools
-import logging
-from datetime import (
-    date as datetype,
-    datetime,
+from . import (
+    datetime as datetime_utils,
 )
-from decimal import Decimal
-from operator import itemgetter
-from typing import (
-    Any,
-    Counter,
-    Dict,
-    Iterable,
-    List,
-    NamedTuple,
-    Optional,
-    Union,
-    cast,
-)
-
 from aioextensions import (
     collect,
     in_process,
 )
-
 from custom_exceptions import (
     AlreadyRequested,
     InvalidRange,
@@ -34,10 +15,33 @@ from custom_types import (
     Finding as FindingType,
     Historic as HistoricType,
 )
-from settings import LOGGING
-
-from . import datetime as datetime_utils
-
+from datetime import (
+    date as datetype,
+    datetime,
+)
+from decimal import (
+    Decimal,
+)
+import html
+import itertools
+import logging
+from operator import (
+    itemgetter,
+)
+from settings import (
+    LOGGING,
+)
+from typing import (
+    Any,
+    cast,
+    Counter,
+    Dict,
+    Iterable,
+    List,
+    NamedTuple,
+    Optional,
+    Union,
+)
 
 logging.config.dictConfig(LOGGING)
 

@@ -1,21 +1,27 @@
+from . import (
+    technical as technical_report,
+)
+from context import (
+    FI_AWS_S3_BUCKET as EVIDENCES_BUCKET,
+)
+from custom_types import (
+    Finding as FindingType,
+)
 import os
-import subprocess
+from s3.operations import (
+    download_file,
+    list_files,
+)
+import subprocess  # nosec
 import tempfile
 from typing import (
     Any,
     Dict,
     List,
 )
-from uuid import uuid4
-
-from context import FI_AWS_S3_BUCKET as EVIDENCES_BUCKET
-from custom_types import Finding as FindingType
-from s3.operations import (
-    download_file,
-    list_files,
+from uuid import (
+    uuid4,
 )
-
-from . import technical as technical_report
 
 
 async def _append_evidences(

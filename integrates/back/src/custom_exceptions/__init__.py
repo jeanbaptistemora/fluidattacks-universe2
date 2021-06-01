@@ -1,6 +1,10 @@
-from __future__ import annotations
+from __future__ import (
+    annotations,
+)
 
-from typing import Sequence
+from typing import (
+    Sequence,
+)
 
 
 class _SingleMessageException(Exception):

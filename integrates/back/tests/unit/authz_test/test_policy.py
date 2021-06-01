@@ -1,7 +1,3 @@
-# Third party libraries
-import pytest
-
-# Local libraries
 from authz import (
     get_cached_group_service_policies,
     get_group_level_role,
@@ -11,7 +7,7 @@ from authz import (
     revoke_group_level_role,
     revoke_user_level_role,
 )
-
+import pytest
 
 # Constants
 pytestmark = [

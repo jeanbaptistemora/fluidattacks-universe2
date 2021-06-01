@@ -1,6 +1,7 @@
+from back.tests.functional.customer.utils import (
+    get_result,
+)
 import pytest
-
-from back.tests.functional.customer.utils import get_result
 
 
 @pytest.mark.asyncio

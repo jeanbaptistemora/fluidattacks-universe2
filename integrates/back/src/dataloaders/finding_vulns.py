@@ -1,19 +1,23 @@
 # pylint: disable=method-hidden
 
-from collections import defaultdict
-from typing import (
-    Dict,
-    List,
-    cast,
+from aiodataloader import (
+    DataLoader,
 )
-
-from aiodataloader import DataLoader
-
+from collections import (
+    defaultdict,
+)
 from custom_types import (
     Historic as HistoricType,
     Vulnerability as VulnerabilityType,
 )
-from vulnerabilities import domain as vulns_domain
+from typing import (
+    cast,
+    Dict,
+    List,
+)
+from vulnerabilities import (
+    domain as vulns_domain,
+)
 
 
 async def batch_load_fn_vulns(

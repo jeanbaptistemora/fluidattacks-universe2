@@ -1,13 +1,17 @@
+from custom_types import (
+    Finding,
+)
+from decorators import (
+    enforce_group_level_auth_async,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
 from typing import (
+    cast,
     Dict,
     List,
-    cast,
 )
-
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import Finding
-from decorators import enforce_group_level_auth_async
 
 
 @enforce_group_level_auth_async

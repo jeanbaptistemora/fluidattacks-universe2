@@ -1,14 +1,20 @@
+from aiodataloader import (
+    DataLoader,
+)
+from aioextensions import (
+    collect,
+)
+from custom_types import (
+    Stakeholder as StakeholderType,
+)
 from typing import (
+    cast,
     List,
     Tuple,
-    cast,
 )
-
-from aiodataloader import DataLoader
-from aioextensions import collect
-
-from custom_types import Stakeholder as StakeholderType
-from users import domain as users_domain
+from users import (
+    domain as users_domain,
+)
 
 
 class GroupStakeholdersLoader(DataLoader):

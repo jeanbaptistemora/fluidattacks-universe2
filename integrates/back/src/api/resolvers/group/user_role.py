@@ -1,13 +1,17 @@
-from typing import (
-    Dict,
-    cast,
-)
-
-from graphql.type.definition import GraphQLResolveInfo
-
 import authz
-from custom_types import Project as Group
-from newutils import token as token_utils
+from custom_types import (
+    Project as Group,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from newutils import (
+    token as token_utils,
+)
+from typing import (
+    cast,
+    Dict,
+)
 
 
 async def resolve(

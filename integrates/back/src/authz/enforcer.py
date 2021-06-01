@@ -1,18 +1,17 @@
-from typing import (
-    Any,
-    Callable,
-    DefaultDict,
-)
-
 from .model import (
-    SERVICE_ATTRIBUTES,
     get_group_level_roles_model,
     get_organization_level_roles_model,
     get_user_level_roles_model,
+    SERVICE_ATTRIBUTES,
 )
 from .policy import (
     get_cached_group_service_policies,
     get_cached_subject_policies,
+)
+from typing import (
+    Any,
+    Callable,
+    DefaultDict,
 )
 
 

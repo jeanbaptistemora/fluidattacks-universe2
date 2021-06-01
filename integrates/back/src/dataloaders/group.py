@@ -1,15 +1,23 @@
+from aiodataloader import (
+    DataLoader,
+)
+from aioextensions import (
+    collect,
+)
+from custom_types import (
+    Project as GroupType,
+)
+from groups import (
+    domain as groups_domain,
+)
+from organizations import (
+    domain as orgs_domain,
+)
 from typing import (
+    cast,
     Dict,
     List,
-    cast,
 )
-
-from aiodataloader import DataLoader
-from aioextensions import collect
-
-from custom_types import Project as GroupType
-from groups import domain as groups_domain
-from organizations import domain as orgs_domain
 
 
 async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:

@@ -6,17 +6,24 @@ Execution Time:    2020-09-10 17:29:15 UTC-5
 Finalization Time: 2020-09-10 18:23:20 UTC-5
 """
 
-import copy
-import os
-from asyncio import run
-from pprint import pprint
-from typing import Any
-
 import aioboto3
-
-from dynamodb.operations_legacy import RESOURCE_OPTIONS
-from findings.dal import update
-
+from asyncio import (
+    run,
+)
+import copy
+from dynamodb.operations_legacy import (
+    RESOURCE_OPTIONS,
+)
+from findings.dal import (
+    update,
+)
+import os
+from pprint import (
+    pprint,
+)
+from typing import (
+    Any,
+)
 
 STAGE: str = os.environ["STAGE"]
 FINDINGS_TABLE = "FI_findings"

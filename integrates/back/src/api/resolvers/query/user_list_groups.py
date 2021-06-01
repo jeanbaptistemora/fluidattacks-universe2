@@ -1,17 +1,29 @@
-from typing import List
-
-from aiodataloader import DataLoader
-from aioextensions import collect
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import Project as Group
+from aiodataloader import (
+    DataLoader,
+)
+from aioextensions import (
+    collect,
+)
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
+)
+from custom_types import (
+    Project as Group,
+)
 from decorators import (
     concurrent_decorators,
     enforce_user_level_auth_async,
     require_login,
 )
-from groups import domain as groups_domain
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from groups import (
+    domain as groups_domain,
+)
+from typing import (
+    List,
+)
 
 
 @convert_kwargs_to_snake_case

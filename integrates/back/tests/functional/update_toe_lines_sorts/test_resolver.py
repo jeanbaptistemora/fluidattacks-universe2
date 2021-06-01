@@ -1,10 +1,15 @@
-# Standard libraries
+from . import (
+    query,
+    query_get,
+)
+from .constants import (
+    USERS_EMAILS,
+)
 import pytest
-from typing import Any, Dict
-
-# Local libraries
-from . import query, query_get
-from .constants import USERS_EMAILS
+from typing import (
+    Any,
+    Dict,
+)
 
 
 @pytest.mark.asyncio

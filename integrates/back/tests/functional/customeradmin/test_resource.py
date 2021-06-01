@@ -1,16 +1,21 @@
-# Standard libraries
+from back.tests.functional.customeradmin.utils import (
+    get_result,
+)
+from dataloaders import (
+    get_new_context,
+)
 import json
+from newutils import (
+    datetime as datetime_utils,
+)
 import os
 import pytest
-
-# Third party libraries
-from starlette.datastructures import UploadFile
-from urllib.parse import quote
-
-# Local libraries
-from back.tests.functional.customeradmin.utils import get_result
-from dataloaders import get_new_context
-from newutils import datetime as datetime_utils
+from starlette.datastructures import (
+    UploadFile,
+)
+from urllib.parse import (
+    quote,
+)
 
 
 @pytest.mark.asyncio

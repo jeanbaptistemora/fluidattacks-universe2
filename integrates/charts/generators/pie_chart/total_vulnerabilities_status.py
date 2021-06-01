@@ -1,21 +1,24 @@
-# Standard library
-from typing import List
-
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from async_lru import alru_cache
-
-# Local libraries
-from charts import utils
+from async_lru import (
+    alru_cache,
+)
+from charts import (
+    utils,
+)
 from charts.generators.pie_chart.utils import (
     format_data,
     PortfoliosGroupsInfo,
     slice_groups,
 )
-from groups import domain as groups_domain
+from groups import (
+    domain as groups_domain,
+)
+from typing import (
+    List,
+)
 
 
 @alru_cache(maxsize=None, typed=True)

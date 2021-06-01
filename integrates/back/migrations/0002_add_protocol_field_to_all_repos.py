@@ -12,22 +12,26 @@ Execution Time:     2020-05-19 19:35 UTC-5
 Finalization Time:  2020-05-13 19:37 UTC-5
 """
 import argparse
-import hashlib
-import json
-from typing import (
-    Dict,
-    List,
-    Tuple,
-    cast,
-)
-from urllib.parse import ParseResult, urlparse
-
 import bugsnag
-
-from custom_types import Project as GroupType, Resource as ResourceType
+from custom_types import (
+    Project as GroupType,
+    Resource as ResourceType,
+)
 from groups.dal import (
     get_all as get_all_groups,
     TABLE_NAME as GROUP_TABLE,
+)
+import hashlib
+import json
+from typing import (
+    cast,
+    Dict,
+    List,
+    Tuple,
+)
+from urllib.parse import (
+    ParseResult,
+    urlparse,
 )
 
 

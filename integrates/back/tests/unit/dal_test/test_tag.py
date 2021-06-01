@@ -1,11 +1,11 @@
-from decimal import Decimal
-
+from decimal import (
+    Decimal,
+)
 import pytest
 from tags.dal import (
     get_attributes,
     update,
 )
-
 
 pytestmark = [
     pytest.mark.asyncio,

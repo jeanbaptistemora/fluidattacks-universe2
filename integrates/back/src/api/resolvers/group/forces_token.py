@@ -1,18 +1,24 @@
-from typing import (
-    Optional,
-    cast,
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
 )
-
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import Project as Group
+from custom_types import (
+    Project as Group,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_login,
 )
-from forces import domain as forces_domain
+from forces import (
+    domain as forces_domain,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from typing import (
+    cast,
+    Optional,
+)
 
 
 @convert_kwargs_to_snake_case

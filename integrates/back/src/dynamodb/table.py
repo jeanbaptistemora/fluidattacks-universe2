@@ -1,13 +1,12 @@
-from typing import (
-    Any,
-    Dict,
-)
-
 from dynamodb.types import (
     Facet,
     Index,
     PrimaryKey,
     Table,
+)
+from typing import (
+    Any,
+    Dict,
 )
 
 

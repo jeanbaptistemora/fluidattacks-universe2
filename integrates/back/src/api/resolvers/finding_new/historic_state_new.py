@@ -1,14 +1,33 @@
-from datetime import datetime
-from functools import partial
-from typing import Dict, List, Tuple
-
-from aiodataloader import DataLoader
-from graphql.type.definition import GraphQLResolveInfo
-
-from decorators import enforce_group_level_auth_async
-from db_model.findings.types import Finding, FindingState
-from newutils import datetime as datetime_utils
-from redis_cluster.operations import redis_get_or_set_entity_attr
+from aiodataloader import (
+    DataLoader,
+)
+from datetime import (
+    datetime,
+)
+from db_model.findings.types import (
+    Finding,
+    FindingState,
+)
+from decorators import (
+    enforce_group_level_auth_async,
+)
+from functools import (
+    partial,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
+from redis_cluster.operations import (
+    redis_get_or_set_entity_attr,
+)
+from typing import (
+    Dict,
+    List,
+    Tuple,
+)
 
 
 @enforce_group_level_auth_async

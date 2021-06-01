@@ -1,19 +1,14 @@
 # Settings logger-related configs
 
-# Standard libraries
-import os
-import json
-import logging.config
-from logging import LogRecord
-from typing import Any
 
-# Third-party libraries
+from .various import (
+    BASE_DIR,
+    DEBUG,
+)
+from boto3.session import (
+    Session,
+)
 import bugsnag
-import requests
-from boto3.session import Session
-from graphql import GraphQLError
-
-# Local libraries
 from context import (
     CI_COMMIT_SHA,
     CI_COMMIT_SHORT_SHA,
@@ -26,12 +21,19 @@ from custom_exceptions import (
     DocumentNotFound,
     UnavailabilityError,
 )
-
-from .various import (
-    BASE_DIR,
-    DEBUG,
+from graphql import (
+    GraphQLError,
 )
-
+import json
+from logging import (
+    LogRecord,
+)
+import logging.config
+import os
+import requests
+from typing import (
+    Any,
+)
 
 # logging
 AWS_ACCESS_KEY_ID = FI_AWS_CLOUDWATCH_ACCESS_KEY

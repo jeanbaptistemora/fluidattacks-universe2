@@ -1,10 +1,11 @@
+from . import (
+    query,
+)
 import pytest
 from typing import (
     Any,
     Dict,
 )
-
-from . import query
 
 
 @pytest.mark.asyncio

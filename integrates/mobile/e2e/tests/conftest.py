@@ -1,12 +1,15 @@
-# Standard
+from _pytest.fixtures import (
+    FixtureRequest,
+)
+from appium import (
+    webdriver,
+)
+from appium.webdriver.webdriver import (
+    WebDriver,
+)
 import os
-import time
-
-# 3rd party
 import pytest
-from _pytest.fixtures import FixtureRequest
-from appium import webdriver
-from appium.webdriver.webdriver import WebDriver
+import time
 
 
 def open_ephemeral(appium_driver: WebDriver) -> None:

@@ -1,6 +1,7 @@
+from newutils.wordlist import (
+    wordlist,
+)
 import random
-
-from newutils.wordlist import wordlist
 
 
 def get_passphrase(n_words: int, sep: str = " ") -> str:

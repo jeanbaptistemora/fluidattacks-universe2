@@ -6,6 +6,7 @@ pythonFormat {
     "."
   ];
   targetsIsort = [
+    "integrates"
     "skims"
   ];
   name = "makes-format-python";

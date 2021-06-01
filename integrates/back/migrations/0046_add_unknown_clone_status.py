@@ -7,23 +7,25 @@ This migration add a default cloning status for roots
 Execution Time: Thu Dec 17 08:09:46 -05 2020
 Finalization Time: Thu Dec 17 08:14:32 -05 2020
 """
-# Standard
+
+from aioextensions import (
+    collect,
+    run,
+)
+from groups.domain import (
+    get_active_groups,
+)
+from newutils import (
+    datetime,
+)
+from roots import (
+    dal as roots_dal,
+)
 from typing import (
     Any,
     Dict,
     List,
 )
-
-# Third party
-from aioextensions import (
-    collect,
-    run,
-)
-
-# Local
-from groups.domain import get_active_groups
-from newutils import datetime
-from roots import dal as roots_dal
 
 
 async def update_root(group_name: str, root_id: Dict[str, Any]) -> None:

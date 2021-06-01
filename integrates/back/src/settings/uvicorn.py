@@ -1,5 +1,7 @@
 # IntegratesWorker class overrides uvicorn base worker to inject custom params
-from uvicorn import workers
+from uvicorn import (
+    workers,
+)
 
 
 class IntegratesWorker(  # pylint: disable=too-few-public-methods

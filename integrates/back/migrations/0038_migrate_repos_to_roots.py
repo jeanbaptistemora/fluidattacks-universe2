@@ -7,26 +7,25 @@ This migration dumps group repos to the new roots table
 Execution Time: 2020-12-04 10:59:58 UTC-5
 Finalization Time: 2020-12-04 11:01:55 UTC-5
 """
-# Standard
+
+from aioextensions import (
+    collect,
+    run,
+)
 import os
+from roots import (
+    domain as roots_domain,
+)
 from typing import (
     Any,
     Dict,
     List,
     NamedTuple,
 )
-from urllib.parse import unquote
-
-# Third party
-import yaml
-from aioextensions import (
-    collect,
-    run,
+from urllib.parse import (
+    unquote,
 )
-
-# Local
-from roots import domain as roots_domain
-
+import yaml
 
 STAGE: str = os.environ["STAGE"]
 SERVICES_REPO_DIR: str = f"{os.getcwd()}/services"

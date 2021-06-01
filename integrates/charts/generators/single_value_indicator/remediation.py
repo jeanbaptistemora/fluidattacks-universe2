@@ -1,23 +1,32 @@
-# Standard library
+from aioextensions import (
+    run,
+)
+from charts import (
+    utils,
+)
+from charts.types import (
+    RemediationReport,
+)
+from custom_types import (
+    Vulnerability as VulnerabilityType,
+)
+from dataloaders import (
+    get_new_context,
+)
 from datetime import (
     datetime,
     timedelta,
 )
-from itertools import chain
+from itertools import (
+    chain,
+)
 from typing import (
     List,
     Tuple,
 )
-
-# Third party libraries
-from aioextensions import run
-
-# Local libraries
-from charts import utils
-from charts.types import RemediationReport
-from custom_types import Vulnerability as VulnerabilityType
-from dataloaders import get_new_context
-from vulnerabilities import domain as vulns_domain
+from vulnerabilities import (
+    domain as vulns_domain,
+)
 
 
 def had_state_by_then(

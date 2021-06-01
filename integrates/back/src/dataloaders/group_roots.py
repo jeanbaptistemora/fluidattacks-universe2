@@ -1,13 +1,19 @@
-from typing import (
-    Tuple,
-    cast,
+from aiodataloader import (
+    DataLoader,
 )
-
-from aiodataloader import DataLoader
-from aioextensions import collect
-
-from roots import domain as roots_domain
-from roots.types import Root
+from aioextensions import (
+    collect,
+)
+from roots import (
+    domain as roots_domain,
+)
+from roots.types import (
+    Root,
+)
+from typing import (
+    cast,
+    Tuple,
+)
 
 
 async def get_roots(*, group_name: str) -> Tuple[Root, ...]:

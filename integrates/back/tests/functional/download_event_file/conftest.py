@@ -1,13 +1,10 @@
-# Standard libraries
+from back.tests import (
+    db,
+)
 import pytest
 from typing import (
     Any,
     Dict,
-)
-
-# Local libraries
-from back.tests import (
-    db,
 )
 
 

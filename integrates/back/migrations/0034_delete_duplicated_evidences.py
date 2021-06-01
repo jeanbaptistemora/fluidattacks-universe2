@@ -5,29 +5,33 @@ for unittesting
 Execution Time:    2020-11-13 at 12:08:40 UTC-05
 Finalization Time: 2020-11-13 at 12:31:53 UTC-05
 """
-# disable MyPy due to error "boto module has no attribute client"
-import contextlib
-import logging
-import logging.config
-import os
-import time
-from typing import List
-
 import aioboto3
 from aioextensions import (
     collect,
     in_thread,
     run,
 )
-from botocore.exceptions import ClientError
-
+from botocore.exceptions import (
+    ClientError,
+)
 from context import (
     FI_AWS_S3_ACCESS_KEY,
     FI_AWS_S3_SECRET_KEY,
 )
-from newutils import apm
-from settings import LOGGING
-
+import contextlib
+import logging
+import logging.config
+from newutils import (
+    apm,
+)
+import os
+from settings import (
+    LOGGING,
+)
+import time
+from typing import (
+    List,
+)
 
 logging.config.dictConfig(LOGGING)
 

@@ -1,8 +1,6 @@
 # None
 
 
-from ariadne import MutationType
-
 from api.mutations import (
     accept_legal,
     acknowledge_concurrent_session,
@@ -79,8 +77,12 @@ from api.mutations import (
     upload_file,
     verify_request_vulnerability,
 )
-from context import FI_API_STATUS
-
+from ariadne import (
+    MutationType,
+)
+from context import (
+    FI_API_STATUS,
+)
 
 MUTATION = MutationType()
 MUTATION.set_field("activateRoot", activate_root.mutate)

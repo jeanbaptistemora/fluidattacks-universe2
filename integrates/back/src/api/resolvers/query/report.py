@@ -1,16 +1,28 @@
-from typing import Dict
-
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
-from batch import dal as batch_dal
-from custom_exceptions import RequestedReportError
-from custom_types import Report
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
+)
+from batch import (
+    dal as batch_dal,
+)
+from custom_exceptions import (
+    RequestedReportError,
+)
+from custom_types import (
+    Report,
+)
 from decorators import (
     enforce_group_level_auth_async,
     require_login,
 )
-from newutils import token as token_utils
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from newutils import (
+    token as token_utils,
+)
+from typing import (
+    Dict,
+)
 
 
 @enforce_group_level_auth_async

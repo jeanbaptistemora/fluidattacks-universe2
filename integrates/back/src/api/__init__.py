@@ -1,17 +1,26 @@
+from ariadne.asgi import (
+    GraphQL,
+)
+from dataloaders import (
+    apply_context_attrs,
+)
+import newrelic.agent
+from newutils import (
+    logs as logs_utils,
+)
+from settings import (
+    NEW_RELIC_CONF_FILE,
+)
+from starlette.requests import (
+    Request,
+)
+from starlette.responses import (
+    Response,
+)
 from typing import (
     Any,
     Dict,
 )
-
-import newrelic.agent
-from ariadne.asgi import GraphQL
-from starlette.requests import Request
-from starlette.responses import Response
-
-from dataloaders import apply_context_attrs
-from newutils import logs as logs_utils
-from settings import NEW_RELIC_CONF_FILE
-
 
 newrelic.agent.initialize(NEW_RELIC_CONF_FILE)
 

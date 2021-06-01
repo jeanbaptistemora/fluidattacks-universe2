@@ -1,15 +1,20 @@
-import pytest
+from api.schema import (
+    SCHEMA,
+)
+from ariadne import (
+    graphql,
+)
+from back.tests.unit.utils import (
+    create_dummy_session,
+)
+from dataloaders import (
+    apply_context_attrs,
+)
 from datetime import (
     datetime,
     timedelta,
 )
-
-from ariadne import graphql
-
-from api.schema import SCHEMA
-from back.tests.unit.utils import create_dummy_session
-from dataloaders import apply_context_attrs
-
+import pytest
 
 pytestmark = pytest.mark.asyncio
 

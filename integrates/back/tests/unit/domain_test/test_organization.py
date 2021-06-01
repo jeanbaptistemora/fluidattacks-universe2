@@ -1,9 +1,6 @@
-import pytest
-from decimal import Decimal
-
-from aioextensions import collect
-from graphql import GraphQLError
-
+from aioextensions import (
+    collect,
+)
 import authz
 from custom_exceptions import (
     InvalidAcceptanceDays,
@@ -13,12 +10,22 @@ from custom_exceptions import (
     InvalidOrganization,
     UserNotInOrganization,
 )
-from dataloaders import get_new_context
-from group_access import domain as group_access_domain
+from dataloaders import (
+    get_new_context,
+)
+from decimal import (
+    Decimal,
+)
+from graphql import (
+    GraphQLError,
+)
+from group_access import (
+    domain as group_access_domain,
+)
 from organizations import (
     domain as orgs_domain,
 )
-
+import pytest
 from typing import (
     Any,
     Dict,

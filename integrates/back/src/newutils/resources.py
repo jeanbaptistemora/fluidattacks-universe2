@@ -1,7 +1,12 @@
-from typing import List
-
-from context import FI_AWS_S3_RESOURCES_BUCKET
-from s3 import operations as s3_ops
+from context import (
+    FI_AWS_S3_RESOURCES_BUCKET,
+)
+from s3 import (
+    operations as s3_ops,
+)
+from typing import (
+    List,
+)
 
 
 async def download_file(file_info: str, group_name: str) -> str:

@@ -1,25 +1,34 @@
-from enum import Enum
-
-from boto3.dynamodb.conditions import Attr
-
-from custom_exceptions import FindingNotFound
+from .enums import (
+    FindingStateStatus,
+)
+from .types import (
+    FindingState,
+    FindingUnreliableIndicatorsToUpdate,
+    FindingVerification,
+)
+from .utils import (
+    format_optional_verification_item,
+    format_state_item,
+)
+from boto3.dynamodb.conditions import (
+    Attr,
+)
+from custom_exceptions import (
+    FindingNotFound,
+)
+from db_model import (
+    TABLE,
+)
 from dynamodb import (
     historics,
     keys,
     operations,
 )
-from dynamodb.exceptions import ConditionalCheckFailedException
-from db_model import TABLE
-
-from .enums import FindingStateStatus
-from .types import (
-    FindingUnreliableIndicatorsToUpdate,
-    FindingState,
-    FindingVerification,
+from dynamodb.exceptions import (
+    ConditionalCheckFailedException,
 )
-from .utils import (
-    format_state_item,
-    format_optional_verification_item,
+from enum import (
+    Enum,
 )
 
 

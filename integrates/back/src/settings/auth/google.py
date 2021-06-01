@@ -3,7 +3,6 @@ from context import (
     FI_GOOGLE_OAUTH2_SECRET,
 )
 
-
 GOOGLE_CONF_URL = (
     "https://accounts.google.com/.well-known/openid-configuration"
 )

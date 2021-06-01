@@ -1,23 +1,37 @@
-from typing import Any
-
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_exceptions import UserNotInOrganization
-from custom_types import EditStakeholderPayload
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
+)
+from custom_exceptions import (
+    UserNotInOrganization,
+)
+from custom_types import (
+    EditStakeholderPayload,
+)
 from decorators import (
     concurrent_decorators,
     enforce_organization_level_auth_async,
     require_login,
     require_organization_access,
 )
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
 from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from organizations import domain as orgs_domain
-from redis_cluster.operations import redis_del_by_deps
-from users import domain as users_domain
+from organizations import (
+    domain as orgs_domain,
+)
+from redis_cluster.operations import (
+    redis_del_by_deps,
+)
+from typing import (
+    Any,
+)
+from users import (
+    domain as users_domain,
+)
 
 
 @convert_kwargs_to_snake_case

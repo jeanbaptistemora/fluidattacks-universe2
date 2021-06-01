@@ -1,20 +1,20 @@
-from typing import (
-    Any,
-    List,
-)
-
-from context import BASE_URL
-from custom_types import (
-    Comment as CommentType,
-    MailContent as MailContentType,
-)
-
 from .common import (
     COMMENTS_TAG,
     DIGEST_TAG,
     GENERAL_TAG,
     get_comment_recipients,
     send_mails_async_new,
+)
+from context import (
+    BASE_URL,
+)
+from custom_types import (
+    Comment as CommentType,
+    MailContent as MailContentType,
+)
+from typing import (
+    Any,
+    List,
 )
 
 

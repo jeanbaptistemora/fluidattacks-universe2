@@ -9,40 +9,61 @@ can't be verified
 Execution Time: 2020-08-21 14:00:51 UTC-5
 Finalization Time: 2020-08-21 14:05:10 UTC-5
 """
-import os
-from collections import defaultdict
-from datetime import datetime
-from time import time
-from typing import (
-    Awaitable,
-    Dict,
-    List,
-    Union,
-    cast,
-)
-
-import django
-import pytz
 from aioextensions import (
     collect,
     run,
 )
-from more_itertools import chunked
-
-from comments import dal as comments_dal
-from custom_types import Comment as CommentType
-from dataloaders import get_new_context
-from findings import dal as findings_dal
-from findings import domain as findings_domain
-from groups import domain as groups_domain
-from newutils import vulnerabilities as vulns_utils
-from settings import TIME_ZONE
-from users import domain as users_domain
+from collections import (
+    defaultdict,
+)
+from comments import (
+    dal as comments_dal,
+)
+from custom_types import (
+    Comment as CommentType,
+)
+from dataloaders import (
+    get_new_context,
+)
+from datetime import (
+    datetime,
+)
+import django
+from findings import (
+    dal as findings_dal,
+    domain as findings_domain,
+)
+from groups import (
+    domain as groups_domain,
+)
+from more_itertools import (
+    chunked,
+)
+from newutils import (
+    vulnerabilities as vulns_utils,
+)
+import os
+import pytz
+from settings import (
+    TIME_ZONE,
+)
+from time import (
+    time,
+)
+from typing import (
+    Awaitable,
+    cast,
+    Dict,
+    List,
+    Union,
+)
+from users import (
+    domain as users_domain,
+)
 from vulnerabilities import (
     dal as vulns_dal,
     domain as vulns_domain,
 )
-
 
 django.setup()
 STAGE: str = os.environ["STAGE"]

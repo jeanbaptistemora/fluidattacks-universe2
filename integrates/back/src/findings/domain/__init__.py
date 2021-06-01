@@ -1,7 +1,3 @@
-from .core_new import (
-    get_severity_score_new,
-    get_updated_evidence_date_new,
-)
 from .core import (
     add_comment,
     cast_new_vulnerabilities,
@@ -36,9 +32,9 @@ from .core import (
     validate_finding,
     verify_vulnerabilities,
 )
-from .draft_new import (
-    create_draft_new,
-    submit_draft_new,
+from .core_new import (
+    get_severity_score_new,
+    get_updated_evidence_date_new,
 )
 from .draft import (
     approve_draft,
@@ -47,6 +43,10 @@ from .draft import (
     list_drafts,
     reject_draft,
     submit_draft,
+)
+from .draft_new import (
+    create_draft_new,
+    submit_draft_new,
 )
 from .evidence import (
     download_evidence_file,
@@ -57,7 +57,6 @@ from .evidence import (
     validate_and_upload_evidence,
     validate_evidence,
 )
-
 
 __all__ = [
     # core new

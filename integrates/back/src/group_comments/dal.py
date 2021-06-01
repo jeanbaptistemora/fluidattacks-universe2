@@ -1,21 +1,26 @@
-import logging
-import logging.config
-from typing import (
-    Dict,
-    List,
-    cast,
+from boto3.dynamodb.conditions import (
+    Key,
 )
-
-from boto3.dynamodb.conditions import Key
-from botocore.exceptions import ClientError
-
+from botocore.exceptions import (
+    ClientError,
+)
 from custom_types import (
     Comment as CommentType,
     DynamoDelete as DynamoDeleteType,
 )
-from dynamodb import operations_legacy as dynamodb_ops
-from settings import LOGGING
-
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+import logging
+import logging.config
+from settings import (
+    LOGGING,
+)
+from typing import (
+    cast,
+    Dict,
+    List,
+)
 
 logging.config.dictConfig(LOGGING)
 

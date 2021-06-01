@@ -1,9 +1,15 @@
-from typing import List
-
-from aiodataloader import DataLoader
-
-from custom_exceptions import GroupNotFound
-from custom_types import Project as GroupType
+from aiodataloader import (
+    DataLoader,
+)
+from custom_exceptions import (
+    GroupNotFound,
+)
+from custom_types import (
+    Project as GroupType,
+)
+from typing import (
+    List,
+)
 
 
 def check_status(group: GroupType) -> GroupType:

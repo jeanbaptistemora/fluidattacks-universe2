@@ -1,13 +1,19 @@
+from aiodataloader import (
+    DataLoader,
+)
+from aioextensions import (
+    collect,
+)
+from custom_types import (
+    Organization as OrganizationType,
+)
+from organizations import (
+    domain as orgs_domain,
+)
 from typing import (
     Dict,
     List,
 )
-
-from aiodataloader import DataLoader
-from aioextensions import collect
-
-from custom_types import Organization as OrganizationType
-from organizations import domain as orgs_domain
 
 
 async def _batch_load_fn(

@@ -1,12 +1,12 @@
+from context import (
+    FI_DEBUG as DEBUG,
+)
+import tracers.function
 from typing import (
     Any,
     Callable,
     Optional,
 )
-
-import tracers.function
-
-from context import FI_DEBUG as DEBUG
 
 
 def trace(overridden_function: Optional[Callable[..., Any]] = None) -> Any:

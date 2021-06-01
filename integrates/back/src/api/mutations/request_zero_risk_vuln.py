@@ -1,17 +1,29 @@
-from typing import List
-
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import SimplePayload as SimplePayloadType
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
+)
+from custom_types import (
+    SimplePayload as SimplePayloadType,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_login,
 )
-from newutils import logs as logs_utils
-from redis_cluster.operations import redis_del_by_deps
-from vulnerabilities import domain as vulns_domain
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from newutils import (
+    logs as logs_utils,
+)
+from redis_cluster.operations import (
+    redis_del_by_deps,
+)
+from typing import (
+    List,
+)
+from vulnerabilities import (
+    domain as vulns_domain,
+)
 
 
 @convert_kwargs_to_snake_case

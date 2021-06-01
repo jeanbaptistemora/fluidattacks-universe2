@@ -1,13 +1,17 @@
+from custom_types import (
+    Me,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from subscriptions import (
+    domain as subscriptions_domain,
+)
 from typing import (
+    cast,
     Dict,
     List,
-    cast,
 )
-
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import Me
-from subscriptions import domain as subscriptions_domain
 
 
 async def resolve(

@@ -1,20 +1,19 @@
-# Standard libraries
-import pytest
-from typing import (
-    Any,
-    Dict,
-)
-
-# Local libraries
 from back.tests import (
     db,
 )
-from data_containers.toe_lines import GitRootToeLines
+from data_containers.toe_lines import (
+    GitRootToeLines,
+)
 from dynamodb.types import (
     GitRootCloning,
     GitRootItem,
     GitRootMetadata,
     GitRootState,
+)
+import pytest
+from typing import (
+    Any,
+    Dict,
 )
 
 

@@ -8,14 +8,17 @@ historic configuration
 Execution Time:    2021-05-06 at 15:18:09 UTC-05
 Finalization Time: 2021-05-06 at 15:18:20 UTC-05
 """
-# Standard
+
+from aioextensions import (
+    collect,
+    run,
+)
+from groups.dal import (
+    get_active_groups,
+    get_attributes,
+    update,
+)
 import time
-
-# Third party
-from aioextensions import collect, run
-
-# Local
-from groups.dal import get_active_groups, get_attributes, update
 
 
 async def update_group(group_name: str) -> None:

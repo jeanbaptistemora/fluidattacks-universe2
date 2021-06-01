@@ -1,14 +1,18 @@
+from back.tests.functional.group_manager.utils import (
+    get_result,
+)
+from custom_exceptions import (
+    UserNotInOrganization,
+)
 import json
-
+from names.domain import (
+    get_name,
+)
 import pytest
 from typing import (
     Any,
     Dict,
 )
-
-from back.tests.functional.group_manager.utils import get_result
-from custom_exceptions import UserNotInOrganization
-from names.domain import get_name
 
 
 @pytest.mark.asyncio

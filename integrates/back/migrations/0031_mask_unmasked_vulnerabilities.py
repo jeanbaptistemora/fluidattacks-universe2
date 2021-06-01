@@ -5,16 +5,25 @@ Execution Time:    2020-10-19 13:20:56 UTC-5
 Finalization Time: 2020-10-19 13:21:24 UTC-5
 """
 
+from aioextensions import (
+    collect,
+)
+from asyncio import (
+    run,
+)
+from dataloaders import (
+    get_new_context,
+)
+from findings import (
+    domain as findings_domain,
+)
 import os
-from asyncio import run
-from typing import List
-
-from aioextensions import collect
-
-from dataloaders import get_new_context
-from findings import domain as findings_domain
-from vulnerabilities import domain as vulns_domain
-
+from typing import (
+    List,
+)
+from vulnerabilities import (
+    domain as vulns_domain,
+)
 
 STAGE: str = os.environ["STAGE"]
 ENVIRONMENT: str = os.environ["ENVIRONMENT"]

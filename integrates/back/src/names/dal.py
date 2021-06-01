@@ -1,16 +1,25 @@
+import aioboto3
+from boto3.dynamodb.conditions import (
+    Key,
+)
+from botocore.exceptions import (
+    ClientError,
+)
+from custom_exceptions import (
+    EmptyPoolName,
+)
+from dynamodb.operations_legacy import (
+    RESOURCE_OPTIONS,
+)
 import logging
 import logging.config
+from settings import (
+    LOGGING,
+)
+from typing import (
+    List,
+)
 import uuid
-from typing import List
-
-import aioboto3
-from boto3.dynamodb.conditions import Key
-from botocore.exceptions import ClientError
-
-from custom_exceptions import EmptyPoolName
-from dynamodb.operations_legacy import RESOURCE_OPTIONS
-from settings import LOGGING
-
 
 logging.config.dictConfig(LOGGING)
 

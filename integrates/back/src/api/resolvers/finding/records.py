@@ -1,16 +1,24 @@
-from functools import partial
+from custom_types import (
+    Finding,
+)
+from findings.domain import (
+    get_records_from_file,
+)
+from functools import (
+    partial,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from redis_cluster.operations import (
+    redis_get_or_set_entity_attr,
+)
 from typing import (
+    cast,
     Dict,
     List,
     Optional,
-    cast,
 )
-
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import Finding
-from findings.domain import get_records_from_file
-from redis_cluster.operations import redis_get_or_set_entity_attr
 
 
 async def resolve(

@@ -1,16 +1,20 @@
-from typing import (
-    List,
-    cast,
+from aioextensions import (
+    collect,
 )
-
-from aioextensions import collect
-from graphql.type.definition import GraphQLResolveInfo
-
 from custom_types import (
     Me,
     Organization,
 )
-from organizations import domain as orgs_domain
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from organizations import (
+    domain as orgs_domain,
+)
+from typing import (
+    cast,
+    List,
+)
 
 
 async def resolve(

@@ -1,25 +1,35 @@
-from datetime import datetime
-from typing import (
-    Dict,
-    List,
-    Set,
-    Tuple,
-    Union,
-    cast,
+from aioextensions import (
+    collect,
 )
-
-from aioextensions import collect
-from graphql.type.definition import GraphQLResolveInfo
-
 import authz
-from comments import dal as comments_dal
+from comments import (
+    dal as comments_dal,
+)
 from custom_types import (
     Comment as CommentType,
     Finding as FindingType,
     User as UserType,
 )
-from db_model.findings.types import FindingVerification
-from newutils import datetime as datetime_utils
+from datetime import (
+    datetime,
+)
+from db_model.findings.types import (
+    FindingVerification,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
+from typing import (
+    cast,
+    Dict,
+    List,
+    Set,
+    Tuple,
+    Union,
+)
 
 
 def _fill_vuln_info(

@@ -1,14 +1,20 @@
-import io
-
-from botocore.exceptions import ClientError
-
+from botocore.exceptions import (
+    ClientError,
+)
 from context import (
     CI_COMMIT_REF_NAME,
     FI_AWS_S3_ANALYTICS_BUCKET as BUCKET_ANALYTICS,
 )
-from custom_exceptions import DocumentNotFound
-from newutils import apm
-from s3.operations import aio_client
+from custom_exceptions import (
+    DocumentNotFound,
+)
+import io
+from newutils import (
+    apm,
+)
+from s3.operations import (
+    aio_client,
+)
 
 
 @apm.trace()

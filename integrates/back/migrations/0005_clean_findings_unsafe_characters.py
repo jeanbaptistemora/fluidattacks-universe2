@@ -10,19 +10,20 @@ Finalization Time: 2020-05-29 22:24 UTC-5
 """
 
 import argparse
+import bugsnag
+from collections import (
+    OrderedDict,
+)
+from findings.dal import (
+    TABLE_NAME as FINDINGS_TABLE,
+)
 import hashlib
 import re
-from collections import OrderedDict
 from typing import (
     Dict,
     List,
     Optional,
 )
-
-import bugsnag
-
-from findings.dal import TABLE_NAME as FINDINGS_TABLE
-
 
 STRINGS_TO_REPLACE: Dict[str, Dict[str, str]] = {
     "vulnerability": OrderedDict(

@@ -1,15 +1,23 @@
-from typing import Any
-
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import SimplePayload
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
+)
+from custom_types import (
+    SimplePayload,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_login,
 )
-from roots import domain as roots_domain
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from roots import (
+    domain as roots_domain,
+)
+from typing import (
+    Any,
+)
 
 
 @convert_kwargs_to_snake_case

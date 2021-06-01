@@ -1,7 +1,9 @@
-from typing import Tuple
-
-from ariadne import EnumType
-
+from ariadne import (
+    EnumType,
+)
+from typing import (
+    Tuple,
+)
 
 # None
 

@@ -1,8 +1,13 @@
+from custom_exceptions import (
+    InvalidOrganization,
+)
+from decimal import (
+    Decimal,
+)
+from organizations import (
+    dal as orgs_dal,
+)
 import pytest
-from decimal import Decimal
-
-from custom_exceptions import InvalidOrganization
-from organizations import dal as orgs_dal
 
 # Run async tests
 pytestmark = [

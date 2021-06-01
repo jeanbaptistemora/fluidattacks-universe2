@@ -1,7 +1,12 @@
-from typing import Tuple
-
-from data_containers.toe_inputs import GitRootToeInput
-from toe.inputs import dal as toe_inputs_dal
+from data_containers.toe_inputs import (
+    GitRootToeInput,
+)
+from toe.inputs import (
+    dal as toe_inputs_dal,
+)
+from typing import (
+    Tuple,
+)
 
 
 async def add(root_toe_input: GitRootToeInput) -> None:

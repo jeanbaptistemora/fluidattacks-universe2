@@ -1,13 +1,15 @@
+from . import (
+    query,
+)
+from freezegun import (
+    freeze_time,
+)
 import pytest
 from typing import (
     Any,
     Dict,
     List,
 )
-
-from freezegun import freeze_time
-
-from . import query
 
 
 @pytest.mark.asyncio

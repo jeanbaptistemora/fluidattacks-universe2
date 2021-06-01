@@ -1,17 +1,22 @@
-import logging
-import tempfile
-
 import cloudmersive_virus_api_client
-from cloudmersive_virus_api_client.rest import ApiException
-from starlette.datastructures import UploadFile
-
+from cloudmersive_virus_api_client.rest import (
+    ApiException,
+)
 from context import (
     FI_CLOUDMERSIVE_API_KEY,
     FI_ENVIRONMENT,
 )
-from custom_exceptions import FileInfected
-from settings import LOGGING
-
+from custom_exceptions import (
+    FileInfected,
+)
+import logging
+from settings import (
+    LOGGING,
+)
+from starlette.datastructures import (
+    UploadFile,
+)
+import tempfile
 
 logging.config.dictConfig(LOGGING)
 

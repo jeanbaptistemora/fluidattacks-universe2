@@ -1,18 +1,24 @@
-from typing import (
-    List,
-    cast,
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
 )
-
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
 from decorators import (
     concurrent_decorators,
     enforce_user_level_auth_async,
     require_login,
 )
-from groups import domain as groups_domain
-from redis_cluster.operations import redis_get_or_set_entity_attr
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from groups import (
+    domain as groups_domain,
+)
+from redis_cluster.operations import (
+    redis_get_or_set_entity_attr,
+)
+from typing import (
+    cast,
+    List,
+)
 
 
 @convert_kwargs_to_snake_case

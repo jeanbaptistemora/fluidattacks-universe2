@@ -1,7 +1,12 @@
-from typing import Tuple
-
-from data_containers.toe_lines import GitRootToeLines
-from toe.lines import dal as toe_lines_dal
+from data_containers.toe_lines import (
+    GitRootToeLines,
+)
+from toe.lines import (
+    dal as toe_lines_dal,
+)
+from typing import (
+    Tuple,
+)
 
 
 async def add(root_toe_lines: GitRootToeLines) -> None:

@@ -1,9 +1,10 @@
-# Standard libraries
+from back.tests.functional.analyst.utils import (
+    get_result,
+)
+from dataloaders import (
+    get_new_context,
+)
 import pytest
-
-# Local libraries
-from back.tests.functional.analyst.utils import get_result
-from dataloaders import get_new_context
 
 
 @pytest.mark.asyncio

@@ -1,12 +1,18 @@
-import pytz
+from datetime import (
+    datetime,
+    timedelta,
+)
+from freezegun import (
+    freeze_time,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
 import pytest
-from datetime import datetime, timedelta
-
-from freezegun import freeze_time
-
-from newutils import datetime as datetime_utils
-from settings import TIME_ZONE
-
+import pytz
+from settings import (
+    TIME_ZONE,
+)
 
 tzn = pytz.timezone(TIME_ZONE)
 

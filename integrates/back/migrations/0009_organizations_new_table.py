@@ -11,14 +11,15 @@ Migration must be executed when the code that creates the organization in the
 group creation is in production, so all possible groups have an organization
 """
 
+import bugsnag
+from groups import (
+    dal as groups_dal,
+)
+from organizations import (
+    domain as orgs_domain,
+)
 import os
 import uuid
-
-import bugsnag
-
-from groups import dal as groups_dal
-from organizations import domain as orgs_domain
-
 
 STAGE: str = os.environ["STAGE"]
 

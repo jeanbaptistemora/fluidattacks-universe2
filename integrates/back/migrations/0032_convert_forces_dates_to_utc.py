@@ -4,6 +4,24 @@ This migration converts all force datetimes to UTC
 Execution Time:    2020-10-22 10:00:32 UTC-5
 Finalization Time: 2020-10-22 10:07:52 UTC-5
 """
+import aioboto3
+import asyncio
+from boto3.dynamodb.conditions import (
+    Key,
+)
+from dateutil.parser import (
+    parse as date_parser,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+from groups.dal import (
+    get_active_groups,
+)
+from groups.domain import (
+    get_many_groups,
+)
+import pytz
 from typing import (
     Any,
     AsyncIterator,
@@ -11,20 +29,6 @@ from typing import (
     List,
     Tuple,
 )
-
-# Standard library
-import asyncio
-
-# Third party libraries
-import aioboto3
-import pytz
-from boto3.dynamodb.conditions import Key
-from dateutil.parser import parse as date_parser
-
-# Local libraries
-from dynamodb import operations_legacy as dynamodb_ops
-from groups.dal import get_active_groups
-from groups.domain import get_many_groups
 
 # Constants
 TABLE_NAME = "bb_executions"

@@ -1,9 +1,14 @@
-# Standard libraries
-from typing import Any, Dict, Optional
-
-# Local libraries
-from back.tests.functional.utils import get_graphql_result
-from dataloaders import Dataloaders
+from back.tests.functional.utils import (
+    get_graphql_result,
+)
+from dataloaders import (
+    Dataloaders,
+)
+from typing import (
+    Any,
+    Dict,
+    Optional,
+)
 
 
 async def get_result(

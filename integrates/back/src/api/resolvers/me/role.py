@@ -1,10 +1,16 @@
-from typing import cast
-
-from graphql.type.definition import GraphQLResolveInfo
-
 import authz
-from custom_exceptions import InvalidParameter
-from custom_types import Me
+from custom_exceptions import (
+    InvalidParameter,
+)
+from custom_types import (
+    Me,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from typing import (
+    cast,
+)
 
 
 async def resolve(parent: Me, _info: GraphQLResolveInfo, **kwargs: str) -> str:

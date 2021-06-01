@@ -1,15 +1,21 @@
 # pylint: disable=method-hidden
-from collections import defaultdict
+from aiodataloader import (
+    DataLoader,
+)
+from collections import (
+    defaultdict,
+)
+from custom_types import (
+    Finding as FindingType,
+)
+from findings import (
+    domain as findings_domain,
+)
 from typing import (
+    cast,
     Dict,
     List,
-    cast,
 )
-
-from aiodataloader import DataLoader
-
-from custom_types import Finding as FindingType
-from findings import domain as findings_domain
 
 
 async def _batch_load_fn(

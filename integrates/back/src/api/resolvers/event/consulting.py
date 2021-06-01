@@ -1,20 +1,28 @@
-from functools import partial
-from typing import (
-    Any,
-    Dict,
-    List,
-    cast,
+from comments import (
+    domain as comments_domain,
 )
-
-from graphql.type.definition import GraphQLResolveInfo
-
-from comments import domain as comments_domain
 from custom_types import (
     Comment,
     Event,
 )
-from newutils import token as token_utils
-from redis_cluster.operations import redis_get_or_set_entity_attr
+from functools import (
+    partial,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from newutils import (
+    token as token_utils,
+)
+from redis_cluster.operations import (
+    redis_get_or_set_entity_attr,
+)
+from typing import (
+    Any,
+    cast,
+    Dict,
+    List,
+)
 
 
 async def resolve_no_cache(

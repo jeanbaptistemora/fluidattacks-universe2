@@ -1,14 +1,27 @@
-from functools import partial
-from typing import Tuple
-
-from aiodataloader import DataLoader
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import Project as Group
-from data_containers.toe_inputs import GitRootToeInput
-from decorators import enforce_group_level_auth_async
-from redis_cluster.operations import redis_get_or_set_entity_attr
-
+from aiodataloader import (
+    DataLoader,
+)
+from custom_types import (
+    Project as Group,
+)
+from data_containers.toe_inputs import (
+    GitRootToeInput,
+)
+from decorators import (
+    enforce_group_level_auth_async,
+)
+from functools import (
+    partial,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from redis_cluster.operations import (
+    redis_get_or_set_entity_attr,
+)
+from typing import (
+    Tuple,
+)
 
 # Constants
 CACHE_TTL = 60 * 30

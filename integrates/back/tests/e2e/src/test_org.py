@@ -1,12 +1,13 @@
-# Standard libraries
-from typing import List
-
-# Third party libraries
-from selenium.webdriver.remote.webdriver import WebDriver
-
-# Local libraries
+from model import (
+    Credentials,
+)
+from selenium.webdriver.remote.webdriver import (
+    WebDriver,
+)
+from typing import (
+    List,
+)
 import utils
-from model import Credentials
 
 
 def test_org_analytics(

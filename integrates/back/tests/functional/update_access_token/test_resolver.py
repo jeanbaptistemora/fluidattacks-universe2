@@ -1,13 +1,15 @@
-# Standard libraries
+from . import (
+    query,
+)
+from datetime import (
+    datetime,
+    timedelta,
+)
 import pytest
 from typing import (
     Any,
     Dict,
 )
-from datetime import datetime, timedelta
-
-# Local libraries
-from . import query
 
 
 @pytest.mark.asyncio

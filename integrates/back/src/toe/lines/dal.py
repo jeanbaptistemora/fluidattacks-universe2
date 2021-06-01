@@ -1,20 +1,31 @@
-import logging
-import logging.config
-from typing import Tuple
-
-from botocore.exceptions import ClientError
-
+from botocore.exceptions import (
+    ClientError,
+)
 from custom_exceptions import (
     RepeatedToeLines,
     ToeLinesNotFound,
     UnavailabilityError,
 )
-from data_containers.toe_lines import GitRootToeLines
-from dynamodb import model
-from dynamodb.exceptions import ConditionalCheckFailedException
-from dynamodb.types import GitRootToeLinesItem
-from settings import LOGGING
-
+from data_containers.toe_lines import (
+    GitRootToeLines,
+)
+from dynamodb import (
+    model,
+)
+from dynamodb.exceptions import (
+    ConditionalCheckFailedException,
+)
+from dynamodb.types import (
+    GitRootToeLinesItem,
+)
+import logging
+import logging.config
+from settings import (
+    LOGGING,
+)
+from typing import (
+    Tuple,
+)
 
 # Constants
 logging.config.dictConfig(LOGGING)

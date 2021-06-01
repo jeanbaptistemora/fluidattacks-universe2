@@ -1,8 +1,9 @@
-import os
-import pytest
-from collections import OrderedDict
-
-from findings.dal import get_finding
+from collections import (
+    OrderedDict,
+)
+from findings.dal import (
+    get_finding,
+)
 from findings.domain import (
     download_evidence_file,
     get_records_from_file,
@@ -11,8 +12,11 @@ from newutils.findings import (
     format_data,
     get_evidence,
 )
-from newutils.vulnerabilities import get_reattack_requesters
-
+from newutils.vulnerabilities import (
+    get_reattack_requesters,
+)
+import os
+import pytest
 
 pytestmark = [
     pytest.mark.asyncio,

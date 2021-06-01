@@ -1,13 +1,17 @@
-from typing import (
-    List,
-    cast,
-)
-
-from graphql.type.definition import GraphQLResolveInfo
-
 import authz
-from custom_types import Project as Group
-from decorators import enforce_group_level_auth_async
+from custom_types import (
+    Project as Group,
+)
+from decorators import (
+    enforce_group_level_auth_async,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from typing import (
+    cast,
+    List,
+)
 
 
 @enforce_group_level_auth_async

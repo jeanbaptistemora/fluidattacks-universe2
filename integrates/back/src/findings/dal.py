@@ -1,27 +1,36 @@
-import logging
-import logging.config
-from typing import (
-    Any,
-    Dict,
-    List,
-    Optional,
-    Set,
-    cast,
-)
-
 import aioboto3
 from boto3.dynamodb.conditions import (
     Equals,
     Key,
 )
-from botocore.exceptions import ClientError
-
-from context import FI_AWS_S3_BUCKET
-from custom_types import Finding as FindingType
-from dynamodb import operations_legacy as dynamodb_ops
-from s3 import operations as s3_ops
-from settings import LOGGING
-
+from botocore.exceptions import (
+    ClientError,
+)
+from context import (
+    FI_AWS_S3_BUCKET,
+)
+from custom_types import (
+    Finding as FindingType,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+import logging
+import logging.config
+from s3 import (
+    operations as s3_ops,
+)
+from settings import (
+    LOGGING,
+)
+from typing import (
+    Any,
+    cast,
+    Dict,
+    List,
+    Optional,
+    Set,
+)
 
 logging.config.dictConfig(LOGGING)
 

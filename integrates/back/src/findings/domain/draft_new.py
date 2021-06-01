@@ -1,25 +1,34 @@
-from decimal import Decimal
-import random
-from typing import Any
-
 from custom_exceptions import (
     AlreadyApproved,
     AlreadySubmitted,
     IncompleteDraft,
     InvalidDraftTitle,
 )
-from db_model import findings
-from db_model.findings.enums import FindingStateStatus
+from db_model import (
+    findings,
+)
+from db_model.findings.enums import (
+    FindingStateStatus,
+)
 from db_model.findings.types import (
     Finding,
     FindingState,
 )
-from findings import domain as findings_domain
+from decimal import (
+    Decimal,
+)
+from findings import (
+    domain as findings_domain,
+)
 from newutils import (
     datetime as datetime_utils,
     findings as findings_utils,
     requests as requests_utils,
     token as token_utils,
+)
+import random
+from typing import (
+    Any,
 )
 
 

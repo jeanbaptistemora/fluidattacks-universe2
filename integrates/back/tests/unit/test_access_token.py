@@ -1,10 +1,16 @@
+from datetime import (
+    timedelta,
+)
+from newutils import (
+    token as token_utils,
+)
 import pytest
-from datetime import timedelta
-from time import time
-
-from newutils import token as token_utils
-from settings import SESSION_COOKIE_AGE
-
+from settings import (
+    SESSION_COOKIE_AGE,
+)
+from time import (
+    time,
+)
 
 AGE_WEEKS = 27  # invalid expiration time
 

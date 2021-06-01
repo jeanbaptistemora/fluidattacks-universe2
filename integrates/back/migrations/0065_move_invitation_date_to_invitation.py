@@ -6,23 +6,30 @@ to the field invitation of the same table
 Execution Time:    2021-01-29 at 16:45:07 UTC-05
 Finalization Time: 2021-01-29 at 16:45:24 UTC-05
 """
-# Standard library
-from pprint import pprint
-from typing import cast
 
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from boto3.dynamodb.conditions import Attr
-
-# Local libraries
 import authz
-from custom_types import ProjectAccess as ProjectAccessType
-from dynamodb import operations_legacy as dynamodb_ops
-from group_access import domain as group_access_domain
-
+from boto3.dynamodb.conditions import (
+    Attr,
+)
+from custom_types import (
+    ProjectAccess as ProjectAccessType,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+from group_access import (
+    domain as group_access_domain,
+)
+from pprint import (
+    pprint,
+)
+from typing import (
+    cast,
+)
 
 TABLE_ACCESS_NAME = "FI_project_access"
 

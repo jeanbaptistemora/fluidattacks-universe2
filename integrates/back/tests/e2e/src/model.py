@@ -1,5 +1,6 @@
-# Standard libraries
-from typing import NamedTuple
+from typing import (
+    NamedTuple,
+)
 
 
 class Credentials(NamedTuple):

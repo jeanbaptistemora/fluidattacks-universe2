@@ -8,28 +8,34 @@ the group belongs to
 Execution Time: 2020-07-08 15:03:00 UTC-5
 Finalization Time: 2020-07-08 15:15:00 UTC-5
 """
-import os
-from typing import Dict, List
-
-import bugsnag
 from aioextensions import (
     collect,
     in_thread,
     run,
 )
-
+import bugsnag
 from context import (
     FI_COMMUNITY_PROJECTS,
     FI_TEST_PROJECTS,
 )
-from group_access import domain as group_access_doamin
-from groups import domain as groups_domain
+from group_access import (
+    domain as group_access_doamin,
+)
+from groups import (
+    domain as groups_domain,
+)
 from organizations import (
     dal as orgs_dal,
     domain as orgs_domain,
 )
-from users import domain as users_domain
-
+import os
+from typing import (
+    Dict,
+    List,
+)
+from users import (
+    domain as users_domain,
+)
 
 STAGE: str = os.environ["STAGE"]
 

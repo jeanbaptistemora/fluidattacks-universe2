@@ -1,9 +1,20 @@
+from db_model.findings.types import (
+    Finding20Severity,
+    Finding31Severity,
+)
+from decimal import (
+    Decimal,
+)
+from newutils import (
+    cvss,
+    cvss_new,
+    findings as finding_utils,
+    utils,
+)
 import pytest
-from decimal import Decimal
-from typing import Dict
-
-from db_model.findings.types import Finding20Severity, Finding31Severity
-from newutils import cvss, cvss_new, findings as finding_utils, utils
+from typing import (
+    Dict,
+)
 
 
 def format_severity(severity: Dict[str, float]) -> Dict[str, Decimal]:

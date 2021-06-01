@@ -1,16 +1,19 @@
-# Standard library
-from typing import Tuple
-
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from async_lru import alru_cache
-
-# Local libraries
-from charts import utils
-from dataloaders import get_new_context
+from async_lru import (
+    alru_cache,
+)
+from charts import (
+    utils,
+)
+from dataloaders import (
+    get_new_context,
+)
+from typing import (
+    Tuple,
+)
 
 
 @alru_cache(maxsize=None, typed=True)

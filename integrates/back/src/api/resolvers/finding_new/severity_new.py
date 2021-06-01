@@ -1,9 +1,15 @@
-from typing import Dict
-
-from graphql.type.definition import GraphQLResolveInfo
-
-from db_model.findings.types import Finding
-from newutils import utils
+from db_model.findings.types import (
+    Finding,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from newutils import (
+    utils,
+)
+from typing import (
+    Dict,
+)
 
 
 def resolve(

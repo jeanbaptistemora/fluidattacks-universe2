@@ -1,14 +1,21 @@
-from datetime import datetime
-from decimal import Decimal
-from typing import Union
-
+from datetime import (
+    datetime,
+)
 from db_model.findings.types import (
     Finding,
     Finding20Severity,
     Finding31Severity,
     FindingEvidence,
 )
-from newutils import cvss_new
+from decimal import (
+    Decimal,
+)
+from newutils import (
+    cvss_new,
+)
+from typing import (
+    Union,
+)
 
 
 def get_severity_score_new(

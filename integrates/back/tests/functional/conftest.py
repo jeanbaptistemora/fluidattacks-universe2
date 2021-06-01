@@ -1,12 +1,9 @@
-# Standard libraries
+import pytest
 from typing import (
     Any,
-    Set,
     Dict,
+    Set,
 )
-
-# Third party libraries
-import pytest
 
 # Constants
 TEST_GROUPS: Set[str] = {

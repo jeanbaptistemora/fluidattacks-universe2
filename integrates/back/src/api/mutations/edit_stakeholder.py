@@ -1,16 +1,10 @@
-import logging
-import logging.config
-from typing import (
-    Any,
-    Dict,
-    cast,
+from ariadne import (
+    convert_kwargs_to_snake_case,
 )
-
-from ariadne import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
 import authz
-from custom_exceptions import StakeholderNotFound
+from custom_exceptions import (
+    StakeholderNotFound,
+)
 from custom_types import (
     EditStakeholderPayload as EditStakeholderPayloadType,
     Invitation as InvitationType,
@@ -21,15 +15,32 @@ from decorators import (
     require_integrates,
     require_login,
 )
-from group_access import domain as group_access_domain
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from group_access import (
+    domain as group_access_domain,
+)
+import logging
+import logging.config
 from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from redis_cluster.operations import redis_del_by_deps
-from settings import LOGGING
-from users import domain as users_domain
-
+from redis_cluster.operations import (
+    redis_del_by_deps,
+)
+from settings import (
+    LOGGING,
+)
+from typing import (
+    Any,
+    cast,
+    Dict,
+)
+from users import (
+    domain as users_domain,
+)
 
 logging.config.dictConfig(LOGGING)
 

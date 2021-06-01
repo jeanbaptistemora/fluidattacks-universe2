@@ -1,39 +1,68 @@
-import base64
-import json
-import logging
-import logging.config
-import os
-import string
-from functools import partial
-from io import BytesIO
-from typing import Union
-
-import botocore.exceptions
-from PIL import Image
-from aioextensions import in_thread
-from ariadne import convert_camel_case_to_snake
-from starlette.requests import Request
-from starlette.responses import Response
-
+from PIL import (
+    Image,
+)
+from aioextensions import (
+    in_thread,
+)
+from analytics import (
+    dal as analytics_dal,
+)
+from ariadne import (
+    convert_camel_case_to_snake,
+)
 import authz
-from analytics import dal as analytics_dal
-from context import FI_CHARTS_LOGO_PATH
-from custom_exceptions import DocumentNotFound
+import base64
+import botocore.exceptions
+from context import (
+    FI_CHARTS_LOGO_PATH,
+)
+from custom_exceptions import (
+    DocumentNotFound,
+)
 from custom_types import (
     GraphicParameters,
     GraphicsForEntityParameters,
     ReportParameters,
 )
+from functools import (
+    partial,
+)
+from io import (
+    BytesIO,
+)
+import json
+import logging
+import logging.config
 from newutils import (
     templates as templates_utils,
     token as token_utils,
 )
-from newutils.encodings import safe_encode
-from organizations import domain as orgs_domain
-from redis_cluster.operations import redis_get_or_set_entity_attr
-from settings import LOGGING
-from tags import domain as tags_domain
-
+from newutils.encodings import (
+    safe_encode,
+)
+from organizations import (
+    domain as orgs_domain,
+)
+import os
+from redis_cluster.operations import (
+    redis_get_or_set_entity_attr,
+)
+from settings import (
+    LOGGING,
+)
+from starlette.requests import (
+    Request,
+)
+from starlette.responses import (
+    Response,
+)
+import string
+from tags import (
+    domain as tags_domain,
+)
+from typing import (
+    Union,
+)
 
 logging.config.dictConfig(LOGGING)
 

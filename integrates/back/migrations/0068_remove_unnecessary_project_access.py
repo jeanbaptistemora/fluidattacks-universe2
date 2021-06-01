@@ -6,17 +6,20 @@ has not access to the group or is no pending to accept an invitation
 Execution Time:    2021-02-04 at 14:12:40 UTC-05
 Finalization Time: 2021-02-04 at 14:12:55 UTC-05
 """
-# Third party libraries
+
 from aioextensions import (
     collect,
     run,
 )
-from boto3.dynamodb.conditions import Attr
-
-# Local libraries
-from dynamodb import operations_legacy as dynamodb_ops
-from group_access import domain as group_access_domain
-
+from boto3.dynamodb.conditions import (
+    Attr,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+from group_access import (
+    domain as group_access_domain,
+)
 
 ACCESS_TABLE_NAME = "FI_project_access"
 

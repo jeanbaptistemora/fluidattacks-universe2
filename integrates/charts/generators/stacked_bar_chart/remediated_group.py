@@ -1,23 +1,25 @@
-# Standard library
-from typing import (
-    List,
-    NamedTuple,
-    Union,
-    cast,
-)
-
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from async_lru import alru_cache
-
-# Local libraries
-from charts import utils
-from charts.colors import RISK
-from groups import domain as groups_domain
-
+from async_lru import (
+    alru_cache,
+)
+from charts import (
+    utils,
+)
+from charts.colors import (
+    RISK,
+)
+from groups import (
+    domain as groups_domain,
+)
+from typing import (
+    cast,
+    List,
+    NamedTuple,
+    Union,
+)
 
 Status = NamedTuple(
     "Status",

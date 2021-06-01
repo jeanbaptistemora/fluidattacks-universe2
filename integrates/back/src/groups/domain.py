@@ -1,41 +1,23 @@
 # pylint:disable=too-many-lines
 
-import logging
-import logging.config
-import re
-import secrets
-from collections import (
-    Counter,
-    defaultdict,
-    namedtuple,
-)
-from operator import itemgetter
-from contextlib import AsyncExitStack
-from datetime import date
-from decimal import Decimal
-from typing import (
-    Any,
-    Awaitable,
-    Dict,
-    List,
-    NamedTuple,
-    Optional,
-    Set,
-    Union,
-    cast,
-)
-
-import bugsnag
 from aioextensions import (
     collect,
     in_process,
     schedule,
 )
-
 import authz
+import bugsnag
+from collections import (
+    Counter,
+    defaultdict,
+    namedtuple,
+)
 from context import (
     BASE_URL,
     FI_DEFAULT_ORG,
+)
+from contextlib import (
+    AsyncExitStack,
 )
 from custom_exceptions import (
     AlreadyPendingDeletion,
@@ -52,17 +34,39 @@ from custom_types import (
     ProjectAccess as GroupAccessType,
     User as UserType,
 )
-from dynamodb.operations_legacy import start_context
-from events import domain as events_domain
-from findings import domain as findings_domain
-from group_access import domain as group_access_domain
+from datetime import (
+    date,
+)
+from decimal import (
+    Decimal,
+)
+from dynamodb.operations_legacy import (
+    start_context,
+)
+from events import (
+    domain as events_domain,
+)
+from findings import (
+    domain as findings_domain,
+)
+from group_access import (
+    domain as group_access_domain,
+)
 from group_comments.domain import (
     get_total_comments_date,
     mask_comments,
 )
-from groups import dal as groups_dal
-from mailer import groups as groups_mail
-from names import domain as names_domain
+from groups import (
+    dal as groups_dal,
+)
+import logging
+import logging.config
+from mailer import (
+    groups as groups_mail,
+)
+from names import (
+    domain as names_domain,
+)
 from newutils import (
     apm,
     datetime as datetime_utils,
@@ -79,13 +83,40 @@ from newutils.validations import (
     validate_project_name,
     validate_string_length_between,
 )
-from notifications import domain as notifications_domain
-from organizations import domain as orgs_domain
-from redis_cluster.operations import redis_del_by_deps_soon
-from settings import LOGGING
-from users import domain as users_domain
-from vulnerabilities import domain as vulns_domain
-
+from notifications import (
+    domain as notifications_domain,
+)
+from operator import (
+    itemgetter,
+)
+from organizations import (
+    domain as orgs_domain,
+)
+import re
+from redis_cluster.operations import (
+    redis_del_by_deps_soon,
+)
+import secrets
+from settings import (
+    LOGGING,
+)
+from typing import (
+    Any,
+    Awaitable,
+    cast,
+    Dict,
+    List,
+    NamedTuple,
+    Optional,
+    Set,
+    Union,
+)
+from users import (
+    domain as users_domain,
+)
+from vulnerabilities import (
+    domain as vulns_domain,
+)
 
 logging.config.dictConfig(LOGGING)
 

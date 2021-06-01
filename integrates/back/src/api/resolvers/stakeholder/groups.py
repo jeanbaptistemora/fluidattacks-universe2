@@ -1,17 +1,23 @@
-from typing import (
-    List,
-    cast,
+from aiodataloader import (
+    DataLoader,
 )
-
-from aiodataloader import DataLoader
-from aioextensions import collect
-from graphql.type.definition import GraphQLResolveInfo
-
+from aioextensions import (
+    collect,
+)
 from custom_types import (
     Project as Group,
     Stakeholder,
 )
-from groups import domain as groups_domain
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from groups import (
+    domain as groups_domain,
+)
+from typing import (
+    cast,
+    List,
+)
 
 
 async def resolve(

@@ -1,6 +1,64 @@
-# Standard libraries
+from aioextensions import (
+    collect,
+)
+from authz import (
+    policy as authz_policy,
+)
+from comments import (
+    dal as dal_comment,
+)
+from data_containers.toe_inputs import (
+    GitRootToeInput,
+)
+from data_containers.toe_lines import (
+    GitRootToeLines,
+)
+from db_model import (
+    findings,
+)
+from decimal import (
+    Decimal,
+)
+from dynamodb.types import (
+    RootItem,
+)
+from events import (
+    dal as dal_event,
+)
+from findings import (
+    dal as dal_findings,
+)
+from forces import (
+    dal as dal_forces,
+)
+from group_access import (
+    dal as dal_group_access,
+)
+from group_comments import (
+    dal as dal_group_comments,
+)
+from groups import (
+    dal as dal_groups,
+)
 import json
-from decimal import Decimal
+from names import (
+    dal as dal_names,
+)
+from newutils.datetime import (
+    get_from_str,
+)
+from organizations import (
+    dal as dal_organizations,
+)
+from roots import (
+    dal as dal_roots,
+)
+from toe.inputs import (
+    dal as dal_toe_inputs,
+)
+from toe.lines import (
+    dal as dal_toe_lines,
+)
 from typing import (
     Any,
     Awaitable,
@@ -8,31 +66,12 @@ from typing import (
     List,
     Tuple,
 )
-
-# Third party libraries
-from aioextensions import collect
-
-# Local libraries
-from authz import policy as authz_policy
-from newutils.datetime import get_from_str
-from comments import dal as dal_comment
-from data_containers.toe_lines import GitRootToeLines
-from data_containers.toe_inputs import GitRootToeInput
-from db_model import findings
-from dynamodb.types import RootItem
-from events import dal as dal_event
-from findings import dal as dal_findings
-from forces import dal as dal_forces
-from group_access import dal as dal_group_access
-from group_comments import dal as dal_group_comments
-from groups import dal as dal_groups
-from names import dal as dal_names
-from roots import dal as dal_roots
-from organizations import dal as dal_organizations
-from toe.inputs import dal as dal_toe_inputs
-from toe.lines import dal as dal_toe_lines
-from users import dal as dal_users
-from vulnerabilities import dal as dal_vulns
+from users import (
+    dal as dal_users,
+)
+from vulnerabilities import (
+    dal as dal_vulns,
+)
 
 
 async def populate_users(data: List[Any]) -> bool:

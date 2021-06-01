@@ -1,25 +1,30 @@
-# Standard library
+from authlib.integrations.starlette_client import (
+    OAuth,
+)
 from datetime import (
     datetime,
     timedelta,
 )
-from typing import (
-    Any,
-    Dict,
+from newutils import (
+    token as token_utils,
 )
-
-# Third party libraries
-from authlib.integrations.starlette_client import OAuth
-from starlette.requests import Request
-from starlette.responses import HTMLResponse
-
-# Local libraries
-from newutils import token as token_utils
-from redis_cluster.operations import redis_set_entity_attr
+from redis_cluster.operations import (
+    redis_set_entity_attr,
+)
 from settings import (
     JWT_COOKIE_NAME,
     JWT_COOKIE_SAMESITE,
     SESSION_COOKIE_AGE,
+)
+from starlette.requests import (
+    Request,
+)
+from starlette.responses import (
+    HTMLResponse,
+)
+from typing import (
+    Any,
+    Dict,
 )
 
 

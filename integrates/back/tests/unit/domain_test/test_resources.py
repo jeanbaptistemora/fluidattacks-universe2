@@ -1,11 +1,14 @@
+from custom_exceptions import (
+    InvalidFileSize,
+)
 import os
-
 import pytest
-from starlette.datastructures import UploadFile
-
-from custom_exceptions import InvalidFileSize
-from resources import domain as resources_domain
-
+from resources import (
+    domain as resources_domain,
+)
+from starlette.datastructures import (
+    UploadFile,
+)
 
 pytestmark = [
     pytest.mark.asyncio,

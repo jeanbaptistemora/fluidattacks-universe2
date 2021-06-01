@@ -25,35 +25,44 @@ the lastVulnerability
 Execution Time:    2020-12-20 at 14:07:09 UTC-05
 Finalization Time: 2020-12-20 at 14:52:04 UTC-05
 """
-# Standard library
-import os
-import time
-from itertools import chain
-from typing import (
-    cast,
-    Dict,
-    List,
-)
 
-# Third party libraries
 from aioextensions import (
     collect,
     in_thread,
     run,
 )
-from more_itertools import chunked
-
-# Local libraries
-from custom_types import Vulnerability
-from dataloaders.group import GroupLoader
-from findings import domain as findings_domain
-from groups.domain import get_active_groups
-from newutils import findings as finding_utils
+from custom_types import (
+    Vulnerability,
+)
+from dataloaders.group import (
+    GroupLoader,
+)
+from findings import (
+    domain as findings_domain,
+)
+from groups.domain import (
+    get_active_groups,
+)
+from itertools import (
+    chain,
+)
+from more_itertools import (
+    chunked,
+)
+from newutils import (
+    findings as finding_utils,
+)
+import os
+import time
+from typing import (
+    cast,
+    Dict,
+    List,
+)
 from vulnerabilities import (
     dal as vulns_dal,
     domain as vulns_domain,
 )
-
 
 STAGE = os.environ["STAGE"]
 

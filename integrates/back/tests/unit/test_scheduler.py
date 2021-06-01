@@ -1,19 +1,31 @@
 # -*- coding: utf-8 -*-
-import os
-import pytest
-from _pytest.monkeypatch import MonkeyPatch
-import shutil
-from collections import OrderedDict
-from decimal import Decimal
-from unittest.mock import patch
-
-from freezegun import freeze_time
-
-from data_containers.toe_inputs import GitRootToeInput
-from data_containers.toe_lines import GitRootToeLines
-from dataloaders import get_new_context
-from findings.domain import get_findings_by_group
-from groups import domain as groups_domain
+from _pytest.monkeypatch import (
+    MonkeyPatch,
+)
+from collections import (
+    OrderedDict,
+)
+from data_containers.toe_inputs import (
+    GitRootToeInput,
+)
+from data_containers.toe_lines import (
+    GitRootToeLines,
+)
+from dataloaders import (
+    get_new_context,
+)
+from decimal import (
+    Decimal,
+)
+from findings.domain import (
+    get_findings_by_group,
+)
+from freezegun import (
+    freeze_time,
+)
+from groups import (
+    domain as groups_domain,
+)
 from newutils import (
     datetime as datetime_utils,
     git as git_utils,
@@ -24,8 +36,8 @@ from organizations.domain import (
     iterate_organizations,
     update_pending_deletion_date,
 )
-from toe.inputs import domain as toe_inputs_domain
-from toe.lines import domain as toe_lines_domain
+import os
+import pytest
 from schedulers import (
     delete_imamura_stakeholders,
     delete_obsolete_groups,
@@ -34,10 +46,25 @@ from schedulers import (
     toe_lines_etl,
     update_indicators,
 )
-from users import dal as users_dal
-from vulnerabilities.dal import get as get_vuln
-from vulnerabilities.domain import list_vulnerabilities_async
-
+import shutil
+from toe.inputs import (
+    domain as toe_inputs_domain,
+)
+from toe.lines import (
+    domain as toe_lines_domain,
+)
+from unittest.mock import (
+    patch,
+)
+from users import (
+    dal as users_dal,
+)
+from vulnerabilities.dal import (
+    get as get_vuln,
+)
+from vulnerabilities.domain import (
+    list_vulnerabilities_async,
+)
 
 pytestmark = [
     pytest.mark.asyncio,

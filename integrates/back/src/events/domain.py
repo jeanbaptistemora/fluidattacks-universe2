@@ -1,24 +1,12 @@
 """Domain functions for events."""  # pylint:disable=cyclic-import
 
-import random
-from datetime import datetime
-from typing import (
-    Any,
-    Dict,
-    List,
-    Optional,
-    Tuple,
-    Union,
-    cast,
+from aioextensions import (
+    collect,
 )
-
-import pytz
-from aioextensions import collect
-from graphql.type.definition import GraphQLResolveInfo
-from starlette.datastructures import UploadFile
-
 import authz
-from comments import domain as comments_domain
+from comments import (
+    domain as comments_domain,
+)
 from custom_exceptions import (
     EventAlreadyClosed,
     EventNotFound,
@@ -31,15 +19,41 @@ from custom_types import (
     Comment as CommentType,
     Event as EventType,
 )
-from events import dal as events_dal
+from datetime import (
+    datetime,
+)
+from events import (
+    dal as events_dal,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
 from newutils import (
     datetime as datetime_utils,
     events as events_utils,
     files as files_utils,
     validations,
 )
-from settings import TIME_ZONE
-from users import domain as users_domain
+import pytz
+import random
+from settings import (
+    TIME_ZONE,
+)
+from starlette.datastructures import (
+    UploadFile,
+)
+from typing import (
+    Any,
+    cast,
+    Dict,
+    List,
+    Optional,
+    Tuple,
+    Union,
+)
+from users import (
+    domain as users_domain,
+)
 
 
 async def add_comment(

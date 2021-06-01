@@ -1,12 +1,13 @@
-from typing import (
-    Optional,
-    Tuple,
+from dynamodb import (
+    model,
 )
-
-from dynamodb import model
 from dynamodb.types import (
     OrgFindingPolicyItem,
     OrgFindingPolicyState,
+)
+from typing import (
+    Optional,
+    Tuple,
 )
 
 

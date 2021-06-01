@@ -1,5 +1,3 @@
-import pytest
-
 from custom_exceptions import (
     InvalidChar,
     InvalidField,
@@ -14,6 +12,7 @@ from newutils.validations import (
     validate_phone_field,
     validate_project_name,
 )
+import pytest
 from roots.validations import (
     is_exclude_valid,
     is_valid_git_branch,

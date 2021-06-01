@@ -1,9 +1,14 @@
-import os
-from typing import List
-
 import magic
-from starlette.concurrency import run_in_threadpool
-from starlette.datastructures import UploadFile
+import os
+from starlette.concurrency import (
+    run_in_threadpool,
+)
+from starlette.datastructures import (
+    UploadFile,
+)
+from typing import (
+    List,
+)
 
 
 def assert_file_mime(filename: str, allowed_mimes: List[str]) -> bool:

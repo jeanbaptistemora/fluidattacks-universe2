@@ -1,19 +1,37 @@
-from typing import Any
-
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
-from context import FI_DEFAULT_ORG
-from custom_types import GrantStakeholderAccessPayload
-from decorators import enforce_organization_level_auth_async
-from groups import domain as groups_domain
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
+)
+from context import (
+    FI_DEFAULT_ORG,
+)
+from custom_types import (
+    GrantStakeholderAccessPayload,
+)
+from decorators import (
+    enforce_organization_level_auth_async,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from groups import (
+    domain as groups_domain,
+)
 from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from organizations import domain as orgs_domain
-from redis_cluster.operations import redis_del_by_deps
-from users import domain as users_domain
+from organizations import (
+    domain as orgs_domain,
+)
+from redis_cluster.operations import (
+    redis_del_by_deps,
+)
+from typing import (
+    Any,
+)
+from users import (
+    domain as users_domain,
+)
 
 
 @convert_kwargs_to_snake_case

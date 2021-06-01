@@ -1,17 +1,27 @@
-from functools import partial
-
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import ForcesExecution
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
+)
+from custom_types import (
+    ForcesExecution,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login,
 )
-from forces import domain as forces_domain
-from redis_cluster.operations import redis_get_or_set_entity_attr
+from forces import (
+    domain as forces_domain,
+)
+from functools import (
+    partial,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from redis_cluster.operations import (
+    redis_get_or_set_entity_attr,
+)
 
 
 @convert_kwargs_to_snake_case

@@ -1,7 +1,28 @@
+from aioextensions import (
+    collect,
+    in_process,
+)
 import csv
+from custom_exceptions import (
+    GroupNameNotFound,
+)
+from data_containers.toe_inputs import (
+    GitRootToeInput,
+)
+from dataloaders import (
+    get_new_context,
+)
 import glob
+from newutils import (
+    bugsnag as bugsnag_utils,
+    datetime as datetime_utils,
+    git as git_utils,
+)
 import re
 import tempfile
+from toe.inputs import (
+    domain as toe_inputs_domain,
+)
 from typing import (
     Any,
     Callable,
@@ -9,22 +30,6 @@ from typing import (
     Set,
     Tuple,
 )
-
-from aioextensions import (
-    collect,
-    in_process,
-)
-
-from custom_exceptions import GroupNameNotFound
-from data_containers.toe_inputs import GitRootToeInput
-from dataloaders import get_new_context
-from newutils import (
-    bugsnag as bugsnag_utils,
-    datetime as datetime_utils,
-    git as git_utils,
-)
-from toe.inputs import domain as toe_inputs_domain
-
 
 bugsnag_utils.start_scheduler_session()
 

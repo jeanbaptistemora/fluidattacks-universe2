@@ -1,9 +1,15 @@
-from typing import Dict
-
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import Finding
-from newutils import findings as findings_utils
+from custom_types import (
+    Finding,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from newutils import (
+    findings as findings_utils,
+)
+from typing import (
+    Dict,
+)
 
 
 async def resolve(

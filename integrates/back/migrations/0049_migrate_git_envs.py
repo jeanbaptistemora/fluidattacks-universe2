@@ -7,29 +7,32 @@ This migration dumps envs from services yml to the new roots table
 Execution Time: 2020-12-18 16:32:02 UTC-5
 Finalization Time: 2020-12-18 16:32:23 UTC-5
 """
-# Standard
+
+from aioextensions import (
+    collect,
+    run,
+)
+from datetime import (
+    datetime,
+)
+from groups import (
+    domain as groups_domain,
+)
 import os
 import re
-from datetime import datetime
+from roots import (
+    domain as roots_domain,
+)
 from typing import (
     List,
     NamedTuple,
     Optional,
     Tuple,
 )
-from urllib.parse import unquote
-
-# Third party
-import yaml
-from aioextensions import (
-    collect,
-    run,
+from urllib.parse import (
+    unquote,
 )
-
-# Local
-from groups import domain as groups_domain
-from roots import domain as roots_domain
-
+import yaml
 
 STAGE: str = os.environ["STAGE"]
 SERVICES_REPO_DIR: str = f"{os.getcwd()}/services"

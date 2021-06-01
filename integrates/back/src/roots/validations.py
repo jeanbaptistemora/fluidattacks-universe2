@@ -1,20 +1,3 @@
-import os
-from ipaddress import ip_address
-from typing import (
-    List,
-    Tuple,
-)
-from urllib.parse import (
-    ParseResult,
-    unquote_plus,
-    urlparse,
-)
-
-from git import (
-    Git,
-    GitCommandError,
-)
-
 from custom_exceptions import (
     InvalidChar,
     RepeatedRootNickname,
@@ -24,6 +7,23 @@ from dynamodb.types import (
     IPRootItem,
     RootItem,
     URLRootItem,
+)
+from git import (
+    Git,
+    GitCommandError,
+)
+from ipaddress import (
+    ip_address,
+)
+import os
+from typing import (
+    List,
+    Tuple,
+)
+from urllib.parse import (
+    ParseResult,
+    unquote_plus,
+    urlparse,
 )
 
 

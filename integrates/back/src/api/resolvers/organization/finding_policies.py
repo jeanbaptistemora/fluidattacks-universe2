@@ -1,10 +1,18 @@
-from typing import Tuple
-
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import Organization
-from organizations_finding_policies.domain import get_org_policies
-from organizations_finding_policies.types import OrgFindingPolicy
+from custom_types import (
+    Organization,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from organizations_finding_policies.domain import (
+    get_org_policies,
+)
+from organizations_finding_policies.types import (
+    OrgFindingPolicy,
+)
+from typing import (
+    Tuple,
+)
 
 
 async def resolve(

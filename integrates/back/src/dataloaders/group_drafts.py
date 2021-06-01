@@ -1,13 +1,19 @@
-from typing import (
-    List,
-    cast,
+from aiodataloader import (
+    DataLoader,
 )
-
-from aiodataloader import DataLoader
-from aioextensions import collect
-
-from custom_types import Finding
-from findings import domain as findings_domain
+from aioextensions import (
+    collect,
+)
+from custom_types import (
+    Finding,
+)
+from findings import (
+    domain as findings_domain,
+)
+from typing import (
+    cast,
+    List,
+)
 
 
 class GroupDraftsLoader(DataLoader):

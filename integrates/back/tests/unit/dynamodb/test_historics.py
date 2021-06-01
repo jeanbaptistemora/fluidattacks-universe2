@@ -1,6 +1,10 @@
-# Local
-from dynamodb import historics
-from dynamodb.types import Facet, PrimaryKey
+from dynamodb import (
+    historics,
+)
+from dynamodb.types import (
+    Facet,
+    PrimaryKey,
+)
 
 
 def test_get_metadata() -> None:

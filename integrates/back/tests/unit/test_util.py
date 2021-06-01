@@ -1,45 +1,52 @@
-import os
-import pytest
-import time
-from collections import defaultdict
-from datetime import (
-    datetime,
-    timedelta,
+from api.mutations.sign_in import (
+    log_user_in,
 )
-from typing import (
-    Dict,
-    List,
-    Union,
-)
-
-import pytz
-
-from api.mutations.sign_in import log_user_in
 from back.tests.unit.utils import (
     create_dummy_session,
     create_dummy_simple_session,
 )
-from custom_exceptions import ExpiredToken
+from collections import (
+    defaultdict,
+)
+from custom_exceptions import (
+    ExpiredToken,
+)
+from datetime import (
+    datetime,
+    timedelta,
+)
 from newutils import (
     datetime as datetime_utils,
     encodings,
     files as files_utils,
-    token as token_utils,
     reports as reports_utils,
+    token as token_utils,
     utils,
 )
+import os
+import pytest
+import pytz
 from redis_cluster.operations import (
     redis_del_entity_attr,
     redis_set_entity_attr,
 )
-from sessions import dal as sessions_dal
+from sessions import (
+    dal as sessions_dal,
+)
 from settings import (
     JWT_COOKIE_NAME,
     SESSION_COOKIE_AGE,
     TIME_ZONE,
 )
-from users import domain as users_domain
-
+import time
+from typing import (
+    Dict,
+    List,
+    Union,
+)
+from users import (
+    domain as users_domain,
+)
 
 pytestmark = [
     pytest.mark.asyncio,

@@ -1,13 +1,20 @@
-from datetime import datetime
-from typing import (
-    Any,
-    Dict,
-    List,
-    Union,
-    cast,
+from .typing import (
+    GroupVulnsReportHeader,
 )
-
-from dateutil.parser import parse
+from custom_types import (
+    Finding as FindingType,
+    Historic as HistoricType,
+    Vulnerability as VulnType,
+)
+from datetime import (
+    datetime,
+)
+from dateutil.parser import (
+    parse,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
 from pyexcelerate import (
     Alignment,
     Color,
@@ -16,16 +23,13 @@ from pyexcelerate import (
     Workbook,
     Worksheet as WorksheetType,
 )
-
-from custom_types import (
-    Finding as FindingType,
-    Historic as HistoricType,
-    Vulnerability as VulnType,
+from typing import (
+    Any,
+    cast,
+    Dict,
+    List,
+    Union,
 )
-from newutils import datetime as datetime_utils
-
-from .typing import GroupVulnsReportHeader
-
 
 EMPTY = "-"
 HEADER_HEIGHT = 20

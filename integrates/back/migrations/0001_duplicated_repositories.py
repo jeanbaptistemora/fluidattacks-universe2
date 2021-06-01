@@ -7,13 +7,7 @@ Execution Time:     2020-05-13 17:13 UTC-5
 Finalization Time:  2020-05-13 17:14 UTC-5
 """
 
-from typing import (
-    cast,
-    List,
-)
-
 import bugsnag
-
 from custom_types import (
     Historic as HistoricType,
     Resource as ResourceType,
@@ -21,6 +15,10 @@ from custom_types import (
 from groups.dal import (
     get_all as get_all_groups,
     TABLE_NAME as GROUP_TABLE,
+)
+from typing import (
+    cast,
+    List,
 )
 
 

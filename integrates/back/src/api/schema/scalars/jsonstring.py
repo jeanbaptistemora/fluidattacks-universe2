@@ -1,8 +1,10 @@
+from ariadne import (
+    ScalarType,
+)
 import json
-from typing import Any
-
-from ariadne import ScalarType
-
+from typing import (
+    Any,
+)
 
 JSON_STRING_SCALAR = ScalarType("JSONString")
 

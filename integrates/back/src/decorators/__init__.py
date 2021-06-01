@@ -1,44 +1,51 @@
-import asyncio
-import functools
-import inspect
-import logging
-import logging.config
-from typing import (
-    Any,
-    Callable,
-    Dict,
-    Set,
-    TypeVar,
-    cast,
-)
-
 from aioextensions import (
     collect,
     schedule,
 )
-from graphql import GraphQLError
-
+import asyncio
 import authz
 from custom_exceptions import (
     FindingNotFound,
     InvalidAuthorization,
     UserNotInOrganization,
 )
-from findings import domain as findings_domain
+from findings import (
+    domain as findings_domain,
+)
+import functools
+from graphql import (
+    GraphQLError,
+)
+import inspect
+import logging
+import logging.config
 from newutils import (
     function,
     logs as logs_utils,
     templates as templates_utils,
     token as token_utils,
 )
-from organizations import domain as orgs_domain
+from organizations import (
+    domain as orgs_domain,
+)
 from settings import (
     DEBUG,
     LOGGING,
 )
-from users import domain as users_domain
-from vulnerabilities import domain as vulns_domain
-
+from typing import (
+    Any,
+    Callable,
+    cast,
+    Dict,
+    Set,
+    TypeVar,
+)
+from users import (
+    domain as users_domain,
+)
+from vulnerabilities import (
+    domain as vulns_domain,
+)
 
 logging.config.dictConfig(LOGGING)
 

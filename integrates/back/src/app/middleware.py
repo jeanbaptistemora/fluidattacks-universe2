@@ -1,21 +1,26 @@
 # Starlette middlewares file
 
-# Standard library
-from collections import defaultdict
+
+from collections import (
+    defaultdict,
+)
+from context import (
+    BASE_URL,
+)
+import newrelic.agent
+from starlette.middleware.base import (
+    BaseHTTPMiddleware,
+)
+from starlette.requests import (
+    Request,
+)
+from starlette.responses import (
+    Response,
+)
 from typing import (
     Any,
     Callable,
 )
-
-# Third party libraries
-import newrelic.agent
-
-from starlette.middleware.base import BaseHTTPMiddleware
-from starlette.requests import Request
-from starlette.responses import Response
-
-# Local libraries
-from context import BASE_URL
 
 
 class CustomRequestMiddleware(BaseHTTPMiddleware):

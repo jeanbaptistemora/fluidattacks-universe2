@@ -1,12 +1,15 @@
+from datetime import (
+    datetime,
+)
 import json
-from datetime import datetime
+from newutils import (
+    datetime as datetime_utils,
+)
 from typing import (
     Any,
-    Dict,
     cast,
+    Dict,
 )
-
-from newutils import datetime as datetime_utils
 
 
 def safe_encode(string: str) -> str:

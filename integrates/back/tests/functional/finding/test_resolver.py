@@ -1,16 +1,15 @@
-# Standard libraries
+from . import (
+    query,
+)
+from freezegun import (
+    freeze_time,
+)
 import pytest
 from typing import (
     Any,
     Dict,
     List,
 )
-
-# Third party libraries
-from freezegun import freeze_time
-
-# Local libraries
-from . import query
 
 
 @pytest.mark.asyncio

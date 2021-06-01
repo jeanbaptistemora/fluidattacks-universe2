@@ -1,18 +1,32 @@
-from typing import Dict
-
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import SimplePayload
-from dataloaders import Dataloaders
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
+)
+from custom_types import (
+    SimplePayload,
+)
+from dataloaders import (
+    Dataloaders,
+)
 from decorators import (
     concurrent_decorators,
     enforce_organization_level_auth_async,
     require_login,
 )
-from newutils import token as token_utils
-from organizations import domain as orgs_domain
-from organizations_finding_policies import domain as policies_domain
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from newutils import (
+    token as token_utils,
+)
+from organizations import (
+    domain as orgs_domain,
+)
+from organizations_finding_policies import (
+    domain as policies_domain,
+)
+from typing import (
+    Dict,
+)
 
 
 @convert_kwargs_to_snake_case

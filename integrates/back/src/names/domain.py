@@ -1,4 +1,6 @@
-from names import dal as names_dal
+from names import (
+    dal as names_dal,
+)
 
 
 async def create(name: str, entity: str) -> bool:

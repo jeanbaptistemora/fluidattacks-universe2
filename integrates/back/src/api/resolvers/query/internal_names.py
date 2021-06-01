@@ -1,15 +1,20 @@
 # None
 
 
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import InternalName
+from custom_types import (
+    InternalName,
+)
 from decorators import (
     concurrent_decorators,
     enforce_user_level_auth_async,
     require_login,
 )
-from names import domain as names_domain
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from names import (
+    domain as names_domain,
+)
 
 
 @concurrent_decorators(require_login, enforce_user_level_auth_async)

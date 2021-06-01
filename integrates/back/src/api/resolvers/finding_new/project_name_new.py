@@ -1,6 +1,9 @@
-from graphql.type.definition import GraphQLResolveInfo
-
-from db_model.findings.types import Finding
+from db_model.findings.types import (
+    Finding,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
 
 
 def resolve(

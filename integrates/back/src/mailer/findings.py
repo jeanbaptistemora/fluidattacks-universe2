@@ -1,9 +1,10 @@
-from typing import (
-    Any,
-    Dict,
-    List,
+from .common import (
+    COMMENTS_TAG,
+    GENERAL_TAG,
+    get_comment_recipients,
+    send_mails_async_new,
+    VERIFY_TAG,
 )
-
 from context import (
     BASE_URL,
     FI_MAIL_REVIEWERS,
@@ -13,15 +14,16 @@ from custom_types import (
     Finding as FindingType,
     MailContent as MailContentType,
 )
-from group_access import domain as group_access_domain
-from newutils import findings as findings_utils
-
-from .common import (
-    COMMENTS_TAG,
-    GENERAL_TAG,
-    VERIFY_TAG,
-    get_comment_recipients,
-    send_mails_async_new,
+from group_access import (
+    domain as group_access_domain,
+)
+from newutils import (
+    findings as findings_utils,
+)
+from typing import (
+    Any,
+    Dict,
+    List,
 )
 
 

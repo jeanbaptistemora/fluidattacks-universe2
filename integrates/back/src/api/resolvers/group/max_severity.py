@@ -1,15 +1,25 @@
-from functools import partial
-from typing import (
-    List,
-    cast,
+from aiodataloader import (
+    DataLoader,
 )
-
-from aiodataloader import DataLoader
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import Project as Group
-from decorators import require_integrates
-from redis_cluster.operations import redis_get_or_set_entity_attr
+from custom_types import (
+    Project as Group,
+)
+from decorators import (
+    require_integrates,
+)
+from functools import (
+    partial,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from redis_cluster.operations import (
+    redis_get_or_set_entity_attr,
+)
+from typing import (
+    cast,
+    List,
+)
 
 
 @require_integrates

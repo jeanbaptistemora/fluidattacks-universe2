@@ -1,19 +1,34 @@
-# Standard libraries
+from base64 import (
+    b64encode,
+)
+from itsdangerous import (
+    TimestampSigner,
+)
 import json
-from base64 import b64encode
-from random import randint
-from uuid import uuid4 as uuid
-
-# Third party libraries
-from itsdangerous import TimestampSigner
-from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
-from selenium.webdriver.common.by import By
-
-# Local libraries
-from model import Credentials
+from model import (
+    Credentials,
+)
+from random import (
+    randint,
+)
+from selenium.webdriver.common.by import (
+    By,
+)
+from selenium.webdriver.remote.webdriver import (
+    WebDriver,
+)
+from selenium.webdriver.remote.webelement import (
+    WebElement,
+)
+from selenium.webdriver.support import (
+    expected_conditions as ec,
+)
+from selenium.webdriver.support.ui import (
+    WebDriverWait,
+)
+from uuid import (
+    uuid4 as uuid,
+)
 
 
 def wait_for_id(driver: WebDriver, text: str, timeout: int) -> WebDriverWait:

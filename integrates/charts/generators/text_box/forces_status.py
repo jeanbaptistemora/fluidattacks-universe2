@@ -1,12 +1,15 @@
-# Standard library
-
-# Third party libraries
-from aioextensions import run
-
-# Local libraries
-from charts import utils
-from charts.types import ForcesReport
-from dataloaders import get_new_context
+from aioextensions import (
+    run,
+)
+from charts import (
+    utils,
+)
+from charts.types import (
+    ForcesReport,
+)
+from dataloaders import (
+    get_new_context,
+)
 
 
 async def generate_one(group: str) -> ForcesReport:

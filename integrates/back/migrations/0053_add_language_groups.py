@@ -6,17 +6,23 @@ This migration adds the attribute "language" to all groups
 Execution Time: 2021-01-05 22:14 UTC-5
 Finalization Time: 2021-01-05 22:18 UTC-5
 """
-# Standard
-from typing import List
 
-# Third party
 import aioboto3
-from aioextensions import run
-
-# Local
-from custom_types import Project as ProjectType
-from dynamodb import operations_legacy as dynamodb_ops
-from groups.dal import TABLE_NAME as GROUPS_TABLE
+from aioextensions import (
+    run,
+)
+from custom_types import (
+    Project as ProjectType,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+from groups.dal import (
+    TABLE_NAME as GROUPS_TABLE,
+)
+from typing import (
+    List,
+)
 
 
 async def get_groups_without_language() -> List[ProjectType]:

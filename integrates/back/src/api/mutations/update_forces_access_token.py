@@ -1,19 +1,32 @@
 # None
 
 
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_exceptions import InvalidExpirationTime
-from custom_types import UpdateAccessTokenPayload
-from decorators import enforce_group_level_auth_async
-from forces import domain as forces_domain
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
+)
+from custom_exceptions import (
+    InvalidExpirationTime,
+)
+from custom_types import (
+    UpdateAccessTokenPayload,
+)
+from decorators import (
+    enforce_group_level_auth_async,
+)
+from forces import (
+    domain as forces_domain,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
 from newutils import (
     datetime as datetime_utils,
     logs as logs_utils,
     token as token_utils,
 )
-from users import domain as users_domain
+from users import (
+    domain as users_domain,
+)
 
 
 @convert_kwargs_to_snake_case

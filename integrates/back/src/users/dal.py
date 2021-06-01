@@ -1,26 +1,33 @@
-import logging
-import logging.config
-from typing import (
-    Dict,
-    List,
-)
-
 from boto3.dynamodb.conditions import (
     Attr,
     Key,
     Not,
 )
-from botocore.exceptions import ClientError
-
-from context import FI_TEST_PROJECTS
-from custom_exceptions import UnavailabilityError
+from botocore.exceptions import (
+    ClientError,
+)
+from context import (
+    FI_TEST_PROJECTS,
+)
+from custom_exceptions import (
+    UnavailabilityError,
+)
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
     User as UserType,
 )
-from dynamodb import operations_legacy as dynamodb_ops
-from settings import LOGGING
-
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+import logging
+import logging.config
+from settings import (
+    LOGGING,
+)
+from typing import (
+    Dict,
+    List,
+)
 
 logging.config.dictConfig(LOGGING)
 

@@ -1,10 +1,9 @@
-import logging
-import logging.config
-
-from aioextensions import schedule
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
+from aioextensions import (
+    schedule,
+)
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
+)
 import authz
 from custom_types import (
     AddStakeholderPayload,
@@ -15,14 +14,24 @@ from decorators import (
     enforce_user_level_auth_async,
     require_login,
 )
-from groups import domain as groups_domain
-from mailer import groups as groups_mail
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from groups import (
+    domain as groups_domain,
+)
+import logging
+import logging.config
+from mailer import (
+    groups as groups_mail,
+)
 from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from settings import LOGGING
-
+from settings import (
+    LOGGING,
+)
 
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)

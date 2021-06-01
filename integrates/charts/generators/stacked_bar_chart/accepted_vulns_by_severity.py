@@ -1,25 +1,28 @@
-# Standard library
-from collections import Counter
-from typing import (
-    List,
-    Union,
-    cast,
-)
-
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from async_lru import alru_cache
-
-# Local libraries
-from charts import utils
+from async_lru import (
+    alru_cache,
+)
+from charts import (
+    utils,
+)
 from charts.colors import (
     RISK,
     TREATMENT,
 )
-from dataloaders import get_new_context
+from collections import (
+    Counter,
+)
+from dataloaders import (
+    get_new_context,
+)
+from typing import (
+    cast,
+    List,
+    Union,
+)
 
 
 def get_severity_level(severity: float) -> str:

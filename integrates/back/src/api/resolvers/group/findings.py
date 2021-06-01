@@ -1,20 +1,26 @@
-from typing import (
-    Any,
-    Dict,
-    List,
-    Optional,
-    cast,
+from aiodataloader import (
+    DataLoader,
 )
-
-from aiodataloader import DataLoader
-from graphql.type.definition import GraphQLResolveInfo
-
 from custom_types import (
     Finding,
     Project as Group,
 )
-from decorators import require_integrates
-from newutils import utils
+from decorators import (
+    require_integrates,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from newutils import (
+    utils,
+)
+from typing import (
+    Any,
+    cast,
+    Dict,
+    List,
+    Optional,
+)
 
 
 @require_integrates

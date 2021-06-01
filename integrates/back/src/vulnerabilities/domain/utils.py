@@ -1,8 +1,3 @@
-from typing import (
-    Dict,
-    cast,
-)
-
 import authz
 from custom_exceptions import (
     AcceptionNotRequested,
@@ -11,6 +6,10 @@ from custom_exceptions import (
 from custom_types import (
     Finding,
     Historic,
+)
+from typing import (
+    cast,
+    Dict,
 )
 
 

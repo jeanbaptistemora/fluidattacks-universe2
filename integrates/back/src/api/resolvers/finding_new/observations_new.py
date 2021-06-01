@@ -1,14 +1,30 @@
-from functools import partial
-from typing import List
-
-from graphql.type.definition import GraphQLResolveInfo
-
-from comments import domain as comments_domain
-from custom_types import Comment
-from decorators import enforce_group_level_auth_async
-from db_model.findings.types import Finding
-from redis_cluster.operations import redis_get_or_set_entity_attr
-from newutils import token as token_utils
+from comments import (
+    domain as comments_domain,
+)
+from custom_types import (
+    Comment,
+)
+from db_model.findings.types import (
+    Finding,
+)
+from decorators import (
+    enforce_group_level_auth_async,
+)
+from functools import (
+    partial,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from newutils import (
+    token as token_utils,
+)
+from redis_cluster.operations import (
+    redis_get_or_set_entity_attr,
+)
+from typing import (
+    List,
+)
 
 
 @enforce_group_level_auth_async

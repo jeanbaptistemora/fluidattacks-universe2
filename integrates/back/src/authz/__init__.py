@@ -14,6 +14,9 @@ from .enforcer import (
     get_user_level_enforcer,
 )
 from .model import (
+    get_group_level_roles_model,
+    get_organization_level_roles_model,
+    get_user_level_roles_model,
     GROUP_LEVEL_ROLES,
     GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS,
     ORGANIZATION_LEVEL_ROLES,
@@ -21,9 +24,6 @@ from .model import (
     SERVICE_ATTRIBUTES,
     USER_LEVEL_ROLES,
     USER_LEVEL_ROLES_FOR_FLUIDATTACKS,
-    get_group_level_roles_model,
-    get_organization_level_roles_model,
-    get_user_level_roles_model,
 )
 from .policy import (
     get_cached_group_service_policies,
@@ -45,7 +45,6 @@ from .validations import (
     validate_fluidattacks_staff_on_group,
     validate_handle_comment_scope,
 )
-
 
 __all__ = [
     # Boundary

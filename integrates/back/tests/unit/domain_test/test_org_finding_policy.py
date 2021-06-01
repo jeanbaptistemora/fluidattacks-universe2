@@ -1,6 +1,3 @@
-import pytest
-
-# Local libraries
 from custom_exceptions import (
     FindingNamePolicyNotFound,
 )
@@ -9,7 +6,10 @@ from dynamodb.types import (
     OrgFindingPolicyMetadata,
     OrgFindingPolicyState,
 )
-from organizations_finding_policies import domain as policies_domain
+from organizations_finding_policies import (
+    domain as policies_domain,
+)
+import pytest
 
 # Constants
 pytestmark = [

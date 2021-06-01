@@ -5,28 +5,29 @@ This migration removes the origin field from finding historic state
 Execution Time:    2021-03-01 at 09:57:35 UTC-05
 Finalization Time: 2021-03-01 at 10:08:58 UTC-05
 """
-# Standard libraries
-import copy
-from pprint import pprint
-from typing import (
-    Dict,
-    cast,
-)
 
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-
-# Local libraries
+import copy
 from custom_types import (
     Finding,
     Historic,
 )
-from dynamodb import operations_legacy as dynamodb_ops
-from findings import dal as findings_dal
-
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+from findings import (
+    dal as findings_dal,
+)
+from pprint import (
+    pprint,
+)
+from typing import (
+    cast,
+    Dict,
+)
 
 FINDING_TABLE: str = "FI_findings"
 

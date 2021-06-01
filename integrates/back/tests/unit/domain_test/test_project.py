@@ -1,21 +1,28 @@
-import pytest
-import time
-from decimal import Decimal
-from datetime import datetime
-
-from aioextensions import collect
-from freezegun import freeze_time
-from graphql.type import GraphQLResolveInfo
-from pytz import timezone
-
-from back.tests.unit.utils import create_dummy_session
+from aioextensions import (
+    collect,
+)
+from back.tests.unit.utils import (
+    create_dummy_session,
+)
 from custom_exceptions import (
     InvalidGroupServicesConfig,
     RepeatedValues,
 )
-from dataloaders import get_new_context
-from events.domain import list_group_events
-from findings import dal as findings_dal
+from dataloaders import (
+    get_new_context,
+)
+from datetime import (
+    datetime,
+)
+from decimal import (
+    Decimal,
+)
+from events.domain import (
+    list_group_events,
+)
+from findings import (
+    dal as findings_dal,
+)
 from findings.domain import (
     get_last_closing_vuln_info,
     get_max_open_severity,
@@ -23,10 +30,16 @@ from findings.domain import (
     get_pending_verification_findings,
     get_total_treatment,
 )
+from freezegun import (
+    freeze_time,
+)
+from graphql.type import (
+    GraphQLResolveInfo,
+)
 from group_access.domain import (
     get_closers,
-    get_managers,
     get_group_users,
+    get_managers,
     remove_access,
 )
 from group_comments.domain import (
@@ -51,16 +64,28 @@ from groups.domain import (
     validate_group_services_config,
     validate_group_tags,
 )
-from names import domain as names_domain
-from newutils import datetime as datetime_utils
+from names import (
+    domain as names_domain,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
 from newutils.vulnerabilities import (
     get_last_closing_date,
     get_open_vulnerability_date,
     is_vulnerability_closed,
 )
-from settings import TIME_ZONE
-from vulnerabilities import dal as vulns_dal
-
+import pytest
+from pytz import (
+    timezone,
+)
+from settings import (
+    TIME_ZONE,
+)
+import time
+from vulnerabilities import (
+    dal as vulns_dal,
+)
 
 pytestmark = [
     pytest.mark.asyncio,

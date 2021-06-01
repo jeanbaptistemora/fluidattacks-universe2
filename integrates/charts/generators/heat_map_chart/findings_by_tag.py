@@ -1,5 +1,19 @@
-# Standard library
-from itertools import chain
+from aioextensions import (
+    collect,
+    run,
+)
+from charts import (
+    utils,
+)
+from custom_types import (
+    Finding,
+)
+from dataloaders import (
+    get_new_context,
+)
+from itertools import (
+    chain,
+)
 from typing import (
     Counter,
     Dict,
@@ -8,18 +22,6 @@ from typing import (
     Set,
     Tuple,
 )
-
-# Third party libraries
-from aioextensions import (
-    collect,
-    run,
-)
-
-# Local libraries
-from charts import utils
-from custom_types import Finding
-from dataloaders import get_new_context
-
 
 FindingsTags = NamedTuple(
     "FindingsTags",

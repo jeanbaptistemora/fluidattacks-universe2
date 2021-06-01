@@ -1,15 +1,12 @@
-from datetime import datetime
-from typing import (
-    Any,
-    List,
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
 )
-
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
 from custom_types import (
     ForcesExecution,
     ForcesExecutions,
+)
+from datetime import (
+    datetime,
 )
 from decorators import (
     concurrent_decorators,
@@ -17,8 +14,19 @@ from decorators import (
     require_integrates,
     require_login,
 )
-from forces import domain as forces_domain
-from newutils import datetime as datetime_utils
+from forces import (
+    domain as forces_domain,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
+from typing import (
+    Any,
+    List,
+)
 
 
 @convert_kwargs_to_snake_case

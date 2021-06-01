@@ -1,26 +1,40 @@
 # This mutation updates the attribute sorts_file_risk for a concrete Toe
 
 
-from typing import (
-    Any,
-    List,
-    Set,
+from aioextensions import (
+    collect,
 )
-
-from aioextensions import collect
-from ariadne import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import SimplePayload as SimplePayloadType
-from data_containers.toe_lines import GitRootToeLines
+from ariadne import (
+    convert_kwargs_to_snake_case,
+)
+from custom_types import (
+    SimplePayload as SimplePayloadType,
+)
+from data_containers.toe_lines import (
+    GitRootToeLines,
+)
 from decorators import (
     concurrent_decorators,
     require_integrates,
     require_login,
 )
-from newutils import logs as logs_utils
-from redis_cluster.operations import redis_del_by_deps
-from toe.lines import domain as toe_lines_domain
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from newutils import (
+    logs as logs_utils,
+)
+from redis_cluster.operations import (
+    redis_del_by_deps,
+)
+from toe.lines import (
+    domain as toe_lines_domain,
+)
+from typing import (
+    Any,
+    List,
+    Set,
+)
 
 
 @convert_kwargs_to_snake_case

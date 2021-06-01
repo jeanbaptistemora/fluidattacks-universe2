@@ -1,21 +1,31 @@
-from typing import cast
-
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
+)
 import authz
 from custom_exceptions import (
     InvalidParameter,
     StakeholderNotFound,
 )
-from custom_types import Stakeholder
+from custom_types import (
+    Stakeholder,
+)
 from decorators import (
     enforce_group_level_auth_async,
     enforce_organization_level_auth_async,
     require_login,
 )
-from group_access import domain as group_access_domain
-from users import domain as stakeholders_domain
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from group_access import (
+    domain as group_access_domain,
+)
+from typing import (
+    cast,
+)
+from users import (
+    domain as stakeholders_domain,
+)
 
 
 @enforce_organization_level_auth_async

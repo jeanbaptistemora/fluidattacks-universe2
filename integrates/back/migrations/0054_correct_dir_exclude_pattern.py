@@ -9,22 +9,22 @@ node_modules/*  ->  node_modules/
 Execution Time:    2021-01-06 10:14 UTC-5
 Finalization Time: 2021-01-06 10:18 UTC-5
 """
-# Standard
+
+from aioextensions import (
+    collect,
+    run,
+)
+from groups.domain import (
+    get_active_groups,
+)
+from roots import (
+    dal as roots_dal,
+)
 from typing import (
     Any,
     Dict,
     List,
 )
-
-# Third party
-from aioextensions import (
-    collect,
-    run,
-)
-
-# Local
-from groups.domain import get_active_groups
-from roots import dal as roots_dal
 
 
 async def update_root(group_name: str, root: Dict[str, Any]) -> None:

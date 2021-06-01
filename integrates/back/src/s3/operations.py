@@ -1,8 +1,26 @@
+import aioboto3
+from aioextensions import (
+    in_thread,
+)
+from botocore.exceptions import (
+    ClientError,
+)
+from context import (
+    FI_AWS_S3_ACCESS_KEY,
+    FI_AWS_S3_SECRET_KEY,
+    FI_ENVIRONMENT,
+)
 import contextlib
 import io
 import logging
 import logging.config
 import os
+from settings import (
+    LOGGING,
+)
+from starlette.datastructures import (
+    UploadFile,
+)
 from tempfile import (  # type: ignore
     _TemporaryFileWrapper as TemporaryFileWrapper,
 )
@@ -10,19 +28,6 @@ from typing import (
     List,
     Optional,
 )
-
-import aioboto3
-from aioextensions import in_thread
-from botocore.exceptions import ClientError
-from starlette.datastructures import UploadFile
-
-from context import (
-    FI_AWS_S3_ACCESS_KEY,
-    FI_AWS_S3_SECRET_KEY,
-    FI_ENVIRONMENT,
-)
-from settings import LOGGING
-
 
 logging.config.dictConfig(LOGGING)
 

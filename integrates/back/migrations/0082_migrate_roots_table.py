@@ -6,28 +6,37 @@ integrates_vms
 Execution Time:    2021-03-19 at 13:17:02 UTC-05
 Finalization Time: 2021-03-19 at 13:29:41 UTC-05
 """
-# Standard libraries
-import time
-from datetime import timezone
-from typing import (
-    Any,
-    Dict,
+
+from aioextensions import (
+    collect,
+    run,
 )
-
-# Third party libraries
-from aioextensions import collect, run
-from boto3.dynamodb.conditions import Attr
-
-# Local libraries
-from dynamodb import operations_legacy as dynamodb_ops
+from boto3.dynamodb.conditions import (
+    Attr,
+)
+from datetime import (
+    timezone,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
 from dynamodb.types import (
     GitRootCloning,
     GitRootItem,
     GitRootMetadata,
     GitRootState,
 )
-from newutils import datetime as datetime_utils
-from roots import dal as roots_dal
+from newutils import (
+    datetime as datetime_utils,
+)
+from roots import (
+    dal as roots_dal,
+)
+import time
+from typing import (
+    Any,
+    Dict,
+)
 
 
 def _convert_to_iso(date: str) -> str:

@@ -9,20 +9,25 @@ Execution Time:    2021-05-18 at 10:53:37 UTC-05
 Finalization Time: 2021-05-18 at 11:53:39 UTC-05
 """
 
-# Standard
-from itertools import chain
-import time
 
-# Third party
-from aioextensions import collect, run
-
-# Local
-from groups.dal import get_active_groups
-from group_access import domain as group_access_domain
+from aioextensions import (
+    collect,
+    run,
+)
+from group_access import (
+    domain as group_access_domain,
+)
+from groups.dal import (
+    get_active_groups,
+)
+from itertools import (
+    chain,
+)
 from subscriptions.domain import (
     get_subscriptions_to_entity_report,
     subscribe_user_to_entity_report,
 )
+import time
 
 
 async def main() -> None:

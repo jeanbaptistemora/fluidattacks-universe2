@@ -1,8 +1,10 @@
-from typing import Any
-
+from ariadne import (
+    ScalarType,
+)
 import dateutil.parser
-from ariadne import ScalarType
-
+from typing import (
+    Any,
+)
 
 DATETIME_SCALAR = ScalarType("DateTime")
 

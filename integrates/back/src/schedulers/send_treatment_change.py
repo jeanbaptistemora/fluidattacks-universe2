@@ -1,13 +1,27 @@
-from datetime import datetime
-from typing import Any
-
-from aioextensions import collect
-
-from dataloaders import get_new_context
-from findings import domain as findings_domain
-from groups import domain as groups_domain
-from newutils import datetime as datetime_utils
-from vulnerabilities import domain as vulns_domain
+from aioextensions import (
+    collect,
+)
+from dataloaders import (
+    get_new_context,
+)
+from datetime import (
+    datetime,
+)
+from findings import (
+    domain as findings_domain,
+)
+from groups import (
+    domain as groups_domain,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
+from typing import (
+    Any,
+)
+from vulnerabilities import (
+    domain as vulns_domain,
+)
 
 
 async def send_group_treatment_change(

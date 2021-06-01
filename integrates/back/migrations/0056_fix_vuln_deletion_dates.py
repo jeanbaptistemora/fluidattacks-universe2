@@ -7,26 +7,34 @@ the migration 0055_add_deleted_status.
 Execution Time:    2021-01-14 at 09:59:47 UTC-05
 Finalization Time: 2021-01-15 at 08:00:00 UTC-05
 """
-# Standard library
-import copy
-from datetime import datetime
-from pprint import pprint
-from typing import Dict
 
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-
-# Local libraries
+import copy
 from custom_types import (
     Finding as FindingType,
     Vulnerability as VulnerabilityType,
 )
-from findings import domain as findings_domain
-from groups import domain as groups_domain
-from newutils import datetime as datetime_utils
+from datetime import (
+    datetime,
+)
+from findings import (
+    domain as findings_domain,
+)
+from groups import (
+    domain as groups_domain,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
+from pprint import (
+    pprint,
+)
+from typing import (
+    Dict,
+)
 from vulnerabilities import (
     dal as vulns_dal,
     domain as vulns_domain,

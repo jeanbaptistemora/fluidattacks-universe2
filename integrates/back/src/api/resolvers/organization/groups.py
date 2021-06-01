@@ -1,18 +1,24 @@
-from typing import (
-    Dict,
-    List,
-    cast,
+from aiodataloader import (
+    DataLoader,
 )
-
-from aiodataloader import DataLoader
-from graphql.type.definition import GraphQLResolveInfo
-
 from custom_types import (
     Organization,
     Project as Group,
 )
-from groups import domain as groups_domain
-from newutils import token as token_utils
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from groups import (
+    domain as groups_domain,
+)
+from newutils import (
+    token as token_utils,
+)
+from typing import (
+    cast,
+    Dict,
+    List,
+)
 
 
 async def resolve(

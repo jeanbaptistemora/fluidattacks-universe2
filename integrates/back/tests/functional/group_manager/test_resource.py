@@ -1,12 +1,18 @@
+from back.tests.functional.group_manager.utils import (
+    get_result,
+)
 import json
+from newutils import (
+    datetime as datetime_utils,
+)
 import os
 import pytest
-
-from starlette.datastructures import UploadFile
-from urllib.parse import quote
-
-from back.tests.functional.group_manager.utils import get_result
-from newutils import datetime as datetime_utils
+from starlette.datastructures import (
+    UploadFile,
+)
+from urllib.parse import (
+    quote,
+)
 
 
 @pytest.mark.asyncio

@@ -1,15 +1,18 @@
-# Standard libraries
+from back.tests.functional.executive.utils import (
+    get_result,
+)
+from back.tests.functional.utils import (
+    complete_register,
+)
+from dataloaders import (
+    get_new_context,
+)
 import json
 import pytest
 from typing import (
     Any,
     Dict,
 )
-
-# Local libraries
-from back.tests.functional.utils import complete_register
-from back.tests.functional.executive.utils import get_result
-from dataloaders import get_new_context
 
 
 @pytest.mark.asyncio

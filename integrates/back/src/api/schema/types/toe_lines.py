@@ -1,4 +1,5 @@
-from ariadne import ObjectType
-
+from ariadne import (
+    ObjectType,
+)
 
 TOELINES = ObjectType("ToeLines")

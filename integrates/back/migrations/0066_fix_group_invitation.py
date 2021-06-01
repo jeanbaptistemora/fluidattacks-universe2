@@ -7,22 +7,29 @@ the invitations that can not be used
 Execution Time:    2021-02-02 at 17:26:42 UTC-05
 Finalization Time: 2021-02-02 at 17:26:53 UTC-05
 """
-# Standard library
-from pprint import pprint
-from typing import cast
 
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from boto3.dynamodb.conditions import Attr
-
-# Local libraries
-from custom_types import ProjectAccess as ProjectAccessType
-from dynamodb import operations_legacy as dynamodb_ops
-from group_access import domain as groups_access_domain
-
+from boto3.dynamodb.conditions import (
+    Attr,
+)
+from custom_types import (
+    ProjectAccess as ProjectAccessType,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+from group_access import (
+    domain as groups_access_domain,
+)
+from pprint import (
+    pprint,
+)
+from typing import (
+    cast,
+)
 
 TABLE_ACCESS_NAME = "FI_project_access"
 

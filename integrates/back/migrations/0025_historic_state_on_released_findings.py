@@ -25,20 +25,28 @@
 # Fixed in DB around: 2020-08-26 18:43:31+00:00
 #
 
-# Standard library
-import os
-from asyncio import run
-from pprint import pprint
-from typing import Any
 
-# Third party library
 import aioboto3
-from aioextensions import collect
+from aioextensions import (
+    collect,
+)
+from asyncio import (
+    run,
+)
 import dateutil.parser
-
-from dynamodb.operations_legacy import RESOURCE_OPTIONS
-from findings.dal import update
-
+from dynamodb.operations_legacy import (
+    RESOURCE_OPTIONS,
+)
+from findings.dal import (
+    update,
+)
+import os
+from pprint import (
+    pprint,
+)
+from typing import (
+    Any,
+)
 
 STAGE: str = os.environ["STAGE"]
 FINDINGS_TABLE = "FI_findings"

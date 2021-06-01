@@ -1,16 +1,17 @@
-from decimal import Decimal
-from typing import (
-    Dict,
-    cast,
-)
-
 from custom_types import (
     Finding,
     Historic,
 )
+from decimal import (
+    Decimal,
+)
 from newutils.vulnerabilities import (
     get_last_status,
     is_reattack_requested,
+)
+from typing import (
+    cast,
+    Dict,
 )
 
 

@@ -1,16 +1,27 @@
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import SimpleFindingPayload as SimpleFindingPayloadType
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
+)
+from custom_types import (
+    SimpleFindingPayload as SimpleFindingPayloadType,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login,
 )
-from findings import domain as findings_domain
-from newutils import logs as logs_utils
-from redis_cluster.operations import redis_del_by_deps_soon
+from findings import (
+    domain as findings_domain,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from newutils import (
+    logs as logs_utils,
+)
+from redis_cluster.operations import (
+    redis_del_by_deps_soon,
+)
 
 
 @convert_kwargs_to_snake_case

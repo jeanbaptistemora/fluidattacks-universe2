@@ -1,39 +1,19 @@
 """Domain functions for vulnerabilities."""  # pylint:disable=too-many-lines
 
 
-import copy
-import html
-import html.parser
-import logging
-import logging.config
-import uuid
-from contextlib import AsyncExitStack
-from itertools import zip_longest
-from operator import itemgetter
-from time import time
-from typing import (
-    Any,
-    Collection,
-    Dict,
-    Iterable,
-    List,
-    Optional,
-    Set,
-    Union,
-    cast,
-)
-
 import aioboto3
-import yaml
 from aioextensions import (
     collect,
     in_process,
     schedule,
 )
-from graphql.type.definition import GraphQLResolveInfo
-from starlette.datastructures import UploadFile
-
-from comments import domain as comments_domain
+from comments import (
+    domain as comments_domain,
+)
+from contextlib import (
+    AsyncExitStack,
+)
+import copy
 from custom_exceptions import (
     AlreadyZeroRiskRequested,
     InvalidJustificationMaxLength,
@@ -47,9 +27,25 @@ from custom_types import (
     User as UserType,
     Vulnerability as VulnerabilityType,
 )
-from dynamodb.operations_legacy import start_context
-from dynamodb.types import OrgFindingPolicyItem
-from mailer import vulnerabilities as vulns_mail
+from dynamodb.operations_legacy import (
+    start_context,
+)
+from dynamodb.types import (
+    OrgFindingPolicyItem,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+import html
+import html.parser
+from itertools import (
+    zip_longest,
+)
+import logging
+import logging.config
+from mailer import (
+    vulnerabilities as vulns_mail,
+)
 from newutils import (
     datetime as datetime_utils,
     logs as logs_utils,
@@ -59,13 +55,38 @@ from newutils import (
     validations,
     vulnerabilities as vulns_utils,
 )
-from notifications import domain as notifications_domain
+from notifications import (
+    domain as notifications_domain,
+)
+from operator import (
+    itemgetter,
+)
 from settings import (
     LOGGING,
     NOEXTRA,
 )
-from vulnerabilities import dal as vulns_dal
-
+from starlette.datastructures import (
+    UploadFile,
+)
+from time import (
+    time,
+)
+from typing import (
+    Any,
+    cast,
+    Collection,
+    Dict,
+    Iterable,
+    List,
+    Optional,
+    Set,
+    Union,
+)
+import uuid
+from vulnerabilities import (
+    dal as vulns_dal,
+)
+import yaml
 
 logging.config.dictConfig(LOGGING)
 

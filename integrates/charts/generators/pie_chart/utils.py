@@ -1,14 +1,18 @@
-from decimal import Decimal
-from operator import attrgetter
+from charts.colors import (
+    RISK,
+)
+from decimal import (
+    Decimal,
+)
+from operator import (
+    attrgetter,
+)
 from typing import (
+    cast,
     List,
     NamedTuple,
     Union,
-    cast,
 )
-
-from charts.colors import RISK
-
 
 PortfoliosGroupsInfo = NamedTuple(
     "PortfoliosGroupsInfo",

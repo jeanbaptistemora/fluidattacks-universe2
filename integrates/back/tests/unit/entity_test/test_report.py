@@ -1,13 +1,20 @@
+from api.schema import (
+    SCHEMA,
+)
+from ariadne import (
+    graphql,
+)
+from back.tests.unit.utils import (
+    create_dummy_session,
+)
+from context import (
+    STARTDIR,
+)
+from dataloaders import (
+    apply_context_attrs,
+)
 import os
 import pytest
-
-from ariadne import graphql
-
-from api.schema import SCHEMA
-from context import STARTDIR
-from back.tests.unit.utils import create_dummy_session
-from dataloaders import apply_context_attrs
-
 
 pytestmark = pytest.mark.asyncio
 

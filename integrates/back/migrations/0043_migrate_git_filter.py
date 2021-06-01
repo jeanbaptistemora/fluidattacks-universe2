@@ -7,16 +7,20 @@ This migration copies filter configs to a new format in git roots
 Execution Time: 2020-12-14 20:48:48 UTC-5
 Finalization Time: 2020-12-14 20:51:42 UTC-5
 """
-# Standard
+
+from aioextensions import (
+    collect,
+    run,
+)
 import os
-from typing import Any, Dict, List
-
-# Third party
-from aioextensions import collect, run
-
-# Local
-from roots import dal as roots_dal
-
+from roots import (
+    dal as roots_dal,
+)
+from typing import (
+    Any,
+    Dict,
+    List,
+)
 
 STAGE: str = os.environ["STAGE"]
 SERVICES_REPO_DIR: str = f"{os.getcwd()}/services"

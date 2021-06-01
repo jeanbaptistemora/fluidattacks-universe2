@@ -1,10 +1,16 @@
+from custom_exceptions import (
+    FindingNotFound,
+)
+from events.domain import (
+    has_access_to_event,
+)
+from findings.domain import (
+    has_access_to_finding,
+)
 import pytest
-
-from custom_exceptions import FindingNotFound
-from events.domain import has_access_to_event
-from findings.domain import has_access_to_finding
-from users.domain import has_valid_access_token
-
+from users.domain import (
+    has_valid_access_token,
+)
 
 pytestmark = [
     pytest.mark.asyncio,

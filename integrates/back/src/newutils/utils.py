@@ -1,16 +1,16 @@
+from aioextensions import (
+    collect,
+)
 import collections
+from custom_types import (
+    Finding as FindingType,
+    Project as GroupType,
+)
 import re
 from typing import (
     Any,
     Dict,
     List,
-)
-
-from aioextensions import collect
-
-from custom_types import (
-    Finding as FindingType,
-    Project as GroupType,
 )
 
 

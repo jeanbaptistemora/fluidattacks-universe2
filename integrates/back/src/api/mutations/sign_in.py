@@ -1,41 +1,58 @@
+from aioextensions import (
+    collect,
+)
+import aiohttp
+from ariadne import (
+    convert_kwargs_to_snake_case,
+)
+import authz
+from context import (
+    FI_COMMUNITY_PROJECTS,
+)
+from custom_types import (
+    SignInPayload as SignInPayloadType,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from group_access import (
+    domain as group_access_domain,
+)
+from groups import (
+    domain as groups_domain,
+)
 import json
 import logging
 import logging.config
-from typing import (
-    Any,
-    Dict,
-    Optional,
-    cast,
-)
-
-import aiohttp
-from aioextensions import collect
-from ariadne import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
-import authz
-from context import FI_COMMUNITY_PROJECTS
-from custom_types import SignInPayload as SignInPayloadType
-from group_access import domain as group_access_domain
-from groups import domain as groups_domain
 from newutils import (
     analytics,
     datetime as datetime_utils,
     token as token_helper,
 )
-from organizations import domain as orgs_domain
+from organizations import (
+    domain as orgs_domain,
+)
 from settings import (
     LOGGING,
     MOBILE_SESSION_AGE,
 )
 from settings.auth import (
+    azure,
     BITBUCKET_ARGS,
     GOOGLE_ARGS,
-    azure,
 )
-from subscriptions import domain as subscriptions_domain
-from users import domain as users_domain
-
+from subscriptions import (
+    domain as subscriptions_domain,
+)
+from typing import (
+    Any,
+    cast,
+    Dict,
+    Optional,
+)
+from users import (
+    domain as users_domain,
+)
 
 logging.config.dictConfig(LOGGING)
 

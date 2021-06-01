@@ -1,25 +1,40 @@
+from aioextensions import (
+    collect,
+)
+from collections import (
+    defaultdict,
+)
+from custom_types import (
+    Project as GroupType,
+)
+from dataloaders import (
+    get_new_context,
+)
+from decimal import (
+    Decimal,
+)
+from groups import (
+    domain as groups_domain,
+)
 import logging
 import logging.config
-from collections import defaultdict
-from decimal import Decimal
+from organizations import (
+    domain as orgs_domain,
+)
+from settings import (
+    LOGGING,
+)
+from tags import (
+    domain as tags_domain,
+)
 from typing import (
     Any,
+    cast,
     Dict,
     List,
     Tuple,
     Union,
-    cast,
 )
-
-from aioextensions import collect
-
-from custom_types import Project as GroupType
-from dataloaders import get_new_context
-from groups import domain as groups_domain
-from organizations import domain as orgs_domain
-from settings import LOGGING
-from tags import domain as tags_domain
-
 
 logging.config.dictConfig(LOGGING)
 

@@ -1,13 +1,19 @@
-from itertools import chain
-from typing import (
-    List,
-    cast,
+from aiodataloader import (
+    DataLoader,
 )
-
-from aiodataloader import DataLoader
-
-from custom_types import Finding as FindingType
-from newutils import findings as findings_utils
+from custom_types import (
+    Finding as FindingType,
+)
+from itertools import (
+    chain,
+)
+from newutils import (
+    findings as findings_utils,
+)
+from typing import (
+    cast,
+    List,
+)
 
 
 class GroupFindingsNonDeletedLoader(DataLoader):

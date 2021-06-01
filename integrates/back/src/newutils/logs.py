@@ -1,20 +1,22 @@
-import logging
-import logging.config
-
+from .token import (
+    get_jwt_content,
+)
 from aioextensions import (
     in_thread,
     schedule,
 )
-from starlette.requests import Request
-
-from context import FI_ENVIRONMENT
+from context import (
+    FI_ENVIRONMENT,
+)
+import logging
+import logging.config
 from settings import (
     LOGGING,
     NOEXTRA,
 )
-
-from .token import get_jwt_content
-
+from starlette.requests import (
+    Request,
+)
 
 logging.config.dictConfig(LOGGING)
 

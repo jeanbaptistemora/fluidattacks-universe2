@@ -1,21 +1,3 @@
-import io
-import itertools
-import logging
-import logging.config
-import re
-from typing import (
-    Any,
-    Counter,
-    Dict,
-    List,
-    Optional,
-    Set,
-    Tuple,
-    cast,
-)
-
-from starlette.datastructures import UploadFile
-
 from custom_exceptions import (
     InvalidDateFormat,
     InvalidFileStructure,
@@ -26,14 +8,33 @@ from custom_types import (
     Finding as FindingType,
     Historic as HistoricType,
 )
+import io
+import itertools
+import logging
+import logging.config
 from newutils import (
     cvss,
     datetime as datetime_utils,
     forms as forms_utils,
     utils,
 )
-from settings import LOGGING
-
+import re
+from settings import (
+    LOGGING,
+)
+from starlette.datastructures import (
+    UploadFile,
+)
+from typing import (
+    Any,
+    cast,
+    Counter,
+    Dict,
+    List,
+    Optional,
+    Set,
+    Tuple,
+)
 
 logging.config.dictConfig(LOGGING)
 

@@ -1,18 +1,28 @@
+from dataloaders import (
+    apply_context_attrs,
+)
+from datetime import (
+    datetime,
+    timedelta,
+)
+from newutils import (
+    token as token_utils,
+)
+from redis_cluster.operations import (
+    redis_set_entity_attr,
+)
 import requests
-import uuid
-from datetime import datetime, timedelta
-
-from starlette.responses import Response
-
-from dataloaders import apply_context_attrs
-from newutils import token as token_utils
-from redis_cluster.operations import redis_set_entity_attr
 from settings import (
     JWT_COOKIE_NAME,
     SESSION_COOKIE_AGE,
 )
-
-from typing import Optional
+from starlette.responses import (
+    Response,
+)
+from typing import (
+    Optional,
+)
+import uuid
 
 
 def create_dummy_simple_session(

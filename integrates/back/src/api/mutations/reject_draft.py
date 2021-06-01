@@ -1,10 +1,12 @@
-from typing import Any
-
-from aioextensions import schedule
-from ariadne import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import SimplePayload as SimplePayloadType
+from aioextensions import (
+    schedule,
+)
+from ariadne import (
+    convert_kwargs_to_snake_case,
+)
+from custom_types import (
+    SimplePayload as SimplePayloadType,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -12,14 +14,26 @@ from decorators import (
     require_integrates,
     require_login,
 )
-from findings import domain as findings_domain
-from mailer import findings as findings_mail
+from findings import (
+    domain as findings_domain,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from mailer import (
+    findings as findings_mail,
+)
 from newutils import (
     logs as logs_utils,
     requests as requests_utils,
     token as token_utils,
 )
-from redis_cluster.operations import redis_del_by_deps_soon
+from redis_cluster.operations import (
+    redis_del_by_deps_soon,
+)
+from typing import (
+    Any,
+)
 
 
 @convert_kwargs_to_snake_case

@@ -1,31 +1,44 @@
-import json
-import logging
-import os
-import re
-import tempfile
-from datetime import datetime
-from functools import reduce
-from typing import (
-    Any,
-    Dict,
-    List,
-    Optional,
-    Union,
-    cast,
-)
-
-from graphql.type.definition import GraphQLResolveInfo
-from starlette.datastructures import UploadFile
-
 from custom_types import (
     ExecutionVulnerabilities,
     ForcesExecution as ForcesExecutionType,
 )
-from forces import dal as forces_dal
-from group_access import domain as group_access_domain
-from groups import domain as groups_domain
-from settings import LOGGING
-
+from datetime import (
+    datetime,
+)
+from forces import (
+    dal as forces_dal,
+)
+from functools import (
+    reduce,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from group_access import (
+    domain as group_access_domain,
+)
+from groups import (
+    domain as groups_domain,
+)
+import json
+import logging
+import os
+import re
+from settings import (
+    LOGGING,
+)
+from starlette.datastructures import (
+    UploadFile,
+)
+import tempfile
+from typing import (
+    Any,
+    cast,
+    Dict,
+    List,
+    Optional,
+    Union,
+)
 
 logging.config.dictConfig(LOGGING)
 

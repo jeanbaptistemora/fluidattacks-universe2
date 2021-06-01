@@ -1,19 +1,19 @@
-from typing import (
-    Optional,
-    Tuple,
+from ariadne import (
+    UnionType,
 )
-
-from ariadne import UnionType
 from graphql.type.definition import (
     GraphQLAbstractType,
     GraphQLResolveInfo,
 )
-
 from roots.types import (
     GitRoot,
     IPRoot,
     Root,
     URLRoot,
+)
+from typing import (
+    Optional,
+    Tuple,
 )
 
 

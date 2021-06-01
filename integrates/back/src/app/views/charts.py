@@ -1,13 +1,19 @@
 # Starlette charts views
 
-# Third party libraries
-from starlette.requests import Request
-from starlette.responses import Response
 
-# Local libraries
+from analytics import (
+    domain as analytics_domain,
+)
 import app.utils as utils
-from analytics import domain as analytics_domain
-from newutils import token as token_utils
+from newutils import (
+    token as token_utils,
+)
+from starlette.requests import (
+    Request,
+)
+from starlette.responses import (
+    Response,
+)
 
 
 async def graphic(request: Request) -> Response:

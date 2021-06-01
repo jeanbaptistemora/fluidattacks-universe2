@@ -1,6 +1,7 @@
 # pylint: disable=too-many-lines
-from typing import List
-
+from typing import (
+    List,
+)
 
 # wordlist obtained from
 # https://github.com/mike-hearn/useapassphrase/blob/master/js/wordlist.js

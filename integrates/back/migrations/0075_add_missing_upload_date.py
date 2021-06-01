@@ -6,23 +6,36 @@ taking it from LastModified
 Execution Time:    2021-02-24 at 08:24:07 UTC-05
 Finalization Time: 2021-02-24 at 08:25:51 UTC-05
 """
-# Standard library
 
-# Third party libraries
+
 from aioextensions import (
     collect,
     run,
 )
-
-# Local libraries
-from context import FI_AWS_S3_BUCKET
-from custom_types import Event
-from dataloaders.event import EventLoader
-from events import dal as events_dal
-from events.domain import list_group_events
-from groups.domain import get_alive_groups
-from newutils import datetime as datetime_utils
-from s3.operations import aio_client
+from context import (
+    FI_AWS_S3_BUCKET,
+)
+from custom_types import (
+    Event,
+)
+from dataloaders.event import (
+    EventLoader,
+)
+from events import (
+    dal as events_dal,
+)
+from events.domain import (
+    list_group_events,
+)
+from groups.domain import (
+    get_alive_groups,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
+from s3.operations import (
+    aio_client,
+)
 
 
 async def add_missing_upload_date(event: Event) -> None:

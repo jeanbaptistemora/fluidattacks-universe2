@@ -7,17 +7,26 @@ This migration creates force users.
 Execution Time: 2020-08-13 13:32:00 UTC-5
 Finalization Time: 2020-00-13 13:47:00 UTC-5
 """
-# Standard library
 
-# Third library
-from aioextensions import run
-from botocore.exceptions import ClientError
 
-# Local library
-from dataloaders import get_new_context
-from groups.dal import get_active_groups
-from groups.domain import get_many_groups
-from forces.domain import create_forces_user
+from aioextensions import (
+    run,
+)
+from botocore.exceptions import (
+    ClientError,
+)
+from dataloaders import (
+    get_new_context,
+)
+from forces.domain import (
+    create_forces_user,
+)
+from groups.dal import (
+    get_active_groups,
+)
+from groups.domain import (
+    get_many_groups,
+)
 
 
 async def main() -> None:

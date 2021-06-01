@@ -1,13 +1,13 @@
 import asyncio
+import authz
 import logging
 import pytest
-
-import authz
-from settings import LOGGING
-
+from settings import (
+    LOGGING,
+)
 from typing import (
-    AsyncGenerator,
     Any,
+    AsyncGenerator,
 )
 
 logging.config.dictConfig(LOGGING)  # type: ignore

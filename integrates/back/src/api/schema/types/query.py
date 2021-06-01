@@ -1,8 +1,6 @@
 # None
 
 
-from ariadne import QueryType
-
 from api.resolvers.query import (
     event,
     events,
@@ -23,8 +21,12 @@ from api.resolvers.query import (
     user_list_groups,
     vulnerability,
 )
-from context import FI_API_STATUS
-
+from ariadne import (
+    QueryType,
+)
+from context import (
+    FI_API_STATUS,
+)
 
 QUERY = QueryType()
 QUERY.set_field("event", event.resolve)

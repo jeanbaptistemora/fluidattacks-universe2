@@ -1,18 +1,23 @@
-# Standard library
+from aioextensions import (
+    collect,
+    run,
+)
+from async_lru import (
+    alru_cache,
+)
+from charts import (
+    utils,
+)
+from charts.colors import (
+    TREATMENT,
+)
+from groups import (
+    domain as groups_domain,
+)
 from typing import (
     Iterable,
     NamedTuple,
 )
-
-# Third party libraries
-from aioextensions import collect, run
-from async_lru import alru_cache
-
-# Local libraries
-from charts import utils
-from charts.colors import TREATMENT
-from groups import domain as groups_domain
-
 
 Treatment = NamedTuple(
     "Treatment",

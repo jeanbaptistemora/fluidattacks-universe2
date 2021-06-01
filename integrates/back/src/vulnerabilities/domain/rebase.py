@@ -1,4 +1,3 @@
-# Local libraries
 from custom_exceptions import (
     ExpectedVulnToBeOfLinesType,
 )

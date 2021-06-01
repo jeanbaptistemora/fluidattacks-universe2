@@ -1,7 +1,10 @@
+from custom_exceptions import (
+    InvalidPushToken,
+)
 import pytest
-
-from custom_exceptions import InvalidPushToken
-from users import domain as users_domain
+from users import (
+    domain as users_domain,
+)
 
 
 @pytest.mark.changes_db

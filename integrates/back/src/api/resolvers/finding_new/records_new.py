@@ -1,10 +1,22 @@
-from functools import partial
-from typing import Dict, List
-from graphql.type.definition import GraphQLResolveInfo
-
-from db_model.findings.types import Finding
-from findings import domain as findings_domain
-from redis_cluster.operations import redis_get_or_set_entity_attr
+from db_model.findings.types import (
+    Finding,
+)
+from findings import (
+    domain as findings_domain,
+)
+from functools import (
+    partial,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from redis_cluster.operations import (
+    redis_get_or_set_entity_attr,
+)
+from typing import (
+    Dict,
+    List,
+)
 
 
 async def resolve(

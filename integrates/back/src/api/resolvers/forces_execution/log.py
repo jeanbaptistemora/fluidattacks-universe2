@@ -1,9 +1,15 @@
-from typing import cast
-
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import ForcesExecution
-from forces import domain as forces_domain
+from custom_types import (
+    ForcesExecution,
+)
+from forces import (
+    domain as forces_domain,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from typing import (
+    cast,
+)
 
 
 async def resolve(

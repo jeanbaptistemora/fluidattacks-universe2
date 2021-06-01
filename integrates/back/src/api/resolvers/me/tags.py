@@ -1,17 +1,23 @@
-from typing import (
-    List,
-    cast,
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
 )
-
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
 from custom_types import (
     Me as MeType,
     Tag as TagType,
 )
-from decorators import require_organization_access
-from groups import domain as groups_domain
+from decorators import (
+    require_organization_access,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from groups import (
+    domain as groups_domain,
+)
+from typing import (
+    cast,
+    List,
+)
 
 
 @convert_kwargs_to_snake_case

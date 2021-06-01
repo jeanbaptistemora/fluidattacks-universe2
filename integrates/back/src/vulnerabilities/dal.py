@@ -1,30 +1,43 @@
-import logging
-from typing import (
-    Dict,
-    List,
-    Union,
-    cast,
-)
-
 import aioboto3
 from boto3.dynamodb.conditions import (
     Attr,
     Key,
 )
-from botocore.exceptions import ClientError
-from starlette.datastructures import UploadFile
-
-from context import FI_AWS_S3_REPORTS_BUCKET as VULNS_BUCKET
-from custom_exceptions import ErrorUploadingFileS3
+from botocore.exceptions import (
+    ClientError,
+)
+from context import (
+    FI_AWS_S3_REPORTS_BUCKET as VULNS_BUCKET,
+)
+from custom_exceptions import (
+    ErrorUploadingFileS3,
+)
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
     Finding as FindingType,
 )
-from dynamodb import operations_legacy as dynamodb_ops
-from newutils import datetime as datetime_utils
-from s3 import operations as s3_ops
-from settings import LOGGING
-
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+import logging
+from newutils import (
+    datetime as datetime_utils,
+)
+from s3 import (
+    operations as s3_ops,
+)
+from settings import (
+    LOGGING,
+)
+from starlette.datastructures import (
+    UploadFile,
+)
+from typing import (
+    cast,
+    Dict,
+    List,
+    Union,
+)
 
 logging.config.dictConfig(LOGGING)
 

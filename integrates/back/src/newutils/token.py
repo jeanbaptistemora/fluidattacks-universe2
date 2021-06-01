@@ -1,50 +1,68 @@
+from . import (
+    function,
+)
 import binascii
 import collections
-import logging
-import logging.config
-import secrets
-from datetime import (
-    datetime,
-    timedelta,
+from context import (
+    FI_JWT_ENCRYPTION_KEY,
 )
-from typing import (
-    Any,
-    Dict,
-    cast,
+from cryptography.exceptions import (
+    InvalidKey,
 )
-
-from cryptography.exceptions import InvalidKey
-from cryptography.hazmat.backends import default_backend
-from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
-from jose import (
-    JWTError,
-    jwt,
+from cryptography.hazmat.backends import (
+    default_backend,
 )
-from jwcrypto.jwe import (
-    JWE,
-    InvalidJWEData,
+from cryptography.hazmat.primitives.kdf.scrypt import (
+    Scrypt,
 )
-from jwcrypto.jwk import JWK
-
-from context import FI_JWT_ENCRYPTION_KEY
 from custom_exceptions import (
     ExpiredToken,
     InvalidAuthorization,
 )
-from custom_types import User as UserType
-from newutils import encodings
-from redis_cluster.model import KeyNotFound as RedisKeyNotFound
-from redis_cluster.operations import redis_get_entity_attr
-from sessions import dal as sessions_dal
+from custom_types import (
+    User as UserType,
+)
+from datetime import (
+    datetime,
+    timedelta,
+)
+from jose import (
+    jwt,
+    JWTError,
+)
+from jwcrypto.jwe import (
+    InvalidJWEData,
+    JWE,
+)
+from jwcrypto.jwk import (
+    JWK,
+)
+import logging
+import logging.config
+from newutils import (
+    encodings,
+)
+from redis_cluster.model import (
+    KeyNotFound as RedisKeyNotFound,
+)
+from redis_cluster.operations import (
+    redis_get_entity_attr,
+)
+import secrets
+from sessions import (
+    dal as sessions_dal,
+)
 from settings import (
+    JWT_COOKIE_NAME,
     JWT_SECRET,
     JWT_SECRET_API,
-    JWT_COOKIE_NAME,
     LOGGING,
 )
-
-from . import function
-
+from typing import (
+    Any,
+    cast,
+    Dict,
+)
 
 logging.config.dictConfig(LOGGING)
 

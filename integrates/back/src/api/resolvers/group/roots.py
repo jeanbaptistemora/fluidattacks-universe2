@@ -1,13 +1,19 @@
-from typing import (
-    Tuple,
-    cast,
+from aiodataloader import (
+    DataLoader,
 )
-
-from aiodataloader import DataLoader
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import Project as Group
-from roots.types import Root
+from custom_types import (
+    Project as Group,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from roots.types import (
+    Root,
+)
+from typing import (
+    cast,
+    Tuple,
+)
 
 
 async def resolve(

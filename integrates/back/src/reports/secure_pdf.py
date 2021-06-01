@@ -1,14 +1,20 @@
-import os
-
 from PyPDF4 import (
     PdfFileReader,
     PdfFileWriter,
 )
-from aioextensions import in_process
-from fpdf import FPDF
-
-from context import STARTDIR
-from groups import dal as groups_dal
+from aioextensions import (
+    in_process,
+)
+from context import (
+    STARTDIR,
+)
+from fpdf import (
+    FPDF,
+)
+from groups import (
+    dal as groups_dal,
+)
+import os
 
 
 class PDF(FPDF):

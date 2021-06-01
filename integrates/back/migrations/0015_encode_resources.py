@@ -10,13 +10,15 @@ Finalization Time:  2020-06-30 18:40 UTC-5
 
 """
 
-import os
-from urllib.parse import quote, unquote
-
 import bugsnag
-
-from groups import dal as groups_dal
-
+from groups import (
+    dal as groups_dal,
+)
+import os
+from urllib.parse import (
+    quote,
+    unquote,
+)
 
 STAGE: str = os.environ["STAGE"]
 

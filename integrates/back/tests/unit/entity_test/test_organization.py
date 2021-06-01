@@ -1,26 +1,36 @@
-# Standard libraries
-from typing import (
-    Any,
-    Dict,
+from api.schema import (
+    SCHEMA,
 )
-import pytest
-from decimal import Decimal
-from string import Template
-
-# Third party libraries
-from ariadne import graphql
-
-# Local libraries
-from api.schema import SCHEMA
-from back.tests.unit.utils import create_dummy_session
-from context import FI_DEFAULT_ORG
+from ariadne import (
+    graphql,
+)
+from back.tests.unit.utils import (
+    create_dummy_session,
+)
+from context import (
+    FI_DEFAULT_ORG,
+)
 from custom_exceptions import (
     InvalidOrganization,
     UserNotInOrganization,
 )
-from dataloaders import apply_context_attrs
-from organizations import domain as orgs_domain
-
+from dataloaders import (
+    apply_context_attrs,
+)
+from decimal import (
+    Decimal,
+)
+from organizations import (
+    domain as orgs_domain,
+)
+import pytest
+from string import (
+    Template,
+)
+from typing import (
+    Any,
+    Dict,
+)
 
 # Run async tests
 pytestmark = [

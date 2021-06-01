@@ -1,6 +1,9 @@
-from aioextensions import collect
-
-from batch import dal as batch_dal
+from aioextensions import (
+    collect,
+)
+from batch import (
+    dal as batch_dal,
+)
 
 
 async def requeue_actions() -> None:

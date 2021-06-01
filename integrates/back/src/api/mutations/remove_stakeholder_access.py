@@ -1,8 +1,6 @@
-from typing import Any
-
-from ariadne import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
+from ariadne import (
+    convert_kwargs_to_snake_case,
+)
 from custom_types import (
     RemoveStakeholderAccessPayload as RemoveStakeholderAccessPayloadType,
 )
@@ -12,9 +10,21 @@ from decorators import (
     require_integrates,
     require_login,
 )
-from groups import domain as groups_domain
-from newutils import logs as logs_utils
-from redis_cluster.operations import redis_del_by_deps_soon
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from groups import (
+    domain as groups_domain,
+)
+from newutils import (
+    logs as logs_utils,
+)
+from redis_cluster.operations import (
+    redis_del_by_deps_soon,
+)
+from typing import (
+    Any,
+)
 
 
 @convert_kwargs_to_snake_case

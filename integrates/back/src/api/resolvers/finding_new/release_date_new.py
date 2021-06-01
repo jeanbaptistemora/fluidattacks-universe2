@@ -1,8 +1,15 @@
-from datetime import datetime
-from graphql.type.definition import GraphQLResolveInfo
-
-from db_model.findings.types import Finding
-from newutils import datetime as datetime_utils
+from datetime import (
+    datetime,
+)
+from db_model.findings.types import (
+    Finding,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
 
 
 def resolve(

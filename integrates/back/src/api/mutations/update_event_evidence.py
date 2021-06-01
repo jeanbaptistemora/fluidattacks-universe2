@@ -1,19 +1,30 @@
 # None
 
 
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-from starlette.datastructures import UploadFile
-
-from custom_types import SimplePayload
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
+)
+from custom_types import (
+    SimplePayload,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login,
 )
-from events import domain as events_domain
-from newutils.datetime import get_now
+from events import (
+    domain as events_domain,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from newutils.datetime import (
+    get_now,
+)
+from starlette.datastructures import (
+    UploadFile,
+)
 
 
 @convert_kwargs_to_snake_case

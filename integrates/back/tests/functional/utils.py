@@ -1,23 +1,28 @@
-# Standard libraries
+from api.schema import (
+    SCHEMA,
+)
+from ariadne import (
+    graphql,
+)
+from back.tests.unit.utils import (
+    create_dummy_session,
+)
+from dataloaders import (
+    apply_context_attrs,
+    Dataloaders,
+    get_new_context,
+)
+from group_access import (
+    domain as group_access_domain,
+)
+from groups import (
+    domain as groups_domain,
+)
 from typing import (
     Any,
     Dict,
     Optional,
 )
-
-# Third party libraries
-from ariadne import graphql
-
-# Local libraries
-from api.schema import SCHEMA
-from back.tests.unit.utils import create_dummy_session
-from dataloaders import (
-    Dataloaders,
-    apply_context_attrs,
-    get_new_context,
-)
-from group_access import domain as group_access_domain
-from groups import domain as groups_domain
 
 
 async def complete_register(

@@ -8,21 +8,29 @@ created for the organization 'Integrates Community' while the method
 It leaves only one and changes the ID in all the users of duplicated
 organizations
 """
-import os
-from typing import Dict, List, Union
-
 import aioboto3
-import bugsnag
 from aioextensions import (
     collect,
     in_thread,
     run,
 )
-from boto3.dynamodb.conditions import Attr, Key
-
-from dynamodb.operations_legacy import RESOURCE_OPTIONS
-from users.dal import update as update_user
-
+from boto3.dynamodb.conditions import (
+    Attr,
+    Key,
+)
+import bugsnag
+from dynamodb.operations_legacy import (
+    RESOURCE_OPTIONS,
+)
+import os
+from typing import (
+    Dict,
+    List,
+    Union,
+)
+from users.dal import (
+    update as update_user,
+)
 
 INTEGRATES_TABLE = "integrates"
 ORGANIZATION_NAME = "integrates community"

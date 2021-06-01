@@ -1,25 +1,29 @@
 import contextlib
-import json
-from typing import (
-    Any,
-    Dict,
-    Optional,
-)
-
-from starlette.requests import Request
-
 from custom_exceptions import (
     ExpiredToken,
     SecureAccessException,
 )
-from redis_cluster.model import KeyNotFound as RedisKeyNotFound
+import json
+from redis_cluster.model import (
+    KeyNotFound as RedisKeyNotFound,
+)
 from redis_cluster.operations import (
     redis_cmd,
     redis_del_entity_attr,
     redis_get_entity_attr,
     redis_set_entity_attr,
 )
-from settings import SESSION_COOKIE_AGE
+from settings import (
+    SESSION_COOKIE_AGE,
+)
+from starlette.requests import (
+    Request,
+)
+from typing import (
+    Any,
+    Dict,
+    Optional,
+)
 
 
 async def add_element(key: str, value: Dict[str, Any], time: int) -> None:

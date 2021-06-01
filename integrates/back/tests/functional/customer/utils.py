@@ -1,13 +1,16 @@
-# Standard libraries
-from typing import Any, Dict, Optional
-
-# Local libraries
 from back.tests.functional.utils import (
-    get_graphql_result,
     complete_register,
+    get_graphql_result,
 )
-from dataloaders import get_new_context, Dataloaders
-
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
+from typing import (
+    Any,
+    Dict,
+    Optional,
+)
 
 MANAGER = "integratesmanager@gmail.com"
 CUSTOMER = "integratescustomer@gmail.com"

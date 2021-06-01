@@ -1,26 +1,44 @@
-import html
-from typing import (
-    Dict,
-    List,
-    Union,
-    cast,
+from aiodataloader import (
+    DataLoader,
 )
-
-from aiodataloader import DataLoader
 from aioextensions import (
     collect,
     in_thread,
 )
-from exponent_server_sdk import DeviceNotRegisteredError
-from graphql.type.definition import GraphQLResolveInfo
-
-from context import BASE_URL
-from custom_types import Finding as FindingType
-from mailer import groups as groups_mail
-from newutils import datetime as datetime_utils
-from notifications import dal as notifications_dal
-from organizations import domain as orgs_domain
-from users import domain as users_domain
+from context import (
+    BASE_URL,
+)
+from custom_types import (
+    Finding as FindingType,
+)
+from exponent_server_sdk import (
+    DeviceNotRegisteredError,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+import html
+from mailer import (
+    groups as groups_mail,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
+from notifications import (
+    dal as notifications_dal,
+)
+from organizations import (
+    domain as orgs_domain,
+)
+from typing import (
+    cast,
+    Dict,
+    List,
+    Union,
+)
+from users import (
+    domain as users_domain,
+)
 
 
 async def _get_recipient_first_name_async(email: str) -> str:

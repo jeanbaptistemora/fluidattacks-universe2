@@ -1,19 +1,28 @@
-from typing import Optional
-
+from .report_types import (
+    data as data_report,
+    technical as technical_report,
+)
 from aioextensions import (
     collect,
     in_process,
 )
-
-from dataloaders import get_new_context
-from findings import domain as findings_domain
-from groups import domain as groups_domain
-from newutils import reports as reports_utils
-from vulnerabilities import domain as vulns_domain
-
-from .report_types import (
-    data as data_report,
-    technical as technical_report,
+from dataloaders import (
+    get_new_context,
+)
+from findings import (
+    domain as findings_domain,
+)
+from groups import (
+    domain as groups_domain,
+)
+from newutils import (
+    reports as reports_utils,
+)
+from typing import (
+    Optional,
+)
+from vulnerabilities import (
+    domain as vulns_domain,
 )
 
 

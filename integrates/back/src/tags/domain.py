@@ -1,20 +1,32 @@
-from contextlib import suppress
-from decimal import Decimal
+from aioextensions import (
+    collect,
+)
+import authz
+from contextlib import (
+    suppress,
+)
+from custom_types import (
+    Tag as TagType,
+)
+from decimal import (
+    Decimal,
+)
+from groups import (
+    domain as groups_domain,
+)
+from organizations import (
+    domain as orgs_domain,
+)
+from tags import (
+    dal as tags_dal,
+)
 from typing import (
+    cast,
     Dict,
     List,
     Optional,
     Union,
-    cast,
 )
-
-from aioextensions import collect
-
-import authz
-from custom_types import Tag as TagType
-from groups import domain as groups_domain
-from organizations import domain as orgs_domain
-from tags import dal as tags_dal
 
 
 async def delete(organization: str, tag: str) -> bool:

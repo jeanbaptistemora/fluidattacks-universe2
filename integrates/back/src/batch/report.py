@@ -1,27 +1,37 @@
-import logging
-import logging.config
-import os
-from typing import Dict
-
 import authz
 from batch.dal import (
     delete_action,
     is_action_by_key,
 )
-from batch.types import BatchProcessing
-from custom_exceptions import ErrorUploadingFileS3
-from newutils.passphrase import get_passphrase
+from batch.types import (
+    BatchProcessing,
+)
+from custom_exceptions import (
+    ErrorUploadingFileS3,
+)
+import logging
+import logging.config
+from newutils.passphrase import (
+    get_passphrase,
+)
 from newutils.reports import (
     sign_url,
     upload_report,
 )
-from notifications import domain as notifications_domain
-from reports import domain as reports_domain
+from notifications import (
+    domain as notifications_domain,
+)
+import os
+from reports import (
+    domain as reports_domain,
+)
 from settings import (
     LOGGING,
     NOEXTRA,
 )
-
+from typing import (
+    Dict,
+)
 
 logging.config.dictConfig(LOGGING)
 

@@ -1,13 +1,19 @@
+from aiodataloader import (
+    DataLoader,
+)
+from aioextensions import (
+    collect,
+)
+from data_containers.toe_lines import (
+    GitRootToeLines,
+)
+from toe.lines import (
+    domain as toe_lines_domain,
+)
 from typing import (
     List,
     Tuple,
 )
-
-from aiodataloader import DataLoader
-from aioextensions import collect
-
-from data_containers.toe_lines import GitRootToeLines
-from toe.lines import domain as toe_lines_domain
 
 
 async def get_group_toe_lines(

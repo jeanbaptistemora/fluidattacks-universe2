@@ -1,13 +1,12 @@
-from typing import (
-    Dict,
-    cast,
+from aiodataloader import (
+    DataLoader,
 )
-
-from aiodataloader import DataLoader
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import Finding
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
+)
+from custom_types import (
+    Finding,
+)
 from decorators import (
     concurrent_decorators,
     delete_kwargs,
@@ -16,7 +15,16 @@ from decorators import (
     require_integrates,
     require_login,
 )
-from newutils import findings as findings_utils
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from newutils import (
+    findings as findings_utils,
+)
+from typing import (
+    cast,
+    Dict,
+)
 
 
 @enforce_group_level_auth_async

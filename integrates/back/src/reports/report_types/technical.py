@@ -1,28 +1,41 @@
-import logging
-import logging.config
-import os
-from tempfile import TemporaryDirectory
-from typing import (
-    Any,
-    Dict,
-    List,
-    Set,
-    cast,
-)
-
 from PIL import (
     Image,
     ImageFile,
 )
-from botocore.exceptions import ClientError
-
-from custom_types import Finding as FindingType
-from findings import dal as findings_dal
-from reports.it_report import ITReport
-from reports.pdf import CreatorPDF
-from reports.secure_pdf import SecurePDF
-from settings import LOGGING
-
+from botocore.exceptions import (
+    ClientError,
+)
+from custom_types import (
+    Finding as FindingType,
+)
+from findings import (
+    dal as findings_dal,
+)
+import logging
+import logging.config
+import os
+from reports.it_report import (
+    ITReport,
+)
+from reports.pdf import (
+    CreatorPDF,
+)
+from reports.secure_pdf import (
+    SecurePDF,
+)
+from settings import (
+    LOGGING,
+)
+from tempfile import (
+    TemporaryDirectory,
+)
+from typing import (
+    Any,
+    cast,
+    Dict,
+    List,
+    Set,
+)
 
 logging.config.dictConfig(LOGGING)
 

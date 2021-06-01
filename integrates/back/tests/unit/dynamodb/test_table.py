@@ -1,6 +1,12 @@
-# Local
-from dynamodb import table
-from dynamodb.types import Facet, Index, PrimaryKey, Table
+from dynamodb import (
+    table,
+)
+from dynamodb.types import (
+    Facet,
+    Index,
+    PrimaryKey,
+    Table,
+)
 
 
 def test_load_table() -> None:

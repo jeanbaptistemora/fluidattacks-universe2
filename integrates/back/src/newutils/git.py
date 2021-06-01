@@ -1,8 +1,9 @@
-from git import Repo
-
 from context import (
     SERVICES_GITLAB_API_TOKEN,
     SERVICES_GITLAB_API_USER,
+)
+from git import (
+    Repo,
 )
 
 

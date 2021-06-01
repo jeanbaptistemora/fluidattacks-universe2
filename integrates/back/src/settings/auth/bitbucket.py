@@ -3,7 +3,6 @@ from context import (
     FI_BITBUCKET_OAUTH2_SECRET,
 )
 
-
 BITBUCKET_ACCESS_TOKEN_URL = (
     "https://bitbucket.org/site/oauth2/access_token"  # nosec
 )

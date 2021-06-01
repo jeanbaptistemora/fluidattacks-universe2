@@ -1,12 +1,17 @@
-from datetime import datetime
+from custom_types import (
+    Event as EventType,
+)
+from datetime import (
+    datetime,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
 from typing import (
+    cast,
     Dict,
     List,
-    cast,
 )
-
-from custom_types import Event as EventType
-from newutils import datetime as datetime_utils
 
 
 def format_data(event: EventType) -> EventType:

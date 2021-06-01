@@ -1,5 +1,4 @@
 import bugsnag
-
 from context import (
     BASE_URL,
     FI_BUGSNAG_API_KEY_SCHEDULER,

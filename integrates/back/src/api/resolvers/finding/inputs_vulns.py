@@ -1,18 +1,24 @@
-from functools import partial
-from typing import (
-    Dict,
-    List,
-    cast,
+from aiodataloader import (
+    DataLoader,
 )
-
-from aiodataloader import DataLoader
-from graphql.type.definition import GraphQLResolveInfo
-
 from custom_types import (
     Finding,
     Vulnerability,
 )
-from redis_cluster.operations import redis_get_or_set_entity_attr
+from functools import (
+    partial,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from redis_cluster.operations import (
+    redis_get_or_set_entity_attr,
+)
+from typing import (
+    cast,
+    Dict,
+    List,
+)
 
 
 async def resolve(

@@ -1,19 +1,15 @@
-from typing import (
-    Any,
-    Dict,
-    List,
-    Optional,
-    Tuple,
-    Union,
-)
-
 import aioboto3
+from aioboto3.dynamodb.table import (
+    CustomTableResource,
+)
 import aioextensions
+from boto3.dynamodb.conditions import (
+    ConditionBase,
+)
 import botocore
-from aioboto3.dynamodb.table import CustomTableResource
-from boto3.dynamodb.conditions import ConditionBase
-from botocore.exceptions import ClientError
-
+from botocore.exceptions import (
+    ClientError,
+)
 from context import (
     FI_AWS_DYNAMODB_ACCESS_KEY,
     FI_AWS_DYNAMODB_SECRET_KEY,
@@ -22,13 +18,23 @@ from context import (
     FI_DYNAMODB_PORT,
     FI_ENVIRONMENT,
 )
-from dynamodb.exceptions import handle_error
+from dynamodb.exceptions import (
+    handle_error,
+)
 from dynamodb.types import (
     Facet,
     Index,
     Item,
     PrimaryKey,
     Table,
+)
+from typing import (
+    Any,
+    Dict,
+    List,
+    Optional,
+    Tuple,
+    Union,
 )
 
 

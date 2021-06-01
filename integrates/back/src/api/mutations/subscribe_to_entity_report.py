@@ -1,18 +1,27 @@
+from ariadne import (
+    convert_kwargs_to_snake_case,
+)
+from custom_types import (
+    SimplePayload as SimplePayloadType,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
 import logging
 import logging.config
-from typing import Any
-
-from ariadne import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import SimplePayload as SimplePayloadType
 from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from settings import LOGGING
-from subscriptions import domain as subscriptions_domain
-
+from settings import (
+    LOGGING,
+)
+from subscriptions import (
+    domain as subscriptions_domain,
+)
+from typing import (
+    Any,
+)
 
 logging.config.dictConfig(LOGGING)
 

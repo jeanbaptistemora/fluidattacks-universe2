@@ -1,8 +1,15 @@
-from aioextensions import collect
-
-from dataloaders import get_new_context
-from newutils import datetime as datetime_utils
-from organizations import domain as orgs_domain
+from aioextensions import (
+    collect,
+)
+from dataloaders import (
+    get_new_context,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
+from organizations import (
+    domain as orgs_domain,
+)
 
 
 async def delete_imamura_stakeholders() -> None:

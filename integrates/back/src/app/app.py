@@ -1,33 +1,32 @@
 # Starlette app init file
 
-# Standard libraries
-import asyncio
 
-# Third party libraries
-import bugsnag
-import newrelic.agent
+from . import (
+    utils,
+)
+from .middleware import (
+    CustomRequestMiddleware,
+)
+from .views import (
+    auth,
+    charts,
+    evidence,
+)
 from aioextensions import (
     in_thread,
     schedule,
 )
-from bugsnag.asgi import BugsnagMiddleware
-from starlette.applications import Starlette
-from starlette.middleware import Middleware
-from starlette.middleware.sessions import SessionMiddleware
-from starlette.requests import Request
-from starlette.responses import (
-    HTMLResponse,
-    RedirectResponse,
+from api import (
+    IntegratesAPI,
 )
-from starlette.routing import (
-    Mount,
-    Route,
+from api.schema import (
+    SCHEMA,
 )
-from starlette.staticfiles import StaticFiles
-
-# Local libraries
-from api import IntegratesAPI
-from api.schema import SCHEMA
+import asyncio
+import bugsnag
+from bugsnag.asgi import (
+    BugsnagMiddleware,
+)
 from context import (
     FI_ENVIRONMENT,
     FI_STARLETTE_SESSION_KEY,
@@ -36,30 +35,60 @@ from custom_exceptions import (
     ExpiredToken,
     SecureAccessException,
 )
-from decorators import authenticate_session
-from group_access import domain as group_access_domain
-from groups import domain as groups_domain
+from decorators import (
+    authenticate_session,
+)
+from group_access import (
+    domain as group_access_domain,
+)
+from groups import (
+    domain as groups_domain,
+)
+import newrelic.agent
 from newutils import (
     analytics,
     templates,
 )
-from organizations import domain as orgs_domain
-from redis_cluster.operations import redis_del_entity_attr
-from sessions import dal as sessions_dal
+from organizations import (
+    domain as orgs_domain,
+)
+from redis_cluster.operations import (
+    redis_del_entity_attr,
+)
+from sessions import (
+    dal as sessions_dal,
+)
 from settings import (
     DEBUG,
     JWT_COOKIE_NAME,
-    TEMPLATES_DIR,
     queue,
+    TEMPLATES_DIR,
 )
-from users import domain as users_domain
-
-from . import utils
-from .middleware import CustomRequestMiddleware
-from .views import (
-    auth,
-    charts,
-    evidence,
+from starlette.applications import (
+    Starlette,
+)
+from starlette.middleware import (
+    Middleware,
+)
+from starlette.middleware.sessions import (
+    SessionMiddleware,
+)
+from starlette.requests import (
+    Request,
+)
+from starlette.responses import (
+    HTMLResponse,
+    RedirectResponse,
+)
+from starlette.routing import (
+    Mount,
+    Route,
+)
+from starlette.staticfiles import (
+    StaticFiles,
+)
+from users import (
+    domain as users_domain,
 )
 
 

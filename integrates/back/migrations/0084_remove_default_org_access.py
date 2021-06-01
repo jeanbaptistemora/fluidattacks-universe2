@@ -6,24 +6,33 @@ to user with access to a group in any other organization
 Execution Time:    2021-04-21 at 20:30:16 UTC-05
 Finalization Time: 2021-04-21 at 20:33:58 UTC-05
 """
-# Standard libraries
-from itertools import chain
-from typing import List
 
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from boto3.dynamodb.conditions import Attr
-
-# Local libraries
 import authz
-from context import FI_DEFAULT_ORG
-from groups import domain as groups_domain
-from organizations import domain as orgs_domain
-from users import dal as users_dal
-
+from boto3.dynamodb.conditions import (
+    Attr,
+)
+from context import (
+    FI_DEFAULT_ORG,
+)
+from groups import (
+    domain as groups_domain,
+)
+from itertools import (
+    chain,
+)
+from organizations import (
+    domain as orgs_domain,
+)
+from typing import (
+    List,
+)
+from users import (
+    dal as users_dal,
+)
 
 USERS_TABLE_NAME = "FI_users"
 

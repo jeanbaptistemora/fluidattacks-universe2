@@ -1,11 +1,6 @@
-from typing import (
-    List,
-    cast,
+from aiodataloader import (
+    DataLoader,
 )
-
-from aiodataloader import DataLoader
-from graphql.type.definition import GraphQLResolveInfo
-
 from custom_types import (
     Event,
     Project as Group,
@@ -15,7 +10,16 @@ from decorators import (
     enforce_group_level_auth_async,
     require_integrates,
 )
-from events import domain as events_domain
+from events import (
+    domain as events_domain,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from typing import (
+    cast,
+    List,
+)
 
 
 @concurrent_decorators(

@@ -1,5 +1,19 @@
-# Standard libraries
-from itertools import chain
+from aioextensions import (
+    collect,
+    run,
+)
+from async_lru import (
+    alru_cache,
+)
+from charts import (
+    utils,
+)
+from dataloaders import (
+    get_new_context,
+)
+from itertools import (
+    chain,
+)
 from typing import (
     Counter,
     List,
@@ -7,18 +21,6 @@ from typing import (
     Set,
     Tuple,
 )
-
-# Third party libraries
-from aioextensions import (
-    collect,
-    run,
-)
-from async_lru import alru_cache
-
-# Local libraries
-from charts import utils
-from dataloaders import get_new_context
-
 
 GroupsTags = NamedTuple(
     "GroupsTags",

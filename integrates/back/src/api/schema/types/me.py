@@ -1,8 +1,6 @@
 # None
 
 
-from ariadne import ObjectType
-
 from api.resolvers.me import (
     access_token,
     is_concurrent_session,
@@ -13,7 +11,9 @@ from api.resolvers.me import (
     subscriptions_to_entity_report,
     tags,
 )
-
+from ariadne import (
+    ObjectType,
+)
 
 ME = ObjectType("Me")
 ME.set_field("accessToken", access_token.resolve)

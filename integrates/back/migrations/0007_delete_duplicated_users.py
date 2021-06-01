@@ -6,18 +6,21 @@ created by the Azure auth backend when it could not resolve the user correctly.
 Execution Time: 2020-06-02 19:07 UTC-5
 Finalization Time: 2020-06-02 19:12 UTC-5
 """
-import os
-from typing import List
-
+from boto3.dynamodb.conditions import (
+    Attr,
+)
 import bugsnag
-from django.contrib.auth.models import User
-from boto3.dynamodb.conditions import Attr
-
+from django.contrib.auth.models import (
+    User,
+)
+import os
+from typing import (
+    List,
+)
 from users.dal import (
     delete as delete_dynamo_user,
     get_all as get_all_dynamo_users,
 )
-
 
 PROVIDER = "azuread-tenant-oauth2"
 STAGE: str = os.environ["STAGE"]

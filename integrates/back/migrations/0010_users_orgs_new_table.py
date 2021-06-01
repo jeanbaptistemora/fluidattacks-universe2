@@ -11,15 +11,19 @@ Migration must be executed when the code that creates the organization in the
 user creation is in production, so all possible users have an organization
 """
 
-import os
-import uuid
-
+from asgiref.sync import (
+    async_to_sync,
+)
 import bugsnag
 import django
-from asgiref.sync import async_to_sync
-
-from organizations import dal as orgs_dal
-from users import dal as users_dal
+from organizations import (
+    dal as orgs_dal,
+)
+import os
+from users import (
+    dal as users_dal,
+)
+import uuid
 
 django.setup()
 

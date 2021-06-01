@@ -1,16 +1,13 @@
-# Standard libraries
-import pytest
-from typing import (
-    Any,
-    Dict,
-)
-
-# Local libraries
 from back.tests import (
     db,
 )
 from data_containers.toe_inputs import (
     GitRootToeInput,
+)
+import pytest
+from typing import (
+    Any,
+    Dict,
 )
 
 

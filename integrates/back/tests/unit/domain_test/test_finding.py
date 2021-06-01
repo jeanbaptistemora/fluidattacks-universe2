@@ -1,23 +1,21 @@
-import os
-import pytest
-import time
-from datetime import (
-    datetime,
-    timedelta,
+from back.tests.unit.utils import (
+    create_dummy_session,
 )
-
-from freezegun import freeze_time
-from graphql.type import GraphQLResolveInfo
-from starlette.datastructures import UploadFile
-
-from back.tests.unit.utils import create_dummy_session
 from custom_exceptions import (
     InvalidAcceptanceSeverity,
     InvalidFileType,
     InvalidNumberAcceptations,
 )
-from dataloaders import get_new_context
-from findings import dal as findings_dal
+from dataloaders import (
+    get_new_context,
+)
+from datetime import (
+    datetime,
+    timedelta,
+)
+from findings import (
+    dal as findings_dal,
+)
 from findings.domain import (
     add_comment,
     approve_draft,
@@ -31,13 +29,28 @@ from findings.domain import (
     mask_finding,
     validate_evidence,
 )
-from mailer import common as mailer_utils
-from newutils import datetime as datetime_utils
+from freezegun import (
+    freeze_time,
+)
+from graphql.type import (
+    GraphQLResolveInfo,
+)
+from mailer import (
+    common as mailer_utils,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
+import os
+import pytest
+from starlette.datastructures import (
+    UploadFile,
+)
+import time
 from vulnerabilities.domain import (
     list_vulnerabilities_async,
     validate_treatment_change,
 )
-
 
 pytestmark = [
     pytest.mark.asyncio,

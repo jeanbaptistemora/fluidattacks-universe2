@@ -1,25 +1,32 @@
-import logging
-import logging.config
-from typing import Any
-
-from ariadne import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import SimplePayload as SimplePayloadType
+from ariadne import (
+    convert_kwargs_to_snake_case,
+)
+from custom_types import (
+    SimplePayload as SimplePayloadType,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login,
 )
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+import logging
+import logging.config
 from newutils import (
     logs as logs_utils,
     token as token_utils,
     utils,
     virus_scan,
 )
-from resources import domain as resources_domain
-
+from resources import (
+    domain as resources_domain,
+)
+from typing import (
+    Any,
+)
 
 LOGGER = logging.getLogger(__name__)
 

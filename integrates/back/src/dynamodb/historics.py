@@ -1,13 +1,14 @@
-from typing import (
-    Dict,
-    Tuple,
+from dynamodb import (
+    keys,
 )
-
-from dynamodb import keys
 from dynamodb.types import (
     Facet,
     Item,
     PrimaryKey,
+)
+from typing import (
+    Dict,
+    Tuple,
 )
 
 

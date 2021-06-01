@@ -38,28 +38,25 @@ have any problem.
 Execution Time:    2021-01-18 at 15:12:40 UTC-05
 Finalization Time: 2021-01-18 at 15:13:24 UTC-05
 """
-# Standard library
-import os
-import time
-from typing import (
-    Dict,
-    List,
-    cast,
-)
 
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-
-# Local libraries
-from custom_types import Vulnerability
+from custom_types import (
+    Vulnerability,
+)
+import os
+import time
+from typing import (
+    cast,
+    Dict,
+    List,
+)
 from vulnerabilities import (
     dal as vulns_dal,
     domain as vulns_domain,
 )
-
 
 STAGE = os.environ["STAGE"]
 ANALYST = "daguirre@fluidattacks.com"

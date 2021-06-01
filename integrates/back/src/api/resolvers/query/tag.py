@@ -1,17 +1,31 @@
+from custom_exceptions import (
+    TagNotFound,
+)
+from custom_types import (
+    Tag,
+)
+from decorators import (
+    require_login,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from groups import (
+    domain as groups_domain,
+)
+from newutils import (
+    token as token_utils,
+)
+from organizations import (
+    domain as orgs_domain,
+)
+from tags import (
+    domain as tags_domain,
+)
 from typing import (
     Dict,
     List,
 )
-
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_exceptions import TagNotFound
-from custom_types import Tag
-from decorators import require_login
-from groups import domain as groups_domain
-from newutils import token as token_utils
-from organizations import domain as orgs_domain
-from tags import domain as tags_domain
 
 
 @require_login

@@ -1,26 +1,37 @@
-# Standard library
-from datetime import date
-from decimal import Decimal
-from statistics import mean
+from aioextensions import (
+    collect,
+    run,
+)
+from async_lru import (
+    alru_cache,
+)
+from charts import (
+    utils,
+)
+from dataloaders import (
+    get_new_context,
+)
+from datetime import (
+    date,
+)
+from decimal import (
+    Decimal,
+)
+from groups.domain import (
+    get_mean_remediate,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
+from statistics import (
+    mean,
+)
 from typing import (
     Any,
     Iterable,
     List,
     Optional,
 )
-
-# Third party libraries
-from aioextensions import (
-    collect,
-    run,
-)
-from async_lru import alru_cache
-
-# Local libraries
-from charts import utils
-from dataloaders import get_new_context
-from groups.domain import get_mean_remediate
-from newutils import datetime as datetime_utils
 
 
 @alru_cache(maxsize=None, typed=True)

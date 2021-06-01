@@ -3,7 +3,6 @@ from context import (
     FI_ENVIRONMENT,
 )
 
-
 AWS_S3_CUSTOM_DOMAIN: str = (
     f"integrates.front.{FI_ENVIRONMENT}.fluidattacks.com"
 )

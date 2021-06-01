@@ -1,11 +1,15 @@
-from typing import cast
-
-from context import BASE_URL
-from custom_types import MailContent as MailContentType
-
 from .common import (
     GENERAL_TAG,
     send_mails_async_new,
+)
+from context import (
+    BASE_URL,
+)
+from custom_types import (
+    MailContent as MailContentType,
+)
+from typing import (
+    cast,
 )
 
 

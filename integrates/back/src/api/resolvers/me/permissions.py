@@ -1,17 +1,22 @@
+import authz
+from custom_exceptions import (
+    InvalidParameter,
+)
+from custom_types import (
+    Me,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
 import logging
 import logging.config
-from typing import (
-    Set,
-    cast,
+from settings import (
+    LOGGING,
 )
-
-from graphql.type.definition import GraphQLResolveInfo
-
-import authz
-from custom_exceptions import InvalidParameter
-from custom_types import Me
-from settings import LOGGING
-
+from typing import (
+    cast,
+    Set,
+)
 
 logging.config.dictConfig(LOGGING)
 

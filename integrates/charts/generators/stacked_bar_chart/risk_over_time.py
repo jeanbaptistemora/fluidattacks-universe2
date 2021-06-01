@@ -1,27 +1,31 @@
-# Standard library
-from datetime import datetime
+from aioextensions import (
+    collect,
+    run,
+)
+from async_lru import (
+    alru_cache,
+)
+from charts import (
+    utils,
+)
+from charts.colors import (
+    RISK,
+)
+from dataloaders import (
+    get_new_context,
+)
+from datetime import (
+    datetime,
+)
 from typing import (
+    cast,
     Dict,
     Iterable,
     List,
     NamedTuple,
     Optional,
     Union,
-    cast,
 )
-
-# Third party libraries
-from aioextensions import (
-    collect,
-    run,
-)
-from async_lru import alru_cache
-
-# Local libraries
-from charts import utils
-from charts.colors import RISK
-from dataloaders import get_new_context
-
 
 # Constants
 DATE_FMT: str = "%Y - %m - %d"

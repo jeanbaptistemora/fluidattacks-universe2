@@ -1,15 +1,17 @@
-# Standard libraries
-from typing import Any, Dict
+from api.schema import (
+    SCHEMA,
+)
+from ariadne import (
+    graphql,
+)
+from back.tests.unit.utils import (
+    create_dummy_session,
+)
 import pytest
-
-# Third party libraries
-from ariadne import graphql
-
-# Local libraries
-from api.schema import SCHEMA
-from back.tests.unit.utils import create_dummy_session
-
-import pytest
+from typing import (
+    Any,
+    Dict,
+)
 
 pytestmark = pytest.mark.asyncio
 

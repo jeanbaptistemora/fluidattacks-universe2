@@ -1,22 +1,31 @@
-import logging
-import logging.config
-from itertools import chain
-from typing import List
-
-from aioextensions import collect
+from aioextensions import (
+    collect,
+)
 from boto3.dynamodb.conditions import (
     Attr,
     Key,
 )
-from botocore.exceptions import ClientError
-
+from botocore.exceptions import (
+    ClientError,
+)
 from custom_types import (
     Comment as CommentType,
     DynamoDelete as DynamoDeleteType,
 )
-from dynamodb import operations_legacy as dynamodb_ops
-from settings import LOGGING
-
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+from itertools import (
+    chain,
+)
+import logging
+import logging.config
+from settings import (
+    LOGGING,
+)
+from typing import (
+    List,
+)
 
 logging.config.dictConfig(LOGGING)
 

@@ -1,9 +1,10 @@
-# Third party libraries
+from dataloaders import (
+    get_new_context,
+)
 import pytest
-
-# Local libraries
-from dataloaders import get_new_context
-from roots import domain as roots_domain
+from roots import (
+    domain as roots_domain,
+)
 
 # Constants
 pytestmark = [

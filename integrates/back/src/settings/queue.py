@@ -1,13 +1,16 @@
-# Standar library
 """Queue management"""
+from asyncio.queues import (
+    Queue,
+)
+from functools import (
+    partial,
+)
 from typing import (
     Any,
     Callable,
     Optional,
     TypeVar,
 )
-from asyncio.queues import Queue
-from functools import partial
 
 # Constants
 TVar = TypeVar("TVar")  # pylint: disable=invalid-name

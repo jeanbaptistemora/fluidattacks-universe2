@@ -1,24 +1,29 @@
-import logging
-import logging.config
-from typing import (
-    Dict,
-    List,
-    Optional,
-    Union,
-    cast,
-)
-
 import aioboto3
 from boto3.dynamodb.conditions import (
     Attr,
     Key,
 )
-from botocore.exceptions import ClientError
-
-from custom_types import Project as GroupType
-from dynamodb import operations_legacy as dynamodb_ops
-from settings import LOGGING
-
+from botocore.exceptions import (
+    ClientError,
+)
+from custom_types import (
+    Project as GroupType,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+import logging
+import logging.config
+from settings import (
+    LOGGING,
+)
+from typing import (
+    cast,
+    Dict,
+    List,
+    Optional,
+    Union,
+)
 
 logging.config.dictConfig(LOGGING)
 

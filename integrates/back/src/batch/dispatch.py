@@ -1,17 +1,22 @@
-import logging
-import logging.config
-import sys
-
-from aioextensions import run
-
+from aioextensions import (
+    run,
+)
 from batch.dal import (
     delete_action,
     get_action,
 )
-from batch.report import generate_report
-from batch.roots import move_root
-from settings import LOGGING
-
+from batch.report import (
+    generate_report,
+)
+from batch.roots import (
+    move_root,
+)
+import logging
+import logging.config
+from settings import (
+    LOGGING,
+)
+import sys
 
 logging.config.dictConfig(LOGGING)
 

@@ -1,15 +1,15 @@
 # None
 
 
-from ariadne import ObjectType
-
 from api.resolvers.organization import (
     analytics,
     finding_policies,
     groups,
     stakeholders,
 )
-
+from ariadne import (
+    ObjectType,
+)
 
 ORGANIZATION: ObjectType = ObjectType("Organization")
 ORGANIZATION.set_field("analytics", analytics.resolve)

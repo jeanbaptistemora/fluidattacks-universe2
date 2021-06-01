@@ -6,30 +6,35 @@ the source field into the finding historic state
 Execution Time:    2021-02-26 at 13:10:24 UTC-05
 Finalization Time: 2021-02-26 at 13:36:41 UTC-05
 """
-# Standard libraries
-import copy
-from pprint import pprint
-from typing import (
-    Dict,
-    cast,
-)
 
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from boto3.dynamodb.conditions import Key
-
-# Local libraries
+from boto3.dynamodb.conditions import (
+    Key,
+)
+import copy
 from custom_types import (
     Finding,
     Historic,
 )
-from dynamodb import operations_legacy as dynamodb_ops
-from findings import dal as findings_dal
-from newutils import datetime as datetime_utils
-
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+from findings import (
+    dal as findings_dal,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
+from pprint import (
+    pprint,
+)
+from typing import (
+    cast,
+    Dict,
+)
 
 FINDING_TABLE: str = "FI_findings"
 VULNERABILITY_TABLE: str = "FI_vulnerabilities"

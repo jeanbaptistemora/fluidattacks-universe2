@@ -1,25 +1,34 @@
+from boto3.dynamodb.conditions import (
+    Key,
+)
+from botocore.exceptions import (
+    ClientError,
+)
+from custom_exceptions import (
+    UnavailabilityError,
+)
+from custom_types import (
+    DynamoDelete as DynamoDeleteType,
+    DynamoQuery as DynamoQueryType,
+    Tag as TagType,
+)
+from decimal import (
+    Decimal,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
 import logging
 import logging.config
-from decimal import Decimal
+from settings import (
+    LOGGING,
+)
 from typing import (
     Dict,
     List,
     Optional,
     Union,
 )
-
-from boto3.dynamodb.conditions import Key
-from botocore.exceptions import ClientError
-
-from custom_exceptions import UnavailabilityError
-from custom_types import (
-    DynamoDelete as DynamoDeleteType,
-    DynamoQuery as DynamoQueryType,
-    Tag as TagType,
-)
-from dynamodb import operations_legacy as dynamodb_ops
-from settings import LOGGING
-
 
 logging.config.dictConfig(LOGGING)
 

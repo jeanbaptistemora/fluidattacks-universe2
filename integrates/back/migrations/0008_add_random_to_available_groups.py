@@ -15,15 +15,18 @@ Execution Time: 2020-06-04 13:31 UTC-5
 Finalization Time: 2020-06-04 13:35 UTC-5
 """
 
-import os
-import uuid
-from typing import List
-
+from boto3.dynamodb.conditions import (
+    Key,
+)
 import bugsnag
-from boto3.dynamodb.conditions import Key
-
-from names.dal import TABLE_NAME as INTEGRATES_TABLE
-
+from names.dal import (
+    TABLE_NAME as INTEGRATES_TABLE,
+)
+import os
+from typing import (
+    List,
+)
+import uuid
 
 STAGE: str = os.environ["STAGE"]
 

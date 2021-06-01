@@ -1,17 +1,27 @@
-from itertools import chain
+from aioextensions import (
+    collect,
+)
+from dataloaders import (
+    get_new_context,
+)
+from groups import (
+    domain as groups_domain,
+)
+from itertools import (
+    chain,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
 from typing import (
     Any,
+    cast,
     Dict,
     List,
-    cast,
 )
-
-from aioextensions import collect
-
-from dataloaders import get_new_context
-from groups import domain as groups_domain
-from newutils import datetime as datetime_utils
-from vulnerabilities import domain as vulns_domain
+from vulnerabilities import (
+    domain as vulns_domain,
+)
 
 
 async def reset_group_expired_accepted_findings(

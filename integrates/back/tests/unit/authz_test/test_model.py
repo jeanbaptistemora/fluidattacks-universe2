@@ -1,14 +1,9 @@
-# Standard library
-
-# Third party libraries
-import pytest
-
-# Local libraries
 import authz
+import pytest
 from typing import (
+    Any,
     Dict,
     List,
-    Any,
 )
 
 # Constants

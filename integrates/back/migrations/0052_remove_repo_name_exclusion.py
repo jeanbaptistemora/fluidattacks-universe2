@@ -7,24 +7,24 @@ used to define which file should not be reviewed by analysts
 Execution Time: 2021-01-05 18:23 UTC-5
 Finalization Time: 2021-01-05 18:27 UTC-5
 """
-# Standard
+
+from aioextensions import (
+    collect,
+    run,
+)
+from groups.domain import (
+    get_active_groups,
+)
 import os
-import urllib
+from roots import (
+    dal as roots_dal,
+)
 from typing import (
     Any,
     Dict,
     List,
 )
-
-# Third party
-from aioextensions import (
-    collect,
-    run,
-)
-
-# Local
-from groups.domain import get_active_groups
-from roots import dal as roots_dal
+import urllib
 
 
 def get_repo_from_url(url: str) -> str:

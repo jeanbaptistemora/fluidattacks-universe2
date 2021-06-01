@@ -7,23 +7,20 @@ This migration adds the language field to the project based on the config.yml
 Execution Time:
 Finalization Time:
 """
-# Standard
+
+from aioextensions import (
+    collect,
+    run,
+)
+from groups import (
+    dal as groups_dal,
+)
 import os
 from typing import (
     Dict,
     List,
 )
-
-# Third party
-from aioextensions import (
-    collect,
-    run,
-)
 import yaml
-
-# Local
-from groups import dal as groups_dal
-
 
 # Constants
 SERVICES_REPO_DIR: str = f"{os.getcwd()}/services"

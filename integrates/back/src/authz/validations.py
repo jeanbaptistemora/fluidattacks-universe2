@@ -1,20 +1,19 @@
-from typing import (
-    Any,
-    DefaultDict,
+from .boundary import (
+    get_group_level_roles_with_tag,
 )
-
+from .enforcer import (
+    get_group_level_enforcer,
+    get_group_service_attributes_enforcer,
+)
 from custom_exceptions import (
     InvalidCommentParent,
     PermissionDenied,
     UnexpectedUserRole,
 )
-
-from .boundary import get_group_level_roles_with_tag
-from .enforcer import (
-    get_group_level_enforcer,
-    get_group_service_attributes_enforcer,
+from typing import (
+    Any,
+    DefaultDict,
 )
-
 
 # Constants
 FLUIDATTACKS_EMAIL_SUFFIX = "@fluidattacks.com"

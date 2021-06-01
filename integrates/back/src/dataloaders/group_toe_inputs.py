@@ -1,13 +1,19 @@
+from aiodataloader import (
+    DataLoader,
+)
+from aioextensions import (
+    collect,
+)
+from data_containers.toe_inputs import (
+    GitRootToeInput,
+)
+from toe.inputs import (
+    domain as toe_inputs_domain,
+)
 from typing import (
     List,
     Tuple,
 )
-
-from aiodataloader import DataLoader
-from aioextensions import collect
-
-from data_containers.toe_inputs import GitRootToeInput
-from toe.inputs import domain as toe_inputs_domain
 
 
 async def get_group_toe_inputs(

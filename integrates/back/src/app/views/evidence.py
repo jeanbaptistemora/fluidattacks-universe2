@@ -1,26 +1,19 @@
 # Starlette evidences-related methods
 
-# Standard library
-from typing import (
-    List,
-    Sequence,
-)
 
-# Third party libraries
-from magic import Magic
-
-from starlette.requests import Request
-from starlette.responses import (
-    HTMLResponse,
-    JSONResponse,
-    Response,
-)
-
-# Local libraries
 import authz
-from context import FI_AWS_S3_BUCKET
-from events.domain import has_access_to_event
-from findings.domain import has_access_to_finding
+from context import (
+    FI_AWS_S3_BUCKET,
+)
+from events.domain import (
+    has_access_to_event,
+)
+from findings.domain import (
+    has_access_to_finding,
+)
+from magic import (
+    Magic,
+)
 from newutils import (
     files as files_utils,
     logs as logs_utils,
@@ -30,7 +23,18 @@ from s3.operations import (
     download_file,
     list_files,
 )
-
+from starlette.requests import (
+    Request,
+)
+from starlette.responses import (
+    HTMLResponse,
+    JSONResponse,
+    Response,
+)
+from typing import (
+    List,
+    Sequence,
+)
 
 BUCKET_S3 = FI_AWS_S3_BUCKET
 

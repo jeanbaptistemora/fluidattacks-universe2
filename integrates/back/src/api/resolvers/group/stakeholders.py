@@ -1,12 +1,3 @@
-from functools import partial
-from typing import (
-    Dict,
-    List,
-    cast,
-)
-
-from graphql.type.definition import GraphQLResolveInfo
-
 from custom_types import (
     Project as GroupType,
     Stakeholder as StakeholderType,
@@ -16,9 +7,26 @@ from decorators import (
     enforce_group_level_auth_async,
     require_integrates,
 )
-from newutils import token as token_utils
-from redis_cluster.operations import redis_get_or_set_entity_attr
-from users import domain as users_domain
+from functools import (
+    partial,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from newutils import (
+    token as token_utils,
+)
+from redis_cluster.operations import (
+    redis_get_or_set_entity_attr,
+)
+from typing import (
+    cast,
+    Dict,
+    List,
+)
+from users import (
+    domain as users_domain,
+)
 
 
 @concurrent_decorators(

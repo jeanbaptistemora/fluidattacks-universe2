@@ -1,7 +1,10 @@
+from groups.dal import (
+    get_attributes,
+)
 import pytest
-
-from groups.dal import get_attributes
-from resources.dal import remove
+from resources.dal import (
+    remove,
+)
 
 pytestmark = pytest.mark.asyncio
 

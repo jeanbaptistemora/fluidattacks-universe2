@@ -1,26 +1,38 @@
-import logging
-import logging.config
-from typing import (
-    Dict,
-    List,
-    cast,
+from .common import (
+    scheduler_send_mail,
 )
-
-from aioextensions import collect
-
+from aioextensions import (
+    collect,
+)
 from context import (
     BASE_URL,
     FI_MAIL_PROJECTS,
 )
-from custom_types import MailContent as MailContentType
-from dataloaders import get_new_context
-from findings import domain as findings_domain
-from groups import domain as groups_domain
-from mailer import findings as findings_mail
-from settings import LOGGING
-
-from .common import scheduler_send_mail
-
+from custom_types import (
+    MailContent as MailContentType,
+)
+from dataloaders import (
+    get_new_context,
+)
+from findings import (
+    domain as findings_domain,
+)
+from groups import (
+    domain as groups_domain,
+)
+import logging
+import logging.config
+from mailer import (
+    findings as findings_mail,
+)
+from settings import (
+    LOGGING,
+)
+from typing import (
+    cast,
+    Dict,
+    List,
+)
 
 logging.config.dictConfig(LOGGING)
 

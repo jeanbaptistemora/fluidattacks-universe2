@@ -1,26 +1,24 @@
-import io
-import itertools
-import logging
-import logging.config
-from typing import (
-    Any,
-    Dict,
-    List,
-    Optional,
-    Union,
-    cast,
+from .core import (
+    get_finding,
 )
-
-from backports import csv
-from magic import Magic
-from starlette.datastructures import UploadFile
-
+from backports import (
+    csv,
+)
 from custom_exceptions import (
     EvidenceNotFound,
     InvalidFileSize,
     InvalidFileType,
 )
-from findings import dal as findings_dal
+from findings import (
+    dal as findings_dal,
+)
+import io
+import itertools
+import logging
+import logging.config
+from magic import (
+    Magic,
+)
 from newutils import (
     datetime as datetime_utils,
     files as files_utils,
@@ -28,10 +26,20 @@ from newutils import (
     utils,
     validations,
 )
-from settings import LOGGING
-
-from .core import get_finding
-
+from settings import (
+    LOGGING,
+)
+from starlette.datastructures import (
+    UploadFile,
+)
+from typing import (
+    Any,
+    cast,
+    Dict,
+    List,
+    Optional,
+    Union,
+)
 
 logging.config.dictConfig(LOGGING)
 

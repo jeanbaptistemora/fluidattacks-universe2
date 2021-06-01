@@ -1,13 +1,12 @@
-# Standard libraries
+from back.tests.functional.reviewer.utils import (
+    get_result,
+)
 import json
 import os
 import pytest
-
-# Third party libraries
-from starlette.datastructures import UploadFile
-
-# Local libraries
-from back.tests.functional.reviewer.utils import get_result
+from starlette.datastructures import (
+    UploadFile,
+)
 
 
 @pytest.mark.asyncio

@@ -5,30 +5,39 @@ This migration aims to standardize findings names
 Execution Time:    2020-12-15 at 22:57:50 UTC-05
 Finalization Time: 2020-12-15 at 23:00:25 UTC-05
 """
-# Standard library
-import os
-import re
-import time
-from itertools import chain
-from typing import (
-    Dict,
-    List,
-)
 
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from more_itertools import chunked
-
-# Local libraries
-from custom_types import Finding
-from dataloaders.group import GroupLoader
-from dataloaders.finding import FindingLoader
-from findings import dal as findings_dal
-from groups.domain import get_active_groups
-
+from custom_types import (
+    Finding,
+)
+from dataloaders.finding import (
+    FindingLoader,
+)
+from dataloaders.group import (
+    GroupLoader,
+)
+from findings import (
+    dal as findings_dal,
+)
+from groups.domain import (
+    get_active_groups,
+)
+from itertools import (
+    chain,
+)
+from more_itertools import (
+    chunked,
+)
+import os
+import re
+import time
+from typing import (
+    Dict,
+    List,
+)
 
 STAGE: str = os.environ["STAGE"]
 

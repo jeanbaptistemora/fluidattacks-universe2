@@ -1,10 +1,13 @@
-# Standar libraries
+from back.tests.functional.group_manager.utils import (
+    get_result,
+)
+from dataloaders import (
+    get_new_context,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
 import pytest
-
-# Local libraries
-from back.tests.functional.group_manager.utils import get_result
-from dataloaders import get_new_context
-from newutils import datetime as datetime_utils
 
 
 @pytest.mark.asyncio

@@ -1,18 +1,22 @@
 # pylint: disable=method-hidden
-from collections import defaultdict
-from typing import (
-    Dict,
-    List,
-    cast,
+from aiodataloader import (
+    DataLoader,
 )
-
-from aiodataloader import DataLoader
-
+from collections import (
+    defaultdict,
+)
 from custom_types import (
     Event as EventType,
     Historic,
 )
-from events import domain as events_domain
+from events import (
+    domain as events_domain,
+)
+from typing import (
+    cast,
+    Dict,
+    List,
+)
 
 
 async def _batch_load_fn(event_ids: List[str]) -> List[EventType]:

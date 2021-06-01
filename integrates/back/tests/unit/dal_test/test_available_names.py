@@ -1,8 +1,10 @@
+from custom_exceptions import (
+    EmptyPoolName,
+)
+from names import (
+    dal as names_dal,
+)
 import pytest
-
-from custom_exceptions import EmptyPoolName
-from names import dal as names_dal
-
 
 # Run async tests
 pytestmark = [

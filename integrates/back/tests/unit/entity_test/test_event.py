@@ -1,14 +1,23 @@
+from api.schema import (
+    SCHEMA,
+)
+from ariadne import (
+    graphql,
+)
+from back.tests.unit.utils import (
+    create_dummy_session,
+)
+from dataloaders import (
+    apply_context_attrs,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
 import os
 import pytest
-
-from ariadne import graphql
-from starlette.datastructures import UploadFile
-
-from api.schema import SCHEMA
-from back.tests.unit.utils import create_dummy_session
-from dataloaders import apply_context_attrs
-from newutils import datetime as datetime_utils
-
+from starlette.datastructures import (
+    UploadFile,
+)
 
 pytestmark = pytest.mark.asyncio
 

@@ -1,11 +1,21 @@
-from typing import Any
-
-from ariadne import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import SimplePayload as SimplePayloadType
-from newutils import token as token_utils
-from users import domain as users_domain
+from ariadne import (
+    convert_kwargs_to_snake_case,
+)
+from custom_types import (
+    SimplePayload as SimplePayloadType,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from newutils import (
+    token as token_utils,
+)
+from typing import (
+    Any,
+)
+from users import (
+    domain as users_domain,
+)
 
 
 @convert_kwargs_to_snake_case

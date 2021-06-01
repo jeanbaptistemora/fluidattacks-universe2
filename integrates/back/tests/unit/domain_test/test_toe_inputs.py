@@ -1,9 +1,10 @@
-# Third party libraries
+from data_containers.toe_inputs import (
+    GitRootToeInput,
+)
 import pytest
-
-# Local libraries
-from data_containers.toe_inputs import GitRootToeInput
-from toe.inputs import domain as toe_inputs_domain
+from toe.inputs import (
+    domain as toe_inputs_domain,
+)
 
 # Constants
 pytestmark = [

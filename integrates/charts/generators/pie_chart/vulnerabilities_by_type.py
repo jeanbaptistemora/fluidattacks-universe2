@@ -1,20 +1,31 @@
-# Standard library
-from collections import Counter
-from itertools import chain
-from operator import itemgetter
-from typing import List
-
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from async_lru import alru_cache
-
-# Local libraries
-from charts import utils
-from charts.colors import OTHER
-from dataloaders import get_new_context
+from async_lru import (
+    alru_cache,
+)
+from charts import (
+    utils,
+)
+from charts.colors import (
+    OTHER,
+)
+from collections import (
+    Counter,
+)
+from dataloaders import (
+    get_new_context,
+)
+from itertools import (
+    chain,
+)
+from operator import (
+    itemgetter,
+)
+from typing import (
+    List,
+)
 
 
 @alru_cache(maxsize=None, typed=True)

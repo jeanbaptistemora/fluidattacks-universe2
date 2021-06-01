@@ -1,13 +1,13 @@
 # None
 
 
-from ariadne import ObjectType
-
 from api.resolvers.forces_execution import (
     log,
     vulnerabilities,
 )
-
+from ariadne import (
+    ObjectType,
+)
 
 FORCES_EXECUTION = ObjectType("ForcesExecution")
 FORCES_EXECUTION.set_field("log", log.resolve)

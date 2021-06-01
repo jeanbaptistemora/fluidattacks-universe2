@@ -1,11 +1,16 @@
-# Standard libraries
+from back.tests.functional.customeradmin.utils import (
+    get_result,
+)
+from custom_exceptions import (
+    UserNotInOrganization,
+)
+from dataloaders import (
+    get_new_context,
+)
+from decimal import (
+    Decimal,
+)
 import pytest
-from decimal import Decimal
-
-# Local libraries
-from back.tests.functional.customeradmin.utils import get_result
-from custom_exceptions import UserNotInOrganization
-from dataloaders import get_new_context
 
 
 @pytest.mark.asyncio

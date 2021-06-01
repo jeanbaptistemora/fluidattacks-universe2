@@ -1,7 +1,12 @@
-from graphql.type.definition import GraphQLResolveInfo
-
-from findings import domain as findings_domain
-from db_model.findings.types import Finding
+from db_model.findings.types import (
+    Finding,
+)
+from findings import (
+    domain as findings_domain,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
 
 
 def resolve(

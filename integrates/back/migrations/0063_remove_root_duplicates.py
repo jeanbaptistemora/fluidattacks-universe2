@@ -6,19 +6,25 @@ a mistake in a previous migration script
 Execution Time: 2021-01-22 at 12:05:42 UTC-05
 Finalization Time: 2021-01-22 at 12:07:05 UTC-05
 """
-# Standard library
+
+from aioextensions import (
+    collect,
+    run,
+)
+from boto3.dynamodb.conditions import (
+    Key,
+)
+from custom_types import (
+    DynamoDelete,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+from groups import (
+    dal as groups_dal,
+)
 import os
 import time
-
-# Third party libraries
-from aioextensions import collect, run
-from boto3.dynamodb.conditions import Key
-
-# Local libraries
-from custom_types import DynamoDelete
-from dynamodb import operations_legacy as dynamodb_ops
-from groups import dal as groups_dal
-
 
 STAGE = os.environ["STAGE"]
 

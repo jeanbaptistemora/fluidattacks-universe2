@@ -1,12 +1,3 @@
-import logging
-import logging.config
-from typing import (
-    Set,
-    Tuple,
-)
-
-from settings import LOGGING
-
 from .enforcer import (
     get_group_level_enforcer,
     get_group_service_attributes_enforcer,
@@ -14,14 +5,22 @@ from .enforcer import (
     get_user_level_enforcer,
 )
 from .model import (
-    SERVICE_ATTRIBUTES_SET,
     get_group_level_actions_model,
     get_group_level_roles_model,
     get_organization_level_actions_model,
     get_user_level_actions_model,
     get_user_level_roles_model,
+    SERVICE_ATTRIBUTES_SET,
 )
-
+import logging
+import logging.config
+from settings import (
+    LOGGING,
+)
+from typing import (
+    Set,
+    Tuple,
+)
 
 logging.config.dictConfig(LOGGING)
 

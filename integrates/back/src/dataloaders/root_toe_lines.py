@@ -1,10 +1,18 @@
-from typing import Tuple
-
-from aiodataloader import DataLoader
-from aioextensions import collect
-
-from data_containers.toe_lines import GitRootToeLines
-from toe.lines import domain as toe_lines_domain
+from aiodataloader import (
+    DataLoader,
+)
+from aioextensions import (
+    collect,
+)
+from data_containers.toe_lines import (
+    GitRootToeLines,
+)
+from toe.lines import (
+    domain as toe_lines_domain,
+)
+from typing import (
+    Tuple,
+)
 
 
 async def get_root_toe_lines(

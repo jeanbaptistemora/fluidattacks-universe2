@@ -1,7 +1,8 @@
+from comments.dal import (
+    delete,
+    get_comments,
+)
 import pytest
-
-from comments.dal import delete, get_comments
-
 
 pytestmark = [
     pytest.mark.asyncio,

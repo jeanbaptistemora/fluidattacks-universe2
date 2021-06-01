@@ -1,14 +1,22 @@
-from collections import defaultdict
+from aiodataloader import (
+    DataLoader,
+)
+from aioextensions import (
+    collect,
+)
+from collections import (
+    defaultdict,
+)
+from custom_types import (
+    Tag as TagType,
+)
+from tags import (
+    domain as tags_domain,
+)
 from typing import (
     Dict,
     List,
 )
-
-from aiodataloader import DataLoader
-from aioextensions import collect
-
-from custom_types import Tag as TagType
-from tags import domain as tags_domain
 
 
 async def _batch_load_fn(organization_names: List[str]) -> List[List[TagType]]:

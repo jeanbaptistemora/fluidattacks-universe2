@@ -7,15 +7,7 @@ company field or that auto-enrolled to the application.
 It will accomplish this by using the organization of the groups these users
 have access to.
 """
-import os
-from typing import (
-    Dict,
-    List,
-    Union,
-)
-
 import aioboto3
-import bugsnag
 from aioextensions import (
     in_thread,
     run,
@@ -24,11 +16,19 @@ from boto3.dynamodb.conditions import (
     Attr,
     Not,
 )
-
-from context import FI_COMMUNITY_PROJECTS
-from dynamodb.operations_legacy import RESOURCE_OPTIONS
-from group_access.domain import get_user_groups
-from groups.domain import get_attributes as get_group_attributes
+import bugsnag
+from context import (
+    FI_COMMUNITY_PROJECTS,
+)
+from dynamodb.operations_legacy import (
+    RESOURCE_OPTIONS,
+)
+from group_access.domain import (
+    get_user_groups,
+)
+from groups.domain import (
+    get_attributes as get_group_attributes,
+)
 from organizations.dal import (
     get_by_id as get_organization_attributes,
     get_by_id_old as get_organization_attributes_old,
@@ -36,8 +36,15 @@ from organizations.dal import (
 from organizations.domain import (
     get_id_by_name as get_organization_id_by_name,
 )
-from users.dal import update as update_user
-
+import os
+from typing import (
+    Dict,
+    List,
+    Union,
+)
+from users.dal import (
+    update as update_user,
+)
 
 AUTOENROLLED_ORGANIZATION: str = "integrates community"
 STAGE: str = os.environ["STAGE"]

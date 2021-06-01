@@ -5,30 +5,43 @@ This migration aims to remove consecutive duplicate states in historic_state
 Execution Time: 2021-02-05 at 19:37:12 UTC-5
 Finalization Time: 2021-02-05 at 20:05:28 UTC-5
 """
-# Standard library
-import os
-from itertools import chain
-from operator import itemgetter
-from typing import (
-    Dict,
-    List,
-)
 
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from more_itertools import chunked
-
-# Local libraries
-from custom_types import Finding
-from dataloaders.group_drafts import GroupDraftsLoader
-from dataloaders.group_findings import GroupFindingsLoader
-from groups.domain import get_alive_groups
-from vulnerabilities import dal as vulns_dal
-from vulnerabilities.domain import list_vulnerabilities_async
-
+from custom_types import (
+    Finding,
+)
+from dataloaders.group_drafts import (
+    GroupDraftsLoader,
+)
+from dataloaders.group_findings import (
+    GroupFindingsLoader,
+)
+from groups.domain import (
+    get_alive_groups,
+)
+from itertools import (
+    chain,
+)
+from more_itertools import (
+    chunked,
+)
+from operator import (
+    itemgetter,
+)
+import os
+from typing import (
+    Dict,
+    List,
+)
+from vulnerabilities import (
+    dal as vulns_dal,
+)
+from vulnerabilities.domain import (
+    list_vulnerabilities_async,
+)
 
 STAGE: str = os.environ["STAGE"]
 

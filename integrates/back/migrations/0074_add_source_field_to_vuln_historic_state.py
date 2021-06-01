@@ -6,23 +6,31 @@ into the vulnerability historic state
 Execution Time:    2021-02-22 at 16:27:03 UTC-05
 Finalization Time: 2021-02-23 at 10:29:38 UTC-05
 """
-# Standard library
-import copy
-from pprint import pprint
-from typing import cast
 
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-
-# Local libraries
-from custom_types import Vulnerability, Historic
-from dynamodb import operations_legacy as dynamodb_ops
-from newutils import datetime as datetime_utils
-from vulnerabilities import dal as vulns_dal
-
+import copy
+from custom_types import (
+    Historic,
+    Vulnerability,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
+from pprint import (
+    pprint,
+)
+from typing import (
+    cast,
+)
+from vulnerabilities import (
+    dal as vulns_dal,
+)
 
 VULNERABILITY_TABLE = "FI_vulnerabilities"
 

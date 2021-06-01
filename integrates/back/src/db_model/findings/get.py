@@ -1,25 +1,3 @@
-from typing import (
-    Optional,
-    Tuple,
-    Union,
-)
-
-from aiodataloader import DataLoader
-from aioextensions import collect
-from boto3.dynamodb.conditions import Key
-
-from custom_exceptions import FindingNotFound
-from dynamodb import (
-    historics,
-    keys,
-    operations,
-)
-from dynamodb.types import (
-    Item,
-    PrimaryKey,
-)
-from db_model import TABLE
-
 from .enums import (
     FindingSorts,
 )
@@ -34,10 +12,39 @@ from .types import (
     FindingVerification,
 )
 from .utils import (
+    format_optional_verification,
     format_state,
     format_unreliable_indicators,
-    format_optional_verification,
     format_verification,
+)
+from aiodataloader import (
+    DataLoader,
+)
+from aioextensions import (
+    collect,
+)
+from boto3.dynamodb.conditions import (
+    Key,
+)
+from custom_exceptions import (
+    FindingNotFound,
+)
+from db_model import (
+    TABLE,
+)
+from dynamodb import (
+    historics,
+    keys,
+    operations,
+)
+from dynamodb.types import (
+    Item,
+    PrimaryKey,
+)
+from typing import (
+    Optional,
+    Tuple,
+    Union,
 )
 
 

@@ -1,12 +1,15 @@
+from botocore.exceptions import (
+    ClientError,
+)
 import logging
 import logging.config
+from settings import (
+    LOGGING,
+)
 import sys
-from typing import Optional
-
-from botocore.exceptions import ClientError
-
-from settings import LOGGING
-
+from typing import (
+    Optional,
+)
 
 # Constants
 logging.config.dictConfig(LOGGING)

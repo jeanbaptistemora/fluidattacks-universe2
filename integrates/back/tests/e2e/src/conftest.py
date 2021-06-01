@@ -1,16 +1,19 @@
-# Standard libraries
-import os
-from typing import Iterable
-
-# Third party libraries
-import pytest
-from selenium.webdriver import Firefox
-from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.webdriver.firefox.options import Options
-
-# Local libraries
 from model import (
     Credentials,
+)
+import os
+import pytest
+from selenium.webdriver import (
+    Firefox,
+)
+from selenium.webdriver.firefox.options import (
+    Options,
+)
+from selenium.webdriver.remote.webdriver import (
+    WebDriver,
+)
+from typing import (
+    Iterable,
 )
 
 

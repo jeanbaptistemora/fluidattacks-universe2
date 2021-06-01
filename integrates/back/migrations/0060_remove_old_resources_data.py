@@ -6,16 +6,16 @@ now that they've been replaced by git roots (new scope module)
 Execution Time: 2021-01-19 at 15:32:05 UTC-05
 Finalization Time: 2021-01-19 at 15:32:29 UTC-05
 """
-# Standard library
+
+from aioextensions import (
+    collect,
+    run,
+)
+from groups import (
+    dal as groups_dal,
+)
 import os
 import time
-
-# Third party libraries
-from aioextensions import collect, run
-
-# Local libraries
-from groups import dal as groups_dal
-
 
 STAGE = os.environ["STAGE"]
 

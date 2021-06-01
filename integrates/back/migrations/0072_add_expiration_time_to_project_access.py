@@ -6,23 +6,32 @@ who has not confirmed the group invitation
 Execution Time:    2021-02-16 at 16:52:25 UTC-05
 Finalization Time: 2021-02-16 at 16:52:36 UTC-05
 """
-# Standard library
-from pprint import pprint
-from typing import cast
 
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from boto3.dynamodb.conditions import Attr
-
-# Local libraries
-from custom_types import ProjectAccess as ProjectAccessType
-from dynamodb import operations_legacy as dynamodb_ops
-from group_access import domain as group_access_domain
-from newutils import datetime as datetime_utils
-
+from boto3.dynamodb.conditions import (
+    Attr,
+)
+from custom_types import (
+    ProjectAccess as ProjectAccessType,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+from group_access import (
+    domain as group_access_domain,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
+from pprint import (
+    pprint,
+)
+from typing import (
+    cast,
+)
 
 TABLE_ACCESS_NAME = "FI_project_access"
 

@@ -3,7 +3,6 @@ from context import (
     FI_AZUREAD_OAUTH2_SECRET,
 )
 
-
 API_BASE_URL = "https://graph.microsoft.com/"
 API_USERINFO_BASE_URL = f"{API_BASE_URL}oidc/userinfo"
 AUTHZ_URL = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize"

@@ -8,20 +8,25 @@ and users, since now the organization table is used for those relations.
 Execution Time:    2020-07-16 10:40:00 UTC-5
 Finalization Time: 2020-07-16 10:53:00 UTC-5
 """
-import os
-
-import bugsnag
 from aioextensions import (
     collect,
     in_thread,
     run,
 )
-from boto3.dynamodb.conditions import Attr
-from more_itertools import chunked
-
-from groups import dal as groups_dal
-from users import dal as users_dal
-
+from boto3.dynamodb.conditions import (
+    Attr,
+)
+import bugsnag
+from groups import (
+    dal as groups_dal,
+)
+from more_itertools import (
+    chunked,
+)
+import os
+from users import (
+    dal as users_dal,
+)
 
 STAGE: str = os.environ["STAGE"]
 

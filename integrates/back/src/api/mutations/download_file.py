@@ -1,24 +1,29 @@
-import logging
-import logging.config
-from typing import Any
-
-from ariadne import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import DownloadFilePayload as DownloadFilePayloadType
+from ariadne import (
+    convert_kwargs_to_snake_case,
+)
+from custom_types import (
+    DownloadFilePayload as DownloadFilePayloadType,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login,
 )
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+import logging
+import logging.config
 from newutils import (
     analytics,
     logs as logs_utils,
     resources as resources_utils,
     token as token_utils,
 )
-
+from typing import (
+    Any,
+)
 
 LOGGER = logging.getLogger(__name__)
 

@@ -1,11 +1,3 @@
-# Standard libraries
-import pytest
-from typing import (
-    Any,
-    Dict,
-)
-
-# Local libraries
 from back.tests import (
     db,
 )
@@ -14,6 +6,11 @@ from dynamodb.types import (
     GitRootItem,
     GitRootMetadata,
     GitRootState,
+)
+import pytest
+from typing import (
+    Any,
+    Dict,
 )
 
 

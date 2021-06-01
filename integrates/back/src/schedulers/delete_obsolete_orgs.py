@@ -1,11 +1,21 @@
-from typing import Any
-
-from aioextensions import collect
-
-from dataloaders import get_new_context
-from groups import domain as groups_domain
-from newutils import datetime as datetime_utils
-from organizations import domain as orgs_domain
+from aioextensions import (
+    collect,
+)
+from dataloaders import (
+    get_new_context,
+)
+from groups import (
+    domain as groups_domain,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
+from organizations import (
+    domain as orgs_domain,
+)
+from typing import (
+    Any,
+)
 
 
 async def delete_obsolete_orgs() -> None:

@@ -1,11 +1,6 @@
-from typing import (
-    List,
-    cast,
+from aiodataloader import (
+    DataLoader,
 )
-
-from aiodataloader import DataLoader
-from graphql.type.definition import GraphQLResolveInfo
-
 from custom_types import (
     Finding,
     Project as Group,
@@ -14,6 +9,13 @@ from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from typing import (
+    cast,
+    List,
 )
 
 

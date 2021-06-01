@@ -1,18 +1,19 @@
-# Standard libraries
+from back.tests.functional.service_forces.utils import (
+    get_result,
+)
+from dataloaders import (
+    get_new_context,
+)
 import os
 import pytest
+from starlette.datastructures import (
+    UploadFile,
+)
 import textwrap
 from typing import (
     Any,
     Dict,
 )
-
-# Third party libraries
-from starlette.datastructures import UploadFile
-
-# Local libraries
-from back.tests.functional.service_forces.utils import get_result
-from dataloaders import get_new_context
 
 
 @pytest.mark.asyncio

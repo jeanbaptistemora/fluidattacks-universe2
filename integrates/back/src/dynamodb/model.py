@@ -1,23 +1,21 @@
-import json
-from collections import defaultdict
-from typing import (
-    Optional,
-    Tuple,
-    Union,
-)
-
 from boto3.dynamodb.conditions import (
     Attr,
     Key,
 )
-
-from context import FI_DB_MODEL_PATH
+from collections import (
+    defaultdict,
+)
+from context import (
+    FI_DB_MODEL_PATH,
+)
 from dynamodb import (
     historics,
     keys,
     operations,
 )
-from dynamodb.table import load_table
+from dynamodb.table import (
+    load_table,
+)
 from dynamodb.types import (
     GitRootCloning,
     GitRootItem,
@@ -41,7 +39,12 @@ from dynamodb.types import (
     VulnerabilityMetadata,
     VulnerabilityState,
 )
-
+import json
+from typing import (
+    Optional,
+    Tuple,
+    Union,
+)
 
 with open(FI_DB_MODEL_PATH, mode="r") as file:
     TABLE = load_table(json.load(file))

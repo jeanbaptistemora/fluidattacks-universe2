@@ -2,8 +2,15 @@
 # module about UPPER_CASE naming style with every variable declared here
 # pylint: disable-all
 
-from datetime import datetime
-from decimal import Decimal
+from boto3.dynamodb.conditions import (
+    ConditionBase,
+)
+from datetime import (
+    datetime,
+)
+from decimal import (
+    Decimal,
+)
 from typing import (
     Any,
     Dict,
@@ -13,10 +20,9 @@ from typing import (
     Set,
     Union,
 )
-from typing_extensions import TypedDict
-
-from boto3.dynamodb.conditions import ConditionBase
-
+from typing_extensions import (
+    TypedDict,
+)
 
 Comment = Dict[str, Union[int, str, object]]
 DynamoQuery = Dict[str, Union[ConditionBase, str]]

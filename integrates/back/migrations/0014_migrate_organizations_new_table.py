@@ -9,21 +9,29 @@ Execution Time: 2020-06-30 10:50 UTC-5
 Finalization Time: 2020-06-30 11:03 UTC-5
 """
 
-import json
-import os
-from typing import Dict, List, Union
-
 import aioboto3
 from aioextensions import (
     in_thread,
     run,
 )
+from boto3.dynamodb.conditions import (
+    Attr,
+    Not,
+)
+from botocore.exceptions import (
+    ClientError,
+)
 import bugsnag
-from boto3.dynamodb.conditions import Attr, Not
-from botocore.exceptions import ClientError
-
-from dynamodb.operations_legacy import RESOURCE_OPTIONS
-
+from dynamodb.operations_legacy import (
+    RESOURCE_OPTIONS,
+)
+import json
+import os
+from typing import (
+    Dict,
+    List,
+    Union,
+)
 
 INTEGRATES_TABLE: str = "integrates"
 ORGANIZATIONS_TABLE: str = "fi_organizations"

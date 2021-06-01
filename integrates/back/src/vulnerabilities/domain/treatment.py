@@ -1,20 +1,15 @@
-from decimal import Decimal
-from typing import (
-    Any,
-    Awaitable,
-    Dict,
-    List,
-    Optional,
-    Tuple,
-    Union,
-    cast,
+from .core import (
+    should_send_update_treatment,
 )
-
+from .utils import (
+    compare_historic_treatments,
+    validate_acceptation,
+    validate_treatment_manager,
+)
 from aioextensions import (
     collect,
     in_thread,
 )
-
 import authz
 from custom_exceptions import (
     InvalidAcceptanceDays,
@@ -28,19 +23,27 @@ from custom_types import (
     Finding,
     Historic,
 )
+from decimal import (
+    Decimal,
+)
 from newutils import (
     datetime as datetime_utils,
     findings as finding_utils,
     validations,
     vulnerabilities as vulns_utils,
 )
-from vulnerabilities import dal as vulns_dal
-
-from .core import should_send_update_treatment
-from .utils import (
-    compare_historic_treatments,
-    validate_acceptation,
-    validate_treatment_manager,
+from typing import (
+    Any,
+    Awaitable,
+    cast,
+    Dict,
+    List,
+    Optional,
+    Tuple,
+    Union,
+)
+from vulnerabilities import (
+    dal as vulns_dal,
 )
 
 

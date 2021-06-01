@@ -7,21 +7,28 @@ This migration changes the plain name of the organizations for a codename.
 Execution Time: 2020-07-17 21:20:00 UTC-5
 Finalization Time: 2020-07-17 21:40:00 UTC-5
 """
+import aioboto3
+from aioextensions import (
+    run,
+)
+from boto3.dynamodb.conditions import (
+    Attr,
+)
+from custom_types import (
+    DynamoDelete as DynamoDeleteType,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+from organizations import (
+    domain as orgs_domain,
+)
 import os
 from typing import (
     Any,
     Dict,
     List,
 )
-
-import aioboto3
-from aioextensions import run
-from boto3.dynamodb.conditions import Attr
-
-from custom_types import DynamoDelete as DynamoDeleteType
-from dynamodb import operations_legacy as dynamodb_ops
-from organizations import domain as orgs_domain
-
 
 STAGE: str = os.environ["STAGE"]
 ORGANIZATION_TABLE = "fi_organizations"

@@ -10,16 +10,19 @@ modifications so the backend can consume it and track it from there.
 Another migration will be added later to delete the original fields,
 once everything is well placed.
 """
-import json
-import os
-
-import bugsnag
-
 import authz
-from group_access import domain as group_access_domain
-from groups import dal as groups_dal
-from newutils import datetime as datetime_utils
-
+import bugsnag
+from group_access import (
+    domain as group_access_domain,
+)
+from groups import (
+    dal as groups_dal,
+)
+import json
+from newutils import (
+    datetime as datetime_utils,
+)
+import os
 
 STAGE: str = os.environ["STAGE"]
 

@@ -8,13 +8,13 @@ Execution Time:     2020-05-27 18:30 UTC-5
 Finalization Time:  2020-05-27 18:30 UTC-5
 """
 import argparse
-from typing import Dict
-
 import bugsnag
-
 from names.dal import (
-    TABLE_NAME as INTEGRATES_TABLE,
     get_all as get_all_group_names,
+    TABLE_NAME as INTEGRATES_TABLE,
+)
+from typing import (
+    Dict,
 )
 
 

@@ -1,28 +1,34 @@
-# Standard library
-import contextlib
-import os
-import socket
-import time
-from typing import AsyncIterator
-from urllib.parse import quote_plus as percent_encode
-
-# Third party libraries
-import aiohttp
 from aioextensions import (
     in_thread,
     run,
 )
-from selenium import webdriver
+import aiohttp
+from charts import (
+    utils,
+)
+import contextlib
+from newutils.encodings import (
+    safe_encode,
+)
+import os
+from selenium import (
+    webdriver,
+)
 from selenium.common.exceptions import (
     TimeoutException,
     WebDriverException,
 )
-from selenium.webdriver.firefox.options import Options
-
-# Local libraries
-from charts import utils
-from newutils.encodings import safe_encode
-
+from selenium.webdriver.firefox.options import (
+    Options,
+)
+import socket
+import time
+from typing import (
+    AsyncIterator,
+)
+from urllib.parse import (
+    quote_plus as percent_encode,
+)
 
 # Environment
 GECKO = os.environ["envGeckoDriver"]

@@ -1,6 +1,8 @@
+from events.dal import (
+    get_event,
+    update,
+)
 import pytest
-
-from events.dal import get_event, update
 
 pytestmark = [
     pytest.mark.asyncio,

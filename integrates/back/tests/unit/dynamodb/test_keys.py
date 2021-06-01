@@ -1,9 +1,11 @@
-# Third party
+from dynamodb import (
+    keys,
+)
+from dynamodb.types import (
+    Facet,
+    PrimaryKey,
+)
 import pytest
-
-# Local
-from dynamodb import keys
-from dynamodb.types import Facet, PrimaryKey
 
 
 def test_build_key_only_pk() -> None:

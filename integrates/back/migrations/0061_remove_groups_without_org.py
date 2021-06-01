@@ -5,25 +5,30 @@ This migration removes groups without an associated organization
 Execution Time:    2021-01-21 at 09:25:39 UTC-05
 Finalization Time: 2021-01-21 at 09:26:08 UTC-05
 """
-# Standard library
-from typing import cast
 
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from boto3.dynamodb.conditions import Key
-
-# Local libraries
-from dataloaders import get_new_context
-from dynamodb import operations_legacy as dynamodb_ops
-from groups import domain as groups_domain
+from boto3.dynamodb.conditions import (
+    Key,
+)
+from dataloaders import (
+    get_new_context,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+from groups import (
+    domain as groups_domain,
+)
 from organizations import (
     dal as orgs_dal,
     domain as orgs_domain,
 )
-
+from typing import (
+    cast,
+)
 
 FINDINGS_TABLE = "FI_findings"
 ORG_TABLE = "fi_organizations"

@@ -1,9 +1,6 @@
-# Standard
-import pytest
-from typing import Any, Dict
-
-# Local
-from back.tests import db
+from back.tests import (
+    db,
+)
 from dynamodb.types import (
     GitRootCloning,
     GitRootItem,
@@ -15,6 +12,11 @@ from dynamodb.types import (
     URLRootItem,
     URLRootMetadata,
     URLRootState,
+)
+import pytest
+from typing import (
+    Any,
+    Dict,
 )
 
 

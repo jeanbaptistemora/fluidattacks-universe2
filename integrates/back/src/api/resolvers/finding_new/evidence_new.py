@@ -1,9 +1,18 @@
-from typing import Dict
-from graphql.type.definition import GraphQLResolveInfo
-
-from db_model.findings.types import Finding
-from findings import domain as findings_domain
-from newutils import datetime as datetime_utils
+from db_model.findings.types import (
+    Finding,
+)
+from findings import (
+    domain as findings_domain,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
+from typing import (
+    Dict,
+)
 
 
 def resolve(

@@ -1,8 +1,15 @@
-from aioextensions import in_thread
-from mixpanel import Mixpanel
-
-from context import FI_ENVIRONMENT
-from settings import MIXPANEL_API_TOKEN
+from aioextensions import (
+    in_thread,
+)
+from context import (
+    FI_ENVIRONMENT,
+)
+from mixpanel import (
+    Mixpanel,
+)
+from settings import (
+    MIXPANEL_API_TOKEN,
+)
 
 
 async def mixpanel_track(email: str, event: str, **extra: str) -> None:

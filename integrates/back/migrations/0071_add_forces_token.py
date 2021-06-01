@@ -6,17 +6,21 @@ forces infra to the new infra dedicated only for integrates
 Execution Time:    Fri Feb 12 12:16:45 -05 2021
 Finalization Time: Fri Feb 12 12:18:20 -05 2021
 """
-# Standar library
-from typing import Optional
 
-# Third library
-import boto3
-from botocore.exceptions import ClientError
 import aioextensions
-
-# Local library
-from forces.domain import update_token
-from groups.domain import get_groups_with_forces
+import boto3
+from botocore.exceptions import (
+    ClientError,
+)
+from forces.domain import (
+    update_token,
+)
+from groups.domain import (
+    get_groups_with_forces,
+)
+from typing import (
+    Optional,
+)
 
 
 async def get_old_forces_token(group: str) -> Optional[str]:

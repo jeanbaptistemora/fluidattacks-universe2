@@ -5,17 +5,20 @@ This migration remove releaseDate and report_date from findings
 Execution Time: 2020-12-07 16:00:25 UTC-5
 Finalization Time: 2020-12-07 16:28:09 UTC-5
 """
-# Standard library
+
+from aioextensions import (
+    collect,
+)
+from asyncio import (
+    run,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+from findings.dal import (
+    update,
+)
 import os
-from asyncio import run
-
-# Third party library
-from aioextensions import collect
-
-# Local
-from dynamodb import operations_legacy as dynamodb_ops
-from findings.dal import update
-
 
 STAGE: str = os.environ["STAGE"]
 FINDINGS_TABLE = "FI_findings"

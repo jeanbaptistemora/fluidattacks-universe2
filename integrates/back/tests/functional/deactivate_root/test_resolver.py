@@ -1,9 +1,10 @@
-# Standard
+from . import (
+    query,
+)
 import pytest
-from typing import Optional
-
-# Local
-from . import query
+from typing import (
+    Optional,
+)
 
 
 @pytest.mark.asyncio

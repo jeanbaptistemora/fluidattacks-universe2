@@ -1,13 +1,11 @@
-from typing import (
-    Dict,
-    Set,
-)
-
 from dynamodb.types import (
     Facet,
     PrimaryKey,
 )
-
+from typing import (
+    Dict,
+    Set,
+)
 
 # Constants
 RESERVED_WORDS: Set[str] = {

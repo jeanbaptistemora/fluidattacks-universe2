@@ -1,14 +1,18 @@
 # pylint: disable=method-hidden
 
-from typing import (
-    List,
-    cast,
+from aiodataloader import (
+    DataLoader,
 )
-
-from aiodataloader import DataLoader
-
-from custom_types import Vulnerability as VulnerabilityType
-from vulnerabilities import domain as vulns_domain
+from custom_types import (
+    Vulnerability as VulnerabilityType,
+)
+from typing import (
+    cast,
+    List,
+)
+from vulnerabilities import (
+    domain as vulns_domain,
+)
 
 
 # pylint: disable=too-few-public-methods

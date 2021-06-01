@@ -38,32 +38,37 @@ have any problem.
 Execution Time:    2021-01-17 at 16:30:22 UTC-05
 Finalization Time: 2021-01-17 at 16:50:35 UTC-05
 """
-# Standard library
+
+from aioextensions import (
+    collect,
+    run,
+)
+from custom_types import (
+    Vulnerability,
+)
+from dataloaders.group import (
+    GroupLoader,
+)
+from groups.domain import (
+    get_active_groups,
+)
+from itertools import (
+    chain,
+)
+from more_itertools import (
+    chunked,
+)
 import os
 import time
-from itertools import chain
 from typing import (
     cast,
     Dict,
     List,
 )
-
-# Third party libraries
-from aioextensions import (
-    collect,
-    run,
-)
-from more_itertools import chunked
-
-# Local libraries
-from custom_types import Vulnerability
-from dataloaders.group import GroupLoader
-from groups.domain import get_active_groups
 from vulnerabilities import (
     dal as vulns_dal,
     domain as vulns_domain,
 )
-
 
 STAGE = os.environ["STAGE"]
 CLOSE_RANGE = ["2020-12-01 00:00:00", "2020-12-31 23:59:59"]

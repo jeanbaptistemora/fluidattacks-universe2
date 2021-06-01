@@ -1,11 +1,35 @@
-# Standard library
 import asyncio
 import contextlib
+from custom_types import (
+    ForcesExecutions,
+)
+from datetime import (
+    datetime,
+)
+from decimal import (
+    Decimal,
+)
+from forces import (
+    domain as forces_domain,
+)
+from frozendict import (
+    frozendict,
+)
 import functools
+from groups import (
+    domain as groups_domain,
+)
 import json
+from newutils.encodings import (
+    safe_encode,
+)
+from organizations import (
+    domain as orgs_domain,
+)
 import os
-from datetime import datetime
-from decimal import Decimal
+from tags import (
+    domain as tags_domain,
+)
 from typing import (
     Any,
     AsyncIterator,
@@ -18,18 +42,9 @@ from typing import (
     Type,
     Union,
 )
-from urllib.parse import urlparse
-
-from frozendict import frozendict
-
-# Third party libraries
-from custom_types import ForcesExecutions
-from forces import domain as forces_domain
-from groups import domain as groups_domain
-from newutils.encodings import safe_encode
-from organizations import domain as orgs_domain
-from tags import domain as tags_domain
-
+from urllib.parse import (
+    urlparse,
+)
 
 PortfoliosGroups = NamedTuple(
     "PortfoliosGroups",

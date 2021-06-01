@@ -1,12 +1,10 @@
-import logging
-import logging.config
-from typing import Any
-
-from ariadne import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
+from ariadne import (
+    convert_kwargs_to_snake_case,
+)
 import authz
-from custom_exceptions import StakeholderHasGroupAccess
+from custom_exceptions import (
+    StakeholderHasGroupAccess,
+)
 from custom_types import (
     GrantStakeholderAccessPayload as GrantStakeholderAccessPayloadType,
 )
@@ -16,15 +14,30 @@ from decorators import (
     require_integrates,
     require_login,
 )
-from group_access import domain as group_access_domain
-from groups import domain as groups_domain
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from group_access import (
+    domain as group_access_domain,
+)
+from groups import (
+    domain as groups_domain,
+)
+import logging
+import logging.config
 from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from redis_cluster.operations import redis_del_by_deps
-from settings import LOGGING
-
+from redis_cluster.operations import (
+    redis_del_by_deps,
+)
+from settings import (
+    LOGGING,
+)
+from typing import (
+    Any,
+)
 
 logging.config.dictConfig(LOGGING)
 

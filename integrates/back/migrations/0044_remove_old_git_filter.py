@@ -7,16 +7,20 @@ This migration removes old paths and policy attributes from filter configs
 Execution Time: 2020-12-15 10:10:30 UTC-5
 Finalization Time: 2020-12-15 10:13:23 UTC-5
 """
-# Standard
+
+from aioextensions import (
+    collect,
+    run,
+)
 import os
-from typing import Any, Dict, List
-
-# Third party
-from aioextensions import collect, run
-
-# Local
-from roots import dal as roots_dal
-
+from roots import (
+    dal as roots_dal,
+)
+from typing import (
+    Any,
+    Dict,
+    List,
+)
 
 STAGE: str = os.environ["STAGE"]
 SERVICES_REPO_DIR: str = f"{os.getcwd()}/services"

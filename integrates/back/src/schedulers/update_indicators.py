@@ -1,34 +1,47 @@
+from aioextensions import (
+    collect,
+)
+from botocore.exceptions import (
+    ClientError,
+)
+from collections import (
+    defaultdict,
+    OrderedDict,
+)
+from custom_types import (
+    Finding as FindingType,
+)
+from dataloaders import (
+    get_new_context,
+)
+from datetime import (
+    datetime,
+)
+from findings import (
+    domain as findings_domain,
+)
+from groups import (
+    domain as groups_domain,
+)
 import logging
 import logging.config
-from collections import (
-    OrderedDict,
-    defaultdict,
-)
-from datetime import datetime
-from typing import (
-    Any,
-    Dict,
-    List,
-    Optional,
-    Tuple,
-    Union,
-    cast,
-)
-
-from aioextensions import collect
-from botocore.exceptions import ClientError
-
-from custom_types import Finding as FindingType
-from dataloaders import get_new_context
-from findings import domain as findings_domain
-from groups import domain as groups_domain
 from newutils import (
     datetime as datetime_utils,
     findings as findings_utils,
     vulnerabilities as vulns_utils,
 )
-from settings import LOGGING
-
+from settings import (
+    LOGGING,
+)
+from typing import (
+    Any,
+    cast,
+    Dict,
+    List,
+    Optional,
+    Tuple,
+    Union,
+)
 
 logging.config.dictConfig(LOGGING)
 

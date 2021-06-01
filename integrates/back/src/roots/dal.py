@@ -1,15 +1,6 @@
-import logging
-import logging.config
-from typing import (
-    Any,
-    Dict,
-    Optional,
-    Tuple,
-    Union,
+from boto3.dynamodb.conditions import (
+    Key,
 )
-
-from boto3.dynamodb.conditions import Key
-
 from dynamodb import (
     model,
     operations_legacy as dynamodb_ops,
@@ -21,8 +12,18 @@ from dynamodb.types import (
     RootItem,
     URLRootState,
 )
-from settings import LOGGING
-
+import logging
+import logging.config
+from settings import (
+    LOGGING,
+)
+from typing import (
+    Any,
+    Dict,
+    Optional,
+    Tuple,
+    Union,
+)
 
 # Constants
 logging.config.dictConfig(LOGGING)

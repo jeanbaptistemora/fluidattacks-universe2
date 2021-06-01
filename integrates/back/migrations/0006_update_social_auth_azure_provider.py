@@ -9,16 +9,13 @@ Execution Time: 2020-06-02 14:32:00 UTC-5
 Finalitzation Time: 2020-06-02 14:35:00 UTC-5
 """
 
-import os
-
 import django
-
+import os
 
 django.setup()
 
 
 from social_django.models import UserSocialAuth  # pylint: disable-all
-
 
 STAGE: str = os.environ["STAGE"]
 

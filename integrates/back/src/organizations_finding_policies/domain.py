@@ -1,4 +1,41 @@
-from itertools import chain
+from .dal import (
+    add_org_finding_policy,
+    get_org_finding_policies,
+    get_org_finding_policy,
+    update_finding_policy_status,
+)
+from .types import (
+    OrgFindingPolicy,
+)
+from aioextensions import (
+    collect,
+    schedule,
+)
+from custom_exceptions import (
+    FindingNamePolicyNotFound,
+    InvalidFindingNamePolicy,
+    PolicyAlreadyHandled,
+    RepeatedFindingNamePolicy,
+)
+from custom_types import (
+    Finding,
+)
+from dynamodb.types import (
+    OrgFindingPolicyItem,
+    OrgFindingPolicyMetadata,
+    OrgFindingPolicyState,
+)
+from itertools import (
+    chain,
+)
+from newutils import (
+    datetime as datetime_utils,
+    findings as findings_utils,
+    vulnerabilities as vulns_utils,
+)
+from redis_cluster.operations import (
+    redis_del_by_deps,
+)
 from typing import (
     Any,
     Dict,
@@ -6,40 +43,12 @@ from typing import (
     Optional,
     Tuple,
 )
-from uuid import uuid4
-
-from aioextensions import (
-    collect,
-    schedule,
+from uuid import (
+    uuid4,
 )
-
-from custom_exceptions import (
-    FindingNamePolicyNotFound,
-    InvalidFindingNamePolicy,
-    PolicyAlreadyHandled,
-    RepeatedFindingNamePolicy,
+from vulnerabilities import (
+    dal as vulns_dal,
 )
-from custom_types import Finding
-from dynamodb.types import (
-    OrgFindingPolicyItem,
-    OrgFindingPolicyMetadata,
-    OrgFindingPolicyState,
-)
-from newutils import (
-    datetime as datetime_utils,
-    findings as findings_utils,
-    vulnerabilities as vulns_utils,
-)
-from redis_cluster.operations import redis_del_by_deps
-from vulnerabilities import dal as vulns_dal
-
-from .dal import (
-    add_org_finding_policy,
-    get_org_finding_policies,
-    get_org_finding_policy,
-    update_finding_policy_status,
-)
-from .types import OrgFindingPolicy
 
 
 async def get_finding_policy(

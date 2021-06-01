@@ -1,10 +1,3 @@
-import pytest
-from decimal import Decimal
-from typing import (
-    Any,
-    Dict,
-)
-
 from back.tests import (
     db,
 )
@@ -14,13 +7,21 @@ from db_model.findings.enums import (
 )
 from db_model.findings.types import (
     Finding,
+    Finding31Severity,
     FindingEvidence,
     FindingEvidences,
     FindingState,
     FindingStatus,
-    Finding31Severity,
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
+)
+from decimal import (
+    Decimal,
+)
+import pytest
+from typing import (
+    Any,
+    Dict,
 )
 
 

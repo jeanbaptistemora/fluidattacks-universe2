@@ -12,12 +12,11 @@ Finalization Time:  2020-07-01 12:16 UTC-5
 
 """
 
-import os
-
 import bugsnag
-
-from groups import dal as groups_dal
-
+from groups import (
+    dal as groups_dal,
+)
+import os
 
 STAGE: str = os.environ["STAGE"]
 

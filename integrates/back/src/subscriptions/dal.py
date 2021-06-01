@@ -1,20 +1,25 @@
-from decimal import Decimal
+from boto3.dynamodb.conditions import (
+    Key,
+)
+from custom_types import (
+    DynamoDelete,
+)
+from decimal import (
+    Decimal,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+from newutils.encodings import (
+    key_to_mapping,
+    mapping_to_key,
+)
 from typing import (
     Any,
     Dict,
     List,
     Union,
 )
-
-from boto3.dynamodb.conditions import Key
-
-from custom_types import DynamoDelete
-from dynamodb import operations_legacy as dynamodb_ops
-from newutils.encodings import (
-    key_to_mapping,
-    mapping_to_key,
-)
-
 
 # Constants
 SUBSCRIPTIONS_TABLE = "fi_subscriptions"

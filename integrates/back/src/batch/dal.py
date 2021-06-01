@@ -1,16 +1,16 @@
-import logging
-import logging.config
-from typing import (
-    List,
-    Optional,
-)
-
 import aioboto3
-from aioextensions import collect
-from boto3.dynamodb.conditions import Key
-from botocore.exceptions import ClientError
-
-from batch.types import BatchProcessing
+from aioextensions import (
+    collect,
+)
+from batch.types import (
+    BatchProcessing,
+)
+from boto3.dynamodb.conditions import (
+    Key,
+)
+from botocore.exceptions import (
+    ClientError,
+)
 from context import (
     CI_COMMIT_REF_NAME,
     FI_AWS_DYNAMODB_ACCESS_KEY,
@@ -19,15 +19,28 @@ from context import (
     FI_ENVIRONMENT,
     PRODUCT_API_TOKEN,
 )
-from custom_types import DynamoDelete
-from dynamodb import operations_legacy as dynamodb_ops
+from custom_types import (
+    DynamoDelete,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+import logging
+import logging.config
 from newutils.datetime import (
     get_as_epoch,
     get_now,
 )
-from newutils.encodings import safe_encode
-from settings import LOGGING
-
+from newutils.encodings import (
+    safe_encode,
+)
+from settings import (
+    LOGGING,
+)
+from typing import (
+    List,
+    Optional,
+)
 
 logging.config.dictConfig(LOGGING)
 

@@ -1,38 +1,50 @@
+from .model import (
+    get_group_level_roles_model,
+    get_organization_level_roles_model,
+    get_user_level_roles_model,
+)
+from aioextensions import (
+    collect,
+)
+from boto3.dynamodb.conditions import (
+    Key,
+)
+from botocore.exceptions import (
+    ClientError,
+)
 import contextlib
+from custom_types import (
+    DynamoDelete as DynamoDeleteType,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+from functools import (
+    partial,
+)
 import logging
 import logging.config
-from functools import partial
+from newutils import (
+    function,
+)
+from redis_cluster.operations import (
+    redis_del_by_deps,
+    redis_get_or_set_entity_attr,
+)
+from settings import (
+    LOGGING,
+)
 from typing import (
     Any,
     Awaitable,
+    cast,
     DefaultDict,
     Dict,
     List,
     NamedTuple,
     Optional,
     Tuple,
-    cast,
 )
-
-from aioextensions import collect
-from boto3.dynamodb.conditions import Key
-from botocore.exceptions import ClientError
-
-from custom_types import DynamoDelete as DynamoDeleteType
-from dynamodb import operations_legacy as dynamodb_ops
-from newutils import function
-from redis_cluster.operations import (
-    redis_del_by_deps,
-    redis_get_or_set_entity_attr,
-)
-from settings import LOGGING
-
-from .model import (
-    get_group_level_roles_model,
-    get_organization_level_roles_model,
-    get_user_level_roles_model,
-)
-
 
 logging.config.dictConfig(LOGGING)
 

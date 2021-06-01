@@ -1,8 +1,6 @@
 # None
 
 
-from ariadne import ObjectType
-
 from api.resolvers.finding import (
     age,
     analyst,
@@ -58,8 +56,12 @@ from api.resolvers.finding_new import (
     vulnerabilities_new,
     zero_risk_new,
 )
-from context import FI_API_STATUS
-
+from ariadne import (
+    ObjectType,
+)
+from context import (
+    FI_API_STATUS,
+)
 
 FINDING = ObjectType("Finding")
 

@@ -1,21 +1,6 @@
-import logging
-import logging.config
-import sys
-from decimal import Decimal
-from typing import (
-    Any,
-    AsyncIterator,
-    Dict,
-    List,
-    Optional,
-    Tuple,
-    Union,
-    cast,
+from aioextensions import (
+    collect,
 )
-
-from aioextensions import collect
-from graphql import GraphQLError
-
 import authz
 from custom_exceptions import (
     InvalidAcceptanceDays,
@@ -26,14 +11,46 @@ from custom_exceptions import (
     OrganizationNotFound,
     UserNotInOrganization,
 )
-from custom_types import Organization as OrganizationType
-from group_access import domain as group_access_domain
-from names import domain as names_domain
-from newutils import datetime as datetime_utils
-from organizations import dal as orgs_dal
-from settings import LOGGING
-from users import domain as users_domain
-
+from custom_types import (
+    Organization as OrganizationType,
+)
+from decimal import (
+    Decimal,
+)
+from graphql import (
+    GraphQLError,
+)
+from group_access import (
+    domain as group_access_domain,
+)
+import logging
+import logging.config
+from names import (
+    domain as names_domain,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
+from organizations import (
+    dal as orgs_dal,
+)
+from settings import (
+    LOGGING,
+)
+import sys
+from typing import (
+    Any,
+    AsyncIterator,
+    cast,
+    Dict,
+    List,
+    Optional,
+    Tuple,
+    Union,
+)
+from users import (
+    domain as users_domain,
+)
 
 logging.config.dictConfig(LOGGING)
 

@@ -1,38 +1,81 @@
-from collections import defaultdict
+from .event import (
+    EventLoader,
+)
+from .finding import (
+    FindingLoader,
+)
+from .finding_vulns import (
+    FindingVulnsLoader,
+)
+from .finding_vulns_non_deleted import (
+    FindingVulnsNonDeletedLoader,
+)
+from .finding_vulns_non_zero_risk import (
+    FindingVulnsNonZeroRiskLoader,
+)
+from .finding_vulns_only_zero_risk import (
+    FindingVulnsOnlyZeroRiskLoader,
+)
+from .group import (
+    GroupLoader,
+)
+from .group_active import (
+    GroupActiveLoader,
+)
+from .group_drafts import (
+    GroupDraftsLoader,
+)
+from .group_findings import (
+    GroupFindingsLoader,
+)
+from .group_findings_non_deleted import (
+    GroupFindingsNonDeletedLoader,
+)
+from .group_roots import (
+    GroupRootsLoader,
+)
+from .group_stakeholders import (
+    GroupStakeholdersLoader,
+)
+from .group_stakeholders_non_fluid import (
+    GroupStakeholdersNonFluidLoader,
+)
+from .group_toe_inputs import (
+    GroupToeInputsLoader,
+)
+from .group_toe_lines import (
+    GroupToeLinesLoader,
+)
+from .organization import (
+    OrganizationLoader,
+)
+from .organization_stakeholders import (
+    OrganizationStakeholdersLoader,
+)
+from .organization_tags import (
+    OrganizationTagsLoader,
+)
+from .root_toe_lines import (
+    RootToeLinesLoader,
+)
+from .vulnerability import (
+    VulnerabilityLoader,
+)
+from collections import (
+    defaultdict,
+)
+from db_model.findings.get import (
+    FindingHistoricStateNewLoader,
+    FindingHistoricVerificationNewLoader,
+    FindingNewLoader,
+)
+from starlette.requests import (
+    Request,
+)
 from typing import (
     NamedTuple,
     Optional,
 )
-
-from starlette.requests import Request
-
-from db_model.findings.get import (
-    FindingNewLoader,
-    FindingHistoricStateNewLoader,
-    FindingHistoricVerificationNewLoader,
-)
-
-from .event import EventLoader
-from .finding import FindingLoader
-from .finding_vulns import FindingVulnsLoader
-from .finding_vulns_non_deleted import FindingVulnsNonDeletedLoader
-from .finding_vulns_non_zero_risk import FindingVulnsNonZeroRiskLoader
-from .finding_vulns_only_zero_risk import FindingVulnsOnlyZeroRiskLoader
-from .group import GroupLoader
-from .group_active import GroupActiveLoader
-from .group_drafts import GroupDraftsLoader
-from .group_findings import GroupFindingsLoader
-from .group_findings_non_deleted import GroupFindingsNonDeletedLoader
-from .group_roots import GroupRootsLoader
-from .group_stakeholders import GroupStakeholdersLoader
-from .group_stakeholders_non_fluid import GroupStakeholdersNonFluidLoader
-from .group_toe_inputs import GroupToeInputsLoader
-from .group_toe_lines import GroupToeLinesLoader
-from .organization import OrganizationLoader
-from .organization_stakeholders import OrganizationStakeholdersLoader
-from .organization_tags import OrganizationTagsLoader
-from .root_toe_lines import RootToeLinesLoader
-from .vulnerability import VulnerabilityLoader
 
 
 class Dataloaders(NamedTuple):
@@ -43,7 +86,7 @@ class Dataloaders(NamedTuple):
     finding_historic_verification_new: FindingHistoricVerificationNewLoader
     finding_vulns: FindingVulnsLoader  # All vulns except deleted
     finding_vulns_all: FindingVulnsNonDeletedLoader  # All vulns
-    finding_vulns_nzr: FindingVulnsNonZeroRiskLoader  # Standard call
+    finding_vulns_nzr: FindingVulnsNonZeroRiskLoader
     finding_vulns_zr: FindingVulnsOnlyZeroRiskLoader
     group: GroupActiveLoader
     group_all: GroupLoader  # Used only by analytics. Retrieves all groups

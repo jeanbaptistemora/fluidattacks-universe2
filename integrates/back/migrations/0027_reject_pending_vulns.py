@@ -5,26 +5,29 @@ It takes those PENDING vulns and reject them as before.
 Executed: 2020-08-31 12:20:00-05:00
 """
 
+from aioextensions import (
+    collect,
+    run,
+)
+from dataloaders import (
+    get_new_context,
+)
+import django
+from findings import (
+    domain as findings_domain,
+)
+from groups import (
+    domain as groups_domain,
+)
 import os
 from typing import (
     Dict,
     List,
 )
-
-import django
-from aioextensions import (
-    collect,
-    run,
-)
-
-from dataloaders import get_new_context
-from findings import domain as findings_domain
-from groups import domain as groups_domain
 from vulnerabilities import (
     dal as vulns_dal,
     domain as vulns_domain,
 )
-
 
 django.setup()
 STAGE: str = os.environ["STAGE"]

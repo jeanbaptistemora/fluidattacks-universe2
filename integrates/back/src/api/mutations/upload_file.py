@@ -1,26 +1,38 @@
-from typing import Any
-
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
+)
 from custom_exceptions import (
     ErrorUploadingFileS3,
     InvalidFileType,
 )
-from custom_types import SimplePayload
+from custom_types import (
+    SimplePayload,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login,
 )
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
 from newutils import (
     files as files_utils,
     logs as logs_utils,
 )
-from organizations_finding_policies import domain as policies_domain
-from redis_cluster.operations import redis_del_by_deps
-from vulnerability_files import domain as vuln_files_domain
+from organizations_finding_policies import (
+    domain as policies_domain,
+)
+from redis_cluster.operations import (
+    redis_del_by_deps,
+)
+from typing import (
+    Any,
+)
+from vulnerability_files import (
+    domain as vuln_files_domain,
+)
 
 
 @convert_kwargs_to_snake_case

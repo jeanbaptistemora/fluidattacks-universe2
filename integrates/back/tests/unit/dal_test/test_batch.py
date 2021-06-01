@@ -1,13 +1,11 @@
-# Standard libraries
-import pytest
-
-# Local libraries
-from batch import dal as batch_dal
+from batch import (
+    dal as batch_dal,
+)
 from newutils.datetime import (
     get_as_epoch,
     get_now,
 )
-
+import pytest
 
 pytestmark = [
     pytest.mark.asyncio,

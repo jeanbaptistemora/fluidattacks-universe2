@@ -1,13 +1,15 @@
+from bill import (
+    dal as bill_dal,
+)
 import csv
+from datetime import (
+    datetime,
+)
 import io
-from datetime import datetime
 from typing import (
     Dict,
     List,
 )
-
-from bill import dal as bill_dal
-
 
 # Columns we want to show to the customers, with their correct names
 # mapping to all possible names it may have in the data source

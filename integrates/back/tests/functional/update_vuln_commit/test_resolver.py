@@ -1,21 +1,17 @@
-# Standard libraries
-from typing import (
-    Any,
-    Dict,
+from . import (
+    query,
 )
-
-# Third party libraries
-import pytest
-
-# Local libraries
-from . import query
 from custom_exceptions import (
     ExpectedVulnToBeOfLinesType,
     InvalidVulnCommitHash,
     InvalidVulnSpecific,
     InvalidVulnWhere,
 )
-
+import pytest
+from typing import (
+    Any,
+    Dict,
+)
 
 # Constants
 STAKEHOLDER_GOOD = "admin@gmail.com"

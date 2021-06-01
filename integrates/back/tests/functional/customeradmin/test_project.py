@@ -1,19 +1,24 @@
-# Standard libraries
+from back.tests.functional.customeradmin.utils import (
+    get_result,
+)
+from back.tests.functional.utils import (
+    complete_register,
+)
+from custom_exceptions import (
+    UserNotInOrganization,
+)
+from dataloaders import (
+    get_new_context,
+)
 import json
+from names.domain import (
+    get_name,
+)
+import pytest
 from typing import (
     Any,
     Dict,
 )
-
-# Third-party libraries
-import pytest
-
-# Local libraries
-from back.tests.functional.customeradmin.utils import get_result
-from back.tests.functional.utils import complete_register
-from custom_exceptions import UserNotInOrganization
-from dataloaders import get_new_context
-from names.domain import get_name
 
 
 @pytest.mark.asyncio

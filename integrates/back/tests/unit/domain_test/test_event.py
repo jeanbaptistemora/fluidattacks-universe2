@@ -1,10 +1,12 @@
-import os
-from time import time
-import pytest
-from aniso8601 import parse_datetime
-
-from starlette.datastructures import UploadFile
-
+from aniso8601 import (
+    parse_datetime,
+)
+from back.tests.unit.utils import (
+    create_dummy_session,
+)
+from comments import (
+    domain as comments_domain,
+)
 from custom_exceptions import (
     EventAlreadyClosed,
     EventNotFound,
@@ -12,14 +14,27 @@ from custom_exceptions import (
     InvalidFileSize,
     InvalidFileType,
 )
-from dataloaders import get_new_context
-from events import dal as events_dal
-from back.tests.unit.utils import create_dummy_session
-from graphql.type import GraphQLResolveInfo
-from comments import domain as comments_domain
-from events import domain as events_domain
-from newutils import datetime as datetime_utils
-
+from dataloaders import (
+    get_new_context,
+)
+from events import (
+    dal as events_dal,
+    domain as events_domain,
+)
+from graphql.type import (
+    GraphQLResolveInfo,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
+import os
+import pytest
+from starlette.datastructures import (
+    UploadFile,
+)
+from time import (
+    time,
+)
 
 pytestmark = [
     pytest.mark.asyncio,

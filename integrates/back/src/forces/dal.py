@@ -1,18 +1,6 @@
 """Data Access Layer to the Forces tables."""
 
 
-import json
-import logging
-import logging.config
-import tempfile
-from datetime import datetime
-from typing import (
-    Any,
-    AsyncIterator,
-    Optional,
-    cast,
-)
-
 import aioboto3
 import aioextensions
 import boto3
@@ -20,19 +8,40 @@ from boto3.dynamodb.conditions import (
     Attr,
     Key,
 )
-from botocore.exceptions import ClientError
-
+from botocore.exceptions import (
+    ClientError,
+)
 from context import (
     FI_AWS_S3_FORCES_BUCKET,
     FI_AWS_SECRETSMANAGER_ACCESS_KEY,
     FI_AWS_SECRETSMANAGER_SECRET_KEY,
     FI_AWS_SESSION_TOKEN,
 )
-from dynamodb import operations_legacy as dynamodb_ops
-from newutils import datetime as datetime_utils
-from s3 import operations as s3_ops
-from settings import LOGGING
-
+from datetime import (
+    datetime,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+import json
+import logging
+import logging.config
+from newutils import (
+    datetime as datetime_utils,
+)
+from s3 import (
+    operations as s3_ops,
+)
+from settings import (
+    LOGGING,
+)
+import tempfile
+from typing import (
+    Any,
+    AsyncIterator,
+    cast,
+    Optional,
+)
 
 logging.config.dictConfig(LOGGING)
 

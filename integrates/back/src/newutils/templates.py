@@ -1,25 +1,26 @@
 # Starlette templates renders
 
-# Standard library
-import json
-import traceback
 
-# Third party libraries
-from starlette.requests import Request
-from starlette.responses import HTMLResponse
-from starlette.templating import Jinja2Templates
-
-# Local librariessettings
 from custom_types import (
     GraphicParameters,
     ProjectAccess as GroupAccessType,
 )
+import json
 from settings import (
     DEBUG,
     STATIC_URL,
     TEMPLATES_DIR,
 )
-
+from starlette.requests import (
+    Request,
+)
+from starlette.responses import (
+    HTMLResponse,
+)
+from starlette.templating import (
+    Jinja2Templates,
+)
+import traceback
 
 TEMPLATING_ENGINE = Jinja2Templates(directory=TEMPLATES_DIR)
 

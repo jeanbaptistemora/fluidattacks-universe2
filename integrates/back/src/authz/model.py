@@ -3,7 +3,6 @@ from typing import (
     Set,
 )
 
-
 # Constants
 FLUID_IDENTIFIER = "@fluidattacks.com"
 RoleModel = Dict[str, Dict[str, Set[str]]]

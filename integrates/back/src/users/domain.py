@@ -1,18 +1,6 @@
-import re
-from datetime import datetime
-from itertools import chain
-from typing import (
-    Any,
-    Awaitable,
-    Dict,
-    List,
-    Union,
-    cast,
+from aioextensions import (
+    collect,
 )
-
-from aioextensions import collect
-from starlette.requests import Request
-
 import authz
 from custom_exceptions import (
     ExpiredToken,
@@ -26,7 +14,15 @@ from custom_types import (
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
     User as UserType,
 )
-from group_access import domain as group_access_domain
+from datetime import (
+    datetime,
+)
+from group_access import (
+    domain as group_access_domain,
+)
+from itertools import (
+    chain,
+)
 from newutils import (
     datetime as datetime_utils,
     logs as logs_utils,
@@ -38,10 +34,30 @@ from newutils.validations import (
     validate_field_length,
     validate_phone_field,
 )
-from redis_cluster.model import KeyNotFound as RedisKeyNotFound
-from redis_cluster.operations import redis_del_by_deps
-from sessions import dal as sessions_dal
-from users import dal as users_dal
+import re
+from redis_cluster.model import (
+    KeyNotFound as RedisKeyNotFound,
+)
+from redis_cluster.operations import (
+    redis_del_by_deps,
+)
+from sessions import (
+    dal as sessions_dal,
+)
+from starlette.requests import (
+    Request,
+)
+from typing import (
+    Any,
+    Awaitable,
+    cast,
+    Dict,
+    List,
+    Union,
+)
+from users import (
+    dal as users_dal,
+)
 
 
 async def acknowledge_concurrent_session(email: str) -> bool:

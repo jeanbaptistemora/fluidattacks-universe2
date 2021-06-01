@@ -1,16 +1,24 @@
+from aiodataloader import (
+    DataLoader,
+)
+from aioextensions import (
+    collect,
+)
+import authz
+from custom_types import (
+    Stakeholder as StakeholderType,
+)
+from organizations import (
+    domain as orgs_domain,
+)
 from typing import (
+    cast,
     List,
     Tuple,
-    cast,
 )
-
-from aiodataloader import DataLoader
-from aioextensions import collect
-
-import authz
-from custom_types import Stakeholder as StakeholderType
-from organizations import domain as orgs_domain
-from users import domain as stakeholders_domain
+from users import (
+    domain as stakeholders_domain,
+)
 
 
 async def _get_stakeholder(email: str, org_id: str) -> StakeholderType:

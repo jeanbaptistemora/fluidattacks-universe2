@@ -9,23 +9,23 @@ each nickname.
 Execution Time:    2021-03-19 at 09:24:06 UTC-05
 Finalization Time: 2021-03-19 at 09:35:09 UTC-05
 """
-# Standard
+
+from aioextensions import (
+    collect,
+    run,
+)
+from groups import (
+    dal as groups_dal,
+)
+from roots import (
+    dal as roots_dal,
+    domain as roots_domain,
+)
 import time
 from typing import (
     Any,
     Dict,
 )
-
-# Third party
-from aioextensions import (
-    collect,
-    run,
-)
-
-# Local
-from groups import dal as groups_dal
-from roots import dal as roots_dal
-from roots import domain as roots_domain
 
 
 async def update_filter(

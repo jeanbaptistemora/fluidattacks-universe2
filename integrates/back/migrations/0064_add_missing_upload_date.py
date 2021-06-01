@@ -6,30 +6,43 @@ taking it from LastModified
 Execution Time: 2021-01-26 21:41:08 UTC-5
 Finalization Time: 2021-01-26 21:51:47 UTC-5
 """
-# Standard library
-import os
-from itertools import chain
-from typing import (
-    Dict,
-    List,
-)
 
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from more_itertools import chunked
-
-# Local libraries
-from context import FI_AWS_S3_BUCKET
-from custom_types import Finding
-from dataloaders.group import GroupLoader
-from findings import dal as findings_dal
-from groups.domain import get_active_groups
-from newutils import datetime as datetime_utils
-from s3.operations import aio_client
-
+from context import (
+    FI_AWS_S3_BUCKET,
+)
+from custom_types import (
+    Finding,
+)
+from dataloaders.group import (
+    GroupLoader,
+)
+from findings import (
+    dal as findings_dal,
+)
+from groups.domain import (
+    get_active_groups,
+)
+from itertools import (
+    chain,
+)
+from more_itertools import (
+    chunked,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
+import os
+from s3.operations import (
+    aio_client,
+)
+from typing import (
+    Dict,
+    List,
+)
 
 STAGE: str = os.environ["STAGE"]
 

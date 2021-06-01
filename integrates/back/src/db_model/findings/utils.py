@@ -1,7 +1,3 @@
-from typing import Optional
-
-from dynamodb.types import Item
-
 from .enums import (
     FindingStateStatus,
     FindingStatus,
@@ -11,6 +7,12 @@ from .types import (
     FindingState,
     FindingUnreliableIndicators,
     FindingVerification,
+)
+from dynamodb.types import (
+    Item,
+)
+from typing import (
+    Optional,
 )
 
 

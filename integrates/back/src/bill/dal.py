@@ -1,15 +1,22 @@
+from botocore.exceptions import (
+    ClientError,
+)
+from context import (
+    SERVICES_AWS_S3_DATA_BUCKET as SERVICES_DATA_BUCKET,
+)
+from datetime import (
+    datetime,
+)
 import io
 import logging
 import logging.config
 import os
-from datetime import datetime
-
-from botocore.exceptions import ClientError
-
-from context import SERVICES_AWS_S3_DATA_BUCKET as SERVICES_DATA_BUCKET
-from s3.operations import aio_client
-from settings import LOGGING
-
+from s3.operations import (
+    aio_client,
+)
+from settings import (
+    LOGGING,
+)
 
 logging.config.dictConfig(LOGGING)
 

@@ -8,29 +8,40 @@ from vulnerability
 Execution Time:    2020-12-03 06:45:53 UTC-5
 Finalization Time: 2020-12-03 07:38:29 UTC-5
 """
-# Standard library
-import os
-from itertools import chain
-from typing import (
-    Dict,
-    List,
-)
 
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from more_itertools import chunked
-
-# Local libraries
-from custom_types import Finding
-from dataloaders.group import GroupLoader
-from dataloaders.finding import FindingLoader
-from groups.domain import get_active_groups
-from vulnerabilities import dal as vulns_dal
-from vulnerabilities.domain import list_vulnerabilities_async
-
+from custom_types import (
+    Finding,
+)
+from dataloaders.finding import (
+    FindingLoader,
+)
+from dataloaders.group import (
+    GroupLoader,
+)
+from groups.domain import (
+    get_active_groups,
+)
+from itertools import (
+    chain,
+)
+from more_itertools import (
+    chunked,
+)
+import os
+from typing import (
+    Dict,
+    List,
+)
+from vulnerabilities import (
+    dal as vulns_dal,
+)
+from vulnerabilities.domain import (
+    list_vulnerabilities_async,
+)
 
 STAGE: str = os.environ["STAGE"]
 

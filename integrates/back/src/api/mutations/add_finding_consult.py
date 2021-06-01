@@ -1,26 +1,44 @@
-from time import time
-from typing import Any
-
-from aioextensions import schedule
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_exceptions import PermissionDenied
-from custom_types import AddConsultPayload as AddConsultPayloadType
+from aioextensions import (
+    schedule,
+)
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
+)
+from custom_exceptions import (
+    PermissionDenied,
+)
+from custom_types import (
+    AddConsultPayload as AddConsultPayloadType,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login,
 )
-from findings import domain as findings_domain
-from mailer import findings as findings_mail
+from findings import (
+    domain as findings_domain,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from mailer import (
+    findings as findings_mail,
+)
 from newutils import (
     datetime as datetime_utils,
     logs as logs_utils,
     token as token_utils,
 )
-from redis_cluster.operations import redis_del_by_deps_soon
+from redis_cluster.operations import (
+    redis_del_by_deps_soon,
+)
+from time import (
+    time,
+)
+from typing import (
+    Any,
+)
 
 
 @convert_kwargs_to_snake_case

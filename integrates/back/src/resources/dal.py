@@ -1,11 +1,14 @@
+from botocore.exceptions import (
+    ClientError,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
 import logging
 import logging.config
-
-from botocore.exceptions import ClientError
-
-from dynamodb import operations_legacy as dynamodb_ops
-from settings import LOGGING
-
+from settings import (
+    LOGGING,
+)
 
 logging.config.dictConfig(LOGGING)
 

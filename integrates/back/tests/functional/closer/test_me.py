@@ -1,7 +1,11 @@
+from back.tests.functional.closer.utils import (
+    get_result,
+)
+from datetime import (
+    datetime,
+    timedelta,
+)
 import pytest
-from datetime import datetime, timedelta
-
-from back.tests.functional.closer.utils import get_result
 
 
 @pytest.mark.asyncio

@@ -1,19 +1,12 @@
-import logging
-import logging.config
-import uuid
-from typing import (
-    AsyncIterator,
-    Dict,
-    List,
-    Optional,
-    Tuple,
-    cast,
+from aioextensions import (
+    collect,
 )
-
-from aioextensions import collect
-from boto3.dynamodb.conditions import Key
-from botocore.exceptions import ClientError
-
+from boto3.dynamodb.conditions import (
+    Key,
+)
+from botocore.exceptions import (
+    ClientError,
+)
 from custom_exceptions import (
     InvalidOrganization,
     UnavailabilityError,
@@ -31,8 +24,20 @@ from dynamodb.operations_legacy import (
     query as dynamodb_query,
     update_item as dynamodb_update_item,
 )
-from settings import LOGGING
-
+import logging
+import logging.config
+from settings import (
+    LOGGING,
+)
+from typing import (
+    AsyncIterator,
+    cast,
+    Dict,
+    List,
+    Optional,
+    Tuple,
+)
+import uuid
 
 logging.config.dictConfig(LOGGING)
 

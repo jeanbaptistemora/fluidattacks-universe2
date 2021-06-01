@@ -8,25 +8,30 @@ of an organization
 Execution Time: 2020-07-08 16:00:00 UTC-5
 Finalization Time: 2020-07-08 17:00:00 UTC-5
 """
+import aioboto3
+from aioextensions import (
+    in_thread,
+    run,
+)
+import authz
+from boto3.dynamodb.conditions import (
+    Attr,
+)
+from custom_types import (
+    Organization as OrganizationType,
+)
+from dynamodb.operations_legacy import (
+    RESOURCE_OPTIONS,
+)
+from organizations import (
+    domain as orgs_domain,
+)
 import os
 from typing import (
     Any,
     Dict,
     List,
 )
-
-import aioboto3
-from aioextensions import (
-    in_thread,
-    run,
-)
-from boto3.dynamodb.conditions import Attr
-
-import authz
-from custom_types import Organization as OrganizationType
-from dynamodb.operations_legacy import RESOURCE_OPTIONS
-from organizations import domain as orgs_domain
-
 
 STAGE: str = os.environ["STAGE"]
 TABLE_NAME: str = "fi_organizations"

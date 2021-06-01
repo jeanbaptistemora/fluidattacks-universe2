@@ -1,12 +1,10 @@
-# Standard library
-import asyncio
-import importlib
-import sys
-
 from aioextensions import (
     in_thread,
     run,
 )
+import asyncio
+import importlib
+import sys
 
 
 async def main() -> None:

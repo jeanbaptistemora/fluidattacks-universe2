@@ -1,18 +1,6 @@
-import random
-from decimal import Decimal
-from typing import (
-    Any,
-    Dict,
-    List,
-    Optional,
-    Set,
-    Tuple,
-    cast,
+from aioextensions import (
+    collect,
 )
-
-from aioextensions import collect
-from graphql.type.definition import GraphQLResolveInfo
-
 from custom_exceptions import (
     AlreadyApproved,
     AlreadySubmitted,
@@ -25,7 +13,15 @@ from custom_types import (
     Finding as FindingType,
     User as UserType,
 )
-from findings import dal as findings_dal
+from decimal import (
+    Decimal,
+)
+from findings import (
+    dal as findings_dal,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
 from newutils import (
     datetime as datetime_utils,
     findings as findings_utils,
@@ -33,7 +29,19 @@ from newutils import (
     token as token_utils,
     vulnerabilities as vulns_utils,
 )
-from vulnerabilities import domain as vulns_domain
+import random
+from typing import (
+    Any,
+    cast,
+    Dict,
+    List,
+    Optional,
+    Set,
+    Tuple,
+)
+from vulnerabilities import (
+    domain as vulns_domain,
+)
 
 
 async def approve_draft(

@@ -1,15 +1,18 @@
+from .types import (
+    Finding,
+)
+from .utils import (
+    format_optional_verification_item,
+    format_state_item,
+    format_unreliable_indicators_item,
+)
+from db_model import (
+    TABLE,
+)
 from dynamodb import (
     historics,
     keys,
     operations,
-)
-from db_model import TABLE
-
-from .types import Finding
-from .utils import (
-    format_state_item,
-    format_unreliable_indicators_item,
-    format_optional_verification_item,
 )
 
 

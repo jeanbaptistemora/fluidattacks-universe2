@@ -1,16 +1,21 @@
-# Third party libraries
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
-# Local libraries
-from custom_types import SimplePayload
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
+)
+from custom_types import (
+    SimplePayload,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login,
 )
-from redis_cluster.operations import redis_del_by_deps
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from redis_cluster.operations import (
+    redis_del_by_deps,
+)
 from vulnerabilities.domain.rebase import (
     rebase as rebase_vuln,
 )

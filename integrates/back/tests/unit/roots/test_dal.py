@@ -1,17 +1,18 @@
-# Standard
+from _pytest.monkeypatch import (
+    MonkeyPatch,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+import pytest
+from roots import (
+    dal as roots_dal,
+)
 from typing import (
     Any,
     Dict,
     List,
 )
-
-# Third party
-import pytest
-from _pytest.monkeypatch import MonkeyPatch
-
-# Local
-from dynamodb import operations_legacy as dynamodb_ops
-from roots import dal as roots_dal
 
 
 @pytest.mark.asyncio

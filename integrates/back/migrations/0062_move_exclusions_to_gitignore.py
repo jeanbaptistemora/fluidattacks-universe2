@@ -6,24 +6,23 @@ and simpler gitignore
 Execution Time: 2021-01-22 at 10:14:13 UTC-05
 Finalization Time: 2021-01-22 at 10:15:37 UTC-05
 """
-# Standard library
+
+from aioextensions import (
+    collect,
+    run,
+)
+from groups import (
+    dal as groups_dal,
+)
 import os
+from roots import (
+    dal as roots_dal,
+)
 import time
 from typing import (
     Any,
     Dict,
 )
-
-# Third party libraries
-from aioextensions import (
-    collect,
-    run,
-)
-
-# Local libraries
-from groups import dal as groups_dal
-from roots import dal as roots_dal
-
 
 STAGE = os.environ["STAGE"]
 

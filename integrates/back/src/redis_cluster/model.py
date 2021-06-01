@@ -3,7 +3,6 @@ from typing import (
     Set,
 )
 
-
 # Constants
 ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
     analytics=dict(

@@ -1,21 +1,32 @@
-import logging
-import logging.config
-
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import SimplePayload
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
+)
+from custom_types import (
+    SimplePayload,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_integrates,
     require_login,
 )
-from findings import domain as findings_domain
-from newutils import logs as logs_utils
-from redis_cluster.operations import redis_del_by_deps_soon
-from settings import LOGGING
-
+from findings import (
+    domain as findings_domain,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+import logging
+import logging.config
+from newutils import (
+    logs as logs_utils,
+)
+from redis_cluster.operations import (
+    redis_del_by_deps_soon,
+)
+from settings import (
+    LOGGING,
+)
 
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)

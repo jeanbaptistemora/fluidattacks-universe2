@@ -26,19 +26,27 @@
 #   during a timespan of 1 day to 2 weeks
 #
 
-# Standard library
-import os
-from asyncio import run
-from pprint import pprint
-from typing import Any
 
-# Third party library
 import aioboto3
-from aioextensions import collect
-
-from dynamodb.operations_legacy import RESOURCE_OPTIONS
-from findings.dal import update
-
+from aioextensions import (
+    collect,
+)
+from asyncio import (
+    run,
+)
+from dynamodb.operations_legacy import (
+    RESOURCE_OPTIONS,
+)
+from findings.dal import (
+    update,
+)
+import os
+from pprint import (
+    pprint,
+)
+from typing import (
+    Any,
+)
 
 STAGE: str = os.environ["STAGE"]
 FINDINGS_TABLE = "FI_findings"

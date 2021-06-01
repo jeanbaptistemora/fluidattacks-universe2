@@ -5,25 +5,26 @@ This migration aims to add DELETED status to vulns
 Execution Time: 2021-01-08 18:38:32 UTC-5
 Finalization Time: 2020-01-08 19:03:16 UTC-5
 """
-# Standard library
-import os
-from typing import Dict
 
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-
-# Local libraries
-from custom_types import Finding
+from custom_types import (
+    Finding,
+)
 from findings.domain.core import (
     delete_vulnerabilities,
     get_findings_by_group,
     is_deleted,
 )
-from groups.domain import get_alive_groups
-
+from groups.domain import (
+    get_alive_groups,
+)
+import os
+from typing import (
+    Dict,
+)
 
 STAGE: str = os.environ["STAGE"]
 

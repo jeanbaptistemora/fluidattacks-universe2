@@ -2,7 +2,9 @@ from .analytics import (
     MIXPANEL_API_TOKEN,
     NEW_RELIC_CONF_FILE,
 )
-from .cache import CACHE_TTL
+from .cache import (
+    CACHE_TTL,
+)
 from .jwt import (
     JWT_COOKIE_NAME,
     JWT_COOKIE_SAMESITE,
@@ -26,7 +28,6 @@ from .various import (
     DEBUG,
     TIME_ZONE,
 )
-
 
 __all__ = [
     "MIXPANEL_API_TOKEN",

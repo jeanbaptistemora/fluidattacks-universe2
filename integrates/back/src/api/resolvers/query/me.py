@@ -1,11 +1,21 @@
-from typing import Dict
-
-from ariadne.utils import convert_kwargs_to_snake_case
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import Me
-from decorators import require_login
-from newutils import token as token_utils
+from ariadne.utils import (
+    convert_kwargs_to_snake_case,
+)
+from custom_types import (
+    Me,
+)
+from decorators import (
+    require_login,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from newutils import (
+    token as token_utils,
+)
+from typing import (
+    Dict,
+)
 
 
 @convert_kwargs_to_snake_case

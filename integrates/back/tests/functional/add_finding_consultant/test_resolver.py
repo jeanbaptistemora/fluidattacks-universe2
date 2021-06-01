@@ -1,12 +1,11 @@
-# Standard libraries
+from . import (
+    query,
+)
 import pytest
 from typing import (
     Any,
     Dict,
 )
-
-# Local libraries
-from . import query
 
 
 @pytest.mark.asyncio

@@ -1,15 +1,24 @@
-# Standard library
-from typing import Any, Dict, List, NamedTuple
-
-# Third party libraries
-from aioextensions import run
-
-# Local libraries
-from charts import utils
-from charts.colors import OTHER
-from dataloaders import get_new_context
-from roots.types import GitRoot
-
+from aioextensions import (
+    run,
+)
+from charts import (
+    utils,
+)
+from charts.colors import (
+    OTHER,
+)
+from dataloaders import (
+    get_new_context,
+)
+from roots.types import (
+    GitRoot,
+)
+from typing import (
+    Any,
+    Dict,
+    List,
+    NamedTuple,
+)
 
 Resources = NamedTuple(
     "Resources",

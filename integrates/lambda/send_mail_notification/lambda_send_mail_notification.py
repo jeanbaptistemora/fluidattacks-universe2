@@ -1,13 +1,11 @@
 """Send new vulnerabilities mail lambda function."""
 import json
+import mandrill
 from typing import (
     Any,
     Dict,
     Union,
 )
-
-import mandrill
-
 
 # Typing
 NotificationResponse = Dict[str, Union[int, str]]

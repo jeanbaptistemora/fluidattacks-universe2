@@ -1,9 +1,15 @@
-from typing import cast
-
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import Me
-from users import domain as users_domain
+from custom_types import (
+    Me,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from typing import (
+    cast,
+)
+from users import (
+    domain as users_domain,
+)
 
 
 async def resolve(

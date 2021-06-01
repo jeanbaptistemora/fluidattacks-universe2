@@ -8,36 +8,45 @@ finding to vulnerability
 Execution Time:    2020-11-26 13:42:51 UTC-5
 Finalization Time: 2020-11-26 14:19:55 UTC-5
 """
-# Standard library
-import os
-from itertools import chain
-from typing import (
-    Dict,
-    List,
-)
 
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from more_itertools import chunked
-
-# Local libraries
-from custom_types import Finding
-from dataloaders.group import GroupLoader
-from dataloaders.finding import FindingLoader
-from groups.domain import get_active_groups
+from custom_types import (
+    Finding,
+)
+from dataloaders.finding import (
+    FindingLoader,
+)
+from dataloaders.group import (
+    GroupLoader,
+)
+from groups.domain import (
+    get_active_groups,
+)
+from itertools import (
+    chain,
+)
+from more_itertools import (
+    chunked,
+)
 from newutils.datetime import (
     DEFAULT_STR,
     get_from_str,
 )
-from vulnerabilities import dal as vulns_dal
+import os
+from typing import (
+    Dict,
+    List,
+)
+from vulnerabilities import (
+    dal as vulns_dal,
+)
 from vulnerabilities.domain import (
     add_vuln_treatment,
     list_vulnerabilities_async,
 )
-
 
 STAGE: str = os.environ["STAGE"]
 

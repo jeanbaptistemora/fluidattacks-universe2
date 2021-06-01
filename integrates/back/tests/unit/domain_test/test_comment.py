@@ -1,11 +1,16 @@
-from decimal import Decimal
-
+from back.tests.unit.utils import (
+    create_dummy_session,
+)
+from comments import (
+    domain as comments_domain,
+)
+from decimal import (
+    Decimal,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
 import pytest
-from graphql.type.definition import GraphQLResolveInfo
-
-from back.tests.unit.utils import create_dummy_session
-from comments import domain as comments_domain
-
 
 pytestmark = [
     pytest.mark.asyncio,

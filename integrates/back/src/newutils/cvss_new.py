@@ -1,13 +1,13 @@
-import math
-from decimal import Decimal
-
 from db_model.findings.types import (
     Finding20CvssParameters,
     Finding20Severity,
     Finding31CvssParameters,
     Finding31Severity,
 )
-
+from decimal import (
+    Decimal,
+)
+import math
 
 DEFAULT_20_CVSS_PARAMETERS = Finding20CvssParameters(
     bs_factor_1=Decimal("0.6"),

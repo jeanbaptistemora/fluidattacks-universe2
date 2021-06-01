@@ -1,21 +1,23 @@
-# Standard library
-from typing import (
-    Iterable,
-    NamedTuple,
-)
-
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from async_lru import alru_cache
-
-# Local libraries
-from charts import utils
-from charts.colors import RISK
-from dataloaders import get_new_context
-
+from async_lru import (
+    alru_cache,
+)
+from charts import (
+    utils,
+)
+from charts.colors import (
+    RISK,
+)
+from dataloaders import (
+    get_new_context,
+)
+from typing import (
+    Iterable,
+    NamedTuple,
+)
 
 Severity = NamedTuple(
     "Severity",

@@ -1,5 +1,33 @@
+from . import (
+    model as redis_model,
+)
+from .serialization import (
+    dump,
+    load,
+)
+from aioextensions import (
+    in_thread,
+)
 import asyncio
+from context import (
+    FI_REDIS_SERVER,
+)
 import logging
+from redis.exceptions import (
+    RedisError,
+)
+from rediscluster import (
+    RedisCluster,
+)
+from rediscluster.exceptions import (
+    ClusterDownException,
+    RedisClusterConfigError,
+    RedisClusterError,
+    RedisClusterException,
+)
+from settings import (
+    CACHE_TTL,
+)
 from typing import (
     Any,
     Awaitable,
@@ -7,26 +35,6 @@ from typing import (
     Optional,
     Set,
 )
-
-from aioextensions import in_thread
-from redis.exceptions import RedisError
-from rediscluster import RedisCluster
-from rediscluster.exceptions import (
-    ClusterDownException,
-    RedisClusterConfigError,
-    RedisClusterError,
-    RedisClusterException,
-)
-
-from context import FI_REDIS_SERVER
-from settings import CACHE_TTL
-
-from . import model as redis_model
-from .serialization import (
-    dump,
-    load,
-)
-
 
 # A cluster is different than a server
 # the cluster is a distributed system whereas the server is standalone.

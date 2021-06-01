@@ -1,8 +1,6 @@
 # None
 
 
-from ariadne import ObjectType
-
 from api.resolvers.group import (
     analytics,
     bill,
@@ -24,7 +22,9 @@ from api.resolvers.group import (
     total_treatment,
     user_role,
 )
-
+from ariadne import (
+    ObjectType,
+)
 
 GROUP: ObjectType = ObjectType("Project")
 GROUP.set_field("analytics", analytics.resolve)

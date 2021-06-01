@@ -1,14 +1,19 @@
-from typing import Tuple
-
+from .datetime import (
+    DATETIME_SCALAR,
+)
+from .genericscalar import (
+    GENERIC_SCALAR,
+)
+from .jsonstring import (
+    JSON_STRING_SCALAR,
+)
 from ariadne import (
     ScalarType,
     upload_scalar,
 )
-
-from .datetime import DATETIME_SCALAR
-from .genericscalar import GENERIC_SCALAR
-from .jsonstring import JSON_STRING_SCALAR
-
+from typing import (
+    Tuple,
+)
 
 SCALARS: Tuple[ScalarType, ...] = (
     JSON_STRING_SCALAR,

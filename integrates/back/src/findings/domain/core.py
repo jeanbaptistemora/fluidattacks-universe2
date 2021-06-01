@@ -1,37 +1,21 @@
 # pylint: disable=too-many-lines
 
-import logging
-import logging.config
-import re
-from contextlib import AsyncExitStack
-from datetime import datetime
-from decimal import Decimal
-from operator import itemgetter
-from time import time
-from typing import (
-    Any,
-    Dict,
-    List,
-    Optional,
-    Set,
-    Tuple,
-    Union,
-    cast,
-)
-
-# Third party libraries
 import aioboto3
 from aioextensions import (
     collect,
     in_process,
     schedule,
 )
-from graphql.type.definition import GraphQLResolveInfo
-import skims_sdk
-
 import authz
-from comments import domain as comments_domain
-from context import PRODUCT_API_TOKEN
+from comments import (
+    domain as comments_domain,
+)
+from context import (
+    PRODUCT_API_TOKEN,
+)
+from contextlib import (
+    AsyncExitStack,
+)
 from custom_exceptions import (
     FindingNotFound,
     InvalidCommentParent,
@@ -47,9 +31,26 @@ from custom_types import (
     Tracking as TrackingItem,
     Vulnerability as VulnerabilityType,
 )
-from dynamodb.operations_legacy import start_context
-from findings import dal as findings_dal
-from mailer import findings as findings_mail
+from datetime import (
+    datetime,
+)
+from decimal import (
+    Decimal,
+)
+from dynamodb.operations_legacy import (
+    start_context,
+)
+from findings import (
+    dal as findings_dal,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+import logging
+import logging.config
+from mailer import (
+    findings as findings_mail,
+)
 from newutils import (
     cvss,
     datetime as datetime_utils,
@@ -60,12 +61,34 @@ from newutils import (
     validations,
     vulnerabilities as vulns_utils,
 )
+from operator import (
+    itemgetter,
+)
+import re
 from settings import (
     LOGGING,
     NOEXTRA,
 )
-from users import domain as users_domain
-from vulnerabilities import domain as vulns_domain
+import skims_sdk
+from time import (
+    time,
+)
+from typing import (
+    Any,
+    cast,
+    Dict,
+    List,
+    Optional,
+    Set,
+    Tuple,
+    Union,
+)
+from users import (
+    domain as users_domain,
+)
+from vulnerabilities import (
+    domain as vulns_domain,
+)
 
 logging.config.dictConfig(LOGGING)
 

@@ -6,17 +6,18 @@ that do not have group access
 Execution Time:    2021-02-04 at 10:00:26 UTC-05
 Finalization Time: 2021-02-04 at 10:01:03 UTC-05
 """
-# Third party libraries
+
 from aioextensions import (
     collect,
     run,
 )
-from boto3.dynamodb.conditions import Attr
-
-# Local libraries
 import authz
-from dynamodb import operations_legacy as dynamodb_ops
-
+from boto3.dynamodb.conditions import (
+    Attr,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
 
 ACCESS_TABLE_NAME = "FI_project_access"
 AUTHZ_TABLE_NAME = "fi_authz"

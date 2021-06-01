@@ -1,17 +1,14 @@
-# Standard libraries
-import json
-import os
-from typing import (
-    Any,
-    Dict,
-)
-
-# Local libraries
 from back.tests.functional.utils import (
     get_graphql_result,
 )
 from dataloaders import (
     get_new_context,
+)
+import json
+import os
+from typing import (
+    Any,
+    Dict,
 )
 
 

@@ -1,11 +1,13 @@
+from aioextensions import (
+    schedule,
+)
+from custom_types import (
+    MailContent as MailContentType,
+)
 from typing import (
     Callable,
     List,
 )
-
-from aioextensions import schedule
-
-from custom_types import MailContent as MailContentType
 
 
 def scheduler_send_mail(

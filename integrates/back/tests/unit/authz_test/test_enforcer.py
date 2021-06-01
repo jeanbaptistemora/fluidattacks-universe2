@@ -1,15 +1,10 @@
-# Standard library
+import authz
+import pytest
 from typing import (
+    Any,
     Set,
     Tuple,
-    Any,
 )
-
-# Third party libraries
-import pytest
-
-# Local libraries
-import authz
 
 # Constants
 pytestmark = [

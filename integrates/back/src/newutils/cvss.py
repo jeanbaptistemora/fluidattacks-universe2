@@ -1,17 +1,21 @@
 # -*- coding: utf-8 -*-
 """ Integrates cvss auxiliar functions. """
 
+from . import (
+    utils,
+)
+from custom_types import (
+    Finding as FindingType,
+)
+from decimal import (
+    Decimal,
+)
 import math
-from decimal import Decimal
 from typing import (
+    cast,
     Dict,
     Union,
-    cast,
 )
-
-from custom_types import Finding as FindingType
-
-from . import utils
 
 
 def _calc_cvss2_temporal(

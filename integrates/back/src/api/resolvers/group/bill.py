@@ -1,22 +1,28 @@
-from datetime import datetime
-from typing import (
-    Dict,
-    cast,
+from bill import (
+    domain as bill_domain,
 )
-
-from graphql.type.definition import GraphQLResolveInfo
-
-from bill import domain as bill_domain
 from custom_types import (
     Historic,
     Project as Group,
+)
+from datetime import (
+    datetime,
 )
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_drills_white,
 )
-from newutils import datetime as datetime_utils
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from newutils import (
+    datetime as datetime_utils,
+)
+from typing import (
+    cast,
+    Dict,
+)
 
 
 @concurrent_decorators(

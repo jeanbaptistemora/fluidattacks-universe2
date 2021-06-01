@@ -6,26 +6,29 @@ for those dates that are previous to the finding release
 Execution Time:    2021-01-05 at 09:11:57 UTC-05
 Finalization Time: 2021-01-05 at 15:46:35 UTC-05
 """
-# Standard library
+
+from aioextensions import (
+    collect,
+)
+from asyncio import (
+    run,
+)
 import copy
-import os
-from asyncio import run
-from pprint import pprint
-
-# Third party library
-from aioextensions import collect
-
-# Local
-from dynamodb import operations_legacy as dynamodb_ops
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
 from newutils import (
     datetime as datetime_utils,
     findings as findings_utils,
+)
+import os
+from pprint import (
+    pprint,
 )
 from vulnerabilities import (
     dal as vulns_dal,
     domain as vulns_domain,
 )
-
 
 STAGE: str = os.environ["STAGE"]
 FINDINGS_TABLE = "FI_findings"

@@ -8,12 +8,13 @@ all organizations that do not have a group attached
 Execution Time: 2020-07-16 20:38:00 UTC-5
 Finalization Time: 2020-07-16 20:51:0 UTC-5
 """
+from aioextensions import (
+    run,
+)
+from organizations import (
+    domain as orgs_domain,
+)
 import os
-
-from aioextensions import run
-
-from organizations import domain as orgs_domain
-
 
 STAGE: str = os.environ["STAGE"]
 

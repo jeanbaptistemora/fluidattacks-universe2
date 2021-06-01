@@ -1,15 +1,19 @@
-from typing import (
-    Any,
-    Dict,
-)
-
-from context import BASE_URL
-from custom_types import Finding as FindingType
-from group_access import domain as group_access_domain
-
 from .common import (
     GENERAL_TAG,
     send_mails_async_new,
+)
+from context import (
+    BASE_URL,
+)
+from custom_types import (
+    Finding as FindingType,
+)
+from group_access import (
+    domain as group_access_domain,
+)
+from typing import (
+    Any,
+    Dict,
 )
 
 

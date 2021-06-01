@@ -1,18 +1,26 @@
-from typing import (
-    Any,
-    List,
+from aioextensions import (
+    collect,
 )
-
-from aioextensions import collect
-
-from custom_types import Project as GroupType
-from dataloaders import get_new_context
-from groups import domain as groups_domain
+from custom_types import (
+    Project as GroupType,
+)
+from dataloaders import (
+    get_new_context,
+)
+from groups import (
+    domain as groups_domain,
+)
 from newutils import (
     datetime as datetime_utils,
     groups as groups_utils,
 )
-from organizations import domain as orgs_domain
+from organizations import (
+    domain as orgs_domain,
+)
+from typing import (
+    Any,
+    List,
+)
 
 
 async def _delete_groups(

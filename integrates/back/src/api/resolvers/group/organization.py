@@ -1,9 +1,15 @@
-from typing import cast
-
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import Project as Group
-from organizations import domain as orgs_domain
+from custom_types import (
+    Project as Group,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from organizations import (
+    domain as orgs_domain,
+)
+from typing import (
+    cast,
+)
 
 
 async def resolve(

@@ -1,22 +1,7 @@
-import json
-import logging
-import logging.config
-from typing import (
-    Any,
-    List,
-    Union,
-)
-
-import mandrill
 from aioextensions import (
     collect,
     in_thread,
 )
-from jinja2 import (
-    Environment,
-    FileSystemLoader,
-)
-
 import authz
 from context import (
     FI_EMAIL_TEMPLATES,
@@ -24,12 +9,34 @@ from context import (
     FI_MANDRILL_API_KEY,
     FI_TEST_PROJECTS,
 )
-from custom_types import MailContent as MailContentType
-from group_access import domain as group_access_domain
-from newutils import datetime as datetime_utils
-from settings import LOGGING
-from users import domain as users_domain
-
+from custom_types import (
+    MailContent as MailContentType,
+)
+from group_access import (
+    domain as group_access_domain,
+)
+from jinja2 import (
+    Environment,
+    FileSystemLoader,
+)
+import json
+import logging
+import logging.config
+import mandrill
+from newutils import (
+    datetime as datetime_utils,
+)
+from settings import (
+    LOGGING,
+)
+from typing import (
+    Any,
+    List,
+    Union,
+)
+from users import (
+    domain as users_domain,
+)
 
 logging.config.dictConfig(LOGGING)
 

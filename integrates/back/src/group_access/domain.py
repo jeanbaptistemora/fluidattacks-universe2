@@ -1,17 +1,19 @@
-from typing import (
-    Dict,
-    List,
-    cast,
+from aioextensions import (
+    collect,
 )
-
-from aioextensions import collect
-
 import authz
 from custom_types import (
     Project as GroupType,
     ProjectAccess as GroupAccessType,
 )
-from group_access import dal as group_access_dal
+from group_access import (
+    dal as group_access_dal,
+)
+from typing import (
+    cast,
+    Dict,
+    List,
+)
 
 
 async def add_user_access(email: str, group: str, role: str) -> bool:

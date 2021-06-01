@@ -1,20 +1,26 @@
-# Standard libraries
+from api.schema import (
+    SCHEMA,
+)
+from ariadne import (
+    graphql,
+)
+from back.tests.unit.utils import (
+    create_dummy_session,
+)
+from custom_exceptions import (
+    PolicyAlreadyHandled,
+)
+from dataloaders import (
+    apply_context_attrs,
+)
+from organizations_finding_policies import (
+    domain as policies_domain,
+)
+import pytest
 from typing import (
     Any,
     Dict,
 )
-import pytest
-
-# Third party libraries
-from ariadne import graphql
-
-# Local libraries
-from api.schema import SCHEMA
-from back.tests.unit.utils import create_dummy_session
-from custom_exceptions import PolicyAlreadyHandled
-from dataloaders import apply_context_attrs
-from organizations_finding_policies import domain as policies_domain
-
 
 pytestmark = [
     pytest.mark.asyncio,

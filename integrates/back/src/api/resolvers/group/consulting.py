@@ -1,12 +1,3 @@
-from functools import partial
-from typing import (
-    Dict,
-    List,
-    cast,
-)
-
-from graphql.type.definition import GraphQLResolveInfo
-
 from custom_types import (
     Comment,
     Project as Group,
@@ -16,9 +7,26 @@ from decorators import (
     enforce_group_level_auth_async,
     require_integrates,
 )
-from group_comments import domain as group_comments_domain
-from newutils import token as token_utils
-from redis_cluster.operations import redis_get_or_set_entity_attr
+from functools import (
+    partial,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
+)
+from group_comments import (
+    domain as group_comments_domain,
+)
+from newutils import (
+    token as token_utils,
+)
+from redis_cluster.operations import (
+    redis_get_or_set_entity_attr,
+)
+from typing import (
+    cast,
+    Dict,
+    List,
+)
 
 
 @concurrent_decorators(enforce_group_level_auth_async, require_integrates)

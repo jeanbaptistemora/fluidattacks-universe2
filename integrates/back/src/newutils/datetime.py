@@ -4,11 +4,10 @@ from datetime import (
     timedelta,
     timezone,
 )
-
 import pytz
-
-from settings import TIME_ZONE
-
+from settings import (
+    TIME_ZONE,
+)
 
 DEFAULT_DATE_FORMAT: str = "%Y-%m-%d %H:%M:%S"
 DEFAULT_ISO_STR = "2000-01-01T00:00:00-05:00"

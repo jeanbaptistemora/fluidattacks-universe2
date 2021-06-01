@@ -1,12 +1,15 @@
-# Standard library
-
-# Third party libraries
-from aioextensions import run
-from frozendict import frozendict
-
-# Local libraries
-from charts import utils
-from dataloaders import get_new_context
+from aioextensions import (
+    run,
+)
+from charts import (
+    utils,
+)
+from dataloaders import (
+    get_new_context,
+)
+from frozendict import (
+    frozendict,
+)
 
 
 async def generate_one(group: str) -> dict:

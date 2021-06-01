@@ -1,20 +1,31 @@
-# Standard library
-from operator import attrgetter
-from typing import List
-
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-from async_lru import alru_cache
-
-# Local libraries
-from charts import utils
-from charts.colors import RISK
-from charts.generators.pie_chart.utils import PortfoliosGroupsInfo
-from dataloaders import get_new_context
-from groups import domain as groups_domain
+from async_lru import (
+    alru_cache,
+)
+from charts import (
+    utils,
+)
+from charts.colors import (
+    RISK,
+)
+from charts.generators.pie_chart.utils import (
+    PortfoliosGroupsInfo,
+)
+from dataloaders import (
+    get_new_context,
+)
+from groups import (
+    domain as groups_domain,
+)
+from operator import (
+    attrgetter,
+)
+from typing import (
+    List,
+)
 
 
 @alru_cache(maxsize=None, typed=True)

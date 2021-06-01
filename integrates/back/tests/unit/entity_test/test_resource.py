@@ -1,26 +1,28 @@
-# Standard libraries
+from api.schema import (
+    SCHEMA,
+)
+from ariadne import (
+    graphql,
+)
+from back.tests.unit.utils import (
+    create_dummy_session,
+)
+from dataloaders import (
+    apply_context_attrs,
+    Dataloaders,
+    get_new_context,
+)
+import json
+import os
+import pytest
+from starlette.datastructures import (
+    UploadFile,
+)
 from typing import (
     Any,
     Dict,
     Optional,
 )
-import json
-import os
-import pytest
-
-# Third party libraries
-from ariadne import graphql
-from starlette.datastructures import UploadFile
-
-# Local libraries
-from api.schema import SCHEMA
-from back.tests.unit.utils import create_dummy_session
-from dataloaders import (
-    Dataloaders,
-    apply_context_attrs,
-    get_new_context,
-)
-
 
 pytestmark = pytest.mark.asyncio
 

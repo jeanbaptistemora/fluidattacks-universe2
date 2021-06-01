@@ -9,22 +9,26 @@ Execution Time:    2021-04-26 at 15:10:02 UTC-05
 Finalization Time: 2021-04-26 at 19:35:28 UTC-05
 """
 
-# Standard libraries
-from itertools import chain
-from typing import List
 
-# Third party libraries
 from aioextensions import (
     collect,
     run,
 )
-
-# Local libraries
-from data_containers.toe_lines import GitRootToeLines
-from groups.dal import get_active_groups
+from data_containers.toe_lines import (
+    GitRootToeLines,
+)
+from groups.dal import (
+    get_active_groups,
+)
+from itertools import (
+    chain,
+)
 from toe.lines.domain import (
     get_by_group,
     update as update_toe,
+)
+from typing import (
+    List,
 )
 
 

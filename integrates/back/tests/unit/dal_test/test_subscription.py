@@ -1,18 +1,16 @@
-# Standard library
-from decimal import Decimal
+from context import (
+    FI_CHARTS_LOGO_PATH,
+)
+from decimal import (
+    Decimal,
+)
 import os
-
-# Third party libraries
 import pytest
-
-# Local libraries
-from context import FI_CHARTS_LOGO_PATH
 from subscriptions.dal import (
     get_subscriptions_to_entity_report,
     get_user_subscriptions,
     subscribe_user_to_entity_report,
 )
-
 
 pytestmark = [
     pytest.mark.asyncio,

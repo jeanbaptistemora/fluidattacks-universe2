@@ -1,19 +1,22 @@
-import importlib
-import subprocess
-import sys
-import time
-import uuid
-from typing import (
-    Any,
-    Dict,
-    List,
-    Optional,
-    Union,
+from .typing import (
+    PDFWordlistEn,
 )
-
+from context import (
+    BASE_URL,
+    STARTDIR,
+)
+from custom_types import (
+    Finding as FindingType,
+)
+import importlib
 import jinja2
+from jinja2 import (
+    select_autoescape,
+)
 import matplotlib
-from jinja2 import select_autoescape
+from newutils.vulnerabilities import (
+    get_treatments,
+)
 from pylab import (  # noqa
     axis,
     cla,
@@ -23,17 +26,20 @@ from pylab import (  # noqa
     pie,
     savefig,
 )
-from typing_extensions import TypedDict
-
-from context import (
-    BASE_URL,
-    STARTDIR,
+import subprocess  # nosec
+import sys
+import time
+from typing import (
+    Any,
+    Dict,
+    List,
+    Optional,
+    Union,
 )
-from custom_types import Finding as FindingType
-from newutils.vulnerabilities import get_treatments
-
-from .typing import PDFWordlistEn
-
+from typing_extensions import (
+    TypedDict,
+)
+import uuid
 
 matplotlib.use("Agg")
 

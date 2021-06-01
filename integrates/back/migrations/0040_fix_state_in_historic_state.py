@@ -5,22 +5,33 @@ This migration fix the attribute state for historic_state of findings
 Execution Time: 2020-12-09 15:29:18 UTC-5
 Finalization Time: 2020-12-09 15:46:37 UTC-5
 """
-# Standard library
+
+from aioextensions import (
+    collect,
+)
+from asyncio import (
+    run,
+)
 import copy
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
+)
+from findings.dal import (
+    update,
+)
+from groups.domain import (
+    get_active_groups,
+)
+from newutils.datetime import (
+    DEFAULT_STR,
+)
 import os
-from asyncio import run
-from pprint import pprint
-
-# Third party library
-from aioextensions import collect
-
-# Local
-from dynamodb import operations_legacy as dynamodb_ops
-from findings.dal import update
-from groups.domain import get_active_groups
-from newutils.datetime import DEFAULT_STR
-from vulnerabilities.domain import list_vulnerabilities_async
-
+from pprint import (
+    pprint,
+)
+from vulnerabilities.domain import (
+    list_vulnerabilities_async,
+)
 
 STAGE: str = os.environ["STAGE"]
 FINDINGS_TABLE = "FI_findings"

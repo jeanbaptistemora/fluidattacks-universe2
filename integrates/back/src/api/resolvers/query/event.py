@@ -1,16 +1,21 @@
 # None
 
 
-from aiodataloader import DataLoader
-from graphql.type.definition import GraphQLResolveInfo
-
-from custom_types import Event
+from aiodataloader import (
+    DataLoader,
+)
+from custom_types import (
+    Event,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     rename_kwargs,
     require_integrates,
     require_login,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
 )
 
 
