@@ -20,6 +20,7 @@ from decimal import (
     Decimal,
 )
 from dynamodb.types import (
+    OrgFindingPolicyItem,
     RootItem,
 )
 from events import (
@@ -49,6 +50,9 @@ from newutils.datetime import (
 )
 from organizations import (
     dal as dal_organizations,
+)
+from organizations_finding_policies import (
+    dal as dal_policies,
 )
 from roots import (
     dal as dal_roots,
@@ -322,6 +326,19 @@ async def populate_policies(data: List[Any]) -> bool:
         ]
     )
     return all(await collect(coroutines))
+
+
+async def populate_organization_finding_policies(
+    data: Tuple[OrgFindingPolicyItem, ...]
+) -> bool:
+    await collect(
+        [
+            dal_policies.add_org_finding_policy(finding_policy=finding_policy)
+            for finding_policy in data
+        ]
+    )
+
+    return True
 
 
 async def populate_executions(data: List[Any]) -> bool:

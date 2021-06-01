@@ -58,6 +58,7 @@ TEST_GROUPS: Set[str] = {
     "stakeholder",
     "submit_draft",
     "submit_draft_new",
+    "submit_organization_finding_policy",
     "toe_inputs",
     "toe_lines",
     "unsubscribe_from_group",
