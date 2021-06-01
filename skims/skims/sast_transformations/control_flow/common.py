@@ -172,26 +172,29 @@ def try_statement(
     stack: Stack,
     *,
     _generic: GenericType,
+    last_node: Optional[str] = None,
 ) -> None:
     match = g.match_ast_group(
         graph, n_id, "block", "catch_clause", "finally_clause"
     )
+    # can be used by try_with_resources_statement
+    last_node = last_node or n_id
 
     if _block_id := match["block"]:
         block_id = _block_id.pop()
-        graph.add_edge(n_id, block_id, **ALWAYS)
+        graph.add_edge(last_node, block_id, **ALWAYS)
         propagate_next_id_from_parent(stack)
         _generic(graph, block_id, stack, edge_attrs=ALWAYS)
 
     if _catch_ids := match.get("catch_clause", set()):
         for catch_id in _catch_ids:
-            graph.add_edge(n_id, catch_id, **MAYBE)
+            graph.add_edge(last_node, catch_id, **MAYBE)
             propagate_next_id_from_parent(stack)
             _generic(graph, catch_id, stack, edge_attrs=ALWAYS)
 
     if _finally_id := match["finally_clause"]:
         finally_id = _finally_id.pop()
-        graph.add_edge(n_id, finally_id, **ALWAYS)
+        graph.add_edge(last_node, finally_id, **ALWAYS)
         propagate_next_id_from_parent(stack)
         _generic(graph, finally_id, stack, edge_attrs=ALWAYS)
 

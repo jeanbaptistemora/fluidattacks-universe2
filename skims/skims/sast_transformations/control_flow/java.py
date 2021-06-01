@@ -25,6 +25,9 @@ from sast_transformations.control_flow.types import (
     EdgeAttrs,
     Stack,
 )
+from typing import (
+    Optional,
+)
 from utils import (
     graph as g,
 )
@@ -81,10 +84,18 @@ def try_with_resources_statement(
     if _resources := match["resource_specification"]:
         graph.add_edge(n_id, _resources, **ALWAYS)
         match_resources = g.match_ast_group(graph, _resources, "resource")
+        last_resource: Optional[str] = None
         for resource in match_resources.get("resource", set()):
-            graph.add_edge(_resources, resource, **ALWAYS)
+            graph.add_edge(last_resource or _resources, resource, **ALWAYS)
+            last_resource = resource
 
-        try_statement(graph, n_id, stack, _generic=_generic)
+        try_statement(
+            graph,
+            n_id,
+            stack,
+            _generic=_generic,
+            last_node=last_resource,
+        )
 
 
 def _generic(

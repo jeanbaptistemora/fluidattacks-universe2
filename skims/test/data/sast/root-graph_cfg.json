@@ -3167,8 +3167,6 @@
             },
             "1577": {
               "label_ast": "AST",
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always",
               "label_index": "2"
             }
           },
@@ -3204,6 +3202,10 @@
             "1575": {
               "label_ast": "AST",
               "label_index": "3"
+            },
+            "1577": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
             }
           },
           "1577": {
