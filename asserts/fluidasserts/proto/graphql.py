@@ -1,21 +1,32 @@
 """This module allows to check GraphQL-specific vulnerabilities."""
 
-# standard imports
-import json
-import asyncio
-import textwrap
-from typing import List
 
-# 3rd party imports
 import aiohttp
-
-# local imports
-from fluidasserts import Unit, MEDIUM, HIGH, OPEN, CLOSED, UNKNOWN, DAST
-from fluidasserts.helper import http
-from fluidasserts.helper import asynchronous
-from fluidasserts.utils.generic import get_sha256
-from fluidasserts.utils.decorators import api
-
+import asyncio
+from fluidasserts import (
+    CLOSED,
+    DAST,
+    HIGH,
+    MEDIUM,
+    OPEN,
+    Unit,
+    UNKNOWN,
+)
+from fluidasserts.helper import (
+    asynchronous,
+    http,
+)
+from fluidasserts.utils.decorators import (
+    api,
+)
+from fluidasserts.utils.generic import (
+    get_sha256,
+)
+import json
+import textwrap
+from typing import (
+    List,
+)
 
 #
 # Constants

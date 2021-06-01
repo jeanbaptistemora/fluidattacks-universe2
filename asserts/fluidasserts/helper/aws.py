@@ -3,42 +3,60 @@
 # pylint: disable=import-outside-toplevel
 """AWS cloud helper."""
 
-# standard imports
-from contextlib import suppress
-import csv
-import functools
-from io import StringIO
-from ipaddress import IPv4Network
-from ipaddress import IPv6Network
-from ipaddress import AddressValueError
-import random
-import string
-import time
-from typing import Any
-from typing import Callable
-from typing import Dict
-from typing import Iterator
-from typing import List
-from typing import NoReturn
-from typing import Set
-from typing import Tuple
 
-# 3rd party imports
 import boto3
 import botocore
 import cfn_tools
+from contextlib import (
+    suppress,
+)
+import csv
+from fluidasserts.cloud.aws.terraform import (
+    TerraformError,
+    TerraformInvalidTemplateError,
+)
+from fluidasserts.helper.yaml_loader_alt import (
+    LineLoader,
+)
+from fluidasserts.utils.generic import (
+    get_paths,
+)
+from fluidasserts.utils.parsers import (
+    json as l_json,
+)
+import functools
 import hcl
+from io import (
+    StringIO,
+)
+from ipaddress import (
+    AddressValueError,
+    IPv4Network,
+    IPv6Network,
+)
+from lark import (
+    LarkError,
+)
+from networkx import (
+    DiGraph,
+)
+from networkx.algorithms import (
+    dfs_preorder_nodes,
+)
+import random
+import string
+import time
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    Iterator,
+    List,
+    NoReturn,
+    Set,
+    Tuple,
+)
 import yaml
-from lark import LarkError
-from networkx import DiGraph
-from networkx.algorithms import dfs_preorder_nodes
-
-# local imports
-from fluidasserts.cloud.aws.terraform import TerraformError
-from fluidasserts.cloud.aws.terraform import TerraformInvalidTemplateError
-from fluidasserts.helper.yaml_loader_alt import LineLoader
-from fluidasserts.utils.generic import get_paths
-from fluidasserts.utils.parsers import json as l_json
 
 # Constants
 Template = Dict[str, Any]
@@ -603,7 +621,9 @@ def policy_statement_privilege(statement, effect: str, action: str):
 
 def policy_actions_has_privilege(action, privilege) -> bool:
     """Check if an action have a privilege."""
-    from fluidasserts.cloud.aws.cloudformation import services
+    from fluidasserts.cloud.aws.cloudformation import (
+        services,
+    )
 
     write_actions: dict = services.ACTIONS
     success = False

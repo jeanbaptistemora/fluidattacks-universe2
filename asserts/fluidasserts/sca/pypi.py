@@ -2,19 +2,28 @@
 
 """Software Composition Analysis for Python packages."""
 
-# standard imports
-import os
+
 import contextlib
-
-# 3rd party imports
-from requirements_detector import find_requirements
-from requirements_detector.detect import RequirementsNotFound
-
-# local imports
-from fluidasserts import HIGH, SCA
-from fluidasserts.helper import sca
-from fluidasserts.utils.generic import get_dir_paths
-from fluidasserts.utils.decorators import api
+from fluidasserts import (
+    HIGH,
+    SCA,
+)
+from fluidasserts.helper import (
+    sca,
+)
+from fluidasserts.utils.decorators import (
+    api,
+)
+from fluidasserts.utils.generic import (
+    get_dir_paths,
+)
+import os
+from requirements_detector import (
+    find_requirements,
+)
+from requirements_detector.detect import (
+    RequirementsNotFound,
+)
 
 PKG_MNGR = "pypi"
 

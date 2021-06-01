@@ -18,17 +18,33 @@ The entire suite has been tested on the following PostgreSQL releases:
 - `Postgres v9.4 <https://www.postgresql.org/docs/9.4/index.html>`_.
 """
 
-# standard imports
-from typing import Any, Dict, Iterator, List, NamedTuple, Optional, Tuple
-from contextlib import contextmanager
 
-# 3rd party imports
+from contextlib import (
+    contextmanager,
+)
+from fluidasserts import (
+    DAST,
+    HIGH,
+    LOW,
+    MEDIUM,
+)
+from fluidasserts.db import (
+    _get_result_as_tuple,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
 import psycopg2
-
-# local imports
-from fluidasserts import LOW, MEDIUM, HIGH, DAST
-from fluidasserts.db import _get_result_as_tuple
-from fluidasserts.utils.decorators import api, unknown_if
+from typing import (
+    Any,
+    Dict,
+    Iterator,
+    List,
+    NamedTuple,
+    Optional,
+    Tuple,
+)
 
 # Containers
 #: Container with connection parameters and credentials

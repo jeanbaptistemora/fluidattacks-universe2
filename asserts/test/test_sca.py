@@ -2,24 +2,24 @@
 
 """Test methods of fluidasserts.sca packages."""
 
-# standard imports
-import os
-import contextlib
 
-# 3rd party imports
+import contextlib
+import os
 import pytest
 
 pytestmark = pytest.mark.asserts_module("sca")
 
-# local imports
-from fluidasserts.sca import bower
-from fluidasserts.sca import chocolatey
-from fluidasserts.sca import maven
-from fluidasserts.sca import npm
-from fluidasserts.sca import nuget
-from fluidasserts.sca import pypi
-from fluidasserts.sca import linux
-from fluidasserts.sca import rubygems
+
+from fluidasserts.sca import (
+    bower,
+    chocolatey,
+    linux,
+    maven,
+    npm,
+    nuget,
+    pypi,
+    rubygems,
+)
 
 # Constants
 PROJECT = "test/static/sca"

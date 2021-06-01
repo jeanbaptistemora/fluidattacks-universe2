@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 """Test module for fluidasserts.db.mssql."""
 
-# standard imports
 
-# local imports
-from fluidasserts.db import mssql
-
-# 3rd party imports
+from fluidasserts.db import (
+    mssql,
+)
 import pytest
 
 pytestmark = pytest.mark.asserts_module("db_mssql")

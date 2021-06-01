@@ -2,17 +2,16 @@
 
 """Test methods of fluidasserts.helper.http."""
 
-# standard library
-import os
 
-# 3rd party imports
+import os
 import pytest
 
 pytestmark = pytest.mark.asserts_module("helper")
 
-# local imports
-from fluidasserts.helper.http import WebBot
 
+from fluidasserts.helper.http import (
+    WebBot,
+)
 
 GMAIL_USER = os.environ["WEBBOT_GMAIL_USER"]
 GMAIL_PASS = os.environ["WEBBOT_GMAIL_PASS"]

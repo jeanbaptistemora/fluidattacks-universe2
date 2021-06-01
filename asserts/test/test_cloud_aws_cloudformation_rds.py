@@ -1,8 +1,9 @@
 """Test methods of fluidasserts.cloud.cloudformation.rds module."""
 
+from fluidasserts.cloud.aws.cloudformation import (
+    rds,
+)
 import pytest  # pylint: disable=E0401
-
-from fluidasserts.cloud.aws.cloudformation import rds
 
 pytestmark = pytest.mark.asserts_module(
     "cloud_aws_cloudformation"

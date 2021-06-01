@@ -1,16 +1,25 @@
 """AWS CloudFormation checks for ``terraform`` (Content Delivery Network)."""
 
-# Standard imports
-from typing import List, Optional
 
-# Local imports
-from fluidasserts import SAST, MEDIUM
-from fluidasserts.helper import aws as helper
-from fluidasserts.cloud.aws.terraform import (
-    Vulnerability,
-    _get_result_as_tuple,
+from fluidasserts import (
+    MEDIUM,
+    SAST,
 )
-from fluidasserts.utils.decorators import api, unknown_if
+from fluidasserts.cloud.aws.terraform import (
+    _get_result_as_tuple,
+    Vulnerability,
+)
+from fluidasserts.helper import (
+    aws as helper,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from typing import (
+    List,
+    Optional,
+)
 
 
 @api(risk=MEDIUM, kind=SAST)

@@ -2,19 +2,23 @@
 
 """Test methods of fluidasserts.helper.crypto."""
 
-# standard imports
-from tempfile import NamedTemporaryFile
-from typing import Any, Dict
 
-# Third parties libraries
-import yaml
 import pytest
+from tempfile import (
+    NamedTemporaryFile,
+)
+from typing import (
+    Any,
+    Dict,
+)
+import yaml
 
 pytestmark = pytest.mark.asserts_module("helper")
 
-# local imports
-from fluidasserts.helper import crypto
 
+from fluidasserts.helper import (
+    crypto,
+)
 
 #
 # Constants

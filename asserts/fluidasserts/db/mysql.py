@@ -2,18 +2,34 @@
 
 """This module allows to check generic MySQL/MariaDB DB vulnerabilities."""
 
-# standard imports
-from typing import Any, Dict, Iterator, List, NamedTuple, Optional, Tuple
-from contextlib import contextmanager
 
-# 3rd party imports
+from contextlib import (
+    contextmanager,
+)
+from fluidasserts import (
+    DAST,
+    HIGH,
+    LOW,
+    MEDIUM,
+)
+from fluidasserts.db import (
+    _get_result_as_tuple,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
 import mysql.connector
 import mysql.connector.errorcode
-
-# local imports
-from fluidasserts import DAST, LOW, MEDIUM, HIGH
-from fluidasserts.db import _get_result_as_tuple
-from fluidasserts.utils.decorators import api, unknown_if
+from typing import (
+    Any,
+    Dict,
+    Iterator,
+    List,
+    NamedTuple,
+    Optional,
+    Tuple,
+)
 
 #: Container with connection parameters and credentials
 ConnectionString = NamedTuple(

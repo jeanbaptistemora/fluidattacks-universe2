@@ -1,19 +1,32 @@
 # -*- coding: utf-8 -*-
 """AWS cloud checks (KMS)."""
 
-# std imports
-from contextlib import suppress
+
+from botocore.exceptions import (
+    BotoCoreError,
+)
+from botocore.vendored.requests.exceptions import (
+    RequestException,
+)
+from contextlib import (
+    suppress,
+)
+from fluidasserts import (
+    DAST,
+    HIGH,
+    MEDIUM,
+)
+from fluidasserts.cloud.aws import (
+    _get_result_as_tuple,
+)
+from fluidasserts.helper import (
+    aws,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
 import json
-
-# 3rd party imports
-from botocore.exceptions import BotoCoreError
-from botocore.vendored.requests.exceptions import RequestException
-
-# local imports
-from fluidasserts import DAST, MEDIUM, HIGH
-from fluidasserts.helper import aws
-from fluidasserts.cloud.aws import _get_result_as_tuple
-from fluidasserts.utils.decorators import api, unknown_if
 
 
 @api(risk=HIGH, kind=DAST)

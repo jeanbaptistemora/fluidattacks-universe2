@@ -2,24 +2,31 @@
 
 """This module allows to check vulnerabilities in Dockerfiles."""
 
-# standard imports
-from typing import Dict, Any
 
-# 3rd party imports
+from fluidasserts import (
+    CLOSED,
+    LOW,
+    OPEN,
+    SAST,
+)
+from fluidasserts.helper import (
+    lang,
+)
+from fluidasserts.utils.decorators import (
+    api,
+)
 from pyparsing import (
-    Regex,
+    Combine,
     Keyword,
     Optional,
-    Combine,
-    ZeroOrMore,
     pythonStyleComment,
+    Regex,
+    ZeroOrMore,
 )
-
-# local imports
-from fluidasserts import OPEN, CLOSED, LOW, SAST
-from fluidasserts.helper import lang
-from fluidasserts.utils.decorators import api
-
+from typing import (
+    Any,
+    Dict,
+)
 
 LANGUAGE_SPECS: Dict[str, Any] = {
     "extensions": None,

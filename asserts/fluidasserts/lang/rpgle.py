@@ -2,32 +2,41 @@
 
 """This module allows to check RPGLE code vulnerabilities."""
 
-# standard imports
-from typing import Dict, Any
-import re
 
-# 3rd party imports
-from pyparsing import (
-    CaselessKeyword,
-    Word,
-    Optional,
-    alphas,
-    alphanums,
-    nums,
-    cppStyleComment,
-    MatchFirst,
-    delimitedList,
-    Regex,
-    nestedExpr,
-    Suppress,
-    Keyword,
-    OneOrMore,
+from fluidasserts import (
+    CLOSED,
+    LOW,
+    MEDIUM,
+    OPEN,
+    SAST,
 )
-
-# local imports
-from fluidasserts import LOW, MEDIUM, OPEN, CLOSED, SAST
-from fluidasserts.helper import lang
-from fluidasserts.utils.decorators import api
+from fluidasserts.helper import (
+    lang,
+)
+from fluidasserts.utils.decorators import (
+    api,
+)
+from pyparsing import (
+    alphanums,
+    alphas,
+    CaselessKeyword,
+    cppStyleComment,
+    delimitedList,
+    Keyword,
+    MatchFirst,
+    nestedExpr,
+    nums,
+    OneOrMore,
+    Optional,
+    Regex,
+    Suppress,
+    Word,
+)
+import re
+from typing import (
+    Any,
+    Dict,
+)
 
 LANGUAGE_SPECS: Dict[str, Any] = {
     "extensions": (

@@ -1,9 +1,9 @@
 """Test methods of fluidasserts.cloud.terraform.ec2 module."""
 
-# local imports
-from fluidasserts.cloud.aws.terraform import iam
 
-# 3rd party imports
+from fluidasserts.cloud.aws.terraform import (
+    iam,
+)
 import pytest
 
 pytestmark = pytest.mark.asserts_module("cloud_aws_terraform")

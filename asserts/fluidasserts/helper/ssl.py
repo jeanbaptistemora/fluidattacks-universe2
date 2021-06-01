@@ -1,18 +1,24 @@
 # -*- coding: utf-8 -*-
 """This module enables connections via SSL."""
 
-# standard imports
-from __future__ import absolute_import
-from contextlib import contextmanager
-from typing import Generator, Tuple, List
+
+from __future__ import (
+    absolute_import,
+)
+
+from contextlib import (
+    contextmanager,
+)
 import copy
 import socket
 import ssl
-
-# 3rd party imports
 import tlslite
+from typing import (
+    Generator,
+    List,
+    Tuple,
+)
 
-# local imports
 # None
 
 PORT = 443

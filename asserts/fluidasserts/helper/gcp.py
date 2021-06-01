@@ -2,17 +2,18 @@
 
 """Google Cloud Platform helper."""
 
-# standard imports
+
 import functools
-import time
-
-# 3rd party imports
-from typing import Any, Callable
-from google.oauth2 import service_account
+from google.oauth2 import (
+    service_account,
+)
 import googleapiclient.discovery
+import time
+from typing import (
+    Any,
+    Callable,
+)
 
-
-# local imports
 # None
 
 

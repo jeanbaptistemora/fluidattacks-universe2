@@ -2,18 +2,22 @@
 
 """Test execution times of many Asserts methods."""
 
-# standard imports
-from time import perf_counter
-from contextlib import contextmanager
 
-# 3rd party imports
+from contextlib import (
+    contextmanager,
+)
 import pytest
+from time import (
+    perf_counter,
+)
 
 pytestmark = pytest.mark.asserts_module("lang_times")
 
-# local imports
-from fluidasserts.lang import core, java
 
+from fluidasserts.lang import (
+    core,
+    java,
+)
 
 # Constants
 JAVA: str = "test/times/rxjava/src/main/java/io/reactivex/rxjava3"

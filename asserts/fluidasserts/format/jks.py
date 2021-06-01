@@ -2,17 +2,27 @@
 
 """This module allows to check ``JKS`` vulnerabilities."""
 
-# standard imports
-import os
-from typing import List
 
-# 3rd party imports
+from fluidasserts import (
+    CLOSED,
+    HIGH,
+    OPEN,
+    SAST,
+    Unit,
+    UNKNOWN,
+)
+from fluidasserts.utils.decorators import (
+    api,
+)
+from fluidasserts.utils.generic import (
+    get_paths,
+    get_sha256,
+)
 import jks
-
-# local imports
-from fluidasserts import Unit, SAST, HIGH, CLOSED, OPEN, UNKNOWN
-from fluidasserts.utils.generic import get_paths, get_sha256
-from fluidasserts.utils.decorators import api
+import os
+from typing import (
+    List,
+)
 
 
 @api(risk=HIGH, kind=SAST)

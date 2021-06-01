@@ -1,7 +1,9 @@
 """Test methods of fluidasserts.cloud.cloudformation.iam module."""
 
+from fluidasserts.cloud.aws.cloudformation import (
+    iam,
+)
 import pytest  # pylint: disable=E0401
-from fluidasserts.cloud.aws.cloudformation import iam
 
 pytestmark = pytest.mark.asserts_module(
     "cloud_aws_cloudformation"

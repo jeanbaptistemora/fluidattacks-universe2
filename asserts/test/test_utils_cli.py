@@ -2,18 +2,19 @@
 
 """Test methods of fluidasserts.sca packages."""
 
-# standard imports
+
+from fluidasserts.utils import (
+    cli,
+)
 import os
-import sys
-
-from unittest.mock import patch
 import pytest
+import sys
+from unittest.mock import (
+    patch,
+)
 
-# 3rd party imports
 # None
 
-# local imports
-from fluidasserts.utils import cli
 
 # pylint: disable=invalid-name
 pytestmark = pytest.mark.asserts_module("utils")

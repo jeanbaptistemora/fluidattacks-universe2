@@ -6,17 +6,19 @@ Este modulo contiene las funciones necesarias para probar si el modulo de
 SMTP se encuentra adecuadamente implementado.
 """
 
-# standard imports
-from __future__ import print_function
 
-# 3rd party imports
+from __future__ import (
+    print_function,
+)
+
 import pytest
 
 pytestmark = pytest.mark.asserts_module("proto_smtp")
 
-# local imports
-from fluidasserts.proto import smtp
 
+from fluidasserts.proto import (
+    smtp,
+)
 
 # Constants
 

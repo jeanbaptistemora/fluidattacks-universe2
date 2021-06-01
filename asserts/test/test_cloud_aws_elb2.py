@@ -1,17 +1,18 @@
 """Test methods of fluidasserts.cloud.cloudformation.elb2 module."""
 
-# standard imports
-import os
-from contextlib import contextmanager
 
-# 3rd party imports
+from contextlib import (
+    contextmanager,
+)
+import os
 import pytest
 
 pytestmark = pytest.mark.asserts_module("cloud_aws_api")
 
-# local imports
-from fluidasserts.cloud.aws import elb2
 
+from fluidasserts.cloud.aws import (
+    elb2,
+)
 
 # Constants
 AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]

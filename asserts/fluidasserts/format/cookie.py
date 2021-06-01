@@ -2,16 +2,24 @@
 
 """This module allows to check Cookies vulnerabilities."""
 
-# standard imports
-from typing import Optional
 
-# 3rd party imports
-from requests.cookies import RequestsCookieJar
-
-# local imports
-from fluidasserts import MEDIUM, DAST
-from fluidasserts.helper import http
-from fluidasserts.utils.decorators import api, unknown_if
+from fluidasserts import (
+    DAST,
+    MEDIUM,
+)
+from fluidasserts.helper import (
+    http,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from requests.cookies import (
+    RequestsCookieJar,
+)
+from typing import (
+    Optional,
+)
 
 
 @unknown_if(AssertionError, http.ConnError)

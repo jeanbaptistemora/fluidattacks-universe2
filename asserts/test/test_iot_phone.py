@@ -2,16 +2,18 @@
 
 """Test methods of fluidasserts.iot packages."""
 
-# standard imports
+
 # None
 
-# 3rd party imports
+
 import pytest
 
 pytestmark = pytest.mark.asserts_module("iot")
 
-# local imports
-from fluidasserts.iot import phone
+
+from fluidasserts.iot import (
+    phone,
+)
 
 #
 # Constants

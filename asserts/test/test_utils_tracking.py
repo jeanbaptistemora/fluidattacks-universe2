@@ -2,18 +2,19 @@
 
 """Test methods of fluidasserts.utils.tracking."""
 
-# standard imports
-import os
-from contextlib import contextmanager
 
-# 3rd party imports
+from contextlib import (
+    contextmanager,
+)
+import os
 import pytest
 
 pytestmark = pytest.mark.asserts_module("utils")
 
-# local imports
-from fluidasserts.utils import tracking
 
+from fluidasserts.utils import (
+    tracking,
+)
 
 #
 # Helpers

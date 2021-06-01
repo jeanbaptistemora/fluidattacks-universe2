@@ -2,18 +2,32 @@
 
 """Fluid Asserts Azure Virtual Machines package."""
 
-# standar imports
-from typing import Tuple
 
-# 3rd party imports
-from msrest.exceptions import AuthenticationError, ClientException
-from azure.mgmt.compute import ComputeManagementClient
-from azure.mgmt.network import NetworkManagementClient
-
-# local imports
-from fluidasserts import DAST, MEDIUM
-from fluidasserts.utils.decorators import api, unknown_if
-from fluidasserts.cloud.azure import _get_result_as_tuple, _get_credentials
+from azure.mgmt.compute import (
+    ComputeManagementClient,
+)
+from azure.mgmt.network import (
+    NetworkManagementClient,
+)
+from fluidasserts import (
+    DAST,
+    MEDIUM,
+)
+from fluidasserts.cloud.azure import (
+    _get_credentials,
+    _get_result_as_tuple,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from msrest.exceptions import (
+    AuthenticationError,
+    ClientException,
+)
+from typing import (
+    Tuple,
+)
 
 
 @api(risk=MEDIUM, kind=DAST)

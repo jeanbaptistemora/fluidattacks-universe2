@@ -1,5 +1,6 @@
-# 3rd party imports
-from fluidasserts.utils.parsers import json
+from fluidasserts.utils.parsers import (
+    json,
+)
 import pytest
 
 pytestmark = pytest.mark.asserts_module("utils")

@@ -5,19 +5,29 @@ Some rules were inspired by `CFN_NAG <https://github.com/
 stelligent/cfn_nag/blob/master/LICENSE.md>`_
 """
 
-# Standard imports
-import ipaddress
-import contextlib
-from typing import List, Optional
 
-# Local imports
-from fluidasserts import SAST, LOW, MEDIUM
-from fluidasserts.helper import aws as helper
-from fluidasserts.cloud.aws.terraform import (
-    Vulnerability,
-    _get_result_as_tuple,
+import contextlib
+from fluidasserts import (
+    LOW,
+    MEDIUM,
+    SAST,
 )
-from fluidasserts.utils.decorators import api, unknown_if
+from fluidasserts.cloud.aws.terraform import (
+    _get_result_as_tuple,
+    Vulnerability,
+)
+from fluidasserts.helper import (
+    aws as helper,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+import ipaddress
+from typing import (
+    List,
+    Optional,
+)
 
 
 def _any_to_list(_input):

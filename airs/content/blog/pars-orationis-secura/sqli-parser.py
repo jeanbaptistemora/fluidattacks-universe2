@@ -6,22 +6,22 @@ which is considered dangerous. Also finds other occurrences
 of the dangerously concatenated variable in the same file.
 """
 
-import os
 import contextlib
+import os
 from pyparsing import (
-    Combine,
-    Literal,
-    CaselessKeyword,
-    Word,
     alphanums,
+    CaselessKeyword,
+    col,
+    Combine,
     delimitedList,
     Group,
-    Optional,
-    ZeroOrMore,
     line,
     lineno,
-    col,
+    Literal,
+    Optional,
     ParseException,
+    Word,
+    ZeroOrMore,
 )
 
 KW_INSERT = Combine(Literal('"') + CaselessKeyword("INSERT INTO"))

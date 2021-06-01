@@ -2,17 +2,18 @@
 
 """Test methods of fluidasserts.format.apk."""
 
-# standard imports
+
 # none
 
-# 3rd party imports
+
 import pytest
 
 pytestmark = pytest.mark.asserts_module("format")
 
-# local imports
-from fluidasserts.format import apk
 
+from fluidasserts.format import (
+    apk,
+)
 
 # Constants
 DIVA_APK = "test/static/format/apk/open/diva.apk"

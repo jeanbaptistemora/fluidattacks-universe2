@@ -1,18 +1,21 @@
 # -*- coding: utf-8 -*-
 """Test methods of fluidasserts.helper.http."""
 
-# standard library
-from fluidasserts.helper.proxy import proxy_server, AddOn, get_certificate_path
-import requests
-import json
 
-# 3rd party imports
-from mitmproxy.http import HTTPFlow
+from fluidasserts.helper.proxy import (
+    AddOn,
+    get_certificate_path,
+    proxy_server,
+)
+import json
+from mitmproxy.http import (
+    HTTPFlow,
+)
 import pytest
+import requests
 
 pytestmark = pytest.mark.asserts_module("helper")
 
-# local imports
 
 #
 # Helpers

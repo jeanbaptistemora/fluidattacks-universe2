@@ -2,17 +2,18 @@
 
 """Test methods of fluidasserts.code.javascript."""
 
-# standard imports
+
 # None
 
-# 3rd party imports
+
 import pytest
 
 pytestmark = pytest.mark.asserts_module("lang_javascript")
 
-# local imports
-from fluidasserts.lang import javascript
 
+from fluidasserts.lang import (
+    javascript,
+)
 
 # Constants
 

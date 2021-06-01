@@ -2,7 +2,7 @@
 
 """Stop test mocks."""
 
-# standard imports
+
 import pytest
 
 

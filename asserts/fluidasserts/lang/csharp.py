@@ -2,31 +2,41 @@
 
 """This module allows to check ``C#`` code vulnerabilities."""
 
-# standard imports
-from typing import Dict, List
 
-# 3rd party imports
+from fluidasserts import (
+    CLOSED,
+    LOW,
+    MEDIUM,
+    OPEN,
+    SAST,
+)
+from fluidasserts.helper import (
+    lang,
+)
+from fluidasserts.lang import (
+    core,
+)
+from fluidasserts.utils.decorators import (
+    api,
+)
 from pyparsing import (
-    Word,
-    Optional,
-    alphas,
     alphanums,
-    Suppress,
-    nestedExpr,
+    alphas,
     cppStyleComment,
-    Keyword,
-    MatchFirst,
-    QuotedString,
     delimitedList,
     Empty,
+    Keyword,
+    MatchFirst,
+    nestedExpr,
+    Optional,
+    QuotedString,
+    Suppress,
+    Word,
 )
-
-# local imports
-from fluidasserts import LOW, MEDIUM, OPEN, CLOSED, SAST
-from fluidasserts.lang import core
-from fluidasserts.helper import lang
-from fluidasserts.utils.decorators import api
-
+from typing import (
+    Dict,
+    List,
+)
 
 LANGUAGE_SPECS = {
     "extensions": ("cs",),

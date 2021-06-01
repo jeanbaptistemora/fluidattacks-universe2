@@ -8,32 +8,55 @@
 # pylint: disable=protected-access
 
 
-# standard imports
-import sys
-import time
+from PIL import (
+    Image,
+)
+from bs4 import (
+    BeautifulSoup,
+)
+from collections import (
+    OrderedDict,
+)
+from contextlib import (
+    contextmanager,
+)
+from fluidasserts import (
+    CLOSED,
+    OPEN,
+    Unit,
+)
 import hashlib
+import names
+import requests
+from requests.packages.urllib3.exceptions import (
+    InsecureRequestWarning,
+)
+from requests_ntlm import (
+    HttpNtlmAuth,
+)
+import selenium.common.exceptions
+import selenium.webdriver
+from selenium.webdriver.common.keys import (
+    Keys,
+)
+from selenium.webdriver.remote.webdriver import (
+    WebDriver,
+    WebElement,
+)
+import sys
 import tempfile
 import textwrap
-from contextlib import contextmanager
-from collections import OrderedDict
-from typing import Any, Dict, Iterable, List, NoReturn, Optional, Tuple
-
-# 3rd party imports
+import time
+from typing import (
+    Any,
+    Dict,
+    Iterable,
+    List,
+    NoReturn,
+    Optional,
+    Tuple,
+)
 import yaml
-import names
-import selenium.webdriver
-import selenium.common.exceptions
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.remote.webdriver import WebDriver, WebElement
-from bs4 import BeautifulSoup
-from PIL import Image
-import requests
-from requests_ntlm import HttpNtlmAuth
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
-
-# local imports
-from fluidasserts import Unit, OPEN, CLOSED
-
 
 # On call
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)

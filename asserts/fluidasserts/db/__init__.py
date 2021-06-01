@@ -2,12 +2,16 @@
 
 """Fluid Asserts db module."""
 
-# standard imports
-import inspect
-from typing import List
 
-# local imports
-from fluidasserts import Unit, OPEN, CLOSED
+from fluidasserts import (
+    CLOSED,
+    OPEN,
+    Unit,
+)
+import inspect
+from typing import (
+    List,
+)
 
 
 def _get_result_as_tuple(

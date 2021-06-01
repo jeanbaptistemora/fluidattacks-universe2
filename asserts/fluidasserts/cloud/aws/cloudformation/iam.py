@@ -5,28 +5,40 @@ Some rules were taken from `CFN_NAG <https://github.com/
 stelligent/cfn_nag/blob/master/LICENSE.md>`_
 """
 
-# Standard imports
-import re
-from typing import List, Optional, Pattern, Dict, Tuple
 
-from networkx import DiGraph
-
-# Local imports
-from fluidasserts import SAST, MEDIUM
-from fluidasserts.helper import aws as helper
-from fluidasserts.cloud.aws.cloudformation import (
-    Vulnerability,
-    _get_result_as_tuple,
+from fluidasserts import (
+    MEDIUM,
+    SAST,
 )
-from fluidasserts.utils.decorators import api, unknown_if
-from fluidasserts.cloud.aws.cloudformation import get_templates
-from fluidasserts.cloud.aws.cloudformation import get_graph
-from fluidasserts.cloud.aws.cloudformation import get_resources
-from fluidasserts.cloud.aws.cloudformation import has_values
-from fluidasserts.cloud.aws.cloudformation import get_type
-from fluidasserts.cloud.aws.cloudformation import get_value
 import fluidasserts.cloud.aws.cloudformation as main
-
+from fluidasserts.cloud.aws.cloudformation import (
+    _get_result_as_tuple,
+    get_graph,
+    get_resources,
+    get_templates,
+    get_type,
+    get_value,
+    has_values,
+    Vulnerability,
+)
+from fluidasserts.helper import (
+    aws as helper,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from networkx import (
+    DiGraph,
+)
+import re
+from typing import (
+    Dict,
+    List,
+    Optional,
+    Pattern,
+    Tuple,
+)
 
 WILDCARD_ACTION: Pattern = re.compile(r"^(\*)|(\w+:\*)$")
 WILDCARD_RESOURCE: Pattern = re.compile(r"^(\*)$")

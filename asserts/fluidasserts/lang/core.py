@@ -2,33 +2,49 @@
 
 """This module allows to check generic Code vulnerabilities."""
 
-# standard imports
-import re
-import os
-from base64 import b64encode
-from typing import List
 
-# 3rd party imports
+from base64 import (
+    b64encode,
+)
+from fluidasserts import (
+    CLOSED,
+    HIGH,
+    LOW,
+    MEDIUM,
+    OPEN,
+    SAST,
+    Unit,
+    UNKNOWN,
+)
+from fluidasserts.helper import (
+    lang,
+)
+from fluidasserts.utils.decorators import (
+    api,
+)
+from fluidasserts.utils.generic import (
+    get_paths,
+    get_sha256,
+)
+import os
 from pyparsing import (
-    cppStyleComment,
     Char,
+    cppStyleComment,
     Keyword,
     Literal,
     MatchFirst,
     nestedExpr,
     Optional,
+    ParserElement,
     QuotedString,
     Regex,
-    ZeroOrMore,
     Suppress,
-    ParserElement,
+    ZeroOrMore,
 )
-
-# local imports
-from fluidasserts import Unit, LOW, MEDIUM, HIGH, OPEN, CLOSED, UNKNOWN, SAST
-from fluidasserts.helper import lang
-from fluidasserts.utils.generic import get_sha256, get_paths
-from fluidasserts.utils.decorators import api
+import re
+from typing import (
+    List,
+)
 
 # 'anything'
 L_CHAR = QuotedString("'")

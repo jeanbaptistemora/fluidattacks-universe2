@@ -2,29 +2,44 @@
 
 """This module allows to check HTML vulnerabilities."""
 
-# standard imports
-import os
-import re
-from typing import List
 
-# 3rd party imports
-from bs4 import BeautifulSoup
-from bs4.element import Tag
+from bs4 import (
+    BeautifulSoup,
+)
+from bs4.element import (
+    Tag,
+)
+from fluidasserts import (
+    CLOSED,
+    LOW,
+    MEDIUM,
+    OPEN,
+    SAST,
+    Unit,
+    UNKNOWN,
+)
+from fluidasserts.utils.decorators import (
+    api,
+)
+from fluidasserts.utils.generic import (
+    get_paths,
+    get_sha256,
+)
+import os
 from pyparsing import (
-    makeHTMLTags,
     CaselessKeyword,
-    ParseException,
     Literal,
+    makeHTMLTags,
+    Optional,
+    ParseException,
+    Regex,
     SkipTo,
     stringEnd,
-    Optional,
-    Regex,
 )
-
-# local imports
-from fluidasserts import Unit, OPEN, CLOSED, UNKNOWN, LOW, MEDIUM, SAST
-from fluidasserts.utils.generic import get_paths, get_sha256
-from fluidasserts.utils.decorators import api
+import re
+from typing import (
+    List,
+)
 
 
 def _has_attributes(filename: str, tag: str, attrs: dict) -> bool:

@@ -2,17 +2,18 @@
 
 """Test methods of fluidasserts.proto.rest."""
 
-# standard imports
+
 # None
 
-# 3rd party imports
+
 import pytest
 
 pytestmark = pytest.mark.asserts_module("proto_rest")
 
-# local imports
-from fluidasserts.proto import rest
 
+from fluidasserts.proto import (
+    rest,
+)
 
 # Constants
 

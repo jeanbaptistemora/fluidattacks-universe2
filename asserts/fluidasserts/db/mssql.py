@@ -3,19 +3,40 @@
 # pylint: disable=too-many-lines
 """``Dynamic Application Security Testing`` Suite of Microsoft SQL Server."""
 
-# standard imports
-from collections import namedtuple
-from contextlib import contextmanager
-from typing import Any, Dict, Iterable, List, NamedTuple, Optional, Tuple
 
-# 3rd party imports
+from collections import (
+    namedtuple,
+)
+from contextlib import (
+    contextmanager,
+)
+from fluidasserts import (
+    DAST,
+    HIGH,
+    LOW,
+    MEDIUM,
+)
+from fluidasserts.db import (
+    _get_result_as_tuple,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
 import pyodbc
-from pyodbc import Connection, Cursor
-
-# local imports
-from fluidasserts import DAST, HIGH, LOW, MEDIUM
-from fluidasserts.db import _get_result_as_tuple
-from fluidasserts.utils.decorators import api, unknown_if
+from pyodbc import (
+    Connection,
+    Cursor,
+)
+from typing import (
+    Any,
+    Dict,
+    Iterable,
+    List,
+    NamedTuple,
+    Optional,
+    Tuple,
+)
 
 ConnectionString: NamedTuple = namedtuple(
     "ConnectionString",

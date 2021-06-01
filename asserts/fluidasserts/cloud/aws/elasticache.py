@@ -1,17 +1,29 @@
 """AWS cloud checks for ``ElastiCache```."""
 
 
-# Third parties imports
-from botocore.exceptions import BotoCoreError
-from botocore.vendored.requests.exceptions import RequestException
-
-# Local imports
-from fluidasserts.cloud.aws import _get_result_as_tuple
-from fluidasserts import DAST, SCA
-from fluidasserts.helper import aws
-from fluidasserts import LOW, MEDIUM, HIGH
-from fluidasserts.utils.decorators import api
-from fluidasserts.utils.decorators import unknown_if
+from botocore.exceptions import (
+    BotoCoreError,
+)
+from botocore.vendored.requests.exceptions import (
+    RequestException,
+)
+from fluidasserts import (
+    DAST,
+    HIGH,
+    LOW,
+    MEDIUM,
+    SCA,
+)
+from fluidasserts.cloud.aws import (
+    _get_result_as_tuple,
+)
+from fluidasserts.helper import (
+    aws,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
 
 
 @api(risk=LOW, kind=DAST)

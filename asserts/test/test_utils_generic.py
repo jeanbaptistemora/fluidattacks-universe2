@@ -2,17 +2,16 @@
 
 """Test methods of fluidasserts.generic."""
 
-# standard imports
-import asyncio
 
-# 3rd party imports
+import asyncio
 import pytest
 
 pytestmark = pytest.mark.asserts_module("utils")
 
-# local imports
-from fluidasserts.utils import generic
 
+from fluidasserts.utils import (
+    generic,
+)
 
 #
 # Test functions
@@ -58,7 +57,10 @@ def test_get_sha256():
 
 def test_fluidasserts_open():
     """Test class fluidasserts."""
-    from fluidasserts import HIGH, SAST
+    from fluidasserts import (
+        HIGH,
+        SAST,
+    )
 
     with generic.FluidAsserts(risk=HIGH, kind=SAST, message="Test") as creator:
         creator.set_open(where="File.py", specific=[1])
@@ -82,8 +84,14 @@ def test_check_function_close():
 
 def test_fluidasserts_closed():
     """Test class fluidasserts."""
-    from fluidasserts import LOW, MEDIUM, DAST
-    from fluidasserts.helper.http import HTTPSession
+    from fluidasserts import (
+        DAST,
+        LOW,
+        MEDIUM,
+    )
+    from fluidasserts.helper.http import (
+        HTTPSession,
+    )
 
     with generic.FluidAsserts(
         risk=MEDIUM, kind=DAST, message="Test"

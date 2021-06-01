@@ -6,16 +6,19 @@ Este modulo contiene las funciones necesarias para probar si el modulo de
 OS se encuentra adecuadamente implementado.
 """
 
-# standard imports
-from __future__ import print_function
 
-# 3rd party imports
+from __future__ import (
+    print_function,
+)
+
 import pytest
 
 pytestmark = pytest.mark.asserts_module("syst")
 
-# local imports
-from fluidasserts.syst import linux
+
+from fluidasserts.syst import (
+    linux,
+)
 
 # Constants
 

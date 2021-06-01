@@ -1,7 +1,9 @@
 """Test methods of fluidasserts.cloud.cloudformation.kms module."""
 
+from fluidasserts.cloud.aws.cloudformation import (
+    kms,
+)
 import pytest  # pylint: disable=E0401
-from fluidasserts.cloud.aws.cloudformation import kms
 
 pytestmark = pytest.mark.asserts_module(
     "cloud_aws_cloudformation"

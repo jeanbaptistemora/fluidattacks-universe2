@@ -1,19 +1,29 @@
 # -*- coding: utf-8 -*-
 """This module provide a man in the middle Proxy."""
 
-# standard imports
-import random
-from typing import List
-import string
-from contextlib import contextmanager
-from multiprocessing import Process
-from collections import namedtuple
-import pkg_resources
 
-# 3rd party imports
-from mitmproxy import proxy
-from mitmproxy import options
-from mitmproxy.tools.dump import DumpMaster
+from collections import (
+    namedtuple,
+)
+from contextlib import (
+    contextmanager,
+)
+from mitmproxy import (
+    options,
+    proxy,
+)
+from mitmproxy.tools.dump import (
+    DumpMaster,
+)
+from multiprocessing import (
+    Process,
+)
+import pkg_resources
+import random
+import string
+from typing import (
+    List,
+)
 
 AddOn = namedtuple(
     "AddOn",

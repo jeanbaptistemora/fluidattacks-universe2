@@ -2,17 +2,27 @@
 
 """This module allows to check TCP-specific vulnerabilities."""
 
-# standard imports
+
+from contextlib import (
+    suppress,
+)
+from fluidasserts import (
+    CLOSED,
+    DAST,
+    LOW,
+    MEDIUM,
+    OPEN,
+    Unit,
+)
+from fluidasserts.helper import (
+    ssl,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
 import socket
-from contextlib import suppress
-
-# third party imports
 import tlslite
-
-# local imports
-from fluidasserts import Unit, LOW, MEDIUM, DAST, OPEN, CLOSED
-from fluidasserts.helper import ssl
-from fluidasserts.utils.decorators import api, unknown_if
 
 
 @api(risk=LOW, kind=DAST)

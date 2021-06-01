@@ -2,14 +2,19 @@
 
 """Test methods of fluidasserts.cloud packages."""
 
-# standard imports
-from contextlib import contextmanager
-import os
-from moto import mock_redshift  # pylint: disable=E0401
-import pytest  # pylint: disable=E0401
-from fluidasserts.cloud.aws import redshift
-from fluidasserts.helper import aws
 
+from contextlib import (
+    contextmanager,
+)
+from fluidasserts.cloud.aws import (
+    redshift,
+)
+from fluidasserts.helper import (
+    aws,
+)
+from moto import mock_redshift  # pylint: disable=E0401
+import os
+import pytest  # pylint: disable=E0401
 
 pytestmark = pytest.mark.asserts_module(
     "cloud_aws_new"

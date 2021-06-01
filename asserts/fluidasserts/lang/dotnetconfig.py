@@ -2,18 +2,34 @@
 
 """This module allows to check Web.config code vulnerabilities."""
 
-# standard imports
+
+from bs4 import (
+    BeautifulSoup,
+)
+from bs4.element import (
+    Tag,
+)
+from fluidasserts import (
+    CLOSED,
+    LOW,
+    MEDIUM,
+    OPEN,
+    SAST,
+    Unit,
+    UNKNOWN,
+)
+from fluidasserts.utils.decorators import (
+    api,
+)
+from fluidasserts.utils.generic import (
+    get_paths,
+    get_sha256,
+)
 import os
-from typing import List, Tuple
-
-# 3rd party imports
-from bs4 import BeautifulSoup
-from bs4.element import Tag
-
-# local imports
-from fluidasserts import Unit, LOW, MEDIUM, OPEN, CLOSED, UNKNOWN, SAST
-from fluidasserts.utils.generic import get_sha256, get_paths
-from fluidasserts.utils.decorators import api
+from typing import (
+    List,
+    Tuple,
+)
 
 # Constants
 ENDSWITH: Tuple[str] = (".config",)

@@ -1,17 +1,27 @@
 """AWS cloud checks for ``EBS``` (Elastic Block Storage)."""
 
 
-# Third parties imports
-from botocore.exceptions import BotoCoreError
-from botocore.vendored.requests.exceptions import RequestException
-
-# Local imports
-from fluidasserts.cloud.aws import _get_result_as_tuple
-from fluidasserts import DAST
-from fluidasserts.helper import aws
-from fluidasserts import LOW, MEDIUM
-from fluidasserts.utils.decorators import api
-from fluidasserts.utils.decorators import unknown_if
+from botocore.exceptions import (
+    BotoCoreError,
+)
+from botocore.vendored.requests.exceptions import (
+    RequestException,
+)
+from fluidasserts import (
+    DAST,
+    LOW,
+    MEDIUM,
+)
+from fluidasserts.cloud.aws import (
+    _get_result_as_tuple,
+)
+from fluidasserts.helper import (
+    aws,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
 
 
 def _get_domains(key_id, retry, secret, session_token):

@@ -2,17 +2,18 @@
 
 """Test methods of fluidasserts.code.java."""
 
-# standard imports
+
 # None
 
-# 3rd party imports
+
 import pytest
 
 pytestmark = pytest.mark.asserts_module("lang_java")
 
-# local imports
-from fluidasserts.lang import java
 
+from fluidasserts.lang import (
+    java,
+)
 
 # Constants
 

@@ -2,9 +2,11 @@
 
 """Test methods of fluidasserts.cloud packages."""
 
+from fluidasserts.cloud.aws import (
+    route53,
+)
 import os
 import pytest  # pylint: disable=E0401
-from fluidasserts.cloud.aws import route53
 
 # Constants
 AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]

@@ -2,17 +2,24 @@
 
 """Google Cloud Platform checks (IAM)."""
 
-# standard imports
+
+from fluidasserts import (
+    DAST,
+    LOW,
+)
+from fluidasserts.cloud.gcp import (
+    _get_result_as_tuple,
+)
+from fluidasserts.helper import (
+    gcp,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
 import json
 
-# 3rd party imports
 # None
-
-# local imports
-from fluidasserts import DAST, LOW
-from fluidasserts.helper import gcp
-from fluidasserts.cloud.gcp import _get_result_as_tuple
-from fluidasserts.utils.decorators import api, unknown_if
 
 
 @api(risk=LOW, kind=DAST)

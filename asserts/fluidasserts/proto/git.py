@@ -2,23 +2,24 @@
 
 """This module allows to check GIT vulnerabilities."""
 
-# standard imports
-import os
 
-# third party imports
-import git
-from pydriller import RepositoryMining
-
-# local imports
 from fluidasserts import (
-    SAST,
-    LOW,
     _get_result_as_tuple_sast,
-    Unit,
-    OPEN,
     CLOSED,
+    LOW,
+    OPEN,
+    SAST,
+    Unit,
 )
-from fluidasserts.utils.decorators import unknown_if, api
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+import git
+import os
+from pydriller import (
+    RepositoryMining,
+)
 
 
 @api(risk=LOW, kind=SAST)

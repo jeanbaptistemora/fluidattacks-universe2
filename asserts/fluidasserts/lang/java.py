@@ -2,38 +2,49 @@
 
 """This module allows to check Java code vulnerabilities."""
 
-# standard imports
-import re
-from typing import Dict, List
 
-# 3rd party imports
+from fluidasserts import (
+    CLOSED,
+    LOW,
+    MEDIUM,
+    OPEN,
+    SAST,
+    UNKNOWN,
+)
+from fluidasserts.helper import (
+    lang,
+)
+from fluidasserts.lang import (
+    core,
+)
+from fluidasserts.utils.decorators import (
+    api,
+)
 from pyparsing import (
-    CaselessKeyword,
-    Word,
-    Literal,
-    Optional,
-    alphas,
     alphanums,
-    Suppress,
-    nestedExpr,
-    javaStyleComment,
-    QuotedString,
-    oneOf,
-    Keyword,
-    MatchFirst,
+    alphas,
+    CaselessKeyword,
     delimitedList,
     Empty,
-    Regex,
-    Or,
+    javaStyleComment,
+    Keyword,
+    Literal,
+    MatchFirst,
+    nestedExpr,
     nums,
+    oneOf,
+    Optional,
+    Or,
+    QuotedString,
+    Regex,
+    Suppress,
+    Word,
 )
-
-# local imports
-from fluidasserts import LOW, MEDIUM, OPEN, CLOSED, SAST, UNKNOWN
-from fluidasserts.lang import core
-from fluidasserts.helper import lang
-from fluidasserts.utils.decorators import api
-
+import re
+from typing import (
+    Dict,
+    List,
+)
 
 LANGUAGE_SPECS = {
     "extensions": ("java",),

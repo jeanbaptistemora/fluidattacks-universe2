@@ -28,15 +28,17 @@ This module provide support for ``Cryptography`` operations.
           :language: python
 """
 
-# standard imports
+
+import base64
+from cryptography.fernet import (
+    Fernet,
+)
 import io
 import sys
-import base64
-from typing import Dict
-
-# 3rd party imports
+from typing import (
+    Dict,
+)
 import yaml
-from cryptography.fernet import Fernet
 
 
 def _validate_key(key_b64) -> bytes:

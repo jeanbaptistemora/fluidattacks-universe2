@@ -2,27 +2,40 @@
 
 """This module allows to check vulnerabilities in DNS systems."""
 
-# standard imports
-from typing import Set, Tuple, List
-from contextlib import suppress
 
-# 3rd party imports
-import socket
+from contextlib import (
+    suppress,
+)
 import dns.dnssec
 import dns.query
 import dns.rdatatype
 import dns.resolver
 import dns.update
-from dns.zone import BadZone
-from dns.zone import NoNS
-from dns.zone import NoSOA
-from dns.zone import from_xfr
-
-
-# local imports
-from fluidasserts import Unit, DAST, LOW, MEDIUM, HIGH, OPEN, CLOSED
-from fluidasserts.utils.decorators import api, unknown_if
-
+from dns.zone import (
+    BadZone,
+    from_xfr,
+    NoNS,
+    NoSOA,
+)
+from fluidasserts import (
+    CLOSED,
+    DAST,
+    HIGH,
+    LOW,
+    MEDIUM,
+    OPEN,
+    Unit,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+import socket
+from typing import (
+    List,
+    Set,
+    Tuple,
+)
 
 DOMAIN = str
 NAMESERVER = str

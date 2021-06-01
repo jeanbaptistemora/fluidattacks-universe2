@@ -16,8 +16,15 @@ import os
 import sys
 
 sys.path.insert(0, os.path.abspath("../../"))
-from pygments.style import Style
-from pygments.token import Keyword, Name, Comment, String
+from pygments.style import (
+    Style,
+)
+from pygments.token import (
+    Comment,
+    Keyword,
+    Name,
+    String,
+)
 
 
 class Fluidattacks(Style):
@@ -34,8 +41,8 @@ class Fluidattacks(Style):
 
 
 def pygments_monkeypatch_style(mod_name, cls):
-    import sys
     import pygments.styles
+    import sys
 
     cls_name = cls.__name__
     mod = type(__import__("os"))(mod_name)

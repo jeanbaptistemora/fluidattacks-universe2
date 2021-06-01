@@ -1,17 +1,26 @@
 """AWS Terraform checks for ``S3`` (Simple Storage Service)."""
 
-# Standard imports
-from typing import List, Optional, Set
 
-# Local imports
-from fluidasserts import SAST, HIGH
-from fluidasserts.helper import aws as helper
-from fluidasserts.cloud.aws.terraform import (
-    Vulnerability,
-    _get_result_as_tuple,
+from fluidasserts import (
+    HIGH,
+    SAST,
 )
-from fluidasserts.utils.decorators import api, unknown_if
-
+from fluidasserts.cloud.aws.terraform import (
+    _get_result_as_tuple,
+    Vulnerability,
+)
+from fluidasserts.helper import (
+    aws as helper,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from typing import (
+    List,
+    Optional,
+    Set,
+)
 
 #: A set of available S3 Access Controls
 ACCESS_CONTROLS = {

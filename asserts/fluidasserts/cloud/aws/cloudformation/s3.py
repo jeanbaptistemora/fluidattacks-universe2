@@ -1,25 +1,39 @@
 """AWS CloudFormation checks for ``S3`` (Simple Storage Service)."""
 
-# Standard imports
-from typing import List, Optional, Set, Dict, Tuple
 
-# Treed imports
-from networkx import DiGraph
-
-# Local imports
-from fluidasserts import SAST, HIGH, LOW, MEDIUM
-from fluidasserts.helper import aws as helper
-from fluidasserts.cloud.aws.cloudformation import (
-    Vulnerability,
-    _get_result_as_tuple,
+from fluidasserts import (
+    HIGH,
+    LOW,
+    MEDIUM,
+    SAST,
 )
-from fluidasserts.utils.decorators import api, unknown_if
-from fluidasserts.cloud.aws.cloudformation import get_templates
-from fluidasserts.cloud.aws.cloudformation import get_graph
-from fluidasserts.cloud.aws.cloudformation import get_list_node_items
-from fluidasserts.cloud.aws.cloudformation import get_resources
-from fluidasserts.cloud.aws.cloudformation import get_ref_nodes
-from fluidasserts.cloud.aws.cloudformation import has_values
+from fluidasserts.cloud.aws.cloudformation import (
+    _get_result_as_tuple,
+    get_graph,
+    get_list_node_items,
+    get_ref_nodes,
+    get_resources,
+    get_templates,
+    has_values,
+    Vulnerability,
+)
+from fluidasserts.helper import (
+    aws as helper,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from networkx import (
+    DiGraph,
+)
+from typing import (
+    Dict,
+    List,
+    Optional,
+    Set,
+    Tuple,
+)
 
 #: A set of available S3 Access Controls
 ACCESS_CONTROLS = {

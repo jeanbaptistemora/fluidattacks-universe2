@@ -1,16 +1,28 @@
 # -*- coding: utf-8 -*-
 """This module allows to check ``PKCS12`` vulnerabilities."""
 
-# standard imports
-from typing import List
 
-# 3rd party imports
-from OpenSSL import crypto
-
-# local imports
-from fluidasserts import SAST, HIGH, OPEN, CLOSED, Unit
-from fluidasserts.utils.decorators import unknown_if, api
-from fluidasserts.utils.generic import get_paths, get_sha256
+from OpenSSL import (
+    crypto,
+)
+from fluidasserts import (
+    CLOSED,
+    HIGH,
+    OPEN,
+    SAST,
+    Unit,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from fluidasserts.utils.generic import (
+    get_paths,
+    get_sha256,
+)
+from typing import (
+    List,
+)
 
 
 @api(risk=HIGH, kind=SAST)

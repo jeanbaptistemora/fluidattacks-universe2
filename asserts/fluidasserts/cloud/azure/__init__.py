@@ -2,14 +2,19 @@
 
 """Fluid Asserts Azure cloud package."""
 
-# standard imports
-from typing import List, Callable
 
-# 3rd party imports
-from azure.common.credentials import ServicePrincipalCredentials
-
-# local imports
-from fluidasserts import Unit, OPEN, CLOSED
+from azure.common.credentials import (
+    ServicePrincipalCredentials,
+)
+from fluidasserts import (
+    CLOSED,
+    OPEN,
+    Unit,
+)
+from typing import (
+    Callable,
+    List,
+)
 
 
 def _get_result_as_tuple(

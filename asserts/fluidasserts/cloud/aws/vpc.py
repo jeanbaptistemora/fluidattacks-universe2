@@ -1,18 +1,31 @@
 """AWS cloud checks (VPC)."""
 
-# standard imports
+
+from botocore.exceptions import (
+    BotoCoreError,
+)
+from botocore.vendored.requests.exceptions import (
+    RequestException,
+)
+from fluidasserts import (
+    DAST,
+    LOW,
+    MEDIUM,
+)
+from fluidasserts.cloud.aws import (
+    _get_result_as_tuple,
+)
+from fluidasserts.helper import (
+    aws,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
 import json
-from typing import List
-
-# 3rd party imports
-from botocore.exceptions import BotoCoreError
-from botocore.vendored.requests.exceptions import RequestException
-
-# local imports
-from fluidasserts import DAST, MEDIUM, LOW
-from fluidasserts.helper import aws
-from fluidasserts.cloud.aws import _get_result_as_tuple
-from fluidasserts.utils.decorators import api, unknown_if
+from typing import (
+    List,
+)
 
 
 def _acl_rule_is_public(acl_rule: dict, egress: bool, action: str) -> bool:

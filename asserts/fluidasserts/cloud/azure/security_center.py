@@ -2,19 +2,36 @@
 
 """Fluid Asserts Security Center package."""
 
-# standar imports
-from typing import Tuple
-from itertools import repeat
 
-# 3rd party imports
-from msrest.exceptions import AuthenticationError, ClientException
-from azure.mgmt.security import SecurityCenter
-from azure.mgmt.resource import PolicyClient
-
-# local imports
-from fluidasserts import DAST, MEDIUM, LOW
-from fluidasserts.utils.decorators import api, unknown_if
-from fluidasserts.cloud.azure import _get_result_as_tuple, _get_credentials
+from azure.mgmt.resource import (
+    PolicyClient,
+)
+from azure.mgmt.security import (
+    SecurityCenter,
+)
+from fluidasserts import (
+    DAST,
+    LOW,
+    MEDIUM,
+)
+from fluidasserts.cloud.azure import (
+    _get_credentials,
+    _get_result_as_tuple,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from itertools import (
+    repeat,
+)
+from msrest.exceptions import (
+    AuthenticationError,
+    ClientException,
+)
+from typing import (
+    Tuple,
+)
 
 
 def _has_monitoring_param_value(

@@ -6,31 +6,53 @@ Some rules were taken from `CFN_NAG <https://github.com/
 stelligent/cfn_nag/blob/master/LICENSE.md>`_
 """
 
-# Standard imports
-from ipaddress import IPv4Network, IPv6Network
+
 import contextlib
-from typing import List, Optional, Tuple, Dict, Set, Union
-
-# Treed imports
-from networkx import DiGraph
-from networkx.algorithms import dfs_preorder_nodes
-from networkx.algorithms import all_simple_paths
-import networkx as nx
-
-# Local imports
-from fluidasserts import SAST, LOW, MEDIUM, HIGH
-from fluidasserts.helper import aws as helper
-from fluidasserts.cloud.aws.cloudformation import get_templates
-from fluidasserts.cloud.aws.cloudformation import get_graph
-from fluidasserts.cloud.aws.cloudformation import get_predecessor
-from fluidasserts.cloud.aws.cloudformation import get_ref_nodes
-from fluidasserts.cloud.aws.cloudformation import get_type
-from fluidasserts.helper.aws import CloudFormationInvalidTypeError
-from fluidasserts.cloud.aws.cloudformation import (
-    Vulnerability,
-    _get_result_as_tuple,
+from fluidasserts import (
+    HIGH,
+    LOW,
+    MEDIUM,
+    SAST,
 )
-from fluidasserts.utils.decorators import api, unknown_if
+from fluidasserts.cloud.aws.cloudformation import (
+    _get_result_as_tuple,
+    get_graph,
+    get_predecessor,
+    get_ref_nodes,
+    get_templates,
+    get_type,
+    Vulnerability,
+)
+from fluidasserts.helper import (
+    aws as helper,
+)
+from fluidasserts.helper.aws import (
+    CloudFormationInvalidTypeError,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from ipaddress import (
+    IPv4Network,
+    IPv6Network,
+)
+import networkx as nx
+from networkx import (
+    DiGraph,
+)
+from networkx.algorithms import (
+    all_simple_paths,
+    dfs_preorder_nodes,
+)
+from typing import (
+    Dict,
+    List,
+    Optional,
+    Set,
+    Tuple,
+    Union,
+)
 
 
 def _iterate_security_group_rules(graph: DiGraph, group: int):

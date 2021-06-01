@@ -24,23 +24,23 @@ El refactoring sera adecuado cuando se añadan a la estructura de datos
 nuevos headers y funcione para más casos de prueba.
 """
 
-# standard imports
-import os
-import time
-import random
-import datetime
+
 import contextlib
+import datetime
+from flask import (
+    Flask,
+    redirect,
+    request,
+    Response,
+    url_for,
+)
+from flask_httpauth import (
+    HTTPBasicAuth,
+)
+import os
+import random
+import time
 
-# 3rd party imports
-from flask import Flask
-from flask import redirect
-from flask import request
-from flask import Response
-from flask import url_for
-from flask_httpauth import HTTPBasicAuth
-
-
-# local imports
 # none
 
 UPLOAD_FOLDER = "/tmp"

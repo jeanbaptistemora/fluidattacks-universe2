@@ -2,12 +2,14 @@
 
 """Test methods of fluidasserts.cloud packages."""
 
-# standard imports
-import os
-from contextlib import contextmanager
-from fluidasserts.cloud.aws import configservice
 
-# 3rd party imports
+from contextlib import (
+    contextmanager,
+)
+from fluidasserts.cloud.aws import (
+    configservice,
+)
+import os
 import pytest  # pylint: disable=E0401
 
 pytestmark = pytest.mark.asserts_module(

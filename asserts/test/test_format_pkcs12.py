@@ -2,17 +2,18 @@
 
 """Test methods of fluidasserts.format.pkcs12."""
 
-# standard imports
+
 # none
 
-# 3rd party imports
+
 import pytest
 
 pytestmark = pytest.mark.asserts_module("format")
 
-# local imports
-from fluidasserts.format import pkcs12
 
+from fluidasserts.format import (
+    pkcs12,
+)
 
 # Constants
 NO_PWD_FILE = "test/static/format/pkcs12/no_pwd.p12"

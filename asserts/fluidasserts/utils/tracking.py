@@ -2,14 +2,15 @@
 
 """Fluid Asserts tracking module."""
 
-# standard imports
-import os
-import hashlib
-import sys
-import platform
 
-# 3rd party imports
-from mixpanel import Mixpanel, MixpanelException
+import hashlib
+from mixpanel import (
+    Mixpanel,
+    MixpanelException,
+)
+import os
+import platform
+import sys
 
 FA_EMAIL = "engineering@fluidattacks.com"
 

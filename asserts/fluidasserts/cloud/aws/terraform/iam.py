@@ -5,19 +5,29 @@ Some rules were taken from `CFN_NAG <https://github.com/
 stelligent/cfn_nag/blob/master/LICENSE.md>`_
 """
 
-# Standard imports
-import re
-import json
-from typing import List, Optional, Pattern
 
-# Local imports
-from fluidasserts import SAST, MEDIUM
-from fluidasserts.helper import aws as helper
-from fluidasserts.cloud.aws.terraform import (
-    Vulnerability,
-    _get_result_as_tuple,
+from fluidasserts import (
+    MEDIUM,
+    SAST,
 )
-from fluidasserts.utils.decorators import api, unknown_if
+from fluidasserts.cloud.aws.terraform import (
+    _get_result_as_tuple,
+    Vulnerability,
+)
+from fluidasserts.helper import (
+    aws as helper,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+import json
+import re
+from typing import (
+    List,
+    Optional,
+    Pattern,
+)
 
 
 def _is_generic_policy_miss_configured(  # noqa: MC0001

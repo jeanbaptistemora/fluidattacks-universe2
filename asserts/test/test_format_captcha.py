@@ -2,17 +2,18 @@
 
 """Modulo para pruebas de captcha."""
 
-# standard imports
+
 # None
 
-# 3rd party imports
+
 import pytest
 
 pytestmark = pytest.mark.asserts_module("format")
 
-# local imports
-from fluidasserts.format import captcha
 
+from fluidasserts.format import (
+    captcha,
+)
 
 # Constants
 

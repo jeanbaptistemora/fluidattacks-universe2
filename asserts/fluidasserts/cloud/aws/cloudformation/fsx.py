@@ -1,21 +1,30 @@
 """AWS CloudFormation checks for ``FSx`` (Amazon FSx file systems)."""
 
-# Standard imports
-from typing import List, Optional, Tuple, Dict
 
-# Treed imports
-from networkx import DiGraph
-
-# Local imports
-from fluidasserts import SAST, MEDIUM
-from fluidasserts.cloud.aws.cloudformation import (
-    Vulnerability,
-    _get_result_as_tuple,
+from fluidasserts import (
+    MEDIUM,
+    SAST,
 )
-from fluidasserts.utils.decorators import api, unknown_if
-from fluidasserts.cloud.aws.cloudformation import get_templates
-from fluidasserts.cloud.aws.cloudformation import get_graph
-from fluidasserts.cloud.aws.cloudformation import get_resources
+from fluidasserts.cloud.aws.cloudformation import (
+    _get_result_as_tuple,
+    get_graph,
+    get_resources,
+    get_templates,
+    Vulnerability,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from networkx import (
+    DiGraph,
+)
+from typing import (
+    Dict,
+    List,
+    Optional,
+    Tuple,
+)
 
 
 @api(risk=MEDIUM, kind=SAST)

@@ -2,18 +2,17 @@
 
 """Test methods of fluidasserts.helper.asynchronous."""
 
-# standard imports
-import asyncio
 
-# third party imports
 import aiohttp
+import asyncio
 import pytest
 
 pytestmark = pytest.mark.asserts_module("helper")
 
-# local imports
-from fluidasserts.helper import asynchronous
 
+from fluidasserts.helper import (
+    asynchronous,
+)
 
 #
 # Tests

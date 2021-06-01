@@ -11,16 +11,18 @@ VSFTP
 
 """
 
-# standard imports
+
 # None
 
-# 3rd party imports
+
 import pytest
 
 pytestmark = pytest.mark.asserts_module("proto_ftp")
 
-# local imports
-from fluidasserts.proto import ftp
+
+from fluidasserts.proto import (
+    ftp,
+)
 
 #
 # Constants

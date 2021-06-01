@@ -1,9 +1,9 @@
 """Test methods of fluidasserts.cloud.cloudformation.fsx module."""
 
-# local imports
-from fluidasserts.cloud.aws.terraform import fsx
 
-# 3rd party imports
+from fluidasserts.cloud.aws.terraform import (
+    fsx,
+)
 import pytest
 
 pytestmark = pytest.mark.asserts_module("cloud_aws_terraform")

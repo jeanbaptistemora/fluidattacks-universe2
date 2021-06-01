@@ -2,17 +2,27 @@
 
 """This module allows to check ``LDAP`` vulnerabilities."""
 
-# standard imports
-from contextlib import suppress
 
-# 3rd party imports
-from ldap3 import Server
-from ldap3 import Connection
-from ldap3.core.exceptions import LDAPExceptionError, LDAPSocketOpenError
-
-# local imports
-from fluidasserts import DAST, HIGH, _get_result_as_tuple_host_port
-from fluidasserts.utils.decorators import unknown_if, api
+from contextlib import (
+    suppress,
+)
+from fluidasserts import (
+    _get_result_as_tuple_host_port,
+    DAST,
+    HIGH,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from ldap3 import (
+    Connection,
+    Server,
+)
+from ldap3.core.exceptions import (
+    LDAPExceptionError,
+    LDAPSocketOpenError,
+)
 
 PORT = 389
 SSL_PORT = 636

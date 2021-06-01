@@ -5,41 +5,63 @@
 # pylint: disable=super-init-not-called
 """This module provide tools to convert Cloudformation templates in graphs."""
 
-# standar imports
-import re
-from concurrent.futures import ThreadPoolExecutor
-from collections import OrderedDict
-from collections import UserDict
-from collections import UserList
-from contextlib import suppress
-from copy import copy
+
+from collections import (
+    OrderedDict,
+    UserDict,
+    UserList,
+)
+from concurrent.futures import (
+    ThreadPoolExecutor,
+)
+from contextlib import (
+    suppress,
+)
+from copy import (
+    copy,
+)
 import datetime
+from fluidasserts.helper.aws import (
+    _random_string,
+    CLOUDFORMATION_EXTENSIONS,
+    CloudFormationInvalidTemplateError,
+    get_line,
+    load_cfn_template,
+)
+from fluidasserts.utils.generic import (
+    get_paths,
+)
+from fluidasserts.utils.parsers.json import (
+    CustomDict,
+    CustomList,
+)
 import functools
-from multiprocessing import cpu_count
-from timeit import default_timer as timer
-from typing import Tuple
-from typing import Set
-from typing import List as TList
-
-# 3rd party imports
-from pyparsing import Char
-from pyparsing import nestedExpr
-from pyparsing import Optional
-from pyparsing import printables
-from pyparsing import Suppress
-from pyparsing import Word
-from networkx import DiGraph
-from networkx.algorithms import dfs_preorder_nodes
-
-# local imports
-from fluidasserts.helper.aws import _random_string
-from fluidasserts.helper.aws import CLOUDFORMATION_EXTENSIONS
-from fluidasserts.helper.aws import CloudFormationInvalidTemplateError
-from fluidasserts.helper.aws import get_line
-from fluidasserts.utils.generic import get_paths
-from fluidasserts.helper.aws import load_cfn_template
-from fluidasserts.utils.parsers.json import CustomDict
-from fluidasserts.utils.parsers.json import CustomList
+from multiprocessing import (
+    cpu_count,
+)
+from networkx import (
+    DiGraph,
+)
+from networkx.algorithms import (
+    dfs_preorder_nodes,
+)
+from pyparsing import (
+    Char,
+    nestedExpr,
+    Optional,
+    printables,
+    Suppress,
+    Word,
+)
+import re
+from timeit import (
+    default_timer as timer,
+)
+from typing import (
+    List as TList,
+    Set,
+    Tuple,
+)
 
 
 def create_alias(name: str, randoms=False) -> str:

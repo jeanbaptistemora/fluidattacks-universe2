@@ -5,17 +5,27 @@ Some rules were taken from `CFN_NAG <https://github.com/
 stelligent/cfn_nag/blob/master/LICENSE.md>`_
 """
 
-# Standard imports
-from typing import List, Optional
 
-# Local imports
-from fluidasserts import SAST, LOW, MEDIUM
-from fluidasserts.helper import aws as helper
-from fluidasserts.cloud.aws.cloudformation import (
-    Vulnerability,
-    _get_result_as_tuple,
+from fluidasserts import (
+    LOW,
+    MEDIUM,
+    SAST,
 )
-from fluidasserts.utils.decorators import api, unknown_if
+from fluidasserts.cloud.aws.cloudformation import (
+    _get_result_as_tuple,
+    Vulnerability,
+)
+from fluidasserts.helper import (
+    aws as helper,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from typing import (
+    List,
+    Optional,
+)
 
 
 @api(risk=LOW, kind=SAST)

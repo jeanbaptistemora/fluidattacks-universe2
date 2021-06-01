@@ -1,17 +1,25 @@
 # -*- coding: utf-8 -*-
 """Fluid Asserts Kubernetes package."""
 
-# standard imports
-from typing import List
-from urllib3.exceptions import MaxRetryError
 
-# 3rd party imports
-from kubernetes import client
+from fluidasserts import (
+    CLOSED,
+    OPEN,
+    Unit,
+)
+from kubernetes import (
+    client,
+)
 from kubernetes.client import Configuration  # noqa
-from kubernetes.client.rest import ApiException
-
-# local imports
-from fluidasserts import Unit, OPEN, CLOSED
+from kubernetes.client.rest import (
+    ApiException,
+)
+from typing import (
+    List,
+)
+from urllib3.exceptions import (
+    MaxRetryError,
+)
 
 
 def _get_result_as_tuple(

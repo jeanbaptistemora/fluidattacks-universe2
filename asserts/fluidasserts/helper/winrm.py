@@ -11,14 +11,13 @@ These commands must be run on the target server: ::
    winrm set winrm/config/client/auth @{Basic="true"}
 """
 
-# standard imports
+
 # None
 
-# 3rd party imports
+
 import requests
 import winrm
 
-# local imports
 # none
 
 

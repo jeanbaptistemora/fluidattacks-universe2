@@ -2,15 +2,23 @@
 
 """This module enables decorators for registry and usage tracking purposes."""
 
-# standard imports
-import sys
-import functools
-from typing import Any, Callable
-from timeit import default_timer as timer
 
-# local imports
-from fluidasserts import Result, UNKNOWN
-from fluidasserts.utils.tracking import mp_track
+from fluidasserts import (
+    Result,
+    UNKNOWN,
+)
+from fluidasserts.utils.tracking import (
+    mp_track,
+)
+import functools
+import sys
+from timeit import (
+    default_timer as timer,
+)
+from typing import (
+    Any,
+    Callable,
+)
 
 
 def _get_func_id(func: Callable) -> str:

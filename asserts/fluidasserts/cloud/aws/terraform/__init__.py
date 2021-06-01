@@ -1,10 +1,16 @@
 """Fluid Asserts Terraform package."""
 
-# standard imports
-from typing import Any, List, NamedTuple
 
-# local imports
-from fluidasserts import Unit, OPEN, CLOSED
+from fluidasserts import (
+    CLOSED,
+    OPEN,
+    Unit,
+)
+from typing import (
+    Any,
+    List,
+    NamedTuple,
+)
 
 # Containers
 Vulnerability = NamedTuple(

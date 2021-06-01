@@ -1,22 +1,33 @@
 # -*- coding: utf-8 -*-
 """Software Composition Analysis for NodeJS packages."""
 
-# standard imports
+
+from fluidasserts import (
+    CLOSED,
+    HIGH,
+    OPEN,
+    SCA,
+    Unit,
+    UNKNOWN,
+)
+from fluidasserts.helper import (
+    asynchronous,
+    sca,
+)
+from fluidasserts.utils.decorators import (
+    api,
+)
+from fluidasserts.utils.generic import (
+    get_paths,
+    get_sha256,
+)
+from fluidasserts.utils.parsers import (
+    json as l_json,
+)
 import os
 
-# 3rd party imports
 # None
 
-# local imports
-from fluidasserts import HIGH, SCA
-from fluidasserts.helper import sca
-from fluidasserts.utils.generic import get_paths
-from fluidasserts.utils.decorators import api
-from fluidasserts.utils.parsers import json as l_json
-from fluidasserts import OPEN, CLOSED, UNKNOWN
-from fluidasserts.helper import asynchronous
-from fluidasserts import Unit
-from fluidasserts.utils.generic import get_sha256
 
 PKG_MNGR = "npm"
 

@@ -2,18 +2,26 @@
 
 """This module allows to check SSH vulnerabilities."""
 
-# standard imports
-import socket
-from contextlib import suppress
 
-# 3rd party imports
+from contextlib import (
+    suppress,
+)
+from fluidasserts import (
+    _get_result_as_tuple_host_port,
+    DAST,
+    LOW,
+    MEDIUM,
+)
+from fluidasserts.helper import (
+    banner,
+    ssh,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
 import paramiko
-
-# local imports
-from fluidasserts import DAST, LOW, MEDIUM, _get_result_as_tuple_host_port
-from fluidasserts.helper import banner, ssh
-from fluidasserts.utils.decorators import unknown_if, api
-
+import socket
 
 # pylint: disable=protected-access
 

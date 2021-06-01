@@ -1,14 +1,16 @@
 """Fluid asserts to create Code Property Graphs."""
-# Standar import
-from typing import Tuple
 
-# 3rd party imports
-from networkx import DiGraph
-
-# Local import
-from fluidasserts.lang import python3_cpg
-from fluidasserts.lang import node_creator as creator
-from fluidasserts.lang import GRAPHS
+from fluidasserts.lang import (
+    GRAPHS,
+    node_creator as creator,
+    python3_cpg,
+)
+from networkx import (
+    DiGraph,
+)
+from typing import (
+    Tuple,
+)
 
 
 def load_cpg(path: str, language: str, exclude: Tuple[str] = None):

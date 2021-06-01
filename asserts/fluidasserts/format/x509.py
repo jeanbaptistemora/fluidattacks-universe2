@@ -1,25 +1,46 @@
 # -*- coding: utf-8 -*-
 """This module allows to check ``X509`` certificates' vulnerabilities."""
 
-# standard imports
+
+from contextlib import (
+    suppress,
+)
+from cryptography.hazmat.backends import (
+    default_backend,
+)
+from cryptography.x509 import (
+    DNSName,
+    load_pem_x509_certificate,
+)
+from cryptography.x509.extensions import (
+    ExtensionNotFound,
+)
+from cryptography.x509.oid import (
+    ExtensionOID,
+    NameOID,
+)
 import datetime
+from fluidasserts import (
+    CLOSED,
+    DAST,
+    MEDIUM,
+    OPEN,
+    Unit,
+)
+from fluidasserts.helper.ssl import (
+    connect,
+    connect_legacy,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
 import socket
 import ssl
-from typing import List
-from contextlib import suppress
-
-# 3rd party imports
 import tlslite
-from cryptography.hazmat.backends import default_backend
-from cryptography.x509 import load_pem_x509_certificate, DNSName
-from cryptography.x509.oid import NameOID, ExtensionOID
-from cryptography.x509.extensions import ExtensionNotFound
-
-# local imports
-from fluidasserts import Unit, DAST, MEDIUM, OPEN, CLOSED
-from fluidasserts.helper.ssl import connect
-from fluidasserts.helper.ssl import connect_legacy
-from fluidasserts.utils.decorators import api, unknown_if
+from typing import (
+    List,
+)
 
 PORT = 443
 

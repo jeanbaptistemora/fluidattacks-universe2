@@ -1,11 +1,13 @@
 """Fluidasserts lang module to create gra[h nodes."""
 # pylint: disable=unused-argument
 
-# Standar imports
-from typing import Dict
 
-# 3rd party imports
-from networkx import DiGraph
+from networkx import (
+    DiGraph,
+)
+from typing import (
+    Dict,
+)
 
 
 def _create_node(graph: DiGraph, **kwargs: Dict):

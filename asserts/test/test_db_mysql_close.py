@@ -2,16 +2,17 @@
 
 """Test module for mysql_os."""
 
-# standard imports
-from __future__ import print_function
 
-# 3rd party imports
-from fluidasserts.db import mysql
+from __future__ import (
+    print_function,
+)
+
+from fluidasserts.db import (
+    mysql,
+)
 import pytest
 
 pytestmark = pytest.mark.asserts_module("db_mysql")
-
-# local imports
 
 
 # Constants

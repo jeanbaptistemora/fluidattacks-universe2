@@ -2,13 +2,22 @@
 
 """This module allows to check FTP-specific vulnerabilities."""
 
-# standard imports
-import ftplib
-from contextlib import suppress
 
-# local imports
-from fluidasserts import DAST, OPEN, CLOSED, Unit, HIGH
-from fluidasserts.utils.decorators import unknown_if, api
+from contextlib import (
+    suppress,
+)
+from fluidasserts import (
+    CLOSED,
+    DAST,
+    HIGH,
+    OPEN,
+    Unit,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+import ftplib
 
 # Constants
 PORT: int = 21

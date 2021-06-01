@@ -2,19 +2,20 @@
 
 """Test methods of fluidasserts.cloud.gcp packages."""
 
-# standard imports
-import os
-import tempfile
-from contextlib import contextmanager
 
-# 3rd party imports
+from contextlib import (
+    contextmanager,
+)
+import os
 import pytest
+import tempfile
 
 pytestmark = pytest.mark.asserts_module("cloud_gcp")
 
-# local imports
-from fluidasserts.cloud.gcp import project
 
+from fluidasserts.cloud.gcp import (
+    project,
+)
 
 # Constants
 GOOGLE_CREDENTIALS = os.environ["GOOGLE_APPLICATION_CREDENTIALS_CONTENT"]

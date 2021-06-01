@@ -1,18 +1,31 @@
 # -*- coding: utf-8 -*-
 """AWS cloud checks (ECS)."""
 
-# standard imports
 
-# 3rd party imports
-from botocore.exceptions import BotoCoreError
-from botocore.vendored.requests.exceptions import RequestException
-from pyparsing import Literal, Optional
-
-# local imports
-from fluidasserts import DAST, MEDIUM
-from fluidasserts.helper import aws
-from fluidasserts.cloud.aws import _get_result_as_tuple
-from fluidasserts.utils.decorators import api, unknown_if
+from botocore.exceptions import (
+    BotoCoreError,
+)
+from botocore.vendored.requests.exceptions import (
+    RequestException,
+)
+from fluidasserts import (
+    DAST,
+    MEDIUM,
+)
+from fluidasserts.cloud.aws import (
+    _get_result_as_tuple,
+)
+from fluidasserts.helper import (
+    aws,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from pyparsing import (
+    Literal,
+    Optional,
+)
 
 
 def _get_tasks_running(

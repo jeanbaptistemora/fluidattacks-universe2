@@ -1,9 +1,9 @@
 """Test methods of fluidasserts.cloud.terraform.cloudfront module."""
 
-# local imports
-from fluidasserts.cloud.aws.terraform import cloudfront
 
-# 3rd party imports
+from fluidasserts.cloud.aws.terraform import (
+    cloudfront,
+)
 import pytest  # pylint: disable=E0401
 
 pytestmark = pytest.mark.asserts_module(

@@ -6,6 +6,8 @@ pythonFormat {
     "."
   ];
   targetsIsort = [
+    "airs"
+    "asserts"
     "integrates"
     "skims"
   ];

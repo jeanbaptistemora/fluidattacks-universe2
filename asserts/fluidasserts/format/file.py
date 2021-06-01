@@ -2,18 +2,30 @@
 
 """This module allows to check common ``file`` vulnerabilities."""
 
-# standard imports
-from typing import List
-from os.path import splitext, basename
 
-# 3rd party imports
+from fluidasserts import (
+    CLOSED,
+    LOW,
+    OPEN,
+    SAST,
+    Unit,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from fluidasserts.utils.generic import (
+    get_paths,
+    get_sha256,
+)
 import magic
-
-# local imports
-from fluidasserts import Unit, SAST, LOW, CLOSED, OPEN
-from fluidasserts.utils.generic import get_paths, get_sha256
-from fluidasserts.utils.decorators import api, unknown_if
-
+from os.path import (
+    basename,
+    splitext,
+)
+from typing import (
+    List,
+)
 
 COMPILED_BINARY_MIMES: List[str] = [
     "application/java-archive",

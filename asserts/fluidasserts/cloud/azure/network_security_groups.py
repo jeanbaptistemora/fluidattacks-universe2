@@ -2,22 +2,31 @@
 
 """Fluid Asserts Azure Active directory package."""
 
-# standar imports
-from typing import Tuple
 
-# 3rd party imports
-from msrest.exceptions import AuthenticationError, ClientException
-from azure.mgmt.network import NetworkManagementClient
-
-# local imports
-from fluidasserts import DAST, MEDIUM
-from fluidasserts.utils.decorators import api, unknown_if
+from azure.mgmt.network import (
+    NetworkManagementClient,
+)
+from fluidasserts import (
+    DAST,
+    MEDIUM,
+)
 from fluidasserts.cloud.azure import (
-    _get_result_as_tuple,
-    _get_credentials,
     _attr_checker,
-    _port_in_range,
     _flatten,
+    _get_credentials,
+    _get_result_as_tuple,
+    _port_in_range,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from msrest.exceptions import (
+    AuthenticationError,
+    ClientException,
+)
+from typing import (
+    Tuple,
 )
 
 

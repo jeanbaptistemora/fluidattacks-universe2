@@ -1,15 +1,21 @@
 # -*- coding: utf-8 -*-
 """This module allows to check Password and other text vulnerabilities."""
 
-# standard imports
+
+from fluidasserts import (
+    _get_result_as_tuple_sast,
+    HIGH,
+    LOW,
+    MEDIUM,
+    SAST,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
 import pkg_resources
 
-# 3rd party imports
 # None
-
-# local imports
-from fluidasserts import SAST, LOW, MEDIUM, HIGH, _get_result_as_tuple_sast
-from fluidasserts.utils.decorators import unknown_if, api
 
 
 @unknown_if(FileNotFoundError)

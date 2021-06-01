@@ -3,20 +3,25 @@
 """Simple Flask/GraphQL server."""
 
 import contextlib
-from time import sleep
-from flask import Flask
-from flask_graphql import GraphQLView
+from flask import (
+    Flask,
+)
+from flask_graphql import (
+    GraphQLView,
+)
 from graphene import (
-    Int,
-    String,
     Boolean,
     Field,
+    Int,
     List,
     Mutation,
     ObjectType,
     Schema,
+    String,
 )
-
+from time import (
+    sleep,
+)
 
 #
 # Database

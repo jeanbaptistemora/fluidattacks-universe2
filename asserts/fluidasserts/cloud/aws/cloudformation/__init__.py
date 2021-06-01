@@ -5,22 +5,47 @@ Some rules were taken from `CFN_NAG <https://github.com/
 stelligent/cfn_nag/blob/master/LICENSE.md>`_
 """
 
-# standard imports
-from typing import Any, List, Dict, Callable, Set, Optional, Tuple, Union
-from collections import namedtuple
-from contextvars import ContextVar
-from contextlib import contextmanager
 
-# 3d imports
+from collections import (
+    namedtuple,
+)
+from contextlib import (
+    contextmanager,
+)
+from contextvars import (
+    ContextVar,
+)
+from fluidasserts import (
+    CLOSED,
+    OPEN,
+    Unit,
+)
+from fluidasserts.cloud.aws.cloudformation import (
+    services,
+)
+from fluidasserts.cloud.aws.cloudformation.loader import (
+    Dict as ADict,
+)
+from fluidasserts.helper import (
+    aws as helper,
+)
 import networkx as nx
-from networkx import DiGraph
-from networkx.algorithms import dfs_preorder_nodes
-
-# local imports
-from fluidasserts.cloud.aws.cloudformation import services
-from fluidasserts import Unit, OPEN, CLOSED
-from fluidasserts.cloud.aws.cloudformation.loader import Dict as ADict
-from fluidasserts.helper import aws as helper
+from networkx import (
+    DiGraph,
+)
+from networkx.algorithms import (
+    dfs_preorder_nodes,
+)
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    List,
+    Optional,
+    Set,
+    Tuple,
+    Union,
+)
 
 # Containers
 Vulnerability = namedtuple(

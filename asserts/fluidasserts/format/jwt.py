@@ -2,13 +2,22 @@
 
 """This module allows to check ``JWT`` vulnerabilities."""
 
-# 3rd party imports
-from jwt import decode
-from jwt.exceptions import InvalidTokenError
 
-# local imports
-from fluidasserts import SAST, LOW, _get_result_as_tuple_sast
-from fluidasserts.utils.decorators import unknown_if, api
+from fluidasserts import (
+    _get_result_as_tuple_sast,
+    LOW,
+    SAST,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from jwt import (
+    decode,
+)
+from jwt.exceptions import (
+    InvalidTokenError,
+)
 
 
 @api(risk=LOW, kind=SAST)

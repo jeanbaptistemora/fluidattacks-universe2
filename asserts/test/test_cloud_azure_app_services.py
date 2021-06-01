@@ -2,16 +2,15 @@
 
 """Test methods of fluidasserts.cloud packages."""
 
-# standard imports
-from fluidasserts.cloud.azure import app_services
-import os
 
-# 3rd party imports
+from fluidasserts.cloud.azure import (
+    app_services,
+)
+import os
 import pytest
 
 pytestmark = pytest.mark.asserts_module("cloud_azure")
 
-# local imports
 
 # Constants
 AZURE_SUBSCRIPTION_ID = os.environ["AZURE_SUBSCRIPTION_ID"]

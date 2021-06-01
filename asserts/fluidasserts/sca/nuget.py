@@ -2,17 +2,22 @@
 
 """Software Composition Analysis for NuGet (C#) packages."""
 
-# standard imports
-import os
 
-# 3rd party imports
 import defusedxml.ElementTree
-
-# local imports
-from fluidasserts import HIGH, SCA
-from fluidasserts.helper import sca
-from fluidasserts.utils.generic import get_paths
-from fluidasserts.utils.decorators import api
+from fluidasserts import (
+    HIGH,
+    SCA,
+)
+from fluidasserts.helper import (
+    sca,
+)
+from fluidasserts.utils.decorators import (
+    api,
+)
+from fluidasserts.utils.generic import (
+    get_paths,
+)
+import os
 
 PKG_MNGR = "nuget"
 

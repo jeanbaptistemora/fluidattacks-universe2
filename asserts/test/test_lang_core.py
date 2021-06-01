@@ -2,16 +2,18 @@
 
 """Test methods of fluidasserts.code.code."""
 
-# standard imports
 
-# 3rd party imports
-from fluidasserts.lang import core
-from pyparsing import nestedExpr, Word, nums
+from fluidasserts.lang import (
+    core,
+)
+from pyparsing import (
+    nestedExpr,
+    nums,
+    Word,
+)
 import pytest
 
 pytestmark = pytest.mark.asserts_module("lang_core")
-
-# local imports
 
 
 # Constants

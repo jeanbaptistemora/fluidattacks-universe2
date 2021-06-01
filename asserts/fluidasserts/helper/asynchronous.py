@@ -2,17 +2,16 @@
 
 """This module provide support for Asynchronous python."""
 
-# standard imports
-import time
+
+import aiohttp
 import asyncio
 import functools
-from typing import Any, List, Callable
-
-# 3rd party imports
-import aiohttp
-
-# local imports
-
+import time
+from typing import (
+    Any,
+    Callable,
+    List,
+)
 
 # Constants
 TIMEOUT_ERRORS = (

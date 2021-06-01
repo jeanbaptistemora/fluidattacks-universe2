@@ -1,23 +1,44 @@
 # -*- coding: utf-8 -*-
 """AWS cloud checks (S3)."""
 
-# standard imports
-from contextlib import suppress
-import json
-from typing import List
 
-# 3rd party imports
 import boto3
-from botocore import UNSIGNED
-from botocore.client import Config
-from botocore.exceptions import BotoCoreError, ClientError
-from botocore.vendored.requests.exceptions import RequestException
-
-# local imports
-from fluidasserts import DAST, LOW, HIGH, MEDIUM
-from fluidasserts.helper import aws
-from fluidasserts.cloud.aws import _get_result_as_tuple
-from fluidasserts.utils.decorators import api, unknown_if
+from botocore import (
+    UNSIGNED,
+)
+from botocore.client import (
+    Config,
+)
+from botocore.exceptions import (
+    BotoCoreError,
+    ClientError,
+)
+from botocore.vendored.requests.exceptions import (
+    RequestException,
+)
+from contextlib import (
+    suppress,
+)
+from fluidasserts import (
+    DAST,
+    HIGH,
+    LOW,
+    MEDIUM,
+)
+from fluidasserts.cloud.aws import (
+    _get_result_as_tuple,
+)
+from fluidasserts.helper import (
+    aws,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+import json
+from typing import (
+    List,
+)
 
 
 @api(risk=LOW, kind=DAST)

@@ -1,9 +1,9 @@
 """Test methods of fluidasserts.cloud.cloudformation.dynamodb module."""
 
-# local imports
-from fluidasserts.cloud.aws.cloudformation import dynamodb
 
-# 3rd party imports
+from fluidasserts.cloud.aws.cloudformation import (
+    dynamodb,
+)
 import pytest
 
 pytestmark = pytest.mark.asserts_module("cloud_aws_cloudformation")

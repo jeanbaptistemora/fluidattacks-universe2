@@ -2,16 +2,16 @@
 
 """Test methods of fluidasserts.proto.git."""
 
-# standard imports
+
 # None
 
-# 3rd party imports
-from fluidasserts.proto import git
+
+from fluidasserts.proto import (
+    git,
+)
 import pytest
 
 pytestmark = pytest.mark.asserts_module("proto_git")
-
-# local imports
 
 
 # Constants

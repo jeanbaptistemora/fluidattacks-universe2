@@ -2,11 +2,15 @@
 
 """Fluid Asserts GCP cloud package."""
 
-# standard imports
-from typing import List
 
-# local imports
-from fluidasserts import Unit, OPEN, CLOSED
+from fluidasserts import (
+    CLOSED,
+    OPEN,
+    Unit,
+)
+from typing import (
+    List,
+)
 
 
 def _get_result_as_tuple(

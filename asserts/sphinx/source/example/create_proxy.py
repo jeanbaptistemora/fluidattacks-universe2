@@ -1,9 +1,17 @@
-import time
+from fluidasserts.helper.proxy import (
+    AddOn,
+    get_certificate_path,
+    proxy_server,
+)
 import json
+from mitmproxy.http import (
+    HTTPFlow,
+)
+from pathlib import (
+    Path,
+)
 import requests
-from pathlib import Path
-from mitmproxy.http import HTTPFlow
-from fluidasserts.helper.proxy import proxy_server, AddOn, get_certificate_path
+import time
 
 HOST = "127.0.0.1"
 PORT = 8085

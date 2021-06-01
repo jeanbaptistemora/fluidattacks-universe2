@@ -3,16 +3,23 @@
 """This module allows to check ``CAPTCHA`` vulnerabilities."""
 
 
-# standard imports
-from PIL import Image
-
-# 3rd party imports
+from PIL import (
+    Image,
+)
+from fluidasserts import (
+    _get_result_as_tuple_sast,
+    DAST,
+    MEDIUM,
+    SAST,
+)
+from fluidasserts.helper import (
+    http,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
 import pytesseract
-
-# local imports
-from fluidasserts import SAST, DAST, MEDIUM, _get_result_as_tuple_sast
-from fluidasserts.helper import http
-from fluidasserts.utils.decorators import unknown_if, api
 
 
 @api(risk=MEDIUM, kind=SAST)

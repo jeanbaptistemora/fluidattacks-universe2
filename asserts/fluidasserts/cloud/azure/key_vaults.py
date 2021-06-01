@@ -2,25 +2,44 @@
 
 """Fluid Asserts Azure Key Vaults package."""
 
-# standar imports
-from typing import Tuple
-from contextlib import suppress
 
-# 3rd party imports
-from msrest.exceptions import AuthenticationError, ClientException
-from azure.keyvault.keys._shared.exceptions import HttpResponseError
-from azure.mgmt.keyvault import KeyVaultManagementClient
-from azure.identity import ClientSecretCredential
-from azure.keyvault.keys import KeyClient
-from azure.keyvault.secrets import SecretClient
-
-# local imports
-from fluidasserts import DAST, MEDIUM
-from fluidasserts.utils.decorators import api, unknown_if
+from azure.identity import (
+    ClientSecretCredential,
+)
+from azure.keyvault.keys import (
+    KeyClient,
+)
+from azure.keyvault.keys._shared.exceptions import (
+    HttpResponseError,
+)
+from azure.keyvault.secrets import (
+    SecretClient,
+)
+from azure.mgmt.keyvault import (
+    KeyVaultManagementClient,
+)
+from contextlib import (
+    suppress,
+)
+from fluidasserts import (
+    DAST,
+    MEDIUM,
+)
 from fluidasserts.cloud.azure import (
-    _get_result_as_tuple,
-    _get_credentials,
     _attr_checker,
+    _get_credentials,
+    _get_result_as_tuple,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from msrest.exceptions import (
+    AuthenticationError,
+    ClientException,
+)
+from typing import (
+    Tuple,
 )
 
 

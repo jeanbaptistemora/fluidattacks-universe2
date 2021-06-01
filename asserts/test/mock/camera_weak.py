@@ -2,16 +2,14 @@
 
 """Camera mocks."""
 
-# standard imports
+
 import contextlib
+from flask import (
+    Flask,
+    request,
+    Response,
+)
 
-# 3rd party imports
-from flask import Flask
-from flask import request
-from flask import Response
-
-
-# local imports
 # none
 
 

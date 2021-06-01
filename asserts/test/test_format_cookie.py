@@ -6,17 +6,22 @@ Este modulo contiene las funciones necesarias para probar si el modulo de
 HTTP se encuentra adecuadamente implementado.
 """
 
-# standard imports
-from __future__ import print_function
 
-# 3rd party imports
+from __future__ import (
+    print_function,
+)
+
 import pytest
 
 pytestmark = pytest.mark.asserts_module("format")
 
-# local imports
-from fluidasserts.format import cookie
-from fluidasserts.helper import http
+
+from fluidasserts.format import (
+    cookie,
+)
+from fluidasserts.helper import (
+    http,
+)
 
 #
 # Constants

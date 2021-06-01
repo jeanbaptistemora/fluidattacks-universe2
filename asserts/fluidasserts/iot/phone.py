@@ -2,19 +2,29 @@
 
 """This module allows to check SIP vulnerabilities."""
 
-# standard imports
+
+import base64
+import email
+from fluidasserts import (
+    _get_result_as_tuple_host_port,
+    DAST,
+    HIGH,
+    LOW,
+)
+from fluidasserts.helper import (
+    http,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
 import io
 import re
-import email
-import base64
 import socket
 import textwrap
-from typing import Dict
-
-# local imports
-from fluidasserts import DAST, LOW, HIGH, _get_result_as_tuple_host_port
-from fluidasserts.helper import http
-from fluidasserts.utils.decorators import unknown_if, api
+from typing import (
+    Dict,
+)
 
 
 def _make_udp_request(server: str, port: int, data: str):

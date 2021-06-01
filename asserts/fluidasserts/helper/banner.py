@@ -3,21 +3,22 @@
 """This module enables banner and fingerprint grabbing for other modules."""
 
 
-# standard imports
-from abc import ABCMeta
-from abc import abstractmethod
+from abc import (
+    ABCMeta,
+    abstractmethod,
+)
+import certifi
+from fluidasserts.helper import (
+    http,
+)
 import hashlib
 import re
+import six
 import socket
 import ssl
-from typing import Optional
-
-# 3rd party imports
-import certifi
-import six
-
-# local imports
-from fluidasserts.helper import http
+from typing import (
+    Optional,
+)
 
 
 @six.add_metaclass(ABCMeta)

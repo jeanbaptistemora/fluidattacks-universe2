@@ -4,49 +4,73 @@
 
 """Asserts CLI."""
 
-# standard imports
+
+import argparse
+from colorama import (
+    init,
+)
+import contextlib
+import fluidasserts
+from fluidasserts import (
+    CLOSED,
+    ERROR,
+    OPEN,
+    UNKNOWN,
+)
+from fluidasserts.utils import (
+    constants,
+)
+import importlib
+from io import (
+    StringIO,
+)
+import itertools
+from multiprocessing import (
+    cpu_count,
+    Pool,
+)
 import os
+from pygments import (
+    highlight,
+)
+from pygments.formatters import (
+    TerminalFormatter,
+)
+from pygments.lexers import (
+    PropertiesLexer,
+)
+from pygments.token import (
+    Comment,
+    Error,
+    Generic,
+    Keyword,
+    Name,
+    Number,
+    Operator,
+    String,
+    Token,
+    Whitespace,
+)
+from pygments.util import (
+    UnclosingTextIOWrapper,
+)
 import re
 import sys
 import textwrap
-import argparse
-import importlib
-import itertools
-import contextlib
-from io import StringIO
-from typing import Dict, Tuple, List
-from timeit import default_timer as timer
-from multiprocessing import Pool, cpu_count
+from timeit import (
+    default_timer as timer,
+)
+from typing import (
+    Dict,
+    List,
+    Tuple,
+)
+import yaml
 
 # pylint: disable=no-name-in-module
 # pylint: disable=global-statement
 # pylint: disable=exec-used
 # pylint: disable=too-many-lines
-
-# 3rd party imports
-import yaml
-from colorama import init
-from pygments import highlight
-from pygments.lexers import PropertiesLexer
-from pygments.formatters import TerminalFormatter
-from pygments.token import (
-    Keyword,
-    Name,
-    Comment,
-    String,
-    Error,
-    Number,
-    Operator,
-    Generic,
-    Token,
-    Whitespace,
-)
-from pygments.util import UnclosingTextIOWrapper
-
-# local imports
-import fluidasserts
-from fluidasserts import OPEN, CLOSED, UNKNOWN, ERROR
-from fluidasserts.utils import constants
 
 
 OUTFILE = sys.stdout

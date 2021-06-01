@@ -6,17 +6,18 @@ Este modulo contiene las funciones necesarias para probar si el modulo de
 strings se encuentra adecuadamente implementado.
 """
 
-# standard imports
+
 # None
 
-# 3rd party imports
+
 import pytest
 
 pytestmark = pytest.mark.asserts_module("format")
 
-# local imports
-from fluidasserts.format import string
 
+from fluidasserts.format import (
+    string,
+)
 
 # Constants
 

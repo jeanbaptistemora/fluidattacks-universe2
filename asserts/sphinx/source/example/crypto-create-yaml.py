@@ -1,5 +1,9 @@
-from os import environ
-from fluidasserts.helper import crypto
+from fluidasserts.helper import (
+    crypto,
+)
+from os import (
+    environ,
+)
 
 # Encrypt secrets as an encrypted YAML file
 crypto.create_encrypted_yaml(

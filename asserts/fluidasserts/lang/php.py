@@ -2,23 +2,29 @@
 
 """This module allows to check PHP code vulnerabilities."""
 
-# standard imports
+
 # None
 
-# 3rd party imports
+
+from fluidasserts import (
+    CLOSED,
+    HIGH,
+    OPEN,
+    SAST,
+)
+from fluidasserts.helper import (
+    lang,
+)
+from fluidasserts.utils.decorators import (
+    api,
+)
 from pyparsing import (
+    cppStyleComment,
     Keyword,
     oneOf,
-    Regex,
-    cppStyleComment,
     pythonStyleComment,
+    Regex,
 )
-
-# local imports
-from fluidasserts import HIGH, OPEN, CLOSED, SAST
-from fluidasserts.helper import lang
-from fluidasserts.utils.decorators import api
-
 
 LANGUAGE_SPECS = {
     "extensions": (

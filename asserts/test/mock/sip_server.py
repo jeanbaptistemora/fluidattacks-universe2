@@ -2,16 +2,14 @@
 
 """Softphone mocks."""
 
-# standard imports
+
 import base64
 import contextlib
+from flask import (
+    Flask,
+    request,
+)
 
-# 3rd party imports
-from flask import Flask
-from flask import request
-
-
-# local imports
 # none
 
 

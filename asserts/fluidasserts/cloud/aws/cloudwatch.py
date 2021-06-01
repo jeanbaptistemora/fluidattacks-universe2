@@ -1,16 +1,29 @@
 # -*- coding: utf-8 -*-
 """AWS cloud checks (CloudWatch)."""
 
-# 3rd party imports
-import json
-from botocore.exceptions import BotoCoreError
-from botocore.vendored.requests.exceptions import RequestException
 
-# local imports
-from fluidasserts import DAST, LOW, HIGH
-from fluidasserts.helper import aws
-from fluidasserts.cloud.aws import _get_result_as_tuple
-from fluidasserts.utils.decorators import api, unknown_if
+from botocore.exceptions import (
+    BotoCoreError,
+)
+from botocore.vendored.requests.exceptions import (
+    RequestException,
+)
+from fluidasserts import (
+    DAST,
+    HIGH,
+    LOW,
+)
+from fluidasserts.cloud.aws import (
+    _get_result_as_tuple,
+)
+from fluidasserts.helper import (
+    aws,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+import json
 
 
 def _get_buses(key_id, retry, secret, session_token):

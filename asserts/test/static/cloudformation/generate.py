@@ -9,18 +9,18 @@
 import os
 import textwrap
 import troposphere
-import troposphere.s3
+import troposphere.cloudfront
+import troposphere.cloudtrail
+import troposphere.dynamodb
 import troposphere.ec2
+import troposphere.elasticloadbalancing
+import troposphere.elasticloadbalancingv2
 import troposphere.fsx
 import troposphere.iam
 import troposphere.kms
 import troposphere.rds
-import troposphere.dynamodb
-import troposphere.cloudfront
-import troposphere.elasticloadbalancing
-import troposphere.elasticloadbalancingv2
+import troposphere.s3
 import troposphere.secretsmanager
-import troposphere.cloudtrail
 
 
 def write_template(template: troposphere.Template) -> bool:

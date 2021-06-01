@@ -3,18 +3,32 @@
 # pylint: disable=too-many-lines
 """AWS cloud checks (EC2)."""
 
-# std imports
-from contextlib import suppress
 
-# 3rd party imports
-from botocore.exceptions import BotoCoreError
-from botocore.vendored.requests.exceptions import RequestException
-
-# local imports
-from fluidasserts import DAST, LOW, MEDIUM, HIGH
-from fluidasserts.helper import aws
-from fluidasserts.cloud.aws import _get_result_as_tuple
-from fluidasserts.utils.decorators import api, unknown_if
+from botocore.exceptions import (
+    BotoCoreError,
+)
+from botocore.vendored.requests.exceptions import (
+    RequestException,
+)
+from contextlib import (
+    suppress,
+)
+from fluidasserts import (
+    DAST,
+    HIGH,
+    LOW,
+    MEDIUM,
+)
+from fluidasserts.cloud.aws import (
+    _get_result_as_tuple,
+)
+from fluidasserts.helper import (
+    aws,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
 
 
 def _check_port_in_seggroup(port: int, group: dict) -> list:

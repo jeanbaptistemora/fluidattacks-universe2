@@ -4,7 +4,9 @@ Yaml Loader Custom.
 Custom YAML loader with added line number information for CloudFormation.
 """
 
-from cfn_tools import yaml_loader
+from cfn_tools import (
+    yaml_loader,
+)
 
 # pylint: disable=too-many-ancestors
 

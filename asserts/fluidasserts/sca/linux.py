@@ -2,16 +2,23 @@
 
 """Software Composition Analysis for Linux packages."""
 
-# standard imports
+
 # None
 
-# 3rd party imports
+
 # None
 
-# local imports
-from fluidasserts import HIGH, SCA
-from fluidasserts.helper import sca
-from fluidasserts.utils.decorators import api
+
+from fluidasserts import (
+    HIGH,
+    SCA,
+)
+from fluidasserts.helper import (
+    sca,
+)
+from fluidasserts.utils.decorators import (
+    api,
+)
 
 PKG_MNGR = "rpm"
 

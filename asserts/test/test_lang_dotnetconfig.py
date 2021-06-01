@@ -2,17 +2,18 @@
 
 """Test methods of fluidasserts.lang.dotnetconfig."""
 
-# standard imports
+
 # None
 
-# 3rd party imports
+
 import pytest
 
 pytestmark = pytest.mark.asserts_module("lang_dotnetconfig")
 
-# local imports
-from fluidasserts.lang import dotnetconfig
 
+from fluidasserts.lang import (
+    dotnetconfig,
+)
 
 # Constants
 

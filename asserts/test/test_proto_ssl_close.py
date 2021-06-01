@@ -6,17 +6,19 @@ Este modulo contiene las funciones necesarias para probar si el modulo de
 SSL se encuentra adecuadamente implementado.
 """
 
-# standard imports
-from __future__ import print_function
 
-# 3rd party imports
+from __future__ import (
+    print_function,
+)
+
 import pytest
 
 pytestmark = pytest.mark.asserts_module("proto_ssl")
 
-# local imports
-from fluidasserts.proto import ssl
 
+from fluidasserts.proto import (
+    ssl,
+)
 
 # Constants
 

@@ -1,24 +1,38 @@
 """AWS CloudFormation checks for ``CloudFront`` (Content Delivery Network)."""
 
-# Standard imports
-from typing import List, Optional, Tuple, Dict
 
-# Treed imports
-from networkx import DiGraph
-from networkx.algorithms import dfs_preorder_nodes
-
-# Local imports
-from fluidasserts import SAST, MEDIUM, LOW
-from fluidasserts.helper import aws as helper
-from fluidasserts.cloud.aws.cloudformation import (
-    Vulnerability,
-    _get_result_as_tuple,
+from fluidasserts import (
+    LOW,
+    MEDIUM,
+    SAST,
 )
-from fluidasserts.utils.decorators import api, unknown_if
-from fluidasserts.cloud.aws.cloudformation import get_templates
-from fluidasserts.cloud.aws.cloudformation import get_graph
-from fluidasserts.cloud.aws.cloudformation import get_resources
-from fluidasserts.cloud.aws.cloudformation import get_ref_nodes
+from fluidasserts.cloud.aws.cloudformation import (
+    _get_result_as_tuple,
+    get_graph,
+    get_ref_nodes,
+    get_resources,
+    get_templates,
+    Vulnerability,
+)
+from fluidasserts.helper import (
+    aws as helper,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from networkx import (
+    DiGraph,
+)
+from networkx.algorithms import (
+    dfs_preorder_nodes,
+)
+from typing import (
+    Dict,
+    List,
+    Optional,
+    Tuple,
+)
 
 
 @api(risk=MEDIUM, kind=SAST)

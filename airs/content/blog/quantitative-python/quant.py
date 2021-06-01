@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-import time
-import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
-from scipy import interpolate
+import numpy as np
+import pandas as pd
+from scipy import (
+    interpolate,
+)
+import time
 
 
 def event_happens(occurrence_probability):

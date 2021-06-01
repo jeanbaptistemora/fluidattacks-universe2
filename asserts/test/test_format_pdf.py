@@ -10,17 +10,18 @@ reflejar las vulnerabilidades y/o correcciones propias de un archivo
 PDF.
 """
 
-# standard imports
+
 # none
 
-# 3rd party imports
+
 import pytest
 
 pytestmark = pytest.mark.asserts_module("format")
 
-# local imports
-from fluidasserts.format import pdf
 
+from fluidasserts.format import (
+    pdf,
+)
 
 # Constants
 

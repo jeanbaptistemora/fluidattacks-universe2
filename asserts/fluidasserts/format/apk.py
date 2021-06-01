@@ -2,21 +2,39 @@
 
 """This module allows to check ``APK`` vulnerabilities."""
 
-# standard imports
-import re
-from typing import Any, List, Tuple
-from functools import lru_cache
-import logging
 
-# 3rd party imports
-from androguard.misc import AnalyzeAPK
-from androguard.core.analysis import analysis
-from androguard.core.bytecodes import apk, dvm
 import androguard
-
-# local imports
-from fluidasserts import SAST, LOW, MEDIUM, HIGH, _get_result_as_tuple_sast
-from fluidasserts.utils.decorators import api, unknown_if
+from androguard.core.analysis import (
+    analysis,
+)
+from androguard.core.bytecodes import (
+    apk,
+    dvm,
+)
+from androguard.misc import (
+    AnalyzeAPK,
+)
+from fluidasserts import (
+    _get_result_as_tuple_sast,
+    HIGH,
+    LOW,
+    MEDIUM,
+    SAST,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from functools import (
+    lru_cache,
+)
+import logging
+import re
+from typing import (
+    Any,
+    List,
+    Tuple,
+)
 
 # Set androguard logging levels to CRITICAL
 androguard.core.androconf.show_logging(level=logging.CRITICAL)

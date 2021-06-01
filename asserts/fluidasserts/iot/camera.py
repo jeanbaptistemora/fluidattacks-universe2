@@ -2,16 +2,24 @@
 
 """This module allows to check cameras vulnerabilities."""
 
-# standard imports
+
 # None
 
-# third party imports
+
 # None
 
-# local imports
-from fluidasserts import HIGH, DAST
-from fluidasserts.helper import http
-from fluidasserts.utils.decorators import api, unknown_if
+
+from fluidasserts import (
+    DAST,
+    HIGH,
+)
+from fluidasserts.helper import (
+    http,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
 
 
 @api(risk=HIGH, kind=DAST)

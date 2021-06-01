@@ -2,22 +2,37 @@
 
 """Asserts generic meta-method."""
 
-# standard imports
-import os
-import sys
+
 import asyncio
+from fluidasserts import (
+    CLOSED,
+    LOW,
+    method_stats_set_owner,
+    OPEN,
+    Result,
+    Unit,
+    UNKNOWN,
+)
+from fluidasserts.helper import (
+    asynchronous,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    mp_track,
+    unknown_if,
+)
+from functools import (
+    lru_cache,
+)
 import hashlib
-from functools import lru_cache
-from typing import Callable, List, Union
-
-# 3rd party imports
+import os
 import oyaml as yaml
-
-# local imports
-from fluidasserts import method_stats_set_owner
-from fluidasserts import Unit, Result, LOW, OPEN, CLOSED, UNKNOWN
-from fluidasserts.helper import asynchronous
-from fluidasserts.utils.decorators import mp_track, unknown_if, api
+import sys
+from typing import (
+    Callable,
+    List,
+    Union,
+)
 
 
 def _scan_for_files(path: str):

@@ -2,17 +2,18 @@
 
 """Test methods of fluidasserts.code.docker."""
 
-# standard imports
+
 # None
 
-# 3rd party imports
+
 import pytest
 
 pytestmark = pytest.mark.asserts_module("lang_docker")
 
-# local imports
-from fluidasserts.lang import docker
 
+from fluidasserts.lang import (
+    docker,
+)
 
 # Constants
 

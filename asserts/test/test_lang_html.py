@@ -6,16 +6,15 @@ Este modulo contiene las funciones necesarias para probar si el modulo de
 HTML se encuentra adecuadamente implementado.
 """
 
-# standard imports
 
-# 3rd party imports
 import pytest
 
 pytestmark = pytest.mark.asserts_module("lang_html")
 
-# local imports
-from fluidasserts.lang import html
 
+from fluidasserts.lang import (
+    html,
+)
 
 # Constants
 

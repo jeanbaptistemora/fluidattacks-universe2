@@ -1,9 +1,9 @@
 """Test methods of fluidasserts.cloud.cloudformation.elb module."""
 
-# local imports
-from fluidasserts.cloud.aws.cloudformation import elb
 
-# 3rd party imports
+from fluidasserts.cloud.aws.cloudformation import (
+    elb,
+)
 import pytest
 
 pytestmark = pytest.mark.asserts_module("cloud_aws_cloudformation")

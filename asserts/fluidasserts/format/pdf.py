@@ -2,12 +2,21 @@
 
 """This module allows to check PDF vulnerabilities."""
 
-# 3rd party imports
-from PyPDF2 import PdfFileReader
 
-# local imports
-from fluidasserts import Unit, SAST, LOW, OPEN, CLOSED
-from fluidasserts.utils.decorators import api, unknown_if
+from PyPDF2 import (
+    PdfFileReader,
+)
+from fluidasserts import (
+    CLOSED,
+    LOW,
+    OPEN,
+    SAST,
+    Unit,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
 
 
 @unknown_if(FileNotFoundError)

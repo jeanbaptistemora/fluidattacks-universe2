@@ -2,17 +2,18 @@
 
 """Test methods of fluidasserts.format.pkcs12."""
 
-# standard imports
+
 # none
 
-# 3rd party imports
+
 import pytest
 
 pytestmark = pytest.mark.asserts_module("format")
 
-# local imports
-from fluidasserts.format import jks
 
+from fluidasserts.format import (
+    jks,
+)
 
 # Constants
 PWD_DIR = f"test/static/format/jks/open"

@@ -6,15 +6,17 @@ SSH helper.
 This module enables connections via SSH.
 """
 
-# standard imports
+
+from contextlib import (
+    contextmanager,
+)
 import os
-from contextlib import contextmanager
-from typing import Tuple, Generator
-
-# 3rd party imports
 import paramiko
+from typing import (
+    Generator,
+    Tuple,
+)
 
-# local imports
 # none
 
 # pylint: disable=protected-access

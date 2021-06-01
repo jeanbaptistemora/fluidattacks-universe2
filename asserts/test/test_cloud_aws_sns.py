@@ -2,11 +2,11 @@
 
 """Test methods of fluidasserts.cloud packages."""
 
-# standard imports
-import os
 
-# 3rd party imports
-from fluidasserts.cloud.aws import sns
+from fluidasserts.cloud.aws import (
+    sns,
+)
+import os
 import pytest  # pylint: disable=E0401
 
 # Constants

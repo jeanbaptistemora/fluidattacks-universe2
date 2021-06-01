@@ -4,27 +4,40 @@
 
 # pylint: disable=C0411
 
-# standard imports
-from __future__ import print_function
-import os
-import time
-from git import Repo
-from typing import Optional
-from multiprocessing import Process, cpu_count
-from multiprocessing.pool import Pool
 
-# 3rd party imports
+from __future__ import (
+    print_function,
+)
+
 import docker
+from docker.models.containers import (
+    Container,
+    Image,
+)
+from git import (
+    Repo,
+)
+from multiprocessing import (
+    cpu_count,
+    Process,
+)
+from multiprocessing.pool import (
+    Pool,
+)
+import os
 import pytest  # pylint: disable=E0401
+from test.mock import (
+    camera_hard,
+    camera_weak,
+    graphql_server,
+    http_server,
+    sip_server,
+)
+import time
+from typing import (
+    Optional,
+)
 import wait  # pylint: disable=E0401
-from docker.models.containers import Image, Container
-
-# local imports
-from test.mock import sip_server
-from test.mock import http_server
-from test.mock import graphql_server
-from test.mock import camera_hard
-from test.mock import camera_weak
 
 # Constants
 CLIENT = docker.from_env()

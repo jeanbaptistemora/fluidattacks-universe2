@@ -2,16 +2,18 @@
 
 """Test methods of fluidasserts.code.python."""
 
-# standard imports
+
 # None
 
-# 3rd party imports
+
 import pytest
 
 pytestmark = pytest.mark.asserts_module("lang_python")
 
-# local imports
-from fluidasserts.lang import python
+
+from fluidasserts.lang import (
+    python,
+)
 
 # Constants
 

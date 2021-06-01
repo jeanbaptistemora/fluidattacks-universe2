@@ -2,19 +2,20 @@
 
 """Test methods of fluidasserts.code.java."""
 
-# standard imports
-import secrets
-import datetime
 
-# 3rd party imports
-from jwt import encode
+import datetime
+from jwt import (
+    encode,
+)
 import pytest
+import secrets
 
 pytestmark = pytest.mark.asserts_module("format")
 
-# local imports
-from fluidasserts.format import jwt
 
+from fluidasserts.format import (
+    jwt,
+)
 
 # Constants
 

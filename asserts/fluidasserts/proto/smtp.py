@@ -2,13 +2,20 @@
 
 """This module allows to check SMTP-specific vulnerabilities."""
 
-# standard imports
-import smtplib
 
-# local imports
-from fluidasserts import DAST, LOW, MEDIUM, _get_result_as_tuple_host_port
-from fluidasserts.helper import banner
-from fluidasserts.utils.decorators import api
+from fluidasserts import (
+    _get_result_as_tuple_host_port,
+    DAST,
+    LOW,
+    MEDIUM,
+)
+from fluidasserts.helper import (
+    banner,
+)
+from fluidasserts.utils.decorators import (
+    api,
+)
+import smtplib
 
 # Constants
 PORT = 25

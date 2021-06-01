@@ -2,16 +2,15 @@
 
 """Test module for fluidasserts.db.postgresql."""
 
-# standard imports
 
-# 3rd party imports
 import pytest
 
 pytestmark = pytest.mark.asserts_module("db_postgres")
 
-# local imports
-from fluidasserts.db import postgresql
 
+from fluidasserts.db import (
+    postgresql,
+)
 
 # Constants
 

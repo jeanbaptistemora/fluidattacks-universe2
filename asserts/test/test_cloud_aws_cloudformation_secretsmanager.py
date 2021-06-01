@@ -1,7 +1,9 @@
 """Test methods of fluidasserts.cloud.cloudformation.secretsmanager module."""
 
+from fluidasserts.cloud.aws.cloudformation import (
+    secretsmanager,
+)
 import pytest  # pylint: disable=E0401
-from fluidasserts.cloud.aws.cloudformation import secretsmanager
 
 pytestmark = pytest.mark.asserts_module(
     "cloud_aws_cloudformation"

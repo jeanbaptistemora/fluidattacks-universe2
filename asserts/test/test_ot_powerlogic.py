@@ -2,16 +2,18 @@
 
 """Test methods of fluidasserts.ot packages."""
 
-# standard imports
+
 # None
 
-# 3rd party imports
+
 import pytest
 
 pytestmark = pytest.mark.asserts_module("ot")
 
-# local imports
-from fluidasserts.ot import powerlogic
+
+from fluidasserts.ot import (
+    powerlogic,
+)
 
 #
 # Constants

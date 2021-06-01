@@ -2,16 +2,16 @@
 
 """Test methods of fluidasserts.helper.http."""
 
-# standard library
-import os
 
-# 3rd party imports
+import os
 import pytest
 
 pytestmark = pytest.mark.asserts_module("helper")
 
-# local imports
-from fluidasserts.helper import aws
+
+from fluidasserts.helper import (
+    aws,
+)
 
 
 def test_policy_statement_privilege():

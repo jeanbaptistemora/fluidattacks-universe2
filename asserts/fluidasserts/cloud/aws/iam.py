@@ -2,21 +2,40 @@
 # pylint: disable=too-many-lines
 """AWS cloud checks (IAM)."""
 
-# standard imports
-from datetime import datetime, timedelta
-from contextlib import suppress
+
+from botocore.exceptions import (
+    BotoCoreError,
+)
+from botocore.vendored.requests.exceptions import (
+    RequestException,
+)
+from contextlib import (
+    suppress,
+)
+from datetime import (
+    datetime,
+    timedelta,
+)
+from dateutil import (
+    parser,
+)
+from fluidasserts import (
+    DAST,
+    HIGH,
+    LOW,
+    MEDIUM,
+)
+from fluidasserts.cloud.aws import (
+    _get_result_as_tuple,
+)
+from fluidasserts.helper import (
+    aws,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
 import pytz
-
-# 3rd party imports
-from dateutil import parser
-from botocore.exceptions import BotoCoreError
-from botocore.vendored.requests.exceptions import RequestException
-
-# local imports
-from fluidasserts import DAST, LOW, MEDIUM, HIGH
-from fluidasserts.helper import aws
-from fluidasserts.cloud.aws import _get_result_as_tuple
-from fluidasserts.utils.decorators import api, unknown_if
 
 
 def _any_to_list(_input):

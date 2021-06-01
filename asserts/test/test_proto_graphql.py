@@ -1,16 +1,15 @@
 """Test the GraphQL module."""
 
-# standard imports
-import textwrap
 
-# 3rd party imports
 import pytest
+import textwrap
 
 pytestmark = pytest.mark.asserts_module("proto_graphql")
 
-# local imports
-from fluidasserts.proto import graphql
 
+from fluidasserts.proto import (
+    graphql,
+)
 
 #
 # Constants

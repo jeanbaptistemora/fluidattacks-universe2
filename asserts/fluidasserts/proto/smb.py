@@ -2,17 +2,27 @@
 
 """This module allows to check SMB vulnerabilities."""
 
-# standard imports
-from typing import Optional
-from contextlib import suppress
 
-# 3rd party imports
-from smb import SMBConnection
-from smb import smb_structs
-
-# local imports
-from fluidasserts import DAST, MEDIUM, HIGH, _get_result_as_tuple_host_port
-from fluidasserts.utils.decorators import unknown_if, api
+from contextlib import (
+    suppress,
+)
+from fluidasserts import (
+    _get_result_as_tuple_host_port,
+    DAST,
+    HIGH,
+    MEDIUM,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from smb import (
+    smb_structs,
+    SMBConnection,
+)
+from typing import (
+    Optional,
+)
 
 # Constants
 CLIENT_MACHINE_NAME = "assertspc"

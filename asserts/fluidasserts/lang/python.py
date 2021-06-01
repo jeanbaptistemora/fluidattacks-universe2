@@ -2,36 +2,55 @@
 
 """This module allows to check Python code vulnerabilities."""
 
-# standard imports
+
 import ast
-import os
-from ast import parse
-from contextlib import suppress
-from typing import List, Dict
-
-# 3rd party imports
-import jmespath
-from bandit import blacklists
-from pyparsing import (
-    Word,
-    alphas,
-    pythonStyleComment,
-    delimitedList,
-    SkipTo,
-    LineEnd,
-    indentedBlock,
-    alphanums,
-    Keyword,
-    QuotedString,
+from ast import (
+    parse,
 )
-
-# local imports
-from fluidasserts import Unit, LOW, HIGH, OPEN, CLOSED, UNKNOWN, SAST
-from fluidasserts.helper import lang
-from fluidasserts.utils.generic import get_paths
-from fluidasserts.utils.generic import get_sha256
-from fluidasserts.utils.decorators import api, unknown_if
-
+from bandit import (
+    blacklists,
+)
+from contextlib import (
+    suppress,
+)
+from fluidasserts import (
+    CLOSED,
+    HIGH,
+    LOW,
+    OPEN,
+    SAST,
+    Unit,
+    UNKNOWN,
+)
+from fluidasserts.helper import (
+    lang,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from fluidasserts.utils.generic import (
+    get_paths,
+    get_sha256,
+)
+import jmespath
+import os
+from pyparsing import (
+    alphanums,
+    alphas,
+    delimitedList,
+    indentedBlock,
+    Keyword,
+    LineEnd,
+    pythonStyleComment,
+    QuotedString,
+    SkipTo,
+    Word,
+)
+from typing import (
+    Dict,
+    List,
+)
 
 LANGUAGE_SPECS = {
     "extensions": ("py",),

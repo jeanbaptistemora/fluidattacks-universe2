@@ -1,8 +1,10 @@
 """Test methods of fluidasserts.cloud.cloudformation.cloudtrail module."""
 
-# local imports
+
+from fluidasserts.cloud.aws.cloudformation import (
+    cloudtrail,
+)
 import pytest  # pylint: disable=E0401
-from fluidasserts.cloud.aws.cloudformation import cloudtrail
 
 pytestmark = pytest.mark.asserts_module(
     "cloud_aws_cloudformation"

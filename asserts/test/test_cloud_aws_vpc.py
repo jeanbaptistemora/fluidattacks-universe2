@@ -2,16 +2,15 @@
 
 """Test methods of fluidasserts.cloud packages."""
 
-# standard imports
-from fluidasserts.cloud.aws import vpc
-import os
 
-# 3rd party imports
+from fluidasserts.cloud.aws import (
+    vpc,
+)
+import os
 import pytest
 
 pytestmark = pytest.mark.asserts_module("cloud_aws_api")
 
-# local imports
 
 # Constants
 AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]

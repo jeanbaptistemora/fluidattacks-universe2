@@ -2,21 +2,35 @@
 
 """This module has helper functions for code analysis modules."""
 
-# standard imports
+
+from fluidasserts import (
+    CLOSED,
+    OPEN,
+    Unit,
+    UNKNOWN,
+)
+from fluidasserts.utils.generic import (
+    get_paths,
+    get_sha256,
+)
+from functools import (
+    lru_cache,
+)
+from itertools import (
+    accumulate,
+)
 import os
+from pyparsing import (
+    ParserElement,
+)
 import re
-from typing import Any, Callable, Dict, List, Tuple
-from functools import lru_cache
-from itertools import accumulate
-
-# 3rd party imports
-from pyparsing import ParserElement
-
-# local imports
-from fluidasserts import Unit
-from fluidasserts import OPEN, CLOSED, UNKNOWN
-from fluidasserts.utils.generic import get_sha256
-from fluidasserts.utils.generic import get_paths
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    List,
+    Tuple,
+)
 
 
 @lru_cache(maxsize=None, typed=True)

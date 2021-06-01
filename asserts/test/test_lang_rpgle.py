@@ -2,17 +2,18 @@
 
 """Test methods of fluidasserts.code.rpgle."""
 
-# standard imports
+
 # None
 
-# 3rd party imports
+
 import pytest
 
 pytestmark = pytest.mark.asserts_module("lang_rpgle")
 
-# local imports
-from fluidasserts.lang import rpgle
 
+from fluidasserts.lang import (
+    rpgle,
+)
 
 # Constants
 

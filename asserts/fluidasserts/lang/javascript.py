@@ -2,22 +2,32 @@
 
 """This module allows to check JavaScript code vulnerabilities."""
 
-# 3rd party imports
-from pyparsing import (
-    Suppress,
-    nestedExpr,
-    cppStyleComment,
-    MatchFirst,
-    Keyword,
-    Empty,
-    QuotedString,
-)
 
-# local imports
-from fluidasserts import LOW, MEDIUM, OPEN, CLOSED, SAST
-from fluidasserts.lang import core
-from fluidasserts.helper import lang
-from fluidasserts.utils.decorators import api
+from fluidasserts import (
+    CLOSED,
+    LOW,
+    MEDIUM,
+    OPEN,
+    SAST,
+)
+from fluidasserts.helper import (
+    lang,
+)
+from fluidasserts.lang import (
+    core,
+)
+from fluidasserts.utils.decorators import (
+    api,
+)
+from pyparsing import (
+    cppStyleComment,
+    Empty,
+    Keyword,
+    MatchFirst,
+    nestedExpr,
+    QuotedString,
+    Suppress,
+)
 
 LANGUAGE_SPECS = {
     "extensions": (

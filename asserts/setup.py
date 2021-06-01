@@ -7,8 +7,10 @@ setup script of fluidasserts.
 """
 
 import io
+from setuptools import (
+    setup,
+)
 import time
-from setuptools import setup
 
 
 def _get_readme():

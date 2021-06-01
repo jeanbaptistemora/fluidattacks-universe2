@@ -8,22 +8,43 @@ Jared Stafford (jspenguin@jspenguin.org)
 """
 
 # pylint: disable=too-many-lines
-# standard imports
-from __future__ import absolute_import
+
+from __future__ import (
+    absolute_import,
+)
+
+from contextlib import (
+    suppress,
+)
 import copy
+from fluidasserts import (
+    CLOSED,
+    DAST,
+    HIGH,
+    LOW,
+    MEDIUM,
+    OPEN,
+    Unit,
+    UNKNOWN,
+)
+from fluidasserts.helper import (
+    http,
+)
+from fluidasserts.helper.ssl import (
+    connect,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
 import socket
 import struct
-from typing import Tuple, Optional, List
-from contextlib import suppress
-
-# 3rd party imports
 import tlslite
-
-# local imports
-from fluidasserts import DAST, LOW, MEDIUM, HIGH, OPEN, CLOSED, UNKNOWN, Unit
-from fluidasserts.helper import http
-from fluidasserts.helper.ssl import connect
-from fluidasserts.utils.decorators import api, unknown_if
+from typing import (
+    List,
+    Optional,
+    Tuple,
+)
 
 PORT = 443
 TYPRECEIVE = Tuple[Optional[str], Optional[int], Optional[int]]

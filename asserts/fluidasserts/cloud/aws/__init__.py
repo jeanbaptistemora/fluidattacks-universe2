@@ -2,17 +2,24 @@
 
 """Fluid Asserts AWS cloud package."""
 
-# standard imports
-import inspect
-from typing import List
-from contextlib import suppress
 
-# 3rd party imports
 import boto3
-from botocore.exceptions import BotoCoreError, ClientError
-
-# local imports
-from fluidasserts import Unit, OPEN, CLOSED
+from botocore.exceptions import (
+    BotoCoreError,
+    ClientError,
+)
+from contextlib import (
+    suppress,
+)
+from fluidasserts import (
+    CLOSED,
+    OPEN,
+    Unit,
+)
+import inspect
+from typing import (
+    List,
+)
 
 
 def _get_identity_info(key_id: str, secret: str, session_token: str = None):

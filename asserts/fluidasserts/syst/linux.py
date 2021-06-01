@@ -2,11 +2,24 @@
 
 """This module allows to check generic Linux vulnerabilities."""
 
-# local imports
-from fluidasserts import DAST, LOW, MEDIUM, HIGH
-from fluidasserts.syst import _get_result_as_tuple
-from fluidasserts.helper.ssh import ssh_exec_command, ConnError
-from fluidasserts.utils.decorators import api, unknown_if
+
+from fluidasserts import (
+    DAST,
+    HIGH,
+    LOW,
+    MEDIUM,
+)
+from fluidasserts.helper.ssh import (
+    ConnError,
+    ssh_exec_command,
+)
+from fluidasserts.syst import (
+    _get_result_as_tuple,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
 
 
 @api(risk=MEDIUM, kind=DAST)

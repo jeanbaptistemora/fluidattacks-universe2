@@ -1,9 +1,9 @@
 """Test methods of fluidasserts.cloud.terraform.dynamodb module."""
 
-# local imports
-from fluidasserts.cloud.aws.terraform import dynamodb
 
-# 3rd party imports
+from fluidasserts.cloud.aws.terraform import (
+    dynamodb,
+)
 import pytest
 
 pytestmark = pytest.mark.asserts_module("cloud_aws_terraform")

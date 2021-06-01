@@ -2,18 +2,29 @@
 
 """Software Composition Analysis for Maven packages."""
 
-# standard imports
-import os
 
-# 3rd party imports
 import defusedxml.ElementTree
-from pyparsing import Suppress, Keyword, MatchFirst, quotedString, Optional
-
-# local imports
-from fluidasserts import HIGH, SCA
-from fluidasserts.helper import sca
-from fluidasserts.utils.generic import get_paths
-from fluidasserts.utils.decorators import api
+from fluidasserts import (
+    HIGH,
+    SCA,
+)
+from fluidasserts.helper import (
+    sca,
+)
+from fluidasserts.utils.decorators import (
+    api,
+)
+from fluidasserts.utils.generic import (
+    get_paths,
+)
+import os
+from pyparsing import (
+    Keyword,
+    MatchFirst,
+    Optional,
+    quotedString,
+    Suppress,
+)
 
 PKG_MNGR = "maven"
 

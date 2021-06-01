@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
 """Test module for fluidasserts.cloud.kubernetes."""
-# standard imports
-from fluidasserts.cloud.kubernetes import deployments, pods
-import os
 
-# 3rd party imports
-import jmespath
 import boto3
+from fluidasserts.cloud.kubernetes import (
+    deployments,
+    pods,
+)
+import jmespath
+import os
 import pytest
 
 pytestmark = pytest.mark.asserts_module("cloud_kubernetes")
-
-# local imports
 
 
 AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]

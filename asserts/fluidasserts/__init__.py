@@ -7,27 +7,40 @@ Functions trim, reindent and parse_docstring taken from openstack/rally
 but were slightly modified to fit this project.
 """
 
-# standard imports
+
+import collections
+from datetime import (
+    datetime,
+)
+from fluidasserts.utils import (
+    constants,
+)
 import importlib
+import inspect
+import json
 import os
+import oyaml as yaml
+from pkg_resources import (
+    DistributionNotFound,
+    get_distribution,
+)
 import re
 import sys
-import json
-import types
-import inspect
 import textwrap
-import collections
-from datetime import datetime
-from typing import Callable, Dict, OrderedDict, List, Any
-
-# 3rd party imports
-from pkg_resources import get_distribution, DistributionNotFound
-import oyaml as yaml
-from yaml.dumper import SafeDumper
-from yaml.representer import SafeRepresenter as SafeRepres
-
-# local imports
-from fluidasserts.utils import constants
+import types
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    List,
+    OrderedDict,
+)
+from yaml.dumper import (
+    SafeDumper,
+)
+from yaml.representer import (
+    SafeRepresenter as SafeRepres,
+)
 
 # Objects that are not standard YAML Nodes will be represented as follows:
 #   Ordered dictionaries

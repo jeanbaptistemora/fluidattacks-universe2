@@ -1,7 +1,9 @@
 """Test methods of fluidasserts.cloud.cloudformation.elb2 module."""
 
+from fluidasserts.cloud.aws.cloudformation import (
+    elb2,
+)
 import pytest  # pylint: disable=E0401
-from fluidasserts.cloud.aws.cloudformation import elb2
 
 pytestmark = pytest.mark.asserts_module(
     "cloud_aws_cloudformation"

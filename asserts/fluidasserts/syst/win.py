@@ -2,14 +2,25 @@
 
 """This module allows to check Windows Server vulnerabilities."""
 
-# standard imports
-import re
 
-# local imports
-from fluidasserts import DAST, LOW, MEDIUM, HIGH
-from fluidasserts.syst import _get_result_as_tuple
-from fluidasserts.helper.winrm import winrm_exec_command, ConnError
-from fluidasserts.utils.decorators import api, unknown_if
+from fluidasserts import (
+    DAST,
+    HIGH,
+    LOW,
+    MEDIUM,
+)
+from fluidasserts.helper.winrm import (
+    ConnError,
+    winrm_exec_command,
+)
+from fluidasserts.syst import (
+    _get_result_as_tuple,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+import re
 
 
 @api(risk=MEDIUM, kind=DAST)

@@ -5,27 +5,41 @@ Some rules were taken from `CFN_NAG <https://github.com/
 stelligent/cfn_nag/blob/master/LICENSE.md>`_
 """
 
-# Standard imports
+
 import contextlib
-from typing import List, Optional, Tuple, Dict
-
-# Treed imports
-from networkx import DiGraph
-from networkx.algorithms import dfs_preorder_nodes
-
-# Local imports
-from fluidasserts import SAST, LOW, MEDIUM
-from fluidasserts.helper.aws import CloudFormationInvalidTypeError
+from fluidasserts import (
+    LOW,
+    MEDIUM,
+    SAST,
+)
 from fluidasserts.cloud.aws.cloudformation import (
-    Vulnerability,
-    get_templates,
+    _get_result_as_tuple,
     get_graph,
     get_ref_nodes,
     get_resources,
+    get_templates,
     get_type,
-    _get_result_as_tuple,
+    Vulnerability,
 )
-from fluidasserts.utils.decorators import api, unknown_if
+from fluidasserts.helper.aws import (
+    CloudFormationInvalidTypeError,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from networkx import (
+    DiGraph,
+)
+from networkx.algorithms import (
+    dfs_preorder_nodes,
+)
+from typing import (
+    Dict,
+    List,
+    Optional,
+    Tuple,
+)
 
 
 @api(risk=MEDIUM, kind=SAST)

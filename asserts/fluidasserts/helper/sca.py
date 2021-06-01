@@ -2,24 +2,33 @@
 
 """Software Composition Analysis helper."""
 
-# standard imports
+
+import aiohttp
+from fluidasserts import (
+    CLOSED,
+    OPEN,
+    Unit,
+    UNKNOWN,
+)
+from fluidasserts.helper import (
+    asynchronous,
+    lang,
+)
+from fluidasserts.utils.generic import (
+    get_sha256,
+)
+from functools import (
+    reduce,
+)
 import os
+from pyparsing import (
+    Regex,
+)
 import re
-import urllib.parse
 from typing import (
     Tuple,
 )
-
-# 3rd party imports
-from functools import reduce
-from pyparsing import Regex
-import aiohttp
-
-# local imports
-from fluidasserts import Unit
-from fluidasserts import OPEN, CLOSED, UNKNOWN
-from fluidasserts.helper import lang, asynchronous
-from fluidasserts.utils.generic import get_sha256
+import urllib.parse
 
 
 def _build_cpe_url(

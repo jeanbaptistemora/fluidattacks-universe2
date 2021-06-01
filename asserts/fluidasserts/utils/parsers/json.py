@@ -1,16 +1,20 @@
 # -*- coding: utf-8 -*-
 """Fluid Asserts JSON parser."""
 
-# standard imports
-from collections import UserDict
-from collections import UserList
-from typing import Any
 
-# 3rd party imports
-from lark import Lark
-from lark import Transformer
-from lark import Tree
-from lark import v_args
+from collections import (
+    UserDict,
+    UserList,
+)
+from lark import (
+    Lark,
+    Transformer,
+    Tree,
+    v_args,
+)
+from typing import (
+    Any,
+)
 
 
 class CustomList(UserList):  # pylint: disable=too-many-ancestors

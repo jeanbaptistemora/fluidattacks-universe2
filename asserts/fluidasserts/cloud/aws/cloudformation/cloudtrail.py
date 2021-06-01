@@ -1,23 +1,32 @@
 """AWS CloudFormation checks for ``S3`` (Simple Storage Service)."""
 
-# Standard imports
-from typing import List, Optional
 
-# Treed imports
-from networkx import DiGraph
-
-# Local imports
-from fluidasserts import SAST, LOW
-from fluidasserts.helper import aws as helper
-from fluidasserts.cloud.aws.cloudformation import (
-    Vulnerability,
-    _get_result_as_tuple,
+from fluidasserts import (
+    LOW,
+    SAST,
 )
-from fluidasserts.utils.decorators import api, unknown_if
-from fluidasserts.cloud.aws.cloudformation import get_templates
-from fluidasserts.cloud.aws.cloudformation import get_graph
-from fluidasserts.cloud.aws.cloudformation import get_resources
-from fluidasserts.cloud.aws.cloudformation import has_values
+from fluidasserts.cloud.aws.cloudformation import (
+    _get_result_as_tuple,
+    get_graph,
+    get_resources,
+    get_templates,
+    has_values,
+    Vulnerability,
+)
+from fluidasserts.helper import (
+    aws as helper,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from networkx import (
+    DiGraph,
+)
+from typing import (
+    List,
+    Optional,
+)
 
 
 @api(risk=LOW, kind=SAST)

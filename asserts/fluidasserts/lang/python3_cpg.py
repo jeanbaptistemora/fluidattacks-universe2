@@ -1,16 +1,25 @@
 """Fluid asserts Python3 parser."""
 
-# Standar imports
-from ast import parse, ClassDef
-from typing import Dict, List, Tuple
 
-# 3rd party imports
-from networkx import DiGraph
-
-# Local imports
-from fluidasserts.utils.generic import get_paths_tree
-from fluidasserts.lang import node_creator as creator
-from fluidasserts.lang import GRAPHS
+from ast import (
+    ClassDef,
+    parse,
+)
+from fluidasserts.lang import (
+    GRAPHS,
+    node_creator as creator,
+)
+from fluidasserts.utils.generic import (
+    get_paths_tree,
+)
+from networkx import (
+    DiGraph,
+)
+from typing import (
+    Dict,
+    List,
+    Tuple,
+)
 
 GRAPH: DiGraph = GRAPHS.get()
 

@@ -1,26 +1,38 @@
 """AWS CloudFormation checks for ``SecretsManager``."""
 
-# Standard library
+
 import contextlib
-from typing import List, Optional
-
-# Treed imports
-from networkx import DiGraph
-
-# Local imports
-from fluidasserts import SAST, HIGH, MEDIUM
-from fluidasserts.helper import aws as helper
-from fluidasserts.helper.aws import CloudFormationInvalidTypeError
-from fluidasserts.cloud.aws.cloudformation import (
-    Vulnerability,
-    _get_result_as_tuple,
+from fluidasserts import (
+    HIGH,
+    MEDIUM,
+    SAST,
 )
-from fluidasserts.utils.decorators import api, unknown_if
-from fluidasserts.cloud.aws.cloudformation import get_templates
-from fluidasserts.cloud.aws.cloudformation import get_graph
-from fluidasserts.cloud.aws.cloudformation import get_ref_nodes
-from fluidasserts.cloud.aws.cloudformation import get_resources
-from fluidasserts.cloud.aws.cloudformation import get_ref_inverse
+from fluidasserts.cloud.aws.cloudformation import (
+    _get_result_as_tuple,
+    get_graph,
+    get_ref_inverse,
+    get_ref_nodes,
+    get_resources,
+    get_templates,
+    Vulnerability,
+)
+from fluidasserts.helper import (
+    aws as helper,
+)
+from fluidasserts.helper.aws import (
+    CloudFormationInvalidTypeError,
+)
+from fluidasserts.utils.decorators import (
+    api,
+    unknown_if,
+)
+from networkx import (
+    DiGraph,
+)
+from typing import (
+    List,
+    Optional,
+)
 
 # ASCII Constants
 NUMERICS: set = set("01234567890")
