@@ -344,3 +344,98 @@ async def test_get_org_finding_policies() -> None:
         result["data"]["organization"]["findingPolicies"][0]["status"]
         == status
     )
+
+
+@pytest.mark.changes_db
+async def test_submit_organization_finding_policy() -> None:
+    organization_name = "okada"
+    finding_name = "F001. Inyeccion SQL"
+    query = """
+        mutation AddOrgFindingPolicy(
+            $findingName: String!
+            $orgName: String!
+        ) {
+            addOrgFindingPolicy(
+                findingName: $findingName
+                organizationName: $orgName
+            ) {
+                success
+            }
+        }
+    """
+    data = {
+        "query": query,
+        "variables": {
+            "orgName": organization_name,
+            "findingName": finding_name,
+        },
+    }
+    result = await _get_result_async(
+        data, stakeholder="integratescustomer@gmail.com"
+    )
+    assert "errors" not in result
+    assert result["data"]["addOrgFindingPolicy"]["success"]
+
+    approver_user = "integratesuser@gmail.com"
+    handle_mutation = """
+        mutation HandleOrgFindingPolicyAcceptation(
+            $findingPolicyId: ID!
+            $orgName: String!
+            $status: OrganizationFindindPolicy!
+        ) {
+            handleOrgFindingPolicyAcceptation(
+                findingPolicyId: $findingPolicyId
+                organizationName: $orgName
+                status: $status
+            ) {
+                success
+            }
+        }
+    """
+    finding_policy = await policies_domain.get_finding_policy_by_name(
+        org_name=organization_name,
+        finding_name=finding_name.split(".")[0].lower(),
+    )
+    hande_acceptation_rejected_data = {
+        "query": handle_mutation,
+        "variables": {
+            "findingPolicyId": finding_policy.id,
+            "orgName": organization_name,
+            "status": "REJECTED",
+        },
+    }
+    result = await _get_result_async(
+        hande_acceptation_rejected_data, stakeholder=approver_user
+    )
+    assert "errors" not in result
+    assert result["data"]["handleOrgFindingPolicyAcceptation"]["success"]
+
+    submit_mutation = """
+        mutation SubmitOrganizationFindingPolicy(
+            $organizationName: String!
+            $findingPolicyId: ID!
+        ) {
+            submitOrganizationFindingPolicy(
+                findingPolicyId: $findingPolicyId
+                organizationName: $organizationName
+            ) {
+                success
+            }
+        }
+    """
+    submit_finding_policy_data = {
+        "query": submit_mutation,
+        "variables": {
+            "findingPolicyId": finding_policy.id,
+            "organizationName": organization_name,
+        },
+    }
+    result = await _get_result_async(
+        submit_finding_policy_data, stakeholder="integratescustomer@gmail.com"
+    )
+    assert "errors" not in result
+    assert result["data"]["submitOrganizationFindingPolicy"]["success"]
+    finding_policy = await policies_domain.get_finding_policy(
+        org_name=organization_name, finding_policy_id=finding_policy.id
+    )
+    assert finding_policy.state.status == "SUBMITTED"
