@@ -1,17 +1,19 @@
-# Standard library
-from contextlib import contextmanager
-import os
-from typing import Dict, Iterator
-
-# Third party libraries
 import click
-from psycopg2 import connect
+from contextlib import (
+    contextmanager,
+)
+import os
+from psycopg2 import (
+    connect,
+)
 from psycopg2.extensions import (
     cursor as cursor_cls,
     ISOLATION_LEVEL_AUTOCOMMIT,
 )
-
-# Local libraries
+from typing import (
+    Dict,
+    Iterator,
+)
 
 
 @contextmanager

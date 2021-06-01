@@ -1,14 +1,21 @@
 #!/usr/bin/env python3
 
-# Standard Libraries
-import os
-import time
-from concurrent.futures import ThreadPoolExecutor
-from typing import Dict, List
 
-# Third-party Libraries
-from sagemaker.sklearn import SKLearn
-from sagemaker.sklearn.estimator import SKLearn as SKLearnEstimator
+from concurrent.futures import (
+    ThreadPoolExecutor,
+)
+import os
+from sagemaker.sklearn import (
+    SKLearn,
+)
+from sagemaker.sklearn.estimator import (
+    SKLearn as SKLearnEstimator,
+)
+import time
+from typing import (
+    Dict,
+    List,
+)
 
 
 def get_train_extra_envs() -> Dict[str, str]:

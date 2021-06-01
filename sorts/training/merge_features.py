@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 
-# Standard Libraries
-import os
-import tempfile
 
-# Third-party Libraries
 import numpy as np
+import os
 import pandas as pd
-from pandas import DataFrame
-
-# Local libraries
-from training.constants import S3_BUCKET
+from pandas import (
+    DataFrame,
+)
+import tempfile
+from training.constants import (
+    S3_BUCKET,
+)
 
 
 def main() -> None:

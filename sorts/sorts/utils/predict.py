@@ -1,22 +1,27 @@
-# Standard libraries
-from typing import List
-
-# Third-party libraries
 import numpy as np
+from numpy import (
+    ndarray,
+)
 import pandas as pd
-from numpy import ndarray
-from pandas import DataFrame
+from pandas import (
+    DataFrame,
+)
 from prettytable import (
     from_csv,
     PrettyTable,
 )
-
-# Local libraries
-from sorts.typings import Model as ModelType
-from sorts.utils.logs import log
+from sorts.typings import (
+    Model as ModelType,
+)
+from sorts.utils.logs import (
+    log,
+)
 from sorts.utils.static import (
     load_model,
     load_support_vector_machine,
+)
+from typing import (
+    List,
 )
 
 

@@ -1,17 +1,20 @@
-# Standard libraries
-import os
-import time
-from typing import List, Set
-
-# Local libraries
 from integrates.dal import (
     get_vulnerabilities,
     Vulnerability,
     VulnerabilityKindEnum,
 )
-
-from sorts.utils.logs import log
-from sorts.utils.static import read_allowed_names
+import os
+from sorts.utils.logs import (
+    log,
+)
+from sorts.utils.static import (
+    read_allowed_names,
+)
+import time
+from typing import (
+    List,
+    Set,
+)
 
 
 def filter_allowed_files(

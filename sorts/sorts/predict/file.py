@@ -1,26 +1,36 @@
-# Standard libraries
-from concurrent.futures import ThreadPoolExecutor
-import os
-from typing import List
-
-# Third-party libraries
+from concurrent.futures import (
+    ThreadPoolExecutor,
+)
 import csv
+import os
 import pandas as pd
-from pandas import DataFrame
-
-# Local libraries
-from sorts.features.file import extract_features
+from pandas import (
+    DataFrame,
+)
+from sorts.features.file import (
+    extract_features,
+)
 from sorts.integrates.dal import (
     get_toe_lines_sorts,
     ToeLines,
     update_toe_lines_sorts,
 )
-from sorts.utils.logs import log
-from sorts.utils.predict import display_results, predict_vuln_prob
-from sorts.utils.repositories import get_repository_files
+from sorts.utils.logs import (
+    log,
+)
+from sorts.utils.predict import (
+    display_results,
+    predict_vuln_prob,
+)
+from sorts.utils.repositories import (
+    get_repository_files,
+)
 from sorts.utils.static import (
     get_extensions_list,
     read_allowed_names,
+)
+from typing import (
+    List,
 )
 
 

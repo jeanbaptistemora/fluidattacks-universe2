@@ -1,14 +1,18 @@
-# Standard libraries
-import logging
-from os import environ
-from multiprocessing import Manager
-from multiprocessing.managers import SyncManager
-import re
-from typing import Any
-
-# Third party libraries
 import bugsnag
-
+import logging
+from multiprocessing import (
+    Manager,
+)
+from multiprocessing.managers import (
+    SyncManager,
+)
+from os import (
+    environ,
+)
+import re
+from typing import (
+    Any,
+)
 
 # This CTX will store constants that we need to
 # be cross-threaded, just user API_TOKEN for now

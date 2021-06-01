@@ -1,10 +1,5 @@
-# Standard libraries
-import os
-
-# Third party libraries
 import csv
-
-# Local libraries
+import os
 from training.training_script.train import (
     get_best_combination,
     get_features_combinations,

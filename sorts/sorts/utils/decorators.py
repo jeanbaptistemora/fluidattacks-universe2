@@ -1,5 +1,13 @@
-# Standard libraries
 import functools
+from more_itertools import (
+    mark_ends,
+)
+from sorts.typings import (
+    TFun,
+)
+from sorts.utils.logs import (
+    log,
+)
 import time
 from typing import (
     Any,
@@ -8,14 +16,6 @@ from typing import (
     Tuple,
     Type,
 )
-
-# Third-party libraries
-from more_itertools import mark_ends
-
-# Local libraries
-from sorts.typings import TFun
-from sorts.utils.logs import log
-
 
 # Constants
 RAISE = object()

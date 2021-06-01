@@ -1,10 +1,13 @@
-# Third-party libraries
+from _pytest.logging import (
+    LogCaptureFixture,
+)
+from integrates.domain import (
+    get_vulnerable_lines,
+)
+from integrates.graphql import (
+    client as graphql_client,
+)
 import pytest
-from _pytest.logging import LogCaptureFixture
-
-# Local libraries
-from integrates.domain import get_vulnerable_lines
-from integrates.graphql import client as graphql_client
 
 
 def test_bad_client() -> None:

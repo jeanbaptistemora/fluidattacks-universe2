@@ -1,25 +1,35 @@
-# Standard libraries
-import sys
-import time
-
-# Third party libraries
 import click
-
-# Local libraries
-from integrates.graphql import create_session
-
-from sorts.integrates.dal import get_user_email
-from sorts.predict.commit import prioritize as prioritize_commits
-from sorts.predict.file import prioritize as prioritize_files
-from sorts.training.commit import get_subscription_commit_metadata
-from sorts.training.file import get_subscription_file_metadata
-from sorts.utils.bugs import configure_bugsnag
-from sorts.utils.decorators import shield
+from integrates.graphql import (
+    create_session,
+)
+from sorts.integrates.dal import (
+    get_user_email,
+)
+from sorts.predict.commit import (
+    prioritize as prioritize_commits,
+)
+from sorts.predict.file import (
+    prioritize as prioritize_files,
+)
+from sorts.training.commit import (
+    get_subscription_commit_metadata,
+)
+from sorts.training.file import (
+    get_subscription_file_metadata,
+)
+from sorts.utils.bugs import (
+    configure_bugsnag,
+)
+from sorts.utils.decorators import (
+    shield,
+)
 from sorts.utils.logs import (
     log,
     log_to_remote_info,
     mixpanel_track,
 )
+import sys
+import time
 
 
 @click.command(

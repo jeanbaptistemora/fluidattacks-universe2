@@ -1,17 +1,23 @@
 #!/usr/bin/env python3
 
-# Standard libraries
+
+from evaluate_results import (
+    get_best_model_name,
+)
 import os
+from sagemaker.sklearn.estimator import (
+    SKLearn as SKLearnEstimator,
+)
+from sagemaker.tuner import (
+    HyperparameterTuner,
+)
+from sagemaker_provisioner import (
+    get_estimator,
+)
 import tempfile
-
-# Third party libraries
-from sagemaker.sklearn.estimator import SKLearn as SKLearnEstimator
-from sagemaker.tuner import HyperparameterTuner
-
-# Local libraries
-from evaluate_results import get_best_model_name
-from training.constants import MODEL_HYPERPARAMETERS
-from sagemaker_provisioner import get_estimator
+from training.constants import (
+    MODEL_HYPERPARAMETERS,
+)
 
 
 def deploy_hyperparameter_tuning_job() -> None:

@@ -1,24 +1,30 @@
-# Standard libraries
-import os
-from typing import (
-    Dict,
-    List,
-)
-
-# Third-party libraries
 import git
+from git.cmd import (
+    Git,
+)
+import os
 import pandas as pd
-from git.cmd import Git
-from pandas import DataFrame
-
-# Local libraries
+from pandas import (
+    DataFrame,
+)
 from sorts.features.commit import (
     COMMIT_FEATURES,
     extract_features,
 )
-from sorts.utils.logs import log
-from sorts.utils.predict import display_results, predict_vuln_prob
-from sorts.utils.repositories import get_latest_commits
+from sorts.utils.logs import (
+    log,
+)
+from sorts.utils.predict import (
+    display_results,
+    predict_vuln_prob,
+)
+from sorts.utils.repositories import (
+    get_latest_commits,
+)
+from typing import (
+    Dict,
+    List,
+)
 
 
 def get_subscription_commits_df(fusion_path: str) -> DataFrame:

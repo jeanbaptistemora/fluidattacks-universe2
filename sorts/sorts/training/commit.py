@@ -1,29 +1,33 @@
-# Standard libraries
+import git
+from git.cmd import (
+    Git,
+)
 import os
+import pandas as pd
+from pandas import (
+    DataFrame,
+)
 import random
+from sorts.features.commit import (
+    extract_features,
+)
+from sorts.integrates.domain import (
+    get_vulnerable_files,
+)
+from sorts.utils.logs import (
+    log,
+)
+from sorts.utils.repositories import (
+    get_bad_repos,
+    get_file_commit_history,
+    get_repository_commit_history,
+)
 import time
 from typing import (
     Dict,
     List,
     Tuple,
 )
-
-# Third-party libraries
-import git
-import pandas as pd
-from git.cmd import Git
-from pandas import DataFrame
-
-# Local libraries
-from sorts.features.commit import extract_features
-from sorts.integrates.domain import get_vulnerable_files
-from sorts.utils.logs import log
-from sorts.utils.repositories import (
-    get_bad_repos,
-    get_file_commit_history,
-    get_repository_commit_history,
-)
-
 
 COMMIT_MAX_RETRIES: int = 15
 

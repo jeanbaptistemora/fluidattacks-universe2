@@ -1,16 +1,12 @@
-# Standard libraries
-import os
+import bugsnag
 from contextvars import (
     ContextVar,
 )
+import os
 from typing import (
     Dict,
     Optional,
 )
-
-# Third-party libraries
-import bugsnag
-
 
 # Constants
 META: ContextVar[Optional[Dict[str, str]]] = ContextVar("META", default=None)

@@ -1,31 +1,40 @@
-# Standard libraries
 import argparse
+from joblib import (
+    dump,
+)
 import os
+from pandas import (
+    DataFrame,
+)
+from sorts.typings import (
+    Model as ModelType,
+)
 import tempfile
 import time
-from typing import Dict, List, Tuple
-
-# Third party Libraries
-from joblib import dump
-from pandas import DataFrame
-
-# Local libraries
-from sorts.typings import Model as ModelType
 from training.constants import (
     FEATURES_DICTS,
-    MODELS,
     MODEL_HYPERPARAMETERS,
+    MODELS,
     RESULT_HEADERS,
     S3_BUCKET,
 )
-from training.evaluate_results import get_best_model_name
-from training.redshift import db as redshift
+from training.evaluate_results import (
+    get_best_model_name,
+)
+from training.redshift import (
+    db as redshift,
+)
 from training.training_script.utils import (
     get_model_performance_metrics,
     get_previous_training_results,
     load_training_data,
     split_training_data,
     update_results_csv,
+)
+from typing import (
+    Dict,
+    List,
+    Tuple,
 )
 
 

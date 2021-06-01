@@ -1,6 +1,9 @@
-# Standard libraries
-from enum import Enum
-from typing import NamedTuple
+from enum import (
+    Enum,
+)
+from typing import (
+    NamedTuple,
+)
 
 
 class VulnerabilityKindEnum(Enum):

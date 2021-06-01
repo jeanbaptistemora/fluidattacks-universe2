@@ -1,27 +1,35 @@
-# Standard libraries
+from datetime import (
+    datetime,
+)
+import git
+from git.cmd import (
+    Git,
+)
+from git.exc import (
+    GitCommandError,
+    GitCommandNotFound,
+)
+from numpy import (
+    ndarray,
+)
 import os
+from pydriller.metrics.process.hunks_count import (
+    HunksCount,
+)
 import re
-from datetime import datetime
+from sorts.constants import (
+    RENAME_REGEX,
+    STAT_REGEX,
+)
+from sorts.utils.logs import (
+    log_exception,
+)
 from typing import (
     Dict,
     List,
     Tuple,
     TypedDict,
 )
-
-# Third-party libraries
-import git
-from git.cmd import Git
-from git.exc import (
-    GitCommandError,
-    GitCommandNotFound,
-)
-from numpy import ndarray
-from pydriller.metrics.process.hunks_count import HunksCount
-
-# Local libraries
-from sorts.constants import RENAME_REGEX, STAT_REGEX
-from sorts.utils.logs import log_exception
 
 
 class GitMetrics(TypedDict):

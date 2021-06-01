@@ -1,15 +1,8 @@
-# Standard libraries
-import logging
-import sys
-from typing import (
-    Any,
-)
-
-# Third-party libraries
 import bugsnag
-from mixpanel import Mixpanel
-
-# Local libraries
+import logging
+from mixpanel import (
+    Mixpanel,
+)
 from sorts.constants import (
     LOGGER,
     LOGGER_HANDLER,
@@ -17,7 +10,13 @@ from sorts.constants import (
     LOGGER_REMOTE_HANDLER,
     MIXPANEL_API_TOKEN_SORTS,
 )
-from sorts.utils.bugs import META as BUGS_META
+from sorts.utils.bugs import (
+    META as BUGS_META,
+)
+import sys
+from typing import (
+    Any,
+)
 
 
 class CustomFormatter(logging.Formatter):

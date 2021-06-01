@@ -1,14 +1,21 @@
-# Standard libraries
-from contextlib import contextmanager
-from typing import Iterator
-
-# Third party libraries
-from gql.client import Client as GraphQLClient
-from gql.transport.requests import RequestsHTTPTransport
-from gql.transport.transport import Transport
-
-# Local libraries
-from sorts.constants import CTX
+from contextlib import (
+    contextmanager,
+)
+from gql.client import (
+    Client as GraphQLClient,
+)
+from gql.transport.requests import (
+    RequestsHTTPTransport,
+)
+from gql.transport.transport import (
+    Transport,
+)
+from sorts.constants import (
+    CTX,
+)
+from typing import (
+    Iterator,
+)
 
 
 @contextmanager

@@ -1,26 +1,28 @@
-# Standard libraries
-import os
-from datetime import datetime
-from typing import List
-
-# Third-party libraries
-import pandas as pd
-import pytest
-import pytz
-from pandas import DataFrame
-from _pytest.logging import LogCaptureFixture
-
-# Local libraries
+from _pytest.logging import (
+    LogCaptureFixture,
+)
+from datetime import (
+    datetime,
+)
 from features.commit import (
     COMMIT_FEATURES,
     extract_features as extract_commit_features,
 )
 from features.file import (
-    FILE_FEATURES,
     encode_extensions,
     extract_features as extract_file_features,
+    FILE_FEATURES,
 )
-
+import os
+import pandas as pd
+from pandas import (
+    DataFrame,
+)
+import pytest
+import pytz
+from typing import (
+    List,
+)
 
 DATA_PATH: str = f"{os.path.dirname(__file__)}/data"
 

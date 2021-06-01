@@ -1,17 +1,16 @@
-# Standard libraries
-import os
-import tempfile
-from typing import Iterator
-
-# Third-party libraries
 import git
-import pytest
-from git.cmd import Git
-
-# Local libraries
+from git.cmd import (
+    Git,
+)
 from integrates.graphql import (
     create_session,
     end_session,
+)
+import os
+import pytest
+import tempfile
+from typing import (
+    Iterator,
 )
 
 

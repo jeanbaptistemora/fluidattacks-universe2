@@ -1,24 +1,18 @@
-# Standard libraries
-import os
-import time
-from datetime import datetime
-from typing import (
-    List,
-    NamedTuple,
-    Tuple,
-    Set,
+from datetime import (
+    datetime,
 )
-
-# Third-party libraries
 import git
-from git.cmd import Git
-from git.exc import GitCommandError
+from git.cmd import (
+    Git,
+)
+from git.exc import (
+    GitCommandError,
+)
+import os
 from pandas import (
     DataFrame,
     Series,
 )
-
-# Local libraries
 from sorts.utils.logs import (
     log,
     log_exception,
@@ -31,7 +25,13 @@ from sorts.utils.repositories import (
     get_file_authors_history,
     parse_git_shortstat,
 )
-
+import time
+from typing import (
+    List,
+    NamedTuple,
+    Set,
+    Tuple,
+)
 
 COMMIT_FEATURES: List[str] = [
     "hunks",

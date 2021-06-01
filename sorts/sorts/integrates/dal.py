@@ -1,12 +1,12 @@
-# Standard libraries
-from typing import Any, Dict, List
-
-# Third party libraries
-from gql import gql
-from gql.transport.exceptions import TransportQueryError
-
-# Local libraries
-from sorts.integrates.graphql import client as graphql_client
+from gql import (
+    gql,
+)
+from gql.transport.exceptions import (
+    TransportQueryError,
+)
+from sorts.integrates.graphql import (
+    client as graphql_client,
+)
 from sorts.integrates.typing import (
     ToeLines,
     Vulnerability,
@@ -15,6 +15,11 @@ from sorts.integrates.typing import (
 from sorts.utils.logs import (
     log,
     log_exception,
+)
+from typing import (
+    Any,
+    Dict,
+    List,
 )
 
 

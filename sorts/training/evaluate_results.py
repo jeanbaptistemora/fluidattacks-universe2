@@ -1,11 +1,13 @@
 #! /usr/bin/env python3
 
-# Standard Libraries
+
 import os
 import tempfile
-
-# Local libraries
-from training.constants import S3_BUCKET, S3_BUCKET_NAME, S3_RESOURCE
+from training.constants import (
+    S3_BUCKET,
+    S3_BUCKET_NAME,
+    S3_RESOURCE,
+)
 
 
 def get_best_model_name(model_name_file: str) -> str:

@@ -1,21 +1,31 @@
-# Standard libraries
+from botocore.exceptions import (
+    ClientError,
+)
 import csv
-import os
-import tempfile
-from typing import List, Tuple
-
-# Third party libraries
-from botocore.exceptions import ClientError
 import numpy as np
-from numpy import ndarray
+from numpy import (
+    ndarray,
+)
+import os
 import pandas as pd
-from pandas import DataFrame
-from sklearn.model_selection import cross_validate, learning_curve
-
-
-# Local libraries
-from sorts.typings import Model as ModelType
-from training.constants import S3_BUCKET
+from pandas import (
+    DataFrame,
+)
+from sklearn.model_selection import (
+    cross_validate,
+    learning_curve,
+)
+from sorts.typings import (
+    Model as ModelType,
+)
+import tempfile
+from training.constants import (
+    S3_BUCKET,
+)
+from typing import (
+    List,
+    Tuple,
+)
 
 
 def is_overfit(train_results: ndarray, test_results: ndarray) -> float:

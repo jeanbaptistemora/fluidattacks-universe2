@@ -8,24 +8,33 @@ It installs sagemaker-containers, sagemaker-trainers etc. but not
 single sagemaker
 """
 
-# Standard libraries
-from typing import Dict, List
 
-# Third party libraries
 import boto3
-from sagemaker.tuner import CategoricalParameter, IntegerParameter
+from sagemaker.tuner import (
+    CategoricalParameter,
+    IntegerParameter,
+)
 from sklearn.ensemble import (
     AdaBoostClassifier,
     GradientBoostingClassifier,
     RandomForestClassifier,
 )
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.neural_network import MLPClassifier
-from sklearn.svm import LinearSVC
-
-# Local libraries
-from sorts.typings import Model as ModelType
-
+from sklearn.neighbors import (
+    KNeighborsClassifier,
+)
+from sklearn.neural_network import (
+    MLPClassifier,
+)
+from sklearn.svm import (
+    LinearSVC,
+)
+from sorts.typings import (
+    Model as ModelType,
+)
+from typing import (
+    Dict,
+    List,
+)
 
 S3_BUCKET_NAME: str = "sorts"
 S3_RESOURCE = boto3.resource("s3")

@@ -1,26 +1,19 @@
-# Standard libraries
-import tempfile
-import time
-import os
-from datetime import datetime
-from functools import partial
-from typing import (
-    List,
-    NamedTuple,
-    Set,
+from category_encoders import (
+    BinaryEncoder,
 )
-
-# Third-party libraries
+from datetime import (
+    datetime,
+)
+from functools import (
+    partial,
+)
+import os
 import pandas as pd
-import pytz
-from category_encoders import BinaryEncoder
 from pandas import (
     DataFrame,
     Series,
 )
-from tqdm import tqdm
-
-# Local libraries
+import pytz
 from sorts.utils.logs import (
     log,
     log_exception,
@@ -31,8 +24,19 @@ from sorts.utils.repositories import (
     GitMetrics,
     parse_git_shortstat,
 )
-from sorts.utils.static import get_extensions_list
-
+from sorts.utils.static import (
+    get_extensions_list,
+)
+import tempfile
+import time
+from tqdm import (
+    tqdm,
+)
+from typing import (
+    List,
+    NamedTuple,
+    Set,
+)
 
 FILE_FEATURES = [
     "num_commits",

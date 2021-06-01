@@ -1,32 +1,37 @@
 #!/usr/bin/env python3
 
-# Standard Libraries
+
 import argparse
+from itertools import (
+    combinations,
+)
+from joblib import (
+    dump,
+)
 import os
+from pandas import (
+    DataFrame,
+)
+from sklearn.neighbors import (
+    KNeighborsClassifier,
+)
+from sklearn.neural_network import (
+    MLPClassifier,
+)
+from sorts.typings import (
+    Model as ModelType,
+)
 import tempfile
 import time
-from itertools import combinations
-from typing import (
-    Dict,
-    List,
-    Tuple,
-)
-
-# Third-party Libraries
-from joblib import dump
-from pandas import DataFrame
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.neural_network import MLPClassifier
-
-# Local libraries
-from sorts.typings import Model as ModelType
 from training.constants import (
     FEATURES_DICTS,
     MODELS,
     RESULT_HEADERS,
     S3_BUCKET,
 )
-from training.redshift import db as redshift
+from training.redshift import (
+    db as redshift,
+)
 from training.training_script.utils import (
     get_model_performance_metrics,
     get_previous_training_results,
@@ -34,6 +39,11 @@ from training.training_script.utils import (
     set_sagemaker_extra_envs,
     split_training_data,
     update_results_csv,
+)
+from typing import (
+    Dict,
+    List,
+    Tuple,
 )
 
 

@@ -1,24 +1,29 @@
-# Standard libraries
+from joblib import (
+    load,
+)
 import json
-from os import environ
+import numpy as np
+from os import (
+    environ,
+)
 from os.path import (
     abspath,
     exists,
     join,
 )
+from sklearn.neural_network import (
+    MLPClassifier,
+)
+from sklearn.svm import (
+    LinearSVC,
+)
+from sorts.constants import (
+    STATIC_DIR,
+)
 from typing import (
     List,
     Tuple,
 )
-
-# Third-party libraries
-from joblib import load
-import numpy as np
-from sklearn.neural_network import MLPClassifier
-from sklearn.svm import LinearSVC
-
-# Local libraries
-from sorts.constants import STATIC_DIR
 
 
 def get_extensions_list() -> List[str]:
