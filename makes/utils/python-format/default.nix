@@ -16,7 +16,11 @@ makeEntrypoint {
   inherit name;
   searchPaths = {
     envPython38Paths = [ pkgs.python38Packages.colorama ];
-    envPaths = [ pkgs.black pkgs.python38Packages.isort ];
+    envPaths = [
+      pkgs.black
+      pkgs.git
+      pkgs.python38Packages.isort
+    ];
   };
   template = path "/makes/utils/python-format/template.sh";
 }
