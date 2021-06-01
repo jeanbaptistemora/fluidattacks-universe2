@@ -63,6 +63,9 @@ const AdvisoryIndex: React.FC<IQueryData> = ({
     <React.Fragment>
       <Seo
         description={data.asciidoc.pageAttributes.description}
+        image={
+          "https://res.cloudinary.com/fluid-attacks/image/upload/v1619634447/airs/bg-advisories_htsqyd.webp"
+        }
         keywords={data.asciidoc.pageAttributes.keywords}
         title={`${title} | Fluid Attacks`}
         url={data.asciidoc.pageAttributes.slug}

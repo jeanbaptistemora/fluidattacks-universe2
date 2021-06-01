@@ -16,7 +16,6 @@ interface IQueryData {
       siteMetadata: {
         author: string;
         description: string;
-        image: string;
         keywords: string;
         siteUrl: string;
         title: string;
@@ -30,7 +29,9 @@ const Index: React.FC<IQueryData> = ({ data }: IQueryData): JSX.Element => (
     <Seo
       author={data.site.siteMetadata.author}
       description={data.site.siteMetadata.description}
-      image={`${data.site.siteMetadata.image}`}
+      image={
+        "https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_1200/v1622583388/airs/logo_fluid_attacks_2021_eqop3k.webp"
+      }
       keywords={data.site.siteMetadata.keywords}
       title={data.site.siteMetadata.title}
       url={data.site.siteMetadata.siteUrl}
@@ -55,7 +56,6 @@ export const query: void = graphql`
       siteMetadata {
         author
         description
-        image
         keywords
         siteUrl
         title

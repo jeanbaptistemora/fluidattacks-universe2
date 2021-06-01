@@ -19,10 +19,14 @@ const BlogIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
+  const blogImage: string =
+    "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632208/airs/bg-blog_bj0szx.webp";
+
   return (
     <React.Fragment>
       <Seo
         description={translate.t("blog.description")}
+        image={blogImage}
         keywords={translate.t("blog.keywords")}
         title={"Blog | A Pentesting Company | Fluid Attacks"}
         url={"https://fluidattacks.com/blog"}

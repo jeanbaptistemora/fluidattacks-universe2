@@ -61,11 +61,18 @@ const CardsgenIndex: React.FC<IQueryData> = ({
       pb5
     `,
   })``;
+  const metaImage: string =
+    data.asciidoc.pageAttributes.partnersindex === "yes"
+      ? "https://res.cloudinary.com/fluid-attacks/image/upload/v1619633627/airs/partners/cover-partners_n4sshp.webp"
+      : data.asciidoc.pageAttributes.clientsindex === "yes"
+      ? "https://res.cloudinary.com/fluid-attacks/image/upload/v1619635918/airs/about-us/clients/cover-clients_llnlaw.webp"
+      : "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632703/airs/about-us/certifications/cover-certifications_dos6xu.webp";
 
   return (
     <React.Fragment>
       <Seo
         description={data.asciidoc.pageAttributes.description}
+        image={metaImage}
         keywords={data.asciidoc.pageAttributes.keywords}
         title={`${title} | Fluid Attacks`}
         url={data.asciidoc.pageAttributes.slug}

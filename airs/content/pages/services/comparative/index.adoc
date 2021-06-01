@@ -5,6 +5,7 @@
 :no: image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620226925/airs/icons/no_kjwjap.webp[no]
 :info: image:https://res.cloudinary.com/fluid-attacks/image/upload/v1620226924/airs/icons/info_orgtqu.webp[info]
 :page-banner: comparative-bg
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619633681/airs/services/cover-comparative_uw8pet.webp
 
 = Comparative
 

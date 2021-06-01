@@ -4,6 +4,7 @@
 :page-template: service
 :page-definition: We detect and report all vulnerability and security issues within one specific version of your application. The rigorous inspection carried out by our team allows us to detect all existing security issues with very low rates of false positives.
 :page-banner: bg-one-shot
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619629858/airs/services/main-one-shot_lgkizl.webp
 
 = One-Shot Hacking
 

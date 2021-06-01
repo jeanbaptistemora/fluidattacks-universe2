@@ -62,6 +62,9 @@ const ComplianceIndex: React.FC<IQueryData> = ({
     <React.Fragment>
       <Seo
         description={data.asciidoc.pageAttributes.description}
+        image={
+          "https://res.cloudinary.com/fluid-attacks/image/upload/v1619637249/airs/compliance/cover-internal-compliance_clerwf.webp"
+        }
         keywords={data.asciidoc.pageAttributes.keywords}
         title={`${title} | Fluid Attacks`}
         url={data.asciidoc.pageAttributes.slug}

@@ -40,11 +40,14 @@ const PeopleIndex: React.FC<IQueryData> = ({
     .toUpperCase()}${title.slice(1).replace("-", "")}`;
 
   const { banner } = data.asciidoc.pageAttributes;
+  const metaImage: string =
+    "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632545/airs/about-us/people/cover-people_lxsx5t.webp";
 
   return (
     <React.Fragment>
       <Seo
         description={data.asciidoc.pageAttributes.description}
+        image={metaImage}
         keywords={data.asciidoc.pageAttributes.keywords}
         title={`${title} | Fluid Attacks`}
         url={data.asciidoc.pageAttributes.slug}

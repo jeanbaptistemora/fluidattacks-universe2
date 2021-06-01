@@ -69,7 +69,7 @@ const Seo: React.FC<ISeoProps> = ({
       name: "og:description",
     },
     {
-      content: `${siteUrl}/${siteImage}`,
+      content: siteImage,
       name: "og:image",
     },
     {
