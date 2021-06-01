@@ -19,25 +19,25 @@ interface IProps {
 const SocialNetworkList: React.FC<IProps> = ({ slug }: IProps): JSX.Element => (
   <React.Fragment>
     <FacebookShareButton
-      className={"blog-link br3 mh1 mv1"}
+      className={"blog-link br3 ma1"}
       title={"Share on Facebook"}
       url={`https://fluidattacks.com/blog/${slug}`}
     >
-      <FontAwesomeIcon className={"pa2 f4 black"} icon={faFacebookF} />
+      <FontAwesomeIcon className={"pa2 nb1 f4 black"} icon={faFacebookF} />
     </FacebookShareButton>
     <LinkedinShareButton
-      className={"blog-link br3 mh1 mv1"}
+      className={"blog-link br3 ma1"}
       title={"Share on LinkedIn"}
       url={`https://fluidattacks.com/blog/${slug}`}
     >
-      <FontAwesomeIcon className={"pa2 f4 black"} icon={faLinkedinIn} />
+      <FontAwesomeIcon className={"pa2 nb1 f4 black"} icon={faLinkedinIn} />
     </LinkedinShareButton>
     <TwitterShareButton
-      className={"blog-link br3 mh1 mv1"}
+      className={"blog-link br3 ma1"}
       title={"Share on Twitter"}
       url={`https://fluidattacks.com/blog/${slug}`}
     >
-      <FontAwesomeIcon className={"pa2 f4 black"} icon={faTwitter} />
+      <FontAwesomeIcon className={"pa2 nb1 f4 black"} icon={faTwitter} />
     </TwitterShareButton>
   </React.Fragment>
 );

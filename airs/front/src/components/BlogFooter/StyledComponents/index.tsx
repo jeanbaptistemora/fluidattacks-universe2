@@ -54,7 +54,8 @@ const BlogFooterColsHeader: StyledComponent<
 > = styled.b.attrs({
   className: `
     flex
-    mv3
+    mv3-l
+    mv1
     justify-center
     justify-start-l
     `,
