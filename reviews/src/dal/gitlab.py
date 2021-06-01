@@ -1,12 +1,17 @@
-# Standard libraries
-from typing import Any, List, Dict
-from functools import partial
-
-# Third party libraries
-from gitlab import Gitlab
-
-# Local libraries
-from dal.model import PullRequest
+from dal.model import (
+    PullRequest,
+)
+from functools import (
+    partial,
+)
+from gitlab import (
+    Gitlab,
+)
+from typing import (
+    Any,
+    Dict,
+    List,
+)
 
 
 def required_vars() -> List[str]:

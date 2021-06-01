@@ -1,11 +1,8 @@
-# Local libraries
-import sys
-
-# Third party libraries
 import click
-
-# Local libraries
-from core import run_tests
+from core import (
+    run_tests,
+)
+import sys
 
 
 @click.command()

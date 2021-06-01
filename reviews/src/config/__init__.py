@@ -1,9 +1,12 @@
-# Standard libraries
-from typing import Any, Dict, List
-
-# Third party libraries
-from dynaconf import Dynaconf, Validator
-
+from dynaconf import (
+    Dynaconf,
+    Validator,
+)
+from typing import (
+    Any,
+    Dict,
+    List,
+)
 
 ERR_DEFAULT: Dict[str, str] = {
     "must_exist_true": "{name} is required.",

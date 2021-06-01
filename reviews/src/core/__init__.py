@@ -1,25 +1,34 @@
-# Standard libraries
-import os
-from functools import partial
-from typing import Callable
-
-# Third party libraries
-from gitlab import Gitlab
-from dynaconf import Dynaconf
-
-# Local libraries
-from config import load
-from core import tests
+from config import (
+    load,
+)
+from core import (
+    tests,
+)
 from dal import (
     gitlab,
     verify_required_vars,
 )
 from dal.model import (
-    Syntax,
     PullRequest,
+    Syntax,
     TestData,
 )
-from utils.logs import log
+from dynaconf import (
+    Dynaconf,
+)
+from functools import (
+    partial,
+)
+from gitlab import (
+    Gitlab,
+)
+import os
+from typing import (
+    Callable,
+)
+from utils.logs import (
+    log,
+)
 
 
 def run_tests(config_path: str) -> bool:

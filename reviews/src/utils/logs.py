@@ -1,7 +1,8 @@
-# Standard library
 import logging
 import sys
-from typing import Any
+from typing import (
+    Any,
+)
 
 # Private constants
 _FORMAT: str = "[%(levelname)s] %(message)s"

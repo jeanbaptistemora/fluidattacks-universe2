@@ -1,18 +1,24 @@
-# Standard libraries
-import re
-import subprocess
-from time import sleep
-from typing import Any, List, Dict
-
-# Third party libraries
-from pygit2 import Repository, GitError
-
-# Local libraries
 from dal.model import (
     PullRequest,
     TestData,
 )
-from utils.logs import log
+from pygit2 import (
+    GitError,
+    Repository,
+)
+import re
+import subprocess
+from time import (
+    sleep,
+)
+from typing import (
+    Any,
+    Dict,
+    List,
+)
+from utils.logs import (
+    log,
+)
 
 
 def get_err_log(should_fail: bool) -> str:

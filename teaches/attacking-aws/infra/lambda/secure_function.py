@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Lambda function."""
 
-import json
 import boto3
+import json
 
 
 def lambda_handler(event, context):
