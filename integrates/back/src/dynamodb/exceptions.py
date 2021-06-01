@@ -16,11 +16,15 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-class ConditionalCheckFailedException(Exception):
+class DynamoDbBaseException(Exception):
     pass
 
 
-class UnavailabilityError(Exception):
+class ConditionalCheckFailedException(DynamoDbBaseException):
+    pass
+
+
+class UnavailabilityError(DynamoDbBaseException):
     def __init__(self) -> None:
         msg = "Service unavalible, please retry"
         super(UnavailabilityError, self).__init__(msg)
