@@ -31,12 +31,14 @@ from returns.io import (
 from returns.pipeline import (
     is_successful,
 )
+from returns.primitives.types import (
+    Immutable,
+)
 from returns.unsafe import (
     unsafe_perform_io,
 )
 from typing import (
     Iterator,
-    List,
     Literal,
     NamedTuple,
     NoReturn,
@@ -63,12 +65,24 @@ class SchemaNotExist(Exception):
     pass
 
 
-class Schema(NamedTuple):
+class _Schema(NamedTuple):
+    cursor: Cursor
+    name: str
+    redshift: bool
+
+
+class Schema(Immutable):
     """Use SchemaFactory for building a Schema element"""
 
     cursor: Cursor
     name: str
     redshift: bool
+
+    def __new__(cls, obj: _Schema) -> Schema:
+        self = object.__new__(cls)
+        for prop, val in obj._asdict().items():
+            object.__setattr__(self, prop, val)
+        return self
 
     def get_tables(self) -> Iterator[str]:
         query = queries.get_tables(self.name)
@@ -107,7 +121,11 @@ class SchemaFactory(NamedTuple):
         exists = _exist(self.client.cursor, name)
         if is_successful(exists):
             return IOSuccess(
-                Schema(cursor=self.client.cursor, name=name, redshift=redshift)
+                Schema(
+                    _Schema(
+                        cursor=self.client.cursor, name=name, redshift=redshift
+                    )
+                )
             )
         return IOFailure(SchemaNotExist(name))
 
