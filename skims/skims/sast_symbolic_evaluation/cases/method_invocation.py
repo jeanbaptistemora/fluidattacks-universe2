@@ -186,6 +186,9 @@ BY_TYPE: Dict[str, Set[str]] = complete_attrs_on_dict(
         "StreamReader": {
             "ReadLine",
         },
+        "System.Data.SqlClient.SqlDataReader": {
+            "GetString",
+        },
     }
 )
 BY_TYPE_AND_VALUE_FINDING: Dict[str, Dict[str, Any]] = {
