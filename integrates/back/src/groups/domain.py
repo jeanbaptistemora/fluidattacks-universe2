@@ -235,6 +235,29 @@ def _process_digest_reattacks_executed(
     return executed
 
 
+def _process_digest_reattacks_pending(
+    groups_stats: List[MailContentType],
+) -> MailContentType:
+    """Process digest pending reattacks sub-section"""
+    pending: MailContentType = {
+        "groups_pending": list(),
+    }
+    # Get groups with most pending reattacks
+    groups_pending = [
+        {
+            "pending_attacks": group["reattacks"]["pending_attacks"],
+            "group": group["group"],
+        }
+        for group in groups_stats
+        if group["reattacks"]["pending_attacks"]
+    ]
+    pending["groups_pending"] = sorted(
+        groups_pending, key=itemgetter("pending_attacks"), reverse=True
+    )[:3]
+
+    return pending
+
+
 def _process_digest_reattacks(
     groups_stats: List[MailContentType],
 ) -> MailContentType:
@@ -257,6 +280,9 @@ def _process_digest_reattacks(
             groups_stats,
         )
     )
+
+    if reattacks["pending_attacks"]:
+        reattacks.update(_process_digest_reattacks_pending(groups_stats))
 
     return reattacks
 
