@@ -1,18 +1,12 @@
-# Standar library
-from typing import (
-    Callable,
-    List,
-    Optional,
+from model.graph_model import (
+    Graph,
 )
-
-# Third party libraries
 from more_itertools import (
     pairwise,
 )
-from mypy_extensions import NamedArg
-
-# Local Imports
-from model.graph_model import Graph
+from mypy_extensions import (
+    NamedArg,
+)
 from sast_transformations import (
     ALWAYS,
     FALSE,
@@ -23,10 +17,14 @@ from sast_transformations.control_flow.types import (
     EdgeAttrs,
     Stack,
 )
+from typing import (
+    Callable,
+    List,
+    Optional,
+)
 from utils import (
     graph as g,
 )
-
 
 # Constants
 GenericType = Callable[

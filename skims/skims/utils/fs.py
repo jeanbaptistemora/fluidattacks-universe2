@@ -1,4 +1,8 @@
-# Standard library
+from aioextensions import (
+    collect,
+    in_thread,
+)
+import aiofiles
 from glob import (
     iglob as glob,
 )
@@ -18,15 +22,6 @@ from typing import (
     Set,
     Tuple,
 )
-
-# Third party imports
-import aiofiles
-from aioextensions import (
-    collect,
-    in_thread,
-)
-
-# Local libraries
 from utils.concurrency import (
     never_concurrent,
 )

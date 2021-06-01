@@ -1,4 +1,3 @@
-# Standard library
 import asyncio
 import os
 import subprocess  # nosec

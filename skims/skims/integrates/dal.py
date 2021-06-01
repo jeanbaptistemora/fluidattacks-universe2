@@ -1,9 +1,19 @@
-# Standard library
+import aiohttp
+from integrates.graphql import (
+    client as graphql_client,
+)
 from io import (
     BytesIO,
 )
+from model import (
+    core_model,
+)
 from operator import (
     attrgetter,
+)
+from state.ephemeral import (
+    EphemeralStore,
+    get_ephemeral_store,
 )
 from typing import (
     Any,
@@ -15,25 +25,10 @@ from typing import (
     Tuple,
     TypeVar,
 )
-
-# Third party libraries
-import aiohttp
-
-# Local libraries
-from integrates.graphql import (
-    client as graphql_client,
-)
-from model import (
-    core_model,
-)
-from state.ephemeral import (
-    EphemeralStore,
-    get_ephemeral_store,
-)
 from utils.function import (
     rate_limited,
-    shield,
     RetryAndFinallyReturn,
+    shield,
     StopRetrying,
 )
 from utils.limits import (

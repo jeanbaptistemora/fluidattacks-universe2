@@ -1,13 +1,12 @@
-# Local libraries
 from model import (
     core_model,
 )
+from sast_symbolic_evaluation.lookup import (
+    lookup_class,
+    lookup_method,
+)
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
-)
-from sast_symbolic_evaluation.lookup import (
-    lookup_method,
-    lookup_class,
 )
 from utils.string import (
     build_attr_paths,

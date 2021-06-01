@@ -1,22 +1,13 @@
-# Standard library
-from typing import (
-    Awaitable,
-    Callable,
-    Iterator,
-    List,
-    Tuple,
-)
-
-# Third party libraries
 from aioextensions import (
     in_process,
 )
-
-# Local libraries
 from lib_path.common import (
-    get_vulnerabilities_from_iterator_blocking,
     EXTENSIONS_JAVA_PROPERTIES,
+    get_vulnerabilities_from_iterator_blocking,
     SHIELD,
+)
+from model import (
+    core_model,
 )
 from parse_java_properties import (
     load as load_java_properties,
@@ -24,11 +15,15 @@ from parse_java_properties import (
 from state.cache import (
     CACHE_ETERNALLY,
 )
+from typing import (
+    Awaitable,
+    Callable,
+    Iterator,
+    List,
+    Tuple,
+)
 from utils.function import (
     TIMEOUT_1MIN,
-)
-from model import (
-    core_model,
 )
 from zone import (
     t,

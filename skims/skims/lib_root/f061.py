@@ -1,13 +1,12 @@
-# Standar library
-
-# Local libraries
-from sast.query import get_vulnerabilities_from_n_ids
-from utils import (
-    graph as g,
-)
 from model import (
     core_model,
     graph_model,
+)
+from sast.query import (
+    get_vulnerabilities_from_n_ids,
+)
+from utils import (
+    graph as g,
 )
 
 

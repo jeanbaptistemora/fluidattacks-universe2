@@ -1,12 +1,12 @@
-# Standard library
-
-# Local libraries
 from model import (
     graph_model,
 )
-
-from sast.inspectors.java import get_metadata as get_metadata_java
-from sast.inspectors.c_sharp import get_metadata as get_metadata_c_sharp
+from sast.inspectors.c_sharp import (
+    get_metadata as get_metadata_c_sharp,
+)
+from sast.inspectors.java import (
+    get_metadata as get_metadata_java,
+)
 
 
 def get_metadata(

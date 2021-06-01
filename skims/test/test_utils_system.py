@@ -1,10 +1,7 @@
-# Third party libraries
 from aioextensions import (
     run_decorator,
 )
 import pytest
-
-# Local libraries
 from utils.system import (
     read,
     read_blocking,

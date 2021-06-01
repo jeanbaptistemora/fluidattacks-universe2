@@ -1,7 +1,12 @@
-# Local libraries
-from model.graph_model import SyntaxStepsLazy
-from sast_syntax_readers.types import SyntaxReaderArgs
-from utils import graph as g
+from model.graph_model import (
+    SyntaxStepsLazy,
+)
+from sast_syntax_readers.types import (
+    SyntaxReaderArgs,
+)
+from utils import (
+    graph as g,
+)
 
 
 def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:

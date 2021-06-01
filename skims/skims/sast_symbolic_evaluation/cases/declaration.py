@@ -1,4 +1,3 @@
-# Local libraries
 from model import (
     core_model,
 )
@@ -51,7 +50,6 @@ def _syntax_step_declaration_danger(args: EvaluatorArgs) -> None:
         )
     )
 
-    # Local context
     args.syntax_step.meta.danger = bind_danger or args_danger
 
 

@@ -1,4 +1,3 @@
-# Standard library
 import sys
 
 # Increase the level of recursion because some functions must iterate

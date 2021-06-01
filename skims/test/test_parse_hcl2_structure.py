@@ -1,7 +1,3 @@
-# Third party libraries
-import pytest
-
-# Local libraries
 from aws.model import (
     AWSIamPolicyStatement,
 )
@@ -12,6 +8,7 @@ from parse_hcl2.structure import (
     iterate_iam_policy_documents,
     iterate_resources,
 )
+import pytest
 
 
 @pytest.mark.skims_test_group("unittesting")

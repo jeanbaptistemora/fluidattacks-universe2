@@ -1,29 +1,13 @@
-# Standard library
-from contextlib import (
-    redirect_stderr,
-    redirect_stdout,
-)
-from uuid import (
-    uuid4 as uuid,
-)
-import io
-from typing import (
-    Dict,
-    List,
-    Set,
-    Tuple,
-)
-
-# Third party libraries
 from aioextensions import (
     collect,
     run_decorator,
 )
-import pytest
-
-# Local libraries
 from cli import (
     cli,
+)
+from contextlib import (
+    redirect_stderr,
+    redirect_stdout,
 )
 from integrates.dal import (
     do_add_git_root,
@@ -33,8 +17,19 @@ from integrates.dal import (
     get_group_findings,
     get_group_roots,
 )
+import io
+from model import (
+    core_model,
+)
+import pytest
 from state.ephemeral import (
     EphemeralStore,
+)
+from typing import (
+    Dict,
+    List,
+    Set,
+    Tuple,
 )
 from utils.ctx import (
     SHOULD_UPDATE_TESTS,
@@ -42,8 +37,8 @@ from utils.ctx import (
 from utils.logs import (
     configure,
 )
-from model import (
-    core_model,
+from uuid import (
+    uuid4 as uuid,
 )
 from zone import (
     t,

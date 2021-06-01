@@ -1,12 +1,13 @@
-# Standar library
+from model import (
+    graph_model,
+)
 from typing import (
     List,
     Optional,
 )
-from model import graph_model
-
-# Local imports
-from utils import graph as g
+from utils import (
+    graph as g,
+)
 
 
 def _build_nested_identifier_ids(

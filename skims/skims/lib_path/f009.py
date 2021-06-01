@@ -1,5 +1,39 @@
-# Standard library
+from aioextensions import (
+    in_process,
+)
+from jose.exceptions import (
+    JOSEError,
+)
+from jose.jwt import (
+    decode as jwt_decode,
+)
+from lib_path.common import (
+    BACKTICK_QUOTED_STRING,
+    DOUBLE_QUOTED_STRING,
+    EXTENSIONS_JAVA_PROPERTIES,
+    EXTENSIONS_JAVASCRIPT,
+    get_vulnerabilities_blocking,
+    get_vulnerabilities_from_iterator_blocking,
+    NAMES_DOCKERFILE,
+    SHIELD,
+    SINGLE_QUOTED_STRING,
+)
+from model import (
+    core_model,
+)
+from parse_java_properties import (
+    load as load_java_properties,
+)
+from pyparsing import (
+    Keyword,
+    MatchFirst,
+    nestedExpr,
+    Regex,
+)
 import re
+from state.cache import (
+    CACHE_ETERNALLY,
+)
 from typing import (
     Awaitable,
     Callable,
@@ -9,45 +43,8 @@ from typing import (
     Set,
     Tuple,
 )
-
-# Third party libraries
-from pyparsing import (
-    Keyword,
-    MatchFirst,
-    nestedExpr,
-    Regex,
-)
-from jose.jwt import decode as jwt_decode
-from jose.exceptions import JOSEError
-
-# Third party libraries
-from aioextensions import (
-    in_process,
-)
-
-# Local libraries
-from lib_path.common import (
-    BACKTICK_QUOTED_STRING,
-    get_vulnerabilities_blocking,
-    get_vulnerabilities_from_iterator_blocking,
-    DOUBLE_QUOTED_STRING,
-    EXTENSIONS_JAVA_PROPERTIES,
-    EXTENSIONS_JAVASCRIPT,
-    SHIELD,
-    NAMES_DOCKERFILE,
-    SINGLE_QUOTED_STRING,
-)
-from parse_java_properties import (
-    load as load_java_properties,
-)
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from utils.function import (
     TIMEOUT_1MIN,
-)
-from model import (
-    core_model,
 )
 from zone import (
     t,

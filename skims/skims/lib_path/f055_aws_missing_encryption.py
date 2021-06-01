@@ -1,39 +1,18 @@
-# Standard library
-from typing import (
-    Any,
-    Awaitable,
-    Callable,
-    Iterator,
-    List,
-    Union,
-)
-
-# Third party libraries
 from aioextensions import (
     in_process,
 )
-from metaloaders.model import (
-    Node,
-)
-
-# Local libraries
 from aws.model import (
-    AWSS3Bucket,
     AWSS3Acl,
-)
-from parse_hcl2.loader import (
-    load as load_terraform,
-)
-from parse_hcl2.structure import (
-    iter_s3_buckets as terraform_iter_s3_buckets,
-    get_argument,
-    get_attribute,
+    AWSS3Bucket,
 )
 from lib_path.common import (
-    get_vulnerabilities_from_aws_iterator_blocking,
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
+    get_vulnerabilities_from_aws_iterator_blocking,
     SHIELD,
+)
+from metaloaders.model import (
+    Node,
 )
 from model import (
     core_model,
@@ -45,8 +24,24 @@ from parse_cfn.structure import (
     iter_s3_buckets,
     iterate_resources,
 )
+from parse_hcl2.loader import (
+    load as load_terraform,
+)
+from parse_hcl2.structure import (
+    get_argument,
+    get_attribute,
+    iter_s3_buckets as terraform_iter_s3_buckets,
+)
 from state.cache import (
     CACHE_ETERNALLY,
+)
+from typing import (
+    Any,
+    Awaitable,
+    Callable,
+    Iterator,
+    List,
+    Union,
 )
 from utils.function import (
     TIMEOUT_1MIN,

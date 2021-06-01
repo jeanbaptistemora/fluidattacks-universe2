@@ -1,15 +1,14 @@
-# Standard library
-import ast
-from typing import (
-    Optional,
-)
-
-# Third party libraries
 from aioextensions import (
     in_process,
 )
-from frozendict import frozendict
+import ast
+from frozendict import (
+    frozendict,
+)
 import lark
+from typing import (
+    Optional,
+)
 
 # Constants
 GRAMMAR = r"""

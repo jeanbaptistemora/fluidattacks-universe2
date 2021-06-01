@@ -1,4 +1,11 @@
-# Standard library
+from PIL import (
+    Image,
+    ImageDraw,
+    ImageFont,
+)
+from aioextensions import (
+    in_process,
+)
 from difflib import (
     SequenceMatcher,
 )
@@ -15,18 +22,6 @@ from typing import (
     Set,
     Tuple,
 )
-
-# Third party libraries
-from aioextensions import (
-    in_process,
-)
-from PIL import (
-    Image,
-    ImageDraw,
-    ImageFont,
-)
-
-# Local libraries
 from utils.ctx import (
     FLUID_WATERMARK,
     ROBOTO_FONT,

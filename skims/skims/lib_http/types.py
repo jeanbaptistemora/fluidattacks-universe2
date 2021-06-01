@@ -1,4 +1,5 @@
-# Standard library
+import aiohttp
+import bs4
 from typing import (
     Dict,
     NamedTuple,
@@ -7,10 +8,6 @@ from typing import (
 from urllib.parse import (
     ParseResult,
 )
-import aiohttp
-
-# Third party libraries
-import bs4
 
 
 class URLContext(NamedTuple):

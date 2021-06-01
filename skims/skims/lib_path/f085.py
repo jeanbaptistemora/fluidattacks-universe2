@@ -1,33 +1,12 @@
-# Standard library
-from operator import (
-    methodcaller,
-)
-from typing import (
-    Awaitable,
-    Callable,
-    List,
-    Set,
-    Tuple,
-)
-
-# Third party libraries
 from aioextensions import (
     in_process,
 )
-from pyparsing import (
-    delimitedList,
-    Keyword,
-    MatchFirst,
-    nestedExpr,
-)
-
-# Local libraries
 from lib_path.common import (
     BACKTICK_QUOTED_STRING,
-    get_vulnerabilities_blocking,
     C_STYLE_COMMENT,
     DOUBLE_QUOTED_STRING,
     EXTENSIONS_JAVASCRIPT,
+    get_vulnerabilities_blocking,
     SHIELD,
     SINGLE_QUOTED_STRING,
     VAR_ATTR_JAVA,
@@ -35,8 +14,24 @@ from lib_path.common import (
 from model import (
     core_model,
 )
+from operator import (
+    methodcaller,
+)
+from pyparsing import (
+    delimitedList,
+    Keyword,
+    MatchFirst,
+    nestedExpr,
+)
 from state.cache import (
     CACHE_ETERNALLY,
+)
+from typing import (
+    Awaitable,
+    Callable,
+    List,
+    Set,
+    Tuple,
 )
 from utils.function import (
     TIMEOUT_1MIN,

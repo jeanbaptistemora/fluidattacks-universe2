@@ -1,8 +1,14 @@
-# Standard libraries
+from aioextensions import (
+    run,
+)
+import click
 from functools import (
     partial,
 )
 import logging
+from model import (
+    core_model,
+)
 import sys
 from time import (
     time,
@@ -10,17 +16,10 @@ from time import (
 from typing import (
     Optional,
 )
-
-# Third party libraries
-from aioextensions import (
-    run,
+from utils.bugs import (
+    add_bugsnag_data,
+    initialize_bugsnag,
 )
-import click
-from model import (
-    core_model,
-)
-
-# Local libraries
 from utils.ctx import (
     CTX,
 )
@@ -31,13 +30,9 @@ from utils.function import (
     shield,
 )
 from utils.logs import (
-    set_level,
     log_blocking,
     log_to_remote_blocking,
-)
-from utils.bugs import (
-    add_bugsnag_data,
-    initialize_bugsnag,
+    set_level,
 )
 
 # Reusable components

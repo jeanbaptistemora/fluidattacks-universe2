@@ -1,8 +1,7 @@
-# Standard library
-import os
 import csv
 import glob
 import json
+import os
 from typing import (
     Any,
     Dict,
@@ -11,8 +10,6 @@ from typing import (
     Optional,
     Tuple,
 )
-
-# Local libraries
 from utils.logs import (
     log_blocking,
 )

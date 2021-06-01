@@ -1,3 +1,4 @@
+/**/*.isorted
 /**/.minio.sys
 /**/.terraform
 /**/__pycache__

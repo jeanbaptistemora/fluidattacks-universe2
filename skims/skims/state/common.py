@@ -1,16 +1,13 @@
-# Standard library
 from os.path import (
     join,
+)
+from serialization import (
+    dump as py_dumps,
+    load as py_loads,
 )
 from typing import (
     Any,
     Optional,
-)
-
-# Local libraries
-from serialization import (
-    dump as py_dumps,
-    load as py_loads,
 )
 from utils.crypto import (
     get_hash,

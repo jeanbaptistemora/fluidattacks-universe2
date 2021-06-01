@@ -1,12 +1,15 @@
-# Standar library
-from functools import partial
-from contextlib import suppress
+from contextlib import (
+    suppress,
+)
+from functools import (
+    partial,
+)
+from model.graph_model import (
+    Graph,
+)
 from more_itertools import (
     pairwise,
 )
-
-# Local imports
-from model.graph_model import Graph
 from sast_transformations import (
     ALWAYS,
     MAYBE,

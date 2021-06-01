@@ -1,11 +1,8 @@
-# Third party libraries
-import pytest
-
-# Local libraries
 from parse_cfn.loader import (
     load_as_json,
     load_as_yaml,
 )
+import pytest
 
 
 @pytest.mark.skims_test_group("unittesting")

@@ -1,6 +1,21 @@
-# Standard library
+from aws.iam.utils import (
+    yield_statements_from_policy_document,
+)
+from aws.model import (
+    AWSIamManagedPolicyArns,
+    AWSIamPolicyStatement,
+    AWSS3Bucket,
+)
 from itertools import (
     chain,
+)
+from lark import (
+    Tree,
+)
+from parse_hcl2.tokens import (
+    Attribute,
+    Block,
+    Json,
 )
 from typing import (
     Any,
@@ -8,26 +23,6 @@ from typing import (
     List,
     Optional,
     Union,
-)
-
-# Third party libraries
-from lark import (
-    Tree,
-)
-
-# Local libraries
-from aws.model import (
-    AWSIamPolicyStatement,
-    AWSIamManagedPolicyArns,
-    AWSS3Bucket,
-)
-from aws.iam.utils import (
-    yield_statements_from_policy_document,
-)
-from parse_hcl2.tokens import (
-    Attribute,
-    Block,
-    Json,
 )
 
 

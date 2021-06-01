@@ -1,10 +1,7 @@
-# Third party libraries
-import pytest
-
-# Local libraries
 from model import (
     core_model,
 )
+import pytest
 from utils.ctx import (
     SHOULD_UPDATE_TESTS,
 )

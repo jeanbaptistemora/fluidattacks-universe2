@@ -1,23 +1,22 @@
-# Standard library
-import dataclasses
-from enum import Enum
-import json
-from typing import (
-    Any,
-)
-
-# Third party libraries
-from ruamel import yaml
 from aioextensions import (
     in_thread,
 )
-
-# Local libraries
-from utils.graph import (
-    export_graph_as_json,
+import dataclasses
+from enum import (
+    Enum,
 )
+import json
 from model import (
     graph_model,
+)
+from ruamel import (
+    yaml,
+)
+from typing import (
+    Any,
+)
+from utils.graph import (
+    export_graph_as_json,
 )
 
 

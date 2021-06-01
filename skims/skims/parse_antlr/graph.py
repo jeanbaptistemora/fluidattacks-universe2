@@ -1,7 +1,10 @@
-# Standard library
 from itertools import (
     count,
 )
+from model import (
+    graph_model,
+)
+import networkx as nx
 from typing import (
     Any,
     Dict,
@@ -9,14 +12,6 @@ from typing import (
     List,
     Optional,
     Tuple,
-)
-
-# Third party libraries
-import networkx as nx
-
-# Local libraries
-from model import (
-    graph_model,
 )
 from utils import (
     graph as g,

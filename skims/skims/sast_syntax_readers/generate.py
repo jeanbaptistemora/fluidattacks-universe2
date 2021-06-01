@@ -1,24 +1,37 @@
 # pylint: disable=too-many-lines
-# Standard library
 from __future__ import (
     annotations,
 )
-import contextlib
-from typing import (
-    Dict,
-    Tuple,
-)
 
-# Local libraries
+import contextlib
 from model import (
     graph_model,
 )
-from sast_syntax_readers.types import (
-    Dispatcher,
-    Dispatchers,
-    MissingCaseHandling,
-    MissingSyntaxReader,
-    SyntaxReaderArgs,
+from sast_syntax_readers.c_sharp import (
+    argument as c_sharp_argument,
+    assignment_expression as c_sharp_assignment_expression,
+    case_switch_label as c_sharp_case_switch_label,
+    default_switch_label as c_sharp_default_switch_label,
+    element_access_expression as c_sharp_element_access_expression,
+    for_statement as c_sharp_for_statement,
+    if_statement as c_sharp_if_statement,
+    invocation_expression as c_sharp_invocation_expression,
+    local_declaration_statement as c_sharp_local_declaration_statement,
+    member_access_expression as c_sharp_member_access_expression,
+    method_declaration as c_sharp_method_declaration,
+    parameter as c_sharp_parameter,
+    switch_statement as c_sharp_switch_statement,
+    using_statement as c_sharp_using_statement,
+    variable_declaration as c_sharp_variable_declaration,
+    while_statement as c_sharp_while_statement,
+)
+from sast_syntax_readers.common import (
+    binary_expression as common_binary_expression,
+    cast_expression as common_cast_expression,
+    identifier as common_identifier,
+    literal as common_literal,
+    object_creation_expression as common_object_creation_expression,
+    return_statement as common_return_statement,
 )
 from sast_syntax_readers.java import (
     array_access as java_array_access,
@@ -43,34 +56,23 @@ from sast_syntax_readers.java import (
     unary_expression as java_unary_expression,
     while_statement as java_while_statement,
 )
-from sast_syntax_readers.c_sharp import (
-    assignment_expression as c_sharp_assignment_expression,
-    invocation_expression as c_sharp_invocation_expression,
-    method_declaration as c_sharp_method_declaration,
-    member_access_expression as c_sharp_member_access_expression,
-    local_declaration_statement as c_sharp_local_declaration_statement,
-    argument as c_sharp_argument,
-    element_access_expression as c_sharp_element_access_expression,
-    parameter as c_sharp_parameter,
-    if_statement as c_sharp_if_statement,
-    variable_declaration as c_sharp_variable_declaration,
-    using_statement as c_sharp_using_statement,
-    for_statement as c_sharp_for_statement,
-    switch_statement as c_sharp_switch_statement,
-    case_switch_label as c_sharp_case_switch_label,
-    default_switch_label as c_sharp_default_switch_label,
-    while_statement as c_sharp_while_statement,
+from sast_syntax_readers.types import (
+    Dispatcher,
+    Dispatchers,
+    MissingCaseHandling,
+    MissingSyntaxReader,
+    SyntaxReaderArgs,
 )
-from sast_syntax_readers.common import (
-    binary_expression as common_binary_expression,
-    literal as common_literal,
-    identifier as common_identifier,
-    object_creation_expression as common_object_creation_expression,
-    return_statement as common_return_statement,
-    cast_expression as common_cast_expression,
+from typing import (
+    Dict,
+    Tuple,
 )
-from utils import graph as g
-from utils.logs import log_blocking
+from utils import (
+    graph as g,
+)
+from utils.logs import (
+    log_blocking,
+)
 
 
 def noop(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:

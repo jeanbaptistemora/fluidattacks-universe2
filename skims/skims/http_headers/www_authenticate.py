@@ -1,4 +1,6 @@
-# Standard library
+from http_headers.types import (
+    WWWAuthenticate,
+)
 from operator import (
     methodcaller,
 )
@@ -7,11 +9,6 @@ from typing import (
     List,
     Optional,
 )
-
-from http_headers.types import (
-    WWWAuthenticate,
-)
-
 
 REGEX = re.compile(
     r"^(?P<type>\w+)\s+"

@@ -1,16 +1,21 @@
-# Standard library
-import ast
-from typing import (
-    Awaitable,
-    Callable,
-    Iterator,
-    List,
-    Set,
-)
-
-# Third party libraries
 from aioextensions import (
     in_process,
+)
+import ast
+from lib_path.common import (
+    C_STYLE_COMMENT,
+    DOUBLE_QUOTED_STRING,
+    EXTENSIONS_JAVA,
+    EXTENSIONS_PYTHON,
+    EXTENSIONS_SWIFT,
+    get_vulnerabilities_blocking,
+    get_vulnerabilities_from_iterator_blocking,
+    SHIELD,
+    SINGLE_QUOTED_STRING,
+    VAR_ATTR_JAVA,
+)
+from model import (
+    core_model,
 )
 from pyparsing import (
     delimitedList,
@@ -19,31 +24,21 @@ from pyparsing import (
     nestedExpr,
     Optional,
 )
-
-# Local libraries
-from lib_path.common import (
-    get_vulnerabilities_blocking,
-    get_vulnerabilities_from_iterator_blocking,
-    C_STYLE_COMMENT,
-    DOUBLE_QUOTED_STRING,
-    EXTENSIONS_JAVA,
-    EXTENSIONS_PYTHON,
-    EXTENSIONS_SWIFT,
-    SHIELD,
-    SINGLE_QUOTED_STRING,
-    VAR_ATTR_JAVA,
-)
-from model import (
-    core_model,
-)
 from state.cache import (
     CACHE_ETERNALLY,
 )
-from utils.function import (
-    TIMEOUT_1MIN,
+from typing import (
+    Awaitable,
+    Callable,
+    Iterator,
+    List,
+    Set,
 )
 from utils.ast import (
     iterate_nodes,
+)
+from utils.function import (
+    TIMEOUT_1MIN,
 )
 from zone import (
     t,

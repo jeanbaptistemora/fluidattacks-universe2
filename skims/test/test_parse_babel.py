@@ -1,13 +1,10 @@
-# Third party libraries
 from aioextensions import (
     run_decorator,
 )
-import pytest
-
-# Local libraries
 from parse_babel import (
     parse,
 )
+import pytest
 from utils.fs import (
     get_file_raw_content,
 )

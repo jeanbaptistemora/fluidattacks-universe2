@@ -1,28 +1,11 @@
-# Standard library
+from aioextensions import (
+    collect,
+    CPU_CORES,
+)
+import bs4
 from datetime import (
     datetime,
 )
-from queue import (
-    SimpleQueue,
-)
-from typing import (
-    Any,
-    Callable,
-    Dict,
-    Optional,
-    Set,
-    Tuple,
-)
-import urllib.parse
-
-# Third party libraries
-from aioextensions import (
-    CPU_CORES,
-    collect,
-)
-import bs4
-
-# Local libraries
 from html_ import (
     get_sameorigin_urls,
     is_html,
@@ -37,9 +20,21 @@ from lib_http.types import (
 from model import (
     core_model,
 )
+from queue import (
+    SimpleQueue,
+)
 from state.ephemeral import (
     EphemeralStore,
 )
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    Optional,
+    Set,
+    Tuple,
+)
+import urllib.parse
 from utils.ctx import (
     CTX,
 )

@@ -1,21 +1,16 @@
-# Standard librari
+from model import (
+    core_model,
+    graph_model,
+)
+from mypy_extensions import (
+    DefaultArg,
+)
 from typing import (
     Any,
     Callable,
     Dict,
     NamedTuple,
     Optional,
-)
-
-# Third libraries
-from mypy_extensions import (
-    DefaultArg,
-)
-
-# Local libraries
-from model import (
-    core_model,
-    graph_model,
 )
 
 

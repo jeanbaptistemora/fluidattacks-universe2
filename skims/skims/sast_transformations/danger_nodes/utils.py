@@ -1,14 +1,13 @@
-# Local libraries
-from typing import (
-    Callable,
-    Set,
-)
 from model import (
     core_model,
     graph_model,
 )
 from sast_syntax_readers.utils_generic import (
     get_dependencies,
+)
+from typing import (
+    Callable,
+    Set,
 )
 
 

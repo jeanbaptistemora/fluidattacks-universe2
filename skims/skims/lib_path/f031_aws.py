@@ -1,45 +1,35 @@
-# Standard library
-from typing import (
-    Any,
-    Awaitable,
-    Callable,
-    Iterator,
-    List,
-    Union,
-)
-
-# Third party libraries
 from aioextensions import (
     in_process,
 )
-from metaloaders.model import (
-    Node,
-)
-
-# Local libraries
 from aws.iam.structure import (
     is_action_permissive,
     is_resource_permissive,
+)
+from aws.iam.utils import (
+    match_pattern,
 )
 from aws.model import (
     AWSIamManagedPolicyArns,
     AWSIamPolicyStatement,
 )
-from aws.iam.utils import (
-    match_pattern,
-)
 from lib_path.common import (
-    get_vulnerabilities_from_aws_iterator_blocking,
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
+    get_vulnerabilities_from_aws_iterator_blocking,
     SHIELD,
+)
+from metaloaders.model import (
+    Node,
+)
+from model import (
+    core_model,
+)
+from parse_cfn.loader import (
+    load_templates,
 )
 from parse_cfn.structure import (
     iterate_iam_policy_documents as cfn_iterate_iam_policy_documents,
     iterate_managed_policy_arns as cnf_iterate_managed_policy_arns,
-)
-from parse_cfn.loader import (
-    load_templates,
 )
 from parse_hcl2.loader import (
     load as load_terraform,
@@ -51,11 +41,16 @@ from parse_hcl2.structure import (
 from state.cache import (
     CACHE_ETERNALLY,
 )
+from typing import (
+    Any,
+    Awaitable,
+    Callable,
+    Iterator,
+    List,
+    Union,
+)
 from utils.function import (
     TIMEOUT_1MIN,
-)
-from model import (
-    core_model,
 )
 
 

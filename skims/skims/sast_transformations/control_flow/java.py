@@ -1,22 +1,15 @@
-# Standar library
-from functools import partial
-
-# Third party libraries
-from more_itertools import (
-    pairwise,
+from functools import (
+    partial,
 )
-
-# Local libraries
 from model import (
     graph_model,
+)
+from more_itertools import (
+    pairwise,
 )
 from sast_transformations import (
     ALWAYS,
     MAYBE,
-)
-from sast_transformations.control_flow.types import (
-    EdgeAttrs,
-    Stack,
 )
 from sast_transformations.control_flow.common import (
     catch_statement,
@@ -27,6 +20,10 @@ from sast_transformations.control_flow.common import (
     set_next_id,
     step_by_step,
     try_statement,
+)
+from sast_transformations.control_flow.types import (
+    EdgeAttrs,
+    Stack,
 )
 from utils import (
     graph as g,

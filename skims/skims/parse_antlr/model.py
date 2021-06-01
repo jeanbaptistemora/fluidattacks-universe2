@@ -1,13 +1,10 @@
-# Standard library
+from parse_antlr.common import (
+    is_positional_node,
+)
 from typing import (
     Any,
     Dict,
     List,
-)
-
-# Local libraries
-from parse_antlr.common import (
-    is_positional_node,
 )
 
 

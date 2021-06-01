@@ -1,14 +1,11 @@
-# Standard library
+from model import (
+    graph_model,
+)
 from typing import (
     Dict,
 )
-
-# Local libraries
 from utils import (
     graph as g,
-)
-from model import (
-    graph_model,
 )
 
 

@@ -1,19 +1,16 @@
-# Standard library
 from glob import (
     iglob,
+)
+from model import (
+    core_model,
+)
+from ruamel import (
+    yaml,
 )
 from typing import (
     Any,
     Dict,
     Optional,
-)
-
-# Third party libraries
-from ruamel import yaml
-
-# Local libraries
-from model import (
-    core_model,
 )
 from utils.ctx import (
     CTX,

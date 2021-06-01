@@ -1,15 +1,12 @@
-# Standard libraryes
+from http_headers.types import (
+    ReferrerPolicyHeader,
+)
 from operator import (
     methodcaller,
 )
 from typing import (
     List,
     Optional,
-)
-
-# Third party libraries
-from http_headers.types import (
-    ReferrerPolicyHeader,
 )
 
 

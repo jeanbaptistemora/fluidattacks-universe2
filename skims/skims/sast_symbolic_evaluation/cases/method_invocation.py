@@ -1,13 +1,11 @@
-# Local libraries
-from typing import (
-    Any,
-    Dict,
-    Optional,
-    Set,
-)
 from model import (
     core_model,
     graph_model,
+)
+from sast_symbolic_evaluation.lookup import (
+    lookup_class,
+    lookup_field,
+    lookup_method,
 )
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
@@ -19,10 +17,11 @@ from sast_symbolic_evaluation.utils_generic import (
     lookup_var_dcl_by_name,
     lookup_var_state_by_name,
 )
-from sast_symbolic_evaluation.lookup import (
-    lookup_field,
-    lookup_method,
-    lookup_class,
+from typing import (
+    Any,
+    Dict,
+    Optional,
+    Set,
 )
 from utils.string import (
     build_attr_paths,
@@ -30,7 +29,6 @@ from utils.string import (
     split_on_first_dot,
     split_on_last_dot,
 )
-
 
 BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set(
     {

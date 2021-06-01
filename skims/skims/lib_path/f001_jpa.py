@@ -1,8 +1,24 @@
-# Standard library
+from aioextensions import (
+    in_process,
+)
 from itertools import (
     chain,
 )
+from lib_path.common import (
+    EXTENSIONS_JAVA,
+    get_vulnerabilities_from_iterator_blocking,
+    SHIELD,
+)
+from model import (
+    core_model,
+)
+from parse_antlr.parse import (
+    parse as parse_antlr,
+)
 import re
+from state.cache import (
+    CACHE_ETERNALLY,
+)
 from typing import (
     Any,
     Awaitable,
@@ -12,32 +28,11 @@ from typing import (
     List,
     Tuple,
 )
-
-# Third party libraries
-from aioextensions import (
-    in_process,
-)
-
-# Local libraries
-from parse_antlr.parse import (
-    parse as parse_antlr,
-)
-from lib_path.common import (
-    get_vulnerabilities_from_iterator_blocking,
-    EXTENSIONS_JAVA,
-    SHIELD,
-)
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from utils.function import (
     TIMEOUT_1MIN,
 )
 from utils.graph import (
     yield_nodes,
-)
-from model import (
-    core_model,
 )
 from zone import (
     t,

@@ -1,4 +1,6 @@
-# Standard library
+from bs4 import (
+    BeautifulSoup,
+)
 from string import (
     whitespace,
 )
@@ -7,13 +9,8 @@ from typing import (
     Optional,
 )
 from urllib.parse import (
-    urlparse,
     ParseResult,
-)
-
-# Third party libraries
-from bs4 import (
-    BeautifulSoup,
+    urlparse,
 )
 
 

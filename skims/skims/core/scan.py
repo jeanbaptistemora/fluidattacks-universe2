@@ -1,26 +1,16 @@
-# Standard library
-from asyncio import (
-    wait_for,
-)
-import csv
-import os
-from typing import (
-    Dict,
-    Optional,
-)
-
-# Third party imports
 from aioextensions import (
     collect,
 )
-
-# Local imports
+from asyncio import (
+    wait_for,
+)
 from config import (
     load,
 )
 from core.persist import (
     persist,
 )
+import csv
 from lib_http.analyze import (
     analyze as analyze_http,
 )
@@ -33,10 +23,15 @@ from lib_root.analyze import (
 from model import (
     core_model,
 )
+import os
 from state.ephemeral import (
     EphemeralStore,
     get_ephemeral_store,
     reset as reset_ephemeral_state,
+)
+from typing import (
+    Dict,
+    Optional,
 )
 from utils.bugs import (
     add_bugsnag_data,

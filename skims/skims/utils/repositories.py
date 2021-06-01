@@ -1,18 +1,15 @@
-# Standard libraries
 import contextlib
+from git import (
+    GitError,
+    Repo,
+)
+from more_itertools import (
+    pairwise,
+)
 from typing import (
     List,
     NamedTuple,
     Optional,
-)
-
-# Third party libraries
-from git import (
-    Repo,
-    GitError,
-)
-from more_itertools import (
-    pairwise,
 )
 from unidiff import (
     Hunk,

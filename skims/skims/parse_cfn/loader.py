@@ -1,12 +1,3 @@
-# Standard library
-from typing import (
-    Any,
-    AsyncIterator,
-    Type as TypeOf,
-    Union,
-)
-
-# Third party libraries
 from aioextensions import (
     in_process,
 )
@@ -18,24 +9,32 @@ from cfn_tools.yaml_loader import (
 from frozendict import (
     frozendict,
 )
+from metaloaders.cloudformation import (
+    load as load_cfn,
+)
+from metaloaders.exceptions import (
+    MetaloaderError,
+)
 from metaloaders.model import (
     Node,
     Type,
 )
-from metaloaders.cloudformation import (
-    load as load_cfn,
-)
-from metaloaders.exceptions import MetaloaderError
-import yaml
-
-# Local libraries
-from parse_json import (
-    loads_blocking,
-)
 from parse_common.types import (
     ListToken,
 )
-from utils.logs import log_exception
+from parse_json import (
+    loads_blocking,
+)
+from typing import (
+    Any,
+    AsyncIterator,
+    Type as TypeOf,
+    Union,
+)
+from utils.logs import (
+    log_exception,
+)
+import yaml
 
 
 class BasicLoader(  # pylint: disable=too-many-ancestors

@@ -1,16 +1,13 @@
-# Standard library
-from typing import (
-    Iterator,
+from aioextensions import (
+    BoundedSemaphore,
 )
 from resource import (
     getrusage,
     RUSAGE_CHILDREN,
     RUSAGE_SELF,
 )
-
-# Third party libraries
-from aioextensions import (
-    BoundedSemaphore,
+from typing import (
+    Iterator,
 )
 
 # Useful notes

@@ -1,4 +1,6 @@
-# Standard library
+from aioextensions import (
+    in_thread,
+)
 import asyncio
 import functools
 from os import (
@@ -7,6 +9,13 @@ from os import (
 from os.path import (
     join,
 )
+from safe_pickle import (
+    LoadError,
+)
+from state.common import (
+    retrieve_object,
+    store_object,
+)
 from typing import (
     Any,
     Awaitable,
@@ -14,18 +23,6 @@ from typing import (
     cast,
     Optional,
     TypeVar,
-)
-
-# Third party libraries
-from aioextensions import (
-    in_thread,
-)
-from safe_pickle import LoadError
-
-# Local libraries
-from state.common import (
-    retrieve_object,
-    store_object,
 )
 from utils.ctx import (
     CTX,

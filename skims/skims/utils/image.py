@@ -1,4 +1,3 @@
-# Third party libraries
 from PIL import (
     Image,
 )

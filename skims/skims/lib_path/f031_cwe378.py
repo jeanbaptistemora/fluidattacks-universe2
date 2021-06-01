@@ -1,35 +1,30 @@
-# Standard library
+from aioextensions import (
+    in_process,
+)
+from lib_path.common import (
+    C_STYLE_COMMENT,
+    DOUBLE_QUOTED_STRING,
+    EXTENSIONS_JAVA,
+    get_vulnerabilities_blocking,
+    SHIELD,
+    SINGLE_QUOTED_STRING,
+)
+from model import (
+    core_model,
+)
+from pyparsing import (
+    Keyword,
+)
+from state.cache import (
+    CACHE_ETERNALLY,
+)
 from typing import (
     Awaitable,
     Callable,
     List,
 )
-
-# Third party libraries
-from aioextensions import (
-    in_process,
-)
-from pyparsing import (
-    Keyword,
-)
-
-# Local libraries
-from lib_path.common import (
-    get_vulnerabilities_blocking,
-    C_STYLE_COMMENT,
-    DOUBLE_QUOTED_STRING,
-    EXTENSIONS_JAVA,
-    SHIELD,
-    SINGLE_QUOTED_STRING,
-)
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from utils.function import (
     TIMEOUT_1MIN,
-)
-from model import (
-    core_model,
 )
 from zone import (
     t,

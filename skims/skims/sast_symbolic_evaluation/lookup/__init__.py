@@ -1,16 +1,21 @@
-from typing import Optional
-from model.graph_model import GraphShard, GraphShardMetadataLanguage
-from sast_symbolic_evaluation.types import (
-    EvaluatorArgs,
-    LookedUpClass,
-    LookedUpClassField,
-    LookedUpMethod,
+from model.graph_model import (
+    GraphShard,
+    GraphShardMetadataLanguage,
 )
 from sast_symbolic_evaluation.lookup.common import (
     lookup_class as _lookup_class_common,
     lookup_field as _lookup_field_common,
     lookup_method as _lookup_method_common,
     lookup_shard_by_class as _lookup_shard_by_class_common,
+)
+from sast_symbolic_evaluation.types import (
+    EvaluatorArgs,
+    LookedUpClass,
+    LookedUpClassField,
+    LookedUpMethod,
+)
+from typing import (
+    Optional,
 )
 
 

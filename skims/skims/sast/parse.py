@@ -1,33 +1,12 @@
-# Standard library
-from itertools import (
-    count,
-)
-import json
-import os
-from typing import (
-    Any,
-    AsyncIterable,
-    Dict,
-    Iterator,
-    List,
-    Optional,
-    Tuple,
-)
 from aioextensions import (
     CPU_CORES,
     in_process,
     resolve,
 )
-
-# Third party libraries
-from tree_sitter import (
-    Language,
-    Node,
-    Parser,
-    Tree,
+from itertools import (
+    count,
 )
-
-# Local libraries
+import json
 from model.graph_model import (
     Graph,
     GraphDB,
@@ -36,6 +15,7 @@ from model.graph_model import (
     GraphShardCacheable,
     GraphShardMetadataLanguage,
 )
+import os
 from sast import (
     inspectors,
 )
@@ -50,6 +30,21 @@ from sast_transformations import (
     danger_nodes,
     program_dependencie,
     styles,
+)
+from tree_sitter import (
+    Language,
+    Node,
+    Parser,
+    Tree,
+)
+from typing import (
+    Any,
+    AsyncIterable,
+    Dict,
+    Iterator,
+    List,
+    Optional,
+    Tuple,
 )
 from utils.ctx import (
     CTX,

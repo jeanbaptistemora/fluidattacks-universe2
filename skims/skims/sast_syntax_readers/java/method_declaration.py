@@ -1,11 +1,12 @@
-# Local libraries
-from typing import Set
 from model import (
     graph_model,
 )
 from sast_syntax_readers.types import (
     MissingCaseHandling,
     SyntaxReaderArgs,
+)
+from typing import (
+    Set,
 )
 from utils import (
     graph as g,

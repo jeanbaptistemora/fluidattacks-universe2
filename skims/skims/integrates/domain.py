@@ -1,18 +1,6 @@
-# Standard library
-from typing import (
-    Dict,
-    List,
-    Set,
-    Tuple,
-    Union,
-)
-
-# Third party libraries
 from aioextensions import (
     in_process,
 )
-
-# Local libraries
 from integrates.dal import (
     do_approve_draft,
     do_create_draft,
@@ -29,6 +17,13 @@ from model import (
 )
 from state.ephemeral import (
     EphemeralStore,
+)
+from typing import (
+    Dict,
+    List,
+    Set,
+    Tuple,
+    Union,
 )
 from utils.ctx import (
     CTX,

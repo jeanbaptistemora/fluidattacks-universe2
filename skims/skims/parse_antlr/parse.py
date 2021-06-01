@@ -1,17 +1,14 @@
-# Standard library
 import contextlib
 import json
-from typing import (
-    Any,
-    Dict,
+from model import (
+    core_model,
 )
-
-# Local libraries
 from state.cache import (
     CACHE_ETERNALLY,
 )
-from model import (
-    core_model,
+from typing import (
+    Any,
+    Dict,
 )
 from utils.ctx import (
     PARSER_ANTLR,

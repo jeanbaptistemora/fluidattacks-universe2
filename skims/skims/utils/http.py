@@ -1,4 +1,4 @@
-# Local libraries
+import aiohttp
 from contextlib import (
     asynccontextmanager,
 )
@@ -6,11 +6,6 @@ from typing import (
     Any,
     Optional,
 )
-
-# Third party libraries
-import aiohttp
-
-# Local libraries
 from utils.function import (
     shield,
 )

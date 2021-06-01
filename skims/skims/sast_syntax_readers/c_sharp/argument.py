@@ -1,14 +1,13 @@
-# Local libraries
 from model.graph_model import (
     SyntaxStepsLazy,
 )
-
-# Local imports
 from sast_syntax_readers.types import (
     MissingCaseHandling,
     SyntaxReaderArgs,
 )
-from utils import graph as g
+from utils import (
+    graph as g,
+)
 
 
 def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:

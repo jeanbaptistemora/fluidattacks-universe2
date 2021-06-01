@@ -1,11 +1,8 @@
-# Third party libraries
-import pytest
-
-# Local libraries
 from aws.iam.structure import (
     is_action_permissive,
     is_resource_permissive,
 )
+import pytest
 
 
 @pytest.mark.skims_test_group("unittesting")

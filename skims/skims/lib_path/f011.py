@@ -1,33 +1,17 @@
-# Standard library
-import re
-from typing import (
-    Awaitable,
-    Callable,
-    Iterator,
-    List,
-    Pattern,
-    Tuple,
-)
-
-# Third party libraries
-from frozendict import (
-    frozendict,
-)
-from more_itertools import (
-    windowed,
-)
-
-# Third party libraries
 from aioextensions import (
     in_process,
 )
-
-# Local libraries
+from frozendict import (
+    frozendict,
+)
 from lib_path.common import (
     SHIELD,
 )
 from model import (
     core_model,
+)
+from more_itertools import (
+    windowed,
 )
 from nvd.local import (
     query,
@@ -35,8 +19,17 @@ from nvd.local import (
 from parse_json import (
     loads_blocking as json_loads_blocking,
 )
+import re
 from state.cache import (
     CACHE_ETERNALLY,
+)
+from typing import (
+    Awaitable,
+    Callable,
+    Iterator,
+    List,
+    Pattern,
+    Tuple,
 )
 from utils.ctx import (
     CTX,

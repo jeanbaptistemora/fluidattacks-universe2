@@ -1,13 +1,13 @@
-# Third libraries
-from metaloaders.model import Type
 from metaloaders.cloudformation import (
     load,
 )
+from metaloaders.model import (
+    Type,
+)
+from parse_cfn.structure import (
+    iterate_iam_policy_documents,
+)
 import pytest
-
-# Local libraries
-from parse_cfn.structure import iterate_iam_policy_documents
-
 
 EXPECTED = (
     {

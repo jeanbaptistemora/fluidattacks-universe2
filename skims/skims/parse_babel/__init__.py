@@ -1,19 +1,14 @@
-# Standard library
-import contextlib
-import json
-from typing import (
-    Any,
-    Dict,
-)
-
-# Third party libraries
 from aioextensions import (
     in_process,
 )
-
-# Local libraries
+import contextlib
+import json
 from state.cache import (
     CACHE_ETERNALLY,
+)
+from typing import (
+    Any,
+    Dict,
 )
 from utils.ctx import (
     PARSER_BABEL,

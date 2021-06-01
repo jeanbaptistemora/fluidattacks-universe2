@@ -1,18 +1,15 @@
 # type: ignore
-# Standard library
 import datetime
 import glob
 import json
+from model import (
+    core_model,
+)
 import os
 import re
 from typing import (
     Dict,
     List,
-)
-
-# Local libraries
-from model import (
-    core_model,
 )
 from utils.encodings import (
     yaml_dumps_blocking,

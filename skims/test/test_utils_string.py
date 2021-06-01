@@ -1,12 +1,7 @@
-# Standard libraries
+import pytest
 from textwrap import (
     dedent,
 )
-
-# Third party libraries
-import pytest
-
-# Local libraries
 from utils.string import (
     to_snippet_blocking,
 )

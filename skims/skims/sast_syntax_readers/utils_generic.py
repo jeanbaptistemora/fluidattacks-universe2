@@ -1,14 +1,11 @@
-# Standard library
-from typing import (
-    List,
-)
-
-# Local libraries
 from model import (
     graph_model,
 )
 from sast_syntax_readers.types import (
     SyntaxReaderArgs,
+)
+from typing import (
+    List,
 )
 from utils import (
     graph as g,

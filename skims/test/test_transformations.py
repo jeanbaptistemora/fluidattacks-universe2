@@ -1,10 +1,13 @@
-# Third library
+from model.graph_model import (
+    GraphShardMetadataLanguage,
+)
 import pytest
-
-# Local import
-from model.graph_model import GraphShardMetadataLanguage
-from test_helpers import create_test_context
-from sast.parse import parse_one
+from sast.parse import (
+    parse_one,
+)
+from test_helpers import (
+    create_test_context,
+)
 
 create_test_context()
 

@@ -1,14 +1,7 @@
-# Standard library
-import os
-from typing import AsyncIterator
-
-# Third party libraries
-import git
-
-# Local libraries
 from core.persist import (
     verify_permissions,
 )
+import git
 from integrates.dal import (
     do_update_vulnerability_commit,
     get_finding_vulnerabilities,
@@ -22,6 +15,10 @@ from model import (
 )
 from model.core_model import (
     Vulnerability,
+)
+import os
+from typing import (
+    AsyncIterator,
 )
 from utils.logs import (
     log,

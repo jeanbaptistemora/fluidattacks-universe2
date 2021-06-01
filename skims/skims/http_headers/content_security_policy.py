@@ -1,4 +1,6 @@
-# Standard libraryes
+from http_headers.types import (
+    ContentSecurityPolicyHeader,
+)
 from operator import (
     methodcaller,
 )
@@ -6,11 +8,6 @@ from typing import (
     Dict,
     List,
     Optional,
-)
-
-# Third party libraries
-from http_headers.types import (
-    ContentSecurityPolicyHeader,
 )
 
 

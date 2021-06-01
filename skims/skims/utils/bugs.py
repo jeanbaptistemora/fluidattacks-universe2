@@ -1,12 +1,7 @@
-# Standard library
+import bugsnag
 from typing import (
     Dict,
 )
-
-# Third party libraries
-import bugsnag
-
-# Local libraries
 from utils.env import (
     guess_environment,
 )

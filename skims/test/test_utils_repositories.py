@@ -1,21 +1,16 @@
-# Standard libraries
 from functools import (
     partial,
 )
-import textwrap
-
-# Third party libraries
 import git
 import pytest
-
-# Local libraries
+import textwrap
 from utils.repositories import (
     DEFAULT_COMMIT,
-    RebaseResult,
     get_diff,
     get_repo,
     get_repo_head_hash,
     rebase,
+    RebaseResult,
 )
 
 

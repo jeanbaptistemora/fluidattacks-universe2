@@ -1,17 +1,12 @@
-# Standard library
+from aioextensions import (
+    in_thread,
+)
+import bugsnag
 import logging
 import sys
 from typing import (
     Any,
 )
-
-# Third party libraries
-from aioextensions import (
-    in_thread,
-)
-import bugsnag
-
-# Local libraries
 from utils.bugs import (
     META as BUGS_META,
 )

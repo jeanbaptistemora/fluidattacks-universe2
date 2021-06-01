@@ -1,19 +1,18 @@
-# Third party libraries
-from typing import Tuple
 from aioextensions import (
     run_decorator,
 )
-import pytest
-
-# Local libraries
 from model import (
     core_model,
 )
+import pytest
 from sast.parse import (
     get_graph_db,
 )
 from sast_symbolic_evaluation.evaluate import (
     get_possible_syntax_steps,
+)
+from typing import (
+    Tuple,
 )
 from utils.ctx import (
     SHOULD_UPDATE_TESTS,

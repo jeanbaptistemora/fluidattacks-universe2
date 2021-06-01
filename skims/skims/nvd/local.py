@@ -1,24 +1,19 @@
-# Standard library
 from contextlib import (
     suppress,
 )
 import json
+from model import (
+    core_model,
+)
+from semver import (
+    match,
+)
 from sys import (
     modules,
 )
 from typing import (
     Dict,
     List,
-)
-
-# Third party libraries
-from semver import (
-    match,
-)
-
-# Local libraries
-from model import (
-    core_model,
 )
 from utils.ctx import (
     STATIC,

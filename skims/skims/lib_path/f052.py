@@ -1,30 +1,13 @@
-# Standard library
-from typing import (
-    Awaitable,
-    Callable,
-    Iterator,
-    List,
-    Set,
-    Tuple,
-)
-
-# Third party libraries
 from aioextensions import (
     in_process,
 )
-from pyparsing import (
-    Keyword,
-    MatchFirst,
-)
-
-# Local libraries
 from lib_path.common import (
-    get_vulnerabilities_blocking,
-    get_vulnerabilities_from_iterator_blocking,
     C_STYLE_COMMENT,
     DOUBLE_QUOTED_STRING,
     EXTENSIONS_JAVA,
     EXTENSIONS_JAVA_PROPERTIES,
+    get_vulnerabilities_blocking,
+    get_vulnerabilities_from_iterator_blocking,
     NUMBER,
     SHIELD,
     SINGLE_QUOTED_STRING,
@@ -36,15 +19,27 @@ from model import (
 from parse_java_properties import (
     load as load_java_properties,
 )
+from pyparsing import (
+    Keyword,
+    MatchFirst,
+)
 from state.cache import (
     CACHE_ETERNALLY,
 )
-from utils.function import (
-    TIMEOUT_1MIN,
+from typing import (
+    Awaitable,
+    Callable,
+    Iterator,
+    List,
+    Set,
+    Tuple,
 )
 from utils.crypto import (
-    is_open_ssl_cipher_suite_vulnerable,
     is_iana_cipher_suite_vulnerable,
+    is_open_ssl_cipher_suite_vulnerable,
+)
+from utils.function import (
+    TIMEOUT_1MIN,
 )
 from zone import (
     t,

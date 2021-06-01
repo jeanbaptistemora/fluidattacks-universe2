@@ -1,4 +1,3 @@
-# Standard library
 import ast
 from typing import (
     Callable,

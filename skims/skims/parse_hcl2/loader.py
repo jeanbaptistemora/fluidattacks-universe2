@@ -1,28 +1,23 @@
-# Standard library
-import json
-from typing import (
-    Any,
-    List,
-)
-
-# Third party libraries
 from aioextensions import (
     in_process,
-)
-from hcl2.transformer import (
-    DictTransformer,
 )
 from hcl2.lark_parser import (
     DATA,
     Lark_StandAlone,
 )
+from hcl2.transformer import (
+    DictTransformer,
+)
+import json
 import lark
-
-# Local libraries
 from parse_hcl2.tokens import (
     Attribute,
     Block,
     Json,
+)
+from typing import (
+    Any,
+    List,
 )
 
 # Side effects

@@ -1,4 +1,3 @@
-# Standard library
 from datetime import (
     datetime,
 )

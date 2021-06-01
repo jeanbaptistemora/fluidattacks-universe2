@@ -1,4 +1,3 @@
-# Local imports
 from model import (
     core_model,
     graph_model,
@@ -10,7 +9,9 @@ from sast_transformations.danger_nodes.utils import (
     mark_obj_inst_input,
     mark_obj_inst_sink,
 )
-from utils.string import build_attr_paths
+from utils.string import (
+    build_attr_paths,
+)
 
 
 def mark_inputs(

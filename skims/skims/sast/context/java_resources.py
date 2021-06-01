@@ -1,13 +1,10 @@
-# Standard library
 import os
+from parse_java_properties import (
+    load_as_dict,
+)
 from typing import (
     Dict,
     Tuple,
-)
-
-# Local libraries
-from parse_java_properties import (
-    load_as_dict,
 )
 
 

@@ -1,9 +1,3 @@
-# Standard library
-from typing import (
-    Optional,
-)
-
-# Local libraries
 from model import (
     graph_model,
 )
@@ -12,6 +6,9 @@ from sast_symbolic_evaluation.types import (
     LookedUpClass,
     LookedUpClassField,
     LookedUpMethod,
+)
+from typing import (
+    Optional,
 )
 from utils.string import (
     split_on_last_dot,

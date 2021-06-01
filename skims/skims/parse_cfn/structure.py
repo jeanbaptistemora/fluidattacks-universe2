@@ -1,17 +1,15 @@
-# Standard library
+from aws.iam.utils import (
+    yield_statements_from_policy,
+    yield_statements_from_policy_document,
+)
+from metaloaders.model import (
+    Node,
+    Type,
+)
 from typing import (
     Any,
     Iterator,
     Tuple,
-)
-
-# Third party libraries
-from metaloaders.model import Node, Type
-
-# Local libraries
-from aws.iam.utils import (
-    yield_statements_from_policy,
-    yield_statements_from_policy_document,
 )
 
 

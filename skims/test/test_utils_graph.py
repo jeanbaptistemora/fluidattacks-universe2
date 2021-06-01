@@ -1,11 +1,8 @@
-# Third party libraries
-import pytest
-
-# Local libraries
 from model import (
     core_model,
     graph_model,
 )
+import pytest
 from utils import (
     graph as g,
 )

@@ -1,22 +1,19 @@
-# Standard library
 from itertools import (
     chain,
 )
+from model import (
+    core_model,
+    graph_model,
+)
 import os
+from sast_symbolic_evaluation.evaluate import (
+    get_possible_syntax_steps_linear,
+)
 from typing import (
     Dict,
     Iterator,
     Set,
     Tuple,
-)
-
-# Local libraries
-from model import (
-    core_model,
-    graph_model,
-)
-from sast_symbolic_evaluation.evaluate import (
-    get_possible_syntax_steps_linear,
 )
 from utils.ctx import (
     CTX,

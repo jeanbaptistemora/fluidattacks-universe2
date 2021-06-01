@@ -1,24 +1,23 @@
-# Standard library
 import ast
-import math
-from typing import (
-    Any,
-    Callable,
-    Iterable,
-    Iterator,
-    Set,
-    Tuple,
-    TypeVar,
-    Union,
+from aws.model import (
+    AWSIamManagedPolicyArns,
+    AWSIamPolicyStatement,
+    AWSS3Acl,
+    AWSS3Bucket,
 )
-
-# Third party libraries
+import math
 from metaloaders.model import (
     Node,
 )
+from model import (
+    core_model,
+)
+from model.graph_model import (
+    NAttrs,
+)
 from pyparsing import (
-    alphas,
     alphanums,
+    alphas,
     col,
     cppStyleComment,
     delimitedList,
@@ -28,19 +27,15 @@ from pyparsing import (
     QuotedString,
     Word,
 )
-
-# Local libraries
-from aws.model import (
-    AWSIamManagedPolicyArns,
-    AWSIamPolicyStatement,
-    AWSS3Acl,
-    AWSS3Bucket,
-)
-from model import (
-    core_model,
-)
-from model.graph_model import (
-    NAttrs,
+from typing import (
+    Any,
+    Callable,
+    Iterable,
+    Iterator,
+    Set,
+    Tuple,
+    TypeVar,
+    Union,
 )
 from utils.ctx import (
     CTX,

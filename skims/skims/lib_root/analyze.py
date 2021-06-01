@@ -1,15 +1,6 @@
-# Standard library
-from typing import (
-    Dict,
-    Set,
-)
-
-# Third party libraries
 from aioextensions import (
     in_thread,
 )
-
-# Local imports
 from lib_path.common import (
     SHIELD,
 )
@@ -30,6 +21,10 @@ from sast import (
 )
 from state.ephemeral import (
     EphemeralStore,
+)
+from typing import (
+    Dict,
+    Set,
 )
 from utils.ctx import (
     CTX,

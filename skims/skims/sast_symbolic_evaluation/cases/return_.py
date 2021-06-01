@@ -1,4 +1,3 @@
-# Local libraries
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
 )

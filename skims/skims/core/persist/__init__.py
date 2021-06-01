@@ -1,24 +1,5 @@
-# Standard library
-from io import (
-    BytesIO,
-)
-import urllib.parse
-import os
-import random
-import sys
-from typing import (
-    Dict,
-    Tuple,
-)
-
-# Third party libraries
 from aioextensions import (
     collect,
-)
-
-# Local libraries
-from integrates.graphql import (
-    create_session,
 )
 from integrates.dal import (
     do_update_evidence,
@@ -32,13 +13,27 @@ from integrates.domain import (
     do_release_finding,
     get_closest_finding_id,
 )
+from integrates.graphql import (
+    create_session,
+)
+from io import (
+    BytesIO,
+)
 from model import (
     core_model,
 )
+import os
+import random
 from state.ephemeral import (
     EphemeralStore,
     get_ephemeral_store,
 )
+import sys
+from typing import (
+    Dict,
+    Tuple,
+)
+import urllib.parse
 from utils.ctx import (
     CTX,
 )

@@ -1,9 +1,3 @@
-# Standard libraries
-from typing import (
-    Any,
-)
-
-# Third party libraries
 from lark import (
     Tree as LarkTree,
 )
@@ -14,13 +8,6 @@ from metaloaders.model import (
     Node,
     Type,
 )
-import safe_pickle
-from safe_pickle import (
-    dump,
-    load,
-)
-
-# Local libraries
 from model import (
     core_model,
     graph_model,
@@ -32,6 +19,14 @@ from parse_hcl2.tokens import (
     Attribute as HCL2Attribute,
     Block as HCL2Block,
     Json as HCL2Json,
+)
+import safe_pickle
+from safe_pickle import (
+    dump,
+    load,
+)
+from typing import (
+    Any,
 )
 from utils.graph import (
     export_graph_as_json,

@@ -1,10 +1,6 @@
-# Third party libraries
 from lark import (
     Tree,
 )
-import pytest
-
-# Local libraries
 from parse_hcl2.loader import (
     load_blocking,
 )
@@ -13,6 +9,7 @@ from parse_hcl2.tokens import (
     Block,
     Json,
 )
+import pytest
 
 
 @pytest.mark.skims_test_group("unittesting")

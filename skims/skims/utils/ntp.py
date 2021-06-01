@@ -1,13 +1,12 @@
-# Third party libraries
 from contextlib import (
     suppress,
-)
-from typing import (
-    Optional,
 )
 from ntplib import (
     NTPClient,
     NTPException,
+)
+from typing import (
+    Optional,
 )
 
 

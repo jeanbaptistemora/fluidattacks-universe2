@@ -1,16 +1,21 @@
-# Local libraries
-from typing import Dict, Set
+from sast_symbolic_evaluation.lookup import (
+    lookup_field,
+)
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
     JavaClassInstance,
 )
-
 from sast_symbolic_evaluation.utils_generic import (
     complete_attrs_on_dict,
     lookup_var_dcl_by_name,
 )
-from sast_symbolic_evaluation.lookup import lookup_field
-from utils.string import split_on_last_dot
+from typing import (
+    Dict,
+    Set,
+)
+from utils.string import (
+    split_on_last_dot,
+)
 
 # assignment of fields that make the object vulnerable
 BY_TYPE: Dict[str, Set[str]] = complete_attrs_on_dict(

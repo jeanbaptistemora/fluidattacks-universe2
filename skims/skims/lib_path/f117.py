@@ -1,22 +1,19 @@
-# Standard library
+from lib_path.common import (
+    get_vulnerabilities_from_iterator_blocking,
+    SHIELD,
+)
+from model import (
+    core_model,
+)
+from state.cache import (
+    CACHE_ETERNALLY,
+)
 from typing import (
     Awaitable,
     Callable,
     List,
     Set,
     Tuple,
-)
-
-# Local libraries
-from lib_path.common import (
-    get_vulnerabilities_from_iterator_blocking,
-    SHIELD,
-)
-from state.cache import (
-    CACHE_ETERNALLY,
-)
-from model import (
-    core_model,
 )
 from utils.function import (
     TIMEOUT_1MIN,

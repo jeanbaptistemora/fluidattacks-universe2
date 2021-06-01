@@ -1,10 +1,7 @@
-# Third party libraries
-import pytest
-
-# Local libraries
 from aws.iam.utils import (
     match_pattern,
 )
+import pytest
 
 
 @pytest.mark.skims_test_group("unittesting")

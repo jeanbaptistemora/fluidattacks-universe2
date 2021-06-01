@@ -1,17 +1,12 @@
-# Standard library
+from aioextensions import (
+    in_process,
+)
 import csv
 import hashlib
 import hmac
 from typing import (
     Dict,
 )
-
-# Third party libraries
-from aioextensions import (
-    in_process,
-)
-
-# Local libraries
 from utils.ctx import (
     CIPHER_SUITES_PATH,
 )

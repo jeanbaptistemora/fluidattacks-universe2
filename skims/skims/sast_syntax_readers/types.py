@@ -1,6 +1,9 @@
-# Standard library
 from __future__ import (
     annotations,
+)
+
+from model import (
+    graph_model,
 )
 from typing import (
     Any,
@@ -8,11 +11,6 @@ from typing import (
     NamedTuple,
     Set,
     Tuple,
-)
-
-# Local libraries
-from model import (
-    graph_model,
 )
 from utils.logs import (
     log_blocking,

@@ -1,8 +1,7 @@
-# Standard library
+from contextlib import (
+    suppress,
+)
 import operator
-from contextlib import suppress
-
-# Local libraries
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
 )

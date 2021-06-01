@@ -1,4 +1,3 @@
-# Local libraries
 from model import (
     graph_model,
 )
@@ -10,7 +9,9 @@ from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
     LookedUpClass,
 )
-from sast_symbolic_evaluation.utils_generic import lookup_var_dcl_by_name
+from sast_symbolic_evaluation.utils_generic import (
+    lookup_var_dcl_by_name,
+)
 
 
 def evaluate(args: EvaluatorArgs) -> None:

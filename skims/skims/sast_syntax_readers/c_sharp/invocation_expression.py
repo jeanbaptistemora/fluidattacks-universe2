@@ -1,4 +1,3 @@
-# Local libraries
 from model import (
     graph_model,
 )
@@ -12,10 +11,12 @@ from sast_syntax_readers.utils_generic import (
 from utils import (
     graph as g,
 )
-from utils.string import split_on_first_dot
 from utils.graph.transformation import (
     build_member_access_expression_isd,
     build_member_access_expression_key,
+)
+from utils.string import (
+    split_on_first_dot,
 )
 
 

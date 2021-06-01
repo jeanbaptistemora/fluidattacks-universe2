@@ -1,25 +1,13 @@
-# Standard library
 from copy import (
     deepcopy,
 )
-from typing import (
-    Dict,
-    Iterator,
-    NamedTuple,
-    Optional,
-    Tuple,
-)
-
-# Third party libraries
-from more_itertools import (
-    mark_ends,
-    padnone,
-)
-
-# Local libraries
 from model import (
     core_model,
     graph_model,
+)
+from more_itertools import (
+    mark_ends,
+    padnone,
 )
 from sast_symbolic_evaluation.cases import (
     array_access,
@@ -34,14 +22,14 @@ from sast_symbolic_evaluation.cases import (
     lambda_expression,
     literal,
     member_access_expression,
-    method_invocation_chain,
     method_invocation,
+    method_invocation_chain,
     no_op,
     object_instantiation,
     parenthesized_expression,
     return_,
-    switch_label_case,
     switch_label,
+    switch_label_case,
     symbol_lookup,
     ternary,
     unary_expression,
@@ -55,6 +43,13 @@ from sast_symbolic_evaluation.types import (
 )
 from sast_syntax_readers.utils_generic import (
     get_dependencies,
+)
+from typing import (
+    Dict,
+    Iterator,
+    NamedTuple,
+    Optional,
+    Tuple,
 )
 from utils import (
     graph as g,

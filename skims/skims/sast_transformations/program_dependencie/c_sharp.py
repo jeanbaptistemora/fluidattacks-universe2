@@ -1,15 +1,17 @@
-# Standar library
+import copy
+from model.graph_model import (
+    Graph,
+)
 from typing import (
     Dict,
     Optional,
 )
-import copy
-
-
-# Local imports
-from model.graph_model import Graph
-from utils import graph as g
-from utils.graph.transformation import build_member_access_expression_key
+from utils import (
+    graph as g,
+)
+from utils.graph.transformation import (
+    build_member_access_expression_key,
+)
 
 
 def _local_declaration_statement(

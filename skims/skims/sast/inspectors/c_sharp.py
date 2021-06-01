@@ -1,17 +1,16 @@
-# Standard library
+from model import (
+    graph_model,
+)
 from typing import (
     Dict,
     List,
     Optional,
 )
-
-# Local libraries
 from utils import (
     graph as g,
 )
-from utils.graph.transformation import build_qualified_name
-from model import (
-    graph_model,
+from utils.graph.transformation import (
+    build_qualified_name,
 )
 
 

@@ -1,4 +1,3 @@
-# Standard library
 from typing import (
     Any,
     List,

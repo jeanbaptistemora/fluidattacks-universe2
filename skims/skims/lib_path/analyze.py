@@ -1,22 +1,7 @@
-# Standard library
-from os.path import (
-    split,
-    splitext,
-)
-from typing import (
-    Any,
-    Dict,
-    Set,
-    Tuple,
-)
-
-# Third party libraries
 from aioextensions import (
-    CPU_CORES,
     collect,
+    CPU_CORES,
 )
-
-# Local imports
 from lib_path import (
     f001_jpa,
     f009,
@@ -36,8 +21,18 @@ from lib_path import (
 from model import (
     core_model,
 )
+from os.path import (
+    split,
+    splitext,
+)
 from state.ephemeral import (
     EphemeralStore,
+)
+from typing import (
+    Any,
+    Dict,
+    Set,
+    Tuple,
 )
 from utils.ctx import (
     CTX,

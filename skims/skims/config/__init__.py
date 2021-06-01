@@ -1,17 +1,12 @@
-# Standard library
+import confuse
+from model import (
+    core_model,
+)
 import os
 from typing import (
     Any,
     Optional,
     Set,
-)
-
-# Third party libraries
-import confuse
-
-# Local libraries
-from model import (
-    core_model,
 )
 from utils.logs import (
     log_blocking,

@@ -1,18 +1,15 @@
-# Standard library
+from collections import (
+    UserList,
+)
+from metaloaders.model import (
+    Node,
+    Type,
+)
 import re
 from typing import (
     Any,
     Iterator,
     Union,
-)
-from collections import (
-    UserList,
-)
-
-# Local libraries
-from metaloaders.model import (
-    Node,
-    Type as Type,
 )
 
 

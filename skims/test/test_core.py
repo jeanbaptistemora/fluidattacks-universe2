@@ -1,19 +1,16 @@
-# Third party libraries
 from aioextensions import (
     run_decorator,
 )
-import pytest
-
-# Local libraries
 from core.persist import (
     diff_results,
 )
 from model import (
     core_model,
 )
+import pytest
 from state.ephemeral import (
-    get_ephemeral_store,
     EphemeralStore,
+    get_ephemeral_store,
 )
 
 

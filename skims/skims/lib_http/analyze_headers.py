@@ -1,17 +1,7 @@
-# Standard library
 from __future__ import (
     annotations,
 )
-from typing import (
-    Callable,
-    Dict,
-    List,
-    NamedTuple,
-    Optional,
-    Type,
-)
 
-# Local libraries
 from http_headers import (
     as_string,
     content_security_policy,
@@ -24,19 +14,25 @@ from http_headers import (
 from http_headers.types import (
     ContentSecurityPolicyHeader,
     DateHeader,
+    Header,
     ReferrerPolicyHeader,
     StrictTransportSecurityHeader,
     WWWAuthenticate,
     XContentTypeOptionsHeader,
-)
-from http_headers.types import (
-    Header,
 )
 from lib_http.types import (
     URLContext,
 )
 from model import (
     core_model,
+)
+from typing import (
+    Callable,
+    Dict,
+    List,
+    NamedTuple,
+    Optional,
+    Type,
 )
 from utils.ctx import (
     CTX,

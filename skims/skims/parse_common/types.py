@@ -1,4 +1,3 @@
-# Standard library
 from collections import (
     UserDict,
     UserList,

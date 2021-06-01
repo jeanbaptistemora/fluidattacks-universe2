@@ -1,19 +1,16 @@
-# Standard library
 import asyncio
-import subprocess  # nosec
 from os import (
     environ,
 )
+import subprocess  # nosec
 from typing import (
     List,
     Optional,
     Tuple,
 )
 
-# Third party libraries
 # None, NEVER, PLEASE !
 
-# Local libraries
 # None NEVER, PLEASE !
 
 

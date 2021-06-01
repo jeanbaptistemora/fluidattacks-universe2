@@ -1,8 +1,20 @@
-# Standard library
 from __future__ import (
     annotations,
 )
+
+from bs4.element import (
+    Tag,
+)
 import contextlib
+from lib_http.types import (
+    URLContext,
+)
+from model import (
+    core_model,
+)
+from model.core_model import (
+    FindingEnum,
+)
 from typing import (
     Any,
     Callable,
@@ -14,29 +26,13 @@ from typing import (
 from urllib.parse import (
     urlparse,
 )
-
-# Third party library
-from bs4.element import (
-    Tag,
-)
-import viewstate
-
-# Local libraries
-from lib_http.types import (
-    URLContext,
-)
-from model import (
-    core_model,
-)
-from model.core_model import (
-    FindingEnum,
-)
 from utils.ctx import (
     CTX,
 )
 from utils.string import (
     to_snippet_blocking,
 )
+import viewstate
 from zone import (
     t,
 )

@@ -3,13 +3,16 @@ from __future__ import (
     annotations,
 )
 
-# Standard library
 from dataclasses import (
     dataclass,
 )
 from enum import (
     Enum,
 )
+from model import (
+    core_model,
+)
+import networkx as nx
 from typing import (
     Any,
     Callable,
@@ -21,14 +24,6 @@ from typing import (
     Optional,
     Set,
     Tuple,
-)
-
-# Third party libraries
-import networkx as nx
-
-# Local libraries
-from model import (
-    core_model,
 )
 
 NAttrs = Dict[str, str]

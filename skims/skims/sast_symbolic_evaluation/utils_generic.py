@@ -1,4 +1,9 @@
-# Standard library
+from model import (
+    graph_model,
+)
+from sast_symbolic_evaluation.types import (
+    EvaluatorArgs,
+)
 from typing import (
     Any,
     Dict,
@@ -6,15 +11,9 @@ from typing import (
     Optional,
     Union,
 )
-
-# Local libraries
-from model import (
-    graph_model,
+from utils.string import (
+    build_attr_paths,
 )
-from sast_symbolic_evaluation.types import (
-    EvaluatorArgs,
-)
-from utils.string import build_attr_paths
 
 
 def lookup_vars(

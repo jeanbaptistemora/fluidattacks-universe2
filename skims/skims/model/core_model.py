@@ -1,20 +1,10 @@
-# Standard library
 from __future__ import (
     annotations,
 )
+
 from enum import (
     Enum,
 )
-from typing import (
-    Dict,
-    List,
-    NamedTuple,
-    Optional,
-    Set,
-    Tuple,
-)
-
-# Local libraries
 from model.cvss3_model import (
     AttackComplexity,
     AttackVector,
@@ -27,6 +17,14 @@ from model.cvss3_model import (
     ReportConfidence,
     SeverityScope,
     UserInteraction,
+)
+from typing import (
+    Dict,
+    List,
+    NamedTuple,
+    Optional,
+    Set,
+    Tuple,
 )
 
 

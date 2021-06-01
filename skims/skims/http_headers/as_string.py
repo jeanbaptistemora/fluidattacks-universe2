@@ -1,16 +1,11 @@
-# Standard library
+from more_itertools import (
+    chunked,
+)
 from typing import (
     Any,
     Dict,
     Optional,
 )
-
-# Third party libraries
-from more_itertools import (
-    chunked,
-)
-
-# Local libraries
 from utils.string import (
     SNIPPETS_COLUMNS,
     to_snippet_blocking,

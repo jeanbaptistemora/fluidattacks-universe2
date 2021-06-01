@@ -1,4 +1,3 @@
-# Local libraries
 from model import (
     graph_model,
 )

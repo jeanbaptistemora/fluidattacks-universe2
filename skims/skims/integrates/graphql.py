@@ -1,21 +1,16 @@
-# Standard library
-from contextvars import (
-    ContextVar,
-    Token,
+from aiogqlc import (
+    GraphQLClient,
 )
 from contextlib import (
     asynccontextmanager,
 )
+from contextvars import (
+    ContextVar,
+    Token,
+)
 from typing import (
     AsyncIterator,
 )
-
-# Third party libraries
-from aiogqlc import (
-    GraphQLClient,
-)
-
-# Local libraries
 import utils.http
 
 # State

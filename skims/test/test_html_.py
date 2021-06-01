@@ -1,10 +1,7 @@
-# Third party libraries
-import pytest
-
-# Local libraries
 from html_ import (
     is_html,
 )
+import pytest
 
 
 @pytest.mark.skims_test_group("unittesting")

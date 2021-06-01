@@ -1,15 +1,5 @@
-# Standard library
-from textwrap import dedent
-
-# Third party libraries
 from aioextensions import (
     run_decorator,
-)
-import pytest
-
-# Local libraries
-from integrates.graphql import (
-    client as graphql_client,
 )
 from integrates.dal import (
     get_group_level_role,
@@ -17,8 +7,15 @@ from integrates.dal import (
 from integrates.domain import (
     build_vulnerabilities_stream,
 )
+from integrates.graphql import (
+    client as graphql_client,
+)
 from model import (
     core_model,
+)
+import pytest
+from textwrap import (
+    dedent,
 )
 
 

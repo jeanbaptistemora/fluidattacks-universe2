@@ -1,41 +1,25 @@
-# Standard library
-from typing import (
-    Any,
-    Awaitable,
-    Callable,
-    Iterator,
-    List,
-    Union,
+from aioextensions import (
+    in_process,
+)
+from aws.model import (
+    AWSS3Acl,
+    AWSS3Bucket,
+)
+from contextlib import (
+    suppress,
 )
 from ipaddress import (
     AddressValueError,
     IPv4Network,
     IPv6Network,
 )
-from contextlib import (
-    suppress,
-)
-
-# Third party libraries
-from aioextensions import (
-    in_process,
+from lib_path.common import (
+    EXTENSIONS_CLOUDFORMATION,
+    get_vulnerabilities_from_aws_iterator_blocking,
+    SHIELD,
 )
 from metaloaders.model import (
     Node,
-)
-
-# Local libraries
-from aws.model import (
-    AWSS3Bucket,
-    AWSS3Acl,
-)
-from parse_hcl2.structure import (
-    get_attribute,
-)
-from lib_path.common import (
-    get_vulnerabilities_from_aws_iterator_blocking,
-    EXTENSIONS_CLOUDFORMATION,
-    SHIELD,
 )
 from model import (
     core_model,
@@ -44,13 +28,24 @@ from parse_cfn.loader import (
     load_templates,
 )
 from parse_cfn.structure import (
-    iter_ec2_instances,
     iter_ec2_ingress_egress,
+    iter_ec2_instances,
     iter_ec2_security_groups,
     iter_s3_buckets,
 )
+from parse_hcl2.structure import (
+    get_attribute,
+)
 from state.cache import (
     CACHE_ETERNALLY,
+)
+from typing import (
+    Any,
+    Awaitable,
+    Callable,
+    Iterator,
+    List,
+    Union,
 )
 from utils.function import (
     TIMEOUT_1MIN,

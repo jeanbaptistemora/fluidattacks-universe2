@@ -1,21 +1,16 @@
-# Standard library
-import asyncio
-from typing import (
-    List,
-    Optional,
-)
-
-# Third party libraries
 from aioextensions import (
     collect,
 )
+import asyncio
 from integrates.domain import (
     title_to_finding,
 )
-
-# Local libraries
 from model import (
     core_model,
+)
+from typing import (
+    List,
+    Optional,
 )
 from utils.ctx import (
     PROCESS_GROUP_ON_AWS,

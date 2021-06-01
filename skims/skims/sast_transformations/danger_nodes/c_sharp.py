@@ -1,12 +1,14 @@
 from model import (
-    graph_model,
     core_model,
+    graph_model,
 )
 from sast_transformations.danger_nodes.utils import (
     mark_function_arg,
     mark_methods_sink,
 )
-from utils.string import build_attr_paths
+from utils.string import (
+    build_attr_paths,
+)
 
 
 def mark_inputs(

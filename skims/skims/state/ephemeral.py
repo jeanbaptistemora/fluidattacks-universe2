@@ -1,4 +1,6 @@
-# Standard library
+from aioextensions import (
+    in_thread,
+)
 from os import (
     makedirs,
 )
@@ -7,6 +9,10 @@ from os.path import (
 )
 from shutil import (
     rmtree,
+)
+from state.common import (
+    read_blob,
+    store_object,
 )
 from tempfile import (
     mkdtemp,
@@ -19,24 +25,15 @@ from typing import (
     NamedTuple,
     Tuple,
 )
-from uuid import (
-    uuid4 as uuid,
-)
-
-# Third party libraries
-from aioextensions import in_thread
-
-# Local libraries
-from state.common import (
-    read_blob,
-    store_object,
-)
 from utils.ctx import (
     STATE_FOLDER,
 )
 from utils.fs import (
     mkdir,
     recurse_dir,
+)
+from uuid import (
+    uuid4 as uuid,
 )
 
 # Constants

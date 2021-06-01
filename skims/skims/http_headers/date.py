@@ -1,19 +1,16 @@
-# Standard library
 import contextlib
 from datetime import (
     datetime,
     timezone,
 )
-from typing import (
-    Optional,
-)
-
-# Local libraries
 from http_headers.common import (
     parse_key_value,
 )
 from http_headers.types import (
     DateHeader,
+)
+from typing import (
+    Optional,
 )
 
 # Date: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT

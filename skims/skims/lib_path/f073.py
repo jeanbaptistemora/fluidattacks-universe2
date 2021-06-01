@@ -1,4 +1,20 @@
-# Standard library
+from aioextensions import (
+    in_process,
+)
+from lib_path.common import (
+    EXTENSIONS_JAVASCRIPT,
+    get_vulnerabilities_from_iterator_blocking,
+    SHIELD,
+)
+from model import (
+    core_model,
+)
+from parse_babel import (
+    parse as parse_babel,
+)
+from state.cache import (
+    CACHE_ETERNALLY,
+)
 from typing import (
     Any,
     Awaitable,
@@ -8,32 +24,11 @@ from typing import (
     List,
     Tuple,
 )
-
-# Third party libraries
-from aioextensions import (
-    in_process,
-)
-
-# Local libraries
-from parse_babel import (
-    parse as parse_babel,
-)
-from lib_path.common import (
-    EXTENSIONS_JAVASCRIPT,
-    SHIELD,
-    get_vulnerabilities_from_iterator_blocking,
-)
-from state.cache import (
-    CACHE_ETERNALLY,
-)
 from utils.function import (
     TIMEOUT_1MIN,
 )
 from utils.graph import (
     yield_dicts,
-)
-from model import (
-    core_model,
 )
 from zone import (
     t,

@@ -1,25 +1,13 @@
-# Standard library
 from datetime import (
     datetime,
     timezone,
 )
-from textwrap import (
-    dedent,
-)
-from typing import (
-    Optional,
-)
-
-# Third party libraries
-import pytest
-
-# Local libraries
 from http_headers import (
     as_string,
     content_security_policy,
     date,
-    strict_transport_security,
     referrer_policy,
+    strict_transport_security,
     www_authenticate,
     x_content_type_options,
     x_frame_options,
@@ -27,6 +15,13 @@ from http_headers import (
 from http_headers.types import (
     DateHeader,
     WWWAuthenticate,
+)
+import pytest
+from textwrap import (
+    dedent,
+)
+from typing import (
+    Optional,
 )
 
 

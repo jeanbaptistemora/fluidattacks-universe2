@@ -1,4 +1,4 @@
-# Standard library
+import aioextensions
 from asyncio import (
     sleep,
 )
@@ -7,7 +7,11 @@ from asyncio.tasks import (
 )
 import functools
 import inspect
+from more_itertools import (
+    mark_ends,
+)
 import traceback
+import tracers.function
 from typing import (
     Any,
     Callable,
@@ -17,15 +21,6 @@ from typing import (
     Type,
     TypeVar,
 )
-
-# Third party libraries
-import aioextensions
-from more_itertools import (
-    mark_ends,
-)
-import tracers.function
-
-# Local libraries
 from utils.env import (
     guess_environment,
 )

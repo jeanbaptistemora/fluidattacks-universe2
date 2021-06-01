@@ -1,11 +1,10 @@
-# Standard library
-import os
 from multiprocessing import (
     Manager,
 )
 from multiprocessing.managers import (
     SyncManager,
 )
+import os
 from os import (
     environ,
     makedirs,

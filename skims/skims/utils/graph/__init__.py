@@ -1,29 +1,12 @@
-# Standard library
 from itertools import (
     chain,
 )
-import os
-from typing import (
-    Any,
-    Dict,
-    Callable,
-    cast,
-    Iterable,
-    Iterator,
-    List,
-    Optional,
-    Set,
-    Tuple,
-)
-
-# Third party libraries
 from jmespath import (
     search as jsh,
 )
-import networkx as nx
-
-# Local libraries
-from model import core_model
+from model import (
+    core_model,
+)
 from model.graph_model import (
     Graph,
     NAttrs,
@@ -31,10 +14,23 @@ from model.graph_model import (
     NId,
     NIdPredicateFunction,
 )
+import networkx as nx
+import os
+from typing import (
+    Any,
+    Callable,
+    cast,
+    Dict,
+    Iterable,
+    Iterator,
+    List,
+    Optional,
+    Set,
+    Tuple,
+)
 from utils.logs import (
     log_blocking,
 )
-
 from utils.system import (
     read_blocking,
 )

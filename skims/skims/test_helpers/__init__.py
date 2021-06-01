@@ -1,10 +1,7 @@
-# Standard library
-import os
-
-# Local libraries
 from model import (
     core_model,
 )
+import os
 from utils.ctx import (
     CTX,
 )

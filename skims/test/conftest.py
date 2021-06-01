@@ -1,33 +1,28 @@
-# Standard library
-import json
 from glob import (
     iglob,
+)
+from integrates.graphql import (
+    create_session,
+    end_session,
 )
 from itertools import (
     chain,
 )
+import json
 import os
-import subprocess
+from parse_cfn.loader import (
+    load_as_yaml_without_line_number,
+)
+import pytest
+import subprocess  # nosec
+from test_helpers import (
+    create_test_context,
+)
 from typing import (
     Any,
     Dict,
     Iterator,
     List,
-)
-
-# Third party libraries
-import pytest
-
-# Local libraries
-from integrates.graphql import (
-    create_session,
-    end_session,
-)
-from parse_cfn.loader import (
-    load_as_yaml_without_line_number,
-)
-from test_helpers import (
-    create_test_context,
 )
 
 # Constants
