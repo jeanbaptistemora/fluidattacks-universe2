@@ -1,8 +1,10 @@
 from custom_exceptions import (
     AlreadyApproved,
+    AlreadyDeleted,
     AlreadySubmitted,
     IncompleteDraft,
     InvalidDraftTitle,
+    NotSubmitted,
 )
 from db_model import (
     findings,
@@ -68,16 +70,43 @@ async def create_draft_new(
     await findings.create(finding=draft)
 
 
+async def reject_draft_new(
+    analyst_email: str, context: Any, finding_id: str, group_name: str
+) -> None:
+    finding_loader = context.loaders.finding_new
+    finding: Finding = await finding_loader.load((group_name, finding_id))
+    if finding.state.status == FindingStateStatus.DELETED:
+        raise AlreadyDeleted()
+
+    if finding.state.status == FindingStateStatus.APPROVED:
+        raise AlreadyApproved()
+
+    if finding.state.status != FindingStateStatus.SUBMITTED:
+        raise NotSubmitted()
+
+    new_state = FindingState(
+        modified_by=analyst_email,
+        modified_date=datetime_utils.get_iso_date(),
+        source=requests_utils.get_source(context),
+        status=FindingStateStatus.REJECTED,
+    )
+    await findings.update_state(
+        finding_id=finding_id,
+        group_name=group_name,
+        state=new_state,
+    )
+
+
 async def submit_draft_new(
     analyst_email: str, context: Any, finding_id: str, group_name: str
 ) -> None:
     finding_vulns_loader = context.loaders.finding_vulns
     finding_loader = context.loaders.finding_new
     finding: Finding = await finding_loader.load((group_name, finding_id))
-    if (
-        finding.state.status == FindingStateStatus.APPROVED
-        or finding.state.status == FindingStateStatus.DELETED
-    ):
+    if finding.state.status == FindingStateStatus.DELETED:
+        raise AlreadyDeleted()
+
+    if finding.state.status == FindingStateStatus.APPROVED:
         raise AlreadyApproved()
 
     if finding.state.status == FindingStateStatus.SUBMITTED:
@@ -96,11 +125,10 @@ async def submit_draft_new(
             [field for field in required_fields if not required_fields[field]]
         )
 
-    source = requests_utils.get_source(context)
     new_state = FindingState(
         modified_by=analyst_email,
         modified_date=datetime_utils.get_iso_date(),
-        source=source,
+        source=requests_utils.get_source(context),
         status=FindingStateStatus.SUBMITTED,
     )
     await findings.update_state(

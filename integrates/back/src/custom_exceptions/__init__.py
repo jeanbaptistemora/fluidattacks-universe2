@@ -53,6 +53,15 @@ class AlreadyApproved(Exception):
         super(AlreadyApproved, self).__init__(msg)
 
 
+class AlreadyDeleted(Exception):
+    """Exception to control deleted drafts"""
+
+    def __init__(self) -> None:
+        """ Constructor """
+        msg = "Exception - This draft has already been deleted"
+        super(AlreadyDeleted, self).__init__(msg)
+
+
 class AlreadyPendingDeletion(Exception):
     """Exception to control pending to delete groups"""
 
