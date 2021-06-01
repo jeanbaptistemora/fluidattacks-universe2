@@ -293,6 +293,18 @@ def test_nist_c_sharp() -> None:
     _run_no_group("nist_c_sharp")
 
 
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("nist_c_sharp_f001")
+def test_nist_c_sharp_f001() -> None:
+    _run_no_group("nist_c_sharp_f001")
+
+
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("nist_c_sharp_f107")
+def test_nist_c_sharp_f107() -> None:
+    _run_no_group("nist_c_sharp_f107")
+
+
 def _run_no_group(suite: str) -> None:
     code, stdout, stderr = skims("scan", get_suite_config(suite))
     assert code == 0, stdout

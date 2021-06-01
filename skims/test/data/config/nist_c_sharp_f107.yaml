@@ -1,0 +1,13 @@
+checks:
+  - F107
+namespace: NIST
+output: skims/test/outputs/nist_c_sharp_f107.csv
+path:
+  include:
+    # F107
+    - glob(src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_*.cs)
+    - glob(src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_*.cs)
+    - glob(src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_*.cs)
+  lib_path: false
+  lib_root: true
+working_dir: ../NIST-SARD-Test-Suites/Juliet_Test_Suite_v1.3_for_C#/

@@ -1,0 +1,11 @@
+checks:
+  - F001_C_SHARP_SQL
+namespace: NIST
+output: skims/test/outputs/nist_c_sharp_f001.csv
+path:
+  include:
+    # F001
+    - src/testcases/CWE89_SQL_Injection/s01/
+  lib_path: false
+  lib_root: true
+working_dir: ../NIST-SARD-Test-Suites/Juliet_Test_Suite_v1.3_for_C#/

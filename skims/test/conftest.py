@@ -43,6 +43,8 @@ TEST_GROUPS = {
     "instance_references",
     "lib_http",
     "nist_c_sharp",
+    "nist_c_sharp_f001",
+    "nist_c_sharp_f107",
     "unittesting",
     "vulnerableapp",
 }

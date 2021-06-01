@@ -1,16 +1,12 @@
 checks:
-  - F001_C_SHARP_SQL
   - F052
   - F060
   - F061
   - F073
-  - F107
 namespace: NIST
 output: skims/test/outputs/nist_c_sharp.csv
 path:
   include:
-    # F001
-    - src/testcases/CWE89_SQL_Injection/s02/
     # F052
     - src/testcases/CWE327_Use_Broken_Crypto/
     - src/testcases/CWE328_Reversible_One_Way_Hash/
@@ -22,10 +18,6 @@ path:
     - src/testcases/CWE390_Error_Without_Action/
     # F073
     - src/testcases/CWE478_Missing_Default_Case_in_Switch/
-    # F107
-    - glob(src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Get_Cookies_Web_*.cs)
-    - glob(src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__Params_Get_Web_*.cs)
-    - glob(src/testcases/CWE90_LDAP_Injection/CWE90_LDAP_Injection__QueryString_Web_*.cs)
   lib_path: false
   lib_root: true
 working_dir: ../NIST-SARD-Test-Suites/Juliet_Test_Suite_v1.3_for_C#/
