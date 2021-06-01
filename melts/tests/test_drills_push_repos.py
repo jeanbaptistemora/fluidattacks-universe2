@@ -16,14 +16,14 @@ from toolbox.drills import push_repos
 
 
 BUCKET: str = "continuous-repositories"
-SUBS: str = "continuoustests3"
+SUBS: str = "continuoustest"
 AWS_LOGIN: bool = False
 SUBS_PATH: str = f"groups/{SUBS}"
 SUBS_FUSION: str = f"{SUBS_PATH}/fusion"
 LOCALSTACK_ENDPOINT: str = "localstack" if generic.is_env_ci() else "localhost"
 ENDPOINT_URL: str = f"http://{LOCALSTACK_ENDPOINT}:4566"
 
-EXPECTED_REPOS: List[str] = [f"{SUBS}/repo2/", f"{SUBS}/repo3/"]
+EXPECTED_REPOS: List[str] = [f"{SUBS}/services/"]
 
 
 def test_drills_push_repos(
@@ -38,21 +38,19 @@ def test_drills_push_repos(
 
     def create_repo(path: str) -> None:
         files: List[str] = ["file1", "file2", "file3"]
-        os.mkdir(path)
-        os.mkdir(f"{path}/.git")
+        os.makedirs(f"{path}/.git", exist_ok=True)
         for filename in files:
             file_path: str = f"{path}/.git/{filename}"
             Path(file_path).touch()
 
     def set_up_repos() -> None:
-        repos: List[str] = ["repo1", "repo2", "repo3"]
+        repos: List[str] = ["services"]
         os.makedirs(SUBS_FUSION, exist_ok=True)
 
         for repo in repos:
             repo_path: str = f"{SUBS_FUSION}/{repo}"
             create_repo(repo_path)
         push_repos.s3_sync_fusion_to_s3(SUBS, BUCKET, ENDPOINT_URL)
-        rmtree(f"{SUBS_FUSION}/repo1")
 
     try:
         set_up_repos()

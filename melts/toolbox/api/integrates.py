@@ -331,6 +331,7 @@ class Queries:
                   ...on GitRoot{
                     id
                     branch
+                    lastCloningStatusUpdate
                     nickname
                     url
                     state

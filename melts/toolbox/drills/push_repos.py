@@ -1,7 +1,9 @@
 # Standard libraries
 import os
+import glob
 import json
 from typing import (
+    Dict,
     List,
     Optional,
 )
@@ -14,6 +16,8 @@ import git
 from git.exc import GitCommandError
 
 # Local libraries
+from toolbox.api import integrates
+from toolbox.constants import API_TOKEN
 from toolbox.logger import LOGGER
 from toolbox.utils import generic
 from toolbox.utils.function import shield
@@ -72,11 +76,36 @@ def git_optimize_all(path: str) -> None:
             shutil.rmtree(folder)
 
 
+def get_root_upload_dates(subs: str) -> Dict[str, str]:
+    response = integrates.Queries.git_roots(API_TOKEN, subs)
+    if not response.ok:
+        LOGGER.error(response.errors)
+        raise ValueError("Could not retrieve git roots from Integrates")
+
+    return {
+        root["nickname"]: root["lastCloningStatusUpdate"]
+        for root in response.data["project"]["roots"]
+    }
+
+
+def append_root_metadata(subs: str) -> None:
+    # We'll be appending a small metadata file to each repository so
+    # downstream components know important values about the data
+    upload_dates: Dict[str, str] = get_root_upload_dates(subs)
+
+    for root in glob.glob(f"groups/{subs}/fusion/*"):
+        root_nickname: str = os.path.basename(root)
+        with open(f"{root}/.git/fluidattacks_metadata", "w") as file:
+            json.dump({"date": upload_dates[root_nickname]}, file, indent=2)
+
+
 def s3_sync_fusion_to_s3(
     subs: str,
     bucket: str = "continuous-repositories",
     endpoint_url: Optional[str] = None,
 ) -> bool:
+    append_root_metadata(subs)
+
     fusion_dir: str = f"groups/{subs}/fusion"
     s3_subs_repos_path: str = f"{subs}/"
     kwargs = (

@@ -31,4 +31,3 @@ def configure_bugsnag(**data: str) -> None:
         release_stage=guess_environment(),
     )
     bugsnag.start_session()
-    bugsnag.send_sessions()
