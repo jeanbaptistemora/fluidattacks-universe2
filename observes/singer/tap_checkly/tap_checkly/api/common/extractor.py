@@ -1,6 +1,12 @@
-# Standard libraries
 from __future__ import (
     annotations,
+)
+
+import paginator
+from paginator import (
+    AllPages,
+    PageId,
+    PageOrAll,
 )
 from typing import (
     Callable,
@@ -8,17 +14,6 @@ from typing import (
     Type,
     TypeVar,
 )
-
-# Third party libraries
-
-# Local libraries
-import paginator
-from paginator import (
-    AllPages,
-    PageId,
-    PageOrAll,
-)
-
 
 PageType = TypeVar("PageType")
 

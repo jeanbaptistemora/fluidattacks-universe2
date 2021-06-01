@@ -1,11 +1,12 @@
-# Standard libraries
-# Third party libraries
-# Local libraries
-from streamer_zoho_crm.api import ApiClient
-from streamer_zoho_crm.api.common import PageIndex
+from streamer_zoho_crm.api import (
+    ApiClient,
+)
+from streamer_zoho_crm.api.common import (
+    PageIndex,
+)
 from streamer_zoho_crm.api.users import (
-    UserType,
     UsersDataPage,
+    UserType,
 )
 
 

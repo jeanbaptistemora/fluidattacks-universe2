@@ -1,15 +1,15 @@
-# Standard libraries
+import click
+from streamer_zoho_crm import (
+    auth,
+    etl,
+)
+from streamer_zoho_crm.auth import (
+    Credentials,
+)
 from typing import (
     AnyStr,
     IO,
 )
-
-# Third party libraries
-import click
-
-# Local libraries
-from streamer_zoho_crm import auth, etl
-from streamer_zoho_crm.auth import Credentials
 
 
 @click.command()

@@ -1,6 +1,10 @@
-# Standard libraries
-from __future__ import annotations
-from enum import Enum
+from __future__ import (
+    annotations,
+)
+
+from enum import (
+    Enum,
+)
 from typing import (
     FrozenSet,
     NamedTuple,

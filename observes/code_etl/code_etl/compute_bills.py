@@ -1,17 +1,28 @@
 """Process Redshift data and compute bills for every namespace."""
 
-# Standard library
+
 import argparse
+from code_etl.utils import (
+    COMMIT_HASH_SENTINEL,
+    db_cursor,
+    get_log,
+)
 import csv
 from datetime import (
     datetime,
 )
+from functools import (
+    lru_cache,
+)
 import json
-from functools import lru_cache
 from operator import (
     itemgetter,
 )
 import os
+from ratelimiter import (
+    RateLimiter,
+)
+import requests
 from typing import (
     Any,
     Callable,
@@ -21,17 +32,6 @@ from typing import (
     Optional,
     Set,
     Tuple,
-)
-
-# Third party libraries
-import requests
-from ratelimiter import RateLimiter
-
-# Local libraries
-from code_etl.utils import (
-    COMMIT_HASH_SENTINEL,
-    db_cursor,
-    get_log,
 )
 
 # Constants

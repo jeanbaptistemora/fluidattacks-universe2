@@ -1,16 +1,13 @@
-# Standard imports
-import os
-import csv
-import sys
 import argparse
 import contextlib
-import urllib.parse
-
-# Third parties imports
+import csv
+import os
 import requests
-
-# Local libraries
-from tap_zoho_analytics import streamer_csv
+import sys
+from tap_zoho_analytics import (
+    streamer_csv,
+)
+import urllib.parse
 
 
 def export_csv(

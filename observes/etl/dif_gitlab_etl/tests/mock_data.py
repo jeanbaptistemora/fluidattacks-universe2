@@ -1,25 +1,27 @@
-# Standard libraries
-from tempfile import NamedTemporaryFile
-from typing import (
-    Callable,
-    NamedTuple,
-    cast,
-    Dict,
-    IO,
-    List,
-    Optional,
-    Union,
+from dif_gitlab_etl.etl import (
+    ExtractState,
 )
-
-# Third party libraries
-# Local libraries
-from dif_gitlab_etl.etl import ExtractState
 from streamer_gitlab.api_client import (
     GitlabResource,
     GitlabResourcePage,
     GResourcePageRange,
 )
-from streamer_gitlab.page_data import PageData
+from streamer_gitlab.page_data import (
+    PageData,
+)
+from tempfile import (
+    NamedTemporaryFile,
+)
+from typing import (
+    Callable,
+    cast,
+    Dict,
+    IO,
+    List,
+    NamedTuple,
+    Optional,
+    Union,
+)
 
 
 class MockDataCase(NamedTuple):

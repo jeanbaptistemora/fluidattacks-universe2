@@ -1,16 +1,13 @@
-# Standard libraries
+import bugsnag
+from bugsnag.handlers import (
+    BugsnagHandler,
+)
 import logging
 import sys
 from typing import (
     Any,
     IO,
 )
-
-# Third party libraries
-import bugsnag
-from bugsnag.handlers import BugsnagHandler
-
-# Local libraries
 
 
 def configure(**kargs: Any) -> None:

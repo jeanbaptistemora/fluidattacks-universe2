@@ -1,16 +1,7 @@
-# Standard libraries
-import logging
 from functools import (
     partial,
 )
-from typing import (
-    Dict,
-    Iterator,
-)
-
-# Third party libraries
-
-# Local libraries
+import logging
 from tap_mailchimp.api.common import (
     list_items,
     list_unsupported_pagination,
@@ -20,7 +11,10 @@ from tap_mailchimp.api.common.raw import (
     FeedbackId,
     RawSource,
 )
-
+from typing import (
+    Dict,
+    Iterator,
+)
 
 LOG = logging.getLogger(__name__)
 

@@ -1,6 +1,12 @@
-from typing import Dict
-from tap_csv import core
-from tap_csv.core import ColumnType
+from tap_csv import (
+    core,
+)
+from tap_csv.core import (
+    ColumnType,
+)
+from typing import (
+    Dict,
+)
 
 
 def test_translate_types() -> None:

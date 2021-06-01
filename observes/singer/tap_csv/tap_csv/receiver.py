@@ -1,5 +1,17 @@
-# Standard libraries
+from singer_io import (
+    factory,
+)
+from singer_io.singer import (
+    SingerRecord,
+)
 import sys
+from tap_csv import (
+    core,
+    utils,
+)
+from tap_csv.core import (
+    AdjustCsvOptions,
+)
 from typing import (
     Any,
     Dict,
@@ -7,14 +19,6 @@ from typing import (
     NamedTuple,
     Optional,
 )
-
-# Third party libraries
-# Local libraries
-from singer_io import factory
-from singer_io.singer import SingerRecord
-from tap_csv import core, utils
-from tap_csv.core import AdjustCsvOptions
-
 
 LOG = utils.get_log(__name__)
 

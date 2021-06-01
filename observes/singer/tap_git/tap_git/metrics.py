@@ -1,18 +1,22 @@
 """Metrics module."""
 
+# pylint: disable=relative-beyond-top-level
+from . import (
+    os_tools,
+)
+import asyncio
+import contextlib
+import json
 import os
 import re
+import statistics
 import sys
 import time
-import json
-import asyncio
-import statistics
-import contextlib
-
-from typing import List, Dict, Any
-
-# pylint: disable=relative-beyond-top-level
-from . import os_tools
+from typing import (
+    Any,
+    Dict,
+    List,
+)
 
 
 def scan_metrics(repository: str, path: str) -> None:

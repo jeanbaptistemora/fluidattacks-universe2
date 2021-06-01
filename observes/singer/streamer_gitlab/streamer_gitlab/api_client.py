@@ -1,31 +1,26 @@
-# Standard libraries
-from typing import (
-    Any,
-    Awaitable,
-    Callable,
-    Coroutine,
-    cast,
-    Dict,
-    Optional,
-    List,
-    NamedTuple,
+from aioextensions import (
+    rate_limited,
 )
-
-# Third party libraries
-import urllib.parse
 from aiohttp import (
     ClientError,
     ClientSession,
 )
-from aioextensions import (
-    rate_limited,
-)
-
-# Local libraries
 from streamer_gitlab.log import (
     log,
     MaxRetriesReached,
 )
+from typing import (
+    Any,
+    Awaitable,
+    Callable,
+    cast,
+    Coroutine,
+    Dict,
+    List,
+    NamedTuple,
+    Optional,
+)
+import urllib.parse
 
 
 class GitlabResource(NamedTuple):

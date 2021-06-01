@@ -1,18 +1,6 @@
-# Standard libraries
-from typing import (
-    Callable,
-    Dict,
-    FrozenSet,
-    Iterable,
-    List,
-    NamedTuple,
-    Set,
-    Tuple,
+from postgres_client.cursor import (
+    CursorExeAction,
 )
-
-# Third party libraries
-# Local libraries
-from postgres_client.cursor import CursorExeAction
 from postgres_client.table import (
     IsolatedColumn,
     Table,
@@ -28,7 +16,19 @@ from target_redshift_2.objects import (
     RedshiftRecord,
     RedshiftSchema,
 )
-from target_redshift_2.utils import Transform
+from target_redshift_2.utils import (
+    Transform,
+)
+from typing import (
+    Callable,
+    Dict,
+    FrozenSet,
+    Iterable,
+    List,
+    NamedTuple,
+    Set,
+    Tuple,
+)
 
 ClassifiedSinger = Tuple[List[SingerSchema], List[SingerRecord]]
 TidRschemaMap = Dict[TableID, RedshiftSchema]

@@ -1,11 +1,13 @@
-# Standard libraries
+from streamer_dynamodb.extractor import (
+    PageData,
+)
 import subprocess
 import tempfile
-from typing import IO, List, NamedTuple
-
-# Third party libraries
-# Local libraries
-from streamer_dynamodb.extractor import PageData
+from typing import (
+    IO,
+    List,
+    NamedTuple,
+)
 
 
 class SingerPageData(NamedTuple):

@@ -1,10 +1,7 @@
-# Standard libraries
+from singer_io.file import (
+    DataFile,
+)
 import tempfile
-
-# Third party libraries
-
-# Local libraries
-from singer_io.file import DataFile
 
 
 def test_data_file_from_file() -> None:

@@ -1,14 +1,11 @@
-# Standard libraries
+import aiohttp
 from os import (
     environ,
 )
-
-# Third party libraries
-import aiohttp
 import pytest
-
-# Local libraries
-from streamer_gitlab import api_client
+from streamer_gitlab import (
+    api_client,
+)
 
 
 @pytest.mark.asyncio

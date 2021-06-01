@@ -1,21 +1,19 @@
-# Standard libraries
 import json
-from json.encoder import JSONEncoder
-from typing import (
-    Any,
-    Dict,
-    List,
-    Optional,
+from json.encoder import (
+    JSONEncoder,
 )
-
-# Third party libraries
-# Local libraries
 from singer_io.singer import (
     InvalidType,
     MissingKeys,
     SingerRecord,
     SingerSchema,
     SingerState,
+)
+from typing import (
+    Any,
+    Dict,
+    List,
+    Optional,
 )
 
 

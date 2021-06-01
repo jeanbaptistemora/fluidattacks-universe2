@@ -1,14 +1,18 @@
-# Standard libraries
 import getpass
-from typing import Any
-
-# Third party libraries
+from postgres_client import (
+    connection,
+)
+from postgres_client.connection import (
+    Credentials,
+    DatabaseID,
+)
+from psycopg2.errors import (
+    DuplicateSchema,
+)
 import pytest
-from psycopg2.errors import DuplicateSchema
-
-# Local libraries
-from postgres_client import connection
-from postgres_client.connection import Credentials, DatabaseID
+from typing import (
+    Any,
+)
 
 
 @pytest.mark.timeout(15, method="thread")

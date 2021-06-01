@@ -2,9 +2,36 @@
 Binds functions of other modules to specific parameters.
 Supports the interface used by cli.
 """
-# Standard libraries
+
+from dif_gitlab_etl import (
+    db_client,
+    etl,
+    planner,
+)
+from dif_gitlab_etl.db_client import (
+    DbState,
+)
+from dif_gitlab_etl.etl import (
+    ExtractState,
+)
+from dif_gitlab_etl.utils import (
+    log,
+)
 from os import (
     environ,
+)
+from streamer_gitlab import (
+    page_data,
+)
+from streamer_gitlab.api_client import (
+    GitlabResource,
+    GResourcePageRange,
+)
+from streamer_gitlab.log import (
+    MaxRetriesReached,
+)
+from streamer_gitlab.page_data import (
+    PageData,
 )
 from typing import (
     Any,
@@ -13,23 +40,6 @@ from typing import (
     List,
     Optional,
 )
-
-# Third-Party/Observes libraries
-from streamer_gitlab import page_data
-from streamer_gitlab.api_client import (
-    GitlabResource,
-    GResourcePageRange,
-)
-from streamer_gitlab.log import MaxRetriesReached
-from streamer_gitlab.page_data import PageData
-
-# Local libraries
-from dif_gitlab_etl import db_client
-from dif_gitlab_etl import etl
-from dif_gitlab_etl import planner
-from dif_gitlab_etl.db_client import DbState
-from dif_gitlab_etl.etl import ExtractState
-from dif_gitlab_etl.utils import log
 
 
 def specific_resources(project: str) -> List[GitlabResource]:

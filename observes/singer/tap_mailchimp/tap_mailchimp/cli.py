@@ -1,21 +1,20 @@
-# Standard libraries
+import click
 import json
+from tap_mailchimp import (
+    auth,
+    executor,
+)
+from tap_mailchimp.auth import (
+    Credentials,
+)
+from tap_mailchimp.streams import (
+    SupportedStreams,
+)
 from typing import (
     AnyStr,
     IO,
     Optional,
 )
-
-# Third party libraries
-import click
-
-# Local libraries
-from tap_mailchimp import (
-    auth,
-    executor,
-)
-from tap_mailchimp.auth import Credentials
-from tap_mailchimp.streams import SupportedStreams
 
 
 @click.command()

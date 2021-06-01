@@ -2,21 +2,24 @@
 
 """Singer tap for a git repository."""
 
-import os
-import re
-import sys
-import json
+from . import (
+    dags,
+    metrics,
+    os_tools,
+)
 import argparse
 import datetime
-
-from typing import List, Tuple, Any
-import subprocess
-
 import git
-
-from . import dags
-from . import metrics
-from . import os_tools
+import json
+import os
+import re
+import subprocess
+import sys
+from typing import (
+    Any,
+    List,
+    Tuple,
+)
 
 # Type aliases that improve clarity
 JSON = Any

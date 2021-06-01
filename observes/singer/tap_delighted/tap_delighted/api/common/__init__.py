@@ -1,25 +1,21 @@
 # pylint: skip-file
-# Standard libraries
-import logging
-import time
-from typing import (
-    Callable,
-    TypeVar,
-)
 
-# Third party libraries
+import logging
+from returns.curry import (
+    partial,
+)
 from returns.io import (
     IO,
     IOResult,
 )
-from returns.curry import (
-    partial,
-)
-
-# Local libraries
 from tap_delighted.api.common.raw import (
     RateLimitError,
     RawApiResult,
+)
+import time
+from typing import (
+    Callable,
+    TypeVar,
 )
 
 

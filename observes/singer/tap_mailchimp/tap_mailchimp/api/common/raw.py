@@ -1,26 +1,24 @@
-# Standard libraries
-import logging
 from functools import (
     partial,
+)
+import logging
+from mailchimp_marketing import (
+    Client,
+)
+from paginator import (
+    PageId,
+)
+from ratelimiter import (
+    RateLimiter,
+)
+from singer_io import (
+    JSON,
 )
 from typing import (
     Callable,
     NamedTuple,
     Union,
 )
-
-# Third party libraries
-from mailchimp_marketing import (
-    Client,
-)
-from ratelimiter import RateLimiter
-
-# Local libraries
-from paginator import (
-    PageId,
-)
-from singer_io import JSON
-
 
 LOG = logging.getLogger(__name__)
 

@@ -1,14 +1,19 @@
-# Standard libraries
-from typing import Any
-
-# Third party libraries
+from postgres_client import (
+    client,
+    table,
+)
+from postgres_client.table import (
+    DbTable,
+    operations,
+    TableID,
+)
 import pytest
-from returns.pipeline import is_successful
-
-# Local libraries
-from postgres_client import client
-from postgres_client import table
-from postgres_client.table import DbTable, operations, TableID
+from returns.pipeline import (
+    is_successful,
+)
+from typing import (
+    Any,
+)
 
 
 def setup_db(postgresql_my: Any) -> None:

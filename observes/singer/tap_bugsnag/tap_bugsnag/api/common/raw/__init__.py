@@ -1,35 +1,49 @@
 # pylint: skip-file
-# Standard libraries
-from __future__ import annotations
+
+from __future__ import (
+    annotations,
+)
+
 import logging
-from typing import (
-    NamedTuple,
-)
-
-# Third party libraries
-from requests.exceptions import HTTPError
-from requests.models import Response
-from returns.io import (
-    IO,
-    IOFailure,
-    IOSuccess,
-    impure,
-)
-from returns.maybe import Maybe
-from returns.pipeline import is_successful
-
-# Local libraries
 from paginator.object_index import (
     PageId,
 )
-from singer_io.common import JSON
-from tap_bugsnag.api.auth import Credentials
-from tap_bugsnag.api.common.raw import handlers
-from tap_bugsnag.api.common.raw.handlers import RawResponse
+from requests.exceptions import (
+    HTTPError,
+)
+from requests.models import (
+    Response,
+)
+from returns.io import (
+    impure,
+    IO,
+    IOFailure,
+    IOSuccess,
+)
+from returns.maybe import (
+    Maybe,
+)
+from returns.pipeline import (
+    is_successful,
+)
+from singer_io.common import (
+    JSON,
+)
+from tap_bugsnag.api.auth import (
+    Credentials,
+)
+from tap_bugsnag.api.common.raw import (
+    handlers,
+)
 from tap_bugsnag.api.common.raw.client import (
     Client,
 )
-
+from tap_bugsnag.api.common.raw.handlers import (
+    RawResponse,
+)
+from typing import (
+    NamedTuple,
+)
 
 LOG = logging.getLogger(__name__)
 

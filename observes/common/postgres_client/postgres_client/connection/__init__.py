@@ -1,16 +1,14 @@
-# Standard libraries
-from __future__ import annotations
+from __future__ import (
+    annotations,
+)
+
+import psycopg2 as postgres
+import psycopg2.extensions as postgres_extensions
 from typing import (
     Any,
     NamedTuple,
     Optional,
 )
-
-# Third party libraries
-import psycopg2 as postgres
-import psycopg2.extensions as postgres_extensions
-
-# Local libraries
 
 
 class DatabaseID(NamedTuple):

@@ -1,30 +1,19 @@
-# Standard libraries
-import sys
 from collections import (
     deque,
 )
-from enum import Enum
+from enum import (
+    Enum,
+)
 from itertools import (
     chain,
 )
-from typing import (
-    Any,
-    Callable,
-    cast,
-    IO,
-    Iterator,
-    Mapping,
-    Optional,
-    Union,
+from singer_io import (
+    factory,
 )
-
-# Third party libraries
-
-# Local libraries
-from singer_io import factory
 from singer_io.singer import (
     SingerRecord,
 )
+import sys
 from tap_mailchimp.api import (
     AbsReportId,
     ApiClient,
@@ -36,6 +25,16 @@ from tap_mailchimp.api import (
     InterestCatgId,
     ItemId,
     MemberId,
+)
+from typing import (
+    Any,
+    Callable,
+    cast,
+    IO,
+    Iterator,
+    Mapping,
+    Optional,
+    Union,
 )
 
 

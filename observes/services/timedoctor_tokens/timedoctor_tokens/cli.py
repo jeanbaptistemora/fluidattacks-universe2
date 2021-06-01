@@ -1,9 +1,7 @@
-# Standard libraries
-# Third party libraries
 import click
-
-# Local libraries
-from timedoctor_tokens import core
+from timedoctor_tokens import (
+    core,
+)
 
 
 @click.command()

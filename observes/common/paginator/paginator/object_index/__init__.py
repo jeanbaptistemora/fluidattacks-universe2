@@ -1,24 +1,26 @@
 # pylint: skip-file
-# Standard libraries
+
+from paginator.object_index.objs import (
+    PageGetter,
+    PageGetterIO,
+    PageId,
+    PageOrAll,
+    PageResult,
+)
+from returns.io import (
+    IO,
+)
+from returns.maybe import (
+    Maybe,
+    Nothing,
+)
+from returns.unsafe import (
+    unsafe_perform_io,
+)
 from typing import (
     Iterator,
     TypeVar,
 )
-
-# Third party libraries
-from returns.unsafe import unsafe_perform_io
-from returns.io import IO
-from returns.maybe import Maybe, Nothing
-
-# Local libraries
-from paginator.object_index.objs import (
-    PageId,
-    PageGetter,
-    PageGetterIO,
-    PageOrAll,
-    PageResult,
-)
-
 
 _Data = TypeVar("_Data")
 

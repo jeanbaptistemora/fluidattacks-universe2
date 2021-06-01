@@ -1,16 +1,15 @@
-# Standard libraries
+from postgres_client.table import (
+    DbTypes,
+)
+from target_redshift_2.objects import (
+    AmbiguousType,
+)
 from typing import (
     Any,
     Dict,
     FrozenSet,
     Optional,
 )
-
-# Third party libraries
-# Local libraries
-from postgres_client.table import DbTypes
-from target_redshift_2.objects import AmbiguousType
-
 
 JSON_SCHEMA_TYPES: Dict[DbTypes, Any] = {
     DbTypes.BOOLEAN: [

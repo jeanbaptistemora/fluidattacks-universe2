@@ -1,20 +1,23 @@
-# Standard libraries
-from __future__ import annotations
+from __future__ import (
+    annotations,
+)
+
+import requests
+from requests.models import (
+    Response,
+)
+from returns.curry import (
+    partial,
+)
+from tap_bugsnag.api.auth import (
+    Credentials,
+)
 from typing import (
     Any,
     Callable,
     Dict,
     NamedTuple,
 )
-
-# Third party libraries
-import requests
-from requests.models import Response
-from returns.curry import partial
-
-# Local libraries
-from tap_bugsnag.api.auth import Credentials
-
 
 API_URL_BASE = "https://api.bugsnag.com"
 

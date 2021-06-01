@@ -1,8 +1,8 @@
 from paginator.common._objs import (
     AllPages,
+    DEFAULT_LIMITS,
     EmptyPage,
     Limits,
-    DEFAULT_LIMITS,
 )
 
 __all__ = [

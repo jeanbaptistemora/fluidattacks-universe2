@@ -1,18 +1,10 @@
-# Standard libraries
-import logging
-from functools import partial
-from typing import (
-    Callable,
-    Iterator,
-    NamedTuple,
+from functools import (
+    partial,
 )
-
-# Third party libraries
+import logging
 from mailchimp_marketing import (
     Client,
 )
-
-# Local libraries
 import tap_mailchimp.api.audiences as audiences
 import tap_mailchimp.api.campaigns as campaigns
 from tap_mailchimp.api.common import (
@@ -27,15 +19,19 @@ from tap_mailchimp.api.common.raw import (
     CampaignId,
     FeedbackId,
     GrowthHistId,
-    ItemId,
     InterestCatgId,
+    ItemId,
     MemberId,
     RawSource,
 )
 from tap_mailchimp.auth import (
     Credentials,
 )
-
+from typing import (
+    Callable,
+    Iterator,
+    NamedTuple,
+)
 
 LOG = logging.getLogger(__name__)
 

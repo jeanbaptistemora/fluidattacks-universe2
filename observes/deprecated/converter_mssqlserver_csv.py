@@ -5,14 +5,17 @@
 Your database must be able to handle at least two simultaneous connections.
 """
 
+import argparse
+from contextlib import (
+    contextmanager,
+)
 import csv
 import json
-import argparse
-
-from typing import List, Any
-from contextlib import contextmanager
-
 import pyodbc
+from typing import (
+    Any,
+    List,
+)
 
 
 @contextmanager

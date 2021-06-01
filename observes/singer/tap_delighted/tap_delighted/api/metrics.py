@@ -1,25 +1,28 @@
 # pylint: skip-file
-# Standard libraries
+
 from __future__ import (
     annotations,
+)
+
+from delighted import (
+    Client,
+)
+from returns.curry import (
+    partial,
+)
+from returns.io import (
+    IO,
+)
+from singer_io import (
+    JSON,
+)
+from tap_delighted.api.common import (
+    handle_rate_limit,
+    raw,
 )
 from typing import (
     Callable,
     NamedTuple,
-)
-
-# Third party libraries
-from delighted import (
-    Client,
-)
-from returns.curry import partial
-from returns.io import IO
-
-# Local libraries
-from singer_io import JSON
-from tap_delighted.api.common import (
-    raw,
-    handle_rate_limit,
 )
 
 

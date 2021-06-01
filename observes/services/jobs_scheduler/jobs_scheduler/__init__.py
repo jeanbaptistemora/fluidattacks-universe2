@@ -1,20 +1,30 @@
 # pylint: skip-file
-# Standard libraries
-from __future__ import annotations
-import subprocess
-from datetime import datetime
-from typing import List
 
-# Third party libraries
+from __future__ import (
+    annotations,
+)
+
+from datetime import (
+    datetime,
+)
+from jobs_scheduler.conf import (
+    SCHEDULE,
+)
+from jobs_scheduler.cron import (
+    match_cron,
+)
 import pytz
-from returns.io import impure
-from returns.maybe import Maybe
-
-# Local libraries
-from jobs_scheduler.conf import SCHEDULE
-from jobs_scheduler.cron import match_cron
+from returns.io import (
+    impure,
+)
+from returns.maybe import (
+    Maybe,
+)
+import subprocess
+from typing import (
+    List,
+)
 import utils_logger
-
 
 utils_logger.configure(
     app_type="tap",

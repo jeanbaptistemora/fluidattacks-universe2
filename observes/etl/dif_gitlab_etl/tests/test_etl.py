@@ -1,20 +1,23 @@
-# Standard libraries
-from typing import (
-    List,
+from dif_gitlab_etl import (
+    etl,
 )
-
-# Third party libraries
+from dif_gitlab_etl.etl import (
+    ExtractState,
+)
 import pytest
-
-# Local libraries
-from dif_gitlab_etl import etl
-from dif_gitlab_etl.etl import ExtractState
 from streamer_gitlab.api_client import (
     GitlabResourcePage,
     GResourcePageRange,
 )
-from streamer_gitlab.page_data import PageData
-from tests import mock_data
+from streamer_gitlab.page_data import (
+    PageData,
+)
+from tests import (
+    mock_data,
+)
+from typing import (
+    List,
+)
 
 
 def test_extract_between() -> None:

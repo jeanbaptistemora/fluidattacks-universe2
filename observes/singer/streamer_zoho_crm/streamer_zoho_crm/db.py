@@ -1,17 +1,9 @@
-# Standard libraries
-from typing import (
-    Any,
-    Callable,
-    FrozenSet,
-    List,
-    NamedTuple,
-    Tuple,
+from postgres_client import (
+    client,
 )
-
-# Third party libraries
-# Local libraries
-from postgres_client import client
-from postgres_client.client import Client as DbClient
+from postgres_client.client import (
+    Client as DbClient,
+)
 from postgres_client.connection import (
     Credentials as DbCredentials,
     DatabaseID,
@@ -24,7 +16,14 @@ from streamer_zoho_crm.api.bulk import (
     BulkJob,
     ModuleName,
 )
-
+from typing import (
+    Any,
+    Callable,
+    FrozenSet,
+    List,
+    NamedTuple,
+    Tuple,
+)
 
 SCHEMA = "zoho_crm"
 

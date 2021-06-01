@@ -1,6 +1,42 @@
 # pylint: skip-file
-# Standard libraries
-from __future__ import annotations
+
+from __future__ import (
+    annotations,
+)
+
+from postgres_client.client import (
+    Client,
+)
+from postgres_client.cursor import (
+    Cursor,
+    CursorExeAction,
+    Query,
+)
+from postgres_client.table import (
+    _queries as queries,
+)
+from postgres_client.table.common import (
+    MetaTable,
+    TableID,
+)
+from postgres_client.table.common.column import (
+    adapt_set,
+    Column,
+    DbTypes,
+    IsolatedColumn,
+)
+from returns.io import (
+    IO,
+    IOFailure,
+    IOResult,
+    IOSuccess,
+)
+from returns.pipeline import (
+    is_successful,
+)
+from returns.unsafe import (
+    unsafe_perform_io,
+)
 from typing import (
     Any,
     Callable,
@@ -8,28 +44,6 @@ from typing import (
     List,
     Literal,
     NamedTuple,
-)
-
-# Third party libraries
-from returns.io import (
-    IO,
-    IOFailure,
-    IOResult,
-    IOSuccess,
-)
-from returns.pipeline import is_successful
-from returns.unsafe import unsafe_perform_io
-
-# Local libraries
-from postgres_client.client import Client
-from postgres_client.cursor import Cursor, CursorExeAction, Query
-from postgres_client.table import _queries as queries
-from postgres_client.table.common import MetaTable, TableID
-from postgres_client.table.common.column import (
-    Column,
-    DbTypes,
-    IsolatedColumn,
-    adapt_set,
 )
 
 

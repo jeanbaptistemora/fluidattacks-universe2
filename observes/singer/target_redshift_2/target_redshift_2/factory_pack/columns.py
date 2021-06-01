@@ -1,8 +1,9 @@
-# Standard libraries
-# Third party libraries
-# Local libraries
-from postgres_client.table import IsolatedColumn
-from target_redshift_2.objects import RedshiftField
+from postgres_client.table import (
+    IsolatedColumn,
+)
+from target_redshift_2.objects import (
+    RedshiftField,
+)
 
 
 def from_rfield(r_field: RedshiftField) -> IsolatedColumn:

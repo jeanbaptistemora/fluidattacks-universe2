@@ -1,13 +1,9 @@
-# Standard libraries
 import datetime
-
-# Third party libraries
 import pandas
 import pytest
-
-# Local libraries
-from tap_mixpanel import planner
-
+from tap_mixpanel import (
+    planner,
+)
 
 Timestamp = pandas.Timestamp
 DateOffset = pandas.DateOffset

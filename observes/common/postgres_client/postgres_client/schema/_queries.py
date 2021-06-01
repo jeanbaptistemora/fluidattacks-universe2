@@ -1,16 +1,14 @@
 # pylint: skip-file
-# Standard libraries
-from typing import (
-    List,
-)
 
-# Third party libraries
-from returns.maybe import Maybe
-
-# Local libraries
 from postgres_client.cursor import (
     DynamicSQLargs,
     Query,
+)
+from returns.maybe import (
+    Maybe,
+)
+from typing import (
+    List,
 )
 
 

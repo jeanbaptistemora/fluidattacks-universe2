@@ -1,12 +1,4 @@
-# Standard libraries
-from typing import (
-    Optional,
-)
-
-# Third party libraries
 import click
-
-# Local libraries
 from tap_checkly import (
     executor,
 )
@@ -15,6 +7,9 @@ from tap_checkly.api import (
 )
 from tap_checkly.streams import (
     SupportedStreams,
+)
+from typing import (
+    Optional,
 )
 
 

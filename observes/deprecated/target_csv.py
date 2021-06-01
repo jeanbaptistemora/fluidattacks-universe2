@@ -2,11 +2,10 @@
 
 """Minimalistic yet complete Singer target for a csv file."""
 
-import io
-import sys
 import csv
+import io
 import json
-
+import sys
 
 CSV_PARAMS = {
     "extrasaction": "ignore",

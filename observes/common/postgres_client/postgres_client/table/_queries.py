@@ -1,20 +1,25 @@
 # pylint: skip-file
-# Standard libraries
+
+from postgres_client.cursor import (
+    DynamicSQLargs,
+    Query,
+)
+from postgres_client.table.common import (
+    MetaTable,
+    TableID,
+)
+from postgres_client.table.common.column import (
+    Column,
+)
+from returns.maybe import (
+    Maybe,
+)
 from typing import (
     Dict,
     FrozenSet,
     List,
     Optional,
 )
-
-# Local libraries
-from returns.maybe import Maybe
-from postgres_client.cursor import (
-    DynamicSQLargs,
-    Query,
-)
-from postgres_client.table.common import MetaTable, TableID
-from postgres_client.table.common.column import Column
 
 
 class MutateColumnException(Exception):

@@ -1,14 +1,11 @@
-# Standard libraries
-from typing import (
-    Dict,
-    List,
-)
-
-# Local libraries
 from jobs_scheduler.cron import (
     AnyTime,
     PartialCron,
     work_days,
+)
+from typing import (
+    Dict,
+    List,
 )
 
 SCHEDULE: Dict[PartialCron, List[str]] = {

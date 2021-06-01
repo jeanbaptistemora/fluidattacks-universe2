@@ -1,14 +1,11 @@
-# Standard libraries
-from enum import Enum
+from enum import (
+    Enum,
+)
 from typing import (
     IO,
     NamedTuple,
     Optional,
 )
-
-# Third party libraries
-# Local libraries
-
 
 JSONstr = str
 

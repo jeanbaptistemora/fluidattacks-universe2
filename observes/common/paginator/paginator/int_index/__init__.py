@@ -1,35 +1,33 @@
-# Standard libraries
-import asyncio
-from asyncio.events import (
-    AbstractEventLoop,
-)
-from typing import (
-    AsyncGenerator,
-    Callable,
-    Type,
-    Union,
-    cast,
-    Iterator,
-    Optional,
-    Tuple,
-    TypeVar,
-)
-
-# Third party libraries
 from aioextensions import (
     in_thread,
     rate_limited,
     resolve,
 )
-
-# Local libraries
-from paginator.common import EmptyPage, Limits, DEFAULT_LIMITS
+import asyncio
+from asyncio.events import (
+    AbstractEventLoop,
+)
+from paginator.common import (
+    DEFAULT_LIMITS,
+    EmptyPage,
+    Limits,
+)
 from paginator.int_index.objs import (
     PageId,
     PageOrAll,
     PageRange,
 )
-
+from typing import (
+    AsyncGenerator,
+    Callable,
+    cast,
+    Iterator,
+    Optional,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+)
 
 _Data = TypeVar("_Data")
 ResultPage = TypeVar("ResultPage")

@@ -1,10 +1,10 @@
-# Standard libraries
+from dif_dynamo_etl.wrappers.transformer import (
+    SingerPageData,
+)
 import subprocess
-from typing import List
-
-# Third party libraries
-# Local libraries
-from dif_dynamo_etl.wrappers.transformer import SingerPageData
+from typing import (
+    List,
+)
 
 
 def upload_page(spage: SingerPageData, schema: str, auth_file) -> None:

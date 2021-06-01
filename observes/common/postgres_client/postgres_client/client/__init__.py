@@ -1,14 +1,8 @@
-# Standard libraries
-from __future__ import annotations
-import json
-from typing import (
-    IO,
-    NamedTuple,
-    Tuple,
+from __future__ import (
+    annotations,
 )
 
-# Third party libraries
-# Local libraries
+import json
 from postgres_client import (
     connection as connection_module,
     cursor as cursor_module,
@@ -21,6 +15,11 @@ from postgres_client.connection import (
 )
 from postgres_client.cursor import (
     Cursor,
+)
+from typing import (
+    IO,
+    NamedTuple,
+    Tuple,
 )
 
 

@@ -1,21 +1,19 @@
-# Standard libraries
 import json
-from typing import (
-    Any,
-    Dict,
-    NamedTuple,
-    Optional,
+from singer_io import (
+    factory,
 )
-
-# Third party libraries
-# Local libraries
-from singer_io import factory
 from singer_io.singer import (
     SingerHandler,
     SingerMessage,
     SingerRecord,
     SingerSchema,
     SingerState,
+)
+from typing import (
+    Any,
+    Dict,
+    NamedTuple,
+    Optional,
 )
 
 

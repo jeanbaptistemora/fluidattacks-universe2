@@ -1,18 +1,9 @@
-# Standard libraries
-from typing import (
-    Iterator,
-    List,
-)
-
-# Third party libraries
 from returns.curry import (
     partial,
 )
 from returns.io import (
     IO,
 )
-
-# Local libraries
 from singer_io import (
     factory,
     JSON,
@@ -25,6 +16,10 @@ from tap_checkly.api import (
 )
 from tap_checkly.streams.objs import (
     SupportedStreams,
+)
+from typing import (
+    Iterator,
+    List,
 )
 
 

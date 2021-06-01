@@ -1,4 +1,3 @@
-# Standard library
 import logging
 import sys
 

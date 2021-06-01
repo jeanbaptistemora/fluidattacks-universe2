@@ -1,16 +1,10 @@
-# Standard libraries
 import datetime
+import pandas
 from typing import (
     NamedTuple,
     Optional,
     Union,
 )
-
-# Third party libraries
-import pandas
-
-# Local libraries
-
 
 Timestamp = Union[pandas.Timestamp]
 Interval = Union[pandas.Interval]

@@ -1,12 +1,3 @@
-# Standard libraries
-from typing import (
-    Callable,
-    FrozenSet,
-    NamedTuple,
-)
-
-# Third party libraries
-# Local libraries
 from streamer_zoho_crm.api import (
     ApiClient,
 )
@@ -15,13 +6,25 @@ from streamer_zoho_crm.api.bulk import (
     BulkJob,
     ModuleName,
 )
-from streamer_zoho_crm.api.common import PageIndex
-from streamer_zoho_crm.api.users import (
-    UserType,
-    UsersDataPage,
+from streamer_zoho_crm.api.common import (
+    PageIndex,
 )
-from streamer_zoho_crm.core import users, bulk
-from streamer_zoho_crm.db import Client as DbClient
+from streamer_zoho_crm.api.users import (
+    UsersDataPage,
+    UserType,
+)
+from streamer_zoho_crm.core import (
+    bulk,
+    users,
+)
+from streamer_zoho_crm.db import (
+    Client as DbClient,
+)
+from typing import (
+    Callable,
+    FrozenSet,
+    NamedTuple,
+)
 
 
 class IBulk(NamedTuple):

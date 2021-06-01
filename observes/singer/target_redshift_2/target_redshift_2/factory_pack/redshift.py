@@ -1,5 +1,23 @@
-# Standard libraries
+from postgres_client.table import (
+    DbTypes,
+)
 import re
+from singer_io.singer import (
+    SingerRecord,
+    SingerSchema,
+)
+from target_redshift_2.factory_pack import (
+    db_types,
+)
+from target_redshift_2.objects import (
+    InvalidType,
+    RedshiftField,
+    RedshiftRecord,
+    RedshiftSchema,
+)
+from target_redshift_2.utils import (
+    Transform,
+)
 from typing import (
     Any,
     Callable,
@@ -10,22 +28,6 @@ from typing import (
     Set,
     Tuple,
 )
-
-# Third party libraries
-# Local libraries
-from postgres_client.table import DbTypes
-from singer_io.singer import (
-    SingerRecord,
-    SingerSchema,
-)
-from target_redshift_2.factory_pack import db_types
-from target_redshift_2.objects import (
-    InvalidType,
-    RedshiftField,
-    RedshiftRecord,
-    RedshiftSchema,
-)
-from target_redshift_2.utils import Transform
 
 
 class RedshiftElementsFactory(NamedTuple):

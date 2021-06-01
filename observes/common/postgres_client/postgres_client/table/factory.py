@@ -1,14 +1,16 @@
-# Standard libraries
+from postgres_client.client import (
+    Client,
+)
+from postgres_client.cursor import (
+    DynamicSQLargs,
+)
+from postgres_client.table import (
+    TableID,
+)
 from typing import (
     Dict,
     Optional,
 )
-
-# Third party libraries
-# Local libraries
-from postgres_client.client import Client
-from postgres_client.cursor import DynamicSQLargs
-from postgres_client.table import TableID
 
 
 def create_like(

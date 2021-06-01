@@ -1,21 +1,29 @@
 # pylint: skip-file
-# Standard libraries
+
+from paginator.common import (
+    AllPages,
+)
+from returns.io import (
+    IO,
+)
+from returns.maybe import (
+    Maybe,
+)
+from returns.primitives.container import (
+    BaseContainer,
+)
+from returns.primitives.hkt import (
+    SupportsKind1,
+)
 from typing import (
     Callable,
     NamedTuple,
     TypeVar,
     Union,
 )
-from typing_extensions import final
-
-# Third party libraries
-from returns.io import IO
-from returns.maybe import Maybe
-from returns.primitives.container import BaseContainer
-from returns.primitives.hkt import SupportsKind1
-
-# Local libraries
-from paginator.common import AllPages
+from typing_extensions import (
+    final,
+)
 
 
 class PageId(NamedTuple):

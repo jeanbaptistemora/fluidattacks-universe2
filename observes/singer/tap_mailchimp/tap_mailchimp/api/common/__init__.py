@@ -1,8 +1,20 @@
-# Standard libraries
-import math
-import logging
 from itertools import (
     chain,
+)
+import logging
+import math
+import paginator
+from paginator import (
+    PageId,
+)
+from singer_io import (
+    JSON,
+)
+from tap_mailchimp.api.common import (
+    api_data,
+)
+from tap_mailchimp.api.common.api_data import (
+    ApiData,
 )
 from typing import (
     Callable,
@@ -10,22 +22,6 @@ from typing import (
     Iterator,
     TypeVar,
 )
-
-# Third party libraries
-
-# Local libraries
-import paginator
-from paginator import (
-    PageId,
-)
-from singer_io import JSON
-from tap_mailchimp.api.common import (
-    api_data,
-)
-from tap_mailchimp.api.common.api_data import (
-    ApiData,
-)
-
 
 LOG = logging.getLogger(__name__)
 MAX_PER_PAGE = 1000

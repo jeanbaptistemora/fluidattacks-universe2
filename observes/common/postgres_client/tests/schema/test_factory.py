@@ -1,15 +1,22 @@
 # pylint: skip-file
-# Standard libraries
-from typing import Any
 
-# Third party libraries
+from postgres_client import (
+    client,
+)
+from postgres_client.schema import (
+    Schema,
+    SchemaFactory,
+)
 import pytest
-from returns.io import IO
-
-# Local libraries
-from postgres_client import client
-from postgres_client.schema import Schema, SchemaFactory
-from returns.pipeline import is_successful
+from returns.io import (
+    IO,
+)
+from returns.pipeline import (
+    is_successful,
+)
+from typing import (
+    Any,
+)
 
 
 def foo_table(

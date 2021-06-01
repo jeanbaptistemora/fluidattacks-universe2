@@ -1,15 +1,6 @@
-# Standard libraries
 from functools import (
     partial,
 )
-from typing import (
-    Dict,
-    Iterator,
-)
-
-# Third party libraries
-
-# Local libraries
 from tap_mailchimp.api.common import (
     list_items,
 )
@@ -20,6 +11,10 @@ from tap_mailchimp.api.common.raw import (
     InterestCatgId,
     MemberId,
     RawSource,
+)
+from typing import (
+    Dict,
+    Iterator,
 )
 
 

@@ -1,24 +1,35 @@
 # pylint: skip-file
-# Standard libraries
-from itertools import chain
+
+from itertools import (
+    chain,
+)
+from paginator.object_index import (
+    PageResult,
+)
+from requests.models import (
+    Response,
+)
+from returns.io import (
+    IO,
+)
+from returns.maybe import (
+    Maybe,
+)
+from returns.unsafe import (
+    unsafe_perform_io,
+)
+from singer_io.common import (
+    JSON,
+)
+from tap_bugsnag.api.common import (
+    extractor,
+)
 from typing import (
     Callable,
     Iterator,
     List,
     TypeVar,
 )
-
-# Third party libraries
-from requests.models import Response
-from returns.io import IO
-from returns.maybe import Maybe
-from returns.unsafe import unsafe_perform_io
-
-# Local libraries
-from paginator.object_index import PageResult
-from singer_io.common import JSON
-from tap_bugsnag.api.common import extractor
-
 
 _Data = TypeVar("_Data")
 

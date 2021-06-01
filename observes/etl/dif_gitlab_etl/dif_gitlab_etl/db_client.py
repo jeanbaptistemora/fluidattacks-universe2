@@ -1,16 +1,13 @@
-# Standard libraries
+from dif_gitlab_etl.utils import (
+    log,
+)
+import psycopg2 as postgres
+import psycopg2.extensions as postgres_extensions
 from typing import (
     Any,
     Dict,
     NamedTuple,
 )
-
-# Third party libraries
-import psycopg2 as postgres
-import psycopg2.extensions as postgres_extensions
-
-# Local libraries
-from dif_gitlab_etl.utils import log
 
 PGCONN = Any
 PGCURR = Any

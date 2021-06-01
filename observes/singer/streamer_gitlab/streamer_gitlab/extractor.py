@@ -1,20 +1,19 @@
-# Standard libraries
+from aioextensions import (
+    in_thread,
+)
+from asyncio import (
+    Queue,
+)
 import json
+from streamer_gitlab.log import (
+    log,
+)
 from typing import (
     Any,
     IO,
     List,
     Optional,
 )
-from asyncio import Queue
-
-# Third party libraries
-from aioextensions import (
-    in_thread,
-)
-
-# Local libraries
-from streamer_gitlab.log import log
 
 
 def emit(

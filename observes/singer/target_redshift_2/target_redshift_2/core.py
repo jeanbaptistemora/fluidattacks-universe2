@@ -1,22 +1,24 @@
-# Standard libraries
-from typing import (
-    IO,
-    NamedTuple,
-    Optional,
-    Set,
+from singer_io.factory import (
+    singer_handler,
 )
-
-# Third party libraries
-# Local libraries=
 from singer_io.singer import (
     SingerHandler,
     SingerRecord,
     SingerSchema,
     SingerState,
 )
-from singer_io.factory import singer_handler
-from target_redshift_2.loader import Loader
-from target_redshift_2.objects import InvalidState
+from target_redshift_2.loader import (
+    Loader,
+)
+from target_redshift_2.objects import (
+    InvalidState,
+)
+from typing import (
+    IO,
+    NamedTuple,
+    Optional,
+    Set,
+)
 
 
 class State(NamedTuple):

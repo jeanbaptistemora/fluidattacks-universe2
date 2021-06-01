@@ -1,26 +1,19 @@
-# Standard libraries
 import logging
-import tempfile
-from typing import (
-    FrozenSet,
-    Mapping,
-    Tuple,
-    TypedDict,
-)
-
-# Third party libraries
-# Local libraries
 from postgres_client.connection import (
-    DatabaseID,
     Credentials as DbCredentials,
+    DatabaseID,
 )
-from singer_io import factory
-from singer_io.singer import SingerRecord
+from singer_io import (
+    factory,
+)
+from singer_io.singer import (
+    SingerRecord,
+)
 from streamer_zoho_crm import (
-    db,
     api,
+    core,
+    db,
 )
-from streamer_zoho_crm import core
 from streamer_zoho_crm.api import (
     ApiClient,
 )
@@ -29,11 +22,31 @@ from streamer_zoho_crm.api.bulk import (
     BulkJob,
     ModuleName,
 )
-from streamer_zoho_crm.api.common import JSON, PageIndex
-from streamer_zoho_crm.api.users import UserType, UsersDataPage
-from streamer_zoho_crm.auth import Credentials
-from streamer_zoho_crm.core import CoreClient, IBulk as BulkUtils
-from streamer_zoho_crm.db import Client as DbClient
+from streamer_zoho_crm.api.common import (
+    JSON,
+    PageIndex,
+)
+from streamer_zoho_crm.api.users import (
+    UsersDataPage,
+    UserType,
+)
+from streamer_zoho_crm.auth import (
+    Credentials,
+)
+from streamer_zoho_crm.core import (
+    CoreClient,
+    IBulk as BulkUtils,
+)
+from streamer_zoho_crm.db import (
+    Client as DbClient,
+)
+import tempfile
+from typing import (
+    FrozenSet,
+    Mapping,
+    Tuple,
+    TypedDict,
+)
 
 ALL_MODULES = frozenset(ModuleName)
 LOG = logging.getLogger(__name__)

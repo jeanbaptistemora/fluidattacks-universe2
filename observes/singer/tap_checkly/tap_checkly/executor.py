@@ -1,13 +1,4 @@
-# Standard libraries
 import logging
-from typing import (
-    Callable,
-    Mapping,
-)
-
-# Third party libraries
-
-# Local libraries
 from tap_checkly import (
     streams,
 )
@@ -18,7 +9,10 @@ from tap_checkly.api import (
 from tap_checkly.streams import (
     SupportedStreams,
 )
-
+from typing import (
+    Callable,
+    Mapping,
+)
 
 LOG = logging.getLogger(__name__)
 _stream_executor: Mapping[SupportedStreams, Callable[[ApiClient], None]] = {

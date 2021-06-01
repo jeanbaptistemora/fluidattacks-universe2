@@ -1,13 +1,12 @@
-# Standard libraries
 import json
-import tempfile
-
-# Third party libraries
 import pytest
-from streamer_zoho_crm import auth
-from streamer_zoho_crm.auth import Credentials
-
-# Local libraries
+from streamer_zoho_crm import (
+    auth,
+)
+from streamer_zoho_crm.auth import (
+    Credentials,
+)
+import tempfile
 
 
 def test_to_credentials() -> None:

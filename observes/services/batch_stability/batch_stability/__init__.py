@@ -1,4 +1,5 @@
-# Standard library
+import boto3
+import bugsnag
 from datetime import (
     datetime,
 )
@@ -12,10 +13,6 @@ from typing import (
     List,
     Type,
 )
-
-# Third party libraries
-import boto3
-import bugsnag
 
 # Constants
 HOUR: float = 3600.0

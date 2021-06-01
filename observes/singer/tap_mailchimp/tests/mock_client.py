@@ -1,13 +1,10 @@
-# Standard libraries
 import json
-
-# Third party libraries
-
-# Local libraries
 from paginator import (
     PageId,
 )
-from singer_io import JSON
+from singer_io import (
+    JSON,
+)
 from tap_mailchimp import (
     api,
 )

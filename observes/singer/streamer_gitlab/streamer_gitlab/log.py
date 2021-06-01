@@ -1,8 +1,5 @@
-# Standard libraries
 import sys
 
-# Third party libraries
-# Local libraries
 DEBUG_ENABLED = True
 
 

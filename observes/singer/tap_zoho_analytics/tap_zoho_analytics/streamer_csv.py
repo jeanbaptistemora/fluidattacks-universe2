@@ -1,9 +1,9 @@
 """Minimalistic yet complete Streamer for a CSV file."""
 
-import os
+import argparse
 import csv
 import json
-import argparse
+import os
 
 
 def stream_csv(csv_file_path: str) -> None:

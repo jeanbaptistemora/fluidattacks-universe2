@@ -1,9 +1,5 @@
-# Standard libraries
 import logging
 import sys
-
-# Third party libraries
-# Local libraries
 
 
 def get_log(name: str, min_lvl: int = logging.INFO) -> logging.Logger:

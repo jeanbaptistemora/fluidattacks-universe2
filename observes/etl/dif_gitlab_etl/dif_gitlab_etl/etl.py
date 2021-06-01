@@ -1,7 +1,26 @@
-# Standard libraries
+from dif_gitlab_etl import (
+    planner,
+)
+from dif_gitlab_etl.utils import (
+    error,
+    log,
+)
 import json
+from streamer_gitlab import (
+    page_data,
+)
+from streamer_gitlab.api_client import (
+    GitlabResource,
+    GitlabResourcePage,
+    GResourcePageRange,
+)
+from streamer_gitlab.page_data import (
+    PageData,
+)
 import subprocess
-from tempfile import NamedTemporaryFile
+from tempfile import (
+    NamedTemporaryFile,
+)
 from typing import (
     Any,
     Callable,
@@ -10,22 +29,6 @@ from typing import (
     List,
     NamedTuple,
     Optional,
-)
-
-# Third-Party/Observes libraries
-from streamer_gitlab import page_data
-from streamer_gitlab.api_client import (
-    GitlabResource,
-    GitlabResourcePage,
-    GResourcePageRange,
-)
-from streamer_gitlab.page_data import PageData
-
-# Local libraries
-from dif_gitlab_etl import planner
-from dif_gitlab_etl.utils import (
-    error,
-    log,
 )
 
 

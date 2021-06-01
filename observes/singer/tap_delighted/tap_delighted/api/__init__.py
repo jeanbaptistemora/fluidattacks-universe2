@@ -1,21 +1,10 @@
-# Standard libraries
 from __future__ import (
     annotations,
 )
-from typing import (
-    NamedTuple,
-    TypeVar,
-)
 
-# Third party libraries
 from delighted import (
     Client,
     HTTPAdapter,
-)
-
-# Local libraries
-from tap_delighted.auth import (
-    Credentials,
 )
 from tap_delighted.api.metrics import (
     MetricsApi,
@@ -29,7 +18,13 @@ from tap_delighted.api.survey import (
     SurveyApi,
     SurveyPage,
 )
-
+from tap_delighted.auth import (
+    Credentials,
+)
+from typing import (
+    NamedTuple,
+    TypeVar,
+)
 
 ApiPage = TypeVar("ApiPage", BouncedPage, SurveyPage, UnsubscribedPage)
 

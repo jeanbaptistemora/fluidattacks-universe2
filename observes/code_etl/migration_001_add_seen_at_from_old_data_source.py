@@ -1,4 +1,3 @@
-# Local libraries
 from shared import (
     db_cursor,
     log_sync,

@@ -1,34 +1,49 @@
 # pylint: skip-file
-# Standard libraries
-from __future__ import annotations
-from itertools import chain
-from typing import (
-    Iterator,
-    List,
-    NamedTuple,
+
+from __future__ import (
+    annotations,
 )
 
-# Third party libraries
-from returns.curry import partial
-from returns.io import IO
-from returns.maybe import Maybe
-
-# Local libraries
-from paginator import AllPages
+from itertools import (
+    chain,
+)
+from paginator import (
+    AllPages,
+)
 from paginator.object_index import (
+    io_get_until_end,
     PageId,
     PageOrAll,
     PageResult,
-    io_get_until_end,
 )
-from singer_io import JSON
+from returns.curry import (
+    partial,
+)
+from returns.io import (
+    IO,
+)
+from returns.maybe import (
+    Maybe,
+)
+from singer_io import (
+    JSON,
+)
 from tap_bugsnag.api.common import (
     extractor,
     fold_and_chain,
     typed_page_builder,
 )
-from tap_bugsnag.api.common.raw import RawApi
-from tap_bugsnag.api.user import OrgId
+from tap_bugsnag.api.common.raw import (
+    RawApi,
+)
+from tap_bugsnag.api.user import (
+    OrgId,
+)
+from typing import (
+    Iterator,
+    List,
+    NamedTuple,
+)
 
 
 class CollaboratorsPage(NamedTuple):

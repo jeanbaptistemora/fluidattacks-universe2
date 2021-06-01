@@ -1,24 +1,25 @@
 """Singer tap for the Timedoctor API."""
-# Standard libraries
-import re
-import sys
-import json
+
 import argparse
 import datetime
-import unicodedata
+import json
+import re
+import sys
+from tap_timedoctor import (
+    logs,
+)
+from tap_timedoctor.api import (
+    Options,
+    Worker,
+)
 from typing import (
+    Any,
     Iterator,
+    List,
     Optional,
     Tuple,
-    List,
-    Any,
 )
-
-# Third party libraries
-
-# Local libraries
-from tap_timedoctor import logs
-from tap_timedoctor.api import Options, Worker
+import unicodedata
 
 # Type aliases that improve clarity
 JSON = Any

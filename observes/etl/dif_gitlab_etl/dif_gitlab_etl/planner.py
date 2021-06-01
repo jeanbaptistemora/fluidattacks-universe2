@@ -1,27 +1,30 @@
-# Standard libraries
+from aiohttp import (
+    ClientSession,
+)
 import asyncio
-from os import environ
+from dif_gitlab_etl.utils import (
+    log,
+    NotFoundException,
+)
+from os import (
+    environ,
+)
+from streamer_gitlab import (
+    api_client,
+)
+from streamer_gitlab.api_client import (
+    GitlabResource,
+    GitlabResourcePage,
+)
+from streamer_gitlab.page_data import (
+    PageData,
+)
 from typing import (
     Any,
     Callable,
     Dict,
     List,
     Optional,
-)
-
-# Third party libraries
-from aiohttp import ClientSession
-
-# Local libraries
-from streamer_gitlab import api_client
-from streamer_gitlab.api_client import (
-    GitlabResource,
-    GitlabResourcePage,
-)
-from streamer_gitlab.page_data import PageData
-from dif_gitlab_etl.utils import (
-    log,
-    NotFoundException,
 )
 
 # lgu = last greater uploaded

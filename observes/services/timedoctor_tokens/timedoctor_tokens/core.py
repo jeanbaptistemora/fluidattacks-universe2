@@ -1,13 +1,12 @@
-# Standard libraries
 import json
-import subprocess
-import os
 import logging
-from typing import Any, Tuple
-
-# Third party libraries
+import os
+import subprocess
+from typing import (
+    Any,
+    Tuple,
+)
 import urllib3
-
 
 LOG = logging.getLogger(__name__)
 

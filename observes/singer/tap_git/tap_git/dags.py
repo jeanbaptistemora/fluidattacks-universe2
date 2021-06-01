@@ -4,13 +4,18 @@
 # everything inside this file is refered to a topological order on the DAG
 # don't think about dates, they are irrelevant, think about commit's pointers.
 
+from collections import (
+    OrderedDict,
+)
+import contextlib
+import datetime
 import os
 import re
-import datetime
-import contextlib
-
-from typing import Iterator, List, Any
-from collections import OrderedDict
+from typing import (
+    Any,
+    Iterator,
+    List,
+)
 
 SHA = str
 

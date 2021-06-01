@@ -1,9 +1,8 @@
 """Manage your postgres database from python.
 """
 
-import json
 import argparse
-
+import json
 import psycopg2
 
 # ==== little postgres manual

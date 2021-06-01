@@ -1,20 +1,19 @@
-# Standard libraries
 import json
 import logging
-
-# Third party libraries
+from ratelimiter import (
+    RateLimiter,
+)
 import requests
-from ratelimiter import RateLimiter
-
-# Local libraries
 from streamer_zoho_crm.api.common import (
     API_URL,
     DataPageInfo,
     PageIndex,
     UnexpectedResponse,
 )
-from streamer_zoho_crm.api.users.objs import UsersDataPage, UserType
-
+from streamer_zoho_crm.api.users.objs import (
+    UsersDataPage,
+    UserType,
+)
 
 API_ENDPOINT = API_URL + "/crm/v2/users"
 LOG = logging.getLogger(__name__)

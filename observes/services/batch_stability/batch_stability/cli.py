@@ -1,9 +1,8 @@
-# Third party libraries
-import click
-
-# Local libraries
 import batch_stability
-from batch_stability import default_queues
+from batch_stability import (
+    default_queues,
+)
+import click
 
 
 @click.command()

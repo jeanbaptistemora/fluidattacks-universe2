@@ -2,9 +2,8 @@
 
 """Minimalistic yet complete XLS to CSV converter."""
 
-import csv
 import argparse
-
+import csv
 import xlrd
 
 

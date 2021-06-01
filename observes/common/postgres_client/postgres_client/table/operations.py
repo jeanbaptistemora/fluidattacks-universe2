@@ -1,12 +1,13 @@
-# Standard libraries
-
-# Third party libraries
-from returns.io import IO
-
-# Local libraries
-from postgres_client.client import Client
-from postgres_client.table import TableID
-from postgres_client.table import _queries as queries
+from postgres_client.client import (
+    Client,
+)
+from postgres_client.table import (
+    _queries as queries,
+    TableID,
+)
+from returns.io import (
+    IO,
+)
 
 
 def rename(db_client: Client, table: TableID, new_name: str) -> TableID:

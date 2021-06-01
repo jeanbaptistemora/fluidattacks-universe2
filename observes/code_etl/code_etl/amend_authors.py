@@ -1,11 +1,19 @@
 """Walks all data in Redshift and edit those authors accordingly to mailmap."""
 
-# Standard library
+
+from aioextensions import (
+    generate_in_thread,
+    in_thread,
+)
 import argparse
 from asyncio import (
-    run,
     create_task,
     Queue,
+    run,
+)
+from code_etl.utils import (
+    db_cursor,
+    log,
 )
 import re
 from typing import (
@@ -16,18 +24,6 @@ from typing import (
     Optional,
     Pattern,
     Tuple,
-)
-
-# Third party libraries
-from aioextensions import (
-    generate_in_thread,
-    in_thread,
-)
-
-# Local libraries
-from code_etl.utils import (
-    db_cursor,
-    log,
 )
 
 # Constants

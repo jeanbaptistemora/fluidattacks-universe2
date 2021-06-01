@@ -1,12 +1,13 @@
-# Standard libraries
-# Third party libraries
-# Local libraries
 from postgres_client.table import (
     DbTypes,
     IsolatedColumn,
 )
-from target_redshift_2.factory_pack import columns
-from target_redshift_2.objects import RedshiftField
+from target_redshift_2.factory_pack import (
+    columns,
+)
+from target_redshift_2.objects import (
+    RedshiftField,
+)
 
 
 def test_from_rfield() -> None:

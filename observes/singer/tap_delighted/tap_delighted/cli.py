@@ -1,12 +1,4 @@
-# Standard libraries
-from typing import (
-    Optional,
-)
-
-# Third party libraries
 import click
-
-# Local libraries
 from tap_delighted import (
     executor,
 )
@@ -15,6 +7,9 @@ from tap_delighted.auth import (
 )
 from tap_delighted.streams import (
     SupportedStreams,
+)
+from typing import (
+    Optional,
 )
 
 

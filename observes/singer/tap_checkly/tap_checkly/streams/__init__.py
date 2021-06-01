@@ -1,16 +1,8 @@
-# Standard libraries
-from typing import (
-    Iterator,
-)
-
-# Third party libraries
-from returns.io import (
-    IO,
-)
-
-# Local libraries
 from paginator import (
     AllPages,
+)
+from returns.io import (
+    IO,
 )
 from tap_checkly.api import (
     ApiClient,
@@ -23,7 +15,9 @@ from tap_checkly.streams import (
 from tap_checkly.streams.objs import (
     SupportedStreams,
 )
-
+from typing import (
+    Iterator,
+)
 
 ALL = AllPages()
 

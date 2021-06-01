@@ -4,12 +4,16 @@ from postgres_client.table import (
     TableDraft,
     TableID,
 )
-from target_redshift_2.factory_pack import table
+from singer_io.singer import (
+    SingerRecord,
+)
+from target_redshift_2.factory_pack import (
+    table,
+)
 from target_redshift_2.objects import (
     RedshiftField,
     RedshiftSchema,
 )
-from singer_io.singer import SingerRecord
 
 
 def test_tabledraft_factory() -> None:

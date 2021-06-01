@@ -1,4 +1,11 @@
-# Standard libraries
+import botocore
+import pandas
+from pandas import (
+    Timestamp,
+)
+from singer_io.file import (
+    DataFile,
+)
 import tempfile
 from typing import (
     Any,
@@ -8,17 +15,6 @@ from typing import (
     Tuple,
     Union,
 )
-
-# Third party libraries
-import botocore
-import pandas
-from pandas import (
-    Timestamp,
-)
-
-# Local libraries
-from singer_io.file import DataFile
-
 
 BUCKET_NAME = "fluidanalytics"
 BACKUP_FOLDER = "backup_mixpanel"

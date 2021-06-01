@@ -1,16 +1,11 @@
-# Standard libraries
+import psycopg2 as postgres
+import psycopg2.extensions as postgres_extensions
 from typing import (
     Any,
     Dict,
     List,
     NamedTuple,
 )
-
-# Third party libraries
-import psycopg2 as postgres
-import psycopg2.extensions as postgres_extensions
-
-# Local libraries
 
 PGCONN = Any
 PGCURR = Any

@@ -1,17 +1,19 @@
-# Standard libraries
 from __future__ import (
     annotations,
 )
-from typing import (
-    NamedTuple,
-    Union,
+
+from tap_bugsnag.api.auth import (
+    Credentials,
 )
-
-# Third party libraries
-
-# Local libraries
-from tap_bugsnag.api.auth import Credentials
-from tap_bugsnag.api.common.raw import RawApi
+from tap_bugsnag.api.common.raw import (
+    RawApi,
+)
+from tap_bugsnag.api.orgs import (
+    CollaboratorsPage,
+    OrgsApi,
+    ProjectsPage,
+    ProjId,
+)
 from tap_bugsnag.api.projects import (
     ErrorsPage,
     EventFieldsPage,
@@ -21,18 +23,15 @@ from tap_bugsnag.api.projects import (
     ReleasesPage,
     StabilityTrend,
 )
-from tap_bugsnag.api.orgs import (
-    CollaboratorsPage,
-    OrgsApi,
-    ProjId,
-    ProjectsPage,
-)
 from tap_bugsnag.api.user import (
     OrgId,
-    UserApi,
     OrgsPage,
+    UserApi,
 )
-
+from typing import (
+    NamedTuple,
+    Union,
+)
 
 ApiData = Union[
     CollaboratorsPage,

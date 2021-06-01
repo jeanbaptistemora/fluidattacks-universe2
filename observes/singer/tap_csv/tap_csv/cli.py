@@ -1,12 +1,11 @@
-# Standard libraries
-import sys
-from typing import IO
-
-# Third party libraries
 import click
-
-# Local libraries
-from tap_csv import receiver
+import sys
+from tap_csv import (
+    receiver,
+)
+from typing import (
+    IO,
+)
 
 
 @click.command()

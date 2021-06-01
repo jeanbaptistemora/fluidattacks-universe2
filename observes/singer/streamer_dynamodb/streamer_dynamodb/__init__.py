@@ -1,9 +1,21 @@
-# Standard Library
+import aioboto3
+from aioextensions import (
+    in_thread,
+)
+from aiomultiprocess import (
+    Pool,
+)
 import argparse
 import asyncio
+import botocore
+from decimal import (
+    Decimal,
+)
 import json
+from streamer_dynamodb.logs import (
+    LOGGER,
+)
 import time
-from decimal import Decimal
 from typing import (
     Any,
     AsyncGenerator,
@@ -11,15 +23,6 @@ from typing import (
     Optional,
     TypeVar,
 )
-
-# Third Library
-import aioboto3
-import botocore
-from aioextensions import in_thread
-from aiomultiprocess import Pool
-
-# Local imports
-from streamer_dynamodb.logs import LOGGER
 
 # Constants
 CLIENT_CONFIG = botocore.config.Config(max_pool_connections=50)

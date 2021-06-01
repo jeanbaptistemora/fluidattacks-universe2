@@ -1,7 +1,18 @@
-# Standard libraries
 import csv
+from enum import (
+    Enum,
+)
+from singer_io import (
+    factory,
+)
+from singer_io.singer import (
+    SingerRecord,
+    SingerSchema,
+)
+from tap_csv import (
+    utils,
+)
 import tempfile
-from enum import Enum
 from typing import (
     Any,
     Callable,
@@ -13,16 +24,6 @@ from typing import (
     Optional,
     Sequence,
 )
-
-# Third party libraries
-# Local libraries
-from singer_io import factory
-from singer_io.singer import (
-    SingerRecord,
-    SingerSchema,
-)
-from tap_csv import utils
-
 
 LOG = utils.get_log(__name__)
 

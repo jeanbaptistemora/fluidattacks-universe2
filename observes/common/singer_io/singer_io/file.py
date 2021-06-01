@@ -1,19 +1,17 @@
-# Standard libraries
-from __future__ import annotations
-import tempfile
+from __future__ import (
+    annotations,
+)
+
 from functools import (
     partial,
 )
+import tempfile
 from typing import (
     Callable,
     IO,
     Iterator,
     NamedTuple,
 )
-
-# Third party libraries
-
-# Local libraries
 
 
 def _read(name: str) -> Iterator[str]:

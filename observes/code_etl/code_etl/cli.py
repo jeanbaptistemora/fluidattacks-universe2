@@ -1,18 +1,18 @@
-# Standard libraries
 import asyncio
+import click
+from code_etl import (
+    amend_authors as amend,
+    compute_bills as bills,
+    upload,
+)
+from os.path import (
+    abspath,
+)
 import sys
-from os.path import abspath
 from typing import (
     Iterator,
     Tuple,
 )
-
-# Third party libraries
-import click
-
-# Local libraries
-
-from code_etl import amend_authors as amend, compute_bills as bills, upload
 
 
 @click.command()

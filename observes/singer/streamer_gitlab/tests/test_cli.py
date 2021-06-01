@@ -1,18 +1,16 @@
-# Standard library
-import io
-import json
-from typing import Dict
 from contextlib import (
     redirect_stderr,
     redirect_stdout,
 )
-
-# Third party libraries
+import io
+import json
 import pytest
-
-# Local libraries
-from streamer_gitlab import cli
-
+from streamer_gitlab import (
+    cli,
+)
+from typing import (
+    Dict,
+)
 
 JSON = Dict[str, str]
 

@@ -1,23 +1,30 @@
 """Singer tap for a generic JSON stream."""
 
-import io
-import re
-import os
-import sys
 import argparse
 import contextlib
-
-from json import load, loads, dumps
-from json.decoder import JSONDecodeError
-
+from dateutil.parser import (
+    parse as date_parser,
+)
+from dateutil.parser._parser import (
+    ParserError,
+)
+import io
+from json import (
+    dumps,
+    load,
+    loads,
+)
+from json.decoder import (
+    JSONDecodeError,
+)
+import os
+import re
+import sys
 from typing import (
+    Any,
     Callable,
     List,
-    Any,
 )
-
-from dateutil.parser import parse as date_parser
-from dateutil.parser._parser import ParserError
 
 # type aliases that improve clarity
 JSON = Any

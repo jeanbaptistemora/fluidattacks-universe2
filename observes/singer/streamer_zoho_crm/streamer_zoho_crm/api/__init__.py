@@ -1,25 +1,29 @@
-# Standard libraries
-from typing import (
-    Callable,
-    NamedTuple,
+from streamer_zoho_crm import (
+    auth,
 )
-
-# Third party libraries
-# Local libraries
-from streamer_zoho_crm import auth
-from streamer_zoho_crm.api import bulk
-from streamer_zoho_crm.api import users
+from streamer_zoho_crm.api import (
+    bulk,
+    users,
+)
 from streamer_zoho_crm.api.bulk import (
     BulkData,
     BulkJob,
     ModuleName,
 )
-from streamer_zoho_crm.api.common import PageIndex
+from streamer_zoho_crm.api.common import (
+    PageIndex,
+)
 from streamer_zoho_crm.api.users import (
     UsersDataPage,
     UserType,
 )
-from streamer_zoho_crm.auth import Credentials
+from streamer_zoho_crm.auth import (
+    Credentials,
+)
+from typing import (
+    Callable,
+    NamedTuple,
+)
 
 
 class BulkApi(NamedTuple):

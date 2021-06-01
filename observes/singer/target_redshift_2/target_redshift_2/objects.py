@@ -1,13 +1,11 @@
-# Standard libraries
+from postgres_client.table import (
+    DbTypes,
+)
 from typing import (
     FrozenSet,
     NamedTuple,
     Tuple,
 )
-
-# Third party libraries
-# Local libraries
-from postgres_client.table import DbTypes
 
 
 class RedshiftField(NamedTuple):

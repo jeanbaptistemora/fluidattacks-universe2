@@ -1,13 +1,3 @@
-# Standard libraries
-import tempfile
-from typing import (
-    cast,
-    Union,
-)
-
-# Third party libraries
-
-# Local libraries
 from singer_io import (
     factory,
 )
@@ -19,10 +9,14 @@ from tap_mailchimp import (
     api,
     streams,
 )
+import tempfile
 from tests import (
     mock_client,
 )
-
+from typing import (
+    cast,
+    Union,
+)
 
 AudienceId = Union[api.AudienceId]
 

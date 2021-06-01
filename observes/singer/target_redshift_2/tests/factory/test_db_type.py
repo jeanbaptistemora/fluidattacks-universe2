@@ -1,14 +1,12 @@
-# Standard libraries
 import functools
+from target_redshift_2.factory_pack import (
+    db_types,
+)
 from typing import (
     Any,
     Dict,
     List,
 )
-
-# Third party libraries
-# Local libraries
-from target_redshift_2.factory_pack import db_types
 
 
 def test_db_type() -> None:

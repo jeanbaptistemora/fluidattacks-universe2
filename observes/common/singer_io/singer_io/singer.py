@@ -1,5 +1,5 @@
 """Singer object interfaces"""
-# Standard libraries
+
 import datetime
 from typing import (
     Any,
@@ -11,10 +11,6 @@ from typing import (
     TypeVar,
     Union,
 )
-
-# Third party libraries
-# Local libraries
-
 
 JSONschema = Dict[str, Any]
 JSONmap = Dict[str, Any]

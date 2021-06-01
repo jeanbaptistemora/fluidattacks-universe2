@@ -1,12 +1,4 @@
-# Standard libraries
-from typing import (
-    Optional,
-)
-
-# Third party libraries
 import click
-
-# Local libraries
 from tap_bugsnag import (
     executor,
 )
@@ -15,6 +7,9 @@ from tap_bugsnag.api import (
 )
 from tap_bugsnag.streams import (
     SupportedStreams,
+)
+from typing import (
+    Optional,
 )
 
 

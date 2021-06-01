@@ -1,16 +1,15 @@
-# Standard libraries
-import json
-from typing import IO
-
-# Third party libraries
 import click
-
-# Local libraries
-from job_last_success import db_client
+from job_last_success import (
+    db_client,
+)
 from job_last_success.conf import (
-    SINGLE_JOBS,
     COMPOUND_JOBS,
     COMPOUND_JOBS_TABLES,
+    SINGLE_JOBS,
+)
+import json
+from typing import (
+    IO,
 )
 
 

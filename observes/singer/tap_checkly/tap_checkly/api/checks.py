@@ -1,27 +1,22 @@
 # pylint: skip-file
-# Standard libraries
+
 from __future__ import (
     annotations,
 )
-from typing import (
-    Callable,
-    Iterator,
-    List,
-    NamedTuple,
-    Type,
-    TypeVar,
-)
 
-# Third party libraries
-from returns.curry import partial
-from returns.io import IO
-
-# Local libraries
 from paginator import (
     PageId,
     PageOrAll,
 )
-from singer_io import JSON
+from returns.curry import (
+    partial,
+)
+from returns.io import (
+    IO,
+)
+from singer_io import (
+    JSON,
+)
 from tap_checkly.api.common import (
     raw,
 )
@@ -30,6 +25,14 @@ from tap_checkly.api.common.extractor import (
 )
 from tap_checkly.api.common.raw.client import (
     Client,
+)
+from typing import (
+    Callable,
+    Iterator,
+    List,
+    NamedTuple,
+    Type,
+    TypeVar,
 )
 
 

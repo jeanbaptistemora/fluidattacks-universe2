@@ -1,7 +1,28 @@
 # pylint: skip-file
-# Standard libraries
-from __future__ import annotations
-from enum import Enum
+
+from __future__ import (
+    annotations,
+)
+
+from deprecated import (
+    deprecated,
+)
+from enum import (
+    Enum,
+)
+from postgres_client.connection import (
+    DbConnection,
+)
+from psycopg2 import (
+    sql as postgres_sql,
+)
+from returns.io import (
+    impure,
+    IO,
+)
+from returns.maybe import (
+    Maybe,
+)
 from typing import (
     Any,
     Callable,
@@ -14,15 +35,6 @@ from typing import (
     Tuple,
     Union,
 )
-
-# Third party libraries
-from deprecated import deprecated
-from returns.maybe import Maybe
-from returns.io import IO, impure
-from psycopg2 import sql as postgres_sql
-
-# Local libraries
-from postgres_client.connection import DbConnection
 
 
 class FetchAction(Enum):

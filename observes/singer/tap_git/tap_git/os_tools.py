@@ -2,7 +2,10 @@
 """Module to do some wrappings around command executions."""
 
 import subprocess
-from typing import List, Tuple
+from typing import (
+    List,
+    Tuple,
+)
 
 
 def get_stdout_stderr(command: List[str]) -> Tuple[str, str]:

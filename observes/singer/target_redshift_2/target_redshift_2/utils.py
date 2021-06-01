@@ -1,9 +1,9 @@
-# Standard libraries
 import sys
-from typing import Callable, TypeVar
+from typing import (
+    Callable,
+    TypeVar,
+)
 
-# Third party libraries
-# Local libraries
 DEBUG_ENABLED = True
 
 Source = TypeVar("Source")

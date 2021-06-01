@@ -1,20 +1,25 @@
 # pylint: skip-file
-# Standard libraries
+
 import logging
-import time
-from typing import (
-    Callable,
+from requests.exceptions import (
+    HTTPError,
 )
-
-
-# Third party libraries
-from requests.exceptions import HTTPError
-from requests.models import Response
-from returns.curry import partial
-from returns.pipeline import is_successful
+from requests.models import (
+    Response,
+)
+from returns.curry import (
+    partial,
+)
 from returns.io import (
     IO,
     IOResult,
+)
+from returns.pipeline import (
+    is_successful,
+)
+import time
+from typing import (
+    Callable,
 )
 
 

@@ -1,13 +1,13 @@
-# Standard libraries
-import string
-import random
-
-# Third party libraries
+from postgres_client.connection import (
+    Credentials,
+    DatabaseID,
+)
 import pytest
-from pytest_postgresql import factories
-
-# Local libraries
-from postgres_client.connection import Credentials, DatabaseID
+from pytest_postgresql import (
+    factories,
+)
+import random
+import string
 
 
 def _rand_str(num: int) -> str:

@@ -1,8 +1,6 @@
-# Standard libraries
-from enum import Enum
-
-# Third party libraries
-# Local libraries
+from enum import (
+    Enum,
+)
 
 
 class SupportedStreams(Enum):

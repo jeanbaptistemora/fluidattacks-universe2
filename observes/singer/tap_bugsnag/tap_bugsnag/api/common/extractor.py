@@ -1,26 +1,10 @@
 # pylint: skip-file
-# Standard libraries
+
 from __future__ import (
     annotations,
 )
+
 import logging
-import re
-import urllib.parse
-from typing import (
-    Any,
-    Callable,
-    Iterator,
-    List,
-    TypeVar,
-)
-
-
-# Third party libraries
-from requests.models import Response
-from returns.io import IO
-from returns.maybe import Maybe
-
-# Local libraries
 from paginator import (
     AllPages,
 )
@@ -29,8 +13,27 @@ from paginator.object_index import (
     PageOrAll,
     PageResult,
 )
-from singer_io.common import JSON
-
+import re
+from requests.models import (
+    Response,
+)
+from returns.io import (
+    IO,
+)
+from returns.maybe import (
+    Maybe,
+)
+from singer_io.common import (
+    JSON,
+)
+from typing import (
+    Any,
+    Callable,
+    Iterator,
+    List,
+    TypeVar,
+)
+import urllib.parse
 
 _Data = TypeVar("_Data")
 LOG = logging.getLogger(__name__)

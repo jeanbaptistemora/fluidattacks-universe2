@@ -1,9 +1,6 @@
-# Standard libraries
 import logging
-
-# Third party libraries
-from typing import (
-    List,
+from paginator import (
+    PageId,
 )
 from requests.exceptions import (
     HTTPError,
@@ -11,16 +8,15 @@ from requests.exceptions import (
 from returns.io import (
     IO,
 )
-
-# Local libraries
-from paginator import (
-    PageId,
+from singer_io import (
+    JSON,
 )
-from singer_io import JSON
 from tap_checkly.api.common.raw.client import (
     Client,
 )
-
+from typing import (
+    List,
+)
 
 LOG = logging.getLogger(__name__)
 

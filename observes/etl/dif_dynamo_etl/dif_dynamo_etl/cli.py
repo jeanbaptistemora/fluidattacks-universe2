@@ -1,12 +1,12 @@
-# Standard libraries
-import json
-from typing import Any, Dict
-
-# Third party libraries
 import click
-
-# Local libraries
-from dif_dynamo_etl import etl
+from dif_dynamo_etl import (
+    etl,
+)
+import json
+from typing import (
+    Any,
+    Dict,
+)
 
 
 @click.command()

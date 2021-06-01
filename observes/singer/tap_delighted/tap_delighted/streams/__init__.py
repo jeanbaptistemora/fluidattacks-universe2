@@ -1,18 +1,12 @@
-# Standard libraries
 import logging
-from typing import (
-    Iterator,
-)
-
-# Third party libraries
-from returns.curry import partial
-from returns.io import (
-    IO,
-)
-
-# Local libraries
 from paginator import (
     AllPages,
+)
+from returns.curry import (
+    partial,
+)
+from returns.io import (
+    IO,
 )
 from tap_delighted.api import (
     ApiClient,
@@ -24,7 +18,9 @@ from tap_delighted.streams import (
 from tap_delighted.streams.objs import (
     SupportedStreams,
 )
-
+from typing import (
+    Iterator,
+)
 
 LOG = logging.getLogger(__name__)
 ALL = AllPages()

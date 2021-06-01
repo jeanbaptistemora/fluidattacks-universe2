@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 """A simple script to download from AWS S3."""
 
-import sys
-import json
 import argparse
-
 import boto3 as AWS_SDK
+import json
+import sys
 
 
 def create_access_point(auth_keys):

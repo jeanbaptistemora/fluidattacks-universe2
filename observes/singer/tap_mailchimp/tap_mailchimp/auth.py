@@ -1,12 +1,9 @@
-# Standard libraries
+from singer_io import (
+    JSON,
+)
 from typing import (
     NamedTuple,
 )
-
-# Third party libraries
-
-# Local libraries
-from singer_io import JSON
 
 
 class Credentials(NamedTuple):

@@ -1,13 +1,8 @@
-# Standard libraries
 from typing import (
     Any,
     Dict,
     NamedTuple,
 )
-
-# Third party libraries
-# Local libraries
-
 
 JSON = Dict[str, Any]
 API_URL = "https://www.zohoapis.com"

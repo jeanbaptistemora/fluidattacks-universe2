@@ -1,21 +1,20 @@
-# Standard libraries
 import asyncio
+import click
+from dif_gitlab_etl import (
+    executer,
+)
 import json
 from os import (
     environ,
+)
+from streamer_gitlab.log import (
+    log,
 )
 import sys
 from typing import (
     IO,
     List,
 )
-
-# Third-Party/Observes libraries
-import click
-from streamer_gitlab.log import log
-
-# Local libraries
-from dif_gitlab_etl import executer
 
 
 @click.command()

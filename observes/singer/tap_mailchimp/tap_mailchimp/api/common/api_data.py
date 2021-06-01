@@ -1,16 +1,12 @@
-# Standard libraries
 import logging
+from singer_io import (
+    JSON,
+)
 from typing import (
     Any,
     NamedTuple,
     Optional,
 )
-
-# Third party libraries
-
-# Local libraries
-from singer_io import JSON
-
 
 LOG = logging.getLogger(__name__)
 

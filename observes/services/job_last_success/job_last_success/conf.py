@@ -1,5 +1,6 @@
-from typing import Dict
-
+from typing import (
+    Dict,
+)
 
 SINGLE_JOBS = frozenset(
     [

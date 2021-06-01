@@ -1,6 +1,39 @@
 # pylint: skip-file
-# Standard libraries
-from __future__ import annotations
+
+from __future__ import (
+    annotations,
+)
+
+from postgres_client import (
+    utils,
+)
+from postgres_client.client import (
+    Client,
+)
+from postgres_client.cursor import (
+    Cursor,
+)
+from postgres_client.schema import (
+    _queries as queries,
+)
+from postgres_client.table import (
+    DbTable,
+)
+from postgres_client.table.common import (
+    TableID,
+)
+from returns.io import (
+    IO,
+    IOFailure,
+    IOResult,
+    IOSuccess,
+)
+from returns.pipeline import (
+    is_successful,
+)
+from returns.unsafe import (
+    unsafe_perform_io,
+)
 from typing import (
     Iterator,
     List,
@@ -8,24 +41,6 @@ from typing import (
     NamedTuple,
     NoReturn,
 )
-
-# Third party libraries
-from returns.io import (
-    IO,
-    IOFailure,
-    IOResult,
-    IOSuccess,
-)
-from returns.pipeline import is_successful
-from returns.unsafe import unsafe_perform_io
-
-# Local libraries
-from postgres_client import utils
-from postgres_client.cursor import Cursor
-from postgres_client.client import Client
-from postgres_client.schema import _queries as queries
-from postgres_client.table import DbTable
-from postgres_client.table.common import TableID
 
 LOG = utils.get_log(__name__)
 IOResultBool = IOResult[Literal[True], Literal[False]]

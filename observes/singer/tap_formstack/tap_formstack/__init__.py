@@ -1,24 +1,24 @@
 """Singer tap for the Formstack API."""
 
-# Standard libraries
+
+from . import (
+    logs,
+)
 import argparse
+import dateutil.parser
 import json
 import re
-from typing import (
-    Callable,
-    Iterable,
-    Dict,
-    Any,
-)
-
-# Third party libraries
-import dateutil.parser
 import requests
-from requests.exceptions import ChunkedEncodingError, HTTPError
-
-# Local libraries
-from . import logs
-
+from requests.exceptions import (
+    ChunkedEncodingError,
+    HTTPError,
+)
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    Iterable,
+)
 
 # Type aliases that improve clarity
 JSON = Any

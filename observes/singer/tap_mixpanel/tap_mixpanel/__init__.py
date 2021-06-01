@@ -1,9 +1,20 @@
-# Standard libraries
 import argparse
+from contextlib import (
+    contextmanager,
+)
 import datetime
 import json
+from singer_io import (
+    factory,
+)
+from singer_io.singer import (
+    SingerRecord,
+)
 import sys
-from contextlib import contextmanager
+from tap_mixpanel.api import (
+    ApiClient,
+    Credentials,
+)
 from typing import (
     Any,
     Dict,
@@ -12,14 +23,6 @@ from typing import (
     List,
     Tuple,
 )
-
-# Third party libraries
-# Local libraries
-from singer_io import factory
-from singer_io.singer import (
-    SingerRecord,
-)
-from tap_mixpanel.api import ApiClient, Credentials
 
 
 @contextmanager

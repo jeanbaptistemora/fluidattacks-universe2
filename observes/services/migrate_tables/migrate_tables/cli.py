@@ -1,12 +1,11 @@
-# Standard libraries
-import json
-from typing import IO
-
-# Third party libraries
 import click
-
-# Local libraries
-from migrate_tables import centralize_dynamo
+import json
+from migrate_tables import (
+    centralize_dynamo,
+)
+from typing import (
+    IO,
+)
 
 
 @click.command()

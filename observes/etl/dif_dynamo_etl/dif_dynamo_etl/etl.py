@@ -1,16 +1,23 @@
-# Standard libraries
-from multiprocessing.context import Process
-from typing import Any, Dict, Optional
-
-# Third party libraries
 import boto3
 import botocore
-
-# Local libraries
-from dif_dynamo_etl.wrappers import loader
-from dif_dynamo_etl.wrappers import transformer
-from streamer_dynamodb import extractor
-from streamer_dynamodb.extractor import TableSegment
+from dif_dynamo_etl.wrappers import (
+    loader,
+    transformer,
+)
+from multiprocessing.context import (
+    Process,
+)
+from streamer_dynamodb import (
+    extractor,
+)
+from streamer_dynamodb.extractor import (
+    TableSegment,
+)
+from typing import (
+    Any,
+    Dict,
+    Optional,
+)
 
 
 def boto_resource(auth: Dict[str, Any]):

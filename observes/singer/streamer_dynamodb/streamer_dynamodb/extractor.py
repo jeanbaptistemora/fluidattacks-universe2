@@ -1,4 +1,3 @@
-# Standard libraries
 import json
 import tempfile
 from typing import (
@@ -13,9 +12,6 @@ from typing import (
     Optional,
     Tuple,
 )
-
-# Third party libraries
-# Local libraries
 
 
 class TableSegment(NamedTuple):

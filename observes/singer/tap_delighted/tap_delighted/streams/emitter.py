@@ -1,17 +1,9 @@
-# Standard libraries
-from typing import (
-    Iterator,
-)
-
-# Third party libraries
 from returns.curry import (
     partial,
 )
 from returns.io import (
     IO,
 )
-
-# Local libraries
 from singer_io import (
     factory,
     JSON,
@@ -24,6 +16,9 @@ from tap_delighted.api import (
 )
 from tap_delighted.streams.objs import (
     SupportedStreams,
+)
+from typing import (
+    Iterator,
 )
 
 

@@ -1,8 +1,3 @@
-# Standard libraries
-
-# Third party libraries
-
-# Local libraries
 from tap_mailchimp.api.common import (
     api_data,
 )

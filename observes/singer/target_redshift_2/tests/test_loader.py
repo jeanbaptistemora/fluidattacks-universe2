@@ -1,13 +1,19 @@
-from postgres_client.table import DbTypes, Table, TableID
-from target_redshift_2 import loader
-from target_redshift_2.objects import (
-    RedshiftField,
-    RedshiftRecord,
-    RedshiftSchema,
+from postgres_client.table import (
+    DbTypes,
+    Table,
+    TableID,
 )
 from singer_io.singer import (
     SingerRecord,
     SingerSchema,
+)
+from target_redshift_2 import (
+    loader,
+)
+from target_redshift_2.objects import (
+    RedshiftField,
+    RedshiftRecord,
+    RedshiftSchema,
 )
 
 

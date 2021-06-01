@@ -1,13 +1,5 @@
 # pylint: skip-file
-# Standard libraries
-from typing import (
-    Any,
-    Callable,
-    Iterator,
-    TypeVar,
-)
 
-# Third party libraries
 import delighted
 from delighted import (
     Client,
@@ -15,18 +7,24 @@ from delighted import (
 from delighted.errors import (
     TooManyRequestsError,
 )
+from paginator import (
+    PageId,
+)
 from returns.io import (
     IO,
     IOFailure,
     IOResult,
     IOSuccess,
 )
-
-# Local libraries
-from paginator import (
-    PageId,
+from singer_io import (
+    JSON,
 )
-from singer_io import JSON
+from typing import (
+    Any,
+    Callable,
+    Iterator,
+    TypeVar,
+)
 
 
 class RateLimitError(TooManyRequestsError):

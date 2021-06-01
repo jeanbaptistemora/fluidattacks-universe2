@@ -1,20 +1,11 @@
-# Standard libraries
 from __future__ import (
     annotations,
 )
-from typing import (
-    NamedTuple,
-    Union,
-)
 
-# Third party libraries
-
-# Local libraries
 from tap_checkly.api.alert_channels import (
     AlertChsApi,
     AlertChsPage,
 )
-
 from tap_checkly.api.checks import (
     CheckGroupsPage,
     CheckId,
@@ -44,6 +35,10 @@ from tap_checkly.api.maintenace_windows import (
 from tap_checkly.api.snippets import (
     SnippetsApi,
     SnippetsPage,
+)
+from typing import (
+    NamedTuple,
+    Union,
 )
 
 ApiPage = Union[

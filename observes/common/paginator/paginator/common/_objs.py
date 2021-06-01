@@ -1,4 +1,3 @@
-# Standard libraries
 from typing import (
     NamedTuple,
 )

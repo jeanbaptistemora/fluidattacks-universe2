@@ -1,17 +1,18 @@
-# Standard libraries
 import logging
+from tap_bugsnag import (
+    streams,
+)
+from tap_bugsnag.api import (
+    ApiClient,
+    Credentials,
+)
+from tap_bugsnag.streams import (
+    SupportedStreams,
+)
 from typing import (
     Callable,
     Mapping,
 )
-from tap_bugsnag import streams
-
-# Third party libraries
-
-# Local libraries
-from tap_bugsnag.api import ApiClient, Credentials
-from tap_bugsnag.streams import SupportedStreams
-
 
 LOG = logging.getLogger(__name__)
 _stream_executor: Mapping[SupportedStreams, Callable[[ApiClient], None]] = {

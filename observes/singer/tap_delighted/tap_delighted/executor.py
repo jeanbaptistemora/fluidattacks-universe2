@@ -1,13 +1,4 @@
-# Standard libraries
 import logging
-from typing import (
-    Callable,
-    Mapping,
-)
-
-# Third party libraries
-
-# Local libraries
 from tap_delighted import (
     streams,
 )
@@ -17,8 +8,13 @@ from tap_delighted.api import (
 from tap_delighted.auth import (
     Credentials,
 )
-from tap_delighted.streams import SupportedStreams
-
+from tap_delighted.streams import (
+    SupportedStreams,
+)
+from typing import (
+    Callable,
+    Mapping,
+)
 
 LOG = logging.getLogger(__name__)
 

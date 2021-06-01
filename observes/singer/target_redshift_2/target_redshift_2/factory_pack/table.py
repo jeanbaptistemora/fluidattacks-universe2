@@ -1,24 +1,32 @@
-# Standard libraries
-from typing import NamedTuple, Optional
-
-# Third party libraries
-# Local libraries
-from postgres_client import table
-from postgres_client.client import Client
+from postgres_client import (
+    table,
+)
+from postgres_client.client import (
+    Client,
+)
 from postgres_client.table import (
     IsolatedColumn,
     Table,
     TableDraft,
     TableID,
 )
-from singer_io.singer import SingerRecord
-from target_redshift_2.factory_pack import columns as columns_factory
-from target_redshift_2.objects import (
-    RedshiftSchema,
-    RedshiftField,
+from singer_io.singer import (
+    SingerRecord,
 )
-
-from target_redshift_2.utils import Transform
+from target_redshift_2.factory_pack import (
+    columns as columns_factory,
+)
+from target_redshift_2.objects import (
+    RedshiftField,
+    RedshiftSchema,
+)
+from target_redshift_2.utils import (
+    Transform,
+)
+from typing import (
+    NamedTuple,
+    Optional,
+)
 
 
 class TableFactory(NamedTuple):

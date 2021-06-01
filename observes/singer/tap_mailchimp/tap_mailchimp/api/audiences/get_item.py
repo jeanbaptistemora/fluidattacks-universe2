@@ -1,11 +1,3 @@
-# Standard libraries
-from typing import (
-    Iterator,
-)
-
-# Third party libraries
-
-# Local libraries
 from tap_mailchimp.api.common import (
     api_data,
 )
@@ -19,6 +11,9 @@ from tap_mailchimp.api.common.raw import (
     InterestCatgId,
     MemberId,
     RawSource,
+)
+from typing import (
+    Iterator,
 )
 
 

@@ -1,16 +1,20 @@
-# Standard libraries
-# Third party libraries
-from typing import Any, Dict, List, Optional
+from dif_gitlab_etl import (
+    planner,
+)
+from dif_gitlab_etl.utils import (
+    NotFoundException,
+)
 import pytest
-
-# Local libraries
-from dif_gitlab_etl import planner
-from dif_gitlab_etl.utils import NotFoundException
 from streamer_gitlab.api_client import (
     GitlabResource,
     GitlabResourcePage,
 )
-
+from typing import (
+    Any,
+    Dict,
+    List,
+    Optional,
+)
 
 Resource = List[Dict[str, Any]]
 

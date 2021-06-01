@@ -1,4 +1,6 @@
-# Standard library
+from aioextensions import (
+    in_thread,
+)
 from contextlib import (
     contextmanager,
 )
@@ -9,16 +11,6 @@ import logging
 from os import (
     environ,
 )
-import sys
-from typing import (
-    Any,
-    Iterator,
-)
-
-# Third party libraries
-from aioextensions import (
-    in_thread,
-)
 from psycopg2 import (
     connect,
 )
@@ -26,7 +18,11 @@ from psycopg2.extensions import (
     cursor as cursor_cls,
     ISOLATION_LEVEL_AUTOCOMMIT,
 )
-
+import sys
+from typing import (
+    Any,
+    Iterator,
+)
 
 COMMIT_HASH_SENTINEL: str = "-" * 40
 DATE_SENTINEL: datetime = datetime.utcfromtimestamp(0)

@@ -1,16 +1,13 @@
-# Standard libraries
+from paginator.common import (
+    AllPages,
+    EmptyPage,
+)
 from typing import (
     Callable,
     Iterator,
     NamedTuple,
     TypeVar,
     Union,
-)
-
-# Local libraries
-from paginator.common import (
-    AllPages,
-    EmptyPage,
 )
 
 

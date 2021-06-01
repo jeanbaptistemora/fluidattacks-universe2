@@ -1,6 +1,19 @@
-# Standard libraries
+import aiohttp
+import asyncio
 import json
-from os import environ
+from os import (
+    environ,
+)
+from streamer_gitlab import (
+    api_client,
+    extractor,
+)
+from streamer_gitlab.api_client import (
+    GitlabResourcePage,
+)
+from streamer_gitlab.log import (
+    log,
+)
 import sys
 import tempfile
 from typing import (
@@ -11,16 +24,6 @@ from typing import (
     NamedTuple,
     Optional,
 )
-
-# Third party libraries
-import asyncio
-import aiohttp
-
-# Local libraries
-from streamer_gitlab import api_client
-from streamer_gitlab import extractor
-from streamer_gitlab.api_client import GitlabResourcePage
-from streamer_gitlab.log import log
 
 
 class PageData(NamedTuple):

@@ -2,12 +2,19 @@
 
 """Minimalistic yet complete Streamer for services's toe files."""
 
-import re
 import csv
-import json
+from datetime import (
+    datetime,
+)
 import glob
-from datetime import datetime
-from typing import Any, Callable, List, Tuple
+import json
+import re
+from typing import (
+    Any,
+    Callable,
+    List,
+    Tuple,
+)
 
 
 def normalize_date(date_str: str) -> str:

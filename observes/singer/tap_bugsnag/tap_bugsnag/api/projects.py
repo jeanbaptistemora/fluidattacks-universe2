@@ -1,37 +1,49 @@
 # pylint: skip-file
-# Standard libraries
-from __future__ import annotations
+
+from __future__ import (
+    annotations,
+)
+
 import logging
+from paginator import (
+    AllPages,
+)
+from paginator.object_index import (
+    io_get_until_end,
+    PageId,
+    PageOrAll,
+    PageResult,
+)
+from returns.curry import (
+    partial,
+)
+from returns.io import (
+    IO,
+)
+from returns.maybe import (
+    Maybe,
+)
+from singer_io import (
+    JSON,
+)
+from tap_bugsnag.api.common import (
+    extractor,
+    fold,
+    fold_and_chain,
+    typed_page_builder,
+    UnexpectedEmptyData,
+)
+from tap_bugsnag.api.common.raw import (
+    RawApi,
+)
+from tap_bugsnag.api.orgs import (
+    ProjId,
+)
 from typing import (
     Iterator,
     List,
     NamedTuple,
 )
-
-# Third party libraries
-from returns.curry import partial
-from returns.io import IO
-from returns.maybe import Maybe
-
-# Local libraries
-from paginator import AllPages
-from paginator.object_index import (
-    PageId,
-    PageOrAll,
-    PageResult,
-    io_get_until_end,
-)
-from singer_io import JSON
-from tap_bugsnag.api.common import (
-    UnexpectedEmptyData,
-    extractor,
-    fold,
-    fold_and_chain,
-    typed_page_builder,
-)
-from tap_bugsnag.api.common.raw import RawApi
-from tap_bugsnag.api.orgs import ProjId
-
 
 LOG = logging.getLogger(__name__)
 

@@ -1,27 +1,30 @@
-# Standard libraries
-
-from typing import (
-    Iterator,
-)
-
-# Third party libraries
-from returns.curry import partial
-from returns.io import IO
-
-# Local libraries
 from paginator import (
     AllPages,
 )
-from singer_io import factory
-from singer_io.singer import SingerRecord
+from returns.curry import (
+    partial,
+)
+from returns.io import (
+    IO,
+)
+from singer_io import (
+    factory,
+)
+from singer_io.singer import (
+    SingerRecord,
+)
 from tap_bugsnag.api import (
     ApiClient,
     ApiData,
     OrgsApi,
     ProjectsApi,
 )
-from tap_bugsnag.streams.objs import SupportedStreams
-
+from tap_bugsnag.streams.objs import (
+    SupportedStreams,
+)
+from typing import (
+    Iterator,
+)
 
 ALL = AllPages()
 

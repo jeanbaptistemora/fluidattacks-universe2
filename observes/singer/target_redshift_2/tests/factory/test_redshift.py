@@ -1,19 +1,23 @@
-# Standard libraries
-from typing import FrozenSet
-
-# Third party libraries
-# Local libraries
-from postgres_client.table import DbTypes
-from target_redshift_2.factory_pack import redshift
-from target_redshift_2.factory_pack.redshift import RedshiftElementsFactory
+from postgres_client.table import (
+    DbTypes,
+)
+from singer_io.singer import (
+    SingerRecord,
+    SingerSchema,
+)
+from target_redshift_2.factory_pack import (
+    redshift,
+)
+from target_redshift_2.factory_pack.redshift import (
+    RedshiftElementsFactory,
+)
 from target_redshift_2.objects import (
     RedshiftField,
     RedshiftRecord,
     RedshiftSchema,
 )
-from singer_io.singer import (
-    SingerRecord,
-    SingerSchema,
+from typing import (
+    FrozenSet,
 )
 
 

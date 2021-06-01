@@ -13,20 +13,26 @@ Linters:
         $ python3 -m mypy --ignore-missing-imports [path]
 """
 
-import io
-import re
-import sys
-import json
-import time
-import logging
 import argparse
-
-from datetime import datetime
-from typing import Iterable, Dict, List, Tuple, Any
-
+from datetime import (
+    datetime,
+)
+import io
+import json
 import jsonschema
+import logging
 import psycopg2 as postgres
 import psycopg2.extensions as postgres_extensions
+import re
+import sys
+import time
+from typing import (
+    Any,
+    Dict,
+    Iterable,
+    List,
+    Tuple,
+)
 
 # Type aliases that improve clarity
 JSON = Any

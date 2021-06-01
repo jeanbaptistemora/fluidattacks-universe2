@@ -10,8 +10,9 @@ Linters:
 """
 
 import json
-
-from typing import Any
+from typing import (
+    Any,
+)
 
 # Type aliases that improve clarity
 JSON = Any

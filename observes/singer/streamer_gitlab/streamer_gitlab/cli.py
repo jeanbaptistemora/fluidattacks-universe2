@@ -1,14 +1,14 @@
-# Standard libraries
-import sys
 import argparse
 from os import (
     environ,
 )
-from typing import List
-
-# Third party libraries
-# Local libraries
-from streamer_gitlab.log import log
+from streamer_gitlab.log import (
+    log,
+)
+import sys
+from typing import (
+    List,
+)
 
 
 def parser_builder() -> argparse.ArgumentParser:

@@ -1,23 +1,30 @@
 # pylint: skip-file
-# Standard libraries
+
+# Self libraries
+from migrate_tables import (
+    utils,
+)
+from postgres_client import (
+    client as client_module,
+)
+from postgres_client.client import (
+    Client,
+)
+from postgres_client.schema import (
+    operations as schema_ops,
+    Schema,
+    SchemaFactory,
+)
+from returns.pipeline import (
+    is_successful,
+)
+from returns.unsafe import (
+    unsafe_perform_io,
+)
 from typing import (
     IO,
     List,
 )
-
-# Third party libraries
-from returns.pipeline import is_successful
-from returns.unsafe import unsafe_perform_io
-
-# Local libraries
-from postgres_client import client as client_module
-from postgres_client.client import Client
-from postgres_client.schema import Schema, SchemaFactory
-from postgres_client.schema import operations as schema_ops
-
-# Self libraries
-from migrate_tables import utils
-
 
 LOG = utils.get_log(__name__)
 

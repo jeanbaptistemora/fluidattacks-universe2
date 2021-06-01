@@ -1,11 +1,14 @@
-# Standard libraries
-import tempfile
-from functools import (
-    partial,
-)
 from contextlib import (
     contextmanager,
 )
+from functools import (
+    partial,
+)
+from ratelimiter import (
+    RateLimiter,
+)
+import requests
+import tempfile
 from typing import (
     Any,
     Callable,
@@ -16,13 +19,6 @@ from typing import (
     NamedTuple,
     Tuple,
 )
-
-# Third party libraries
-from ratelimiter import RateLimiter
-import requests
-
-# Local libraries
-
 
 JSON = Dict[str, Any]
 API_BASE_URL = "https://data.mixpanel.com/api/2.0"

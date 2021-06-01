@@ -1,32 +1,35 @@
 """Process repositories and upload their data to Redshift."""
 
-# Standard library
+
+from aioextensions import (
+    generate_in_thread,
+    in_thread,
+    run,
+)
 import argparse
 from asyncio import (
     create_task,
     Queue,
 )
+from code_etl.utils import (
+    COMMIT_HASH_SENTINEL,
+    DATE_NOW,
+    DATE_SENTINEL,
+    db_cursor,
+    log,
+)
 from contextlib import (
     suppress,
+)
+from git import (
+    Commit,
+    GitCommandError,
+    InvalidGitRepositoryError,
+    Repo,
 )
 from os.path import (
     abspath,
     basename,
-)
-import sys
-from typing import (
-    Any,
-    Dict,
-    Iterator,
-    List,
-    Optional,
-)
-
-# Third party libraries
-from aioextensions import (
-    generate_in_thread,
-    in_thread,
-    run,
 )
 from psycopg2.errors import (
     DuplicateTable,
@@ -37,20 +40,13 @@ from psycopg2.extensions import (
 from psycopg2.extras import (
     execute_batch,
 )
-from git import (
-    Commit,
-    GitCommandError,
-    InvalidGitRepositoryError,
-    Repo,
-)
-
-# Local libraries
-from code_etl.utils import (
-    COMMIT_HASH_SENTINEL,
-    DATE_NOW,
-    DATE_SENTINEL,
-    db_cursor,
-    log,
+import sys
+from typing import (
+    Any,
+    Dict,
+    Iterator,
+    List,
+    Optional,
 )
 
 # Constants

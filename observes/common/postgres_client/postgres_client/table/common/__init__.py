@@ -1,12 +1,14 @@
-# Standard libraries
-from __future__ import annotations
+from __future__ import (
+    annotations,
+)
+
+from postgres_client.table.common.column import (
+    Column,
+)
 from typing import (
     FrozenSet,
     NamedTuple,
 )
-
-# Local libraries
-from postgres_client.table.common.column import Column
 
 
 class InvalidPrimaryKey(Exception):

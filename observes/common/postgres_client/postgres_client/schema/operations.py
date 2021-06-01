@@ -1,17 +1,21 @@
-# Third party libraries
-from returns.pipeline import is_successful
-
-# Local libraries
-from postgres_client import table as table_module
-from postgres_client import utils
-from postgres_client.client import Client
+from postgres_client import (
+    table as table_module,
+    utils,
+)
+from postgres_client.client import (
+    Client,
+)
+from postgres_client.schema import (
+    Schema,
+)
 from postgres_client.table import (
     factory as table_factory,
     operations as table_ops,
+    TableID,
 )
-from postgres_client.table import TableID
-from postgres_client.schema import Schema
-
+from returns.pipeline import (
+    is_successful,
+)
 
 LOG = utils.get_log(__name__)
 

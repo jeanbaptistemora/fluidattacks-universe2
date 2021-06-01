@@ -1,16 +1,7 @@
-# Standard libraries
 import json
-import sys
-from typing import (
-    Any,
-    Callable,
-    Dict,
-    IO,
-    Optional,
+from singer_io import (
+    _factory,
 )
-
-# Third party libraries
-# Local libraries
 from singer_io.singer import (
     InvalidType,
     SingerHandler,
@@ -20,7 +11,14 @@ from singer_io.singer import (
     SingerState,
     State,
 )
-from singer_io import _factory
+import sys
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    IO,
+    Optional,
+)
 
 
 class UndefinedHandler(Exception):

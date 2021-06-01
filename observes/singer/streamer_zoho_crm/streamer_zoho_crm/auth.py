@@ -1,7 +1,13 @@
-# Standard libraries
+from getpass import (
+    getpass,
+)
 import json
 import logging
-from getpass import getpass
+from postgres_client.connection import (
+    Credentials as DbCredentials,
+    DatabaseID,
+)
+import requests
 from typing import (
     Any,
     AnyStr,
@@ -11,16 +17,6 @@ from typing import (
     NamedTuple,
     Tuple,
 )
-
-# Third party libraries
-import requests
-
-# Local libraries
-from postgres_client.connection import (
-    DatabaseID,
-    Credentials as DbCredentials,
-)
-
 
 ACCOUNTS_URL = "https://accounts.zoho.com"  # for US region
 LOG = logging.getLogger(__name__)

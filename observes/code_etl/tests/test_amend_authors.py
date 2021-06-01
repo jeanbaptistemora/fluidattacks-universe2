@@ -1,6 +1,8 @@
+from code_etl import (
+    amend_authors,
+)
 import copy
 import pytest
-from code_etl import amend_authors
 
 
 def test_get_mailmap_dict() -> None:

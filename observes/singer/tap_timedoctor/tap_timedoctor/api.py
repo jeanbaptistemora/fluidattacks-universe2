@@ -1,19 +1,19 @@
 """TimeDoctor API wrapper."""
-# Standard libraries
-import sys
-import time
+
 import datetime
-import urllib.error
-import urllib.request
+import sys
+from tap_timedoctor import (
+    logs,
+)
+import time
 from typing import (
     Any,
     NamedTuple,
     Optional,
     Tuple,
 )
-
-# Local libraries
-from tap_timedoctor import logs
+import urllib.error
+import urllib.request
 
 
 def current_timestamp(offset: float = 0.0) -> float:

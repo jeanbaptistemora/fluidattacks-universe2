@@ -1,15 +1,4 @@
-# Standard libraries
 import logging
-from typing import (
-    Callable,
-    IO,
-    Mapping,
-    Optional,
-)
-
-# Third party libraries
-
-# Local libraries
 from tap_mailchimp import (
     api,
     streams,
@@ -20,8 +9,15 @@ from tap_mailchimp.api import (
 from tap_mailchimp.auth import (
     Credentials,
 )
-from tap_mailchimp.streams import SupportedStreams
-
+from tap_mailchimp.streams import (
+    SupportedStreams,
+)
+from typing import (
+    Callable,
+    IO,
+    Mapping,
+    Optional,
+)
 
 LOG = logging.getLogger(__name__)
 

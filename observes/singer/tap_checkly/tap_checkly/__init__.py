@@ -1,4 +1,3 @@
-# Local libraries
 import utils_logger
 
 utils_logger.configure(

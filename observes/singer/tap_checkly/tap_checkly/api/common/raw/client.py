@@ -1,24 +1,19 @@
-# Standard libraries
 from __future__ import (
     annotations,
+)
+
+import requests
+from returns.curry import (
+    partial,
+)
+from tap_checkly.api.common.raw.auth import (
+    Credentials,
 )
 from typing import (
     Any,
     Callable,
     NamedTuple,
 )
-
-# Third party libraries
-import requests
-from returns.curry import (
-    partial,
-)
-
-# Local libraries
-from tap_checkly.api.common.raw.auth import (
-    Credentials,
-)
-
 
 API_URL_BASE = "https://api.checklyhq.com"
 
