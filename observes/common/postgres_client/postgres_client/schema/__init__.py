@@ -84,6 +84,9 @@ class Schema(Immutable):
             object.__setattr__(self, prop, val)
         return self
 
+    def __str__(self) -> str:
+        return "Schema(name={}, redshift={})".format(self.name, self.redshift)
+
     def get_tables(self) -> Iterator[str]:
         query = queries.get_tables(self.name)
         self.cursor.execute_query(query)
