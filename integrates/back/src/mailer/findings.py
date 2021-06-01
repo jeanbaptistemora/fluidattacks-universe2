@@ -28,7 +28,7 @@ from typing import (
 
 
 async def _get_organization_name(context: Any, group_name: str) -> str:
-    group_loader = context.group_all
+    group_loader = context.group
     group = await group_loader.load(group_name)
     org_id = group["organization"]
 

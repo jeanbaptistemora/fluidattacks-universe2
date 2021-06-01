@@ -98,7 +98,7 @@ async def mutate(  # pylint: disable=too-many-arguments
             forces_domain.format_forces_user_email(group_name),
         )
     if success:
-        loaders.group_all.clear(group_name)
+        loaders.group.clear(group_name)
         await redis_del_by_deps("edit_group", group_name=group_name)
         await authz.revoke_cached_group_service_policies(group_name)
         logs_utils.cloudwatch_log(

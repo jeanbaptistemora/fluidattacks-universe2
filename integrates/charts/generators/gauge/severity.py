@@ -31,7 +31,7 @@ Severity = NamedTuple(
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str) -> Severity:
     context = get_new_context()
-    group_loader = context.group_all
+    group_loader = context.group
     group_findings_loader = context.group_findings
     finding_loader = context.finding
 

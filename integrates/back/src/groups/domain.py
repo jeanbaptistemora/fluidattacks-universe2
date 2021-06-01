@@ -592,7 +592,7 @@ async def edit(
         )
 
     if not has_integrates:
-        group_loader = context.group_all
+        group_loader = context.group
         group = await group_loader.load(group_name)
         org_id = group["organization"]
         success = success and await delete_group(
@@ -1157,6 +1157,12 @@ async def after_complete_register(group_access: GroupAccessType) -> None:
         and await orgs_domain.has_user_access(default_org_id, user_email)
     ):
         await orgs_domain.remove_user(default_org_id, user_email)
+
+
+def filter_active_groups(groups: List[GroupType]) -> List[GroupType]:
+    return [
+        group for group in groups if group.get("project_status") == "ACTIVE"
+    ]
 
 
 async def get_remediation_rate(

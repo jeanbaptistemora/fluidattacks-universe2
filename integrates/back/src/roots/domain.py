@@ -163,7 +163,7 @@ def _format_git_repo_url(raw_url: str) -> str:
 
 
 async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
-    group_loader = context.group_all
+    group_loader = context.group
     group_name: str = kwargs["group_name"].lower()
     url: str = _format_git_repo_url(kwargs["url"])
     branch: str = kwargs["branch"]
@@ -228,7 +228,7 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
 
 
 async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
-    group_loader = context.group_all
+    group_loader = context.group
     group_name: str = kwargs["group_name"].lower()
     address: str = kwargs["address"]
     port = str(kwargs["port"])
@@ -262,7 +262,7 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
 
 
 async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
-    group_loader = context.group_all
+    group_loader = context.group
     group_name: str = kwargs["group_name"].lower()
     url_attributes = parse_url(kwargs["url"])
     is_valid = validations.is_valid_url(
@@ -440,7 +440,7 @@ async def activate_root(
     root = await get_root(group_name=group_name, root_id=root_id)
 
     if root.state.status != new_status:
-        group_loader: DataLoader = context.group_all
+        group_loader: DataLoader = context.group
         group = await group_loader.load(group_name)
         org_roots = await get_org_roots(org_id=group["organization"])
 

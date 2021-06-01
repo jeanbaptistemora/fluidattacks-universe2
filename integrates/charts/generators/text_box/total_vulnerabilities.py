@@ -19,7 +19,7 @@ from typing import (
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str) -> int:
     context = get_new_context()
-    group_loader = context.group_all
+    group_loader = context.group
     group_data = await group_loader.load(group)
 
     return (

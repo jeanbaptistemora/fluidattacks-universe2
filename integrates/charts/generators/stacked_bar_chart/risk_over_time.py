@@ -81,7 +81,7 @@ async def get_group_document(
 ) -> Dict[str, Dict[datetime, float]]:
     data: List[GroupDocumentData] = []
     context = get_new_context()
-    group_loader = context.group_all
+    group_loader = context.group
 
     data_name = "remediated_over_time"
     if days == 30:

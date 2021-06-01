@@ -130,7 +130,7 @@ async def update_portfolios() -> None:
     Update portfolios metrics
     """
     context = get_new_context()
-    group_loader = context.group_all
+    group_loader = context.group
     async for _, org_name, org_groups in (
         orgs_domain.iterate_organizations_and_groups()
     ):

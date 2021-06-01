@@ -67,7 +67,7 @@ async def mutate(
         )
 
     if success:
-        loaders.group_all.clear(group_name)
+        loaders.group.clear(group_name)
         redis_del_by_deps_soon("remove_group", group_name=group_name)
         await authz.revoke_cached_group_service_policies(group_name)
         logs_utils.cloudwatch_log(

@@ -19,9 +19,6 @@ from .finding_vulns_only_zero_risk import (
 from .group import (
     GroupLoader,
 )
-from .group_active import (
-    GroupActiveLoader,
-)
 from .group_drafts import (
     GroupDraftsLoader,
 )
@@ -88,8 +85,7 @@ class Dataloaders(NamedTuple):
     finding_vulns_all: FindingVulnsNonDeletedLoader  # All vulns
     finding_vulns_nzr: FindingVulnsNonZeroRiskLoader
     finding_vulns_zr: FindingVulnsOnlyZeroRiskLoader
-    group: GroupActiveLoader
-    group_all: GroupLoader  # Used only by analytics. Retrieves all groups
+    group: GroupLoader
     group_drafts: GroupDraftsLoader
     group_findings: GroupFindingsNonDeletedLoader  # Non deleted findings
     group_findings_all: GroupFindingsLoader  # All findings
@@ -115,7 +111,6 @@ def apply_context_attrs(
 
 
 def get_new_context() -> Dataloaders:
-    group_loader = GroupLoader()
     group_findings_loader = GroupFindingsLoader()
     group_stakeholders_loader = GroupStakeholdersLoader()
     finding_vulns_loader = FindingVulnsLoader()
@@ -142,8 +137,7 @@ def get_new_context() -> Dataloaders:
         finding_vulns_all=finding_vulns_loader,
         finding_vulns_nzr=finding_vulns_nzr_loader,
         finding_vulns_zr=finding_vulns_zr_loader,
-        group=GroupActiveLoader(group_loader),
-        group_all=group_loader,
+        group=GroupLoader(),
         group_drafts=GroupDraftsLoader(),
         group_findings=GroupFindingsNonDeletedLoader(group_findings_loader),
         group_findings_all=group_findings_loader,

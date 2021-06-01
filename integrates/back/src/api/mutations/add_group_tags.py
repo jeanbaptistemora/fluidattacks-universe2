@@ -57,7 +57,7 @@ async def mutate(  # pylint: disable=too-many-arguments
         )
     if success:
         group_loader.clear(group_name)
-        info.context.loaders.group_all.clear(group_name)
+        info.context.loaders.group.clear(group_name)
         redis_del_by_deps_soon("add_group_tags", group_name=project_name)
         logs_utils.cloudwatch_log(
             info.context,

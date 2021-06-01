@@ -22,7 +22,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
     event = await event_loader.load(event_id)
     group_name = event["project_name"]
 
-    group_loader = context.loaders.group_all
+    group_loader = context.loaders.group
     group = await group_loader.load(group_name)
     org_id = group["organization"]
 

@@ -26,7 +26,7 @@ async def send_mail_updated_treatment(
     finding_id = str(finding["finding_id"])
     group_name = str(finding["project_name"])
 
-    group_loader = context.group_all
+    group_loader = context.group
     group = await group_loader.load(group_name)
     org_id = group["organization"]
 

@@ -54,7 +54,6 @@ async def mutate(
     )
     if success:
         info.context.loaders.group.clear(project_name)
-        info.context.loaders.group_all.clear(project_name)
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Added resource files to {project_name} "

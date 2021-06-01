@@ -101,7 +101,7 @@ async def create_event(  # pylint: disable=too-many-locals
     tzn = pytz.timezone(TIME_ZONE)
     today = datetime_utils.get_now()
 
-    group_loader = loaders.group_all
+    group_loader = loaders.group
     group = await group_loader.load(group_name)
     subscription = group["subscription"]
     org_id = group["organization"]
