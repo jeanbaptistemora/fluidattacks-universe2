@@ -7,6 +7,10 @@ import pytest
 from starlette.datastructures import (
     UploadFile,
 )
+from typing import (
+    Any,
+    Dict,
+)
 
 
 @pytest.mark.asyncio
@@ -21,7 +25,7 @@ async def test_resource() -> None:
             __typename
         }}
     }}"""
-    data = {"query": query}
+    data: Dict[str, Any] = {"query": query}
     result = await get_result(data)
     assert result["data"]["resources"]["projectName"] == "unittesting"
     assert file_name in result["data"]["resources"]["files"]

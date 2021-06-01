@@ -9,6 +9,10 @@ from datetime import (
     timedelta,
 )
 import pytest
+from typing import (
+    Any,
+    Dict,
+)
 
 
 @pytest.mark.asyncio
@@ -29,7 +33,7 @@ async def test_me() -> None:
             }
         }
     """
-    data = {"query": query}
+    data: Dict[str, Any] = {"query": query}
     result = await get_result(data, context=context)
     assert "errors" not in result
     assert "success" in result["data"]["signIn"]

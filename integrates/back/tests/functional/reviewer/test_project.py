@@ -9,6 +9,10 @@ from dataloaders import (
 )
 import json
 import pytest
+from typing import (
+    Any,
+    Dict,
+)
 
 
 @pytest.mark.asyncio
@@ -21,7 +25,7 @@ async def test_project() -> None:
             __typename
         }
     }"""
-    data = {"query": query}
+    data: Dict[str, Any] = {"query": query}
     result = await get_result(
         data, stakeholder="integratesmanager@gmail.com", context=context
     )
