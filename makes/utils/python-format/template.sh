@@ -7,21 +7,17 @@ function main {
   local args_isort=(
     --settings-path '__envSettingsIsort__'
   )
-  local paths_black=__envTargetsBlack__
-  local paths_isort=__envTargetsIsort__
+  local paths=__envTargets__
 
       if test -n "${CI:-}"
       then
             args_black+=( --diff --check --color ) \
         &&  args_isort+=( --diff --check --color )
       fi \
-  &&  for path in "${paths_black[@]}"
+  &&  for path in "${paths[@]}"
       do
-        black "${args_black[@]}" "${path}"
-      done \
-  &&  for path in "${paths_isort[@]}"
-      do
-        isort "${args_isort[@]}" "${path}"
+            black "${args_black[@]}" "${path}" \
+        &&  isort "${args_isort[@]}" "${path}"
       done
 }
 

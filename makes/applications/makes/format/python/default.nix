@@ -2,19 +2,6 @@
 , ...
 }:
 pythonFormat {
-  targets = [
-    "."
-  ];
-  targetsIsort = [
-    "airs"
-    "asserts"
-    "docs"
-    "forces"
-    "makes"
-    "melts"
-    "observes"
-    "integrates"
-    "skims"
-  ];
+  targets = [ "." ];
   name = "makes-format-python";
 }

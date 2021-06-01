@@ -2,7 +2,6 @@ path: pkgs:
 
 { name
 , targets
-, targetsIsort
 }:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path pkgs;
@@ -12,8 +11,7 @@ makeEntrypoint {
   arguments = {
     envSettingsBlack = path "/makes/utils/python-format/settings-black.toml";
     envSettingsIsort = path "/makes/utils/python-format/settings-isort.toml";
-    envTargetsBlack = nix.asBashArray targets;
-    envTargetsIsort = nix.asBashArray targetsIsort;
+    envTargets = nix.asBashArray targets;
   };
   inherit name;
   searchPaths = {

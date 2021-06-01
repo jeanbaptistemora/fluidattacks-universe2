@@ -22,3 +22,11 @@ e9f700cbfa869d3870cd78d42be89871ccfbc4dd  # integrates\refac(cross): #4651.9 use
 ba89093af46d64c50d733e9e9bcec0f6481f1bd9  # integrates\refac(cross): #4651.11 use global formatter
 382b6617e067f8ad9f8b58f30203b0ec203374cc  # integrates\refac(cross): #4651.12 use global formatter
 018c7657ee3fd2a06c6f19e4ec4e84f26a23a70c  # integrates\refac(cross): #4651.13 use global formatter
+1cc691df00cc68a6e793d693801276704a326b93  # sorts\refac(back): #4719.9 apply isort
+ba1c03d0fe6ba30a8cb5e9250b5513501fcaf6d9  # reviews\refac(back): #4719.8 apply isort
+5b0ee4ecb6217b211093d53478268159d82c3575  # observes\refac(back): #4719.7 apply isort
+afba22fbbbbff84ffedab4c1d4efc0e40c79fb2a  # melts\refac(back): #4719.6 apply isort
+35fb6457db2775c5ce06cc3e0da693896db3c9e1  # forces\refac(back): #4719.5 apply isort
+94086240b1eb8a46960b753426ad1c6c5d32f387  # asserts\refac(back): #4719.4 apply isort
+9ce8f8dc7667434a5c1d4804ee6db70a0baf767f  # integrates\refac(back): #4719.3 apply isort
+f3ef4fe6cf3670cea8e2e5ef2e18d6cf6166a4cc  # skims\refac(back): #4719.2 apply isort
