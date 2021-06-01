@@ -698,6 +698,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     customer=dict(
         actions={
             "api_mutations_add_org_finding_policy_mutate",
+            "api_mutations_submit_organization_finding_policy_mutate",
             "api_resolvers_organization_analytics_resolve",
         },
         tags=set(),
@@ -710,6 +711,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_edit_stakeholder_organization_mutate",
             "api_mutations_grant_stakeholder_organization_access_mutate",
             "api_mutations_remove_stakeholder_organization_access_mutate",
+            "api_mutations_submit_organization_finding_policy_mutate",
             "api_mutations_update_organization_policies_mutate",
             "api_resolvers_organization_analytics_resolve",
             "api_resolvers_organization_stakeholders_resolve",
@@ -727,6 +729,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_edit_stakeholder_organization_mutate",
             "api_mutations_grant_stakeholder_organization_access_mutate",
             "api_mutations_remove_stakeholder_organization_access_mutate",
+            "api_mutations_submit_organization_finding_policy_mutate",
             "api_resolvers_organization_analytics_resolve",
             "api_resolvers_organization_stakeholders_resolve",
             "api_resolvers_query_stakeholder__resolve_for_organization",

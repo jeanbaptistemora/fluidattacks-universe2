@@ -315,6 +315,13 @@ type Mutation {
 
   submitDraft(findingId: String!, groupName: String): SimplePayload!
 
+  submitOrganizationFindingPolicy(
+    "ID of the policy"
+    findingPolicyId: ID!
+    "Name of the organization the finding policy is associated with"
+    organizationName: String!
+  ): SimplePayload!
+
   subscribeToEntityReport(
     frequency: Frequency!
     reportEntity: SubscriptionReportEntity!

@@ -152,6 +152,31 @@ async def handle_finding_policy_acceptation(
         )
 
 
+async def submit_finding_policy(
+    *,
+    finding_policy_id: str,
+    organization_name: str,
+    user_email: str,
+) -> None:
+    finding_policy = await get_finding_policy(
+        org_name=organization_name, finding_policy_id=finding_policy_id
+    )
+    status: str = finding_policy.state.status
+    is_status_valid: bool = status in {"INACTIVE", "REJECTED"}
+    if not is_status_valid:
+        raise PolicyAlreadyHandled()
+
+    await update_finding_policy_status(
+        org_name=organization_name,
+        finding_policy_id=finding_policy_id,
+        status=OrgFindingPolicyState(
+            modified_by=user_email,
+            modified_date=datetime_utils.get_iso_date(),
+            status="SUBMITTED",
+        ),
+    )
+
+
 async def deactivate_finding_policy(
     *,
     finding_policy_id: str,
