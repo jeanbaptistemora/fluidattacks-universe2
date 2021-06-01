@@ -561,9 +561,7 @@ const HalfScreenContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    w-50-l
     ph0-ns
-    ph-body
   `,
 })``;
 
@@ -572,8 +570,8 @@ const HalfScreenContainerSpaced: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    w-50-l
-    ph-body
+    w-70-m
+    w-100
   `,
 })``;
 
@@ -586,7 +584,6 @@ const SolutionsSectionDescription: StyledComponent<
     roboto
     list
     pl0
-    mw-20
   `,
 })``;
 
@@ -597,6 +594,19 @@ const BlackListItemSpaced: StyledComponent<
   className: `
     c-fluid-bk
     pv3
+  `,
+})``;
+
+const SolutionCardContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    pv3
+    flex
+    w-100
+    w-50-l
+    ph3
   `,
 })``;
 
@@ -617,7 +627,7 @@ const SolutionsParagraph: StyledComponent<
   Record<string, unknown>
 > = styled.p.attrs({
   className: `
-    f-1125
+    f5
     lh-2
     fw3
     mv0
@@ -1057,6 +1067,7 @@ export {
   RedMark,
   RegularRedButton,
   SocialMediaLink,
+  SolutionCardContainer,
   SolutionsParagraph,
   SolutionsSectionDescription,
   SolutionsSubtitle,

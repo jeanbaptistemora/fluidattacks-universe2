@@ -218,7 +218,7 @@ const pageTexts: ResourceKey = {
       paragraph:
         "You can give our ethical hackers permission to search for and " +
         "discover what unethical hackers might exploit in your IT systems.",
-      subtitle: "EthicalHacking",
+      subtitle: "Ethical Hacking",
     },
     penetrationTesting: {
       paragraph:

@@ -8,6 +8,7 @@ import {
   FullWidthContainer,
   HalfScreenContainer,
   HalfScreenContainerSpaced,
+  SolutionCardContainer,
   SolutionsParagraph,
   SolutionsSectionDescription,
   SolutionsSubtitle,
@@ -16,53 +17,45 @@ import {
 interface IProps {
   animation: string;
   image: string;
-  imageAllignment: string;
   link: string;
   subtitle: string;
   paragraph: string;
-  paragraphAllignment: string;
-  padding?: string;
 }
 
 const SolutionsIndexContent: React.FC<IProps> = ({
   animation,
   image,
-  imageAllignment,
   link,
   subtitle,
-  padding,
   paragraph,
-  paragraphAllignment,
 }: IProps): JSX.Element => (
-  <FullWidthContainer className={"pv3 flex-l"}>
-    <FullWidthContainer className={padding}>
+  <SolutionCardContainer>
+    <FullWidthContainer>
       <ScrollAnimation animateIn={animation} animateOnce={true}>
-        <HalfScreenContainer className={imageAllignment}>
+        <HalfScreenContainer>
           <img alt={"devSecOps Solution"} src={image} />
         </HalfScreenContainer>
       </ScrollAnimation>
-      <HalfScreenContainerSpaced className={paragraphAllignment}>
+      <HalfScreenContainerSpaced>
         <SolutionsSectionDescription>
           <BlackListItemSpaced>
-            <Link
-              className={
-                "c-fluid-bk underlined-animated no-underline mt0 mb3 t-all-5"
-              }
-              to={link}
-            >
-              <SolutionsSubtitle>{subtitle}</SolutionsSubtitle>
-            </Link>
+            <SolutionsSubtitle>{subtitle}</SolutionsSubtitle>
             <SolutionsParagraph>{paragraph}</SolutionsParagraph>
+            <SolutionsParagraph>
+              <Link
+                className={
+                  "c-fluid-bk f5 mt6 hv-fluid-rd fw4 no-underline t-all-5"
+                }
+                to={link}
+              >
+                {`Go to ${subtitle} >`}
+              </Link>
+            </SolutionsParagraph>
           </BlackListItemSpaced>
         </SolutionsSectionDescription>
       </HalfScreenContainerSpaced>
     </FullWidthContainer>
-  </FullWidthContainer>
+  </SolutionCardContainer>
 );
-
-// eslint-disable-next-line fp/no-mutation
-SolutionsIndexContent.defaultProps = {
-  padding: "",
-};
 
 export { SolutionsIndexContent };

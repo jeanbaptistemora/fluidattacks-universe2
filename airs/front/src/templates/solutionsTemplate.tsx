@@ -41,6 +41,10 @@ const penetrationTestingImage: string =
   "https://res.cloudinary.com/fluid-attacks/image/upload/v1619735154/airs/solutions/solution-penetration-testing_ty3kro.webp";
 const securityTestingImage: string =
   "https://res.cloudinary.com/fluid-attacks/image/upload/v1619735154/airs/solutions/solution-security-testing_mmthfa.webp";
+const secureCodeReviewImage: string =
+  "https://res.cloudinary.com/fluid-attacks/image/upload/v1622577351/airs/solutions/solution-secure-code-review_dyaluj.webp";
+const vulnerabilityManagementImage: string =
+  "https://res.cloudinary.com/fluid-attacks/image/upload/v1622578216/airs/solutions/solution-vulnerability-management_a5xmkt.webp";
 
 const SolutionsIndex: React.FC<IQueryData> = ({
   data,
@@ -82,37 +86,30 @@ const SolutionsIndex: React.FC<IQueryData> = ({
               </FullWidthContainer>
             </BannerContainer>
             <ArticleContainer>
-              <PageContainer>
+              <PageContainer className={"flex flex-wrap"}>
                 <SolutionsIndexContent
                   animation={"animate__slideInLeft"}
                   image={devSecOpsImage}
-                  imageAllignment={"fl-l tl"}
                   link={"/solutions/devsecops/"}
                   paragraph={translate.t("solutions.devSecOps.paragraph")}
-                  paragraphAllignment={"fr-l"}
                   subtitle={translate.t("solutions.devSecOps.subtitle")}
                 />
 
                 <SolutionsIndexContent
-                  animation={"animate__slideInLeft"}
+                  animation={"animate__slideInRight"}
                   image={securityTestingImage}
-                  imageAllignment={"fl-l tl"}
                   link={"/solutions/security-testing/"}
                   paragraph={translate.t("solutions.securityTesting.paragraph")}
-                  paragraphAllignment={"fr-l"}
                   subtitle={translate.t("solutions.securityTesting.subtitle")}
                 />
 
                 <SolutionsIndexContent
                   animation={"animate__slideInLeft"}
                   image={penetrationTestingImage}
-                  imageAllignment={"fl-l tl"}
                   link={"/solutions/penetration-testing/"}
-                  padding={"pb6"}
                   paragraph={translate.t(
                     "solutions.penetrationTesting.paragraph"
                   )}
-                  paragraphAllignment={"fr-l"}
                   subtitle={translate.t(
                     "solutions.penetrationTesting.subtitle"
                   )}
@@ -121,33 +118,47 @@ const SolutionsIndex: React.FC<IQueryData> = ({
                 <SolutionsIndexContent
                   animation={"animate__slideInRight"}
                   image={ethicalHackingImage}
-                  imageAllignment={"fr-l tl"}
                   link={"/solutions/ethical-hacking/"}
                   paragraph={translate.t("solutions.ethicalHacking.paragraph")}
-                  paragraphAllignment={"fl-l"}
                   subtitle={translate.t("solutions.ethicalHacking.subtitle")}
                 />
 
                 <SolutionsIndexContent
-                  animation={"animate__slideInRight"}
+                  animation={"animate__slideInLeft"}
                   image={redTeamingImage}
-                  imageAllignment={"fr-l tl"}
                   link={"/solutions/red-teaming/"}
                   paragraph={translate.t("solutions.redTeaming.paragraph")}
-                  paragraphAllignment={"fl-l"}
                   subtitle={translate.t("solutions.redTeaming.subtitle")}
                 />
 
                 <SolutionsIndexContent
                   animation={"animate__slideInRight"}
                   image={attackSimulationImage}
-                  imageAllignment={"fr-l tl"}
                   link={"/solutions/attack-simulation/"}
                   paragraph={translate.t(
                     "solutions.attackSimulation.paragraph"
                   )}
-                  paragraphAllignment={"fl-l"}
                   subtitle={translate.t("solutions.attackSimulation.subtitle")}
+                />
+
+                <SolutionsIndexContent
+                  animation={"animate__slideInLeft"}
+                  image={secureCodeReviewImage}
+                  link={"/solutions/secure-code-review/"}
+                  paragraph={translate.t("solutions.secureCode.paragraph")}
+                  subtitle={translate.t("solutions.secureCode.subtitle")}
+                />
+
+                <SolutionsIndexContent
+                  animation={"animate__slideInRight"}
+                  image={vulnerabilityManagementImage}
+                  link={"/solutions/vulnerability-management/"}
+                  paragraph={translate.t(
+                    "solutions.vulnerabilityManagement.paragraph"
+                  )}
+                  subtitle={translate.t(
+                    "solutions.vulnerabilityManagement.subtitle"
+                  )}
                 />
               </PageContainer>
             </ArticleContainer>
