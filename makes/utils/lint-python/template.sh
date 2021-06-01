@@ -63,9 +63,14 @@ function lint_python_imports {
   #   /path/to/XXX/business_code.py
   # Then site-packages path is /path/to
   local site_packages_path="${2}"
+  local check_missing="${3:-True}"
+
 
       pushd "${site_packages_path}" \
-    &&  python '__envSettingsImports__' "${site_packages_path}" "${config}" \
+    &&  python '__envSettingsImports__' \
+          "${site_packages_path}" \
+          "${config}" \
+          "${check_missing}"\
     &&  lint-imports --config "${config}" \
   &&  popd \
   ||  return 1

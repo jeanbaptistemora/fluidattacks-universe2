@@ -45,6 +45,6 @@ function observes_generic_lint_pkg_container {
   local pkgs
 
       pkgs=$(mktemp) \
-  &&  lint_python_imports "${srcPath}/setup.imports.cfg" "${srcPath}" \
+  &&  lint_python_imports "${srcPath}/setup.imports.cfg" "${srcPath}" "False" \
   &&  touch "${out}"
 }

@@ -6,6 +6,7 @@ import sys
 def main():
     root_path = sys.argv[1]
     config_path = sys.argv[2]
+    check_missing = sys.argv[3].lower() == "true"
 
     expected_layers = set(
         module.replace(".py", "")
@@ -28,7 +29,7 @@ def main():
 
     if layers == expected_layers:
         sys.exit(0)
-    else:
+    elif check_missing:
         print("[ERROR] Please specify all layers")
         print("[INFO] Missing layers:")
         for layer in sorted(expected_layers - layers):

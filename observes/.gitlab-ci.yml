@@ -48,6 +48,11 @@ observes.job.infra.test:
   <<: *observes_in_dev_branch
   stage: test-infra
 
+observes.lint.architecture:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
 observes.lint.code-etl:
   <<: *makes
   <<: *observes_in_dev_branch
@@ -94,11 +99,6 @@ observes.lint.service-timedoctor-tokens:
   stage: lint-code
 
 observes.lint.singer-io:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
-
-observes.lint.singer-pkgs:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code

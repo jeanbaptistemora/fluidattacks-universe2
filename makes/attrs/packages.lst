@@ -141,6 +141,7 @@ observes.env.utils-logger.runtime.python
 observes.generic.linter
 observes.generic.runner
 observes.generic.tester
+observes.lint.architecture
 observes.lint.code-etl
 observes.lint.dif-gitlab-etl
 observes.lint.job-last-success
@@ -151,7 +152,6 @@ observes.lint.service-jobs-scheduler
 observes.lint.service-migrate-tables
 observes.lint.service-timedoctor-tokens
 observes.lint.singer-io
-observes.lint.singer-pkgs
 observes.lint.streamer-gitlab
 observes.lint.streamer-zoho-crm
 observes.lint.tap-bugsnag

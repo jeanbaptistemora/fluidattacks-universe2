@@ -5,6 +5,17 @@
 }:
 let
   paths = [
+    "/observes/code_etl"
+    "/observes/common/paginator"
+    "/observes/common/singer_io"
+    "/observes/common/utils_logger"
+    "/observes/common/postgres_client"
+    "/observes/etl/dif_gitlab_etl"
+    "/observes/services/batch_stability"
+    "/observes/services/job_last_success"
+    "/observes/services/jobs_scheduler"
+    "/observes/services/migrate_tables"
+    "/observes/services/timedoctor_tokens"
     "/observes/singer/streamer_dynamodb"
     "/observes/singer/streamer_gitlab"
     "/observes/singer/streamer_zoho_crm"
@@ -26,9 +37,9 @@ let
   srcs = map path paths;
 in
 makeDerivation {
-  name = "observes-lint-singer-pkgs";
+  name = "observes-lint-architecture";
   arguments = {
-    envSrc = path "/observes/singer";
+    envSrc = path "/observes/architecture";
   };
   searchPaths = {
     envPythonPaths = srcs;
