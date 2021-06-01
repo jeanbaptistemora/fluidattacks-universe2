@@ -6,7 +6,7 @@ import React from "react";
 import { Provider } from "react-redux";
 
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
-import { PROJECTS_NAME_QUERY } from "scenes/Dashboard/components/AddGroupModal/queries";
+import { GROUPS_NAME_QUERY } from "scenes/Dashboard/components/AddGroupModal/queries";
 import type { IGroupNameProps } from "scenes/Dashboard/components/AddGroupModal/types";
 import store from "store";
 
@@ -16,7 +16,7 @@ describe("AddGroupModal component", (): void => {
   const mocksMutation: MockedResponse[] = [
     {
       request: {
-        query: PROJECTS_NAME_QUERY,
+        query: GROUPS_NAME_QUERY,
       },
       result: {
         data: { groupName },

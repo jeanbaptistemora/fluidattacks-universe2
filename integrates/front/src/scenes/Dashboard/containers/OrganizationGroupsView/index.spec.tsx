@@ -14,8 +14,8 @@ import waitForExpect from "wait-for-expect";
 
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
 import {
-  CREATE_PROJECT_MUTATION,
-  PROJECTS_NAME_QUERY,
+  CREATE_GROUP_MUTATION,
+  GROUPS_NAME_QUERY,
 } from "scenes/Dashboard/components/AddGroupModal/queries";
 import { OrganizationGroups } from "scenes/Dashboard/containers/OrganizationGroupsView";
 import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
@@ -276,7 +276,7 @@ describe("Organization groups view", (): void => {
       },
       {
         request: {
-          query: PROJECTS_NAME_QUERY,
+          query: GROUPS_NAME_QUERY,
         },
         result: {
           data: {
@@ -288,7 +288,7 @@ describe("Organization groups view", (): void => {
       },
       {
         request: {
-          query: CREATE_PROJECT_MUTATION,
+          query: CREATE_GROUP_MUTATION,
           variables: {
             description: "Test group",
             hasDrills: true,

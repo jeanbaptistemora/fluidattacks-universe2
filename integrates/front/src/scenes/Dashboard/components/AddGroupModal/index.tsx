@@ -17,8 +17,8 @@ import { Modal } from "components/Modal";
 import { SwitchButton } from "components/SwitchButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
-  CREATE_PROJECT_MUTATION,
-  PROJECTS_NAME_QUERY,
+  CREATE_GROUP_MUTATION,
+  GROUPS_NAME_QUERY,
 } from "scenes/Dashboard/components/AddGroupModal/queries";
 import type {
   IAddGroupModalProps,
@@ -76,9 +76,9 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
   ): boolean => subsType === "CONTINUOUS";
 
   const handleMutationResult = (result: {
-    createProject: { success: boolean };
+    createGroup: { success: boolean };
   }): void => {
-    if (result.createProject.success) {
+    if (result.createGroup.success) {
       onClose();
       msgSuccess(
         translate.t("organization.tabs.groups.newGroup.success"),
@@ -87,8 +87,8 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
     }
   };
 
-  const [createProject, { loading: submitting }] = useMutation(
-    CREATE_PROJECT_MUTATION,
+  const [createGroup, { loading: submitting }] = useMutation(
+    CREATE_GROUP_MUTATION,
     {
       onCompleted: handleMutationResult,
       onError: handleCreateError,
@@ -107,7 +107,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
       machine: boolean;
     }): void => {
       track("AddGroup");
-      void createProject({
+      void createGroup({
         variables: {
           description: values.description,
           hasDrills: values.squad,
@@ -120,7 +120,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
         },
       });
     },
-    [createProject]
+    [createGroup]
   );
 
   function handleGroupNameError({ graphQLErrors }: ApolloError): void {
@@ -128,7 +128,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
     handleGroupNameErrorHelper(graphQLErrors);
   }
 
-  const { data } = useQuery<IGroupNameProps>(PROJECTS_NAME_QUERY, {
+  const { data } = useQuery<IGroupNameProps>(GROUPS_NAME_QUERY, {
     fetchPolicy: "no-cache",
     onError: handleGroupNameError,
   });

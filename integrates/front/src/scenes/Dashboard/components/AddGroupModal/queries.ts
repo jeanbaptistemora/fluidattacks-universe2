@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
-const PROJECTS_NAME_QUERY: DocumentNode = gql`
+const GROUPS_NAME_QUERY: DocumentNode = gql`
   query InternalGroupName {
     internalNames(entity: GROUP) {
       name
@@ -9,8 +9,8 @@ const PROJECTS_NAME_QUERY: DocumentNode = gql`
   }
 `;
 
-const CREATE_PROJECT_MUTATION: DocumentNode = gql`
-  mutation CreateProjectMutation(
+const CREATE_GROUP_MUTATION: DocumentNode = gql`
+  mutation CreateGroupMutation(
     $description: String!
     $hasSkims: Boolean
     $hasDrills: Boolean
@@ -20,7 +20,7 @@ const CREATE_PROJECT_MUTATION: DocumentNode = gql`
     $projectName: String!
     $subscription: SubscriptionType
   ) {
-    createProject(
+    createGroup(
       description: $description
       hasSkims: $hasSkims
       hasDrills: $hasDrills
@@ -35,4 +35,4 @@ const CREATE_PROJECT_MUTATION: DocumentNode = gql`
   }
 `;
 
-export { CREATE_PROJECT_MUTATION, PROJECTS_NAME_QUERY };
+export { CREATE_GROUP_MUTATION, GROUPS_NAME_QUERY };

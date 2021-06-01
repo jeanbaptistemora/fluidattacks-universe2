@@ -137,6 +137,17 @@ type Mutation {
     projectName: String!
   ): SimplePayload!
 
+  createGroup(
+    description: String!
+    language: Language
+    organization: String
+    projectName: String!
+    subscription: SubscriptionType
+    hasSkims: Boolean
+    hasDrills: Boolean
+    hasForces: Boolean
+  ): SimplePayload!
+
   createOrganization(name: String!): CreateOrganizationPayload!
 
   createProject(
