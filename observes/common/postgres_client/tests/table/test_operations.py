@@ -4,12 +4,14 @@ from postgres_client import (
 )
 from postgres_client.table import (
     DbTable,
-    operations,
     TableID,
 )
 import pytest
 from returns.pipeline import (
     is_successful,
+)
+from returns.unsafe import (
+    unsafe_perform_io,
 )
 from typing import (
     Any,
@@ -33,10 +35,16 @@ def setup_db(postgresql_my: Any) -> None:
 def test_rename(postgresql_my: Any) -> None:
     setup_db(postgresql_my)
     db_client = client.new_test_client(postgresql_my)
-    old_table = TableID(schema="test_schema", table_name="table_number_one")
-    new_table_id = operations.rename(db_client, old_table, "renamed_table")
-    assert not is_successful(table.exist(db_client, old_table))
-    assert is_successful(table.exist(db_client, new_table_id))
+    old_table_id = TableID(schema="test_schema", table_name="table_number_one")
+    old_table = unsafe_perform_io(
+        DbTable.retrieve(db_client.cursor, old_table_id, False)
+    )
+    new_table_id = unsafe_perform_io(old_table.rename("renamed_table"))
+    new_table = unsafe_perform_io(
+        DbTable.retrieve(db_client.cursor, new_table_id, False)
+    )
+    assert not is_successful(table.exist(db_client, old_table_id))
+    assert new_table.table.table_id == new_table_id
 
 
 @pytest.mark.timeout(15, method="thread")

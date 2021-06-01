@@ -1,14 +1,13 @@
 from postgres_client import (
     client,
-    table,
 )
 from postgres_client.table import (
-    factory,
+    DbTable,
     TableID,
 )
 import pytest
-from returns.pipeline import (
-    is_successful,
+from returns.unsafe import (
+    unsafe_perform_io,
 )
 from typing import (
     Any,
@@ -29,8 +28,14 @@ def setup_db(postgresql_my: Any) -> None:
 def test_create_like(postgresql_my: Any) -> None:
     setup_db(postgresql_my)
     db_client = client.new_test_client(postgresql_my)
-    blueprint = TableID(schema="test_schema", table_name="table_number_one")
-    new_table = TableID(schema="test_schema_2", table_name="the_table")
-    new_table_id = factory.create_like(db_client, blueprint, new_table)
-    db_client.connection.commit()
-    assert is_successful(table.exist(db_client, new_table_id))
+    blueprint_id = TableID(schema="test_schema", table_name="table_number_one")
+    new_table_id = TableID(schema="test_schema_2", table_name="the_table")
+    blueprint_io = DbTable.retrieve(db_client.cursor, blueprint_id, False)
+    new_table_io = DbTable.create_like(
+        db_client.cursor, blueprint_id, new_table_id, False
+    )
+    blueprint = unsafe_perform_io(blueprint_io)
+    new_table = unsafe_perform_io(new_table_io)
+    assert new_table.table.table_id != blueprint.table.table_id
+    assert new_table.table.columns == blueprint.table.columns
+    assert new_table.table.primary_keys == blueprint.table.primary_keys

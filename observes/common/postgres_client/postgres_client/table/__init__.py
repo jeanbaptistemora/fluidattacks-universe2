@@ -120,11 +120,11 @@ class DbTable(NamedTuple):
         self.cursor.execute_queries(_queries)
         return IO(None)
 
-    def rename(self, new_name: str) -> IO[None]:
+    def rename(self, new_name: str) -> IO[TableID]:
         self.cursor.execute_query(
             queries.rename(self.table.table_id, new_name)
         )
-        return IO(None)
+        return IO(TableID(self.table.table_id.schema, new_name))
 
     def delete(self) -> IO[None]:
         self.cursor.execute_query(queries.delete(self.table.table_id))
