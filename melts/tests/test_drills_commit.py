@@ -1,7 +1,6 @@
-# Local libraries
 from toolbox.drills.commit import (
-    is_valid_summary,
     is_drills_commit,
+    is_valid_summary,
 )
 
 

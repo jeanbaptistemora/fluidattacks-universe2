@@ -1,12 +1,13 @@
-# Standard libraries
-from shutil import rmtree
-
-# Third party libraries
 import pathspec
-
-# Local libraries
-from toolbox.drills import pull_repos
-from toolbox.drills.pull_repos import match_file
+from shutil import (
+    rmtree,
+)
+from toolbox.drills import (
+    pull_repos,
+)
+from toolbox.drills.pull_repos import (
+    match_file,
+)
 
 EXISTING_REPO: str = "continuoustest"
 EXISTING_REPO_NO_PERMISSIONS: str = "daimon"

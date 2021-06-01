@@ -1,4 +1,3 @@
-# Standard library
 import os
 import sys
 

@@ -1,16 +1,15 @@
-# Local imports
 from toolbox.drills import (
     cli,
     commit,
-    generate_commit_msg,
-    to_reattack,
     count_toe,
+    generate_commit_msg,
+    lint,
     pull_repos,
     push_repos,
     take_group_snapshot,
+    to_reattack,
     update_lines,
     upload_history,
-    lint,
 )
 
 # Imported but unused

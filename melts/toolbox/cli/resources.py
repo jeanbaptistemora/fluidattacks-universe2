@@ -1,11 +1,13 @@
-# Local libraries
+from click import (
+    argument,
+    command,
+    option,
+)
 import sys
-
-# Third party libraries
-from click import argument, command, option
-
-# Local libraries
-from toolbox import resources, utils
+from toolbox import (
+    resources,
+    utils,
+)
 
 SUBS_METAVAR = "[GROUP]"
 

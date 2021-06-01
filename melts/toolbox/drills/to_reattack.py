@@ -1,16 +1,25 @@
-# Standard library
-from datetime import datetime as dt
+from datetime import (
+    datetime as dt,
+)
+from dateutil.relativedelta import (
+    relativedelta,
+)
+from toolbox import (
+    api,
+)
+from toolbox.api.integrates import (
+    Response,
+)
+from toolbox.constants import (
+    API_TOKEN,
+)
+from toolbox.utils.function import (
+    shield,
+)
 from typing import (
     Any,
     Dict,
 )
-from dateutil.relativedelta import relativedelta
-
-# Local libraries
-from toolbox import api
-from toolbox.constants import API_TOKEN
-from toolbox.utils.function import shield
-from toolbox.api.integrates import Response
 
 BASE_URL: str = "https://app.fluidattacks.com"
 

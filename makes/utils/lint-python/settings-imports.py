@@ -1,4 +1,3 @@
-# Standard library
 import configparser
 import os
 import sys

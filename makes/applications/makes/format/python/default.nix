@@ -10,6 +10,8 @@ pythonFormat {
     "asserts"
     "docs"
     "forces"
+    "makes"
+    "melts"
     "integrates"
     "skims"
   ];

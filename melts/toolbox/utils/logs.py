@@ -1,15 +1,11 @@
-# Standard library
+import bugsnag
 import logging
 import sys
-from typing import (
-    Any,
-)
-
-import bugsnag
-
-# Local libraries
 from toolbox.utils.bugs import (
     META as BUGS_META,
+)
+from typing import (
+    Any,
 )
 
 # Private constants

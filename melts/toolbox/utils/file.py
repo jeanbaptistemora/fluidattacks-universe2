@@ -1,11 +1,12 @@
-# Standard library
 import contextlib
 import functools
+from operator import (
+    methodcaller,
+)
 import os
 import re
 import tempfile
 import textwrap
-from operator import methodcaller
 from typing import (
     Generator,
     Iterator,

@@ -1,22 +1,29 @@
-# Standard library
 import json
 import multiprocessing.pool
+from retry import (
+    retry,
+)
+from toolbox import (
+    api,
+)
+from toolbox.api.exceptions import (
+    IntegratesError,
+)
+from toolbox.constants import (
+    API_TOKEN,
+)
+from toolbox.logger import (
+    LOGGER,
+)
+from toolbox.utils.env import (
+    guess_environment,
+)
 from typing import (
     Any,
     Dict,
     List,
     Tuple,
 )
-
-# Third import
-from retry import retry
-
-# Local imports
-from toolbox import api
-from toolbox.constants import API_TOKEN
-from toolbox.logger import LOGGER
-from toolbox.api.exceptions import IntegratesError
-from toolbox.utils.env import guess_environment
 
 if guess_environment() == "production":
     RETRIES = 10

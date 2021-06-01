@@ -1,4 +1,6 @@
-from toolbox.api.exceptions import IntegratesError
+from toolbox.api.exceptions import (
+    IntegratesError,
+)
 from toolbox.utils.integrates import (
     get_group_language,
     get_project_repos,

@@ -1,11 +1,19 @@
-# Standard library
-from csv import DictReader
-from datetime import datetime, date
-from textwrap import dedent
-
-# Local libraries
-from toolbox.logger import LOGGER
-from toolbox.utils.function import shield
+from csv import (
+    DictReader,
+)
+from datetime import (
+    date,
+    datetime,
+)
+from textwrap import (
+    dedent,
+)
+from toolbox.logger import (
+    LOGGER,
+)
+from toolbox.utils.function import (
+    shield,
+)
 
 
 class Objective:

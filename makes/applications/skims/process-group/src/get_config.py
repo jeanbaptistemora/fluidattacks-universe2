@@ -1,32 +1,27 @@
-# Standard library
+from aioextensions import (
+    run,
+)
 import argparse
 import csv
+from integrates.dal import (
+    get_group_roots,
+)
+from integrates.graphql import (
+    create_session,
+)
 from operator import (
     itemgetter,
 )
 import os
+from ruamel.yaml import (
+    safe_dump,
+)
 from typing import (
     List,
     Set,
 )
 from urllib.parse import (
     urlparse,
-)
-
-# Third party libraries
-from aioextensions import (
-    run,
-)
-from ruamel.yaml import (
-    safe_dump,
-)
-
-# Local libraries
-from integrates.dal import (
-    get_group_roots,
-)
-from integrates.graphql import (
-    create_session,
 )
 
 

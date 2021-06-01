@@ -1,4 +1,3 @@
-# Local imports
 from toolbox.generic import (
     commit,
 )

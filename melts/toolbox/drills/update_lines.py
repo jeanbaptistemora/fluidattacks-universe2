@@ -1,18 +1,17 @@
-# Standard library
 import csv
 import os
 import sys
+from toolbox.drills import (
+    take_group_snapshot,
+)
+from toolbox.utils.function import (
+    shield,
+)
 from typing import (
     Any,
     Dict,
     Tuple,
 )
-
-# Local libraries
-from toolbox.drills import (
-    take_group_snapshot,
-)
-from toolbox.utils.function import shield
 
 UNIQ = "----"
 UNIQ_L = len(UNIQ)

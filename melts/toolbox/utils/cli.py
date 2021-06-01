@@ -1,18 +1,13 @@
-# Standard libraries
-import sys
-
-# Third party libraries
 from click import (
     argument,
     command,
-    option,
     echo,
+    option,
 )
-
-# Local libraries
+import sys
 from toolbox.utils import (
-    generic,
     does_subs_exist,
+    generic,
     get_commit_subs,
 )
 

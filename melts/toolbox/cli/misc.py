@@ -1,14 +1,9 @@
-# Local libraries
-import sys
-
-# Third party libraries
 from click import (
     argument,
     command,
     option,
 )
-
-# Local libraries
+import sys
 from toolbox import (
     drills,
     generic,

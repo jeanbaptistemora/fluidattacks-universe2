@@ -1,21 +1,60 @@
 """Main module to update resources"""
 
-# Standard library
+
+from alive_progress import (
+    alive_bar,
+    config_handler,
+)
 import base64
-from contextlib import contextmanager
-import re
-import os
-import stat
-import sys
+from contextlib import (
+    contextmanager,
+)
+from datetime import (
+    datetime,
+)
+import git
+from git import (
+    Repo,
+)
+from git.exc import (
+    GitCommandError,
+    GitError,
+)
 import json
-from shlex import quote as shq
+from multiprocessing import (
+    cpu_count,
+)
+from multiprocessing.pool import (
+    ThreadPool,
+)
+import os
+import re
+from shlex import (
+    quote as shq,
+)
 import shutil
+import stat
 import subprocess
-import urllib.parse
-from multiprocessing import cpu_count
-from multiprocessing.pool import ThreadPool
-from subprocess import DEVNULL, Popen, PIPE, check_output
+from subprocess import (
+    check_output,
+    DEVNULL,
+    PIPE,
+    Popen,
+)
+import sys
 import tempfile
+from toolbox import (
+    utils,
+)
+from toolbox.api import (
+    integrates,
+)
+from toolbox.constants import (
+    API_TOKEN,
+)
+from toolbox.logger import (
+    LOGGER,
+)
 from typing import (
     Any,
     Dict,
@@ -23,19 +62,7 @@ from typing import (
     List,
     Optional,
 )
-from datetime import datetime
-
-# Third parties imports
-from alive_progress import alive_bar, config_handler
-import git
-from git.exc import GitCommandError, GitError
-from git import Repo
-
-# Local libraries
-from toolbox.logger import LOGGER
-from toolbox import utils
-from toolbox.constants import API_TOKEN
-from toolbox.api import integrates
+import urllib.parse
 
 config_handler.set_global(length=25)
 

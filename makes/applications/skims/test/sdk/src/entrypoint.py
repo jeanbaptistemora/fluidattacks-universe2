@@ -1,12 +1,9 @@
-# Standard library
 import asyncio
 from os import (
     environ,
 )
-import subprocess
-
-# Third party libraries
 import skims_sdk
+import subprocess
 
 
 async def main() -> None:

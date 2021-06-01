@@ -1,17 +1,17 @@
-# Standard library
 import operator
 import re
+from toolbox.logger import (
+    LOGGER,
+)
+from toolbox.utils.function import (
+    RetryAndFinallyReturn,
+    shield,
+)
 from typing import (
     Match,
     Optional,
     Tuple,
 )
-
-# Third party libraries
-
-# Local libraries
-from toolbox.logger import LOGGER
-from toolbox.utils.function import shield, RetryAndFinallyReturn
 
 VALID__SCOPES_DESC: Tuple[Tuple[str, str], ...] = (
     ("enum", "Enumeration of ToE without testing"),

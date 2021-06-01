@@ -1,6 +1,3 @@
-# Third parties libraries
-
-# Local libraries
 from toolbox.generic.commit import (
     has_short_line_length,
     is_under_100_deltas,

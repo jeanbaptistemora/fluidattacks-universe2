@@ -1,19 +1,22 @@
 # pylint: disable=unused-argument
 # Standrd libraries
 import os
+from pathlib import (
+    Path,
+)
+from shutil import (
+    rmtree,
+)
+from toolbox.drills import (
+    push_repos,
+)
+from toolbox.utils import (
+    generic,
+)
 from typing import (
     Any,
     List,
 )
-from pathlib import Path
-from shutil import rmtree
-
-# Third party libraries
-
-# Local libraries
-from toolbox.utils import generic
-from toolbox.drills import push_repos
-
 
 BUCKET: str = "continuous-repositories"
 SUBS: str = "continuoustest"

@@ -1,21 +1,19 @@
-# Standard library
 import operator
 import re
+from toolbox import (
+    utils,
+)
+from toolbox.logger import (
+    LOGGER,
+)
+from toolbox.utils.function import (
+    shield,
+)
 from typing import (
     Match,
     Optional,
     Tuple,
 )
-
-# Third party libraries
-
-# Local libraries
-from toolbox import (
-    utils,
-)
-from toolbox.logger import LOGGER
-from toolbox.utils.function import shield
-
 
 VALID__SCOPES_DESC: Tuple[Tuple[str, str], ...] = (
     ("front", "Front-End change"),

@@ -1,7 +1,22 @@
 # pylint: disable=unused-argument
-# Standard library
-import os
+
+import boto3
+from click.testing import (
+    CliRunner,
+    Result,
+)
 import contextlib
+import os
+import pytest
+from toolbox.cli import (
+    melts as cli,
+)
+from toolbox.logger import (
+    LOGGER,
+)
+from toolbox.utils import (
+    generic,
+)
 from typing import (
     Any,
     Callable,
@@ -9,19 +24,6 @@ from typing import (
     Iterator,
     List,
 )
-
-# Third parties libraries
-import boto3
-from click.testing import (
-    CliRunner,
-    Result,
-)
-import pytest
-
-# Local libraries
-from toolbox.logger import LOGGER
-from toolbox.utils import generic
-from toolbox.cli import melts as cli
 
 # Constants
 SUBS: str = "continuoustest"

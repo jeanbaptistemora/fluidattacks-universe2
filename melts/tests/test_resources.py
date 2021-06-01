@@ -1,12 +1,12 @@
 # pylint: disable=unused-argument
-# Standard library
+
 import os
-from typing import Any
-
-# Third parties imports
-
-# Local libraries
-from toolbox import resources
+from toolbox import (
+    resources,
+)
+from typing import (
+    Any,
+)
 
 # Constants
 SUBS: str = "continuoustest"

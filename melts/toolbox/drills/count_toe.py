@@ -1,19 +1,22 @@
-# Standard library
-import os
+import boto3
+from botocore.exceptions import (
+    ClientError,
+)
 import csv
-from datetime import datetime
+from datetime import (
+    datetime,
+)
+import os
+from toolbox.logger import (
+    LOGGER,
+)
+from toolbox.utils.function import (
+    shield,
+)
 from typing import (
     Any,
     Tuple,
 )
-
-# Third party libraries
-import boto3
-from botocore.exceptions import ClientError
-
-# Local libraries
-from toolbox.logger import LOGGER
-from toolbox.utils.function import shield
 
 
 def get_dynamodb_resource() -> Any:

@@ -1,6 +1,9 @@
-# Local libraries
-from toolbox.utils import generic
-from toolbox.logger import LOGGER
+from toolbox.logger import (
+    LOGGER,
+)
+from toolbox.utils import (
+    generic,
+)
 
 
 def main(subs: str) -> bool:

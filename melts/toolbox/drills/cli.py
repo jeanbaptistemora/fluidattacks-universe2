@@ -1,23 +1,18 @@
-# Local libraries
-import sys
-
-# Third party libraries
 from click import (
     argument,
     command,
     option,
 )
-
-# Local libraries
+import sys
 from toolbox import (
     utils,
 )
 from toolbox.drills import (
     count_toe,
     generate_commit_msg,
-    to_reattack,
     pull_repos,
     push_repos,
+    to_reattack,
     update_lines,
     upload_history,
 )

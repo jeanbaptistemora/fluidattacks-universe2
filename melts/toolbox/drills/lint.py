@@ -1,11 +1,12 @@
-# Standard library
-from glob import glob
-
-# Third party libraries
-
-# Local libraries
-from toolbox.logger import LOGGER
-from toolbox.utils.function import shield
+from glob import (
+    glob,
+)
+from toolbox.logger import (
+    LOGGER,
+)
+from toolbox.utils.function import (
+    shield,
+)
 
 
 @shield(retries=1)

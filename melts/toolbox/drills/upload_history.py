@@ -1,11 +1,18 @@
-# Standard libraries
-from os import listdir
-from typing import List
-from datetime import datetime
-
-# Local libraries
-from toolbox.drills import generic as drills_generic
-from toolbox.utils.function import shield
+from datetime import (
+    datetime,
+)
+from os import (
+    listdir,
+)
+from toolbox.drills import (
+    generic as drills_generic,
+)
+from toolbox.utils.function import (
+    shield,
+)
+from typing import (
+    List,
+)
 
 
 @shield(on_error_return=False)

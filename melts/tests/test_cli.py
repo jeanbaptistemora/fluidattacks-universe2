@@ -1,6 +1,8 @@
 # pylint: disable=unused-argument
-# Local libraries
-from typing import Any
+
+from typing import (
+    Any,
+)
 
 # constants
 GROUP = "continuoustest"

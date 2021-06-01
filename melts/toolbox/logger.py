@@ -1,9 +1,8 @@
-# Standar imports
 import logging
 import sys
-
-# Local imports
-from toolbox import constants
+from toolbox import (
+    constants,
+)
 
 # Constants
 _FORMAT: str = "[%(levelname)s] %(message)s"

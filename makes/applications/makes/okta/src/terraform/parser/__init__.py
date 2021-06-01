@@ -7,7 +7,6 @@ from typing import (
     Set,
 )
 
-
 OKTA_DATA: Dict[str, Any] = json.loads(os.environ["OKTA_DATA_RAW"])
 
 

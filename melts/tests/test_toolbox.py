@@ -1,12 +1,11 @@
 # pylint: disable=unused-argument
-# Standard library
 
-# Third parties imports
 
-# Local libraries
-from typing import Any
 from toolbox import (
     utils,
+)
+from typing import (
+    Any,
 )
 
 # Constants

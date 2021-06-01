@@ -1,11 +1,10 @@
-# Local imports
 from toolbox import (
     api,
-    utils,
     constants,
+    drills,
     logger,
     toolbox,
-    drills,
+    utils,
 )
 
 # Imported but unused

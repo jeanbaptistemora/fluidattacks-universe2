@@ -1,18 +1,13 @@
-# Standard library
+import bugsnag
 from contextvars import (
     ContextVar,
+)
+from toolbox.utils.env import (
+    guess_environment,
 )
 from typing import (
     Dict,
     Optional,
-)
-
-# Third party libraries
-import bugsnag
-
-# Local libraries
-from toolbox.utils.env import (
-    guess_environment,
 )
 
 # Constants

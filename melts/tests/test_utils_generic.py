@@ -1,14 +1,12 @@
 # flake8: noqa
-# Standard library
-import textwrap
 
-# Local libraries
+import textwrap
 from toolbox.utils.generic import (
-    get_change_request_summary,
     get_change_request_body,
-    get_change_request_patch,
-    get_change_request_hunks,
     get_change_request_deltas,
+    get_change_request_hunks,
+    get_change_request_patch,
+    get_change_request_summary,
 )
 
 

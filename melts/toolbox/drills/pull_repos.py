@@ -1,28 +1,35 @@
-# Standard libraries
+from git import (
+    Repo,
+)
+from git.exc import (
+    GitError,
+)
 import os
+import pathspec
+from pathspec.patterns.gitwildmatch import (
+    GitWildMatchPattern,
+)
+import shutil
+from toolbox import (
+    utils,
+)
+from toolbox.drills import (
+    generic as drills_generic,
+)
+from toolbox.logger import (
+    LOGGER,
+)
+from toolbox.utils.function import (
+    shield,
+)
+from toolbox.utils.integrates import (
+    get_filter_rules,
+)
 from typing import (
     List,
     Set,
 )
-import shutil
 import urllib.parse
-
-# Third party libraries
-import pathspec
-from pathspec.patterns.gitwildmatch import GitWildMatchPattern
-from git import Repo
-from git.exc import GitError
-
-# Local libraries
-from toolbox.drills import generic as drills_generic
-from toolbox.utils.function import shield
-from toolbox import (
-    utils,
-)
-from toolbox.logger import LOGGER
-from toolbox.utils.integrates import (
-    get_filter_rules,
-)
 
 
 def notify_out_of_scope(

@@ -1,8 +1,18 @@
-# Standard library
+import aioextensions
 from asyncio import (
     sleep,
 )
 import functools
+from more_itertools import (
+    mark_ends,
+)
+from toolbox.utils.env import (
+    guess_environment,
+)
+from toolbox.utils.logs import (
+    log,
+    log_to_remote,
+)
 from typing import (
     Any,
     Callable,
@@ -11,19 +21,6 @@ from typing import (
     Type,
     TypeVar,
 )
-
-# Third party libraries
-from more_itertools import (
-    mark_ends,
-)
-import aioextensions
-
-# Local libraries
-from toolbox.utils.logs import (
-    log,
-    log_to_remote,
-)
-from toolbox.utils.env import guess_environment
 
 # Constants
 RAISE = object()

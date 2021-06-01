@@ -1,11 +1,17 @@
-# Standard libraries
+from functools import (
+    lru_cache,
+)
 import re
-from typing import Optional, Match
-from functools import lru_cache
-
-# Local libraries
-from toolbox.utils import generic
-from toolbox.utils.function import shield
+from toolbox.utils import (
+    generic,
+)
+from toolbox.utils.function import (
+    shield,
+)
+from typing import (
+    Match,
+    Optional,
+)
 
 
 @shield()

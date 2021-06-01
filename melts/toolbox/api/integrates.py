@@ -1,10 +1,25 @@
-# Standard library
+import aiogqlc
+import aiogqlc.utils
+import aiohttp
+import aiohttp.client_exceptions
 import asyncio
 import contextlib
+from frozendict import (
+    frozendict,
+)
+import functools
+import json
 import os
 import time
-import json
-import functools
+from toolbox.api.limits import (
+    DEFAULT as DEFAULT_RATE_LIMIT,
+)
+from toolbox.logger import (
+    LOGGER,
+)
+from toolbox.utils.function import (
+    rate_limited,
+)
 from typing import (
     Any,
     Dict,
@@ -13,18 +28,6 @@ from typing import (
     Optional,
     Tuple,
 )
-
-# Third parties libraries
-import aiohttp
-import aiohttp.client_exceptions
-import aiogqlc
-import aiogqlc.utils
-from frozendict import frozendict
-
-# Local imports
-from toolbox.logger import LOGGER
-from toolbox.api.limits import DEFAULT as DEFAULT_RATE_LIMIT
-from toolbox.utils.function import rate_limited
 
 # Containers
 Response = NamedTuple(

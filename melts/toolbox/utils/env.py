@@ -1,8 +1,9 @@
-# Standard library
-from os import environ
-
-# local libraries
-from toolbox.constants import BASE_DIR
+from os import (
+    environ,
+)
+from toolbox.constants import (
+    BASE_DIR,
+)
 
 
 def guess_environment() -> str:

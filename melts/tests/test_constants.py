@@ -1,5 +1,6 @@
-# Local libraries
-from toolbox import constants
+from toolbox import (
+    constants,
+)
 
 
 def test_constants_api_token() -> None:

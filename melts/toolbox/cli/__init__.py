@@ -1,22 +1,24 @@
 # pylint: disable=unused-argument
 # pylint: disable=import-outside-toplevel
 
-# Standard library
-import functools
-from typing import Any, Callable
 
-# Third parties imports
 import click
-
-# Local libraries
+import functools
 from toolbox import (
+    constants,
     drills,
     utils,
-    constants,
 )
-
-from toolbox.cli.misc import misc_management
-from toolbox.cli.resources import resources_management
+from toolbox.cli.misc import (
+    misc_management,
+)
+from toolbox.cli.resources import (
+    resources_management,
+)
+from typing import (
+    Any,
+    Callable,
+)
 
 
 @click.group(name="melts")
@@ -38,7 +40,9 @@ def retry_debugging_on_failure(func: Callable[..., Any]) -> Callable[..., Any]:
         try:
             return func(*args, **kwargs)
         except Exception:  # noqa
-            from toolbox.api import integrates
+            from toolbox.api import (
+                integrates,
+            )
 
             integrates.clear_cache()
             constants.LOGGER_DEBUG = True

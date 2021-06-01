@@ -1,8 +1,14 @@
-# Standard libraries
 from collections import (
     OrderedDict,
 )
 import dataclasses
+from datetime import (
+    date,
+    datetime,
+)
+from dateutil.parser import (
+    parse as date_parser,
+)
 from decimal import (
     Decimal,
 )
@@ -10,11 +16,6 @@ from enum import (
     Enum,
 )
 import json
-from datetime import (
-    datetime,
-    date,
-)
-
 from typing import (
     Any,
     Callable,
@@ -25,9 +26,6 @@ from typing import (
     Type,
     TypeVar,
 )
-
-# Third party libraries
-from dateutil.parser import parse as date_parser
 
 # Constants
 TVar = TypeVar("TVar")

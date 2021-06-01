@@ -1,15 +1,14 @@
-# Local imports
 from toolbox.utils import (
+    bugs,
     cli,
-    file,
-    integrates,
     does_subs_exist,
+    env,
+    file,
+    function,
     generic,
     get_commit_subs,
-    bugs,
+    integrates,
     logs,
-    env,
-    function,
 )
 
 # Imported but unused

@@ -1,26 +1,35 @@
-# Standard libraries
-import os
+import boto3
+import git
+from git.exc import (
+    GitCommandError,
+)
 import glob
 import json
+import os
+from pathlib import (
+    Path,
+)
+import shutil
+from toolbox.api import (
+    integrates,
+)
+from toolbox.constants import (
+    API_TOKEN,
+)
+from toolbox.logger import (
+    LOGGER,
+)
+from toolbox.utils import (
+    generic,
+)
+from toolbox.utils.function import (
+    shield,
+)
 from typing import (
     Dict,
     List,
     Optional,
 )
-from pathlib import Path
-import shutil
-
-# Third party libaries
-import boto3
-import git
-from git.exc import GitCommandError
-
-# Local libraries
-from toolbox.api import integrates
-from toolbox.constants import API_TOKEN
-from toolbox.logger import LOGGER
-from toolbox.utils import generic
-from toolbox.utils.function import shield
 
 
 def s3_ls(

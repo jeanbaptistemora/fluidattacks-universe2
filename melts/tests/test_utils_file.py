@@ -1,7 +1,8 @@
 import os
 import shutil
-
-from toolbox.utils.file import _iter_full_paths
+from toolbox.utils.file import (
+    _iter_full_paths,
+)
 
 
 def test_iter_full_paths() -> None:

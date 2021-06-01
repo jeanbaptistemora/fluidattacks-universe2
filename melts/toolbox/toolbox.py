@@ -1,14 +1,10 @@
 """Main module to build and check Assert Exploits."""
 
-# Standard library
+
 import re
 from typing import (
     Any,
 )
-
-# Third parties libraries
-
-# Local libraries
 
 # Compiled regular expresions
 RE_SPACE_CHARS = re.compile(r"\s", flags=re.M)

@@ -1,7 +1,14 @@
-# Standard library
 from datetime import (
     datetime,
     timedelta,
+)
+from flask import (
+    Flask,
+    request,
+    url_for,
+)
+from flask.wrappers import (
+    Response,
 )
 from functools import (
     partial,
@@ -13,17 +20,6 @@ from typing import (
     List,
 )
 import urllib.parse
-
-# Third party libraries
-from flask import (
-    Flask,
-    request,
-    url_for,
-)
-from flask.wrappers import (
-    Response,
-)
-
 
 APP = Flask(__name__)
 ROOT = os.path.dirname(__file__)

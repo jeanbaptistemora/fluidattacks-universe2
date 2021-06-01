@@ -1,22 +1,29 @@
-# Standard library
+from binaryornot.check import (
+    is_binary,
+)
 import csv
+from git import (
+    Repo,
+)
+from git.exc import (
+    InvalidGitRepositoryError,
+)
 import glob
+from multiprocessing import (
+    cpu_count,
+)
+from multiprocessing.pool import (
+    ThreadPool,
+)
 import os
 import sys
-from multiprocessing import cpu_count
-from multiprocessing.pool import ThreadPool
+from toolbox.resources import (
+    fluidcounts,
+)
 from typing import (
     Iterator,
     Tuple,
 )
-
-# Third party libraries
-from git import Repo
-from git.exc import InvalidGitRepositoryError
-from binaryornot.check import is_binary
-
-# Local libraries
-from toolbox.resources import fluidcounts
 
 
 def command(cmd: str) -> None:
