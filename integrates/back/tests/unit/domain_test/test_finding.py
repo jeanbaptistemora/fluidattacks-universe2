@@ -491,6 +491,5 @@ async def test_get_total_reattacks_stats() -> None:
         "reattacks_executed": 1,
         "last_executed_date": "2018-12-26 19:00:00",
         "pending_attacks": 1,
-        "reattack_effectiveness": 0,
     }
     assert expected_output == reattacks_stats

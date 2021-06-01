@@ -538,7 +538,6 @@ async def test_get_group_digest_stats() -> None:
         "group": group_name,
         "main": {
             "remediation_rate": 19,
-            "reattack_effectiveness": 0,
             "remediation_time": 513,
             "comments": 0,
         },

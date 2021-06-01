@@ -916,7 +916,6 @@ async def get_total_reattacks_stats(
     reattacks_executed: int = 0
     pending_attacks: int = 0
     effective_reattacks: int = 0
-    reattack_effectiveness: int = 0
     min_requested_date: datetime = datetime_utils.get_now()
     min_executed_date: datetime = datetime_utils.get_now()
     finding_vulns_loader = context.finding_vulns_nzr
@@ -949,11 +948,6 @@ async def get_total_reattacks_stats(
         if vuln.get("verification", "") == "Requested":
             pending_attacks += 1
 
-    if reattacks_executed:
-        reattack_effectiveness = int(
-            100 * effective_reattacks / reattacks_executed
-        )
-
     return {
         "effective_reattacks": effective_reattacks,
         "reattacks_requested": reattacks_requested,
@@ -961,7 +955,6 @@ async def get_total_reattacks_stats(
         "reattacks_executed": reattacks_executed,
         "last_executed_date": datetime_utils.get_as_str(min_executed_date),
         "pending_attacks": pending_attacks,
-        "reattack_effectiveness": reattack_effectiveness,
     }
 
 

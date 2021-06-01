@@ -124,6 +124,82 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
+def _process_digest_reattacks_executed(
+    reattacks_executed: int,
+    effective_reattacks: int,
+    groups_stats: List[MailContentType],
+) -> MailContentType:
+    """Process digest reattacks executed sub-section"""
+    executed: MailContentType = {
+        "groups_executed": list(),
+    }
+    if not reattacks_executed:
+        # Get groups with oldest date since last reattack
+        groups_executed_date = [
+            {
+                "age_last_executed": (
+                    datetime_utils.get_now()
+                    - datetime_utils.get_from_str(
+                        group["reattacks"]["last_executed_date"]
+                    )
+                ).days,
+                "group": group["group"],
+            }
+            for group in groups_stats
+            if not group["reattacks"]["reattacks_executed"]
+            and group["reattacks"]["last_executed_date"]
+        ]
+        # Filter out those with 0 age
+        groups_executed_date = [
+            group
+            for group in groups_executed_date
+            if group["age_last_executed"]
+        ]
+        executed["groups_executed"] = sorted(
+            groups_executed_date,
+            key=itemgetter("age_last_executed"),
+            reverse=True,
+        )[:3]
+    else:
+        executed["reattack_effectiveness"] = int(
+            100 * effective_reattacks / reattacks_executed
+        )
+        # Get groups with most reattacks executed
+        groups_executed = [
+            {
+                "reattacks_executed": group["reattacks"]["reattacks_executed"],
+                "group": group["group"],
+            }
+            for group in groups_stats
+            if group["reattacks"]["reattacks_executed"]
+        ]
+        executed["groups_executed"] = sorted(
+            groups_executed, key=itemgetter("reattacks_executed"), reverse=True
+        )[:3]
+
+    return executed
+
+
+def _process_digest_reattacks(
+    groups_stats: List[MailContentType],
+) -> MailContentType:
+    """Process digest reattacks section"""
+    reattacks_count: Counter = Counter()
+    for stat in groups_stats:
+        reattacks_count.update(stat["reattacks"])
+    reattacks = dict(reattacks_count)
+
+    reattacks.update(
+        _process_digest_reattacks_executed(
+            reattacks["reattacks_executed"],
+            reattacks["effective_reattacks"],
+            groups_stats,
+        )
+    )
+
+    return reattacks
+
+
 async def _has_repeated_tags(group_name: str, tags: List[str]) -> bool:
     has_repeated_tags = len(tags) != len(set(tags))
     if not has_repeated_tags:
@@ -1018,7 +1094,6 @@ async def get_group_digest_stats(
         "group": group_name,
         "main": {
             "remediation_rate": 0,
-            "reattack_effectiveness": 0,
             "remediation_time": 0,
             "comments": 0,
         },
@@ -1093,9 +1168,6 @@ async def get_group_digest_stats(
     content["reattacks"]["pending_attacks"] = reattacks.get(
         "pending_attacks", 0
     )
-    content["main"]["reattack_effectiveness"] = reattacks.get(
-        "reattack_effectiveness", 0
-    )
     content["main"]["comments"] = await get_total_comments_date(
         valid_findings, group_name, last_day
     )
@@ -1161,56 +1233,7 @@ def process_user_digest_stats(
     total["treatments"] = dict(treatments)
     total["events"] = dict(events)
 
-    reattacks: Counter = Counter()
-    for stat in groups_stats:
-        reattacks.update(stat["reattacks"])
-    total["reattacks"] = dict(reattacks)
-    if total["reattacks"]["reattacks_executed"] == 0:
-        total["main"]["reattack_effectiveness"] = "-"
-        # Get groups with oldest date since last reattack
-        groups_executed_date = [
-            {
-                "age_last_executed": (
-                    datetime_utils.get_now()
-                    - datetime_utils.get_from_str(
-                        group["reattacks"]["last_executed_date"]
-                    )
-                ).days,
-                "group": group["group"],
-            }
-            for group in groups_stats
-            if not group["reattacks"]["reattacks_executed"]
-            and group["reattacks"]["last_executed_date"]
-        ]
-        # Filter out those with 0 age
-        groups_executed_date = [
-            group
-            for group in groups_executed_date
-            if group["age_last_executed"]
-        ]
-        total["reattacks"]["groups_executed"] = sorted(
-            groups_executed_date,
-            key=itemgetter("age_last_executed"),
-            reverse=True,
-        )[:3]
-    else:
-        total["main"]["reattack_effectiveness"] = int(
-            100
-            * total["reattacks"]["effective_reattacks"]
-            / total["reattacks"]["reattacks_executed"]
-        )
-        # Get groups with most reattacks executed
-        groups_executed = [
-            {
-                "reattacks_executed": group["reattacks"]["reattacks_executed"],
-                "group": group["group"],
-            }
-            for group in groups_stats
-            if group["reattacks"]["reattacks_executed"]
-        ]
-        total["reattacks"]["groups_executed"] = sorted(
-            groups_executed, key=itemgetter("reattacks_executed"), reverse=True
-        )[:3]
+    total["reattacks"] = _process_digest_reattacks(groups_stats)
 
     # Get findings with oldest vulns without treatment
     findings = list()
