@@ -124,6 +124,61 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
+def _process_digest_reattacks_requested(
+    reattacks_requested: int, groups_stats: List[MailContentType]
+) -> MailContentType:
+    """Process digest reattacks requested sub-section"""
+    requested: MailContentType = {
+        "groups_requested": list(),
+    }
+    if not reattacks_requested:
+        # Get groups with oldest date since last request
+        groups_requested_date = [
+            {
+                "age_last_requested": (
+                    datetime_utils.get_now()
+                    - datetime_utils.get_from_str(
+                        group["reattacks"]["last_requested_date"]
+                    )
+                ).days,
+                "group": group["group"],
+            }
+            for group in groups_stats
+            if not group["reattacks"]["reattacks_requested"]
+            and group["reattacks"]["last_requested_date"]
+        ]
+        # Filter out those with 0 age
+        groups_requested_date = [
+            group
+            for group in groups_requested_date
+            if group["age_last_requested"]
+        ]
+        requested["groups_requested"] = sorted(
+            groups_requested_date,
+            key=itemgetter("age_last_requested"),
+            reverse=True,
+        )[:3]
+    else:
+        # Get groups with most reattacks requested
+        groups_requested = [
+            {
+                "reattacks_requested": group["reattacks"][
+                    "reattacks_requested"
+                ],
+                "group": group["group"],
+            }
+            for group in groups_stats
+            if group["reattacks"]["reattacks_requested"]
+        ]
+        requested["groups_requested"] = sorted(
+            groups_requested,
+            key=itemgetter("reattacks_requested"),
+            reverse=True,
+        )[:3]
+
+    return requested
+
+
 def _process_digest_reattacks_executed(
     reattacks_executed: int,
     effective_reattacks: int,
@@ -188,6 +243,12 @@ def _process_digest_reattacks(
     for stat in groups_stats:
         reattacks_count.update(stat["reattacks"])
     reattacks = dict(reattacks_count)
+
+    reattacks.update(
+        _process_digest_reattacks_requested(
+            reattacks["reattacks_requested"], groups_stats
+        )
+    )
 
     reattacks.update(
         _process_digest_reattacks_executed(
