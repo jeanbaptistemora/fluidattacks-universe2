@@ -4,6 +4,9 @@ from aioextensions import (
 )
 import asyncio
 import authz
+from context import (
+    FI_API_STATUS,
+)
 from custom_exceptions import (
     FindingNotFound,
     InvalidAuthorization,
@@ -53,6 +56,9 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 UNAUTHORIZED_ROLE_MSG = (
     "Security: Unauthorized role attempted to perform operation"
+)
+UNAVAILABLE_FINDING_MSG = (
+    "Security: The user attempted to operate on an unavailable finding"
 )
 
 # Typing
@@ -393,10 +399,19 @@ def require_finding_access(func: TVar) -> TVar:
             vuln = await vulns_domain.get(kwargs["vuln_uuid"])
             finding_id = vuln["finding_id"]
 
-        finding_loader = context.loaders.finding
-        finding = await finding_loader.load(finding_id)
-        if findings_domain.is_deleted(finding):
-            raise FindingNotFound()
+        if FI_API_STATUS == "migration":
+            finding_new_loader = context.loaders.finding_new
+            group_name = kwargs["group_name"]
+            try:
+                await finding_new_loader.load((group_name, finding_id))
+            except FindingNotFound:
+                logs_utils.cloudwatch_log(context, UNAVAILABLE_FINDING_MSG)
+                raise
+        else:
+            finding_loader = context.loaders.finding
+            finding = await finding_loader.load(finding_id)
+            if findings_domain.is_deleted(finding):
+                raise FindingNotFound()
         return await _func(*args, **kwargs)
 
     return cast(TVar, verify_and_call)

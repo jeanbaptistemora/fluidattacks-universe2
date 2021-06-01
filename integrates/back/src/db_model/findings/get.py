@@ -1,5 +1,6 @@
 from .enums import (
     FindingSorts,
+    FindingStateStatus,
 )
 from .types import (
     Finding,
@@ -212,6 +213,15 @@ async def _get_finding(*, group_name: str, finding_id: str) -> Finding:
     )
 
 
+async def _get_non_deleted_finding(
+    *, group_name: str, finding_id: str
+) -> Finding:
+    finding = await _get_finding(group_name=group_name, finding_id=finding_id)
+    if finding.state.status == FindingStateStatus.DELETED:
+        raise FindingNotFound
+    return finding
+
+
 async def _get_historic_verification(
     *, group_name: str, finding_id: str
 ) -> Tuple[FindingVerification, ...]:
@@ -250,7 +260,7 @@ async def _get_historic_state(
     return tuple(map(format_state, results))
 
 
-class FindingNewLoader(DataLoader):
+class FindingNonDeletedNewLoader(DataLoader):
     """Batches load calls within the same execution fragment."""
 
     # pylint: disable=method-hidden
@@ -258,7 +268,9 @@ class FindingNewLoader(DataLoader):
         self, finding_ids: Tuple[Tuple[str, str], ...]
     ) -> Tuple[Finding, ...]:
         return await collect(
-            _get_finding(group_name=group_name, finding_id=finding_id)
+            _get_non_deleted_finding(
+                group_name=group_name, finding_id=finding_id
+            )
             for group_name, finding_id in finding_ids
         )
 

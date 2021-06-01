@@ -1,6 +1,5 @@
 from custom_exceptions import (
     AlreadyApproved,
-    AlreadyDeleted,
     AlreadySubmitted,
     IncompleteDraft,
     InvalidDraftTitle,
@@ -75,9 +74,6 @@ async def reject_draft_new(
 ) -> None:
     finding_loader = context.loaders.finding_new
     finding: Finding = await finding_loader.load((group_name, finding_id))
-    if finding.state.status == FindingStateStatus.DELETED:
-        raise AlreadyDeleted()
-
     if finding.state.status == FindingStateStatus.APPROVED:
         raise AlreadyApproved()
 
@@ -103,9 +99,6 @@ async def submit_draft_new(
     finding_vulns_loader = context.loaders.finding_vulns
     finding_loader = context.loaders.finding_new
     finding: Finding = await finding_loader.load((group_name, finding_id))
-    if finding.state.status == FindingStateStatus.DELETED:
-        raise AlreadyDeleted()
-
     if finding.state.status == FindingStateStatus.APPROVED:
         raise AlreadyApproved()
 

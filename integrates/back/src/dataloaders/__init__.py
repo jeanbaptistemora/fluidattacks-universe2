@@ -67,7 +67,7 @@ from collections import (
 from db_model.findings.get import (
     FindingHistoricStateNewLoader,
     FindingHistoricVerificationNewLoader,
-    FindingNewLoader,
+    FindingNonDeletedNewLoader,
 )
 from starlette.requests import (
     Request,
@@ -81,7 +81,7 @@ from typing import (
 class Dataloaders(NamedTuple):
     event: EventLoader
     finding: FindingLoader
-    finding_new: FindingNewLoader
+    finding_new: FindingNonDeletedNewLoader
     finding_historic_state_new: FindingHistoricStateNewLoader
     finding_historic_verification_new: FindingHistoricVerificationNewLoader
     finding_vulns: FindingVulnsLoader  # All vulns except deleted
@@ -137,7 +137,7 @@ def get_new_context() -> Dataloaders:
         finding_historic_verification_new=(
             FindingHistoricVerificationNewLoader()
         ),
-        finding_new=FindingNewLoader(),
+        finding_new=FindingNonDeletedNewLoader(),
         finding_vulns=finding_vulns_non_deleted_loader,
         finding_vulns_all=finding_vulns_loader,
         finding_vulns_nzr=finding_vulns_nzr_loader,
