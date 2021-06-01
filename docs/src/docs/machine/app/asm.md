@@ -301,19 +301,3 @@ Some vulnerabilities
 can expose customer information;
 for context,
 we share the disclosed information in this section.
-
-#### Roles
-
-|                     |User|Executive|User manager|
-|:-------------------:|:--:|:-------:|:----------:|
-|View vulnerabilities |X   |X        |X           |
-|Change treatments    |X   |X        |X           |
-|Approve treatments   |    |         |X           |
-|Request reattack     |X   |X        |X           |
-|Add tags             |X   |X        |X           |
-|Add roots            |X   |X        |X           |
-|Edit roots           |X   |X        |X           |
-|Delete group         |    |         |X           |
-|Add users            |    |         |X           |
-|Edit users           |    |         |X           |
-|Receive notifications|X   |         |X           |

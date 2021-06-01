@@ -1,8 +1,8 @@
 ---
-id: gitroots
+id: roots
 title: Roots
 sidebar_label: Roots
-slug: /machine/app/groups/scope/gitroots
+slug: /machine/app/groups/scope/roots
 ---
 
 In this section of the Scope tab,

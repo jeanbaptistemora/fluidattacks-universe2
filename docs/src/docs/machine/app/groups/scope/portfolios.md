@@ -1,8 +1,8 @@
 ---
-id: portfolio
-title: Portfolio
-sidebar_label: Portfolio
-slug: /machine/app/groups/scope/portfolio
+id: portfolios
+title: Portfolios
+sidebar_label: Portfolios
+slug: /machine/app/groups/scope/portfolios
 ---
 
 In this section

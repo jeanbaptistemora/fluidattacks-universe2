@@ -789,15 +789,16 @@ module.exports = {
           items: [
             'machine/app/groups/vulnerabilities',
             'machine/app/groups/events',
+            'machine/app/groups/roles',
             {
               type: 'category',
               label: 'Scope',
               items: [
                 'machine/app/groups/scope/introduction',
-                'machine/app/groups/scope/gitroots',
+                'machine/app/groups/scope/roots',
                 'machine/app/groups/scope/exclusions',
                 'machine/app/groups/scope/files',
-                'machine/app/groups/scope/portfolio',
+                'machine/app/groups/scope/portfolios',
               ],
             },
             'machine/app/groups/delete',
