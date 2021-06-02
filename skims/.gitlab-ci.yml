@@ -136,6 +136,11 @@ skims.test.benchmark_sqli:
 skims.test.benchmark_weakrand:
   <<: *skims_test
 
+skims.test.cli:
+  <<: *makes
+  <<: *skims_in_dev_branch
+  stage: test-code
+
 skims.test.functional:
   <<: *skims_test
   # This job should only run once at a time per branch
