@@ -22,8 +22,10 @@ import jsonschema
 import logging
 import psycopg2 as postgres
 import psycopg2.extensions as postgres_extensions
-import re
 import sys
+from target_redshift.utils import (
+    escape,
+)
 import time
 from typing import (
     Any,
@@ -162,39 +164,6 @@ def drop_access_point(dbcon: PGCONN, dbcur: PGCURR) -> None:
     """
     dbcur.close()
     dbcon.close()
-
-
-def escape(obj: str) -> str:
-    """Escape characters from an string object.
-
-    It makes the object decay to an string, if not yet string.
-    It removes null byte characters.
-    It backslash the backslash, apostrophe, and quotation mark characters.
-
-    Which are known to make a Redshift statement fail.
-
-    Args:
-        str_obj: The string to escape.
-
-    Returns:
-        A escaped string.
-    """
-
-    # decay to string if not yet string
-    str_obj = str(obj)
-
-    # remove null characters
-    str_obj = re.sub("\x00", "", str_obj)
-
-    # backslash the backslash
-    str_obj = str_obj.replace("\\", "\\\\")
-
-    # escape double quotes for postgresql query
-    str_obj = str_obj.replace('"', '""')
-    # escape single quotes for postgresql query
-    str_obj = str_obj.replace("'", "\\'")
-
-    return str_obj
 
 
 def translate_schema(json_schema: JSON) -> Dict[str, str]:
