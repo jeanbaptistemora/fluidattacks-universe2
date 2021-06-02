@@ -2,8 +2,14 @@ from __future__ import (
     annotations,
 )
 
+from datetime import (
+    datetime,
+)
 from enum import (
     Enum,
+)
+from model import (
+    time_model,
 )
 from model.cvss3_model import (
     AttackComplexity,
@@ -729,22 +735,33 @@ class VulnerabilitySourceEnum(Enum):
         )
 
 
-class VulnerabilityVerificationEnum(Enum):
+class VulnerabilityVerificationStateEnum(Enum):
     NOT_REQUESTED: str = "NOT_REQUESTED"
     REQUESTED: str = "REQUESTED"
     VERIFIED: str = "VERIFIED"
+
+
+class VulnerabilityVerification(NamedTuple):
+    date: datetime
+    state: VulnerabilityVerificationStateEnum
 
     @classmethod
     def from_historic(
         cls,
         historic: List[Dict[str, str]],
-    ) -> VulnerabilityVerificationEnum:
-        if historic:
-            for status in VulnerabilityVerificationEnum:
-                if historic[-1]["status"] == status.value:
-                    return status
-
-        return VulnerabilityVerificationEnum.NOT_REQUESTED
+    ) -> Tuple[VulnerabilityVerification, ...]:
+        return tuple(
+            VulnerabilityVerification(
+                date=time_model.from_colombian(
+                    string=item["date"],
+                    fmt=time_model.INTEGRATES_1,
+                ),
+                state=VulnerabilityVerificationStateEnum(item["status"]),
+            )
+            for item in historic
+            if item["status"] is not None
+            if item["date"] is not None
+        )
 
 
 class GrammarMatch(NamedTuple):
@@ -755,7 +772,7 @@ class GrammarMatch(NamedTuple):
 class IntegratesVulnerabilityMetadata(NamedTuple):
     commit_hash: Optional[str] = None
     source: Optional[VulnerabilitySourceEnum] = None
-    verification: Optional[VulnerabilityVerificationEnum] = None
+    verification: Optional[Tuple[VulnerabilityVerification, ...]] = None
     uuid: Optional[str] = None
 
 

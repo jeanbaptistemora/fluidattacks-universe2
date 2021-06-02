@@ -300,6 +300,7 @@ async def get_finding_vulnerabilities(
                         currentState
                         historicState
                         historicVerification {
+                            date
                             status
                         }
                         id
@@ -326,7 +327,7 @@ async def get_finding_vulnerabilities(
         source = core_model.VulnerabilitySourceEnum.from_historic(
             vulnerability["historicState"],
         )
-        verification = core_model.VulnerabilityVerificationEnum.from_historic(
+        verification = core_model.VulnerabilityVerification.from_historic(
             vulnerability["historicVerification"],
         )
 

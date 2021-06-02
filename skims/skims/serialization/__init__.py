@@ -96,7 +96,7 @@ def _side_effects() -> None:
         core_model.Platform,
         core_model.VulnerabilityKindEnum,
         core_model.VulnerabilitySourceEnum,
-        core_model.VulnerabilityVerificationEnum,
+        core_model.VulnerabilityVerificationStateEnum,
         core_model.VulnerabilityStateEnum,
         graph_model.GraphShardMetadataLanguage,
         Type,
@@ -105,11 +105,14 @@ def _side_effects() -> None:
 
     for factory in (
         core_model.FindingMetadata,
+        core_model.IntegratesVulnerabilityMetadata,
+        core_model.NVDVulnerability,
+        core_model.SkimsVulnerabilityMetadata,
+        core_model.Vulnerability,
+        core_model.VulnerabilityVerification,
         HCL2Attribute,
         HCL2Block,
         HCL2Json,
-        core_model.IntegratesVulnerabilityMetadata,
-        core_model.NVDVulnerability,
         graph_model.GraphDB,
         graph_model.GraphShardCacheable,
         graph_model.GraphShard,
@@ -144,8 +147,6 @@ def _side_effects() -> None:
         graph_model.SyntaxStepSymbolLookup,
         graph_model.SyntaxStepTernary,
         graph_model.SyntaxStepUnaryExpression,
-        core_model.SkimsVulnerabilityMetadata,
-        core_model.Vulnerability,
         Node,
     ):
         safe_pickle.register_namedtuple(factory)
