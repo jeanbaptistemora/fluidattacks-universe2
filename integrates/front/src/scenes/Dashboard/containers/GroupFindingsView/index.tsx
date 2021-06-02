@@ -35,7 +35,7 @@ import AppstoreBadge from "resources/appstore_badge.svg";
 import GoogleplayBadge from "resources/googleplay_badge.svg";
 import {
   GET_FINDINGS,
-  REQUEST_PROJECT_REPORT,
+  REQUEST_GROUP_REPORT,
 } from "scenes/Dashboard/containers/GroupFindingsView/queries";
 import type { IGroupFindingsAttr } from "scenes/Dashboard/containers/GroupFindingsView/types";
 import { formatFindings } from "scenes/Dashboard/containers/GroupFindingsView/utils";
@@ -75,7 +75,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     setReportsModalOpen(false);
   }, []);
 
-  const [requestProjectReport] = useLazyQuery(REQUEST_PROJECT_REPORT, {
+  const [requestGroupReport] = useLazyQuery(REQUEST_GROUP_REPORT, {
     onCompleted: (): void => {
       msgSuccess(
         translate.t("groupAlerts.reportRequested"),
@@ -279,7 +279,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
       track("GroupReportRequest", { reportType });
 
-      requestProjectReport({
+      requestGroupReport({
         variables: {
           projectName,
           reportType,
@@ -329,7 +329,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           bordered={true}
           columnToggle={true}
           csvFilename={`${projectName}-findings-${currentDate}.csv`}
-          dataset={formatFindings(data.project.findings)}
+          dataset={formatFindings(data.group.findings)}
           defaultSorted={JSON.parse(_.get(sessionStorage, "findingSort", "{}"))}
           expandRow={{
             expandByColumnOnly: true,

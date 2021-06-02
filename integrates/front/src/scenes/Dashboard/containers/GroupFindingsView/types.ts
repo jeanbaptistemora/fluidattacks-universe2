@@ -1,7 +1,7 @@
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 
 interface IGroupFindingsAttr {
-  project: {
+  group: {
     findings: IFindingAttr[];
   };
 }
@@ -29,7 +29,7 @@ interface IFindingAttr {
 }
 
 interface IRequestGroupReportResult {
-  requestProjectReport: {
+  requestGroupReport: {
     success: boolean;
   };
 }

@@ -3,7 +3,7 @@ import type { DocumentNode } from "graphql";
 
 const GET_FINDINGS: DocumentNode = gql`
   query GetFindingsQuery($projectName: String!) {
-    project(projectName: $projectName) {
+    group(projectName: $projectName) {
       findings {
         id
         age
@@ -33,8 +33,8 @@ const GET_FINDINGS: DocumentNode = gql`
   }
 `;
 
-const REQUEST_PROJECT_REPORT: DocumentNode = gql`
-  query RequestProjectReport(
+const REQUEST_GROUP_REPORT: DocumentNode = gql`
+  query RequestGroupReport(
     $reportType: ReportType!
     $projectName: String!
     $lang: ReportLang
@@ -45,4 +45,4 @@ const REQUEST_PROJECT_REPORT: DocumentNode = gql`
   }
 `;
 
-export { GET_FINDINGS, REQUEST_PROJECT_REPORT };
+export { GET_FINDINGS, REQUEST_GROUP_REPORT };
