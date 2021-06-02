@@ -4,6 +4,9 @@ from integrates.dal import (
 from integrates.graphql import (
     create_session,
 )
+from model import (
+    core_model,
+)
 import sys
 
 
@@ -12,8 +15,8 @@ async def main(group: str, token: str) -> bool:
 
     create_session(api_token=token)
 
-    language: str = await get_group_language(group=group)
-    sys.stdout.write(language)
+    locale: core_model.LocalesEnum = await get_group_language(group)
+    sys.stdout.write(locale.value)
     sys.stdout.write("\n")
 
     return success

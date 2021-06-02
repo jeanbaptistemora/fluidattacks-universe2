@@ -21,6 +21,7 @@ from state.ephemeral import (
 from typing import (
     Dict,
     List,
+    Optional,
     Set,
     Tuple,
     Union,
@@ -97,6 +98,25 @@ async def build_vulnerabilities_stream(
     )
 
 
+async def get_closest_finding_ids(
+    finding: core_model.FindingEnum,
+    group: str,
+    locale: Optional[core_model.LocalesEnum] = None,
+) -> Tuple[str, ...]:
+    existing_findings: Tuple[
+        ResultGetGroupFindings, ...
+    ] = await get_group_findings(group=group)
+
+    return tuple(
+        existing_finding.identifier
+        for existing_finding in existing_findings
+        if are_similar(
+            t(finding.value.title, locale=locale),
+            existing_finding.title,
+        )
+    )
+
+
 async def get_closest_finding_id(
     *,
     affected_systems: str = "",
@@ -105,16 +125,11 @@ async def get_closest_finding_id(
     group: str,
     recreate_if_draft: bool = False,
 ) -> str:
-    finding_id: str = ""
-
-    existing_findings: Tuple[
-        ResultGetGroupFindings, ...
-    ] = await get_group_findings(group=group)
-
-    for existing_finding in existing_findings:
-        if are_similar(t(finding.value.title), existing_finding.title):
-            finding_id = existing_finding.identifier
-            break
+    finding_ids: Tuple[str, ...] = await get_closest_finding_ids(
+        finding=finding,
+        group=group,
+    )
+    finding_id: str = finding_ids[0] if finding_ids else ""
 
     if (
         finding_id

@@ -194,10 +194,7 @@ async def get_group_findings(
 
 
 @SHIELD
-async def get_group_language(
-    *,
-    group: str,
-) -> Tuple[ResultGetGroupFindings, ...]:
+async def get_group_language(group: str) -> core_model.LocalesEnum:
     result = await _execute(
         query="""
             query SkimsGetGroupLanguage($group: String!) {
@@ -210,7 +207,7 @@ async def get_group_language(
         variables=dict(group=group),
     )
 
-    return result["data"]["project"]["language"]
+    return core_model.LocalesEnum(result["data"]["project"]["language"])
 
 
 class ResultGetGroupRoots(NamedTuple):
