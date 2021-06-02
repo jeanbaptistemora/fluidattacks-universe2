@@ -42,6 +42,7 @@ from api.mutations import (
     invalidate_access_token,
     invalidate_cache,
     reject_draft,
+    reject_draft_new,
     reject_zero_risk_vuln,
     remove_event_evidence,
     remove_files,
@@ -176,7 +177,6 @@ MUTATION.set_field("removeEvidence", remove_finding_evidence.mutate)
 MUTATION.set_field("addFindingConsult", add_finding_consult.mutate)
 MUTATION.set_field("updateDescription", update_finding_description.mutate)
 MUTATION.set_field("unsubscribeFromGroup", unsubscribe_from_group.mutate)
-MUTATION.set_field("rejectDraft", reject_draft.mutate)
 MUTATION.set_field("deleteTags", delete_vulnerability_tags.mutate)
 MUTATION.set_field(
     "updateTreatmentVuln", update_treatment_vulnerability.mutate
@@ -196,7 +196,9 @@ MUTATION.set_field("createGroup", create_group.mutate)
 
 if FI_API_STATUS == "migration":
     MUTATION.set_field("createDraft", create_draft_new.mutate)
+    MUTATION.set_field("rejectDraft", reject_draft_new.mutate)
     MUTATION.set_field("submitDraft", submit_draft_new.mutate)
 else:
     MUTATION.set_field("createDraft", create_draft.mutate)
+    MUTATION.set_field("rejectDraft", reject_draft.mutate)
     MUTATION.set_field("submitDraft", submit_draft.mutate)

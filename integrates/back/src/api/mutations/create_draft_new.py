@@ -1,3 +1,6 @@
+from api import (
+    APP_EXCEPTIONS,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -37,12 +40,18 @@ async def mutate(
     title: str,
     **kwargs: Any,
 ) -> SimplePayload:
-    await findings_domain.create_draft_new(
-        info.context, project_name, title, **kwargs
-    )
-    logs_utils.cloudwatch_log(
-        info.context,
-        f"Security: Created draft in {project_name} group successfully",
-    )
-
+    try:
+        await findings_domain.create_draft_new(
+            info.context, project_name, title, **kwargs
+        )
+        logs_utils.cloudwatch_log(
+            info.context,
+            f"Security: Created draft in {project_name} group successfully",
+        )
+    except APP_EXCEPTIONS:
+        logs_utils.cloudwatch_log(
+            info.context,
+            f"Security: Attempted to create draft in group {project_name}",
+        )
+        raise
     return SimplePayload(success=True)

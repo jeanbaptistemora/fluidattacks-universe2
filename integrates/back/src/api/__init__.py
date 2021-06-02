@@ -1,8 +1,14 @@
 from ariadne.asgi import (
     GraphQL,
 )
+from custom_exceptions import (
+    CustomBaseException,
+)
 from dataloaders import (
     apply_context_attrs,
+)
+from dynamodb.exceptions import (
+    DynamoDbBaseException,
 )
 import newrelic.agent
 from newutils import (
@@ -21,6 +27,8 @@ from typing import (
     Any,
     Dict,
 )
+
+APP_EXCEPTIONS = (CustomBaseException, DynamoDbBaseException)
 
 newrelic.agent.initialize(NEW_RELIC_CONF_FILE)
 

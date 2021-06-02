@@ -9,6 +9,7 @@ from custom_types import (
 )
 from decorators import (
     concurrent_decorators,
+    delete_kwargs,
     enforce_group_level_auth_async,
     require_finding_access,
     require_integrates,
@@ -37,6 +38,7 @@ from typing import (
 
 
 @convert_kwargs_to_snake_case
+@delete_kwargs({"group_name"})
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,

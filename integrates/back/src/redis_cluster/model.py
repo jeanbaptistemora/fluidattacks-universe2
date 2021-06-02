@@ -116,6 +116,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             "zero_risk_new",
         },
         dependencies={
+            "reject_draft_new",
             "submit_draft_new",
         },
     ),

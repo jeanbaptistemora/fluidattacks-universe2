@@ -270,7 +270,7 @@ type Mutation {
 
   invalidateCache(pattern: String!): SimplePayload!
 
-  rejectDraft(findingId: String!): SimplePayload!
+  rejectDraft(findingId: String! groupName: String): SimplePayload!
 
   rejectZeroRiskVuln(
     findingId: String!
