@@ -11,6 +11,20 @@ function check_cli_arg {
   fi
 }
 
+function get_skims_language {
+  local group="${1}"
+
+  skims language --group "${group}"
+}
+
+function get_skims_expected_code_date {
+  local group="${1}"
+  local namespace="${2}"
+  local check="${3}"
+
+  skims expected-code-date --group "${group}" --finding-code "${check}"
+}
+
 function update_group {
   local group="${1}"
 
@@ -61,6 +75,32 @@ function skims_rebase {
   ||  true
 }
 
+function skims_should_run {
+  local group="${1}"
+  local namespace="${2}"
+  local check="${3}"
+  local metadata="groups/${group}/fusion/${namespace}/.git/fluidattacks_metadata"
+
+  local expected_code_date
+  local expected_code_date_epoch
+  local metadata_date
+  local metadata_date_epoch
+
+      echo "[INFO] Checking if skims should run in ${group} ${namespace} ${check}" \
+  &&  expected_code_date_epoch="$(get_skims_expected_code_date "${group}" "${namespace}" "${check}")" \
+  &&  expected_code_date="$(from_epoch_to_iso8601 "${expected_code_date_epoch}")" \
+  &&  if test -e "${metadata}" && metadata_date=$(jq -er '.date' < "${metadata}")
+      then
+            echo "[INFO] Git data for ${group} ${namespace} is at ${metadata_date}" \
+        &&  metadata_date_epoch="$(from_iso8601_to_epoch "${metadata_date}")" \
+        &&  echo "[INFO] Skims expected code date for ${group} ${namespace} is ${expected_code_date}" \
+        &&  test "${metadata_date_epoch}" -ge "${expected_code_date_epoch}"
+      else
+            echo "[INFO] Either ${metadata} does not exist or it is corrupt" \
+        &&  return 1
+      fi
+}
+
 function skims_scan {
   local group="${1}"
   local namespace="${2}"
@@ -104,8 +144,8 @@ function main {
         INTEGRATES_API_TOKEN \
         SERVICES_PROD_AWS_ACCESS_KEY_ID \
         SERVICES_PROD_AWS_SECRET_ACCESS_KEY \
-  &&  config=$(mktemp) \
-  &&  lang="$(skims language --group "${group}")" \
+  &&  config="$(mktemp)" \
+  &&  lang="$(get_skims_language "${group}")" \
   &&  update_group "${group}" \
   &&  use_git_repo_services \
     &&  clone_group "${group}" \
@@ -114,6 +154,7 @@ function main {
         do
               namespace="$(basename "${repo_path}")" \
           &&  skims_rebase "${group}" "${namespace}" \
+          &&  skims_should_run "${group}" "${namespace}" "${check}" \
           &&  skims_scan "${group}" "${namespace}" "${check}" "${lang}" "${config}" \
           ||  continue
         done \

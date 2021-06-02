@@ -26,6 +26,7 @@ makeEntrypoint {
       "/makes/utils/env"
       "/makes/utils/git"
       "/makes/utils/sops"
+      "/makes/utils/time"
     ];
   };
   template = path "/makes/applications/skims/process-group/entrypoint.sh";
