@@ -3,14 +3,10 @@ import Constants from "expo-constants";
 import type { ExpoPushToken } from "expo-notifications";
 import {
   getExpoPushTokenAsync,
+  getPermissionsAsync,
+  requestPermissionsAsync,
   setNotificationChannelGroupAsync,
 } from "expo-notifications";
-import {
-  NOTIFICATIONS,
-  PermissionStatus,
-  askAsync,
-  getAsync,
-} from "expo-permissions";
 import { Platform } from "react-native";
 
 import { LOGGER } from "./logger";
@@ -35,15 +31,15 @@ export const getPushToken: () => Promise<string> = async (): Promise<string> => 
    */
   if (Constants.isDevice) {
     try {
-      const { status: currentStatus } = await getAsync(NOTIFICATIONS);
+      const { status: currentStatus } = await getPermissionsAsync();
 
-      if (currentStatus === PermissionStatus.GRANTED) {
+      if (currentStatus === "granted") {
         return await getToken();
       }
 
-      const { status } = await askAsync(NOTIFICATIONS);
+      const { status } = await requestPermissionsAsync();
 
-      if (status === PermissionStatus.GRANTED) {
+      if (status === "granted") {
         return await getToken();
       }
     } catch (error: unknown) {

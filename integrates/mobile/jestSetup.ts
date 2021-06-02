@@ -16,6 +16,18 @@ jest.mock("react-native/Libraries/Animated/src/NativeAnimatedHelper");
 jest.mock("@bugsnag/expo");
 
 /**
+ * Mock registerRootComponent
+ *
+ * @see https://github.com/expo/expo/issues/13026
+ */
+jest.mock(
+  "expo",
+  (): Record<string, unknown> => ({
+    registerRootComponent: jest.fn(),
+  })
+);
+
+/**
  * Supress DOM-related warnings
  *
  * This is a necessary workaround for setting up enzyme
