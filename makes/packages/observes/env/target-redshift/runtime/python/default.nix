@@ -11,6 +11,7 @@ buildPythonRequirements {
     direct = [
       "jsonschema==3.2.0"
       "psycopg2==2.8.4"
+      "returns==0.16.0"
     ];
     inherited = [
       "attrs==20.3.0"

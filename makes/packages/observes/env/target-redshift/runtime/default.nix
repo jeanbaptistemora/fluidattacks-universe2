@@ -22,5 +22,10 @@ makeTemplate {
     envPython38Paths = [
       target-redshift.runtime.python
     ];
+    envSources = [
+      postgres-client.runtime
+      singer-io.runtime
+      utils-logger.runtime
+    ];
   };
 }
