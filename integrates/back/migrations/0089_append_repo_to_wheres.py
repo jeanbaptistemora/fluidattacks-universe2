@@ -4,6 +4,9 @@
 # For all lines vulns with repo_nickname,
 # we'll append the repo_nickname to the where
 # so it follows the repo/path/to/file format
+#
+# Execution time: 2021-06-01 18:40:18-05:00
+# Finalization time: 2021-06-01 20:44:12-05:00
 
 import boto3
 from typing import (
@@ -12,7 +15,7 @@ from typing import (
     Optional,
 )
 
-PROD: bool = False
+PROD: bool = True
 
 
 def handle_response(table: Any, response: Any) -> None:
@@ -39,7 +42,8 @@ def handle_response(table: Any, response: Any) -> None:
             if PROD:
                 table.update_item(
                     Key=dict(finding_id=finding_id, UUID=uuid),
-                    UpdateExpression="SET where = :where",
+                    UpdateExpression="SET #where = :where",
+                    ExpressionAttributeNames={"#where": "where"},
                     ExpressionAttributeValues={":where": correct_where},
                 )
 
