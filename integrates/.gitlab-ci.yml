@@ -275,6 +275,9 @@ integrates.back.test.functional.project:
 integrates.back.test.functional.reject_draft:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.reject_draft_new:
+  <<: *integrates_back_test_functional_migration
+
 integrates.back.test.functional.remove_event_evidence:
   <<: *integrates_back_test_functional
 
