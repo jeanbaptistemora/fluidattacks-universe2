@@ -86,7 +86,7 @@ def predict_vuln_prob(
 
     log(
         "info",
-        "Model info -> ",
+        "Model info -> "
         f"recall: {model.recall}%, precision: {model.precision}%",
     )
     class_prediction: ndarray = model.predict(input_data)

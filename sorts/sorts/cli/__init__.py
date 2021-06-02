@@ -5,14 +5,8 @@ from integrates.graphql import (
 from sorts.integrates.dal import (
     get_user_email,
 )
-from sorts.predict.commit import (
-    prioritize as prioritize_commits,
-)
 from sorts.predict.file import (
     prioritize as prioritize_files,
-)
-from sorts.training.commit import (
-    get_subscription_commit_metadata,
 )
 from sorts.training.file import (
     get_subscription_file_metadata,
@@ -48,19 +42,9 @@ import time
     ),
 )
 @click.option(
-    "--get-commit-data",
-    is_flag=True,
-    help="Extract commit features from the subscription to train ML models",
-)
-@click.option(
     "--get-file-data",
     is_flag=True,
     help="Extract file features from the subscription to train ML models",
-)
-@click.option(
-    "--predict-commit",
-    is_flag=True,
-    help="Use the legacy predictor that sorts files based on commit features",
 )
 @click.option(
     "--token",
@@ -71,9 +55,7 @@ import time
 @shield(on_error_return=False)
 def execute_sorts(
     subscription: str,
-    get_commit_data: bool,
     get_file_data: bool,
-    predict_commit: bool,
     token: str,
 ) -> None:
     configure_bugsnag()
@@ -82,12 +64,8 @@ def execute_sorts(
     if token:
         create_session(token)
         user_email: str = get_user_email()
-        if get_commit_data:
-            success = get_subscription_commit_metadata(subscription)
-        elif get_file_data:
+        if get_file_data:
             success = get_subscription_file_metadata(subscription)
-        elif predict_commit:
-            success = prioritize_commits(subscription)
         else:
             success = prioritize_files(subscription)
 
@@ -95,18 +73,14 @@ def execute_sorts(
             msg=f"Success: {success}",
             subscription=subscription,
             time=f"Finished after {time.time() - start_time:.2f} seconds",
-            get_commit_data=get_commit_data,
             get_file_data=get_file_data,
-            predict_commit=predict_commit,
             user=user_email,
         )
         mixpanel_track(
             user_email,
             "sorts_execution",
             subscription=subscription,
-            get_commit_data=get_commit_data,
             get_file_data=get_file_data,
-            predict_commit=predict_commit,
         )
     else:
         log(
