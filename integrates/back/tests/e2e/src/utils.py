@@ -114,7 +114,6 @@ def login(
     driver.add_cookie(
         {
             "name": "session",
-            "domain": integrates_endpoint.replace("https://", ""),
             "value": session_cookie,
         }
     )

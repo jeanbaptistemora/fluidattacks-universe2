@@ -404,9 +404,9 @@ describe("GroupScopeView", (): void => {
     });
 
     const path1 = (): ReactWrapper =>
-      wrapper.find({ name: "gitignore.0" }).find("input");
+      wrapper.find({ name: "gitignore[0]" }).find("input");
     path1().simulate("change", {
-      target: { name: "gitignore.0", value: "node_modules/*" },
+      target: { name: "gitignore[0]", value: "node_modules/*" },
     });
 
     await act(async (): Promise<void> => {

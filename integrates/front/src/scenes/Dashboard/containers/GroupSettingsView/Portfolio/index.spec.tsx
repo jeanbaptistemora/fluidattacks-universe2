@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
@@ -115,16 +116,19 @@ describe("Portfolio", (): void => {
       .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
       .at(0);
     addButton.simulate("click");
-    const addTagsModal: ReactWrapper = wrapper.find("AddTagsModal");
-    const tagInput: ReactWrapper = addTagsModal
+    const addTagsModal = (): ReactWrapper => wrapper.find("AddTagsModal");
+    const tagInput: ReactWrapper = addTagsModal()
       .find({ name: "tags[0]", type: "text" })
       .at(0)
       .find("input");
-    tagInput.simulate("change", { target: { value: "test-new-tag" } });
-    const form: ReactWrapper = addTagsModal.find("genericForm").at(0);
+    tagInput.simulate("change", {
+      target: { name: "tags[0]", value: "test-new-tag" },
+    });
+    const form: ReactWrapper = addTagsModal().find("Formik").at(0);
     form.simulate("submit");
     await act(async (): Promise<void> => {
-      await wait(0);
+      const delay = 100;
+      await wait(delay);
       wrapper.update();
     });
 
@@ -167,20 +171,25 @@ describe("Portfolio", (): void => {
       await wait(0);
       wrapper.update();
     });
-    const fileInfo: ReactWrapper = wrapper
-      .find("tr")
-      .findWhere((element: ReactWrapper): boolean =>
-        element.contains("test-tag1")
-      )
-      .at(0);
-    fileInfo.simulate("click");
-    const removeButton: ReactWrapper = wrapper
-      .find("button")
-      .findWhere((element: ReactWrapper): boolean => element.contains("Remove"))
-      .at(0);
-    removeButton.simulate("click");
+    const fileInfo = (): ReactWrapper =>
+      wrapper
+        .find("tr")
+        .findWhere((element: ReactWrapper): boolean =>
+          element.contains("test-tag1")
+        )
+        .at(0);
+    fileInfo().simulate("click");
+    const removeButton = (): ReactWrapper =>
+      wrapper
+        .find("button")
+        .findWhere((element: ReactWrapper): boolean =>
+          element.contains("Remove")
+        )
+        .at(0);
+    removeButton().simulate("click");
     await act(async (): Promise<void> => {
-      await wait(0);
+      const delay = 100;
+      await wait(delay);
       wrapper.update();
     });
 
@@ -203,14 +212,16 @@ describe("Portfolio", (): void => {
       await wait(0);
       wrapper.update();
     });
-    const firstRowInfo: ReactWrapper = wrapper.find("RowPureContent").at(0);
+    const firstRowInfo = (): ReactWrapper =>
+      wrapper.find("RowPureContent").at(0);
 
-    expect(firstRowInfo.text()).toStrictEqual("test-tag1");
+    expect(firstRowInfo().text()).toStrictEqual("test-tag1");
 
-    const tagHeader: ReactWrapper = wrapper.find({
-      "aria-label": "Portfolio sortable",
-    });
-    tagHeader.simulate("click");
+    const tagHeader = (): ReactWrapper =>
+      wrapper.find({
+        "aria-label": "Portfolio sortable",
+      });
+    tagHeader().simulate("click");
     const firstRowInfoAux: ReactWrapper = wrapper.find("RowPureContent").at(0);
 
     expect(firstRowInfoAux.text()).toStrictEqual("test-tag2");
@@ -257,21 +268,25 @@ describe("Portfolio", (): void => {
       await wait(0);
       wrapper.update();
     });
-    const addButton: ReactWrapper = wrapper
-      .find("button")
-      .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
-      .at(0);
-    addButton.simulate("click");
-    const addTagsModal: ReactWrapper = wrapper.find("AddTagsModal");
-    const tagInput: ReactWrapper = addTagsModal
+    const addButton = (): ReactWrapper =>
+      wrapper
+        .find("button")
+        .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
+        .at(0);
+    addButton().simulate("click");
+    const addTagsModal = (): ReactWrapper => wrapper.find("AddTagsModal");
+    const tagInput: ReactWrapper = addTagsModal()
       .find({ name: "tags[0]", type: "text" })
       .at(0)
       .find("input");
-    tagInput.simulate("change", { target: { value: "test-new-tag" } });
-    const form: ReactWrapper = addTagsModal.find("genericForm").at(0);
+    tagInput.simulate("change", {
+      target: { name: "tags[0]", value: "test-new-tag" },
+    });
+    const form: ReactWrapper = addTagsModal().find("Formik").at(0);
     form.simulate("submit");
     await act(async (): Promise<void> => {
-      await wait(0);
+      const delay = 100;
+      await wait(delay);
       wrapper.update();
     });
 
@@ -314,20 +329,22 @@ describe("Portfolio", (): void => {
       await wait(0);
       wrapper.update();
     });
-    const fileInfo: ReactWrapper = wrapper
-      .find("tr")
-      .findWhere((element: ReactWrapper): boolean =>
-        element.contains("test-tag1")
-      )
-      .at(0);
-    fileInfo.simulate("click");
+    const fileInfo = (): ReactWrapper =>
+      wrapper
+        .find("tr")
+        .findWhere((element: ReactWrapper): boolean =>
+          element.contains("test-tag1")
+        )
+        .at(0);
+    fileInfo().simulate("click");
     const removeButton: ReactWrapper = wrapper
       .find("button")
       .findWhere((element: ReactWrapper): boolean => element.contains("Remove"))
       .at(0);
     removeButton.simulate("click");
     await act(async (): Promise<void> => {
-      await wait(0);
+      const delay = 100;
+      await wait(delay);
       wrapper.update();
     });
 
@@ -355,21 +372,25 @@ describe("Portfolio", (): void => {
       await wait(0);
       wrapper.update();
     });
-    const addButton: ReactWrapper = wrapper
-      .find("button")
-      .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
-      .at(0);
-    addButton.simulate("click");
-    const addTagsModal: ReactWrapper = wrapper.find("AddTagsModal");
-    const tagInput: ReactWrapper = addTagsModal
+    const addButton = (): ReactWrapper =>
+      wrapper
+        .find("button")
+        .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
+        .at(0);
+    addButton().simulate("click");
+    const addTagsModal = (): ReactWrapper => wrapper.find("AddTagsModal");
+    const tagInput: ReactWrapper = addTagsModal()
       .find({ name: "tags[0]", type: "text" })
       .at(0)
       .find("input");
-    tagInput.simulate("change", { target: { value: "test-tag1" } });
-    const form: ReactWrapper = addTagsModal.find("genericForm").at(0);
+    tagInput.simulate("change", {
+      target: { name: "tags[0]", value: "test-tag1" },
+    });
+    const form: ReactWrapper = addTagsModal().find("Formik").at(0);
     form.simulate("submit");
     await act(async (): Promise<void> => {
-      await wait(0);
+      const delay = 100;
+      await wait(delay);
       wrapper.update();
     });
 

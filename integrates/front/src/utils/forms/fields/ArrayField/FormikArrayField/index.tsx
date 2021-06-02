@@ -4,6 +4,7 @@ import { FieldArray } from "formik";
 import React from "react";
 
 import { Button } from "components/Button";
+import { Col80, RemoveTag, Row } from "styles/styledComponents";
 
 interface IArrayProps {
   allowEmpty: boolean;
@@ -28,34 +29,40 @@ const FormikArrayField: React.FC<IArrayProps> = ({
         }
 
         return (
-          <div>
+          <React.Fragment>
             {arrayValues.map((_, index: number): JSX.Element => {
-              const fieldName = `${name}.${index}`;
+              const fieldName = `${name}[${index}]`;
 
               function removeItem(): void {
                 remove(index);
               }
 
               return (
-                <div className={"flex items-end"} key={fieldName}>
-                  <div className={"w-80"}>{children(fieldName)}</div>
-                  <div className={"w-20"}>
+                <React.Fragment key={fieldName + String(index)}>
+                  {index > 0 ? (
+                    <React.Fragment>
+                      <br />
+                      <hr />
+                    </React.Fragment>
+                  ) : undefined}
+                  <Row>
+                    <Col80>{children(fieldName)}</Col80>
                     {index > 0 || allowEmpty ? (
-                      <Button onClick={removeItem}>
-                        <FontAwesomeIcon icon={faTrashAlt} />
-                      </Button>
+                      <RemoveTag>
+                        <Button onClick={removeItem}>
+                          <FontAwesomeIcon icon={faTrashAlt} />
+                        </Button>
+                      </RemoveTag>
                     ) : undefined}
-                  </div>
-                  <br />
-                </div>
+                  </Row>
+                </React.Fragment>
               );
             })}
-            <div className={"mt4"}>
-              <Button id={`${name}-add`} onClick={addItem}>
-                <FontAwesomeIcon icon={faPlus} />
-              </Button>
-            </div>
-          </div>
+            <br />
+            <Button onClick={addItem}>
+              <FontAwesomeIcon icon={faPlus} />
+            </Button>
+          </React.Fragment>
         );
       }}
     </FieldArray>

@@ -273,6 +273,7 @@ def test_group_scope_portfolio(
         timeout,
     )
     proceed.click()
+    proceed.click()
     assert utils.wait_for_text(
         driver,
         tag_name,

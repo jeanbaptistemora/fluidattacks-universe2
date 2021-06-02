@@ -1,24 +1,18 @@
-import { faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Field, Form, Formik } from "formik";
 import React from "react";
-import { Field, FieldArray } from "redux-form";
-import type { InjectedFormProps, WrappedFieldArrayProps } from "redux-form";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   ButtonToolbar,
   Col100,
-  Col80,
   ControlLabel,
-  RemoveTag,
   RequiredField,
   Row,
 } from "styles/styledComponents";
-import { Text } from "utils/forms/fields";
+import { FormikArrayField, FormikText } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
-import { required, validTag } from "utils/validations";
+import { composeValidators, required, validTag } from "utils/validations";
 
 interface IAddTagsModalProps {
   isOpen: boolean;
@@ -26,60 +20,22 @@ interface IAddTagsModalProps {
   onSubmit: (values: { tags: string[] }) => void;
 }
 
-const renderTagsFields: React.FC<WrappedFieldArrayProps> = (
-  props: WrappedFieldArrayProps
-): JSX.Element => {
-  function addItem(): void {
-    // eslint-disable-next-line fp/no-mutating-methods
-    props.fields.push("");
-  }
-
+function renderTagsFields(fieldName: string): JSX.Element {
   return (
     <React.Fragment>
-      {props.fields.map((fieldName: string, index: number): JSX.Element => {
-        function removeItem(): void {
-          props.fields.remove(index);
-        }
-
-        return (
-          <React.Fragment key={fieldName + String(index)}>
-            {index > 0 ? (
-              <React.Fragment>
-                <br />
-                <hr />
-              </React.Fragment>
-            ) : undefined}
-            <Row>
-              <Col80>
-                <ControlLabel>
-                  <RequiredField>{"* "}</RequiredField>
-                  {"Tag"}
-                </ControlLabel>
-                <Field
-                  component={Text}
-                  name={fieldName}
-                  type={"text"}
-                  validate={[required, validTag]}
-                />
-              </Col80>
-              {index > 0 ? (
-                <RemoveTag>
-                  <Button onClick={removeItem}>
-                    <FontAwesomeIcon icon={faTrashAlt} />
-                  </Button>
-                </RemoveTag>
-              ) : undefined}
-            </Row>
-          </React.Fragment>
-        );
-      })}
-      <br />
-      <Button onClick={addItem}>
-        <FontAwesomeIcon icon={faPlus} />
-      </Button>
+      <ControlLabel>
+        <RequiredField>{"* "}</RequiredField>
+        {"Tag"}
+      </ControlLabel>
+      <Field
+        component={FormikText}
+        name={fieldName}
+        type={"text"}
+        validate={composeValidators([required, validTag])}
+      />
     </React.Fragment>
   );
-};
+}
 
 const AddTagsModal: React.FC<IAddTagsModalProps> = (
   props: IAddTagsModalProps
@@ -94,14 +50,23 @@ const AddTagsModal: React.FC<IAddTagsModalProps> = (
         )}
         open={isOpen}
       >
-        <GenericForm
-          initialValues={{ tags: [""] }}
+        <Formik
+          initialValues={{
+            tags: [""],
+          }}
           name={"addTags"}
           onSubmit={onSubmit}
         >
-          {({ pristine }: InjectedFormProps): JSX.Element => (
-            <React.Fragment>
-              <FieldArray component={renderTagsFields} name={"tags"} x={{}} />
+          {({ dirty, values }): JSX.Element => (
+            <Form>
+              <FormikArrayField
+                allowEmpty={false}
+                arrayValues={values.tags}
+                initialValue={""}
+                name={"tags"}
+              >
+                {renderTagsFields}
+              </FormikArrayField>
               <hr />
               <Row>
                 <Col100>
@@ -110,7 +75,7 @@ const AddTagsModal: React.FC<IAddTagsModalProps> = (
                       {translate.t("confirmmodal.cancel")}
                     </Button>
                     <Button
-                      disabled={pristine}
+                      disabled={!dirty}
                       id={"portfolio-add-proceed"}
                       type={"submit"}
                     >
@@ -119,9 +84,9 @@ const AddTagsModal: React.FC<IAddTagsModalProps> = (
                   </ButtonToolbar>
                 </Col100>
               </Row>
-            </React.Fragment>
+            </Form>
           )}
-        </GenericForm>
+        </Formik>
       </Modal>
     </React.StrictMode>
   );

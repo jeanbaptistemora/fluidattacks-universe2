@@ -43,11 +43,11 @@ describe("Add Tags modal", (): void => {
     );
 
     const addButton: ReactWrapper = modal
-      .find("renderTagsFields")
+      .find("FormikArrayField")
       .find("FontAwesomeIcon");
 
     const inputField: ReactWrapper = modal
-      .find("renderTagsFields")
+      .find("FormikArrayField")
       .find("input");
 
     expect(addButton).toHaveLength(1);
@@ -68,19 +68,19 @@ describe("Add Tags modal", (): void => {
       </Provider>
     );
     const addButton: ReactWrapper = modal
-      .find("renderTagsFields")
+      .find("FormikArrayField")
       .find(".fa-plus");
 
     addButton.simulate("click");
 
-    expect(modal.find("renderTagsFields").find("input")).toHaveLength(2);
+    expect(modal.find("FormikArrayField").find("input")).toHaveLength(2);
 
     const deleteButton: ReactWrapper = modal
-      .find("renderTagsFields")
+      .find("FormikArrayField")
       .find(".fa-trash-alt");
 
     deleteButton.simulate("click");
 
-    expect(modal.find("renderTagsFields").find("input")).toHaveLength(1);
+    expect(modal.find("FormikArrayField").find("input")).toHaveLength(1);
   });
 });
