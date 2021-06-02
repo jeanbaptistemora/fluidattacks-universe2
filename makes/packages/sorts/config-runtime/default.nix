@@ -82,8 +82,8 @@ makeTemplate {
       (makeTemplate {
         arguments = {
           envSortsModel = fetchurl {
-            sha256 = "DOyvqaCzQY31ttydq86iENHGW3Dy85Pe/G0MjafNEvg=";
-            url = "https://sorts.s3.amazonaws.com/training-output/model.joblib?versionId=Hq48v5duy1O824d3rlF4sA9HYpH3YskJ";
+            sha256 = "6QCH+jt8k8eGtu9ahSrsiypEwOAW86o42WvP+OSIbYE=";
+            url = "https://sorts.s3.amazonaws.com/training-output/model.joblib?versionId=clsGZtxBJtqYdGgJsK9JOnaHpiBaD6to";
           };
           envSrcSortsStatic = path "/sorts/static";
         };
