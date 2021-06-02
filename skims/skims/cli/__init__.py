@@ -1,3 +1,4 @@
+# pylint: disable=import-outside-toplevel
 from aioextensions import (
     run,
 )
@@ -113,7 +114,23 @@ def cli(
         set_level(logging.DEBUG)
 
 
-@cli.command(help="Queue a Skims execution on AWS Batch.")
+@cli.command(help="Get a group's language.", name="language")
+@GROUP(required=True)
+@TOKEN(required=True)
+def cli_language(
+    group: str,
+    token: str,
+) -> None:
+    success: bool = run(
+        cli_language_wrapped(
+            group=group,
+            token=token,
+        )
+    )
+    sys.exit(0 if success else 1)
+
+
+@cli.command(help="Queue a Skims execution on AWS Batch.", name="queue")
 @FINDING_CODE()
 @FINDING_TITLE()
 @GROUP(required=True)
@@ -122,29 +139,53 @@ def cli(
     help="Queue the job with the highest priority.",
     is_flag=True,
 )
-def queue(
+def cli_queue(
     finding_code: Optional[str],
     finding_title: Optional[str],
     group: str,
     urgent: bool,
 ) -> None:
     success: bool = run(
-        queue_wrapped(
+        cli_queue_wrapped(
             finding_code=finding_code,
             finding_title=finding_title,
             group=group,
             urgent=urgent,
-        ),
-        debug=False,
+        )
     )
     sys.exit(0 if success else 1)
 
 
-@cli.command(help="Load a config file and perform vulnerability detection.")
+@cli.command(help="Update vulnerability locations.", name="rebase")
+@GROUP(required=True)
+@NAMESPACE(required=True)
+@REPO()
+@TOKEN(required=True)
+def cli_rebase(
+    group: str,
+    namespace: str,
+    repository: str,
+    token: str,
+) -> None:
+    success: bool = run(
+        cli_rebase_wrapped(
+            group=group,
+            namespace=namespace,
+            repository=repository,
+            token=token,
+        ),
+    )
+
+    log_blocking("info", "Success: %s", success)
+
+    sys.exit(0 if success else 1)
+
+
+@cli.command(help="Perform vulnerability detection.", name="scan")
 @CONFIG()
 @GROUP()
 @TOKEN()
-def scan(
+def cli_scan(
     config: str,
     group: Optional[str],
     token: Optional[str],
@@ -153,12 +194,11 @@ def scan(
 
     start_time: float = time()
     success: bool = run(
-        scan_wrapped(
+        cli_scan_wrapped(
             config=config,
             group=group,
             token=token,
         ),
-        debug=False,
     )
 
     log_blocking("info", "Success: %s", success)
@@ -173,40 +213,31 @@ def scan(
     sys.exit(0 if success else 1)
 
 
-@cli.command(help="Update vulnerability locations at Integrates.")
-@GROUP(required=True)
-@NAMESPACE(required=True)
-@REPO()
-@TOKEN(required=True)
-def rebase(
+@shield(on_error_return=False)
+async def cli_language_wrapped(
     group: str,
-    namespace: str,
-    repository: str,
     token: str,
-) -> None:
-    success: bool = run(
-        rebase_wrapped(
-            group=group,
-            namespace=namespace,
-            repository=repository,
-            token=token,
-        ),
+) -> bool:
+    import core.language
+
+    initialize_bugsnag()
+    add_bugsnag_data(
+        group=group,
+        token=token,
     )
-
-    log_blocking("info", "Success: %s", success)
-
-    sys.exit(0 if success else 1)
+    return await core.language.main(
+        group=group,
+        token=token,
+    )
 
 
 @shield(on_error_return=False)
-async def queue_wrapped(
+async def cli_queue_wrapped(
     finding_code: Optional[str],
     finding_title: Optional[str],
     group: str,
     urgent: bool,
 ) -> bool:
-    # Import here to handle gracefully any errors it may throw
-    # pylint: disable=import-outside-toplevel
     import core.queue
 
     initialize_bugsnag()
@@ -227,20 +258,19 @@ async def queue_wrapped(
 
 
 @shield(on_error_return=False)
-async def rebase_wrapped(
+async def cli_rebase_wrapped(
     group: str,
     namespace: str,
     repository: str,
     token: str,
 ) -> bool:
-    # Import here to handle gracefully any errors it may throw
-    # pylint: disable=import-outside-toplevel
     import core.rebase
 
     initialize_bugsnag()
     add_bugsnag_data(
         group=group,
-        token="set" if token else "",
+        namespace=namespace,
+        token=token,
     )
     success: bool = await core.rebase.main(
         group=group,
@@ -253,23 +283,11 @@ async def rebase_wrapped(
 
 
 @shield(on_error_return=False)
-async def scan_wrapped(
+async def cli_scan_wrapped(
     config: str,
     group: Optional[str],
     token: Optional[str],
 ) -> bool:
-    """Wrap the main function in order to handle gracefully its errors.
-
-    If any error is raised in `main` this function:
-    - catches the error
-    - returns False (which triggers an exit-code 1)
-    - report errors to bugsnag
-    - report errors to the user via a friendly message in the console
-
-    Otherwise returns True and trigger an exit-code 0.
-    """
-    # Import here to handle gracefully any errors it may throw
-    # pylint: disable=import-outside-toplevel
     import core.scan
 
     initialize_bugsnag()
