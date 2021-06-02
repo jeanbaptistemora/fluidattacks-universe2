@@ -9,7 +9,19 @@ from datetime import (
 INTEGRATES_1: str = "%Y-%m-%d %H:%M:%S"
 
 
+def _make_aware(
+    naive: datetime,
+    *,
+    offset: timedelta,
+) -> datetime:
+    return naive.replace(tzinfo=timezone(offset=offset))
+
+
 def from_colombian(string: str, fmt: str) -> datetime:
     naive = datetime.strptime(string, fmt)
-    aware = naive.replace(tzinfo=timezone(offset=timedelta(hours=-5.0)))
-    return aware
+    return _make_aware(naive, offset=timedelta(hours=-5.0))
+
+
+def min_posible() -> datetime:
+    naive = datetime.utcfromtimestamp(0)
+    return _make_aware(naive, offset=timedelta(seconds=0.0))
