@@ -36,7 +36,7 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
 
   const currentToken: string | undefined = updateResponse.data
     ? updateResponse.data.updateForcesAccessToken.sessionJwt
-    : getTokenData?.project.forcesToken;
+    : getTokenData?.group.forcesToken;
 
   const handleUpdateAPIToken: () => void = useCallback((): void => {
     void updateApiToken({ variables: { groupName } });
@@ -60,7 +60,7 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = (
       }
     }, [currentToken]);
   if (
-    !getTokenData?.project.forcesToken && // eslint-disable-line @typescript-eslint/strict-boolean-expressions
+    !getTokenData?.group.forcesToken && // eslint-disable-line @typescript-eslint/strict-boolean-expressions
     getTokenCalled &&
     !getTokenLoading
   ) {

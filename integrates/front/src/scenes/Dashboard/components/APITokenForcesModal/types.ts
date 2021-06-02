@@ -6,7 +6,7 @@ interface IUpdateForcesTokenAttr {
 }
 
 interface IGetForcesTokenAttr {
-  project: {
+  group: {
     forcesToken: string | undefined;
   };
 }
