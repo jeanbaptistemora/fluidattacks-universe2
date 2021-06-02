@@ -71,6 +71,11 @@ STATIC_FINDING: Dict[str, Set[str]] = {
             "System.Console.ReadLine",
         }
     ),
+    core_model.FindingEnum.F107.name: complete_attrs_on_set(
+        {
+            "Environment.GetEnvironmentVariable",
+        }
+    ),
 }
 STATIC_SIDE_EFFECTS: Dict[str, Set[str]] = {
     core_model.FindingEnum.F034.name: complete_attrs_on_set(

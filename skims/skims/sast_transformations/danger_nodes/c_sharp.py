@@ -4,7 +4,9 @@ from model import (
 )
 from sast_transformations.danger_nodes.utils import (
     mark_function_arg,
+    mark_methods_input,
     mark_methods_sink,
+    mark_obj_inst_input,
 )
 from utils.string import (
     build_attr_paths,
@@ -29,6 +31,23 @@ def mark_inputs(
             ),
         }
         mark_function_arg(finding, graph, syntax, danger_args)
+    mark_obj_inst_input(
+        findings.F107,
+        graph,
+        syntax,
+        {
+            *build_attr_paths("System", "Net", "Sockets", "TcpClient"),
+            *build_attr_paths("System", "Data", "SqlClient", "SqlCommand"),
+        },
+    )
+    mark_methods_input(
+        findings.F107,
+        graph,
+        syntax,
+        {
+            "GetEnvironmentVariable",
+        },
+    )
 
 
 def mark_sinks(

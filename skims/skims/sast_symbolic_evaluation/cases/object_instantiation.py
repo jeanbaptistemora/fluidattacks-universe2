@@ -33,6 +33,9 @@ def _syntax_step_object_instantiation_danger(args: EvaluatorArgs) -> None:
         core_model.FindingEnum.F004.name: {
             "java.lang.ProcessBuilder",
         },
+        core_model.FindingEnum.F107.name: {
+            "System.Net.Sockets.TcpClient",
+        },
     }
     _danger_instances_no_args_by_finding = {
         core_model.FindingEnum.F034.name: {
