@@ -33,7 +33,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
       attribute: "Language",
       // Next annotations needed as DB queries use "any" type
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-member-access
-      value: translate.t(`searchFindings.infoTable.${data.project.language}`),
+      value: translate.t(`searchFindings.infoTable.${data.group.language}`),
     },
   ];
   const tableHeaders: IHeaderConfig[] = [

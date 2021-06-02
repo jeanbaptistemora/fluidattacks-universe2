@@ -23,7 +23,7 @@ describe("Info", (): void => {
       },
       result: {
         data: {
-          project: {
+          group: {
             hasDrills: true,
             hasForces: true,
             hasSkims: true,

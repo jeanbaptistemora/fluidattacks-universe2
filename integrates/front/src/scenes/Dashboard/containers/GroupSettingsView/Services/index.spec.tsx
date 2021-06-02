@@ -38,7 +38,7 @@ describe("Services", (): void => {
       },
       result: {
         data: {
-          project: {
+          group: {
             hasDrills: true,
             hasForces: true,
             hasSkims: true,
@@ -58,7 +58,7 @@ describe("Services", (): void => {
       },
       result: {
         data: {
-          project: {
+          group: {
             hasDrills: true,
             hasForces: true,
             hasSkims: true,
@@ -78,7 +78,7 @@ describe("Services", (): void => {
       },
       result: {
         data: {
-          project: {
+          group: {
             hasDrills: false,
             hasForces: false,
             hasSkims: false,

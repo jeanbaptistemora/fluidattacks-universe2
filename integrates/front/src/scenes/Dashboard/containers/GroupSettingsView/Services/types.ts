@@ -11,7 +11,7 @@ interface IFormData {
 }
 
 interface IGroupData {
-  project: {
+  group: {
     hasDrills: boolean;
     hasForces: boolean;
     hasSkims: boolean;

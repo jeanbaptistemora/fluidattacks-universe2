@@ -3,7 +3,7 @@ import type { DocumentNode } from "graphql";
 
 const GET_GROUP_DATA: DocumentNode = gql`
   query GetGroupData($groupName: String!) {
-    project(projectName: $groupName) {
+    group(projectName: $groupName) {
       hasDrills
       hasForces
       hasSkims

@@ -329,12 +329,12 @@ const Services: React.FC<IServicesProps> = (
           initialValues={{
             comments: "",
             confirmation: "",
-            drills: data.project.hasDrills,
-            forces: data.project.hasForces,
+            drills: data.group.hasDrills,
+            forces: data.group.hasForces,
             integrates: true,
             reason: "NONE",
-            skims: data.project.hasSkims,
-            type: data.project.subscription.toUpperCase(),
+            skims: data.group.hasSkims,
+            type: data.group.subscription.toUpperCase(),
           }}
           name={"editGroup"}
           onSubmit={handleFormSubmit}

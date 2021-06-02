@@ -49,7 +49,7 @@ const computeConfirmationMessage: (
 ) => string[] = (data: IGroupData, form: IFormData): string[] => [
   serviceDiff(
     "type",
-    serviceStateToString(data.project.subscription),
+    serviceStateToString(data.group.subscription),
     serviceStateToString(form.type)
   ),
   serviceDiff(
@@ -64,17 +64,17 @@ const computeConfirmationMessage: (
   ),
   serviceDiff(
     "skims",
-    serviceStateToString(data.project.hasSkims),
+    serviceStateToString(data.group.hasSkims),
     serviceStateToString(form.skims)
   ),
   serviceDiff(
     "drills",
-    serviceStateToString(data.project.hasDrills),
+    serviceStateToString(data.group.hasDrills),
     serviceStateToString(form.drills)
   ),
   serviceDiff(
     "forces",
-    serviceStateToString(data.project.hasForces),
+    serviceStateToString(data.group.hasForces),
     serviceStateToString(form.forces)
   ),
 ];
@@ -93,9 +93,9 @@ const isDowngradingServices: (data: IGroupData, form: IFormData) => boolean = (
 ): boolean =>
   [
     isDowngrading(true, form.integrates),
-    isDowngrading(data.project.hasSkims, form.skims),
-    isDowngrading(data.project.hasDrills, form.drills),
-    isDowngrading(data.project.hasForces, form.forces),
+    isDowngrading(data.group.hasSkims, form.skims),
+    isDowngrading(data.group.hasDrills, form.drills),
+    isDowngrading(data.group.hasForces, form.forces),
   ].some((result: boolean): boolean => result);
 
 export { computeConfirmationMessage, isDowngrading, isDowngradingServices };
