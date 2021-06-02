@@ -124,6 +124,9 @@ makeTemplate {
         };
         name = "skims-config-context-file";
         template = ''
+          # There is no problem in making this key public
+          #   it's intentional so we can monitor Skims stability in remote users
+          export BUGSNAG_API_KEY=f990c9a571de4cb44c96050ff0d50ddb
           export SKIMS_CIPHER_SUITES_PATH='__envSrcSkimsStatic__/cryptography/cipher_suites.csv'
           export SKIMS_FLUID_WATERMARK='__envSrcSkimsStatic__/img/logo_fluid_attacks_854x329.png'
           export SKIMS_PARSER_ANTLR='__envParserAntlr__/build/install/parse/bin/parse'
