@@ -390,12 +390,13 @@ def require_finding_access(func: TVar) -> TVar:
     @functools.wraps(_func)
     async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
         context = args[1].context
-        finding_id = (
-            kwargs.get("finding_id", "")
-            if kwargs.get("identifier") is None
-            else kwargs.get("identifier")
-        )
-        if not finding_id:
+        if "finding_id" in kwargs:
+            finding_id = kwargs["finding_id"]
+        elif "draft_id" in kwargs:
+            finding_id = kwargs["draft_id"]
+        elif "identifier" in kwargs:
+            finding_id = kwargs["identifier"]
+        else:
             vuln = await vulns_domain.get(kwargs["vuln_uuid"])
             finding_id = vuln["finding_id"]
 
