@@ -5,7 +5,7 @@
 }:
 makeEntrypoint {
   arguments = {
-    envEntrypoint = "from target_redshift import main";
+    envEntrypoint = "from target_redshift.cli import main";
   };
   searchPaths = {
     envSources = [

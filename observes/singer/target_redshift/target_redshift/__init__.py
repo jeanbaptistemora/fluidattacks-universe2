@@ -13,7 +13,6 @@ Linters:
         $ python3 -m mypy --ignore-missing-imports [path]
 """
 
-import argparse
 from datetime import (
     datetime,
 )
@@ -29,6 +28,7 @@ import time
 from typing import (
     Any,
     Dict,
+    IO,
     Iterable,
     List,
     Tuple,
@@ -678,7 +678,7 @@ def persist_messages(batcher: Batcher, schema_name: str) -> None:
     batcher.vacuum()
 
 
-def main() -> None:
+def main(auth_file: IO[str], schema_name: str, drop_schema_flag: bool) -> None:
     """Usual entry point."""
 
     greeting = (
@@ -697,46 +697,16 @@ def main() -> None:
 
     LOGGER.info("\n".join(greeting))
 
-    # user interface
-    parser = argparse.ArgumentParser(
-        description="Persists a singer formatted stream to Amazon Redsfhit"
-    )
-    parser.add_argument(
-        "-a",
-        "--auth",
-        required=True,
-        help="JSON authentication file",
-        type=argparse.FileType("r"),
-        dest="auth",
-    )
-    parser.add_argument(
-        "-s",
-        "--schema-name",
-        required=True,
-        help="Schema name in your warehouse",
-        dest="schema_name",
-    )
-    parser.add_argument(
-        "-ds",
-        "--drop-schema",
-        required=False,
-        help="Flag to specify that you want to delete the schema if exist",
-        action="store_true",
-        dest="drop_schema",
-        default=False,
-    )
+    auth = json.load(auth_file)
 
-    args = parser.parse_args()
-    auth = json.load(args.auth)
-
-    target_schema = f"{args.schema_name}"
+    target_schema = schema_name
     backup_schema = f"{target_schema}_backup"
     loading_schema = f"{target_schema}_loading"
 
     try:
         (dbcon, dbcur) = make_access_point(auth)
 
-        if args.drop_schema:
+        if drop_schema_flag:
             # It means user wants to guarantee 100% data integrity
             # It also implies the use of a loading strategy
             #   to guarantee continuated service availability
@@ -767,7 +737,3 @@ def main() -> None:
             persist_messages(batcher, target_schema)
     finally:
         drop_access_point(dbcon, dbcur)
-
-
-if __name__ == "__main__":
-    main()

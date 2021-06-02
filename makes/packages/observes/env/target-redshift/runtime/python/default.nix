@@ -9,6 +9,7 @@ buildPythonRequirements {
   ];
   requirements = {
     direct = [
+      "click==7.1.2"
       "jsonschema==3.2.0"
       "psycopg2==2.8.4"
       "returns==0.16.0"
