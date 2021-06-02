@@ -1,7 +1,7 @@
 import type { IGroupDraftsAttr } from "scenes/Dashboard/containers/GroupDraftsView/types";
 import { translate } from "utils/translations/translate";
 
-type Draft = IGroupDraftsAttr["project"]["drafts"][0];
+type Draft = IGroupDraftsAttr["group"]["drafts"][0];
 
 export const formatDrafts: (dataset: Draft[]) => Draft[] = (
   dataset: Draft[]

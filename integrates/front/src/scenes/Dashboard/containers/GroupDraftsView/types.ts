@@ -1,5 +1,5 @@
 export interface IGroupDraftsAttr {
-  project: {
+  group: {
     drafts: {
       currentState: string;
       description: string;

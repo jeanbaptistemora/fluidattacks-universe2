@@ -40,7 +40,7 @@ describe("GroupDraftsView", (): void => {
       },
       result: {
         data: {
-          project: {
+          group: {
             drafts: [
               {
                 currentState: "",

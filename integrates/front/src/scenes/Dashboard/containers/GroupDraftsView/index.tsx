@@ -277,7 +277,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
       <p>{translate.t("group.findings.helpLabel")}</p>
       <DataTableNext
         bordered={true}
-        dataset={formatDrafts(data.project.drafts)}
+        dataset={formatDrafts(data.group.drafts)}
         defaultSorted={JSON.parse(_.get(sessionStorage, "draftSort", "{}"))}
         exportCsv={true}
         headers={tableHeaders}
