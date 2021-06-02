@@ -63,17 +63,16 @@ def _validate_format(obj_type: Any) -> str:
 def _to_rs_data_type(
     obj_type: str, obj_format: Maybe[str]
 ) -> RedshiftDataType:
-    is_timestamp = obj_format.map(lambda x: x == "date-time").or_else_call(
-        lambda: False
-    )
-    if is_timestamp:
-        return RedshiftDataType.TIMESTAMP
+    if obj_type == "string":
+        is_timestamp = obj_format.map(lambda x: x == "date-time").or_else_call(
+            lambda: False
+        )
+        if is_timestamp:
+            return RedshiftDataType.TIMESTAMP
     return raw_type_map[obj_type]
 
 
-def from_json_schema(json_schema: Dict[str, Any]) -> RedshiftDataType:
-    _type = _rm_null(_validate_type(json_schema["type"]))
-    _format = Maybe.from_optional(json_schema.get("format")).map(
-        _validate_format
-    )
+def from_json(obj: Dict[str, Any]) -> RedshiftDataType:
+    _type = _rm_null(_validate_type(obj["type"]))
+    _format = Maybe.from_optional(obj.get("format")).map(_validate_format)
     return _to_rs_data_type(_type, _format)
