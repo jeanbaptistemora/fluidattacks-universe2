@@ -138,6 +138,8 @@ skims.test.benchmark_weakrand:
 
 skims.test.functional:
   <<: *skims_test
+  # This job should only run once at a time per branch
+  resource_group: "${CI_COMMIT_REF_NAME}-${CI_JOB_NAME}"
 
 skims.test.instance_references:
   <<: *skims_test
