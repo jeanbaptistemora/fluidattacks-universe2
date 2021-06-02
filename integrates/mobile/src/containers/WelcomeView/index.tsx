@@ -71,8 +71,6 @@ const WelcomeView: React.FunctionComponent = (): JSX.Element => {
           />
         </View>
         <Text
-          accessibilityComponentType={undefined}
-          accessibilityTraits={undefined}
           // eslint-disable-next-line react/forbid-component-props
           style={styles.greeting}
         >

@@ -161,29 +161,17 @@ const LoginView: React.FunctionComponent = (): JSX.Element => {
         <Preloader visible={isLoading} />
         {/* eslint-disable-next-line react/forbid-component-props*/}
         <View style={styles.bottom}>
-          <Text
-            accessibilityComponentType={undefined}
-            accessibilityTraits={undefined}
-          >
-            {t("common.slogan")}
-          </Text>
+          <Text>{t("common.slogan")}</Text>
           <About />
         </View>
         <Portal>
           <Dialog dismissable={false} visible={isOutdated}>
-            <Dialog.Title
-              accessibilityComponentType={undefined}
-              accessibilityTraits={undefined}
-            >
-              {t("login.newVersion.title")}
-            </Dialog.Title>
+            <Dialog.Title>{t("login.newVersion.title")}</Dialog.Title>
             <Dialog.Content>
               <Paragraph>{t("login.newVersion.content")}</Paragraph>
             </Dialog.Content>
             <Dialog.Actions>
               <Button
-                accessibilityComponentType={undefined}
-                accessibilityTraits={undefined}
                 onPress={handleUpdateButtonClick} // eslint-disable-line react/jsx-no-bind
               >
                 {t("login.newVersion.btn")}

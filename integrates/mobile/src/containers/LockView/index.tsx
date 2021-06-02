@@ -39,8 +39,6 @@ const LockView: React.FC = (): JSX.Element => {
       <Image source={FluidIcon} style={styles.icon} />
       <Headline>{t("lock.title")}</Headline>
       <Button
-        accessibilityComponentType={undefined}
-        accessibilityTraits={undefined}
         mode={"text"}
         // eslint-disable-next-line react/jsx-no-bind -- Needed to allow auth
         onPress={promptBiometricAuth}

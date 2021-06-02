@@ -82,11 +82,7 @@ const Indicators: React.FC<IIndicatorsProps> = (
       <Title>{_.capitalize(org.name)}</Title>
       <View style={styles.percentageContainer}>
         <SvgCss height={220} width={220} xml={Border} />
-        <Text
-          accessibilityComponentType={undefined}
-          accessibilityTraits={undefined}
-          style={styles.percentageText}
-        >
+        <Text style={styles.percentageText}>
           {parseFloat(current.percentage.toFixed(1))}
           {"%"}
         </Text>
@@ -106,12 +102,7 @@ const Indicators: React.FC<IIndicatorsProps> = (
             {"%"}
           </Title>
         </View>
-        <Text
-          accessibilityComponentType={undefined}
-          accessibilityTraits={undefined}
-        >
-          {t("dashboard.diff")}
-        </Text>
+        <Text>{t("dashboard.diff")}</Text>
         <Headline style={styles.remediatedText}>
           {t("dashboard.remediated")}
         </Headline>

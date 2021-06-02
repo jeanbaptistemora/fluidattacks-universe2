@@ -24,19 +24,9 @@ const Avatar: React.FC<IAvatarProps> = ({
 }: IAvatarProps): JSX.Element => (
   <React.StrictMode>
     {photoUrl === undefined ? (
-      <PaperAvatar.Text
-        accessibilityComponentType={undefined}
-        accessibilityTraits={undefined}
-        label={getInitials(userName)}
-        size={size}
-      />
+      <PaperAvatar.Text label={getInitials(userName)} size={size} />
     ) : (
-      <PaperAvatar.Image
-        accessibilityComponentType={undefined}
-        accessibilityTraits={undefined}
-        size={size}
-        source={{ uri: photoUrl }}
-      />
+      <PaperAvatar.Image size={size} source={{ uri: photoUrl }} />
     )}
   </React.StrictMode>
 );
