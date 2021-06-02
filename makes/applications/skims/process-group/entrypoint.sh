@@ -39,6 +39,18 @@ function report_success {
         --job "skims-process-group-${group}-${check}"
 }
 
+function skims_rebase {
+  local group="${1}"
+  local namespace="${2}"
+
+      echo '[INFO] Running skims rebase' \
+  &&  skims rebase \
+        --group "${group}" \
+        --namespace "${namespace}" \
+        "groups/${group}/fusion/${namespace}" \
+  ||  true
+}
+
 function main {
   local group="${1:-}"
   local check="${2:-}"
@@ -70,14 +82,7 @@ function main {
     &&  for namespace in "groups/${group}/fusion/"*
         do
               namespace="$(basename "${namespace}")" \
-          &&  echo '[INFO] Running skims rebase' \
-          &&  {
-                    skims rebase \
-                      --group "${group}" \
-                      --namespace "${namespace}" \
-                      "groups/${group}/fusion/${namespace}" \
-                ||  true;
-              } \
+          &&  skims_rebase "${group}" "${namespace}" \
           &&  echo '[INFO] Running skims scan' \
           &&  python3 __envGetConfig__\
                 --check "${check}" \
