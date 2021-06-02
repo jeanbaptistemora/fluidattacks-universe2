@@ -5,6 +5,9 @@ from batch.dal import (
     delete_action,
     get_action,
 )
+from batch.handle_finding_policy import (
+    handle_finding_policy,
+)
 from batch.report import (
     generate_report,
 )
@@ -45,6 +48,8 @@ async def main() -> None:
             await generate_report(item=item)
         elif action == "move_root":
             await move_root(item=item)
+        elif action == "handle_finding_policy":
+            await handle_finding_policy(item=item)
         else:
             LOGGER.error("Invalid action", extra=dict(extra=locals()))
             await delete_action(
