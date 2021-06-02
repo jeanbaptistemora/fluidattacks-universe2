@@ -790,6 +790,7 @@ module.exports = {
           items: [
             'machine/app/groups/vulnerabilities',
             'machine/app/groups/events',
+            'machine/app/groups/stakeholders',
             'machine/app/groups/roles',
             {
               type: 'category',
