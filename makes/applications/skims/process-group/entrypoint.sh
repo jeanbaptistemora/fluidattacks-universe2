@@ -62,7 +62,7 @@ function main {
         SERVICES_PROD_AWS_ACCESS_KEY_ID \
         SERVICES_PROD_AWS_SECRET_ACCESS_KEY \
   &&  config_file=$(mktemp) \
-  &&  language="$(melts misc --get-group-language "${group}")" \
+  &&  language="$(skims language --group "${group}")" \
   &&  update_group "${group}" \
   &&  use_git_repo_services \
     &&  clone_group "${group}" \
