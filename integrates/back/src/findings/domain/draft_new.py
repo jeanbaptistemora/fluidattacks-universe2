@@ -1,9 +1,16 @@
+from aioextensions import (
+    collect,
+)
 from custom_exceptions import (
     AlreadyApproved,
     AlreadySubmitted,
+    DraftWithoutVulns,
     IncompleteDraft,
     InvalidDraftTitle,
     NotSubmitted,
+)
+from datetime import (
+    datetime,
 )
 from db_model import (
     findings,
@@ -26,11 +33,63 @@ from newutils import (
     findings as findings_utils,
     requests as requests_utils,
     token as token_utils,
+    vulnerabilities as vulns_utils,
 )
 import random
 from typing import (
     Any,
 )
+from vulnerabilities import (
+    domain as vulns_domain,
+)
+
+
+async def approve_draft_new(
+    context: Any,
+    finding_id: str,
+    group_name: str,
+    user_email: str,
+) -> str:
+    finding_all_vulns_loader = context.loaders.finding_vulns_all
+    finding_nzr_vulns_loader = context.loaders.finding_vulns_nzr
+    finding_loader = context.loaders.finding_new
+    finding: Finding = await finding_loader.load((group_name, finding_id))
+    if finding.state.status == FindingStateStatus.APPROVED:
+        raise AlreadyApproved()
+
+    if finding.state.status != FindingStateStatus.SUBMITTED:
+        raise NotSubmitted()
+
+    nzr_vulns = await finding_nzr_vulns_loader.load(finding_id)
+    has_vulns = bool(
+        [vuln for vuln in nzr_vulns if vulns_utils.filter_deleted_status(vuln)]
+    )
+    if not has_vulns:
+        raise DraftWithoutVulns()
+
+    approval_date = datetime_utils.get_iso_date()
+    new_state = FindingState(
+        modified_by=user_email,
+        modified_date=approval_date,
+        source=requests_utils.get_source(context),
+        status=FindingStateStatus.APPROVED,
+    )
+    await findings.update_state(
+        finding_id=finding_id,
+        group_name=group_name,
+        state=new_state,
+    )
+    all_vulns = await finding_all_vulns_loader.load(finding_id)
+    old_format_approval_date = datetime_utils.get_as_str(
+        datetime.fromisoformat(approval_date)
+    )
+    await collect(
+        vulns_domain.update_historic_state_dates(
+            finding_id, vuln, old_format_approval_date
+        )
+        for vuln in all_vulns
+    )
+    return approval_date
 
 
 async def create_draft_new(
@@ -43,18 +102,18 @@ async def create_draft_new(
     last_fs_id = 550000000
     finding_id = str(random.randint(last_fs_id, 1000000000))
     user_info = await token_utils.get_jwt_content(context)
-    analyst_email = user_info["user_email"]
+    user_email = user_info["user_email"]
     source = requests_utils.get_source(context)
     draft = Finding(
         affected_systems=kwargs.get("affected_systems", ""),
-        analyst_email=analyst_email,
+        analyst_email=user_email,
         attack_vector_desc=kwargs.get("attack_vector_desc", ""),
         cwe=kwargs.get("cwe", ""),
         description=kwargs.get("description", ""),
         group_name=group_name,
         id=finding_id,
         state=FindingState(
-            modified_by=analyst_email,
+            modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
             source=source,
             status=FindingStateStatus.CREATED,
@@ -70,7 +129,7 @@ async def create_draft_new(
 
 
 async def reject_draft_new(
-    analyst_email: str, context: Any, finding_id: str, group_name: str
+    context: Any, finding_id: str, group_name: str, user_email: str
 ) -> None:
     finding_loader = context.loaders.finding_new
     finding: Finding = await finding_loader.load((group_name, finding_id))
@@ -81,7 +140,7 @@ async def reject_draft_new(
         raise NotSubmitted()
 
     new_state = FindingState(
-        modified_by=analyst_email,
+        modified_by=user_email,
         modified_date=datetime_utils.get_iso_date(),
         source=requests_utils.get_source(context),
         status=FindingStateStatus.REJECTED,
@@ -94,7 +153,7 @@ async def reject_draft_new(
 
 
 async def submit_draft_new(
-    analyst_email: str, context: Any, finding_id: str, group_name: str
+    context: Any, finding_id: str, group_name: str, user_email: str
 ) -> None:
     finding_vulns_loader = context.loaders.finding_vulns
     finding_loader = context.loaders.finding_new
@@ -119,7 +178,7 @@ async def submit_draft_new(
         )
 
     new_state = FindingState(
-        modified_by=analyst_email,
+        modified_by=user_email,
         modified_date=datetime_utils.get_iso_date(),
         source=requests_utils.get_source(context),
         status=FindingStateStatus.SUBMITTED,

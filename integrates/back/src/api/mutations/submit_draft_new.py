@@ -51,9 +51,9 @@ async def mutate(
     try:
         finding_loader = info.context.loaders.finding_new
         user_info = await token_utils.get_jwt_content(info.context)
-        analyst_email = user_info["user_email"]
+        user_email = user_info["user_email"]
         await findings_domain.submit_draft_new(
-            analyst_email, info.context, finding_id, group_name
+            info.context, finding_id, group_name, user_email
         )
         redis_del_by_deps_soon(
             "submit_draft_new",
@@ -67,7 +67,7 @@ async def mutate(
                 finding.id,
                 finding.title,
                 finding.group_name,
-                analyst_email,
+                user_email,
             )
         )
         logs_utils.cloudwatch_log(
