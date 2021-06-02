@@ -1,5 +1,16 @@
 # shellcheck shell=bash
 
+function check_cli_arg {
+  local pos="${1}"
+  local name="${2}"
+  local value="${3}"
+
+  if test -z "${value}"
+  then
+    abort "[ERROR] Please specify ${name} as positional argument #${pos}"
+  fi
+}
+
 function update_group {
   local group="${1}"
 
@@ -50,56 +61,60 @@ function skims_rebase {
   ||  true
 }
 
+function skims_scan {
+  local group="${1}"
+  local namespace="${2}"
+  local check="${3}"
+  local lang="${4}"
+  local config="${5}"
+
+  local cache_local="${HOME_IMPURE}/.skims/cache"
+  local cache_remote="s3://skims.data/cache/${group}/${namespace}"
+
+      echo '[INFO] Running skims scan' \
+  &&  python3 __envGetConfig__\
+        --check "${check}" \
+        --group "${group}" \
+        --language "${lang}" \
+        --namespace "${namespace}" \
+        --out "${config}" \
+  &&  echo '[INFO] Fetching cache' \
+  &&  aws_s3_sync "${cache_remote}" "${cache_local}" \
+  &&  if skims scan --group "${group}" "${config}"
+      then
+        echo "[INFO] Succesfully processed: ${group} ${namespace}"
+      else
+            echo "[ERROR] While running skims on: ${group} ${namespace}" \
+        &&  success='false'
+      fi \
+  &&  echo '[INFO] Populating cache' \
+  &&  aws_s3_sync "${cache_local}" "${cache_remote}"
+}
+
 function main {
   local group="${1:-}"
   local check="${2:-}"
-  local cache_local="${HOME_IMPURE}/.skims/cache"
-  local cache_remote="s3://skims.data/cache/${group}"
-  local config_file
+  local config
   local success='true'
 
-      if test -z "${group}"
-      then
-        abort '[ERROR] Specify the group on the first argument to this program'
-      fi \
-  &&  if test -z "${check}"
-      then
-        abort '[ERROR] Specify the check on the second argument to this program'
-      fi \
-  &&  echo "[INFO] Processing ${group}" \
+      check_cli_arg 1 group "${group}" \
+  &&  check_cli_arg 2 check "${check}" \
   &&  shopt -s nullglob \
   &&  ensure_gitlab_env_vars \
         INTEGRATES_API_TOKEN \
         SERVICES_PROD_AWS_ACCESS_KEY_ID \
         SERVICES_PROD_AWS_SECRET_ACCESS_KEY \
-  &&  config_file=$(mktemp) \
-  &&  language="$(skims language --group "${group}")" \
+  &&  config=$(mktemp) \
+  &&  lang="$(skims language --group "${group}")" \
   &&  update_group "${group}" \
   &&  use_git_repo_services \
     &&  clone_group "${group}" \
     &&  aws_login_prod 'skims' \
-    &&  for namespace in "groups/${group}/fusion/"*
+    &&  for repo_path in "groups/${group}/fusion/"*
         do
-              namespace="$(basename "${namespace}")" \
+              namespace="$(basename "${repo_path}")" \
           &&  skims_rebase "${group}" "${namespace}" \
-          &&  echo '[INFO] Running skims scan' \
-          &&  python3 __envGetConfig__\
-                --check "${check}" \
-                --group "${group}" \
-                --language "${language}" \
-                --namespace "${namespace}" \
-                --out "${config_file}" \
-          &&  echo '[INFO] Fetching cache' \
-          &&  aws_s3_sync "${cache_remote}/${namespace}" "${cache_local}" \
-          &&  if skims scan --group "${group}" "${config_file}"
-              then
-                echo "[INFO] Succesfully processed: ${group} ${namespace}"
-              else
-                    echo "[ERROR] While running skims on: ${group} ${namespace}" \
-                &&  success='false'
-              fi \
-          &&  echo '[INFO] Populating cache' \
-          &&  aws_s3_sync "${cache_local}" "${cache_remote}/${namespace}" \
+          &&  skims_scan "${group}" "${namespace}" "${check}" "${lang}" "${config}" \
           ||  continue
         done \
   &&  popd \
