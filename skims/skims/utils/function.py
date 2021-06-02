@@ -5,13 +5,14 @@ from asyncio import (
 from asyncio.tasks import (
     wait_for,
 )
+import contextlib
 import functools
 import inspect
+import io
 from more_itertools import (
     mark_ends,
 )
 import traceback
-import tracers.function
 from typing import (
     Any,
     Callable,
@@ -27,6 +28,10 @@ from utils.env import (
 from utils.logs import (
     log,
 )
+
+with contextlib.redirect_stderr(io.StringIO()):
+    import tracers.function
+
 
 # Constants
 RAISE = object()
