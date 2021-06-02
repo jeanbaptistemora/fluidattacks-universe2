@@ -83,6 +83,12 @@ def predict_vuln_prob(
         model = load_support_vector_machine()
         # pylint: disable=protected-access
         probability_prediction = model._predict_proba_lr(input_data)
+
+    log(
+        "info",
+        "Model info -> ",
+        f"recall: {model.recall}%, precision: {model.precision}%",
+    )
     class_prediction: ndarray = model.predict(input_data)
     merged_predictions: ndarray = np.column_stack(
         [class_prediction, probability_prediction]
