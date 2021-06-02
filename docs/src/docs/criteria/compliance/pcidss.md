@@ -15,444 +15,444 @@ by stakeholders.
 
 ## Correlation
 
-- [PCI DSS v3.0 - Requirement 6.5.10](/criteria/requirements/023)
+1. [PCI DSS v3.0 - Requirement 6.5.10](/criteria/requirements/023)
 
-- [PCI DSS v3.0 - Requirement 6.5.10](/criteria/requirements/025)
+2. [PCI DSS v3.0 - Requirement 6.5.10](/criteria/requirements/025)
 
-- [PCI DSS v3.0 - Requirement 6.5.10](/criteria/requirements/029)
+3. [PCI DSS v3.0 - Requirement 6.5.10](/criteria/requirements/029)
 
-- [PCI DSS v3.0 - Requirement 12.3.8](/criteria/requirements/369)
+4. [PCI DSS v3.0 - Requirement 12.3.8](/criteria/requirements/369)
 
-- [PCI DSS v3.2.1 - Appendix A1 A1.1](/criteria/requirements/096)
+5. [PCI DSS v3.2.1 - Appendix A1 A1.1](/criteria/requirements/096)
 
-- [PCI DSS v3.2.1 - Appendix A1 A1.1](/criteria/requirements/186)
+6. [PCI DSS v3.2.1 - Appendix A1 A1.1](/criteria/requirements/186)
 
-- [PCI DSS v3.2.1 - Appendix A1 A1.2](/criteria/requirements/186)
+7. [PCI DSS v3.2.1 - Appendix A1 A1.2](/criteria/requirements/186)
 
-- [PCI DSS v3.2.1 - Appendix A1 A1.3](/criteria/requirements/075)
+8. [PCI DSS v3.2.1 - Appendix A1 A1.3](/criteria/requirements/075)
 
-- [PCI DSS v3.2.1 - Appendix A2 A2.1](/criteria/requirements/336)
+9. [PCI DSS v3.2.1 - Appendix A2 A2.1](/criteria/requirements/336)
 
-- [PCI DSS v3.2.1 - Requirement 1.2.1](/criteria/requirements/033)
+10. [PCI DSS v3.2.1 - Requirement 1.2.1](/criteria/requirements/033)
 
-- [PCI DSS v3.2.1 - Requirement 1.2.1](/criteria/requirements/259)
+11. [PCI DSS v3.2.1 - Requirement 1.2.1](/criteria/requirements/259)
 
-- [PCI DSS v3.2.1 - Requirement 1.2.2](/criteria/requirements/033)
+12. [PCI DSS v3.2.1 - Requirement 1.2.2](/criteria/requirements/033)
 
-- [PCI DSS v3.2.1 - Requirement 1.2.2](/criteria/requirements/062)
+13. [PCI DSS v3.2.1 - Requirement 1.2.2](/criteria/requirements/062)
 
-- [PCI DSS v3.2.1 - Requirement 1.2.2](/criteria/requirements/176)
+14. [PCI DSS v3.2.1 - Requirement 1.2.2](/criteria/requirements/176)
 
-- [PCI DSS v3.2.1 - Requirement 1.2.3](/criteria/requirements/259)
+15. [PCI DSS v3.2.1 - Requirement 1.2.3](/criteria/requirements/259)
 
-- [PCI DSS v3.2.1 - Requirement 1.3.1](/criteria/requirements/255)
+16. [PCI DSS v3.2.1 - Requirement 1.3.1](/criteria/requirements/255)
 
-- [PCI DSS v3.2.1 - Requirement 1.3.1](/criteria/requirements/259)
+17. [PCI DSS v3.2.1 - Requirement 1.3.1](/criteria/requirements/259)
 
-- [PCI DSS v3.2.1 - Requirement 1.3.2](/criteria/requirements/255)
+18. [PCI DSS v3.2.1 - Requirement 1.3.2](/criteria/requirements/255)
 
-- [PCI DSS v3.2.1 - Requirement 1.3.2](/criteria/requirements/259)
+19. [PCI DSS v3.2.1 - Requirement 1.3.2](/criteria/requirements/259)
 
-- [PCI DSS v3.2.1 - Requirement 1.3.3](/criteria/requirements/173)
+20. [PCI DSS v3.2.1 - Requirement 1.3.3](/criteria/requirements/173)
 
-- [PCI DSS v3.2.1 - Requirement 1.3.3](/criteria/requirements/259)
+21. [PCI DSS v3.2.1 - Requirement 1.3.3](/criteria/requirements/259)
 
-- [PCI DSS v3.2.1 - Requirement 1.3.4](/criteria/requirements/062)
+22. [PCI DSS v3.2.1 - Requirement 1.3.4](/criteria/requirements/062)
 
-- [PCI DSS v3.2.1 - Requirement 1.3.4](/criteria/requirements/259)
+23. [PCI DSS v3.2.1 - Requirement 1.3.4](/criteria/requirements/259)
 
-- [PCI DSS v3.2.1 - Requirement 1.3.5](/criteria/requirements/062)
+24. [PCI DSS v3.2.1 - Requirement 1.3.5](/criteria/requirements/062)
 
-- [PCI DSS v3.2.1 - Requirement 1.3.5](/criteria/requirements/255)
+25. [PCI DSS v3.2.1 - Requirement 1.3.5](/criteria/requirements/255)
 
-- [PCI DSS v3.2.1 - Requirement 1.3.6](/criteria/requirements/033)
+26. [PCI DSS v3.2.1 - Requirement 1.3.6](/criteria/requirements/033)
 
-- [PCI DSS v3.2.1 - Requirement 1.3.6](/criteria/requirements/259)
+27. [PCI DSS v3.2.1 - Requirement 1.3.6](/criteria/requirements/259)
 
-- [PCI DSS v3.2.1 - Requirement 1.3.7](/criteria/requirements/077)
+28. [PCI DSS v3.2.1 - Requirement 1.3.7](/criteria/requirements/077)
 
-- [PCI DSS v3.2.1 - Requirement 1.3.7](/criteria/requirements/261)
+29. [PCI DSS v3.2.1 - Requirement 1.3.7](/criteria/requirements/261)
 
-- [PCI DSS v3.2.1 - Requirement 2.1.1](/criteria/requirements/142)
+30. [PCI DSS v3.2.1 - Requirement 2.1.1](/criteria/requirements/142)
 
-- [PCI DSS v3.2.1 - Requirement 2.1.1](/criteria/requirements/251)
+31. [PCI DSS v3.2.1 - Requirement 2.1.1](/criteria/requirements/251)
 
-- [PCI DSS v3.2.1 - Requirement 2.2.2](/criteria/requirements/255)
+32. [PCI DSS v3.2.1 - Requirement 2.2.2](/criteria/requirements/255)
 
-- [PCI DSS v3.2.1 - Requirement 2.2.2](/criteria/requirements/266)
+33. [PCI DSS v3.2.1 - Requirement 2.2.2](/criteria/requirements/266)
 
-- [PCI DSS v3.2.1 - Requirement 2.2.2](/criteria/requirements/336)
+34. [PCI DSS v3.2.1 - Requirement 2.2.2](/criteria/requirements/336)
 
-- [PCI DSS v3.2.1 - Requirement 2.2.3](/criteria/requirements/062)
+35. [PCI DSS v3.2.1 - Requirement 2.2.3](/criteria/requirements/062)
 
-- [PCI DSS v3.2.1 - Requirement 2.2.4](/criteria/requirements/062)
+36. [PCI DSS v3.2.1 - Requirement 2.2.4](/criteria/requirements/062)
 
-- [PCI DSS v3.2.1 - Requirement 2.2.5](/criteria/requirements/266)
+37. [PCI DSS v3.2.1 - Requirement 2.2.5](/criteria/requirements/266)
 
-- [PCI DSS v3.2.1 - Requirement 2.3](/criteria/requirements/181)
+38. [PCI DSS v3.2.1 - Requirement 2.3](/criteria/requirements/181)
 
-- [PCI DSS v3.2.1 - Requirement 2.3](/criteria/requirements/185)
+39. [PCI DSS v3.2.1 - Requirement 2.3](/criteria/requirements/185)
 
-- [PCI DSS v3.2.1 - Requirement 2.3](/criteria/requirements/224)
+40. [PCI DSS v3.2.1 - Requirement 2.3](/criteria/requirements/224)
 
-- [PCI DSS v3.2.1 - Requirement 2.3](/criteria/requirements/302)
+41. [PCI DSS v3.2.1 - Requirement 2.3](/criteria/requirements/302)
 
-- [PCI DSS v3.2.1 - Requirement 3.1](/criteria/requirements/183)
+42. [PCI DSS v3.2.1 - Requirement 3.1](/criteria/requirements/183)
 
-- [PCI DSS v3.2.1 - Requirement 3.1](/criteria/requirements/360)
+43. [PCI DSS v3.2.1 - Requirement 3.1](/criteria/requirements/360)
 
-- [PCI DSS v3.2.1 - Requirement 3.2.1](/criteria/requirements/360)
+44. [PCI DSS v3.2.1 - Requirement 3.2.1](/criteria/requirements/360)
 
-- [PCI DSS v3.2.1 - Requirement 3.2.2](/criteria/requirements/360)
+45. [PCI DSS v3.2.1 - Requirement 3.2.2](/criteria/requirements/360)
 
-- [PCI DSS v3.2.1 - Requirement 3.2.3](/criteria/requirements/360)
+46. [PCI DSS v3.2.1 - Requirement 3.2.3](/criteria/requirements/360)
 
-- [PCI DSS v3.2.1 - Requirement 3.3](/criteria/requirements/300)
+47. [PCI DSS v3.2.1 - Requirement 3.3](/criteria/requirements/300)
 
-- [PCI DSS v3.2.1 - Requirement 3.4.1](/criteria/requirements/145)
+48. [PCI DSS v3.2.1 - Requirement 3.4.1](/criteria/requirements/145)
 
-- [PCI DSS v3.2.1 - Requirement 3.4.1](/criteria/requirements/186)
+49. [PCI DSS v3.2.1 - Requirement 3.4.1](/criteria/requirements/186)
 
-- [PCI DSS v3.2.1 - Requirement 3.4](/criteria/requirements/185)
+50. [PCI DSS v3.2.1 - Requirement 3.4](/criteria/requirements/185)
 
-- [PCI DSS v3.2.1 - Requirement 3.5.2](/criteria/requirements/145)
+51. [PCI DSS v3.2.1 - Requirement 3.5.2](/criteria/requirements/145)
 
-- [PCI DSS v3.2.1 - Requirement 3.5.2](/criteria/requirements/186)
+52. [PCI DSS v3.2.1 - Requirement 3.5.2](/criteria/requirements/186)
 
-- [PCI DSS v3.2.1 - Requirement 3.5.3](/criteria/requirements/145)
+53. [PCI DSS v3.2.1 - Requirement 3.5.3](/criteria/requirements/145)
 
-- [PCI DSS v3.2.1 - Requirement 3.5.3](/criteria/requirements/185)
+54. [PCI DSS v3.2.1 - Requirement 3.5.3](/criteria/requirements/185)
 
-- [PCI DSS v3.2.1 - Requirement 3.5.3](/criteria/requirements/333)
+55. [PCI DSS v3.2.1 - Requirement 3.5.3](/criteria/requirements/333)
 
-- [PCI DSS v3.2.1 - Requirement 3.5.4](/criteria/requirements/145)
+56. [PCI DSS v3.2.1 - Requirement 3.5.4](/criteria/requirements/145)
 
-- [PCI DSS v3.2.1 - Requirement 3.5.4](/criteria/requirements/146)
+57. [PCI DSS v3.2.1 - Requirement 3.5.4](/criteria/requirements/146)
 
-- [PCI DSS v3.2.1 - Requirement 3.6.1](/criteria/requirements/224)
+58. [PCI DSS v3.2.1 - Requirement 3.6.1](/criteria/requirements/224)
 
-- [PCI DSS v3.2.1 - Requirement 3.6.2](/criteria/requirements/145)
+59. [PCI DSS v3.2.1 - Requirement 3.6.2](/criteria/requirements/145)
 
-- [PCI DSS v3.2.1 - Requirement 3.6.3](/criteria/requirements/145)
+60. [PCI DSS v3.2.1 - Requirement 3.6.3](/criteria/requirements/145)
 
-- [PCI DSS v3.2.1 - Requirement 3.6.3](/criteria/requirements/146)
+61. [PCI DSS v3.2.1 - Requirement 3.6.3](/criteria/requirements/146)
 
-- [PCI DSS v3.2.1 - Requirement 3.6.4](/criteria/requirements/338)
+62. [PCI DSS v3.2.1 - Requirement 3.6.4](/criteria/requirements/338)
 
-- [PCI DSS v3.2.1 - Requirement 3.6.4](/criteria/requirements/361)
+63. [PCI DSS v3.2.1 - Requirement 3.6.4](/criteria/requirements/361)
 
-- [PCI DSS v3.2.1 - Requirement 3.6.5](/criteria/requirements/361)
+64. [PCI DSS v3.2.1 - Requirement 3.6.5](/criteria/requirements/361)
 
-- [PCI DSS v3.2.1 - Requirement 3.6.7](/criteria/requirements/145)
+65. [PCI DSS v3.2.1 - Requirement 3.6.7](/criteria/requirements/145)
 
-- [PCI DSS v3.2.1 - Requirement 3.6.7](/criteria/requirements/176)
+66. [PCI DSS v3.2.1 - Requirement 3.6.7](/criteria/requirements/176)
 
-- [PCI DSS v3.2.1 - Requirement 4.1.1](/criteria/requirements/147)
+67. [PCI DSS v3.2.1 - Requirement 4.1.1](/criteria/requirements/147)
 
-- [PCI DSS v3.2.1 - Requirement 4.1.1](/criteria/requirements/181)
+68. [PCI DSS v3.2.1 - Requirement 4.1.1](/criteria/requirements/181)
 
-- [PCI DSS v3.2.1 - Requirement 4.1.1](/criteria/requirements/252)
+69. [PCI DSS v3.2.1 - Requirement 4.1.1](/criteria/requirements/252)
 
-- [PCI DSS v3.2.1 - Requirement 4.1](/criteria/requirements/088)
+70. [PCI DSS v3.2.1 - Requirement 4.1](/criteria/requirements/088)
 
-- [PCI DSS v3.2.1 - Requirement 4.1](/criteria/requirements/181)
+71. [PCI DSS v3.2.1 - Requirement 4.1](/criteria/requirements/181)
 
-- [PCI DSS v3.2.1 - Requirement 4.1](/criteria/requirements/224)
+72. [PCI DSS v3.2.1 - Requirement 4.1](/criteria/requirements/224)
 
-- [PCI DSS v3.2.1 - Requirement 4.1](/criteria/requirements/252)
+73. [PCI DSS v3.2.1 - Requirement 4.1](/criteria/requirements/252)
 
-- [PCI DSS v3.2.1 - Requirement 4.1](/criteria/requirements/336)
+74. [PCI DSS v3.2.1 - Requirement 4.1](/criteria/requirements/336)
 
-- [PCI DSS v3.2.1 - Requirement 4.2](/criteria/requirements/181)
+75. [PCI DSS v3.2.1 - Requirement 4.2](/criteria/requirements/181)
 
-- [PCI DSS v3.2.1 - Requirement 5.1.1](/criteria/requirements/041)
+76. [PCI DSS v3.2.1 - Requirement 5.1.1](/criteria/requirements/041)
 
-- [PCI DSS v3.2.1 - Requirement 5.1.1](/criteria/requirements/118)
+77. [PCI DSS v3.2.1 - Requirement 5.1.1](/criteria/requirements/118)
 
-- [PCI DSS v3.2.1 - Requirement 5.1](/criteria/requirements/273)
+78. [PCI DSS v3.2.1 - Requirement 5.1](/criteria/requirements/273)
 
-- [PCI DSS v3.2.1 - Requirement 5.2](/criteria/requirements/262)
+79. [PCI DSS v3.2.1 - Requirement 5.2](/criteria/requirements/262)
 
-- [PCI DSS v3.2.1 - Requirement 5.3](/criteria/requirements/186)
+80. [PCI DSS v3.2.1 - Requirement 5.3](/criteria/requirements/186)
 
-- [PCI DSS v3.2.1 - Requirement 6.2](/criteria/requirements/062)
+81. [PCI DSS v3.2.1 - Requirement 6.2](/criteria/requirements/062)
 
-- [PCI DSS v3.2.1 - Requirement 6.2](/criteria/requirements/158)
+82. [PCI DSS v3.2.1 - Requirement 6.2](/criteria/requirements/158)
 
-- [PCI DSS v3.2.1 - Requirement 6.2](/criteria/requirements/262)
+83. [PCI DSS v3.2.1 - Requirement 6.2](/criteria/requirements/262)
 
-- [PCI DSS v3.2.1 - Requirement 6.3.1](/criteria/requirements/154)
+84. [PCI DSS v3.2.1 - Requirement 6.3.1](/criteria/requirements/154)
 
-- [PCI DSS v3.2.1 - Requirement 6.3](/criteria/requirements/062)
+85. [PCI DSS v3.2.1 - Requirement 6.3](/criteria/requirements/062)
 
-- [PCI DSS v3.2.1 - Requirement 6.4.1](/criteria/requirements/180)
+86. [PCI DSS v3.2.1 - Requirement 6.4.1](/criteria/requirements/180)
 
-- [PCI DSS v3.2.1 - Requirement 6.4.3](/criteria/requirements/180)
+87. [PCI DSS v3.2.1 - Requirement 6.4.3](/criteria/requirements/180)
 
-- [PCI DSS v3.2.1 - Requirement 6.4.4](/criteria/requirements/154)
+88. [PCI DSS v3.2.1 - Requirement 6.4.4](/criteria/requirements/154)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/023)
+89. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/023)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/025)
+90. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/025)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/026)
+91. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/026)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/027)
+92. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/027)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/028)
+93. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/028)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/029)
+94. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/029)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/030)
+95. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/030)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/031)
+96. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/031)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/032)
+97. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/032)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/088)
+98. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/088)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/114)
+99. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/114)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/131)
+100. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/131)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/139)
+101. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/139)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/140)
+102. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/140)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/141)
+103. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/141)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/142)
+104. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/142)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/143)
+105. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/143)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/153)
+106. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/153)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/209)
+107. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/209)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/225)
+108. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/225)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/226)
+109. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/226)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/228)
+110. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/228)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/229)
+111. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/229)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/231)
+112. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/231)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/236)
+113. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/236)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/237)
+114. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/237)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/238)
+115. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/238)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/264)
+116. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/264)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/319)
+117. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/319)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/320)
+118. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/320)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/328)
+119. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/328)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/332)
+120. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/332)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/334)
+121. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/334)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/335)
+122. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/335)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/347)
+123. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/347)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/357)
+124. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/357)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/362)
+125. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/362)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/037)
+126. [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/037)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/050)
+127. [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/050)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/117)
+128. [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/117)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/160)
+129. [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/160)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/169)
+130. [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/169)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/173)
+131. [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/173)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/321)
+132. [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/321)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/344)
+133. [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/344)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.2](/criteria/requirements/157)
+134. [PCI DSS v3.2.1 - Requirement 6.5.2](/criteria/requirements/157)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.2](/criteria/requirements/173)
+135. [PCI DSS v3.2.1 - Requirement 6.5.2](/criteria/requirements/173)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.2](/criteria/requirements/345)
+136. [PCI DSS v3.2.1 - Requirement 6.5.2](/criteria/requirements/345)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.3](/criteria/requirements/145)
+137. [PCI DSS v3.2.1 - Requirement 6.5.3](/criteria/requirements/145)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.3](/criteria/requirements/185)
+138. [PCI DSS v3.2.1 - Requirement 6.5.3](/criteria/requirements/185)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.3](/criteria/requirements/224)
+139. [PCI DSS v3.2.1 - Requirement 6.5.3](/criteria/requirements/224)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.4](/criteria/requirements/181)
+140. [PCI DSS v3.2.1 - Requirement 6.5.4](/criteria/requirements/181)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.4](/criteria/requirements/336)
+141. [PCI DSS v3.2.1 - Requirement 6.5.4](/criteria/requirements/336)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.5](/criteria/requirements/077)
+142. [PCI DSS v3.2.1 - Requirement 6.5.5](/criteria/requirements/077)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.5](/criteria/requirements/078)
+143. [PCI DSS v3.2.1 - Requirement 6.5.5](/criteria/requirements/078)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.5](/criteria/requirements/161)
+144. [PCI DSS v3.2.1 - Requirement 6.5.5](/criteria/requirements/161)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.7](/criteria/requirements/029)
+145. [PCI DSS v3.2.1 - Requirement 6.5.7](/criteria/requirements/029)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.7](/criteria/requirements/050)
+146. [PCI DSS v3.2.1 - Requirement 6.5.7](/criteria/requirements/050)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.7](/criteria/requirements/160)
+147. [PCI DSS v3.2.1 - Requirement 6.5.7](/criteria/requirements/160)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.7](/criteria/requirements/173)
+148. [PCI DSS v3.2.1 - Requirement 6.5.7](/criteria/requirements/173)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.7](/criteria/requirements/340)
+149. [PCI DSS v3.2.1 - Requirement 6.5.7](/criteria/requirements/340)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.7](/criteria/requirements/344)
+150. [PCI DSS v3.2.1 - Requirement 6.5.7](/criteria/requirements/344)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.7](/criteria/requirements/349)
+151. [PCI DSS v3.2.1 - Requirement 6.5.7](/criteria/requirements/349)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/033)
+152. [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/033)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/035)
+153. [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/035)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/080)
+154. [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/080)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/095)
+155. [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/095)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/096)
+156. [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/096)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/176)
+157. [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/176)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/186)
+158. [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/186)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/265)
+159. [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/265)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/266)
+160. [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/266)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/320)
+161. [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/320)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/341)
+162. [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/341)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.9](/criteria/requirements/029)
+163. [PCI DSS v3.2.1 - Requirement 6.5.9](/criteria/requirements/029)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.9](/criteria/requirements/174)
+164. [PCI DSS v3.2.1 - Requirement 6.5.9](/criteria/requirements/174)
 
-- [PCI DSS v3.2.1 - Requirement 6.5.9](/criteria/requirements/349)
+165. [PCI DSS v3.2.1 - Requirement 6.5.9](/criteria/requirements/349)
 
-- [PCI DSS v3.2.1 - Requirement 7.1.1](/criteria/requirements/095)
+166. [PCI DSS v3.2.1 - Requirement 7.1.1](/criteria/requirements/095)
 
-- [PCI DSS v3.2.1 - Requirement 7.1.1](/criteria/requirements/096)
+167. [PCI DSS v3.2.1 - Requirement 7.1.1](/criteria/requirements/096)
 
-- [PCI DSS v3.2.1 - Requirement 7.1.1](/criteria/requirements/176)
+168. [PCI DSS v3.2.1 - Requirement 7.1.1](/criteria/requirements/176)
 
-- [PCI DSS v3.2.1 - Requirement 7.1.2](/criteria/requirements/186)
+169. [PCI DSS v3.2.1 - Requirement 7.1.2](/criteria/requirements/186)
 
-- [PCI DSS v3.2.1 - Requirement 7.1.2](/criteria/requirements/341)
+170. [PCI DSS v3.2.1 - Requirement 7.1.2](/criteria/requirements/341)
 
-- [PCI DSS v3.2.1 - Requirement 7.1.3](/criteria/requirements/095)
+171. [PCI DSS v3.2.1 - Requirement 7.1.3](/criteria/requirements/095)
 
-- [PCI DSS v3.2.1 - Requirement 7.1.3](/criteria/requirements/096)
+172. [PCI DSS v3.2.1 - Requirement 7.1.3](/criteria/requirements/096)
 
-- [PCI DSS v3.2.1 - Requirement 7.2.2](/criteria/requirements/095)
+173. [PCI DSS v3.2.1 - Requirement 7.2.2](/criteria/requirements/095)
 
-- [PCI DSS v3.2.1 - Requirement 7.2.2](/criteria/requirements/096)
+174. [PCI DSS v3.2.1 - Requirement 7.2.2](/criteria/requirements/096)
 
-- [PCI DSS v3.2.1 - Requirement 7.2.2](/criteria/requirements/341)
+175. [PCI DSS v3.2.1 - Requirement 7.2.2](/criteria/requirements/341)
 
-- [PCI DSS v3.2.1 - Requirement 8.1.1](/criteria/requirements/143)
+176. [PCI DSS v3.2.1 - Requirement 8.1.1](/criteria/requirements/143)
 
-- [PCI DSS v3.2.1 - Requirement 8.1.1](/criteria/requirements/229)
+177. [PCI DSS v3.2.1 - Requirement 8.1.1](/criteria/requirements/229)
 
-- [PCI DSS v3.2.1 - Requirement 8.1.1](/criteria/requirements/264)
+178. [PCI DSS v3.2.1 - Requirement 8.1.1](/criteria/requirements/264)
 
-- [PCI DSS v3.2.1 - Requirement 8.1.2](/criteria/requirements/034)
+179. [PCI DSS v3.2.1 - Requirement 8.1.2](/criteria/requirements/034)
 
-- [PCI DSS v3.2.1 - Requirement 8.1.2](/criteria/requirements/035)
+180. [PCI DSS v3.2.1 - Requirement 8.1.2](/criteria/requirements/035)
 
-- [PCI DSS v3.2.1 - Requirement 8.1.3](/criteria/requirements/114)
+181. [PCI DSS v3.2.1 - Requirement 8.1.3](/criteria/requirements/114)
 
-- [PCI DSS v3.2.1 - Requirement 8.1.4](/criteria/requirements/144)
+182. [PCI DSS v3.2.1 - Requirement 8.1.4](/criteria/requirements/144)
 
-- [PCI DSS v3.2.1 - Requirement 8.1.8](/criteria/requirements/023)
+183. [PCI DSS v3.2.1 - Requirement 8.1.8](/criteria/requirements/023)
 
-- [PCI DSS v3.2.1 - Requirement 8.2.1](/criteria/requirements/127)
+184. [PCI DSS v3.2.1 - Requirement 8.2.1](/criteria/requirements/127)
 
-- [PCI DSS v3.2.1 - Requirement 8.2.1](/criteria/requirements/181)
+185. [PCI DSS v3.2.1 - Requirement 8.2.1](/criteria/requirements/181)
 
-- [PCI DSS v3.2.1 - Requirement 8.2.1](/criteria/requirements/185)
+186. [PCI DSS v3.2.1 - Requirement 8.2.1](/criteria/requirements/185)
 
-- [PCI DSS v3.2.1 - Requirement 8.2.2](/criteria/requirements/238)
+187. [PCI DSS v3.2.1 - Requirement 8.2.2](/criteria/requirements/238)
 
-- [PCI DSS v3.2.1 - Requirement 8.2.3](/criteria/requirements/132)
+188. [PCI DSS v3.2.1 - Requirement 8.2.3](/criteria/requirements/132)
 
-- [PCI DSS v3.2.1 - Requirement 8.2.3](/criteria/requirements/133)
+189. [PCI DSS v3.2.1 - Requirement 8.2.3](/criteria/requirements/133)
 
-- [PCI DSS v3.2.1 - Requirement 8.2.4](/criteria/requirements/130)
+190. [PCI DSS v3.2.1 - Requirement 8.2.4](/criteria/requirements/130)
 
-- [PCI DSS v3.2.1 - Requirement 8.2.5](/criteria/requirements/126)
+191. [PCI DSS v3.2.1 - Requirement 8.2.5](/criteria/requirements/126)
 
-- [PCI DSS v3.2.1 - Requirement 8.2.5](/criteria/requirements/129)
+192. [PCI DSS v3.2.1 - Requirement 8.2.5](/criteria/requirements/129)
 
-- [PCI DSS v3.2.1 - Requirement 8.2.6](/criteria/requirements/136)
+193. [PCI DSS v3.2.1 - Requirement 8.2.6](/criteria/requirements/136)
 
-- [PCI DSS v3.2.1 - Requirement 8.2.6](/criteria/requirements/137)
+194. [PCI DSS v3.2.1 - Requirement 8.2.6](/criteria/requirements/137)
 
-- [PCI DSS v3.2.1 - Requirement 8.2.6](/criteria/requirements/367)
+195. [PCI DSS v3.2.1 - Requirement 8.2.6](/criteria/requirements/367)
 
-- [PCI DSS v3.2.1 - Requirement 8.2](/criteria/requirements/229)
+196. [PCI DSS v3.2.1 - Requirement 8.2](/criteria/requirements/229)
 
-- [PCI DSS v3.2.1 - Requirement 8.5](/criteria/requirements/143)
+197. [PCI DSS v3.2.1 - Requirement 8.5](/criteria/requirements/143)
 
-- [PCI DSS v3.2.1 - Requirement 8.5](/criteria/requirements/362)
+198. [PCI DSS v3.2.1 - Requirement 8.5](/criteria/requirements/362)
 
-- [PCI DSS v3.2.1 - Requirement 8.6](/criteria/requirements/362)
+199. [PCI DSS v3.2.1 - Requirement 8.6](/criteria/requirements/362)
 
-- [PCI DSS v3.2.1 - Requirement 8.7](/criteria/requirements/033)
+200. [PCI DSS v3.2.1 - Requirement 8.7](/criteria/requirements/033)
 
-- [PCI DSS v3.2.1 - Requirement 8.7](/criteria/requirements/265)
+201. [PCI DSS v3.2.1 - Requirement 8.7](/criteria/requirements/265)
 
-- [PCI DSS v3.2.1 - Requirement 9.8.2](/criteria/requirements/183)
+202. [PCI DSS v3.2.1 - Requirement 9.8.2](/criteria/requirements/183)
 
-- [PCI DSS v3.2.1 - Requirement 10.2.1](/criteria/requirements/075)
+203. [PCI DSS v3.2.1 - Requirement 10.2.1](/criteria/requirements/075)
 
-- [PCI DSS v3.2.1 - Requirement 10.2.2](/criteria/requirements/046)
+204. [PCI DSS v3.2.1 - Requirement 10.2.2](/criteria/requirements/046)
 
-- [PCI DSS v3.2.1 - Requirement 10.2.2](/criteria/requirements/075)
+205. [PCI DSS v3.2.1 - Requirement 10.2.2](/criteria/requirements/075)
 
-- [PCI DSS v3.2.1 - Requirement 10.2.3](/criteria/requirements/075)
+206. [PCI DSS v3.2.1 - Requirement 10.2.3](/criteria/requirements/075)
 
-- [PCI DSS v3.2.1 - Requirement 10.2.4](/criteria/requirements/075)
+207. [PCI DSS v3.2.1 - Requirement 10.2.4](/criteria/requirements/075)
 
-- [PCI DSS v3.2.1 - Requirement 10.2.5](/criteria/requirements/075)
+208. [PCI DSS v3.2.1 - Requirement 10.2.5](/criteria/requirements/075)
 
-- [PCI DSS v3.2.1 - Requirement 10.2.6](/criteria/requirements/046)
+209. [PCI DSS v3.2.1 - Requirement 10.2.6](/criteria/requirements/046)
 
-- [PCI DSS v3.2.1 - Requirement 10.2.6](/criteria/requirements/075)
+210. [PCI DSS v3.2.1 - Requirement 10.2.6](/criteria/requirements/075)
 
-- [PCI DSS v3.2.1 - Requirement 10.2.7](/criteria/requirements/075)
+211. [PCI DSS v3.2.1 - Requirement 10.2.7](/criteria/requirements/075)
 
-- [PCI DSS v3.2.1 - Requirement 10.3](/criteria/requirements/079)
+212. [PCI DSS v3.2.1 - Requirement 10.3](/criteria/requirements/079)
 
-- [PCI DSS v3.2.1 - Requirement 10.4.1](/criteria/requirements/363)
+213. [PCI DSS v3.2.1 - Requirement 10.4.1](/criteria/requirements/363)
 
-- [PCI DSS v3.2.1 - Requirement 10.4.2](/criteria/requirements/046)
+214. [PCI DSS v3.2.1 - Requirement 10.4.2](/criteria/requirements/046)
 
-- [PCI DSS v3.2.1 - Requirement 10.4.2](/criteria/requirements/363)
+215. [PCI DSS v3.2.1 - Requirement 10.4.2](/criteria/requirements/363)
 
-- [PCI DSS v3.2.1 - Requirement 10.4.3](/criteria/requirements/363)
+216. [PCI DSS v3.2.1 - Requirement 10.4.3](/criteria/requirements/363)
 
-- [PCI DSS v3.2.1 - Requirement 10.5.1](/criteria/requirements/096)
+217. [PCI DSS v3.2.1 - Requirement 10.5.1](/criteria/requirements/096)
 
-- [PCI DSS v3.2.1 - Requirement 10.5.1](/criteria/requirements/176)
+218. [PCI DSS v3.2.1 - Requirement 10.5.1](/criteria/requirements/176)
 
-- [PCI DSS v3.2.1 - Requirement 10.5.2](/criteria/requirements/080)
+219. [PCI DSS v3.2.1 - Requirement 10.5.2](/criteria/requirements/080)
 
-- [PCI DSS v3.2.1 - Requirement 10.5.3](/criteria/requirements/080)
+220. [PCI DSS v3.2.1 - Requirement 10.5.3](/criteria/requirements/080)
 
-- [PCI DSS v3.2.1 - Requirement 10.5.5](/criteria/requirements/046)
+221. [PCI DSS v3.2.1 - Requirement 10.5.5](/criteria/requirements/046)

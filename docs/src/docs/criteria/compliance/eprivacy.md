@@ -12,52 +12,54 @@ of communications
 and the rules regarding tracking
 and monitoring.
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 4: Security of processing.(1a)](/criteria/requirements/210)
+## Correlation
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC).Art. 4: Security of processing.(1a)](/criteria/requirements/265)
+1. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/083)
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 4: Security of processing.(1a)](/criteria/requirements/156)
+2. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/156)
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 4: Security of processing.(1a)](/criteria/requirements/083)
+3. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/176)
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 4: Security of processing.(1a)](/criteria/requirements/320)
+4. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/177)
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 4: Security of processing.(1a)](/criteria/requirements/177)
+5. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/180)
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 4: Security of processing.(1a)](/criteria/requirements/375)
+6. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/181)
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 4: Security of processing.(1a)](/criteria/requirements/329)
+7. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/183)
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 4: Security of processing.(1a)](/criteria/requirements/300)
+8. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/185)
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 4: Security of processing.(1a)](/criteria/requirements/180)
+9. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/210)
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 4: Security of processing.(1a)](/criteria/requirements/185)
+10. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/261)
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 4: Security of processing.(1a)](/criteria/requirements/176)
+11. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/265)
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 4: Security of processing.(1a)](/criteria/requirements/183)
+12. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/300)
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 6: Traffic data.(1)](/criteria/requirements/183)
+13. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/320)
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 4: Security of processing.(1a)](/criteria/requirements/181)
+14. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/329)
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 4: Security of processing.(1a)](/criteria/requirements/261)
+15. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/375)
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 6: Traffic data.(3)](/criteria/requirements/312)
+16. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(1)](/criteria/requirements/183)
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 6: Traffic data.(4)](/criteria/requirements/315)
+17. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(3)](/criteria/requirements/312)
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 9: Location data other than traffic data.(1)](/criteria/requirements/315)
+18. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(4)](/criteria/requirements/189)
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 6: Traffic data.(4)](/criteria/requirements/189)
+19. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(4)](/criteria/requirements/310)
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 9: Location data other than traffic data.(1)](/criteria/requirements/189)
+20. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(4)](/criteria/requirements/315)
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 6: Traffic data.(4)](/criteria/requirements/310)
+21. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(4)](/criteria/requirements/343)
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 9: Location data other than traffic data.(1)](/criteria/requirements/310)
+22. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 9: Location data other than traffic data.(1)](/criteria/requirements/189)
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 6: Traffic data.(4)](/criteria/requirements/343)
+23. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 9: Location data other than traffic data.(1)](/criteria/requirements/310)
 
-- [Directive 2002/58/EC (amended by E-privacy Directive 2009/136/EC). Art. 9: Location data other than traffic data.(1)](/criteria/requirements/343)
+24. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 9: Location data other than traffic data.(1)](/criteria/requirements/315)
+
+25. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 9: Location data other than traffic data.(1)](/criteria/requirements/343)

@@ -18,12 +18,12 @@ This section shows
 the BSIMM requirements
 that are verified through our services.
 
-- [BSIMM9 SR3.3: 9. Use secure coding standards:](/criteria/requirements/062)
+1. [BSIMM9 CR3.4: 2. Automate malicious code detection](/criteria/requirements/155)
 
-- [BSIMM9 SR2.4: 60. Identify open source:](/criteria/requirements/262)
+2. [BSIMM9 CR3.4: 2. Automate malicious code detection](/criteria/requirements/273)
 
-- [BSIMM9 CR3.4: 2. Automate malicious code detection:](/criteria/requirements/155)
+3. [BSIMM9 SE3.2: 13. Use code protection](/criteria/requirements/159)
 
-- [BSIMM9 SE3.2: 13. Use code protection:](/criteria/requirements/159)
+4. [BSIMM9 SR2.4: 60. Identify open source](/criteria/requirements/262)
 
-- [BSIMM9 CR3.4: 2. Automate malicious code detection:](/criteria/requirements/273)
+5. [BSIMM9 SR3.3: 9. Use secure coding standards](/criteria/requirements/062)
