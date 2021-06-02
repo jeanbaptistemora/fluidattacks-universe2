@@ -351,7 +351,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
           <SidebarListItem>
             <Link
               className={"c-fluid-bk roboto no-underline nowrap hv-fluid-rd"}
-              to={"https://community.fluidattacks.com/"}
+              to={"https://docs.fluidattacks.com/"}
             >
               {"Community"}
             </Link>

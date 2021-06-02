@@ -504,7 +504,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
             className={
               "hv-fluid-rd f5 c-fluid-bk fw4 no-underline menu-txt-trans roboto"
             }
-            to={"https://community.fluidattacks.com/"}
+            to={"https://docs.fluidattacks.com/"}
           >
             {"Community"}
           </Link>

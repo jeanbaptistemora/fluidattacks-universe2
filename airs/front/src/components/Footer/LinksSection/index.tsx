@@ -159,7 +159,7 @@ const LinksSection: React.FC = (): JSX.Element => (
       <HeadLink link={"/advisories/"} name={"Advisories"} /> <br />
       <HeadLink link={"/faq/"} name={"FAQ"} /> <br />
       <HeadLink
-        link={"https://community.fluidattacks.com/"}
+        link={"https://docs.fluidattacks.com/"}
         name={"Community"}
       />{" "}
       <br />

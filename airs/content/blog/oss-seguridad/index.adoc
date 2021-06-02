@@ -107,7 +107,7 @@ porque la materia prima con la que trabajamos
 no pretendemos dejar de compartirla.
 
 Aparte de la colaboración que podemos recibir
-de personas inteligentes de link:https://community.fluidattacks.com/[nuestra comunidad]
+de personas inteligentes de link:https://docs.fluidattacks.com/[nuestra comunidad]
 y no afiliadas legalmente a nuestra empresa,
 casi todos los miembros de `Fluid Attacks` pueden
 y son animados a revisar el código para proponer nuevas ideas
