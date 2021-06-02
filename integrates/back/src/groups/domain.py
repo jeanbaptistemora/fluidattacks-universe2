@@ -284,6 +284,10 @@ def _process_digest_reattacks(
     if reattacks["pending_attacks"]:
         reattacks.update(_process_digest_reattacks_pending(groups_stats))
 
+    # Remove unneeded keys
+    reattacks.pop("last_requested_date", None)
+    reattacks.pop("last_executed_date", None)
+
     return reattacks
 
 

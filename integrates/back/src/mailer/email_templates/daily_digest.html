@@ -92,7 +92,7 @@
       display: block;
       justify-content: space-between;
       margin-bottom: 1rem;
-      height: 33%;
+      height: auto;
     }
 
     .content-number {
@@ -139,6 +139,10 @@
       .icon {
         width: 40%;
       }
+
+      .icon div {
+        height: 1rem;
+      }
     }
   </style>
 </head>
@@ -157,22 +161,22 @@
     <div class="numbers">
       <div class="numbers-row">
         {% if groups_len > 1 %}
-        <div>
-          <h3>{{ remediation_rate['max'] }}%</h3>
-          <p><strong>{{ remediation_rate['max_group'] }}</strong> has the <strong>Max</strong> remediation rate</p>
-        </div>
-        <div>
-          <h3>{{ remediation_rate['min'] }}%</h3>
-          <p><strong>{{ remediation_rate['min_group'] }}</strong> has the <strong>Min</strong> remediation rate</p>
-        </div>
-        <div>
-          <h3>{{ remediation_time['max'] }}</h3>
-          <p><strong>{{ remediation_time['max_group'] }}</strong> has the <strong>Max</strong> Mean Time To Remediate</p>
-        </div>
-        <div>
-          <h3>{{ remediation_time['min'] }}</h3>
-          <p><strong>{{ remediation_time['min_group'] }}</strong> has the <strong>Min</strong> Mean Time To Remediate</p>
-        </div>
+          <div>
+            <h3>{{ remediation_rate['max'] }}%</h3>
+            <p><strong>{{ remediation_rate['max_group'] }}</strong> has the <strong>Max</strong> remediation rate</p>
+          </div>
+          <div>
+            <h3>{{ remediation_rate['min'] }}%</h3>
+            <p><strong>{{ remediation_rate['min_group'] }}</strong> has the <strong>Min</strong> remediation rate</p>
+          </div>
+          <div>
+            <h3>{{ remediation_time['max'] }}</h3>
+            <p><strong>{{ remediation_time['max_group'] }}</strong> has the <strong>Max</strong> Mean Time To Remediate</p>
+          </div>
+          <div>
+            <h3>{{ remediation_time['min'] }}</h3>
+            <p><strong>{{ remediation_time['min_group'] }}</strong> has the <strong>Min</strong> Mean Time To Remediate</p>
+          </div>
         {% else %}
           <div>
             <h3>{{ remediation_rate['max'] }}%</h3>
@@ -186,7 +190,11 @@
       </div>
       <div class="numbers-row">
         <div>
-          <h3>{{ main['reattack_effectiveness'] }}{% if reattacks['reattacks_executed'] > 0 %}%{% endif %}</h3>
+          {% if 'reattack_effectiveness' in reattacks %}
+            <h3>{{ reattacks['reattack_effectiveness'] }}%</h3>
+          {% else %}
+            <h3>n/a</h3>
+          {% endif %}
           <p>Average reattack effectiveness</p>
         </div>
         <div>
@@ -207,6 +215,9 @@
     <!-- REATTACKS -->
     <div class="main-content">
       <div class="icon">
+        {% if 'groups_requested' in reattacks %}<div></div>{% endif %}
+        {% if 'groups_executed' in reattacks %}<div></div>{% endif %}
+        {% if 'groups_pending' in reattacks %}<div></div>{% endif %}
         <img alt="Reattacks logo"
           src="https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/6a93e786-ab0e-4285-9ec0-c0c7bbd9fbc5.png">
         <h4>Reattacks</h4>
@@ -215,14 +226,58 @@
         <div>
           <span>Reattacks requested</span>
           <span class="content-number">{{ reattacks['reattacks_requested'] }}</span>
+          {% if 'groups_requested' in reattacks %}
+            {% if reattacks['reattacks_requested'] > 0 %}
+              <p style="padding: 0 1rem;">Groups with most requests today</p>
+              {% for group in reattacks['groups_requested'] %}
+                <p style="padding: 0 2rem;">
+                  <strong>{{ group['group'] }}</strong>, {{ group['reattacks_requested'] }}
+                </p>
+              {% endfor %}
+            {% else %}
+              <p style="padding: 0 1rem;">Last request at</p>
+              {% for group in reattacks['groups_requested'] %}
+                <p style="padding: 0 2rem;">
+                  <strong>{{ group['group'] }}</strong>, {{ group['age_last_requested'] }}
+                  {% if group['age_last_requested']  == 1 %} day{% else %} days{% endif %} ago
+                </p>
+              {% endfor %}
+            {% endif %}
+          {% endif %}
         </div>
         <div>
           <span>Reattacks executed</span>
           <span class="content-number">{{ reattacks['reattacks_executed'] }}</span>
+          {% if 'groups_executed' in reattacks %}
+            {% if reattacks['reattacks_executed'] > 0 %}
+              <p style="padding: 0 1rem;">Groups with most executions today</p>
+              {% for group in reattacks['groups_executed'] %}
+                <p style="padding: 0 2rem;">
+                  <strong>{{ group['group'] }}</strong>, {{ group['reattacks_executed'] }}
+                </p>
+              {% endfor %}
+            {% else %}
+              <p style="padding: 0 1rem;">Last execution at</p>
+              {% for group in reattacks['groups_executed'] %}
+                <p style="padding: 0 2rem;">
+                  <strong>{{ group['group'] }}</strong>, {{ group['age_last_executed'] }}
+                  {% if group['age_last_executed']  == 1 %} day{% else %} days{% endif %} ago
+                </p>
+              {% endfor %}
+            {% endif %}
+          {% endif %}
         </div>
         <div>
           <span>Pending reattacks</span>
           <span class="content-number">{{ reattacks['pending_attacks'] }}</span>
+          {% if reattacks['pending_attacks'] > 0 and 'groups_pending' in reattacks %}
+            <p style="padding: 0 1rem;">Most pending at</p>
+            {% for group in reattacks['groups_pending'] %}
+              <p style="padding: 0 2rem;">
+                <strong>{{ group['group'] }}</strong>, {{ group['pending_attacks'] }}
+              </p>
+            {% endfor %}
+          {% endif %}
         </div>
       </div>
     </div>
@@ -235,15 +290,15 @@
         <h4>Treatments</h4>
       </div>
       <div class="content">
-        <div>
+        <div style="height: 33%;">
           <span>Temporary treatments applied</span>
           <span class="content-number">{{ treatments['temporary_applied'] }}</span>
         </div>
-        <div>
+        <div style="height: 33%;">
           <span>Eternal treatments requested</span>
           <span class="content-number">{{ treatments['eternal_requested'] }}</span>
         </div>
-        <div>
+        <div style="height: 33%;">
           <span>Eternal treatments approved</span>
           <span class="content-number">{{ treatments['eternal_approved'] }}</span>
         </div>
@@ -259,7 +314,7 @@
       </div>
       <div class="content">
         {% for finding in findings %}
-        <div {% if findings|length > 3 %}style="height: auto;"{% endif %}>
+        <div {% if findings|length <= 3 %}style="height: 33%;"{% endif %}>
           <span><strong>[{{ finding['finding_group'] }}] </strong>{{ finding['finding_name'] }}</span>
           <span class="content-number">
             {{ finding['finding_age'] }} {% if finding['finding_age']  == 1 %} day{% else %} days{% endif %}
