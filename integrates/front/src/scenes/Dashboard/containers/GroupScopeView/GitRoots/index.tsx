@@ -384,7 +384,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     dataField: "gitignore",
                     formatter: formatList,
                     header: t("group.scope.git.filter.exclude"),
-                    visible: checkedItems["filter.exclude"],
+                    visible: checkedItems.gitignore,
                     width: "12%",
                     wrapped: true,
                   },
