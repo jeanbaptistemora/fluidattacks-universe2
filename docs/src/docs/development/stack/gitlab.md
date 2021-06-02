@@ -50,7 +50,8 @@ with
 [milestones](https://gitlab.com/fluidattacks/product/-/milestones),
 [roadmaps](https://docs.gitlab.com/ee/user/group/roadmap/index.html),
 among others.
-Such features are essential for task prioritization and resource assignment.
+Such features are essential for
+task prioritization and resource assignment.
 1. It has highly customizable
 [permissions settings](https://docs.gitlab.com/ee/user/permissions.html),
 allowing to give permissions using a

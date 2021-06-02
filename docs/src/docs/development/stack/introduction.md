@@ -31,6 +31,7 @@ How to use the component.
 ## Purpose
 
 1. **Edge protection: [Cloudflare](stack/cloudflare)**
+1. **Commit message linter: [Commitlint](stack/commitlint)**
 1. **Version control system: [Git](stack/git/commits)**
 1. **Development platform: [Gitlab](stack/gitlab)**
 1. **Continuous Integration: [Gitlab CI](stack/gitlab-ci)**

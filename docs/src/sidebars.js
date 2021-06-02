@@ -896,6 +896,7 @@ module.exports = {
       items: [
         'development/stack/introduction',
         'development/stack/cloudflare',
+        'development/stack/commitlint',
         {
           type: 'category',
           label: 'Git',
