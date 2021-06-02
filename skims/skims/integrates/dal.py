@@ -193,6 +193,26 @@ async def get_group_findings(
     )
 
 
+@SHIELD
+async def get_group_language(
+    *,
+    group: str,
+) -> Tuple[ResultGetGroupFindings, ...]:
+    result = await _execute(
+        query="""
+            query SkimsGetGroupLanguage($group: String!) {
+                project(projectName: $group) {
+                    language
+                }
+            }
+        """,
+        operation="SkimsGetGroupLanguage",
+        variables=dict(group=group),
+    )
+
+    return result["data"]["project"]["language"]
+
+
 class ResultGetGroupRoots(NamedTuple):
     environment_urls: List[str]
     nickname: str
