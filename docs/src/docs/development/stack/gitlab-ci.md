@@ -32,7 +32,7 @@ over other alternatives are:
 
 1. It is [Open source](https://opensource.com/resources/what-open-source).
 1. [Built-in support for Gitlab](https://docs.gitlab.com/runner/register/index.html):
-As [Gitlab](https://about.gitlab.com/)
+As [Gitlab](gitlab)
 is the platform we use
 for our [product repository](https://gitlab.com/fluidattacks/product),
 it represents an advantage for us
@@ -120,7 +120,7 @@ It required licensing
 for private repositories
 at the time it was reviewed.
 1. [CircleCI](https://circleci.com/):
-It did not support [Gitlab](https://about.gitlab.com/),
+It did not support [Gitlab](gitlab),
 it was very expensive,
 it was not as parametrizable.
 1. [Buildkite](https://buildkite.com/):

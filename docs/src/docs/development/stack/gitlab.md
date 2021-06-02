@@ -21,7 +21,7 @@ The main reasons why we chose
 [Gitlab](https://about.gitlab.com/)
 over other alternatives are:
 
-1. It is [Open source](https://opensource.com/resources/what-open-source).
+1. It is [Open Source](https://opensource.com/resources/what-open-source).
 1. It is [SaaS](https://en.wikipedia.org/wiki/Software_as_a_service).
 1. It is a [DevOps Suite](https://about.gitlab.com/blog/2017/10/04/devops-strategy/),
 meaning that all their technical efforts are focused on creating
@@ -41,13 +41,16 @@ which is essetial to our
 program,
 which gives unlimited
 [ultimate](https://about.gitlab.com/pricing/) free seats to
-[Open source](https://opensource.com/resources/what-open-source)
+[Open Source](https://opensource.com/resources/what-open-source)
 projects like [ours](https://gitlab.com/fluidattacks/product).
 1. It provides
-[development planning](https://docs.gitlab.com/ee/topics/plan_and_track.html)
-for [issues](https://gitlab.com/fluidattacks/product/-/issues)
-and [milestones](https://gitlab.com/fluidattacks/product/-/milestones),
-which are essential for task prioritization and resource assignment.
+[Development Planning](https://docs.gitlab.com/ee/topics/plan_and_track.html)
+with
+[issues](https://gitlab.com/fluidattacks/product/-/issues),
+[milestones](https://gitlab.com/fluidattacks/product/-/milestones),
+[roadmaps](https://docs.gitlab.com/ee/user/group/roadmap/index.html),
+among others.
+Such features are essential for task prioritization and resource assignment.
 1. It has highly customizable
 [permissions settings](https://docs.gitlab.com/ee/user/permissions.html),
 allowing to give permissions using a
@@ -58,6 +61,8 @@ of a project using a
 [section-based granular](https://docs.gitlab.com/ee/user/permissions.html#project-features-permissions)
 approach
 is also possible.
+1. It supports
+[Two-factor Authentication](https://docs.gitlab.com/ee/user/profile/account/two_factor_authentication.html).
 1. It supports
 [Merge Requests](https://gitlab.com/fluidattacks/product/-/merge_requests),
 allowing developers to open requests
@@ -87,7 +92,7 @@ allowing us to seamlessly store all our containers in the same place.
 1. It supports
 [CI/CD schedules](https://gitlab.com/fluidattacks/product/-/pipeline_schedules),
 which allows us to easily run scheduled
-[jobs](https://docs.gitlab.com/ee/ci/jobs/)
+[jobs](https://docs.gitlab.com/ee/ci/jobs/).
 1. It supports
 [Environments](https://gitlab.com/fluidattacks/product/-/environments)
 for seamlessly accessing both development and production environments.
@@ -158,7 +163,7 @@ among others.
 
 1. [Azure DevOps](https://azure.microsoft.com/en-us/services/devops/):
 It did not exist at the time.
-It is not [Open source](https://opensource.com/resources/what-open-source).
+It is not [Open Source](https://opensource.com/resources/what-open-source).
 2. [BitBucket](https://bitbucket.org/product/):
 It is not a [DevOps](https://aws.amazon.com/devops/what-is-devops/)
 solution but a source code respository.
@@ -167,7 +172,6 @@ It did not integrate with a [CI/CD](gitlab-ci) solution.
 It is not a [DevOps](https://aws.amazon.com/devops/what-is-devops/)
 solution but a source code respository.
 It did not integrate with a [CI/CD](gitlab-ci) solution.
-
 
 ## Usage
 
@@ -183,11 +187,17 @@ We use [Gitlab](https://about.gitlab.com/) for:
 [merge requests](https://gitlab.com/fluidattacks/product/-/merge_requests).
 1. Hosting our
 [containers](https://gitlab.com/fluidattacks/product/container_registry).
+1. Visualizing
+[jobs](https://docs.gitlab.com/ee/ci/jobs/)
+and
+[pipelines](https://docs.gitlab.com/ee/ci/pipelines/).
+
 
 We do not use [Gitlab](https://about.gitlab.com/) for:
 
 1. [Security scans](https://docs.gitlab.com/ee/user/application_security/):
-We tried to implement this in the past but were not able due to
+We tried to implement this in the past
+but were not able due to
 low parametrization capabilities on the scans.
 1. [Operations](https://docs.gitlab.com/ee/operations/):
 We currently do not use a stack that
@@ -204,3 +214,4 @@ Issues have been opened for this:
 1. [Generate SSH keys](https://docs.gitlab.com/ee/ssh/#generate-an-ssh-key-pair).
 1. [Create a personal access token](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token).
 1. [Create a merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html).
+1. [Create an issue](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#create-a-new-issue).
