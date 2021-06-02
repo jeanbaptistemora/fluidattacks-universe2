@@ -1,6 +1,6 @@
 :page-slug: smishing/
 :page-date: 2021-04-30
-:page-subtitle: But before doing it you must read this
+:page-subtitle: But before doing it you must know what smishing is
 :page-category: techniques
 :page-tags: cybersecurity, social-engineering, android, risk, technology, software
 :page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331098/blog/smishing/cover_zpfdiv.webp

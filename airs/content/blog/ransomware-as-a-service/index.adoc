@@ -13,7 +13,7 @@
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/RjD01Is-KnI
 
-= RaaS: that's all we needed!
+= Raas: That’s All We Needed!
 
 We already know what link:../ransomware/[ransomware] is:
 malicious software that, being on your computer,
@@ -115,7 +115,7 @@ The person who hired the RaaS paid $39, but
 link:https://cutt.ly/jnkIHGi[demanded averagely $722].
 Outstandingly, in 2020 the average payment requested was
 link:https://cutt.ly/wnkILUW[$111,605].
-which represented an increase higher than 7700%.
+which represented an increase higher than 7,700%.
 However, the ransom amount varies depending on
 the type of ransomware that is at stake.
 Currently, a "cheap" payment can be
@@ -154,7 +154,7 @@ and link:https://cutt.ly/gnkOjR7[Donald Trump] last year.
 However, some requirements overpass the payment capacity of their victims.
 Such was the case with REvil ransomware, which asked
 link:https://cutt.ly/rnkOxzi[$42M]
-to Allen Grubam, the entertainment superstars lawyer
+to Allen Grubman, the entertainment superstars lawyer
 (he had clients such as
 link:https://cutt.ly/dnkOv2u[Bruce Springsteen, Elton John, Lady Gaga and U2]).
 All the above means that by adopting the SaaS model,
