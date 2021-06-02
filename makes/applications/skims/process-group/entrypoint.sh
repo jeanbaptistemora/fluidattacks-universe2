@@ -43,8 +43,7 @@ function skims_rebase {
   local group="${1}"
   local namespace="${2}"
 
-      echo '[INFO] Running skims rebase' \
-  &&  skims rebase \
+      skims rebase \
         --group "${group}" \
         --namespace "${namespace}" \
         "groups/${group}/fusion/${namespace}" \
