@@ -114,6 +114,28 @@ def cli(
         set_level(logging.DEBUG)
 
 
+@cli.command(
+    help="Get the code date after which skims should run.",
+    name="expected-code-date",
+)
+@FINDING_CODE(required=True)
+@GROUP(required=True)
+@TOKEN(required=True)
+def cli_expected_code_date(
+    finding_code: str,
+    group: str,
+    token: str,
+) -> None:
+    success: bool = run(
+        cli_expected_code_date_wrapped(
+            finding_code=finding_code,
+            group=group,
+            token=token,
+        )
+    )
+    sys.exit(0 if success else 1)
+
+
 @cli.command(help="Get a group's language.", name="language")
 @GROUP(required=True)
 @TOKEN(required=True)
@@ -211,6 +233,27 @@ def cli_scan(
         )
 
     sys.exit(0 if success else 1)
+
+
+@shield(on_error_return=False)
+async def cli_expected_code_date_wrapped(
+    finding_code: str,
+    group: str,
+    token: str,
+) -> bool:
+    import core.expected_code_date
+
+    initialize_bugsnag()
+    add_bugsnag_data(
+        finding_code=finding_code,
+        group=group,
+        token=token,
+    )
+    return await core.expected_code_date.main(
+        finding_code=finding_code,
+        group=group,
+        token=token,
+    )
 
 
 @shield(on_error_return=False)
