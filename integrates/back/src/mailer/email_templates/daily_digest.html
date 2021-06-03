@@ -114,6 +114,10 @@
       .icon {
         width: 100%;
       }
+
+      .icon-div {
+        display: none;
+      }
     }
 
     @media only screen and (min-width: 599px) {
@@ -140,8 +144,8 @@
         width: 40%;
       }
 
-      .icon div {
-        height: 1rem;
+      .icon-div {
+        display: block;
       }
     }
   </style>
@@ -160,7 +164,7 @@
     <!-- NUMBERS -->
     <div class="numbers">
       <div class="numbers-row">
-        {% if groups_len > 1 %}
+        {%- if groups_len > 1 %}
           <div>
             <h3>{{ remediation_rate['max'] }}%</h3>
             <p><strong>{{ remediation_rate['max_group'] }}</strong> has the <strong>maximum</strong> remediation rate</p>
@@ -177,7 +181,7 @@
             <h3>{{ remediation_time['min'] }}</h3>
             <p><strong>{{ remediation_time['min_group'] }}</strong> has the <strong>minimum</strong> Mean Time To Remediate</p>
           </div>
-        {% else %}
+        {%- else %}
           <div>
             <h3>{{ remediation_rate['max'] }}%</h3>
             <p>Remediation rate at <strong>{{ remediation_rate['max_group'] }}</strong></p>
@@ -186,15 +190,15 @@
             <h3>{{ remediation_time['max'] }}</h3>
             <p>Mean Time To Remediate at <strong>{{ remediation_time['max_group'] }}</strong></p>
           </div>
-        {% endif %}
+        {%- endif %}
       </div>
       <div class="numbers-row">
         <div>
-          {% if 'reattack_effectiveness' in reattacks %}
+          {%- if 'reattack_effectiveness' in reattacks %}
             <h3>{{ reattacks['reattack_effectiveness'] }}%</h3>
-          {% else %}
+          {%- else %}
             <h3>n/a</h3>
-          {% endif %}
+          {%- endif %}
           <p>Average reattack effectiveness</p>
         </div>
         <div>
@@ -215,9 +219,17 @@
     <!-- REATTACKS -->
     <div class="main-content">
       <div class="icon">
-        {% if 'groups_requested' in reattacks %}<div></div>{% endif %}
-        {% if 'groups_executed' in reattacks %}<div></div>{% endif %}
-        {% if 'groups_pending' in reattacks %}<div></div>{% endif %}
+        <div class="icon-div">
+          {%- if 'groups_requested' in reattacks %}
+            <div style="height: calc(5px * {{ reattacks['groups_requested']|length }});"></div>
+          {%- endif %}
+          {%- if 'groups_executed' in reattacks %}
+            <div style="height: calc(5px * {{ reattacks['groups_executed']|length }});"></div>
+          {%- endif %}
+          {%- if 'groups_pending' in reattacks %}
+            <div style="height: calc(5px * {{ reattacks['groups_pending']|length }});"></div>
+          {%- endif %}
+        </div>
         <img alt="Reattacks logo"
           src="https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/6a93e786-ab0e-4285-9ec0-c0c7bbd9fbc5.png">
         <h4>Reattacks</h4>
@@ -225,82 +237,82 @@
       <div class="content">
         <!-- REATTACKS REQUESTED -->
         <div>
-          {% if reattacks['reattacks_requested'] > 0 %}
+          {%- if reattacks['reattacks_requested'] > 0 %}
             <span>Requested</span>
             <span class="content-number">{{ reattacks['reattacks_requested'] }}</span>
-            {% if 'groups_requested' in reattacks %}
-              {% for group in reattacks['groups_requested'] %}
+            {%- if 'groups_requested' in reattacks %}
+              {%- for group in reattacks['groups_requested'] %}
                 <p style="padding: 0 1rem;">
                   <strong>{{ group['group'] }}</strong>
                   <!-- With only one group, don't repeat the stat -->
-                  {% if reattacks['groups_requested']|length > 1 %}
+                  {%- if reattacks['groups_requested']|length > 1 %}
                     {{ group['reattacks_requested'] }}
-                  {% endif %}
+                  {%- endif %}
                 </p>
-              {% endfor %}
-            {% endif %}
-          {% elif 'groups_requested' in reattacks and reattacks['groups_requested']|length > 0 %}
+              {%- endfor %}
+            {%- endif %}
+          {%- elif 'groups_requested' in reattacks and reattacks['groups_requested']|length > 0 %}
             <span>Last request at</span>
-            {% for group in reattacks['groups_requested'] %}
+            {%- for group in reattacks['groups_requested'] %}
                 <p style="padding: 0 1rem;">
                   <strong>{{ group['group'] }}</strong>, {{ group['age_last_requested'] }}
-                  {% if group['age_last_requested']  == 1 %} day{% else %} days{% endif %} ago
+                  {%- if group['age_last_requested']  == 1 %} day{%- else %} days{%- endif %} ago
                 </p>
-              {% endfor %}
-          {% else %}
+              {%- endfor %}
+          {%- else %}
             <!-- No info to display -->
-            <span>No requests</span>
-          {% endif %}
+            <span style="height: 33%">No requests</span>
+          {%- endif %}
         </div>
         <!-- REATTACKS EXECUTED -->
         <div>
-          {% if reattacks['reattacks_executed'] > 0 %}
+          {%- if reattacks['reattacks_executed'] > 0 %}
             <span>Executed</span>
             <span class="content-number">{{ reattacks['reattacks_executed'] }}</span>
-            {% if 'groups_executed' in reattacks %}
-              {% for group in reattacks['groups_executed'] %}
+            {%- if 'groups_executed' in reattacks %}
+              {%- for group in reattacks['groups_executed'] %}
                 <p style="padding: 0 1rem;">
                   <strong>{{ group['group'] }}</strong>
                   <!-- With only one group, don't repeat the stat -->
-                  {% if reattacks['groups_executed']|length > 1 %}
+                  {%- if reattacks['groups_executed']|length > 1 %}
                     {{ group['reattacks_executed'] }}
-                  {% endif %}
+                  {%- endif %}
                 </p>
-              {% endfor %}
-            {% endif %}
-          {% elif 'groups_executed' in reattacks and reattacks['groups_executed']|length > 0 %}
+              {%- endfor %}
+            {%- endif %}
+          {%- elif 'groups_executed' in reattacks and reattacks['groups_executed']|length > 0 %}
             <span>Last execution at</span>
-            {% for group in reattacks['groups_executed'] %}
+            {%- for group in reattacks['groups_executed'] %}
                 <p style="padding: 0 1rem;">
                   <strong>{{ group['group'] }}</strong>, {{ group['age_last_executed'] }}
-                  {% if group['age_last_executed']  == 1 %} day{% else %} days{% endif %} ago
+                  {%- if group['age_last_executed']  == 1 %} day{%- else %} days{%- endif %} ago
                 </p>
-              {% endfor %}
-          {% else %}
+              {%- endfor %}
+          {%- else %}
             <!-- No info to display -->
-            <span>No executions</span>
-          {% endif %}
+            <span style="height: 33%">No executions</span>
+          {%- endif %}
         </div>
         <!-- REATTACKS PENDING -->
         <div>
-          {% if reattacks['pending_attacks'] > 0 %}
+          {%- if reattacks['pending_attacks'] > 0 %}
             <span>Pending</span>
             <span class="content-number">{{ reattacks['pending_attacks'] }}</span>
-            {% if 'groups_pending' in reattacks %}
-              {% for group in reattacks['groups_pending'] %}
+            {%- if 'groups_pending' in reattacks %}
+              {%- for group in reattacks['groups_pending'] %}
                 <p style="padding: 0 1rem;">
                   <strong>{{ group['group'] }}</strong>
                   <!-- With only one group, don't repeat the stat -->
-                  {% if reattacks['groups_pending']|length > 1 %}
+                  {%- if reattacks['groups_pending']|length > 1 %}
                     {{ group['pending_attacks'] }}
-                  {% endif %}
+                  {%- endif %}
                 </p>
-              {% endfor %}
-            {% endif %}
-          {% else %}
+              {%- endfor %}
+            {%- endif %}
+          {%- else %}
             <!-- No info to display -->
-            <span>No pending</span>
-          {% endif %}
+            <span style="height: 33%">No pending</span>
+          {%- endif %}
         </div>
       </div>
     </div>
@@ -331,25 +343,26 @@
     <!-- FINDINGS -->
     <div class="main-content">
       <div class="icon">
+        <div style="height: calc(-60px + 17px * {{ findings|length }});" class="icon-div"></div>
         <img alt="Findings logo"
           src="https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/48b502a4-b33f-4a29-be67-66e87147d669.png">
         <h4>Oldest Findings</h4>
       </div>
       <div class="content">
-        {% for finding in findings %}
-        <div {% if findings|length <= 3 %}style="height: 33%;"{% endif %}>
+        {%- for finding in findings %}
+        <div {% if findings|length <= 3 %}style="height: 33%;"{%- endif %}>
           <span><strong>[{{ finding['finding_group'] }}] </strong>{{ finding['finding_name'] }}</span>
           <span class="content-number">
-            {% if finding['finding_age'] == 0 %}
+            {%- if finding['finding_age'] == 0 %}
               today
-            {% elif finding['finding_age'] == 1 %}
+            {%- elif finding['finding_age'] == 1 %}
               1 day
-            {% else %}
+            {%- else %}
               {{ finding['finding_age'] }} days
-            {% endif %}
+            {%- endif %}
           </span>
         </div>
-        {% endfor %}
+        {%- endfor %}
       </div>
     </div>
   </div>
