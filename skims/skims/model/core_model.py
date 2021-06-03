@@ -383,6 +383,22 @@ class FindingEnum(Enum):
         severity_scope=SeverityScope.unchanged,
         user_interaction=UserInteraction.required,
     )
+    F042_SECURE: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F042_SECURE",
+        cwe="614",
+        attack_complexity=AttackComplexity.high,
+        attack_vector=AttackVector.adjacent,
+        availability_impact=AvailabilityImpact.none,
+        confidentiality_impact=ConfidentialityImpact.low,
+        exploitability=Exploitability.high,
+        integrity_impact=IntegrityImpact.none,
+        privileges_required=PrivilegesRequired.none,
+        remediation_level=RemediationLevel.official_fix,
+        report_confidence=ReportConfidence.confirmed,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.required,
+    )
     F043_DAST_CSP: FindingMetadata = FindingMetadata.new(
         code="F043_DAST_CSP",
         cwe="644",

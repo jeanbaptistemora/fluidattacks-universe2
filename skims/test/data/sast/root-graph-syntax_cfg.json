@@ -53,6 +53,9 @@
   "F042": {
     "skims/test/data/sast/TestCFG.java": {}
   },
+  "F042_SECURE": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
   "F043_DAST_CSP": {
     "skims/test/data/sast/TestCFG.java": {}
   },
