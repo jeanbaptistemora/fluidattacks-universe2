@@ -53,20 +53,6 @@ function clone_group {
       done
 }
 
-function report_success {
-  local group="${1}"
-  local check="${2}"
-
-      db_creds=$(mktemp) \
-  &&  aws_login_prod 'observes' \
-  &&  sops_export_vars 'observes/secrets-prod.yaml' \
-        analytics_auth_redshift \
-  &&  echo "${analytics_auth_redshift}" > "${db_creds}" \
-  &&  observes-bin-service-job-last-success single-job \
-        --auth "${db_creds}" \
-        --job "skims-process-group-${group}-${check}"
-}
-
 function skims_rebase {
   local group="${1}"
   local namespace="${2}"
@@ -162,8 +148,7 @@ function main {
           ||  continue
         done \
   &&  popd \
-  &&  test "${success}" = 'true' \
-  &&  report_success "${group}" "${check}"
+  &&  test "${success}" = 'true'
 }
 
 main "${@}"
