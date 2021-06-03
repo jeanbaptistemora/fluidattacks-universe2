@@ -22,7 +22,7 @@ describe("GroupSettingsView", (): void => {
     },
     result: {
       data: {
-        project: {
+        group: {
           name: "TEST",
           tags: ["test"],
         },

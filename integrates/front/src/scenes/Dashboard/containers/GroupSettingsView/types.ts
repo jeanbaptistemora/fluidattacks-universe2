@@ -1,5 +1,5 @@
 interface IGroupTagsAttr {
-  project: {
+  group: {
     deletionDate: string;
     name: string;
     subscription: string;
@@ -95,7 +95,7 @@ interface IAddEnvAttr {
 }
 
 interface IGetGroupData {
-  project: {
+  group: {
     deletionDate: string;
   };
 }

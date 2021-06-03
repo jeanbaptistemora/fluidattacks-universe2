@@ -47,7 +47,7 @@ describe("Portfolio", (): void => {
       },
       result: {
         data: {
-          project: {
+          group: {
             name: "TEST",
             tags: ["test-tag1", "test-tag2"],
           },
@@ -63,7 +63,7 @@ describe("Portfolio", (): void => {
       },
       result: {
         data: {
-          project: {
+          group: {
             name: "TEST",
             tags: ["test-tag1"],
           },

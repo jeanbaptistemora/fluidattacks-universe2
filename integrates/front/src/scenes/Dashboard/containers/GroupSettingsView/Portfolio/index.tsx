@@ -110,7 +110,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
   const tagsDataset: {
     tagName: string;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call -- DB queries use "any" type
-  }[] = data.project.tags.map((tag: string): { tagName: string } => ({
+  }[] = data.group.tags.map((tag: string): { tagName: string } => ({
     tagName: tag,
   }));
 

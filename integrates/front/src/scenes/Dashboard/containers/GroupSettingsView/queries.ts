@@ -50,7 +50,7 @@ const REMOVE_TAG_MUTATION: DocumentNode = gql`
 
 const GET_TAGS: DocumentNode = gql`
   query GetTagsQuery($projectName: String!) {
-    project(projectName: $projectName) {
+    group(projectName: $projectName) {
       name
       tags
     }
