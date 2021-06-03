@@ -14,246 +14,246 @@ to web applications.
 
 ## Correlation
 
-- [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/205)
+1. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/037)
 
-- [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/352)
+2. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/043)
 
-- [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/353)
+3. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/050)
 
-- [OWASP Top 10 A9:2017-Using Components with Known Vulnerabilities](/criteria/requirements/353)
+4. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/117)
 
-- [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/206)
+5. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/160)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/209)
+6. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/169)
 
-- [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/350)
+7. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/173)
 
-- [OWASP Top 10 A9:2017-Using Components with Known Vulnerabilities](/criteria/requirements/262)
+8. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/321)
 
-- [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/265)
+9. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/340)
 
-- [OWASP Top 10 A1:2017-Injection](/criteria/requirements/160)
+10. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/342)
 
-- [OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)](/criteria/requirements/160)
+11. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/344)
 
-- [OWASP Top 10 A1:2017-Injection](/criteria/requirements/173)
+12. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/349)
 
-- [OWASP Top 10 A4:2017-XML External Entities (XXE)](/criteria/requirements/173)
+13. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/023)
 
-- [OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)](/criteria/requirements/173)
+14. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/025)
 
-- [OWASP Top 10 A8:2017-Insecure Deserialization](/criteria/requirements/173)
+15. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/026)
 
-- [OWASP Top 10 A1:2017-Injection](/criteria/requirements/342)
+16. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/027)
 
-- [OWASP Top 10 A1:2017-Injection](/criteria/requirements/344)
+17. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/028)
 
-- [OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)](/criteria/requirements/344)
+18. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/029)
 
-- [OWASP Top 10 A4:2017-XML External Entities (XXE)](/criteria/requirements/157)
+19. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/030)
 
-- [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/157)
+20. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/031)
 
-- [OWASP Top 10 A8:2017-Insecure Deserialization](/criteria/requirements/157)
+21. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/032)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/156)
+22. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/088)
 
-- [OWASP Top 10 A1:2017-Injection](/criteria/requirements/169)
+23. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/114)
 
-- [OWASP Top 10 A9:2017-Using Components with Known Vulnerabilities](/criteria/requirements/158)
+24. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/131)
 
-- [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/252)
+25. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/139)
 
-- [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/259)
+26. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/140)
 
-- [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/356)
+27. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/141)
 
-- [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/080)
+28. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/142)
 
-- [OWASP Top 10 A10:2017-Insufficient Logging & Monitoring](/criteria/requirements/377)
+29. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/143)
 
-- [OWASP Top 10 A10:2017-Insufficient Logging & Monitoring](/criteria/requirements/376)
+30. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/153)
 
-- [OWASP Top 10 A10:2017-Insufficient Logging & Monitoring](/criteria/requirements/075)
+31. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/209)
 
-- [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/078)
+32. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/225)
 
-- [OWASP Top 10 A10:2017-Insufficient Logging & Monitoring](/criteria/requirements/378)
+33. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/226)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/083)
+34. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/228)
 
-- [OWASP Top 10 A10:2017-Insufficient Logging & Monitoring](/criteria/requirements/079)
+35. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/229)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/024)
+36. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/231)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/023)
+37. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/236)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/027)
+38. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/237)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/028)
+39. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/238)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/026)
+40. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/264)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/025)
+41. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/319)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/029)
+42. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/320)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/029)
+43. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/328)
 
-- [OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)](/criteria/requirements/029)
+44. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/332)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/357)
+45. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/334)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/032)
+46. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/335)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/032)
+47. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/347)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/030)
+48. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/357)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/031)
+49. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/362)
 
-- [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/186)
+50. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/024)
 
-- [OWASP Top 10 A1:2017-Injection](/criteria/requirements/117)
+51. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/029)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/141)
+52. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/032)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/143)
+53. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/037)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/332)
+54. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/045)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/142)
+55. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/083)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/139)
+56. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/145)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/131)
+57. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/156)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/140)
+58. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/176)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/347)
+59. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/177)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/320)
+60. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/180)
 
-- [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/320)
+61. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/181)
 
-- [OWASP Top 10 A1:2017-Injection](/criteria/requirements/050)
+62. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/183)
 
-- [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/050)
+63. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/184)
 
-- [OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)](/criteria/requirements/050)
+64. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/185)
 
-- [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/355)
+65. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/261)
 
-- [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/266)
+66. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/264)
 
-- [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/266)
+67. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/300)
 
-- [OWASP Top 10 A1:2017-Injection](/criteria/requirements/349)
+68. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/329)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/349)
+69. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/336)
 
-- [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/349)
+70. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/338)
 
-- [OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)](/criteria/requirements/349)
+71. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/339)
 
-- [OWASP Top 10 A4:2017-XML External Entities (XXE)](/criteria/requirements/062)
+72. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/349)
 
-- [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/062)
+73. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/375)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/177)
+74. [OWASP Top 10 A4:2017-XML External Entities (XXE)](/criteria/requirements/062)
 
-- [OWASP Top 10 A1:2017-Injection](/criteria/requirements/321)
+75. [OWASP Top 10 A4:2017-XML External Entities (XXE)](/criteria/requirements/157)
 
-- [OWASP Top 10 A4:2017-XML External Entities (XXE)](/criteria/requirements/321)
+76. [OWASP Top 10 A4:2017-XML External Entities (XXE)](/criteria/requirements/173)
 
-- [OWASP Top 10 A8:2017-Insecure Deserialization](/criteria/requirements/321)
+77. [OWASP Top 10 A4:2017-XML External Entities (XXE)](/criteria/requirements/321)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/375)
+78. [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/033)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/329)
+79. [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/035)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/300)
+80. [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/080)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/180)
+81. [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/095)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/185)
+82. [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/096)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/184)
+83. [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/176)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/176)
+84. [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/186)
 
-- [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/176)
+85. [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/265)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/183)
+86. [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/266)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/181)
+87. [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/320)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/088)
+88. [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/341)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/261)
+89. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/043)
 
-- [OWASP Top 10 A1:2017-Injection](/criteria/requirements/043)
+90. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/050)
 
-- [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/043)
+91. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/062)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/045)
+92. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/078)
 
-- [OWASP Top 10 A1:2017-Injection](/criteria/requirements/037)
+93. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/157)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/037)
+94. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/205)
 
-- [OWASP Top 10 A1:2017-Injection](/criteria/requirements/340)
+95. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/206)
 
-- [OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)](/criteria/requirements/340)
+96. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/252)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/339)
+97. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/259)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/264)
+98. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/266)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/264)
+99. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/349)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/335)
+100. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/350)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/226)
+101. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/352)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/225)
+102. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/353)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/231)
+103. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/355)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/237)
+104. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/356)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/319)
+105. [OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)](/criteria/requirements/029)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/362)
+106. [OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)](/criteria/requirements/050)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/236)
+107. [OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)](/criteria/requirements/160)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/228)
+108. [OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)](/criteria/requirements/173)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/328)
+109. [OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)](/criteria/requirements/340)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/153)
+110. [OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)](/criteria/requirements/344)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/238)
+111. [OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)](/criteria/requirements/349)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/334)
+112. [OWASP Top 10 A8:2017-Insecure Deserialization](/criteria/requirements/157)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/229)
+113. [OWASP Top 10 A8:2017-Insecure Deserialization](/criteria/requirements/173)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/336)
+114. [OWASP Top 10 A8:2017-Insecure Deserialization](/criteria/requirements/321)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/338)
+115. [OWASP Top 10 A9:2017-Using Components with Known Vulnerabilities](/criteria/requirements/158)
 
-- [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/145)
+116. [OWASP Top 10 A9:2017-Using Components with Known Vulnerabilities](/criteria/requirements/262)
 
-- [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/096)
+117. [OWASP Top 10 A9:2017-Using Components with Known Vulnerabilities](/criteria/requirements/353)
 
-- [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/095)
+118. [OWASP Top 10 A10:2017-Insufficient Logging & Monitoring](/criteria/requirements/075)
 
-- [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/341)
+119. [OWASP Top 10 A10:2017-Insufficient Logging & Monitoring](/criteria/requirements/079)
 
-- [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/035)
+120. [OWASP Top 10 A10:2017-Insufficient Logging & Monitoring](/criteria/requirements/376)
 
-- [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/033)
+121. [OWASP Top 10 A10:2017-Insufficient Logging & Monitoring](/criteria/requirements/377)
 
-- [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/114)
+122. [OWASP Top 10 A10:2017-Insufficient Logging & Monitoring](/criteria/requirements/378)

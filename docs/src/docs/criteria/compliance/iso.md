@@ -19,106 +19,106 @@ by third parties.
 
 ## Correlation
 
-- [ISO 27001:2013. Annex A - 12.6.1](/criteria/requirements/262)
+1. [ISO 27001:2013. Annex A - 9.1.2](/criteria/requirements/253)
 
-- [ISO 27001:2013. Annex A - 12.2.1](/criteria/requirements/155)
+2. [ISO 27001:2013. Annex A - 9.1.2](/criteria/requirements/257)
 
-- [ISO 27001:2013. Annex A - 9.1.2](/criteria/requirements/253)
+3. [ISO 27001:2013. Annex A - 9.2.1](/criteria/requirements/034)
 
-- [ISO 27001:2013. Annex A - 9.1.2](/criteria/requirements/257)
+4. [ISO 27001:2013. Annex A - 9.2.2](/criteria/requirements/034)
 
-- [ISO 27001:2013. Annex A - 13.1.3](/criteria/requirements/259)
+5. [ISO 27001:2013. Annex A - 9.2.3](/criteria/requirements/035)
 
-- [ISO 27001:2013. Annex A - 12.4.2](/criteria/requirements/080)
+6. [ISO 27001:2013. Annex A - 9.4.2](/criteria/requirements/264)
 
-- [ISO 27001:2013. Annex A - 12.4.1](/criteria/requirements/377)
+7. [ISO 27001:2013. Annex A - 9.4.5](/criteria/requirements/051)
 
-- [ISO 27001:2013. Annex A - 12.4.1](/criteria/requirements/376)
+8. [ISO 27001:2013. Annex A - 12.2.1](/criteria/requirements/155)
 
-- [ISO 27001:2013. Annex A - 12.4.1](/criteria/requirements/075)
+9. [ISO 27001:2013. Annex A - 12.4.1](/criteria/requirements/075)
 
-- [ISO 27001:2013. Annex A - 12.4.3](/criteria/requirements/075)
+10. [ISO 27001:2013. Annex A - 12.4.1](/criteria/requirements/376)
 
-- [ISO 27001:2013. Annex A - 12.4.1](/criteria/requirements/378)
+11. [ISO 27001:2013. Annex A - 12.4.1](/criteria/requirements/377)
 
-- [ISO 27001:2013. Annex A - 14.1.3](/criteria/requirements/030)
+12. [ISO 27001:2013. Annex A - 12.4.1](/criteria/requirements/378)
 
-- [ISO 27001:2013. Annex A - 12.4.4](/criteria/requirements/363)
+13. [ISO 27001:2013. Annex A - 12.4.2](/criteria/requirements/080)
 
-- [ISO 27001:2013. Annex A - 18.1.2](/criteria/requirements/331)
+14. [ISO 27001:2013. Annex A - 12.4.3](/criteria/requirements/075)
 
-- [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/331)
+15. [ISO 27001:2013. Annex A - 12.4.4](/criteria/requirements/363)
 
-- [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/331)
+16. [ISO 27001:2013. Annex A - 12.6.1](/criteria/requirements/262)
 
-- [ISO 27001:2013. Annex A - 18.1.5](/criteria/requirements/331)
+17. [ISO 27001:2013. Annex A - 13.1.3](/criteria/requirements/259)
 
-- [ISO 27001:2013. Annex A - 9.4.5](/criteria/requirements/051)
+18. [ISO 27001:2013. Annex A - 13.2.3](/criteria/requirements/181)
 
-- [ISO 27001:2013. Annex A - 14.2.2](/criteria/requirements/051)
+19. [ISO 27001:2013. Annex A - 14.1.3](/criteria/requirements/324)
 
-- [ISO 27001:2013. Annex A - 14.1.3](/criteria/requirements/324)
+20. [ISO 27001:2013. Annex A - 14.1.3](/criteria/requirements/088)
 
-- [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/177)
+21. [ISO 27001:2013. Annex A - 14.1.3](/criteria/requirements/178)
 
-- [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/375)
+22. [ISO 27001:2013. Annex A - 14.1.3](/criteria/requirements/181)
 
-- [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/329)
+23. [ISO 27001:2013. Annex A - 14.1.3](/criteria/requirements/030)
 
-- [ISO 27001:2013. Annex A - 14.1.3](/criteria/requirements/178)
+24. [ISO 27001:2013. Annex A - 14.2.2](/criteria/requirements/051)
 
-- [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/300)
+25. [ISO 27001:2013. Annex A - 14.3.1](/criteria/requirements/180)
 
-- [ISO 27001:2013. Annex A - 14.3.1](/criteria/requirements/180)
+26. [ISO 27001:2013. Annex A - 18.1.2](/criteria/requirements/331)
 
-- [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/180)
+27. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/177)
 
-- [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/185)
+28. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/180)
 
-- [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/184)
+29. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/181)
 
-- [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/183)
+30. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/183)
 
-- [ISO 27001:2013. Annex A - 13.2.3](/criteria/requirements/181)
+31. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/184)
 
-- [ISO 27001:2013. Annex A - 14.1.3](/criteria/requirements/181)
+32. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/185)
 
-- [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/181)
+33. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/300)
 
-- [ISO 27001:2013. Annex A - 14.1.3](/criteria/requirements/088)
+34. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/329)
 
-- [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/261)
+35. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/375)
 
-- [ISO 27001:2013. Annex A - 9.4.2](/criteria/requirements/264)
+36. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/331)
 
-- [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/317)
+37. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/360)
 
-- [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/311)
+38. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/261)
 
-- [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/314)
+39. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/331)
 
-- [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/312)
+40. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/189)
 
-- [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/316)
+41. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/310)
 
-- [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/360)
+42. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/311)
 
-- [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/360)
+43. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/312)
 
-- [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/315)
+44. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/313)
 
-- [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/189)
+45. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/314)
 
-- [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/310)
+46. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/315)
 
-- [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/313)
+47. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/316)
 
-- [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/318)
+48. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/317)
 
-- [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/343)
+49. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/318)
 
-- [ISO 27001:2013. Annex A - 9.2.3](/criteria/requirements/035)
+50. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/343)
 
-- [ISO 27001:2013. Annex A - 9.2.1](/criteria/requirements/034)
+51. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/360)
 
-- [ISO 27001:2013. Annex A - 9.2.2](/criteria/requirements/034)
+52. [ISO 27001:2013. Annex A - 18.1.5](/criteria/requirements/331)
