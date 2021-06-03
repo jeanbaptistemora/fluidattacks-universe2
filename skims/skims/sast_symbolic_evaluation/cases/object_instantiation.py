@@ -33,18 +33,24 @@ def _syntax_step_object_instantiation_danger(args: EvaluatorArgs) -> None:
         core_model.FindingEnum.F004.name: {
             "java.lang.ProcessBuilder",
         },
-        core_model.FindingEnum.F107.name: {
-            "System.Net.Sockets.TcpClient",
-        },
     }
     _danger_instances_no_args_by_finding = {
         core_model.FindingEnum.F034.name: {
             "java.util.Random",
-        }
+        },
+        core_model.FindingEnum.F107.name: {
+            "System.Net.Sockets.TcpClient",
+            "System.Net.WebClient",
+        },
+        core_model.FindingEnum.F001_C_SHARP_SQL.name: {
+            "System.Net.Sockets.TcpClient",
+            "System.Net.WebClient",
+        },
     }
     _danger_instances = {
         "java.lang.StringBuilder",
         "org.owasp.benchmark.helpers.SeparateClassRequest",
+        "System.IO.StreamReader",
     }
 
     danger_instances_by_finding = {
@@ -74,7 +80,9 @@ def _syntax_step_object_instantiation_danger(args: EvaluatorArgs) -> None:
     if instantiation_danger_no_args:
         args.syntax_step.meta.danger = True
     elif instantiation_danger:
-        args.syntax_step.meta.danger = args_danger if args else True
+        args.syntax_step.meta.danger = (
+            args_danger if args.dependencies else False
+        )
     else:
         args.syntax_step.meta.danger = args_danger
 

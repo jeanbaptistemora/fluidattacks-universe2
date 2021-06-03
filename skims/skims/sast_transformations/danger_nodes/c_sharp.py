@@ -37,7 +37,10 @@ def mark_inputs(
         syntax,
         {
             *build_attr_paths("System", "Net", "Sockets", "TcpClient"),
+            *build_attr_paths("System", "Net", "Sockets", "TcpListener"),
             *build_attr_paths("System", "Data", "SqlClient", "SqlCommand"),
+            *build_attr_paths("System", "IO", "StreamReader"),
+            *build_attr_paths("System", "Net", "WebClient"),
         },
     )
     mark_methods_input(

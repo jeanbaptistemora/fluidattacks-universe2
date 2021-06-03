@@ -146,6 +146,12 @@ BY_OBJ: Dict[str, Set[str]] = complete_attrs_on_dict(
         "System.DirectoryServices.DirectorySearcher": {
             "FindOne",
         },
+        "System.IO.StreamReader": {
+            "ReadLine",
+        },
+        "System.Net.WebClient": {
+            "OpenRead",
+        },
     }
 )
 BY_OBJ_ARGS: Dict[str, Set[str]] = complete_attrs_on_dict(
@@ -188,8 +194,11 @@ BY_TYPE: Dict[str, Set[str]] = complete_attrs_on_dict(
         "System.Web.HttpRequest": {
             "Params.Get",
         },
-        "StreamReader": {
-            "ReadLine",
+        "System.Net.Sockets.TcpClient": {
+            "GetStream",
+        },
+        "System.Net.Sockets.TcpListener": {
+            "AcceptTcpClient",
         },
         "System.Data.SqlClient.SqlDataReader": {
             "GetString",
