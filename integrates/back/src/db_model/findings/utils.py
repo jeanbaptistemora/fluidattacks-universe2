@@ -1,4 +1,5 @@
 from .enums import (
+    FindingStateJustification,
     FindingStateStatus,
     FindingStatus,
     FindingVerificationStatus,
@@ -18,6 +19,7 @@ from typing import (
 
 def format_state(state_item: Item) -> FindingState:
     return FindingState(
+        justification=FindingStateJustification[state_item["justification"]],
         modified_by=state_item["modified_by"],
         modified_date=state_item["modified_date"],
         source=state_item["source"],
@@ -27,6 +29,7 @@ def format_state(state_item: Item) -> FindingState:
 
 def format_state_item(state: FindingState) -> Item:
     return {
+        "justification": state.justification.value,
         "modified_by": state.modified_by,
         "modified_date": state.modified_date,
         "source": state.source,

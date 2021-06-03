@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "May 21, 2021, 04:05 PM",
+    "DateLastModified": "Jun 03, 2021, 02:33 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -433,6 +433,10 @@
         {
           "AttributeName": "vuln_uuids",
           "AttributeType": "SS"
+        },
+        {
+          "AttributeName": "justification",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -2080,11 +2084,14 @@
               "modified_date": {
                 "S": "2021-02-15T14:01:16Z"
               },
+              "modified_by": {
+                "S": "analyst@fluidatttacks.com"
+              },
               "source": {
                 "S": "integrates"
               },
-              "modified_by": {
-                "S": "analyst@fluidatttacks.com"
+              "justification": {
+                "S": "NO_JUSTIFICATION"
               }
             }
           ],
@@ -2092,7 +2099,8 @@
             "status",
             "modified_date",
             "modified_by",
-            "source"
+            "source",
+            "justification"
           ],
           "DataAccess": {
             "MySql": {}
@@ -2232,11 +2240,14 @@
               "modified_date": {
                 "S": "2021-02-15T14:01:16Z"
               },
+              "modified_by": {
+                "S": "analyst@fluidatttacks.com"
+              },
               "source": {
                 "S": "integrates"
               },
-              "modified_by": {
-                "S": "analyst@fluidatttacks.com"
+              "justification": {
+                "S": "NO_JUSTIFICATION"
               }
             }
           ],
@@ -2244,7 +2255,8 @@
             "status",
             "modified_date",
             "modified_by",
-            "source"
+            "source",
+            "justification"
           ],
           "DataAccess": {
             "MySql": {}

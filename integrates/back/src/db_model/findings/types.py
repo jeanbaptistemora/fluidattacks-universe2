@@ -1,5 +1,6 @@
 from .enums import (
     FindingSorts,
+    FindingStateJustification,
     FindingStateStatus,
     FindingStatus,
     FindingVerificationStatus,
@@ -20,6 +21,9 @@ class FindingState(NamedTuple):
     modified_date: str
     source: str
     status: FindingStateStatus
+    justification: FindingStateJustification = (
+        FindingStateJustification.NO_JUSTIFICATION
+    )
 
 
 class FindingVerification(NamedTuple):
