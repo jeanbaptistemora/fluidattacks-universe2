@@ -4,12 +4,10 @@ from postgres_client.cursor import (
     DynamicSQLargs,
     Query,
 )
-from postgres_client.table.common import (
+from postgres_client.table._objs import (
+    Column,
     MetaTable,
     TableID,
-)
-from postgres_client.table.common.column import (
-    Column,
 )
 from returns.maybe import (
     Maybe,

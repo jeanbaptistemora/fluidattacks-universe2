@@ -18,8 +18,6 @@ from postgres_client.schema import (
 )
 from postgres_client.table import (
     DbTable,
-)
-from postgres_client.table.common import (
     TableID,
 )
 from returns.io import (

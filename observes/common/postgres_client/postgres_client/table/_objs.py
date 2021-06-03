@@ -1,13 +1,16 @@
+# pylint: skip-file
+
 from __future__ import (
     annotations,
 )
 
-from postgres_client.table.common.column import (
-    Column,
+from postgres_client.data_type import (
+    RedshiftDataType,
 )
 from typing import (
     FrozenSet,
     NamedTuple,
+    Optional,
 )
 
 
@@ -15,13 +18,15 @@ class InvalidPrimaryKey(Exception):
     pass
 
 
+class Column(NamedTuple):
+    name: str
+    field_type: RedshiftDataType
+    default_val: Optional[str] = None
+
+
 class TableID(NamedTuple):
     schema: str
     table_name: str
-
-    @classmethod
-    def new(cls, schema: str, table_name: str) -> TableID:
-        return cls(schema=schema, table_name=table_name)
 
 
 class MetaTable(NamedTuple):

@@ -18,14 +18,10 @@ from postgres_client.data_type import (
 from postgres_client.table import (
     _queries as queries,
 )
-from postgres_client.table.common import (
+from postgres_client.table._objs import (
+    Column,
     MetaTable,
     TableID,
-)
-from postgres_client.table.common.column import (
-    adapt_set,
-    Column,
-    IsolatedColumn,
 )
 from returns.io import (
     IO,
@@ -41,31 +37,11 @@ from returns.unsafe import (
 )
 from typing import (
     Any,
-    Callable,
     FrozenSet,
     List,
     Literal,
     NamedTuple,
 )
-
-
-class TableDraft(NamedTuple):
-    id: TableID
-    primary_keys: FrozenSet[str]
-    columns: FrozenSet[IsolatedColumn]
-
-
-class Table(NamedTuple):
-    id: TableID
-    primary_keys: FrozenSet[str]
-    columns: FrozenSet[IsolatedColumn]
-    table_path: Callable[[], str]
-
-
-def adapt(table: Table) -> MetaTable:
-    return MetaTable.new(
-        table.id, table.primary_keys, adapt_set(table.columns)
-    )
 
 
 def _adapt_query(cursor: Cursor, query: Query) -> CursorExeAction:
@@ -190,6 +166,6 @@ class DbTable(NamedTuple):
 
 __all__ = [
     "Column",
-    "IsolatedColumn",
+    "MetaTable",
     "TableID",
 ]
