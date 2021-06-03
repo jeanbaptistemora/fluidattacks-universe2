@@ -48,9 +48,10 @@ def _rm_null(obj_type: Union[str, Tuple[str, ...]]) -> str:
 def _validate_type(obj_type: Any) -> Union[str, Tuple[str, ...]]:
     if isinstance(obj_type, str):
         return obj_type
-    if isinstance(obj_type, list):
-        if all(map(lambda x: isinstance(x, str), obj_type)):
-            return tuple(obj_type)
+    if isinstance(obj_type, list) and all(
+        map(lambda x: isinstance(x, str), obj_type)
+    ):
+        return tuple(obj_type)
     raise InvalidType(f"{obj_type} expected str or tuple[str,...]")
 
 

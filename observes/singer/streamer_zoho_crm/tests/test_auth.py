@@ -30,6 +30,7 @@ def test_to_credentials() -> None:
     reason="need manual intervention to retrieve the access code"
 )
 def test_generate_refresh_token() -> None:
+    # non testable
     pass
 
 
@@ -37,4 +38,5 @@ def test_generate_refresh_token() -> None:
     reason="need real credentials and can invalidate other tokens"
 )
 def test_generate_token() -> None:
+    # non testable
     pass

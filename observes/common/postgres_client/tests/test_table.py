@@ -22,7 +22,7 @@ def setup_db(postgresql_my: Any) -> None:
     temp_cur = postgresql_my.cursor()
     temp_cur.execute("CREATE SCHEMA test_schema")
     temp_cur.execute(
-        "CREATE TABLE test_schema.table_number_one " "(Name VARCHAR (30))"
+        "CREATE TABLE test_schema.table_number_one (Name VARCHAR (30))"
     )
     temp_cur.execute(
         "INSERT INTO test_schema.table_number_one (Name) "
@@ -82,4 +82,5 @@ def test_delete(postgresql_my: Any) -> None:
     )
 )
 def test_move() -> None:
+    # non testable
     pass

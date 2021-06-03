@@ -84,7 +84,7 @@ def _item_getter(
     if isinstance(item_id, id_type[stream]):
         return getter[stream](item_id)
     raise TypeError(
-        f"Expected type `{id_type[stream]}` " f"but recieved `{type(item_id)}`"
+        f"Expected type `{id_type[stream]}` but recieved `{type(item_id)}`"
     )
 
 
