@@ -13,54 +13,54 @@ and security of certain health information.
 
 ## Correlation
 
-- [HIPAA Security Rules 164.310(d)(2)(i)](/criteria/requirements/214)
+1. [HIPAA Security Rules 164.308(a)(1)(ii)(D)](/criteria/requirements/084)
 
-- [HIPAA Security Rules 164.312(e)(2)(i)](/criteria/requirements/214)
+2. [HIPAA Security Rules 164.308(a)(1)(ii)(D)](/criteria/requirements/085)
 
-- [HIPAA Security Rules 164.312(e)(1)](/criteria/requirements/255)
+3. [HIPAA Security Rules 164.308(a)(3)(i)](/criteria/requirements/095)
 
-- [HIPAA Security Rules 164.312(e)(1)](/criteria/requirements/257)
+4. [HIPAA Security Rules 164.308(a)(3)(ii)(A)](/criteria/requirements/034)
 
-- [HIPAA Security Rules 164.308(a)(1)(ii)(D)](/criteria/requirements/085)
+5. [HIPAA Security Rules 164.310(a)(2)(iii)](/criteria/requirements/229)
 
-- [HIPAA Security Rules 164.312(b)](/criteria/requirements/075)
+6. [HIPAA Security Rules 164.310(a)(2)(iii)](/criteria/requirements/231)
 
-- [HIPAA Security Rules 164.308(a)(1)(ii)(D)](/criteria/requirements/084)
+7. [HIPAA Security Rules 164.310(a)(2)(iii)](/criteria/requirements/095)
 
-- [HIPAA Security Rules 164.312(a)(2)(iii)](/criteria/requirements/023)
+8. [HIPAA Security Rules 164.310(a)(2)(iii)](/criteria/requirements/114)
 
-- [HIPAA Security Rules 164.312(a)(2)(i)](/criteria/requirements/143)
+9. [HIPAA Security Rules 164.310(d)(2)(i)](/criteria/requirements/214)
 
-- [HIPAA Security Rules 164.310(a)(2)(iii)](/criteria/requirements/231)
+10. [HIPAA Security Rules 164.312(a)(1)](/criteria/requirements/229)
 
-- [HIPAA Security Rules 164.312(d)](/criteria/requirements/231)
+11. [HIPAA Security Rules 164.312(a)(1)](/criteria/requirements/096)
 
-- [HIPAA Security Rules 164.310(a)(2)(iii)](/criteria/requirements/229)
+12. [HIPAA Security Rules 164.312(a)(2)(i)](/criteria/requirements/143)
 
-- [HIPAA Security Rules 164.312(a)(1)](/criteria/requirements/229)
+13. [HIPAA Security Rules 164.312(a)(2)(iii)](/criteria/requirements/023)
 
-- [HIPAA Security Rules 164.312(d)](/criteria/requirements/229)
+14. [HIPAA Security Rules 164.312(a)(2)(iv)](/criteria/requirements/147)
 
-- [HIPAA Security Rules 164.312(a)(2)(iv)](/criteria/requirements/371)
+15. [HIPAA Security Rules 164.312(a)(2)(iv)](/criteria/requirements/148)
 
-- [HIPAA Security Rules 164.312(a)(2)(iv)](/criteria/requirements/370)
+16. [HIPAA Security Rules 164.312(a)(2)(iv)](/criteria/requirements/149)
 
-- [HIPAA Security Rules 164.312(a)(2)(iv)](/criteria/requirements/372)
+17. [HIPAA Security Rules 164.312(a)(2)(iv)](/criteria/requirements/370)
 
-- [HIPAA Security Rules 164.312(a)(2)(iv)](/criteria/requirements/147)
+18. [HIPAA Security Rules 164.312(a)(2)(iv)](/criteria/requirements/371)
 
-- [HIPAA Security Rules 164.312(a)(2)(iv)](/criteria/requirements/148)
+19. [HIPAA Security Rules 164.312(a)(2)(iv)](/criteria/requirements/372)
 
-- [HIPAA Security Rules 164.312(a)(2)(iv)](/criteria/requirements/149)
+20. [HIPAA Security Rules 164.312(b)](/criteria/requirements/075)
 
-- [HIPAA Security Rules 164.312(a)(1)](/criteria/requirements/096)
+21. [HIPAA Security Rules 164.312(d)](/criteria/requirements/229)
 
-- [HIPAA Security Rules 164.312(d)](/criteria/requirements/096)
+22. [HIPAA Security Rules 164.312(d)](/criteria/requirements/231)
 
-- [HIPAA Security Rules 164.308(a)(3)(i)](/criteria/requirements/095)
+23. [HIPAA Security Rules 164.312(d)](/criteria/requirements/096)
 
-- [HIPAA Security Rules 164.310(a)(2)(iii)](/criteria/requirements/095)
+24. [HIPAA Security Rules 164.312(e)(1)](/criteria/requirements/255)
 
-- [HIPAA Security Rules 164.308(a)(3)(ii)(A)](/criteria/requirements/034)
+25. [HIPAA Security Rules 164.312(e)(1)](/criteria/requirements/257)
 
-- [HIPAA Security Rules 164.310(a)(2)(iii)](/criteria/requirements/114)
+26. [HIPAA Security Rules 164.312(e)(2)(i)](/criteria/requirements/214)

@@ -15,50 +15,50 @@ by the reliability of the North American bulk power system.
 
 ## Correlation
 
-- [NERC CIP-007-6. B. Requirements and measures. R3.1](/criteria/requirements/155)
+1. [NERC CIP-003-8. Attachment 1. Section 3 - 3.1](/criteria/requirements/176)
 
-- [NERC CIP-007-6. B. Requirements and measures. R1.1](/criteria/requirements/255)
+2. [NERC CIP-003-8. Attachment 1. Section 3 - 3.2](/criteria/requirements/264)
 
-- [NERC CIP-007-6. B. Requirements and measures. R1.1](/criteria/requirements/250)
+3. [NERC CIP-003-8. Attachment 1. Section 5 - 5.1](/criteria/requirements/041)
 
-- [NERC CIP-007-6. B. Requirements and measures. R4.1](/criteria/requirements/075)
+4. [NERC CIP-003-8. Attachment 1. Section 5 - 5.1](/criteria/requirements/273)
 
-- [NERC CIP-003-8. Attachment 1. Section 5 - 5.1](/criteria/requirements/273)
+5. [NERC CIP-004-6. B. Requirements and measures. R5](/criteria/requirements/034)
 
-- [NERC CIP-005-5. B. Requirements and measures. R1.5](/criteria/requirements/273)
+6. [NERC CIP-004-6. B. Requirements and measures. R5](/criteria/requirements/114)
 
-- [NERC CIP-007-6. B. Requirements and measures. R5.6](/criteria/requirements/130)
+7. [NERC CIP-005-5. B. Requirements and measures. R1.3](/criteria/requirements/096)
 
-- [NERC CIP-007-6. B. Requirements and measures. R5.4](/criteria/requirements/142)
+8. [NERC CIP-005-5. B. Requirements and measures. R1.3](/criteria/requirements/341)
 
-- [NERC CIP-007-6. B. Requirements and measures. R5.5](/criteria/requirements/133)
+9. [NERC CIP-005-5. B. Requirements and measures. R1.4](/criteria/requirements/264)
 
-- [NERC CIP-007-6. B. Requirements and measures. R5.5](/criteria/requirements/132)
+10. [NERC CIP-005-5. B. Requirements and measures. R1.5](/criteria/requirements/273)
 
-- [NERC CIP-011-2. B. Requirements and measures. R1.2](/criteria/requirements/185)
+11. [NERC CIP-005-5. B. Requirements and measures. R2.2](/criteria/requirements/181)
 
-- [NERC CIP-003-8. Attachment 1. Section 3 - 3.1](/criteria/requirements/176)
+12. [NERC CIP-007-6. B. Requirements and measures. R1.1](/criteria/requirements/250)
 
-- [NERC CIP-011-2. B. Requirements and measures. R2.1](/criteria/requirements/183)
+13. [NERC CIP-007-6. B. Requirements and measures. R1.1](/criteria/requirements/255)
 
-- [NERC CIP-005-5. B. Requirements and measures. R2.2](/criteria/requirements/181)
+14. [NERC CIP-007-6. B. Requirements and measures. R3.1](/criteria/requirements/155)
 
-- [NERC CIP-011-2. B. Requirements and measures. R1.2](/criteria/requirements/181)
+15. [NERC CIP-007-6. B. Requirements and measures. R4.1](/criteria/requirements/075)
 
-- [NERC CIP-003-8. Attachment 1. Section 5 - 5.1](/criteria/requirements/041)
+16. [NERC CIP-007-6. B. Requirements and measures. R5.1](/criteria/requirements/264)
 
-- [NERC CIP-003-8. Attachment 1. Section 3 - 3.2](/criteria/requirements/264)
+17. [NERC CIP-007-6. B. Requirements and measures. R5.4](/criteria/requirements/142)
 
-- [NERC CIP-005-5. B. Requirements and measures. R1.4](/criteria/requirements/264)
+18. [NERC CIP-007-6. B. Requirements and measures. R5.5](/criteria/requirements/132)
 
-- [NERC CIP-007-6. B. Requirements and measures. R5.1](/criteria/requirements/264)
+19. [NERC CIP-007-6. B. Requirements and measures. R5.5](/criteria/requirements/133)
 
-- [NERC CIP-007-6. B. Requirements and measures. R5.7](/criteria/requirements/237)
+20. [NERC CIP-007-6. B. Requirements and measures. R5.6](/criteria/requirements/130)
 
-- [NERC CIP-005-5. B. Requirements and measures. R1.3](/criteria/requirements/096)
+21. [NERC CIP-007-6. B. Requirements and measures. R5.7](/criteria/requirements/237)
 
-- [NERC CIP-005-5. B. Requirements and measures. R1.3](/criteria/requirements/341)
+22. [NERC CIP-011-2. B. Requirements and measures. R1.2](/criteria/requirements/181)
 
-- [NERC CIP-004-6. B. Requirements and measures. R5](/criteria/requirements/034)
+23. [NERC CIP-011-2. B. Requirements and measures. R1.2](/criteria/requirements/185)
 
-- [NERC CIP-004-6. B. Requirements and measures. R5](/criteria/requirements/114)
+24. [NERC CIP-011-2. B. Requirements and measures. R2.1](/criteria/requirements/183)
