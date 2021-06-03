@@ -53,6 +53,20 @@ function clone_group {
       done
 }
 
+function skims_cache {
+  local command="${1}"
+  local group="${2}"
+  local cache_local="${HOME_IMPURE}/.skims/cache"
+  local cache_remote="s3://skims.data/cache/${group}"
+
+      echo "[INFO] Cache ${command}" \
+  &&  case "${command}" in
+        pull) aws_s3_sync "${cache_remote}" "${cache_local}";;
+        push) aws_s3_sync "${cache_local}" "${cache_remote}";;
+        *) abort "[CRITICAL] cache command must be one of: pull, push";;
+      esac
+}
+
 function skims_rebase {
   local group="${1}"
   local namespace="${2}"
@@ -97,9 +111,6 @@ function skims_scan {
   local lang="${4}"
   local config="${5}"
 
-  local cache_local="${HOME_IMPURE}/.skims/cache"
-  local cache_remote="s3://skims.data/cache/${group}/${namespace}"
-
       echo '[INFO] Running skims scan' \
   &&  python3 __envGetConfig__\
         --check "${check}" \
@@ -107,17 +118,7 @@ function skims_scan {
         --language "${lang}" \
         --namespace "${namespace}" \
         --out "${config}" \
-  &&  echo '[INFO] Fetching cache' \
-  &&  aws_s3_sync "${cache_remote}" "${cache_local}" \
-  &&  if skims scan --group "${group}" "${config}"
-      then
-        echo "[INFO] Succesfully processed: ${group} ${namespace}"
-      else
-            echo "[ERROR] While running skims on: ${group} ${namespace}" \
-        &&  success='false'
-      fi \
-  &&  echo '[INFO] Populating cache' \
-  &&  aws_s3_sync "${cache_local}" "${cache_remote}"
+  &&  skims scan --group "${group}" "${config}"
 }
 
 function main {
@@ -139,14 +140,22 @@ function main {
   &&  use_git_repo_services \
     &&  clone_group "${group}" \
     &&  aws_login_prod 'skims' \
+    &&  skims_cache pull "${group}" \
     &&  for repo_path in "groups/${group}/fusion/"*
         do
               namespace="$(basename "${repo_path}")" \
           &&  skims_rebase "${group}" "${namespace}" \
           &&  skims_should_run "${group}" "${namespace}" "${check}" \
-          &&  skims_scan "${group}" "${namespace}" "${check}" "${lang}" "${config}" \
+          &&  if skims_scan "${group}" "${namespace}" "${check}" "${lang}" "${config}"
+              then
+                echo "[INFO] Succesfully processed: ${group} ${namespace}"
+              else
+                    echo "[ERROR] While running skims on: ${group} ${namespace}" \
+                &&  success='false'
+              fi \
           ||  continue
         done \
+    &&  skims_cache push "${group}" \
   &&  popd \
   &&  test "${success}" = 'true'
 }
