@@ -15,444 +15,544 @@ by stakeholders.
 
 ## Correlation
 
-1. [PCI DSS v3.0 - Requirement 6.5.10](/criteria/requirements/023)
+1. PCI DSS v3.0 - Requirement 6.5.10 - Broken authentication and session management
 
-2. [PCI DSS v3.0 - Requirement 6.5.10](/criteria/requirements/025)
+    - [023. Terminate inactive user sessions](/criteria/requirements/023)
 
-3. [PCI DSS v3.0 - Requirement 6.5.10](/criteria/requirements/029)
+    - [025. Manage concurrent sessions](/criteria/requirements/025)
 
-4. [PCI DSS v3.0 - Requirement 12.3.8](/criteria/requirements/369)
+    - [029. Cookies with security attributes](/criteria/requirements/029)
 
-5. [PCI DSS v3.2.1 - Appendix A1 A1.1](/criteria/requirements/096)
+2. [PCI DSS v3.0 - Requirement 12.3.8](/criteria/requirements/369)
 
-6. [PCI DSS v3.2.1 - Appendix A1 A1.1](/criteria/requirements/186)
+3. PCI DSS v3.2.1 - Appendix A1 A1.1 - A  hosting provider must fulfill these requirements
 
-7. [PCI DSS v3.2.1 - Appendix A1 A1.2](/criteria/requirements/186)
+    - [096. Set users' required privileges](/criteria/requirements/096)
 
-8. [PCI DSS v3.2.1 - Appendix A1 A1.3](/criteria/requirements/075)
+    - [186. Use the principle of least privilege](/criteria/requirements/186)
 
-9. [PCI DSS v3.2.1 - Appendix A2 A2.1](/criteria/requirements/336)
+4. [PCI DSS v3.2.1 - Appendix A1 A1.2](/criteria/requirements/186)
 
-10. [PCI DSS v3.2.1 - Requirement 1.2.1](/criteria/requirements/033)
+5. [PCI DSS v3.2.1 - Appendix A1 A1.3](/criteria/requirements/075)
 
-11. [PCI DSS v3.2.1 - Requirement 1.2.1](/criteria/requirements/259)
+6. [PCI DSS v3.2.1 - Appendix A2 A2.1](/criteria/requirements/336)
 
-12. [PCI DSS v3.2.1 - Requirement 1.2.2](/criteria/requirements/033)
+7. PCI DSS v3.2.1 - Requirement 1.2.1 -  Restrict inbound and outbound traffic
 
-13. [PCI DSS v3.2.1 - Requirement 1.2.2](/criteria/requirements/062)
+    - [033. Restrict administrative access](/criteria/requirements/033)
 
-14. [PCI DSS v3.2.1 - Requirement 1.2.2](/criteria/requirements/176)
+    - [259. Segment the organization network](/criteria/requirements/259)
 
-15. [PCI DSS v3.2.1 - Requirement 1.2.3](/criteria/requirements/259)
+8. PCI DSS v3.2.1 - Requirement 1.2.2 - Secure  and synchronize router configuration files
 
-16. [PCI DSS v3.2.1 - Requirement 1.3.1](/criteria/requirements/255)
+    - [033.  Restrict administrative access](/criteria/requirements/033)
 
-17. [PCI DSS v3.2.1 - Requirement 1.3.1](/criteria/requirements/259)
+    - [062. Define standard configurations](/criteria/requirements/062)
 
-18. [PCI DSS v3.2.1 - Requirement 1.3.2](/criteria/requirements/255)
+    - [176. Restrict system objects](/criteria/requirements/176)
 
-19. [PCI DSS v3.2.1 - Requirement 1.3.2](/criteria/requirements/259)
+9. [PCI DSS v3.2.1 - Requirement 1.2.3](/criteria/requirements/259)
 
-20. [PCI DSS v3.2.1 - Requirement 1.3.3](/criteria/requirements/173)
+10. PCI DSS v3.2.1 - Requirement 1.3.1 - Implement a DMZ
 
-21. [PCI DSS v3.2.1 - Requirement 1.3.3](/criteria/requirements/259)
+    - [255. Allow access only to the necessary ports](/criteria/requirements/255)
 
-22. [PCI DSS v3.2.1 - Requirement 1.3.4](/criteria/requirements/062)
+    - [259. Segment the organization network](/criteria/requirements/259)
 
-23. [PCI DSS v3.2.1 - Requirement 1.3.4](/criteria/requirements/259)
+11. PCI DSS v3.2.1 - Requirement 1.3.2 - Limit inbound Internet traffic
 
-24. [PCI DSS v3.2.1 - Requirement 1.3.5](/criteria/requirements/062)
+    - [255. Allow access only to the necessary ports](/criteria/requirements/255)
 
-25. [PCI DSS v3.2.1 - Requirement 1.3.5](/criteria/requirements/255)
+    - [259. Segment the organization network](/criteria/requirements/259)
 
-26. [PCI DSS v3.2.1 - Requirement 1.3.6](/criteria/requirements/033)
+12. PCI DSS v3.2.1 - Requirement 1.3.3 - Implement anti-spoofing measures
 
-27. [PCI DSS v3.2.1 - Requirement 1.3.6](/criteria/requirements/259)
+    - [173. Discard unsafe inputs](/criteria/requirements/173)
 
-28. [PCI DSS v3.2.1 - Requirement 1.3.7](/criteria/requirements/077)
+    - [259. Segment the organization network](/criteria/requirements/259)
 
-29. [PCI DSS v3.2.1 - Requirement 1.3.7](/criteria/requirements/261)
+13. PCI DSS v3.2.1 - Requirement 1.3.4 - Do not allow unauthorized outbound traffic
 
-30. [PCI DSS v3.2.1 - Requirement 2.1.1](/criteria/requirements/142)
+    - [062. Define standard configurations](/criteria/requirements/062)
 
-31. [PCI DSS v3.2.1 - Requirement 2.1.1](/criteria/requirements/251)
+    - [259. Segment the organization network](/criteria/requirements/259)
 
-32. [PCI DSS v3.2.1 - Requirement 2.2.2](/criteria/requirements/255)
+14. PCI DSS v3.2.1 - Requirement 1.3.5 - Permitonly “established” connections
 
-33. [PCI DSS v3.2.1 - Requirement 2.2.2](/criteria/requirements/266)
+    - [062. Define standard configurations](/criteria/requirements/062)
+    
+    - [255. Allow access only to the necessary ports](/criteria/requirements/255)
 
-34. [PCI DSS v3.2.1 - Requirement 2.2.2](/criteria/requirements/336)
+15. PCI DSS v3.2.1 - Requirement 1.3.6 - Place system components that store cardholder data
 
-35. [PCI DSS v3.2.1 - Requirement 2.2.3](/criteria/requirements/062)
+    - [033. Restrict administrative access](/criteria/requirements/033)
 
-36. [PCI DSS v3.2.1 - Requirement 2.2.4](/criteria/requirements/062)
+    - [259. Segment the organization network](/criteria/requirements/259)
 
-37. [PCI DSS v3.2.1 - Requirement 2.2.5](/criteria/requirements/266)
+16. PCI DSS v3.2.1 - Requirement 1.3.7 - Do not disclose private IP addresses and routing information
 
-38. [PCI DSS v3.2.1 - Requirement 2.3](/criteria/requirements/181)
+    - [077. Avoid disclosing technical information](/criteria/requirements/077)
 
-39. [PCI DSS v3.2.1 - Requirement 2.3](/criteria/requirements/185)
+    - [261. Avoid exposing sensitive information](/criteria/requirements/261)
 
-40. [PCI DSS v3.2.1 - Requirement 2.3](/criteria/requirements/224)
+17. PCI DSS v3.2.1 - Requirement 2.1.1 - For wireless environments connected 
 
-41. [PCI DSS v3.2.1 - Requirement 2.3](/criteria/requirements/302)
+    - [142. Change system default credentials](/criteria/requirements/142)
 
-42. [PCI DSS v3.2.1 - Requirement 3.1](/criteria/requirements/183)
+    - [251. Change access point IP](/criteria/requirements/251)
 
-43. [PCI DSS v3.2.1 - Requirement 3.1](/criteria/requirements/360)
+18. PCI DSS v3.2.1 - Requirement 2.2.2 - Enable only necessary services
 
-44. [PCI DSS v3.2.1 - Requirement 3.2.1](/criteria/requirements/360)
+    - [255. Allow access only to the necessary ports](/criteria/requirements/255)
 
-45. [PCI DSS v3.2.1 - Requirement 3.2.2](/criteria/requirements/360)
+    - [266. Disable insecure functionalities](/criteria/requirements/266)
 
-46. [PCI DSS v3.2.1 - Requirement 3.2.3](/criteria/requirements/360)
+    - [336. Disable insecure TLS versions](/criteria/requirements/336)
 
-47. [PCI DSS v3.2.1 - Requirement 3.3](/criteria/requirements/300)
+19. [PCI DSS v3.2.1 - Requirement 2.2.3](/criteria/requirements/062)
 
-48. [PCI DSS v3.2.1 - Requirement 3.4.1](/criteria/requirements/145)
+20. [PCI DSS v3.2.1 - Requirement 2.2.4](/criteria/requirements/062)
 
-49. [PCI DSS v3.2.1 - Requirement 3.4.1](/criteria/requirements/186)
+21. [PCI DSS v3.2.1 - Requirement 2.2.5](/criteria/requirements/266)
 
-50. [PCI DSS v3.2.1 - Requirement 3.4](/criteria/requirements/185)
+22. PCI DSS v3.2.1 - Requirement 2.3 - Encrypt all non-console administrative access
 
-51. [PCI DSS v3.2.1 - Requirement 3.5.2](/criteria/requirements/145)
+    - [181. Transmit data using secure protocols](/criteria/requirements/181)
 
-52. [PCI DSS v3.2.1 - Requirement 3.5.2](/criteria/requirements/186)
+    - [185. Encrypt sensitive information](/criteria/requirements/185)
 
-53. [PCI DSS v3.2.1 - Requirement 3.5.3](/criteria/requirements/145)
+    - [224. Use secure cryptographic mechanisms](/criteria/requirements/224)
 
-54. [PCI DSS v3.2.1 - Requirement 3.5.3](/criteria/requirements/185)
+    - [302. Declare dependencies explicitly](/criteria/requirements/302)
 
-55. [PCI DSS v3.2.1 - Requirement 3.5.3](/criteria/requirements/333)
+23. PCI DSS v3.2.1 - Requirement 3.1 - Keep cardholder data storage to a minimum
 
-56. [PCI DSS v3.2.1 - Requirement 3.5.4](/criteria/requirements/145)
+    - [183. Delete sensitive data securely](/criteria/requirements/183)
 
-57. [PCI DSS v3.2.1 - Requirement 3.5.4](/criteria/requirements/146)
+    - [360. Remove unnecessary sensitive information](/criteria/requirements/360)
 
-58. [PCI DSS v3.2.1 - Requirement 3.6.1](/criteria/requirements/224)
+24. [PCI DSS v3.2.1 - Requirement 3.2.1](/criteria/requirements/360)
 
-59. [PCI DSS v3.2.1 - Requirement 3.6.2](/criteria/requirements/145)
+25. [PCI DSS v3.2.1 - Requirement 3.2.2](/criteria/requirements/360)
 
-60. [PCI DSS v3.2.1 - Requirement 3.6.3](/criteria/requirements/145)
+26. [PCI DSS v3.2.1 - Requirement 3.2.3](/criteria/requirements/360)
 
-61. [PCI DSS v3.2.1 - Requirement 3.6.3](/criteria/requirements/146)
+27. [PCI DSS v3.2.1 - Requirement 3.3](/criteria/requirements/300)
 
-62. [PCI DSS v3.2.1 - Requirement 3.6.4](/criteria/requirements/338)
+28. PCI DSS v3.2.1 - Requirement 3.4.1 - Disk encryption
 
-63. [PCI DSS v3.2.1 - Requirement 3.6.4](/criteria/requirements/361)
+    - [145. Protect system cryptographic keys](/criteria/requirements/145)
 
-64. [PCI DSS v3.2.1 - Requirement 3.6.5](/criteria/requirements/361)
+    - [186. Use the principle of least privilege](/criteria/requirements/186)
 
-65. [PCI DSS v3.2.1 - Requirement 3.6.7](/criteria/requirements/145)
+29. [PCI DSS v3.2.1 - Requirement 3.4](/criteria/requirements/185)
 
-66. [PCI DSS v3.2.1 - Requirement 3.6.7](/criteria/requirements/176)
+30. PCI DSS v3.2.1 - Requirement 3.5.2 - Restrict access to cryptographic keys
 
-67. [PCI DSS v3.2.1 - Requirement 4.1.1](/criteria/requirements/147)
+    - [145. Protect system cryptographic keys](/criteria/requirements/145)
 
-68. [PCI DSS v3.2.1 - Requirement 4.1.1](/criteria/requirements/181)
+    - [186. Use the principle of least privilege](/criteria/requirements/186)
 
-69. [PCI DSS v3.2.1 - Requirement 4.1.1](/criteria/requirements/252)
+31. [PCI DSS v3.2.1 - Requirement 3.5.3] - Store secret and private keys used to encrypt or decrypt
 
-70. [PCI DSS v3.2.1 - Requirement 4.1](/criteria/requirements/088)
+    - [145. Protect system cryptographic keys](/criteria/requirements/145)
 
-71. [PCI DSS v3.2.1 - Requirement 4.1](/criteria/requirements/181)
+    - [185. Encrypt sensitive information](/criteria/requirements/185)
 
-72. [PCI DSS v3.2.1 - Requirement 4.1](/criteria/requirements/224)
+    - [333. Store salt values separately](/criteria/requirements/333)
 
-73. [PCI DSS v3.2.1 - Requirement 4.1](/criteria/requirements/252)
+32. PCI DSS v3.2.1 - Requirement 3.5.4 - Store cryptographic keys
 
-74. [PCI DSS v3.2.1 - Requirement 4.1](/criteria/requirements/336)
+    - [145.  Protect system cryptographic keys](/criteria/requirements/145)
 
-75. [PCI DSS v3.2.1 - Requirement 4.2](/criteria/requirements/181)
+    - [146. Remove cryptographic keys from RAM](/criteria/requirements/146)
 
-76. [PCI DSS v3.2.1 - Requirement 5.1.1](/criteria/requirements/041)
+33. [PCI DSS v3.2.1 - Requirement 3.6.1](/criteria/requirements/224)
 
-77. [PCI DSS v3.2.1 - Requirement 5.1.1](/criteria/requirements/118)
+34. [PCI DSS v3.2.1 - Requirement 3.6.2](/criteria/requirements/145)
 
-78. [PCI DSS v3.2.1 - Requirement 5.1](/criteria/requirements/273)
+35. PCI DSS v3.2.1 - Requirement 3.6.3 - Secure  cryptographic key storage
 
-79. [PCI DSS v3.2.1 - Requirement 5.2](/criteria/requirements/262)
+    - [145.  Protect system cryptographic keys](/criteria/requirements/145)
 
-80. [PCI DSS v3.2.1 - Requirement 5.3](/criteria/requirements/186)
+    - [146. Remove cryptographic keys from RAM](/criteria/requirements/146)
 
-81. [PCI DSS v3.2.1 - Requirement 6.2](/criteria/requirements/062)
+36. PCI DSS v3.2.1 - Requirement 3.6.4 - Cryptographic key changes for keys
 
-82. [PCI DSS v3.2.1 - Requirement 6.2](/criteria/requirements/158)
+    - [338. Implement perfect forward secrecy](/criteria/requirements/338)
 
-83. [PCI DSS v3.2.1 - Requirement 6.2](/criteria/requirements/262)
+    - [361. Replace cryptographic keys](/criteria/requirements/361)
 
-84. [PCI DSS v3.2.1 - Requirement 6.3.1](/criteria/requirements/154)
+37. [PCI DSS v3.2.1 - Requirement 3.6.5](/criteria/requirements/361)
 
-85. [PCI DSS v3.2.1 - Requirement 6.3](/criteria/requirements/062)
+38. PCI DSS v3.2.1 - Requirement 3.6.7 - Prevention of unauthorized substitution of cryptographic keys
 
-86. [PCI DSS v3.2.1 - Requirement 6.4.1](/criteria/requirements/180)
+    - [145.  Protect system cryptographic keys](/criteria/requirements/145)
 
-87. [PCI DSS v3.2.1 - Requirement 6.4.3](/criteria/requirements/180)
+    - [176. Restrict system objects](/criteria/requirements/176)
 
-88. [PCI DSS v3.2.1 - Requirement 6.4.4](/criteria/requirements/154)
+39. PCI DSS v3.2.1 - Requirement 4.1 - Use strong cryptography and security protocols
 
-89. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/023)
+    - [088. Request client certificates](/criteria/requirements/088)
 
-90. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/025)
+    - [181. Transmit data using secure protocols](/criteria/requirements/181)
 
-91. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/026)
+    - [224. Use secure cryptographic mechanisms](/criteria/requirements/224)
 
-92. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/027)
+    - [252. Configure key encryption](/criteria/requirements/252)
 
-93. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/028)
+    - [336. Disable insecure TLS versions](/criteria/requirements/336)
 
-94. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/029)
+40. PCI DSS v3.2.1 - Requirement 4.1.1 - Ensure wireless networks transmitting cardholder data
 
-95. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/030)
+    - [147. Use pre-existent mechanisms](/criteria/requirements/147)
 
-96. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/031)
+    - [181. Transmit data using secure protocols](/criteria/requirements/181)
 
-97. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/032)
+    - [252. Configure key encryption](/criteria/requirements/252)
 
-98. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/088)
+41. [PCI DSS v3.2.1 - Requirement 4.2](/criteria/requirements/181)
 
-99. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/114)
+42. [PCI DSS v3.2.1 - Requirement 5.1](/criteria/requirements/273)
 
-100. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/131)
+43. PCI DSS v3.2.1 - Requirement 5.1.1 - Ensure that anti-virus programs are capable of detecting
 
-101. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/139)
+    - [041. Scan files for malicious code](/criteria/requirements/041)
 
-102. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/140)
+    - [118. Inspect attachments](/criteria/requirements/118)
 
-103. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/141)
+44. [PCI DSS v3.2.1 - Requirement 5.2](/criteria/requirements/262)
 
-104. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/142)
+45. [PCI DSS v3.2.1 - Requirement 5.3](/criteria/requirements/186)
 
-105. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/143)
+46. PCI DSS v3.2.1 - Requirement 6.2 - Ensure that all system components and softwareare protected
 
-106. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/153)
+    - [062. Define standard configurations](/criteria/requirements/062)
 
-107. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/209)
+    - [158. Use a secure programming language](/criteria/requirements/158)
 
-108. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/225)
+    - [262. Verify third-party components](/criteria/requirements/262)
 
-109. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/226)
+47. [PCI DSS v3.2.1 - Requirement 6.3](/criteria/requirements/062)
 
-110. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/228)
+48. [PCI DSS v3.2.1 - Requirement 6.3.1](/criteria/requirements/154)
 
-111. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/229)
+49. [PCI DSS v3.2.1 - Requirement 6.4.1](/criteria/requirements/180)
 
-112. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/231)
+50. [PCI DSS v3.2.1 - Requirement 6.4.3](/criteria/requirements/180)
 
-113. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/236)
+51. [PCI DSS v3.2.1 - Requirement 6.4.4](/criteria/requirements/154)
 
-114. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/237)
+52. PCI DSS v3.2.1 - Requirement 6.5.1 - Injection flows
 
-115. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/238)
+    - [037. Parameters without sensitive data](/criteria/requirements/037)
 
-116. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/264)
+    - [050. Control calls to interpreted code](/criteria/requirements/050)
 
-117. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/319)
+    - [117. Do not interpret HTML code](/criteria/requirements/117)
 
-118. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/320)
+    - [160. Encode system outputs](/criteria/requirements/160)
 
-119. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/328)
+    - [169. Use parameterized queries](/criteria/requirements/169)
 
-120. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/332)
+    - [173. Discard unsafe inputs](/criteria/requirements/173)
 
-121. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/334)
+    - [321. Avoid deserializing untrusted data](/criteria/requirements/321)
 
-122. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/335)
+    - [344. Avoid dynamic code execution](/criteria/requirements/344)
 
-123. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/347)
+53. PCI DSS v3.2.1 - Requirement 6.5.2 - Buffer overflow
 
-124. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/357)
+    - [157. Use the strict mode](/criteria/requirements/157)
 
-125. [PCI DSS v3.2.1 - Requirement 6.5.10](/criteria/requirements/362)
+    - [173. Discard unsafe inputs](/criteria/requirements/173)
 
-126. [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/037)
+    - [345. Establish protections against overflows](/criteria/requirements/345)
 
-127. [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/050)
+54. PCI DSS v3.2.1 - Requirement 6.5.3 - Insecure cryptographic storage
 
-128. [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/117)
+    - [145. Protect system cryptographic keys](/criteria/requirements/145)
 
-129. [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/160)
+    - [185. Encrypt sensitive information](/criteria/requirements/185)
 
-130. [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/169)
+    - [224. Use secure cryptographic mechanisms](/criteria/requirements/224)
 
-131. [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/173)
+55. PCI DSS v3.2.1 - Requirement 6.5.4 - Insecure communications
 
-132. [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/321)
+    - [181. Transmit data using secure protocols](/criteria/requirements/181)
 
-133. [PCI DSS v3.2.1 - Requirement 6.5.1](/criteria/requirements/344)
+    - [336. Disable insecure TLS versions](/criteria/requirements/336)
 
-134. [PCI DSS v3.2.1 - Requirement 6.5.2](/criteria/requirements/157)
+56. PCI DSS v3.2.1 - Requirement 6.5.5 -  Improper error handling
 
-135. [PCI DSS v3.2.1 - Requirement 6.5.2](/criteria/requirements/173)
+    - [077. Avoid disclosing technical information](/criteria/requirements/077)
 
-136. [PCI DSS v3.2.1 - Requirement 6.5.2](/criteria/requirements/345)
+    - [078. Disable debugging events](/criteria/requirements/078)
 
-137. [PCI DSS v3.2.1 - Requirement 6.5.3](/criteria/requirements/145)
+    - [161. Define secure default options](/criteria/requirements/161)
 
-138. [PCI DSS v3.2.1 - Requirement 6.5.3](/criteria/requirements/185)
+57. PCI DSS v3.2.1 - Requirement 6.5.7 - Cross-site scripting (XSS)
 
-139. [PCI DSS v3.2.1 - Requirement 6.5.3](/criteria/requirements/224)
+    - [029. Cookies with security attributes](/criteria/requirements/029)
 
-140. [PCI DSS v3.2.1 - Requirement 6.5.4](/criteria/requirements/181)
+    - [050. Control calls to interpreted code](/criteria/requirements/050)
 
-141. [PCI DSS v3.2.1 - Requirement 6.5.4](/criteria/requirements/336)
+    - [160. Encode system outputs](/criteria/requirements/160)
 
-142. [PCI DSS v3.2.1 - Requirement 6.5.5](/criteria/requirements/077)
+    - [173. Discard unsafe inputs](/criteria/requirements/173)
 
-143. [PCI DSS v3.2.1 - Requirement 6.5.5](/criteria/requirements/078)
+    - [340. Use octet stream downloads](/criteria/requirements/340)
 
-144. [PCI DSS v3.2.1 - Requirement 6.5.5](/criteria/requirements/161)
+    - [344. Avoid dynamic code execution](/criteria/requirements/344)
 
-145. [PCI DSS v3.2.1 - Requirement 6.5.7](/criteria/requirements/029)
+    - [349. Include HTTP security headers](/criteria/requirements/349)
 
-146. [PCI DSS v3.2.1 - Requirement 6.5.7](/criteria/requirements/050)
+58. PCI DSS v3.2.1 - Requirement 6.5.8 - Improper access control
 
-147. [PCI DSS v3.2.1 - Requirement 6.5.7](/criteria/requirements/160)
+    - [033. Restrict administrative access](/criteria/requirements/033)
 
-148. [PCI DSS v3.2.1 - Requirement 6.5.7](/criteria/requirements/173)
+    - [035. Manage privilege modifications](/criteria/requirements/035)
 
-149. [PCI DSS v3.2.1 - Requirement 6.5.7](/criteria/requirements/340)
+    - [080. Prevent log modification](/criteria/requirements/080)
 
-150. [PCI DSS v3.2.1 - Requirement 6.5.7](/criteria/requirements/344)
+    - [095. Define users with privileges](/criteria/requirements/095)
 
-151. [PCI DSS v3.2.1 - Requirement 6.5.7](/criteria/requirements/349)
+    - [096. Set users' required privileges](/criteria/requirements/096)
 
-152. [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/033)
+    - [176. Restrict system objects](/criteria/requirements/176)
 
-153. [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/035)
+    - [186. Use the principle of least privilege](/criteria/requirements/186)
 
-154. [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/080)
+    - [265. Restrict access to critical processes](/criteria/requirements/265)
 
-155. [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/095)
+    - [266. Disable insecure functionalities](/criteria/requirements/266)
 
-156. [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/096)
+    - [320. Avoid client-side control enforcement](/criteria/requirements/320)
 
-157. [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/176)
+    - [341. Use the principle of deny by default](/criteria/requirements/341)
 
-158. [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/186)
+59. PCI DSS v3.2.1 - Requirement 6.5.9 - Cross-site request forgery (CSRF)
 
-159. [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/265)
+    - [029. Cookies with security attributes](/criteria/requirements/029)
 
-160. [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/266)
+    - [174. Transactions without a distinguishable pattern](/criteria/requirements/174)
 
-161. [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/320)
+    - [349. Include HTTP security headers](/criteria/requirements/349)
 
-162. [PCI DSS v3.2.1 - Requirement 6.5.8](/criteria/requirements/341)
+60. PCI DSS v3.2.1 - Requirement 6.5.10 - Broken authenticationand session management
 
-163. [PCI DSS v3.2.1 - Requirement 6.5.9](/criteria/requirements/029)
+    - [023. Terminate inactive user sessions](/criteria/requirements/023)
 
-164. [PCI DSS v3.2.1 - Requirement 6.5.9](/criteria/requirements/174)
+    - [025. Manage concurrent sessions](/criteria/requirements/025)
 
-165. [PCI DSS v3.2.1 - Requirement 6.5.9](/criteria/requirements/349)
+    - [026. Encrypt client-side session information](/criteria/requirements/026)
 
-166. [PCI DSS v3.2.1 - Requirement 7.1.1](/criteria/requirements/095)
+    - [027. Allow session lockout](/criteria/requirements/027)
 
-167. [PCI DSS v3.2.1 - Requirement 7.1.1](/criteria/requirements/096)
+    - [028. Allow users to log out](/criteria/requirements/028)
 
-168. [PCI DSS v3.2.1 - Requirement 7.1.1](/criteria/requirements/176)
+    - [029. Cookies with security attributes](/criteria/requirements/029)
 
-169. [PCI DSS v3.2.1 - Requirement 7.1.2](/criteria/requirements/186)
+    - [030. Avoid object reutilization](/criteria/requirements/030)
 
-170. [PCI DSS v3.2.1 - Requirement 7.1.2](/criteria/requirements/341)
+    - [031. Discard user session data](/criteria/requirements/031)
 
-171. [PCI DSS v3.2.1 - Requirement 7.1.3](/criteria/requirements/095)
+    - [032. Avoid session ID leakages](/criteria/requirements/032)
 
-172. [PCI DSS v3.2.1 - Requirement 7.1.3](/criteria/requirements/096)
+    - [088. Request client certificates](/criteria/requirements/088)
 
-173. [PCI DSS v3.2.1 - Requirement 7.2.2](/criteria/requirements/095)
+    - [114. Deny access with inactive credentials](/criteria/requirements/114)
 
-174. [PCI DSS v3.2.1 - Requirement 7.2.2](/criteria/requirements/096)
+    - [131. Deny multiple password changing attempts](/criteria/requirements/131)
 
-175. [PCI DSS v3.2.1 - Requirement 7.2.2](/criteria/requirements/341)
+    - [139. Set minimum OTP length](/criteria/requirements/139)
 
-176. [PCI DSS v3.2.1 - Requirement 8.1.1](/criteria/requirements/143)
+    - [140. Define OTP lifespan](/criteria/requirements/140)
 
-177. [PCI DSS v3.2.1 - Requirement 8.1.1](/criteria/requirements/229)
+    - [141. Force re-authentication](/criteria/requirements/141)
 
-178. [PCI DSS v3.2.1 - Requirement 8.1.1](/criteria/requirements/264)
+    - [142. Change system default credentials](/criteria/requirements/142)
 
-179. [PCI DSS v3.2.1 - Requirement 8.1.2](/criteria/requirements/034)
+    - [143. Unique access credentials](/criteria/requirements/143)
 
-180. [PCI DSS v3.2.1 - Requirement 8.1.2](/criteria/requirements/035)
+    - [153. Out of band transactions](/criteria/requirements/153)
 
-181. [PCI DSS v3.2.1 - Requirement 8.1.3](/criteria/requirements/114)
+    - [209. Manage passwords in cache](/criteria/requirements/209)
 
-182. [PCI DSS v3.2.1 - Requirement 8.1.4](/criteria/requirements/144)
+    - [225. Proper authentication responses](/criteria/requirements/225)
 
-183. [PCI DSS v3.2.1 - Requirement 8.1.8](/criteria/requirements/023)
+    - [226. Avoid account lockouts](/criteria/requirements/226)
 
-184. [PCI DSS v3.2.1 - Requirement 8.2.1](/criteria/requirements/127)
+    - [228. Authenticate using standard protocols](/criteria/requirements/228)
 
-185. [PCI DSS v3.2.1 - Requirement 8.2.1](/criteria/requirements/181)
+    - [229. Request access credentials](/criteria/requirements/229)
 
-186. [PCI DSS v3.2.1 - Requirement 8.2.1](/criteria/requirements/185)
+    - [231. Implement a biometric verification component](/criteria/requirements/231)
 
-187. [PCI DSS v3.2.1 - Requirement 8.2.2](/criteria/requirements/238)
+    - [236. Establish authentication time](/criteria/requirements/236)
 
-188. [PCI DSS v3.2.1 - Requirement 8.2.3](/criteria/requirements/132)
+    - [237. Ascertain human interaction](/criteria/requirements/237)
 
-189. [PCI DSS v3.2.1 - Requirement 8.2.3](/criteria/requirements/133)
+    - [238. Establish safe recovery](/criteria/requirements/238)
 
-190. [PCI DSS v3.2.1 - Requirement 8.2.4](/criteria/requirements/130)
+    - [264. Request authentication](/criteria/requirements/264)
 
-191. [PCI DSS v3.2.1 - Requirement 8.2.5](/criteria/requirements/126)
+    - [319. Make authentication options equally secure](/criteria/requirements/319)
 
-192. [PCI DSS v3.2.1 - Requirement 8.2.5](/criteria/requirements/129)
+    - [320. Avoid client-side control enforcement](/criteria/requirements/320)
 
-193. [PCI DSS v3.2.1 - Requirement 8.2.6](/criteria/requirements/136)
+    - [328. Request MFA for critical systems](/criteria/requirements/328)
 
-194. [PCI DSS v3.2.1 - Requirement 8.2.6](/criteria/requirements/137)
+    - [332. Prevent the use of breached passwords](/criteria/requirements/332)
 
-195. [PCI DSS v3.2.1 - Requirement 8.2.6](/criteria/requirements/367)
+    - [334. Avoid knowledge-based authentication](/criteria/requirements/334)
 
-196. [PCI DSS v3.2.1 - Requirement 8.2](/criteria/requirements/229)
+    - [335. Define out of band token lifespan](/criteria/requirements/335)
 
-197. [PCI DSS v3.2.1 - Requirement 8.5](/criteria/requirements/143)
+    - [347. Invalidate previous OTPs](/criteria/requirements/347)
 
-198. [PCI DSS v3.2.1 - Requirement 8.5](/criteria/requirements/362)
+    - [357. Use stateless session tokens](/criteria/requirements/357)
 
-199. [PCI DSS v3.2.1 - Requirement 8.6](/criteria/requirements/362)
+    - [362. Assign MFA mechanisms to a single account](/criteria/requirements/362)
 
-200. [PCI DSS v3.2.1 - Requirement 8.7](/criteria/requirements/033)
+61. PCI DSS v3.2.1 - Requirement 7.1.1 - Define access needs for each role
 
-201. [PCI DSS v3.2.1 - Requirement 8.7](/criteria/requirements/265)
+    - [095. Define users with privileges](/criteria/requirements/095)
 
-202. [PCI DSS v3.2.1 - Requirement 9.8.2](/criteria/requirements/183)
+    - [096. Set users' required privileges](/criteria/requirements/096)
 
-203. [PCI DSS v3.2.1 - Requirement 10.2.1](/criteria/requirements/075)
+    - [176. Restrict system objects](/criteria/requirements/176)
 
-204. [PCI DSS v3.2.1 - Requirement 10.2.2](/criteria/requirements/046)
+62. PCI DSS v3.2.1 - Requirement 7.1.2 - Restrict access to privileged user IDs
 
-205. [PCI DSS v3.2.1 - Requirement 10.2.2](/criteria/requirements/075)
+    - [186. Use the principle of least privilege](/criteria/requirements/186)
 
-206. [PCI DSS v3.2.1 - Requirement 10.2.3](/criteria/requirements/075)
+    - [341. Use the principle of deny by default](/criteria/requirements/341)
 
-207. [PCI DSS v3.2.1 - Requirement 10.2.4](/criteria/requirements/075)
+63. PCI DSS v3.2.1 - Requirement 7.1.3 - Assign access
+        
+    - [095. Define users with privileges](/criteria/requirements/095)
 
-208. [PCI DSS v3.2.1 - Requirement 10.2.5](/criteria/requirements/075)
+    - [096. Set users' required privileges](/criteria/requirements/096)
 
-209. [PCI DSS v3.2.1 - Requirement 10.2.6](/criteria/requirements/046)
+64. PCI DSS v3.2.1 - Requirement 7.2.2 - Assignment of privileges
 
-210. [PCI DSS v3.2.1 - Requirement 10.2.6](/criteria/requirements/075)
+    - [095. Define users with privileges](/criteria/requirements/095)
 
-211. [PCI DSS v3.2.1 - Requirement 10.2.7](/criteria/requirements/075)
+    - [096. Set users' required privileges](/criteria/requirements/096)
 
-212. [PCI DSS v3.2.1 - Requirement 10.3](/criteria/requirements/079)
+    - [341. Use the principle of deny by default](/criteria/requirements/341)
 
-213. [PCI DSS v3.2.1 - Requirement 10.4.1](/criteria/requirements/363)
+65. PCI DSS v3.2.1 - Requirement 8.1.1 - Assign all users a unique ID
 
-214. [PCI DSS v3.2.1 - Requirement 10.4.2](/criteria/requirements/046)
+    - [143. Unique access credentials](/criteria/requirements/143)
 
-215. [PCI DSS v3.2.1 - Requirement 10.4.2](/criteria/requirements/363)
+    - [229. Request access credentials](/criteria/requirements/229)
 
-216. [PCI DSS v3.2.1 - Requirement 10.4.3](/criteria/requirements/363)
+    - [264. Request authentication](/criteria/requirements/264)
 
-217. [PCI DSS v3.2.1 - Requirement 10.5.1](/criteria/requirements/096)
+66. PCI DSS v3.2.1 - Requirement 8.1.2 - Control addition, deletion, and modification of user IDs
 
-218. [PCI DSS v3.2.1 - Requirement 10.5.1](/criteria/requirements/176)
+    - [034. Manage user accounts](/criteria/requirements/034)
 
-219. [PCI DSS v3.2.1 - Requirement 10.5.2](/criteria/requirements/080)
+    - [035. Manage privilege modifications](/criteria/requirements/035)
 
-220. [PCI DSS v3.2.1 - Requirement 10.5.3](/criteria/requirements/080)
+67. [PCI DSS v3.2.1 - Requirement 8.1.3](/criteria/requirements/114)
 
-221. [PCI DSS v3.2.1 - Requirement 10.5.5](/criteria/requirements/046)
+68. [PCI DSS v3.2.1 - Requirement 8.1.4](/criteria/requirements/144)
+
+69. [PCI DSS v3.2.1 - Requirement 8.1.8](/criteria/requirements/023)
+
+70. [PCI DSS v3.2.1 - Requirement 8.2](/criteria/requirements/229)
+
+71. PCI DSS v3.2.1 - Requirement 8.2.1 - Using strong cryptography
+
+    - [127. Store hashed passwords](/criteria/requirements/127)
+
+    - [181. Transmit data using secure protocols](/criteria/requirements/181)
+
+    - [185. Encrypt sensitive information](/criteria/requirements/185)
+
+72. [PCI DSS v3.2.1 - Requirement 8.2.2](/criteria/requirements/238)
+
+73. PCI DSS v3.2.1 - Requirement 8.2.3 - Passwords or passphrases must meet mininum requirements
+
+    - [132. Passphrases with at least 4 words](/criteria/requirements/132)
+
+    - [133. Passwords with at least 20 characters](/criteria/requirements/133)
+
+74. [PCI DSS v3.2.1 - Requirement 8.2.4](/criteria/requirements/130)
+
+75. PCI DSS v3.2.1 - Requirement 8.2.5 - Passwords or passphrases
+
+    - [126. Set a password regeneration mechanism](/criteria/requirements/126)
+
+    - [129. Validate previous passwords](/criteria/requirements/129)
+
+76. PCI DSS v3.2.1 - Requirement 8.2.6 - Set  passwords or passphrases for first time use
+
+    - [136. Force temporary password change](/criteria/requirements/136)
+
+    - [137. Change temporary passwords of third parties](/criteria/requirements/137)
+
+    - [367. Proper generation of temporary passwords](/criteria/requirements/367)
+
+77. PCI DSS v3.2.1 - Requirement 8.5 - Do not use group, shared, or generic IDs, passwords
+
+    - [143. Unique access credentials](/criteria/requirements/143)
+
+    - [362. Assign MFA mechanisms to a single account](/criteria/requirements/362)
+
+78. [PCI DSS v3.2.1 - Requirement 8.6](/criteria/requirements/362)
+
+79. PCI DSS v3.2.1 - Requirement 8.7 - Database containing cardholder data
+
+    - [033. Restrict administrative access](/criteria/requirements/033)
+
+    - [265. Restrict access to critical processes](/criteria/requirements/265)
+
+80. [PCI DSS v3.2.1 - Requirement 9.8.2](/criteria/requirements/183)
+
+81. [PCI DSS v3.2.1 - Requirement 10.2.1](/criteria/requirements/075)
+
+82. [PCI DSS v3.2.1 - Requirement 10.2.2](/criteria/requirements/046)
+
+83. [PCI DSS v3.2.1 - Requirement 10.2.2](/criteria/requirements/075)
+
+84. [PCI DSS v3.2.1 - Requirement 10.2.3](/criteria/requirements/075)
+
+85. [PCI DSS v3.2.1 - Requirement 10.2.4](/criteria/requirements/075)
+
+86. [PCI DSS v3.2.1 - Requirement 10.2.5](/criteria/requirements/075)
+
+87. PCI DSS v3.2.1 - Requirement 10.2.6 - Initialization, stopping,or pausing of the audit logs
+
+    - [046. Manage the integrity of critical files](/criteria/requirements/046)
+
+    - [075. Record exceptional events in logs](/criteria/requirements/075)
+
+88. [PCI DSS v3.2.1 - Requirement 10.2.7](/criteria/requirements/075)
+
+89. [PCI DSS v3.2.1 - Requirement 10.3](/criteria/requirements/079)
+
+90. [PCI DSS v3.2.1 - Requirement 10.4.1](/criteria/requirements/363)
+
+91. PCI DSS v3.2.1 - Requirement 10.4.2 - Time  data is protected
+
+    - [046. Manage the integrity of critical files](/criteria/requirements/046)
+
+    - [363. Synchronize system clocks](/criteria/requirements/363)
+
+92. [PCI DSS v3.2.1 - Requirement 10.4.3](/criteria/requirements/363)
+
+93. PCI DSS v3.2.1 - Requirement 10.5.1 - Limit viewing of audit trails
+
+    - [096. Set users' required privileges](/criteria/requirements/096)
+
+    - [176. Restrict system objects](/criteria/requirements/176)
+
+94. [PCI DSS v3.2.1 - Requirement 10.5.2](/criteria/requirements/080)
+
+95. [PCI DSS v3.2.1 - Requirement 10.5.3](/criteria/requirements/080)
+
+96. [PCI DSS v3.2.1 - Requirement 10.5.5](/criteria/requirements/046)
