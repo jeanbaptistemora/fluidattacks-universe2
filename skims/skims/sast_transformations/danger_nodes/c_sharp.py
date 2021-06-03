@@ -21,6 +21,7 @@ def mark_inputs(
 
     for finding in (
         findings.F001_C_SHARP_SQL,
+        findings.F004,
         findings.F107,
     ):
         danger_args = {
@@ -31,26 +32,34 @@ def mark_inputs(
             ),
         }
         mark_function_arg(finding, graph, syntax, danger_args)
-    mark_obj_inst_input(
+    for finding in (
+        findings.F004,
         findings.F107,
-        graph,
-        syntax,
-        {
-            *build_attr_paths("System", "Net", "Sockets", "TcpClient"),
-            *build_attr_paths("System", "Net", "Sockets", "TcpListener"),
-            *build_attr_paths("System", "Data", "SqlClient", "SqlCommand"),
-            *build_attr_paths("System", "IO", "StreamReader"),
-            *build_attr_paths("System", "Net", "WebClient"),
-        },
-    )
-    mark_methods_input(
+    ):
+        mark_obj_inst_input(
+            finding,
+            graph,
+            syntax,
+            {
+                *build_attr_paths("System", "Net", "Sockets", "TcpClient"),
+                *build_attr_paths("System", "Net", "Sockets", "TcpListener"),
+                *build_attr_paths("System", "Data", "SqlClient", "SqlCommand"),
+                *build_attr_paths("System", "IO", "StreamReader"),
+                *build_attr_paths("System", "Net", "WebClient"),
+            },
+        )
+    for finding in {
+        findings.F004,
         findings.F107,
-        graph,
-        syntax,
-        {
-            "GetEnvironmentVariable",
-        },
-    )
+    }:
+        mark_methods_input(
+            finding,
+            graph,
+            syntax,
+            {
+                "GetEnvironmentVariable",
+            },
+        )
 
 
 def mark_sinks(
@@ -74,5 +83,13 @@ def mark_sinks(
         syntax,
         {
             "FindOne",
+        },
+    )
+    mark_methods_sink(
+        findings.F004,
+        graph,
+        syntax,
+        {
+            "Start",
         },
     )

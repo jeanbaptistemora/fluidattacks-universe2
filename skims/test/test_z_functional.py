@@ -300,6 +300,12 @@ def test_nist_c_sharp_f001() -> None:
 
 
 @pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("nist_c_sharp_f004")
+def test_nist_c_sharp_f004() -> None:
+    _run_no_group("nist_c_sharp_f004")
+
+
+@pytest.mark.flaky(reruns=0)
 @pytest.mark.skims_test_group("nist_c_sharp_f107")
 def test_nist_c_sharp_f107() -> None:
     _run_no_group("nist_c_sharp_f107")

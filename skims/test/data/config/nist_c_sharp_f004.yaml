@@ -1,0 +1,14 @@
+checks:
+  - F004
+namespace: NIST
+output: skims/test/outputs/nist_c_sharp_f004.csv
+path:
+  include:
+    # F004
+    - src/testcases/CWE78_OS_Command_Injection
+  exclude:
+    - glob(src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__File_*.cs)
+    - glob(src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__ReadLine_*.cs)
+  lib_path: false
+  lib_root: true
+working_dir: ../NIST-SARD-Test-Suites/Juliet_Test_Suite_v1.3_for_C#/
