@@ -20,8 +20,8 @@ interface IDeleteTagResultAttr {
   };
 }
 
-interface IProjectUsersAttr {
-  project: {
+interface IGroupUsersAttr {
+  group: {
     stakeholders: IStakeholderAttr[];
   };
 }
@@ -54,7 +54,7 @@ interface IUpdateVulnDescriptionResultAttr {
 export {
   IDeleteTagAttr,
   IDeleteTagResultAttr,
-  IProjectUsersAttr,
+  IGroupUsersAttr,
   IRequestZeroRiskVulnResultAttr,
   IStakeholderAttr,
   IUpdateTreatmentModalProps,

@@ -37,7 +37,7 @@ import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import type { IConfirmFn } from "components/ConfirmDialog";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
-import { GET_PROJECT_USERS } from "scenes/Dashboard/components/Vulnerabilities/queries";
+import { GET_GROUP_USERS } from "scenes/Dashboard/components/Vulnerabilities/queries";
 import type {
   IUpdateTreatmentVulnAttr,
   IVulnDataTypeAttr,
@@ -50,7 +50,7 @@ import {
 import type {
   IDeleteTagAttr,
   IDeleteTagResultAttr,
-  IProjectUsersAttr,
+  IGroupUsersAttr,
   IRequestZeroRiskVulnResultAttr,
   IStakeholderAttr,
   IUpdateTreatmentModalProps,
@@ -151,7 +151,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       ],
     });
 
-  const { data } = useQuery<IProjectUsersAttr>(GET_PROJECT_USERS, {
+  const { data } = useQuery<IGroupUsersAttr>(GET_GROUP_USERS, {
     skip: permissions.cannot("api_resolvers_project__get_users"),
     variables: {
       projectName,
@@ -274,7 +274,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   const userEmails: string[] =
     _.isUndefined(data) || _.isEmpty(data)
       ? [userEmail]
-      : data.project.stakeholders.map(
+      : data.group.stakeholders.map(
           (stakeholder: IStakeholderAttr): string => stakeholder.email
         );
 

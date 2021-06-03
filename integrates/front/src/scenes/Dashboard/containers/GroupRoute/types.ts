@@ -3,7 +3,7 @@ interface IGroupData {
     message: string;
     status: number;
   };
-  project: {
+  group: {
     deletionDate: string;
     organization: string;
     serviceAttributes: string[];

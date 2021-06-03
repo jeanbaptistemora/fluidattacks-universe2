@@ -9,9 +9,9 @@ const UPLOAD_VULNERABILITIES: DocumentNode = gql`
   }
 `;
 
-const GET_PROJECT_USERS: DocumentNode = gql`
+const GET_GROUP_USERS: DocumentNode = gql`
   query GetProjectUsers($projectName: String!) {
-    project(projectName: $projectName) {
+    group(projectName: $projectName) {
       name
       stakeholders {
         email
@@ -29,4 +29,4 @@ const DOWNLOAD_VULNERABILITIES: DocumentNode = gql`
   }
 `;
 
-export { DOWNLOAD_VULNERABILITIES, GET_PROJECT_USERS, UPLOAD_VULNERABILITIES };
+export { DOWNLOAD_VULNERABILITIES, GET_GROUP_USERS, UPLOAD_VULNERABILITIES };

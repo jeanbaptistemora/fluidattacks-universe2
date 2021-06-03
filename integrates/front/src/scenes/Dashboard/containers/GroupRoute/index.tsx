@@ -75,9 +75,9 @@ const GroupRoute: React.FC<IGroupRoute> = (props: IGroupRoute): JSX.Element => {
   });
 
   const { data, error } = useQuery<IGroupData>(GET_GROUP_DATA, {
-    onCompleted: ({ project }: IGroupData): void => {
+    onCompleted: ({ group }: IGroupData): void => {
       attributes.update(
-        project.serviceAttributes.map((attribute: string): {
+        group.serviceAttributes.map((attribute: string): {
           action: string;
         } => ({
           action: attribute,
@@ -100,7 +100,7 @@ const GroupRoute: React.FC<IGroupRoute> = (props: IGroupRoute): JSX.Element => {
     return <div />;
   }
 
-  if (organizationName !== data.project.organization) {
+  if (organizationName !== data.group.organization) {
     return <Redirect path={path} to={"/home"} />;
   }
 

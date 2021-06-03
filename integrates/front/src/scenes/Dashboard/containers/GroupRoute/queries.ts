@@ -3,7 +3,7 @@ import type { DocumentNode } from "graphql";
 
 export const GET_GROUP_DATA: DocumentNode = gql`
   query GetProjectDataQuery($projectName: String!) {
-    project(projectName: $projectName) {
+    group(projectName: $projectName) {
       deletionDate
       name
       organization

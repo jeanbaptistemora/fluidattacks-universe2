@@ -24,7 +24,7 @@ describe("GroupRoute", (): void => {
           message: "Hello world",
           status: 1,
         },
-        project: {
+        group: {
           deletionDate: "",
           name: "TEST",
           serviceAttributes: ["has_integrates"],
