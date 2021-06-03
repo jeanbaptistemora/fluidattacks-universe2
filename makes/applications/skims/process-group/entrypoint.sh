@@ -28,13 +28,6 @@ function get_skims_expected_code_date {
     --namespace "${namespace}"
 }
 
-function update_group {
-  local group="${1}"
-
-      echo '[INFO] Updating repositories mirror on S3' \
-  &&  observes-scheduled-job-code-etl-mirror "${group}"
-}
-
 function clone_group {
   export SERVICES_PROD_AWS_ACCESS_KEY_ID
   export SERVICES_PROD_AWS_SECRET_ACCESS_KEY
@@ -108,10 +101,10 @@ function skims_scan {
   local group="${1}"
   local namespace="${2}"
   local check="${3}"
-  local lang="${4}"
-  local config="${5}"
+  local config="${4}"
 
       echo '[INFO] Running skims scan' \
+  &&  lang="$(get_skims_language "${group}")" \
   &&  python3 __envGetConfig__\
         --check "${check}" \
         --group "${group}" \
@@ -135,8 +128,6 @@ function main {
         SERVICES_PROD_AWS_ACCESS_KEY_ID \
         SERVICES_PROD_AWS_SECRET_ACCESS_KEY \
   &&  config="$(mktemp)" \
-  &&  lang="$(get_skims_language "${group}")" \
-  &&  update_group "${group}" \
   &&  use_git_repo_services \
     &&  clone_group "${group}" \
     &&  aws_login_prod 'skims' \
@@ -146,7 +137,7 @@ function main {
               namespace="$(basename "${repo_path}")" \
           &&  skims_rebase "${group}" "${namespace}" \
           &&  skims_should_run "${group}" "${namespace}" "${check}" \
-          &&  if skims_scan "${group}" "${namespace}" "${check}" "${lang}" "${config}"
+          &&  if skims_scan "${group}" "${namespace}" "${check}" "${config}"
               then
                 echo "[INFO] Succesfully processed: ${group} ${namespace}"
               else
@@ -157,6 +148,7 @@ function main {
         done \
     &&  skims_cache push "${group}" \
   &&  popd \
+  &&  echo "[INFO] Success: ${success}" \
   &&  test "${success}" = 'true'
 }
 
