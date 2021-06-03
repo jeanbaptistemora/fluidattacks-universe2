@@ -1,7 +1,7 @@
 import Bugsnag from "@bugsnag/expo";
-import type { NativeConstants } from "expo-constants";
 // Needed for correct usage of NativeConstants.appOwnership
 import Constants, { AppOwnership } from "expo-constants"; // eslint-disable-line import/no-named-as-default
+import type { NativeConstants } from "expo-constants";
 import { setItemAsync } from "expo-secure-store";
 import {
   coolDownAsync,

@@ -1,5 +1,5 @@
-import type { ShallowWrapper } from "enzyme";
 import { shallow } from "enzyme";
+import type { ShallowWrapper } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { useColorScheme } from "react-native";

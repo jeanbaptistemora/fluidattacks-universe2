@@ -1,5 +1,5 @@
-import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
+import type { ReactWrapper } from "enzyme";
 import React from "react";
 import { I18nextProvider } from "react-i18next";
 import { TouchableOpacity } from "react-native";

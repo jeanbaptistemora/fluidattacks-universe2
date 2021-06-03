@@ -1,5 +1,5 @@
-import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
+import type { ReactWrapper } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { I18nextProvider } from "react-i18next";
@@ -10,8 +10,8 @@ import { BitbucketButton } from "./BitbucketButton";
 import type { IBitbucketButtonProps } from "./BitbucketButton";
 import { GoogleButton } from "./GoogleButton";
 import type { IGoogleButtonProps } from "./GoogleButton";
-import type { IMicrosoftButtonProps } from "./MicrosoftButton";
 import { MicrosoftButton } from "./MicrosoftButton";
+import type { IMicrosoftButtonProps } from "./MicrosoftButton";
 import { getOutdatedStatus } from "./version";
 
 import { LoginView } from ".";

@@ -4,8 +4,16 @@ import { configure } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import fetchMock from "fetch-mock";
 
-// Mock fetch
-Object.assign(global, { fetch: fetchMock });
+Object.assign(global, {
+  // Mock fetch
+  fetch: fetchMock,
+  /**
+   * Mock jest 27 removed globals
+   *
+   * @see https://github.com/facebook/jest/pull/11222
+   */
+  setImmediate: (handler: () => void): number => setTimeout(handler, 0),
+});
 
 // Configure enzyme
 // eslint-disable-next-line @typescript-eslint/no-unsafe-call

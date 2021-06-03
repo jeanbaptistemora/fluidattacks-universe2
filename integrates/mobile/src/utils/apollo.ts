@@ -20,8 +20,8 @@ import { RetryLink } from "@apollo/client/link/retry";
 import { deleteItemAsync, getItemAsync } from "expo-secure-store";
 import type { ExecutionResult, GraphQLError } from "graphql";
 import _ from "lodash";
-import type React from "react";
 import { createElement, useMemo } from "react";
+import type React from "react";
 import { Alert } from "react-native";
 import { useHistory } from "react-router-native";
 

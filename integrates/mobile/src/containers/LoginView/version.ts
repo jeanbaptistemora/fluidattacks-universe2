@@ -1,6 +1,6 @@
-import type { AndroidManifest } from "expo-constants";
 // Needed for correct usage of AndroidManifest
 import Constants from "expo-constants"; // eslint-disable-line import/no-named-as-default
+import type { AndroidManifest } from "expo-constants";
 import { Platform } from "react-native";
 
 import { LOGGER } from "../../utils/logger";

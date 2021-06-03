@@ -1,6 +1,6 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
+import type { ReactWrapper } from "enzyme";
 import React from "react";
 import { Alert } from "react-native";
 

@@ -5,12 +5,12 @@ import type {
   BugsnagErrorBoundary,
   BugsnagPluginReactResult,
 } from "@bugsnag/plugin-react";
-import type { NetworkState } from "expo-network";
 import {
   getIpAddressAsync,
   getNetworkStateAsync,
   isAirplaneModeEnabledAsync,
 } from "expo-network";
+import type { NetworkState } from "expo-network";
 import _ from "lodash";
 import React, { Fragment } from "react";
 import { Platform } from "react-native";

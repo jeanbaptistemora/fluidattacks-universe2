@@ -1,5 +1,5 @@
-import type { ShallowWrapper } from "enzyme";
 import { shallow } from "enzyme";
+import type { ShallowWrapper } from "enzyme";
 import React from "react";
 import { Avatar as PaperAvatar } from "react-native-paper";
 

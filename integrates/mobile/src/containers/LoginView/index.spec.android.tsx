@@ -1,5 +1,5 @@
-import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
+import type { ReactWrapper } from "enzyme";
 import type { FetchMockStatic } from "fetch-mock";
 import React from "react";
 import { act } from "react-dom/test-utils";
@@ -138,9 +138,8 @@ describe("LoginView", (): void => {
         wrapper.update();
       }
     );
-    const { openURL } = Linking;
 
-    expect(openURL).toHaveBeenCalledTimes(1);
+    expect(Linking.openURL).toHaveBeenCalledTimes(1);
 
     jest.clearAllMocks();
     mockedFetch.reset();

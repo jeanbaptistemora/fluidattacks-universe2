@@ -4,13 +4,13 @@
 /* eslint-disable fp/no-mutation */
 // Needed to override styles
 /* eslint-disable react/forbid-component-props */
-import type { ApolloError } from "@apollo/client";
 import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
-import type { Notification, NotificationResponse } from "expo-notifications";
+import type { ApolloError } from "@apollo/client";
 import {
   addNotificationReceivedListener,
   addNotificationResponseReceivedListener,
 } from "expo-notifications";
+import type { Notification, NotificationResponse } from "expo-notifications";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useEffect, useRef } from "react";

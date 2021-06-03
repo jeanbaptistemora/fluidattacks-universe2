@@ -1,7 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
-import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
+import type { ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
 import React from "react";
 import { act } from "react-dom/test-utils";

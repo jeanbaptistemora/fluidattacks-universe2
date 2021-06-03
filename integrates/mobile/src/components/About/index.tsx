@@ -1,8 +1,8 @@
 import { MaterialIcons } from "@expo/vector-icons";
 // eslint-disable-next-line import/no-named-as-default
 import Constants from "expo-constants";
-import type { Manifest } from "expo-updates";
 import { manifest } from "expo-updates";
+import type { Manifest } from "expo-updates";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert, Linking, View } from "react-native";

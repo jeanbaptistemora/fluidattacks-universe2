@@ -3,8 +3,8 @@ import { getItemAsync } from "expo-secure-store";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { I18nextProvider } from "react-i18next";
-import type { ColorSchemeName } from "react-native";
 import { StatusBar, View, useColorScheme } from "react-native";
+import type { ColorSchemeName } from "react-native";
 import {
   DarkTheme,
   DefaultTheme,

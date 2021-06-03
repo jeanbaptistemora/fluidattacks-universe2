@@ -1,5 +1,5 @@
-import type { DocumentNode } from "@apollo/client";
 import { gql } from "@apollo/client";
+import type { DocumentNode } from "@apollo/client";
 
 const ORGS_QUERY: DocumentNode = gql`
   {

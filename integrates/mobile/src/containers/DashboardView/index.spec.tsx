@@ -1,7 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
-import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
+import type { ReactWrapper } from "enzyme";
 import { GraphQLError } from "graphql";
 import React from "react";
 import type { PropsWithChildren } from "react";
@@ -9,8 +9,8 @@ import { act } from "react-dom/test-utils";
 import { I18nextProvider } from "react-i18next";
 import { Alert, AppState } from "react-native";
 import type { AppStateEvent, AppStateStatus } from "react-native";
-import type { Text } from "react-native-paper";
 import { Provider as PaperProvider } from "react-native-paper";
+import type { Text } from "react-native-paper";
 import { MemoryRouter } from "react-router-native";
 import wait from "waait";
 

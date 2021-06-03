@@ -1,5 +1,5 @@
-import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
+import type { ReactWrapper } from "enzyme";
 import { authenticateAsync } from "expo-local-authentication";
 import { getItemAsync } from "expo-secure-store";
 import React from "react";

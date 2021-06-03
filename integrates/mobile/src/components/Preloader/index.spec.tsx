@@ -1,5 +1,5 @@
-import type { ShallowWrapper } from "enzyme";
 import { shallow } from "enzyme";
+import type { ShallowWrapper } from "enzyme";
 import React from "react";
 
 import { Preloader } from ".";

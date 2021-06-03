@@ -1,12 +1,12 @@
 // eslint-disable-next-line import/no-named-as-default -- Needed for accessing isDevice correctly
 import Constants from "expo-constants";
-import type { ExpoPushToken } from "expo-notifications";
 import {
   getExpoPushTokenAsync,
   getPermissionsAsync,
   requestPermissionsAsync,
   setNotificationChannelGroupAsync,
 } from "expo-notifications";
+import type { ExpoPushToken } from "expo-notifications";
 import { Platform } from "react-native";
 
 import { LOGGER } from "./logger";
@@ -23,7 +23,7 @@ const getToken: () => Promise<string> = async (): Promise<string> => {
   return token.data;
 };
 
-export const getPushToken: () => Promise<string> = async (): Promise<string> => {
+export const getPushToken = async (): Promise<string> => {
   /**
    * Push notifications are not supported on emulators
    *
