@@ -53,22 +53,36 @@ A deeper review is still pending.
 
 ## Usage
 
-We use [AWS](https://aws.amazon.com/) for:
+We use the following [AWS](https://aws.amazon.com/) services:
 
-1. [Cloud computing](https://aws.amazon.com/ec2/).
-1. [Serverless computing](https://aws.amazon.com/lambda/).
-1. [Cloud file storage](https://aws.amazon.com/s3/).
-1. [NoSQL database](https://aws.amazon.com/dynamodb/).
-1. [Data wareouse](https://aws.amazon.com/redshift/).
-1. [Key management system](https://aws.amazon.com/kms/).
-1. [Cache](https://aws.amazon.com/redis/).
-1. [Application cluster](https://aws.amazon.com/eks/).
-1. [Batch processing](https://aws.amazon.com/batch/).
-1. [Machine learning](https://aws.amazon.com/sagemaker/).
-1. [Secrets manager](https://aws.amazon.com/secrets-manager/).
-1. [Simple queue service](https://aws.amazon.com/sqs/).
-1. [Monitoring](https://aws.amazon.com/cloudwatch/).
-1. [Cost management](https://aws.amazon.com/aws-cost-management/).
+1. Elastic cloud computing:
+[AWS EC2](https://aws.amazon.com/ec2/).
+1. Serverless computing:
+[AWS Lambda](https://aws.amazon.com/lambda/).
+1. Cloud file storage:
+[AWS S3](https://aws.amazon.com/s3/).
+1. NoSQL database:
+[AWS DynamoDB](https://aws.amazon.com/dynamodb/).
+1. Data wareouse:
+[AWS Redshift](https://aws.amazon.com/redshift/).
+1. Key management system:
+[AWS KMS](https://aws.amazon.com/kms/).
+1. Cache:
+[AWS Redis](https://aws.amazon.com/redis/).
+1. Application cluster:
+[AWS EKS](https://aws.amazon.com/eks/).
+1. Batch processing:
+[AWS Batch](https://aws.amazon.com/batch/).
+1. Machine learning:
+[AWS SageMaker](https://aws.amazon.com/sagemaker/).
+1. Secrets manager:
+[AWs Secrets Manager](https://aws.amazon.com/secrets-manager/).
+1. Simple queue service:
+[AWS SQS](https://aws.amazon.com/sqs/).
+1. Monitoring and logging:
+[AWS CloudWatch](https://aws.amazon.com/cloudwatch/).
+2. Cost management:
+[AWS Cost Management](https://aws.amazon.com/aws-cost-management/).
 
 ## Guidelines
 
