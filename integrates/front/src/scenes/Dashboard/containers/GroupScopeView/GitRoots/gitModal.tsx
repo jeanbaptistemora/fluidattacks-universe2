@@ -93,6 +93,18 @@ const GitModal: React.FC<IGitModalProps> = ({
     [initialValues, nicknames, t]
   );
 
+  const branchTrim: (field: string) => ValidatorField = useCallback(
+    (field: string): ValidatorField => {
+      if (field.trim() !== field) {
+        return t("validations.branchTrim");
+      }
+      // Exception: WF(Avoid unsafe return of an any typed value)
+      // eslint-disable-next-line
+      return required(field) as ValidatorField; // NOSONAR
+    },
+    [t]
+  );
+
   const [confirmHealthCheck, setConfirmHealthCheck] = useState(
     initialValues.includesHealthCheck
   );
@@ -143,7 +155,7 @@ const GitModal: React.FC<IGitModalProps> = ({
                       disabled={isEditing}
                       name={"branch"}
                       type={"text"}
-                      validate={required}
+                      validate={branchTrim}
                     />
                   </div>
                 </div>
