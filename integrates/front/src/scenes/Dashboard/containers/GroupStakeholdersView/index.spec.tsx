@@ -41,7 +41,7 @@ jest.mock("../../../../utils/notifications", (): Dictionary => {
  * https://github.com/formium/formik/issues/481#issuecomment-374970940
  */
 
-describe("Group users view", (): void => {
+describe("Group stakeholders view", (): void => {
   const mocks: readonly MockedResponse[] = [
     {
       request: {
@@ -52,7 +52,7 @@ describe("Group users view", (): void => {
       },
       result: {
         data: {
-          project: {
+          group: {
             name: "TEST",
             stakeholders: [
               {
@@ -78,7 +78,7 @@ describe("Group users view", (): void => {
       },
       result: {
         data: {
-          project: {
+          group: {
             name: "TEST",
             stakeholders: [
               {

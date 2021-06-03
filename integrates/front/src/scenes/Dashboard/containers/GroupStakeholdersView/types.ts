@@ -21,7 +21,7 @@ interface IAddStakeholderAttr {
 }
 
 interface IGetStakeholdersAttrs {
-  project: {
+  group: {
     stakeholders: IStakeholderAttrs[];
   };
 }

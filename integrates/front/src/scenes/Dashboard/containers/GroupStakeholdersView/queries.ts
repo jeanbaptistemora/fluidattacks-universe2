@@ -3,7 +3,7 @@ import type { DocumentNode } from "graphql";
 
 const GET_STAKEHOLDERS: DocumentNode = gql`
   query GetStakeholdersQuery($projectName: String!) {
-    project(projectName: $projectName) {
+    group(projectName: $projectName) {
       name
       stakeholders {
         email

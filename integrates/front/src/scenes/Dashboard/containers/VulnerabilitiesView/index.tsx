@@ -282,7 +282,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 openHandleAcceptation={toggleHandleAcceptationModal}
                 openModal={toggleModal}
                 state={data.finding.state}
-                subscription={data.project.subscription}
+                subscription={data.group.subscription}
               />
             </ActionsContainer>
             <div>

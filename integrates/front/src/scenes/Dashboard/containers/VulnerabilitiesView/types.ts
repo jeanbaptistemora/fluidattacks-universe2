@@ -17,7 +17,7 @@ interface IFindingAttr {
 
 interface IGetFindingVulnInfoAttr {
   finding: IFindingAttr;
-  project: IGroupAttr;
+  group: IGroupAttr;
 }
 
 interface IVulnerabilitiesAttr {

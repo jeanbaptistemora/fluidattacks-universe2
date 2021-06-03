@@ -212,7 +212,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- DB queries use "any" type
-  const stakeholdersList: IStakeholderAttrs[] = data.project.stakeholders;
+  const stakeholdersList: IStakeholderAttrs[] = data.group.stakeholders;
 
   return (
     <React.StrictMode>
