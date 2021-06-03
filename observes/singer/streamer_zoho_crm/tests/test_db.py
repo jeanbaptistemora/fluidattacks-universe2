@@ -5,8 +5,9 @@ from postgres_client import (
 from postgres_client.client import (
     Client,
 )
-from postgres_client.cursor import (
-    DynamicSQLargs,
+from postgres_client.query import (
+    Query,
+    SqlArgs,
 )
 import pytest
 from streamer_zoho_crm import (
@@ -20,27 +21,29 @@ from streamer_zoho_crm.api.bulk import (
 
 def setup_db(db_client: Client) -> None:
     schema = "super-schema"
-    create_schema = db_client.cursor.execute(
-        "CREATE SCHEMA {schema_name}",
-        DynamicSQLargs(identifiers={"schema_name": schema}),
+    db_client.cursor.execute_query(
+        Query(
+            "CREATE SCHEMA {schema_name}",
+            SqlArgs(identifiers={"schema_name": schema}),
+        )
     )
-    create_table = db_client.cursor.execute(
-        """
-            CREATE TABLE {schema_name}.bulk_jobs (
-                operation VARCHAR,
-                created_by VARCHAR,
-                created_time VARCHAR,
-                state VARCHAR,
-                id VARCHAR,
-                module VARCHAR,
-                page INTEGER,
-                result VARCHAR DEFAULT NULL
-            );
-        """,
-        DynamicSQLargs(identifiers={"schema_name": schema}),
+    db_client.cursor.execute_query(
+        Query(
+            """
+                CREATE TABLE {schema_name}.bulk_jobs (
+                    operation VARCHAR,
+                    created_by VARCHAR,
+                    created_time VARCHAR,
+                    state VARCHAR,
+                    id VARCHAR,
+                    module VARCHAR,
+                    page INTEGER,
+                    result VARCHAR DEFAULT NULL
+                );
+            """,
+            SqlArgs(identifiers={"schema_name": schema}),
+        )
     )
-    create_schema.act()
-    create_table.act()
     db_client.connection.commit()
 
 

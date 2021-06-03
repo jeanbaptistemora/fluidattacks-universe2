@@ -8,9 +8,12 @@ from postgres_client.connection import (
     Credentials as DbCredentials,
     DatabaseID,
 )
-from postgres_client.cursor import (
-    CursorExeAction,
-    DynamicSQLargs,
+from postgres_client.query import (
+    Query,
+    SqlArgs,
+)
+from returns.unsafe import (
+    unsafe_perform_io,
 )
 from streamer_zoho_crm.api.bulk import (
     BulkJob,
@@ -36,13 +39,11 @@ class Client(NamedTuple):
 
 
 def get_bulk_jobs(db_client: DbClient, db_schema: str) -> FrozenSet[BulkJob]:
+    # TODO: must return an impure IO type
     statement = "SELECT * FROM {schema_name}.bulk_jobs"
-    exe_action = db_client.cursor.execute(
-        statement, DynamicSQLargs(identifiers={"schema_name": db_schema})
-    )
-    exe_action.act()
-    fetch_action = db_client.cursor.fetchall()
-    results = fetch_action.act()
+    query = Query(statement, SqlArgs(identifiers={"schema_name": db_schema}))
+    db_client.cursor.execute_query(query)
+    results = unsafe_perform_io(db_client.cursor.fetch_all())
 
     def tuple_to_bulkjob(element: Tuple[Any, ...]) -> BulkJob:
         return BulkJob(
@@ -73,13 +74,11 @@ def save_bulk_job(db_client: DbClient, job: BulkJob, db_schema: str) -> None:
     """
     job_dict = dict(job._asdict())
     job_dict["module"] = job_dict["module"].value
-    exe_action = db_client.cursor.execute(
+    query = Query(
         statement,
-        DynamicSQLargs(
-            values=job_dict, identifiers={"schema_name": db_schema}
-        ),
+        SqlArgs(values=job_dict, identifiers={"schema_name": db_schema}),
     )
-    exe_action.act()
+    db_client.cursor.execute_query(query)
 
 
 def update_bulk_job(db_client: DbClient, job: BulkJob, db_schema: str) -> None:
@@ -89,13 +88,11 @@ def update_bulk_job(db_client: DbClient, job: BulkJob, db_schema: str) -> None:
         WHERE id = %(id)s
     """
     job_dict = dict(job._asdict())
-    exe_action = db_client.cursor.execute(
+    query = Query(
         statement,
-        DynamicSQLargs(
-            values=job_dict, identifiers={"schema_name": db_schema}
-        ),
+        SqlArgs(values=job_dict, identifiers={"schema_name": db_schema}),
     )
-    exe_action.act()
+    db_client.cursor.execute_query(query)
 
 
 def init_db(db_id: DatabaseID, db_creds: DbCredentials) -> None:
@@ -115,15 +112,11 @@ def init_db(db_id: DatabaseID, db_creds: DbCredentials) -> None:
             result VARCHAR DEFAULT NULL
         );
     """
-    actions: List[CursorExeAction] = list(
-        map(
-            lambda query: db_client.cursor.execute(query, None),
-            [create_schema, create_table],
-        )
-    )
+    queries: List[Query] = [
+        Query(query) for query in [create_schema, create_table]
+    ]
     try:
-        for action in actions:
-            action.act()
+        db_client.cursor.execute_queries(queries)
     finally:
         db_client.close()
 
