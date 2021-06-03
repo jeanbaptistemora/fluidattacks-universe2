@@ -1795,7 +1795,8 @@
           },
           "TableData": [],
           "NonKeyAttributes": [
-            "name"
+            "name",
+            "tags"
           ],
           "DataAccess": {
             "MySql": {}

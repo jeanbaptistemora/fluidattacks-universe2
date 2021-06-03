@@ -1,5 +1,6 @@
 from typing import (
     NamedTuple,
+    Set,
 )
 
 
@@ -8,3 +9,4 @@ class OrgFindingPolicy(NamedTuple):
     last_status_update: str
     name: str
     status: str
+    tags: Set[str]

@@ -4,6 +4,7 @@ from typing import (
     List,
     NamedTuple,
     Optional,
+    Set,
     Tuple,
     Union,
 )
@@ -174,6 +175,7 @@ class VulnerabilityItem(NamedTuple):
 
 class OrgFindingPolicyMetadata(NamedTuple):
     name: str
+    tags: Set[str]
 
 
 class OrgFindingPolicyState(NamedTuple):

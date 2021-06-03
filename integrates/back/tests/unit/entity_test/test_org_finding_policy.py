@@ -91,6 +91,7 @@ async def test_handle_org_finding_policy_acceptation() -> None:
         query GetFindingVulnInfo($findingId: String!) {
             finding(identifier: $findingId) {
                 vulnerabilities(state: "open") {
+                    tag
                     historicTreatment {
                         user
                         treatment
@@ -104,12 +105,19 @@ async def test_handle_org_finding_policy_acceptation() -> None:
     assert "errors" not in result
     vulns = result["data"]["finding"]["vulnerabilities"]
     assert vulns[0]["historicTreatment"][-1]["treatment"] == "NEW"
+    assert vulns[0]["tag"] == ""
 
+    tags = ["password", "session"]
     add_mutation = """
-        mutation AddOrgFindingPolicy($findingName: String! $orgName: String!) {
+        mutation AddOrgFindingPolicy(
+            $findingName: String!
+            $orgName: String!
+            $tags: [String]
+        ) {
             addOrgFindingPolicy(
                 findingName: $findingName
                 organizationName: $orgName
+                tags: $tags
             ) {
                 success
             }
@@ -117,7 +125,11 @@ async def test_handle_org_finding_policy_acceptation() -> None:
     """
     data = {
         "query": add_mutation,
-        "variables": {"orgName": org_name, "findingName": finding_name},
+        "variables": {
+            "orgName": org_name,
+            "findingName": finding_name,
+            "tags": tags,
+        },
     }
     result = await _get_result_async(data, "integratescustomer@gmail.com")
     assert "errors" not in result
@@ -186,6 +198,7 @@ async def test_handle_org_finding_policy_acceptation() -> None:
         vulns[0]["historicTreatment"][-1]["treatment"] == "ACCEPTED_UNDEFINED"
     )
     assert vulns[0]["historicTreatment"][-1]["user"] == approver_user
+    assert vulns[0]["tag"] == ", ".join(tags)
 
 
 @pytest.mark.changes_db
@@ -197,6 +210,7 @@ async def test_deactivate_org_finding_policy() -> None:
         query GetFindingVulnInfo($findingId: String!) {
             finding(identifier: $findingId) {
                 vulnerabilities(state: "open") {
+                    tag
                     historicTreatment {
                         user
                         treatment
@@ -210,6 +224,7 @@ async def test_deactivate_org_finding_policy() -> None:
     assert "errors" not in result
     vulns = result["data"]["finding"]["vulnerabilities"]
     assert vulns[0]["historicTreatment"][-1]["treatment"] == "NEW"
+    assert vulns[0]["tag"] == ""
 
     add_mutation = """
         mutation AddOrgFindingPolicy($findingName: String! $orgName: String!) {
@@ -291,6 +306,7 @@ async def test_deactivate_org_finding_policy() -> None:
         vulns[0]["historicTreatment"][-1]["treatment"] == "ACCEPTED_UNDEFINED"
     )
     assert vulns[0]["historicTreatment"][-1]["user"] == approver_user
+    assert vulns[0]["tag"] == ""
 
     deactivate_mutation = """
         mutation DeactivateOrgFindingPolicy(
@@ -344,6 +360,7 @@ async def test_deactivate_org_finding_policy() -> None:
     vulns = result["data"]["finding"]["vulnerabilities"]
     assert vulns[0]["historicTreatment"][-1]["treatment"] == "NEW"
     assert vulns[0]["historicTreatment"][-1]["user"] == approver_user
+    assert vulns[0]["tag"] == ""
 
 
 @pytest.mark.changes_db

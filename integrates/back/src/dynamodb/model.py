@@ -711,7 +711,9 @@ def _build_org_policy_finding(
     return OrgFindingPolicyItem(
         id=metadata[key_structure.sort_key].split("#")[1],
         org_name=org_name,
-        metadata=OrgFindingPolicyMetadata(name=metadata["name"]),
+        metadata=OrgFindingPolicyMetadata(
+            name=metadata["name"], tags=metadata.get("tags", {})
+        ),
         state=OrgFindingPolicyState(
             modified_by=state["modified_by"],
             modified_date=state["modified_date"],

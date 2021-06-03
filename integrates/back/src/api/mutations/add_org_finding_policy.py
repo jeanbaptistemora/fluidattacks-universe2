@@ -21,6 +21,8 @@ from organizations_finding_policies import (
 )
 from typing import (
     Dict,
+    List,
+    Optional,
 )
 
 
@@ -34,6 +36,7 @@ async def mutate(
     info: GraphQLResolveInfo,
     finding_name: str,
     organization_name: str,
+    tags: Optional[List[str]] = None,
 ) -> SimplePayload:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
@@ -41,6 +44,7 @@ async def mutate(
     await policies_domain.add_finding_policy(
         finding_name=finding_name.strip(),
         org_name=organization_name,
+        tags=set(tags) if tags else {},
         user_email=user_email,
     )
     logs_utils.cloudwatch_log(

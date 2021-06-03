@@ -15,7 +15,7 @@ from organizations import (
 )
 from organizations_finding_policies.domain import (
     get_finding_policy,
-    update_treatment_in_org_groups,
+    update_finding_policy_in_groups,
 )
 from settings import (
     LOGGING,
@@ -74,12 +74,13 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
     ):
         loader = get_new_context()
         finding_name: str = finding_policy.metadata.name.split(".")[0].lower()
-        await update_treatment_in_org_groups(
+        await update_finding_policy_in_groups(
             finding_name=finding_name,
             loaders=loader,
             groups=groups,
             status=finding_policy.state.status,
             user_email=item.subject,
+            tags=finding_policy.metadata.tags,
         )
 
     await delete_action(

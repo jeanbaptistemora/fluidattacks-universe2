@@ -75,6 +75,8 @@ type Mutation {
     findingName: String!
     "Name of the organization the finding policy is associated with"
     organizationName: String!
+    "Tags associated with the organization the finding policy"
+    tags: [String]
   ): SimplePayload!
 
   addProjectConsult(

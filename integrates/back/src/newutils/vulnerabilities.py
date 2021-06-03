@@ -511,7 +511,7 @@ def get_treatment_from_org_finding_policy(
     return [
         {
             "treatment": "ACCEPTED_UNDEFINED",
-            "justification": "From org policies",
+            "justification": "From organization findings policy",
             "user": user_email,
             "date": current_day,
             "treatment_manager": user_email,
@@ -519,7 +519,7 @@ def get_treatment_from_org_finding_policy(
         },
         {
             "treatment": "ACCEPTED_UNDEFINED",
-            "justification": "From org policies",
+            "justification": "From organization findings policy",
             "user": user_email,
             "date": current_day,
             "treatment_manager": user_email,

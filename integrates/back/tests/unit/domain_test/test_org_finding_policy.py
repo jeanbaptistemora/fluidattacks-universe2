@@ -27,7 +27,8 @@ async def test_get_by_group() -> None:
         id="8b35ae2a-56a1-4f64-9da7-6a552683bf46",
         org_name="okada",
         metadata=OrgFindingPolicyMetadata(
-            name="F007. Cross site request forgery"
+            name="F007. Cross site request forgery",
+            tags={},
         ),
         state=OrgFindingPolicyState(
             modified_date="2021-04-26T13:37:10+00:00",
@@ -53,7 +54,8 @@ async def test_get_finding_policies() -> None:
             id="8b35ae2a-56a1-4f64-9da7-6a552683bf46",
             org_name="okada",
             metadata=OrgFindingPolicyMetadata(
-                name="F007. Cross site request forgery"
+                name="F007. Cross site request forgery",
+                tags={},
             ),
             state=OrgFindingPolicyState(
                 modified_date="2021-04-26T13:37:10+00:00",

@@ -30,6 +30,7 @@ from itertools import (
 from newutils import (
     datetime as datetime_utils,
     findings as findings_utils,
+    validations,
     vulnerabilities as vulns_utils,
 )
 from redis_cluster.operations import (
@@ -40,6 +41,7 @@ from typing import (
     Dict,
     List,
     Optional,
+    Set,
     Tuple,
 )
 from uuid import (
@@ -90,6 +92,7 @@ async def add_finding_policy(
     *,
     finding_name: str,
     org_name: str,
+    tags: Set[str],
     user_email: str,
 ) -> None:
     validate_finding_name(finding_name)
@@ -100,10 +103,11 @@ async def add_finding_policy(
     if finding_policy:
         raise RepeatedFindingNamePolicy()
 
+    validations.validate_fields(tags)
     new_finding_policy = OrgFindingPolicyItem(
         org_name=org_name,
         id=str(uuid4()),
-        metadata=OrgFindingPolicyMetadata(name=finding_name),
+        metadata=OrgFindingPolicyMetadata(name=finding_name, tags=tags),
         state=OrgFindingPolicyState(
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
@@ -186,13 +190,14 @@ async def deactivate_finding_policy(
     )
 
 
-async def update_treatment_in_org_groups(
+async def update_finding_policy_in_groups(
     *,
     finding_name: str,
     loaders: Any,
     groups: List[str],
     status: str,
     user_email: str,
+    tags: Set[str],
 ) -> None:
     group_drafts = await loaders.group_drafts.load_many(groups)
     group_findings = await loaders.group_findings.load_many(groups)
@@ -214,6 +219,7 @@ async def update_treatment_in_org_groups(
         vulns=vulns,
         status=status,
         user_email=user_email,
+        tags=tags,
     )
 
 
@@ -222,29 +228,47 @@ async def _apply_finding_policy(
     vulns: List[Dict[str, Finding]],
     status: str,
     user_email: str,
+    tags: Set[str],
 ) -> None:
     current_day: str = datetime_utils.get_now_as_str()
+    if status not in {"APPROVED", "INACTIVE"}:
+        return
     if status == "APPROVED":
-        return await _add_accepted_treatment(
+        await collect(
+            (
+                _add_accepted_treatment(
+                    current_day=current_day,
+                    vulns=vulns,
+                    user_email=user_email,
+                ),
+                _add_tags_to_vulnerabilities(
+                    vulns=vulns,
+                    tags=tags,
+                ),
+            )
+        )
+
+    if status == "INACTIVE":
+        await _add_new_treatment(
             current_day=current_day,
-            findings_ids=findings_ids,
             vulns=vulns,
             user_email=user_email,
         )
 
-    if status == "INACTIVE":
-        return await _add_new_treatment(
-            current_day=current_day,
-            findings_ids=findings_ids,
-            vulns=vulns,
-            user_email=user_email,
-        )
+    await collect(
+        [
+            redis_del_by_deps(
+                "update_treatment_vulnerability", finding_id=finding_id
+            )
+            for finding_id in findings_ids
+        ],
+        workers=20,
+    )
 
 
 async def _add_accepted_treatment(
     *,
     current_day: str,
-    findings_ids: List[str],
     vulns: List[Dict[str, Finding]],
     user_email: str,
 ) -> None:
@@ -258,16 +282,37 @@ async def _add_accepted_treatment(
         current_day=current_day, user_email=user_email
     )
     await _update_treatment_in_org_groups(
-        findings_ids=findings_ids,
         new_treatments=new_treatments,
         vulns_to_update=vulns_to_update,
+    )
+
+
+async def _add_tags_to_vulnerabilities(
+    *, vulns: List[Dict[str, Finding]], tags: Set[str]
+) -> None:
+    if not tags:
+        return
+
+    new_tags = [
+        {*{tag.strip() for tag in vuln["tag"].split(", ")}, *tags}
+        for vuln in vulns
+    ]
+    await collect(
+        [
+            vulns_dal.update(
+                vuln["finding_id"],
+                vuln["UUID"],
+                {"tag": set(filter(None, new_tag))},
+            )
+            for vuln, new_tag in zip(vulns, new_tags)
+        ],
+        workers=20,
     )
 
 
 async def _add_new_treatment(
     *,
     current_day: str,
-    findings_ids: List[str],
     vulns: List[Dict[str, Finding]],
     user_email: str,
 ) -> None:
@@ -284,7 +329,6 @@ async def _add_new_treatment(
         }
     ]
     await _update_treatment_in_org_groups(
-        findings_ids=findings_ids,
         new_treatments=new_treatments,
         vulns_to_update=vulns_to_update,
     )
@@ -292,7 +336,6 @@ async def _add_new_treatment(
 
 async def _update_treatment_in_org_groups(
     *,
-    findings_ids: List[str],
     new_treatments: List[Dict[str, str]],
     vulns_to_update: List[Dict[str, Finding]],
 ) -> None:
@@ -311,16 +354,8 @@ async def _update_treatment_in_org_groups(
             for vuln, historic_treatment in zip(
                 vulns_to_update, historics_treatments
             )
-        ]
-    )
-
-    await collect(
-        [
-            redis_del_by_deps(
-                "update_treatment_vulnerability", finding_id=finding_id
-            )
-            for finding_id in findings_ids
-        ]
+        ],
+        workers=20,
     )
 
 
@@ -332,6 +367,7 @@ async def get_org_policies(*, org_name: str) -> Tuple[OrgFindingPolicy, ...]:
             last_status_update=policy.state.modified_date,
             name=policy.metadata.name,
             status=policy.state.status,
+            tags=policy.metadata.tags,
         )
         for policy in finding_policies
     )
