@@ -32,7 +32,7 @@ over other alternatives are:
 
 1. It is [Open source](https://opensource.com/resources/what-open-source).
 1. [Built-in support for Gitlab](https://docs.gitlab.com/runner/register/index.html):
-As [Gitlab](gitlab)
+As [Gitlab](/development/stack/gitlab)
 is the platform we use
 for our [product repository](https://gitlab.com/fluidattacks/product),
 it represents an advantage for us
@@ -120,7 +120,8 @@ It required licensing
 for private repositories
 at the time it was reviewed.
 1. [CircleCI](https://circleci.com/):
-It did not support [Gitlab](gitlab),
+It did not support
+[Gitlab](/development/stack/gitlab),
 it was very expensive,
 it was not as parametrizable.
 1. [Buildkite](https://buildkite.com/):
@@ -187,4 +188,5 @@ by modifying its
 [Terraform module](https://gitlab.com/fluidattacks/product/-/tree/47d00a5ace02160becc82de533710f1155080b6d/makes/applications/makes/ci/src/terraform).
 1. To learn how to test and apply infrastructure
 via [Terraform](https://www.terraform.io/),
-visit the [Terraform Guidelines](terraform#guidelines).
+visit the
+[Terraform Guidelines](/development/stack/terraform#guidelines).

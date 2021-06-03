@@ -134,7 +134,7 @@ or
 first you must assume an [IAM](https://aws.amazon.com/iam/) role
 with access to the [KMS](https://aws.amazon.com/kms/) key
 that encrypted it.
-You can follow [this guide](../get-dev-keys)
+You can follow [this guide](/development/get-dev-keys)
 to do so.
 1. Once authenticated with a role,
 you can decrypt a file with `sops <file>`.

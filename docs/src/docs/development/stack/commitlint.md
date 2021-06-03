@@ -55,17 +55,17 @@ among many others.
 2. It allows us to
 [declare a syntax](https://commitlint.js.org/#/reference-configuration?id=parser-presets)
 based on
-[our own needs](git/commits#syntax).
+[our own needs](/development/stack/git/commits#syntax).
 1. It supports many
 [rules](https://commitlint.js.org/#/reference-rules)
 that can be tuned
 based on
-[our own needs](git/commits#rules).
+[our own needs](/development/stack/git/commits#rules).
 
 
 ## Alternatives
 
-1. [commit-msg-linter](https://github.com/legend80s/commit-msg-linter#readme):
+1. [git-commit-msg-linter](https://github.com/legend80s/commit-msg-linter#readme):
 It has a
 [much smaller ruleset](https://github.com/legend80s/commit-msg-linter#commitlinterrcjson).
 It is not

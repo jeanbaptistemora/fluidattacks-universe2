@@ -17,7 +17,7 @@ It allows us to give
 access to applications
 without disclosing credentials
 and maintaining a
-[least privilege](../../criteria/requirements/186)
+[least privilege](/criteria/requirements/186)
 approach.
 
 The main reasons why we chose
@@ -101,7 +101,7 @@ on external infrastructure like
 enforcement.
 2. It can be
 [managed](https://registry.terraform.io/providers/okta/okta/latest)
-using [Terraform](terraform).
+using [Terraform](/development/stack/terraform).
 
 ## Alternatives
 
@@ -142,4 +142,5 @@ infrastructure must be done via
 modifying its
 [Terraform module](https://gitlab.com/fluidattacks/product/-/blob/6e16ae7ed5a28d5f56601357a299eea18b20e283/makes/applications/makes/okta/src/terraform).
 1. To learn how to test and apply infrastructure via [Terraform](https://www.terraform.io/),
-visit the [Terraform Guidelines](terraform#guidelines).
+visit the
+[Terraform Guidelines](/development/stack/terraform#guidelines).

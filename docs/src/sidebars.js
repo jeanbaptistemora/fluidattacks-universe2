@@ -895,6 +895,13 @@ module.exports = {
       label: 'Stack',
       items: [
         'development/stack/introduction',
+        {
+          type: 'category',
+          label: 'AWS',
+          items: [
+            'development/stack/aws/introduction',
+          ]
+        },
         'development/stack/cloudflare',
         'development/stack/commitlint',
         {

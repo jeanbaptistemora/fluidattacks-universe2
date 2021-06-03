@@ -80,7 +80,7 @@ We do not use [Terraform](https://www.terraform.io/) in:
 
 1. [AWS Redshift](https://aws.amazon.com/redshift/):
 Pending to implement.
-1. [Gitlab](gitlab):
+1. [Gitlab](/development/stack/gitlab):
 Pending to implement.
 1. [Gitlab Runner Bastion](https://docs.gitlab.com/runner/configuration/autoscale.html):
 Pending to implement.

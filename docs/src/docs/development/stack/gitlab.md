@@ -14,7 +14,7 @@ It provides essential services like
 [Git repositories](https://blog.axosoft.com/learning-git-repository/),
 [Merge requests](https://docs.gitlab.com/ee/user/project/merge_requests/index.html),
 [Development planning](https://docs.gitlab.com/ee/topics/plan_and_track.html),
-[CI/CD](gitlab-ci),
+[CI/CD](/development/stack/gitlab-ci),
 among many others.
 
 The main reasons why we chose
@@ -32,7 +32,8 @@ vision of
 [software development](https://en.wikipedia.org/wiki/Software_development)
 and current
 [development cycle](https://about.gitlab.com/stages-devops-lifecycle/).
-1. It has its own [Continuous Integrator](gitlab-ci)
+1. It has its own
+[Continuous Integrator](/development/stack/gitlab-ci)
 with built-in support,
 which is essetial to our
 [development cycle](https://about.gitlab.com/stages-devops-lifecycle/).
@@ -168,11 +169,13 @@ It is not [Open Source](https://opensource.com/resources/what-open-source).
 2. [BitBucket](https://bitbucket.org/product/):
 It is not a [DevOps](https://aws.amazon.com/devops/what-is-devops/)
 solution but a source code respository.
-It did not integrate with a [CI/CD](gitlab-ci) solution.
+It did not integrate with a
+[CI/CD](/development/stack/gitlab-ci) solution.
 1. [GitHub](https://github.com/about):
 It is not a [DevOps](https://aws.amazon.com/devops/what-is-devops/)
 solution but a source code respository.
-It did not integrate with a [CI/CD](gitlab-ci) solution.
+It did not integrate with a
+[CI/CD](/development/stack/gitlab-ci) solution.
 
 ## Usage
 

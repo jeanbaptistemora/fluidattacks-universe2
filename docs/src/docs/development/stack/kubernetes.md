@@ -38,7 +38,7 @@ more on the application development
 and less on the infrastrucutre supporting it.
 1. It can be
 [fully managed](https://gitlab.com/fluidattacks/product/-/blob/ba230133febd3325d0f5c995f638a176b89d32a2/makes/applications/makes/k8s/src/terraform/cluster.tf)
-using [Terraform](terraform).
+using [Terraform](/development/stack/terraform).
 1. It supports
 [Blue-Green deployments](https://www.redhat.com/en/topics/devops/what-is-blue-green-deployment),
 allowing us to deploy applications
@@ -60,7 +60,7 @@ and [IRSA](https://aws.amazon.com/blogs/opensource/introducing-fine-grained-iam-
 allowing to give applications
 permissions to external resources
 using a
-[least privilege](../../criteria/requirements/186)
+[least privilege](/criteria/requirements/186)
 approach.
 1. It supports
 [resource quotas](https://kubernetes.io/docs/concepts/policy/resource-quotas/),
@@ -149,7 +149,7 @@ our
 [ASM](https://fluidattacks.com/categories/asm/).
 1. [Automatically](https://gitlab.com/fluidattacks/product/-/blob/ba230133febd3325d0f5c995f638a176b89d32a2/makes/applications/integrates/back/deploy/dev/entrypoint.sh)
 deploying
-[ephemeral environments](../../about/security/integrity/developing-integrity#ephemeral-environments)
+[ephemeral environments](/about/security/integrity/developing-integrity#ephemeral-environments)
 on
 [CI/CD](https://docs.gitlab.com/ee/ci/introduction/)
 workflows.

@@ -26,7 +26,7 @@ over other alternatives are:
 as all its components are seamlessly connected.
 1. It can be
 [fully managed](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs)
-using [Terraform](terraform).
+using [Terraform](/development/stack/terraform).
 1. It provides highly detailed analytics regarding site traffic
 in terms of both performance and security.
 1. It has the
@@ -101,8 +101,7 @@ It needs to be connected to a load balancer serving
 an application, it does not work for
 [static sites](https://en.wikipedia.org/wiki/Static_web_page).
 It is not as flexible as
-[Cloudflare's Web Application Firewall](https://www.cloudflare.com/lp/ppc/waf-x/)
-.
+[Cloudflare's Web Application Firewall](https://www.cloudflare.com/lp/ppc/waf-x/).
 
 ## Usage
 
@@ -134,4 +133,5 @@ infrastructure must be done via
 modifying its
 [Terraform module](https://gitlab.com/fluidattacks/product/-/tree/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform).
 1. To learn how to test and apply infrastructure via [Terraform](https://www.terraform.io/),
-visit the [Terraform Guidelines](terraform#guidelines).
+visit the
+[Terraform Guidelines](/development/stack/terraform#guidelines).
