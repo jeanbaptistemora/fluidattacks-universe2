@@ -28,6 +28,7 @@ from training.training_script.utils import (
     get_model_performance_metrics,
     get_previous_training_results,
     load_training_data,
+    set_sagemaker_extra_envs,
     split_training_data,
     update_results_csv,
 )
@@ -150,6 +151,9 @@ def cli() -> argparse.Namespace:
     parser.add_argument("--loss", type=str, default="")
     parser.add_argument("--n_estimators", type=int, default=100)
 
+    # Extra args that SageMaker excution may need (fex. ENVS)
+    parser.add_argument("--envs", type=str, default="")
+
     return parser.parse_args()
 
 
@@ -158,6 +162,10 @@ def main() -> None:
 
     model_name: str = args.model.split("-")[0]
     model_features: Tuple[str, ...] = get_model_features()
+
+    # Set necessary env vars that SageMaker environment needs
+    set_sagemaker_extra_envs(args.envs)
+
     hyperparameters_to_tune = get_model_hyperparameters(model_name, vars(args))
     model_class: ModelType = MODELS[model_name]
     model: ModelType = model_class(**hyperparameters_to_tune)
