@@ -45,6 +45,7 @@ from .draft import (
     submit_draft,
 )
 from .draft_new import (
+    approve_draft_new,
     create_draft_new,
     reject_draft_new,
     submit_draft_new,
@@ -97,6 +98,7 @@ __all__ = [
     "validate_finding",
     "verify_vulnerabilities",
     # drafts new
+    "approve_draft_new",
     "create_draft_new",
     "reject_draft_new",
     "submit_draft_new",

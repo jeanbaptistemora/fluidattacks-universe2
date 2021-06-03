@@ -72,14 +72,14 @@ async def mutate(
         )
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Submitted draft {finding_id} in group {group_name} "
+            f"Security: Submitted draft {finding_id} in {group_name} group "
             "successfully",
         )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Attempted to submit draft {finding_id} in group "
-            f"{group_name}",
+            f"Security: Attempted to submit draft {finding_id} in "
+            f"{group_name} group",
         )
         raise
     return SimplePayload(success=True)

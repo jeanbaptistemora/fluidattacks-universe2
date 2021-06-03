@@ -32,7 +32,6 @@ from newutils import (
     datetime as datetime_utils,
     findings as findings_utils,
     requests as requests_utils,
-    token as token_utils,
     vulnerabilities as vulns_utils,
 )
 import random
@@ -93,7 +92,7 @@ async def approve_draft_new(
 
 
 async def create_draft_new(
-    context: Any, group_name: str, title: str, **kwargs: Any
+    context: Any, group_name: str, title: str, user_email: str, **kwargs: Any
 ) -> None:
     if not findings_utils.is_valid_finding_title(title):
         raise InvalidDraftTitle()
@@ -101,9 +100,6 @@ async def create_draft_new(
     group_name = group_name.lower()
     last_fs_id = 550000000
     finding_id = str(random.randint(last_fs_id, 1000000000))
-    user_info = await token_utils.get_jwt_content(context)
-    user_email = user_info["user_email"]
-    source = requests_utils.get_source(context)
     draft = Finding(
         affected_systems=kwargs.get("affected_systems", ""),
         analyst_email=user_email,
@@ -115,7 +111,7 @@ async def create_draft_new(
         state=FindingState(
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
-            source=source,
+            source=requests_utils.get_source(context),
             status=FindingStateStatus.CREATED,
         ),
         risk=kwargs.get("risk", ""),

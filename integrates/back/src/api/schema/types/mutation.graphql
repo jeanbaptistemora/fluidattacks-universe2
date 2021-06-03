@@ -102,7 +102,7 @@ type Mutation {
     groupName: String!
   ): SimplePayload!
 
-  approveDraft(draftId: String!): ApproveDraftPayload!
+  approveDraft(draftId: String! groupName: String): ApproveDraftPayload!
 
   confirmZeroRiskVuln(
     findingId: String!

@@ -18,6 +18,7 @@ from api.mutations import (
     add_stakeholder,
     add_url_root,
     approve_draft,
+    approve_draft_new,
     confirm_zero_risk_vuln,
     create_draft,
     create_draft_new,
@@ -95,7 +96,6 @@ MUTATION.set_field("addIpRoot", add_ip_root.mutate)
 MUTATION.set_field("addOrgFindingPolicy", add_org_finding_policy.mutate)
 MUTATION.set_field("addUrlRoot", add_url_root.mutate)
 MUTATION.set_field("addStakeholder", add_stakeholder.mutate)
-MUTATION.set_field("approveDraft", approve_draft.mutate)
 MUTATION.set_field("confirmZeroRiskVuln", confirm_zero_risk_vuln.mutate)
 MUTATION.set_field("createEvent", create_event.mutate)
 MUTATION.set_field("createOrganization", create_organization.mutate)
@@ -195,10 +195,12 @@ MUTATION.set_field("updateToeLinesSorts", update_toe_lines_sorts.mutate)
 MUTATION.set_field("createGroup", create_group.mutate)
 
 if FI_API_STATUS == "migration":
+    MUTATION.set_field("approveDraft", approve_draft_new.mutate)
     MUTATION.set_field("createDraft", create_draft_new.mutate)
     MUTATION.set_field("rejectDraft", reject_draft_new.mutate)
     MUTATION.set_field("submitDraft", submit_draft_new.mutate)
 else:
+    MUTATION.set_field("approveDraft", approve_draft.mutate)
     MUTATION.set_field("createDraft", create_draft.mutate)
     MUTATION.set_field("rejectDraft", reject_draft.mutate)
     MUTATION.set_field("submitDraft", submit_draft.mutate)
