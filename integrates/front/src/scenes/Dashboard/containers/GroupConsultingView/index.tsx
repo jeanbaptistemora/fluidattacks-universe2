@@ -14,7 +14,7 @@ import type {
 } from "scenes/Dashboard/components/Comments/types";
 import {
   ADD_PROJECT_CONSULT,
-  GET_PROJECT_CONSULTING,
+  GET_GROUP_CONSULTING,
 } from "scenes/Dashboard/containers/GroupConsultingView/queries";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
@@ -23,7 +23,7 @@ import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 interface IGroupConsultingData {
-  project: {
+  group: {
     consulting: ICommentStructure[];
   };
 }
@@ -55,7 +55,7 @@ const GroupConsultingView: React.FC = (): JSX.Element => {
   };
 
   const { data, loading } = useQuery<IGroupConsultingData>(
-    GET_PROJECT_CONSULTING,
+    GET_GROUP_CONSULTING,
     {
       fetchPolicy: "network-only",
       onError: handleErrors,
@@ -67,7 +67,7 @@ const GroupConsultingView: React.FC = (): JSX.Element => {
     (callbackFn: (cData: ICommentStructure[]) => void): void => {
       if (!_.isUndefined(data)) {
         callbackFn(
-          data.project.consulting.map(
+          data.group.consulting.map(
             (consult: ICommentStructure): ICommentStructure => ({
               ...consult,
               // eslint-disable-next-line camelcase -- It is possibly required for the API

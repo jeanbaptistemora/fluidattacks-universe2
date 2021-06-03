@@ -29,7 +29,7 @@ describe("EventsView", (): void => {
       },
       result: {
         data: {
-          project: {
+          group: {
             events: [
               {
                 closingDate: "-",

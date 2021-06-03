@@ -1,9 +1,9 @@
 import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
-const GET_PROJECT_CONSULTING: DocumentNode = gql`
+const GET_GROUP_CONSULTING: DocumentNode = gql`
   query GetProjectConsulting($projectName: String!) {
-    project(projectName: $projectName) {
+    group(projectName: $projectName) {
       consulting {
         id
         content
@@ -35,4 +35,4 @@ const ADD_PROJECT_CONSULT: DocumentNode = gql`
   }
 `;
 
-export { ADD_PROJECT_CONSULT, GET_PROJECT_CONSULTING };
+export { ADD_PROJECT_CONSULT, GET_GROUP_CONSULTING };

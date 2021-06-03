@@ -97,7 +97,7 @@ describe("Update Description component", (): void => {
             zeroRisk: "",
           },
         },
-        project: {
+        group: {
           name: "",
           subscription: "",
         },

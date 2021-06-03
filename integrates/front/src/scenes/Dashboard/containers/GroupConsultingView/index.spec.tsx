@@ -9,18 +9,18 @@ import wait from "waait";
 
 import { Comments } from "scenes/Dashboard/components/Comments";
 import { GroupConsultingView } from "scenes/Dashboard/containers/GroupConsultingView";
-import { GET_PROJECT_CONSULTING } from "scenes/Dashboard/containers/GroupConsultingView/queries";
+import { GET_GROUP_CONSULTING } from "scenes/Dashboard/containers/GroupConsultingView/queries";
 
 describe("GroupConsultingView", (): void => {
   const mocks: readonly MockedResponse[] = [
     {
       request: {
-        query: GET_PROJECT_CONSULTING,
+        query: GET_GROUP_CONSULTING,
         variables: { projectName: "unittesting" },
       },
       result: {
         data: {
-          project: {
+          group: {
             consulting: [
               {
                 content: "Hello world",
@@ -77,12 +77,12 @@ describe("GroupConsultingView", (): void => {
     const emptyMocks: readonly MockedResponse[] = [
       {
         request: {
-          query: GET_PROJECT_CONSULTING,
+          query: GET_GROUP_CONSULTING,
           variables: { projectName: "unittesting" },
         },
         result: {
           data: {
-            project: {
+            group: {
               consulting: [],
               name: "unittesting",
             },

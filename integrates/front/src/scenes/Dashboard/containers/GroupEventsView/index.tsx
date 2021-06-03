@@ -80,7 +80,7 @@ interface IFormValues {
 }
 
 interface IEventsDataset {
-  project: {
+  group: {
     events: {
       closingDate: string;
       detail: string;
@@ -218,7 +218,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     if (!_.isUndefined(rData)) {
       const eventOptions: string[] = Array.from(
         new Set(
-          rData.project.events.map(
+          rData.group.events.map(
             (event: { eventType: string }): string => event.eventType
           )
         )
@@ -817,7 +817,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       <p>{translate.t("searchFindings.tabEvents.tableAdvice")}</p>
       <DataTableNext
         bordered={true}
-        dataset={formatEvents(data.project.events)}
+        dataset={formatEvents(data.group.events)}
         defaultSorted={JSON.parse(_.get(sessionStorage, "eventSort", "{}"))}
         exportCsv={true}
         headers={tableHeaders}
