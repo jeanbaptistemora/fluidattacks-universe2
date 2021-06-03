@@ -10,7 +10,7 @@ slug: /about/sla/response
 **90%** of reattacks,
 comments and incidents
 will have a median first response time
-of less than **12** office hours.
+of less than **16** office hours.
 
 ### Criteria
 
@@ -43,9 +43,9 @@ the following:
 1. Percentages are determined
   using percentiles,
 1. Office hours correspond to
-  eight-hour bussiness days,
+  twelve-hour bussiness days,
   like this:
-  8AM-12M and 1PM-5PM,
+  7AM-7PM (GMT-5),
 1. The reattacks to be considered
   will be those that had
   its vulnerability closed.

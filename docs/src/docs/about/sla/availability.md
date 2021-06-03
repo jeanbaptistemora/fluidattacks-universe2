@@ -19,10 +19,10 @@ this SLA is measured
 taking into account
 the following:
 
-1. Office hours correspond
-  to eight-hour bussiness days,
-  like this:
-  8AM-12M and 1PM-5PM.
+1. The reference schedule
+  for the availability
+  is 24 hours a day,
+  7 days a week.
 1. For partial availability failures
   (only for one functionality),
   the measurement will be based on
