@@ -41,7 +41,6 @@ GenericType = Callable[
 def get_next_id(stack: Stack) -> Optional[str]:
     # Stack[-2] is the parent level
     next_id: Optional[str] = stack[-2].get("next_id")
-
     return next_id
 
 
@@ -73,7 +72,7 @@ def step_by_step(
         node
         for node in g.adj_ast(graph, n_id)
         # skip unnecessary node
-        if graph.nodes[node].get("label_type") != ";"
+        if graph.nodes[node].get("label_type") not in [";", "\n"]
     )
 
     # Skip { }

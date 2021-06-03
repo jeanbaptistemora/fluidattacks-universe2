@@ -5,6 +5,9 @@ from model.graph_model import (
 from sast_transformations.control_flow.c_sharp import (
     add as c_sharp_add,
 )
+from sast_transformations.control_flow.go import (
+    add as go_add,
+)
 from sast_transformations.control_flow.java import (
     add as java_add,
 )
@@ -18,3 +21,5 @@ def add(
         java_add(graph)
     elif language == GraphShardMetadataLanguage.CSHARP:
         c_sharp_add(graph)
+    elif language == GraphShardMetadataLanguage.GO:
+        go_add(graph)
