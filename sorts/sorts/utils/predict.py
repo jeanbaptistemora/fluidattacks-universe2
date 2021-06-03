@@ -18,7 +18,6 @@ from sorts.utils.logs import (
 )
 from sorts.utils.static import (
     load_model,
-    load_support_vector_machine,
 )
 from typing import (
     List,
@@ -71,18 +70,12 @@ def display_results(csv_name: str) -> None:
 
 
 def predict_vuln_prob(
-    predict_df: DataFrame, features: List[str], csv_name: str, scope: str
+    predict_df: DataFrame, features: List[str], csv_name: str
 ) -> None:
     """Uses model to make predictions on the input and save them to CSV"""
-    if scope == "file":
-        model: ModelType = load_model()
-        input_data = predict_df[model.feature_names + features]
-        probability_prediction: ndarray = model.predict_proba(input_data)
-    elif scope == "commit":
-        input_data = predict_df[features]
-        model = load_support_vector_machine()
-        # pylint: disable=protected-access
-        probability_prediction = model._predict_proba_lr(input_data)
+    model: ModelType = load_model()
+    input_data = predict_df[model.feature_names + features]
+    probability_prediction: ndarray = model.predict_proba(input_data)
 
     log(
         "info",

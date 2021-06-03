@@ -103,7 +103,6 @@ def update_integrates_toes(group_name: str, csv_name: str) -> None:
 
 def prioritize(subscription_path: str) -> bool:
     """Prioritizes files according to the chance of finding a vulnerability"""
-    scope: str = "file"
     success: bool = False
     group: str = os.path.basename(os.path.normpath(subscription_path))
     fusion_path: str = os.path.join(subscription_path, "fusion")
@@ -113,12 +112,11 @@ def prioritize(subscription_path: str) -> bool:
         if success:
             extensions: List[str] = get_extensions_list()
             num_bits: int = len(extensions).bit_length()
-            csv_name: str = f"{group}_sorts_results_{scope}.csv"
+            csv_name: str = f"{group}_sorts_results_file.csv"
             predict_vuln_prob(
                 predict_df,
                 [f"extension_{num}" for num in range(num_bits + 1)],
                 csv_name,
-                scope,
             )
             update_integrates_toes(group, csv_name)
             display_results(csv_name)
