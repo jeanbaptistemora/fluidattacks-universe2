@@ -1332,7 +1332,7 @@ def process_user_digest_stats(
 
     total["reattacks"] = _process_digest_reattacks(groups_stats)
 
-    # Get findings with oldest vulns without treatment
+    # Get top 10 findings that have oldest vulns without treatment
     findings = list()
     for stat in groups_stats:
         findings_extended = [
@@ -1345,6 +1345,6 @@ def process_user_digest_stats(
         findings.extend(findings_extended)
     total["findings"] = sorted(
         findings, key=itemgetter("finding_age"), reverse=True
-    )
+    )[:10]
 
     return total

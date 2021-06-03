@@ -154,7 +154,7 @@
       <img alt="Fluid Attacks logo"
         src="https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/3c66db1f-0f67-491a-9193-3d8e6d1ea983.png"
         style="height: 100px; margin: 30px 0;">
-      <h4>Hello {{ name }}, here’s how your day was:</h4>
+      <h4>Hello {{ name }}, here’s how your day was at all of your subscribed groups:</h4>
     </div>
 
     <!-- NUMBERS -->
@@ -163,19 +163,19 @@
         {% if groups_len > 1 %}
           <div>
             <h3>{{ remediation_rate['max'] }}%</h3>
-            <p><strong>{{ remediation_rate['max_group'] }}</strong> has the <strong>Max</strong> remediation rate</p>
+            <p><strong>{{ remediation_rate['max_group'] }}</strong> has the <strong>maximum</strong> remediation rate</p>
           </div>
           <div>
             <h3>{{ remediation_rate['min'] }}%</h3>
-            <p><strong>{{ remediation_rate['min_group'] }}</strong> has the <strong>Min</strong> remediation rate</p>
+            <p><strong>{{ remediation_rate['min_group'] }}</strong> has the <strong>minimum</strong> remediation rate</p>
           </div>
           <div>
             <h3>{{ remediation_time['max'] }}</h3>
-            <p><strong>{{ remediation_time['max_group'] }}</strong> has the <strong>Max</strong> Mean Time To Remediate</p>
+            <p><strong>{{ remediation_time['max_group'] }}</strong> has the <strong>maximum</strong> Mean Time To Remediate</p>
           </div>
           <div>
             <h3>{{ remediation_time['min'] }}</h3>
-            <p><strong>{{ remediation_time['min_group'] }}</strong> has the <strong>Min</strong> Mean Time To Remediate</p>
+            <p><strong>{{ remediation_time['min_group'] }}</strong> has the <strong>minimum</strong> Mean Time To Remediate</p>
           </div>
         {% else %}
           <div>
@@ -207,7 +207,7 @@
         </div>
         <div>
           <h3>{{ main['comments'] }}</h3>
-          <p>Comments</p>
+          <p>New comments</p>
         </div>
       </div>
     </div>
