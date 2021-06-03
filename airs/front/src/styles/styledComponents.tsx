@@ -752,7 +752,7 @@ const SquaredCardContainer: StyledComponent<
     bg-white
     bs-btm-h-10
     br3
-    dib-l
+    dib
     ph4
     mh4-l
     center

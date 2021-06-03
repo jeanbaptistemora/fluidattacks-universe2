@@ -18,7 +18,7 @@ const WhiteCardContainer: StyledComponent<
     w-auto
     center
     pv3
-    flex-l
+    flex
   `,
 })``;
 
