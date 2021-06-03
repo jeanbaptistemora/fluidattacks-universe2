@@ -34,6 +34,12 @@ from custom_types import (
 from datetime import (
     datetime,
 )
+from db_model.findings.types import (
+    Finding,
+    Finding20Severity,
+    Finding31Severity,
+    FindingEvidence,
+)
 from decimal import (
     Decimal,
 )
@@ -53,6 +59,7 @@ from mailer import (
 )
 from newutils import (
     cvss,
+    cvss_new,
     datetime as datetime_utils,
     findings as findings_utils,
     requests as requests_utils,
@@ -454,6 +461,18 @@ async def get_pending_verification_findings(
     return cast(List[Dict[str, FindingType]], pending_to_verify)
 
 
+def get_severity_score_new(
+    severity: Union[Finding20Severity, Finding31Severity]
+) -> Decimal:
+    if isinstance(severity, Finding31Severity):
+        base_score = cvss_new.get_cvss3_basescore(severity)
+        cvss_temporal = cvss_new.get_cvss3_temporal(severity, base_score)
+    else:
+        base_score = cvss_new.get_cvss2_basescore(severity)
+        cvss_temporal = cvss_new.get_cvss2_temporal(severity, base_score)
+    return cvss_temporal
+
+
 async def get_total_treatment(
     context: Any, findings: List[Dict[str, FindingType]]
 ) -> Dict[str, int]:
@@ -542,8 +561,20 @@ def get_tracking_vulnerabilities(
     ]
 
 
+def get_updated_evidence_date_new(
+    finding: Finding, evidence: FindingEvidence
+) -> datetime:
+    evidence_date = datetime.fromisoformat(evidence.modified_date)
+    updated_date = evidence_date
+    if finding.approval:
+        release_date = datetime.fromisoformat(finding.approval.modified_date)
+        if release_date > evidence_date:
+            updated_date = release_date
+    return updated_date
+
+
 async def has_access_to_finding(email: str, finding_id: str) -> bool:
-    """ Verify if the user has access to a finding submission. """
+    """Verify if the user has access to a finding submission."""
     finding = await get_finding(finding_id)
     group = cast(str, finding.get("projectName", ""))
     return await authz.has_access_to_group(email, group)

@@ -17,10 +17,12 @@ from .core import (
     get_oldest_open_findings,
     get_pending_closing_check,
     get_pending_verification_findings,
+    get_severity_score_new,
     get_total_reattacks_stats,
     get_total_treatment,
     get_total_treatment_date,
     get_tracking_vulnerabilities,
+    get_updated_evidence_date_new,
     has_access_to_finding,
     is_deleted,
     is_pending_verification,
@@ -32,22 +34,16 @@ from .core import (
     validate_finding,
     verify_vulnerabilities,
 )
-from .core_new import (
-    get_severity_score_new,
-    get_updated_evidence_date_new,
-)
 from .draft import (
     approve_draft,
+    approve_draft_new,
     create_draft,
+    create_draft_new,
     get_drafts_by_group,
     list_drafts,
     reject_draft,
-    submit_draft,
-)
-from .draft_new import (
-    approve_draft_new,
-    create_draft_new,
     reject_draft_new,
+    submit_draft,
     submit_draft_new,
 )
 from .evidence import (
@@ -61,9 +57,6 @@ from .evidence import (
 )
 
 __all__ = [
-    # core new
-    "get_severity_score_new",
-    "get_updated_evidence_date_new",
     # core
     "add_comment",
     "cast_new_vulnerabilities",
@@ -83,10 +76,12 @@ __all__ = [
     "get_oldest_open_findings",
     "get_pending_closing_check",
     "get_pending_verification_findings",
+    "get_severity_score_new",
     "get_total_reattacks_stats",
     "get_total_treatment",
     "get_total_treatment_date",
     "get_tracking_vulnerabilities",
+    "get_updated_evidence_date_new",
     "has_access_to_finding",
     "is_deleted",
     "is_pending_verification",
@@ -97,18 +92,17 @@ __all__ = [
     "update_description",
     "validate_finding",
     "verify_vulnerabilities",
-    # drafts new
-    "approve_draft_new",
-    "create_draft_new",
-    "reject_draft_new",
-    "submit_draft_new",
     # drafts
     "approve_draft",
+    "approve_draft_new",
     "create_draft",
+    "create_draft_new",
     "get_drafts_by_group",
     "list_drafts",
     "reject_draft",
+    "reject_draft_new",
     "submit_draft",
+    "submit_draft_new",
     # evidences
     "download_evidence_file",
     "get_records_from_file",
