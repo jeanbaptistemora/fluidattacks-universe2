@@ -1,11 +1,11 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from batch.dal import (
+    put_action,
+)
 from custom_types import (
     SimplePayload,
-)
-from dataloaders import (
-    Dataloaders,
 )
 from decorators import (
     concurrent_decorators,
@@ -17,9 +17,6 @@ from graphql.type.definition import (
 )
 from newutils import (
     token as token_utils,
-)
-from organizations import (
-    domain as orgs_domain,
 )
 from organizations_finding_policies import (
     domain as policies_domain,
@@ -43,17 +40,20 @@ async def mutate(
 ) -> SimplePayload:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
-    loaders: Dataloaders = info.context.loaders
-    org_id: str = await orgs_domain.get_id_by_name(organization_name)
-    groups = await orgs_domain.get_groups(org_id)
 
     await policies_domain.handle_finding_policy_acceptation(
         finding_policy_id=finding_policy_id,
-        loaders=loaders,
         org_name=organization_name,
         status=status,
-        groups=groups,
         user_email=user_email,
     )
+
+    if status == "APPROVED":
+        await put_action(
+            action_name="handle_finding_policy",
+            entity=finding_policy_id,
+            subject=user_email,
+            additional_info=organization_name,
+        )
 
     return SimplePayload(success=True)

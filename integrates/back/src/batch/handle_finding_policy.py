@@ -73,8 +73,9 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
         user_email=item.subject,
     ):
         loader = get_new_context()
+        finding_name: str = finding_policy.metadata.name.split(".")[0].lower()
         await update_treatment_in_org_groups(
-            finding_name=finding_policy.metadata.name,
+            finding_name=finding_name,
             loaders=loader,
             groups=groups,
             status=finding_policy.state.status,

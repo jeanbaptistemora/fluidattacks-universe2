@@ -9,7 +9,6 @@ from .types import (
 )
 from aioextensions import (
     collect,
-    schedule,
 )
 from custom_exceptions import (
     FindingNamePolicyNotFound,
@@ -117,10 +116,8 @@ async def add_finding_policy(
 async def handle_finding_policy_acceptation(
     *,
     finding_policy_id: str,
-    loaders: Any,
     org_name: str,
     status: str,
-    groups: List[str],
     user_email: str,
 ) -> None:
     finding_policy = await get_finding_policy(
@@ -138,18 +135,6 @@ async def handle_finding_policy_acceptation(
             status=status,
         ),
     )
-
-    if status == "APPROVED":
-        finding_name: str = finding_policy.metadata.name.split(".")[0].lower()
-        schedule(
-            update_treatment_in_org_groups(
-                finding_name=finding_name,
-                loaders=loaders,
-                groups=groups,
-                status=status,
-                user_email=user_email,
-            )
-        )
 
 
 async def submit_finding_policy(
@@ -180,9 +165,7 @@ async def submit_finding_policy(
 async def deactivate_finding_policy(
     *,
     finding_policy_id: str,
-    loaders: Any,
     org_name: str,
-    groups: List[str],
     user_email: str,
 ) -> None:
     finding_policy = await get_finding_policy(
@@ -200,17 +183,6 @@ async def deactivate_finding_policy(
             modified_date=datetime_utils.get_iso_date(),
             status=status,
         ),
-    )
-
-    finding_name: str = finding_policy.metadata.name.split(".")[0].lower()
-    schedule(
-        update_treatment_in_org_groups(
-            finding_name=finding_name,
-            loaders=loaders,
-            groups=groups,
-            status=status,
-            user_email=user_email,
-        )
     )
 
 
