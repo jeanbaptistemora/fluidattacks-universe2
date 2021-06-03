@@ -902,6 +902,7 @@ module.exports = {
           label: 'AWS',
           items: [
             'development/stack/aws/introduction',
+            'development/stack/aws/ec2',
           ]
         },
         'development/stack/cloudflare',

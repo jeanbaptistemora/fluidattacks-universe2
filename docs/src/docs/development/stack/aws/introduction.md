@@ -57,11 +57,17 @@ We use the following [AWS](https://aws.amazon.com/) services:
 
 1. Elastic cloud computing:
 [AWS EC2](https://aws.amazon.com/ec2/).
+1. Elastic block store:
+[AWS EBS](https://aws.amazon.com/ebs/).
 1. Serverless computing:
 [AWS Lambda](https://aws.amazon.com/lambda/).
 1. Cloud file storage:
 [AWS S3](https://aws.amazon.com/s3/).
-1. NoSQL database:
+1. Elastic Container Service:
+[AWS ECS](https://aws.amazon.com/ecs/).
+1. Elastic Load Balancing:
+[AWS Elastic Load Balancing](https://aws.amazon.com/elasticloadbalancing/).
+2. NoSQL database:
 [AWS DynamoDB](https://aws.amazon.com/dynamodb/).
 1. Data wareouse:
 [AWS Redshift](https://aws.amazon.com/redshift/).
