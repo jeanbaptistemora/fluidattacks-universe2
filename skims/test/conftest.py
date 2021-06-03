@@ -108,12 +108,14 @@ def test_group(
         {
             "drestrepoatfluid": "tacna",
             "kamadoatfluid": "worcester",
+            "asalgadoatfluid": "manhattan",
             "master": "wausau",
         }
         if os.environ.get("CI")
         else {
             "drestrepoatfluid": "jessup",
             "kamadoatfluid": "magdalena",
+            "asalgadoatfluid": "lufkin",
             "master": "djibo",
         }
     )
