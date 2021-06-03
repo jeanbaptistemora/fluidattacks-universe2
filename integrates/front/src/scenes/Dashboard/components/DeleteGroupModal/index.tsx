@@ -1,10 +1,8 @@
+import { Field, Formik } from "formik";
 import React from "react";
-import { Field } from "redux-form";
-import type { InjectedFormProps } from "redux-form";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   Alert,
   ButtonToolbar,
@@ -13,7 +11,7 @@ import {
   FormGroup,
   Row,
 } from "styles/styledComponents";
-import { Text } from "utils/forms/fields";
+import { FormikText } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 import { required } from "utils/validations";
 
@@ -50,7 +48,7 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
         )}
         open={isOpen}
       >
-        <GenericForm
+        <Formik
           initialValues={{
             confirmation: "",
           }}
@@ -58,7 +56,7 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
           onSubmit={onSubmit}
           validate={formValidations}
         >
-          {({ handleSubmit, valid }: InjectedFormProps): JSX.Element => (
+          {({ submitForm, isValid, dirty }): JSX.Element => (
             <React.Fragment>
               <ControlLabel>
                 {translate.t(
@@ -77,7 +75,7 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
                   )}
                 </ControlLabel>
                 <Field
-                  component={Text}
+                  component={FormikText}
                   name={"confirmation"}
                   placeholder={groupName.toLowerCase()}
                   type={"text"}
@@ -92,8 +90,8 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
                       {translate.t("confirmmodal.cancel")}
                     </Button>
                     <Button
-                      disabled={!valid}
-                      onClick={handleSubmit}
+                      disabled={!dirty || !isValid}
+                      onClick={submitForm}
                       type={"submit"}
                     >
                       {translate.t("confirmmodal.proceed")}
@@ -103,7 +101,7 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
               </Row>
             </React.Fragment>
           )}
-        </GenericForm>
+        </Formik>
       </Modal>
     </React.StrictMode>
   );

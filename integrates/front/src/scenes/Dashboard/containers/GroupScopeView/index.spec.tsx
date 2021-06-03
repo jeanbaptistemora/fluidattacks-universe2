@@ -728,7 +728,7 @@ describe("GroupScopeView", (): void => {
       form.simulate("submit");
 
       await act(async (): Promise<void> => {
-        const delay: number = 50;
+        const delay: number = 100;
         await wait(delay);
         wrapper.update();
       });
