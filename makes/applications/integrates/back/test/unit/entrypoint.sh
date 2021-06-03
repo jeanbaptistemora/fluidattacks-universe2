@@ -18,6 +18,7 @@ function main {
   &&  DAEMON=true integrates-db \
   &&  DAEMON=true integrates-storage \
   &&  pushd integrates \
+    &&  export BATCH_BIN='__envBatchBin__' \
     &&  pytest -m 'not changes_db' "${pytest_args[@]}" back/tests/unit \
     &&  pytest -m 'changes_db' "${pytest_args[@]}" back/tests/unit \
   &&  popd \

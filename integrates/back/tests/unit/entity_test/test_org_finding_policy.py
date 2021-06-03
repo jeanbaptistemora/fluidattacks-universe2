@@ -4,8 +4,15 @@ from api.schema import (
 from ariadne import (
     graphql,
 )
+import asyncio
 from back.tests.unit.utils import (
     create_dummy_session,
+)
+from batch.dal import (
+    get_actions,
+)
+from batch.types import (
+    BatchProcessing,
 )
 from custom_exceptions import (
     PolicyAlreadyHandled,
@@ -16,10 +23,15 @@ from dataloaders import (
 from organizations_finding_policies import (
     domain as policies_domain,
 )
+from os import (
+    environ,
+)
 import pytest
+import subprocess
 from typing import (
     Any,
     Dict,
+    List,
 )
 
 pytestmark = [
@@ -36,6 +48,38 @@ async def _get_result_async(
     _, result = await graphql(SCHEMA, data, context_value=request)
 
     return result
+
+
+async def _get_batch_job(*, finding_policy_id: str) -> BatchProcessing:
+    all_actions = await get_actions()
+    return next(
+        (
+            action
+            for action in all_actions
+            if action.entity == finding_policy_id
+        )
+    )
+
+
+async def _run(
+    *, finding_policy_id: str, org_name: str, user_email: str
+) -> int:
+    batch_action = await _get_batch_job(finding_policy_id=finding_policy_id)
+    cmd_args: List[str] = [
+        "test",
+        "handle_finding_policy",
+        finding_policy_id,
+        user_email,
+        batch_action.time,
+        org_name,
+    ]
+    process: asyncio.subprocess.Process = await asyncio.create_subprocess_exec(
+        environ["BATCH_BIN"],
+        *cmd_args,
+        stdin=subprocess.DEVNULL,
+    )
+
+    return await process.wait()
 
 
 @pytest.mark.changes_db
@@ -114,13 +158,20 @@ async def test_handle_org_finding_policy_acceptation() -> None:
     )
     assert "errors" not in result
     assert result["data"]["handleOrgFindingPolicyAcceptation"]["success"]
+    assert (
+        await _run(
+            finding_policy_id=finding_policy.id,
+            org_name=org_name,
+            user_email=approver_user,
+        )
+        == 0
+    )
 
     result = await _get_result_async(
         hande_acceptation_data, stakeholder="integratescustomer@gmail.com"
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
-
     result = await _get_result_async(
         hande_acceptation_data, stakeholder=approver_user
     )
@@ -211,6 +262,14 @@ async def test_deactivate_org_finding_policy() -> None:
     )
     assert "errors" not in result
     assert result["data"]["handleOrgFindingPolicyAcceptation"]["success"]
+    assert (
+        await _run(
+            finding_policy_id=finding_policy.id,
+            org_name=org_name,
+            user_email=approver_user,
+        )
+        == 0
+    )
 
     result = await _get_result_async(
         hande_acceptation_data, stakeholder="integratescustomer@gmail.com"
@@ -258,6 +317,14 @@ async def test_deactivate_org_finding_policy() -> None:
     )
     assert "errors" not in result
     assert result["data"]["deactivateOrgFindingPolicy"]["success"]
+    assert (
+        await _run(
+            finding_policy_id=finding_policy.id,
+            org_name=org_name,
+            user_email=approver_user,
+        )
+        == 0
+    )
 
     result = await _get_result_async(
         deactivate_mutation_data, stakeholder="integratescustomer@gmail.com"
