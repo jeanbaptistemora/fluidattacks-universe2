@@ -794,6 +794,7 @@ module.exports = {
             'machine/app/groups/events',
             'machine/app/groups/stakeholders',
             'machine/app/groups/roles',
+            'machine/app/groups/authors',
             {
               type: 'category',
               label: 'Scope',
