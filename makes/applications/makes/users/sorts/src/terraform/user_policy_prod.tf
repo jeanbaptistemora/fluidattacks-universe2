@@ -84,8 +84,15 @@ data "aws_iam_policy_document" "sorts_prod_policy_data" {
     resources = [
       "arn:aws:sagemaker:us-east-1:${data.aws_caller_identity.current.account_id}:training-job/sagemaker*",
       "arn:aws:sagemaker:us-east-1:${data.aws_caller_identity.current.account_id}:training-job/sorts*",
-      "arn:aws:sagemaker:us-east-1:${data.aws_caller_identity.current.account_id}:hyper-parameter-tuning-job/sagemaker*"
+      "arn:aws:sagemaker:us-east-1:${data.aws_caller_identity.current.account_id}:hyper-parameter-tuning-job/sagemaker*",
     ]
+  }
+  statement {
+    effect = "Allow"
+    actions = [
+      "sagemaker:List*",
+    ]
+    resources = ["*"]
   }
 
   # CloudWatch logs access
@@ -96,8 +103,16 @@ data "aws_iam_policy_document" "sorts_prod_policy_data" {
     ]
     resources = [
       "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/sagemaker/TrainingJobs",
-      "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/sagemaker/TrainingJobs:log-stream:*"
+      "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/sagemaker/TrainingJobs:log-stream:*",
     ]
+  }
+  statement {
+    effect = "Allow"
+    actions = [
+      "logs:DescribeLogGroups",
+      "logs:GetLogEvents",
+    ]
+    resources = ["*"]
   }
 
   # Redshift
