@@ -185,27 +185,29 @@ const errorLink: (history: History) => ApolloLink = (
     }
   );
 
+const getToken = async (): Promise<string> => {
+  const key = "session_token";
+  try {
+    const token = await getItemAsync(key);
+
+    return token === null ? "" : token;
+  } catch (exception: unknown) {
+    await deleteItemAsync(key);
+
+    return "";
+  }
+};
+
 const authLink: ApolloLink = setContext(async (): Promise<
   Record<string, unknown>
 > => {
-  try {
-    const token: string = (await getItemAsync("session_token")) as string;
+  const token = await getToken();
 
-    return {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    };
-  } catch (exception: unknown) {
-    const token: string = "";
-    await deleteItemAsync("session_token");
-
-    return {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    };
-  }
+  return {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  };
 });
 
 const apiLink: ApolloLink = createHttpLink({
