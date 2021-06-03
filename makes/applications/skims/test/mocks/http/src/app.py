@@ -128,6 +128,24 @@ def add_f036() -> None:
     )
 
 
+def add_f042_secure() -> None:
+    _add_headers(
+        "f042_secure",
+        "Set-Cookie",
+        [
+            "session=test; Secure;",
+            "google_analytics=1asdf34; Secure;",
+            "session=test;",
+            "session=test",
+            "google_analytics=1asdf34",
+            "google_analytics 1asdf34",
+            "action=test; HttpOnly",
+            "google_analytics->1asdf34",
+            "google_analytics=",
+        ],
+    )
+
+
 def add_f043_dast_csp_rules() -> None:
     _add_headers(
         "f043_dast_csp",
@@ -238,6 +256,7 @@ def start() -> None:
 add_f015_dast_basic()
 add_f023()
 add_f036()
+add_f042_secure()
 add_f043_dast_csp_rules()
 add_f043_dast_rp_rules()
 add_f043_dast_sts_rules()
