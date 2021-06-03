@@ -32,34 +32,26 @@ jest.mock(
 
 const mockedFetch: FetchMockStatic = fetch as FetchMockStatic & typeof fetch;
 
-const mockVersion: (options: {
-  httpStatus: number;
-  version: string;
-}) => void = ({
-  version,
-  httpStatus,
-}: {
-  httpStatus: number;
-  version: string;
-}): void => {
-  mockedFetch.reset();
-  mockedFetch.mock(
-    "https://play.google.com/store/apps/details?id=com.fluidattacks.integrates",
-    {
-      body: [
-        '<div class="hAyfc">',
-        '<div class="BgcNfc">Current Version</div>',
-        '<span class="htlgb">',
-        '<div class="IQ1z0d">',
-        `<span class="htlgb">${version}</span>`,
-        "</div>",
-        "</span>",
-        "</div>",
-      ].join(""),
-      status: httpStatus,
-    }
-  );
-};
+const mockVersion: (options: { httpStatus: number; version: string }) => void =
+  ({ version, httpStatus }: { httpStatus: number; version: string }): void => {
+    mockedFetch.reset();
+    mockedFetch.mock(
+      "https://play.google.com/store/apps/details?id=com.fluidattacks.integrates",
+      {
+        body: [
+          '<div class="hAyfc">',
+          '<div class="BgcNfc">Current Version</div>',
+          '<span class="htlgb">',
+          '<div class="IQ1z0d">',
+          `<span class="htlgb">${version}</span>`,
+          "</div>",
+          "</span>",
+          "</div>",
+        ].join(""),
+        status: httpStatus,
+      }
+    );
+  };
 
 describe("LoginView", (): void => {
   it("should not display update dialog", async (): Promise<void> => {
@@ -78,12 +70,10 @@ describe("LoginView", (): void => {
 
     expect(wrapper).toHaveLength(1);
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper.find("GoogleButton").at(0).prop("disabled")).toStrictEqual(
       false
@@ -116,28 +106,24 @@ describe("LoginView", (): void => {
 
     expect(wrapper).toHaveLength(1);
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     const dialog: ReactWrapper = wrapper.find("Dialog");
 
     expect(dialog.prop("visible")).toStrictEqual(true);
 
-    const updateBtn: ReactWrapper<
-      React.ComponentProps<typeof Button>
-    > = dialog.find<React.ComponentProps<typeof Button>>(Button).at(0);
+    const updateBtn: ReactWrapper<React.ComponentProps<typeof Button>> = dialog
+      .find<React.ComponentProps<typeof Button>>(Button)
+      .at(0);
 
     await (updateBtn.invoke("onPress") as () => Promise<void>)();
-    await act(
-      async (): Promise<void> => {
-        await wait(1);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(1);
+      wrapper.update();
+    });
 
     expect(Linking.openURL).toHaveBeenCalledTimes(1);
 

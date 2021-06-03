@@ -12,10 +12,8 @@ describe("Bitbucket OAuth2 provider", (): void => {
     jest.resetModules();
     jest.mock("expo-auth-session");
 
-    const {
-      AuthRequest,
-      fetchUserInfoAsync,
-    } = require("expo-auth-session") as Record<string, jest.Mock>;
+    const { AuthRequest, fetchUserInfoAsync } =
+      require("expo-auth-session") as Record<string, jest.Mock>;
     AuthRequest.mockImplementation(
       (): Record<string, jest.Mock> => ({
         promptAsync: jest.fn().mockResolvedValue({

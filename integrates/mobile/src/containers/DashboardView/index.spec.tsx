@@ -23,23 +23,18 @@ import { i18next } from "../../utils/translations/translate";
 
 const mockHistoryReplace: jest.Mock = jest.fn();
 
-jest.mock(
-  "react-router-native",
-  (): Record<string, unknown> => {
-    const mockedRouter: Record<
-      string,
-      () => Record<string, unknown>
-    > = jest.requireActual("react-router-native");
+jest.mock("react-router-native", (): Record<string, unknown> => {
+  const mockedRouter: Record<string, () => Record<string, unknown>> =
+    jest.requireActual("react-router-native");
 
-    return {
-      ...mockedRouter,
-      useHistory: (): Record<string, unknown> => ({
-        ...mockedRouter.useHistory(),
-        replace: mockHistoryReplace,
-      }),
-    };
-  }
-);
+  return {
+    ...mockedRouter,
+    useHistory: (): Record<string, unknown> => ({
+      ...mockedRouter.useHistory(),
+      replace: mockHistoryReplace,
+    }),
+  };
+});
 
 jest.mock("../../utils/socialAuth");
 
@@ -98,12 +93,10 @@ describe("DashboardView", (): void => {
         </I18nextProvider>
       </PaperProvider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
     expect(wrapper.text()).toContain("58.3%");
@@ -144,12 +137,10 @@ describe("DashboardView", (): void => {
         </I18nextProvider>
       </PaperProvider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
     expect(wrapper.text()).toContain("0%");
@@ -187,12 +178,10 @@ describe("DashboardView", (): void => {
         </I18nextProvider>
       </PaperProvider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
     // eslint-disable-next-line jest/prefer-called-with
@@ -254,12 +243,10 @@ describe("DashboardView", (): void => {
         </I18nextProvider>
       </PaperProvider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
     expect(wrapper.text()).toContain("58.3%");
@@ -274,23 +261,18 @@ describe("DashboardView", (): void => {
 
     // Needed for the test to succesfully run
     // eslint-disable-next-line fp/no-let
-    let stateListener: (
-      state: AppStateStatus
-    ) => Promise<void> = async (): Promise<void> => wait(0);
+    let stateListener: (state: AppStateStatus) => Promise<void> =
+      async (): Promise<void> => wait(0);
 
-    jest.mock(
-      "react-native",
-      (): Record<string, unknown> => {
-        const mockedRN: Record<string, unknown> = jest.requireActual(
-          "react-native"
-        );
+    jest.mock("react-native", (): Record<string, unknown> => {
+      const mockedRN: Record<string, unknown> =
+        jest.requireActual("react-native");
 
-        return {
-          ...mockedRN,
-          AppState: { addEventListener: jest.fn() },
-        };
-      }
-    );
+      return {
+        ...mockedRN,
+        AppState: { addEventListener: jest.fn() },
+      };
+    });
 
     (AppState.addEventListener as jest.Mock).mockImplementation(
       (
@@ -394,12 +376,10 @@ describe("DashboardView", (): void => {
         </I18nextProvider>
       </PaperProvider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
     expect(wrapper.text()).toContain("58.3%");
@@ -408,12 +388,10 @@ describe("DashboardView", (): void => {
 
     await stateListener("background");
     await stateListener("active");
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper.text()).toContain("91.7%");
     expect(wrapper.text()).toContain("+25%Compared");
@@ -490,12 +468,10 @@ describe("DashboardView", (): void => {
       </PaperProvider>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     const scrollComponent = wrapper.find(Indicators).at(0);
 
@@ -528,18 +504,16 @@ describe("DashboardView", (): void => {
         </I18nextProvider>
       </PaperProvider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
 
-    const logoutBtn: ReactWrapper<
-      React.ComponentProps<typeof Text>
-    > = wrapper.find({ children: "Logout" }).at(0);
+    const logoutBtn: ReactWrapper<React.ComponentProps<typeof Text>> = wrapper
+      .find({ children: "Logout" })
+      .at(0);
 
     expect(logoutBtn).toHaveLength(1);
 

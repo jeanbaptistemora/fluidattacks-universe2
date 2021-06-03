@@ -57,9 +57,9 @@ describe("Header", (): void => {
 
     expect(wrapper).toHaveLength(1);
 
-    const logoutBtn: ReactWrapper<
-      React.ComponentProps<typeof Text>
-    > = wrapper.find({ children: "Logout" }).at(0);
+    const logoutBtn: ReactWrapper<React.ComponentProps<typeof Text>> = wrapper
+      .find({ children: "Logout" })
+      .at(0);
 
     expect(logoutBtn).toHaveLength(1);
 

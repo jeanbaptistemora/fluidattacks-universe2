@@ -216,25 +216,22 @@ const DashboardView: React.FunctionComponent = (): JSX.Element => {
           )}
         </Animated.ScrollView>
         <View style={styles.dotsContainer}>
-          {orgs.map(
-            (_0: IOrganization, index: number): JSX.Element => {
-              const opacityScale: number = 0.3;
-              const opacity: Animated.AnimatedInterpolation = currentPage.interpolate(
-                {
-                  inputRange: [index - 1, index, index + 1],
-                  outputRange: [opacityScale, 1, opacityScale],
-                }
-              );
+          {orgs.map((_0: IOrganization, index: number): JSX.Element => {
+            const opacityScale: number = 0.3;
+            const opacity: Animated.AnimatedInterpolation =
+              currentPage.interpolate({
+                inputRange: [index - 1, index, index + 1],
+                outputRange: [opacityScale, 1, opacityScale],
+              });
 
-              return (
-                <Animated.View key={index.toString()} style={{ opacity }}>
-                  {/* Needed to properly render the html bullet over the logo*/}
-                  {/* eslint-disable-next-line react/jsx-no-literals*/}
-                  <Headline>&bull;</Headline>
-                </Animated.View>
-              );
-            }
-          )}
+            return (
+              <Animated.View key={index.toString()} style={{ opacity }}>
+                {/* Needed to properly render the html bullet over the logo*/}
+                {/* eslint-disable-next-line react/jsx-no-literals*/}
+                <Headline>&bull;</Headline>
+              </Animated.View>
+            );
+          })}
         </View>
         <Preloader
           visible={[NetworkStatus.loading, NetworkStatus.refetch].includes(

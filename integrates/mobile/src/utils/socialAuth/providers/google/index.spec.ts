@@ -4,24 +4,20 @@ import type { IAuthResult } from "../..";
 const mockConstants: (values: Record<string, string>) => void = (
   values: Record<string, string>
 ): void => {
-  jest.doMock(
-    "expo-constants",
-    (): Record<string, unknown> => {
-      const constants: Record<string, unknown> = jest.requireActual(
-        "expo-constants"
-      );
+  jest.doMock("expo-constants", (): Record<string, unknown> => {
+    const constants: Record<string, unknown> =
+      jest.requireActual("expo-constants");
 
-      return {
-        ...constants,
-        manifest: {
-          ...(constants.default as Record<string, Record<string, string>>)
-            .manifest,
-          scheme: "com.fluidattacks.integrates",
-        },
-        ...values,
-      };
-    }
-  );
+    return {
+      ...constants,
+      manifest: {
+        ...(constants.default as Record<string, Record<string, string>>)
+          .manifest,
+        scheme: "com.fluidattacks.integrates",
+      },
+      ...values,
+    };
+  });
 };
 
 describe("Google OAuth2 provider", (): void => {
@@ -94,11 +90,8 @@ describe("Google OAuth2 provider", (): void => {
     jest.mock("expo-auth-session");
     mockConstants({ appOwnership: "expo" });
 
-    const {
-      AuthRequest,
-      fetchDiscoveryAsync,
-      fetchUserInfoAsync,
-    } = require("expo-auth-session") as Record<string, jest.Mock>;
+    const { AuthRequest, fetchDiscoveryAsync, fetchUserInfoAsync } =
+      require("expo-auth-session") as Record<string, jest.Mock>;
     AuthRequest.mockImplementation(
       (): Record<string, jest.Mock> => ({
         promptAsync: jest.fn().mockResolvedValue({

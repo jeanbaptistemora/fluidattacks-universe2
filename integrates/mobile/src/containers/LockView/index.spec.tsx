@@ -14,23 +14,18 @@ import { i18next } from "../../utils/translations/translate";
 
 const mockHistoryReplace: jest.Mock = jest.fn();
 
-jest.mock(
-  "react-router-native",
-  (): Record<string, unknown> => {
-    const mockedRouter: Record<
-      string,
-      () => Record<string, unknown>
-    > = jest.requireActual("react-router-native");
+jest.mock("react-router-native", (): Record<string, unknown> => {
+  const mockedRouter: Record<string, () => Record<string, unknown>> =
+    jest.requireActual("react-router-native");
 
-    return {
-      ...mockedRouter,
-      useHistory: (): Record<string, unknown> => ({
-        ...mockedRouter.useHistory(),
-        replace: mockHistoryReplace,
-      }),
-    };
-  }
-);
+  return {
+    ...mockedRouter,
+    useHistory: (): Record<string, unknown> => ({
+      ...mockedRouter.useHistory(),
+      replace: mockHistoryReplace,
+    }),
+  };
+});
 
 jest.mock("expo-secure-store");
 jest.mock("expo-local-authentication");
@@ -81,12 +76,10 @@ describe("LockView", (): void => {
       </PaperProvider>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
     // ESLint suggested the change from toBeCalled to the current method
@@ -116,12 +109,10 @@ describe("LockView", (): void => {
       </PaperProvider>
     );
 
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
     expect(mockHistoryReplace).not.toHaveBeenCalled();

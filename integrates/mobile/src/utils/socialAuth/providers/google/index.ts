@@ -38,8 +38,9 @@ const getRedirectUri: () => string = (): string =>
     useProxy: inExpoClient,
   });
 
-const getDiscovery: () => Promise<DiscoveryDocument> = async (): Promise<DiscoveryDocument> =>
-  fetchDiscoveryAsync("https://accounts.google.com");
+const getDiscovery: () => Promise<DiscoveryDocument> =
+  async (): Promise<DiscoveryDocument> =>
+    fetchDiscoveryAsync("https://accounts.google.com");
 
 const getAccessToken: (
   discovery: DiscoveryDocument,
@@ -70,58 +71,59 @@ const getAccessToken: (
   return accessToken;
 };
 
-const authWithGoogle: () => Promise<IAuthResult> = async (): Promise<IAuthResult> => {
-  try {
-    const discovery: DiscoveryDocument = await getDiscovery();
-    const request: AuthRequest = new AuthRequest({
-      clientId,
-      prompt: Prompt.SelectAccount,
-      redirectUri: getRedirectUri(),
-      responseType: inExpoClient ? ResponseType.Token : ResponseType.Code,
-      scopes: [
-        "https://www.googleapis.com/auth/userinfo.email",
-        "https://www.googleapis.com/auth/userinfo.profile",
-        "openid",
-      ],
-      usePKCE: !inExpoClient,
-    });
+const authWithGoogle: () => Promise<IAuthResult> =
+  async (): Promise<IAuthResult> => {
+    try {
+      const discovery: DiscoveryDocument = await getDiscovery();
+      const request: AuthRequest = new AuthRequest({
+        clientId,
+        prompt: Prompt.SelectAccount,
+        redirectUri: getRedirectUri(),
+        responseType: inExpoClient ? ResponseType.Token : ResponseType.Code,
+        scopes: [
+          "https://www.googleapis.com/auth/userinfo.email",
+          "https://www.googleapis.com/auth/userinfo.profile",
+          "openid",
+        ],
+        usePKCE: !inExpoClient,
+      });
 
-    const logInResult: AuthSessionResult = await request.promptAsync(
-      discovery,
-      { useProxy: inExpoClient }
-    );
-
-    if (logInResult.type === "success") {
-      const accessToken: string = await getAccessToken(
+      const logInResult: AuthSessionResult = await request.promptAsync(
         discovery,
-        logInResult.params,
-        request
+        { useProxy: inExpoClient }
       );
 
-      const userProps: Record<string, string> = await fetchUserInfoAsync(
-        { accessToken },
-        { userInfoEndpoint: discovery.userInfoEndpoint }
-      );
+      if (logInResult.type === "success") {
+        const accessToken: string = await getAccessToken(
+          discovery,
+          logInResult.params,
+          request
+        );
 
-      return {
-        authProvider: "GOOGLE",
-        authToken: accessToken,
-        type: "success",
-        user: {
-          email: userProps.email,
-          firstName: _.capitalize(userProps.given_name),
-          fullName: _.startCase(userProps.name.toLowerCase()),
-          lastName: userProps.family_name,
-          photoUrl: userProps.picture,
-        },
-      };
+        const userProps: Record<string, string> = await fetchUserInfoAsync(
+          { accessToken },
+          { userInfoEndpoint: discovery.userInfoEndpoint }
+        );
+
+        return {
+          authProvider: "GOOGLE",
+          authToken: accessToken,
+          type: "success",
+          user: {
+            email: userProps.email,
+            firstName: _.capitalize(userProps.given_name),
+            fullName: _.startCase(userProps.name.toLowerCase()),
+            lastName: userProps.family_name,
+            photoUrl: userProps.picture,
+          },
+        };
+      }
+    } catch (error: unknown) {
+      LOGGER.error("Couldn't authenticate with Google", error);
     }
-  } catch (error: unknown) {
-    LOGGER.error("Couldn't authenticate with Google", error);
-  }
 
-  return { type: "cancel" };
-};
+    return { type: "cancel" };
+  };
 
 const logoutFromGoogle: (authToken: string) => void = async (
   authToken: string

@@ -22,9 +22,8 @@ describe("About", (): void => {
 
     expect(wrapper).toHaveLength(1);
 
-    const aboutBtn: ReactWrapper<
-      React.ComponentProps<typeof MaterialIcons>
-    > = wrapper.find(MaterialIcons);
+    const aboutBtn: ReactWrapper<React.ComponentProps<typeof MaterialIcons>> =
+      wrapper.find(MaterialIcons);
 
     (aboutBtn.invoke("onPress") as () => void)();
 

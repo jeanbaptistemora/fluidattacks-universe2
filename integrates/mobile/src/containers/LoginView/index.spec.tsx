@@ -32,53 +32,39 @@ jest.mock(
   })
 );
 
-jest.mock(
-  "react-native",
-  (): Record<string, unknown> => {
-    const mockedRN: Record<string, unknown> = jest.requireActual(
-      "react-native"
-    );
-    // Needed for the mocks
-    // eslint-disable-next-line fp/no-mutating-assign
-    Object.assign(mockedRN.Alert, { alert: jest.fn() });
+jest.mock("react-native", (): Record<string, unknown> => {
+  const mockedRN: Record<string, unknown> = jest.requireActual("react-native");
+  // Needed for the mocks
+  // eslint-disable-next-line fp/no-mutating-assign
+  Object.assign(mockedRN.Alert, { alert: jest.fn() });
 
-    return mockedRN;
-  }
-);
+  return mockedRN;
+});
 
 const mockHistoryReplace: jest.Mock = jest.fn();
 
-jest.mock(
-  "react-router-native",
-  (): Record<string, unknown> => {
-    const mockedRouter: Record<
-      string,
-      () => Record<string, unknown>
-    > = jest.requireActual("react-router-native");
+jest.mock("react-router-native", (): Record<string, unknown> => {
+  const mockedRouter: Record<string, () => Record<string, unknown>> =
+    jest.requireActual("react-router-native");
 
-    return {
-      ...mockedRouter,
-      useHistory: (): Record<string, unknown> => ({
-        ...mockedRouter.useHistory(),
-        replace: mockHistoryReplace,
-      }),
-    };
-  }
-);
+  return {
+    ...mockedRouter,
+    useHistory: (): Record<string, unknown> => ({
+      ...mockedRouter.useHistory(),
+      replace: mockHistoryReplace,
+    }),
+  };
+});
 
-jest.mock(
-  "./version",
-  (): Record<string, unknown> => {
-    const mockedVersion: Record<string, unknown> = jest.requireActual(
-      "./version"
-    );
-    // Must use mutations for the mocks, spy-on autofix breaks some mocks
-    // eslint-disable-next-line jest/prefer-spy-on, fp/no-mutation
-    mockedVersion.getOutdatedStatus = jest.fn();
+jest.mock("./version", (): Record<string, unknown> => {
+  const mockedVersion: Record<string, unknown> =
+    jest.requireActual("./version");
+  // Must use mutations for the mocks, spy-on autofix breaks some mocks
+  // eslint-disable-next-line jest/prefer-spy-on, fp/no-mutation
+  mockedVersion.getOutdatedStatus = jest.fn();
 
-    return mockedVersion;
-  }
-);
+  return mockedVersion;
+});
 
 jest.mock("expo-secure-store");
 jest.mock("expo-local-authentication");
@@ -145,18 +131,15 @@ describe("LoginView", (): void => {
 
     expect(wrapper).toHaveLength(1);
 
-    const bitbucketBtn: ReactWrapper<IBitbucketButtonProps> = wrapper.find<IBitbucketButtonProps>(
-      BitbucketButton
-    );
+    const bitbucketBtn: ReactWrapper<IBitbucketButtonProps> =
+      wrapper.find<IBitbucketButtonProps>(BitbucketButton);
 
     expect(bitbucketBtn).toHaveLength(1);
 
-    await act(
-      async (): Promise<void> => {
-        await (bitbucketBtn.invoke("onPress") as () => Promise<void>)();
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await (bitbucketBtn.invoke("onPress") as () => Promise<void>)();
+      wrapper.update();
+    });
 
     expect(mockHistoryReplace).toHaveBeenCalledWith("/Welcome", {
       authProvider: "BITBUCKET",
@@ -206,18 +189,15 @@ describe("LoginView", (): void => {
 
     expect(wrapper).toHaveLength(1);
 
-    const googleBtn: ReactWrapper<IGoogleButtonProps> = wrapper.find<IGoogleButtonProps>(
-      GoogleButton
-    );
+    const googleBtn: ReactWrapper<IGoogleButtonProps> =
+      wrapper.find<IGoogleButtonProps>(GoogleButton);
 
     expect(googleBtn).toHaveLength(1);
 
-    await act(
-      async (): Promise<void> => {
-        await (googleBtn.invoke("onPress") as () => Promise<void>)();
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await (googleBtn.invoke("onPress") as () => Promise<void>)();
+      wrapper.update();
+    });
 
     expect(mockHistoryReplace).toHaveBeenCalledWith("/Welcome", {
       authProvider: "GOOGLE",
@@ -267,18 +247,15 @@ describe("LoginView", (): void => {
 
     expect(wrapper).toHaveLength(1);
 
-    const microsoftBtn: ReactWrapper<IMicrosoftButtonProps> = wrapper.find<IMicrosoftButtonProps>(
-      MicrosoftButton
-    );
+    const microsoftBtn: ReactWrapper<IMicrosoftButtonProps> =
+      wrapper.find<IMicrosoftButtonProps>(MicrosoftButton);
 
     expect(microsoftBtn).toHaveLength(1);
 
-    await act(
-      async (): Promise<void> => {
-        await (microsoftBtn.invoke("onPress") as () => Promise<void>)();
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await (microsoftBtn.invoke("onPress") as () => Promise<void>)();
+      wrapper.update();
+    });
 
     expect(mockHistoryReplace).toHaveBeenCalledWith("/Welcome", {
       authProvider: "MICROSOFT",
@@ -336,31 +313,25 @@ describe("LoginView", (): void => {
 
     expect(wrapper).toHaveLength(1);
 
-    const googleBtn: ReactWrapper<IGoogleButtonProps> = wrapper.find<IGoogleButtonProps>(
-      GoogleButton
-    );
+    const googleBtn: ReactWrapper<IGoogleButtonProps> =
+      wrapper.find<IGoogleButtonProps>(GoogleButton);
 
     expect(googleBtn).toHaveLength(1);
 
-    await act(
-      async (): Promise<void> => {
-        await (googleBtn.invoke("onPress") as () => Promise<void>)();
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await (googleBtn.invoke("onPress") as () => Promise<void>)();
+      wrapper.update();
+    });
 
-    const microsoftBtn: ReactWrapper<IMicrosoftButtonProps> = wrapper.find<IMicrosoftButtonProps>(
-      MicrosoftButton
-    );
+    const microsoftBtn: ReactWrapper<IMicrosoftButtonProps> =
+      wrapper.find<IMicrosoftButtonProps>(MicrosoftButton);
 
     expect(microsoftBtn).toHaveLength(1);
 
-    await act(
-      async (): Promise<void> => {
-        await (microsoftBtn.invoke("onPress") as () => Promise<void>)();
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await (microsoftBtn.invoke("onPress") as () => Promise<void>)();
+      wrapper.update();
+    });
 
     expect(wrapper.find("Preloader").prop("visible")).toStrictEqual(false);
 

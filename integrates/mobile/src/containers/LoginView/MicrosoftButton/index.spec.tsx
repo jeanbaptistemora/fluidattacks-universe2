@@ -40,9 +40,8 @@ describe("MicrosoftButton", (): void => {
 
     expect(wrapper).toHaveLength(1);
 
-    const button: ReactWrapper<TouchableOpacityProps> = wrapper.find(
-      TouchableOpacity
-    );
+    const button: ReactWrapper<TouchableOpacityProps> =
+      wrapper.find(TouchableOpacity);
     (button.invoke("onPress") as () => void)();
 
     expect(performAuth).toHaveBeenCalledTimes(1);

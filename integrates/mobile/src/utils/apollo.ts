@@ -74,9 +74,8 @@ const onError: (errorHandler: ErrorHandler) => ApolloLink = (
           let subscription: ZenObservable.Subscription | undefined;
 
           try {
-            const operationObserver: Observable<FetchResult> = forward(
-              operation
-            );
+            const operationObserver: Observable<FetchResult> =
+              forward(operation);
             // eslint-disable-next-line fp/no-let
             let isForwarded: boolean = true;
             const skipForwarding: () => void = (): void => {
@@ -186,30 +185,28 @@ const errorLink: (history: History) => ApolloLink = (
     }
   );
 
-const authLink: ApolloLink = setContext(
-  async (): Promise<Record<string, unknown>> => {
-    try {
-      const token: string = (await getItemAsync(
-        "integrates_session"
-      )) as string;
+const authLink: ApolloLink = setContext(async (): Promise<
+  Record<string, unknown>
+> => {
+  try {
+    const token: string = (await getItemAsync("integrates_session")) as string;
 
-      return {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      };
-    } catch (exception: unknown) {
-      const token: string = "";
-      await deleteItemAsync("integrates_session");
+    return {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    };
+  } catch (exception: unknown) {
+    const token: string = "";
+    await deleteItemAsync("integrates_session");
 
-      return {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      };
-    }
+    return {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    };
   }
-);
+});
 
 const apiLink: ApolloLink = createHttpLink({
   uri: `${apiHost}/api`,

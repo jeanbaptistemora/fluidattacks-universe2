@@ -17,23 +17,18 @@ import { i18next } from "../../utils/translations/translate";
 
 const mockHistoryReplace: jest.Mock = jest.fn();
 
-jest.mock(
-  "react-router-native",
-  (): Record<string, unknown> => {
-    const mockedRouter: Record<
-      string,
-      () => Record<string, unknown>
-    > = jest.requireActual("react-router-native");
+jest.mock("react-router-native", (): Record<string, unknown> => {
+  const mockedRouter: Record<string, () => Record<string, unknown>> =
+    jest.requireActual("react-router-native");
 
-    return {
-      ...mockedRouter,
-      useHistory: (): Record<string, unknown> => ({
-        ...mockedRouter.useHistory(),
-        replace: mockHistoryReplace,
-      }),
-    };
-  }
-);
+  return {
+    ...mockedRouter,
+    useHistory: (): Record<string, unknown> => ({
+      ...mockedRouter.useHistory(),
+      replace: mockHistoryReplace,
+    }),
+  };
+});
 
 describe("WelcomeView", (): void => {
   it("should return a function", (): void => {
@@ -62,12 +57,10 @@ describe("WelcomeView", (): void => {
         </I18nextProvider>
       </PaperProvider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
     expect(wrapper.text()).toContain("Hello John!");
@@ -117,12 +110,10 @@ describe("WelcomeView", (): void => {
         </I18nextProvider>
       </PaperProvider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
     expect(mockHistoryReplace).toHaveBeenCalledWith("/Dashboard", {
@@ -167,12 +158,10 @@ describe("WelcomeView", (): void => {
         </I18nextProvider>
       </PaperProvider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
     expect(mockHistoryReplace).toHaveBeenCalledWith("/Login");
@@ -215,12 +204,10 @@ describe("WelcomeView", (): void => {
         </I18nextProvider>
       </PaperProvider>
     );
-    await act(
-      async (): Promise<void> => {
-        await wait(0);
-        wrapper.update();
-      }
-    );
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
 
     expect(wrapper).toHaveLength(1);
     expect(mockHistoryReplace).toHaveBeenCalledWith("/Login");

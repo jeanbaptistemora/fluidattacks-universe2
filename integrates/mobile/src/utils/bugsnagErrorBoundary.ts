@@ -31,19 +31,18 @@ Bugsnag.start({
   releaseStage: `mobile-${getEnvironment().name}`,
 });
 
-const isAirplaneModeEnabled: () => Promise<boolean> = async (): Promise<boolean> =>
-  Platform.OS === "android" ? isAirplaneModeEnabledAsync() : false;
+const isAirplaneModeEnabled: () => Promise<boolean> =
+  async (): Promise<boolean> =>
+    Platform.OS === "android" ? isAirplaneModeEnabledAsync() : false;
 
 Promise.all([getIpAddressAsync(), getNetworkStateAsync()])
-  .then(
-    async (networkInfo: [string, NetworkState]): Promise<void> => {
-      Bugsnag.addMetadata("network", {
-        IpAddress: networkInfo[0],
-        IsAirplaneModeEnabled: await isAirplaneModeEnabled(),
-        NetworkState: networkInfo[1],
-      });
-    }
-  )
+  .then(async (networkInfo: [string, NetworkState]): Promise<void> => {
+    Bugsnag.addMetadata("network", {
+      IpAddress: networkInfo[0],
+      IsAirplaneModeEnabled: await isAirplaneModeEnabled(),
+      NetworkState: networkInfo[1],
+    });
+  })
   .catch((error: Error): void => {
     LOGGER.error("Couldn't get network info", error);
   });
