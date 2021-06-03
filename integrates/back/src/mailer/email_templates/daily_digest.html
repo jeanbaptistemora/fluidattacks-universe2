@@ -223,60 +223,83 @@
         <h4>Reattacks</h4>
       </div>
       <div class="content">
+        <!-- REATTACKS REQUESTED -->
         <div>
-          <span>Reattacks requested</span>
-          <span class="content-number">{{ reattacks['reattacks_requested'] }}</span>
-          {% if 'groups_requested' in reattacks %}
-            {% if reattacks['reattacks_requested'] > 0 %}
-              <p style="padding: 0 1rem;">Groups with most requests today</p>
+          {% if reattacks['reattacks_requested'] > 0 %}
+            <span>Requested</span>
+            <span class="content-number">{{ reattacks['reattacks_requested'] }}</span>
+            {% if 'groups_requested' in reattacks %}
               {% for group in reattacks['groups_requested'] %}
-                <p style="padding: 0 2rem;">
-                  <strong>{{ group['group'] }}</strong>, {{ group['reattacks_requested'] }}
+                <p style="padding: 0 1rem;">
+                  <strong>{{ group['group'] }}</strong>
+                  <!-- With only one group, don't repeat the stat -->
+                  {% if reattacks['groups_requested']|length > 1 %}
+                    {{ group['reattacks_requested'] }}
+                  {% endif %}
                 </p>
               {% endfor %}
-            {% else %}
-              <p style="padding: 0 1rem;">Last request at</p>
-              {% for group in reattacks['groups_requested'] %}
-                <p style="padding: 0 2rem;">
+            {% endif %}
+          {% elif 'groups_requested' in reattacks and reattacks['groups_requested']|length > 0 %}
+            <span>Last request at</span>
+            {% for group in reattacks['groups_requested'] %}
+                <p style="padding: 0 1rem;">
                   <strong>{{ group['group'] }}</strong>, {{ group['age_last_requested'] }}
                   {% if group['age_last_requested']  == 1 %} day{% else %} days{% endif %} ago
                 </p>
               {% endfor %}
-            {% endif %}
+          {% else %}
+            <!-- No info to display -->
+            <span>No requests</span>
           {% endif %}
         </div>
+        <!-- REATTACKS EXECUTED -->
         <div>
-          <span>Reattacks executed</span>
-          <span class="content-number">{{ reattacks['reattacks_executed'] }}</span>
-          {% if 'groups_executed' in reattacks %}
-            {% if reattacks['reattacks_executed'] > 0 %}
-              <p style="padding: 0 1rem;">Groups with most executions today</p>
+          {% if reattacks['reattacks_executed'] > 0 %}
+            <span>Executed</span>
+            <span class="content-number">{{ reattacks['reattacks_executed'] }}</span>
+            {% if 'groups_executed' in reattacks %}
               {% for group in reattacks['groups_executed'] %}
-                <p style="padding: 0 2rem;">
-                  <strong>{{ group['group'] }}</strong>, {{ group['reattacks_executed'] }}
+                <p style="padding: 0 1rem;">
+                  <strong>{{ group['group'] }}</strong>
+                  <!-- With only one group, don't repeat the stat -->
+                  {% if reattacks['groups_executed']|length > 1 %}
+                    {{ group['reattacks_executed'] }}
+                  {% endif %}
                 </p>
               {% endfor %}
-            {% else %}
-              <p style="padding: 0 1rem;">Last execution at</p>
-              {% for group in reattacks['groups_executed'] %}
-                <p style="padding: 0 2rem;">
+            {% endif %}
+          {% elif 'groups_executed' in reattacks and reattacks['groups_executed']|length > 0 %}
+            <span>Last execution at</span>
+            {% for group in reattacks['groups_executed'] %}
+                <p style="padding: 0 1rem;">
                   <strong>{{ group['group'] }}</strong>, {{ group['age_last_executed'] }}
                   {% if group['age_last_executed']  == 1 %} day{% else %} days{% endif %} ago
                 </p>
               {% endfor %}
-            {% endif %}
+          {% else %}
+            <!-- No info to display -->
+            <span>No executions</span>
           {% endif %}
         </div>
+        <!-- REATTACKS PENDING -->
         <div>
-          <span>Pending reattacks</span>
-          <span class="content-number">{{ reattacks['pending_attacks'] }}</span>
-          {% if reattacks['pending_attacks'] > 0 and 'groups_pending' in reattacks %}
-            <p style="padding: 0 1rem;">Most pending at</p>
-            {% for group in reattacks['groups_pending'] %}
-              <p style="padding: 0 2rem;">
-                <strong>{{ group['group'] }}</strong>, {{ group['pending_attacks'] }}
-              </p>
-            {% endfor %}
+          {% if reattacks['pending_attacks'] > 0 %}
+            <span>Pending</span>
+            <span class="content-number">{{ reattacks['pending_attacks'] }}</span>
+            {% if 'groups_pending' in reattacks %}
+              {% for group in reattacks['groups_pending'] %}
+                <p style="padding: 0 1rem;">
+                  <strong>{{ group['group'] }}</strong>
+                  <!-- With only one group, don't repeat the stat -->
+                  {% if reattacks['groups_pending']|length > 1 %}
+                    {{ group['pending_attacks'] }}
+                  {% endif %}
+                </p>
+              {% endfor %}
+            {% endif %}
+          {% else %}
+            <!-- No info to display -->
+            <span>No pending</span>
           {% endif %}
         </div>
       </div>
@@ -317,7 +340,13 @@
         <div {% if findings|length <= 3 %}style="height: 33%;"{% endif %}>
           <span><strong>[{{ finding['finding_group'] }}] </strong>{{ finding['finding_name'] }}</span>
           <span class="content-number">
-            {{ finding['finding_age'] }} {% if finding['finding_age']  == 1 %} day{% else %} days{% endif %}
+            {% if finding['finding_age'] == 0 %}
+              today
+            {% elif finding['finding_age'] == 1 %}
+              1 day
+            {% else %}
+              {{ finding['finding_age'] }} days
+            {% endif %}
           </span>
         </div>
         {% endfor %}
