@@ -19,6 +19,7 @@ makeDerivation {
     envSources = [
       lintPython
       packages.integrates.back.pypi.runtime
+      packages.integrates.back.pypi.unit-tests
       packages.skims.config-sdk
     ];
   };
