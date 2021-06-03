@@ -14,52 +14,58 @@ and monitoring.
 
 ## Correlation
 
-1. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/083)
+1. Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)
 
-2. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/156)
+    - [083. Avoid logging sensitive data](/criteria/requirements/083)
 
-3. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/176)
+    - [156. Source code without sensitive information](/criteria/requirements/156)
 
-4. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/177)
+    - [176. Restrict system objects](/criteria/requirements/176)
 
-5. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/180)
+    - [177. Avoid caching and temporary files](/criteria/requirements/177)
 
-6. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/181)
+    - [180. Use mock data](/criteria/requirements/180)
 
-7. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/183)
+    - [181. Transmit data using secure protocols](/criteria/requirements/181)
 
-8. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/185)
+    - [183. Delete sensitive data securely](/criteria/requirements/183)
 
-9. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/210)
+    - [185. Encrypt sensitive information](/criteria/requirements/185)
 
-10. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/261)
+    - [210. Delete information from mobile devices](/criteria/requirements/210)
 
-11. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/265)
+    - [261. Avoid exposing sensitive information](/criteria/requirements/261)
 
-12. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/300)
+    - [265. Restrict access to critical processes](/criteria/requirements/265)
 
-13. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/320)
+    - [300. Mask sensitive data](/criteria/requirements/300)
 
-14. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/329)
+    - [320. Avoid client-side control enforcement](/criteria/requirements/320)
 
-15. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)](/criteria/requirements/375)
+    - [329. Keep client-side storage without sensitive data](/criteria/requirements/329)
 
-16. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(1)](/criteria/requirements/183)
+    - [375. Remove sensitive data from client-side applications](/criteria/requirements/375)
 
-17. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(3)](/criteria/requirements/312)
+2. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(1)](/criteria/requirements/183)
 
-18. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(4)](/criteria/requirements/189)
+3. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(3)](/criteria/requirements/312)
 
-19. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(4)](/criteria/requirements/310)
+4. Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(4)
 
-20. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(4)](/criteria/requirements/315)
+    - [189. Specify the purpose of data collection](/criteria/requirements/189)
 
-21. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(4)](/criteria/requirements/343)
+    - [310. Request user consent](/criteria/requirements/310)
 
-22. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 9: Location data other than traffic data.(1)](/criteria/requirements/189)
+    - [315. Provide processed data information](/criteria/requirements/315)
 
-23. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 9: Location data other than traffic data.(1)](/criteria/requirements/310)
+    - [343. Respect the Do Not Track header](/criteria/requirements/343)
 
-24. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 9: Location data other than traffic data.(1)](/criteria/requirements/315)
+5. Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 9: Location data other than traffic data.(1)
 
-25. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 9: Location data other than traffic data.(1)](/criteria/requirements/343)
+    - [189. Specify the purpose of data collection](/criteria/requirements/189)
+
+    - [310. Request user consent](/criteria/requirements/310)
+
+    - [315. Provide processed data information](/criteria/requirements/315)
+
+    - [343. Respect the Do Not Track header](/criteria/requirements/343)
