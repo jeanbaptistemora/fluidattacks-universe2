@@ -20,13 +20,15 @@ import { Seo } from "../components/Seo";
 import { WhiteShadowedCard } from "../components/WhiteShadowedCard";
 import {
   BannerContainer,
-  BannerTitle,
+  BigPageContainer,
   BlackH2,
   BlackSolutionParagraph,
   CardsContainer,
   CenteredSpacedContainer,
   FlexCenterItemsContainer,
   FullWidthContainer,
+  LittleBannerTitle,
+  LittleBlackParagraph,
   PageArticle,
   PageContainer,
   RegularRedButton,
@@ -71,7 +73,7 @@ const SolutionIndex: React.FC<IQueryData> = ({
           <PageArticle>
             <BannerContainer className={"bg-solutions"}>
               <FullWidthContainer>
-                <BannerTitle>{title}</BannerTitle>
+                <LittleBannerTitle>{title}</LittleBannerTitle>
               </FullWidthContainer>
             </BannerContainer>
             <PageContainer>
@@ -79,14 +81,16 @@ const SolutionIndex: React.FC<IQueryData> = ({
                 <FlexCenterItemsContainer className={"flex-wrap center"}>
                   <div>
                     <div className={"tl"}>
-                      <BlackSolutionParagraph className={"tl"}>
+                      <LittleBlackParagraph className={"tl"}>
                         {data.asciidoc.pageAttributes.solution}
-                      </BlackSolutionParagraph>
+                      </LittleBlackParagraph>
                     </div>
                   </div>
                 </FlexCenterItemsContainer>
               </FullWidthContainer>
-              <FullWidthContainer className={"pv4"}>
+            </PageContainer>
+            <BigPageContainer>
+              <FullWidthContainer>
                 <BlackH2>{translate.t("solution.benefits")}</BlackH2>
                 <FlexCenterItemsContainer
                   className={"solution-benefits flex-wrap"}
@@ -94,6 +98,10 @@ const SolutionIndex: React.FC<IQueryData> = ({
                     __html: data.asciidoc.html,
                   }}
                 />
+              </FullWidthContainer>
+            </BigPageContainer>
+            <PageContainer>
+              <FullWidthContainer className={"pv4"}>
                 <CenteredSpacedContainer>
                   <BlackSolutionParagraph className={"tc"}>
                     {`${title} ${translate.t("solution.belonging")} `}

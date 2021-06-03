@@ -12,8 +12,6 @@
 import { graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
-import type { StyledComponent } from "styled-components";
-import styled from "styled-components";
 
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
@@ -21,10 +19,14 @@ import { SastPageFooter } from "../components/SastPageFooter";
 import { Seo } from "../components/Seo";
 import {
   BannerContainer,
-  BannerTitle,
+  BigPageContainer,
   BlackH2,
+  FlexCenterItemsContainer,
   FullWidthContainer,
+  LittleBannerTitle,
+  LittleBlackParagraph,
   PageArticle,
+  PageContainer,
 } from "../styles/styledComponents";
 import { capitalizeCrumbs } from "../utils/capitalizeCrumbs";
 
@@ -41,50 +43,6 @@ const CategoryIndex: React.FC<IQueryData> = ({
     .charAt(0)
     .toUpperCase()}${title.slice(1).replace("-", "")}`;
   const { banner } = data.asciidoc.pageAttributes;
-  const CategoryContainer: StyledComponent<
-    "div",
-    Record<string, unknown>
-  > = styled.div.attrs({
-    className: `
-      roboto
-      mw-1366
-      ph-body
-      center
-      c-lightblack
-      pv5
-      compliance-page
-      flex
-      flex-wrap
-      items-center
-      justify-center
-    `,
-  })``;
-  const CategoryContent: StyledComponent<
-    "div",
-    Record<string, unknown>
-  > = styled.div.attrs({
-    className: `
-      solution-benefits
-      justify-center
-      items-center
-      flex
-      flex-wrap
-    `,
-  })``;
-  const CategoryDefinition: StyledComponent<
-    "div",
-    Record<string, unknown>
-  > = styled.div.attrs({
-    className: `
-      center
-      roboto
-      f3-l
-      f4
-      fw3
-      lh-2
-      pv4
-    `,
-  })``;
 
   return (
     <React.Fragment>
@@ -108,23 +66,36 @@ const CategoryIndex: React.FC<IQueryData> = ({
           <PageArticle>
             <BannerContainer className={banner}>
               <FullWidthContainer>
-                <BannerTitle>{title}</BannerTitle>
+                <LittleBannerTitle>{title}</LittleBannerTitle>
               </FullWidthContainer>
             </BannerContainer>
-            <CategoryContainer>
-              <CategoryDefinition>
-                {data.asciidoc.pageAttributes.definition}
-                <br />
-                <br />
-                {data.asciidoc.pageAttributes.defaux}
-              </CategoryDefinition>
-              <BlackH2 className={"roboto"}>{"Benefits"}</BlackH2>
-              <CategoryContent
-                dangerouslySetInnerHTML={{
-                  __html: data.asciidoc.html,
-                }}
-              />
-            </CategoryContainer>
+            <PageContainer>
+              <FullWidthContainer className={"pv4"}>
+                <FlexCenterItemsContainer className={"flex-wrap center"}>
+                  <div>
+                    <div className={"tl"}>
+                      <LittleBlackParagraph className={"tl"}>
+                        {data.asciidoc.pageAttributes.definition}
+                        <br />
+                        <br />
+                        {data.asciidoc.pageAttributes.defaux}
+                      </LittleBlackParagraph>
+                    </div>
+                  </div>
+                </FlexCenterItemsContainer>
+              </FullWidthContainer>
+            </PageContainer>
+            <BigPageContainer>
+              <FullWidthContainer className={"pv4"}>
+                <BlackH2 className={"roboto"}>{"Benefits"}</BlackH2>
+                <FlexCenterItemsContainer
+                  className={"solution-benefits flex-wrap"}
+                  dangerouslySetInnerHTML={{
+                    __html: data.asciidoc.html,
+                  }}
+                />
+              </FullWidthContainer>
+            </BigPageContainer>
             {data.asciidoc.pageAttributes.slug === "categories/sast/" ? (
               <SastPageFooter />
             ) : undefined}

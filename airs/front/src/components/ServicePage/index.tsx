@@ -9,10 +9,12 @@ import styled from "styled-components";
 import {
   BannerContainer,
   BannerSubtitle,
-  BannerTitle,
+  BigPageContainer,
   BlackH2,
   FlexCenterItemsContainer,
   FullWidthContainer,
+  LittleBannerTitle,
+  LittleBlackParagraph,
   PageArticle,
   RegularRedButton,
 } from "../../styles/styledComponents";
@@ -52,22 +54,6 @@ const ContentContainer: StyledComponent<
     ph-body
     center
     roboto
-  `,
-})``;
-
-const DefinitionContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    mw7
-    center
-    roboto
-    f3-l
-    f4
-    fw3
-    lh-2
-    pv4
   `,
 })``;
 
@@ -126,7 +112,7 @@ const ServicePage: React.FC<IProps> = ({
     <PageArticle>
       <BannerContainer className={banner}>
         <FullWidthContainer>
-          <BannerTitle>{title}</BannerTitle>
+          <LittleBannerTitle>{title}</LittleBannerTitle>
           <BannerSubtitle>{subtitle}</BannerSubtitle>
         </FullWidthContainer>
       </BannerContainer>
@@ -152,21 +138,27 @@ const ServicePage: React.FC<IProps> = ({
       </FlexCenterItemsContainer>
 
       <ContentContainer>
-        <DefinitionContainer>
-          {definition}
+        <FullWidthContainer className={"pv4"}>
+          <FlexCenterItemsContainer className={"flex-wrap center"}>
+            <div>
+              <div className={"tl"}>
+                <LittleBlackParagraph>{definition}</LittleBlackParagraph>
+              </div>
 
-          <div className={"center tc"}>
-            <Link to={"/contact-us/"}>
-              <RegularRedButton>{"Make an inquiry"}</RegularRedButton>
-            </Link>
-          </div>
-        </DefinitionContainer>
+              <div className={"center tc"}>
+                <Link to={"/contact-us/"}>
+                  <RegularRedButton>{"Make an inquiry"}</RegularRedButton>
+                </Link>
+              </div>
+            </div>
+          </FlexCenterItemsContainer>
+        </FullWidthContainer>
         <CenteredContainer className={"tc mv4"}>
           <img alt={title} className={"tc h5"} src={image} />
         </CenteredContainer>
       </ContentContainer>
-      <ContentContainer>
-        <CenteredContainer>
+      <BigPageContainer>
+        <FullWidthContainer>
           <BlackH2>{"Key Features"}</BlackH2>
           <FlexCenterItemsContainer
             className={"internal solution-benefits services-features flex-wrap"}
@@ -174,7 +166,9 @@ const ServicePage: React.FC<IProps> = ({
               __html: content,
             }}
           />
-        </CenteredContainer>
+        </FullWidthContainer>
+      </BigPageContainer>
+      <ContentContainer>
         <OneShotBlackParagraph>{oneShotParagraph}</OneShotBlackParagraph>
       </ContentContainer>
     </PageArticle>

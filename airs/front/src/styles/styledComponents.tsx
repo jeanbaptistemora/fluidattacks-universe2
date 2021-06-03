@@ -542,6 +542,21 @@ const BannerTitle: StyledComponent<
   `,
 })``;
 
+const LittleBannerTitle: StyledComponent<
+  "h1",
+  Record<string, unknown>
+> = styled.h1.attrs({
+  className: `
+    white
+    fw7
+    f1
+    neue
+    tc
+    f-375-l
+    ma0
+  `,
+})``;
+
 const PageContainer: StyledComponent<
   "div",
   Record<string, unknown>
@@ -549,6 +564,20 @@ const PageContainer: StyledComponent<
   className: `
     roboto
     mw-1366
+    ph-body
+    center
+    c-lightblack
+    pv5
+  `,
+})``;
+
+const BigPageContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    roboto
+    mw-1920
     ph-body
     center
     c-lightblack
@@ -657,6 +686,19 @@ const BlackSolutionParagraph: StyledComponent<
   `,
 })``;
 
+const LittleBlackParagraph: StyledComponent<
+  "p",
+  Record<string, unknown>
+> = styled.p.attrs({
+  className: `
+    c-fluid-bk
+    fw3
+    f-1125
+    lh-2
+    mw-750
+  `,
+})``;
+
 const CenteredSpacedContainer: StyledComponent<
   "div",
   Record<string, unknown>
@@ -672,7 +714,7 @@ const BlackH2: StyledComponent<"h2", Record<string, unknown>> = styled.h2.attrs(
     className: `
     c-fluid-bk
     fw7
-    f1
+    f2
     tc
   `,
   }
@@ -1009,6 +1051,7 @@ export {
   BannerContainer,
   BannerSubtitle,
   BannerTitle,
+  BigPageContainer,
   BlackBigHeader,
   BlackBigParagraph,
   BlackH2,
@@ -1042,6 +1085,8 @@ export {
   HalfScreenContainerSpaced,
   IframeContainer,
   LittleBannerContainer,
+  LittleBannerTitle,
+  LittleBlackParagraph,
   PlayItButtonContainer,
   CenteredMaxWidthContainer,
   InnerMainContentHome,

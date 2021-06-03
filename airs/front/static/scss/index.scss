@@ -219,8 +219,10 @@ $whiter-gray: rgba(241, 241, 241, 1);
 // Width and Max Width classes
 .mw-1200 { max-width: 1200px; }
 .mw-1366 { max-width: 1366px; }
+.mw-1920 { max-width: 1920px; }
 .mw-376 { max-width: 376px; }
 .mw-615 { max-width: 615px; }
+.mw-750 { max-width: 750px; }
 .mw-900 { max-width: 900px; }
 .w-products { width: 31.25rem; }
 .w-resources-card { width: 21.875rem; }
@@ -239,6 +241,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 // Big screen sizes
 @media screen and (min-width: 60em) {
   .advisories-grid { grid-template-columns: repeat(2, minmax(25rem, 1fr)); }
+  .f-375-l { font-size: 3.75rem; }
   .f-error { font-size: 17rem; }
   .bg-banner-sz { background-size: 100% 100%; }
   .mw-20 { max-width: 20rem; }
@@ -721,9 +724,8 @@ $whiter-gray: rgba(241, 241, 241, 1);
     margin-left: auto;
     margin-right: auto;
     min-height: 420px;
-    padding: 0 2rem;
     vertical-align: top;
-    width: 400px;
+    width: 500px;
 
     h3 {
       color: $fluid-black;
@@ -738,13 +740,6 @@ $whiter-gray: rgba(241, 241, 241, 1);
       line-height: 36px;
     }
   }
-}
-
-.solution-benefits .sect2 h3::after {
-  border-bottom: 4px solid $hovered-red;
-  content: '';
-  display: block;
-  width: 30%;
 }
 
 .counter-container {
