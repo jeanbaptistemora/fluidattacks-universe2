@@ -14,120 +14,124 @@ of personal data.
 
 ## Correlation
 
-- [GDPR. Art. 25: Data protection by design and by default.(1)](/criteria/requirements/156)
+### Articles
 
-- [GDPR. Recital 51: Protecting sensitive personal data](/criteria/requirements/156)
+1. [GDPR. Art. 5: Principles relating to processing of personal data.(1)(e)](/criteria/requirements/183)
 
-- [GDPR. Recital 7: The Framework is Based on Control and Certainty](/criteria/requirements/085)
+2. [GDPR. Art. 5: Principles relating to processing of personal data.(1)(e)](/criteria/requirements/360)
 
-- [GDPR. Art. 33: Notification of a personal data breach to the supervisory authority.(5)](/criteria/requirements/075)
+3. [GDPR. Art. 5: Principles relating to processing of personal data.(1)(f)](/criteria/requirements/177)
 
-- [GDPR. Recital 7: The Framework is Based on Control and Certainty](/criteria/requirements/084)
+4. [GDPR. Art. 5: Principles relating to processing of personal data.(1)(f)](/criteria/requirements/184)
 
-- [GDPR. Recital 45: Fulfillment of legal obligations](/criteria/requirements/331)
+5. [GDPR. Art. 5: Principles relating to processing of personal data.(1)(f)](/criteria/requirements/329)
 
-- [GDPR. Art. 32: Security of processing.(1)(c)](/criteria/requirements/072)
+6. [GDPR. Art. 5: Principles relating to processing of personal data.(1)(f)](/criteria/requirements/375)
 
-- [GDPR. Art. 32: Security of processing.(1)(b)](/criteria/requirements/062)
+7. [GDPR. Art. 5: Principles relating to processing of personal data.(1)(f)](/criteria/requirements/261)
 
-- [GDPR. Art. 5: Principles relating to processing of personal data.(1)(f)](/criteria/requirements/177)
+8. [GDPR. Art. 7: Conditions for consent.(1).](/criteria/requirements/310)
 
-- [GDPR. Art. 5: Principles relating to processing of personal data.(1)(f)](/criteria/requirements/375)
+9. [GDPR. Art. 7: Conditions for consent.(1)](/criteria/requirements/311)
 
-- [GDPR. Art. 5: Principles relating to processing of personal data.(1)(f)](/criteria/requirements/329)
+10. [GDPR. Art. 7: Conditions for consent.(3)](/criteria/requirements/312)
 
-- [GDPR. Recital 51: Protecting sensitive personal data](/criteria/requirements/329)
+11. [GDPR. Art. 11: Processing which does not require identification.(2)](/criteria/requirements/313)
 
-- [GDPR. Recital 51: Protecting sensitive personal data](/criteria/requirements/300)
+12. [GDPR. Art. 11: Processing which does not require identification.(2)](/criteria/requirements/314)
 
-- [GDPR. Art. 32: Security of processing.(4)](/criteria/requirements/180)
+13. [GDPR. Art. 11: Processing which does not require identification.(2)](/criteria/requirements/315)
 
-- [GDPR. Recital 6: Ensuring a High Level of Data Protection Despite the Increased Exchange of Data](/criteria/requirements/180)
+14. [GDPR. Art. 11: Processing which does not require identification.(2)](/criteria/requirements/316)
 
-- [GDPR. Recital 51: Protecting sensitive personal data](/criteria/requirements/180)
+15. [GDPR. Art. 11: Processing which does not require identification.(2)](/criteria/requirements/317)
 
-- [GDPR. Art. 32: Security of processing.(1)(a)](/criteria/requirements/185)
+16. [GDPR. Art. 13: Information to be provided where personal data are collected from the data subject.(1-3)](/criteria/requirements/189)
 
-- [GDPR. Recital 45: Protecting sensitive personal data](/criteria/requirements/185)
+17. [GDPR. Art. 14: Information to be provided where personal data have not been obtained from the data subject.(1-4)](/criteria/requirements/189)
 
-- [GDPR. Art. 5: Principles relating to processing of personal data.(1)(f)](/criteria/requirements/184)
+18. [GDPR. Art. 15: Right of access by the data subject.(1)(a-g)](/criteria/requirements/315)
 
-- [GDPR. Art. 32: Security of processing.(4)](/criteria/requirements/176)
+19. [GDPR. Art. 15: Right of access by the data subject.(1)](/criteria/requirements/314)
 
-- [GDPR. Recital 6: Ensuring a High Level of Data Protection Despite the Increased Exchange of Data](/criteria/requirements/176)
+20. [GDPR. Art. 16: Right to rectification.(1)](/criteria/requirements/316)
 
-- [GDPR. Art. 5: Principles relating to processing of personal data.(1)(e)](/criteria/requirements/183)
+21. [GDPR. Art. 17: Right to erasure (‘right to be forgotten').(1)](/criteria/requirements/317)
 
-- [GDPR. Art. 5: Principles relating to processing of personal data.(1)(f)](/criteria/requirements/261)
+22. [GDPR. Art. 18: Right to restriction of processing.(1)](/criteria/requirements/312)
 
-- [GDPR. Art. 25: Data protection by design and by default.(1)](/criteria/requirements/045)
+23. [GDPR. Art. 19: Notification obligation regarding rectification or erasure of personal data or restriction of processing](/criteria/requirements/318)
 
-- [GDPR. Recital 51: Protecting sensitive personal data](/criteria/requirements/045)
+24. [GDPR. Art. 20: Right to data portability.(1)](/criteria/requirements/315)
 
-- [GDPR. Recital 64: Identity verification](/criteria/requirements/231)
+25. [GDPR. Art. 21: Right to object.(1)](/criteria/requirements/312)
 
-- [GDPR. Recital 64: Identity verification](/criteria/requirements/122)
+26. [GDPR. Art. 25: Data protection by design and by default.(1)](/criteria/requirements/045)
 
-- [GDPR. Art. 11: Processing which does not require identification.(2)](/criteria/requirements/317)
+27. [GDPR. Art. 25: Data protection by design and by default.(1)](/criteria/requirements/156)
 
-- [GDPR. Art. 17: Right to erasure (‘right to be forgotten').(1)](/criteria/requirements/317)
+28. [GDPR. Art. 30: Records of processing activities](/criteria/requirements/189)
 
-- [GDPR. Art. 7: Conditions for consent.(1)](/criteria/requirements/311)
+29. [GDPR. Art. 32: Security of processing.(1)(a)](/criteria/requirements/185)
 
-- [GDPR. Art. 11: Processing which does not require identification.(2)](/criteria/requirements/314)
+30. [GDPR. Art. 32: Security of processing.(1)(b)](/criteria/requirements/062)
 
-- [GDPR. Art. 15: Right of access by the data subject.(1)](/criteria/requirements/314)
+31. [GDPR. Art. 32: Security of processing.(1)(c)](/criteria/requirements/072)
 
-- [GDPR. Art. 89: Safeguards and derogations relating to processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes.(2)](/criteria/requirements/314)
+32. [GDPR. Art. 32: Security of processing.(4)](/criteria/requirements/176)
 
-- [GDPR. Art. 89: Safeguards and derogations relating to processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes.(3)](/criteria/requirements/314)
+33. [GDPR. Art. 32: Security of processing.(4)](/criteria/requirements/180)
 
-- [GDPR. Art. 7: Conditions for consent.(3)](/criteria/requirements/312)
+34. [GDPR. Art. 33: Notification of a personal data breach to the supervisory authority.(5)](/criteria/requirements/075)
 
-- [GDPR. Art. 18: Right to restriction of processing.(1)](/criteria/requirements/312)
+35. [GDPR. Art. 89: Safeguards and derogations relating to processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes.(2)](/criteria/requirements/314)
 
-- [GDPR. Art. 21: Right to object.(1)](/criteria/requirements/312)
+36. [GDPR. Art. 89: Safeguards and derogations relating to processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes.(2)](/criteria/requirements/315)
 
-- [GDPR. Art. 11: Processing which does not require identification.(2)](/criteria/requirements/316)
+37. [GDPR. Art. 89: Safeguards and derogations relating to processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes.(2)](/criteria/requirements/316)
 
-- [GDPR. Art. 16: Right to rectification.(1)](/criteria/requirements/316)
+38. [GDPR. Art. 89: Safeguards and derogations relating to processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes.(3)](/criteria/requirements/314)
 
-- [GDPR. Art. 89: Safeguards and derogations relating to processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes.(2)](/criteria/requirements/316)
+39. [GDPR. Art. 89: Safeguards and derogations relating to processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes.(3)](/criteria/requirements/315)
 
-- [GDPR. Art. 89: Safeguards and derogations relating to processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes.(3)](/criteria/requirements/316)
+40. [GDPR. Art. 89: Safeguards and derogations relating to processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes.(3)](/criteria/requirements/316)
 
-- [GDPR. Art. 5: Principles relating to processing of personal data.(1)(e)](/criteria/requirements/360)
+41. [GDPR. Art. 89: Safeguards and derogations relating to processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes.(3)](/criteria/requirements/318)
 
-- [GDPR. Art. 11: Processing which does not require identification.(2)](/criteria/requirements/315)
+### Recitals
 
-- [GDPR. Art. 15: Right of access by the data subject.(1)(a-g)](/criteria/requirements/315)
+42. [GDPR. Recital 6: Ensuring a High Level of Data Protection Despite the Increased Exchange of Data](/criteria/requirements/176)
 
-- [GDPR. Art. 20: Right to data portability.(1)](/criteria/requirements/315)
+43. [GDPR. Recital 6: Ensuring a High Level of Data Protection Despite the Increased Exchange of Data](/criteria/requirements/180)
 
-- [GDPR. Art. 89: Safeguards and derogations relating to processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes.(2)](/criteria/requirements/315)
+44. [GDPR. Recital 7: The Framework is Based on Control and Certainty](/criteria/requirements/084)
 
-- [GDPR. Art. 89: Safeguards and derogations relating to processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes.(3)](/criteria/requirements/315)
+45. [GDPR. Recital 7: The Framework is Based on Control and Certainty](/criteria/requirements/085)
 
-- [GDPR. Art. 13: Information to be provided where personal data are collected from the data subject.(1-3)](/criteria/requirements/189)
+46. [GDPR. Recital 39: Principles of data processing](/criteria/requirements/189)
 
-- [GDPR. Art. 14: Information to be provided where personal data have not been obtained from the data subject.(1-4)](/criteria/requirements/189)
+47. [GDPR. Recital 39: Principles of data processing](/criteria/requirements/343)
 
-- [GDPR. Art. 30: Records of processing activities](/criteria/requirements/189)
+48. [GDPR. Recital 40: Lawfulness of data processing](/criteria/requirements/189)
 
-- [GDPR. Recital 39: Principles of data processing](/criteria/requirements/189)
+49. [GDPR. Recital 40: Lawfulness of data processing](/criteria/requirements/343)
 
-- [GDPR. Recital 40: Lawfulness of data processing](/criteria/requirements/189)
+50. [GDPR. Recital 45: Fulfillment of legal obligations](/criteria/requirements/331)
 
-- [GDPR. Recital 45: Fulfillment of legal obligations](/criteria/requirements/189)
+51. [GDPR. Recital 45: Fulfillment of legal obligations](/criteria/requirements/189)
 
-- [GDPR. Art. 7: Conditions for consent.(1).](/criteria/requirements/310)
+52. [GDPR. Recital 45: Protecting sensitive personal data](/criteria/requirements/185)
 
-- [GDPR. Art. 11: Processing which does not require identification.(2)](/criteria/requirements/313)
+53. [GDPR. Recital 51: Protecting sensitive personal data](/criteria/requirements/180)
 
-- [GDPR. Art. 19: Notification obligation regarding rectification or erasure of personal data or restriction of processing](/criteria/requirements/318)
+54. [GDPR. Recital 51: Protecting sensitive personal data](/criteria/requirements/300)
 
-- [GDPR. Art. 89: Safeguards and derogations relating to processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes.(3)](/criteria/requirements/318)
+55. [GDPR. Recital 51: Protecting sensitive personal data](/criteria/requirements/329)
 
-- [GDPR. Recital 39: Principles of data processing](/criteria/requirements/343)
+56. [GDPR. Recital 51: Protecting sensitive personal data](/criteria/requirements/045)
 
-- [GDPR. Recital 40: Lawfulness of data processing](/criteria/requirements/343)
+57. [GDPR. Recital 51: Protecting sensitive personal data](/criteria/requirements/156)
+
+58. [GDPR. Recital 64: Identity verification](/criteria/requirements/122)
+
+59. [GDPR. Recital 64: Identity verification](/criteria/requirements/231)
