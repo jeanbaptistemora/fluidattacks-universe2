@@ -46,6 +46,10 @@ def _syntax_step_object_instantiation_danger(args: EvaluatorArgs) -> None:
             "System.Net.Sockets.TcpClient",
             "System.Net.WebClient",
         },
+        core_model.FindingEnum.F008.name: {
+            "System.Net.Sockets.TcpClient",
+            "System.Net.WebClient",
+        },
         core_model.FindingEnum.F001_C_SHARP_SQL.name: {
             "System.Net.Sockets.TcpClient",
             "System.Net.WebClient",

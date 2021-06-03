@@ -22,6 +22,7 @@ def mark_inputs(
     for finding in (
         findings.F001_C_SHARP_SQL,
         findings.F004,
+        findings.F008,
         findings.F107,
     ):
         danger_args = {
@@ -91,5 +92,13 @@ def mark_sinks(
         syntax,
         {
             "Start",
+        },
+    )
+    mark_methods_sink(
+        findings.F008,
+        graph,
+        syntax,
+        {
+            "Write",
         },
     )

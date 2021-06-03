@@ -1,0 +1,11 @@
+checks:
+  - F008
+namespace: NIST
+output: skims/test/outputs/nist_c_sharp_f008.csv
+path:
+  include:
+    # F008
+    - src/testcases/CWE80_XSS/s01/
+  lib_path: false
+  lib_root: true
+working_dir: ../NIST-SARD-Test-Suites/Juliet_Test_Suite_v1.3_for_C#/

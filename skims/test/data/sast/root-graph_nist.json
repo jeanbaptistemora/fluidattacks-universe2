@@ -4161,7 +4161,7 @@
             "label_c": 30,
             "label_field_name": "63",
             "label_field_type": "62",
-            "label_input_type": "F001_C_SHARP_SQL,F004,F107",
+            "label_input_type": "F001_C_SHARP_SQL,F004,F008,F107",
             "label_l": 30,
             "label_type": "parameter"
           },

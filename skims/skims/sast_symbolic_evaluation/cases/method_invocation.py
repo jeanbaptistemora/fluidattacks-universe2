@@ -116,6 +116,7 @@ BY_OBJ: Dict[str, Set[str]] = complete_attrs_on_dict(
         },
         "string": {
             "Split",
+            "Replace",
         },
         "java.lang.StringBuilder": {
             "append",
@@ -278,6 +279,9 @@ BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
                 "getWriter.printf",
                 "getWriter.println",
                 "getWriter.write",
+            },
+            "System.Web.HttpResponse": {
+                "Write",
             },
         }
     ),
