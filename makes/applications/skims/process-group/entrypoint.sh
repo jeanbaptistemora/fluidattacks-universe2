@@ -22,7 +22,10 @@ function get_skims_expected_code_date {
   local namespace="${2}"
   local check="${3}"
 
-  skims expected-code-date --group "${group}" --finding-code "${check}"
+  skims expected-code-date \
+    --finding-code "${check}" \
+    --group "${group}" \
+    --namespace "${namespace}"
 }
 
 function update_group {

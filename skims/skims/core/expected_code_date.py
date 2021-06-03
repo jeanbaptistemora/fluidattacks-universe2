@@ -24,6 +24,7 @@ from typing import (
 async def main(
     finding_code: str,
     group: str,
+    namespace: str,
     token: str,
 ) -> bool:
     success: bool = True
@@ -50,7 +51,8 @@ async def main(
             verification = vulnerability.integrates_metadata.verification
 
             if (
-                verification
+                namespace == vulnerability.namespace
+                and verification
                 and verification[-1].state
                 == core_model.VulnerabilityVerificationStateEnum.REQUESTED
                 and verification[-1].date > max_reattack_date

@@ -120,16 +120,19 @@ def cli(
 )
 @FINDING_CODE(required=True)
 @GROUP(required=True)
+@NAMESPACE(required=True)
 @TOKEN(required=True)
 def cli_expected_code_date(
     finding_code: str,
     group: str,
+    namespace: str,
     token: str,
 ) -> None:
     success: bool = run(
         cli_expected_code_date_wrapped(
             finding_code=finding_code,
             group=group,
+            namespace=namespace,
             token=token,
         )
     )
@@ -239,6 +242,7 @@ def cli_scan(
 async def cli_expected_code_date_wrapped(
     finding_code: str,
     group: str,
+    namespace: str,
     token: str,
 ) -> bool:
     import core.expected_code_date
@@ -252,6 +256,7 @@ async def cli_expected_code_date_wrapped(
     return await core.expected_code_date.main(
         finding_code=finding_code,
         group=group,
+        namespace=namespace,
         token=token,
     )
 
