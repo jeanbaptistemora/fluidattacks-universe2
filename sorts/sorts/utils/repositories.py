@@ -1,6 +1,3 @@
-from datetime import (
-    datetime,
-)
 import git
 from git.cmd import (
     Git,
@@ -13,9 +10,6 @@ from numpy import (
     ndarray,
 )
 import os
-from pydriller.metrics.process.hunks_count import (
-    HunksCount,
-)
 import re
 from sorts.constants import (
     RENAME_REGEX,
@@ -46,73 +40,6 @@ def get_bad_repos(fusion_path: str) -> List[str]:
         for repo in os.listdir(fusion_path)
         if not test_repo(os.path.join(fusion_path, repo))
     ]
-
-
-def get_commit_date(git_repo: Git, commit: str) -> datetime:
-    """Gets the date when a commit was made"""
-    commit_date: str = git_repo.show("-s", "--pretty=%aI", commit)
-    return datetime.fromisoformat(commit_date)
-
-
-def get_commit_files(git_repo: Git, commit: str) -> List[str]:
-    """Gets a list of files modified in a certain commit"""
-    files: str = git_repo.show("--name-only", "--pretty=format:", commit)
-    return files.split("\n")
-
-
-def get_commit_hunks(repo_path: str, commit: str) -> int:
-    metric = HunksCount(
-        path_to_repo=repo_path, from_commit=commit, to_commit=commit
-    )
-    files = metric.count()
-    hunks = sum(files.values())
-    return hunks
-
-
-def get_commit_stats(git_repo: Git, commit: str) -> str:
-    """Returns the amount of changed lines a commit has"""
-    stats: str = git_repo.show("--shortstat", "--pretty=format:", commit)
-    return stats
-
-
-def get_file_authors_history(git_repo: Git, file: str) -> List[str]:
-    """Returns a list with the author of every commit that modified a file"""
-    author_history: str = git_repo.log(
-        "--no-merges", "--follow", "--pretty=%ae", file
-    )
-    return author_history.split("\n")
-
-
-def get_file_commit_history(git_repo: Git, file: str) -> List[str]:
-    """Returns a list with the hashes of the commits that touched a file"""
-    commit_history: str = git_repo.log(
-        "--no-merges", "--follow", "--pretty=%H", file
-    )
-    return commit_history.split("\n")
-
-
-def get_file_date_history(git_repo: Git, file: str) -> List[str]:
-    """Returns a list with dates in ISO format of every commit the file has"""
-    date_history: str = git_repo.log(
-        "--no-merges", "--follow", "--pretty=%aI", file
-    )
-    return date_history.split("\n")
-
-
-def get_file_stat_history(git_repo: Git, file: str) -> List[str]:
-    """Returns a list with the amount of changed lines each commit has"""
-    stat_history: str = git_repo.log(
-        "--no-merges", "--follow", "--shortstat", "--pretty=", file
-    )
-    return stat_history.split("\n")
-
-
-def get_latest_commits(git_repo: Git, since: str) -> List[str]:
-    """Gets the list of commits made to a repository since the defined date"""
-    latest_commits: str = git_repo.log(
-        "--no-merges", "--pretty=%H", f'--since="{since}"'
-    )
-    return latest_commits.split("\n")
 
 
 def get_log_file_metrics(logs_dir: str, repo: str, file: str) -> GitMetrics:
@@ -169,12 +96,6 @@ def get_log_file_metrics(logs_dir: str, repo: str, file: str) -> GitMetrics:
     return git_metrics
 
 
-def get_repository_commit_history(git_repo: Git) -> List[str]:
-    """Gets the complete commit history of a git repository"""
-    commit_history: str = git_repo.log("--no-merges", "--pretty=%H")
-    return commit_history.split("\n")
-
-
 def get_repositories_log(dir_: str, repos_paths: ndarray) -> None:
     """Gets the complete log of the repositories and saves them to files"""
     for repo_path in repos_paths:
@@ -225,20 +146,3 @@ def test_repo(repo_path: str) -> bool:
     except GitCommandError:
         is_repo_ok = False
     return is_repo_ok
-
-
-def translate_metrics_to_git_format(metrics: List[str]) -> str:
-    """Translates metrics to the format used by git pretty print"""
-    metrics_dict: Dict[str, str] = {
-        "commit_hash": "%H",
-        "author_email": "%ae",
-        "date_iso_format": "%aI",
-    }
-    metric_git_format: str = ",".join(
-        [
-            metrics_dict[metric]
-            for metric in metrics
-            if metrics_dict.get(metric)
-        ]
-    )
-    return metric_git_format
