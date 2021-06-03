@@ -1,14 +1,8 @@
 # pylint: skip-file
 
-from postgres_client.cursor import (
-    DynamicSQLargs,
+from postgres_client.query import (
     Query,
-)
-from returns.maybe import (
-    Maybe,
-)
-from typing import (
-    List,
+    SqlArgs,
 )
 
 
@@ -17,8 +11,8 @@ def get_tables(schema: str) -> Query:
         "SELECT tables.table_name FROM information_schema.tables "
         "WHERE table_schema = %(schema_name)s"
     )
-    args = DynamicSQLargs(values={"schema_name": schema})
-    return Query.new(query, Maybe.from_value(args))
+    args = SqlArgs(values={"schema_name": schema})
+    return Query(query, args)
 
 
 def exist(schema: str) -> Query:
@@ -27,17 +21,17 @@ def exist(schema: str) -> Query:
         "SELECT 1 FROM pg_namespace "
         "WHERE nspname = %(schema_name)s);"
     )
-    args = DynamicSQLargs(values={"schema_name": schema})
-    return Query.new(query, Maybe.from_value(args))
+    args = SqlArgs(values={"schema_name": schema})
+    return Query(query, args)
 
 
 def delete(schema: str) -> Query:
     query: str = "DROP SCHEMA {schema_name}"
-    args = DynamicSQLargs(identifiers={"schema_name": schema})
-    return Query.new(query, Maybe.from_value(args))
+    args = SqlArgs(identifiers={"schema_name": schema})
+    return Query(query, args)
 
 
 def create(schema: str) -> Query:
     query: str = "CREATE SCHEMA {schema_name}"
-    args = DynamicSQLargs(identifiers={"schema_name": schema})
-    return Query.new(query, Maybe.from_value(args))
+    args = SqlArgs(identifiers={"schema_name": schema})
+    return Query(query, args)

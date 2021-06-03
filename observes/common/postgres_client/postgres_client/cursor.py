@@ -13,6 +13,9 @@ from enum import (
 from postgres_client.connection import (
     DbConnection,
 )
+from postgres_client.query import (
+    Query,
+)
 from psycopg2 import (
     sql as postgres_sql,
 )
@@ -110,17 +113,6 @@ def _make_fetch_action(
         cursor.fetchall if f_action == FetchAction.ALL else cursor.fetchone
     )
     return CursorFetchAction(act=action, fetch_type=f_action)
-
-
-class Query(NamedTuple):
-    query: str
-    args: Maybe[DynamicSQLargs]
-
-    @classmethod
-    def new(cls, query: str, args: Maybe[DynamicSQLargs]) -> Query:
-        return cls(
-            query=sql_id_purifier(query, args.value_or(None)), args=args
-        )
 
 
 class Cursor(NamedTuple):

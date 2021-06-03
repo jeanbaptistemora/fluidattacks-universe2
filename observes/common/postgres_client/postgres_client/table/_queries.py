@@ -1,16 +1,13 @@
 # pylint: skip-file
 
-from postgres_client.cursor import (
-    DynamicSQLargs,
+from postgres_client.query import (
     Query,
+    SqlArgs,
 )
 from postgres_client.table._objs import (
     Column,
     MetaTable,
     TableID,
-)
-from returns.maybe import (
-    Maybe,
 )
 from typing import (
     Dict,
@@ -49,7 +46,7 @@ def add_columns(
             "ADD COLUMN {column_name} "
             "{field_type} default %(default_val)s"
         )
-        args = DynamicSQLargs(
+        args = SqlArgs(
             values={"default_val": column.default_val},
             identifiers={
                 "table_path": table.path,
@@ -57,10 +54,7 @@ def add_columns(
                 "field_type": column.field_type.value,
             },
         )
-        query = Query.new(
-            statement,
-            Maybe.from_value(args),
-        )
+        query = Query(statement, args)
         queries.append(query)
     return queries
 
@@ -74,16 +68,13 @@ def exist(table_id: TableID) -> Query:
             AND table_name = %(table_name)s
         );
     """
-    args = DynamicSQLargs(
+    args = SqlArgs(
         values={
             "table_schema": table_id.schema,
             "table_name": table_id.table_name,
         }
     )
-    return Query.new(
-        statement,
-        Maybe.from_value(args),
-    )
+    return Query(statement, args)
 
 
 def retrieve(table_id: TableID) -> Query:
@@ -102,16 +93,13 @@ def retrieve(table_id: TableID) -> Query:
             AND table_schema = %(table_schema)s
         ORDER BY ordinal_position;
     """
-    args = DynamicSQLargs(
+    args = SqlArgs(
         values={
             "table_schema": table_id.schema,
             "table_name": table_id.table_name,
         }
     )
-    return Query.new(
-        statement,
-        Maybe.from_value(args),
-    )
+    return Query(statement, args)
 
 
 def create(table: MetaTable, if_not_exist: bool = False) -> Query:
@@ -135,8 +123,8 @@ def create(table: MetaTable, if_not_exist: bool = False) -> Query:
         identifiers[f"name_{index}"] = column.name
         identifiers[f"field_type_{index}"] = column.field_type.value
 
-    args = DynamicSQLargs(identifiers=identifiers)
-    return Query.new(statement, Maybe.from_value(args))
+    args = SqlArgs(identifiers=identifiers)
+    return Query(statement, args)
 
 
 def create_like(blueprint: TableID, new_table: TableID) -> Query:
@@ -151,8 +139,8 @@ def create_like(blueprint: TableID, new_table: TableID) -> Query:
         "blueprint_schema": blueprint.schema,
         "blueprint_table": blueprint.table_name,
     }
-    args = DynamicSQLargs(identifiers=identifiers)
-    return Query.new(query, Maybe.from_value(args))
+    args = SqlArgs(identifiers=identifiers)
+    return Query(query, args)
 
 
 def rename(table: TableID, new_name: str) -> Query:
@@ -164,8 +152,8 @@ def rename(table: TableID, new_name: str) -> Query:
         "table": table.table_name,
         "new_name": new_name,
     }
-    args = DynamicSQLargs(identifiers=identifiers)
-    return Query.new(query, Maybe.from_value(args))
+    args = SqlArgs(identifiers=identifiers)
+    return Query(query, args)
 
 
 def delete(table: TableID) -> Query:
@@ -176,8 +164,8 @@ def delete(table: TableID) -> Query:
         "schema": table.schema,
         "table": table.table_name,
     }
-    args = DynamicSQLargs(identifiers=identifiers)
-    return Query.new(query, Maybe.from_value(args))
+    args = SqlArgs(identifiers=identifiers)
+    return Query(query, args)
 
 
 def redshift_move(
@@ -194,8 +182,8 @@ def redshift_move(
         "target_schema": target.schema,
         "target_table": target.table_name,
     }
-    args = DynamicSQLargs(identifiers=identifiers)
-    return [Query.new(query, Maybe.from_value(args)), delete(source)]
+    args = SqlArgs(identifiers=identifiers)
+    return [Query(query, args), delete(source)]
 
 
 def move(
@@ -212,5 +200,5 @@ def move(
         "source_table": source.table_name,
         "target_schema": target.schema,
     }
-    args = DynamicSQLargs(identifiers=identifiers)
-    return [delete(target), Query.new(query, Maybe.from_value(args))]
+    args = SqlArgs(identifiers=identifiers)
+    return [delete(target), Query(query, args)]

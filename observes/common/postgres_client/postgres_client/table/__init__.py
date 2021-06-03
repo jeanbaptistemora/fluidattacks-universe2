@@ -9,8 +9,6 @@ from postgres_client.client import (
 )
 from postgres_client.cursor import (
     Cursor,
-    CursorExeAction,
-    Query,
 )
 from postgres_client.data_type import (
     to_rs_datatype,
@@ -38,21 +36,9 @@ from returns.unsafe import (
 from typing import (
     Any,
     FrozenSet,
-    List,
     Literal,
     NamedTuple,
 )
-
-
-def _adapt_query(cursor: Cursor, query: Query) -> CursorExeAction:
-    return cursor.execute(query.query, query.args.value_or(None))
-
-
-def _adapt_queries(
-    cursor: Cursor, queries: List[Query]
-) -> List[CursorExeAction]:
-    return [_adapt_query(cursor, query) for query in queries]
-
 
 IOResultBool = IOResult[Literal[True], Literal[False]]
 
