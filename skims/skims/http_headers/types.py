@@ -21,6 +21,13 @@ class DateHeader(NamedTuple):
     date: datetime
 
 
+class SetCookieHeader(NamedTuple):
+    name: str
+
+    cookie: str
+    secure: bool
+
+
 class StrictTransportSecurityHeader(NamedTuple):
     name: str
 

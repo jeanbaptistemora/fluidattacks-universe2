@@ -7,6 +7,7 @@ from http_headers import (
     content_security_policy,
     date,
     referrer_policy,
+    set_cookie,
     strict_transport_security,
     www_authenticate,
     x_content_type_options,
@@ -209,6 +210,30 @@ def test_referrer_policy() -> None:
 
     header = parse("wrong:")
     assert not header
+
+
+@pytest.mark.skims_test_group("unittesting")
+def test_set_cookie() -> None:
+    # Header names are caseless
+    parse = set_cookie.parse
+
+    header = parse("  set-cookie  :  key  =  value  ")
+    assert header is not None
+    assert header.name == "set-cookie"
+    assert header.cookie == "key  =  value"
+    assert not header.secure
+
+    header = parse("  set-cookie  :  key  =  value  ;  Secure  ")
+    assert header is not None
+    assert header.name == "set-cookie"
+    assert header.cookie == "key  =  value"
+    assert header.secure
+
+    header = parse("  set-cookie  :  key  =  value  Secure  ")
+    assert header is not None
+    assert header.name == "set-cookie"
+    assert header.cookie == "key  =  value  Secure"
+    assert not header.secure
 
 
 @pytest.mark.skims_test_group("unittesting")
