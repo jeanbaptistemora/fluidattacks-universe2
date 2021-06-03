@@ -1,3 +1,6 @@
+lib_http.analyze_headers.set_cookie_secure.missing_secure:
+  en: "{cookie_name} is missing Secure"
+  es: "{cookie_name} sin Secure"
 F042_SECURE.description:
   en: >
     The system does not set the Secure attribute for sensitive cookies,

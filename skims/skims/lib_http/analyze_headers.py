@@ -7,6 +7,7 @@ from http_headers import (
     content_security_policy,
     date,
     referrer_policy,
+    set_cookie,
     strict_transport_security,
     www_authenticate,
     x_content_type_options,
@@ -16,6 +17,7 @@ from http_headers.types import (
     DateHeader,
     Header,
     ReferrerPolicyHeader,
+    SetCookieHeader,
     StrictTransportSecurityHeader,
     WWWAuthenticate,
     XContentTypeOptionsHeader,
@@ -307,6 +309,27 @@ def _referrer_policy(
     )
 
 
+def _set_cookie_secure(
+    ctx: HeaderCheckCtx,
+) -> core_model.Vulnerabilities:
+    locations = Locations(locations=[])
+    header: Optional[Header] = None
+
+    if header := ctx.headers_parsed.get(SetCookieHeader):
+        if any(smell in header.cookie for smell in ("session",)):
+            if not header.secure:
+                locations.append(
+                    "set_cookie_secure.missing_secure",
+                    desc_kwargs={"cookie_name": header.cookie},
+                )
+    return _create_vulns(
+        locations=locations,
+        finding=core_model.FindingEnum.F042_SECURE,
+        header=header,
+        ctx=ctx,
+    )
+
+
 def _strict_transport_security(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -377,6 +400,7 @@ def get_check_ctx(url: URLContext) -> HeaderCheckCtx:
             content_security_policy.parse(line),
             date.parse(line),
             referrer_policy.parse(line),
+            set_cookie.parse(line),
             strict_transport_security.parse(line),
             www_authenticate.parse(line),
             x_content_type_options.parse(line),
@@ -396,6 +420,7 @@ CHECKS: Dict[
 ] = {
     core_model.FindingEnum.F015_DAST_BASIC: _www_authenticate,
     core_model.FindingEnum.F023: _location,
+    core_model.FindingEnum.F042_SECURE: _set_cookie_secure,
     core_model.FindingEnum.F043_DAST_CSP: _content_security_policy,
     core_model.FindingEnum.F043_DAST_RP: _referrer_policy,
     core_model.FindingEnum.F043_DAST_STS: _strict_transport_security,
