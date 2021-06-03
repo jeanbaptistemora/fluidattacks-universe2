@@ -172,6 +172,7 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
     gitignore = kwargs["gitignore"]
     enforcer = await authz.get_group_level_enforcer(user_email)
 
+    validations.validate_git_branch(branch)
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
         nickname, await get_roots(group_name=group_name)

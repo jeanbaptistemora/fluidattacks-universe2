@@ -1,6 +1,7 @@
 from custom_exceptions import (
     InvalidChar,
     RepeatedRootNickname,
+    TrailingWhiteSpace,
 )
 from dynamodb.types import (
     GitRootItem,
@@ -114,3 +115,8 @@ def is_url_unique(
 def validate_nickname(nickname: str) -> None:
     if "/" in nickname:
         raise InvalidChar()
+
+
+def validate_git_branch(branch: str) -> None:
+    if branch.strip() != branch:
+        raise TrailingWhiteSpace()

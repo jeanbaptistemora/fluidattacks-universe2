@@ -268,6 +268,14 @@ class InvalidChar(CustomBaseException):
         super(InvalidChar, self).__init__(msg)
 
 
+class TrailingWhiteSpace(CustomBaseException):
+    """Exception to avoid invalid branch names with trailing spaces"""
+
+    def __init__(self) -> None:
+        msg = "Exception - Branch name with invalid spaces"
+        super(TrailingWhiteSpace, self).__init__(msg)
+
+
 class InvalidCommentParent(CustomBaseException):
     """Exception to prevent repeated values"""
 
