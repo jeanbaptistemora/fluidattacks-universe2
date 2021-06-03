@@ -4,10 +4,6 @@ from _pytest.logging import (
 from datetime import (
     datetime,
 )
-from features.commit import (
-    COMMIT_FEATURES,
-    extract_features as extract_commit_features,
-)
 from features.file import (
     encode_extensions,
     extract_features as extract_file_features,
@@ -34,21 +30,6 @@ def test_bad_dataframe(caplog: LogCaptureFixture) -> None:
     )
     extract_file_features(training_df)
     assert "Exception: KeyError" in caplog.text
-
-
-def test_extract_commit_features(test_clone_repo: str) -> None:
-    training_df: DataFrame = pd.read_csv(
-        os.path.join(DATA_PATH, "test_repo_commits.csv")
-    )
-    training_df["repo"] = "requests"
-    extract_commit_features(training_df, test_clone_repo)
-    assert training_df[COMMIT_FEATURES].values.tolist() == [
-        [3, 5, 4, 1, 9, 1, 22, 1, 15],
-        [1, 5, 2, 3, 7, 1, 198, 1, 15],
-        [4, 12, 3, 9, 15, 1, 35, 1, 10],
-        [4, 3, 4, -1, 7, 1, 14, 1, 15],
-        [19, 63, 14, 49, 77, 0, 0, 0, 23],
-    ]
 
 
 def test_extract_file_features(test_clone_repo: str) -> None:
