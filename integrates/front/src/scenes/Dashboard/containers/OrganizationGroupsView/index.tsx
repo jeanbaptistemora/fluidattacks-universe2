@@ -44,7 +44,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   // GraphQL operations
   const { data, refetch: refetchGroups } = useQuery(GET_ORGANIZATION_GROUPS, {
     onCompleted: (paramData: IGetOrganizationGroups): void => {
-      if (_.isEmpty(paramData.organization.projects)) {
+      if (_.isEmpty(paramData.organization.groups)) {
         Logger.warning("Empty groups", document.location.pathname);
       }
     },
@@ -175,7 +175,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
               <Row>
                 <DataTableNext
                   bordered={true}
-                  dataset={formatGroupData(data.organization.projects)}
+                  dataset={formatGroupData(data.organization.groups)}
                   defaultSorted={{ dataField: "name", order: "asc" }}
                   exportCsv={false}
                   headers={tableHeaders}

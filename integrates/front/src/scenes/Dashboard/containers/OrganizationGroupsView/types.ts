@@ -17,7 +17,7 @@ interface IOrganizationGroupsProps {
 
 interface IGetOrganizationGroups {
   organization: {
-    projects: IGroupData[];
+    groups: IGroupData[];
   };
 }
 

@@ -1,5 +1,5 @@
 // Needed to test Formik components
-/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-empty-function, @typescript-eslint/no-unsafe-return */
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
@@ -10,6 +10,7 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
+import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
@@ -72,8 +73,7 @@ describe("Organization groups view", (): void => {
         result: {
           data: {
             organization: {
-              name: "okada",
-              projects: [
+              groups: [
                 {
                   description: "Continuous type test group",
                   hasDrills: true,
@@ -97,11 +97,12 @@ describe("Organization groups view", (): void => {
                   hasDrills: false,
                   hasForces: false,
                   hasIntegrates: false,
-                  name: "pendingproject",
+                  name: "pendingGroup",
                   subscription: "continuous",
                   userRole: "group_manager",
                 },
               ],
+              name: "okada",
             },
           },
         },
@@ -135,7 +136,7 @@ describe("Organization groups view", (): void => {
 
     const newGroupButton: ReactWrapper = wrapper.find("button").first();
     const oneshottestRow: ReactWrapper = wrapper.find("tr").at(1);
-    const pendingProjectRow: ReactWrapper = wrapper.find("tr").at(2);
+    const pendingGroupRow: ReactWrapper = wrapper.find("tr").at(2);
     const UNIT_TESTING_ROW_AT = 3;
     const unittestingRow: ReactWrapper = wrapper
       .find("tr")
@@ -161,18 +162,18 @@ describe("Organization groups view", (): void => {
         )
     ).toHaveLength(1);
 
-    const PENDING_PROJECT_ROW_LENGTH = 3;
+    const PENDING_GROUP_ROW_LENGTH = 3;
 
-    expect(pendingProjectRow.text()).toContain("PENDINGPROJECT");
-    expect(pendingProjectRow.text()).toContain("Continuous");
-    expect(pendingProjectRow.text()).toContain("Group Manager");
+    expect(pendingGroupRow.text()).toContain("PENDINGGROUP");
+    expect(pendingGroupRow.text()).toContain("Continuous");
+    expect(pendingGroupRow.text()).toContain("Group Manager");
     expect(
-      pendingProjectRow
+      pendingGroupRow
         .find("span")
         .filterWhere((element: ReactWrapper): boolean =>
           element.contains("Disabled")
         )
-    ).toHaveLength(PENDING_PROJECT_ROW_LENGTH);
+    ).toHaveLength(PENDING_GROUP_ROW_LENGTH);
 
     const UNIT_TESTING_ROW_LENGTH = 3;
 
@@ -233,9 +234,7 @@ describe("Organization groups view", (): void => {
     });
   });
 
-  // Temporarily disabled until it gets properly refactored to test Formik
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip("should add a new group", async (): Promise<void> => {
+  it("should add a new group", async (): Promise<void> => {
     expect.hasAssertions();
 
     const mocks: readonly MockedResponse[] = [
@@ -249,8 +248,7 @@ describe("Organization groups view", (): void => {
         result: {
           data: {
             organization: {
-              name: "okada",
-              projects: [
+              groups: [
                 {
                   description: "Continuous type test group",
                   hasDrills: true,
@@ -270,6 +268,7 @@ describe("Organization groups view", (): void => {
                   userRole: "customeradmin",
                 },
               ],
+              name: "okada",
             },
           },
         },
@@ -300,7 +299,7 @@ describe("Organization groups view", (): void => {
         },
         result: {
           data: {
-            createProject: {
+            createGroup: {
               success: true,
             },
           },
@@ -316,8 +315,7 @@ describe("Organization groups view", (): void => {
         result: {
           data: {
             organization: {
-              name: "okada",
-              projects: [
+              groups: [
                 {
                   description: "Continuous type test group",
                   hasDrills: true,
@@ -346,6 +344,7 @@ describe("Organization groups view", (): void => {
                   userRole: "customeradmin",
                 },
               ],
+              name: "okada",
             },
           },
         },
@@ -367,9 +366,8 @@ describe("Organization groups view", (): void => {
         </Provider>
       </MemoryRouter>
     );
-
-    const newGroupButton: ReactWrapper = wrapper.find("button").first();
-    newGroupButton.simulate("click");
+    const newGroupButton = (): ReactWrapper => wrapper.find("button").first();
+    newGroupButton().simulate("click");
 
     await act(async (): Promise<void> => {
       await waitForExpect((): void => {
@@ -385,38 +383,28 @@ describe("Organization groups view", (): void => {
       });
     });
 
-    const form: ReactWrapper = wrapper.find(AddGroupModal).find("Formik");
-    const descriptionField: ReactWrapper = wrapper
-      .find(AddGroupModal)
-      .find({ name: "description" })
-      .find("input");
-    const typeField: ReactWrapper = wrapper
-      .find(AddGroupModal)
-      .find({ name: "type" })
-      .find("select");
+    const form = (): ReactWrapper => wrapper.find(AddGroupModal).find("Formik");
+    const descriptionField = (): ReactWrapper =>
+      wrapper.find(AddGroupModal).find({ name: "description" }).find("input");
+    const typeField = (): ReactWrapper =>
+      wrapper.find(AddGroupModal).find({ name: "type" }).find("select");
 
-    descriptionField.simulate("change", {
-      // Exception: WF(Empty function is necessary)
-      // eslint-disable-next-line
-      persist: (): void => {}, // NOSONAR
+    descriptionField().simulate("change", {
       target: { name: "description", value: "Test group" },
     });
-    typeField.simulate("change", {
-      // Exception: WF(Empty function is necessary)
-      // eslint-disable-next-line
-      persist: (): void => {}, // NOSONAR
+    typeField().simulate("change", {
       target: { name: "type", value: "CONTINUOUS" },
     });
-    // Exception: WF(Empty function is necessary)
-    // eslint-disable-next-line
-    form.simulate("submit", { preventDefault: (): void => {} }); // NOSONAR
+    form().simulate("submit");
 
     await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
-
-        expect(wrapper.find("tr")).toHaveLength(4);
-      });
+      wrapper.update();
+      const delay = 50;
+      await wait(delay);
     });
+
+    const finalGroupQuantity = 3;
+
+    expect(wrapper.find("tr")).toHaveLength(finalGroupQuantity);
   });
 });
