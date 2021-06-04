@@ -14,7 +14,9 @@ and monitoring.
 
 ## Correlation
 
-1. Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 4: Security of processing.(1a)
+### Articles of Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC)
+
+- 4: Security of processing.(1a)
 
     - [083. Avoid logging sensitive data](/criteria/requirements/083)
 
@@ -26,7 +28,7 @@ and monitoring.
 
     - [180. Use mock data](/criteria/requirements/180)
 
-    - [181. Transmit data using secure protocols](/criteria/requirements/181)
+    - [18- Transmit data using secure protocols](/criteria/requirements/181)
 
     - [183. Delete sensitive data securely](/criteria/requirements/183)
 
@@ -34,7 +36,7 @@ and monitoring.
 
     - [210. Delete information from mobile devices](/criteria/requirements/210)
 
-    - [261. Avoid exposing sensitive information](/criteria/requirements/261)
+    - [26- Avoid exposing sensitive information](/criteria/requirements/261)
 
     - [265. Restrict access to critical processes](/criteria/requirements/265)
 
@@ -46,11 +48,11 @@ and monitoring.
 
     - [375. Remove sensitive data from client-side applications](/criteria/requirements/375)
 
-1. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(1)](/criteria/requirements/183)
+- [6: Traffic data.(1)](/criteria/requirements/183)
 
-1. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(3)](/criteria/requirements/312)
+- [6: Traffic data.(3)](/criteria/requirements/312)
 
-1. Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(4)
+- 6: Traffic data.(4)
 
     - [189. Specify the purpose of data collection](/criteria/requirements/189)
 
@@ -60,7 +62,7 @@ and monitoring.
 
     - [343. Respect the Do Not Track header](/criteria/requirements/343)
 
-1. Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 9: Location data other than traffic data.(1)
+- 9: Location data other than traffic data.(1)
 
     - [189. Specify the purpose of data collection](/criteria/requirements/189)
 

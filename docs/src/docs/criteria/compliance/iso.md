@@ -19,106 +19,118 @@ by third parties.
 
 ## Correlation
 
-1. [ISO 27001:2013. Annex A - 9.1.2](/criteria/requirements/253)
+### ISO/IEC 27001:2013 - Annex A
 
-1. [ISO 27001:2013. Annex A - 9.1.2](/criteria/requirements/257)
+- 9.1.2 - Access to Networks and Network Services
 
-1. [ISO 27001:2013. Annex A - 9.2.1](/criteria/requirements/034)
+    - [253. Restrict network access](/criteria/requirements/253)
 
-1. [ISO 27001:2013. Annex A - 9.2.2](/criteria/requirements/034)
+    - [257. Access based on user credentials](/criteria/requirements/257)
 
-1. [ISO 27001:2013. Annex A - 9.2.3](/criteria/requirements/035)
+- [9.2.1 - User registration and de-registration](/criteria/requirements/034)
 
-1. [ISO 27001:2013. Annex A - 9.4.2](/criteria/requirements/264)
+- [9.2.2 - User Access Provisioning](/criteria/requirements/034)
 
-1. [ISO 27001:2013. Annex A - 9.4.5](/criteria/requirements/051)
+- [9.2.3 - Management of Privileged Access Rights  ](/criteria/requirements/035)
 
-1. [ISO 27001:2013. Annex A - 12.2.1](/criteria/requirements/155)
+- [9.4.2 - Secure Log-on Procedures](/criteria/requirements/264)
 
-1. [ISO 27001:2013. Annex A - 12.4.1](/criteria/requirements/075)
+- [9.4.5 - Access Control to Program Source Code](/criteria/requirements/051)
 
-1. [ISO 27001:2013. Annex A - 12.4.1](/criteria/requirements/376)
+- [12.2.1 - Controls Against Malware](/criteria/requirements/155)
 
-1. [ISO 27001:2013. Annex A - 12.4.1](/criteria/requirements/377)
+- 12.4.1 - Event Logging
 
-1. [ISO 27001:2013. Annex A - 12.4.1](/criteria/requirements/378)
+    - [075. Record exceptional events in logs](/criteria/requirements/075)
 
-1. [ISO 27001:2013. Annex A - 12.4.2](/criteria/requirements/080)
+    - [376. Register severity level](/criteria/requirements/376)
 
-1. [ISO 27001:2013. Annex A - 12.4.3](/criteria/requirements/075)
+    - [377. Store logs based on valid regulation](/criteria/requirements/377)
 
-1. [ISO 27001:2013. Annex A - 12.4.4](/criteria/requirements/363)
+    - [378. Use of log management system](/criteria/requirements/378)
 
-1. [ISO 27001:2013. Annex A - 12.6.1](/criteria/requirements/262)
+- [12.4.2 - Protection of Log Information](/criteria/requirements/080)
 
-1. [ISO 27001:2013. Annex A - 13.1.3](/criteria/requirements/259)
+- [12.4.3 - Administrator and Operator Logs ](/criteria/requirements/075)
 
-1. [ISO 27001:2013. Annex A - 13.2.3](/criteria/requirements/181)
+- [12.4.4 - Clock Synchronization](/criteria/requirements/363)
 
-1. [ISO 27001:2013. Annex A - 14.1.3](/criteria/requirements/324)
+- [12.6.1 - Management of Technical Vulnerabilities](/criteria/requirements/262)
 
-1. [ISO 27001:2013. Annex A - 14.1.3](/criteria/requirements/088)
+- [13.1.3 - Segregation in Networks](/criteria/requirements/259)
 
-1. [ISO 27001:2013. Annex A - 14.1.3](/criteria/requirements/178)
+- [13.2.3 - Electronic Messaging](/criteria/requirements/181)
 
-1. [ISO 27001:2013. Annex A - 14.1.3](/criteria/requirements/181)
+- 14.1.3 - Protecting Application Services Transactions
 
-1. [ISO 27001:2013. Annex A - 14.1.3](/criteria/requirements/030)
+    - [030. Avoid object reutilization](/criteria/requirements/030)
 
-1. [ISO 27001:2013. Annex A - 14.2.2](/criteria/requirements/051)
+    - [088. Request client certificates](/criteria/requirements/088)
 
-1. [ISO 27001:2013. Annex A - 14.3.1](/criteria/requirements/180)
+    - [178. Use digital signatures](/criteria/requirements/178)
 
-1. [ISO 27001:2013. Annex A - 18.1.2](/criteria/requirements/331)
+    - [18- Transmit data using secure protocols](/criteria/requirements/181)
 
-1. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/177)
+    - [324. Control redirects](/criteria/requirements/324)
 
-1. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/180)
+- [14.2.2 - System Change Control Procedures](/criteria/requirements/051)
 
-1. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/181)
+- [14.3.1 - Protection of test data](/criteria/requirements/180)
 
-1. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/183)
+- [18.1.2 - Intellectual Property Rights](/criteria/requirements/331)
 
-1. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/184)
+- 18.1.3 - Protection of Records
 
-1. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/185)
+    - [177. Avoid caching and temporary files](/criteria/requirements/177)
 
-1. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/300)
+    - [180. Use mock data](/criteria/requirements/180)
 
-1. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/329)
+    - [18- Transmit data using secure protocols](/criteria/requirements/181)
 
-1. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/375)
+    - [183. Delete sensitive data securely](/criteria/requirements/183)
 
-1. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/331)
+    - [184. Obfuscate application data](/criteria/requirements/184)
 
-1. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/360)
+    - [185. Encrypt sensitive information](/criteria/requirements/185)
 
-1. [ISO 27001:2013. Annex A - 18.1.3](/criteria/requirements/261)
+    - [26- Avoid exposing sensitive information](/criteria/requirements/261)
 
-1. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/331)
+    - [300. Mask sensitive data](/criteria/requirements/300)
 
-1. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/189)
+    - [329. Keep client-side storage without sensitive data](/criteria/requirements/329)
 
-1. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/310)
+    - [33- Guarantee legal compliance](/criteria/requirements/331)
 
-1. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/311)
+    - [360. Remove unnecessary sensitive information](/criteria/requirements/360)
 
-1. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/312)
+    - [375. Remove sensitive data from client-side applications](/criteria/requirements/375)
 
-1. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/313)
+- 18.1.4 - Privacy and Protection of Personally Identifiable Information
 
-1. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/314)
+    - [189. Specify the purpose of data collection](/criteria/requirements/189)
 
-1. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/315)
+    - [310. Request user consent](/criteria/requirements/310)
 
-1. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/316)
+    - [31- Demonstrate user consent](/criteria/requirements/311)
 
-1. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/317)
+    - [312. Allow user consent revocation](/criteria/requirements/312)
 
-1. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/318)
+    - [313. Inform inability to identify users](/criteria/requirements/313)
 
-1. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/343)
+    - [314. Provide processing confirmation](/criteria/requirements/314)
 
-1. [ISO 27001:2013. Annex A - 18.1.4](/criteria/requirements/360)
+    - [315. Provide processed data information](/criteria/requirements/315)
 
-1. [ISO 27001:2013. Annex A - 18.1.5](/criteria/requirements/331)
+    - [316. Allow rectification requests](/criteria/requirements/316)
+
+    - [317. Allow erasure requests](/criteria/requirements/317)
+
+    - [318. Notify third parties of changes](/criteria/requirements/318)
+
+    - [33- Guarantee legal compliance](/criteria/requirements/331)
+
+    - [343. Respect the Do Not Track header](/criteria/requirements/343)
+
+    - [360. Remove unnecessary sensitive information](/criteria/requirements/360)
+
+- [18.1.5 - Regulation of Cryptographic Controls](/criteria/requirements/331)
