@@ -5,8 +5,14 @@ from batch.dal import (
 from batch.types import (
     BatchProcessing,
 )
+from custom_types import (
+    Project as Group,
+)
 from dataloaders import (
     get_new_context,
+)
+from groups import (
+    domain as groups_domain,
 )
 import logging
 import logging.config
@@ -59,7 +65,9 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
     organization_id: str = await organizations_domain.get_id_by_name(
         item.additional_info
     )
-    groups: List[str] = await organizations_domain.get_groups(organization_id)
+    organization_groups: List[str] = await organizations_domain.get_groups(
+        organization_id
+    )
     finding_policy = await get_finding_policy(
         org_name=item.additional_info, finding_policy_id=item.entity
     )
@@ -73,11 +81,13 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
         user_email=item.subject,
     ):
         loader = get_new_context()
+        groups: List[Group] = await loader.group.load_many(organization_groups)
+        groups_filtered = groups_domain.filter_active_groups(groups)
         finding_name: str = finding_policy.metadata.name.split(".")[0].lower()
         await update_finding_policy_in_groups(
             finding_name=finding_name,
             loaders=loader,
-            groups=groups,
+            groups=[group["name"] for group in groups_filtered],
             status=finding_policy.state.status,
             user_email=item.subject,
             tags=finding_policy.metadata.tags,
