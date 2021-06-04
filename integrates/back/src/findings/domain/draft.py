@@ -136,7 +136,7 @@ async def approve_draft_new(
     new_state = FindingState(
         modified_by=user_email,
         modified_date=approval_date,
-        source=requests_utils.get_source(context),
+        source=requests_utils.get_source_new(context),
         status=FindingStateStatus.APPROVED,
     )
     await findings_model.update_state(
@@ -218,7 +218,7 @@ async def create_draft_new(
         state=FindingState(
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
-            source=requests_utils.get_source(context),
+            source=requests_utils.get_source_new(context),
             status=FindingStateStatus.CREATED,
         ),
         risk=kwargs.get("risk", ""),
@@ -310,7 +310,7 @@ async def reject_draft_new(
     new_state = FindingState(
         modified_by=user_email,
         modified_date=datetime_utils.get_iso_date(),
-        source=requests_utils.get_source(context),
+        source=requests_utils.get_source_new(context),
         status=FindingStateStatus.REJECTED,
     )
     await findings_model.update_state(
@@ -399,7 +399,7 @@ async def submit_draft_new(
     new_state = FindingState(
         modified_by=user_email,
         modified_date=datetime_utils.get_iso_date(),
-        source=requests_utils.get_source(context),
+        source=requests_utils.get_source_new(context),
         status=FindingStateStatus.SUBMITTED,
     )
     await findings_model.update_state(

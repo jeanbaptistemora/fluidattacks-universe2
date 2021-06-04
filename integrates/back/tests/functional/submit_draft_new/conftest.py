@@ -1,6 +1,9 @@
 from back.tests import (
     db,
 )
+from db_model.enums import (
+    Source,
+)
 from db_model.findings.enums import (
     FindingStateStatus,
     FindingVerificationStatus,
@@ -36,7 +39,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     state=FindingState(
                         modified_by="test1@gmail.com",
                         modified_date="2017-04-08T00:45:11+00:00",
-                        source="integrates",
+                        source=Source.INTEGRATES,
                         status=FindingStateStatus.CREATED,
                     ),
                     title="F001. Very serious vulnerability",
@@ -84,13 +87,13 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     FindingState(
                         modified_by="test1@gmail.com",
                         modified_date="2017-04-08T00:45:12+00:00",
-                        source="integrates",
+                        source=Source.INTEGRATES,
                         status=FindingStateStatus.SUBMITTED,
                     ),
                     FindingState(
                         modified_by="test1@gmail.com",
                         modified_date="2017-04-08T00:45:13+00:00",
-                        source="integrates",
+                        source=Source.INTEGRATES,
                         status=FindingStateStatus.REJECTED,
                     ),
                 ],

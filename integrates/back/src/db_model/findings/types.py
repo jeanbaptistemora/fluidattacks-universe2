@@ -5,6 +5,9 @@ from .enums import (
     FindingStatus,
     FindingVerificationStatus,
 )
+from db_model.enums import (
+    Source,
+)
 from decimal import (
     Decimal,
 )
@@ -19,7 +22,7 @@ from typing import (
 class FindingState(NamedTuple):
     modified_by: str
     modified_date: str
-    source: str
+    source: Source
     status: FindingStateStatus
     justification: FindingStateJustification = (
         FindingStateJustification.NO_JUSTIFICATION

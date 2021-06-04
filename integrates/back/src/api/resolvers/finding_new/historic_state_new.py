@@ -59,7 +59,7 @@ async def resolve_no_cache(
             "date": datetime_utils.get_as_str(
                 datetime.fromisoformat(state.modified_date)
             ),
-            "source": state.source,
+            "source": state.source.value.lower(),
             "state": state.status.value,
         }
         for state in historic_state

@@ -9,6 +9,9 @@ from .types import (
     FindingUnreliableIndicators,
     FindingVerification,
 )
+from db_model.enums import (
+    Source,
+)
 from dynamodb.types import (
     Item,
 )
@@ -22,7 +25,7 @@ def format_state(state_item: Item) -> FindingState:
         justification=FindingStateJustification[state_item["justification"]],
         modified_by=state_item["modified_by"],
         modified_date=state_item["modified_date"],
-        source=state_item["source"],
+        source=Source[state_item["source"]],
         status=FindingStateStatus[state_item["status"]],
     )
 
@@ -32,7 +35,7 @@ def format_state_item(state: FindingState) -> Item:
         "justification": state.justification.value,
         "modified_by": state.modified_by,
         "modified_date": state.modified_date,
-        "source": state.source,
+        "source": state.source.value,
         "status": state.status.value,
     }
 
