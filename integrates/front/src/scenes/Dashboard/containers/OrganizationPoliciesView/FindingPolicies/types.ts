@@ -10,6 +10,7 @@ interface IFindingPoliciesData {
 }
 interface IFindingPoliciesForm {
   name: string;
+  tags: string;
 }
 
 interface IOrganizationFindingTitles {

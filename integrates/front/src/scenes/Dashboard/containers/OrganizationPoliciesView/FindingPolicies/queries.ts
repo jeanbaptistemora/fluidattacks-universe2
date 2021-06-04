@@ -2,10 +2,15 @@ import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
 const ADD_ORGANIZATION_FINDING_POLICY: DocumentNode = gql`
-  mutation AddOrgFindingPolicy($name: String!, $organizationName: String!) {
+  mutation AddOrgFindingPolicy(
+    $name: String!
+    $organizationName: String!
+    $tags: [String]
+  ) {
     addOrgFindingPolicy(
       findingName: $name
       organizationName: $organizationName
+      tags: $tags
     ) {
       success
     }

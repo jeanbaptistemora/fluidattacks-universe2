@@ -14,6 +14,7 @@ import { useParams } from "react-router-dom";
 import { Button } from "components/Button";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { OrganizationFindingPolicy } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/content";
+import style from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/index.css";
 import {
   ADD_ORGANIZATION_FINDING_POLICY,
   GET_ORGANIZATION_FINDINGS_TITLES,
@@ -25,8 +26,7 @@ import type {
   IOrganizationFindingTitles,
 } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/types";
 import { GET_ORGANIZATION_POLICIES } from "scenes/Dashboard/containers/OrganizationPoliciesView/queries";
-import { Row } from "styles/styledComponents";
-import { FormikAutocompleteText } from "utils/forms/fields";
+import { FormikAutocompleteText, FormikTagInput } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import {
@@ -105,7 +105,11 @@ const FindingPolicies: React.FC<IFindingPolicies> = ({
   ): Promise<void> {
     track("addNewOrgFindingPolicies");
     await addOrgFindingPolicy({
-      variables: { name: values.name, organizationName },
+      variables: {
+        name: values.name,
+        organizationName,
+        tags: _.isEmpty(values.tags) ? undefined : values.tags.split(","),
+      },
     });
     formikHelpers.resetForm();
   }
@@ -130,55 +134,79 @@ const FindingPolicies: React.FC<IFindingPolicies> = ({
     <React.StrictMode>
       <Formik
         enableReinitialize={true}
-        initialValues={{ name: "" }}
+        initialValues={{ name: "", tags: "" }}
         name={"addNewOrgFindingPolicies"}
         onSubmit={handleSubmit}
       >
         <Form>
-          <Row>
-            <div className={"w-50-l w-50-m w-100-ns"}>
-              {_.isUndefined(data) ? undefined : (
-                <div className={"flex items-center"}>
-                  <div className={"w-90-ns"}>
-                    <TooltipWrapper
-                      id={"nameInputToolTip"}
-                      message={t(
-                        "organization.tabs.policies.findings.tooltip.nameInput"
-                      )}
-                    >
-                      <Field
-                        component={FormikAutocompleteText}
-                        name={"name"}
-                        suggestions={suggestions}
-                        validate={composeValidators([
-                          required,
-                          validDraftTitle,
-                        ])}
-                      />
-                    </TooltipWrapper>
-                  </div>
-                  <div className={"w-10-ns"}>
-                    <TooltipWrapper
-                      id={"addButtonToolTip"}
-                      message={t(
-                        "organization.tabs.policies.findings.tooltip.addButton"
-                      )}
-                    >
-                      <Button
-                        // Use className to override default styles
-                        // eslint-disable-next-line react/forbid-component-props
-                        className={"lh-copy"}
-                        disabled={submitting}
-                        type={"submit"}
+          <div className={"flex flex-wrap justify-between"}>
+            {_.isUndefined(data) ? undefined : (
+              <React.Fragment>
+                <div className={"w-50-l w-50-m w-100-ns"}>
+                  <TooltipWrapper
+                    id={"nameInputToolTip"}
+                    message={t(
+                      "organization.tabs.policies.findings.tooltip.nameInput"
+                    )}
+                    placement={"top"}
+                  >
+                    <label className={"mb1"}>
+                      <b>
+                        {t("organization.tabs.policies.findings.form.finding")}
+                      </b>
+                    </label>
+                    <Field
+                      component={FormikAutocompleteText}
+                      name={"name"}
+                      suggestions={suggestions}
+                      validate={composeValidators([required, validDraftTitle])}
+                    />
+                  </TooltipWrapper>
+                </div>
+                <div className={"pl2-l pl2-m pl0-ns w-50-l w-50-m w-100-ns"}>
+                  <div className={"flex items-start"}>
+                    <div className={"w-90-ns"}>
+                      <TooltipWrapper
+                        id={"tagsInputToolTip"}
+                        message={t("Tags associated to the policy")}
+                        placement={"top"}
                       >
-                        <FontAwesomeIcon icon={faPlus} />
-                      </Button>
-                    </TooltipWrapper>
+                        <label className={"mb1"}>
+                          <b>
+                            {t("organization.tabs.policies.findings.form.tags")}
+                          </b>
+                        </label>
+                        <Field
+                          component={FormikTagInput}
+                          name={"tags"}
+                          placeholder={""}
+                          type={"text"}
+                        />
+                      </TooltipWrapper>
+                    </div>
+                    <div className={"w-10-ns"}>
+                      <TooltipWrapper
+                        id={"addButtonToolTip"}
+                        message={t(
+                          "organization.tabs.policies.findings.tooltip.addButton"
+                        )}
+                      >
+                        <Button
+                          // Use className to override default styles
+                          // eslint-disable-next-line react/forbid-component-props
+                          className={`${style["button-margin"]} lh-copy`}
+                          disabled={submitting}
+                          type={"submit"}
+                        >
+                          <FontAwesomeIcon icon={faPlus} />
+                        </Button>
+                      </TooltipWrapper>
+                    </div>
                   </div>
                 </div>
-              )}
-            </div>
-          </Row>
+              </React.Fragment>
+            )}
+          </div>
         </Form>
       </Formik>
       <br />

@@ -925,6 +925,10 @@ export const enTranslations: ResourceKey = {
             duplicateFinding: "The finding policy already exists",
             notFound: "Finding policy not found",
           },
+          form: {
+            finding: "Finding",
+            tags: "Tags",
+          },
           handlePolicies: {
             success: {
               approved: "The policy will be apply it within next minutes",
