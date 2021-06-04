@@ -133,14 +133,12 @@ def add_f042_secure() -> None:
         "f042_secure",
         "Set-Cookie",
         [
-            "session=test; Secure;",
-            "google_analytics=1asdf34; Secure;",
-            "session=test;",
+            "session=test; Secure",
+            "google_analytics=1asdf34; Secure",
+            "session=test",
             "session=test",
             "google_analytics=1asdf34",
-            "google_analytics 1asdf34",
             "action=test; HttpOnly",
-            "google_analytics->1asdf34",
             "google_analytics=",
         ],
     )

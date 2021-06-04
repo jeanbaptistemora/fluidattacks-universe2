@@ -24,7 +24,8 @@ class DateHeader(NamedTuple):
 class SetCookieHeader(NamedTuple):
     name: str
 
-    cookie: str
+    cookie_name: str
+    cookie_value: str
     secure: bool
 
 

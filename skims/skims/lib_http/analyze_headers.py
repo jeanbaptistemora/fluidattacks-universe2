@@ -316,11 +316,11 @@ def _set_cookie_secure(
     header: Optional[Header] = None
 
     if header := ctx.headers_parsed.get(SetCookieHeader):
-        if any(smell in header.cookie for smell in ("session",)):
+        if any(smell in header.cookie_name for smell in ("session",)):
             if not header.secure:
                 locations.append(
                     "set_cookie_secure.missing_secure",
-                    desc_kwargs={"cookie_name": header.cookie},
+                    desc_kwargs={"cookie_name": header.cookie_name},
                 )
     return _create_vulns(
         locations=locations,

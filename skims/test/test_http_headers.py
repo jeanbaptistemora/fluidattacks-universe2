@@ -220,19 +220,29 @@ def test_set_cookie() -> None:
     header = parse("  set-cookie  :  key  =  value  ")
     assert header is not None
     assert header.name == "set-cookie"
-    assert header.cookie == "key  =  value"
+    assert header.cookie_name == "key"
+    assert header.cookie_value == "value"
     assert not header.secure
 
     header = parse("  set-cookie  :  key  =  value  ;  Secure  ")
     assert header is not None
     assert header.name == "set-cookie"
-    assert header.cookie == "key  =  value"
+    assert header.cookie_name == "key"
+    assert header.cookie_value == "value"
     assert header.secure
 
     header = parse("  set-cookie  :  key  =  value  Secure  ")
     assert header is not None
     assert header.name == "set-cookie"
-    assert header.cookie == "key  =  value  Secure"
+    assert header.cookie_name == "key"
+    assert header.cookie_value == "value  Secure"
+    assert not header.secure
+
+    header = parse("  set-cookie  :  key  =  ")
+    assert header is not None
+    assert header.name == "set-cookie"
+    assert header.cookie_name == "key"
+    assert header.cookie_value == ""
     assert not header.secure
 
 

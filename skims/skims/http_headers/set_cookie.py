@@ -21,7 +21,6 @@ def parse(line: str) -> Optional[SetCookieHeader]:
     portions: List[str] = line.split(":", maxsplit=1)
     portions = list(map(methodcaller("strip"), portions))
 
-    # Get the name in `name: value`
     name = portions[0]
 
     if not _is_set_cookie(name):
@@ -32,14 +31,23 @@ def parse(line: str) -> Optional[SetCookieHeader]:
     attributes: List[str] = header.split(";")
     attributes = list(map(methodcaller("strip"), attributes))
 
+    cookie, parameters = attributes[0], attributes[1:]
+
+    content: List[str] = cookie.split("=", maxsplit=1)
+    content = list(map(methodcaller("strip"), content))
+
+    cookie_name = content[0]
+    cookie_value = content[1]
+
     secure = False
 
-    for attribute in attributes[1:]:
-        if attribute.lower() == "secure":
+    for parameter in parameters:
+        if parameter.lower() == "secure":
             secure = True
 
     return SetCookieHeader(
         name=name,
-        cookie=attributes[0],
+        cookie_name=cookie_name,
+        cookie_value=cookie_value,
         secure=secure,
     )
