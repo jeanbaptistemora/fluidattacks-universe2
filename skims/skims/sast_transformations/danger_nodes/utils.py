@@ -2,12 +2,18 @@ from model import (
     core_model,
     graph_model,
 )
+from more_itertools import (
+    flatten,
+)
 from sast_syntax_readers.utils_generic import (
     get_dependencies,
 )
 from typing import (
     Callable,
     Set,
+)
+from utils.string import (
+    split_on_last_dot,
 )
 
 
@@ -127,6 +133,22 @@ def _mark_methods(
                     marker(graph, syntax_step.meta.n_id, finding)
 
 
+def _mark_assignments(
+    finding: core_model.FindingEnum,
+    graph: graph_model.Graph,
+    graph_syntax: graph_model.SyntaxSteps,
+    attributes: Set[str],
+    marker: AppendLabelType,
+) -> None:
+    for syntax_step in flatten(
+        syntax_steps for syntax_steps in graph_syntax.values()
+    ):
+        if isinstance(syntax_step, graph_model.SyntaxStepAssignment):
+            _, field = split_on_last_dot(syntax_step.var)
+            if field and field in attributes:
+                marker(graph, syntax_step.meta.n_id, finding)
+
+
 def mark_methods_input(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
@@ -201,5 +223,20 @@ def mark_obj_inst_sink(
         graph,
         graph_syntax,
         types,
+        _append_label_sink,
+    )
+
+
+def mark_assignments_sink(
+    finding: core_model.FindingEnum,
+    graph: graph_model.Graph,
+    graph_syntax: graph_model.SyntaxSteps,
+    attributes: Set[str],
+) -> None:
+    _mark_assignments(
+        finding,
+        graph,
+        graph_syntax,
+        attributes,
         _append_label_sink,
     )

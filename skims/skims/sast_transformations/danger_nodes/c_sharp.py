@@ -3,6 +3,7 @@ from model import (
     graph_model,
 )
 from sast_transformations.danger_nodes.utils import (
+    mark_assignments_sink,
     mark_function_arg,
     mark_methods_input,
     mark_methods_sink,
@@ -100,5 +101,13 @@ def mark_sinks(
         syntax,
         {
             "Write",
+        },
+    )
+    mark_assignments_sink(
+        findings.F008,
+        graph,
+        syntax,
+        {
+            "StatusDescription",
         },
     )

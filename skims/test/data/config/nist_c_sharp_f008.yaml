@@ -6,6 +6,13 @@ path:
   include:
     # F008
     - src/testcases/CWE80_XSS/s01/
+    - src/testcases/CWE81_XSS_Error_Message/
+    - src/testcases/CWE83_XSS_Attribute/
+  exclude:
+    - src/testcases/*/*File*.cs
+    - src/testcases/*/*/*File*.cs
+    - src/testcases/*/*ReadLine*.cs
+    - src/testcases/*/*/*ReadLine*.cs
   lib_path: false
   lib_root: true
 working_dir: ../NIST-SARD-Test-Suites/Juliet_Test_Suite_v1.3_for_C#/

@@ -26,6 +26,9 @@ BY_TYPE: Dict[str, Set[str]] = complete_attrs_on_dict(
         "System.DirectoryServices.DirectorySearcher": {
             "Filter",
         },
+        "System.Web.HttpResponse": {
+            "StatusDescription",
+        },
     }
 )
 
