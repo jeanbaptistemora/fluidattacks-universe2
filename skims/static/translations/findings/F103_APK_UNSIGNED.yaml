@@ -1,0 +1,26 @@
+F103_APK_UNSIGNED.description:
+  en: The APK is not digitally signed.
+  es: El APK no esta firmado digitalmente.
+F103_APK_UNSIGNED.impact:
+  en: >
+    Mischief users into installing an APK
+    that is not owned by the original author.
+  es: >
+    Engañar a los usuarios
+    para que instalen un APK
+    que no es propiedad del autor original.
+F103_APK_UNSIGNED.recommendation:
+  en: Digitally sign the APK.
+  es: Firmar digitalmente el APK.
+F103_APK_UNSIGNED.requirements:
+  en: R178. Use digital signatures.
+  es: >
+    R178. El sistema debe usar firmas digitales
+    para garantizar la autenticidad
+    de información sensible.
+F103_APK_UNSIGNED.threat:
+  en: Non-autenticated attacker from the Internet.
+  es: Atacante no autenticado desde Internet.
+F103_APK_UNSIGNED.title:
+  en: F103. Insufficient data authenticity validation - APK signing
+  es: F103. Verificación de autenticidad de datos insuficiente - Firmado del APK
