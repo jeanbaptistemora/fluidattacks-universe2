@@ -291,6 +291,73 @@ def _process_digest_reattacks(
     return reattacks
 
 
+def _process_digest_treatments(
+    groups_stats: List[MailContentType],
+) -> MailContentType:
+    """Process digest treatments section"""
+    treatments_count: Counter = Counter()
+    for stat in groups_stats:
+        treatments_count.update(stat["treatments"])
+    treatments = dict(treatments_count)
+
+    # Get groups with most temporary applied
+    temporary: MailContentType = {
+        "groups_temporary": list(),
+    }
+    groups_temporary = [
+        {
+            "temporary_applied": group["treatments"]["temporary_applied"],
+            "group": group["group"],
+        }
+        for group in groups_stats
+        if group["treatments"]["temporary_applied"]
+    ]
+    temporary["groups_temporary"] = sorted(
+        groups_temporary, key=itemgetter("temporary_applied"), reverse=True
+    )[:3]
+    treatments.update(temporary)
+
+    # Get groups with most eternal requested
+    eternal_requested: MailContentType = {
+        "groups_eternal_requested": list(),
+    }
+    groups_eternal_requested = [
+        {
+            "eternal_requested": group["treatments"]["eternal_requested"],
+            "group": group["group"],
+        }
+        for group in groups_stats
+        if group["treatments"]["eternal_requested"]
+    ]
+    eternal_requested["groups_eternal_requested"] = sorted(
+        groups_eternal_requested,
+        key=itemgetter("eternal_requested"),
+        reverse=True,
+    )[:3]
+    treatments.update(eternal_requested)
+
+    # Get groups with most eternal approved
+    eternal_approved: MailContentType = {
+        "groups_eternal_approved": list(),
+    }
+    groups_eternal_approved = [
+        {
+            "eternal_approved": group["treatments"]["eternal_approved"],
+            "group": group["group"],
+        }
+        for group in groups_stats
+        if group["treatments"]["eternal_approved"]
+    ]
+    eternal_approved["groups_eternal_approved"] = sorted(
+        groups_eternal_approved,
+        key=itemgetter("eternal_approved"),
+        reverse=True,
+    )[:3]
+    treatments.update(eternal_approved)
+
+    return treatments
+
+
 async def _has_repeated_tags(group_name: str, tags: List[str]) -> bool:
     has_repeated_tags = len(tags) != len(set(tags))
     if not has_repeated_tags:
@@ -1327,10 +1394,10 @@ def process_user_digest_stats(
             total["remediation_time"]["min_group"] = stat["group"]
 
     total["main"] = dict(main)
-    total["treatments"] = dict(treatments)
     total["events"] = dict(events)
 
     total["reattacks"] = _process_digest_reattacks(groups_stats)
+    total["treatments"] = _process_digest_treatments(groups_stats)
 
     # Get top 10 findings that have oldest vulns without treatment
     findings = list()
