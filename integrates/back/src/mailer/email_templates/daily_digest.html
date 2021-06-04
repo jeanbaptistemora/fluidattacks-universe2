@@ -49,22 +49,26 @@
     }
 
     .container {
-      max-width: 100%;
-      margin: 0 2rem;
+      padding: 0 2rem;
+      margin: 0 auto;
+      max-width: 800px;
     }
 
     .numbers {
       background-color: #f4f4f6;
       border-radius: 10px;
-      padding: 15px;
       margin-top: 30px;
       margin-bottom: 30px;
+      padding: 15px;
+      text-align: center;
       width: 100%;
     }
 
     .numbers div {
+      display: inline-block;
       text-align: center;
       padding: 10px;
+      width: 170px;
     }
 
     .main-content {
@@ -78,6 +82,10 @@
       background-color: #f4f4f6;
       text-align: center;
       padding: 30px;
+    }
+
+    .icon-div {
+      display: none;
     }
 
     .content {
@@ -103,49 +111,39 @@
     }
 
     @media only screen and (min-width: 320px) {
-
       .numbers,
       div .icon .content {
-        display: block;
+        display: block !important;
       }
 
       .numbers,
       .main-content,
       .icon {
-        width: 100%;
+        width: 100% !important;
       }
 
       .icon-div {
-        display: none;
+        display: none !important;
       }
     }
 
     @media only screen and (min-width: 599px) {
-      .numbers-row {
-        display: flex;
-        justify-content: space-evenly;
-      }
-
-      .numbers-row div {
-        width: 25%;
-      }
-
       .main-content {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
+        display: flex !important;
+        justify-content: space-between !important;
+        width: 100% !important;
       }
 
       .content {
-        width: 60%;
+        width: 60% !important;
       }
 
       .icon {
-        width: 40%;
+        width: 40% !important;
       }
 
       .icon-div {
-        display: block;
+        display: block !important;
       }
     }
   </style>
@@ -163,56 +161,52 @@
 
     <!-- NUMBERS -->
     <div class="numbers">
-      <div class="numbers-row">
-        {%- if groups_len > 1 %}
-          <div>
-            <h3>{{ remediation_rate['max'] }}%</h3>
-            <p><strong>{{ remediation_rate['max_group'] }}</strong> has the <strong>maximum</strong> remediation rate</p>
-          </div>
-          <div>
-            <h3>{{ remediation_rate['min'] }}%</h3>
-            <p><strong>{{ remediation_rate['min_group'] }}</strong> has the <strong>minimum</strong> remediation rate</p>
-          </div>
-          <div>
-            <h3>{{ remediation_time['max'] }}</h3>
-            <p><strong>{{ remediation_time['max_group'] }}</strong> has the <strong>maximum</strong> Mean Time To Remediate</p>
-          </div>
-          <div>
-            <h3>{{ remediation_time['min'] }}</h3>
-            <p><strong>{{ remediation_time['min_group'] }}</strong> has the <strong>minimum</strong> Mean Time To Remediate</p>
-          </div>
+      {%- if groups_len > 1 %}
+        <div>
+          <h3>{{ remediation_rate['max'] }}%</h3>
+          <p><strong>{{ remediation_rate['max_group'] }}</strong> has the <strong>maximum</strong> remediation rate</p>
+        </div>
+        <div>
+          <h3>{{ remediation_rate['min'] }}%</h3>
+          <p><strong>{{ remediation_rate['min_group'] }}</strong> has the <strong>minimum</strong> remediation rate</p>
+        </div>
+        <div>
+          <h3>{{ remediation_time['max'] }}</h3>
+          <p><strong>{{ remediation_time['max_group'] }}</strong> has the <strong>maximum</strong> Mean Time To Remediate</p>
+        </div>
+        <div>
+          <h3>{{ remediation_time['min'] }}</h3>
+          <p><strong>{{ remediation_time['min_group'] }}</strong> has the <strong>minimum</strong> Mean Time To Remediate</p>
+        </div>
+      {%- else %}
+        <div>
+          <h3>{{ remediation_rate['max'] }}%</h3>
+          <p>Remediation rate at <strong>{{ remediation_rate['max_group'] }}</strong></p>
+        </div>
+        <div>
+          <h3>{{ remediation_time['max'] }}</h3>
+          <p>Mean Time To Remediate at <strong>{{ remediation_time['max_group'] }}</strong></p>
+        </div>
+      {%- endif %}
+      <div>
+        {%- if 'reattack_effectiveness' in reattacks %}
+          <h3>{{ reattacks['reattack_effectiveness'] }}%</h3>
         {%- else %}
-          <div>
-            <h3>{{ remediation_rate['max'] }}%</h3>
-            <p>Remediation rate at <strong>{{ remediation_rate['max_group'] }}</strong></p>
-          </div>
-          <div>
-            <h3>{{ remediation_time['max'] }}</h3>
-            <p>Mean Time To Remediate at <strong>{{ remediation_time['max_group'] }}</strong></p>
-          </div>
+          <h3>n/a</h3>
         {%- endif %}
+        <p>Average reattack effectiveness</p>
       </div>
-      <div class="numbers-row">
-        <div>
-          {%- if 'reattack_effectiveness' in reattacks %}
-            <h3>{{ reattacks['reattack_effectiveness'] }}%</h3>
-          {%- else %}
-            <h3>n/a</h3>
-          {%- endif %}
-          <p>Average reattack effectiveness</p>
-        </div>
-        <div>
-          <h3>{{ events['unsolved'] }}</h3>
-          <p>Unsolved events</p>
-        </div>
-        <div>
-          <h3>{{ events['new'] }}</h3>
-          <p>New events</p>
-        </div>
-        <div>
-          <h3>{{ main['comments'] }}</h3>
-          <p>New comments</p>
-        </div>
+      <div>
+        <h3>{{ events['unsolved'] }}</h3>
+        <p>Unsolved events</p>
+      </div>
+      <div>
+        <h3>{{ events['new'] }}</h3>
+        <p>New events</p>
+      </div>
+      <div>
+        <h3>{{ main['comments'] }}</h3>
+        <p>New comments</p>
       </div>
     </div>
 
