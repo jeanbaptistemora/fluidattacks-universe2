@@ -191,15 +191,9 @@ def test_bad_integrates_api_token(test_group: str) -> None:
 
 
 @pytest.mark.flaky(reruns=0)
-@pytest.mark.skims_test_group("unittesting")
-@pytest.mark.parametrize(
-    "suite",
-    [
-        "lib_path",
-    ],
-)
-def test_run_no_group(suite: str) -> None:
-    _run_no_group(suite)
+@pytest.mark.skims_test_group("lib_apk")
+def test_lib_apk() -> None:
+    _run_no_group("lib_apk")
 
 
 @pytest.mark.flaky(reruns=3)  # The outcome depends on third party servers
@@ -207,6 +201,12 @@ def test_run_no_group(suite: str) -> None:
 @pytest.mark.usefixtures("test_mocks_http")
 def test_lib_http() -> None:
     _run_no_group("lib_http")
+
+
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("lib_path")
+def test_lib_path() -> None:
+    _run_no_group("lib_path")
 
 
 @pytest.mark.flaky(reruns=0)

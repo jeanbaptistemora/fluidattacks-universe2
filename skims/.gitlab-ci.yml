@@ -149,7 +149,13 @@ skims.test.functional:
 skims.test.instance_references:
   <<: *skims_test
 
+skims.test.lib_apk:
+  <<: *skims_test
+
 skims.test.lib_http:
+  <<: *skims_test
+
+skims.test.lib_path:
   <<: *skims_test
 
 skims.test.sdk:
