@@ -13,6 +13,7 @@ export { FormSwitchButton } from "utils/forms/fields/SwitchButton";
 export { TagInput } from "utils/forms/fields/TagInput";
 export { Text } from "utils/forms/fields/Text";
 export { FormikAutocompleteText } from "utils/forms/fields/AutoCompleteText/FormikAutocompleteText";
+export { FormikTagInput } from "utils/forms/fields/TagInput/FormikTagInput";
 export { FormikText } from "utils/forms/fields/Text/FormikText";
 export { FormikDropdown } from "utils/forms/fields/Dropdown/FormikDropdown";
 export { FormikFileInput } from "utils/forms/fields/FileInput/FormikFileInput";
