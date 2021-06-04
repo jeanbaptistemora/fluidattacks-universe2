@@ -107,6 +107,9 @@
   "F086": {
     "skims/test/data/sast/TestCFG.java": {}
   },
+  "F103_APK_UNSIGNED": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
   "F107": {
     "skims/test/data/sast/TestCFG.java": {}
   },
