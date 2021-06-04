@@ -776,7 +776,7 @@ module.exports = {
       label: 'App',
       items: [
         'machine/app/asm',
-        'machine/app/organization/support',
+        'machine/app/support',
         {
           type: 'category',
           label: 'Organizations',
@@ -819,6 +819,7 @@ module.exports = {
               items: [
                 'machine/app/vulnerabilities/management/introduction',
                 'machine/app/vulnerabilities/management/treatments',
+                'machine/app/vulnerabilities/management/zero-risk',
                 'machine/app/vulnerabilities/management/tracking',
               ],
             },

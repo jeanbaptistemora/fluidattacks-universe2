@@ -17,7 +17,7 @@ slug: /about/sla
 - [Response](/about/sla/response):
   **90%** of reattacks, comments and incidents
   will have a median first response time
-  of less than **12** office hours.
+  of less than **16** office hours.
 
 ### Details
 

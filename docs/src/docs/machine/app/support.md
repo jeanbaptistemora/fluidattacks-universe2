@@ -2,7 +2,7 @@
 id: support
 title: Support
 sidebar_label: Support
-slug: /machine/app/organization/support
+slug: /machine/app/support
 ---
 
 
