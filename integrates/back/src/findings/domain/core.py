@@ -34,11 +34,19 @@ from custom_types import (
 from datetime import (
     datetime,
 )
+from db_model import (
+    findings as findings_model,
+)
+from db_model.findings.enums import (
+    FindingStateJustification,
+    FindingStateStatus,
+)
 from db_model.findings.types import (
     Finding,
     Finding20Severity,
     Finding31Severity,
     FindingEvidence,
+    FindingState,
 )
 from decimal import (
     Decimal,
@@ -217,6 +225,35 @@ async def delete_finding(
             delete_vulnerabilities(context, finding_id, justification, analyst)
         )
     return success
+
+
+async def delete_finding_new(
+    context: Any,
+    finding_id: str,
+    group_name: str,
+    justification: FindingStateJustification,
+    user_email: str,
+) -> None:
+    # Load the finding to check that it exists and, it is not deleted
+    finding_loader = context.loaders.finding_new
+    await finding_loader.load((group_name, finding_id))
+    new_state = FindingState(
+        justification=justification,
+        modified_by=user_email,
+        modified_date=datetime_utils.get_iso_date(),
+        source=requests_utils.get_source_new(context),
+        status=FindingStateStatus.DELETED,
+    )
+    await findings_model.update_state(
+        finding_id=finding_id,
+        group_name=group_name,
+        state=new_state,
+    )
+    schedule(
+        delete_vulnerabilities(
+            context, finding_id, justification.value, user_email
+        )
+    )
 
 
 async def delete_vulnerabilities(

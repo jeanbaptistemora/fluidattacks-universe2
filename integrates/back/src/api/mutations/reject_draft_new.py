@@ -10,6 +10,9 @@ from ariadne.utils import (
 from custom_types import (
     SimplePayload,
 )
+from db_model.enums import (
+    Source,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -61,7 +64,7 @@ async def mutate(
             finding_new_id=finding_id,
             finding_new_group=group_name,
         )
-        if requests_utils.get_source(info.context) != "skims":
+        if requests_utils.get_source_new(info.context) != Source.SKIMS:
             finding: Finding = await finding_loader.load(
                 (group_name, finding_id)
             )
