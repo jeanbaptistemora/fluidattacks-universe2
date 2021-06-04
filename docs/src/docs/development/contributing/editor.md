@@ -5,7 +5,9 @@ sidebar_label: Editor
 slug: /development/contributing/editor
 ---
 
-We highly recommend you use Visual Studio Code because most of the team use it and works very well for our purpose
+We highly recommend you use Visual Studio Code
+because most of the team use it
+and works very well for our purpose.
 
 You can install it with:
 `$ NIXPKGS_ALLOW_UNFREE=1 nix-env -i vscode-with-extensions -f /path/to/fluidattacks/product/repo`
@@ -33,7 +35,9 @@ These configurations are suggested, you can add the ones you want:
 }
 ```
 
-This configuration allows you to verify the code in real time and give the code the standard format:
+This configuration allows you
+to verify the code in real time
+and give the code the standard format:
 
 ```json
 {

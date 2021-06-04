@@ -4,7 +4,7 @@
 }:
 makeDerivation {
   arguments = {
-    envSrcDocs = path "/docs/src/docs/development/stack";
+    envSrcDocsDevelopment = path "/docs/src/docs/development/";
   };
   builder = path "/makes/packages/docs/lint/builder.sh";
   name = "docs-lint";

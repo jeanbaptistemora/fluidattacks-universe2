@@ -13,6 +13,7 @@ In order to achieve that goal,
 we developed certain conventions.
 
 ## Mean-Median Conventions
+
 Used to specify different
 central trend measures
 
@@ -20,6 +21,7 @@ central trend measures
 - Purple for median
 
 ## Time Conventions
+
 Used to difference current metrics
 from information from past periods
 
@@ -28,6 +30,7 @@ from information from past periods
 - Green for two periods ago
 
 ## Treatment Conventions
+
 Used to specify
 the chosen treatment
 for vulnerabilities

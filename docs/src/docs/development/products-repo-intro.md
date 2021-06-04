@@ -15,11 +15,11 @@ to make the world a safer place.
 ## What we do
 
 - We perform comprehensive security testing
-over all of your assets.
+    over all of your assets.
 - We use cutting edge technologies
-and heavily trained human hackers.
+    and heavily trained human hackers.
 - We report vulnerabilities back to you
-as accurate and fast as possible.
+    as accurate and fast as possible.
 
 The source code of the technologies used
 is versioned in this repository

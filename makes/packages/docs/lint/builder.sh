@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-      lint_markdown "${envSrcDocs}" \
+      lint_markdown "${envSrcDocsDevelopment}" \
   &&  touch "${out}"
 }
 

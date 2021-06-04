@@ -5,18 +5,18 @@ sidebar_label: GraphQL API
 slug: /development/graphql-api
 ---
 
-## What is GraphQL?
+## What is GraphQL
 
->`GraphQL` is a query language for `APIs`
-and a runtime for fulfilling those queries
-with your existing data.
-`GraphQL` provides a complete
-and understandable description
-of the data in your `API`,
-gives clients the power to ask for
-exactly what they need and nothing more,
-makes it easier to evolve `APIs` over time,
-and enables powerful developer tools.
+> `GraphQL` is a query language for `APIs`
+> and a runtime for fulfilling those queries
+> with your existing data.
+> `GraphQL` provides a complete
+> and understandable description
+> of the data in your `API`,
+> gives clients the power to ask for
+> exactly what they need and nothing more,
+> makes it easier to evolve `APIs` over time,
+> and enables powerful developer tools.
 
 — graphql.org
 
@@ -42,7 +42,7 @@ The `API` layer was inspired by
 [GitLab's GraphQL API](https://gitlab.com/gitlab-org/gitlab/tree/master/app/graphql)
 and is structured in the following way:
 
-```
+```markup
 api
 |_ mutations
   |_ mutation_name.py
@@ -71,11 +71,11 @@ in a graphic and interactive way.
 You can access it on:
 
 - https://app.fluidattacks.com/api,
-which is production
+    which is production.
 - https://youruseratfluid.app.fluidattacks.com/api,
-which are the ephemerals
+    which are the ephemerals.
 - https://localhost:8081/api,
-which is local
+    which is local.
 
 ### Types
 
@@ -83,7 +83,7 @@ Integrates GraphQL types are defined in
 [api/schema/types](https://gitlab.com/fluidattacks/product/-/tree/master/integrates/back/src/api/schema/types)
 
 There are two approaches
-to defining a `GraphQL` schema
+to defining a `GraphQL` schema:
 
 1. Code-first
 1. Schema-first
@@ -96,13 +96,15 @@ and binding it to python functions.
 For example:
 
 api/schema/types/user.graphql
-```
+
+```graphql
 type User {
   email: String!
 }
 ```
 
 api/schema/types/user.py
+
 ```py
 from ariadne import ObjectType
 from api.resolvers.user import email
@@ -123,7 +125,8 @@ Integrates GraphQL enums are defined in
 [api/schema/enums](https://gitlab.com/fluidattacks/product/-/tree/master/integrates/back/src/api/schema/enums)
 
 api/schema/enums/enums.graphql
-```
+
+```graphql
 enum AuthProvider {
   BITBUCKET
   GOOGLE
@@ -142,6 +145,7 @@ in the enums binding index,
 for example:
 
 api/schema/enums/\__init__\.py
+
 ```py
 from ariadne import EnumType
 
@@ -187,19 +191,20 @@ A resolver is a function
 that receives two arguments:
 
 - **Parent:**
-The value returned by the parent resolver,
-usually a dictionary.
-If it's a root resolver
-this argument will be None
+    The value returned by the parent resolver,
+    usually a dictionary.
+    If it's a root resolver
+    this argument will be None
 - **Info:**
-An object whose attributes
-provide details about the execution AST
-and the HTTP request.
+    An object whose attributes
+    provide details about the execution AST
+    and the HTTP request.
 
 It will also receive keyword arguments
 if the GraphQL field defines any.
 
 api/resolvers/user/email.py
+
 ```py
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -212,10 +217,10 @@ whose structure matches the type
 defined in the GraphQL schema
 
 > **_IMPORTANT:_**
-Avoid reusing the resolver function.
-Other than the binding,
-it should never be called
-in other parts of the code
+> Avoid reusing the resolver function.
+> Other than the binding,
+> it should never be called
+> in other parts of the code
 
 Further reading:
 
@@ -230,13 +235,13 @@ Mutations are a kind of GraphQL operation
 explicitly meant to change data.
 
 > **_NOTE:_**
-Mutations are also resolvers,
-just named differently
-for the sake of separating concerns,
-and just like a resolver function,
-they receive the parent argument
-(always None),
-the info object and their defined arguments
+> Mutations are also resolvers,
+> just named differently
+> for the sake of separating concerns,
+> and just like a resolver function,
+> they receive the parent argument
+> (always None),
+> the info object and their defined arguments
 
 Most mutations only return `{'success': bool}`
 also known as "SimplePayload",
@@ -246,13 +251,15 @@ just define the type in
 `api/schema/types/mutation_payloads.graphql` and use it
 
 api/schema/types/mutation.graphql
-```
+
+```graphql
 type Mutation {
   createUser(email: String!): SimplePayload!
 }
 ```
 
 api/mutations/create_user.py
+
 ```py
 from graphql.type.definition import GraphQLResolveInfo
 
@@ -262,6 +269,7 @@ def mutate(parent: None, info: GraphQLResolveInfo, **kwargs: Dict[str, Any]):
 ```
 
 api/schema/types/mutation.py
+
 ```py
 from ariadne import MutationType
 from api.mutations import create_user
@@ -272,11 +280,11 @@ MUTATION.set_field('createUser', create_user.mutate)
 ```
 
 > **_IMPORTANT:_**
-Python code style prefers snake_case variables,
-so if the mutation receives
-camelCased arguments,
-decorate the `mutate` function with the
-`@convert_kwargs_to_snake_case decorator` from `ariadne.utils`
+> Python code style prefers snake_case variables,
+> so if the mutation receives
+> camelCased arguments,
+> decorate the `mutate` function with the
+> `@convert_kwargs_to_snake_case decorator` from `ariadne.utils`
 
 Further reading:
 
@@ -368,7 +376,6 @@ please check back later
 1. Write the resolver function
 1. Bind the resolver function to the schema
 
-
 ### Deprecation and removal of fields
 
 Unlike REST-like APIs,
@@ -383,8 +390,10 @@ as deprecated.
 
 To mark fields or enums as deprecated,
 use the
-[`@deprecated` directive](https://spec.graphql.org/June2018/#sec-Field-Deprecation), e.g:
-```
+[`@deprecated` directive](https://spec.graphql.org/June2018/#sec-Field-Deprecation),
+e.g:
+
+```graphql
 type ExampleType {
   oldField: String @deprecated(reason: "reason text")
 }
@@ -394,13 +403,15 @@ type ExampleType {
 
 The reason should follow
 something similar to:
-```
+
+```markup
 This {field|mutation} is deprecated and will be removed after {date}.
 ```
 
 If it was replaced or there is an alternative,
 it should include:
-```
+
+```markup
 Use the {alternative} {field|mutation} instead.
 ```
 

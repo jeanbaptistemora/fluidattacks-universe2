@@ -6,10 +6,12 @@ slug: /development/contributing
 ---
 
 We want to be able to launch:
+
 - Bash shell (Terminal)
 - Code editor
 
 And start developing X product with:
+
 - Code auto-completion
 - Go-to-definition functionality
 - Required dependencies in the host

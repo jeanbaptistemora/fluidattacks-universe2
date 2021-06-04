@@ -15,16 +15,17 @@ otherwise changes won't be visible
 All the programs and tools that you open from within the Bash Shell will
 be able to see the configurations we made
 
-### Forces
+## Forces
+
 ```bash
     cd /path/to/fluidattacks/product/repo \
 &&  ./m makes.dev.forces \
 &&  source out/makes-dev-forces
 ```
 
-### Integrates
+## Integrates
 
-#### Back
+### Back
 
 ```bash
 # Replace the following values with real ones
@@ -36,16 +37,17 @@ export INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY='test'
 &&  source out/makes-dev-integrates-back
 ```
 
-### Melts
+## Melts
+
 ```bash
     cd /path/to/fluidattacks/product/repo \
 &&  ./m makes.dev.melts \
 &&  source out/makes-dev-melts
 ```
 
-### Observes
+## Observes
 
-#### Tap Mixpanel
+### Tap Mixpanel
 
 ```bash
     cd /path/to/fluidattacks/product/repo \
@@ -53,7 +55,7 @@ export INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY='test'
 &&  source out/makes-dev-observes-tap-mixpanel
 ```
 
-### Skims
+## Skims
 
 ```bash
     cd /path/to/fluidattacks/product/repo \

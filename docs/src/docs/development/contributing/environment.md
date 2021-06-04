@@ -7,7 +7,17 @@ slug: /development/contributing/environment
 
 ## Others tools
 
-For tools like `awscli`, `curl`, `kubectl`, `vim`, `python`, `nodejs`, `git`, `ghc`, `jq`, etc.
+For tools like
+`awscli`,
+`curl`,
+`kubectl`,
+`vim`,
+`python`,
+`nodejs`,
+`git`,
+`ghc`,
+`jq`,
+etc.
 
 You can run:
 `$ nix-env -i $tool_name`.

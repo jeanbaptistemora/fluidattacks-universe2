@@ -16,10 +16,11 @@ in all downstream components.
 This is,
 however,
 catchy because:
+
 - Writing async/await statements
-do not make your code faster
+    do not make your code faster
 - Writing async/await statements
-do not make your code concurrent
+    do not make your code concurrent
 
 This has to be done intelligently
 taking into account the concepts
@@ -75,11 +76,13 @@ main()
 #      1     0.00s 100.0%     3.00s    ✓ main()
 #
 ```
+
 It runs a, b, c,
 the event loop is busy in every sleep,
 total execution time: 3 seconds.
 
 Another example:
+
 ```py
 import asyncio
 from tracers.function import trace
@@ -100,6 +103,7 @@ asyncio.run(main())
 #      1     0.00s 100.0%     3.00s    ✓ async main()
 #
 ```
+
 It runs a, b, c,
 the event loop is busy in every sleep,
 total execution time: 3 seconds.
@@ -305,7 +309,7 @@ and `initial_time` the time it used
 to take before unleashing concurrency.
 
 Please read
-https://docs.python.org/3/library/asyncio-task.html
+[Python's coroutines and tasks documentation](https://docs.python.org/3/library/asyncio-task.html)
 for the greater good
 
 Good bye!
