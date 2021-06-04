@@ -28,6 +28,7 @@ from api.mutations import (
     deactivate_finding_policy,
     deactivate_root,
     delete_finding,
+    delete_finding_new,
     delete_vulnerability,
     delete_vulnerability_tags,
     download_event_file,
@@ -103,7 +104,6 @@ MUTATION.set_field(
     "deactivateOrgFindingPolicy", deactivate_finding_policy.mutate
 )
 MUTATION.set_field("deactivateRoot", deactivate_root.mutate)
-MUTATION.set_field("deleteFinding", delete_finding.mutate)
 MUTATION.set_field("deleteVulnerability", delete_vulnerability.mutate)
 MUTATION.set_field("downloadEventFile", download_event_file.mutate)
 MUTATION.set_field(
@@ -197,10 +197,12 @@ MUTATION.set_field("createGroup", create_group.mutate)
 if FI_API_STATUS == "migration":
     MUTATION.set_field("approveDraft", approve_draft_new.mutate)
     MUTATION.set_field("createDraft", create_draft_new.mutate)
+    MUTATION.set_field("deleteFinding", delete_finding_new.mutate)
     MUTATION.set_field("rejectDraft", reject_draft_new.mutate)
     MUTATION.set_field("submitDraft", submit_draft_new.mutate)
 else:
     MUTATION.set_field("approveDraft", approve_draft.mutate)
     MUTATION.set_field("createDraft", create_draft.mutate)
+    MUTATION.set_field("deleteFinding", delete_finding.mutate)
     MUTATION.set_field("rejectDraft", reject_draft.mutate)
     MUTATION.set_field("submitDraft", submit_draft.mutate)

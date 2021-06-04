@@ -14,6 +14,9 @@ from custom_types import (
     Finding as FindingType,
     MailContent as MailContentType,
 )
+from db_model.findings.enums import (
+    FindingStateJustification,
+)
 from group_access import (
     domain as group_access_domain,
 )
@@ -81,14 +84,20 @@ async def send_mail_delete_finding(
     finding_name: str,
     group_name: str,
     discoverer_email: str,
-    justification: str,
+    justification: FindingStateJustification,
 ) -> None:
+    justification_dict = {
+        FindingStateJustification.DUPLICATED: "It is duplicated",
+        FindingStateJustification.FALSE_POSITIVE: "It is a false positive",
+        FindingStateJustification.NOT_REQUIRED: "Finding not required",
+        FindingStateJustification.NO_JUSTIFICATION: "",
+    }
     recipients = FI_MAIL_REVIEWERS.split(",")
     mail_context = {
         "analyst_email": discoverer_email,
         "finding_name": finding_name,
         "finding_id": finding_id,
-        "justification": justification,
+        "justification": justification_dict[justification],
         "project": group_name,
     }
     await send_mails_async_new(

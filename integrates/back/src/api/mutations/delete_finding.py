@@ -10,8 +10,12 @@ from ariadne.utils import (
 from custom_types import (
     SimplePayload,
 )
+from db_model.findings.enums import (
+    FindingStateJustification,
+)
 from decorators import (
     concurrent_decorators,
+    delete_kwargs,
     enforce_group_level_auth_async,
     require_integrates,
     require_login,
@@ -34,6 +38,7 @@ from redis_cluster.operations import (
 
 
 @convert_kwargs_to_snake_case
+@delete_kwargs({"group_name"})
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,
@@ -58,11 +63,6 @@ async def mutate(
         info.context.loaders.group_drafts.clear(group_name)
         info.context.loaders.finding.clear(finding_id)
         redis_del_by_deps_soon("delete_finding", finding_id=finding_id)
-        justification_dict = {
-            "DUPLICATED": "It is duplicated",
-            "FALSE_POSITIVE": "It is a false positive",
-            "NOT_REQUIRED": "Finding not required",
-        }
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Deleted finding: {finding_id} successfully",
@@ -73,7 +73,7 @@ async def mutate(
                 str(finding_data.get("finding", "")),
                 group_name,
                 str(finding_data.get("analyst", "")),
-                justification_dict[justification],
+                FindingStateJustification[justification],
             )
         )
     else:

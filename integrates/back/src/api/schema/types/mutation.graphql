@@ -185,6 +185,7 @@ type Mutation {
 
   deleteFinding(
     findingId: String!
+    groupName: String
     justification: DeleteFindingJustification!
   ): SimplePayload!
 
