@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 
 function main {
+  local androguard_local_repo="${PWD}/../androguard"
   local benchmark_local_repo="${PWD}/../owasp_benchmark"
   local nisttestsuites_local_repo="${PWD}/../NIST-SARD-Test-Suites"
   local vulnerableapp_local_repo="${PWD}/../VulnerableApp"
@@ -9,6 +10,7 @@ function main {
   local skims_test_group="${1:-all}"
 
       echo '[INFO] Creating staging area' \
+  &&  copy '__envAndroguardRepo__' "${androguard_local_repo}" \
   &&  copy '__envBenchmarkRepo__' "${benchmark_local_repo}" \
   &&  copy '__envNISTTestSuites__' "${nisttestsuites_local_repo}" \
   &&  copy '__envVulnerableAppRepo__' "${vulnerableapp_local_repo}" \
