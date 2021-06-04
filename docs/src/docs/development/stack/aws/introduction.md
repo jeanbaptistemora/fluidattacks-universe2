@@ -92,6 +92,47 @@ We use the following [AWS](https://aws.amazon.com/) services:
 
 ## Guidelines
 
-1. You can access the AWS Console
+### Access web console
+
+You can access the AWS Console
 by entering the `AWS - Production`
 application via [Okta](/development/stack/okta).
+
+### Get development keys
+
+Developers can use
+[Okta](/development/stack/okta)
+to get development AWS credentials.
+
+Follow these steps
+to generate a key pair:
+
+1. Install `awscli` and `aws-okta-processor`:
+  ```bash
+  nix-env -i awscli
+  pip install aws-okta-processor
+  ```
+1. Add the following function
+  in your shell profile (`~/.bashrc`):
+  ```bash
+  function okta-login {
+      eval $(aws-okta-processor authenticate --user "<user>" --pass "<password>" --organization "fluidattacks.okta.com" --role "arn:aws:iam::205810638802:role/<role>" --application "https://fluidattacks.okta.com/home/amazon_aws/0oa9ahz3rfx1SpStS357/272" --silent --duration 32400 --environment)
+      export INTEGRATES_DEV_AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+      export INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+  }
+  ```
+  Make sure you replace the parameters:
+    - `<user>`: Email.
+    - `<password>`.
+    - `<role>`: Use `integrates-dev` or another role.
+1. Source your profile:
+  ```bash
+  source ~/.profile
+  ```
+1. To get the credentials execute:
+  ```bash
+  okta-login
+  ```
+1. Use the `--no-aws-cache` flag only in case you:
+    - Run as prod.
+    - Have problems with `okta-login` or aws credentials.

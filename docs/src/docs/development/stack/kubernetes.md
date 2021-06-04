@@ -187,7 +187,7 @@ to the Kubernetes Cluster,
 you must:
 
 1. Login as an Integrates developer
-using [this guide](/development/get-dev-keys).
+using [this guide](/development/stack/aws#get-development-keys).
 1. Install kubectl with `nix-env -i kubectl`.
 1. Select cluster by running
 `aws eks update-kubeconfig --name makes-k8s --region us-east-1`.

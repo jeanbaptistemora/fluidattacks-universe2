@@ -923,7 +923,6 @@ module.exports = {
         'development/stack/terraform',
       ]
     },
-    'development/get-dev-keys',
     'development/front-technologies',
     'development/dynamodb-patterns',
     'development/graphql-api',
