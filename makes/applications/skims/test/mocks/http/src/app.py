@@ -129,19 +129,36 @@ def add_f036() -> None:
 
 
 def add_f042_secure() -> None:
-    _add_headers(
-        "f042_secure",
-        "Set-Cookie",
-        [
-            "session=test; Secure",
-            "google_analytics=1asdf34; Secure",
-            "session=test",
-            "session=test",
-            "google_analytics=1asdf34",
-            "action=test; HttpOnly",
-            "google_analytics=",
-        ],
-    )
+    response0: Response = Response()
+    response0.set_cookie(key="session", value="test0", secure=True)
+
+    response1: Response = Response()
+    response1.set_cookie(key="google_analytics", value="test1", secure=True)
+
+    response2: Response = Response()
+    response2.set_cookie(key="session", value="test2")
+
+    response3: Response = Response()
+    response3.set_cookie(key="google_analytics", value="test3")
+
+    response4: Response = Response()
+    response4.set_cookie(key="session", value="")
+
+    response5: Response = Response()
+    response5.set_cookie(key="session", value="test5")
+    response5.set_cookie(key="google_analytics", value="1asdf345", secure=True)
+
+    all_response: List[Response] = [
+        response0,
+        response1,
+        response2,
+        response3,
+        response4,
+        response5,
+    ]
+
+    for index, response in enumerate(all_response):
+        add_rule("f042_secure", index, partial(lambda x: x, response))
 
 
 def add_f043_dast_csp_rules() -> None:
