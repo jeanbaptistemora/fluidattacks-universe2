@@ -2,6 +2,9 @@ from __future__ import (
     annotations,
 )
 
+from deprecated import (
+    deprecated,
+)
 import psycopg2 as postgres
 import psycopg2.extensions as postgres_extensions
 from typing import (
@@ -75,17 +78,15 @@ class DbConnection(NamedTuple):
         return cls.from_raw(dbcon, options)
 
 
-# old interface support
+@deprecated
 def adapt_connection(
     connection: DbConn, options: Options = Options()
 ) -> DbConnection:
     return DbConnection.from_raw(connection, options)
 
 
+@deprecated
 def connect(
     db_id: DatabaseID, creds: Credentials, options: Options = Options()
 ) -> DbConnection:
     return DbConnection.new(db_id, creds, options)
-
-
-# -- old interface support
