@@ -24,6 +24,7 @@ makeTemplate {
       (path "/skims/skims")
     ];
     envPython38Paths = [
+      nixpkgs.python38Packages.androguard
       nixpkgs.python38Packages.beautifulsoup4
       nixpkgs.python38Packages.ntplib
       nixpkgs.python38Packages.pygraphviz
