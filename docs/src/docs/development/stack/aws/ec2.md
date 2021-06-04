@@ -32,11 +32,11 @@ etc.
 [machine types](https://aws.amazon.com/ec2/instance-types/)
 that goes from 2
 [Vcpus](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html)
-and 0.5GB of
+and 0.5GB
 [RAM](https://en.wikipedia.org/wiki/Random-access_memory),
-to 96
+to 224
 [Vcpus](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html)
-and 384GB of
+and 24576GB
 [RAM](https://en.wikipedia.org/wiki/Random-access_memory)
 machines.
 Providing us with the capability of
@@ -97,7 +97,7 @@ based on
 1. It supports
 [advanced networking](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-networking.html)
 features that allow assigning public
-[ip addresses](https://en.wikipedia.org/wiki/IP_address),
+[IP addresses](https://en.wikipedia.org/wiki/IP_address),
 having multiple
 [network interfaces](https://en.wikipedia.org/wiki/Network_interface),
 connecting to
@@ -108,7 +108,7 @@ among others.
 like
 [setting security groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html)
 for specifying what ports can be accessed,
-filtered by both ip ranges and
+filtered by both IP ranges and
 [network protocols](https://en.wikipedia.org/wiki/Lists_of_network_protocols),
 [network isolation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/infrastructure-security.html),
 [connecting to instances using SSH keys](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html),
