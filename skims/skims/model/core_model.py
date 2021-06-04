@@ -801,6 +801,10 @@ class NVDVulnerability(NamedTuple):
     version: str
 
 
+class SkimsAPKConfig(NamedTuple):
+    include: Tuple[str, ...]
+
+
 class SkimsHttpConfig(NamedTuple):
     include: Tuple[str, ...]
 
@@ -813,6 +817,7 @@ class SkimsPathConfig(NamedTuple):
 
 
 class SkimsConfig(NamedTuple):
+    apk: SkimsAPKConfig
     checks: Set[FindingEnum]
     group: Optional[str]
     http: SkimsHttpConfig

@@ -10,14 +10,17 @@ from utils.ctx import (
 def create_test_context(debug: bool = True) -> None:
     CTX.debug = debug
     CTX.config = core_model.SkimsConfig(
+        apk=core_model.SkimsAPKConfig(
+            include=(),
+        ),
         checks=set(core_model.FindingEnum),
         group=None,
-        language=core_model.LocalesEnum.EN,
-        namespace="test",
-        output=None,
         http=core_model.SkimsHttpConfig(
             include=(),
         ),
+        language=core_model.LocalesEnum.EN,
+        namespace="test",
+        output=None,
         path=core_model.SkimsPathConfig(
             include=(),
             exclude=(),

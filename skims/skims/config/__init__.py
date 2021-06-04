@@ -30,7 +30,17 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
     config = template.get(
         confuse.Template(
             {
+                "apk": confuse.Template(
+                    {
+                        "include": confuse.Sequence(confuse.String()),
+                    },
+                ),
                 "checks": confuse.Sequence(confuse.String()),
+                "http": confuse.Template(
+                    {
+                        "include": confuse.Sequence(confuse.String()),
+                    }
+                ),
                 "language": confuse.Choice(core_model.LocalesEnum),
                 "namespace": confuse.String(),
                 "output": confuse.String(),
@@ -40,7 +50,7 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
                         "include": confuse.Sequence(confuse.String()),
                         "lib_path": confuse.OneOf([True, False]),
                         "lib_root": confuse.OneOf([True, False]),
-                    }
+                    },
                 ),
                 "timeout": confuse.Number(),
                 "working_dir": confuse.String(),
@@ -49,6 +59,7 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
     )
 
     try:
+        config_apk = config.pop("apk", {})
         config_http = config.pop("http", {})
         config_path = config.pop("path", {})
 
@@ -56,14 +67,17 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
             output = os.path.abspath(output)
 
         skims_config = core_model.SkimsConfig(
+            apk=core_model.SkimsAPKConfig(
+                include=config_apk.pop("include", ()),
+            ),
             checks=load_checks(config),
             group=group,
-            language=core_model.LocalesEnum(config.pop("language", "EN")),
-            namespace=config.pop("namespace"),
-            output=output,
             http=core_model.SkimsHttpConfig(
                 include=config_http.pop("include", ()),
             ),
+            language=core_model.LocalesEnum(config.pop("language", "EN")),
+            namespace=config.pop("namespace"),
+            output=output,
             path=core_model.SkimsPathConfig(
                 exclude=config_path.pop("exclude", ()),
                 include=config_path.pop("include", ()),
