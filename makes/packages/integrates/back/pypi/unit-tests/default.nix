@@ -15,6 +15,7 @@ let
         "pytest-asyncio==0.12.0"
         "pytest-cov==2.9.0"
         "pytest==5.4.1"
+        "selenium==3.141.0"
       ];
       inherited = [
         "attrs==20.3.0"
