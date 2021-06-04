@@ -68,7 +68,7 @@ MODEL_HYPERPARAMETERS = {
     "gradientboostingclassifier": {
         "criterion": CategoricalParameter(["friedman_mse", "mse", "mae"]),
         "loss": CategoricalParameter(["deviance", "exponential"]),
-        "n_estimators": IntegerParameter(90, 110),
+        "n_estimators": IntegerParameter(100, 500),
     },
     "adaboostclassifier": {
         "algorithm": CategoricalParameter(["SAMME", "SAMME.R"]),
