@@ -1,3 +1,4 @@
+#  pylint: disable=invalid-name
 # This migration attempts to fix errors caused due to:
 #   https://gitlab.com/fluidattacks/product/-/issues/4714
 #
