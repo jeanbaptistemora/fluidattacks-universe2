@@ -4,7 +4,6 @@ from back.tests.functional.utils import (
 from dataloaders import (
     get_new_context,
 )
-import json
 import os
 from starlette.datastructures import (
     UploadFile,

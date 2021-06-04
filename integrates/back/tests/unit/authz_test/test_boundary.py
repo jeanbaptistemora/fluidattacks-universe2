@@ -1,8 +1,5 @@
 import authz
 import pytest
-from typing import (
-    Set,
-)
 
 # Constants
 pytestmark = [
