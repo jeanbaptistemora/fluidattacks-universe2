@@ -314,11 +314,11 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
           editTitle={translate.t(
             "searchFindings.tabUsers.editStakeholderTitle"
           )}
+          groupName={projectName}
           initialValues={userModalAction === "edit" ? currentRow : {}}
           onClose={closeUserModal}
           onSubmit={handleSubmit}
           open={isUserModalOpen}
-          projectName={projectName}
           title={translate.t("searchFindings.tabUsers.title")}
           type={"user"}
         />

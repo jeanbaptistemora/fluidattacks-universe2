@@ -12,7 +12,7 @@ interface IAddStakeholderModalProps {
   initialValues: Record<string, string>;
   open: boolean;
   organizationId?: string;
-  projectName?: string;
+  groupName?: string;
   title: string;
   type: "organization" | "user";
   onClose: () => void;

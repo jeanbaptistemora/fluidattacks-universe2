@@ -5,13 +5,13 @@ export const GET_USER: DocumentNode = gql`
   query GetStakeholderDataQuery(
     $entity: StakeholderEntity!
     $organizationId: String
-    $projectName: String
+    $groupName: String
     $userEmail: String!
   ) {
     stakeholder(
       entity: $entity
       organizationId: $organizationId
-      projectName: $projectName
+      groupName: $groupName
       userEmail: $userEmail
     ) {
       email

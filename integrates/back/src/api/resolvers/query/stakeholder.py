@@ -69,6 +69,8 @@ async def resolve(
 ) -> Stakeholder:
     entity: str = kwargs["entity"]
     email: str = kwargs["user_email"]
+    group_name_provided: bool
+    group_name: str
 
     if entity == "ORGANIZATION" and "organization_id" in kwargs:
         org_id: str = kwargs["organization_id"]
@@ -78,8 +80,13 @@ async def resolve(
             organization_id=org_id,
         )
 
-    if entity == "PROJECT" and "project_name" in kwargs:
-        group_name: str = kwargs["project_name"].lower()
+    # Compatibility with old API
+    group_name_provided = "group_name" in kwargs or "project_name" in kwargs
+    if entity == "PROJECT" and group_name_provided:
+        if "group_name" in kwargs:
+            group_name = kwargs["group_name"].lower()
+        else:
+            group_name = kwargs["project_name"].lower()
         return await _resolve_for_group(
             info,
             email,

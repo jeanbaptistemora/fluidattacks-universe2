@@ -58,14 +58,14 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
     onClose,
     onSubmit,
     open,
-    projectName,
+    groupName,
     title,
     type,
   } = props;
   const newTitle: string = action === "add" ? title : editTitle;
-  const groupModal: boolean = projectName !== undefined;
+  const groupModal: boolean = groupName !== undefined;
   const organizationModal: boolean = type === "organization";
-  const sidebarModal: boolean = type === "user" && projectName === undefined;
+  const sidebarModal: boolean = type === "user" && groupName === undefined;
   const newInitialValues: Record<string, string> = getNewInitialValues(
     initialValues,
     action,
@@ -95,8 +95,8 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
       getUser({
         variables: {
           entity: organizationModal ? "ORGANIZATION" : "PROJECT",
+          groupName: _.get(props, "groupName", "-"),
           organizationId: _.get(props, "organizationId", "-"),
-          projectName: _.get(props, "projectName", "-"),
           userEmail,
         },
       });
@@ -111,8 +111,8 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
       .required(translate.t("validations.required")),
     phoneNumber: string(),
     responsibility: string()
-      .when("$projectName", {
-        is: projectName,
+      .when("$groupName", {
+        is: groupName,
         otherwise: string().required(translate.t("validations.required")),
         then: string(),
       })
@@ -134,7 +134,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
     <React.StrictMode>
       <Modal headerTitle={newTitle} open={open}>
         <Formik
-          context={{ projectName }}
+          context={{ groupName }}
           enableReinitialize={true}
           initialValues={{ ...newInitialValues, ...userData }}
           name={"addUser"}
@@ -196,7 +196,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
                     )}
                   </Field>
                 </FormGroup>
-                {projectName === undefined ? undefined : (
+                {groupName === undefined ? undefined : (
                   <FormGroup>
                     <ControlLabel>
                       <RequiredField>{"* "}</RequiredField>

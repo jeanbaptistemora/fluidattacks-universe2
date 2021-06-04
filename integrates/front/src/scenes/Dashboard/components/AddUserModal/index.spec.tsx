@@ -35,11 +35,11 @@ describe("Add user modal", (): void => {
   const mockPropsAdd: IAddStakeholderModalProps = {
     action: "add",
     editTitle: "",
+    groupName: "TEST",
     initialValues: {},
     onClose: functionMock,
     onSubmit: functionMock,
     open: true,
-    projectName: "TEST",
     title: "",
     type: "user",
   };
@@ -47,11 +47,11 @@ describe("Add user modal", (): void => {
   const mockPropsEdit: IAddStakeholderModalProps = {
     action: "edit",
     editTitle: "",
+    groupName: "TEST",
     initialValues: {},
     onClose: functionMock,
     onSubmit: functionMock,
     open: true,
-    projectName: "TEST",
     title: "",
     type: "user",
   };
@@ -83,8 +83,8 @@ describe("Add user modal", (): void => {
         query: GET_USER,
         variables: {
           entity: "PROJECT",
+          groupName: "TEST",
           organizationId: "-",
-          projectName: "TEST",
           userEmail: "unittest@test.com",
         },
       },
@@ -107,8 +107,8 @@ describe("Add user modal", (): void => {
         query: GET_USER,
         variables: {
           entity: "PROJECT",
+          groupName: "TEST",
           organizationId: "-",
-          projectName: "TEST",
           userEmail: "user@test.com",
         },
       },
@@ -121,8 +121,8 @@ describe("Add user modal", (): void => {
         query: GET_USER,
         variables: {
           entity: "PROJECT",
+          groupName: "TEST",
           organizationId: "-",
-          projectName: "TEST",
           userEmail: "unittest@test.com",
         },
       },
@@ -251,7 +251,7 @@ describe("Add user modal", (): void => {
     const wrapper: ReactWrapper = mount(
       <MockedProvider addTypename={true} mocks={mocks}>
         <authzPermissionsContext.Provider value={mockedPermissions}>
-          <AddUserModal {...mockPropsAdd} projectName={undefined} />
+          <AddUserModal {...mockPropsAdd} groupName={undefined} />
         </authzPermissionsContext.Provider>
       </MockedProvider>
     );

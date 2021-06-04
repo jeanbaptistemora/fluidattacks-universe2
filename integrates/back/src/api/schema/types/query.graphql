@@ -45,11 +45,12 @@ type Query {
   "Get resources from project"
   resources(projectName: String!): Resource
 
-  "Get user info from project"
+  "Get user info from group"
   stakeholder(
     entity: StakeholderEntity!
     organizationId: String
     projectName: String
+    groupName: String
     userEmail: String!
   ): Stakeholder
 
