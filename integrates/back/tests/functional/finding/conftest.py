@@ -73,7 +73,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "compromised_attributes": "Clave plana",
                 "bts": "",
                 "risk": "This is pytest created draft",
-                "effect_solution": "solution",
                 "vulnerability": "I just have updated the description",
                 "analyst": "test1@gmail.com",
                 "cvss_version": "3.1",

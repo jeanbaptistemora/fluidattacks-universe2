@@ -38,7 +38,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         "state": "APPROVED",
                     },
                 ],
-                "effect_solution": "solution",
                 "vulnerability": "vulnerability",
                 "analyst": "admin@gmail.com",
                 "cvss_version": "3.1",

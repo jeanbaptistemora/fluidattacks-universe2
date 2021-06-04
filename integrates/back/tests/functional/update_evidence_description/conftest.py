@@ -45,7 +45,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         "state": "CREATED",
                     },
                 ],
-                "effect_solution": "solution",
                 "vulnerability": "vulnerability",
                 "analyst": "admin@gmail.com",
                 "cvss_version": "3.1",
