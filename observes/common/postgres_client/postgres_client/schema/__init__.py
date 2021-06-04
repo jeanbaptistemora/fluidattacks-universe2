@@ -107,7 +107,7 @@ class Schema(Immutable):
             target = TableID(schema=to_schema.name, table_name=table)
             source_table = factory.retrieve(source)
             LOG.debug("Moving from %s to %s ", source, target)
-            source_table.map(lambda t: t.move(target))
+            source_table.map(lambda t: factory.move(t.table.table_id, target))
 
         for table in tables:
             move_table(table)

@@ -1,9 +1,8 @@
 from postgres_client import (
     client,
-    table,
 )
 from postgres_client.table import (
-    DbTable,
+    TableFactory,
     TableID,
 )
 import pytest
@@ -38,10 +37,9 @@ def test_create_like(postgresql_my: Any) -> None:
     db_client = client.new_test_client(postgresql_my)
     blueprint_id = TableID(schema="test_schema", table_name="table_number_one")
     new_table_id = TableID(schema="test_schema_2", table_name="the_table")
-    blueprint_io = DbTable.retrieve(db_client.cursor, blueprint_id, False)
-    new_table_io = DbTable.create_like(
-        db_client.cursor, blueprint_id, new_table_id, False
-    )
+    factory = TableFactory(db_client.cursor, False)
+    blueprint_io = factory.retrieve(blueprint_id)
+    new_table_io = factory.create_like(blueprint_id, new_table_id)
     blueprint = unsafe_perform_io(blueprint_io)
     new_table = unsafe_perform_io(new_table_io)
     assert new_table.table.table_id != blueprint.table.table_id
@@ -54,14 +52,11 @@ def test_rename(postgresql_my: Any) -> None:
     setup_db(postgresql_my)
     db_client = client.new_test_client(postgresql_my)
     old_table_id = TableID(schema="test_schema", table_name="table_number_one")
-    old_table = unsafe_perform_io(
-        DbTable.retrieve(db_client.cursor, old_table_id, False)
-    )
+    factory = TableFactory(db_client.cursor, False)
+    old_table = unsafe_perform_io(factory.retrieve(old_table_id))
     new_table_id = unsafe_perform_io(old_table.rename("renamed_table"))
-    new_table = unsafe_perform_io(
-        DbTable.retrieve(db_client.cursor, new_table_id, False)
-    )
-    assert not is_successful(table.exist(db_client, old_table_id))
+    new_table = unsafe_perform_io(factory.retrieve(new_table_id))
+    assert not is_successful(factory.exist(old_table_id))
     assert new_table.table.table_id == new_table_id
 
 
@@ -70,9 +65,10 @@ def test_delete(postgresql_my: Any) -> None:
     setup_db(postgresql_my)
     db_client = client.new_test_client(postgresql_my)
     target = TableID(schema="test_schema", table_name="table_number_one")
-    table_io = DbTable.retrieve(db_client.cursor, target)
+    factory = TableFactory(db_client.cursor, False)
+    table_io = factory.retrieve(target)
     table_io.map(lambda table: table.delete())
-    assert not is_successful(table.exist(db_client, target))
+    assert not is_successful(factory.exist(target))
 
 
 @pytest.mark.skip(

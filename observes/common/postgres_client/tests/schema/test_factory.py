@@ -4,7 +4,6 @@ from postgres_client import (
     client,
 )
 from postgres_client.schema import (
-    Schema,
     SchemaFactory,
 )
 import pytest

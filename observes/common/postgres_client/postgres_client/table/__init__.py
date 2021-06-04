@@ -4,12 +4,6 @@ from __future__ import (
     annotations,
 )
 
-from deprecated import (
-    deprecated,
-)
-from postgres_client.client import (
-    Client,
-)
 from postgres_client.cursor import (
     Cursor,
 )
@@ -59,10 +53,6 @@ def _exist(cursor: Cursor, table_id: TableID) -> IOResultBool:
     return IOFailure(False)
 
 
-def exist(db_client: Client, table_id: TableID) -> IOResultBool:
-    return _exist(db_client.cursor, table_id)
-
-
 def _retrieve(cursor: Cursor, table_id: TableID) -> IO[MetaTable]:
     query = queries.retrieve(table_id)
     cursor.execute_query(query)
@@ -78,20 +68,20 @@ def _retrieve(cursor: Cursor, table_id: TableID) -> IO[MetaTable]:
     return results.map(_extract)
 
 
-class _DbTable(NamedTuple):
+class _Table(NamedTuple):
     cursor: Cursor
     table: MetaTable
     redshift: bool
 
 
-class DbTable(Immutable):
-    """Use TableFactory for building a DbTable element"""
+class Table(Immutable):
+    """Use TableFactory for building a Table element"""
 
     cursor: Cursor
     table: MetaTable
     redshift: bool
 
-    def __new__(cls, obj: _DbTable) -> DbTable:
+    def __new__(cls, obj: _Table) -> Table:
         self = object.__new__(cls)
         for prop, val in obj._asdict().items():
             object.__setattr__(self, prop, val)
@@ -127,55 +117,6 @@ class DbTable(Immutable):
             )
         return IO(None)
 
-    def move(self, target: TableID) -> IO[None]:
-        source = self.table.table_id
-        if is_successful(DbTable.exist(self.cursor, target)):
-            target_table = DbTable.retrieve(self.cursor, target, self.redshift)
-            target_table.map(lambda table: table.delete())
-        DbTable.create_like(self.cursor, source, target, self.redshift)
-        source_table = DbTable.retrieve(self.cursor, source, self.redshift)
-        source_table.map(lambda table: table.move_data(target))
-        return IO(None)
-
-    @classmethod
-    @deprecated(reason="use factory")
-    def exist(cls, cursor: Cursor, table_id: TableID) -> IOResultBool:
-        return _exist(cursor, table_id)
-
-    @classmethod
-    @deprecated(reason="use factory")
-    def retrieve(
-        cls, cursor: Cursor, table_id: TableID, redshift_queries: bool = True
-    ) -> IO[DbTable]:
-        table = unsafe_perform_io(_retrieve(cursor, table_id))
-        draft = _DbTable(cursor=cursor, table=table, redshift=redshift_queries)
-        return IO(cls(draft))
-
-    @classmethod
-    @deprecated(reason="use factory")
-    def new(
-        cls,
-        cursor: Cursor,
-        table: MetaTable,
-        if_not_exist: bool = False,
-        redshift_queries: bool = True,
-    ) -> IO[DbTable]:
-        query = queries.create(table, if_not_exist)
-        cursor.execute_query(query)
-        return cls.retrieve(cursor, table.table_id, redshift_queries)
-
-    @classmethod
-    def create_like(
-        cls,
-        cursor: Cursor,
-        blueprint: TableID,
-        new_table: TableID,
-        redshift_queries: bool = True,
-    ) -> IO[DbTable]:
-        query = queries.create_like(blueprint, new_table)
-        cursor.execute_query(query)
-        return cls.retrieve(cursor, new_table, redshift_queries)
-
 
 class _TableFactory(NamedTuple):
     cursor: Cursor
@@ -198,18 +139,18 @@ class TableFactory(Immutable):
     def exist(self, table_id: TableID) -> IOResultBool:
         return _exist(self.cursor, table_id)
 
-    def retrieve(self, table_id: TableID) -> IO[DbTable]:
+    def retrieve(self, table_id: TableID) -> IO[Table]:
         table = unsafe_perform_io(_retrieve(self.cursor, table_id))
-        draft = _DbTable(
+        draft = _Table(
             cursor=self.cursor, table=table, redshift=self.redshift_queries
         )
-        return IO(DbTable(draft))
+        return IO(Table(draft))
 
     def new_table(
         self,
         table: MetaTable,
         if_not_exist: bool = False,
-    ) -> IO[DbTable]:
+    ) -> IO[Table]:
         query = queries.create(table, if_not_exist)
         self.cursor.execute_query(query)
         return self.retrieve(table.table_id)
@@ -218,10 +159,19 @@ class TableFactory(Immutable):
         self,
         blueprint: TableID,
         new_table: TableID,
-    ) -> IO[DbTable]:
+    ) -> IO[Table]:
         query = queries.create_like(blueprint, new_table)
         self.cursor.execute_query(query)
         return self.retrieve(new_table)
+
+    def move(self, source: TableID, target: TableID) -> IO[None]:
+        if is_successful(self.exist(target)):
+            target_table = self.retrieve(target)
+            target_table.map(lambda table: table.delete())
+        self.create_like(source, target)
+        source_table = self.retrieve(source)
+        source_table.map(lambda table: table.move_data(target))
+        return IO(None)
 
 
 __all__ = [
