@@ -10,6 +10,7 @@ let
 in
 bashFormat {
   targets = builtins.concatLists (builtins.map fmtProduct [
+    "airs"
   ]);
   name = "makes-format-bash";
 }

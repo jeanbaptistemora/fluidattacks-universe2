@@ -16,10 +16,10 @@ function patch_paths {
   local url_to_replace='please-replace-this-url-before-deploying'
   local path_to_replace='please-replace-this-path-before-deploying'
 
-      replace "${src}" "https://${url_to_replace}" "${proto}://${url}" \
-  &&  replace "${src}" "http://${url_to_replace}" "${proto}://${url}" \
-  &&  replace "${src}" "${url_to_replace}" "${url}" \
-  &&  replace "${src}" "${path_to_replace}" "${path}"
+  replace "${src}" "https://${url_to_replace}" "${proto}://${url}" \
+    && replace "${src}" "http://${url_to_replace}" "${proto}://${url}" \
+    && replace "${src}" "${url_to_replace}" "${url}" \
+    && replace "${src}" "${path_to_replace}" "${path}"
 }
 
 function patch_paths_dev {
@@ -44,12 +44,11 @@ function compress_files {
   local src="${1}"
 
   find "${src}" -type f -name '*.html' -o -name '*.css' -o -name '*.js' \
-    | while read -r file
-      do
-            gzip -9 "${file}" \
-        &&  mv "${file}.gz" "${file}" \
-        ||  return 1
-      done \
+    | while read -r file; do
+      gzip -9 "${file}" \
+        && mv "${file}.gz" "${file}" \
+        || return 1
+    done
 }
 
 function sync_files {
@@ -70,58 +69,57 @@ function sync_files {
     [svg]=image/svg+xml
   )
 
-      for ext in "${!content_encodings[@]}"
-      do
-            content_encoding="${content_encodings[${ext}]}" \
-        &&  content_type="${content_types[${ext}]}" \
-        &&  aws s3 sync \
-              "${src}" \
-              "${target}" \
-              --acl private \
-              --delete \
-              --content-encoding "${content_encoding}" \
-              --content-type "${content_type}" \
-              --exclude '*' \
-              --include "*.${ext}" \
-              --metadata-directive REPLACE \
-        ||  return 1
-      done \
-  &&  aws s3 sync \
+  for ext in "${!content_encodings[@]}"; do
+    content_encoding="${content_encodings[${ext}]}" \
+      && content_type="${content_types[${ext}]}" \
+      && aws s3 sync \
         "${src}" \
         "${target}" \
+        --acl private \
         --delete \
-        --exclude '*.css' \
-        --exclude '*.html' \
-        --exclude '*.js' \
-        --exclude '*.png' \
-        --exclude '*.svg'
+        --content-encoding "${content_encoding}" \
+        --content-type "${content_type}" \
+        --exclude '*' \
+        --include "*.${ext}" \
+        --metadata-directive REPLACE \
+      || return 1
+  done \
+    && aws s3 sync \
+      "${src}" \
+      "${target}" \
+      --delete \
+      --exclude '*.css' \
+      --exclude '*.html' \
+      --exclude '*.js' \
+      --exclude '*.png' \
+      --exclude '*.svg'
 }
 
 function deploy_dev {
   local src="${1}"
 
-      pushd "${src}" \
-      &&  python3 -m http.server \
-  &&  popd \
-  ||  return 1
+  pushd "${src}" \
+    && python3 -m http.server \
+    && popd \
+    || return 1
 }
 
 function deploy_eph {
   local src="${1}"
 
-      aws_login_dev airs \
-  &&  compress_files "${src}" \
-  &&  sync_files "${src}" "s3://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
-  &&  announce_to_bugsnag ephemeral
+  aws_login_dev airs \
+    && compress_files "${src}" \
+    && sync_files "${src}" "s3://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
+    && announce_to_bugsnag ephemeral
 }
 
 function deploy_prod {
   local src="${1}"
 
-      aws_login_prod airs \
-  &&  compress_files "${src}" \
-  &&  sync_files "${src}" 's3://fluidattacks.com' \
-  &&  announce_to_bugsnag production
+  aws_login_prod airs \
+    && compress_files "${src}" \
+    && sync_files "${src}" 's3://fluidattacks.com' \
+    && announce_to_bugsnag production
 }
 
 function announce_to_bugsnag {
@@ -136,19 +134,19 @@ function main {
   local url_to_replace='please-replace-this-url-before-deploying'
   local path_to_replace='please-replace-this-path-before-deploying'
 
-      __envAirsContent__ \
-  &&  case "${env}" in
-        dev) patch_paths_dev "${out}";;
-        eph) patch_paths_eph "${out}";;
-        prod) patch_paths_prod "${out}";;
-        *) abort '[ERROR] Second argument must be one of: dev, eph, prod';;
-      esac \
-  &&  case "${env}" in
-        dev) deploy_dev "${out}";;
-        eph) deploy_eph "${out}";;
-        prod) deploy_prod "${out}";;
-      esac \
-  ||  return 1
+  __envAirsContent__ \
+    && case "${env}" in
+      dev) patch_paths_dev "${out}" ;;
+      eph) patch_paths_eph "${out}" ;;
+      prod) patch_paths_prod "${out}" ;;
+      *) abort '[ERROR] Second argument must be one of: dev, eph, prod' ;;
+    esac \
+    && case "${env}" in
+      dev) deploy_dev "${out}" ;;
+      eph) deploy_eph "${out}" ;;
+      prod) deploy_prod "${out}" ;;
+    esac \
+    || return 1
 }
 
 main "${@}"
