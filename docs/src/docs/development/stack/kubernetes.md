@@ -28,68 +28,68 @@ The main reasons why we chose
 it over other alternatives are:
 
 1. It is capable of deploying complex applications,
-including related
-[Servers](https://en.wikipedia.org/wiki/Server_(computing)),
-[DNS records](https://en.wikipedia.org/wiki/Domain_Name_System),
-and [load balancers](https://en.wikipedia.org/wiki/Load_balancing_(computing))
-in an automated way,
-allowing us to focus
-more on the application development
-and less on the infrastrucutre supporting it.
+    including related
+    [Servers](https://en.wikipedia.org/wiki/Server_(computing)),
+    [DNS records](https://en.wikipedia.org/wiki/Domain_Name_System),
+    and [load balancers](https://en.wikipedia.org/wiki/Load_balancing_(computing))
+    in an automated way,
+    allowing us to focus
+    more on the application development
+    and less on the infrastrucutre supporting it.
 1. It can be
-[fully managed](https://gitlab.com/fluidattacks/product/-/blob/ba230133febd3325d0f5c995f638a176b89d32a2/makes/applications/makes/k8s/src/terraform/cluster.tf)
-using [Terraform](/development/stack/terraform).
+    [fully managed](https://gitlab.com/fluidattacks/product/-/blob/ba230133febd3325d0f5c995f638a176b89d32a2/makes/applications/makes/k8s/src/terraform/cluster.tf)
+    using [Terraform](/development/stack/terraform).
 1. It supports
-[Blue-Green deployments](https://www.redhat.com/en/topics/devops/what-is-blue-green-deployment),
-allowing us to deploy applications
-many times a day
-without service interruptions.
+    [Blue-Green deployments](https://www.redhat.com/en/topics/devops/what-is-blue-green-deployment),
+    allowing us to deploy applications
+    many times a day
+    without service interruptions.
 1. It supports
-[Rollbacks](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#rolling-back-a-deployment),
-allowing us to revert applications
-to previous versions
-in case the need arise.
+    [Rollbacks](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#rolling-back-a-deployment),
+    allowing us to revert applications
+    to previous versions
+    in case the need arise.
 1. It supports
-[Horizontal autoscaling](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler),
-allowing us to easily adapt our applications
-to the loads they're getting.
+    [Horizontal autoscaling](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler),
+    allowing us to easily adapt our applications
+    to the loads they're getting.
 1. It supports
-[Service accounts](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/),
-[RBAC Authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/),
-and [IRSA](https://aws.amazon.com/blogs/opensource/introducing-fine-grained-iam-roles-service-accounts/),
-allowing to give applications
-permissions to external resources
-using a
-[least privilege](/criteria/requirements/186)
-approach.
+    [Service accounts](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/),
+    [RBAC Authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/),
+    and [IRSA](https://aws.amazon.com/blogs/opensource/introducing-fine-grained-iam-roles-service-accounts/),
+    allowing to give applications
+    permissions to external resources
+    using a
+    [least privilege](/criteria/requirements/186)
+    approach.
 1. It supports
-[resource quotas](https://kubernetes.io/docs/concepts/policy/resource-quotas/),
-allowing to easily distribute containers among physical machines using
-a granular `cpu/memory per container` approach.
+    [resource quotas](https://kubernetes.io/docs/concepts/policy/resource-quotas/),
+    allowing to easily distribute containers among physical machines using
+    a granular `cpu/memory per container` approach.
 1. It has its own [package manager](https://helm.sh/),
-which makes deploying services
-[very easy](https://gitlab.com/fluidattacks/product/-/blob/ba230133febd3325d0f5c995f638a176b89d32a2/makes/applications/makes/k8s/src/terraform/new-relic.tf#L5).
+    which makes deploying services
+    [very easy](https://gitlab.com/fluidattacks/product/-/blob/ba230133febd3325d0f5c995f638a176b89d32a2/makes/applications/makes/k8s/src/terraform/new-relic.tf#L5).
 1. It has its own
-[local reproducibility](https://minikube.sigs.k8s.io/docs/)
-tool for simulating clusters
-in local environments.
+    [local reproducibility](https://minikube.sigs.k8s.io/docs/)
+    tool for simulating clusters
+    in local environments.
 1. It is [Open source](https://opensource.com/resources/what-open-source).
 1. It is not platform-bounded.
 1. [Azure AKS](https://azure.microsoft.com/en-us/services/kubernetes-service/),
-[AWS EKS](https://aws.amazon.com/eks),
-[GCP GKE](https://cloud.google.com/kubernetes-engine),
-support it.
+    [AWS EKS](https://aws.amazon.com/eks),
+    [GCP GKE](https://cloud.google.com/kubernetes-engine),
+    support it.
 1. It can be [IaaS](https://en.wikipedia.org/wiki/Infrastructure_as_a_service)
-when implemented under a
-[cloud provider](https://en.wikipedia.org/wiki/Cloud_computing).
+    when implemented under a
+    [cloud provider](https://en.wikipedia.org/wiki/Cloud_computing).
 1. Migrating it from one
-[cloud provider](https://en.wikipedia.org/wiki/Cloud_computing)
-to another is,
-although not a simple task, at least possible.
+    [cloud provider](https://en.wikipedia.org/wiki/Cloud_computing)
+    to another is,
+    although not a simple task, at least possible.
 1. It is
-[widely used by the community](https://enterprisersproject.com/article/2020/6/kubernetes-statistics-2020).
+    [widely used by the community](https://enterprisersproject.com/article/2020/6/kubernetes-statistics-2020).
 1. It has many
-[open source extensions](https://github.com/kubernetes-sigs).
+    [open source extensions](https://github.com/kubernetes-sigs).
 
 ## Alternatives
 
@@ -97,86 +97,86 @@ The following alternatives were considered
 but not chosen for the following reasons:
 
 1. [AWS ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html):
-It is a serverless service
-for running containers.
-It is expensive as only one container
-exists within an entire physical machine.
-It does not support extensions.
-It is platform-bounded.
-It is not [Open source](https://opensource.com/resources/what-open-source).
+    It is a serverless service
+    for running containers.
+    It is expensive as only one container
+    exists within an entire physical machine.
+    It does not support extensions.
+    It is platform-bounded.
+    It is not [Open source](https://opensource.com/resources/what-open-source).
 1. [AWS Fargate](https://docs.aws.amazon.com/AmazonECS/latest/userguide/what-is-fargate.html):
-It is a serverless service
-for running containers
-without administering the infrastructure
-they run upon.
-It is expensive as only one container
-exists within an entire physical machine.
-It does not support extensions.
-It is platform-bounded.
-It is not [Open source](https://opensource.com/resources/what-open-source).
+    It is a serverless service
+    for running containers
+    without administering the infrastructure
+    they run upon.
+    It is expensive as only one container
+    exists within an entire physical machine.
+    It does not support extensions.
+    It is platform-bounded.
+    It is not [Open source](https://opensource.com/resources/what-open-source).
 1. [AWS EC2](https://aws.amazon.com/ec2/):
-It is a service for cloud computing.
-[AWS EKS](https://aws.amazon.com/eks)
-actually uses it for setting up cluster workers.
-It does not support extensions.
-It is platform-bounded.
-It is not [Open source](https://opensource.com/resources/what-open-source).
+    It is a service for cloud computing.
+    [AWS EKS](https://aws.amazon.com/eks)
+    actually uses it for setting up cluster workers.
+    It does not support extensions.
+    It is platform-bounded.
+    It is not [Open source](https://opensource.com/resources/what-open-source).
 1. [HashiCorp Nomad](https://www.nomadproject.io/):
-Currently, no
-[cloud provider](https://en.wikipedia.org/wiki/Cloud_computing)
-supports it,
-which means that having to manage
-both managers and workers is required.
-It takes a simpler approach
-to orchestrating applications,
-with the downside of losing flexibility.
+    Currently, no
+    [cloud provider](https://en.wikipedia.org/wiki/Cloud_computing)
+    supports it,
+    which means that having to manage
+    both managers and workers is required.
+    It takes a simpler approach
+    to orchestrating applications,
+    with the downside of losing flexibility.
 1. [Docker Swarm](https://www.sumologic.com/glossary/docker-swarm/):
-Currently, no
-[cloud provider](https://en.wikipedia.org/wiki/Cloud_computing)
-supports it,
-which means that having to manage
-both managers and workers is required.
-It takes a simpler approach
-to orchestrating applications,
-with the downside of losing flexibility.
+    Currently, no
+    [cloud provider](https://en.wikipedia.org/wiki/Cloud_computing)
+    supports it,
+    which means that having to manage
+    both managers and workers is required.
+    It takes a simpler approach
+    to orchestrating applications,
+    with the downside of losing flexibility.
 
 ## Usage
 
 We use [Kubernetes](https://kubernetes.io/) for:
 
 1. [Hosting](https://gitlab.com/fluidattacks/product/-/tree/ba230133febd3325d0f5c995f638a176b89d32a2/makes/applications/integrates/back/deploy/prod/k8s)
-our
-[ASM](https://fluidattacks.com/categories/asm/).
+    our
+    [ASM](https://fluidattacks.com/categories/asm/).
 1. [Automatically](https://gitlab.com/fluidattacks/product/-/blob/ba230133febd3325d0f5c995f638a176b89d32a2/makes/applications/integrates/back/deploy/dev/entrypoint.sh)
-deploying
-[ephemeral environments](/about/security/integrity/developing-integrity#ephemeral-environments)
-on
-[CI/CD](https://docs.gitlab.com/ee/ci/introduction/)
-workflows.
+    deploying
+    [ephemeral environments](/about/security/integrity/developing-integrity#ephemeral-environments)
+    on
+    [CI/CD](https://docs.gitlab.com/ee/ci/introduction/)
+    workflows.
 1. Running application performance monitoring using [New Relic](https://newrelic.com/).
 
 We do not use [Kubernetes](https://kubernetes.io/) for:
 
 1. [Metrics-based autoscaling](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/):
-Our autoscaling is based on the
-[number of replicas](https://gitlab.com/fluidattacks/product/-/blob/9581d53dc73e59cc7709981743ddc47153d7909a/makes/applications/integrates/back/deploy/prod/k8s/deployment.yaml#L7)
-we specify.
-It should instead be based
-on application load.
+    Our autoscaling is based on the
+    [number of replicas](https://gitlab.com/fluidattacks/product/-/blob/9581d53dc73e59cc7709981743ddc47153d7909a/makes/applications/integrates/back/deploy/prod/k8s/deployment.yaml#L7)
+    we specify.
+    It should instead be based
+    on application load.
 1. [Rollbacks](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#rolling-back-a-deployment):
-We should version production artifacts
-in order to be able to automatically
-return to a previous working version
-of our applications.
+    We should version production artifacts
+    in order to be able to automatically
+    return to a previous working version
+    of our applications.
 1. [Gitlab Runner](https://docs.gitlab.com/runner/executors/kubernetes.html):
-It was slow,
-unreliable
-and added too much overhead to workers.
-We decided to go back to
-[Autoscaling Runner](https://docs.gitlab.com/runner/configuration/runner_autoscale_aws/).
+    It was slow,
+    unreliable
+    and added too much overhead to workers.
+    We decided to go back to
+    [Autoscaling Runner](https://docs.gitlab.com/runner/configuration/runner_autoscale_aws/).
 1. [Chaos Engineering](https://github.com/chaos-mesh/chaos-mesh/):
-In order to harden ourselves against errors,
-we should create a little chaos in our infrastructure.
+    In order to harden ourselves against errors,
+    we should create a little chaos in our infrastructure.
 
 ## Guidelines
 
@@ -187,15 +187,15 @@ to the Kubernetes Cluster,
 you must:
 
 1. Login as an Integrates developer
-using [this guide](/development/stack/aws#get-development-keys).
+    using [this guide](/development/stack/aws#get-development-keys).
 1. Install kubectl with `nix-env -i kubectl`.
 1. Select cluster by running
-`aws eks update-kubeconfig --name makes-k8s --region us-east-1`.
+    `aws eks update-kubeconfig --name makes-k8s --region us-east-1`.
 1. Run `kubectl get node`.
 
 Your input should be similar to this:
 
-```
+```bash
 $ kubectl get node
 NAME                            STATUS   ROLES    AGE   VERSION
 ip-192-168-5-112.ec2.internal   Ready    <none>   58d   v1.17.9-eks-4c6976

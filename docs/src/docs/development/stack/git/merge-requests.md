@@ -5,7 +5,7 @@ sidebar_label: Merge Requests
 slug: /development/stack/git/merge-requests
 ---
 
-### Differences with commit messages
+## Differences with commit messages
 
 Merge Request commits
 are like commit messages
@@ -15,7 +15,8 @@ with only three differences:
    has to be the most relevant type
    of all its commits.
    The relevance list is:
-    ```
+
+    ```markup
     rever
     feat
     perf
@@ -25,30 +26,31 @@ with only three differences:
     style
     sol
     ```
-    Where ``revert``
+
+    Where `revert`
     has the highest
-    and ``sol``
+    and `sol`
     the lowest relevance.
 
     For example,
-    if your MR has one ``feat``,
-    one ``test``
-    and one ``style`` commit,
+    if your MR has one `feat`,
+    one `test`
+    and one `style` commit,
     the [type] of your MR
-    must be ``feat``.
+    must be `feat`.
 1. They **can** (not mandatory) implement
-a ``Closes #{issue-number}``
-in their footer,
-which triggers the automatic closing
-of the referenced issue
-once the MR gets accepted
+    a `Closes #{issue-number}`
+    in their footer,
+    which triggers the automatic closing
+    of the referenced issue
+    once the MR gets accepted
 
-### Merge Request example
+## Merge Request example
 
 Here is an example
 of a compliant Merge Request Message:
 
-```
+```markup
 integrates\feat(build): #13.3 new checks to dangerfile
 
 - Add type_check
@@ -61,9 +63,9 @@ Closes #13
 Issue number 13
 will be automatically closed
 once this MR is accepted
-due to the ``Closes #13`` footer.
+due to the `Closes #13` footer.
 
-### ETA Merge Request messages
+## ETA Merge Request messages
 
 When your Merge Request
 is related to one area/issue
@@ -76,7 +78,7 @@ then you should use
 the following ETA model
 as a Merge Request message:
 
-```
+```markup
 - Speed: A [parts] / B [time unit] = A/B [parts]/[time unit]
 - TODO: C [parts]
 - ETA: C / (A/B) = C/(A/B) [time unit]
@@ -103,7 +105,7 @@ that we know will resolve the issues of the area.
 
 ETA Merge Request message example:
 
-```
+```markup
 - Speed: 4 issues / 2 days = 2 issues/day
 - TODO: 10 issues
 - ETA: 10 / 2 = 5 days
