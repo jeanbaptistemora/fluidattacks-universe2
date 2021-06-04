@@ -5,7 +5,6 @@ from __future__ import (
 import json
 from postgres_client import (
     connection as connection_module,
-    cursor as cursor_module,
 )
 from postgres_client.connection import (
     Credentials,
@@ -57,7 +56,7 @@ class Client(NamedTuple):
     @classmethod
     def from_creds(cls, db_id: DatabaseID, cred: Credentials) -> Client:
         db_connection = connection_module.connect(db_id, cred)
-        db_cursor = cursor_module.new_cursor(db_connection)
+        db_cursor = Cursor.new(db_connection)
         return cls.new(db_connection, db_cursor)
 
     @classmethod
@@ -67,7 +66,7 @@ class Client(NamedTuple):
     @classmethod
     def test_client(cls, connection: DbConn) -> Client:
         db_connection = DbConnection.from_raw(connection)
-        db_cursor = cursor_module.adapt_cursor(connection.cursor())
+        db_cursor = Cursor.from_raw(connection.cursor())
         return cls.new(db_connection, db_cursor)
 
 
