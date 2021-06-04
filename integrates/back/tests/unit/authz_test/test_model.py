@@ -126,6 +126,7 @@ def test_model_integrity_migrated_finding_permissions(
     migrated_permissions = {
         "api_mutations_approve_draft_mutate": "api_mutations_approve_draft_new_mutate",
         "api_mutations_create_draft_mutate": "api_mutations_create_draft_new_mutate",
+        "api_mutations_delete_finding_mutate": "api_mutations_delete_finding_new_mutate",
         "api_mutations_reject_draft_mutate": "api_mutations_reject_draft_new_mutate",
         "api_mutations_submit_draft_mutate": "api_mutations_submit_draft_mutate",
         "api_resolvers_finding_analyst_resolve": "api_resolvers_finding_new_analyst_new_resolve",

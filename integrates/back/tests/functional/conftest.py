@@ -23,6 +23,7 @@ TEST_GROUPS: Set[str] = {
     "create_project",
     "deactivate_root",
     "delete_finding",
+    "delete_finding_new",
     "delete_tags",
     "delete_vulnerability",
     "download_event_file",

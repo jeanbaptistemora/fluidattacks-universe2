@@ -215,6 +215,9 @@ integrates.back.test.functional.deactivate_root:
 integrates.back.test.functional.delete_finding:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.delete_finding_new:
+  <<: *integrates_back_test_functional_migration
+
 integrates.back.test.functional.delete_tags:
   <<: *integrates_back_test_functional
 
