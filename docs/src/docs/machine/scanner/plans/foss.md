@@ -136,6 +136,18 @@ http:
     - http://example.com/
 
 # Description:
+#  Reversing checks for Android APKs.
+apk:
+  # Description:
+  #   Target files used in the analysis.
+  # Example:
+  include:
+    # Absolute path
+    - /path/to/build/awesome-app-v1.0.apk
+    # Relative path to `working_dir`
+    - build/awesome-app-v1.0.apk
+
+# Description:
 #   Findings to analyze.
 #   The complete list of findings can be found here:
 #   https://gitlab.com/fluidattacks/product/-/blob/master/skims/manifests/findings.lst
