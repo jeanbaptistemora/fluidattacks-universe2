@@ -24,7 +24,7 @@ import {
   View,
 } from "react-native";
 import type { AppStateStatus, ScrollViewProps } from "react-native";
-import { Headline, useTheme } from "react-native-paper";
+import { Headline, Text, useTheme } from "react-native-paper";
 import { useHistory } from "react-router-native";
 import wait from "waait";
 
@@ -36,7 +36,6 @@ import { styles } from "./styles";
 import type { IOrganization, IOrgsResult } from "./types";
 
 import { About } from "../../components/About";
-import { Logo } from "../../components/Logo";
 import { Preloader } from "../../components/Preloader";
 import { LOGGER } from "../../utils/logger";
 import { getPushToken } from "../../utils/notifications";
@@ -239,7 +238,7 @@ const DashboardView: React.FunctionComponent = (): JSX.Element => {
           )}
         />
         <View style={styles.bottom}>
-          <Logo fill={colors.text} height={40} width={180} />
+          <Text>{t("common.slogan")}</Text>
           <About />
         </View>
       </View>

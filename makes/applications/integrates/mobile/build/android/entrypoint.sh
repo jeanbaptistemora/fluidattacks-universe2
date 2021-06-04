@@ -62,7 +62,7 @@ function main {
                 --password "${EXPO_PASS}" \
                 --keystore-alias fluidintegrates-keystore \
                 --keystore-path ./certs/keystore-dev.jks \
-                --output output/integrates.aab \
+                --output output/asm.aab \
                 --release-channel "${CI_COMMIT_REF_NAME}" \
                 --type app-bundle \
         &&  rm -rf .expo certs google-services.json node_modules \

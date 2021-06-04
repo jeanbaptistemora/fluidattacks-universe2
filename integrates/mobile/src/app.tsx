@@ -54,7 +54,7 @@ const App: React.FunctionComponent = (): JSX.Element => {
   // Side effects
   const checkAuth: () => void = async (): Promise<void> => {
     try {
-      const token: string | null = await getItemAsync("integrates_session");
+      const token: string | null = await getItemAsync("session_token");
       const authState: string | null = await getItemAsync("authState");
       setLoggedIn(!(_.isNil(token) || _.isNil(authState)));
     } catch {

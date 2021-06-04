@@ -28,7 +28,7 @@ interface IAuthState {
 type IAuthResult = { type: "cancel" } | (IAuthState & { type: "success" });
 
 const logout: () => Promise<void> = async (): Promise<void> => {
-  await deleteItemAsync("integrates_session");
+  await deleteItemAsync("session_token");
   const authState: string | null = await getItemAsync("authState");
   const { authProvider, authToken }: Record<string, string> = _.isNil(authState)
     ? { authProvider: "", authToken: "" }

@@ -19,6 +19,5 @@ describe("Logo", (): void => {
     );
 
     expect(wrapper).toHaveLength(1);
-    expect(wrapper.render().text()).toContain("by");
   });
 });

@@ -189,7 +189,7 @@ const authLink: ApolloLink = setContext(async (): Promise<
   Record<string, unknown>
 > => {
   try {
-    const token: string = (await getItemAsync("integrates_session")) as string;
+    const token: string = (await getItemAsync("session_token")) as string;
 
     return {
       headers: {
@@ -198,7 +198,7 @@ const authLink: ApolloLink = setContext(async (): Promise<
     };
   } catch (exception: unknown) {
     const token: string = "";
-    await deleteItemAsync("integrates_session");
+    await deleteItemAsync("session_token");
 
     return {
       headers: {

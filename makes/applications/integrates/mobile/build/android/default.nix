@@ -7,8 +7,8 @@
 makeEntrypoint {
   arguments = {
     envAndroidSdk = (nixpkgs.androidenv.composeAndroidPackages {
-      buildToolsVersions = [ "29.0.2" "30.0.3" ];
-      platformVersions = [ "29" ];
+      buildToolsVersions = [ "30.0.3" ];
+      platformVersions = [ "30" ];
     }).androidsdk;
     envJava = nixpkgs.openjdk8_headless;
     envSecretsProd = path "/integrates/secrets-production.yaml";

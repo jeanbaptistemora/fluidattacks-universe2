@@ -33,7 +33,7 @@ const WelcomeView: React.FunctionComponent = (): JSX.Element => {
   const [signIn, { loading }] = useMutation(SIGN_IN_MUTATION, {
     onCompleted: async (result: ISignInResult): Promise<void> => {
       if (result.signIn.success) {
-        await setItemAsync("integrates_session", result.signIn.sessionJwt);
+        await setItemAsync("session_token", result.signIn.sessionJwt);
         history.replace("/Dashboard", { user });
       } else {
         LOGGER.error("Unsuccessful API auth", result);

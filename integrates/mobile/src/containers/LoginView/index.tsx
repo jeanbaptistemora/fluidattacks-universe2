@@ -16,7 +16,6 @@ import {
   Dialog,
   Paragraph,
   Portal,
-  Text,
   useTheme,
 } from "react-native-paper";
 import { useHistory } from "react-router-native";
@@ -141,7 +140,7 @@ const LoginView: React.FunctionComponent = (): JSX.Element => {
       {/* Needed to override styles */}
       {/* eslint-disable-next-line react/forbid-component-props*/}
       <View style={[styles.container, { backgroundColor: colors.background }]}>
-        <Logo fill={colors.text} height={70} width={300} />
+        <Logo fill={colors.text} height={180} width={300} />
         {/* eslint-disable-next-line react/forbid-component-props*/}
         <View style={styles.buttonsContainer}>
           <GoogleButton
@@ -161,7 +160,6 @@ const LoginView: React.FunctionComponent = (): JSX.Element => {
         <Preloader visible={isLoading} />
         {/* eslint-disable-next-line react/forbid-component-props*/}
         <View style={styles.bottom}>
-          <Text>{t("common.slogan")}</Text>
           <About />
         </View>
         <Portal>

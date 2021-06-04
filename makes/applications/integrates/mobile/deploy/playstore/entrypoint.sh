@@ -13,7 +13,7 @@ function main {
     &&  pushd integrates/mobile \
       &&  echo "${PLAYSTORE_CREDENTIALS}" > playstore-credentials.json \
       &&  bundle exec fastlane supply \
-            --aab ./output/integrates.aab \
+            --aab ./output/asm.aab \
             --json_key ./playstore-credentials.json \
             --package_name "com.fluidattacks.integrates" \
             --track production \

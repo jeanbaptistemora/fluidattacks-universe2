@@ -16,7 +16,7 @@ const getToken: () => Promise<string> = async (): Promise<string> => {
 
   if (Platform.OS === "android") {
     await setNotificationChannelGroupAsync("default", {
-      name: "Integrates notifications",
+      name: "ASM notifications",
     });
   }
 

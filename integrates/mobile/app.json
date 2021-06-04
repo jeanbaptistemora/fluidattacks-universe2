@@ -10,11 +10,10 @@
       "package": "com.fluidattacks.integrates",
       "permissions": ["RECEIVE_BOOT_COMPLETED", "USE_FINGERPRINT"],
       "playStoreUrl": "https://play.google.com/store/apps/details?id=com.fluidattacks.integrates",
-      "useNextNotificationsApi": true,
       "versionCode": 0
     },
     "assetBundlePatterns": ["**/*"],
-    "description": "At Integrates a project’s stakeholders (developers, technicians, management, etc.) can interface with Fluid Attacks hackers. Through Integrates, Fluid Attacks communicates all identified security risks to a client’s systems for prompt, efficient and effective remediation by the client company. It also provides the client company’s decision-makers with real time information regarding their systems’ security and Fluid Attacks project progress.",
+    "description": "Fluid Attacks ASM (Attack Surface Management) comes with all functions you need to manage all your applications and vulnerabilities effectively.",
     "extra": {
       "bugsnag": {
         "apiKey": "c7b947a293ced0235cdd8edc8c09dad4"
@@ -43,7 +42,7 @@
       },
       "supportsTablet": true
     },
-    "name": "Integrates",
+    "name": "ASM",
     "notification": {
       "color": "#FE3435",
       "icon": "./assets/notification.png"
@@ -53,7 +52,7 @@
     "primaryColor": "#000000",
     "privacy": "public",
     "scheme": "com.fluidattacks.integrates",
-    "slug": "integrates",
+    "slug": "asm",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "cover",

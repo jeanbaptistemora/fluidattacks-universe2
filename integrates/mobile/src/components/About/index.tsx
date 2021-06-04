@@ -23,7 +23,7 @@ const About: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
   const displayDialog: () => void = useCallback((): void => {
     Alert.alert(
-      "Integrates",
+      "ASM",
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       `${t("about.bin")} ${Constants.nativeAppVersion}` +
         `\n${t("about.deploymentDate")} ${manifestExtra.deploymentDate}` +
@@ -49,7 +49,7 @@ const About: React.FC = (): JSX.Element => {
         color={"#808080"}
         name={"info-outline"}
         onPress={displayDialog}
-        size={15}
+        size={18}
       />
     </View>
   );
