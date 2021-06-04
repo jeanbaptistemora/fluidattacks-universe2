@@ -81,7 +81,7 @@ const SlideShow: StyledComponent<
     t-all-3-eio
     scroll-smooth
     nowrap
-    mw-376
+    mw-446
     center
   `,
 })``;
@@ -129,17 +129,17 @@ const ClientsSection: React.FC = (): JSX.Element => {
   const [scroll, setScroll] = useState(0);
 
   const scrollLeft: () => void = (): void => {
-    setScroll(scroll < 376 ? 0 : scroll - 376);
+    setScroll(scroll < 446 ? 0 : scroll - 446);
   };
 
   const scrollRight: () => void = (): void => {
-    setScroll(scroll > 4136 ? 4512 : scroll + 376);
+    setScroll(scroll > 4906 ? 5352 : scroll + 446);
   };
 
   const changeScroll: (element: HTMLElement) => void = (
     element: HTMLElement
   ): void => {
-    if (element.scrollLeft > 0 || element.scrollLeft < 4512) {
+    if (element.scrollLeft > 0 || element.scrollLeft < 5352) {
       element.scrollLeft = scroll;
     } else {
       element.scrollLeft += 0;
@@ -201,6 +201,7 @@ const ClientsSection: React.FC = (): JSX.Element => {
             <CloudImage
               alt={"Logo Banesco"}
               src={"airs/clients/logo-banesco"}
+              styles={"mh4"}
             />
             <CloudImage
               alt={"Logo Banistmo"}
@@ -210,6 +211,7 @@ const ClientsSection: React.FC = (): JSX.Element => {
             <CloudImage
               alt={"Logo Bantrab"}
               src={"airs/clients/logo-bantrab"}
+              styles={"mh4"}
             />
             <CloudImage
               alt={"Logo Colmedica"}
@@ -226,10 +228,15 @@ const ClientsSection: React.FC = (): JSX.Element => {
               src={"airs/clients/logo-itau"}
               styles={"mh4"}
             />
-            <CloudImage alt={"Logo Oxxo"} src={"airs/clients/logo-oxxo"} />
+            <CloudImage
+              alt={"Logo Oxxo"}
+              src={"airs/clients/logo-oxxo"}
+              styles={"mh4"}
+            />
             <CloudImage
               alt={"Logo Sodimac"}
               src={"airs/clients/logo-sodimac"}
+              styles={"mh4"}
             />
             <CloudImage
               alt={"Logo Sura"}
