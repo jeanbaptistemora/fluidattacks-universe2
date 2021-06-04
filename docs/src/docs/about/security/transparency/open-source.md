@@ -17,7 +17,7 @@ The security pros of having open source code are:
   or using vulnerable dependencies,
   are avoided in order to keep
   our software as secure as possible.
-2. **Transparency:** The full history of our source code can be found
+1. **Transparency:** The full history of our source code can be found
    [here](https://gitlab.com/fluidattacks/product/-/commits/master).
    By publishing it,
    we allow any interested parties

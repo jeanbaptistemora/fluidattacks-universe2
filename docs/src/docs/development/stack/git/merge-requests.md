@@ -29,14 +29,14 @@ with only three differences:
     has the highest
     and ``sol``
     the lowest relevance.
-    
+
     For example,
     if your MR has one ``feat``,
     one ``test``
     and one ``style`` commit,
     the [type] of your MR
     must be ``feat``.
-2. They **can** (not mandatory) implement
+1. They **can** (not mandatory) implement
 a ``Closes #{issue-number}``
 in their footer,
 which triggers the automatic closing

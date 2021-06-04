@@ -20,8 +20,8 @@ application / product security programs.
 
     - [273. Define a fixed security suite](/criteria/requirements/273)
 
-2. [BSIMM9 SE3.2: 13. Use code protection](/criteria/requirements/159)
+1. [BSIMM9 SE3.2: 13. Use code protection](/criteria/requirements/159)
 
-3. [BSIMM9 SR2.4: 60. Identify open source](/criteria/requirements/262)
+1. [BSIMM9 SR2.4: 60. Identify open source](/criteria/requirements/262)
 
-4. [BSIMM9 SR3.3: 9. Use secure coding standards](/criteria/requirements/062)
+1. [BSIMM9 SR3.3: 9. Use secure coding standards](/criteria/requirements/062)

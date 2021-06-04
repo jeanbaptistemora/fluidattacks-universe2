@@ -86,7 +86,7 @@ There are two approaches
 to defining a `GraphQL` schema
 
 1. Code-first
-2. Schema-first
+1. Schema-first
 
 We use the latter,
 which implies defining the structure using `GraphQL SDL`
@@ -365,8 +365,8 @@ Work in progress,
 please check back later
 
 1. Declare the field in the schema using SDL
-2. Write the resolver function
-3. Bind the resolver function to the schema
+1. Write the resolver function
+1. Bind the resolver function to the schema
 
 
 ### Deprecation and removal of fields

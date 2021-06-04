@@ -14,6 +14,6 @@ are reported on our
 Every incident report contains the following items:
 
 1. **What happened**
-2. **What we’ve done**
-3. **What’s the impact**
-4. **What we’re doing to help**
+1. **What we’ve done**
+1. **What’s the impact**
+1. **What we’re doing to help**

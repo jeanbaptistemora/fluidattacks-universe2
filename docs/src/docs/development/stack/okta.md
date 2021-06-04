@@ -56,7 +56,7 @@ and
 can be done on the user's phone,
 we do not need to manage independant
 [security tokens](https://en.wikipedia.org/wiki/Security_token).
-2. Its
+1. Its
 [Multi-factor authentication](https://www.okta.com/products/adaptive-multi-factor-authentication/)
 uses
 [OOBA](https://doubleoctopus.com/security-wiki/authentication/out-of-band-authentication/),
@@ -91,7 +91,7 @@ of preconfigured integrations.
 1. It provides
 [in-depth reports and logging](https://www.okta.com/reporting/)
 regarding security and overall user usage.
-2. It provides a
+1. It provides a
 [RADIUS agent](https://help.okta.com/en/prod/Content/Topics/integrations/ha-main.htm)
 for authenticating
 on external infrastructure like
@@ -99,7 +99,7 @@ on external infrastructure like
 1. It allows
 [strong password](https://help.okta.com/en/prod/Content/Topics/Security/healthinsight/strong-passwords.htm)
 enforcement.
-2. It can be
+1. It can be
 [managed](https://registry.terraform.io/providers/okta/okta/latest)
 using [Terraform](/development/stack/terraform).
 
@@ -122,7 +122,7 @@ was not as flexible.
 We use [Okta](https://www.okta.com/) for:
 
 1. [Managing apps, groups, users and permissions](https://gitlab.com/fluidattacks/product/-/blob/6e16ae7ed5a28d5f56601357a299eea18b20e283/makes/applications/makes/okta/src/terraform/data.yaml).
-2. [Managing AWS roles with SAML](https://gitlab.com/fluidattacks/product/-/blob/6e16ae7ed5a28d5f56601357a299eea18b20e283/makes/applications/makes/okta/src/terraform/aws-roles.tf).
+1. [Managing AWS roles with SAML](https://gitlab.com/fluidattacks/product/-/blob/6e16ae7ed5a28d5f56601357a299eea18b20e283/makes/applications/makes/okta/src/terraform/aws-roles.tf).
 
 We do not use [Okta](https://www.okta.com/) for:
 

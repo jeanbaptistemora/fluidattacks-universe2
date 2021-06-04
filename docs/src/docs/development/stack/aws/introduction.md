@@ -67,7 +67,7 @@ We use the following [AWS](https://aws.amazon.com/) services:
 [AWS ECS](https://aws.amazon.com/ecs/).
 1. Elastic Load Balancing:
 [AWS Elastic Load Balancing](https://aws.amazon.com/elasticloadbalancing/).
-2. NoSQL database:
+1. NoSQL database:
 [AWS DynamoDB](https://aws.amazon.com/dynamodb/).
 1. Data wareouse:
 [AWS Redshift](https://aws.amazon.com/redshift/).
@@ -87,7 +87,7 @@ We use the following [AWS](https://aws.amazon.com/) services:
 [AWS SQS](https://aws.amazon.com/sqs/).
 1. Monitoring and logging:
 [AWS CloudWatch](https://aws.amazon.com/cloudwatch/).
-2. Cost management:
+1. Cost management:
 [AWS Cost Management](https://aws.amazon.com/aws-cost-management/).
 
 ## Guidelines

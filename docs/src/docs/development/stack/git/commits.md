@@ -50,7 +50,7 @@ for the integrates repository:
     style  // Do not affect the meaning of the code (formatting, etc)
     sol    // Hacking solution only for writepus and training repo
     ```
-2. **[scope]** variable has to be
+1. **[scope]** variable has to be
    one of the following:
     ```
     front  // Front-End change
@@ -65,56 +65,56 @@ for the integrates repository:
     code   // Programming challenge solution only for training repo
     hack   // ctf-hacking challenge solution only for training repo
     ```
-3. **[product]** variable has to be
+1. **[product]** variable has to be
    one of the following:
-	
+
     ```
     forces // Changes in forces
     integrates // Changes in Integrates
     all // Changes that affect both integrates and forces
     ```
 
-3. A **Commit title**
+1. A **Commit title**
    must exist.
 
-4. A **Commit title**
+1. A **Commit title**
    must **not** contain
    the '**:**' character.
 
-5. **Commit title**
+1. **Commit title**
    must have 60 characters
    or less.
 
-6. **Commit title**
+1. **Commit title**
    must be lower case.
 
-7. **Commit title**
+1. **Commit title**
    must not finish
    with a dot '**.**'.
 
-8. **Commit title**
+1. **Commit title**
    must reference
    an issue.
 
-9. **Commit title**
+1. **Commit title**
    must be meaningful.
    Avoid using things like
    ``feat(build)[integrates]: #5.1 feature``.
 
-10. If **commit title**
+1. If **commit title**
     has **sol** type,
     it must reference
     issue **#0**.
 
-11. A **blank line**
+1. A **blank line**
     between commit title
     and commit body
     must exist.
 
-12. A **commit body**
+1. A **commit body**
     must exist.
 
-13. Lines in **commit body**
+1. Lines in **commit body**
     must have 72 characters
     or less.
 

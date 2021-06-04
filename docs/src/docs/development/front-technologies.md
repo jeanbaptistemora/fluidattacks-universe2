@@ -73,7 +73,7 @@ you can go to
 chrome://flags/#allow-insecure-localhost
 and enable that flag
 
-2. Lint your code
+1. Lint your code
 ```
 ./make integrates.front.lint
 ```
@@ -99,7 +99,7 @@ and add these rules:
 }
 ```
 
-3. Test your code
+1. Test your code
 ```
 ./make integrates.front.test
 ```

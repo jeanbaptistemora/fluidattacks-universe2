@@ -46,11 +46,11 @@ and monitoring.
 
     - [375. Remove sensitive data from client-side applications](/criteria/requirements/375)
 
-2. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(1)](/criteria/requirements/183)
+1. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(1)](/criteria/requirements/183)
 
-3. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(3)](/criteria/requirements/312)
+1. [Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(3)](/criteria/requirements/312)
 
-4. Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(4)
+1. Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 6: Traffic data.(4)
 
     - [189. Specify the purpose of data collection](/criteria/requirements/189)
 
@@ -60,7 +60,7 @@ and monitoring.
 
     - [343. Respect the Do Not Track header](/criteria/requirements/343)
 
-5. Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 9: Location data other than traffic data.(1)
+1. Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC). Art. 9: Location data other than traffic data.(1)
 
     - [189. Specify the purpose of data collection](/criteria/requirements/189)
 

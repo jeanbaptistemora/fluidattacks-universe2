@@ -52,7 +52,7 @@ among many others.
 1. It is [Open source](https://opensource.com/resources/what-open-source).
 1. It is
 [widely used by the community](https://www.npmjs.com/package/@commitlint/cli).
-2. It allows us to
+1. It allows us to
 [declare a syntax](https://commitlint.js.org/#/reference-configuration?id=parser-presets)
 based on
 [our own needs](/development/stack/git/commits#syntax).

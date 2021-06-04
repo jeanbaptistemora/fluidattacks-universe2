@@ -88,7 +88,7 @@ processes like
 [rotating AWS secrets](https://gitlab.com/fluidattacks/product/-/tree/f153761ee61aad37b00212e134eb8ac689e1952e/makes/utils/user-rotate-keys)
 and
 [programatically cloning repositories](https://gitlab.com/fluidattacks/product/-/blob/f153761ee61aad37b00212e134eb8ac689e1952e/makes/utils/git/template.sh#L35).
-2. It has its own
+1. It has its own
 [Container registry](https://gitlab.com/fluidattacks/product/container_registry),
 allowing us to seamlessly store all our containers in the same place.
 1. It supports
@@ -152,7 +152,7 @@ to reach production via
 [Tracing](https://docs.gitlab.com/ee/operations/tracing.html),
 [Metrics](https://docs.gitlab.com/ee/user/project/integrations/prometheus_library/kubernetes.html),
 among others.
-2. It supports
+1. It supports
 [Push Rules](https://docs.gitlab.com/ee/push_rules/push_rules.html)
 that allow to further customize what can and cannot be pushed to the repository.
 Some examples are
@@ -166,7 +166,7 @@ among others.
 1. [Azure DevOps](https://azure.microsoft.com/en-us/services/devops/):
 It did not exist at the time.
 It is not [Open Source](https://opensource.com/resources/what-open-source).
-2. [BitBucket](https://bitbucket.org/product/):
+1. [BitBucket](https://bitbucket.org/product/):
 It is not a [DevOps](https://aws.amazon.com/devops/what-is-devops/)
 solution but a source code respository.
 It did not integrate with a

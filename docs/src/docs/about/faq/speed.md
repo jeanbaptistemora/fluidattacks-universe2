@@ -13,7 +13,7 @@ receiving the purchase order.
 A project’s progress
 and current state
 is determined
-using the following metrics: 
+using the following metrics:
 
 - Source code coverage indicator.
 - Percentage of remediated (repaired)

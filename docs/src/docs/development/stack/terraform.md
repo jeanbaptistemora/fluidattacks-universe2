@@ -26,7 +26,7 @@ is regenerated from scratch every time it is required.
 1. Due to its stateless approach,
 parity between development and production environments
 is assured.
-2. It has hundreds of open source
+1. It has hundreds of open source
 [providers](https://registry.terraform.io/browse/providers)
 that give it full flexibility accross many platforms.
 1. It has thousands of open source

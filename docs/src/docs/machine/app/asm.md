@@ -175,7 +175,7 @@ to checked repositories.
 
 ### Scope
 
-For an ASM, 
+For an ASM,
 ou need to define the surface
 that the Fluid Attacks team will check.
 The following information

@@ -138,5 +138,5 @@ You can follow [this guide](/development/stack/aws#get-development-keys)
 to do so.
 1. Once authenticated with a role,
 you can decrypt a file with `sops <file>`.
-2. You can encrypt a plain file
+1. You can encrypt a plain file
 with `sops -ei --kms <kms-arn> <file>`.

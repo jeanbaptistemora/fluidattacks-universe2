@@ -220,10 +220,10 @@ a developer must do the following:
 
 1. Change the version in the source code.
 
-2. Run all CI tests on the generated ephemeral environment
+1. Run all CI tests on the generated ephemeral environment
 with the new dependency version.
 
-3. Get the change approved by a colleague
+1. Get the change approved by a colleague
 after running a peer review.
 
 In case all tests and peer review pass,

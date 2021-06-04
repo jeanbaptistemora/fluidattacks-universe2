@@ -21,7 +21,7 @@ This includes
 [Attack Surface Manager (ASM)](https://app.fluidattacks.com/),
 mail, etc.
 
-2. **Removing Git repository access:**
+1. **Removing Git repository access:**
 Users can no longer see
 confidential information from the repository,
 such as registry images, confidential issues,

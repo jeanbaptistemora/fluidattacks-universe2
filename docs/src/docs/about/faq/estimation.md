@@ -32,7 +32,7 @@ the access credentials
 to the applications in cases
 where this will be included.
 
-2. **Continuous hacking** (`SDLC`):
+1. **Continuous hacking** (`SDLC`):
 Under this model,
 we need to know how many active authors
 will be involved in the project.

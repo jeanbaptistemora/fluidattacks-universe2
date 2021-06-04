@@ -92,7 +92,7 @@ within the defined scope
 This option is better suited
 for applications under development.
 
-2. Start with the standard limits
+1. Start with the standard limits
 (see [this question](/about/faq/speed#does-the-squad-plan-use-automated-tools-or-is-it-a-manual-process)),
 increasing the coverage
 on a monthly basis
@@ -158,7 +158,7 @@ with additional exploits.
 
 ### Where does ASM run?
 The platform,
-[`ASM`](https://fluidattacks.com/categories/asm/), 
+[`ASM`](https://fluidattacks.com/categories/asm/),
 runs in the cloud.
 
 ### Do you manage the access credentials to ASM?
@@ -204,7 +204,7 @@ includes one retest.
 includes infinite retests
 during the subscription time.
 
-### Can I group multiple app in one subscriptions and recognize the vulnerabilities within each app? 
+### Can I group multiple app in one subscriptions and recognize the vulnerabilities within each app?
 According to the active authors model,
 it is possible to create
 a large cell with all the developers

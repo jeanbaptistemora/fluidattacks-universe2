@@ -14,18 +14,18 @@ by using one of the following methods:
 ### Using the GraphQL playground
 
 1. Log in to https://app.fluidattacks.com
-2. Open https://app.fluidattacks.com/api
-3. Open the Settings using the upper-right button
+1. Open https://app.fluidattacks.com/api
+1. Open the Settings using the upper-right button
 
 ![Browser Api Settings](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211883/docs/api/api-token/api_highlight_settings_byubm9.webp)
 
-4. Set a new value:
+1. Set a new value:
 `"request.credentials": "include"`
 and save the settings
 
 ![Setting Request Credentials](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211884/docs/api/api-token/api_highlight_reqcreds_sgljuh.webp)
 
-5. Go to a new tab
+1. Go to a new tab
 and make your queries
 
 ![Query Example](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211880/docs/api/api-token/query_example_pcw8ra.webp)
@@ -45,26 +45,26 @@ as shown below.
 
 1. Log in to https://app.fluidattacks.com
 
-2. Generate the API Token
+1. Generate the API Token
 from the web application
 using the `API` option
 in the left panel:
 
 ![ASM API Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211890/docs/api/api-token/app_highlight_apibutton_ayw1r8.webp)
 
-3. Select an expiration date
+1. Select an expiration date
 up to six months after
 the creation date:
 
 ![API Token Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211880/docs/api/api-token/api_token_modal_uqt5k9.webp)
 
-4. After clicking the “Proceed” button,
+1. After clicking the “Proceed” button,
 you will see a string labeled “Access Token”.
 This will be your API Token:
 
 ![Generated API Token in App](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211884/docs/api/api-token/app_apitoken_generated_zhrspd.webp)
 
-5. Store this token safely,
+1. Store this token safely,
 as it is the only time you will see it.
 With it,
 you can do the same things

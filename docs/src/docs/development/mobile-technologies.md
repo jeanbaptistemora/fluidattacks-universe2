@@ -53,7 +53,7 @@ A set of tools,
 libraries, and services
 that allows us to
 build react-native apps faster
-in a less bare-metal way. 
+in a less bare-metal way.
 
   > Expo is kind of like Rails
   for React Native.
@@ -125,7 +125,7 @@ by Facebook's JavaScript Foundation team.
   ./m integrates.back dev-mobile
   ```
 
-2. Start the app bundler
+1. Start the app bundler
 
   ```
   ./m integrates.mobile
@@ -154,17 +154,17 @@ by Facebook's JavaScript Foundation team.
   for the Expo client
   ![Expo Network Access](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211886/docs/development/mobile-technologies/expo_network_access_f4k0se.webp)
 
-3. Lint your code
+1. Lint your code
   ```
   ./m integrates.mobile.lint
   ```
 
-4. Test your code
+1. Test your code
   ```
   ./m integrates.mobile.test
   ```
 
-5. Review the changes
+1. Review the changes
 in the 'ephemeral' environment
 
   After the pipeline passes,
