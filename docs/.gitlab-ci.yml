@@ -60,3 +60,8 @@ docs.infra.test:
   <<: *makes
   <<: *docs_in_dev_branch
   stage: test-infra
+
+docs.lint:
+  <<: *makes
+  <<: *docs_in_dev_branch
+  stage: lint-code
