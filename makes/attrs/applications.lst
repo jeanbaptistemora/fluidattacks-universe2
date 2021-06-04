@@ -215,6 +215,7 @@ skims.test
 skims.test.cli
 skims.test.mocks.http
 skims.test.mocks.http.env
+skims.test.mocks.mobile
 skims.test.sdk
 sorts
 sorts.execute
