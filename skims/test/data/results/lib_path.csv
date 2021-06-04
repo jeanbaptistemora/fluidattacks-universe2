@@ -252,6 +252,8 @@ F073. Conditional statement without a default option,namespace/skims/test/data/l
 F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/Test2.java,31,478
 F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/javascript.js,3,478
 F073. Conditional statement without a default option,namespace/skims/test/data/lib_path/f073/javascript.tsx,4,478
+F073. Conditional statement without a default option,namespace/skims/test/data/lib_root/f073/test.go,17,478
+F073. Conditional statement without a default option,namespace/skims/test/data/lib_root/f073/test.go,31,478
 F085. Sensitive data stored in the client-side storage,namespace/skims/test/data/lib_path/f085/react.jsx,1,922
 F085. Sensitive data stored in the client-side storage,namespace/skims/test/data/lib_path/f085/react.jsx,4,922
 F085. Sensitive data stored in the client-side storage,namespace/skims/test/data/lib_path/f085/react.jsx,5,922

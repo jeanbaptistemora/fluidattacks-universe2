@@ -72,15 +72,18 @@ def go_switch_without_default(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:
+        def _predicate(n_id: str) -> bool:
+            return g.pred_has_labels(label_type="type_switch_statement")(
+                n_id
+            ) or g.pred_has_labels(label_type="expression_switch_statement")(
+                n_id
+            )
+
         for shard in graph_db.shards_by_langauge(
             graph_model.GraphShardMetadataLanguage.GO,
         ):
             for switch_id in g.filter_nodes(
-                shard.graph,
-                nodes=shard.graph.nodes,
-                predicate=g.pred_has_labels(
-                    label_type="type_switch_statement"
-                ),
+                shard.graph, nodes=shard.graph.nodes, predicate=_predicate
             ):
                 if not g.filter_nodes(
                     shard.graph,
