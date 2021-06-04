@@ -73,3 +73,31 @@ async def mutate(  # pylint: disable=too-many-arguments
         )
 
     return SimplePayloadType(success=success)
+
+
+# Standardization Resolver
+@convert_kwargs_to_snake_case
+async def mutate_group(  # pylint: disable=too-many-arguments
+    _: Any,
+    info: GraphQLResolveInfo,
+    description: str,
+    organization: str,
+    group_name: str,
+    subscription: str = "continuous",
+    has_machine: bool = False,
+    has_squad: bool = False,
+    has_forces: bool = False,
+    language: str = "en",
+) -> SimplePayloadType:
+    return await mutate(
+        _,
+        info,
+        description,
+        organization,
+        group_name,
+        subscription,
+        has_machine,
+        has_squad,
+        has_forces,
+        language,
+    )

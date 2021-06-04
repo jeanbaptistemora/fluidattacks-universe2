@@ -110,12 +110,12 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
       void createGroup({
         variables: {
           description: values.description,
-          hasDrills: values.squad,
+          groupName: values.name,
           hasForces: values.forces,
-          hasSkims: values.machine,
+          hasMachine: values.machine,
+          hasSquad: values.squad,
           language: values.language,
           organization: values.organization,
-          projectName: values.name,
           subscription: values.type,
         },
       });

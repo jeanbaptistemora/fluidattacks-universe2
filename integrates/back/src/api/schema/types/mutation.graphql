@@ -143,10 +143,10 @@ type Mutation {
     description: String!
     language: Language
     organization: String
-    projectName: String!
+    groupName: String!
     subscription: SubscriptionType
-    hasSkims: Boolean
-    hasDrills: Boolean
+    hasMachine: Boolean
+    hasSquad: Boolean
     hasForces: Boolean
   ): SimplePayload!
 
