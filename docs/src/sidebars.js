@@ -776,14 +776,14 @@ module.exports = {
       label: 'App',
       items: [
         'machine/app/asm',
+        'machine/app/organization/support',
         {
           type: 'category',
           label: 'Organizations',
           items: [
             'machine/app/organization/analytics-vulnerabilities',
-            'machine/app/organization/analytics-generic',
+            'machine/app/organization/analytics',
             'machine/app/organization/policies',
-            'machine/app/organization/support',
           ],
         },
         {
@@ -832,7 +832,7 @@ module.exports = {
               ],
             },
             'machine/app/vulnerabilities/reporting-vulns',
-            'machine/app/vulnerabilities/deleting-vulns',
+            'machine/app/vulnerabilities/delete',
           ],
         },
       ],

@@ -1,7 +1,7 @@
 ---
 id: tracking
-title: Tracking your vulnerabilities
-sidebar_label: Tracking your vulnerabilities
+title: Tracking
+sidebar_label: Tracking
 slug: /machine/app/vulnerabilities/management/tracking
 ---
 

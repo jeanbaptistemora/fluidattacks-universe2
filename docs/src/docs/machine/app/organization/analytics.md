@@ -1,8 +1,8 @@
 ---
-id: analytics-generic
-title: Generic Analytics
-sidebar_label: Generic Analytics
-slug: /machine/app/organization/analytics-generic
+id: analytics
+title: Analytics
+sidebar_label: Analytics
+slug: /machine/app/organization/analytics
 ---
 
 ### Findings being re-attacked

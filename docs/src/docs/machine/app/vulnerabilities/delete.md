@@ -1,8 +1,8 @@
 ---
-id: deleting-vulns
-title: Deleting vulnerabilities
-sidebar_label: Deleting vulnerabilities
-slug: /machine/app/vulnerabilities/deleting-vulns
+id: delete
+title: Delete
+sidebar_label: Delete
+slug: /machine/app/vulnerabilities/delete
 ---
 
 Sometimes,
