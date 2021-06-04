@@ -133,13 +133,13 @@ const ClientsSection: React.FC = (): JSX.Element => {
   };
 
   const scrollRight: () => void = (): void => {
-    setScroll(scroll > 4906 ? 5352 : scroll + 446);
+    setScroll(scroll > 12488 ? 12934 : scroll + 446);
   };
 
   const changeScroll: (element: HTMLElement) => void = (
     element: HTMLElement
   ): void => {
-    if (element.scrollLeft > 0 || element.scrollLeft < 5352) {
+    if (element.scrollLeft > 0 || element.scrollLeft < 12934) {
       element.scrollLeft = scroll;
     } else {
       element.scrollLeft += 0;
@@ -179,8 +179,28 @@ const ClientsSection: React.FC = (): JSX.Element => {
           </ArrowContainer>
           <SlideShow id={"clientsSlides"}>
             <CloudImage
+              alt={"Logo Abbott"}
+              src={"airs/clients/logo-abbott"}
+              styles={"mh4"}
+            />
+            <CloudImage
+              alt={"Logo Addi"}
+              src={"airs/clients/logo-addi"}
+              styles={"mh4"}
+            />
+            <CloudImage
               alt={"Logo Avianca"}
               src={"airs/clients/logo-avianca"}
+              styles={"mh4"}
+            />
+            <CloudImage
+              alt={"Logo Axxa Colpatria"}
+              src={"airs/clients/logo-axxa-colpatria"}
+              styles={"mh4"}
+            />
+            <CloudImage
+              alt={"Logo Banco Azul"}
+              src={"airs/clients/logo-banco-azul"}
               styles={"mh4"}
             />
             <CloudImage
@@ -191,6 +211,11 @@ const ClientsSection: React.FC = (): JSX.Element => {
             <CloudImage
               alt={"Logo Banco Industrial"}
               src={"airs/clients/logo-banco-industrial"}
+              styles={"mh4"}
+            />
+            <CloudImage
+              alt={"Logo Banco Pichincha"}
+              src={"airs/clients/logo-banco-pichincha"}
               styles={"mh4"}
             />
             <CloudImage
@@ -214,8 +239,23 @@ const ClientsSection: React.FC = (): JSX.Element => {
               styles={"mh4"}
             />
             <CloudImage
+              alt={"Logo Banco Bisa"}
+              src={"airs/clients/logo-bisa"}
+              styles={"mh4"}
+            />
+            <CloudImage
+              alt={"Logo Btg Pactual"}
+              src={"airs/clients/logo-btg"}
+              styles={"mh4"}
+            />
+            <CloudImage
               alt={"Logo Colmedica"}
               src={"airs/clients/logo-colmedica"}
+              styles={"mh4"}
+            />
+            <CloudImage
+              alt={"Logo Global Bank"}
+              src={"airs/clients/logo-global-bank"}
               styles={"mh4"}
             />
             <CloudImage
@@ -229,8 +269,43 @@ const ClientsSection: React.FC = (): JSX.Element => {
               styles={"mh4"}
             />
             <CloudImage
+              alt={"Logo Libera"}
+              src={"airs/clients/logo-libera"}
+              styles={"mh4"}
+            />
+            <CloudImage
+              alt={"Logo Manpower"}
+              src={"airs/clients/logo-manpower"}
+              styles={"mh4"}
+            />
+            <CloudImage
+              alt={"Logo Mazda"}
+              src={"airs/clients/logo-mazda"}
+              styles={"mh4"}
+            />
+            <CloudImage
               alt={"Logo Oxxo"}
               src={"airs/clients/logo-oxxo"}
+              styles={"mh4"}
+            />
+            <CloudImage
+              alt={"Logo Payvalida"}
+              src={"airs/clients/logo-payvalida"}
+              styles={"mh4"}
+            />
+            <CloudImage
+              alt={"Logo Quipux"}
+              src={"airs/clients/logo-quipux"}
+              styles={"mh4"}
+            />
+            <CloudImage
+              alt={"Logo Redeban"}
+              src={"airs/clients/logo-redeban"}
+              styles={"mh4"}
+            />
+            <CloudImage
+              alt={"Logo Rsa"}
+              src={"airs/clients/logo-rsa"}
               styles={"mh4"}
             />
             <CloudImage
@@ -239,8 +314,18 @@ const ClientsSection: React.FC = (): JSX.Element => {
               styles={"mh4"}
             />
             <CloudImage
+              alt={"Logo Soy yo"}
+              src={"airs/clients/logo-soy-yo"}
+              styles={"mh4"}
+            />
+            <CloudImage
               alt={"Logo Sura"}
               src={"airs/clients/logo-sura"}
+              styles={"mh4"}
+            />
+            <CloudImage
+              alt={"Logo Terpel"}
+              src={"airs/clients/logo-terpel"}
               styles={"mh4"}
             />
           </SlideShow>
