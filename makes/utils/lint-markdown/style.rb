@@ -2,7 +2,7 @@
 # https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md
 
 rule 'MD001'
-rule 'MD002'
+rule 'MD002', :level => 2
 rule 'MD003'
 rule 'MD004'
 rule 'MD005'
@@ -37,5 +37,4 @@ rule 'MD037'
 rule 'MD038'
 rule 'MD039'
 rule 'MD040'
-rule 'MD041'
 rule 'MD046'
