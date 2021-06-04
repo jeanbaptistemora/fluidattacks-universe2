@@ -17,7 +17,7 @@ from postgres_client.schema import (
     _queries as queries,
 )
 from postgres_client.table import (
-    DbTable,
+    TableFactory,
     TableID,
 )
 from returns.io import (
@@ -100,11 +100,12 @@ class Schema(Immutable):
         tables = from_schema.get_tables()
         LOG.info("Migrating %s to %s", from_schema, to_schema)
         LOG.debug("tables %s", str(tables))
+        factory = TableFactory(self.cursor, self.redshift)
 
         def move_table(table: str) -> None:
             source = TableID(schema=from_schema.name, table_name=table)
             target = TableID(schema=to_schema.name, table_name=table)
-            source_table = DbTable.retrieve(self.cursor, source, self.redshift)
+            source_table = factory.retrieve(source)
             LOG.debug("Moving from %s to %s ", source, target)
             source_table.map(lambda t: t.move(target))
 
