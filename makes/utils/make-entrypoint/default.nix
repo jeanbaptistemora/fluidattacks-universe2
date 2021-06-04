@@ -25,6 +25,7 @@ makeDerivation {
         envBashLibCommon = path "/makes/utils/common/template.sh";
         envBashLibShopts = path "/makes/utils/shopts/template.sh";
         envCaCert = pkgs.cacert;
+        envName = name;
         envSearchPaths = makeSearchPaths searchPaths;
         envSearchPathsBase = makeSearchPaths {
           # Minimalistic shell environment

@@ -12,15 +12,17 @@ function setup {
   export PATH='/no-path'
   export PYTHONPATH='/no-pythonpath'
   export SSL_CERT_FILE='__envCaCert__/etc/ssl/certs/ca-bundle.crt'
+  export STATE=~/.makes/state/'__envName__'
 
-      source __envSearchPathsBase__ \
-  &&  if test -z "${HOME_IMPURE:-}"
-      then
-            HOME_IMPURE="${HOME:-}" \
-        &&  HOME="$(mktemp -d)"
-      fi \
-  &&  source __envBashLibCommon__ \
-  &&  source __envSearchPaths__
+  source __envSearchPathsBase__ \
+    && rm -rf "${STATE}" \
+    && mkdir -p "${STATE}" \
+    && if test -z "${HOME_IMPURE:-}"; then
+      HOME_IMPURE="${HOME:-}" \
+        && HOME="$(mktemp -d)"
+    fi \
+    && source __envBashLibCommon__ \
+    && source __envSearchPaths__
 }
 
 setup
