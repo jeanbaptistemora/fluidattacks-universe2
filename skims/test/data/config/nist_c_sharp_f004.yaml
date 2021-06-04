@@ -7,8 +7,8 @@ path:
     # F004
     - src/testcases/CWE78_OS_Command_Injection
   exclude:
-    - glob(src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__File_*.cs)
-    - glob(src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__ReadLine_*.cs)
+    - src/testcases/CWE78_OS_Command_Injection/*File*.cs
+    - src/testcases/CWE78_OS_Command_Injection/*ReadLine*.cs
   lib_path: false
   lib_root: true
 working_dir: ../NIST-SARD-Test-Suites/Juliet_Test_Suite_v1.3_for_C#/

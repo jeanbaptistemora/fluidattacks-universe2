@@ -38,21 +38,18 @@ def _syntax_step_object_instantiation_danger(args: EvaluatorArgs) -> None:
         core_model.FindingEnum.F034.name: {
             "java.util.Random",
         },
-        core_model.FindingEnum.F107.name: {
-            "System.Net.Sockets.TcpClient",
-            "System.Net.WebClient",
-        },
-        core_model.FindingEnum.F004.name: {
-            "System.Net.Sockets.TcpClient",
-            "System.Net.WebClient",
-        },
-        core_model.FindingEnum.F008.name: {
-            "System.Net.Sockets.TcpClient",
-            "System.Net.WebClient",
-        },
-        core_model.FindingEnum.F001_C_SHARP_SQL.name: {
-            "System.Net.Sockets.TcpClient",
-            "System.Net.WebClient",
+        **{
+            finding: {
+                "System.Net.Sockets.TcpClient",
+                "System.Net.WebClient",
+            }
+            for finding in {
+                core_model.FindingEnum.F001_C_SHARP_SQL.name,
+                core_model.FindingEnum.F107.name,
+                core_model.FindingEnum.F004.name,
+                core_model.FindingEnum.F008.name,
+                core_model.FindingEnum.F063_PATH_TRAVERSAL.name,
+            }
         },
     }
     _danger_instances = {

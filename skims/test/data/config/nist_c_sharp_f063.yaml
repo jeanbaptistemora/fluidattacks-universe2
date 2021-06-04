@@ -1,16 +1,15 @@
 checks:
-  - F001_C_SHARP_SQL
+  - F063_PATH_TRAVERSAL
 namespace: NIST
-output: skims/test/outputs/nist_c_sharp_f001.csv
+output: skims/test/outputs/nist_c_sharp_f063.csv
 path:
   include:
-    # F001
-    - src/testcases/CWE89_SQL_Injection/s01/
+    # F063_PATH_TRAVERSAL
+    - src/testcases/CWE23_Relative_Path_Traversal/
+    - src/testcases/CWE36_Absolute_Path_Traversal/
   exclude:
     - src/testcases/*/*File*.cs
-    - src/testcases/*/*/*File*.cs
     - src/testcases/*/*ReadLine*.cs
-    - src/testcases/*/*/*ReadLine*.cs
   lib_path: false
   lib_root: true
 working_dir: ../NIST-SARD-Test-Suites/Juliet_Test_Suite_v1.3_for_C#/

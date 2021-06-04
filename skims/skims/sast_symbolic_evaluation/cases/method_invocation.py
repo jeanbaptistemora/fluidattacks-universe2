@@ -53,6 +53,7 @@ BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set(
         "Integer.toString",
         "Long.toString",
         "System.Diagnostics.Process.Start",
+        "System.IO.File.Exists",
     }
 )
 STATIC_FINDING: Dict[str, Set[str]] = {
@@ -78,6 +79,11 @@ STATIC_FINDING: Dict[str, Set[str]] = {
         }
     ),
     core_model.FindingEnum.F004.name: complete_attrs_on_set(
+        {
+            "Environment.GetEnvironmentVariable",
+        }
+    ),
+    core_model.FindingEnum.F063_PATH_TRAVERSAL.name: complete_attrs_on_set(
         {
             "Environment.GetEnvironmentVariable",
         }

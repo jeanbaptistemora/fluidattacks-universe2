@@ -48,6 +48,7 @@ TEST_GROUPS = {
     "nist_c_sharp_f001",
     "nist_c_sharp_f004",
     "nist_c_sharp_f008",
+    "nist_c_sharp_f063",
     "nist_c_sharp_f107",
     "unittesting",
     "vulnerableapp",

@@ -24,6 +24,7 @@ def mark_inputs(
         findings.F001_C_SHARP_SQL,
         findings.F004,
         findings.F008,
+        findings.F063_PATH_TRAVERSAL,
         findings.F107,
     ):
         danger_args = {
@@ -36,6 +37,7 @@ def mark_inputs(
         mark_function_arg(finding, graph, syntax, danger_args)
     for finding in (
         findings.F004,
+        findings.F063_PATH_TRAVERSAL,
         findings.F107,
     ):
         mark_obj_inst_input(
@@ -52,6 +54,7 @@ def mark_inputs(
         )
     for finding in {
         findings.F004,
+        findings.F063_PATH_TRAVERSAL,
         findings.F107,
     }:
         mark_methods_input(
@@ -109,5 +112,13 @@ def mark_sinks(
         syntax,
         {
             "StatusDescription",
+        },
+    )
+    mark_methods_sink(
+        findings.F063_PATH_TRAVERSAL,
+        graph,
+        syntax,
+        {
+            "Exists",
         },
     )
