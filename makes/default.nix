@@ -70,6 +70,7 @@ let
     };
 
     # Makes utilities
+    bashFormat = importUtility "bash-format";
     buildNodeRequirements = importUtility "build-node-requirements";
     buildPythonLambda = importUtility "build-python-lambda";
     buildPythonPackage = importUtility "build-python-package";

@@ -72,6 +72,7 @@ makes.deploy.oci
 makes.dns.apply
 makes.dns.test
 makes.done
+makes.format.bash
 makes.format.python
 makes.k8s.apply
 makes.k8s.test
