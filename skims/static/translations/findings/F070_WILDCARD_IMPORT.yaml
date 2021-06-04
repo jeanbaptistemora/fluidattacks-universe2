@@ -50,8 +50,8 @@ F070_WILDCARD_IMPORT.requirements:
     R158. La codificación del sistema debe estar implementada en una versión de un lenguaje de programación estable, actualizada, probada y libre de vulnerabilidades conocidas.
     R302. Todas las dependencias deben declararse explícitamente dentro del código fuente. Su código fuente no debe incluirse directamente en el repositorio.
 F070_WILDCARD_IMPORT.threat:
-  en: Authorized attacker with access to the source code.
-  es: Atacante autorizado con acceso al código fuente.
+  en: Authorized attacker with access to the application.
+  es: Atacante autorizado con acceso a la aplicación.
 F070_WILDCARD_IMPORT.title:
   en: F070. Inappropriate coding practices - Wildcard import
   es: F070. Prácticas inadecuadas de programación - Import con comodín

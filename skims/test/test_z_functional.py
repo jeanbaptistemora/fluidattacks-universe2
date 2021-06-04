@@ -202,7 +202,7 @@ def test_run_no_group(suite: str) -> None:
     _run_no_group(suite)
 
 
-@pytest.mark.flaky(reruns=0)
+@pytest.mark.flaky(reruns=3)  # The outcome depends on third party servers
 @pytest.mark.skims_test_group("lib_http")
 @pytest.mark.usefixtures("test_mocks_http")
 def test_lib_http() -> None:
