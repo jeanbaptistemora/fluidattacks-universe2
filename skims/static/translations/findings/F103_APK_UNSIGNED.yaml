@@ -1,3 +1,6 @@
+lib_apk.analyze_bytecodes.apk_unsigned.not_signed:
+  en: Not signed
+  es: Sin firma
 F103_APK_UNSIGNED.description:
   en: The APK is not digitally signed.
   es: El APK no esta firmado digitalmente.

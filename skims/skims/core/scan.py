@@ -11,6 +11,9 @@ from core.persist import (
     persist,
 )
 import csv
+from lib_apk.analyze import (
+    analyze as analyze_apk,
+)
 from lib_http.analyze import (
     analyze as analyze_http,
 )
@@ -66,6 +69,11 @@ async def execute_skims(token: Optional[str]) -> bool:
     await wait_for(
         collect(
             (
+                *(
+                    [analyze_apk(stores=stores)]
+                    if CTX.config.apk.include
+                    else []
+                ),
                 *(
                     [analyze_http(stores=stores)]
                     if CTX.config.http.include

@@ -2,6 +2,11 @@ from aioextensions import (
     collect,
     CPU_CORES,
 )
+import androguard.core.bytecodes.apk
+import contextlib
+from lib_apk import (
+    analyze_bytecodes,
+)
 from lib_apk.types import (
     APKContext,
 )
@@ -15,6 +20,7 @@ from typing import (
     Any,
     Callable,
     Dict,
+    Optional,
     Set,
     Tuple,
 )
@@ -27,6 +33,7 @@ from utils.function import (
 from utils.logs import (
     log,
 )
+import zipfile
 
 CHECKS: Tuple[
     Tuple[
@@ -37,7 +44,7 @@ CHECKS: Tuple[
         ],
     ],
     ...,
-] = ()
+] = ((analyze_bytecodes.get_check_ctx, analyze_bytecodes.CHECKS),)
 
 
 @shield(on_error_return=[])
@@ -58,12 +65,21 @@ async def analyze_one(
 
 
 def get_apk_contexts() -> Set[APKContext]:
-    return set(
-        APKContext(
-            path=path,
+    apk_contexts: Set[APKContext] = set()
+
+    for path in CTX.config.apk.include:
+
+        apk_obj: Optional[androguard.core.bytecodes.apk.APK] = None
+        with contextlib.suppress(zipfile.BadZipFile):
+            apk_obj = androguard.core.bytecodes.apk.APK(path)
+
+        apk_contexts.add(
+            APKContext(
+                apk_obj=apk_obj,
+                path=path,
+            )
         )
-        for path in CTX.config.apk.include
-    )
+    return apk_contexts
 
 
 async def analyze(
