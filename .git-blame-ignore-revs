@@ -30,3 +30,12 @@ afba22fbbbbff84ffedab4c1d4efc0e40c79fb2a  # melts\refac(back): #4719.6 apply iso
 94086240b1eb8a46960b753426ad1c6c5d32f387  # asserts\refac(back): #4719.4 apply isort
 9ce8f8dc7667434a5c1d4804ee6db70a0baf767f  # integrates\refac(back): #4719.3 apply isort
 f3ef4fe6cf3670cea8e2e5ef2e18d6cf6166a4cc  # skims\refac(back): #4719.2 apply isort
+536afc092d3cb26d1543aeee9290ceae7ac03e88  # makes\refac(build): #4749.10 apply shfmt
+254627f74e3cf021145efd866e626abb0af54eef  # sorts\refac(build): #4749.9 apply shfmt
+524714343e9c2bec44f230faa027b083395cbecb  # observes\refac(build): #4749.8 apply shfmt
+96fe52278d83261ee7b3f7ec41dabb98831cef80  # melts\refac(build): #4749.7 apply shfmt
+d32d643500e43289c4d44b933800b362e14d1727  # integrates\refac(build): #4749.6 apply shfmt
+8a87966aece1ea0a7c2b435faa3eeaf9e05e9386  # forces\refac(build): #4749.5 apply shfmt
+a52082fd6df1028fa57452d3269dcce8b80ecd79  # docs\refac(build): #4749.4 apply shfmt
+e3285039a621719ff7f71dcce3796a1ce9c7f426  # skims\refac(build): #4749.3 apply shfmt
+1878ef2b75627fcc1b720fea769887b800ccfcef  # airs\feat(build): #4749.2 apply shfmt
