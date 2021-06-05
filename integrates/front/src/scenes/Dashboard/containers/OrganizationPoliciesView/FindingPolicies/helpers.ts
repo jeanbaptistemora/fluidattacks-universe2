@@ -78,9 +78,37 @@ const handleOrgFindingPolicyDeactivationError = (error: ApolloError): void => {
   });
 };
 
+const handleSubmitOrganizationFindingPolicy = (result: {
+  submitOrganizationFindingPolicy: { success: boolean };
+}): void => {
+  if (result.submitOrganizationFindingPolicy.success) {
+    msgSuccess(
+      translate.t("organization.tabs.policies.findings.addPolicies.success"),
+      translate.t("sidebar.newOrganization.modal.successTitle")
+    );
+  }
+};
+
+const handleSubmitOrganizationFindingPolicyError = (
+  error: ApolloError
+): void => {
+  error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+    if (message === "Exception - This policy has already been reviewed") {
+      msgError(
+        translate.t("organization.tabs.policies.findings.errors.alreadyReviewd")
+      );
+    } else {
+      msgError(translate.t("groupAlerts.errorTextsad"));
+      Logger.warning("Error re-submitting finding policy", message);
+    }
+  });
+};
+
 export {
   handleOrgFindingPolicyNotification,
   handleOrgFindingPolicyError,
   handleOrgFindingPolicyDeactivation,
   handleOrgFindingPolicyDeactivationError,
+  handleSubmitOrganizationFindingPolicy,
+  handleSubmitOrganizationFindingPolicyError,
 };

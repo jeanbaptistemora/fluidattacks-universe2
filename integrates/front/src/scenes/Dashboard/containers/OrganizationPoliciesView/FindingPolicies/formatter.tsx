@@ -20,7 +20,7 @@ const statusFormatter: (value: string) => JSX.Element = (
   const bgColor: string = getBgColor(capitalizedValue);
 
   return (
-    <span className={`b br0 dib pa2 white ${bgColor}`}>
+    <span className={`b br0 dib pa1 white ${bgColor}`}>
       {capitalizedValue.split(" ")[0]}
     </span>
   );

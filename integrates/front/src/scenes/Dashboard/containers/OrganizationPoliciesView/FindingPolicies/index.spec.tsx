@@ -204,6 +204,7 @@ describe("Organization findings policies view", (): void => {
                   lastStatusUpdate: "2021-05-21T06:16:48",
                   name: "F060. Insecure exceptions",
                   status: "APPROVED",
+                  tags: [],
                 },
               ]}
               organizationId={organizationId}
@@ -263,12 +264,14 @@ describe("Organization findings policies view", (): void => {
                   lastStatusUpdate: "2021-05-21T06:58:58",
                   name: "F060. Insecure exceptions",
                   status: "SUBMITTED",
+                  tags: [],
                 },
                 {
                   id: "0b61d5bc-abcc-47e1-9293-f2ff76f4fc17",
                   lastStatusUpdate: "2021-05-21T05:58:58",
                   name: "F004. Ejecución remota de comandos",
                   status: "APPROVED",
+                  tags: [],
                 },
               ]}
               organizationId={organizationId}
@@ -370,12 +373,14 @@ describe("Organization findings policies view", (): void => {
                     lastStatusUpdate: "2021-05-21T07:16:48",
                     name: "F060. Insecure exceptions",
                     status: "SUBMITTED",
+                    tags: [],
                   },
                   {
                     id: "7960b957-0d57-40fb-8053-24f064d68000",
                     lastStatusUpdate: "2021-05-21T08:58:58",
                     name: "F004. Ejecución remota de comandos",
                     status: "APPROVED",
+                    tags: [],
                   },
                 ]}
                 organizationId={organizationId}
@@ -507,12 +512,14 @@ describe("Organization findings policies view", (): void => {
                     lastStatusUpdate: "2021-05-21T11:16:48",
                     name: "F060. Insecure exceptions",
                     status: "SUBMITTED",
+                    tags: [],
                   },
                   {
                     id: "0e14b989-407d-4c53-a506-25e784378569",
                     lastStatusUpdate: "2021-05-21T11:58:58",
                     name: "F004. Ejecución remota de comandos",
                     status: "APPROVED",
+                    tags: [],
                   },
                 ]}
                 organizationId={organizationId}
@@ -635,6 +642,7 @@ describe("Organization findings policies view", (): void => {
                     lastStatusUpdate: "2021-05-21T06:16:48",
                     name: "F060. Insecure exceptions",
                     status: "SUBMITTED",
+                    tags: [],
                   },
                 ]}
                 organizationId={organizationId}

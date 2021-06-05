@@ -63,9 +63,24 @@ const HANDLE_ORGANIZATION_FINDING_POLICY: DocumentNode = gql`
   }
 `;
 
+const RESUBMIT_ORGANIZATION_FINDING_POLICY: DocumentNode = gql`
+  mutation SubmitOrganizationFindingPolicy(
+    $organizationName: String!
+    $findingPolicyId: ID!
+  ) {
+    submitOrganizationFindingPolicy(
+      findingPolicyId: $findingPolicyId
+      organizationName: $organizationName
+    ) {
+      success
+    }
+  }
+`;
+
 export {
   ADD_ORGANIZATION_FINDING_POLICY,
   GET_ORGANIZATION_FINDINGS_TITLES,
   DEACTIVATE_ORGANIZATION_FINDING_POLICY,
   HANDLE_ORGANIZATION_FINDING_POLICY,
+  RESUBMIT_ORGANIZATION_FINDING_POLICY,
 };

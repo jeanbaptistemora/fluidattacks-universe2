@@ -168,7 +168,9 @@ const FindingPolicies: React.FC<IFindingPolicies> = ({
                     <div className={"w-90-ns"}>
                       <TooltipWrapper
                         id={"tagsInputToolTip"}
-                        message={t("Tags associated to the policy")}
+                        message={t(
+                          "organization.tabs.policies.findings.tooltip.tagsInput"
+                        )}
                         placement={"top"}
                       >
                         <label className={"mb1"}>
@@ -220,6 +222,7 @@ const FindingPolicies: React.FC<IFindingPolicies> = ({
               name={policy.name}
               organizationId={organizationId}
               status={policy.status}
+              tags={policy.tags}
             />
           )
         )}

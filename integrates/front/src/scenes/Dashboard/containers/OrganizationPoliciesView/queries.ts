@@ -6,9 +6,10 @@ const GET_ORGANIZATION_POLICIES: DocumentNode = gql`
     organization(organizationId: $organizationId) {
       findingPolicies {
         id
+        lastStatusUpdate
         name
         status
-        lastStatusUpdate
+        tags
       }
       maxAcceptanceDays
       maxAcceptanceSeverity

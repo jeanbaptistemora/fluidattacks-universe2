@@ -935,6 +935,9 @@ export const enTranslations: ResourceKey = {
               rejected: "The policy was rejected successfully",
             },
           },
+          submitPolicies: {
+            modalTitle: "Re-submit organization finding policy",
+          },
           title: "Organization Findings Policies",
           tooltip: {
             addButton: "Add organization policy pending to approve",
@@ -944,6 +947,8 @@ export const enTranslations: ResourceKey = {
               "Add the type of finding to which vulnerabilities in organization " +
               "groups will apply the accepted eternally treatment",
             rejectButton: "Reject organization finding policy",
+            resubmitButton: "Re-submit organization finding policy",
+            tagsInput: "Tags associated to the policy",
           },
         },
         policies: {

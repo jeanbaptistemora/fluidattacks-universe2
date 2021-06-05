@@ -7,6 +7,7 @@ interface IFindingPoliciesData {
   name: string;
   status: "APPROVED" | "INACTIVE" | "REJECTED" | "SUBMITTED";
   lastStatusUpdate: string;
+  tags: string[];
 }
 interface IFindingPoliciesForm {
   name: string;
