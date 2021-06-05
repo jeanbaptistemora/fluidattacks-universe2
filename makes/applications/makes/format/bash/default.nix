@@ -14,6 +14,7 @@ bashFormat {
     "docs"
     "forces"
     "integrates"
+    "melts"
     "skims"
   ]);
   name = "makes-format-bash";

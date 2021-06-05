@@ -6,8 +6,7 @@ function melts_setup_runtime {
   export HOME
   export HOME_IMPURE
 
-  if test -n "${HOME_IMPURE:-}"
-  then
+  if test -n "${HOME_IMPURE:-}"; then
     HOME="${HOME_IMPURE}"
   fi
 }
