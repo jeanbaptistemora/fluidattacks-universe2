@@ -3,13 +3,13 @@
 function main {
   export INTEGRATES_DEPLOYMENT_DATE
 
-      INTEGRATES_DEPLOYMENT_DATE="$(date -u '+%FT%H:%M:%SZ')" \
-  &&  pushd integrates/front \
-    &&  copy "__envSetupIntegratesFrontDevRuntime__/node_modules" node_modules \
-      &&  npm start \
-    &&  rm -rf node_modules \
-  &&  popd \
-  || return 1
+  INTEGRATES_DEPLOYMENT_DATE="$(date -u '+%FT%H:%M:%SZ')" \
+    && pushd integrates/front \
+    && copy "__envSetupIntegratesFrontDevRuntime__/node_modules" node_modules \
+    && npm start \
+    && rm -rf node_modules \
+    && popd \
+    || return 1
 }
 
 main "${@}"

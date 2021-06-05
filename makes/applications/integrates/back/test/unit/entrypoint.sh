@@ -13,16 +13,16 @@ function main {
     --verbose
   )
 
-      source __envIntegratesEnv__ dev \
-  &&  DAEMON=true integrates-cache \
-  &&  DAEMON=true integrates-db \
-  &&  DAEMON=true integrates-storage \
-  &&  pushd integrates \
-    &&  export BATCH_BIN='__envBatchBin__' \
-    &&  pytest -m 'not changes_db' "${pytest_args[@]}" back/tests/unit \
-    &&  pytest -m 'changes_db' "${pytest_args[@]}" back/tests/unit \
-  &&  popd \
-  ||  return 1
+  source __envIntegratesEnv__ dev \
+    && DAEMON=true integrates-cache \
+    && DAEMON=true integrates-db \
+    && DAEMON=true integrates-storage \
+    && pushd integrates \
+    && export BATCH_BIN='__envBatchBin__' \
+    && pytest -m 'not changes_db' "${pytest_args[@]}" back/tests/unit \
+    && pytest -m 'changes_db' "${pytest_args[@]}" back/tests/unit \
+    && popd \
+    || return 1
 }
 
 main "${@}"

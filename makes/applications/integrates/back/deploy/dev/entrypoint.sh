@@ -16,20 +16,19 @@ function main {
   export B64_INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY
   export B64_PRODUCT_API_TOKEN
 
-      aws_login_dev integrates \
-  &&  aws_eks_update_kubeconfig 'makes-k8s' 'us-east-1' \
-  &&  B64_CI_COMMIT_REF_NAME="$(b64 "${CI_COMMIT_REF_NAME}")" \
-  &&  B64_CI_COMMIT_SHA="$(b64 "${CI_COMMIT_SHA}")" \
-  &&  B64_INTEGRATES_DEV_AWS_ACCESS_KEY_ID="$(b64 "${INTEGRATES_DEV_AWS_ACCESS_KEY_ID}")" \
-  &&  B64_INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY="$(b64 "${INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY}")" \
-  &&  B64_PRODUCT_API_TOKEN="$(b64 "${PRODUCT_API_TOKEN}")" \
-  &&  UUID="$(uuidgen)" \
-  &&  for manifest in __envManifests__/*
-      do
-            echo "[INFO] Applying: ${manifest}" \
-        &&  apply "${manifest}" \
-        ||  return 1
-      done
+  aws_login_dev integrates \
+    && aws_eks_update_kubeconfig 'makes-k8s' 'us-east-1' \
+    && B64_CI_COMMIT_REF_NAME="$(b64 "${CI_COMMIT_REF_NAME}")" \
+    && B64_CI_COMMIT_SHA="$(b64 "${CI_COMMIT_SHA}")" \
+    && B64_INTEGRATES_DEV_AWS_ACCESS_KEY_ID="$(b64 "${INTEGRATES_DEV_AWS_ACCESS_KEY_ID}")" \
+    && B64_INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY="$(b64 "${INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY}")" \
+    && B64_PRODUCT_API_TOKEN="$(b64 "${PRODUCT_API_TOKEN}")" \
+    && UUID="$(uuidgen)" \
+    && for manifest in __envManifests__/*; do
+      echo "[INFO] Applying: ${manifest}" \
+        && apply "${manifest}" \
+        || return 1
+    done
 }
 
 main "${@}"

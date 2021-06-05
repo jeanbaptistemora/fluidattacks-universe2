@@ -28,48 +28,44 @@ function main {
     --worker-connections '512'
   )
 
-      source __envIntegratesEnv__ "${env}" "${api_status}"\
-  &&  if test "${env}" == 'dev'
-      then
-        config+=(
-          # SSL certificate file
-          --certfile='__envCertsDevelopment__/cert.crt'
-          # SSL key file
-          --keyfile='__envCertsDevelopment__/cert.key'
-          # The number of worker processes for handling requests
-          --workers 3
-        )
-      elif test "${env}" == 'dev-mobile'
-      then
-        config+=(
-          # The number of worker processes for handling requests
-          --workers 3
-        )
-      elif test "${env}" == 'eph'
-      then
-        config+=(
-          # The number of worker processes for handling requests
-          --workers 3
-        )
-      elif test "${env}" == 'prod'
-      then
-        config+=(
-          # The number of worker processes for handling requests
-          --workers 5
-        )
-      else
-            echo '[ERROR] First argument must be one of: dev, dev-mobile, eph, prod' \
-        &&  return 1
-      fi \
-  &&  pushd integrates \
-    &&  makes-kill-port "${port}" \
-    &&  { gunicorn "${config[@]}" 'app.app:APP' & } \
-    &&  makes-wait 5 "${host}:${port}" \
-    &&  makes-done 28001 \
-    &&  echo '[INFO] Back is ready' \
-    &&  wait \
-  &&  popd \
-  ||  return 1
+  source __envIntegratesEnv__ "${env}" "${api_status}" \
+    && if test "${env}" == 'dev'; then
+      config+=(
+        # SSL certificate file
+        --certfile='__envCertsDevelopment__/cert.crt'
+        # SSL key file
+        --keyfile='__envCertsDevelopment__/cert.key'
+        # The number of worker processes for handling requests
+        --workers 3
+      )
+    elif test "${env}" == 'dev-mobile'; then
+      config+=(
+        # The number of worker processes for handling requests
+        --workers 3
+      )
+    elif test "${env}" == 'eph'; then
+      config+=(
+        # The number of worker processes for handling requests
+        --workers 3
+      )
+    elif test "${env}" == 'prod'; then
+      config+=(
+        # The number of worker processes for handling requests
+        --workers 5
+      )
+    else
+      echo '[ERROR] First argument must be one of: dev, dev-mobile, eph, prod' \
+        && return 1
+    fi \
+    && pushd integrates \
+    && makes-kill-port "${port}" \
+    && { gunicorn "${config[@]}" 'app.app:APP' & } \
+    && makes-wait 5 "${host}:${port}" \
+    && makes-done 28001 \
+    && echo '[INFO] Back is ready' \
+    && wait \
+    && popd \
+    || return 1
 }
 
 main "${@}"

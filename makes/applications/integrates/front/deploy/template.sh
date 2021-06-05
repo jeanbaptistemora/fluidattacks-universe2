@@ -21,27 +21,27 @@ function deploy {
     "https://${base_url}/static/dashboard/app-style.min.css"
   )
 
-      "aws_login_${env_short}" integrates \
-  &&  pushd integrates \
-    &&  sops_export_vars "secrets-${env}.yaml" \
-          CLOUDFLARE_API_TOKEN \
-    &&  mkdir -p app/static \
-    &&  copy "__envCompiledFront__/output/app/static" app/static \
-    &&  deployment_date="$(date -u '+%FT%H:%M:%SZ')" \
-    &&  _replace app '__CI_COMMIT_REF_NAME__' "${branch}" \
-    &&  _replace app '__CI_COMMIT_SHA__' "${CI_COMMIT_SHA}" \
-    &&  _replace app '__CI_COMMIT_SHORT_SHA__' "${CI_COMMIT_SHORT_SHA}" \
-    &&  _replace app '__INTEGRATES_BUCKET_NAME__' "${bucket_name}" \
-    &&  _replace app '__INTEGRATES_DEPLOYMENT_DATE__' "${deployment_date}" \
-    &&  aws_s3_sync \
-          app \
-          "s3://${base_url}/" \
-          --delete \
-    &&  makes-announce-bugsnag "${bugsnag_key}" "${env}" \
-    &&  cloudflare_purge_cache \
-          "${CLOUDFLARE_API_TOKEN}" \
-          "fluidattacks.com" \
-          "${cached_urls[@]}" \
-  &&  popd \
-  ||  return 1
+  "aws_login_${env_short}" integrates \
+    && pushd integrates \
+    && sops_export_vars "secrets-${env}.yaml" \
+      CLOUDFLARE_API_TOKEN \
+    && mkdir -p app/static \
+    && copy "__envCompiledFront__/output/app/static" app/static \
+    && deployment_date="$(date -u '+%FT%H:%M:%SZ')" \
+    && _replace app '__CI_COMMIT_REF_NAME__' "${branch}" \
+    && _replace app '__CI_COMMIT_SHA__' "${CI_COMMIT_SHA}" \
+    && _replace app '__CI_COMMIT_SHORT_SHA__' "${CI_COMMIT_SHORT_SHA}" \
+    && _replace app '__INTEGRATES_BUCKET_NAME__' "${bucket_name}" \
+    && _replace app '__INTEGRATES_DEPLOYMENT_DATE__' "${deployment_date}" \
+    && aws_s3_sync \
+      app \
+      "s3://${base_url}/" \
+      --delete \
+    && makes-announce-bugsnag "${bugsnag_key}" "${env}" \
+    && cloudflare_purge_cache \
+      "${CLOUDFLARE_API_TOKEN}" \
+      "fluidattacks.com" \
+      "${cached_urls[@]}" \
+    && popd \
+    || return 1
 }

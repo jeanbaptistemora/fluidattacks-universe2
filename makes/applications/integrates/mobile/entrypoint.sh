@@ -7,19 +7,19 @@ function main {
     GOOGLE_SERVICES_APP
   )
 
-      aws_login_dev 'integrates' \
-  &&  sops_export_vars __envSecretsDev__ "${secrets[@]}" \
-  &&  pushd integrates/mobile \
-    &&  copy __envSetupIntegratesMobileDevRuntime__/node_modules node_modules \
-      &&  echo "${GOOGLE_SERVICES_APP}" > google-services.json \
-      &&  npx --no-install expo login \
-          --username "${EXPO_USER}" \
-          --password "${EXPO_PASS}" \
-          --non-interactive \
-      &&  npm start -- --clear --non-interactive \
-    &&  rm -rf .expo google-services.json node_modules \
-  &&  popd \
-  ||  return 1
+  aws_login_dev 'integrates' \
+    && sops_export_vars __envSecretsDev__ "${secrets[@]}" \
+    && pushd integrates/mobile \
+    && copy __envSetupIntegratesMobileDevRuntime__/node_modules node_modules \
+    && echo "${GOOGLE_SERVICES_APP}" > google-services.json \
+    && npx --no-install expo login \
+      --username "${EXPO_USER}" \
+      --password "${EXPO_PASS}" \
+      --non-interactive \
+    && npm start -- --clear --non-interactive \
+    && rm -rf .expo google-services.json node_modules \
+    && popd \
+    || return 1
 }
 
 main "${@}"

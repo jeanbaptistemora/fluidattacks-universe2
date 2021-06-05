@@ -13,6 +13,7 @@ bashFormat {
     "airs"
     "docs"
     "forces"
+    "integrates"
     "skims"
   ]);
   name = "makes-format-bash";

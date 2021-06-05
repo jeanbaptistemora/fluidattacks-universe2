@@ -7,10 +7,10 @@ function main {
   local endpoint_local="${4}"
   local endpoint_remote="${5}"
 
-      "${aws_login}" integrates \
-  &&  validate_aws_credentials_with_user "${user}" \
-  &&  validate_response_content "${endpoint_local}" "${content}" \
-  &&  validate_response_content "${endpoint_remote}" "${content}"
+  "${aws_login}" integrates \
+    && validate_aws_credentials_with_user "${user}" \
+    && validate_response_content "${endpoint_local}" "${content}" \
+    && validate_response_content "${endpoint_remote}" "${content}"
 }
 
 main "${@}"

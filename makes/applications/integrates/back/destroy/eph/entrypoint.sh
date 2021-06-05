@@ -3,12 +3,12 @@
 function main {
   local namespace='development'
 
-      aws_login_dev integrates \
-  &&  aws_eks_update_kubeconfig makes-k8s us-east-1 \
-  &&  kubectl delete --all deployment -n "${namespace}" \
-  &&  kubectl delete --all secret -n "${namespace}" \
-  &&  kubectl delete --all service -n "${namespace}" \
-  &&  kubectl delete --all ingress -n "${namespace}"
+  aws_login_dev integrates \
+    && aws_eks_update_kubeconfig makes-k8s us-east-1 \
+    && kubectl delete --all deployment -n "${namespace}" \
+    && kubectl delete --all secret -n "${namespace}" \
+    && kubectl delete --all service -n "${namespace}" \
+    && kubectl delete --all ingress -n "${namespace}"
 }
 
 main "${@}"
