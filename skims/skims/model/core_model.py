@@ -596,7 +596,7 @@ class FindingEnum(Enum):
     )
     F070_WILDCARD_IMPORT: FindingMetadata = FindingMetadata.new(
         code="F070_WILDCARD_IMPORT",
-        cwe="398",
+        cwe="155",
         attack_complexity=AttackComplexity.high,
         attack_vector=AttackVector.network,
         availability_impact=AvailabilityImpact.low,
