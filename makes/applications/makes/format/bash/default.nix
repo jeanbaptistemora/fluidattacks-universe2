@@ -12,6 +12,7 @@ bashFormat {
   targets = builtins.concatLists (builtins.map fmtProduct [
     "airs"
     "docs"
+    "forces"
     "skims"
   ]);
   name = "makes-format-bash";

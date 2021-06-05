@@ -12,9 +12,9 @@ function main {
     --disable-pytest-warnings
   )
 
-      pushd forces/ \
-    &&  pytest "${args_pytest[@]}" \
-  &&  popd ||  return 1
+  pushd forces/ \
+    && pytest "${args_pytest[@]}" \
+    && popd || return 1
 }
 
 main "$@"
