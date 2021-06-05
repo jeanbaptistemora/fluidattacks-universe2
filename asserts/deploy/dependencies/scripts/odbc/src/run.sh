@@ -11,8 +11,7 @@ echo
 echo "We'll try without sudo, and then with sudo"
 echo
 if odbcinst -i -d -r <<< "${odbcIniContents}" \
-  || sudo "$(command -v odbcinst)" -i -d -r <<< "${odbcIniContents}"
-then
+  || sudo "$(command -v odbcinst)" -i -d -r <<< "${odbcIniContents}"; then
   echo '  Ok!'
 else
   echo '  Failed, please check the source code'

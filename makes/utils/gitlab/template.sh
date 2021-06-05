@@ -7,17 +7,16 @@ function __check_curl_output {
   local expected_status_code="${4}"
   local log_file="${5}"
 
-  if [[ "${curl_status_code}" =~ ${expected_status_code} ]]
-  then
-        echo "${success_msg}" \
-    &&  return 0
+  if [[ ${curl_status_code} =~ ${expected_status_code} ]]; then
+    echo "${success_msg}" \
+      && return 0
   else
-        echo "${failure_msg}" \
-    &&  echo "[ERROR] Expected HTTP ${expected_status_code} but got HTTP ${curl_status_code}" \
-    &&  echo '[INFO] Displaying curl output' \
-    &&  cat "${log_file}" \
-    &&  echo \
-    &&  return 1
+    echo "${failure_msg}" \
+      && echo "[ERROR] Expected HTTP ${expected_status_code} but got HTTP ${curl_status_code}" \
+      && echo '[INFO] Displaying curl output' \
+      && cat "${log_file}" \
+      && echo \
+      && return 1
   fi
 }
 
@@ -35,26 +34,27 @@ function __project_variable_generic_request {
   local curl_status_code
   local log_file
 
-      log_file=$(mktemp) \
-  &&  echo '[INFO] Performing curl command' \
-  &&  curl_status_code=$( \
-        curl  --form "key=${var_name}" \
-              --form "value=${var_value}" \
-              --form "protected=${protected}" \
-              --form "masked=${masked}" \
-              --header "private-token: ${token}" \
-              --location \
-              --output "${log_file}" \
-              --request "${http_verb}" \
-              --silent \
-              --write-out "%{http_code}" \
-            "${url}" \
-          || true) \
-  &&  __check_curl_output \
-        "${success_msg}" \
-        "${failure_msg}" \
-        "${curl_status_code}" '2..' \
-        "${log_file}"
+  log_file=$(mktemp) \
+    && echo '[INFO] Performing curl command' \
+    && curl_status_code=$(
+      curl --form "key=${var_name}" \
+        --form "value=${var_value}" \
+        --form "protected=${protected}" \
+        --form "masked=${masked}" \
+        --header "private-token: ${token}" \
+        --location \
+        --output "${log_file}" \
+        --request "${http_verb}" \
+        --silent \
+        --write-out "%{http_code}" \
+        "${url}" \
+        || true
+    ) \
+    && __check_curl_output \
+      "${success_msg}" \
+      "${failure_msg}" \
+      "${curl_status_code}" '2..' \
+      "${log_file}"
 }
 
 function set_project_variable {
@@ -65,25 +65,24 @@ function set_project_variable {
   local protected="${5}"
   local masked="${6}"
 
-      echo "[INFO] Setting gitlab variable ${var_name} in project ${repo_id}:"  \
-  &&  if check_variable_exists "${token}" "${repo_id}" "${var_name}"
-      then
-        update_project_variable \
-          "${token}" \
-          "${repo_id}" \
-          "${var_name}" \
-          "${var_value}" \
-          "${protected}" \
-          "${masked}"
-      else
-        create_project_variable \
-          "${token}" \
-          "${repo_id}" \
-          "${var_name}" \
-          "${var_value}" \
-          "${protected}" \
-          "${masked}"
-      fi
+  echo "[INFO] Setting gitlab variable ${var_name} in project ${repo_id}:" \
+    && if check_variable_exists "${token}" "${repo_id}" "${var_name}"; then
+      update_project_variable \
+        "${token}" \
+        "${repo_id}" \
+        "${var_name}" \
+        "${var_value}" \
+        "${protected}" \
+        "${masked}"
+    else
+      create_project_variable \
+        "${token}" \
+        "${repo_id}" \
+        "${var_name}" \
+        "${var_value}" \
+        "${protected}" \
+        "${masked}"
+    fi
 }
 
 function check_variable_exists {
@@ -93,21 +92,22 @@ function check_variable_exists {
   local curl_status_code
   local log_file
 
-      log_file=$(mktemp) \
-  &&  echo '[INFO] Performing curl command' \
-  &&  curl_status_code=$( \
-        curl  --header "private-token: ${token}" \
-              --location \
-              --output "${log_file}" \
-              --silent \
-              --write-out "%{http_code}" \
-            "https://gitlab.com/api/v4/projects/${repo_id}/variables/${var_name}" \
-          || true) \
-  &&  __check_curl_output \
-        "[INFO] Variable exists: ${var_name}" \
-        "[INFO] Variable does not exist: ${var_name}" \
-        "${curl_status_code}" '200' \
-        "${log_file}"
+  log_file=$(mktemp) \
+    && echo '[INFO] Performing curl command' \
+    && curl_status_code=$(
+      curl --header "private-token: ${token}" \
+        --location \
+        --output "${log_file}" \
+        --silent \
+        --write-out "%{http_code}" \
+        "https://gitlab.com/api/v4/projects/${repo_id}/variables/${var_name}" \
+        || true
+    ) \
+    && __check_curl_output \
+      "[INFO] Variable exists: ${var_name}" \
+      "[INFO] Variable does not exist: ${var_name}" \
+      "${curl_status_code}" '200' \
+      "${log_file}"
 }
 
 function create_project_variable {
@@ -138,13 +138,13 @@ function get_project_variable {
   local repo_id="${2}"
   local var_name="${3}"
 
-      api_url="https://gitlab.com/api/v4/projects/${repo_id}/variables" \
-  &&  echo "[INFO] Retrieving var from GitLab: ${var_name}" 1>&2 \
-  &&  curl \
-        --silent \
-        --header "private-token: ${token}" \
-        "${api_url}/${var_name}" \
-      | jq -er '.value'
+  api_url="https://gitlab.com/api/v4/projects/${repo_id}/variables" \
+    && echo "[INFO] Retrieving var from GitLab: ${var_name}" 1>&2 \
+    && curl \
+      --silent \
+      --header "private-token: ${token}" \
+      "${api_url}/${var_name}" \
+    | jq -er '.value'
 }
 
 function update_project_variable {

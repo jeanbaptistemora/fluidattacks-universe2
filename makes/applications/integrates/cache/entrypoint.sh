@@ -42,11 +42,10 @@ function serve_daemon {
 }
 
 function main {
-  if test "${DAEMON:-}" = 'true'; then
-    serve_daemon "${@}"
-  else
-    serve "${@}"
-  fi
+  case "${DAEMON:-}" in
+    true) serve_daemon "${@}" ;;
+    *) serve "${@}" ;;
+  esac
 }
 
 main "${@}"

@@ -2,8 +2,8 @@
 
 set -o errexit
 
-execute_query () {
-    /opt/mssql-tools/bin/sqlcmd -S tcp:localhost,1432 -U SA -P $SA_PASSWORD -Q "$1"
+execute_query() {
+  /opt/mssql-tools/bin/sqlcmd -S tcp:localhost,1432 -U SA -P $SA_PASSWORD -Q "$1"
 }
 
 # create database
@@ -70,7 +70,6 @@ sp_configure 'Agent XPs', 1;
 GO
 RECONFIGURE WITH OVERRIDE
 GO"
-
 
 # Grant permission ALTER ANY DATABASE. check: can_alter_any_database
 execute_query "GRANT ALTER ANY DATABASE TO $DB_USER;"

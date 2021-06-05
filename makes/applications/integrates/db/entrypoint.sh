@@ -66,11 +66,10 @@ function main {
   export AWS_DEFAULT_REGION='us-east-1'
   export STATE_PATH='.DB'
 
-  if test "${DAEMON}" = 'true'; then
-    serve_daemon "${@}"
-  else
-    serve "${@}"
-  fi
+  case "${DAEMON:-}" in
+    true) serve_daemon "${@}" ;;
+    *) serve "${@}" ;;
+  esac
 }
 
 main "${@}"

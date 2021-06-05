@@ -2,8 +2,8 @@
 
 set -o errexit
 
-execute_query () {
-    /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P $SA_PASSWORD -Q "$1"
+execute_query() {
+  /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P $SA_PASSWORD -Q "$1"
 }
 
 # create database
@@ -76,7 +76,6 @@ EXEC sp_configure 'remote access', 0 ;
 GO
 RECONFIGURE;
 GO"
-
 
 # # Disable sa account. check: has_sa_account_login_enabled
 # execute_query "ALTER LOGIN sa DISABLE;"

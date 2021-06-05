@@ -5,10 +5,10 @@ alias code-etl="observes-bin-code-etl"
 function job_code_upload {
   local group="${1}"
 
-  if test -z "${group}"; then
-    echo '[INFO] Please set the first argument to the group name' \
-      && return 1
-  fi \
+  true \
+    && if test -z "${group}"; then
+      abort '[INFO] Please set the first argument to the group name'
+    fi \
     && aws_login_prod 'observes' \
     && sops_export_vars 'observes/secrets-prod.yaml' \
       'REDSHIFT_DATABASE' \

@@ -9,16 +9,14 @@ function main {
   )
   local paths=__envTargets__
 
-      if test -n "${CI:-}"
-      then
-            args_black+=( --diff --check --color ) \
-        &&  args_isort+=( --diff --check --color )
-      fi \
-  &&  for path in "${paths[@]}"
-      do
-            black "${args_black[@]}" "${path}" \
-        &&  isort "${args_isort[@]}" "${path}"
-      done
+  if test -n "${CI:-}"; then
+    args_black+=(--diff --check --color) \
+      && args_isort+=(--diff --check --color)
+  fi \
+    && for path in "${paths[@]}"; do
+      black "${args_black[@]}" "${path}" \
+        && isort "${args_isort[@]}" "${path}"
+    done
 }
 
 main "${@}"

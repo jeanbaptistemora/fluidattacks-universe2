@@ -9,14 +9,14 @@ function aws_login_dev {
   export TF_VAR_aws_access_key
   export TF_VAR_aws_secret_key
 
-      echo '[INFO] Logging into AWS with development credentials' \
-  &&  ensure_gitlab_env_vars "${key}" "${secret}" \
-  &&  AWS_ACCESS_KEY_ID="${!key}" \
-  &&  AWS_SECRET_ACCESS_KEY="${!secret}" \
-  &&  aws configure set 'aws_access_key_id' "${AWS_ACCESS_KEY_ID}" \
-  &&  aws configure set 'aws_secret_access_key' "${AWS_SECRET_ACCESS_KEY}" \
-  &&  TF_VAR_aws_access_key="${AWS_ACCESS_KEY_ID}" \
-  &&  TF_VAR_aws_secret_key="${AWS_SECRET_ACCESS_KEY}" \
+  echo '[INFO] Logging into AWS with development credentials' \
+    && ensure_gitlab_env_vars "${key}" "${secret}" \
+    && AWS_ACCESS_KEY_ID="${!key}" \
+    && AWS_SECRET_ACCESS_KEY="${!secret}" \
+    && aws configure set 'aws_access_key_id' "${AWS_ACCESS_KEY_ID}" \
+    && aws configure set 'aws_secret_access_key' "${AWS_SECRET_ACCESS_KEY}" \
+    && TF_VAR_aws_access_key="${AWS_ACCESS_KEY_ID}" \
+    && TF_VAR_aws_secret_key="${AWS_SECRET_ACCESS_KEY}"
 
 }
 
@@ -29,14 +29,14 @@ function aws_login_prod {
   export TF_VAR_aws_access_key
   export TF_VAR_aws_secret_key
 
-      echo '[INFO] Logging into AWS with production credentials' \
-  &&  ensure_gitlab_env_vars "${key}" "${secret}" \
-  &&  AWS_ACCESS_KEY_ID="${!key}" \
-  &&  AWS_SECRET_ACCESS_KEY="${!secret}" \
-  &&  aws configure set 'aws_access_key_id' "${AWS_ACCESS_KEY_ID}" \
-  &&  aws configure set 'aws_secret_access_key' "${AWS_SECRET_ACCESS_KEY}" \
-  &&  TF_VAR_aws_access_key="${AWS_ACCESS_KEY_ID}" \
-  &&  TF_VAR_aws_secret_key="${AWS_SECRET_ACCESS_KEY}" \
+  echo '[INFO] Logging into AWS with production credentials' \
+    && ensure_gitlab_env_vars "${key}" "${secret}" \
+    && AWS_ACCESS_KEY_ID="${!key}" \
+    && AWS_SECRET_ACCESS_KEY="${!secret}" \
+    && aws configure set 'aws_access_key_id' "${AWS_ACCESS_KEY_ID}" \
+    && aws configure set 'aws_secret_access_key' "${AWS_SECRET_ACCESS_KEY}" \
+    && TF_VAR_aws_access_key="${AWS_ACCESS_KEY_ID}" \
+    && TF_VAR_aws_secret_key="${AWS_SECRET_ACCESS_KEY}"
 
 }
 
@@ -47,9 +47,9 @@ function aws_s3_sync {
   local from="${1}"
   local to="${2}"
 
-      echo "[INFO] Syncing AWS S3 data from ${from} to ${to}" \
-  &&  if test -n "${CI:-}"; then flags+=( --quiet ); fi \
-  &&  aws s3 sync "${@:3}" "${flags[@]}" "${from}" "${to}"
+  echo "[INFO] Syncing AWS S3 data from ${from} to ${to}" \
+    && if test -n "${CI:-}"; then flags+=(--quiet); fi \
+    && aws s3 sync "${@:3}" "${flags[@]}" "${from}" "${to}"
 }
 
 function aws_eks_update_kubeconfig {

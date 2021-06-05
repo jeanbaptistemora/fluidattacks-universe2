@@ -34,14 +34,15 @@ function main {
   )
   local version_code
 
-  if [ -n "${CI}" ] && [ "${CI_COMMIT_REF_NAME}" == "master" ]; then
-    env='production' \
-      && aws_login_prod integrates \
-      && sops_export_vars __envSecretsProd__ "${secrets[@]}"
-  else
-    aws_login_dev integrates \
-      && sops_export_vars __envSecretsDev__ "${secrets[@]}"
-  fi \
+  true \
+    && if [ -n "${CI}" ] && [ "${CI_COMMIT_REF_NAME}" == "master" ]; then
+      env='production' \
+        && aws_login_prod integrates \
+        && sops_export_vars __envSecretsProd__ "${secrets[@]}"
+    else
+      aws_login_dev integrates \
+        && sops_export_vars __envSecretsDev__ "${secrets[@]}"
+    fi \
     && app_version="$(get_mobile_version basic)" \
     && version_code="$(get_mobile_version code)" \
     && INTEGRATES_DEPLOYMENT_DATE="$(date -u '+%FT%H:%M:%SZ')" \

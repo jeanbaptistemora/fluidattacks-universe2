@@ -3,15 +3,15 @@
 function main {
   local location="${out}${envLocation}"
 
-      echo '[INFO] Copying files' \
-  &&  mkdir -p "$(dirname "${location}")" \
-  &&  {
-            cat "${envEntrypointSetup}" \
-        &&  echo \
-        &&  cat "${envEntrypoint}" \
+  echo '[INFO] Copying files' \
+    && mkdir -p "$(dirname "${location}")" \
+    && {
+      cat "${envEntrypointSetup}" \
+        && echo \
+        && cat "${envEntrypoint}"
 
-      } > "${location}" \
-  &&  chmod +x "${location}"
+    } > "${location}" \
+    && chmod +x "${location}"
 }
 
 main "${@}"

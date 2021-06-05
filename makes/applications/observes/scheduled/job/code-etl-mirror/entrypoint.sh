@@ -4,10 +4,10 @@ function job_code_mirror {
   local group="${1}"
   local db_creds
 
-  if test -z "${group}"; then
-    echo '[INFO] Please set the first argument to the group name' \
-      && return 1
-  fi \
+  true \
+    && if test -z "${group}"; then
+      abort '[INFO] Please set the first argument to the group name'
+    fi \
     && db_creds=$(mktemp) \
     && aws_login_prod 'observes' \
     && sops_export_vars 'observes/secrets-prod.yaml' \

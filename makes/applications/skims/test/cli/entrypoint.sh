@@ -5,8 +5,7 @@ function assert {
     echo "[INFO] Successfully run: ${*}" \
       && return 0
   else
-    echo "[ERROR] While running: ${*}" \
-      && return 1
+    abort "[ERROR] While running: ${*}"
   fi
 }
 

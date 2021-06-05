@@ -2,20 +2,19 @@
 
 function main {
   # Try to export okta and cloudflare vars if secrets provided
-      aws_login_prod '__envProduct__' \
-  &&  if test -n '__envSecretsPath__'
-      then
-        sops_export_vars_terraform \
-          '__envSecretsPath__' \
-          'CLOUDFLARE'
-      fi \
-  &&  pushd '__envTarget__' \
-    &&  echo '[INFO] Initializing' \
-    &&  terraform init \
-    &&  echo '[INFO] Applying changes' \
-    &&  terraform apply -auto-approve -refresh=true "${@}" \
-  &&  popd \
-  ||  return 1
+  aws_login_prod '__envProduct__' \
+    && if test -n '__envSecretsPath__'; then
+      sops_export_vars_terraform \
+        '__envSecretsPath__' \
+        'CLOUDFLARE'
+    fi \
+    && pushd '__envTarget__' \
+    && echo '[INFO] Initializing' \
+    && terraform init \
+    && echo '[INFO] Applying changes' \
+    && terraform apply -auto-approve -refresh=true "${@}" \
+    && popd \
+    || return 1
 }
 
 main "${@}"
