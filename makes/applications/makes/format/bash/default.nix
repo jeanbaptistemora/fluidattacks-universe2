@@ -16,6 +16,8 @@ bashFormat {
     "integrates"
     "melts"
     "observes"
+    "reviews"
+    "sorts"
     "skims"
   ]);
   name = "makes-format-bash";
