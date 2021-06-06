@@ -59,7 +59,7 @@ def get_model_instance(model_class: ModelType) -> ModelType:
     if model_class != KNeighborsClassifier:
         default_args = {"random_state": 42}
         if model_class == MLPClassifier:
-            default_args.update({"max_iter": 300})
+            default_args.update({"max_iter": 400})
     return model_class(**default_args)
 
 
