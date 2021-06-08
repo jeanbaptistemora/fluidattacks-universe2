@@ -18,6 +18,7 @@ def snippet(
     header: Optional[str],
     headers: Dict[str, str],
     columns_per_line: int = SNIPPETS_COLUMNS,
+    value: str = "",
     **kwargs: Any,
 ) -> str:
     line: int = 3
@@ -26,7 +27,7 @@ def snippet(
 
     for key, val in headers.items():
         line += 0 if found else 1
-        if key == header:
+        if key == header and value in val:
             found = True
 
         if len(val) + len(key) + 6 > columns_per_line:

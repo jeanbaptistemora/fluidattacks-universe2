@@ -13,14 +13,7 @@ from http_headers import (
     x_content_type_options,
 )
 from http_headers.types import (
-    ContentSecurityPolicyHeader,
-    DateHeader,
     Header,
-    ReferrerPolicyHeader,
-    SetCookieHeader,
-    StrictTransportSecurityHeader,
-    WWWAuthenticate,
-    XContentTypeOptionsHeader,
 )
 from lib_http.types import (
     URLContext,
@@ -28,13 +21,15 @@ from lib_http.types import (
 from model import (
     core_model,
 )
+from multidict import (
+    MultiDict,
+)
 from typing import (
     Callable,
     Dict,
     List,
     NamedTuple,
     Optional,
-    Type,
 )
 from utils.ctx import (
     CTX,
@@ -45,12 +40,13 @@ from zone import (
 
 
 class HeaderCheckCtx(NamedTuple):
-    headers_parsed: Dict[Type[Header], Header]
+    headers_parsed: MultiDict[str, Header]
     url_ctx: URLContext
 
 
 class Location(NamedTuple):
     description: str
+    identifier: str
 
 
 class Locations(NamedTuple):
@@ -60,6 +56,7 @@ class Locations(NamedTuple):
         self,
         desc: str,
         desc_kwargs: Optional[Dict[str, str]] = None,
+        identifier: str = "",
     ) -> None:
         self.locations.append(
             Location(
@@ -67,6 +64,7 @@ class Locations(NamedTuple):
                     f"lib_http.analyze_headers.{desc}",
                     **(desc_kwargs or {}),
                 ),
+                identifier=identifier,
             )
         )
 
@@ -93,6 +91,7 @@ def _create_vulns(
                 snippet=as_string.snippet(
                     url=ctx.url_ctx.url,
                     header=header.name if header else None,
+                    value=location.identifier,
                     headers=ctx.url_ctx.headers_raw,
                 ),
             ),
@@ -198,7 +197,7 @@ def _content_security_policy(
     locations = Locations(locations=[])
     header: Optional[Header] = None
 
-    if header := ctx.headers_parsed.get(ContentSecurityPolicyHeader):
+    if header := ctx.headers_parsed.get("ContentSecurityPolicyHeader"):
         _content_security_policy_block_all_mixed_content(locations, header)
         _content_security_policy_frame_acestors(locations, header)
         _content_security_policy_object_src(locations, header)
@@ -219,7 +218,7 @@ def _date(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
     header: Optional[Header] = None
 
-    if header := ctx.headers_parsed.get(DateHeader):
+    if header := ctx.headers_parsed.get("DateHeader"):
         # Exception: WF(Cannot factorize function)
         if ctx.url_ctx.timestamp_ntp:  # NOSONAR
             minutes: float = (
@@ -271,7 +270,7 @@ def _referrer_policy(
     locations = Locations(locations=[])
     header: Optional[Header] = None
 
-    if header := ctx.headers_parsed.get(ReferrerPolicyHeader):
+    if header := ctx.headers_parsed.get("ReferrerPolicyHeader"):
         for value in header.values:
             # Some header values may be out of the spec or experimental
             # We won't take them into account as some browsers won't
@@ -313,19 +312,24 @@ def _set_cookie_secure(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
-    header: Optional[Header] = None
 
-    if header := ctx.headers_parsed.get(SetCookieHeader):
+    headers: List[Header] = ctx.headers_parsed.getall(
+        key="SetCookieHeader", default=[]
+    )
+
+    for header in headers:
         if any(smell in header.cookie_name for smell in ("session",)):
             if not header.secure:
                 locations.append(
-                    "set_cookie_secure.missing_secure",
+                    desc="set_cookie_secure.missing_secure",
                     desc_kwargs={"cookie_name": header.cookie_name},
+                    identifier=header.cookie_name,
                 )
+
     return _create_vulns(
         locations=locations,
         finding=core_model.FindingEnum.F042_SECURE,
-        header=header,
+        header=None if not headers else headers[0],
         ctx=ctx,
     )
 
@@ -336,7 +340,7 @@ def _strict_transport_security(
     locations = Locations(locations=[])
     header: Optional[Header] = None
 
-    if val := ctx.headers_parsed.get(StrictTransportSecurityHeader):
+    if val := ctx.headers_parsed.get("StrictTransportSecurityHeader"):
         if val.max_age < 31536000:
             locations.append("strict_transport_security.short_max_age")
     else:
@@ -358,7 +362,7 @@ def _www_authenticate(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
     header: Optional[Header] = None
 
-    if val := ctx.headers_parsed.get(WWWAuthenticate):
+    if val := ctx.headers_parsed.get("WWWAuthenticate"):
         # Exception: WF(Cannot factorize function)
         if val.type == "basic":  # NOSONAR
             locations.append("www_authenticate.basic")
@@ -375,7 +379,7 @@ def _x_content_type_options(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
     header: Optional[Header] = None
 
-    if val := ctx.headers_parsed.get(XContentTypeOptionsHeader):
+    if val := ctx.headers_parsed.get("XContentTypeOptionsHeader"):
         if val.value != "nosniff":
             locations.append("x_content_type_options.insecure")
     else:
@@ -390,23 +394,25 @@ def _x_content_type_options(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
 
 
 def get_check_ctx(url: URLContext) -> HeaderCheckCtx:
-    headers_parsed: Dict[Type[Header], Header] = {
-        type(header_parsed): header_parsed
-        for header_raw_name, header_raw_value in reversed(
-            tuple(url.headers_raw.items())
-        )
-        for line in [f"{header_raw_name}: {header_raw_value}"]
-        for header_parsed in [
-            content_security_policy.parse(line),
-            date.parse(line),
-            referrer_policy.parse(line),
-            set_cookie.parse(line),
-            strict_transport_security.parse(line),
-            www_authenticate.parse(line),
-            x_content_type_options.parse(line),
+    headers_parsed: MultiDict[str, Header] = MultiDict(
+        [
+            (type(header_parsed).__name__, header_parsed)
+            for header_raw_name, header_raw_value in reversed(
+                tuple(url.headers_raw.items())
+            )
+            for line in [f"{header_raw_name}: {header_raw_value}"]
+            for header_parsed in [
+                content_security_policy.parse(line),
+                date.parse(line),
+                referrer_policy.parse(line),
+                set_cookie.parse(line),
+                strict_transport_security.parse(line),
+                www_authenticate.parse(line),
+                x_content_type_options.parse(line),
+            ]
+            if header_parsed is not None
         ]
-        if header_parsed is not None
-    }
+    )
 
     return HeaderCheckCtx(
         headers_parsed=headers_parsed,
