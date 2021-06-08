@@ -90,3 +90,14 @@ def test_migrate_schema(postgresql_my: Any) -> None:
     cursor = postgresql_my.cursor()
     assert n_rows(cursor, "target_schema", "table_number_one") == 5
     assert n_rows(cursor, "target_schema", "super_table") == 10
+
+
+@pytest.mark.timeout(15, method="thread")
+def test_rename(postgresql_my: Any) -> None:
+    setup_db(postgresql_my)
+    db_client = client.new_test_client(postgresql_my)
+    factory = SchemaFactory(db_client, False)
+    db_schema_io = factory.retrieve("target_schema")
+    db_schema_io.map(lambda schema: factory.rename(schema, "target_schema_2"))
+    cursor = postgresql_my.cursor()
+    assert n_rows(cursor, "target_schema_2", "super_table") == 10

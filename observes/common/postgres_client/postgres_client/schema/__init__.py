@@ -142,3 +142,8 @@ class SchemaFactory(NamedTuple):
     def recreate(self, schema: Schema, cascade: bool = False) -> IO[Schema]:
         self.delete(schema, cascade)
         return self.new_schema(schema.name)
+
+    def rename(self, schema: Schema, new_name: str) -> IO[Schema]:
+        query = queries.rename(schema.name, new_name)
+        self.client.cursor.execute_query(query)
+        return self.retrieve(new_name)

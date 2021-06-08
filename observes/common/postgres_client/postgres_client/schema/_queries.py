@@ -36,3 +36,14 @@ def create(schema: str) -> Query:
     query: str = "CREATE SCHEMA {schema_name}"
     args = SqlArgs(identifiers={"schema_name": schema})
     return Query(query, args)
+
+
+def rename(from_schema: str, to_schema: str) -> Query:
+    query = "ALTER SCHEMA {from_schema} RENAME TO {to_schema}"
+    args = SqlArgs(
+        identifiers={
+            "from_schema": from_schema,
+            "to_schema": to_schema,
+        }
+    )
+    return Query(query, args)
