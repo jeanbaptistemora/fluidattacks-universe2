@@ -1,6 +1,8 @@
 # shellcheck shell=bash
 
+export HOME="${HOME_IMPURE:-${HOME}}"
+export PYTHONHASHSEED=0
+
 function skims {
-  export HOME="${HOME_IMPURE:-${HOME}}" \
-    && python3.8 '__envSrcSkimsSkims__/cli/__init__.py' "$@"
+  python3.8 '__envSrcSkimsSkims__/cli/__init__.py' "$@"
 }

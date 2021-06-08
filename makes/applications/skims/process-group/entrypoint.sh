@@ -47,7 +47,7 @@ function clone_group {
 function skims_cache {
   local command="${1}"
   local group="${2}"
-  local cache_local="${HOME_IMPURE}/.skims/cache"
+  local cache_local=~/.skims/cache
   local cache_remote="s3://skims.data/cache/${group}"
 
   echo "[INFO] Cache ${command}" \
