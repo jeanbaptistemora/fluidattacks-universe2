@@ -1,0 +1,14 @@
+checks:
+  - F021
+namespace: NIST
+output: skims/test/outputs/nist_c_sharp_f021.csv
+path:
+  include:
+    # F021
+    - src/testcases/CWE643_Xpath_Injection/
+  exclude:
+    - src/testcases/CWE643_Xpath_Injection/*File*.cs
+    - src/testcases/CWE643_Xpath_Injection/*ReadLine*.cs
+  lib_path: false
+  lib_root: true
+working_dir: ../NIST-SARD-Test-Suites/Juliet_Test_Suite_v1.3_for_C#/

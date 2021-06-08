@@ -83,6 +83,11 @@ STATIC_FINDING: Dict[str, Set[str]] = {
             "Environment.GetEnvironmentVariable",
         }
     ),
+    core_model.FindingEnum.F021.name: complete_attrs_on_set(
+        {
+            "Environment.GetEnvironmentVariable",
+        }
+    ),
     core_model.FindingEnum.F063_PATH_TRAVERSAL.name: complete_attrs_on_set(
         {
             "Environment.GetEnvironmentVariable",
@@ -102,6 +107,11 @@ BY_OBJ_NO_TYPE_ARGS_PROPAG: Dict[str, Set[str]] = {
             "getSession.setAttribute",
             "toString.substring",
             "addCookie",
+        }
+    ),
+    core_model.FindingEnum.F021.name: complete_attrs_on_set(
+        {
+            "Split",
         }
     ),
     core_model.FindingEnum.F063_TRUSTBOUND.name: complete_attrs_on_set(
@@ -274,6 +284,13 @@ BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
             },
             "Runtime": {
                 "exec",
+            },
+        }
+    ),
+    core_model.FindingEnum.F021.name: complete_attrs_on_dict(
+        {
+            "System.Xml.XPath.XPathNavigator": {
+                "Evaluate",
             },
         }
     ),

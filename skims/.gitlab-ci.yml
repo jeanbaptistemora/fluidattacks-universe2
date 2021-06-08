@@ -183,6 +183,9 @@ skims.test.nist_c_sharp_f004:
 skims.test.nist_c_sharp_f008:
   <<: *skims_test
 
+skims.test.nist_c_sharp_f021:
+  <<: *skims_test
+
 skims.test.nist_c_sharp_f063:
   <<: *skims_test
 
