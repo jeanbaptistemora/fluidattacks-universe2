@@ -3,7 +3,7 @@ import type { DocumentNode } from "graphql";
 
 const GET_GROUP_CONSULTING: DocumentNode = gql`
   query GetProjectConsulting($projectName: String!) {
-    group(projectName: $projectName) {
+    group(groupName: $projectName) {
       consulting {
         id
         content

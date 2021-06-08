@@ -20,7 +20,7 @@ type Query {
   ): ForcesExecutions
 
   "Group entity"
-  group(projectName: String!): Project
+  group(groupName: String!): Project
 
   "List groups with forces"
   groupsWithForces: [String]

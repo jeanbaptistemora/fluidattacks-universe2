@@ -3,7 +3,7 @@ import type { DocumentNode } from "graphql";
 
 const GET_EVENTS: DocumentNode = gql`
   query GetEventsQuery($projectName: String!) {
-    group(projectName: $projectName) {
+    group(groupName: $projectName) {
       events {
         eventDate
         detail

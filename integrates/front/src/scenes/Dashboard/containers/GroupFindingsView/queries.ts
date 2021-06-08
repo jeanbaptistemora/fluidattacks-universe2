@@ -3,7 +3,7 @@ import type { DocumentNode } from "graphql";
 
 const GET_FINDINGS: DocumentNode = gql`
   query GetFindingsQuery($projectName: String!) {
-    group(projectName: $projectName) {
+    group(groupName: $projectName) {
       findings {
         id
         age

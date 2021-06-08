@@ -3,7 +3,7 @@ import type { DocumentNode } from "graphql";
 
 const GET_GROUP_DATA: DocumentNode = gql`
   query GetGroupData($groupName: String!) {
-    group(projectName: $groupName) {
+    group(groupName: $groupName) {
       hasDrills
       hasForces
       hasSkims
@@ -50,7 +50,7 @@ const REMOVE_TAG_MUTATION: DocumentNode = gql`
 
 const GET_TAGS: DocumentNode = gql`
   query GetTagsQuery($projectName: String!) {
-    group(projectName: $projectName) {
+    group(groupName: $projectName) {
       name
       tags
     }

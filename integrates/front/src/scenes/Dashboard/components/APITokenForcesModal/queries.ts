@@ -3,7 +3,7 @@ import type { DocumentNode } from "graphql";
 
 const GET_FORCES_TOKEN: DocumentNode = gql`
   query IntegratesGetForcesToken($groupName: String!) {
-    group(projectName: $groupName) {
+    group(groupName: $groupName) {
       forcesToken
       name
     }

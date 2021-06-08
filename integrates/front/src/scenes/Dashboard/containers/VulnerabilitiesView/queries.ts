@@ -56,7 +56,7 @@ export const GET_FINDING_VULN_INFO: DocumentNode = gql`
         ...vulnFields
       }
     }
-    group(projectName: $groupName) {
+    group(groupName: $groupName) {
       name
       subscription
     }

@@ -3,7 +3,7 @@ import type { DocumentNode } from "graphql";
 
 const GET_DRAFTS: DocumentNode = gql`
   query GetDraftsQuery($projectName: String!) {
-    group(projectName: $projectName) {
+    group(groupName: $projectName) {
       drafts {
         id
         reportDate

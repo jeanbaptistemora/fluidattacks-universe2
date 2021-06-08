@@ -8,7 +8,7 @@ export const GET_ENTITY_ORGANIZATION: DocumentNode = gql`
     $groupName: String!
     $tagName: String!
   ) {
-    group(projectName: $groupName) @include(if: $getGroup) {
+    group(groupName: $groupName) @include(if: $getGroup) {
       name
       organization
     }
