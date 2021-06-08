@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Breadcrumb } from "./Breadcrumb";
 import { HelpWidget } from "./HelpWidget";
 import { NewsWidget } from "./NewsWidget";
-import { Searchbar } from "./Serachbar";
+import { Searchbar } from "./Searchbar";
 import { NavbarContainer, NavbarHeader, NavbarMenu } from "./styles";
 import { TechnicalInfo } from "./TechnicalInfo";
 import { UserProfile } from "./UserProfile";

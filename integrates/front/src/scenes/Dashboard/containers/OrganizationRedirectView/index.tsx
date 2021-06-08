@@ -36,9 +36,9 @@ const OrganizationRedirect: React.FC<IOrganizationRedirectProps> = (
       });
     },
     variables: {
-      getProject: type === "groups",
+      getGroup: type === "groups",
       getTag: type === "portfolios",
-      projectName: _.isUndefined(projectName) ? "" : projectName.toLowerCase(),
+      groupName: _.isUndefined(projectName) ? "" : projectName.toLowerCase(),
       tagName: _.isUndefined(tagName) ? "" : tagName.toLowerCase(),
     },
   });
@@ -53,7 +53,7 @@ const OrganizationRedirect: React.FC<IOrganizationRedirectProps> = (
       {type === "groups" ? (
         <Redirect
           path={"/groups/:groupName"}
-          to={`/orgs/${data.project.organization}${pathname}`}
+          to={`/orgs/${data.group.organization}${pathname}`}
         />
       ) : (
         <Redirect

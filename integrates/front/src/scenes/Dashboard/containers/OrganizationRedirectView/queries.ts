@@ -3,12 +3,12 @@ import type { DocumentNode } from "graphql";
 
 export const GET_ENTITY_ORGANIZATION: DocumentNode = gql`
   query GetEntityOrganization(
-    $getProject: Boolean!
+    $getGroup: Boolean!
     $getTag: Boolean!
-    $projectName: String!
+    $groupName: String!
     $tagName: String!
   ) {
-    project(projectName: $projectName) @include(if: $getProject) {
+    group(projectName: $groupName) @include(if: $getGroup) {
       name
       organization
     }
