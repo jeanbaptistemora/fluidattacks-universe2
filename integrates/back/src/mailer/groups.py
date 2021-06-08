@@ -12,6 +12,9 @@ from custom_types import (
     Comment as CommentType,
     MailContent as MailContentType,
 )
+from newutils import (
+    datetime as datetime_utils,
+)
 from typing import (
     Any,
     List,
@@ -36,11 +39,12 @@ async def send_mail_access_granted(
 async def send_mail_daily_digest(
     email_to: List[str], context: MailContentType
 ) -> None:
+    date = datetime_utils.get_as_str(datetime_utils.get_now(), "%Y/%m/%d")
     await send_mails_async_new(
         email_to,
         context,
         DIGEST_TAG,
-        "Daily Digest",
+        f"Daily Digest ({date})",
         "daily_digest",
     )
 
