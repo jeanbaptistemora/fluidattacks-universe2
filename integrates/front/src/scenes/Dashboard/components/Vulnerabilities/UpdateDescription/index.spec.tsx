@@ -189,9 +189,9 @@ describe("Update Description component", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <UpdateTreatmentModal
               findingId={"1"}
+              groupName={""}
               handleClearSelected={handleClearSelected}
               handleCloseModal={handleOnClose}
-              projectName={""}
               vulnerabilities={vulns}
             />
           </authzPermissionsContext.Provider>
@@ -257,9 +257,9 @@ describe("Update Description component", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <UpdateTreatmentModal
               findingId={"422286126"}
+              groupName={""}
               handleClearSelected={handleClearSelected}
               handleCloseModal={handleOnClose}
-              projectName={""}
               vulnerabilities={vulns}
             />
           </authzPermissionsContext.Provider>
@@ -338,9 +338,9 @@ describe("Update Description component", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <UpdateTreatmentModal
               findingId={"422286126"}
+              groupName={""}
               handleClearSelected={handleClearSelected}
               handleCloseModal={handleOnClose}
-              projectName={""}
               vulnerabilities={vulns}
             />
           </authzPermissionsContext.Provider>
@@ -457,9 +457,9 @@ describe("Update Description component", (): void => {
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <UpdateTreatmentModal
               findingId={"422286126"}
+              groupName={""}
               handleClearSelected={handleClearSelected}
               handleCloseModal={handleOnClose}
-              projectName={""}
               vulnerabilities={vulnsToUpdate}
             />
           </authzPermissionsContext.Provider>

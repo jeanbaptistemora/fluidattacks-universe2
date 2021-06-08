@@ -75,7 +75,7 @@ import { translate } from "utils/translations/translate";
 
 const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   findingId,
-  projectName,
+  groupName,
   vulnerabilities,
   handleClearSelected,
   handleCloseModal,
@@ -145,7 +145,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             canRetrieveAnalyst,
             canRetrieveZeroRisk,
             findingId,
-            groupName: projectName,
+            groupName,
           },
         },
       ],
@@ -154,7 +154,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   const { data } = useQuery<IGroupUsersAttr>(GET_GROUP_USERS, {
     skip: permissions.cannot("api_resolvers_project__get_users"),
     variables: {
-      projectName,
+      groupName,
     },
   });
 
@@ -178,7 +178,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
           canRetrieveAnalyst,
           canRetrieveZeroRisk,
           findingId,
-          groupName: projectName,
+          groupName,
         },
       },
     ],
@@ -257,7 +257,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             canRetrieveAnalyst,
             canRetrieveZeroRisk,
             findingId,
-            groupName: projectName,
+            groupName,
           },
         },
         {

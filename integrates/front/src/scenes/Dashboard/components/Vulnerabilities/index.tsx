@@ -266,9 +266,9 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         >
           <UpdateTreatmentModal
             findingId={findingId}
+            groupName={groupName}
             handleClearSelected={clearSelectedVulns}
             handleCloseModal={handleCloseUpdateModal}
-            projectName={groupName}
             vulnerabilities={selectedVulnerabilities}
           />
         </Modal>
@@ -321,9 +321,9 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
             <Route path={"/treatments"}>
               <UpdateTreatmentModal
                 findingId={findingId}
+                groupName={groupName}
                 handleClearSelected={clearSelectedVulns}
                 handleCloseModal={closeAdditionalInfoModal}
-                projectName={groupName}
                 vulnerabilities={[currentRow]}
               />
             </Route>

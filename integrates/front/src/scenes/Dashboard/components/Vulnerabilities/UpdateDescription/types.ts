@@ -2,7 +2,7 @@ import type { IVulnDataTypeAttr } from "scenes/Dashboard/components/Vulnerabilit
 
 interface IUpdateTreatmentModalProps {
   findingId: string;
-  projectName?: string;
+  groupName?: string;
   vulnerabilities: IVulnDataTypeAttr[];
   handleClearSelected: () => void;
   handleCloseModal: () => void;
