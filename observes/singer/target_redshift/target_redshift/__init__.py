@@ -387,7 +387,7 @@ def main(auth_file: IO[str], schema_name: str, drop_schema_flag: bool) -> None:
             # The loading strategy is:
             #   DROP loading_schema
             schema_factory.try_retrieve(loading_schema).map(
-                lambda schema: schema.delete(cascade=True)
+                lambda schema: schema_factory.delete(schema, cascade=True)
             )
             #   MAKE loading_schema
             create_schema(batcher, loading_schema)
@@ -395,7 +395,7 @@ def main(auth_file: IO[str], schema_name: str, drop_schema_flag: bool) -> None:
             persist_messages(batcher, loading_schema)
             #   DROP backup_schema IF EXISTS
             schema_factory.try_retrieve(backup_schema).map(
-                lambda schema: schema.delete(cascade=True)
+                lambda schema: schema_factory.delete(schema, cascade=True)
             )
             #   REN  target_schema TO backup_schema
             rename_schema(batcher, target_schema, backup_schema)

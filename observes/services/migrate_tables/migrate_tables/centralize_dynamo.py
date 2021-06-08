@@ -34,7 +34,7 @@ def main(
     auth_file: IOData[str], tables: List[str], target_schema: str
 ) -> IO[None]:
     db_client = client_module.new_client_from_conf(auth_file)
-    schema_factory = SchemaFactory.new(db_client)
+    schema_factory = SchemaFactory(db_client)
     target = unsafe_perform_io(schema_factory.retrieve(f"{target_schema}"))
     for table in tables:
         table = table.lower()
@@ -43,7 +43,7 @@ def main(
         if is_successful(source_result):
             source = unsafe_perform_io(source_result.unwrap())
             source.migrate(target)
-            source.delete()
+            schema_factory.delete(source, True)
         else:
             LOG.info("Schema: %s does not exist", source_result)
     return IO(None)

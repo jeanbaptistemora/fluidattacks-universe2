@@ -49,8 +49,8 @@ def setup_db(postgresql_my: Any) -> None:
 def test_get_tables(postgresql_my: Any) -> None:
     setup_db(postgresql_my)
     db_client = client.new_test_client(postgresql_my)
-    factory = SchemaFactory.new(db_client)
-    db_schema_io = factory.retrieve("test_schema", False)
+    factory = SchemaFactory(db_client, False)
+    db_schema_io = factory.retrieve("test_schema")
     tables = db_schema_io.map(lambda schema: set(schema.get_tables()))
     assert tables == IO(set(["table_number_one", "table_number_two"]))
 
@@ -59,9 +59,9 @@ def test_get_tables(postgresql_my: Any) -> None:
 def test_exist_on_db(postgresql_my: Any) -> None:
     setup_db(postgresql_my)
     db_client = client.new_test_client(postgresql_my)
-    factory = SchemaFactory.new(db_client)
-    db_schema_result = factory.try_retrieve("test_schema", False)
-    fake_schema_result = factory.try_retrieve("non_existent_schema", False)
+    factory = SchemaFactory(db_client, False)
+    db_schema_result = factory.try_retrieve("test_schema")
+    fake_schema_result = factory.try_retrieve("non_existent_schema")
     assert is_successful(db_schema_result)
     assert not is_successful(fake_schema_result)
 
@@ -70,10 +70,10 @@ def test_exist_on_db(postgresql_my: Any) -> None:
 def test_delete_on_db(postgresql_my: Any) -> None:
     setup_db(postgresql_my)
     db_client = client.new_test_client(postgresql_my)
-    factory = SchemaFactory.new(db_client)
-    db_schema_io = factory.retrieve("empty_schema", False)
-    db_schema_io.map(lambda schema: schema.delete())
-    result = factory.try_retrieve("empty_schema", False)
+    factory = SchemaFactory(db_client, False)
+    db_schema_io = factory.retrieve("empty_schema")
+    db_schema_io.map(lambda schema: factory.delete(schema, True))
+    result = factory.try_retrieve("empty_schema")
     assert not is_successful(result)
 
 
@@ -81,9 +81,9 @@ def test_delete_on_db(postgresql_my: Any) -> None:
 def test_migrate_schema(postgresql_my: Any) -> None:
     setup_db(postgresql_my)
     db_client = client.new_test_client(postgresql_my)
-    factory = SchemaFactory.new(db_client)
-    source = factory.retrieve("test_schema", False)
-    target = factory.retrieve("target_schema", False)
+    factory = SchemaFactory(db_client, False)
+    source = factory.retrieve("test_schema")
+    target = factory.retrieve("target_schema")
     source.map(lambda schema: schema.migrate).bind(
         lambda migrate: target.map(migrate)
     )

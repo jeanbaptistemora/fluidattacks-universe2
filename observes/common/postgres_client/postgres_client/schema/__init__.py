@@ -88,11 +88,6 @@ class Schema(Immutable):
         self.cursor.execute_query(query)
         return (item[0] for item in unsafe_perform_io(self.cursor.fetch_all()))
 
-    def delete(self, cascade: bool = False) -> IO[None]:
-        query = queries.delete(self.name, cascade)
-        self.cursor.execute_query(query)
-        return IO(None)
-
     def migrate(self, to_schema: Schema) -> IO[None]:
         from_schema = self
         tables = from_schema.get_tables()
@@ -114,30 +109,36 @@ class Schema(Immutable):
 
 class SchemaFactory(NamedTuple):
     client: Client
+    redshift: bool = True
 
-    def try_retrieve(
-        self, name: str, redshift: bool = True
-    ) -> IOResult[Schema, SchemaNotExist]:
+    def try_retrieve(self, name: str) -> IOResult[Schema, SchemaNotExist]:
         exists = _exist(self.client.cursor, name)
         if is_successful(exists):
             return IOSuccess(
                 Schema(
                     _Schema(
-                        cursor=self.client.cursor, name=name, redshift=redshift
+                        cursor=self.client.cursor,
+                        name=name,
+                        redshift=self.redshift,
                     )
                 )
             )
         return IOFailure(SchemaNotExist(name))
 
-    def retrieve(self, name: str, redshift: bool = True) -> IO[Schema]:
-        result = self.try_retrieve(name, redshift)
+    def retrieve(self, name: str) -> IO[Schema]:
+        result = self.try_retrieve(name)
         return result.alt(_raise).unwrap()
 
-    def new_schema(self, name: str, redshift: bool = True) -> IO[Schema]:
+    def delete(self, schema: Schema, cascade: bool = False) -> IO[None]:
+        query = queries.delete(schema.name, cascade)
+        self.client.cursor.execute_query(query)
+        return IO(None)
+
+    def new_schema(self, name: str) -> IO[Schema]:
         query = queries.create(name)
         self.client.cursor.execute_query(query)
-        return self.retrieve(name, redshift)
+        return self.retrieve(name)
 
-    @classmethod
-    def new(cls, client: Client) -> SchemaFactory:
-        return cls(client)
+    def recreate(self, schema: Schema, cascade: bool = False) -> IO[Schema]:
+        self.delete(schema, cascade)
+        return self.new_schema(schema.name)
