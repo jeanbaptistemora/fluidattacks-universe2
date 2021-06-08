@@ -14,18 +14,18 @@ we have a two-step process
 for access revocation:
 
 1. **Deactivating IAM account:**
-By doing this,
-users lose access to all the company applications
-and client data.
-This includes
-[Attack Surface Manager (ASM)](https://app.fluidattacks.com/),
-mail, etc.
+  By doing this,
+  users lose access to all the company applications
+  and client data.
+  This includes
+  [Attack Surface Manager (ASM)](https://app.fluidattacks.com/),
+  mail, etc.
 
 1. **Removing Git repository access:**
-Users can no longer see
-confidential information from the repository,
-such as registry images, confidential issues,
-[Merge requests](https://docs.gitlab.com/ee/user/project/merge_requests/), etc.
+  Users can no longer see
+  confidential information from the repository,
+  such as registry images, confidential issues,
+  [Merge requests](https://docs.gitlab.com/ee/user/project/merge_requests/), etc.
 
 It is worth noting
 that ease of access revocation is fundamental

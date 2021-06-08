@@ -10,7 +10,7 @@ domain is protected behind a distributed
 firewall that implements:
 
 - Dynamic firewall rules
-managed by top cybersecurity experts.
+  managed by top cybersecurity experts.
 
 - [OWASP Core rules](https://owasp.org/www-project-modsecurity-core-rule-set/)
 

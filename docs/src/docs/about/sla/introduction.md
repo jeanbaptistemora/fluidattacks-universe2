@@ -19,7 +19,7 @@ slug: /about/sla
   will have a median first response time
   of less than **16** office hours.
 
-### Details
+## Details
 
 All of the SLAs are measured
 considering the following:

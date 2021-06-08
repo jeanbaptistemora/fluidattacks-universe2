@@ -10,6 +10,7 @@ to all the information provided
 by a client in a project context.
 
 ## Data use policy
+
 We are committed to using our clients' data
 exclusively for vulnerability scanning
 in the context of the service we are providing.
@@ -17,6 +18,7 @@ No other activities will be executed
 over the provided information.
 
 ## Data retention policy
+
 All the data related to a project
 can be deleted from our
 [Attack Surface Manager (ASM)](https://app.fluidattacks.com/)

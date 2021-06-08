@@ -5,7 +5,7 @@ sidebar_label: Availability
 slug: /about/sla/availability
 ---
 
-### Description
+## Description
 
 **99%** of the time
 the ASM will be available via internet
@@ -31,7 +31,7 @@ the following:
   according to the percentage
   of affected users.
 
-### Data
+## Data
 
 Click on the following button
 to go to the page that contains

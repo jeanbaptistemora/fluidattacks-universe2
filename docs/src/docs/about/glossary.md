@@ -5,7 +5,7 @@ sidebar_label: Glossary
 slug: /about/glossary
 ---
 
-### CVSS
+## CVSS
 
 The Common Vulnerability Scoring System or CVSS
 is a free and open industry standard
@@ -22,7 +22,7 @@ and the impact of exploit.
 Scores range from 0 to 10,
 with 10 being the most severe.
 
-### Mailmaps
+## Mailmaps
 
 These are the rules
 that must be followed
@@ -46,7 +46,7 @@ documenting the mailmap:
   written request
   from the client
   is required.
-### ToE
+## ToE
 
 The Target of Evaluation or ToE
 is the product or system

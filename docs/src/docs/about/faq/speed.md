@@ -5,11 +5,13 @@ sidebar_label: Speed
 slug: /about/faq/speed
 ---
 
-### When does the Squad plan hacking begin?
+## When does the Squad plan hacking begin?
+
 It begins immediately after
 receiving the purchase order.
 
-### How is a project’s progress determined?
+## How is a project’s progress determined?
+
 A project’s progress
 and current state
 is determined
@@ -19,7 +21,8 @@ using the following metrics:
 - Percentage of remediated (repaired)
   security risk vulnerabilities.
 
-### Does the Squad plan use automated tools or is it a manual process?
+## Does the Squad plan use automated tools or is it a manual process?
+
 Automated tools,
 by themselves,
 are not capable of extracting
@@ -36,20 +39,21 @@ because automated tools present
 the following problems:
 
 1. Vulnerability leakages
-(detection of a minimal percentage
-of existing security risk vulnerabilities).
+  (detection of a minimal percentage
+  of existing security risk vulnerabilities).
 
 1. Detected vulnerabilities
-are primarily false positives.
+  are primarily false positives.
 
 1. Incapability of combining
-individual vulnerabilities
-in order to reveal
-additional vulnerabilities
-which may be an even greater security risk
-than the individual vulnerabilities alone.
+  individual vulnerabilities
+  in order to reveal
+  additional vulnerabilities
+  which may be an even greater security risk
+  than the individual vulnerabilities alone.
 
-### How are development cycles not slowed down by manual reviews?
+## How are development cycles not slowed down by manual reviews?
+
 The Squad plan hacking
 is first performed
 on the source code.
@@ -72,7 +76,8 @@ eligible for release and deployment,
 which improves the remediation (repair) time
 for detected vulnerabilities.
 
-### How does a big project with many developers move rapidly with the Squad plan's manual reviews?
+## How can a project develop rapidly with the Squad plan's manual reviews?
+
 Standard Squad plan hacking
 covers `95%` of all business applications
 being developed,
@@ -81,7 +86,8 @@ based on the number of active developers in the project
 and this defines the amount of resources
 assigned to the project.
 
-### How can the Squad plan's manual review keep up with a client's big and growing application portfolio?
+## How can your manual reviews keep up with a client's big app portfolio?
+
 Based on our historical data,
 and thanks to our recruitment
 and training capabilities,
@@ -90,7 +96,8 @@ to innovate internal processes,
 we are fully capable of taking on
 between `5` and `10` new applications each month.
 
-### How long does it take you to review a new commit?
+## How long does it take you to review a new commit?
+
 The goal is `100%` coverage.
 Therefore,
 there will be results
@@ -105,7 +112,8 @@ that extract and analyze
 the changes made to the source code
 every night.
 
-### What are the scheduled activities during the Squad plan test?
+## What are the scheduled activities during the Squad plan test?
+
 Once the setup has been completed,
 and everything is ready
 for the service to begin,
@@ -167,7 +175,8 @@ The steps are as follows:
 1. Steps `3` - `7` are repeated
   until the subscription ends.
 
-### Do you test every time I make a push in the subscription branch?
+## Do you test every time I make a push in the subscription branch?
+
 During the execution of a project,
 the following scenarios can occur:
 

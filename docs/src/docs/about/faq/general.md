@@ -5,7 +5,8 @@ sidebar_label: General
 slug: /about/faq
 ---
 
-### What is the Squad plan?
+## What is the Squad plan?
+
 The Squad plan is
 a security testing service
 that allows the hacking process
@@ -14,29 +15,31 @@ in the software development cycle.
 Its purpose is to guarantee
 `100%` testing coverage of the application.
 
+## What are the benefits of the Squad plan?
 
-### What are the benefits of the Squad plan?
 Our Squad plan offers
 Continuous Hacking:
+
 1. Minimizes the cost of remediation (repair)
-of a vulnerable security risk
-while the software is in development
-rather than when it is in production.
+  of a vulnerable security risk
+  while the software is in development
+  rather than when it is in production.
 
 1. Reduces application certification time to zero
-because the hacking is done during development.
+  because the hacking is done during development.
 
 1. Provides clear and detailed information
-about vulnerable security risks
-and facilitates a coordinated effort
-between external project personnel
-(`Fluid Attacks` experts)
-identifying security risks,
-and internal project personnel
-(client company)
-fixing security issues without delays.
+  about vulnerable security risks
+  and facilitates a coordinated effort
+  between external project personnel
+  (`Fluid Attacks` experts)
+  identifying security risks,
+  and internal project personnel
+  (client company)
+  fixing security issues without delays.
 
-### In what industries does your company have experience?
+## In what industries does your company have experience?
+
 Along our career trajectory
 we have been working with companies
 from different sectors,
@@ -44,13 +47,15 @@ such as financial, transportation,
 industrial, consumer, communications,
 technology and utilities.
 
-### Is it possible to hire an On-the-Premises Squad plan?
+## Is it possible to hire an On-the-Premises Squad plan?
+
 No.
 Due to the operational model
 that supports the Squad plan,
 it can only be done remotely.
 
-### At 100% coverage, is the Squad plan suspended until new changes are added?
+## At 100% coverage, is the Squad plan suspended until new changes are added?
+
 No.
 Even if 100% of coverage is reached,
 we continue checking
@@ -59,7 +64,8 @@ to identify any possible false negatives,
 including components developed
 by third parties in our hacking process.
 
-### When does the Squad plan end?
+## When does the Squad plan end?
+
 The Sqad plan is contracted
 for a minimum of `12` months
 and is renewed automatically
@@ -69,14 +75,16 @@ when we receive a written request
 through previously defined channels
 to terminate the contract.
 
-### Can the contract be canceled at anytime?
+## Can the contract be canceled at anytime?
+
 You can cancel your contract
 at any time after the fourth month.
 Cancellation can be requested
 through any communication channel
 previously defined in the contract.
 
-### Can the Squad plan be used for code developed a long time ago?
+## Can the Squad plan be used for code developed a long time ago?
+
 Yes,
 it is still possible
 to use the Squad plan.
@@ -84,24 +92,25 @@ There are two
 options available:
 
 1. A Health Check can be performed
-testing all existing code.
-Then,
-the Squad plan is executed as usual
-within the defined scope
-(see [this question](/about/faq/speed#how-are-development-cycles-not-slowed-down-by-manual-reviews)).
-This option is better suited
-for applications under development.
+  testing all existing code.
+  Then,
+  the Squad plan is executed as usual
+  within the defined scope
+  (see [this question](/about/faq/speed#how-are-development-cycles-not-slowed-down-by-manual-reviews)).
+  This option is better suited
+  for applications under development.
 
 1. Start with the standard limits
-(see [this question](/about/faq/speed#does-the-squad-plan-use-automated-tools-or-is-it-a-manual-process)),
-increasing the coverage
-on a monthly basis
-until 100% is reached.
-This option is better suited
-for applications
-no longer in development.
+  (see [this question](/about/faq/speed#does-the-squad-plan-use-automated-tools-or-is-it-a-manual-process)),
+  increasing the coverage
+  on a monthly basis
+  until 100% is reached.
+  This option is better suited
+  for applications
+  no longer in development.
 
-### Can you review all the existing code before starting the tests?
+## Can you review all the existing code before starting the tests?
+
 We recommend
 that application development
 and the hacking process
@@ -123,7 +132,8 @@ we continue hacking simultaneously
 with the development team
 as development continues.
 
-### What if I want the Squad plan but not the Health Check?
+## What if I want the Squad plan but not the Health Check?
+
 This is a risky choice.
 Not performing a Health Check
 means there will be code
@@ -139,7 +149,8 @@ is going to be tested,
 but what cannot be reached,
 cannot be tested.
 
-### With the Squad plan, can I include the infrastructure associated with my app?
+## With the Squad plan, can I include the infrastructure of my app?
+
 We have improved the Squad plan model
 to now include infrastructure
 within the Target of Evaluation (`ToE`).
@@ -148,7 +159,8 @@ inputs, infrastructure,
 and of course
 the application itself.
 
-### What external tools do you use to perform pentesting?
+## What external tools do you use to perform pentesting?
+
 We use [Burp Suite](https://portswigger.net/burp)
 for web testing,
 and [CANVAS](https://www.immunityinc.com/products/canvas/)
@@ -156,12 +168,14 @@ and [Core Impact](https://www.coresecurity.com/products/core-impact)
 for infrastructure testing
 with additional exploits.
 
-### Where does ASM run?
+## Where does ASM run?
+
 The platform,
 [`ASM`](https://fluidattacks.com/categories/asm/),
 runs in the cloud.
 
-### Do you manage the access credentials to ASM?
+## Do you manage the access credentials to ASM?
+
 No.
 We use federated authentication.
 `Google`, `Azure` (`Microsoft 360`)
@@ -169,7 +183,8 @@ and `Bitbucket`
 are the entities which validate
 your user access credentials.
 
-### Can I activate the double authentication token?
+## Can I activate the double authentication token?
+
 Yes,
 you can,
 and we recommend you do so.
@@ -181,7 +196,8 @@ from accessing and compromising your information.
 This feature is enabled
 through `Gmail` or `Azure`.
 
-### How will our data be stored?
+## How will our data be stored?
+
 - AWS on the cloud (mainly S3 and DynamoDB, all security enabled)
 - Hackers' computers with disk encryption in all partitions.
 - In [this page](/about/security/confidentiality/encryption-rest)
@@ -189,7 +205,8 @@ through `Gmail` or `Azure`.
   about how we ensure
   our clients confidentiality.
 
-### How will our data be transmitted?
+## How will our data be transmitted?
+
 It is up to you,
 however,
 we recommend the use of `HTTPS`
@@ -197,14 +214,16 @@ for application tests
 and `SSH` (`git`)
 for source code analysis.
 
-### What options for retesting are available?
+## What options for retesting are available?
+
 [One-shot Hacking](https://fluidattacks.com/services/one-shot-hacking)
 includes one retest.
 [The Squad plan](https://fluidattacks.com/services/continuous-hacking/)
 includes infinite retests
 during the subscription time.
 
-### Can I group multiple app in one subscriptions and recognize the vulnerabilities within each app?
+## Can I recognize the vulnerabilities of multiples app in one subscription?
+
 According to the active authors model,
 it is possible to create
 a large cell with all the developers
@@ -213,6 +232,7 @@ according to the client’s needs.
 When managing only one cell,
 it is important to consider
 the following:
+
 - All users in the project
   can see all the vulnerabilities
   of the application
@@ -229,7 +249,8 @@ the following:
   where each vulnerability
   can be found.
 
-### Can I change the environment when the subscription is already active?
+## Can I change the environment when the subscription is already active?
+
 Yes,
 you can,
 under the condition
@@ -241,7 +262,8 @@ to test the same version
 of the change
 both statically and dynamically.
 
-### How do you ensure the availability of my apps while you test them?
+## How do you ensure the availability of my apps while you test them?
+
 It is possible to cause
 an accidental DoS
 during the hacking service.
@@ -260,7 +282,8 @@ we ask the client
 for a special environment
 within which to carry out the test.
 
-### What happens if I want to review different environments of the same app?
+## What happens if I want to review different environments of the same app?
+
 The service includes
 the environment of the reviewed code.
 It is possible to include

@@ -9,6 +9,7 @@ Here is what we do to reduce information leakage
 when delivering data to the client.
 
 ## Secure information sharing system
+
 We use an information-sharing system with
 [DLP](https://en.wikipedia.org/wiki/Data_loss_prevention_software)
 when sending any sensitive information to our clients.
@@ -16,6 +17,7 @@ This includes contracts, portfolios,
 and other sensitive documents.
 
 ## Signed URLs
+
 [Attack Surface Manager (ASM)](https://app.fluidattacks.com/)
 has the feature of creating
 signed download URLs with an expiration date
@@ -25,6 +27,7 @@ and can only be used by the user
 who requested the download.
 
 ## Onion Routing
+
 The [Fluid Attacks](https://fluidattacks.com/)
 domain supports
 [Onion Routing](https://en.wikipedia.org/wiki/Onion_routing),
@@ -32,6 +35,7 @@ improving privacy of the users
 and enabling more fine-grained protection.
 
 ## Passphrase protected reports
+
 All reports downloaded via
 [Attack Surface Manager (ASM)](https://app.fluidattacks.com/)
 have a randomly generated four-word passphrase.
@@ -40,6 +44,7 @@ of the user who requested the download.
 This applies to both XLS and PDF formats.
 
 ## Watermarked reports
+
 Every report downloaded via
 [Attack Surface Manager (ASM)](https://app.fluidattacks.com/)
 comes with a watermark on all its pages,

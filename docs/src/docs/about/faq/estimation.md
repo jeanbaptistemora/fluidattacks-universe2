@@ -5,7 +5,7 @@ sidebar_label: Estimation
 slug: /about/faq/estimation
 ---
 
-### What information is needed in order to provide a quotation?
+## What information is needed in order to provide a quotation?
 
 To provide a proposal,
 we need to determine
@@ -33,9 +33,9 @@ to the applications in cases
 where this will be included.
 
 1. **Continuous hacking** (`SDLC`):
-Under this model,
-we need to know how many active authors
-will be involved in the project.
+  Under this model,
+  we need to know how many active authors
+  will be involved in the project.
 
 Regarding the health check estimation,
 the same considerations apply

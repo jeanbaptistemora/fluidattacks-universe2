@@ -14,9 +14,9 @@ module that
 - Informs the user about every cookie the site creates.
 
 - Lets users specify which ones to allow,
-thus giving them full control
-over what information we are creating
-and manipulating within their browser.
+  thus giving them full control
+  over what information we are creating
+  and manipulating within their browser.
 
 By doing this,
 we become compliant with security rules

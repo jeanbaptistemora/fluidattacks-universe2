@@ -22,20 +22,20 @@ Our rotation cycles are as follows:
 Rotations are done in these two different ways:
 
 - **Automatic rotation:**
-Some secrets are stored in secret vaults.
-They are only accessible by administrators
-and are rotated daily.
-These secrets include JWT Tokens,
-IAM passphrases,
-and digital certificates.
+  Some secrets are stored in secret vaults.
+  They are only accessible by administrators
+  and are rotated daily.
+  These secrets include JWT Tokens,
+  IAM passphrases,
+  and digital certificates.
 
 - **Manual rotation:**
-Some secrets are stored versioned
-and encrypted in git repositories
-using AES256 symmetric keys.
-They are treated as code,
-meaning that to be rotated a
-[manual approval](https://fluidattacks.com/about/security/#PR)
-needs to be obtained.
-These secrets include KMS keys
-and other application credentials.
+  Some secrets are stored versioned
+  and encrypted in git repositories
+  using AES256 symmetric keys.
+  They are treated as code,
+  meaning that to be rotated a
+  [manual approval](https://fluidattacks.com/about/security/#PR)
+  needs to be obtained.
+  These secrets include KMS keys
+  and other application credentials.

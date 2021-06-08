@@ -5,7 +5,8 @@ sidebar_label: Others
 slug: /about/faq/others
 ---
 
-### Is it possible to schedule follow-up meetings?
+## Is it possible to schedule follow-up meetings?
+
 Yes.
 All applications covered by the contract
 for Continuous Hacking
@@ -15,7 +16,8 @@ We simply require sufficient notice
 of an impending meeting
 in order to schedule availability.
 
-### Does the Squad plan generate reports?
+## Does the Squad plan generate reports?
+
 We generate and deliver,
 through `ASM`,
 a technical report
@@ -27,7 +29,8 @@ Once the project ends,
 and an executive report,
 also in `PDF` format.
 
-### How do I communicate with you?
+## How do I communicate with you?
+
 For the Squad plan,
 communication takes place
 between developers and hackers
@@ -38,7 +41,8 @@ communication is handled
 through the project manager (PM)
 as a single point of contact (SPOC).
 
-### How long does it take you to answer a question in the comment system?
+## How long does it take you to answer a question in the comment system?
+
 All questions made through
 the vulnerabilities comment system,
 have a `4` business hours `SLA`.
@@ -49,7 +53,8 @@ same as Eastern Standard Time `USA`).
 `SLA` is not contractually defined,
 it is our value promise.
 
-### Will you periodically do presentations via teleconferencing?
+## Will you periodically do presentations via teleconferencing?
+
 Yes.
 We can schedule periodic presentations
 via teleconferencing.
@@ -65,28 +70,33 @@ based on your availability and ours,
 and send emails to your list of attendees
 inviting them to participate.
 
-### Do I lose my property rights if you review my source code?
+## Do I lose my property rights if you review my source code?
+
 No.
 Reviewing your code
 in no way compromises
 your proprietary rights
 to that code.
 
-### Who would be performing the work?
+## Who would be performing the work?
+
 Our designated team of hackers.
 
-### Can I see your resumes??
+## Can I see your resumes?
+
 Yes,
 you can access
 the LinkedIn profiles
 of some members of our team
 on our people page.
 
-### What certifications do you have?
+## What certifications do you have?
+
 Please refer to our
 [certifications](https://fluidattacks.com/about-us/certifications/)
 page for further information.
 
-### Do you have liability insurance?
+## Do you have liability insurance?
+
 Yes,
 `1M USD` coverage.

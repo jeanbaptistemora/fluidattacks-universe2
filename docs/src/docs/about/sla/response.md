@@ -5,14 +5,14 @@ sidebar_label: Response
 slug: /about/sla/response
 ---
 
-### Description
+## Description
 
 **90%** of reattacks,
 comments and incidents
 will have a median first response time
 of less than **16** office hours.
 
-### Criteria
+## Criteria
 
 All of the following aspects
 are necessary conditions
@@ -32,7 +32,7 @@ of the service-level agreements:
   comments
   or incidents.
 
-### Details
+## Details
 
 Besides the
 [general measurement aspects](/about/sla#details),

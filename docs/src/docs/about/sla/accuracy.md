@@ -5,12 +5,12 @@ sidebar_label: Accuracy
 slug: /about/sla/accuracy
 ---
 
-### Description
+## Description
 
 **90%** of the severity of vulnerabilities
 is detected and has some level of risk.
 
-### Criteria
+## Criteria
 
 All of the following aspects
 are necessary conditions
@@ -45,7 +45,7 @@ of the service-level agreements:
   up to the potential
   false negative report.
 
-### Details
+## Details
 
 Besides the
 [general measurement aspects](/about/sla#details),

@@ -21,38 +21,38 @@ Some of our IAM specifications
 and requirements are listed below:
 
 - [Passphrases instead of passwords](/criteria/requirements/132)
-(more information [here](https://fluidattacks.com/blog/requiem-password/)).
+  (more information [here](https://fluidattacks.com/blog/requiem-password/)).
 
 - [Passphrases expire every 30 days](/criteria/requirements/130).
 
 - Previous passphrases can only be reused after a
-[24 reset cycle](/criteria/requirements/129).
+  [24 reset cycle](/criteria/requirements/129).
 
 - [Multi-factor authentication](/criteria/requirements/328)
-(MFA) from a mobile device must be set.
+  (MFA) from a mobile device must be set.
 
 - Our MFA uses
-[OOB](/criteria/requirements/153),
-a mechanism that transports all the MFA data
-through a different channel
-than the application’s channel itself.
-Text messages and emails are examples of OOB.
-It reduces the risk in case a communication channel
-becomes compromised.
+  [OOB](/criteria/requirements/153),
+  a mechanism that transports all the MFA data
+  through a different channel
+  than the application’s channel itself.
+  Text messages and emails are examples of OOB.
+  It reduces the risk in case a communication channel
+  becomes compromised.
 
 - We use both
-[SAML](https://en.wikipedia.org/wiki/Security_Assertion_Markup_Language)
-and [Oauth2](https://oauth.net/2/) for logging in.
-These two protocols allow us to log in to external
-applications by only having our IAM active account.
-No passwords or users are needed.
+  [SAML](https://en.wikipedia.org/wiki/Security_Assertion_Markup_Language)
+  and [Oauth2](https://oauth.net/2/) for logging in.
+  These two protocols allow us to log in to external
+  applications by only having our IAM active account.
+  No passwords or users are needed.
 
 - In case a mobile phone supports
-[biometric authentication](/criteria/requirements/231),
-our IAM enforces its usage.
+  [biometric authentication](/criteria/requirements/231),
+  our IAM enforces its usage.
 
 - All successful sessions
-have a duration of 9 hours.
+  have a duration of 9 hours.
 
 ## GPG signature for repository commits
 

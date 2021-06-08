@@ -5,14 +5,16 @@ sidebar_label: Vulnerabilities
 slug: /about/faq/vulnerabilities
 ---
 
-### What is a vulnerability?
+## What is a vulnerability?
+
 A vulnerability is
 anything that represents a security risk
 (Integrity, Availability,
 Confidentiality, Non-repudiation)
 to the application.
 
-### How is the score of a vulnerability calculated?
+## How is the score of a vulnerability calculated?
+
 Fluid Attacks uses
 [CVSS](/about/glossary#cvss)
 (Common Vulnerability Scoring System),
@@ -27,7 +29,8 @@ and most critical level of risk,
 based on the qualitative characteristics
 of a vulnerability.
 
-### Do I get all the information about my vulnerabilities?
+## Do I get all the information about my vulnerabilities?
+
 Continuous Hacking has an interactive reporting platform,
 our Attack Surface Manager (`ASM`).
 `ASM` gives all project stakeholders
@@ -38,7 +41,8 @@ reported by `Fluid Attacks`.
 in our
 [public repository](https://gitlab.com/fluidattacks).)
 
-### What happens when a vulnerability is reported?
+## What happens when a vulnerability is reported?
+
 After a report,
 the main objective for developers
 is to eliminate the vulnerability.
@@ -50,7 +54,8 @@ in order to plan
 and execute corrective measures
 to remove it from the application.
 
-### What happens when a vulnerability is remediated?
+## What happens when a vulnerability is remediated?
+
 Through `ASM`,
 any user with access to the project
 can request verification
@@ -69,13 +74,15 @@ Results of the closing verification
 are then forwarded
 to the project team by email.
 
-### How many closing verifications are included in the Squad plan?
+## How many closing verifications are included in the Squad plan?
+
 The Squad plan offers
 unlimited closing verifications.
 
-### If you have access to the repository, why should I notify you when a vulnerability is remediated?
+## If you can access my repo, why notify you about a remediated vulnerability?
+
 One of the Squad plan's objectives
-is to maintain clear 
+is to maintain clear
 nd effortless communication
 between all project members.
 This is accomplished
@@ -84,7 +91,8 @@ because the message goes through `ASM`
 and by doing so,
 the entire project team is notified.
 
-### What happens if I do not consider something a vulnerability?
+## What happens if I do not consider something a vulnerability?
+
 Within `ASM` there is a comment section.
 A client company can post its reasons
 for believing a vulnerability finding
@@ -97,7 +105,8 @@ as well as the validity of it
 as a security risk,
 and a final determination can be made.
 
-### Do all reported vulnerabilities have to be remediated?
+## Do all reported vulnerabilities have to be remediated?
+
 No.
 However,
 this decision is made entirely by the client,
@@ -112,7 +121,8 @@ whether it will remediate
 or assume responsibility
 for an identified vulnerability.
 
-### If a client does not remediate a vulnerability, is it excluded from ASM?
+## If a client does not remediate a vulnerability, is it excluded from ASM?
+
 No.
 Reports and `ASM`
 include information regarding all vulnerabilities,
@@ -122,7 +132,8 @@ Reports and `ASM`
 will include all the information
 with nothing excluded.
 
-### Do you keep information regarding the vulnerabilities found?
+## Do you keep information regarding the vulnerabilities found?
+
 Information is only kept
 for the duration of the contract.
 Once the contract has ended,
@@ -131,7 +142,8 @@ information is kept for
 and then deleted
 from all our information systems.
 
-### How will our data be erased?
+## How will our data be erased?
+
 `ASM` uses an automated erasing process,
 removing all the project information
 from our systems

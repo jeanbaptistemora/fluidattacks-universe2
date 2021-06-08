@@ -11,54 +11,54 @@ Currently,
 we store logs for:
 
 - **Attack Surface Manager’s (ASM) logging system:**
-[Attack Surface Manager (ASM)](https://app.fluidattacks.com/)
-stores a historical status of projects,
-findings, vulnerabilities,
-and other critical components.
-Changes made to these components
-are always tied to a user and a date.
-The historical status never expires.
+  [Attack Surface Manager (ASM)](https://app.fluidattacks.com/)
+  stores a historical status of projects,
+  findings, vulnerabilities,
+  and other critical components.
+  Changes made to these components
+  are always tied to a user and a date.
+  The historical status never expires.
 
 - **Attack Surface Manager’s (ASM) error tracking system:**
-It provides real-time logging of errors
-that occur in its production environments.
-It is especially useful for quickly detecting
-new errors and hacking attempts.
-These logs never expire.
+  It provides real-time logging of errors
+  that occur in its production environments.
+  It is especially useful for quickly detecting
+  new errors and hacking attempts.
+  These logs never expire.
 
 - **Redundant data centers:**
-These store comprehensive logs
-of all our infrastructure components.
-Logs here never expire.
+  These store comprehensive logs
+  of all our infrastructure components.
+  Logs here never expire.
 
 - **DevSecOps execution:**
-Whenever a client’s
-[CI pipeline](https://fluidattacks.com/about/security/#CI)
-runs DevSecOps,
-logs containing information like who ran it,
-vulnerability status,
-and other relevant data are uploaded to our data centers,
-allowing us to always know the current status of
-our client’s DevSecOps service.
-These logs never expire.
+  Whenever a client’s
+  [CI pipeline](https://fluidattacks.com/about/security/#CI)
+  runs DevSecOps,
+  logs containing information like who ran it,
+  vulnerability status,
+  and other relevant data are uploaded to our data centers,
+  allowing us to always know the current status of
+  our client’s DevSecOps service.
+  These logs never expire.
 
 - **IAM authentication:**
-Our IAM stores logs of login attempts made by users,
-accessed applications,
-and possible threats.
-Logs here expire after seven (7) days.
+  Our IAM stores logs of login attempts made by users,
+  accessed applications,
+  and possible threats.
+  Logs here expire after seven (7) days.
 
 - **Collaboration systems activity:**
-Our collaboration systems such as email, calendar, etc.,
-store comprehensive logs of employee activity,
-spam, phishing and malware emails,
-suspicious login attempts,
-and other potential threats.
-Employee activity logs never expire.
-Other security logs expire after 30 days.
+  Our collaboration systems such as email, calendar, etc.,
+  store comprehensive logs of employee activity,
+  spam, phishing and malware emails,
+  suspicious login attempts,
+  and other potential threats.
+  Employee activity logs never expire.
+  Other security logs expire after 30 days.
 
 - **CI job logs:**
-All our [CI pipelines](https://fluidattacks.com/about/security/#CI)
-provide a full record of who triggered them,
-when, and the console output.
-These logs never expire.
+  All our [CI pipelines](https://fluidattacks.com/about/security/#CI)
+  provide a full record of who triggered them,
+  when, and the console output.
+  These logs never expire.
