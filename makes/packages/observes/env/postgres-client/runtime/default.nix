@@ -24,5 +24,8 @@ makeTemplate {
     envPython38Paths = [
       postgres-client.runtime.python
     ];
+    envSources = [
+      utils-logger.runtime
+    ];
   };
 }

@@ -4,9 +4,7 @@ from __future__ import (
     annotations,
 )
 
-from postgres_client import (
-    utils,
-)
+import logging
 from postgres_client.client import (
     Client,
 )
@@ -42,7 +40,7 @@ from typing import (
     NoReturn,
 )
 
-LOG = utils.get_log(__name__)
+LOG = logging.getLogger(__name__)
 IOResultBool = IOResult[Literal[True], Literal[False]]
 
 
