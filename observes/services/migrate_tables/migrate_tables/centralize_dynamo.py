@@ -43,7 +43,7 @@ def main(
         if is_successful(source_result):
             source = unsafe_perform_io(source_result.unwrap())
             source.migrate(target)
-            source.delete_on_db()
+            source.delete()
         else:
             LOG.info("Schema: %s does not exist", source_result)
     return IO(None)

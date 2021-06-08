@@ -72,7 +72,7 @@ def test_delete_on_db(postgresql_my: Any) -> None:
     db_client = client.new_test_client(postgresql_my)
     factory = SchemaFactory.new(db_client)
     db_schema_io = factory.retrieve("empty_schema", False)
-    db_schema_io.map(lambda schema: schema.delete_on_db())
+    db_schema_io.map(lambda schema: schema.delete())
     result = factory.try_retrieve("empty_schema", False)
     assert not is_successful(result)
 

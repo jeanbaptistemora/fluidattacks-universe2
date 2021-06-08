@@ -1,3 +1,5 @@
+# pylint: skip-file
+
 """Singer target for Amazon Redshift.
 
 Examples:
@@ -16,8 +18,13 @@ Linters:
 import io
 import json
 import jsonschema
+from postgres_client.client import (
+    ClientFactory,
+)
+from postgres_client.schema import (
+    SchemaFactory,
+)
 import psycopg2 as postgres
-import psycopg2.extensions as postgres_extensions
 import sys
 from target_redshift.batcher import (
     Batcher,
@@ -26,8 +33,6 @@ from target_redshift.utils import (
     escape,
     JSON,
     JSON_VALIDATOR,
-    PGCONN,
-    PGCURR,
     str_len,
 )
 from typing import (
@@ -35,7 +40,6 @@ from typing import (
     Dict,
     IO,
     Iterable,
-    Tuple,
 )
 import utils_logger
 
@@ -84,48 +88,6 @@ JSON_SCHEMA_TYPES: JSON = {
         },
     ],
 }
-
-# pylint: disable=logging-format-interpolation
-
-
-def make_access_point(auth: Dict[str, str]) -> Tuple[PGCONN, PGCURR]:
-    """Returns a connection and a cursor to the database.
-
-    It sets the connection to allow write operations.
-    It sets the isolation level to auto-commit.
-
-    Args:
-        auth: A dictionary with the authentication parameters.
-
-    Returns:
-        A tuple with a connection and a cursor to the database.
-    """
-
-    dbcon: PGCONN = postgres.connect(
-        dbname=auth["dbname"],
-        user=auth["user"],
-        password=auth["password"],
-        host=auth["host"],
-        port=auth["port"],
-    )
-
-    dbcon.set_session(readonly=False)
-    dbcon.set_isolation_level(postgres_extensions.ISOLATION_LEVEL_AUTOCOMMIT)
-
-    dbcur: PGCURR = dbcon.cursor()
-
-    return (dbcon, dbcur)
-
-
-def drop_access_point(dbcon: PGCONN, dbcur: PGCURR) -> None:
-    """Safely close the access point.
-
-    Args:
-        dbcon: The database connection.
-        dbcur: The database cursor.
-    """
-    dbcur.close()
-    dbcon.close()
 
 
 def translate_schema(json_schema: JSON) -> Dict[str, str]:
@@ -250,20 +212,6 @@ def translate_record(schema: JSON, record: JSON) -> Dict[str, str]:
 
             new_record[new_field] = new_value
     return new_record
-
-
-def drop_schema(batcher: Batcher, schema_name: str) -> None:
-    """Drop the schema unless it doesn't exist.
-
-    Args:
-        batcher: The query executor.
-        schema_name: The schema to operate over.
-    """
-
-    try:
-        batcher.ex(f'DROP SCHEMA "{schema_name}" CASCADE', True)
-    except postgres.ProgrammingError as exc:
-        LOG.error("EXCEPTION: %s %s", type(exc), exc)
 
 
 def create_schema(batcher: Batcher, schema_name: str) -> None:
@@ -418,14 +366,16 @@ def main(auth_file: IO[str], schema_name: str, drop_schema_flag: bool) -> None:
 
     LOG.info("\n".join(greeting))
 
-    auth = json.load(auth_file)
-
     target_schema = schema_name
     backup_schema = f"{target_schema}_backup"
     loading_schema = f"{target_schema}_loading"
 
+    factory = ClientFactory()
+    client = factory.from_conf(auth_file)
+    schema_factory = SchemaFactory(client)
+
     try:
-        (dbcon, dbcur) = make_access_point(auth)
+        dbcur = client.cursor.db_cursor
 
         if drop_schema_flag:
             # It means user wants to guarantee 100% data integrity
@@ -436,13 +386,17 @@ def main(auth_file: IO[str], schema_name: str, drop_schema_flag: bool) -> None:
 
             # The loading strategy is:
             #   DROP loading_schema
-            drop_schema(batcher, loading_schema)
+            schema_factory.try_retrieve(loading_schema).map(
+                lambda schema: schema.delete(cascade=True)
+            )
             #   MAKE loading_schema
             create_schema(batcher, loading_schema)
             #   LOAD loading_schema
             persist_messages(batcher, loading_schema)
             #   DROP backup_schema IF EXISTS
-            drop_schema(batcher, backup_schema)
+            schema_factory.try_retrieve(backup_schema).map(
+                lambda schema: schema.delete(cascade=True)
+            )
             #   REN  target_schema TO backup_schema
             rename_schema(batcher, target_schema, backup_schema)
             #   REN  loading_schema TO target_schema
@@ -457,4 +411,4 @@ def main(auth_file: IO[str], schema_name: str, drop_schema_flag: bool) -> None:
             batcher = Batcher(dbcur, target_schema)
             persist_messages(batcher, target_schema)
     finally:
-        drop_access_point(dbcon, dbcur)
+        client.close()

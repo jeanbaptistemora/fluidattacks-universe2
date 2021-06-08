@@ -88,8 +88,8 @@ class Schema(Immutable):
         self.cursor.execute_query(query)
         return (item[0] for item in unsafe_perform_io(self.cursor.fetch_all()))
 
-    def delete_on_db(self) -> IO[None]:
-        query = queries.delete(self.name)
+    def delete(self, cascade: bool = False) -> IO[None]:
+        query = queries.delete(self.name, cascade)
         self.cursor.execute_query(query)
         return IO(None)
 

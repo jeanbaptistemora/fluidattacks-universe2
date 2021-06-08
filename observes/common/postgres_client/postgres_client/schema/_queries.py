@@ -25,8 +25,9 @@ def exist(schema: str) -> Query:
     return Query(query, args)
 
 
-def delete(schema: str) -> Query:
-    query: str = "DROP SCHEMA {schema_name}"
+def delete(schema: str, cascade: bool) -> Query:
+    opt = "CASCADE" if cascade else ""
+    query: str = "DROP SCHEMA {schema_name} " + opt
     args = SqlArgs(identifiers={"schema_name": schema})
     return Query(query, args)
 
