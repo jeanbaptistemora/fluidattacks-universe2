@@ -8,9 +8,25 @@ from custom_types import (
     Historic,
 )
 from typing import (
+    Any,
     cast,
     Dict,
 )
+from uuid import (
+    uuid4 as uuid,
+)
+
+
+def get_hash(vuln: Dict[str, Any]) -> int:
+    # Return a unique identifier according to the business rules
+    nonce: str = uuid().hex
+    return hash(
+        (
+            vuln.get("vuln_type", nonce),
+            vuln.get("where", nonce),
+            vuln.get("specific", nonce),
+        ),
+    )
 
 
 def compare_historic_treatments(
