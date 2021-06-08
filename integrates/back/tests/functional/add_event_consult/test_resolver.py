@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 from typing import (
@@ -23,7 +23,7 @@ from typing import (
 async def test_add_event_consult(populate: bool, email: str) -> None:
     assert populate
     event_id: str = "418900971"
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email,
         event=event_id,
     )

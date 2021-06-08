@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 
@@ -16,7 +16,7 @@ import pytest
 )
 async def test_activate_root(populate: bool, root_id: str) -> None:
     assert populate
-    result = await query(
+    result = await get_result(
         email="admin@gmail.com", group_name="group1", id=root_id
     )
     assert "errors" not in result

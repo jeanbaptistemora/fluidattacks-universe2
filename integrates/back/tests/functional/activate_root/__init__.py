@@ -10,7 +10,9 @@ from typing import (
 )
 
 
-async def query(*, email: str, group_name: str, id: str) -> Dict[str, Any]:
+async def get_result(
+    *, email: str, group_name: str, id: str
+) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
             activateRoot(groupName: "{group_name}", id: "{id}") {{

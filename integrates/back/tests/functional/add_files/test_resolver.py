@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 from typing import (
@@ -19,7 +19,7 @@ from typing import (
 )
 async def test_add_files(populate: bool, email: str) -> None:
     assert populate
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email,
         group="group1",
     )
@@ -38,7 +38,7 @@ async def test_add_files(populate: bool, email: str) -> None:
 )
 async def test_add_files_fail(populate: bool, email: str) -> None:
     assert populate
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email,
         group="group1",
     )
