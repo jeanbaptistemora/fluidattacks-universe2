@@ -29,6 +29,12 @@ BY_TYPE: Dict[str, Set[str]] = complete_attrs_on_dict(
         "System.Web.HttpResponse": {
             "StatusDescription",
         },
+        "System.Diagnostics.ProcessStartInfo": {
+            "FileName",
+        },
+        "System.Diagnostics.Process": {
+            "StartInfo",
+        },
     }
 )
 

@@ -8,6 +8,9 @@ from sast_syntax_readers.types import (
 from utils import (
     graph as g,
 )
+from utils.graph.transformation import (
+    build_qualified_name,
+)
 
 
 def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
@@ -41,10 +44,15 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
             if match_equals["="] and (deps_id := match_equals["__0__"]):
                 deps_src = [args.generic(args.fork_n_id(deps_id))]
 
-        var_type = (
-            args.graph.nodes[var_type_id].get("label_text")
-            or args.graph.nodes[var_type_id]["label_type"]
-        )
+        if args.graph.nodes[var_type_id]["label_type"] == "qualified_name":
+            var_type = build_qualified_name(
+                args.graph,
+                var_type_id,
+            )
+        elif label_text := args.graph.nodes[var_type_id].get("label_text"):
+            var_type = label_text
+        else:
+            var_type = args.graph.nodes[var_type_id]["label_type"]
 
         yield graph_model.SyntaxStepDeclaration(
             meta=graph_model.SyntaxStepMeta.default(args.n_id, deps_src),

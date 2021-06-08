@@ -175,6 +175,9 @@ BY_OBJ: Dict[str, Set[str]] = complete_attrs_on_dict(
         "System.Net.WebClient": {
             "OpenRead",
         },
+        "System.Diagnostics.Process": {
+            "Start",
+        },
     }
 )
 BY_OBJ_ARGS: Dict[str, Set[str]] = complete_attrs_on_dict(
