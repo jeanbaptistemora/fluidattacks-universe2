@@ -8,6 +8,7 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { useTranslation } from "react-i18next";
 import { MemoryRouter, Route } from "react-router-dom";
+import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
 import { FindingPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/index";
@@ -676,6 +677,105 @@ describe("Organization findings policies view", (): void => {
 
       await waitForExpect((): void => {
         expect(msgError).toHaveBeenCalledTimes(2);
+      });
+    });
+  });
+
+  it("add organization findings policies mutation with tags", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    jest.clearAllMocks();
+    const { t } = useTranslation();
+
+    const mockMutation: MockedResponse = {
+      request: {
+        query: ADD_ORGANIZATION_FINDING_POLICY,
+        variables: {
+          name: "F060. Insecure exceptions",
+          organizationName: "okada",
+          tags: ["password", "sessions"],
+        },
+      },
+      result: {
+        data: {
+          addOrgFindingPolicy: {
+            success: true,
+          },
+        },
+      },
+    };
+
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[mockFindingTitleQuery, mockQuery, mockMutation]}
+        >
+          <Route path={"/orgs/:organizationName/policies"}>
+            <FindingPolicies
+              findingPolicies={[]}
+              organizationId={organizationId}
+            />
+          </Route>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
+
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(wrapper).toHaveLength(1);
+      });
+    });
+
+    const name: ReactWrapper = wrapper
+      .find("Field")
+      .at(0)
+      .find("input")
+      .first();
+    const tags: ReactWrapper = wrapper
+      .find("Field")
+      .at(1)
+      .find("input")
+      .first();
+
+    const ENTER_ARROW_KEY_CODE = 13;
+    const DELAY: number = 10;
+    await act(async (): Promise<void> => {
+      tags.simulate("change", {
+        target: { name: "tags", value: "password" },
+      });
+      await wait(DELAY);
+
+      tags.simulate("keyDown", { keyCode: ENTER_ARROW_KEY_CODE });
+      tags.simulate("change", {
+        target: { name: "tags", value: "sessions" },
+      });
+      await wait(DELAY);
+
+      tags.simulate("keyDown", { keyCode: ENTER_ARROW_KEY_CODE });
+      name.simulate("change", {
+        target: { name: "name", value: "F060. Insecure exceptions" },
+      });
+      wrapper.update();
+      await wait(DELAY);
+    });
+
+    wrapper.find("Formik").simulate("submit");
+
+    await act(async (): Promise<void> => {
+      expect.hasAssertions();
+
+      wrapper.update();
+
+      await waitForExpect((): void => {
+        expect(msgSuccess).toHaveBeenCalledWith(
+          t("organization.tabs.policies.findings.addPolicies.success"),
+          t("sidebar.newOrganization.modal.successTitle")
+        );
       });
     });
   });
