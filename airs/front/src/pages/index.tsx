@@ -30,7 +30,7 @@ const Index: React.FC<IQueryData> = ({ data }: IQueryData): JSX.Element => (
       author={data.site.siteMetadata.author}
       description={data.site.siteMetadata.description}
       image={
-        "https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_1200/v1622583388/airs/logo_fluid_attacks_2021_eqop3k.webp"
+        "https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_1200/v1622583388/airs/logo_fluid_attacks_2021_eqop3k.png"
       }
       keywords={data.site.siteMetadata.keywords}
       title={data.site.siteMetadata.title}

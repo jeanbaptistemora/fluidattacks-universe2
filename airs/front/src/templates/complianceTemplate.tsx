@@ -63,7 +63,7 @@ const ComplianceIndex: React.FC<IQueryData> = ({
       <Seo
         description={data.asciidoc.pageAttributes.description}
         image={
-          "https://res.cloudinary.com/fluid-attacks/image/upload/v1619637249/airs/compliance/cover-internal-compliance_clerwf.webp"
+          "https://res.cloudinary.com/fluid-attacks/image/upload/v1619637249/airs/compliance/cover-internal-compliance_clerwf.png"
         }
         keywords={data.asciidoc.pageAttributes.keywords}
         title={`${title} | Fluid Attacks`}

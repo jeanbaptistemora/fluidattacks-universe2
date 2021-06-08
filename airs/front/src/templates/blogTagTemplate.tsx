@@ -24,7 +24,7 @@ const blogTagIndex: React.FC<IQueryData> = ({
       <Seo
         description={translate.t("blog.description")}
         image={
-          "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632208/airs/bg-blog_bj0szx.webp"
+          "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632208/airs/bg-blog_bj0szx.png"
         }
         keywords={translate.t("blog.keywords")}
         title={`Blogs about ${tagName} | A Pentesting Company | Fluid Attacks`}

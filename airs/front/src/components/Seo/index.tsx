@@ -7,6 +7,7 @@ import { Helmet } from "react-helmet";
 interface IMetaItem {
   content: string;
   name: string;
+  property?: string;
 }
 
 interface ILinkItem {
@@ -41,6 +42,10 @@ const Seo: React.FC<ISeoProps> = ({
   const siteKeywords: string = keywords!;
   const metaData: IMetaItem[] = [
     {
+      content: siteAuthor,
+      name: "author",
+    },
+    {
       content: siteUrl,
       name: "canonical",
     },
@@ -51,6 +56,7 @@ const Seo: React.FC<ISeoProps> = ({
     {
       content: siteImage,
       name: "image",
+      property: "og:image",
     },
     {
       content: siteUrl,

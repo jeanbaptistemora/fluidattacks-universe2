@@ -46,7 +46,7 @@ const DefaultPage: React.FC<IQueryData> = ({
       <Seo
         description={data.asciidoc.pageAttributes.description}
         image={
-          "https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_1200/v1622583388/airs/logo_fluid_attacks_2021_eqop3k.webp"
+          "https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_1200/v1622583388/airs/logo_fluid_attacks_2021_eqop3k.png"
         }
         keywords={data.asciidoc.pageAttributes.keywords}
         title={`${title} | Fluid Attacks`}

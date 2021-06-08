@@ -41,7 +41,7 @@ const PeopleIndex: React.FC<IQueryData> = ({
 
   const { banner } = data.asciidoc.pageAttributes;
   const metaImage: string =
-    "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632545/airs/about-us/people/cover-people_lxsx5t.webp";
+    "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632545/airs/about-us/people/cover-people_lxsx5t.png";
 
   return (
     <React.Fragment>

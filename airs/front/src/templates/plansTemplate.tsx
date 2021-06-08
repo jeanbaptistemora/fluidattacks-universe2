@@ -78,7 +78,7 @@ const PlansIndex: React.FC<IQueryData> = ({
       <Seo
         description={data.asciidoc.pageAttributes.description}
         image={
-          "https://res.cloudinary.com/fluid-attacks/image/upload/v1619635918/airs/about-us/clients/cover-clients_llnlaw.webp"
+          "https://res.cloudinary.com/fluid-attacks/image/upload/v1619635918/airs/about-us/clients/cover-clients_llnlaw.png"
         }
         keywords={data.asciidoc.pageAttributes.keywords}
         title={`${title} | Fluid Attacks`}

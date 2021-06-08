@@ -106,8 +106,9 @@ const BlogsIndex: React.FC<IQueryData> = ({
   return (
     <React.Fragment>
       <Seo
+        author={data.asciidoc.pageAttributes.author}
         description={data.asciidoc.pageAttributes.description}
-        image={data.asciidoc.pageAttributes.image}
+        image={data.asciidoc.pageAttributes.image.replace(".webp", ".png")}
         keywords={data.asciidoc.pageAttributes.keywords}
         title={`${decode(title)} | Fluid Attacks`}
         url={data.asciidoc.pageAttributes.slug}

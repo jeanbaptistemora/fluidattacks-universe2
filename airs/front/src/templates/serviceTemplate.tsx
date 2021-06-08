@@ -54,7 +54,7 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
     <React.Fragment>
       <Seo
         description={data.asciidoc.pageAttributes.description}
-        image={data.asciidoc.pageAttributes.image}
+        image={data.asciidoc.pageAttributes.image.replace(".webp", ".png")}
         keywords={data.asciidoc.pageAttributes.keywords}
         title={`${title} | Fluid Attacks`}
         url={data.asciidoc.pageAttributes.slug}

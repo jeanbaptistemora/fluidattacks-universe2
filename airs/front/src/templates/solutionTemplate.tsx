@@ -54,7 +54,7 @@ const SolutionIndex: React.FC<IQueryData> = ({
       <Seo
         description={data.asciidoc.pageAttributes.description}
         image={
-          "https://res.cloudinary.com/fluid-attacks/image/upload/v1619630822/airs/solutions/bg-solutions_ylz99o.webp"
+          "https://res.cloudinary.com/fluid-attacks/image/upload/v1619630822/airs/solutions/bg-solutions_ylz99o.png"
         }
         keywords={data.asciidoc.pageAttributes.keywords}
         title={`${title} | Fluid Attacks`}

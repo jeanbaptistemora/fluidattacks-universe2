@@ -20,7 +20,7 @@ const BlogIndex: React.FC<IQueryData> = ({
   } = pageContext;
 
   const blogImage: string =
-    "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632208/airs/bg-blog_bj0szx.webp";
+    "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632208/airs/bg-blog_bj0szx.png";
 
   return (
     <React.Fragment>

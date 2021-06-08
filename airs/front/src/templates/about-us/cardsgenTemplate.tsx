@@ -63,10 +63,10 @@ const CardsgenIndex: React.FC<IQueryData> = ({
   })``;
   const metaImage: string =
     data.asciidoc.pageAttributes.partnersindex === "yes"
-      ? "https://res.cloudinary.com/fluid-attacks/image/upload/v1619633627/airs/partners/cover-partners_n4sshp.webp"
+      ? "https://res.cloudinary.com/fluid-attacks/image/upload/v1619633627/airs/partners/cover-partners_n4sshp.png"
       : data.asciidoc.pageAttributes.clientsindex === "yes"
-      ? "https://res.cloudinary.com/fluid-attacks/image/upload/v1619635918/airs/about-us/clients/cover-clients_llnlaw.webp"
-      : "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632703/airs/about-us/certifications/cover-certifications_dos6xu.webp";
+      ? "https://res.cloudinary.com/fluid-attacks/image/upload/v1619635918/airs/about-us/clients/cover-clients_llnlaw.png"
+      : "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632703/airs/about-us/certifications/cover-certifications_dos6xu.png";
 
   return (
     <React.Fragment>
