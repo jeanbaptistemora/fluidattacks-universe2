@@ -118,7 +118,9 @@ def make_snippet(
             loc_width: int = len(str(lines[-1][0]))
 
             # '>' highlights the line being marked
-            line_no_last: Optional[int] = lines[-2][0]
+            line_no_last: Optional[int] = (
+                lines[-2][0] if len(lines) >= 2 else None
+            )
             for index, (line_no, line) in enumerate(lines):
                 # Highlight this line if requested
                 mark_symbol = (
