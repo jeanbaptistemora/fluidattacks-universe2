@@ -52,7 +52,7 @@ def _raise(excep: Exception) -> NoReturn:
 
 
 def _exist(cursor: Cursor, schema: str) -> IOResultBool:
-    query = queries.exist(schema)
+    query = queries.exist(schema.lower())
     cursor.execute_query(query)
     result = cursor.fetch_one().map(lambda elem: elem[0])
     if result == IO(True):
@@ -116,12 +116,13 @@ class SchemaFactory(NamedTuple):
 
     def try_retrieve(self, name: str) -> IOResult[Schema, SchemaNotExist]:
         exists = _exist(self.client.cursor, name)
+        LOG.debug("schema exists: %s", exists)
         if is_successful(exists):
             return IOSuccess(
                 Schema(
                     _Schema(
                         cursor=self.client.cursor,
-                        name=name,
+                        name=name.lower(),
                         redshift=self.redshift,
                     )
                 )
@@ -134,6 +135,7 @@ class SchemaFactory(NamedTuple):
 
     def delete(self, schema: Schema, cascade: bool = False) -> IO[None]:
         query = queries.delete(schema.name, cascade)
+        LOG.info("Deleting schema: %s", schema.name)
         self.client.cursor.execute_query(query)
         return IO(None)
 

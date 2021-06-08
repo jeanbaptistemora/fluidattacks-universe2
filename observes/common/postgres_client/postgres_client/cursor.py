@@ -4,6 +4,7 @@ from __future__ import (
     annotations,
 )
 
+import logging
 from postgres_client.connection import (
     DbConnection,
 )
@@ -25,6 +26,7 @@ from typing import (
 )
 
 DbCursor = Any
+LOG = logging.getLogger(__name__)
 
 
 class Cursor(NamedTuple):
@@ -38,6 +40,9 @@ class Cursor(NamedTuple):
         stm_values: Dict[str, Optional[str]] = query.args.map(
             lambda args: args.values
         ).value_or({})
+        LOG.debug(
+            "Executing: %s", self.db_cursor.mogrify(query.query, stm_values)
+        )
         self.db_cursor.execute(query.query, stm_values)
         return IO(None)
 
