@@ -7,6 +7,7 @@ import jsonschema
 from jsonschema.validators import (
     Draft4Validator,
 )
+import logging
 from postgres_client.table import (
     Column,
     MetaTable,
@@ -15,8 +16,14 @@ from postgres_client.table import (
 from returns.primitives.types import (
     Immutable,
 )
+from singer_io import (
+    JSON,
+)
 from singer_io.singer import (
     SingerSchema,
+)
+from target_redshift import (
+    LOG,
 )
 from target_redshift.data_types import (
     from_json,
@@ -28,6 +35,8 @@ from typing import (
     NamedTuple,
 )
 
+LOG = logging.getLogger(__name__)
+
 
 def _extract_meta_table(
     db_schema: str, singer_schema: SingerSchema
@@ -37,7 +46,9 @@ def _extract_meta_table(
         for field, ftype in singer_schema.schema["properties"].items()
     )
     table_id = TableID(db_schema, escape(singer_schema.stream.lower()))
-    return MetaTable.new(table_id, frozenset(), columns)
+    return MetaTable.new(
+        table_id, frozenset(map(escape, singer_schema.key_properties)), columns
+    )
 
 
 class _RedshiftSchema(NamedTuple):
@@ -45,10 +56,20 @@ class _RedshiftSchema(NamedTuple):
     validator: Draft4Validator
 
 
+def _validate_schema(validator: Draft4Validator, schema: JSON) -> None:
+    """Prints the validation of a JSON by using the provided validator."""
+    try:
+        validator.check_schema(schema)
+    except jsonschema.exceptions.SchemaError as err:
+        LOG.critical("ERROR: schema did not conform to draft 4.")
+        raise err
+
+
 def _from_singer(
     db_schema: str, singer_schema: SingerSchema
 ) -> _RedshiftSchema:
     validator = jsonschema.Draft4Validator(singer_schema.schema)
+    _validate_schema(validator, singer_schema.schema)
     table = _extract_meta_table(db_schema, singer_schema)
     return _RedshiftSchema(table, validator)
 
