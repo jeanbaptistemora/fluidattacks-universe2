@@ -5,7 +5,9 @@ function main {
   local secrets=(PLAYSTORE_CREDENTIALS)
 
   if has_any_file_changed \
-    'integrates/mobile/app.json'; then
+    'integrates/mobile/app.json' \
+    'integrates/mobile/assets/icon.png' \
+    'integrates/mobile/assets/splash.png'; then
     echo '[INFO] Logging in to AWS...' \
       && aws_login_prod integrates \
       && sops_export_vars __envSecretsProd__ "${secrets[@]}" \
