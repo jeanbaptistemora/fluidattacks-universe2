@@ -147,16 +147,33 @@ async def notify_findings_as_csv(
     stores: Dict[core_model.FindingEnum, EphemeralStore],
     output: str,
 ) -> None:
-    headers = ("title", "what", "where", "cwe")
+    headers = (
+        "finding",
+        "kind",
+        "what",
+        "where",
+        "cwe",
+        "stream",
+        "title",
+        "description",
+        "snippet",
+    )
+
     rows = [
-        {
-            "cwe": " + ".join(sorted(result.skims_metadata.cwe)),
-            "title": t(result.finding.value.title),
-            "what": result.what_on_integrates,
-            "where": result.where,
-        }
+        dict(
+            cwe=" + ".join(sorted(result.skims_metadata.cwe)),
+            description=result.skims_metadata.description,
+            kind=result.kind.value,
+            finding=result.finding.name,
+            snippet=f"\n{snippet}\n",
+            stream=result.stream,
+            title=t(result.finding.value.title),
+            what=result.what_on_integrates,
+            where=result.where,
+        )
         for store in stores.values()
         async for result in store.iterate()
+        for snippet in [result.skims_metadata.snippet.replace("\x00", "")]
         if result.skims_metadata
     ]
 

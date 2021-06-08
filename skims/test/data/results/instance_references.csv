@@ -1,9 +1,201 @@
-title,what,where,cwe
-F034. Insecure random number generation,OWASP/src/App.java,107,330
-F034. Insecure random number generation,OWASP/src/App.java,22,330
-F034. Insecure random number generation,OWASP/src/App.java,34,330
-F034. Insecure random number generation,OWASP/src/App.java,44,330
-F034. Insecure random number generation,OWASP/src/App.java,55,330
-F034. Insecure random number generation,OWASP/src/App.java,76,330
-F034. Insecure random number generation,OWASP/src/App.java,88,330
-F034. Insecure random number generation,OWASP/src/App.java,98,330
+finding,kind,what,where,cwe,stream,title,description,snippet
+F034,lines,OWASP/src/App.java,22,330,skims,F034. Insecure random number generation,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
+","
+   12 |         float rand = new java.util.Random().nextFloat();
+   13 |
+   14 |         String cookieName = ""testInstanceReference"";
+   15 |
+   16 |         // this should initialize a new instance to be used in subsequent statements
+   17 |         User currentUser = new User(""Jane Doe"");
+   18 |
+   19 |         currentUser.setUserId(Float.toString(rand));
+   20 |
+   21 |         String cookieKey = currentUser.getUserId();
+>  22 |         request.getSession().setAttribute(cookieName, cookieKey);
+   23 |     }
+   24 |
+   25 |     public void test_01() {
+   26 |         HttpServletRequest request = new HttpServletRequest();
+   27 |
+   28 |         int rand = new java.util.Random().nextFloat();
+   29 |         String cookieName = ""testInstanceReference"";
+   30 |
+   31 |         User currentUser = new User(""Jane"", Float.toString(rand));
+   32 |         String cookieKey = currentUser.lastName;
+      ^ Col 0
+"
+F034,lines,OWASP/src/App.java,34,330,skims,F034. Insecure random number generation,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
+","
+   24 |
+   25 |     public void test_01() {
+   26 |         HttpServletRequest request = new HttpServletRequest();
+   27 |
+   28 |         int rand = new java.util.Random().nextFloat();
+   29 |         String cookieName = ""testInstanceReference"";
+   30 |
+   31 |         User currentUser = new User(""Jane"", Float.toString(rand));
+   32 |         String cookieKey = currentUser.lastName;
+   33 |
+>  34 |         request.getSession().setAttribute(cookieName, cookieKey);
+   35 |     }
+   36 |
+   37 |     public void test_02() {
+   38 |         HttpServletRequest request = new HttpServletRequest();
+   39 |
+   40 |         int rand = new java.util.Random().nextInt();
+   41 |
+   42 |         User currentUser = new User(""Jane"", ""Doe"", Integer.toString(rand));
+   43 |
+   44 |         request.getSession().setAttribute(""testInstanceReference"", currentUser.lastName);
+      ^ Col 0
+"
+F034,lines,OWASP/src/App.java,44,330,skims,F034. Insecure random number generation,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
+","
+   34 |         request.getSession().setAttribute(cookieName, cookieKey);
+   35 |     }
+   36 |
+   37 |     public void test_02() {
+   38 |         HttpServletRequest request = new HttpServletRequest();
+   39 |
+   40 |         int rand = new java.util.Random().nextInt();
+   41 |
+   42 |         User currentUser = new User(""Jane"", ""Doe"", Integer.toString(rand));
+   43 |
+>  44 |         request.getSession().setAttribute(""testInstanceReference"", currentUser.lastName);
+   45 |     }
+   46 |
+   47 |     public void test_03() {
+   48 |         HttpServletRequest request = new HttpServletRequest();
+   49 |
+   50 |         int rand = new java.util.Random().nextFloat();
+   51 |
+   52 |         User currentUser = new User(""Jane"", ""Doe"", ""xxxxxxxxxx"");
+   53 |         currentUser.userId = Float.toString(rand);
+   54 |
+      ^ Col 0
+"
+F034,lines,OWASP/src/App.java,55,330,skims,F034. Insecure random number generation,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
+","
+   45 |     }
+   46 |
+   47 |     public void test_03() {
+   48 |         HttpServletRequest request = new HttpServletRequest();
+   49 |
+   50 |         int rand = new java.util.Random().nextFloat();
+   51 |
+   52 |         User currentUser = new User(""Jane"", ""Doe"", ""xxxxxxxxxx"");
+   53 |         currentUser.userId = Float.toString(rand);
+   54 |
+>  55 |         request.getSession().setAttribute(""testInstanceReference"", currentUser.getUserId());
+   56 |     }
+   57 |
+   58 |     public void test_04() {
+   59 |         HttpServletRequest request = new HttpServletRequest();
+   60 |
+   61 |         User currentUser = new User(""Jane"", ""Doe"", Generate.createSecureRandom());
+   62 |
+   63 |         request.getSession().setAttribute(""testInstanceReference"", currentUser.lastName);
+   64 |     }
+   65 |
+      ^ Col 0
+"
+F034,lines,OWASP/src/App.java,76,330,skims,F034. Insecure random number generation,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
+","
+   66 |     public void test_05() {
+   67 |         HttpServletRequest request = new HttpServletRequest();
+   68 |         String cookieName = ""testInstanceReference"";
+   69 |
+   70 |         // this should initialize a new instance to be used in subsequent statements
+   71 |         User currentUser = new User(""Jane Doe"");
+   72 |
+   73 |         currentUser.setUserId(Generate.createRandom());
+   74 |
+   75 |         String cookieKey = currentUser.getUserId();
+>  76 |         request.getSession().setAttribute(cookieName, cookieKey);
+   77 |     }
+   78 |
+   79 |     public void test_06() {
+   80 |         HttpServletRequest request = new HttpServletRequest();
+   81 |
+   82 |         String cookieName = ""testInstanceReference"";
+   83 |         int rand = new java.util.Random().nextFloat();
+   84 |
+   85 |         User currentUser = new User(""Jane"", Float.toString(rand));
+   86 |         String cookieKey = currentUser.lastName;
+      ^ Col 0
+"
+F034,lines,OWASP/src/App.java,88,330,skims,F034. Insecure random number generation,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
+","
+   78 |
+   79 |     public void test_06() {
+   80 |         HttpServletRequest request = new HttpServletRequest();
+   81 |
+   82 |         String cookieName = ""testInstanceReference"";
+   83 |         int rand = new java.util.Random().nextFloat();
+   84 |
+   85 |         User currentUser = new User(""Jane"", Float.toString(rand));
+   86 |         String cookieKey = currentUser.lastName;
+   87 |
+>  88 |         request.getSession().setAttribute(cookieName, cookieKey);
+   89 |     }
+   90 |
+   91 |     public void test_07() {
+   92 |         HttpServletRequest request = new HttpServletRequest();
+   93 |
+   94 |         int rand = new java.util.Random().nextInt();
+   95 |
+   96 |         User currentUser = new User(""Jane"", ""Doe"", Integer.toString(rand));
+   97 |
+   98 |         request.getSession().setAttribute(""testInstanceReference"", currentUser.lastName);
+      ^ Col 0
+"
+F034,lines,OWASP/src/App.java,98,330,skims,F034. Insecure random number generation,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
+","
+   88 |         request.getSession().setAttribute(cookieName, cookieKey);
+   89 |     }
+   90 |
+   91 |     public void test_07() {
+   92 |         HttpServletRequest request = new HttpServletRequest();
+   93 |
+   94 |         int rand = new java.util.Random().nextInt();
+   95 |
+   96 |         User currentUser = new User(""Jane"", ""Doe"", Integer.toString(rand));
+   97 |
+>  98 |         request.getSession().setAttribute(""testInstanceReference"", currentUser.lastName);
+   99 |     }
+  100 |
+  101 |     public void test_08() {
+  102 |         HttpServletRequest request = new HttpServletRequest();
+  103 |
+  104 |         User currentUser = new User(""Jane"", ""Doe"", ""xxxxxxxxxx"");
+  105 |         currentUser.userId = this.createRandom();
+  106 |
+  107 |         request.getSession().setAttribute(""testInstanceReference"", currentUser.getUserId());
+  108 |     }
+      ^ Col 0
+"
+F034,lines,OWASP/src/App.java,107,330,skims,F034. Insecure random number generation,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
+","
+   97 |
+   98 |         request.getSession().setAttribute(""testInstanceReference"", currentUser.lastName);
+   99 |     }
+  100 |
+  101 |     public void test_08() {
+  102 |         HttpServletRequest request = new HttpServletRequest();
+  103 |
+  104 |         User currentUser = new User(""Jane"", ""Doe"", ""xxxxxxxxxx"");
+  105 |         currentUser.userId = this.createRandom();
+  106 |
+> 107 |         request.getSession().setAttribute(""testInstanceReference"", currentUser.getUserId());
+  108 |     }
+  109 |
+  110 |     public void test_09() {
+  111 |         HttpServletRequest request = new HttpServletRequest();
+  112 |
+  113 |         String file = request.getParamert(""xxxxxxxxxx"");
+  114 |         Generate.readFile(file);
+  115 |         User currentUser = new User(""Jane"", ""Doe"", ""xxxxxxxxxxxxx"");
+  116 |
+  117 |         request.getSession().setAttribute(""testInstanceReference"", currentUser.lastName);
+      ^ Col 0
+"

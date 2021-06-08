@@ -1,28 +1,676 @@
-title,what,where,cwe
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00012.java,68,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00021.java,59,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00044.java,60,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00630.java,82,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00694.java,61,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00695.java,66,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00947.java,79,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00959.java,81,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01023.java,65,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01241.java,62,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01242.java,62,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01243.java,61,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01326.java,64,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01490.java,62,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01501.java,63,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01568.java,61,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01831.java,79,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01832.java,79,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01902.java,64,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02036.java,69,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02037.java,69,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02196.java,63,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02208.java,66,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02299.java,73,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02305.java,76,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02306.java,75,90
-F107. LDAP injection,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02472.java,64,90
+finding,kind,what,where,cwe,stream,title,description,snippet
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01243.java,61,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   51 |             String base = ""ou=users,ou=system"";
+   52 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   53 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   54 |             String filter = ""(&(objectclass=person)(uid="" + bar + ""))"";
+   55 |
+   56 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   57 |             javax.naming.directory.InitialDirContext idc =
+   58 |                     (javax.naming.directory.InitialDirContext) ctx;
+   59 |             boolean found = false;
+   60 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  61 |                     idc.search(base, filter, sc);
+   62 |
+   63 |             while (results.hasMore()) {
+   64 |                 javax.naming.directory.SearchResult sr =
+   65 |                         (javax.naming.directory.SearchResult) results.next();
+   66 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   67 |
+   68 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   69 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   70 |                 if (attr != null) {
+   71 |                     response.getWriter()
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01568.java,61,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   51 |         try {
+   52 |             response.setContentType(""text/html;charset=UTF-8"");
+   53 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   54 |             String base = ""ou=users,ou=system"";
+   55 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   56 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   57 |             String filter = ""(&(objectclass=person)(uid="" + bar + ""))"";
+   58 |             // System.out.println(""Filter "" + filter);
+   59 |             boolean found = false;
+   60 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  61 |                     ctx.search(base, filter, sc);
+   62 |             while (results.hasMore()) {
+   63 |                 javax.naming.directory.SearchResult sr =
+   64 |                         (javax.naming.directory.SearchResult) results.next();
+   65 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   66 |
+   67 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   68 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   69 |                 if (attr != null) {
+   70 |                     response.getWriter()
+   71 |                             .println(
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01241.java,62,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   52 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   53 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   54 |             String filter = ""(&(objectclass=person))(|(uid="" + bar + "")(street={0}))"";
+   55 |             Object[] filters = new Object[] {""The streetz 4 Ms bar""};
+   56 |
+   57 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   58 |             javax.naming.directory.InitialDirContext idc =
+   59 |                     (javax.naming.directory.InitialDirContext) ctx;
+   60 |             boolean found = false;
+   61 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  62 |                     idc.search(base, filter, filters, sc);
+   63 |             while (results.hasMore()) {
+   64 |                 javax.naming.directory.SearchResult sr =
+   65 |                         (javax.naming.directory.SearchResult) results.next();
+   66 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   67 |
+   68 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   69 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   70 |                 if (attr != null) {
+   71 |                     response.getWriter()
+   72 |                             .println(
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01242.java,62,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   52 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   53 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   54 |             String filter = ""(&(objectclass=person))(|(uid="" + bar + "")(street={0}))"";
+   55 |             Object[] filters = new Object[] {""The streetz 4 Ms bar""};
+   56 |
+   57 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   58 |             javax.naming.directory.InitialDirContext idc =
+   59 |                     (javax.naming.directory.InitialDirContext) ctx;
+   60 |             boolean found = false;
+   61 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  62 |                     idc.search(base, filter, filters, sc);
+   63 |             while (results.hasMore()) {
+   64 |                 javax.naming.directory.SearchResult sr =
+   65 |                         (javax.naming.directory.SearchResult) results.next();
+   66 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   67 |
+   68 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   69 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   70 |                 if (attr != null) {
+   71 |                     response.getWriter()
+   72 |                             .println(
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01490.java,62,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   52 |             response.setContentType(""text/html;charset=UTF-8"");
+   53 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   54 |             String base = ""ou=users,ou=system"";
+   55 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   56 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   57 |             String filter = ""(&(objectclass=person))(|(uid="" + bar + "")(street={0}))"";
+   58 |             Object[] filters = new Object[] {""The streetz 4 Ms bar""};
+   59 |             // System.out.println(""Filter "" + filter);
+   60 |             boolean found = false;
+   61 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  62 |                     ctx.search(base, filter, filters, sc);
+   63 |             while (results.hasMore()) {
+   64 |                 javax.naming.directory.SearchResult sr =
+   65 |                         (javax.naming.directory.SearchResult) results.next();
+   66 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   67 |
+   68 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   69 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   70 |                 if (attr != null) {
+   71 |                     response.getWriter()
+   72 |                             .println(
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01501.java,63,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   53 |             String base = ""ou=users,ou=system"";
+   54 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   55 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   56 |             String filter = ""(&(objectclass=person)(uid="" + bar + ""))"";
+   57 |
+   58 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   59 |             javax.naming.directory.InitialDirContext idc =
+   60 |                     (javax.naming.directory.InitialDirContext) ctx;
+   61 |             boolean found = false;
+   62 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  63 |                     idc.search(base, filter, sc);
+   64 |
+   65 |             while (results.hasMore()) {
+   66 |                 javax.naming.directory.SearchResult sr =
+   67 |                         (javax.naming.directory.SearchResult) results.next();
+   68 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   69 |
+   70 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   71 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   72 |                 if (attr != null) {
+   73 |                     response.getWriter()
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02196.java,63,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   53 |         try {
+   54 |             response.setContentType(""text/html;charset=UTF-8"");
+   55 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   56 |             String base = ""ou=users,ou=system"";
+   57 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   58 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   59 |             String filter = ""(&(objectclass=person)(uid="" + bar + ""))"";
+   60 |             // System.out.println(""Filter "" + filter);
+   61 |             boolean found = false;
+   62 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  63 |                     ctx.search(base, filter, sc);
+   64 |             while (results.hasMore()) {
+   65 |                 javax.naming.directory.SearchResult sr =
+   66 |                         (javax.naming.directory.SearchResult) results.next();
+   67 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   68 |
+   69 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   70 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   71 |                 if (attr != null) {
+   72 |                     response.getWriter()
+   73 |                             .println(
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02472.java,64,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   54 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   55 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   56 |             String filter = ""(&(objectclass=person))(|(uid="" + bar + "")(street={0}))"";
+   57 |             Object[] filters = new Object[] {""The streetz 4 Ms bar""};
+   58 |
+   59 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   60 |             javax.naming.directory.InitialDirContext idc =
+   61 |                     (javax.naming.directory.InitialDirContext) ctx;
+   62 |             boolean found = false;
+   63 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  64 |                     idc.search(base, filter, filters, sc);
+   65 |             while (results.hasMore()) {
+   66 |                 javax.naming.directory.SearchResult sr =
+   67 |                         (javax.naming.directory.SearchResult) results.next();
+   68 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   69 |
+   70 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   71 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   72 |                 if (attr != null) {
+   73 |                     response.getWriter()
+   74 |                             .println(
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01326.java,64,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   54 |             response.setContentType(""text/html;charset=UTF-8"");
+   55 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   56 |             String base = ""ou=users,ou=system"";
+   57 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   58 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   59 |             String filter = ""(&(objectclass=person))(|(uid="" + bar + "")(street={0}))"";
+   60 |             Object[] filters = new Object[] {""The streetz 4 Ms bar""};
+   61 |             // System.out.println(""Filter "" + filter);
+   62 |             boolean found = false;
+   63 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  64 |                     ctx.search(base, filter, filters, sc);
+   65 |             while (results.hasMore()) {
+   66 |                 javax.naming.directory.SearchResult sr =
+   67 |                         (javax.naming.directory.SearchResult) results.next();
+   68 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   69 |
+   70 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   71 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   72 |                 if (attr != null) {
+   73 |                     response.getWriter()
+   74 |                             .println(
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01902.java,64,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   54 |         try {
+   55 |             response.setContentType(""text/html;charset=UTF-8"");
+   56 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   57 |             String base = ""ou=users,ou=system"";
+   58 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   59 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   60 |             String filter = ""(&(objectclass=person)(uid="" + bar + ""))"";
+   61 |             // System.out.println(""Filter "" + filter);
+   62 |             boolean found = false;
+   63 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  64 |                     ctx.search(base, filter, sc);
+   65 |             while (results.hasMore()) {
+   66 |                 javax.naming.directory.SearchResult sr =
+   67 |                         (javax.naming.directory.SearchResult) results.next();
+   68 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   69 |
+   70 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   71 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   72 |                 if (attr != null) {
+   73 |                     response.getWriter()
+   74 |                             .println(
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01023.java,65,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   55 |             response.setContentType(""text/html;charset=UTF-8"");
+   56 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   57 |             String base = ""ou=users,ou=system"";
+   58 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   59 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   60 |             String filter = ""(&(objectclass=person))(|(uid="" + bar + "")(street={0}))"";
+   61 |             Object[] filters = new Object[] {""The streetz 4 Ms bar""};
+   62 |             // System.out.println(""Filter "" + filter);
+   63 |             boolean found = false;
+   64 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  65 |                     ctx.search(base, filter, filters, sc);
+   66 |             while (results.hasMore()) {
+   67 |                 javax.naming.directory.SearchResult sr =
+   68 |                         (javax.naming.directory.SearchResult) results.next();
+   69 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   70 |
+   71 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   72 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   73 |                 if (attr != null) {
+   74 |                     response.getWriter()
+   75 |                             .println(
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02208.java,66,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   56 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   57 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   58 |             String filter = ""(&(objectclass=person))(|(uid="" + bar + "")(street={0}))"";
+   59 |             Object[] filters = new Object[] {""The streetz 4 Ms bar""};
+   60 |
+   61 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   62 |             javax.naming.directory.InitialDirContext idc =
+   63 |                     (javax.naming.directory.InitialDirContext) ctx;
+   64 |             boolean found = false;
+   65 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  66 |                     idc.search(base, filter, filters, sc);
+   67 |             while (results.hasMore()) {
+   68 |                 javax.naming.directory.SearchResult sr =
+   69 |                         (javax.naming.directory.SearchResult) results.next();
+   70 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   71 |
+   72 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   73 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   74 |                 if (attr != null) {
+   75 |                     response.getWriter()
+   76 |                             .println(
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00695.java,66,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   56 |         try {
+   57 |             response.setContentType(""text/html;charset=UTF-8"");
+   58 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   59 |             String base = ""ou=users,ou=system"";
+   60 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   61 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   62 |             String filter = ""(&(objectclass=person)(uid="" + bar + ""))"";
+   63 |             // System.out.println(""Filter "" + filter);
+   64 |             boolean found = false;
+   65 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  66 |                     ctx.search(base, filter, sc);
+   67 |             while (results.hasMore()) {
+   68 |                 javax.naming.directory.SearchResult sr =
+   69 |                         (javax.naming.directory.SearchResult) results.next();
+   70 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   71 |
+   72 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   73 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   74 |                 if (attr != null) {
+   75 |                     response.getWriter()
+   76 |                             .println(
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00012.java,68,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   58 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   59 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   60 |             String filter = ""(&(objectclass=person))(|(uid="" + param + "")(street={0}))"";
+   61 |             Object[] filters = new Object[] {""The streetz 4 Ms bar""};
+   62 |
+   63 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   64 |             javax.naming.directory.InitialDirContext idc =
+   65 |                     (javax.naming.directory.InitialDirContext) ctx;
+   66 |             boolean found = false;
+   67 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  68 |                     idc.search(base, filter, filters, sc);
+   69 |             while (results.hasMore()) {
+   70 |                 javax.naming.directory.SearchResult sr =
+   71 |                         (javax.naming.directory.SearchResult) results.next();
+   72 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   73 |
+   74 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   75 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   76 |                 if (attr != null) {
+   77 |                     response.getWriter()
+   78 |                             .println(
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02036.java,69,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   59 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   60 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   61 |             String filter = ""(&(objectclass=person))(|(uid="" + bar + "")(street={0}))"";
+   62 |             Object[] filters = new Object[] {""The streetz 4 Ms bar""};
+   63 |
+   64 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   65 |             javax.naming.directory.InitialDirContext idc =
+   66 |                     (javax.naming.directory.InitialDirContext) ctx;
+   67 |             boolean found = false;
+   68 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  69 |                     idc.search(base, filter, filters, sc);
+   70 |             while (results.hasMore()) {
+   71 |                 javax.naming.directory.SearchResult sr =
+   72 |                         (javax.naming.directory.SearchResult) results.next();
+   73 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   74 |
+   75 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   76 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   77 |                 if (attr != null) {
+   78 |                     response.getWriter()
+   79 |                             .println(
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02037.java,69,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   59 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   60 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   61 |             String filter = ""(&(objectclass=person))(|(uid="" + bar + "")(street={0}))"";
+   62 |             Object[] filters = new Object[] {""The streetz 4 Ms bar""};
+   63 |
+   64 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   65 |             javax.naming.directory.InitialDirContext idc =
+   66 |                     (javax.naming.directory.InitialDirContext) ctx;
+   67 |             boolean found = false;
+   68 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  69 |                     idc.search(base, filter, filters, sc);
+   70 |             while (results.hasMore()) {
+   71 |                 javax.naming.directory.SearchResult sr =
+   72 |                         (javax.naming.directory.SearchResult) results.next();
+   73 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   74 |
+   75 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   76 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   77 |                 if (attr != null) {
+   78 |                     response.getWriter()
+   79 |                             .println(
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02299.java,73,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   63 |         try {
+   64 |             response.setContentType(""text/html;charset=UTF-8"");
+   65 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   66 |             String base = ""ou=users,ou=system"";
+   67 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   68 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   69 |             String filter = ""(&(objectclass=person)(uid="" + bar + ""))"";
+   70 |             // System.out.println(""Filter "" + filter);
+   71 |             boolean found = false;
+   72 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  73 |                     ctx.search(base, filter, sc);
+   74 |             while (results.hasMore()) {
+   75 |                 javax.naming.directory.SearchResult sr =
+   76 |                         (javax.naming.directory.SearchResult) results.next();
+   77 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   78 |
+   79 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   80 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   81 |                 if (attr != null) {
+   82 |                     response.getWriter()
+   83 |                             .println(
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02306.java,75,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   65 |             String base = ""ou=users,ou=system"";
+   66 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   67 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   68 |             String filter = ""(&(objectclass=person)(uid="" + bar + ""))"";
+   69 |
+   70 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   71 |             javax.naming.directory.InitialDirContext idc =
+   72 |                     (javax.naming.directory.InitialDirContext) ctx;
+   73 |             boolean found = false;
+   74 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  75 |                     idc.search(base, filter, sc);
+   76 |
+   77 |             while (results.hasMore()) {
+   78 |                 javax.naming.directory.SearchResult sr =
+   79 |                         (javax.naming.directory.SearchResult) results.next();
+   80 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   81 |
+   82 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   83 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   84 |                 if (attr != null) {
+   85 |                     response.getWriter()
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02305.java,76,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   66 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   67 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   68 |             String filter = ""(&(objectclass=person))(|(uid="" + bar + "")(street={0}))"";
+   69 |             Object[] filters = new Object[] {""The streetz 4 Ms bar""};
+   70 |
+   71 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   72 |             javax.naming.directory.InitialDirContext idc =
+   73 |                     (javax.naming.directory.InitialDirContext) ctx;
+   74 |             boolean found = false;
+   75 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  76 |                     idc.search(base, filter, filters, sc);
+   77 |             while (results.hasMore()) {
+   78 |                 javax.naming.directory.SearchResult sr =
+   79 |                         (javax.naming.directory.SearchResult) results.next();
+   80 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   81 |
+   82 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   83 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   84 |                 if (attr != null) {
+   85 |                     response.getWriter()
+   86 |                             .println(
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00947.java,79,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   69 |             response.setContentType(""text/html;charset=UTF-8"");
+   70 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   71 |             String base = ""ou=users,ou=system"";
+   72 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   73 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   74 |             String filter = ""(&(objectclass=person))(|(uid="" + bar + "")(street={0}))"";
+   75 |             Object[] filters = new Object[] {""The streetz 4 Ms bar""};
+   76 |             // System.out.println(""Filter "" + filter);
+   77 |             boolean found = false;
+   78 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  79 |                     ctx.search(base, filter, filters, sc);
+   80 |             while (results.hasMore()) {
+   81 |                 javax.naming.directory.SearchResult sr =
+   82 |                         (javax.naming.directory.SearchResult) results.next();
+   83 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   84 |
+   85 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   86 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   87 |                 if (attr != null) {
+   88 |                     response.getWriter()
+   89 |                             .println(
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01831.java,79,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   69 |             response.setContentType(""text/html;charset=UTF-8"");
+   70 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   71 |             String base = ""ou=users,ou=system"";
+   72 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   73 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   74 |             String filter = ""(&(objectclass=person))(|(uid="" + bar + "")(street={0}))"";
+   75 |             Object[] filters = new Object[] {""The streetz 4 Ms bar""};
+   76 |             // System.out.println(""Filter "" + filter);
+   77 |             boolean found = false;
+   78 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  79 |                     ctx.search(base, filter, filters, sc);
+   80 |             while (results.hasMore()) {
+   81 |                 javax.naming.directory.SearchResult sr =
+   82 |                         (javax.naming.directory.SearchResult) results.next();
+   83 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   84 |
+   85 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   86 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   87 |                 if (attr != null) {
+   88 |                     response.getWriter()
+   89 |                             .println(
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01832.java,79,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   69 |             response.setContentType(""text/html;charset=UTF-8"");
+   70 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   71 |             String base = ""ou=users,ou=system"";
+   72 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   73 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   74 |             String filter = ""(&(objectclass=person))(|(uid="" + bar + "")(street={0}))"";
+   75 |             Object[] filters = new Object[] {""The streetz 4 Ms bar""};
+   76 |             // System.out.println(""Filter "" + filter);
+   77 |             boolean found = false;
+   78 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  79 |                     ctx.search(base, filter, filters, sc);
+   80 |             while (results.hasMore()) {
+   81 |                 javax.naming.directory.SearchResult sr =
+   82 |                         (javax.naming.directory.SearchResult) results.next();
+   83 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   84 |
+   85 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   86 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   87 |                 if (attr != null) {
+   88 |                     response.getWriter()
+   89 |                             .println(
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00959.java,81,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   71 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   72 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   73 |             String filter = ""(&(objectclass=person))(|(uid="" + bar + "")(street={0}))"";
+   74 |             Object[] filters = new Object[] {""The streetz 4 Ms bar""};
+   75 |
+   76 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   77 |             javax.naming.directory.InitialDirContext idc =
+   78 |                     (javax.naming.directory.InitialDirContext) ctx;
+   79 |             boolean found = false;
+   80 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  81 |                     idc.search(base, filter, filters, sc);
+   82 |             while (results.hasMore()) {
+   83 |                 javax.naming.directory.SearchResult sr =
+   84 |                         (javax.naming.directory.SearchResult) results.next();
+   85 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   86 |
+   87 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   88 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   89 |                 if (attr != null) {
+   90 |                     response.getWriter()
+   91 |                             .println(
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00630.java,82,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+   72 |             String base = ""ou=users,ou=system"";
+   73 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+   74 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+   75 |             String filter = ""(&(objectclass=person)(uid="" + bar + ""))"";
+   76 |
+   77 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+   78 |             javax.naming.directory.InitialDirContext idc =
+   79 |                     (javax.naming.directory.InitialDirContext) ctx;
+   80 |             boolean found = false;
+   81 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+>  82 |                     idc.search(base, filter, sc);
+   83 |
+   84 |             while (results.hasMore()) {
+   85 |                 javax.naming.directory.SearchResult sr =
+   86 |                         (javax.naming.directory.SearchResult) results.next();
+   87 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+   88 |
+   89 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+   90 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+   91 |                 if (attr != null) {
+   92 |                     response.getWriter()
+      ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00021.java,59,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+  49 |             response.setContentType(""text/html;charset=UTF-8"");
+  50 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+  51 |             String base = ""ou=users,ou=system"";
+  52 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+  53 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+  54 |             String filter = ""(&(objectclass=person))(|(uid="" + param + "")(street={0}))"";
+  55 |             Object[] filters = new Object[] {""The streetz 4 Ms bar""};
+  56 |             // System.out.println(""Filter "" + filter);
+  57 |             boolean found = false;
+  58 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+> 59 |                     ctx.search(base, filter, filters, sc);
+  60 |             while (results.hasMore()) {
+  61 |                 javax.naming.directory.SearchResult sr =
+  62 |                         (javax.naming.directory.SearchResult) results.next();
+  63 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+  64 |
+  65 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+  66 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+  67 |                 if (attr != null) {
+  68 |                     response.getWriter()
+  69 |                             .println(
+     ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00044.java,60,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+  50 |         try {
+  51 |             response.setContentType(""text/html;charset=UTF-8"");
+  52 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+  53 |             String base = ""ou=users,ou=system"";
+  54 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+  55 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+  56 |             String filter = ""(&(objectclass=person)(uid="" + param + ""))"";
+  57 |             // System.out.println(""Filter "" + filter);
+  58 |             boolean found = false;
+  59 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+> 60 |                     ctx.search(base, filter, sc);
+  61 |             while (results.hasMore()) {
+  62 |                 javax.naming.directory.SearchResult sr =
+  63 |                         (javax.naming.directory.SearchResult) results.next();
+  64 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+  65 |
+  66 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+  67 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+  68 |                 if (attr != null) {
+  69 |                     response.getWriter()
+  70 |                             .println(
+     ^ Col 0
+"
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00694.java,61,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+","
+  51 |         try {
+  52 |             response.setContentType(""text/html;charset=UTF-8"");
+  53 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
+  54 |             String base = ""ou=users,ou=system"";
+  55 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
+  56 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
+  57 |             String filter = ""(&(objectclass=person)(uid="" + bar + ""))"";
+  58 |             // System.out.println(""Filter "" + filter);
+  59 |             boolean found = false;
+  60 |             javax.naming.NamingEnumeration<javax.naming.directory.SearchResult> results =
+> 61 |                     ctx.search(base, filter, sc);
+  62 |             while (results.hasMore()) {
+  63 |                 javax.naming.directory.SearchResult sr =
+  64 |                         (javax.naming.directory.SearchResult) results.next();
+  65 |                 javax.naming.directory.Attributes attrs = sr.getAttributes();
+  66 |
+  67 |                 javax.naming.directory.Attribute attr = attrs.get(""uid"");
+  68 |                 javax.naming.directory.Attribute attr2 = attrs.get(""street"");
+  69 |                 if (attr != null) {
+  70 |                     response.getWriter()
+  71 |                             .println(
+     ^ Col 0
+"

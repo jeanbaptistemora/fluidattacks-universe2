@@ -165,7 +165,7 @@ def boxify(
 ) -> str:
     lines: List[str] = string.splitlines()
 
-    width, height = max(map(len, lines)), len(lines)
+    width, height = max(map(len, lines + [""])), len(lines)
 
     missing_height: int = width // width_to_height_ratio - height
 

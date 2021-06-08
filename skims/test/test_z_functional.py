@@ -9,6 +9,7 @@ from contextlib import (
     redirect_stderr,
     redirect_stdout,
 )
+import csv
 from integrates.dal import (
     do_add_git_root,
     do_delete_finding,
@@ -18,6 +19,9 @@ from integrates.dal import (
     get_group_roots,
 )
 import io
+from itertools import (
+    zip_longest,
+)
 from model import (
     core_model,
 )
@@ -27,8 +31,10 @@ from state.ephemeral import (
 )
 from typing import (
     Dict,
+    Iterable,
     List,
     Set,
+    Text,
     Tuple,
 )
 from utils.ctx import (
@@ -74,22 +80,37 @@ def get_suite_produced_results(suite: str) -> str:
     return f"skims/test/outputs/{suite}.csv"
 
 
-def sorted_csv(lines: List[str]) -> List[str]:
-    if len(lines) >= 2:
-        return [lines[0]] + sorted(lines[1:])
+def _format_csv(
+    content: Iterable[Text],
+    *,
+    ignore_snippet: bool,
+) -> List[Dict[str, str]]:
+    result: List[Dict[str, str]] = []
+    for row in csv.DictReader(content):
+        if ignore_snippet:
+            row.pop("snippet")
+        result.append(row)
+    return result
 
-    return lines
 
-
-def check_that_csv_results_match(suite: str) -> None:
+def check_that_csv_results_match(
+    suite: str,
+    *,
+    ignore_snippet: bool = False,
+) -> None:
     with open(get_suite_produced_results(suite)) as produced:
         if SHOULD_UPDATE_TESTS:
             with open(get_suite_expected_results(suite), "w") as expected:
-                expected.writelines(sorted_csv(produced.readlines()))
+                expected.write(produced.read())
                 produced.seek(0)
 
         with open(get_suite_expected_results(suite)) as expected:
-            assert sorted_csv(produced.readlines()) == expected.readlines()
+            for producted_item, expected_item in zip_longest(
+                _format_csv(produced, ignore_snippet=ignore_snippet),
+                _format_csv(expected, ignore_snippet=ignore_snippet),
+                fillvalue=None,
+            ):
+                assert producted_item == expected_item
 
 
 async def get_group_data(
@@ -200,7 +221,7 @@ def test_lib_apk() -> None:
 @pytest.mark.skims_test_group("lib_http")
 @pytest.mark.usefixtures("test_mocks_http")
 def test_lib_http() -> None:
-    _run_no_group("lib_http")
+    _run_no_group("lib_http", ignore_snippet=True)
 
 
 @pytest.mark.flaky(reruns=0)
@@ -329,19 +350,19 @@ def test_nist_c_sharp_f107() -> None:
     _run_no_group("nist_c_sharp_f107")
 
 
-def _run_no_group(suite: str) -> None:
+def _run_no_group(suite: str, *, ignore_snippet: bool = False) -> None:
     code, stdout, stderr = skims("scan", get_suite_config(suite))
     assert code == 0, stdout
     assert "[INFO] Startup working dir is:" in stdout
     assert "[INFO] An output file has been written:" in stdout
     assert "[INFO] Success: True" in stdout
     assert not stderr, stderr
-    check_that_csv_results_match(suite)
+    check_that_csv_results_match(suite, ignore_snippet=ignore_snippet)
 
     # Execute it again to verify that cache retrievals work as expected
     # and are reproducible
     code, stdout, stderr = skims("scan", get_suite_config(suite))
-    check_that_csv_results_match(suite)
+    check_that_csv_results_match(suite, ignore_snippet=ignore_snippet)
 
 
 @run_decorator
