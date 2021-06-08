@@ -13,8 +13,6 @@ function main {
       'REDSHIFT_USER' \
     && pushd sorts \
     && python3.8 training/redshift/db.py init-db \
-    && echo "[INFO] Preparing extracted features data..." \
-    && python3.8 training/merge_features.py \
     && echo "[INFO] Initializing training..." \
     && python3.8 training/sagemaker_provisioner.py \
     && echo "[INFO] Evaluating resulting artifacts..." \
