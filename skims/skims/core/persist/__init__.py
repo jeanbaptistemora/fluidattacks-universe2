@@ -95,12 +95,10 @@ async def upload_evidences(
         random.sample(results, k=number_of_samples),
     )
 
-    evidence_streams: Tuple[BytesIO, ...] = await collect(
-        tuple(
-            to_png(string=result.skims_metadata.snippet)
-            for result in result_samples
-            if result.skims_metadata
-        )
+    evidence_streams: Tuple[BytesIO, ...] = tuple(
+        to_png(string=result.skims_metadata.snippet)
+        for result in result_samples
+        if result.skims_metadata
     )
     evidence_descriptions: Tuple[str, ...] = tuple(
         result.skims_metadata.description

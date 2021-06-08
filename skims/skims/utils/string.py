@@ -117,7 +117,7 @@ async def to_snippet(
     )
 
 
-def boxify_blocking(
+def boxify(
     *,
     width_to_height_ratio: int = 3,
     string: str,
@@ -133,9 +133,9 @@ def boxify_blocking(
     return "\n".join(filling + lines + filling)
 
 
-def _to_png(*, string: str, margin: int = 25) -> BytesIO:
+def to_png(*, string: str, margin: int = 25) -> BytesIO:
     # Make this image rectangular
-    string = boxify_blocking(string=string)
+    string = boxify(string=string)
 
     # This is the number of pixes needed to draw this text, may be big
     size: Tuple[int, int] = DUMMY_DRAWING.textsize(string, font=FONT)
@@ -174,10 +174,6 @@ def _to_png(*, string: str, margin: int = 25) -> BytesIO:
     stream.seek(0)
 
     return stream
-
-
-async def to_png(*, string: str) -> BytesIO:
-    return await in_process(_to_png, string=string)
 
 
 def get_debug_path(path: str) -> str:
