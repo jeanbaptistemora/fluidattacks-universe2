@@ -198,17 +198,17 @@ const getToken = async (): Promise<string> => {
   }
 };
 
-const authLink: ApolloLink = setContext(async (): Promise<
-  Record<string, unknown>
-> => {
-  const token = await getToken();
+const authLink: ApolloLink = setContext(
+  async (): Promise<Record<string, unknown>> => {
+    const token = await getToken();
 
-  return {
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  };
-});
+    return {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    };
+  }
+);
 
 const apiLink: ApolloLink = createHttpLink({
   uri: `${apiHost}/api`,
