@@ -41,7 +41,9 @@ function main {
   use_git_repo_services \
     && groups_file="$(mktemp)" \
     && ls -1 groups > "${groups_file}" \
-    && execute_chunk_parallel extract_features "${groups_file}"
+    && execute_chunk_parallel extract_features "${groups_file}" \
+    && echo "[INFO] Preparing extracted features data..." \
+    && python3.8 training/merge_features.py
 
 }
 
