@@ -25,6 +25,9 @@ from postgres_client.schema import (
     SchemaFactory,
 )
 import psycopg2 as postgres
+from returns.curry import (
+    partial,
+)
 import sys
 from target_redshift.batcher import (
     Batcher,
@@ -214,19 +217,6 @@ def translate_record(schema: JSON, record: JSON) -> Dict[str, str]:
     return new_record
 
 
-def create_schema(batcher: Batcher, schema_name: str) -> None:
-    """Creates the schema unless it currently exist.
-
-    Args:
-        batcher: The query executor.
-        schema_name: The schema to operate over.
-    """
-    try:
-        batcher.ex(f'CREATE SCHEMA "{schema_name}"', True)
-    except postgres.ProgrammingError as exc:
-        LOG.error("EXCEPTION: %s %s", type(exc), exc)
-
-
 def create_table(
     batcher: Batcher,
     schema_name: str,
@@ -257,26 +247,6 @@ def create_table(
             batcher.ex(f"CREATE TABLE {path} ({fields},PRIMARY KEY({pkeys}))")
         else:
             batcher.ex(f"CREATE TABLE {path} ({fields})")
-    except postgres.ProgrammingError as exc:
-        LOG.error("EXCEPTION: %s %s", type(exc), exc)
-
-
-def rename_schema(batcher: Batcher, rename_from: str, rename_to: str) -> None:
-    """Renames the schema.
-
-    It leaves the schema untouched if rename_from don't exist.
-    It leaves the schema untouched if rename_to currently exist.
-
-    If the table exists in the schema, it leave it unchanged.
-
-    Args:
-        batcher: The query executor.
-        rename_from: The schema you wish to rename.
-        rename_to: The schema you wish your schema to be renamed to.
-    """
-    try:
-        statement = f'ALTER SCHEMA "{rename_from}" RENAME TO "{rename_to}"'
-        batcher.ex(statement, True)
     except postgres.ProgrammingError as exc:
         LOG.error("EXCEPTION: %s %s", type(exc), exc)
 
@@ -373,10 +343,8 @@ def main(auth_file: IO[str], schema_name: str, drop_schema_flag: bool) -> None:
     factory = ClientFactory()
     client = factory.from_conf(auth_file)
     schema_factory = SchemaFactory(client)
-
+    dbcur = client.cursor.db_cursor
     try:
-        dbcur = client.cursor.db_cursor
-
         if drop_schema_flag:
             # It means user wants to guarantee 100% data integrity
             # It also implies the use of a loading strategy
@@ -385,22 +353,21 @@ def main(auth_file: IO[str], schema_name: str, drop_schema_flag: bool) -> None:
             batcher = Batcher(dbcur, loading_schema)
 
             # The loading strategy is:
-            #   DROP loading_schema
-            schema_factory.try_retrieve(loading_schema).map(
-                lambda schema: schema_factory.delete(schema, cascade=True)
-            )
-            #   MAKE loading_schema
-            create_schema(batcher, loading_schema)
+            #   RECREATE loading_schema
+            schema_factory.recreate(loading_schema, cascade=True)
             #   LOAD loading_schema
             persist_messages(batcher, loading_schema)
             #   DROP backup_schema IF EXISTS
             schema_factory.try_retrieve(backup_schema).map(
-                lambda schema: schema_factory.delete(schema, cascade=True)
+                partial(schema_factory.delete, cascade=True)
             )
-            #   REN  target_schema TO backup_schema
-            rename_schema(batcher, target_schema, backup_schema)
-            #   REN  loading_schema TO target_schema
-            rename_schema(batcher, loading_schema, target_schema)
+            # RENAME schemas
+            schema_factory.try_retrieve(target_schema).map(
+                partial(schema_factory.rename, new_name=backup_schema)
+            )
+            schema_factory.retrieve(loading_schema).map(
+                partial(schema_factory.rename, new_name=target_schema)
+            )
         else:
             # It means user only wants to push data and
             #   just cares about having it there.

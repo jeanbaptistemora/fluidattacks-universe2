@@ -18,6 +18,9 @@ from postgres_client.table import (
     TableFactory,
     TableID,
 )
+from returns.curry import (
+    partial,
+)
 from returns.io import (
     IO,
     IOFailure,
@@ -139,11 +142,14 @@ class SchemaFactory(NamedTuple):
         self.client.cursor.execute_query(query)
         return self.retrieve(name)
 
-    def recreate(self, schema: Schema, cascade: bool = False) -> IO[Schema]:
-        self.delete(schema, cascade)
-        return self.new_schema(schema.name)
+    def recreate(self, schema_name: str, cascade: bool = False) -> IO[Schema]:
+        self.try_retrieve(schema_name).map(
+            partial(self.delete, cascade=cascade)
+        )
+        return self.new_schema(schema_name)
 
     def rename(self, schema: Schema, new_name: str) -> IO[Schema]:
         query = queries.rename(schema.name, new_name)
+        LOG.info("Renaming schema: %s -> %s", schema.name, new_name)
         self.client.cursor.execute_query(query)
         return self.retrieve(new_name)
