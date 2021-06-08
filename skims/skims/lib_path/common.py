@@ -45,6 +45,7 @@ from utils.function import (
 )
 from utils.string import (
     make_snippet,
+    SnippetViewport,
 )
 from zone import (
     t,
@@ -121,9 +122,11 @@ def get_vulnerabilities_blocking(
                 cwe=tuple(cwe),
                 description=description,
                 snippet=make_snippet(
-                    column=match.start_column,
                     content=content,
-                    line=match.start_line,
+                    viewport=SnippetViewport(
+                        column=match.start_column,
+                        line=match.start_line,
+                    ),
                 ),
             ),
         )
@@ -156,9 +159,8 @@ def get_vulnerabilities_from_iterator_blocking(
                 cwe=tuple(cwe),
                 description=description,
                 snippet=make_snippet(
-                    column=column_no,
                     content=content,
-                    line=line_no,
+                    viewport=SnippetViewport(column=column_no, line=line_no),
                 ),
             ),
         )

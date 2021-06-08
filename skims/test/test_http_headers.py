@@ -38,24 +38,21 @@ def test_as_string() -> None:
                 "Cache-Control": "max-age=3600",
                 "Server": "cloudflare",
             },
-            chars_per_line=40,
+            columns_per_line=40,
         )
         == dedent(
             """
-        ¦ line ¦ Data                                     ¦
-        ¦ ---- ¦ ---------------------------------------- ¦
-        ¦    1 ¦ > GET fluidattacks.com                   ¦
-        ¦    2 ¦ > ...                                    ¦
-        ¦    3 ¦                                          ¦
-        ¦    4 ¦ < Transfer-Encoding: chunked             ¦
-        ¦  > 5 ¦ < Connection: keep-alive                 ¦
-        ¦    6 ¦ < Cache-Control: max-age=3600            ¦
-        ¦    7 ¦ < Server: cloudflare                     ¦
-        ¦    8 ¦                                          ¦
-        ¦    9 ¦ * EOF                                    ¦
-        ¦ ---- ¦ ---------------------------------------- ¦
-               ^ Column 0
-    """
+              1 | > GET fluidattacks.com
+              2 | > ...
+              3 |
+              4 | < Transfer-Encoding: chunked
+            > 5 | < Connection: keep-alive
+              6 | < Cache-Control: max-age=3600
+              7 | < Server: cloudflare
+              8 |
+              9 | * EOF
+                ^ Col 0
+            """
         )[1:-1]
     )
 
@@ -69,21 +66,21 @@ def test_as_string() -> None:
                 "Cache-Control": "max-age=3600",
                 "Server": "cloudflare",
             },
-            chars_per_line=40,
+            columns_per_line=40,
         )
         == dedent(
             """
-        ¦ line ¦ Data                                     ¦
-        ¦ ---- ¦ ---------------------------------------- ¦
-        ¦    4 ¦ < Transfer-Encoding: chunked             ¦
-        ¦    5 ¦ < Connection: keep-alive                 ¦
-        ¦    6 ¦ < Cache-Control: max-age=3600            ¦
-        ¦    7 ¦ < Server: cloudflare                     ¦
-        ¦    8 ¦                                          ¦
-        ¦  > 9 ¦ * EOF                                    ¦
-        ¦ ---- ¦ ---------------------------------------- ¦
-               ^ Column 0
-    """
+              1 | > GET fluidattacks.com
+              2 | > ...
+              3 |
+              4 | < Transfer-Encoding: chunked
+              5 | < Connection: keep-alive
+              6 | < Cache-Control: max-age=3600
+              7 | < Server: cloudflare
+              8 |
+            > 9 | * EOF
+                ^ Col 0
+            """
         )[1:-1]
     )
 
@@ -97,21 +94,23 @@ def test_as_string() -> None:
                 "Cache-Control": "-" * 150,
                 "Server": "cloudflare",
             },
-            chars_per_line=40,
+            columns_per_line=40,
         )
         == dedent(
             """
-        ¦ line ¦ Data                                     ¦
-        ¦ ---- ¦ ---------------------------------------- ¦
-        ¦    9 ¦     ------------------------------------ ¦
-        ¦   10 ¦     ------------------------------------ ¦
-        ¦   11 ¦     ------                               ¦
-        ¦   12 ¦ < Server: cloudflare                     ¦
-        ¦   13 ¦                                          ¦
-        ¦ > 14 ¦ * EOF                                    ¦
-        ¦ ---- ¦ ---------------------------------------- ¦
-               ^ Column 0
-    """
+               4 | < Transfer-Encoding: chunked
+               5 | < Connection: keep-alive
+               6 | < Cache-Control:
+               7 |     ------------------------------------
+               8 |     ------------------------------------
+               9 |     ------------------------------------
+              10 |     ------------------------------------
+              11 |     ------
+              12 | < Server: cloudflare
+              13 |
+            > 14 | * EOF
+                 ^ Col 0
+            """
         )[1:-1]
     )
 
@@ -125,29 +124,26 @@ def test_as_string() -> None:
                 "Cache-Control": "-" * 150,
                 "Server": "cloudflare",
             },
-            chars_per_line=40,
+            columns_per_line=40,
         )
         == dedent(
             """
-        ¦ line ¦ Data                                     ¦
-        ¦ ---- ¦ ---------------------------------------- ¦
-        ¦    1 ¦ > GET fluidattacks.com                   ¦
-        ¦    2 ¦ > ...                                    ¦
-        ¦    3 ¦                                          ¦
-        ¦    4 ¦ < Transfer-Encoding: chunked             ¦
-        ¦    5 ¦ < Connection: keep-alive                 ¦
-        ¦  > 6 ¦ < Cache-Control:                         ¦
-        ¦    7 ¦     ------------------------------------ ¦
-        ¦    8 ¦     ------------------------------------ ¦
-        ¦    9 ¦     ------------------------------------ ¦
-        ¦   10 ¦     ------------------------------------ ¦
-        ¦   11 ¦     ------                               ¦
-        ¦   12 ¦ < Server: cloudflare                     ¦
-        ¦   13 ¦                                          ¦
-        ¦   14 ¦ * EOF                                    ¦
-        ¦ ---- ¦ ---------------------------------------- ¦
-               ^ Column 0
-    """
+               1 | > GET fluidattacks.com
+               2 | > ...
+               3 |
+               4 | < Transfer-Encoding: chunked
+               5 | < Connection: keep-alive
+            >  6 | < Cache-Control:
+               7 |     ------------------------------------
+               8 |     ------------------------------------
+               9 |     ------------------------------------
+              10 |     ------------------------------------
+              11 |     ------
+              12 | < Server: cloudflare
+              13 |
+              14 | * EOF
+                 ^ Col 0
+            """
         )[1:-1]
     )
 

@@ -9,6 +9,7 @@ from typing import (
 from utils.string import (
     make_snippet,
     SNIPPETS_COLUMNS,
+    SnippetViewport,
 )
 
 
@@ -16,9 +17,9 @@ def snippet(
     url: str,
     header: Optional[str],
     headers: Dict[str, str],
+    columns_per_line: int = SNIPPETS_COLUMNS,
     **kwargs: Any,
 ) -> str:
-    chars_per_line: int = kwargs.get("chars_per_line") or SNIPPETS_COLUMNS
     line: int = 3
     found: bool = False
     content: str = f"> GET {url}\n> ...\n\n"
@@ -28,9 +29,9 @@ def snippet(
         if key == header:
             found = True
 
-        if len(val) + len(key) + 6 > chars_per_line:
+        if len(val) + len(key) + 6 > columns_per_line:
             content += f"< {key}:\n"
-            for val_chunk in chunked(val, chars_per_line - 4):
+            for val_chunk in chunked(val, columns_per_line - 4):
                 line += 0 if found else 1
                 content += "    " + "".join(val_chunk) + "\n"
         else:
@@ -43,7 +44,11 @@ def snippet(
 
     return make_snippet(
         content=content,
-        column=0,
-        line=line,
+        viewport=SnippetViewport(
+            columns_per_line=columns_per_line,
+            column=0,
+            line=line,
+            wrap=True,
+        ),
         **kwargs,
     )

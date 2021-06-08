@@ -1,57 +1,48 @@
 import pytest
-from textwrap import (
-    dedent,
-)
+import textwrap
 from utils.string import (
     make_snippet,
+    SnippetViewport,
 )
+
+
+def _dedent(content: str) -> str:
+    return textwrap.dedent(content)[1:-1]
 
 
 @pytest.mark.skims_test_group("unittesting")
-def test_to_snippet() -> None:
-    content: str = dedent(
+def test_make_snippet() -> None:
+    content = _dedent(
         """
-        xxxxx
-        xxxxxxxxxx
-        xxxxxxxxxxxxxxx
-        xxxxxxxxxxxxxxxxxxxx
-        xxxxxxxxxxxxxxxxxxxxxxxxx
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        xxxxxxxxxxxxxxxxxxxxxxxxx
-        xxxxxxxxxxxxxxxxxxxx
-        xxxxxxxxxxxxxxx
-        xxxxxxxxxx
-        xxxxx
-    """
+        aaaaaaaaaabbbbbbbbbbcccccccccc
+        ddddddddddeeeeeeeeeeffffffffff
+        gggggggggghhhhhhhhhhiiiiiiiiii
+        jjjjjjjjjjkkkkkkkkkkllllllllll
+        """
+    )
+    assert make_snippet(content=content) == _dedent(
+        """
+        aaaaaaaaaabbbbbbbbbbcccccccccc
+        ddddddddddeeeeeeeeeeffffffffff
+        gggggggggghhhhhhhhhhiiiiiiiiii
+        jjjjjjjjjjkkkkkkkkkkllllllllll
+        """
     )
 
-    snippet: str = make_snippet(
-        chars_per_line=43,
+    assert make_snippet(
         content=content,
-        context=4,
-        column=39,
-        line=5,
+        viewport=SnippetViewport(
+            columns_per_line=20,
+            column=10,
+            line=2,
+            line_context=1,
+            wrap=True,
+        ),
+    ) == _dedent(
+        """
+            | ccccc
+        > 2 | dddddeeeeeeeeee
+            | fffff
+            ^ Col 5
+        """
     )
-
-    assert (
-        snippet
-        == dedent(
-            """
-        ¦ line ¦ Data                                        ¦
-        ¦ ---- ¦ ------------------------------------------- ¦
-        ¦    3 ¦                                             ¦
-        ¦    4 ¦                                             ¦
-        ¦  > 5 ¦                                             ¦
-        ¦    6 ¦                                             ¦
-        ¦    7 ¦ x                                           ¦
-        ¦    8 ¦ xxxxxxxxxxx                                 ¦
-        ¦    9 ¦ x                                           ¦
-        ¦   10 ¦                                             ¦
-        ¦   11 ¦                                             ¦
-        ¦ ---- ¦ ------------------------------------------- ¦
-               ^ Column 29
-    """
-        )[1:-1]
-    ), snippet

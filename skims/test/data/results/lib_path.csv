@@ -19,8 +19,6 @@ F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f0
 F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/javascript.js,6,798
 F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/javascript.js,7,798
 F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/javascript.js,8,798
-F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/secrets.yaml,1,798
-F009. Sensitive information in source code,namespace/skims/test/data/lib_path/f009/secrets.yaml.json,1,798
 F011. Use of software with known vulnerabilities,namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.0) [CVE-2018-3728],6,937
 F011. Use of software with known vulnerabilities,namespace/skims/test/data/lib_path/f011/package.json (hoek v^5.0.0) [CVE-2018-3728],5,937
 F011. Use of software with known vulnerabilities,namespace/skims/test/data/lib_path/f011/package.json (jquery v0.*) [CVE-2011-4969],7,937

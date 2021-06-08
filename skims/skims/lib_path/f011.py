@@ -39,6 +39,7 @@ from utils.function import (
 )
 from utils.string import (
     make_snippet,
+    SnippetViewport,
 )
 from zone import (
     t,
@@ -295,9 +296,11 @@ def translate_dependencies_to_vulnerabilities(
                     cve=cve,
                 ),
                 snippet=make_snippet(
-                    column=product["column"],
                     content=content,
-                    line=product["line"],
+                    viewport=SnippetViewport(
+                        column=product["column"],
+                        line=product["line"],
+                    ),
                 ),
             ),
         )

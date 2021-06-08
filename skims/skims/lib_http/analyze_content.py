@@ -31,6 +31,7 @@ from utils.ctx import (
 )
 from utils.string import (
     make_snippet,
+    SnippetViewport,
 )
 import viewstate
 from zone import (
@@ -83,9 +84,11 @@ def build_vulnerabilities(
                 cwe=(finding.value.cwe,),
                 description=location.description,
                 snippet=make_snippet(
-                    column=location.column,
                     content=ctx.url.content,
-                    line=location.line,
+                    viewport=SnippetViewport(
+                        column=location.column,
+                        line=location.line,
+                    ),
                 ),
             ),
         )

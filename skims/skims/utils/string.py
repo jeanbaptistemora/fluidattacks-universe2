@@ -10,12 +10,20 @@ from io import (
     BytesIO,
 )
 from itertools import (
-    chain,
     repeat,
+)
+from more_itertools import (
+    chunked,
+)
+from operator import (
+    itemgetter,
 )
 import os
 from typing import (
+    Iterator,
     List,
+    NamedTuple,
+    Optional,
     Set,
     Tuple,
 )
@@ -54,46 +62,98 @@ def to_in_memory_file(string: str) -> BytesIO:
     return BytesIO(string.encode())
 
 
+class SnippetViewport(NamedTuple):
+    column: int
+    line: int
+
+    columns_per_line: int = SNIPPETS_COLUMNS
+    line_context: int = SNIPPETS_CONTEXT
+    wrap: bool = False
+
+
+def _chunked(line: str, chunk_size: int) -> Iterator[str]:
+    if line:
+        yield from chunked(line, n=chunk_size)
+    else:
+        yield ""
+
+
 def make_snippet(
     *,
-    chars_per_line: int = SNIPPETS_COLUMNS,
-    column: int,
     content: str,
-    context: int = SNIPPETS_CONTEXT,
-    line: int,
+    viewport: Optional[SnippetViewport] = None,
 ) -> str:
-    lines: Tuple[str, ...] = tuple(content.replace("\t", " ").splitlines())
-    number_of_lines: int = len(lines)
-    zeros_needed: int = max(len(str(number_of_lines)), 2) + 2
+    # Replace tab by spaces so 1 char renders as 1 symbol
+    lines_raw: List[str] = content.replace("\t", " ").splitlines()
 
-    start_line: int = max(line - context // 2 - 1, 0)
-    end_line: int = min(start_line + 2 * context + 1, number_of_lines)
+    # Build a list of line numbers to line contents, handling wrapping
+    if viewport is not None and viewport.wrap:
+        lines: List[Tuple[int, str]] = [
+            (line_no, "".join(line_chunk))
+            for line_no, line in enumerate(lines_raw, start=1)
+            for line_chunk in _chunked(line, viewport.columns_per_line)
+        ]
+    else:
+        lines = list(enumerate(lines_raw, start=1))
 
-    start_column: int = max(column - chars_per_line // 4, 0)
-    end_column: int = start_column + chars_per_line
-
-    separator: str = f'¦ {"-" * zeros_needed} ¦ {"-" * chars_per_line} ¦'
-    snippet: str = "\n".join(
-        chain(
-            [f'¦ {"line":^{zeros_needed}s} ¦ {"Data":<{chars_per_line}s} ¦'],
-            [separator],
+    if viewport is not None:
+        # Find the vertical center of the snippet
+        viewport_center = next(
             (
-                f"¦ {line_marker!s:>{zeros_needed}s} ¦ "
-                f"{line_content[start_column:end_column]:<{chars_per_line}s} ¦"
-                for line_no, line_content in enumerate(
-                    lines[start_line:end_line],
-                    start=start_line + 1,
-                )
-                for line_marker in [
-                    f"> {line_no}" if line_no == line else line_no
-                ]
+                index
+                for index, (line_no, _) in enumerate(lines)
+                if line_no == viewport.line
             ),
-            [separator],
-            [f'  {"":^{zeros_needed}s} ^ Column {start_column}'],
+            0,
         )
-    )
 
-    return snippet
+        # Find the horizontal left of the snippet
+        # We'll place the center at 25% from the left border
+        viewport_left: int = max(
+            viewport.column - viewport.columns_per_line // 4, 0
+        )
+
+        if lines:
+            # How many chars do we need to write the line number
+            loc_width: int = len(str(lines[-1][0]))
+
+            # '>' highlights the line being marked
+            line_no_last: Optional[int] = lines[-2][0]
+            for index, (line_no, line) in enumerate(lines):
+                # Highlight this line if requested
+                mark_symbol = (
+                    ">"
+                    if line_no == viewport.line and line_no != line_no_last
+                    else " "
+                )
+
+                # Include the line number if not redundant
+                line_no_str = "" if line_no == line_no_last else line_no
+                line_no_last = line_no
+
+                # Slice viewport horizontally
+                line = line[
+                    viewport_left : viewport_left
+                    + viewport.columns_per_line
+                    + 1
+                ]
+
+                # Edit in-place the lines to add the ruler
+                fmt = f"{mark_symbol} {line_no_str!s:>{loc_width}s} | {line}"
+                lines[index] = (line_no, fmt.rstrip(" "))
+
+            # Slice viewport vertically
+            lines = lines[
+                slice(
+                    max(viewport_center - viewport.line_context, 0),
+                    viewport_center + viewport.line_context + 1,
+                )
+            ]
+
+            # Highlight the column if requested
+            lines.append((0, f"  {' ':>{loc_width}} ^ Col {viewport_left}"))
+
+    return "\n".join(map(itemgetter(1), lines))
 
 
 def boxify(

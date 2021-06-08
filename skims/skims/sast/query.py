@@ -20,6 +20,7 @@ from utils.ctx import (
 )
 from utils.string import (
     make_snippet,
+    SnippetViewport,
 )
 from zone import (
     t,
@@ -63,9 +64,11 @@ def get_vulnerability_from_n_id(
                 **desc_params,
             ),
             snippet=make_snippet(
-                column=int(n_attrs_label_column),
                 content=content,
-                line=int(n_attrs_label_line),
+                viewport=SnippetViewport(
+                    column=int(n_attrs_label_column),
+                    line=int(n_attrs_label_line),
+                ),
             ),
         ),
     )
