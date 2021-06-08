@@ -7,8 +7,8 @@ from typing import (
     Optional,
 )
 from utils.string import (
+    make_snippet,
     SNIPPETS_COLUMNS,
-    to_snippet_blocking,
 )
 
 
@@ -41,7 +41,7 @@ def snippet(
     if not found:
         line += 2
 
-    return to_snippet_blocking(
+    return make_snippet(
         content=content,
         column=0,
         line=line,

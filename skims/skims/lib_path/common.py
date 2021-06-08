@@ -44,7 +44,7 @@ from utils.function import (
     shield,
 )
 from utils.string import (
-    to_snippet_blocking,
+    make_snippet,
 )
 from zone import (
     t,
@@ -120,7 +120,7 @@ def get_vulnerabilities_blocking(
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=tuple(cwe),
                 description=description,
-                snippet=to_snippet_blocking(
+                snippet=make_snippet(
                     column=match.start_column,
                     content=content,
                     line=match.start_line,
@@ -155,7 +155,7 @@ def get_vulnerabilities_from_iterator_blocking(
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=tuple(cwe),
                 description=description,
-                snippet=to_snippet_blocking(
+                snippet=make_snippet(
                     column=column_no,
                     content=content,
                     line=line_no,

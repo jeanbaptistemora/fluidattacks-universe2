@@ -3,7 +3,7 @@ from textwrap import (
     dedent,
 )
 from utils.string import (
-    to_snippet_blocking,
+    make_snippet,
 )
 
 
@@ -27,7 +27,7 @@ def test_to_snippet() -> None:
     """
     )
 
-    snippet: str = to_snippet_blocking(
+    snippet: str = make_snippet(
         chars_per_line=43,
         content=content,
         context=4,

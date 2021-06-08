@@ -38,7 +38,7 @@ from utils.function import (
     TIMEOUT_1MIN,
 )
 from utils.string import (
-    to_snippet_blocking,
+    make_snippet,
 )
 from zone import (
     t,
@@ -294,7 +294,7 @@ def translate_dependencies_to_vulnerabilities(
                     version=version["item"],
                     cve=cve,
                 ),
-                snippet=to_snippet_blocking(
+                snippet=make_snippet(
                     column=product["column"],
                     content=content,
                     line=product["line"],

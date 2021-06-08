@@ -30,7 +30,7 @@ from utils.ctx import (
     CTX,
 )
 from utils.string import (
-    to_snippet_blocking,
+    make_snippet,
 )
 import viewstate
 from zone import (
@@ -82,7 +82,7 @@ def build_vulnerabilities(
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=(finding.value.cwe,),
                 description=location.description,
-                snippet=to_snippet_blocking(
+                snippet=make_snippet(
                     column=location.column,
                     content=ctx.url.content,
                     line=location.line,

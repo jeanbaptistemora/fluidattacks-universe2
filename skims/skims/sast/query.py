@@ -19,7 +19,7 @@ from utils.ctx import (
     CTX,
 )
 from utils.string import (
-    to_snippet_blocking,
+    make_snippet,
 )
 from zone import (
     t,
@@ -62,7 +62,7 @@ def get_vulnerability_from_n_id(
                 path=meta_attrs_label_path,
                 **desc_params,
             ),
-            snippet=to_snippet_blocking(
+            snippet=make_snippet(
                 column=int(n_attrs_label_column),
                 content=content,
                 line=int(n_attrs_label_line),

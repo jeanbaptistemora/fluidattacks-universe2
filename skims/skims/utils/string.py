@@ -3,9 +3,6 @@ from PIL import (
     ImageDraw,
     ImageFont,
 )
-from aioextensions import (
-    in_process,
-)
 from difflib import (
     SequenceMatcher,
 )
@@ -57,7 +54,7 @@ def to_in_memory_file(string: str) -> BytesIO:
     return BytesIO(string.encode())
 
 
-def to_snippet_blocking(
+def make_snippet(
     *,
     chars_per_line: int = SNIPPETS_COLUMNS,
     column: int,
@@ -97,24 +94,6 @@ def to_snippet_blocking(
     )
 
     return snippet
-
-
-async def to_snippet(
-    *,
-    chars_per_line: int = SNIPPETS_COLUMNS,
-    column: int,
-    content: str,
-    context: int = SNIPPETS_CONTEXT,
-    line: int,
-) -> str:
-    return await in_process(
-        to_snippet_blocking,
-        chars_per_line=chars_per_line,
-        column=column,
-        content=content,
-        context=context,
-        line=line,
-    )
 
 
 def boxify(
