@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 from custom_exceptions import (
     PolicyAlreadyHandled,
@@ -26,7 +26,7 @@ async def test_submit_organization_finding_policy(
     populate: bool, finding_policy_id: str, email: str
 ) -> None:
     assert populate
-    result = await query(
+    result = await get_result(
         email=email,
         organization_name="orgtest",
         finding_policy_id=finding_policy_id,
@@ -52,7 +52,7 @@ async def test_submit_organization_finding_policy_fail_1(
     populate: bool, finding_policy_id: str, email: str
 ) -> None:
     assert populate
-    result = await query(
+    result = await get_result(
         email=email,
         organization_name="orgtest",
         finding_policy_id=finding_policy_id,
@@ -81,7 +81,7 @@ async def test_submit_organization_finding_policy_fail_2(
     populate: bool, finding_policy_id: str, email: str
 ) -> None:
     assert populate
-    result = await query(
+    result = await get_result(
         email=email,
         organization_name="orgtest",
         finding_policy_id=finding_policy_id,

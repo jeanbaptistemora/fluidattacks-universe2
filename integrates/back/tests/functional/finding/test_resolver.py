@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 from freezegun import (
     freeze_time,
@@ -127,7 +127,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
             },
         ]
     }
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email,
         finding=finding_id,
     )
@@ -293,7 +293,7 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
             },
         ]
     }
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email,
         finding=finding_id,
     )

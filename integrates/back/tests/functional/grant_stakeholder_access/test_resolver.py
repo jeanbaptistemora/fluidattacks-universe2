@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 from typing import (
@@ -23,7 +23,7 @@ async def test_grant_stakeholder_access(populate: bool, email: str) -> None:
     phone_number: str = "-"
     stakeholder_responsibility: str = "test"
     stakeholder_role: str = "EXECUTIVE"
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email,
         stakeholder=stakeholder_email,
         phone=phone_number,
@@ -59,7 +59,7 @@ async def test_grant_stakeholder_access_fail(
     phone_number: str = "-"
     stakeholder_responsibility: str = "test"
     stakeholder_role: str = "EXECUTIVE"
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email,
         stakeholder=stakeholder_email,
         phone=phone_number,

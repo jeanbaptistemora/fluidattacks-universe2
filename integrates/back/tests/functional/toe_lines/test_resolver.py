@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 from typing import (
@@ -27,7 +27,7 @@ from typing import (
 async def test_get_toe_lines(populate: bool, email: str) -> None:
     assert populate
     comments: str = "comment test"
-    result: Dict[str, Any] = await query(user=email, group_name="group1")
+    result: Dict[str, Any] = await get_result(user=email, group_name="group1")
     assert result["data"]["project"]["roots"] == [
         {
             "id": "63298a73-9dff-46cf-b42d-9b2f01a56690",
@@ -89,5 +89,5 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
 )
 async def test_get_toe_lines_error(populate: bool, email: str) -> None:
     assert populate
-    result: Dict[str, Any] = await query(user=email, group_name="group1")
+    result: Dict[str, Any] = await get_result(user=email, group_name="group1")
     assert result["errors"][0]["message"] == "Access denied"

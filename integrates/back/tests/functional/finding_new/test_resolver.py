@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 from freezegun import (
     freeze_time,
@@ -153,7 +153,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
             "justification": "justification",
         },
     ]
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email, finding_id=finding_id, group_name=group_name
     )
     assert "errors" not in result
@@ -344,7 +344,7 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
             "justification": "justification",
         },
     ]
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email, finding_id=finding_id, group_name=group_name
     )
     assert "errors" in result

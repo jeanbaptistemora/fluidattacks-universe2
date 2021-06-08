@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 from typing import (
@@ -23,7 +23,7 @@ async def test_update_evidence_description(populate: bool, email: str) -> None:
     draft_id: str = "475041513"
     draft_description: str = "this is a test description"
     evidence_name: str = "EVIDENCE1"
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email,
         description=draft_description,
         draft=draft_id,
@@ -49,7 +49,7 @@ async def test_update_evidence_description_fail(
     draft_id: str = "475041513"
     draft_description: str = "this is a test description"
     evidence_name: str = "EVIDENCE1"
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email,
         description=draft_description,
         draft=draft_id,

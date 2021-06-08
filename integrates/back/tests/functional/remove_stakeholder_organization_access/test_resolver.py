@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 from typing import (
@@ -22,7 +22,7 @@ async def test_remove_stakeholder_organization_access(
 ) -> None:
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email, org=org_id, stakeholder=email
     )
     assert "errors" not in result
@@ -43,7 +43,7 @@ async def test_remove_stakeholder_organization_access_fail(
 ) -> None:
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email, org=org_id, stakeholder=email
     )
     assert "errors" in result

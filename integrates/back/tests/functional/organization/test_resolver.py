@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 from typing import (
@@ -31,7 +31,7 @@ async def test_get_organization_ver_1(populate: bool, email: str) -> None:
         "resourcer@gmail.com",
         "reviewer@gmail.com",
     ]
-    result: Dict[str, Any] = await query(user=email, org=org_id)
+    result: Dict[str, Any] = await get_result(user=email, org=org_id)
     groups: List[str] = [
         group["name"] for group in result["data"]["organization"]["projects"]
     ]
@@ -67,7 +67,7 @@ async def test_get_organization_ver_e(populate: bool, email: str) -> None:
     org_groups: List[str] = [
         "group1",
     ]
-    result: Dict[str, Any] = await query(user=email, org=org_id)
+    result: Dict[str, Any] = await get_result(user=email, org=org_id)
     groups: List[str] = [
         group["name"] for group in result["data"]["organization"]["projects"]
     ]

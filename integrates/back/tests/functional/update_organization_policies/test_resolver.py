@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 from typing import (
@@ -23,7 +23,7 @@ async def test_update_organization_policies(
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
     org_name: str = "orgtest"
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email,
         id=org_id,
         name=org_name,
@@ -48,7 +48,7 @@ async def test_update_organization_policies_fail(
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
     org_name: str = "orgtest"
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email,
         id=org_id,
         name=org_name,

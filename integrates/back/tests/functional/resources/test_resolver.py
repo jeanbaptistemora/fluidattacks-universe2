@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import json
 import pytest
@@ -49,7 +49,7 @@ async def test_resources(populate: bool, email: str) -> None:
             "upload_date": "2019-08-06 14:28",
         },
     ]
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email,
         group="group1",
     )

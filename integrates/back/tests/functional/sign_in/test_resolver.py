@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 from typing import (
@@ -21,7 +21,7 @@ from typing import (
 )
 async def test_sign_in(populate: bool, email: str) -> None:
     assert populate
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email,
     )
     assert "errors" not in result

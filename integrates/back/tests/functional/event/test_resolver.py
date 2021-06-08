@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 from typing import (
@@ -23,7 +23,7 @@ from typing import (
 async def test_get_event(populate: bool, email: str) -> None:
     assert populate
     event_id: str = "418900971"
-    result: Dict[str, Any] = await query(user=email, event=event_id)
+    result: Dict[str, Any] = await get_result(user=email, event=event_id)
     assert "errors" not in result
     assert "event" in result["data"]
     assert result["data"]["event"]["accessibility"] == "Repositorio"

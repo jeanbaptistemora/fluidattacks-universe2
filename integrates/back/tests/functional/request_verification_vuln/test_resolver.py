@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 from typing import (
@@ -24,7 +24,7 @@ async def test_request_verification_vuln(
 ) -> None:
     assert populate
     finding_id: str = "475041513"
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email, finding=finding_id, vulnerability=vuln_id
     )
     assert "errors" not in result

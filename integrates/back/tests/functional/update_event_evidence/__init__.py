@@ -14,7 +14,7 @@ from typing import (
 )
 
 
-async def query(
+async def get_result(
     *,
     user: str,
     event: str,

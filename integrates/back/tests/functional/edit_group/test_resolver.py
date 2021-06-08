@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 from typing import (
@@ -19,7 +19,7 @@ from typing import (
 async def test_edit_group(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await query(user=email, group=group_name)
+    result: Dict[str, Any] = await get_result(user=email, group=group_name)
     assert "errors" not in result
     assert "success" in result["data"]["editGroup"]
     assert result["data"]["editGroup"]["success"]
@@ -38,6 +38,6 @@ async def test_edit_group(populate: bool, email: str) -> None:
 async def test_edit_group_fail(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await query(user=email, group=group_name)
+    result: Dict[str, Any] = await get_result(user=email, group=group_name)
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"

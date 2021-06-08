@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 from typing import (
@@ -22,7 +22,7 @@ async def test_approve_draft(
 ) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email, finding_id=finding_id, group_name=group_name
     )
     assert "errors" not in result
@@ -45,7 +45,7 @@ async def test_approve_draft_fail(
 ) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email, finding_id=finding_id, group_name=group_name
     )
     assert "errors" in result

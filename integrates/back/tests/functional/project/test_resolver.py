@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 from typing import (
@@ -28,7 +28,7 @@ async def test_get_project(populate: bool, email: str) -> None:
     finding: str = "475041521"
     event: str = "418900971"
     root: str = "63298a73-9dff-46cf-b42d-9b2f01a56690"
-    result: Dict[str, Any] = await query(user=email, group=group_name)
+    result: Dict[str, Any] = await get_result(user=email, group=group_name)
     assert "errors" in result
     assert result["errors"][0]["message"] == "Exception - Document not found"
     assert result["data"]["project"]["name"] == group_name

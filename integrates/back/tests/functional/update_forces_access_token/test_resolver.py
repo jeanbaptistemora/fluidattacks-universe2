@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 from typing import (
@@ -12,7 +12,7 @@ from typing import (
 @pytest.mark.resolver_test_group("update_forces_access_token")
 async def test_admin(populate: bool) -> None:
     assert populate
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user="admin@gmail.com",
         group="group1",
     )
@@ -24,7 +24,7 @@ async def test_admin(populate: bool) -> None:
 @pytest.mark.resolver_test_group("update_forces_access_token")
 async def test_analyst(populate: bool) -> None:
     assert populate
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user="analyst@gmail.com",
         group="group1",
     )
@@ -36,7 +36,7 @@ async def test_analyst(populate: bool) -> None:
 @pytest.mark.resolver_test_group("update_forces_access_token")
 async def test_closer(populate: bool) -> None:
     assert populate
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user="closer@gmail.com",
         group="group1",
     )

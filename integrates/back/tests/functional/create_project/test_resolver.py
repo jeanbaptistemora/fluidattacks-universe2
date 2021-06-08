@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 from typing import (
@@ -20,7 +20,7 @@ async def test_create_project(populate: bool, email: str) -> None:
     assert populate
     org_name: str = "orgtest"
     group_name: str = "group1"
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email, org=org_name, group=group_name
     )
     assert "errors" not in result
@@ -43,7 +43,7 @@ async def test_create_project_fail(populate: bool, email: str) -> None:
     assert populate
     org_name: str = "orgtest"
     group_name: str = "group1"
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email, org=org_name, group=group_name
     )
     assert "errors" in result

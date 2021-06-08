@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 from typing import (
@@ -20,7 +20,7 @@ from typing import (
 async def test_remove_tag(populate: bool, email: str, tag_name: str) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email, group=group_name, tag=tag_name
     )
     assert "errors" not in result
@@ -42,7 +42,7 @@ async def test_remove_tag_fail(populate: bool, email: str) -> None:
     assert populate
     tag_name: str = "test2"
     group_name: str = "group1"
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email, group=group_name, tag=tag_name
     )
     assert "errors" in result

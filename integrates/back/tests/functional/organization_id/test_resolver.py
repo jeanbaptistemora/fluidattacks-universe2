@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 from typing import (
@@ -13,7 +13,9 @@ from typing import (
 async def test_admin(populate: bool) -> None:
     assert populate
     org_name: str = "orgtest"
-    result: Dict[str, Any] = await query(user="admin@gmail.com", org=org_name)
+    result: Dict[str, Any] = await get_result(
+        user="admin@gmail.com", org=org_name
+    )
     assert "errors" not in result
     assert (
         result["data"]["organizationId"]["id"]
@@ -26,7 +28,7 @@ async def test_admin(populate: bool) -> None:
 async def test_analyst(populate: bool) -> None:
     assert populate
     org_name: str = "orgtest"
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user="analyst@gmail.com", org=org_name
     )
     assert "errors" not in result

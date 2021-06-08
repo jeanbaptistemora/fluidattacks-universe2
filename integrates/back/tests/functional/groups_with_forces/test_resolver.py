@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 from typing import (
@@ -20,7 +20,7 @@ async def test_group_with_forces(populate: bool, email: str) -> None:
     assert populate
     group_forces: str = "group2"
     group_not_forces: str = "group1"
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email,
     )
     assert "errors" not in result
@@ -39,7 +39,7 @@ async def test_group_with_forces(populate: bool, email: str) -> None:
 )
 async def test_group_with_forces_fail(populate: bool, email: str) -> None:
     assert populate
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email,
     )
     assert "errors" in result

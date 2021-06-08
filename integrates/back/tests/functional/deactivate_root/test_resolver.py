@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 from typing import (
@@ -29,7 +29,7 @@ async def test_deactivate_root(
     populate: bool, root_id: str, reason: str, new_root_id: Optional[str]
 ) -> None:
     assert populate
-    result = await query(
+    result = await get_result(
         email="admin@gmail.com",
         group_name="group1",
         id=root_id,

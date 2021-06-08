@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
     query_get,
 )
 from .constants import (
@@ -17,7 +17,7 @@ from typing import (
 @pytest.mark.parametrize(["email"], USERS_EMAILS)
 async def test_update_toe_lines_sorts(populate: bool, email: str) -> None:
     assert populate
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email,
         group_name="group1",
         filename="integrates_1/test2/test.sh",
@@ -76,7 +76,7 @@ async def test_update_toe_lines_sorts_no_filename(
     populate: bool, email: str
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email,
         group_name="group1",
         filename="non_existing_filename",

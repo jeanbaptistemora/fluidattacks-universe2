@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 from custom_exceptions import (
     ExpectedVulnToBeOfLinesType,
@@ -24,7 +24,7 @@ VULN_SPECIFIC_GOOD = "10"
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_vuln_commit")
 async def test_good_user_good_vuln() -> None:
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         stakeholder=STAKEHOLDER_GOOD,
         vuln_commit=VULN_COMMIT_GOOD,
         vuln_id=VULN_ID_GOOD,
@@ -37,7 +37,7 @@ async def test_good_user_good_vuln() -> None:
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_vuln_commit")
 async def test_good_user_bad_commit() -> None:
-    result = await query(
+    result = await get_result(
         stakeholder=STAKEHOLDER_GOOD,
         vuln_commit="0123456",
         vuln_id=VULN_ID_GOOD,
@@ -45,7 +45,7 @@ async def test_good_user_bad_commit() -> None:
         vuln_specific=VULN_SPECIFIC_GOOD,
     )
     assert result["errors"][0]["message"] == InvalidVulnCommitHash.msg
-    result = await query(
+    result = await get_result(
         stakeholder=STAKEHOLDER_GOOD,
         vuln_commit="x" * 40,
         vuln_id=VULN_ID_GOOD,
@@ -58,7 +58,7 @@ async def test_good_user_bad_commit() -> None:
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_vuln_commit")
 async def test_good_user_bad_id() -> None:
-    result = await query(
+    result = await get_result(
         stakeholder=STAKEHOLDER_GOOD,
         vuln_commit=VULN_COMMIT_GOOD,
         vuln_id="not-exists",
@@ -73,7 +73,7 @@ async def test_good_user_bad_id() -> None:
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_vuln_commit")
 async def test_good_user_bad_where() -> None:
-    result = await query(
+    result = await get_result(
         stakeholder=STAKEHOLDER_GOOD,
         vuln_commit=VULN_COMMIT_GOOD,
         vuln_id=VULN_ID_GOOD,
@@ -86,7 +86,7 @@ async def test_good_user_bad_where() -> None:
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_vuln_commit")
 async def test_good_user_bad_specific() -> None:
-    result = await query(
+    result = await get_result(
         stakeholder=STAKEHOLDER_GOOD,
         vuln_commit=VULN_COMMIT_GOOD,
         vuln_id=VULN_ID_GOOD,
@@ -99,7 +99,7 @@ async def test_good_user_bad_specific() -> None:
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_vuln_commit")
 async def test_good_user_bad_type() -> None:
-    result = await query(
+    result = await get_result(
         stakeholder=STAKEHOLDER_GOOD,
         vuln_commit=VULN_COMMIT_GOOD,
         vuln_id="77b88be2-37c8-429b-a519-029b1c32fdcd",
@@ -112,7 +112,7 @@ async def test_good_user_bad_type() -> None:
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_vuln_commit")
 async def test_bad_user_good_vuln() -> None:
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         stakeholder="someone-without-access@gmail.com",
         vuln_commit=VULN_COMMIT_GOOD,
         vuln_id=VULN_ID_GOOD,

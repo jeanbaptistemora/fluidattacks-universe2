@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 from typing import (
@@ -22,7 +22,7 @@ from typing import (
 async def test_download_file(populate: bool, email: str) -> None:
     assert populate
     file_name: str = "test.zip"
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email,
         group="group1",
         f_name=file_name,

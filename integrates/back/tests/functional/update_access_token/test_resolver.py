@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 from datetime import (
     datetime,
@@ -27,7 +27,7 @@ async def test_update_access_token(populate: bool, email: str) -> None:
     assert populate
     expiration_time: Any = datetime.utcnow() + timedelta(weeks=8)
     ts_expiration_time: int = int(expiration_time.timestamp())
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email,
         expiration_time=ts_expiration_time,
     )

@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 from typing import (
@@ -40,6 +40,6 @@ async def test_get_events(populate: bool, email: str) -> None:
         },
     ]
     group_name: str = "group1"
-    result: Dict[str, Any] = await query(user=email, group=group_name)
+    result: Dict[str, Any] = await get_result(user=email, group=group_name)
     assert "errors" not in result
     assert result["data"]["events"] == expected

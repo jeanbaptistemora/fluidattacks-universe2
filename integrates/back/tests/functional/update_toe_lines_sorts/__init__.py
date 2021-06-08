@@ -10,7 +10,7 @@ from typing import (
 )
 
 
-async def query(
+async def get_result(
     *, user: str, group_name: str, filename: str, sorts_risk_level: int
 ) -> Dict[str, Any]:
     query: str = f"""

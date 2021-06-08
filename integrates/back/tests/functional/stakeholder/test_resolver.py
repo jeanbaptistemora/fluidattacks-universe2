@@ -1,5 +1,5 @@
 from . import (
-    query,
+    get_result,
 )
 import pytest
 from typing import (
@@ -20,7 +20,7 @@ from typing import (
 async def test_get_stakeholder(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email,
         stakeholder=email,
         group=group_name,
@@ -47,7 +47,7 @@ async def test_get_stakeholder(populate: bool, email: str) -> None:
 async def test_get_stakeholder_fail(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await query(
+    result: Dict[str, Any] = await get_result(
         user=email,
         stakeholder=email,
         group=group_name,
