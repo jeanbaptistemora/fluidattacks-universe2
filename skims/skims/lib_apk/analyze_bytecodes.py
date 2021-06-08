@@ -4,12 +4,19 @@ from lib_apk.types import (
 from model import (
     core_model,
 )
+import textwrap
 from typing import (
     Callable,
     Dict,
     List,
     NamedTuple,
-    Optional,
+)
+from utils.ctx import (
+    CTX,
+)
+from utils.string import (
+    make_snippet,
+    SnippetViewport,
 )
 from zone import (
     t,
@@ -22,6 +29,7 @@ class APKCheckCtx(NamedTuple):
 
 class Location(NamedTuple):
     description: str
+    snippet: str
 
 
 class Locations(NamedTuple):
@@ -30,16 +38,63 @@ class Locations(NamedTuple):
     def append(
         self,
         desc: str,
-        desc_kwargs: Optional[Dict[str, str]] = None,
+        snippet: str,
+        **desc_kwargs: str,
     ) -> None:
         self.locations.append(
             Location(
                 description=t(
                     f"lib_apk.analyze_bytecodes.{desc}",
-                    **(desc_kwargs or {}),
+                    **desc_kwargs,
                 ),
+                snippet=snippet,
             )
         )
+
+
+def _create_vulns(
+    ctx: APKCheckCtx,
+    finding: core_model.FindingEnum,
+    locations: Locations,
+) -> core_model.Vulnerabilities:
+    return tuple(
+        core_model.Vulnerability(
+            finding=finding,
+            kind=core_model.VulnerabilityKindEnum.INPUTS,
+            namespace=CTX.config.namespace,
+            state=core_model.VulnerabilityStateEnum.OPEN,
+            stream="home,apk,bytecodes",
+            what=ctx.apk_ctx.path,
+            where=location.description,
+            skims_metadata=core_model.SkimsVulnerabilityMetadata(
+                cwe=(finding.value.cwe,),
+                description=location.description,
+                snippet=location.snippet,
+            ),
+        )
+        for location in locations.locations
+    )
+
+
+def _add_apk_unsigned_not_signed_location(
+    ctx: APKCheckCtx,
+    locations: Locations,
+) -> None:
+    locations.append(
+        desc="apk_unsigned.not_signed",
+        snippet=make_snippet(
+            content=textwrap.dedent(
+                f"""
+                $ python3.8
+                >>> from androguard.core.bytecodes.apk import APK  # 3.3.5
+                >>> apk = APK({repr(ctx.apk_ctx.path)})
+                >>> apk.get_signature_names()
+                []  # Empty list
+                """
+            )[1:],
+            viewport=SnippetViewport(column=0, line=4, wrap=True),
+        ),
+    )
 
 
 def _apk_unsigned(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
@@ -49,9 +104,13 @@ def _apk_unsigned(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
         signatures: List[str] = ctx.apk_ctx.apk_obj.get_signature_names()
 
         if not signatures:
-            locations.append("apk_unsigned.not_signed")
+            _add_apk_unsigned_not_signed_location(ctx, locations)
 
-    return ()
+    return _create_vulns(
+        ctx=ctx,
+        finding=core_model.FindingEnum.F103_APK_UNSIGNED,
+        locations=locations,
+    )
 
 
 def get_check_ctx(apk_ctx: APKContext) -> APKCheckCtx:
