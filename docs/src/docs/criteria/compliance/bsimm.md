@@ -12,7 +12,7 @@ of software security initiatives (SSIs),
 also known as
 application / product security programs.
 The version used in this section
-is **BSIMM9**.
+is [**BSIMM9**](https://www.bsimm.com/content/dam/bsimm/reports/bsimm9.pdf).
 
 ## Correlation
 

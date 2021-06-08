@@ -23,7 +23,7 @@ by the reliability of the North American bulk power system.
 
  - 003-8. Section 5 - 5.1 - For Transient Cyber Assets
 
-    - [04 - Scan files for malicious code](/criteria/requirements/041)
+    - [041. Scan files for malicious code](/criteria/requirements/041)
 
     - [273. Define a fixed security suite](/criteria/requirements/273)
 
@@ -39,7 +39,7 @@ by the reliability of the North American bulk power system.
 
     - [096. Set users' required privileges](/criteria/requirements/096)
 
-    - [34 - Use the principle of deny by default](/criteria/requirements/341)
+    - [341. Use the principle of deny by default](/criteria/requirements/341)
 
  - [005-5. R1.4 - Perform authentication when establishing Dial-up Connectivity](/criteria/requirements/264)
 
@@ -73,7 +73,7 @@ by the reliability of the North American bulk power system.
 
  - 011-2. R1.2 - Procedures for protecting and securelyhandling BES Cyber System Information
 
-    - [18 - Transmit data using secure protocols](/criteria/requirements/181)
+    - [181. Transmit data using secure protocols](/criteria/requirements/181)
 
     - [185. Encrypt sensitive information](/criteria/requirements/185)
 

@@ -11,249 +11,271 @@ for developers and web application security.
 It represents a broad consensus
 about the most critical security risks
 to web applications.
+The version used in this section is
+[**Owasp top 10:2017**](https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf).
 
 ## Correlation
 
-1. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/037)
+- A1-Injection
 
-1. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/043)
+    - [037. Parameters without sensitive data](/criteria/requirements/037)
 
-1. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/050)
+    - [043. Define an explicit content type](/criteria/requirements/043)
 
-1. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/117)
+    - [050. Control calls to interpreted code](/criteria/requirements/050)
 
-1. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/160)
+    - [117. Do not interpret HTML code](/criteria/requirements/117)
 
-1. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/169)
+    - [160. Encode system outputs](/criteria/requirements/160)
 
-1. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/173)
+    - [169. Use parameterized queries](/criteria/requirements/169)
 
-1. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/321)
+    - [173. Discard unsafe inputs](/criteria/requirements/173)
 
-1. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/340)
+    - [321. Avoid deserializing untrusted data](/criteria/requirements/321)
 
-1. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/342)
+    - [340. Use octet stream downloads](/criteria/requirements/340)
 
-1. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/344)
+    - [342. Validate request parameters](/criteria/requirements/342)
 
-1. [OWASP Top 10 A1:2017-Injection](/criteria/requirements/349)
+    - [344. Avoid dynamic code execution](/criteria/requirements/344)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/023)
+    - [349. Include HTTP security headers](/criteria/requirements/349)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/025)
+- A2-Broken Authentication
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/026)
+    - [023. Terminate inactive user sessions](/criteria/requirements/023)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/027)
+    - [025. Manage concurrent sessions](/criteria/requirements/025)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/028)
+    - [026. Encrypt client-side session information](/criteria/requirements/026)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/029)
+    - [027. Allow session lockout](/criteria/requirements/027)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/030)
+    - [028. Allow users to log out](/criteria/requirements/028)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/031)
+    - [029. Cookies with security attributes](/criteria/requirements/029)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/032)
+    - [030. Avoid object reutilization](/criteria/requirements/030)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/088)
+    - [031. Discard user session data](/criteria/requirements/031)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/114)
+    - [032. Avoid session ID leakages](/criteria/requirements/032)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/131)
+    - [088. Request client certificates](/criteria/requirements/088)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/139)
+    - [114. Deny access with inactive credentials](/criteria/requirements/114)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/140)
+    - [131. Deny multiple password changing attempts](/criteria/requirements/131)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/141)
+    - [139. Set minimum OTP length](/criteria/requirements/139)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/142)
+    - [140. Define OTP lifespan](/criteria/requirements/140)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/143)
+    - [141. Force re-authentication](/criteria/requirements/141)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/153)
+    - [142. Change system default credentials](/criteria/requirements/142)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/209)
+    - [143. Unique access credentials](/criteria/requirements/143)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/225)
+    - [153. Out of band transactions](/criteria/requirements/153)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/226)
+    - [209. Manage passwords in cache](/criteria/requirements/209)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/228)
+    - [225. Proper authentication responses](/criteria/requirements/225)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/229)
+    - [226. Avoid account lockouts](/criteria/requirements/226)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/231)
+    - [228. Authenticate using standard protocols](/criteria/requirements/228)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/236)
+    - [229. Request access credentials](/criteria/requirements/229)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/237)
+    - [231. Implement a biometric verification component](/criteria/requirements/231)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/238)
+    - [236. Establish authentication time](/criteria/requirements/236)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/264)
+    - [237. Ascertain human interaction](/criteria/requirements/237)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/319)
+    - [238. Establish safe recovery](/criteria/requirements/238)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/320)
+    - [264. Request authentication](/criteria/requirements/264)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/328)
+    - [319. Make authentication options equally secure](/criteria/requirements/319)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/332)
+    - [320. Avoid client-side control enforcement](/criteria/requirements/320)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/334)
+    - [328. Request MFA for critical systems](/criteria/requirements/328)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/335)
+    - [332. Prevent the use of breached passwords](/criteria/requirements/332)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/347)
+    - [334. Avoid knowledge-based authentication](/criteria/requirements/334)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/357)
+    - [335. Define out of band token lifespan](/criteria/requirements/335)
 
-1. [OWASP Top 10 A2:2017-Broken Authentication](/criteria/requirements/362)
+    - [347. Invalidate previous OTPs](/criteria/requirements/347)
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/024)
+    - [357. Use stateless session tokens](/criteria/requirements/357)
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/029)
+    - [362. Assign MFA mechanisms to a single account](/criteria/requirements/362)
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/032)
+- A3-Sensitive Data Exposure
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/037)
+    - [024. Transfer information using session objects](/criteria/requirements/024)
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/045)
+    - [029. Cookies with security attributes](/criteria/requirements/029)
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/083)
+    - [032. Avoid session ID leakages](/criteria/requirements/032)
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/145)
+    - [037. Parameters without sensitive data](/criteria/requirements/037)
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/156)
+    - [045. Remove metadata when sharing files](/criteria/requirements/045)
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/176)
+    - [083. Avoid logging sensitive data](/criteria/requirements/083)
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/177)
+    - [145. Protect system cryptographic keys](/criteria/requirements/145)
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/180)
+    - [156. Source code without sensitive information](/criteria/requirements/156)
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/181)
+    - [176. Restrict system objects](/criteria/requirements/176)
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/183)
+    - [177. Avoid caching and temporary files](/criteria/requirements/177)
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/184)
+    - [180. Use mock data](/criteria/requirements/180)
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/185)
+    - [181. Transmit data using secure protocols](/criteria/requirements/181)
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/261)
+    - [183. Delete sensitive data securely](/criteria/requirements/183)
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/264)
+    - [184. Obfuscate application data](/criteria/requirements/184)
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/300)
+    - [185. Encrypt sensitive information](/criteria/requirements/185)
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/329)
+    - [261. Avoid exposing sensitive information](/criteria/requirements/261)
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/336)
+    - [264. Request authentication](/criteria/requirements/264)
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/338)
+    - [300. Mask sensitive data](/criteria/requirements/300)
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/339)
+    - [329. Keep client-side storage without sensitive data](/criteria/requirements/329)
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/349)
+    - [336. Disable insecure TLS versions](/criteria/requirements/336)
 
-1. [OWASP Top 10 A3:2017-Sensitive Data Exposure](/criteria/requirements/375)
+    - [338. Implement perfect forward secrecy](/criteria/requirements/338)
 
-1. [OWASP Top 10 A4:2017-XML External Entities (XXE)](/criteria/requirements/062)
+    - [339. Avoid storing sensitive files in the web root](/criteria/requirements/339)
 
-1. [OWASP Top 10 A4:2017-XML External Entities (XXE)](/criteria/requirements/157)
+    - [349. Include HTTP security headers](/criteria/requirements/349)
 
-1. [OWASP Top 10 A4:2017-XML External Entities (XXE)](/criteria/requirements/173)
+    - [375. Remove sensitive data from client-side applications](/criteria/requirements/375)
 
-1. [OWASP Top 10 A4:2017-XML External Entities (XXE)](/criteria/requirements/321)
+- A4-XML External Entities (XXE)
 
-1. [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/033)
+    - [062. Define standard configurations](/criteria/requirements/062)
 
-1. [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/035)
+    - [157. Use the strict mode](/criteria/requirements/157)
 
-1. [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/080)
+    - [173. Discard unsafe inputs](/criteria/requirements/173)
 
-1. [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/095)
+    - [321. Avoid deserializing untrusted data](/criteria/requirements/321)
 
-1. [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/096)
+- A5-Broken Access Control
 
-1. [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/176)
+    - [033. Restrict administrative access](/criteria/requirements/033)
 
-1. [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/186)
+    - [035. Manage privilege modifications](/criteria/requirements/035)
 
-1. [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/265)
+    - [080. Prevent log modification](/criteria/requirements/080)
 
-1. [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/266)
+    - [095. Define users with privileges](/criteria/requirements/095)
 
-1. [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/320)
+    - [096. Set users' required privileges](/criteria/requirements/096)
 
-1. [OWASP Top 10 A5:2017-Broken Access Control](/criteria/requirements/341)
+    - [176. Restrict system objects](/criteria/requirements/176)
 
-1. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/043)
+    - [186. Use the principle of least privilege](/criteria/requirements/186)
 
-1. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/050)
+    - [265. Restrict access to critical processes](/criteria/requirements/265)
 
-1. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/062)
+    - [266. Disable insecure functionalities](/criteria/requirements/266)
 
-1. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/078)
+    - [320. Avoid client-side control enforcement](/criteria/requirements/320)
 
-1. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/157)
+    - [341. Use the principle of deny by default](/criteria/requirements/341)
 
-1. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/205)
+- A6-Security Misconfiguration
 
-1. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/206)
+    - [043. Define an explicit content type](/criteria/requirements/043)
 
-1. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/252)
+    - [050. Control calls to interpreted code](/criteria/requirements/050)
 
-1. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/259)
+    - [062. Define standard configurations](/criteria/requirements/062)
 
-1. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/266)
+    - [078. Disable debugging events](/criteria/requirements/078)
 
-1. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/349)
+    - [157. Use the strict mode](/criteria/requirements/157)
 
-1. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/350)
+    - [205. Configure PIN](/criteria/requirements/205)
 
-1. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/352)
+    - [206. Configure communication protocols](/criteria/requirements/206)
 
-1. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/353)
+    - [252. Configure key encryption](/criteria/requirements/252)
 
-1. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/355)
+    - [259. Segment the organization network](/criteria/requirements/259)
 
-1. [OWASP Top 10 A6:2017-Security Misconfiguration](/criteria/requirements/356)
+    - [266. Disable insecure functionalities](/criteria/requirements/266)
 
-1. [OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)](/criteria/requirements/029)
+    - [349. Include HTTP security headers](/criteria/requirements/349)
 
-1. [OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)](/criteria/requirements/050)
+    - [350. Enable memory protection mechanisms](/criteria/requirements/350)
 
-1. [OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)](/criteria/requirements/160)
+    - [352. Enable trusted execution](/criteria/requirements/352)
 
-1. [OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)](/criteria/requirements/173)
+    - [353. Schedule firmware updates](/criteria/requirements/353)
 
-1. [OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)](/criteria/requirements/340)
+    - [355. Serve files with specific extensions](/criteria/requirements/355)
 
-1. [OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)](/criteria/requirements/344)
+    - [356. Verify sub-domain names](/criteria/requirements/356)
 
-1. [OWASP Top 10 A7:2017-Cross-Site Scripting (XSS)](/criteria/requirements/349)
+- A7-Cross-Site Scripting (XSS)
 
-1. [OWASP Top 10 A8:2017-Insecure Deserialization](/criteria/requirements/157)
+    - [029. Cookies with security attributes](/criteria/requirements/029)
 
-1. [OWASP Top 10 A8:2017-Insecure Deserialization](/criteria/requirements/173)
+    - [050. Control calls to interpreted code](/criteria/requirements/050)
 
-1. [OWASP Top 10 A8:2017-Insecure Deserialization](/criteria/requirements/321)
+    - [160. Encode system outputs](/criteria/requirements/160)
 
-1. [OWASP Top 10 A9:2017-Using Components with Known Vulnerabilities](/criteria/requirements/158)
+    - [173. Discard unsafe inputs](/criteria/requirements/173)
 
-1. [OWASP Top 10 A9:2017-Using Components with Known Vulnerabilities](/criteria/requirements/262)
+    - [340. Use octet stream downloads](/criteria/requirements/340)
 
-1. [OWASP Top 10 A9:2017-Using Components with Known Vulnerabilities](/criteria/requirements/353)
+    - [344. Avoid dynamic code execution](/criteria/requirements/344)
 
-1. [OWASP Top 10 A10:2017-Insufficient Logging & Monitoring](/criteria/requirements/075)
+    - [349. Include HTTP security headers](/criteria/requirements/349)
 
-1. [OWASP Top 10 A10:2017-Insufficient Logging & Monitoring](/criteria/requirements/079)
+- A8-Insecure Deserialization
 
-1. [OWASP Top 10 A10:2017-Insufficient Logging & Monitoring](/criteria/requirements/376)
+    - [157. Use the strict mode](/criteria/requirements/157)
 
-1. [OWASP Top 10 A10:2017-Insufficient Logging & Monitoring](/criteria/requirements/377)
+    - [173. Discard unsafe inputs](/criteria/requirements/173)
 
-1. [OWASP Top 10 A10:2017-Insufficient Logging & Monitoring](/criteria/requirements/378)
+    - [321. Avoid deserializing untrusted data](/criteria/requirements/321)
+
+- A9-Using Components with Known Vulnerabilities
+
+    - [158. Use a secure programming language](/criteria/requirements/158)
+
+    - [262. Verify third-party components](/criteria/requirements/262)
+
+    - [353. Schedule firmware updates](/criteria/requirements/353)
+
+- A10-Insufficient Logging & Monitoring
+
+    - [075. Record exceptional events in logs](/criteria/requirements/075)
+
+    - [079. Record exact occurrence time of events](/criteria/requirements/079)
+
+    - [376. Register severity level](/criteria/requirements/376)
+
+    - [377. Store logs based on valid regulation](/criteria/requirements/377)
+
+    - [378. Use of log management system](/criteria/requirements/378)
