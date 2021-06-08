@@ -11,10 +11,10 @@ through rigorous analysis
 of software security initiatives (SSIs),
 also known as
 application / product security programs.
+The version used in this section
+is **BSIMM9**.
 
 ## Correlation
-
-### BSIMM9
 
 - CR3.4: 2. Automate malicious code detection
 
