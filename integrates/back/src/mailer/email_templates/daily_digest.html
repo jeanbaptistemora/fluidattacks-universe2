@@ -216,13 +216,13 @@
       <div class="icon">
         <div class="icon-div">
           {%- if 'groups_requested' in reattacks %}
-            <div style="height: calc(5px * {{ reattacks['groups_requested']|length }});"></div>
+            <div style="height: calc(5px * {{ reattacks['groups_requested']|length }});"></div> <!-- //NOSONAR -->
           {%- endif %}
           {%- if 'groups_executed' in reattacks %}
-            <div style="height: calc(5px * {{ reattacks['groups_executed']|length }});"></div>
+            <div style="height: calc(5px * {{ reattacks['groups_executed']|length }});"></div> <!-- //NOSONAR -->
           {%- endif %}
           {%- if 'groups_pending' in reattacks %}
-            <div style="height: calc(5px * {{ reattacks['groups_pending']|length }});"></div>
+            <div style="height: calc(5px * {{ reattacks['groups_pending']|length }});"></div> <!-- //NOSONAR -->
           {%- endif %}
         </div>
         <img alt="Reattacks logo"
@@ -317,13 +317,13 @@
       <div class="icon">
         <div class="icon-div">
           {%- if 'groups_temporary' in treatments %}
-            <div style="height: calc(5px * {{ treatments['groups_temporary']|length }});"></div>
+            <div style="height: calc(5px * {{ treatments['groups_temporary']|length }});"></div> <!-- //NOSONAR -->
           {%- endif %}
           {%- if 'groups_eternal_requested' in treatments %}
-            <div style="height: calc(5px * {{ treatments['groups_eternal_requested']|length }});"></div>
+            <div style="height: calc(5px * {{ treatments['groups_eternal_requested']|length }});"></div> <!-- //NOSONAR -->
           {%- endif %}
           {%- if 'groups_eternal_approved' in treatments %}
-            <div style="height: calc(5px * {{ treatments['groups_eternal_approved']|length }});"></div>
+            <div style="height: calc(5px * {{ treatments['groups_eternal_approved']|length }});"></div> <!-- //NOSONAR -->
           {%- endif %}
         </div>
         <img alt="Treatments logo"
@@ -394,7 +394,7 @@
     <!-- FINDINGS -->
     <div class="main-content">
       <div class="icon">
-        <div style="height: calc(-60px + 17px * {{ findings|length }});" class="icon-div"></div>
+        <div style="height: calc(-60px + 17px * {{ findings|length }});" class="icon-div"></div> <!-- //NOSONAR -->
         <img alt="Findings logo"
           src="https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/48b502a4-b33f-4a29-be67-66e87147d669.png">
         <h4>Oldest Findings</h4>
