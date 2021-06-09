@@ -35,11 +35,6 @@ NOT_EXISTS_APK = "test/static/format/apk/close/notexists.apk"
 #
 
 
-def test_root_open():
-    """Test if APK file checks for root."""
-    assert apk.not_checks_for_root(SIGNED_APK)
-
-
 def test_permissions_open():
     """Test if APK uses dangerous permissions."""
     assert apk.uses_dangerous_perms(SIGNED_APK)
@@ -123,11 +118,6 @@ def test_frida_open():
 #
 # Close tests
 #
-
-
-def test_root_close():
-    """Test if APK file checks for root."""
-    assert not apk.not_checks_for_root(NO_ROOT_APK)
 
 
 def test_permissions_close():
@@ -218,11 +208,6 @@ def test_frida_close():
 #
 # Unknown tests
 #
-
-
-def test_root_unknown():
-    """Test if APK file checks for root."""
-    assert not apk.not_checks_for_root(NOT_EXISTS_APK)
 
 
 def test_permissions_unknown():

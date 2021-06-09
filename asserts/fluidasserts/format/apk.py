@@ -103,41 +103,6 @@ def get_http_urls(dex):
     ]
 
 
-@api(risk=LOW, kind=SAST)
-@unknown_if(FileNotFoundError, apk.Error, dvm.Error)
-def not_checks_for_root(apk_file: str) -> tuple:
-    """
-    Check if the given APK file have methods to check for root.
-
-    :param apk_file: Path to the image to be tested.
-    :returns: - ``OPEN`` if APK has means for checking if the device is rooted.
-                currently the methods to check for root are *isRooted*,
-                *checkForDangerousProps*, *checkForBusyBoxBinary*,
-                *checkForSuBinary*, and *checkSuExists*.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    _, _, dex = analyze_apk(apk_file)
-
-    root_checker_methods = {
-        "isRooted",
-        "checkForDangerousProps",
-        "checkForBusyBoxBinary",
-        "checkForSuBinary",
-        "checkSuExists",
-    }
-
-    check_root = any(x.name in root_checker_methods for x in dex.get_methods())
-
-    return _get_result_as_tuple_sast(
-        path=apk_file,
-        msg_open="App does not verify for root",
-        msg_closed="App verifies for root",
-        open_if=not check_root,
-    )
-
-
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError, apk.Error, dvm.Error)
 def uses_dangerous_perms(apk_file: str) -> tuple:
