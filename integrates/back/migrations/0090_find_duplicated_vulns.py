@@ -28,6 +28,8 @@ def handle_finding_vulns(items: List[Dict[str, Any]]) -> None:
         item
         for item in items
         if item.get("historic_state", [{}])[-1].get("state") == "open"
+        and "masked" not in item.get("where", "").lower()
+        and "masked" not in item.get("specific", "").lower()
     ]
 
     for _, _same_hash_vulns in groupby(finding_vulns, key=get_hash_from_dict):
