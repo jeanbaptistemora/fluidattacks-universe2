@@ -53,7 +53,14 @@ BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set(
         "Integer.toString",
         "Long.toString",
         "System.Diagnostics.Process.Start",
+        "System.IO.File.Copy",
+        "System.IO.File.Create",
+        "System.IO.File.Delete",
         "System.IO.File.Exists",
+        "System.IO.File.Move",
+        "System.IO.File.Open",
+        "System.IO.File.Replace",
+        "System.IO.Path.Combine",
         "System.Xml.XPath.XPathExpression.Compile",
     }
 )
