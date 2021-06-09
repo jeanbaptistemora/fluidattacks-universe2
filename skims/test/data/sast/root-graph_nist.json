@@ -4419,10 +4419,25 @@
           "classes": {
             ".CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01": {
               "fields": {},
+              "inherit": null,
               "methods": {
                 ".Bad": {
                   "class_name": ".CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01",
                   "n_id": "52",
+                  "name": "Bad",
+                  "paremeters": {
+                    "req": {
+                      "n_id": "61",
+                      "name": "req",
+                      "type_name": "HttpRequest"
+                    },
+                    "resp": {
+                      "n_id": "65",
+                      "name": "resp",
+                      "type_name": "HttpResponse"
+                    }
+                  },
+                  "return_type": null,
                   "static": false
                 }
               },
@@ -4430,10 +4445,25 @@
             },
             "testcases.CWE89_SQL_Injection.CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01": {
               "fields": {},
+              "inherit": null,
               "methods": {
                 ".Bad": {
                   "class_name": ".CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01",
                   "n_id": "52",
+                  "name": "Bad",
+                  "paremeters": {
+                    "req": {
+                      "n_id": "61",
+                      "name": "req",
+                      "type_name": "HttpRequest"
+                    },
+                    "resp": {
+                      "n_id": "65",
+                      "name": "resp",
+                      "type_name": "HttpResponse"
+                    }
+                  },
+                  "return_type": null,
                   "static": false
                 }
               },

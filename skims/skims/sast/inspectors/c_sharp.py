@@ -11,6 +11,7 @@ from utils import (
 )
 from utils.graph.transformation import (
     build_qualified_name,
+    build_type_name,
 )
 
 
@@ -210,11 +211,17 @@ def _get_metadata_class_methods(
     for method_id in g.adj(graph, class_body_id):
         if graph.nodes[method_id]["label_type"] == "method_declaration":
             match_method = g.match_ast_group(
-                graph, method_id, "identifier", "modifier"
+                graph,
+                method_id,
+                "identifier",
+                "modifier",
+                "parameter_list",
             )
-
-            if _identifiers := match_method["identifier"]:
-                name = "." + graph.nodes[_identifiers[0]]["label_text"]
+            if (_identifiers := match_method["identifier"]) and (
+                _parameters := match_method["parameter_list"]
+            ):
+                _name = graph.nodes[_identifiers[0]]["label_text"]
+                name = "." + _name
                 is_static = any(
                     g.match_ast(graph, modifier, "static")["static"]
                     for modifier in match_method["modifier"] or list()
@@ -222,7 +229,15 @@ def _get_metadata_class_methods(
                 methods[name] = graph_model.GraphShardMetadataClassMethod(
                     method_id,
                     class_name,
+                    name=_name,
                     static=is_static,
+                    paremeters={
+                        param.name: param
+                        for param in _get_metadata_method_parameters(
+                            graph,
+                            _parameters[0],
+                        )
+                    },
                 )
         elif graph.nodes[method_id]["label_type"] == "constructor_declaration":
             params = g.match_ast_group(
@@ -244,3 +259,37 @@ def _get_metadata_class_methods(
             )
 
     return methods
+
+
+def _get_metadata_method_parameters(
+    graph: graph_model.Graph,
+    n_id: str,
+) -> List[graph_model.GraphShardMetadataParameter]:
+    parameters = list()
+    match = g.match_ast_group(
+        graph,
+        n_id,
+        "parameter",
+    )
+    for param_id in match.get("parameter") or list():
+        match_param = g.match_ast(
+            graph,
+            param_id,
+            "__0__",
+            "__1__",
+        )
+        if (
+            len(match_param) == 2
+            and (_param_type_id := match_param["__0__"])
+            and (_param_name_id := match_param["__1__"])
+        ):
+            _param_type = build_type_name(graph, _param_type_id)
+            _param_name = graph.nodes[_param_name_id]["label_text"]
+            parameters.append(
+                graph_model.GraphShardMetadataParameter(
+                    param_id,
+                    name=_param_name,
+                    type_name=_param_type,
+                )
+            )
+    return parameters

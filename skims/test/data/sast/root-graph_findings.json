@@ -707,10 +707,14 @@
           "classes": {
             ".Test": {
               "fields": {},
+              "inherit": null,
               "methods": {
                 ".main": {
                   "class_name": ".Test",
                   "n_id": "13",
+                  "name": null,
+                  "paremeters": null,
+                  "return_type": null,
                   "static": true
                 }
               },
@@ -2111,10 +2115,14 @@
           "classes": {
             ".Test": {
               "fields": {},
+              "inherit": null,
               "methods": {
                 ".doPost": {
                   "class_name": ".Test",
                   "n_id": "13",
+                  "name": null,
+                  "paremeters": null,
+                  "return_type": null,
                   "static": false
                 }
               },

@@ -64,3 +64,15 @@ def build_qualified_name(graph: graph_model.Graph, qualified_id: str) -> str:
     keys = _build_nested_identifier_ids(graph, qualified_id, "qualified_name")
     identifiers = tuple(graph.nodes[key]["label_text"] for key in keys)
     return ".".join(identifiers)
+
+
+def build_type_name(
+    graph: graph_model.Graph,
+    identifier_id: str,
+) -> Optional[str]:
+    node_type = graph.nodes[identifier_id]["label_type"]
+    if node_type == "identifier":
+        return graph.nodes[identifier_id]["label_text"]
+    if node_type == "qualified_name":
+        return build_qualified_name(graph, identifier_id)
+    return None

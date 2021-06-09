@@ -6592,15 +6592,22 @@
                   "var_type": "long"
                 }
               },
+              "inherit": null,
               "methods": {
                 ".doGet": {
                   "class_name": ".BenchmarkTest00001",
                   "n_id": "62",
+                  "name": null,
+                  "paremeters": null,
+                  "return_type": null,
                   "static": false
                 },
                 ".doPost": {
                   "class_name": ".BenchmarkTest00001",
                   "n_id": "223",
+                  "name": null,
+                  "paremeters": null,
+                  "return_type": null,
                   "static": false
                 }
               },
@@ -6615,15 +6622,22 @@
                   "var_type": "long"
                 }
               },
+              "inherit": null,
               "methods": {
                 ".doGet": {
                   "class_name": ".BenchmarkTest00001",
                   "n_id": "62",
+                  "name": null,
+                  "paremeters": null,
+                  "return_type": null,
                   "static": false
                 },
                 ".doPost": {
                   "class_name": ".BenchmarkTest00001",
                   "n_id": "223",
+                  "name": null,
+                  "paremeters": null,
+                  "return_type": null,
                   "static": false
                 }
               },
@@ -11685,15 +11699,22 @@
                   "var_type": "long"
                 }
               },
+              "inherit": null,
               "methods": {
                 ".doGet": {
                   "class_name": ".BenchmarkTest00008",
                   "n_id": "62",
+                  "name": null,
+                  "paremeters": null,
+                  "return_type": null,
                   "static": false
                 },
                 ".doPost": {
                   "class_name": ".BenchmarkTest00008",
                   "n_id": "98",
+                  "name": null,
+                  "paremeters": null,
+                  "return_type": null,
                   "static": false
                 }
               },
@@ -11708,15 +11729,22 @@
                   "var_type": "long"
                 }
               },
+              "inherit": null,
               "methods": {
                 ".doGet": {
                   "class_name": ".BenchmarkTest00008",
                   "n_id": "62",
+                  "name": null,
+                  "paremeters": null,
+                  "return_type": null,
                   "static": false
                 },
                 ".doPost": {
                   "class_name": ".BenchmarkTest00008",
                   "n_id": "98",
+                  "name": null,
+                  "paremeters": null,
+                  "return_type": null,
                   "static": false
                 }
               },
@@ -19730,15 +19758,22 @@
                   "var_type": "long"
                 }
               },
+              "inherit": null,
               "methods": {
                 ".doGet": {
                   "class_name": ".BenchmarkTest00167",
                   "n_id": "62",
+                  "name": null,
+                  "paremeters": null,
+                  "return_type": null,
                   "static": false
                 },
                 ".doPost": {
                   "class_name": ".BenchmarkTest00167",
                   "n_id": "98",
+                  "name": null,
+                  "paremeters": null,
+                  "return_type": null,
                   "static": false
                 }
               },
@@ -19753,15 +19788,22 @@
                   "var_type": "long"
                 }
               },
+              "inherit": null,
               "methods": {
                 ".doGet": {
                   "class_name": ".BenchmarkTest00167",
                   "n_id": "62",
+                  "name": null,
+                  "paremeters": null,
+                  "return_type": null,
                   "static": false
                 },
                 ".doPost": {
                   "class_name": ".BenchmarkTest00167",
                   "n_id": "98",
+                  "name": null,
+                  "paremeters": null,
+                  "return_type": null,
                   "static": false
                 }
               },

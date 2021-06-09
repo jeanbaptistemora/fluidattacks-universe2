@@ -270,9 +270,18 @@ class GraphShardMetadataClassField(NamedTuple):
     static: bool = False
 
 
+class GraphShardMetadataParameter(NamedTuple):
+    n_id: NId
+    name: str
+    type_name: str
+
+
 class GraphShardMetadataClassMethod(NamedTuple):
     n_id: NId
     class_name: Optional[str] = None
+    name: Optional[str] = None
+    paremeters: Optional[Dict[str, GraphShardMetadataParameter]] = None
+    return_type: Optional[str] = None
     static: bool = False
 
 
@@ -280,6 +289,7 @@ class GraphShardMetadataClass(NamedTuple):
     fields: Dict[str, GraphShardMetadataClassField]
     methods: Dict[str, GraphShardMetadataClassMethod]
     n_id: NId
+    inherit: Optional[Set[str]] = None
 
 
 class GraphShardMetadataJava(NamedTuple):

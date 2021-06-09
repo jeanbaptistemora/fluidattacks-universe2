@@ -17974,15 +17974,20 @@
           "classes": {
             ".InnerTest": {
               "fields": {},
+              "inherit": null,
               "methods": {},
               "n_id": "1589"
             },
             ".Test": {
               "fields": {},
+              "inherit": null,
               "methods": {
                 ".main": {
                   "class_name": ".Test",
                   "n_id": "17",
+                  "name": null,
+                  "paremeters": null,
+                  "return_type": null,
                   "static": true
                 }
               },
@@ -17990,11 +17995,13 @@
             },
             ".Test.InnerTest": {
               "fields": {},
+              "inherit": null,
               "methods": {},
               "n_id": "1589"
             },
             "InnerTest": {
               "fields": {},
+              "inherit": null,
               "methods": {},
               "n_id": "1589"
             }
