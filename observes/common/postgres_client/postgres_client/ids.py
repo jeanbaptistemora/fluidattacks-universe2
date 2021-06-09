@@ -20,12 +20,12 @@ class SchemaID(Immutable):
 
 
 class TableID(Immutable):
-    schema: str
+    schema: SchemaID
     table_name: str
 
-    def __new__(cls, schema: str, table_name: str) -> TableID:
+    def __new__(cls, schema: SchemaID, table_name: str) -> TableID:
         self = object.__new__(cls)
-        object.__setattr__(self, "schema", schema.lower())
+        object.__setattr__(self, "schema", schema)
         object.__setattr__(self, "table_name", table_name.lower())
         return self
 

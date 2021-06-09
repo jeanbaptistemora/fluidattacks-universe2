@@ -1,6 +1,9 @@
 from postgres_client import (
     client,
 )
+from postgres_client.schema import (
+    SchemaID,
+)
 from postgres_client.table import (
     TableFactory,
     TableID,
@@ -35,8 +38,12 @@ def setup_db(postgresql_my: Any) -> None:
 def test_create_like(postgresql_my: Any) -> None:
     setup_db(postgresql_my)
     db_client = client.new_test_client(postgresql_my)
-    blueprint_id = TableID(schema="test_schema", table_name="table_number_one")
-    new_table_id = TableID(schema="test_schema_2", table_name="the_table")
+    blueprint_id = TableID(
+        schema=SchemaID("test_schema"), table_name="table_number_one"
+    )
+    new_table_id = TableID(
+        schema=SchemaID("test_schema_2"), table_name="the_table"
+    )
     factory = TableFactory(db_client.cursor, False)
     blueprint_io = factory.retrieve(blueprint_id)
     new_table_io = factory.create_like(blueprint_id, new_table_id)
@@ -51,7 +58,9 @@ def test_create_like(postgresql_my: Any) -> None:
 def test_rename(postgresql_my: Any) -> None:
     setup_db(postgresql_my)
     db_client = client.new_test_client(postgresql_my)
-    old_table_id = TableID(schema="test_schema", table_name="table_number_one")
+    old_table_id = TableID(
+        schema=SchemaID("test_schema"), table_name="table_number_one"
+    )
     factory = TableFactory(db_client.cursor, False)
     old_table = unsafe_perform_io(factory.retrieve(old_table_id))
     new_table_id = unsafe_perform_io(old_table.rename("renamed_table"))
@@ -64,7 +73,9 @@ def test_rename(postgresql_my: Any) -> None:
 def test_delete(postgresql_my: Any) -> None:
     setup_db(postgresql_my)
     db_client = client.new_test_client(postgresql_my)
-    target = TableID(schema="test_schema", table_name="table_number_one")
+    target = TableID(
+        schema=SchemaID("test_schema"), table_name="table_number_one"
+    )
     factory = TableFactory(db_client.cursor, False)
     table_io = factory.retrieve(target)
     table_io.map(lambda table: table.delete())

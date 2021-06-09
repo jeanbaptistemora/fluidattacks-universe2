@@ -102,8 +102,8 @@ class Schema(Immutable):
         factory = TableFactory(self.cursor, self.redshift)
 
         def move_table(table: str) -> None:
-            source = TableID(schema=str(from_schema.name), table_name=table)
-            target = TableID(schema=str(to_schema.name), table_name=table)
+            source = TableID(schema=from_schema.name, table_name=table)
+            target = TableID(schema=to_schema.name, table_name=table)
             source_table = factory.retrieve(source)
             LOG.debug("Moving from %s to %s ", source, target)
             source_table.map(lambda t: factory.move(t.table.table_id, target))

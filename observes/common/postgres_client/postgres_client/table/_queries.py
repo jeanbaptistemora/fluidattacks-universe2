@@ -72,7 +72,7 @@ def exist(table_id: TableID) -> Query:
     """
     args = SqlArgs(
         values={
-            "table_schema": table_id.schema,
+            "table_schema": str(table_id.schema),
             "table_name": table_id.table_name,
         }
     )
@@ -97,7 +97,7 @@ def retrieve(table_id: TableID) -> Query:
     """
     args = SqlArgs(
         values={
-            "table_schema": table_id.schema,
+            "table_schema": str(table_id.schema),
             "table_name": table_id.table_name,
         }
     )
@@ -136,9 +136,9 @@ def create_like(blueprint: TableID, new_table: TableID) -> Query:
         );
     """
     identifiers: Dict[str, Optional[str]] = {
-        "new_schema": new_table.schema,
+        "new_schema": str(new_table.schema),
         "new_table": new_table.table_name,
-        "blueprint_schema": blueprint.schema,
+        "blueprint_schema": str(blueprint.schema),
         "blueprint_table": blueprint.table_name,
     }
     args = SqlArgs(identifiers=identifiers)
@@ -150,7 +150,7 @@ def rename(table: TableID, new_name: str) -> Query:
         ALTER TABLE {schema}.{table} RENAME TO {new_name};
     """
     identifiers: Dict[str, Optional[str]] = {
-        "schema": table.schema,
+        "schema": str(table.schema),
         "table": table.table_name,
         "new_name": new_name,
     }
@@ -163,7 +163,7 @@ def delete(table: TableID) -> Query:
         DROP TABLE {schema}.{table} CASCADE;
     """
     identifiers: Dict[str, Optional[str]] = {
-        "schema": table.schema,
+        "schema": str(table.schema),
         "table": table.table_name,
     }
     args = SqlArgs(identifiers=identifiers)
@@ -179,9 +179,9 @@ def redshift_move(
         APPEND FROM {source_schema}.{source_table};
     """
     identifiers: Dict[str, Optional[str]] = {
-        "source_schema": source.schema,
+        "source_schema": str(source.schema),
         "source_table": source.table_name,
-        "target_schema": target.schema,
+        "target_schema": str(target.schema),
         "target_table": target.table_name,
     }
     args = SqlArgs(identifiers=identifiers)
@@ -198,9 +198,9 @@ def move(
         SET SCHEMA {target_schema};
     """
     identifiers: Dict[str, Optional[str]] = {
-        "source_schema": source.schema,
+        "source_schema": str(source.schema),
         "source_table": source.table_name,
-        "target_schema": target.schema,
+        "target_schema": str(target.schema),
     }
     args = SqlArgs(identifiers=identifiers)
     return [delete(target), Query(query, args)]

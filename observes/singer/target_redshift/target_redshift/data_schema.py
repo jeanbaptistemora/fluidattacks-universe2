@@ -8,6 +8,9 @@ from jsonschema.validators import (
     Draft4Validator,
 )
 import logging
+from postgres_client.schema import (
+    SchemaID,
+)
 from postgres_client.table import (
     Column,
     MetaTable,
@@ -45,7 +48,9 @@ def _extract_meta_table(
         Column(escape(field), from_json(ftype))
         for field, ftype in singer_schema.schema["properties"].items()
     )
-    table_id = TableID(db_schema, escape(singer_schema.stream.lower()))
+    table_id = TableID(
+        SchemaID(db_schema), escape(singer_schema.stream.lower())
+    )
     return MetaTable.new(
         table_id, frozenset(map(escape, singer_schema.key_properties)), columns
     )
