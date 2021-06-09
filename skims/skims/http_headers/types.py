@@ -28,6 +28,7 @@ class SetCookieHeader(NamedTuple):
     cookie_name: str
     cookie_value: str
     secure: bool
+    httponly: bool
 
 
 class StrictTransportSecurityHeader(NamedTuple):

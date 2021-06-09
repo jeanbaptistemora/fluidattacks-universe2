@@ -39,9 +39,12 @@ def parse(line: str) -> Optional[SetCookieHeader]:
     cookie_name = content[0]
     cookie_value = content[1]
 
+    httponly = False
     secure = False
 
     for parameter in parameters:
+        if parameter.lower() == "httponly":
+            httponly = True
         if parameter.lower() == "secure":
             secure = True
 
@@ -51,4 +54,5 @@ def parse(line: str) -> Optional[SetCookieHeader]:
         cookie_name=cookie_name,
         cookie_value=cookie_value,
         secure=secure,
+        httponly=httponly,
     )

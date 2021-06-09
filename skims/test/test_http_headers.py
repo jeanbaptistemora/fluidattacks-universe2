@@ -220,6 +220,7 @@ def test_set_cookie() -> None:
     assert header.cookie_name == "key"
     assert header.cookie_value == "value"
     assert not header.secure
+    assert not header.httponly
 
     header = parse("  set-cookie  :  key  =  value  ;  Secure  ")
     assert header is not None
@@ -228,6 +229,7 @@ def test_set_cookie() -> None:
     assert header.cookie_name == "key"
     assert header.cookie_value == "value"
     assert header.secure
+    assert not header.httponly
 
     header = parse("  set-cookie  :  key  =  value  Secure  ")
     assert header is not None
@@ -236,6 +238,7 @@ def test_set_cookie() -> None:
     assert header.cookie_name == "key"
     assert header.cookie_value == "value  Secure"
     assert not header.secure
+    assert not header.httponly
 
     header = parse("  set-cookie  :  key  =  ")
     assert header is not None
@@ -244,6 +247,23 @@ def test_set_cookie() -> None:
     assert header.cookie_name == "key"
     assert header.cookie_value == ""
     assert not header.secure
+    assert not header.httponly
+
+    header = parse("  set-cookie  :  key  =  value  ;  HttpOnly  ")
+    assert header is not None
+    assert header.name == "set-cookie"
+    assert header.cookie_name == "key"
+    assert header.cookie_value == "value"
+    assert not header.secure
+    assert header.httponly
+
+    header = parse("  set-cookie  :  key  =  value  ;  Secure ;  HttpOnly  ")
+    assert header is not None
+    assert header.name == "set-cookie"
+    assert header.cookie_name == "key"
+    assert header.cookie_value == "value"
+    assert header.secure
+    assert header.httponly
 
 
 @pytest.mark.skims_test_group("unittesting")
