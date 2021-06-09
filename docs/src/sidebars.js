@@ -761,7 +761,7 @@ module.exports = {
         'criteria/compliance/gdpr',
         'criteria/compliance/hipaa',
         'criteria/compliance/iso',
-        'criteria/compliance/nerc',    
+        'criteria/compliance/nerc',
         'criteria/compliance/nist80053',
         'criteria/compliance/nist80063b',
         'criteria/compliance/owaspasvs',
@@ -904,16 +904,23 @@ module.exports = {
           items: [
             'development/stack/aws/introduction',
             'development/stack/aws/ec2',
+            'development/stack/aws/s3',
           ]
         },
         'development/stack/cloudflare',
-        'development/stack/commitlint',
         {
           type: 'category',
-          label: 'Git',
+          label: 'Commitlint',
           items: [
-            'development/stack/git/commits',
-            'development/stack/git/merge-requests',
+            'development/stack/commitlint/introduction',
+            {
+              type: 'category',
+              label: 'Syntax',
+              items: [
+                'development/stack/commitlint/syntax/commit',
+                'development/stack/commitlint/syntax/merge-request',
+              ]
+            },
           ]
         },
         'development/stack/gitlab',

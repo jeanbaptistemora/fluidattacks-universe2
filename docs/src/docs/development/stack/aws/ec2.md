@@ -2,7 +2,7 @@
 id: ec2
 title: Elastic Compute Cloud (EC2)
 sidebar_label: EC2
-slug: /development/stack/ec2
+slug: /development/stack/aws/ec2
 ---
 
 ## Rationale

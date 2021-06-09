@@ -1,8 +1,8 @@
 ---
-id: commits
-title: Commits
-sidebar_label: Commits
-slug: /development/stack/git/commits
+id: commit
+title: Commit
+sidebar_label: Commit
+slug: /development/stack/commitlint/syntax/commit
 ---
 
 ## Developer commits

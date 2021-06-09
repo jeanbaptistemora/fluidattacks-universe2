@@ -1,8 +1,8 @@
 ---
-id: merge-requests
-title: Merge Requests
-sidebar_label: Merge Requests
-slug: /development/stack/git/merge-requests
+id: merge-request
+title: Merge Request
+sidebar_label: Merge Request
+slug: /development/stack/commitlint/syntax/merge-request
 ---
 
 ## Differences with commit messages

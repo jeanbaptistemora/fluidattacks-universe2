@@ -56,13 +56,13 @@ over other alternatives are:
 We use the following [AWS](https://aws.amazon.com/) services:
 
 1. Elastic cloud computing:
-    [AWS EC2](https://aws.amazon.com/ec2/).
+    [AWS EC2](/development/stack/aws/ec2).
+1. Cloud file storage:
+    [AWS S3](/development/stack/aws/s3).
 1. Elastic block store:
     [AWS EBS](https://aws.amazon.com/ebs/).
 1. Serverless computing:
     [AWS Lambda](https://aws.amazon.com/lambda/).
-1. Cloud file storage:
-    [AWS S3](https://aws.amazon.com/s3/).
 1. Elastic Container Service:
     [AWS ECS](https://aws.amazon.com/ecs/).
 1. Elastic Load Balancing:

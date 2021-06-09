@@ -1,7 +1,7 @@
 ---
-id: commitlint
+id: introduction
 title: Commitlint
-sidebar_label: Commitlint
+sidebar_label: Introduction
 slug: /development/stack/commitlint
 ---
 
@@ -55,12 +55,12 @@ it over other alternatives are:
 1. It allows us to
     [declare a syntax](https://commitlint.js.org/#/reference-configuration?id=parser-presets)
     based on
-    [our own needs](/development/stack/git/commits#syntax).
+    [our own needs](/development/stack/commitlint/syntax/commit#syntax).
 1. It supports many
     [rules](https://commitlint.js.org/#/reference-rules)
     that can be tuned
     based on
-    [our own needs](/development/stack/git/commits#rules).
+    [our own needs](/development/stack/commitlint/syntax/commit#rules).
 
 ## Alternatives
 
@@ -82,3 +82,10 @@ We use [Commitlint](https://github.com/conventional-changelog/commitlint) for:
 
 1. You can run `./m makes.lint-commit-msg`
     for linting your last commit message.
+1. You can find commits
+    syntax documentation
+    [here](/development/stack/commitlint/syntax/commit).
+1. You can find
+    [merge requests](https://gitlab.com/fluidattacks/product/-/merge_requests)
+    syntax documentation
+    [here](/development/stack/commitlint/syntax/merge-request).

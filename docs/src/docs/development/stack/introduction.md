@@ -31,7 +31,6 @@ For each component you will find:
 ## Purpose
 
 1. **Identity management: [Okta](/development/stack/okta)**
-1. **Version control system: [Git](/development/stack/git/commits)**
 1. **Commit message linter: [Commitlint](/development/stack/commitlint)**
 1. **Development platform: [Gitlab](/development/stack/gitlab)**
 1. **Continuous Integration: [Gitlab CI](/development/stack/gitlab-ci)**
