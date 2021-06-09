@@ -12,10 +12,10 @@ ANSI-accredited process
 that ensures the process is open to all persons
 who are directly and materially affected
 by the reliability of the North American bulk power system.
+The version used for this section is
+[NERC CIP v5 Standards](https://www.nerc.com/pa/Stand/Pages/CIPStandards.aspx).
 
-## Correlation
-
-### Attachments
+### Correlation
 
  - [003-8. Section 3 - 3.1 - Only necessary inbound and outbound electronic access](/criteria/requirements/176)
 
@@ -26,8 +26,6 @@ by the reliability of the North American bulk power system.
     - [041. Scan files for malicious code](/criteria/requirements/041)
 
     - [273. Define a fixed security suite](/criteria/requirements/273)
-
-### Requirements and measures
 
  - 004-6. R5 - Access revocation program
 

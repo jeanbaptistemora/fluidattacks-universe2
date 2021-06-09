@@ -11,8 +11,10 @@ It serves as a common language,
 a measuring stick for security tools,
 and as a baseline for weakness identification,
 mitigation, and prevention efforts.
+The version used in this section is
+[CWE List v4.4](https://cwe.mitre.org/data/index.html).
 
-## Correlation
+### Correlation
 
 - CWE-20: Improper Input Validation
 

@@ -11,6 +11,8 @@ relating to the protection of natural persons
 with regard to the processing of personal data
 and rules relating to the free movement
 of personal data.
+The version used in this section is
+[GDPR - OJ L 119, 4.5.2016](https://gdpr-info.eu/).
 
 ## Correlation
 
@@ -32,13 +34,13 @@ of personal data.
 
     - [375. Remove sensitive data from client-side applications](/criteria/requirements/375)
 
-    - [26- Avoid exposing sensitive information](/criteria/requirements/261)
+    - [261. Avoid exposing sensitive information](/criteria/requirements/261)
 
 - 7: Conditions for consent.(1)
 
     - [310. Request user consent](/criteria/requirements/310)
 
-    - [31- Demonstrate user consent](/criteria/requirements/311)
+    - [311. Demonstrate user consent](/criteria/requirements/311)
 
 - [7: Conditions for consent.(3)](/criteria/requirements/312)
 
@@ -144,7 +146,7 @@ of personal data.
 
     - [189. Specify the purpose of data collection](/criteria/requirements/189)
 
-    - [33- Guarantee legal compliance](/criteria/requirements/331)
+    - [331. Guarantee legal compliance](/criteria/requirements/331)
 
 - [45: Protecting sensitive personal data](/criteria/requirements/185)
 
@@ -164,4 +166,4 @@ of personal data.
 
     - [122. Validate credential ownership](/criteria/requirements/122)
 
-    - [23- Implement a biometric verification component](/criteria/requirements/231)
+    - [231. Implement a biometric verification component](/criteria/requirements/231)

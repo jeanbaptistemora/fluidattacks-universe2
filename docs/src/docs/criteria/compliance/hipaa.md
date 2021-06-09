@@ -10,10 +10,10 @@ of 1996 required the Secretary of the U.S.
 Department of Health and Human Services (HHS)
 to develop regulations protecting the privacy
 and security of certain health information.
+The version used in this section is
+[HIPAA Rules 2013 update](https://www.law.cornell.edu/cfr/text/45/chapter-A/subchapter-C).
 
-## Correlation
-
-### Security Rules
+### Correlation
 
 - 164.308(a)(1)(ii)(D) - Administrative safeguards
 
@@ -33,7 +33,7 @@ and security of certain health information.
 
     - [229. Request access credentials](/criteria/requirements/229)
 
-    - [23- Implement a biometric verification component](/criteria/requirements/231)
+    - [231. Implement a biometric verification component](/criteria/requirements/231)
 
 - [164.310(d)(2)(i) - Disposal (Required)](/criteria/requirements/214)
 
@@ -57,7 +57,7 @@ and security of certain health information.
 
     - [370. Use OAEP padding with RSA](/criteria/requirements/370)
 
-    - [37- Use GCM Padding with AES](/criteria/requirements/371)
+    - [371. Use GCM Padding with AES](/criteria/requirements/371)
 
     - [372. Proper Use of Initialization Vector (IV)](/criteria/requirements/372)
 
@@ -69,7 +69,7 @@ and security of certain health information.
 
     - [229. Request access credentials](/criteria/requirements/229)
 
-    - [23- Implement a biometric verification component](/criteria/requirements/231)
+    - [231. Implement a biometric verification component](/criteria/requirements/231)
 
 - 164.312(e)(1) - Standard: Transmission security
 

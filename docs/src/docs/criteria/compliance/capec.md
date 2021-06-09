@@ -14,7 +14,8 @@ It can be used by analysts,
 developers, testers,
 and educators to advance community understanding
 and enhance defenses.
-
+The version used in this section is
+[CAPEC List v3.4](https://capec.mitre.org/data/index.html).
 
 ### Correlation
 

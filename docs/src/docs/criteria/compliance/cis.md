@@ -12,10 +12,10 @@ against systems and networks.
 They are mapped to and referenced
 by multiple legal, regulatory,
 and policy frameworks.
+The version used in this section is
+[CIS Controls v7.1](https://www.cisecurity.org/controls/).
 
-## Correlation
-
-### Controls
+### Correlation
 
 - 1.7 Deploy Port Level Access Control
 

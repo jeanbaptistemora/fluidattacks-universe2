@@ -11,10 +11,10 @@ and more specifically the confidentiality
 of communications
 and the rules regarding tracking
 and monitoring.
+The version used in this section is
+[Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC)](https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219).
 
-## Correlation
-
-### Articles of Directive 2002 58 EC (amended by E-privacy Directive 2009 136 EC)
+### Correlation
 
 - 4: Security of processing.(1a)
 
@@ -28,7 +28,7 @@ and monitoring.
 
     - [180. Use mock data](/criteria/requirements/180)
 
-    - [18- Transmit data using secure protocols](/criteria/requirements/181)
+    - [181. Transmit data using secure protocols](/criteria/requirements/181)
 
     - [183. Delete sensitive data securely](/criteria/requirements/183)
 
@@ -36,7 +36,7 @@ and monitoring.
 
     - [210. Delete information from mobile devices](/criteria/requirements/210)
 
-    - [26- Avoid exposing sensitive information](/criteria/requirements/261)
+    - [261. Avoid exposing sensitive information](/criteria/requirements/261)
 
     - [265. Restrict access to critical processes](/criteria/requirements/265)
 

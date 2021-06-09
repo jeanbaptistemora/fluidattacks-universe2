@@ -16,10 +16,10 @@ such as financial information,
 intellectual property,
 employee details or information entrusted
 by third parties.
+The version used in this section is
+[ISO/IEC 27001:2013 - Annex A](https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en).
 
-## Correlation
-
-### ISO/IEC 27001:2013 - Annex A
+### Correlation
 
 - 9.1.2 - Access to Networks and Network Services
 
@@ -69,7 +69,7 @@ by third parties.
 
     - [178. Use digital signatures](/criteria/requirements/178)
 
-    - [18- Transmit data using secure protocols](/criteria/requirements/181)
+    - [181. Transmit data using secure protocols](/criteria/requirements/181)
 
     - [324. Control redirects](/criteria/requirements/324)
 
@@ -85,7 +85,7 @@ by third parties.
 
     - [180. Use mock data](/criteria/requirements/180)
 
-    - [18- Transmit data using secure protocols](/criteria/requirements/181)
+    - [181. Transmit data using secure protocols](/criteria/requirements/181)
 
     - [183. Delete sensitive data securely](/criteria/requirements/183)
 
@@ -93,13 +93,13 @@ by third parties.
 
     - [185. Encrypt sensitive information](/criteria/requirements/185)
 
-    - [26- Avoid exposing sensitive information](/criteria/requirements/261)
+    - [261. Avoid exposing sensitive information](/criteria/requirements/261)
 
     - [300. Mask sensitive data](/criteria/requirements/300)
 
     - [329. Keep client-side storage without sensitive data](/criteria/requirements/329)
 
-    - [33- Guarantee legal compliance](/criteria/requirements/331)
+    - [331. Guarantee legal compliance](/criteria/requirements/331)
 
     - [360. Remove unnecessary sensitive information](/criteria/requirements/360)
 
@@ -111,7 +111,7 @@ by third parties.
 
     - [310. Request user consent](/criteria/requirements/310)
 
-    - [31- Demonstrate user consent](/criteria/requirements/311)
+    - [311. Demonstrate user consent](/criteria/requirements/311)
 
     - [312. Allow user consent revocation](/criteria/requirements/312)
 
@@ -127,7 +127,7 @@ by third parties.
 
     - [318. Notify third parties of changes](/criteria/requirements/318)
 
-    - [33- Guarantee legal compliance](/criteria/requirements/331)
+    - [331. Guarantee legal compliance](/criteria/requirements/331)
 
     - [343. Respect the Do Not Track header](/criteria/requirements/343)
 

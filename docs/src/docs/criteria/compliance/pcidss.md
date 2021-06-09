@@ -12,10 +12,10 @@ and supporting services
 that drive education, awareness,
 and effective implementation
 by stakeholders.
+The version used in this section is
+[PCI DSS v3.2.1](https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf).
 
-## Correlation
-
-### PCI DSS v3.2.1
+### Correlation
 
 - 6.5.10 *(v3.0)* - Broken authentication and session management
 
@@ -95,13 +95,13 @@ by stakeholders.
 
     - [077. Avoid disclosing technical information](/criteria/requirements/077)
 
-    - [26- Avoid exposing sensitive information](/criteria/requirements/261)
+    - [261. Avoid exposing sensitive information](/criteria/requirements/261)
 
 - 2.1.1 - For wireless environments connected 
 
     - [142. Change system default credentials](/criteria/requirements/142)
 
-    - [25- Change access point IP](/criteria/requirements/251)
+    - [251. Change access point IP](/criteria/requirements/251)
 
 - 2.2.2 - Enable only necessary services
 
@@ -119,7 +119,7 @@ by stakeholders.
 
 - 2.3 - Encrypt all non-console administrative access
 
-    - [18- Transmit data using secure protocols](/criteria/requirements/181)
+    - [181. Transmit data using secure protocols](/criteria/requirements/181)
 
     - [185. Encrypt sensitive information](/criteria/requirements/185)
 
@@ -147,7 +147,7 @@ by stakeholders.
 
     - [186. Use the principle of least privilege](/criteria/requirements/186)
 
-- [3.4 - Render PAN  unreadable anywhere it is stored](/criteria/requirements/185)
+- [3.4 - Render PAN unreadable anywhere it is stored](/criteria/requirements/185)
 
 - 3.5.2 - Restrict access to cryptographic keys
 
@@ -183,7 +183,7 @@ by stakeholders.
 
     - [338. Implement perfect forward secrecy](/criteria/requirements/338)
 
-    - [36- Replace cryptographic keys](/criteria/requirements/361)
+    - [361. Replace cryptographic keys](/criteria/requirements/361)
 
 - [3.6.5 - Retirement or replacement of keys](/criteria/requirements/361)
 
@@ -197,7 +197,7 @@ by stakeholders.
 
     - [088. Request client certificates](/criteria/requirements/088)
 
-    - [18- Transmit data using secure protocols](/criteria/requirements/181)
+    - [181. Transmit data using secure protocols](/criteria/requirements/181)
 
     - [224. Use secure cryptographic mechanisms](/criteria/requirements/224)
 
@@ -209,7 +209,7 @@ by stakeholders.
 
     - [147. Use pre-existent mechanisms](/criteria/requirements/147)
 
-    - [18- Transmit data using secure protocols](/criteria/requirements/181)
+    - [181. Transmit data using secure protocols](/criteria/requirements/181)
 
     - [252. Configure key encryption](/criteria/requirements/252)
 
@@ -219,7 +219,7 @@ by stakeholders.
 
 - 5.1.1 - Ensure that anti-virus programs are capable of detecting
 
-    - [04- Scan files for malicious code](/criteria/requirements/041)
+    - [041. Scan files for malicious code](/criteria/requirements/041)
 
     - [118. Inspect attachments](/criteria/requirements/118)
 
@@ -259,7 +259,7 @@ by stakeholders.
 
     - [173. Discard unsafe inputs](/criteria/requirements/173)
 
-    - [32- Avoid deserializing untrusted data](/criteria/requirements/321)
+    - [321. Avoid deserializing untrusted data](/criteria/requirements/321)
 
     - [344. Avoid dynamic code execution](/criteria/requirements/344)
 
@@ -281,7 +281,7 @@ by stakeholders.
 
 - 6.5.4 - Insecure communications
 
-    - [18- Transmit data using secure protocols](/criteria/requirements/181)
+    - [181. Transmit data using secure protocols](/criteria/requirements/181)
 
     - [336. Disable insecure TLS versions](/criteria/requirements/336)
 
@@ -291,7 +291,7 @@ by stakeholders.
 
     - [078. Disable debugging events](/criteria/requirements/078)
 
-    - [16- Define secure default options](/criteria/requirements/161)
+    - [161. Define secure default options](/criteria/requirements/161)
 
 - 6.5.7 - Cross-site scripting (XSS)
 
@@ -331,7 +331,7 @@ by stakeholders.
 
     - [320. Avoid client-side control enforcement](/criteria/requirements/320)
 
-    - [34- Use the principle of deny by default](/criteria/requirements/341)
+    - [341. Use the principle of deny by default](/criteria/requirements/341)
 
 - 6.5.9 - Cross-site request forgery (CSRF)
 
@@ -357,7 +357,7 @@ by stakeholders.
 
     - [030. Avoid object reutilization](/criteria/requirements/030)
 
-    - [03- Discard user session data](/criteria/requirements/031)
+    - [031. Discard user session data](/criteria/requirements/031)
 
     - [032. Avoid session ID leakages](/criteria/requirements/032)
 
@@ -365,13 +365,13 @@ by stakeholders.
 
     - [114. Deny access with inactive credentials](/criteria/requirements/114)
 
-    - [13- Deny multiple password changing attempts](/criteria/requirements/131)
+    - [131. Deny multiple password changing attempts](/criteria/requirements/131)
 
     - [139. Set minimum OTP length](/criteria/requirements/139)
 
     - [140. Define OTP lifespan](/criteria/requirements/140)
 
-    - [14- Force re-authentication](/criteria/requirements/141)
+    - [141. Force re-authentication](/criteria/requirements/141)
 
     - [142. Change system default credentials](/criteria/requirements/142)
 
@@ -389,7 +389,7 @@ by stakeholders.
 
     - [229. Request access credentials](/criteria/requirements/229)
 
-    - [23- Implement a biometric verification component](/criteria/requirements/231)
+    - [231. Implement a biometric verification component](/criteria/requirements/231)
 
     - [236. Establish authentication time](/criteria/requirements/236)
 
@@ -429,7 +429,7 @@ by stakeholders.
 
     - [186. Use the principle of least privilege](/criteria/requirements/186)
 
-    - [34- Use the principle of deny by default](/criteria/requirements/341)
+    - [341. Use the principle of deny by default](/criteria/requirements/341)
 
 - 7.1.3 - Assign access
         
@@ -443,7 +443,7 @@ by stakeholders.
 
     - [096. Set users' required privileges](/criteria/requirements/096)
 
-    - [34- Use the principle of deny by default](/criteria/requirements/341)
+    - [341. Use the principle of deny by default](/criteria/requirements/341)
 
 - 8.1.1 - Assign all users a unique ID
 
@@ -471,7 +471,7 @@ by stakeholders.
 
     - [127. Store hashed passwords](/criteria/requirements/127)
 
-    - [18- Transmit data using secure protocols](/criteria/requirements/181)
+    - [181. Transmit data using secure protocols](/criteria/requirements/181)
 
     - [185. Encrypt sensitive information](/criteria/requirements/185)
 
