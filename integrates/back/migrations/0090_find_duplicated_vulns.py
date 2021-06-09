@@ -8,6 +8,12 @@
 # Finalization time:
 
 import boto3
+from datetime import (
+    datetime,
+)
+from dateutil.parser import (
+    parse as parse_date,
+)
 from itertools import (
     groupby,
 )
@@ -15,16 +21,34 @@ from typing import (
     Any,
     Dict,
     List,
+    Tuple,
 )
 from vulnerabilities.domain.utils import (
     get_hash_from_dict,
 )
 
+# Constants
 PROD: bool = False
 
+# Types
+Item = Dict[str, Any]
 
-def handle_finding_vulns(items: List[Dict[str, Any]]) -> None:
-    finding_vulns: List[Dict[str, Any]] = [
+
+def get_vuln_creation_date(vuln: Item) -> datetime:
+    date_str: str = vuln.get("historic_state", [{}])[0].get("date", "")
+    if date_str:
+        return parse_date(date_str)
+    raise KeyError("Unable to determine the creation date")
+
+
+def split(vulns: List[Item]) -> Tuple[Item, List[Item]]:
+    oldest = min(vulns, key=get_vuln_creation_date)
+    remaining = [vuln for vuln in vulns if vuln["UUID"] != oldest["UUID"]]
+    return oldest, remaining
+
+
+def handle_finding_vulns(items: List[Item]) -> None:
+    finding_vulns: List[Item] = [
         item
         for item in items
         if item.get("historic_state", [{}])[-1].get("state") == "open"
@@ -33,13 +57,16 @@ def handle_finding_vulns(items: List[Dict[str, Any]]) -> None:
     ]
 
     for _, _same_hash_vulns in groupby(finding_vulns, key=get_hash_from_dict):
-        same_hash_vulns = tuple(_same_hash_vulns)
+        same_hash_vulns = list(_same_hash_vulns)
         if len(same_hash_vulns) >= 2:
             print("---")
-            for vuln in same_hash_vulns:
-                finding_id: str = vuln["finding_id"]
-                uuid: str = vuln["UUID"]
-                print(finding_id, uuid)
+            try:
+                oldest, remaining = split(same_hash_vulns)
+            except KeyError:
+                print(f"An error ocurred: {same_hash_vulns}")
+            else:
+                print(f"Oldest: {oldest}")
+                print(f"Remaining: {remaining}")
 
 
 def main() -> None:
@@ -61,7 +88,7 @@ def main() -> None:
 
     resource = boto3.resource("dynamodb")
     table = resource.Table("FI_vulnerabilities")
-    kwargs: Dict[str, Any] = dict(Limit=100)
+    kwargs: Item = dict(Limit=100)
     response = table.scan(**kwargs)
     handle_response(response)
 
