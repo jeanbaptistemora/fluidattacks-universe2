@@ -2,7 +2,18 @@ from aioextensions import (
     collect,
     CPU_CORES,
 )
-import androguard.core.bytecodes.apk
+from androguard.core.analysis.analysis import (
+    Analysis,
+)
+from androguard.core.bytecodes.apk import (
+    APK,
+)
+from androguard.core.bytecodes.dvm import (
+    DalvikVMFormat,
+)
+from androguard.decompiler.decompiler import (
+    DecompilerDAD,
+)
 import contextlib
 from lib_apk import (
     analyze_bytecodes,
@@ -20,6 +31,7 @@ from typing import (
     Any,
     Callable,
     Dict,
+    List,
     Optional,
     Set,
     Tuple,
@@ -69,16 +81,34 @@ def get_apk_contexts() -> Set[APKContext]:
 
     for path in CTX.config.apk.include:
 
-        apk_obj: Optional[androguard.core.bytecodes.apk.APK] = None
+        apk_obj: Optional[APK] = None
+        analysis: Optional[Analysis] = None
         with contextlib.suppress(zipfile.BadZipFile):
-            apk_obj = androguard.core.bytecodes.apk.APK(path)
+            apk_obj = APK(path)
+            analysis = Analysis(vm=None)
+            dalviks: List[DalvikVMFormat] = []
+            decompiler = DecompilerDAD(dalviks, analysis)
+            dalviks.extend(
+                DalvikVMFormat(
+                    dex,
+                    config=None,
+                    decompiler=decompiler,
+                    using_api=apk_obj.get_target_sdk_version(),
+                )
+                for dex in apk_obj.get_all_dex()
+            )
+            for dalvik in dalviks:
+                analysis.add(dalvik)
+            analysis.create_xref()
 
         apk_contexts.add(
             APKContext(
+                analysis=analysis,
                 apk_obj=apk_obj,
                 path=path,
             )
         )
+
     return apk_contexts
 
 
