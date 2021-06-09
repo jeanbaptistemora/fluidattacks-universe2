@@ -4,6 +4,9 @@ from lib_apk.types import (
 from model import (
     core_model,
 )
+from operator import (
+    attrgetter,
+)
 import textwrap
 from typing import (
     Callable,
@@ -113,7 +116,7 @@ def _apk_unsigned(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
-def add_no_root_check_location(
+def _add_no_root_check_location(
     ctx: APKCheckCtx,
     locations: Locations,
     methods: List[str],
@@ -126,13 +129,41 @@ def add_no_root_check_location(
                 $ python3.8
                 >>> from androguard.misc import AnalyzeAPK  # 3.3.5
                 >>> dex = AnalyzeAPK({repr(ctx.apk_ctx.path)})[2]
-                >>> [method.name for method in dex.get_methods()]
+                >>> sorted(set(method.name for method in dex.get_methods()))
                 # No method checks root detection
                 {repr(methods)}
                 """
             )[1:],
             viewport=SnippetViewport(column=0, line=4, wrap=True),
         ),
+    )
+
+
+def _no_root_check(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
+    locations: Locations = Locations([])
+
+    if ctx.apk_ctx.analysis is not None:
+        method_names: List[str] = sorted(
+            set(map(attrgetter("name"), ctx.apk_ctx.analysis.get_methods()))
+        )
+
+        if not any(
+            method_name
+            in {
+                "checkForBusyBoxBinary",
+                "checkForDangerousProps",
+                "checkForSuBinary",
+                "checkSuExists",
+                "isRooted",
+            }
+            for method_name in method_names
+        ):
+            _add_no_root_check_location(ctx, locations, method_names)
+
+    return _create_vulns(
+        ctx=ctx,
+        finding=core_model.FindingEnum.F048,
+        locations=locations,
     )
 
 
@@ -146,5 +177,6 @@ CHECKS: Dict[
     core_model.FindingEnum,
     Callable[[APKCheckCtx], core_model.Vulnerabilities],
 ] = {
+    core_model.FindingEnum.F048: _no_root_check,
     core_model.FindingEnum.F103_APK_UNSIGNED: _apk_unsigned,
 }
