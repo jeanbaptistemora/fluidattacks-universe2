@@ -1,4 +1,7 @@
 # pylint: skip-file
+from __future__ import (
+    annotations,
+)
 
 from enum import (
     Enum,
@@ -6,8 +9,13 @@ from enum import (
 from returns.maybe import (
     Maybe,
 )
+from returns.primitives.types import (
+    Immutable,
+)
 from typing import (
     Dict,
+    NamedTuple,
+    Optional,
 )
 
 
@@ -21,6 +29,7 @@ class RedshiftDataType(Enum):
     BOOLEAN = "BOOLEAN"
     CHAR = "CHAR"
     VARCHAR = "VARCHAR"
+    DATE = "DATE"
     TIMESTAMP = "TIMESTAMP"
     TIMESTAMPTZ = "TIMESTAMPTZ"
     TIME = "TIME"
@@ -54,3 +63,52 @@ def to_rs_datatype(raw: str) -> RedshiftDataType:
     raw_dt = raw.upper()
     dt = Maybe.from_optional(alias_map.get(raw_dt))
     return dt.or_else_call(lambda: RedshiftDataType(raw_dt))
+
+
+requires_precision = set(
+    [
+        RedshiftDataType.DECIMAL,
+        RedshiftDataType.REAL,
+        RedshiftDataType.DOUBLE_PRECISION,
+        RedshiftDataType.CHAR,
+        RedshiftDataType.VARCHAR,
+    ]
+)
+
+
+class PrecisionRequired(Exception):
+    pass
+
+
+class _ColumnType(NamedTuple):
+    field_type: RedshiftDataType
+    precision: Optional[int]
+    default_val: Optional[str]
+    nullable: bool
+
+
+class ColumnType(Immutable):
+    field_type: RedshiftDataType
+    precision: Optional[int]
+    default_val: Optional[str]
+    nullable: bool
+
+    def __new__(
+        cls,
+        field_type: RedshiftDataType,
+        precision: Optional[int] = None,
+        default_val: Optional[str] = None,
+        nullable: bool = True,
+    ) -> ColumnType:
+        if field_type in requires_precision and precision is None:
+            raise PrecisionRequired(f"for field type: {field_type}")
+        self = object.__new__(cls)
+        obj = _ColumnType(field_type, precision, default_val, nullable)
+        for prop, val in obj._asdict().items():
+            object.__setattr__(self, prop, val)
+        return self
+
+
+class Column(NamedTuple):
+    name: str
+    c_type: ColumnType

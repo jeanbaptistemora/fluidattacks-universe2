@@ -28,7 +28,7 @@ from singer_io.singer import (
 from target_redshift import (
     LOG,
 )
-from target_redshift.data_types import (
+from target_redshift.columns import (
     from_json,
 )
 from target_redshift.utils import (

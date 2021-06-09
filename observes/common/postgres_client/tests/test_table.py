@@ -1,7 +1,7 @@
 from postgres_client import (
     client,
 )
-from postgres_client.data_type import (
+from postgres_client.column import (
     RedshiftDataType,
 )
 from postgres_client.schema import (

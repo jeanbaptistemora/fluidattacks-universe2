@@ -4,7 +4,7 @@ from __future__ import (
     annotations,
 )
 
-from postgres_client.data_type import (
+from postgres_client.column import (
     RedshiftDataType,
 )
 from postgres_client.ids import (

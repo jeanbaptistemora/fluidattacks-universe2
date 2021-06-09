@@ -1,6 +1,6 @@
 # pylint: skip-file
 
-from postgres_client.data_type import (
+from postgres_client.column import (
     RedshiftDataType,
 )
 from returns.maybe import (

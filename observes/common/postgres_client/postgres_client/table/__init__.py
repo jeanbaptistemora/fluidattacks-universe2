@@ -4,11 +4,11 @@ from __future__ import (
     annotations,
 )
 
+from postgres_client.column import (
+    to_rs_datatype,
+)
 from postgres_client.cursor import (
     Cursor,
-)
-from postgres_client.data_type import (
-    to_rs_datatype,
 )
 from postgres_client.ids import (
     TableID,
