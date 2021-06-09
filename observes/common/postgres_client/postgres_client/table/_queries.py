@@ -1,5 +1,8 @@
 # pylint: skip-file
 
+from postgres_client.ids import (
+    TableID,
+)
 from postgres_client.query import (
     Query,
     SqlArgs,
@@ -7,7 +10,6 @@ from postgres_client.query import (
 from postgres_client.table._objs import (
     Column,
     MetaTable,
-    TableID,
 )
 from typing import (
     Dict,

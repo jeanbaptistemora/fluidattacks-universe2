@@ -10,13 +10,15 @@ from postgres_client.cursor import (
 from postgres_client.data_type import (
     to_rs_datatype,
 )
+from postgres_client.ids import (
+    TableID,
+)
 from postgres_client.table import (
     _queries as queries,
 )
 from postgres_client.table._objs import (
     Column,
     MetaTable,
-    TableID,
 )
 from returns.io import (
     IO,

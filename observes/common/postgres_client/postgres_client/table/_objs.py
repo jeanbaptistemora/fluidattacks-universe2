@@ -7,6 +7,9 @@ from __future__ import (
 from postgres_client.data_type import (
     RedshiftDataType,
 )
+from postgres_client.ids import (
+    TableID,
+)
 from typing import (
     FrozenSet,
     NamedTuple,
@@ -22,11 +25,6 @@ class Column(NamedTuple):
     name: str
     field_type: RedshiftDataType
     default_val: Optional[str] = None
-
-
-class TableID(NamedTuple):
-    schema: str
-    table_name: str
 
 
 class MetaTable(NamedTuple):
