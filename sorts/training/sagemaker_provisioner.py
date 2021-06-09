@@ -67,12 +67,13 @@ def deploy_training_job(model: str, delay: int) -> None:
 
 if __name__ == "__main__":
     models_to_train: List[str] = [
-        "MLPClassifier",
-        "RandomForestClassifier",
+        "AdaBoostClassifier",
+        "GradientBoostingClassifier",
+        "HistGradientBoostingClassifier",
         "KNeighborsClassifier",
         "LinearSVC",
-        "GradientBoostingClassifier",
-        "AdaBoostClassifier",
+        "MLPClassifier",
+        "RandomForestClassifier",
     ]
     with ThreadPoolExecutor(max_workers=len(models_to_train)) as executor:
         executor.map(
