@@ -5,6 +5,8 @@ from __future__ import (
 )
 
 from postgres_client.column import (
+    Column,
+    ColumnType,
     to_rs_datatype,
 )
 from postgres_client.cursor import (
@@ -17,7 +19,6 @@ from postgres_client.table import (
     _queries as queries,
 )
 from postgres_client.table._objs import (
-    Column,
     MetaTable,
 )
 from returns.io import (
@@ -62,7 +63,15 @@ def _retrieve(cursor: Cursor, table_id: TableID) -> IO[MetaTable]:
 
     def _extract(raw: Any) -> MetaTable:
         columns = frozenset(
-            Column(column[1], to_rs_datatype(column[2].upper()), column[5])
+            Column(
+                column[1],
+                ColumnType(
+                    to_rs_datatype(column[2].upper()),
+                    int(column[3]) if column[3] else None,
+                    str(column[4]) if column[4] else None,
+                    str(column[5]).upper() == "YES",
+                ),
+            )
             for column in raw
         )
         return MetaTable.new(table_id, frozenset(), columns)

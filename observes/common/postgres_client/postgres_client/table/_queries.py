@@ -1,5 +1,8 @@
 # pylint: skip-file
 
+from postgres_client.column import (
+    Column,
+)
 from postgres_client.ids import (
     TableID,
 )
@@ -8,7 +11,6 @@ from postgres_client.query import (
     SqlArgs,
 )
 from postgres_client.table._objs import (
-    Column,
     MetaTable,
 )
 from typing import (
@@ -49,11 +51,11 @@ def add_columns(
             "{field_type} default %(default_val)s"
         )
         args = SqlArgs(
-            values={"default_val": column.default_val},
+            values={"default_val": column.c_type.default_val},
             identifiers={
                 "table_path": table.path,
                 "column_name": column.name,
-                "field_type": column.field_type.value,
+                "field_type": column.c_type.field_type.value,
             },
         )
         query = Query(statement, args)
@@ -88,8 +90,8 @@ def retrieve(table_id: TableID) -> Query:
             CASE WHEN character_maximum_length IS not null
                     THEN character_maximum_length
                     ELSE numeric_precision end AS max_length,
-            is_nullable,
-            column_default AS default_value
+            column_default AS default_value,
+            is_nullable
         FROM information_schema.columns
         WHERE table_name = %(table_name)s
             AND table_schema = %(table_schema)s
@@ -115,7 +117,7 @@ def create(table: MetaTable, if_not_exist: bool = False) -> Query:
     not_exists: str = "" if not if_not_exist else "IF NOT EXISTS "
     fields: str = ",".join(
         [
-            f"{{name_{n}}} {column.field_type.value}"
+            f"{{name_{n}}} {column.c_type.field_type.value}"
             for n, column in enumerate(table.columns)
         ]
     )

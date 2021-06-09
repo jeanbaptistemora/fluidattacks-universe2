@@ -2,6 +2,7 @@ from postgres_client import (
     client,
 )
 from postgres_client.column import (
+    ColumnType,
     RedshiftDataType,
 )
 from postgres_client.schema import (
@@ -47,11 +48,12 @@ def test_create(postgresql_my: Any) -> None:
     factory = TableFactory(db_client.cursor, False)
     table_id = TableID(schema, "super_table_N1")
     columns = [
-        Column("id", RedshiftDataType.VARCHAR),
-        Column("some_sint", RedshiftDataType.SMALLINT),
-        Column("some_real", RedshiftDataType.REAL),
-        Column("some_bool", RedshiftDataType.BOOLEAN),
-        Column("some_tstamp", RedshiftDataType.TIMESTAMP),
+        Column("id", ColumnType(RedshiftDataType.VARCHAR)),
+        Column("some_char", ColumnType(RedshiftDataType.CHAR)),
+        Column("some_sint", ColumnType(RedshiftDataType.SMALLINT)),
+        Column("some_real", ColumnType(RedshiftDataType.REAL)),
+        Column("some_bool", ColumnType(RedshiftDataType.BOOLEAN)),
+        Column("some_tstamp", ColumnType(RedshiftDataType.TIMESTAMP)),
     ]
     draft = MetaTable.new(
         table_id,

@@ -5,7 +5,7 @@ from __future__ import (
 )
 
 from postgres_client.column import (
-    RedshiftDataType,
+    Column,
 )
 from postgres_client.ids import (
     TableID,
@@ -13,18 +13,11 @@ from postgres_client.ids import (
 from typing import (
     FrozenSet,
     NamedTuple,
-    Optional,
 )
 
 
 class InvalidPrimaryKey(Exception):
     pass
-
-
-class Column(NamedTuple):
-    name: str
-    field_type: RedshiftDataType
-    default_val: Optional[str] = None
 
 
 class MetaTable(NamedTuple):

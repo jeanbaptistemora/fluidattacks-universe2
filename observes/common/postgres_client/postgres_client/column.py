@@ -6,6 +6,7 @@ from __future__ import (
 from enum import (
     Enum,
 )
+import logging
 from returns.maybe import (
     Maybe,
 )
@@ -13,10 +14,13 @@ from returns.primitives.types import (
     Immutable,
 )
 from typing import (
+    Any,
     Dict,
     NamedTuple,
     Optional,
 )
+
+LOG = logging.getLogger(__name__)
 
 
 class RedshiftDataType(Enum):
@@ -101,12 +105,31 @@ class ColumnType(Immutable):
         nullable: bool = True,
     ) -> ColumnType:
         if field_type in requires_precision and precision is None:
-            raise PrecisionRequired(f"for field type: {field_type}")
+            LOG.error(PrecisionRequired(f"for field type: {field_type}"))
         self = object.__new__(cls)
         obj = _ColumnType(field_type, precision, default_val, nullable)
         for prop, val in obj._asdict().items():
             object.__setattr__(self, prop, val)
         return self
+
+    def __hash__(self) -> int:
+        return hash(tuple(vars(self).values()))
+
+    def __eq__(self, other: Any) -> bool:
+        if isinstance(other, ColumnType):
+            return vars(self) == vars(other)
+        return False
+
+    def __repr__(self) -> str:
+        return (
+            "ColumnType(field_type={},precision={},"
+            "default_val={},nullable={})"
+        ).format(
+            self.field_type,
+            self.precision,
+            self.default_val,
+            self.nullable,
+        )
 
 
 class Column(NamedTuple):
