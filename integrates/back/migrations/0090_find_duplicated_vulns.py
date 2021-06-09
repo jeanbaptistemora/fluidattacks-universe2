@@ -4,8 +4,8 @@
 # For all vulns on a finding,
 # compute their hashes and find duplicates
 #
-# Execution time:
-# Finalization time:
+# Execution time: 2021-06-09T16:06:55+00:00
+# Finalization time: 2021-06-09T16:41:42+00:00
 
 import boto3
 from datetime import (
@@ -28,7 +28,7 @@ from vulnerabilities.domain.utils import (
 )
 
 # Constants
-PROD: bool = False
+PROD: bool = True
 
 # Types
 Item = Dict[str, Any]
