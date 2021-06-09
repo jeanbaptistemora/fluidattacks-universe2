@@ -48,9 +48,9 @@ in pretty-printed or CSV format:
 
 - CSV results:
 
-  | title | what | where | cwe |
-  |-------|------|-------|-----|
-  | F052. Insecure encryption algorithm | OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00035.java | 69 | 310 + 327 |
+  | finding | kind | what | where | cwe | stream | title | description | snippet |
+  |---------|------|------|-------|-----|--------|-------|-------------|--------|
+  | F052 | lines | OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00035.java | 69 | 310 + 327 | skims | F052. Insecure encryption algorithm | Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00035.java | (same as in pretty-printed results) |
 
 ## Requirements
 
