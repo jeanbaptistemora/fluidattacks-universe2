@@ -47,7 +47,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
   const { hash } = useLocation();
 
   const orgRegex: string = ":organizationName([a-zA-Z0-9]+)";
-  const groupRegex: string = ":projectName([a-zA-Z0-9]+)";
+  const groupRegex: string = ":groupName([a-zA-Z0-9]+)";
   const tagRegex: string = ":tagName([a-zA-Z0-9-_ ]+)";
 
   const checkLoginReferrer = useCallback((): boolean => {

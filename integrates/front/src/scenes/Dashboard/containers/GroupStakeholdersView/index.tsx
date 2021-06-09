@@ -86,7 +86,7 @@ const tableHeaders: IHeaderConfig[] = [
 ];
 
 const GroupStakeholdersView: React.FC = (): JSX.Element => {
-  const { projectName } = useParams<{ projectName: string }>();
+  const { groupName: projectName } = useParams<{ groupName: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   // State management

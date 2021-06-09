@@ -51,7 +51,7 @@ describe("FindingEvidenceView", (): void => {
         <MockedProvider addTypename={false} mocks={[]}>
           <Route
             component={EvidenceView}
-            path={"/:projectName/events/:findingId/evidence"}
+            path={"/:groupName/events/:findingId/evidence"}
           />
         </MockedProvider>
       </MemoryRouter>
@@ -95,7 +95,7 @@ describe("FindingEvidenceView", (): void => {
         <MockedProvider addTypename={false} mocks={emptyMocks}>
           <Route
             component={EvidenceView}
-            path={"/:projectName/events/:findingId/evidence"}
+            path={"/:groupName/events/:findingId/evidence"}
           />
         </MockedProvider>
       </MemoryRouter>
@@ -117,7 +117,7 @@ describe("FindingEvidenceView", (): void => {
           <Provider store={store}>
             <Route
               component={EvidenceView}
-              path={"/:projectName/events/:findingId/evidence"}
+              path={"/:groupName/events/:findingId/evidence"}
             />
           </Provider>
         </MockedProvider>
@@ -140,7 +140,7 @@ describe("FindingEvidenceView", (): void => {
           <Provider store={store}>
             <Route
               component={EvidenceView}
-              path={"/:projectName/events/:findingId/evidence"}
+              path={"/:groupName/events/:findingId/evidence"}
             />
           </Provider>
         </MockedProvider>

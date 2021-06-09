@@ -21,7 +21,7 @@ import { Logger } from "utils/logger";
 import { translate } from "utils/translations/translate";
 
 const GroupToeLinesView: React.FC = (): JSX.Element => {
-  const { projectName: groupName } = useParams<{ projectName: string }>();
+  const { groupName } = useParams<{ groupName: string }>();
 
   const [checkedItems, setCheckedItems] = useStoredState<
     Record<string, boolean>

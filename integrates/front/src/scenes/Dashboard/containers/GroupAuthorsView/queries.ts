@@ -2,8 +2,8 @@ import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
 export const GET_BILL: DocumentNode = gql`
-  query GetBill($date: DateTime, $projectName: String!) {
-    group(groupName: $projectName) {
+  query GetBill($date: DateTime, $groupName: String!) {
+    group(groupName: $groupName) {
       bill(date: $date) {
         developers {
           actor

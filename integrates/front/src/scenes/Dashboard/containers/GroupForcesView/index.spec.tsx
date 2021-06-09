@@ -103,10 +103,7 @@ describe("ForcesView", (): void => {
       <MemoryRouter initialEntries={["/unittesting/devsecops"]}>
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mockError}>
-            <Route
-              component={GroupForcesView}
-              path={"/:projectName/devsecops"}
-            />
+            <Route component={GroupForcesView} path={"/:groupName/devsecops"} />
           </MockedProvider>
         </Provider>
       </MemoryRouter>
@@ -126,10 +123,7 @@ describe("ForcesView", (): void => {
       <MemoryRouter initialEntries={["/unittesting/devsecops"]}>
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mocks}>
-            <Route
-              component={GroupForcesView}
-              path={"/:projectName/devsecops"}
-            />
+            <Route component={GroupForcesView} path={"/:groupName/devsecops"} />
           </MockedProvider>
         </Provider>
       </MemoryRouter>
@@ -145,10 +139,7 @@ describe("ForcesView", (): void => {
       <MemoryRouter initialEntries={["/unittesting/devsecops"]}>
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mocks}>
-            <Route
-              component={GroupForcesView}
-              path={"/:projectName/devsecops"}
-            />
+            <Route component={GroupForcesView} path={"/:groupName/devsecops"} />
           </MockedProvider>
         </Provider>
       </MemoryRouter>
@@ -175,10 +166,7 @@ describe("ForcesView", (): void => {
       <MemoryRouter initialEntries={["/unittesting/devsecops"]}>
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mocks}>
-            <Route
-              component={GroupForcesView}
-              path={"/:projectName/devsecops"}
-            />
+            <Route component={GroupForcesView} path={"/:groupName/devsecops"} />
           </MockedProvider>
         </Provider>
       </MemoryRouter>

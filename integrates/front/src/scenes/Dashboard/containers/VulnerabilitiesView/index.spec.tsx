@@ -147,7 +147,7 @@ describe("VulnerabilitiesView", (): void => {
               <Route
                 component={VulnsView}
                 path={
-                  "/orgs/:organizationName/groups/:projectName/vulns/:findingId/locations"
+                  "/orgs/:organizationName/groups/:groupName/vulns/:findingId/locations"
                 }
               />
             </authzPermissionsContext.Provider>
@@ -187,7 +187,7 @@ describe("VulnerabilitiesView", (): void => {
               <Route
                 component={VulnsView}
                 path={
-                  "/orgs/:organizationName/groups/:projectName/vulns/:findingId/locations"
+                  "/orgs/:organizationName/groups/:groupName/vulns/:findingId/locations"
                 }
               />
             </authzPermissionsContext.Provider>

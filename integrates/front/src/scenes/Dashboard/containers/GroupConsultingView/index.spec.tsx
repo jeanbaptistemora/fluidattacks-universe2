@@ -52,7 +52,7 @@ describe("GroupConsultingView", (): void => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
-          <Route component={GroupConsultingView} path={"/:projectName"} />
+          <Route component={GroupConsultingView} path={"/:groupName"} />
         </MockedProvider>
       </MemoryRouter>,
       { attachTo: container }
@@ -93,7 +93,7 @@ describe("GroupConsultingView", (): void => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting"]}>
         <MockedProvider addTypename={false} mocks={emptyMocks}>
-          <Route component={GroupConsultingView} path={"/:projectName"} />
+          <Route component={GroupConsultingView} path={"/:groupName"} />
         </MockedProvider>
       </MemoryRouter>,
       { attachTo: container }
@@ -116,7 +116,7 @@ describe("GroupConsultingView", (): void => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/unittesting"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
-          <Route component={GroupConsultingView} path={"/:projectName"} />
+          <Route component={GroupConsultingView} path={"/:groupName"} />
         </MockedProvider>
       </MemoryRouter>,
       { attachTo: container }

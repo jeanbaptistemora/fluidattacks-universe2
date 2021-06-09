@@ -25,7 +25,7 @@ describe("AuthorsView", (): void => {
         query: GET_BILL,
         variables: {
           date: date.toISOString(),
-          projectName: "unittesting",
+          groupName: "unittesting",
         },
       },
       result: {
@@ -54,7 +54,7 @@ describe("AuthorsView", (): void => {
       request: {
         query: GET_BILL,
         variables: {
-          projectName: "unittesting",
+          groupName: "unittesting",
         },
       },
       result: {
@@ -75,7 +75,7 @@ describe("AuthorsView", (): void => {
       <MemoryRouter initialEntries={["/unittesting"]}>
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mockError}>
-            <Route component={GroupAuthorsView} path={"/:projectName"} />
+            <Route component={GroupAuthorsView} path={"/:groupName"} />
           </MockedProvider>
         </Provider>
       </MemoryRouter>
@@ -95,7 +95,7 @@ describe("AuthorsView", (): void => {
       <MemoryRouter initialEntries={["/unittesting"]}>
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mocks}>
-            <Route component={GroupAuthorsView} path={"/:projectName"} />
+            <Route component={GroupAuthorsView} path={"/:groupName"} />
           </MockedProvider>
         </Provider>
       </MemoryRouter>
@@ -111,7 +111,7 @@ describe("AuthorsView", (): void => {
       <MemoryRouter initialEntries={["/unittesting"]}>
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mocks}>
-            <Route component={GroupAuthorsView} path={"/:projectName"} />
+            <Route component={GroupAuthorsView} path={"/:groupName"} />
           </MockedProvider>
         </Provider>
       </MemoryRouter>

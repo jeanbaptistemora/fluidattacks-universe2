@@ -137,7 +137,7 @@ describe("GroupFindingsView", (): void => {
           <MockedProvider addTypename={true} mocks={apolloDataMock}>
             <Route
               component={GroupFindingsView}
-              path={"/groups/:projectName/vulns"}
+              path={"/groups/:groupName/vulns"}
             />
           </MockedProvider>
         </Provider>
@@ -161,7 +161,7 @@ describe("GroupFindingsView", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={GroupFindingsView}
-                path={"/groups/:projectName/vulns"}
+                path={"/groups/:groupName/vulns"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -209,7 +209,7 @@ describe("GroupFindingsView", (): void => {
           <MockedProvider addTypename={true} mocks={mockError}>
             <Route
               component={GroupFindingsView}
-              path={"/groups/:projectName/vulns"}
+              path={"/groups/:groupName/vulns"}
             />
           </MockedProvider>
         </Provider>
@@ -229,7 +229,7 @@ describe("GroupFindingsView", (): void => {
           <MockedProvider addTypename={true} mocks={mocksFindings}>
             <Route
               component={GroupFindingsView}
-              path={"/groups/:projectName/vulns"}
+              path={"/groups/:groupName/vulns"}
             />
           </MockedProvider>
         </Provider>

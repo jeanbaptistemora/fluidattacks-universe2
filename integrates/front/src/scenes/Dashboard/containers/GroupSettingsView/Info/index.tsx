@@ -14,7 +14,7 @@ import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 const GroupInformation: React.FC = (): JSX.Element => {
-  const { projectName } = useParams<{ projectName: string }>();
+  const { groupName: projectName } = useParams<{ groupName: string }>();
 
   const { data } = useQuery(GET_GROUP_DATA, {
     onError: ({ graphQLErrors }: ApolloError): void => {

@@ -51,7 +51,7 @@ describe("Unsubscribe from group", (): void => {
       <MemoryRouter initialEntries={["/test"]}>
         <MockedProvider addTypename={true} mocks={mocksMutation}>
           <Provider store={store}>
-            <Route component={Unsubscribe} path={"/:projectName"} />
+            <Route component={Unsubscribe} path={"/:groupName"} />
           </Provider>
         </MockedProvider>
       </MemoryRouter>

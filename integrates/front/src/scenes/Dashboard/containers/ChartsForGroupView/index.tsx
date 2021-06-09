@@ -5,7 +5,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { ChartsGenericView } from "scenes/Dashboard/containers/ChartsGenericView";
 
 const ChartsForGroupView: React.FC = (): JSX.Element => {
-  const params: { projectName: string } = useParams();
+  const params: { groupName: string } = useParams();
   const searchParams: URLSearchParams = new URLSearchParams(
     useLocation().search
   );
@@ -13,7 +13,7 @@ const ChartsForGroupView: React.FC = (): JSX.Element => {
   const subjectFromSearchParams: string | null = searchParams.get("group");
 
   const subject: string = _.isNull(subjectFromSearchParams)
-    ? params.projectName
+    ? params.groupName
     : subjectFromSearchParams;
 
   return (

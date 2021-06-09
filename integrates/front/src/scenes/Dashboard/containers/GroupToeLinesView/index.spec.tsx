@@ -80,7 +80,7 @@ describe("GroupToeLinesView", (): void => {
           <MockedProvider addTypename={true} mocks={[mockedToeLines]}>
             <Route
               component={GroupToeLinesView}
-              path={"/:projectName/toelines"}
+              path={"/:groupName/toelines"}
             />
           </MockedProvider>
         </Provider>

@@ -33,7 +33,7 @@ describe("ToeContent", (): void => {
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={[]}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route component={ToeContent} path={"/:projectName/toe"} />
+              <Route component={ToeContent} path={"/:groupName/toe"} />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>

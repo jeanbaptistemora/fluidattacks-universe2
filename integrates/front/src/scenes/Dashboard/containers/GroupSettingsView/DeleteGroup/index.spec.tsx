@@ -22,7 +22,7 @@ describe("DeleteGroup", (): void => {
       <Provider store={store}>
         <MockedProvider>
           <MemoryRouter initialEntries={["/TEST"]}>
-            <Route component={DeleteGroup} path={"/:projectName"} />
+            <Route component={DeleteGroup} path={"/:groupName"} />
           </MemoryRouter>
         </MockedProvider>
       </Provider>

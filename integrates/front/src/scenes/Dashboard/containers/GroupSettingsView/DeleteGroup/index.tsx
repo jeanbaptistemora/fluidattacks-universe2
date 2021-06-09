@@ -20,7 +20,7 @@ import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
 const DeleteGroup: React.FC = (): JSX.Element => {
-  const { projectName } = useParams<{ projectName: string }>();
+  const { groupName: projectName } = useParams<{ groupName: string }>();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { push } = useHistory();
   const { t } = useTranslation();

@@ -17,9 +17,9 @@ const OrganizationRedirect: React.FC<IOrganizationRedirectProps> = (
   props: IOrganizationRedirectProps
 ): JSX.Element => {
   const { type } = props;
-  const { projectName, tagName } =
+  const { groupName: projectName, tagName } =
     useParams<{
-      projectName: string;
+      groupName: string;
       tagName: string;
     }>();
   const { pathname } = useLocation();

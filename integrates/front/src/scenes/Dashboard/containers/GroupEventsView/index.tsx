@@ -100,7 +100,7 @@ const maxEventDetailsLength: ConfigurableValidator = maxLength(
 
 const GroupEventsView: React.FC = (): JSX.Element => {
   const { push } = useHistory();
-  const { projectName } = useParams<{ projectName: string }>();
+  const { groupName: projectName } = useParams<{ groupName: string }>();
   const { url } = useRouteMatch();
 
   const selectOptionsStatus = {

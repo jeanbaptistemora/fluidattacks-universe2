@@ -65,10 +65,10 @@ import { translate } from "utils/translations/translate";
 import { required } from "utils/validations";
 
 const findingContent: React.FC = (): JSX.Element => {
-  const { findingId, projectName } =
+  const { findingId, groupName: projectName } =
     useParams<{
       findingId: string;
-      projectName: string;
+      groupName: string;
     }>();
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);

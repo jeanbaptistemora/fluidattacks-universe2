@@ -75,7 +75,7 @@ describe("GroupToeInputsView", (): void => {
           <MockedProvider addTypename={true} mocks={[mockedToeInputs]}>
             <Route
               component={GroupToeInputsView}
-              path={"/:projectName/toe/inputs"}
+              path={"/:groupName/toe/inputs"}
             />
           </MockedProvider>
         </Provider>

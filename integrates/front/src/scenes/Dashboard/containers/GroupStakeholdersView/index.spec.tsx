@@ -134,7 +134,7 @@ describe("Group stakeholders view", (): void => {
           <MockedProvider addTypename={false} mocks={mockError}>
             <Route
               component={GroupStakeholdersView}
-              path={"/groups/:projectName/stakeholders"}
+              path={"/groups/:groupName/stakeholders"}
             />
           </MockedProvider>
         </Provider>
@@ -156,7 +156,7 @@ describe("Group stakeholders view", (): void => {
           <MockedProvider addTypename={false} mocks={mocks}>
             <Route
               component={GroupStakeholdersView}
-              path={"/groups/:projectName/stakeholders"}
+              path={"/groups/:groupName/stakeholders"}
             />
           </MockedProvider>
         </Provider>
@@ -203,7 +203,7 @@ describe("Group stakeholders view", (): void => {
           <MockedProvider addTypename={false} mocks={mocks}>
             <Route
               component={GroupStakeholdersView}
-              path={"/groups/:projectName/stakeholders"}
+              path={"/groups/:groupName/stakeholders"}
             />
           </MockedProvider>
         </Provider>
@@ -225,7 +225,7 @@ describe("Group stakeholders view", (): void => {
           <MockedProvider addTypename={false} mocks={mocks}>
             <Route
               component={GroupStakeholdersView}
-              path={"/groups/:projectName/stakeholders"}
+              path={"/groups/:groupName/stakeholders"}
             />
           </MockedProvider>
         </Provider>
@@ -251,7 +251,7 @@ describe("Group stakeholders view", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={GroupStakeholdersView}
-                path={"/groups/:projectName/stakeholders"}
+                path={"/groups/:groupName/stakeholders"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -300,7 +300,7 @@ describe("Group stakeholders view", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={GroupStakeholdersView}
-                path={"/groups/:projectName/stakeholders"}
+                path={"/groups/:groupName/stakeholders"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -383,7 +383,7 @@ describe("Group stakeholders view", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={GroupStakeholdersView}
-                path={"/groups/:projectName/stakeholders"}
+                path={"/groups/:groupName/stakeholders"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -489,7 +489,7 @@ describe("Group stakeholders view", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={GroupStakeholdersView}
-                path={"/groups/:projectName/stakeholders"}
+                path={"/groups/:groupName/stakeholders"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -566,7 +566,7 @@ describe("Group stakeholders view", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={GroupStakeholdersView}
-                path={"/groups/:projectName/stakeholders"}
+                path={"/groups/:groupName/stakeholders"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -685,7 +685,7 @@ describe("Group stakeholders view", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={GroupStakeholdersView}
-                path={"/groups/:projectName/stakeholders"}
+                path={"/groups/:groupName/stakeholders"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -785,7 +785,7 @@ describe("Group stakeholders view", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={GroupStakeholdersView}
-                path={"/groups/:projectName/stakeholders"}
+                path={"/groups/:groupName/stakeholders"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -867,7 +867,7 @@ describe("Group stakeholders view", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={GroupStakeholdersView}
-                path={"/groups/:projectName/stakeholders"}
+                path={"/groups/:groupName/stakeholders"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>

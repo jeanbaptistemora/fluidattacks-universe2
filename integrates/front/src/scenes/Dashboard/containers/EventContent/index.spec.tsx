@@ -43,7 +43,7 @@ describe("EventContent", (): void => {
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
             component={EventContent}
-            path={"/:projectName/events/:eventId/description"}
+            path={"/:groupName/events/:eventId/description"}
           />
         </MockedProvider>
       </MemoryRouter>
@@ -60,7 +60,7 @@ describe("EventContent", (): void => {
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
             component={EventContent}
-            path={"/:projectName/events/:eventId/description"}
+            path={"/:groupName/events/:eventId/description"}
           />
         </MockedProvider>
       </MemoryRouter>

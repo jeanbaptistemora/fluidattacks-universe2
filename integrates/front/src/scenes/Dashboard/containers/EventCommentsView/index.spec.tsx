@@ -54,7 +54,7 @@ describe("EventCommentsView", (): void => {
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
             component={EventCommentsView}
-            path={"/:projectName/events/:eventId/comments"}
+            path={"/:groupName/events/:eventId/comments"}
           />
         </MockedProvider>
       </MemoryRouter>,
@@ -98,7 +98,7 @@ describe("EventCommentsView", (): void => {
         <MockedProvider addTypename={false} mocks={emptyMocks}>
           <Route
             component={EventCommentsView}
-            path={"/:projectName/events/:eventId/comments"}
+            path={"/:groupName/events/:eventId/comments"}
           />
         </MockedProvider>
       </MemoryRouter>,
@@ -124,7 +124,7 @@ describe("EventCommentsView", (): void => {
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
             component={EventCommentsView}
-            path={"/:projectName/events/:eventId/comments"}
+            path={"/:groupName/events/:eventId/comments"}
           />
         </MockedProvider>
       </MemoryRouter>,

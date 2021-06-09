@@ -76,7 +76,7 @@ describe("EventsView", (): void => {
           <MockedProvider addTypename={false} mocks={mockError}>
             <Route
               component={GroupEventsView}
-              path={"/project/:projectName/events"}
+              path={"/project/:groupName/events"}
             />
           </MockedProvider>
         </Provider>
@@ -99,7 +99,7 @@ describe("EventsView", (): void => {
           <MockedProvider addTypename={false} mocks={mocks}>
             <Route
               component={GroupEventsView}
-              path={"/project/:projectName/events"}
+              path={"/project/:groupName/events"}
             />
           </MockedProvider>
         </Provider>
@@ -118,7 +118,7 @@ describe("EventsView", (): void => {
           <MockedProvider addTypename={false} mocks={mocks}>
             <Route
               component={GroupEventsView}
-              path={"/project/:projectName/events"}
+              path={"/project/:groupName/events"}
             />
           </MockedProvider>
         </Provider>
@@ -159,7 +159,7 @@ describe("EventsView", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={GroupEventsView}
-                path={"/project/:projectName/events"}
+                path={"/project/:groupName/events"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>

@@ -72,7 +72,7 @@ describe("Finding Description", (): void => {
           <MockedProvider addTypename={false} mocks={[descriptionQuery]}>
             <Route
               component={DescriptionView}
-              path={"/:projectName/vulns/:findingId/description"}
+              path={"/:groupName/vulns/:findingId/description"}
             />
           </MockedProvider>
         </Provider>
@@ -107,7 +107,7 @@ describe("Finding Description", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={DescriptionView}
-                path={"/:projectName/vulns/:findingId/description"}
+                path={"/:groupName/vulns/:findingId/description"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>

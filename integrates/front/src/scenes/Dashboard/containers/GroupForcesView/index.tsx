@@ -25,7 +25,7 @@ import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 const GroupForcesView: React.FC = (): JSX.Element => {
-  const { projectName } = useParams<{ projectName: string }>();
+  const { groupName: projectName } = useParams<{ groupName: string }>();
 
   // States
   const defaultCurrentRow: IExecution = {

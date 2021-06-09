@@ -78,7 +78,7 @@ describe("GroupScopeView", (): void => {
           <MockedProvider cache={getCache()} mocks={[queryMock]}>
             <Route
               component={GroupScopeView}
-              path={"/orgs/:organizationName/groups/:projectName/scope"}
+              path={"/orgs/:organizationName/groups/:groupName/scope"}
             />
           </MockedProvider>
         </MemoryRouter>
@@ -196,7 +196,7 @@ describe("GroupScopeView", (): void => {
             >
               <Route
                 component={GroupScopeView}
-                path={"/orgs/:organizationName/groups/:projectName/scope"}
+                path={"/orgs/:organizationName/groups/:groupName/scope"}
               />
             </MockedProvider>
           </MemoryRouter>
@@ -365,7 +365,7 @@ describe("GroupScopeView", (): void => {
             >
               <Route
                 component={GroupScopeView}
-                path={"/orgs/:organizationName/groups/:projectName/scope"}
+                path={"/orgs/:organizationName/groups/:groupName/scope"}
               />
             </MockedProvider>
           </MemoryRouter>
@@ -544,7 +544,7 @@ describe("GroupScopeView", (): void => {
             >
               <Route
                 component={GroupScopeView}
-                path={"/orgs/:organizationName/groups/:projectName/scope"}
+                path={"/orgs/:organizationName/groups/:groupName/scope"}
               />
             </MockedProvider>
           </MemoryRouter>
@@ -695,7 +695,7 @@ describe("GroupScopeView", (): void => {
               >
                 <Route
                   component={GroupScopeView}
-                  path={"/orgs/:organizationName/groups/:projectName/scope"}
+                  path={"/orgs/:organizationName/groups/:groupName/scope"}
                 />
               </MockedProvider>
             </MemoryRouter>

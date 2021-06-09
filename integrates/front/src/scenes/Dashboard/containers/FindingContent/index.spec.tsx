@@ -168,7 +168,7 @@ describe("FindingContent", (): void => {
         <MockedProvider addTypename={false} mocks={[findingMock]}>
           <Route
             component={FindingContent}
-            path={"/:projectName/vulns/:findingId/description"}
+            path={"/:groupName/vulns/:findingId/description"}
           />
         </MockedProvider>
       </MemoryRouter>
@@ -193,7 +193,7 @@ describe("FindingContent", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={FindingContent}
-                path={"/:projectName/vulns/:findingId/description"}
+                path={"/:groupName/vulns/:findingId/description"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -222,7 +222,7 @@ describe("FindingContent", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={FindingContent}
-                path={"/:projectName/vulns/:findingId/description"}
+                path={"/:groupName/vulns/:findingId/description"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -258,7 +258,7 @@ describe("FindingContent", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={FindingContent}
-                path={"/:projectName/vulns/:findingId/description"}
+                path={"/:groupName/vulns/:findingId/description"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -333,7 +333,7 @@ describe("FindingContent", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={FindingContent}
-                path={"/:projectName/vulns/:findingId/description"}
+                path={"/:groupName/vulns/:findingId/description"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -401,7 +401,7 @@ describe("FindingContent", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={FindingContent}
-                path={"/:projectName/vulns/:findingId/description"}
+                path={"/:groupName/vulns/:findingId/description"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -460,7 +460,7 @@ describe("FindingContent", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={FindingContent}
-                path={"/:projectName/vulns/:findingId/description"}
+                path={"/:groupName/vulns/:findingId/description"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -543,7 +543,7 @@ describe("FindingContent", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={FindingContent}
-                path={"/:projectName/vulns/:findingId/description"}
+                path={"/:groupName/vulns/:findingId/description"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -615,7 +615,7 @@ describe("FindingContent", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={FindingContent}
-                path={"/:projectName/vulns/:findingId/description"}
+                path={"/:groupName/vulns/:findingId/description"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -697,7 +697,7 @@ describe("FindingContent", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={FindingContent}
-                path={"/:projectName/vulns/:findingId/description"}
+                path={"/:groupName/vulns/:findingId/description"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -770,7 +770,7 @@ describe("FindingContent", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={FindingContent}
-                path={"/:projectName/vulns/:findingId/description"}
+                path={"/:groupName/vulns/:findingId/description"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -836,7 +836,7 @@ describe("FindingContent", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={FindingContent}
-                path={"/:projectName/vulns/:findingId/description"}
+                path={"/:groupName/vulns/:findingId/description"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>

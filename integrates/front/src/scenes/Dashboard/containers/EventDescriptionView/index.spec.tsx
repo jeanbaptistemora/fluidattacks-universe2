@@ -53,7 +53,7 @@ describe("EventDescriptionView", (): void => {
           <MockedProvider addTypename={false} mocks={mocks}>
             <Route
               component={EventDescriptionView}
-              path={"/:projectName/events/:eventId/description"}
+              path={"/:groupName/events/:eventId/description"}
             />
           </MockedProvider>
         </Provider>
@@ -76,7 +76,7 @@ describe("EventDescriptionView", (): void => {
           <MockedProvider addTypename={false} mocks={mocks}>
             <Route
               component={EventDescriptionView}
-              path={"/:projectName/events/:eventId/description"}
+              path={"/:groupName/events/:eventId/description"}
             />
           </MockedProvider>
         </Provider>
@@ -103,7 +103,7 @@ describe("EventDescriptionView", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={EventDescriptionView}
-                path={"/:projectName/events/:eventId/description"}
+                path={"/:groupName/events/:eventId/description"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>

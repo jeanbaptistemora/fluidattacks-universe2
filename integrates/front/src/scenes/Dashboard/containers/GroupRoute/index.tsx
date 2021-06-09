@@ -28,10 +28,10 @@ import { translate } from "utils/translations/translate";
 
 const GroupRoute: React.FC<IGroupRoute> = (props: IGroupRoute): JSX.Element => {
   const { setUserRole } = props;
-  const { organizationName, projectName } =
+  const { organizationName, groupName: projectName } =
     useParams<{
       organizationName: string;
-      projectName: string;
+      groupName: string;
     }>();
   const { path } = useRouteMatch();
 

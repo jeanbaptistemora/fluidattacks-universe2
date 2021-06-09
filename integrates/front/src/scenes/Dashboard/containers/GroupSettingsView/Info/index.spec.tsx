@@ -50,7 +50,7 @@ describe("Info", (): void => {
           <MemoryRouter initialEntries={["/orgs/okada/groups/TEST/scope"]}>
             <Route
               component={GroupInformation}
-              path={"/orgs/:organizationName/groups/:projectName/scope"}
+              path={"/orgs/:organizationName/groups/:groupName/scope"}
             />
           </MemoryRouter>
         </MockedProvider>

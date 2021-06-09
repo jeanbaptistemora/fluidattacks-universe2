@@ -98,7 +98,7 @@ describe("SeverityView", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={SeverityView}
-                path={"/:projectName/vulns/:findingId/severity"}
+                path={"/:groupName/vulns/:findingId/severity"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -157,7 +157,7 @@ describe("SeverityView", (): void => {
           <MockedProvider addTypename={false} mocks={mockError}>
             <Route
               component={SeverityView}
-              path={"/:projectName/vulns/:findingId/severity"}
+              path={"/:groupName/vulns/:findingId/severity"}
             />
           </MockedProvider>
         </Provider>
@@ -184,7 +184,7 @@ describe("SeverityView", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={SeverityView}
-                path={"/:projectName/vulns/:findingId/severity"}
+                path={"/:groupName/vulns/:findingId/severity"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -219,7 +219,7 @@ describe("SeverityView", (): void => {
           <MockedProvider addTypename={false} mocks={mockError}>
             <Route
               component={SeverityView}
-              path={"/:projectName/vulns/:findingId/severity"}
+              path={"/:groupName/vulns/:findingId/severity"}
             />
           </MockedProvider>
         </Provider>

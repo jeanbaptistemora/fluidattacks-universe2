@@ -90,7 +90,7 @@ describe("GroupDraftsView", (): void => {
           <MockedProvider addTypename={false} mocks={mocks}>
             <Route
               component={GroupDraftsView}
-              path={"/groups/:projectName/drafts"}
+              path={"/groups/:groupName/drafts"}
             />
           </MockedProvider>
         </Provider>
@@ -115,7 +115,7 @@ describe("GroupDraftsView", (): void => {
           <MockedProvider addTypename={false} mocks={mockError}>
             <Route
               component={GroupDraftsView}
-              path={"/groups/:projectName/drafts"}
+              path={"/groups/:groupName/drafts"}
             />
           </MockedProvider>
         </Provider>

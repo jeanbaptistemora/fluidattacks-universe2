@@ -24,7 +24,7 @@ describe("GroupContent", (): void => {
           <MockedProvider addTypename={false} mocks={[]}>
             <Route
               component={GroupContent}
-              path={"/orgs/:organizationName/groups/:projectName/vulns"}
+              path={"/orgs/:organizationName/groups/:groupName/vulns"}
             />
           </MockedProvider>
         </Provider>
@@ -46,7 +46,7 @@ describe("GroupContent", (): void => {
           <MockedProvider addTypename={false} mocks={[]}>
             <Route
               component={GroupContent}
-              path={"/orgs/:organizationName/groups/:projectName/vulns"}
+              path={"/orgs/:organizationName/groups/:groupName/vulns"}
             />
           </MockedProvider>
         </Provider>

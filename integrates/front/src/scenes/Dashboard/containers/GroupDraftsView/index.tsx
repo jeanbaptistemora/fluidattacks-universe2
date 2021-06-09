@@ -39,7 +39,7 @@ import { translate } from "utils/translations/translate";
 import { required, validDraftTitle } from "utils/validations";
 
 const GroupDraftsView: React.FC = (): JSX.Element => {
-  const { projectName } = useParams<{ projectName: string }>();
+  const { groupName: projectName } = useParams<{ groupName: string }>();
   const { push } = useHistory();
   const { url } = useRouteMatch();
 

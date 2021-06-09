@@ -29,7 +29,7 @@ interface IGroupConsultingData {
 }
 
 const GroupConsultingView: React.FC = (): JSX.Element => {
-  const { projectName } = useParams<{ projectName: string }>();
+  const { groupName: projectName } = useParams<{ groupName: string }>();
   const { userEmail }: IAuthContext = useContext(authContext);
 
   const handleAddConsultError: (addCommentError: ApolloError) => void = (

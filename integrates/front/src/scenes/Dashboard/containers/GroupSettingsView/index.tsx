@@ -14,7 +14,7 @@ import { Can } from "utils/authz/Can";
 import { Have } from "utils/authz/Have";
 
 const GroupSettingsView: React.FC = (): JSX.Element => {
-  const { projectName } = useParams<{ projectName: string }>();
+  const { groupName: projectName } = useParams<{ groupName: string }>();
 
   // Side effects
   const onMount: () => void = (): void => {

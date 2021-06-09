@@ -85,7 +85,7 @@ describe("FindingCommentsView", (): void => {
         <MockedProvider addTypename={true} mocks={mocks}>
           <Route
             component={CommentsView}
-            path={"/:projectName/vulns/:findingId/:type"}
+            path={"/:groupName/vulns/:findingId/:type"}
           />
         </MockedProvider>
       </MemoryRouter>,
@@ -130,7 +130,7 @@ describe("FindingCommentsView", (): void => {
         <MockedProvider addTypename={true} mocks={emptyMocks}>
           <Route
             component={CommentsView}
-            path={"/:projectName/vulns/:findingId/:type"}
+            path={"/:groupName/vulns/:findingId/:type"}
           />
         </MockedProvider>
       </MemoryRouter>,
@@ -156,7 +156,7 @@ describe("FindingCommentsView", (): void => {
         <MockedProvider addTypename={true} mocks={mocks}>
           <Route
             component={CommentsView}
-            path={"/:projectName/vulns/:findingId/:type"}
+            path={"/:groupName/vulns/:findingId/:type"}
           />
         </MockedProvider>
       </MemoryRouter>,
@@ -183,7 +183,7 @@ describe("FindingCommentsView", (): void => {
         <MockedProvider addTypename={true} mocks={mocks}>
           <Route
             component={CommentsView}
-            path={"/:projectName/vulns/:findingId/:type"}
+            path={"/:groupName/vulns/:findingId/:type"}
           />
         </MockedProvider>
       </MemoryRouter>,

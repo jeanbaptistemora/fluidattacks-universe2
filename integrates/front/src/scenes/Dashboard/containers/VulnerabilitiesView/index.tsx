@@ -44,10 +44,10 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
 export const VulnsView: React.FC = (): JSX.Element => {
-  const { findingId, projectName } =
+  const { findingId, groupName: projectName } =
     useParams<{
       findingId: string;
-      projectName: string;
+      groupName: string;
     }>();
   const { t } = useTranslation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);

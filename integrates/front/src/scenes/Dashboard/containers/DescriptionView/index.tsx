@@ -70,10 +70,10 @@ const maxRecommendationLength: ConfigurableValidator = maxLength(
 );
 
 const DescriptionView: React.FC = (): JSX.Element => {
-  const { findingId, projectName } =
+  const { findingId, groupName: projectName } =
     useParams<{
       findingId: string;
-      projectName: string;
+      groupName: string;
     }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 

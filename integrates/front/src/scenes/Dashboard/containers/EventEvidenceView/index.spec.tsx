@@ -53,7 +53,7 @@ describe("EventEvidenceView", (): void => {
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
             component={EventEvidenceView}
-            path={"/:projectName/events/:eventId/evidence"}
+            path={"/:groupName/events/:eventId/evidence"}
           />
         </MockedProvider>
       </MemoryRouter>
@@ -94,7 +94,7 @@ describe("EventEvidenceView", (): void => {
           <Provider store={store}>
             <Route
               component={EventEvidenceView}
-              path={"/:projectName/events/:eventId/evidence"}
+              path={"/:groupName/events/:eventId/evidence"}
             />
           </Provider>
         </MockedProvider>
@@ -137,7 +137,7 @@ describe("EventEvidenceView", (): void => {
           <Provider store={store}>
             <Route
               component={EventEvidenceView}
-              path={"/:projectName/events/:eventId/evidence"}
+              path={"/:groupName/events/:eventId/evidence"}
             />
           </Provider>
         </MockedProvider>
@@ -185,7 +185,7 @@ describe("EventEvidenceView", (): void => {
           <Provider store={store}>
             <Route
               component={EventEvidenceView}
-              path={"/:projectName/events/:eventId/evidence"}
+              path={"/:groupName/events/:eventId/evidence"}
             />
           </Provider>
         </MockedProvider>
@@ -237,7 +237,7 @@ describe("EventEvidenceView", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={EventEvidenceView}
-                path={"/:projectName/events/:eventId/evidence"}
+                path={"/:groupName/events/:eventId/evidence"}
               />
             </authzPermissionsContext.Provider>
           </Provider>
@@ -312,7 +312,7 @@ describe("EventEvidenceView", (): void => {
           <Provider store={store}>
             <Route
               component={EventEvidenceView}
-              path={"/:projectName/events/:eventId/evidence"}
+              path={"/:groupName/events/:eventId/evidence"}
             />
           </Provider>
         </MockedProvider>

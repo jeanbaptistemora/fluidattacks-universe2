@@ -92,7 +92,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     },
   ];
 
-  const { projectName } = useParams<{ projectName: string }>();
+  const { groupName } = useParams<{ groupName: string }>();
 
   const { data } = useQuery(GET_BILL, {
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -101,7 +101,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
         Logger.warning("An error occurred getting bill data", error);
       });
     },
-    variables: { date: billDate, projectName },
+    variables: { date: billDate, groupName },
   });
 
   if (_.isUndefined(data) || _.isEmpty(data)) {

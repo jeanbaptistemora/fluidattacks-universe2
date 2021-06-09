@@ -58,7 +58,7 @@ describe("FindingRecordsView", (): void => {
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
             component={RecordsView}
-            path={"/:projectName/vulns/:findingId/records"}
+            path={"/:groupName/vulns/:findingId/records"}
           />
         </MockedProvider>
       </MemoryRouter>
@@ -86,7 +86,7 @@ describe("FindingRecordsView", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={RecordsView}
-                path={"/:projectName/vulns/:findingId/records"}
+                path={"/:groupName/vulns/:findingId/records"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -117,7 +117,7 @@ describe("FindingRecordsView", (): void => {
         <MockedProvider addTypename={false} mocks={mocks}>
           <Route
             component={RecordsView}
-            path={"/:projectName/vulns/:findingId/records"}
+            path={"/:groupName/vulns/:findingId/records"}
           />
         </MockedProvider>
       </MemoryRouter>
@@ -143,7 +143,7 @@ describe("FindingRecordsView", (): void => {
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={RecordsView}
-                path={"/:projectName/vulns/:findingId/records"}
+                path={"/:groupName/vulns/:findingId/records"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>
@@ -190,7 +190,7 @@ describe("FindingRecordsView", (): void => {
         <MockedProvider addTypename={false} mocks={emptyMocks}>
           <Route
             component={RecordsView}
-            path={"/:projectName/vulns/:findingId/records"}
+            path={"/:groupName/vulns/:findingId/records"}
           />
         </MockedProvider>
       </MemoryRouter>

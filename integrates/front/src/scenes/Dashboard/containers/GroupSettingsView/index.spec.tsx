@@ -58,7 +58,7 @@ describe("GroupSettingsView", (): void => {
           <MemoryRouter initialEntries={["/orgs/okada/groups/TEST/scope"]}>
             <Route
               component={GroupSettingsView}
-              path={"/orgs/:organizationName/groups/:projectName/scope"}
+              path={"/orgs/:organizationName/groups/:groupName/scope"}
             />
           </MemoryRouter>
         </MockedProvider>
@@ -78,7 +78,7 @@ describe("GroupSettingsView", (): void => {
           <MemoryRouter initialEntries={["/orgs/okada/groups/TEST/scope"]}>
             <Route
               component={GroupSettingsView}
-              path={"/orgs/:organizationName/groups/:projectName/scope"}
+              path={"/orgs/:organizationName/groups/:groupName/scope"}
             />
           </MemoryRouter>
         </MockedProvider>
@@ -98,7 +98,7 @@ describe("GroupSettingsView", (): void => {
           <MemoryRouter initialEntries={["/orgs/okada/groups/TEST/scope"]}>
             <Route
               component={GroupSettingsView}
-              path={"/orgs/:organizationName/groups/:projectName/scope"}
+              path={"/orgs/:organizationName/groups/:groupName/scope"}
             />
           </MemoryRouter>
         </MockedProvider>

@@ -62,7 +62,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const formattingDate: string = localIsoTime.toISOString();
   const currentDate: string = formattingDate.slice(0, FORMATTING_DATE_INDEX);
 
-  const { projectName } = useParams<{ projectName: string }>();
+  const { groupName: projectName } = useParams<{ groupName: string }>();
   const { push } = useHistory();
   const { url } = useRouteMatch();
 

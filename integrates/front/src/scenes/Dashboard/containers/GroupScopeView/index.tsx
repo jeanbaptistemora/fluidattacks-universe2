@@ -24,7 +24,7 @@ const isURLRoot = (root: Root): root is IURLRootAttr =>
   root.__typename === "URLRoot";
 
 export const GroupScopeView: React.FC = (): JSX.Element => {
-  const { projectName: groupName } = useParams<{ projectName: string }>();
+  const { groupName } = useParams<{ groupName: string }>();
 
   // GraphQL operations
   const { data, refetch } = useQuery<{ group: { roots: Root[] } }>(GET_ROOTS, {
