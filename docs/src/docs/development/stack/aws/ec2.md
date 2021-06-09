@@ -78,7 +78,7 @@ over other alternatives are:
     [CI/CD jobs](/development/stack/gitlab-ci),
     [Batch tasks](https://aws.amazon.com/batch/)
     and
-    [horizonally-scaled applications](https://gitlab.com/fluidattacks/product/-/blob/master/makes/applications/integrates/back/deploy/prod/k8s/deployment.yaml#L7)
+    [horizonally-scaled applications](https://gitlab.com/fluidattacks/product/-/blob/56683d3cfbc2b1be3ebe8ae6dd4627b066961aa9/makes/applications/integrates/back/deploy/prod/k8s/deployment.yaml#L7)
     like our
     [ASM](https://fluidattacks.com/categories/asm/).
 1. It supports
@@ -93,7 +93,7 @@ over other alternatives are:
     [ASM](https://fluidattacks.com/categories/asm/)
     can be turned on and off
     based on
-    [specific parameters](https://gitlab.com/fluidattacks/product/-/blob/master/makes/applications/integrates/back/deploy/prod/k8s/deployment.yaml#L7).
+    [specific parameters](https://gitlab.com/fluidattacks/product/-/blob/56683d3cfbc2b1be3ebe8ae6dd4627b066961aa9/makes/applications/integrates/back/deploy/prod/k8s/deployment.yaml#L7).
 1. It supports
     [advanced networking](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-networking.html)
     features that allow assigning public
