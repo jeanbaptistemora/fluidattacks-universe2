@@ -27,8 +27,10 @@ makeTemplate {
       nixpkgs.python38Packages.asn1crypto
       nixpkgs.python38Packages.androguard
       nixpkgs.python38Packages.beautifulsoup4
+      nixpkgs.python38Packages.future
       nixpkgs.python38Packages.lxml
       nixpkgs.python38Packages.ntplib
+      nixpkgs.python38Packages.pygments
       nixpkgs.python38Packages.pygraphviz
       nixpkgs.python38Packages.soupsieve
       nixpkgs.python38Packages.unidiff
