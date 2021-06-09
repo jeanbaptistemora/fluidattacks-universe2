@@ -47,7 +47,31 @@ def split(vulns: List[Item]) -> Tuple[Item, List[Item]]:
     return oldest, remaining
 
 
-def handle_finding_vulns(items: List[Item]) -> None:
+def delete_vulns(vulns: List[Item], table: Any) -> None:
+    for vuln in vulns:
+        finding_id: str = vuln["finding_id"]
+        uuid: str = vuln["UUID"]
+        new_historic_entry = dict(
+            analyst="kamado@fluidattacks.com",
+            date="2021-06-09 11:00:00",
+            justification="DUPLICATED",
+            source="integrates",
+            state="DELETED",
+        )
+        historic_state = vuln["historic_state"]
+        historic_state.append(new_historic_entry)
+        print(f"Updating {finding_id}, {uuid}: {historic_state}")
+
+        if PROD:
+            table.update_item(
+                Key=dict(finding_id=finding_id, UUID=uuid),
+                UpdateExpression="SET #historic_state = :historic_state",
+                ExpressionAttributeNames={"#historic_state": "historic_state"},
+                ExpressionAttributeValues={":historic_state": historic_state},
+            )
+
+
+def handle_finding_vulns(items: List[Item], table: Any) -> None:
     finding_vulns: List[Item] = [
         item
         for item in items
@@ -67,6 +91,7 @@ def handle_finding_vulns(items: List[Item]) -> None:
             else:
                 print(f"Oldest: {oldest}")
                 print(f"Remaining: {remaining}")
+                delete_vulns(remaining, table)
 
 
 def main() -> None:
@@ -82,7 +107,7 @@ def main() -> None:
             if finding_id == finding_id_last:
                 finding_vulns.append(item)
             else:
-                handle_finding_vulns(finding_vulns)
+                handle_finding_vulns(finding_vulns, table)
                 finding_id_last = finding_id
                 finding_vulns = [item]
 
