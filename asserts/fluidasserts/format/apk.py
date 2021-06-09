@@ -105,28 +105,6 @@ def get_http_urls(dex):
 
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError, apk.Error, dvm.Error)
-def is_unsigned(apk_file: str) -> tuple:
-    """
-    Check if the given APK file is signed.
-
-    :param apk_file: Path to the image to be tested.
-    :returns: - ``OPEN`` if APK is unsigned.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    apk_obj = apk.APK(apk_file)
-
-    return _get_result_as_tuple_sast(
-        path=apk_file,
-        msg_open="APK file is not signed",
-        msg_closed="APK file is signed",
-        open_if=not apk_obj.is_signed(),
-    )
-
-
-@api(risk=LOW, kind=SAST)
-@unknown_if(FileNotFoundError, apk.Error, dvm.Error)
 def not_checks_for_root(apk_file: str) -> tuple:
     """
     Check if the given APK file have methods to check for root.

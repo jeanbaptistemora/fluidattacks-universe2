@@ -35,11 +35,6 @@ NOT_EXISTS_APK = "test/static/format/apk/close/notexists.apk"
 #
 
 
-def test_is_unsigned_open():
-    """Test if APK file is signed."""
-    assert apk.is_unsigned(UNSIGNED_APK)
-
-
 def test_root_open():
     """Test if APK file checks for root."""
     assert apk.not_checks_for_root(SIGNED_APK)
@@ -128,11 +123,6 @@ def test_frida_open():
 #
 # Close tests
 #
-
-
-def test_is_unsigned_close():
-    """Test if APK file is signed."""
-    assert not apk.is_unsigned(SIGNED_APK)
 
 
 def test_root_close():
@@ -228,11 +218,6 @@ def test_frida_close():
 #
 # Unknown tests
 #
-
-
-def test_is_unsigned_unknown():
-    """Test if APK file is signed."""
-    assert not apk.is_unsigned(NOT_EXISTS_APK)
 
 
 def test_root_unknown():

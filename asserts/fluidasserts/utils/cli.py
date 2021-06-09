@@ -1195,7 +1195,6 @@ def exec_apk_package(apks):
     for apk in apks:
         template += textwrap.dedent(
             """
-            apk.is_unsigned('{apk}')
             apk.not_checks_for_root('{apk}')
             apk.uses_dangerous_perms('{apk}')
             apk.has_fragment_injection('{apk}')
