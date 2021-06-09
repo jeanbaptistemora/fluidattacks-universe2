@@ -29,21 +29,6 @@ data "aws_iam_policy_document" "dev" {
     ]
   }
 
-  # S3 upload multimedia
-  statement {
-    effect = "Allow"
-    actions = [
-      "s3:ListBucket",
-      "s3:Get*",
-      "s3:PutObject",
-      "s3:PutObjectAcl",
-    ]
-    resources = [
-      "arn:aws:s3:::docs.fluidattacks.com/multimedia/*",
-      "arn:aws:s3:::docs.fluidattacks.com",
-    ]
-  }
-
   # S3 state files
   statement {
     effect = "Allow"
