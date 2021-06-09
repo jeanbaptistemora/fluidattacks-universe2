@@ -147,6 +147,12 @@ def add_f042_secure() -> None:
     response5: Response = Response()
     response5.set_cookie(key="session", value="test5")
     response5.set_cookie(key="google_analytics", value="1asdf345", secure=True)
+    response5.set_cookie(key="session2", value="test52")
+
+    response6: Response = Response()
+    response6.set_cookie(key="session2", value="test52")
+    response6.set_cookie(key="google_analytics", value="1asdf345")
+    response6.set_cookie(key="session", value="test5")
 
     all_response: List[Response] = [
         response0,
@@ -155,6 +161,7 @@ def add_f042_secure() -> None:
         response3,
         response4,
         response5,
+        response6,
     ]
 
     for index, response in enumerate(all_response):

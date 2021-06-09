@@ -323,7 +323,7 @@ def _set_cookie_secure(
                 locations.append(
                     desc="set_cookie_secure.missing_secure",
                     desc_kwargs={"cookie_name": header.cookie_name},
-                    identifier=header.cookie_name,
+                    identifier=f"{header.cookie_name}={header.cookie_value}",
                 )
 
     return _create_vulns(
