@@ -81,7 +81,7 @@ def _add_apk_unsigned_not_signed_location(
     locations: Locations,
 ) -> None:
     locations.append(
-        desc="apk_unsigned.not_signed",
+        desc="apk_unsigned",
         snippet=make_snippet(
             content=textwrap.dedent(
                 f"""
@@ -110,6 +110,29 @@ def _apk_unsigned(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
         ctx=ctx,
         finding=core_model.FindingEnum.F103_APK_UNSIGNED,
         locations=locations,
+    )
+
+
+def add_no_root_check_location(
+    ctx: APKCheckCtx,
+    locations: Locations,
+    methods: List[str],
+) -> None:
+    locations.append(
+        desc="no_root_check",
+        snippet=make_snippet(
+            content=textwrap.dedent(
+                f"""
+                $ python3.8
+                >>> from androguard.misc import AnalyzeAPK  # 3.3.5
+                >>> dex = AnalyzeAPK({repr(ctx.apk_ctx.path)})[2]
+                >>> [method.name for method in dex.get_methods()]
+                # No method checks root detection
+                {repr(methods)}
+                """
+            )[1:],
+            viewport=SnippetViewport(column=0, line=4, wrap=True),
+        ),
     )
 
 

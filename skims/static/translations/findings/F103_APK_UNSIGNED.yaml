@@ -1,4 +1,4 @@
-lib_apk.analyze_bytecodes.apk_unsigned.not_signed:
+lib_apk.analyze_bytecodes.apk_unsigned:
   en: Not signed
   es: Sin firma
 F103_APK_UNSIGNED.description:
