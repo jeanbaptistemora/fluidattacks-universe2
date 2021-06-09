@@ -3,9 +3,14 @@ from sagemaker.tuner import (
     CategoricalParameter,
     IntegerParameter,
 )
+
+from sklearn.experimental import (  # noqa  # isort: split
+    enable_hist_gradient_boosting,
+)
 from sklearn.ensemble import (
     AdaBoostClassifier,
     GradientBoostingClassifier,
+    HistGradientBoostingClassifier,
     RandomForestClassifier,
 )
 from sklearn.neighbors import (
@@ -51,6 +56,7 @@ RESULT_HEADERS: List[str] = [
 MODELS: Dict[str, ModelType] = {
     "adaboostclassifier": AdaBoostClassifier,
     "gradientboostingclassifier": GradientBoostingClassifier,
+    "histgradientboostingclassifier": HistGradientBoostingClassifier,
     "kneighborsclassifier": KNeighborsClassifier,
     "linearsvc": LinearSVC,
     "mlpclassifier": MLPClassifier,
