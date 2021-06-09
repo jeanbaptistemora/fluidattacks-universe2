@@ -49,7 +49,7 @@ const Col100: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "pl1 pr2 pb2 w-100",
+  className: "pl1 pr2 pb1 w-100",
 })``;
 
 const Col50: StyledComponent<
@@ -93,6 +93,8 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
 }: IAdditionalInfoProps): JSX.Element => {
   const { t } = useTranslation();
 
+  const MAX_COMMIT_SIZE: number = 7;
+
   const lastTreatment: IHistoricTreatment = getLastTreatment(
     vulnerability.historicTreatment
   );
@@ -112,7 +114,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
 
   return (
     <React.StrictMode>
-      <Col100>
+      <div className={"pb1 pl1 pr2 pt2 w-100"}>
         <Col100>
           <Status>
             <b>
@@ -124,26 +126,20 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
           <b>{t("searchFindings.tabVuln.vulnTable.location")}</b>
         </Col100>
         <Row>
-          <Col40>
-            <Label>{t("searchFindings.tabVuln.vulnTable.where")}</Label>
-          </Col40>
           <Col100>
             <Field>{vulnerability.where}</Field>
             {_.isEmpty(vulnerability.stream) ? undefined : (
-              <React.Fragment>
-                <br />
-                <Field>{vulnerability.stream}</Field>
-              </React.Fragment>
+              <Field>{vulnerability.stream}</Field>
             )}
           </Col100>
         </Row>
         <Row>
-          <Col40>
+          <div className={"pl1 pr2 w-10-l w-100-m w-100-ns"}>
             <Label>{t("searchFindings.tabVuln.vulnTable.specific")}</Label>
-          </Col40>
-          <Col100>
+          </div>
+          <div className={"pl1 pr2 w-90-l w-100-m w-100-ns"}>
             <Field>{vulnerability.specific}</Field>
-          </Col100>
+          </div>
         </Row>
         <Row>
           <Col50>
@@ -279,7 +275,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                       "ma0 mid-gray pr2-l tr-l tl-m tl-ns w-fit-content ws-pre-wrap ww-break-word"
                     }
                   >
-                    {vulnerability.commitHash}
+                    {vulnerability.commitHash.slice(0, MAX_COMMIT_SIZE)}
                   </p>
                 </Col60>
               </Row>
@@ -338,7 +334,7 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
             ) : undefined}
           </Col50>
         </Row>
-      </Col100>
+      </div>
       <hr />
       <Row>
         <Col100>

@@ -330,7 +330,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                   name={"editTreatmentVulnerability"}
                   onSubmit={handleSubmit}
                 >
-                  <Row>
+                  <div className={"flex flex-wrap pt3"}>
                     <Col50>
                       <TreatmentField
                         isTreatmentPristine={isTreatmentPristine}
@@ -347,7 +347,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                         lastTreatment={lastTreatment}
                       />
                     </Col50>
-                  </Row>
+                  </div>
                   <Row>
                     <Col50>
                       <TreatmentManagerField

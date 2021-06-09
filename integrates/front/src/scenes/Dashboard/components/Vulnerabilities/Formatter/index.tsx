@@ -31,8 +31,8 @@ const PointStatus: React.FC<IPointStatus> = ({
   return (
     <React.StrictMode>
       <span>
-        <Point className={currentStateBgColor} />
-        &nbsp;{statusCapitalized.split(" ")[0]}
+        <Point className={`v-mid ${currentStateBgColor}`} />
+        <span className={"v-mid"}>&nbsp;{statusCapitalized.split(" ")[0]}</span>
       </span>
     </React.StrictMode>
   );

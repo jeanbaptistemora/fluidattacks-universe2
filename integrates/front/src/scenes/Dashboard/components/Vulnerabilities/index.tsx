@@ -284,7 +284,9 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
             initialEntries={["/details", "/treatments"]}
             initialIndex={0}
           >
-            <TabsContainer>
+            {/* Use className to override default styles */}
+            {/* eslint-disable-next-line react/forbid-component-props */}
+            <TabsContainer className={"nt3"}>
               <ContentTab
                 icon={"icon pe-7s-graph3"}
                 id={"vulnerabilityDetailsTab"}
@@ -310,7 +312,6 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
                 />
               ) : undefined}
             </TabsContainer>
-            <br />
             <Route path={"/details"}>
               <AdditionalInfo
                 canDisplayAnalyst={canDisplayAnalyst}

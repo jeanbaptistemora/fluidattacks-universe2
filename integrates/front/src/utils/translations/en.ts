@@ -2158,7 +2158,7 @@ export const enTranslations: ResourceKey = {
         efficacy: "Efficiency",
         info: "Info",
         lastReattackDate: "Last reattack date",
-        lastRequestedReattackDate: "Last request date",
+        lastRequestedReattackDate: "Last request",
         location: "Location",
         more: "...",
         reattack: "Reattack: ",
