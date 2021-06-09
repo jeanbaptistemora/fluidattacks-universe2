@@ -459,6 +459,22 @@ class FindingEnum(Enum):
         severity_scope=SeverityScope.unchanged,
         user_interaction=UserInteraction.required,
     )
+    F048: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F048",
+        cwe="250",
+        attack_complexity=AttackComplexity.low,
+        attack_vector=AttackVector.local,
+        availability_impact=AvailabilityImpact.none,
+        confidentiality_impact=ConfidentialityImpact.low,
+        exploitability=Exploitability.poc,
+        integrity_impact=IntegrityImpact.none,
+        privileges_required=PrivilegesRequired.none,
+        remediation_level=RemediationLevel.unavailable,
+        report_confidence=ReportConfidence.reasonable,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
+    )
     F052: FindingMetadata = FindingMetadata.new(
         code="F052",
         cwe="310",

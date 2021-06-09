@@ -42,5 +42,5 @@ F048.threat:
   en: Unauthorized attacker with physical access to the device.
   es: Atacante sin autorización con acceso fisico al dispositivo.
 F048.title:
-  en: F048. Lack of root detection.
-  es: F048. Falta de detección de sistemas rooteados.
+  en: F048. Lack of root detection
+  es: F048. Falta de detección de sistemas rooteados
