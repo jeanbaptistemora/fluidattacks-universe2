@@ -105,7 +105,7 @@ def retrieve(table_id: TableID) -> Query:
 
 
 def create(table: MetaTable, if_not_exist: bool = False) -> Query:
-    table_path: str = table.path
+    table_path: str = "{schema}.{table_name}"
     pkeys_fields: str = ""
     if table.primary_keys:
         p_fields: str = ",".join(
@@ -114,16 +114,21 @@ def create(table: MetaTable, if_not_exist: bool = False) -> Query:
         pkeys_fields = f",PRIMARY KEY({p_fields})"
     not_exists: str = "" if not if_not_exist else "IF NOT EXISTS "
     fields: str = ",".join(
-        [f"{{name_{n}}} {{field_type_{n}}}" for n in range(len(table.columns))]
+        [
+            f"{{name_{n}}} {column.field_type.value}"
+            for n, column in enumerate(table.columns)
+        ]
     )
     fields_def: str = f"{fields}{pkeys_fields}"
-    statement: str = f"CREATE TABLE {not_exists}{{table_path}} ({fields_def})"
-    identifiers: Dict[str, Optional[str]] = {"table_path": table_path}
+    statement: str = f"CREATE TABLE {not_exists}{table_path} ({fields_def})"
+    identifiers: Dict[str, Optional[str]] = {
+        "schema": str(table.table_id.schema),
+        "table_name": table.table_id.table_name,
+    }
     for index, value in enumerate(table.primary_keys):
         identifiers[f"pkey_{index}"] = value
     for index, column in enumerate(table.columns):
         identifiers[f"name_{index}"] = column.name
-        identifiers[f"field_type_{index}"] = column.field_type.value
 
     args = SqlArgs(identifiers=identifiers)
     return Query(statement, args)

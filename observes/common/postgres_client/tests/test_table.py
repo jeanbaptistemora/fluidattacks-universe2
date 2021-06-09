@@ -1,10 +1,15 @@
 from postgres_client import (
     client,
 )
+from postgres_client.data_type import (
+    RedshiftDataType,
+)
 from postgres_client.schema import (
     SchemaID,
 )
 from postgres_client.table import (
+    Column,
+    MetaTable,
     TableFactory,
     TableID,
 )
@@ -32,6 +37,30 @@ def setup_db(postgresql_my: Any) -> None:
     )
     temp_cur.execute("CREATE SCHEMA test_schema_2")
     postgresql_my.commit()
+
+
+@pytest.mark.timeout(15, method="thread")
+def test_create(postgresql_my: Any) -> None:
+    setup_db(postgresql_my)
+    db_client = client.new_test_client(postgresql_my)
+    schema = SchemaID("test_schema")
+    factory = TableFactory(db_client.cursor, False)
+    table_id = TableID(schema, "super_table_N1")
+    columns = [
+        Column("id", RedshiftDataType.VARCHAR),
+        Column("some_sint", RedshiftDataType.SMALLINT),
+        Column("some_real", RedshiftDataType.REAL),
+        Column("some_bool", RedshiftDataType.BOOLEAN),
+        Column("some_tstamp", RedshiftDataType.TIMESTAMP),
+    ]
+    draft = MetaTable.new(
+        table_id,
+        frozenset(["id"]),
+        frozenset(columns),
+    )
+    table1 = unsafe_perform_io(factory.new_table(draft))
+    table2 = unsafe_perform_io(factory.retrieve(table_id))
+    assert table1.table.columns == table2.table.columns
 
 
 @pytest.mark.timeout(15, method="thread")
