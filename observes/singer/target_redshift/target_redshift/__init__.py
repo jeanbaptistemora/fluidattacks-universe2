@@ -23,6 +23,7 @@ from postgres_client.client import (
 )
 from postgres_client.schema import (
     SchemaFactory,
+    SchemaID,
 )
 import psycopg2 as postgres
 from returns.curry import (
@@ -336,9 +337,9 @@ def main(auth_file: IO[str], schema_name: str, drop_schema_flag: bool) -> None:
 
     LOG.info("\n".join(greeting))
 
-    target_schema = schema_name
-    backup_schema = f"{target_schema}_backup"
-    loading_schema = f"{target_schema}_loading"
+    target_schema = SchemaID(schema_name)
+    backup_schema = SchemaID(f"{target_schema}_backup")
+    loading_schema = SchemaID(f"{target_schema}_loading")
 
     factory = ClientFactory()
     client = factory.from_conf(auth_file)
@@ -350,13 +351,13 @@ def main(auth_file: IO[str], schema_name: str, drop_schema_flag: bool) -> None:
             # It also implies the use of a loading strategy
             #   to guarantee continuated service availability
 
-            batcher = Batcher(dbcur, loading_schema)
+            batcher = Batcher(dbcur, str(loading_schema))
 
             # The loading strategy is:
             #   RECREATE loading_schema
             schema_factory.recreate(loading_schema, cascade=True)
             #   LOAD loading_schema
-            persist_messages(batcher, loading_schema)
+            persist_messages(batcher, str(loading_schema))
             #   DROP backup_schema IF EXISTS
             schema_factory.try_retrieve(backup_schema).map(
                 partial(schema_factory.delete, cascade=True)
@@ -375,7 +376,7 @@ def main(auth_file: IO[str], schema_name: str, drop_schema_flag: bool) -> None:
             #     - data integrity
             #     - possible un-updated schema
             #     - and dangling/orphan/duplicated records
-            batcher = Batcher(dbcur, target_schema)
-            persist_messages(batcher, target_schema)
+            batcher = Batcher(dbcur, str(target_schema))
+            persist_messages(batcher, str(target_schema))
     finally:
         client.close()

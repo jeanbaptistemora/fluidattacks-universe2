@@ -11,6 +11,9 @@ from postgres_client.client import (
 from postgres_client.cursor import (
     Cursor,
 )
+from postgres_client.ids import (
+    SchemaID,
+)
 from postgres_client.schema import (
     _queries as queries,
 )
@@ -51,8 +54,8 @@ def _raise(excep: Exception) -> NoReturn:
     raise excep
 
 
-def _exist(cursor: Cursor, schema: str) -> IOResultBool:
-    query = queries.exist(schema.lower())
+def _exist(cursor: Cursor, schema: SchemaID) -> IOResultBool:
+    query = queries.exist(schema)
     cursor.execute_query(query)
     result = cursor.fetch_one().map(lambda elem: elem[0])
     if result == IO(True):
@@ -66,7 +69,7 @@ class SchemaNotExist(Exception):
 
 class _Schema(NamedTuple):
     cursor: Cursor
-    name: str
+    name: SchemaID
     redshift: bool
 
 
@@ -74,7 +77,7 @@ class Schema(Immutable):
     """Use SchemaFactory for building a Schema element"""
 
     cursor: Cursor
-    name: str
+    name: SchemaID
     redshift: bool
 
     def __new__(cls, obj: _Schema) -> Schema:
@@ -99,8 +102,8 @@ class Schema(Immutable):
         factory = TableFactory(self.cursor, self.redshift)
 
         def move_table(table: str) -> None:
-            source = TableID(schema=from_schema.name, table_name=table)
-            target = TableID(schema=to_schema.name, table_name=table)
+            source = TableID(schema=str(from_schema.name), table_name=table)
+            target = TableID(schema=str(to_schema.name), table_name=table)
             source_table = factory.retrieve(source)
             LOG.debug("Moving from %s to %s ", source, target)
             source_table.map(lambda t: factory.move(t.table.table_id, target))
@@ -114,7 +117,7 @@ class SchemaFactory(NamedTuple):
     client: Client
     redshift: bool = True
 
-    def try_retrieve(self, name: str) -> IOResult[Schema, SchemaNotExist]:
+    def try_retrieve(self, name: SchemaID) -> IOResult[Schema, SchemaNotExist]:
         exists = _exist(self.client.cursor, name)
         LOG.debug("schema exists: %s", exists)
         if is_successful(exists):
@@ -122,14 +125,14 @@ class SchemaFactory(NamedTuple):
                 Schema(
                     _Schema(
                         cursor=self.client.cursor,
-                        name=name.lower(),
+                        name=name,
                         redshift=self.redshift,
                     )
                 )
             )
         return IOFailure(SchemaNotExist(name))
 
-    def retrieve(self, name: str) -> IO[Schema]:
+    def retrieve(self, name: SchemaID) -> IO[Schema]:
         result = self.try_retrieve(name)
         return result.alt(_raise).unwrap()
 
@@ -139,19 +142,26 @@ class SchemaFactory(NamedTuple):
         self.client.cursor.execute_query(query)
         return IO(None)
 
-    def new_schema(self, name: str) -> IO[Schema]:
+    def new_schema(self, name: SchemaID) -> IO[Schema]:
         query = queries.create(name)
         self.client.cursor.execute_query(query)
         return self.retrieve(name)
 
-    def recreate(self, schema_name: str, cascade: bool = False) -> IO[Schema]:
+    def recreate(
+        self, schema_name: SchemaID, cascade: bool = False
+    ) -> IO[Schema]:
         self.try_retrieve(schema_name).map(
             partial(self.delete, cascade=cascade)
         )
         return self.new_schema(schema_name)
 
-    def rename(self, schema: Schema, new_name: str) -> IO[Schema]:
+    def rename(self, schema: Schema, new_name: SchemaID) -> IO[Schema]:
         query = queries.rename(schema.name, new_name)
         LOG.info("Renaming schema: %s -> %s", schema.name, new_name)
         self.client.cursor.execute_query(query)
         return self.retrieve(new_name)
+
+
+__all__ = [
+    "SchemaID",
+]
