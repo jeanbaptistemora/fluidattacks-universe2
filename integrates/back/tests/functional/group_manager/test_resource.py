@@ -89,7 +89,10 @@ async def test_resource() -> None:
     assert "url" in result["data"]["downloadFile"]
 
     query = """
-        mutation RemoveFileMutation($filesData: JSONString!, $projectName: String!) {
+        mutation RemoveFileMutation(
+            $filesData: JSONString!,
+            $projectName: String!
+        ) {
             removeFiles(filesData: $filesData, projectName: $projectName) {
                 success
             }

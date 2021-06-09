@@ -135,7 +135,10 @@ async def test_project() -> None:
     assert result["data"]["addProjectConsult"]["success"]
 
     query = """
-        mutation AddTagsMutation($projectName: String!, $tagsData: JSONString!) {
+        mutation AddTagsMutation(
+            $projectName: String!,
+            $tagsData: JSONString!
+        ) {
             addTags (
                 tags: $tagsData,
                 projectName: $projectName) {
@@ -254,7 +257,12 @@ async def test_project() -> None:
     query = f"""
         query {{
             project(projectName: "{group_name}"){{
-                findings(filters: {{affectedSystems: "test", actor: "ANY_EMPLOYEE"}}) {{
+                findings(
+                    filters: {{
+                        affectedSystems: "test",
+                        actor: "ANY_EMPLOYEE"
+                    }}
+                ) {{
                 id
                 }}
             }}

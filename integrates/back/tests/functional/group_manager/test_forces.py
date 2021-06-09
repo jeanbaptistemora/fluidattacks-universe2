@@ -106,8 +106,10 @@ async def _test_forces() -> None:
         "acceptedExploits": [
             {
                 "kind": "DAST",
-                "who": "https://test.com/test/looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong",
-                "where": "HTTP/Implementatioooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooon",
+                "who": "https://test.com/test/looooooooooooooooooooooooo"
+                "oooooooooooooooooooooooooooooooooooooooooooooooooong",
+                "where": "HTTP/Implementatiooooooooooooooooooooooooooooo"
+                "ooooooooooooooooooooooooooooooooooooooooooooooooooooon",
             }
         ],
         "numOfVulnerabilitiesInExploits": 1,

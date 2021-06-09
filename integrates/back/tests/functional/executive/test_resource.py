@@ -96,7 +96,10 @@ async def test_resource() -> None:
 
     context = get_new_context()
     query = """
-        mutation RemoveFileMutation($filesData: JSONString!, $projectName: String!) {
+        mutation RemoveFileMutation(
+            $filesData: JSONString!,
+            $projectName: String!
+        ) {
             removeFiles(filesData: $filesData, projectName: $projectName) {
                 success
             }

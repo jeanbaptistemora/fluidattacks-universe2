@@ -53,7 +53,12 @@ async def get_result(
                 consulting {{
                     content
                 }}
-                findings(filters: {{affectedSystems: "system1", actor: "SOME_CUSTOMERS"}}) {{
+                findings(
+                    filters: {{
+                        affectedSystems: "system1",
+                        actor: "SOME_CUSTOMERS"
+                    }}
+                ) {{
                     id
                 }}
                 events {{
