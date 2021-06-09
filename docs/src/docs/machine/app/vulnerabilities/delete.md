@@ -22,7 +22,7 @@ Instead,
 analysts can set any of them
 to a “Deleted” state.
 
-### Deleting specific vulnerabilities
+## Deleting specific vulnerabilities
 
 When you want to delete
 just one or several specific vulnerabilities
@@ -69,7 +69,7 @@ to complete the deletion process
 or you can click on the **Cancel** button
 to dismiss it.
 
-### Deleting a type of vulnerability
+## Deleting a type of vulnerability
 
 Sometimes
 it is also necessary to delete

@@ -26,7 +26,7 @@ we will explain
 each of the three policies
 that you can set.
 
-### Maximum days accepted
+## Maximum days accepted
 
 This is the maximum number
 of calendar days
@@ -52,7 +52,7 @@ for much longer,
 increasing the risk
 for your applications.
 
-### Score range to be accepted
+## Score range to be accepted
 
 This is the
 temporal [CVSS 3.1](/about/glossary/#cvss)
@@ -80,7 +80,7 @@ no vulnerabilities
 will be able to be
 temporally accepted.
 
-### Maximum times accepted
+## Maximum times accepted
 
 This is the
 maximum number of times

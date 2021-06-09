@@ -16,7 +16,7 @@ in pretty-printed or CSV format:
 
 - Pretty Printed results:
 
-  ```
+  ```markup
   [INFO] F052. Insecure encryption algorithm: OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00035.java
 
   ¦ line  ¦ Data                                                                                                                     ¦
@@ -48,35 +48,35 @@ in pretty-printed or CSV format:
 
 - CSV results:
 
-  | finding | kind | what | where | cwe | stream | title | description | snippet |
-  |---------|------|------|-------|-----|--------|-------|-------------|--------|
-  | F052 | lines | OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00035.java | 69 | 310 + 327 | skims | F052. Insecure encryption algorithm | Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00035.java | (same as in pretty-printed results) |
+| title | what | where | cwe |
+|-------|------|-------|-----|
+| F052. Insecure encryption algorithm | OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00035.java | 69 | 310 + 327 |
 
 ## Requirements
 
-1.  A x86_64-linux system:
+1. A x86_64-linux system:
 
     ```bash
     $ uname -mo
     x86_64 GNU/Linux
     ```
 
-1.  Bash v5, installed as explained in the
+1. Bash v5, installed as explained in the
     [Bash's download page](https://www.gnu.org/software/bash/#download).
 
-1.  Curl v7, installed as explained in the
+1. Curl v7, installed as explained in the
     [Curl's download page](https://curl.se/download.html).
 
-1.  Nix v2, installed as explained in the
+1. Nix v2, installed as explained in the
     [Nix's download page](https://nixos.org/download).
 
 ## Installing
 
-1.  Run the following command:
+1. Run the following command:
 
     `$ bash <(curl -L fluidattacks.com/install/skims)`
 
-1.  You should be able to execute the scanner now:
+1. You should be able to execute the scanner now:
 
     `$ skims --help`
 
@@ -90,7 +90,7 @@ Fluid Attack's scanner
 uses a configuration file in
 [YAML](https://yaml.org/) syntax.
 
-```yaml title="/path/to/config.yaml"
+```yaml
 # Description:
 #   Pick a name you like, normally the name of the repository.
 # Example:

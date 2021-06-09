@@ -5,7 +5,7 @@ sidebar_label: Reporting in existing types of vulnerabilities
 slug: /machine/app/vulnerabilities/reporting-vulns
 ---
 
-### Where can I report them?
+## Where can I report them?
 
 The Fluid Attacks ASM
 has the necessary tools
@@ -38,7 +38,7 @@ and lastly the **Update Vulnerabilities** button
 is used after you select said file
 and want to upload its vulnerabilities.
 
-### The format to report vulnerabilities
+## The format to report vulnerabilities
 
 The .yaml file mentioned before
 needs to have a specific format
@@ -59,7 +59,7 @@ and add the necessary fields.
 Inputs and lines need different information.
 First we have the fields for the inputs:
 
-#### The inputs yaml format
+### The inputs yaml format
 
 - **Field:**
   The name of the specific field or fields
@@ -106,7 +106,7 @@ the GraphQL API
 to find the nickname
 by using this query:
 
-```
+```graphql
 query {
   project(projectName: "your project name") {
     roots {
@@ -117,6 +117,7 @@ query {
   }
 }
 ```
+
 You can go to this
 [link](/machine/api)
 in order to learn more
@@ -128,7 +129,7 @@ And then,
 we also have the format
 for reporting line vulnerabilities:
 
-#### The lines yaml format
+### The lines yaml format
 
 - **Line:**
   This is the specific line or lines
@@ -150,4 +151,5 @@ for reporting line vulnerabilities:
   It can be **open** or **closed**.
 - **Repo_nickname:**
   This field is the same one as in the
+
 [inputs format](/machine/app/vulnerabilities/reporting-vulns#the-inputs-yaml-format).

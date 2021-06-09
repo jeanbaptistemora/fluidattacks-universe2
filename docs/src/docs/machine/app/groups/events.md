@@ -17,7 +17,7 @@ This is what the **Event** tab is used for.
 
 ![Event Tab View](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211893/docs/web/groups/events/event_tab_view_lsxvmy.webp)
 
-### Creating an event
+## Creating an event
 
 In order to create a new event,
 you need to click on the **New** button
@@ -56,7 +56,7 @@ and send an email to all project managers.
 You can also click on the **Cancel** button
 to dismiss the creation of the event.
 
-### Closing an event
+## Closing an event
 
 When a group user notifies
 that the event has been solved

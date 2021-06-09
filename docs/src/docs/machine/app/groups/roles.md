@@ -5,7 +5,7 @@ sidebar_label: Roles
 slug: /machine/app/groups/roles
 ---
 
-### User manager role
+## User manager role
 
 This is the role
 that gives the user
@@ -23,7 +23,7 @@ requesting Zero Risk treatments,
 adding and editing users for the group
 and more.
 
-### Executive role
+## Executive role
 
 This role is made for
 users in managerial positions
@@ -33,7 +33,7 @@ that the project has
 and interact with them
 to ensure their solution.
 
-### User role
+## User role
 
 This is the default user role,
 it is the one given to developers
@@ -45,7 +45,7 @@ needed for solving them
 and also request reattacks
 when they deem them solved.
 
-### Functions
+## Functions
 
 - **View vulnerabilities:**
   The ability to view
@@ -64,7 +64,7 @@ when they deem them solved.
   as there is a need to validate
   and then accept or reject
   this request.
-- **Request reattacks:** 
+- **Request reattacks:**
   When a vulnerabiity is solved,
   there is the need to ask our hackers
   to verify that it was indeed solved.
@@ -106,7 +106,7 @@ when they deem them solved.
   that the ASM can send
   related to your group.
 
-### Roles table
+## Roles table
 
 In the following table
 we specify

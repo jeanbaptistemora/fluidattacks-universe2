@@ -15,39 +15,39 @@ in our *ASM*.
 In order to install the agent
 you need to do the following:
 
-**1.** Make sure you own
-an DevSecOps agent token.
-This token can be generated
-in our ASM scope section
-(Organization>Groups>GroupName>Scope),
-where you will find
-the DevSecOps Agent Token section.
+1. Make sure you own
+  an DevSecOps agent token.
+  This token can be generated
+  in our ASM scope section
+  (Organization>Groups>GroupName>Scope),
+  where you will find
+  the DevSecOps Agent Token section.
 
-![DevSevOps Generation Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211894/docs/machine/agent/installation/devsecops_token_section_jpex40.webp)
+  ![DevSevOps Generation Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211894/docs/machine/agent/installation/devsecops_token_section_jpex40.webp)
 
-Click on the **Manage Token** button
-and a pop-up will appear
-where you can **Generate** the token
-or click on **Reveal Token**
-in case you already generated one.
+  Click on the **Manage Token** button
+  and a pop-up will appear
+  where you can **Generate** the token
+  or click on **Reveal Token**
+  in case you already generated one.
 
-![DevSevOps Generation Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211889/docs/machine/agent/installation/devsecops_token_modal_ivw8th.webp)
+  ![DevSevOps Generation Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211889/docs/machine/agent/installation/devsecops_token_modal_ivw8th.webp)
 
-**2.** Make sure your execution environment
-has the required dependencies:
+1. Make sure your execution environment
+  has the required dependencies:
     - Docker
-**3.** Install docker by following
-the official guide:
+1. Install docker by following
+  the official guide:
     - https://docs.docker.com/engine/install/
-**4.** Having Docker installed,
-pull the image:
-`docker pull fluidattacks/forces:new`.
+1. Having Docker installed,
+  pull the image:
+  `docker pull fluidattacks/forces:new`.
 
 ## Options
 
-* `--token`: Your DevSecOps agent token [required].
-* `--dynamic / --static`: Run only DAST / SAST vulnerabilities. (optional)
-* `--verbose <number>`: Declare the level of detail of the report (default 3)
+- `--token`: Your DevSecOps agent token [required].
+- `--dynamic / --static`: Run only DAST / SAST vulnerabilities. (optional)
+- `--verbose <number>`: Declare the level of detail of the report (default 3)
     - `1`: Show only the number of open,
     closed and accepted vulnerabilities.
     - `2`: Show only open vulnerabilities.
@@ -56,17 +56,19 @@ pull the image:
     and accepted vulnerabilities.
     - You can use `-v`, `-vv`, `-vvv`, `-vvvv`
     instead of `--verbose`.
-* `--strict / --lax`: Run forces in strict mode (default `--lax`).
-* `--repo-path`: Git repository path (optional)
+- `--strict / --lax`: Run forces in strict mode (default `--lax`).
+- `--repo-path`: Git repository path (optional)
 
 ## Examples
 
 Run the Docker image:
 
 1. To check `all` vulnerabilities
-including static and dynamic
+  including static and dynamic
     - `docker run --rm fluidattacks/forces:new forces --token <your-token>`.
 1. To check only `static` vulnerabilities
-    - `docker run --rm fluidattacks/forces:new forces --static --strict --token <your-token>`.
+    - `docker run --rm fluidattacks/forces:new forces
+    --static --strict --token <your-token>`.
 1. To check only `dynamyc` vulnerabilities
-    - `docker run --rm fluidattacks/forces:new forces --dynamic --strict --token <your-token>`.
+    - `docker run --rm fluidattacks/forces:new forces
+    --dynamic --strict --token <your-token>`.

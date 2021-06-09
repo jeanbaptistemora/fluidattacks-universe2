@@ -31,7 +31,8 @@ of the scope of the group,
 so we advice you
 to be careful with this.
 
-### How to exclude paths from the scope of my group?
+## How to exclude paths from the scope of my group?
+
 In order to do this,
 we have a section
 that appears
@@ -84,7 +85,7 @@ so whenever you can,
 always try to be specific
 when excluding paths.
 
-### Examples
+## Examples
 
 Here we have some examples:
 

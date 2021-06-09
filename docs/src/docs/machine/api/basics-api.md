@@ -19,7 +19,7 @@ to the API Token post:
   and how to make queries to a GraphQL endpoint,
   you can do it in this
   [Introduction](https://graphql.org/learn/)
-  in the official GraphQL site. 
+  in the official GraphQL site.
 
 - It is recommended
   that before you face the API,
@@ -33,31 +33,34 @@ to the API Token post:
   and Arguments,
   you are ready to explore the API:
 
-  - Go to the API Token post
-    and use Browser method to see info about you
-    (in this case, your role in the application,
-    remember that you have to previously log in on the ASM):
-    ```
-    query {
-      me {
-        role
-      }
-    }
-    ```
-  - If you want to get info about your projects,
-    you can enhance the previous query to do it
-    so, remember that,
-    since Projects is a list of Project entities,
-    whose are GraphQL entities,
-    you must specify the items
-    that you want from them,
-    in this case, their names:
-    ```
-    query {
-      me {
-        projects {
-          name
+    - Go to the API Token post
+      and use Browser method to see info about you
+      (in this case, your role in the application,
+      remember that you have to previously log in on the ASM):
+
+      ```
+      query {
+        me {
+          role
         }
       }
-    }
-    ```
+      ```
+
+    - If you want to get info about your projects,
+      you can enhance the previous query to do it
+      so, remember that,
+      since Projects is a list of Project entities,
+      whose are GraphQL entities,
+      you must specify the items
+      that you want from them,
+      in this case, their names:
+
+      ```
+      query {
+        me {
+          projects {
+            name
+          }
+        }
+      }
+      ```

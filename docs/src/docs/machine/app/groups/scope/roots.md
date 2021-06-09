@@ -16,7 +16,7 @@ of the three buttons
 that allow you to do
 different things.
 
-### Add a git root
+## Add a git root
 
 ![Git Root Buttons](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211880/docs/web/groups/scope/git_root_buttons_pviqnf.webp)
 
@@ -58,7 +58,7 @@ to add the Git Root,
 or you can click on **Cancel**
 to discard all the information.
 
-### Edit a git root
+## Edit a git root
 
 In order for the next button,
 **Edit root**,
@@ -114,7 +114,7 @@ by project users at any moment,
 and every change will be stored
 for future needs.
 
-### Manage a git root environment
+## Manage a git root environment
 
 And lastly,
 after selecting one of your added **Git Roots**,

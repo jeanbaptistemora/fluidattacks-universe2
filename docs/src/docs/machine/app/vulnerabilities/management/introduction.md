@@ -32,6 +32,7 @@ there are other useful functionalities
 you can do here
 that enable efficient management
 of your vulnerabilities:
+
 - Define a treatment for each vulnerability
 - Request that a vulnerability be reattacked
 - Request a zero risk treatment for a vulnerability

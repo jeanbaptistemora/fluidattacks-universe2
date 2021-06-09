@@ -14,7 +14,7 @@ and vulnerabilities effectively.
 To access the platform
 go to https://app.fluidattacks.com.
 
-# Login
+## Login
 
 To authenticate in the ASM,
 you need a valid user
@@ -29,7 +29,7 @@ we do not manage users,
 credentials, or MFA's.
 We adopt our customer's policies.
 
-# Organizations
+## Organizations
 
 All customer data
 is consolidated in this section.
@@ -40,7 +40,7 @@ can access the information.
 In this section,
 users will find:
 
-## Analytics
+### Analytics
 
 Charts and indicators
 will help you know what is happening
@@ -55,7 +55,7 @@ includes the following:
 - Meantime to remediate
 - Top vulnerabilities
 
-## Portfolios
+### Portfolios
 
 In Organizations Analytics,
 you have the data of all your groups.
@@ -67,7 +67,7 @@ Please check the tags
 in the Scope section
 for more information.
 
-## Stakeholders
+### Stakeholders
 
 Some users can access
 your organization's data,
@@ -76,7 +76,7 @@ does not guarantee access
 to groups or vulnerabilities,
 only access to organization-level analytics and policies.
 
-## Policies
+### Policies
 
 You can use vulnerability treatments
 to plan remediation.
@@ -94,7 +94,7 @@ Policies to define:
 1. Maximum number of times
   a finding can be temporarily accepted
 
-## Groups
+### Groups
 
 You may have multiple apps
 in your organization,
@@ -109,13 +109,13 @@ it is your choice.
 In Groups section,
 you will find:
 
-### Analytics
+#### Group analytics
 
 As in the case of Organization Analytics,
 Group Analytics have
 all the information about your group.
 
-### DevSecOps
+#### DevSecOps
 
 Fluid Attacks’ ASM
 includes an agent that
@@ -131,7 +131,7 @@ and more information such as the following:
 - Strictness (Tolerant/Strict)
 - Type (SAST/DAST)
 
-### Events
+#### Events
 
 In the service execution,
 many things can and will happen.
@@ -141,7 +141,7 @@ any situation that affects the service.
 It can be a full or partial disruption
 or merely a request for information.
 
-### Consulting
+#### Consulting
 
 Communication is essential
 to achieve the remediation goal.
@@ -153,7 +153,7 @@ or your team in the Consulting tab.
 This section works like a forum
 where anyone can post and reply.
 
-### Stakeholders
+#### Group stakeholders
 
 You have group access control here
 to define who and what they can do.
@@ -167,13 +167,13 @@ there are three role options available:
 To get more information about it,
 check the Roles section.
 
-### Authors
+#### Authors
 
 List of git users
 that commit code
 to checked repositories.
 
-### Scope
+#### Scope
 
 For an ASM,
 ou need to define the surface
@@ -201,7 +201,7 @@ the testing service:
   Function to safely delete
   all group data.
 
-### Vulnerabilities
+#### Vulnerabilities
 
 One of the main sections on the platforms
 is where you find all the confirmed security issues
@@ -209,7 +209,7 @@ of your application.
 
 This section is divided as follows:
 
-#### Locations
+##### Locations
 
 Here you find the list
 of all vulnerabilities
@@ -226,7 +226,7 @@ Also,
 you can add tag
  or define a qualitative risk level.
 
-#### Reattack
+##### Reattack
 
 When a vulnerability is remediated,
 you need to request the Fluid Attacks team
@@ -241,7 +241,7 @@ the Fluid Attacks team
 will inform you through the Consulting tab
 about the results.
 
-#### Treatments
+##### Treatments
 
 Risk management is an essential part
 of vulnerabilities management.
@@ -268,26 +268,26 @@ in the Locations tab:
   and decide to coexist
   with the risk forever.
 
-#### Description
+##### Description
 
 In this section you can discover
 all required information
 to understand reported vulnerabilities.
 
-#### Severity
+##### Severity
 
 For the calculation
 of the severity of vulnerabilities,
 we use the Common Vulnerability Scoring System
 (CVSS) version 3.1.
 
-#### Evidence
+##### Evidence
 
 We provide video examples and screenshots
 to help you understand
 the context of the vulnerabilities.
 
-#### Tracking
+##### Tracking
 
 Here you find the history of each Vulnerability.
 What has happened to the vulnerabilities
@@ -295,7 +295,7 @@ since the first one was reported.
 When and by whom
 the treatment was closed or changed.
 
-#### Records
+##### Records
 
 Some vulnerabilities
 can expose customer information;
