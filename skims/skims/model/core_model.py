@@ -383,6 +383,22 @@ class FindingEnum(Enum):
         severity_scope=SeverityScope.unchanged,
         user_interaction=UserInteraction.required,
     )
+    F042_HTTPONLY: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F042_HTTPONLY",
+        cwe="1004",
+        attack_complexity=AttackComplexity.high,
+        attack_vector=AttackVector.network,
+        availability_impact=AvailabilityImpact.none,
+        confidentiality_impact=ConfidentialityImpact.low,
+        exploitability=Exploitability.high,
+        integrity_impact=IntegrityImpact.none,
+        privileges_required=PrivilegesRequired.none,
+        remediation_level=RemediationLevel.official_fix,
+        report_confidence=ReportConfidence.confirmed,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.required,
+    )
     F042_SECURE: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F042_SECURE",
