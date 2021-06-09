@@ -53,6 +53,12 @@ module.exports = {
           label: 'Development',
           position: 'right',
         },
+        {
+          to: 'writing/',
+          activeBasePath: 'writing/',
+          label: 'Writing Guidelines',
+          position: 'right',
+        },
       ],
     },
     footer: {
