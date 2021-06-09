@@ -19,7 +19,10 @@ async def get_result(
     tags: List[str],
 ) -> Dict[str, Any]:
     query: str = """
-        mutation AddTagsMutation($projectName: String!, $tagsData: JSONString!) {
+        mutation AddTagsMutation(
+            $projectName: String!,
+            $tagsData: JSONString!
+        ) {
             addTags (
                 tags: $tagsData,
                 projectName: $projectName) {

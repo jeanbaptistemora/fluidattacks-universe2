@@ -164,7 +164,10 @@ async def test_project() -> None:
 
     context = get_new_context()
     query = """
-        mutation AddTagsMutation($projectName: String!, $tagsData: JSONString!) {
+        mutation AddTagsMutation(
+            $projectName: String!,
+            $tagsData: JSONString!
+        ) {
             addTags (
                 tags: $tagsData,
                 projectName: $projectName) {

@@ -27,8 +27,8 @@ async def test_report() -> None:
     result = await get_result(data, context=context)
     assert "url" in result["data"]["report"]
     assert (
-        result["data"]["report"]["url"]
-        == "The report will be sent to integratesanalyst@fluidattacks.com shortly"
+        result["data"]["report"]["url"] == "The report will be sent to "
+        "integratesanalyst@fluidattacks.com shortly"
     )
 
     context = get_new_context()
@@ -46,8 +46,8 @@ async def test_report() -> None:
     result = await get_result(data, context=context)
     assert "url" in result["data"]["report"]
     assert (
-        result["data"]["report"]["url"]
-        == "The report will be sent to integratesanalyst@fluidattacks.com shortly"
+        result["data"]["report"]["url"] == "The report will be sent to "
+        "integratesanalyst@fluidattacks.com shortly"
     )
 
     context = get_new_context()
@@ -64,6 +64,6 @@ async def test_report() -> None:
     result = await get_result(data, context=context)
     assert "url" in result["data"]["report"]
     assert (
-        result["data"]["report"]["url"]
-        == "The report will be sent to integratesanalyst@fluidattacks.com shortly"
+        result["data"]["report"]["url"] == "The report will be sent to "
+        "integratesanalyst@fluidattacks.com shortly"
     )
