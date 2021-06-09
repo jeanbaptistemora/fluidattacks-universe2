@@ -17,15 +17,17 @@ from uuid import (
 )
 
 
-def get_hash(vuln: Dict[str, Any]) -> int:
+def get_hash(specific: str, type_: str, where: str) -> int:
     # Return a unique identifier according to the business rules
+    return hash((specific, type_, where))
+
+
+def get_hash_from_dict(vuln: Dict[str, Any]) -> int:
     nonce: str = uuid().hex
-    return hash(
-        (
-            vuln.get("vuln_type", nonce),
-            vuln.get("where", nonce),
-            vuln.get("specific", nonce),
-        ),
+    return get_hash(
+        specific=vuln.get("specific", nonce),
+        type_=vuln.get("vuln_type", nonce),
+        where=vuln.get("where", nonce),
     )
 
 

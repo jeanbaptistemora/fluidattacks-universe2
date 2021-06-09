@@ -23,6 +23,10 @@ class ExpectedVulnToBeOfLinesType(_SingleMessageException):
     msg: str = "Expected vulnerability to be of type: lines"
 
 
+class InvalidVulnerabilityAlreadyExists(_SingleMessageException):
+    msg: str = "Invalid, vulnerability already exists"
+
+
 class InvalidVulnCommitHash(_SingleMessageException):
     msg: str = "Commit Hash should be a 40 chars long hexadecimal"
 

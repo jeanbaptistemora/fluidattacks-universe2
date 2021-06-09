@@ -39,9 +39,11 @@ async def mutate(
     finding_id: str = vuln_data["finding_id"]
     finding_data = await info.context.loaders.finding.load(finding_id)
     group_name: str = finding_data["project_name"]
+    vulns_data = await info.context.loaders.finding_vulns_nzr.load(finding_id)
 
     success: bool = await rebase_vuln(
         finding_id=finding_id,
+        finding_vulns_data=vulns_data,
         vuln_commit=vuln_commit,
         vuln_type=vuln_data["vuln_type"],
         vuln_id=vuln_id,

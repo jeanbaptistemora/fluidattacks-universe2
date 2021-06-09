@@ -4,6 +4,7 @@ from . import (
 from custom_exceptions import (
     ExpectedVulnToBeOfLinesType,
     InvalidVulnCommitHash,
+    InvalidVulnerabilityAlreadyExists,
     InvalidVulnSpecific,
     InvalidVulnWhere,
 )
@@ -24,11 +25,21 @@ VULN_SPECIFIC_GOOD = "10"
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_vuln_commit")
 async def test_good_user_good_vuln() -> None:
-    result: Dict[str, Any] = await get_result(
+    result = await get_result(
         stakeholder=STAKEHOLDER_GOOD,
         vuln_commit=VULN_COMMIT_GOOD,
         vuln_id=VULN_ID_GOOD,
         vuln_where=VULN_WHERE_GOOD,
+        vuln_specific=VULN_SPECIFIC_GOOD,
+    )
+    assert (
+        result["errors"][0]["message"] == InvalidVulnerabilityAlreadyExists.msg
+    )
+    result: Dict[str, Any] = await get_result(
+        stakeholder=STAKEHOLDER_GOOD,
+        vuln_commit=VULN_COMMIT_GOOD,
+        vuln_id=VULN_ID_GOOD,
+        vuln_where=VULN_WHERE_GOOD + "-unique",
         vuln_specific=VULN_SPECIFIC_GOOD,
     )
     assert result["data"]["updateVulnCommit"]["success"]
