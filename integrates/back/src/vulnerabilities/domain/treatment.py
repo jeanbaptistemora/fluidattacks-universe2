@@ -175,6 +175,7 @@ async def add_vuln_treatment(
 
     if user_email:
         new_state["user"] = user_email
+        new_state["treatment_manager"] = user_email
     if "treatment_manager" in updated_values:
         new_state["treatment_manager"] = updated_values["treatment_manager"]
     if new_treatment != "NEW":

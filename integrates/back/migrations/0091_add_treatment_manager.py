@@ -1,5 +1,3 @@
-# pylint: disable=invalid-name
-#
 # Add treatment manager to vulns if manager is not assigned, but the user
 # field exists
 #   https://gitlab.com/fluidattacks/product/-/issues/421
@@ -34,6 +32,8 @@ from vulnerabilities import (
     dal as vulns_dal,
 )
 
+PROD: bool = False
+
 
 async def update_vuln_treatment_manager(vuln: VulnerabilityType) -> bool:
     historic_treatment = cast(
@@ -42,11 +42,19 @@ async def update_vuln_treatment_manager(vuln: VulnerabilityType) -> bool:
     historic_treatment[-1]["treatment_manager"] = historic_treatment[-1][
         "user"
     ]
-    return await vulns_dal.update(
-        str(vuln.get("finding_id", "")),
-        str(vuln.get("UUID", "")),
-        {"historic_treatment": historic_treatment},
-    )
+    if PROD:
+        return await vulns_dal.update(
+            str(vuln.get("finding_id", "")),
+            str(vuln.get("UUID", "")),
+            {"historic_treatment": historic_treatment},
+        )
+    else:
+        print(
+            f'finding_id: {vuln["finding_id"]}, UUID: {vuln["UUID"]}, '
+            f"new historic treatment: {historic_treatment}"
+        )
+
+    return False
 
 
 async def process_group_vulns(context: Any, group: str) -> None:
