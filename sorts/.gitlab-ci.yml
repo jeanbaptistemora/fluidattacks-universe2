@@ -106,9 +106,10 @@ sorts.infra.deploy:
 sorts.extract-features:
   <<: *makes
   <<: *sorts_in_schedule_extract_features
-  stage: test-code
   interruptible: false
   parallel: 15
+  stage: test-code
+  tags: [autoscaling-large]
 
 sorts.execute:
   <<: *makes
