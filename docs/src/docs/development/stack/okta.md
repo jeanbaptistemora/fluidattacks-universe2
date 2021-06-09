@@ -129,7 +129,17 @@ We do not use [Okta](https://www.okta.com/) for:
 1. [Managing users via universal directory](https://www.okta.com/products/universal-directory/):
     We are [currently returning from JumpCloud](https://gitlab.com/fluidattacks/product/-/issues/4561).
 1. [Managing RADIUS](https://help.okta.com/en/prod/Content/Topics/integrations/ha-main.htm):
-    We are [currently returning from JumpCloud](https://gitlab.com/fluidattacks/product/-/issues/4561).
+    The [Okta RADIUS Agent](https://help.okta.com/en/prod/Content/Topics/integrations/getting-started-about-radius.htm)
+    only supports
+    [PAP](https://pleasantsolutions.com/info/pleasant-password-server/j-user-administration/two-factor-authentication/setting-up-radius/radius-authentication-protocols)
+    as authentication protocol,
+    being the reason
+    why we decided to
+    look for other
+    [RADIUS](https://en.wikipedia.org/wiki/RADIUS)
+    providers once
+    [returning from JumpCloud](https://gitlab.com/fluidattacks/product/-/issues/4561)
+    is finished.
 
 ## Guidelines
 
