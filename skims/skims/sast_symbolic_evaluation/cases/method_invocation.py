@@ -54,6 +54,7 @@ BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set(
         "Long.toString",
         "System.Diagnostics.Process.Start",
         "System.IO.File.Exists",
+        "System.Xml.XPath.XPathExpression.Compile",
     }
 )
 STATIC_FINDING: Dict[str, Set[str]] = {
@@ -294,6 +295,7 @@ BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
         {
             "System.Xml.XPath.XPathNavigator": {
                 "Evaluate",
+                "Select",
             },
         }
     ),
