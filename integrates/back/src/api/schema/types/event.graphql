@@ -18,6 +18,7 @@ type Event {
   evidenceFile: String
   "Upload date of evidence file"
   evidenceFileDate: String
+  groupName: String
   historicState: [GenericScalar]
   id: String
   projectName: String

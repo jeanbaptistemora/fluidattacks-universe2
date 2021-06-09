@@ -24,7 +24,7 @@ describe("EventsView", (): void => {
       request: {
         query: GET_EVENTS,
         variables: {
-          projectName: "unittesting",
+          groupName: "unittesting",
         },
       },
       result: {
@@ -37,8 +37,8 @@ describe("EventsView", (): void => {
                 eventDate: "2018-10-17 00:00:00",
                 eventStatus: "SOLVED",
                 eventType: "AUTHORIZATION_SPECIAL_ATTACK",
+                groupName: "unittesting",
                 id: "463457733",
-                projectName: "unittesting",
               },
             ],
             name: "unittesting",
@@ -53,7 +53,7 @@ describe("EventsView", (): void => {
       request: {
         query: GET_EVENTS,
         variables: {
-          projectName: "unittesting",
+          groupName: "unittesting",
         },
       },
       result: {

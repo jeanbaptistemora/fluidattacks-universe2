@@ -35,7 +35,7 @@ describe("GroupDraftsView", (): void => {
       request: {
         query: GET_DRAFTS,
         variables: {
-          projectName: "TEST",
+          groupName: "TEST",
         },
       },
       result: {
@@ -67,7 +67,7 @@ describe("GroupDraftsView", (): void => {
       request: {
         query: GET_DRAFTS,
         variables: {
-          projectName: "TEST",
+          groupName: "TEST",
         },
       },
       result: {

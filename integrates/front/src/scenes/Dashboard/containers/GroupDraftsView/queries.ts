@@ -2,8 +2,8 @@ import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
 const GET_DRAFTS: DocumentNode = gql`
-  query GetDraftsQuery($projectName: String!) {
-    group(groupName: $projectName) {
+  query GetDraftsQuery($groupName: String!) {
+    group(groupName: $groupName) {
       drafts {
         id
         reportDate
@@ -24,7 +24,7 @@ const CREATE_DRAFT_MUTATION: DocumentNode = gql`
   mutation CreateDraftMutation(
     $cwe: String
     $description: String
-    $projectName: String!
+    $groupName: String!
     $recommendation: String
     $requirements: String
     $risk: String
@@ -35,7 +35,7 @@ const CREATE_DRAFT_MUTATION: DocumentNode = gql`
     createDraft(
       cwe: $cwe
       description: $description
-      projectName: $projectName
+      projectName: $groupName
       recommendation: $recommendation
       requirements: $requirements
       risk: $risk

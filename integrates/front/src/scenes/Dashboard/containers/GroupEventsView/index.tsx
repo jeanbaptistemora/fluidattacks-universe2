@@ -100,7 +100,7 @@ const maxEventDetailsLength: ConfigurableValidator = maxLength(
 
 const GroupEventsView: React.FC = (): JSX.Element => {
   const { push } = useHistory();
-  const { groupName: projectName } = useParams<{ groupName: string }>();
+  const { groupName } = useParams<{ groupName: string }>();
   const { url } = useRouteMatch();
 
   const selectOptionsStatus = {
@@ -268,7 +268,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   const { data, refetch } = useQuery(GET_EVENTS, {
     onCompleted: handleQryResult,
     onError: handleQryErrors,
-    variables: { projectName },
+    variables: { groupName },
   });
 
   const handleCreationResult: (result: {
@@ -305,7 +305,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
 
       void createEvent({
         variables: {
-          projectName,
+          groupName,
           ...values,
           accessibility: selectedAccessibility,
           affectedComponents: selectedComponents,
@@ -315,7 +315,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
         },
       });
     },
-    [createEvent, projectName]
+    [createEvent, groupName]
   );
 
   if (_.isUndefined(data) || _.isEmpty(data)) {

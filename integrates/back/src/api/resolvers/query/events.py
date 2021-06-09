@@ -33,7 +33,8 @@ from typing import (
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> List[Event]:
-    group_name: str = kwargs["project_name"]
+    # Compatibility with old API
+    group_name: str = kwargs.get("group_name", kwargs["project_name"])
 
     event_ids = await events_domain.list_group_events(group_name.lower())
     event_loader: DataLoader = info.context.loaders.event

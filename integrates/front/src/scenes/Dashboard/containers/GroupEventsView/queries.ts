@@ -2,13 +2,13 @@ import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
 const GET_EVENTS: DocumentNode = gql`
-  query GetEventsQuery($projectName: String!) {
-    group(groupName: $projectName) {
+  query GetEventsQuery($groupName: String!) {
+    group(groupName: $groupName) {
       events {
         eventDate
         detail
         id
-        projectName
+        groupName
         eventStatus
         eventType
         closingDate
@@ -31,7 +31,7 @@ const CREATE_EVENT_MUTATION: DocumentNode = gql`
     $eventType: EventType!
     $file: Upload
     $image: Upload
-    $projectName: String!
+    $groupName: String!
   ) {
     createEvent(
       accessibility: $accessibility
@@ -45,7 +45,7 @@ const CREATE_EVENT_MUTATION: DocumentNode = gql`
       eventType: $eventType
       file: $file
       image: $image
-      projectName: $projectName
+      projectName: $groupName
     ) {
       success
     }

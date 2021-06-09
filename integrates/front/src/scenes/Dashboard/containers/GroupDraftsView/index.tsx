@@ -39,7 +39,7 @@ import { translate } from "utils/translations/translate";
 import { required, validDraftTitle } from "utils/validations";
 
 const GroupDraftsView: React.FC = (): JSX.Element => {
-  const { groupName: projectName } = useParams<{ groupName: string }>();
+  const { groupName } = useParams<{ groupName: string }>();
   const { push } = useHistory();
   const { url } = useRouteMatch();
 
@@ -165,7 +165,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
 
   const { data, refetch } = useQuery<IGroupDraftsAttr>(GET_DRAFTS, {
     onError: handleQryError,
-    variables: { projectName },
+    variables: { groupName },
   });
 
   const handleMutationResult: (result: {
@@ -211,10 +211,10 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
       );
 
       void createDraft({
-        variables: { ...matchingSuggestion, projectName, title: values.title },
+        variables: { ...matchingSuggestion, groupName, title: values.title },
       });
     },
-    [createDraft, projectName, suggestions]
+    [createDraft, groupName, suggestions]
   );
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
