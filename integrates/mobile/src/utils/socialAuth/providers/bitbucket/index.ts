@@ -25,7 +25,6 @@ const clientId: string = inExpoClient
 
 const getRedirectUri: () => string = (): string =>
   makeRedirectUri({
-    native: "com.fluidattacks.integrates://oauth2redirect/bitbucket",
     path: "oauth2redirect/bitbucket",
     useProxy: inExpoClient,
   });

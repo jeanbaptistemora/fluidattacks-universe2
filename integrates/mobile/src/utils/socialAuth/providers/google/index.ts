@@ -34,6 +34,7 @@ const clientId: string = inExpoClient
 
 const getRedirectUri: () => string = (): string =>
   makeRedirectUri({
+    isTripleSlashed: true,
     path: "oauth2redirect/google",
     useProxy: inExpoClient,
   });

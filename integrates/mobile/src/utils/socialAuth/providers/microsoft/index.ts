@@ -23,7 +23,6 @@ const clientId: string = MICROSOFT_CLIENT_ID;
 
 const getRedirectUri: () => string = (): string =>
   makeRedirectUri({
-    native: "com.fluidattacks.integrates://oauth2redirect/microsoft",
     path: "oauth2redirect/microsoft",
     useProxy: false,
   });
