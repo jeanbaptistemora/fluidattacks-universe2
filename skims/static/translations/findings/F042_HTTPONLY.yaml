@@ -1,3 +1,6 @@
+lib_http.analyze_headers.set_cookie_httponly.missing_httponly:
+  en: "{cookie_name} is missing HttpOnly"
+  es: "{cookie_name} sin HttpOnly"
 F042_HTTPONLY.description:
   en: >
     The application's cookies are generated without properly setting the

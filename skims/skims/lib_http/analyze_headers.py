@@ -308,6 +308,32 @@ def _referrer_policy(
     )
 
 
+def _set_cookie_httponly(
+    ctx: HeaderCheckCtx,
+) -> core_model.Vulnerabilities:
+    locations = Locations(locations=[])
+
+    headers: List[Header] = ctx.headers_parsed.getall(
+        key="SetCookieHeader", default=[]
+    )
+
+    for header in headers:
+        if any(smell in header.cookie_name for smell in ("session",)):
+            if not header.httponly:
+                locations.append(
+                    desc="set_cookie_httponly.missing_httponly",
+                    desc_kwargs={"cookie_name": header.cookie_name},
+                    identifier=header.raw_content,
+                )
+
+    return _create_vulns(
+        locations=locations,
+        finding=core_model.FindingEnum.F042_HTTPONLY,
+        header=None if not headers else headers[0],
+        ctx=ctx,
+    )
+
+
 def _set_cookie_secure(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -426,6 +452,7 @@ CHECKS: Dict[
 ] = {
     core_model.FindingEnum.F015_DAST_BASIC: _www_authenticate,
     core_model.FindingEnum.F023: _location,
+    core_model.FindingEnum.F042_HTTPONLY: _set_cookie_httponly,
     core_model.FindingEnum.F042_SECURE: _set_cookie_secure,
     core_model.FindingEnum.F043_DAST_CSP: _content_security_policy,
     core_model.FindingEnum.F043_DAST_RP: _referrer_policy,
