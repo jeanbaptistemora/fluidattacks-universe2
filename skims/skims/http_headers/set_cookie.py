@@ -18,17 +18,17 @@ def parse(line: str) -> Optional[SetCookieHeader]:
     # Set-Cookie: <cookie-name>=<cookie-value>; Secure
     # Set-Cookie: <cookie-name>=<cookie-value>; HttpOnly
 
-    portions: List[str] = line.split(":", maxsplit=1)
-    portions = list(map(methodcaller("strip"), portions))
+    raw_portions: List[str] = line.split(":", maxsplit=1)
+    portions = list(map(methodcaller("strip"), raw_portions))
 
     name = portions[0]
 
     if not _is_set_cookie(name):
         return None
 
-    header = portions[1]
+    raw_content = portions[1]
 
-    attributes: List[str] = header.split(";")
+    attributes: List[str] = raw_content.split(";")
     attributes = list(map(methodcaller("strip"), attributes))
 
     cookie, parameters = attributes[0], attributes[1:]
@@ -47,6 +47,7 @@ def parse(line: str) -> Optional[SetCookieHeader]:
 
     return SetCookieHeader(
         name=name,
+        raw_content=raw_content,
         cookie_name=cookie_name,
         cookie_value=cookie_value,
         secure=secure,
