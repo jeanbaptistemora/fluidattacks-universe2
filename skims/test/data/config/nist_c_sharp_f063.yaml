@@ -8,8 +8,12 @@ path:
     - src/testcases/CWE23_Relative_Path_Traversal/
     - src/testcases/CWE36_Absolute_Path_Traversal/
   exclude:
-    - src/testcases/*/*File*.cs
-    - src/testcases/*/*ReadLine*.cs
+    - glob(src/testcases/*/*File*.cs)
+    - glob(src/testcases/*/*ReadLine*.cs)
+    - glob(src/testcases/*/*a.cs)
+    - glob(src/testcases/*/*b.cs)
+    - glob(src/testcases/*/*c.cs)
+    - glob(src/testcases/*/*d.cs)
   lib_path: false
   lib_root: true
 working_dir: ../NIST-SARD-Test-Suites/Juliet_Test_Suite_v1.3_for_C#/

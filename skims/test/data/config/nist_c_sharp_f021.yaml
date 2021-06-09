@@ -7,8 +7,12 @@ path:
     # F021
     - src/testcases/CWE643_Xpath_Injection/
   exclude:
-    - src/testcases/CWE643_Xpath_Injection/*File*.cs
-    - src/testcases/CWE643_Xpath_Injection/*ReadLine*.cs
+    - glob(src/testcases/CWE643_Xpath_Injection/*File*.cs)
+    - glob(src/testcases/CWE643_Xpath_Injection/*ReadLine*.cs)
+    - glob(src/testcases/*/*a.cs)
+    - glob(src/testcases/*/*b.cs)
+    - glob(src/testcases/*/*c.cs)
+    - glob(src/testcases/*/*d.cs)
   lib_path: false
   lib_root: true
 working_dir: ../NIST-SARD-Test-Suites/Juliet_Test_Suite_v1.3_for_C#/

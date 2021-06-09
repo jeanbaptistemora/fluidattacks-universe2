@@ -7,10 +7,15 @@ path:
     # F001
     - src/testcases/CWE89_SQL_Injection/s01/
   exclude:
-    - src/testcases/*/*File*.cs
-    - src/testcases/*/*/*File*.cs
-    - src/testcases/*/*ReadLine*.cs
-    - src/testcases/*/*/*ReadLine*.cs
+    - glob(src/testcases/*/*File*.cs)
+    - glob(src/testcases/*/*/*File*.cs)
+    - glob(src/testcases/*/*ReadLine*.cs)
+    - glob(src/testcases/*/*/*ReadLine*.cs)
+    - glob(src/testcases/CWE89_SQL_Injection/s01/*a.cs)
+    - glob(src/testcases/CWE89_SQL_Injection/s01/*b.cs)
+    - glob(src/testcases/CWE89_SQL_Injection/s01/*c.cs)
+    - glob(src/testcases/CWE89_SQL_Injection/s01/*d.cs)
+    - glob(src/testcases/CWE89_SQL_Injection/s01/*e.cs)
   lib_path: false
   lib_root: true
 working_dir: ../NIST-SARD-Test-Suites/Juliet_Test_Suite_v1.3_for_C#/

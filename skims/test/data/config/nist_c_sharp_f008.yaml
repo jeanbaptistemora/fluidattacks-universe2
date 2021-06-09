@@ -9,10 +9,18 @@ path:
     - src/testcases/CWE81_XSS_Error_Message/
     - src/testcases/CWE83_XSS_Attribute/
   exclude:
-    - src/testcases/*/*File*.cs
-    - src/testcases/*/*/*File*.cs
-    - src/testcases/*/*ReadLine*.cs
-    - src/testcases/*/*/*ReadLine*.cs
+    - glob(src/testcases/*/*File*.cs)
+    - glob(src/testcases/*/*/*File*.cs)
+    - glob(src/testcases/*/*ReadLine*.cs)
+    - glob(src/testcases/*/*/*ReadLine*.cs)
+    - glob(src/testcases/*/*a.cs)
+    - glob(src/testcases/*/*b.cs)
+    - glob(src/testcases/*/*c.cs)
+    - glob(src/testcases/*/*d.cs)
+    - glob(src/testcases/*/*/*a.cs)
+    - glob(src/testcases/*/*/*b.cs)
+    - glob(src/testcases/*/*/*c.cs)
+    - glob(src/testcases/*/*/*d.cs)
   lib_path: false
   lib_root: true
 working_dir: ../NIST-SARD-Test-Suites/Juliet_Test_Suite_v1.3_for_C#/

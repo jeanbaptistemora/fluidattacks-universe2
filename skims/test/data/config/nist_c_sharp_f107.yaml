@@ -7,8 +7,12 @@ path:
     # F107
     - src/testcases/CWE90_LDAP_Injection/
   exclude:
-    - src/testcases/CWE90_LDAP_Injection/*File*.cs
-    - src/testcases/CWE90_LDAP_Injection/*ReadLine*.cs
+    - glob(src/testcases/CWE90_LDAP_Injection/*File*.cs)
+    - glob(src/testcases/CWE90_LDAP_Injection/*ReadLine*.cs)
+    - glob(src/testcases/*/*a.cs)
+    - glob(src/testcases/*/*b.cs)
+    - glob(src/testcases/*/*c.cs)
+    - glob(src/testcases/*/*d.cs)
   lib_path: false
   lib_root: true
 working_dir: ../NIST-SARD-Test-Suites/Juliet_Test_Suite_v1.3_for_C#/
