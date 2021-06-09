@@ -201,7 +201,7 @@ describe("Add user modal", (): void => {
       emailInput().simulate("blur", {
         target: { name: "email", value: "unittest@test.com" },
       });
-      const delay = 150;
+      const delay = 200;
       await wait(delay);
 
       wrapper.update();
