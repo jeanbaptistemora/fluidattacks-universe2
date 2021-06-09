@@ -1,0 +1,46 @@
+F048.description:
+  en: >
+    The application does not check
+    whether the Android system
+    on which it is running
+    has been rooted.
+  es: >
+    No se está detectando
+    si el sistema Android
+    se encuentra rooteado
+    al utilizar la aplicación.
+F048.impact:
+  en: >
+    Leak technical information
+    (DB connection strings,
+    source code,
+    certs,
+    etc).
+  es: Fugar información técnica
+    (Cadenas de conexión de la base de datos,
+    código fuente,
+    certificados,
+    etc).
+F048.recommendation:
+  en: >
+    Validate that the device
+    is not rooted
+    at application startup.
+  es: >
+    Validar que el dispositivo
+    no se encuentre rooteado
+    al inicializar la aplicación.
+F048.requirements:
+  en: R326. Detect rooted devices.
+  es: >
+    R326. Las aplicaciones móviles
+    deben verificar
+    si el dispositivo
+    en el que se ejecutan
+    está rooteado.
+F048.threat:
+  en: Unauthorized attacker with physical access to the device.
+  es: Atacante sin autorización con acceso fisico al dispositivo.
+F048.title:
+  en: F048. Lack of root detection.
+  es: F048. Falta de detección de sistemas rooteados.
