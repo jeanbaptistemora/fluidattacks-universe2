@@ -1,9 +1,11 @@
 ---
 id: intro
-title: Introduction
+title: Writing Guidelines
 sidebar_label: Introduction
 slug: /writing
 ---
+
+## Introduction
 
 At `Fluid Attacks`,
 we are continuously building not only cybersecurity software

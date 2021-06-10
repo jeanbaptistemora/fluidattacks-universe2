@@ -16,12 +16,14 @@ module.exports = {
     'writing/intro',
     {
       type: 'category',
-      label: 'General Writing Tips',
+      label: 'General Writing',
       items: [
         'writing/general/main',
         'writing/general/capital-letters',
       ]
     },
     'writing/documentation',
+    'writing/blog-posts',
+    'writing/slb',
   ],
 };
