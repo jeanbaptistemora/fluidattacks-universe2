@@ -1,3 +1,6 @@
+lib_http.analyze_headers.set_cookie_samesite.bad_samesite:
+  en: "{cookie_name} does not have SameSite correctly initialized"
+  es: "{cookie_name} no tiene SameSite correctamente inicializado"
 F042_SAMESITE.description:
   en: >
     The application's cookies are generated without properly setting the

@@ -308,6 +308,11 @@ def _referrer_policy(
     )
 
 
+def _is_sensitive_cookie(cookie_name: str) -> bool:
+    sensitive_names = ("session",)
+    return any(smell in cookie_name for smell in sensitive_names)
+
+
 def _set_cookie_httponly(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -318,10 +323,36 @@ def _set_cookie_httponly(
     )
 
     for header in headers:
-        if any(smell in header.cookie_name for smell in ("session",)):
+        if _is_sensitive_cookie(header.cookie_name):
             if not header.httponly:
                 locations.append(
                     desc="set_cookie_httponly.missing_httponly",
+                    desc_kwargs={"cookie_name": header.cookie_name},
+                    identifier=header.raw_content,
+                )
+
+    return _create_vulns(
+        locations=locations,
+        finding=core_model.FindingEnum.F042_HTTPONLY,
+        header=None if not headers else headers[0],
+        ctx=ctx,
+    )
+
+
+def _set_cookie_samesite(
+    ctx: HeaderCheckCtx,
+) -> core_model.Vulnerabilities:
+    locations = Locations(locations=[])
+
+    headers: List[Header] = ctx.headers_parsed.getall(
+        key="SetCookieHeader", default=[]
+    )
+
+    for header in headers:
+        if _is_sensitive_cookie(header.cookie_name):
+            if header.samesite.lower() != "strict":
+                locations.append(
+                    desc="set_cookie_samesite.bad_samesite",
                     desc_kwargs={"cookie_name": header.cookie_name},
                     identifier=header.raw_content,
                 )
@@ -344,7 +375,7 @@ def _set_cookie_secure(
     )
 
     for header in headers:
-        if any(smell in header.cookie_name for smell in ("session",)):
+        if _is_sensitive_cookie(header.cookie_name):
             if not header.secure:
                 locations.append(
                     desc="set_cookie_secure.missing_secure",
@@ -453,6 +484,7 @@ CHECKS: Dict[
     core_model.FindingEnum.F015_DAST_BASIC: _www_authenticate,
     core_model.FindingEnum.F023: _location,
     core_model.FindingEnum.F042_HTTPONLY: _set_cookie_httponly,
+    core_model.FindingEnum.F042_SAMESITE: _set_cookie_samesite,
     core_model.FindingEnum.F042_SECURE: _set_cookie_secure,
     core_model.FindingEnum.F043_DAST_CSP: _content_security_policy,
     core_model.FindingEnum.F043_DAST_RP: _referrer_policy,
