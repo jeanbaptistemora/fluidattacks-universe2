@@ -1246,7 +1246,7 @@ The version used in this section is
 
     - [077. Avoid disclosing technical information](/criteria/requirements/077)
 
-    - [078. Disable debugging events](/criteria/requirements/078)]
+    - [078. Disable debugging events](/criteria/requirements/078)
 
 - V7.4 Error Handling.(7.4.2)
 
