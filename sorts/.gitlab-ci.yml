@@ -103,14 +103,6 @@ sorts.infra.deploy:
   <<: *sorts_in_master_branch
   stage: deploy-infra
 
-sorts.extract-features:
-  <<: *makes
-  <<: *sorts_in_schedule_extract_features
-  interruptible: false
-  parallel: 15
-  stage: test-code
-  tags: [autoscaling-large]
-
 sorts.execute:
   <<: *makes
   <<: *sorts_in_schedule_execute
@@ -124,3 +116,19 @@ sorts.train:
     - ./m sorts.train && ./m sorts.tune
   stage: deploy-app
   interruptible: false
+
+# Sorts extract features scheduled pipeline
+sorts.extract-features:
+  <<: *makes
+  <<: *sorts_in_schedule_extract_features
+  interruptible: false
+  parallel: 15
+  stage: pre-build
+  tags: [autoscaling-large]
+
+sorts.merge-features:
+  <<: *makes
+  <<: *sorts_in_schedule_extract_features
+  interruptible: false
+  needs: [sorts.extract-features]
+  stage: build
