@@ -1,3 +1,4 @@
+# pylint: disable=too-many-statements
 from datetime import (
     datetime,
     timezone,
@@ -221,6 +222,7 @@ def test_set_cookie() -> None:
     assert header.cookie_value == "value"
     assert not header.secure
     assert not header.httponly
+    assert header.samesite == "None"
 
     header = parse("  set-cookie  :  key  =  value  ;  Secure  ")
     assert header is not None
@@ -230,6 +232,7 @@ def test_set_cookie() -> None:
     assert header.cookie_value == "value"
     assert header.secure
     assert not header.httponly
+    assert header.samesite == "None"
 
     header = parse("  set-cookie  :  key  =  value  Secure  ")
     assert header is not None
@@ -239,6 +242,7 @@ def test_set_cookie() -> None:
     assert header.cookie_value == "value  Secure"
     assert not header.secure
     assert not header.httponly
+    assert header.samesite == "None"
 
     header = parse("  set-cookie  :  key  =  ")
     assert header is not None
@@ -248,6 +252,7 @@ def test_set_cookie() -> None:
     assert header.cookie_value == ""
     assert not header.secure
     assert not header.httponly
+    assert header.samesite == "None"
 
     header = parse("  set-cookie  :  key  =  value  ;  HttpOnly  ")
     assert header is not None
@@ -256,14 +261,56 @@ def test_set_cookie() -> None:
     assert header.cookie_value == "value"
     assert not header.secure
     assert header.httponly
+    assert header.samesite == "None"
 
-    header = parse("  set-cookie  :  key  =  value  ;  Secure ;  HttpOnly  ")
+    header = parse("  set-cookie  :  key  =  value  ;  SameSite = Strict  ")
+    assert header is not None
+    assert header.name == "set-cookie"
+    assert header.cookie_name == "key"
+    assert header.cookie_value == "value"
+    assert not header.secure
+    assert not header.httponly
+    assert header.samesite == "Strict"
+
+    header = parse("  set-cookie  :  key  =  value  ;  SameSite = Lax  ")
+    assert header is not None
+    assert header.name == "set-cookie"
+    assert header.cookie_name == "key"
+    assert header.cookie_value == "value"
+    assert not header.secure
+    assert not header.httponly
+    assert header.samesite == "Lax"
+
+    header = parse("  set-cookie  :  key  =  value  ;  SameSite = None  ")
+    assert header is not None
+    assert header.name == "set-cookie"
+    assert header.cookie_name == "key"
+    assert header.cookie_value == "value"
+    assert not header.secure
+    assert not header.httponly
+    assert header.samesite == "None"
+
+    header = parse(
+        "  set-cookie  :  key  =  value  ;  Secure;  SameSite = None  "
+    )
+    assert header is not None
+    assert header.name == "set-cookie"
+    assert header.cookie_name == "key"
+    assert header.cookie_value == "value"
+    assert header.secure
+    assert not header.httponly
+    assert header.samesite == "None"
+
+    header = parse(
+        "set-cookie  :  key  =  value;  Secure;  HttpOnly; SameSite  =  Strict"
+    )
     assert header is not None
     assert header.name == "set-cookie"
     assert header.cookie_name == "key"
     assert header.cookie_value == "value"
     assert header.secure
     assert header.httponly
+    assert header.samesite == "Strict"
 
 
 @pytest.mark.skims_test_group("unittesting")

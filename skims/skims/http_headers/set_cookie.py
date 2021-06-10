@@ -14,6 +14,11 @@ def _is_set_cookie(name: str) -> bool:
     return name.lower() == "set-cookie"
 
 
+def _get_assignation_value(parameter: str) -> str:
+    parts: List[str] = parameter.split("=", maxsplit=1)
+    return parts[1].strip()
+
+
 def parse(line: str) -> Optional[SetCookieHeader]:
     # Set-Cookie: <cookie-name>=<cookie-value>; Secure
     # Set-Cookie: <cookie-name>=<cookie-value>; HttpOnly
@@ -40,11 +45,14 @@ def parse(line: str) -> Optional[SetCookieHeader]:
     cookie_value = content[1]
 
     httponly = False
+    samesite = "None"
     secure = False
 
     for parameter in parameters:
         if parameter.lower() == "httponly":
             httponly = True
+        if parameter.lower().startswith("samesite"):
+            samesite = _get_assignation_value(parameter)
         if parameter.lower() == "secure":
             secure = True
 
@@ -55,4 +63,5 @@ def parse(line: str) -> Optional[SetCookieHeader]:
         cookie_value=cookie_value,
         secure=secure,
         httponly=httponly,
+        samesite=samesite,
     )
