@@ -172,7 +172,7 @@ def _add_no_certs_pinning_1_location(
     locations: Locations,
 ) -> None:
     locations.append(
-        desc="no_certs_pinning",
+        desc="no_certs_pinning_config",
         snippet=make_snippet(
             content=textwrap.dedent(
                 f"""
@@ -185,6 +185,29 @@ def _add_no_certs_pinning_1_location(
                 """
             )[1:],
             viewport=SnippetViewport(column=0, line=5, wrap=True),
+        ),
+    )
+
+
+def _add_no_certs_pinning_2_location(
+    ctx: APKCheckCtx,
+    locations: Locations,
+) -> None:
+    locations.append(
+        desc="no_certs_pinning",
+        snippet=make_snippet(
+            content=textwrap.dedent(
+                f"""
+                $ python3.8
+                >>> from androguard.core.bytecodes.apk import APK  # 3.3.5
+                >>> from bs4 import BeautifulSoup  # 4.9.3
+                >>> apk = APK({repr(ctx.apk_ctx.path)})
+                >>> nsc = apk.get_file("res/xml/network_security_config.xml")
+                >>> BeautifulSoup(nsc).find_all('pin-set')
+                []  # Empty list means no <pin-set> tags were defined
+                """
+            )[1:],
+            viewport=SnippetViewport(column=0, line=6, wrap=True),
         ),
     )
 
