@@ -33,7 +33,7 @@ The version used in this section is
 
     - [186. Use the principle of least privilege](/criteria/requirements/186)
 
-- [Appendix A1 A1.2 - Restricteach entity’s access and privileges](/criteria/requirements/186)
+- [Appendix A1 A1.2 - Restrict each entity’s access and privileges](/criteria/requirements/186)
 
 - [Appendix A1 A1.3 - Ensure logging and audit trails](/criteria/requirements/075)
 
@@ -79,7 +79,7 @@ The version used in this section is
 
     - [259. Segment the organization network](/criteria/requirements/259)
 
-- 1.3.5 - Permitonly “established” connections
+- 1.3.5 - Permit only “established” connections
 
     - [062. Define standard configurations](/criteria/requirements/062)
 
@@ -133,7 +133,7 @@ The version used in this section is
 
     - [360. Remove unnecessary sensitive information](/criteria/requirements/360)
 
-- [3.2.1 - Do not store the full contents of any tracK](/criteria/requirements/360)
+- [3.2.1 - Do not store the full contents of any track](/criteria/requirements/360)
 
 - [3.2.2 - Do not store the card verification code or value](/criteria/requirements/360)
 
@@ -171,7 +171,7 @@ The version used in this section is
 
 - [3.6.1 - Generation of strong cryptographic keys](/criteria/requirements/224)
 
-- [3.6.2 - Secure cryptographic key distributioN](/criteria/requirements/145)
+- [3.6.2 - Secure cryptographic key distribution](/criteria/requirements/145)
 
 - 3.6.3 - Secure  cryptographic key storage
 
@@ -223,11 +223,11 @@ The version used in this section is
 
     - [118. Inspect attachments](/criteria/requirements/118)
 
-- [5.2 - Ensure anti-virus mechanisms maintainance](/criteria/requirements/262)
+- [5.2 - Ensure anti-virus mechanisms maintenance](/criteria/requirements/262)
 
 - [5.3 - Ensure that anti-virus mechanisms are actively running](/criteria/requirements/186)
 
-- 6.2 - Ensure that all system components and softwareare protected
+- 6.2 - Ensure that all system components and software are protected
 
     - [062. Define standard configurations](/criteria/requirements/062)
 
@@ -243,7 +243,7 @@ The version used in this section is
 
 - [6.4.3 - Production data (live PANs) are  not used for testing or development](/criteria/requirements/180)
 
-- [6.4.4 - Removal of test data and accounts from systemcomponents](/criteria/requirements/154)
+- [6.4.4 - Removal of test data and accounts from system components](/criteria/requirements/154)
 
 - 6.5.1 - Injection flows
 
@@ -341,7 +341,7 @@ The version used in this section is
 
     - [349. Include HTTP security headers](/criteria/requirements/349)
 
-- 6.5.10 - Broken authenticationand session management
+- 6.5.10 - Broken authentication and session management
 
     - [023. Terminate inactive user sessions](/criteria/requirements/023)
 
@@ -477,7 +477,7 @@ The version used in this section is
 
 - [8.2.2 - Verify user identity before modifying any authentication credential](/criteria/requirements/238)
 
-- 8.2.3 - Passwords or passphrases must meet mininum requirements
+- 8.2.3 - Passwords or passphrases must meet minimum requirements
 
     - [132. Passphrases with at least 4 words](/criteria/requirements/132)
 
@@ -517,7 +517,7 @@ The version used in this section is
 
 - [10.2.1 - Individual user accesses to cardholder data](/criteria/requirements/075)
 
-- 10.2.2 - Actions taken by anyindividual with root or administrative privileges
+- 10.2.2 - Actions taken by any individual with root or administrative privileges
 
     - [046. Manage the integrity of critical files](/criteria/requirements/046)
 

@@ -78,11 +78,11 @@ The version used in this section is
 
     - [262. Verify third-party components](/criteria/requirements/262)
 
-- [C.14 - Components are not susceptable to OS Command Injection](/criteria/requirements/344)
+- [C.14 - Components are not susceptible to OS Command Injection](/criteria/requirements/344)
 
 - [C.15 - Pin the digital signature to a trusted server](/criteria/requirements/178)
 
-- C.16 - Use of tamper reistance or detection
+- C.16 - Use of tamper resistance or detection
 
     - [178. Use digital signatures](/criteria/requirements/178)
 
@@ -134,7 +134,7 @@ The version used in this section is
 
     - [262. Verify third-party components](/criteria/requirements/262)
 
-- [C.27 - Substancial protection from decapping and side channel attacks](/criteria/requirements/262)
+- [C.27 - Substantial protection from decapping and side channel attacks](/criteria/requirements/262)
 
 - [C.29 - Interchip communication is encrypted](/criteria/requirements/181)
 

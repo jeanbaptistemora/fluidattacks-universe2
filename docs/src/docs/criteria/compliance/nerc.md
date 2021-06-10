@@ -55,7 +55,7 @@ The version used for this section is
 
  - [007-6. R4.1 - Log events at the BES Cyber System level](/criteria/requirements/075)
 
- - [007-6. R5.1 - Methods to enforce authentication ofinteractive user access](/criteria/requirements/264)
+ - [007-6. R5.1 - Methods to enforce authentication of interactive user access](/criteria/requirements/264)
 
  - [007-6. R5.4 - Change known default passwords](/criteria/requirements/142)
 
@@ -69,7 +69,7 @@ The version used for this section is
 
  - [007-6. R5.7 - Limit authentication attempts](/criteria/requirements/237)
 
- - 011-2. R1.2 - Procedures for protecting and securelyhandling BES Cyber System Information
+ - 011-2. R1.2 - Procedures for protecting and securely handling BES Cyber System Information
 
     - [181. Transmit data using secure protocols](/criteria/requirements/181)
 
