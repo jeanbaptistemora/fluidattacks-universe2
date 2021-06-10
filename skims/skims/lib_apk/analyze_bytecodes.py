@@ -167,6 +167,28 @@ def _no_root_check(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
+def _add_no_certs_pinning_1_location(
+    ctx: APKCheckCtx,
+    locations: Locations,
+) -> None:
+    locations.append(
+        desc="no_certs_pinning",
+        snippet=make_snippet(
+            content=textwrap.dedent(
+                f"""
+                $ python3.8
+                >>> from androguard.core.bytecodes.apk import APK  # 3.3.5
+                >>> apk = APK({repr(ctx.apk_ctx.path)})
+                >>> apk_files = apk.zip.nameslist()
+                >>> "res/xml/network_security_config.xml" in apk_files
+                False  # No network security config exists
+                """
+            )[1:],
+            viewport=SnippetViewport(column=0, line=5, wrap=True),
+        ),
+    )
+
+
 def get_check_ctx(apk_ctx: APKContext) -> APKCheckCtx:
     return APKCheckCtx(
         apk_ctx=apk_ctx,
