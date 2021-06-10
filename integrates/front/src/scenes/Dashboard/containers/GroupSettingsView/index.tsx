@@ -14,7 +14,7 @@ import { Can } from "utils/authz/Can";
 import { Have } from "utils/authz/Have";
 
 const GroupSettingsView: React.FC = (): JSX.Element => {
-  const { groupName: projectName } = useParams<{ groupName: string }>();
+  const { groupName } = useParams<{ groupName: string }>();
 
   // Side effects
   const onMount: () => void = (): void => {
@@ -25,19 +25,19 @@ const GroupSettingsView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <div id={"resources"}>
-        <Files projectName={projectName} />
+        <Files projectName={groupName} />
         <hr />
-        <Portfolio projectName={projectName} />
+        <Portfolio projectName={groupName} />
         <Can do={"api_mutations_edit_group_mutate"}>
           <React.Fragment>
             <hr />
-            <Services groupName={projectName} />
+            <Services groupName={groupName} />
           </React.Fragment>
         </Can>
         <GroupInformation />
         <Can do={"api_resolvers_group_forces_token_resolve"}>
           <Have I={"has_forces"}>
-            <AgentToken groupName={projectName} />
+            <AgentToken groupName={groupName} />
           </Have>
         </Can>
         <Can do={"api_mutations_unsubscribe_from_group_mutate"}>

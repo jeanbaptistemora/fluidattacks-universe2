@@ -14,7 +14,7 @@ import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 const GroupInformation: React.FC = (): JSX.Element => {
-  const { groupName: projectName } = useParams<{ groupName: string }>();
+  const { groupName } = useParams<{ groupName: string }>();
 
   const { data } = useQuery(GET_GROUP_DATA, {
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -23,7 +23,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
         Logger.warning("An error occurred getting group data", error);
       });
     },
-    variables: { groupName: projectName },
+    variables: { groupName },
   });
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;

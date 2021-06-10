@@ -46,7 +46,7 @@ describe("Finding Description", (): void => {
     canRetrieveAnalyst: false,
     canRetrieveSorts: false,
     findingId: "413372600",
-    projectName: "TEST",
+    groupName: "TEST",
   };
   const descriptionQuery: Readonly<MockedResponse> = {
     request: {

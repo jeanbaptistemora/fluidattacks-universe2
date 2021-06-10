@@ -20,7 +20,7 @@ import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
 const DeleteGroup: React.FC = (): JSX.Element => {
-  const { groupName: projectName } = useParams<{ groupName: string }>();
+  const { groupName } = useParams<{ groupName: string }>();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { push } = useHistory();
   const { t } = useTranslation();
@@ -41,7 +41,7 @@ const DeleteGroup: React.FC = (): JSX.Element => {
       });
     },
     variables: {
-      groupName: projectName,
+      groupName,
     },
   });
 
@@ -75,7 +75,7 @@ const DeleteGroup: React.FC = (): JSX.Element => {
         </Row>
       </LastGroupSetting>
       <DeleteGroupModal
-        groupName={projectName}
+        groupName={groupName}
         isOpen={isModalOpen}
         onClose={handleChange}
         onSubmit={handleSubmit}

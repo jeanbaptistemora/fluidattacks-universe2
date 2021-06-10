@@ -67,11 +67,11 @@ const ADD_TAGS_MUTATION: DocumentNode = gql`
 
 const UPDATE_ENVIRONMENT_MUTATION: DocumentNode = gql`
   mutation UpdateEnvironmentMutation(
-    $projectName: String!
+    $groupName: String!
     $env: EnvironmentInput!
     $state: ResourceState!
   ) {
-    updateEnvironment(projectName: $projectName, env: $env, state: $state) {
+    updateEnvironment(projectName: $groupName, env: $env, state: $state) {
       success
     }
   }
@@ -79,18 +79,18 @@ const UPDATE_ENVIRONMENT_MUTATION: DocumentNode = gql`
 
 const ADD_ENVIRONMENTS_MUTATION: DocumentNode = gql`
   mutation AddEnvironmentsMutation(
-    $projectName: String!
+    $groupName: String!
     $envs: [EnvironmentInput]!
   ) {
-    addEnvironments(projectName: $projectName, envs: $envs) {
+    addEnvironments(projectName: $groupName, envs: $envs) {
       success
     }
   }
 `;
 
 const GET_ENVIRONMENTS: DocumentNode = gql`
-  query GetEnvironmentsQuery($projectName: String!) {
-    resources(projectName: $projectName) {
+  query GetEnvironmentsQuery($groupName: String!) {
+    resources(projectName: $groupName) {
       environments
     }
   }

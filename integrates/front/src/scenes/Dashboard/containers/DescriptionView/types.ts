@@ -37,7 +37,7 @@ interface IFindingDescriptionVars {
   canRetrieveAnalyst: boolean;
   canRetrieveSorts: boolean;
   findingId: string;
-  projectName: string;
+  groupName: string;
 }
 
 export {

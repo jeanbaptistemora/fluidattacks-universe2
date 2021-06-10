@@ -70,7 +70,7 @@ const maxRecommendationLength: ConfigurableValidator = maxLength(
 );
 
 const DescriptionView: React.FC = (): JSX.Element => {
-  const { findingId, groupName: projectName } =
+  const { findingId, groupName } =
     useParams<{
       findingId: string;
       groupName: string;
@@ -110,7 +110,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
       ),
       canRetrieveSorts: permissions.can("api_resolvers_finding_sorts_resolve"),
       findingId,
-      projectName,
+      groupName,
     },
   });
 

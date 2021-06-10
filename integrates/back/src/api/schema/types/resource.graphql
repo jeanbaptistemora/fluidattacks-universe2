@@ -1,5 +1,6 @@
 "Resource type definition"
 type Resource {
   files: JSONString
+  groupName: String
   projectName: String
 }

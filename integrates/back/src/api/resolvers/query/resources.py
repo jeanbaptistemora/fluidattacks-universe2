@@ -33,7 +33,7 @@ from typing import (
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Resources:
-    group_name: str = kwargs["project_name"].lower()
+    group_name: str = kwargs.get("group_name", kwargs["project_name"]).lower()
     group_loader: DataLoader = info.context.loaders.group
     group: Group = await group_loader.load(group_name)
 
