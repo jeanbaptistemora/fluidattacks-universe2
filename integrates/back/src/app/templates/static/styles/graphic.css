@@ -3,4 +3,16 @@ html, body, #root {
   height: 100%;
   margin: 0px;
   padding: 0px;
+  font-family: Source Sans Pro, sans-serif;
+  color: #333;
+}
+
+.c3 svg {
+  font-family: Source Sans Pro, sans-serif;
+  font-size: 13px;
+  color: #333;
+}
+
+.c3-legend-item {
+  font-size: 14px;
 }
