@@ -3,6 +3,7 @@ from model import (
 )
 from typing import (
     Dict,
+    Optional,
 )
 from utils import (
     graph as g,
@@ -53,6 +54,27 @@ def _get_metadata_package(graph: graph_model.Graph) -> str:
     return package
 
 
+def _get_class_inherit(
+    graph: graph_model.Graph,
+    class_declaration_id: str,
+) -> Optional[str]:
+    match = g.match_ast(
+        graph,
+        class_declaration_id,
+        "superclass",
+    )
+    if superclass := match["superclass"]:
+        match_superclass = g.match_ast(
+            graph,
+            superclass,
+            "extends",
+            "__0__",
+        )
+        return graph.nodes[match_superclass["__0__"]].get("label_text")
+
+    return None
+
+
 def _get_metadata_classes(
     graph: graph_model.Graph,
     n_id: str = g.ROOT_NODE,
@@ -62,7 +84,13 @@ def _get_metadata_classes(
 
     for c_id in g.adj_ast(graph, n_id):
         if graph.nodes[c_id]["label_type"] == "class_declaration":
-            match = g.match_ast(graph, c_id, "modifiers", "class", "__0__")
+            match = g.match_ast(
+                graph,
+                c_id,
+                "modifiers",
+                "class",
+                "__0__",
+            )
 
             if class_identifier_id := match["__0__"]:
                 name = graph.nodes[class_identifier_id]["label_text"]
@@ -71,6 +99,7 @@ def _get_metadata_classes(
                     n_id=c_id,
                     fields=_get_metadata_class_fields(graph, c_id),
                     methods=_get_metadata_class_methods(graph, c_id),
+                    inherit=_get_class_inherit(graph, c_id),
                 )
 
                 # Recurse to get the class members

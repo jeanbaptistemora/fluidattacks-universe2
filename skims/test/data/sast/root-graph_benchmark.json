@@ -6592,7 +6592,7 @@
                   "var_type": "long"
                 }
               },
-              "inherit": null,
+              "inherit": "HttpServlet",
               "methods": {
                 ".doGet": {
                   "class_name": ".BenchmarkTest00001",
@@ -6622,7 +6622,7 @@
                   "var_type": "long"
                 }
               },
-              "inherit": null,
+              "inherit": "HttpServlet",
               "methods": {
                 ".doGet": {
                   "class_name": ".BenchmarkTest00001",
@@ -11699,7 +11699,7 @@
                   "var_type": "long"
                 }
               },
-              "inherit": null,
+              "inherit": "HttpServlet",
               "methods": {
                 ".doGet": {
                   "class_name": ".BenchmarkTest00008",
@@ -11729,7 +11729,7 @@
                   "var_type": "long"
                 }
               },
-              "inherit": null,
+              "inherit": "HttpServlet",
               "methods": {
                 ".doGet": {
                   "class_name": ".BenchmarkTest00008",
@@ -19758,7 +19758,7 @@
                   "var_type": "long"
                 }
               },
-              "inherit": null,
+              "inherit": "HttpServlet",
               "methods": {
                 ".doGet": {
                   "class_name": ".BenchmarkTest00167",
@@ -19788,7 +19788,7 @@
                   "var_type": "long"
                 }
               },
-              "inherit": null,
+              "inherit": "HttpServlet",
               "methods": {
                 ".doGet": {
                   "class_name": ".BenchmarkTest00167",
