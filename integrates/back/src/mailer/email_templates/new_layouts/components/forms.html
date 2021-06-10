@@ -1,0 +1,51 @@
+{# Generic Go to button: rounded and centered #}
+{% macro go_to_button(text, url) %}
+<div class="flex justify-center">
+  <a id="download" class="pa3 dim justify-center" title="{{ text }}" href="{{ url }}" target="_blank" rel="noopener">
+    {{ text }}
+  </a>
+</div>
+{% endmacro %}
+
+{# Generic gray text area #}
+{%+ macro text_area(text) %}
+<div class="w-80 gray-text-area">
+  {% for line in text %}
+  <div>{{ line }}</div>
+  {% endfor %}
+</div>
+{% endmacro %}
+
+{# Red banner for new layout #}
+{%+ macro banner(icon_url, text, padding) %}
+<table width="100%"
+  style="
+      height: 250px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-image: url(https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/222436b8-0957-02df-7905-176379f344b5.png);">
+  <tr>
+    <td class="wrapper" width="600" align="center">
+      <table cellpadding="0" cellspacing="0">
+        <tr>
+          <td class="column" align="center">
+            <table>
+              <tr>
+                <td align="center">
+                  <div
+                    style="border: 2px solid #ffffff; padding: {{ padding }}; border-radius: 50%; height: 78px; width: 78px;">
+                    <div class="icon">
+                      <img src="{{ icon_url }}" style="height: 45px; height: 45px; vertical-align: center;">
+                    </div>
+                  </div>
+                  <h3 style="text-align: center; color: #f4f4f6; font-weight: 700; padding: 10px 30px;">{{ text }}</h3>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+{% endmacro %}
