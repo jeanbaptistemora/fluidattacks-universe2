@@ -69,11 +69,16 @@ def _get_metadata_classes(
     for c_id in g.adj_ast(graph, n_id):
         if graph.nodes[c_id]["label_type"] == "class_declaration":
             match = g.match_ast(
-                graph, c_id, "modifiers", "class", "identifier"
+                graph, c_id, "modifiers", "class", "identifier", "base_list"
             )
             class_identifier_id = match["identifier"]
             if not class_identifier_id:
                 raise NotImplementedError()
+
+            base_type_name = None
+            if _base_list := match["base_list"]:
+                _match_base = g.match_ast(graph, _base_list, "__0__", "__1__")
+                base_type_name = build_type_name(graph, _match_base["__1__"])
 
             name = graph.nodes[class_identifier_id]["label_text"]
             qualified = namespace + "." + name
@@ -81,6 +86,7 @@ def _get_metadata_classes(
                 n_id=c_id,
                 fields=_get_metadata_class_fields(graph, c_id),
                 methods=_get_metadata_class_methods(graph, c_id),
+                inherit=base_type_name,
             )
 
             # Recurse to get the class members

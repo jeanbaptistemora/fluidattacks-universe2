@@ -4419,7 +4419,7 @@
           "classes": {
             ".CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01": {
               "fields": {},
-              "inherit": null,
+              "inherit": "AbstractTestCaseWeb",
               "methods": {
                 ".Bad": {
                   "class_name": ".CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01",
@@ -4445,7 +4445,7 @@
             },
             "testcases.CWE89_SQL_Injection.CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01": {
               "fields": {},
-              "inherit": null,
+              "inherit": "AbstractTestCaseWeb",
               "methods": {
                 ".Bad": {
                   "class_name": ".CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01",
@@ -7108,7 +7108,7 @@
           "classes": {
             ".StudentController": {
               "fields": {},
-              "inherit": null,
+              "inherit": "ApiController",
               "methods": {
                 ".PostNewStudent": {
                   "class_name": ".StudentController",
