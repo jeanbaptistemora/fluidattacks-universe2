@@ -282,7 +282,7 @@ def _get_metadata_class_methods(
                 class_name,
                 name=_name,
                 static=is_static,
-                paremeters=_parameters,
+                parameters=_parameters,
                 return_type=_get_method_return_type(graph, method_id),
             )
         elif graph.nodes[method_id]["label_type"] == "constructor_declaration":

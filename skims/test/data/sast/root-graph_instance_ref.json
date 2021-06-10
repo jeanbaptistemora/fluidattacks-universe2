@@ -10373,88 +10373,94 @@
                 ".createRandom": {
                   "class_name": ".App",
                   "n_id": "13",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "createRandom",
+                  "parameters": {},
                   "return_type": null,
                   "static": false
                 },
                 ".main": {
                   "class_name": ".App",
                   "n_id": "60",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "main",
+                  "parameters": {
+                    "args": {
+                      "n_id": "68",
+                      "name": "args",
+                      "type_name": "String[]"
+                    }
+                  },
                   "return_type": null,
                   "static": true
                 },
                 ".test_01": {
                   "class_name": ".App",
                   "n_id": "177",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "test_01",
+                  "parameters": {},
                   "return_type": null,
                   "static": false
                 },
                 ".test_02": {
                   "class_name": ".App",
                   "n_id": "272",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "test_02",
+                  "parameters": {},
                   "return_type": null,
                   "static": false
                 },
                 ".test_03": {
                   "class_name": ".App",
                   "n_id": "355",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "test_03",
+                  "parameters": {},
                   "return_type": null,
                   "static": false
                 },
                 ".test_04": {
                   "class_name": ".App",
                   "n_id": "450",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "test_04",
+                  "parameters": {},
                   "return_type": null,
                   "static": false
                 },
                 ".test_05": {
                   "class_name": ".App",
                   "n_id": "514",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "test_05",
+                  "parameters": {},
                   "return_type": null,
                   "static": false
                 },
                 ".test_06": {
                   "class_name": ".App",
                   "n_id": "605",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "test_06",
+                  "parameters": {},
                   "return_type": null,
                   "static": false
                 },
                 ".test_07": {
                   "class_name": ".App",
                   "n_id": "700",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "test_07",
+                  "parameters": {},
                   "return_type": null,
                   "static": false
                 },
                 ".test_08": {
                   "class_name": ".App",
                   "n_id": "783",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "test_08",
+                  "parameters": {},
                   "return_type": null,
                   "static": false
                 },
                 ".test_09": {
                   "class_name": ".App",
                   "n_id": "859",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "test_09",
+                  "parameters": {},
                   "return_type": null,
                   "static": false
                 }
@@ -15370,7 +15376,13 @@
                   "class_name": ".User",
                   "n_id": "30",
                   "name": null,
-                  "paremeters": null,
+                  "parameters": {
+                    "name": {
+                      "n_id": "36",
+                      "name": "name",
+                      "type_name": "String"
+                    }
+                  },
                   "return_type": null,
                   "static": false
                 },
@@ -15378,7 +15390,18 @@
                   "class_name": ".User",
                   "n_id": "54",
                   "name": null,
-                  "paremeters": null,
+                  "parameters": {
+                    "lastName": {
+                      "n_id": "64",
+                      "name": "lastName",
+                      "type_name": "String"
+                    },
+                    "name": {
+                      "n_id": "60",
+                      "name": "name",
+                      "type_name": "String"
+                    }
+                  },
                   "return_type": null,
                   "static": false
                 },
@@ -15386,47 +15409,81 @@
                   "class_name": ".User",
                   "n_id": "86",
                   "name": null,
-                  "paremeters": null,
+                  "parameters": {
+                    "Id": {
+                      "n_id": "100",
+                      "name": "Id",
+                      "type_name": "String"
+                    },
+                    "lastName": {
+                      "n_id": "96",
+                      "name": "lastName",
+                      "type_name": "String"
+                    },
+                    "name": {
+                      "n_id": "92",
+                      "name": "name",
+                      "type_name": "String"
+                    }
+                  },
                   "return_type": null,
                   "static": false
                 },
                 ".getName": {
                   "class_name": ".User",
                   "n_id": "127",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "getName",
+                  "parameters": {},
                   "return_type": null,
                   "static": false
                 },
                 ".getUserId": {
                   "class_name": ".User",
                   "n_id": "164",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "getUserId",
+                  "parameters": {},
                   "return_type": null,
                   "static": false
                 },
                 ".setLastName": {
                   "class_name": ".User",
                   "n_id": "213",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "setLastName",
+                  "parameters": {
+                    "lastName": {
+                      "n_id": "220",
+                      "name": "lastName",
+                      "type_name": "String"
+                    }
+                  },
                   "return_type": null,
                   "static": false
                 },
                 ".setName": {
                   "class_name": ".User",
                   "n_id": "143",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "setName",
+                  "parameters": {
+                    "name": {
+                      "n_id": "150",
+                      "name": "name",
+                      "type_name": "String"
+                    }
+                  },
                   "return_type": null,
                   "static": false
                 },
                 ".setUserId": {
                   "class_name": ".User",
                   "n_id": "193",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "setUserId",
+                  "parameters": {
+                    "userId": {
+                      "n_id": "200",
+                      "name": "userId",
+                      "type_name": "String"
+                    }
+                  },
                   "return_type": null,
                   "static": false
                 }

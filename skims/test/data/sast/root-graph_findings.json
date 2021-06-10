@@ -712,8 +712,14 @@
                 ".main": {
                   "class_name": ".Test",
                   "n_id": "13",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "main",
+                  "parameters": {
+                    "args": {
+                      "n_id": "21",
+                      "name": "args",
+                      "type_name": "String[]"
+                    }
+                  },
                   "return_type": null,
                   "static": true
                 }
@@ -2120,8 +2126,19 @@
                 ".doPost": {
                   "class_name": ".Test",
                   "n_id": "13",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "doPost",
+                  "parameters": {
+                    "request": {
+                      "n_id": "23",
+                      "name": "request",
+                      "type_name": "HttpServletRequest"
+                    },
+                    "response": {
+                      "n_id": "27",
+                      "name": "response",
+                      "type_name": "HttpServletResponse"
+                    }
+                  },
                   "return_type": null,
                   "static": false
                 }

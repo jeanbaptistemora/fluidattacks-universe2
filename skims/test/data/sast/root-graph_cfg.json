@@ -17985,8 +17985,14 @@
                 ".main": {
                   "class_name": ".Test",
                   "n_id": "17",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "main",
+                  "parameters": {
+                    "args": {
+                      "n_id": "25",
+                      "name": "args",
+                      "type_name": "String[ ]"
+                    }
+                  },
                   "return_type": null,
                   "static": true
                 }

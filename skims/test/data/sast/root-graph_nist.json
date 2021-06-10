@@ -4425,7 +4425,7 @@
                   "class_name": ".CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01",
                   "n_id": "52",
                   "name": "Bad",
-                  "paremeters": {
+                  "parameters": {
                     "req": {
                       "n_id": "61",
                       "name": "req",
@@ -4451,7 +4451,7 @@
                   "class_name": ".CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01",
                   "n_id": "52",
                   "name": "Bad",
-                  "paremeters": {
+                  "parameters": {
                     "req": {
                       "n_id": "61",
                       "name": "req",
@@ -7114,7 +7114,7 @@
                   "class_name": ".StudentController",
                   "n_id": "23",
                   "name": "PostNewStudent",
-                  "paremeters": {
+                  "parameters": {
                     "student": {
                       "n_id": "30",
                       "name": "student",
@@ -7128,7 +7128,7 @@
                   "class_name": ".StudentController",
                   "n_id": "12",
                   "name": null,
-                  "paremeters": null,
+                  "parameters": null,
                   "return_type": null,
                   "static": false
                 }

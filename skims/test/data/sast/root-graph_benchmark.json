@@ -6597,16 +6597,38 @@
                 ".doGet": {
                   "class_name": ".BenchmarkTest00001",
                   "n_id": "62",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "doGet",
+                  "parameters": {
+                    "request": {
+                      "n_id": "72",
+                      "name": "request",
+                      "type_name": "HttpServletRequest"
+                    },
+                    "response": {
+                      "n_id": "76",
+                      "name": "response",
+                      "type_name": "HttpServletResponse"
+                    }
+                  },
                   "return_type": null,
                   "static": false
                 },
                 ".doPost": {
                   "class_name": ".BenchmarkTest00001",
                   "n_id": "223",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "doPost",
+                  "parameters": {
+                    "request": {
+                      "n_id": "233",
+                      "name": "request",
+                      "type_name": "HttpServletRequest"
+                    },
+                    "response": {
+                      "n_id": "237",
+                      "name": "response",
+                      "type_name": "HttpServletResponse"
+                    }
+                  },
                   "return_type": null,
                   "static": false
                 }
@@ -6627,16 +6649,38 @@
                 ".doGet": {
                   "class_name": ".BenchmarkTest00001",
                   "n_id": "62",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "doGet",
+                  "parameters": {
+                    "request": {
+                      "n_id": "72",
+                      "name": "request",
+                      "type_name": "HttpServletRequest"
+                    },
+                    "response": {
+                      "n_id": "76",
+                      "name": "response",
+                      "type_name": "HttpServletResponse"
+                    }
+                  },
                   "return_type": null,
                   "static": false
                 },
                 ".doPost": {
                   "class_name": ".BenchmarkTest00001",
                   "n_id": "223",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "doPost",
+                  "parameters": {
+                    "request": {
+                      "n_id": "233",
+                      "name": "request",
+                      "type_name": "HttpServletRequest"
+                    },
+                    "response": {
+                      "n_id": "237",
+                      "name": "response",
+                      "type_name": "HttpServletResponse"
+                    }
+                  },
                   "return_type": null,
                   "static": false
                 }
@@ -11704,16 +11748,38 @@
                 ".doGet": {
                   "class_name": ".BenchmarkTest00008",
                   "n_id": "62",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "doGet",
+                  "parameters": {
+                    "request": {
+                      "n_id": "72",
+                      "name": "request",
+                      "type_name": "HttpServletRequest"
+                    },
+                    "response": {
+                      "n_id": "76",
+                      "name": "response",
+                      "type_name": "HttpServletResponse"
+                    }
+                  },
                   "return_type": null,
                   "static": false
                 },
                 ".doPost": {
                   "class_name": ".BenchmarkTest00008",
                   "n_id": "98",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "doPost",
+                  "parameters": {
+                    "request": {
+                      "n_id": "108",
+                      "name": "request",
+                      "type_name": "HttpServletRequest"
+                    },
+                    "response": {
+                      "n_id": "112",
+                      "name": "response",
+                      "type_name": "HttpServletResponse"
+                    }
+                  },
                   "return_type": null,
                   "static": false
                 }
@@ -11734,16 +11800,38 @@
                 ".doGet": {
                   "class_name": ".BenchmarkTest00008",
                   "n_id": "62",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "doGet",
+                  "parameters": {
+                    "request": {
+                      "n_id": "72",
+                      "name": "request",
+                      "type_name": "HttpServletRequest"
+                    },
+                    "response": {
+                      "n_id": "76",
+                      "name": "response",
+                      "type_name": "HttpServletResponse"
+                    }
+                  },
                   "return_type": null,
                   "static": false
                 },
                 ".doPost": {
                   "class_name": ".BenchmarkTest00008",
                   "n_id": "98",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "doPost",
+                  "parameters": {
+                    "request": {
+                      "n_id": "108",
+                      "name": "request",
+                      "type_name": "HttpServletRequest"
+                    },
+                    "response": {
+                      "n_id": "112",
+                      "name": "response",
+                      "type_name": "HttpServletResponse"
+                    }
+                  },
                   "return_type": null,
                   "static": false
                 }
@@ -19763,16 +19851,38 @@
                 ".doGet": {
                   "class_name": ".BenchmarkTest00167",
                   "n_id": "62",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "doGet",
+                  "parameters": {
+                    "request": {
+                      "n_id": "72",
+                      "name": "request",
+                      "type_name": "HttpServletRequest"
+                    },
+                    "response": {
+                      "n_id": "76",
+                      "name": "response",
+                      "type_name": "HttpServletResponse"
+                    }
+                  },
                   "return_type": null,
                   "static": false
                 },
                 ".doPost": {
                   "class_name": ".BenchmarkTest00167",
                   "n_id": "98",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "doPost",
+                  "parameters": {
+                    "request": {
+                      "n_id": "108",
+                      "name": "request",
+                      "type_name": "HttpServletRequest"
+                    },
+                    "response": {
+                      "n_id": "112",
+                      "name": "response",
+                      "type_name": "HttpServletResponse"
+                    }
+                  },
                   "return_type": null,
                   "static": false
                 }
@@ -19793,16 +19903,38 @@
                 ".doGet": {
                   "class_name": ".BenchmarkTest00167",
                   "n_id": "62",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "doGet",
+                  "parameters": {
+                    "request": {
+                      "n_id": "72",
+                      "name": "request",
+                      "type_name": "HttpServletRequest"
+                    },
+                    "response": {
+                      "n_id": "76",
+                      "name": "response",
+                      "type_name": "HttpServletResponse"
+                    }
+                  },
                   "return_type": null,
                   "static": false
                 },
                 ".doPost": {
                   "class_name": ".BenchmarkTest00167",
                   "n_id": "98",
-                  "name": null,
-                  "paremeters": null,
+                  "name": "doPost",
+                  "parameters": {
+                    "request": {
+                      "n_id": "108",
+                      "name": "request",
+                      "type_name": "HttpServletRequest"
+                    },
+                    "response": {
+                      "n_id": "112",
+                      "name": "response",
+                      "type_name": "HttpServletResponse"
+                    }
+                  },
                   "return_type": null,
                   "static": false
                 }

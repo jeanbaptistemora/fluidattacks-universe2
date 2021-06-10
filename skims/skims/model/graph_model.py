@@ -280,7 +280,7 @@ class GraphShardMetadataClassMethod(NamedTuple):
     n_id: NId
     class_name: Optional[str] = None
     name: Optional[str] = None
-    paremeters: Optional[Dict[str, GraphShardMetadataParameter]] = None
+    parameters: Optional[Dict[str, GraphShardMetadataParameter]] = None
     return_type: Optional[str] = None
     static: bool = False
 
