@@ -1,3 +1,4 @@
+# pylint: disable=too-many-lines
 from __future__ import (
     annotations,
 )
@@ -490,6 +491,22 @@ class FindingEnum(Enum):
         report_confidence=ReportConfidence.reasonable,
         severity_scope=SeverityScope.unchanged,
         user_interaction=UserInteraction.none,
+    )
+    F049_APK_PIN: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F049_APK_PIN",
+        cwe="295",
+        attack_complexity=AttackComplexity.high,
+        attack_vector=AttackVector.adjacent,
+        availability_impact=AvailabilityImpact.none,
+        confidentiality_impact=ConfidentialityImpact.low,
+        exploitability=Exploitability.unproven,
+        integrity_impact=IntegrityImpact.none,
+        privileges_required=PrivilegesRequired.none,
+        remediation_level=RemediationLevel.official_fix,
+        report_confidence=ReportConfidence.confirmed,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.required,
     )
     F052: FindingMetadata = FindingMetadata.new(
         code="F052",

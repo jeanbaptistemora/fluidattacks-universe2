@@ -74,6 +74,9 @@
   "F048": {
     "skims/test/data/sast/TestCFG.java": {}
   },
+  "F049_APK_PIN": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
   "F052": {
     "skims/test/data/sast/TestCFG.java": {}
   },
