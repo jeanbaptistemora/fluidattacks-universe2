@@ -4310,6 +4310,44 @@ F060,lines,namespace/skims/test/data/lib_path/f060/Test.java,12,397,skims,F060. 
   13 |
      ^ Col 13
 "
+F070_WILDCARD_IMPORT,lines,namespace/skims/test/data/lib_root/f070_wildcard_import/test.go,11,398,skims,F070. Inappropriate coding practices - Wildcard import,Use of wildcard import,"
+   1 | package main
+   2 |
+   3 | import ""package1""
+   4 | import pkg2 ""package2""
+   5 | import .    ""package3""
+   6 |
+   7 | import (
+   8 |  ""math/rand""
+   9 |  ""fmt""
+  10 |  pkg4 ""package4""
+> 11 |  .    ""package5""
+  12 |  _    ""package6""
+  13 | )
+  14 |
+  15 | func main() {
+  16 |     fmt.Println(rand.Int())
+  17 | }
+     ^ Col 0
+"
+F070_WILDCARD_IMPORT,lines,namespace/skims/test/data/lib_root/f070_wildcard_import/test.go,5,398,skims,F070. Inappropriate coding practices - Wildcard import,Use of wildcard import,"
+   1 | package main
+   2 |
+   3 | import ""package1""
+   4 | import pkg2 ""package2""
+>  5 | import .    ""package3""
+   6 |
+   7 | import (
+   8 |  ""math/rand""
+   9 |  ""fmt""
+  10 |  pkg4 ""package4""
+  11 |  .    ""package5""
+  12 |  _    ""package6""
+  13 | )
+  14 |
+  15 | func main() {
+     ^ Col 0
+"
 F070_WILDCARD_IMPORT,lines,namespace/skims/test/data/lib_root/f070_wildcard_import/Test.java,2,398,skims,F070. Inappropriate coding practices - Wildcard import,Use of wildcard import,"
   1 | import java.sql.*;
 > 2 | import java.util.*;
