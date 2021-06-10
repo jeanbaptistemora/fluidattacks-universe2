@@ -36,6 +36,11 @@ def main() -> None:
         merged_features.to_csv(local_merged_file, index=False)
         S3_BUCKET.upload_file(local_merged_file, remote_merged_file)
 
+        print(
+            "[INFO]: Our current dataset has a total number of "
+            f"{len(merged_features.index)} elements"
+        )
+
 
 if __name__ == "__main__":
     main()
