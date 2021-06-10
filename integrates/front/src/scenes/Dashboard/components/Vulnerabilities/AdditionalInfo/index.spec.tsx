@@ -2,9 +2,14 @@ import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import moment from "moment";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import type { IVulnRowAttr } from "../types";
-import { AdditionalInfo } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo";
+import {
+  AdditionalInfo,
+  Label,
+} from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo";
+import { formatVulnerabilities } from "scenes/Dashboard/components/Vulnerabilities/utils";
 
 describe("AdditionalInfo", (): void => {
   const numberOfDays: number = 5;
@@ -57,15 +62,32 @@ describe("AdditionalInfo", (): void => {
   it("should render in vulnerabilities", (): void => {
     expect.hasAssertions();
 
+    const { t } = useTranslation();
+
     const wrapper: ReactWrapper = mount(
       <AdditionalInfo
         canDisplayAnalyst={false}
         onClose={jest.fn()}
-        vulnerability={mockVuln}
+        vulnerability={formatVulnerabilities([mockVuln])[0]}
       />
     );
     wrapper.update();
 
     expect(wrapper).toHaveLength(1);
+
+    expect(wrapper.find(Label).first().find("span").text()).toBe(
+      t("searchFindings.tabVuln.vulnTable.specificType.code")
+    );
+
+    wrapper.setProps({
+      vulnerability: formatVulnerabilities([
+        { ...mockVuln, vulnType: "inputs" },
+      ])[0],
+    });
+    wrapper.update();
+
+    expect(wrapper.find(Label).first().find("span").text()).toBe(
+      t("searchFindings.tabVuln.vulnTable.specificType.app")
+    );
   });
 });

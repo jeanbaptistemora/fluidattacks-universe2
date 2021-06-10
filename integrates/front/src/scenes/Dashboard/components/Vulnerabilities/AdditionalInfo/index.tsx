@@ -86,7 +86,7 @@ const Status: StyledComponent<
   className: "f2-5",
 })``;
 
-export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
+const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
   canDisplayAnalyst,
   vulnerability,
   onClose,
@@ -354,3 +354,5 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
     </React.StrictMode>
   );
 };
+
+export { AdditionalInfo, Label };
