@@ -130,7 +130,7 @@ def _add_no_root_check_location(
                 >>> from androguard.misc import AnalyzeAPK  # 3.3.5
                 >>> dex = AnalyzeAPK({repr(ctx.apk_ctx.path)})[2]
                 >>> sorted(set(method.name for method in dex.get_methods()))
-                # No method checks root detection
+                # No method performs root detection
                 {repr(methods)}
                 """
             )[1:],
