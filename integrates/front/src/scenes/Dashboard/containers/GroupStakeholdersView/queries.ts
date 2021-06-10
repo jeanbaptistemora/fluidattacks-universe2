@@ -2,8 +2,8 @@ import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
 const GET_STAKEHOLDERS: DocumentNode = gql`
-  query GetStakeholdersQuery($projectName: String!) {
-    group(groupName: $projectName) {
+  query GetStakeholdersQuery($groupName: String!) {
+    group(groupName: $groupName) {
       name
       stakeholders {
         email
@@ -20,10 +20,10 @@ const GET_STAKEHOLDERS: DocumentNode = gql`
 
 const REMOVE_STAKEHOLDER_MUTATION: DocumentNode = gql`
   mutation RemoveStakeholderAccessMutation(
-    $projectName: String!
+    $groupName: String!
     $userEmail: String!
   ) {
-    removeStakeholderAccess(projectName: $projectName, userEmail: $userEmail) {
+    removeStakeholderAccess(projectName: $groupName, userEmail: $userEmail) {
       removedEmail
       success
     }
@@ -34,14 +34,14 @@ const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
   mutation GrantStakeholderMutation(
     $email: String!
     $phoneNumber: String
-    $projectName: String
+    $groupName: String
     $responsibility: String
     $role: StakeholderRole!
   ) {
     grantStakeholderAccess(
       email: $email
       phoneNumber: $phoneNumber
-      projectName: $projectName
+      projectName: $groupName
       responsibility: $responsibility
       role: $role
     ) {
@@ -62,14 +62,14 @@ const EDIT_STAKEHOLDER_MUTATION: DocumentNode = gql`
   mutation EditStakeholderMutation(
     $email: String!
     $phoneNumber: String!
-    $projectName: String!
+    $groupName: String!
     $responsibility: String!
     $role: StakeholderRole!
   ) {
     editStakeholder(
       email: $email
       phoneNumber: $phoneNumber
-      projectName: $projectName
+      projectName: $groupName
       responsibility: $responsibility
       role: $role
     ) {

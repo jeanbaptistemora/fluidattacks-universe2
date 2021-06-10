@@ -47,7 +47,7 @@ describe("Group stakeholders view", (): void => {
       request: {
         query: GET_STAKEHOLDERS,
         variables: {
-          projectName: "TEST",
+          groupName: "TEST",
         },
       },
       result: {
@@ -73,7 +73,7 @@ describe("Group stakeholders view", (): void => {
       request: {
         query: GET_STAKEHOLDERS,
         variables: {
-          projectName: "TEST",
+          groupName: "TEST",
         },
       },
       result: {
@@ -111,7 +111,7 @@ describe("Group stakeholders view", (): void => {
       request: {
         query: GET_STAKEHOLDERS,
         variables: {
-          projectName: "TEST",
+          groupName: "TEST",
         },
       },
       result: {
@@ -351,8 +351,8 @@ describe("Group stakeholders view", (): void => {
           query: ADD_STAKEHOLDER_MUTATION,
           variables: {
             email: "unittest@test.com",
+            groupName: "TEST",
             phoneNumber: "+573123210123",
-            projectName: "TEST",
             responsibility: "Project Manager",
             role: "ANALYST",
           },
@@ -462,7 +462,7 @@ describe("Group stakeholders view", (): void => {
         request: {
           query: REMOVE_STAKEHOLDER_MUTATION,
           variables: {
-            projectName: "TEST",
+            groupName: "TEST",
             userEmail: "user@gmail.com",
           },
         },
@@ -534,8 +534,8 @@ describe("Group stakeholders view", (): void => {
           query: EDIT_STAKEHOLDER_MUTATION,
           variables: {
             email: "user@gmail.com",
+            groupName: "TEST",
             phoneNumber: "+573123210123",
-            projectName: "TEST",
             responsibility: "Project Manager",
             role: "ANALYST",
           },
@@ -645,8 +645,8 @@ describe("Group stakeholders view", (): void => {
           query: ADD_STAKEHOLDER_MUTATION,
           variables: {
             email: "unittest@test.com",
+            groupName: "TEST",
             phoneNumber: "+573123210123",
-            projectName: "TEST",
             responsibility: "Project Manager",
             role: "ANALYST",
           },
@@ -765,7 +765,7 @@ describe("Group stakeholders view", (): void => {
         request: {
           query: REMOVE_STAKEHOLDER_MUTATION,
           variables: {
-            projectName: "TEST",
+            groupName: "TEST",
             userEmail: "user@gmail.com",
           },
         },
@@ -829,8 +829,8 @@ describe("Group stakeholders view", (): void => {
           query: EDIT_STAKEHOLDER_MUTATION,
           variables: {
             email: "user@gmail.com",
+            groupName: "TEST",
             phoneNumber: "+573123210123",
-            projectName: "TEST",
             responsibility: "Project Manager",
             role: "ANALYST",
           },

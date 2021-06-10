@@ -29,7 +29,7 @@ interface IGroupConsultingData {
 }
 
 const GroupConsultingView: React.FC = (): JSX.Element => {
-  const { groupName: projectName } = useParams<{ groupName: string }>();
+  const { groupName } = useParams<{ groupName: string }>();
   const { userEmail }: IAuthContext = useContext(authContext);
 
   const handleAddConsultError: (addCommentError: ApolloError) => void = (
@@ -59,7 +59,7 @@ const GroupConsultingView: React.FC = (): JSX.Element => {
     {
       fetchPolicy: "network-only",
       onError: handleErrors,
-      variables: { projectName },
+      variables: { groupName },
     }
   );
 
@@ -99,8 +99,8 @@ const GroupConsultingView: React.FC = (): JSX.Element => {
           };
         };
       }
-      track("AddGroupComment", { projectName });
-      void addConsult({ variables: { projectName, ...consult } }).then(
+      track("AddGroupComment", { groupName });
+      void addConsult({ variables: { groupName, ...consult } }).then(
         (mtResult: unknown | null): void => {
           const result: IMutationResult["data"] = (mtResult as IMutationResult)
             .data;
@@ -113,7 +113,7 @@ const GroupConsultingView: React.FC = (): JSX.Element => {
         }
       );
     },
-    [addConsult, projectName]
+    [addConsult, groupName]
   );
 
   if (_.isUndefined(data) || loading) {

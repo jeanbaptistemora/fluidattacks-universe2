@@ -86,7 +86,7 @@ const tableHeaders: IHeaderConfig[] = [
 ];
 
 const GroupStakeholdersView: React.FC = (): JSX.Element => {
-  const { groupName: projectName } = useParams<{ groupName: string }>();
+  const { groupName } = useParams<{ groupName: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   // State management
@@ -111,7 +111,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
       msgError(translate.t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred loading group stakeholders", error);
     },
-    variables: { projectName },
+    variables: { groupName },
   });
   const [grantStakeholderAccess] = useMutation(ADD_STAKEHOLDER_MUTATION, {
     onCompleted: (mtResult: IAddStakeholderAttr): void => {
@@ -178,14 +178,14 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
         void grantStakeholderAccess({
           variables: {
             ...values,
-            projectName,
+            groupName,
           },
         });
       } else {
         void editStakeholder({
           variables: {
             ...values,
-            projectName,
+            groupName,
           },
         });
       }
@@ -194,18 +194,18 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
       closeUserModal,
       editStakeholder,
       grantStakeholderAccess,
-      projectName,
+      groupName,
       userModalAction,
     ]
   );
 
   const handleRemoveUser: () => void = useCallback((): void => {
     void removeStakeholderAccess({
-      variables: { projectName, userEmail: currentRow.email },
+      variables: { groupName, userEmail: currentRow.email },
     });
     setCurrentRow({});
     setuserModalAction("add");
-  }, [currentRow.email, projectName, removeStakeholderAccess]);
+  }, [currentRow.email, groupName, removeStakeholderAccess]);
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -314,7 +314,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
           editTitle={translate.t(
             "searchFindings.tabUsers.editStakeholderTitle"
           )}
-          groupName={projectName}
+          groupName={groupName}
           initialValues={userModalAction === "edit" ? currentRow : {}}
           onClose={closeUserModal}
           onSubmit={handleSubmit}

@@ -2,8 +2,8 @@ import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
 const GET_GROUP_CONSULTING: DocumentNode = gql`
-  query GetProjectConsulting($projectName: String!) {
-    group(groupName: $projectName) {
+  query GetProjectConsulting($groupName: String!) {
+    group(groupName: $groupName) {
       consulting {
         id
         content
@@ -21,12 +21,12 @@ const GET_GROUP_CONSULTING: DocumentNode = gql`
 const ADD_PROJECT_CONSULT: DocumentNode = gql`
   mutation AddProjectConsult(
     $content: String!
-    $projectName: String!
+    $groupName: String!
     $parent: GenericScalar!
   ) {
     addProjectConsult(
       content: $content
-      projectName: $projectName
+      projectName: $groupName
       parent: $parent
     ) {
       commentId

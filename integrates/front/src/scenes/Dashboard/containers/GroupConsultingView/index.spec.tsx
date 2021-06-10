@@ -16,7 +16,7 @@ describe("GroupConsultingView", (): void => {
     {
       request: {
         query: GET_GROUP_CONSULTING,
-        variables: { projectName: "unittesting" },
+        variables: { groupName: "unittesting" },
       },
       result: {
         data: {
@@ -78,7 +78,7 @@ describe("GroupConsultingView", (): void => {
       {
         request: {
           query: GET_GROUP_CONSULTING,
-          variables: { projectName: "unittesting" },
+          variables: { groupName: "unittesting" },
         },
         result: {
           data: {
