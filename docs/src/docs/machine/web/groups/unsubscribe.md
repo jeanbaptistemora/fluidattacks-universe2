@@ -9,7 +9,7 @@ There may be cases
 when you want to
 remove your user
 from a particular group,
-making it unaccesible for you
+making it unaccessible for you
 and deleting it from
 your list of groups.
 In order to do this,

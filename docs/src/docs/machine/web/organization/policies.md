@@ -75,7 +75,7 @@ for the scores
 you consider relevant.
 Also,
 in case you choose
-the recomended 0.0 score,
+the recommended 0.0 score,
 no vulnerabilities
 will be able to be
 temporally accepted.

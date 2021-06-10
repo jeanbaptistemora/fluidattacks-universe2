@@ -37,7 +37,7 @@ including:
   that better summarizes the event.
 - The location at which the analyst was
   when the event was discovered.
-- Specify if the event affects accesibility
+- Specify if the event affects accessibility
   to the **Environment**,
   **Repository** or both.
 - A more detailed description

@@ -16,7 +16,7 @@ In order to do this,
 there are several functionalities
 that are available to you
 that give you control over
-the caracteristics of a specific group,
+the features of a specific group,
 among them:
 
 - Add and edit the repositories

@@ -29,7 +29,7 @@ just one or several specific vulnerabilities
 inside a certain type of vulnerability,
 you need to enter the vulnerability
 and click on the button **Bulk edit**
-to enable de edition of vulnerabilities.
+to enable the edition of vulnerabilities.
 
 ![Vulnerabilities Deletion Enabled](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211887/docs/web/vulnerabilities/deleting-vulns/vulns_delete_enabled_vhdnyp.webp)
 

@@ -52,5 +52,5 @@ one of the tags in the list.
 After selecting it
 you can click on the remove button
 and the tag will be
-inmediately deleted,
+immediately deleted,
 so be careful when doing this.

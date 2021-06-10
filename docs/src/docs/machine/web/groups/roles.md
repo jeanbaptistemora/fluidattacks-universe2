@@ -65,7 +65,7 @@ when they deem them solved.
   and then accept or reject
   this request.
 - **Request reattacks:**
-  When a vulnerabiity is solved,
+  When a vulnerability is solved,
   there is the need to ask our hackers
   to verify that it was indeed solved.
   This function gives you
