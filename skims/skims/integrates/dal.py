@@ -302,6 +302,7 @@ async def get_finding_vulnerabilities(
                         }
                         id
                         specific
+                        stream
                         vulnType
                         where
                     }
@@ -342,6 +343,7 @@ async def get_finding_vulnerabilities(
                 state=core_model.VulnerabilityStateEnum(
                     vulnerability["currentState"]
                 ),
+                stream=vulnerability["stream"],
                 what=what,
                 where=vulnerability["specific"],
             )
