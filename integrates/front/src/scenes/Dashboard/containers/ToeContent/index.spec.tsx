@@ -29,11 +29,11 @@ describe("ToeContent", (): void => {
       { action: "api_resolvers_group_toe_inputs_resolve" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/unittesting/toe"]}>
+      <MemoryRouter initialEntries={["/unittesting/surface"]}>
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={[]}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route component={ToeContent} path={"/:groupName/toe"} />
+              <Route component={ToeContent} path={"/:groupName/surface"} />
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>

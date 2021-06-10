@@ -90,6 +90,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     sessionStorage.setItem("toeLinesSort", JSON.stringify(newSorted));
   };
 
+  const MAX_COMMIT_SIZE: number = 7;
   const headersToeLinesTable: IHeaderConfig[] = [
     {
       align: "left",
@@ -224,6 +225,10 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
             pendingLines: getPendingLines(toeLinesAttr),
             rootId: root.id,
             ...toeLinesAttr,
+            modifiedCommit: toeLinesAttr.modifiedCommit.slice(
+              0,
+              MAX_COMMIT_SIZE
+            ),
             sortsRiskLevel: getSortsRiskLevel(toeLinesAttr),
           })
         )

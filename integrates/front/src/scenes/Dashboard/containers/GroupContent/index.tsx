@@ -126,7 +126,7 @@ const GroupContent: React.FC = (): JSX.Element => {
                     <ContentTab
                       icon={"icon pe-7s-note2"}
                       id={"toeTab"}
-                      link={`${url}/toe`}
+                      link={`${url}/surface`}
                       title={translate.t("group.tabs.toe.text")}
                       tooltip={translate.t("group.tabs.toe.tooltip")}
                     />
@@ -188,9 +188,10 @@ const GroupContent: React.FC = (): JSX.Element => {
                     exact={true}
                     path={`${path}/consulting`}
                   />
-                  <Route component={ToeContent} path={`${path}/toe`} />
+                  <Route component={ToeContent} path={`${path}/surface`} />
                   {/* Necessary to support old resources URLs */}
                   <Redirect path={`${path}/resources`} to={`${path}/scope`} />
+                  <Redirect path={`${path}/toe`} to={`${path}/surface`} />
                   <Redirect to={`${path}/vulns`} />
                 </Switch>
               </div>

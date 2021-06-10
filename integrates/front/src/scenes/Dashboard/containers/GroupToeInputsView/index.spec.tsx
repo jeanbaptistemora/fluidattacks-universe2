@@ -70,12 +70,12 @@ describe("GroupToeInputsView", (): void => {
       },
     };
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/unittesting/toe/inputs"]}>
+      <MemoryRouter initialEntries={["/unittesting/surface/inputs"]}>
         <Provider store={store}>
           <MockedProvider addTypename={true} mocks={[mockedToeInputs]}>
             <Route
               component={GroupToeInputsView}
-              path={"/:groupName/toe/inputs"}
+              path={"/:groupName/surface/inputs"}
             />
           </MockedProvider>
         </Provider>

@@ -416,7 +416,7 @@ export const enTranslations: ResourceKey = {
         exploitable: "Exploitable:",
         firstSeen: "First seen:",
         lastReport: "Last report:",
-        reattack: "Pending reattack",
+        reattack: "Pending reattack:",
         title: "Description",
         value: "{{count}} day ago",
         valuePlural: "{{count}} days ago",
@@ -666,7 +666,7 @@ export const enTranslations: ResourceKey = {
           " if applicable",
       },
       toe: {
-        text: "ToE",
+        text: "Surface",
         tooltip: "Target of evaluation",
       },
       users: {
@@ -702,12 +702,12 @@ export const enTranslations: ResourceKey = {
       },
       tabs: {
         inputs: {
-          text: "ToE Inputs",
+          text: "Inputs",
           tooltip:
             "Track which application/infrastructure inputs have been reviewed",
         },
         lines: {
-          text: "ToE Lines",
+          text: "Lines",
           tooltip: "Track which source code lines have been reviewed",
         },
       },
