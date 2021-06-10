@@ -38,6 +38,7 @@ const DEVELOPMENT = [
         label: 'AWS',
         items: [
           'development/stack/aws/introduction',
+          'development/stack/aws/ebs',
           'development/stack/aws/ec2',
           'development/stack/aws/s3',
         ]

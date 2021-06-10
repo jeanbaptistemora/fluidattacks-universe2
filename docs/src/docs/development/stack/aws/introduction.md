@@ -60,7 +60,7 @@ We use the following [AWS](https://aws.amazon.com/) services:
 1. Cloud file storage:
     [AWS S3](/development/stack/aws/s3).
 1. Elastic block store:
-    [AWS EBS](https://aws.amazon.com/ebs/).
+    [AWS EBS](/development/stack/aws/ebs/).
 1. Serverless computing:
     [AWS Lambda](https://aws.amazon.com/lambda/).
 1. Elastic Container Service:

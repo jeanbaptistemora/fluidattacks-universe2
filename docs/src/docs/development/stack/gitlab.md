@@ -198,6 +198,10 @@ We use [Gitlab](https://about.gitlab.com/) for:
 
 We do not use [Gitlab](https://about.gitlab.com/) for:
 
+1. [Implementing it as code](https://gitlab.com/fluidattacks/product/-/issues/468):
+    We can partially implement
+    [Gitlab](https://about.gitlab.com/) as code
+    using [Terraform](/development/stack/terraform#usage).
 1. [Security scans](https://docs.gitlab.com/ee/user/application_security/):
     We tried to implement this in the past
     but were not able due to
