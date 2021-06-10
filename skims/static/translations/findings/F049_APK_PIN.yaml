@@ -1,3 +1,9 @@
+lib_apk.analyze_bytecodes.no_certs_pinning_config:
+  en: Missing res/xml/network_security_config.xml
+  es: res/xml/network_security_config.xml ausente
+lib_apk.analyze_bytecodes.no_certs_pinning:
+  en: Missing pin-set(s)
+  es: pin-set(s) faltantes
 F049_APK_PIN.description:
   en: >
     The application does not pin certificates

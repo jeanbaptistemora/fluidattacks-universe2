@@ -1,3 +1,9 @@
+from bs4 import (
+    BeautifulSoup,
+)
+from bs4.element import (
+    Tag,
+)
 from lib_apk.types import (
     APKContext,
 )
@@ -212,6 +218,29 @@ def _add_no_certs_pinning_2_location(
     )
 
 
+def _no_certs_pinning(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
+    locations: Locations = Locations([])
+
+    if ctx.apk_ctx.apk_obj is not None:
+        try:
+            nsc: str = "res/xml/network_security_config.xml"
+            nsc_content: bytes = ctx.apk_ctx.apk_obj.zip.read(nsc)
+        except KeyError:
+            # No network security config exists
+            _add_no_certs_pinning_1_location(ctx, locations)
+        else:
+            nsc_parsed: Tag = BeautifulSoup(nsc_content, features="xml")
+            if not list(nsc_parsed.find_all("pin-set")):
+                # No pin sets exist
+                _add_no_certs_pinning_2_location(ctx, locations)
+
+    return _create_vulns(
+        ctx=ctx,
+        finding=core_model.FindingEnum.F049_APK_PIN,
+        locations=locations,
+    )
+
+
 def get_check_ctx(apk_ctx: APKContext) -> APKCheckCtx:
     return APKCheckCtx(
         apk_ctx=apk_ctx,
@@ -223,5 +252,6 @@ CHECKS: Dict[
     Callable[[APKCheckCtx], core_model.Vulnerabilities],
 ] = {
     core_model.FindingEnum.F048: _no_root_check,
+    core_model.FindingEnum.F049_APK_PIN: _no_certs_pinning,
     core_model.FindingEnum.F103_APK_UNSIGNED: _apk_unsigned,
 }
