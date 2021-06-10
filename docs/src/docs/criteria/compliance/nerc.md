@@ -1,8 +1,8 @@
 ---
-id: nerc
-title: NERC
+id: nerc-cip
+title: NERC CIP
 sidebar_label: NERC CIP
-slug: /criteria/compliance/nerc
+slug: /criteria/compliance/nerc-cip
 ---
 
 **`North American Electric Reliability Corporation`**

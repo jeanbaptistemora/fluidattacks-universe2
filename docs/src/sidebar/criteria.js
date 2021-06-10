@@ -617,7 +617,7 @@ const CRITERIA = [
       'criteria/compliance/gdpr',
       'criteria/compliance/hipaa',
       'criteria/compliance/iso',
-      'criteria/compliance/nerc',
+      'criteria/compliance/nerc-cip',
       'criteria/compliance/nist80053',
       'criteria/compliance/nist80063b',
       'criteria/compliance/owaspasvs',
