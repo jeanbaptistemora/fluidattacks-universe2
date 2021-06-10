@@ -16,8 +16,8 @@
 </div>
 {% endmacro %}
 
-{# Red banner for new layout #}
-{%+ macro banner(icon_url, text, padding) %}
+{# Generic red banner #}
+{% macro banner(icon_url, padding) %}
 <table width="100%"
   style="
       height: 250px;
@@ -38,7 +38,7 @@
                       <img src="{{ icon_url }}" style="height: 45px; height: 45px; vertical-align: center;">
                     </div>
                   </div>
-                  <h3 style="text-align: center; color: #f4f4f6; font-weight: 700; padding: 10px 30px;">{{ text }}</h3>
+                  <h3 style="text-align: center; color: #f4f4f6; font-weight: 700; padding: 10px 30px;">{{ caller() }}</h3>
                 </td>
               </tr>
             </table>
@@ -48,4 +48,34 @@
     </td>
   </tr>
 </table>
+{% endmacro %}
+
+{# Custom banner with news icon #}
+{% macro banner_news(text) %}
+  {% call banner(
+    'https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/905d41fe-7d2d-98f2-b103-1f57ed9c45b3.png',
+    '13px 13px 0 5px'
+    ) %}
+    {{ text }}
+  {% endcall %}
+{% endmacro %}
+
+{# Custom banner with finding icon #}
+{% macro banner_finding(text) %}
+  {% call banner(
+    'https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/283b1305-0ab0-d9d0-6b65-a66b37726028.png',
+    '15px 10px 0 13px'
+    ) %}
+    {{ text }}
+  {% endcall %}
+{% endmacro %}
+
+{# Custom banner with project icon #}
+{% macro banner_project(text) %}
+  {% call banner(
+    'https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/20d48161-3617-0825-733c-08db696c7f2c.png',
+    '15px 13px 0 13px'
+    ) %}
+    {{ text }}
+  {% endcall %}
 {% endmacro %}
