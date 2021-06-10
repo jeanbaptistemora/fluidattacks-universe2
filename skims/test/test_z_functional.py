@@ -30,6 +30,7 @@ from state.ephemeral import (
     EphemeralStore,
 )
 from typing import (
+    Callable,
     Dict,
     Iterable,
     List,
@@ -49,6 +50,10 @@ from uuid import (
 from zone import (
     t,
 )
+
+
+def _default_snippet_filter(snippet: str) -> str:
+    return snippet
 
 
 def skims(*args: str) -> Tuple[int, str, str]:
@@ -83,12 +88,11 @@ def get_suite_produced_results(suite: str) -> str:
 def _format_csv(
     content: Iterable[Text],
     *,
-    ignore_snippet: bool,
+    snippet_filter: Callable[[str], str],
 ) -> List[Dict[str, str]]:
     result: List[Dict[str, str]] = []
     for row in csv.DictReader(content):
-        if ignore_snippet:
-            row.pop("snippet")
+        row["snippet"] = snippet_filter(row["snippet"])
         result.append(row)
     return result
 
@@ -96,7 +100,7 @@ def _format_csv(
 def check_that_csv_results_match(
     suite: str,
     *,
-    ignore_snippet: bool = False,
+    snippet_filter: Callable[[str], str] = _default_snippet_filter,
 ) -> None:
     with open(get_suite_produced_results(suite)) as produced:
         if SHOULD_UPDATE_TESTS:
@@ -106,8 +110,8 @@ def check_that_csv_results_match(
 
         with open(get_suite_expected_results(suite)) as expected:
             for producted_item, expected_item in zip_longest(
-                _format_csv(produced, ignore_snippet=ignore_snippet),
-                _format_csv(expected, ignore_snippet=ignore_snippet),
+                _format_csv(produced, snippet_filter=snippet_filter),
+                _format_csv(expected, snippet_filter=snippet_filter),
                 fillvalue=None,
             ):
                 assert producted_item == expected_item
@@ -221,7 +225,12 @@ def test_lib_apk() -> None:
 @pytest.mark.skims_test_group("lib_http")
 @pytest.mark.usefixtures("test_mocks_http")
 def test_lib_http() -> None:
-    _run_no_group("lib_http", ignore_snippet=True)
+    def snippet_filter(snippet: str) -> str:
+        return "\n".join(
+            line for line in snippet.splitlines() if "< Date: " not in line
+        )
+
+    _run_no_group("lib_http", snippet_filter=snippet_filter)
 
 
 @pytest.mark.flaky(reruns=0)
@@ -350,19 +359,23 @@ def test_nist_c_sharp_f107() -> None:
     _run_no_group("nist_c_sharp_f107")
 
 
-def _run_no_group(suite: str, *, ignore_snippet: bool = False) -> None:
+def _run_no_group(
+    suite: str,
+    *,
+    snippet_filter: Callable[[str], str] = _default_snippet_filter,
+) -> None:
     code, stdout, stderr = skims("scan", get_suite_config(suite))
     assert code == 0, stdout
     assert "[INFO] Startup working dir is:" in stdout
     assert "[INFO] An output file has been written:" in stdout
     assert "[INFO] Success: True" in stdout
     assert not stderr, stderr
-    check_that_csv_results_match(suite, ignore_snippet=ignore_snippet)
+    check_that_csv_results_match(suite, snippet_filter=snippet_filter)
 
     # Execute it again to verify that cache retrievals work as expected
     # and are reproducible
     code, stdout, stderr = skims("scan", get_suite_config(suite))
-    check_that_csv_results_match(suite, ignore_snippet=ignore_snippet)
+    check_that_csv_results_match(suite, snippet_filter=snippet_filter)
 
 
 @run_decorator
