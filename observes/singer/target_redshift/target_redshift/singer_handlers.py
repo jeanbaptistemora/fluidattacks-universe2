@@ -1,8 +1,13 @@
+import jsonschema
 import logging
+from postgres_client.column import (
+    RedshiftDataType,
+)
 from postgres_client.table import (
     TableFactory,
 )
 from singer_io.singer import (
+    SingerRecord,
     SingerSchema,
 )
 from target_redshift.batcher import (
@@ -11,12 +16,67 @@ from target_redshift.batcher import (
 from target_redshift.data_schema import (
     RedshiftSchema,
 )
+from target_redshift.utils import (
+    escape,
+    str_len,
+)
 from typing import (
+    Any,
     Dict,
 )
 
 LOG = logging.getLogger(__name__)
 SchemasMap = Dict[str, RedshiftSchema]
+
+
+def _escape_value(r_type: RedshiftDataType, value: Any) -> str:
+    new_value = ""
+    if r_type == RedshiftDataType.BOOLEAN:
+        new_value = f"{escape(value).lower()}"
+    elif r_type in (RedshiftDataType.INTEGER, RedshiftDataType.DECIMAL):
+        new_value = f"{escape(value)}"
+    elif r_type == RedshiftDataType.VARCHAR:
+        new_value = f"{value}"[0:256]
+        while str_len(escape(new_value)) > 256:
+            new_value = new_value[0:-1]
+        new_value = f"'{escape(new_value)}'"
+    elif r_type == RedshiftDataType.TIMESTAMP:
+        new_value = f"'{escape(value)}'"
+    else:
+        LOG.warning(
+            ("WARN: Ignoring type %s, " "it's not in the streamed schema."),
+            r_type,
+        )
+    return new_value
+
+
+def _translate_record(
+    field_type_map: Dict[str, RedshiftDataType], s_record: SingerRecord
+) -> Dict[str, str]:
+    new_record = {}
+    for field, value in s_record.record.items():
+        escaped_field = escape(field)
+        if escaped_field not in field_type_map.keys():
+            LOG.warning(
+                (
+                    "WARN: Ignoring field %s, "
+                    "it's not in the streamed schema."
+                ),
+                escaped_field,
+            )
+        elif value is not None:
+            new_record[escaped_field] = _escape_value(
+                field_type_map[escaped_field], value
+            )
+    return new_record
+
+
+def _validate_record(r_schema: RedshiftSchema, s_record: SingerRecord) -> None:
+    try:
+        r_schema.validator.validate(s_record.record)
+    except jsonschema.exceptions.ValidationError as err:
+        LOG.warning("WARN: record did not conform to schema.")
+        LOG.warning(err)
 
 
 def schema_handler(
