@@ -6,11 +6,13 @@ from __future__ import (
 
 from postgres_client.column import (
     Column,
+    ColumnType,
 )
 from postgres_client.ids import (
     TableID,
 )
 from typing import (
+    Dict,
     FrozenSet,
     NamedTuple,
 )
@@ -25,6 +27,9 @@ class MetaTable(NamedTuple):
     primary_keys: FrozenSet[str]
     columns: FrozenSet[Column]
     path: str
+
+    def field_type_map(self) -> Dict[str, ColumnType]:
+        return dict((column.name, column.c_type) for column in self.columns)
 
     @classmethod
     def new(

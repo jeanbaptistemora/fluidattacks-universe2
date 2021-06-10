@@ -21,17 +21,31 @@ import jsonschema
 from postgres_client.client import (
     ClientFactory,
 )
+from postgres_client.cursor import (
+    Cursor,
+)
 from postgres_client.schema import (
     SchemaFactory,
     SchemaID,
+)
+from postgres_client.table import (
+    TableFactory,
 )
 import psycopg2 as postgres
 from returns.curry import (
     partial,
 )
+from singer_io.factory import (
+    singer_handler,
+)
 import sys
 from target_redshift.batcher import (
     Batcher,
+)
+from target_redshift.singer_handlers import (
+    record_handler,
+    schema_handler,
+    SchemasMap,
 )
 from target_redshift.utils import (
     escape,
@@ -41,6 +55,7 @@ from target_redshift.utils import (
 )
 from typing import (
     Any,
+    Callable,
     Dict,
     IO,
     Iterable,
@@ -314,6 +329,22 @@ def persist_messages(batcher: Batcher, schema_name: str) -> None:
         elif json_obj["type"] == "STATE":
             LOG.info(json.dumps(json_obj, indent=2))
 
+    batcher.flush()
+    batcher.vacuum()
+
+
+def persist_messages_2(
+    batcher: Batcher, cursor: Cursor, schema_name: str
+) -> None:
+    schemas: SchemasMap = {}
+    factory = TableFactory(cursor)
+    handler: Callable[[str, SchemasMap], SchemasMap] = singer_handler(
+        partial(schema_handler, batcher, factory, schema_name),
+        partial(record_handler, batcher),
+        None,
+    )
+    for message in io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8"):
+        schemas = handler(message, schemas)
     batcher.flush()
     batcher.vacuum()
 

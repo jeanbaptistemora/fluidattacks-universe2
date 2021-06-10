@@ -105,7 +105,7 @@ class ColumnType(Immutable):
         nullable: bool = True,
     ) -> ColumnType:
         if field_type in requires_precision and precision is None:
-            LOG.error(PrecisionRequired(f"for field type: {field_type}"))
+            LOG.warning(PrecisionRequired(f"for field type: {field_type}"))
         self = object.__new__(cls)
         obj = _ColumnType(field_type, precision, default_val, nullable)
         for prop, val in obj._asdict().items():

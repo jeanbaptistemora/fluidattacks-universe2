@@ -51,8 +51,9 @@ def _escape_value(r_type: RedshiftDataType, value: Any) -> str:
 
 
 def _translate_record(
-    field_type_map: Dict[str, RedshiftDataType], s_record: SingerRecord
+    r_schema: RedshiftSchema, s_record: SingerRecord
 ) -> Dict[str, str]:
+    field_type_map = r_schema.table.field_type_map()
     new_record = {}
     for field, value in s_record.record.items():
         escaped_field = escape(field)
@@ -66,7 +67,7 @@ def _translate_record(
             )
         elif value is not None:
             new_record[escaped_field] = _escape_value(
-                field_type_map[escaped_field], value
+                field_type_map[escaped_field].field_type, value
             )
     return new_record
 
@@ -77,6 +78,19 @@ def _validate_record(r_schema: RedshiftSchema, s_record: SingerRecord) -> None:
     except jsonschema.exceptions.ValidationError as err:
         LOG.warning("WARN: record did not conform to schema.")
         LOG.warning(err)
+
+
+def record_handler(
+    batcher: Batcher,
+    s_record: SingerRecord,
+    schemas: SchemasMap,
+) -> SchemasMap:
+    tname: str = escape(s_record.stream.lower())
+    r_schema = schemas[tname]
+    _validate_record(r_schema, s_record)
+    record: Dict[str, str] = _translate_record(r_schema, s_record)
+    batcher.queue(tname, record)
+    return schemas
 
 
 def schema_handler(

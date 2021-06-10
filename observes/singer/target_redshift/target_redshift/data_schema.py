@@ -8,6 +8,9 @@ from jsonschema.validators import (
     Draft4Validator,
 )
 import logging
+from postgres_client.column import (
+    ColumnType,
+)
 from postgres_client.schema import (
     SchemaID,
 )
@@ -25,10 +28,7 @@ from singer_io import (
 from singer_io.singer import (
     SingerSchema,
 )
-from target_redshift import (
-    LOG,
-)
-from target_redshift.columns import (
+from target_redshift.data_types import (
     from_json,
 )
 from target_redshift.utils import (
@@ -45,7 +45,10 @@ def _extract_meta_table(
     db_schema: str, singer_schema: SingerSchema
 ) -> MetaTable:
     columns = frozenset(
-        Column(escape(field), from_json(ftype))
+        Column(
+            escape(field),
+            ColumnType(from_json(ftype)),
+        )
         for field, ftype in singer_schema.schema["properties"].items()
     )
     table_id = TableID(SchemaID(db_schema), escape(singer_schema.stream))
