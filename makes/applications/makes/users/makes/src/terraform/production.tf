@@ -1,3 +1,5 @@
+# Policy
+
 data "aws_iam_policy_document" "prod-policy-data" {
 
   statement {
@@ -47,4 +49,17 @@ resource "aws_iam_policy" "prod-policy" {
 resource "aws_iam_user_policy_attachment" "prod-attach-policy" {
   user       = "serves-prod"
   policy_arn = aws_iam_policy.prod-policy.arn
+}
+
+# User
+
+resource "aws_iam_user" "prod" {
+  name = "serves-prod"
+  path = "/user-provision/"
+
+  tags = {
+    "Name"               = "serves-prod"
+    "management:type"    = "production"
+    "management:product" = "makes"
+  }
 }

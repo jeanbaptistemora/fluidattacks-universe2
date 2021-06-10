@@ -1,3 +1,5 @@
+# Policy
+
 data "aws_iam_policy_document" "dev-policy-data" {
 
   statement {
@@ -51,4 +53,49 @@ resource "aws_iam_policy" "dev-policy" {
 resource "aws_iam_user_policy_attachment" "dev-attach-policy" {
   user       = "serves-dev"
   policy_arn = aws_iam_policy.dev-policy.arn
+}
+
+
+# User
+
+resource "aws_iam_user" "dev" {
+  name = "serves-dev"
+  path = "/user-provision/"
+
+  tags = {
+    "Name"               = "serves-dev"
+    "management:type"    = "production"
+    "management:product" = "makes"
+  }
+}
+
+resource "aws_iam_access_key" "dev-key-1" {
+  user = "serves-dev"
+}
+
+resource "aws_iam_access_key" "dev-key-2" {
+  user = "serves-dev"
+}
+
+
+# Outputs
+
+output "dev-secret-key-id-1" {
+  sensitive = true
+  value     = aws_iam_access_key.dev-key-1.id
+}
+
+output "dev-secret-key-1" {
+  sensitive = true
+  value     = aws_iam_access_key.dev-key-1.secret
+}
+
+output "dev-secret-key-id-2" {
+  sensitive = true
+  value     = aws_iam_access_key.dev-key-2.id
+}
+
+output "dev-secret-key-2" {
+  sensitive = true
+  value     = aws_iam_access_key.dev-key-2.secret
 }
