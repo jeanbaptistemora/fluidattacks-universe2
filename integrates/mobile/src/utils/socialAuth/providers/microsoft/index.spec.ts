@@ -30,15 +30,13 @@ describe("Microsoft OAuth2 provider", (): void => {
     });
 
     fetchDiscoveryAsync.mockResolvedValue({
-      userInfoEndpoint:
-        "https://login.microsoftonline.com/common/openid/userinfo",
+      userInfoEndpoint: "https://graph.microsoft.com/v1.0/me",
     });
 
     fetchUserInfoAsync.mockResolvedValue({
-      email: "personal@domain.com",
-      family_name: "DOE", // eslint-disable-line camelcase -- Required by auth API
-      given_name: "JOHN", // eslint-disable-line camelcase -- Required by auth API
-      name: "JOHN DOE",
+      displayName: "JOHN DOE",
+      givenName: "JOHN",
+      userPrincipalName: "email@domain.com",
     });
 
     const { authWithMicrosoft } = require(".") as {
@@ -50,29 +48,9 @@ describe("Microsoft OAuth2 provider", (): void => {
       authToken: "exchangedAccessToken",
       type: "success",
       user: {
-        email: "personal@domain.com",
+        email: "email@domain.com",
         firstName: "John",
         fullName: "John Doe",
-        lastName: "DOE",
-      },
-    });
-
-    fetchUserInfoAsync.mockResolvedValue({
-      family_name: "DOE", // eslint-disable-line camelcase -- Required by auth API
-      given_name: "JOHN", // eslint-disable-line camelcase -- Required by auth API
-      name: "JOHN DOE",
-      upn: "business@domain.com",
-    });
-
-    expect(await authWithMicrosoft()).toStrictEqual({
-      authProvider: "MICROSOFT",
-      authToken: "exchangedAccessToken",
-      type: "success",
-      user: {
-        email: "business@domain.com",
-        firstName: "John",
-        fullName: "John Doe",
-        lastName: "DOE",
       },
     });
   });

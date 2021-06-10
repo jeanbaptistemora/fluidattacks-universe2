@@ -114,7 +114,6 @@ const authWithGoogle: () => Promise<IAuthResult> =
             email: userProps.email,
             firstName: _.capitalize(userProps.given_name),
             fullName: _.startCase(userProps.name.toLowerCase()),
-            lastName: userProps.family_name,
             photoUrl: userProps.picture,
           },
         };

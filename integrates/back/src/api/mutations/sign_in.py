@@ -106,7 +106,7 @@ async def get_provider_user_info(
                 return None
             user = await user.read()
             user = json.loads(user)
-            if "given_name" not in user:
+            if provider == "bitbucket":
                 async with aiohttp.ClientSession() as session:
                     async with session.get(
                         f"{userinfo_endpoint}/emails",
@@ -130,6 +130,12 @@ async def get_provider_user_info(
                 user["family_name"] = (
                     user_name.split(" ")[1] if len(user_name) == 2 else ""
                 )
+            elif provider == "microsoft":
+                return {
+                    "email": user["userPrincipalName"],
+                    "family_name": user["surname"] or "",
+                    "given_name": user["givenName"],
+                }
 
             return cast(Optional[Dict[str, str]], user)
 

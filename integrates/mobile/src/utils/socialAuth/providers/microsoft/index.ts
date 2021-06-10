@@ -36,6 +36,11 @@ const getDiscovery: () => Promise<DiscoveryDocument> =
     return {
       ...baseDocument,
       revocationEndpoint: baseDocument.endSessionEndpoint,
+      /**
+       * Workaround to a problem in the default endpoint
+       * @see https://gitlab.com/fluidattacks/product/-/issues/4775
+       */
+      userInfoEndpoint: "https://graph.microsoft.com/v1.0/me",
     };
   };
 
@@ -99,10 +104,9 @@ const authWithMicrosoft: () => Promise<IAuthResult> =
           authToken: accessToken,
           type: "success",
           user: {
-            email: _.get(userProps, "upn", userProps.email),
-            firstName: _.capitalize(userProps.given_name),
-            fullName: _.startCase(userProps.name.toLowerCase()),
-            lastName: userProps.family_name,
+            email: userProps.userPrincipalName,
+            firstName: _.capitalize(userProps.givenName),
+            fullName: _.startCase(userProps.displayName.toLowerCase()),
           },
         };
       }

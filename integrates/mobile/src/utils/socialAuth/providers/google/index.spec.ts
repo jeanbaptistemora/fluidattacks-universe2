@@ -77,7 +77,6 @@ describe("Google OAuth2 provider", (): void => {
         email: "test@fluidattacks.com",
         firstName: "John",
         fullName: "John Doe",
-        lastName: "Doe",
         photoUrl: "https://lh3.googleusercontent.com/a-/something",
       },
     });
@@ -131,7 +130,6 @@ describe("Google OAuth2 provider", (): void => {
         email: "test@fluidattacks.com",
         firstName: "John",
         fullName: "John Doe",
-        lastName: "Doe",
         photoUrl: "https://lh3.googleusercontent.com/a-/something",
       },
     });
