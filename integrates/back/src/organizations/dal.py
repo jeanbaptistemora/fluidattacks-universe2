@@ -2,6 +2,7 @@ from aioextensions import (
     collect,
 )
 from boto3.dynamodb.conditions import (
+    Attr,
     Key,
 )
 from botocore.exceptions import (
@@ -222,7 +223,8 @@ async def get_groups(organization_id: str) -> List[str]:
     query_attrs = {
         "KeyConditionExpression": (
             Key("pk").eq(organization_id) & Key("sk").begins_with("GROUP#")
-        )
+        ),
+        "FilterExpression": Attr("deletion_date").not_exists(),
     }
     try:
         response_items = await dynamodb_query(TABLE_NAME, query_attrs)
@@ -315,7 +317,8 @@ async def has_group(organization_id: str, group_name: str) -> bool:
         "KeyConditionExpression": (
             Key("pk").eq(organization_id)
             & Key("sk").eq(f"GROUP#{group_name.lower().strip()}")
-        )
+        ),
+        "FilterExpression": Attr("deletion_date").not_exists(),
     }
     response_items = await dynamodb_query(TABLE_NAME, query_attrs)
     if response_items:
@@ -419,6 +422,49 @@ async def update(
             "Key": {
                 "pk": organization_id,
                 "sk": f"INFO#{organization_name.lower().strip()}",
+            },
+            "UpdateExpression": (
+                f"{set_expression} {remove_expression}".strip()
+            ),
+        }
+        if expression_values:
+            update_attrs.update(
+                {"ExpressionAttributeValues": expression_values}
+            )
+        success = await dynamodb_update_item(TABLE_NAME, update_attrs)
+    except ClientError as ex:
+        raise UnavailabilityError() from ex
+    return success
+
+
+async def update_group(
+    organization_id: str, group_name: str, values: OrganizationType
+) -> bool:
+    """
+    Updates the attributes of a group in an organization
+    """
+    success: bool = False
+    set_expression: str = ""
+    remove_expression: str = ""
+    expression_values: OrganizationType = {}
+    for attr, value in values.items():
+        if value is None:
+            remove_expression += f"{attr}, "
+        else:
+            set_expression += f"{attr} = :{attr}, "
+            expression_values.update({f":{attr}": value})
+
+    if set_expression:
+        set_expression = f'SET {set_expression.strip(", ")}'
+
+    if remove_expression:
+        remove_expression = f'REMOVE {remove_expression.strip(", ")}'
+
+    try:
+        update_attrs: Dict[str, DynamoType] = {
+            "Key": {
+                "pk": organization_id,
+                "sk": f"GROUP#{group_name.lower().strip()}",
             },
             "UpdateExpression": (
                 f"{set_expression} {remove_expression}".strip()

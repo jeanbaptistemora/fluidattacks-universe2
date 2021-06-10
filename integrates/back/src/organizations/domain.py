@@ -355,7 +355,11 @@ async def iterate_organizations_and_groups() -> AsyncIterator[
 
 
 async def remove_group(group_name: str, organization_id: str) -> bool:
-    return await orgs_dal.remove_group(organization_id, group_name)
+    today = datetime_utils.get_now()
+    values: OrganizationType = {
+        "deletion_date": datetime_utils.get_as_str(today)
+    }
+    return await orgs_dal.update_group(organization_id, group_name, values)
 
 
 async def remove_user(organization_id: str, email: str) -> bool:
