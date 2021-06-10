@@ -18,7 +18,7 @@ The version used in this section is
 
 ### Appendix C: Internet of Things Verification Requirements
 
-- C.1 - Application layer (USB, UART, etc) are disabled or protected
+- C.1 - Application layer debugging interfaces are disabled or protected
 
     - [078. Disable debugging events](/criteria/requirements/078)
 
@@ -52,7 +52,7 @@ The version used in this section is
 
 - C.9 - Wireless connection are mutually authenticated
 
-    - [088. Request client certificates](/criteria/requirements/088)]
+    - [088. Request client certificates](/criteria/requirements/088)
 
     - [181. Transmit data using secure protocols](/criteria/requirements/181)
 
@@ -146,7 +146,7 @@ The version used in this section is
 
     - [183. Delete sensitive data securely](/criteria/requirements/183)
 
-    - [214. Allow data destruction](/criteria/requirements/214)]
+    - [214. Allow data destruction](/criteria/requirements/214)
 
 - [C.32 - Kernel containers for isolation](/criteria/requirements/062)
 
@@ -926,7 +926,7 @@ The version used in this section is
 
 - V3.7 Defenses Against Session Management Exploits.(3.7.1)
 
-    - [141. Force re-authentication](/criteria/requirements/141)]
+    - [141. Force re-authentication](/criteria/requirements/141)
 
     - [264. Request authentication](/criteria/requirements/264)
 
@@ -1132,7 +1132,7 @@ The version used in this section is
 
 - [V6.1 Data Classification.(6.1.2)](/criteria/requirements/185)
 
-- [V6.1 Data Classification.(6.1.3)](/criteria/requirements/185)]
+- [V6.1 Data Classification.(6.1.3)](/criteria/requirements/185)
 
 - [V6.2 Algorithms.(6.2.1)](/criteria/requirements/161)
 
@@ -1198,7 +1198,7 @@ The version used in this section is
 
     - [156. Source code without sensitive information](/criteria/requirements/156)
 
-    - [333. ](/criteria/requirements/333)
+    - [333. Store salt values separately](/criteria/requirements/333)
 
 - [V7.1 Log Content Requirements.(1.7.2)](/criteria/requirements/331)
 
