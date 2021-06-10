@@ -12,18 +12,4 @@ module.exports = {
     'squad/consulting',
   ],
   Development: DEVELOPMENT,
-  Writing: [
-    'writing/intro',
-    {
-      type: 'category',
-      label: 'General Writing',
-      items: [
-        'writing/general/main',
-        'writing/general/capital-letters',
-      ]
-    },
-    'writing/documentation',
-    'writing/blog-posts',
-    'writing/slb',
-  ],
 };

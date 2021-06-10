@@ -52,16 +52,6 @@ const features = [
     ),
     link: 'development'
   },
-  {
-    title: 'Writing Guidelines',
-    description: (
-      <>
-        Useful guidelines for the standardized production of texts
-        on our website and documentation
-      </>
-    ),
-    link: 'writing'
-  },
 ];
 
 function Feature({imageUrl, title, description, link}) {

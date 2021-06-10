@@ -2,7 +2,7 @@
 id: capital-letters
 title: Capital Letters
 sidebar_label: Capital Letters
-slug: /writing/general/capital-letters
+slug: /development/writing/general/capital-letters
 ---
 
 * We *must* capitalize (a) the first word of a sentence,
@@ -28,4 +28,4 @@ slug: /writing/general/capital-letters
   nor mix them with bold or italics.
 
 > **NOTE:**
-> This section of the Documentation is currently under construction.
+> This section of our documentation is under construction.

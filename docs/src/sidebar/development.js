@@ -12,6 +12,24 @@ const DEVELOPMENT = [
   },
   {
     type: 'category',
+    label: 'Writing Guidelines',
+    items: [
+      'development/writing/intro',
+      {
+        type: 'category',
+        label: 'General Writing',
+        items: [
+          'development/writing/general/main',
+          'development/writing/general/capital-letters',
+        ]
+      },
+      'development/writing/documentation',
+      'development/writing/blog-posts',
+      'development/writing/slb',
+    ]  
+  },
+  {
+    type: 'category',
     label: 'Stack',
     items: [
       'development/stack/introduction',

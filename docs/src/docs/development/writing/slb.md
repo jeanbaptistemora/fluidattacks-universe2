@@ -2,7 +2,7 @@
 id: slb
 title: Semantic Line Breaks
 sidebar_label: Semantic Line Breaks
-slug: /writing/slb
+slug: /development/writing/slb
 ---
 
 Our texts in [Markdown](https://daringfireball.net/projects/markdown/)
@@ -37,4 +37,4 @@ Based on [sembr.org](https://sembr.org/), we consider the following rules:
   except in cases with hyperlinks or code elements.
 
 > **NOTE:**
-> This section of the Documentation is currently under construction.
+> This section of our documentation is under construction.
