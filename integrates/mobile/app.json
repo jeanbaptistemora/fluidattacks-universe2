@@ -36,6 +36,7 @@
     },
     "icon": "./assets/icon.png",
     "ios": {
+      "appStoreUrl": "https://apps.apple.com/us/app/integrates/id1470450298",
       "bundleIdentifier": "com.fluidattacks.integrates",
       "infoPlist": {
         "NSFaceIDUsageDescription": "Quickly access your session using device biometrics"
