@@ -30,7 +30,7 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'machine/app',
+          to: 'machine/web',
           activeBasePath: 'machine/',
           label: 'Machine',
           position: 'left',
