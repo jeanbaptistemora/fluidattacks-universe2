@@ -38,7 +38,7 @@ we get the following:
 ## Everything as code
 
 As mentioned in the
-["Everything as code" previous section](../non-repudation/everything-as-code),
+["Everything as code" previous section](../non-repudiation/everything-as-code),
 we try to keep as much as possible
 versioned in our
 [Git repository](https://gitlab.com/fluidattacks/product).

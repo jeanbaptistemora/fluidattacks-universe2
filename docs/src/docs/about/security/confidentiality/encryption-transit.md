@@ -29,7 +29,7 @@ and services have industry-standard
   to our domain goes through
   [HTTPS](https://en.wikipedia.org/wiki/HTTPS).
 
-- We demand all conections to support
+- We demand all connections to support
   at least TLSv1.2.
 
 - [Attack Surface Manager’s (ASM)](https://app.fluidattacks.com/)

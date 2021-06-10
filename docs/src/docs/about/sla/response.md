@@ -23,7 +23,7 @@ of the service-level agreements:
   a SQUAD plan,
 1. Both the environment
   and the source code
-  are accesible,
+  are accessible,
 1. Remote access
   with no human intervention
   (no captcha, OTP, etc.),
@@ -43,7 +43,7 @@ the following:
 1. Percentages are determined
   using percentiles,
 1. Office hours correspond to
-  twelve-hour bussiness days,
+  twelve-hour business days,
   like this:
   7AM-7PM (GMT-5),
 1. The reattacks to be considered

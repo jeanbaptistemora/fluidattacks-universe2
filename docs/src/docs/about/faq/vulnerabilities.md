@@ -83,7 +83,7 @@ unlimited closing verifications.
 
 One of the Squad plan's objectives
 is to maintain clear
-nd effortless communication
+and effortless communication
 between all project members.
 This is accomplished
 when you notify us

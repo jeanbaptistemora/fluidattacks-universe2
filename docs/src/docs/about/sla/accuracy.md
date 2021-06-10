@@ -21,7 +21,7 @@ of the service-level agreements:
   a SQUAD plan,
 1. Both the environment
   and the source code
-  are accesible,
+  are accessible,
 1. The environment is
   pair to the code,
   i.e.,

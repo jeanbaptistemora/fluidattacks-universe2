@@ -2,7 +2,7 @@
 id: everything-as-code
 title: Everything as code
 sidebar_label: Everything as code
-slug: /about/security/non-repudation/everything-as-code
+slug: /about/security/non-repudiation/everything-as-code
 ---
 
 At `Fluid Attacks`,

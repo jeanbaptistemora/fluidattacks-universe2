@@ -33,4 +33,4 @@ considering the following:
 1. Taking into account
   all the historical data,
   not only that of
-  the quarterly analisis period.
+  the quarterly analysis period.

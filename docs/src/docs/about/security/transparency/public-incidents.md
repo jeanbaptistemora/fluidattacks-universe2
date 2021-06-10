@@ -1,8 +1,8 @@
 ---
-id: public-indidents
+id: public-incidents
 title: Public Incidents
 sidebar_label: Public Incidents
-slug: /about/security/transparency/public-indidents
+slug: /about/security/transparency/public-incidents
 ---
 
 In order to be transparent

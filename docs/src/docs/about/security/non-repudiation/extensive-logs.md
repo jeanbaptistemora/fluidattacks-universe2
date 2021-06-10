@@ -2,7 +2,7 @@
 id: extensive-logs
 title: Extensive logs
 sidebar_label: Extensive logs
-slug: /about/security/non-repudation/extensive-logs
+slug: /about/security/non-repudiation/extensive-logs
 ---
 
 Typical logs are also essential

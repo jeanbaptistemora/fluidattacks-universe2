@@ -32,7 +32,7 @@ const ABOUT = [
         label: 'Transparency',
         items: [
           'about/security/transparency/open-source',
-          'about/security/transparency/public-indidents',
+          'about/security/transparency/public-incidents',
           'about/security/transparency/data-leakage-policy',
           'about/security/transparency/help-channel',
           'about/security/transparency/status-page',

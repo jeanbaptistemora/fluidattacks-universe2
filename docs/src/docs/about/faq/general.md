@@ -267,7 +267,7 @@ both statically and dynamically.
 It is possible to cause
 an accidental DoS
 during the hacking service.
-We recommendnincluding only
+We recommend including only
 the staging phase in the scope.
 However,
 many clients decide
