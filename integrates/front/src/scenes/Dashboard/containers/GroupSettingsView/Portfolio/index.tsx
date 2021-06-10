@@ -25,13 +25,13 @@ import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 interface IPortfolioProps {
-  projectName: string;
+  groupName: string;
 }
 
 const Portfolio: React.FC<IPortfolioProps> = (
   props: IPortfolioProps
 ): JSX.Element => {
-  const { projectName } = props;
+  const { groupName } = props;
 
   // State management
   const [isAddModalOpen, setAddModalOpen] = useState(false);
@@ -51,7 +51,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
       msgError(translate.t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred loading group tags", error);
     },
-    variables: { projectName },
+    variables: { groupName },
   });
 
   const [addTags] = useMutation(ADD_TAGS_MUTATION, {
@@ -95,13 +95,13 @@ const Portfolio: React.FC<IPortfolioProps> = (
   const handleRemoveTag: () => void = useCallback((): void => {
     void removeTag({
       variables: {
-        projectName: props.projectName,
+        groupName: props.groupName,
         tagToRemove: currentRow.tagName,
       },
     });
     setCurrentRow({});
     // eslint-disable-next-line react/destructuring-assignment -- In conflict with previous declaration
-  }, [currentRow.tagName, props.projectName, removeTag]);
+  }, [currentRow.tagName, props.groupName, removeTag]);
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -133,7 +133,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
       closeAddModal();
       void addTags({
         variables: {
-          projectName: props.projectName,
+          groupName: props.groupName,
           tagsData: JSON.stringify(values.tags),
         },
       });

@@ -1,3 +1,5 @@
+// Needed to allow lazy updates of test components
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
@@ -34,7 +36,7 @@ jest.mock("../../../../../utils/notifications", (): Dictionary => {
 
 describe("Files", (): void => {
   const mockProps: IFilesProps = {
-    projectName: "TEST",
+    groupName: "TEST",
   };
 
   const mocksFiles: readonly MockedResponse[] = [
@@ -42,7 +44,7 @@ describe("Files", (): void => {
       request: {
         query: GET_FILES,
         variables: {
-          projectName: "TEST",
+          groupName: "TEST",
         },
       },
       result: {
@@ -63,7 +65,7 @@ describe("Files", (): void => {
                 uploader: "unittest@fluidattacks.com",
               },
             ]),
-            projectName: "TEST",
+            groupName: "TEST",
             repositories: "",
           },
         },
@@ -73,7 +75,7 @@ describe("Files", (): void => {
       request: {
         query: GET_FILES,
         variables: {
-          projectName: "TEST",
+          groupName: "TEST",
         },
       },
       result: {
@@ -88,7 +90,7 @@ describe("Files", (): void => {
                 uploader: "unittest@fluidattacks.com",
               },
             ]),
-            projectName: "TEST",
+            groupName: "TEST",
             repositories: "",
           },
         },
@@ -119,7 +121,7 @@ describe("Files", (): void => {
                 fileName: "image.png",
               },
             ]),
-            projectName: "TEST",
+            groupName: "TEST",
           },
         },
         result: { data: { addFiles: { success: true } } },
@@ -135,7 +137,7 @@ describe("Files", (): void => {
           mocks={mocksFiles.concat(mocksMutation)}
         >
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Files projectName={mockProps.projectName} />
+            <Files groupName={mockProps.groupName} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>
@@ -187,7 +189,7 @@ describe("Files", (): void => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider addTypename={false} mocks={mocksFiles}>
-          <Files projectName={mockProps.projectName} />
+          <Files groupName={mockProps.groupName} />
         </MockedProvider>
       </Provider>
     );
@@ -224,7 +226,7 @@ describe("Files", (): void => {
             filesData: JSON.stringify({
               fileName: "test.zip",
             }),
-            projectName: "TEST",
+            groupName: "TEST",
           },
         },
         result: { data: { removeFiles: { success: true } } },
@@ -240,7 +242,7 @@ describe("Files", (): void => {
           mocks={mocksFiles.concat(mocksMutation)}
         >
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Files projectName={mockProps.projectName} />
+            <Files groupName={mockProps.groupName} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>
@@ -293,7 +295,7 @@ describe("Files", (): void => {
           query: DOWNLOAD_FILE_MUTATION,
           variables: {
             filesData: JSON.stringify("test.zip"),
-            projectName: "TEST",
+            groupName: "TEST",
           },
         },
         result: {
@@ -313,7 +315,7 @@ describe("Files", (): void => {
           mocks={mocksFiles.concat(mocksMutation)}
         >
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Files projectName={mockProps.projectName} />
+            <Files groupName={mockProps.groupName} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>
@@ -391,7 +393,7 @@ describe("Files", (): void => {
           mocks={mocksFiles.concat(mocksMutation)}
         >
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Files projectName={mockProps.projectName} />
+            <Files groupName={mockProps.groupName} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>
@@ -400,31 +402,32 @@ describe("Files", (): void => {
       await wait(0);
       wrapper.update();
     });
-    const addButton: ReactWrapper = wrapper
-      .find("button")
-      .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
-      .at(0);
-    addButton.simulate("click");
-    const addFilesModal: ReactWrapper = wrapper.find("addFilesModal");
-    const fileInput: ReactWrapper = addFilesModal
+    const addButton = (): ReactWrapper =>
+      wrapper
+        .find("button")
+        .findWhere((element: ReactWrapper): boolean => element.contains("Add"))
+        .at(0);
+    addButton().simulate("click");
+    const addFilesModal = (): ReactWrapper => wrapper.find("addFilesModal");
+    const fileInput: ReactWrapper = addFilesModal()
       .find({ name: "file" })
       .at(0)
       .find("input");
     fileInput.simulate("change", { target: { files: [file], name: "file" } });
-    const descriptionInput: ReactWrapper = addFilesModal
+    const descriptionInput: ReactWrapper = addFilesModal()
       .find({ name: "description", type: "text" })
       .at(0)
       .find("textarea");
     descriptionInput.simulate("change", {
       target: { name: "description", value: "Test description" },
     });
-    const form: ReactWrapper = addFilesModal.find("Formik").at(0);
+    const form: ReactWrapper = addFilesModal().find("Formik").at(0);
     await act(async (): Promise<void> => {
       form.simulate("submit");
-      await wait(0);
+      const delay = 100;
+      await wait(delay);
       wrapper.update();
     });
-    await wait(0);
 
     const TEST_CALLING_TIMES = 3;
 
@@ -445,7 +448,7 @@ describe("Files", (): void => {
       <Provider store={store}>
         <MockedProvider addTypename={false} mocks={mocksFiles}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Files projectName={mockProps.projectName} />
+            <Files groupName={mockProps.groupName} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>

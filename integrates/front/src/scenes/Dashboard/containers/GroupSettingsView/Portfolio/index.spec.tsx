@@ -34,7 +34,7 @@ jest.mock("../../../../../utils/notifications", (): Dictionary => {
 
 describe("Portfolio", (): void => {
   const mockProps: IPortfolioProps = {
-    projectName: "TEST",
+    groupName: "TEST",
   };
 
   const mocksTags: readonly MockedResponse[] = [
@@ -42,7 +42,7 @@ describe("Portfolio", (): void => {
       request: {
         query: GET_TAGS,
         variables: {
-          projectName: "TEST",
+          groupName: "TEST",
         },
       },
       result: {
@@ -58,7 +58,7 @@ describe("Portfolio", (): void => {
       request: {
         query: GET_TAGS,
         variables: {
-          projectName: "TEST",
+          groupName: "TEST",
         },
       },
       result: {
@@ -85,7 +85,7 @@ describe("Portfolio", (): void => {
         request: {
           query: ADD_TAGS_MUTATION,
           variables: {
-            projectName: "TEST",
+            groupName: "TEST",
             tagsData: JSON.stringify(["test-new-tag"]),
           },
         },
@@ -102,7 +102,7 @@ describe("Portfolio", (): void => {
           mocks={mocksTags.concat(mocksMutation)}
         >
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Portfolio projectName={mockProps.projectName} />
+            <Portfolio groupName={mockProps.groupName} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>
@@ -145,7 +145,7 @@ describe("Portfolio", (): void => {
         request: {
           query: REMOVE_TAG_MUTATION,
           variables: {
-            projectName: "TEST",
+            groupName: "TEST",
             tagToRemove: "test-tag1",
           },
         },
@@ -162,7 +162,7 @@ describe("Portfolio", (): void => {
           mocks={mocksTags.concat(mocksMutation)}
         >
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Portfolio projectName={mockProps.projectName} />
+            <Portfolio groupName={mockProps.groupName} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>
@@ -204,7 +204,7 @@ describe("Portfolio", (): void => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider addTypename={false} mocks={mocksTags}>
-          <Portfolio projectName={mockProps.projectName} />
+          <Portfolio groupName={mockProps.groupName} />
         </MockedProvider>
       </Provider>
     );
@@ -237,7 +237,7 @@ describe("Portfolio", (): void => {
         request: {
           query: ADD_TAGS_MUTATION,
           variables: {
-            projectName: "TEST",
+            groupName: "TEST",
             tagsData: JSON.stringify(["test-new-tag"]),
           },
         },
@@ -259,7 +259,7 @@ describe("Portfolio", (): void => {
           mocks={mocksTags.concat(mocksMutation)}
         >
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Portfolio projectName={mockProps.projectName} />
+            <Portfolio groupName={mockProps.groupName} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>
@@ -303,7 +303,7 @@ describe("Portfolio", (): void => {
         request: {
           query: REMOVE_TAG_MUTATION,
           variables: {
-            projectName: "TEST",
+            groupName: "TEST",
             tagToRemove: "test-tag1",
           },
         },
@@ -320,7 +320,7 @@ describe("Portfolio", (): void => {
           mocks={mocksTags.concat(mocksMutation)}
         >
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Portfolio projectName={mockProps.projectName} />
+            <Portfolio groupName={mockProps.groupName} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>
@@ -363,7 +363,7 @@ describe("Portfolio", (): void => {
       <Provider store={store}>
         <MockedProvider addTypename={false} mocks={mocksTags}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Portfolio projectName={mockProps.projectName} />
+            <Portfolio groupName={mockProps.groupName} />
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </Provider>

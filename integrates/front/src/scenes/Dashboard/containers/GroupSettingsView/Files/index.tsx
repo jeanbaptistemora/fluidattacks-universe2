@@ -28,11 +28,11 @@ import { openUrl } from "utils/resourceHelpers";
 import { translate } from "utils/translations/translate";
 
 interface IFilesProps {
-  projectName: string;
+  groupName: string;
 }
 
 const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
-  const { projectName } = props;
+  const { groupName } = props;
 
   // State management
   const [isAddModalOpen, setAddModalOpen] = useState(false);
@@ -65,7 +65,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         Logger.warning("An error occurred loading group files", error);
       });
     },
-    variables: { projectName },
+    variables: { groupName },
   });
 
   const [downloadFile] = useMutation(DOWNLOAD_FILE_MUTATION, {
@@ -80,7 +80,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     },
     variables: {
       filesData: JSON.stringify(currentRow.fileName),
-      projectName,
+      groupName,
     },
   });
 
@@ -106,11 +106,11 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     void removeFile({
       variables: {
         filesData: JSON.stringify({ fileName: currentRow.fileName }),
-        projectName: props.projectName,
+        groupName: props.groupName,
       },
     });
     // eslint-disable-next-line react/destructuring-assignment -- In conflict with previous declaration
-  }, [closeOptionsModal, currentRow.fileName, props.projectName, removeFile]);
+  }, [closeOptionsModal, currentRow.fileName, props.groupName, removeFile]);
 
   const UPLOAD_PROGRESS_DIVIDER = 100;
   const [uploadFile, { loading: uploading }] = useMutation(
@@ -194,7 +194,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
               fileName: values.file[0].name,
             },
           ]),
-          projectName: props.projectName,
+          groupName: props.groupName,
         },
       });
       closeAddModal();

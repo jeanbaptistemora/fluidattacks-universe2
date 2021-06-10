@@ -41,16 +41,16 @@ const EDIT_GROUP_DATA: DocumentNode = gql`
 `;
 
 const REMOVE_TAG_MUTATION: DocumentNode = gql`
-  mutation RemoveTagMutation($tagToRemove: String!, $projectName: String!) {
-    removeTag(tag: $tagToRemove, projectName: $projectName) {
+  mutation RemoveTagMutation($tagToRemove: String!, $groupName: String!) {
+    removeTag(tag: $tagToRemove, projectName: $groupName) {
       success
     }
   }
 `;
 
 const GET_TAGS: DocumentNode = gql`
-  query GetTagsQuery($projectName: String!) {
-    group(groupName: $projectName) {
+  query GetTagsQuery($groupName: String!) {
+    group(groupName: $groupName) {
       name
       tags
     }
@@ -58,8 +58,8 @@ const GET_TAGS: DocumentNode = gql`
 `;
 
 const ADD_TAGS_MUTATION: DocumentNode = gql`
-  mutation AddTagsMutation($projectName: String!, $tagsData: JSONString!) {
-    addTags(tags: $tagsData, projectName: $projectName) {
+  mutation AddTagsMutation($groupName: String!, $tagsData: JSONString!) {
+    addTags(tags: $tagsData, projectName: $groupName) {
       success
     }
   }
@@ -97,19 +97,16 @@ const GET_ENVIRONMENTS: DocumentNode = gql`
 `;
 
 const GET_FILES: DocumentNode = gql`
-  query GetFilesQuery($projectName: String!) {
-    resources(projectName: $projectName) {
+  query GetFilesQuery($groupName: String!) {
+    resources(projectName: $groupName) {
       files
     }
   }
 `;
 
 const DOWNLOAD_FILE_MUTATION: DocumentNode = gql`
-  mutation DownloadFileMutation(
-    $filesData: JSONString!
-    $projectName: String!
-  ) {
-    downloadFile(filesData: $filesData, projectName: $projectName) {
+  mutation DownloadFileMutation($filesData: JSONString!, $groupName: String!) {
+    downloadFile(filesData: $filesData, projectName: $groupName) {
       success
       url
     }
@@ -117,8 +114,8 @@ const DOWNLOAD_FILE_MUTATION: DocumentNode = gql`
 `;
 
 const REMOVE_FILE_MUTATION: DocumentNode = gql`
-  mutation RemoveFileMutation($filesData: JSONString!, $projectName: String!) {
-    removeFiles(filesData: $filesData, projectName: $projectName) {
+  mutation RemoveFileMutation($filesData: JSONString!, $groupName: String!) {
+    removeFiles(filesData: $filesData, projectName: $groupName) {
       success
     }
   }
@@ -128,9 +125,9 @@ const UPLOAD_FILE_MUTATION: DocumentNode = gql`
   mutation UploadFileMutation(
     $file: Upload!
     $filesData: JSONString!
-    $projectName: String!
+    $groupName: String!
   ) {
-    addFiles(file: $file, filesData: $filesData, projectName: $projectName) {
+    addFiles(file: $file, filesData: $filesData, projectName: $groupName) {
       success
     }
   }

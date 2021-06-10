@@ -25,9 +25,9 @@ const GroupSettingsView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <div id={"resources"}>
-        <Files projectName={groupName} />
+        <Files groupName={groupName} />
         <hr />
-        <Portfolio projectName={groupName} />
+        <Portfolio groupName={groupName} />
         <Can do={"api_mutations_edit_group_mutate"}>
           <React.Fragment>
             <hr />

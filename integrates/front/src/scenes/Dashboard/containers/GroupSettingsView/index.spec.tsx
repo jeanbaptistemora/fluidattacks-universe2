@@ -17,7 +17,7 @@ describe("GroupSettingsView", (): void => {
     request: {
       query: GET_TAGS,
       variables: {
-        projectName: "TEST",
+        groupName: "TEST",
       },
     },
     result: {
@@ -35,7 +35,7 @@ describe("GroupSettingsView", (): void => {
       request: {
         query: GET_TAGS,
         variables: {
-          projectName: "TEST",
+          groupName: "TEST",
         },
       },
       result: {
