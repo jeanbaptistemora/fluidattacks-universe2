@@ -126,5 +126,7 @@ SELECT u FROM User u WHERE u.emailAddress LIKE '\%' ESCAPE '\'
 # References
 
 - [Spring Data JPA Reference](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.at-query)
+
 - [JPQL Language Reference](https://docs.oracle.com/cd/E11035_01/kodo41/full/html/ejb3_langref.html)
+
 - [Spring Expression Language Reference](https://docs.spring.io/spring-integration/docs/5.3.0.RELEASE/reference/html/spel.html)
