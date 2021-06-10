@@ -164,6 +164,42 @@ def add_f042_httponly() -> None:
         add_rule("f042_httponly", index, partial(lambda x: x, response))
 
 
+def add_f042_samesite() -> None:
+    response0: Response = Response()
+    response0.set_cookie(key="session", value="test0", samesite="Strict")
+
+    response1: Response = Response()
+    response1.set_cookie(key="session", value="test1", samesite="Lax")
+
+    response2: Response = Response()
+    response2.set_cookie(
+        key="session", value="test2", secure=True, samesite="None"
+    )
+
+    response3: Response = Response()
+    response3.set_cookie(key="session", value="test3")
+
+    response4: Response = Response()
+    response4.set_cookie(key="google_analytics", value="test4")
+
+    response5: Response = Response()
+    response5.set_cookie(key="session", value="test5")
+    response5.set_cookie(key="google_analytics", value="test5")
+    response5.set_cookie(key="session2", value="test52", samesite="Lax")
+
+    all_response: List[Response] = [
+        response0,
+        response1,
+        response2,
+        response3,
+        response4,
+        response5,
+    ]
+
+    for index, response in enumerate(all_response):
+        add_rule("f042_samesite", index, partial(lambda x: x, response))
+
+
 def add_f042_secure() -> None:
     response0: Response = Response()
     response0.set_cookie(key="session", value="test0", secure=True)
@@ -315,6 +351,7 @@ add_f015_dast_basic()
 add_f023()
 add_f036()
 add_f042_httponly()
+add_f042_samesite()
 add_f042_secure()
 add_f043_dast_csp_rules()
 add_f043_dast_rp_rules()

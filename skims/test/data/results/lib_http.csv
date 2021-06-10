@@ -7,7 +7,7 @@ F042_HTTPONLY,inputs,http://localhost:48000/f042_httponly_2 (namespace),session 
 >  5 | < Set-Cookie: session=test2; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -20,7 +20,7 @@ F042_HTTPONLY,inputs,http://localhost:48000/f042_httponly_4 (namespace),session 
 >  5 | < Set-Cookie: session=; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -35,7 +35,74 @@ F042_HTTPONLY,inputs,http://localhost:48000/f042_httponly_5 (namespace),session 
    7 | < Set-Cookie: session2=test52; Path=/
    8 | < Content-Length: 0
    9 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  10 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+  11 |
+  12 | * EOF
+     ^ Col 0
+"
+F042_HTTPONLY,inputs,http://localhost:48000/f042_samesite_0 (namespace),session is missing HttpOnly,1004,"home,response,headers",F042. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
+   1 | > GET http://localhost:48000/f042_samesite_0
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+>  5 | < Set-Cookie: session=test0; Path=/; SameSite=Strict
+   6 | < Content-Length: 0
+   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+   9 |
+  10 | * EOF
+     ^ Col 0
+"
+F042_HTTPONLY,inputs,http://localhost:48000/f042_samesite_1 (namespace),session is missing HttpOnly,1004,"home,response,headers",F042. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
+   1 | > GET http://localhost:48000/f042_samesite_1
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+>  5 | < Set-Cookie: session=test1; Path=/; SameSite=Lax
+   6 | < Content-Length: 0
+   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+   9 |
+  10 | * EOF
+     ^ Col 0
+"
+F042_HTTPONLY,inputs,http://localhost:48000/f042_samesite_2 (namespace),session is missing HttpOnly,1004,"home,response,headers",F042. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
+   1 | > GET http://localhost:48000/f042_samesite_2
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+>  5 | < Set-Cookie: session=test2; Secure; Path=/; SameSite=None
+   6 | < Content-Length: 0
+   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+   9 |
+  10 | * EOF
+     ^ Col 0
+"
+F042_HTTPONLY,inputs,http://localhost:48000/f042_samesite_3 (namespace),session is missing HttpOnly,1004,"home,response,headers",F042. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
+   1 | > GET http://localhost:48000/f042_samesite_3
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+>  5 | < Set-Cookie: session=test3; Path=/
+   6 | < Content-Length: 0
+   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+   9 |
+  10 | * EOF
+     ^ Col 0
+"
+F042_HTTPONLY,inputs,http://localhost:48000/f042_samesite_5 (namespace),session is missing HttpOnly,1004,"home,response,headers",F042. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
+   1 | > GET http://localhost:48000/f042_samesite_5
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+>  5 | < Set-Cookie: session=test5; Path=/
+   6 | < Set-Cookie: google_analytics=test5; Path=/
+   7 | < Set-Cookie: session2=test52; Path=/; SameSite=Lax
+   8 | < Content-Length: 0
+   9 | < Server: Werkzeug/1.0.1 Python/3.8.7
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   11 |
   12 | * EOF
      ^ Col 0
@@ -48,7 +115,7 @@ F042_HTTPONLY,inputs,http://localhost:48000/f042_secure_0 (namespace),session is
 >  5 | < Set-Cookie: session=test0; Secure; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -61,7 +128,7 @@ F042_HTTPONLY,inputs,http://localhost:48000/f042_secure_2 (namespace),session is
 >  5 | < Set-Cookie: session=test2; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -74,7 +141,7 @@ F042_HTTPONLY,inputs,http://localhost:48000/f042_secure_4 (namespace),session is
 >  5 | < Set-Cookie: session=; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -89,7 +156,7 @@ F042_HTTPONLY,inputs,http://localhost:48000/f042_secure_5 (namespace),session is
    7 | < Set-Cookie: session2=test52; Path=/
    8 | < Content-Length: 0
    9 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  10 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   11 |
   12 | * EOF
      ^ Col 0
@@ -104,7 +171,7 @@ F042_HTTPONLY,inputs,http://localhost:48000/f042_secure_6 (namespace),session is
 >  7 | < Set-Cookie: session=test5; Path=/
    8 | < Content-Length: 0
    9 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  10 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   11 |
   12 | * EOF
      ^ Col 0
@@ -119,7 +186,22 @@ F042_HTTPONLY,inputs,http://localhost:48000/f042_httponly_5 (namespace),session2
 >  7 | < Set-Cookie: session2=test52; Path=/
    8 | < Content-Length: 0
    9 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  10 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+  11 |
+  12 | * EOF
+     ^ Col 0
+"
+F042_HTTPONLY,inputs,http://localhost:48000/f042_samesite_5 (namespace),session2 is missing HttpOnly,1004,"home,response,headers",F042. Insecurely generated cookies - HttpOnly,session2 is missing HttpOnly,"
+   1 | > GET http://localhost:48000/f042_samesite_5
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+   5 | < Set-Cookie: session=test5; Path=/
+   6 | < Set-Cookie: google_analytics=test5; Path=/
+>  7 | < Set-Cookie: session2=test52; Path=/; SameSite=Lax
+   8 | < Content-Length: 0
+   9 | < Server: Werkzeug/1.0.1 Python/3.8.7
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   11 |
   12 | * EOF
      ^ Col 0
@@ -134,7 +216,7 @@ F042_HTTPONLY,inputs,http://localhost:48000/f042_secure_5 (namespace),session2 i
 >  7 | < Set-Cookie: session2=test52; Path=/
    8 | < Content-Length: 0
    9 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  10 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   11 |
   12 | * EOF
      ^ Col 0
@@ -149,7 +231,7 @@ F042_HTTPONLY,inputs,http://localhost:48000/f042_secure_6 (namespace),session2 i
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Content-Length: 0
    9 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  10 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   11 |
   12 | * EOF
      ^ Col 0
@@ -162,7 +244,7 @@ F015_DAST_BASIC,inputs,http://localhost:48000/f015_dast_basic_2 (namespace),The 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -175,7 +257,7 @@ F015_DAST_BASIC,inputs,http://localhost:48000/f015_dast_basic_3 (namespace),The 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -280,7 +362,7 @@ F023,inputs,http://localhost:48000/f023_0 (namespace),Redirection due to Host he
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -293,7 +375,7 @@ F042_SECURE,inputs,http://localhost:48000/f042_httponly_0 (namespace),session is
 >  5 | < Set-Cookie: session=test0; HttpOnly; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -306,7 +388,7 @@ F042_SECURE,inputs,http://localhost:48000/f042_httponly_2 (namespace),session is
 >  5 | < Set-Cookie: session=test2; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -319,7 +401,7 @@ F042_SECURE,inputs,http://localhost:48000/f042_httponly_4 (namespace),session is
 >  5 | < Set-Cookie: session=; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -334,7 +416,61 @@ F042_SECURE,inputs,http://localhost:48000/f042_httponly_5 (namespace),session is
    7 | < Set-Cookie: session2=test52; Path=/
    8 | < Content-Length: 0
    9 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  10 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+  11 |
+  12 | * EOF
+     ^ Col 0
+"
+F042_SECURE,inputs,http://localhost:48000/f042_samesite_0 (namespace),session is missing Secure,614,"home,response,headers",F042. Insecurely generated cookies - Secure,session is missing Secure,"
+   1 | > GET http://localhost:48000/f042_samesite_0
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+>  5 | < Set-Cookie: session=test0; Path=/; SameSite=Strict
+   6 | < Content-Length: 0
+   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+   9 |
+  10 | * EOF
+     ^ Col 0
+"
+F042_SECURE,inputs,http://localhost:48000/f042_samesite_1 (namespace),session is missing Secure,614,"home,response,headers",F042. Insecurely generated cookies - Secure,session is missing Secure,"
+   1 | > GET http://localhost:48000/f042_samesite_1
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+>  5 | < Set-Cookie: session=test1; Path=/; SameSite=Lax
+   6 | < Content-Length: 0
+   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+   9 |
+  10 | * EOF
+     ^ Col 0
+"
+F042_SECURE,inputs,http://localhost:48000/f042_samesite_3 (namespace),session is missing Secure,614,"home,response,headers",F042. Insecurely generated cookies - Secure,session is missing Secure,"
+   1 | > GET http://localhost:48000/f042_samesite_3
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+>  5 | < Set-Cookie: session=test3; Path=/
+   6 | < Content-Length: 0
+   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+   9 |
+  10 | * EOF
+     ^ Col 0
+"
+F042_SECURE,inputs,http://localhost:48000/f042_samesite_5 (namespace),session is missing Secure,614,"home,response,headers",F042. Insecurely generated cookies - Secure,session is missing Secure,"
+   1 | > GET http://localhost:48000/f042_samesite_5
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+>  5 | < Set-Cookie: session=test5; Path=/
+   6 | < Set-Cookie: google_analytics=test5; Path=/
+   7 | < Set-Cookie: session2=test52; Path=/; SameSite=Lax
+   8 | < Content-Length: 0
+   9 | < Server: Werkzeug/1.0.1 Python/3.8.7
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   11 |
   12 | * EOF
      ^ Col 0
@@ -347,7 +483,7 @@ F042_SECURE,inputs,http://localhost:48000/f042_secure_2 (namespace),session is m
 >  5 | < Set-Cookie: session=test2; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -360,7 +496,7 @@ F042_SECURE,inputs,http://localhost:48000/f042_secure_4 (namespace),session is m
 >  5 | < Set-Cookie: session=; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -375,7 +511,7 @@ F042_SECURE,inputs,http://localhost:48000/f042_secure_5 (namespace),session is m
    7 | < Set-Cookie: session2=test52; Path=/
    8 | < Content-Length: 0
    9 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  10 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   11 |
   12 | * EOF
      ^ Col 0
@@ -390,7 +526,7 @@ F042_SECURE,inputs,http://localhost:48000/f042_secure_6 (namespace),session is m
 >  7 | < Set-Cookie: session=test5; Path=/
    8 | < Content-Length: 0
    9 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  10 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   11 |
   12 | * EOF
      ^ Col 0
@@ -405,7 +541,22 @@ F042_SECURE,inputs,http://localhost:48000/f042_httponly_5 (namespace),session2 i
 >  7 | < Set-Cookie: session2=test52; Path=/
    8 | < Content-Length: 0
    9 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  10 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+  11 |
+  12 | * EOF
+     ^ Col 0
+"
+F042_SECURE,inputs,http://localhost:48000/f042_samesite_5 (namespace),session2 is missing Secure,614,"home,response,headers",F042. Insecurely generated cookies - Secure,session2 is missing Secure,"
+   1 | > GET http://localhost:48000/f042_samesite_5
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+   5 | < Set-Cookie: session=test5; Path=/
+   6 | < Set-Cookie: google_analytics=test5; Path=/
+>  7 | < Set-Cookie: session2=test52; Path=/; SameSite=Lax
+   8 | < Content-Length: 0
+   9 | < Server: Werkzeug/1.0.1 Python/3.8.7
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   11 |
   12 | * EOF
      ^ Col 0
@@ -420,7 +571,7 @@ F042_SECURE,inputs,http://localhost:48000/f042_secure_5 (namespace),session2 is 
 >  7 | < Set-Cookie: session2=test52; Path=/
    8 | < Content-Length: 0
    9 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  10 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   11 |
   12 | * EOF
      ^ Col 0
@@ -435,7 +586,7 @@ F042_SECURE,inputs,http://localhost:48000/f042_secure_6 (namespace),session2 is 
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Content-Length: 0
    9 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  10 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   11 |
   12 | * EOF
      ^ Col 0
@@ -448,7 +599,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),.yandex.
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -461,7 +612,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f015_dast_basic_0 (namespace),Missin
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -474,7 +625,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f015_dast_basic_1 (namespace),Missin
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -487,7 +638,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f015_dast_basic_2 (namespace),Missin
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -500,7 +651,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f015_dast_basic_3 (namespace),Missin
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -513,7 +664,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f015_dast_basic_4 (namespace),Missin
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -526,7 +677,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f023_0 (namespace),Missing Content-S
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -539,7 +690,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f023_1 (namespace),Missing Content-S
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -552,7 +703,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f042_httponly_0 (namespace),Missing 
    5 | < Set-Cookie: session=test0; HttpOnly; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -565,7 +716,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f042_httponly_1 (namespace),Missing 
    5 | < Set-Cookie: google_analytics=test1; HttpOnly; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -578,7 +729,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f042_httponly_2 (namespace),Missing 
    5 | < Set-Cookie: session=test2; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -591,7 +742,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f042_httponly_3 (namespace),Missing 
    5 | < Set-Cookie: google_analytics=test3; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -604,7 +755,72 @@ F043_DAST_CSP,inputs,http://localhost:48000/f042_httponly_4 (namespace),Missing 
    5 | < Set-Cookie: session=; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+   9 |
+> 10 | * EOF
+     ^ Col 0
+"
+F043_DAST_CSP,inputs,http://localhost:48000/f042_samesite_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Missing HTTP security headers - Content-Security-Policy,Missing Content-Security-Policy,"
+   1 | > GET http://localhost:48000/f042_samesite_0
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+   5 | < Set-Cookie: session=test0; Path=/; SameSite=Strict
+   6 | < Content-Length: 0
+   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+   9 |
+> 10 | * EOF
+     ^ Col 0
+"
+F043_DAST_CSP,inputs,http://localhost:48000/f042_samesite_1 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Missing HTTP security headers - Content-Security-Policy,Missing Content-Security-Policy,"
+   1 | > GET http://localhost:48000/f042_samesite_1
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+   5 | < Set-Cookie: session=test1; Path=/; SameSite=Lax
+   6 | < Content-Length: 0
+   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+   9 |
+> 10 | * EOF
+     ^ Col 0
+"
+F043_DAST_CSP,inputs,http://localhost:48000/f042_samesite_2 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Missing HTTP security headers - Content-Security-Policy,Missing Content-Security-Policy,"
+   1 | > GET http://localhost:48000/f042_samesite_2
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+   5 | < Set-Cookie: session=test2; Secure; Path=/; SameSite=None
+   6 | < Content-Length: 0
+   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+   9 |
+> 10 | * EOF
+     ^ Col 0
+"
+F043_DAST_CSP,inputs,http://localhost:48000/f042_samesite_3 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Missing HTTP security headers - Content-Security-Policy,Missing Content-Security-Policy,"
+   1 | > GET http://localhost:48000/f042_samesite_3
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+   5 | < Set-Cookie: session=test3; Path=/
+   6 | < Content-Length: 0
+   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+   9 |
+> 10 | * EOF
+     ^ Col 0
+"
+F043_DAST_CSP,inputs,http://localhost:48000/f042_samesite_4 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Missing HTTP security headers - Content-Security-Policy,Missing Content-Security-Policy,"
+   1 | > GET http://localhost:48000/f042_samesite_4
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+   5 | < Set-Cookie: google_analytics=test4; Path=/
+   6 | < Content-Length: 0
+   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -617,7 +833,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f042_secure_0 (namespace),Missing Co
    5 | < Set-Cookie: session=test0; Secure; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -630,7 +846,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f042_secure_1 (namespace),Missing Co
    5 | < Set-Cookie: google_analytics=test1; Secure; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -643,7 +859,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f042_secure_2 (namespace),Missing Co
    5 | < Set-Cookie: session=test2; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -656,7 +872,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f042_secure_3 (namespace),Missing Co
    5 | < Set-Cookie: google_analytics=test3; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -669,7 +885,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f042_secure_4 (namespace),Missing Co
    5 | < Set-Cookie: session=; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -682,7 +898,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_rp_0 (namespace),Missing C
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -695,7 +911,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_rp_1 (namespace),Missing C
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -708,7 +924,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_rp_2 (namespace),Missing C
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -721,7 +937,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_rp_3 (namespace),Missing C
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -734,7 +950,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_sts_0 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -747,7 +963,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_sts_1 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -760,7 +976,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_sts_2 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -773,7 +989,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_xcto_0 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -786,7 +1002,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_xcto_1 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -799,7 +1015,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_xfo_0 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -812,7 +1028,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_xfo_1 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -825,7 +1041,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_xfo_2 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -838,7 +1054,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_xfo_3 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -852,7 +1068,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f042_secure_6 (namespace),Missing Co
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Content-Length: 0
    9 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  10 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   11 |
 > 12 | * EOF
      ^ Col 0
@@ -866,7 +1082,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f042_httponly_5 (namespace),Missing 
    7 | < Set-Cookie: session2=test52; Path=/
    8 | < Content-Length: 0
    9 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  10 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   11 |
 > 12 | * EOF
      ^ Col 0
@@ -880,7 +1096,21 @@ F043_DAST_CSP,inputs,http://localhost:48000/f042_secure_5 (namespace),Missing Co
    7 | < Set-Cookie: session2=test52; Path=/
    8 | < Content-Length: 0
    9 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  10 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+  11 |
+> 12 | * EOF
+     ^ Col 0
+"
+F043_DAST_CSP,inputs,http://localhost:48000/f042_samesite_5 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Missing HTTP security headers - Content-Security-Policy,Missing Content-Security-Policy,"
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+   5 | < Set-Cookie: session=test5; Path=/
+   6 | < Set-Cookie: google_analytics=test5; Path=/
+   7 | < Set-Cookie: session2=test52; Path=/; SameSite=Lax
+   8 | < Content-Length: 0
+   9 | < Server: Werkzeug/1.0.1 Python/3.8.7
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   11 |
 > 12 | * EOF
      ^ Col 0
@@ -890,9 +1120,9 @@ F043_DAST_CSP,inputs,http://localhost:48000/ (namespace),Missing Content-Securit
   2 | > ...
   3 |
   4 | < Content-Type: text/html
-  5 | < Content-Length: 5976
+  5 | < Content-Length: 6660
   6 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  7 | < Date: Thu, 10 Jun 2021 14:57:14 GMT
+  7 | < Date: Fri, 11 Jun 2021 15:30:34 GMT
   8 |
 > 9 | * EOF
     ^ Col 0
@@ -904,7 +1134,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/error (namespace),Missing Content-Se
   4 | < Content-Type: text/html; charset=utf-8
   5 | < Content-Length: 232
   6 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  7 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  7 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   8 |
 > 9 | * EOF
     ^ Col 0
@@ -916,7 +1146,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f036_0 (namespace),Missing Content-S
   4 | < Content-Type: text/html; charset=utf-8
   5 | < Content-Length: 332
   6 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  7 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  7 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   8 |
 > 9 | * EOF
     ^ Col 0
@@ -937,7 +1167,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f064_server_clock_1 (namespace),Miss
   1 | > GET http://localhost:48000/f064_server_clock_1
   2 | > ...
   3 |
-  4 | < Date: Thu, 10 Jun 2021 13:57:20 GMT
+  4 | < Date: Fri, 11 Jun 2021 14:30:41 GMT
   5 | < Content-Type: text/html; charset=utf-8
   6 | < Content-Length: 0
   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
@@ -952,7 +1182,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f086_0 (namespace),Missing Content-S
   4 | < Content-Type: text/html; charset=utf-8
   5 | < Content-Length: 543
   6 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  7 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  7 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
   8 |
 > 9 | * EOF
     ^ Col 0
@@ -964,7 +1194,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/static/[filename] (namespace),Missin
   4 | < Content-Type: text/html; charset=utf-8
   5 | < Content-Length: 232
   6 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  7 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  7 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
   8 |
 > 9 | * EOF
     ^ Col 0
@@ -974,9 +1204,9 @@ F043_DAST_RP,inputs,http://localhost:48000/ (namespace),Missing Referrer-Policy,
   2 | > ...
   3 |
   4 | < Content-Type: text/html
-  5 | < Content-Length: 5976
+  5 | < Content-Length: 6660
   6 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  7 | < Date: Thu, 10 Jun 2021 14:57:14 GMT
+  7 | < Date: Fri, 11 Jun 2021 15:30:34 GMT
   8 |
 > 9 | * EOF
     ^ Col 0
@@ -988,7 +1218,7 @@ F043_DAST_RP,inputs,http://localhost:48000/f036_0 (namespace),Missing Referrer-P
   4 | < Content-Type: text/html; charset=utf-8
   5 | < Content-Length: 332
   6 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  7 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  7 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   8 |
 > 9 | * EOF
     ^ Col 0
@@ -1000,7 +1230,7 @@ F043_DAST_RP,inputs,http://localhost:48000/f086_0 (namespace),Missing Referrer-P
   4 | < Content-Type: text/html; charset=utf-8
   5 | < Content-Length: 543
   6 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  7 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  7 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
   8 |
 > 9 | * EOF
     ^ Col 0
@@ -1013,7 +1243,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1026,7 +1256,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1039,7 +1269,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_csp_2 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1052,7 +1282,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_csp_3 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1065,7 +1295,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1078,7 +1308,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_csp_5 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1091,7 +1321,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f015_dast_basic_0 (namespace),Missin
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1104,7 +1334,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f015_dast_basic_1 (namespace),Missin
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1117,7 +1347,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f015_dast_basic_2 (namespace),Missin
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1130,7 +1360,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f015_dast_basic_3 (namespace),Missin
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1143,7 +1373,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f015_dast_basic_4 (namespace),Missin
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1156,7 +1386,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f023_0 (namespace),Missing Strict-Tr
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1169,7 +1399,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f023_1 (namespace),Missing Strict-Tr
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1182,7 +1412,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f042_httponly_0 (namespace),Missing 
    5 | < Set-Cookie: session=test0; HttpOnly; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1195,7 +1425,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f042_httponly_1 (namespace),Missing 
    5 | < Set-Cookie: google_analytics=test1; HttpOnly; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1208,7 +1438,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f042_httponly_2 (namespace),Missing 
    5 | < Set-Cookie: session=test2; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1221,7 +1451,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f042_httponly_3 (namespace),Missing 
    5 | < Set-Cookie: google_analytics=test3; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1234,7 +1464,72 @@ F043_DAST_STS,inputs,http://localhost:48000/f042_httponly_4 (namespace),Missing 
    5 | < Set-Cookie: session=; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+   9 |
+> 10 | * EOF
+     ^ Col 0
+"
+F043_DAST_STS,inputs,http://localhost:48000/f042_samesite_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F043. Missing HTTP security headers - Strict-Transport-Security,Missing Strict-Transport-Security,"
+   1 | > GET http://localhost:48000/f042_samesite_0
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+   5 | < Set-Cookie: session=test0; Path=/; SameSite=Strict
+   6 | < Content-Length: 0
+   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+   9 |
+> 10 | * EOF
+     ^ Col 0
+"
+F043_DAST_STS,inputs,http://localhost:48000/f042_samesite_1 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F043. Missing HTTP security headers - Strict-Transport-Security,Missing Strict-Transport-Security,"
+   1 | > GET http://localhost:48000/f042_samesite_1
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+   5 | < Set-Cookie: session=test1; Path=/; SameSite=Lax
+   6 | < Content-Length: 0
+   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+   9 |
+> 10 | * EOF
+     ^ Col 0
+"
+F043_DAST_STS,inputs,http://localhost:48000/f042_samesite_2 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F043. Missing HTTP security headers - Strict-Transport-Security,Missing Strict-Transport-Security,"
+   1 | > GET http://localhost:48000/f042_samesite_2
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+   5 | < Set-Cookie: session=test2; Secure; Path=/; SameSite=None
+   6 | < Content-Length: 0
+   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+   9 |
+> 10 | * EOF
+     ^ Col 0
+"
+F043_DAST_STS,inputs,http://localhost:48000/f042_samesite_3 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F043. Missing HTTP security headers - Strict-Transport-Security,Missing Strict-Transport-Security,"
+   1 | > GET http://localhost:48000/f042_samesite_3
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+   5 | < Set-Cookie: session=test3; Path=/
+   6 | < Content-Length: 0
+   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+   9 |
+> 10 | * EOF
+     ^ Col 0
+"
+F043_DAST_STS,inputs,http://localhost:48000/f042_samesite_4 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F043. Missing HTTP security headers - Strict-Transport-Security,Missing Strict-Transport-Security,"
+   1 | > GET http://localhost:48000/f042_samesite_4
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+   5 | < Set-Cookie: google_analytics=test4; Path=/
+   6 | < Content-Length: 0
+   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1247,7 +1542,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f042_secure_0 (namespace),Missing St
    5 | < Set-Cookie: session=test0; Secure; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1260,7 +1555,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f042_secure_1 (namespace),Missing St
    5 | < Set-Cookie: google_analytics=test1; Secure; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1273,7 +1568,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f042_secure_2 (namespace),Missing St
    5 | < Set-Cookie: session=test2; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1286,7 +1581,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f042_secure_3 (namespace),Missing St
    5 | < Set-Cookie: google_analytics=test3; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1299,7 +1594,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f042_secure_4 (namespace),Missing St
    5 | < Set-Cookie: session=; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1312,7 +1607,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1325,7 +1620,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1338,7 +1633,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1351,7 +1646,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1364,7 +1659,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1377,7 +1672,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1390,7 +1685,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1403,7 +1698,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1416,7 +1711,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_rp_0 (namespace),Missing S
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1429,7 +1724,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_rp_1 (namespace),Missing S
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1442,7 +1737,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_rp_2 (namespace),Missing S
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1455,7 +1750,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_rp_3 (namespace),Missing S
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1468,7 +1763,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_sts_0 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1481,7 +1776,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_xcto_0 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1494,7 +1789,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_xcto_1 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1507,7 +1802,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_xfo_0 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1520,7 +1815,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_xfo_1 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1533,7 +1828,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_xfo_2 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1546,7 +1841,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_xfo_3 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1560,7 +1855,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f042_secure_6 (namespace),Missing St
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Content-Length: 0
    9 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  10 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   11 |
 > 12 | * EOF
      ^ Col 0
@@ -1574,7 +1869,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f042_httponly_5 (namespace),Missing 
    7 | < Set-Cookie: session2=test52; Path=/
    8 | < Content-Length: 0
    9 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  10 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   11 |
 > 12 | * EOF
      ^ Col 0
@@ -1588,7 +1883,21 @@ F043_DAST_STS,inputs,http://localhost:48000/f042_secure_5 (namespace),Missing St
    7 | < Set-Cookie: session2=test52; Path=/
    8 | < Content-Length: 0
    9 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  10 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+  11 |
+> 12 | * EOF
+     ^ Col 0
+"
+F043_DAST_STS,inputs,http://localhost:48000/f042_samesite_5 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F043. Missing HTTP security headers - Strict-Transport-Security,Missing Strict-Transport-Security,"
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+   5 | < Set-Cookie: session=test5; Path=/
+   6 | < Set-Cookie: google_analytics=test5; Path=/
+   7 | < Set-Cookie: session2=test52; Path=/; SameSite=Lax
+   8 | < Content-Length: 0
+   9 | < Server: Werkzeug/1.0.1 Python/3.8.7
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   11 |
 > 12 | * EOF
      ^ Col 0
@@ -1598,9 +1907,9 @@ F043_DAST_STS,inputs,http://localhost:48000/ (namespace),Missing Strict-Transpor
   2 | > ...
   3 |
   4 | < Content-Type: text/html
-  5 | < Content-Length: 5976
+  5 | < Content-Length: 6660
   6 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  7 | < Date: Thu, 10 Jun 2021 14:57:14 GMT
+  7 | < Date: Fri, 11 Jun 2021 15:30:34 GMT
   8 |
 > 9 | * EOF
     ^ Col 0
@@ -1612,7 +1921,7 @@ F043_DAST_STS,inputs,http://localhost:48000/error (namespace),Missing Strict-Tra
   4 | < Content-Type: text/html; charset=utf-8
   5 | < Content-Length: 232
   6 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  7 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  7 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   8 |
 > 9 | * EOF
     ^ Col 0
@@ -1624,7 +1933,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f036_0 (namespace),Missing Strict-Tr
   4 | < Content-Type: text/html; charset=utf-8
   5 | < Content-Length: 332
   6 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  7 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  7 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   8 |
 > 9 | * EOF
     ^ Col 0
@@ -1645,7 +1954,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f064_server_clock_1 (namespace),Miss
   1 | > GET http://localhost:48000/f064_server_clock_1
   2 | > ...
   3 |
-  4 | < Date: Thu, 10 Jun 2021 13:57:20 GMT
+  4 | < Date: Fri, 11 Jun 2021 14:30:41 GMT
   5 | < Content-Type: text/html; charset=utf-8
   6 | < Content-Length: 0
   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
@@ -1660,7 +1969,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f086_0 (namespace),Missing Strict-Tr
   4 | < Content-Type: text/html; charset=utf-8
   5 | < Content-Length: 543
   6 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  7 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  7 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
   8 |
 > 9 | * EOF
     ^ Col 0
@@ -1672,7 +1981,7 @@ F043_DAST_STS,inputs,http://localhost:48000/static/[filename] (namespace),Missin
   4 | < Content-Type: text/html; charset=utf-8
   5 | < Content-Length: 232
   6 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  7 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  7 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
   8 |
 > 9 | * EOF
     ^ Col 0
@@ -1685,7 +1994,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missin
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1698,7 +2007,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missin
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1711,7 +2020,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_csp_2 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1724,7 +2033,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_csp_3 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1737,7 +2046,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1750,7 +2059,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_csp_5 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1763,7 +2072,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f015_dast_basic_0 (namespace),Missi
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1776,7 +2085,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f015_dast_basic_1 (namespace),Missi
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1789,7 +2098,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f015_dast_basic_2 (namespace),Missi
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1802,7 +2111,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f015_dast_basic_3 (namespace),Missi
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1815,7 +2124,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f015_dast_basic_4 (namespace),Missi
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1828,7 +2137,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f023_0 (namespace),Missing X-Conten
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1841,7 +2150,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f023_1 (namespace),Missing X-Conten
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1854,7 +2163,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f042_httponly_0 (namespace),Missing
    5 | < Set-Cookie: session=test0; HttpOnly; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1867,7 +2176,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f042_httponly_1 (namespace),Missing
    5 | < Set-Cookie: google_analytics=test1; HttpOnly; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1880,7 +2189,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f042_httponly_2 (namespace),Missing
    5 | < Set-Cookie: session=test2; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1893,7 +2202,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f042_httponly_3 (namespace),Missing
    5 | < Set-Cookie: google_analytics=test3; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1906,7 +2215,72 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f042_httponly_4 (namespace),Missing
    5 | < Set-Cookie: session=; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+   9 |
+> 10 | * EOF
+     ^ Col 0
+"
+F043_DAST_XCTO,inputs,http://localhost:48000/f042_samesite_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F043. Missing HTTP security headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+   1 | > GET http://localhost:48000/f042_samesite_0
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+   5 | < Set-Cookie: session=test0; Path=/; SameSite=Strict
+   6 | < Content-Length: 0
+   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+   9 |
+> 10 | * EOF
+     ^ Col 0
+"
+F043_DAST_XCTO,inputs,http://localhost:48000/f042_samesite_1 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F043. Missing HTTP security headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+   1 | > GET http://localhost:48000/f042_samesite_1
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+   5 | < Set-Cookie: session=test1; Path=/; SameSite=Lax
+   6 | < Content-Length: 0
+   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+   9 |
+> 10 | * EOF
+     ^ Col 0
+"
+F043_DAST_XCTO,inputs,http://localhost:48000/f042_samesite_2 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F043. Missing HTTP security headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+   1 | > GET http://localhost:48000/f042_samesite_2
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+   5 | < Set-Cookie: session=test2; Secure; Path=/; SameSite=None
+   6 | < Content-Length: 0
+   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+   9 |
+> 10 | * EOF
+     ^ Col 0
+"
+F043_DAST_XCTO,inputs,http://localhost:48000/f042_samesite_3 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F043. Missing HTTP security headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+   1 | > GET http://localhost:48000/f042_samesite_3
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+   5 | < Set-Cookie: session=test3; Path=/
+   6 | < Content-Length: 0
+   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+   9 |
+> 10 | * EOF
+     ^ Col 0
+"
+F043_DAST_XCTO,inputs,http://localhost:48000/f042_samesite_4 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F043. Missing HTTP security headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+   1 | > GET http://localhost:48000/f042_samesite_4
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+   5 | < Set-Cookie: google_analytics=test4; Path=/
+   6 | < Content-Length: 0
+   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1919,7 +2293,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f042_secure_0 (namespace),Missing X
    5 | < Set-Cookie: session=test0; Secure; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1932,7 +2306,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f042_secure_1 (namespace),Missing X
    5 | < Set-Cookie: google_analytics=test1; Secure; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1945,7 +2319,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f042_secure_2 (namespace),Missing X
    5 | < Set-Cookie: session=test2; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1958,7 +2332,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f042_secure_3 (namespace),Missing X
    5 | < Set-Cookie: google_analytics=test3; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1971,7 +2345,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f042_secure_4 (namespace),Missing X
    5 | < Set-Cookie: session=; Path=/
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1984,7 +2358,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -1997,7 +2371,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missin
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -2010,7 +2384,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missin
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -2023,7 +2397,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -2036,7 +2410,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -2049,7 +2423,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -2062,7 +2436,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -2075,7 +2449,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -2088,7 +2462,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_rp_0 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -2101,7 +2475,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_rp_1 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -2114,7 +2488,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_rp_2 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -2127,7 +2501,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_rp_3 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -2140,7 +2514,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_sts_0 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -2153,7 +2527,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_sts_1 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -2166,7 +2540,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_sts_2 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -2179,7 +2553,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_xfo_0 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -2192,7 +2566,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_xfo_1 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -2205,7 +2579,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_xfo_2 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -2218,7 +2592,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_xfo_3 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -2232,7 +2606,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f042_secure_6 (namespace),Missing X
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Content-Length: 0
    9 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  10 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   11 |
 > 12 | * EOF
      ^ Col 0
@@ -2246,7 +2620,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f042_httponly_5 (namespace),Missing
    7 | < Set-Cookie: session2=test52; Path=/
    8 | < Content-Length: 0
    9 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  10 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   11 |
 > 12 | * EOF
      ^ Col 0
@@ -2260,7 +2634,21 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f042_secure_5 (namespace),Missing X
    7 | < Set-Cookie: session2=test52; Path=/
    8 | < Content-Length: 0
    9 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  10 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
+  11 |
+> 12 | * EOF
+     ^ Col 0
+"
+F043_DAST_XCTO,inputs,http://localhost:48000/f042_samesite_5 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F043. Missing HTTP security headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+   2 | > ...
+   3 |
+   4 | < Content-Type: text/html; charset=utf-8
+   5 | < Set-Cookie: session=test5; Path=/
+   6 | < Set-Cookie: google_analytics=test5; Path=/
+   7 | < Set-Cookie: session2=test52; Path=/; SameSite=Lax
+   8 | < Content-Length: 0
+   9 | < Server: Werkzeug/1.0.1 Python/3.8.7
+  10 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   11 |
 > 12 | * EOF
      ^ Col 0
@@ -2270,9 +2658,9 @@ F043_DAST_XCTO,inputs,http://localhost:48000/ (namespace),Missing X-Content-Type
   2 | > ...
   3 |
   4 | < Content-Type: text/html
-  5 | < Content-Length: 5976
+  5 | < Content-Length: 6660
   6 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  7 | < Date: Thu, 10 Jun 2021 14:57:14 GMT
+  7 | < Date: Fri, 11 Jun 2021 15:30:34 GMT
   8 |
 > 9 | * EOF
     ^ Col 0
@@ -2284,7 +2672,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/error (namespace),Missing X-Content
   4 | < Content-Type: text/html; charset=utf-8
   5 | < Content-Length: 232
   6 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  7 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  7 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   8 |
 > 9 | * EOF
     ^ Col 0
@@ -2296,7 +2684,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f036_0 (namespace),Missing X-Conten
   4 | < Content-Type: text/html; charset=utf-8
   5 | < Content-Length: 332
   6 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  7 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  7 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
   8 |
 > 9 | * EOF
     ^ Col 0
@@ -2317,7 +2705,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f064_server_clock_1 (namespace),Mis
   1 | > GET http://localhost:48000/f064_server_clock_1
   2 | > ...
   3 |
-  4 | < Date: Thu, 10 Jun 2021 13:57:20 GMT
+  4 | < Date: Fri, 11 Jun 2021 14:30:41 GMT
   5 | < Content-Type: text/html; charset=utf-8
   6 | < Content-Length: 0
   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
@@ -2332,7 +2720,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f086_0 (namespace),Missing X-Conten
   4 | < Content-Type: text/html; charset=utf-8
   5 | < Content-Length: 543
   6 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  7 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  7 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
   8 |
 > 9 | * EOF
     ^ Col 0
@@ -2344,7 +2732,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/static/[filename] (namespace),Missi
   4 | < Content-Type: text/html; charset=utf-8
   5 | < Content-Length: 232
   6 | < Server: Werkzeug/1.0.1 Python/3.8.7
-  7 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+  7 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
   8 |
 > 9 | * EOF
     ^ Col 0
@@ -2357,7 +2745,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_2 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2370,7 +2758,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_3 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2383,7 +2771,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2396,7 +2784,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_5 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2409,7 +2797,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2422,7 +2810,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2435,7 +2823,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2448,7 +2836,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2461,7 +2849,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2474,7 +2862,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2487,7 +2875,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2500,7 +2888,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2513,7 +2901,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2526,7 +2914,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2539,7 +2927,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2552,7 +2940,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2565,7 +2953,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2578,7 +2966,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2591,7 +2979,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2604,7 +2992,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2617,7 +3005,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2630,7 +3018,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2643,7 +3031,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2656,7 +3044,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2669,7 +3057,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2682,7 +3070,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2695,7 +3083,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2708,7 +3096,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2721,7 +3109,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2734,7 +3122,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_2 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2747,7 +3135,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_3 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2760,7 +3148,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2773,7 +3161,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_5 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2786,7 +3174,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:40 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2799,7 +3187,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2812,7 +3200,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2825,7 +3213,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2838,7 +3226,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2851,7 +3239,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2864,7 +3252,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2877,7 +3265,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Use of d
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2890,7 +3278,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Use of h
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2903,7 +3291,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Use of h
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2916,7 +3304,7 @@ F043_DAST_XCTO,inputs,http://localhost:48000/f043_dast_xcto_0 (namespace),Value 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -2929,7 +3317,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),block-a
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2942,7 +3330,7 @@ F043_DAST_STS,inputs,http://localhost:48000/f043_dast_sts_1 (namespace),max-age 
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
 > 10 | * EOF
      ^ Col 0
@@ -2955,7 +3343,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),script-s
    5 | < Content-Type: text/html; charset=utf-8
    6 | < Content-Length: 0
    7 | < Server: Werkzeug/1.0.1 Python/3.8.7
-   8 | < Date: Thu, 10 Jun 2021 14:57:20 GMT
+   8 | < Date: Fri, 11 Jun 2021 15:30:41 GMT
    9 |
   10 | * EOF
      ^ Col 0
@@ -2964,7 +3352,7 @@ F064_SERVER_CLOCK,inputs,http://localhost:48000/f064_server_clock_1 (namespace),
   1 | > GET http://localhost:48000/f064_server_clock_1
   2 | > ...
   3 |
-> 4 | < Date: Thu, 10 Jun 2021 13:57:20 GMT
+> 4 | < Date: Fri, 11 Jun 2021 14:30:41 GMT
   5 | < Content-Type: text/html; charset=utf-8
   6 | < Content-Length: 0
   7 | < Server: Werkzeug/1.0.1 Python/3.8.7
