@@ -76,7 +76,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     ),
                     cwe="200",
                     type="SECURITY",
-                    requirements="REQ.0132. Passwords (phrase type) must be at least 3 words long.",
+                    requirements="REQ.0132. Passwords (phrase type) "
+                    "must be at least 3 words long.",
                     threat="Updated threat",
                     affected_systems="Server bWAPP",
                     attack_vector_desc="This is an updated attack vector",

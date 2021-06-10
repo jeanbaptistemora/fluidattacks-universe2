@@ -69,6 +69,7 @@ async def test_project() -> None:
     assert result["data"]["project"]["totalFindings"] == 7
     assert (
         result["data"]["project"]["totalTreatment"]
-        == '{"accepted": 1, "inProgress": 4, "acceptedUndefined": 2, "undefined": 25}'
+        == '{"accepted": 1, "inProgress": 4, '
+        '"acceptedUndefined": 2, "undefined": 25}'
     )
     assert result["data"]["project"]["userDeletion"] == ""

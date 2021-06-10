@@ -90,8 +90,10 @@ async def test_event() -> None:
 
     query = """
         mutation updateEventEvidence(
-            $eventId: String!, $evidenceType: EventEvidenceType!, $file: Upload!
-            ) {
+            $eventId: String!,
+            $evidenceType: EventEvidenceType!,
+            $file: Upload!
+        ) {
             updateEventEvidence(eventId: $eventId,
                                 evidenceType: $evidenceType,
                                 file: $file) {

@@ -120,8 +120,10 @@ async def _test_forces() -> None:
                 "exploitability": None,
                 "kind": "DAST",
                 "state": None,
-                "who": "https://test.com/test/looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong",
-                "where": "HTTP/Implementatioooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooon",
+                "who": "https://test.com/test/loooooooooooooooooooooo"
+                "ooooooooooooooooooooooooooooooooooooooooooooooooooooong",
+                "where": "HTTP/Implementatioooooooooooooooooooooooooo"
+                "oooooooooooooooooooooooooooooooooooooooooooooooooooooooon",
             }
         ],
         "numOfVulnerabilitiesInExploits": 1,

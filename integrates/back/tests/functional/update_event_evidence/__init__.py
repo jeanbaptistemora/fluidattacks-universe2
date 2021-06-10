@@ -21,8 +21,10 @@ async def get_result(
 ) -> Dict[str, Any]:
     query: str = """
         mutation updateEventEvidence(
-            $eventId: String!, $evidenceType: EventEvidenceType!, $file: Upload!
-            ) {
+            $eventId: String!,
+            $evidenceType: EventEvidenceType!,
+            $file: Upload!
+        ) {
             updateEventEvidence(eventId: $eventId,
                                 evidenceType: $evidenceType,
                                 file: $file) {

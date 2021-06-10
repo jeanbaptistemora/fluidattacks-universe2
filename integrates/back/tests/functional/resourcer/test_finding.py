@@ -115,11 +115,17 @@ async def test_finding() -> None:
         "title": "F007. Cross site request forgery",
         "scenario": "AUTHORIZED_USER_EXTRANET",
         "actor": "ANY_COSTUMER",
-        "description": "La aplicación permite engañar a un usuario autenticado por medio de links manipulados para ejecutar acciones sobre la aplicación sin su consentimiento..",
-        "requirements": "REQ.0174. La aplicación debe garantizar que las peticiones que ejecuten transacciones no sigan un patrón discernible.",
+        "description": "La aplicación permite engañar a un usuario "
+        "autenticado por medio de links manipulados para ejecutar "
+        "acciones sobre la aplicación sin su consentimiento..",
+        "requirements": "REQ.0174. La aplicación debe garantizar "
+        "que las peticiones que ejecuten transacciones no sigan "
+        "un patrón discernible.",
         "attack_vector_desc": "test",
         "threat": "Test.",
-        "recommendation": "Hacer uso de tokens en los formularios para la verificación de las peticiones realizadas por usuarios legítimos.\r\n",
+        "recommendation": "Hacer uso de tokens en los formularios "
+        "para la verificación de las peticiones realizadas "
+        "por usuarios legítimos.\r\n",
         "affected_systems": "test",
         "compromised_attributes": "",
         "compromised_records": 0,

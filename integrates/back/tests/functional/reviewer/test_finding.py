@@ -126,7 +126,8 @@ async def test_finding() -> None:
                 data: {{
                     attackComplexity: 0.77, attackVector: 0.62,
                     availabilityImpact: "0", availabilityRequirement: "1",
-                    confidentialityImpact: "0", confidentialityRequirement: "1",
+                    confidentialityImpact: "0",
+                    confidentialityRequirement: "1",
                     cvssVersion: "3.1", exploitability: 0.91, id: "{draft_id}",
                     integrityImpact: "0.22", integrityRequirement: "1",
                     modifiedAttackComplexity: 0.77, modifiedAttackVector: 0.62,
@@ -624,7 +625,10 @@ async def test_finding() -> None:
     context = get_new_context()
     query = f"""
         mutation {{
-            deleteFinding(findingId: "{finding_id}", justification: NOT_REQUIRED) {{
+            deleteFinding(
+                findingId: "{finding_id}",
+                justification: NOT_REQUIRED
+            ) {{
                 success
             }}
         }}

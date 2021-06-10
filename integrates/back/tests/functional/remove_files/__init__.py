@@ -17,7 +17,10 @@ async def get_result(
     group: str,
 ) -> Dict[str, Any]:
     query: str = """
-        mutation RemoveFileMutation($filesData: JSONString!, $projectName: String!) {
+        mutation RemoveFileMutation(
+            $filesData: JSONString!,
+            $projectName: String!
+        ) {
             removeFiles(filesData: $filesData, projectName: $projectName) {
                 success
             }

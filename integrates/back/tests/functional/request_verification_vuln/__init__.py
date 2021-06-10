@@ -16,11 +16,13 @@ async def get_result(
     finding: str,
     vulnerability: str,
 ) -> Dict[str, Any]:
+    justification: str = "this is a comenting test "
+    "of a request verification in vulns"
     query: str = f"""
         mutation {{
             requestVerificationVuln(
                 findingId: "{finding}",
-                justification: "this is a comenting test of a request verification in vulns",
+                justification: "{justification}",
                 vulnerabilities:
                     ["{vulnerability}"]
             ) {{

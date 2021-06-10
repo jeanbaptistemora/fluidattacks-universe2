@@ -86,7 +86,10 @@ async def test_resource() -> None:
     assert result["errors"][0]["message"] == "Access denied"
 
     query = """
-        mutation RemoveFileMutation($filesData: JSONString!, $projectName: String!) {
+        mutation RemoveFileMutation(
+            $filesData: JSONString!,
+            $projectName: String!
+        ) {
             removeFiles(filesData: $filesData, projectName: $projectName) {
                 success
             }
