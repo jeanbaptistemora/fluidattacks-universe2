@@ -90,7 +90,7 @@ We do not use [Terraform](https://www.terraform.io/) in:
     as it is not possible to locally deploy Redis clusters using
     [Terraform](https://www.terraform.io/).
     This implementation is written as code.
-1. [Local AWS s3](https://aws.amazon.com/s3/):
+1. [Local AWS S3](/development/stack/aws/s3):
     We use [MinIO](https://min.io/)
     as it is not possible to locally deploy s3 buckets using
     [Terraform](https://www.terraform.io/).

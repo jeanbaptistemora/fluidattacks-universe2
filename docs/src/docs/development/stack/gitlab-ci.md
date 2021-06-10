@@ -31,7 +31,7 @@ The main reasons why we chose
 over other alternatives are:
 
 1. It is [Open source](https://opensource.com/resources/what-open-source).
-1. [Built-in support for Gitlab](https://docs.gitlab.com/runner/register/index.html):
+1. [Built-in support for Gitlab](/development/stack/gitlab):
     As [Gitlab](/development/stack/gitlab)
     is the platform we use
     for our [product repository](https://gitlab.com/fluidattacks/product),
@@ -187,6 +187,6 @@ We do not use [GItlab CI](https://docs.gitlab.com/ee/ci/) for:
     by modifying its
     [Terraform module](https://gitlab.com/fluidattacks/product/-/tree/47d00a5ace02160becc82de533710f1155080b6d/makes/applications/makes/ci/src/terraform).
 1. To learn how to test and apply infrastructure
-    via [Terraform](https://www.terraform.io/),
+    via [Terraform](/development/stack/terraform),
     visit the
     [Terraform Guidelines](/development/stack/terraform#guidelines).

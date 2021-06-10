@@ -18,7 +18,7 @@ The main reasons why we chose it
 over other alternatives are:
 
 1. It seamlessly integrates with
-    [AWS EC2](https://aws.amazon.com/ec2/),
+    [AWS EC2](/development/stack/aws/ec2),
     allowing to connect external hard drives
     to instances.
 1. It provides a wide range of
@@ -61,7 +61,7 @@ over other alternatives are:
     and
     [detached](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-detaching-volume.html)
     from
-    [EC2](https://aws.amazon.com/ec2/) machines,
+    [AWS EC2](/development/stack/aws/ec2) machines,
     allowing to easily change general machine configurations
     without losing any data.
 1. Disks can be
@@ -134,6 +134,6 @@ We use [AWS EBS](https://aws.amazon.com/ebs/) for:
     [EBS's](https://aws.amazon.com/ebs/)
     infrastructure must be done via
     [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/).
-1. To learn how to test and apply infrastructure via [Terraform](https://www.terraform.io/),
+1. To learn how to test and apply infrastructure via [Terraform](/development/stack/terraform),
     visit the
     [Terraform Guidelines](/development/stack/terraform#guidelines).

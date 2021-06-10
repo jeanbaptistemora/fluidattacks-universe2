@@ -114,7 +114,7 @@ but not chosen for the following reasons:
     It does not support extensions.
     It is platform-bounded.
     It is not [Open source](https://opensource.com/resources/what-open-source).
-1. [AWS EC2](https://aws.amazon.com/ec2/):
+1. [AWS EC2](/development/stack/aws/ec2):
     It is a service for cloud computing.
     [AWS EKS](https://aws.amazon.com/eks)
     actually uses it for setting up cluster workers.

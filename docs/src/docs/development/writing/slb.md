@@ -8,7 +8,7 @@ slug: /development/writing/slb
 Our texts in [Markdown](https://daringfireball.net/projects/markdown/)
 and [AsciiDoc](https://asciidoc.org/) *must* have Semantic Line Breaks (SLB)
 to facilitate editing and help keep an organized record of modifications
-in our version control system ([Gitlab](https://gitlab.com/)).
+in our version control system ([Gitlab](/development/stack/gitlab)).
 Based on [sembr.org](https://sembr.org/), we consider the following rules:
 
 * An SLB *should not* alter the intended meaning of the text.

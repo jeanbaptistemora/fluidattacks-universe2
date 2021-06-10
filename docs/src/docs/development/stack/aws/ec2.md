@@ -146,7 +146,7 @@ over other alternatives are:
     [CloudWatch](https://aws.amazon.com/cloudwatch/).
 1. Instances can have
     external disks by using
-    [EBS](https://aws.amazon.com/ebs/),
+    [EBS](/development/stack/aws/ebs),
     meaning that all data within an instance
     persists in case it ceases to exist.
 
