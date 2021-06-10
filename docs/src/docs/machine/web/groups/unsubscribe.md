@@ -17,13 +17,13 @@ first you need to go
 to the **Scope** section
 of the group you want to manage.
 
-![Scope Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211893/docs/web/groups/deletion/highlighting_scope_rsioo0.webp)
+![Scope Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1623350475/docs/web/groups/delete/highlighting_scope_i5aluz.png)
 
 When you scroll all the way down,
 above the **Delete this group** section
 you can find the **Unsubscribe** section.
 
-![Unsubscribe and Delete Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211892/docs/web/groups/deletion/delete_unsubscribe_ym9583.webp)
+![Unsubscribe Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1623350441/docs/web/groups/unsubscribe/unsubscribe_button_htint6.png)
 
 This function is used only to remove
 your own user from the group
