@@ -75,4 +75,4 @@ def build_type_name(
         return graph.nodes[identifier_id]["label_text"]
     if node_type == "qualified_name":
         return build_qualified_name(graph, identifier_id)
-    return None
+    return graph.nodes[identifier_id].get("label_text")

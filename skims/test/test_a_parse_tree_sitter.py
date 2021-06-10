@@ -59,6 +59,7 @@ from utils.encodings import (
                     "skims/test/data/benchmark/nist/"
                     "CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs"
                 ),
+                "skims/test/data/benchmark/nist/StudentController.cs",
             ),
             "nist",
         ),
