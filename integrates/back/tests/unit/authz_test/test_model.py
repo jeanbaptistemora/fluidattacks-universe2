@@ -124,21 +124,34 @@ def test_model_integrity_migrated_finding_permissions(
     permission_name: str, permissions: Dict[str, Any]
 ) -> None:
     migrated_permissions = {
-        "api_mutations_approve_draft_mutate": "api_mutations_approve_draft_new_mutate",
-        "api_mutations_create_draft_mutate": "api_mutations_create_draft_new_mutate",
-        "api_mutations_delete_finding_mutate": "api_mutations_delete_finding_new_mutate",
-        "api_mutations_reject_draft_mutate": "api_mutations_reject_draft_new_mutate",
-        "api_mutations_submit_draft_mutate": "api_mutations_submit_draft_mutate",
-        "api_resolvers_finding_analyst_resolve": "api_resolvers_finding_new_analyst_new_resolve",
-        "api_resolvers_finding_historic_state_resolve": "api_resolvers_finding_new_historic_state_new_resolve",
-        "api_resolvers_finding_observations_resolve": "api_resolvers_finding_new_observations_new_resolve",
-        "api_resolvers_finding_sorts_resolve": "api_resolvers_finding_new_sorts_new_resolve",
-        "api_resolvers_finding_zero_risk_resolve": "api_resolvers_finding_new_zero_risk_new_resolve",
-        "api_resolvers_query_finding_resolve": "api_resolvers_query_finding_new_resolve",
-        "api_resolvers_query_finding__get_draft": "api_resolvers_query_finding_new__get_draft",
+        "api_mutations_approve_draft_mutate": "api_mutations_"
+        "approve_draft_new_mutate",
+        "api_mutations_create_draft_mutate": "api_mutations_"
+        "create_draft_new_mutate",
+        "api_mutations_delete_finding_mutate": "api_mutations_"
+        "delete_finding_new_mutate",
+        "api_mutations_reject_draft_mutate": "api_mutations_"
+        "reject_draft_new_mutate",
+        "api_mutations_submit_draft_mutate": "api_mutations_"
+        "submit_draft_mutate",
+        "api_resolvers_finding_analyst_resolve": "api_resolvers_"
+        "finding_new_analyst_new_resolve",
+        "api_resolvers_finding_historic_state_resolve": "api_resolvers_"
+        "finding_new_historic_state_new_resolve",
+        "api_resolvers_finding_observations_resolve": "api_resolvers_"
+        "finding_new_observations_new_resolve",
+        "api_resolvers_finding_sorts_resolve": "api_resolvers_"
+        "finding_new_sorts_new_resolve",
+        "api_resolvers_finding_zero_risk_resolve": "api_resolvers_"
+        "finding_new_zero_risk_new_resolve",
+        "api_resolvers_query_finding_resolve": "api_resolvers_"
+        "query_finding_new_resolve",
+        "api_resolvers_query_finding__get_draft": "api_resolvers_"
+        "query_finding_new__get_draft",
     }
     for role, value in permissions.items():
         for current_p, new_p in migrated_permissions.items():
             assert (current_p in value["actions"]) == (
                 new_p in value["actions"]
-            ), f"if {current_p} is included in the {role} actions for {permission_name} then {new_p} must be included"
+            ), f"if {current_p} is included in the {role} "
+            f"actions for {permission_name} then {new_p} must be included"

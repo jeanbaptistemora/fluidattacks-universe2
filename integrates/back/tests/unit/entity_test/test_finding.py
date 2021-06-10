@@ -259,11 +259,14 @@ async def test_finding() -> None:
 async def test_remove_evidence() -> None:
     """Check for removeEvidence mutation."""
     query = """
-        mutation RemoveEvidenceMutation($evidenceId: EvidenceType!, $findingId: String!) {
-            removeEvidence(evidenceId: $evidenceId, findingId: $findingId) {
-            success
-            }
+      mutation RemoveEvidenceMutation(
+        $evidenceId: EvidenceType!,
+        $findingId: String!
+      ) {
+        removeEvidence(evidenceId: $evidenceId, findingId: $findingId) {
+        success
         }
+      }
     """
     variables = {"evidenceId": "EVIDENCE2", "findingId": "457497316"}
     data = {"query": query, "variables": variables}
@@ -513,7 +516,8 @@ async def test_update_description() -> None:
         "description": "I just have updated the description",
         "findingId": "422286126",
         "recommendation": "Updated recommendation",
-        "requirements": "REQ.0132. Passwords (phrase type) must be at least 3 words long.",
+        "requirements": "REQ.0132. Passwords (phrase type) "
+        "must be at least 3 words long.",
         "scenario": "UNAUTHORIZED_USER_EXTRANET",
         "threat": "Updated threat",
         "title": "F051. Weak passwords reversed",

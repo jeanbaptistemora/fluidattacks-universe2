@@ -150,8 +150,10 @@ async def test_update_event_evidence() -> None:
     """Check for updateEventEvidence mutation."""
     query = """
         mutation updateEventEvidence(
-            $eventId: String!, $evidenceType: EventEvidenceType!, $file: Upload!
-            ) {
+            $eventId: String!,
+            $evidenceType: EventEvidenceType!,
+            $file: Upload!
+        ) {
             updateEventEvidence(eventId: $eventId,
                                 evidenceType: $evidenceType,
                                 file: $file) {
@@ -202,8 +204,10 @@ async def test_download_event_file() -> None:
     """Check for downloadEventFile mutation."""
     query = """
         mutation {
-            downloadEventFile(eventId: "484763304",
-                                fileName: "1mvStFSToOL3bl47zaVZHBpRMZUUhU0Ad") {
+            downloadEventFile(
+                eventId: "484763304",
+                fileName: "1mvStFSToOL3bl47zaVZHBpRMZUUhU0Ad"
+            ) {
                 success
                 url
             }

@@ -391,7 +391,7 @@ async def test_iterate_organizations_and_groups() -> None:
             "imamura": ["deleteimamura"]
         },
     }
-    async for org_id, org_name, groups in orgs_domain.iterate_organizations_and_groups():
+    async for org_id, org_name, groups in orgs_domain.iterate_organizations_and_groups():  # noqa
         assert sorted(groups) == sorted(
             expected_organizations_and_groups.pop(org_id)[org_name]
         )

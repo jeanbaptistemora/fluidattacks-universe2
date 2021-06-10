@@ -118,8 +118,10 @@ async def _test_executions() -> None:
         "acceptedExploits": [
             {
                 "kind": "DAST",
-                "who": "https://test.com/test/looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong",
-                "where": "HTTP/Implementatioooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooon",
+                "who": "https://test.com/test/looooooooooooooooooooooo"
+                "oooooooooooooooooooooooooooooooooooooooooooooooooooong",
+                "where": "HTTP/Implementatiooooooooooooooooooooooooooo"
+                "ooooooooooooooooooooooooooooooooooooooooooooooooooooooon",
             }
         ],
         "numOfVulnerabilitiesInExploits": 1,

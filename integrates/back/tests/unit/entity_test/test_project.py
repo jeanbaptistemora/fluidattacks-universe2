@@ -260,7 +260,10 @@ async def test_create_project() -> None:
 async def test_add_tags() -> None:
     """Check for addTags mutation."""
     query = """
-        mutation AddTagsMutation($projectName: String!, $tagsData: JSONString!) {
+        mutation AddTagsMutation(
+          $projectName: String!,
+          $tagsData: JSONString!
+        ) {
             addTags (
                 tags: $tagsData,
                 projectName: $projectName) {
@@ -283,7 +286,10 @@ async def test_add_tags() -> None:
 async def test_remove_tag() -> None:
     """Check for removeTag mutation."""
     query = """
-        mutation RemoveTagMutation($tagToRemove: String!, $projectName: String!) {
+        mutation RemoveTagMutation(
+          $tagToRemove: String!,
+          $projectName: String!
+        ) {
             removeTag (
             tag: $tagToRemove,
             projectName: $projectName,
@@ -464,7 +470,8 @@ async def test_edit_group_good(  # type: ignore
             "true",
             "false",
             "NONE",
-            "Exception - Forces is only available in projects of type Continuous",
+            "Exception - Forces is only available "
+            "in projects of type Continuous",
         ],
         # Input validation error, weird chars
         [

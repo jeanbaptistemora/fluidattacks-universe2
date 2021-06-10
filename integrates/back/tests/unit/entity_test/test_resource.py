@@ -134,7 +134,10 @@ async def test_remove_files() -> None:
         "uploadDate": "",
     }
     query = """
-        mutation RemoveFileMutation($filesData: JSONString!, $projectName: String!) {
+        mutation RemoveFileMutation(
+            $filesData: JSONString!,
+            $projectName: String!
+        ) {
             removeFiles(filesData: $filesData, projectName: $projectName) {
             success
             }
