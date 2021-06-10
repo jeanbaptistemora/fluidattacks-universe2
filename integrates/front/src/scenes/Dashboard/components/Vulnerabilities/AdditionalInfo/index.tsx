@@ -135,7 +135,11 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
         </Row>
         <Row>
           <div className={"pl1 pr2 w-10-l w-100-m w-100-ns"}>
-            <Label>{t("searchFindings.tabVuln.vulnTable.specific")}</Label>
+            <Label>
+              {t(
+                `searchFindings.tabVuln.vulnTable.specificType.${vulnerability.vulnType}`
+              )}
+            </Label>
           </div>
           <div className={"pl1 pr2 w-90-l w-100-m w-100-ns"}>
             <Field>{vulnerability.specific}</Field>
@@ -250,10 +254,10 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
           </Col50>
         </Row>
         <Row>
+          <Col100>
+            <b>{t("searchFindings.tabVuln.vulnTable.info")}</b>
+          </Col100>
           <Col50>
-            <Col100>
-              <b>{t("searchFindings.tabVuln.vulnTable.info")}</b>
-            </Col100>
             <Row>
               <Col40>
                 <Label>
@@ -298,6 +302,8 @@ export const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 <Value value={vulnerability.severity} />
               </Col60>
             </Row>
+          </Col50>
+          <Col50>
             <Row>
               <Col40>
                 <Label>

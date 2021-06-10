@@ -2168,6 +2168,11 @@ export const enTranslations: ResourceKey = {
         reportDate: "Report date",
         requester: "Requester",
         specific: "Specific",
+        specificType: {
+          app: "Input",
+          code: "LoC",
+          infra: "Port",
+        },
         status: "Status: ",
         treatmentChanges: "Changes",
         treatmentDate: "Date",
