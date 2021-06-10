@@ -56,6 +56,9 @@
   "F042_HTTPONLY": {
     "skims/test/data/sast/TestCFG.java": {}
   },
+  "F042_SAMESITE": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
   "F042_SECURE": {
     "skims/test/data/sast/TestCFG.java": {}
   },

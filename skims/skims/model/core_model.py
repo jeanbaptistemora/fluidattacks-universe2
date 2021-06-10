@@ -400,6 +400,22 @@ class FindingEnum(Enum):
         severity_scope=SeverityScope.unchanged,
         user_interaction=UserInteraction.required,
     )
+    F042_SAMESITE: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F042_SAMESITE",
+        cwe="1275",
+        attack_complexity=AttackComplexity.high,
+        attack_vector=AttackVector.network,
+        availability_impact=AvailabilityImpact.none,
+        confidentiality_impact=ConfidentialityImpact.none,
+        exploitability=Exploitability.poc,
+        integrity_impact=IntegrityImpact.low,
+        privileges_required=PrivilegesRequired.none,
+        remediation_level=RemediationLevel.official_fix,
+        report_confidence=ReportConfidence.confirmed,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.required,
+    )
     F042_SECURE: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F042_SECURE",
