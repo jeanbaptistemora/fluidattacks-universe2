@@ -302,6 +302,14 @@ def _get_metadata_class_methods(
             methods[name] = graph_model.GraphShardMetadataClassMethod(
                 method_id,
                 class_name,
+                name=name,
+                parameters={
+                    param.name: param
+                    for param in _get_metadata_method_parameters(
+                        graph,
+                        graph.nodes[method_id]["label_field_parameters"],
+                    )
+                },
             )
 
     return methods

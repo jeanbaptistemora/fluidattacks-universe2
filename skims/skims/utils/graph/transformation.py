@@ -23,11 +23,14 @@ def _build_nested_identifier_ids(
         "identifier",
         nested_key,
         "this_expression",
+        "invocation_expression",
         ".",
     )
     if identifiers := match_access["identifier"]:
         keys = [*identifiers, *keys]
-    if access := match_access[nested_key]:
+    if (access := match_access[nested_key]) or (
+        access := match_access["invocation_expression"]
+    ):
         keys = _build_nested_identifier_ids(
             graph,
             access.pop(),
