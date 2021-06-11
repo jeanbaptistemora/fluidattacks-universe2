@@ -1,12 +1,14 @@
-{ makeDerivation
-, nixpkgs
-, path
+{ sslCerts
 , ...
 }:
-makeDerivation {
-  builder = path "/makes/packages/integrates/back/certs/development/builder.sh";
+sslCerts {
   name = "integrates-back-certs-development";
-  searchPaths = {
-    envPaths = [ nixpkgs.openssl ];
-  };
+  options = builtins.concatLists [
+    [ "-subj" "/C=CO" ]
+    [ "-subj" "/CN=fluidattacks.com" ]
+    [ "-subj" "/emailAddress=development@fluidattacks.com" ]
+    [ "-subj" "/L=Medellin" ]
+    [ "-subj" "/O=Fluid" ]
+    [ "-subj" "/ST=Antioquia" ]
+  ];
 }

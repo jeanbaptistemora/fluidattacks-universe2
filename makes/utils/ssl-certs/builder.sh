@@ -1,20 +1,17 @@
 # shellcheck shell=bash
 
 function main {
+  eval "local options=${envOptions}"
+
   mkdir "${out}" \
     && openssl req \
-      -days '365' \
+      -days "${envDays}" \
       -keyout "${out}/cert.key" \
       -new \
-      -newkey 'rsa:2048' \
+      -newkey "${envKeyType}" \
       -nodes \
       -out "${out}/cert.crt" \
-      -subj '/C=CO' \
-      -subj '/CN=fluidattacks.com' \
-      -subj '/emailAddress=development@fluidattacks.com' \
-      -subj '/L=Medellin' \
-      -subj '/O=Fluid' \
-      -subj '/ST=Antioquia' \
+      "${options[@]}" \
       -x509 \
     && openssl x509 \
       -in "${out}/cert.crt" \
