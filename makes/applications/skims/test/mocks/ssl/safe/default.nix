@@ -27,10 +27,12 @@ makeEntrypoint {
               root __envHttpServerRoot__;
             }
             server_name localhost;
-            ssl_ciphers "HIGH:!aNULL:!eNULL:!EXPORT:!DES:!3DES:!MD5:!PSK:!RC4";
+            ssl_ciphers EECDH+AESGCM:EDH+AESGCM;
             ssl_certificate __envHttpServerSslCert__/cert.crt;
             ssl_certificate_key __envHttpServerSslCert__/cert.key;
-            ssl_protocols TLSv1.2 TLSv1.3;
+            ssl_ecdh_curve secp384r1;
+            ssl_prefer_server_ciphers on;
+            ssl_protocols TLSv1.3;
           }
         }
         pid /dev/null;
@@ -39,6 +41,9 @@ makeEntrypoint {
   };
   name = "skims-test-mocks-ssl-safe";
   searchPaths = {
+    envLibraries = [
+      nixpkgs.openssl.out
+    ];
     envPaths = [
       nixpkgs.nginxLocal
     ];
