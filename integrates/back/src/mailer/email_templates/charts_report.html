@@ -1,21 +1,35 @@
-{% extends "layouts/fluid_attacks.html" %}
-{% from 'layouts/components/forms.html' import go_to_button as button, analytics_image as charts %}
-{% block content %}
-<p>Hello {{ name }},</p>
-<p>
-  Below you'll find the Executive report for {{ report_entity }} <strong>{{ report_subject }}</strong>,
-  sent as part of your {{ frequency_lower }} subscription, the report will be available for 7 days:
-</p>
-<br />
-{{ charts(image_src, 1200) }}
-<br />
-{{ button('Download report', image_src) }}
-<br />
-{{ button('Go Live', live_report_url) }}
-<p>
-  You are receiving this email because you are subscribed to {{ frequency_title }}
-  report in {{ report_subject_title }}.
-  You can modify the notifications frequency or disable them by visiting this
-  <a href="{{ live_report_url }}" target="_blank" rel="noopener">link</a>.
-</p>
+{% extends "new_layouts/common.html" %}
+{% from 'new_layouts/components/forms.html' import banner_project, go_to_button, analytics_image %}
+
+{% block layout %}
+<div class="container">
+  {% include 'new_layouts/components/logo_header.html' %}
+  {{ banner_project('Analytics') }}
+
+  <div style="padding: 30px 0 !important;">
+    <p>Hello {{ name }},</p>
+    <p>
+      Below you'll find the Analytics report for {{ report_entity }} <strong>{{ report_subject }}</strong>,
+      sent as part of your {{ frequency_lower }} subscription, the report will be available for 7 days:
+    </p>
+    <p></p>
+    {{ analytics_image(image_src, 1200) }}
+    <p></p>
+    {{ go_to_button('Download report', image_src) }}
+    <p></p>
+    {{ go_to_button('Go Live', live_report_url) }}
+    <p></p>
+    <p>
+      You are receiving this email because you are subscribed to {{ frequency_title }}
+      report in {{ report_subject_title }}.
+      You can modify the notifications frequency or disable them by visiting this
+      <a href="{{ live_report_url }}" target="_blank" rel="noopener">link</a>.
+    </p>
+    <p></p>
+    <p>Regards,<br>
+      Fluid Attacks Team</p>
+  </div>
+
+  {% include 'new_layouts/components/footer.html' %}
+</div>
 {% endblock %}
