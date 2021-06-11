@@ -83,45 +83,50 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
 
   return (
     <div>
-      <div className={style.tableOptions}>
-        <TableOptionsColBtn>
-          <div>
-            <ButtonToolbarLeft>
-              {exportCsv && (
-                <ButtonGroup>
-                  <ExportCSVButtonWrapper {...toolkitProps} />
-                </ButtonGroup>
-              )}
-              {columnToggle && (
-                <ButtonGroup>
-                  <CustomToggleList
-                    propsTable={tableProps}
-                    propsToggle={columnToggleProps}
-                  />
-                </ButtonGroup>
-              )}
-              {!_.isUndefined(isFilterEnabled) && (
-                <ButtonGroup>
-                  <TooltipWrapper
-                    id={"filterTooltip"}
-                    message={t("dataTableNext.tooltip")}
-                  >
-                    <Button onClick={handleUpdateEnableFilter}>
-                      {isFilterEnabled ? (
-                        <FontAwesomeIcon icon={faMinus} />
-                      ) : (
-                        <FontAwesomeIcon icon={faPlus} />
-                      )}
-                      &nbsp;
-                      {t("dataTableNext.filters")}
-                    </Button>
-                  </TooltipWrapper>
-                </ButtonGroup>
-              )}
-              <ButtonGroup>{extraButtons}</ButtonGroup>
-            </ButtonToolbarLeft>
-          </div>
-        </TableOptionsColBtn>
+      <div className={`flex flex-wrap ${style.tableOptions}`}>
+        <div className={"w-40-ns"}>
+          {exportCsv ||
+          columnToggle ||
+          !_.isUndefined(isFilterEnabled) ||
+          extraButtons !== undefined ? (
+            <TableOptionsColBtn>
+              <ButtonToolbarLeft>
+                {exportCsv && (
+                  <ButtonGroup>
+                    <ExportCSVButtonWrapper {...toolkitProps} />
+                  </ButtonGroup>
+                )}
+                {columnToggle && (
+                  <ButtonGroup>
+                    <CustomToggleList
+                      propsTable={tableProps}
+                      propsToggle={columnToggleProps}
+                    />
+                  </ButtonGroup>
+                )}
+                {!_.isUndefined(isFilterEnabled) && (
+                  <ButtonGroup>
+                    <TooltipWrapper
+                      id={"filterTooltip"}
+                      message={t("dataTableNext.tooltip")}
+                    >
+                      <Button onClick={handleUpdateEnableFilter}>
+                        {isFilterEnabled ? (
+                          <FontAwesomeIcon icon={faMinus} />
+                        ) : (
+                          <FontAwesomeIcon icon={faPlus} />
+                        )}
+                        &nbsp;
+                        {t("dataTableNext.filters")}
+                      </Button>
+                    </TooltipWrapper>
+                  </ButtonGroup>
+                )}
+                <ButtonGroup>{extraButtons}</ButtonGroup>
+              </ButtonToolbarLeft>
+            </TableOptionsColBtn>
+          ) : undefined}
+        </div>
         {search && (
           <TableOptionsColBar>
             <ButtonToolbarRow>

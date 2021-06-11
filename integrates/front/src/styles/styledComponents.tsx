@@ -495,7 +495,7 @@ const TableOptionsColBtn: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "dib pa0 w-40-ns table-btn",
+  className: "dib pa0 table-btn",
 })``;
 
 const TabsContainer: StyledComponent<
