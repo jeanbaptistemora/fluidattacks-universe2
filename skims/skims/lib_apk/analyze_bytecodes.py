@@ -95,13 +95,20 @@ def _add_apk_unsigned_not_signed_location(
             content=textwrap.dedent(
                 f"""
                 $ python3.8
-                >>> from androguard.core.bytecodes.apk import APK  # 3.3.5
+
+                >>> # We'll use the version 3.3.5 of "androguard"
+                >>> from androguard.core.bytecodes.apk import APK
+
+                >>> # This object represents the APK to analyze
                 >>> apk = APK({repr(ctx.apk_ctx.path)})
+
+                >>> # Check the META-INF/ folder and retrieve signature pairs
+                >>> # with extensions: .DSA & .DF, .EC & .DF, or .RSA & .DF
                 >>> apk.get_signature_names()
-                []  # Empty list
+                []  # Empty list means no signatures exist
                 """
             )[1:],
-            viewport=SnippetViewport(column=0, line=4, wrap=True),
+            viewport=SnippetViewport(column=0, line=12, wrap=True),
         ),
     )
 
@@ -133,14 +140,20 @@ def _add_no_root_check_location(
             content=textwrap.dedent(
                 f"""
                 $ python3.8
+
+                >>> # We'll use the version 3.3.5 of "androguard"
                 >>> from androguard.misc import AnalyzeAPK  # 3.3.5
+
+                >>> # Parse all Dalvik Executables (classes*.dex) in the APK
                 >>> dex = AnalyzeAPK({repr(ctx.apk_ctx.path)})[2]
+
+                >>> # Get the method names from all classes in each .dex file
                 >>> sorted(set(method.name for method in dex.get_methods()))
                 # No method performs root detection
                 {repr(methods)}
                 """
             )[1:],
-            viewport=SnippetViewport(column=0, line=4, wrap=True),
+            viewport=SnippetViewport(column=0, line=10, wrap=True),
         ),
     )
 
@@ -183,14 +196,20 @@ def _add_no_certs_pinning_1_location(
             content=textwrap.dedent(
                 f"""
                 $ python3.8
-                >>> from androguard.core.bytecodes.apk import APK  # 3.3.5
+
+                >>> # We'll use the version 3.3.5 of "androguard"
+                >>> from androguard.core.bytecodes.apk import APK
+
+                >>> # This object represents the APK to analyze
                 >>> apk = APK({repr(ctx.apk_ctx.path)})
+
+                >>> # List all files in the APK
                 >>> apk_files = apk.zip.nameslist()
                 >>> "res/xml/network_security_config.xml" in apk_files
                 False  # No network security config exists
                 """
             )[1:],
-            viewport=SnippetViewport(column=0, line=5, wrap=True),
+            viewport=SnippetViewport(column=0, line=11, wrap=True),
         ),
     )
 
@@ -205,15 +224,22 @@ def _add_no_certs_pinning_2_location(
             content=textwrap.dedent(
                 f"""
                 $ python3.8
-                >>> from androguard.core.bytecodes.apk import APK  # 3.3.5
-                >>> from bs4 import BeautifulSoup  # 4.9.3
+
+                >>> # We'll use the version 3.3.5 of "androguard"
+                >>> from androguard.core.bytecodes.apk import APK
+                >>> # and version 4.9.3 of "beautifulsoup4"
+                >>> from bs4 import BeautifulSoup
+
+                >>> # This object represents the APK to analyze
                 >>> apk = APK({repr(ctx.apk_ctx.path)})
+
+                >>> # Read and parse the Network Security Config manifest
                 >>> nsc = apk.get_file("res/xml/network_security_config.xml")
-                >>> BeautifulSoup(nsc).find_all('pin-set')
+                >>> BeautifulSoup(nsc).find_all("pin-set")
                 []  # Empty list means no <pin-set> tags were defined
                 """
             )[1:],
-            viewport=SnippetViewport(column=0, line=6, wrap=True),
+            viewport=SnippetViewport(column=0, line=13, wrap=True),
         ),
     )
 
