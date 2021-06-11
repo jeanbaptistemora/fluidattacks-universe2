@@ -25,7 +25,7 @@ describe("GroupFindingsView", (): void => {
       request: {
         query: GET_FINDINGS,
         variables: {
-          projectName: "TEST",
+          groupName: "TEST",
         },
       },
       result: {
@@ -68,7 +68,7 @@ describe("GroupFindingsView", (): void => {
       request: {
         query: GET_FINDINGS,
         variables: {
-          projectName: "TEST",
+          groupName: "TEST",
         },
       },
       result: {
@@ -82,7 +82,7 @@ describe("GroupFindingsView", (): void => {
       request: {
         query: GET_FINDINGS,
         variables: {
-          projectName: "TEST",
+          groupName: "TEST",
         },
       },
       result: {

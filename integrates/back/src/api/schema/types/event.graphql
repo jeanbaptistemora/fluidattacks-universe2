@@ -21,6 +21,6 @@ type Event {
   groupName: String
   historicState: [GenericScalar]
   id: String
-  projectName: String
+  projectName: String @deprecated(reason: "Use `groupName` instead.")
   subscription: String
 }

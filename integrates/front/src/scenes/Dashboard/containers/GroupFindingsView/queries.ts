@@ -2,8 +2,8 @@ import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
 const GET_FINDINGS: DocumentNode = gql`
-  query GetFindingsQuery($projectName: String!) {
-    group(groupName: $projectName) {
+  query GetFindingsQuery($groupName: String!) {
+    group(groupName: $groupName) {
       findings {
         id
         age
@@ -36,10 +36,10 @@ const GET_FINDINGS: DocumentNode = gql`
 const REQUEST_GROUP_REPORT: DocumentNode = gql`
   query RequestGroupReport(
     $reportType: ReportType!
-    $projectName: String!
+    $groupName: String!
     $lang: ReportLang
   ) {
-    report(reportType: $reportType, projectName: $projectName, lang: $lang) {
+    report(reportType: $reportType, projectName: $groupName, lang: $lang) {
       url
     }
   }

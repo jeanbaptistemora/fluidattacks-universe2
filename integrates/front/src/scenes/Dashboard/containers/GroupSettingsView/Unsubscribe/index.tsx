@@ -20,7 +20,7 @@ import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
 const Unsubscribe: React.FC = (): JSX.Element => {
-  const { groupName: projectName } = useParams<{ groupName: string }>();
+  const { groupName } = useParams<{ groupName: string }>();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { push } = useHistory();
   const { t } = useTranslation();
@@ -31,7 +31,7 @@ const Unsubscribe: React.FC = (): JSX.Element => {
       onCompleted: (): void => {
         msgSuccess(
           t("searchFindings.servicesTable.unsubscribe.success", {
-            groupName: projectName,
+            groupName,
           }),
           t("searchFindings.servicesTable.unsubscribe.successTitle")
         );
@@ -45,7 +45,7 @@ const Unsubscribe: React.FC = (): JSX.Element => {
         });
       },
       variables: {
-        groupName: projectName,
+        groupName,
       },
     }
   );
@@ -80,7 +80,7 @@ const Unsubscribe: React.FC = (): JSX.Element => {
         </Row>
       </LastGroupSetting>
       <UnsubscribeModal
-        groupName={projectName}
+        groupName={groupName}
         isOpen={isModalOpen}
         onClose={handleChange}
         onSubmit={handleSubmit}

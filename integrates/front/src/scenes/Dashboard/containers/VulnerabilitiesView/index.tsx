@@ -44,7 +44,7 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
 export const VulnsView: React.FC = (): JSX.Element => {
-  const { findingId, groupName: projectName } =
+  const { findingId, groupName } =
     useParams<{
       findingId: string;
       groupName: string;
@@ -119,7 +119,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
         canRetrieveAnalyst,
         canRetrieveZeroRisk,
         findingId,
-        groupName: projectName,
+        groupName,
       },
     }
   );
@@ -289,7 +289,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
               <VulnComponent
                 canDisplayAnalyst={canRetrieveAnalyst}
                 findingId={findingId}
-                groupName={projectName}
+                groupName={groupName}
                 isEditing={isEditing}
                 isFindingReleased={isFindingReleased}
                 isRequestingReattack={isRequestingVerify}
@@ -304,7 +304,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
           <UpdateVerificationModal
             clearSelected={_.get(remediationModalConfig, "clearSelected")}
             findingId={findingId}
-            groupName={projectName}
+            groupName={groupName}
             handleCloseModal={closeRemediationModal}
             isReattacking={isRequestingVerify}
             isVerifying={isVerifying}
@@ -317,7 +317,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
         {isHandleAcceptationModalOpen ? (
           <HandleAcceptationModal
             findingId={findingId}
-            groupName={projectName}
+            groupName={groupName}
             handleCloseModal={toggleHandleAcceptationModal}
             refetchData={refetch}
             vulns={vulnerabilities}

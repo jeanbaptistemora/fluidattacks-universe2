@@ -62,7 +62,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const formattingDate: string = localIsoTime.toISOString();
   const currentDate: string = formattingDate.slice(0, FORMATTING_DATE_INDEX);
 
-  const { groupName: projectName } = useParams<{ groupName: string }>();
+  const { groupName } = useParams<{ groupName: string }>();
   const { push } = useHistory();
   const { url } = useRouteMatch();
 
@@ -266,7 +266,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   const { data } = useQuery<IGroupFindingsAttr>(GET_FINDINGS, {
     onError: handleQryErrors,
-    variables: { projectName },
+    variables: { groupName },
   });
 
   const handleRequestGroupReport: (
@@ -281,7 +281,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
       requestGroupReport({
         variables: {
-          projectName,
+          groupName,
           reportType,
         },
       });
@@ -328,7 +328,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         <DataTableNext
           bordered={true}
           columnToggle={true}
-          csvFilename={`${projectName}-findings-${currentDate}.csv`}
+          csvFilename={`${groupName}-findings-${currentDate}.csv`}
           dataset={formatFindings(data.group.findings)}
           defaultSorted={JSON.parse(_.get(sessionStorage, "findingSort", "{}"))}
           expandRow={{

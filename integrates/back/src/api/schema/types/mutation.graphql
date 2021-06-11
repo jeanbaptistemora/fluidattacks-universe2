@@ -162,6 +162,7 @@ type Mutation {
     hasDrills: Boolean
     hasForces: Boolean
   ): SimplePayload!
+    @deprecated(reason: "Use `createGroup`.")
 
   deactivateOrgFindingPolicy(
     "ID of the policy"

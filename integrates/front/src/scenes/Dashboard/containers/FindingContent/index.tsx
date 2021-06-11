@@ -65,7 +65,7 @@ import { translate } from "utils/translations/translate";
 import { required } from "utils/validations";
 
 const findingContent: React.FC = (): JSX.Element => {
-  const { findingId, groupName: projectName } =
+  const { findingId, groupName } =
     useParams<{
       findingId: string;
       groupName: string;
@@ -179,7 +179,7 @@ const findingContent: React.FC = (): JSX.Element => {
             translate.t("searchFindings.findingDeleted", { findingId }),
             translate.t("group.drafts.titleSuccess")
           );
-          replace(`/groups/${projectName}/vulns`);
+          replace(`/groups/${groupName}/vulns`);
         }
       },
       onError: ({ graphQLErrors }: ApolloError): void => {
