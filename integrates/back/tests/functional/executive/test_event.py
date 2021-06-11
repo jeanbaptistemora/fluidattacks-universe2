@@ -9,7 +9,7 @@ import pytest
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("old")
-async def test_event() -> None:
+async def test_event() -> None:  # pylint: disable=too-many-statements
     context = get_new_context()
     event_id = "540462628"
     group_name = "unittesting"

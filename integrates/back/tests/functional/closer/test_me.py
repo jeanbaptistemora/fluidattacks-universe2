@@ -10,7 +10,7 @@ import pytest
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("old")
-async def test_me() -> None:
+async def test_me() -> None:  # pylint: disable=too-many-statements
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     org_name = "okada"
     group_name = "unittesting"

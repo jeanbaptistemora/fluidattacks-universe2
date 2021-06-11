@@ -12,7 +12,7 @@ import pytest
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("old")
-async def test_user() -> None:
+async def test_user() -> None:  # pylint: disable=too-many-statements
     group_name = "unittesting"
     stakeholder = "stakeholder@fluidattacks.com"
     phone_number = "3453453453"

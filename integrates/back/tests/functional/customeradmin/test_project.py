@@ -23,7 +23,7 @@ from typing import (
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("old")
-async def test_project() -> None:
+async def test_project() -> None:  # pylint: disable=too-many-statements
     context = get_new_context()
     org_name = "okada"
     group_name = await get_name("group")

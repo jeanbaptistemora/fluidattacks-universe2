@@ -15,7 +15,7 @@ import pytest
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("old")
-async def test_user() -> None:
+async def test_user() -> None:  # pylint: disable=too-many-statements
     context = get_new_context()
     group_name = "unittesting"
     stakeholder = "stakeholder@test.test"

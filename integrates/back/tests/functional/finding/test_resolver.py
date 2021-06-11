@@ -20,7 +20,7 @@ from typing import (
         ["admin@gmail.com"],
         ["analyst@gmail.com"],
     ],
-)
+)  # pylint: disable=too-many-statements
 @freeze_time("2021-03-31")
 async def test_get_finding(populate: bool, email: str) -> None:
     assert populate
@@ -195,7 +195,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
         ["customeradmin@gmail.com"],
         ["executive@gmail.com"],
     ],
-)
+)  # pylint: disable=too-many-statements
 @freeze_time("2021-03-31")
 async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert populate

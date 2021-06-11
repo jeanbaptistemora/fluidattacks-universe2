@@ -9,7 +9,7 @@ import pytest
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("old")
-async def test_finding() -> None:
+async def test_finding() -> None:  # pylint: disable=too-many-statements
     context = get_new_context()
     finding_id = "463558592"
     expected_output = {

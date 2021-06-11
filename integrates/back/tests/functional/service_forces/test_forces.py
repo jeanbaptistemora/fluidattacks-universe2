@@ -18,7 +18,7 @@ from typing import (
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("old")
-async def test_forces() -> None:
+async def test_forces() -> None:  # pylint: disable=too-many-statements
     context = get_new_context()
     group_name = "unittesting"
     query = f"""
