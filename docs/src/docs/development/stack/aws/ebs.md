@@ -26,15 +26,15 @@ over other alternatives are:
     that goes from
     [SSDs](https://en.wikipedia.org/wiki/Solid-state_drive)
     with a size of 64
-    [TB](https://en.wikipedia.org/wiki/Byte#Multiple-byte_units)
+    [TiB](https://en.wikipedia.org/wiki/Byte#Multiple-byte_units)
     and a throughput of 4000
-    [MB/s](https://en.wikipedia.org/wiki/Data-rate_units#Megabyte_per_second)
+    [MiB/s](https://en.wikipedia.org/wiki/Data-rate_units#Megabyte_per_second)
     to
     [HHDs](https://en.wikipedia.org/wiki/Hard_disk_drive)
     with a size of 16
-    [TB](https://en.wikipedia.org/wiki/Byte#Multiple-byte_units)
+    [TiB](https://en.wikipedia.org/wiki/Byte#Multiple-byte_units)
     and a throughput of 500
-    [MB/s](https://en.wikipedia.org/wiki/Data-rate_units#Megabyte_per_second).
+    [MiB/s](https://en.wikipedia.org/wiki/Data-rate_units#Megabyte_per_second).
 1. Disks are also divided into
     [different specializations](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html).
     There are
@@ -105,7 +105,7 @@ We use [AWS EBS](https://aws.amazon.com/ebs/) for:
 
 1. [Gitlab CI](/development/stack/gitlab-ci)
     bastion:
-    We use a 16 GB
+    We use a 16 GiB
     [GP2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
     disk,
     as it only needs having basic software installed
@@ -115,14 +115,14 @@ We use [AWS EBS](https://aws.amazon.com/ebs/) for:
     [Docker Machine](https://docs.docker.com/machine/install-machine/).
     High disk throughput is not required.
 1. [Gitlab CI workers](https://gitlab.com/fluidattacks/product/-/blob/master/makes/applications/makes/ci/src/config.toml#L57):
-    We use 10 GB
+    We use 10 GiB
     [GP3](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
     disks just for hosting our workers'
     [Operating system](https://en.wikipedia.org/wiki/Operating_system).
     Additionally,
     workers come with
     high throughput
-    [50 GB internal NVMe disks](https://aws.amazon.com/blogs/aws/ec2-instance-update-c5-instances-with-local-nvme-storage-c5d/),
+    [50 GiB internal NVMe disks](https://aws.amazon.com/blogs/aws/ec2-instance-update-c5-instances-with-local-nvme-storage-c5d/),
     which are very useful
     for achieving as-fast-as-possible
     job performance within our [CI](/development/stack/gitlab-ci).
@@ -131,16 +131,16 @@ We use [AWS EBS](https://aws.amazon.com/ebs/) for:
     [workers](https://gitlab.com/fluidattacks/product/-/blob/master/makes/applications/makes/compute/src/terraform/aws_batch.tf#L112):
     Just like with our
     [CI workers](https://gitlab.com/fluidattacks/product/-/blob/master/makes/applications/makes/ci/src/config.toml#L57),
-    we use 8 GB
+    we use 8 GiB
     [GP2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
     disks just for hosting the
     [Operating system](https://en.wikipedia.org/wiki/Operating_system).
     These workers also come with
-    [50 GB internal NVMe disks](https://aws.amazon.com/blogs/aws/ec2-instance-update-c5-instances-with-local-nvme-storage-c5d/).
+    [50 GiB internal NVMe disks](https://aws.amazon.com/blogs/aws/ec2-instance-update-c5-instances-with-local-nvme-storage-c5d/).
 1. [Kubernetes](/development/stack/kubernetes)
     cluster
     [workers](https://gitlab.com/fluidattacks/product/-/blob/53879d903b3c8c2561d45552cbc53f2350601e38/makes/applications/makes/k8s/src/terraform/cluster.tf#L40):
-    We use 50 GB
+    We use 50 GiB
     [GP2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
     disks for hosting the base
     [Operating system](https://en.wikipedia.org/wiki/Operating_system)
@@ -150,7 +150,7 @@ We use [AWS EBS](https://aws.amazon.com/ebs/) for:
     [ASM](https://fluidattacks.com/categories/asm/)
     does not store any data within local disks.
 1. [Okta RADIUS Agent](/development/stack/okta#usage):
-    We use a 50 GB
+    We use a 50 GiB
     [GP2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
     disk.
     It is probably oversized as only the base
@@ -161,11 +161,11 @@ We use [AWS EBS](https://aws.amazon.com/ebs/) for:
     High disk throughput is not required.
 1. [ERP](https://en.wikipedia.org/wiki/Enterprise_resource_planning):
     We use two disks,
-    a 50 GB
+    a 50 GiB
     [GP2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
     disk for hosting the base
     [Operating system](https://en.wikipedia.org/wiki/Operating_system)
-    and a 200 GB
+    and a 200 GiB
     [GP2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
     disk for hosting the
     [ERP](https://en.wikipedia.org/wiki/Enterprise_resource_planning)

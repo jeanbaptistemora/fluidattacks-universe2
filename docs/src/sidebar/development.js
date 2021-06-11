@@ -27,7 +27,7 @@ const DEVELOPMENT = [
       'development/writing/documentation',
       'development/writing/blog-posts',
       'development/writing/slb',
-    ]  
+    ]
   },
   {
     type: 'category',
@@ -41,6 +41,7 @@ const DEVELOPMENT = [
           'development/stack/aws/introduction',
           'development/stack/aws/ebs',
           'development/stack/aws/ec2',
+          'development/stack/aws/kms',
           'development/stack/aws/s3',
         ]
       },

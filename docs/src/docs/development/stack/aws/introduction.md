@@ -56,11 +56,15 @@ over other alternatives are:
 We use the following [AWS](https://aws.amazon.com/) services:
 
 1. Elastic cloud computing:
-    [AWS EC2](/development/stack/aws/ec2).
+    [AWS EC2](/development/stack/aws/ec2/).
 1. Cloud file storage:
-    [AWS S3](/development/stack/aws/s3).
+    [AWS S3](/development/stack/aws/s3/).
 1. Elastic block store:
     [AWS EBS](/development/stack/aws/ebs/).
+1. Key management system:
+    [AWS KMS](/development/stack/aws/kms/).
+1. Identity and Access Management:
+    [AWS IAM](https://aws.amazon.com/iam/)
 1. Serverless computing:
     [AWS Lambda](https://aws.amazon.com/lambda/).
 1. Elastic Container Service:
@@ -71,8 +75,6 @@ We use the following [AWS](https://aws.amazon.com/) services:
     [AWS DynamoDB](https://aws.amazon.com/dynamodb/).
 1. Data warehouse:
     [AWS Redshift](https://aws.amazon.com/redshift/).
-1. Key management system:
-    [AWS KMS](https://aws.amazon.com/kms/).
 1. Cache:
     [AWS Redis](https://aws.amazon.com/redis/).
 1. Application cluster:
