@@ -65,7 +65,7 @@ let
       (_: supper: {
         # Nginx by default tries to use directories owned by root
         # We have to recompile it pointing to the user-space
-        nginxUserSpace = supper.nginx.overrideAttrs (attrs: {
+        nginxLocal = supper.nginx.overrideAttrs (attrs: {
           configureFlags = attrs.configureFlags ++ [
             "--error-log-path=/tmp/error.log"
             "--http-client-body-temp-path=/tmp/nginx_client_body"
