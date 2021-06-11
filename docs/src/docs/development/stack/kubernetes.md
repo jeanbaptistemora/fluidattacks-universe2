@@ -35,7 +35,7 @@ it over other alternatives are:
     in an automated way,
     allowing us to focus
     more on the application development
-    and less on the infrastrucutre supporting it.
+    and less on the infrastructure supporting it.
 1. It can be
     [fully managed](https://gitlab.com/fluidattacks/product/-/blob/ba230133febd3325d0f5c995f638a176b89d32a2/makes/applications/makes/k8s/src/terraform/cluster.tf)
     using [Terraform](/development/stack/terraform).

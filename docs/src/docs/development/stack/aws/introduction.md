@@ -17,7 +17,7 @@ over other alternatives are:
 1. It provides a highly granular approach to
     [IaaS](https://en.wikipedia.org/wiki/Infrastructure_as_a_service),
     offering over
-    [one hundred independant services](https://aws.amazon.com/)
+    [one hundred independent services](https://aws.amazon.com/)
     that range from
     [quantum computing](https://aws.amazon.com/braket)
     to
@@ -69,7 +69,7 @@ We use the following [AWS](https://aws.amazon.com/) services:
     [AWS Elastic Load Balancing](https://aws.amazon.com/elasticloadbalancing/).
 1. NoSQL database:
     [AWS DynamoDB](https://aws.amazon.com/dynamodb/).
-1. Data wareouse:
+1. Data warehouse:
     [AWS Redshift](https://aws.amazon.com/redshift/).
 1. Key management system:
     [AWS KMS](https://aws.amazon.com/kms/).

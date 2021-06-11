@@ -12,7 +12,7 @@ is the
 [IAM](https://en.wikipedia.org/wiki/Identity_management)
 platform we use for managing
 access to hundreds of applications
-used accross our company.
+used across our company.
 It allows us to give
 access to applications
 without disclosing credentials
@@ -54,7 +54,7 @@ it over other alternatives are:
 1. As
     [Multi-factor authentication](https://www.okta.com/products/adaptive-multi-factor-authentication/)
     can be done on the user's phone,
-    we do not need to manage independant
+    we do not need to manage independent
     [security tokens](https://en.wikipedia.org/wiki/Security_token).
 1. Its
     [Multi-factor authentication](https://www.okta.com/products/adaptive-multi-factor-authentication/)

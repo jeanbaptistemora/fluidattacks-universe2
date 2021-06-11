@@ -80,7 +80,7 @@ slug: /development/mobile-technologies
     that our dependencies will fetch react-native
     from Expo's forked repo,
     and that's because RN is at a fast-changing rate,
-    so this is in favour
+    so this is in favor
     of a more stable development experience.
     Expo releases SDKs periodically,
     introducing new features,

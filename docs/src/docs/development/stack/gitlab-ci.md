@@ -66,7 +66,7 @@ over other alternatives are:
     It is a must when implementing a [monorepo](https://en.wikipedia.org/wiki/Monorepo)
     strategy [like ours](https://gitlab.com/fluidattacks/product).
 1. [Highly versatile configurations](https://docs.gitlab.com/ee/ci/yaml/):
-    As every piece of sofware
+    As every piece of software
     usually has its own needs
     when it comes to
     building, testing and deploying,
@@ -123,7 +123,7 @@ but not chosen for the following reasons:
     It did not support
     [Gitlab](/development/stack/gitlab),
     it was very expensive,
-    it was not as parametrizable.
+    it was not as parameterizable.
 1. [Buildkite](https://buildkite.com/):
     It is still pending for review.
 
@@ -170,7 +170,7 @@ We do not use [GItlab CI](https://docs.gitlab.com/ee/ci/) for:
     [jobs](https://docs.gitlab.com/ee/ci/jobs/)
     being terminated
     before they can finish,
-    mainly due to diconnections between the
+    mainly due to disconnections between the
     worker running the job and the
     [Gitlab CI Bastion](https://docs.gitlab.com/runner/configuration/autoscale.html).
 

@@ -55,7 +55,7 @@ over other alternatives are:
   its default settings.
 1. It provides
   [Workers](https://workers.cloudflare.com/),
-  a serverless aproach for developing applications.
+  a serverless approach for developing applications.
   We use it for the specific purpose of configuring
   security headers for all our sites.
 1. It has

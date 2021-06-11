@@ -13,7 +13,7 @@ our entire
 For each component you will find:
 
 1. **Rationale:**
-    Short explantation
+    Short explanation
     of what the component
     does and why we chose it.
 1. **Alternatives:**

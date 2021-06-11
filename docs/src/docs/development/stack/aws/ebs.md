@@ -119,13 +119,13 @@ We use [AWS EBS](https://aws.amazon.com/ebs/) for:
     [GP3](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
     disks just for hosting our workers'
     [Operating system](https://en.wikipedia.org/wiki/Operating_system).
-    Aditionally,
+    Additionally,
     workers come with
     high throughput
     [50 GB internal NVMe disks](https://aws.amazon.com/blogs/aws/ec2-instance-update-c5-instances-with-local-nvme-storage-c5d/),
     which are very useful
     for achieving as-fast-as-possible
-    job performence within our [CI](/development/stack/gitlab-ci).
+    job performance within our [CI](/development/stack/gitlab-ci).
 1. [Batch](https://aws.amazon.com/batch/)
     processing
     [workers](https://gitlab.com/fluidattacks/product/-/blob/master/makes/applications/makes/compute/src/terraform/aws_batch.tf#L112):
@@ -158,7 +158,7 @@ We use [AWS EBS](https://aws.amazon.com/ebs/) for:
     and
     [RADIUS agent](https://help.okta.com/en/prod/Content/Topics/integrations/getting-started.htm)
     are required.
-    High disk thoughput is not required.
+    High disk throughput is not required.
 1. [ERP](https://en.wikipedia.org/wiki/Enterprise_resource_planning):
     We use two disks,
     a 50 GB

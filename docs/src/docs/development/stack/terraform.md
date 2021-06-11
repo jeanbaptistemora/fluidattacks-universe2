@@ -28,7 +28,7 @@ over other alternatives are:
     is assured.
 1. It has hundreds of open source
     [providers](https://registry.terraform.io/browse/providers)
-    that give it full flexibility accross many platforms.
+    that give it full flexibility across many platforms.
 1. It has thousands of open source
     [modules](https://registry.terraform.io/browse/modules)
     that simplify writing infrastructure and avoiding repetition.
@@ -47,7 +47,7 @@ but not chosen for the following reasons:
 1. [AWS Cloudformation](https://aws.amazon.com/cloudformation/):
     It is platform-bounded.
 1. [Chef](https://www.chef.io/):
-    It has a stateful approach to infastructure, including
+    It has a stateful approach to infrastructure, including
     a master machine, agents and mutable infrastructure.
 1. [Pulumi](https://www.pulumi.com/):
     It is not as widely used,

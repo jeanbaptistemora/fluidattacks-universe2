@@ -24,7 +24,7 @@ it over other alternatives are:
 1. It is [Open source](https://opensource.com/resources/what-open-source).
 1. it is [Serverless](https://en.wikipedia.org/wiki/Serverless_computing),
     meaning that it does not require maintaining servers, firewalls,
-    load balancers, or any other typical infrastructre required for
+    load balancers, or any other typical infrastructure required for
     common [Secrets Engines](https://www.vaultproject.io/docs/secrets).
 1. It supports [AWS KMS](https://aws.amazon.com/kms/),
     which allows to encrypt files
@@ -90,7 +90,7 @@ but not chosen for the following reasons:
     and reproducibility capabilities.
 1. [Torus](https://www.torus.sh/):
     We used it a few years ago but it got discontinued.
-    One year leater they relaunched their service.
+    One year later they relaunched their service.
     It is a common
     [Secrets Engine](https://www.vaultproject.io/docs/secrets),
     meaning that secrets are not stored as code,

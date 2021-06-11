@@ -21,7 +21,7 @@ The information
 that can be seen here
 will be divided in cycles
 based on the date of the change
-and the type of change that occured.
+and the type of change that occurred.
 Here you will be able
 to visualize the amount of vulnerabilities
 that were opened/closed in a specific date

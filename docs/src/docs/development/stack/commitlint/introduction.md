@@ -25,7 +25,7 @@ The main reasons why we chose
 it over other alternatives are:
 
 1. It allows us to
-    have a stadardized
+    have a standardized
     [commit history](https://gitlab.com/fluidattacks/product/-/commits/master),
     greatly improving documentation
     on what each commit does

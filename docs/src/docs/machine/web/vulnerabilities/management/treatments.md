@@ -46,7 +46,7 @@ are the following:
   you accept the risks
   that comes with it
   until a selected date.
-- **Eternally acepted:**
+- **Eternally accepted:**
   As with the previous treatment,
   this is used
   when you don't intend
