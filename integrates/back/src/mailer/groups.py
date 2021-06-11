@@ -29,8 +29,8 @@ async def send_mail_access_granted(
         context,
         GENERAL_TAG,
         (
-            f'Access Granted to group {context["project"]} '
-            "in Integrates by Fluid Attacks"
+            f'Access granted to [{context["project"]}] '
+            "in ASM by Fluid Attacks"
         ),
         "access_granted",
     )

@@ -1,12 +1,25 @@
-{% extends "layouts/fluid_attacks.html" %}
-{% from 'layouts/components/forms.html' import go_to_button as button, text_area, main_image %}
-{% block content %}
-<p><strong>Good news!</strong></p>
-<p><strong>{{ admin }}</strong> has invited you to access Integrates.</p>
-{{ main_image('https://gallery.mailchimp.com/a32e6c9ce2902c975d3ea510c/images/c6620715-c2db-4c41-8de4-995a891e5ce5.gif', 480) }}
-<p>
-  Please confirm your access and check vulnerabilities related to <strong>{{ project }}
-  - {{ project_description }}</strong> group by clicking the following button:
-<br />
-{{ button('Confirm access', project_url) }}
+{% extends "new_layouts/common.html" %}
+{% from 'new_layouts/components/forms.html' import banner_project, go_to_button, text_area %}
+
+{% block layout %}
+<div class="container">
+  {% include 'new_layouts/components/logo_header.html' %}
+  {{ banner_project('Access Granted') }}
+
+  <div style="padding: 30px 0 !important;">
+    <p>Good news!</p>
+    <p>You have been invited to access our <strong>Attack Surface Manager</strong>.</p>
+    <p>
+      Please confirm your access and check vulnerabilities related to the group <strong>"{{ project }}
+      - {{ project_description }}"</strong>, by clicking the following button:
+    </p>
+    <br />
+    {{ go_to_button('Confirm access', project_url) }}
+    <p></p>
+    <p>Regards,<br>
+      Fluid Attacks Team</p>
+  </div>
+
+  {% include 'new_layouts/components/footer.html' %}
+</div>
 {% endblock %}
