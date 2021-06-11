@@ -267,9 +267,11 @@ def _parse_one_cached(
     program_dependencie.add(graph, language)
     syntax = generate_syntax_readers.read_from_graph(graph, language)
     danger_nodes.mark(graph, language, syntax)
-    styles.add(graph)
 
     metadata = inspectors.get_metadata(graph, language)
+    danger_nodes.mark_metadata(graph, metadata, language)
+
+    styles.add(graph)
 
     return GraphShardCacheable(
         graph=graph,

@@ -9253,6 +9253,7 @@
             "label_c": 45,
             "label_field_name": "194",
             "label_field_type": "193",
+            "label_input_type": "F001_C_SHARP_SQL,F004,F008,F021,F063_PATH_TRAVERSAL,F107",
             "label_l": 31,
             "label_type": "parameter"
           },
@@ -9905,6 +9906,7 @@
             "label_c": 45,
             "label_field_name": "31",
             "label_field_type": "30",
+            "label_input_type": "F001_C_SHARP_SQL,F004,F008,F021,F063_PATH_TRAVERSAL,F107",
             "label_l": 7,
             "label_type": "parameter"
           },
@@ -10049,6 +10051,7 @@
             "label_c": 34,
             "label_field_name": "312",
             "label_field_type": "311",
+            "label_input_type": "F001_C_SHARP_SQL,F004,F008,F021,F063_PATH_TRAVERSAL,F107",
             "label_l": 51,
             "label_type": "parameter"
           },
@@ -11137,6 +11140,7 @@
             "label_c": 37,
             "label_field_name": "477",
             "label_field_type": "476",
+            "label_input_type": "F001_C_SHARP_SQL,F004,F008,F021,F063_PATH_TRAVERSAL,F107",
             "label_l": 77,
             "label_type": "parameter"
           },

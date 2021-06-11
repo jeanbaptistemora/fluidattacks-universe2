@@ -955,7 +955,12 @@
         ]
       }
     },
-    "skims/test/data/benchmark/nist/StudentController.cs": {}
+    "skims/test/data/benchmark/nist/StudentController.cs": {
+      "192": {},
+      "29": {},
+      "310": {},
+      "475": {}
+    }
   },
   "F001_JAVA_SQL": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
@@ -969,13 +974,23 @@
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {
       "61": {}
     },
-    "skims/test/data/benchmark/nist/StudentController.cs": {}
+    "skims/test/data/benchmark/nist/StudentController.cs": {
+      "192": {},
+      "29": {},
+      "310": {},
+      "475": {}
+    }
   },
   "F008": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {
       "61": {}
     },
-    "skims/test/data/benchmark/nist/StudentController.cs": {}
+    "skims/test/data/benchmark/nist/StudentController.cs": {
+      "192": {},
+      "29": {},
+      "310": {},
+      "475": {}
+    }
   },
   "F009": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
@@ -997,7 +1012,12 @@
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {
       "61": {}
     },
-    "skims/test/data/benchmark/nist/StudentController.cs": {}
+    "skims/test/data/benchmark/nist/StudentController.cs": {
+      "192": {},
+      "29": {},
+      "310": {},
+      "475": {}
+    }
   },
   "F022": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
@@ -1095,7 +1115,12 @@
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {
       "61": {}
     },
-    "skims/test/data/benchmark/nist/StudentController.cs": {}
+    "skims/test/data/benchmark/nist/StudentController.cs": {
+      "192": {},
+      "29": {},
+      "310": {},
+      "475": {}
+    }
   },
   "F063_TRUSTBOUND": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
@@ -1129,7 +1154,12 @@
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {
       "61": {}
     },
-    "skims/test/data/benchmark/nist/StudentController.cs": {}
+    "skims/test/data/benchmark/nist/StudentController.cs": {
+      "192": {},
+      "29": {},
+      "310": {},
+      "475": {}
+    }
   },
   "F117": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},

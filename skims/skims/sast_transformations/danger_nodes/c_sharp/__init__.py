@@ -2,6 +2,9 @@ from model import (
     core_model,
     graph_model,
 )
+from sast_transformations.danger_nodes.c_sharp.web_api import (
+    mark_metadata as mark_metadata_web_api,
+)
 from sast_transformations.danger_nodes.utils import (
     mark_assignments_sink,
     mark_function_arg,
@@ -133,3 +136,10 @@ def mark_sinks(
             "Exists",
         },
     )
+
+
+def mark_metadata(
+    graph: graph_model.Graph,
+    metadata: graph_model.GraphShardMetadata,
+) -> None:
+    mark_metadata_web_api(graph, metadata)
