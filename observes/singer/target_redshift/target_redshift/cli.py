@@ -1,5 +1,7 @@
 import click
-import target_redshift
+from target_redshift.loader import (
+    load_data,
+)
 from typing import (
     IO,
 )
@@ -27,4 +29,4 @@ from typing import (
     help="Flag to specify that you want to delete the schema if exist",
 )
 def main(auth: IO[str], schema_name: str, drop_schema: bool) -> None:
-    target_redshift.main(auth, schema_name, drop_schema)
+    load_data(auth, schema_name, drop_schema)
