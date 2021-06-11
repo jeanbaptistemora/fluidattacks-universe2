@@ -7,7 +7,7 @@ slug: /development/stack/aws/ebs
 
 ## Rationale
 
-[AWS EBS](https://aws.amazon.com/ebs/)
+[AWS EBS][EBS]
 is the service we use
 for [Block-level storage](https://en.wikipedia.org/wiki/Block-level_storage).
 It allows us to have
@@ -36,7 +36,7 @@ over other alternatives are:
     and a throughput of 500
     [MiB/s](https://en.wikipedia.org/wiki/Data-rate_units#Megabyte_per_second).
 1. Disks are also divided into
-    [different specializations](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html).
+    [different specializations][GP2].
     There are
     General purpose and Provisioned IOPS
     [SSDs](https://en.wikipedia.org/wiki/Solid-state_drive)
@@ -89,7 +89,7 @@ over other alternatives are:
     It did not exist at the time we migrated to the cloud.
     [GCP](https://cloud.google.com/gcp)
     does not offer an equivalent to
-    [EBS](https://aws.amazon.com/ebs/).
+    [EBS][EBS].
     Instead, their entire
     [disks service](https://cloud.google.com/compute/docs/disks)
     exists within
@@ -101,12 +101,12 @@ over other alternatives are:
 
 ## Usage
 
-We use [AWS EBS](https://aws.amazon.com/ebs/) for:
+We use [AWS EBS][EBS] for:
 
 1. [Gitlab CI](/development/stack/gitlab-ci)
     bastion:
     We use a 16 GiB
-    [GP2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
+    [GP2][GP2]
     disk,
     as it only needs having basic software installed
     like
@@ -116,9 +116,9 @@ We use [AWS EBS](https://aws.amazon.com/ebs/) for:
     High disk throughput is not required.
 1. [Gitlab CI workers](https://gitlab.com/fluidattacks/product/-/blob/master/makes/applications/makes/ci/src/config.toml#L57):
     We use 10 GiB
-    [GP3](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
+    [GP3][GP2]
     disks just for hosting our workers'
-    [Operating system](https://en.wikipedia.org/wiki/Operating_system).
+    [Operating system][OS].
     Additionally,
     workers come with
     high throughput
@@ -132,18 +132,18 @@ We use [AWS EBS](https://aws.amazon.com/ebs/) for:
     Just like with our
     [CI workers](https://gitlab.com/fluidattacks/product/-/blob/master/makes/applications/makes/ci/src/config.toml#L57),
     we use 8 GiB
-    [GP2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
+    [GP2][GP2]
     disks just for hosting the
-    [Operating system](https://en.wikipedia.org/wiki/Operating_system).
+    [Operating system][OS].
     These workers also come with
     [50 GiB internal NVMe disks](https://aws.amazon.com/blogs/aws/ec2-instance-update-c5-instances-with-local-nvme-storage-c5d/).
 1. [Kubernetes](/development/stack/kubernetes)
     cluster
     [workers](https://gitlab.com/fluidattacks/product/-/blob/53879d903b3c8c2561d45552cbc53f2350601e38/makes/applications/makes/k8s/src/terraform/cluster.tf#L40):
     We use 50 GiB
-    [GP2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
+    [GP2][GP2]
     disks for hosting the base
-    [Operating system](https://en.wikipedia.org/wiki/Operating_system)
+    [Operating system][OS]
     and stored containers for applications like our
     [ASM](https://fluidattacks.com/categories/asm/).
     High disk thoughput is not required as our
@@ -151,10 +151,10 @@ We use [AWS EBS](https://aws.amazon.com/ebs/) for:
     does not store any data within local disks.
 1. [Okta RADIUS Agent](/development/stack/okta#usage):
     We use a 50 GiB
-    [GP2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
+    [GP2][GP2]
     disk.
     It is probably oversized as only the base
-    [Operating system](https://en.wikipedia.org/wiki/Operating_system)
+    [Operating system][OS]
     and
     [RADIUS agent](https://help.okta.com/en/prod/Content/Topics/integrations/getting-started.htm)
     are required.
@@ -162,11 +162,11 @@ We use [AWS EBS](https://aws.amazon.com/ebs/) for:
 1. [ERP](https://en.wikipedia.org/wiki/Enterprise_resource_planning):
     We use two disks,
     a 50 GiB
-    [GP2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
+    [GP2][GP2]
     disk for hosting the base
-    [Operating system](https://en.wikipedia.org/wiki/Operating_system)
+    [Operating system][OS]
     and a 200 GiB
-    [GP2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
+    [GP2][GP2]
     disk for hosting the
     [ERP](https://en.wikipedia.org/wiki/Enterprise_resource_planning)
     data.
@@ -174,12 +174,16 @@ We use [AWS EBS](https://aws.amazon.com/ebs/) for:
 ## Guidelines
 
 1. You can access the
-    [AWS EBS](https://aws.amazon.com/ebs/) console
+    [AWS EBS][EBS] console
     after [authenticating on AWS](/development/stack/aws#guidelines).
 1. Any changes to
-    [EBS's](https://aws.amazon.com/ebs/)
+    [EBS's][EBS]
     infrastructure must be done via
     [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/).
 1. To learn how to test and apply infrastructure via [Terraform](/development/stack/terraform),
     visit the
     [Terraform Guidelines](/development/stack/terraform#guidelines).
+
+[OS]: https://en.wikipedia.org/wiki/Operating_system
+[GP2]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.htm
+[EBS]: https://aws.amazon.com/ebs/
