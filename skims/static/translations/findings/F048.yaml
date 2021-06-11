@@ -14,16 +14,11 @@ F048.description:
     al utilizar la aplicación.
 F048.impact:
   en: >
-    Leak technical information
-    (DB connection strings,
-    source code,
-    certs,
-    etc).
-  es: Fugar información técnica
-    (Cadenas de conexión de la base de datos,
-    código fuente,
-    certificados,
-    etc).
+    Install malicious tools
+    in order to cause unexpected behaviours.
+  es: >
+    Instalar herramientas maliciosas
+    con el fin de causar comportamientos inesperados.
 F048.recommendation:
   en: >
     Validate that the device
@@ -42,8 +37,14 @@ F048.requirements:
     en el que se ejecutan
     está rooteado.
 F048.threat:
-  en: Unauthorized attacker with physical access to the device.
-  es: Atacante sin autorización con acceso fisico al dispositivo.
+  en: >
+    Unauthorized attacker
+    with a rooted device
+    and the APK installed.
+  es: >
+    Atacante sin autorización
+    con un dispositivo rooteado
+    y el APK instalado.
 F048.title:
   en: F048. Lack of root detection
   es: F048. Falta de detección de sistemas rooteados
