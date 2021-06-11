@@ -18,6 +18,9 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from groups import (
+    validations as groups_validations,
+)
 
 
 @convert_kwargs_to_snake_case
@@ -37,4 +40,4 @@ async def resolve(
     group_loader: DataLoader = info.context.loaders.group
     group: Group = await group_loader.load(group_name.lower())
 
-    return group
+    return groups_validations.group_exist(group)
