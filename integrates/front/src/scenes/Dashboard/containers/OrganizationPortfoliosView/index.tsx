@@ -24,11 +24,12 @@ const OrganizationPortfolios: React.FC<IOrganizationPortfoliosProps> = (
   const formatPortfolioDescription: (groups: { name: string }[]) => string = (
     groups: { name: string }[]
   ): string => {
+    const MAX_NUMBER_OF_GROUPS: number = 6;
     const mainDescription: string = groups
       .map((group: { name: string }): string => group.name)
-      .slice(0, 2)
+      .slice(0, MAX_NUMBER_OF_GROUPS)
       .join(", ");
-    const remaining: number = groups.length - 2;
+    const remaining: number = groups.length - MAX_NUMBER_OF_GROUPS;
     const remainingDescription: string =
       remaining > 0
         ? translate.t("organization.tabs.portfolios.remainingDescription", {
@@ -71,16 +72,25 @@ const OrganizationPortfolios: React.FC<IOrganizationPortfoliosProps> = (
   // Render Elements
   const tableHeaders: IHeaderConfig[] = [
     {
+      align: "left",
       dataField: "portfolio",
       header: translate.t("organization.tabs.portfolios.table.portfolio"),
+      width: "20%",
+      wrapped: true,
     },
     {
+      align: "center",
       dataField: "nGroups",
       header: translate.t("organization.tabs.portfolios.table.nGroups"),
+      width: "10%",
+      wrapped: true,
     },
     {
+      align: "left",
       dataField: "groups",
       header: translate.t("organization.tabs.portfolios.table.groups"),
+      width: "70%",
+      wrapped: true,
     },
   ];
 
