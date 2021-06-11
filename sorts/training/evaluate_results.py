@@ -28,9 +28,9 @@ def get_best_model_name(model_name_file: str) -> str:
 def main() -> None:
     with tempfile.TemporaryDirectory() as tmp_dir:
         best_current_model: str = ""
-        best_f1: int = 0
         model_name_file: str = os.path.join(tmp_dir, "best_model.txt")
         best_previous_model: str = get_best_model_name(model_name_file)
+        best_f1: int = int(best_previous_model.split("-")[1])
         for obj in S3_BUCKET.objects.filter(Prefix="training-output"):
             if (
                 obj.key.endswith(".joblib")
