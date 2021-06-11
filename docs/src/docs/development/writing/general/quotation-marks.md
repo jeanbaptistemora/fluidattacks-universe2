@@ -5,10 +5,65 @@ sidebar_label: Quotation Marks
 slug: /development/writing/general/quotation-marks
 ---
 
-* **WG15:** We *must* use quotation marks
+* **WG16:** We *must* use straight quotation marks and apostrophes
+  (e.g., "I'll do this"), not curved ones (e.g., “I won’t do this”).
+
+* **WG17:** We *must* use quotation marks
   to delimit and represent exact words that come from someone else.
 
-* **WG16:**
+* **WG18:** We *must* place the periods and commas
+  before the final quotation marks.
+  On the contrary, we *must* put the colons and semicolons
+  after the final quotation marks.
+  If exclamation and question marks are not part of the quotations,
+  we *must* place them outside the quotation marks.
+
+* **WG19:** We *must* use single quotation marks ('...')
+  to enclose quotations within other quotations
+  (e.g., The doctor told me, "When I interviewed the patient,
+  she simply said 'I didn't see anything.'").
+
+* **WG20:** We *must* use quotation marks for titles of songs,
+  short stories, essays, newspaper and magazine articles,
+  blog posts and other similar online publications,
+  poems, chapters of books and episodes of TV series and radio programs.
+
+* **WG21:** We *can* use quotation marks
+  to indicate words with irony, skepticism or a certain reserve
+  (e.g., The team's "great effort"
+  has meant being eliminated from the main league.).
+
+* **WG22:** When we want to remove an unnecessary fragment from a quotation
+  (not altering its original meaning),
+  we *must* use ellipsis in parenthesis as a substitute
+  (e.g., ["The biggest thing](https://fluidattacks.com/blog/tribe-of-hackers-4/)
+  is to go through the attack methodology
+  and show what worked (...) and what did not work in the attack.").
+
+* **WG23:** When we need to modify a fragment of a quotation,
+  for instance, to adjust the sentence tense,
+  we *must* put the new words in square brackets
+  (e.g., ["This [was] very controversial](https://fluidattacks.com/blog/apple-data-center-china/)
+  given the calls of different organizations and human rights defenders.").
+
+  > **NOTE:**
+  > In AsciiDoc, in cases like the previous example,
+  > we must use the backslash before the first closing square bracket
+  > to get the hyperlink as we want:
+
+  ![WG23a](https://res.cloudinary.com/fluid-attacks/image/upload/v1623445601/docs/development/writing/wg23a_rlkugz.webp)
+
+  ![WG23b](https://res.cloudinary.com/fluid-attacks/image/upload/v1623446048/docs/development/writing/wg23b_mwjbyt.webp)
+
+  > In Markdown, there is no problem.
+
+* **WG24:** We *must* separate the quotation
+  as an independent paragraph with a different style
+  (using `[quote]` in AsciiDoc
+  and the blockquote symbol (`>`) in Markdown)
+  when it is longer than 40 words.
+  However, we *can* do this also with shorter quotations
+  when we want to give them some emphasis.
 
 > **NOTE:**
 > This section of our documentation is under construction.

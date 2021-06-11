@@ -1,7 +1,7 @@
 ---
 id: documentation
-title: For Documentation
-sidebar_label: For Documentation
+title: Documentation
+sidebar_label: Documentation
 slug: /development/writing/documentation
 ---
 

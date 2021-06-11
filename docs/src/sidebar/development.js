@@ -12,20 +12,20 @@ const DEVELOPMENT = [
   },
   {
     type: 'category',
-    label: 'Writing Guidelines',
+    label: 'Writing',
     items: [
       'development/writing/intro',
       {
         type: 'category',
-        label: 'General Writing',
+        label: 'General',
         items: [
-          'development/writing/general/main-guidelines',
+          'development/writing/general/main',
           'development/writing/general/capital-letters',
           'development/writing/general/quotation-marks',
         ]
       },
       'development/writing/documentation',
-      'development/writing/blog-posts',
+      'development/writing/blog',
       'development/writing/slb',
     ]
   },
