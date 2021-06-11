@@ -24,7 +24,11 @@
     <!-- Include graphic generator -->
     <link href="{{ url_for('static', path='/styles/graphic.css') | replace('http', 'https') }}" rel="stylesheet" type="text/css"  media="screen"/>
     <script src="{{ url_for('static', path=generator_src) | replace('http', 'https') }}"></script>
-
+    {% if 'https' in url_for('static', path='/styles/generic_graphic.css') %}
+      <link href="{{ url_for('static', path='/styles/generic_graphic.css') }}" rel="stylesheet" type="text/css"  media="screen"/>
+    {% else %}
+      <link href="{{ url_for('static', path='/styles/generic_graphic.css') | replace('http', 'https') }}" rel="stylesheet" type="text/css"  media="screen"/>
+    {% endif %}
     <!-- Include Data Document -->
     <pre id="args" hidden>
       {{ args | tojson }}

@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Graphics for {{ entity }}</title>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700" rel="stylesheet">
 
     <!-- Local Styles -->
     {% if '127.0.0.1' in request.client.host and debug %}
@@ -14,6 +15,11 @@
       <link rel="shortcut icon" href="{{ url_for('static', path='/imgs/favicon.ico') }}">
     {% else %}
       <link rel="shortcut icon" href="{{ url_for('static', path='/imgs/favicon.ico') | replace('http', 'https') }}">
+    {% endif %}
+    {% if 'https' in url_for('static', path='/styles/generic_graphic.css') %}
+      <link href="{{ url_for('static', path='/styles/generic_graphic.css') }}" rel="stylesheet" type="text/css"  media="screen"/>
+    {% else %}
+      <link href="{{ url_for('static', path='/styles/generic_graphic.css') | replace('http', 'https') }}" rel="stylesheet" type="text/css"  media="screen"/>
     {% endif %}
     <!-- Third party styles -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
