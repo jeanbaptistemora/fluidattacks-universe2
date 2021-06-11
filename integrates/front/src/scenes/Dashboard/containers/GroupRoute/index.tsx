@@ -28,7 +28,7 @@ import { translate } from "utils/translations/translate";
 
 const GroupRoute: React.FC<IGroupRoute> = (props: IGroupRoute): JSX.Element => {
   const { setUserRole } = props;
-  const { organizationName, groupName: projectName } =
+  const { organizationName, groupName } =
     useParams<{
       organizationName: string;
       groupName: string;
@@ -43,7 +43,7 @@ const GroupRoute: React.FC<IGroupRoute> = (props: IGroupRoute): JSX.Element => {
     attributes.update([]);
     permissions.update([]);
   };
-  useEffect(onGroupChange, [attributes, permissions, projectName]);
+  useEffect(onGroupChange, [attributes, permissions, groupName]);
 
   // GraphQL operations
   useQuery(GET_USER_PERMISSIONS, {
@@ -70,7 +70,7 @@ const GroupRoute: React.FC<IGroupRoute> = (props: IGroupRoute): JSX.Element => {
     },
     variables: {
       entity: "PROJECT",
-      identifier: projectName.toLowerCase(),
+      identifier: groupName.toLowerCase(),
     },
   });
 
@@ -90,7 +90,7 @@ const GroupRoute: React.FC<IGroupRoute> = (props: IGroupRoute): JSX.Element => {
         Logger.warning("An error occurred group data", groupError);
       });
     },
-    variables: { projectName },
+    variables: { groupName },
   });
 
   if (!_.isUndefined(error)) {

@@ -25,7 +25,7 @@ import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 const GroupForcesView: React.FC = (): JSX.Element => {
-  const { groupName: projectName } = useParams<{ groupName: string }>();
+  const { groupName } = useParams<{ groupName: string }>();
 
   // States
   const defaultCurrentRow: IExecution = {
@@ -213,7 +213,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
 
   const { data } = useQuery(GET_FORCES_EXECUTIONS, {
     onError: handleQryErrors,
-    variables: { projectName },
+    variables: { groupName },
   });
 
   if (_.isUndefined(data) || _.isEmpty(data)) {

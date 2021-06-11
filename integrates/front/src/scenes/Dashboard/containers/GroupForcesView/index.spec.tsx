@@ -20,7 +20,7 @@ describe("ForcesView", (): void => {
       request: {
         query: GET_FORCES_EXECUTIONS,
         variables: {
-          projectName: "unittesting",
+          groupName: "unittesting",
         },
       },
       result: {
@@ -82,7 +82,7 @@ describe("ForcesView", (): void => {
       request: {
         query: GET_FORCES_EXECUTIONS,
         variables: {
-          projectName: "unittesting",
+          groupName: "unittesting",
         },
       },
       result: {

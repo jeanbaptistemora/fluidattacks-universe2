@@ -40,7 +40,7 @@ const Execution: React.FC<IExecution> = (
     variables: {
       // eslint-disable-next-line camelcase -- API related
       executionId: execution_id,
-      projectName,
+      groupName: projectName,
     },
   });
 

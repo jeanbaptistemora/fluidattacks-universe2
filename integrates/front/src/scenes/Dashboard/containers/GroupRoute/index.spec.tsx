@@ -14,8 +14,8 @@ describe("GroupRoute", (): void => {
     request: {
       query: GET_GROUP_DATA,
       variables: {
+        groupName: "TEST",
         organization: "Fluid",
-        projectName: "TEST",
       },
     },
     result: {

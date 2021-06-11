@@ -17,7 +17,7 @@ const OrganizationRedirect: React.FC<IOrganizationRedirectProps> = (
   props: IOrganizationRedirectProps
 ): JSX.Element => {
   const { type } = props;
-  const { groupName: projectName, tagName } =
+  const { groupName, tagName } =
     useParams<{
       groupName: string;
       tagName: string;
@@ -38,7 +38,7 @@ const OrganizationRedirect: React.FC<IOrganizationRedirectProps> = (
     variables: {
       getGroup: type === "groups",
       getTag: type === "portfolios",
-      groupName: _.isUndefined(projectName) ? "" : projectName.toLowerCase(),
+      groupName: _.isUndefined(groupName) ? "" : groupName.toLowerCase(),
       tagName: _.isUndefined(tagName) ? "" : tagName.toLowerCase(),
     },
   });
