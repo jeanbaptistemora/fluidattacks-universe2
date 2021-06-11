@@ -147,8 +147,18 @@ def make_snippet(
             # Slice viewport vertically
             lines = lines[
                 slice(
+                    0,
+                    2 * viewport.line_context + 1,
+                )
+                if (viewport_center - viewport.line_context <= 0)
+                else slice(
                     max(viewport_center - viewport.line_context, 0),
                     viewport_center + viewport.line_context + 1,
+                )
+                if (viewport_center + viewport.line_context < len(lines))
+                else slice(
+                    max(len(lines) - 2 * viewport.line_context - 1, 0),
+                    len(lines),
                 )
             ]
 

@@ -99,6 +99,9 @@ def test_as_string() -> None:
         )
         == dedent(
             """
+               1 | > GET fluidattacks.com
+               2 | > ...
+               3 |
                4 | < Transfer-Encoding: chunked
                5 | < Connection: keep-alive
                6 | < Cache-Control:

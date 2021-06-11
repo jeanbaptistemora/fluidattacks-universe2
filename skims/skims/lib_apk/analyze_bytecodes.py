@@ -142,7 +142,7 @@ def _add_no_root_check_location(
                 $ python3.8
 
                 >>> # We'll use the version 3.3.5 of "androguard"
-                >>> from androguard.misc import AnalyzeAPK  # 3.3.5
+                >>> from androguard.misc import AnalyzeAPK
 
                 >>> # Parse all Dalvik Executables (classes*.dex) in the APK
                 >>> dex = AnalyzeAPK({repr(ctx.apk_ctx.path)})[2]

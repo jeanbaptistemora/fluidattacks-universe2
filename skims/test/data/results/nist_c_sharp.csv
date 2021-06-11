@@ -2088,6 +2088,9 @@ F060,lines,NIST/src/testcases/CWE328_Reversible_One_Way_Hash/Program.cs,50,396,s
       ^ Col 0
 "
 F060,lines,NIST/src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_01.cs,71,396,skims,F060. Insecure exceptions,Insecure CSharp exception in src/testcases/CWE390_Error_Without_Action/CWE390_Error_Without_Action__CreateDirectory_01.cs,"
+  58 |             /* running on Windows */
+  59 |             newDirectory = ""C:\\lvl_1\\lvl_2\\lvl_3\\"";
+  60 |         }
   61 |         else
   62 |         {
   63 |             /* running on non-Windows */

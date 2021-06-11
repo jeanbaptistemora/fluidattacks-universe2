@@ -174,6 +174,106 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01861.j
    98 |             throws ServletException, IOException {
       ^ Col 0
 "
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00820.java,93,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+","
+   81 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
+   82 |                 return;
+   83 |             }
+   84 |             str = new String(input, 0, i);
+   85 |         }
+   86 |         if ("""".equals(str)) str = ""No cookie value supplied"";
+   87 |         javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie(""SomeCookie"", str);
+   88 |
+   89 |         cookie.setSecure(false);
+   90 |         cookie.setHttpOnly(true);
+   91 |         cookie.setPath(request.getRequestURI()); // i.e., set path to JUST this servlet
+   92 |         // e.g., /benchmark/sql-01/BenchmarkTest01001
+>  93 |         response.addCookie(cookie);
+   94 |
+   95 |         response.getWriter()
+   96 |                 .println(
+   97 |                         ""Created cookie: 'SomeCookie': with value: '""
+   98 |                                 + org.owasp.esapi.ESAPI.encoder().encodeForHTML(str)
+   99 |                                 + ""' and secure flag set to: false"");
+  100 |     }
+  101 | }
+      ^ Col 0
+"
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00821.java,94,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+","
+   82 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
+   83 |                 return;
+   84 |             }
+   85 |             str = new String(input, 0, i);
+   86 |         }
+   87 |         if ("""".equals(str)) str = ""No cookie value supplied"";
+   88 |         javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie(""SomeCookie"", str);
+   89 |
+   90 |         cookie.setSecure(false);
+   91 |         cookie.setHttpOnly(true);
+   92 |         cookie.setPath(request.getRequestURI()); // i.e., set path to JUST this servlet
+   93 |         // e.g., /benchmark/sql-01/BenchmarkTest01001
+>  94 |         response.addCookie(cookie);
+   95 |
+   96 |         response.getWriter()
+   97 |                 .println(
+   98 |                         ""Created cookie: 'SomeCookie': with value: '""
+   99 |                                 + org.owasp.esapi.ESAPI.encoder().encodeForHTML(str)
+  100 |                                 + ""' and secure flag set to: false"");
+  101 |     }
+  102 | }
+      ^ Col 0
+"
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00087.java,95,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+","
+   83 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
+   84 |                 return;
+   85 |             }
+   86 |             str = new String(input, 0, i);
+   87 |         }
+   88 |         if ("""".equals(str)) str = ""No cookie value supplied"";
+   89 |         javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie(""SomeCookie"", str);
+   90 |
+   91 |         cookie.setSecure(false);
+   92 |         cookie.setHttpOnly(true);
+   93 |         cookie.setPath(request.getRequestURI()); // i.e., set path to JUST this servlet
+   94 |         // e.g., /benchmark/sql-01/BenchmarkTest01001
+>  95 |         response.addCookie(cookie);
+   96 |
+   97 |         response.getWriter()
+   98 |                 .println(
+   99 |                         ""Created cookie: 'SomeCookie': with value: '""
+  100 |                                 + org.owasp.esapi.ESAPI.encoder().encodeForHTML(str)
+  101 |                                 + ""' and secure flag set to: false"");
+  102 |     }
+  103 | }
+      ^ Col 0
+"
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00170.java,95,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+","
+   83 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
+   84 |                 return;
+   85 |             }
+   86 |             str = new String(input, 0, i);
+   87 |         }
+   88 |         if ("""".equals(str)) str = ""No cookie value supplied"";
+   89 |         javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie(""SomeCookie"", str);
+   90 |
+   91 |         cookie.setSecure(false);
+   92 |         cookie.setHttpOnly(true);
+   93 |         cookie.setPath(request.getRequestURI()); // i.e., set path to JUST this servlet
+   94 |         // e.g., /benchmark/sql-01/BenchmarkTest01001
+>  95 |         response.addCookie(cookie);
+   96 |
+   97 |         response.getWriter()
+   98 |                 .println(
+   99 |                         ""Created cookie: 'SomeCookie': with value: '""
+  100 |                                 + org.owasp.esapi.ESAPI.encoder().encodeForHTML(str)
+  101 |                                 + ""' and secure flag set to: false"");
+  102 |     }
+  103 | }
+      ^ Col 0
+"
 F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01682.java,93,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
    83 |             }
@@ -224,100 +324,10 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01683.j
   103 |
       ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00820.java,93,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
-","
-   83 |             }
-   84 |             str = new String(input, 0, i);
-   85 |         }
-   86 |         if ("""".equals(str)) str = ""No cookie value supplied"";
-   87 |         javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie(""SomeCookie"", str);
-   88 |
-   89 |         cookie.setSecure(false);
-   90 |         cookie.setHttpOnly(true);
-   91 |         cookie.setPath(request.getRequestURI()); // i.e., set path to JUST this servlet
-   92 |         // e.g., /benchmark/sql-01/BenchmarkTest01001
->  93 |         response.addCookie(cookie);
-   94 |
-   95 |         response.getWriter()
-   96 |                 .println(
-   97 |                         ""Created cookie: 'SomeCookie': with value: '""
-   98 |                                 + org.owasp.esapi.ESAPI.encoder().encodeForHTML(str)
-   99 |                                 + ""' and secure flag set to: false"");
-  100 |     }
-  101 | }
-      ^ Col 0
-"
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00821.java,94,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
-","
-   84 |             }
-   85 |             str = new String(input, 0, i);
-   86 |         }
-   87 |         if ("""".equals(str)) str = ""No cookie value supplied"";
-   88 |         javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie(""SomeCookie"", str);
-   89 |
-   90 |         cookie.setSecure(false);
-   91 |         cookie.setHttpOnly(true);
-   92 |         cookie.setPath(request.getRequestURI()); // i.e., set path to JUST this servlet
-   93 |         // e.g., /benchmark/sql-01/BenchmarkTest01001
->  94 |         response.addCookie(cookie);
-   95 |
-   96 |         response.getWriter()
-   97 |                 .println(
-   98 |                         ""Created cookie: 'SomeCookie': with value: '""
-   99 |                                 + org.owasp.esapi.ESAPI.encoder().encodeForHTML(str)
-  100 |                                 + ""' and secure flag set to: false"");
-  101 |     }
-  102 | }
-      ^ Col 0
-"
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00087.java,95,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
-","
-   85 |             }
-   86 |             str = new String(input, 0, i);
-   87 |         }
-   88 |         if ("""".equals(str)) str = ""No cookie value supplied"";
-   89 |         javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie(""SomeCookie"", str);
-   90 |
-   91 |         cookie.setSecure(false);
-   92 |         cookie.setHttpOnly(true);
-   93 |         cookie.setPath(request.getRequestURI()); // i.e., set path to JUST this servlet
-   94 |         // e.g., /benchmark/sql-01/BenchmarkTest01001
->  95 |         response.addCookie(cookie);
-   96 |
-   97 |         response.getWriter()
-   98 |                 .println(
-   99 |                         ""Created cookie: 'SomeCookie': with value: '""
-  100 |                                 + org.owasp.esapi.ESAPI.encoder().encodeForHTML(str)
-  101 |                                 + ""' and secure flag set to: false"");
-  102 |     }
-  103 | }
-      ^ Col 0
-"
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00170.java,95,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
-","
-   85 |             }
-   86 |             str = new String(input, 0, i);
-   87 |         }
-   88 |         if ("""".equals(str)) str = ""No cookie value supplied"";
-   89 |         javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie(""SomeCookie"", str);
-   90 |
-   91 |         cookie.setSecure(false);
-   92 |         cookie.setHttpOnly(true);
-   93 |         cookie.setPath(request.getRequestURI()); // i.e., set path to JUST this servlet
-   94 |         // e.g., /benchmark/sql-01/BenchmarkTest01001
->  95 |         response.addCookie(cookie);
-   96 |
-   97 |         response.getWriter()
-   98 |                 .println(
-   99 |                         ""Created cookie: 'SomeCookie': with value: '""
-  100 |                                 + org.owasp.esapi.ESAPI.encoder().encodeForHTML(str)
-  101 |                                 + ""' and secure flag set to: false"");
-  102 |     }
-  103 | }
-      ^ Col 0
-"
 F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00348.java,68,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
+  56 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
+  57 |                 return;
   58 |             }
   59 |             str = new String(input, 0, i);
   60 |         }
@@ -616,6 +626,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02507.j
 "
 F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00403.java,74,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
+  62 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
+  63 |                 return;
   64 |             }
   65 |             str = new String(input, 0, i);
   66 |         }
@@ -635,6 +647,56 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00403.j
   80 |                                 + ""' and secure flag set to: false"");
   81 |     }
   82 | }
+     ^ Col 0
+"
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00736.java,76,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+","
+  64 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
+  65 |                 return;
+  66 |             }
+  67 |             str = new String(input, 0, i);
+  68 |         }
+  69 |         if ("""".equals(str)) str = ""No cookie value supplied"";
+  70 |         javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie(""SomeCookie"", str);
+  71 |
+  72 |         cookie.setSecure(false);
+  73 |         cookie.setHttpOnly(true);
+  74 |         cookie.setPath(request.getRequestURI()); // i.e., set path to JUST this servlet
+  75 |         // e.g., /benchmark/sql-01/BenchmarkTest01001
+> 76 |         response.addCookie(cookie);
+  77 |
+  78 |         response.getWriter()
+  79 |                 .println(
+  80 |                         ""Created cookie: 'SomeCookie': with value: '""
+  81 |                                 + org.owasp.esapi.ESAPI.encoder().encodeForHTML(str)
+  82 |                                 + ""' and secure flag set to: false"");
+  83 |     }
+  84 | }
+     ^ Col 0
+"
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00491.java,77,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+","
+  65 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
+  66 |                 return;
+  67 |             }
+  68 |             str = new String(input, 0, i);
+  69 |         }
+  70 |         if ("""".equals(str)) str = ""No cookie value supplied"";
+  71 |         javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie(""SomeCookie"", str);
+  72 |
+  73 |         cookie.setSecure(false);
+  74 |         cookie.setHttpOnly(true);
+  75 |         cookie.setPath(request.getRequestURI()); // i.e., set path to JUST this servlet
+  76 |         // e.g., /benchmark/sql-01/BenchmarkTest01001
+> 77 |         response.addCookie(cookie);
+  78 |
+  79 |         response.getWriter()
+  80 |                 .println(
+  81 |                         ""Created cookie: 'SomeCookie': with value: '""
+  82 |                                 + org.owasp.esapi.ESAPI.encoder().encodeForHTML(str)
+  83 |                                 + ""' and secure flag set to: false"");
+  84 |     }
+  85 | }
      ^ Col 0
 "
 F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01186.java,76,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
@@ -687,54 +749,10 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01187.j
   86 |
      ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00736.java,76,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
-","
-  66 |             }
-  67 |             str = new String(input, 0, i);
-  68 |         }
-  69 |         if ("""".equals(str)) str = ""No cookie value supplied"";
-  70 |         javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie(""SomeCookie"", str);
-  71 |
-  72 |         cookie.setSecure(false);
-  73 |         cookie.setHttpOnly(true);
-  74 |         cookie.setPath(request.getRequestURI()); // i.e., set path to JUST this servlet
-  75 |         // e.g., /benchmark/sql-01/BenchmarkTest01001
-> 76 |         response.addCookie(cookie);
-  77 |
-  78 |         response.getWriter()
-  79 |                 .println(
-  80 |                         ""Created cookie: 'SomeCookie': with value: '""
-  81 |                                 + org.owasp.esapi.ESAPI.encoder().encodeForHTML(str)
-  82 |                                 + ""' and secure flag set to: false"");
-  83 |     }
-  84 | }
-     ^ Col 0
-"
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00491.java,77,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
-","
-  67 |             }
-  68 |             str = new String(input, 0, i);
-  69 |         }
-  70 |         if ("""".equals(str)) str = ""No cookie value supplied"";
-  71 |         javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie(""SomeCookie"", str);
-  72 |
-  73 |         cookie.setSecure(false);
-  74 |         cookie.setHttpOnly(true);
-  75 |         cookie.setPath(request.getRequestURI()); // i.e., set path to JUST this servlet
-  76 |         // e.g., /benchmark/sql-01/BenchmarkTest01001
-> 77 |         response.addCookie(cookie);
-  78 |
-  79 |         response.getWriter()
-  80 |                 .println(
-  81 |                         ""Created cookie: 'SomeCookie': with value: '""
-  82 |                                 + org.owasp.esapi.ESAPI.encoder().encodeForHTML(str)
-  83 |                                 + ""' and secure flag set to: false"");
-  84 |     }
-  85 | }
-     ^ Col 0
-"
 F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00300.java,83,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
+  71 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
+  72 |                 return;
   73 |             }
   74 |             str = new String(input, 0, i);
   75 |         }
@@ -758,6 +776,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00300.j
 "
 F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00565.java,83,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
+  71 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
+  72 |                 return;
   73 |             }
   74 |             str = new String(input, 0, i);
   75 |         }
@@ -781,6 +801,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00565.j
 "
 F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00169.java,84,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
+  72 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
+  73 |                 return;
   74 |             }
   75 |             str = new String(input, 0, i);
   76 |         }
@@ -804,6 +826,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00169.j
 "
 F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00566.java,85,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
+  73 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
+  74 |                 return;
   75 |             }
   76 |             str = new String(input, 0, i);
   77 |         }
@@ -827,6 +851,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00566.j
 "
 F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00241.java,88,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
+  76 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
+  77 |                 return;
   78 |             }
   79 |             str = new String(input, 0, i);
   80 |         }
@@ -850,6 +876,8 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00241.j
 "
 F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00903.java,89,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
+  77 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
+  78 |                 return;
   79 |             }
   80 |             str = new String(input, 0, i);
   81 |         }

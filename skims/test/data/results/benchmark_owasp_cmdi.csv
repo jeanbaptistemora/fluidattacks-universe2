@@ -674,6 +674,31 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00981.j
   100 |     private class Test {
       ^ Col 0
 "
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00823.java,91,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+   80 |         }
+   81 |
+   82 |         String cmd =
+   83 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
+   84 |                         this.getClass().getClassLoader());
+   85 |         String[] args = {cmd};
+   86 |         String[] argsEnv = {bar};
+   87 |
+   88 |         Runtime r = Runtime.getRuntime();
+   89 |
+   90 |         try {
+>  91 |             Process p = r.exec(args, argsEnv);
+   92 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
+   93 |         } catch (IOException e) {
+   94 |             System.out.println(""Problem executing cmdi - TestCase"");
+   95 |             response.getWriter()
+   96 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
+   97 |             return;
+   98 |         }
+   99 |     }
+  100 | }
+      ^ Col 0
+"
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00816.java,91,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    81 |             a1 = ""cmd.exe"";
@@ -699,28 +724,29 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00816.j
   101 |     }
       ^ Col 0
 "
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00823.java,91,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00092.java,95,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
-   81 |
-   82 |         String cmd =
-   83 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
-   84 |                         this.getClass().getClassLoader());
-   85 |         String[] args = {cmd};
-   86 |         String[] argsEnv = {bar};
-   87 |
-   88 |         Runtime r = Runtime.getRuntime();
-   89 |
-   90 |         try {
->  91 |             Process p = r.exec(args, argsEnv);
-   92 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
-   93 |         } catch (IOException e) {
-   94 |             System.out.println(""Problem executing cmdi - TestCase"");
-   95 |             response.getWriter()
-   96 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
-   97 |             return;
-   98 |         }
-   99 |     }
-  100 | }
+   84 |         }
+   85 |
+   86 |         String cmd =
+   87 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
+   88 |                         this.getClass().getClassLoader());
+   89 |         String[] args = {cmd};
+   90 |         String[] argsEnv = {bar};
+   91 |
+   92 |         Runtime r = Runtime.getRuntime();
+   93 |
+   94 |         try {
+>  95 |             Process p = r.exec(args, argsEnv);
+   96 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
+   97 |         } catch (IOException e) {
+   98 |             System.out.println(""Problem executing cmdi - TestCase"");
+   99 |             response.getWriter()
+  100 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
+  101 |             return;
+  102 |         }
+  103 |     }
+  104 | }
       ^ Col 0
 "
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01685.java,95,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
@@ -773,30 +799,6 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02611.j
   105 |     private static String doSomething(HttpServletRequest request, String param)
       ^ Col 0
 "
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00092.java,95,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
-","
-   85 |
-   86 |         String cmd =
-   87 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
-   88 |                         this.getClass().getClassLoader());
-   89 |         String[] args = {cmd};
-   90 |         String[] argsEnv = {bar};
-   91 |
-   92 |         Runtime r = Runtime.getRuntime();
-   93 |
-   94 |         try {
->  95 |             Process p = r.exec(args, argsEnv);
-   96 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
-   97 |         } catch (IOException e) {
-   98 |             System.out.println(""Problem executing cmdi - TestCase"");
-   99 |             response.getWriter()
-  100 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
-  101 |             return;
-  102 |         }
-  103 |     }
-  104 | }
-      ^ Col 0
-"
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00077.java,98,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    88 |         String osName = System.getProperty(""os.name"");
@@ -824,6 +826,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00077.j
 "
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00824.java,100,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
+   89 |             a1 = ""sh"";
    90 |             a2 = ""-c"";
    91 |             cmd = org.owasp.benchmark.helpers.Utils.getOSCommandString(""ls "");
    92 |             args = new String[] {a1, a2, cmd + bar};
@@ -1296,6 +1299,31 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01270.j
   70 |     } // end doPost
      ^ Col 0
 "
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00007.java,61,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+  50 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  51 |
+  52 |         String cmd =
+  53 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
+  54 |                         this.getClass().getClassLoader());
+  55 |         String[] args = {cmd};
+  56 |         String[] argsEnv = {param};
+  57 |
+  58 |         Runtime r = Runtime.getRuntime();
+  59 |
+  60 |         try {
+> 61 |             Process p = r.exec(args, argsEnv);
+  62 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
+  63 |         } catch (IOException e) {
+  64 |             System.out.println(""Problem executing cmdi - TestCase"");
+  65 |             response.getWriter()
+  66 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
+  67 |             return;
+  68 |         }
+  69 |     }
+  70 | }
+     ^ Col 0
+"
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01609.java,61,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   51 |         String osName = System.getProperty(""os.name"");
@@ -1421,6 +1449,31 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02250.j
   71 |     private static String doSomething(HttpServletRequest request, String param)
      ^ Col 0
 "
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00499.java,62,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+  51 |
+  52 |         String cmd = """";
+  53 |         String osName = System.getProperty(""os.name"");
+  54 |         if (osName.indexOf(""Windows"") != -1) {
+  55 |             cmd = org.owasp.benchmark.helpers.Utils.getOSCommandString(""echo"");
+  56 |         }
+  57 |
+  58 |         String[] argsEnv = {""Foo=bar""};
+  59 |         Runtime r = Runtime.getRuntime();
+  60 |
+  61 |         try {
+> 62 |             Process p = r.exec(cmd + bar, argsEnv);
+  63 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
+  64 |         } catch (IOException e) {
+  65 |             System.out.println(""Problem executing cmdi - TestCase"");
+  66 |             response.getWriter()
+  67 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
+  68 |             return;
+  69 |         }
+  70 |     }
+  71 | }
+     ^ Col 0
+"
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01361.java,61,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   51 |
@@ -1446,28 +1499,29 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01361.j
   71 |     private class Test {
      ^ Col 0
 "
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00007.java,61,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00174.java,63,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
-  51 |
-  52 |         String cmd =
-  53 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
-  54 |                         this.getClass().getClassLoader());
-  55 |         String[] args = {cmd};
-  56 |         String[] argsEnv = {param};
-  57 |
-  58 |         Runtime r = Runtime.getRuntime();
-  59 |
-  60 |         try {
-> 61 |             Process p = r.exec(args, argsEnv);
-  62 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
-  63 |         } catch (IOException e) {
-  64 |             System.out.println(""Problem executing cmdi - TestCase"");
-  65 |             response.getWriter()
-  66 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
-  67 |             return;
-  68 |         }
-  69 |     }
-  70 | }
+  52 |                 org.owasp.benchmark.helpers.ThingFactory.createThing();
+  53 |         String bar = thing.doSomething(param);
+  54 |
+  55 |         String cmd =
+  56 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
+  57 |                         this.getClass().getClassLoader());
+  58 |
+  59 |         String[] argsEnv = {bar};
+  60 |         Runtime r = Runtime.getRuntime();
+  61 |
+  62 |         try {
+> 63 |             Process p = r.exec(cmd, argsEnv);
+  64 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
+  65 |         } catch (IOException e) {
+  66 |             System.out.println(""Problem executing cmdi - TestCase"");
+  67 |             response.getWriter()
+  68 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
+  69 |             return;
+  70 |         }
+  71 |     }
+  72 | }
      ^ Col 0
 "
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02137.java,62,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
@@ -1493,30 +1547,6 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02137.j
   70 |             throw new ServletException(e);
   71 |         }
   72 |     } // end doPost
-     ^ Col 0
-"
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00499.java,62,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
-","
-  52 |         String cmd = """";
-  53 |         String osName = System.getProperty(""os.name"");
-  54 |         if (osName.indexOf(""Windows"") != -1) {
-  55 |             cmd = org.owasp.benchmark.helpers.Utils.getOSCommandString(""echo"");
-  56 |         }
-  57 |
-  58 |         String[] argsEnv = {""Foo=bar""};
-  59 |         Runtime r = Runtime.getRuntime();
-  60 |
-  61 |         try {
-> 62 |             Process p = r.exec(cmd + bar, argsEnv);
-  63 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
-  64 |         } catch (IOException e) {
-  65 |             System.out.println(""Problem executing cmdi - TestCase"");
-  66 |             response.getWriter()
-  67 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
-  68 |             return;
-  69 |         }
-  70 |     }
-  71 | }
      ^ Col 0
 "
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01517.java,62,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
@@ -1594,6 +1624,31 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00731.j
   72 |     }
      ^ Col 0
 "
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00017.java,63,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+  52 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  53 |
+  54 |         String cmd = """";
+  55 |         String osName = System.getProperty(""os.name"");
+  56 |         if (osName.indexOf(""Windows"") != -1) {
+  57 |             cmd = org.owasp.benchmark.helpers.Utils.getOSCommandString(""echo"");
+  58 |         }
+  59 |
+  60 |         Runtime r = Runtime.getRuntime();
+  61 |
+  62 |         try {
+> 63 |             Process p = r.exec(cmd + param);
+  64 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
+  65 |         } catch (IOException e) {
+  66 |             System.out.println(""Problem executing cmdi - TestCase"");
+  67 |             response.getWriter()
+  68 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
+  69 |             return;
+  70 |         }
+  71 |     }
+  72 | }
+     ^ Col 0
+"
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01064.java,62,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   52 |
@@ -1669,28 +1724,29 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01066.j
   72 |     private class Test {
      ^ Col 0
 "
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00174.java,63,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00176.java,64,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
-  53 |         String bar = thing.doSomething(param);
-  54 |
-  55 |         String cmd =
-  56 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
-  57 |                         this.getClass().getClassLoader());
+  53 |         String cmd = """";
+  54 |         String osName = System.getProperty(""os.name"");
+  55 |         if (osName.indexOf(""Windows"") != -1) {
+  56 |             cmd = org.owasp.benchmark.helpers.Utils.getOSCommandString(""echo"");
+  57 |         }
   58 |
-  59 |         String[] argsEnv = {bar};
+  59 |         String[] argsEnv = {""Foo=bar""};
   60 |         Runtime r = Runtime.getRuntime();
   61 |
   62 |         try {
-> 63 |             Process p = r.exec(cmd, argsEnv);
-  64 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
-  65 |         } catch (IOException e) {
-  66 |             System.out.println(""Problem executing cmdi - TestCase"");
-  67 |             response.getWriter()
-  68 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
-  69 |             return;
-  70 |         }
-  71 |     }
-  72 | }
+  63 |             Process p =
+> 64 |                     r.exec(cmd + bar, argsEnv, new java.io.File(System.getProperty(""user.dir"")));
+  65 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
+  66 |         } catch (IOException e) {
+  67 |             System.out.println(""Problem executing cmdi - TestCase"");
+  68 |             response.getWriter()
+  69 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
+  70 |             return;
+  71 |         }
+  72 |     }
+  73 | }
      ^ Col 0
 "
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01940.java,63,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
@@ -1718,28 +1774,29 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01940.j
   73 |     private static String doSomething(HttpServletRequest request, String param)
      ^ Col 0
 "
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00017.java,63,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00740.java,64,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
-  53 |
-  54 |         String cmd = """";
-  55 |         String osName = System.getProperty(""os.name"");
-  56 |         if (osName.indexOf(""Windows"") != -1) {
-  57 |             cmd = org.owasp.benchmark.helpers.Utils.getOSCommandString(""echo"");
-  58 |         }
-  59 |
-  60 |         Runtime r = Runtime.getRuntime();
-  61 |
-  62 |         try {
-> 63 |             Process p = r.exec(cmd + param);
-  64 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
-  65 |         } catch (IOException e) {
-  66 |             System.out.println(""Problem executing cmdi - TestCase"");
-  67 |             response.getWriter()
-  68 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
-  69 |             return;
-  70 |         }
-  71 |     }
-  72 | }
+  53 |         bar = (String) map87432.get(""keyB-87432""); // get it back out
+  54 |
+  55 |         String cmd =
+  56 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
+  57 |                         this.getClass().getClassLoader());
+  58 |         String[] args = {cmd};
+  59 |         String[] argsEnv = {bar};
+  60 |
+  61 |         Runtime r = Runtime.getRuntime();
+  62 |
+  63 |         try {
+> 64 |             Process p = r.exec(args, argsEnv);
+  65 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
+  66 |         } catch (IOException e) {
+  67 |             System.out.println(""Problem executing cmdi - TestCase"");
+  68 |             response.getWriter()
+  69 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
+  70 |             return;
+  71 |         }
+  72 |     }
+  73 | }
      ^ Col 0
 "
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02411.java,64,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
@@ -1892,30 +1949,6 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01942.j
   74 |     private static String doSomething(HttpServletRequest request, String param)
      ^ Col 0
 "
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00176.java,64,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
-","
-  54 |         String osName = System.getProperty(""os.name"");
-  55 |         if (osName.indexOf(""Windows"") != -1) {
-  56 |             cmd = org.owasp.benchmark.helpers.Utils.getOSCommandString(""echo"");
-  57 |         }
-  58 |
-  59 |         String[] argsEnv = {""Foo=bar""};
-  60 |         Runtime r = Runtime.getRuntime();
-  61 |
-  62 |         try {
-  63 |             Process p =
-> 64 |                     r.exec(cmd + bar, argsEnv, new java.io.File(System.getProperty(""user.dir"")));
-  65 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
-  66 |         } catch (IOException e) {
-  67 |             System.out.println(""Problem executing cmdi - TestCase"");
-  68 |             response.getWriter()
-  69 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
-  70 |             return;
-  71 |         }
-  72 |     }
-  73 | }
-     ^ Col 0
-"
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01190.java,64,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   54 |
@@ -1991,30 +2024,6 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01192.j
   74 |     private class Test {
      ^ Col 0
 "
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00740.java,64,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
-","
-  54 |
-  55 |         String cmd =
-  56 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
-  57 |                         this.getClass().getClassLoader());
-  58 |         String[] args = {cmd};
-  59 |         String[] argsEnv = {bar};
-  60 |
-  61 |         Runtime r = Runtime.getRuntime();
-  62 |
-  63 |         try {
-> 64 |             Process p = r.exec(args, argsEnv);
-  65 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
-  66 |         } catch (IOException e) {
-  67 |             System.out.println(""Problem executing cmdi - TestCase"");
-  68 |             response.getWriter()
-  69 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
-  70 |             return;
-  71 |         }
-  72 |     }
-  73 | }
-     ^ Col 0
-"
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01929.java,65,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   55 |         String osName = System.getProperty(""os.name"");
@@ -2038,6 +2047,31 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01929.j
   73 |             throw new ServletException(e);
   74 |         }
   75 |     } // end doPost
+     ^ Col 0
+"
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00173.java,66,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+  55 |         map68097.put(""keyC"", ""another-Value""); // put some stuff in the collection
+  56 |         bar = (String) map68097.get(""keyB-68097""); // get it back out
+  57 |
+  58 |         String cmd =
+  59 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
+  60 |                         this.getClass().getClassLoader());
+  61 |
+  62 |         String[] argsEnv = {bar};
+  63 |         Runtime r = Runtime.getRuntime();
+  64 |
+  65 |         try {
+> 66 |             Process p = r.exec(cmd, argsEnv);
+  67 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
+  68 |         } catch (IOException e) {
+  69 |             System.out.println(""Problem executing cmdi - TestCase"");
+  70 |             response.getWriter()
+  71 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
+  72 |             return;
+  73 |         }
+  74 |     }
+  75 | }
      ^ Col 0
 "
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00006.java,66,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
@@ -2065,28 +2099,54 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00006.j
   76 |     }
      ^ Col 0
 "
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00173.java,66,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00172.java,67,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
-  56 |         bar = (String) map68097.get(""keyB-68097""); // get it back out
+  56 |         bar = (String) map59408.get(""keyB-59408""); // get it back out
   57 |
   58 |         String cmd =
   59 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
   60 |                         this.getClass().getClassLoader());
-  61 |
+  61 |         String[] args = {cmd};
   62 |         String[] argsEnv = {bar};
-  63 |         Runtime r = Runtime.getRuntime();
-  64 |
-  65 |         try {
-> 66 |             Process p = r.exec(cmd, argsEnv);
-  67 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
-  68 |         } catch (IOException e) {
-  69 |             System.out.println(""Problem executing cmdi - TestCase"");
-  70 |             response.getWriter()
-  71 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
-  72 |             return;
-  73 |         }
-  74 |     }
-  75 | }
+  63 |
+  64 |         Runtime r = Runtime.getRuntime();
+  65 |
+  66 |         try {
+> 67 |             Process p = r.exec(args, argsEnv, new java.io.File(System.getProperty(""user.dir"")));
+  68 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
+  69 |         } catch (IOException e) {
+  70 |             System.out.println(""Problem executing cmdi - TestCase"");
+  71 |             response.getWriter()
+  72 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
+  73 |             return;
+  74 |         }
+  75 |     }
+  76 | }
+     ^ Col 0
+"
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00500.java,68,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+  57 |         String cmd = """";
+  58 |         String osName = System.getProperty(""os.name"");
+  59 |         if (osName.indexOf(""Windows"") != -1) {
+  60 |             cmd = org.owasp.benchmark.helpers.Utils.getOSCommandString(""echo"");
+  61 |         }
+  62 |
+  63 |         String[] argsEnv = {""Foo=bar""};
+  64 |         Runtime r = Runtime.getRuntime();
+  65 |
+  66 |         try {
+  67 |             Process p =
+> 68 |                     r.exec(cmd + bar, argsEnv, new java.io.File(System.getProperty(""user.dir"")));
+  69 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
+  70 |         } catch (IOException e) {
+  71 |             System.out.println(""Problem executing cmdi - TestCase"");
+  72 |             response.getWriter()
+  73 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
+  74 |             return;
+  75 |         }
+  76 |     }
+  77 | }
      ^ Col 0
 "
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02059.java,67,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
@@ -2139,28 +2199,54 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00159.j
   77 |     }
      ^ Col 0
 "
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00172.java,67,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00496.java,68,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
-  57 |
-  58 |         String cmd =
-  59 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
-  60 |                         this.getClass().getClassLoader());
-  61 |         String[] args = {cmd};
-  62 |         String[] argsEnv = {bar};
-  63 |
-  64 |         Runtime r = Runtime.getRuntime();
-  65 |
-  66 |         try {
-> 67 |             Process p = r.exec(args, argsEnv, new java.io.File(System.getProperty(""user.dir"")));
-  68 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
-  69 |         } catch (IOException e) {
-  70 |             System.out.println(""Problem executing cmdi - TestCase"");
-  71 |             response.getWriter()
-  72 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
-  73 |             return;
-  74 |         }
-  75 |     }
-  76 | }
+  57 |         }
+  58 |
+  59 |         String cmd =
+  60 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
+  61 |                         this.getClass().getClassLoader());
+  62 |         String[] args = {cmd};
+  63 |         String[] argsEnv = {bar};
+  64 |
+  65 |         Runtime r = Runtime.getRuntime();
+  66 |
+  67 |         try {
+> 68 |             Process p = r.exec(args, argsEnv);
+  69 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
+  70 |         } catch (IOException e) {
+  71 |             System.out.println(""Problem executing cmdi - TestCase"");
+  72 |             response.getWriter()
+  73 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
+  74 |             return;
+  75 |         }
+  76 |     }
+  77 | }
+     ^ Col 0
+"
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00498.java,68,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+  57 |         }
+  58 |
+  59 |         String cmd =
+  60 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
+  61 |                         this.getClass().getClassLoader());
+  62 |         String[] args = {cmd};
+  63 |         String[] argsEnv = {bar};
+  64 |
+  65 |         Runtime r = Runtime.getRuntime();
+  66 |
+  67 |         try {
+> 68 |             Process p = r.exec(args, argsEnv, new java.io.File(System.getProperty(""user.dir"")));
+  69 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
+  70 |         } catch (IOException e) {
+  71 |             System.out.println(""Problem executing cmdi - TestCase"");
+  72 |             response.getWriter()
+  73 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
+  74 |             return;
+  75 |         }
+  76 |     }
+  77 | }
      ^ Col 0
 "
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00015.java,68,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
@@ -2188,28 +2274,54 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00015.j
   78 |     }
      ^ Col 0
 "
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00500.java,68,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00302.java,69,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
-  58 |         String osName = System.getProperty(""os.name"");
-  59 |         if (osName.indexOf(""Windows"") != -1) {
-  60 |             cmd = org.owasp.benchmark.helpers.Utils.getOSCommandString(""echo"");
-  61 |         }
-  62 |
-  63 |         String[] argsEnv = {""Foo=bar""};
-  64 |         Runtime r = Runtime.getRuntime();
+  58 |         bar = (7 * 42) - num > 200 ? ""This should never happen"" : param;
+  59 |
+  60 |         String cmd = """";
+  61 |         String osName = System.getProperty(""os.name"");
+  62 |         if (osName.indexOf(""Windows"") != -1) {
+  63 |             cmd = org.owasp.benchmark.helpers.Utils.getOSCommandString(""echo"");
+  64 |         }
   65 |
-  66 |         try {
-  67 |             Process p =
-> 68 |                     r.exec(cmd + bar, argsEnv, new java.io.File(System.getProperty(""user.dir"")));
-  69 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
-  70 |         } catch (IOException e) {
-  71 |             System.out.println(""Problem executing cmdi - TestCase"");
-  72 |             response.getWriter()
-  73 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
-  74 |             return;
-  75 |         }
-  76 |     }
-  77 | }
+  66 |         Runtime r = Runtime.getRuntime();
+  67 |
+  68 |         try {
+> 69 |             Process p = r.exec(cmd + bar);
+  70 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
+  71 |         } catch (IOException e) {
+  72 |             System.out.println(""Problem executing cmdi - TestCase"");
+  73 |             response.getWriter()
+  74 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
+  75 |             return;
+  76 |         }
+  77 |     }
+  78 | }
+     ^ Col 0
+"
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00306.java,69,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+  58 |         else bar = ""This should never happen"";
+  59 |
+  60 |         String cmd =
+  61 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
+  62 |                         this.getClass().getClassLoader());
+  63 |         String[] args = {cmd};
+  64 |         String[] argsEnv = {bar};
+  65 |
+  66 |         Runtime r = Runtime.getRuntime();
+  67 |
+  68 |         try {
+> 69 |             Process p = r.exec(args, argsEnv, new java.io.File(System.getProperty(""user.dir"")));
+  70 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
+  71 |         } catch (IOException e) {
+  72 |             System.out.println(""Problem executing cmdi - TestCase"");
+  73 |             response.getWriter()
+  74 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
+  75 |             return;
+  76 |         }
+  77 |     }
+  78 | }
      ^ Col 0
 "
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02344.java,68,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
@@ -2237,54 +2349,6 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02344.j
   78 |     private static String doSomething(HttpServletRequest request, String param)
      ^ Col 0
 "
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00496.java,68,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
-","
-  58 |
-  59 |         String cmd =
-  60 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
-  61 |                         this.getClass().getClassLoader());
-  62 |         String[] args = {cmd};
-  63 |         String[] argsEnv = {bar};
-  64 |
-  65 |         Runtime r = Runtime.getRuntime();
-  66 |
-  67 |         try {
-> 68 |             Process p = r.exec(args, argsEnv);
-  69 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
-  70 |         } catch (IOException e) {
-  71 |             System.out.println(""Problem executing cmdi - TestCase"");
-  72 |             response.getWriter()
-  73 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
-  74 |             return;
-  75 |         }
-  76 |     }
-  77 | }
-     ^ Col 0
-"
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00498.java,68,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
-","
-  58 |
-  59 |         String cmd =
-  60 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
-  61 |                         this.getClass().getClassLoader());
-  62 |         String[] args = {cmd};
-  63 |         String[] argsEnv = {bar};
-  64 |
-  65 |         Runtime r = Runtime.getRuntime();
-  66 |
-  67 |         try {
-> 68 |             Process p = r.exec(args, argsEnv, new java.io.File(System.getProperty(""user.dir"")));
-  69 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
-  70 |         } catch (IOException e) {
-  71 |             System.out.println(""Problem executing cmdi - TestCase"");
-  72 |             response.getWriter()
-  73 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
-  74 |             return;
-  75 |         }
-  76 |     }
-  77 | }
-     ^ Col 0
-"
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01286.java,69,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   59 |         } else {
@@ -2310,56 +2374,9 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01286.j
   79 |     private class Test {
      ^ Col 0
 "
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00302.java,69,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
-","
-  59 |
-  60 |         String cmd = """";
-  61 |         String osName = System.getProperty(""os.name"");
-  62 |         if (osName.indexOf(""Windows"") != -1) {
-  63 |             cmd = org.owasp.benchmark.helpers.Utils.getOSCommandString(""echo"");
-  64 |         }
-  65 |
-  66 |         Runtime r = Runtime.getRuntime();
-  67 |
-  68 |         try {
-> 69 |             Process p = r.exec(cmd + bar);
-  70 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
-  71 |         } catch (IOException e) {
-  72 |             System.out.println(""Problem executing cmdi - TestCase"");
-  73 |             response.getWriter()
-  74 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
-  75 |             return;
-  76 |         }
-  77 |     }
-  78 | }
-     ^ Col 0
-"
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00306.java,69,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
-","
-  59 |
-  60 |         String cmd =
-  61 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
-  62 |                         this.getClass().getClassLoader());
-  63 |         String[] args = {cmd};
-  64 |         String[] argsEnv = {bar};
-  65 |
-  66 |         Runtime r = Runtime.getRuntime();
-  67 |
-  68 |         try {
-> 69 |             Process p = r.exec(args, argsEnv, new java.io.File(System.getProperty(""user.dir"")));
-  70 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
-  71 |         } catch (IOException e) {
-  72 |             System.out.println(""Problem executing cmdi - TestCase"");
-  73 |             response.getWriter()
-  74 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
-  75 |             return;
-  76 |         }
-  77 |     }
-  78 | }
-     ^ Col 0
-"
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00573.java,70,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
+  59 |
   60 |         String bar = param;
   61 |
   62 |         String cmd =
@@ -2380,6 +2397,31 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00573.j
   77 |         }
   78 |     }
   79 | }
+     ^ Col 0
+"
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00495.java,71,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+  60 |         }
+  61 |
+  62 |         String cmd =
+  63 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
+  64 |                         this.getClass().getClassLoader());
+  65 |         String[] args = {cmd};
+  66 |         String[] argsEnv = {bar};
+  67 |
+  68 |         Runtime r = Runtime.getRuntime();
+  69 |
+  70 |         try {
+> 71 |             Process p = r.exec(args, argsEnv);
+  72 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
+  73 |         } catch (IOException e) {
+  74 |             System.out.println(""Problem executing cmdi - TestCase"");
+  75 |             response.getWriter()
+  76 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
+  77 |             return;
+  78 |         }
+  79 |     }
+  80 | }
      ^ Col 0
 "
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02151.java,71,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
@@ -2480,30 +2522,6 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02429.j
   79 |     } // end doPost
   80 |
   81 |     private static String doSomething(HttpServletRequest request, String param)
-     ^ Col 0
-"
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00495.java,71,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
-","
-  61 |
-  62 |         String cmd =
-  63 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
-  64 |                         this.getClass().getClassLoader());
-  65 |         String[] args = {cmd};
-  66 |         String[] argsEnv = {bar};
-  67 |
-  68 |         Runtime r = Runtime.getRuntime();
-  69 |
-  70 |         try {
-> 71 |             Process p = r.exec(args, argsEnv);
-  72 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
-  73 |         } catch (IOException e) {
-  74 |             System.out.println(""Problem executing cmdi - TestCase"");
-  75 |             response.getWriter()
-  76 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
-  77 |             return;
-  78 |         }
-  79 |     }
-  80 | }
      ^ Col 0
 "
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02342.java,72,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
@@ -2708,6 +2726,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02251.j
 "
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00576.java,75,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
+  64 |         String cmd = """";
   65 |         String osName = System.getProperty(""os.name"");
   66 |         if (osName.indexOf(""Windows"") != -1) {
   67 |             cmd = org.owasp.benchmark.helpers.Utils.getOSCommandString(""echo"");
@@ -2732,6 +2751,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00576.j
 "
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00574.java,75,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
+  64 |
   65 |         bar = (7 * 42) - num > 200 ? ""This should never happen"" : param;
   66 |
   67 |         String cmd =
@@ -2752,6 +2772,31 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00574.j
   82 |         }
   83 |     }
   84 | }
+     ^ Col 0
+"
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00091.java,76,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+  65 |         String bar = param;
+  66 |
+  67 |         String cmd =
+  68 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
+  69 |                         this.getClass().getClassLoader());
+  70 |         String[] args = {cmd};
+  71 |         String[] argsEnv = {bar};
+  72 |
+  73 |         Runtime r = Runtime.getRuntime();
+  74 |
+  75 |         try {
+> 76 |             Process p = r.exec(args, argsEnv);
+  77 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
+  78 |         } catch (IOException e) {
+  79 |             System.out.println(""Problem executing cmdi - TestCase"");
+  80 |             response.getWriter()
+  81 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
+  82 |             return;
+  83 |         }
+  84 |     }
+  85 | }
      ^ Col 0
 "
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02333.java,76,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
@@ -2804,30 +2849,6 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00293.j
   86 |     }
      ^ Col 0
 "
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00091.java,76,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
-","
-  66 |
-  67 |         String cmd =
-  68 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
-  69 |                         this.getClass().getClassLoader());
-  70 |         String[] args = {cmd};
-  71 |         String[] argsEnv = {bar};
-  72 |
-  73 |         Runtime r = Runtime.getRuntime();
-  74 |
-  75 |         try {
-> 76 |             Process p = r.exec(args, argsEnv);
-  77 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
-  78 |         } catch (IOException e) {
-  79 |             System.out.println(""Problem executing cmdi - TestCase"");
-  80 |             response.getWriter()
-  81 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
-  82 |             return;
-  83 |         }
-  84 |     }
-  85 | }
-     ^ Col 0
-"
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01864.java,77,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   67 |         String cmd = """";
@@ -2855,6 +2876,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01864.j
 "
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00567.java,78,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
+  67 |         }
   68 |
   69 |         String cmd = """";
   70 |         String osName = System.getProperty(""os.name"");
@@ -2879,6 +2901,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00567.j
 "
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00311.java,80,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
+  69 |             default:
   70 |                 bar = ""bobs_your_uncle"";
   71 |                 break;
   72 |         }
@@ -2903,6 +2926,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00311.j
 "
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00497.java,80,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
+  69 |         }
   70 |
   71 |         String cmd =
   72 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
@@ -2927,6 +2951,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00497.j
 "
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00407.java,81,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
+  70 |             a1 = ""sh"";
   71 |             a2 = ""-c"";
   72 |             cmd = org.owasp.benchmark.helpers.Utils.getOSCommandString(""ls "");
   73 |             args = new String[] {a1, a2, cmd + bar};
@@ -2949,32 +2974,9 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00407.j
   90 | }
      ^ Col 0
 "
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00575.java,83,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
-","
-  73 |         String osName = System.getProperty(""os.name"");
-  74 |         if (osName.indexOf(""Windows"") != -1) {
-  75 |             cmd = org.owasp.benchmark.helpers.Utils.getOSCommandString(""echo"");
-  76 |         }
-  77 |
-  78 |         String[] argsEnv = {""Foo=bar""};
-  79 |         Runtime r = Runtime.getRuntime();
-  80 |
-  81 |         try {
-  82 |             Process p =
-> 83 |                     r.exec(cmd + bar, argsEnv, new java.io.File(System.getProperty(""user.dir"")));
-  84 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
-  85 |         } catch (IOException e) {
-  86 |             System.out.println(""Problem executing cmdi - TestCase"");
-  87 |             response.getWriter()
-  88 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
-  89 |             return;
-  90 |         }
-  91 |     }
-  92 | }
-     ^ Col 0
-"
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00303.java,83,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
+  72 |             args = new String[] {a1, a2, cmd, bar};
   73 |         } else {
   74 |             a1 = ""sh"";
   75 |             a2 = ""-c"";
@@ -2999,6 +3001,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00303.j
 "
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00825.java,83,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
+  72 |         String bar = thing.doSomething(param);
   73 |
   74 |         String cmd =
   75 |                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
@@ -3010,6 +3013,31 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00825.j
   81 |
   82 |         try {
 > 83 |             Process p = r.exec(args, argsEnv, new java.io.File(System.getProperty(""user.dir"")));
+  84 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
+  85 |         } catch (IOException e) {
+  86 |             System.out.println(""Problem executing cmdi - TestCase"");
+  87 |             response.getWriter()
+  88 |                     .println(org.owasp.esapi.ESAPI.encoder().encodeForHTML(e.getMessage()));
+  89 |             return;
+  90 |         }
+  91 |     }
+  92 | }
+     ^ Col 0
+"
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00575.java,83,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+  72 |         String cmd = """";
+  73 |         String osName = System.getProperty(""os.name"");
+  74 |         if (osName.indexOf(""Windows"") != -1) {
+  75 |             cmd = org.owasp.benchmark.helpers.Utils.getOSCommandString(""echo"");
+  76 |         }
+  77 |
+  78 |         String[] argsEnv = {""Foo=bar""};
+  79 |         Runtime r = Runtime.getRuntime();
+  80 |
+  81 |         try {
+  82 |             Process p =
+> 83 |                     r.exec(cmd + bar, argsEnv, new java.io.File(System.getProperty(""user.dir"")));
   84 |             org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
   85 |         } catch (IOException e) {
   86 |             System.out.println(""Problem executing cmdi - TestCase"");
@@ -3048,6 +3076,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00815.j
 "
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00568.java,87,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
+  76 |             a1 = ""sh"";
   77 |             a2 = ""-c"";
   78 |             cmd = org.owasp.benchmark.helpers.Utils.getOSCommandString(""ls "");
   79 |             args = new String[] {a1, a2, cmd + bar};
@@ -3072,6 +3101,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00568.j
 "
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00304.java,88,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
+  77 |             a1 = ""sh"";
   78 |             a2 = ""-c"";
   79 |             cmd = org.owasp.benchmark.helpers.Utils.getOSCommandString(""ls "");
   80 |             args = new String[] {a1, a2, cmd + bar};
@@ -3096,6 +3126,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00304.j
 "
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00409.java,90,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
+  79 |             a1 = ""sh"";
   80 |             a2 = ""-c"";
   81 |             cmd = org.owasp.benchmark.helpers.Utils.getOSCommandString(""ls "");
   82 |             args = new String[] {a1, a2, cmd + bar};

@@ -99,6 +99,706 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02587.j
    84 |         b93081.replace(
       ^ Col 0
 "
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00388.java,50,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  32 |     @Override
+  33 |     public void doGet(HttpServletRequest request, HttpServletResponse response)
+  34 |             throws ServletException, IOException {
+  35 |         doPost(request, response);
+  36 |     }
+  37 |
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         String param = request.getParameter(""BenchmarkTest00388"");
+  44 |         if (param == null) param = """";
+  45 |
+  46 |         StringBuilder sbxyz30382 = new StringBuilder(param);
+  47 |         String bar = sbxyz30382.append(""_SafeStuff"").toString();
+  48 |
+  49 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 50 |         response.getWriter().println(bar.toCharArray());
+  51 |     }
+  52 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00375.java,51,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  33 |     public void doGet(HttpServletRequest request, HttpServletResponse response)
+  34 |             throws ServletException, IOException {
+  35 |         doPost(request, response);
+  36 |     }
+  37 |
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         String param = request.getParameter(""BenchmarkTest00375"");
+  44 |         if (param == null) param = """";
+  45 |
+  46 |         String bar = """";
+  47 |         if (param != null) bar = param.split("" "")[0];
+  48 |
+  49 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  50 |         Object[] obj = {""a"", ""b""};
+> 51 |         response.getWriter().format(java.util.Locale.US, bar, obj);
+  52 |     }
+  53 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00378.java,51,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  33 |     public void doGet(HttpServletRequest request, HttpServletResponse response)
+  34 |             throws ServletException, IOException {
+  35 |         doPost(request, response);
+  36 |     }
+  37 |
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         String param = request.getParameter(""BenchmarkTest00378"");
+  44 |         if (param == null) param = """";
+  45 |
+  46 |         StringBuilder sbxyz85125 = new StringBuilder(param);
+  47 |         String bar = sbxyz85125.append(""_SafeStuff"").toString();
+  48 |
+  49 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  50 |         Object[] obj = {""a"", ""b""};
+> 51 |         response.getWriter().format(bar, obj);
+  52 |     }
+  53 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00384.java,52,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  34 |             throws ServletException, IOException {
+  35 |         doPost(request, response);
+  36 |     }
+  37 |
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         String param = request.getParameter(""BenchmarkTest00384"");
+  44 |         if (param == null) param = """";
+  45 |
+  46 |         org.owasp.benchmark.helpers.ThingInterface thing =
+  47 |                 org.owasp.benchmark.helpers.ThingFactory.createThing();
+  48 |         String bar = thing.doSomething(param);
+  49 |
+  50 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  51 |         Object[] obj = {""a"", ""b""};
+> 52 |         response.getWriter().printf(java.util.Locale.US, bar, obj);
+  53 |     }
+  54 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00715.java,52,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  34 |             throws ServletException, IOException {
+  35 |         doPost(request, response);
+  36 |     }
+  37 |
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         String[] values = request.getParameterValues(""BenchmarkTest00715"");
+  44 |         String param;
+  45 |         if (values != null && values.length > 0) param = values[0];
+  46 |         else param = """";
+  47 |
+  48 |         String bar = """";
+  49 |         if (param != null) bar = param.split("" "")[0];
+  50 |
+  51 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 52 |         response.getWriter().print(bar);
+  53 |     }
+  54 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00643.java,52,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  34 |             throws ServletException, IOException {
+  35 |         doPost(request, response);
+  36 |     }
+  37 |
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         org.owasp.benchmark.helpers.SeparateClassRequest scr =
+  44 |                 new org.owasp.benchmark.helpers.SeparateClassRequest(request);
+  45 |         String param = scr.getTheParameter(""BenchmarkTest00643"");
+  46 |         if (param == null) param = """";
+  47 |
+  48 |         StringBuilder sbxyz31207 = new StringBuilder(param);
+  49 |         String bar = sbxyz31207.append(""_SafeStuff"").toString();
+  50 |
+  51 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 52 |         response.getWriter().print(bar.toCharArray());
+  53 |     }
+  54 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00644.java,52,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  34 |             throws ServletException, IOException {
+  35 |         doPost(request, response);
+  36 |     }
+  37 |
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         org.owasp.benchmark.helpers.SeparateClassRequest scr =
+  44 |                 new org.owasp.benchmark.helpers.SeparateClassRequest(request);
+  45 |         String param = scr.getTheParameter(""BenchmarkTest00644"");
+  46 |         if (param == null) param = """";
+  47 |
+  48 |         String bar = """";
+  49 |         if (param != null) bar = param.split("" "")[0];
+  50 |
+  51 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 52 |         response.getWriter().print(bar);
+  53 |     }
+  54 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00030.java,53,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  35 |         doPost(request, response);
+  36 |     }
+  37 |
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         // some code
+  42 |         response.setContentType(""text/html;charset=UTF-8"");
+  43 |
+  44 |         java.util.Map<String, String[]> map = request.getParameterMap();
+  45 |         String param = """";
+  46 |         if (!map.isEmpty()) {
+  47 |             String[] values = map.get(""BenchmarkTest00030"");
+  48 |             if (values != null) param = values[0];
+  49 |         }
+  50 |
+  51 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  52 |         Object[] obj = {""a"", ""b""};
+> 53 |         response.getWriter().printf(param, obj);
+  54 |     }
+  55 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00729.java,53,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  35 |         doPost(request, response);
+  36 |     }
+  37 |
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         String[] values = request.getParameterValues(""BenchmarkTest00729"");
+  44 |         String param;
+  45 |         if (values != null && values.length > 0) param = values[0];
+  46 |         else param = """";
+  47 |
+  48 |         org.owasp.benchmark.helpers.ThingInterface thing =
+  49 |                 org.owasp.benchmark.helpers.ThingFactory.createThing();
+  50 |         String bar = thing.doSomething(param);
+  51 |
+  52 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 53 |         response.getWriter().write(bar.toCharArray());
+  54 |     }
+  55 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00041.java,53,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  36 |     }
+  37 |
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         // some code
+  42 |         response.setContentType(""text/html;charset=UTF-8"");
+  43 |
+  44 |         org.owasp.benchmark.helpers.SeparateClassRequest scr =
+  45 |                 new org.owasp.benchmark.helpers.SeparateClassRequest(request);
+  46 |         String param = scr.getTheParameter(""BenchmarkTest00041"");
+  47 |         if (param == null) param = """";
+  48 |
+  49 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  50 |         int length = 1;
+  51 |         if (param != null) {
+  52 |             length = param.length();
+> 53 |             response.getWriter().write(param, 0, length);
+  54 |         }
+  55 |     }
+  56 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00387.java,54,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  36 |     }
+  37 |
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         String param = request.getParameter(""BenchmarkTest00387"");
+  44 |         if (param == null) param = """";
+  45 |
+  46 |         String bar;
+  47 |
+  48 |         // Simple ? condition that assigns param to bar on false condition
+  49 |         int num = 106;
+  50 |
+  51 |         bar = (7 * 42) - num > 200 ? ""This should never happen"" : param;
+  52 |
+  53 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 54 |         response.getWriter().println(bar.toCharArray());
+  55 |     }
+  56 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00395.java,53,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  36 |     }
+  37 |
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         String param = request.getParameter(""BenchmarkTest00395"");
+  44 |         if (param == null) param = """";
+  45 |
+  46 |         String bar = """";
+  47 |         if (param != null) bar = param.split("" "")[0];
+  48 |
+  49 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  50 |         int length = 1;
+  51 |         if (bar != null) {
+  52 |             length = bar.length();
+> 53 |             response.getWriter().write(bar, 0, length);
+  54 |         }
+  55 |     }
+  56 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00719.java,54,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  36 |     }
+  37 |
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         String[] values = request.getParameterValues(""BenchmarkTest00719"");
+  44 |         String param;
+  45 |         if (values != null && values.length > 0) param = values[0];
+  46 |         else param = """";
+  47 |
+  48 |         org.owasp.benchmark.helpers.ThingInterface thing =
+  49 |                 org.owasp.benchmark.helpers.ThingFactory.createThing();
+  50 |         String bar = thing.doSomething(param);
+  51 |
+  52 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  53 |         Object[] obj = {""a"", ""b""};
+> 54 |         response.getWriter().printf(java.util.Locale.US, bar, obj);
+  55 |     }
+  56 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00727.java,54,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  36 |     }
+  37 |
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         String[] values = request.getParameterValues(""BenchmarkTest00727"");
+  44 |         String param;
+  45 |         if (values != null && values.length > 0) param = values[0];
+  46 |         else param = """";
+  47 |
+  48 |         String bar = param;
+  49 |         if (param != null && param.length() > 1) {
+  50 |             bar = param.substring(0, param.length() - 1);
+  51 |         }
+  52 |
+  53 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 54 |         response.getWriter().println(bar);
+  55 |     }
+  56 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00477.java,54,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  36 |     }
+  37 |
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         java.util.Map<String, String[]> map = request.getParameterMap();
+  44 |         String param = """";
+  45 |         if (!map.isEmpty()) {
+  46 |             String[] values = map.get(""BenchmarkTest00477"");
+  47 |             if (values != null) param = values[0];
+  48 |         }
+  49 |
+  50 |         StringBuilder sbxyz54686 = new StringBuilder(param);
+  51 |         String bar = sbxyz54686.append(""_SafeStuff"").toString();
+  52 |
+  53 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 54 |         response.getWriter().println(bar);
+  55 |     }
+  56 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00645.java,54,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  36 |     }
+  37 |
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         org.owasp.benchmark.helpers.SeparateClassRequest scr =
+  44 |                 new org.owasp.benchmark.helpers.SeparateClassRequest(request);
+  45 |         String param = scr.getTheParameter(""BenchmarkTest00645"");
+  46 |         if (param == null) param = """";
+  47 |
+  48 |         org.owasp.benchmark.helpers.ThingInterface thing =
+  49 |                 org.owasp.benchmark.helpers.ThingFactory.createThing();
+  50 |         String bar = thing.doSomething(param);
+  51 |
+  52 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  53 |         Object[] obj = {""a"", ""b""};
+> 54 |         response.getWriter().printf(java.util.Locale.US, bar, obj);
+  55 |     }
+  56 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00376.java,55,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  37 |
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         String param = request.getParameter(""BenchmarkTest00376"");
+  44 |         if (param == null) param = """";
+  45 |
+  46 |         String bar;
+  47 |
+  48 |         // Simple ? condition that assigns param to bar on false condition
+  49 |         int num = 106;
+  50 |
+  51 |         bar = (7 * 42) - num > 200 ? ""This should never happen"" : param;
+  52 |
+  53 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  54 |         Object[] obj = {""a"", bar};
+> 55 |         response.getWriter().format(""Formatted like: %1$s and %2$s."", obj);
+  56 |     }
+  57 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00492.java,55,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  37 |
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         java.util.Map<String, String[]> map = request.getParameterMap();
+  44 |         String param = """";
+  45 |         if (!map.isEmpty()) {
+  46 |             String[] values = map.get(""BenchmarkTest00492"");
+  47 |             if (values != null) param = values[0];
+  48 |         }
+  49 |
+  50 |         org.owasp.benchmark.helpers.ThingInterface thing =
+  51 |                 org.owasp.benchmark.helpers.ThingFactory.createThing();
+  52 |         String bar = thing.doSomething(param);
+  53 |
+  54 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 55 |         response.getWriter().write(""Parameter value: "" + bar);
+  56 |     }
+  57 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00013.java,56,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         // some code
+  42 |         response.setContentType(""text/html;charset=UTF-8"");
+  43 |
+  44 |         String param = """";
+  45 |         java.util.Enumeration<String> headers = request.getHeaders(""Referer"");
+  46 |
+  47 |         if (headers != null && headers.hasMoreElements()) {
+  48 |             param = headers.nextElement(); // just grab first element
+  49 |         }
+  50 |
+  51 |         // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
+  52 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  53 |
+  54 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  55 |         Object[] obj = {""a"", ""b""};
+> 56 |         response.getWriter().format(java.util.Locale.US, param, obj);
+  57 |     }
+  58 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00014.java,56,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         // some code
+  42 |         response.setContentType(""text/html;charset=UTF-8"");
+  43 |
+  44 |         String param = """";
+  45 |         java.util.Enumeration<String> headers = request.getHeaders(""Referer"");
+  46 |
+  47 |         if (headers != null && headers.hasMoreElements()) {
+  48 |             param = headers.nextElement(); // just grab first element
+  49 |         }
+  50 |
+  51 |         // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
+  52 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  53 |
+  54 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  55 |         Object[] obj = {""a"", ""b""};
+> 56 |         response.getWriter().format(param, obj);
+  57 |     }
+  58 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00149.java,56,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         String param = """";
+  44 |         if (request.getHeader(""Referer"") != null) {
+  45 |             param = request.getHeader(""Referer"");
+  46 |         }
+  47 |
+  48 |         // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
+  49 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  50 |
+  51 |         StringBuilder sbxyz19132 = new StringBuilder(param);
+  52 |         String bar = sbxyz19132.append(""_SafeStuff"").toString();
+  53 |
+  54 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  55 |         Object[] obj = {""a"", bar};
+> 56 |         response.getWriter().printf(java.util.Locale.US, ""Formatted like: %1$s and %2$s."", obj);
+  57 |     }
+  58 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00155.java,56,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         String param = """";
+  44 |         if (request.getHeader(""Referer"") != null) {
+  45 |             param = request.getHeader(""Referer"");
+  46 |         }
+  47 |
+  48 |         // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
+  49 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  50 |
+  51 |         org.owasp.benchmark.helpers.ThingInterface thing =
+  52 |                 org.owasp.benchmark.helpers.ThingFactory.createThing();
+  53 |         String bar = thing.doSomething(param);
+  54 |
+  55 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 56 |         response.getWriter().println(bar);
+  57 |     }
+  58 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00284.java,56,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         String param = """";
+  44 |         java.util.Enumeration<String> headers = request.getHeaders(""Referer"");
+  45 |
+  46 |         if (headers != null && headers.hasMoreElements()) {
+  47 |             param = headers.nextElement(); // just grab first element
+  48 |         }
+  49 |
+  50 |         // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
+  51 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  52 |
+  53 |         String bar = param;
+  54 |
+  55 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 56 |         response.getWriter().println(bar);
+  57 |     }
+  58 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00390.java,56,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         String param = request.getParameter(""BenchmarkTest00390"");
+  44 |         if (param == null) param = """";
+  45 |
+  46 |         String bar = """";
+  47 |         if (param != null) {
+  48 |             bar =
+  49 |                     new String(
+  50 |                             org.apache.commons.codec.binary.Base64.decodeBase64(
+  51 |                                     org.apache.commons.codec.binary.Base64.encodeBase64(
+  52 |                                             param.getBytes())));
+  53 |         }
+  54 |
+  55 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 56 |         response.getWriter().println(bar);
+  57 |     }
+  58 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00728.java,56,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         String[] values = request.getParameterValues(""BenchmarkTest00728"");
+  44 |         String param;
+  45 |         if (values != null && values.length > 0) param = values[0];
+  46 |         else param = """";
+  47 |
+  48 |         String bar;
+  49 |
+  50 |         // Simple if statement that assigns param to bar on true condition
+  51 |         int num = 196;
+  52 |         if ((500 / 42) + num > 200) bar = param;
+  53 |         else bar = ""This should never happen"";
+  54 |
+  55 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 56 |         response.getWriter().println(bar);
+  57 |     }
+  58 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00656.java,56,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  38 |     @Override
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         org.owasp.benchmark.helpers.SeparateClassRequest scr =
+  44 |                 new org.owasp.benchmark.helpers.SeparateClassRequest(request);
+  45 |         String param = scr.getTheParameter(""BenchmarkTest00656"");
+  46 |         if (param == null) param = """";
+  47 |
+  48 |         String bar;
+  49 |
+  50 |         // Simple ? condition that assigns param to bar on false condition
+  51 |         int num = 106;
+  52 |
+  53 |         bar = (7 * 42) - num > 200 ? ""This should never happen"" : param;
+  54 |
+  55 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 56 |         response.getWriter().write(""Parameter value: "" + bar);
+  57 |     }
+  58 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00290.java,57,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         String param = """";
+  44 |         java.util.Enumeration<String> headers = request.getHeaders(""Referer"");
+  45 |
+  46 |         if (headers != null && headers.hasMoreElements()) {
+  47 |             param = headers.nextElement(); // just grab first element
+  48 |         }
+  49 |
+  50 |         // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
+  51 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  52 |
+  53 |         StringBuilder sbxyz73567 = new StringBuilder(param);
+  54 |         String bar = sbxyz73567.append(""_SafeStuff"").toString();
+  55 |
+  56 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 57 |         response.getWriter().write(bar);
+  58 |     }
+  59 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00392.java,56,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
+  40 |             throws ServletException, IOException {
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         String param = request.getParameter(""BenchmarkTest00392"");
+  44 |         if (param == null) param = """";
+  45 |
+  46 |         String bar = param;
+  47 |         if (param != null && param.length() > 1) {
+  48 |             StringBuilder sbxyz38384 = new StringBuilder(param);
+  49 |             bar = sbxyz38384.replace(param.length() - ""Z"".length(), param.length(), ""Z"").toString();
+  50 |         }
+  51 |
+  52 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  53 |         int length = 1;
+  54 |         if (bar != null) {
+  55 |             length = bar.length();
+> 56 |             response.getWriter().write(bar.toCharArray(), 0, length);
+  57 |         }
+  58 |     }
+  59 | }
+     ^ Col 0
+"
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01254.java,49,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
   39 |     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -474,23 +1174,6 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02145.j
   59 |         b32743.replace(
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00388.java,50,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  40 |             throws ServletException, IOException {
-  41 |         response.setContentType(""text/html;charset=UTF-8"");
-  42 |
-  43 |         String param = request.getParameter(""BenchmarkTest00388"");
-  44 |         if (param == null) param = """";
-  45 |
-  46 |         StringBuilder sbxyz30382 = new StringBuilder(param);
-  47 |         String bar = sbxyz30382.append(""_SafeStuff"").toString();
-  48 |
-  49 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 50 |         response.getWriter().println(bar.toCharArray());
-  51 |     }
-  52 | }
-     ^ Col 0
-"
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01253.java,50,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
   40 |             throws ServletException, IOException {
@@ -691,38 +1374,129 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02131.j
   60 |
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00375.java,51,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00475.java,58,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
+  40 |             throws ServletException, IOException {
   41 |         response.setContentType(""text/html;charset=UTF-8"");
   42 |
-  43 |         String param = request.getParameter(""BenchmarkTest00375"");
-  44 |         if (param == null) param = """";
-  45 |
-  46 |         String bar = """";
-  47 |         if (param != null) bar = param.split("" "")[0];
-  48 |
-  49 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  50 |         Object[] obj = {""a"", ""b""};
-> 51 |         response.getWriter().format(java.util.Locale.US, bar, obj);
-  52 |     }
-  53 | }
+  43 |         java.util.Map<String, String[]> map = request.getParameterMap();
+  44 |         String param = """";
+  45 |         if (!map.isEmpty()) {
+  46 |             String[] values = map.get(""BenchmarkTest00475"");
+  47 |             if (values != null) param = values[0];
+  48 |         }
+  49 |
+  50 |         String bar;
+  51 |
+  52 |         // Simple if statement that assigns param to bar on true condition
+  53 |         int num = 196;
+  54 |         if ((500 / 42) + num > 200) bar = param;
+  55 |         else bar = ""This should never happen"";
+  56 |
+  57 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 58 |         response.getWriter().println(bar);
+  59 |     }
+  60 | }
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00378.java,51,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00153.java,59,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
   41 |         response.setContentType(""text/html;charset=UTF-8"");
   42 |
-  43 |         String param = request.getParameter(""BenchmarkTest00378"");
-  44 |         if (param == null) param = """";
+  43 |         String param = """";
+  44 |         if (request.getHeader(""Referer"") != null) {
+  45 |             param = request.getHeader(""Referer"");
+  46 |         }
+  47 |
+  48 |         // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
+  49 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  50 |
+  51 |         String bar = ""safe!"";
+  52 |         java.util.HashMap<String, Object> map96050 = new java.util.HashMap<String, Object>();
+  53 |         map96050.put(""keyA-96050"", ""a-Value""); // put some stuff in the collection
+  54 |         map96050.put(""keyB-96050"", param); // put it in a collection
+  55 |         map96050.put(""keyC"", ""another-Value""); // put some stuff in the collection
+  56 |         bar = (String) map96050.get(""keyB-96050""); // get it back out
+  57 |
+  58 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 59 |         response.getWriter().println(bar);
+  60 |     }
+  61 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00146.java,59,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         String param = """";
+  44 |         if (request.getHeader(""Referer"") != null) {
+  45 |             param = request.getHeader(""Referer"");
+  46 |         }
+  47 |
+  48 |         // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
+  49 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  50 |
+  51 |         String bar = param;
+  52 |         if (param != null && param.length() > 1) {
+  53 |             StringBuilder sbxyz67327 = new StringBuilder(param);
+  54 |             bar = sbxyz67327.replace(param.length() - ""Z"".length(), param.length(), ""Z"").toString();
+  55 |         }
+  56 |
+  57 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  58 |         Object[] obj = {""a"", ""b""};
+> 59 |         response.getWriter().format(java.util.Locale.US, bar, obj);
+  60 |     }
+  61 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00157.java,59,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         String param = """";
+  44 |         if (request.getHeader(""Referer"") != null) {
+  45 |             param = request.getHeader(""Referer"");
+  46 |         }
+  47 |
+  48 |         // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
+  49 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  50 |
+  51 |         String bar;
+  52 |
+  53 |         // Simple ? condition that assigns param to bar on false condition
+  54 |         int num = 106;
+  55 |
+  56 |         bar = (7 * 42) - num > 200 ? ""This should never happen"" : param;
+  57 |
+  58 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 59 |         response.getWriter().write(bar);
+  60 |     }
+  61 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00291.java,59,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         String param = """";
+  44 |         java.util.Enumeration<String> headers = request.getHeaders(""Referer"");
   45 |
-  46 |         StringBuilder sbxyz85125 = new StringBuilder(param);
-  47 |         String bar = sbxyz85125.append(""_SafeStuff"").toString();
-  48 |
-  49 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  50 |         Object[] obj = {""a"", ""b""};
-> 51 |         response.getWriter().format(bar, obj);
-  52 |     }
-  53 | }
+  46 |         if (headers != null && headers.hasMoreElements()) {
+  47 |             param = headers.nextElement(); // just grab first element
+  48 |         }
+  49 |
+  50 |         // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
+  51 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  52 |
+  53 |         String bar = param;
+  54 |         if (param != null && param.length() > 1) {
+  55 |             bar = param.substring(0, param.length() - 1);
+  56 |         }
+  57 |
+  58 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 59 |         response.getWriter().write(bar);
+  60 |     }
+  61 | }
      ^ Col 0
 "
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01592.java,51,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
@@ -875,6 +1649,56 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02494.j
   61 |         }
      ^ Col 0
 "
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00467.java,59,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         java.util.Map<String, String[]> map = request.getParameterMap();
+  44 |         String param = """";
+  45 |         if (!map.isEmpty()) {
+  46 |             String[] values = map.get(""BenchmarkTest00467"");
+  47 |             if (values != null) param = values[0];
+  48 |         }
+  49 |
+  50 |         String bar = ""safe!"";
+  51 |         java.util.HashMap<String, Object> map88136 = new java.util.HashMap<String, Object>();
+  52 |         map88136.put(""keyA-88136"", ""a-Value""); // put some stuff in the collection
+  53 |         map88136.put(""keyB-88136"", param); // put it in a collection
+  54 |         map88136.put(""keyC"", ""another-Value""); // put some stuff in the collection
+  55 |         bar = (String) map88136.get(""keyB-88136""); // get it back out
+  56 |
+  57 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  58 |         Object[] obj = {""a"", ""b""};
+> 59 |         response.getWriter().format(java.util.Locale.US, bar, obj);
+  60 |     }
+  61 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00472.java,59,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  41 |         response.setContentType(""text/html;charset=UTF-8"");
+  42 |
+  43 |         java.util.Map<String, String[]> map = request.getParameterMap();
+  44 |         String param = """";
+  45 |         if (!map.isEmpty()) {
+  46 |             String[] values = map.get(""BenchmarkTest00472"");
+  47 |             if (values != null) param = values[0];
+  48 |         }
+  49 |
+  50 |         String bar;
+  51 |
+  52 |         // Simple if statement that assigns param to bar on true condition
+  53 |         int num = 196;
+  54 |         if ((500 / 42) + num > 200) bar = param;
+  55 |         else bar = ""This should never happen"";
+  56 |
+  57 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  58 |         Object[] obj = {bar, ""b""};
+> 59 |         response.getWriter().printf(""Formatted like: %1$s and %2$s."", obj);
+  60 |     }
+  61 | }
+     ^ Col 0
+"
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01509.java,51,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
   41 |         response.setContentType(""text/html;charset=UTF-8"");
@@ -1000,21 +1824,129 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02407.j
   61 |         }
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00384.java,52,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00145.java,60,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
   42 |
-  43 |         String param = request.getParameter(""BenchmarkTest00384"");
+  43 |         String param = """";
+  44 |         if (request.getHeader(""Referer"") != null) {
+  45 |             param = request.getHeader(""Referer"");
+  46 |         }
+  47 |
+  48 |         // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
+  49 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  50 |
+  51 |         String bar = ""safe!"";
+  52 |         java.util.HashMap<String, Object> map17589 = new java.util.HashMap<String, Object>();
+  53 |         map17589.put(""keyA-17589"", ""a-Value""); // put some stuff in the collection
+  54 |         map17589.put(""keyB-17589"", param); // put it in a collection
+  55 |         map17589.put(""keyC"", ""another-Value""); // put some stuff in the collection
+  56 |         bar = (String) map17589.get(""keyB-17589""); // get it back out
+  57 |
+  58 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  59 |         Object[] obj = {""a"", ""b""};
+> 60 |         response.getWriter().format(java.util.Locale.US, bar, obj);
+  61 |     }
+  62 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00148.java,60,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  42 |
+  43 |         String param = """";
+  44 |         if (request.getHeader(""Referer"") != null) {
+  45 |             param = request.getHeader(""Referer"");
+  46 |         }
+  47 |
+  48 |         // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
+  49 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  50 |
+  51 |         String bar;
+  52 |
+  53 |         // Simple if statement that assigns param to bar on true condition
+  54 |         int num = 196;
+  55 |         if ((500 / 42) + num > 200) bar = param;
+  56 |         else bar = ""This should never happen"";
+  57 |
+  58 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  59 |         Object[] obj = {""a"", bar};
+> 60 |         response.getWriter().format(""Formatted like: %1$s and %2$s."", obj);
+  61 |     }
+  62 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00150.java,60,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  42 |
+  43 |         String param = """";
+  44 |         if (request.getHeader(""Referer"") != null) {
+  45 |             param = request.getHeader(""Referer"");
+  46 |         }
+  47 |
+  48 |         // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
+  49 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  50 |
+  51 |         String bar;
+  52 |
+  53 |         // Simple if statement that assigns param to bar on true condition
+  54 |         int num = 196;
+  55 |         if ((500 / 42) + num > 200) bar = param;
+  56 |         else bar = ""This should never happen"";
+  57 |
+  58 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  59 |         Object[] obj = {""a"", bar};
+> 60 |         response.getWriter().printf(java.util.Locale.US, ""Formatted like: %1$s and %2$s."", obj);
+  61 |     }
+  62 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00287.java,59,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  42 |
+  43 |         String param = """";
+  44 |         java.util.Enumeration<String> headers = request.getHeaders(""Referer"");
+  45 |
+  46 |         if (headers != null && headers.hasMoreElements()) {
+  47 |             param = headers.nextElement(); // just grab first element
+  48 |         }
+  49 |
+  50 |         // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
+  51 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  52 |
+  53 |         String bar = param;
+  54 |
+  55 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  56 |         int length = 1;
+  57 |         if (bar != null) {
+  58 |             length = bar.length();
+> 59 |             response.getWriter().write(bar.toCharArray(), 0, length);
+  60 |         }
+  61 |     }
+  62 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00382.java,60,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  42 |
+  43 |         String param = request.getParameter(""BenchmarkTest00382"");
   44 |         if (param == null) param = """";
   45 |
-  46 |         org.owasp.benchmark.helpers.ThingInterface thing =
-  47 |                 org.owasp.benchmark.helpers.ThingFactory.createThing();
-  48 |         String bar = thing.doSomething(param);
-  49 |
-  50 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  51 |         Object[] obj = {""a"", ""b""};
-> 52 |         response.getWriter().printf(java.util.Locale.US, bar, obj);
-  53 |     }
-  54 | }
+  46 |         String bar = """";
+  47 |         if (param != null) {
+  48 |             java.util.List<String> valuesList = new java.util.ArrayList<String>();
+  49 |             valuesList.add(""safe"");
+  50 |             valuesList.add(param);
+  51 |             valuesList.add(""moresafe"");
+  52 |
+  53 |             valuesList.remove(0); // remove the 1st safe value
+  54 |
+  55 |             bar = valuesList.get(0); // get the param value
+  56 |         }
+  57 |
+  58 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  59 |         Object[] obj = {""a"", ""b""};
+> 60 |         response.getWriter().printf(java.util.Locale.US, bar, obj);
+  61 |     }
+  62 | }
      ^ Col 0
 "
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01266.java,52,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
@@ -1090,23 +2022,6 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02136.j
   60 |
   61 |         // Simple ? condition that assigns param to bar on false condition
   62 |         int num = 106;
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00715.java,52,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  42 |
-  43 |         String[] values = request.getParameterValues(""BenchmarkTest00715"");
-  44 |         String param;
-  45 |         if (values != null && values.length > 0) param = values[0];
-  46 |         else param = """";
-  47 |
-  48 |         String bar = """";
-  49 |         if (param != null) bar = param.split("" "")[0];
-  50 |
-  51 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 52 |         response.getWriter().print(bar);
-  53 |     }
-  54 | }
      ^ Col 0
 "
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01584.java,52,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
@@ -1284,38 +2199,54 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02489.j
   62 | }
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00643.java,52,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00478.java,60,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
   42 |
-  43 |         org.owasp.benchmark.helpers.SeparateClassRequest scr =
-  44 |                 new org.owasp.benchmark.helpers.SeparateClassRequest(request);
-  45 |         String param = scr.getTheParameter(""BenchmarkTest00643"");
-  46 |         if (param == null) param = """";
-  47 |
-  48 |         StringBuilder sbxyz31207 = new StringBuilder(param);
-  49 |         String bar = sbxyz31207.append(""_SafeStuff"").toString();
-  50 |
-  51 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 52 |         response.getWriter().print(bar.toCharArray());
-  53 |     }
-  54 | }
+  43 |         java.util.Map<String, String[]> map = request.getParameterMap();
+  44 |         String param = """";
+  45 |         if (!map.isEmpty()) {
+  46 |             String[] values = map.get(""BenchmarkTest00478"");
+  47 |             if (values != null) param = values[0];
+  48 |         }
+  49 |
+  50 |         String bar = """";
+  51 |         if (param != null) {
+  52 |             bar =
+  53 |                     new String(
+  54 |                             org.apache.commons.codec.binary.Base64.decodeBase64(
+  55 |                                     org.apache.commons.codec.binary.Base64.encodeBase64(
+  56 |                                             param.getBytes())));
+  57 |         }
+  58 |
+  59 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 60 |         response.getWriter().write(bar.toCharArray());
+  61 |     }
+  62 | }
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00644.java,52,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00651.java,59,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
   42 |
   43 |         org.owasp.benchmark.helpers.SeparateClassRequest scr =
   44 |                 new org.owasp.benchmark.helpers.SeparateClassRequest(request);
-  45 |         String param = scr.getTheParameter(""BenchmarkTest00644"");
+  45 |         String param = scr.getTheParameter(""BenchmarkTest00651"");
   46 |         if (param == null) param = """";
   47 |
-  48 |         String bar = """";
-  49 |         if (param != null) bar = param.split("" "")[0];
-  50 |
-  51 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 52 |         response.getWriter().print(bar);
-  53 |     }
-  54 | }
+  48 |         String bar;
+  49 |
+  50 |         // Simple if statement that assigns param to bar on true condition
+  51 |         int num = 196;
+  52 |         if ((500 / 42) + num > 200) bar = param;
+  53 |         else bar = ""This should never happen"";
+  54 |
+  55 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  56 |         int length = 1;
+  57 |         if (bar != null) {
+  58 |             length = bar.length();
+> 59 |             response.getWriter().write(bar, 0, length);
+  60 |         }
+  61 |     }
+  62 | }
      ^ Col 0
 "
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01506.java,52,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
@@ -1593,39 +2524,79 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02403.j
   62 |         b34270.replace(
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00395.java,53,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00301.java,61,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
-  43 |         String param = request.getParameter(""BenchmarkTest00395"");
-  44 |         if (param == null) param = """";
+  43 |         String param = """";
+  44 |         java.util.Enumeration<String> headers = request.getHeaders(""Referer"");
   45 |
-  46 |         String bar = """";
-  47 |         if (param != null) bar = param.split("" "")[0];
-  48 |
-  49 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  50 |         int length = 1;
-  51 |         if (bar != null) {
-  52 |             length = bar.length();
-> 53 |             response.getWriter().write(bar, 0, length);
-  54 |         }
-  55 |     }
-  56 | }
+  46 |         if (headers != null && headers.hasMoreElements()) {
+  47 |             param = headers.nextElement(); // just grab first element
+  48 |         }
+  49 |
+  50 |         // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
+  51 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  52 |
+  53 |         String bar = ""safe!"";
+  54 |         java.util.HashMap<String, Object> map16074 = new java.util.HashMap<String, Object>();
+  55 |         map16074.put(""keyA-16074"", ""a-Value""); // put some stuff in the collection
+  56 |         map16074.put(""keyB-16074"", param); // put it in a collection
+  57 |         map16074.put(""keyC"", ""another-Value""); // put some stuff in the collection
+  58 |         bar = (String) map16074.get(""keyB-16074""); // get it back out
+  59 |
+  60 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 61 |         response.getWriter().write(""Parameter value: "" + bar);
+  62 |     }
+  63 | }
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00729.java,53,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00276.java,61,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
-  43 |         String[] values = request.getParameterValues(""BenchmarkTest00729"");
-  44 |         String param;
-  45 |         if (values != null && values.length > 0) param = values[0];
-  46 |         else param = """";
-  47 |
-  48 |         org.owasp.benchmark.helpers.ThingInterface thing =
-  49 |                 org.owasp.benchmark.helpers.ThingFactory.createThing();
-  50 |         String bar = thing.doSomething(param);
-  51 |
-  52 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 53 |         response.getWriter().write(bar.toCharArray());
-  54 |     }
-  55 | }
+  43 |         String param = """";
+  44 |         java.util.Enumeration<String> headers = request.getHeaders(""Referer"");
+  45 |
+  46 |         if (headers != null && headers.hasMoreElements()) {
+  47 |             param = headers.nextElement(); // just grab first element
+  48 |         }
+  49 |
+  50 |         // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
+  51 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  52 |
+  53 |         String bar;
+  54 |
+  55 |         // Simple ? condition that assigns param to bar on false condition
+  56 |         int num = 106;
+  57 |
+  58 |         bar = (7 * 42) - num > 200 ? ""This should never happen"" : param;
+  59 |
+  60 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 61 |         response.getWriter().print(bar);
+  62 |     }
+  63 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00473.java,61,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  43 |         java.util.Map<String, String[]> map = request.getParameterMap();
+  44 |         String param = """";
+  45 |         if (!map.isEmpty()) {
+  46 |             String[] values = map.get(""BenchmarkTest00473"");
+  47 |             if (values != null) param = values[0];
+  48 |         }
+  49 |
+  50 |         String bar = """";
+  51 |         if (param != null) {
+  52 |             bar =
+  53 |                     new String(
+  54 |                             org.apache.commons.codec.binary.Base64.decodeBase64(
+  55 |                                     org.apache.commons.codec.binary.Base64.encodeBase64(
+  56 |                                             param.getBytes())));
+  57 |         }
+  58 |
+  59 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  60 |         Object[] obj = {""a"", ""b""};
+> 61 |         response.getWriter().printf(bar, obj);
+  62 |     }
+  63 | }
      ^ Col 0
 "
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01346.java,53,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
@@ -1778,56 +2749,29 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02241.j
   63 |         // Simple case statement that assigns param to bar on conditions 'A', 'C', or 'D'
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00030.java,53,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00642.java,61,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
-  43 |
-  44 |         java.util.Map<String, String[]> map = request.getParameterMap();
-  45 |         String param = """";
-  46 |         if (!map.isEmpty()) {
-  47 |             String[] values = map.get(""BenchmarkTest00030"");
-  48 |             if (values != null) param = values[0];
-  49 |         }
-  50 |
-  51 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  52 |         Object[] obj = {""a"", ""b""};
-> 53 |         response.getWriter().printf(param, obj);
-  54 |     }
-  55 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00041.java,53,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  43 |
-  44 |         org.owasp.benchmark.helpers.SeparateClassRequest scr =
-  45 |                 new org.owasp.benchmark.helpers.SeparateClassRequest(request);
-  46 |         String param = scr.getTheParameter(""BenchmarkTest00041"");
-  47 |         if (param == null) param = """";
-  48 |
-  49 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  50 |         int length = 1;
-  51 |         if (param != null) {
-  52 |             length = param.length();
-> 53 |             response.getWriter().write(param, 0, length);
-  54 |         }
-  55 |     }
-  56 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00645.java,54,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
+  43 |         org.owasp.benchmark.helpers.SeparateClassRequest scr =
   44 |                 new org.owasp.benchmark.helpers.SeparateClassRequest(request);
-  45 |         String param = scr.getTheParameter(""BenchmarkTest00645"");
+  45 |         String param = scr.getTheParameter(""BenchmarkTest00642"");
   46 |         if (param == null) param = """";
   47 |
-  48 |         org.owasp.benchmark.helpers.ThingInterface thing =
-  49 |                 org.owasp.benchmark.helpers.ThingFactory.createThing();
-  50 |         String bar = thing.doSomething(param);
-  51 |
-  52 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  53 |         Object[] obj = {""a"", ""b""};
-> 54 |         response.getWriter().printf(java.util.Locale.US, bar, obj);
-  55 |     }
-  56 | }
+  48 |         String bar = """";
+  49 |         if (param != null) {
+  50 |             java.util.List<String> valuesList = new java.util.ArrayList<String>();
+  51 |             valuesList.add(""safe"");
+  52 |             valuesList.add(param);
+  53 |             valuesList.add(""moresafe"");
+  54 |
+  55 |             valuesList.remove(0); // remove the 1st safe value
+  56 |
+  57 |             bar = valuesList.get(0); // get the param value
+  58 |         }
+  59 |
+  60 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 61 |         response.getWriter().print(bar.toCharArray());
+  62 |     }
+  63 | }
      ^ Col 0
 "
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01505.java,54,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
@@ -1903,23 +2847,6 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02410.j
   62 |         String bar = sbxyz69687.append(""_SafeStuff"").toString();
   63 |
   64 |         return bar;
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00477.java,54,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  44 |         String param = """";
-  45 |         if (!map.isEmpty()) {
-  46 |             String[] values = map.get(""BenchmarkTest00477"");
-  47 |             if (values != null) param = values[0];
-  48 |         }
-  49 |
-  50 |         StringBuilder sbxyz54686 = new StringBuilder(param);
-  51 |         String bar = sbxyz54686.append(""_SafeStuff"").toString();
-  52 |
-  53 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 54 |         response.getWriter().println(bar);
-  55 |     }
-  56 | }
      ^ Col 0
 "
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01337.java,54,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
@@ -2097,6 +3024,31 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02234.j
   64 |     }
      ^ Col 0
 "
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00721.java,62,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  44 |         String param;
+  45 |         if (values != null && values.length > 0) param = values[0];
+  46 |         else param = """";
+  47 |
+  48 |         String bar = """";
+  49 |         if (param != null) {
+  50 |             java.util.List<String> valuesList = new java.util.ArrayList<String>();
+  51 |             valuesList.add(""safe"");
+  52 |             valuesList.add(param);
+  53 |             valuesList.add(""moresafe"");
+  54 |
+  55 |             valuesList.remove(0); // remove the 1st safe value
+  56 |
+  57 |             bar = valuesList.get(0); // get the param value
+  58 |         }
+  59 |
+  60 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  61 |         Object[] obj = {bar, ""b""};
+> 62 |         response.getWriter().printf(""Formatted like: %1$s and %2$s."", obj);
+  63 |     }
+  64 | }
+     ^ Col 0
+"
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02493.java,54,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
   44 |         String param;
@@ -2195,57 +3147,6 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01597.j
   62 |
   63 |             StringBuilder sbxyz81751 = new StringBuilder(param);
   64 |             String bar = sbxyz81751.append(""_SafeStuff"").toString();
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00727.java,54,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  44 |         String param;
-  45 |         if (values != null && values.length > 0) param = values[0];
-  46 |         else param = """";
-  47 |
-  48 |         String bar = param;
-  49 |         if (param != null && param.length() > 1) {
-  50 |             bar = param.substring(0, param.length() - 1);
-  51 |         }
-  52 |
-  53 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 54 |         response.getWriter().println(bar);
-  55 |     }
-  56 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00719.java,54,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  44 |         String param;
-  45 |         if (values != null && values.length > 0) param = values[0];
-  46 |         else param = """";
-  47 |
-  48 |         org.owasp.benchmark.helpers.ThingInterface thing =
-  49 |                 org.owasp.benchmark.helpers.ThingFactory.createThing();
-  50 |         String bar = thing.doSomething(param);
-  51 |
-  52 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  53 |         Object[] obj = {""a"", ""b""};
-> 54 |         response.getWriter().printf(java.util.Locale.US, bar, obj);
-  55 |     }
-  56 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00387.java,54,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  44 |         if (param == null) param = """";
-  45 |
-  46 |         String bar;
-  47 |
-  48 |         // Simple ? condition that assigns param to bar on false condition
-  49 |         int num = 106;
-  50 |
-  51 |         bar = (7 * 42) - num > 200 ? ""This should never happen"" : param;
-  52 |
-  53 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 54 |         response.getWriter().println(bar.toCharArray());
-  55 |     }
-  56 | }
      ^ Col 0
 "
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01916.java,54,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
@@ -2598,38 +3499,54 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01049.j
   65 |                 java.util.List<String> valuesList = new java.util.ArrayList<String>();
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00492.java,55,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00551.java,63,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
-  45 |         if (!map.isEmpty()) {
-  46 |             String[] values = map.get(""BenchmarkTest00492"");
-  47 |             if (values != null) param = values[0];
-  48 |         }
-  49 |
-  50 |         org.owasp.benchmark.helpers.ThingInterface thing =
-  51 |                 org.owasp.benchmark.helpers.ThingFactory.createThing();
-  52 |         String bar = thing.doSomething(param);
-  53 |
-  54 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 55 |         response.getWriter().write(""Parameter value: "" + bar);
-  56 |     }
-  57 | }
+  45 |         java.util.Enumeration<String> names = request.getParameterNames();
+  46 |         while (names.hasMoreElements() && flag) {
+  47 |             String name = (String) names.nextElement();
+  48 |             String[] values = request.getParameterValues(name);
+  49 |             if (values != null) {
+  50 |                 for (int i = 0; i < values.length && flag; i++) {
+  51 |                     String value = values[i];
+  52 |                     if (value.equals(""BenchmarkTest00551"")) {
+  53 |                         param = name;
+  54 |                         flag = false;
+  55 |                     }
+  56 |                 }
+  57 |             }
+  58 |         }
+  59 |
+  60 |         String bar = param;
+  61 |
+  62 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 63 |         response.getWriter().println(bar);
+  64 |     }
+  65 | }
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00376.java,55,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00292.java,62,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
   45 |
-  46 |         String bar;
-  47 |
-  48 |         // Simple ? condition that assigns param to bar on false condition
-  49 |         int num = 106;
-  50 |
-  51 |         bar = (7 * 42) - num > 200 ? ""This should never happen"" : param;
+  46 |         if (headers != null && headers.hasMoreElements()) {
+  47 |             param = headers.nextElement(); // just grab first element
+  48 |         }
+  49 |
+  50 |         // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
+  51 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
   52 |
-  53 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  54 |         Object[] obj = {""a"", bar};
-> 55 |         response.getWriter().format(""Formatted like: %1$s and %2$s."", obj);
-  56 |     }
-  57 | }
+  53 |         String bar = param;
+  54 |         if (param != null && param.length() > 1) {
+  55 |             bar = param.substring(0, param.length() - 1);
+  56 |         }
+  57 |
+  58 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  59 |         int length = 1;
+  60 |         if (bar != null) {
+  61 |             length = bar.length();
+> 62 |             response.getWriter().write(bar, 0, length);
+  63 |         }
+  64 |     }
+  65 | }
      ^ Col 0
 "
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01335.java,56,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
@@ -2705,58 +3622,6 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02221.j
   64 |         if (param != null && param.length() > 1) {
   65 |             StringBuilder sbxyz71523 = new StringBuilder(param);
   66 |             bar = sbxyz71523.replace(param.length() - ""Z"".length(), param.length(), ""Z"").toString();
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00390.java,56,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  46 |         String bar = """";
-  47 |         if (param != null) {
-  48 |             bar =
-  49 |                     new String(
-  50 |                             org.apache.commons.codec.binary.Base64.decodeBase64(
-  51 |                                     org.apache.commons.codec.binary.Base64.encodeBase64(
-  52 |                                             param.getBytes())));
-  53 |         }
-  54 |
-  55 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 56 |         response.getWriter().println(bar);
-  57 |     }
-  58 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00392.java,56,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  46 |         String bar = param;
-  47 |         if (param != null && param.length() > 1) {
-  48 |             StringBuilder sbxyz38384 = new StringBuilder(param);
-  49 |             bar = sbxyz38384.replace(param.length() - ""Z"".length(), param.length(), ""Z"").toString();
-  50 |         }
-  51 |
-  52 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  53 |         int length = 1;
-  54 |         if (bar != null) {
-  55 |             length = bar.length();
-> 56 |             response.getWriter().write(bar.toCharArray(), 0, length);
-  57 |         }
-  58 |     }
-  59 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00728.java,56,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  46 |         else param = """";
-  47 |
-  48 |         String bar;
-  49 |
-  50 |         // Simple if statement that assigns param to bar on true condition
-  51 |         int num = 196;
-  52 |         if ((500 / 42) + num > 200) bar = param;
-  53 |         else bar = ""This should never happen"";
-  54 |
-  55 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 56 |         response.getWriter().println(bar);
-  57 |     }
-  58 | }
      ^ Col 0
 "
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02046.java,56,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
@@ -2984,106 +3849,54 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01181.j
   66 |                 bar =
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00284.java,56,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  46 |         if (headers != null && headers.hasMoreElements()) {
-  47 |             param = headers.nextElement(); // just grab first element
-  48 |         }
-  49 |
-  50 |         // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
-  51 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
-  52 |
-  53 |         String bar = param;
-  54 |
-  55 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 56 |         response.getWriter().println(bar);
-  57 |     }
-  58 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00656.java,56,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  46 |         if (param == null) param = """";
-  47 |
-  48 |         String bar;
-  49 |
-  50 |         // Simple ? condition that assigns param to bar on false condition
-  51 |         int num = 106;
-  52 |
-  53 |         bar = (7 * 42) - num > 200 ? ""This should never happen"" : param;
-  54 |
-  55 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 56 |         response.getWriter().write(""Parameter value: "" + bar);
-  57 |     }
-  58 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00149.java,56,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00156.java,64,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
   46 |         }
   47 |
   48 |         // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
   49 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
   50 |
-  51 |         StringBuilder sbxyz19132 = new StringBuilder(param);
-  52 |         String bar = sbxyz19132.append(""_SafeStuff"").toString();
-  53 |
-  54 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  55 |         Object[] obj = {""a"", bar};
-> 56 |         response.getWriter().printf(java.util.Locale.US, ""Formatted like: %1$s and %2$s."", obj);
-  57 |     }
-  58 | }
+  51 |         String bar = """";
+  52 |         if (param != null) {
+  53 |             java.util.List<String> valuesList = new java.util.ArrayList<String>();
+  54 |             valuesList.add(""safe"");
+  55 |             valuesList.add(param);
+  56 |             valuesList.add(""moresafe"");
+  57 |
+  58 |             valuesList.remove(0); // remove the 1st safe value
+  59 |
+  60 |             bar = valuesList.get(0); // get the param value
+  61 |         }
+  62 |
+  63 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 64 |         response.getWriter().write(bar.toCharArray());
+  65 |     }
+  66 | }
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00155.java,56,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00547.java,65,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
-  46 |         }
-  47 |
-  48 |         // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
-  49 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
-  50 |
-  51 |         org.owasp.benchmark.helpers.ThingInterface thing =
-  52 |                 org.owasp.benchmark.helpers.ThingFactory.createThing();
-  53 |         String bar = thing.doSomething(param);
-  54 |
-  55 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 56 |         response.getWriter().println(bar);
-  57 |     }
-  58 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00013.java,56,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  46 |
-  47 |         if (headers != null && headers.hasMoreElements()) {
-  48 |             param = headers.nextElement(); // just grab first element
-  49 |         }
-  50 |
-  51 |         // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
-  52 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
-  53 |
-  54 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  55 |         Object[] obj = {""a"", ""b""};
-> 56 |         response.getWriter().format(java.util.Locale.US, param, obj);
-  57 |     }
-  58 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00014.java,56,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  46 |
-  47 |         if (headers != null && headers.hasMoreElements()) {
-  48 |             param = headers.nextElement(); // just grab first element
-  49 |         }
-  50 |
-  51 |         // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
-  52 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
-  53 |
-  54 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  55 |         Object[] obj = {""a"", ""b""};
-> 56 |         response.getWriter().format(param, obj);
-  57 |     }
-  58 | }
+  47 |             String name = (String) names.nextElement();
+  48 |             String[] values = request.getParameterValues(name);
+  49 |             if (values != null) {
+  50 |                 for (int i = 0; i < values.length && flag; i++) {
+  51 |                     String value = values[i];
+  52 |                     if (value.equals(""BenchmarkTest00547"")) {
+  53 |                         param = name;
+  54 |                         flag = false;
+  55 |                     }
+  56 |                 }
+  57 |             }
+  58 |         }
+  59 |
+  60 |         String bar = """";
+  61 |         if (param != null) bar = param.split("" "")[0];
+  62 |
+  63 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  64 |         Object[] obj = {""a"", ""b""};
+> 65 |         response.getWriter().printf(java.util.Locale.US, bar, obj);
+  66 |     }
+  67 | }
      ^ Col 0
 "
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02054.java,57,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
@@ -3236,21 +4049,29 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01177.j
   67 |             char switchTarget = guess.charAt(2);
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00290.java,57,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00144.java,65,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
-  47 |             param = headers.nextElement(); // just grab first element
-  48 |         }
-  49 |
-  50 |         // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
-  51 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
-  52 |
-  53 |         StringBuilder sbxyz73567 = new StringBuilder(param);
-  54 |         String bar = sbxyz73567.append(""_SafeStuff"").toString();
-  55 |
-  56 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 57 |         response.getWriter().write(bar);
-  58 |     }
-  59 | }
+  47 |
+  48 |         // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
+  49 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  50 |
+  51 |         String bar = """";
+  52 |         if (param != null) {
+  53 |             java.util.List<String> valuesList = new java.util.ArrayList<String>();
+  54 |             valuesList.add(""safe"");
+  55 |             valuesList.add(param);
+  56 |             valuesList.add(""moresafe"");
+  57 |
+  58 |             valuesList.remove(0); // remove the 1st safe value
+  59 |
+  60 |             bar = valuesList.get(0); // get the param value
+  61 |         }
+  62 |
+  63 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  64 |         Object[] obj = {""a"", ""b""};
+> 65 |         response.getWriter().format(java.util.Locale.US, bar, obj);
+  66 |     }
+  67 | }
      ^ Col 0
 "
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01046.java,57,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
@@ -3328,90 +4149,79 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01056.j
   67 |
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00475.java,58,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00711.java,64,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  47 |
+  48 |         String bar = """";
+  49 |         if (param != null) {
+  50 |             java.util.List<String> valuesList = new java.util.ArrayList<String>();
+  51 |             valuesList.add(""safe"");
+  52 |             valuesList.add(param);
+  53 |             valuesList.add(""moresafe"");
+  54 |
+  55 |             valuesList.remove(0); // remove the 1st safe value
+  56 |
+  57 |             bar = valuesList.get(0); // get the param value
+  58 |         }
+  59 |
+  60 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  61 |         Object[] obj = {""a"", bar};
+  62 |         java.io.PrintWriter out = response.getWriter();
+  63 |         out.write(""<!DOCTYPE html>\n<html>\n<body>\n<p>"");
+> 64 |         out.format(java.util.Locale.US, ""Formatted like: %1$s and %2$s."", obj);
+  65 |         out.write(""\n</p>\n</body>\n</html>"");
+  66 |     }
+  67 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00036.java,65,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  48 |             String name = (String) names.nextElement();
+  49 |             String[] values = request.getParameterValues(name);
+  50 |             if (values != null) {
+  51 |                 for (int i = 0; i < values.length && flag; i++) {
+  52 |                     String value = values[i];
+  53 |                     if (value.equals(""BenchmarkTest00036"")) {
+  54 |                         param = name;
+  55 |                         flag = false;
+  56 |                     }
+  57 |                 }
+  58 |             }
+  59 |         }
+  60 |
+  61 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  62 |         int length = 1;
+  63 |         if (param != null) {
+  64 |             length = param.length();
+> 65 |             response.getWriter().write(param.toCharArray(), 0, length);
+  66 |         }
+  67 |     }
+  68 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00279.java,66,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
   48 |         }
   49 |
-  50 |         String bar;
-  51 |
-  52 |         // Simple if statement that assigns param to bar on true condition
-  53 |         int num = 196;
-  54 |         if ((500 / 42) + num > 200) bar = param;
-  55 |         else bar = ""This should never happen"";
-  56 |
-  57 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 58 |         response.getWriter().println(bar);
-  59 |     }
-  60 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00153.java,59,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  49 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
-  50 |
-  51 |         String bar = ""safe!"";
-  52 |         java.util.HashMap<String, Object> map96050 = new java.util.HashMap<String, Object>();
-  53 |         map96050.put(""keyA-96050"", ""a-Value""); // put some stuff in the collection
-  54 |         map96050.put(""keyB-96050"", param); // put it in a collection
-  55 |         map96050.put(""keyC"", ""another-Value""); // put some stuff in the collection
-  56 |         bar = (String) map96050.get(""keyB-96050""); // get it back out
-  57 |
-  58 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 59 |         response.getWriter().println(bar);
-  60 |     }
-  61 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00146.java,59,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  49 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
-  50 |
-  51 |         String bar = param;
-  52 |         if (param != null && param.length() > 1) {
-  53 |             StringBuilder sbxyz67327 = new StringBuilder(param);
-  54 |             bar = sbxyz67327.replace(param.length() - ""Z"".length(), param.length(), ""Z"").toString();
-  55 |         }
-  56 |
-  57 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  58 |         Object[] obj = {""a"", ""b""};
-> 59 |         response.getWriter().format(java.util.Locale.US, bar, obj);
-  60 |     }
-  61 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00157.java,59,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  49 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
-  50 |
-  51 |         String bar;
+  50 |         // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
+  51 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
   52 |
-  53 |         // Simple ? condition that assigns param to bar on false condition
-  54 |         int num = 106;
-  55 |
-  56 |         bar = (7 * 42) - num > 200 ? ""This should never happen"" : param;
-  57 |
-  58 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 59 |         response.getWriter().write(bar);
-  60 |     }
-  61 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00651.java,59,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  49 |
-  50 |         // Simple if statement that assigns param to bar on true condition
-  51 |         int num = 196;
-  52 |         if ((500 / 42) + num > 200) bar = param;
-  53 |         else bar = ""This should never happen"";
-  54 |
-  55 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  56 |         int length = 1;
-  57 |         if (bar != null) {
-  58 |             length = bar.length();
-> 59 |             response.getWriter().write(bar, 0, length);
-  60 |         }
-  61 |     }
-  62 | }
+  53 |         String bar = """";
+  54 |         if (param != null) {
+  55 |             java.util.List<String> valuesList = new java.util.ArrayList<String>();
+  56 |             valuesList.add(""safe"");
+  57 |             valuesList.add(param);
+  58 |             valuesList.add(""moresafe"");
+  59 |
+  60 |             valuesList.remove(0); // remove the 1st safe value
+  61 |
+  62 |             bar = valuesList.get(0); // get the param value
+  63 |         }
+  64 |
+  65 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 66 |         response.getWriter().print(bar);
+  67 |     }
+  68 | }
      ^ Col 0
 "
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02057.java,59,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
@@ -3439,261 +4249,254 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02057.j
   69 |
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00291.java,59,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00549.java,68,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
-  49 |
-  50 |         // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
-  51 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
-  52 |
-  53 |         String bar = param;
-  54 |         if (param != null && param.length() > 1) {
-  55 |             bar = param.substring(0, param.length() - 1);
-  56 |         }
-  57 |
-  58 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 59 |         response.getWriter().write(bar);
-  60 |     }
-  61 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00287.java,59,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  49 |
-  50 |         // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
-  51 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
-  52 |
-  53 |         String bar = param;
-  54 |
-  55 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  56 |         int length = 1;
-  57 |         if (bar != null) {
-  58 |             length = bar.length();
-> 59 |             response.getWriter().write(bar.toCharArray(), 0, length);
-  60 |         }
-  61 |     }
-  62 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00467.java,59,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  49 |
-  50 |         String bar = ""safe!"";
-  51 |         java.util.HashMap<String, Object> map88136 = new java.util.HashMap<String, Object>();
-  52 |         map88136.put(""keyA-88136"", ""a-Value""); // put some stuff in the collection
-  53 |         map88136.put(""keyB-88136"", param); // put it in a collection
-  54 |         map88136.put(""keyC"", ""another-Value""); // put some stuff in the collection
-  55 |         bar = (String) map88136.get(""keyB-88136""); // get it back out
-  56 |
-  57 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  58 |         Object[] obj = {""a"", ""b""};
-> 59 |         response.getWriter().format(java.util.Locale.US, bar, obj);
-  60 |     }
-  61 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00472.java,59,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  49 |
-  50 |         String bar;
-  51 |
-  52 |         // Simple if statement that assigns param to bar on true condition
-  53 |         int num = 196;
-  54 |         if ((500 / 42) + num > 200) bar = param;
-  55 |         else bar = ""This should never happen"";
-  56 |
-  57 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  58 |         Object[] obj = {bar, ""b""};
-> 59 |         response.getWriter().printf(""Formatted like: %1$s and %2$s."", obj);
-  60 |     }
-  61 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00382.java,60,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  50 |             valuesList.add(param);
-  51 |             valuesList.add(""moresafe"");
-  52 |
-  53 |             valuesList.remove(0); // remove the 1st safe value
-  54 |
-  55 |             bar = valuesList.get(0); // get the param value
-  56 |         }
-  57 |
-  58 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  59 |         Object[] obj = {""a"", ""b""};
-> 60 |         response.getWriter().printf(java.util.Locale.US, bar, obj);
-  61 |     }
-  62 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00478.java,60,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  50 |         String bar = """";
-  51 |         if (param != null) {
-  52 |             bar =
-  53 |                     new String(
-  54 |                             org.apache.commons.codec.binary.Base64.decodeBase64(
-  55 |                                     org.apache.commons.codec.binary.Base64.encodeBase64(
-  56 |                                             param.getBytes())));
-  57 |         }
-  58 |
-  59 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 60 |         response.getWriter().write(bar.toCharArray());
-  61 |     }
-  62 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00145.java,60,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  50 |
-  51 |         String bar = ""safe!"";
-  52 |         java.util.HashMap<String, Object> map17589 = new java.util.HashMap<String, Object>();
-  53 |         map17589.put(""keyA-17589"", ""a-Value""); // put some stuff in the collection
-  54 |         map17589.put(""keyB-17589"", param); // put it in a collection
-  55 |         map17589.put(""keyC"", ""another-Value""); // put some stuff in the collection
-  56 |         bar = (String) map17589.get(""keyB-17589""); // get it back out
-  57 |
-  58 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  59 |         Object[] obj = {""a"", ""b""};
-> 60 |         response.getWriter().format(java.util.Locale.US, bar, obj);
-  61 |     }
-  62 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00148.java,60,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  50 |
-  51 |         String bar;
-  52 |
-  53 |         // Simple if statement that assigns param to bar on true condition
-  54 |         int num = 196;
-  55 |         if ((500 / 42) + num > 200) bar = param;
-  56 |         else bar = ""This should never happen"";
-  57 |
-  58 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  59 |         Object[] obj = {""a"", bar};
-> 60 |         response.getWriter().format(""Formatted like: %1$s and %2$s."", obj);
-  61 |     }
-  62 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00150.java,60,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  50 |
-  51 |         String bar;
-  52 |
-  53 |         // Simple if statement that assigns param to bar on true condition
-  54 |         int num = 196;
-  55 |         if ((500 / 42) + num > 200) bar = param;
-  56 |         else bar = ""This should never happen"";
-  57 |
-  58 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  59 |         Object[] obj = {""a"", bar};
-> 60 |         response.getWriter().printf(java.util.Locale.US, ""Formatted like: %1$s and %2$s."", obj);
-  61 |     }
-  62 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00642.java,61,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  51 |             valuesList.add(""safe"");
-  52 |             valuesList.add(param);
-  53 |             valuesList.add(""moresafe"");
-  54 |
-  55 |             valuesList.remove(0); // remove the 1st safe value
-  56 |
-  57 |             bar = valuesList.get(0); // get the param value
+  50 |                 for (int i = 0; i < values.length && flag; i++) {
+  51 |                     String value = values[i];
+  52 |                     if (value.equals(""BenchmarkTest00549"")) {
+  53 |                         param = name;
+  54 |                         flag = false;
+  55 |                     }
+  56 |                 }
+  57 |             }
   58 |         }
   59 |
-  60 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 61 |         response.getWriter().print(bar.toCharArray());
-  62 |     }
-  63 | }
+  60 |         String bar;
+  61 |
+  62 |         // Simple ? condition that assigns param to bar on false condition
+  63 |         int num = 106;
+  64 |
+  65 |         bar = (7 * 42) - num > 200 ? ""This should never happen"" : param;
+  66 |
+  67 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 68 |         response.getWriter().println(bar.toCharArray());
+  69 |     }
+  70 | }
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00473.java,61,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00552.java,68,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
-  51 |         if (param != null) {
-  52 |             bar =
-  53 |                     new String(
-  54 |                             org.apache.commons.codec.binary.Base64.decodeBase64(
-  55 |                                     org.apache.commons.codec.binary.Base64.encodeBase64(
-  56 |                                             param.getBytes())));
-  57 |         }
-  58 |
-  59 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  60 |         Object[] obj = {""a"", ""b""};
-> 61 |         response.getWriter().printf(bar, obj);
-  62 |     }
-  63 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00301.java,61,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  51 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
-  52 |
-  53 |         String bar = ""safe!"";
-  54 |         java.util.HashMap<String, Object> map16074 = new java.util.HashMap<String, Object>();
-  55 |         map16074.put(""keyA-16074"", ""a-Value""); // put some stuff in the collection
-  56 |         map16074.put(""keyB-16074"", param); // put it in a collection
-  57 |         map16074.put(""keyC"", ""another-Value""); // put some stuff in the collection
-  58 |         bar = (String) map16074.get(""keyB-16074""); // get it back out
-  59 |
-  60 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 61 |         response.getWriter().write(""Parameter value: "" + bar);
-  62 |     }
-  63 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00276.java,61,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  51 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
-  52 |
-  53 |         String bar;
-  54 |
-  55 |         // Simple ? condition that assigns param to bar on false condition
-  56 |         int num = 106;
-  57 |
-  58 |         bar = (7 * 42) - num > 200 ? ""This should never happen"" : param;
-  59 |
-  60 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 61 |         response.getWriter().print(bar);
-  62 |     }
-  63 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00721.java,62,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  52 |             valuesList.add(param);
-  53 |             valuesList.add(""moresafe"");
-  54 |
-  55 |             valuesList.remove(0); // remove the 1st safe value
-  56 |
-  57 |             bar = valuesList.get(0); // get the param value
+  50 |                 for (int i = 0; i < values.length && flag; i++) {
+  51 |                     String value = values[i];
+  52 |                     if (value.equals(""BenchmarkTest00552"")) {
+  53 |                         param = name;
+  54 |                         flag = false;
+  55 |                     }
+  56 |                 }
+  57 |             }
   58 |         }
   59 |
-  60 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  61 |         Object[] obj = {bar, ""b""};
-> 62 |         response.getWriter().printf(""Formatted like: %1$s and %2$s."", obj);
-  63 |     }
-  64 | }
+  60 |         String bar = ""safe!"";
+  61 |         java.util.HashMap<String, Object> map63597 = new java.util.HashMap<String, Object>();
+  62 |         map63597.put(""keyA-63597"", ""a-Value""); // put some stuff in the collection
+  63 |         map63597.put(""keyB-63597"", param); // put it in a collection
+  64 |         map63597.put(""keyC"", ""another-Value""); // put some stuff in the collection
+  65 |         bar = (String) map63597.get(""keyB-63597""); // get it back out
+  66 |
+  67 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 68 |         response.getWriter().println(bar);
+  69 |     }
+  70 | }
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00292.java,62,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00554.java,68,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
-  52 |
-  53 |         String bar = param;
-  54 |         if (param != null && param.length() > 1) {
-  55 |             bar = param.substring(0, param.length() - 1);
-  56 |         }
-  57 |
-  58 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  59 |         int length = 1;
-  60 |         if (bar != null) {
-  61 |             length = bar.length();
-> 62 |             response.getWriter().write(bar, 0, length);
-  63 |         }
-  64 |     }
-  65 | }
+  50 |                 for (int i = 0; i < values.length && flag; i++) {
+  51 |                     String value = values[i];
+  52 |                     if (value.equals(""BenchmarkTest00554"")) {
+  53 |                         param = name;
+  54 |                         flag = false;
+  55 |                     }
+  56 |                 }
+  57 |             }
+  58 |         }
+  59 |
+  60 |         String bar;
+  61 |
+  62 |         // Simple if statement that assigns param to bar on true condition
+  63 |         int num = 196;
+  64 |         if ((500 / 42) + num > 200) bar = param;
+  65 |         else bar = ""This should never happen"";
+  66 |
+  67 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 68 |         response.getWriter().println(bar);
+  69 |     }
+  70 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00555.java,68,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  50 |                 for (int i = 0; i < values.length && flag; i++) {
+  51 |                     String value = values[i];
+  52 |                     if (value.equals(""BenchmarkTest00555"")) {
+  53 |                         param = name;
+  54 |                         flag = false;
+  55 |                     }
+  56 |                 }
+  57 |             }
+  58 |         }
+  59 |
+  60 |         String bar;
+  61 |
+  62 |         // Simple ? condition that assigns param to bar on false condition
+  63 |         int num = 106;
+  64 |
+  65 |         bar = (7 * 42) - num > 200 ? ""This should never happen"" : param;
+  66 |
+  67 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 68 |         response.getWriter().write(bar.toCharArray());
+  69 |     }
+  70 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00557.java,67,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  50 |                 for (int i = 0; i < values.length && flag; i++) {
+  51 |                     String value = values[i];
+  52 |                     if (value.equals(""BenchmarkTest00557"")) {
+  53 |                         param = name;
+  54 |                         flag = false;
+  55 |                     }
+  56 |                 }
+  57 |             }
+  58 |         }
+  59 |
+  60 |         String bar = """";
+  61 |         if (param != null) bar = param.split("" "")[0];
+  62 |
+  63 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  64 |         int length = 1;
+  65 |         if (bar != null) {
+  66 |             length = bar.length();
+> 67 |             response.getWriter().write(bar, 0, length);
+  68 |         }
+  69 |     }
+  70 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00380.java,68,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  50 |         // Simple case statement that assigns param to bar on conditions 'A', 'C', or 'D'
+  51 |         switch (switchTarget) {
+  52 |             case 'A':
+  53 |                 bar = param;
+  54 |                 break;
+  55 |             case 'B':
+  56 |                 bar = ""bobs_your_uncle"";
+  57 |                 break;
+  58 |             case 'C':
+  59 |             case 'D':
+  60 |                 bar = param;
+  61 |                 break;
+  62 |             default:
+  63 |                 bar = ""bobs_your_uncle"";
+  64 |                 break;
+  65 |         }
+  66 |
+  67 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 68 |         response.getWriter().print(bar);
+  69 |     }
+  70 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00385.java,70,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  52 |                 b21475.length(),
+  53 |                 ""Chars""); // replace some of the end content
+  54 |         java.util.HashMap<String, Object> map21475 = new java.util.HashMap<String, Object>();
+  55 |         map21475.put(""key21475"", b21475.toString()); // put in a collection
+  56 |         String c21475 = (String) map21475.get(""key21475""); // get it back out
+  57 |         String d21475 = c21475.substring(0, c21475.length() - 1); // extract most of it
+  58 |         String e21475 =
+  59 |                 new String(
+  60 |                         org.apache.commons.codec.binary.Base64.decodeBase64(
+  61 |                                 org.apache.commons.codec.binary.Base64.encodeBase64(
+  62 |                                         d21475.getBytes()))); // B64 encode and decode it
+  63 |         String f21475 = e21475.split("" "")[0]; // split it on a space
+  64 |         org.owasp.benchmark.helpers.ThingInterface thing =
+  65 |                 org.owasp.benchmark.helpers.ThingFactory.createThing();
+  66 |         String bar = thing.doSomething(f21475); // reflection
+  67 |
+  68 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  69 |         Object[] obj = {bar, ""b""};
+> 70 |         response.getWriter().printf(""Formatted like: %1$s and %2$s."", obj);
+  71 |     }
+  72 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00383.java,70,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  52 |                 b2196.length(),
+  53 |                 ""Chars""); // replace some of the end content
+  54 |         java.util.HashMap<String, Object> map2196 = new java.util.HashMap<String, Object>();
+  55 |         map2196.put(""key2196"", b2196.toString()); // put in a collection
+  56 |         String c2196 = (String) map2196.get(""key2196""); // get it back out
+  57 |         String d2196 = c2196.substring(0, c2196.length() - 1); // extract most of it
+  58 |         String e2196 =
+  59 |                 new String(
+  60 |                         org.apache.commons.codec.binary.Base64.decodeBase64(
+  61 |                                 org.apache.commons.codec.binary.Base64.encodeBase64(
+  62 |                                         d2196.getBytes()))); // B64 encode and decode it
+  63 |         String f2196 = e2196.split("" "")[0]; // split it on a space
+  64 |         org.owasp.benchmark.helpers.ThingInterface thing =
+  65 |                 org.owasp.benchmark.helpers.ThingFactory.createThing();
+  66 |         String bar = thing.doSomething(f2196); // reflection
+  67 |
+  68 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  69 |         Object[] obj = {""a"", ""b""};
+> 70 |         response.getWriter().printf(java.util.Locale.US, bar, obj);
+  71 |     }
+  72 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00724.java,70,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  52 |         // Simple case statement that assigns param to bar on conditions 'A', 'C', or 'D'
+  53 |         switch (switchTarget) {
+  54 |             case 'A':
+  55 |                 bar = param;
+  56 |                 break;
+  57 |             case 'B':
+  58 |                 bar = ""bobs_your_uncle"";
+  59 |                 break;
+  60 |             case 'C':
+  61 |             case 'D':
+  62 |                 bar = param;
+  63 |                 break;
+  64 |             default:
+  65 |                 bar = ""bobs_your_uncle"";
+  66 |                 break;
+  67 |         }
+  68 |
+  69 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 70 |         response.getWriter().println(bar);
+  71 |     }
+  72 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00541.java,71,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  53 |                         param = name;
+  54 |                         flag = false;
+  55 |                     }
+  56 |                 }
+  57 |             }
+  58 |         }
+  59 |
+  60 |         String bar = """";
+  61 |         if (param != null) {
+  62 |             bar =
+  63 |                     new String(
+  64 |                             org.apache.commons.codec.binary.Base64.decodeBase64(
+  65 |                                     org.apache.commons.codec.binary.Base64.encodeBase64(
+  66 |                                             param.getBytes())));
+  67 |         }
+  68 |
+  69 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  70 |         Object[] obj = {""a"", ""b""};
+> 71 |         response.getWriter().format(java.util.Locale.US, bar, obj);
+  72 |     }
+  73 | }
      ^ Col 0
 "
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02332.java,63,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
@@ -3896,21 +4699,79 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01429.j
   73 |             char switchTarget = guess.charAt(2);
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00551.java,63,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00725.java,71,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
-  53 |                         param = name;
-  54 |                         flag = false;
-  55 |                     }
-  56 |                 }
-  57 |             }
-  58 |         }
-  59 |
-  60 |         String bar = param;
-  61 |
-  62 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 63 |         response.getWriter().println(bar);
-  64 |     }
-  65 | }
+  53 |                 b49441.length() - ""Chars"".length(),
+  54 |                 b49441.length(),
+  55 |                 ""Chars""); // replace some of the end content
+  56 |         java.util.HashMap<String, Object> map49441 = new java.util.HashMap<String, Object>();
+  57 |         map49441.put(""key49441"", b49441.toString()); // put in a collection
+  58 |         String c49441 = (String) map49441.get(""key49441""); // get it back out
+  59 |         String d49441 = c49441.substring(0, c49441.length() - 1); // extract most of it
+  60 |         String e49441 =
+  61 |                 new String(
+  62 |                         org.apache.commons.codec.binary.Base64.decodeBase64(
+  63 |                                 org.apache.commons.codec.binary.Base64.encodeBase64(
+  64 |                                         d49441.getBytes()))); // B64 encode and decode it
+  65 |         String f49441 = e49441.split("" "")[0]; // split it on a space
+  66 |         org.owasp.benchmark.helpers.ThingInterface thing =
+  67 |                 org.owasp.benchmark.helpers.ThingFactory.createThing();
+  68 |         String bar = thing.doSomething(f49441); // reflection
+  69 |
+  70 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 71 |         response.getWriter().println(bar);
+  72 |     }
+  73 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00737.java,71,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  53 |                 b57334.length() - ""Chars"".length(),
+  54 |                 b57334.length(),
+  55 |                 ""Chars""); // replace some of the end content
+  56 |         java.util.HashMap<String, Object> map57334 = new java.util.HashMap<String, Object>();
+  57 |         map57334.put(""key57334"", b57334.toString()); // put in a collection
+  58 |         String c57334 = (String) map57334.get(""key57334""); // get it back out
+  59 |         String d57334 = c57334.substring(0, c57334.length() - 1); // extract most of it
+  60 |         String e57334 =
+  61 |                 new String(
+  62 |                         org.apache.commons.codec.binary.Base64.decodeBase64(
+  63 |                                 org.apache.commons.codec.binary.Base64.encodeBase64(
+  64 |                                         d57334.getBytes()))); // B64 encode and decode it
+  65 |         String f57334 = e57334.split("" "")[0]; // split it on a space
+  66 |         org.owasp.benchmark.helpers.ThingInterface thing =
+  67 |                 org.owasp.benchmark.helpers.ThingFactory.createThing();
+  68 |         String bar = thing.doSomething(f57334); // reflection
+  69 |
+  70 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 71 |         response.getWriter().write(""Parameter value: "" + bar);
+  72 |     }
+  73 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00720.java,71,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  53 |         switch (switchTarget) {
+  54 |             case 'A':
+  55 |                 bar = param;
+  56 |                 break;
+  57 |             case 'B':
+  58 |                 bar = ""bobs_your_uncle"";
+  59 |                 break;
+  60 |             case 'C':
+  61 |             case 'D':
+  62 |                 bar = param;
+  63 |                 break;
+  64 |             default:
+  65 |                 bar = ""bobs_your_uncle"";
+  66 |                 break;
+  67 |         }
+  68 |
+  69 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  70 |         Object[] obj = {""a"", ""b""};
+> 71 |         response.getWriter().printf(java.util.Locale.US, bar, obj);
+  72 |     }
+  73 | }
      ^ Col 0
 "
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02317.java,64,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
@@ -4188,91 +5049,179 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01424.j
   74 |
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00156.java,64,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00048.java,72,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
-  54 |             valuesList.add(""safe"");
-  55 |             valuesList.add(param);
-  56 |             valuesList.add(""moresafe"");
-  57 |
-  58 |             valuesList.remove(0); // remove the 1st safe value
-  59 |
-  60 |             bar = valuesList.get(0); // get the param value
-  61 |         }
-  62 |
-  63 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 64 |         response.getWriter().write(bar.toCharArray());
-  65 |     }
-  66 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00711.java,64,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  54 |
-  55 |             valuesList.remove(0); // remove the 1st safe value
+  54 |             return;
+  55 |         }
   56 |
-  57 |             bar = valuesList.get(0); // get the param value
-  58 |         }
-  59 |
-  60 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  61 |         Object[] obj = {""a"", bar};
-  62 |         java.io.PrintWriter out = response.getWriter();
-  63 |         out.write(""<!DOCTYPE html>\n<html>\n<body>\n<p>"");
-> 64 |         out.format(java.util.Locale.US, ""Formatted like: %1$s and %2$s."", obj);
-  65 |         out.write(""\n</p>\n</body>\n</html>"");
-  66 |     }
-  67 | }
+  57 |         String param =
+  58 |                 queryString.substring(
+  59 |                         paramLoc
+  60 |                                 + paramval
+  61 |                                         .length()); // 1st assume ""BenchmarkTest00048"" param is last
+  62 |         // parameter in query string.
+  63 |         // And then check to see if its in the middle of the query string and if so, trim off what
+  64 |         // comes after.
+  65 |         int ampersandLoc = queryString.indexOf(""&"", paramLoc);
+  66 |         if (ampersandLoc != -1) {
+  67 |             param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
+  68 |         }
+  69 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  70 |
+  71 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 72 |         response.getWriter().print(param.toCharArray());
+  73 |     }
+  74 | }
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00036.java,65,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00049.java,72,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
-  55 |                         flag = false;
-  56 |                     }
-  57 |                 }
-  58 |             }
-  59 |         }
-  60 |
-  61 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  62 |         int length = 1;
-  63 |         if (param != null) {
-  64 |             length = param.length();
-> 65 |             response.getWriter().write(param.toCharArray(), 0, length);
-  66 |         }
-  67 |     }
-  68 | }
+  54 |             return;
+  55 |         }
+  56 |
+  57 |         String param =
+  58 |                 queryString.substring(
+  59 |                         paramLoc
+  60 |                                 + paramval
+  61 |                                         .length()); // 1st assume ""BenchmarkTest00049"" param is last
+  62 |         // parameter in query string.
+  63 |         // And then check to see if its in the middle of the query string and if so, trim off what
+  64 |         // comes after.
+  65 |         int ampersandLoc = queryString.indexOf(""&"", paramLoc);
+  66 |         if (ampersandLoc != -1) {
+  67 |             param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
+  68 |         }
+  69 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  70 |
+  71 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 72 |         response.getWriter().write(""Parameter value: "" + param);
+  73 |     }
+  74 | }
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00547.java,65,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00154.java,73,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
-  55 |                     }
+  55 |         // Simple case statement that assigns param to bar on conditions 'A', 'C', or 'D'
+  56 |         switch (switchTarget) {
+  57 |             case 'A':
+  58 |                 bar = param;
+  59 |                 break;
+  60 |             case 'B':
+  61 |                 bar = ""bobs_your_uncle"";
+  62 |                 break;
+  63 |             case 'C':
+  64 |             case 'D':
+  65 |                 bar = param;
+  66 |                 break;
+  67 |             default:
+  68 |                 bar = ""bobs_your_uncle"";
+  69 |                 break;
+  70 |         }
+  71 |
+  72 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 73 |         response.getWriter().println(bar);
+  74 |     }
+  75 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00152.java,73,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  55 |         // Simple case statement that assigns param to bar on conditions 'A', 'C', or 'D'
+  56 |         switch (switchTarget) {
+  57 |             case 'A':
+  58 |                 bar = param;
+  59 |                 break;
+  60 |             case 'B':
+  61 |                 bar = ""bobs_your_uncle"";
+  62 |                 break;
+  63 |             case 'C':
+  64 |             case 'D':
+  65 |                 bar = param;
+  66 |                 break;
+  67 |             default:
+  68 |                 bar = ""bobs_your_uncle"";
+  69 |                 break;
+  70 |         }
+  71 |
+  72 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 73 |         response.getWriter().println(bar.toCharArray());
+  74 |     }
+  75 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00047.java,73,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  55 |         }
+  56 |
+  57 |         String param =
+  58 |                 queryString.substring(
+  59 |                         paramLoc
+  60 |                                 + paramval
+  61 |                                         .length()); // 1st assume ""BenchmarkTest00047"" param is last
+  62 |         // parameter in query string.
+  63 |         // And then check to see if its in the middle of the query string and if so, trim off what
+  64 |         // comes after.
+  65 |         int ampersandLoc = queryString.indexOf(""&"", paramLoc);
+  66 |         if (ampersandLoc != -1) {
+  67 |             param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
+  68 |         }
+  69 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  70 |
+  71 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  72 |         Object[] obj = {""a"", ""b""};
+> 73 |         response.getWriter().format(param, obj);
+  74 |     }
+  75 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00803.java,73,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  55 |
+  56 |         String param =
+  57 |                 queryString.substring(
+  58 |                         paramLoc
+  59 |                                 + paramval
+  60 |                                         .length()); // 1st assume ""BenchmarkTest00803"" param is last
+  61 |         // parameter in query string.
+  62 |         // And then check to see if its in the middle of the query string and if so, trim off what
+  63 |         // comes after.
+  64 |         int ampersandLoc = queryString.indexOf(""&"", paramLoc);
+  65 |         if (ampersandLoc != -1) {
+  66 |             param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
+  67 |         }
+  68 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  69 |
+  70 |         String bar = param;
+  71 |
+  72 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 73 |         response.getWriter().print(bar);
+  74 |     }
+  75 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00543.java,74,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
   56 |                 }
   57 |             }
   58 |         }
   59 |
   60 |         String bar = """";
-  61 |         if (param != null) bar = param.split("" "")[0];
-  62 |
-  63 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  64 |         Object[] obj = {""a"", ""b""};
-> 65 |         response.getWriter().printf(java.util.Locale.US, bar, obj);
-  66 |     }
-  67 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00144.java,65,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  55 |             valuesList.add(param);
-  56 |             valuesList.add(""moresafe"");
-  57 |
-  58 |             valuesList.remove(0); // remove the 1st safe value
-  59 |
-  60 |             bar = valuesList.get(0); // get the param value
-  61 |         }
-  62 |
-  63 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  64 |         Object[] obj = {""a"", ""b""};
-> 65 |         response.getWriter().format(java.util.Locale.US, bar, obj);
-  66 |     }
-  67 | }
+  61 |         if (param != null) {
+  62 |             java.util.List<String> valuesList = new java.util.ArrayList<String>();
+  63 |             valuesList.add(""safe"");
+  64 |             valuesList.add(param);
+  65 |             valuesList.add(""moresafe"");
+  66 |
+  67 |             valuesList.remove(0); // remove the 1st safe value
+  68 |
+  69 |             bar = valuesList.get(0); // get the param value
+  70 |         }
+  71 |
+  72 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  73 |         Object[] obj = {""a"", ""b""};
+> 74 |         response.getWriter().format(bar, obj);
+  75 |     }
+  76 | }
      ^ Col 0
 "
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02327.java,66,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
@@ -4350,328 +5299,204 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01417.j
   76 |
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00279.java,66,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00801.java,74,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
-  56 |             valuesList.add(""safe"");
-  57 |             valuesList.add(param);
-  58 |             valuesList.add(""moresafe"");
-  59 |
-  60 |             valuesList.remove(0); // remove the 1st safe value
-  61 |
-  62 |             bar = valuesList.get(0); // get the param value
-  63 |         }
-  64 |
-  65 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 66 |         response.getWriter().print(bar);
-  67 |     }
-  68 | }
+  56 |         String param =
+  57 |                 queryString.substring(
+  58 |                         paramLoc
+  59 |                                 + paramval
+  60 |                                         .length()); // 1st assume ""BenchmarkTest00801"" param is last
+  61 |         // parameter in query string.
+  62 |         // And then check to see if its in the middle of the query string and if so, trim off what
+  63 |         // comes after.
+  64 |         int ampersandLoc = queryString.indexOf(""&"", paramLoc);
+  65 |         if (ampersandLoc != -1) {
+  66 |             param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
+  67 |         }
+  68 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  69 |
+  70 |         String bar = param;
+  71 |
+  72 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  73 |         Object[] obj = {""a"", ""b""};
+> 74 |         response.getWriter().format(bar, obj);
+  75 |     }
+  76 | }
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00557.java,67,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00804.java,74,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
-  57 |             }
-  58 |         }
-  59 |
-  60 |         String bar = """";
-  61 |         if (param != null) bar = param.split("" "")[0];
-  62 |
-  63 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  64 |         int length = 1;
-  65 |         if (bar != null) {
-  66 |             length = bar.length();
-> 67 |             response.getWriter().write(bar, 0, length);
-  68 |         }
-  69 |     }
-  70 | }
+  56 |         String param =
+  57 |                 queryString.substring(
+  58 |                         paramLoc
+  59 |                                 + paramval
+  60 |                                         .length()); // 1st assume ""BenchmarkTest00804"" param is last
+  61 |         // parameter in query string.
+  62 |         // And then check to see if its in the middle of the query string and if so, trim off what
+  63 |         // comes after.
+  64 |         int ampersandLoc = queryString.indexOf(""&"", paramLoc);
+  65 |         if (ampersandLoc != -1) {
+  66 |             param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
+  67 |         }
+  68 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  69 |
+  70 |         StringBuilder sbxyz12823 = new StringBuilder(param);
+  71 |         String bar = sbxyz12823.append(""_SafeStuff"").toString();
+  72 |
+  73 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 74 |         response.getWriter().print(bar);
+  75 |     }
+  76 | }
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00380.java,68,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00810.java,74,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
-  58 |             case 'C':
-  59 |             case 'D':
+  56 |         String param =
+  57 |                 queryString.substring(
+  58 |                         paramLoc
+  59 |                                 + paramval
+  60 |                                         .length()); // 1st assume ""BenchmarkTest00810"" param is last
+  61 |         // parameter in query string.
+  62 |         // And then check to see if its in the middle of the query string and if so, trim off what
+  63 |         // comes after.
+  64 |         int ampersandLoc = queryString.indexOf(""&"", paramLoc);
+  65 |         if (ampersandLoc != -1) {
+  66 |             param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
+  67 |         }
+  68 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  69 |
+  70 |         StringBuilder sbxyz36624 = new StringBuilder(param);
+  71 |         String bar = sbxyz36624.append(""_SafeStuff"").toString();
+  72 |
+  73 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 74 |         response.getWriter().println(bar.toCharArray());
+  75 |     }
+  76 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00807.java,75,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  57 |                 queryString.substring(
+  58 |                         paramLoc
+  59 |                                 + paramval
+  60 |                                         .length()); // 1st assume ""BenchmarkTest00807"" param is last
+  61 |         // parameter in query string.
+  62 |         // And then check to see if its in the middle of the query string and if so, trim off what
+  63 |         // comes after.
+  64 |         int ampersandLoc = queryString.indexOf(""&"", paramLoc);
+  65 |         if (ampersandLoc != -1) {
+  66 |             param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
+  67 |         }
+  68 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  69 |
+  70 |         String bar = """";
+  71 |         if (param != null) bar = param.split("" "")[0];
+  72 |
+  73 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  74 |         Object[] obj = {""a"", ""b""};
+> 75 |         response.getWriter().printf(java.util.Locale.US, bar, obj);
+  76 |     }
+  77 | }
+     ^ Col 0
+"
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00280.java,75,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  57 |         // Simple case statement that assigns param to bar on conditions 'A', 'C', or 'D'
+  58 |         switch (switchTarget) {
+  59 |             case 'A':
   60 |                 bar = param;
   61 |                 break;
-  62 |             default:
+  62 |             case 'B':
   63 |                 bar = ""bobs_your_uncle"";
   64 |                 break;
-  65 |         }
-  66 |
-  67 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 68 |         response.getWriter().print(bar);
-  69 |     }
-  70 | }
+  65 |             case 'C':
+  66 |             case 'D':
+  67 |                 bar = param;
+  68 |                 break;
+  69 |             default:
+  70 |                 bar = ""bobs_your_uncle"";
+  71 |                 break;
+  72 |         }
+  73 |
+  74 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 75 |         response.getWriter().print(bar);
+  76 |     }
+  77 | }
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00552.java,68,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00822.java,78,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
-  58 |         }
-  59 |
-  60 |         String bar = ""safe!"";
-  61 |         java.util.HashMap<String, Object> map63597 = new java.util.HashMap<String, Object>();
-  62 |         map63597.put(""keyA-63597"", ""a-Value""); // put some stuff in the collection
-  63 |         map63597.put(""keyB-63597"", param); // put it in a collection
-  64 |         map63597.put(""keyC"", ""another-Value""); // put some stuff in the collection
-  65 |         bar = (String) map63597.get(""keyB-63597""); // get it back out
-  66 |
-  67 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 68 |         response.getWriter().println(bar);
-  69 |     }
-  70 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00549.java,68,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  58 |         }
-  59 |
-  60 |         String bar;
-  61 |
-  62 |         // Simple ? condition that assigns param to bar on false condition
-  63 |         int num = 106;
-  64 |
-  65 |         bar = (7 * 42) - num > 200 ? ""This should never happen"" : param;
-  66 |
-  67 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 68 |         response.getWriter().println(bar.toCharArray());
-  69 |     }
-  70 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00555.java,68,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  58 |         }
-  59 |
-  60 |         String bar;
-  61 |
-  62 |         // Simple ? condition that assigns param to bar on false condition
-  63 |         int num = 106;
-  64 |
-  65 |         bar = (7 * 42) - num > 200 ? ""This should never happen"" : param;
-  66 |
-  67 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 68 |         response.getWriter().write(bar.toCharArray());
-  69 |     }
-  70 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00554.java,68,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  58 |         }
-  59 |
-  60 |         String bar;
-  61 |
-  62 |         // Simple if statement that assigns param to bar on true condition
-  63 |         int num = 196;
-  64 |         if ((500 / 42) + num > 200) bar = param;
-  65 |         else bar = ""This should never happen"";
-  66 |
-  67 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 68 |         response.getWriter().println(bar);
-  69 |     }
-  70 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00385.java,70,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  60 |                         org.apache.commons.codec.binary.Base64.decodeBase64(
-  61 |                                 org.apache.commons.codec.binary.Base64.encodeBase64(
-  62 |                                         d21475.getBytes()))); // B64 encode and decode it
-  63 |         String f21475 = e21475.split("" "")[0]; // split it on a space
-  64 |         org.owasp.benchmark.helpers.ThingInterface thing =
-  65 |                 org.owasp.benchmark.helpers.ThingFactory.createThing();
-  66 |         String bar = thing.doSomething(f21475); // reflection
-  67 |
-  68 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  69 |         Object[] obj = {bar, ""b""};
-> 70 |         response.getWriter().printf(""Formatted like: %1$s and %2$s."", obj);
-  71 |     }
-  72 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00383.java,70,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  60 |                         org.apache.commons.codec.binary.Base64.decodeBase64(
-  61 |                                 org.apache.commons.codec.binary.Base64.encodeBase64(
-  62 |                                         d2196.getBytes()))); // B64 encode and decode it
-  63 |         String f2196 = e2196.split("" "")[0]; // split it on a space
-  64 |         org.owasp.benchmark.helpers.ThingInterface thing =
-  65 |                 org.owasp.benchmark.helpers.ThingFactory.createThing();
-  66 |         String bar = thing.doSomething(f2196); // reflection
-  67 |
-  68 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  69 |         Object[] obj = {""a"", ""b""};
-> 70 |         response.getWriter().printf(java.util.Locale.US, bar, obj);
-  71 |     }
-  72 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00724.java,70,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  60 |             case 'C':
-  61 |             case 'D':
-  62 |                 bar = param;
-  63 |                 break;
-  64 |             default:
-  65 |                 bar = ""bobs_your_uncle"";
-  66 |                 break;
+  60 |                                         .length()); // 1st assume ""BenchmarkTest00822"" param is last
+  61 |         // parameter in query string.
+  62 |         // And then check to see if its in the middle of the query string and if so, trim off what
+  63 |         // comes after.
+  64 |         int ampersandLoc = queryString.indexOf(""&"", paramLoc);
+  65 |         if (ampersandLoc != -1) {
+  66 |             param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
   67 |         }
-  68 |
-  69 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 70 |         response.getWriter().println(bar);
-  71 |     }
-  72 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00725.java,71,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  61 |                 new String(
-  62 |                         org.apache.commons.codec.binary.Base64.decodeBase64(
-  63 |                                 org.apache.commons.codec.binary.Base64.encodeBase64(
-  64 |                                         d49441.getBytes()))); // B64 encode and decode it
-  65 |         String f49441 = e49441.split("" "")[0]; // split it on a space
-  66 |         org.owasp.benchmark.helpers.ThingInterface thing =
-  67 |                 org.owasp.benchmark.helpers.ThingFactory.createThing();
-  68 |         String bar = thing.doSomething(f49441); // reflection
+  68 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
   69 |
-  70 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 71 |         response.getWriter().println(bar);
-  72 |     }
-  73 | }
+  70 |         String bar;
+  71 |
+  72 |         // Simple if statement that assigns param to bar on true condition
+  73 |         int num = 196;
+  74 |         if ((500 / 42) + num > 200) bar = param;
+  75 |         else bar = ""This should never happen"";
+  76 |
+  77 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 78 |         response.getWriter().write(""Parameter value: "" + bar);
+  79 |     }
+  80 | }
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00737.java,71,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00809.java,79,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
-  61 |                 new String(
-  62 |                         org.apache.commons.codec.binary.Base64.decodeBase64(
-  63 |                                 org.apache.commons.codec.binary.Base64.encodeBase64(
-  64 |                                         d57334.getBytes()))); // B64 encode and decode it
-  65 |         String f57334 = e57334.split("" "")[0]; // split it on a space
-  66 |         org.owasp.benchmark.helpers.ThingInterface thing =
-  67 |                 org.owasp.benchmark.helpers.ThingFactory.createThing();
-  68 |         String bar = thing.doSomething(f57334); // reflection
+  61 |         // parameter in query string.
+  62 |         // And then check to see if its in the middle of the query string and if so, trim off what
+  63 |         // comes after.
+  64 |         int ampersandLoc = queryString.indexOf(""&"", paramLoc);
+  65 |         if (ampersandLoc != -1) {
+  66 |             param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
+  67 |         }
+  68 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
   69 |
-  70 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 71 |         response.getWriter().write(""Parameter value: "" + bar);
-  72 |     }
-  73 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00720.java,71,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  61 |             case 'D':
-  62 |                 bar = param;
-  63 |                 break;
-  64 |             default:
-  65 |                 bar = ""bobs_your_uncle"";
-  66 |                 break;
-  67 |         }
-  68 |
-  69 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  70 |         Object[] obj = {""a"", ""b""};
-> 71 |         response.getWriter().printf(java.util.Locale.US, bar, obj);
-  72 |     }
-  73 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00541.java,71,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  61 |         if (param != null) {
-  62 |             bar =
-  63 |                     new String(
-  64 |                             org.apache.commons.codec.binary.Base64.decodeBase64(
-  65 |                                     org.apache.commons.codec.binary.Base64.encodeBase64(
-  66 |                                             param.getBytes())));
-  67 |         }
-  68 |
-  69 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  70 |         Object[] obj = {""a"", ""b""};
-> 71 |         response.getWriter().format(java.util.Locale.US, bar, obj);
-  72 |     }
-  73 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00048.java,72,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  62 |         // parameter in query string.
-  63 |         // And then check to see if its in the middle of the query string and if so, trim off what
-  64 |         // comes after.
-  65 |         int ampersandLoc = queryString.indexOf(""&"", paramLoc);
-  66 |         if (ampersandLoc != -1) {
-  67 |             param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
-  68 |         }
-  69 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
-  70 |
-  71 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 72 |         response.getWriter().print(param.toCharArray());
-  73 |     }
-  74 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00049.java,72,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  62 |         // parameter in query string.
-  63 |         // And then check to see if its in the middle of the query string and if so, trim off what
-  64 |         // comes after.
-  65 |         int ampersandLoc = queryString.indexOf(""&"", paramLoc);
-  66 |         if (ampersandLoc != -1) {
-  67 |             param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
-  68 |         }
-  69 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
-  70 |
-  71 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 72 |         response.getWriter().write(""Parameter value: "" + param);
-  73 |     }
-  74 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00154.java,73,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  63 |             case 'C':
-  64 |             case 'D':
-  65 |                 bar = param;
-  66 |                 break;
-  67 |             default:
-  68 |                 bar = ""bobs_your_uncle"";
-  69 |                 break;
-  70 |         }
+  70 |         String bar;
   71 |
-  72 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 73 |         response.getWriter().println(bar);
-  74 |     }
-  75 | }
+  72 |         // Simple if statement that assigns param to bar on true condition
+  73 |         int num = 196;
+  74 |         if ((500 / 42) + num > 200) bar = param;
+  75 |         else bar = ""This should never happen"";
+  76 |
+  77 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  78 |         Object[] obj = {""a"", ""b""};
+> 79 |         response.getWriter().printf(bar, obj);
+  80 |     }
+  81 | }
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00152.java,73,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00802.java,80,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
-  63 |             case 'C':
-  64 |             case 'D':
-  65 |                 bar = param;
-  66 |                 break;
-  67 |             default:
-  68 |                 bar = ""bobs_your_uncle"";
-  69 |                 break;
-  70 |         }
-  71 |
-  72 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 73 |         response.getWriter().println(bar.toCharArray());
-  74 |     }
-  75 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00047.java,73,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  63 |         // And then check to see if its in the middle of the query string and if so, trim off what
-  64 |         // comes after.
-  65 |         int ampersandLoc = queryString.indexOf(""&"", paramLoc);
-  66 |         if (ampersandLoc != -1) {
-  67 |             param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
-  68 |         }
-  69 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
-  70 |
-  71 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  72 |         Object[] obj = {""a"", ""b""};
-> 73 |         response.getWriter().format(param, obj);
-  74 |     }
-  75 | }
+  62 |         // And then check to see if its in the middle of the query string and if so, trim off what
+  63 |         // comes after.
+  64 |         int ampersandLoc = queryString.indexOf(""&"", paramLoc);
+  65 |         if (ampersandLoc != -1) {
+  66 |             param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
+  67 |         }
+  68 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
+  69 |
+  70 |         String bar = """";
+  71 |         if (param != null) {
+  72 |             bar =
+  73 |                     new String(
+  74 |                             org.apache.commons.codec.binary.Base64.decodeBase64(
+  75 |                                     org.apache.commons.codec.binary.Base64.encodeBase64(
+  76 |                                             param.getBytes())));
+  77 |         }
+  78 |
+  79 |         response.setHeader(""X-XSS-Protection"", ""0"");
+> 80 |         response.getWriter().print(bar.toCharArray());
+  81 |     }
+  82 | }
      ^ Col 0
 "
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02585.java,73,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
@@ -4974,40 +5799,6 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01670.j
   83 |             return bar;
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00803.java,73,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  63 |         // comes after.
-  64 |         int ampersandLoc = queryString.indexOf(""&"", paramLoc);
-  65 |         if (ampersandLoc != -1) {
-  66 |             param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
-  67 |         }
-  68 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
-  69 |
-  70 |         String bar = param;
-  71 |
-  72 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 73 |         response.getWriter().print(bar);
-  74 |     }
-  75 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00543.java,74,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  64 |             valuesList.add(param);
-  65 |             valuesList.add(""moresafe"");
-  66 |
-  67 |             valuesList.remove(0); // remove the 1st safe value
-  68 |
-  69 |             bar = valuesList.get(0); // get the param value
-  70 |         }
-  71 |
-  72 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  73 |         Object[] obj = {""a"", ""b""};
-> 74 |         response.getWriter().format(bar, obj);
-  75 |     }
-  76 | }
-     ^ Col 0
-"
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02579.java,74,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
   64 |         int ampersandLoc = queryString.indexOf(""&"", paramLoc);
@@ -5183,89 +5974,54 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01662.j
   84 |                 bar =
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00801.java,74,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00542.java,83,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
-  64 |         int ampersandLoc = queryString.indexOf(""&"", paramLoc);
-  65 |         if (ampersandLoc != -1) {
-  66 |             param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
-  67 |         }
-  68 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
-  69 |
-  70 |         String bar = param;
-  71 |
-  72 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  73 |         Object[] obj = {""a"", ""b""};
-> 74 |         response.getWriter().format(bar, obj);
-  75 |     }
-  76 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00804.java,74,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  64 |         int ampersandLoc = queryString.indexOf(""&"", paramLoc);
-  65 |         if (ampersandLoc != -1) {
-  66 |             param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
-  67 |         }
-  68 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
-  69 |
-  70 |         StringBuilder sbxyz12823 = new StringBuilder(param);
-  71 |         String bar = sbxyz12823.append(""_SafeStuff"").toString();
-  72 |
-  73 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 74 |         response.getWriter().print(bar);
-  75 |     }
-  76 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00810.java,74,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  64 |         int ampersandLoc = queryString.indexOf(""&"", paramLoc);
-  65 |         if (ampersandLoc != -1) {
-  66 |             param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
-  67 |         }
-  68 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
-  69 |
-  70 |         StringBuilder sbxyz36624 = new StringBuilder(param);
-  71 |         String bar = sbxyz36624.append(""_SafeStuff"").toString();
-  72 |
-  73 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 74 |         response.getWriter().println(bar.toCharArray());
-  75 |     }
-  76 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00280.java,75,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  65 |             case 'C':
-  66 |             case 'D':
+  65 |         switch (switchTarget) {
+  66 |             case 'A':
   67 |                 bar = param;
   68 |                 break;
-  69 |             default:
+  69 |             case 'B':
   70 |                 bar = ""bobs_your_uncle"";
   71 |                 break;
-  72 |         }
-  73 |
-  74 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 75 |         response.getWriter().print(bar);
-  76 |     }
-  77 | }
+  72 |             case 'C':
+  73 |             case 'D':
+  74 |                 bar = param;
+  75 |                 break;
+  76 |             default:
+  77 |                 bar = ""bobs_your_uncle"";
+  78 |                 break;
+  79 |         }
+  80 |
+  81 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  82 |         Object[] obj = {""a"", ""b""};
+> 83 |         response.getWriter().format(java.util.Locale.US, bar, obj);
+  84 |     }
+  85 | }
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00807.java,75,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00806.java,84,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
-  65 |         if (ampersandLoc != -1) {
   66 |             param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
   67 |         }
   68 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
   69 |
   70 |         String bar = """";
-  71 |         if (param != null) bar = param.split("" "")[0];
-  72 |
-  73 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  74 |         Object[] obj = {""a"", ""b""};
-> 75 |         response.getWriter().printf(java.util.Locale.US, bar, obj);
-  76 |     }
-  77 | }
+  71 |         if (param != null) {
+  72 |             java.util.List<String> valuesList = new java.util.ArrayList<String>();
+  73 |             valuesList.add(""safe"");
+  74 |             valuesList.add(param);
+  75 |             valuesList.add(""moresafe"");
+  76 |
+  77 |             valuesList.remove(0); // remove the 1st safe value
+  78 |
+  79 |             bar = valuesList.get(0); // get the param value
+  80 |         }
+  81 |
+  82 |         response.setHeader(""X-XSS-Protection"", ""0"");
+  83 |         Object[] obj = {""a"", ""b""};
+> 84 |         response.getWriter().printf(java.util.Locale.US, bar, obj);
+  85 |     }
+  86 | }
      ^ Col 0
 "
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02600.java,76,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
@@ -5318,93 +6074,16 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01657.j
   86 |
      ^ Col 0
 "
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00822.java,78,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  68 |         param = java.net.URLDecoder.decode(param, ""UTF-8"");
-  69 |
-  70 |         String bar;
-  71 |
-  72 |         // Simple if statement that assigns param to bar on true condition
-  73 |         int num = 196;
-  74 |         if ((500 / 42) + num > 200) bar = param;
-  75 |         else bar = ""This should never happen"";
-  76 |
-  77 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 78 |         response.getWriter().write(""Parameter value: "" + bar);
-  79 |     }
-  80 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00809.java,79,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  69 |
-  70 |         String bar;
-  71 |
-  72 |         // Simple if statement that assigns param to bar on true condition
-  73 |         int num = 196;
-  74 |         if ((500 / 42) + num > 200) bar = param;
-  75 |         else bar = ""This should never happen"";
-  76 |
-  77 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  78 |         Object[] obj = {""a"", ""b""};
-> 79 |         response.getWriter().printf(bar, obj);
-  80 |     }
-  81 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00802.java,80,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  70 |         String bar = """";
-  71 |         if (param != null) {
-  72 |             bar =
-  73 |                     new String(
-  74 |                             org.apache.commons.codec.binary.Base64.decodeBase64(
-  75 |                                     org.apache.commons.codec.binary.Base64.encodeBase64(
-  76 |                                             param.getBytes())));
-  77 |         }
-  78 |
-  79 |         response.setHeader(""X-XSS-Protection"", ""0"");
-> 80 |         response.getWriter().print(bar.toCharArray());
-  81 |     }
-  82 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00542.java,83,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  73 |             case 'D':
-  74 |                 bar = param;
-  75 |                 break;
-  76 |             default:
-  77 |                 bar = ""bobs_your_uncle"";
-  78 |                 break;
-  79 |         }
-  80 |
-  81 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  82 |         Object[] obj = {""a"", ""b""};
-> 83 |         response.getWriter().format(java.util.Locale.US, bar, obj);
-  84 |     }
-  85 | }
-     ^ Col 0
-"
-F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00806.java,84,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
-","
-  74 |             valuesList.add(param);
-  75 |             valuesList.add(""moresafe"");
-  76 |
-  77 |             valuesList.remove(0); // remove the 1st safe value
-  78 |
-  79 |             bar = valuesList.get(0); // get the param value
-  80 |         }
-  81 |
-  82 |         response.setHeader(""X-XSS-Protection"", ""0"");
-  83 |         Object[] obj = {""a"", ""b""};
-> 84 |         response.getWriter().printf(java.util.Locale.US, bar, obj);
-  85 |     }
-  86 | }
-     ^ Col 0
-"
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00811.java,92,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
+  74 |         // Simple case statement that assigns param to bar on conditions 'A', 'C', or 'D'
+  75 |         switch (switchTarget) {
+  76 |             case 'A':
+  77 |                 bar = param;
+  78 |                 break;
+  79 |             case 'B':
+  80 |                 bar = ""bobs_your_uncle"";
+  81 |                 break;
   82 |             case 'C':
   83 |             case 'D':
   84 |                 bar = param;
@@ -5422,6 +6101,14 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00811.j
 "
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00805.java,93,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
+  75 |                 b72616.length() - ""Chars"".length(),
+  76 |                 b72616.length(),
+  77 |                 ""Chars""); // replace some of the end content
+  78 |         java.util.HashMap<String, Object> map72616 = new java.util.HashMap<String, Object>();
+  79 |         map72616.put(""key72616"", b72616.toString()); // put in a collection
+  80 |         String c72616 = (String) map72616.get(""key72616""); // get it back out
+  81 |         String d72616 = c72616.substring(0, c72616.length() - 1); // extract most of it
+  82 |         String e72616 =
   83 |                 new String(
   84 |                         org.apache.commons.codec.binary.Base64.decodeBase64(
   85 |                                 org.apache.commons.codec.binary.Base64.encodeBase64(
@@ -5439,6 +6126,14 @@ F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00805.j
 "
 F008,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00800.java,93,79,skims,F008. Reflected cross-site scripting,"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
+  75 |         switch (switchTarget) {
+  76 |             case 'A':
+  77 |                 bar = param;
+  78 |                 break;
+  79 |             case 'B':
+  80 |                 bar = ""bobs_your_uncle"";
+  81 |                 break;
+  82 |             case 'C':
   83 |             case 'D':
   84 |                 bar = param;
   85 |                 break;

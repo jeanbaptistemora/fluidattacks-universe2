@@ -1719,6 +1719,8 @@ F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_port
      ^ Col 0
 "
 F063_PATH_TRAVERSAL,lines,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,22,skims,F063. Lack of data validation - Path Traversal,Path traversal in skims/test/data/lib_path/f063_path_traversal/Test.java,"
+   1 | t java.io.File;
+   2 |
    3 | c class Test {
    4 | erride
    5 | lic void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -1735,6 +1737,8 @@ F063_PATH_TRAVERSAL,lines,namespace/skims/test/data/lib_path/f063_path_traversal
      ^ Col 5
 "
 F063_PATH_TRAVERSAL,lines,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,22,skims,F063. Lack of data validation - Path Traversal,Path traversal in skims/test/data/lib_path/f063_path_traversal/Test.java,"
+   1 |
+   2 |
    3 |
    4 |
    5 | equest request, HttpServletResponse response) throws ServletException, IOException {
@@ -2873,27 +2877,30 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,6,310 + 327,s
   8 | ibm.mq.cipher.suite=X
     ^ Col 0
 "
-F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,12,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/csharp.cs,"
+F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,15,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/csharp.cs,"
+   1 | ng System.Security.Cryptography;
    2 |
-   3 | namespace Cypher_Example
-   4 | {
-   5 |     class CypherExample
-   6 |     {
-   7 |         public static void Main()
-   8 |         {
-   9 |             MD5 myAes = MD5.Create();
-  10 |             SHA1 myAes = SHA1.Create();
-  11 |             HMACMD5 myAes = HMACMD5.Create();
-> 12 |             DES myAes = DES.Create();
-  13 |             TripleDES myAes = TripleDES.Create();
-  14 |             var hashProvider3 = new SHA1Managed();
-  15 |             var hashProvider3 = new RC2CryptoServiceProvider();
-  16 |         }
-  17 |     }
-  18 | }
-     ^ Col 0
+   3 | espace Cypher_Example
+   4 |
+   5 |  class CypherExample
+   6 |  {
+   7 |      public static void Main()
+   8 |      {
+   9 |          MD5 myAes = MD5.Create();
+  10 |          SHA1 myAes = SHA1.Create();
+  11 |          HMACMD5 myAes = HMACMD5.Create();
+  12 |          DES myAes = DES.Create();
+  13 |          TripleDES myAes = TripleDES.Create();
+  14 |          var hashProvider3 = new SHA1Managed();
+> 15 |          var hashProvider3 = new RC2CryptoServiceProvider();
+  16 |      }
+  17 |  }
+  18 |
+     ^ Col 3
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,13,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/csharp.cs,"
+   1 | sing System.Security.Cryptography;
+   2 |
    3 | amespace Cypher_Example
    4 |
    5 |    class CypherExample
@@ -2912,22 +2919,26 @@ F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,13,310 + 327,skims,
   18 |
      ^ Col 1
 "
-F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,15,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/csharp.cs,"
-   5 |  class CypherExample
-   6 |  {
-   7 |      public static void Main()
-   8 |      {
-   9 |          MD5 myAes = MD5.Create();
-  10 |          SHA1 myAes = SHA1.Create();
-  11 |          HMACMD5 myAes = HMACMD5.Create();
-  12 |          DES myAes = DES.Create();
-  13 |          TripleDES myAes = TripleDES.Create();
-  14 |          var hashProvider3 = new SHA1Managed();
-> 15 |          var hashProvider3 = new RC2CryptoServiceProvider();
-  16 |      }
-  17 |  }
-  18 |
-     ^ Col 3
+F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,12,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/csharp.cs,"
+   1 | using System.Security.Cryptography;
+   2 |
+   3 | namespace Cypher_Example
+   4 | {
+   5 |     class CypherExample
+   6 |     {
+   7 |         public static void Main()
+   8 |         {
+   9 |             MD5 myAes = MD5.Create();
+  10 |             SHA1 myAes = SHA1.Create();
+  11 |             HMACMD5 myAes = HMACMD5.Create();
+> 12 |             DES myAes = DES.Create();
+  13 |             TripleDES myAes = TripleDES.Create();
+  14 |             var hashProvider3 = new SHA1Managed();
+  15 |             var hashProvider3 = new RC2CryptoServiceProvider();
+  16 |         }
+  17 |     }
+  18 | }
+     ^ Col 0
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,12,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/java.java,"
    2 |
@@ -3327,6 +3338,27 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.java,36,310 + 327,skims,
   38 | javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
      ^ Col 0
 "
+F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,14,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in skims/test/data/lib_path/f052/csharp.cs,"
+   1 | ng System.Security.Cryptography;
+   2 |
+   3 | espace Cypher_Example
+   4 |
+   5 |  class CypherExample
+   6 |  {
+   7 |      public static void Main()
+   8 |      {
+   9 |          MD5 myAes = MD5.Create();
+  10 |          SHA1 myAes = SHA1.Create();
+  11 |          HMACMD5 myAes = HMACMD5.Create();
+  12 |          DES myAes = DES.Create();
+  13 |          TripleDES myAes = TripleDES.Create();
+> 14 |          var hashProvider3 = new SHA1Managed();
+  15 |          var hashProvider3 = new RC2CryptoServiceProvider();
+  16 |      }
+  17 |  }
+  18 |
+     ^ Col 3
+"
 F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,11,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in skims/test/data/lib_path/f052/csharp.cs,"
    1 | using System.Security.Cryptography;
    2 |
@@ -3389,24 +3421,6 @@ F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,9,310 + 327,skims,F
   17 |     }
   18 | }
      ^ Col 0
-"
-F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,14,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in skims/test/data/lib_path/f052/csharp.cs,"
-   4 |
-   5 |  class CypherExample
-   6 |  {
-   7 |      public static void Main()
-   8 |      {
-   9 |          MD5 myAes = MD5.Create();
-  10 |          SHA1 myAes = SHA1.Create();
-  11 |          HMACMD5 myAes = HMACMD5.Create();
-  12 |          DES myAes = DES.Create();
-  13 |          TripleDES myAes = TripleDES.Create();
-> 14 |          var hashProvider3 = new SHA1Managed();
-  15 |          var hashProvider3 = new RC2CryptoServiceProvider();
-  16 |      }
-  17 |  }
-  18 |
-     ^ Col 3
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,9,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in skims/test/data/lib_path/f052/java.java,"
    1 | import org.springframework.security.crypto.password.NoOpPasswordEncoder;
@@ -3862,7 +3876,30 @@ F031_CWE378,lines,namespace/skims/test/data/lib_path/f031_cwe378/Test.java,6,378
   16 |  */
      ^ Col 0
 "
+F061,lines,namespace/skims/test/data/lib_path/f061/csharp.cs,15,390,skims,F061. Errors without traceability,Empty CSharp catch in skims/test/data/lib_path/f061/csharp.cs,"
+   1 | class Test
+   2 | {
+   3 |     static void Main()
+   4 |     {
+   5 |         string s = null; // For demonstration purposes.
+   6 |
+   7 |         try
+   8 |         {
+   9 |             int a = 1 / 0;
+  10 |         }
+  11 |         catch (SafeException e)
+  12 |         {
+  13 |         }
+  14 |         catch (SafeException e)
+> 15 |         {
+  16 |             // Empty
+  17 |         }
+  18 |     }
+  19 | }
+     ^ Col 0
+"
 F061,lines,namespace/skims/test/data/lib_path/f061/csharp.cs,12,390,skims,F061. Errors without traceability,Empty CSharp catch in skims/test/data/lib_path/f061/csharp.cs,"
+   1 | class Test
    2 | {
    3 |     static void Main()
    4 |     {
@@ -3877,24 +3914,6 @@ F061,lines,namespace/skims/test/data/lib_path/f061/csharp.cs,12,390,skims,F061. 
   13 |         }
   14 |         catch (SafeException e)
   15 |         {
-  16 |             // Empty
-  17 |         }
-  18 |     }
-  19 | }
-     ^ Col 0
-"
-F061,lines,namespace/skims/test/data/lib_path/f061/csharp.cs,15,390,skims,F061. Errors without traceability,Empty CSharp catch in skims/test/data/lib_path/f061/csharp.cs,"
-   5 |         string s = null; // For demonstration purposes.
-   6 |
-   7 |         try
-   8 |         {
-   9 |             int a = 1 / 0;
-  10 |         }
-  11 |         catch (SafeException e)
-  12 |         {
-  13 |         }
-  14 |         catch (SafeException e)
-> 15 |         {
   16 |             // Empty
   17 |         }
   18 |     }
@@ -4046,6 +4065,7 @@ F060,lines,namespace/skims/test/data/lib_path/f060/csharp.cs,23,396,skims,F060. 
      ^ Col 0
 "
 F060,lines,namespace/skims/test/data/lib_path/f060/csharp.cs,27,396,skims,F060. Insecure exceptions,Insecure CSharp exception in skims/test/data/lib_path/f060/csharp.cs,"
+  16 |         {
   17 |             ProcessString(s);
   18 |         }
   19 |         catch (Exception e)
@@ -4213,6 +4233,10 @@ F060,lines,namespace/skims/test/data/lib_path/f060/csharp.cs,7,397,skims,F060. I
   15 |         try
   16 |         {
   17 |             ProcessString(s);
+  18 |         }
+  19 |         catch (Exception e)
+  20 |         {
+  21 |             Console.WriteLine(""{0} Exception caught."", e);
      ^ Col 0
 "
 F060,lines,namespace/skims/test/data/lib_path/f060/Test.java,8,397,skims,F060. Insecure exceptions,Insecure Java exception in skims/test/data/lib_path/f060/Test.java,"
@@ -4296,6 +4320,7 @@ F060,lines,namespace/skims/test/data/lib_path/f060/Test.java,11,397,skims,F060. 
      ^ Col 23
 "
 F060,lines,namespace/skims/test/data/lib_path/f060/Test.java,12,397,skims,F060. Insecure exceptions,Insecure Java exception in skims/test/data/lib_path/f060/Test.java,"
+   1 | st/data/lib_path/f060/Test.java && java test/data/lib_path/f060/Test.java
    2 |
    3 | Test {
    4 | ic void main(String[] args) throws Exception {};
@@ -4346,6 +4371,8 @@ F070_WILDCARD_IMPORT,lines,namespace/skims/test/data/lib_root/f070_wildcard_impo
   13 | )
   14 |
   15 | func main() {
+  16 |     fmt.Println(rand.Int())
+  17 | }
      ^ Col 0
 "
 F070_WILDCARD_IMPORT,lines,namespace/skims/test/data/lib_root/f070_wildcard_import/Test.java,2,398,skims,F070. Inappropriate coding practices - Wildcard import,Use of wildcard import,"
@@ -4469,6 +4496,13 @@ F073,lines,namespace/skims/test/data/lib_path/f073/Test2.java,23,478,skims,F073.
      ^ Col 0
 "
 F073,lines,namespace/skims/test/data/lib_path/f073/Test2.java,31,478,skims,F073. Conditional statement without a default option,Switch without default in skims/test/data/lib_path/f073/Test2.java,"
+  14 |         break;
+  15 |     }
+  16 |     switch (inputCore.ghi()) {
+  17 |       case CD:
+  18 |       case EF:
+  19 |       default:
+  20 |         abc.def(address.getMainDescription());
   21 |         break;
   22 |     }
   23 |     switch (inputCore.ghi()) {
@@ -4543,6 +4577,10 @@ F073,lines,namespace/skims/test/data/lib_root/f073/test.go,17,478,skims,F073. Co
      ^ Col 0
 "
 F073,lines,namespace/skims/test/data/lib_root/f073/test.go,31,478,skims,F073. Conditional statement without a default option,Switch without default in skims/test/data/lib_root/f073/test.go,"
+  17 |  switch caseSwitch {
+  18 |   case 1:
+  19 |    fmt.Println(""Case 1"")
+  20 |   case 2:
   21 |    fmt.Println(""Case 2"")
   22 |  }
   23 |  switch caseSwitch.(type) {

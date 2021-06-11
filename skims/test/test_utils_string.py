@@ -46,3 +46,154 @@ def test_make_snippet() -> None:
             ^ Col 5
         """
     )
+
+    assert (
+        make_snippet(
+            content=_dedent(
+                """
+                1 center
+                2
+                3
+                4
+                5
+                6
+                """
+            ),
+            viewport=SnippetViewport(column=10, line=1, line_context=2),
+        )
+        == _dedent(
+            """
+            > 1 | 1 center
+              2 | 2
+              3 | 3
+              4 | 4
+              5 | 5
+                ^ Col 0
+            """
+        )
+    )
+    assert (
+        make_snippet(
+            content=_dedent(
+                """
+                1
+                2 center
+                3
+                4
+                5
+                6
+                """
+            ),
+            viewport=SnippetViewport(column=10, line=2, line_context=2),
+        )
+        == _dedent(
+            """
+              1 | 1
+            > 2 | 2 center
+              3 | 3
+              4 | 4
+              5 | 5
+                ^ Col 0
+            """
+        )
+    )
+    assert (
+        make_snippet(
+            content=_dedent(
+                """
+                1
+                2
+                3 center
+                4
+                5
+                6
+                """
+            ),
+            viewport=SnippetViewport(column=10, line=3, line_context=2),
+        )
+        == _dedent(
+            """
+              1 | 1
+              2 | 2
+            > 3 | 3 center
+              4 | 4
+              5 | 5
+                ^ Col 0
+            """
+        )
+    )
+    assert (
+        make_snippet(
+            content=_dedent(
+                """
+                1
+                2
+                3
+                4 center
+                5
+                6
+                """
+            ),
+            viewport=SnippetViewport(column=10, line=4, line_context=2),
+        )
+        == _dedent(
+            """
+              2 | 2
+              3 | 3
+            > 4 | 4 center
+              5 | 5
+              6 | 6
+                ^ Col 0
+            """
+        )
+    )
+    assert (
+        make_snippet(
+            content=_dedent(
+                """
+                1
+                2
+                3
+                4
+                5 center
+                6
+                """
+            ),
+            viewport=SnippetViewport(column=10, line=5, line_context=2),
+        )
+        == _dedent(
+            """
+              2 | 2
+              3 | 3
+              4 | 4
+            > 5 | 5 center
+              6 | 6
+                ^ Col 0
+            """
+        )
+    )
+    assert (
+        make_snippet(
+            content=_dedent(
+                """
+                1
+                2
+                3
+                4
+                5
+                6 center
+                """
+            ),
+            viewport=SnippetViewport(column=10, line=6, line_context=2),
+        )
+        == _dedent(
+            """
+              2 | 2
+              3 | 3
+              4 | 4
+              5 | 5
+            > 6 | 6 center
+                ^ Col 0
+            """
+        )
+    )
