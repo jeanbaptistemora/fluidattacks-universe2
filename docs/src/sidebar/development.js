@@ -19,8 +19,9 @@ const DEVELOPMENT = [
         type: 'category',
         label: 'General Writing',
         items: [
-          'development/writing/general/main',
+          'development/writing/general/main-guidelines',
           'development/writing/general/capital-letters',
+          'development/writing/general/quotation-marks',
         ]
       },
       'development/writing/documentation',
