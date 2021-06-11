@@ -3,19 +3,16 @@
   "version": "1.0.0",
   "lockfileVersion": 1,
   "dependencies": {
-    "@expo/webpack-config": {
-      "version": "0.12.76",
-      "dependencies": {
-        "optimize-css-assets-webpack-plugin": {
-          "version": "6.0.0"
-        }
-      }
-    },
     "@expo/xdl": {
       "version": "59.1.0",
       "dependencies": {
         "@expo/webpack-config": {
-          "version": "0.12.76"
+          "version": "0.12.60",
+          "dependencies": {
+            "postcss-safe-parser": {
+              "version": "5.0.2"
+            }
+          }
         }
       }
     },
@@ -26,6 +23,17 @@
           "version": "4.5.1"
         }
       }
+    },
+    "copy": {
+      "version": "0.3.2",
+      "dependencies": {
+        "glob-parent": {
+          "version": "5.1.2"
+        }
+      }
+    },
+    "css-loader": {
+      "version": "5.2.6"
     },
     "css-select": {
       "version": "3.1.2",
@@ -51,11 +59,62 @@
         }
       }
     },
+    "react-dev-utils": {
+      "version": "11.0.4",
+      "dependencies": {
+        "browserslist": {
+          "version": "4.16.6"
+        }
+      }
+    },
+    "to-file": {
+      "version": "0.2.0",
+      "dependencies": {
+        "glob-parent": {
+          "version": "5.1.2"
+        }
+      }
+    },
     "turtle-cli": {
       "version": "0.21.8",
       "dependencies": {
         "@google-cloud/logging-bunyan": {
           "version": "3.0.2"
+        }
+      }
+    },
+    "watchpack-chokidar2": {
+      "version": "2.0.1",
+      "dependencies": {
+        "glob-parent": {
+          "version": "5.1.2"
+        }
+      }
+    },
+    "webpack-dev-server": {
+      "version": "3.11.0",
+      "dependencies": {
+        "glob-parent": {
+          "version": "5.1.2"
+        }
+      }
+    },
+    "xdl": {
+      "version": "59.0.42",
+      "dependencies": {
+        "@expo/webpack-config": {
+          "version": "0.12.76",
+          "dependencies": {
+            "css-loader": {
+              "version": "5.2.6"
+            },
+            "optimize-css-assets-webpack-plugin": {
+              "version": "6.0.0"
+            },
+            "postcss-safe-parser": {
+              "version": "5.0.2"
+            }
+          }
         }
       }
     }
