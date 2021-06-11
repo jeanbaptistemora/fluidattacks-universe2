@@ -9,6 +9,7 @@ import { dateFilter } from "react-bootstrap-table2-filter";
 import { useParams } from "react-router-dom";
 
 import { DataTableNext } from "components/DataTableNext";
+import { commitFormatter } from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { GET_TOE_LINES } from "scenes/Dashboard/containers/GroupToeLinesView/queries";
 import type {
@@ -90,7 +91,6 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
     sessionStorage.setItem("toeLinesSort", JSON.stringify(newSorted));
   };
 
-  const MAX_COMMIT_SIZE: number = 7;
   const headersToeLinesTable: IHeaderConfig[] = [
     {
       align: "left",
@@ -225,10 +225,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
             pendingLines: getPendingLines(toeLinesAttr),
             rootId: root.id,
             ...toeLinesAttr,
-            modifiedCommit: toeLinesAttr.modifiedCommit.slice(
-              0,
-              MAX_COMMIT_SIZE
-            ),
+            modifiedCommit: commitFormatter(toeLinesAttr.modifiedCommit),
             sortsRiskLevel: getSortsRiskLevel(toeLinesAttr),
           })
         )

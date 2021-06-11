@@ -7,6 +7,7 @@ import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { DataTableNext } from "components/DataTableNext";
+import { commitFormatter } from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import styles from "scenes/Dashboard/containers/GroupAuthorsView/index.css";
 import { GET_BILL } from "scenes/Dashboard/containers/GroupAuthorsView/queries";
@@ -34,11 +35,10 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     value: string
   ): ReactElement<Text> => <p className={styles.wrapped}>{value}</p>;
 
-  const COMMIT_LENGTH = 8;
   const formatCommit: (value: string) => ReactElement<Text> = (
     value: string
   ): ReactElement<Text> => (
-    <p className={styles.wrapped}>{value.slice(0, COMMIT_LENGTH)}</p>
+    <p className={styles.wrapped}>{commitFormatter(value)}</p>
   );
 
   const formatDate: (date: Date) => string = (date: Date): string => {

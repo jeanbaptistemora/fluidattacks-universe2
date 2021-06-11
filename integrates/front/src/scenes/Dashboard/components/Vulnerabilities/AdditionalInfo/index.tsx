@@ -6,7 +6,10 @@ import styled from "styled-components";
 
 import type { IHistoricTreatment } from "../../../containers/DescriptionView/types";
 import { Button } from "components/Button";
-import { statusFormatter } from "components/DataTableNext/formatters";
+import {
+  commitFormatter,
+  statusFormatter,
+} from "components/DataTableNext/formatters";
 import { Value } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/value";
 import { PointStatus } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
@@ -92,8 +95,6 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
   onClose,
 }: IAdditionalInfoProps): JSX.Element => {
   const { t } = useTranslation();
-
-  const MAX_COMMIT_SIZE: number = 7;
 
   const lastTreatment: IHistoricTreatment = getLastTreatment(
     vulnerability.historicTreatment
@@ -279,7 +280,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                       "ma0 mid-gray pr2-l tr-l tl-m tl-ns w-fit-content ws-pre-wrap ww-break-word"
                     }
                   >
-                    {vulnerability.commitHash.slice(0, MAX_COMMIT_SIZE)}
+                    {commitFormatter(vulnerability.commitHash)}
                   </p>
                 </Col60>
               </Row>
