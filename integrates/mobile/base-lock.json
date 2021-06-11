@@ -35,14 +35,6 @@
         }
       }
     },
-    "google-p12-pem": {
-      "version": "2.0.4",
-      "dependencies": {
-        "node-forge": {
-          "version": "0.10.0"
-        }
-      }
-    },
     "meow": {
       "version": "4.0.1",
       "dependencies": {
@@ -56,6 +48,14 @@
       "dependencies": {
         "postcss": {
           "version": "8.3.2"
+        }
+      }
+    },
+    "turtle-cli": {
+      "version": "0.21.8",
+      "dependencies": {
+        "@google-cloud/logging-bunyan": {
+          "version": "3.0.2"
         }
       }
     }
