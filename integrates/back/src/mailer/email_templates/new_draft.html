@@ -1,13 +1,28 @@
-{% extends "layouts/fluid_attacks.html" %}
-{% from 'layouts/components/forms.html' import go_to_button as button, text_area %}
-{% block content %}
-<p>Hello {{ name }},</p>
-<p>
-  <strong>{{ analyst_email }}</strong> has submitted a new draft:
-</p>
-<div class="w-80 gray-text-area" style="text-align: center;">
-    <div><strong>{{ finding_name }}</strong> in project <strong>{{ project }}</strong></div>
+{% extends "new_layouts/common.html" %}
+{% from 'new_layouts/components/forms.html' import banner_finding, go_to_button %}
+
+{% block layout %}
+<div class="container">
+  {% include 'new_layouts/components/logo_header.html' %}
+  {{ banner_finding('New Draft') }}
+
+  <div style="padding: 30px 0 !important;">
+    <p>Hello {{ name }},</p>
+    <p>
+      <strong>
+        <a href="mailto:{{ analyst_email }}" target="_blank" rel="noopener" style="color: #ff3435;">{{ analyst_email }}</a>
+      </strong> has submitted a new draft:
+    </p>
+    <div class="w-80 text-area" style="text-align: center;">
+      <div><strong>{{ finding_name }}</strong> in group <strong>{{ project }}</strong></div>
+    </div>
+    <p></p>
+    {{ go_to_button('Go to draft', finding_url) }}
+    <p></p>
+    <p>Regards,<br>
+      Fluid Attacks Team</p>
+  </div>
+
+  {% include 'new_layouts/components/footer.html' %}
 </div>
-<br />
-{{ button('Go to the draft', finding_url) }}
 {% endblock %}
