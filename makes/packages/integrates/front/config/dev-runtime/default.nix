@@ -9,7 +9,7 @@ let
   packageJsonDeps = getPackageJsonDeps "/integrates/front/package.json";
 in
 buildNodeRequirements {
-  baseLock = builtins.fromJSON (builtins.readFile (path "/integrates/front/package-lock.json"));
+  baseLock = builtins.fromJSON (builtins.readFile (path "/integrates/front/base-lock.json"));
   name = "integrates-front-dev-runtime";
   node = nixpkgs.nodejs-12_x;
   requirements = {
