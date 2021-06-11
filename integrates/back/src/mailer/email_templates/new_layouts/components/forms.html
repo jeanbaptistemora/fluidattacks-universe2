@@ -92,3 +92,18 @@
     {{ text }}
   {% endcall %}
 {% endmacro %}
+
+{# Bulleted text area for findings #}
+{%+ macro findings_area(list) %}
+<div class="w-80 text-area">
+  <ul>
+  {% for finding in list %}
+    <li>
+      <a href="{{ finding['finding_url'] }}" target="_blank" rel="noopener">
+        {{ finding['project'] }} - {{ finding['finding_name'] }}
+      </a>
+    </li>
+  {% endfor %}
+  <ul>
+</div>
+{% endmacro %}

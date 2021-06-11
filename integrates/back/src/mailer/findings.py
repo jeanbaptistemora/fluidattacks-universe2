@@ -148,10 +148,7 @@ async def send_mail_new_remediated(
         email_to,
         context,
         GENERAL_TAG,
-        (
-            f'Findings to verify ({context["total"]}) '
-            f'in [{context["project"]}]'
-        ),
+        (f'Findings to verify ({context["total"]})'),
         "new_remediated",
     )
 
