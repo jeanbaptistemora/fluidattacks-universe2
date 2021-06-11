@@ -410,17 +410,17 @@ async def test_finding() -> None:
     assert result["data"]["finding"]["cweUrl"] == cwe
     assert result["data"]["finding"]["btsUrl"] == ""
     assert result["data"]["finding"]["risk"] == risk
-    assert result["data"]["finding"]["remediated"] == False
+    assert not result["data"]["finding"]["remediated"]
     assert result["data"]["finding"]["type"] == draft_type
-    assert result["data"]["finding"]["isExploitable"] == False
+    assert not result["data"]["finding"]["isExploitable"]
     assert result["data"]["finding"]["severityScore"] == 2.9
     result["data"]["finding"]["reportDate"] = result["data"]["finding"][
         "reportDate"
     ][:-9]
     assert result["data"]["finding"]["reportDate"] == today
     assert result["data"]["finding"]["currentState"] == "APPROVED"
-    assert result["data"]["finding"]["newRemediated"] == False
-    assert result["data"]["finding"]["verified"] == True
+    assert not result["data"]["finding"]["newRemediated"]
+    assert result["data"]["finding"]["verified"]
     assert (
         result["data"]["finding"]["analyst"]
         == "integratesanalyst@fluidattacks.com"

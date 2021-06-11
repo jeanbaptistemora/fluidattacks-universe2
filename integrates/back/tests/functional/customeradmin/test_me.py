@@ -138,7 +138,7 @@ async def test_me() -> None:  # pylint: disable=too-many-statements
         {"name": "makimachi"},
     ]
     assert len(result["data"]["me"]["permissions"]) == 0
-    assert result["data"]["me"]["remember"] == False
+    assert not result["data"]["me"]["remember"]
     assert result["data"]["me"]["role"] == "customeradmin"
     assert result["data"]["me"]["sessionExpiration"] == str(
         datetime.fromtimestamp(int_expiration_time)

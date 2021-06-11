@@ -132,10 +132,10 @@ async def test_me() -> None:  # pylint: disable=too-many-statements
     assert "errors" not in result
     assert '{"hasAccessToken": true' in result["data"]["me"]["accessToken"]
     assert result["data"]["me"]["callerOrigin"] == "API"
-    assert result["data"]["me"]["isConcurrentSession"] == False
+    assert not result["data"]["me"]["isConcurrentSession"]
     assert result["data"]["me"]["organizations"] == [{"name": org_name}]
     assert len(result["data"]["me"]["permissions"]) == 1
-    assert result["data"]["me"]["remember"] == False
+    assert not result["data"]["me"]["remember"]
     assert result["data"]["me"]["role"] == "customer"
     assert result["data"]["me"]["sessionExpiration"] == str(
         datetime.fromtimestamp(int_expiration_time)

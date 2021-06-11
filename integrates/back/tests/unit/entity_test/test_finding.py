@@ -74,7 +74,7 @@ async def test_finding_age() -> None:
     assert result["data"]["finding"]["openAge"] == 332
 
 
-async def test_finding() -> None:
+async def test_finding() -> None:  # pylint: disable=too-many-statements
     """Check for finding query."""
     expected_vuln = {
         "id": "0a848781-b6a4-422e-95fa-692151e6a98z",

@@ -135,7 +135,7 @@ async def test_me() -> None:
     assert result["data"]["me"]["callerOrigin"] == "API"
     assert result["data"]["me"]["organizations"] == [{"name": org_name}]
     assert len(result["data"]["me"]["permissions"]) == 0
-    assert result["data"]["me"]["remember"] == False
+    assert not result["data"]["me"]["remember"]
     assert result["data"]["me"]["role"] == "reviewer"
     assert result["data"]["me"]["sessionExpiration"] == str(
         datetime.fromtimestamp(int_expiration_time)
