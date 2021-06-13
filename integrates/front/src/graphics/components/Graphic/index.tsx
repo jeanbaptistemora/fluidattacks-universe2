@@ -49,11 +49,12 @@ const bigGraphicSize: ComponentSize = {
   height: 400,
   width: 1000,
 };
-const allowedDocuments: string[] = [
+const allowedDocumentNames: string[] = [
   "meanTimeToRemediate",
   "meanTimeToRemediateNonTreated",
   "riskOverTime",
 ];
+const allowedDocumentTypes: string[] = ["stackedBarChart", "textBox"];
 
 interface IComponentSizeProps {
   readonly height: number;
@@ -99,6 +100,7 @@ export const Graphic: React.FC<IGraphicProps> = (
     bsHeight,
     className,
     documentName,
+    documentType,
     entity,
     footer,
     reportMode,
@@ -190,8 +192,11 @@ export const Graphic: React.FC<IGraphicProps> = (
     setSubjectName(subject);
     frameOnRefresh();
   }
-  function isDocumentAllowed(document: string): boolean {
-    return _.includes(allowedDocuments, document);
+  function isDocumentAllowed(name: string, type: string): boolean {
+    return (
+      _.includes(allowedDocumentNames, name) &&
+      _.includes(allowedDocumentTypes, type)
+    );
   }
 
   if (
@@ -277,7 +282,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                     !reportMode &&
                     fullSize.width > minWidthToShowButtons && (
                       <ButtonGroup className={"fr"}>
-                        {isDocumentAllowed(documentName) ? (
+                        {isDocumentAllowed(documentName, documentType) ? (
                           <React.Fragment>
                             <GraphicButton onClick={changeToAll}>
                               <DaysLabel
