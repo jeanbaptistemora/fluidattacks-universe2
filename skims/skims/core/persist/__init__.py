@@ -22,7 +22,6 @@ from io import (
 from model import (
     core_model,
 )
-import os
 import random
 from state.ephemeral import (
     EphemeralStore,
@@ -33,7 +32,6 @@ from typing import (
     Dict,
     Tuple,
 )
-import urllib.parse
 from utils.ctx import (
     CTX,
 )
@@ -45,16 +43,6 @@ from utils.string import (
 )
 
 
-def get_root(vulnerability: core_model.Vulnerability) -> str:
-    if vulnerability.kind == core_model.VulnerabilityKindEnum.INPUTS:
-        return urllib.parse.urlparse(vulnerability.what).netloc
-
-    if vulnerability.kind == core_model.VulnerabilityKindEnum.LINES:
-        return os.path.basename(vulnerability.what[::-1])[::-1]
-
-    raise NotImplementedError(f"Not implemented for: {vulnerability.kind}")
-
-
 async def get_affected_systems(store: EphemeralStore) -> str:
     """Compute a list of systems from the provided store.
 
@@ -64,7 +52,7 @@ async def get_affected_systems(store: EphemeralStore) -> str:
     :rtype: str
     """
     affected_systems: Tuple[str, ...] = tuple(
-        {get_root(result) async for result in store.iterate()}
+        {result.namespace async for result in store.iterate()}
     )
 
     return "\n".join(affected_systems)
