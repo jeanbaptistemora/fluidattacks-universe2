@@ -70,7 +70,7 @@ of personal information by ‘organizations and individuals’" in China.
 
 The problem comes in determining
 what limits a government should have
-to intervene in collecting and collecting information.
+to intervene in the storage and collection of information.
 The link:https://www.business-humanrights.org/fr/derni%C3%A8res-actualit%C3%A9s/china-adopts-cyber-security-law-in-face-of-overseas-opposition/[Chinese government's justification]
 for intervening in privacy in this way
 is to protect itself from
