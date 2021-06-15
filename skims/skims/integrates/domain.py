@@ -158,7 +158,7 @@ async def get_closest_finding_id(
         if finding_id:
             await do_update_finding_severity(
                 finding_id=finding_id,
-                severity=finding.value.severity,
+                severity=finding.value.score.as_dict(),
             )
         else:
             finding_id = ""

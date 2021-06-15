@@ -15,6 +15,12 @@ F024_AWS,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without
   13 |             VolumeSize: ""20""
   14 |         - DeviceName: ""/dev/sdk""
   15 |           NoDevice: {}
+  16 |   EC2Instance2:
+  17 |     Properties:
+  18 |       IamInstanceProfile: iamInstanceProfile1
+  19 |       LaunchTemplate:
+  20 |         LaunchTemplateId:
+  21 |           Ref: launchTemplate
      ^ Col 0
 "
 F024_AWS,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,5,16,skims,F024. Unrestricted access between network segments - AWS,EC2 instances require credentials to access other AWS services,"
@@ -33,6 +39,12 @@ F024_AWS,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without
   13 |               ""Iops"": ""200"",
   14 |               ""DeleteOnTermination"": ""false"",
   15 |               ""VolumeSize"": ""20""
+  16 |             }
+  17 |           },
+  18 |           {
+  19 |             ""DeviceName"": ""/dev/sdk"",
+  20 |             ""NoDevice"": {}
+  21 |           }
      ^ Col 0
 "
 F024_AWS,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,6,16,skims,F024. Unrestricted access between network segments - AWS,S3 buckets are publicly accessible for read or write operations.,"
@@ -52,6 +64,11 @@ F024_AWS,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.ya
   14 |     Type: AWS::S3::Bucket
   15 |     Properties:
   16 |       AccessControl: PublicReadWrite
+  17 |       BucketName: SKIMS-PUBLIC-BUCKET-2
+  18 |       BucketEncryption:
+  19 |         ServerSideEncryptionConfiguration:
+  20 |           - ServerSideEncryptionByDefault:
+  21 |               SSEAlgorithm: aws:kms
      ^ Col 0
 "
 F024_AWS,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml.json,7,16,skims,F024. Unrestricted access between network segments - AWS,S3 buckets are publicly accessible for read or write operations.,"
@@ -72,6 +89,10 @@ F024_AWS,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.ya
   15 |               }
   16 |             }
   17 |           ]
+  18 |         }
+  19 |       }
+  20 |     },
+  21 |     ""S3Bucket1"": {
      ^ Col 0
 "
 F024_AWS,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_public_buckets.yaml,16,16,skims,F024. Unrestricted access between network segments - AWS,S3 buckets are publicly accessible for read or write operations.,"
@@ -143,6 +164,8 @@ F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_
   17 |     Properties:
   18 |       GroupDescription: groupDescription2
   19 |     Type: AWS::EC2::SecurityGroup
+  20 |   securityGroup3:
+  21 |     Properties:
      ^ Col 0
 "
 F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,7,16,skims,F024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone.
@@ -164,6 +187,10 @@ F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_
   15 |     Type: AWS::EC2::SecurityGroup
   16 |   securityGroup2:
   17 |     Properties:
+  18 |       GroupDescription: groupDescription2
+  19 |     Type: AWS::EC2::SecurityGroup
+  20 |   securityGroup3:
+  21 |     Properties:
      ^ Col 0
 "
 F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,11,16,skims,F024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone.
@@ -212,6 +239,8 @@ F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_
   17 |             ""FromPort"": 8080,
   18 |             ""IpProtocol"": ""tcp"",
   19 |             ""ToPort"": 8080
+  20 |           }
+  21 |         ]
      ^ Col 0
 "
 F024_AWS,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,37,16,skims,F024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone.
@@ -636,6 +665,7 @@ F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_prot
    18 |             ""IpProtocol"": ""tcp"",
    19 |             ""ToPort"": 8080
    20 |           }
+   21 |         ]
       ^ Col 0
 "
 F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,8,16,skims,F024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols.
@@ -658,6 +688,9 @@ F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_prot
   16 |   securityGroup2:
   17 |     Properties:
   18 |       GroupDescription: groupDescription2
+  19 |     Type: AWS::EC2::SecurityGroup
+  20 |   securityGroup3:
+  21 |     Properties:
      ^ Col 0
 "
 F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,38,16,skims,F024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols.
@@ -787,6 +820,10 @@ F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_prot
 "
 F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,111,16,skims,F024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols.
 ","
+   97 |         ""FromPort"": 8080,
+   98 |         ""GroupName"": ""securityGroup2"",
+   99 |         ""IpProtocol"": ""-1"",
+  100 |         ""ToPort"": 8080
   101 |       },
   102 |       ""Type"": ""AWS::EC2::SecurityGroupIngress""
   103 |     },
@@ -933,6 +970,14 @@ F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_prot
 "
 F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,78,16,skims,F024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols.
 ","
+  60 |         Ref: IpInsecureProtocol
+  61 |       ToPort: 22
+  62 |     Type: AWS::EC2::SecurityGroupIngress
+  63 |   securityGroupIngress2:
+  64 |     Properties:
+  65 |       CidrIp:
+  66 |         Ref: IpSecurityGroup
+  67 |       FromPort: 8080
   68 |       GroupName: securityGroup2
   69 |       IpProtocol: ""-1""
   70 |       ToPort: 8080
@@ -967,6 +1012,9 @@ F024_AWS,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidr
    16 |             ""CidrIp"": ""34.229.161.227/16"",
    17 |             ""FromPort"": 8080,
    18 |             ""IpProtocol"": ""tcp"",
+   19 |             ""ToPort"": 8080
+   20 |           }
+   21 |         ]
       ^ Col 0
 "
 F024_AWS,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,6,16,skims,F024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone.,"
@@ -986,6 +1034,11 @@ F024_AWS,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidr
   14 |           ToPort: 8080
   15 |     Type: AWS::EC2::SecurityGroup
   16 |   securityGroup2:
+  17 |     Properties:
+  18 |       GroupDescription: groupDescription2
+  19 |     Type: AWS::EC2::SecurityGroup
+  20 |   securityGroup3:
+  21 |     Properties:
      ^ Col 0
 "
 F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,6,16,skims,F024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone.,"
@@ -1005,6 +1058,11 @@ F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_
   14 |           ToPort: 8080
   15 |     Type: AWS::EC2::SecurityGroup
   16 |   securityGroup2:
+  17 |     Properties:
+  18 |       GroupDescription: groupDescription2
+  19 |     Type: AWS::EC2::SecurityGroup
+  20 |   securityGroup3:
+  21 |     Properties:
      ^ Col 0
 "
 F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,8,16,skims,F024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone.,"
@@ -1026,6 +1084,9 @@ F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_
   16 |             ""CidrIp"": ""34.229.161.227/16"",
   17 |             ""FromPort"": 8080,
   18 |             ""IpProtocol"": ""tcp"",
+  19 |             ""ToPort"": 8080
+  20 |           }
+  21 |         ]
      ^ Col 0
 "
 F024_AWS,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,36,16,skims,F024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone.,"
@@ -1408,6 +1469,8 @@ F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_port
    17 |             ""FromPort"": 8080,
    18 |             ""IpProtocol"": ""tcp"",
    19 |             ""ToPort"": 8080
+   20 |           }
+   21 |         ]
       ^ Col 0
 "
 F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,9,16,skims,F024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges.,"
@@ -1430,6 +1493,8 @@ F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_port
   17 |     Properties:
   18 |       GroupDescription: groupDescription2
   19 |     Type: AWS::EC2::SecurityGroup
+  20 |   securityGroup3:
+  21 |     Properties:
      ^ Col 0
 "
 F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,7,16,skims,F024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges.,"
@@ -1450,6 +1515,10 @@ F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_port
   15 |     Type: AWS::EC2::SecurityGroup
   16 |   securityGroup2:
   17 |     Properties:
+  18 |       GroupDescription: groupDescription2
+  19 |     Type: AWS::EC2::SecurityGroup
+  20 |   securityGroup3:
+  21 |     Properties:
      ^ Col 0
 "
 F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,56,16,skims,F024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges.,"
@@ -1548,7 +1617,33 @@ F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_port
    98 |         ""GroupName"": ""securityGroup2"",
       ^ Col 0
 "
+F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,112,16,skims,F024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges.,"
+   97 |         ""FromPort"": 8080,
+   98 |         ""GroupName"": ""securityGroup2"",
+   99 |         ""IpProtocol"": ""tcp"",
+  100 |         ""ToPort"": 8080
+  101 |       },
+  102 |       ""Type"": ""AWS::EC2::SecurityGroupIngress""
+  103 |     },
+  104 |     ""securityGroupIngress3"": {
+  105 |       ""Properties"": {
+  106 |         ""CidrIp"": {
+  107 |           ""Ref"": ""IpSecurityGroup""
+  108 |         },
+  109 |         ""FromPort"": 22,
+  110 |         ""GroupName"": ""securityGroup2"",
+  111 |         ""IpProtocol"": ""tcp"",
+> 112 |         ""ToPort"": 8080
+  113 |       },
+  114 |       ""Type"": ""AWS::EC2::SecurityGroupIngress""
+  115 |     }
+  116 |   }
+  117 | }
+      ^ Col 0
+"
 F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,109,16,skims,F024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges.,"
+   97 |         ""FromPort"": 8080,
+   98 |         ""GroupName"": ""securityGroup2"",
    99 |         ""IpProtocol"": ""tcp"",
   100 |         ""ToPort"": 8080
   101 |       },
@@ -1563,25 +1658,6 @@ F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_port
   110 |         ""GroupName"": ""securityGroup2"",
   111 |         ""IpProtocol"": ""tcp"",
   112 |         ""ToPort"": 8080
-  113 |       },
-  114 |       ""Type"": ""AWS::EC2::SecurityGroupIngress""
-  115 |     }
-  116 |   }
-  117 | }
-      ^ Col 0
-"
-F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,112,16,skims,F024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges.,"
-  102 |       ""Type"": ""AWS::EC2::SecurityGroupIngress""
-  103 |     },
-  104 |     ""securityGroupIngress3"": {
-  105 |       ""Properties"": {
-  106 |         ""CidrIp"": {
-  107 |           ""Ref"": ""IpSecurityGroup""
-  108 |         },
-  109 |         ""FromPort"": 22,
-  110 |         ""GroupName"": ""securityGroup2"",
-  111 |         ""IpProtocol"": ""tcp"",
-> 112 |         ""ToPort"": 8080
   113 |       },
   114 |       ""Type"": ""AWS::EC2::SecurityGroupIngress""
   115 |     }
@@ -1685,7 +1761,37 @@ F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_port
   71 |     Type: AWS::EC2::SecurityGroupIngress
      ^ Col 0
 "
+F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,79,16,skims,F024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges.,"
+  60 |         Ref: IpInsecureProtocol
+  61 |       ToPort: 8080
+  62 |     Type: AWS::EC2::SecurityGroupIngress
+  63 |   securityGroupIngress2:
+  64 |     Properties:
+  65 |       CidrIp:
+  66 |         Ref: IpSecurityGroup
+  67 |       FromPort: 8080
+  68 |       GroupName: securityGroup2
+  69 |       IpProtocol: tcp
+  70 |       ToPort: 8080
+  71 |     Type: AWS::EC2::SecurityGroupIngress
+  72 |   securityGroupIngress3:
+  73 |     Properties:
+  74 |       CidrIp:
+  75 |         Ref: IpSecurityGroup
+  76 |       FromPort: 22
+  77 |       GroupName: securityGroup2
+  78 |       IpProtocol: tcp
+> 79 |       ToPort: 8080
+  80 |     Type: AWS::EC2::SecurityGroupIngress
+     ^ Col 0
+"
 F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,76,16,skims,F024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges.,"
+  60 |         Ref: IpInsecureProtocol
+  61 |       ToPort: 8080
+  62 |     Type: AWS::EC2::SecurityGroupIngress
+  63 |   securityGroupIngress2:
+  64 |     Properties:
+  65 |       CidrIp:
   66 |         Ref: IpSecurityGroup
   67 |       FromPort: 8080
   68 |       GroupName: securityGroup2
@@ -1700,21 +1806,6 @@ F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_port
   77 |       GroupName: securityGroup2
   78 |       IpProtocol: tcp
   79 |       ToPort: 8080
-  80 |     Type: AWS::EC2::SecurityGroupIngress
-     ^ Col 0
-"
-F024_AWS,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,79,16,skims,F024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use port ranges.,"
-  69 |       IpProtocol: tcp
-  70 |       ToPort: 8080
-  71 |     Type: AWS::EC2::SecurityGroupIngress
-  72 |   securityGroupIngress3:
-  73 |     Properties:
-  74 |       CidrIp:
-  75 |         Ref: IpSecurityGroup
-  76 |       FromPort: 22
-  77 |       GroupName: securityGroup2
-  78 |       IpProtocol: tcp
-> 79 |       ToPort: 8080
   80 |     Type: AWS::EC2::SecurityGroupIngress
      ^ Col 0
 "
@@ -1946,7 +2037,38 @@ F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statemen
   33 |                 - ec2.amazonaws.com
      ^ Col 0
 "
+F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,38,250,skims,F031. Excessive privileges - AWS,"Excessive privileges in skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml, avoid the use of negative statements","
+  20 |
+  21 |           - Effect: Allow
+  22 |             NotAction: s3:ListBucket
+  23 |             NotResource: ""something""
+  24 |
+  25 |   AWS_IAM_Role_1:
+  26 |     Type: AWS::IAM::Role
+  27 |     Properties:
+  28 |       AssumeRolePolicyDocument:
+  29 |         Statement:
+  30 |           - Effect: Allow
+  31 |             Principal:
+  32 |               Service:
+  33 |                 - ec2.amazonaws.com
+  34 |             Action:
+  35 |               - sts:AssumeRole
+  36 |           - Effect: Allow
+  37 |             NotAction: s3:ListBucket
+> 38 |             NotResource: ""something""
+  39 |
+  40 | ---
+     ^ Col 0
+"
 F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,37,250,skims,F031. Excessive privileges - AWS,"Excessive privileges in skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml, avoid the use of negative statements","
+  20 |
+  21 |           - Effect: Allow
+  22 |             NotAction: s3:ListBucket
+  23 |             NotResource: ""something""
+  24 |
+  25 |   AWS_IAM_Role_1:
+  26 |     Type: AWS::IAM::Role
   27 |     Properties:
   28 |       AssumeRolePolicyDocument:
   29 |         Statement:
@@ -1959,22 +2081,6 @@ F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statemen
   36 |           - Effect: Allow
 > 37 |             NotAction: s3:ListBucket
   38 |             NotResource: ""something""
-  39 |
-  40 | ---
-     ^ Col 0
-"
-F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,38,250,skims,F031. Excessive privileges - AWS,"Excessive privileges in skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml, avoid the use of negative statements","
-  28 |       AssumeRolePolicyDocument:
-  29 |         Statement:
-  30 |           - Effect: Allow
-  31 |             Principal:
-  32 |               Service:
-  33 |                 - ec2.amazonaws.com
-  34 |             Action:
-  35 |               - sts:AssumeRole
-  36 |           - Effect: Allow
-  37 |             NotAction: s3:ListBucket
-> 38 |             NotResource: ""something""
   39 |
   40 | ---
      ^ Col 0
@@ -2075,7 +2181,33 @@ F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statemen
   36 |           ""Statement"": [
      ^ Col 0
 "
+F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,51,250,skims,F031. Excessive privileges - AWS,"Excessive privileges in skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json, avoid the use of negative statements","
+  38 |               ""Effect"": ""Allow"",
+  39 |               ""Principal"": {
+  40 |                 ""Service"": [
+  41 |                   ""ec2.amazonaws.com""
+  42 |                 ]
+  43 |               },
+  44 |               ""Action"": [
+  45 |                 ""sts:AssumeRole""
+  46 |               ]
+  47 |             },
+  48 |             {
+  49 |               ""Effect"": ""Allow"",
+  50 |               ""NotAction"": ""s3:ListBucket"",
+> 51 |               ""NotResource"": ""something""
+  52 |             }
+  53 |           ]
+  54 |         }
+  55 |       }
+  56 |     }
+  57 |   }
+  58 | }
+     ^ Col 0
+"
 F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,50,250,skims,F031. Excessive privileges - AWS,"Excessive privileges in skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json, avoid the use of negative statements","
+  38 |               ""Effect"": ""Allow"",
+  39 |               ""Principal"": {
   40 |                 ""Service"": [
   41 |                   ""ec2.amazonaws.com""
   42 |                 ]
@@ -2088,27 +2220,6 @@ F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statemen
   49 |               ""Effect"": ""Allow"",
 > 50 |               ""NotAction"": ""s3:ListBucket"",
   51 |               ""NotResource"": ""something""
-  52 |             }
-  53 |           ]
-  54 |         }
-  55 |       }
-  56 |     }
-  57 |   }
-  58 | }
-     ^ Col 0
-"
-F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,51,250,skims,F031. Excessive privileges - AWS,"Excessive privileges in skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json, avoid the use of negative statements","
-  41 |                   ""ec2.amazonaws.com""
-  42 |                 ]
-  43 |               },
-  44 |               ""Action"": [
-  45 |                 ""sts:AssumeRole""
-  46 |               ]
-  47 |             },
-  48 |             {
-  49 |               ""Effect"": ""Allow"",
-  50 |               ""NotAction"": ""s3:ListBucket"",
-> 51 |               ""NotResource"": ""something""
   52 |             }
   53 |           ]
   54 |         }
@@ -2163,6 +2274,7 @@ F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy
   18 |                 Effect: Allow
   19 |               - Action: '*'
   20 |                 Resource: arn:::ec2/specific
+  21 |                 Effect: Allow
      ^ Col 0
 "
 F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,12,250,skims,F031. Excessive privileges - AWS,Excessive privileges in skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,"
@@ -2213,7 +2325,9 @@ F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy
   23 |                 Resource: arn:::ec2/specific
      ^ Col 0
 "
-F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,35,250,skims,F031. Excessive privileges - AWS,Excessive privileges in skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,"
+F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,38,250,skims,F031. Excessive privileges - AWS,Excessive privileges in skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,"
+  23 |                 Resource: arn:::ec2/specific
+  24 |                 Effect: Allow
   25 |       AssumeRolePolicyDocument:
   26 |         Statement:
   27 |           - Effect: Allow
@@ -2224,9 +2338,33 @@ F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy
   32 |               - sts:AssumeRole
   33 |           - Effect: Allow
   34 |             Action:
-> 35 |               - ec2:*
+  35 |               - ec2:*
   36 |               - autoscaling:*
   37 |               - eks:*
+> 38 |             Resource: '*'
+  39 |           - Effect: Allow
+  40 |             Principal:
+  41 |               AWS: arn:aws:iam:::root
+  42 |             Action: kms:*
+  43 |             Resource: ""*""
+     ^ Col 0
+"
+F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,37,250,skims,F031. Excessive privileges - AWS,Excessive privileges in skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,"
+  23 |                 Resource: arn:::ec2/specific
+  24 |                 Effect: Allow
+  25 |       AssumeRolePolicyDocument:
+  26 |         Statement:
+  27 |           - Effect: Allow
+  28 |             Principal:
+  29 |               Service:
+  30 |                 - ec2.amazonaws.com
+  31 |             Action:
+  32 |               - sts:AssumeRole
+  33 |           - Effect: Allow
+  34 |             Action:
+  35 |               - ec2:*
+  36 |               - autoscaling:*
+> 37 |               - eks:*
   38 |             Resource: '*'
   39 |           - Effect: Allow
   40 |             Principal:
@@ -2236,6 +2374,9 @@ F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy
      ^ Col 0
 "
 F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,36,250,skims,F031. Excessive privileges - AWS,Excessive privileges in skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,"
+  23 |                 Resource: arn:::ec2/specific
+  24 |                 Effect: Allow
+  25 |       AssumeRolePolicyDocument:
   26 |         Statement:
   27 |           - Effect: Allow
   28 |             Principal:
@@ -2256,7 +2397,11 @@ F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy
   43 |             Resource: ""*""
      ^ Col 0
 "
-F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,37,250,skims,F031. Excessive privileges - AWS,Excessive privileges in skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,"
+F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,35,250,skims,F031. Excessive privileges - AWS,Excessive privileges in skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,"
+  23 |                 Resource: arn:::ec2/specific
+  24 |                 Effect: Allow
+  25 |       AssumeRolePolicyDocument:
+  26 |         Statement:
   27 |           - Effect: Allow
   28 |             Principal:
   29 |               Service:
@@ -2265,29 +2410,10 @@ F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy
   32 |               - sts:AssumeRole
   33 |           - Effect: Allow
   34 |             Action:
-  35 |               - ec2:*
-  36 |               - autoscaling:*
-> 37 |               - eks:*
-  38 |             Resource: '*'
-  39 |           - Effect: Allow
-  40 |             Principal:
-  41 |               AWS: arn:aws:iam:::root
-  42 |             Action: kms:*
-  43 |             Resource: ""*""
-     ^ Col 0
-"
-F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,38,250,skims,F031. Excessive privileges - AWS,Excessive privileges in skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,"
-  28 |             Principal:
-  29 |               Service:
-  30 |                 - ec2.amazonaws.com
-  31 |             Action:
-  32 |               - sts:AssumeRole
-  33 |           - Effect: Allow
-  34 |             Action:
-  35 |               - ec2:*
+> 35 |               - ec2:*
   36 |               - autoscaling:*
   37 |               - eks:*
-> 38 |             Resource: '*'
+  38 |             Resource: '*'
   39 |           - Effect: Allow
   40 |             Principal:
   41 |               AWS: arn:aws:iam:::root
@@ -2511,7 +2637,35 @@ F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_admin_policy_att
   33 |   policy_arn = ""arn:aws:iam::aws:policy/IAMFullAccess""
      ^ Col 0
 "
+F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf,38,250,skims,F031. Excessive privileges - AWS,Excessive privileges in skims/test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf,"
+  19 | }
+  20 |
+  21 | resource ""aws_iam_role_policy_attachment"" ""test-attach1"" {
+  22 |   role       = aws_iam_role.role.name
+  23 |   policy_arn = ""arn:aws:iam::aws:policy/AdministratorAccess""
+  24 | }
+  25 |
+  26 | resource ""aws_iam_role_policy_attachment"" ""test-attach2"" {
+  27 |   role       = aws_iam_role.role.name
+  28 |   policy_arn = ""arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess""
+  29 | }
+  30 |
+  31 | resource ""aws_iam_role_policy_attachment"" ""test-attach3"" {
+  32 |   role       = aws_iam_role.role.name
+  33 |   policy_arn = ""arn:aws:iam::aws:policy/IAMFullAccess""
+  34 | }
+  35 |
+  36 | resource ""aws_iam_role_policy_attachment"" ""test-attach3"" {
+  37 |   role       = aws_iam_role.role.name
+> 38 |   policy_arn = ""arn:aws:iam::aws:policy/PowerUserAccess""
+  39 | }
+     ^ Col 0
+"
 F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf,33,250,skims,F031. Excessive privileges - AWS,Excessive privileges in skims/test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf,"
+  19 | }
+  20 |
+  21 | resource ""aws_iam_role_policy_attachment"" ""test-attach1"" {
+  22 |   role       = aws_iam_role.role.name
   23 |   policy_arn = ""arn:aws:iam::aws:policy/AdministratorAccess""
   24 | }
   25 |
@@ -2531,21 +2685,6 @@ F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_admin_policy_att
   39 | }
      ^ Col 0
 "
-F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf,38,250,skims,F031. Excessive privileges - AWS,Excessive privileges in skims/test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf,"
-  28 |   policy_arn = ""arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess""
-  29 | }
-  30 |
-  31 | resource ""aws_iam_role_policy_attachment"" ""test-attach3"" {
-  32 |   role       = aws_iam_role.role.name
-  33 |   policy_arn = ""arn:aws:iam::aws:policy/IAMFullAccess""
-  34 | }
-  35 |
-  36 | resource ""aws_iam_role_policy_attachment"" ""test-attach3"" {
-  37 |   role       = aws_iam_role.role.name
-> 38 |   policy_arn = ""arn:aws:iam::aws:policy/PowerUserAccess""
-  39 | }
-     ^ Col 0
-"
 F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_negative_statement.tf,5,250,skims,F031. Excessive privileges - AWS,"Excessive privileges in skims/test/data/lib_path/f031_aws/hcl2_negative_statement.tf, avoid the use of negative statements","
    1 | resource ""aws_iam_role"" ""role"" {
    2 |   name = ""test_role""
@@ -2562,6 +2701,12 @@ F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_negative_stateme
   13 |           ]
   14 |         },
   15 |         ""Action"": [
+  16 |           ""sts:AssumeRole""
+  17 |         ]
+  18 |       },
+  19 |       {
+  20 |         ""Effect"": ""Allow"",
+  21 |         ""NotAction"": ""s3:ListBucket"",
      ^ Col 0
 "
 F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_negative_statement.tf,33,250,skims,F031. Excessive privileges - AWS,"Excessive privileges in skims/test/data/lib_path/f031_aws/hcl2_negative_statement.tf, avoid the use of negative statements","
@@ -2604,6 +2749,12 @@ F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_polic
   13 |           ]
   14 |         },
   15 |         ""Action"": [
+  16 |           ""sts:AssumeRole""
+  17 |         ]
+  18 |       },
+  19 |       {
+  20 |         ""Effect"": ""Allow"",
+  21 |         ""Action"": [
      ^ Col 0
 "
 F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,37,250,skims,F031. Excessive privileges - AWS,Excessive privileges in skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,"
@@ -2654,6 +2805,48 @@ F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_polic
   83 |   }
      ^ Col 0
 "
+F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml,18,250,skims,F031. Excessive privileges - AWS,"iam:PassRole with wildcard resource allows an elevation of privileges, skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml","
+   1 | Resources:
+   2 |   AWS_IAM_Role_1:
+   3 |     Type: AWS::IAM::Role
+   4 |     Properties:
+   5 |       AssumeRolePolicyDocument:
+   6 |         Statement:
+   7 |           - Effect: Allow
+   8 |             Action: iam:PassRole
+   9 |             Resource: '*'
+  10 |             Condition:
+  11 |               StringEquals:
+  12 |                 iam:PassedToService: cloudwatch.amazonaws.com
+  13 |           - Effect: Allow
+  14 |             Action: iam:PassRole
+  15 |             Resource: arn:aws:iam::*:role/EC2-roles-for-XYZ-*
+  16 |           - Effect: Allow
+  17 |             Action: iam:Pass*
+> 18 |             Resource: '*'
+     ^ Col 0
+"
+F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml,17,250,skims,F031. Excessive privileges - AWS,"iam:PassRole with wildcard resource allows an elevation of privileges, skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml","
+   1 | Resources:
+   2 |   AWS_IAM_Role_1:
+   3 |     Type: AWS::IAM::Role
+   4 |     Properties:
+   5 |       AssumeRolePolicyDocument:
+   6 |         Statement:
+   7 |           - Effect: Allow
+   8 |             Action: iam:PassRole
+   9 |             Resource: '*'
+  10 |             Condition:
+  11 |               StringEquals:
+  12 |                 iam:PassedToService: cloudwatch.amazonaws.com
+  13 |           - Effect: Allow
+  14 |             Action: iam:PassRole
+  15 |             Resource: arn:aws:iam::*:role/EC2-roles-for-XYZ-*
+  16 |           - Effect: Allow
+> 17 |             Action: iam:Pass*
+  18 |             Resource: '*'
+     ^ Col 0
+"
 F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml,9,250,skims,F031. Excessive privileges - AWS,"iam:PassRole with wildcard resource allows an elevation of privileges, skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml","
    1 | Resources:
    2 |   AWS_IAM_Role_1:
@@ -2694,35 +2887,6 @@ F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yam
   16 |           - Effect: Allow
   17 |             Action: iam:Pass*
   18 |             Resource: '*'
-     ^ Col 0
-"
-F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml,17,250,skims,F031. Excessive privileges - AWS,"iam:PassRole with wildcard resource allows an elevation of privileges, skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml","
-   7 |           - Effect: Allow
-   8 |             Action: iam:PassRole
-   9 |             Resource: '*'
-  10 |             Condition:
-  11 |               StringEquals:
-  12 |                 iam:PassedToService: cloudwatch.amazonaws.com
-  13 |           - Effect: Allow
-  14 |             Action: iam:PassRole
-  15 |             Resource: arn:aws:iam::*:role/EC2-roles-for-XYZ-*
-  16 |           - Effect: Allow
-> 17 |             Action: iam:Pass*
-  18 |             Resource: '*'
-     ^ Col 0
-"
-F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml,18,250,skims,F031. Excessive privileges - AWS,"iam:PassRole with wildcard resource allows an elevation of privileges, skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml","
-   8 |             Action: iam:PassRole
-   9 |             Resource: '*'
-  10 |             Condition:
-  11 |               StringEquals:
-  12 |                 iam:PassedToService: cloudwatch.amazonaws.com
-  13 |           - Effect: Allow
-  14 |             Action: iam:PassRole
-  15 |             Resource: arn:aws:iam::*:role/EC2-roles-for-XYZ-*
-  16 |           - Effect: Allow
-  17 |             Action: iam:Pass*
-> 18 |             Resource: '*'
      ^ Col 0
 "
 F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json,11,250,skims,F031. Excessive privileges - AWS,"iam:PassRole with wildcard resource allows an elevation of privileges, skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json","
@@ -2770,9 +2934,36 @@ F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yam
   18 |             {
   19 |               ""Effect"": ""Allow"",
   20 |               ""Action"": ""iam:PassRole"",
+  21 |               ""Resource"": ""arn:aws:iam::*:role/EC2-roles-for-XYZ-*""
+     ^ Col 0
+"
+F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json,26,250,skims,F031. Excessive privileges - AWS,"iam:PassRole with wildcard resource allows an elevation of privileges, skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json","
+  13 |                 ""StringEquals"": {
+  14 |                   ""iam:PassedToService"": ""cloudwatch.amazonaws.com""
+  15 |                 }
+  16 |               }
+  17 |             },
+  18 |             {
+  19 |               ""Effect"": ""Allow"",
+  20 |               ""Action"": ""iam:PassRole"",
+  21 |               ""Resource"": ""arn:aws:iam::*:role/EC2-roles-for-XYZ-*""
+  22 |             },
+  23 |             {
+  24 |               ""Effect"": ""Allow"",
+  25 |               ""Action"": ""iam:Pass*"",
+> 26 |               ""Resource"": ""*""
+  27 |             }
+  28 |           ]
+  29 |         }
+  30 |       }
+  31 |     }
+  32 |   }
+  33 | }
      ^ Col 0
 "
 F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json,25,250,skims,F031. Excessive privileges - AWS,"iam:PassRole with wildcard resource allows an elevation of privileges, skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json","
+  13 |                 ""StringEquals"": {
+  14 |                   ""iam:PassedToService"": ""cloudwatch.amazonaws.com""
   15 |                 }
   16 |               }
   17 |             },
@@ -2785,27 +2976,6 @@ F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yam
   24 |               ""Effect"": ""Allow"",
 > 25 |               ""Action"": ""iam:Pass*"",
   26 |               ""Resource"": ""*""
-  27 |             }
-  28 |           ]
-  29 |         }
-  30 |       }
-  31 |     }
-  32 |   }
-  33 | }
-     ^ Col 0
-"
-F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json,26,250,skims,F031. Excessive privileges - AWS,"iam:PassRole with wildcard resource allows an elevation of privileges, skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json","
-  16 |               }
-  17 |             },
-  18 |             {
-  19 |               ""Effect"": ""Allow"",
-  20 |               ""Action"": ""iam:PassRole"",
-  21 |               ""Resource"": ""arn:aws:iam::*:role/EC2-roles-for-XYZ-*""
-  22 |             },
-  23 |             {
-  24 |               ""Effect"": ""Allow"",
-  25 |               ""Action"": ""iam:Pass*"",
-> 26 |               ""Resource"": ""*""
   27 |             }
   28 |           ]
   29 |         }
@@ -2831,6 +3001,12 @@ F031_AWS,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_open_passrole.tf
   13 |           ""StringEquals"": {
   14 |             ""iam:PassedToService"": ""cloudwatch.amazonaws.com""
   15 |           }
+  16 |         }
+  17 |       },
+  18 |       {
+  19 |         ""Effect"": ""Allow"",
+  20 |         ""Action"": ""iam:PassRole"",
+  21 |         ""Resource"": ""arn:aws:iam::*:role/EC2-roles-for-XYZ-*""
      ^ Col 0
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,4,310 + 327,skims,F052. Insecure encryption algorithm,Missing SSL in skims/test/data/lib_path/f052/java.properties,"
@@ -3300,7 +3476,33 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.java,27,310 + 327,skims,
   37 | javax.crypto.KeyGenerator.getInstance(""HmacSHA256"").generateKey();
      ^ Col 0
 "
+F052,lines,namespace/skims/test/data/lib_path/f052/java.java,36,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/java.java,"
+  18 | Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");
+  19 | Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");
+  20 | Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");
+  21 | Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");
+  22 | Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");
+  23 | Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");
+  24 | Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");
+  25 | Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");
+  26 | Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");
+  27 | Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");
+  28 | Cipher c = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"");
+  29 | Cipher c = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"");
+  30 | SSLContext.getInstance(""SSLv3"");
+  31 | SSLContext.getInstance(""TLSv1.2"");
+  32 | RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  33 | RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
+  34 | ECGenParameterSpec(""secp521r1"")
+  35 | ECGenParameterSpec(""c2pnb208w1"")
+> 36 | javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+  37 | javax.crypto.KeyGenerator.getInstance(""HmacSHA256"").generateKey();
+  38 | javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
+     ^ Col 0
+"
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,30,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/java.java,"
+  18 | Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");
+  19 | Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");
   20 | Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");
   21 | Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");
   22 | Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");
@@ -3318,22 +3520,6 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.java,30,310 + 327,skims,
   34 | ECGenParameterSpec(""secp521r1"")
   35 | ECGenParameterSpec(""c2pnb208w1"")
   36 | javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
-  37 | javax.crypto.KeyGenerator.getInstance(""HmacSHA256"").generateKey();
-  38 | javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
-     ^ Col 0
-"
-F052,lines,namespace/skims/test/data/lib_path/f052/java.java,36,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/java.java,"
-  26 | Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");
-  27 | Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");
-  28 | Cipher c = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"");
-  29 | Cipher c = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"");
-  30 | SSLContext.getInstance(""SSLv3"");
-  31 | SSLContext.getInstance(""TLSv1.2"");
-  32 | RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-  33 | RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
-  34 | ECGenParameterSpec(""secp521r1"")
-  35 | ECGenParameterSpec(""c2pnb208w1"")
-> 36 | javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
   37 | javax.crypto.KeyGenerator.getInstance(""HmacSHA256"").generateKey();
   38 | javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
      ^ Col 0
@@ -3442,6 +3628,8 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.java,9,310 + 327,skims,F
   17 | Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");
   18 | Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");
   19 | Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");
+  20 | Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");
+  21 | Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");
      ^ Col 0
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,8,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in skims/test/data/lib_path/f052/java.java,"
@@ -3463,6 +3651,9 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.java,8,310 + 327,skims,F
   16 | Cipher c = Cipher.getInstance(""AES/CBC/NoPadding"");
   17 | Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");
   18 | Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");
+  19 | Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");
+  20 | Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");
+  21 | Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");
      ^ Col 0
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,6,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in skims/test/data/lib_path/f052/java.java,"
@@ -3482,6 +3673,11 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.java,6,310 + 327,skims,F
   14 | Cipher c = Cipher.getInstance(""RSA"");
   15 | Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");
   16 | Cipher c = Cipher.getInstance(""AES/CBC/NoPadding"");
+  17 | Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");
+  18 | Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");
+  19 | Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");
+  20 | Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");
+  21 | Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");
      ^ Col 0
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,5,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in skims/test/data/lib_path/f052/java.java,"
@@ -3500,6 +3696,12 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.java,5,310 + 327,skims,F
   13 | Cipher c = Cipher.getInstance(""DESede"");
   14 | Cipher c = Cipher.getInstance(""RSA"");
   15 | Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");
+  16 | Cipher c = Cipher.getInstance(""AES/CBC/NoPadding"");
+  17 | Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");
+  18 | Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");
+  19 | Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");
+  20 | Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");
+  21 | Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");
      ^ Col 0
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,4,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in skims/test/data/lib_path/f052/java.java,"
@@ -3517,9 +3719,45 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.java,4,310 + 327,skims,F
   12 | Cipher c = Cipher.getInstance(""DES"");
   13 | Cipher c = Cipher.getInstance(""DESede"");
   14 | Cipher c = Cipher.getInstance(""RSA"");
+  15 | Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");
+  16 | Cipher c = Cipher.getInstance(""AES/CBC/NoPadding"");
+  17 | Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");
+  18 | Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");
+  19 | Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");
+  20 | Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");
+  21 | Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");
+     ^ Col 0
+"
+F052,lines,namespace/skims/test/data/lib_path/f052/java.java,35,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure parameters in skims/test/data/lib_path/f052/java.java,"
+  18 | Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");
+  19 | Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");
+  20 | Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");
+  21 | Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");
+  22 | Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");
+  23 | Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");
+  24 | Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");
+  25 | Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");
+  26 | Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");
+  27 | Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");
+  28 | Cipher c = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"");
+  29 | Cipher c = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"");
+  30 | SSLContext.getInstance(""SSLv3"");
+  31 | SSLContext.getInstance(""TLSv1.2"");
+  32 | RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  33 | RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
+  34 | ECGenParameterSpec(""secp521r1"")
+> 35 | ECGenParameterSpec(""c2pnb208w1"")
+  36 | javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
+  37 | javax.crypto.KeyGenerator.getInstance(""HmacSHA256"").generateKey();
+  38 | javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
      ^ Col 0
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,33,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure parameters in skims/test/data/lib_path/f052/java.java,"
+  18 | Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");
+  19 | Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");
+  20 | Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");
+  21 | Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");
+  22 | Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");
   23 | Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");
   24 | Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");
   25 | Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");
@@ -3538,23 +3776,6 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.java,33,310 + 327,skims,
   38 | javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
      ^ Col 0
 "
-F052,lines,namespace/skims/test/data/lib_path/f052/java.java,35,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure parameters in skims/test/data/lib_path/f052/java.java,"
-  25 | Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");
-  26 | Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");
-  27 | Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");
-  28 | Cipher c = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"");
-  29 | Cipher c = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"");
-  30 | SSLContext.getInstance(""SSLv3"");
-  31 | SSLContext.getInstance(""TLSv1.2"");
-  32 | RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-  33 | RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
-  34 | ECGenParameterSpec(""secp521r1"")
-> 35 | ECGenParameterSpec(""c2pnb208w1"")
-  36 | javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();
-  37 | javax.crypto.KeyGenerator.getInstance(""HmacSHA256"").generateKey();
-  38 | javax.crypto.KeyGenerator.getInstance(""AES"").generateKey();
-     ^ Col 0
-"
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,1,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure password encoder in skims/test/data/lib_path/f052/java.java,"
 >  1 | import org.springframework.security.crypto.password.NoOpPasswordEncoder;
    2 |
@@ -3567,6 +3788,16 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.java,1,310 + 327,skims,F
    9 | Hashing.md5().hashString(password,StandardCharsets.UTF_8).toString())
   10 | Hashing.sha256().hashString(password,StandardCharsets.UTF_8).toString())
   11 | Cipher c = Cipher.getInstance(""AES"");
+  12 | Cipher c = Cipher.getInstance(""DES"");
+  13 | Cipher c = Cipher.getInstance(""DESede"");
+  14 | Cipher c = Cipher.getInstance(""RSA"");
+  15 | Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");
+  16 | Cipher c = Cipher.getInstance(""AES/CBC/NoPadding"");
+  17 | Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");
+  18 | Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");
+  19 | Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");
+  20 | Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");
+  21 | Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");
      ^ Col 0
 "
 F055_AWS_MISSING_ENCRYPTION,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,6,311,skims,F055. Insecure service configuration - AWS Missing encryption,EC2 volumes are not encrypted or do not use customer-managed keys.,"
@@ -3586,6 +3817,11 @@ F055_AWS_MISSING_ENCRYPTION,lines,namespace/skims/test/data/lib_path/f055_aws/cf
   14 |     DeletionPolicy: Snapshot
   15 |   NewVolume3:
   16 |     Type: AWS::EC2::Volume
+  17 |     Properties:
+  18 |       Size: 100
+  19 |       Encrypted: true
+  20 |       AvailabilityZone: us-east-1
+  21 |     DeletionPolicy: Snapshot
      ^ Col 0
 "
 F055_AWS_MISSING_ENCRYPTION,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml.json,7,311,skims,F055. Insecure service configuration - AWS Missing encryption,EC2 volumes are not encrypted or do not use customer-managed keys.,"
@@ -3606,6 +3842,10 @@ F055_AWS_MISSING_ENCRYPTION,lines,namespace/skims/test/data/lib_path/f055_aws/cf
   15 |         ""Size"": 100,
   16 |         ""AvailabilityZone"": ""us-east-1""
   17 |       },
+  18 |       ""DeletionPolicy"": ""Snapshot""
+  19 |     },
+  20 |     ""NewVolume3"": {
+  21 |       ""Type"": ""AWS::EC2::Volume"",
      ^ Col 0
 "
 F055_AWS_MISSING_ENCRYPTION,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_unencrypted_volumes.yaml,12,311,skims,F055. Insecure service configuration - AWS Missing encryption,EC2 volumes are not encrypted or do not use customer-managed keys.,"
@@ -3740,6 +3980,11 @@ F055_AWS_MISSING_ENCRYPTION,lines,namespace/skims/test/data/lib_path/f055_aws/cf
   14 |         ""BucketEncryption"": {
   15 |           ""ServerSideEncryptionConfiguration"": [
   16 |             {
+  17 |               ""ServerSideEncryptionByDefault"": {
+  18 |                 ""SSEAlgorithm"": ""aws:kms"",
+  19 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
+  20 |               }
+  21 |             }
      ^ Col 0
 "
 F055_AWS_MISSING_ENCRYPTION,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,24,311,skims,F055. Insecure service configuration - AWS Missing encryption,S3 buckets do not use server-side encryption.,"
@@ -3778,6 +4023,16 @@ F055_AWS_MISSING_ENCRYPTION,lines,namespace/skims/test/data/lib_path/f055_aws/hc
    9 |   deletion_window_in_days = 10
   10 | }
   11 |
+  12 | resource ""aws_s3_bucket"" ""mybucket"" {
+  13 |   bucket = ""mybucket""
+  14 |   server_side_encryption_configuration {
+  15 |     rule {
+  16 |       apply_server_side_encryption_by_default {
+  17 |         kms_master_key_id = aws_kms_key.mykey.arn
+  18 |         sse_algorithm     = ""aws:kms""
+  19 |       }
+  20 |     }
+  21 |   }
      ^ Col 0
 "
 F022,lines,namespace/skims/test/data/lib_path/f022/java.properties,4,319,skims,F022. Use of an insecure channel,Use of unencrypted protocol in skims/test/data/lib_path/f022/java.properties,"
@@ -3795,6 +4050,11 @@ F022,lines,namespace/skims/test/data/lib_path/f022/java.properties,4,319,skims,F
   12 | bg.ws.endpoint = ENC(http://www.test.com)
   13 | # bg.ws.endpoint =  http://www.test.com
   14 |
+  15 | # These ones are safe, localhost, loopback and host
+  16 | bg.ws.endpoint = http://localhost
+  17 | bg.ws.endpoint = ftp://127.0.0.1
+  18 | bg.ws.endpoint = http://0.0.0.0
+  19 | sonar.host.url=http://localhost:9000
      ^ Col 0
 "
 F022,lines,namespace/skims/test/data/lib_path/f022/java.properties,1,319,skims,F022. Use of an insecure channel,Use of unencrypted protocol in skims/test/data/lib_path/f022/java.properties,"
@@ -3809,6 +4069,14 @@ F022,lines,namespace/skims/test/data/lib_path/f022/java.properties,1,319,skims,F
    9 | # Let's try to mischief the parser
   10 | bg.ws.endpoint = #{http://www.test.com}#
   11 | bg.ws.endpoint = ${http://www.test.com}
+  12 | bg.ws.endpoint = ENC(http://www.test.com)
+  13 | # bg.ws.endpoint =  http://www.test.com
+  14 |
+  15 | # These ones are safe, localhost, loopback and host
+  16 | bg.ws.endpoint = http://localhost
+  17 | bg.ws.endpoint = ftp://127.0.0.1
+  18 | bg.ws.endpoint = http://0.0.0.0
+  19 | sonar.host.url=http://localhost:9000
      ^ Col 0
 "
 F034,lines,namespace/skims/test/data/lib_path/f034/Test.java,11,330,skims,F034. Insecure random number generation,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
@@ -3855,6 +4123,10 @@ F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.jar,1,377,skims,F117. U
    9 | H!
   10 | +#+X��A��?)+5��A�� �
   11 | `b`)�l@�,�fҬZ�7�
+  12 | �@�
+  13 | ,��������`YLe �
+  14 | l27PK}1����PK�[%O META-INF/��PK�[%O�Kx32
+  15 | �MyJar.classPK��
      ^ Col 0
 "
 F031_CWE378,lines,namespace/skims/test/data/lib_path/f031_cwe378/Test.java,6,378,skims,F031. Excessive privileges - Temporary files,Use of Java File.createTempFile in skims/test/data/lib_path/f031_cwe378/Test.java,"
@@ -3969,6 +4241,12 @@ F061,lines,namespace/skims/test/data/lib_path/f061/javascript.js,3,390,skims,F06
     ^ Col 15
 "
 F061,lines,namespace/skims/test/data/lib_path/f061/python.py,24,390,skims,F061. Errors without traceability,Empty Python catch in skims/test/data/lib_path/f061/python.py,"
+   8 |
+   9 |     try:
+  10 |         # Attempt to retrieve data from the cache
+  11 |         ret = cache.get(cache_key)
+  12 |     except RedisClusterException:
+  13 |         ret = None
   14 |
   15 |     if ret is None:
   16 |         # Let's fetch the data from the database
@@ -4533,6 +4811,12 @@ F073,lines,namespace/skims/test/data/lib_path/f073/javascript.js,3,478,skims,F07
   11 |       case 1:
   12 |         day = ""Monday"";
   13 |         break;
+  14 |       default:
+  15 |         day = ""Test"";
+  16 |     }
+  17 |   })()
+  18 | }
+  19 | test()
      ^ Col 0
 "
 F073,lines,namespace/skims/test/data/lib_path/f073/javascript.tsx,4,478,skims,F073. Conditional statement without a default option,Switch without default in skims/test/data/lib_path/f073/javascript.tsx,"
@@ -4550,6 +4834,12 @@ F073,lines,namespace/skims/test/data/lib_path/f073/javascript.tsx,4,478,skims,F0
   12 |           case 1:
   13 |             day = ""Monday"";
   14 |             break;
+  15 |           default:
+  16 |             day = ""Test"";
+  17 |         }
+  18 |       })()
+  19 |     }}
+  20 | </html>
      ^ Col 0
 "
 F073,lines,namespace/skims/test/data/lib_root/f073/test.go,17,478,skims,F073. Conditional statement without a default option,Switch without default in skims/test/data/lib_root/f073/test.go,"
@@ -4615,6 +4905,11 @@ F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,4,798,skims,F
   12 |
   13 | rtifactory_password=
   14 |
+  15 |  Fake jwt token, does not contain sensitive information and does not work for apis consumption
+  16 |
+  17 | wt_token = asdfasfa.sfasdf.asdfasdf
+  18 | wt_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyf
+  19 | onfuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
      ^ Col 1
 "
 F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,2,798,skims,F009. Sensitive information in source code,AWS credential in skims/test/data/lib_path/f009/java.properties,"
@@ -4630,6 +4925,13 @@ F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,2,798,skims,F
   10 | sonar.password = ${env_var}
   11 | sonar.password = #{unknown_tool_trick}#
   12 |
+  13 | artifactory_password=
+  14 |
+  15 | # Fake jwt token, does not contain sensitive information and does not work for apis consumption
+  16 |
+  17 | jwt_token = asdfasfa.sfasdf.asdfasdf
+  18 | jwt_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIy
+  19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
      ^ Col 0
 "
 F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,1,798,skims,F009. Sensitive information in source code,AWS credential in skims/test/data/lib_path/f009/java.properties,"
@@ -4644,6 +4946,14 @@ F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,1,798,skims,F
    9 | sonar.password = ENC(something-base64-encoded-but-encrypted)
   10 | sonar.password = ${env_var}
   11 | sonar.password = #{unknown_tool_trick}#
+  12 |
+  13 | artifactory_password=
+  14 |
+  15 | # Fake jwt token, does not contain sensitive information and does not work for apis consumption
+  16 |
+  17 | jwt_token = asdfasfa.sfasdf.asdfasdf
+  18 | jwt_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIy
+  19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
      ^ Col 0
 "
 F009,lines,namespace/skims/test/data/lib_path/f009/secrets.yaml,1,798,skims,F009. Sensitive information in source code,AWS credential in skims/test/data/lib_path/f009/secrets.yaml,"
@@ -4761,6 +5071,7 @@ F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,8,798,skims,F
   16 |
   17 | jwt_token = asdfasfa.sfasdf.asdfasdf
   18 | jwt_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIy
+  19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
      ^ Col 0
 "
 F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,4,798,skims,F009. Sensitive information in source code,Sensitive information in skims/test/data/lib_path/f009/java.properties,"
@@ -4778,6 +5089,11 @@ F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,4,798,skims,F
   12 |
   13 | artifactory_password=
   14 |
+  15 | # Fake jwt token, does not contain sensitive information and does not work for apis consumption
+  16 |
+  17 | jwt_token = asdfasfa.sfasdf.asdfasdf
+  18 | jwt_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIy
+  19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
      ^ Col 0
 "
 F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,2,798,skims,F009. Sensitive information in source code,Sensitive information in skims/test/data/lib_path/f009/java.properties,"
@@ -4793,6 +5109,13 @@ F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,2,798,skims,F
   10 | sonar.password = ${env_var}
   11 | sonar.password = #{unknown_tool_trick}#
   12 |
+  13 | artifactory_password=
+  14 |
+  15 | # Fake jwt token, does not contain sensitive information and does not work for apis consumption
+  16 |
+  17 | jwt_token = asdfasfa.sfasdf.asdfasdf
+  18 | jwt_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIy
+  19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
      ^ Col 0
 "
 F001_JPA,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,23,89,skims,F001. SQL injection - Java Persistence API,LIKE statement without escape in skims/test/data/lib_path/f001_jpa/java.java,"

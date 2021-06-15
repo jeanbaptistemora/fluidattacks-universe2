@@ -14,7 +14,8 @@ def test_model_core_model_manifest() -> None:
             sorted(
                 finding.name
                 for finding in core_model.FindingEnum
-                if finding.value.auto_approve
+                if finding.value.execution_queue
+                == core_model.ExecutionQueue.prod
             )
         )
         + "\n"
@@ -24,7 +25,8 @@ def test_model_core_model_manifest() -> None:
             sorted(
                 finding.name
                 for finding in core_model.FindingEnum
-                if not finding.value.auto_approve
+                if finding.value.execution_queue
+                == core_model.ExecutionQueue.dev
             )
         )
         + "\n"

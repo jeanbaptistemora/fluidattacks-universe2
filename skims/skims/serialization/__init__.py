@@ -10,6 +10,7 @@ from metaloaders.model import (
 )
 from model import (
     core_model,
+    cvss3_model,
     graph_model,
 )
 from parse_common.types import (
@@ -90,6 +91,7 @@ def _load_lark_tree(children: Any, data: Any, meta: Any) -> LarkTree:
 
 def _side_effects() -> None:
     for factory in (
+        core_model.ExecutionQueue,
         core_model.FindingEnum,
         core_model.FindingTypeEnum,
         core_model.Grammar,
@@ -98,6 +100,18 @@ def _side_effects() -> None:
         core_model.VulnerabilitySourceEnum,
         core_model.VulnerabilityVerificationStateEnum,
         core_model.VulnerabilityStateEnum,
+        cvss3_model.AttackComplexity,
+        cvss3_model.AttackVector,
+        cvss3_model.AvailabilityImpact,
+        cvss3_model.ConfidentialityImpact,
+        cvss3_model.Exploitability,
+        cvss3_model.IntegrityImpact,
+        cvss3_model.PrivilegesRequired,
+        cvss3_model.RemediationLevel,
+        cvss3_model.ReportConfidence,
+        cvss3_model.SeverityScope,
+        cvss3_model.SeverityScope,
+        cvss3_model.UserInteraction,
         graph_model.GraphShardMetadataLanguage,
         Type,
     ):
@@ -110,6 +124,7 @@ def _side_effects() -> None:
         core_model.SkimsVulnerabilityMetadata,
         core_model.Vulnerability,
         core_model.VulnerabilityVerification,
+        cvss3_model.Score,
         HCL2Attribute,
         HCL2Block,
         HCL2Json,
