@@ -19,5 +19,11 @@ makeTemplate {
     envPython38Paths = [
       streamer-gitlab.runtime.python
     ];
+    envSources = [
+      paginator.runtime
+      postgres-client.runtime
+      singer-io.runtime
+      utils-logger.runtime
+    ];
   };
 }
