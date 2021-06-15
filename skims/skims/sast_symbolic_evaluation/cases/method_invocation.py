@@ -62,6 +62,7 @@ BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set(
         "System.IO.File.Replace",
         "System.IO.Path.Combine",
         "System.Xml.XPath.XPathExpression.Compile",
+        "Encoding.UTF8.GetBytes",
     }
 )
 STATIC_FINDING: Dict[str, Set[str]] = {
@@ -174,11 +175,18 @@ BY_OBJ: Dict[str, Set[str]] = complete_attrs_on_dict(
             "ExecuteNonQuery",
             "ExecuteScalar",
         },
+        "MySql.Data.MySqlClient.MySqlCommand": {
+            "ExecuteReader",
+        },
+        "MySql.Data.MySqlClient.MySqlDataReader": {
+            "ToString",
+        },
         "System.DirectoryServices.DirectorySearcher": {
             "FindOne",
         },
         "System.IO.StreamReader": {
             "ReadLine",
+            "ReadToEnd",
         },
         "System.Net.WebClient": {
             "OpenRead",

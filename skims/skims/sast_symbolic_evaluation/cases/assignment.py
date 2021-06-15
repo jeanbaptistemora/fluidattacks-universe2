@@ -23,6 +23,9 @@ BY_TYPE: Dict[str, Set[str]] = complete_attrs_on_dict(
         "System.Data.SqlClient.SqlCommand": {
             "CommandText",
         },
+        "MySql.Data.MySqlClient.MySqlCommand": {
+            "CommandText",
+        },
         "System.DirectoryServices.DirectorySearcher": {
             "Filter",
         },

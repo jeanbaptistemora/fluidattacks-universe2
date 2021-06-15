@@ -86,6 +86,7 @@ def mark_sinks(
         {
             "ExecuteNonQuery",
             "ExecuteScalar",
+            "ExecuteReader",
         },
     )
     mark_methods_sink(
