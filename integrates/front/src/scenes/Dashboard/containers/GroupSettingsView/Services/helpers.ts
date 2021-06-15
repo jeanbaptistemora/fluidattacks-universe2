@@ -17,7 +17,7 @@ const getHandleASMBtnChange = (
   dispatch: Dispatch
 ): ((withASM: boolean) => void) => {
   return (withASM: boolean): void => {
-    dispatch(change("editGroup", "integrates", withASM));
+    dispatch(change("editGroup", "asm", withASM));
 
     if (!withASM) {
       dispatch(change("editGroup", "machine", false));
@@ -34,7 +34,7 @@ const getHandleMachineBtnChange = (
     dispatch(change("editGroup", "machine", withMachine));
 
     if (withMachine) {
-      dispatch(change("editGroup", "integrates", true));
+      dispatch(change("editGroup", "asm", true));
     } else {
       dispatch(change("editGroup", "squad", false));
       dispatch(change("editGroup", "forces", false));
@@ -49,7 +49,7 @@ const handleSquadBtnChangeHelper = (
   isContinuousType: (type: string) => boolean
 ): void => {
   if (withSquad) {
-    dispatch(change("editGroup", "integrates", true));
+    dispatch(change("editGroup", "asm", true));
     dispatch(change("editGroup", "machine", isContinuousType(type)));
   } else {
     dispatch(change("editGroup", "forces", false));
@@ -61,21 +61,21 @@ const handleForcesBtnChangeHelper = (
   withForces: boolean
 ): void => {
   if (withForces) {
-    dispatch(change("editGroup", "integrates", true));
+    dispatch(change("editGroup", "asm", true));
     dispatch(change("editGroup", "machine", true));
     dispatch(change("editGroup", "squad", true));
   }
 };
 
 const editGroupDataHelper = (
-  integrates: boolean,
+  asm: boolean,
   groupName: string,
   push: (path: string, state?: unknown) => void,
   refetchGroupData: (
     variables?: Partial<OperationVariables> | undefined
   ) => Promise<ApolloQueryResult<IGroupData>>
 ): void => {
-  if (integrates) {
+  if (asm) {
     void refetchGroupData({ groupName });
   } else {
     push("/home");

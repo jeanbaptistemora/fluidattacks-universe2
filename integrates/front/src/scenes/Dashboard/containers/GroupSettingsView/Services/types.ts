@@ -1,12 +1,12 @@
 interface IFormData {
+  asm: boolean;
   comments: string;
   confirmation: string;
-  squad: boolean;
   forces: boolean;
-  integrates: boolean;
-  organization: string;
-  reason: string;
   machine: boolean;
+  reason: string;
+  organization: string;
+  squad: boolean;
   type: string;
 }
 

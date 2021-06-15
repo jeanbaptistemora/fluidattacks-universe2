@@ -95,7 +95,7 @@ const Services: React.FC<IServicesProps> = (
         "confirmation",
         "squad",
         "forces",
-        "integrates",
+        "asm",
         "reason",
         "machine",
         "type"
@@ -167,12 +167,7 @@ const Services: React.FC<IServicesProps> = (
           translate.t("searchFindings.servicesTable.successTitle")
         );
 
-        editGroupDataHelper(
-          formValues.integrates,
-          groupName,
-          push,
-          refetchGroupData
-        );
+        editGroupDataHelper(formValues.asm, groupName, push, refetchGroupData);
       },
       onError: (error: ApolloError): void => {
         handleEditGroupDataError(error);
@@ -180,8 +175,8 @@ const Services: React.FC<IServicesProps> = (
       variables: {
         comments: formValues.comments,
         groupName,
+        hasASM: formValues.asm,
         hasForces: formValues.forces,
-        hasIntegrates: formValues.integrates,
         hasMachine: formValues.machine,
         hasSquad: formValues.squad,
         reason: formValues.reason,
@@ -219,9 +214,9 @@ const Services: React.FC<IServicesProps> = (
   const servicesList: IServicesDataSet[] = [
     {
       canHave: true,
-      id: "integratesSwitch",
+      id: "asmSwitch",
       onChange: handleASMBtnChange,
-      service: "integrates",
+      service: "asm",
     },
     {
       canHave: isContinuousType(formValues.type),
@@ -327,10 +322,10 @@ const Services: React.FC<IServicesProps> = (
         </Row>
         <GenericForm
           initialValues={{
+            asm: true,
             comments: "",
             confirmation: "",
             forces: data.group.hasForces,
-            integrates: true,
             machine: data.group.hasSkims,
             reason: "NONE",
             squad: data.group.hasDrills,
@@ -430,7 +425,7 @@ const Services: React.FC<IServicesProps> = (
                     </Field>
                   </FormGroup>
                 ) : undefined}
-                {isDowngrading(true, formValues.integrates) ? (
+                {isDowngrading(true, formValues.asm) ? (
                   <FormGroup>
                     <ControlLabel>
                       {translate.t(

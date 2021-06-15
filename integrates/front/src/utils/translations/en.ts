@@ -1098,6 +1098,7 @@ export const enTranslations: ResourceKey = {
     },
     servicesTable: {
       active: "Active",
+      asm: "ASM",
       continuous: "Continuous Hacking",
       deleteGroup: {
         deleteGroup: "Delete this group",
@@ -1124,7 +1125,6 @@ export const enTranslations: ResourceKey = {
       forces: "DevSecOps agent",
       group: "Group",
       inactive: "Inactive",
-      integrates: "ASM",
       machine: "Machine",
       modal: {
         budget: "Budget",

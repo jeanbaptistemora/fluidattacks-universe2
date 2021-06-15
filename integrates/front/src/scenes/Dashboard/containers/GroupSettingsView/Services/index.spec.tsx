@@ -21,9 +21,9 @@ import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 
 interface IFormValues {
-  drills: boolean;
+  squad: boolean;
   forces: boolean;
-  integrates: boolean;
+  asm: boolean;
   type: string;
 }
 
@@ -208,17 +208,17 @@ describe("Services", (): void => {
     expect(forcesRowLeft().text()).toStrictEqual("DevSecOps agent");
 
     const asmSwitch: () => ReactWrapper = (): ReactWrapper =>
-      asmRow().find("#integratesSwitch").at(0);
+      asmRow().find("#asmSwitch").at(0);
     const squadSwitch: () => ReactWrapper = (): ReactWrapper =>
       squadRow().find("#squadSwitch").at(0);
     const forcesSwitch: () => ReactWrapper = (): ReactWrapper =>
       forcesRow().find("#forcesSwitch").at(0);
 
     expect(formValues()).toStrictEqual({
+      asm: true,
       comments: "",
       confirmation: "",
       forces: true,
-      integrates: true,
       machine: true,
       reason: "NONE",
       squad: true,
@@ -228,10 +228,10 @@ describe("Services", (): void => {
     asmSwitch().simulate("click");
 
     expect(formValues()).toStrictEqual({
+      asm: false,
       comments: "",
       confirmation: "",
       forces: false,
-      integrates: false,
       machine: false,
       reason: "NONE",
       squad: false,
@@ -241,10 +241,10 @@ describe("Services", (): void => {
     squadSwitch().simulate("click");
 
     expect(formValues()).toStrictEqual({
+      asm: true,
       comments: "",
       confirmation: "",
       forces: false,
-      integrates: true,
       machine: true,
       reason: "NONE",
       squad: true,
@@ -254,10 +254,10 @@ describe("Services", (): void => {
     squadSwitch().simulate("click");
 
     expect(formValues()).toStrictEqual({
+      asm: true,
       comments: "",
       confirmation: "",
       forces: false,
-      integrates: true,
       machine: true,
       reason: "NONE",
       squad: false,
@@ -276,10 +276,10 @@ describe("Services", (): void => {
     forcesSwitch().simulate("click");
 
     expect(formValues()).toStrictEqual({
+      asm: true,
       comments: "",
       confirmation: "",
       forces: true,
-      integrates: true,
       machine: true,
       reason: "NONE",
       squad: true,
@@ -289,10 +289,10 @@ describe("Services", (): void => {
     squadSwitch().simulate("click");
 
     expect(formValues()).toStrictEqual({
+      asm: true,
       comments: "",
       confirmation: "",
       forces: false,
-      integrates: true,
       machine: true,
       reason: "NONE",
       squad: false,
@@ -302,10 +302,10 @@ describe("Services", (): void => {
     forcesSwitch().simulate("click");
 
     expect(formValues()).toStrictEqual({
+      asm: true,
       comments: "",
       confirmation: "",
       forces: true,
-      integrates: true,
       machine: true,
       reason: "NONE",
       squad: true,

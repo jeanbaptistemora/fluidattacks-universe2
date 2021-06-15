@@ -20,7 +20,7 @@ const EDIT_GROUP_DATA: DocumentNode = gql`
     $groupName: String!
     $hasSquad: Boolean!
     $hasForces: Boolean!
-    $hasIntegrates: Boolean!
+    $hasASM: Boolean!
     $hasMachine: Boolean!
     $reason: EditGroupReason!
     $subscription: SubscriptionType!
@@ -30,7 +30,7 @@ const EDIT_GROUP_DATA: DocumentNode = gql`
       groupName: $groupName
       hasDrills: $hasSquad
       hasForces: $hasForces
-      hasIntegrates: $hasIntegrates
+      hasIntegrates: $hasASM
       hasSkims: $hasMachine
       reason: $reason
       subscription: $subscription
