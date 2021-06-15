@@ -1,12 +1,25 @@
-{% extends "layouts/fluid_attacks.html" %}
-{% from 'layouts/components/forms.html' import go_to_button as button, text_area %}
-{% block content %}
-<p>Hello {{ name }},</p>
-<p>
-  The treatment of the following vulnerabilities in finding <strong>{{ finding }}</strong>
-  in project <strong>{{ project }}</strong> has been changed to <strong>{{ treatment }}</strong>:
-</p>
-{{ text_area(vulnerabilities) }}
-<br />
-{{ button('Go to the finding', finding_link) }}
+{% extends "new_layouts/common.html" %}
+{% from 'new_layouts/components/forms.html' import banner_finding, go_to_button, text_area %}
+
+{% block layout %}
+<div class="container">
+  {% include 'new_layouts/components/logo_header.html' %}
+  {{ banner_finding('Treatment Updated') }}
+
+  <div style="padding: 30px 0 !important;">
+    <p>Hello {{ name }},</p>
+    <p>
+      The treatment of the following vulnerabilities in finding <strong>{{ finding }}</strong>
+      in group <strong>{{ project }}</strong> has been changed to <strong>{{ treatment }}</strong>:
+    </p>
+    {{ text_area(vulnerabilities) }}
+    <br />
+    {{ go_to_button('Go to finding', finding_link) }}
+    <p></p>
+    <p>Regards,<br>
+      Fluid Attacks Team</p>
+  </div>
+
+  {% include 'new_layouts/components/footer.html' %}
+</div>
 {% endblock %}
