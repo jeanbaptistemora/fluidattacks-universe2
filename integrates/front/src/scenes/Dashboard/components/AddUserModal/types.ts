@@ -16,7 +16,7 @@ interface IAddStakeholderModalProps {
   title: string;
   type: "organization" | "user";
   onClose: () => void;
-  // Annotation needed for compatibility with Project and Organization
+  // Annotation needed for compatibility with Group and Organization
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSubmit: (values: any) => void;
 }

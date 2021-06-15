@@ -34,7 +34,7 @@ const TagsGroup: React.FC = (): JSX.Element => {
   const { push } = useHistory();
 
   const tableHeaders: IHeaderConfig[] = [
-    { dataField: "name", header: "Project Name" },
+    { dataField: "name", header: "Group Name" },
     { dataField: "description", header: "Description" },
   ];
 

@@ -71,12 +71,12 @@ describe("EventsView", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/unittesting/events"]}>
+      <MemoryRouter initialEntries={["/groups/unittesting/events"]}>
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mockError}>
             <Route
               component={GroupEventsView}
-              path={"/project/:groupName/events"}
+              path={"/groups/:groupName/events"}
             />
           </MockedProvider>
         </Provider>
@@ -94,12 +94,12 @@ describe("EventsView", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/unittesting/events"]}>
+      <MemoryRouter initialEntries={["/groups/unittesting/events"]}>
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mocks}>
             <Route
               component={GroupEventsView}
-              path={"/project/:groupName/events"}
+              path={"/groups/:groupName/events"}
             />
           </MockedProvider>
         </Provider>
@@ -113,12 +113,12 @@ describe("EventsView", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/unittesting/events"]}>
+      <MemoryRouter initialEntries={["/groups/unittesting/events"]}>
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mocks}>
             <Route
               component={GroupEventsView}
-              path={"/project/:groupName/events"}
+              path={"/groups/:groupName/events"}
             />
           </MockedProvider>
         </Provider>
@@ -153,13 +153,13 @@ describe("EventsView", (): void => {
       { action: "api_mutations_create_event_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
-      <MemoryRouter initialEntries={["/project/unittesting/events"]}>
+      <MemoryRouter initialEntries={["/groups/unittesting/events"]}>
         <Provider store={store}>
           <MockedProvider addTypename={false} mocks={mocks}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={GroupEventsView}
-                path={"/project/:groupName/events"}
+                path={"/groups/:groupName/events"}
               />
             </authzPermissionsContext.Provider>
           </MockedProvider>

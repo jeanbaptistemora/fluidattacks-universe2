@@ -3,7 +3,7 @@ import type { DocumentNode } from "graphql";
 
 const GET_TOE_INPUTS: DocumentNode = gql`
   query GetToeInputs($groupName: String!) {
-    group: project(projectName: $groupName) {
+    group(groupName: $groupName) {
       name
       toeInputs {
         commit

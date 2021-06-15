@@ -3,7 +3,7 @@ import type { DocumentNode } from "graphql";
 
 const GET_TOE_LINES: DocumentNode = gql`
   query GetToeLines($groupName: String!) {
-    group: project(projectName: $groupName) {
+    group(groupName: $groupName) {
       name
       roots {
         ... on GitRoot {
