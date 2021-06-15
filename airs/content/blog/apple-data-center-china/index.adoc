@@ -33,7 +33,7 @@ we explain why they say so and what the controversy consists of.
 
 This Apple-China project
 has been underway for more than three years,
-as link:https://news.cgtn.com/news/2021-05-27/Apple-s-China-data-center-starts-operation-10BTZQKlCWA/index.html[in 2017 Apple signed a $1B]
+as link:https://news.cgtn.com/news/2021-05-27/Apple-s-China-data-center-starts-operation-10BTZQKlCWA/index.html[in 2017, Apple signed a $1B]
 agreement to build its first DC.
 Chinese employees are the ones who
 link:https://www.nytimes.com/2021/05/17/technology/apple-china-censorship-data.html[physically control]
@@ -68,9 +68,9 @@ link:https://www.newamerica.org/cybersecurity-initiative/digichina/blog/how-will
 and disclosure (collectively, ‘handling’)
 of personal information by ‘organizations and individuals’" in China.
 
-The problem comes in determining what limits
-a government should have to intervene
-in the storage and collection of information.
+The problem comes in determining
+what limits a government should have
+to intervene in collecting and collecting information.
 The link:https://www.business-humanrights.org/fr/derni%C3%A8res-actualit%C3%A9s/china-adopts-cyber-security-law-in-face-of-overseas-opposition/[Chinese government's justification]
 for intervening in privacy in this way
 is to protect itself from
@@ -96,7 +96,7 @@ link:https://www.redhat.com/sysadmin/bits-vs-bytes[the minimum unit of data meas
 All cyber information is stored and transmitted in bits.
 link:https://kb.iu.edu/d/ackw[Bytes]
 are ordered sets of bits: exactly eight bits
-(the reason that they are eight and no more
+(the reason they are eight and no more
 or fewer bits is more historical than technical).
 Those bytes are the minimum unit of data processed by a computer.
 
@@ -107,7 +107,7 @@ link:https://computer.howstuffworks.com/ram.htm[memory cell].
 Physically a memory cell is the junction of a transistor and a capacitor,
 but virtually it represents a bit of data.
 link:https://www.cpisolutions.com/blog/what-is-a-data-center/[Data Center] (DC)
-is a physical facility that stores countless memory cells, that is,
+is a physical facility that stores countless memory cells,
 hardware designed to store those bits.
 
 Any company could have its own DC.
@@ -129,12 +129,12 @@ while the hardware that stores its information remains in the United States.
 Because it is faster to
 link:https://www.redhat.com/sysadmin/bits-vs-bytes[retrieve and store data
 on a local CPU than over a network],
-companies that have the monetary, human,
+companies with monetary, human,
 and technical resources usually have their own DC.
 That's the Apple case.
 
 Apple manages its own DC and offers users its own CS system.
-Their DC is called *iCloud* and Apple manages its security.
+Their DC is called *iCloud*, and Apple manages its security.
 In this regard, Apple maintains on its
 link:https://www.apple.com/privacy/features/[privacy page]
 that, for example, when a credit card is added or used as a payment method,
@@ -145,12 +145,12 @@ Apple can't decrypt and stored in the Secure Element of your device."
 == Guizhou-Cloud Big Data
 
 Apple can manage all its users’ information on its own servers,
-except from China. Specifically, with the launch of its database in Guizhou,
+except in China. Specifically, with the launch of its database in Guizhou,
 link:https://www.bangkokpost.com/tech/2117731/censorship-surveillance-and-profits-hard-bargain-for-apple-in-china[Apple asked]
 its Chinese customers
 "to accept new iCloud terms and conditions that
 list GCBD (Guizhou-Cloud Big Data)
-as the service provider and Apple as ‘an additional party’."
+as the service provider and Apple as ‘an additional party.’"
 That is, GCBD "governs your use of the iCloud
 product, software, services, and websites."
 
@@ -197,26 +197,26 @@ image::https://res.cloudinary.com/fluid-attacks/image/upload/v1623358298/blog/ap
 
 When considering the economic factor that Apple's entry
 into the Asian giant has represented,
-the reasons for its pact seem clearer.
+the reasons for its pact seem more straightforward.
 Following its agreement with China,
 the country has accounted for
 link:https://www.bbc.com/news/business-57395094[15% of Apple’s revenue].
 That percentage translates into a bizarre figure when you consider
-that it is the only company in the world that had a turnover higher
+that it is the only company in the world with a turnover higher
 link:https://www.nytimes.com/2020/08/19/technology/apple-2-trillion.html[than
 $2 trillion in 2020].
-This has made it the company with the highest revenue in the world;
+This has made it the company with the highest revenue globally,
 well above Google, Microsoft, Amazon, and Facebook,
 who are vying for the top 5
 link:https://www.forbes.com/the-worlds-most-valuable-brands/#67d38cd7119c[according to Forbes].
 
-The controversy can be summed up in that Apple has noticed that,
-thanks to its entry into China,
-its profits have skyrocketed like never before.
-China has found in Apple a great ally in "protecting"
+The controversy can be summed up
+in Apple's recognition that its profits have skyrocketed like never
+before, thanks to its entry into China.
+China has found Apple a great ally in "protecting"
 its citizens from the _dangerous cyber world_.
 While other companies see China's requests
-as a translation of the old saying *"you shall not pass!"*
+as a translation of the old saying, *"you shall not pass!"*
 Apple interpreted it as a possibility to strengthen its finances.
 Only time will tell us how good the decision was.
 
