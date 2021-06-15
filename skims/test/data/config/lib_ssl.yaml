@@ -1,0 +1,6 @@
+language: EN
+namespace: namespace
+output: skims/test/outputs/lib_ssl.csv
+ssl:
+  include:
+    - http://localhost:4446/

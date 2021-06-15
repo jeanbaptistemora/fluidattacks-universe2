@@ -52,6 +52,11 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
                         "lib_root": confuse.OneOf([True, False]),
                     },
                 ),
+                "ssl": confuse.Template(
+                    {
+                        "include": confuse.Sequence(confuse.String()),
+                    }
+                ),
                 "timeout": confuse.Number(),
                 "working_dir": confuse.String(),
             }
@@ -62,6 +67,7 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
         config_apk = config.pop("apk", {})
         config_http = config.pop("http", {})
         config_path = config.pop("path", {})
+        config_ssl = config.pop("ssl", {})
 
         if output := config.pop("output", None):
             output = os.path.abspath(output)
@@ -83,6 +89,9 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
                 include=config_path.pop("include", ()),
                 lib_path=config_path.pop("lib_path", True),
                 lib_root=config_path.pop("lib_root", True),
+            ),
+            ssl=core_model.SkimsSslConfig(
+                include=config_ssl.pop("include", ()),
             ),
             start_dir=os.getcwd(),
             timeout=config.pop("timeout", None),

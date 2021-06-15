@@ -27,6 +27,9 @@ def create_test_context(debug: bool = True) -> None:
             lib_path=True,
             lib_root=True,
         ),
+        ssl=core_model.SkimsSslConfig(
+            include=(),
+        ),
         start_dir=os.getcwd(),
         timeout=None,
         working_dir=os.getcwd(),

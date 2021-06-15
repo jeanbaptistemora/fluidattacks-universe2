@@ -982,6 +982,10 @@ class SkimsPathConfig(NamedTuple):
     lib_root: bool
 
 
+class SkimsSslConfig(NamedTuple):
+    include: Tuple[str, ...]
+
+
 class SkimsConfig(NamedTuple):
     apk: SkimsAPKConfig
     checks: Set[FindingEnum]
@@ -991,6 +995,7 @@ class SkimsConfig(NamedTuple):
     namespace: str
     output: Optional[str]
     path: SkimsPathConfig
+    ssl: SkimsSslConfig
     start_dir: str
     timeout: Optional[float]
     working_dir: str
