@@ -40,6 +40,3 @@ Error: <rect> attribute y: Expected length, "NaN".
 Error: <rect> attribute transform: Expected number, "rotate(NaN, NaN, NaN)".
 ...
 ```
-
-[^1]: https://www.w3schools.com/jsref/obj_console.asp
-[^2]: https://docs.fluidattacks.com/criteria/requirements/077

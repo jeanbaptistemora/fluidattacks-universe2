@@ -37,9 +37,3 @@ required by your application.
 Wildcards and over-permissive resource grants
 highly increase the probability of (or completely allow)
 a privilege escalation.
-
-# References
-
-- [AWS IAM:PassRole explained](https://blog.rowanudell.com/iam-passrole-explained/)
-
-- [Granting a user permissions to pass a role to an AWS service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_passrole.html)

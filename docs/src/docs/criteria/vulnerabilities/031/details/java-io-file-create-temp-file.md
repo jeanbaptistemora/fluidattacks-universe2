@@ -88,16 +88,3 @@ public class Test {
 - Use `java.nio.file.Files.createTempFile`.
 - Use the `attrs` argument (an optional list of file attributes
   to set atomically when creating the file).
-
-## References
-
-- [CWE-378: Creation of Temporary File With Insecure Permissions:](https://cwe.mitre.org/data/definitions/378.html)
-Opening temporary files without appropriate measures or controls
-can leave the file, its contents and any function that it impacts
-vulnerable to attack.
-
-- [CWE-379: Creation of Temporary File in Directory with Insecure Permissions:](https://cwe.mitre.org/data/definitions/379.html)
-The software creates a temporary file
-in a directory whose permissions allow unintended actors
-to determine the file's existence
-or otherwise access that file.
