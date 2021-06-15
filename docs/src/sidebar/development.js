@@ -25,6 +25,8 @@ const DEVELOPMENT = [
           'development/writing/general/italics',
           'development/writing/general/bold',
           'development/writing/general/numbers',
+          'development/writing/general/others',
+          'development/writing/general/lists',
         ]
       },
       'development/writing/documentation',

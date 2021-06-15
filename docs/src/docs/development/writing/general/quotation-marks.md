@@ -33,8 +33,7 @@ slug: /development/writing/general/quotation-marks
   (e.g., The team's "great effort"
   has meant being eliminated from the main league.).
 
-* **WG22:** When we want to remove an unnecessary fragment from a quotation
-  (not altering its original meaning),
+* **WG22:** When we want to remove an unnecessary fragment from a quotation,
   we *must* use ellipsis in parenthesis as a substitute
   (e.g., ["The biggest thing](https://fluidattacks.com/blog/tribe-of-hackers-4/)
   is to go through the attack methodology

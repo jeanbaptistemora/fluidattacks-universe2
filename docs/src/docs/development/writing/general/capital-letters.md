@@ -20,9 +20,10 @@ slug: /development/writing/general/capital-letters
 * **WG12:** We *must* present the names of our solutions and services
   with initial capital letters (e.g., [Continuous Hacking](https://fluidattacks.com/services/continuous-hacking/)).
 
-* **WG13:** We *must* use initial capital letters in section and subsection headings
+* **WG13:** We *must* use initial capital letters
+  in section and subsection titles
   ([following APA standards](https://capitalizemytitle.com/style/APA/)),
-  and not in internal subheadings.
+  and not in internal subtitles.
 
 * **WG14:** We *must not* use sustained capital letters to emphasize a word or phrase,
   nor mix them with bold or italics.
@@ -35,7 +36,7 @@ slug: /development/writing/general/capital-letters
   (e.g., (...) [that's why people say](https://fluidattacks.com/blog/facebook-data-leak/)
   it's "free data" in almost all the sources I checked.).
   When the quote is interrupted,
-  we *must not* capitalize the second part
+  we *must* begin its second part with a lowercase letter
   (e.g., "I did not want to commit this crime," said Mr. Allen,
   "but an internal force compelled me to do it.").
 

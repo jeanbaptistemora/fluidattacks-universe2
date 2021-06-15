@@ -32,14 +32,14 @@ slug: /development/writing/general/numbers
   acoustic frequencies and degrees of freedom.
 
 * **WG42:** We *must not* add apostrophes
-  when we write a plural of a number (e.g., the 90s).
+  when we write a plural of a number (e.g., the 90's).
 
 * **WG43:** When we need to write numbers side by side in a sentence,
   we *should* mix numbers with words (e.g., 4 three-year-old dogs),
   but, in some cases, the wording may be modified for clarity.
 
 * **WG44:** We *must not* use the superscript
-  for ordinal numbers (e.g., 1st, 3rd, 9th).
+  for ordinal numbers (e.g., 1<sup>st</sup>, 3<sup>rd</sup>, 9<sup>th</sup>).
 
 * **WG45:** When we are presenting values with decimal numbers in a text,
   we *must not* give the values of the same variable
