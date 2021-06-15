@@ -1201,7 +1201,6 @@ def exec_apk_package(apks):
             apk.webview_allows_resource_access('{apk}')
             apk.not_forces_updates('{apk}')
             apk.not_verifies_ssl_hostname('{apk}')
-            apk.not_pinned_certs('{apk}')
             apk.allows_user_ca('{apk}')
             apk.has_debug_enabled('{apk}')
             apk.not_obfuscated('{apk}')

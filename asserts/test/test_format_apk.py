@@ -65,16 +65,6 @@ def test_ssl_hostname_verify_open():
     assert apk.not_verifies_ssl_hostname(SSL_OPEN)
 
 
-def test_cert_pinning_open1():
-    """Test if APK pin certificates."""
-    assert apk.not_pinned_certs(SSL_OPEN)
-
-
-def test_cert_pinning_open2():
-    """Test if APK pin certificates."""
-    assert apk.not_pinned_certs(SIGNED_APK)
-
-
 def test_allows_user_ca_open():
     """Test if APK trusts user CAs."""
     assert apk.allows_user_ca(SIGNED_APK)
@@ -153,11 +143,6 @@ def test_ssl_hostname_verify_close1():
 def test_ssl_hostname_verify_close2():
     """Test if APK SSLSocket verifies for hostname."""
     assert not apk.not_verifies_ssl_hostname(SIGNED_APK)
-
-
-def test_cert_pinning_close():
-    """Test if APK pin certificates."""
-    assert not apk.not_pinned_certs(SSL_CLOSE)
 
 
 def test_allows_user_ca_close1():
@@ -243,11 +228,6 @@ def test_forces_update_unknown():
 def test_ssl_hostname_verify_unknown():
     """Test if APK SSLSocket verifies for hostname."""
     assert not apk.not_verifies_ssl_hostname(NOT_EXISTS_APK)
-
-
-def test_cert_pinning_unknown():
-    """Test if APK pin certificates."""
-    assert not apk.not_pinned_certs(NOT_EXISTS_APK)
 
 
 def test_allows_user_ca_unknown():

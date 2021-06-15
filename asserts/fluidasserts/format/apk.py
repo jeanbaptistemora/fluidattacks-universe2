@@ -297,42 +297,6 @@ def not_verifies_ssl_hostname(apk_file: str) -> tuple:
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError, apk.Error, dvm.Error)
-def not_pinned_certs(apk_file: str) -> tuple:
-    """
-    Check if the given APK does not pin x509 certificates.
-
-    :param apk_file: Path to the image to be tested.
-    :returns: - ``OPEN`` if *res/xml/network_security_config.xml* is not
-                present in APK or *pin-set* is not in the
-                *network_security_config/xml* file.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    apk_obj = apk.APK(apk_file)
-
-    is_vulnerable: bool = True
-
-    msg_open = "APK does not pin certificates"
-
-    try:
-        net_conf = str(apk_obj.get_file("res/xml/network_security_config.xml"))
-    except androguard.core.bytecodes.apk.FileNotPresent:
-        msg_open = "No declarative pinning file was found"
-    else:
-        if "pin-set" in net_conf:
-            is_vulnerable = False
-
-    return _get_result_as_tuple_sast(
-        path=apk_file,
-        msg_open=msg_open,
-        msg_closed="APK pines certificates",
-        open_if=is_vulnerable,
-    )
-
-
-@api(risk=MEDIUM, kind=SAST)
-@unknown_if(FileNotFoundError, apk.Error, dvm.Error)
 def allows_user_ca(apk_file: str) -> tuple:
     """
     Check if the given APK allows to trust on user-given CAs.
