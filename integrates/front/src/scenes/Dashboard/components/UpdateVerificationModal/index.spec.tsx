@@ -85,13 +85,15 @@ describe("update verification component", (): void => {
     const justification: ReactWrapper = wrapperRequest.find("textarea");
     justification.simulate("change", {
       target: {
+        name: "treatmentJustification",
         value: "This is a commenting test of a request verification in vulns",
       },
     });
     const form: ReactWrapper = wrapperRequest.find("form");
     form.at(0).simulate("submit");
     await act(async (): Promise<void> => {
-      await wait(0);
+      const delay: number = 150;
+      await wait(delay);
       wrapperRequest.update();
     });
 
@@ -159,6 +161,7 @@ describe("update verification component", (): void => {
     const justification: ReactWrapper = wrapper.find("textarea");
     justification.simulate("change", {
       target: {
+        name: "treatmentJustification",
         value: "This is a commenting test of a request verification in vulns",
       },
     });
@@ -243,6 +246,7 @@ describe("update verification component", (): void => {
     const justification: ReactWrapper = wrapper.find("textarea");
     justification.simulate("change", {
       target: {
+        name: "treatmentJustification",
         value:
           "This is a commenting test of a verifying request verification in vulns",
       },
@@ -252,7 +256,8 @@ describe("update verification component", (): void => {
     const form: ReactWrapper = wrapper.find("form");
     form.at(0).simulate("submit");
     await act(async (): Promise<void> => {
-      await wait(0);
+      const delay: number = 150;
+      await wait(delay);
       wrapper.update();
     });
 
@@ -316,6 +321,7 @@ describe("update verification component", (): void => {
     const justification: ReactWrapper = wrapper.find("textarea");
     justification.simulate("change", {
       target: {
+        name: "treatmentJustification",
         value:
           "This is a commenting test of a verifying request verification in vulns",
       },
@@ -323,7 +329,8 @@ describe("update verification component", (): void => {
     const form: ReactWrapper = wrapper.find("form");
     form.at(0).simulate("submit");
     await act(async (): Promise<void> => {
-      await wait(0);
+      const delay: number = 150;
+      await wait(delay);
       wrapper.update();
     });
 

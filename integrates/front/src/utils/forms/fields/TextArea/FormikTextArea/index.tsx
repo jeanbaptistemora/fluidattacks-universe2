@@ -15,6 +15,8 @@ interface ITextAreaProps extends FieldProps {
   className?: string;
   input: Omit<FieldInputProps<string>, "value"> & { value: string };
   withCount?: boolean;
+  disabled?: boolean;
+  rows?: number;
 }
 
 export const FormikTextArea: React.FC<ITextAreaProps> = (
@@ -22,7 +24,16 @@ export const FormikTextArea: React.FC<ITextAreaProps> = (
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   props: Readonly<ITextAreaProps>
 ): JSX.Element => {
-  const { input, id, withCount = false, field, form, className } = props;
+  const {
+    className,
+    disabled,
+    field,
+    form,
+    id,
+    input,
+    rows,
+    withCount = false,
+  } = props;
   const { errors } = form;
   const error = errors[field.name];
   const { value }: { value: string } = field;
@@ -35,7 +46,9 @@ export const FormikTextArea: React.FC<ITextAreaProps> = (
         className={`${style["form-control"]} ${style["text-area"]} ${
           className === undefined ? "" : className
         }`}
+        disabled={disabled}
         id={id}
+        rows={rows}
         value={value}
       />
       {withCount ? (

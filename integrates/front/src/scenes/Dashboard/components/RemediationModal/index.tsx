@@ -1,12 +1,10 @@
+import { Field, Form, Formik } from "formik";
 import _ from "lodash";
 import React from "react";
-import { Field } from "redux-form";
-import type { InjectedFormProps } from "redux-form";
 import type { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   ButtonToolbar,
   Col100,
@@ -15,9 +13,14 @@ import {
   RequiredField,
   Row,
 } from "styles/styledComponents";
-import { TextArea } from "utils/forms/fields";
+import { FormikTextArea } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
-import { maxLength, minLength, required } from "utils/validations";
+import {
+  composeValidators,
+  maxLength,
+  minLength,
+  required,
+} from "utils/validations";
 
 // ESLint annotations needed in order to avoid the mutations of defaultProps
 interface IAddRemediationProps {
@@ -61,46 +64,54 @@ const RemediationModal: React.FC<IAddRemediationProps> = (
   return (
     <React.StrictMode>
       <Modal headerTitle={title} open={isOpen}>
-        <GenericForm name={"updateRemediation"} onSubmit={onSubmit}>
-          {({ pristine }: InjectedFormProps): JSX.Element => (
-            <React.Fragment>
-              {children}
-              <FormGroup>
-                <ControlLabel>
-                  <RequiredField>{"* "}</RequiredField>
-                  {message}
-                </ControlLabel>
-                <Field
-                  component={TextArea}
-                  name={"treatmentJustification"}
-                  rows={"6"}
-                  type={"text"}
-                  validate={justificationValidations}
-                  withCount={true}
-                />
-              </FormGroup>
-              {additionalInfo}
-              <br />
-              <hr />
-              <Row>
-                <Col100>
-                  <ButtonToolbar>
-                    <Button id={"cancel-remediation"} onClick={onClose}>
-                      {translate.t("confirmmodal.cancel")}
-                    </Button>
-                    <Button
-                      disabled={pristine || props.isLoading}
-                      id={"proceed-remediation"}
-                      type={"submit"}
-                    >
-                      {translate.t("confirmmodal.proceed")}
-                    </Button>
-                  </ButtonToolbar>
-                </Col100>
-              </Row>
-            </React.Fragment>
+        <Formik
+          initialValues={{
+            treatmentJustification: "",
+          }}
+          name={"updateRemediation"}
+          onSubmit={onSubmit}
+        >
+          {({ dirty }): JSX.Element => (
+            <Form>
+              <React.Fragment>
+                {children}
+                <FormGroup>
+                  <ControlLabel>
+                    <RequiredField>{"* "}</RequiredField>
+                    {message}
+                  </ControlLabel>
+                  <Field
+                    component={FormikTextArea}
+                    name={"treatmentJustification"}
+                    rows={"6"}
+                    type={"text"}
+                    validate={composeValidators(justificationValidations)}
+                    withCount={true}
+                  />
+                </FormGroup>
+                {additionalInfo}
+                <br />
+                <hr />
+                <Row>
+                  <Col100>
+                    <ButtonToolbar>
+                      <Button id={"cancel-remediation"} onClick={onClose}>
+                        {translate.t("confirmmodal.cancel")}
+                      </Button>
+                      <Button
+                        disabled={!dirty || props.isLoading}
+                        id={"proceed-remediation"}
+                        type={"submit"}
+                      >
+                        {translate.t("confirmmodal.proceed")}
+                      </Button>
+                    </ButtonToolbar>
+                  </Col100>
+                </Row>
+              </React.Fragment>
+            </Form>
           )}
-        </GenericForm>
+        </Formik>
       </Modal>
     </React.StrictMode>
   );
