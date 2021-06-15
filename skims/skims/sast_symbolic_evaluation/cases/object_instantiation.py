@@ -25,6 +25,12 @@ def _syntax_step_object_instantiation_danger(args: EvaluatorArgs) -> None:
     args_danger = any(dep.meta.danger for dep in args.dependencies)
 
     _danger_instances_by_finding = {
+        core_model.FindingEnum.F001_C_SHARP_SQL.name: {
+            "Npgsql.NpgsqlCommand",
+            "System.Data.OracleClient.OracleCommand",
+            "System.Data.SQLite.SQLite.SQLiteCommand",
+            "MySql.Data.MySqlClient.MySqlCommand",
+        },
         core_model.FindingEnum.F063_PATH_TRAVERSAL.name: {
             "java.io.File",
             "java.io.FileInputStream",

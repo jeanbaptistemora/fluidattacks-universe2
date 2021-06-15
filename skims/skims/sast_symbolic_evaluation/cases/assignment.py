@@ -26,6 +26,15 @@ BY_TYPE: Dict[str, Set[str]] = complete_attrs_on_dict(
         "MySql.Data.MySqlClient.MySqlCommand": {
             "CommandText",
         },
+        "System.Data.OracleClient.OracleCommand": {
+            "CommandText",
+        },
+        "System.Data.SQLite.SQLiteCommand": {
+            "CommandText",
+        },
+        "Npgsql.NpgsqlCommand": {
+            "CommandText",
+        },
         "System.DirectoryServices.DirectorySearcher": {
             "Filter",
         },
