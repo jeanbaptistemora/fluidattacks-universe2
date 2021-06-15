@@ -24,7 +24,7 @@ let
     "/observes/singer/tap_delighted"
     "/observes/singer/tap_formstack"
     "/observes/singer/tap_git"
-    "/observes/singer/streamer_gitlab"
+    "/observes/singer/tap_gitlab"
     "/observes/singer/tap_json"
     "/observes/singer/tap_mailchimp"
     "/observes/singer/tap_mixpanel"

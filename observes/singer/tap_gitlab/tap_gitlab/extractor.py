@@ -5,7 +5,7 @@ from asyncio import (
     Queue,
 )
 import json
-from streamer_gitlab.log import (
+from tap_gitlab.log import (
     log,
 )
 from typing import (

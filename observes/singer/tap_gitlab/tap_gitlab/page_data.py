@@ -4,17 +4,17 @@ import json
 from os import (
     environ,
 )
-from streamer_gitlab import (
+import sys
+from tap_gitlab import (
     api_client,
     extractor,
 )
-from streamer_gitlab.api_client import (
+from tap_gitlab.api_client import (
     GitlabResourcePage,
 )
-from streamer_gitlab.log import (
+from tap_gitlab.log import (
     log,
 )
-import sys
 import tempfile
 from typing import (
     Any,

@@ -5,7 +5,7 @@
 }:
 with packages.observes.env;
 let
-  self = path "/observes/singer/streamer_gitlab";
+  self = path "/observes/singer/tap_gitlab";
 in
 makeTemplate {
   name = "observes-env-tap-gitlab-runtime";

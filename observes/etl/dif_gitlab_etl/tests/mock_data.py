@@ -1,12 +1,12 @@
 from dif_gitlab_etl.etl import (
     ExtractState,
 )
-from streamer_gitlab.api_client import (
+from tap_gitlab.api_client import (
     GitlabResource,
     GitlabResourcePage,
     GResourcePageRange,
 )
-from streamer_gitlab.page_data import (
+from tap_gitlab.page_data import (
     PageData,
 )
 from tempfile import (

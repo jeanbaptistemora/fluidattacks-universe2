@@ -5,7 +5,7 @@ from dif_gitlab_etl.utils import (
     NotFoundException,
 )
 import pytest
-from streamer_gitlab.api_client import (
+from tap_gitlab.api_client import (
     GitlabResource,
     GitlabResourcePage,
 )

@@ -6,7 +6,7 @@
 makeDerivation {
   name = "observes-test-tap-gitlab";
   arguments = {
-    envSrc = path "/observes/singer/streamer_gitlab";
+    envSrc = path "/observes/singer/tap_gitlab";
     envTestDir = "tests";
   };
   searchPaths = {

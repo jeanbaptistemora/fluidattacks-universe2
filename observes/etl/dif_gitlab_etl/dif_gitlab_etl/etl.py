@@ -6,18 +6,18 @@ from dif_gitlab_etl.utils import (
     log,
 )
 import json
-from streamer_gitlab import (
+import subprocess
+from tap_gitlab import (
     page_data,
 )
-from streamer_gitlab.api_client import (
+from tap_gitlab.api_client import (
     GitlabResource,
     GitlabResourcePage,
     GResourcePageRange,
 )
-from streamer_gitlab.page_data import (
+from tap_gitlab.page_data import (
     PageData,
 )
-import subprocess
 from tempfile import (
     NamedTemporaryFile,
 )

@@ -9,14 +9,14 @@ from dif_gitlab_etl.utils import (
 from os import (
     environ,
 )
-from streamer_gitlab import (
+from tap_gitlab import (
     api_client,
 )
-from streamer_gitlab.api_client import (
+from tap_gitlab.api_client import (
     GitlabResource,
     GitlabResourcePage,
 )
-from streamer_gitlab.page_data import (
+from tap_gitlab.page_data import (
     PageData,
 )
 from typing import (

@@ -7,10 +7,10 @@ import json
 from os import (
     environ,
 )
-from streamer_gitlab.log import (
+import sys
+from tap_gitlab.log import (
     log,
 )
-import sys
 from typing import (
     IO,
     List,

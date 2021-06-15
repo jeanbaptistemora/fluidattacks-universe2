@@ -6,7 +6,7 @@
 makeDerivation {
   name = "observes-lint-tap-gitlab";
   arguments = {
-    envSrc = path "/observes/singer/streamer_gitlab";
+    envSrc = path "/observes/singer/tap_gitlab";
   };
   searchPaths = {
     envSources = [

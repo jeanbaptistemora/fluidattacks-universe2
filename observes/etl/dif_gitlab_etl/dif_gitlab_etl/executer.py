@@ -20,17 +20,17 @@ from dif_gitlab_etl.utils import (
 from os import (
     environ,
 )
-from streamer_gitlab import (
+from tap_gitlab import (
     page_data,
 )
-from streamer_gitlab.api_client import (
+from tap_gitlab.api_client import (
     GitlabResource,
     GResourcePageRange,
 )
-from streamer_gitlab.log import (
+from tap_gitlab.log import (
     MaxRetriesReached,
 )
-from streamer_gitlab.page_data import (
+from tap_gitlab.page_data import (
     PageData,
 )
 from typing import (

@@ -5,7 +5,7 @@ from contextlib import (
 import io
 import json
 import pytest
-from streamer_gitlab import (
+from tap_gitlab import (
     cli,
 )
 from typing import (

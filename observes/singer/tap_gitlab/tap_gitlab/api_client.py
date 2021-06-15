@@ -5,7 +5,7 @@ from aiohttp import (
     ClientError,
     ClientSession,
 )
-from streamer_gitlab.log import (
+from tap_gitlab.log import (
     log,
     MaxRetriesReached,
 )

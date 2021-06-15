@@ -3,7 +3,7 @@ from os import (
     environ,
 )
 import pytest
-from streamer_gitlab import (
+from tap_gitlab import (
     api_client,
 )
 
