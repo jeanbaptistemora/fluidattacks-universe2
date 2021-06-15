@@ -19,7 +19,7 @@ from typing import (
     [
         ["admin@fluidattacks.com"],
     ],
-)  # pylint: disable=too-many-statements
+)  # pylint: disable=too-many-statements, too-many-locals
 @freeze_time("2021-03-31")
 async def test_get_finding(populate: bool, email: str) -> None:
     assert populate
@@ -243,7 +243,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
         ["executive@gmail.com"],
         ["reviewer@gmail.com"],
     ],
-)  # pylint: disable=too-many-statements
+)  # pylint: disable=too-many-statements, too-many-locals
 @freeze_time("2021-03-31")
 async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert populate

@@ -83,7 +83,7 @@ TEST_GROUPS: Set[str] = {
 
 
 @pytest.fixture(autouse=True, scope="session")
-def generic_data() -> Dict[str, Any]:
+def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
     admin_email: str = "admin@gmail.com"
     admin_fluid_email: str = "admin@fluidattacks.com"
     analyst_email: str = "analyst@gmail.com"
