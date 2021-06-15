@@ -66,10 +66,11 @@ def _retrieve(cursor: Cursor, table_id: TableID) -> IO[MetaTable]:
             Column(
                 column[1],
                 ColumnType(
-                    to_rs_datatype(column[2].upper()),
+                    to_rs_datatype(str(column[2]).upper()),
                     int(column[3]) if column[3] else None,
-                    str(column[4]) if column[4] else None,
-                    str(column[5]).upper() == "YES",
+                    int(column[4]) if column[4] else None,
+                    str(column[5]) if column[5] else None,
+                    str(column[6]).upper() == "YES",
                 ),
             )
             for column in raw

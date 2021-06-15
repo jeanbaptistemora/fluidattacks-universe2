@@ -90,6 +90,7 @@ def retrieve(table_id: TableID) -> Query:
             CASE WHEN character_maximum_length IS not null
                     THEN character_maximum_length
                     ELSE numeric_precision end AS max_length,
+            numeric_scale,
             column_default AS default_value,
             is_nullable
         FROM information_schema.columns

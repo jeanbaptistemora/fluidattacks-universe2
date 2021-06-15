@@ -62,22 +62,24 @@ alias_map: Dict[str, RedshiftDataType] = {
     "TIME WITH TIME ZONE": RedshiftDataType.TIMETZ,
 }
 
+default_precision = {
+    RedshiftDataType.CHAR: 1,
+    RedshiftDataType.VARCHAR: 256,
+    RedshiftDataType.DECIMAL: 18,
+}
+default_scale = {
+    RedshiftDataType.DECIMAL: 0,
+}
+max_precision = {
+    RedshiftDataType.CHAR: 4096,
+    RedshiftDataType.VARCHAR: 65535,
+}
+
 
 def to_rs_datatype(raw: str) -> RedshiftDataType:
     raw_dt = raw.upper()
     dt = Maybe.from_optional(alias_map.get(raw_dt))
     return dt.or_else_call(lambda: RedshiftDataType(raw_dt))
-
-
-requires_precision = set(
-    [
-        RedshiftDataType.DECIMAL,
-        RedshiftDataType.REAL,
-        RedshiftDataType.DOUBLE_PRECISION,
-        RedshiftDataType.CHAR,
-        RedshiftDataType.VARCHAR,
-    ]
-)
 
 
 class PrecisionRequired(Exception):
@@ -87,6 +89,7 @@ class PrecisionRequired(Exception):
 class _ColumnType(NamedTuple):
     field_type: RedshiftDataType
     precision: Optional[int]
+    scale: Optional[int]
     default_val: Optional[str]
     nullable: bool
 
@@ -94,6 +97,7 @@ class _ColumnType(NamedTuple):
 class ColumnType(Immutable):
     field_type: RedshiftDataType
     precision: Optional[int]
+    scale: Optional[int]
     default_val: Optional[str]
     nullable: bool
 
@@ -101,13 +105,20 @@ class ColumnType(Immutable):
         cls,
         field_type: RedshiftDataType,
         precision: Optional[int] = None,
+        scale: Optional[int] = None,
         default_val: Optional[str] = None,
         nullable: bool = True,
     ) -> ColumnType:
-        if field_type in requires_precision and precision is None:
-            LOG.warning(PrecisionRequired(f"for field type: {field_type}"))
+        _precision = Maybe.from_optional(precision).or_else_call(
+            lambda: default_precision.get(field_type)
+        )
+        _scale = Maybe.from_optional(scale).or_else_call(
+            lambda: default_scale.get(field_type)
+        )
         self = object.__new__(cls)
-        obj = _ColumnType(field_type, precision, default_val, nullable)
+        obj = _ColumnType(
+            field_type, _precision, _scale, default_val, nullable
+        )
         for prop, val in obj._asdict().items():
             object.__setattr__(self, prop, val)
         return self

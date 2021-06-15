@@ -33,7 +33,10 @@ def _escape_value(r_type: RedshiftDataType, value: Any) -> str:
     new_value = ""
     if r_type == RedshiftDataType.BOOLEAN:
         new_value = f"{escape(value).lower()}"
-    elif r_type in (RedshiftDataType.INTEGER, RedshiftDataType.DECIMAL):
+    elif r_type in (
+        RedshiftDataType.INTEGER,
+        RedshiftDataType.DOUBLE_PRECISION,
+    ):
         new_value = f"{escape(value)}"
     elif r_type == RedshiftDataType.VARCHAR:
         new_value = f"{value}"[0:256]
