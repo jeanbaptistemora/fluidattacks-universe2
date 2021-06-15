@@ -83,6 +83,9 @@
   "F052": {
     "skims/test/data/sast/TestCFG.java": {}
   },
+  "F055_APK_UPDATES": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
   "F055_AWS_MISSING_ENCRYPTION": {
     "skims/test/data/sast/TestCFG.java": {}
   },

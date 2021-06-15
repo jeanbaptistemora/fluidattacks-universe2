@@ -2956,6 +2956,10 @@
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
+  "F055_APK_UPDATES": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
   "F055_AWS_MISSING_ENCRYPTION": {
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}

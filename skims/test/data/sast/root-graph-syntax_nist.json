@@ -1091,6 +1091,10 @@
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
   },
+  "F055_APK_UPDATES": {
+    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
+    "skims/test/data/benchmark/nist/StudentController.cs": {}
+  },
   "F055_AWS_MISSING_ENCRYPTION": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}

@@ -539,6 +539,22 @@ class FindingEnum(Enum):
         severity_scope=SeverityScope.unchanged,
         user_interaction=UserInteraction.required,
     )
+    F055_APK_UPDATES: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F055_APK_UPDATES",
+        cwe="1277",
+        attack_complexity=AttackComplexity.high,
+        attack_vector=AttackVector.local,
+        availability_impact=AvailabilityImpact.none,
+        confidentiality_impact=ConfidentialityImpact.none,
+        exploitability=Exploitability.unproven,
+        integrity_impact=IntegrityImpact.low,
+        privileges_required=PrivilegesRequired.low,
+        remediation_level=RemediationLevel.official_fix,
+        report_confidence=ReportConfidence.reasonable,
+        severity_scope=SeverityScope.unchanged,
+        user_interaction=UserInteraction.none,
+    )
     F055_AWS_MISSING_ENCRYPTION: FindingMetadata = FindingMetadata.new(
         code="F055_AWS_MISSING_ENCRYPTION",
         cwe="311",
