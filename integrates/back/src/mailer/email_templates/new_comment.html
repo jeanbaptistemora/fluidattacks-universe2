@@ -1,9 +1,9 @@
-{% extends "new_layouts/common.html" %}
-{% from 'new_layouts/components/forms.html' import banner_news, go_to_button, text_area %}
+{% extends "layouts/common.html" %}
+{% from 'layouts/components/forms.html' import banner_news, go_to_button, text_area %}
 
 {% block layout %}
 <div class="container">
-  {% include 'new_layouts/components/logo_header.html' %}
+  {% include 'layouts/components/logo_header.html' %}
   {{ banner_news('New Comment') }}
 
   <div style="padding: 30px 0 !important;">
@@ -23,6 +23,6 @@
       Fluid Attacks Team</p>
   </div>
 
-  {% include 'new_layouts/components/footer.html' %}
+  {% include 'layouts/components/footer.html' %}
 </div>
 {% endblock %}

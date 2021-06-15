@@ -1,9 +1,9 @@
-{% extends "new_layouts/common.html" %}
-{% from 'new_layouts/components/forms.html' import banner_finding %}
+{% extends "layouts/common.html" %}
+{% from 'layouts/components/forms.html' import banner_finding %}
 
 {% block layout %}
 <div class="container">
-  {% include 'new_layouts/components/logo_header.html' %}
+  {% include 'layouts/components/logo_header.html' %}
   {{ banner_finding('Finding Deleted') }}
 
   <div style="padding: 30px 0 !important;">
@@ -25,6 +25,6 @@
       Fluid Attacks Team</p>
   </div>
 
-  {% include 'new_layouts/components/footer.html' %}
+  {% include 'layouts/components/footer.html' %}
 </div>
 {% endblock %}
