@@ -343,7 +343,7 @@ async def get_finding_vulnerabilities(
                 state=core_model.VulnerabilityStateEnum(
                     vulnerability["currentState"]
                 ),
-                stream=vulnerability["stream"],
+                stream=vulnerability["stream"].replace(" > ", ","),
                 what=what,
                 where=vulnerability["specific"],
             )
