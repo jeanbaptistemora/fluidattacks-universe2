@@ -16,6 +16,7 @@ const NavbarContainer: StyledComponent<
     top-0
     z-max
     t-all-5
+    bg-gray-244
   `,
 })``;
 
@@ -67,19 +68,19 @@ const NavbarContactButton: StyledComponent<
 > = styled.button.attrs({
   className: `
     outline-transparent
-    fw7
+    fw5
     f-18
     br2
     bw1
     ph2
     pv2
-    bg-white
-    bc-fluid-red
+    bg-fluid-red
+    bc-hovered-red
     ba
-    hv-fluid-rd
-    hv-bd-fluid-red
+    hv-bg-fluid-dkred
+    hv-bd-fluid-dkred
     t-all-3-eio
-    c-dkred
+    white
     pointer
   `,
 })``;
@@ -90,15 +91,19 @@ const NavbarLoginButton: StyledComponent<
 > = styled.button.attrs({
   className: `
     outline-transparent
-    fw7
+    fw5
     f-18
-    ba
-    b--transparent
+    br2
     bw1
-    ph0
+    ph2
     pv2
-    hv-fluid-rd
-    bg-transparent
+    bg-gray-233
+    bc-gray-233
+    ba
+    hv-bg-soft-gray
+    hv-bd-soft-gray
+    t-all-3-eio
+    c-blue-gray
     pointer
   `,
 })``;

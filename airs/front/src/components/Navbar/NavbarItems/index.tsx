@@ -37,13 +37,13 @@ const NavbarItems: React.FC = (): JSX.Element => (
 
     <li className={"fr pv4 db-l dn"}>
       <Link className={"no-underline"} to={"/contact-us/"}>
-        <NavbarContactButton>{"Contact"}</NavbarContactButton>
+        <NavbarContactButton>{"Contact now"}</NavbarContactButton>
       </Link>
     </li>
 
     <li className={"fr mr3 pr2 pv4 db-l dn"}>
       <Link className={"no-underline"} to={"https://app.fluidattacks.com/"}>
-        <NavbarLoginButton>{"Login"}</NavbarLoginButton>
+        <NavbarLoginButton>{"Log in"}</NavbarLoginButton>
       </Link>
     </li>
 
