@@ -8,16 +8,16 @@ let
   self = path "/observes/singer/streamer_gitlab";
 in
 makeTemplate {
-  name = "observes-env-streamer-gitlab-runtime";
+  name = "observes-env-tap-gitlab-runtime";
   searchPaths = {
     envPaths = [
-      streamer-gitlab.runtime.python
+      tap-gitlab.runtime.python
     ];
     envPythonPaths = [
       self
     ];
     envPython38Paths = [
-      streamer-gitlab.runtime.python
+      tap-gitlab.runtime.python
     ];
     envSources = [
       paginator.runtime

@@ -24,7 +24,7 @@ makeTemplate {
       gitlab-etl.runtime.python
     ];
     envSources = [
-      streamer-gitlab.runtime
+      tap-gitlab.runtime
     ];
   };
 }

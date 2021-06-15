@@ -3,7 +3,7 @@
 , ...
 }:
 buildPythonRequirements {
-  name = "observes-env-streamer-gitlab-development-python";
+  name = "observes-env-tap-gitlab-development-python";
   requirements = {
     direct = [
       "pytest-asyncio==0.14.0"

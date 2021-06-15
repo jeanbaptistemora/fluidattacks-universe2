@@ -101,10 +101,6 @@ observes.env.singer-io.development.python
 observes.env.singer-io.runtime
 observes.env.streamer-dynamodb.runtime
 observes.env.streamer-dynamodb.runtime.python
-observes.env.streamer-gitlab.development
-observes.env.streamer-gitlab.development.python
-observes.env.streamer-gitlab.runtime
-observes.env.streamer-gitlab.runtime.python
 observes.env.streamer-zoho-crm.development
 observes.env.streamer-zoho-crm.development.python
 observes.env.streamer-zoho-crm.runtime
@@ -123,6 +119,10 @@ observes.env.tap-formstack.runtime
 observes.env.tap-formstack.runtime.python
 observes.env.tap-git.runtime
 observes.env.tap-git.runtime.python
+observes.env.tap-gitlab.development
+observes.env.tap-gitlab.development.python
+observes.env.tap-gitlab.runtime
+observes.env.tap-gitlab.runtime.python
 observes.env.tap-json.runtime
 observes.env.tap-json.runtime.python
 observes.env.tap-mailchimp.development
@@ -155,13 +155,13 @@ observes.lint.service-jobs-scheduler
 observes.lint.service-migrate-tables
 observes.lint.service-timedoctor-tokens
 observes.lint.singer-io
-observes.lint.streamer-gitlab
 observes.lint.streamer-zoho-crm
 observes.lint.tap-bugsnag
 observes.lint.tap-checkly
 observes.lint.tap-csv
 observes.lint.tap-delighted
 observes.lint.tap-formstack
+observes.lint.tap-gitlab
 observes.lint.tap-json
 observes.lint.tap-mailchimp
 observes.lint.tap-mixpanel
@@ -171,9 +171,9 @@ observes.test.code-etl
 observes.test.dif-gitlab-etl
 observes.test.postgres-client
 observes.test.singer-io
-observes.test.streamer-gitlab
 observes.test.streamer-zoho-crm
 observes.test.tap-csv
+observes.test.tap-gitlab
 observes.test.tap-mailchimp
 observes.test.tap-mixpanel
 reviews.lint

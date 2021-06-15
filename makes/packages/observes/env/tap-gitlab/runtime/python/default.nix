@@ -3,7 +3,7 @@
 , ...
 }:
 buildPythonRequirements {
-  name = "observes-env-streamer-gitlab-runtime-python";
+  name = "observes-env-tap-gitlab-runtime-python";
   requirements = {
     direct = [
       "aioextensions==20.8.2087641"

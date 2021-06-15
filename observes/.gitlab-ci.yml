@@ -103,11 +103,6 @@ observes.lint.singer-io:
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes.lint.streamer-gitlab:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
-
 observes.lint.streamer-zoho-crm:
   <<: *makes
   <<: *observes_in_dev_branch
@@ -134,6 +129,11 @@ observes.lint.tap-delighted:
   stage: lint-code
 
 observes.lint.tap-formstack:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: lint-code
+
+observes.lint.tap-gitlab:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
@@ -321,12 +321,12 @@ observes.test.singer-io:
   <<: *observes_in_dev_branch
   stage: test-code
 
-observes.test.streamer-gitlab:
+observes.test.tap-csv:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-code
 
-observes.test.tap-csv:
+observes.test.tap-gitlab:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-code
