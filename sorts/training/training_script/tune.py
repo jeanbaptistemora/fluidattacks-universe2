@@ -150,6 +150,7 @@ def cli() -> argparse.Namespace:
     parser.add_argument("--criterion", type=str, default="")
     parser.add_argument("--loss", type=str, default="")
     parser.add_argument("--n_estimators", type=int, default=100)
+    parser.add_argument("--max_depth", type=int, default=3)
 
     # Extra args that SageMaker excution may need (fex. ENVS)
     parser.add_argument("--envs", type=str, default="")
