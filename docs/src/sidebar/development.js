@@ -22,6 +22,9 @@ const DEVELOPMENT = [
           'development/writing/general/main',
           'development/writing/general/capital-letters',
           'development/writing/general/quotation-marks',
+          'development/writing/general/italics',
+          'development/writing/general/bold',
+          'development/writing/general/numbers',
         ]
       },
       'development/writing/documentation',

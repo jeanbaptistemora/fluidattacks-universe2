@@ -17,7 +17,9 @@ slug: /development/writing/general/main
 * **WG04:** We *must* avoid unnecessary repetition of information in our texts.
 
 * **WG05:** We *must* keep the names of our services, solutions and material
-  updated in each of our publications.
+  updated in each of our publications
+  (e.g., if our main application receives the name ASM and not Integrates,
+  we must present it that way in all our writings).
 
 * **WG06:** We *must* be consistent with the handling of our key terms
   in each of the sections (i.e., within the documentation),

@@ -25,6 +25,7 @@ that would allow us to homogenize our writing and publishing activities.
 
 These guidelines are structured as follows:
 In the first part, we offer general writing rules
+(many of them based on [APA style](https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_style_introduction.html)),
 among which there are some oriented, for example,
 towards the handling of capital letters, italics and numbers.
 In the second part, we focus on guidelines
