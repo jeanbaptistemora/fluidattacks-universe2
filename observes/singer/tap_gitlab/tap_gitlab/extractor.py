@@ -5,15 +5,15 @@ from asyncio import (
     Queue,
 )
 import json
-from tap_gitlab.log import (
-    log,
-)
+import logging
 from typing import (
     Any,
     IO,
     List,
     Optional,
 )
+
+LOG = logging.getLogger(__name__)
 
 
 def emit(
@@ -38,7 +38,7 @@ async def emitter(queue: Queue) -> None:
         if item is None:
             break
         if queue.full():
-            log("warning", "Queue is full and performance may be impacted!")
+            LOG.warning("Queue is full and performance may be impacted!")
 
         stream = item["resource"]
         records = item["records"]

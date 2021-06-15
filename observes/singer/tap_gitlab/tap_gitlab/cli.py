@@ -1,14 +1,14 @@
 import argparse
+import logging
 from os import (
     environ,
 )
 import sys
-from tap_gitlab.log import (
-    log,
-)
 from typing import (
     List,
 )
+
+LOG = logging.getLogger(__name__)
 
 
 def parser_builder() -> argparse.ArgumentParser:
@@ -26,7 +26,7 @@ def parse_args(args: List[str]) -> None:
     try:
         environ["GITLAB_ETL_API_TOKEN"]
     except KeyError:
-        log("critical", "Export GITLAB_ETL_API_TOKEN as environment variable")
+        LOG.critical("Export GITLAB_ETL_API_TOKEN as environment variable")
         sys.exit(1)
     else:
         parser_builder().parse_args(args)

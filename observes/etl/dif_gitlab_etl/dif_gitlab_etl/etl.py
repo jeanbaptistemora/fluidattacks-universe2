@@ -3,9 +3,9 @@ from dif_gitlab_etl import (
 )
 from dif_gitlab_etl.utils import (
     error,
-    log,
 )
 import json
+import logging
 import subprocess
 from tap_gitlab import (
     page_data,
@@ -30,6 +30,8 @@ from typing import (
     NamedTuple,
     Optional,
 )
+
+LOG = logging.getLogger(__name__)
 
 
 class ExtractState(NamedTuple):
@@ -58,9 +60,9 @@ def extract_between(
     empty_responce: bool = False
     last_minor_id: Optional[int] = init_last_minor_id
     p_data: Optional[PageData]
-    log("info", "Notation <page_id>:<per_page>")
+    LOG.info("Notation <page_id>:<per_page>")
     for page_id in work_pages:
-        log("info", f"Extracting {page_id}:{per_page}")
+        LOG.info("Extracting %s:%s", page_id, per_page)
         if last_minor_id is not None:
             p_data = extract_data_less_than(
                 last_minor_id,
@@ -79,7 +81,7 @@ def extract_between(
                 )
             )
         if p_data is None:
-            log("info", f"Empty data returned at {page_id}:{per_page}")
+            LOG.info("Empty data returned at %s:%s", page_id, per_page)
             empty_responce = True
         else:
             last_minor_id = p_data.minor_item_id
@@ -151,12 +153,13 @@ def extract_pages_data(
 
     pages: List[PageData] = []
 
-    log(
-        "info",
-        f"Planned pagination started. [{work_pages.start},{work_pages.stop})",
+    LOG.info(
+        "Planned pagination started. [%s,%s)",
+        work_pages.start,
+        work_pages.stop,
     )
     extraction_status = extract_range(resource_range, None)
-    log("info", "Planned pagination finished.")
+    LOG.info("Planned pagination finished.")
 
     if extraction_status.empty_responce:
         error("Planned pagination expected non empty responce")
@@ -167,7 +170,7 @@ def extract_pages_data(
             f"Target item id ({last_greatest_uploaded_id}) was not found."
             " Unplanned pagination started."
         )
-        log("info", msg)
+        LOG.info(msg)
         extraction_status = extract_until_found(
             last_greatest_uploaded_id,
             GitlabResourcePage(
@@ -183,7 +186,7 @@ def extract_pages_data(
         pages[-1] = page_data.filter_data_greater_than(
             last_greatest_uploaded_id, pages[-1]
         )
-    log("debug", str(pages))
+    LOG.debug(str(pages))
     return pages
 
 
@@ -199,20 +202,20 @@ def upload_data(
     auth: Dict[str, str],
     exe_query: Callable[[str], Any],
 ) -> None:
-    log("info", "Checking upload order")
+    LOG.info("Checking upload order")
     verify_ascending_order(data_pages)
     auth_file = NamedTemporaryFile(mode="w+")
     auth_file.write(json.dumps(auth))
     auth_file.seek(0)
     for dpage in data_pages:
-        log("info", f"Transforming page:{dpage.id.page}")
+        LOG.info("Transforming page:%s", dpage.id.page)
         cmd = (
             "echo '[INFO] Running tap' && "
             f'observes-tap-json > .singer < "{dpage.file.name}"'
         )
         result = subprocess.check_output(cmd, shell=True)
-        log("info", str(result))
-        log("info", f"Uploading page:{dpage.id.page}")
+        LOG.info(str(result))
+        LOG.info("Uploading page:%s", dpage.id.page)
         cmd = (
             "echo '[INFO] Running target' && "
             "observes-target-redshift "
@@ -221,6 +224,6 @@ def upload_data(
             "< .singer"
         )
         result = subprocess.check_output(cmd, shell=True)
-        log("debug", str(result))
-        log("info", f"Updating lgu: mid={dpage.minor_item_id}")
+        LOG.debug(str(result))
+        LOG.info("Updating lgu: mid=%s", dpage.minor_item_id)
         planner.set_lgu_id(dpage, exe_query)

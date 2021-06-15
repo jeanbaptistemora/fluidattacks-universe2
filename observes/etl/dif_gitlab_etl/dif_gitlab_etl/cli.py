@@ -4,17 +4,17 @@ from dif_gitlab_etl import (
     executer,
 )
 import json
+import logging
 from os import (
     environ,
 )
 import sys
-from tap_gitlab.log import (
-    log,
-)
 from typing import (
     IO,
     List,
 )
+
+LOG = logging.getLogger(__name__)
 
 
 @click.command()
@@ -29,7 +29,7 @@ def start_etl(projects: List[str], auth_file: IO[str]) -> None:
     if not all(env_vars.values()):
         missing = filter(lambda x: bool(x[1]) is False, env_vars.items())
         missing_vars = list(map(lambda x: x[0], missing))
-        log("critical", f"Env vars {str(missing_vars)} are missing/empty")
+        LOG.critical("Env vars %s are missing/empty", str(missing_vars))
         sys.exit(1)
     else:
         auth = json.load(auth_file)

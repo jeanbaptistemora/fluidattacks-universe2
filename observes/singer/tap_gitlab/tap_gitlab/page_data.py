@@ -1,6 +1,7 @@
 import aiohttp
 import asyncio
 import json
+import logging
 from os import (
     environ,
 )
@@ -12,9 +13,6 @@ from tap_gitlab import (
 from tap_gitlab.api_client import (
     GitlabResourcePage,
 )
-from tap_gitlab.log import (
-    log,
-)
 import tempfile
 from typing import (
     Any,
@@ -24,6 +22,8 @@ from typing import (
     NamedTuple,
     Optional,
 )
+
+LOG = logging.getLogger(__name__)
 
 
 class PageData(NamedTuple):
@@ -83,7 +83,7 @@ def filter_data_greater_than(
     Returns a PageData only with items greater than target_id
     """
     dpage.file.seek(0)
-    log("debug", f"Filter greater than @ {dpage.file.name}")
+    LOG.debug("Filter greater than @ %s", dpage.file.name)
     lines = dpage.file.readlines()
     data: List[Dict[str, Any]] = []
     stream = ""

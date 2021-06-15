@@ -5,10 +5,7 @@ from aiohttp import (
     ClientError,
     ClientSession,
 )
-from tap_gitlab.log import (
-    log,
-    MaxRetriesReached,
-)
+import logging
 from typing import (
     Any,
     Awaitable,
@@ -21,6 +18,8 @@ from typing import (
     Optional,
 )
 import urllib.parse
+
+LOG = logging.getLogger(__name__)
 
 
 class GitlabResource(NamedTuple):
@@ -41,6 +40,12 @@ class GResourcePageRange(NamedTuple):
     per_page: int
 
 
+class MaxRetriesReached(Exception):
+    def __init__(self, msg: str):
+        LOG.error("Max retries reached: %s", msg)
+        super().__init__(msg)
+
+
 @rate_limited(
     # Gitlab allows at most 10 per second, not bursted
     max_calls=5,
@@ -52,10 +57,10 @@ async def get_json(
 ) -> List[Dict[str, Any]]:
     """Get as JSON the result of a GET request to endpoint."""
     async with session.get(endpoint, **kargs) as response:
-        log("debug", f"[{response.status}]")
-        log("debug", f"\tEndpoint: {endpoint}")
-        log("debug", f'\tParams: {kargs["params"]}')
-        log("debug", f'\tHeaders: {kargs["headers"].keys()}')
+        LOG.debug("[%s]", response.status)
+        LOG.debug("\tEndpoint: %s", endpoint)
+        LOG.debug("\tParams: %s", kargs["params"])
+        LOG.debug("\tHeaders: %s", kargs["headers"].keys())
         response.raise_for_status()
 
         return await response.json()
@@ -93,7 +98,7 @@ def elements_greater_than(
 
 def get_minor_id(data: List[Dict[str, Any]]) -> Optional[int]:
     if data:
-        log("debug", f"minor id: {int(data[-1]['id'])}")
+        LOG.debug("minor id: %s", int(data[-1]["id"]))
         return int(data[-1]["id"])
     return None
 
@@ -134,7 +139,7 @@ def insistent_endpoint_call(
                 return result
             except ClientError as exc:
                 errors += 1
-                log("h_error", f"# {errors}: {type(exc).__name__}")
+                LOG.error("h_error # %s: %s", errors, type(exc).__name__)
         if errors >= max_errors:
             raise MaxRetriesReached(
                 f"#{errors} ClientErrors",

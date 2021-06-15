@@ -26,8 +26,6 @@ from tap_gitlab import (
 from tap_gitlab.api_client import (
     GitlabResource,
     GResourcePageRange,
-)
-from tap_gitlab.log import (
     MaxRetriesReached,
 )
 from tap_gitlab.page_data import (
