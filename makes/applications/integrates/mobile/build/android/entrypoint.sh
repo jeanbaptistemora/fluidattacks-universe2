@@ -55,10 +55,6 @@ function main {
         __envAndroidSdk__/libexec/android-sdk/* \
         "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk" \
       && touch "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk/.ready" \
-      && if test -v CI; then
-        mkdir -p /usr/bin \
-          && ln -sf /bin/env /usr/bin/env
-      fi \
       && echo '[INFO] Building Android app...' \
       && npx --no-install turtle build:android \
         --username "${EXPO_USER}" \
