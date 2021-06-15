@@ -1,0 +1,51 @@
+F055_APK_UPDATES.description:
+  en: >
+    The application
+    does not have
+    in-app updates enabled.
+  es: >
+    La aplicación
+    no tiene habilitadas
+    las actualizaciónes integradas
+    (in-app updates).
+F055_APK_UPDATES.impact:
+  en: >
+    Use an old version
+    of the application
+    containing vulnerabilities.
+  es: >
+    Usar una versión vieja
+    de la aplicación
+    que contenga vulnerabilidades.
+F055_APK_UPDATES.recommendation:
+  en: >
+    Enable in-app updates
+    via the AppUpdateManager API
+    as explained in:
+    https://developer.android.com/guide/playcore/in-app-updates
+  es: >
+    Habilitar las actualizaciónes integradas
+    (in-app updates)
+    a través del API AppUpdateManager
+    como se explica en:
+    https://developer.android.com/guide/playcore/in-app-updates
+F055_APK_UPDATES.requirements:
+  en: >
+    R266. La organización
+    debe deshabilitar
+    las funciones inseguras
+    de un sistema.
+    (hardening de sistemas).
+  es: R266. Disable insecure functionalities.
+F055_APK_UPDATES.threat:
+  en: >
+    User of the application
+    with an old version
+    installed in the device.
+  es: >
+    Usuario de la aplicación
+    con una versión antigua
+    instalada en el dispositivo.
+F055_APK_UPDATES.title:
+  en: F055. Missing in-app updates
+  es: F055. Ausencia de actualizaciones integradas
