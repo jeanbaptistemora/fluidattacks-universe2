@@ -1,17 +1,31 @@
-{% extends "layouts/fluid_attacks.html" %}
-{% from 'layouts/components/forms.html' import go_to_button as button %}
-{% block content %}
-<p>Hello {{ name }},</p>
-<p>
-  You can download your {{ filetype }} report requested on group <strong>{{ projectname }}</strong>
-  on {{ date }} at {{ time }} by clicking the following button:
-</p>
-{{ button('Go to the report', filelink) }}
-<p>
-  This link will be available for the next <strong>hour</strong>.
-</p>
-<p>
-  The passphrase for your {{ filetype }} report will be sent to your mobile device,
-  make sure you have enabled the notifications and the background task to get the passphrase.
-</p>
+{% extends "new_layouts/common.html" %}
+{% from 'new_layouts/components/forms.html' import banner_project, go_to_button %}
+
+{% block layout %}
+<div class="container">
+  {% include 'new_layouts/components/logo_header.html' %}
+  {{ banner_project('Report Available') }}
+
+  <div style="padding: 30px 0 !important;">
+    <p>Hello {{ name }},</p>
+    <p>
+      You can download your {{ filetype }} report requested on group <strong>{{ projectname }}</strong>
+      on {{ date }} at {{ time }} by clicking the following button:
+    </p>
+    {{ go_to_button('Go to report', filelink) }}
+    <p></p>
+    <p>
+      This link will be available for the next <strong>hour</strong>.
+    </p>
+    <p>
+      The passphrase for your {{ filetype }} report will be sent to your mobile device,
+      make sure you have enabled the notifications and the background task to get the passphrase.
+    </p>
+    <p></p>
+    <p>Regards,<br>
+      Fluid Attacks Team</p>
+  </div>
+
+  {% include 'new_layouts/components/footer.html' %}
+</div>
 {% endblock %}
