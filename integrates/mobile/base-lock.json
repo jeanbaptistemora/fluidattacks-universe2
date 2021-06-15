@@ -9,17 +9,6 @@
         "@expo/plist": {
           "version": "0.0.13"
         },
-        "@expo/webpack-config": {
-          "version": "0.12.60",
-          "dependencies": {
-            "optimize-css-assets-webpack-plugin": {
-              "version": "6.0.0"
-            },
-            "postcss-safe-parser": {
-              "version": "5.0.2"
-            }
-          }
-        },
         "xmldom": {
           "version": "0.5.0"
         }
@@ -40,9 +29,6 @@
           "version": "5.1.2"
         }
       }
-    },
-    "css-loader": {
-      "version": "5.2.6"
     },
     "css-select": {
       "version": "3.1.2",
@@ -65,6 +51,14 @@
       "dependencies": {
         "trim-newlines": {
           "version": "3.0.1"
+        }
+      }
+    },
+    "postcss-normalize-url": {
+      "version": "4.0.1",
+      "dependencies": {
+        "normalize-url": {
+          "version": "4.5.1"
         }
       }
     },
@@ -105,25 +99,6 @@
       "dependencies": {
         "glob-parent": {
           "version": "5.1.2"
-        }
-      }
-    },
-    "xdl": {
-      "version": "59.0.42",
-      "dependencies": {
-        "@expo/webpack-config": {
-          "version": "0.12.76",
-          "dependencies": {
-            "css-loader": {
-              "version": "5.2.6"
-            },
-            "optimize-css-assets-webpack-plugin": {
-              "version": "6.0.0"
-            },
-            "postcss-safe-parser": {
-              "version": "5.0.2"
-            }
-          }
         }
       }
     }
