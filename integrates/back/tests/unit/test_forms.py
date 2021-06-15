@@ -1,13 +1,9 @@
-from datetime import (
-    datetime,
-)
 from newutils.forms import (
     is_exploitable,
 )
 from numpy import (
     arange,
 )
-import pytest
 
 
 def test_is_exploitable() -> None:

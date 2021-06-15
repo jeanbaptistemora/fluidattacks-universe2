@@ -1,11 +1,3 @@
-from asgiref.sync import (
-    async_to_sync,
-)
-from boto3.dynamodb.conditions import (
-    Attr,
-    Key,
-    Not,
-)
 import pytest
 from users.dal import (
     create,

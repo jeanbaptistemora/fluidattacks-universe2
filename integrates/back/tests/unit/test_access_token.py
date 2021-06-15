@@ -4,7 +4,6 @@ from datetime import (
 from newutils import (
     token as token_utils,
 )
-import pytest
 from settings import (
     SESSION_COOKIE_AGE,
 )

@@ -4,7 +4,6 @@ from back.tests.functional.service_forces.utils import (
 from dataloaders import (
     get_new_context,
 )
-import json
 import pytest
 
 

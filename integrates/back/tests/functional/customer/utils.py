@@ -4,7 +4,6 @@ from back.tests.functional.utils import (
 )
 from dataloaders import (
     Dataloaders,
-    get_new_context,
 )
 from typing import (
     Any,

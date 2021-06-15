@@ -10,9 +10,6 @@ import pytest
 from starlette.datastructures import (
     UploadFile,
 )
-from urllib.parse import (
-    quote,
-)
 
 
 @pytest.mark.asyncio

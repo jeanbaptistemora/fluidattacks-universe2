@@ -8,7 +8,6 @@ from freezegun import (
 from newutils import (
     datetime as datetime_utils,
 )
-import pytest
 import pytz
 from settings import (
     TIME_ZONE,

@@ -1,6 +1,3 @@
-from botocore.exceptions import (
-    ClientError,
-)
 from forces.dal import (
     create_execution,
     get_secret_token,

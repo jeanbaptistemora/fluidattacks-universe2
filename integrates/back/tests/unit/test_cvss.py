@@ -11,7 +11,6 @@ from newutils import (
     findings as finding_utils,
     utils,
 )
-import pytest
 from typing import (
     Dict,
 )
