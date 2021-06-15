@@ -96,9 +96,11 @@ def record_handler(
     return schemas
 
 
+# pylint: disable=too-many-arguments
 def schema_handler(
     batcher: Batcher,
     table_factory: TableFactory,
+    update_table: bool,
     db_schema: str,
     s_schema: SingerSchema,
     schemas: SchemasMap,
@@ -114,7 +116,9 @@ def schema_handler(
     batcher.set_field_names(
         tname, list(map(lambda col: col.name, r_schema.table.columns))
     )
-    table_factory.new_table(r_schema.table, True)
+    table_io = table_factory.new_table(r_schema.table, True)
+    if update_table:
+        table_io.map(lambda table: table.add_columns(r_schema.table.columns))
     if not modified_map:
         return schemas
     return schemas_map

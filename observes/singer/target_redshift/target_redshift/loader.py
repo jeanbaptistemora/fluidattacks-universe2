@@ -22,7 +22,6 @@ from singer_io.factory import (
     singer_handler,
 )
 import sys
-import target_redshift
 from target_redshift.batcher import (
     Batcher,
 )
@@ -40,12 +39,15 @@ LOG = logging.getLogger(__name__)
 
 
 def persist_messages(
-    batcher: Batcher, cursor: Cursor, schema_name: str
+    batcher: Batcher,
+    cursor: Cursor,
+    schema_name: str,
+    update_table: bool = False,
 ) -> None:
     schemas: SchemasMap = {}
     factory = TableFactory(cursor)
     handler: Callable[[str, SchemasMap], SchemasMap] = singer_handler(
-        partial(schema_handler, batcher, factory, schema_name),
+        partial(schema_handler, batcher, factory, update_table, schema_name),
         partial(record_handler, batcher),
         None,
     )
@@ -96,7 +98,7 @@ def load_data(
             #   RECREATE loading_schema
             schema_factory.recreate(loading_schema, cascade=True)
             #   LOAD loading_schema
-            target_redshift.persist_messages(batcher, str(loading_schema))
+            persist_messages(batcher, client.cursor, str(loading_schema))
             #   DROP backup_schema IF EXISTS
             schema_factory.try_retrieve(backup_schema).map(
                 partial(schema_factory.delete, cascade=True)
@@ -116,6 +118,6 @@ def load_data(
             #     - possible un-updated schema
             #     - and dangling/orphan/duplicated records
             batcher = Batcher(dbcur, str(target_schema))
-            target_redshift.persist_messages(batcher, str(target_schema))
+            persist_messages(batcher, client.cursor, str(target_schema), True)
     finally:
         client.close()

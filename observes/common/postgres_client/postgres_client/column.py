@@ -143,6 +143,32 @@ class ColumnType(Immutable):
         )
 
 
-class Column(NamedTuple):
+class _Column(NamedTuple):
     name: str
     c_type: ColumnType
+
+
+class Column(Immutable):
+    name: str
+    c_type: ColumnType
+
+    def __new__(cls, name: str, c_type: ColumnType) -> Any:
+        self = object.__new__(cls)
+        obj = _Column(name.lower(), c_type)
+        for prop, val in obj._asdict().items():
+            object.__setattr__(self, prop, val)
+        return self
+
+    def __hash__(self) -> int:
+        return hash(tuple(vars(self).values()))
+
+    def __eq__(self, other: Any) -> bool:
+        if isinstance(other, Column):
+            return vars(self) == vars(other)
+        return False
+
+    def __repr__(self) -> str:
+        return ("Column(name={}, c_type={})").format(
+            self.name,
+            self.c_type,
+        )

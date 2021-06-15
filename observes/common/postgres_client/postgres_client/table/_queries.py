@@ -1,5 +1,6 @@
 # pylint: skip-file
 
+import logging
 from postgres_client.column import (
     Column,
 )
@@ -29,6 +30,9 @@ class TableCreationFail(Exception):
     pass
 
 
+LOG = logging.getLogger(__name__)
+
+
 def add_columns(
     table: MetaTable,
     columns: FrozenSet[Column],
@@ -41,7 +45,7 @@ def add_columns(
     if not diff_names.isdisjoint(current_names):
         raise MutateColumnException(
             "Cannot update the type of existing columns."
-            f"Columns: {diff_names.intersection(current_names)}"
+            f"diff: {diff_columns}"
         )
     queries: List[Query] = []
     for column in diff_columns:
@@ -53,7 +57,7 @@ def add_columns(
         args = SqlArgs(
             values={"default_val": column.c_type.default_val},
             identifiers={
-                "table_path": table.path,
+                "table_path": f"{table.table_id.schema}.{table.table_id.table_name}",
                 "column_name": column.name,
                 "field_type": column.c_type.field_type.value,
             },
