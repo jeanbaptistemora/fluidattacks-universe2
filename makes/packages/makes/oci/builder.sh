@@ -49,13 +49,19 @@ function configure_users {
     && echo "${envEtcShadow}" > "${out}/etc/shadow"
 }
 
+function configure_usr_bin_env {
+  mkdir -p "${out}/usr/bin" \
+    && ln -s "$(command -v env)" "${out}/usr/bin/env"
+}
+
 function main {
   configure_nix \
     && configure_nss \
     && configure_product \
     && configure_ssh \
     && configure_tmp \
-    && configure_users
+    && configure_users \
+    && configure_usr_bin_env
 }
 
 function mirror {

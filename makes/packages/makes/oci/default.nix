@@ -44,6 +44,9 @@ makeOci {
       };
       builder = path "/makes/packages/makes/oci/builder.sh";
       name = "makes-oci-customization-layer";
+      searchPaths = {
+        envPaths = [ nixpkgs.coreutils ];
+      };
     })
     nixpkgs.bash
     nixpkgs.cacert

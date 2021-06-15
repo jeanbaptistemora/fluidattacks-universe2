@@ -1,4 +1,4 @@
-#! /bin/env bash
+#! /usr/bin/env bash
 
 set -e
 source makes/utils/shopts/template.sh
@@ -18,7 +18,9 @@ function cache_push {
 
   if test -n "${CACHIX_FLUIDATTACKS_TOKEN:-}"; then
     echo '---' \
-      && nix-env -iA cachix -f https://cachix.org/api/v1/install \
+      && if test -z "$(command -v cachix)"; then
+        nix-env -iA cachix -f https://cachix.org/api/v1/install
+      fi \
       && echo "[INFO] Pushing to cache: ${nix_store_path}" \
       && cachix authtoken "${CACHIX_FLUIDATTACKS_TOKEN}" \
       && echo "${nix_store_path}" | cachix push -c 0 fluidattacks \
