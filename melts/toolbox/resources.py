@@ -296,6 +296,8 @@ def _http_repo_cloning(
     git_root: Dict[str, str],
 ) -> Optional[Dict[str, str]]:
     """ cloning or updated a repository https """
+    # Needed to avoid SSL certificate problem
+    os.environ["GIT_SSL_NO_VERIFY"] = "False"
     # script does not support vpns atm
     baseurl = git_root["url"]
     nickname = git_root["nickname"]
