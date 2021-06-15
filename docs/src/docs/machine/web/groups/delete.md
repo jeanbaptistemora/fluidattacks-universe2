@@ -41,4 +41,4 @@ after typing the name of the group,
 click on proceed
 to complete the deletion of the group.
 
-![Delete Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1623350441/docs/web/groups/unsubscribe/unsubscribe_modal_njxx6c.png)
+![Delete Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1623350475/docs/web/groups/delete/delete_modal_iflo3l.png)
