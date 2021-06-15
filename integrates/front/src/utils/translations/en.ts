@@ -1220,8 +1220,7 @@ export const enTranslations: ResourceKey = {
           "Malicious actions that can be performed by exploiting the vulnerability",
       },
       bts: "External BTS",
-      btsPlaceholder:
-        "https://gitlab.com/fluidattacks/integrates/-/issues/2084",
+      btsPlaceholder: "https://gitlab.com/fluidattacks/asm/-/issues/2084",
       businessCriticality: "Level",
       cancelVerified: "Cancel",
       cancelVerify: "Cancel",

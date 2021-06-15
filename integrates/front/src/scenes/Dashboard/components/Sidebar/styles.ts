@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import logo from "resources/integrates_sidebar.svg";
+import logo from "resources/asm_sidebar.svg";
 import preloader from "resources/loading.gif";
 
 const SidebarContainer = styled.aside.attrs({

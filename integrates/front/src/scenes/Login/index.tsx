@@ -25,7 +25,7 @@ import {
   TwoFacol,
 } from "./components";
 
-import logo from "resources/integrates.svg";
+import logo from "resources/asm.svg";
 import style from "scenes/Login/index.css";
 import { Col100 } from "styles/styledComponents";
 import {

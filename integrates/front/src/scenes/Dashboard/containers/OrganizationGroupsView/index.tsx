@@ -90,23 +90,23 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       const name: string = group.name.toUpperCase();
       const description: string = _.capitalize(group.description);
       const subscription: string = _.capitalize(group.subscription);
-      const drills: string = translate.t(
+      const squad: string = translate.t(
         servicesParameters[group.hasDrills.toString()]
       );
       const forces: string = translate.t(
         servicesParameters[group.hasForces.toString()]
       );
-      const integrates: string = translate.t(
+      const asm: string = translate.t(
         servicesParameters[group.hasIntegrates.toString()]
       );
 
       return {
         ...group,
+        asm,
         description,
-        drills,
         forces,
-        integrates,
         name,
+        squad,
         subscription,
       };
     });
@@ -118,15 +118,15 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     { align: "center", dataField: "subscription", header: "Service Type" },
     {
       align: "center",
-      dataField: "integrates",
+      dataField: "asm",
       formatter: statusFormatter,
-      header: "Integrates",
+      header: "ASM",
     },
     {
       align: "center",
-      dataField: "drills",
+      dataField: "squad",
       formatter: statusFormatter,
-      header: "Drills",
+      header: "Squad",
     },
     {
       align: "center",
