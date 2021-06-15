@@ -210,18 +210,18 @@ describe("Services", (): void => {
     const asmSwitch: () => ReactWrapper = (): ReactWrapper =>
       asmRow().find("#integratesSwitch").at(0);
     const squadSwitch: () => ReactWrapper = (): ReactWrapper =>
-      squadRow().find("#drillsSwitch").at(0);
+      squadRow().find("#squadSwitch").at(0);
     const forcesSwitch: () => ReactWrapper = (): ReactWrapper =>
       forcesRow().find("#forcesSwitch").at(0);
 
     expect(formValues()).toStrictEqual({
       comments: "",
       confirmation: "",
-      drills: true,
       forces: true,
       integrates: true,
+      machine: true,
       reason: "NONE",
-      skims: true,
+      squad: true,
       type: "CONTINUOUS",
     });
 
@@ -230,11 +230,11 @@ describe("Services", (): void => {
     expect(formValues()).toStrictEqual({
       comments: "",
       confirmation: "",
-      drills: false,
       forces: false,
       integrates: false,
+      machine: false,
       reason: "NONE",
-      skims: false,
+      squad: false,
       type: "CONTINUOUS",
     });
 
@@ -243,11 +243,11 @@ describe("Services", (): void => {
     expect(formValues()).toStrictEqual({
       comments: "",
       confirmation: "",
-      drills: true,
       forces: false,
       integrates: true,
+      machine: true,
       reason: "NONE",
-      skims: true,
+      squad: true,
       type: "CONTINUOUS",
     });
 
@@ -256,11 +256,11 @@ describe("Services", (): void => {
     expect(formValues()).toStrictEqual({
       comments: "",
       confirmation: "",
-      drills: false,
       forces: false,
       integrates: true,
+      machine: true,
       reason: "NONE",
-      skims: true,
+      squad: false,
       type: "CONTINUOUS",
     });
 
@@ -278,11 +278,11 @@ describe("Services", (): void => {
     expect(formValues()).toStrictEqual({
       comments: "",
       confirmation: "",
-      drills: true,
       forces: true,
       integrates: true,
+      machine: true,
       reason: "NONE",
-      skims: true,
+      squad: true,
       type: "CONTINUOUS",
     });
 
@@ -291,11 +291,11 @@ describe("Services", (): void => {
     expect(formValues()).toStrictEqual({
       comments: "",
       confirmation: "",
-      drills: false,
       forces: false,
       integrates: true,
+      machine: true,
       reason: "NONE",
-      skims: true,
+      squad: false,
       type: "CONTINUOUS",
     });
 
@@ -304,11 +304,11 @@ describe("Services", (): void => {
     expect(formValues()).toStrictEqual({
       comments: "",
       confirmation: "",
-      drills: true,
       forces: true,
       integrates: true,
+      machine: true,
       reason: "NONE",
-      skims: true,
+      squad: true,
       type: "CONTINUOUS",
     });
 

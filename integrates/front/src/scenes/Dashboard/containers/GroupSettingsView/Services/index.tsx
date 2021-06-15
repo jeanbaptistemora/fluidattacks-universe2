@@ -93,11 +93,11 @@ const Services: React.FC<IServicesProps> = (
         state,
         "comments",
         "confirmation",
-        "drills",
+        "squad",
         "forces",
         "integrates",
         "reason",
-        "skims",
+        "machine",
         "type"
       )
   );
@@ -108,8 +108,8 @@ const Services: React.FC<IServicesProps> = (
     React.ChangeEvent<string>
   > = useCallback(
     (_0: React.ChangeEvent<string> | undefined, subsType: string): void => {
-      dispatch(change("editGroup", "skims", isContinuousType(subsType)));
-      dispatch(change("editGroup", "drills", true));
+      dispatch(change("editGroup", "machine", isContinuousType(subsType)));
+      dispatch(change("editGroup", "squad", true));
       dispatch(change("editGroup", "forces", isContinuousType(subsType)));
     },
     [dispatch]
@@ -119,7 +119,7 @@ const Services: React.FC<IServicesProps> = (
   const handleSquadBtnChange: (withSquad: boolean) => void = (
     withSquad: boolean
   ): void => {
-    dispatch(change("editGroup", "drills", withSquad));
+    dispatch(change("editGroup", "squad", withSquad));
 
     handleSquadBtnChangeHelper(
       dispatch,
@@ -180,10 +180,10 @@ const Services: React.FC<IServicesProps> = (
       variables: {
         comments: formValues.comments,
         groupName,
-        hasDrills: formValues.drills,
         hasForces: formValues.forces,
         hasIntegrates: formValues.integrates,
-        hasSkims: formValues.skims,
+        hasMachine: formValues.machine,
+        hasSquad: formValues.squad,
         reason: formValues.reason,
         subscription: formValues.type,
       },
@@ -225,15 +225,15 @@ const Services: React.FC<IServicesProps> = (
     },
     {
       canHave: isContinuousType(formValues.type),
-      id: "skimsSwitch",
+      id: "machineSwitch",
       onChange: handleMachineBtnChange,
-      service: "skims",
+      service: "machine",
     },
     {
       canHave: true,
-      id: "drillsSwitch",
+      id: "squadSwitch",
       onChange: handleSquadBtnChange,
-      service: "drills",
+      service: "squad",
     },
     {
       canHave: isContinuousType(formValues.type),
@@ -329,11 +329,11 @@ const Services: React.FC<IServicesProps> = (
           initialValues={{
             comments: "",
             confirmation: "",
-            drills: data.group.hasDrills,
             forces: data.group.hasForces,
             integrates: true,
+            machine: data.group.hasSkims,
             reason: "NONE",
-            skims: data.group.hasSkims,
+            squad: data.group.hasDrills,
             type: data.group.subscription.toUpperCase(),
           }}
           name={"editGroup"}

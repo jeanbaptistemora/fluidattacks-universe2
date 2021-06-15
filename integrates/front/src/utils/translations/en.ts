@@ -861,6 +861,11 @@ export const enTranslations: ResourceKey = {
             text: "Report Language",
             tooltip: "Language in which findings should be reported",
           },
+          machine: {
+            text: "Include Machine service?",
+            tooltip:
+              "Vulnerability detection tool that scans and reports security issues in your source code",
+          },
           name: "Group Name",
           new: {
             group: "New Group",
@@ -872,11 +877,6 @@ export const enTranslations: ResourceKey = {
             text: "Organization",
             tooltip:
               "Name of the organization that is associated with this group",
-          },
-          skims: {
-            text: "Include Machine service?",
-            tooltip:
-              "Vulnerability detection tool that scans and reports security issues in your source code",
           },
           squad: {
             text: "Include Squad Service?",
@@ -1110,7 +1110,6 @@ export const enTranslations: ResourceKey = {
         warningTitle: "Warning!",
       },
       deletedsoon: "Scheduled to be deleted in 1 month",
-      drills: "Squad",
       errors: {
         drillsOnlyIfContinuous:
           "Squad is only available in groups of type Continuous-Hacking",
@@ -1126,6 +1125,7 @@ export const enTranslations: ResourceKey = {
       group: "Group",
       inactive: "Inactive",
       integrates: "ASM",
+      machine: "Machine",
       modal: {
         budget: "Budget",
         changesToApply: "Changes to apply",
@@ -1159,7 +1159,7 @@ export const enTranslations: ResourceKey = {
       oneshot: "One-Shot Hacking",
       service: "Service",
       services: "Services",
-      skims: "Machine",
+      squad: "Squad",
       status: "Status",
       success: "You'll receive an email shortly",
       successTitle: "Services changed correctly!",

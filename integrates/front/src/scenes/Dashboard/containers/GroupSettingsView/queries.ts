@@ -18,20 +18,20 @@ const EDIT_GROUP_DATA: DocumentNode = gql`
   mutation EditGroupData(
     $comments: String!
     $groupName: String!
-    $hasDrills: Boolean!
+    $hasSquad: Boolean!
     $hasForces: Boolean!
     $hasIntegrates: Boolean!
-    $hasSkims: Boolean!
+    $hasMachine: Boolean!
     $reason: EditGroupReason!
     $subscription: SubscriptionType!
   ) {
     editGroup(
       comments: $comments
       groupName: $groupName
-      hasDrills: $hasDrills
+      hasDrills: $hasSquad
       hasForces: $hasForces
       hasIntegrates: $hasIntegrates
-      hasSkims: $hasSkims
+      hasSkims: $hasMachine
       reason: $reason
       subscription: $subscription
     ) {

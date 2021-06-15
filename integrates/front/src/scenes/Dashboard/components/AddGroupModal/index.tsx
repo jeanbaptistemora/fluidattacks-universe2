@@ -364,16 +364,16 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                   <Row>
                     <Col40>
                       <TooltipWrapper
-                        id={"organization.tabs.groups.newGroup.skims.tooltip"}
+                        id={"organization.tabs.groups.newGroup.machine.tooltip"}
                         message={translate.t(
-                          "organization.tabs.groups.newGroup.skims.tooltip"
+                          "organization.tabs.groups.newGroup.machine.tooltip"
                         )}
                         placement={"top"}
                       >
                         <FormGroup>
                           <ControlLabel>
                             {translate.t(
-                              "organization.tabs.groups.newGroup.skims.text"
+                              "organization.tabs.groups.newGroup.machine.text"
                             )}
                             {" *"}
                           </ControlLabel>

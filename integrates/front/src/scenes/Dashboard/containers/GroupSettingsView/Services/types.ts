@@ -1,12 +1,12 @@
 interface IFormData {
   comments: string;
   confirmation: string;
-  drills: boolean;
+  squad: boolean;
   forces: boolean;
   integrates: boolean;
   organization: string;
   reason: string;
-  skims: boolean;
+  machine: boolean;
   type: string;
 }
 

@@ -20,8 +20,8 @@ const getHandleASMBtnChange = (
     dispatch(change("editGroup", "integrates", withASM));
 
     if (!withASM) {
-      dispatch(change("editGroup", "skims", false));
-      dispatch(change("editGroup", "drills", false));
+      dispatch(change("editGroup", "machine", false));
+      dispatch(change("editGroup", "squad", false));
       dispatch(change("editGroup", "forces", false));
     }
   };
@@ -31,12 +31,12 @@ const getHandleMachineBtnChange = (
   dispatch: Dispatch
 ): ((withMachine: boolean) => void) => {
   return (withMachine: boolean): void => {
-    dispatch(change("editGroup", "skims", withMachine));
+    dispatch(change("editGroup", "machine", withMachine));
 
     if (withMachine) {
       dispatch(change("editGroup", "integrates", true));
     } else {
-      dispatch(change("editGroup", "drills", false));
+      dispatch(change("editGroup", "squad", false));
       dispatch(change("editGroup", "forces", false));
     }
   };
@@ -50,7 +50,7 @@ const handleSquadBtnChangeHelper = (
 ): void => {
   if (withSquad) {
     dispatch(change("editGroup", "integrates", true));
-    dispatch(change("editGroup", "skims", isContinuousType(type)));
+    dispatch(change("editGroup", "machine", isContinuousType(type)));
   } else {
     dispatch(change("editGroup", "forces", false));
   }
@@ -62,8 +62,8 @@ const handleForcesBtnChangeHelper = (
 ): void => {
   if (withForces) {
     dispatch(change("editGroup", "integrates", true));
-    dispatch(change("editGroup", "skims", true));
-    dispatch(change("editGroup", "drills", true));
+    dispatch(change("editGroup", "machine", true));
+    dispatch(change("editGroup", "squad", true));
   }
 };
 
@@ -85,7 +85,7 @@ const editGroupDataHelper = (
 const handleEditGroupDataError = (error: ApolloError): void => {
   error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
     switch (message) {
-      case "Exception - Forces is only available when Drills is too":
+      case "Exception - Forces is only available when Squad is too":
         msgError(
           translate.t("searchFindings.servicesTable.errors.forcesOnlyIfSquad")
         );
