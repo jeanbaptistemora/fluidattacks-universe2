@@ -1,16 +1,30 @@
-{% extends "layouts/fluid_attacks.html" %}
-{% from 'layouts/components/forms.html' import go_to_button as button, text_area %}
-{% block content %}
-<p>Hello {{ name }},</p>
-<p>
-  <strong>{{ user_email }}</strong> has told us that finding:
-  <strong>{{ finding_name }}</strong> of project <strong>{{ project }}</strong>
-  was remediated.
-</p>
-<p>
-  The solution applied was:
-</p>
-{{ text_area(solution_description) }}
-<br />
-{{ button('Go to the finding', finding_url) }}
+{% extends "new_layouts/common.html" %}
+{% from 'new_layouts/components/forms.html' import banner_finding, go_to_button, text_area %}
+
+{% block layout %}
+<div class="container">
+  {% include 'new_layouts/components/logo_header.html' %}
+  {{ banner_finding('Finding Remediated') }}
+
+  <div style="padding: 30px 0 !important;">
+    <p>Hello {{ name }},</p>
+    <p>
+      <a href="mailto:{{ user_email }}" target="_blank" rel="noopener" style="color: #ff3435;">{{ user_email }}</a>
+      has told us that finding:
+      <strong>{{ finding_name }}</strong> of group <strong>{{ project }}</strong>
+      was remediated.
+    </p>
+    <p>
+      The solution applied was:
+    </p>
+    {{ text_area(solution_description) }}
+    <br />
+    {{ go_to_button('Go to finding', finding_url) }}
+    <p></p>
+    <p>Regards,<br>
+      Fluid Attacks Team</p>
+  </div>
+
+  {% include 'new_layouts/components/footer.html' %}
+</div>
 {% endblock %}
