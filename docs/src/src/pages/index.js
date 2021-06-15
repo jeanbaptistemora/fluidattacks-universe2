@@ -4,6 +4,7 @@ import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import useThemeContext from '@theme/hooks/useThemeContext';
 import styles from './styles.module.css';
 
 const features = [
@@ -54,6 +55,15 @@ const features = [
   },
 ];
 
+function Card({cardLink, children}) {
+  const { isDarkTheme } = useThemeContext();
+  return (
+    <a className={isDarkTheme ? styles.darkCard : styles.card} href={cardLink}>
+      {children}
+    </a>
+  );
+}
+
 function Feature({imageUrl, title, description, link}) {
   const imgUrl = useBaseUrl(imageUrl);
   return (
@@ -63,10 +73,10 @@ function Feature({imageUrl, title, description, link}) {
           <img className={styles.featureImage} src={imgUrl} alt={title} />
         </div>
       )}
-      <a className={styles.button} href={link}>
-      <h3>{title}</h3>
-      <p>{description}</p>
-      </a>
+      <Card cardLink={link}>
+        <h3>{title}</h3>
+        <p>{description}</p>
+      </Card>
     </div>
   );
 }

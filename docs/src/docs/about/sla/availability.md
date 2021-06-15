@@ -39,5 +39,5 @@ the public availability measurements
 of all our systems:
 
 <div class="div-button">
-  <a class="button" href="https://status.fluidattacks.com/">Status</a>
+  <a class="link-button" href="https://status.fluidattacks.com/">Status</a>
 </div>

@@ -18,7 +18,7 @@
   }
 }
 
-.button {
+.card {
   display: block;
   color: #000;
   width: 350px;
@@ -26,15 +26,34 @@
   padding: 10px;
   margin: 10px;
   text-align: center;
-  border: 1px solid #a5a5b6;
+  border: 1px solid #d4d4d4;
   border-radius: 5px;
   font-weight: bold;
   line-height: 25px;
-  box-shadow: 5px 5px 5px #d4d4d4;
+  box-shadow: 2px 3px 4px 1px #d4d4d4;
 }
 
-.button:hover {
+.card:hover {
   color: #000;
+  text-decoration: none;
+}
+
+.darkCard {
+  display: block;
+  color: #f5f6f7;
+  width: 350px;
+  height: 150px;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+  border-radius: 5px;
+  font-weight: bold;
+  line-height: 25px;
+  box-shadow: 2px 3px 4px 1px rgba(0, 0, 0, 1);
+}
+
+.darkCard:hover {
+  color: #f5f6f7;
   text-decoration: none;
 }
 

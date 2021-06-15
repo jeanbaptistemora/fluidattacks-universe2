@@ -32,20 +32,22 @@
   justify-content: center;
 }
 
-.button {
-  border-radius: 4px;
+.link-button {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
+  font-weight: bold;
   white-space: normal;
   background-color: #bf2626;
   border-color: #bf2626;
+  border-radius: 4px;
   color: #fff;
+  padding: 7px 24px;
   outline: none;
 }
 
-.button:hover {
-  background-color: #ff3435;
-  border-color: #ff3435;
+.link-button:hover {
+  color: #fff;
+  text-decoration: none;
 }
 
 p > img {

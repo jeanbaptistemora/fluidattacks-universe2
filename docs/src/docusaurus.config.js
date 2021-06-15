@@ -15,12 +15,13 @@ module.exports = {
     },
     colorMode: {
       defaultMode: 'light',
-      disableSwitch: true,
+      disableSwitch: false,
     },
     navbar: {
       logo: {
         alt: 'Fluid Attacks Logo',
         src: 'https://res.cloudinary.com/fluid-attacks/image/upload/v1622577821/docs/logo_gyivrl.svg',
+        srcDark: 'https://res.cloudinary.com/fluid-attacks/image/upload/v1623782670/docs/logo_dark_esf1gn.svg',
       },
       items: [
         {
