@@ -6,13 +6,22 @@
     "@expo/xdl": {
       "version": "59.1.0",
       "dependencies": {
+        "@expo/plist": {
+          "version": "0.0.13"
+        },
         "@expo/webpack-config": {
           "version": "0.12.60",
           "dependencies": {
+            "optimize-css-assets-webpack-plugin": {
+              "version": "6.0.0"
+            },
             "postcss-safe-parser": {
               "version": "5.0.2"
             }
           }
+        },
+        "xmldom": {
+          "version": "0.5.0"
         }
       }
     },
@@ -43,19 +52,19 @@
         }
       }
     },
+    "isomorphic-fetch": {
+      "version": "2.2.1",
+      "dependencies": {
+        "node-fetch": {
+          "version": "2.6.1"
+        }
+      }
+    },
     "meow": {
       "version": "4.0.1",
       "dependencies": {
         "trim-newlines": {
           "version": "3.0.1"
-        }
-      }
-    },
-    "optimize-css-assets-webpack-plugin": {
-      "version": "6.0.0",
-      "dependencies": {
-        "postcss": {
-          "version": "8.3.2"
         }
       }
     },
@@ -76,7 +85,7 @@
       }
     },
     "turtle-cli": {
-      "version": "0.21.8",
+      "version": "0.21.9",
       "dependencies": {
         "@google-cloud/logging-bunyan": {
           "version": "3.0.2"
