@@ -40,7 +40,7 @@ class RedshiftDataType(Enum):
     TIMETZ = "TIMETZ"
 
 
-alias_map: Dict[str, RedshiftDataType] = {
+ALIAS_MAP: Dict[str, RedshiftDataType] = {
     "INT2": RedshiftDataType.SMALLINT,
     "INT": RedshiftDataType.INTEGER,
     "INT4": RedshiftDataType.INTEGER,
@@ -62,15 +62,15 @@ alias_map: Dict[str, RedshiftDataType] = {
     "TIME WITH TIME ZONE": RedshiftDataType.TIMETZ,
 }
 
-default_precision = {
+DEFAULT_PRECISION = {
     RedshiftDataType.CHAR: 1,
     RedshiftDataType.VARCHAR: 256,
     RedshiftDataType.DECIMAL: 18,
 }
-default_scale = {
+DEFAULT_SCALE = {
     RedshiftDataType.DECIMAL: 0,
 }
-max_precision = {
+MAX_PRECISION = {
     RedshiftDataType.CHAR: 4096,
     RedshiftDataType.VARCHAR: 65535,
 }
@@ -78,7 +78,7 @@ max_precision = {
 
 def to_rs_datatype(raw: str) -> RedshiftDataType:
     raw_dt = raw.upper()
-    dt = Maybe.from_optional(alias_map.get(raw_dt))
+    dt = Maybe.from_optional(ALIAS_MAP.get(raw_dt))
     return dt.or_else_call(lambda: RedshiftDataType(raw_dt))
 
 
@@ -110,10 +110,10 @@ class ColumnType(Immutable):
         nullable: bool = True,
     ) -> ColumnType:
         _precision = Maybe.from_optional(precision).or_else_call(
-            lambda: default_precision.get(field_type)
+            lambda: DEFAULT_PRECISION.get(field_type)
         )
         _scale = Maybe.from_optional(scale).or_else_call(
-            lambda: default_scale.get(field_type)
+            lambda: DEFAULT_SCALE.get(field_type)
         )
         self = object.__new__(cls)
         obj = _ColumnType(

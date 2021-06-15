@@ -7,6 +7,8 @@ from __future__ import (
 from postgres_client.column import (
     Column,
     ColumnType,
+    DEFAULT_PRECISION,
+    DEFAULT_SCALE,
     to_rs_datatype,
 )
 from postgres_client.cursor import (
@@ -39,8 +41,10 @@ from returns.unsafe import (
 from typing import (
     Any,
     FrozenSet,
+    Iterator,
     Literal,
     NamedTuple,
+    Tuple,
 )
 
 IOResultBool = IOResult[Literal[True], Literal[False]]
@@ -56,25 +60,29 @@ def _exist(cursor: Cursor, table_id: TableID) -> IOResultBool:
     return IOFailure(False)
 
 
+def _raw_to_coulmn(raw: Tuple[Any, ...]) -> Column:
+    data_type = to_rs_datatype(str(raw[2]).upper())
+    requires_precision = data_type in DEFAULT_PRECISION
+    requires_scale = data_type in DEFAULT_SCALE
+    return Column(
+        raw[1],
+        ColumnType(
+            data_type,
+            precision=int(raw[3]) if raw[3] and requires_precision else None,
+            scale=int(raw[4]) if raw[4] and requires_scale else None,
+            default_val=str(raw[5]) if raw[5] else None,
+            nullable=str(raw[6]).upper() == "YES",
+        ),
+    )
+
+
 def _retrieve(cursor: Cursor, table_id: TableID) -> IO[MetaTable]:
     query = queries.retrieve(table_id)
     cursor.execute_query(query)
     results = cursor.fetch_all()
 
-    def _extract(raw: Any) -> MetaTable:
-        columns = frozenset(
-            Column(
-                column[1],
-                ColumnType(
-                    to_rs_datatype(str(column[2]).upper()),
-                    int(column[3]) if column[3] else None,
-                    int(column[4]) if column[4] else None,
-                    str(column[5]) if column[5] else None,
-                    str(column[6]).upper() == "YES",
-                ),
-            )
-            for column in raw
-        )
+    def _extract(raw: Iterator[Tuple[Any, ...]]) -> MetaTable:
+        columns = frozenset(_raw_to_coulmn(column) for column in raw)
         return MetaTable.new(table_id, frozenset(), columns)
 
     return results.map(_extract)
