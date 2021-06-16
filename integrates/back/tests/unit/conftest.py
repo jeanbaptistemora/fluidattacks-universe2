@@ -14,7 +14,7 @@ logging.config.dictConfig(LOGGING)  # type: ignore
 
 
 @pytest.fixture(autouse=True, scope="session")
-async def load_enforcers(request: Any) -> None:
+async def load_enforcers() -> None:
     """Load policies from DB into the enforcers."""
     await authz.grant_user_level_role("unittest", "admin")
 
@@ -26,7 +26,7 @@ def disable_logging() -> None:
 
 
 @pytest.yield_fixture(scope="session")
-def event_loop(request: Any) -> AsyncGenerator[Any, None]:  # type: ignore
+def event_loop() -> AsyncGenerator[Any, None]:  # type: ignore
     loop = asyncio.get_event_loop_policy().new_event_loop()
     yield loop
     loop.close()

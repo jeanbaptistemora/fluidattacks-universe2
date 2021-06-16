@@ -4,9 +4,6 @@ from back.tests.functional.service_forces.utils import (
 from dataloaders import (
     get_new_context,
 )
-from newutils import (
-    datetime as datetime_utils,
-)
 import pytest
 
 
@@ -14,9 +11,6 @@ import pytest
 @pytest.mark.resolver_test_group("old")
 async def test_finding() -> None:
     context = get_new_context()
-    today = datetime_utils.get_as_str(
-        datetime_utils.get_now(), date_format="%Y-%m-%d"
-    )
     finding_id = "463558592"
     expected_output = {
         "id": finding_id,

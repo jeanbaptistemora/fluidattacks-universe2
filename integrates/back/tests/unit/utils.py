@@ -27,7 +27,6 @@ import uuid
 
 def create_dummy_simple_session(
     username: str = "unittest",
-    client: str = "web",
 ) -> Response:
     request = requests.Request("GET", "/")
     request = apply_context_attrs(request)
