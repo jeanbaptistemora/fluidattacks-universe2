@@ -13,6 +13,7 @@ makeDerivation {
     envSrcDocsCriteriaRequirementsAuthentication = path "/docs/src/docs/criteria/requirements/authentication/";
     envSrcDocsCriteriaRequirementsAuthorization = path "/docs/src/docs/criteria/requirements/authorization/";
     envSrcDocsCriteriaRequirementsCertificates = path "/docs/src/docs/criteria/requirements/certificates/";
+    envSrcDocsCriteriaRequirementsCredentials = path "/docs/src/docs/criteria/requirements/credentials/";
   };
   builder = path "/makes/packages/docs/lint/builder.sh";
   name = "docs-lint";

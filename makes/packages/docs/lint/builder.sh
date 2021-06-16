@@ -10,6 +10,7 @@ function main {
     && lint_markdown "${envSrcDocsCriteriaRequirementsAuthentication}" \
     && lint_markdown "${envSrcDocsCriteriaRequirementsAuthorization}" \
     && lint_markdown "${envSrcDocsCriteriaRequirementsCertificates}" \
+    && lint_markdown "${envSrcDocsCriteriaRequirementsCredentials}" \
     && touch "${out}"
 }
 
