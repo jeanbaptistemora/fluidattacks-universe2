@@ -1,22 +1,32 @@
 :global .btn-lbitbucket {
   background-color: #0747a6;
-  border-color: #0747a6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+:global .btn-lbitbucket:hover {
+  background-color: #053276;
 }
 
 :global .btn-lgoogle {
   background-color: #c00;
-  border-color: #a00;
-  margin-top: 1.5rem !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-:global .btn-login {
-  border-width: 1px;
-  font-size: 18px;
-  height: 40px;
-  margin-top: 5px;
+:global .btn-lgoogle:hover {
+  background-color: #8f0000;
 }
 
 :global .btn-lazure {
   background-color: #007bff;
-  border-color: #007bff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+:global .btn-lazure:hover {
+  background-color: #0063cc;
 }

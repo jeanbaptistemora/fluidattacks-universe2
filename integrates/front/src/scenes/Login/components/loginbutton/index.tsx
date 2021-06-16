@@ -23,13 +23,12 @@ const StyledLoginButton: StyledComponent<
     className,
     type,
   }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
-    className:
-      "dim w-100 flex ba br0 pa2 outline-0 pointer " +
-      "justify-between items-center btn-login white " +
-      `${className ?? ""}`,
+    className: `bn br2 f5 white pointer w-100 ${className ?? ""}`,
     type: type ?? "button",
   })
-)``;
+)`
+  padding: 1rem 1.5rem;
+`;
 
 const LoginButton: React.FC<ILoginButtonProps> = (
   props: Readonly<ILoginButtonProps>

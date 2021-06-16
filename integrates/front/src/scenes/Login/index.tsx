@@ -10,24 +10,13 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { track } from "mixpanel-browser";
-import React, { useEffect } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import { Slide, toast } from "react-toastify";
 
-import {
-  LoginButton,
-  LoginCommit,
-  LoginContainer,
-  LoginDeploymentDate,
-  LoginGrid,
-  LoginRow,
-  TwoFaButton,
-  TwoFacol,
-} from "./components";
+import { LoginButton, LoginContainer, LoginGrid } from "./components";
 
 import logo from "resources/asm.svg";
 import style from "scenes/Login/index.css";
-import { Col100 } from "styles/styledComponents";
 import {
   CI_COMMIT_SHA,
   CI_COMMIT_SHORT_SHA,
@@ -36,54 +25,6 @@ import {
 
 export const Login: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
-
-  // Event handlers 2FA notification Buttons
-  function handleNotificationGoogle(): void {
-    location.assign("https://bit.ly/2Gpjt6h");
-  }
-  function handleNotificationMicrosoft(): void {
-    location.assign("https://bit.ly/2Gp1L2X");
-  }
-  function handleNotificationBitbucket(): void {
-    location.assign("https://bit.ly/3it0Im7");
-  }
-
-  // Show 2FA Notification
-  useEffect((): void => {
-    toast.info(
-      <div className={"pa1-ns"}>
-        <div className={style.twoP}>
-          <Col100>
-            <p className={"mt1"}>{t("login.2fa")}</p>
-          </Col100>
-        </div>
-        <div className={"flex"}>
-          <TwoFacol>
-            <TwoFaButton
-              className={"btn-google"}
-              icon={<FontAwesomeIcon icon={faGoogle} size={"2x"} />}
-              onClick={handleNotificationGoogle}
-            />
-          </TwoFacol>
-          <TwoFacol>
-            <TwoFaButton
-              className={"btn-azure"}
-              icon={<FontAwesomeIcon icon={faWindows} size={"2x"} />}
-              onClick={handleNotificationMicrosoft}
-            />
-          </TwoFacol>
-          <TwoFacol>
-            <TwoFaButton
-              className={"btn-bitbucket"}
-              icon={<FontAwesomeIcon icon={faBitbucket} size={"2x"} />}
-              onClick={handleNotificationBitbucket}
-            />
-          </TwoFacol>
-        </div>
-      </div>,
-      { autoClose: false, className: style.twofactor, transition: Slide }
-    );
-  }, [t]);
 
   // Event handlers
   function handleBitbucketLogin(): void {
@@ -102,51 +43,63 @@ export const Login: React.FC = (): JSX.Element => {
   return (
     <LoginContainer>
       <LoginGrid>
-        <LoginRow>
-          <img alt={"logo"} src={logo} />
-        </LoginRow>
-        <LoginRow>
-          <p className={"mt0"}>{t("login.auth")}</p>
-          <p className={"mt0"}>{t("login.newuser")}</p>
-        </LoginRow>
-        <LoginRow>
-          <LoginButton
-            className={"btn-lgoogle"}
-            icon={<FontAwesomeIcon icon={faGoogle} size={"2x"} />}
-            id={"login-google"}
-            onClick={handleGoogleLogin}
-            text={t("login.google")}
-          />
-          <LoginButton
-            className={"btn-lazure"}
-            icon={<FontAwesomeIcon icon={faWindows} size={"2x"} />}
-            id={"login-microsoft"}
-            onClick={handleMicrosoftLogin}
-            text={t("login.microsoft")}
-          />
-          <LoginButton
-            className={"btn-lbitbucket"}
-            icon={<FontAwesomeIcon icon={faBitbucket} size={"2x"} />}
-            id={"login-bitbucket"}
-            onClick={handleBitbucketLogin}
-            text={t("login.bitbucket")}
-          />
-        </LoginRow>
+        <img alt={"logo"} src={logo} />
+        <p className={`tc mt4 mb4 ${style["text-color"]}`}>{t("login.auth")}</p>
+        <LoginButton
+          className={"btn-lgoogle mb2"}
+          icon={
+            <FontAwesomeIcon
+              className={"f3"}
+              fixedWidth={true}
+              icon={faGoogle}
+            />
+          }
+          id={"login-google"}
+          onClick={handleGoogleLogin}
+          text={t("login.google")}
+        />
+        <LoginButton
+          className={"btn-lazure mb2"}
+          icon={
+            <FontAwesomeIcon
+              className={"f3"}
+              fixedWidth={true}
+              icon={faWindows}
+            />
+          }
+          id={"login-microsoft"}
+          onClick={handleMicrosoftLogin}
+          text={t("login.microsoft")}
+        />
+        <LoginButton
+          className={"btn-lbitbucket mb0"}
+          icon={
+            <FontAwesomeIcon
+              className={"f3"}
+              fixedWidth={true}
+              icon={faBitbucket}
+            />
+          }
+          id={"login-bitbucket"}
+          onClick={handleBitbucketLogin}
+          text={t("login.bitbucket")}
+        />
+        <div className={`mt4 mb0 tc ${style["text-color"]}`}>
+          <p className={"mb0"}>
+            {t("info.deploymentDate")}&nbsp;
+            {INTEGRATES_DEPLOYMENT_DATE}
+          </p>
+          <a
+            className={style["link-default"]}
+            href={`https://gitlab.com/fluidattacks/product/-/tree/${CI_COMMIT_SHA}`}
+            rel={"noreferrer"}
+            target={"_blank"}
+          >
+            {t("info.commit")}&nbsp;
+            {CI_COMMIT_SHORT_SHA}
+          </a>
+        </div>
       </LoginGrid>
-      <LoginDeploymentDate>
-        {t("info.deploymentDate")}&nbsp;
-        {INTEGRATES_DEPLOYMENT_DATE}
-      </LoginDeploymentDate>
-      <LoginCommit>
-        {t("info.commit")}&nbsp;
-        <a
-          href={`https://gitlab.com/fluidattacks/product/-/tree/${CI_COMMIT_SHA}`}
-          rel={"noreferrer"}
-          target={"_blank"}
-        >
-          {CI_COMMIT_SHORT_SHA}
-        </a>
-      </LoginCommit>
     </LoginContainer>
   );
 };

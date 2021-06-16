@@ -1,10 +1,12 @@
-:local .twofactor {
-  background-color: #3d3c3c !important;
-  font-family: 'Source Sans Pro', sans-serif !important;
+:local .link-default {
+  text-decoration: underline;
+  color: #272727;
 }
 
-:local .twoP {
-  display: flex;
-  line-height: normal;
-  margin-left: -10px;
+:local .link-default:hover {
+  color: #ff3435;
+}
+
+:local .text-color {
+  color: #272727;
 }

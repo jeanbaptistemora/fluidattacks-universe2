@@ -8,7 +8,9 @@ const LoginGrid: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "login-grid center pa1",
-})``;
+  className: "br2 flex justify-center flex-column login-grid pa5-l pa5-m pa4",
+})`
+  background-color: #f4f4f6;
+`;
 
 export { LoginGrid };

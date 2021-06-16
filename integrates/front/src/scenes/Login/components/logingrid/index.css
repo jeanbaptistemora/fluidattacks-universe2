@@ -1,11 +1,3 @@
 :global .login-grid {
-  height: 400px;
-  width: 405px;
-}
-
-@media (max-width: 450px) {
-  :global .login-grid {
-    height: unset;
-    width: unset;
-  }
+  width: 500px;
 }

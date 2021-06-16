@@ -14,7 +14,7 @@ def test_others_login_screen(
     driver.get(integrates_endpoint)
     assert utils.wait_for_text(
         driver,
-        "Please authenticate to proceed.",
+        "please authenticate to proceed.",
         timeout,
     )
 
