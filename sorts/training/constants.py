@@ -1,6 +1,7 @@
 import boto3
 from sagemaker.tuner import (
     CategoricalParameter,
+    ContinuousParameter,
     IntegerParameter,
 )
 
@@ -76,6 +77,7 @@ MODEL_HYPERPARAMETERS = {
         "loss": CategoricalParameter(["deviance", "exponential"]),
         "max_depth": IntegerParameter(3, 5),
         "n_estimators": IntegerParameter(105, 115),
+        "learning_rate": ContinuousParameter(0.03, 0.1),
     },
     "adaboostclassifier": {
         "algorithm": CategoricalParameter(["SAMME", "SAMME.R"]),
