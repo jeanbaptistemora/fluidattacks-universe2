@@ -1,0 +1,57 @@
+F046_APK.description:
+  en: >
+    It is possible
+    to obtain source code
+    of the application
+    because it has not been obfuscated
+    using a secure mechanism.
+    This could allow an attacker
+    to understand the inner workings
+    of the application
+    or get technical
+    or sensitive information.
+  es: >
+    Es posible
+    obtener el código fuente
+    de la aplicación
+    porque este no se ha ofuscado
+    usando un mecanismo seguro.
+    Esto podría permitir a un atacante
+    entender el funcionamiento interno
+    de la aplicación
+    o obtener información técnica
+    o sensible.
+F046_APK.impact:
+  en: >
+    Get technical
+    or sensitive information
+    from the application's source code.
+  es: >
+    Obtener información técnica
+    o sensible
+    a partir del código fuente de la aplicación.
+F046_APK.recommendation:
+  en: >
+    Obfuscate the application's source code
+    at deploy time.
+  es: >
+    Ofuscar el código fuente de la aplicación
+    al momento del despliegue.
+F046_APK.requirements:
+  en: R159. Obfuscate code.
+  es: >
+    R159. El código fuente
+    debe estar ofuscado
+    en ambiente de producción.
+F046_APK.threat:
+  en: >
+    Unauthorized attacker
+    from internet network
+    with access to the APK.
+  es: >
+    Atacante sin autorización
+    desde internet
+    con acceso a el APK.
+F046_APK.title:
+  en: F046. Missing secure obfuscation - APK
+  es: F046. Ausencia de ofuscación segura - APK
