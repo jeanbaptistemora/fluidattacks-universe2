@@ -23,6 +23,9 @@ from lib_path.analyze import (
 from lib_root.analyze import (
     analyze as analyze_root,
 )
+from lib_ssl.analyze import (
+    analyze as analyze_ssl,
+)
 from model import (
     core_model,
 )
@@ -87,6 +90,11 @@ async def execute_skims(token: Optional[str]) -> bool:
                 *(
                     [analyze_root(stores=stores)]
                     if CTX.config.path.lib_root and CTX.config.path.include
+                    else []
+                ),
+                *(
+                    [analyze_ssl(stores=stores)]
+                    if CTX.config.ssl.include
                     else []
                 ),
             )
