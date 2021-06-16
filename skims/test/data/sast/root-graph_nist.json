@@ -14516,6 +14516,7 @@
             "label_c": 41,
             "label_field_name": "520",
             "label_field_type": "519",
+            "label_input_type": "F001_C_SHARP_SQL,F004,F008,F021,F063_PATH_TRAVERSAL,F107",
             "label_l": 72,
             "label_type": "parameter"
           },
@@ -15434,6 +15435,7 @@
             "label_c": 41,
             "label_field_name": "656",
             "label_field_type": "655",
+            "label_input_type": "F001_C_SHARP_SQL,F004,F008,F021,F063_PATH_TRAVERSAL,F107",
             "label_l": 93,
             "label_type": "parameter"
           },
@@ -15459,6 +15461,7 @@
             "label_c": 49,
             "label_field_name": "665",
             "label_field_type": "664",
+            "label_input_type": "F001_C_SHARP_SQL,F004,F008,F021,F063_PATH_TRAVERSAL,F107",
             "label_l": 93,
             "label_type": "parameter"
           },

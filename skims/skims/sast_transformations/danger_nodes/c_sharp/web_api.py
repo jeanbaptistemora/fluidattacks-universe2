@@ -29,6 +29,12 @@ def mark_metadata(
         }
     )
     http_actions = {"Post", "Delete", "Get", "Put"}
+    danger_attributes = {
+        "HttpGet",
+        "HttpPut",
+        "HttpPost",
+        "HttpDelete",
+    }
     danger_classes = tuple(
         _class
         for _class in metadata.c_sharp.classes.values()
@@ -39,6 +45,11 @@ def mark_metadata(
             _method
             for _method in _class.methods.values()
             if any(_method.name.startswith(action) for action in http_actions)
+            or (
+                set(getattr(_method, "attributes", list())).intersection(
+                    danger_attributes
+                )
+            )
         )
         parameters = tuple(
             _parameter
