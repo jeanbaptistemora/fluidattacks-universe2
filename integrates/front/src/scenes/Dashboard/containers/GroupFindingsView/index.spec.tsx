@@ -31,7 +31,7 @@ describe("GroupFindingsView", (): void => {
       result: {
         data: {
           group: {
-            __typename: "Project",
+            __typename: "Group",
             findings: [
               {
                 __typename: "Finding",
@@ -88,7 +88,7 @@ describe("GroupFindingsView", (): void => {
       result: {
         data: {
           group: {
-            __typename: "Project",
+            __typename: "Group",
             findings: [
               {
                 __typename: "Finding",

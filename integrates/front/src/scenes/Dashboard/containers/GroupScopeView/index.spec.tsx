@@ -42,7 +42,7 @@ describe("GroupScopeView", (): void => {
       result: {
         data: {
           group: {
-            __typename: "Project",
+            __typename: "Group",
             name: "unittesting",
             roots: [
               {
@@ -121,7 +121,7 @@ describe("GroupScopeView", (): void => {
       },
       result: {
         data: {
-          group: { __typename: "Project", name: "unittesting", roots: [] },
+          group: { __typename: "Group", name: "unittesting", roots: [] },
         },
       },
     };
@@ -150,7 +150,7 @@ describe("GroupScopeView", (): void => {
       result: {
         data: {
           group: {
-            __typename: "Project",
+            __typename: "Group",
             name: "unittesting",
             roots: [
               {
@@ -264,7 +264,7 @@ describe("GroupScopeView", (): void => {
       result: {
         data: {
           group: {
-            __typename: "Project",
+            __typename: "Group",
             name: "unittesting",
             roots: [
               {
@@ -315,7 +315,7 @@ describe("GroupScopeView", (): void => {
       result: {
         data: {
           group: {
-            __typename: "Project",
+            __typename: "Group",
             name: "unittesting",
             roots: [
               {
@@ -447,7 +447,7 @@ describe("GroupScopeView", (): void => {
       result: {
         data: {
           group: {
-            __typename: "Project",
+            __typename: "Group",
             name: "unittesting",
             roots: [
               {
@@ -496,7 +496,7 @@ describe("GroupScopeView", (): void => {
       result: {
         data: {
           group: {
-            __typename: "Project",
+            __typename: "Group",
             name: "unittesting",
             roots: [
               {
@@ -596,7 +596,7 @@ describe("GroupScopeView", (): void => {
         result: {
           data: {
             group: {
-              __typename: "Project",
+              __typename: "Group",
               name: "unittesting",
               roots: [
                 {
@@ -647,7 +647,7 @@ describe("GroupScopeView", (): void => {
         result: {
           data: {
             group: {
-              __typename: "Project",
+              __typename: "Group",
               name: "unittesting",
               roots: [
                 {

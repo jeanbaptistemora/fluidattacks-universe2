@@ -32,7 +32,7 @@ describe("GroupToeLinesView", (): void => {
       result: {
         data: {
           group: {
-            __typename: "Project",
+            __typename: "Group",
             name: "unittesting",
             roots: [
               {

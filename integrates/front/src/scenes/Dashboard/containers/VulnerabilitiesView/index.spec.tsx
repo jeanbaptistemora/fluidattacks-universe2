@@ -110,7 +110,7 @@ describe("VulnerabilitiesView", (): void => {
           ],
         },
         group: {
-          __typename: "Project",
+          __typename: "Group",
           name: "testgroup",
           subscription: "continuous",
         },
