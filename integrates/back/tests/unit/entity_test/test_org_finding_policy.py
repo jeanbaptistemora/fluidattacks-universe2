@@ -1,3 +1,4 @@
+# pylint: disable=too-many-statements
 from api.schema import (
     SCHEMA,
 )
@@ -202,7 +203,7 @@ async def test_handle_org_finding_policy_acceptation() -> None:
 
 
 @pytest.mark.changes_db
-async def test_deactivate_org_finding_policy() -> None:  # pylint: disable=too-many-statements
+async def test_deactivate_org_finding_policy() -> None:
     org_name = "okada"
     finding_name = "F081. Ausencia de doble factor de autenticación"
     finding_id = "475041513"

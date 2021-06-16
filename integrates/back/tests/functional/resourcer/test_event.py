@@ -1,3 +1,4 @@
+# pylint: disable=too-many-statements, too-many-locals
 from back.tests.functional.resourcer.utils import (
     get_result,
 )
@@ -20,7 +21,7 @@ from typing import (
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("old")
-async def test_event() -> None:  # pylint: disable=too-many-statements, too-many-locals
+async def test_event() -> None:
     context = get_new_context()
     today = datetime_utils.get_as_str(
         datetime_utils.get_now(), date_format="%Y-%m-%d"
