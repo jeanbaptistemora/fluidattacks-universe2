@@ -445,15 +445,12 @@ def match_ast_group(
     *label_type: str,
 ) -> Dict[str, List[str]]:
     index: int = 0
-    nodes: Dict[str, List[str]] = dict.fromkeys(label_type)
+    nodes: Dict[str, List[str]] = {label: list() for label in label_type}
 
     for c_id in adj_ast(graph, n_id):
         c_type = graph.nodes[c_id]["label_type"]
         if c_type in nodes:
-            if not nodes[c_type]:
-                nodes[c_type] = [c_id]
-            else:
-                nodes[c_type].append(c_id)
+            nodes[c_type].append(c_id)
         else:
             nodes[f"__{index}__"] = c_id
             index += 1

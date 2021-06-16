@@ -4422,16 +4422,19 @@
               "inherit": "AbstractTestCaseWeb",
               "methods": {
                 ".Bad": {
+                  "attributes": [],
                   "class_name": ".CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01",
                   "n_id": "52",
                   "name": "Bad",
                   "parameters": {
                     "req": {
+                      "attributes": [],
                       "n_id": "61",
                       "name": "req",
                       "type_name": "HttpRequest"
                     },
                     "resp": {
+                      "attributes": [],
                       "n_id": "65",
                       "name": "resp",
                       "type_name": "HttpResponse"
@@ -4448,16 +4451,19 @@
               "inherit": "AbstractTestCaseWeb",
               "methods": {
                 ".Bad": {
+                  "attributes": [],
                   "class_name": ".CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01",
                   "n_id": "52",
                   "name": "Bad",
                   "parameters": {
                     "req": {
+                      "attributes": [],
                       "n_id": "61",
                       "name": "req",
                       "type_name": "HttpRequest"
                     },
                     "resp": {
+                      "attributes": [],
                       "n_id": "65",
                       "name": "resp",
                       "type_name": "HttpResponse"
@@ -12286,11 +12292,13 @@
               "inherit": "ApiController",
               "methods": {
                 ".Delete": {
+                  "attributes": [],
                   "class_name": ".StudentController",
                   "n_id": "468",
                   "name": "Delete",
                   "parameters": {
                     "id": {
+                      "attributes": [],
                       "n_id": "475",
                       "name": "id",
                       "type_name": "int"
@@ -12300,11 +12308,13 @@
                   "static": false
                 },
                 ".GetStudentById": {
+                  "attributes": [],
                   "class_name": ".StudentController",
                   "n_id": "22",
                   "name": "GetStudentById",
                   "parameters": {
                     "id": {
+                      "attributes": [],
                       "n_id": "29",
                       "name": "id",
                       "type_name": "int"
@@ -12314,11 +12324,13 @@
                   "static": false
                 },
                 ".PostNewStudent": {
+                  "attributes": [],
                   "class_name": ".StudentController",
                   "n_id": "185",
                   "name": "PostNewStudent",
                   "parameters": {
                     "student": {
+                      "attributes": [],
                       "n_id": "192",
                       "name": "student",
                       "type_name": "StudentViewModel"
@@ -12328,11 +12340,13 @@
                   "static": false
                 },
                 ".Put": {
+                  "attributes": [],
                   "class_name": ".StudentController",
                   "n_id": "303",
                   "name": "Put",
                   "parameters": {
                     "student": {
+                      "attributes": [],
                       "n_id": "310",
                       "name": "student",
                       "type_name": "StudentViewModel"

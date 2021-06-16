@@ -238,11 +238,30 @@ def _get_method_name(
     return graph.nodes[_identifiers[0]]["label_text"]
 
 
+def _get_metadata_attributes(
+    graph: graph_model.Graph,
+    declaration_id: str,
+) -> List[str]:
+    attributes = list()
+    attributes_match = g.match_ast_group(
+        graph,
+        declaration_id,
+        "attribute_list",
+    )
+    for attribute_list in attributes_match["attribute_list"]:
+        match_attribute = g.match_ast_group(graph, attribute_list, "attribute")
+        for attribute in match_attribute["attribute"]:
+            match = g.match_ast(graph, attribute, "__0__")
+            name = build_type_name(graph, match["__0__"])
+            attributes.append(name)
+    return attributes
+
+
 def _get_metadata_class_methods(
     graph: graph_model.Graph,
     n_id: str,
 ) -> Dict[str, graph_model.GraphShardMetadataClassField]:
-    methods: Dict[str, graph_model.GraphShardMetadataClassMethod] = {}
+    methods: Dict[str, graph_model.GraphShardMetadataCSharpMethod] = {}
 
     class_body_id = g.match_ast(graph, n_id, "declaration_list")[
         "declaration_list"
@@ -264,6 +283,7 @@ def _get_metadata_class_methods(
                 "qualified_name",
                 "predefined_type",
                 "void_keyword",
+                "attribute_list",
             )
             _name = _get_method_name(graph, method_id)
             _parameters = {
@@ -277,12 +297,14 @@ def _get_metadata_class_methods(
                 g.match_ast(graph, modifier, "static")["static"]
                 for modifier in match_method["modifier"] or list()
             )
-            methods["." + _name] = graph_model.GraphShardMetadataClassMethod(
+
+            methods["." + _name] = graph_model.GraphShardMetadataCSharpMethod(
                 method_id,
                 class_name,
                 name=_name,
                 static=is_static,
                 parameters=_parameters,
+                attributes=_get_metadata_attributes(graph, method_id),
                 return_type=_get_method_return_type(graph, method_id),
             )
         elif graph.nodes[method_id]["label_type"] == "constructor_declaration":
@@ -318,7 +340,7 @@ def _get_metadata_class_methods(
 def _get_metadata_method_parameters(
     graph: graph_model.Graph,
     n_id: str,
-) -> List[graph_model.GraphShardMetadataParameter]:
+) -> List[graph_model.GraphShardMetadataCSharpParameter]:
     parameters = list()
     match = g.match_ast_group(
         graph,
@@ -331,19 +353,21 @@ def _get_metadata_method_parameters(
             param_id,
             "__0__",
             "__1__",
+            "attribute_list",
         )
         if (
-            len(match_param) == 2
+            len(match_param) >= 2
             and (_param_type_id := match_param["__0__"])
             and (_param_name_id := match_param["__1__"])
         ):
             _param_type = build_type_name(graph, _param_type_id)
             _param_name = graph.nodes[_param_name_id]["label_text"]
             parameters.append(
-                graph_model.GraphShardMetadataParameter(
+                graph_model.GraphShardMetadataCSharpParameter(
                     param_id,
                     name=_param_name,
                     type_name=_param_type,
+                    attributes=_get_metadata_attributes(graph, param_id),
                 )
             )
     return parameters

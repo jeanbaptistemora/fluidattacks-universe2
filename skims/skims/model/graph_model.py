@@ -276,6 +276,13 @@ class GraphShardMetadataParameter(NamedTuple):
     type_name: str
 
 
+class GraphShardMetadataCSharpParameter(NamedTuple):
+    n_id: NId
+    name: str
+    type_name: str
+    attributes: Optional[List[str]] = None
+
+
 class GraphShardMetadataClassMethod(NamedTuple):
     n_id: NId
     class_name: Optional[str] = None
@@ -283,6 +290,16 @@ class GraphShardMetadataClassMethod(NamedTuple):
     parameters: Optional[Dict[str, GraphShardMetadataParameter]] = None
     return_type: Optional[str] = None
     static: bool = False
+
+
+class GraphShardMetadataCSharpMethod(NamedTuple):
+    n_id: NId
+    class_name: Optional[str] = None
+    parameters: Optional[Dict[str, GraphShardMetadataCSharpParameter]] = None
+    name: Optional[str] = None
+    return_type: Optional[str] = None
+    static: bool = False
+    attributes: Optional[List[str]] = None
 
 
 class GraphShardMetadataClass(NamedTuple):
