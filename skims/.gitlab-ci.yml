@@ -151,6 +151,7 @@ skims.test.instance_references:
 
 skims.test.lib_apk:
   <<: *skims_test
+  tags: [autoscaling-large]
 
 skims.test.lib_http:
   <<: *skims_test

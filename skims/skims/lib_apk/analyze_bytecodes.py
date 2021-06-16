@@ -267,7 +267,7 @@ def _no_certs_pinning(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
-def add_no_update_enforce_location(
+def _add_no_update_enforce_location(
     ctx: APKCheckCtx,
     locations: Locations,
 ) -> None:
@@ -295,6 +295,24 @@ def add_no_update_enforce_location(
     )
 
 
+def _no_update_enforce(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
+    locations: Locations = Locations([])
+
+    if ctx.apk_ctx.analysis is not None:
+        if not any(
+            "AppUpdateManager" in class_.get_source()
+            for dvm in ctx.apk_ctx.analysis.vms
+            for class_ in dvm.get_classes()
+        ):
+            _add_no_update_enforce_location(ctx, locations)
+
+    return _create_vulns(
+        ctx=ctx,
+        finding=core_model.FindingEnum.F055_APK_UPDATES,
+        locations=locations,
+    )
+
+
 def get_check_ctx(apk_ctx: APKContext) -> APKCheckCtx:
     return APKCheckCtx(
         apk_ctx=apk_ctx,
@@ -307,5 +325,6 @@ CHECKS: Dict[
 ] = {
     core_model.FindingEnum.F048: _no_root_check,
     core_model.FindingEnum.F049_APK_PIN: _no_certs_pinning,
+    core_model.FindingEnum.F055_APK_UPDATES: _no_update_enforce,
     core_model.FindingEnum.F103_APK_UNSIGNED: _apk_unsigned,
 }
