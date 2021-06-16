@@ -85,8 +85,9 @@ def _list_mrs(
 
 class MrApi(NamedTuple):
     client: RawClient
+    proj: ProjectId
 
     def list_mrs(
-        self, proj: ProjectId, page: PageId, options: Optional[Options]
+        self, page: PageId, options: Optional[Options]
     ) -> IO[Response]:
-        return _list_mrs(self.client, proj, page, options)
+        return _list_mrs(self.client, self.proj, page, options)
