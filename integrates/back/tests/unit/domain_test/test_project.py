@@ -481,7 +481,7 @@ async def test_create_project_not_user_admin() -> None:
         ["oneshottest", "oneshot", False, False, False, True, True],
         ["not-exists", "continuous", True, True, True, True, False],
         ["not-exists", "continuous", False, False, False, False, False],
-    ],
+    ],  # pylint: disable=too-many-arguments
 )
 async def test_edit(
     group_name: str,

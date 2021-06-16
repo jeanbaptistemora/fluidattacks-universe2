@@ -1,3 +1,4 @@
+# pylint: disable=too-many-lines, too-many-arguments
 from api.schema import (
     SCHEMA,
 )
