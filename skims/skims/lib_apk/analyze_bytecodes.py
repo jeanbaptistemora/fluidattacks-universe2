@@ -267,6 +267,34 @@ def _no_certs_pinning(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
+def add_no_update_enforce_location(
+    ctx: APKCheckCtx,
+    locations: Locations,
+) -> None:
+    locations.append(
+        desc="no_update_enforce",
+        snippet=make_snippet(
+            content=textwrap.dedent(
+                f"""
+                $ python3.8
+
+                >>> # We'll use the version 3.3.5 of "androguard"
+                >>> from androguard.misc import AnalyzeAPK
+
+                >>> # Parse all Dalvik Executables (classes*.dex) in the APK
+                >>> dvms = AnalyzeAPK({repr(ctx.apk_ctx.path)})[1]
+
+                >>> # Check if the source code calls the AppUpdateManager API
+                >>> any("AppUpdateManager" in class_def.get_source()
+                        for dvm in dvms
+                        for class_def in dvm.get_classes())
+                False # Code does not use the in-app updates API
+                """,
+            )
+        ),
+    )
+
+
 def get_check_ctx(apk_ctx: APKContext) -> APKCheckCtx:
     return APKCheckCtx(
         apk_ctx=apk_ctx,
