@@ -1,3 +1,4 @@
+# pylint: disable=unnecessary-comprehension
 from decimal import (
     Decimal,
 )

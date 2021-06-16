@@ -149,20 +149,20 @@ async def test_grant_stakeholder_organization_access() -> None:
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
     stakeholder = "org_testuser6@gmail.com"
     query = Template(
-        f"""
-        mutation {{
+        """
+        mutation {
             grantStakeholderOrganizationAccess(
                 organizationId: "$org_id",
                 phoneNumber: "-",
                 role: $role,
                 userEmail: "$email"
-            ) {{
+            ) {
                 success
-                grantedStakeholder {{
+                grantedStakeholder {
                     email
-                }}
-            }}
-        }}
+                }
+            }
+        }
     """
     )
 
