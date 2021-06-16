@@ -111,6 +111,10 @@
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
+  "F046_APK": {
+    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
+    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
+  },
   "F048": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}

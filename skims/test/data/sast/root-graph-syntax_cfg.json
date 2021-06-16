@@ -74,6 +74,9 @@
   "F043_DAST_XCTO": {
     "skims/test/data/sast/TestCFG.java": {}
   },
+  "F046_APK": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
   "F048": {
     "skims/test/data/sast/TestCFG.java": {}
   },
