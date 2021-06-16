@@ -1,3 +1,6 @@
+lib_apk.analyze_bytecodes.no_obfuscation:
+  en: '{desc_class_name} is not obfuscated'
+  es: '{desc_class_name} no esta ofuscado'
 F046_APK.description:
   en: >
     It is possible
@@ -33,10 +36,16 @@ F046_APK.impact:
 F046_APK.recommendation:
   en: >
     Obfuscate the application's source code
-    at deploy time.
+    at deploy time
+    with tools like:
+    https://github.com/ClaudiuGeorgiu/Obfuscapk
+    in its strongest configuration.
   es: >
     Ofuscar el código fuente de la aplicación
-    al momento del despliegue.
+    al momento del despliegue
+    con herramientas como:
+    https://github.com/ClaudiuGeorgiu/Obfuscapk
+    en su configuración más fuerte.
 F046_APK.requirements:
   en: R159. Obfuscate code.
   es: >

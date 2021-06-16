@@ -1,4 +1,300 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
+F046_APK,inputs,examples/android/abcore/app-prod-debug.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",F046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
+>  1 | package android.support.annotation;
+   2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
+   3 |     private static final synthetic android.support.annotation.RestrictTo$Scope[] $VALUES;
+   4 |     public static final enum android.support.annotation.RestrictTo$Scope GROUP_ID;
+   5 |     public static final enum android.support.annotation.RestrictTo$Scope LIBRARY;
+   6 |     public static final enum android.support.annotation.RestrictTo$Scope LIBRARY_GROUP;
+   7 |     public static final enum android.support.annotation.RestrictTo$Scope SUBCLASSES;
+   8 |     public static final enum android.support.annotation.RestrictTo$Scope TESTS;
+   9 |
+  10 |     static RestrictTo$Scope()
+  11 |     {
+  12 |         android.support.annotation.RestrictTo$Scope.LIBRARY = new android.support.annotation.RestrictTo$Scope(""LIBRARY"",
+     |  0);
+  13 |         android.support.annotation.RestrictTo$Scope.LIBRARY_GROUP = new android.support.annotation.RestrictTo$Scope(""LIB
+     | RARY_GROUP"", 1);
+  14 |         android.support.annotation.RestrictTo$Scope.GROUP_ID = new android.support.annotation.RestrictTo$Scope(""GROUP_ID
+     | "", 2);
+  15 |         android.support.annotation.RestrictTo$Scope.TESTS = new android.support.annotation.RestrictTo$Scope(""TESTS"", 3);
+  16 |         android.support.annotation.RestrictTo$Scope.SUBCLASSES = new android.support.annotation.RestrictTo$Scope(""SUBCLA
+     | SSES"", 4);
+  17 |         android.support.annotation.RestrictTo$Scope[] v0_8 = new android.support.annotation.RestrictTo$Scope[5];
+     ^ Col 0
+"
+F046_APK,inputs,examples/tests/com.android.example.text.styling.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",F046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
+>  1 | package android.support.annotation;
+   2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
+   3 |     private static final synthetic android.support.annotation.RestrictTo$Scope[] $VALUES;
+   4 |     public static final enum android.support.annotation.RestrictTo$Scope GROUP_ID;
+   5 |     public static final enum android.support.annotation.RestrictTo$Scope LIBRARY;
+   6 |     public static final enum android.support.annotation.RestrictTo$Scope LIBRARY_GROUP;
+   7 |     public static final enum android.support.annotation.RestrictTo$Scope SUBCLASSES;
+   8 |     public static final enum android.support.annotation.RestrictTo$Scope TESTS;
+   9 |
+  10 |     static RestrictTo$Scope()
+  11 |     {
+  12 |         android.support.annotation.RestrictTo$Scope.LIBRARY = new android.support.annotation.RestrictTo$Scope(""LIBRARY"",
+     |  0);
+  13 |         android.support.annotation.RestrictTo$Scope.LIBRARY_GROUP = new android.support.annotation.RestrictTo$Scope(""LIB
+     | RARY_GROUP"", 1);
+  14 |         android.support.annotation.RestrictTo$Scope.GROUP_ID = new android.support.annotation.RestrictTo$Scope(""GROUP_ID
+     | "", 2);
+  15 |         android.support.annotation.RestrictTo$Scope.TESTS = new android.support.annotation.RestrictTo$Scope(""TESTS"", 3);
+  16 |         android.support.annotation.RestrictTo$Scope.SUBCLASSES = new android.support.annotation.RestrictTo$Scope(""SUBCLA
+     | SSES"", 4);
+  17 |         android.support.annotation.RestrictTo$Scope[] v0_8 = new android.support.annotation.RestrictTo$Scope[5];
+     ^ Col 0
+"
+F046_APK,inputs,examples/tests/com.example.android.tvleanback.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",F046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
+>  1 | package android.support.annotation;
+   2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
+   3 |     private static final synthetic android.support.annotation.RestrictTo$Scope[] $VALUES;
+   4 |     public static final enum android.support.annotation.RestrictTo$Scope GROUP_ID;
+   5 |     public static final enum android.support.annotation.RestrictTo$Scope LIBRARY;
+   6 |     public static final enum android.support.annotation.RestrictTo$Scope LIBRARY_GROUP;
+   7 |     public static final enum android.support.annotation.RestrictTo$Scope SUBCLASSES;
+   8 |     public static final enum android.support.annotation.RestrictTo$Scope TESTS;
+   9 |
+  10 |     static RestrictTo$Scope()
+  11 |     {
+  12 |         android.support.annotation.RestrictTo$Scope.LIBRARY = new android.support.annotation.RestrictTo$Scope(""LIBRARY"",
+     |  0);
+  13 |         android.support.annotation.RestrictTo$Scope.LIBRARY_GROUP = new android.support.annotation.RestrictTo$Scope(""LIB
+     | RARY_GROUP"", 1);
+  14 |         android.support.annotation.RestrictTo$Scope.GROUP_ID = new android.support.annotation.RestrictTo$Scope(""GROUP_ID
+     | "", 2);
+  15 |         android.support.annotation.RestrictTo$Scope.TESTS = new android.support.annotation.RestrictTo$Scope(""TESTS"", 3);
+  16 |         android.support.annotation.RestrictTo$Scope.SUBCLASSES = new android.support.annotation.RestrictTo$Scope(""SUBCLA
+     | SSES"", 4);
+  17 |         android.support.annotation.RestrictTo$Scope[] v0_8 = new android.support.annotation.RestrictTo$Scope[5];
+     ^ Col 0
+"
+F046_APK,inputs,examples/tests/com.example.android.wearable.wear.weardrawers.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",F046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
+>  1 | package android.support.annotation;
+   2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
+   3 |     private static final synthetic android.support.annotation.RestrictTo$Scope[] $VALUES;
+   4 |     public static final enum android.support.annotation.RestrictTo$Scope GROUP_ID;
+   5 |     public static final enum android.support.annotation.RestrictTo$Scope LIBRARY;
+   6 |     public static final enum android.support.annotation.RestrictTo$Scope LIBRARY_GROUP;
+   7 |     public static final enum android.support.annotation.RestrictTo$Scope SUBCLASSES;
+   8 |     public static final enum android.support.annotation.RestrictTo$Scope TESTS;
+   9 |
+  10 |     static RestrictTo$Scope()
+  11 |     {
+  12 |         android.support.annotation.RestrictTo$Scope.LIBRARY = new android.support.annotation.RestrictTo$Scope(""LIBRARY"",
+     |  0);
+  13 |         android.support.annotation.RestrictTo$Scope.LIBRARY_GROUP = new android.support.annotation.RestrictTo$Scope(""LIB
+     | RARY_GROUP"", 1);
+  14 |         android.support.annotation.RestrictTo$Scope.GROUP_ID = new android.support.annotation.RestrictTo$Scope(""GROUP_ID
+     | "", 2);
+  15 |         android.support.annotation.RestrictTo$Scope.TESTS = new android.support.annotation.RestrictTo$Scope(""TESTS"", 3);
+  16 |         android.support.annotation.RestrictTo$Scope.SUBCLASSES = new android.support.annotation.RestrictTo$Scope(""SUBCLA
+     | SSES"", 4);
+  17 |         android.support.annotation.RestrictTo$Scope[] v0_8 = new android.support.annotation.RestrictTo$Scope[5];
+     ^ Col 0
+"
+F046_APK,inputs,examples/tests/com.test.intent_filter.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",F046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
+>  1 | package android.support.annotation;
+   2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
+   3 |     private static final synthetic android.support.annotation.RestrictTo$Scope[] $VALUES;
+   4 |     public static final enum android.support.annotation.RestrictTo$Scope GROUP_ID;
+   5 |     public static final enum android.support.annotation.RestrictTo$Scope LIBRARY;
+   6 |     public static final enum android.support.annotation.RestrictTo$Scope LIBRARY_GROUP;
+   7 |     public static final enum android.support.annotation.RestrictTo$Scope SUBCLASSES;
+   8 |     public static final enum android.support.annotation.RestrictTo$Scope TESTS;
+   9 |
+  10 |     static RestrictTo$Scope()
+  11 |     {
+  12 |         android.support.annotation.RestrictTo$Scope.LIBRARY = new android.support.annotation.RestrictTo$Scope(""LIBRARY"",
+     |  0);
+  13 |         android.support.annotation.RestrictTo$Scope.LIBRARY_GROUP = new android.support.annotation.RestrictTo$Scope(""LIB
+     | RARY_GROUP"", 1);
+  14 |         android.support.annotation.RestrictTo$Scope.GROUP_ID = new android.support.annotation.RestrictTo$Scope(""GROUP_ID
+     | "", 2);
+  15 |         android.support.annotation.RestrictTo$Scope.TESTS = new android.support.annotation.RestrictTo$Scope(""TESTS"", 3);
+  16 |         android.support.annotation.RestrictTo$Scope.SUBCLASSES = new android.support.annotation.RestrictTo$Scope(""SUBCLA
+     | SSES"", 4);
+  17 |         android.support.annotation.RestrictTo$Scope[] v0_8 = new android.support.annotation.RestrictTo$Scope[5];
+     ^ Col 0
+"
+F046_APK,inputs,examples/tests/hello-world.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",F046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
+>  1 | package android.support.annotation;
+   2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
+   3 |     private static final synthetic android.support.annotation.RestrictTo$Scope[] $VALUES;
+   4 |     public static final enum android.support.annotation.RestrictTo$Scope GROUP_ID;
+   5 |     public static final enum android.support.annotation.RestrictTo$Scope LIBRARY;
+   6 |     public static final enum android.support.annotation.RestrictTo$Scope LIBRARY_GROUP;
+   7 |     public static final enum android.support.annotation.RestrictTo$Scope SUBCLASSES;
+   8 |     public static final enum android.support.annotation.RestrictTo$Scope TESTS;
+   9 |
+  10 |     static RestrictTo$Scope()
+  11 |     {
+  12 |         android.support.annotation.RestrictTo$Scope.LIBRARY = new android.support.annotation.RestrictTo$Scope(""LIBRARY"",
+     |  0);
+  13 |         android.support.annotation.RestrictTo$Scope.LIBRARY_GROUP = new android.support.annotation.RestrictTo$Scope(""LIB
+     | RARY_GROUP"", 1);
+  14 |         android.support.annotation.RestrictTo$Scope.GROUP_ID = new android.support.annotation.RestrictTo$Scope(""GROUP_ID
+     | "", 2);
+  15 |         android.support.annotation.RestrictTo$Scope.TESTS = new android.support.annotation.RestrictTo$Scope(""TESTS"", 3);
+  16 |         android.support.annotation.RestrictTo$Scope.SUBCLASSES = new android.support.annotation.RestrictTo$Scope(""SUBCLA
+     | SSES"", 4);
+  17 |         android.support.annotation.RestrictTo$Scope[] v0_8 = new android.support.annotation.RestrictTo$Scope[5];
+     ^ Col 0
+"
+F046_APK,inputs,examples/tests/a2dp.Vol_137.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",F046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
+>  1 | package android.support.annotation;
+   2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
+   3 |     private static final synthetic android.support.annotation.RestrictTo$Scope[] $VALUES;
+   4 |     public static final enum android.support.annotation.RestrictTo$Scope GROUP_ID;
+   5 |     public static final enum android.support.annotation.RestrictTo$Scope SUBCLASSES;
+   6 |     public static final enum android.support.annotation.RestrictTo$Scope TESTS;
+   7 |
+   8 |     static RestrictTo$Scope()
+   9 |     {
+  10 |         android.support.annotation.RestrictTo$Scope.GROUP_ID = new android.support.annotation.RestrictTo$Scope(""GROUP_ID
+     | "", 0);
+  11 |         android.support.annotation.RestrictTo$Scope.TESTS = new android.support.annotation.RestrictTo$Scope(""TESTS"", 1);
+  12 |         android.support.annotation.RestrictTo$Scope.SUBCLASSES = new android.support.annotation.RestrictTo$Scope(""SUBCLA
+     | SSES"", 2);
+  13 |         android.support.annotation.RestrictTo$Scope[] v0_3 = new android.support.annotation.RestrictTo$Scope[3];
+  14 |         v0_3[0] = android.support.annotation.RestrictTo$Scope.GROUP_ID;
+  15 |         v0_3[1] = android.support.annotation.RestrictTo$Scope.TESTS;
+  16 |         v0_3[2] = android.support.annotation.RestrictTo$Scope.SUBCLASSES;
+  17 |         android.support.annotation.RestrictTo$Scope.$VALUES = v0_3;
+  18 |         return;
+  19 |     }
+     ^ Col 0
+"
+F046_APK,inputs,examples/tests/partialsignature.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",F046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
+>  1 | package android.support.annotation;
+   2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
+   3 |     private static final synthetic android.support.annotation.RestrictTo$Scope[] $VALUES;
+   4 |     public static final enum android.support.annotation.RestrictTo$Scope GROUP_ID;
+   5 |     public static final enum android.support.annotation.RestrictTo$Scope SUBCLASSES;
+   6 |     public static final enum android.support.annotation.RestrictTo$Scope TESTS;
+   7 |
+   8 |     static RestrictTo$Scope()
+   9 |     {
+  10 |         android.support.annotation.RestrictTo$Scope.GROUP_ID = new android.support.annotation.RestrictTo$Scope(""GROUP_ID
+     | "", 0);
+  11 |         android.support.annotation.RestrictTo$Scope.TESTS = new android.support.annotation.RestrictTo$Scope(""TESTS"", 1);
+  12 |         android.support.annotation.RestrictTo$Scope.SUBCLASSES = new android.support.annotation.RestrictTo$Scope(""SUBCLA
+     | SSES"", 2);
+  13 |         android.support.annotation.RestrictTo$Scope[] v0_3 = new android.support.annotation.RestrictTo$Scope[3];
+  14 |         v0_3[0] = android.support.annotation.RestrictTo$Scope.GROUP_ID;
+  15 |         v0_3[1] = android.support.annotation.RestrictTo$Scope.TESTS;
+  16 |         v0_3[2] = android.support.annotation.RestrictTo$Scope.SUBCLASSES;
+  17 |         android.support.annotation.RestrictTo$Scope.$VALUES = v0_3;
+  18 |         return;
+  19 |     }
+     ^ Col 0
+"
+F046_APK,inputs,examples/tests/com.example.android.wearable.wear.weardrawers.apk (namespace),android/support/compat/R$attr is not obfuscated,1269,"home,apk,bytecodes",F046. Missing secure obfuscation - APK,android/support/compat/R$attr is not obfuscated,"
+>  1 | package android.support.compat;
+   2 | public final class R$attr {
+   3 |     public static final int font = 2130968643;
+   4 |     public static final int fontProviderAuthority = 2130968644;
+   5 |     public static final int fontProviderCerts = 2130968645;
+   6 |     public static final int fontProviderFetchStrategy = 2130968646;
+   7 |     public static final int fontProviderFetchTimeout = 2130968647;
+   8 |     public static final int fontProviderPackage = 2130968648;
+   9 |     public static final int fontProviderQuery = 2130968649;
+  10 |     public static final int fontStyle = 2130968650;
+  11 |     public static final int fontWeight = 2130968651;
+  12 |
+  13 |     public R$attr()
+  14 |     {
+  15 |         return;
+  16 |     }
+  17 | }
+     ^ Col 0
+"
+F046_APK,inputs,examples/android/abcore/app-prod-debug.apk (namespace),android/support/compat/R$attr is not obfuscated,1269,"home,apk,bytecodes",F046. Missing secure obfuscation - APK,android/support/compat/R$attr is not obfuscated,"
+>  1 | package android.support.compat;
+   2 | public final class R$attr {
+   3 |     public static final int font = 2130968718;
+   4 |     public static final int fontProviderAuthority = 2130968720;
+   5 |     public static final int fontProviderCerts = 2130968721;
+   6 |     public static final int fontProviderFetchStrategy = 2130968722;
+   7 |     public static final int fontProviderFetchTimeout = 2130968723;
+   8 |     public static final int fontProviderPackage = 2130968724;
+   9 |     public static final int fontProviderQuery = 2130968725;
+  10 |     public static final int fontStyle = 2130968726;
+  11 |     public static final int fontWeight = 2130968727;
+  12 |
+  13 |     public R$attr()
+  14 |     {
+  15 |         return;
+  16 |     }
+  17 | }
+     ^ Col 0
+"
+F046_APK,inputs,examples/android/Invalid/Invalid.apk (namespace),android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl is not obfuscated,1269,"home,apk,bytecodes",F046. Missing secure obfuscation - APK,android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl is not obfuscated,"
+>  1 | package android.support.v4.accessibilityservice;
+   2 | interface AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl {
+   3 |
+   4 |     public abstract boolean getCanRetrieveWindowContent();
+   5 |
+   6 |     public abstract String getDescription();
+   7 |
+   8 |     public abstract String getId();
+   9 |
+  10 |     public abstract android.content.pm.ResolveInfo getResolveInfo();
+  11 |
+  12 |     public abstract String getSettingsActivityName();
+  13 | }
+     ^ Col 0
+"
+F046_APK,inputs,examples/android/TestsAndroguard/bin/TestActivity.apk (namespace),android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl is not obfuscated,1269,"home,apk,bytecodes",F046. Missing secure obfuscation - APK,android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl is not obfuscated,"
+>  1 | package android.support.v4.accessibilityservice;
+   2 | interface AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl {
+   3 |
+   4 |     public abstract boolean getCanRetrieveWindowContent();
+   5 |
+   6 |     public abstract String getDescription();
+   7 |
+   8 |     public abstract String getId();
+   9 |
+  10 |     public abstract android.content.pm.ResolveInfo getResolveInfo();
+  11 |
+  12 |     public abstract String getSettingsActivityName();
+  13 | }
+     ^ Col 0
+"
+F046_APK,inputs,examples/android/TestsAndroguard/bin/TestActivity_unsigned.apk (namespace),android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl is not obfuscated,1269,"home,apk,bytecodes",F046. Missing secure obfuscation - APK,android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl is not obfuscated,"
+>  1 | package android.support.v4.accessibilityservice;
+   2 | interface AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl {
+   3 |
+   4 |     public abstract boolean getCanRetrieveWindowContent();
+   5 |
+   6 |     public abstract String getDescription();
+   7 |
+   8 |     public abstract String getId();
+   9 |
+  10 |     public abstract android.content.pm.ResolveInfo getResolveInfo();
+  11 |
+  12 |     public abstract String getSettingsActivityName();
+  13 | }
+     ^ Col 0
+"
+F046_APK,inputs,examples/signing/TestActivity_signed_both.apk (namespace),android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl is not obfuscated,1269,"home,apk,bytecodes",F046. Missing secure obfuscation - APK,android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl is not obfuscated,"
+>  1 | package android.support.v4.accessibilityservice;
+   2 | interface AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl {
+   3 |
+   4 |     public abstract boolean getCanRetrieveWindowContent();
+   5 |
+   6 |     public abstract String getDescription();
+   7 |
+   8 |     public abstract String getId();
+   9 |
+  10 |     public abstract android.content.pm.ResolveInfo getResolveInfo();
+  11 |
+  12 |     public abstract String getSettingsActivityName();
+  13 | }
+     ^ Col 0
+"
 F055_APK_UPDATES,inputs,examples/android/Invalid/Invalid.apk (namespace),AppUpdateManager API is not being used,1277,"home,apk,bytecodes",F055. Missing in-app updates,AppUpdateManager API is not being used,"
 
 $ python3.8
