@@ -105,3 +105,8 @@ data "aws_iam_policy_document" "bucket_dev_policy" {
     }
   }
 }
+
+resource "aws_s3_bucket_policy" "bucket_dev_policy" {
+  bucket = aws_s3_bucket.bucket_dev.id
+  policy = data.aws_iam_policy_document.bucket_dev_policy.json
+}
