@@ -17,7 +17,7 @@ async def get_result(
     vulnerability: str,
 ) -> Dict[str, Any]:
     justification: str = "this is a comenting test "
-    "of a request verification in vulns"
+    "of a request verification in vulns"  # pylint: disable=pointless-string-statement
     query: str = f"""
         mutation {{
             requestVerificationVuln(
