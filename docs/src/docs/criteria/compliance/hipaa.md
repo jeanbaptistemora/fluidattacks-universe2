@@ -13,7 +13,7 @@ and security of certain health information.
 The version used in this section is
 [HIPAA Rules 2013 update](https://www.law.cornell.edu/cfr/text/45/chapter-A/subchapter-C).
 
-### Correlation
+## Correlation
 
 - 164.308(a)(1)(ii)(D) - Administrative safeguards
 

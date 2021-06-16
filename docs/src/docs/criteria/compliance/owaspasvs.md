@@ -128,7 +128,7 @@ The version used in this section is
 
     - [214. Allow data destruction](/criteria/requirements/214)
 
-- C.26 - Disabling debugging interfaces 
+- C.26 - Disabling debugging interfaces
 
     - [078. Disable debugging events](/criteria/requirements/078)
 

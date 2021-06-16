@@ -14,7 +14,7 @@ application / product security programs.
 The version used in this section
 is [BSIMM9](https://www.bsimm.com/content/dam/bsimm/reports/bsimm9.pdf).
 
-### Correlation
+## Correlation
 
 - CR3.4: 2. Automate malicious code detection
 

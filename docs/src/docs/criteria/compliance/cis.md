@@ -15,7 +15,7 @@ and policy frameworks.
 The version used in this section is
 [CIS Controls v7.1](https://www.cisecurity.org/controls/).
 
-### Correlation
+## Correlation
 
 - 1.7 Deploy Port Level Access Control
 
@@ -129,7 +129,8 @@ The version used in this section is
 
 - [18.1 Establish Secure Coding Practices](/criteria/requirements/158)
 
-- [18.2 Ensure That Explicit Error Checking Is Performed for All In-House Developed Software](/criteria/requirements/173)
+- [18.2 Ensure That Explicit Error Checking Is Performed for All In-House
+  Developed Software](/criteria/requirements/173)
 
 - [18.3 Verify That Acquired Software Is Still Supported](/criteria/requirements/262)
 

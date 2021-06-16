@@ -15,9 +15,9 @@ by stakeholders.
 The version used in this section is
 [PCI DSS v3.2.1](https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf).
 
-### Correlation
+## Correlation
 
-- 6.5.10 *(v3.0)* - Broken authentication and session management
+- 6.5.10 (v3.0) - Broken authentication and session management
 
     - [023. Terminate inactive user sessions](/criteria/requirements/023)
 
@@ -25,7 +25,7 @@ The version used in this section is
 
     - [029. Cookies with security attributes](/criteria/requirements/029)
 
-- [12.3.8 *(v3.0)* - Automatic disconnect of sessions for remote-access](/criteria/requirements/369)
+- [12.3.8 (v3.0) - Automatic disconnect of sessions for remote-access](/criteria/requirements/369)
 
 - Appendix A1 A1.1 - A  hosting provider must fulfill these requirements
 
@@ -97,7 +97,7 @@ The version used in this section is
 
     - [261. Avoid exposing sensitive information](/criteria/requirements/261)
 
-- 2.1.1 - For wireless environments connected 
+- 2.1.1 - For wireless environments connected
 
     - [142. Change system default credentials](/criteria/requirements/142)
 
@@ -432,7 +432,7 @@ The version used in this section is
     - [341. Use the principle of deny by default](/criteria/requirements/341)
 
 - 7.1.3 - Assign access
-        
+
     - [095. Define users with privileges](/criteria/requirements/095)
 
     - [096. Set users' required privileges](/criteria/requirements/096)

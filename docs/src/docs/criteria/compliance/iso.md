@@ -19,7 +19,7 @@ by third parties.
 The version used in this section is
 [ISO/IEC 27001:2013 - Annex A](https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en).
 
-### Correlation
+## Correlation
 
 - 9.1.2 - Access to Networks and Network Services
 
@@ -31,7 +31,7 @@ The version used in this section is
 
 - [9.2.2 - User Access Provisioning](/criteria/requirements/034)
 
-- [9.2.3 - Management of Privileged Access Rights  ](/criteria/requirements/035)
+- [9.2.3 - Management of Privileged Access Rights](/criteria/requirements/035)
 
 - [9.4.2 - Secure Log-on Procedures](/criteria/requirements/264)
 
@@ -51,7 +51,7 @@ The version used in this section is
 
 - [12.4.2 - Protection of Log Information](/criteria/requirements/080)
 
-- [12.4.3 - Administrator and Operator Logs ](/criteria/requirements/075)
+- [12.4.3 - Administrator and Operator Logs](/criteria/requirements/075)
 
 - [12.4.4 - Clock Synchronization](/criteria/requirements/363)
 

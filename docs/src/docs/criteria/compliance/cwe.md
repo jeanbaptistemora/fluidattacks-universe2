@@ -14,7 +14,7 @@ mitigation, and prevention efforts.
 The version used in this section is
 [CWE List v4.4](https://cwe.mitre.org/data/index.html).
 
-### Correlation
+## Correlation
 
 - CWE-20: Improper Input Validation
 
@@ -123,13 +123,13 @@ The version used in this section is
     - [032. Avoid session ID leakages](/criteria/requirements/032)
 
     - [080. Prevent log modification](/criteria/requirements/080)
-       
+
     - [180. Use mock data](/criteria/requirements/180)
 
     - [181. Transmit data using secure protocols](/criteria/requirements/181)
 
     - [184. Obfuscate application data](/criteria/requirements/184)
- 
+
     - [261. Avoid exposing sensitive information](/criteria/requirements/261)
 
     - [355. Serve files with specific extensions](/criteria/requirements/355)
@@ -194,9 +194,9 @@ The version used in this section is
 
 - CWE-259: Use of Hard-coded Password
 
-    - [172. Encrypt connection strings](/criteria/requirements/172) 
+    - [172. Encrypt connection strings](/criteria/requirements/172)
 
-    - [176. Restrict system objects](/criteria/requirements/156)  
+    - [176. Restrict system objects](/criteria/requirements/156)
 
 - CWE-263: Password Aging with Long Expiration
 
@@ -239,10 +239,10 @@ The version used in this section is
     - [176. Restrict system objects](/criteria/requirements/176)
 
     - [265. Restrict access to critical processes](/criteria/requirements/265)
-    
+
     - [266. Disable insecure functionalities](/criteria/requirements/266)
 
-    - [320. Avoid client-side control enforcement](/criteria/requirements/320)  
+    - [320. Avoid client-side control enforcement](/criteria/requirements/320)
 
 - CWE-285: Improper Authorization
 
@@ -282,7 +282,7 @@ The version used in this section is
 
     - [347. Invalidate previous OTPs](/criteria/requirements/347)
 
-    - [362. Assign MFA mechanisms to a single account](/criteria/requirements/362)    
+    - [362. Assign MFA mechanisms to a single account](/criteria/requirements/362)
 
 - [CWE-290: Authentication Bypass by Spoofing](/criteria/requirements/357)
 
@@ -321,7 +321,7 @@ The version used in this section is
     - [096. Set users' required privileges](/criteria/requirements/096)
 
     - [176. Restrict system objects](/criteria/requirements/176)
-    
+
     - [264. Request authentication](/criteria/requirements/264)
 
     - [265. Restrict access to critical processes](/criteria/requirements/265)
@@ -392,7 +392,7 @@ The version used in this section is
 
     - [351. Assign unique keys to each device](/criteria/requirements/351)
 
-    - [361. Replace cryptographic keys](/criteria/requirements/361)   
+    - [361. Replace cryptographic keys](/criteria/requirements/361)
 
 - CWE-327: Use of a Broken or Risky Cryptographic Algorithm
 
@@ -457,7 +457,7 @@ The version used in this section is
     - [178. Use digital signatures](/criteria/requirements/178)
 
     - [238. Establish safe recovery](/criteria/requirements/238)
-    
+
     - [357. Use stateless session tokens](/criteria/requirements/357)
 
 - CWE-346: Origin Validation Error
@@ -494,7 +494,8 @@ The version used in this section is
 
     - [375. Remove sensitive data from client-side applications](/criteria/requirements/375)
 
-- [CWE-362: Concurrent Execution using Shared Resource with Improper Synchronization ('Race Condition')](/criteria/requirements/337)
+- [CWE-362: Concurrent Execution using Shared Resource with
+  Improper Synchronization ('Race Condition')](/criteria/requirements/337)
 
 - CWE-367: Time-of-check Time-of-use (TOCTOU) Race Condition
 
@@ -521,7 +522,7 @@ The version used in this section is
 - CWE-400: Uncontrolled Resource Consumption
 
     - [039. Define maximum file size](/criteria/requirements/039)
-    
+
     - [072. Set maximum response time](/criteria/requirements/072)
 
 - CWE-404: Improper Resource Shutdown or Release
@@ -541,7 +542,7 @@ The version used in this section is
 - CWE-451: User Interface (UI) Misrepresentation of Critical Information
 
     - [175. Protect pages from clickjacking](/criteria/requirements/175)
-    
+
     - [349. Include HTTP security headers](/criteria/requirements/349)
 
 - CWE-459: Incomplete Cleanup
@@ -569,13 +570,13 @@ The version used in this section is
 - CWE-507: Trojan Horse
 
     - [155. Application free of malicious code](/criteria/requirements/155)
-    
+
     - [262. Verify third-party components](/criteria/requirements/262)
 
 - CWE-509: Replicating Malicious Code (Virus or Worm)
 
     - [041. Scan files for malicious code](/criteria/requirements/041)
-    
+
     - [118. Inspect attachments](/criteria/requirements/118)
 
 - CWE-510: Trapdoor
@@ -615,7 +616,7 @@ The version used in this section is
 - CWE-523: Unprotected Transport of Credentials
 
     - [153. Out of band transactions](/criteria/requirements/153)
-    
+
     - [349. Include HTTP security headers](/criteria/requirements/349)
 
 - [CWE-524: Use of Cache Containing Sensitive Information](/criteria/requirements/177)
@@ -623,7 +624,7 @@ The version used in this section is
 - CWE-525: Use of Web Browser Cache Containing Sensitive Information
 
     - [177. Avoid caching and temporary files](/criteria/requirements/177)
-    
+
     - [349. Include HTTP security headers](/criteria/requirements/349)
 
 - CWE-532: Insertion of Sensitive Information into Log File
@@ -635,7 +636,7 @@ The version used in this section is
 - CWE-540: Inclusion of Sensitive Information in Source Code
 
     - [156. Source code without sensitive information](/criteria/requirements/156)
-    
+
     - [375. Remove sensitive data from client-side applications](/criteria/requirements/375)
 
 - CWE-544: Missing Standardized Error Handling Mechanism
@@ -657,7 +658,7 @@ The version used in this section is
 - CWE-598: Use of GET Request Method With Sensitive Query Strings
 
     - [032. Avoid session ID leakages](/criteria/requirements/032)
-    
+
     - [181. Transmit data using secure protocols](/criteria/requirements/181)
 
 - [CWE-601: URL Redirection to Untrusted Site ('Open Redirect')](/criteria/requirements/324)
@@ -669,7 +670,7 @@ The version used in this section is
     - [173. Discard unsafe inputs](/criteria/requirements/173)
 
     - [238. Establish safe recovery](/criteria/requirements/238)
-    
+
     - [266. Disable insecure functionalities](/criteria/requirements/266)
 
     - [320. Avoid client-side control enforcement](/criteria/requirements/320)
@@ -701,7 +702,7 @@ The version used in this section is
 - CWE-620: Unverified Password Change
 
     - [131. Deny multiple password changing attempts](/criteria/requirements/131)
-    
+
     - [238. Establish safe recovery](/criteria/requirements/238)
 
     - [301. Notify configuration changes](/criteria/requirements/301)
@@ -711,7 +712,7 @@ The version used in this section is
     - [035. Manage privilege modifications](/criteria/requirements/035)
 
     - [176. Restrict system objects](/criteria/requirements/176)
-    
+
     - [320. Avoid client-side control enforcement](/criteria/requirements/320)
 
 - CWE-640: Weak Password Recovery Mechanism for Forgotten Password
@@ -719,7 +720,7 @@ The version used in this section is
     - [126. Set a password regeneration mechanism](/criteria/requirements/126)
 
     - [131. Deny multiple password changing attempts](/criteria/requirements/131)
-    
+
     - [238. Establish safe recovery](/criteria/requirements/238)
 
     - [334. Avoid knowledge-based authentication](/criteria/requirements/334)
@@ -731,7 +732,7 @@ The version used in this section is
 - CWE-642: External Control of Critical State Data
 
     - [026. Encrypt client-side session information](/criteria/requirements/026)
-    
+
     - [328. Request MFA for critical systems](/criteria/requirements/328)
 
 - [CWE-643: XPath Injection](/criteria/requirements/173)
@@ -769,13 +770,13 @@ The version used in this section is
 - CWE-732: Incorrect Permission Assignment for Critical Resource
 
     - [186. Use the principle of least privilege](/criteria/requirements/186)
-    
-    - [341. Use the principle of deny by default](/criteria/requirements/341)    
+
+    - [341. Use the principle of deny by default](/criteria/requirements/341)
 
 - CWE-749: Exposed Dangerous Method or Function
 
     - [041. Scan files for malicious code](/criteria/requirements/041)
-    
+
     - [266. Disable insecure functionalities](/criteria/requirements/266)
 
 - CWE-759: Use of a One-Way Hash without a Salt
@@ -793,7 +794,7 @@ The version used in this section is
 - CWE-770: Allocation of Resources Without Limits or Throttling
 
     - [039. Define maximum file size](/criteria/requirements/039)
-    
+
     - [072. Set maximum response time](/criteria/requirements/072)
 
     - [327. Set a rate limit](/criteria/requirements/327)
@@ -825,7 +826,7 @@ The version used in this section is
 - CWE-799: Improper Control of Interaction Frequency
 
     - [237. Ascertain human interaction](/criteria/requirements/237)
-    
+
     - [327. Set a rate limit](/criteria/requirements/327)
 
 - [CWE-804: Guessable CAPTCHA](/criteria/requirements/237)
@@ -873,7 +874,7 @@ The version used in this section is
     - [324. Control redirects](/criteria/requirements/324)
 
     - [340. Use octet stream downloads](/criteria/requirements/340)
-    
+
     - [349. Include HTTP security headers](/criteria/requirements/349)
 
 - [CWE-1085: Invokable Control Element with Excessive Volume of Commented-out Code](/criteria/requirements/171)

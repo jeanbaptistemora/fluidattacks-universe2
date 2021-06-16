@@ -17,7 +17,7 @@ and enhance defenses.
 The version used in this section is
 [CAPEC List v3.4](https://capec.mitre.org/data/index.html).
 
-### Correlation
+## Correlation
 
 - 1: Accessing Functionality Not Properly Constrained by ACLs
 
@@ -296,7 +296,7 @@ The version used in this section is
     - [338. Implement perfect forward secrecy](/criteria/requirements/338)
 
 - 122: Privilege Abuse
- 
+
     - [095. Define users with privileges](/criteria/requirements/095)
 
     - [096. Set users' required privileges](/criteria/requirements/096)

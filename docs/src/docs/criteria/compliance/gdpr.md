@@ -56,9 +56,11 @@ The version used in this section is
 
     - [317. Allow erasure requests](/criteria/requirements/317)
 
-- [13: Information to be provided where personal data are collected from the data subject.(1-3)](/criteria/requirements/189)
+- [13: Information to be provided where personal data are collected from the data
+  subject.(1-3)](/criteria/requirements/189)
 
-- [14: Information to be provided where personal data have not been obtained from the data subject.(1-4)](/criteria/requirements/189)
+- [14: Information to be provided where personal data have not been obtained from
+  the data subject.(1-4)](/criteria/requirements/189)
 
 - [15: Right of access by the data subject.(1)(a-g)](/criteria/requirements/315)
 
@@ -70,7 +72,8 @@ The version used in this section is
 
 - [18: Right to restriction of processing.(1)](/criteria/requirements/312)
 
-- [19: Notification obligation regarding rectification or erasure of personal data or restriction of processing](/criteria/requirements/318)
+- [19: Notification obligation regarding rectification or erasure of personal
+  data or restriction of processing](/criteria/requirements/318)
 
 - [20: Right to data portability.(1)](/criteria/requirements/315)
 
@@ -98,7 +101,9 @@ The version used in this section is
 
 - [33: Notification of a personal data breach to the supervisory authority.(5)](/criteria/requirements/075)
 
-- 89: Safeguards and derogations relating to processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes.(2)
+- 89: Safeguards and derogations relating to processing for archiving purposes
+  in the public interest, scientific or historical research purposes
+  or statistical purposes.(2)
 
     - [314. Provide processing confirmation](/criteria/requirements/314)
 
@@ -106,7 +111,9 @@ The version used in this section is
 
     - [316. Allow rectification requests](/criteria/requirements/316)
 
--  89: Safeguards and derogations relating to processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes.(3)
+- 89: Safeguards and derogations relating to processing for archiving purposes
+  in the public interest, scientific or historical research purposes
+  or statistical purposes.(3)
 
     - [314. Provide processing confirmation](/criteria/requirements/314)
 
@@ -127,7 +134,7 @@ The version used in this section is
 - 7: The Framework is Based on Control and Certainty
 
     - [084. Allow transaction history queries](/criteria/requirements/084)
-  
+
     - [085. Allow session history queries](/criteria/requirements/085)
 
 - 39: Principles of data processing
