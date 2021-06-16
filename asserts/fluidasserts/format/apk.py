@@ -240,29 +240,6 @@ def webview_allows_resource_access(apk_file: str) -> tuple:
 
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError, apk.Error, dvm.Error)
-def not_forces_updates(apk_file: str) -> tuple:
-    """
-    Check if the given APK forces to use the latest version.
-
-    :param apk_file: Path to the image to be tested.
-    :returns: - ``OPEN`` if *AppUpdateManager* is not in activities source.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    _, dvms, _ = analyze_apk(apk_file)
-    act_source = get_activities_source(dvms)
-
-    return _get_result_as_tuple_sast(
-        path=apk_file,
-        msg_open="APK not forces updating",
-        msg_closed="APK forces updating",
-        open_if="AppUpdateManager" not in act_source,
-    )
-
-
-@api(risk=LOW, kind=SAST)
-@unknown_if(FileNotFoundError, apk.Error, dvm.Error)
 def not_verifies_ssl_hostname(apk_file: str) -> tuple:
     """
     Check if the given APK doesn't verify the SSLSocket hostname.
