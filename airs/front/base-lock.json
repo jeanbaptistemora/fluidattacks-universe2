@@ -30,6 +30,22 @@
     "css-what": {
       "version": "5.0.1"
     },
+    "gatsby": {
+      "version": "3.7.2",
+      "dependencies": {
+        "postcss": {
+          "version": "8.3.4"
+        }
+      }
+    },
+    "graphql-request": {
+      "version": "1.8.2",
+      "dependencies": {
+        "node-fetch": {
+          "version": "2.6.1"
+        }
+      }
+    },
     "lpad-align": {
       "version": "1.1.2",
       "dependencies": {
@@ -43,6 +59,14 @@
       "dependencies": {
         "browserslist": {
           "version": "4.16.6"
+        }
+      }
+    },
+    "resolve-url-loader": {
+      "version": "3.1.3",
+      "dependencies": {
+        "postcss": {
+          "version": "7.0.36"
         }
       }
     },
