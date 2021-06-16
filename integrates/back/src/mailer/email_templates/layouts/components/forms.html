@@ -29,26 +29,28 @@
 
 {# Generic red banner #}
 {% macro banner(icon_url, padding) %}
-<table
-  aria-hidden="true"
-  style="
+<table aria-hidden="true" style="
     height: 250px;
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url(https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/222436b8-0957-02df-7905-176379f344b5.png);"
-  width="100%">
+    background-image: url(https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/222436b8-0957-02df-7905-176379f344b5.png);
+    table-layout: fixed;
+    width: 100%;">
   <tr>
-    <td class="wrapper" width="600" align="center">
-      <table aria-hidden="true" cellpadding="0" cellspacing="0">
+    <td style="text-align: center;">
+      <table aria-hidden="true" style="border-collapse: collapse; border-spacing: 0; padding: 0; width: 100%;">
         <tr>
-          <td class="column" align="center">
-            <table aria-hidden="true">
+          <td style="text-align: center;">
+            <table aria-hidden="true" style="width: 100%;">
               <tr>
                 <td align="center">
                   <div
                     style="border: 2px solid #ffffff; padding: {{ padding }}; border-radius: 50%; height: 78px; width: 78px;">
                     <div class="icon">
-                      <img alt="Banner custom icon" src="{{ icon_url }}" style="height: 45px; vertical-align: center;">
+                      <img
+                        alt="Banner custom icon"
+                        src="{{ icon_url }}"
+                        style="height: 45px; vertical-align: center;">
                     </div>
                   </div>
                   <h3 style="text-align: center; color: #f4f4f6; font-weight: 700; padding: 10px 30px;">{{ caller() }}</h3>
