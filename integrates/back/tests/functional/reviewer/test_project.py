@@ -249,11 +249,11 @@ async def test_project() -> None:
     assert result["data"]["project"]["hasForces"]
     assert result["data"]["project"]["hasIntegrates"]
     assert result["data"]["project"]["lastClosingVuln"] == 0
-    assert result["data"]["project"]["lastClosingVulnFinding"] == None
+    assert result["data"]["project"]["lastClosingVulnFinding"] is None
     assert result["data"]["project"]["maxOpenSeverity"] == 0.0
-    assert result["data"]["project"]["maxOpenSeverityFinding"] == None
+    assert result["data"]["project"]["maxOpenSeverityFinding"] is None
     assert result["data"]["project"]["maxSeverity"] == 0.0
-    assert result["data"]["project"]["maxSeverityFinding"] == None
+    assert result["data"]["project"]["maxSeverityFinding"] is None
     assert result["data"]["project"]["meanRemediate"] == 0
     assert result["data"]["project"]["meanRemediateCriticalSeverity"] == 0
     assert result["data"]["project"]["meanRemediateHighSeverity"] == 0

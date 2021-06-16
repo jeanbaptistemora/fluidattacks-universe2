@@ -63,8 +63,8 @@ async def test_get_project(populate: bool, email: str) -> None:
     assert result["data"]["project"]["organization"] == "orgtest"
     assert result["data"]["project"]["userRole"] == email.split("@")[0]
     assert result["data"]["project"]["maxOpenSeverity"] == 4.3
-    assert result["data"]["project"]["maxOpenSeverityFinding"] == None
-    assert result["data"]["project"]["lastClosingVulnFinding"] == None
+    assert result["data"]["project"]["maxOpenSeverityFinding"] is None
+    assert result["data"]["project"]["lastClosingVulnFinding"] is None
     assert consult in [
         consult["content"]
         for consult in result["data"]["project"]["consulting"]
