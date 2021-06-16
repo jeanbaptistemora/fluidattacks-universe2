@@ -62,7 +62,7 @@ type ApproveDraftPayload implements Payload {
 }
 
 type SimpleProjectPayload implements Payload {
-  project: Project
+  project: Group
   success: Boolean!
 }
 

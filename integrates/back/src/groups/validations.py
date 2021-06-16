@@ -2,7 +2,7 @@ from custom_exceptions import (
     GroupNotFound,
 )
 from custom_types import (
-    Project as Group,
+    Group,
 )
 
 

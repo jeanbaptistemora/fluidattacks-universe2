@@ -5,7 +5,7 @@ type Stakeholder {
   invitationState: InvitationState
   lastLogin: String
   phoneNumber: String
-  projects: [Project]
+  projects: [Group]
   responsibility: String
   role: String
 }

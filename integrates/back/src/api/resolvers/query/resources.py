@@ -5,7 +5,7 @@ from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from custom_types import (
-    Project as Group,
+    Group,
     Resource,
     Resources,
 )

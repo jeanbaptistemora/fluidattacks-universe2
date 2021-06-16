@@ -4,7 +4,7 @@ from aioextensions import (
 import collections
 from custom_types import (
     Finding as FindingType,
-    Project as GroupType,
+    Group as GroupType,
 )
 import re
 from typing import (

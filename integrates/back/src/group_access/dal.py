@@ -7,7 +7,7 @@ from botocore.exceptions import (
 )
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
-    Project as GroupType,
+    Group as GroupType,
     ProjectAccess as GroupAccessType,
 )
 from dynamodb import (

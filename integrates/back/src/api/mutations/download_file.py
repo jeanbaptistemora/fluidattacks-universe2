@@ -52,7 +52,7 @@ async def mutate(
         await analytics.mixpanel_track(
             user_email,
             "DownloadProjectFile",
-            Project=project_name.upper(),
+            Group=project_name.upper(),
             FileName=parameters["files_data"],
         )
         success = True

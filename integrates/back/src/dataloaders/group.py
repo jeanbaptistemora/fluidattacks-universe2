@@ -5,7 +5,7 @@ from aioextensions import (
     collect,
 )
 from custom_types import (
-    Project as GroupType,
+    Group as GroupType,
 )
 from groups import (
     domain as groups_domain,

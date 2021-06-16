@@ -1,6 +1,6 @@
 from custom_types import (
     Comment,
-    Project as Group,
+    Group,
 )
 from decorators import (
     concurrent_decorators,

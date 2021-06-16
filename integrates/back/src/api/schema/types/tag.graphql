@@ -10,5 +10,5 @@ type Tag {
   meanRemediateMediumSeverity: Float
   name: String
   organization: String
-  projects: [Project]
+  projects: [Group]
 }

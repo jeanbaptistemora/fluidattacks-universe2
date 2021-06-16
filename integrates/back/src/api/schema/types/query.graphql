@@ -20,7 +20,7 @@ type Query {
   ): ForcesExecutions
 
   "Group entity"
-  group(groupName: String!): Project
+  group(groupName: String!): Group
 
   "List groups with forces"
   groupsWithForces: [String]
@@ -36,8 +36,8 @@ type Query {
 
   organizationId(organizationName: String!): Organization
 
-  "Project entity"
-  project(projectName: String!): Project
+  "Group entity"
+  project(projectName: String!): Group
 
   "Report entity"
   report(reportType: ReportType!, projectName: String!, lang: ReportLang): Report
@@ -58,7 +58,7 @@ type Query {
   tag(tag: String!): Tag
 
   "List projects a user is subscribed to"
-  userListProjects(userEmail: String!): [Project]
+  userListProjects(userEmail: String!): [Group]
 
   "Vulnerability entity"
   vulnerability(uuid: String!): Vulnerability

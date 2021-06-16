@@ -36,7 +36,7 @@ Organization = Dict[
     str,
     Union[Decimal, str, List[Dict[str, Union[Optional[Decimal], str]]], None],
 ]
-Project = Dict[
+Group = Dict[
     str, Union[str, object, List[Dict[str, str]], List[str], Set[str]]
 ]
 Report = Dict[str, str]
@@ -65,7 +65,7 @@ Finding = Union[
 
 ForcesExecution = Dict[str, Union[str, datetime, ExecutionVulnerabilities]]
 ForcesExecutions = Dict[str, Union[datetime, str, List[ForcesExecution], None]]
-Me = Dict[str, Union[bool, str, List[Union[Project, Tag, str]]]]
+Me = Dict[str, Union[bool, str, List[Union[Group, Tag, str]]]]
 ProjectAccess = Dict[str, Union[bool, int, str, Invitation, None]]
 Resource = Dict[str, Union[object, str, Historic]]
 Resources = Dict[str, Union[str, List[Resource]]]
@@ -215,7 +215,7 @@ SimpleProjectPayload = NamedTuple(
     "SimpleProjectPayload",
     [
         ("success", bool),
-        ("project", Project),
+        ("project", Group),
     ],
 )
 UpdateAccessTokenPayload = NamedTuple(

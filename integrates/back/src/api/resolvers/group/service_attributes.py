@@ -1,6 +1,6 @@
 import authz
 from custom_types import (
-    Project as Group,
+    Group,
 )
 from decorators import (
     enforce_group_level_auth_async,

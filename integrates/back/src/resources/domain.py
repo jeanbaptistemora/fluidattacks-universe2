@@ -83,7 +83,7 @@ async def create_file(
         if contains_repeated:
             LOGGER.error("File already exists", **NOEXTRA)
     else:
-        # Project doesn't have files
+        # Group doesn't have files
         pass
     if validations.validate_file_name(uploaded_file.filename):
         project_files.extend(json_data)

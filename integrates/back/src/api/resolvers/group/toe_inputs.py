@@ -2,7 +2,7 @@ from aiodataloader import (
     DataLoader,
 )
 from custom_types import (
-    Project as Group,
+    Group,
 )
 from data_containers.toe_inputs import (
     GitRootToeInput,

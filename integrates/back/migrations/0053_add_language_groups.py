@@ -12,7 +12,7 @@ from aioextensions import (
     run,
 )
 from custom_types import (
-    Project as ProjectType,
+    Group as ProjectType,
 )
 from dynamodb import (
     operations_legacy as dynamodb_ops,

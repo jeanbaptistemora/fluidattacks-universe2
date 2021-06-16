@@ -2,7 +2,7 @@ from aiodataloader import (
     DataLoader,
 )
 from custom_types import (
-    Project as Group,
+    Group,
     Tag,
 )
 from graphql.type.definition import (

@@ -3,7 +3,7 @@ from aiodataloader import (
 )
 from custom_types import (
     Event,
-    Project as Group,
+    Group,
 )
 from decorators import (
     concurrent_decorators,

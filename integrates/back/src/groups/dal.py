@@ -7,7 +7,7 @@ from botocore.exceptions import (
     ClientError,
 )
 from custom_types import (
-    Project as GroupType,
+    Group as GroupType,
 )
 from dynamodb import (
     operations_legacy as dynamodb_ops,

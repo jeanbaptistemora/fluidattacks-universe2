@@ -2,8 +2,8 @@ from bill import (
     domain as bill_domain,
 )
 from custom_types import (
+    Group,
     Historic,
-    Project as Group,
 )
 from datetime import (
     datetime,

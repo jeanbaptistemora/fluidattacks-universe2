@@ -6,7 +6,7 @@ from batch.types import (
     BatchProcessing,
 )
 from custom_types import (
-    Project as Group,
+    Group,
 )
 from dataloaders import (
     get_new_context,

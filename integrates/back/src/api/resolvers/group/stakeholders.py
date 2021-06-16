@@ -1,5 +1,5 @@
 from custom_types import (
-    Project as GroupType,
+    Group as GroupType,
     Stakeholder as StakeholderType,
 )
 from decorators import (

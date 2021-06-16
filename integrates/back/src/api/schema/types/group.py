@@ -26,7 +26,7 @@ from ariadne import (
     ObjectType,
 )
 
-GROUP: ObjectType = ObjectType("Project")
+GROUP: ObjectType = ObjectType("Group")
 GROUP.set_field("analytics", analytics.resolve)
 GROUP.set_field("bill", bill.resolve)
 GROUP.set_field("consulting", consulting.resolve)

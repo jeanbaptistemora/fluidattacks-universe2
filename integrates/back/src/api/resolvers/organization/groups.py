@@ -2,8 +2,8 @@ from aiodataloader import (
     DataLoader,
 )
 from custom_types import (
+    Group,
     Organization,
-    Project as Group,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,

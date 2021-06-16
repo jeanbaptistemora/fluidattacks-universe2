@@ -28,9 +28,9 @@ from custom_exceptions import (
     UserNotInOrganization,
 )
 from custom_types import (
+    Group as GroupType,
     Invitation as InvitationType,
     MailContent as MailContentType,
-    Project as GroupType,
     ProjectAccess as GroupAccessType,
     User as UserType,
 )

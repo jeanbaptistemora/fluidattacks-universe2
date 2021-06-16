@@ -1,5 +1,5 @@
-"Project type definition"
-type Project {
+"Group type definition"
+type Group {
   analytics(documentName: String!, documentType: String!): GenericScalar
   bill(date: DateTime): Bill
   closedVulnerabilities: Int

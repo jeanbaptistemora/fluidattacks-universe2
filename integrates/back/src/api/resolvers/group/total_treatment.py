@@ -1,5 +1,5 @@
 from custom_types import (
-    Project as Group,
+    Group,
 )
 from decorators import (
     require_integrates,

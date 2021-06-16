@@ -2,13 +2,13 @@
 type Organization {
   analytics(documentName: String!, documentType: String!): GenericScalar
   findingPolicies: [FindingPolicy]
-  groups: [Project]
+  groups: [Group]
   id: String!
   maxAcceptanceDays: Int
   maxAcceptanceSeverity: Float!
   maxNumberAcceptations: Int
   minAcceptanceSeverity: Float!
   name: String!
-  projects: [Project]
+  projects: [Group]
   stakeholders: [Stakeholder]
 }

@@ -1,6 +1,6 @@
 from custom_types import (
+    Group as ProjectType,
     Historic as HistoricType,
-    Project as ProjectType,
 )
 import logging
 import logging.config

@@ -5,7 +5,7 @@ from aioextensions import (
     collect,
 )
 from custom_types import (
-    Project as Group,
+    Group,
     Stakeholder,
 )
 from graphql.type.definition import (

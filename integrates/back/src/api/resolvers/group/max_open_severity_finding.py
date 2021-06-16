@@ -3,7 +3,7 @@ from aiodataloader import (
 )
 from custom_types import (
     Finding,
-    Project as Group,
+    Group,
 )
 from decorators import (
     require_integrates,

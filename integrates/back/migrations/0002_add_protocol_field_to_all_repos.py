@@ -14,7 +14,7 @@ Finalization Time:  2020-05-13 19:37 UTC-5
 import argparse
 import bugsnag
 from custom_types import (
-    Project as GroupType,
+    Group as GroupType,
     Resource as ResourceType,
 )
 from groups.dal import (

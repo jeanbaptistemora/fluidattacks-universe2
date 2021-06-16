@@ -2,7 +2,7 @@ from aioextensions import (
     collect,
 )
 from custom_types import (
-    Project as GroupType,
+    Group as GroupType,
 )
 from dataloaders import (
     get_new_context,

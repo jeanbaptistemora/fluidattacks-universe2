@@ -3,7 +3,7 @@ from aioextensions import (
 )
 import authz
 from custom_types import (
-    Project as GroupType,
+    Group as GroupType,
     ProjectAccess as GroupAccessType,
 )
 from group_access import (
