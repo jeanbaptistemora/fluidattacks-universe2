@@ -1,0 +1,37 @@
+{
+  "name": "airs",
+  "version": "1.0.0",
+  "lockfileVersion": 1,
+  "dependencies": {
+    "cacheable-request": {
+      "version": "2.1.4",
+      "dependencies": {
+        "normalize-url": {
+          "version": "4.5.1"
+        }
+      }
+    },
+    "css-select": {
+      "version": "3.1.2",
+      "dependencies": {
+        "css-what": {
+          "version": "5.0.1"
+        }
+      }
+    },
+    "css-what": {
+      "version": "5.0.1"
+    },
+    "lpad-align": {
+      "version": "1.1.2",
+      "dependencies": {
+        "trim-newlines": {
+          "version": "3.0.1"
+        }
+      }
+    },
+    "trim": {
+      "version": "0.0.3"
+    }
+  }
+}

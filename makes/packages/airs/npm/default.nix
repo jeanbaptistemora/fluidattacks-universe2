@@ -1,13 +1,15 @@
-{ nixpkgs
-, buildNodeRequirements
+{ buildNodeRequirements
 , getPackageJsonDeps
 , nix
+, nixpkgs
+, path
 , ...
 }:
 let
   packageJsonDeps = getPackageJsonDeps "/airs/front/package.json";
 in
 buildNodeRequirements {
+  baseLock = builtins.fromJSON (builtins.readFile (path "/airs/front/base-lock.json"));
   dependencies = [
     # Libraries needed to build some node modules like sharp, used in the APK build
     nixpkgs.autoconf
@@ -449,7 +451,7 @@ buildNodeRequirements {
       "cache-base@1.0.1"
       "cache-manager@2.11.1"
       "cacheable-lookup@2.0.1"
-      "cacheable-request@6.1.0"
+      "cacheable-request@2.1.4"
       "call-bind@1.0.2"
       "callsites@3.1.0"
       "camel-case@4.1.2"
@@ -547,7 +549,6 @@ buildNodeRequirements {
       "css-select@3.1.2"
       "css-to-react-native@3.0.0"
       "css-tree@1.1.3"
-      "css-what@4.0.0"
       "css.escape@1.5.1"
       "css@2.2.4"
       "cssesc@3.0.0"
@@ -772,7 +773,7 @@ buildNodeRequirements {
       "global-prefix@3.0.0"
       "global@4.4.0"
       "globals@13.9.0"
-      "globby@11.0.3"
+      "globby@11.0.4"
       "globjoin@0.1.4"
       "gonzales-pe@4.3.0"
       "got@8.3.2"
@@ -818,7 +819,7 @@ buildNodeRequirements {
       "html-parse-stringify2@2.0.1"
       "html-tags@3.1.0"
       "htmlparser2@6.1.0"
-      "http-cache-semantics@4.1.0"
+      "http-cache-semantics@3.8.1"
       "http-deceiver@1.2.7"
       "http-errors@1.7.2"
       "http-parser-js@0.5.3"
@@ -985,7 +986,7 @@ buildNodeRequirements {
       "jsonp@0.2.1"
       "jsx-ast-utils@3.2.0"
       "junk@3.1.0"
-      "keyv@3.1.0"
+      "keyv@3.0.0"
       "killable@1.0.1"
       "kind-of@6.0.3"
       "kleur@3.0.3"
@@ -1423,7 +1424,7 @@ buildNodeRequirements {
       "sockjs-client@1.5.1"
       "sockjs@0.3.21"
       "sort-keys-length@1.0.1"
-      "sort-keys@2.0.0"
+      "sort-keys@1.1.2"
       "source-list-map@2.0.1"
       "source-map-js@0.6.2"
       "source-map-resolve@0.5.3"
@@ -1523,7 +1524,7 @@ buildNodeRequirements {
       "trim-newlines@3.0.1"
       "trim-repeated@1.0.0"
       "trim-trailing-lines@1.1.4"
-      "trim@0.0.1"
+      "trim@0.0.3"
       "trough@1.0.5"
       "true-case-path@2.2.1"
       "ts-node@9.1.1"
