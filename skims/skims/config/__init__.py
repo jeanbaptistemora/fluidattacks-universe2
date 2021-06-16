@@ -54,7 +54,12 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
                 ),
                 "ssl": confuse.Template(
                     {
-                        "include": confuse.Sequence(confuse.String()),
+                        "include": confuse.Sequence(
+                            {
+                                "host": confuse.String(),
+                                "port": confuse.Integer(),
+                            }
+                        ),
                     }
                 ),
                 "timeout": confuse.Number(),
@@ -91,7 +96,13 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
                 lib_root=config_path.pop("lib_root", True),
             ),
             ssl=core_model.SkimsSslConfig(
-                include=config_ssl.pop("include", ()),
+                include=[
+                    core_model.SkimsSslTarget(
+                        host=entry.pop("host"),
+                        port=entry.pop("port", 443),
+                    )
+                    for entry in config_ssl.pop("include", ())
+                ]
             ),
             start_dir=os.getcwd(),
             timeout=config.pop("timeout", None),

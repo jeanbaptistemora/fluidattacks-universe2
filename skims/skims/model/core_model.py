@@ -982,8 +982,13 @@ class SkimsPathConfig(NamedTuple):
     lib_root: bool
 
 
+class SkimsSslTarget(NamedTuple):
+    host: str
+    port: int
+
+
 class SkimsSslConfig(NamedTuple):
-    include: Tuple[str, ...]
+    include: Tuple[SkimsSslTarget, ...]
 
 
 class SkimsConfig(NamedTuple):
