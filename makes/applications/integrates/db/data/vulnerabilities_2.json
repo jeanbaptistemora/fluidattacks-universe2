@@ -1182,6 +1182,9 @@
           "specific": {
             "S": "345"
           },
+          "repo_nickname": {
+            "S": "product"
+          },
           "historic_zero_risk": {
             "L": [
               {
@@ -1464,6 +1467,9 @@
           },
           "specific": {
             "S": "123"
+          },
+          "repo_nickname": {
+            "S": "product"
           },
           "historic_zero_risk": {
             "L": [
