@@ -7,15 +7,15 @@ slug: /development/stack/cloudflare
 
 ## Rationale
 
-[Cloudflare](https://www.cloudflare.com/)
+[Cloudflare][CLOUDFLARE]
 is our [SaaS](https://en.wikipedia.org/wiki/Software_as_a_service)
 provider for some infrastructure solutions like
-[DNSSEC](https://www.cloudflare.com/dns/dnssec/),
+[DNSSEC][DNSSEC],
 [DDoS Protection](https://www.cloudflare.com/ddos/),
 [Rate limiting](https://www.cloudflare.com/rate-limiting/),
 [Auto-Renewable SSL certificates](https://www.cloudflare.com/ssl/),
 [Content delivery network](https://www.cloudflare.com/cdn/),
-[Web Application Firewall](https://www.cloudflare.com/lp/ppc/waf-x/),
+[Web Application Firewall][WAF],
 [Anti-bot capabilities](https://blog.cloudflare.com/super-bot-fight-mode/),
 among others.
 
@@ -32,11 +32,11 @@ over other alternatives are:
 1. It has the
   [Fastest privacy-focused DNS service](https://blog.cloudflare.com/announcing-1111/)
   on the market.
-1. It supports [DNSSEC](https://www.cloudflare.com/dns/dnssec/).
+1. It supports [DNSSEC][DNSSEC].
 1. It has easy-to-implement, auto-renewable, auto-validated
   [SSL certificates](https://www.cloudflare.com/ssl/).
 1. It provides a
-  [Web Application Firewall](https://www.cloudflare.com/lp/ppc/waf-x/)
+  [Web Application Firewall][WAF]
   with
   [Preconfigured rules](https://www.cloudflare.com/learning/security/threats/owasp-top-10/),
   [DDoS mitigation](https://www.cloudflare.com/learning/ddos/ddos-mitigation/),
@@ -77,7 +77,7 @@ but not chosen for the following reasons:
     It is much more expensive and setting up
     its services seems more complicated when
     comparing it to
-    [Cloudflare](https://www.cloudflare.com/).
+    [Cloudflare][CLOUDFLARE].
 1. [AWS Certificate Manager](https://aws.amazon.com/certificate-manager/):
     Creating digital certificates required to also manage
     [DNS](https://www.cloudflare.com/dns/)
@@ -93,7 +93,7 @@ but not chosen for the following reasons:
     to make things work.
 1. [AWS Route53](https://aws.amazon.com/route53/):
     This service does not support
-    [DNSSEC](https://www.cloudflare.com/dns/dnssec/),
+    [DNSSEC][DNSSEC],
     It is not as fast or as flexible as
     [Cloudflare's DNS](https://www.cloudflare.com/dns/).
     1. [AWS Web Application Firewall](https://aws.amazon.com/waf/):
@@ -101,11 +101,11 @@ but not chosen for the following reasons:
     an application, it does not work for
     [static sites](https://en.wikipedia.org/wiki/Static_web_page).
     It is not as flexible as
-    [Cloudflare's Web Application Firewall](https://www.cloudflare.com/lp/ppc/waf-x/).
+    [Cloudflare's Web Application Firewall][WAF].
 
 ## Usage
 
-We use [Cloudflare](https://www.cloudflare.com/) for:
+We use [Cloudflare][CLOUDFLARE] for:
 
 1. [Overall network configurations](https://gitlab.com/fluidattacks/product/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform/fluidattacks.tf#L1).
 1. [DNS Records](https://gitlab.com/fluidattacks/product/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform/fluidattacks.tf#L79).
@@ -116,7 +116,7 @@ We use [Cloudflare](https://www.cloudflare.com/) for:
 1. [Managing CDN Cache](https://gitlab.com/fluidattacks/product/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/airs/deploy/production/terraform/cache.tf).
 
 We do not use the following
-[Cloudflare](https://www.cloudflare.com/) services:
+[Cloudflare][CLOUDFLARE] services:
 
 1. [Argo Tunnel](https://www.cloudflare.com/products/argo-tunnel/):
     Pending to review.
@@ -128,7 +128,7 @@ We do not use the following
 ## Guidelines
 
 1. Any changes to
-    [Cloudflare's](https://www.cloudflare.com/)
+    [Cloudflare's][CLOUDFLARE]
     infrastructure must be done via
     [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/)
     modifying its
@@ -136,3 +136,7 @@ We do not use the following
 1. To learn how to test and apply infrastructure via [Terraform](/development/stack/terraform),
     visit the
     [Terraform Guidelines](/development/stack/terraform#guidelines).
+
+[CLOUDFLARE]: https://www.cloudflare.com/
+[DNSSEC]: https://www.cloudflare.com/dns/dnssec/
+[WAF]: https://www.cloudflare.com/lp/ppc/waf-x/

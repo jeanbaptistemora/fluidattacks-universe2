@@ -7,7 +7,7 @@ slug: /development/stack/aws
 
 ## Rationale
 
-[AWS](https://aws.amazon.com/) is our main
+[AWS][AWS] is our main
 [IaaS](https://en.wikipedia.org/wiki/Infrastructure_as_a_service)
 cloud provider.
 
@@ -17,7 +17,7 @@ over other alternatives are:
 1. It provides a highly granular approach to
     [IaaS](https://en.wikipedia.org/wiki/Infrastructure_as_a_service),
     offering over
-    [one hundred independent services](https://aws.amazon.com/)
+    [one hundred independent services][AWS]
     that range from
     [quantum computing](https://aws.amazon.com/braket)
     to
@@ -53,7 +53,7 @@ over other alternatives are:
 
 ## Usage
 
-We use the following [AWS](https://aws.amazon.com/) services:
+We use the following [AWS][AWS] services:
 
 1. Elastic cloud computing:
     [AWS EC2](/development/stack/aws/ec2/).
@@ -146,3 +146,5 @@ to generate a key pair:
 1. Use the `--no-aws-cache` flag only in case you:
     - Run as prod.
     - Have problems with `okta-login` or aws credentials.
+
+[AWS]: https://aws.amazon.com/

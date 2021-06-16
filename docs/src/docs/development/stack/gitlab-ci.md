@@ -7,13 +7,13 @@ slug: /development/stack/gitlab-ci
 
 ## Rationale
 
-[GItlab CI](https://docs.gitlab.com/ee/ci/)
+[GItlab CI][GITLAB-CI]
 is the system that orchestrates all the
 [CI/CD](https://docs.gitlab.com/ee/ci/introduction/)
 workflows within our company.
 Such workflows are the backbone
 of our entire
-[development cycle](https://about.gitlab.com/stages-devops-lifecycle/).
+[development cycle][DEV-CYCLE].
 By using it, we become capable of:
 
 1. [Running automated processes on every commit](https://docs.gitlab.com/ee/ci/pipelines/).
@@ -27,21 +27,21 @@ we become capable of
 without sacrificing quality or security.
 
 The main reasons why we chose
-[GItlab CI](https://docs.gitlab.com/ee/ci/)
+[GItlab CI][GITLAB-CI]
 over other alternatives are:
 
 1. It is [Open source](https://opensource.com/resources/what-open-source).
-1. [Built-in support for Gitlab](/development/stack/gitlab):
-    As [Gitlab](/development/stack/gitlab)
+1. [Built-in support for Gitlab][GITLAB]:
+    As [Gitlab][GITLAB]
     is the platform we use
     for our [product repository](https://gitlab.com/fluidattacks/product),
     it represents an advantage for us
     to be able to easily integrate
-    our [CI](https://docs.gitlab.com/ee/ci/) soultion with it.
+    our [CI][GITLAB-CI] soultion with it.
     All [GUI](https://en.wikipedia.org/wiki/Graphical_user_interface)
     related capabilities like
     [pipelines](https://docs.gitlab.com/ee/ci/pipelines/),
-    [jobs](https://docs.gitlab.com/ee/ci/jobs/),
+    [jobs][JOBS],
     [CI/CD variables](https://docs.gitlab.com/ee/ci/variables/README.html),
     [environments](https://docs.gitlab.com/ee/ci/environments/),
     [schedules](https://docs.gitlab.com/ee/ci/pipelines/schedules.html),
@@ -51,9 +51,9 @@ over other alternatives are:
 1. [It supports pipelines as code](https://about.gitlab.com/topics/ci-cd/pipeline-as-code/):
     It allows us to
     [write all our pipelines as code](https://gitlab.com/fluidattacks/product/-/blob/ee58e7a78990ef77ca032e4388d0e0bc49533799/.gitlab-ci.yml).
-1. [It supports horizontal autoscaling](https://docs.gitlab.com/runner/configuration/runner_autoscale_aws/):
+1. [It supports horizontal autoscaling][AUTOSCALE]:
     In order to be able to run
-    hundreds of [jobs](https://docs.gitlab.com/ee/ci/jobs/)
+    hundreds of [jobs][JOBS]
     for many developers,
     all in real time,
     our system must support
@@ -61,7 +61,7 @@ over other alternatives are:
 1. [It supports directed acyclic graphs (DAG)](https://docs.gitlab.com/ee/ci/directed_acyclic_graph/):
     Such capability allows us to make
     our integrations as fast as possible,
-    as [jobs](https://docs.gitlab.com/ee/ci/jobs/)
+    as [jobs][JOBS]
     exclusively depend on what they really should.
     It is a must when implementing a [monorepo](https://en.wikipedia.org/wiki/Monorepo)
     strategy [like ours](https://gitlab.com/fluidattacks/product).
@@ -70,7 +70,7 @@ over other alternatives are:
     usually has its own needs
     when it comes to
     building, testing and deploying,
-    [GItlab CI](https://docs.gitlab.com/ee/ci/)
+    [GItlab CI][GITLAB-CI]
     offers a vast set of
     [configurations](https://docs.gitlab.com/ee/ci/yaml/)
     that range from
@@ -82,7 +82,7 @@ over other alternatives are:
     [workflows](https://docs.gitlab.com/ee/ci/yaml/#workflow)
     and [artifacts](https://docs.gitlab.com/ee/ci/yaml/#artifacts).
 1. [Highly versatile infrastructure](https://docs.gitlab.com/runner/configuration/advanced-configuration.html):
-    The [AWS autoscaler](https://docs.gitlab.com/runner/configuration/runner_autoscale_aws/)
+    The [AWS autoscaler][AUTOSCALE]
     allows configurations for
     [s3 cache](https://docs.gitlab.com/runner/configuration/runner_autoscale_aws/#the-runnerscache-section),
     [machine type](https://aws.amazon.com/ec2/instance-types/),
@@ -96,10 +96,10 @@ over other alternatives are:
     [max builds before destruction](https://gitlab.com/fluidattacks/product/-/blob/ee58e7a78990ef77ca032e4388d0e0bc49533799/makes/applications/makes/ci/src/config.toml#L223),
     among many others.
     The importance of having
-    a highly versatile [CI](https://docs.gitlab.com/ee/ci/)
+    a highly versatile [CI][GITLAB-CI]
     comes from the fact
     that our
-    [development cycle](https://about.gitlab.com/stages-devops-lifecycle/)
+    [development cycle][DEV-CYCLE]
     completely depends on it,
     making us to expect
     clockwork-like responsiveness
@@ -121,7 +121,7 @@ but not chosen for the following reasons:
     at the time it was reviewed.
 1. [CircleCI](https://circleci.com/):
     It did not support
-    [Gitlab](/development/stack/gitlab),
+    [Gitlab][GITLAB],
     it was very expensive,
     it was not as parameterizable.
 1. [Buildkite](https://buildkite.com/):
@@ -129,20 +129,20 @@ but not chosen for the following reasons:
 
 ## Usage
 
-We use [GItlab CI](https://docs.gitlab.com/ee/ci/) for:
+We use [GItlab CI][GITLAB-CI] for:
 
 1. Running all our
     [CI/CD](https://docs.gitlab.com/ee/ci/introduction/) jobs.
 1. Managing all our
     [CI pipelines as code](https://gitlab.com/fluidattacks/product/-/blob/47d00a5ace02160becc82de533710f1155080b6d/.gitlab-ci.yml).
 1. Configuring our
-    [AWS autoscaler](https://docs.gitlab.com/runner/configuration/runner_autoscale_aws/)
+    [AWS autoscaler][AUTOSCALE]
     as
     [code](https://gitlab.com/fluidattacks/product/-/tree/47d00a5ace02160becc82de533710f1155080b6d/makes/applications/makes/ci/src).
 1. Implementing a
     [Continuous Delivery](https://semaphoreci.com/blog/2017/07/27/what-is-the-difference-between-continuous-integration-continuous-deployment-and-continuous-delivery.html)
     approach for our
-    [development cycle](https://about.gitlab.com/stages-devops-lifecycle/).
+    [development cycle][DEV-CYCLE].
     This means that although the whole process is automatized,
     including deployments
     for both development and production,
@@ -152,7 +152,7 @@ We use [GItlab CI](https://docs.gitlab.com/ee/ci/) for:
     is still required in order to
     be able to deploy changes to production.
 
-We do not use [GItlab CI](https://docs.gitlab.com/ee/ci/) for:
+We do not use [GItlab CI][GITLAB-CI] for:
 
 1. Highly time-consuming schedules
     that take longer than six hours,
@@ -162,12 +162,12 @@ We do not use [GItlab CI](https://docs.gitlab.com/ee/ci/) for:
     among others.
     We use [AWS Batch](https://aws.amazon.com/batch/) instead.
     The reason for this is that the
-    [GItlab CI](https://docs.gitlab.com/ee/ci/)
+    [GItlab CI][GITLAB-CI]
     is not meant to run
-    [jobs](https://docs.gitlab.com/ee/ci/jobs/)
+    [jobs][JOBS]
     that take that many hours,
     often resulting in
-    [jobs](https://docs.gitlab.com/ee/ci/jobs/)
+    [jobs][JOBS]
     being terminated
     before they can finish,
     mainly due to disconnections between the
@@ -181,7 +181,7 @@ We do not use [GItlab CI](https://docs.gitlab.com/ee/ci/) for:
     must be done via
     [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/).
 1. Any changes to the
-    [AWS autoscaler](https://docs.gitlab.com/runner/configuration/runner_autoscale_aws/)
+    [AWS autoscaler][AUTOSCALE]
     infrastructure must be done via
     [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/)
     by modifying its
@@ -190,3 +190,9 @@ We do not use [GItlab CI](https://docs.gitlab.com/ee/ci/) for:
     via [Terraform](/development/stack/terraform),
     visit the
     [Terraform Guidelines](/development/stack/terraform#guidelines).
+
+[GITLAB]: /development/stack/gitlab
+[GITLAB-CI]: https://docs.gitlab.com/ee/ci/
+[DEV-CYCLE]: https://about.gitlab.com/stages-devops-lifecycle/
+[JOBS]: https://docs.gitlab.com/ee/ci/jobs/
+[AUTOSCALE]: https://docs.gitlab.com/runner/configuration/runner_autoscale_aws/
