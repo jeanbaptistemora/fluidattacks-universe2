@@ -7,6 +7,7 @@ function main {
     && lint_markdown "${envSrcDocsMachine}" \
     && lint_markdown "${envSrcDocsCriteriaCompliance}" \
     && lint_markdown "${envSrcDocsCriteriaRequirementsArchitecture}" \
+    && lint_markdown "${envSrcDocsCriteriaRequirementsAuthentication}" \
     && touch "${out}"
 }
 
