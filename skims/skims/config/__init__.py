@@ -96,13 +96,13 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
                 lib_root=config_path.pop("lib_root", True),
             ),
             ssl=core_model.SkimsSslConfig(
-                include=[
+                include=tuple(
                     core_model.SkimsSslTarget(
                         host=entry.pop("host"),
                         port=entry.pop("port", 443),
                     )
                     for entry in config_ssl.pop("include", ())
-                ]
+                )
             ),
             start_dir=os.getcwd(),
             timeout=config.pop("timeout", None),
