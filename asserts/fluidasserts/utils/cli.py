@@ -1203,7 +1203,6 @@ def exec_apk_package(apks):
             apk.not_verifies_ssl_hostname('{apk}')
             apk.allows_user_ca('{apk}')
             apk.has_debug_enabled('{apk}')
-            apk.not_obfuscated('{apk}')
             apk.uses_insecure_delete('{apk}')
             apk.uses_http_resources('{apk}')
             apk.socket_uses_getinsecure('{apk}')

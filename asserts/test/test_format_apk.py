@@ -75,11 +75,6 @@ def test_debug_open():
     assert apk.has_debug_enabled(JS_APK)
 
 
-def test_obfuscation_open():
-    """Test if APK has not obfuscated bytecode."""
-    assert apk.not_obfuscated(SIGNED_APK)
-
-
 def test_unsafe_delete_open():
     """Test if APK does not securely erase files."""
     assert apk.uses_insecure_delete(UNSAFE_DELETE_OPEN)
@@ -238,11 +233,6 @@ def test_allows_user_ca_unknown():
 def test_debug_unknown():
     """Test if APK has debug enabled."""
     assert not apk.has_debug_enabled(NOT_EXISTS_APK)
-
-
-def test_obfuscation_unknown():
-    """Test if APK has not obfuscated bytecode."""
-    assert not apk.not_obfuscated(NOT_EXISTS_APK)
 
 
 def test_unsafe_delete_unknown():

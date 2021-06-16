@@ -56,7 +56,6 @@ Other good function name ideas:
 
 .. code-block:: python
 
-   is_code_not_obfuscated
    is_disk_not_encrypted
    is_linter_bypassed
    has_blind_xee

@@ -346,37 +346,6 @@ def has_debug_enabled(apk_file: str) -> tuple:
 
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError, apk.Error, dvm.Error)
-def not_obfuscated(apk_file: str) -> tuple:
-    """
-    Check if the given APK is not obfuscated.
-
-    :param apk_file: Path to the image to be tested.
-    :returns: - ``OPEN`` if APK is not obfuscated.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    _, dvms, _ = analyze_apk(apk_file)
-
-    not_obfs_dvms = [
-        dvm.header.signature.hex()
-        for dvm in dvms
-        if not analysis.is_ascii_obfuscation(dvm)
-    ]
-
-    has_not_obfs_dvms: bool = bool(not_obfs_dvms)
-
-    return _get_result_as_tuple_sast(
-        path=apk_file,
-        msg_open=f"APK has DVMs not obfuscated",
-        msg_closed="All APK DVMs are obfuscated",
-        open_if=has_not_obfs_dvms,
-        fingerprint={"DVMs without obfuscation": not_obfs_dvms},
-    )
-
-
-@api(risk=LOW, kind=SAST)
-@unknown_if(FileNotFoundError, apk.Error, dvm.Error)
 def uses_insecure_delete(apk_file: str) -> tuple:
     """
     Check if the given APK uses insecure delete of data.
