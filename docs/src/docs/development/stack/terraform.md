@@ -7,7 +7,7 @@ slug: /development/stack/terraform
 
 ## Rationale
 
-[Terraform](https://www.terraform.io/)
+[Terraform][TERRAFORM]
 is used for writing our entire
 [infrastructure stack as code](https://en.wikipedia.org/wiki/Infrastructure_as_code).
 
@@ -75,7 +75,7 @@ Some examples are:
 1. [Okta](https://gitlab.com/fluidattacks/product/-/tree/2a1e5fc66bcf675fd4249cdf3faf31d3a414a85d/makes/applications/makes/okta/src/terraform).
 1. [Website](https://gitlab.com/fluidattacks/product/-/tree/2a1e5fc66bcf675fd4249cdf3faf31d3a414a85d/airs/deploy/production/terraform).
 
-We do not use [Terraform](https://www.terraform.io/) in:
+We do not use [Terraform][TERRAFORM] in:
 
 1. [AWS Redshift](https://aws.amazon.com/redshift/):
     Pending to implement.
@@ -88,15 +88,17 @@ We do not use [Terraform](https://www.terraform.io/) in:
 1. [Local AWS Redis](https://aws.amazon.com/redis/):
     We use [local Redis clusters](https://redis.io/topics/cluster-tutorial)
     as it is not possible to locally deploy Redis clusters using
-    [Terraform](https://www.terraform.io/).
+    [Terraform][TERRAFORM].
     This implementation is written as code.
 1. [Local AWS S3](/development/stack/aws/s3):
     We use [MinIO](https://min.io/)
     as it is not possible to locally deploy s3 buckets using
-    [Terraform](https://www.terraform.io/).
+    [Terraform][TERRAFORM].
     This implementation is written as code.
 
 ## Guidelines
 
 1. Test an infrastructure module with `./m <product>.<module>.test`
 1. Deploy an infrastructure module with `./m <product>.<module>.apply`
+
+[TERRAFORM]: https://www.terraform.io/

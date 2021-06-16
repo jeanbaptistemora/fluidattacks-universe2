@@ -7,7 +7,7 @@ slug: /development/stack/sops
 
 ## Rationale
 
-[Sops](https://github.com/mozilla/sops)
+[Sops][SOPS]
 is the tool we use for managing most of our
 organizational secrets like passwords,
 access keys,
@@ -25,8 +25,8 @@ it over other alternatives are:
 1. it is [Serverless](https://en.wikipedia.org/wiki/Serverless_computing),
     meaning that it does not require maintaining servers, firewalls,
     load balancers, or any other typical infrastructure required for
-    common [Secrets Engines](https://www.vaultproject.io/docs/secrets).
-1. It supports [AWS KMS](https://aws.amazon.com/kms/),
+    common [Secrets Engines][SECRET-ENGINES].
+1. It supports [AWS KMS][KMS],
     which allows to encrypt files
     using symmetric
     [AES256](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)
@@ -38,7 +38,7 @@ it over other alternatives are:
     by using [AWS IAM](https://aws.amazon.com/iam/).
 1. It is free.
     Only costs for decrypting secret files
-    using [AWS KMS](https://aws.amazon.com/kms/) are incurred.
+    using [AWS KMS][KMS] are incurred.
 1. As secrets are
     [written as code](https://hackernoon.com/everything-as-code-explained-0ibg32a3),
     it allows
@@ -53,7 +53,7 @@ it over other alternatives are:
     allowing to run
     [CI/CD](https://docs.gitlab.com/ee/ci/introduction/) integrations
     on the secrets.
-1. Secret's [KMS](https://aws.amazon.com/kms/) keys
+1. Secret's [KMS][KMS] keys
     are [very easy to rotate](https://github.com/mozilla/sops#key-rotation).
 1. It integrates with other services like
     [PGP](https://github.com/mozilla/sops#test-with-the-dev-pgp-key),
@@ -73,7 +73,7 @@ but not chosen for the following reasons:
 1. [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/):
     They charge on a per-secret basis.
     It is a common
-    [Secrets Engine](https://www.vaultproject.io/docs/secrets),
+    [Secrets Engine][SECRET-ENGINES],
     meaning that secrets are not stored as code,
     losing versioning, auditability, automation
     and reproducibility capabilities.
@@ -84,7 +84,7 @@ but not chosen for the following reasons:
     We had to maintain the entire service on our
     [Kubernetes](https://kubernetes.io/) cluster.
     It is a common
-    [Secrets Engine](https://www.vaultproject.io/docs/secrets),
+    [Secrets Engine][SECRET-ENGINES],
     meaning that secrets are not stored as code,
     losing versioning, auditability, automation
     and reproducibility capabilities.
@@ -92,7 +92,7 @@ but not chosen for the following reasons:
     We used it a few years ago but it got discontinued.
     One year later they relaunched their service.
     It is a common
-    [Secrets Engine](https://www.vaultproject.io/docs/secrets),
+    [Secrets Engine][SECRET-ENGINES],
     meaning that secrets are not stored as code,
     losing versioning, auditability, automation
     and reproducibility capabilities.
@@ -109,13 +109,13 @@ Some examples are:
 1. [Makes](https://gitlab.com/fluidattacks/product/-/blob/f0a6de7eee664aee9794d677083a19f45fff4ffb/makes/applications/makes/secrets/src/production.yaml).
 1. [Okta](https://gitlab.com/fluidattacks/product/-/blob/f0a6de7eee664aee9794d677083a19f45fff4ffb/makes/applications/makes/okta/src/terraform/data.yaml).
 
-We do not use [Sops](https://github.com/mozilla/sops) for:
+We do not use [Sops][SOPS] for:
 
 1. [Gitlab CI/CD Variables](https://docs.gitlab.com/ee/ci/variables/):
     Although most of the secrets contained here were already migrated,
     there are still some that need review.
 1. Automatic secret rotation:
-    As [Sops](https://github.com/mozilla/sops) secrets are versioned,
+    As [Sops][SOPS] secrets are versioned,
     automatically rotating them would require
     to directly push automated commits to our main branches.
     We have declined to do this until today
@@ -129,10 +129,10 @@ We do not use [Sops](https://github.com/mozilla/sops) for:
 ## Guidelines
 
 1. You can install
-    [Sops](https://github.com/mozilla/sops) with `nix-env -i sops`.
+    [Sops][SOPS] with `nix-env -i sops`.
 1. In order to be able to decrypt a secrets file,
     first you must assume an [IAM](https://aws.amazon.com/iam/) role
-    with access to the [KMS](https://aws.amazon.com/kms/) key
+    with access to the [KMS][KMS] key
     that encrypted it.
     You can follow [this guide](/development/stack/aws#get-development-keys)
     to do so.
@@ -140,3 +140,7 @@ We do not use [Sops](https://github.com/mozilla/sops) for:
     you can decrypt a file with `sops <file>`.
 1. You can encrypt a plain file
     with `sops -ei --kms <kms-arn> <file>`.
+
+[SOPS]: https://github.com/mozilla/sops
+[SECRET-ENGINES]: https://www.vaultproject.io/docs/secrets
+[KMS]: /development/stack/aws/kms

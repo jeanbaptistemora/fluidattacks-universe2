@@ -7,7 +7,7 @@ slug: /development/stack/kubernetes
 
 ## Rationale
 
-[Kubernetes](https://kubernetes.io/)
+[Kubernetes][KUBERNETES]
 is the system we use
 for hosting, deploying and managing
 our applications.
@@ -19,7 +19,7 @@ It comprises infrastructure solutions like
 [managing load balancers](https://github.com/kubernetes-sigs/aws-load-balancer-controller),
 [autoscaling](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler),
 [blue-Green deployments](https://www.redhat.com/en/topics/devops/what-is-blue-green-deployment),
-[rollbacks](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#rolling-back-a-deployment)
+[rollbacks][ROLLBACKS]
 among many others.
 It allows us to serve and scale our applications
 in an easy, secure and automated way.
@@ -45,7 +45,7 @@ it over other alternatives are:
     many times a day
     without service interruptions.
 1. It supports
-    [Rollbacks](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#rolling-back-a-deployment),
+    [Rollbacks][ROLLBACKS],
     allowing us to revert applications
     to previous versions
     in case the need arise.
@@ -73,7 +73,7 @@ it over other alternatives are:
     [local reproducibility](https://minikube.sigs.k8s.io/docs/)
     tool for simulating clusters
     in local environments.
-1. It is [Open source](https://opensource.com/resources/what-open-source).
+1. It is [Open source][OSS].
 1. It is not platform-bounded.
 1. [Azure AKS](https://azure.microsoft.com/en-us/services/kubernetes-service/),
     [AWS EKS](https://aws.amazon.com/eks),
@@ -81,9 +81,9 @@ it over other alternatives are:
     support it.
 1. It can be [IaaS](https://en.wikipedia.org/wiki/Infrastructure_as_a_service)
     when implemented under a
-    [cloud provider](https://en.wikipedia.org/wiki/Cloud_computing).
+    [cloud provider][CLOUD].
 1. Migrating it from one
-    [cloud provider](https://en.wikipedia.org/wiki/Cloud_computing)
+    [cloud provider][CLOUD]
     to another is,
     although not a simple task, at least possible.
 1. It is
@@ -103,7 +103,7 @@ but not chosen for the following reasons:
     exists within an entire physical machine.
     It does not support extensions.
     It is platform-bounded.
-    It is not [Open source](https://opensource.com/resources/what-open-source).
+    It is not [Open source][OSS].
 1. [AWS Fargate](https://docs.aws.amazon.com/AmazonECS/latest/userguide/what-is-fargate.html):
     It is a serverless service
     for running containers
@@ -113,17 +113,17 @@ but not chosen for the following reasons:
     exists within an entire physical machine.
     It does not support extensions.
     It is platform-bounded.
-    It is not [Open source](https://opensource.com/resources/what-open-source).
+    It is not [Open source][OSS].
 1. [AWS EC2](/development/stack/aws/ec2):
     It is a service for cloud computing.
     [AWS EKS](https://aws.amazon.com/eks)
     actually uses it for setting up cluster workers.
     It does not support extensions.
     It is platform-bounded.
-    It is not [Open source](https://opensource.com/resources/what-open-source).
+    It is not [Open source][OSS].
 1. [HashiCorp Nomad](https://www.nomadproject.io/):
     Currently, no
-    [cloud provider](https://en.wikipedia.org/wiki/Cloud_computing)
+    [cloud provider][CLOUD]
     supports it,
     which means that having to manage
     both managers and workers is required.
@@ -132,7 +132,7 @@ but not chosen for the following reasons:
     with the downside of losing flexibility.
 1. [Docker Swarm](https://www.sumologic.com/glossary/docker-swarm/):
     Currently, no
-    [cloud provider](https://en.wikipedia.org/wiki/Cloud_computing)
+    [cloud provider][CLOUD]
     supports it,
     which means that having to manage
     both managers and workers is required.
@@ -142,7 +142,7 @@ but not chosen for the following reasons:
 
 ## Usage
 
-We use [Kubernetes](https://kubernetes.io/) for:
+We use [Kubernetes][KUBERNETES] for:
 
 1. [Hosting](https://gitlab.com/fluidattacks/product/-/tree/ba230133febd3325d0f5c995f638a176b89d32a2/makes/applications/integrates/back/deploy/prod/k8s)
     our
@@ -155,7 +155,7 @@ We use [Kubernetes](https://kubernetes.io/) for:
     workflows.
 1. Running application performance monitoring using [New Relic](https://newrelic.com/).
 
-We do not use [Kubernetes](https://kubernetes.io/) for:
+We do not use [Kubernetes][KUBERNETES] for:
 
 1. [Metrics-based autoscaling](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/):
     Our autoscaling is based on the
@@ -163,7 +163,7 @@ We do not use [Kubernetes](https://kubernetes.io/) for:
     we specify.
     It should instead be based
     on application load.
-1. [Rollbacks](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#rolling-back-a-deployment):
+1. [Rollbacks][ROLLBACKS]:
     We should version production artifacts
     in order to be able to automatically
     return to a previous working version
@@ -227,3 +227,8 @@ kubectl commands for debugging:
 | `kubectl describe pod -n <namespace> <pod>`                       | `kubectl describe pod -n ephemeral app-dsalazaratfluid-7c485cf565-w9gwg`                           | Describe pod configurations   |
 | `kubectl logs -n <namespace> <pod> -c <container>`                | `kubectl logs -n ephemeral app-dsalazaratfluid-7c485cf565-w9gwg -c app`                            | Get container logs from a pod |
 | `kubectl exec -it -n ephemeral <pod> -c <container> -- <command>` | `kubectl exec -it -n ephemeral app-dsalazaratfluid-7c485cf565-w9gwg -c app -- bash`                | Access container within pod   |
+
+[KUBERNETES]: https://kubernetes.io/
+[ROLLBACKS]: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#rolling-back-a-deployment
+[OSS]: https://opensource.com/resources/what-open-source
+[CLOUD]: https://en.wikipedia.org/wiki/Cloud_computing

@@ -7,7 +7,7 @@ slug: /development/stack/okta
 
 ## Rationale
 
-[Okta](https://www.okta.com/)
+[Okta][OKTA]
 is the
 [IAM](https://en.wikipedia.org/wiki/Identity_management)
 platform we use for managing
@@ -30,7 +30,7 @@ it over other alternatives are:
     [SSO](https://en.wikipedia.org/wiki/Single_sign-on)
     platform,
     employees only need to remember their
-    [Okta](https://www.okta.com/) password.
+    [Okta][OKTA] password.
     Everything else can be accessed
     once they're inside.
 1. It provides a
@@ -40,7 +40,7 @@ it over other alternatives are:
     applications and permissions
     in a single place.
 1. It supports
-    [Multi-factor authentication](https://www.okta.com/products/adaptive-multi-factor-authentication/)
+    [Multi-factor authentication][MFA]
     by using
     [OTP's](https://en.wikipedia.org/wiki/One-time_password)
     that regenerate every thirty seconds
@@ -52,12 +52,12 @@ it over other alternatives are:
     and
     [Android](https://en.wikipedia.org/wiki/Android_(operating_system)).
 1. As
-    [Multi-factor authentication](https://www.okta.com/products/adaptive-multi-factor-authentication/)
+    [Multi-factor authentication][MFA]
     can be done on the user's phone,
     we do not need to manage independent
     [security tokens](https://en.wikipedia.org/wiki/Security_token).
 1. Its
-    [Multi-factor authentication](https://www.okta.com/products/adaptive-multi-factor-authentication/)
+    [Multi-factor authentication][MFA]
     uses
     [OOBA](https://doubleoctopus.com/security-wiki/authentication/out-of-band-authentication/),
     a state of the art authentication process
@@ -119,12 +119,12 @@ it over other alternatives are:
 
 ## Usage
 
-We use [Okta](https://www.okta.com/) for:
+We use [Okta][OKTA] for:
 
 1. [Managing apps, groups, users and permissions](https://gitlab.com/fluidattacks/product/-/blob/6e16ae7ed5a28d5f56601357a299eea18b20e283/makes/applications/makes/okta/src/terraform/data.yaml).
 1. [Managing AWS roles with SAML](https://gitlab.com/fluidattacks/product/-/blob/6e16ae7ed5a28d5f56601357a299eea18b20e283/makes/applications/makes/okta/src/terraform/aws-roles.tf).
 
-We do not use [Okta](https://www.okta.com/) for:
+We do not use [Okta][OKTA] for:
 
 1. [Managing users via universal directory](https://www.okta.com/products/universal-directory/):
     We are [currently returning from JumpCloud](https://gitlab.com/fluidattacks/product/-/issues/4561).
@@ -143,10 +143,10 @@ We do not use [Okta](https://www.okta.com/) for:
 
 ## Guidelines
 
-1. You can access [Okta](https://www.okta.com/)
+1. You can access [Okta][OKTA]
     by clicking [here](https://fluidattacks.okta.com/).
 1. Any changes to
-    [Okta](https://www.okta.com/)
+    [Okta][OKTA]
     infrastructure must be done via
     [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/)
     modifying its
@@ -154,3 +154,6 @@ We do not use [Okta](https://www.okta.com/) for:
 1. To learn how to test and apply infrastructure via [Terraform](/development/stack/terraform),
     visit the
     [Terraform Guidelines](/development/stack/terraform#guidelines).
+
+[OKTA]: https://www.okta.com/
+[MFA]: https://www.okta.com/products/adaptive-multi-factor-authentication/
