@@ -1,4 +1,4 @@
-from paginator.common import (
+from paginator.pages import (
     AllPages,
     EmptyPage,
 )

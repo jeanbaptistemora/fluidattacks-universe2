@@ -1,8 +1,3 @@
-from paginator.common import (
-    AllPages,
-    EmptyPage,
-    Limits,
-)
 from paginator.int_index import (
     build_getter,
     get_pages,
@@ -11,6 +6,11 @@ from paginator.int_index import (
     PageId,
     PageOrAll,
     PageRange,
+)
+from paginator.pages import (
+    AllPages,
+    EmptyPage,
+    Limits,
 )
 
 __all__ = [

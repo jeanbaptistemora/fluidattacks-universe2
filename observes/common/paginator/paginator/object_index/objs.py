@@ -1,6 +1,6 @@
 # pylint: skip-file
 
-from paginator.common import (
+from paginator.pages import (
     AllPages,
 )
 from returns.io import (

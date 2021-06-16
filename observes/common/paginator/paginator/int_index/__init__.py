@@ -7,15 +7,15 @@ import asyncio
 from asyncio.events import (
     AbstractEventLoop,
 )
-from paginator.common import (
-    DEFAULT_LIMITS,
-    EmptyPage,
-    Limits,
-)
 from paginator.int_index.objs import (
     PageId,
     PageOrAll,
     PageRange,
+)
+from paginator.pages import (
+    DEFAULT_LIMITS,
+    EmptyPage,
+    Limits,
 )
 from typing import (
     AsyncGenerator,
