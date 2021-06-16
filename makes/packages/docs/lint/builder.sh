@@ -13,6 +13,7 @@ function main {
     && lint_markdown "${envSrcDocsCriteriaRequirementsCredentials}" \
     && lint_markdown "${envSrcDocsCriteriaRequirementsCryptography}" \
     && lint_markdown "${envSrcDocsCriteriaRequirementsData}" \
+    && lint_markdown "${envSrcDocsCriteriaRequirementsDevices}" \
     && touch "${out}"
 }
 
