@@ -5,18 +5,18 @@ sidebar_label: Bold
 slug: /development/writing/general/bold
 ---
 
-* **WG32:** We *can* use bold to highlight important keywords or phrases.
+* **GB01:** We *can* use bold to highlight important keywords or phrases.
 
-* **WG33:** We *must not* use bold too often in a block of text
+* **GB02:** We *must not* use bold too often in a block of text
   to allow the highlighted elements to really stand out.
 
-* **WG34:** We *must not* emphasize entire paragraphs in bold.
+* **GB03:** We *must not* emphasize entire paragraphs in bold.
 
-* **WG35:** If we have already emphasized
+* **GB04:** If we have already emphasized
   an important word or phrase within a text,
   we *should* preferably *not* emphasize it again there.
 
-* **WG36:** We *must not* use bold and italics in the same emphasis
+* **GB05:** We *must not* use bold and italics in the same emphasis
   (e.g., ***bold-italics***).
 
 > **NOTE:**

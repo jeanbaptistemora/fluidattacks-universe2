@@ -5,7 +5,7 @@ sidebar_label: Capital Letters
 slug: /development/writing/general/capital-letters
 ---
 
-* **WG11:** We *must* capitalize **(a)** the first word of a sentence,
+* **GC01:** We *must* capitalize **(a)** the first word of a sentence,
   **(b)** the pronoun *I*, **(c)** proper nouns
   (i.e., the names of specific people, organizations,
   places and sometimes things),
@@ -17,18 +17,18 @@ slug: /development/writing/general/capital-letters
   **(h)** periods and events (e.g., Great Depression),
   and **(i)** trademarks.
 
-* **WG12:** We *must* present the names of our solutions and services
+* **GC02:** We *must* present the names of our solutions and services
   with initial capital letters (e.g., [Continuous Hacking](https://fluidattacks.com/services/continuous-hacking/)).
 
-* **WG13:** We *must* use initial capital letters
+* **GC03:** We *must* use initial capital letters
   in section and subsection titles
   ([following APA standards](https://capitalizemytitle.com/style/APA/)),
   and not in internal subtitles.
 
-* **WG14:** We *must not* use sustained capital letters to emphasize a word or phrase,
+* **GC04:** We *must not* use sustained capital letters to emphasize a word or phrase,
   nor mix them with bold or italics.
 
-* **WG15:** We *must* capitalize the first letter of a quote
+* **GC05:** We *must* capitalize the first letter of a quote
   when it is a complete sentence
   (e.g., (...) [as Cimpanu in The Record says](https://fluidattacks.com/blog/facebook-data-leak/),
   "While the forum is publicly accessible (...)."),

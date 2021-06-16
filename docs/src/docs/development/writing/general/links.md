@@ -5,25 +5,25 @@ sidebar_label: Links
 slug: /development/writing/general/links
 ---
 
-* **WG65:** We *must* check that each hyperlink,
+* **GK01:** We *must* check that each hyperlink,
   apart from leading to a working site,
   always leads to the right place.
 
-* **WG66:** We *must not* use hyperlinks
+* **GK02:** We *must not* use hyperlinks
   that direct the reader to websites or documents<a name="r1"></a>
   written in a language other than English
   unless strictly necessary.
 
-* **WG67:** We *must* put hyperlinks to our services and solutions
+* **GK03:** We *must* put hyperlinks to our services and solutions
   the first and the last time we mention them
   within a subsection, page or blog post.
 
-* **WG68:** We *must* use internal links in the subsections and pages
+* **GK04:** We *must* use internal links in the subsections and pages
   whenever we direct the reader to
   (a) another part of them or to
   (b) other subsections or pages.
 
-* **WG69:** We *must* include the reference with hyperlink
+* **GK05:** We *must* include the reference with hyperlink
   immediately before or after an external source fragment of text is used
   (e.g., [As Alan Turing said](https://www.brainyquote.com/quotes/alan_turing_164574),
   "Science is a differential (...)").
@@ -32,20 +32,21 @@ slug: /development/writing/general/links
   when we do not wish to mention the source within our text
   for reasons of repetition or space.
 
-* **WG70:** We *must* maintain consistency
+* **GK06:** We *must* maintain consistency
   in the presentation of hyperlinks within a text.
   So, for example, if in a text we use the word *here*
   to direct the reader to websites,
   every time we mention it and have a corresponding link,
   we *must* associate both elements.
 
-* **WG71:** In the same block of text or list,
+* **GK07:** In the same block of text or list,
   we *must not* give the reader the same link
   associated with the same word or group of words
+  two or more times
   unless they are so far apart that we cannot see them simultaneously.
-  (There may be an exception: see [WG67](#r1).)
+  (There may be an exception: see [GK03](#r1).)
 
-* **WG72:** We *must* avoid putting full paths to websites
+* **GK08:** We *must* avoid putting full paths to websites
   (especially with *https://* and several slashes afterward)
   as references in the visible content
   and then associating those same links to them

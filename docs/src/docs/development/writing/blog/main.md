@@ -1,8 +1,8 @@
 ---
-id: blog
-title: Blog
-sidebar_label: Blog
-slug: /development/writing/blog
+id: main
+title: Main
+sidebar_label: Main
+slug: /development/writing/blog/main
 ---
 
 > **NOTE:**
