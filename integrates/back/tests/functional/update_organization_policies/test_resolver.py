@@ -25,7 +25,7 @@ async def test_update_organization_policies(
     org_name: str = "orgtest"
     result: Dict[str, Any] = await get_result(
         user=email,
-        id=org_id,
+        identifier=org_id,
         name=org_name,
     )
     assert "errors" not in result
@@ -50,7 +50,7 @@ async def test_update_organization_policies_fail(
     org_name: str = "orgtest"
     result: Dict[str, Any] = await get_result(
         user=email,
-        id=org_id,
+        identifier=org_id,
         name=org_name,
     )
     assert "errors" in result

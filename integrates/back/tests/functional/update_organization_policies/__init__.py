@@ -13,7 +13,7 @@ from typing import (
 async def get_result(
     *,
     user: str,
-    id: str,
+    identifier: str,
     name: str,
 ) -> Dict[str, Any]:
     query: str = f"""
@@ -23,7 +23,7 @@ async def get_result(
                 maxAcceptanceSeverity: 8.5,
                 maxNumberAcceptations: 3,
                 minAcceptanceSeverity: 1.5,
-                organizationId: "{id}",
+                organizationId: "{identifier}",
                 organizationName: "{name}"
             ) {{
                 success

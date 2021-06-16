@@ -17,7 +17,7 @@ import pytest
 async def test_activate_root(populate: bool, root_id: str) -> None:
     assert populate
     result = await get_result(
-        email="admin@gmail.com", group_name="group1", id=root_id
+        email="admin@gmail.com", group_name="group1", identifier=root_id
     )
     assert "errors" not in result
     assert result["data"]["activateRoot"]["success"]

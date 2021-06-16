@@ -15,7 +15,7 @@ async def get_result(
     *,
     email: str,
     group_name: str,
-    id: str,
+    identifier: str,
     new_root_id: Optional[str],
     reason: str,
 ) -> Dict[str, Any]:
@@ -23,7 +23,7 @@ async def get_result(
         mutation {{
             deactivateRoot(
                 groupName: "{group_name}",
-                id: "{id}",
+                id: "{identifier}",
                 newRootId: "{new_root_id}",
                 reason: {reason}
             ) {{

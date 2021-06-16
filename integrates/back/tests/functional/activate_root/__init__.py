@@ -11,11 +11,11 @@ from typing import (
 
 
 async def get_result(
-    *, email: str, group_name: str, id: str
+    *, email: str, group_name: str, identifier: str
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
-            activateRoot(groupName: "{group_name}", id: "{id}") {{
+            activateRoot(groupName: "{group_name}", id: "{identifier}") {{
                 success
             }}
         }}

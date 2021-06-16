@@ -400,7 +400,7 @@ async def test_add_org_finding_policy() -> None:
 
 
 async def test_get_org_finding_policies() -> None:
-    id = "8b35ae2a-56a1-4f64-9da7-6a552683bf46"
+    identifier = "8b35ae2a-56a1-4f64-9da7-6a552683bf46"
     name = "F007. Cross site request forgery"
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     status = "APPROVED"
@@ -423,7 +423,10 @@ async def test_get_org_finding_policies() -> None:
     assert "errors" not in result
     assert result["data"]["organization"]["id"] == org_id
     assert len(result["data"]["organization"]["findingPolicies"]) == 1
-    assert result["data"]["organization"]["findingPolicies"][0]["id"] == id
+    assert (
+        result["data"]["organization"]["findingPolicies"][0]["id"]
+        == identifier
+    )
     assert result["data"]["organization"]["findingPolicies"][0]["name"] == name
     assert (
         result["data"]["organization"]["findingPolicies"][0]["status"]

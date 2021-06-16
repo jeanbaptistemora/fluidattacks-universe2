@@ -32,7 +32,7 @@ async def test_deactivate_root(
     result = await get_result(
         email="admin@gmail.com",
         group_name="group1",
-        id=root_id,
+        identifier=root_id,
         new_root_id=new_root_id,
         reason=reason,
     )
