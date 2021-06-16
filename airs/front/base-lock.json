@@ -3,6 +3,14 @@
   "version": "1.0.0",
   "lockfileVersion": 1,
   "dependencies": {
+    "@graphql-tools/url-loader": {
+      "version": "6.10.1",
+      "dependencies": {
+        "ws": {
+          "version": "7.4.6"
+        }
+      }
+    },
     "cacheable-request": {
       "version": "2.1.4",
       "dependencies": {
@@ -30,8 +38,30 @@
         }
       }
     },
+    "react-dev-utils": {
+      "version": "11.0.4",
+      "dependencies": {
+        "browserslist": {
+          "version": "4.16.6"
+        }
+      }
+    },
     "trim": {
       "version": "0.0.3"
+    },
+    "webpack-dev-server": {
+      "version": "3.11.2",
+      "dependencies": {
+        "glob-parent": {
+          "version": "5.1.2"
+        },
+        "ws": {
+          "version": "6.2.2"
+        }
+      }
+    },
+    "ws": {
+      "version": "7.4.6"
     }
   }
 }
