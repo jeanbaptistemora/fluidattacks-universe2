@@ -7,21 +7,21 @@ slug: /development/stack/gitlab
 
 ## Rationale
 
-[Gitlab](https://about.gitlab.com/)
+[Gitlab][GITLAB]
 is the platform we use for
-[developing our software](https://gitlab.com/fluidattacks/product).
+[developing our software][PRODUCT].
 It provides essential services like
 [Git repositories](https://blog.axosoft.com/learning-git-repository/),
 [Merge requests](https://docs.gitlab.com/ee/user/project/merge_requests/index.html),
 [Development planning](https://docs.gitlab.com/ee/topics/plan_and_track.html),
-[CI/CD](/development/stack/gitlab-ci),
+[CI/CD][CICD],
 among many others.
 
 The main reasons why we chose
-[Gitlab](https://about.gitlab.com/)
+[Gitlab][GITLAB]
 over other alternatives are:
 
-1. It is [Open Source](https://opensource.com/resources/what-open-source).
+1. It is [Open Source][OSS].
 1. It is [SaaS](https://en.wikipedia.org/wiki/Software_as_a_service).
 1. It is a [DevOps Suite](https://about.gitlab.com/blog/2017/10/04/devops-strategy/),
     meaning that all their technical efforts are focused on creating
@@ -33,7 +33,7 @@ over other alternatives are:
     and current
     [development cycle](https://about.gitlab.com/stages-devops-lifecycle/).
 1. It has its own
-    [Continuous Integrator](/development/stack/gitlab-ci)
+    [Continuous Integrator][CICD]
     with built-in support,
     which is essetial to our
     [development cycle](https://about.gitlab.com/stages-devops-lifecycle/).
@@ -42,12 +42,12 @@ over other alternatives are:
     program,
     which gives unlimited
     [ultimate](https://about.gitlab.com/pricing/) free seats to
-    [Open Source](https://opensource.com/resources/what-open-source)
-    projects like [ours](https://gitlab.com/fluidattacks/product).
+    [Open Source][OSS]
+    projects like [ours][PRODUCT].
 1. It provides
     [Development Planning](https://docs.gitlab.com/ee/topics/plan_and_track.html)
     with
-    [issues](https://gitlab.com/fluidattacks/product/-/issues),
+    [issues][ISSUE],
     [milestones](https://gitlab.com/fluidattacks/product/-/milestones),
     [roadmaps](https://docs.gitlab.com/ee/user/group/roadmap/index.html),
     among others.
@@ -66,19 +66,19 @@ over other alternatives are:
 1. It supports
     [Two-factor Authentication](https://docs.gitlab.com/ee/user/profile/account/two_factor_authentication.html).
 1. It supports
-    [Merge Requests](https://gitlab.com/fluidattacks/product/-/merge_requests),
+    [Merge Requests][MR],
     allowing developers to open requests
     to get their changes to production.
 1. It supports
     [Merge Request Approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/),
     allowing to specify a group
     of developers for reviewing and approving
-    [merge requests](https://gitlab.com/fluidattacks/product/-/merge_requests).
+    [merge requests][MR].
     In order to be able to reach production,
     developers need at least one approval
     from a user belonging to the approvers group.
     An approver cannot approve her own
-    [merge requests](https://gitlab.com/fluidattacks/product/-/merge_requests),
+    [merge requests][MR],
     everyone needs their work to be reviewed by someone else.
 1. It has a very complete
     [REST API](https://docs.gitlab.com/ee/api/)
@@ -94,7 +94,7 @@ over other alternatives are:
 1. It supports
     [CI/CD schedules](https://gitlab.com/fluidattacks/product/-/pipeline_schedules),
     which allows us to easily run scheduled
-    [jobs](https://docs.gitlab.com/ee/ci/jobs/).
+    [jobs][JOBS].
 1. It supports
     [Environments](https://gitlab.com/fluidattacks/product/-/environments)
     for seamlessly accessing both development and production environments.
@@ -114,17 +114,17 @@ over other alternatives are:
     on our internal chat platform
     that recieves all types of relevant information
     from
-    [Gitlab](https://about.gitlab.com/).
+    [Gitlab][GITLAB].
     Developers just need to keep an eye on it
     in order to know what's happening with
-    [merge requests](https://gitlab.com/fluidattacks/product/-/merge_requests),
-    [issues](https://gitlab.com/fluidattacks/product/-/issues),
-    [failed jobs](https://docs.gitlab.com/ee/ci/jobs/),
+    [merge requests][MR],
+    [issues][ISSUE],
+    [failed jobs][JOBS],
     etc.
 1. It supports
     [Repository Mirroring](https://docs.gitlab.com/ee/user/project/repository/repository_mirroring.html),
     allowing us to have a mirror
-    of [our repository](https://gitlab.com/fluidattacks/product)
+    of [our repository][PRODUCT]
     on [GitHub](https://github.com/fluidattacks/product).
 1. It supports
     [Project Access Tokens](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html),
@@ -146,18 +146,18 @@ over other alternatives are:
     to the main production branch,
     thus forcing developers
     to reach production via
-    [merge requests](https://gitlab.com/fluidattacks/product/-/merge_requests).
+    [merge requests][MR].
 1. It supports infrastructure integrations for
     [Error Tracking](https://docs.gitlab.com/ee/operations/error_tracking.html),
     [Tracing](https://docs.gitlab.com/ee/operations/tracing.html),
     [Metrics](https://docs.gitlab.com/ee/user/project/integrations/prometheus_library/kubernetes.html),
     among others.
 1. It supports
-    [Push Rules](https://docs.gitlab.com/ee/push_rules/push_rules.html)
+    [Push Rules][PUSH-RULES]
     that allow to further customize what can and cannot be pushed to the repository.
     Some examples are
-    [branch naming](https://docs.gitlab.com/ee/push_rules/push_rules.html),
-    [signed commits](https://docs.gitlab.com/ee/push_rules/push_rules.html),
+    [branch naming][PUSH-RULES],
+    [signed commits][PUSH-RULES],
     [secret pushing prevention](https://docs.gitlab.com/ee/push_rules/push_rules.html#prevent-pushing-secrets-to-the-repository),
     among others.
 
@@ -165,42 +165,42 @@ over other alternatives are:
 
 1. [Azure DevOps](https://azure.microsoft.com/en-us/services/devops/):
     It did not exist at the time.
-    It is not [Open Source](https://opensource.com/resources/what-open-source).
+    It is not [Open Source][OSS].
 1. [BitBucket](https://bitbucket.org/product/):
     It is not a [DevOps](https://aws.amazon.com/devops/what-is-devops/)
     solution but a source code respository.
     It did not integrate with a
-    [CI/CD](/development/stack/gitlab-ci) solution.
+    [CI/CD][CICD] solution.
 1. [GitHub](https://github.com/about):
     It is not a [DevOps](https://aws.amazon.com/devops/what-is-devops/)
     solution but a source code respository.
     It did not integrate with a
-    [CI/CD](/development/stack/gitlab-ci) solution.
+    [CI/CD][CICD] solution.
 
 ## Usage
 
-We use [Gitlab](https://about.gitlab.com/) for:
+We use [Gitlab][GITLAB] for:
 
 1. Hosting our
-    [product repository](https://gitlab.com/fluidattacks/product).
+    [product repository][PRODUCT].
 1. Hosting our
-    [issues](https://gitlab.com/fluidattacks/product/-/issues).
+    [issues][ISSUE].
 1. Hosting our
     [milestones](https://gitlab.com/fluidattacks/product/-/milestones).
 1. Opening our
-    [merge requests](https://gitlab.com/fluidattacks/product/-/merge_requests).
+    [merge requests][MR].
 1. Hosting our
     [containers](https://gitlab.com/fluidattacks/product/container_registry).
 1. Visualizing
-    [jobs](https://docs.gitlab.com/ee/ci/jobs/)
+    [jobs][JOBS]
     and
     [pipelines](https://docs.gitlab.com/ee/ci/pipelines/).
 
-We do not use [Gitlab](https://about.gitlab.com/) for:
+We do not use [Gitlab][GITLAB] for:
 
 1. [Implementing it as code](https://gitlab.com/fluidattacks/product/-/issues/468):
     We can partially implement
-    [Gitlab](https://about.gitlab.com/) as code
+    [Gitlab][GITLAB] as code
     using [Terraform](/development/stack/terraform#usage).
 1. [Security scans](https://docs.gitlab.com/ee/user/application_security/):
     We tried to implement this in the past
@@ -208,7 +208,7 @@ We do not use [Gitlab](https://about.gitlab.com/) for:
     low parametrization capabilities on the scans.
 1. [Operations](https://docs.gitlab.com/ee/operations/):
     We currently do not use a stack that
-    integrates with [Gitlab](https://about.gitlab.com/).
+    integrates with [Gitlab][GITLAB].
     Issues have been opened for this:
     [Review Sentry](https://gitlab.com/fluidattacks/product/-/issues/4729),
     [Review Jaeger](https://gitlab.com/fluidattacks/product/-/issues/4728),
@@ -222,3 +222,12 @@ We do not use [Gitlab](https://about.gitlab.com/) for:
 1. [Create a personal access token](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token).
 1. [Create a merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html).
 1. [Create an issue](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#create-a-new-issue).
+
+[GITLAB]: https://about.gitlab.com/
+[PRODUCT]: https://gitlab.com/fluidattacks/product
+[CICD]: /development/stack/gitlab-ci
+[OSS]: https://opensource.com/resources/what-open-source
+[ISSUES]: https://gitlab.com/fluidattacks/product/-/issues
+[MR]: https://gitlab.com/fluidattacks/product/-/merge_requests
+[JOBS]: https://docs.gitlab.com/ee/ci/jobs/
+[PUSH-RULES]: https://docs.gitlab.com/ee/push_rules/push_rules.html
