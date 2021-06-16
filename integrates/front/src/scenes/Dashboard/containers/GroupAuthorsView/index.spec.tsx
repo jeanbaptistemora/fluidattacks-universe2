@@ -32,7 +32,7 @@ describe("AuthorsView", (): void => {
         data: {
           group: {
             bill: {
-              developers: [
+              authors: [
                 {
                   actor: "test",
                   commit: "123",

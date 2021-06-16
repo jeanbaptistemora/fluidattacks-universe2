@@ -1112,13 +1112,13 @@ export const enTranslations: ResourceKey = {
       },
       deletedsoon: "Scheduled to be deleted in 1 month",
       errors: {
-        drillsOnlyIfContinuous:
-          "Squad is only available in groups of type Continuous-Hacking",
         expectedGroupName: "Expected: {{groupName}}",
         forcesOnlyIfContinuous:
           "Forces is only available in groups of type Continuous-Hacking",
         forcesOnlyIfSquad: "Forces is only available when Squad is too",
         organizationNotExists: "Target organization does not exist",
+        squadOnlyIfContinuous:
+          "Squad is only available in groups of type Continuous-Hacking",
         userNotInOrganization:
           "User is not a member of the target organization",
       },

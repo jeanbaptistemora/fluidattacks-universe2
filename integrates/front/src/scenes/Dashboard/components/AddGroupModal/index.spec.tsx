@@ -100,7 +100,7 @@ describe("AddGroupModal component", (): void => {
     expect(submitButton).toHaveLength(1);
   });
 
-  it("should remove Forces and Drills switches", (): void => {
+  it("should remove Forces and Squad switches", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
@@ -139,9 +139,9 @@ describe("AddGroupModal component", (): void => {
       </Provider>
     );
 
-    const drillsSwitch: ReactWrapper = wrapper.find({ checked: true }).at(1);
+    const squadSwitch: ReactWrapper = wrapper.find({ checked: true }).at(1);
 
-    drillsSwitch.simulate("click");
+    squadSwitch.simulate("click");
 
     expect(wrapper.find({ checked: true })).toHaveLength(1);
   });

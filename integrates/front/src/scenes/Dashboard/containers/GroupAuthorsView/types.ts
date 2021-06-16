@@ -1,4 +1,4 @@
-interface IBillDeveloper {
+interface IBillAuthor {
   actor: string;
   commit: string;
   groups: string;
@@ -7,7 +7,7 @@ interface IBillDeveloper {
 }
 
 interface IBill {
-  developers: IBillDeveloper[];
+  authors: IBillAuthor[];
 }
 
 interface IData {
@@ -16,4 +16,4 @@ interface IData {
   };
 }
 
-export { IBillDeveloper, IBill, IData };
+export { IBillAuthor, IBill, IData };

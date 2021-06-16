@@ -12,7 +12,7 @@ import type { IHeaderConfig } from "components/DataTableNext/types";
 import styles from "scenes/Dashboard/containers/GroupAuthorsView/index.css";
 import { GET_BILL } from "scenes/Dashboard/containers/GroupAuthorsView/queries";
 import type {
-  IBillDeveloper,
+  IBillAuthor,
   IData,
 } from "scenes/Dashboard/containers/GroupAuthorsView/types";
 import { Col100, Row } from "styles/styledComponents";
@@ -108,7 +108,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     return <div />;
   }
 
-  const dataset: IBillDeveloper[] = (data as IData).group.bill.developers;
+  const dataset: IBillAuthor[] = (data as IData).group.bill.authors;
 
   return (
     <React.StrictMode>
