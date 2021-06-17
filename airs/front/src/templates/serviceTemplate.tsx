@@ -18,8 +18,8 @@ import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import { ServicePage } from "../components/ServicePage";
-import { capitalizeCrumbs } from "../utils/capitalizeCrumbs";
 import { translate } from "../utils/translations/translate";
+import { capitalizeObject } from "../utils/utilities";
 
 const continuousImage: string =
   "https://res.cloudinary.com/fluid-attacks/image/upload/v1619722210/airs/services/service-continuous_qyvqv8.webp";
@@ -66,7 +66,7 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
           <Breadcrumb
             crumbLabel={customCrumbLabel}
             crumbSeparator={" / "}
-            crumbs={capitalizeCrumbs(crumbs)}
+            crumbs={capitalizeObject(crumbs)}
           />
 
           <ServicePage

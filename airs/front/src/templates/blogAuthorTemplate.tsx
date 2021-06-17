@@ -7,8 +7,8 @@ import { NavbarComponent } from "../components/Navbar";
 import { PageHeader } from "../components/PageHeader";
 import { Seo } from "../components/Seo";
 import { PageArticle } from "../styles/styledComponents";
-import { capitalizeCrumbs } from "../utils/capitalizeCrumbs";
 import { translate } from "../utils/translations/translate";
+import { capitalizeDashedString, capitalizeObject } from "../utils/utilities";
 
 const blogAuthorIndex: React.FC<IQueryData> = ({
   pageContext,
@@ -19,17 +19,6 @@ const blogAuthorIndex: React.FC<IQueryData> = ({
 
   const { authorName } = pageContext;
 
-  const capitalizeName: (words: string) => string = (words: string): string => {
-    const separateWord = words.toLowerCase().split("-");
-
-    const capitalizedName = separateWord.map(
-      (word: string): string =>
-        `${word.charAt(0).toUpperCase()}${word.substring(1)}`
-    );
-
-    return capitalizedName.join(" ");
-  };
-
   return (
     <React.Fragment>
       <Seo
@@ -38,7 +27,7 @@ const blogAuthorIndex: React.FC<IQueryData> = ({
           "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632208/airs/bg-blog_bj0szx.png"
         }
         keywords={translate.t("blog.keywords")}
-        title={`Blogs by ${capitalizeName(
+        title={`Blogs by ${capitalizeDashedString(
           authorName
         )} | A Pentesting Company | Fluid Attacks`}
         url={"https://fluidattacks.com/blog"}
@@ -49,9 +38,9 @@ const blogAuthorIndex: React.FC<IQueryData> = ({
           <NavbarComponent />
 
           <Breadcrumb
-            crumbLabel={capitalizeName(authorName)}
+            crumbLabel={capitalizeDashedString(authorName)}
             crumbSeparator={" / "}
-            crumbs={capitalizeCrumbs(crumbs)}
+            crumbs={capitalizeObject(crumbs)}
           />
           <PageArticle>
             <PageHeader

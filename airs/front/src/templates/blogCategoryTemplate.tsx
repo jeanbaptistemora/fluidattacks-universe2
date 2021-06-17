@@ -7,8 +7,8 @@ import { NavbarComponent } from "../components/Navbar";
 import { PageHeader } from "../components/PageHeader";
 import { Seo } from "../components/Seo";
 import { PageArticle } from "../styles/styledComponents";
-import { capitalizeCrumbs } from "../utils/capitalizeCrumbs";
 import { translate } from "../utils/translations/translate";
+import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
 const blogCategoryIndex: React.FC<IQueryData> = ({
   pageContext,
@@ -27,11 +27,9 @@ const blogCategoryIndex: React.FC<IQueryData> = ({
           "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632208/airs/bg-blog_bj0szx.png"
         }
         keywords={translate.t("blog.keywords")}
-        title={`Blogs about ${categoryName
-          .charAt(0)
-          .toUpperCase()}${categoryName
-          .slice(1)
-          .replace("-", " ")} | A Pentesting Company | Fluid Attacks`}
+        title={`Blogs about ${capitalizePlainString(
+          categoryName
+        )} | A Pentesting Company | Fluid Attacks`}
         url={"https://fluidattacks.com/blog"}
       />
 
@@ -44,7 +42,7 @@ const blogCategoryIndex: React.FC<IQueryData> = ({
               .charAt(0)
               .toUpperCase()}${categoryName.slice(1).replace("-", " ")}`}
             crumbSeparator={" / "}
-            crumbs={capitalizeCrumbs(crumbs)}
+            crumbs={capitalizeObject(crumbs)}
           />
           <PageArticle>
             <PageHeader

@@ -33,8 +33,8 @@ import {
   PageContainer,
   RegularRedButton,
 } from "../styles/styledComponents";
-import { capitalizeCrumbs } from "../utils/capitalizeCrumbs";
 import { translate } from "../utils/translations/translate";
+import { capitalizeObject } from "../utils/utilities";
 
 const SolutionIndex: React.FC<IQueryData> = ({
   data,
@@ -67,7 +67,7 @@ const SolutionIndex: React.FC<IQueryData> = ({
           <Breadcrumb
             crumbLabel={customCrumbLabel}
             crumbSeparator={" / "}
-            crumbs={capitalizeCrumbs(crumbs)}
+            crumbs={capitalizeObject(crumbs)}
           />
 
           <PageArticle>

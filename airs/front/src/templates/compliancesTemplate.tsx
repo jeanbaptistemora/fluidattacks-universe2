@@ -23,7 +23,7 @@ import {
   MarkedTitleContainer,
   RedMark,
 } from "../styles/styledComponents";
-import { capitalizeCrumbs } from "../utils/capitalizeCrumbs";
+import { capitalizeObject } from "../utils/utilities";
 
 const CompliancesIndex: React.FC<IQueryData> = ({
   data,
@@ -68,7 +68,7 @@ const CompliancesIndex: React.FC<IQueryData> = ({
           <Breadcrumb
             crumbLabel={customCrumbLabel}
             crumbSeparator={" / "}
-            crumbs={capitalizeCrumbs(crumbs)}
+            crumbs={capitalizeObject(crumbs)}
           />
           <MarkedTitleContainer>
             <div className={"pl4"}>

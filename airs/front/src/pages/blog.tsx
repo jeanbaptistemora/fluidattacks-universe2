@@ -9,8 +9,8 @@ import { NavbarComponent } from "../components/Navbar";
 import { PageHeader } from "../components/PageHeader";
 import { Seo } from "../components/Seo";
 import { PageArticle } from "../styles/styledComponents";
-import { capitalizeCrumbs } from "../utils/capitalizeCrumbs";
 import { translate } from "../utils/translations/translate";
+import { capitalizeObject } from "../utils/utilities";
 
 const BlogIndex: React.FC<IQueryData> = ({
   pageContext,
@@ -39,7 +39,7 @@ const BlogIndex: React.FC<IQueryData> = ({
           <Breadcrumb
             crumbLabel={"Blog"}
             crumbSeparator={" / "}
-            crumbs={capitalizeCrumbs(crumbs)}
+            crumbs={capitalizeObject(crumbs)}
           />
           <PageArticle>
             <PageHeader

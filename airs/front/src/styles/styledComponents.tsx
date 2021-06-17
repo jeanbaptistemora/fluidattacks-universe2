@@ -1045,7 +1045,71 @@ const IframeContainer: StyledComponent<
   `,
 })``;
 
+const CardsContainer1200: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    roboto
+    internal
+    mw-1200
+    center
+    roboto
+    bg-lightgray
+    ph4-l
+    ph3
+    pt5-l
+    pt4
+    pb5
+  `,
+})``;
+
+const AdvisoriesGrid: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    advisories-grid
+    center
+    grid
+    mt4
+  `,
+})``;
+const AdvisoriesContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    w-100
+    tc
+    mb4
+  `,
+})``;
+
+const AdvisoryContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    roboto
+    internal
+    internal-advisory
+    mw-900
+    ml-auto
+    mr-auto
+    bg-white
+    ph4-l
+    ph3
+    pt5-l
+    pt4
+    pb5
+  `,
+})``;
+
 export {
+  AdvisoriesContainer,
+  AdvisoriesGrid,
+  AdvisoryContainer,
   ArticleContainer,
   ArticleTitle,
   BlogItemName,
@@ -1074,6 +1138,7 @@ export {
   CardHeader,
   CardReadMore,
   CardsContainer,
+  CardsContainer1200,
   CenteredSpacedContainer,
   CopyrightContainer,
   CopyrightParagraph,

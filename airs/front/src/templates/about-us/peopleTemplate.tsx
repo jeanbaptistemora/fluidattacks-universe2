@@ -24,7 +24,7 @@ import {
   LittleBannerContainer,
   PageArticle,
 } from "../../styles/styledComponents";
-import { capitalizeCrumbs } from "../../utils/capitalizeCrumbs";
+import { capitalizeObject, capitalizePlainString } from "../../utils/utilities";
 
 const PeopleIndex: React.FC<IQueryData> = ({
   data,
@@ -35,31 +35,28 @@ const PeopleIndex: React.FC<IQueryData> = ({
   } = pageContext;
 
   const { title } = data.asciidoc.document;
-  const customCrumbLabel: string = `${title
-    .charAt(0)
-    .toUpperCase()}${title.slice(1).replace("-", "")}`;
 
-  const { banner } = data.asciidoc.pageAttributes;
+  const { banner, description, keywords, slug } = data.asciidoc.pageAttributes;
   const metaImage: string =
     "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632545/airs/about-us/people/cover-people_lxsx5t.png";
 
   return (
     <React.Fragment>
       <Seo
-        description={data.asciidoc.pageAttributes.description}
+        description={description}
         image={metaImage}
-        keywords={data.asciidoc.pageAttributes.keywords}
+        keywords={keywords}
         title={`${title} | Fluid Attacks`}
-        url={data.asciidoc.pageAttributes.slug}
+        url={slug}
       />
 
       <Layout>
         <div>
           <NavbarComponent />
           <Breadcrumb
-            crumbLabel={customCrumbLabel}
+            crumbLabel={capitalizePlainString(title)}
             crumbSeparator={" / "}
-            crumbs={capitalizeCrumbs(crumbs)}
+            crumbs={capitalizeObject(crumbs)}
           />
 
           <PageArticle>

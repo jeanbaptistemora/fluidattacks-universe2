@@ -7,7 +7,7 @@ import { Layout } from "../../components/Layout";
 import { NavbarComponent } from "../../components/Navbar";
 import { Seo } from "../../components/Seo";
 import { PageArticle } from "../../styles/styledComponents";
-import { capitalizeCrumbs } from "../../utils/capitalizeCrumbs";
+import { capitalizeObject } from "../../utils/utilities";
 
 const authorsIndex: React.FC<IQueryData> = ({
   pageContext,
@@ -31,7 +31,7 @@ const authorsIndex: React.FC<IQueryData> = ({
           <Breadcrumb
             crumbLabel={"Authors"}
             crumbSeparator={" / "}
-            crumbs={capitalizeCrumbs(crumbs)}
+            crumbs={capitalizeObject(crumbs)}
           />
 
           <PageArticle className={"internal"}>

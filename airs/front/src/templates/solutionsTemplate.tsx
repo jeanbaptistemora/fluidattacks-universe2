@@ -26,8 +26,8 @@ import {
   PageArticle,
   PageContainer,
 } from "../styles/styledComponents";
-import { capitalizeCrumbs } from "../utils/capitalizeCrumbs";
 import { translate } from "../utils/translations/translate";
+import { capitalizeObject } from "../utils/utilities";
 
 const redTeamingImage: string =
   "https://res.cloudinary.com/fluid-attacks/image/upload/v1619735155/airs/solutions/solution-red-teaming_trx6rr.webp";
@@ -79,7 +79,7 @@ const SolutionsIndex: React.FC<IQueryData> = ({
           <Breadcrumb
             crumbLabel={customCrumbLabel}
             crumbSeparator={" / "}
-            crumbs={capitalizeCrumbs(crumbs)}
+            crumbs={capitalizeObject(crumbs)}
           />
 
           <PageArticle>

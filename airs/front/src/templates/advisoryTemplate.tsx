@@ -12,19 +12,18 @@
 import { graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
-import type { StyledComponent } from "styled-components";
-import styled from "styled-components";
 
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import {
+  AdvisoryContainer,
   BannerTitle,
   FullWidthContainer,
   LittleBannerContainer,
   PageArticle,
 } from "../styles/styledComponents";
-import { capitalizeCrumbs } from "../utils/capitalizeCrumbs";
+import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
 const AdvisoryIndex: React.FC<IQueryData> = ({
   data,
@@ -35,49 +34,27 @@ const AdvisoryIndex: React.FC<IQueryData> = ({
   } = pageContext;
 
   const { title } = data.asciidoc.document;
-  const customCrumbLabel: string = `${title
-    .charAt(0)
-    .toUpperCase()}${title.slice(1).replace("-", "")}`;
-  const { banner } = data.asciidoc.pageAttributes;
-  const AdvisoryContainer: StyledComponent<
-    "div",
-    Record<string, unknown>
-  > = styled.div.attrs({
-    className: `
-    roboto
-    internal
-    internal-advisory
-    mw-900
-    ml-auto
-    mr-auto
-    bg-white
-    ph4-l
-    ph3
-    pt5-l
-    pt4
-    pb5
-  `,
-  })``;
+  const { banner, description, keywords, slug } = data.asciidoc.pageAttributes;
 
   return (
     <React.Fragment>
       <Seo
-        description={data.asciidoc.pageAttributes.description}
+        description={description}
         image={
           "https://res.cloudinary.com/fluid-attacks/image/upload/v1619634447/airs/bg-advisories_htsqyd.png"
         }
-        keywords={data.asciidoc.pageAttributes.keywords}
+        keywords={keywords}
         title={`${title} | Fluid Attacks`}
-        url={data.asciidoc.pageAttributes.slug}
+        url={slug}
       />
 
       <Layout>
         <div>
           <NavbarComponent />
           <Breadcrumb
-            crumbLabel={customCrumbLabel}
+            crumbLabel={capitalizePlainString(title)}
             crumbSeparator={" / "}
-            crumbs={capitalizeCrumbs(crumbs)}
+            crumbs={capitalizeObject(crumbs)}
           />
 
           <PageArticle>

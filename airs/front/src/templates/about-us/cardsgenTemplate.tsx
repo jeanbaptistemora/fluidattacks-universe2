@@ -12,8 +12,6 @@
 import { graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
-import type { StyledComponent } from "styled-components";
-import styled from "styled-components";
 
 import { CertificationsPage } from "../../components/CertificationsPage";
 import { ClientsPage } from "../../components/ClientsPage";
@@ -24,10 +22,11 @@ import { Seo } from "../../components/Seo";
 import {
   BannerContainer,
   BannerTitle,
+  CardsContainer1200,
   FullWidthContainer,
   PageArticle,
 } from "../../styles/styledComponents";
-import { capitalizeCrumbs } from "../../utils/capitalizeCrumbs";
+import { capitalizeObject, capitalizePlainString } from "../../utils/utilities";
 
 const CardsgenIndex: React.FC<IQueryData> = ({
   data,
@@ -38,53 +37,41 @@ const CardsgenIndex: React.FC<IQueryData> = ({
   } = pageContext;
 
   const { title } = data.asciidoc.document;
-  const customCrumbLabel: string = `${title
-    .charAt(0)
-    .toUpperCase()}${title.slice(1).replace("-", "")}`;
 
-  const { banner } = data.asciidoc.pageAttributes;
-  const CardsContainer: StyledComponent<
-    "div",
-    Record<string, unknown>
-  > = styled.div.attrs({
-    className: `
-      roboto
-      internal
-      mw-1200
-      center
-      roboto
-      bg-lightgray
-      ph4-l
-      ph3
-      pt5-l
-      pt4
-      pb5
-    `,
-  })``;
+  const {
+    banner,
+    clientsindex,
+    certificationsindex,
+    description,
+    keywords,
+    partnersindex,
+    slug,
+  } = data.asciidoc.pageAttributes;
+
   const metaImage: string =
-    data.asciidoc.pageAttributes.partnersindex === "yes"
+    partnersindex === "yes"
       ? "https://res.cloudinary.com/fluid-attacks/image/upload/v1619633627/airs/partners/cover-partners_n4sshp.png"
-      : data.asciidoc.pageAttributes.clientsindex === "yes"
+      : clientsindex === "yes"
       ? "https://res.cloudinary.com/fluid-attacks/image/upload/v1619635918/airs/about-us/clients/cover-clients_llnlaw.png"
       : "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632703/airs/about-us/certifications/cover-certifications_dos6xu.png";
 
   return (
     <React.Fragment>
       <Seo
-        description={data.asciidoc.pageAttributes.description}
+        description={description}
         image={metaImage}
-        keywords={data.asciidoc.pageAttributes.keywords}
+        keywords={keywords}
         title={`${title} | Fluid Attacks`}
-        url={data.asciidoc.pageAttributes.slug}
+        url={slug}
       />
 
       <Layout>
         <div>
           <NavbarComponent />
           <Breadcrumb
-            crumbLabel={customCrumbLabel}
+            crumbLabel={capitalizePlainString(title)}
             crumbSeparator={" / "}
-            crumbs={capitalizeCrumbs(crumbs)}
+            crumbs={capitalizeObject(crumbs)}
           />
 
           <PageArticle>
@@ -93,20 +80,20 @@ const CardsgenIndex: React.FC<IQueryData> = ({
                 <BannerTitle>{title}</BannerTitle>
               </FullWidthContainer>
             </BannerContainer>
-            <CardsContainer>
+            <CardsContainer1200>
               <div
                 dangerouslySetInnerHTML={{
                   __html: data.asciidoc.html,
                 }}
               />
-              {data.asciidoc.pageAttributes.partnersindex === "yes" ? (
+              {partnersindex === "yes" ? (
                 <PartnerPage />
-              ) : data.asciidoc.pageAttributes.clientsindex === "yes" ? (
+              ) : clientsindex === "yes" ? (
                 <ClientsPage />
-              ) : data.asciidoc.pageAttributes.certificationsindex === "yes" ? (
+              ) : certificationsindex === "yes" ? (
                 <CertificationsPage />
               ) : undefined}
-            </CardsContainer>
+            </CardsContainer1200>
           </PageArticle>
         </div>
       </Layout>

@@ -22,7 +22,7 @@ import {
   ArticleTitle,
   PageArticle,
 } from "../styles/styledComponents";
-import { capitalizeCrumbs } from "../utils/capitalizeCrumbs";
+import { capitalizeObject } from "../utils/utilities";
 
 const DefaultPage: React.FC<IQueryData> = ({
   data,
@@ -59,7 +59,7 @@ const DefaultPage: React.FC<IQueryData> = ({
           <Breadcrumb
             crumbLabel={customCrumbLabel}
             crumbSeparator={" / "}
-            crumbs={capitalizeCrumbs(crumbs)}
+            crumbs={capitalizeObject(crumbs)}
           />
 
           <PageArticle>
