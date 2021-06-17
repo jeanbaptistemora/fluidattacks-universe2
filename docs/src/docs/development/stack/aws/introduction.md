@@ -56,7 +56,9 @@ over other alternatives are:
 We use the following [AWS][AWS] services:
 
 1. Identity and Access Management:
-    [AWS IAM](/development/stack/aws/iam/)
+    [AWS IAM](/development/stack/aws/iam/).
+1. Monitoring and logging:
+    [AWS CloudWatch](/development/stack/aws/cloudwatch/).
 1. Elastic cloud computing:
     [AWS EC2](/development/stack/aws/ec2/).
 1. Cloud file storage:
@@ -87,8 +89,6 @@ We use the following [AWS][AWS] services:
     [AWs Secrets Manager](https://aws.amazon.com/secrets-manager/).
 1. Simple queue service:
     [AWS SQS](https://aws.amazon.com/sqs/).
-1. Monitoring and logging:
-    [AWS CloudWatch](https://aws.amazon.com/cloudwatch/).
 1. Cost management:
     [AWS Cost Management](https://aws.amazon.com/aws-cost-management/).
 

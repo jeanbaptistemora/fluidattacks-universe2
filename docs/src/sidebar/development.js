@@ -62,6 +62,7 @@ const DEVELOPMENT = [
         label: 'AWS',
         items: [
           'development/stack/aws/introduction',
+          'development/stack/aws/cloudwatch',
           'development/stack/aws/ebs',
           'development/stack/aws/ec2',
           'development/stack/aws/iam',

@@ -81,7 +81,7 @@ over other alternatives are:
 1. It supports
     [monitoring and metrics](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using_cloudwatch_ebs.html)
     using
-    [AWS CloudWatch](https://aws.amazon.com/cloudwatch/).
+    [AWS CloudWatch](/development/stack/aws/cloudwatch/).
 
 ## Alternatives
 

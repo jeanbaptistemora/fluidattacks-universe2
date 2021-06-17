@@ -143,7 +143,7 @@ over other alternatives are:
     is also possible.
 1. Instance resources and state
     can be easily monitored using
-    [CloudWatch](https://aws.amazon.com/cloudwatch/).
+    [CloudWatch](/development/stack/aws/cloudwatch/).
 1. Instances can have
     external disks by using
     [EBS](/development/stack/aws/ebs),
