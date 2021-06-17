@@ -2,6 +2,7 @@ from androguard.core.bytecodes.dvm import (
     ClassDefItem,
     DalvikVMFormat,
 )
+import bs4
 from bs4 import (
     BeautifulSoup,
 )
@@ -130,6 +131,46 @@ def _apk_unsigned(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     return _create_vulns(
         ctx=ctx,
         finding=core_model.FindingEnum.F103_APK_UNSIGNED,
+        locations=locations,
+    )
+
+
+def _add_debugging_enabled_location(
+    apk_manifest: bs4.BeautifulSoup,
+    application: bs4.Tag,
+    locations: Locations,
+) -> None:
+    locations.append(
+        desc="debugging_enabled",
+        snippet=make_snippet(
+            content=apk_manifest.prettify(),
+            viewport=SnippetViewport(
+                column=application.sourcepos,
+                line=application.sourceline,
+                wrap=True,
+            ),
+        ),
+    )
+
+
+def _debugging_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
+    locations: Locations = Locations([])
+
+    if ctx.apk_ctx.apk_manifest is None:
+        return ()
+
+    application: bs4.Tag
+    for application in ctx.apk_ctx.apk_manifest.find_all("application"):
+
+        is_debuggable: str = application.get("android:debuggable", "false")
+        if is_debuggable.lower() == "true":
+            _add_debugging_enabled_location(
+                ctx.apk_ctx.apk_manifest, application, locations
+            )
+
+    return _create_vulns(
+        ctx=ctx,
+        finding=core_model.FindingEnum.F058_APK,
         locations=locations,
     )
 
@@ -412,5 +453,6 @@ CHECKS: Dict[
     core_model.FindingEnum.F048: _no_root_check,
     core_model.FindingEnum.F049_APK_PIN: _no_certs_pinning,
     core_model.FindingEnum.F055_APK_UPDATES: _no_update_enforce,
+    core_model.FindingEnum.F058_APK: _debugging_enabled,
     core_model.FindingEnum.F103_APK_UNSIGNED: _apk_unsigned,
 }

@@ -17345,3 +17345,242 @@ F103_APK_UNSIGNED,inputs,examples/tests/multidex/multidex.apk (namespace),Not si
 > 12 | []  # Empty list means no signatures exist
      ^ Col 0
 "
+F058_APK,inputs,examples/tests/com.android.example.text.styling.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",F058. Debugging enabled in production - APK,application.android:debuggable enabled,"
+   1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""com.android.example.text.styling"" xmlns:android=""ht
+     | tp://schemas.android.com/apk/res/android"">
+   2 |  <uses-sdk android:minsdkversion=""15"" android:targetsdkversion=""27"">
+   3 |  </uses-sdk>
+>  4 |  <application android:allowbackup=""true"" android:debuggable=""true"" android:icon=""@7F0C0000"" android:label=""@7F0D001D"" an
+     | droid:roundicon=""@7F0C0001"" android:supportsrtl=""true"" android:theme=""@7F0E0005"">
+   5 |   <activity android:name=""com.android.example.text.styling.MainActivity"">
+   6 |    <intent-filter>
+   7 |     <action android:name=""android.intent.action.MAIN"">
+   8 |     </action>
+   9 |     <category android:name=""android.intent.category.LAUNCHER"">
+  10 |     </category>
+  11 |    </intent-filter>
+  12 |   </activity>
+  13 |   <meta-data android:name=""preloaded_fonts"" android:resource=""@7F020003"">
+  14 |   </meta-data>
+  15 |  </application>
+  16 | </manifest>
+     ^ Col 0
+"
+F058_APK,inputs,examples/tests/com.example.android.wearable.wear.weardrawers.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",F058. Debugging enabled in production - APK,application.android:debuggable enabled,"
+   1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""com.example.android.wearable.wear.weardrawers"" xmln
+     | s:android=""http://schemas.android.com/apk/res/android"">
+   2 |  <uses-sdk android:minsdkversion=""23"" android:targetsdkversion=""26"">
+   3 |  </uses-sdk>
+   4 |  <uses-feature android:name=""android.hardware.type.watch"">
+   5 |  </uses-feature>
+   6 |  <uses-permission android:name=""android.permission.WAKE_LOCK"">
+   7 |  </uses-permission>
+>  8 |  <application android:allowbackup=""true"" android:debuggable=""true"" android:icon=""@7F0F0000"" android:label=""@7F110003"" an
+     | droid:supportsrtl=""true"" android:theme=""@android:01030128"">
+   9 |   <meta-data android:name=""com.google.android.wearable.standalone"" android:value=""true"">
+  10 |   </meta-data>
+  11 |   <uses-library android:name=""com.google.android.wearable"" android:required=""false"">
+  12 |   </uses-library>
+  13 |   <activity android:label=""@7F110003"" android:name=""com.example.android.wearable.wear.weardrawers.MainActivity"">
+  14 |    <intent-filter>
+  15 |     <action android:name=""android.intent.action.MAIN"">
+  16 |     </action>
+  17 |     <category android:name=""android.intent.category.LAUNCHER"">
+  18 |     </category>
+  19 |    </intent-filter>
+     ^ Col 0
+"
+F058_APK,inputs,examples/android/TC/bin/TC-debug.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",F058. Debugging enabled in production - APK,application.android:debuggable enabled,"
+   1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""org.t0t0.androguard.TC"" xmlns:android=""http://schem
+     | as.android.com/apk/res/android"">
+>  2 |  <application android:debuggable=""true"" android:icon=""@7F020000"" android:label=""@7F040000"">
+   3 |   <activity android:label=""@7F040000"" android:name=""TCActivity"">
+   4 |    <intent-filter>
+   5 |     <action android:name=""android.intent.action.MAIN"">
+   6 |     </action>
+   7 |     <category android:name=""android.intent.category.LAUNCHER"">
+   8 |     </category>
+   9 |    </intent-filter>
+  10 |   </activity>
+  11 |  </application>
+  12 | </manifest>
+     ^ Col 0
+"
+F058_APK,inputs,examples/android/TCDiff/bin/TCDiff-debug.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",F058. Debugging enabled in production - APK,application.android:debuggable enabled,"
+   1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""org.t0t0.androguard.TCDiff"" xmlns:android=""http://s
+     | chemas.android.com/apk/res/android"">
+>  2 |  <application android:debuggable=""true"" android:icon=""@7F020000"" android:label=""@7F040000"">
+   3 |   <activity android:label=""@7F040000"" android:name=""TCActivity"">
+   4 |    <intent-filter>
+   5 |     <action android:name=""android.intent.action.MAIN"">
+   6 |     </action>
+   7 |     <category android:name=""android.intent.category.LAUNCHER"">
+   8 |     </category>
+   9 |    </intent-filter>
+  10 |   </activity>
+  11 |  </application>
+  12 | </manifest>
+     ^ Col 0
+"
+F058_APK,inputs,examples/android/Invalid/Invalid.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",F058. Debugging enabled in production - APK,application.android:debuggable enabled,"
+   1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""re.androguard.android.invalid"" xmlns:android=""http:
+     | //schemas.android.com/apk/res/android"">
+   2 |  <uses-sdk android:minsdkversion=""8"" android:targetsdkversion=""15"">
+   3 |  </uses-sdk>
+>  4 |  <application android:debuggable=""true"" android:icon=""@7F020001"" android:label=""@7F050000"" android:theme=""@7F060000"">
+   5 |   <activity android:label=""@7F050003"" android:name="".MainActivity"">
+   6 |    <intent-filter>
+   7 |     <action android:name=""android.intent.action.MAIN"">
+   8 |     </action>
+   9 |     <category android:name=""android.intent.category.LAUNCHER"">
+  10 |     </category>
+  11 |    </intent-filter>
+  12 |   </activity>
+  13 |  </application>
+  14 | </manifest>
+     ^ Col 0
+"
+F058_APK,inputs,examples/android/TestsAndroguard/bin/TestActivity.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",F058. Debugging enabled in production - APK,application.android:debuggable enabled,"
+   1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""tests.androguard"" xmlns:android=""http://schemas.and
+     | roid.com/apk/res/android"">
+   2 |  <uses-sdk android:minsdkversion=""9"" android:targetsdkversion=""16"">
+   3 |  </uses-sdk>
+>  4 |  <application android:allowbackup=""false"" android:debuggable=""true"" android:icon=""@7F020000"" android:label=""@7F040001"">
+   5 |   <activity android:label=""@7F040001"" android:name=""TestActivity"">
+   6 |    <intent-filter>
+   7 |     <action android:name=""android.intent.action.MAIN"">
+   8 |     </action>
+   9 |     <category android:name=""android.intent.category.LAUNCHER"">
+  10 |     </category>
+  11 |    </intent-filter>
+  12 |   </activity>
+  13 |  </application>
+  14 | </manifest>
+     ^ Col 0
+"
+F058_APK,inputs,examples/android/TestsAndroguard/bin/TestActivity_unsigned.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",F058. Debugging enabled in production - APK,application.android:debuggable enabled,"
+   1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""tests.androguard"" xmlns:android=""http://schemas.and
+     | roid.com/apk/res/android"">
+   2 |  <uses-sdk android:minsdkversion=""9"" android:targetsdkversion=""16"">
+   3 |  </uses-sdk>
+>  4 |  <application android:allowbackup=""false"" android:debuggable=""true"" android:icon=""@7F020000"" android:label=""@7F040001"">
+   5 |   <activity android:label=""@7F040001"" android:name=""TestActivity"">
+   6 |    <intent-filter>
+   7 |     <action android:name=""android.intent.action.MAIN"">
+   8 |     </action>
+   9 |     <category android:name=""android.intent.category.LAUNCHER"">
+  10 |     </category>
+  11 |    </intent-filter>
+  12 |   </activity>
+  13 |  </application>
+  14 | </manifest>
+     ^ Col 0
+"
+F058_APK,inputs,examples/signing/TestActivity_signed_both.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",F058. Debugging enabled in production - APK,application.android:debuggable enabled,"
+   1 | <manifest android:versioncode=""1"" android:versionname=""1.0"" package=""tests.androguard"" xmlns:android=""http://schemas.and
+     | roid.com/apk/res/android"">
+   2 |  <uses-sdk android:minsdkversion=""9"" android:targetsdkversion=""16"">
+   3 |  </uses-sdk>
+>  4 |  <application android:allowbackup=""false"" android:debuggable=""true"" android:icon=""@7F020000"" android:label=""@7F040001"">
+   5 |   <activity android:label=""@7F040001"" android:name=""TestActivity"">
+   6 |    <intent-filter>
+   7 |     <action android:name=""android.intent.action.MAIN"">
+   8 |     </action>
+   9 |     <category android:name=""android.intent.category.LAUNCHER"">
+  10 |     </category>
+  11 |    </intent-filter>
+  12 |   </activity>
+  13 |  </application>
+  14 | </manifest>
+     ^ Col 0
+"
+F058_APK,inputs,examples/signing/apksig/debuggable-boolean.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",F058. Debugging enabled in production - APK,application.android:debuggable enabled,"
+   1 | <manifest android:versioncode=""10"" android:versionname=""1.0"" package=""android.appsecurity.cts.tinyapp"" platformbuildvers
+     | ioncode=""23"" platformbuildversionname=""6.0-2166767"" xmlns:android=""http://schemas.android.com/apk/res/android"">
+   2 |  <uses-sdk android:minsdkversion=""7"" android:targetsdkversion=""25"">
+   3 |  </uses-sdk>
+>  4 |  <application android:debuggable=""true"" android:label=""@7F020000"">
+   5 |   <activity android:label=""@7F020000"" android:name="".MainActivity"">
+   6 |    <intent-filter>
+   7 |     <action android:name=""android.intent.action.MAIN"">
+   8 |     </action>
+   9 |     <category android:name=""android.intent.category.LAUNCHER"">
+  10 |     </category>
+  11 |    </intent-filter>
+  12 |   </activity>
+  13 |  </application>
+  14 | </manifest>
+     ^ Col 0
+"
+F058_APK,inputs,examples/android/abcore/app-prod-debug.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",F058. Debugging enabled in production - APK,application.android:debuggable enabled,"
+   2 |  <uses-sdk android:minsdkversion=""21"" android:targetsdkversion=""27"">
+   3 |  </uses-sdk>
+   4 |  <uses-permission android:name=""android.permission.INTERNET"">
+   5 |  </uses-permission>
+   6 |  <uses-permission android:name=""android.permission.WRITE_EXTERNAL_STORAGE"">
+   7 |  </uses-permission>
+   8 |  <uses-permission android:name=""android.permission.ACCESS_WIFI_STATE"">
+   9 |  </uses-permission>
+  10 |  <uses-permission android:name=""android.permission.ACCESS_NETWORK_STATE"">
+  11 |  </uses-permission>
+> 12 |  <application android:allowbackup=""false"" android:debuggable=""true"" android:icon=""@7F0D0000"" android:label=""@7F0E001D"" a
+     | ndroid:supportsrtl=""true"" android:theme=""@7F0F0006"">
+  13 |   <activity android:name=""com.greenaddress.abcore.MainActivity"">
+  14 |    <intent-filter>
+  15 |     <action android:name=""android.intent.action.MAIN"">
+  16 |     </action>
+  17 |     <category android:name=""android.intent.category.LAUNCHER"">
+  18 |     </category>
+  19 |    </intent-filter>
+  20 |   </activity>
+  21 |   <service android:exported=""false"" android:name=""com.greenaddress.abcore.DownloadInstallCoreIntentService"">
+     ^ Col 0
+"
+F058_APK,inputs,examples/tests/duplicate.permisssions_9999999.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",F058. Debugging enabled in production - APK,application.android:debuggable enabled,"
+  11 |  </uses-permission>
+  12 |  <uses-permission android:name=""android.permission.INTERNET"">
+  13 |  </uses-permission>
+  14 |  <uses-permission-sdk-23 android:maxsdkversion=""27"" android:name=""android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATION
+     | S"">
+  15 |  </uses-permission-sdk-23>
+  16 |  <uses-permission-sdk-23 android:name=""android.permission.REQUEST_INSTALL_PACKAGES"">
+  17 |  </uses-permission-sdk-23>
+  18 |  <uses-permission android:maxsdkversion=""18"" android:name=""android.permission.WRITE_EXTERNAL_STORAGE"">
+  19 |  </uses-permission>
+> 20 |  <application android:allowbackup=""true"" android:debuggable=""true"" android:icon=""@7F020000"" android:label=""@7F040001"">
+  21 |   <activity android:label=""@7F040001"" android:name=""info.guardianproject.urzip.MainActivity"">
+  22 |    <intent-filter>
+  23 |     <action android:name=""android.intent.action.MAIN"">
+  24 |     </action>
+  25 |     <category android:name=""android.intent.category.LAUNCHER"">
+  26 |     </category>
+  27 |    </intent-filter>
+  28 |    <intent-filter>
+  29 |     <action android:name=""android.intent.action.SEND"">
+  30 |     </action>
+     ^ Col 0
+"
+F058_APK,inputs,examples/tests/com.example.android.tvleanback.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",F058. Debugging enabled in production - APK,application.android:debuggable enabled,"
+  14 |  <uses-permission android:name=""android.permission.RECEIVE_BOOT_COMPLETED"">
+  15 |  </uses-permission>
+  16 |  <uses-permission android:name=""android.permission.RECORD_AUDIO"">
+  17 |  </uses-permission>
+  18 |  <uses-feature android:name=""android.hardware.microphone"" android:required=""false"">
+  19 |  </uses-feature>
+  20 |  <uses-feature android:name=""android.hardware.touchscreen"" android:required=""false"">
+  21 |  </uses-feature>
+  22 |  <uses-feature android:name=""android.software.leanback"" android:required=""true"">
+  23 |  </uses-feature>
+> 24 |  <application android:allowbackup=""false"" android:banner=""@7F070426"" android:debuggable=""true"" android:icon=""@7F070054""
+     | android:label=""@7F0D001D"" android:logo=""@7F070426"" android:theme=""@7F0E0160"">
+  25 |   <activity android:icon=""@7F070426"" android:label=""@7F0D001D"" android:logo=""@7F070426"" android:name=""com.example.androi
+     | d.tvleanback.ui.MainActivity"" android:screenorientation=""0"" android:theme=""@7F0E0161"">
+  26 |    <intent-filter>
+  27 |     <action android:name=""android.intent.action.MAIN"">
+  28 |     </action>
+  29 |     <category android:name=""android.intent.category.LEANBACK_LAUNCHER"">
+  30 |     </category>
+  31 |    </intent-filter>
+  32 |   </activity>
+     ^ Col 0
+"

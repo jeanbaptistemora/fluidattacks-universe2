@@ -94,7 +94,10 @@ def get_apk_contexts() -> Set[APKContext]:
             with contextlib.suppress(KeyError):
                 apk_manifest_data = apk_obj.xml["AndroidManifest.xml"]
                 apk_manifest = BeautifulSoup(
-                    lxml.etree.tostring(apk_manifest_data, pretty_print=True),
+                    BeautifulSoup(
+                        lxml.etree.tostring(apk_manifest_data),
+                        features="html.parser",
+                    ).prettify(),
                     features="html.parser",
                 )
 
