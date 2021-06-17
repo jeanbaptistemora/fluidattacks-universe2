@@ -10,8 +10,10 @@ from paginator import (
 )
 from paginator.object_index import (
     PageGetterIO,
-    PageOrAll,
     PageResult,
+)
+from paginator.pages import (
+    PageOrAll,
 )
 import re
 from requests.models import (
@@ -64,12 +66,12 @@ def _extract_offset(raw_link: str) -> Maybe[str]:
 
 
 def _extract_result_data(
-    results: Iterator[PageResult[_Data]],
+    results: Iterator[PageResult[str, _Data]],
 ) -> Iterator[_Data]:
     return iter(map(lambda result: result.data, results))
 
 
-def from_response(response: Response) -> Maybe[PageResult[List[JSON]]]:
+def from_response(response: Response) -> Maybe[PageResult[str, List[JSON]]]:
     data = response.json()
     if not data:
         return Maybe.empty
@@ -82,9 +84,9 @@ def from_response(response: Response) -> Maybe[PageResult[List[JSON]]]:
 
 
 def extract_page(
-    get_all: Callable[[], IO[Iterator[PageResult[_Data]]]],
-    getter: PageGetterIO[_Data],
-    page: PageOrAll,
+    get_all: Callable[[], IO[Iterator[PageResult[str, _Data]]]],
+    getter: PageGetterIO[str, _Data],
+    page: PageOrAll[str],
 ) -> IO[Iterator[_Data]]:
     if isinstance(page, AllPages):
         return get_all().map(_extract_result_data)

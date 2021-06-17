@@ -5,7 +5,7 @@ from __future__ import (
 )
 
 import logging
-from paginator.object_index import (
+from paginator.pages import (
     PageId,
 )
 from requests.exceptions import (

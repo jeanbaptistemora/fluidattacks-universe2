@@ -40,8 +40,8 @@ class UnexpectedEmptyData(Exception):
 
 def typed_page_builder(
     response: IO[Response], transform: Callable[[List[JSON]], _Data]
-) -> IO[Maybe[PageResult[_Data]]]:
-    def _from_response(response: Response) -> Maybe[PageResult[_Data]]:
+) -> IO[Maybe[PageResult[str, _Data]]]:
+    def _from_response(response: Response) -> Maybe[PageResult[str, _Data]]:
         raw = extractor.from_response(response)
         return raw.map(
             lambda p_result: PageResult(

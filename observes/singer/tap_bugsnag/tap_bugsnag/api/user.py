@@ -9,9 +9,11 @@ from itertools import (
 )
 from paginator.object_index import (
     io_get_until_end,
+    PageResult,
+)
+from paginator.pages import (
     PageId,
     PageOrAll,
-    PageResult,
 )
 from returns.curry import (
     partial,
@@ -43,7 +45,9 @@ class OrgsPage(NamedTuple):
     data: List[JSON]
 
     @classmethod
-    def new(cls, raw: RawApi, page: PageId) -> IO[Maybe[PageResult[OrgsPage]]]:
+    def new(
+        cls, raw: RawApi, page: PageId
+    ) -> IO[Maybe[PageResult[str, OrgsPage]]]:
         return typed_page_builder(raw.list_orgs(page), cls)
 
 
@@ -63,13 +67,13 @@ class UserApi(NamedTuple):
     def new(cls, client: RawApi) -> UserApi:
         return cls(client)
 
-    def list_orgs(self, page: PageOrAll) -> IO[Iterator[OrgsPage]]:
+    def list_orgs(self, page: PageOrAll[str]) -> IO[Iterator[OrgsPage]]:
         getter = partial(OrgsPage.new, self.client)
         return extractor.extract_page(
             lambda: io_get_until_end(PageId("", 100), getter), getter, page
         )
 
-    def list_orgs_id(self, page: PageOrAll) -> IO[Iterator[OrgId]]:
+    def list_orgs_id(self, page: PageOrAll[str]) -> IO[Iterator[OrgId]]:
         orgs = self.list_orgs(page)
         data = orgs.map(lambda pages: iter(map(OrgId.new, pages)))
         return data.map(chain.from_iterable)

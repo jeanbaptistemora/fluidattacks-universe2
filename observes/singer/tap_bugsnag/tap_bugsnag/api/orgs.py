@@ -12,9 +12,11 @@ from paginator import (
 )
 from paginator.object_index import (
     io_get_until_end,
+    PageResult,
+)
+from paginator.pages import (
     PageId,
     PageOrAll,
-    PageResult,
 )
 from returns.curry import (
     partial,
@@ -52,7 +54,7 @@ class CollaboratorsPage(NamedTuple):
     @classmethod
     def new(
         cls, raw: RawApi, org: OrgId, page: PageId
-    ) -> IO[Maybe[PageResult[CollaboratorsPage]]]:
+    ) -> IO[Maybe[PageResult[str, CollaboratorsPage]]]:
         return typed_page_builder(
             raw.list_collaborators(page, org.id_str), cls
         )
@@ -64,7 +66,7 @@ class ProjectsPage(NamedTuple):
     @classmethod
     def new(
         cls, raw: RawApi, org: OrgId, page: PageId
-    ) -> IO[Maybe[PageResult[ProjectsPage]]]:
+    ) -> IO[Maybe[PageResult[str, ProjectsPage]]]:
         return typed_page_builder(raw.list_projects(page, org.id_str), cls)
 
 
@@ -86,20 +88,22 @@ class OrgsApi(NamedTuple):
         return cls(client, org)
 
     def list_collaborators(
-        self, page: PageOrAll
+        self, page: PageOrAll[str]
     ) -> IO[Iterator[CollaboratorsPage]]:
         getter = partial(CollaboratorsPage.new, self.client, self.org)
         return extractor.extract_page(
             lambda: io_get_until_end(PageId("", 100), getter), getter, page
         )
 
-    def list_projects(self, page: PageOrAll) -> IO[Iterator[ProjectsPage]]:
+    def list_projects(
+        self, page: PageOrAll[str]
+    ) -> IO[Iterator[ProjectsPage]]:
         getter = partial(ProjectsPage.new, self.client, self.org)
         return extractor.extract_page(
             lambda: io_get_until_end(PageId("", 100), getter), getter, page
         )
 
-    def list_projs_id(self, page: PageOrAll) -> IO[Iterator[ProjId]]:
+    def list_projs_id(self, page: PageOrAll[str]) -> IO[Iterator[ProjId]]:
         projs = self.list_projects(page)
         data = projs.map(lambda pages: iter(map(ProjId.new, pages)))
         return data.map(chain.from_iterable)

@@ -1,7 +1,7 @@
 # pylint: skip-file
 
 from paginator.pages import (
-    AllPages,
+    PageId,
 )
 from returns.io import (
     IO,
@@ -13,36 +13,29 @@ from returns.primitives.container import (
     BaseContainer,
 )
 from returns.primitives.hkt import (
-    SupportsKind1,
+    SupportsKind2,
 )
 from typing import (
     Callable,
-    NamedTuple,
     TypeVar,
-    Union,
 )
 from typing_extensions import (
     final,
 )
 
-
-class PageId(NamedTuple):
-    page: str
-    per_page: int
-
-
 _Data = TypeVar("_Data")
+_IdType = TypeVar("_IdType")
 
 
 @final
 class PageResult(
     BaseContainer,
-    SupportsKind1["PageResult", _Data],
+    SupportsKind2["PageResult", _IdType, _Data],
 ):
     def __init__(
         self,
         data: _Data,
-        next_item: Maybe[str],
+        next_item: Maybe[_IdType],
         total_items: Maybe[int],
     ) -> None:
         super().__init__(
@@ -58,7 +51,7 @@ class PageResult(
         return self._inner_value["data"]
 
     @property
-    def next_item(self) -> Maybe[str]:
+    def next_item(self) -> Maybe[_IdType]:
         return self._inner_value["next_item"]
 
     @property
@@ -66,6 +59,7 @@ class PageResult(
         return self._inner_value["total_items"]
 
 
-PageOrAll = Union[AllPages, PageId]
-PageGetter = Callable[[PageId], Maybe[PageResult[_Data]]]
-PageGetterIO = Callable[[PageId], IO[Maybe[PageResult[_Data]]]]
+PageGetter = Callable[[PageId[_IdType]], Maybe[PageResult[_IdType, _Data]]]
+PageGetterIO = Callable[
+    [PageId[_IdType]], IO[Maybe[PageResult[_IdType, _Data]]]
+]

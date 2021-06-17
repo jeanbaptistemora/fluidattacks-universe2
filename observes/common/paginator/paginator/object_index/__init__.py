@@ -3,9 +3,10 @@
 from paginator.object_index.objs import (
     PageGetter,
     PageGetterIO,
-    PageId,
-    PageOrAll,
     PageResult,
+)
+from paginator.pages import (
+    PageId,
 )
 from returns.io import (
     IO,
@@ -23,15 +24,16 @@ from typing import (
 )
 
 _Data = TypeVar("_Data")
+_IdType = TypeVar("_IdType")
 
 
 def get_until_end(
-    start: PageId,
-    getter: PageGetter[_Data],
-) -> Iterator[PageResult[_Data]]:
-    next_page_id: PageId = start
+    start: PageId[_IdType],
+    getter: PageGetter[_IdType, _Data],
+) -> Iterator[PageResult[_IdType, _Data]]:
+    next_page_id: PageId[_IdType] = start
     while True:
-        page: Maybe[PageResult[_Data]] = getter(next_page_id)
+        page: Maybe[PageResult[_IdType, _Data]] = getter(next_page_id)
         if page == Nothing:
             break
         result_page = page.unwrap()
@@ -42,19 +44,19 @@ def get_until_end(
 
 
 def io_get_until_end(
-    start: PageId,
-    getter: PageGetterIO[_Data],
-) -> IO[Iterator[PageResult[_Data]]]:
-    def _convert(getter: PageGetterIO[_Data]) -> PageGetter[_Data]:
+    start: PageId[_IdType],
+    getter: PageGetterIO[_IdType, _Data],
+) -> IO[Iterator[PageResult[_IdType, _Data]]]:
+    def _convert(
+        getter: PageGetterIO[_IdType, _Data]
+    ) -> PageGetter[_IdType, _Data]:
         return lambda page: unsafe_perform_io(getter(page))
 
     return IO(get_until_end(start, _convert(getter)))
 
 
 __all__ = [
-    "PageId",
     "PageGetter",
     "PageGetterIO",
-    "PageOrAll",
     "PageResult",
 ]

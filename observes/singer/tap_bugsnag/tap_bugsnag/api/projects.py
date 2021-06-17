@@ -10,9 +10,11 @@ from paginator import (
 )
 from paginator.object_index import (
     io_get_until_end,
+    PageResult,
+)
+from paginator.pages import (
     PageId,
     PageOrAll,
-    PageResult,
 )
 from returns.curry import (
     partial,
@@ -69,7 +71,7 @@ class ErrorsPage(NamedTuple):
     @classmethod
     def new(
         cls, raw: RawApi, project: ProjId, page: PageId
-    ) -> IO[Maybe[PageResult[ErrorsPage]]]:
+    ) -> IO[Maybe[PageResult[str, ErrorsPage]]]:
         return typed_page_builder(raw.list_errors(page, project.id_str), cls)
 
 
@@ -79,7 +81,7 @@ class EventsPage(NamedTuple):
     @classmethod
     def new(
         cls, raw: RawApi, project: ProjId, page: PageId
-    ) -> IO[Maybe[PageResult[EventsPage]]]:
+    ) -> IO[Maybe[PageResult[str, EventsPage]]]:
         return typed_page_builder(raw.list_events(page, project.id_str), cls)
 
 
@@ -89,7 +91,7 @@ class EventFieldsPage(NamedTuple):
     @classmethod
     def new(
         cls, raw: RawApi, project: ProjId, page: PageId
-    ) -> IO[Maybe[PageResult[EventFieldsPage]]]:
+    ) -> IO[Maybe[PageResult[str, EventFieldsPage]]]:
         return typed_page_builder(
             raw.list_event_fields(page, project.id_str),
             lambda data: cls(_append_proj(project, data)),
@@ -102,7 +104,7 @@ class PivotsPage(NamedTuple):
     @classmethod
     def new(
         cls, raw: RawApi, project: ProjId, page: PageId
-    ) -> IO[Maybe[PageResult[PivotsPage]]]:
+    ) -> IO[Maybe[PageResult[str, PivotsPage]]]:
         return typed_page_builder(
             raw.list_pivots(page, project.id_str),
             lambda data: cls(_append_proj(project, data)),
@@ -115,7 +117,7 @@ class ReleasesPage(NamedTuple):
     @classmethod
     def new(
         cls, raw: RawApi, project: ProjId, page: PageId
-    ) -> IO[Maybe[PageResult[ReleasesPage]]]:
+    ) -> IO[Maybe[PageResult[str, ReleasesPage]]]:
         if page.page.isdigit() and int(page.page) % 50 == 0:
             LOG.info("Getting release [%s]...", page)
         return typed_page_builder(raw.list_releases(page, project.id_str), cls)
@@ -144,33 +146,35 @@ class ProjectsApi(NamedTuple):
     def get_trend(self) -> IO[StabilityTrend]:
         return StabilityTrend.new(self.client, self.project)
 
-    def list_errors(self, page: PageOrAll) -> IO[Iterator[ErrorsPage]]:
+    def list_errors(self, page: PageOrAll[str]) -> IO[Iterator[ErrorsPage]]:
         getter = partial(ErrorsPage.new, self.client, self.project)
         return extractor.extract_page(
             lambda: io_get_until_end(PageId("", 100), getter), getter, page
         )
 
-    def list_events(self, page: PageOrAll) -> IO[Iterator[EventsPage]]:
+    def list_events(self, page: PageOrAll[str]) -> IO[Iterator[EventsPage]]:
         getter = partial(EventsPage.new, self.client, self.project)
         return extractor.extract_page(
             lambda: io_get_until_end(PageId("", 30), getter), getter, page
         )
 
     def list_event_fields(
-        self, page: PageOrAll
+        self, page: PageOrAll[str]
     ) -> IO[Iterator[EventFieldsPage]]:
         getter = partial(EventFieldsPage.new, self.client, self.project)
         return extractor.extract_page(
             lambda: io_get_until_end(PageId("", 1), getter), getter, page
         )
 
-    def list_releases(self, page: PageOrAll) -> IO[Iterator[ReleasesPage]]:
+    def list_releases(
+        self, page: PageOrAll[str]
+    ) -> IO[Iterator[ReleasesPage]]:
         getter = partial(ReleasesPage.new, self.client, self.project)
         return extractor.extract_page(
             lambda: io_get_until_end(PageId("", 10), getter), getter, page
         )
 
-    def list_pivots(self, page: PageOrAll) -> IO[Iterator[PivotsPage]]:
+    def list_pivots(self, page: PageOrAll[str]) -> IO[Iterator[PivotsPage]]:
         getter = partial(PivotsPage.new, self.client, self.project)
         return extractor.extract_page(
             lambda: io_get_until_end(PageId("", 1), getter), getter, page
