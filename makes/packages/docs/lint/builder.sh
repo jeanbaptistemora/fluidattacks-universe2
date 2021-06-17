@@ -21,6 +21,7 @@ function main {
     && lint_markdown "${envSrcDocsCriteriaRequirementsNetworks}" \
     && lint_markdown "${envSrcDocsCriteriaRequirementsPrivacy}" \
     && lint_markdown "${envSrcDocsCriteriaRequirementsServices}" \
+    && lint_markdown "${envSrcDocsCriteriaVulnerabilities}" \
     && touch "${out}"
 }
 

@@ -43,7 +43,7 @@ the cipher suite and TLS connection is then vulnerable.
 
 - **RSA with key < 2048 bytes**,
   can be brute-forced in feasible time
-  
+
 - **OpenSSL Elliptic Curves**, secp112r1, secp112r2, secp128r1, secp128r2,
   secp160k1, secp160r1, secp160r2, secp192k1, prime192v1, prime192v2,
   prime192v3, sect113r1, sect113r2, sect131r1, sect131r2, sect163k1, sect163r1,

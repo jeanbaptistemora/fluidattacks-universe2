@@ -37,6 +37,7 @@ No framework is silver-bullet, though.
 By default,
 the `JPQL` engine will escape
 the following user-supplied input parameters:
+
 - `JPQL` Positional Parameters: `?1`
 - `JPQL` Named Parameters: `:emailAddress`
 
@@ -68,6 +69,7 @@ SELECT u FROM User u WHERE u.emailAddress LIKE '%a'
 ```
 
 We highly recommend you avoid mixing:
+
 - `LIKE` conditions (or similar in its kind)
 - hard-coded special wildcard characters
 - user-supplied input

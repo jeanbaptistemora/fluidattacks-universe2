@@ -9,7 +9,7 @@ When dealing with sensitive data
 that is crucial to your business,
 it is required by regulations
 to implement encryption
-in order to protect it 
+in order to protect it
 from attackers or unauthorized personnel.
 Using EBS Encryption
 will enable Amazon to encrypt your data at rest,
