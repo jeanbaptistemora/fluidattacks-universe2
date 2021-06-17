@@ -86,11 +86,15 @@ class Options(NamedTuple):
 
 class _MrPage(NamedTuple):
     data: List[JSON]
+    page: IntPageId
+    options: Optional[Options]
 
 
 # pylint: disable=too-few-public-methods
 class MrPage(Immutable):
     data: List[JSON]
+    page: IntPageId
+    options: Optional[Options]
 
     def __new__(cls, obj: _MrPage) -> MrPage:
         self = object.__new__(cls)
@@ -108,4 +112,8 @@ def list_mrs(
     url = "/projects/{}/merge_requests".format(str(proj.proj_id))
     params = options.to_dict() if options else {}
     response = client.get(url, params, page)
-    return response.map(lambda r: r.json()).map(_MrPage).map(MrPage)
+    return (
+        response.map(lambda r: r.json())
+        .map(lambda data: _MrPage(data, page, options))
+        .map(MrPage)
+    )
