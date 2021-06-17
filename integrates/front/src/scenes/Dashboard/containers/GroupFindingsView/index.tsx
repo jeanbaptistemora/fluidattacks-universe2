@@ -37,8 +37,14 @@ import {
   GET_FINDINGS,
   REQUEST_GROUP_REPORT,
 } from "scenes/Dashboard/containers/GroupFindingsView/queries";
-import type { IGroupFindingsAttr } from "scenes/Dashboard/containers/GroupFindingsView/types";
-import { formatFindings } from "scenes/Dashboard/containers/GroupFindingsView/utils";
+import type {
+  IFindingAttr,
+  IGroupFindingsAttr,
+} from "scenes/Dashboard/containers/GroupFindingsView/types";
+import {
+  formatFindings,
+  getIndexFromIds,
+} from "scenes/Dashboard/containers/GroupFindingsView/utils";
 import {
   ButtonToolbar,
   ButtonToolbarCenter,
@@ -289,29 +295,44 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     }
   };
 
-  const [expandedRows, setExpandedRows] = useStoredState<number[]>(
-    "findingExpandedRows",
-    []
+  const [expandedIdRows, setExpandedIdRows] = useStoredState<number[]>(
+    "findingExpandedIdRows",
+    [],
+    sessionStorage,
+    true
   );
 
-  const handleRowExpand = (
-    _row: Record<string, unknown>,
-    isExpand: boolean,
-    rowIndex: number
-  ): void => {
-    setExpandedRows((currentValues): number[] =>
+  const findings: IFindingAttr[] =
+    data === undefined ? [] : formatFindings(data.group.findings);
+
+  const handleRowExpand = (row: IFindingAttr, isExpand: boolean): void => {
+    setExpandedIdRows((prevValues): number[] =>
       isExpand
-        ? [...currentValues, rowIndex]
-        : currentValues.filter((value): boolean => value !== rowIndex)
+        ? Array.from(new Set([...prevValues, Number(row.id)]))
+        : Array.from(
+            new Set(
+              prevValues.filter(
+                (selectedFinding: number): boolean =>
+                  selectedFinding !== Number(row.id)
+              )
+            )
+          )
     );
   };
 
   const handleRowExpandAll = (
     isExpandAll: boolean,
-    results: Record<string, unknown>[]
+    results: (IFindingAttr | undefined)[]
   ): void => {
-    setExpandedRows(
-      isExpandAll ? results.map((_value, index): number => index) : []
+    const resultFilterd: IFindingAttr[] = results.filter(
+      (finding: IFindingAttr | undefined): finding is IFindingAttr =>
+        Boolean(finding)
+    );
+    const resultsIds: number[] = resultFilterd.map(
+      (finding: IFindingAttr): number => Number(finding.id)
+    );
+    setExpandedIdRows((prevValues): number[] =>
+      isExpandAll ? Array.from(new Set([...prevValues, ...resultsIds])) : []
     );
   };
 
@@ -329,13 +350,13 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           bordered={true}
           columnToggle={true}
           csvFilename={`${groupName}-findings-${currentDate}.csv`}
-          dataset={formatFindings(data.group.findings)}
+          dataset={findings}
           defaultSorted={JSON.parse(_.get(sessionStorage, "findingSort", "{}"))}
           expandRow={{
             expandByColumnOnly: true,
             expandColumnRenderer: renderExpandIcon,
             expandHeaderColumnRenderer: renderHeaderExpandIcon,
-            expanded: expandedRows,
+            expanded: getIndexFromIds(expandedIdRows, findings),
             onExpand: handleRowExpand,
             onExpandAll: handleRowExpandAll,
             renderer: renderDescription,

@@ -87,4 +87,21 @@ const formatFindings: (dataset: IFindingAttr[]) => IFindingAttr[] = (
     };
   });
 
-export { formatFindings };
+function getIndexFromIds(
+  expandedFindingsId: number[],
+  allFindings: IFindingAttr[]
+): number[] {
+  return allFindings.reduce(
+    (
+      expandedFindingsIndex: number[],
+      currentFinding: IFindingAttr,
+      currentFindingIndex: number
+    ): number[] =>
+      expandedFindingsId.includes(Number(currentFinding.id))
+        ? [...expandedFindingsIndex, currentFindingIndex]
+        : expandedFindingsIndex,
+    []
+  );
+}
+
+export { formatFindings, getIndexFromIds };
