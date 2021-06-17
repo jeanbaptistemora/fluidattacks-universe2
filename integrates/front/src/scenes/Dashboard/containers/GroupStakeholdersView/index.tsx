@@ -13,14 +13,12 @@ import { handleEditError, handleGrantError } from "./helpers";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
-import {
-  statusFormatter,
-  timeFromNow,
-} from "components/DataTableNext/formatters";
+import { timeFromNow } from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
+import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import {
   ADD_STAKEHOLDER_MUTATION,
   EDIT_STAKEHOLDER_MUTATION,
@@ -79,9 +77,9 @@ const tableHeaders: IHeaderConfig[] = [
   },
   {
     dataField: "invitationState",
-    formatter: statusFormatter,
+    formatter: pointStatusFormatter,
     header: translate.t("searchFindings.usersTable.invitation"),
-    width: "7%",
+    width: "80px",
   },
 ];
 

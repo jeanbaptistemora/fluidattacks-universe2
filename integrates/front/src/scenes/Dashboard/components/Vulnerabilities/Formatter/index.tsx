@@ -38,4 +38,14 @@ const PointStatus: React.FC<IPointStatus> = ({
   );
 };
 
-export { PointStatus };
+const pointStatusFormatter = (value: string): JSX.Element => (
+  <div className={"flex flex-wrap"}>
+    <div>
+      <p className={"dib f5 ma0 v-btm"}>
+        <PointStatus status={value} />
+      </p>
+    </div>
+  </div>
+);
+
+export { pointStatusFormatter, PointStatus };

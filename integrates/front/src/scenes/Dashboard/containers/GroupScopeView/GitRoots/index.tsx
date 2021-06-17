@@ -37,10 +37,10 @@ import { DataTableNext } from "components/DataTableNext";
 import {
   changeFormatter,
   dateFormatter,
-  statusFormatter,
 } from "components/DataTableNext/formatters";
 import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
+import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { ButtonToolbarRow } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -74,6 +74,9 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { t } = useTranslation();
 
+  const canUpdateRootState: boolean = permissions.can(
+    "api_mutations_update_root_state_mutate"
+  );
   const nicknames: string[] = roots
     .filter((root): boolean => root.state === "ACTIVE")
     .map((root): string => root.nickname);
@@ -397,14 +400,13 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                       onFilter: onFilterState,
                       options: selectOptionsState,
                     }),
-                    formatter: permissions.can(
-                      "api_mutations_update_root_state_mutate"
-                    )
+                    formatter: canUpdateRootState
                       ? changeFormatter
-                      : statusFormatter,
+                      : pointStatusFormatter,
                     header: t("group.scope.common.state"),
                     visible: checkedItems.state,
-                    width: "10%",
+                    width: canUpdateRootState ? "10%" : "100px",
+                    wrapped: !canUpdateRootState,
                   },
                   {
                     align: "center",
@@ -414,17 +416,18 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     visible: checkedItems.lastStateStatusUpdate,
                   },
                   {
-                    align: "center",
+                    align: "left",
                     dataField: "cloningStatus.status",
                     filter: selectFilter({
                       defaultValue: _.get(sessionStorage, "statusScopeFilter"),
                       onFilter: onfilterStatus,
                       options: selectOptionsStatus,
                     }),
-                    formatter: statusFormatter,
+                    formatter: pointStatusFormatter,
                     header: t("group.scope.git.repo.cloning.status"),
                     visible: checkedItems["cloningStatus.status"],
-                    width: "7%",
+                    width: "105px",
+                    wrapped: true,
                   },
                   {
                     align: "center",

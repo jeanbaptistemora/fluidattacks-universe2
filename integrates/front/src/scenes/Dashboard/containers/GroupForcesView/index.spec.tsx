@@ -185,7 +185,7 @@ describe("ForcesView", (): void => {
 
     row.simulate("click");
 
-    const TEST_LENGTH = 34;
+    const TEST_LENGTH = 36;
 
     expect(wrapper.find("span")).toHaveLength(TEST_LENGTH);
   });

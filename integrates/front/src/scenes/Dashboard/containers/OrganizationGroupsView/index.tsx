@@ -8,11 +8,11 @@ import React, { useCallback, useState } from "react";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { Button } from "components/Button";
-import { statusFormatter } from "components/DataTableNext/formatters";
 import { DataTableNext } from "components/DataTableNext/index";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
+import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import style from "scenes/Dashboard/containers/OrganizationGroupsView/index.css";
 import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
 import type {
@@ -117,22 +117,25 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     { align: "center", dataField: "description", header: "Description" },
     { align: "center", dataField: "subscription", header: "Service Type" },
     {
-      align: "center",
+      align: "left",
       dataField: "asm",
-      formatter: statusFormatter,
+      formatter: pointStatusFormatter,
       header: "ASM",
+      width: "90px",
     },
     {
-      align: "center",
+      align: "left",
       dataField: "squad",
-      formatter: statusFormatter,
+      formatter: pointStatusFormatter,
       header: "Squad",
+      width: "90px",
     },
     {
-      align: "center",
+      align: "left",
       dataField: "forces",
-      formatter: statusFormatter,
+      formatter: pointStatusFormatter,
       header: "Forces",
+      width: "90px",
     },
     {
       align: "center",
@@ -171,7 +174,6 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
         ) : (
           <Row>
             <Col100>
-              {/* eslint-disable-next-line react/forbid-component-props */}
               <Row>
                 <DataTableNext
                   bordered={true}

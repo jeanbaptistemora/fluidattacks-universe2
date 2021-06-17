@@ -9,9 +9,9 @@ import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
-import { statusFormatter } from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
+import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { Execution } from "scenes/Dashboard/containers/GroupForcesView/execution";
 import { GET_FORCES_EXECUTIONS } from "scenes/Dashboard/containers/GroupForcesView/queries";
 import type {
@@ -131,16 +131,17 @@ const GroupForcesView: React.FC = (): JSX.Element => {
       onSort: onSortState,
     },
     {
-      align: "center",
+      align: "left",
       dataField: "status",
       filter: selectFilter({
         defaultValue: _.get(sessionStorage, "statusForcesFilter"),
         onFilter: onFilterStatus,
         options: selectOptionsStatus,
       }),
-      formatter: statusFormatter,
+      formatter: pointStatusFormatter,
       header: translate.t("group.forces.status.title"),
       onSort: onSortState,
+      width: "105px",
       wrapped: true,
     },
     {

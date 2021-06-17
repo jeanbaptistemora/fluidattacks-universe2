@@ -102,7 +102,7 @@ describe("GroupScopeView", (): void => {
         "bower_components/*",
         "node_modules/*",
         // State
-        "Active",
+        "\u00a0Active\u00a0",
         // Cloning status
         "Unknown",
         // Last cloning status update
@@ -244,7 +244,7 @@ describe("GroupScopeView", (): void => {
         // Branch
         "master",
         // State
-        "Active",
+        "\u00a0Active\u00a0",
         // Cloning status
         "Unknown",
         // Last cloning status update
@@ -427,7 +427,7 @@ describe("GroupScopeView", (): void => {
         // Exclude
         "node_modules/*",
         // State
-        "Active",
+        "\u00a0Active\u00a0",
         // Cloning status
         "Unknown",
         // Last cloning status update

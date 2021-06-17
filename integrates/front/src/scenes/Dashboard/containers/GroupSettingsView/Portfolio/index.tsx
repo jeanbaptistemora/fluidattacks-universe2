@@ -46,7 +46,6 @@ const Portfolio: React.FC<IPortfolioProps> = (
 
   // GraphQL operations
   const { data, refetch, networkStatus } = useQuery(GET_TAGS, {
-    notifyOnNetworkStatusChange: true,
     onError: (error: ApolloError): void => {
       msgError(translate.t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred loading group tags", error);

@@ -8,9 +8,9 @@ import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
 import monokaiSublime from "react-syntax-highlighter/dist/esm/styles/hljs/monokai-sublime";
 
 import { DataTableNext } from "components/DataTableNext";
-import { statusFormatter } from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
+import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import styles from "scenes/Dashboard/containers/GroupForcesView/index.css";
 import { GET_FORCES_EXECUTION } from "scenes/Dashboard/containers/GroupForcesView/queries";
 import type {
@@ -151,15 +151,16 @@ const Execution: React.FC<IExecution> = (
       wrapped: true,
     },
     {
+      align: "left",
       dataField: "state",
       filter: selectFilter({
         defaultValue: _.get(sessionStorage, "statusExecutionFilter"),
         onFilter: onFilterStatus,
         options: selectOptionsStatus,
       }),
-      formatter: statusFormatter,
+      formatter: pointStatusFormatter,
       header: translate.t("group.forces.compromisedToe.status"),
-      width: "10%",
+      width: "105px",
       wrapped: true,
     },
     {

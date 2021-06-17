@@ -20,10 +20,10 @@ import { handleCreationError, handleFileListUpload } from "./helpers";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
-import { statusFormatter } from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
+import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import {
   CREATE_EVENT_MUTATION,
   GET_EVENTS,
@@ -172,7 +172,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       dataField: "detail",
       header: translate.t("searchFindings.tabEvents.description"),
       onSort: onSortState,
-      width: "35%",
+      width: "50%",
       wrapped: true,
     },
     {
@@ -185,21 +185,21 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       }),
       header: translate.t("searchFindings.tabEvents.type"),
       onSort: onSortState,
-      width: "18%",
+      width: "20%",
       wrapped: true,
     },
     {
-      align: "center",
+      align: "left",
       dataField: "eventStatus",
       filter: selectFilter({
         defaultValue: _.get(sessionStorage, "eventStatusFilter"),
         onFilter: onFilterStatus,
         options: selectOptionsStatus,
       }),
-      formatter: statusFormatter,
+      formatter: pointStatusFormatter,
       header: translate.t("searchFindings.tabEvents.status"),
       onSort: onSortState,
-      width: "16%",
+      width: "90px",
       wrapped: true,
     },
     {

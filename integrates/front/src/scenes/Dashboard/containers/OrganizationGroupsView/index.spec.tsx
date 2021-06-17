@@ -149,14 +149,14 @@ describe("Organization groups view", (): void => {
     expect(oneshottestRow.text()).toContain("User Manager");
     expect(
       oneshottestRow
-        .find("span")
+        .find({ className: "v-mid" })
         .filterWhere((element: ReactWrapper): boolean =>
           element.contains("Enabled")
         )
     ).toHaveLength(2);
     expect(
       oneshottestRow
-        .find("span")
+        .find({ className: "v-mid" })
         .filterWhere((element: ReactWrapper): boolean =>
           element.contains("Disabled")
         )
@@ -169,7 +169,7 @@ describe("Organization groups view", (): void => {
     expect(pendingGroupRow.text()).toContain("Group Manager");
     expect(
       pendingGroupRow
-        .find("span")
+        .find({ className: "v-mid" })
         .filterWhere((element: ReactWrapper): boolean =>
           element.contains("Disabled")
         )
@@ -182,7 +182,7 @@ describe("Organization groups view", (): void => {
     expect(unittestingRow.text()).toContain("Continuous");
     expect(
       unittestingRow
-        .find("span")
+        .find({ className: "v-mid" })
         .filterWhere((element: ReactWrapper): boolean =>
           element.contains("Enabled")
         )

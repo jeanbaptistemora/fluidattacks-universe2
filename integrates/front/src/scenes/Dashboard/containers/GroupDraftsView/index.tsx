@@ -13,11 +13,11 @@ import type { InjectedFormProps } from "redux-form";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
-import { statusFormatter } from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import type { ISuggestion } from "scenes/Dashboard/containers/GroupDraftsView/findingNames";
 import { getFindingNames } from "scenes/Dashboard/containers/GroupDraftsView/findingNames";
 import {
@@ -87,14 +87,14 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
       dataField: "reportDate",
       header: "Date",
       onSort: onSortState,
-      width: "9%",
+      width: "10%",
     },
     {
       align: "center",
       dataField: "title",
       header: "Type",
       onSort: onSortState,
-      width: "28%",
+      width: "30%",
       wrapped: true,
     },
     {
@@ -102,7 +102,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
       dataField: "description",
       header: "Description",
       onSort: onSortState,
-      width: "28%",
+      width: "38%",
       wrapped: true,
     },
     {
@@ -120,17 +120,17 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
       width: "10%",
     },
     {
-      align: "center",
+      align: "left",
       dataField: "currentState",
       filter: selectFilter({
         defaultValue: _.get(sessionStorage, "draftStatusFilter"),
         onFilter: onFilterStatus,
         options: selectOptionsStatus,
       }),
-      formatter: statusFormatter,
+      formatter: pointStatusFormatter,
       header: "State",
       onSort: onSortState,
-      width: "15%",
+      width: "95px",
       wrapped: true,
     },
   ];

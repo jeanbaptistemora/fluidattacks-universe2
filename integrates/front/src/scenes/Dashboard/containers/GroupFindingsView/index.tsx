@@ -24,15 +24,13 @@ import { setReportType } from "./helpers";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
-import {
-  limitFormatter,
-  statusFormatter,
-} from "components/DataTableNext/formatters";
+import { limitFormatter } from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import AppstoreBadge from "resources/appstore_badge.svg";
 import GoogleplayBadge from "resources/googleplay_badge.svg";
+import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import {
   GET_FINDINGS,
   REQUEST_GROUP_REPORT,
@@ -204,7 +202,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       wrapped: true,
     },
     {
-      align: "center",
+      align: "left",
       dataField: "state",
       filter: selectFilter({
         defaultValue: _.get(sessionStorage, "statusFilter"),
@@ -212,10 +210,11 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         options: selectOptionsStatus,
         placeholder: "All",
       }),
-      formatter: statusFormatter,
+      formatter: pointStatusFormatter,
       header: "Status",
       onSort: onSortState,
       visible: checkedItems.state,
+      width: "80px",
       wrapped: true,
     },
     {
