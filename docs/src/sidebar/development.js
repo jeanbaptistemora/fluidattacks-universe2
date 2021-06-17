@@ -30,13 +30,21 @@ const DEVELOPMENT = [
           'development/writing/general/links',
         ]
       },
-      'development/writing/documentation',
       {
         type: 'category',
         label: 'Blog',
         items: [
           'development/writing/blog/main',
           'development/writing/blog/metadata',
+          'development/writing/blog/additional',
+        ]
+      },
+      {
+        type: 'category',
+        label: 'Documentation',
+        items: [
+          'development/writing/documentation/main',
+          'development/writing/documentation/metadata',
         ]
       },
       'development/writing/slb',
