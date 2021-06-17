@@ -7,6 +7,12 @@ criteria.requirements.062:
 criteria.requirements.075:
   en: 075. Record exceptional events in logs.
   es: 075. El sistema debe registrar todos los eventos excepcionales y de seguridad en bitácoras.
+criteria.requirements.077:
+  en: 077. Avoid disclosing technical information.
+  es: 077. La aplicación no debe revelar detalles del sistema interno como stack traces, fragmentos de sentencias SQL y nombres de base de datos o tablas.
+criteria.requirements.078:
+  en: 078. Disable debugging events.
+  es: 078. Los eventos con severidad de depuración no deben estar habilitados en producción.
 criteria.requirements.083:
   en: 083. El sistema no debe registrar información sensible en un evento excepcional de una bitácora.
   es: 083. Avoid logging sensitive data.

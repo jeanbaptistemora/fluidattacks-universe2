@@ -95,6 +95,9 @@
   "F055_CORS": {
     "skims/test/data/sast/TestCFG.java": {}
   },
+  "F058_APK": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
   "F059": {
     "skims/test/data/sast/TestCFG.java": {}
   },
