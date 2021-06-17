@@ -21,6 +21,9 @@ from typing import (
 from utils.ctx import (
     CTX,
 )
+from utils.function import (
+    shield,
+)
 from utils.logs import (
     log,
 )
@@ -37,6 +40,7 @@ CHECKS: Tuple[
 ] = ()
 
 
+@shield(on_error_return=[])
 async def analyze_one(
     *,
     index: int,
@@ -44,7 +48,9 @@ async def analyze_one(
     stores: Dict[core_model.FindingEnum, EphemeralStore],
     count: int,
 ) -> None:
-    await log("info", "Analyzing ssl %s of %s: %s", index, count, ssl_ctx.info)
+
+    await log("info", "Analyzing ssl %s of %s: %s", index, count, ssl_ctx)
+
     for get_check_ctx, checks in CHECKS:
         for finding, check in checks.items():
             if finding in CTX.config.checks:
@@ -53,13 +59,21 @@ async def analyze_one(
 
 
 async def get_ssl_contexts() -> Set[SSLContext]:
-    return set()
+    ssl_contexts: Set[SSLContext] = {
+        SSLContext(
+            target=target,
+        )
+        for target in CTX.config.ssl.include
+    }
+
+    return ssl_contexts
 
 
 async def analyze(
     *,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
+
     if not any(
         finding in CTX.config.checks
         for _, checks in CHECKS
@@ -69,6 +83,7 @@ async def analyze(
 
     unique_ssl_contexts: Set[SSLContext] = await get_ssl_contexts()
     count: int = len(unique_ssl_contexts)
+
     await collect(
         (
             analyze_one(
