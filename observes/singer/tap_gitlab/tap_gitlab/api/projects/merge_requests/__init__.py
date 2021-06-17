@@ -74,6 +74,12 @@ def _to_page_result(page: MrPage) -> Maybe[PageResult[datetime, MrPage]]:
     return Maybe.from_value(PageResult(page, next_item, Maybe.empty))
 
 
+def _extract_page(
+    items: Iterator[PageResult[datetime, MrPage]]
+) -> Iterator[MrPage]:
+    return iter(map(lambda item: item.data, items))
+
+
 class MrApi(NamedTuple):
     client: RawClient
     proj: ProjectId
@@ -83,7 +89,7 @@ class MrApi(NamedTuple):
     def list_all_updated_before(
         self,
         start: PageId[datetime],
-    ) -> IO[Iterator[PageResult[datetime, MrPage]]]:
+    ) -> IO[Iterator[MrPage]]:
         def getter(
             page: PageId[datetime],
         ) -> IO[Maybe[PageResult[datetime, MrPage]]]:
@@ -100,7 +106,7 @@ class MrApi(NamedTuple):
                 ),
             ).map(_to_page_result)
 
-        return io_get_until_end(start, getter)
+        return io_get_until_end(start, getter).map(_extract_page)
 
     def list_updated_before(
         self,
