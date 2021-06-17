@@ -55,6 +55,8 @@ over other alternatives are:
 
 We use the following [AWS][AWS] services:
 
+1. Identity and Access Management:
+    [AWS IAM](/development/stack/aws/iam/)
 1. Elastic cloud computing:
     [AWS EC2](/development/stack/aws/ec2/).
 1. Cloud file storage:
@@ -63,8 +65,6 @@ We use the following [AWS][AWS] services:
     [AWS EBS](/development/stack/aws/ebs/).
 1. Key management system:
     [AWS KMS](/development/stack/aws/kms/).
-1. Identity and Access Management:
-    [AWS IAM](https://aws.amazon.com/iam/)
 1. Serverless computing:
     [AWS Lambda](https://aws.amazon.com/lambda/).
 1. Elastic Container Service:

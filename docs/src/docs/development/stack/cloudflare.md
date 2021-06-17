@@ -96,7 +96,7 @@ but not chosen for the following reasons:
     [DNSSEC][DNSSEC],
     It is not as fast or as flexible as
     [Cloudflare's DNS](https://www.cloudflare.com/dns/).
-    1. [AWS Web Application Firewall](https://aws.amazon.com/waf/):
+1. [AWS Web Application Firewall](https://aws.amazon.com/waf/):
     It needs to be connected to a load balancer serving
     an application, it does not work for
     [static sites](https://en.wikipedia.org/wiki/Static_web_page).
@@ -114,6 +114,10 @@ We use [Cloudflare][CLOUDFLARE] for:
 1. [Managing digital certificates](https://gitlab.com/fluidattacks/product/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform/certificates.tf).
 1. [Managing rate limiting](https://gitlab.com/fluidattacks/product/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform/rate_limit.tf).
 1. [Managing CDN Cache](https://gitlab.com/fluidattacks/product/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/airs/deploy/production/terraform/cache.tf).
+1. Hosting `.com` and `.io` supported
+    [TLDs](https://www.cloudflare.com/tld-policies/)
+    using
+    [Cloudflare Registrar](https://www.cloudflare.com/products/registrar/)
 
 We do not use the following
 [Cloudflare][CLOUDFLARE] services:
@@ -124,6 +128,10 @@ We do not use the following
     Only
     [supported](https://www.cloudflare.com/docs/railgun/installation.html#installation-overview)
     on apt and yum.
+1. Hosting domains with `.co` and `.la` not supported
+    [TLDs](https://www.cloudflare.com/tld-policies/).
+    For these domains we use
+    [GoDaddy](https://www.godaddy.com).
 
 ## Guidelines
 
