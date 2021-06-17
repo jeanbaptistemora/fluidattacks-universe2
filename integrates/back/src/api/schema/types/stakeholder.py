@@ -10,3 +10,6 @@ from ariadne import (
 
 STAKEHOLDER: ObjectType = ObjectType("Stakeholder")
 STAKEHOLDER.set_field("projects", groups.resolve)
+
+# Standardization Fields
+STAKEHOLDER.set_field("groups", groups.resolve)

@@ -2,6 +2,7 @@
 type Stakeholder {
   email: String
   firstLogin: String
+  groups: [Group]
   invitationState: InvitationState
   lastLogin: String
   phoneNumber: String

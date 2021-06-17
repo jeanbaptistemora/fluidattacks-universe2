@@ -22,6 +22,7 @@ from group_access import (
 )
 from typing import (
     cast,
+    List,
 )
 from users import (
     domain as stakeholders_domain,
@@ -67,6 +68,7 @@ async def _resolve_for_group(
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Stakeholder:
+    group_entities: List[str] = ["GROUP", "PROJECT"]
     entity: str = kwargs["entity"]
     email: str = kwargs["user_email"]
     group_name_provided: bool
@@ -82,7 +84,7 @@ async def resolve(
 
     # Compatibility with old API
     group_name_provided = "group_name" in kwargs or "project_name" in kwargs
-    if entity == "PROJECT" and group_name_provided:
+    if entity in group_entities and group_name_provided:
         if "group_name" in kwargs:
             group_name = kwargs["group_name"].lower()
         else:

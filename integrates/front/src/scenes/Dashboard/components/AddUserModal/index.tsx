@@ -94,7 +94,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
     if (!_.isEmpty(userEmail)) {
       getUser({
         variables: {
-          entity: organizationModal ? "ORGANIZATION" : "PROJECT",
+          entity: organizationModal ? "ORGANIZATION" : "GROUP",
           groupName: _.get(props, "groupName", "-"),
           organizationId: _.get(props, "organizationId", "-"),
           userEmail,

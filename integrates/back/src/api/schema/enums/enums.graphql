@@ -199,8 +199,9 @@ enum Sorts {
 }
 
 enum StakeholderEntity {
+  GROUP
   ORGANIZATION
-  PROJECT
+  PROJECT @deprecated(reason: "Use `GROUP` instead.")
 }
 
 enum StakeholderRole {
