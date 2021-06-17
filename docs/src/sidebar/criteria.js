@@ -60,6 +60,7 @@ const CRITERIA = [
           'criteria/vulnerabilities/f085',
           'criteria/vulnerabilities/f116',
           'criteria/vulnerabilities/f119',
+          'criteria/vulnerabilities/f125',
           ],
       },
       {
@@ -106,6 +107,7 @@ const CRITERIA = [
           'criteria/vulnerabilities/f097',
           'criteria/vulnerabilities/f100',
           'criteria/vulnerabilities/f114',
+          'criteria/vulnerabilities/f121',
           ],
       },
       {
@@ -154,6 +156,8 @@ const CRITERIA = [
           'criteria/vulnerabilities/f117',
           'criteria/vulnerabilities/f118',
           'criteria/vulnerabilities/f120',
+          'criteria/vulnerabilities/f122',
+          'criteria/vulnerabilities/f124',
           ],
       },
       {
@@ -204,7 +208,7 @@ const CRITERIA = [
           'criteria/vulnerabilities/f076',
           'criteria/vulnerabilities/f081',
           'criteria/vulnerabilities/f115',
-          'criteria/vulnerabilities/f121',
+          'criteria/vulnerabilities/f126',
           ],
       },
       {
@@ -214,6 +218,7 @@ const CRITERIA = [
           'criteria/vulnerabilities/f098',
           'criteria/vulnerabilities/f103',
           'criteria/vulnerabilities/f111',
+          'criteria/vulnerabilities/f123',
           ],
       },
       {
