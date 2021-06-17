@@ -452,7 +452,10 @@ async def do_create_draft(
             impact=t(finding.value.impact),
             group=group,
             recommendation=t(finding.value.recommendation),
-            requirements=t(finding.value.requirements),
+            requirements="\n".join(
+                t(f"criteria.requirements.{requirement.zfill(3)}")
+                for requirement in map(str, finding.value.requirements)
+            ),
             threat=t(finding.value.threat),
             title=t(finding.value.title),
             type=finding.value.type.value,
