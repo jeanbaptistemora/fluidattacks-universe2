@@ -12,8 +12,6 @@
 import { Link, graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
-import type { StyledComponent } from "styled-components";
-import styled from "styled-components";
 
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
@@ -24,9 +22,11 @@ import {
   FullWidthContainer,
   LittleBannerContainer,
   PageArticle,
+  PlansCards,
+  PlansContainer,
   RegularRedButton,
 } from "../styles/styledComponents";
-import { capitalizeObject } from "../utils/utilities";
+import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
 const PlansIndex: React.FC<IQueryData> = ({
   data,
@@ -37,59 +37,31 @@ const PlansIndex: React.FC<IQueryData> = ({
   } = pageContext;
 
   const { title } = data.asciidoc.document;
-  const customCrumbLabel: string = `${title
-    .charAt(0)
-    .toUpperCase()}${title.slice(1).replace("-", "")}`;
-  const { banner } = data.asciidoc.pageAttributes;
-  const PlansCards: StyledComponent<
-    "div",
-    Record<string, unknown>
-  > = styled.div.attrs({
-    className: `
-      flex
-      flex-wrap
-      justify-center
-    `,
-  })``;
-  const PlansContainer: StyledComponent<
-    "div",
-    Record<string, unknown>
-  > = styled.div.attrs({
-    className: `
-      plans-feat
-      roboto
-      internal
-      mw-1366
-      ph-body
-      ml-auto
-      mr-auto
-      roboto
-      bg-white
-      ph4-l
-      ph3
-      pt5-l
-      pt4
-      pb5
-    `,
-  })``;
+  const {
+    banner,
+    description,
+    keywords,
+    phrase,
+    slug,
+  } = data.asciidoc.pageAttributes;
 
   return (
     <React.Fragment>
       <Seo
-        description={data.asciidoc.pageAttributes.description}
+        description={description}
         image={
           "https://res.cloudinary.com/fluid-attacks/image/upload/v1619635918/airs/about-us/clients/cover-clients_llnlaw.png"
         }
-        keywords={data.asciidoc.pageAttributes.keywords}
+        keywords={keywords}
         title={`${title} | Fluid Attacks`}
-        url={data.asciidoc.pageAttributes.slug}
+        url={slug}
       />
 
       <Layout>
         <div>
           <NavbarComponent />
           <Breadcrumb
-            crumbLabel={customCrumbLabel}
+            crumbLabel={capitalizePlainString(title)}
             crumbSeparator={" / "}
             crumbs={capitalizeObject(crumbs)}
           />
@@ -102,9 +74,7 @@ const PlansIndex: React.FC<IQueryData> = ({
             </LittleBannerContainer>
 
             <PlansContainer>
-              <BlackH2 className={"pv5"}>
-                {data.asciidoc.pageAttributes.phrase}
-              </BlackH2>
+              <BlackH2 className={"pv5"}>{phrase}</BlackH2>
               <PlansCards
                 dangerouslySetInnerHTML={{
                   __html: data.asciidoc.html,

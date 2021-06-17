@@ -22,7 +22,7 @@ import {
   ArticleTitle,
   PageArticle,
 } from "../styles/styledComponents";
-import { capitalizeObject } from "../utils/utilities";
+import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
 const DefaultPage: React.FC<IQueryData> = ({
   data,
@@ -33,42 +33,46 @@ const DefaultPage: React.FC<IQueryData> = ({
   } = pageContext;
 
   const { title } = data.asciidoc.document;
-  const customCrumbLabel: string = `${title
-    .charAt(0)
-    .toUpperCase()}${title.slice(1).replace("-", "")}`;
+  const {
+    banner,
+    description,
+    keywords,
+    slug,
+    subtext,
+    subtitle,
+  } = data.asciidoc.pageAttributes;
 
-  const hasBanner: boolean =
-    typeof data.asciidoc.pageAttributes.banner === "string";
-  const isCareers: boolean = data.asciidoc.pageAttributes.slug === "careers/";
+  const hasBanner: boolean = typeof banner === "string";
+  const isCareers: boolean = slug === "careers/";
 
   return (
     <React.Fragment>
       <Seo
-        description={data.asciidoc.pageAttributes.description}
+        description={description}
         image={
           "https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_1200/v1622583388/airs/logo_fluid_attacks_2021_eqop3k.png"
         }
-        keywords={data.asciidoc.pageAttributes.keywords}
+        keywords={keywords}
         title={`${title} | Fluid Attacks`}
-        url={data.asciidoc.pageAttributes.slug}
+        url={slug}
       />
 
       <Layout>
         <div>
           <NavbarComponent />
           <Breadcrumb
-            crumbLabel={customCrumbLabel}
+            crumbLabel={capitalizePlainString(title)}
             crumbSeparator={" / "}
             crumbs={capitalizeObject(crumbs)}
           />
 
           <PageArticle>
             <PageHeader
-              banner={data.asciidoc.pageAttributes.banner}
+              banner={banner}
               pageWithBanner={hasBanner}
-              slug={data.asciidoc.pageAttributes.slug}
-              subtext={data.asciidoc.pageAttributes.subtext}
-              subtitle={data.asciidoc.pageAttributes.subtitle}
+              slug={slug}
+              subtext={subtext}
+              subtitle={subtitle}
               title={title}
             />
             {isCareers ? <ArticleTitle>{title}</ArticleTitle> : undefined}

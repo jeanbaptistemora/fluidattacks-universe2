@@ -19,7 +19,7 @@ import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import { ServicePage } from "../components/ServicePage";
 import { translate } from "../utils/translations/translate";
-import { capitalizeObject } from "../utils/utilities";
+import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
 const continuousImage: string =
   "https://res.cloudinary.com/fluid-attacks/image/upload/v1619722210/airs/services/service-continuous_qyvqv8.webp";
@@ -35,46 +35,45 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
   } = pageContext;
 
   const { title } = data.asciidoc.document;
-  const customCrumbLabel: string = `${title
-    .charAt(0)
-    .toUpperCase()}${title.slice(1).replace("-", "")}`;
+  const {
+    banner,
+    definition,
+    description,
+    image,
+    keywords,
+    slug,
+  } = data.asciidoc.pageAttributes;
 
-  let isContinuous: string = "";
-  let image: string = "";
-
-  if (data.asciidoc.pageAttributes.slug === "services/continuous-hacking/") {
-    isContinuous = "yes";
-    image = continuousImage;
-  } else {
-    isContinuous = "no";
-    image = oneShotImage;
-  }
+  const currentService =
+    slug === "services/continuous-hacking/"
+      ? { isContinuous: "yes", serviceImage: continuousImage }
+      : { isContinuous: "no", serviceImage: oneShotImage };
 
   return (
     <React.Fragment>
       <Seo
-        description={data.asciidoc.pageAttributes.description}
-        image={data.asciidoc.pageAttributes.image.replace(".webp", ".png")}
-        keywords={data.asciidoc.pageAttributes.keywords}
+        description={description}
+        image={image.replace(".webp", ".png")}
+        keywords={keywords}
         title={`${title} | Fluid Attacks`}
-        url={data.asciidoc.pageAttributes.slug}
+        url={slug}
       />
 
       <Layout>
         <div>
           <NavbarComponent />
           <Breadcrumb
-            crumbLabel={customCrumbLabel}
+            crumbLabel={capitalizePlainString(title)}
             crumbSeparator={" / "}
             crumbs={capitalizeObject(crumbs)}
           />
 
           <ServicePage
-            banner={data.asciidoc.pageAttributes.banner}
+            banner={banner}
             content={data.asciidoc.html}
-            definition={data.asciidoc.pageAttributes.definition}
-            image={image}
-            isContinuous={isContinuous}
+            definition={definition}
+            image={currentService.serviceImage}
+            isContinuous={currentService.isContinuous}
             subtitle={translate.t("service.subTitle")}
             title={title}
           />

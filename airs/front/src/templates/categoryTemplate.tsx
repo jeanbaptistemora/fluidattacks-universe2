@@ -28,7 +28,7 @@ import {
   PageArticle,
   PageContainer,
 } from "../styles/styledComponents";
-import { capitalizeObject } from "../utils/utilities";
+import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
 const CategoryIndex: React.FC<IQueryData> = ({
   data,
@@ -39,26 +39,31 @@ const CategoryIndex: React.FC<IQueryData> = ({
   } = pageContext;
 
   const { title } = data.asciidoc.document;
-  const customCrumbLabel: string = `${title
-    .charAt(0)
-    .toUpperCase()}${title.slice(1).replace("-", "")}`;
-  const { banner } = data.asciidoc.pageAttributes;
+  const {
+    banner,
+    description,
+    image,
+    keywords,
+    slug,
+    defaux,
+    definition,
+  } = data.asciidoc.pageAttributes;
 
   return (
     <React.Fragment>
       <Seo
-        description={data.asciidoc.pageAttributes.description}
-        image={data.asciidoc.pageAttributes.image.replace(".webp", ".png")}
-        keywords={data.asciidoc.pageAttributes.keywords}
+        description={description}
+        image={image.replace(".webp", ".png")}
+        keywords={keywords}
         title={`${title} | Fluid Attacks`}
-        url={data.asciidoc.pageAttributes.slug}
+        url={slug}
       />
 
       <Layout>
         <div>
           <NavbarComponent />
           <Breadcrumb
-            crumbLabel={customCrumbLabel}
+            crumbLabel={capitalizePlainString(title)}
             crumbSeparator={" / "}
             crumbs={capitalizeObject(crumbs)}
           />
@@ -75,10 +80,10 @@ const CategoryIndex: React.FC<IQueryData> = ({
                   <div>
                     <div className={"tl"}>
                       <LittleBlackParagraph className={"tl"}>
-                        {data.asciidoc.pageAttributes.definition}
+                        {definition}
                         <br />
                         <br />
-                        {data.asciidoc.pageAttributes.defaux}
+                        {defaux}
                       </LittleBlackParagraph>
                     </div>
                   </div>
@@ -96,9 +101,7 @@ const CategoryIndex: React.FC<IQueryData> = ({
                 />
               </FullWidthContainer>
             </BigPageContainer>
-            {data.asciidoc.pageAttributes.slug === "categories/sast/" ? (
-              <SastPageFooter />
-            ) : undefined}
+            {slug === "categories/sast/" ? <SastPageFooter /> : undefined}
           </PageArticle>
         </div>
       </Layout>

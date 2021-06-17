@@ -9,21 +9,29 @@
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 /* eslint react/forbid-component-props: 0 */
-/* eslint require-unicode-regexp:0 */
 import { Link, graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import { decode } from "he";
 import moment from "moment";
 import React from "react";
-import type { StyledComponent } from "styled-components";
-import styled from "styled-components";
 
 import { BlogFooter } from "../components/BlogFooter";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
-import { FullWidthContainer, PageArticle } from "../styles/styledComponents";
-import { capitalizeObject } from "../utils/utilities";
+import {
+  BlogArticleBannerContainer,
+  BlogArticleContainer,
+  BlogArticleSubtitle,
+  BlogArticleTitle,
+  FullWidthContainer,
+  PageArticle,
+} from "../styles/styledComponents";
+import {
+  capitalizeObject,
+  capitalizePlainString,
+  stringToUri,
+} from "../utils/utilities";
 
 const BlogsIndex: React.FC<IQueryData> = ({
   data,
@@ -34,117 +42,55 @@ const BlogsIndex: React.FC<IQueryData> = ({
   } = pageContext;
 
   const { title } = data.asciidoc.document;
-  const fDate = moment(data.asciidoc.pageAttributes.date).format(
-    "MMMM DD, YYYY"
-  );
-  const customCrumbLabel: string = `${title
-    .charAt(0)
-    .toUpperCase()}${title.slice(1).replace("-", "")}`;
-  const ArticleBannerContainer: StyledComponent<
-    "div",
-    Record<string, unknown>
-  > = styled.div.attrs({
-    className: `
-      coverm
-      cover-s
-      h-auto
-      justify-center
-      items-center
-      flex
-      bg-center
-      mw-900
-      ml-auto
-      mr-auto
-    `,
-  })``;
-  const ArticleContainer: StyledComponent<
-    "div",
-    Record<string, unknown>
-  > = styled.div.attrs({
-    className: `
-      roboto
-      internal
-      mw-900
-      ml-auto
-      mr-auto
-      roboto
-      bg-white
-      ph4-l
-      ph3
-      pt4
-      pb5
-    `,
-  })``;
-  const ArticleTitle: StyledComponent<
-    "h1",
-    Record<string, unknown>
-  > = styled.h1.attrs({
-    className: `
-      roboto
-      tc
-    `,
-  })``;
-  const ArticleSubtitle: StyledComponent<
-    "span",
-    Record<string, unknown>
-  > = styled.span.attrs({
-    className: `
-      db
-      tc c-fluid-bk
-      b
-      f3
-      mt0
-    `,
-  })``;
-
-  const authorUrl: string = data.asciidoc.pageAttributes.author
-    .toLowerCase()
-    .replace(" ", "-")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
+  const {
+    alt,
+    author,
+    date,
+    description,
+    image,
+    keywords,
+    slug,
+    subtitle,
+    writer,
+  } = data.asciidoc.pageAttributes;
+  const fDate = moment(date).format("MMMM DD, YYYY");
 
   return (
     <React.Fragment>
       <Seo
-        author={data.asciidoc.pageAttributes.author}
-        description={data.asciidoc.pageAttributes.description}
-        image={data.asciidoc.pageAttributes.image.replace(".webp", ".png")}
-        keywords={data.asciidoc.pageAttributes.keywords}
+        author={author}
+        description={description}
+        image={image.replace(".webp", ".png")}
+        keywords={keywords}
         title={`${decode(title)} | Fluid Attacks`}
-        url={data.asciidoc.pageAttributes.slug}
+        url={slug}
       />
 
       <Layout>
         <div>
           <NavbarComponent />
           <Breadcrumb
-            crumbLabel={decode(customCrumbLabel)}
+            crumbLabel={decode(capitalizePlainString(title))}
             crumbSeparator={" / "}
             crumbs={capitalizeObject(crumbs)}
           />
 
           <PageArticle className={"internal"}>
-            <ArticleBannerContainer>
+            <BlogArticleBannerContainer>
               <FullWidthContainer>
                 <div className={"w-100"}>
-                  <img
-                    alt={data.asciidoc.pageAttributes.alt}
-                    className={"w-100 db"}
-                    src={data.asciidoc.pageAttributes.image}
-                  />
+                  <img alt={alt} className={"w-100 db"} src={image} />
                 </div>
               </FullWidthContainer>
-            </ArticleBannerContainer>
-            <ArticleContainer>
-              <ArticleTitle>{decode(title)}</ArticleTitle>
-              <ArticleSubtitle>
-                {decode(data.asciidoc.pageAttributes.subtitle)}
-              </ArticleSubtitle>
+            </BlogArticleBannerContainer>
+            <BlogArticleContainer>
+              <BlogArticleTitle>{decode(title)}</BlogArticleTitle>
+              <BlogArticleSubtitle>{decode(subtitle)}</BlogArticleSubtitle>
               <div className={"pv3"}>
                 <p className={"f5"}>
                   {"By"}&nbsp;
-                  <Link to={`/blog/authors/${authorUrl}`}>
-                    {data.asciidoc.pageAttributes.author}
+                  <Link to={`/blog/authors/${stringToUri(author)}`}>
+                    {author}
                   </Link>
                   {` | ${fDate}`}
                 </p>
@@ -155,12 +101,8 @@ const BlogsIndex: React.FC<IQueryData> = ({
                   __html: data.asciidoc.html,
                 }}
               />
-              <BlogFooter
-                author={data.asciidoc.pageAttributes.author}
-                slug={data.asciidoc.pageAttributes.slug}
-                writer={data.asciidoc.pageAttributes.writer}
-              />
-            </ArticleContainer>
+              <BlogFooter author={author} slug={slug} writer={writer} />
+            </BlogArticleContainer>
           </PageArticle>
         </div>
       </Layout>

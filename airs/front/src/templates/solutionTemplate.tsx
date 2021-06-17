@@ -34,7 +34,7 @@ import {
   RegularRedButton,
 } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
-import { capitalizeObject } from "../utils/utilities";
+import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
 const SolutionIndex: React.FC<IQueryData> = ({
   data,
@@ -45,27 +45,30 @@ const SolutionIndex: React.FC<IQueryData> = ({
   } = pageContext;
 
   const { title } = data.asciidoc.document;
-  const customCrumbLabel: string = `${title
-    .charAt(0)
-    .toUpperCase()}${title.slice(1).replace("-", "")}`;
+  const {
+    description,
+    keywords,
+    slug,
+    solution,
+  } = data.asciidoc.pageAttributes;
 
   return (
     <React.Fragment>
       <Seo
-        description={data.asciidoc.pageAttributes.description}
+        description={description}
         image={
           "https://res.cloudinary.com/fluid-attacks/image/upload/v1619630822/airs/solutions/bg-solutions_ylz99o.png"
         }
-        keywords={data.asciidoc.pageAttributes.keywords}
+        keywords={keywords}
         title={`${title} | Fluid Attacks`}
-        url={data.asciidoc.pageAttributes.slug}
+        url={slug}
       />
 
       <Layout>
         <div>
           <NavbarComponent />
           <Breadcrumb
-            crumbLabel={customCrumbLabel}
+            crumbLabel={capitalizePlainString(title)}
             crumbSeparator={" / "}
             crumbs={capitalizeObject(crumbs)}
           />
@@ -82,7 +85,7 @@ const SolutionIndex: React.FC<IQueryData> = ({
                   <div>
                     <div className={"tl"}>
                       <LittleBlackParagraph className={"tl"}>
-                        {data.asciidoc.pageAttributes.solution}
+                        {solution}
                       </LittleBlackParagraph>
                     </div>
                   </div>

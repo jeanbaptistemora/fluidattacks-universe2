@@ -1,3 +1,5 @@
+/* eslint require-unicode-regexp:0 */
+
 interface IProps {
   pathname: string;
   crumbLabel: string;
@@ -21,9 +23,9 @@ const capitalizeObject = (crumbs: IProps[]): IProps[] => {
 };
 
 const capitalizePlainString = (title: string): string => {
-  const parsedTitle: string = `${title.charAt(0).toUpperCase()}${title.slice(
-    1
-  )}`;
+  const parsedTitle: string = `${title.charAt(0).toUpperCase()}${title
+    .slice(1)
+    .replace("-", "")}`;
 
   return parsedTitle;
 };
@@ -41,4 +43,19 @@ const capitalizeDashedString: (words: string) => string = (
   return capitalizedName.join(" ");
 };
 
-export { capitalizeDashedString, capitalizeObject, capitalizePlainString };
+const stringToUri = (word: string): string => {
+  word
+    .toLowerCase()
+    .replace(" ", "-")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
+  return word;
+};
+
+export {
+  capitalizeDashedString,
+  capitalizeObject,
+  capitalizePlainString,
+  stringToUri,
+};

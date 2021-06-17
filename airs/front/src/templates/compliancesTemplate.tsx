@@ -11,19 +11,18 @@
 import { graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
-import type { StyledComponent } from "styled-components";
-import styled from "styled-components";
 
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import {
+  CompliancesGrid,
   MarkedPhrase,
   MarkedTitle,
   MarkedTitleContainer,
   RedMark,
 } from "../styles/styledComponents";
-import { capitalizeObject } from "../utils/utilities";
+import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
 const CompliancesIndex: React.FC<IQueryData> = ({
   data,
@@ -34,39 +33,26 @@ const CompliancesIndex: React.FC<IQueryData> = ({
   } = pageContext;
 
   const { title } = data.asciidoc.document;
-  const customCrumbLabel: string = `${title
-    .charAt(0)
-    .toUpperCase()}${title.slice(1).replace("-", "")}`;
-  const CompliancesGrid: StyledComponent<
-    "div",
-    Record<string, unknown>
-  > = styled.div.attrs({
-    className: `
-      grid
-      compliance-content
-      compliance-grid
-      roboto
-      w-100
-    `,
-  })``;
+
+  const { description, keywords, phrase, slug } = data.asciidoc.pageAttributes;
 
   return (
     <React.Fragment>
       <Seo
-        description={data.asciidoc.pageAttributes.description}
+        description={description}
         image={
           "https://res.cloudinary.com/fluid-attacks/image/upload/v1619637251/airs/compliance/cover-compliance_vnojb7.png"
         }
-        keywords={data.asciidoc.pageAttributes.keywords}
+        keywords={keywords}
         title={`${title} | Fluid Attacks`}
-        url={data.asciidoc.pageAttributes.slug}
+        url={slug}
       />
 
       <Layout>
         <div>
           <NavbarComponent />
           <Breadcrumb
-            crumbLabel={customCrumbLabel}
+            crumbLabel={capitalizePlainString(title)}
             crumbSeparator={" / "}
             crumbs={capitalizeObject(crumbs)}
           />
@@ -75,7 +61,7 @@ const CompliancesIndex: React.FC<IQueryData> = ({
               <RedMark>
                 <MarkedTitle>{title}</MarkedTitle>
               </RedMark>
-              <MarkedPhrase>{data.asciidoc.pageAttributes.phrase}</MarkedPhrase>
+              <MarkedPhrase>{phrase}</MarkedPhrase>
             </div>
             <CompliancesGrid
               dangerouslySetInnerHTML={{

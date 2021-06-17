@@ -11,7 +11,7 @@ import { NavbarComponent } from "../components/Navbar";
 import { PageHeader } from "../components/PageHeader";
 import { Seo } from "../components/Seo";
 import { IframeContainer, PageArticle } from "../styles/styledComponents";
-import { capitalizeObject } from "../utils/utilities";
+import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
 const SubscribeIndex: React.FC<IQueryData> = ({
   data,
@@ -22,27 +22,31 @@ const SubscribeIndex: React.FC<IQueryData> = ({
   } = pageContext;
 
   const { title } = data.asciidoc.document;
-  const customCrumbLabel: string = `${title
-    .charAt(0)
-    .toUpperCase()}${title.slice(1).replace("-", "")}`;
+  const {
+    description,
+    keywords,
+    slug,
+    subtext,
+    subtitle,
+  } = data.asciidoc.pageAttributes;
 
   return (
     <React.Fragment>
       <Seo
-        description={data.asciidoc.pageAttributes.description}
+        description={description}
         image={
           "https://res.cloudinary.com/fluid-attacks/image/upload/v1619631770/airs/contact-us/bg-contact-us_cpcyoj.png"
         }
-        keywords={data.asciidoc.pageAttributes.keywords}
+        keywords={keywords}
         title={`${title} | Fluid Attacks`}
-        url={data.asciidoc.pageAttributes.slug}
+        url={slug}
       />
 
       <Layout>
         <div>
           <NavbarComponent />
           <Breadcrumb
-            crumbLabel={customCrumbLabel}
+            crumbLabel={capitalizePlainString(title)}
             crumbSeparator={" / "}
             crumbs={capitalizeObject(crumbs)}
           />
@@ -51,9 +55,9 @@ const SubscribeIndex: React.FC<IQueryData> = ({
             <PageHeader
               banner={"contact-bg"}
               pageWithBanner={true}
-              slug={data.asciidoc.pageAttributes.slug}
-              subtext={data.asciidoc.pageAttributes.subtext}
-              subtitle={data.asciidoc.pageAttributes.subtitle}
+              slug={slug}
+              subtext={subtext}
+              subtitle={subtitle}
               title={title}
             />
 

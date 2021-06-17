@@ -1106,12 +1106,138 @@ const AdvisoryContainer: StyledComponent<
   `,
 })``;
 
+const BlogArticleBannerContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    coverm
+    cover-s
+    h-auto
+    justify-center
+    items-center
+    flex
+    bg-center
+    mw-900
+    ml-auto
+    mr-auto
+  `,
+})``;
+const BlogArticleContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    roboto
+    internal
+    mw-900
+    ml-auto
+    mr-auto
+    roboto
+    bg-white
+    ph4-l
+    ph3
+    pt4
+    pb5
+  `,
+})``;
+const BlogArticleTitle: StyledComponent<
+  "h1",
+  Record<string, unknown>
+> = styled.h1.attrs({
+  className: `
+    roboto
+    tc
+  `,
+})``;
+const BlogArticleSubtitle: StyledComponent<
+  "span",
+  Record<string, unknown>
+> = styled.span.attrs({
+  className: `
+    db
+    tc c-fluid-bk
+    b
+    f3
+    mt0
+  `,
+})``;
+
+const CompliancesGrid: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    grid
+    compliance-content
+    compliance-grid
+    roboto
+    w-100
+  `,
+})``;
+
+const ComplianceContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    roboto
+    mw-1366
+    ph-body
+    center
+    c-lightblack
+    pv5
+    compliance-page
+    flex
+    flex-wrap
+    items-center
+    justify-center
+  `,
+})``;
+
+const PlansCards: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    flex
+    flex-wrap
+    justify-center
+  `,
+})``;
+
+const PlansContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    plans-feat
+    roboto
+    internal
+    mw-1366
+    ph-body
+    ml-auto
+    mr-auto
+    roboto
+    bg-white
+    ph4-l
+    ph3
+    pt5-l
+    pt4
+    pb5
+  `,
+})``;
+
 export {
   AdvisoriesContainer,
   AdvisoriesGrid,
   AdvisoryContainer,
   ArticleContainer,
   ArticleTitle,
+  BlogArticleBannerContainer,
+  BlogArticleContainer,
+  BlogArticleSubtitle,
+  BlogArticleTitle,
   BlogItemName,
   BlogItemItem,
   BlogItemList,
@@ -1140,6 +1266,8 @@ export {
   CardsContainer,
   CardsContainer1200,
   CenteredSpacedContainer,
+  ComplianceContainer,
+  CompliancesGrid,
   CopyrightContainer,
   CopyrightParagraph,
   Flex,
@@ -1177,6 +1305,8 @@ export {
   NavbarRegularButton,
   PageArticle,
   PageContainer,
+  PlansCards,
+  PlansContainer,
   RadioButton,
   RadioLabel,
   RedMark,
