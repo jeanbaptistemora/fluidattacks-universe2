@@ -127,6 +127,17 @@ def get_model_hyperparameters(
     return {parameter: args[parameter] for parameter in model_hyperparameters}
 
 
+def display_model_hyperparameters(
+    model_name: str, hyperaparameters_list: Dict[str, str]
+) -> None:
+    print(
+        f"We have the following hyperparameters "
+        f"for our {model_name.upper()} model tuning:"
+    )
+    for parameter, value in hyperaparameters_list.items():
+        print(f"{parameter}: {value}")
+
+
 def cli() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
 
@@ -169,6 +180,7 @@ def main() -> None:
     set_sagemaker_extra_envs(args.envs)
 
     hyperparameters_to_tune = get_model_hyperparameters(model_name, vars(args))
+    display_model_hyperparameters(model_name, hyperparameters_to_tune)
     model_class: ModelType = MODELS[model_name]
     model: ModelType = model_class(**hyperparameters_to_tune)
 
