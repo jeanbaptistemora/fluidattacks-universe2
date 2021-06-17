@@ -1,0 +1,29 @@
+{
+  "name": "docs",
+  "version": "0.0.0",
+  "lockfileVersion": 1,
+  "dependencies": {
+    "@svgr/plugin-svgo": {
+      "version": "5.5.0",
+      "dependencies": {
+        "css-what": {
+          "version": "5.0.1"
+        }
+      }
+    },
+    "cheerio": {
+      "version": "0.22.0",
+      "dependencies": {
+        "css-what": {
+          "version": "5.0.1"
+        }
+      }
+    },
+    "css-what": {
+      "version": "5.0.1"
+    },
+    "trim": {
+      "version": "0.0.3"
+    }
+  }
+}

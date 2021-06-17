@@ -2,12 +2,14 @@
 , getPackageJsonDeps
 , nix
 , nixpkgs
+, path
 , ...
 }:
 let
   packageJsonDeps = getPackageJsonDeps "/docs/src/package.json";
 in
 buildNodeRequirements {
+  baseLock = builtins.fromJSON (builtins.readFile (path "/docs/src/base-lock.json"));
   name = "docs-runtime";
   node = nixpkgs.nodejs-12_x;
   requirements = {
@@ -351,7 +353,7 @@ buildNodeRequirements {
       "css-select-base-adapter@0.1.1"
       "css-select@3.1.2"
       "css-tree@1.1.3"
-      "css-what@4.0.0"
+      "css-what@5.0.1"
       "cssesc@3.0.0"
       "cssnano-preset-advanced@5.1.3"
       "cssnano-preset-default@5.1.3"
@@ -942,7 +944,7 @@ buildNodeRequirements {
       "toidentifier@1.0.0"
       "totalist@1.1.0"
       "trim-trailing-lines@1.1.4"
-      "trim@0.0.1"
+      "trim@0.0.3"
       "trough@1.0.5"
       "ts-essentials@2.0.12"
       "tslib@2.3.0"
