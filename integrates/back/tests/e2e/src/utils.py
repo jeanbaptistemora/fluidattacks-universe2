@@ -5,7 +5,7 @@ from itsdangerous import (
     TimestampSigner,
 )
 import json
-from model import (
+from model import (  # pylint: disable=import-error
     Credentials,
 )
 from random import (

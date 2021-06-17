@@ -1,4 +1,4 @@
-from model import (
+from model import (  # pylint: disable=import-error
     Credentials,
 )
 import os
