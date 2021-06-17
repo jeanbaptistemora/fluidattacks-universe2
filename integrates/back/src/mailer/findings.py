@@ -104,7 +104,7 @@ async def send_mail_delete_finding(
         recipients,
         mail_context,
         GENERAL_TAG,
-        (f"Finding #{finding_id} in " f"[{group_name}] was removed"),
+        f"Finding #{finding_id} in [{group_name}] was removed",
         "delete_finding",
     )
 
@@ -133,10 +133,7 @@ async def send_mail_new_draft(
         recipients,
         email_context,
         GENERAL_TAG,
-        (
-            f"New draft submitted in [{group_name}] - "
-            f"[Finding#{finding_id}]"
-        ),
+        f"New draft submitted in [{group_name}] - [Finding#{finding_id}]",
         "new_draft",
     )
 
@@ -148,7 +145,7 @@ async def send_mail_new_remediated(
         email_to,
         context,
         GENERAL_TAG,
-        (f'Findings to verify ({context["total"]})'),
+        f'Findings to verify ({context["total"]})',
         "new_remediated",
     )
 

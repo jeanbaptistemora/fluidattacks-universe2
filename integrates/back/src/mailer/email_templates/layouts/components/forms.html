@@ -43,9 +43,9 @@
           <td style="text-align: center;">
             <table aria-hidden="true" style="width: 100%;">
               <tr>
-                <td align="center">
+                <td style="text-align: center;">
                   <div
-                    style="border: 2px solid #ffffff; padding: {{ padding }}; border-radius: 50%; height: 78px; width: 78px;">
+                    style="border: 2px solid #ffffff; padding: {{ padding }}; border-radius: 50%; height: 78px; width: 78px; margin: 0 auto;">
                     <div class="icon">
                       <img
                         alt="Banner custom icon"
@@ -69,7 +69,7 @@
 {% macro banner_news(text) %}
   {% call banner(
     'https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/905d41fe-7d2d-98f2-b103-1f57ed9c45b3.png',
-    '13px 13px 0 5px'
+    '13px 10px 0 8px'
     ) %}
     {{ text }}
   {% endcall %}
