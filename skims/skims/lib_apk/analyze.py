@@ -1,7 +1,3 @@
-from aioextensions import (
-    collect,
-    CPU_CORES,
-)
 from androguard.core.analysis.analysis import (
     Analysis,
 )
@@ -143,15 +139,11 @@ async def analyze(
     unique_apk_contexts: Set[APKContext] = get_apk_contexts()
     count: int = len(unique_apk_contexts)
 
-    await collect(
-        (
-            analyze_one(
-                apk_ctx=apk_ctx,
-                index=index,
-                stores=stores,
-                count=count,
-            )
-            for index, apk_ctx in enumerate(unique_apk_contexts)
-        ),
-        workers=CPU_CORES,
-    )
+    for index, apk_ctx in enumerate(unique_apk_contexts):
+        # Intentional await-inside-for in order to reduce memory consumption
+        await analyze_one(
+            apk_ctx=apk_ctx,
+            index=index,
+            stores=stores,
+            count=count,
+        )
