@@ -23,6 +23,7 @@ from dynamodb.types import (
     GitRootState,
     GitRootToeInputItem,
     GitRootToeLinesItem,
+    GroupMetadata,
     IPRootItem,
     IPRootMetadata,
     IPRootState,
@@ -851,3 +852,23 @@ async def update_org_finding_policy_state(
     )
 
     await operations.batch_write_item(items=historic, table=TABLE)
+
+
+async def create_group_metadata(*, group_metadata: GroupMetadata) -> None:
+    key_structure = TABLE.primary_key
+    facet = TABLE.facets["group_metadata"]
+    metadata_key = keys.build_key(
+        facet=facet, values={"name": group_metadata.name}
+    )
+    metadata = {
+        key_structure.partition_key: metadata_key.partition_key,
+        key_structure.sort_key: metadata_key.sort_key,
+        **dict(group_metadata._asdict()),
+    }
+    condition_expression = Attr(key_structure.partition_key).not_exists()
+    await operations.put_item(
+        condition_expression=condition_expression,
+        facet=facet,
+        item=metadata,
+        table=TABLE,
+    )
