@@ -44,22 +44,27 @@ def _to_singer(
     return (SingerRecord(stream.value.lower(), item) for item in page.data)
 
 
-def _emit_pages(stream: SupportedStreams, pages: Iterator[MrPage]) -> None:
+def _emit_pages(
+    stream: SupportedStreams, max_pages: int, pages: Iterator[MrPage]
+) -> None:
+    count = 0
     for page in pages:
+        if count >= max_pages:
+            break
         for item in _to_singer(stream, page):
             factory.emit(item)
+        count = count + 1
 
 
 def _stream_data(
-    stream: SupportedStreams,
-    pages: IO[Iterator[MrPage]],
+    stream: SupportedStreams, pages: IO[Iterator[MrPage]], max_pages: int
 ) -> None:
-    pages.map(partial(_emit_pages, stream))
+    pages.map(partial(_emit_pages, stream, max_pages))
 
 
-def all_mrs(api: ApiClient, project: str) -> None:
+def all_mrs(api: ApiClient, project: str, max_pages: int) -> None:
     start = PageId(datetime.now(pytz.utc), 100)
     pages = api.project(
         ProjectId.from_name(project)
     ).mrs.list_all_updated_before(start)
-    _stream_data(SupportedStreams.MERGE_REQUESTS, pages)
+    _stream_data(SupportedStreams.MERGE_REQUESTS, pages, max_pages)
