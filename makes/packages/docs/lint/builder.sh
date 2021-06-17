@@ -16,6 +16,7 @@ function main {
     && lint_markdown "${envSrcDocsCriteriaRequirementsDevices}" \
     && lint_markdown "${envSrcDocsCriteriaRequirementsEmails}" \
     && lint_markdown "${envSrcDocsCriteriaRequirementsFiles}" \
+    && lint_markdown "${envSrcDocsCriteriaRequirementsLegal}" \
     && touch "${out}"
 }
 

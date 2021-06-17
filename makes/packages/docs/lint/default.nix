@@ -19,6 +19,7 @@ makeDerivation {
     envSrcDocsCriteriaRequirementsDevices = path "/docs/src/docs/criteria/requirements/devices/";
     envSrcDocsCriteriaRequirementsEmails = path "/docs/src/docs/criteria/requirements/emails/";
     envSrcDocsCriteriaRequirementsFiles = path "/docs/src/docs/criteria/requirements/files/";
+    envSrcDocsCriteriaRequirementsLegal = path "/docs/src/docs/criteria/requirements/legal/";
   };
   builder = path "/makes/packages/docs/lint/builder.sh";
   name = "docs-lint";
