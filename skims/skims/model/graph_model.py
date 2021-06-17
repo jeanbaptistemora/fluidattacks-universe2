@@ -353,7 +353,7 @@ class GraphShard(NamedTuple):
 
 
 class GraphVulnerabilityParameters(NamedTuple):
-    cwe: Tuple[str, ...]
+    cwe: Tuple[int, ...]
     desc_key: str
     desc_params: Dict[str, str]
 
@@ -364,65 +364,65 @@ GRAPH_VULNERABILITY_PARAMETERS: Dict[
 ] = {
     core_model.FindingEnum.F001_C_SHARP_SQL: (
         GraphVulnerabilityParameters(
-            cwe=("89",),
+            cwe=(89,),
             desc_key="src.lib_path.F001_C_SHARP_SQL.user_controled_param",
             desc_params={},
         )
     ),
     core_model.FindingEnum.F001_JAVA_SQL: (
         GraphVulnerabilityParameters(
-            cwe=("89",),
+            cwe=(89,),
             desc_key="src.lib_path.F001_JAVA_SQL.user_controled_param",
             desc_params={},
         )
     ),
     core_model.FindingEnum.F004: GraphVulnerabilityParameters(
-        cwe=("78",),
+        cwe=(78,),
         desc_key="F004.description",
         desc_params={},
     ),
     core_model.FindingEnum.F008: GraphVulnerabilityParameters(
-        cwe=("79",),
+        cwe=(79,),
         desc_key="F008.description",
         desc_params={},
     ),
     core_model.FindingEnum.F021: GraphVulnerabilityParameters(
-        cwe=("643",),
+        cwe=(643,),
         desc_key="F021.description",
         desc_params={},
     ),
     core_model.FindingEnum.F034: GraphVulnerabilityParameters(
-        cwe=("330",),
+        cwe=(330,),
         desc_key="F034.description",
         desc_params={},
     ),
     core_model.FindingEnum.F042: GraphVulnerabilityParameters(
-        cwe=("614",),
+        cwe=(614,),
         desc_key="F042.description",
         desc_params={},
     ),
     core_model.FindingEnum.F052: GraphVulnerabilityParameters(
-        cwe=("328",),
+        cwe=(328,),
         desc_key="F052.description",
         desc_params={},
     ),
     core_model.FindingEnum.F063_PATH_TRAVERSAL: (
         GraphVulnerabilityParameters(
-            cwe=("22",),
+            cwe=(22,),
             desc_key="src.lib_path.f063_path_traversal.description",
             desc_params={},
         )
     ),
     core_model.FindingEnum.F063_TRUSTBOUND: (
         GraphVulnerabilityParameters(
-            cwe=("501",),
+            cwe=(501,),
             desc_key="F063_TRUSTBOUND.description",
             desc_params={},
         )
     ),
     core_model.FindingEnum.F107: (
         GraphVulnerabilityParameters(
-            cwe=("90",),
+            cwe=(90,),
             desc_key="F107.description",
             desc_params={},
         )

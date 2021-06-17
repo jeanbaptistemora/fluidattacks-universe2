@@ -51,7 +51,7 @@ class FindingTypeEnum(Enum):
 
 class FindingMetadata(NamedTuple):
     auto_approve: bool
-    cwe: str
+    cwe: int
     description: str
     execution_queue: ExecutionQueue
     impact: str
@@ -67,7 +67,7 @@ class FindingMetadata(NamedTuple):
         cls,
         *,
         code: str,
-        cwe: str,
+        cwe: int,
         auto_approve: bool = True,
         execution_queue: ExecutionQueue = ExecutionQueue.prod,
         requirements: List[int],
@@ -92,7 +92,7 @@ class FindingEnum(Enum):
     F001_C_SHARP_SQL: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F001_C_SHARP_SQL",
-        cwe="89",
+        cwe=89,
         requirements=[169],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -110,7 +110,7 @@ class FindingEnum(Enum):
     )
     F001_JAVA_SQL: FindingMetadata = FindingMetadata.new(
         code="F001_JAVA_SQL",
-        cwe="89",
+        cwe=89,
         requirements=[169],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -128,7 +128,7 @@ class FindingEnum(Enum):
     )
     F001_JPA: FindingMetadata = FindingMetadata.new(
         code="F001_JPA",
-        cwe="89",
+        cwe=89,
         requirements=[169],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -146,7 +146,7 @@ class FindingEnum(Enum):
     )
     F004: FindingMetadata = FindingMetadata.new(
         code="F004",
-        cwe="78",
+        cwe=78,
         requirements=[173, 265],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -164,7 +164,7 @@ class FindingEnum(Enum):
     )
     F008: FindingMetadata = FindingMetadata.new(
         code="F008",
-        cwe="79",
+        cwe=79,
         requirements=[173],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -182,7 +182,7 @@ class FindingEnum(Enum):
     )
     F009: FindingMetadata = FindingMetadata.new(
         code="F009",
-        cwe="798",
+        cwe=798,
         requirements=[156],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -200,7 +200,7 @@ class FindingEnum(Enum):
     )
     F011: FindingMetadata = FindingMetadata.new(
         code="F011",
-        cwe="937",
+        cwe=937,
         requirements=[262],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -218,7 +218,7 @@ class FindingEnum(Enum):
     )
     F015_DAST_BASIC: FindingMetadata = FindingMetadata.new(
         code="F015_DAST_BASIC",
-        cwe="287",
+        cwe=287,
         requirements=[228, 319],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -236,7 +236,7 @@ class FindingEnum(Enum):
     )
     F020: FindingMetadata = FindingMetadata.new(
         code="F020",
-        cwe="311",
+        cwe=311,
         requirements=[185],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -254,7 +254,7 @@ class FindingEnum(Enum):
     )
     F021: FindingMetadata = FindingMetadata.new(
         code="F021",
-        cwe="643",
+        cwe=643,
         requirements=[173],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -272,7 +272,7 @@ class FindingEnum(Enum):
     )
     F022: FindingMetadata = FindingMetadata.new(
         code="F022",
-        cwe="319",
+        cwe=319,
         requirements=[181],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -290,7 +290,7 @@ class FindingEnum(Enum):
     )
     F023: FindingMetadata = FindingMetadata.new(
         code="F023",
-        cwe="601",
+        cwe=601,
         requirements=[173, 324],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -308,7 +308,7 @@ class FindingEnum(Enum):
     )
     F024_AWS: FindingMetadata = FindingMetadata.new(
         code="F024_AWS",
-        cwe="16",
+        cwe=16,
         requirements=[255, 266],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -326,7 +326,7 @@ class FindingEnum(Enum):
     )
     F031_AWS: FindingMetadata = FindingMetadata.new(
         code="F031_AWS",
-        cwe="250",
+        cwe=250,
         requirements=[186],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -344,7 +344,7 @@ class FindingEnum(Enum):
     )
     F031_CWE378: FindingMetadata = FindingMetadata.new(
         code="F031_CWE378",
-        cwe="378",
+        cwe=378,
         requirements=[186],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -362,7 +362,7 @@ class FindingEnum(Enum):
     )
     F034: FindingMetadata = FindingMetadata.new(
         code="F034",
-        cwe="330",
+        cwe=330,
         requirements=[223, 224],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -380,7 +380,7 @@ class FindingEnum(Enum):
     )
     F036: FindingMetadata = FindingMetadata.new(
         code="F036",
-        cwe="319",
+        cwe=319,
         requirements=[26],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -398,7 +398,7 @@ class FindingEnum(Enum):
     )
     F042: FindingMetadata = FindingMetadata.new(
         code="F042",
-        cwe="614",
+        cwe=614,
         requirements=[29],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -417,7 +417,7 @@ class FindingEnum(Enum):
     F042_HTTPONLY: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F042_HTTPONLY",
-        cwe="1004",
+        cwe=1004,
         execution_queue=ExecutionQueue.dev,
         requirements=[29],
         score=cvss3_model.Score(
@@ -437,7 +437,7 @@ class FindingEnum(Enum):
     F042_SAMESITE: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F042_SAMESITE",
-        cwe="1275",
+        cwe=1275,
         execution_queue=ExecutionQueue.dev,
         requirements=[29],
         score=cvss3_model.Score(
@@ -457,7 +457,7 @@ class FindingEnum(Enum):
     F042_SECURE: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F042_SECURE",
-        cwe="614",
+        cwe=614,
         execution_queue=ExecutionQueue.dev,
         requirements=[29],
         score=cvss3_model.Score(
@@ -476,7 +476,7 @@ class FindingEnum(Enum):
     )
     F043_DAST_CSP: FindingMetadata = FindingMetadata.new(
         code="F043_DAST_CSP",
-        cwe="644",
+        cwe=644,
         requirements=[62],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -494,7 +494,7 @@ class FindingEnum(Enum):
     )
     F043_DAST_RP: FindingMetadata = FindingMetadata.new(
         code="F043_DAST_RP",
-        cwe="644",
+        cwe=644,
         requirements=[62],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -512,7 +512,7 @@ class FindingEnum(Enum):
     )
     F043_DAST_STS: FindingMetadata = FindingMetadata.new(
         code="F043_DAST_STS",
-        cwe="644",
+        cwe=644,
         requirements=[62, 181],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -530,7 +530,7 @@ class FindingEnum(Enum):
     )
     F043_DAST_XCTO: FindingMetadata = FindingMetadata.new(
         code="F043_DAST_XCTO",
-        cwe="644",
+        cwe=644,
         requirements=[62],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -549,7 +549,7 @@ class FindingEnum(Enum):
     F046_APK: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F046_APK",
-        cwe="1269",
+        cwe=1269,
         requirements=[159],
         execution_queue=ExecutionQueue.none,
         score=cvss3_model.Score(
@@ -569,7 +569,7 @@ class FindingEnum(Enum):
     F048: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F048",
-        cwe="250",
+        cwe=250,
         requirements=[326],
         execution_queue=ExecutionQueue.none,
         score=cvss3_model.Score(
@@ -589,7 +589,7 @@ class FindingEnum(Enum):
     F049_APK_PIN: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F049_APK_PIN",
-        cwe="295",
+        cwe=295,
         requirements=[93],
         execution_queue=ExecutionQueue.none,
         score=cvss3_model.Score(
@@ -608,7 +608,7 @@ class FindingEnum(Enum):
     )
     F052: FindingMetadata = FindingMetadata.new(
         code="F052",
-        cwe="310",
+        cwe=310,
         requirements=[158, 149, 150, 181, 336],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -627,7 +627,7 @@ class FindingEnum(Enum):
     F055_APK_UPDATES: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F055_APK_UPDATES",
-        cwe="1277",
+        cwe=1277,
         requirements=[266],
         execution_queue=ExecutionQueue.none,
         score=cvss3_model.Score(
@@ -646,7 +646,7 @@ class FindingEnum(Enum):
     )
     F055_AWS_MISSING_ENCRYPTION: FindingMetadata = FindingMetadata.new(
         code="F055_AWS_MISSING_ENCRYPTION",
-        cwe="311",
+        cwe=311,
         requirements=[185],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -664,7 +664,7 @@ class FindingEnum(Enum):
     )
     F055_CORS: FindingMetadata = FindingMetadata.new(
         code="F055_CORS",
-        cwe="942",
+        cwe=942,
         requirements=[266],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -683,7 +683,7 @@ class FindingEnum(Enum):
     F058_APK: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F058_APK",
-        cwe="489",
+        cwe=489,
         requirements=[77, 78],
         execution_queue=ExecutionQueue.none,
         score=cvss3_model.Score(
@@ -702,7 +702,7 @@ class FindingEnum(Enum):
     )
     F059: FindingMetadata = FindingMetadata.new(
         code="F059",
-        cwe="532",
+        cwe=532,
         requirements=[83],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -720,7 +720,7 @@ class FindingEnum(Enum):
     )
     F060: FindingMetadata = FindingMetadata.new(
         code="F060",
-        cwe="396",
+        cwe=396,
         requirements=[359],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -738,7 +738,7 @@ class FindingEnum(Enum):
     )
     F061: FindingMetadata = FindingMetadata.new(
         code="F061",
-        cwe="390",
+        cwe=390,
         requirements=[75],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -756,7 +756,7 @@ class FindingEnum(Enum):
     )
     F063_PATH_TRAVERSAL: FindingMetadata = FindingMetadata.new(
         code="F063_PATH_TRAVERSAL",
-        cwe="22",
+        cwe=22,
         requirements=[173],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -774,7 +774,7 @@ class FindingEnum(Enum):
     )
     F063_TRUSTBOUND: FindingMetadata = FindingMetadata.new(
         code="F063_TRUSTBOUND",
-        cwe="501",
+        cwe=501,
         requirements=[173],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -792,7 +792,7 @@ class FindingEnum(Enum):
     )
     F064_SERVER_CLOCK: FindingMetadata = FindingMetadata.new(
         code="F064_SERVER_CLOCK",
-        cwe="778",
+        cwe=778,
         requirements=[75],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -810,7 +810,7 @@ class FindingEnum(Enum):
     )
     F070_WILDCARD_IMPORT: FindingMetadata = FindingMetadata.new(
         code="F070_WILDCARD_IMPORT",
-        cwe="155",
+        cwe=155,
         requirements=[158, 302],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -828,7 +828,7 @@ class FindingEnum(Enum):
     )
     F073: FindingMetadata = FindingMetadata.new(
         code="F073",
-        cwe="478",
+        cwe=478,
         requirements=[161],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -846,7 +846,7 @@ class FindingEnum(Enum):
     )
     F085: FindingMetadata = FindingMetadata.new(
         code="F085",
-        cwe="922",
+        cwe=922,
         requirements=[329],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -864,7 +864,7 @@ class FindingEnum(Enum):
     )
     F086: FindingMetadata = FindingMetadata.new(
         code="F086",
-        cwe="353",
+        cwe=353,
         requirements=[178, 262, 330],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -883,7 +883,7 @@ class FindingEnum(Enum):
     F103_APK_UNSIGNED: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F103_APK_UNSIGNED",
-        cwe="325",
+        cwe=325,
         execution_queue=ExecutionQueue.none,
         requirements=[178],
         score=cvss3_model.Score(
@@ -902,7 +902,7 @@ class FindingEnum(Enum):
     )
     F107: FindingMetadata = FindingMetadata.new(
         code="F107",
-        cwe="90",
+        cwe=90,
         requirements=[173],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -920,7 +920,7 @@ class FindingEnum(Enum):
     )
     F117: FindingMetadata = FindingMetadata.new(
         code="F117",
-        cwe="377",
+        cwe=377,
         requirements=[323],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -1092,7 +1092,7 @@ class SkimsConfig(NamedTuple):
 
 
 class SkimsVulnerabilityMetadata(NamedTuple):
-    cwe: Tuple[str, ...]
+    cwe: Tuple[int, ...]
     description: str
     snippet: str
 

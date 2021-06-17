@@ -169,7 +169,7 @@ async def notify_findings_as_csv(
 
     rows = [
         dict(
-            cwe=" + ".join(sorted(result.skims_metadata.cwe)),
+            cwe=" + ".join(map(str, sorted(result.skims_metadata.cwe))),
             description=result.skims_metadata.description,
             kind=result.kind.value,
             finding=result.finding.name,
