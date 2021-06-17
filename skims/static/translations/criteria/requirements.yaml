@@ -2,14 +2,14 @@ criteria.requirements.029:
   en: 029. Cookies with security attribute.
   es: 029. Las cookies de sesión de las aplicaciones web deben tener atributos de seguridad (HttpOnly, Secure, SameSite) y prefijos (por ejemplo, __Host-).
 criteria.requirements.062:
-  en: 062. Define standard configurations
+  en: 062. Define standard configurations.
   es: 062. Debe definirse configuraciones estándares que corrijan todas las vulnerabilidades conocidas y que sean consistentes con estándares de la industria (ej líneas base).
 criteria.requirements.075:
   en: 075. Record exceptional events in logs.
   es: 075. El sistema debe registrar todos los eventos excepcionales y de seguridad en bitácoras.
 criteria.requirements.083:
   en: 083. El sistema no debe registrar información sensible en un evento excepcional de una bitácora.
-  es: 083. Avoid logging sensitive data
+  es: 083. Avoid logging sensitive data.
 criteria.requirements.093:
   en: 093. Use consistent certificates.
   es: 093. Debe utilizarse certificados con una identificación coherente con  la organización (servicio, servidor, entre otros) a la cual se encuentra asociado.
@@ -29,8 +29,8 @@ criteria.requirements.158:
   en: 158. Use a secure programming language.
   es: 158. La codificación del sistema debe estar implementada en una versión de un lenguaje de programación estable, actualizada, probada y libre de vulnerabilidades conocidas.
 criteria.requirements.161:
-  en: 161. Define secure default options
-  es: 161. El código debe definir opciones por defecto seguras que garanticen fallos seguros en la aplicación. (try, catch/except; default en switches)
+  en: 161. Define secure default options.
+  es: 161. El código debe definir opciones por defecto seguras que garanticen fallos seguros en la aplicación. (try, catch/except; default en switches).
 criteria.requirements.169:
   en: 169. Use parameterized queries.
   es: '169. Debe usarse construcciones parametrizadas o procedimientos almacenados parametrizados para la creación dinámica de sentencias (ej: java.sql.PreparedStatement).'
@@ -44,10 +44,10 @@ criteria.requirements.181:
   en: 181. Transmit data using secure protocols.
   es: 181. La transmisión de información sensible o la ejecución de funciones sensibles debe hacerse a través de protocolos seguros.
 criteria.requirements.185:
-  en: 185. Encrypt sensitive information
+  en: 185. Encrypt sensitive information.
   es: 185. La información sensible almacenada debe estar cifrada.
 criteria.requirements.186:
-  en: 186. Use the principle of least privilege
+  en: 186. Use the principle of least privilege.
   es: 186. Se debe aplicar el principio del mínimo privilegio al crear objetos y roles, configurar permisos de acceso y acceder a otros sistemas y bases de datos.
 criteria.requirements.223:
   en: 223. Uniform distribution in random numbers.
@@ -62,7 +62,7 @@ criteria.requirements.255:
   en: 255. Allow access only to the necessary ports.
   es: 255. Permitir el acceso solo a los puertos necesarios.
 criteria.requirements.262:
-  en: 262. Verify third-party components
+  en: 262. Verify third-party components.
   es: 262. Los componentes provistos por terceros deben corresponder a  versiones estables, probadas y actualizadas.
 criteria.requirements.265:
   en: 265. The system must restrict access to system functions that execute critical business processes, allowing only authorized users.
@@ -80,7 +80,7 @@ criteria.requirements.323:
   en: 323. Exclude unverifiable files.
   es: 323. Los archivos binarios y de otros tipos que a menudo no pueden ser auditados por motivos de seguridad no deberían ser almacenados en el repositorio de código.
 criteria.requirements.324:
-  en: 324. Control redirects
+  en: 324. Control redirects.
   es: 324. Las redirecciones deben ser controladas, especialmente si dependen de entrada de datos.
 criteria.requirements.326:
   en: 326. Detect rooted devices.
@@ -89,7 +89,7 @@ criteria.requirements.329:
   en: 329. Keep client-side storage without sensitive data.
   es: 329. La información sensible y de sesión no debe ser almacenada en el localStorage ni en el sessionStorage (client-side storage).
 criteria.requirements.330:
-  en: 330. Verify Subresource Integrity
+  en: 330. Verify Subresource Integrity.
   es: 330. La aplicación debe validar la integridad de todos los recursos y dependencias hosteados externamente usando Subresource Integrity (SRI).
 criteria.requirements.336:
   en: 336. Disable insecure TLS versions.
