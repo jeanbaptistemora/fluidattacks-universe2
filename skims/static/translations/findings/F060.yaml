@@ -26,11 +26,6 @@ F060.recommendation:
   es: >
     Capturar excepciones de manera específica y dar un tratamiento especial a
     cada una de ellas.
-F060.requirements:
-  en: |
-    R359. Avoid using generic exceptions.
-  es: |
-    R359. El sistema debe usar excepciones tipeadas.
 F060.threat:
   en: >
     Autenticated attacker from the Internet.

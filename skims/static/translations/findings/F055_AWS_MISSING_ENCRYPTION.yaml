@@ -22,9 +22,6 @@ F055_AWS_MISSING_ENCRYPTION.recommendation:
   es: >
     Cifrar la infrastructura con cifrado del lado del servidor o llaves
     administradas por el usuario
-F055_AWS_MISSING_ENCRYPTION.requirements:
-  en: R185. All stored sensitive information must be encrypted.
-  es: R185. La información sensible almacenada debe estar cifrada.
 F055_AWS_MISSING_ENCRYPTION.threat:
   en: Internal attacker with access to the configuration.
   es: Atacante interno con acceso a la configuración.

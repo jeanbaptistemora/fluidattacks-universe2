@@ -24,11 +24,6 @@ F061.recommendation:
   es: |
     - Utilizar un mecanismo de registro centralizado que admita varios niveles de detalle.
     - Asegurarse de que se registren todos los eventos relacionados con éxitos y fracasos.
-F061.requirements:
-  en: |
-    R075. Record exceptional events in logs.
-  es: |
-    R075. El sistema debe registrar todos los eventos excepcionales y de seguridad en bitácoras.
 F061.threat:
   en: >
     Autenticated attacker from the Internet.

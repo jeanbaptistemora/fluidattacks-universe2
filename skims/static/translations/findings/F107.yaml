@@ -14,13 +14,6 @@ F107.recommendation:
     - Avoid using untrusted data to generate dynamic LDAP queries.
   es: >
     - Evitar el uso de datos no confiables para general consultas LDAP dinámicas.
-F107.requirements:
-  en: >
-    R173. The system must discard/filter all potentially harmful information
-    received via data inputs.
-  es: >
-    R173. El sistema debe descartar/filtrar toda la información potencialmente
-    insegura que sea recibida por entradas de datos.
 F107.threat:
   en: Autenticated attacker from the Internet.
   es: Atacante autenticado desde Internet.

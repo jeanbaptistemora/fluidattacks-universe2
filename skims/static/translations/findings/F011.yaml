@@ -19,12 +19,6 @@ F011.recommendation:
   es: >
     Actualizar el software afectado a las versiones recomendadas por el
     fabricante.
-F011.requirements:
-  en: |
-    R262. Verify third-party components.
-  es: >
-    R262. Los componentes provistos por terceros deben corresponder a versiones
-    estables, probadas y actualizadas.
 F011.threat:
   en: >
     Autenticated attacker from the Internet.

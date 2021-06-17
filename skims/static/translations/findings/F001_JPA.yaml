@@ -37,13 +37,6 @@ F001_JPA.recommendation:
     Realizar las consultas a la base de datos por medio de sentencias o
     procedimientos parametrizados, o alternativamente usar la función escape(String)
     del framework.
-F001_JPA.requirements:
-  en: >
-    R169. Use parameterized queries.
-  es: >
-    R169. Debe usarse construcciones parametrizadas o procedimientos
-    almacenados parametrizados para la creación dinámica de sentencias
-    (ej: java.sql.PreparedStatement).
 F001_JPA.threat:
   en: >
     Autenticated attacker from the Internet.

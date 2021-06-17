@@ -15,12 +15,6 @@ F103_APK_UNSIGNED.impact:
 F103_APK_UNSIGNED.recommendation:
   en: Digitally sign the APK.
   es: Firmar digitalmente el APK.
-F103_APK_UNSIGNED.requirements:
-  en: R178. Use digital signatures.
-  es: >
-    R178. El sistema debe usar firmas digitales
-    para garantizar la autenticidad
-    de información sensible.
 F103_APK_UNSIGNED.threat:
   en: Non-autenticated attacker from the Internet.
   es: Atacante no autenticado desde Internet.

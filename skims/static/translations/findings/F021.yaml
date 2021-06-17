@@ -13,13 +13,6 @@ F021.recommendation:
   es: >
     Realizar la validaciones de datos de entrada en el lado del servidor para
     evitar los ataques mas comunes de inyección.
-F021.requirements:
-  en: >
-    R173. The system must discard all potentially harmful information received
-    via data inputs.
-  es: >
-    R173. El sistema debe descartar toda la información potencialmente insegura
-    que sea recibida por entradas de datos.
 F021.threat:
   en: >
     Autenticated attacker from the Internet.

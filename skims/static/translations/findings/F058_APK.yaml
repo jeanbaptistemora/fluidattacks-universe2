@@ -23,13 +23,6 @@ F058_APK.recommendation:
   es: >
     Configurar el atributo: application.debuggable a "falso"
     en el archivo: AndroidManifest.xml.
-F058_APK.requirements:
-  en: |
-    R077. Avoid disclosing technical information.
-    R078. Disable debugging events.
-  es: |
-    R077. La aplicació nno debe revelar detalles del sistema interno como stack traces, fragmentos de sentencias SQL y nombres de base de datos o tablas.
-    R078. Los eventos con severidad de depuración no deben estar habilitados en producción
 F058_APK.threat:
   en: >
     Unauthorized attacker

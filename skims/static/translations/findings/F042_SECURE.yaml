@@ -18,11 +18,6 @@ F042_SECURE.recommendation:
   es: >
     La aplicación debe establecer el atributo Secure en la cookies con
     informacion sensible.
-F042_SECURE.requirements:
-  en: R029. Cookies with security attribute.
-  es: >
-    R029. Las cookies de sesión de las aplicaciones web deben tener atributos
-    de seguridad (HttpOnly, Secure, SameSite) y prefijos (por ejemplo, __Host-).
 F042_SECURE.threat:
   en: Unauthorized attacker from adjacent network performing a MITM.
   es: Atacante sin autorización desde red adyacente ejecutando un MITM.

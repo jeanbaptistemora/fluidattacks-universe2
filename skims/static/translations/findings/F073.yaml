@@ -18,12 +18,6 @@ F073.impact:
 F073.recommendation:
   en: Define a default option for statements that do not yet have it.
   es: Definir una opción por defecto para las sentencias que aún no cuentan con esta.
-F073.requirements:
-  en: R161. Define secure default options
-  es: >
-    R161. El código debe definir opciones por defecto seguras que
-    garanticen fallos seguros en la aplicación. (try, catch/except; default en
-    switches)
 F073.threat:
   en: Autenticated attacker from the Internet.
   es: Atacante autenticado desde Internet.

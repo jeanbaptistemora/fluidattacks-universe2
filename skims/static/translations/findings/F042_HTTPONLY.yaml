@@ -18,13 +18,6 @@ F042_HTTPONLY.recommendation:
   es: >
     La aplicación debe establecer el atributo HttpOnly en la cookies con
     informacion sensible.
-F042_HTTPONLY.requirements:
-  en: >
-    R029. The session cookies of web applications must have security attributes
-    (HttpOnly, Secure, SameSite) and prefixes (e.g., __Host-).
-  es: >
-    R029. Las cookies de sesión de las aplicaciones web deben tener atributos
-    de seguridad (HttpOnly, Secure, SameSite) y prefijos (por ejemplo, __Host-).
 F042_HTTPONLY.threat:
   en: Authorized attacker from internet network performing a XSS attack.
   es: Atacante con autorización desde internet ejecutando un ataque XSS.

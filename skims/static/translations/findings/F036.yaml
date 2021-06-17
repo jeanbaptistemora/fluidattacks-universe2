@@ -14,11 +14,6 @@ F036.impact:
 F036.recommendation:
   en: Encrypt the ViewState in the application configuration.
   es: Establecer cifrado del ViewState en la configuración de la aplicación.
-F036.requirements:
-  en: R026. Encrypt client-side session information
-  es: >
-    R026. El sistema debe verificar la integridad y cifrar los estados de
-    sesión que están al lado del cliente.
 F036.threat:
   en: Unauthenticated attacker with local access to the victim's browser.
   es: Atacante no autenticado con acceso local al navegador de la victima.

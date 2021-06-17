@@ -25,16 +25,6 @@ F049_APK_PIN.impact:
 F049_APK_PIN.recommendation:
   en: Configure the pin-set in res/xml/network_security_config.xml.
   es: Configurar el pin-set en res/xml/network_security_config.xml.
-F049_APK_PIN.requirements:
-  en: R093. Use consistent certificates.
-  es: >
-    R093. Debe utilizarse certificados
-    con una identificación coherente
-    con la organización
-    (servicio,
-    servidor,
-    entre otros)
-    a la cual se encuentra asociado.
 F049_APK_PIN.threat:
   en: >
     Unauthorized attacker

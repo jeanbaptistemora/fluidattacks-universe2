@@ -42,13 +42,6 @@ F070_WILDCARD_IMPORT.recommendation:
     y paquetes necesarios
     para el correcto funcionamiento
     de la aplicación.
-F070_WILDCARD_IMPORT.requirements:
-  en: |
-    R158. Use a secure programming language.
-    R302. Declare dependencies explicitly.
-  es: |
-    R158. La codificación del sistema debe estar implementada en una versión de un lenguaje de programación estable, actualizada, probada y libre de vulnerabilidades conocidas.
-    R302. Todas las dependencias deben declararse explícitamente dentro del código fuente. Su código fuente no debe incluirse directamente en el repositorio.
 F070_WILDCARD_IMPORT.threat:
   en: Authorized attacker with access to the application.
   es: Atacante autorizado con acceso a la aplicación.

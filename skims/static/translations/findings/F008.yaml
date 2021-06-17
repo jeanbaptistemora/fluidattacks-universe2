@@ -19,13 +19,6 @@ F008.recommendation:
   es: >
     Realice la validaciones de datos de entrada en el lado del servidor para
     evitar los ataques mas comunes de inyección de scripts.
-F008.requirements:
-  en: >
-    R173 The system must discard all potentially harmful information received
-    via data inputs.
-  es: >
-    R173 El sistema debe descartar toda la información potencialmente insegura
-    que sea recibida por entradas de datos.
 F008.threat:
   en: Authenticated attacker from the Internet.
   es: Atacante autenticado desde Internet.

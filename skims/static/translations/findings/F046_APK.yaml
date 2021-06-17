@@ -46,12 +46,6 @@ F046_APK.recommendation:
     con herramientas como:
     https://github.com/ClaudiuGeorgiu/Obfuscapk
     en su configuración más fuerte.
-F046_APK.requirements:
-  en: R159. Obfuscate code.
-  es: >
-    R159. El código fuente
-    debe estar ofuscado
-    en ambiente de producción.
 F046_APK.threat:
   en: >
     Unauthorized attacker

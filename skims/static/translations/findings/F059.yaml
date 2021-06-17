@@ -15,12 +15,6 @@ F059.recommendation:
     Verify that the information stored in logs is not sensitive.
   es: >
     Verificar que la informacion guardada en los no es sensible.
-F059.requirements:
-  en: >
-    R083. El sistema no debe registrar información sensible
-    en un evento excepcional de una bitácora.
-  es: >
-    R083. Avoid logging sensitive data
 F059.threat:
   en: >
     Authorized local attacker with access to the log files.

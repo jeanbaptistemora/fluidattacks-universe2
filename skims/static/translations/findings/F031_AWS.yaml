@@ -28,11 +28,6 @@ F031_AWS.recommendation:
   es: >
     Asignar permisos explícitamente a los grupos y roles adecuados siguiendo
     el principio del mínimo privilegio.
-F031_AWS.requirements:
-  en: |
-    R186. Use the principle of least privilege
-  es: |
-    R186. Se debe aplicar el principio del mínimo privilegio al crear objetos y roles, configurar permisos de acceso y acceder a otros sistemas y bases de datos.
 F031_AWS.threat:
   en: >
     Attacker from the Internet with access to any of the misconfigured roles.

@@ -25,12 +25,6 @@ F001_C_SHARP_SQL.recommendation:
   es: >
     Realizar las consultas a la base de datos por medio de sentencias o
     procedimientos parametrizados.
-F001_C_SHARP_SQL.requirements:
-  en: R169. Use parameterized queries.
-  es: >
-    R169. Debe usarse construcciones parametrizadas o procedimientos
-    almacenados parametrizados para la creación dinámica de sentencias
-    (ej: java.sql.PreparedStatement).
 F001_C_SHARP_SQL.threat:
   en: Autenticated attacker from the Internet.
   es: Atacante autenticado desde Internet.

@@ -18,9 +18,6 @@ F020.recommendation:
   es: >
     Cifrar toda información sensible que se transporte o se guarde dentro
     la aplicación de acuerdo a las políticas de la organización.
-F020.requirements:
-  en: R185. Encrypt sensitive information
-  es: R185. La información sensible almacenada debe estar cifrada.
 F020.threat:
   en: >
     Attacker with access to the source-code from the Internet.

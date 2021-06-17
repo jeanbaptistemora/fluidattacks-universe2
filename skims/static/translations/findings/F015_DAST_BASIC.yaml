@@ -10,13 +10,6 @@ F015_DAST_BASIC.impact:
 F015_DAST_BASIC.recommendation:
   en: Use stronger authentication mechanisms like Bearer and OAuth.
   es: Usar mecanismos de autenticación fuertes como Bearer y OAuth.
-F015_DAST_BASIC.requirements:
-  en: |
-    R228. Authenticate using standard protocols.
-    R319. Make authentication options equally secure.
-  es: |
-    R228. La autenticación debe realizarse siguiendo protocolos estándar.
-    R319. Todas las opciones de autenticación deben tener el mismo nivel de seguridad.
 F015_DAST_BASIC.threat:
   en: Unauthorized attacker from adjacent network performing a MITM.
   es: Atacante sin autorización desde red adyacente ejecutando un MITM.

@@ -43,11 +43,6 @@ F009.recommendation:
       servicios de bóveda de claves,
       archivos de configuración que estén debidamente cifrados o
       variables de entorno administrativas.
-F009.requirements:
-  en: |
-    R156. Source code without sensitive information.
-  es: >
-    R156. El código fuente no debe contener información sensible.
 F009.threat:
   en: >
     Attacker with access to the source-code from the Internet.

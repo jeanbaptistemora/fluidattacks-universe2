@@ -32,14 +32,6 @@ F055_APK_UPDATES.recommendation:
     a través del API AppUpdateManager
     como se explica en:
     https://developer.android.com/guide/playcore/in-app-updates
-F055_APK_UPDATES.requirements:
-  en: >
-    R266. La organización
-    debe deshabilitar
-    las funciones inseguras
-    de un sistema.
-    (hardening de sistemas).
-  es: R266. Disable insecure functionalities.
 F055_APK_UPDATES.threat:
   en: >
     User of the application

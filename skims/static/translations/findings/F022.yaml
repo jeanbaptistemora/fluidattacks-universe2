@@ -20,11 +20,6 @@ F022.recommendation:
   es: >
     Desplegar la aplicación sobre un canal de comunicación cifrado,
     por ejemplo: HTTPS utilizando TLS.
-F022.requirements:
-  en: R181. Transmit data using secure protocols
-  es: >
-    R181. La transmisión de información sensible o la ejecución de
-    funciones sensibles debe hacerse a través de protocolos seguros.
 F022.threat:
   en: Anonymous attacker on adjacent network performing a man-in-the-middle.
   es: Atacante anónimo en red adyacente ejecutando un ataque de hombre en el medio.

@@ -10,9 +10,6 @@ F064_SERVER_CLOCK.impact:
 F064_SERVER_CLOCK.recommendation:
   en: Sync the server date with a NTP server.
   es: Sincronizar la fecha del servidor con un servidor NTP.
-F064_SERVER_CLOCK.requirements:
-  en: R075. Record exceptional events in logs.
-  es: R075. El sistema debe registrar todos los eventos excepcionales y de seguridad en bitácoras.
 F064_SERVER_CLOCK.threat:
   en: Anonymous attacker from the Internet.
   es: Atacante anónimo desde Internet.

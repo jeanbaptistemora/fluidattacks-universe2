@@ -18,13 +18,6 @@ F042_SAMESITE.recommendation:
   es: >
     La aplicación debe establecer el atributo SameSite en la cookies con
     informacion sensible.
-F042_SAMESITE.requirements:
-  en: >
-    R029. The session cookies of web applications must have security attributes
-    (HttpOnly, Secure, SameSite) and prefixes (e.g., __Host-).
-  es: >
-    R029. Las cookies de sesión de las aplicaciones web deben tener atributos
-    de seguridad (HttpOnly, Secure, SameSite) y prefijos (por ejemplo, __Host-).
 F042_SAMESITE.threat:
   en: Attacker from internet network performing a CSRF attack.
   es: Atacante desde internet ejecutando un ataque CSRF.

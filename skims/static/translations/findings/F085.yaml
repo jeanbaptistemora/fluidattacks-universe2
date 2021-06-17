@@ -22,12 +22,6 @@ F085.recommendation:
   es: >
     No usar el client side storage para almacenar información sensible, usar
     cookies en su lugar definiendo sus respectivos atributos de seguridad.
-F085.requirements:
-  en: |
-    R329. Keep client-side storage without sensitive data.
-  es: >
-    R329. La información sensible y de sesión no debe ser almacenada en el
-    localStorage ni en el sessionStorage (client-side storage).
 F085.threat:
   en: >
     Attacker with physical or virtual access to the victim's browser.

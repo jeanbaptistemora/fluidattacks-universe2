@@ -25,13 +25,6 @@ F031_CWE378.recommendation:
     Crear los archivos temporales en un directorio diferente al provisto por
     defecto en el sistema operativo y asegurar que estos tienen una mascara
     de permisos 0600.
-F031_CWE378.requirements:
-  en: >
-    R186. Use the principle of least privilege.
-  es: >
-    R186. Se debe aplicar el principio del mínimo privilegio al crear objetos y
-    roles, configurar permisos de acceso y acceder a otros sistemas y bases de
-    datos.
 F031_CWE378.threat:
   en: >
     Anonymous attacker with local access.

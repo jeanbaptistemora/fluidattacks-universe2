@@ -53,13 +53,6 @@ F024_AWS.recommendation:
   es: >
     Limitar los segmentos de red, puertos, direcciones IP, protocolos de red,
     y servicios administrativos solamente a los usuarios requeridos.
-F024_AWS.requirements:
-  en: |
-    - R255. Allow access only to the necessary ports.
-    - R266. Disable insecure functionalities.
-  es: |
-    - R255. Permitir el acceso solo a los puertos necesarios.
-    - R266. Deshabilitar funcionalidades inseguras.
 F024_AWS.threat:
   en: Anonymous attacker from Internet.
   es: Atacante anónimo desde Internet.

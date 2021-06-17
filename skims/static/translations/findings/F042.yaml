@@ -19,13 +19,6 @@ F042.recommendation:
   es: >
     La aplicación debe establecer los correspondientes atributos de seguridad
     cuando se generan las cookies.
-F042.requirements:
-  en: >
-    R029 The session cookies of web applications must have security attributes
-    (HttpOnly, Secure, SameSite) and prefixes (e.g., __Host-).
-  es: >
-    R029 Las cookies de sesión de las aplicaciones web deben tener atributos
-    de seguridad (HttpOnly, Secure, SameSite) y prefijos (por ejemplo, __Host-).
 F042.threat:
   en: Unauthenticated attacker from the Internet.
   es: Atacante no autenticado desde Internet.

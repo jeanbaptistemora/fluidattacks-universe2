@@ -20,13 +20,6 @@ F004.recommendation:
     - Si es posible, utilizar llamadas a la biblioteca estandar en lugar de procesos externos para recrear la funcionalidad deseada.
     - Mantener la mayor cantidad posible de datos usados para generar comando fuera del control externo.
     - Escapar correctamente los argumentos usados para generar el comando y evite los caracteres especiales.
-F004.requirements:
-  en: |
-    R173. The system must discard all potentially harmful information received via data inputs.
-    R265. The system must restrict access to system functions that execute critical business processes, allowing only authorized users.
-  es: |
-    R173. El sistema debe descartar toda la información potencialmente insegura que sea recibida por entradas de datos.
-    R265. El sistema debe restringir el acceso a funciones del sistema que ejecutan procesos críticos de negocio. Solo permitirá acceso a usuarios autorizados.
 F004.threat:
   en: >
     Autenticated attacker from the Internet.

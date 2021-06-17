@@ -28,14 +28,6 @@ F048.recommendation:
     Validar que el dispositivo
     no se encuentre rooteado
     al inicializar la aplicación.
-F048.requirements:
-  en: R326. Detect rooted devices.
-  es: >
-    R326. Las aplicaciones móviles
-    deben verificar
-    si el dispositivo
-    en el que se ejecutan
-    está rooteado.
 F048.threat:
   en: >
     Unauthorized attacker

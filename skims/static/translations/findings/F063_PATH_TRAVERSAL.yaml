@@ -24,9 +24,6 @@ F063_PATH_TRAVERSAL.recommendation:
   es: |
     - Prevenir que el atacante construya la ruta, o
     - Validar/Neutralizar que las entradas no contengan elementos especiales como: .., ~, /.
-F063_PATH_TRAVERSAL.requirements:
-  en: R173. Discard unsafe inputs
-  es: R173. El sistema debe descartar toda la información potencialmente insegura que sea recibida por entradas de datos.
 F063_PATH_TRAVERSAL.threat:
   en: Autenticated attacker from the Internet.
   es: Atacante autenticado desde Internet.

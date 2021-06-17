@@ -18,13 +18,6 @@ F023.impact:
 F023.recommendation:
   en: Configure server to prevent third party hosts redirection.
   es: Configurar el servidor para prevenir redirecciones a hosts de terceros.
-F023.requirements:
-  en: |
-    R173. Discard unsafe inputs
-    R324. Control redirects
-  es: |
-    R173. El sistema debe descartar toda la información potencialmente insegura que sea recibida por entradas de datos.
-    R324. Las redirecciones deben ser controladas, especialmente si dependen de entrada de datos.
 F023.threat:
   en: Unauthorized attacker from internet network.
   es: Atacante sin autorización desde Internet.

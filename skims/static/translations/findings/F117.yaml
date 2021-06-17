@@ -23,13 +23,6 @@ F117.recommendation:
   es: |
     - Remover los archivos que no deberían ser versionados en el repositorio de código.
     - Incluir las extensiones afectadas en el archivo .gitignore.
-F117.requirements:
-  en: >
-    R323. Exclude unverifiable files.
-  es: >
-    R323. Los archivos binarios y de otros tipos que a menudo no pueden ser
-    auditados por motivos de seguridad no deberían ser almacenados en el
-    repositorio de código.
 F117.threat:
   en: >
     Autenticated attacker from the Internet.

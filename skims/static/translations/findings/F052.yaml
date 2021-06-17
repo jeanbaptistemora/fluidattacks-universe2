@@ -33,19 +33,6 @@ F052.recommendation:
     Use algorithms considered cryptographically secure.
   es: >
     Utilizar algoritmos considerados criptográficamente seguros.
-F052.requirements:
-  en: |
-    R148. Set minimum size of asymmetric encryption.
-    R149. Set minimum size of symmetric encryption.
-    R150. Set minimum size for hash functions.
-    R181. Transmit data using secure protocols.
-    R336. Disable insecure TLS versions.
-  es: |
-    R148. Debe utilizarse como mecanismo de cifrado asimétrico un tamaño de clave mínimo de 2048 bits.
-    R149. Debe utilizarse como mecanismo de cifrado simétrico un tamaño de clave mínimo de 128 bits.
-    R150. Deben utilizarse funciones resumen con un tamaño mínimo de 256 bits.
-    R181. La transmisión de información sensible o la ejecución de funciones sensibles debe hacerse a través de protocolos seguros.
-    R336. Deshabilitar versiones de TLS inseguras.
 F052.threat:
   en: >
     Anonymous attacker from adjacent network via MITM.

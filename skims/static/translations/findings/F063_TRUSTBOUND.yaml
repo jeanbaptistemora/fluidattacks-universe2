@@ -19,13 +19,6 @@ F063_TRUSTBOUND.recommendation:
   es: >
     - Prevenir el uso de datos no confiables en estructuras de datos críticas o
       mensajes estructurados.
-F063_TRUSTBOUND.requirements:
-  en: >
-    R173. The system must discard/filter all potentially harmful information
-    received via data inputs.
-  es: >
-    R173. El sistema debe descartar/filtrar toda la información potencialmente
-    insegura que sea recibida por entradas de datos.
 F063_TRUSTBOUND.threat:
   en: Autenticated attacker from the Internet.
   es: Atacante autenticado desde Internet.

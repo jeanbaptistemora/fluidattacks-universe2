@@ -31,13 +31,6 @@ F034.recommendation:
     Utilizar un algoritmo bien examinado que se considere fuerte actualmente
     por expertos en el campo, y seleccionar implementaciones bien probadas
     con semillas o vectores de inicialización de longitud adecuada.
-F034.requirements:
-  en: |
-    R223. Uniform distribution in random numbers.
-    R224. Use secure cryptographic mechanisms.
-  es: |
-    R223. Los números aleatorios generados deben seguir una distribución uniforme.
-    R224. Debe usarse el mecanismo criptográfico más seguro ofrecido por la plataforma.
 F034.threat:
   en: >
     Autenticated attacker from the Internet.
