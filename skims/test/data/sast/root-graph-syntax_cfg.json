@@ -20,6 +20,9 @@
   "F011": {
     "skims/test/data/sast/TestCFG.java": {}
   },
+  "F011_SSLV3": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
   "F015_DAST_BASIC": {
     "skims/test/data/sast/TestCFG.java": {}
   },
