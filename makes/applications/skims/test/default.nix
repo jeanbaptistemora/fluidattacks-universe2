@@ -25,6 +25,8 @@ makeEntrypoint {
   searchPaths = {
     envPaths = [
       packages.skims.test.mocks.http
+      packages.skims.test.mocks.ssl.safe
+      packages.skims.test.mocks.ssl.unsafe
     ];
     envSources = [
       packages.skims.config-development

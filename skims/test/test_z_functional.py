@@ -239,6 +239,13 @@ def test_lib_path() -> None:
     _run_no_group("lib_path")
 
 
+@pytest.mark.flaky(reruns=3)
+@pytest.mark.skims_test_group("lib_ssl")
+@pytest.mark.usefixtures("test_mocks_ssl_safe", "test_mocks_ssl_unsafe")
+def test_lib_ssl() -> None:
+    _run_no_group("lib_ssl")
+
+
 @pytest.mark.flaky(reruns=0)
 @pytest.mark.skims_test_group("benchmark_cmdi")
 def test_benchmark_cmdi() -> None:

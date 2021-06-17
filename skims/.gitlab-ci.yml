@@ -159,6 +159,9 @@ skims.test.lib_http:
 skims.test.lib_path:
   <<: *skims_test
 
+skims.test.lib_ssl:
+  <<: *skims_test
+
 skims.test.sdk:
   <<: *makes
   <<: *skims_in_dev_branch

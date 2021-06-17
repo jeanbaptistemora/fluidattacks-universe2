@@ -44,6 +44,7 @@ TEST_GROUPS = {
     "lib_apk",
     "lib_http",
     "lib_path",
+    "lib_ssl",
     "nist_c_sharp",
     "nist_c_sharp_f001",
     "nist_c_sharp_f004",
@@ -160,6 +161,26 @@ def test_prepare_cfn_json_data() -> None:
 @pytest.fixture(autouse=False, scope="session")
 def test_mocks_http() -> Iterator[None]:
     cmd: List[str] = ["skims-test-mocks-http", "localhost", "48000"]
+    with subprocess.Popen(cmd) as process:
+        try:
+            yield
+        finally:
+            process.terminate()
+
+
+@pytest.fixture(autouse=False, scope="session")
+def test_mocks_ssl_safe() -> Iterator[None]:
+    cmd: List[str] = ["skims-test-mocks-ssl-safe"]
+    with subprocess.Popen(cmd) as process:
+        try:
+            yield
+        finally:
+            process.terminate()
+
+
+@pytest.fixture(autouse=False, scope="session")
+def test_mocks_ssl_unsafe() -> Iterator[None]:
+    cmd: List[str] = ["skims-test-mocks-ssl-unsafe"]
     with subprocess.Popen(cmd) as process:
         try:
             yield
