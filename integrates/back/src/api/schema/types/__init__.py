@@ -1,8 +1,8 @@
 from .bill import (
     BILL,
 )
-from .bill_developer import (
-    BILL_DEVELOPER,
+from .bill_author import (
+    BILL_AUTHOR,
 )
 from .consult import (
     CONSULT,
@@ -87,7 +87,7 @@ from typing import (
 )
 
 TYPES: Tuple[ObjectType, ...] = (
-    BILL_DEVELOPER,
+    BILL_AUTHOR,
     BILL,
     CONSULT,
     ENTITY_REPORT_SUBSCRIPTION,

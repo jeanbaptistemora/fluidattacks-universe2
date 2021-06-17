@@ -43,7 +43,11 @@ from typing import (
 async def mutate(  # pylint: disable=too-many-arguments
     _: Any, info: GraphQLResolveInfo, **parameters: Any
 ) -> AddConsultPayloadType:
-    group_name = parameters.get("project_name", "").lower()
+    group_name: str
+    if "group_name" in parameters:
+        group_name = parameters.get("group_name", "").lower()
+    else:
+        group_name = parameters.get("project_name", "").lower()
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
     current_time = datetime_utils.get_as_str(datetime_utils.get_now())

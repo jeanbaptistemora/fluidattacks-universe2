@@ -193,6 +193,7 @@ MUTATION.set_field("updateToeLinesSorts", update_toe_lines_sorts.mutate)
 
 # Standardization Fields
 MUTATION.set_field("createGroup", create_group.mutate_group)
+MUTATION.set_field("addGroupConsult", add_group_consult.mutate)
 
 if FI_API_STATUS == "migration":
     MUTATION.set_field("approveDraft", approve_draft_new.mutate)

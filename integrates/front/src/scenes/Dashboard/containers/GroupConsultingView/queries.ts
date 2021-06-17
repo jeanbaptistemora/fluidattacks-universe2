@@ -18,21 +18,17 @@ const GET_GROUP_CONSULTING: DocumentNode = gql`
   }
 `;
 
-const ADD_PROJECT_CONSULT: DocumentNode = gql`
-  mutation AddProjectConsult(
+const ADD_GROUP_CONSULT: DocumentNode = gql`
+  mutation addGroupConsult(
     $content: String!
     $groupName: String!
     $parent: GenericScalar!
   ) {
-    addProjectConsult(
-      content: $content
-      projectName: $groupName
-      parent: $parent
-    ) {
+    addGroupConsult(content: $content, groupName: $groupName, parent: $parent) {
       commentId
       success
     }
   }
 `;
 
-export { ADD_PROJECT_CONSULT, GET_GROUP_CONSULTING };
+export { ADD_GROUP_CONSULT, GET_GROUP_CONSULTING };

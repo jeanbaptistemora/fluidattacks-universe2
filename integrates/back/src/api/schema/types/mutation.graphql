@@ -61,6 +61,12 @@ type Mutation {
     url: String!
   ): SimplePayload!
 
+  addGroupConsult(
+    content: String!
+    groupName: String!
+    parent: GenericScalar!
+  ): AddConsultPayload!
+
   addIpRoot(
     "IP address of the environment to test"
     address: String!
@@ -83,7 +89,7 @@ type Mutation {
     content: String!
     parent: GenericScalar!
     projectName: String!
-  ): AddConsultPayload!
+  ): AddConsultPayload! @deprecated(reason: "Use `addGroupConsult` instead.")
 
   addPushToken(token: String!): SimplePayload
 

@@ -13,7 +13,7 @@ import type {
   IPostCallback,
 } from "scenes/Dashboard/components/Comments/types";
 import {
-  ADD_PROJECT_CONSULT,
+  ADD_GROUP_CONSULT,
   GET_GROUP_CONSULTING,
 } from "scenes/Dashboard/containers/GroupConsultingView/queries";
 import type { IAuthContext } from "utils/auth";
@@ -82,7 +82,7 @@ const GroupConsultingView: React.FC = (): JSX.Element => {
     [data, userEmail]
   );
 
-  const [addConsult] = useMutation(ADD_PROJECT_CONSULT, {
+  const [addConsult] = useMutation(ADD_GROUP_CONSULT, {
     onError: handleAddConsultError,
   });
 
@@ -93,7 +93,7 @@ const GroupConsultingView: React.FC = (): JSX.Element => {
     (consult: ICommentStructure, callbackFn: IPostCallback): void => {
       interface IMutationResult {
         data: {
-          addProjectConsult: {
+          addGroupConsult: {
             commentId: string;
             success: boolean;
           };
@@ -104,10 +104,10 @@ const GroupConsultingView: React.FC = (): JSX.Element => {
         (mtResult: unknown | null): void => {
           const result: IMutationResult["data"] = (mtResult as IMutationResult)
             .data;
-          if (result.addProjectConsult.success) {
+          if (result.addGroupConsult.success) {
             callbackFn({
               ...consult,
-              id: Number(result.addProjectConsult.commentId),
+              id: Number(result.addGroupConsult.commentId),
             });
           }
         }

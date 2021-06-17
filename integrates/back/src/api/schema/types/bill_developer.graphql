@@ -1,5 +1,5 @@
-"BillDeveloper type definition"
-type BillDeveloper {
+"BillAuthor type definition"
+type BillAuthor {
   actor: String
   commit: String
   groups: String
