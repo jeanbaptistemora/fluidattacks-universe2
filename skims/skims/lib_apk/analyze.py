@@ -14,6 +14,9 @@ from androguard.core.bytecodes.dvm import (
 from androguard.decompiler.decompiler import (
     DecompilerDAD,
 )
+from bs4 import (
+    BeautifulSoup,
+)
 import contextlib
 from lib_apk import (
     analyze_bytecodes,
@@ -21,6 +24,7 @@ from lib_apk import (
 from lib_apk.types import (
     APKContext,
 )
+import lxml.etree  # nosec
 from model import (
     core_model,
 )
@@ -82,9 +86,18 @@ def get_apk_contexts() -> Set[APKContext]:
     for path in CTX.config.apk.include:
 
         apk_obj: Optional[APK] = None
+        apk_manifest: Optional[BeautifulSoup] = None
         analysis: Optional[Analysis] = None
         with contextlib.suppress(zipfile.BadZipFile):
             apk_obj = APK(path)
+
+            with contextlib.suppress(KeyError):
+                apk_manifest_data = apk_obj.xml["AndroidManifest.xml"]
+                apk_manifest = BeautifulSoup(
+                    lxml.etree.tostring(apk_manifest_data, pretty_print=True),
+                    features="html.parser",
+                )
+
             analysis = Analysis(vm=None)
             dalviks: List[DalvikVMFormat] = []
             decompiler = DecompilerDAD(dalviks, analysis)
@@ -104,6 +117,7 @@ def get_apk_contexts() -> Set[APKContext]:
         apk_contexts.add(
             APKContext(
                 analysis=analysis,
+                apk_manifest=apk_manifest,
                 apk_obj=apk_obj,
                 path=path,
             )
