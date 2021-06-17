@@ -40,8 +40,14 @@ from datetime import (
 from decimal import (
     Decimal,
 )
+from dynamodb import (
+    model as dynamomodel,
+)
 from dynamodb.operations_legacy import (
     start_context,
+)
+from dynamodb.types import (
+    GroupMetadata,
 )
 from events import (
     domain as events_domain,
@@ -496,6 +502,13 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
                 "project_status": "ACTIVE",
             }
             success = await groups_dal.create(group)
+            await dynamomodel.create_group_metadata(
+                group_metadata=GroupMetadata(
+                    name=group_name,
+                    description=description,
+                    language=language,
+                ),
+            )
             if success:
                 await collect(
                     (
@@ -1150,7 +1163,7 @@ async def update(group_name: str, data: GroupType) -> bool:
 async def update_pending_deletion_date(
     group_name: str, pending_deletion_date: Optional[str]
 ) -> bool:
-    """ Update pending deletion date """
+    """Update pending deletion date"""
     values: GroupType = {"pending_deletion_date": pending_deletion_date}
     success = await update(group_name, values)
     return success

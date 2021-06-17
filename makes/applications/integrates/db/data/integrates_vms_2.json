@@ -1,0 +1,15 @@
+{
+  "integrates_vms": [
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": { "S": "GROUP#unittesting" },
+          "sk": { "S": "GROUP#unittesting" },
+          "language": { "S": "en" },
+          "description": { "S": "test group" },
+          "name": { "S": "unittesting" }
+        }
+      }
+    }
+  ]
+}
