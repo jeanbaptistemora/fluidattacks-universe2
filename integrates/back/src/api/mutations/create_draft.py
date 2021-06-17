@@ -19,6 +19,10 @@ from graphql.type.definition import (
 from newutils import (
     logs as logs_utils,
 )
+from newutils.utils import (
+    clean_up_kwargs,
+    resolve_kwargs,
+)
 from typing import (
     Any,
 )
@@ -33,18 +37,21 @@ from typing import (
 async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
-    project_name: str,
     title: str,
     **kwargs: Any,
 ) -> SimplePayload:
+    # Compatibility with old API
+    group_name: str = resolve_kwargs(kwargs)
+    kwargs = clean_up_kwargs(kwargs)
+
     success: bool = await findings_domain.create_draft(
-        info, project_name, title, **kwargs
+        info, group_name, title, **kwargs
     )
 
     if success:
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Created draft in {project_name} project successfully",
+            f"Security: Created draft in {group_name} project successfully",
         )
 
     return SimplePayload(success=success)

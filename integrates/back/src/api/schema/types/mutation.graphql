@@ -121,7 +121,8 @@ type Mutation {
     attackVectorDesc: String
     cwe: String
     description: String
-    projectName: String!
+    groupName: String
+    projectName: String
     recommendation: String
     requirements: String
     risk: String

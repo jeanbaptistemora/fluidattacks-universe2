@@ -35,7 +35,7 @@ const CREATE_DRAFT_MUTATION: DocumentNode = gql`
     createDraft(
       cwe: $cwe
       description: $description
-      projectName: $groupName
+      groupName: $groupName
       recommendation: $recommendation
       requirements: $requirements
       risk: $risk

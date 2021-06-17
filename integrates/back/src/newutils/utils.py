@@ -11,6 +11,7 @@ from typing import (
     Any,
     Dict,
     List,
+    Tuple,
 )
 
 
@@ -80,7 +81,7 @@ def list_to_dict(
 
 
 def snakecase_to_camelcase(str_value: str) -> str:
-    """Convert a snackecase string to camelcase."""
+    """Convert a snakecase string to camelcase."""
     return re.sub("_.", lambda x: x.group()[1].upper(), str_value)
 
 
@@ -88,3 +89,27 @@ def replace_all(text: str, dic: Dict[str, str]) -> str:
     for i, j in list(dic.items()):
         text = text.replace(i, j)
     return text
+
+
+def resolve_kwargs(
+    kwargs: Dict, opt1: str = "group_name", opt2: str = "project_name"
+) -> str:
+    """Tries to get opt1 from kwargs, with opt2 as a fallback and raises an
+    exception if none can be found"""
+    try:
+        return kwargs.get(opt1, kwargs.get(opt2))
+    except KeyError:
+        raise KeyError(
+            f"Either {opt1} or {opt2} must be included, check "
+            + "your query/mutation args!"
+        )
+
+
+def clean_up_kwargs(
+    kwargs: Dict, keys_to_remove: Tuple = ("group_name", "project_name")
+) -> Dict:
+    """Removes the specified keys to avoid **args duplication in helper methods
+    that receive dicts"""
+    for key in keys_to_remove:
+        kwargs.pop(key, None)
+    return kwargs
