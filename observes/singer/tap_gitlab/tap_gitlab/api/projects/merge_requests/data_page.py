@@ -99,7 +99,7 @@ class MrPage(Immutable):
         return self
 
 
-def _list_mrs(
+def list_mrs(
     client: RawClient,
     proj: ProjectId,
     page: IntPageId,
@@ -109,29 +109,3 @@ def _list_mrs(
     params = options.to_dict() if options else {}
     response = client.get(url, params, page)
     return response.map(lambda r: r.json()).map(_MrPage).map(MrPage)
-
-
-class MrApi(NamedTuple):
-    client: RawClient
-    proj: ProjectId
-    scope: Optional[Scope] = None  # use api default
-    state: Optional[State] = None  # use api default
-
-    def list_updated_before(
-        self,
-        updated_before: datetime,
-        page: IntPageId,
-        sort: Sort = Sort.descendant,
-    ) -> IO[MrPage]:
-        return _list_mrs(
-            self.client,
-            self.proj,
-            page,
-            Options(
-                updated_before=updated_before,
-                scope=self.scope,
-                state=self.state,
-                order_by=OrderBy.updated_at,
-                sort=sort,
-            ),
-        )
