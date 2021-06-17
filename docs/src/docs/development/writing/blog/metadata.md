@@ -11,7 +11,7 @@ Below, we show a table with the **mandatory** metadata for a blog post:
 
 |Metadata             |Description                                    |
 |:--------------------|:----------------------------------------------|
-|:page-slug:          |The portion of the link that goes after fluidattacks.com/blog/, completing the URL where we can find the new blog post (e.g., code-translate/). It must not exceed **35 characters** and should contain the main words of the post (preferably associated with the title and subtitle), all in lower case and separated by hyphens. In addition, it may have numbers but no spaces, prepositions, conjunctions or connectors, or special characters.|
+|:page-slug:          |The portion of the link that goes after fluidattacks.com/blog/, completing the URL where we can find the new blog post (e.g., code-translate/). It *must not* exceed **35 characters** and *must* contain the main words of the post (preferably associated with the title and subtitle), all in lower case and separated by hyphens. In addition, it *may* have numbers but no spaces, prepositions, conjunctions or connectors, or special characters.|
 |:page-date:          |Date of publication of the blog post. It *must* follow the format YYYY-MM-DD (e.g., 2021-06-24).|
 |:page-category:      |The category (only one) to which the new blog post belongs (e.g., attacks, philosophy, machine-learning; see all categories [here](https://fluidattacks.com/blog/categories/)). It *must* appear in lowercase letters.|
 |:page-tags:          |Noteworthy words related to the main topic that index the blog post internally. They *must* be no more than **six** and *must* appear in lower case and separated by commas (see all tags [here](https://fluidattacks.com/blog/tags/)).|

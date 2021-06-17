@@ -37,6 +37,7 @@ const DEVELOPMENT = [
           'development/writing/blog/main',
           'development/writing/blog/metadata',
           'development/writing/blog/additional',
+          'development/writing/blog/asciidoc',
         ]
       },
       {
@@ -45,6 +46,7 @@ const DEVELOPMENT = [
         items: [
           'development/writing/documentation/main',
           'development/writing/documentation/metadata',
+          'development/writing/documentation/markdown',
         ]
       },
       'development/writing/slb',
