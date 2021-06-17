@@ -1,11 +1,11 @@
 import React from 'react';
 import clsx from 'clsx';
 import Layout from '@theme/Layout';
-import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import useThemeContext from '@theme/hooks/useThemeContext';
 import styles from './styles.module.css';
+import BrowserOnly from '@docusaurus/BrowserOnly';
 
 const features = [
   {
@@ -73,10 +73,16 @@ function Feature({imageUrl, title, description, link}) {
           <img className={styles.featureImage} src={imgUrl} alt={title} />
         </div>
       )}
-      <Card cardLink={link}>
-        <h3>{title}</h3>
-        <p>{description}</p>
-      </Card>
+      <BrowserOnly>
+        {() => {
+          return (
+            <Card cardLink={link}>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </Card>
+          )
+        }}
+      </BrowserOnly>
     </div>
   );
 }
