@@ -69,7 +69,7 @@ that shows what is going on with the victim.
 To "sell" their service,
 criminals must appeal to the credibility
 they inspire in their potential customers.
-Thus, link:https://cutt.ly/nnkUXle[reputation]
+Thus, link:https://cutt.ly/nnkUXle[*reputation*]
 becomes a key element within this model of criminality.
 Once the ransomware package is purchased,
 the next thing to do is to get the victim to download the program.

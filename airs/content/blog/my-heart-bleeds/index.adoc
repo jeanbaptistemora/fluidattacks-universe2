@@ -3,7 +3,7 @@
 :page-subtitle: Understanding the flaw behind Heartbleed
 :page-category: attacks
 :page-tags: vulnerability, bug, openssl
-:page-image: chttps://res.cloudinary.com/fluid-attacks/image/upload/v1620330940/blog/my-heart-bleeds/cover_qf1nze.webp
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330940/blog/my-heart-bleeds/cover_qf1nze.webp
 :page-alt: Computer showing a pirate flag
 :page-description: Here we talk about Heartbleed, the result of a buggy implementation of the TLS protocol on OpenSSL, which was tempted to be a severe threat to private data.
 :page-keywords: TLS, HeartBeat, HeartBleed, OpenSSL, Vulnerability, Bug, Ethical Hacking, Pentesting

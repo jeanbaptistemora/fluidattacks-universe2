@@ -50,7 +50,7 @@ we will take a look at a great challenge for beginners.
 Our task here is to obtain the serial for the executable file.
 
 .Challenge Crackme Average on yoire.com
-image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331059/blog/reversing-mortals/image1_psxbz9.web[challenge]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331059/blog/reversing-mortals/image1_psxbz9.webp[challenge]
 
 To accomplish our task we need a debugger.
 The debugger we will be using is *OllyDbg*.
