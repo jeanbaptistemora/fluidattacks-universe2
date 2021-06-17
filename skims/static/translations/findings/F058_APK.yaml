@@ -1,0 +1,42 @@
+F058_APK.description:
+  en: >
+    The system has debugging enabled
+    in the production environment,
+    which can cause technical information leaks
+    when an error occurs.
+  es: >
+    El sistema tiene el modo depuración habilitado
+    en el ambiente productivo,
+    lo que puede causar fugas de información técnica
+    cuando un error ocurra.
+F058_APK.impact:
+  en: >
+    Get technical
+    or sensitive information.
+  es: >
+    Obtener información técnica
+    o sensible.
+F058_APK.recommendation:
+  en: >
+    Configure the attribute: application.debuggable to "false"
+    in the file: AndroidManifest.xml.
+  es: >
+    Configurar el atributo: application.debuggable a "falso"
+    en el archivo: AndroidManifest.xml.
+F058_APK.requirements:
+  en: |
+    R077. Avoid disclosing technical information.
+    R078. Disable debugging events.
+  es: |
+    R077. La aplicació nno debe revelar detalles del sistema interno como stack traces, fragmentos de sentencias SQL y nombres de base de datos o tablas.
+    R078. Los eventos con severidad de depuración no deben estar habilitados en producción
+F058_APK.threat:
+  en: >
+    Unauthorized attacker
+    from internet network.
+  es: >
+    Atacante sin autorización
+    desde internet.
+F058_APK.title:
+  en: F058. Debugging enabled in production - APK
+  es: F058. Depuración habilitada en producción - APK
