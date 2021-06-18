@@ -27,7 +27,7 @@ from tap_gitlab.api.projects.ids import (
     ProjectId,
 )
 from tap_gitlab.api.projects.merge_requests.data_page import (
-    MrPage,
+    MrsPage,
 )
 from typing import (
     Iterator,
@@ -39,13 +39,13 @@ class SupportedStreams(Enum):
 
 
 def _to_singer(
-    stream: SupportedStreams, page: MrPage
+    stream: SupportedStreams, page: MrsPage
 ) -> Iterator[SingerRecord]:
     return (SingerRecord(stream.value.lower(), item) for item in page.data)
 
 
 def _emit_pages(
-    stream: SupportedStreams, max_pages: int, pages: Iterator[MrPage]
+    stream: SupportedStreams, max_pages: int, pages: Iterator[MrsPage]
 ) -> None:
     count = 0
     for page in pages:
@@ -57,7 +57,7 @@ def _emit_pages(
 
 
 def _stream_data(
-    stream: SupportedStreams, pages: IO[Iterator[MrPage]], max_pages: int
+    stream: SupportedStreams, pages: IO[Iterator[MrsPage]], max_pages: int
 ) -> None:
     pages.map(partial(_emit_pages, stream, max_pages))
 

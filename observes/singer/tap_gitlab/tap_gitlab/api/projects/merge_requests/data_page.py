@@ -1,3 +1,5 @@
+# pylint: skip-file
+
 from __future__ import (
     annotations,
 )
@@ -13,6 +15,9 @@ from paginator.int_index import (
 )
 from returns.io import (
     IO,
+)
+from returns.maybe import (
+    Maybe,
 )
 from returns.primitives.types import (
     Immutable,
@@ -84,23 +89,29 @@ class Options(NamedTuple):
         return obj
 
 
-class _MrPage(NamedTuple):
+class _MrsPage(NamedTuple):
     data: List[JSON]
     page: IntPageId
     options: Optional[Options]
 
 
 # pylint: disable=too-few-public-methods
-class MrPage(Immutable):
+class MrsPage(Immutable):
     data: List[JSON]
     page: IntPageId
     options: Optional[Options]
 
-    def __new__(cls, obj: _MrPage) -> MrPage:
+    def __new__(cls, obj: _MrsPage) -> MrsPage:
         self = object.__new__(cls)
         for prop, val in obj._asdict().items():
             object.__setattr__(self, prop, val)
         return self
+
+
+def _ensure_non_empty_data(page: _MrsPage) -> Maybe[MrsPage]:
+    if page.data:
+        return Maybe.from_value(MrsPage(page))
+    return Maybe.empty
 
 
 def list_mrs(
@@ -108,12 +119,12 @@ def list_mrs(
     proj: ProjectId,
     page: IntPageId,
     options: Optional[Options],
-) -> IO[MrPage]:
+) -> IO[Maybe[MrsPage]]:
     url = "/projects/{}/merge_requests".format(str(proj.proj_id))
     params = options.to_dict() if options else {}
     response = client.get(url, params, page)
     return (
         response.map(lambda r: r.json())
-        .map(lambda data: _MrPage(data, page, options))
-        .map(MrPage)
+        .map(lambda data: _MrsPage(data, page, options))
+        .map(_ensure_non_empty_data)
     )

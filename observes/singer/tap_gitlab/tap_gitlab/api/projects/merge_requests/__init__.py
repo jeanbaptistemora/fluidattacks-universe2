@@ -32,7 +32,7 @@ from tap_gitlab.api.projects.ids import (
 )
 from tap_gitlab.api.projects.merge_requests.data_page import (
     list_mrs,
-    MrPage,
+    MrsPage,
     Options,
     OrderBy,
     Scope,
@@ -53,13 +53,13 @@ class InvalidPage(Exception):
     pass
 
 
-def _extract_next_item(page: MrPage) -> Maybe[datetime]:
+def _extract_next_item(page: MrsPage) -> Maybe[datetime]:
     if not page.options:
-        raise InvalidPage("MrPage must have explicit options")
+        raise InvalidPage("MrsPage must have explicit options")
     if page.options.sort != Sort.descendant:
-        raise InvalidPage("MrPage must have explicit sort=descendant")
+        raise InvalidPage("MrsPage must have explicit sort=descendant")
     if page.options.order_by != OrderBy.updated_at:
-        raise InvalidPage("MrPage must have explicit order_by=updated_at")
+        raise InvalidPage("MrsPage must have explicit order_by=updated_at")
     older_item = Maybe.from_optional(page.data[-1] if page.data else None)
     older_date = older_item.map(
         lambda item: dateutil.parser.parse(item["updated_at"])
@@ -67,16 +67,16 @@ def _extract_next_item(page: MrPage) -> Maybe[datetime]:
     return older_date
 
 
-def _to_page_result(page: MrPage) -> Maybe[PageResult[datetime, MrPage]]:
-    if not page.data:
-        return Maybe.empty
-    next_item = _extract_next_item(page)
-    return Maybe.from_value(PageResult(page, next_item, Maybe.empty))
+def _to_page_result(
+    page: Maybe[MrsPage],
+) -> Maybe[PageResult[datetime, MrsPage]]:
+    next_item = page.bind(_extract_next_item)
+    return page.map(lambda page: PageResult(page, next_item, Maybe.empty))
 
 
 def _extract_page(
-    items: Iterator[PageResult[datetime, MrPage]]
-) -> Iterator[MrPage]:
+    items: Iterator[PageResult[datetime, MrsPage]]
+) -> Iterator[MrsPage]:
     return iter(map(lambda item: item.data, items))
 
 
@@ -89,10 +89,10 @@ class MrApi(NamedTuple):
     def list_all_updated_before(
         self,
         start: PageId[datetime],
-    ) -> IO[Iterator[MrPage]]:
+    ) -> IO[Iterator[MrsPage]]:
         def getter(
             page: PageId[datetime],
-        ) -> IO[Maybe[PageResult[datetime, MrPage]]]:
+        ) -> IO[Maybe[PageResult[datetime, MrsPage]]]:
             return list_mrs(
                 self.client,
                 self.proj,
@@ -113,7 +113,7 @@ class MrApi(NamedTuple):
         updated_before: datetime,
         page: IntPageId,
         sort: Sort = Sort.descendant,
-    ) -> IO[MrPage]:
+    ) -> IO[Maybe[MrsPage]]:
         return list_mrs(
             self.client,
             self.proj,

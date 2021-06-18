@@ -45,4 +45,5 @@ def main_log(
     bug_handler = BugsnagHandler()
     bug_handler.setLevel(min_bug_lvl)
     logger.addHandler(bug_handler)
+    logger.info("env: %s", ENV)
     return logger
