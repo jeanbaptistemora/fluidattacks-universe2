@@ -1,6 +1,8 @@
 import _ from "lodash";
 import React from "react";
 
+import { Point } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
+
 const getBgColor: (value: string) => string = (value: string): string => {
   if (value === "Submitted" || value === "Inactive") {
     return "bg-lbl-gray";
@@ -20,9 +22,14 @@ const statusFormatter: (value: string) => JSX.Element = (
   const bgColor: string = getBgColor(capitalizedValue);
 
   return (
-    <span className={`b br0 dib pa1 white ${bgColor}`}>
-      {capitalizedValue.split(" ")[0]}
-    </span>
+    <React.StrictMode>
+      <span className={"br0 dib pa1"}>
+        {/* Use className to override default styles */}
+        {/* eslint-disable-next-line react/forbid-component-props */}
+        <Point className={`v-mid ${bgColor}`} />
+        <span className={"v-mid"}>&nbsp;{capitalizedValue.split(" ")[0]}</span>
+      </span>
+    </React.StrictMode>
   );
 };
 

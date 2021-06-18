@@ -7,7 +7,7 @@ import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
-import { getBgColor } from "components/DataTableNext/formatters/statusFormatter";
+import { getBgColor } from "utils/colors";
 
 const Point: StyledComponent<
   "span",
@@ -48,4 +48,4 @@ const pointStatusFormatter = (value: string): JSX.Element => (
   </div>
 );
 
-export { pointStatusFormatter, PointStatus };
+export { pointStatusFormatter, Point, PointStatus };

@@ -188,6 +188,7 @@ const FindingPolicies: React.FC<IFindingPolicies> = ({
                     </div>
                     <div className={"w-10-ns"}>
                       <TooltipWrapper
+                        displayClass={"flex justify-end"}
                         id={"addButtonToolTip"}
                         message={t(
                           "organization.tabs.policies.findings.tooltip.addButton"

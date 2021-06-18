@@ -6,10 +6,7 @@ import styled from "styled-components";
 
 import type { IHistoricTreatment } from "../../../containers/DescriptionView/types";
 import { Button } from "components/Button";
-import {
-  commitFormatter,
-  statusFormatter,
-} from "components/DataTableNext/formatters";
+import { commitFormatter } from "components/DataTableNext/formatters";
 import { Value } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/value";
 import { PointStatus } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
@@ -73,13 +70,6 @@ const Label: StyledComponent<
   Record<string, unknown>
 > = styled.span.attrs({
   className: "black f5 lh-title fw5",
-})``;
-
-const StatusLabel: StyledComponent<
-  "span",
-  Record<string, unknown>
-> = styled.span.attrs({
-  className: "f4",
 })``;
 
 const Status: StyledComponent<
@@ -319,15 +309,17 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
               <Col40>
                 <Label>{t("searchFindings.tabDescription.zeroRisk")}</Label>
               </Col40>
-              <Col60>
+              <div className={"pl1 pr2 w-60-l w-100-m w-100-ns mr"}>
                 {_.isEmpty(vulnerability.zeroRisk) ? (
                   <Value value={vulnerability.zeroRisk} />
                 ) : (
-                  <StatusLabel>
-                    {statusFormatter(vulnerability.zeroRisk)}
-                  </StatusLabel>
+                  <div className={"tr-l tl-m tl-ns"}>
+                    <p className={"dib f5 ma0 mid-gray pr2-l"}>
+                      <PointStatus status={vulnerability.zeroRisk} />
+                    </p>
+                  </div>
                 )}
-              </Col60>
+              </div>
             </Row>
             {canDisplayAnalyst ? (
               <Row>
