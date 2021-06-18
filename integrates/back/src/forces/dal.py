@@ -23,6 +23,9 @@ from datetime import (
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
+from dynamodb.model import (
+    update_group_agent_token,
+)
 import json
 import logging
 import logging.config
@@ -161,6 +164,10 @@ async def update_secret_token(project_name: str, secret: str) -> bool:
             SecretId=f"forces_token_{project_name}",
             SecretString=secret,
         )
+        await update_group_agent_token(
+            group_name=project_name,
+            agent_token=secret,
+        )
     except ClientError as error:
         LOGGER.exception(error, extra={"extra": locals()})
         return False
@@ -172,7 +179,7 @@ async def yield_executions(
     from_date: datetime,
     to_date: datetime,
 ) -> AsyncIterator[Any]:
-    """ Lazy iterator over the executions of a project """
+    """Lazy iterator over the executions of a project"""
     key_condition_expresion = Key("subscription").eq(project_name)
     filter_expression = Attr("date").gte(from_date.isoformat()) & Attr(
         "date"

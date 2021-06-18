@@ -872,3 +872,23 @@ async def create_group_metadata(*, group_metadata: GroupMetadata) -> None:
         item=metadata,
         table=TABLE,
     )
+
+
+async def update_group_agent_token(
+    *,
+    group_name: str,
+    agent_token: str,
+) -> None:
+    key_structure = TABLE.primary_key
+    key = keys.build_key(
+        facet=TABLE.facets["group_metadata"],
+        values={"name": group_name},
+    )
+    item = {"agent_token": agent_token}
+    condition_expression = Attr(key_structure.partition_key).exists()
+    await operations.update_item(
+        condition_expression=condition_expression,
+        item=item,
+        key=key,
+        table=TABLE,
+    )
