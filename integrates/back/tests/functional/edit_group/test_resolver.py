@@ -31,6 +31,8 @@ async def test_edit_group(populate: bool, email: str) -> None:
     ["email"],
     [
         ["analyst@gmail.com"],
+        ["customer@gmail.com"],
+        ["customeradmin@gmail.com"],
         ["closer@gmail.com"],
         ["resourcer@gmail.com"],
     ],

@@ -47,6 +47,7 @@ async def test_grant_stakeholder_access(populate: bool, email: str) -> None:
         ["analyst@gmail.com"],
         ["closer@gmail.com"],
         ["customer@gmail.com"],
+        ["customeradmin@gmail.com"],
         ["resourcer@gmail.com"],
     ],
 )

@@ -31,6 +31,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "tag": [
                     "test1",
                     "test2",
+                    "test3",
                 ],
             },
         ],
