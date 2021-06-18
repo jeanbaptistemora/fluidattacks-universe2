@@ -6,12 +6,12 @@ import { DataTableNext } from "components/DataTableNext";
 import {
   changeFormatter,
   deleteFormatter,
-  statusFormatter,
 } from "components/DataTableNext/formatters";
 import type {
   IHeaderConfig,
   ISelectRowProps,
 } from "components/DataTableNext/types";
+import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 
 describe("Data table next", (): void => {
   it("should return a function", (): void => {
@@ -132,7 +132,7 @@ describe("Data table next", (): void => {
       {
         align: "center",
         dataField: "statusHeader",
-        formatter: statusFormatter,
+        formatter: pointStatusFormatter,
         header: "Prueba 1",
         width: "25%",
       },
