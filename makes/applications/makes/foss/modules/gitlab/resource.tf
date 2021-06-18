@@ -19,7 +19,7 @@ resource "gitlab_project" "project" {
   only_mirror_protected_branches                   = true
   packages_enabled                                 = false
   pages_access_level                               = "disabled"
-  path                                             = "${var.group}/${var.name}"
+  path                                             = var.name
   pipelines_enabled                                = true
   request_access_enabled                           = true
   shared_runners_enabled                           = false
