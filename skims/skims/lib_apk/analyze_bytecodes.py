@@ -135,18 +135,20 @@ def _apk_unsigned(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
-def _add_debugging_enabled_location(
+def _add_android_manifest_location(
+    *,
     apk_manifest: bs4.BeautifulSoup,
-    application: bs4.Tag,
+    desc: str,
     locations: Locations,
+    tag: bs4.Tag,
 ) -> None:
     locations.append(
-        desc="debugging_enabled",
+        desc=desc,
         snippet=make_snippet(
             content=apk_manifest.prettify(),
             viewport=SnippetViewport(
-                column=application.sourcepos,
-                line=application.sourceline,
+                column=tag.sourcepos,
+                line=tag.sourceline,
                 wrap=True,
             ),
         ),
@@ -164,8 +166,11 @@ def _debugging_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 
         is_debuggable: str = application.get("android:debuggable", "false")
         if is_debuggable.lower() == "true":
-            _add_debugging_enabled_location(
-                ctx.apk_ctx.apk_manifest, application, locations
+            _add_android_manifest_location(
+                apk_manifest=ctx.apk_ctx.apk_manifest,
+                desc="debugging_enabled",
+                locations=locations,
+                tag=application,
             )
 
     return _create_vulns(
