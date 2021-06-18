@@ -1,0 +1,39 @@
+F055_APK_BACKUPS.description:
+  en: >
+    The application allows backups via ADB
+    (Android Debug Bridge).
+    The backups performed by this functionality
+    are not encrypted.
+    Moreover,
+    they can be copied into a USB stick
+    and be moved out of the sphere of control
+    of the application.
+  es: >
+    La aplicación permite realizar copias de seguridad a través de ADB
+    (Android Debug Bridge).
+    Las copias de seguridad realizadas por esta funcionalidad
+    no están encriptados.
+    Es más,
+    se pueden copiar en una memoria USB
+    y sacarse de la esfera de control
+    de la aplicación.
+F055_APK_BACKUPS.impact:
+  en: Leak sensitive information through backups.
+  es: Filtrar información confidencial a través de copias de seguridad.
+F055_APK_BACKUPS.recommendation:
+  en: >
+    Configure the attribute: provider.android:allowBackup to "false"
+    in the file: AndroidManifest.xml.
+  es: >
+    Configurar el atributo: provider.android:allowBackup a "false"
+    en el archivo: AndroidManifest.xml.
+F055_APK_BACKUPS.threat:
+  en: >
+    Unauthorized attacker
+    with the APK installed in a device.
+  es: >
+    Atacante sin autorización
+    con el APK instalado en un dispositivo.
+F055_APK_BACKUPS.title:
+  en: F055. Insecure Service Configuration - ADB Backups
+  es: F055. Configuración insegura del servicio - ADB Backups
