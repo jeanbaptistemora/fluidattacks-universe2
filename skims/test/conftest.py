@@ -158,31 +158,26 @@ def test_prepare_cfn_json_data() -> None:
             target.write(json.dumps(source_data, indent=2))
 
 
-@pytest.fixture(autouse=False, scope="session")
-def test_mocks_http() -> Iterator[None]:
-    cmd: List[str] = ["skims-test-mocks-http", "localhost", "48000"]
+def _execute_command(cmd: List[str]) -> Iterator[None]:
     with subprocess.Popen(cmd) as process:
         try:
             yield
         finally:
             process.terminate()
+
+
+@pytest.fixture(autouse=False, scope="session")
+def test_mocks_http() -> Iterator[None]:
+    yield from _execute_command(
+        ["skims-test-mocks-http", "localhost", "48000"]
+    )
 
 
 @pytest.fixture(autouse=False, scope="session")
 def test_mocks_ssl_safe() -> Iterator[None]:
-    cmd: List[str] = ["skims-test-mocks-ssl-safe"]
-    with subprocess.Popen(cmd) as process:
-        try:
-            yield
-        finally:
-            process.terminate()
+    yield from _execute_command(["skims-test-mocks-ssl-safe"])
 
 
 @pytest.fixture(autouse=False, scope="session")
 def test_mocks_ssl_unsafe() -> Iterator[None]:
-    cmd: List[str] = ["skims-test-mocks-ssl-unsafe"]
-    with subprocess.Popen(cmd) as process:
-        try:
-            yield
-        finally:
-            process.terminate()
+    yield from _execute_command(["skims-test-mocks-ssl-unsafe"])
