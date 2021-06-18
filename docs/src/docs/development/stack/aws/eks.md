@@ -60,13 +60,13 @@ over other alternatives are:
     [nodes](https://kubernetes.io/docs/concepts/architecture/nodes/) and
     [pods](https://kubernetes.io/docs/concepts/workloads/pods/),
     It also supported [Terraform][TERRAFORM],
-    Configuring it was easier,
+    configuring it was easier,
     and support for new versions was faster.
     The reason why we did not chose it was simple:
     We needed it to integrate with other cloud solutions
     that were already hosted in [AWS][AWS].
     This is a clear example of cloud dependency.
-1. [Azure Kubernetes Service (EKS)](https://azure.microsoft.com/en-us/overview/kubernetes-on-azure/):
+1. [Azure Kubernetes Service (AKS)](https://azure.microsoft.com/en-us/overview/kubernetes-on-azure/):
     Pending to review.
 
 ## Usage
