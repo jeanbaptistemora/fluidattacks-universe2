@@ -84,6 +84,16 @@ makes.dns.test:
   <<: *makes_in_dev_branch
   stage: test-infra
 
+makes.foss.apply:
+  <<: *makes
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
+makes.foss.test:
+  <<: *makes
+  <<: *makes_in_dev_branch
+  stage: test-infra
+
 makes.k8s.apply:
   <<: *makes
   <<: *makes_in_master_branch

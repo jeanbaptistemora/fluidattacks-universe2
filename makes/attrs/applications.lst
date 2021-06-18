@@ -74,6 +74,8 @@ makes.dns.test
 makes.done
 makes.format.bash
 makes.format.python
+makes.foss.apply
+makes.foss.test
 makes.k8s.apply
 makes.k8s.test
 makes.kill-port

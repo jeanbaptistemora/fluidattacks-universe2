@@ -6,7 +6,7 @@ function main {
       && find "__envRoot__/makes/${kind}" -type f -name default.nix -exec dirname {} + \
       | sed "s|__envRoot__/makes/${kind}/||g" \
         | sed "s|/|.|g" \
-        | sort \
+        | LC_ALL=C sort \
           > "makes/attrs/${kind}.lst" \
       || return 1
   done
