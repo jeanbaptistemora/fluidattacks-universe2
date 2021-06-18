@@ -3,7 +3,8 @@ path: pkgs:
 { name
 , product
 , target
-, secretsPath ? ""
+, secretsPath ? null
+, vars ? [ ]
 }:
 let
   makeEntrypoint = import (path "/makes/utils/make-entrypoint") path pkgs;
@@ -12,9 +13,9 @@ makeEntrypoint {
   arguments = {
     envProduct = product;
     envTarget = target;
-    envSecretsPath =
-      if secretsPath != "" then path "/${secretsPath}" else secretsPath;
+    envSecretsPath = if secretsPath == null then "" else path "/${secretsPath}";
     envTflintConfig = path "/makes/utils/terraform-test/tflint.hcl";
+    envVars = vars;
   };
   inherit name;
   searchPaths = {
