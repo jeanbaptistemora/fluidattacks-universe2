@@ -13,13 +13,13 @@ resource "gitlab_project" "project" {
   mirror_overwrites_diverged_branches              = true
   mirror_trigger_builds                            = false
   name                                             = var.name
-  namespace_id                                     = var.namespace_id
+  namespace_id                                     = data.gitlab_group.group.id
   only_allow_merge_if_pipeline_succeeds            = true
   only_allow_merge_if_all_discussions_are_resolved = true
   only_mirror_protected_branches                   = true
   packages_enabled                                 = false
   pages_access_level                               = "disabled"
-  path                                             = var.path
+  path                                             = "${var.group}/${var.name}"
   pipelines_enabled                                = true
   request_access_enabled                           = true
   shared_runners_enabled                           = false
