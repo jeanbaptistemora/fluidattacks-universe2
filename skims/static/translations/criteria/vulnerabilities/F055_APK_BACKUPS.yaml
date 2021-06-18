@@ -1,3 +1,13 @@
+lib_apk.analyze_bytecodes.backups_enabled:
+  en: application.android:allowBackup enabled
+  es: application.android:allowBackup habilitado
+lib_apk.analyze_bytecodes.backups_not_configured:
+  en: >
+    application.android:allowBackup
+    is enabled by default
+  es: >
+    application.android:allowBackup
+    está habilitado de forma predeterminada
 F055_APK_BACKUPS.description:
   en: >
     The application allows backups via ADB
