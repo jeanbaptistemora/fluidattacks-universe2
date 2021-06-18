@@ -10,6 +10,7 @@ module.exports = {
   Squad: [
     'squad/reattacks',
     'squad/consulting',
+    'squad/false-negatives',
   ],
   Development: DEVELOPMENT,
 };
