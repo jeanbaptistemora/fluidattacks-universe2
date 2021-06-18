@@ -6,4 +6,3 @@ http:
     - https://this.host.should.not.exist
     - http://localhost:48000/
     - http://localhost:48000/error
-    - https://play.google.com/store/apps/details?id=org.example.com

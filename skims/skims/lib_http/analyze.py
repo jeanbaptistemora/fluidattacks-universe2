@@ -89,17 +89,6 @@ async def analyze_one(
                     await stores[vulnerability.finding].store(vulnerability)
 
 
-def should_include_url(url: URLContext) -> bool:
-    if url.components.netloc in {
-        "play.google.com",
-        "www.getpostman.com",
-    }:
-        log_blocking("warn", "Ignoring lib_http checks over: %s", url)
-        return False
-
-    return True
-
-
 @rate_limited(rpm=LIB_HTTP_DEFAULT)
 async def get_url(
     url: str,
@@ -179,7 +168,6 @@ async def analyze(
         return
 
     unique_urls: Set[URLContext] = await get_urls()
-    unique_urls = set(filter(should_include_url, unique_urls))
     unique_count: int = len(unique_urls)
 
     await collect(
