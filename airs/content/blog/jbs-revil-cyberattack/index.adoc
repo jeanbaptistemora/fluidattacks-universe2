@@ -223,6 +223,6 @@ link:https://www.bbc.com/news/business-51017852[Travelex] case).
 
 At `Fluid Attacks` we are specialized
 in cybersecurity through
-link:../../penetration-testing/[Pentesting] and
-link:../../ethical-hacking/[Ethical Hacking].
+link:../../solutions/penetration-testing/[Pentesting] and
+link:../../solutions/ethical-hacking/[Ethical Hacking].
 For more information, don't hesitate to link:../../contact-us/[contact us]!
