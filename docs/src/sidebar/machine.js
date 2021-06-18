@@ -4,17 +4,6 @@ const MACHINE = [
     label: 'Web',
     items: [
       'machine/web/asm',
-      {
-        type: 'category',
-        label: 'Analytics',
-        items: [
-          'machine/web/analytics/introduction',
-          'machine/web/analytics/common',
-          'machine/web/analytics/organization',
-          'machine/web/analytics/portfolio',
-          'machine/web/analytics/groups',
-        ],
-      },
       'machine/web/support',
       {
         type: 'category',
@@ -72,6 +61,17 @@ const MACHINE = [
           },
           'machine/web/vulnerabilities/reporting-vulns',
           'machine/web/vulnerabilities/delete',
+        ],
+      },
+      {
+        type: 'category',
+        label: 'Analytics',
+        items: [
+          'machine/web/analytics/introduction',
+          'machine/web/analytics/common',
+          'machine/web/analytics/organization',
+          'machine/web/analytics/portfolio',
+          'machine/web/analytics/groups',
         ],
       },
     ],

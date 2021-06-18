@@ -55,4 +55,5 @@ p > img {
   margin: auto;
   display: block;
   border: 1px solid #a5a5b6;
+  border-radius: 8px;
 }
