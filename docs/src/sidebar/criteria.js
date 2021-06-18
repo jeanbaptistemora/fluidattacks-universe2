@@ -93,6 +93,7 @@ const CRITERIA = [
           'criteria/vulnerabilities/f105',
           'criteria/vulnerabilities/f106',
           'criteria/vulnerabilities/f107',
+          'criteria/vulnerabilities/f121',
           ],
       },
       {
@@ -107,7 +108,6 @@ const CRITERIA = [
           'criteria/vulnerabilities/f097',
           'criteria/vulnerabilities/f100',
           'criteria/vulnerabilities/f114',
-          'criteria/vulnerabilities/f121',
           ],
       },
       {
