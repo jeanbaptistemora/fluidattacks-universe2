@@ -322,28 +322,6 @@ defaults to deny user-supplied CAs"
     )
 
 
-@api(risk=MEDIUM, kind=SAST)
-@unknown_if(FileNotFoundError, apk.Error, dvm.Error)
-def has_debug_enabled(apk_file: str) -> tuple:
-    """
-    Check if the given APK has debug enabled.
-
-    :param apk_file: Path to the image to be tested.
-    :returns: - ``OPEN`` if APK has debug enabled.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    apk_obj = apk.APK(apk_file)
-
-    return _get_result_as_tuple_sast(
-        path=apk_file,
-        msg_open="APK has debug enabled",
-        msg_closed="APK has debug disabled",
-        open_if=apk_obj.get_element("application", "debuggable") == "true",
-    )
-
-
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError, apk.Error, dvm.Error)
 def uses_insecure_delete(apk_file: str) -> tuple:

@@ -70,11 +70,6 @@ def test_allows_user_ca_open():
     assert apk.allows_user_ca(SIGNED_APK)
 
 
-def test_debug_open():
-    """Test if APK has debug enabled."""
-    assert apk.has_debug_enabled(JS_APK)
-
-
 def test_unsafe_delete_open():
     """Test if APK does not securely erase files."""
     assert apk.uses_insecure_delete(UNSAFE_DELETE_OPEN)
@@ -150,11 +145,6 @@ def test_allows_user_ca_close2():
     assert not apk.allows_user_ca(SSL_OPEN)
 
 
-def test_debug_close():
-    """Test if APK has debug enabled."""
-    assert not apk.has_debug_enabled(SIGNED_APK)
-
-
 def test_unsafe_delete_close():
     """Test if APK does not securely erase files."""
     assert not apk.uses_insecure_delete(SIGNED_APK)
@@ -228,11 +218,6 @@ def test_ssl_hostname_verify_unknown():
 def test_allows_user_ca_unknown():
     """Test if APK trusts user CAs."""
     assert not apk.allows_user_ca(NOT_EXISTS_APK)
-
-
-def test_debug_unknown():
-    """Test if APK has debug enabled."""
-    assert not apk.has_debug_enabled(NOT_EXISTS_APK)
 
 
 def test_unsafe_delete_unknown():
