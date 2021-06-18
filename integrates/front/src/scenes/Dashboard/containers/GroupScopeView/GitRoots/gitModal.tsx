@@ -1,9 +1,9 @@
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { FieldValidator } from "formik";
 import { Field, Form, Formik } from "formik";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { Validator as ValidatorField } from "redux-form";
 
 import { GitIgnoreAlert, gitModalSchema } from "./helpers";
 
@@ -58,51 +58,27 @@ const GitModal: React.FC<IGitModalProps> = ({
 }: IGitModalProps): JSX.Element => {
   const isEditing: boolean = initialValues.url !== "";
 
-  const [isDuplicated, setIsDuplicated] = useState(false);
-
   const { t } = useTranslation();
 
-  const duplicated: (field: string) => ValidatorField = useCallback(
-    (field: string): ValidatorField => {
-      const repoName: string = field
-        ? field.split("/").slice(-1)[0].replace(".git", "")
-        : "";
-      const { nickname: initialNickname } = initialValues;
-      if (nicknames.includes(repoName) && initialNickname !== repoName) {
-        setIsDuplicated(true);
-      } else {
-        setIsDuplicated(false);
-      }
-      // Exception: WF(Avoid unsafe return of an any typed value)
-      // eslint-disable-next-line
-      return required(field) as ValidatorField; // NOSONAR
-    },
-    [initialValues, nicknames]
-  );
+  const isDuplicated = (field: string): boolean => {
+    const repoName: string = field
+      ? field.split("/").slice(-1)[0].replace(".git", "")
+      : "";
+    const { nickname: initialNickname } = initialValues;
 
-  const requireNickname: (field: string) => ValidatorField = useCallback(
-    (field: string): ValidatorField => {
+    return nicknames.includes(repoName) && initialNickname !== repoName;
+  };
+
+  const requireNickname: FieldValidator = useCallback(
+    (field: string): string | undefined => {
       const { nickname: initialNickname } = initialValues;
       if (nicknames.includes(field) && initialNickname !== field) {
         return t("validations.requireNickname");
       }
-      // Exception: WF(Avoid unsafe return of an any typed value)
-      // eslint-disable-next-line
-      return required(field) as ValidatorField; // NOSONAR
+
+      return required(field) as string | undefined;
     },
     [initialValues, nicknames, t]
-  );
-
-  const branchTrim: (field: string) => ValidatorField = useCallback(
-    (field: string): ValidatorField => {
-      if (field.trim() !== field) {
-        return t("validations.branchTrim");
-      }
-      // Exception: WF(Avoid unsafe return of an any typed value)
-      // eslint-disable-next-line
-      return required(field) as ValidatorField; // NOSONAR
-    },
-    [t]
   );
 
   const [confirmHealthCheck, setConfirmHealthCheck] = useState(
@@ -142,7 +118,6 @@ const GitModal: React.FC<IGitModalProps> = ({
                       disabled={isEditing}
                       name={"url"}
                       type={"text"}
-                      validate={duplicated}
                     />
                   </div>
                   <div className={"w-30"}>
@@ -155,12 +130,11 @@ const GitModal: React.FC<IGitModalProps> = ({
                       disabled={isEditing}
                       name={"branch"}
                       type={"text"}
-                      validate={branchTrim}
                     />
                   </div>
                 </div>
                 <br />
-                {isDuplicated ? (
+                {isDuplicated(values.url) ? (
                   <React.Fragment>
                     <div className={"flex"}>
                       <div className={"w-100"}>

@@ -65,6 +65,7 @@ const gitModalSchema = lazy(
             }
           )
       ),
+      url: string().required(translate.t("validations.required")),
     })
 );
 
@@ -181,7 +182,7 @@ function useGitSubmit(
           track("AddGitRoot");
           await addGitRoot({
             variables: {
-              branch,
+              branch: branch.trim(),
               environment,
               gitignore,
               groupName,

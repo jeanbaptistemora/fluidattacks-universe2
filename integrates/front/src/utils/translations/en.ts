@@ -2310,7 +2310,6 @@ export const enTranslations: ResourceKey = {
   validations: {
     alphanumeric: "Only alphanumeric characters",
     between: "This value must be between {{min}} and {{max}}",
-    branchTrim: "The branch name shouldn't contain trailing whitespace",
     columns: "At least 1 column must be shown",
     datetime: "The datetime format is not valid",
     draftTitle: "The title format is not valid",
