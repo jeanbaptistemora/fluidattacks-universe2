@@ -624,6 +624,26 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.required,
         ),
     )
+    F055_APK_BACKUPS: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F055_APK_BACKUPS",
+        cwe=530,
+        requirements=[266],
+        execution_queue=ExecutionQueue.none,
+        score=cvss3_model.Score(
+            attack_complexity=cvss3_model.AttackComplexity.low,
+            attack_vector=cvss3_model.AttackVector.local,
+            availability_impact=cvss3_model.AvailabilityImpact.none,
+            confidentiality_impact=cvss3_model.ConfidentialityImpact.low,
+            exploitability=cvss3_model.Exploitability.poc,
+            integrity_impact=cvss3_model.IntegrityImpact.none,
+            privileges_required=cvss3_model.PrivilegesRequired.none,
+            remediation_level=cvss3_model.RemediationLevel.official_fix,
+            report_confidence=cvss3_model.ReportConfidence.reasonable,
+            severity_scope=cvss3_model.SeverityScope.unchanged,
+            user_interaction=cvss3_model.UserInteraction.none,
+        ),
+    )
     F055_APK_UPDATES: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F055_APK_UPDATES",

@@ -86,6 +86,9 @@
   "F052": {
     "skims/test/data/sast/TestCFG.java": {}
   },
+  "F055_APK_BACKUPS": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
   "F055_APK_UPDATES": {
     "skims/test/data/sast/TestCFG.java": {}
   },
