@@ -22,6 +22,9 @@ from typing import (
     NamedTuple,
     Optional,
 )
+from utils_logger import (
+    DEBUG,
+)
 
 LOG = logging.getLogger(__name__)
 API_URL_BASE = "https://gitlab.com/api/v4"
@@ -50,4 +53,6 @@ class RawClient(NamedTuple):
         )
         LOG.debug(response)
         response.raise_for_status()
+        if DEBUG and not response.json():
+            LOG.debug("Empty json response")
         return IO(response)
