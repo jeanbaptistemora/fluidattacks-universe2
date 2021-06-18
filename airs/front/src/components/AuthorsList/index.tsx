@@ -11,6 +11,7 @@ import {
   BlogItemName,
   BlogItemTitle,
 } from "../../styles/styledComponents";
+import { stringToUri } from "../../utils/utilities";
 
 const AuthorsList: React.FC = (): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
@@ -60,13 +61,7 @@ const AuthorsList: React.FC = (): JSX.Element => {
           {Array.from(authorsSet).map(
             (author): JSX.Element => (
               <BlogItemItem key={author}>
-                <Link
-                  to={`/blog/authors/${author
-                    .toLowerCase()
-                    .replace(" ", "-")
-                    .normalize("NFD")
-                    .replace(/[\u0300-\u036f]/g, "")}`}
-                >
+                <Link to={`/blog/authors/${stringToUri(author)}`}>
                   <BlogItemName>
                     {`${decode(author)} (${countCoincidences(author)})`}
                   </BlogItemName>

@@ -7,6 +7,7 @@ import { graphql, useStaticQuery } from "gatsby";
 import React, { useEffect, useState } from "react";
 import type { SetStateAction } from "react";
 
+import { stringToUri } from "../../utils/utilities";
 import { BlogCard } from "../BlogsList/BlogCard";
 import { BlogMainDiv, LoadMoreButton } from "../BlogsList/StyledComponents";
 
@@ -50,11 +51,7 @@ const BlogAuthorList: React.FC<{ authorName: string }> = ({
 
   const posts: INodes[] = data.allAsciidoc.edges.filter(
     (edge): boolean =>
-      edge.node.pageAttributes.author
-        .toLowerCase()
-        .replace(" ", "-")
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "") === authorName
+      stringToUri(edge.node.pageAttributes.author) === authorName
   );
 
   const postsPerPage = 12;
@@ -85,20 +82,33 @@ const BlogAuthorList: React.FC<{ authorName: string }> = ({
     <React.Fragment>
       <BlogMainDiv>
         {(postsToShow as INodes[]).map(
-          (post): JSX.Element => (
-            <BlogCard
-              alt={post.node.pageAttributes.alt}
-              author={post.node.pageAttributes.author}
-              blogLink={post.node.pageAttributes.slug}
-              category={post.node.pageAttributes.category}
-              description={post.node.pageAttributes.description}
-              image={post.node.pageAttributes.image}
-              key={post.node.document.title}
-              subtitle={post.node.pageAttributes.subtitle}
-              tags={post.node.pageAttributes.tags}
-              title={post.node.document.title}
-            />
-          )
+          (post): JSX.Element => {
+            const {
+              alt,
+              author,
+              category,
+              description,
+              image,
+              slug,
+              subtitle,
+              tags,
+            } = post.node.pageAttributes;
+
+            return (
+              <BlogCard
+                alt={alt}
+                author={author}
+                blogLink={slug}
+                category={category}
+                description={description}
+                image={image}
+                key={post.node.document.title}
+                subtitle={subtitle}
+                tags={tags}
+                title={post.node.document.title}
+              />
+            );
+          }
         )}
       </BlogMainDiv>
       {/* eslint-disable-next-line react/jsx-no-bind */}

@@ -80,20 +80,33 @@ const BlogCategoryList: React.FC<{ categoryName: string }> = ({
     <React.Fragment>
       <BlogMainDiv>
         {(postsToShow as INodes[]).map(
-          (post): JSX.Element => (
-            <BlogCard
-              alt={post.node.pageAttributes.alt}
-              author={post.node.pageAttributes.author}
-              blogLink={post.node.pageAttributes.slug}
-              category={post.node.pageAttributes.category}
-              description={post.node.pageAttributes.description}
-              image={post.node.pageAttributes.image}
-              key={post.node.document.title}
-              subtitle={post.node.pageAttributes.subtitle}
-              tags={post.node.pageAttributes.tags}
-              title={post.node.document.title}
-            />
-          )
+          (post): JSX.Element => {
+            const {
+              alt,
+              author,
+              category,
+              description,
+              image,
+              slug,
+              subtitle,
+              tags,
+            } = post.node.pageAttributes;
+
+            return (
+              <BlogCard
+                alt={alt}
+                author={author}
+                blogLink={slug}
+                category={category}
+                description={description}
+                image={image}
+                key={post.node.document.title}
+                subtitle={subtitle}
+                tags={tags}
+                title={post.node.document.title}
+              />
+            );
+          }
         )}
       </BlogMainDiv>
       {/* eslint-disable-next-line react/jsx-no-bind */}
