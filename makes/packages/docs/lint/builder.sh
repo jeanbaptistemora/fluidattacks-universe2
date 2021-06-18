@@ -22,6 +22,7 @@ function main {
     && lint_markdown "${envSrcDocsCriteriaRequirementsPrivacy}" \
     && lint_markdown "${envSrcDocsCriteriaRequirementsServices}" \
     && lint_markdown "${envSrcDocsCriteriaRequirementsSession}" \
+    && lint_markdown "${envSrcDocsCriteriaRequirementsSocial}" \
     && lint_markdown "${envSrcDocsCriteriaVulnerabilities}" \
     && touch "${out}"
 }

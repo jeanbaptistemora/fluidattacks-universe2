@@ -25,6 +25,7 @@ makeDerivation {
     envSrcDocsCriteriaRequirementsPrivacy = path "/docs/src/docs/criteria/requirements/privacy/";
     envSrcDocsCriteriaRequirementsServices = path "/docs/src/docs/criteria/requirements/services/";
     envSrcDocsCriteriaRequirementsSession = path "/docs/src/docs/criteria/requirements/session/";
+    envSrcDocsCriteriaRequirementsSocial = path "/docs/src/docs/criteria/requirements/social/";
     envSrcDocsCriteriaVulnerabilities = path "/docs/src/docs/criteria/vulnerabilities/";
   };
   builder = path "/makes/packages/docs/lint/builder.sh";
