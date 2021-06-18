@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jun 18, 2021, 10:35 AM",
+    "DateLastModified": "Jun 18, 2021, 11:46 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -195,10 +195,6 @@
           "AttributeType": "S"
         },
         {
-          "AttributeName": "cvss",
-          "AttributeType": "M"
-        },
-        {
           "AttributeName": "recommendation",
           "AttributeType": "S"
         },
@@ -215,19 +211,7 @@
           "AttributeType": "S"
         },
         {
-          "AttributeName": "using_sorts",
-          "AttributeType": "BOOL"
-        },
-        {
           "AttributeName": "cwe",
-          "AttributeType": "S"
-        },
-        {
-          "AttributeName": "attack_vector",
-          "AttributeType": "S"
-        },
-        {
-          "AttributeName": "consult_id",
           "AttributeType": "S"
         },
         {
@@ -341,10 +325,6 @@
         {
           "AttributeName": "id",
           "AttributeType": "S"
-        },
-        {
-          "AttributeName": "modified_user_interaction",
-          "AttributeType": "N"
         },
         {
           "AttributeName": "sorts",
@@ -505,10 +485,7 @@
             "name",
             "legal_remember",
             "email"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "organization_membership",
@@ -535,10 +512,7 @@
           "NonKeyAttributes": [
             "role",
             "subscription_period"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "group_membership",
@@ -569,10 +543,7 @@
             "role",
             "responsibility",
             "subscription_period"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "available_group_names",
@@ -595,10 +566,7 @@
           ],
           "NonKeyAttributes": [
             "name"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "available_org_names",
@@ -621,10 +589,7 @@
           ],
           "NonKeyAttributes": [
             "name"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "organization_metadata",
@@ -647,10 +612,7 @@
           ],
           "NonKeyAttributes": [
             "name"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "organization_historic_state",
@@ -694,10 +656,7 @@
             "settings",
             "modified_date",
             "modified_by"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "group_metadata",
@@ -729,10 +688,7 @@
             "description",
             "language",
             "agent_token"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "group_historic_state",
@@ -793,10 +749,7 @@
             "modified_date",
             "modified_by",
             "files"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "group_comment",
@@ -848,10 +801,7 @@
             "modified_by",
             "parent_id",
             "content"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "vulnerability_metadata",
@@ -890,10 +840,7 @@
             "where",
             "specific",
             "stream"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "vulnerability_state",
@@ -928,10 +875,7 @@
             "modified_date",
             "modified_by",
             "source"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "vulnerability_historic_state",
@@ -966,10 +910,7 @@
             "modified_date",
             "modified_by",
             "source"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "vulnerability_historic_treatment",
@@ -1003,10 +944,7 @@
             "accepted_until",
             "manager",
             "justification"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "vulnerability_historic_verification",
@@ -1037,10 +975,7 @@
             "status",
             "modified_date",
             "modified_by"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "forces_execution",
@@ -1105,10 +1040,7 @@
             "repo",
             "strictness",
             "results"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "event_metadata",
@@ -1159,10 +1091,7 @@
             "blocking_hours_expected",
             "affected_components",
             "accessibility"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "event_historic_state",
@@ -1201,10 +1130,7 @@
             "modified_by",
             "evidences",
             "blocking_hours"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "event_comment",
@@ -1236,10 +1162,7 @@
             "modified_by",
             "parent_id",
             "content"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "git_root_metadata",
@@ -1270,10 +1193,7 @@
             "type",
             "branch",
             "url"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "git_root_state",
@@ -1334,10 +1254,7 @@
             "modified_by",
             "nickname",
             "other"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "git_root_historic_state",
@@ -1398,10 +1315,7 @@
             "modified_by",
             "nickname",
             "other"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "git_root_cloning",
@@ -1432,10 +1346,7 @@
             "status",
             "reason",
             "modified_date"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "git_root_historic_cloning",
@@ -1466,10 +1377,7 @@
             "status",
             "reason",
             "modified_date"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "ip_root_metadata",
@@ -1483,10 +1391,7 @@
             "repo",
             "address",
             "port"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "ip_root_state",
@@ -1501,10 +1406,7 @@
             "modified_date",
             "modified_by",
             "other"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "ip_root_historic_state",
@@ -1519,10 +1421,7 @@
             "modified_date",
             "modified_by",
             "other"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "url_root_metadata",
@@ -1537,10 +1436,7 @@
             "host",
             "path",
             "protocol"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "url_root_state",
@@ -1555,10 +1451,7 @@
             "modified_date",
             "modified_by",
             "other"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "url_root_historic_state",
@@ -1573,10 +1466,7 @@
             "modified_date",
             "modified_by",
             "other"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "root_toe_lines",
@@ -1623,10 +1513,7 @@
             "tested_date",
             "tested_lines",
             "sorts_risk_level"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "root_toe_input",
@@ -1674,10 +1561,7 @@
             "verified",
             "component",
             "entry_point"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "org_finding_policy_metadata",
@@ -1689,10 +1573,7 @@
           "NonKeyAttributes": [
             "name",
             "tags"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "org_finding_policy_state",
@@ -1705,10 +1586,7 @@
             "status",
             "modified_date",
             "modified_by"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "org_finding_policy_historic_state",
@@ -1721,10 +1599,7 @@
             "status",
             "modified_date",
             "modified_by"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "finding_metadata",
@@ -1947,10 +1822,7 @@
             "scenario",
             "bts_url",
             "attack_vector_desc"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "finding_state",
@@ -1989,10 +1861,7 @@
             "modified_by",
             "source",
             "justification"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "finding_approval",
@@ -2027,10 +1896,7 @@
             "modified_date",
             "modified_by",
             "source"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "finding_creation",
@@ -2065,10 +1931,7 @@
             "modified_date",
             "modified_by",
             "source"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "finding_submission",
@@ -2103,10 +1966,7 @@
             "modified_date",
             "modified_by",
             "source"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "finding_historic_state",
@@ -2145,10 +2005,7 @@
             "modified_by",
             "source",
             "justification"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "finding_verification",
@@ -2189,10 +2046,7 @@
             "modified_by",
             "comment_id",
             "vuln_uuids"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "finding_historic_verification",
@@ -2233,10 +2087,7 @@
             "modified_by",
             "comment_id",
             "vuln_uuids"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "finding_unreliable_indicators",
@@ -2287,10 +2138,7 @@
             "unreliable_open_vulnerabilities",
             "unreliable_status",
             "unreliable_report_date"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "vulnerability_treatment",
@@ -2324,10 +2172,7 @@
             "accepted_until",
             "manager",
             "justification"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         },
         {
           "FacetName": "vulnerability_verification",
@@ -2358,10 +2203,7 @@
             "status",
             "modified_date",
             "modified_by"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
+          ]
         }
       ],
       "GlobalSecondaryIndexes": [
