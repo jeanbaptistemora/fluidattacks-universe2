@@ -24,7 +24,7 @@ over other alternatives are:
     other [AWS](https://aws.amazon.com/)
     services we use like
     [ECS](https://aws.amazon.com/ecs/),
-    [EKS](https://aws.amazon.com/eks/),
+    [EKS](/development/stack/aws/eks/),
     [Batch][BATCH],
     [Elastic Load Balancing](https://aws.amazon.com/elasticloadbalancing/),
     etc.
@@ -88,7 +88,7 @@ over other alternatives are:
     This is especially useful when combined with
     our [Kubernetes Cluster][KUBERNETES]
     running on
-    [EKS](https://aws.amazon.com/eks/),
+    [EKS](/development/stack/aws/eks//),
     as multiple instances of our
     [ASM](https://fluidattacks.com/categories/asm/)
     can be turned on and off

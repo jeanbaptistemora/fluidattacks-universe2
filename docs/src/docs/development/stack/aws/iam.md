@@ -67,6 +67,12 @@ over other alternatives are:
     [least privilege][LEAST-PRIVILEGE]
     compliance over
     the AWS resources.
+1. It supports [OIDC](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html),
+    allowing our [Kubernetes cluster](/development/stack/kubernetes/)
+    to [perform actions](https://gitlab.com/fluidattacks/product/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/autoscaler.tf#L52)
+    within [AWS][AWS] like
+    [automatically creating load balancers](https://github.com/kubernetes-sigs/aws-load-balancer-controller)
+    when applications are deployed.
 1. Resources can be
     [written as code](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
     using

@@ -67,6 +67,8 @@ We use the following [AWS][AWS] services:
     [AWS EBS](/development/stack/aws/ebs/).
 1. Key management system:
     [AWS KMS](/development/stack/aws/kms/).
+1. Application cluster:
+    [AWS EKS](/development/stack/aws/eks/).
 1. Serverless computing:
     [AWS Lambda](https://aws.amazon.com/lambda/).
 1. Elastic Container Service:
@@ -79,8 +81,6 @@ We use the following [AWS][AWS] services:
     [AWS Redshift](https://aws.amazon.com/redshift/).
 1. Cache:
     [AWS Redis](https://aws.amazon.com/redis/).
-1. Application cluster:
-    [AWS EKS](https://aws.amazon.com/eks/).
 1. Batch processing:
     [AWS Batch](https://aws.amazon.com/batch/).
 1. Machine learning:
@@ -91,6 +91,8 @@ We use the following [AWS][AWS] services:
     [AWS SQS](https://aws.amazon.com/sqs/).
 1. Cost management:
     [AWS Cost Management](https://aws.amazon.com/aws-cost-management/).
+1. Virtual private cloud:
+    [AWS VPC](https://aws.amazon.com/vpc/).
 
 ## Guidelines
 

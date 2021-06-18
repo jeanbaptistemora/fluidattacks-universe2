@@ -38,7 +38,7 @@ it over other alternatives are:
     and less on the infrastructure supporting it.
 1. It can be
     [fully managed](https://gitlab.com/fluidattacks/product/-/blob/ba230133febd3325d0f5c995f638a176b89d32a2/makes/applications/makes/k8s/src/terraform/cluster.tf)
-    using [Terraform](/development/stack/terraform).
+    using [Terraform](/development/stack/terraform/).
 1. It supports
     [Blue-Green deployments](https://www.redhat.com/en/topics/devops/what-is-blue-green-deployment),
     allowing us to deploy applications
@@ -76,7 +76,7 @@ it over other alternatives are:
 1. It is [Open source][OSS].
 1. It is not platform-bounded.
 1. [Azure AKS](https://azure.microsoft.com/en-us/services/kubernetes-service/),
-    [AWS EKS](https://aws.amazon.com/eks),
+    [AWS EKS](/development/stack/aws/eks/),
     [GCP GKE](https://cloud.google.com/kubernetes-engine),
     support it.
 1. It can be [IaaS](https://en.wikipedia.org/wiki/Infrastructure_as_a_service)
@@ -116,7 +116,7 @@ but not chosen for the following reasons:
     It is not [Open source][OSS].
 1. [AWS EC2](/development/stack/aws/ec2):
     It is a service for cloud computing.
-    [AWS EKS](https://aws.amazon.com/eks)
+    [AWS EKS](/development/stack/aws/eks/)
     actually uses it for setting up cluster workers.
     It does not support extensions.
     It is platform-bounded.
@@ -153,6 +153,12 @@ We use [Kubernetes][KUBERNETES] for:
     on
     [CI/CD](https://docs.gitlab.com/ee/ci/introduction/)
     workflows.
+1. [Automatically deploying DNS records](https://gitlab.com/fluidattacks/product/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/dns.tf)
+    for applications.
+1. [Automatically deploying load balancers](https://gitlab.com/fluidattacks/product/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/alb.tf)
+    for applications.
+1. [Automatically scaling worker nodes](https://gitlab.com/fluidattacks/product/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/autoscaler.tf)
+    based on application load.
 1. Running application performance monitoring using [New Relic](https://newrelic.com/).
 
 We do not use [Kubernetes][KUBERNETES] for:

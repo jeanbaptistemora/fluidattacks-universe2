@@ -26,7 +26,7 @@ over other alternatives are:
     with other [AWS][AWS]
     services like
     [DynamoDB](https://aws.amazon.com/dynamodb/),
-    [EKS](https://aws.amazon.com/eks/),
+    [EKS](/development/stack/aws/eks/),
     [S3](/development/stack/aws/s3/),
     [EBS][EBS],
     among others.
