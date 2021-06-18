@@ -40,19 +40,23 @@ const CertificationsPage: React.FC = (): JSX.Element => {
   return (
     <CardsContainer>
       {certificationInfo.map(
-        ({ node }): JSX.Element => (
-          <DropDownCard
-            alt={node.pageAttributes.alt}
-            cardType={"certifications-cards"}
-            haveTitle={true}
-            htmlData={node.html}
-            key={node.pageAttributes.slug}
-            logo={node.pageAttributes.certificationlogo}
-            logoPaths={"/airs/about-us/certifications"}
-            slug={node.pageAttributes.slug}
-            title={node.document.title}
-          />
-        )
+        ({ node }): JSX.Element => {
+          const { alt, certificationlogo, slug } = node.pageAttributes;
+
+          return (
+            <DropDownCard
+              alt={alt}
+              cardType={"certifications-cards"}
+              haveTitle={true}
+              htmlData={node.html}
+              key={slug}
+              logo={certificationlogo}
+              logoPaths={"/airs/about-us/certifications"}
+              slug={slug}
+              title={node.document.title}
+            />
+          );
+        }
       )}
     </CardsContainer>
   );

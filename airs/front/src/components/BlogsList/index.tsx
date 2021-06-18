@@ -10,54 +10,6 @@ import { BlogMainDiv, LoadMoreButton } from "./StyledComponents";
 
 import { PageArticle } from "../../styles/styledComponents";
 
-interface IData {
-  allAsciidoc: {
-    edges: [
-      {
-        node: {
-          fields: {
-            slug: string;
-          };
-          document: {
-            title: string;
-          };
-          pageAttributes: {
-            alt: string;
-            author: string;
-            category: string;
-            image: string;
-            tags: string;
-            description: string;
-            slug: string;
-            subtitle: string;
-          };
-        };
-      }
-    ];
-  };
-}
-
-interface INodes {
-  node: {
-    fields: {
-      slug: string;
-    };
-    document: {
-      title: string;
-    };
-    pageAttributes: {
-      alt: string;
-      author: string;
-      category: string;
-      image: string;
-      tags: string;
-      description: string;
-      slug: string;
-      subtitle: string;
-    };
-  };
-}
-
 export const BlogsList: React.FC = (): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
     query BlogsList {
@@ -123,20 +75,33 @@ export const BlogsList: React.FC = (): JSX.Element => {
       <PageArticle>
         <BlogMainDiv>
           {(postsToShow as INodes[]).map(
-            (post): JSX.Element => (
-              <BlogCard
-                alt={post.node.pageAttributes.alt}
-                author={post.node.pageAttributes.author}
-                blogLink={post.node.pageAttributes.slug}
-                category={post.node.pageAttributes.category}
-                description={post.node.pageAttributes.description}
-                image={post.node.pageAttributes.image}
-                key={post.node.document.title}
-                subtitle={post.node.pageAttributes.subtitle}
-                tags={post.node.pageAttributes.tags}
-                title={post.node.document.title}
-              />
-            )
+            (post): JSX.Element => {
+              const {
+                alt,
+                author,
+                category,
+                description,
+                image,
+                slug,
+                subtitle,
+                tags,
+              } = post.node.pageAttributes;
+
+              return (
+                <BlogCard
+                  alt={alt}
+                  author={author}
+                  blogLink={slug}
+                  category={category}
+                  description={description}
+                  image={image}
+                  key={post.node.document.title}
+                  subtitle={subtitle}
+                  tags={tags}
+                  title={post.node.document.title}
+                />
+              );
+            }
           )}
         </BlogMainDiv>
         {/* eslint-disable-next-line react/jsx-no-bind */}

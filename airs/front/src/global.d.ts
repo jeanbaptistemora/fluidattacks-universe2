@@ -70,21 +70,28 @@ interface IData {
           };
           html: string;
           pageAttributes: {
+            advise: string;
             alt: string;
             author: string;
+            authors: string;
             category: string;
             certification: string;
             certificationlogo: string;
             client: string;
             clientlogo: string;
+            codename: string;
+            cveid: string;
+            date: string;
             filter: string;
             image: string;
             tags: string;
             description: string;
             partner: string;
             partnerlogo: string;
+            product: string;
             slug: string;
             subtitle: string;
+            writer: string;
           };
         };
       }
@@ -104,6 +111,7 @@ interface INodes {
       alt: string;
       author: string;
       category: string;
+      certification: string;
       image: string;
       tags: string;
       description: string;

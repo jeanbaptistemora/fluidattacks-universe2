@@ -11,23 +11,6 @@ import {
   BlogItemTitle,
 } from "../../styles/styledComponents";
 
-interface IData {
-  allAsciidoc: {
-    edges: [
-      {
-        node: {
-          fields: {
-            slug: string;
-          };
-          pageAttributes: {
-            category: string;
-          };
-        };
-      }
-    ];
-  };
-}
-
 const CategoriesList: React.FC = (): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
     query CategoriesList {

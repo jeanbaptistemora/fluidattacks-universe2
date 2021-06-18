@@ -81,19 +81,23 @@ const ClientsPage: React.FC = (): JSX.Element => {
       </div>
       <CardsContainer>
         {partnerInfo.map(
-          ({ node }): JSX.Element => (
-            <DropDownCard
-              alt={node.pageAttributes.alt}
-              cardType={`all-clients-cards ${node.pageAttributes.filter}-cards`}
-              haveTitle={true}
-              htmlData={node.html}
-              key={node.pageAttributes.slug}
-              logo={node.pageAttributes.clientlogo}
-              logoPaths={"/airs/about-us/clients"}
-              slug={node.pageAttributes.slug}
-              title={node.document.title}
-            />
-          )
+          ({ node }): JSX.Element => {
+            const { alt, clientlogo, filter, slug } = node.pageAttributes;
+
+            return (
+              <DropDownCard
+                alt={alt}
+                cardType={`all-clients-cards ${filter}-cards`}
+                haveTitle={true}
+                htmlData={node.html}
+                key={slug}
+                logo={clientlogo}
+                logoPaths={"/airs/about-us/clients"}
+                slug={slug}
+                title={node.document.title}
+              />
+            );
+          }
         )}
       </CardsContainer>
     </React.Fragment>

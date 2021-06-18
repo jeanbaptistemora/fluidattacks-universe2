@@ -24,28 +24,38 @@ interface IQueryData {
   };
 }
 
-const Index: React.FC<IQueryData> = ({ data }: IQueryData): JSX.Element => (
-  <React.Fragment>
-    <Seo
-      author={data.site.siteMetadata.author}
-      description={data.site.siteMetadata.description}
-      image={
-        "https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_1200/v1622583388/airs/logo_fluid_attacks_2021_eqop3k.png"
-      }
-      keywords={data.site.siteMetadata.keywords}
-      title={data.site.siteMetadata.title}
-      url={data.site.siteMetadata.siteUrl}
-    />
+const Index: React.FC<IQueryData> = ({ data }: IQueryData): JSX.Element => {
+  const {
+    author,
+    description,
+    keywords,
+    siteUrl,
+    title,
+  } = data.site.siteMetadata;
 
-    <Layout>
-      <div>
-        <NavbarComponent />
+  return (
+    <React.Fragment>
+      <Seo
+        author={author}
+        description={description}
+        image={
+          "https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_1200/v1622583388/airs/logo_fluid_attacks_2021_eqop3k.png"
+        }
+        keywords={keywords}
+        title={title}
+        url={siteUrl}
+      />
 
-        <Home />
-      </div>
-    </Layout>
-  </React.Fragment>
-);
+      <Layout>
+        <div>
+          <NavbarComponent />
+
+          <Home />
+        </div>
+      </Layout>
+    </React.Fragment>
+  );
+};
 
 // eslint-disable-next-line import/no-default-export
 export default Index;

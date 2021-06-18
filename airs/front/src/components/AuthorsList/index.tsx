@@ -12,23 +12,6 @@ import {
   BlogItemTitle,
 } from "../../styles/styledComponents";
 
-interface IData {
-  allAsciidoc: {
-    edges: [
-      {
-        node: {
-          fields: {
-            slug: string;
-          };
-          pageAttributes: {
-            author: string;
-          };
-        };
-      }
-    ];
-  };
-}
-
 const AuthorsList: React.FC = (): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
     query AuthorsList {
