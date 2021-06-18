@@ -21,10 +21,10 @@ F058_APK.impact:
     o sensible.
 F058_APK.recommendation:
   en: >
-    Configure the attribute: application.debuggable to "false"
+    Configure the attribute: application.android:debuggable to "false"
     in the file: AndroidManifest.xml.
   es: >
-    Configurar el atributo: application.debuggable a "falso"
+    Configurar el atributo: application.android:debuggable a "false"
     en el archivo: AndroidManifest.xml.
 F058_APK.threat:
   en: >
