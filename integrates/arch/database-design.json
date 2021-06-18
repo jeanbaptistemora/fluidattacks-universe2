@@ -2204,6 +2204,96 @@
             "modified_date",
             "modified_by"
           ]
+        },
+        {
+          "FacetName": "vulnerabilitiy_zero_risk",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "VULN#vuln_uuid#ZERO",
+            "SortKeyAlias": "FIN#finding_id"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#ZERO"
+              },
+              "sk": {
+                "S": "FIN#475041513"
+              },
+              "status": {
+                "S": "REJECTED"
+              },
+              "modified_date": {
+                "S": "2021-04-01T11:30:00Z"
+              },
+              "modified_by": {
+                "S": "test@fluidattacks.com"
+              },
+              "comment_id": {
+                "N": "1558048728000"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "comment_id",
+            "modified_date",
+            "modified_by",
+            "status"
+          ]
+        },
+        {
+          "FacetName": "vulnerability_historic_zero_risk",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "VULN#vuln_uuid",
+            "SortKeyAlias": "ZERO#iso8601utc"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
+              },
+              "sk": {
+                "S": "ZERO#2021-03-30T15:30:00Z"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2021-03-30T15:30:00Z"
+              },
+              "modified_by": {
+                "S": "test@fluidattacks.com"
+              },
+              "comment_id": {
+                "N": "1558048727999"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
+              },
+              "sk": {
+                "S": "ZERO#2021-04-01T11:30:00Z"
+              },
+              "status": {
+                "S": "REJECTED"
+              },
+              "modified_date": {
+                "S": "2021-04-01T11:30:00Z"
+              },
+              "modified_by": {
+                "S": "test@fluidattacks.com"
+              },
+              "comment_id": {
+                "N": "1558048728000"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "comment_id",
+            "modified_date",
+            "modified_by",
+            "status"
+          ]
         }
       ],
       "GlobalSecondaryIndexes": [
