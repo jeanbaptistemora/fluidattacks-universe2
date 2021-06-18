@@ -8,7 +8,9 @@ from sast_transformations import (
     ALWAYS,
 )
 from sast_transformations.control_flow.common import (
+    if_statement,
     link_to_last_node,
+    loop_statement,
     step_by_step,
 )
 from sast_transformations.control_flow.types import (
@@ -41,6 +43,14 @@ def _generic(
         (
             {"function_declaration", "method_declaration"},
             partial(link_to_last_node, _generic=_generic),
+        ),
+        (
+            {"if_statement"},
+            partial(if_statement, _generic=_generic),
+        ),
+        (
+            {"for_statement"},
+            partial(loop_statement, _generic=_generic),
         ),
     )
     for types, walker in walkers:
