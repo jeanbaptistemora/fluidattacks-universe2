@@ -210,7 +210,12 @@ def _debugging_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     application: bs4.Tag
     for application in ctx.apk_ctx.apk_manifest.find_all("application"):
 
-        is_debuggable: str = application.get("android:debuggable", "false")
+        is_debuggable: str = _get_caseless_attr(
+            application,
+            key="android:debuggable",
+            default="false",
+        )
+
         if is_debuggable.lower() == "true":
             _add_android_manifest_location(
                 apk_manifest=ctx.apk_ctx.apk_manifest,
