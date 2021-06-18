@@ -3,15 +3,23 @@ from bugsnag.handlers import (
     BugsnagHandler,
 )
 import logging
+from os import (
+    environ,
+)
 import sys
 from typing import (
     Any,
     IO,
 )
 
+ENV = environ.get("OBSERVES_ENV", "production")
+DEBUG = environ.get("OBSERVES_DEBUG", "false").lower() == "true"
+
 
 def configure(**kargs: Any) -> None:
-    bugsnag.configure(api_key="13748c4b5f6807a89f327c0f54fe6c7a", **kargs)
+    bugsnag.configure(
+        api_key="13748c4b5f6807a89f327c0f54fe6c7a", release_stage=ENV, **kargs
+    )
 
 
 def main_log(
@@ -19,7 +27,7 @@ def main_log(
     min_lvl: int = logging.INFO,
     min_bug_lvl: int = logging.ERROR,
     target_file: IO[str] = sys.stderr,
-    debug: bool = False,
+    debug: bool = DEBUG,
 ) -> logging.Logger:
     if debug and min_lvl > logging.DEBUG:
         min_lvl = logging.DEBUG
