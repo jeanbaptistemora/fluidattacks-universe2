@@ -2,6 +2,7 @@
 type ForcesExecutions {
   executions: [ForcesExecution]
   fromDate: String
-  projectName: String!
+  groupName: String
+  projectName: String
   toDate: String
 }

@@ -19,6 +19,9 @@ from functools import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
 )
@@ -37,7 +40,7 @@ async def resolve(
         partial(resolve_no_cache, _parent, _info, **kwargs),
         entity="forces_execution",
         attr="forces_execution",
-        group=kwargs["project_name"],
+        group=resolve_kwargs(kwargs),
         id=kwargs["execution_id"],
     )
     return response
@@ -47,7 +50,7 @@ async def resolve_no_cache(
     _parent: None, _info: GraphQLResolveInfo, **kwargs: str
 ) -> ForcesExecution:
     execution_id: str = kwargs["execution_id"]
-    project_name: str = kwargs["project_name"]
+    group_name: str = resolve_kwargs(kwargs)
     return await forces_domain.get_execution(
-        execution_id=execution_id, group_name=project_name.lower()
+        execution_id=execution_id, group_name=group_name.lower()
     )

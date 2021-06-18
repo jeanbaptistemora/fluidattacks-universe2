@@ -149,12 +149,13 @@ async def update_secret_token(project_name: str, secret: str) -> bool:
 
 
 async def yield_executions(
-    project_name: str,
+    group_name: str,
+    group_name_key: str,
     from_date: datetime,
     to_date: datetime,
 ) -> AsyncIterator[Any]:
     """Lazy iterator over the executions of a project"""
-    key_condition_expresion = Key("subscription").eq(project_name)
+    key_condition_expresion = Key("subscription").eq(group_name)
     filter_expression = Attr("date").gte(from_date.isoformat()) & Attr(
         "date"
     ).lte(to_date.isoformat())
@@ -175,7 +176,7 @@ async def yield_executions(
                     result["vulnerabilities"]["open"] = []
                 if "closed" not in result["vulnerabilities"]:
                     result["vulnerabilities"]["closed"] = []
-                result["project_name"] = result.get("subscription")
+                result[f"{group_name_key}"] = result.get("subscription")
                 yield result
             if results.get("LastEvaluatedKey", None):
                 query_params["ExclusiveStartKey"] = results.get(

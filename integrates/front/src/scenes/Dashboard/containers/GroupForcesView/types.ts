@@ -31,7 +31,7 @@ interface IExecution {
   gitRepo: string;
   kind: string;
   log?: string;
-  projectName?: string;
+  groupName?: string;
   status: string;
   strictness: string;
   vulnerabilities: IVulnerabilities;

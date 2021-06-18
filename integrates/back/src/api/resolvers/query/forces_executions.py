@@ -23,6 +23,10 @@ from graphql.type.definition import (
 from newutils import (
     datetime as datetime_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+    resolve_kwargs_key,
+)
 from typing import (
     Any,
     List,
@@ -38,7 +42,9 @@ from typing import (
 async def resolve(
     _parent: None, _info: GraphQLResolveInfo, **kwargs: Any
 ) -> ForcesExecutions:
-    group_name: str = kwargs["project_name"].lower()
+    # Compatibility with old API
+    group_name: str = resolve_kwargs(kwargs).lower()
+    group_name_key: str = resolve_kwargs_key(kwargs)
     from_date: datetime = kwargs.get(
         "from_date",
         datetime_utils.get_now_minus_delta(weeks=1, zone="UTC"),
@@ -49,11 +55,14 @@ async def resolve(
     )
 
     executions: List[ForcesExecution] = await forces_domain.get_executions(
-        from_date=from_date, group_name=group_name, to_date=to_date
+        from_date=from_date,
+        group_name=group_name,
+        to_date=to_date,
+        group_name_key=group_name_key,
     )
     return {
         "executions": executions,
         "from_date": from_date,
-        "project_name": group_name,
+        f"{group_name_key}": group_name,
         "to_date": to_date,
     }

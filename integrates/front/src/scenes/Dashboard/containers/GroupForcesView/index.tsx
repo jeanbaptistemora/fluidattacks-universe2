@@ -288,16 +288,15 @@ const GroupForcesView: React.FC = (): JSX.Element => {
         open={isExecutionDetailsModalOpen}
         size={"largeModal"}
       >
-        {/* eslint-disable-next-line react/jsx-props-no-spreading -- Preferred for readability */}
         <Execution
           date={currentRow.date}
           execution_id={currentRow.execution_id}
           exitCode={currentRow.exitCode}
           foundVulnerabilities={currentRow.foundVulnerabilities}
           gitRepo={currentRow.gitRepo}
+          groupName={currentRow.groupName}
           kind={currentRow.kind}
           log={currentRow.log}
-          projectName={currentRow.projectName}
           status={currentRow.status}
           strictness={currentRow.strictness}
           vulnerabilities={currentRow.vulnerabilities}

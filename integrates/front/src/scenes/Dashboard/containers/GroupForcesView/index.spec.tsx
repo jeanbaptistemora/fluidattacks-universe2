@@ -33,9 +33,9 @@ describe("ForcesView", (): void => {
                 execution_id: "33e5d863252940edbfb144ede56d56cf",
                 exitCode: "1",
                 gitRepo: "Repository",
+                groupName: "unittesting",
                 kind: "dynamic",
                 log: "...",
-                projectName: "unittesting",
                 strictness: "strict",
                 vulnerabilities: {
                   accepted: [

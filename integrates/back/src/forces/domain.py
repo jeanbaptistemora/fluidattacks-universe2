@@ -146,10 +146,12 @@ async def get_executions(
     from_date: datetime,
     group_name: str,
     to_date: datetime,
+    group_name_key: str,
 ) -> List[ForcesExecutionType]:
     result = []
     async for execution in forces_dal.yield_executions(
-        project_name=group_name,
+        group_name=group_name,
+        group_name_key=group_name_key,
         from_date=from_date,
         to_date=to_date,
     ):

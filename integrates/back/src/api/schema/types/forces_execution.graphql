@@ -6,6 +6,7 @@ type ForcesExecution {
   gitCommit: String
   gitOrigin: String
   gitRepo: String
+  groupName: String
   kind: String
   log: String
   projectName: String

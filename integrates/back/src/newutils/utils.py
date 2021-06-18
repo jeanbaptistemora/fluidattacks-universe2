@@ -91,18 +91,7 @@ def replace_all(text: str, dic: Dict[str, str]) -> str:
     return text
 
 
-def resolve_kwargs(
-    kwargs: Dict, opt1: str = "group_name", opt2: str = "project_name"
-) -> str:
-    """Tries to get opt1 from kwargs, with opt2 as a fallback and raises an
-    exception if none can be found"""
-    try:
-        return kwargs.get(opt1, kwargs.get(opt2))
-    except KeyError:
-        raise KeyError(
-            f"Either {opt1} or {opt2} must be included, check "
-            + "your query/mutation args!"
-        )
+# Standardization helper utils
 
 
 def clean_up_kwargs(
@@ -113,3 +102,35 @@ def clean_up_kwargs(
     for key in keys_to_remove:
         kwargs.pop(key, None)
     return kwargs
+
+
+def resolve_kwargs(
+    kwargs: Dict,
+    current_key: str = "group_name",
+    old_key: str = "project_name",
+) -> str:
+    """Tries to get current_key from kwargs, with old_key as a fallback and
+    raises an exception if none can be found"""
+    try:
+        return kwargs.get(current_key, kwargs.get(old_key))
+    except KeyError:
+        raise KeyError(
+            f"Either {current_key} or {old_key} must be included, check "
+            + "your query/mutation args!"
+        )
+
+
+def resolve_kwargs_key(
+    kwargs: Dict,
+    current_key: str = "group_name",
+    old_key: str = "project_name",
+) -> str:
+    """Checks if either current_key or old_key exist in kwargs and returns the
+    first of these keys, raises a KeyError otherwise"""
+    if current_key in kwargs.keys():
+        return current_key
+    if old_key in kwargs.keys():
+        return old_key
+    raise KeyError(
+        f"Couldn't find either {current_key} or {old_key} keys in the dict"
+    )

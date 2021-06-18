@@ -3,9 +3,9 @@ import type { DocumentNode } from "graphql";
 
 const GET_FORCES_EXECUTIONS: DocumentNode = gql`
   query GetForcesExecutions($groupName: String!) {
-    forcesExecutions(projectName: $groupName) {
+    forcesExecutions(groupName: $groupName) {
       executions {
-        projectName
+        groupName
         date
         exitCode
         gitRepo
@@ -23,8 +23,8 @@ const GET_FORCES_EXECUTIONS: DocumentNode = gql`
 `;
 const GET_FORCES_EXECUTION: DocumentNode = gql`
   query GetForcesExecution($groupName: String!, $executionId: String!) {
-    forcesExecution(projectName: $groupName, executionId: $executionId) {
-      projectName
+    forcesExecution(groupName: $groupName, executionId: $executionId) {
+      groupName
       log
       vulnerabilities {
         open {

@@ -8,6 +8,9 @@ from forces import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from typing import (
     cast,
 )
@@ -16,7 +19,7 @@ from typing import (
 async def resolve(
     parent: ForcesExecution, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> ExecutionVulnerabilities:
-    group_name: str = cast(str, parent["project_name"])
+    group_name: str = cast(str, resolve_kwargs(parent))
     execution_id: str = cast(str, parent["execution_id"])
     vulnerabilities: ExecutionVulnerabilities = cast(
         ExecutionVulnerabilities, parent.get("vulnerabilities", {})

@@ -27,7 +27,7 @@ const Execution: React.FC<IExecution> = (
   props: Readonly<IExecution>
 ): JSX.Element => {
   // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
-  const { log, execution_id, projectName } = props;
+  const { log, execution_id, groupName } = props;
   const isOld: boolean = log !== undefined;
 
   const [isFilterEnabled, setFilterEnabled] = useStoredState<boolean>(
@@ -40,7 +40,7 @@ const Execution: React.FC<IExecution> = (
     variables: {
       // eslint-disable-next-line camelcase -- API related
       executionId: execution_id,
-      groupName: projectName,
+      groupName,
     },
   });
 

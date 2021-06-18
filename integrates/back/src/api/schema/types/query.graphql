@@ -10,11 +10,16 @@ type Query {
   finding(identifier: String!, groupName: String): Finding
 
   "Get Forces execution"
-  forcesExecution(projectName: String!, executionId: String!): ForcesExecution
+  forcesExecution(
+    groupName: String
+    projectName: String
+    executionId: String!
+  ): ForcesExecution
 
   "Get Forces executions"
   forcesExecutions(
-    projectName: String!
+    groupName: String
+    projectName: String
     fromDate: DateTime
     toDate: DateTime
   ): ForcesExecutions
