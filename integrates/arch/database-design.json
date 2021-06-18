@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jun 16, 2021, 12:35 PM",
+    "DateLastModified": "Jun 18, 2021, 10:35 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -441,6 +441,10 @@
         {
           "AttributeName": "agent_token",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "stream",
+          "AttributeType": "L"
         }
       ],
       "TableFacets": [
@@ -850,69 +854,10 @@
           }
         },
         {
-          "FacetName": "vulnerability_comment",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "CMNT#comment_uuid",
-            "SortKeyAlias": "VULN#vuln_uuid"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "CMNT#8707b47e-6fe7-4099-b3cf-961508bb4c41"
-              },
-              "sk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
-              },
-              "type": {
-                "S": "CONSULT"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
-              },
-              "content": {
-                "S": "comment"
-              }
-            },
-            {
-              "pk": {
-                "S": "CMNT#729ec222-23ff-4918-b2f5-b30fc9cd98f7"
-              },
-              "sk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
-              },
-              "type": {
-                "S": "OBSERVATION"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
-              },
-              "content": {
-                "S": "comment"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "type",
-            "modified_date",
-            "modified_by",
-            "parent_id",
-            "content"
-          ],
-          "DataAccess": {
-            "MySql": {}
-          }
-        },
-        {
           "FacetName": "vulnerability_metadata",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "VULN#vuln_uuid",
-            "SortKeyAlias": "ROOT#root_uuid"
+            "SortKeyAlias": "FIN#finding_id"
           },
           "TableData": [
             {
@@ -920,40 +865,7 @@
                 "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
               },
               "sk": {
-                "S": "ROOT#73f2b757-5a61-4027-b00d-c6227f2163cf"
-              },
-              "name": {
-                "S": "F035. Weak credential policy"
-              },
-              "description": {
-                "S": "Passwords set as date-user could be easily guessed"
-              },
-              "evidences": {
-                "M": {}
-              },
-              "affected_components": {
-                "S": "web app"
-              },
-              "cvss": {
-                "M": {}
-              },
-              "recommendation": {
-                "S": "Consider changing the date-user standard."
-              },
-              "requirements": {
-                "S": "REQ.0132. The system must require passphrases to be at least 4 words long and allow them to have 64 characters or more."
-              },
-              "threat": {
-                "S": "External attacker with access"
-              },
-              "using_sorts": {
-                "BOOL": false
-              },
-              "cwe": {
-                "S": "521"
-              },
-              "attack_vector": {
-                "S": "Guess passwords"
+                "S": "FIN#475041513"
               },
               "type": {
                 "S": "lines"
@@ -970,21 +882,14 @@
             }
           ],
           "NonKeyAttributes": [
-            "name",
-            "description",
             "type",
-            "evidences",
-            "affected_components",
-            "cvss",
-            "recommendation",
-            "requirements",
-            "threat",
+            "tags",
+            "commit",
+            "repo",
             "source",
-            "using_sorts",
-            "cwe",
-            "attack_vector",
             "where",
-            "specific"
+            "specific",
+            "stream"
           ],
           "DataAccess": {
             "MySql": {}
@@ -994,7 +899,7 @@
           "FacetName": "vulnerability_state",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "VULN#vuln_uuid#STATE",
-            "SortKeyAlias": "ROOT#root_uuid"
+            "SortKeyAlias": "FIN#finding_id"
           },
           "TableData": [
             {
@@ -1002,17 +907,10 @@
                 "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#STATE"
               },
               "sk": {
-                "S": "ROOT#73f2b757-5a61-4027-b00d-c6227f2163cf"
+                "S": "FIN#475041513"
               },
               "status": {
                 "S": "OPEN"
-              },
-              "tags": {
-                "L": [
-                  {
-                    "S": "test"
-                  }
-                ]
               },
               "modified_date": {
                 "S": "2021-02-15T14:01:16Z"
@@ -1027,8 +925,6 @@
           ],
           "NonKeyAttributes": [
             "status",
-            "tags",
-            "reason",
             "modified_date",
             "modified_by",
             "source"
@@ -1054,13 +950,6 @@
               "status": {
                 "S": "OPEN"
               },
-              "tags": {
-                "L": [
-                  {
-                    "S": "test"
-                  }
-                ]
-              },
               "modified_date": {
                 "S": "2021-02-15T14:01:16Z"
               },
@@ -1074,8 +963,6 @@
           ],
           "NonKeyAttributes": [
             "status",
-            "tags",
-            "reason",
             "modified_date",
             "modified_by",
             "source"
@@ -1087,16 +974,16 @@
         {
           "FacetName": "vulnerability_historic_treatment",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid#TREAT#iso8601utc",
-            "SortKeyAlias": "FIN#uuid"
+            "PartitionKeyAlias": "VULN#uuid",
+            "SortKeyAlias": "TREAT#iso8601utc"
           },
           "TableData": [
             {
               "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#TREAT#2021-02-15T14:01:16Z"
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
               },
               "sk": {
-                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
+                "S": "TREAT#2021-02-15T14:01:16Z"
               },
               "status": {
                 "S": "NEW"
@@ -1111,29 +998,29 @@
           ],
           "NonKeyAttributes": [
             "status",
-            "reason",
             "modified_date",
             "modified_by",
             "accepted_until",
-            "manager"
+            "manager",
+            "justification"
           ],
           "DataAccess": {
             "MySql": {}
           }
         },
         {
-          "FacetName": "vulnerability_historic_reattack",
+          "FacetName": "vulnerability_historic_verification",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid#REATT#iso8601utc",
-            "SortKeyAlias": "FIN#uuid"
+            "PartitionKeyAlias": "VULN#uuid",
+            "SortKeyAlias": "VERIF#iso8601utc"
           },
           "TableData": [
             {
               "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#REATT#2021-02-15T14:01:16Z"
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
               },
               "sk": {
-                "S": "FIN#a0fddb36-ac0d-4a58-969f-b13194af61c2"
+                "S": "VERIF#2021-02-15T14:01:16Z"
               },
               "status": {
                 "S": "REQUESTED"
@@ -1143,17 +1030,13 @@
               },
               "modified_by": {
                 "S": "test@fluidattacks.com"
-              },
-              "consult_id": {
-                "S": "CMNT#8207c89a-27e2-4abe-9367-3ffea7856a4d"
               }
             }
           ],
           "NonKeyAttributes": [
             "status",
             "modified_date",
-            "modified_by",
-            "consult_id"
+            "modified_by"
           ],
           "DataAccess": {
             "MySql": {}
@@ -2404,6 +2287,77 @@
             "unreliable_open_vulnerabilities",
             "unreliable_status",
             "unreliable_report_date"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "vulnerability_treatment",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "VULN#vuln_uuid#TREAT",
+            "SortKeyAlias": "FIN#finding_id"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#TREAT"
+              },
+              "sk": {
+                "S": "FIN#475041513"
+              },
+              "status": {
+                "S": "NEW"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "test@fluidattacks.com"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "status",
+            "modified_date",
+            "modified_by",
+            "accepted_until",
+            "manager",
+            "justification"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "vulnerability_verification",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "VULN#vuln_uuid#VERIF",
+            "SortKeyAlias": "FIN#finding_id"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#VERIF"
+              },
+              "sk": {
+                "S": "FIN#475041513"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "test@fluidattacks.com"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "status",
+            "modified_date",
+            "modified_by"
           ],
           "DataAccess": {
             "MySql": {}
