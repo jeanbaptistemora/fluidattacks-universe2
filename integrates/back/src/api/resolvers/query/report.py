@@ -20,6 +20,9 @@ from graphql.type.definition import (
 from newutils import (
     token as token_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from typing import (
     Dict,
 )
@@ -53,7 +56,7 @@ async def resolve(
 ) -> Report:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
-    group_name: str = kwargs["project_name"]
+    group_name: str = resolve_kwargs(kwargs)
     report_type: str = kwargs["report_type"]
     return {
         "url": await _get_url_group_report(

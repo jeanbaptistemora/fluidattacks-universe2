@@ -40,7 +40,12 @@ type Query {
   project(projectName: String!): Group
 
   "Report entity"
-  report(reportType: ReportType!, projectName: String!, lang: ReportLang): Report
+  report(
+    groupName: String,
+    reportType: ReportType!,
+    projectName: String,
+    lang: ReportLang
+  ): Report
 
   "Get resources from project"
   resources(projectName: String!): Resource

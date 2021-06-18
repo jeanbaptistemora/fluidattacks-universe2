@@ -142,8 +142,9 @@ type Mutation {
     eventDate: DateTime!
     eventType: EventType!
     file: Upload
+    groupName: String
     image: Upload
-    projectName: String!
+    projectName: String
   ): SimplePayload!
 
   createGroup(

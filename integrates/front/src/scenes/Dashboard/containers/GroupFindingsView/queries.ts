@@ -39,7 +39,7 @@ const REQUEST_GROUP_REPORT: DocumentNode = gql`
     $groupName: String!
     $lang: ReportLang
   ) {
-    report(reportType: $reportType, projectName: $groupName, lang: $lang) {
+    report(reportType: $reportType, groupName: $groupName, lang: $lang) {
       url
     }
   }

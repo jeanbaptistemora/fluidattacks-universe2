@@ -45,7 +45,7 @@ const CREATE_EVENT_MUTATION: DocumentNode = gql`
       eventType: $eventType
       file: $file
       image: $image
-      projectName: $groupName
+      groupName: $groupName
     ) {
       success
     }
