@@ -32,6 +32,7 @@ import {
   filterCurrentStatus,
   filterText,
   filterTreatment,
+  filterTreatmentCurrentStatus,
   filterVerification,
   filterZeroRisk,
 } from "scenes/Dashboard/components/Vulnerabilities/utils";
@@ -60,6 +61,8 @@ export const VulnsView: React.FC = (): JSX.Element => {
 
   const [treatmentFilter, setTreatmentFilter] = useState("");
   const [currentStatusFilter, setCurrentStatusFilter] = useState("");
+  const [treatmentCurrentStatusFilter, setTreatmentCurrentStatusFilter] =
+    useState("");
   const [verificationFilter, setVerificationFilter] = useState("");
   const [textFilter, setTextFilter] = useState("");
   const [isOpen, setOpen] = useState(false);
@@ -143,6 +146,11 @@ export const VulnsView: React.FC = (): JSX.Element => {
   function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
     setCurrentStatusFilter(event.target.value);
   }
+  function onTreatmentStatusChange(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void {
+    setTreatmentCurrentStatusFilter(event.target.value);
+  }
   function onVerificationChange(
     event: React.ChangeEvent<HTMLSelectElement>
   ): void {
@@ -157,6 +165,8 @@ export const VulnsView: React.FC = (): JSX.Element => {
   );
   const filterCurrentStatusVulnerabilities: IVulnRowAttr[] =
     filterCurrentStatus(vulns, currentStatusFilter);
+  const filterTreatmentCurrentStatusVulnerabilities: IVulnRowAttr[] =
+    filterTreatmentCurrentStatus(vulns, treatmentCurrentStatusFilter);
   const filterVerificationVulnerabilities: IVulnRowAttr[] = filterVerification(
     vulns,
     verificationFilter
@@ -167,6 +177,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
   );
 
   const vulnerabilities: IVulnRowAttr[] = _.intersection(
+    filterTreatmentCurrentStatusVulnerabilities,
     filterTreatmentVulnerabilities,
     filterCurrentStatusVulnerabilities,
     filterVerificationVulnerabilities,
@@ -262,6 +273,21 @@ export const VulnsView: React.FC = (): JSX.Element => {
                       <option value={"closed"}>
                         {t("searchFindings.tabVuln.closed")}
                       </option>
+                    </Select>
+                  </TooltipWrapper>
+                </SelectContainer>
+                <SelectContainer>
+                  <TooltipWrapper
+                    id={"searchFindings.tabVuln.treatmentStatus.id"}
+                    message={"searchFindings.tabVuln.treatmentStatus"}
+                  >
+                    <Select
+                      defaultValue={treatmentCurrentStatusFilter}
+                      onChange={onTreatmentStatusChange}
+                    >
+                      <option value={""}>{"Treatment Acceptation"}</option>
+                      <option value={"true"}>{"Pending"}</option>
+                      <option value={"false"}>{"Accepted"}</option>
                     </Select>
                   </TooltipWrapper>
                 </SelectContainer>

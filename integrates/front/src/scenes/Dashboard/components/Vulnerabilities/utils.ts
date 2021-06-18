@@ -176,6 +176,24 @@ function filterCurrentStatus(
     _.isEmpty(currentState) ? true : vuln.currentState === currentState
   );
 }
+function filterTreatmentCurrentStatus(
+  vulnerabilities: IVulnRowAttr[],
+  currentState: string
+): IVulnRowAttr[] {
+  return vulnerabilities.filter((vuln: IVulnRowAttr): boolean => {
+    const lastTreatment: IHistoricTreatment = getLastTreatment(
+      vuln.historicTreatment
+    );
+    const isPendingToApproval: string = (
+      lastTreatment.treatment === "ACCEPTED_UNDEFINED" &&
+      lastTreatment.acceptanceStatus !== "APPROVED"
+    ).toString();
+
+    return _.isEmpty(currentState)
+      ? true
+      : isPendingToApproval === currentState;
+  });
+}
 function filterText(
   vulnerabilities: IVulnRowAttr[],
   searchText: string
@@ -196,6 +214,7 @@ export {
   filterText,
   filterTreatment,
   filterCurrentStatus,
+  filterTreatmentCurrentStatus,
   filterZeroRisk,
   formatVulnerabilities,
   getNonSelectableVulnerabilitiesOnEdit,
