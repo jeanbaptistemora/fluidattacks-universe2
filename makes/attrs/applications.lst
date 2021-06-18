@@ -150,6 +150,7 @@ observes.bin.tap-checkly
 observes.bin.tap-csv
 observes.bin.tap-delighted
 observes.bin.tap-formstack
+observes.bin.tap-gitlab
 observes.bin.tap-mailchimp
 observes.bin.tap-mixpanel
 observes.bin.tap-timedoctor

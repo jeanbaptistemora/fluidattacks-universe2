@@ -33,7 +33,8 @@ def stream(
     if _target_stream == SupportedStreams.MERGE_REQUESTS:
         LOG.info("Executing stream: %s", _target_stream)
         streams.all_mrs(client, project, max_pages)
-    raise NotImplementedError(f"for {_target_stream}")
+    else:
+        raise NotImplementedError(f"for {_target_stream}")
 
 
 def stream_all(creds: Credentials, project: str, max_pages: int) -> None:
