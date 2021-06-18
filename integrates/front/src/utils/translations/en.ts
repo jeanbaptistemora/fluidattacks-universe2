@@ -800,8 +800,6 @@ export const enTranslations: ResourceKey = {
     title: "Legal notice",
   },
   login: {
-    "2fa":
-      "We strongly recommend you to use 2-Step verification. For more information please visit:",
     auth: "Welcome back, please authenticate to proceed.",
     bitbucket: "Sign in with Bitbucket",
     google: "Sign in with Google",
