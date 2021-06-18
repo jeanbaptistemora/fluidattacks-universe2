@@ -1,8 +1,8 @@
 # pylint: disable=invalid-name
 # create all groups metadata if the group is active
 #
-# Execution time:
-# Finalization time:
+# Execution time: Fri Jun 18 12:15:07 -05 2021
+# Finalization time: Fri Jun 18 12:17:45 -05 2021
 
 import aioextensions
 from boto3.dynamodb.conditions import (
