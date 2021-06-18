@@ -9,6 +9,7 @@ buildPythonRequirements {
       "aioextensions==20.8.2087641"
       "aiohttp==3.6.2"
       "asgiref==3.2.10"
+      "click==8.0.1"
       "python-dateutil==2.8.1"
       "pytz==2021.1"
       "requests==2.25.1"

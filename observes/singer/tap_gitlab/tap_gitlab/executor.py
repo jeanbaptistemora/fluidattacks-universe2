@@ -12,19 +12,30 @@ from tap_gitlab.streams import (
     SupportedStreams,
 )
 from typing import (
-    List,
+    Union,
 )
 
 LOG = logging.getLogger(__name__)
 
 
 def stream(
-    creds: Credentials, stream_name: str, projects: List[str], max_pages: int
+    creds: Credentials,
+    target_stream: Union[str, SupportedStreams],
+    project: str,
+    max_pages: int,
 ) -> None:
-    target_stream = SupportedStreams(stream_name)
+    _target_stream = (
+        SupportedStreams(target_stream)
+        if isinstance(target_stream, str)
+        else target_stream
+    )
     client = ApiClient(creds)
-    if target_stream == SupportedStreams.MERGE_REQUESTS:
-        for project in projects:
-            LOG.info("Executing stream: %s at %s", target_stream, project)
-            streams.all_mrs(client, project, max_pages)
-    raise NotImplementedError(f"for {target_stream}")
+    if _target_stream == SupportedStreams.MERGE_REQUESTS:
+        LOG.info("Executing stream: %s", _target_stream)
+        streams.all_mrs(client, project, max_pages)
+    raise NotImplementedError(f"for {_target_stream}")
+
+
+def stream_all(creds: Credentials, project: str, max_pages: int) -> None:
+    for target in SupportedStreams:
+        stream(creds, target, project, max_pages)
