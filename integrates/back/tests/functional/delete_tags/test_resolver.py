@@ -13,7 +13,9 @@ from typing import (
 @pytest.mark.parametrize(
     ["email"],
     [
+        ["analyst@gmail.com"],
         ["customer@gmail.com"],
+        ["customeradmin@gmail.com"],
     ],
 )
 async def test_delete_tags(populate: bool, email: str) -> None:
