@@ -80,11 +80,6 @@ def test_unsafe_http_open():
     assert apk.uses_http_resources(HTTP_OPEN)
 
 
-def test_allowbackup_open():
-    """Test if APK allows ADB backups."""
-    assert apk.allows_backup(SIGNED_APK)
-
-
 def test_exported_open():
     """Test if APK has exported data."""
     assert apk.is_exported(DIVA_APK)
@@ -160,11 +155,6 @@ def test_getinsecure_close():
     assert not apk.socket_uses_getinsecure(SIGNED_APK)
 
 
-def test_allowbackup_close():
-    """Test if APK allows ADB backups."""
-    assert not apk.allows_backup(NOBACKUP)
-
-
 def test_exported_close():
     """Test if APK has exported data."""
     assert not apk.is_exported(SIGNED_APK)
@@ -233,11 +223,6 @@ def test_unsafe_http_unknown():
 def test_getinsecure_unknown():
     """Test if APK uses getInsecure socket factory."""
     assert not apk.socket_uses_getinsecure(NOT_EXISTS_APK)
-
-
-def test_allowbackup_unknown():
-    """Test if APK allows ADB backups."""
-    assert not apk.allows_backup(NOT_EXISTS_APK)
 
 
 def test_exported_unknown():

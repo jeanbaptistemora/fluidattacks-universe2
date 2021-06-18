@@ -407,33 +407,6 @@ def socket_uses_getinsecure(apk_file: str) -> tuple:
     )
 
 
-@api(risk=LOW, kind=SAST)
-@unknown_if(FileNotFoundError, apk.Error, dvm.Error)
-def allows_backup(apk_file: str) -> tuple:
-    """
-    Check if the given APK allows ADB backups.
-
-    :param apk_file: Path to the image to be tested.
-    :returns: - ``OPEN`` if APK have the **allowBackup** attribute not set to
-                false.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    apk_obj = apk.APK(apk_file)
-
-    does_allow_backup: bool = (
-        apk_obj.get_attribute_value("application", "allowBackup") != "false"
-    )
-
-    return _get_result_as_tuple_sast(
-        path=apk_file,
-        msg_open="APK allows ADB backups",
-        msg_closed="APK does not allow ADB backups",
-        open_if=does_allow_backup,
-    )
-
-
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError, apk.Error, dvm.Error)
 def is_exported(apk_file: str) -> tuple:
