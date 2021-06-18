@@ -23,10 +23,10 @@ over other alternatives are:
     integrate with
     [EC2](/development/stack/aws/ec2/) for
     [automatic worker provisioning](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler),
-    [IAM](/development/stack/aws/iam) for
+    [IAM](/development/stack/aws/iam/) for
     [in-cluster authentication and authorization](https://gitlab.com/fluidattacks/product/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/variables.tf#L55),
     [Redis](https://aws.amazon.com/redis/) for
-    [In-VPC](https://aws.amazon.com/vpc/) cache,
+    [In-VPC](/development/stack/aws/vpc/) cache,
     and [Elastic Load Balancing](https://aws.amazon.com/elasticloadbalancing/)
     for serving applications.
 1. As all its infrastructure is
@@ -76,12 +76,12 @@ We use [EKS][EKS] for:
 1. Providing [Networking infrastructure](https://gitlab.com/fluidattacks/product/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/network.tf)
     for our [Kubernetes cluster][KUBERNETES].
 1. [Automatically deploying worker groups](https://gitlab.com/fluidattacks/product/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/cluster.tf#L29).
-1. Connecting to [IAM](/development/stack/aws/iam) for
+1. Connecting to [IAM](/development/stack/aws/iam/) for
     [in-cluster authentication and authorization](https://gitlab.com/fluidattacks/product/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/variables.tf#L55).
 1. Connecting to [EC2](/development/stack/aws/ec2/) for
     [automatic worker provisioning](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler).
 1. Connecting to [Redis](https://aws.amazon.com/redis/) for
-    [In-VPC](https://aws.amazon.com/vpc/) cache.
+    [In-VPC](/development/stack/aws/vpc/) cache.
 
 ## Guidelines
 

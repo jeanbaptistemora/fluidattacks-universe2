@@ -21,7 +21,7 @@ The main reasons why we chose it
 over other alternatives are:
 
 1. It seamlessly integrates with
-    other [AWS](https://aws.amazon.com/)
+    other [AWS](/development/stack/aws/)
     services we use like
     [ECS](https://aws.amazon.com/ecs/),
     [EKS](/development/stack/aws/eks/),
@@ -70,7 +70,7 @@ over other alternatives are:
     instances.
     [Spot Instances][SPOT]
     can can be terminated by
-    [AWS](https://aws.amazon.com/)
+    [AWS](/development/stack/aws/)
     if capacity is no longer available,
     making them a perfect fit
     for interruptible tasks
@@ -88,7 +88,7 @@ over other alternatives are:
     This is especially useful when combined with
     our [Kubernetes Cluster][KUBERNETES]
     running on
-    [EKS](/development/stack/aws/eks//),
+    [EKS](/development/stack/aws/eks/),
     as multiple instances of our
     [ASM](https://fluidattacks.com/categories/asm/)
     can be turned on and off

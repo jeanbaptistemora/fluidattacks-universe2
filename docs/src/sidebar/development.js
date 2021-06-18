@@ -69,6 +69,7 @@ const DEVELOPMENT = [
           'development/stack/aws/iam',
           'development/stack/aws/kms',
           'development/stack/aws/s3',
+          'development/stack/aws/vpc',
         ]
       },
       'development/stack/cloudflare',

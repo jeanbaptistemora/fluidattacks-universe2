@@ -69,6 +69,8 @@ We use the following [AWS][AWS] services:
     [AWS KMS](/development/stack/aws/kms/).
 1. Application cluster:
     [AWS EKS](/development/stack/aws/eks/).
+1. Virtual private cloud:
+    [AWS VPC](/development/stack/aws/vpc/).
 1. Serverless computing:
     [AWS Lambda](https://aws.amazon.com/lambda/).
 1. Elastic Container Service:
@@ -91,8 +93,6 @@ We use the following [AWS][AWS] services:
     [AWS SQS](https://aws.amazon.com/sqs/).
 1. Cost management:
     [AWS Cost Management](https://aws.amazon.com/aws-cost-management/).
-1. Virtual private cloud:
-    [AWS VPC](https://aws.amazon.com/vpc/).
 
 ## Guidelines
 
