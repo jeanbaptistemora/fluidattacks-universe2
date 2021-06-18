@@ -18,6 +18,9 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from typing import (
     cast,
     List,
@@ -34,10 +37,7 @@ async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Resources:
     group_name: str
-    if "group_name" in kwargs:
-        group_name = kwargs["group_name"].lower()
-    else:
-        group_name = kwargs["project_name"].lower()
+    group_name = resolve_kwargs(kwargs).lower()
     group_loader: DataLoader = info.context.loaders.group
     group: Group = await group_loader.load(group_name)
 

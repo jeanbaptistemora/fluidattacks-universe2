@@ -16,6 +16,7 @@ from settings import (
 from typing import (
     cast,
     Set,
+    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -27,11 +28,13 @@ LOGGER = logging.getLogger(__name__)
 async def _get_permissions(
     user_email: str, entity: str, identifier: str, with_cache: bool
 ) -> Set[str]:
+    # Compatibility with old API
+    group_entities: Tuple = ("GROUP", "PROJECT")
     # Exception: WF(Cannot assign to accepted value)
     actions: Set[str] = set()  # NOSONAR
     if entity == "USER":
         actions = await authz.get_user_level_actions(user_email, with_cache)
-    elif entity == "PROJECT" and identifier:
+    elif entity in group_entities and identifier:
         actions = await authz.get_group_level_actions(
             user_email, identifier, with_cache
         )

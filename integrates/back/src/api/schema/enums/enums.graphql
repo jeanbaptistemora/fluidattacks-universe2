@@ -72,8 +72,9 @@ enum EditGroupReason {
 }
 
 enum Entity {
+  GROUP
   ORGANIZATION
-  PROJECT
+  PROJECT @deprecated(reason: "Use `GROUP` instead.")
   USER
 }
 

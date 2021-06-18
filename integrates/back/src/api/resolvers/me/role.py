@@ -10,6 +10,7 @@ from graphql.type.definition import (
 )
 from typing import (
     cast,
+    Tuple,
 )
 
 
@@ -18,10 +19,11 @@ async def resolve(parent: Me, _info: GraphQLResolveInfo, **kwargs: str) -> str:
     entity: str = kwargs["entity"]
     identifier: str = kwargs.get("identifier", "")
     role = ""
+    group_entities: Tuple = ("GROUP", "PROJECT")
 
     if entity == "USER":
         role = await authz.get_user_level_role(user_email)
-    elif entity == "PROJECT" and identifier:
+    elif entity in group_entities and identifier:
         role = await authz.get_group_level_role(user_email, identifier)
     elif entity == "ORGANIZATION" and identifier:
         role = await authz.get_organization_level_role(user_email, identifier)

@@ -69,7 +69,7 @@ const GroupRoute: React.FC<IGroupRoute> = (props: IGroupRoute): JSX.Element => {
       });
     },
     variables: {
-      entity: "PROJECT",
+      entity: "GROUP",
       identifier: groupName.toLowerCase(),
     },
   });
