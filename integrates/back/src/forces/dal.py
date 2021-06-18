@@ -2,8 +2,6 @@
 
 
 import aioboto3
-import aioextensions
-import boto3
 from boto3.dynamodb.conditions import (
     Attr,
     Key,
@@ -13,9 +11,6 @@ from botocore.exceptions import (
 )
 from context import (
     FI_AWS_S3_FORCES_BUCKET,
-    FI_AWS_SECRETSMANAGER_ACCESS_KEY,
-    FI_AWS_SECRETSMANAGER_SECRET_KEY,
-    FI_AWS_SESSION_TOKEN,
 )
 from datetime import (
     datetime,
@@ -24,6 +19,7 @@ from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
 from dynamodb.model import (
+    get_agent_token,
     update_group_agent_token,
 )
 import json
@@ -42,7 +38,6 @@ import tempfile
 from typing import (
     Any,
     AsyncIterator,
-    cast,
     Optional,
 )
 
@@ -107,21 +102,11 @@ async def get_log_execution(project_name: str, execution_id: str) -> str:
 
 
 async def get_secret_token(project_name: str) -> Optional[str]:
-    client = boto3.client(
-        "secretsmanager",
-        aws_access_key_id=FI_AWS_SECRETSMANAGER_ACCESS_KEY,
-        aws_secret_access_key=FI_AWS_SECRETSMANAGER_SECRET_KEY,
-        aws_session_token=FI_AWS_SESSION_TOKEN,
-    )
     try:
-        response = await aioextensions.in_thread(
-            client.get_secret_value,
-            SecretId=f"forces_token_{project_name}",
-        )
+        return await get_agent_token(group_name=project_name)
     except ClientError as error:
         LOGGER.exception(error, extra={"extra": locals()})
         return None
-    return cast(str, response.get("SecretString"))
 
 
 async def get_vulns_execution(project_name: str, execution_id: str) -> Any:
@@ -152,18 +137,7 @@ async def save_vulns_execution(file_object: object, file_name: str) -> bool:
 
 
 async def update_secret_token(project_name: str, secret: str) -> bool:
-    client = boto3.client(
-        "secretsmanager",
-        aws_access_key_id=FI_AWS_SECRETSMANAGER_ACCESS_KEY,
-        aws_secret_access_key=FI_AWS_SECRETSMANAGER_SECRET_KEY,
-        aws_session_token=FI_AWS_SESSION_TOKEN,
-    )
     try:
-        await aioextensions.in_thread(
-            client.put_secret_value,
-            SecretId=f"forces_token_{project_name}",
-            SecretString=secret,
-        )
         await update_group_agent_token(
             group_name=project_name,
             agent_token=secret,

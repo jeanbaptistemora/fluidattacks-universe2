@@ -892,3 +892,23 @@ async def update_group_agent_token(
         key=key,
         table=TABLE,
     )
+
+
+async def get_agent_token(*, group_name: str) -> Optional[str]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["group_metadata"],
+        values={"name": group_name},
+    )
+    key_structure = TABLE.primary_key
+    results = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(TABLE.facets["group_metadata"],),
+        table=TABLE,
+    )
+    if results:
+        return results[0]["agent_token"]
+
+    return None
