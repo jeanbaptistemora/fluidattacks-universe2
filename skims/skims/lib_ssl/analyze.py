@@ -2,6 +2,9 @@ from aioextensions import (
     collect,
     CPU_CORES,
 )
+from lib_ssl import (
+    analyze_protocol,
+)
 from lib_ssl.types import (
     SSLContext,
 )
@@ -37,7 +40,7 @@ CHECKS: Tuple[
         ],
     ],
     ...,
-] = ()
+] = ((analyze_protocol.get_check_ctx, analyze_protocol.CHECKS),)
 
 
 @shield(on_error_return=[])
