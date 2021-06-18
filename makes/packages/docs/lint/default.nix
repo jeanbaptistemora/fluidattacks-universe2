@@ -28,6 +28,7 @@ makeDerivation {
     envSrcDocsCriteriaRequirementsSocial = path "/docs/src/docs/criteria/requirements/social/";
     envSrcDocsCriteriaRequirementsSource = path "/docs/src/docs/criteria/requirements/source/";
     envSrcDocsCriteriaRequirementsSystem = path "/docs/src/docs/criteria/requirements/system/";
+    envSrcDocsCriteriaRequirementsVirtualization = path "/docs/src/docs/criteria/requirements/virtualization/";
     envSrcDocsCriteriaVulnerabilities = path "/docs/src/docs/criteria/vulnerabilities/";
   };
   builder = path "/makes/packages/docs/lint/builder.sh";
