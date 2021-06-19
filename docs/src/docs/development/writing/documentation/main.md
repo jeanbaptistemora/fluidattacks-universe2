@@ -70,7 +70,8 @@ slug: /development/writing/documentation/main
 
 * **DG14:** We *must* upload all the images we need to [Cloudinary](https://cloudinary.com/)
   and then use their corresponding links
-  (which we must end with *.webp* inside the *.md* files).
+  (which *must* have the filename extension *.webp*
+  inside the *.md* files, unless they are gifs).
 
 * **DG15:** In cases of warnings for the reader,
   pointing out something that *is not* part of the content,
@@ -78,7 +79,7 @@ slug: /development/writing/documentation/main
   (the word *note* is just an option): `> **NOTE:** > [Text]`.
   Example:
 
-  ![DG11](https://res.cloudinary.com/fluid-attacks/image/upload/v1623943552/docs/development/writing/dg11_uauncn.webp)
+  ![DG15](https://res.cloudinary.com/fluid-attacks/image/upload/v1624050029/docs/development/writing/dga_kqtp4r.webp)
   > **NOTE:**
   > This section of our documentation is under construction.
 

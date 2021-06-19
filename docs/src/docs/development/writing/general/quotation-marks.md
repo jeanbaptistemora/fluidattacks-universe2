@@ -50,9 +50,9 @@ slug: /development/writing/general/quotation-marks
   > we must use the backslash before the first closing square bracket
   > to get the hyperlink as we want:
 
-  ![WG23a](https://res.cloudinary.com/fluid-attacks/image/upload/v1623445601/docs/development/writing/wg23a_rlkugz.webp)
+  ![GQ08a](https://res.cloudinary.com/fluid-attacks/image/upload/v1624050243/docs/development/writing/gqa_di9v2p.webp)
 
-  ![WG23b](https://res.cloudinary.com/fluid-attacks/image/upload/v1623446048/docs/development/writing/wg23b_mwjbyt.webp)
+  ![GQ08b](https://res.cloudinary.com/fluid-attacks/image/upload/v1624050244/docs/development/writing/gqb_gjiokh.webp)
 
   > In Markdown, there is no problem.
 

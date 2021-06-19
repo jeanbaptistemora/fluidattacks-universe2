@@ -6,7 +6,7 @@ slug: /development/writing/blog/additional
 ---
 
 If you are not part of the `Fluid Attacks` team,
-**do not forget** to send with your piece of writing
+*do not* forget to send with your piece of writing
 an image that represents you (preferably, a picture of you).
 We would show this image at the end of the blog post,
 along with your name.
@@ -20,7 +20,22 @@ whether or not we will publish your writing on our website.
 
 ## Terms and conditions
 
-...
+* At `Fluid Attacks`,
+  we are impartial in evaluating the writings,
+  i.e., we do not consider whether we agree with the author's opinion.
+  Instead, we mainly take into account
+  that the document meets the required guidelines described before.
+
+* We reserve the right to accept or reject any document sent to us.
+
+* If we accept and publish a blog post,
+  the author retains the copyright to the draft submitted to us.
+  However, we at `Fluid Attacks` maintain the right
+  to make changes to that draft, if necessary,
+  without the author's consent or notification.
+
+* We do not pay for articles accepted for publication
+  on [our blog](https://fluidattacks.com/blog/).
 
 > **NOTE:**
 > This section of our documentation is under construction.

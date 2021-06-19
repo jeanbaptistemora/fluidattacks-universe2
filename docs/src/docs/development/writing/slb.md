@@ -36,5 +36,9 @@ Based on [sembr.org](https://sembr.org/), we consider the following rules:
 * The maximum number of characters before an SLB *must* be 80,
   except in cases with hyperlinks or code elements.
 
+  Example:
+
+  ![SLBa](https://res.cloudinary.com/fluid-attacks/image/upload/v1624062464/docs/development/writing/slba_x3kztj.webp)
+
 > **NOTE:**
 > This section of our documentation is under construction.

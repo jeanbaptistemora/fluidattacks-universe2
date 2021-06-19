@@ -156,10 +156,13 @@ Therefore, if you use Facebook, you should beware of strange messages
 with requests for further information or with enclosed links,
 possibly even associated with the pandemic.
 
-By the way, to conclude, since Facebook seems not to have made it available,
-the renowned website link:https://haveibeenpwned.com/[haveibeenpwned.com] allows you to check
-if you are part of the victims of this data leak.
+By the way, to conclude,
+since Facebook seems not to have made it available,
+the renowned website link:https://haveibeenpwned.com/[haveibeenpwned.com]
+allows you to check if you are part of the victims of this data leak.
 Initially, this page only allowed verification via email address.
 But this data is quite limited in quantity in this leak
-(link:https://www.bleepingcomputer.com/news/security/how-to-check-if-your-info-was-exposed-in-the-facebook-data-leak/[only for 2.5M of the affected users]), so, a few days ago,
-link:https://www.troyhunt.com/the-facebook-phone-numbers-are-now-searchable-in-have-i-been-pwned/#comment-5332905964[the website enabled the search through phone numbers]. Good luck!
+(link:https://www.bleepingcomputer.com/news/security/how-to-check-if-your-info-was-exposed-in-the-facebook-data-leak/[only for 2.5M of the affected users]),
+so, a few days ago,
+link:https://www.troyhunt.com/the-facebook-phone-numbers-are-now-searchable-in-have-i-been-pwned/#comment-5332905964[the website enabled the search through phone numbers].
+Good luck!

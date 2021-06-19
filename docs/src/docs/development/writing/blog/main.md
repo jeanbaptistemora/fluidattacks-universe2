@@ -43,7 +43,58 @@ slug: /development/writing/blog/main
 
 * **BT04:** We *must* write subtitles that do not exceed **55 characters**.
 
-## Size and structure
+## Length and structure
+
+* **BS01:** We *must* write blog posts of between **800** and **1,200 words**.
+
+* **BS02:** We *should* write blog posts
+  with structures similar to the following
+  (based on recommendations by the American Lecturer
+  [Robert Pozen](https://www.amazon.com/Extreme-Productivity-Boost-Results-Reduce-ebook/dp/B007HBLNSS)):
+
+  1. An introduction that contextualizes the reader,
+  states the main theme,
+  and describes the organization of the text.
+  1. A body with paragraphs highlighting central ideas
+  and providing supporting information for them
+  (subtitles can make the structure clearer).
+  1. A conclusion that, rather than condensing the main points,
+  provides lessons learned, possible implications
+  or recommendations to keep in mind.
+
+* **BS03:** We *must* build blog posts
+  with a [LIX](https://en.wikipedia.org/wiki/Lix_(readability_test))
+  value below **50**
+  to make them easy to read.
+  (To achieve this,
+  we can use short sentences and short words.)
+
+## Images
+
+* **BI01:** We *must* include a cover image
+  taken *only* from [Unsplash](https://unsplash.com/)
+  for each blog post
+  (it *must* have a size of **900 × 600 px** and less than **800 KB**).
+
+* **BI02:** We *can* use images from different websites and other sources
+  within the bodies of the blog posts.
+
+* **BI03:** We *should* put a brief description
+  under each image we use
+  (it must be no longer than **80 characters**).
+
+* **BI04:** We *must* include the reference as a hyperlink
+  in the description of each image that does not belong to us.
+  Example:
+
+  ![BI04](https://res.cloudinary.com/fluid-attacks/image/upload/v1624049949/docs/development/writing/bia_xv4isk.webp)
+
+* **BI05:** We *must* always upload the images to [Cloudinary](https://cloudinary.com/)
+  and then use their links,
+  changing their filename extensions to *.webp*
+  (unless they are gifs)
+  inside the *.adoc* files.
+  (Only for `Fluid Attacks'` staff.)
 
 > **NOTE:**
 > This section of our documentation is under construction.
