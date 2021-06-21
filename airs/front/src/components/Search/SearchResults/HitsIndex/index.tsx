@@ -4,11 +4,11 @@ import { Hits, Index } from "react-instantsearch-dom";
 import { HitCount } from "./HitCount";
 import { PageHit } from "./PageHit";
 
-export const HitsInIndex = ({
-  index,
-}: {
+interface IProps {
   index: { name: string };
-}): JSX.Element => (
+}
+
+export const HitsInIndex = ({ index }: IProps): JSX.Element => (
   <Index indexName={index.name}>
     <HitCount />
     <Hits hitComponent={PageHit} />

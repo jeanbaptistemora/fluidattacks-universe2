@@ -15,9 +15,12 @@ export const PageHit = ({
   const fixedSlug = slug.startsWith("/pages/")
     ? slug.replace("/pages/", "/")
     : slug;
+  function closeMenu(): void {
+    document.body.setAttribute("style", "overflow-y: auto;");
+  }
 
   return (
-    <Link to={fixedSlug}>
+    <Link onClick={closeMenu} to={fixedSlug}>
       <div className={"HitDiv bg-white pv2 ph1 br3 bs-btm-h-5 t-all-3-eio"}>
         <h4 className={"dib t-all-3-eio"}>{decode(title)}</h4>
         <Snippet attribute={"excerpt"} hit={hit} tagName={"mark"} />

@@ -33,7 +33,7 @@ export default connectSearchBox(
         value={currentRefinement}
       />
       <FontAwesomeIcon
-        className={"SearchIcon c-fluid-bk f-1125 nr-05"}
+        className={"SearchIcon c-fluid-gray f-1125 mh1"}
         icon={faSearch}
       />
     </form>
