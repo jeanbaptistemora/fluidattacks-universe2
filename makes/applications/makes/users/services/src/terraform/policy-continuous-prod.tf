@@ -99,25 +99,6 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
       var.terraform_state_lock_arn,
     ]
   }
-
-  # Secretsmanager for forces
-  statement {
-    effect = "Allow"
-    actions = [
-      "secretsmanager:GetSecretValue",
-      "secretsmanager:CreateSecret",
-      "secretsmanager:DeleteSecret",
-      "secretsmanager:DescribeSecret",
-      "secretsmanager:GetResourcePolicy",
-      "secretsmanager:PutSecretValue",
-      "secretsmanager:RestoreSecret",
-      "secretsmanager:UpdateSecret",
-      "secretsmanager:TagResource",
-    ]
-    resources = [
-      "arn:aws:secretsmanager:${var.region}:${data.aws_caller_identity.current.account_id}:secret:forces-*"
-    ]
-  }
 }
 
 resource "aws_iam_policy" "continuous-prod-policy" {
