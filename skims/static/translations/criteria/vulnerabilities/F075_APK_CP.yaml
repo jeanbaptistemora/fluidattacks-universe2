@@ -1,3 +1,9 @@
+lib_apk.analyze_bytecodes.exported:
+  en: provider/{desc_authority}/android:exported enabled
+  es: provider/{desc_authority}/android:exported habilitado
+lib_apk.analyze_bytecodes.grants_uri_permissions:
+  en: provider/{desc_authority}/android:grantUriPermissions enabled
+  es: provider/{desc_authority}/android:grantUriPermissions habilitado
 F075_APK_CP.description:
   en: >
     The Content Provider API
@@ -33,15 +39,15 @@ F075_APK_CP.impact:
 F075_APK_CP.recommendation:
   en: >
     Deny access to all Content Providers with:
-    android:grantUriPermissions="false"
-    and android:exported="false".
+    android:exported="false"
+    and android:grantUriPermissions="false".
     If required
     you can allow specific Content Providers
     by using <grant-uri-permission>.
   es: >
     Denegar el acceso a todos los Content Providers con:
-    android:grantUriPermissions="false"
-    y android:exported="false".
+    android:exported="false"
+    y android:grantUriPermissions="false".
     Si se requiere
     se puede permitir Content Providers especificos
     usando <grant-uri-permission>

@@ -141,6 +141,7 @@ def _add_android_manifest_location(
     desc: str,
     locations: Locations,
     tag: bs4.Tag,
+    **desc_kwargs: str,
 ) -> None:
     locations.append(
         desc=desc,
@@ -152,6 +153,7 @@ def _add_android_manifest_location(
                 wrap=True,
             ),
         ),
+        **desc_kwargs,
     )
 
 
@@ -177,16 +179,16 @@ def _backups_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
             application,
             key="android:allowBackup",
             default="not-set",
-        )
+        ).lower()
 
-        if allows_backup.lower() == "true":
+        if allows_backup == "true":
             _add_android_manifest_location(
                 apk_manifest=ctx.apk_ctx.apk_manifest,
                 desc="backups_enabled",
                 locations=locations,
                 tag=application,
             )
-        elif allows_backup.lower() == "not-set":
+        elif allows_backup == "not-set":
             _add_android_manifest_location(
                 apk_manifest=ctx.apk_ctx.apk_manifest,
                 desc="backups_not_configured",
@@ -214,9 +216,9 @@ def _debugging_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
             application,
             key="android:debuggable",
             default="false",
-        )
+        ).lower()
 
-        if is_debuggable.lower() == "true":
+        if is_debuggable == "true":
             _add_android_manifest_location(
                 apk_manifest=ctx.apk_ctx.apk_manifest,
                 desc="debugging_enabled",
@@ -227,6 +229,58 @@ def _debugging_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     return _create_vulns(
         ctx=ctx,
         finding=core_model.FindingEnum.F058_APK,
+        locations=locations,
+    )
+
+
+def _exported_cp(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
+    if ctx.apk_ctx.apk_manifest is None:
+        return ()
+
+    locations: Locations = Locations([])
+
+    provider: bs4.Tag
+    for provider in ctx.apk_ctx.apk_manifest.find_all("provider"):
+        authority: str = _get_caseless_attr(
+            provider,
+            key="android:authorities",
+            default="",
+        ) or _get_caseless_attr(
+            provider,
+            key="android:name",
+            default="",
+        )
+        exported: str = _get_caseless_attr(
+            provider,
+            key="android:exported",
+            default="false",
+        ).lower()
+        grant_uri_permissions: str = _get_caseless_attr(
+            provider,
+            key="android:grantUriPermissions",
+            default="false",
+        ).lower()
+
+        if exported == "true":
+            _add_android_manifest_location(
+                apk_manifest=ctx.apk_ctx.apk_manifest,
+                desc="exported",
+                desc_authority=authority,
+                locations=locations,
+                tag=provider,
+            )
+        if grant_uri_permissions == "true":
+            _add_android_manifest_location(
+                apk_manifest=ctx.apk_ctx.apk_manifest,
+                desc="grants_uri_permissions",
+                desc_authority=authority,
+                locations=locations,
+                tag=provider,
+            )
+
+    return _create_vulns(
+        ctx=ctx,
+        finding=core_model.FindingEnum.F075_APK_CP,
         locations=locations,
     )
 
@@ -511,5 +565,6 @@ CHECKS: Dict[
     core_model.FindingEnum.F055_APK_BACKUPS: _backups_enabled,
     core_model.FindingEnum.F055_APK_UPDATES: _no_update_enforce,
     core_model.FindingEnum.F058_APK: _debugging_enabled,
+    core_model.FindingEnum.F075_APK_CP: _exported_cp,
     core_model.FindingEnum.F103_APK_UNSIGNED: _apk_unsigned,
 }
