@@ -88,7 +88,7 @@ def train_model(
         tuned_parameters=tuned_hyperparameters,
     )
     training_output.append(list(combination_train_results.values()))
-    redshift.insert(combination_train_results)
+    redshift.insert("training", combination_train_results)
 
     return training_output
 

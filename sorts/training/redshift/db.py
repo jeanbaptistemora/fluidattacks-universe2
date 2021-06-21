@@ -77,32 +77,22 @@ def delete() -> None:
         )
 
 
-def insert(training_result: Dict[str, str]) -> None:
+def insert(table: str, item: Dict[str, str]) -> None:
+    query_columns: str = ",\n".join(item.keys())
+    query_values: str = ",\n".join(f"%({key})s" for key in item.keys())
     with db_cursor() as cursor:
         cursor.execute(
-            """
-                INSERT INTO sorts.training (
+            f"""
+                INSERT INTO sorts.{table} (
                     timestamp,
-                    model,
-                    features,
-                    precision,
-                    recall,
-                    f_score,
-                    overfit,
-                    tuned_parameters
+                    {query_columns}
                 )
                 VALUES (
                     getdate(),
-                    %(model)s,
-                    %(features)s,
-                    %(precision)s,
-                    %(recall)s,
-                    %(f_score)s,
-                    %(overfit)s,
-                    %(tuned_parameters)s
+                    {query_values}
                 )
             """,
-            training_result,
+            item,
         )
 
 
