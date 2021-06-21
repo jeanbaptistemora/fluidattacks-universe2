@@ -99,7 +99,11 @@ type Mutation {
     phoneNumber: String
   ): AddStakeholderPayload!
 
-  addTags(projectName: String!, tags: JSONString): SimpleProjectPayload!
+  addTags(
+    projectName: String,
+    groupName: String,
+    tags: JSONString
+  ): SimpleProjectPayload!
 
   addUrlRoot(
     "URL of the environment to test"
@@ -320,7 +324,11 @@ type Mutation {
     userEmail: String!
   ): SimplePayload!
 
-  removeTag(projectName: String!, tag: String!): SimpleProjectPayload!
+  removeTag(
+    projectName: String,
+    groupName: String,
+    tag: String!
+  ): SimpleProjectPayload!
 
   requestVerificationVuln(
     findingId: String!

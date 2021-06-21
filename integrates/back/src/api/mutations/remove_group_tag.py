@@ -21,6 +21,9 @@ import logging.config
 from newutils import (
     logs as logs_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
@@ -44,18 +47,18 @@ LOGGER = logging.getLogger(__name__)
     require_login, enforce_group_level_auth_async, require_integrates
 )
 async def mutate(  # pylint: disable=too-many-arguments
-    _: Any, info: GraphQLResolveInfo, project_name: str, tag: str
+    _: Any, info: GraphQLResolveInfo, tag: str, **kwargs: Any
 ) -> SimpleProjectPayloadType:
     success = False
-    group_name = project_name.lower()
+    group_name = resolve_kwargs(kwargs).lower()
     group_loader = info.context.loaders.group
     if await groups_domain.is_alive(group_name):
-        project_attrs = await group_loader.load(group_name)
-        project_tags = {"tag": project_attrs["tags"]}
-        cast(Set[str], project_tags.get("tag")).remove(tag)
-        if project_tags.get("tag") == set():
-            project_tags["tag"] = None
-        tag_deleted = await groups_domain.update(group_name, project_tags)
+        group_attrs = await group_loader.load(group_name)
+        group_tags = {"tag": group_attrs["tags"]}
+        cast(Set[str], group_tags.get("tag")).remove(tag)
+        if group_tags.get("tag") == set():
+            group_tags["tag"] = None
+        tag_deleted = await groups_domain.update(group_name, group_tags)
         if tag_deleted:
             success = True
         else:

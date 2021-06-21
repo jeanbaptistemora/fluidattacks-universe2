@@ -42,7 +42,7 @@ const EDIT_GROUP_DATA: DocumentNode = gql`
 
 const REMOVE_TAG_MUTATION: DocumentNode = gql`
   mutation RemoveTagMutation($tagToRemove: String!, $groupName: String!) {
-    removeTag(tag: $tagToRemove, projectName: $groupName) {
+    removeTag(tag: $tagToRemove, groupName: $groupName) {
       success
     }
   }
@@ -59,7 +59,7 @@ const GET_TAGS: DocumentNode = gql`
 
 const ADD_TAGS_MUTATION: DocumentNode = gql`
   mutation AddTagsMutation($groupName: String!, $tagsData: JSONString!) {
-    addTags(tags: $tagsData, projectName: $groupName) {
+    addTags(tags: $tagsData, groupName: $groupName) {
       success
     }
   }

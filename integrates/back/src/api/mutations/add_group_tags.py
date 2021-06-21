@@ -19,6 +19,9 @@ from groups import (
 from newutils import (
     logs as logs_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
@@ -33,15 +36,15 @@ from typing import (
     require_login, enforce_group_level_auth_async, require_integrates
 )
 async def mutate(  # pylint: disable=too-many-arguments
-    _: Any, info: GraphQLResolveInfo, project_name: str, tags: List[str]
+    _: Any, info: GraphQLResolveInfo, tags: List[str], **kwargs: Any
 ) -> SimpleProjectPayloadType:
     success = False
-    group_name = project_name.lower()
+    group_name = resolve_kwargs(kwargs).lower()
     group_loader = info.context.loaders.group
     if await groups_domain.is_alive(group_name):
         if await groups_domain.validate_group_tags(group_name, tags):
-            project_attrs = await group_loader.load(group_name)
-            group_tags = {"tag": project_attrs["tags"]}
+            group_attrs = await group_loader.load(group_name)
+            group_tags = {"tag": group_attrs["tags"]}
             success = await groups_domain.update_tags(
                 group_name, group_tags, tags
             )
@@ -58,7 +61,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     if success:
         group_loader.clear(group_name)
         info.context.loaders.group.clear(group_name)
-        redis_del_by_deps_soon("add_group_tags", group_name=project_name)
+        redis_del_by_deps_soon("add_group_tags", group_name=group_name)
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Added tag to {group_name} group successfully",
