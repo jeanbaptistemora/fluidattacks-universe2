@@ -1,5 +1,9 @@
 module "github_makes" {
   source = "../../../../../makes/applications/makes/foss/modules/github"
 
-  token = var.GITHUB_API_TOKEN
+  description = "A SecDevOps framework powered by Nix"
+  homepage    = "https://docs.fluidattacks.com"
+  name        = "makes"
+  token       = var.GITHUB_API_TOKEN
+  topics      = ["build", "devops", "nix"]
 }

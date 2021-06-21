@@ -1,4 +1,5 @@
 provider "github" {
+  owner = "fluidattacks"
   token = var.token
 }
 
