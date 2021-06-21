@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jun 18, 2021, 11:46 AM",
+    "DateLastModified": "Jun 21, 2021, 09:31 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -425,6 +425,14 @@
         {
           "AttributeName": "stream",
           "AttributeType": "L"
+        },
+        {
+          "AttributeName": "acceptance_status",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "approval_status",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -801,180 +809,6 @@
             "modified_by",
             "parent_id",
             "content"
-          ]
-        },
-        {
-          "FacetName": "vulnerability_metadata",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#vuln_uuid",
-            "SortKeyAlias": "FIN#finding_id"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
-              },
-              "sk": {
-                "S": "FIN#475041513"
-              },
-              "type": {
-                "S": "lines"
-              },
-              "source": {
-                "S": "skims"
-              },
-              "where": {
-                "S": "test/data/lib_path/f073/Test.cs"
-              },
-              "specific": {
-                "S": "44"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "type",
-            "tags",
-            "commit",
-            "repo",
-            "source",
-            "where",
-            "specific",
-            "stream"
-          ]
-        },
-        {
-          "FacetName": "vulnerability_state",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#vuln_uuid#STATE",
-            "SortKeyAlias": "FIN#finding_id"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#STATE"
-              },
-              "sk": {
-                "S": "FIN#475041513"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
-              },
-              "source": {
-                "S": "skims"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "status",
-            "modified_date",
-            "modified_by",
-            "source"
-          ]
-        },
-        {
-          "FacetName": "vulnerability_historic_state",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid",
-            "SortKeyAlias": "STATE#iso8601utc"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
-              },
-              "sk": {
-                "S": "STATE#2021-02-15T14:01:16Z"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
-              },
-              "source": {
-                "S": "skims"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "status",
-            "modified_date",
-            "modified_by",
-            "source"
-          ]
-        },
-        {
-          "FacetName": "vulnerability_historic_treatment",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid",
-            "SortKeyAlias": "TREAT#iso8601utc"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
-              },
-              "sk": {
-                "S": "TREAT#2021-02-15T14:01:16Z"
-              },
-              "status": {
-                "S": "NEW"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "status",
-            "modified_date",
-            "modified_by",
-            "accepted_until",
-            "manager",
-            "justification"
-          ]
-        },
-        {
-          "FacetName": "vulnerability_historic_verification",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#uuid",
-            "SortKeyAlias": "VERIF#iso8601utc"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
-              },
-              "sk": {
-                "S": "VERIF#2021-02-15T14:01:16Z"
-              },
-              "status": {
-                "S": "REQUESTED"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "status",
-            "modified_date",
-            "modified_by"
           ]
         },
         {
@@ -2141,6 +1975,238 @@
           ]
         },
         {
+          "FacetName": "vulnerability_metadata",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "VULN#vuln_uuid",
+            "SortKeyAlias": "FIN#finding_id"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
+              },
+              "sk": {
+                "S": "FIN#475041513"
+              },
+              "type": {
+                "S": "lines"
+              },
+              "source": {
+                "S": "skims"
+              },
+              "where": {
+                "S": "test/data/lib_path/f073/Test.cs"
+              },
+              "specific": {
+                "S": "44"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "type",
+            "tags",
+            "commit",
+            "repo",
+            "source",
+            "where",
+            "specific",
+            "stream"
+          ]
+        },
+        {
+          "FacetName": "vulnerability_historic_state",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "VULN#uuid",
+            "SortKeyAlias": "STATE#iso8601utc"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
+              },
+              "sk": {
+                "S": "STATE#2021-02-15T14:01:16Z"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "test@fluidattacks.com"
+              },
+              "source": {
+                "S": "skims"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "status",
+            "modified_date",
+            "modified_by",
+            "source",
+            "approval_status"
+          ]
+        },
+        {
+          "FacetName": "vulnerability_historic_treatment",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "VULN#uuid",
+            "SortKeyAlias": "TREAT#iso8601utc"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
+              },
+              "sk": {
+                "S": "TREAT#2021-02-15T14:01:16Z"
+              },
+              "status": {
+                "S": "NEW"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "test@fluidattacks.com"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "status",
+            "modified_date",
+            "modified_by",
+            "accepted_until",
+            "manager",
+            "justification",
+            "acceptance_status"
+          ]
+        },
+        {
+          "FacetName": "vulnerability_historic_verification",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "VULN#uuid",
+            "SortKeyAlias": "VERIF#iso8601utc"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
+              },
+              "sk": {
+                "S": "VERIF#2021-02-15T14:01:16Z"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "test@fluidattacks.com"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "status",
+            "modified_date",
+            "modified_by"
+          ]
+        },
+        {
+          "FacetName": "vulnerability_historic_zero_risk",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "VULN#vuln_uuid",
+            "SortKeyAlias": "ZERO#iso8601utc"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
+              },
+              "sk": {
+                "S": "ZERO#2021-03-30T15:30:00Z"
+              },
+              "status": {
+                "S": "REQUESTED"
+              },
+              "modified_date": {
+                "S": "2021-03-30T15:30:00Z"
+              },
+              "modified_by": {
+                "S": "test@fluidattacks.com"
+              },
+              "comment_id": {
+                "N": "1558048727999"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
+              },
+              "sk": {
+                "S": "ZERO#2021-04-01T11:30:00Z"
+              },
+              "status": {
+                "S": "REJECTED"
+              },
+              "modified_date": {
+                "S": "2021-04-01T11:30:00Z"
+              },
+              "modified_by": {
+                "S": "test@fluidattacks.com"
+              },
+              "comment_id": {
+                "N": "1558048728000"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "status",
+            "modified_date",
+            "modified_by",
+            "comment_id"
+          ]
+        },
+        {
+          "FacetName": "vulnerability_state",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "VULN#vuln_uuid#STATE",
+            "SortKeyAlias": "FIN#finding_id"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f#STATE"
+              },
+              "sk": {
+                "S": "FIN#475041513"
+              },
+              "status": {
+                "S": "OPEN"
+              },
+              "modified_date": {
+                "S": "2021-02-15T14:01:16Z"
+              },
+              "modified_by": {
+                "S": "test@fluidattacks.com"
+              },
+              "source": {
+                "S": "skims"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "status",
+            "modified_date",
+            "modified_by",
+            "source",
+            "approval_status"
+          ]
+        },
+        {
           "FacetName": "vulnerability_treatment",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "VULN#vuln_uuid#TREAT",
@@ -2171,7 +2237,8 @@
             "modified_by",
             "accepted_until",
             "manager",
-            "justification"
+            "justification",
+            "acceptance_status"
           ]
         },
         {
@@ -2234,65 +2301,10 @@
             }
           ],
           "NonKeyAttributes": [
-            "comment_id",
+            "status",
             "modified_date",
             "modified_by",
-            "status"
-          ]
-        },
-        {
-          "FacetName": "vulnerability_historic_zero_risk",
-          "KeyAttributeAlias": {
-            "PartitionKeyAlias": "VULN#vuln_uuid",
-            "SortKeyAlias": "ZERO#iso8601utc"
-          },
-          "TableData": [
-            {
-              "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
-              },
-              "sk": {
-                "S": "ZERO#2021-03-30T15:30:00Z"
-              },
-              "status": {
-                "S": "REQUESTED"
-              },
-              "modified_date": {
-                "S": "2021-03-30T15:30:00Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
-              },
-              "comment_id": {
-                "N": "1558048727999"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#3098e835-833c-48f7-aa76-12ea884e871f"
-              },
-              "sk": {
-                "S": "ZERO#2021-04-01T11:30:00Z"
-              },
-              "status": {
-                "S": "REJECTED"
-              },
-              "modified_date": {
-                "S": "2021-04-01T11:30:00Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
-              },
-              "comment_id": {
-                "N": "1558048728000"
-              }
-            }
-          ],
-          "NonKeyAttributes": [
-            "comment_id",
-            "modified_date",
-            "modified_by",
-            "status"
+            "comment_id"
           ]
         }
       ],
