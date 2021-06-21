@@ -74,7 +74,11 @@ const OrganizationFindingPolicy: React.FC<IOrganizationFindingPolicies> = ({
       onCompleted: (result: {
         handleOrgFindingPolicyAcceptation: { success: boolean };
       }): void => {
-        handleOrgFindingPolicyNotification(result, handlePolicyStatus);
+        handleOrgFindingPolicyNotification(
+          result,
+          handlePolicyStatus,
+          organizationName
+        );
       },
       onError: (error: ApolloError): void => {
         handleOrgFindingPolicyError(error);
@@ -96,7 +100,7 @@ const OrganizationFindingPolicy: React.FC<IOrganizationFindingPolicies> = ({
       onCompleted: (result: {
         deactivateOrgFindingPolicy: { success: boolean };
       }): void => {
-        handleOrgFindingPolicyDeactivation(result);
+        handleOrgFindingPolicyDeactivation(result, organizationName);
       },
       onError: (error: ApolloError): void => {
         handleOrgFindingPolicyDeactivationError(error);
@@ -117,7 +121,7 @@ const OrganizationFindingPolicy: React.FC<IOrganizationFindingPolicies> = ({
       onCompleted: (result: {
         submitOrganizationFindingPolicy: { success: boolean };
       }): void => {
-        handleSubmitOrganizationFindingPolicy(result);
+        handleSubmitOrganizationFindingPolicy(result, organizationName);
       },
       onError: (error: ApolloError): void => {
         handleSubmitOrganizationFindingPolicyError(error);

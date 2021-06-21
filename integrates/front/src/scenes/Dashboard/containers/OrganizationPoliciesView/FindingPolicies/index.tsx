@@ -103,7 +103,9 @@ const FindingPolicies: React.FC<IFindingPolicies> = ({
     values: IFindingPoliciesForm,
     formikHelpers: FormikHelpers<IFindingPoliciesForm>
   ): Promise<void> {
-    track("addNewOrgFindingPolicies");
+    track("addNewOrgFindingPolicies", {
+      Organization: organizationName,
+    });
     await addOrgFindingPolicy({
       variables: {
         name: values.name,

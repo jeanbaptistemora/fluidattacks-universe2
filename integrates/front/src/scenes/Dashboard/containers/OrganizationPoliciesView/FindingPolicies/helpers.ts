@@ -1,5 +1,6 @@
 import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
+import { track } from "mixpanel-browser";
 
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -9,10 +10,14 @@ const handleOrgFindingPolicyNotification = (
   result: {
     handleOrgFindingPolicyAcceptation: { success: boolean };
   },
-  handlePolicyStatus: "APPROVED" | "REJECTED"
+  handlePolicyStatus: "APPROVED" | "REJECTED",
+  organizationName: string
 ): void => {
   if (result.handleOrgFindingPolicyAcceptation.success) {
     if (handlePolicyStatus === "APPROVED") {
+      track("ApproveOrganizationFindingPolicy", {
+        Organization: organizationName,
+      });
       msgSuccess(
         translate.t(
           "organization.tabs.policies.findings.handlePolicies.success.approved"
@@ -20,6 +25,9 @@ const handleOrgFindingPolicyNotification = (
         translate.t("sidebar.newOrganization.modal.successTitle")
       );
     } else {
+      track("RejectOrganizationFindingPolicy", {
+        Organization: organizationName,
+      });
       msgSuccess(
         translate.t(
           "organization.tabs.policies.findings.handlePolicies.success.rejected"
@@ -52,10 +60,16 @@ const handleOrgFindingPolicyError = (error: ApolloError): void => {
   });
 };
 
-const handleOrgFindingPolicyDeactivation = (result: {
-  deactivateOrgFindingPolicy: { success: boolean };
-}): void => {
+const handleOrgFindingPolicyDeactivation = (
+  result: {
+    deactivateOrgFindingPolicy: { success: boolean };
+  },
+  organizationName: string
+): void => {
   if (result.deactivateOrgFindingPolicy.success) {
+    track("DeactivateOrganizationFindingPolicy", {
+      Organization: organizationName,
+    });
     msgSuccess(
       translate.t(
         "organization.tabs.policies.findings.deactivatePolicies.success"
@@ -78,10 +92,16 @@ const handleOrgFindingPolicyDeactivationError = (error: ApolloError): void => {
   });
 };
 
-const handleSubmitOrganizationFindingPolicy = (result: {
-  submitOrganizationFindingPolicy: { success: boolean };
-}): void => {
+const handleSubmitOrganizationFindingPolicy = (
+  result: {
+    submitOrganizationFindingPolicy: { success: boolean };
+  },
+  organizationName: string
+): void => {
   if (result.submitOrganizationFindingPolicy.success) {
+    track("ReSubmitOrganizationFindingPolicy", {
+      Organization: organizationName,
+    });
     msgSuccess(
       translate.t("organization.tabs.policies.findings.addPolicies.success"),
       translate.t("sidebar.newOrganization.modal.successTitle")
