@@ -9,17 +9,12 @@ from datetime import (
     timedelta,
 )
 import dateutil.parser
-from paginator.int_index import (
-    PageId as IntPageId,
-)
 from paginator.object_index import (
     io_get_until_end,
 )
-from paginator.object_index.objs import (
-    PageResult,
-)
 from paginator.pages import (
     PageId,
+    PageResult,
 )
 from returns.io import (
     IO,
@@ -96,7 +91,7 @@ class MrApi(NamedTuple):
             return list_mrs(
                 self.client,
                 self.proj,
-                IntPageId(1, page.per_page),
+                PageId(1, page.per_page),
                 Options(
                     updated_before=page.page,
                     scope=self.scope,
@@ -111,7 +106,7 @@ class MrApi(NamedTuple):
     def list_updated_before(
         self,
         updated_before: datetime,
-        page: IntPageId,
+        page: PageId[int],
         sort: Sort = Sort.descendant,
     ) -> IO[Maybe[MrsPage]]:
         return list_mrs(

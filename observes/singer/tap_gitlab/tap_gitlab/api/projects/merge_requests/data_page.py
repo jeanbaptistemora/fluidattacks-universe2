@@ -10,8 +10,8 @@ from datetime import (
 from enum import (
     Enum,
 )
-from paginator.int_index import (
-    PageId as IntPageId,
+from paginator.pages import (
+    PageId,
 )
 from returns.io import (
     IO,
@@ -91,14 +91,14 @@ class Options(NamedTuple):
 
 class _MrsPage(NamedTuple):
     data: List[JSON]
-    page: IntPageId
+    page: PageId[int]
     options: Optional[Options]
 
 
 # pylint: disable=too-few-public-methods
 class MrsPage(Immutable):
     data: List[JSON]
-    page: IntPageId
+    page: PageId[int]
     options: Optional[Options]
 
     def __new__(cls, obj: _MrsPage) -> MrsPage:
@@ -117,7 +117,7 @@ def _ensure_non_empty_data(page: _MrsPage) -> Maybe[MrsPage]:
 def list_mrs(
     client: RawClient,
     proj: ProjectId,
-    page: IntPageId,
+    page: PageId[int],
     options: Optional[Options],
 ) -> IO[Maybe[MrsPage]]:
     url = "/projects/{}/merge_requests".format(str(proj.proj_id))

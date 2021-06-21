@@ -7,8 +7,8 @@ from __future__ import (
 from enum import (
     Enum,
 )
-from paginator.int_index import (
-    PageId as IntPageId,
+from paginator.pages import (
+    PageId,
 )
 from returns.io import (
     IO,
@@ -48,7 +48,7 @@ class Scope(Enum):
 
 class _JobsPage(NamedTuple):
     data: List[JSON]
-    page: IntPageId
+    page: PageId[int]
     proj: ProjectId
     scopes: List[Scope]
 
@@ -56,7 +56,7 @@ class _JobsPage(NamedTuple):
 # pylint: disable=too-few-public-methods
 class JobsPage(Immutable):
     data: List[JSON]
-    page: IntPageId
+    page: PageId[int]
     proj: ProjectId
     scopes: List[Scope]
 
@@ -74,7 +74,7 @@ def _ensure_non_empty_data(page: _JobsPage) -> Maybe[JobsPage]:
 
 
 def list_jobs(
-    client: RawClient, proj: ProjectId, page: IntPageId, scopes: List[Scope]
+    client: RawClient, proj: ProjectId, page: PageId[int], scopes: List[Scope]
 ) -> IO[Maybe[JobsPage]]:
     url = "/projects/{}/jobs".format(str(proj.proj_id))
     params = {"scope[]": [scope.value for scope in scopes]}

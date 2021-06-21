@@ -3,7 +3,7 @@ from __future__ import (
 )
 
 import logging
-from paginator.int_index.objs import (
+from paginator.pages import (
     PageId,
 )
 import requests
@@ -37,7 +37,7 @@ class RawClient(NamedTuple):
         self,
         endpoint: str,
         params: Dict[str, Any],
-        page: Optional[PageId] = None,
+        page: Optional[PageId[int]] = None,
     ) -> IO[Response]:
         _params = params.copy()
         if page:
