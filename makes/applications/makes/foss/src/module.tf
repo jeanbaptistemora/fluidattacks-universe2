@@ -1,8 +1,5 @@
-module "gitlab_makes" {
-  source = "../../../../../makes/applications/makes/foss/modules/gitlab"
+module "github_makes" {
+  source = "../../../../../makes/applications/makes/foss/modules/github"
 
-  description = "A SecDevOps framework based on Nix"
-  group       = "fluidattacks"
-  name        = "makes"
-  token       = var.PRODUCT_API_TOKEN
+  token = var.GITHUB_API_TOKEN
 }
