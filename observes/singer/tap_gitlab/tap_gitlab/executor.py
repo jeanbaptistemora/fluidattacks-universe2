@@ -30,7 +30,10 @@ def stream(
         else target_stream
     )
     client = ApiClient(creds)
-    if _target_stream == SupportedStreams.MERGE_REQUESTS:
+    if _target_stream == SupportedStreams.JOBS:
+        LOG.info("Executing stream: %s", _target_stream)
+        streams.all_jobs(client, project, max_pages)
+    elif _target_stream == SupportedStreams.MERGE_REQUESTS:
         LOG.info("Executing stream: %s", _target_stream)
         streams.all_mrs(client, project, max_pages)
     else:

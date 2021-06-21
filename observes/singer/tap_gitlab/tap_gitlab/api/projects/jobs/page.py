@@ -31,6 +31,7 @@ from tap_gitlab.api.raw_client import (
 from typing import (
     List,
     NamedTuple,
+    Optional,
 )
 
 
@@ -74,10 +75,13 @@ def _ensure_non_empty_data(page: _JobsPage) -> Maybe[JobsPage]:
 
 
 def list_jobs(
-    client: RawClient, proj: ProjectId, page: PageId[int], scopes: List[Scope]
+    client: RawClient,
+    proj: ProjectId,
+    page: PageId[int],
+    scopes: List[Scope],
 ) -> IO[Maybe[JobsPage]]:
     url = "/projects/{}/jobs".format(str(proj.proj_id))
-    params = {"scope[]": [scope.value for scope in scopes]}
+    params = {"scope[]": [scope.value for scope in scopes]} if scopes else {}
     response = client.get(url, params, page)
     return (
         response.map(lambda r: r.json())

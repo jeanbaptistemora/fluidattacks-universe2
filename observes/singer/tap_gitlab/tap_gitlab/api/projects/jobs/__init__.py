@@ -42,7 +42,7 @@ class JobApi(NamedTuple):
     proj: ProjectId
     scopes: List[Scope]
 
-    def list_all_updated_before(
+    def list_all(
         self,
         start: PageId[int],
     ) -> IO[Iterator[JobsPage]]:
