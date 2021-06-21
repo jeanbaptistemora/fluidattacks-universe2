@@ -54,6 +54,14 @@ def initialize() -> None:
                     PRIMARY KEY (
                         timestamp
                     )
+                );
+                CREATE TABLE IF NOT EXISTS sorts.dataset (
+                    timestamp TIMESTAMPTZ,
+                    n_rows INTEGER,
+
+                    PRIMARY KEY (
+                        timestamp
+                    )
                 )
             """
         )
@@ -61,7 +69,12 @@ def initialize() -> None:
 
 def delete() -> None:
     with db_cursor() as cursor:
-        cursor.execute("DROP TABLE IF EXISTS sorts.training")
+        cursor.execute(
+            """
+                DROP TABLE IF EXISTS sorts.training;
+                DROP TABLE IF EXISTS sorts.dataset
+            """
+        )
 
 
 def insert(training_result: Dict[str, str]) -> None:
