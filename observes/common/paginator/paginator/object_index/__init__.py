@@ -1,12 +1,10 @@
 # pylint: skip-file
 
-from paginator.object_index.objs import (
+from paginator.pages import (
     PageGetter,
     PageGetterIO,
-    PageResult,
-)
-from paginator.pages import (
     PageId,
+    PageResult,
 )
 from returns.io import (
     IO,
