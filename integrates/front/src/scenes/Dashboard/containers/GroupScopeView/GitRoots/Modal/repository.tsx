@@ -5,11 +5,9 @@ import { Field, Form, Formik } from "formik";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { GitIgnoreAlert, gitModalSchema } from "./helpers";
-
-import type { IGitRootAttr } from "../types";
+import type { IGitRootAttr } from "../../types";
+import { GitIgnoreAlert, gitModalSchema } from "../helpers";
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
 import { SwitchButton } from "components/SwitchButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
@@ -26,16 +24,18 @@ import {
   FormikCheckbox,
   FormikText,
 } from "utils/forms/fields";
+import { openUrl } from "utils/resourceHelpers";
 import { checked, required } from "utils/validations";
 
-interface IGitModalProps {
+interface IRepositoryProps {
   initialValues: IGitRootAttr | undefined;
+  isEditing: boolean;
   nicknames: string[];
   onClose: () => void;
   onSubmit: (values: IGitRootAttr) => Promise<void>;
 }
 
-const GitModal: React.FC<IGitModalProps> = ({
+const Repository: React.FC<IRepositoryProps> = ({
   initialValues = {
     __typename: "GitRoot",
     branch: "",
@@ -52,12 +52,11 @@ const GitModal: React.FC<IGitModalProps> = ({
     state: "ACTIVE",
     url: "",
   },
+  isEditing,
   nicknames,
   onClose,
   onSubmit,
-}: IGitModalProps): JSX.Element => {
-  const isEditing: boolean = initialValues.url !== "";
-
+}: IRepositoryProps): JSX.Element => {
   const { t } = useTranslation();
 
   const isDuplicated = (field: string): boolean => {
@@ -85,15 +84,14 @@ const GitModal: React.FC<IGitModalProps> = ({
     initialValues.includesHealthCheck
   );
 
-  function goToDocumentation(): void {
-    window.open(t("group.scope.git.filter.documentation"));
-  }
+  const goToDocumentation = useCallback((): void => {
+    openUrl(
+      "https://mirrors.edge.kernel.org/pub/software/scm/git/docs/gitignore.html#_pattern_format"
+    );
+  }, []);
 
   return (
-    <Modal
-      headerTitle={t(`group.scope.common.${isEditing ? "edit" : "add"}`)}
-      open={true}
-    >
+    <div>
       <Formik
         initialValues={initialValues}
         name={"gitRoot"}
@@ -254,8 +252,8 @@ const GitModal: React.FC<IGitModalProps> = ({
           </Form>
         )}
       </Formik>
-    </Modal>
+    </div>
   );
 };
 
-export { GitModal };
+export { Repository };

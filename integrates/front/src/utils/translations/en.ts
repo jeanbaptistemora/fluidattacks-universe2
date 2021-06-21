@@ -571,8 +571,6 @@ export const enTranslations: ResourceKey = {
             "Root name should not be included in gitignore pattern",
         },
         filter: {
-          documentation:
-            "https://mirrors.edge.kernel.org/pub/software/scm/git/docs/gitignore.html#_pattern_format",
           exclude: "Gitignore",
           placeholder: "**/example.txt",
           title: "Filters",

@@ -10,7 +10,6 @@ import { selectFilter } from "react-bootstrap-table2-filter";
 import { useTranslation } from "react-i18next";
 
 import { EnvsModal } from "./envsModal";
-import { GitModal } from "./gitModal";
 import {
   handleActivationError,
   handleCreationError,
@@ -19,6 +18,7 @@ import {
   hasCheckedItem,
   useGitSubmit,
 } from "./helpers";
+import { ManagementModal } from "./Modal";
 import { Container } from "./styles";
 
 import { DeactivationModal } from "../deactivationModal";
@@ -464,15 +464,13 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         }}
       </ConfirmDialog>
       {isManagingRoot === false ? undefined : (
-        <GitModal
+        <ManagementModal
           initialValues={
-            // Exception: FP(isManagingRoot scope is limited)
-            // eslint-disable-next-line
-            isManagingRoot.mode === "EDIT" ? currentRow : undefined // NOSONAR
+            isManagingRoot.mode === "EDIT" ? currentRow : undefined
           }
           nicknames={nicknames}
           onClose={closeModal}
-          onSubmit={handleGitSubmit}
+          onSubmitRepo={handleGitSubmit}
         />
       )}
       {isManagingEnvs ? (

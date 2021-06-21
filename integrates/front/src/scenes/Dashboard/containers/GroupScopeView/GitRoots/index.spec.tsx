@@ -7,7 +7,7 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 
 import { EnvsModal } from "./envsModal";
-import { GitModal } from "./gitModal";
+import { ManagementModal } from "./Modal";
 
 import { GitRoots } from ".";
 import { Button } from "components/Button";
@@ -74,11 +74,11 @@ describe("GitRoots", (): void => {
     expect(editButton).toHaveLength(1);
     expect(editButton.prop("disabled")).toStrictEqual(true);
 
-    expect(wrapper.find(GitModal)).toHaveLength(0);
+    expect(wrapper.find(ManagementModal)).toHaveLength(0);
 
     addButton.simulate("click");
 
-    expect(wrapper.find(GitModal)).toHaveLength(1);
+    expect(wrapper.find(ManagementModal)).toHaveLength(1);
   });
 
   it("should render git modal", (): void => {
@@ -91,11 +91,11 @@ describe("GitRoots", (): void => {
         <authzPermissionsContext.Provider
           value={new PureAbility([{ action: "update_git_root_filter" }])}
         >
-          <GitModal
+          <ManagementModal
             initialValues={undefined}
             nicknames={[]}
             onClose={handleClose}
-            onSubmit={handleSubmit}
+            onSubmitRepo={handleSubmit}
           />
         </authzPermissionsContext.Provider>
       </Provider>
