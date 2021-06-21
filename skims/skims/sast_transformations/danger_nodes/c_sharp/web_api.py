@@ -26,6 +26,7 @@ def mark_metadata(
     danger_superclass = complete_attrs_on_set(
         {
             "System.Web.Http.ApiController",
+            "Microsoft.AspNetCore.Mvc.Controller",
         }
     )
     http_actions = {"Post", "Delete", "Get", "Put"}
