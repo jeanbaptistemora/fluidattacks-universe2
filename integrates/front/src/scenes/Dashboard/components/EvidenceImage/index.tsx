@@ -1,7 +1,7 @@
+import { Field } from "formik";
 import _ from "lodash";
 import React, { cloneElement, useCallback } from "react";
 import type { Validator } from "redux-form";
-import { Field, FormSection } from "redux-form";
 
 import { Button } from "components/Button/index";
 import { FluidIcon } from "components/FluidIcon";
@@ -13,9 +13,13 @@ import {
   EvidenceDescription,
   Row,
 } from "styles/styledComponents";
-import { FileInput, TextArea } from "utils/forms/fields";
+import { FormikFileInput, FormikTextArea } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
-import { validEvidenceDescription, validTextField } from "utils/validations";
+import {
+  composeValidators,
+  validEvidenceDescription,
+  validTextField,
+} from "utils/validations";
 
 /* eslint-disable react/require-default-props, react/no-unused-prop-types */
 interface IEvidenceImageProps {
@@ -27,7 +31,7 @@ interface IEvidenceImageProps {
   isEditing: boolean;
   isRemovable?: boolean;
   name: string;
-  validate?: Validator | Validator[];
+  validate?: Validator | Validator[] | unknown;
   onClick: () => void;
   onDelete?: () => void;
 }
@@ -38,13 +42,19 @@ const renderForm: (props: IEvidenceImageProps) => JSX.Element = (
 ): JSX.Element => {
   const { onDelete } = props;
 
+  const getFieldName = (fieldName: string): string => {
+    const { name } = props;
+
+    return name ? `${name}.${fieldName}` : fieldName;
+  };
+
   return (
-    <FormSection name={props.name}>
+    <div>
       <Field
         accept={props.acceptedMimes}
-        component={FileInput}
+        component={FormikFileInput}
         id={props.name}
-        name={"file"}
+        name={getFieldName("file")}
         validate={props.validate}
       />
       {props.isDescriptionEditable ? (
@@ -54,9 +64,12 @@ const renderForm: (props: IEvidenceImageProps) => JSX.Element = (
           placement={"right"}
         >
           <Field
-            component={TextArea}
-            name={"description"}
-            validate={[validEvidenceDescription, validTextField]}
+            component={FormikTextArea}
+            name={getFieldName("description")}
+            validate={composeValidators([
+              validEvidenceDescription,
+              validTextField,
+            ])}
           />
         </TooltipWrapper>
       ) : (
@@ -75,7 +88,7 @@ const renderForm: (props: IEvidenceImageProps) => JSX.Element = (
           </TooltipWrapper>
         </ButtonToolbarLeft>
       ) : undefined}
-    </FormSection>
+    </div>
   );
 };
 

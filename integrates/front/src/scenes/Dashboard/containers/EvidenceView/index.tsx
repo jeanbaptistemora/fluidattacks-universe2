@@ -4,12 +4,13 @@ import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
-import type { InjectedFormProps, Validator } from "redux-form";
+import type { Validator } from "redux-form";
 
 import {
   handleUpdateDescriptionError,
@@ -25,7 +26,6 @@ import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
 import { EvidenceLightbox } from "scenes/Dashboard/components/EvidenceLightbox";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import styles from "scenes/Dashboard/containers/EvidenceView/index.css";
 import {
   GET_FINDING_EVIDENCES,
@@ -39,7 +39,11 @@ import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
-import { isValidFileSize, validEvidenceImage } from "utils/validations";
+import {
+  composeValidators,
+  isValidFileSize,
+  validEvidenceImage,
+} from "utils/validations";
 
 interface IEvidenceItem {
   date?: string;
@@ -170,83 +174,91 @@ const EvidenceView: React.FC = (): JSX.Element => {
           <p>{translate.t("group.findings.evidence.noData")}</p>
         </div>
       ) : (
-        <GenericForm
+        <Formik
+          enableReinitialize={true}
           initialValues={evidenceImages}
           name={"editEvidences"}
           onSubmit={handleUpdate} // eslint-disable-line react/jsx-no-bind
         >
-          {({ pristine }: InjectedFormProps): JSX.Element => (
-            <React.Fragment>
-              {isEditing ? (
-                <ButtonToolbarRow>
-                  <TooltipWrapper
-                    id={translate.t(
-                      "searchFindings.tabEvidence.updateTooltip.id"
-                    )}
-                    message={translate.t(
-                      "searchFindings.tabEvidence.updateTooltip"
-                    )}
-                  >
-                    <Button disabled={pristine} type={"submit"}>
-                      <FluidIcon icon={"loading"} />
-                      &nbsp;{translate.t("searchFindings.tabEvidence.update")}
-                    </Button>
-                  </TooltipWrapper>
-                </ButtonToolbarRow>
-              ) : undefined}
-              {/* eslint-disable-next-line react/forbid-component-props */}
-              <Row className={styles.evidenceGrid}>
-                {evidenceList.map(
-                  (name: string, index: number): JSX.Element => {
-                    const evidence: IEvidenceItem = evidenceImages[name];
+          {({ dirty }): JSX.Element => (
+            <Form>
+              <React.Fragment>
+                {isEditing ? (
+                  <ButtonToolbarRow>
+                    <TooltipWrapper
+                      id={translate.t(
+                        "searchFindings.tabEvidence.updateTooltip.id"
+                      )}
+                      message={translate.t(
+                        "searchFindings.tabEvidence.updateTooltip"
+                      )}
+                    >
+                      <Button disabled={!dirty} type={"submit"}>
+                        <FluidIcon icon={"loading"} />
+                        &nbsp;{translate.t("searchFindings.tabEvidence.update")}
+                      </Button>
+                    </TooltipWrapper>
+                  </ButtonToolbarRow>
+                ) : undefined}
+                {/* eslint-disable-next-line react/forbid-component-props */}
+                <Row className={styles.evidenceGrid}>
+                  {evidenceList.map(
+                    (name: string, index: number): JSX.Element => {
+                      const evidence: IEvidenceItem = evidenceImages[name];
+                      const handleRemove: () => void = (): void => {
+                        track("RemoveEvidence");
+                        setEditing(false);
+                        // eslint-disable-next-line
+                        void removeEvidence({ //NOSONAR
+                          variables: {
+                            evidenceId: name.toUpperCase(),
+                            findingId,
+                          },
+                        });
+                      };
 
-                    const handleRemove: () => void = (): void => {
-                      track("RemoveEvidence");
-                      setEditing(false);
-                      // eslint-disable-next-line
-                      void removeEvidence({ //NOSONAR
-                        variables: {
-                          evidenceId: name.toUpperCase(),
-                          findingId,
-                        },
-                      });
-                    };
+                      const openImage: () => void = (): void => {
+                        if (!isEditing && !isRefetching) {
+                          setLightboxIndex(index);
+                        }
+                      };
 
-                    const openImage: () => void = (): void => {
-                      if (!isEditing && !isRefetching) {
-                        setLightboxIndex(index);
-                      }
-                    };
+                      const showEmpty: boolean =
+                        _.isEmpty(evidence.url) || isRefetching;
 
-                    const showEmpty: boolean =
-                      _.isEmpty(evidence.url) || isRefetching;
+                      const preffix: string = setPreffix(name);
+                      const altDescription = setAltDescription(
+                        preffix,
+                        evidence
+                      );
 
-                    const preffix: string = setPreffix(name);
-                    const altDescription = setAltDescription(preffix, evidence);
-
-                    return (
-                      <EvidenceImage
-                        acceptedMimes={"image/gif,image/png"}
-                        content={showUrl(showEmpty, evidence)}
-                        date={evidence.date}
-                        description={altDescription}
-                        isDescriptionEditable={true}
-                        isEditing={isEditing}
-                        isRemovable={!_.isEmpty(evidence.url)}
-                        key={index.toString()}
-                        name={name}
-                        // Next annotations needed due to nested callbacks
-                        onClick={openImage} // eslint-disable-line react/jsx-no-bind
-                        onDelete={handleRemove} // eslint-disable-line react/jsx-no-bind
-                        validate={[validEvidenceImage, maxFileSize]}
-                      />
-                    );
-                  }
-                )}
-              </Row>
-            </React.Fragment>
+                      return (
+                        <EvidenceImage
+                          acceptedMimes={"image/gif,image/png"}
+                          content={showUrl(showEmpty, evidence)}
+                          date={evidence.date}
+                          description={altDescription}
+                          isDescriptionEditable={true}
+                          isEditing={isEditing}
+                          isRemovable={!_.isEmpty(evidence.url)}
+                          key={index.toString()}
+                          name={name}
+                          // Next annotations needed due to nested callbacks
+                          onClick={openImage} // eslint-disable-line react/jsx-no-bind
+                          onDelete={handleRemove} // eslint-disable-line react/jsx-no-bind
+                          validate={composeValidators([
+                            validEvidenceImage,
+                            maxFileSize,
+                          ])}
+                        />
+                      );
+                    }
+                  )}
+                </Row>
+              </React.Fragment>
+            </Form>
           )}
-        </GenericForm>
+        </Formik>
       )}
       <EvidenceLightbox
         evidenceImages={evidenceList.map(
