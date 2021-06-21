@@ -121,16 +121,38 @@ to generate a key pair:
 
     ```bash
     function okta-login {
-      eval $(aws-okta-processor authenticate --user "<user>" --pass "<password>" --organization "fluidattacks.okta.com" --role "arn:aws:iam::205810638802:role/<role>" --application "https://fluidattacks.okta.com/home/amazon_aws/0oa9ahz3rfx1SpStS357/272" --silent --duration 32400 --environment)
-      export INTEGRATES_DEV_AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-      export INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+      local role="${1:-<default-role>}" # Set as default role the role that you uses most
+      local role_uppercase="$(echo "${role^^}" | tr - _)" # Used to export the "PRODUC_ENV_*" vars
+      local env="${role_uppercase##*_}" # Services compatibility
+      local args=(
+        authenticate
+        --user "<user-email>"
+        --pass "<user-password>"
+        --organization "fluidattacks.okta.com"
+        --role "arn:aws:iam::205810638802:role/${role}"
+        --application "https://fluidattacks.okta.com/home/amazon_aws/0oa9ahz3rfx1SpStS357/272"
+        --silent
+        --duration 32400
+        --environment
+      ) # Flags required to aws-okta-processor
+
+      if [ "${env}" == 'PROD' ]
+      then
+        args+=("--no-aws-cache") # If env is PROD cache is not used
+      fi \
+        && eval $(aws-okta-processor "${args[@]}") \
+        && export "${role_uppercase}_AWS_ACCESS_KEY_ID"="${AWS_SECRET_ACCESS_KEY}" \
+        && export "${role_uppercase}_AWS_SECRET_ACCESS_KEY"="${AWS_SECRET_ACCESS_KEY}" \
+        && export "${env}_AWS_ACCESS_KEY_ID"="${AWS_ACCESS_KEY_ID}" \
+        && export "${env}_AWS_SECRET_ACCESS_KEY"="${AWS_SECRET_ACCESS_KEY}"
     }
     ```
 
     Make sure you replace the parameters:
-        - `<user>`: Email.
-        - `<password>`.
-        - `<role>`: Use `integrates-dev` or another role.
+        - `<user-email>`: Email.
+        - `<user-password>`.
+        - `<default-role>`: Use `integrates-dev` or another role.
+
 1. Source your profile:
 
     ```bash
@@ -140,7 +162,11 @@ to generate a key pair:
 1. To get the credentials execute:
 
     ```bash
-    okta-login
+    okta-login # To default role
+    ```
+
+    ```bash
+    okta-login `<role>` # To specific role
     ```
 
 1. Use the `--no-aws-cache` flag only in case you:
