@@ -97,25 +97,18 @@ def insert(table: str, item: Dict[str, str]) -> None:
 
 
 @click.group(
-    help="Redshift integration for Sorts. Handle all training results storage",
+    help="Redshift integration for Sorts. Handles all Sorts stored data"
 )
 def cli() -> None:
     pass
 
 
-@cli.command(
-    help="Initializes Redshift schema & sorts table to store training results"
-)
+@cli.command(help="Initializes Redshift schema & Sorts tables")
 def init_db() -> None:
     initialize()
 
 
-@cli.command(
-    help=(
-        "Delete and create again Redshift schema & sorts "
-        "table to store training results"
-    )
-)
+@cli.command(help="Delete and create again Redshift schema & Sorts tables")
 def reset_db() -> None:
     delete()
 
