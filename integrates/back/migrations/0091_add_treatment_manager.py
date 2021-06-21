@@ -3,8 +3,8 @@
 # field exists
 #   https://gitlab.com/fluidattacks/product/-/issues/421
 #
-# Execution time:
-# Finalization time:
+# Execution Time:    2021-06-21 at 16:21:57 UTC-05
+# Finalization Time: 2021-06-21 at 17:53:31 UTC-05
 
 from aioextensions import (
     collect,
@@ -33,7 +33,7 @@ from vulnerabilities import (
     dal as vulns_dal,
 )
 
-PROD: bool = False
+PROD: bool = True
 
 
 async def update_vuln_treatment_manager(vuln: VulnerabilityType) -> bool:
