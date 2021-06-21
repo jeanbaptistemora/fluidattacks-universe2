@@ -28,10 +28,10 @@ const EDIT_GROUP_DATA: DocumentNode = gql`
     editGroup(
       comments: $comments
       groupName: $groupName
-      hasDrills: $hasSquad
+      hasSquad: $hasSquad
       hasForces: $hasForces
-      hasIntegrates: $hasASM
-      hasSkims: $hasMachine
+      hasAsm: $hasASM
+      hasMachine: $hasMachine
       reason: $reason
       subscription: $subscription
     ) {

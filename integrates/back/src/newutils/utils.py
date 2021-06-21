@@ -109,8 +109,8 @@ def resolve_kwargs(
     current_key: str = "group_name",
     old_key: str = "project_name",
 ) -> str:
-    """Tries to get current_key from kwargs, with old_key as a fallback and
-    raises an exception if none can be found"""
+    """Tries to get current_key from kwargs, with a (lazy) old_key as a
+    fallback and raises an exception if none can be found"""
     try:
         return kwargs.get(current_key, kwargs.get(old_key))
     except KeyError:

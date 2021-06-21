@@ -170,7 +170,7 @@ type Mutation {
     hasDrills: Boolean
     hasForces: Boolean
   ): SimplePayload!
-    @deprecated(reason: "Use `createGroup`.")
+    @deprecated(reason: "Use `createGroup` instead.")
 
   deactivateOrgFindingPolicy(
     "ID of the policy"
@@ -222,10 +222,13 @@ type Mutation {
   editGroup(
     comments: String!
     groupName: String!
-    hasSkims: Boolean!
-    hasDrills: Boolean!
+    hasSkims: Boolean
+    hasMachine: Boolean
+    hasDrills: Boolean
+    hasSquad: Boolean
     hasForces: Boolean!
-    hasIntegrates: Boolean!
+    hasIntegrates: Boolean
+    hasAsm: Boolean
     reason: EditGroupReason!
     subscription: SubscriptionType!
   ): SimplePayload!

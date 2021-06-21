@@ -28,6 +28,9 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from redis_cluster.operations import (
     redis_del_by_deps,
 )
@@ -51,12 +54,10 @@ async def mutate(  # pylint: disable=too-many-arguments
     info: GraphQLResolveInfo,
     comments: str,
     group_name: str,
-    has_drills: bool,
     has_forces: bool,
-    has_integrates: bool,
-    has_skims: bool,
     reason: str,
     subscription: str,
+    **kwargs: Any,
 ) -> SimplePayloadType:
     loaders = info.context.loaders
     group_name = group_name.lower()
@@ -64,15 +65,20 @@ async def mutate(  # pylint: disable=too-many-arguments
     requester_email = user_info["user_email"]
     success = False
 
+    # Compatibility with old API
+    has_asm: bool = resolve_kwargs(kwargs, "has_asm", "has_integrates")
+    has_machine: bool = resolve_kwargs(kwargs, "has_machine", "has_skims")
+    has_squad: bool = resolve_kwargs(kwargs, "has_squad", "has_drills")
+
     try:
         success = await groups_domain.edit(
             context=loaders,
             comments=comments,
             group_name=group_name,
-            has_drills=has_drills,
+            has_drills=has_squad,
             has_forces=has_forces,
-            has_integrates=has_integrates,
-            has_skims=has_skims,
+            has_integrates=has_asm,
+            has_skims=has_machine,
             reason=reason,
             requester_email=requester_email,
             subscription=subscription,
@@ -87,7 +93,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     elif (
         success
         and not has_forces
-        and has_integrates
+        and has_asm
         and await users_domain.ensure_user_exists(
             forces_domain.format_forces_user_email(group_name)
         )
