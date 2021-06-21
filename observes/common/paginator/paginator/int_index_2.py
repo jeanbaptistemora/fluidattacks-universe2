@@ -14,7 +14,6 @@ from paginator.pages import (
     Limits,
     PageGetter,
     PageId,
-    PageResult,
 )
 from returns.maybe import (
     Maybe,
@@ -27,9 +26,7 @@ from typing import (
     NamedTuple,
     Optional,
     Tuple,
-    Type,
     TypeVar,
-    Union,
 )
 
 _Data = TypeVar("_Data")
@@ -65,7 +62,7 @@ class PageRange(NamedTuple):
 
 def get_pages(
     page_range: PageRange,
-    getter: Callable[[PageId[int]], Maybe[_Data]],
+    getter: PageGetter[int, _Data],
     limits: Limits = DEFAULT_LIMITS,
 ) -> Iterator[Maybe[_Data]]:
     @rate_limited(
@@ -87,7 +84,7 @@ def get_pages(
 
 def get_until_end(
     start: PageId[int],
-    getter: Callable[[PageId[int]], Maybe[_Data]],
+    getter: PageGetter[int, _Data],
     pages_chunk: int,
 ) -> Iterator[_Data]:
     empty_page_retrieved = False

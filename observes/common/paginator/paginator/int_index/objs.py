@@ -1,6 +1,5 @@
 from paginator.pages import (
     AllPages,
-    EmptyPage,
 )
 from typing import (
     Callable,
@@ -20,6 +19,10 @@ class PageRange(NamedTuple):
     page_range: range
     per_page: int
     pages: Callable[[], Iterator[PageId]]
+
+
+class EmptyPage(NamedTuple):
+    pass
 
 
 PageOrAll = Union[AllPages, PageId]

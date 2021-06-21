@@ -9,13 +9,11 @@ from paginator.int_index import (
 )
 from paginator.pages import (
     AllPages,
-    EmptyPage,
     Limits,
 )
 
 __all__ = [
     "AllPages",
-    "EmptyPage",
     "PageId",
     "PageOrAll",
     "PageRange",

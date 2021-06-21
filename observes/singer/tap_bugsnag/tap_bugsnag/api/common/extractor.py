@@ -8,12 +8,10 @@ import logging
 from paginator import (
     AllPages,
 )
-from paginator.object_index import (
-    PageGetterIO,
-    PageResult,
-)
 from paginator.pages import (
+    PageGetterIO,
     PageOrAll,
+    PageResult,
 )
 import re
 from requests.models import (
@@ -85,7 +83,7 @@ def from_response(response: Response) -> Maybe[PageResult[str, List[JSON]]]:
 
 def extract_page(
     get_all: Callable[[], IO[Iterator[PageResult[str, _Data]]]],
-    getter: PageGetterIO[str, _Data],
+    getter: PageGetterIO[str, PageResult[str, _Data]],
     page: PageOrAll[str],
 ) -> IO[Iterator[_Data]]:
     if isinstance(page, AllPages):

@@ -11,13 +11,13 @@ from deprecated import (
     deprecated,
 )
 from paginator.int_index.objs import (
+    EmptyPage,
     PageId,
     PageOrAll,
     PageRange,
 )
 from paginator.pages import (
     DEFAULT_LIMITS,
-    EmptyPage,
     Limits,
 )
 from typing import (

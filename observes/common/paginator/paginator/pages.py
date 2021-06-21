@@ -28,10 +28,6 @@ class AllPages(NamedTuple):
     pass
 
 
-class EmptyPage(NamedTuple):
-    pass
-
-
 _IdType = TypeVar("_IdType")
 
 
@@ -113,7 +109,5 @@ class PageResult(
         return self._inner_value["total_items"]
 
 
-PageGetter = Callable[[PageId[_IdType]], Maybe[PageResult[_IdType, _Data]]]
-PageGetterIO = Callable[
-    [PageId[_IdType]], IO[Maybe[PageResult[_IdType, _Data]]]
-]
+PageGetter = Callable[[PageId[_IdType]], Maybe[_Data]]
+PageGetterIO = Callable[[PageId[_IdType]], IO[Maybe[_Data]]]
