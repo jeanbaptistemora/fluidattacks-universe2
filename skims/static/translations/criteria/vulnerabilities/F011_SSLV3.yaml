@@ -1,3 +1,6 @@
+lib_ssl.analyze_protocol.sslv3_enabled:
+  en: "supports SSL v3"
+  es: "soporta SSL v3"
 F011_SSLV3.description:
   en: >
     The server allows the usage of a protocol version with well known

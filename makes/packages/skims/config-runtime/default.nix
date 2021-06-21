@@ -65,6 +65,7 @@ makeTemplate {
             "ruamel.yaml.clib==0.2.2"
             "ruamel.yaml==0.17.4"
             "semver==2.13.0"
+            "tlslite-ng==0.8.0a41"
             "tracers==20.7.17562"
             "tree-sitter==0.19.0"
             "uvloop==0.15.2"
