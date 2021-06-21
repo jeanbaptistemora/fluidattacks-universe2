@@ -653,8 +653,11 @@ def contains_label_type_in(
 def concatenate_label_text(
     graph: Graph,
     c_ids: Tuple[str, ...],
+    separator: Optional[str] = None,
 ) -> str:
-    return "".join(graph.nodes[c_id]["label_text"] for c_id in c_ids)
+    return (separator or "").join(
+        graph.nodes[c_id]["label_text"] for c_id in c_ids
+    )
 
 
 # Functions below should disappear

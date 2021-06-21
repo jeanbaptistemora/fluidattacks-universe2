@@ -46,91 +46,6 @@ from zone import (
 )
 
 
-def _vuln_cipher_get_instance(transformation: str) -> bool:
-    alg, mode, pad, *_ = (transformation + "///").split("/", 3)
-
-    return any(
-        (
-            alg == "aes" and mode == "ecb",
-            alg == "aes" and mode == "cbc" and pad and pad != "nopadding",
-            alg == "blowfish",
-            alg == "des",
-            alg == "desede",
-            alg == "rc2",
-            alg == "rc4",
-            alg == "rsa" and "oaep" not in pad,
-        )
-    )
-
-
-def _java_insecure_cipher(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    grammar = MatchFirst(
-        [
-            (
-                MatchFirst(
-                    [
-                        Keyword("Cipher"),
-                        Keyword("KeyGenerator"),
-                    ]
-                )
-                + "."
-                + Keyword("getInstance")
-                + "("
-                + DOUBLE_QUOTED_STRING.copy().addCondition(
-                    lambda tokens: _vuln_cipher_get_instance(tokens[0].lower())
-                )
-            ),
-            (
-                Keyword("SSLContext")
-                + "."
-                + Keyword("getInstance")
-                + "("
-                + DOUBLE_QUOTED_STRING.copy().addCondition(
-                    lambda tokens: tokens[0].lower()
-                    not in {
-                        "tls",
-                        "tlsv1.2",
-                        "tlsv1.3",
-                        "dtls",
-                        "dtlsv1.2",
-                        "dtlsv1.3",
-                    }
-                )
-            ),
-        ]
-    )
-    grammar.ignore(C_STYLE_COMMENT)
-
-    return get_vulnerabilities_blocking(
-        content=content,
-        cwe={"310", "327"},
-        description=t(
-            key="src.lib_path.f052.insecure_cipher.description",
-            path=path,
-        ),
-        finding=core_model.FindingEnum.F052,
-        grammar=grammar,
-        path=path,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def java_insecure_cipher(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _java_insecure_cipher,
-        content=content,
-        path=path,
-    )
-
-
 def _java_insecure_hash(
     content: str,
     path: str,
@@ -461,12 +376,6 @@ async def analyze(
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_JAVA:
-        coroutines.append(
-            java_insecure_cipher(
-                content=await content_generator(),
-                path=path,
-            )
-        )
         coroutines.append(
             java_insecure_hash(
                 content=await content_generator(),
