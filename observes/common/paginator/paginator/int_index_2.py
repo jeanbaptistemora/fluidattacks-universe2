@@ -1,3 +1,5 @@
+# pylint: skip-file
+
 from aioextensions import (
     in_thread,
     rate_limited,
@@ -7,24 +9,22 @@ import asyncio
 from asyncio.events import (
     AbstractEventLoop,
 )
-from deprecated import (
-    deprecated,
-)
-from paginator.int_index.objs import (
-    PageId,
-    PageOrAll,
-    PageRange,
-)
 from paginator.pages import (
     DEFAULT_LIMITS,
-    EmptyPage,
     Limits,
+    PageGetter,
+    PageId,
+    PageResult,
+)
+from returns.maybe import (
+    Maybe,
 )
 from typing import (
     AsyncGenerator,
     Callable,
     cast,
     Iterator,
+    NamedTuple,
     Optional,
     Tuple,
     Type,
@@ -33,9 +33,6 @@ from typing import (
 )
 
 _Data = TypeVar("_Data")
-ResultPage = TypeVar("ResultPage")
-EPage = Union[ResultPage, EmptyPage]
-PageGetter = Callable[[PageId], EPage[_Data]]
 
 
 def _iter_over_async(
@@ -57,33 +54,29 @@ def _iter_over_async(
         yield cast(_Data, obj)
 
 
-@deprecated(reason="Use int_index_2")
-def new_page_range(
-    page_range: range,
-    per_page: int,
-) -> PageRange:
-    def next_page() -> Iterator[PageId]:
-        for p_num in page_range:
-            yield PageId(page=p_num, per_page=per_page)
+class PageRange(NamedTuple):
+    page_range: range
+    per_page: int
 
-    return PageRange(page_range=page_range, per_page=per_page, pages=next_page)
+    def pages(self) -> Iterator[PageId[int]]:
+        for p_num in self.page_range:
+            yield PageId(page=p_num, per_page=self.per_page)
 
 
-@deprecated(reason="Use int_index_2")
 def get_pages(
     page_range: PageRange,
-    getter: Callable[[PageId], _Data],
+    getter: Callable[[PageId[int]], Maybe[_Data]],
     limits: Limits = DEFAULT_LIMITS,
-) -> Iterator[_Data]:
+) -> Iterator[Maybe[_Data]]:
     @rate_limited(
         max_calls=limits.max_calls,
         max_calls_period=limits.max_period,
         min_seconds_between_calls=limits.min_period,
     )
-    async def get_page(page: PageId) -> _Data:
+    async def get_page(page: PageId[int]) -> Maybe[_Data]:
         return await in_thread(getter, page)
 
-    async def pages() -> AsyncGenerator[_Data, None]:
+    async def pages() -> AsyncGenerator[Maybe[_Data], None]:
         jobs = map(get_page, page_range.pages())
         for item in resolve(jobs, worker_greediness=limits.greediness):
             yield await item
@@ -92,45 +85,20 @@ def get_pages(
     return _iter_over_async(pages(), loop)
 
 
-# _type is necessary to correctly infer the type var
-@deprecated(reason="Use int_index_2")
 def get_until_end(
-    _type: Type[_Data],
-    start: PageId,
-    getter: PageGetter[_Data],
+    start: PageId[int],
+    getter: Callable[[PageId[int]], Maybe[_Data]],
     pages_chunk: int,
 ) -> Iterator[_Data]:
     empty_page_retrieved = False
     actual_page = start.page
     while not empty_page_retrieved:
-        pages = new_page_range(
+        pages = PageRange(
             range(actual_page, actual_page + pages_chunk), start.per_page
         )
         for response in get_pages(pages, getter):
-            if isinstance(response, EmptyPage):
+            if response == Maybe.empty:
                 empty_page_retrieved = True
                 break
-            yield response
+            yield response.unwrap()
         actual_page = actual_page + pages_chunk
-
-
-@deprecated(reason="Use int_index_2")
-def build_getter(
-    _type: Type[ResultPage],
-    get_page: Callable[[PageId], ResultPage],
-    is_empty: Callable[[ResultPage], bool],
-) -> PageGetter[ResultPage]:
-    def getter(page: PageId) -> EPage[ResultPage]:
-        result: ResultPage = get_page(page)
-        if is_empty(result):
-            return EmptyPage()
-        return result
-
-    return getter
-
-
-__all__ = [
-    "PageId",
-    "PageOrAll",
-    "PageRange",
-]
