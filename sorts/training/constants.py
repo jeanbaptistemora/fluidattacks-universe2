@@ -76,7 +76,7 @@ MODEL_HYPERPARAMETERS = {
         "max_depth": IntegerParameter(3, 5),
         "n_estimators": IntegerParameter(105, 115),
         "learning_rate": ContinuousParameter(
-            0.03, 0.4, scaling_type="Logarithmic"
+            0.01, 0.5, scaling_type="Logarithmic"
         ),
     },
     "adaboostclassifier": {

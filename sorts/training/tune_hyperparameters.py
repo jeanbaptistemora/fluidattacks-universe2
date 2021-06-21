@@ -31,8 +31,8 @@ def deploy_hyperparameter_tuning_job() -> None:
 
     tuner = HyperparameterTuner(
         estimator,
-        max_jobs=20,
-        max_parallel_jobs=4,
+        max_jobs=250,
+        max_parallel_jobs=8,
         metric_definitions=[
             {"Name": "precision", "Regex": "Precision: (.*?)%"},
             {"Name": "recall", "Regex": "Recall: (.*?)%"},
