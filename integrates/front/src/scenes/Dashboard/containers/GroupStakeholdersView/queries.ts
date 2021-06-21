@@ -23,7 +23,7 @@ const REMOVE_STAKEHOLDER_MUTATION: DocumentNode = gql`
     $groupName: String!
     $userEmail: String!
   ) {
-    removeStakeholderAccess(projectName: $groupName, userEmail: $userEmail) {
+    removeStakeholderAccess(groupName: $groupName, userEmail: $userEmail) {
       removedEmail
       success
     }
@@ -41,7 +41,7 @@ const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
     grantStakeholderAccess(
       email: $email
       phoneNumber: $phoneNumber
-      projectName: $groupName
+      groupName: $groupName
       responsibility: $responsibility
       role: $role
     ) {
@@ -69,7 +69,7 @@ const EDIT_STAKEHOLDER_MUTATION: DocumentNode = gql`
     editStakeholder(
       email: $email
       phoneNumber: $phoneNumber
-      projectName: $groupName
+      groupName: $groupName
       responsibility: $responsibility
       role: $role
     ) {

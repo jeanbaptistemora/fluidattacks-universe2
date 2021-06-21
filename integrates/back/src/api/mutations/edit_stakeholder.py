@@ -27,6 +27,9 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from redis_cluster.operations import (
     redis_del_by_deps,
 )
@@ -52,14 +55,14 @@ async def _update_stakeholder(
     info: GraphQLResolveInfo, updated_data: Dict[str, str]
 ) -> bool:
     success = False
-    group_name = updated_data["project_name"].lower()
+    group_name: str = resolve_kwargs(updated_data).lower()
     modified_role = updated_data["role"]
     modified_email = updated_data["email"]
-    project_access = await group_access_domain.get_user_access(
+    group_access = await group_access_domain.get_user_access(
         modified_email, group_name
     )
-    if project_access:
-        invitation = cast(InvitationType, project_access.get("invitation"))
+    if group_access:
+        invitation = cast(InvitationType, group_access.get("invitation"))
         if invitation and not invitation["is_used"]:
             success = await users_domain.update_invited_stakeholder(
                 updated_data, invitation, group_name
@@ -91,9 +94,9 @@ async def _update_stakeholder(
 async def mutate(
     _: Any, info: GraphQLResolveInfo, **updated_data: str
 ) -> EditStakeholderPayloadType:
-    project_name = updated_data["project_name"].lower()
-    modified_role = updated_data["role"]
-    modified_email = updated_data["email"]
+    group_name: str = resolve_kwargs(updated_data).lower()
+    modified_role: str = updated_data["role"]
+    modified_email: str = updated_data["email"]
 
     success = False
     user_data = await token_utils.get_jwt_content(info.context)
@@ -101,13 +104,13 @@ async def mutate(
 
     allowed_roles_to_grant = (
         await authz.get_group_level_roles_a_user_can_grant(
-            group=project_name,
+            group=group_name,
             requester_email=user_email,
         )
     )
 
     await authz.validate_fluidattacks_staff_on_group(
-        project_name, modified_email, modified_role
+        group_name, modified_email, modified_role
     )
 
     if modified_role in allowed_roles_to_grant:
@@ -118,30 +121,30 @@ async def mutate(
             extra={
                 "extra": {
                     "modified_user_role": modified_role,
-                    "project_name": project_name,
+                    "group_name": group_name,
                     "requester_email": user_email,
                 }
             },
         )
 
     if success:
-        await redis_del_by_deps("edit_stakeholder", group_name=project_name)
+        await redis_del_by_deps("edit_stakeholder", group_name=group_name)
         msg = (
             f"Security: Modified stakeholder data: {modified_email} "
-            f"in {project_name} project successfully"
+            f"in {group_name} group successfully"
         )
         logs_utils.cloudwatch_log(info.context, msg)
     else:
         msg = (
             f"Security: Attempted to modify stakeholder "
             f"data:{modified_email} in "
-            f"{project_name} project"
+            f"{group_name} group"
         )
         logs_utils.cloudwatch_log(info.context, msg)
 
     return EditStakeholderPayloadType(
         success=success,
         modified_stakeholder=dict(
-            project_name=project_name, email=updated_data["email"]
+            group_name=group_name, email=updated_data["email"]
         ),
     )

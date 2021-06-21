@@ -19,6 +19,9 @@ from groups import (
 from newutils import (
     logs as logs_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
@@ -34,26 +37,27 @@ from typing import (
     require_integrates,
 )
 async def mutate(
-    _: Any, info: GraphQLResolveInfo, project_name: str, user_email: str
+    _: Any, info: GraphQLResolveInfo, user_email: str, **kwargs: Any
 ) -> RemoveStakeholderAccessPayloadType:
+    group_name: str = resolve_kwargs(kwargs)
     success = await groups_domain.remove_user(
-        info.context.loaders, project_name, user_email
+        info.context.loaders, group_name, user_email
     )
     removed_email = user_email if success else ""
     if success:
         redis_del_by_deps_soon(
             "remove_stakeholder_access",
-            group_name=project_name,
+            group_name=group_name,
         )
         msg = (
-            f"Security: Removed stakeholder: {user_email} from {project_name} "
+            f"Security: Removed stakeholder: {user_email} from {group_name} "
             f"project successfully"
         )
         logs_utils.cloudwatch_log(info.context, msg)
     else:
         msg = (
             f"Security: Attempted to remove stakeholder: {user_email} "
-            f"from {project_name} project"
+            f"from {group_name} project"
         )
         logs_utils.cloudwatch_log(info.context, msg)
 

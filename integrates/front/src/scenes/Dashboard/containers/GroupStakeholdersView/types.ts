@@ -32,7 +32,7 @@ interface IStakeholderAttrs {
   lastLogin: string;
   organization: string;
   phoneNumber: string;
-  projectName: string;
+  groupName: string;
   responsibility: string;
   role: string;
 }

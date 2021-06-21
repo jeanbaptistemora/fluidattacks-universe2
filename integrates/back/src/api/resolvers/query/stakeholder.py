@@ -20,6 +20,9 @@ from graphql.type.definition import (
 from group_access import (
     domain as group_access_domain,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from typing import (
     cast,
     List,
@@ -72,7 +75,6 @@ async def resolve(
     entity: str = kwargs["entity"]
     email: str = kwargs["user_email"]
     group_name_provided: bool
-    group_name: str
 
     if entity == "ORGANIZATION" and "organization_id" in kwargs:
         org_id: str = kwargs["organization_id"]
@@ -85,10 +87,7 @@ async def resolve(
     # Compatibility with old API
     group_name_provided = "group_name" in kwargs or "project_name" in kwargs
     if entity in group_entities and group_name_provided:
-        if "group_name" in kwargs:
-            group_name = kwargs["group_name"].lower()
-        else:
-            group_name = kwargs["project_name"].lower()
+        group_name: str = resolve_kwargs(kwargs)
         return await _resolve_for_group(
             info,
             email,

@@ -54,7 +54,10 @@ LOGGER = logging.getLogger(__name__)
 async def mutate(
     _: Any, info: GraphQLResolveInfo, role: str, **query_args: str
 ) -> GrantStakeholderAccessPayloadType:
-    project_name = query_args.get("project_name", "").lower()
+    # Compatibility with old API
+    group_name: str = query_args.get(
+        "group_name", query_args.get("project_name", "")
+    ).lower()
     success = False
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
@@ -62,15 +65,15 @@ async def mutate(
     new_user_email = query_args.get("email", "")
     new_user_responsibility = query_args.get("responsibility", "-")
 
-    project_access = await group_access_domain.get_user_access(
-        new_user_email, project_name
+    group_access = await group_access_domain.get_user_access(
+        new_user_email, group_name
     )
-    if project_access and project_access["has_access"]:
+    if group_access and group_access["has_access"]:
         raise StakeholderHasGroupAccess()
 
     allowed_roles_to_grant = (
         await authz.get_group_level_roles_a_user_can_grant(
-            group=project_name,
+            group=group_name,
             requester_email=user_email,
         )
     )
@@ -81,7 +84,7 @@ async def mutate(
             responsibility=new_user_responsibility,
             role=new_user_role,
             phone_number=query_args.get("phone_number", ""),
-            group_name=project_name,
+            group_name=group_name,
         )
     else:
         LOGGER.error(
@@ -89,7 +92,7 @@ async def mutate(
             extra={
                 "extra": {
                     "new_user_role": new_user_role,
-                    "project_name": project_name,
+                    "group_name": group_name,
                     "requester_email": user_email,
                 }
             },
@@ -98,26 +101,26 @@ async def mutate(
     if success:
         await redis_del_by_deps(
             "grant_stakeholder_access",
-            group_name=project_name,
+            group_name=group_name,
         )
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Given grant access to {new_user_email} "
-            f"in {project_name} project",
+            f"in {group_name} group",
         )
     else:
         LOGGER.error(
-            "Couldn't grant access to project", extra={"extra": info.context}
+            "Couldn't grant access to group", extra={"extra": info.context}
         )
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Attempted to grant access to {new_user_email} "
-            f"in {project_name} project",
+            f"in {group_name} group",
         )
 
     return GrantStakeholderAccessPayloadType(
         success=success,
         granted_stakeholder=dict(
-            project_name=project_name, email=new_user_email
+            project_name=group_name, email=new_user_email
         ),
     )

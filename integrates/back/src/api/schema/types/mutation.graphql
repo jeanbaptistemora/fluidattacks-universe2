@@ -231,7 +231,8 @@ type Mutation {
   ): SimplePayload!
 
   editStakeholder(
-    projectName: String!
+    projectName: String
+    groupName: String
     email: String!
     responsibility: String!
     role: StakeholderRole!
@@ -249,6 +250,7 @@ type Mutation {
 
   grantStakeholderAccess(
     projectName: String
+    groupName: String
     email: String!
     responsibility: String
     role: StakeholderRole!
@@ -305,7 +307,8 @@ type Mutation {
   removeGroup(groupName: String!): SimplePayload!
 
   removeStakeholderAccess(
-    projectName: String!
+    projectName: String
+    groupName: String
     userEmail: String!
   ): RemoveStakeholderAccessPayload!
 

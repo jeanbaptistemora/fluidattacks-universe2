@@ -21,6 +21,9 @@ from graphql.type.definition import (
 from groups import (
     validations as groups_validations,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 
 
 @convert_kwargs_to_snake_case
@@ -32,11 +35,7 @@ async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Group:
     # Compatibility with the old API
-    group_name: str
-    if "group_name" in kwargs:
-        group_name = kwargs["group_name"].lower()
-    else:
-        group_name = kwargs["project_name"].lower()
+    group_name: str = resolve_kwargs(kwargs).lower()
     group_loader: DataLoader = info.context.loaders.group
     group: Group = await group_loader.load(group_name.lower())
 
