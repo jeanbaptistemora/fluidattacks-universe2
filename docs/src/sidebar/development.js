@@ -64,6 +64,7 @@ const DEVELOPMENT = [
         items: [
           'development/stack/aws/introduction',
           'development/stack/aws/cloudwatch',
+          'development/stack/aws/cost-management',
           'development/stack/aws/ebs',
           'development/stack/aws/ec2',
           'development/stack/aws/eks',

@@ -56,43 +56,41 @@ over other alternatives are:
 We use the following [AWS][AWS] services:
 
 1. Identity and Access Management:
-    [AWS IAM](/development/stack/aws/iam/).
-1. Monitoring and logging:
-    [AWS CloudWatch](/development/stack/aws/cloudwatch/).
-1. Elastic cloud computing:
-    [AWS EC2](/development/stack/aws/ec2/).
-1. Cloud file storage:
-    [AWS S3](/development/stack/aws/s3/).
-1. Elastic block store:
-    [AWS EBS](/development/stack/aws/ebs/).
-1. Key management system:
-    [AWS KMS](/development/stack/aws/kms/).
-1. Application cluster:
-    [AWS EKS](/development/stack/aws/eks/).
-1. Virtual private cloud:
-    [AWS VPC](/development/stack/aws/vpc/).
-1. Serverless computing:
-    [AWS Lambda](https://aws.amazon.com/lambda/).
-1. Elastic Container Service:
-    [AWS ECS](https://aws.amazon.com/ecs/).
-1. Elastic Load Balancing:
-    [AWS Elastic Load Balancing](https://aws.amazon.com/elasticloadbalancing/).
-1. NoSQL database:
-    [AWS DynamoDB](https://aws.amazon.com/dynamodb/).
-1. Data warehouse:
-    [AWS Redshift](https://aws.amazon.com/redshift/).
-1. Cache:
-    [AWS Redis](https://aws.amazon.com/redis/).
-1. Batch processing:
-    [AWS Batch](https://aws.amazon.com/batch/).
-1. Machine learning:
-    [AWS SageMaker](https://aws.amazon.com/sagemaker/).
-1. Secrets manager:
-    [AWs Secrets Manager](https://aws.amazon.com/secrets-manager/).
-1. Simple queue service:
-    [AWS SQS](https://aws.amazon.com/sqs/).
+    [IAM](/development/stack/aws/iam/).
 1. Cost management:
-    [AWS Cost Management](https://aws.amazon.com/aws-cost-management/).
+    [Cost Management](/development/stack/aws/cost-management/).
+1. Monitoring and logging:
+    [CloudWatch](/development/stack/aws/cloudwatch/).
+1. Elastic cloud computing:
+    [EC2](/development/stack/aws/ec2/).
+1. Cloud file storage:
+    [S3](/development/stack/aws/s3/).
+1. Elastic block store:
+    [EBS](/development/stack/aws/ebs/).
+1. Key management system:
+    [KMS](/development/stack/aws/kms/).
+1. Application cluster:
+    [EKS](/development/stack/aws/eks/).
+1. Virtual private cloud:
+    [VPC](/development/stack/aws/vpc/).
+1. Serverless computing:
+    [Lambda](https://aws.amazon.com/lambda/).
+1. Elastic Container Service:
+    [ECS](https://aws.amazon.com/ecs/).
+1. Elastic Load Balancing:
+    [Elastic Load Balancing](https://aws.amazon.com/elasticloadbalancing/).
+1. NoSQL database:
+    [DynamoDB](https://aws.amazon.com/dynamodb/).
+1. Data warehouse:
+    [Redshift](https://aws.amazon.com/redshift/).
+1. Cache:
+    [Redis](https://aws.amazon.com/redis/).
+1. Batch processing:
+    [Batch](https://aws.amazon.com/batch/).
+1. Machine learning:
+    [SageMaker](https://aws.amazon.com/sagemaker/).
+1. Simple queue service:
+    [SQS](https://aws.amazon.com/sqs/).
 
 ## Guidelines
 
