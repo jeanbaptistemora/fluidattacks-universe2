@@ -2,14 +2,13 @@ import { useMutation } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import { faCloud, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { useTranslation } from "react-i18next";
 
-import { EnvsModal } from "./envsModal";
 import {
   handleActivationError,
   handleCreationError,
@@ -103,16 +102,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const editDisabled: boolean =
     currentRow === undefined || currentRow.state === "INACTIVE";
 
-  const [isManagingEnvs, setManagingEnvs] = useState(false);
-
-  const openEnvsModal: () => void = useCallback((): void => {
-    setManagingEnvs(true);
-  }, []);
-
-  const closeEnvsModal: () => void = useCallback((): void => {
-    setManagingEnvs(false);
-  }, []);
-
   const [deactivationModal, setDeactivationModal] = useState({
     open: false,
     rootId: "",
@@ -199,7 +188,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const [updateGitEnvs] = useMutation(UPDATE_GIT_ENVIRONMENTS, {
     onCompleted: (): void => {
       onUpdate();
-      closeEnvsModal();
+      closeModal();
       setCurrentRow(undefined);
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -305,26 +294,13 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
               id={t("group.scope.common.editTooltip.id")}
               message={t("group.scope.common.editTooltip")}
             >
-              <Button disabled={editDisabled} onClick={openEditModal}>
-                <FluidIcon icon={"edit"} />
-                &nbsp;{t("group.scope.common.edit")}
-              </Button>
-            </TooltipWrapper>
-          </div>
-        </Can>
-        <Can do={"api_mutations_update_git_environments_mutate"}>
-          <div className={"mb3"}>
-            <TooltipWrapper
-              id={t("group.scope.git.manageEnvsTooltip.id")}
-              message={t("group.scope.git.manageEnvsTooltip")}
-            >
               <Button
                 disabled={editDisabled}
-                id={"envs-manage"}
-                onClick={openEnvsModal}
+                id={"git-root-edit"}
+                onClick={openEditModal}
               >
-                <FontAwesomeIcon icon={faCloud} />
-                &nbsp;{t("group.scope.git.manageEnvs")}
+                <FluidIcon icon={"edit"} />
+                &nbsp;{t("group.scope.common.edit")}
               </Button>
             </TooltipWrapper>
           </div>
@@ -470,16 +446,10 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           }
           nicknames={nicknames}
           onClose={closeModal}
+          onSubmitEnvs={handleEnvsSubmit}
           onSubmitRepo={handleGitSubmit}
         />
       )}
-      {isManagingEnvs ? (
-        <EnvsModal
-          initialValues={currentRow as IGitRootAttr}
-          onClose={closeEnvsModal}
-          onSubmit={handleEnvsSubmit}
-        />
-      ) : undefined}
       {deactivationModal.open ? (
         <DeactivationModal
           onClose={closeDeactivationModal}

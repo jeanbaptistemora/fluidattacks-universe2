@@ -6,10 +6,10 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 
-import { EnvsModal } from "./envsModal";
 import { ManagementModal } from "./Modal";
 
 import { GitRoots } from ".";
+import type { IGitRootAttr } from "../types";
 import { Button } from "components/Button";
 import { SwitchButton } from "components/SwitchButton";
 import store from "store";
@@ -95,6 +95,7 @@ describe("GitRoots", (): void => {
             initialValues={undefined}
             nicknames={[]}
             onClose={handleClose}
+            onSubmitEnvs={handleSubmit}
             onSubmitRepo={handleSubmit}
           />
         </authzPermissionsContext.Provider>
@@ -126,18 +127,45 @@ describe("GitRoots", (): void => {
 
     const handleClose: jest.Mock = jest.fn();
     const handleSubmit: jest.Mock = jest.fn();
+    const initialValues: IGitRootAttr = {
+      __typename: "GitRoot",
+      branch: "",
+      cloningStatus: {
+        message: "",
+        status: "UNKNOWN",
+      },
+      environment: "",
+      environmentUrls: [""],
+      gitignore: [],
+      id: "",
+      includesHealthCheck: false,
+      nickname: "",
+      state: "ACTIVE",
+      url: "",
+    };
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <EnvsModal
-          initialValues={{ environmentUrls: [""] }}
-          onClose={handleClose}
-          onSubmit={handleSubmit}
-        />
+        <authzPermissionsContext.Provider
+          value={
+            new PureAbility([
+              { action: "api_mutations_update_git_environments_mutate" },
+            ])
+          }
+        >
+          <ManagementModal
+            initialValues={initialValues}
+            nicknames={[]}
+            onClose={handleClose}
+            onSubmitEnvs={handleSubmit}
+            onSubmitRepo={handleSubmit}
+          />
+        </authzPermissionsContext.Provider>
       </Provider>
     );
 
     expect(wrapper).toHaveLength(1);
 
+    wrapper.find("a").at(1).simulate("click", { button: 0 });
     const firstInput: ReactWrapper = wrapper
       .find({ name: "environmentUrls" })
       .find("input")
@@ -153,6 +181,7 @@ describe("GitRoots", (): void => {
 
     expect(handleSubmit).toHaveBeenCalledWith(
       {
+        ...initialValues,
         environmentUrls: ["https://app.fluidattacks.com/"],
       },
       expect.anything(),

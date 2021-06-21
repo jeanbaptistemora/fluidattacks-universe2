@@ -3,9 +3,8 @@ import { useTranslation } from "react-i18next";
 import { Field } from "redux-form";
 import type { InjectedFormProps } from "redux-form";
 
-import type { IGitRootAttr } from "../types";
+import type { IGitRootAttr } from "../../types";
 import { Button } from "components/Button";
-import { Modal } from "components/Modal";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   ButtonToolbar,
@@ -17,21 +16,21 @@ import {
 import { ArrayField, Text } from "utils/forms/fields";
 import { required } from "utils/validations";
 
-interface IEnvsModalProps {
-  initialValues: { environmentUrls: string[] };
+interface IEnvironmentsProps {
+  initialValues: IGitRootAttr | undefined;
   onClose: () => void;
   onSubmit: (values: IGitRootAttr) => Promise<void>;
 }
 
-const EnvsModal: React.FC<IEnvsModalProps> = ({
+const Environments: React.FC<IEnvironmentsProps> = ({
   initialValues,
   onClose,
   onSubmit,
-}: IEnvsModalProps): JSX.Element => {
+}: IEnvironmentsProps): JSX.Element => {
   const { t } = useTranslation();
 
   return (
-    <Modal headerTitle={t("group.scope.git.manageEnvs")} open={true}>
+    <div>
       <GenericForm
         initialValues={initialValues}
         name={"gitEnvs"}
@@ -75,8 +74,8 @@ const EnvsModal: React.FC<IEnvsModalProps> = ({
           </React.Fragment>
         )}
       </GenericForm>
-    </Modal>
+    </div>
   );
 };
 
-export { EnvsModal };
+export { Environments };

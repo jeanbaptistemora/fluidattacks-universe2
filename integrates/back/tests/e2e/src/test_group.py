@@ -206,12 +206,19 @@ def test_group_scope_environments(
         timeout,
     )
     table_row.click()
-    manage_environments = utils.wait_for_id(
+    edit_button = utils.wait_for_id(
         driver,
-        "envs-manage",
+        "git-root-edit",
         timeout,
     )
-    manage_environments.click()
+    edit_button.click()
+    envs_tab = utils.wait_for_id(
+        driver,
+        "envsTab",
+        timeout,
+    )
+    envs_tab.click()
+
     environment = utils.wait_for_name(driver, "environmentUrls[0]", timeout)
     environment_name: str = utils.rand_name("https://test.fluidattacks.com")
     environment.clear()
