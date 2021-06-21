@@ -68,12 +68,6 @@ describe("GitRoots", (): void => {
     const addButton: ReactWrapper = wrapper.find("button").at(0);
 
     expect(addButton).toHaveLength(1);
-
-    const editButton: ReactWrapper = wrapper.find("button").at(1);
-
-    expect(editButton).toHaveLength(1);
-    expect(editButton.prop("disabled")).toStrictEqual(true);
-
     expect(wrapper.find(ManagementModal)).toHaveLength(0);
 
     addButton.simulate("click");

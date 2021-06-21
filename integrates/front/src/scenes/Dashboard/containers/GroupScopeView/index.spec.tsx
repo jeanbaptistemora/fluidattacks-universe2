@@ -384,9 +384,6 @@ describe("GroupScopeView", (): void => {
 
     getFirstTableRow().find("td").at(0).simulate("click");
 
-    const editButton: ReactWrapper = wrapper.find("button").at(1);
-    editButton.simulate("click");
-
     const environment: ReactWrapper = wrapper
       .find({ name: "environment" })
       .find("input");

@@ -37,7 +37,6 @@ import {
   changeFormatter,
   dateFormatter,
 } from "components/DataTableNext/formatters";
-import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { ButtonToolbarRow } from "styles/styledComponents";
@@ -88,19 +87,12 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     setManagingRoot({ mode: "ADD" });
   }, []);
 
-  const openEditModal: () => void = useCallback((): void => {
-    setManagingRoot({ mode: "EDIT" });
-  }, []);
-
   const closeModal: () => void = useCallback((): void => {
     setManagingRoot(false);
   }, []);
 
   const [currentRow, setCurrentRow] =
     useState<IGitRootAttr | undefined>(undefined);
-
-  const editDisabled: boolean =
-    currentRow === undefined || currentRow.state === "INACTIVE";
 
   const [deactivationModal, setDeactivationModal] = useState({
     open: false,
@@ -218,9 +210,14 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   });
 
   // Event handlers
-  const handleRowSelect: (row: IGitRootAttr) => void = useCallback(
-    setCurrentRow,
-    [setCurrentRow]
+  const handleRowClick = useCallback(
+    (_0: React.SyntheticEvent, row: IGitRootAttr): void => {
+      if (permissions.can("api_mutations_update_git_root_mutate")) {
+        setCurrentRow(row);
+        setManagingRoot({ mode: "EDIT" });
+      }
+    },
+    [permissions]
   );
 
   const handleGitSubmit = useGitSubmit(
@@ -284,23 +281,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
               <Button id={"git-root-add"} onClick={openAddModal}>
                 <FontAwesomeIcon icon={faPlus} />
                 &nbsp;{t("group.scope.common.add")}
-              </Button>
-            </TooltipWrapper>
-          </div>
-        </Can>
-        <Can do={"api_mutations_update_git_root_mutate"}>
-          <div className={"mb3"}>
-            <TooltipWrapper
-              id={t("group.scope.common.editTooltip.id")}
-              message={t("group.scope.common.editTooltip")}
-            >
-              <Button
-                disabled={editDisabled}
-                id={"git-root-edit"}
-                onClick={openEditModal}
-              >
-                <FluidIcon icon={"edit"} />
-                &nbsp;{t("group.scope.common.edit")}
               </Button>
             </TooltipWrapper>
           </div>
@@ -424,15 +404,8 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                 onColumnToggle={handleChange}
                 onUpdateEnableFilter={handleUpdateFilter}
                 pageSize={10}
+                rowEvents={{ onClick: handleRowClick }}
                 search={true}
-                selectionMode={{
-                  clickToSelect: true,
-                  hideSelectColumn: permissions.cannot(
-                    "api_mutations_update_git_root_mutate"
-                  ),
-                  mode: "radio",
-                  onSelect: handleRowSelect,
-                }}
                 striped={true}
               />
             </Container>

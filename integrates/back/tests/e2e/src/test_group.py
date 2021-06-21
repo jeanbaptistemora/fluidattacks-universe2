@@ -206,12 +206,6 @@ def test_group_scope_environments(
         timeout,
     )
     table_row.click()
-    edit_button = utils.wait_for_id(
-        driver,
-        "git-root-edit",
-        timeout,
-    )
-    edit_button.click()
     envs_tab = utils.wait_for_id(
         driver,
         "envsTab",
