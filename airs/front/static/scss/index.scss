@@ -137,6 +137,7 @@ $gray-244: rgba(244, 244, 246, 1);
 .bc-gray-64 { border-color: $gray-64; }
 .bc-black-gray { border-color: $black-gray; }
 .bc-fluid-red { border-color: $button-red; }
+.bc-fluid-gray { border-color: $fluid-gray; }
 .bc-hovered-red { border-color: $hovered-red; }
 .bc-gray-233 { border-color: $gray-233; }
 .c-black-gray { color: $black-gray; }
@@ -282,9 +283,11 @@ $gray-244: rgba(244, 244, 246, 1);
 
 @media screen and (min-width: 30em) and (max-width: 60em) {
   .fheader { font-size: 3.5rem; }
+  .hide-item-m { display: none; }
   .nt-125 { margin-top: -0.125rem; }
-  .w-products { width: 20rem; }
+  .show-item-m { display: block; }
   .two-columns-m { column-count: 2; }
+  .w-products { width: 20rem; }
 }
 
 // Small screen sizes
@@ -469,6 +472,10 @@ $gray-244: rgba(244, 244, 246, 1);
 .drop-resources { filter: drop-shadow(0 30px 30px rgba(46, 46, 56, 0.8)); }
 
 .grid { display: grid; }
+
+.overlay-menu-col {
+  min-height: 300px;
+}
 
 .plans-feat {
   .sect2 {
