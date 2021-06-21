@@ -1,0 +1,57 @@
+F075_APK_CP.description:
+  en: >
+    The Content Provider API
+    allows third party applications installed in the device
+    to retrieve data stored by the application.
+
+    Access to this data
+    must not be allowed to all applications by default.
+    Instead
+    (and only if required)
+    specific allow-lists must be used.
+  es: >
+    La Content Provider API
+    permite a aplicaciones de terceros instaladas en el dispositivo
+    acceder a información almacenada por la aplicación.
+
+    El acceso a estos datos
+    no debe ser permitido a todas las aplicaciones por defecto.
+    En su lugar
+    (y solo si se requiere)
+    se debe usar listas de control de acceso especificas.
+F075_APK_CP.impact:
+  en: >
+    Leak application information
+    to all applications
+    installed in the device
+    through the Content Provider API.
+  es: >
+    Filtrar información de la aplicación
+    a todas las aplicaciones
+    instaladas en el dispositivo
+    a través de la Content Provider API.
+F075_APK_CP.recommendation:
+  en: >
+    Deny access to all Content Providers with:
+    android:grantUriPermissions="false"
+    and android:exported="false".
+    If required
+    you can allow specific Content Providers
+    by using <grant-uri-permission>.
+  es: >
+    Denegar el acceso a todos los Content Providers con:
+    android:grantUriPermissions="false"
+    y android:exported="false".
+    Si se requiere
+    se puede permitir Content Providers especificos
+    usando <grant-uri-permission>
+F075_APK_CP.threat:
+  en: >
+    Unauthorized attacker
+    from internet network.
+  es: >
+    Atacante sin autorización
+    desde internet.
+F075_APK_CP.title:
+  en: F075. Unauthorized access to files - APK Content Provider
+  es: F075. Acceso no autorizado a archivos - APK Content Provider
