@@ -10,8 +10,8 @@ slug: /development/writing/general/main
 
 * **GM02:** We *must* be clear, concise and direct in our writing.
 
-* **GM03:** We *must* not copy and publish other people's text
-  without referencing its source.
+* **GM03:** We *must not* copy and publish other people's texts
+  without referencing their source.
   We *must* be original in our writings.
 
 * **GM04:** We *must* avoid unnecessary repetition of information in our texts.
@@ -26,8 +26,10 @@ slug: /development/writing/general/main
   pages and blog posts
   (e.g., use "reattacks" all the time and not sometimes "re-attacks").
 
-* **GM07:** We *must not* close any block of text of the subsections and pages
-  with farewells (it is different in blog posts).
+* **GM07:** We *must not* close any block of text
+  of the subsections and pages
+  with *goodbye* or any similar expression
+  (it is different in blog posts).
 
 * **GM08:** We *should* seek to present our ideas mainly in the active voice,
   that is, making it clear to the reader
@@ -39,14 +41,15 @@ slug: /development/writing/general/main
 
 * **GM09:** We *must* be careful with the characters
   that generate an effect on the written material (i.e., inline markup)
-  and make the necessary changes when we are transferring information
-  from AsciiDoc to Markdown or vice versa.
+  and make the necessary changes when transferring information
+  from [AsciiDoc](http://asciidoc.org/)
+  to [Markdown](https://daringfireball.net/projects/markdown/) or vice versa.
 
 * **GM10:** We *must* take the time, after writing a text,
   to carefully check for spelling mistakes.
-  Once published, the next day,
-  we can invest some more time in a new and quick revision,
-  to make adjustments if necessary.
+  Once published, on the next day, for example,
+  we can invest some more time in another quick revision
+  and make any necessary adjustments.
 
 > **NOTE:**
 > This section of our documentation is under construction.

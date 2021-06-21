@@ -41,45 +41,52 @@ slug: /development/writing/documentation/main
   **(c)** Explain the organization, the text structure,
   and be coherent with the titles and subtitles within the section.
   We can follow a sequence, saying something like:
-  "In the first part, we will expose (...).
-  In the second part, we will describe (...)."
+  "In the first part, we will expose [...].
+  In the second part, we will describe [...]."
 
-* **DG08:** We *should* keep the presentation structure
+* **DG08:** Suppose a subsection in its text block
+  contains subtitles on at least two levels
+  (i.e., a group of subtitles is part of a larger subtitle).
+  In that case, we *should* provide at least one introductory sentence
+  for that subsection
+  unless a separate introduction already corresponds to it.
+
+* **DG09:** We *should* keep the presentation structure
   of the subsections that are part of the same level
   homogeneous (e.g., all of them with an introductory paragraph).
 
-* **DG09:** We *should* exhibit all segments
+* **DG10:** We *should* exhibit all segments
   of the same group of information in a subsection
   following the same style
   (e.g., saying what the user will find in each case).
 
-* **DG10:** We *must* include all first,
+* **DG11:** We *must* include all first,
   second and third level subtitles of a subsection
   in the menu on the right side.
 
-* **DG11:** We *must* present the subtitles in the right-hand menu
+* **DG12:** We *must* present the subtitles in the right-hand menu
   in a homogeneous way
   (e.g., in all subsections without bold).
 
-* **DG12:** We *must* speak in the first person,
-  but as a group (i.e., using the pronoun we),
+* **DG13:** When we speak in the first person,
+  we *must* do so as a group (i.e., using the pronoun *we*),
   not as an individual.
 
-* **DG13:** We *must* use illustrative images
+* **DG14:** We *must* use illustrative images
   every time we explain the elements of an application or software.
 
-* **DG14:** We *must* upload all the images we need to [Cloudinary](https://cloudinary.com/)
+* **DG15:** We *must* upload all the images we need to [Cloudinary](https://cloudinary.com/)
   and then use their corresponding links
   (which *must* have the filename extension *.webp*
   inside the *.md* files, unless they are gifs).
 
-* **DG15:** In cases of warnings for the reader,
+* **DG16:** In cases of warnings for the reader,
   pointing out something that *is not* part of the content,
   we *must* use the following command in Markdown
   (the word *note* is just an option): `> **NOTE:** > [Text]`.
   Example:
 
-  ![DG15](https://res.cloudinary.com/fluid-attacks/image/upload/v1624050029/docs/development/writing/dga_kqtp4r.webp)
+  ![DG16](https://res.cloudinary.com/fluid-attacks/image/upload/v1624050029/docs/development/writing/dga_kqtp4r.webp)
   > **NOTE:**
   > This section of our documentation is under construction.
 
@@ -97,6 +104,11 @@ slug: /development/writing/documentation/main
   which may be paraphrases of other people's texts.
 
 * **DS02:** We *must* display the words in alphabetical order (A-Z).
+
+* **DS03:** We *must* state the definitions in a generalized way
+  and without directing them to the reader.
+  Thus, we *must* mention the work of `Fluid Attacks`
+  only if necessary.
 
 ## [Requirements](https://docs.fluidattacks.com/criteria/requirements/)
 

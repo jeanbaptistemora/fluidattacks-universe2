@@ -9,13 +9,13 @@ slug: /development/writing/general/quotation-marks
   (e.g., "I'll do this"), not curved ones (e.g., “I won’t do this”).
 
 * **GQ02:** We *must* use quotation marks
-  to delimit and represent exact words that come from someone else.
+  to enclose and represent exact words that come from someone else.
 
 * **GQ03:** We *must* place the periods and commas
   before the final quotation marks.
   On the contrary, we *must* put the colons and semicolons
   after the final quotation marks.
-  If exclamation and question marks are not part of the quotations,
+  If exclamation and question marks are not part of a quotation,
   we *must* place them outside the quotation marks.
 
 * **GQ04:** We *must* use single quotation marks ('...')
@@ -34,10 +34,10 @@ slug: /development/writing/general/quotation-marks
   has meant being eliminated from the main league.).
 
 * **GQ07:** When we want to remove an unnecessary fragment from a quotation,
-  we *must* use ellipsis in parenthesis as a substitute
+  we *must* use ellipsis in square brackets as a substitute
   (e.g., ["The biggest thing](https://fluidattacks.com/blog/tribe-of-hackers-4/)
   is to go through the attack methodology
-  and show what worked (...) and what did not work in the attack.").
+  and show what worked [...] and what did not work in the attack.").
 
 * **GQ08:** When we need to modify a fragment of a quotation,
   for instance, to adjust the sentence tense,
@@ -48,7 +48,7 @@ slug: /development/writing/general/quotation-marks
   > **NOTE:**
   > In AsciiDoc, in cases like the previous example,
   > we must use the backslash before the first closing square bracket
-  > to get the hyperlink as we want:
+  > to get the intended hyperlink:
 
   ![GQ08a](https://res.cloudinary.com/fluid-attacks/image/upload/v1624050243/docs/development/writing/gqa_di9v2p.webp)
 

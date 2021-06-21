@@ -27,8 +27,8 @@ slug: /development/writing/general/numbers
   using decimal points, not commas.
 
 * **GN05:** We *must* place a zero before a decimal fraction less than 1
-  if the statistic can exceed 1 (e.g., 0.54 in);
-  otherwise, zero is not necessary (e.g., *p* = .85).
+  if the statistic can exceed 1 (e.g., 0.49 in);
+  otherwise, zero is not necessary (e.g., *p* = .93).
 
 * **GN06:** For numbers over 1,000,
   we *must* use the comma to separate groups of three digits

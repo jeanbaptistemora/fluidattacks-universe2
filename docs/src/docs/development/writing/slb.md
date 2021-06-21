@@ -5,11 +5,18 @@ sidebar_label: Semantic Line Breaks
 slug: /development/writing/slb
 ---
 
-Our texts in [Markdown](https://daringfireball.net/projects/markdown/)
-and [AsciiDoc](https://asciidoc.org/) *must* have Semantic Line Breaks (SLB)
-to facilitate editing and help keep an organized record of modifications
+Our texts in the lightweight markup languages
+[Markdown](https://daringfireball.net/projects/markdown/)
+and [AsciiDoc](https://asciidoc.org/)
+*must* have Semantic Line Breaks (SLBs).
+In them, SLBs, acting as semantic delimiters,
+can reflect the logical structure of the writing,
+facilitate the identification of grammatical errors
+and the correction of the texts,
+and help keep an organized record of modifications
 in our version control system ([Gitlab](/development/stack/gitlab)).
-Based on [sembr.org](https://sembr.org/), we consider the following rules:
+Based on [sembr.org](https://sembr.org/),
+we consider the following rules:
 
 * An SLB *should not* alter the intended meaning of the text.
 
@@ -36,9 +43,20 @@ Based on [sembr.org](https://sembr.org/), we consider the following rules:
 * The maximum number of characters before an SLB *must* be 80,
   except in cases with hyperlinks or code elements.
 
-  Example:
+**Tip:** ["Try reading the text](https://sembr.org/) out loud,
+  as if you were speaking to an audience.
+  Anywhere that you pause for emphasis
+  or to take a breath
+  is usually a good candidate for a semantic line break."
 
-  ![SLBa](https://res.cloudinary.com/fluid-attacks/image/upload/v1624062464/docs/development/writing/slba_x3kztj.webp)
+Example:
+
+![SLBa](https://res.cloudinary.com/fluid-attacks/image/upload/v1624062464/docs/development/writing/slba_x3kztj.webp)
+
+For more information regarding SLBs and their use,
+please check out the posts "[Semantic Linefeeds](http://rhodesmill.org/brandon/2012/one-sentence-per-line/)"
+and "[Semantic linewrapping](https://scott.mn/2014/02/21/semantic_linewrapping/),"
+or the document "[AsciiDoc Recommended Practices](http://asciidoctor.org/docs/AsciiDoc-recommended-practices/#one-sentence)."
 
 > **NOTE:**
 > This section of our documentation is under construction.
