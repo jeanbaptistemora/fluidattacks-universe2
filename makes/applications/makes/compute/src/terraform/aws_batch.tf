@@ -1,5 +1,5 @@
 data "aws_ec2_instance_type" "instance" {
-  instance_type = "c5d.xlarge"
+  instance_type = "c5ad.xlarge"
 }
 
 resource "aws_subnet" "default" {
