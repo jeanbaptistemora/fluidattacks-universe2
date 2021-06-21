@@ -83,7 +83,7 @@ const CardsGrid: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    w-60-l
+    w-50-l
     db-l
     dn
   `,

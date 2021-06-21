@@ -30,8 +30,6 @@ const SectionTitleContainer: StyledComponent<
     br-l
     bw2
     b--light-gray
-    mv5-l
-    mv3
   `,
 })``;
 
@@ -45,7 +43,6 @@ const PhraseContainer: StyledComponent<
     ma0-l
     pa0-l
     center
-    mv5-l
   `,
 })``;
 
