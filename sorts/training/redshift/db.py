@@ -13,6 +13,7 @@ from psycopg2.extensions import (
 from typing import (
     Dict,
     Iterator,
+    Union,
 )
 
 
@@ -77,7 +78,7 @@ def delete() -> None:
         )
 
 
-def insert(table: str, item: Dict[str, str]) -> None:
+def insert(table: str, item: Dict[str, Union[str, int]]) -> None:
     query_columns: str = ",\n".join(item.keys())
     query_values: str = ",\n".join(f"%({key})s" for key in item.keys())
     with db_cursor() as cursor:

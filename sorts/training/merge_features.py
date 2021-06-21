@@ -11,6 +11,9 @@ import tempfile
 from training.constants import (
     S3_BUCKET,
 )
+from training.redshift import (
+    db as redshift,
+)
 
 
 def main() -> None:
@@ -36,9 +39,11 @@ def main() -> None:
         merged_features.to_csv(local_merged_file, index=False)
         S3_BUCKET.upload_file(local_merged_file, remote_merged_file)
 
+        n_rows = len(merged_features.index)
+        redshift.insert("dataset", {"n_rows": n_rows})
         print(
             "[INFO]: Our current dataset has a total number of "
-            f"{len(merged_features.index)} elements"
+            f"{n_rows} elements"
         )
 
 
