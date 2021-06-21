@@ -128,6 +128,9 @@
   "F073": {
     "skims/test/data/sast/TestCFG.java": {}
   },
+  "F075_APK_CP": {
+    "skims/test/data/sast/TestCFG.java": {}
+  },
   "F085": {
     "skims/test/data/sast/TestCFG.java": {}
   },

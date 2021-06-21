@@ -19,6 +19,9 @@ criteria.requirements.083:
 criteria.requirements.093:
   en: 093. Use consistent certificates.
   es: 093. Debe utilizarse certificados con una identificación coherente con  la organización (servicio, servidor, entre otros) a la cual se encuentra asociado.
+criteria.requirements.096:
+  en: 096. Set users' required privileges
+  es: 096. Los privilegios requeridos por los usuarios que accederan al sistema deben ser definidos.
 criteria.requirements.148:
   en: 148. Set minimum size of asymmetric encryption.
   es: 148. Debe utilizarse como mecanismo de cifrado asimétrico un tamaño de clave mínimo de 2048 bits.
@@ -43,6 +46,9 @@ criteria.requirements.169:
 criteria.requirements.173:
   en: 173. The system must discard/filter all potentially harmful information received via data inputs.
   es: 173. El sistema debe descartar/filtrar toda la información potencialmente insegura que sea recibida por entradas de datos.
+criteria.requirements.176:
+  en: 176. Restrict system objects
+  es: 176. El sistema debe restringir el acceso a objetos del sistema que tengan contenido sensible. Sólo permitirá su acceso a usuarios autorizados.
 criteria.requirements.178:
   en: 178. Use digital signatures.
   es: 178. El sistema debe usar firmas digitales para garantizar la  autenticidad de información sensible.
@@ -70,6 +76,9 @@ criteria.requirements.255:
 criteria.requirements.262:
   en: 262. Verify third-party components.
   es: 262. Los componentes provistos por terceros deben corresponder a  versiones estables, probadas y actualizadas.
+criteria.requirements.264:
+  en: 264. Request authentication
+  es: 264. El sistema debe requerir autenticación para todos los recursos, excepto para la consulta o visualización de aquellos específicamente clasificados como públicos.
 criteria.requirements.265:
   en: 265. The system must restrict access to system functions that execute critical business processes, allowing only authorized users.
   es: 265. El sistema debe restringir el acceso a funciones del sistema que ejecutan procesos críticos de negocio. Solo permitirá acceso a usuarios autorizados.
@@ -82,6 +91,9 @@ criteria.requirements.302:
 criteria.requirements.319:
   en: 319. Make authentication options equally secure.
   es: 319. Todas las opciones de autenticación deben tener el mismo nivel de seguridad.
+criteria.requirements.320:
+  en: 320. Avoid client-side control enforcement
+  es: 320. El sistema debe aplicar los controles de acceso en puntos de aplicación confiables, nunca del lado del cliente.
 criteria.requirements.323:
   en: 323. Exclude unverifiable files.
   es: 323. Los archivos binarios y de otros tipos que a menudo no pueden ser auditados por motivos de seguridad no deberían ser almacenados en el repositorio de código.
