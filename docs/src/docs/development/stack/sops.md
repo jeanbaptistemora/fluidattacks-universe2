@@ -35,7 +35,7 @@ it over other alternatives are:
     granting almost-impossible key leakage.
     Access to such keys can be easily managed
     with a user-level granularity
-    by using [AWS IAM](https://aws.amazon.com/iam/).
+    by using [AWS IAM](/development/stack/aws/iam/).
 1. It is free.
     Only costs for decrypting secret files
     using [AWS KMS][KMS] are incurred.
@@ -121,17 +121,15 @@ We do not use [Sops][SOPS] for:
     We have declined to do this until today
     mainly due to consistency and stability concerns.
     Secrets that require automatic rotation
-    are either kept within our
-    [Gitlab CI/CD Variables](https://docs.gitlab.com/ee/ci/variables/)
-    or
-    [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/).
+    are kept within our
+    [Gitlab CI/CD Variables](https://docs.gitlab.com/ee/ci/variables/).
 
 ## Guidelines
 
 1. You can install
     [Sops][SOPS] with `nix-env -i sops`.
 1. In order to be able to decrypt a secrets file,
-    first you must assume an [IAM](https://aws.amazon.com/iam/) role
+    first you must assume an [IAM](/development/stack/aws/iam/) role
     with access to the [KMS][KMS] key
     that encrypted it.
     You can follow [this guide](/development/stack/aws#get-development-keys)

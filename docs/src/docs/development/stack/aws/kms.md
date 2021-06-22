@@ -68,7 +68,7 @@ over other alternatives are:
     what actions users can
     execute.
     Aditionally, when combined with
-    [AWS IAM](https://aws.amazon.com/iam/),
+    [AWS IAM](/development/stack/aws/iam/),
     it allows us to specify permissions
     over general actions like
     creating keys.
@@ -102,8 +102,6 @@ We use [AWS KMS][KMS] for:
 1. [Encrypting and decrypting](https://gitlab.com/fluidattacks/product/-/blob/a089fc93ce78b5a073a9ef35c46ec59f7d622e2c/makes/applications/makes/secrets/src/production.yaml#L14)
     our
     [Sops](/development/stack/sops/) secrets.
-1. [Encrypting and decrypting](https://gitlab.com/fluidattacks/product/-/blob/a089fc93ce78b5a073a9ef35c46ec59f7d622e2c/integrates/deploy/secret-management/terraform/forces-secrets.tf#L4)
-    our [Secrets Manager](https://aws.amazon.com/secrets-manager/) secrets.
 1. [Encrypting and decrypting](https://gitlab.com/fluidattacks/product/-/blob/a089fc93ce78b5a073a9ef35c46ec59f7d622e2c/makes/applications/makes/k8s/src/terraform/cluster.tf#L42)
     our [Kubernetes](/development/stack/kubernetes) workers
     [EBS][EBS] disks.

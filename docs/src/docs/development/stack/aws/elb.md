@@ -104,7 +104,7 @@ We do not use [ELB][ELB] for:
 
 Serving [our website](https://fluidattacks.com)
 and [documentation](https://docs.fluidattacks.com),
-as it they a static sites
+as they are static sites
 served by [S3](/development/stack/aws/s3/),
 which directly provides
 [endpoints](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteEndpoints.html)

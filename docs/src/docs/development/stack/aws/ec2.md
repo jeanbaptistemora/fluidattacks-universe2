@@ -26,7 +26,7 @@ over other alternatives are:
     [ECS](https://aws.amazon.com/ecs/),
     [EKS](/development/stack/aws/eks/),
     [Batch][BATCH],
-    [Elastic Load Balancing](https://aws.amazon.com/elasticloadbalancing/),
+    [Elastic Load Balancing](/development/stack/aws/elb/),
     etc.
 1. It provides a wide range of
     [machine types](https://aws.amazon.com/ec2/instance-types/)

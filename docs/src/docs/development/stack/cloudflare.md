@@ -86,7 +86,7 @@ but not chosen for the following reasons:
     Creating distributions was very slow.
     Connecting them to a s3 bucket and maintaining such
     connection was necessary.
-    A [Lambda](https://aws.amazon.com/lambda/)
+    A [Lambda](/development/stack/aws/lambda/)
     was required in order to support accessing URL's
     without having to specify `index.html` at the end.
     Overall speaking, too much overhead was required

@@ -31,7 +31,7 @@ over other alternatives are:
     networking-dependant infrastructure like
     [EC2](/development/stack/aws/ec2/),
     [Redis](https://aws.amazon.com/redis/),
-    [Elastic Load Balancing](https://aws.amazon.com/elasticloadbalancing/),
+    [Elastic Load Balancing](/development/stack/aws/elb/),
     [AWS Redshift](https://aws.amazon.com/redshift/),
     etc.
 1. It supports [Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html#vpc-subnet-basics),
@@ -81,7 +81,7 @@ networking and security configurations for:
 1. [Redis cluster](https://aws.amazon.com/redis/) workers.
 1. [Kubernetes cluster](/development/stack/kubernetes/) workers.
 1. [Batch](https://aws.amazon.com/batch/) workers.
-1. [Elastic Load Balancing](https://aws.amazon.com/elasticloadbalancing/)
+1. [Elastic Load Balancing](/development/stack/aws/elb/)
     load balancers.
 
 ## Guidelines

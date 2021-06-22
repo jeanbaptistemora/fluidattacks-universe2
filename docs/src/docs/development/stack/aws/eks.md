@@ -27,7 +27,7 @@ over other alternatives are:
     [in-cluster authentication and authorization](https://gitlab.com/fluidattacks/product/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/variables.tf#L55),
     [Redis](https://aws.amazon.com/redis/) for
     [In-VPC](/development/stack/aws/vpc/) cache,
-    and [Elastic Load Balancing](https://aws.amazon.com/elasticloadbalancing/)
+    and [Elastic Load Balancing](/development/stack/aws/elb/)
     for serving applications.
 1. As all its infrastructure is
     [cloud](https://en.wikipedia.org/wiki/Cloud_computing) based,

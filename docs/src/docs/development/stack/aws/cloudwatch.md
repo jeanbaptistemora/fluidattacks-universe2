@@ -68,7 +68,7 @@ We use [CloudWatch][CLOUDWATCH] for monitoring:
     disk usage and performance.
 1. [S3](/development/stack/aws/s3/)
     bucket size and object number.
-1. [Elastic load balancing](https://aws.amazon.com/elasticloadbalancing/)
+1. [Elastic load balancing](/development/stack/aws/elb/)
     load balancer performance.
 1. [Redshift](https://aws.amazon.com/redshift/)
     database usage and performance.
@@ -124,5 +124,5 @@ We do not use [CloudWatch][CLOUDWATCH] for:
 
 [AWS]: /development/stack/aws/
 [CLOUDWATCH]: https://aws.amazon.com/cloudwatch/
-[LAMBDA]: https://aws.amazon.com/lambda/
+[LAMBDA]: /development/stack/aws/lambda/
 [EC2]: /development/stack/aws/ec2/

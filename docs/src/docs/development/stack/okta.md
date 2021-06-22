@@ -76,7 +76,7 @@ it over other alternatives are:
     other directories
     from services like
     [Google Workspace](https://workspace.google.com/) and
-    [AWS IAM](https://aws.amazon.com/iam/)
+    [AWS IAM](/development/stack/aws/iam/)
     automatically synchronized
     without additional effort.
 1. It supports

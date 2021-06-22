@@ -1,6 +1,6 @@
 ---
 id: introduction
-title: Amazon Web Services
+title: Amazon Web Services (AWS)
 sidebar_label: Introduction
 slug: /development/stack/aws
 ---
@@ -65,6 +65,8 @@ We use the following [AWS][AWS] services:
     [EC2](/development/stack/aws/ec2/).
 1. Cloud file storage:
     [S3](/development/stack/aws/s3/).
+1. Serverless computing:
+    [Lambda](/development/stack/aws/lambda/).
 1. Elastic block store:
     [EBS](/development/stack/aws/ebs/).
 1. Elastic Load Balancing:
@@ -75,8 +77,6 @@ We use the following [AWS][AWS] services:
     [EKS](/development/stack/aws/eks/).
 1. Virtual private cloud:
     [VPC](/development/stack/aws/vpc/).
-1. Serverless computing:
-    [Lambda](https://aws.amazon.com/lambda/).
 1. Elastic Container Service:
     [ECS](https://aws.amazon.com/ecs/).
 1. NoSQL database:

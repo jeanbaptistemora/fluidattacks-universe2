@@ -833,6 +833,7 @@ const Development = [
           'development/stack/aws/elb',
           'development/stack/aws/iam',
           'development/stack/aws/kms',
+          'development/stack/aws/lambda',
           'development/stack/aws/s3',
           'development/stack/aws/vpc',
         ]
