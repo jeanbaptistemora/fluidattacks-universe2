@@ -88,7 +88,7 @@ interface IEventsDataset {
       eventStatus: string;
       eventType: string;
       id: string;
-      projectName: string;
+      groupName: string;
     }[];
   };
 }

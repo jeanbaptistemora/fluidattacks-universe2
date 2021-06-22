@@ -65,37 +65,6 @@ const ADD_TAGS_MUTATION: DocumentNode = gql`
   }
 `;
 
-const UPDATE_ENVIRONMENT_MUTATION: DocumentNode = gql`
-  mutation UpdateEnvironmentMutation(
-    $groupName: String!
-    $env: EnvironmentInput!
-    $state: ResourceState!
-  ) {
-    updateEnvironment(projectName: $groupName, env: $env, state: $state) {
-      success
-    }
-  }
-`;
-
-const ADD_ENVIRONMENTS_MUTATION: DocumentNode = gql`
-  mutation AddEnvironmentsMutation(
-    $groupName: String!
-    $envs: [EnvironmentInput]!
-  ) {
-    addEnvironments(projectName: $groupName, envs: $envs) {
-      success
-    }
-  }
-`;
-
-const GET_ENVIRONMENTS: DocumentNode = gql`
-  query GetEnvironmentsQuery($groupName: String!) {
-    resources(projectName: $groupName) {
-      environments
-    }
-  }
-`;
-
 const GET_FILES: DocumentNode = gql`
   query GetFilesQuery($groupName: String!) {
     resources(groupName: $groupName) {
@@ -139,9 +108,6 @@ export {
   REMOVE_TAG_MUTATION,
   GET_TAGS,
   ADD_TAGS_MUTATION,
-  UPDATE_ENVIRONMENT_MUTATION,
-  ADD_ENVIRONMENTS_MUTATION,
-  GET_ENVIRONMENTS,
   GET_FILES,
   DOWNLOAD_FILE_MUTATION,
   REMOVE_FILE_MUTATION,

@@ -371,7 +371,7 @@ describe("Files", (): void => {
                 fileName: "image.png",
               },
             ]),
-            projectName: "TEST",
+            groupName: "TEST",
           },
         },
         result: {
