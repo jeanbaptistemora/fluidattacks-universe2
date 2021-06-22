@@ -38,7 +38,8 @@ const SwitchButton: React.FC<ISwitchButtonProps> = (
     switchColor = "bg-switch b--switch",
   } = props;
 
-  function handleClick(): void {
+  function handleClick(event: React.MouseEvent<HTMLDivElement>): void {
+    event.stopPropagation();
     if (onChange) {
       onChange(!checked);
     }
