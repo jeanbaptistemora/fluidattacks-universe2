@@ -148,6 +148,16 @@ apk:
     - build/awesome-app-v1.0.apk
 
 # Description:
+#  DAST for SSL.
+ssl:
+  # Description:
+  #   Target host and port used in the analysis.
+  # Example:
+  include:
+    - host: example.com
+      port: 443
+
+# Description:
 #   Findings to analyze.
 #   The complete list of findings can be found here:
 #   https://gitlab.com/fluidattacks/product/-/blob/master/skims/manifests/findings.lst
