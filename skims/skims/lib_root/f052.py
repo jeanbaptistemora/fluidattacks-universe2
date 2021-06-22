@@ -1,3 +1,6 @@
+from contextlib import (
+    suppress,
+)
 from model import (
     core_model,
     graph_model,
@@ -64,6 +67,35 @@ def _yield_java_method_invocation(
                 ]
                 method_name = base_name + "." + method_name
             yield shard, method_id, method_name
+
+
+def _yield_java_object_creation(
+    graph_db: graph_model.GraphDB,
+) -> Iterable[Tuple[graph_model.GraphShard, str, str]]:
+    for shard in graph_db.shards_by_langauge(
+        graph_model.GraphShardMetadataLanguage.JAVA,
+    ):
+        for object_id in g.filter_nodes(
+            shard.graph,
+            nodes=shard.graph.nodes,
+            predicate=g.pred_has_labels(
+                label_type="object_creation_expression"
+            ),
+        ):
+            match = g.match_ast(
+                shard.graph,
+                object_id,
+                "new",
+                "argument_list",
+                "type_identifier",
+                "scoped_type_identifier",
+            )
+            if scoped_type := match["scoped_type_identifier"]:
+                type_name = shard.graph.nodes[scoped_type]["label_text"]
+                yield shard, object_id, type_name
+            elif type_identifier := match["type_identifier"]:
+                type_name = shard.graph.nodes[type_identifier]["label_text"]
+                yield shard, object_id, type_name
 
 
 def _csharp_yield_member_access(
@@ -157,6 +189,7 @@ def _java_yield_insecure_hash(
         "com.google.common.hash.Hashing.hmacSha1",
         "com.google.common.hash.Hashing.md5",
         "com.google.common.hash.Hashing.sha1",
+        "java.security.spec.MGF1ParameterSpec.SHA1",
     }
     for shard, method_id, method_name in _yield_java_method_invocation(
         graph_db
@@ -190,6 +223,88 @@ def _java_yield_insecure_hash(
                 "sha1",
                 "sha-1",
             }:
+                yield shard, param_id
+
+
+def _java_yield_insecure_key(
+    graph_db: graph_model.GraphDB,
+) -> graph_model.GraphShardNodes:
+    insecure_stds = {
+        "secp112r1",
+        "secp112r2",
+        "secp128r1",
+        "secp128r2",
+        "secp160k1",
+        "secp160r1",
+        "secp160r2",
+        "secp192k1",
+        "prime192v1",
+        "prime192v2",
+        "prime192v3",
+        "sect113r1",
+        "sect113r2",
+        "sect131r1",
+        "sect131r2",
+        "sect163k1",
+        "sect163r1",
+        "sect163r2",
+        "sect193r1",
+        "sect193r2",
+        "c2pnb163v1",
+        "c2pnb163v2",
+        "c2pnb163v3",
+        "c2pnb176v1",
+        "c2tnb191v1",
+        "c2tnb191v2",
+        "c2tnb191v3",
+        "c2pnb208w1",
+        "wap-wsg-idm-ecid-wtls1",
+        "wap-wsg-idm-ecid-wtls3",
+        "wap-wsg-idm-ecid-wtls4",
+        "wap-wsg-idm-ecid-wtls5",
+        "wap-wsg-idm-ecid-wtls6",
+        "wap-wsg-idm-ecid-wtls7",
+        "wap-wsg-idm-ecid-wtls8",
+        "wap-wsg-idm-ecid-wtls9",
+        "wap-wsg-idm-ecid-wtls10",
+        "wap-wsg-idm-ecid-wtls11",
+        "oakley-ec2n-3",
+        "oakley-ec2n-4",
+        "brainpoolp160r1",
+        "brainpoolp160t1",
+        "brainpoolp192r1",
+        "brainpoolp192t1",
+    }
+    for shard, object_id, type_name in _yield_java_object_creation(graph_db):
+        match = g.match_ast(
+            shard.graph,
+            object_id,
+            "argument_list",
+        )
+        parameters = g.adj_ast(
+            shard.graph,
+            match["argument_list"],
+        )[1:-1]
+        if parameters and type_name in complete_attrs_on_set(
+            {
+                "java.security.spec.RSAKeyGenParameterSpec",
+            }
+        ):
+            param_id = parameters[0]
+            if param_text := shard.graph.nodes[param_id].get("label_text"):
+                with suppress(TypeError):
+                    key_length = int(param_text)
+                    if key_length < 2048:
+                        yield shard, param_id
+        if parameters and type_name in complete_attrs_on_set(
+            {
+                "java.security.spec.ECGenParameterSpec",
+            }
+        ):
+            param_id = parameters[0]
+            if (
+                param_text := shard.graph.nodes[param_id].get("label_text")
+            ) and param_text.replace('"', "") in insecure_stds:
                 yield shard, param_id
 
 
@@ -296,6 +411,18 @@ def java_insecure_hash(
     )
 
 
+def java_insecure_key(
+    graph_db: graph_model.GraphDB,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_n_ids(
+        cwe=("310", "327"),
+        desc_key="src.lib_path.f052.insecure_key.description",
+        desc_params=dict(lang="Java"),
+        finding=FINDING,
+        graph_shard_nodes=_java_yield_insecure_key(graph_db),
+    )
+
+
 # Constants
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F052
 QUERIES: graph_model.Queries = (
@@ -303,4 +430,5 @@ QUERIES: graph_model.Queries = (
     (FINDING, csharp_insecure_cipher),
     (FINDING, java_insecure_cypher),
     (FINDING, java_insecure_hash),
+    (FINDING, java_insecure_key),
 )

@@ -8,10 +8,8 @@ from lib_path.common import (
     EXTENSIONS_JAVA_PROPERTIES,
     get_vulnerabilities_blocking,
     get_vulnerabilities_from_iterator_blocking,
-    NUMBER,
     SHIELD,
     SINGLE_QUOTED_STRING,
-    str_to_number,
 )
 from model import (
     core_model,
@@ -44,104 +42,6 @@ from utils.function import (
 from zone import (
     t,
 )
-
-
-def _java_insecure_key(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    grammar = MatchFirst(
-        [
-            (
-                Keyword("RSAKeyGenParameterSpec")
-                + "("
-                + NUMBER.copy().addCondition(
-                    lambda tokens: str_to_number(tokens[0]) < 2048
-                )
-            ),
-            (
-                Keyword("ECGenParameterSpec")
-                + "("
-                + DOUBLE_QUOTED_STRING.copy().addCondition(
-                    # openssl ecparam -list_curves
-                    lambda tokens: tokens[0].lower()
-                    in {
-                        "secp112r1",
-                        "secp112r2",
-                        "secp128r1",
-                        "secp128r2",
-                        "secp160k1",
-                        "secp160r1",
-                        "secp160r2",
-                        "secp192k1",
-                        "prime192v1",
-                        "prime192v2",
-                        "prime192v3",
-                        "sect113r1",
-                        "sect113r2",
-                        "sect131r1",
-                        "sect131r2",
-                        "sect163k1",
-                        "sect163r1",
-                        "sect163r2",
-                        "sect193r1",
-                        "sect193r2",
-                        "c2pnb163v1",
-                        "c2pnb163v2",
-                        "c2pnb163v3",
-                        "c2pnb176v1",
-                        "c2tnb191v1",
-                        "c2tnb191v2",
-                        "c2tnb191v3",
-                        "c2pnb208w1",
-                        "wap-wsg-idm-ecid-wtls1",
-                        "wap-wsg-idm-ecid-wtls3",
-                        "wap-wsg-idm-ecid-wtls4",
-                        "wap-wsg-idm-ecid-wtls5",
-                        "wap-wsg-idm-ecid-wtls6",
-                        "wap-wsg-idm-ecid-wtls7",
-                        "wap-wsg-idm-ecid-wtls8",
-                        "wap-wsg-idm-ecid-wtls9",
-                        "wap-wsg-idm-ecid-wtls10",
-                        "wap-wsg-idm-ecid-wtls11",
-                        "oakley-ec2n-3",
-                        "oakley-ec2n-4",
-                        "brainpoolp160r1",
-                        "brainpoolp160t1",
-                        "brainpoolp192r1",
-                        "brainpoolp192t1",
-                    }
-                )
-            ),
-        ]
-    )
-    grammar.ignore(C_STYLE_COMMENT)
-
-    return get_vulnerabilities_blocking(
-        content=content,
-        cwe={"310", "327"},
-        description=t(
-            key="src.lib_path.f052.insecure_key.description",
-            path=path,
-        ),
-        finding=core_model.FindingEnum.F052,
-        grammar=grammar,
-        path=path,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def java_insecure_key(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _java_insecure_key,
-        content=content,
-        path=path,
-    )
 
 
 def _java_insecure_pass(
@@ -284,12 +184,6 @@ async def analyze(
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_JAVA:
-        coroutines.append(
-            java_insecure_key(
-                content=await content_generator(),
-                path=path,
-            )
-        )
         coroutines.append(
             java_insecure_pass(
                 content=await content_generator(),

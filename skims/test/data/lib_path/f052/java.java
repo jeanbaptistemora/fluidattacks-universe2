@@ -30,10 +30,10 @@ public class Main {
         Cipher c = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding");
         SSLContext.getInstance("SSLv3");
         SSLContext.getInstance("TLSv1.2");
-        RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4);
-        RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4);
-        ECGenParameterSpec("secp521r1");
-        ECGenParameterSpec("c2pnb208w1");
+        new RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4);
+        new RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4);
+        new ECGenParameterSpec("secp521r1");
+        new ECGenParameterSpec("c2pnb208w1");
         javax.crypto.KeyGenerator.getInstance("DES").generateKey();
         javax.crypto.KeyGenerator.getInstance("HmacSHA256").generateKey();
         javax.crypto.KeyGenerator.getInstance("AES").generateKey();
