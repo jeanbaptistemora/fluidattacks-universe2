@@ -87,8 +87,6 @@ async def main() -> None:
                 exclude=sorted(
                     [
                         "glob(**/.git)",
-                        "glob(**/*.min.js)",
-                        "glob(**/*bootstrap*)",
                         "glob(**/*cordova*)",
                         "glob(**/*dynatrace*)",
                         "glob(**/*ibmmfpf.js*)",
