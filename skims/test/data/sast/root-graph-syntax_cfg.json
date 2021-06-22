@@ -119,6 +119,10 @@
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {}
   },
+  "F052_PFS": {
+    "skims/test/data/sast/TestCFG.java": {},
+    "skims/test/data/sast/test_cfg.go": {}
+  },
   "F055_APK_BACKUPS": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {}

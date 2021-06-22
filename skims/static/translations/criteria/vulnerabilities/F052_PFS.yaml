@@ -13,5 +13,5 @@ F052_PFS.threat:
   en: Unauthorized attacker from internet network exploiting a vulnerability.
   es: Atacante sin autorización desde internet explotando la vulnerabilidad.
 F052_PFS.title:
-  en: F052. Insecure encryption algorithm - PFS
-  es: F052. Algoritmo de cifrado inseguro - PFS
+  en: F052. Insecure encryption algorithm - Perfect Forward Secrecy
+  es: F052. Algoritmo de cifrado inseguro - Perfect Forward Secrecy
