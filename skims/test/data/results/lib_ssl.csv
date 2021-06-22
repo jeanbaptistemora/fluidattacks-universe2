@@ -1,1 +1,4 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
+F052_PFS,inputs,localhost:4446 (namespace),pfs is not enabled,310,"home,socket-send,socket-response",F052. Insecure encryption algorithm - Perfect Forward Secrecy,pfs is not enabled,"
+pfs is disabled
+"

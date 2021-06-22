@@ -35,12 +35,14 @@ def _socket_connect(
         return None
 
 
+# pylint: disable=too-many-arguments
 @contextlib.contextmanager
 def connect(
     hostname: str,
     port: int,
     min_version: Tuple[int, int] = (3, 0),
     max_version: Tuple[int, int] = (3, 4),
+    key_exchange_names: Tuple[str, ...] = (),
     expected_exceptions: Tuple[tlslite.errors.BaseTLSException, ...] = (),
 ) -> Generator[Optional[tlslite.TLSConnection], None, None]:
 
@@ -54,6 +56,9 @@ def connect(
 
             settings.minVersion = min_version
             settings.maxVersion = max_version
+
+            if key_exchange_names:
+                settings.keyExchangeNames = key_exchange_names
 
             connection.handshakeClientCert(settings=settings)
             yield connection
@@ -69,7 +74,7 @@ def connect(
                 hostname,
                 port,
             )
-        yield None
+        yield connection
     finally:
         if sock is not None:
             connection.close()

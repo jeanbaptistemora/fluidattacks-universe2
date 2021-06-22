@@ -70,6 +70,33 @@ def _create_vulns(
     )
 
 
+def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
+    locations = Locations(locations=[])
+
+    with connect(
+        ctx.target.host,
+        ctx.target.port,
+        key_exchange_names=(
+            "dhe_rsa",
+            "ecdhe_rsa",
+            "ecdh_anon",
+            "dh_anon",
+        ),
+        expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
+    ) as connection:
+        if connection is not None and connection.closed:
+            locations.append(
+                desc="pfs_disabled",
+            )
+
+    return _create_vulns(
+        locations=locations,
+        finding=core_model.FindingEnum.F052_PFS,
+        ctx=ctx,
+        snippet="pfs is disabled",
+    )
+
+
 def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
 
@@ -79,7 +106,7 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         max_version=(3, 0),
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
-        if connection is not None:
+        if connection is not None and not connection.closed:
             locations.append(
                 desc="sslv3_enabled",
             )
@@ -101,4 +128,5 @@ CHECKS: Dict[
     Callable[[SSLContext], core_model.Vulnerabilities],
 ] = {
     core_model.FindingEnum.F011_SSLV3: _sslv3_enabled,
+    core_model.FindingEnum.F052_PFS: _pfs_disabled,
 }

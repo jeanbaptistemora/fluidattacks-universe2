@@ -4,6 +4,8 @@ output: skims/test/outputs/lib_ssl.csv
 ssl:
   include:
     - host: localhost
+      port: 4445
+    - host: localhost
       port: 4446
     - host: localhost
       port: 9999
