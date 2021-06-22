@@ -18,6 +18,8 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import { Search } from "react-bootstrap-table2-toolkit";
 import { useTranslation } from "react-i18next";
 
+import { renderExpandIcon, renderHeaderExpandIcon } from "./expandIcon";
+
 import { Button } from "components/Button";
 import { CustomToggleList } from "components/DataTableNext/customToggleList";
 import { ExportCSVButtonWrapper } from "components/DataTableNext/exportCSVButton";
@@ -141,7 +143,15 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
         defaultSorted={
           _.isUndefined(defaultSorted) ? undefined : [defaultSorted]
         }
-        expandRow={expandRow}
+        expandRow={
+          expandRow === undefined
+            ? undefined
+            : {
+                expandColumnRenderer: renderExpandIcon,
+                expandHeaderColumnRenderer: renderHeaderExpandIcon,
+                ...expandRow,
+              }
+        }
         filter={filterFactory()}
         headerClasses={
           _.isUndefined(tableHeader) ? style.tableHeader : tableHeader

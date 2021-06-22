@@ -19,7 +19,6 @@ import { Trans } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { renderDescription } from "./description";
-import { renderExpandIcon, renderHeaderExpandIcon } from "./expandIcon";
 import { setReportType } from "./helpers";
 
 import { Button } from "components/Button";
@@ -353,8 +352,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           defaultSorted={JSON.parse(_.get(sessionStorage, "findingSort", "{}"))}
           expandRow={{
             expandByColumnOnly: true,
-            expandColumnRenderer: renderExpandIcon,
-            expandHeaderColumnRenderer: renderHeaderExpandIcon,
             expanded: getIndexFromIds(expandedIdRows, findings),
             onExpand: handleRowExpand,
             onExpandAll: handleRowExpandAll,
