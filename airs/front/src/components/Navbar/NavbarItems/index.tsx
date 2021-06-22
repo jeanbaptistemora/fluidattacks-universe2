@@ -14,12 +14,7 @@ import {
   NavbarSubcategory,
 } from "../../../styles/styledComponents";
 import { CloudImage } from "../../CloudImage";
-import { Search } from "../../Search";
 import { Menu } from "../Menu";
-
-const searchIndices = [
-  { name: `fluidattacks_airs`, title: `fluidattacks_airs` },
-];
 
 const NavbarItems: React.FC = (): JSX.Element => (
   <NavbarList className={"roboto"} id={"navbar_list"}>
@@ -50,8 +45,6 @@ const NavbarItems: React.FC = (): JSX.Element => (
     <li className={"fr mr4 pv3 mv1 db-l dn"}>
       <div className={"h3 w1 b--moon-gray br"} />
     </li>
-
-    <Search indices={searchIndices} />
 
     <li className={"db-xl display-none fr mr3 pv4"}>
       <Link className={"no-underline"} to={"/blog/"}>

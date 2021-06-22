@@ -1,8 +1,4 @@
-import type {
-  FlattenInterpolation,
-  StyledComponent,
-  ThemeProps,
-} from "styled-components";
+import type { StyledComponent } from "styled-components";
 import styled, { css } from "styled-components";
 
 import SearchBoxMain from "../SearchBox";
@@ -21,29 +17,14 @@ const StyledSearchRoot: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    fr
-    mr3
+    fl
+    ml4
     pr2
     pv4
     mv1
+    nt1
   `,
 })``;
-
-const open = css`
-  background: #f9f9f9;
-  cursor: text;
-  margin-left: -1.6em;
-  padding-left: 1.6em;
-  width: 10em;
-`;
-
-const closed = css`
-  background: transparent;
-  cursor: pointer;
-  margin-left: -1em;
-  padding-left: 1em;
-  width: 0;
-`;
 
 const StyledSearchBox = styled(SearchBoxMain)`
   align-items: center;
@@ -53,31 +34,31 @@ const StyledSearchBox = styled(SearchBoxMain)`
 
   .SearchInput {
     border: ${({ hasFocus }: { hasFocus: boolean }): string =>
-      hasFocus ? "auto" : "none"};
+      hasFocus ? "none" : "none"};
     border-color: #b0b0b0;
-    border-radius: 5px;
     border-width: 1px;
     color: ${({ theme }: IThemeProps): string => theme.foreground as string};
     font-size: 1em;
     outline: none;
     padding: 0.5rem;
     transition: 100ms;
+    height: 49px;
 
     ::placeholder {
       color: ${({ theme }: IThemeProps): string => theme.faded as string};
+      margin-left: 2rem !important;
     }
-    ${({
-      hasFocus,
-    }: {
-      hasFocus: boolean;
-    }): FlattenInterpolation<ThemeProps<string>> => (hasFocus ? open : closed)}
+    background: #e9e9ed;
+    cursor: text;
+    margin-left: -1.6em;
+    padding-left: 1.6em;
+    width: 15em;
   }
 
   .SearchIcon {
-    color: ${({ theme }: IThemeProps): string => theme.foreground as string};
     margin: 0.3em;
     pointer-events: none;
-    width: 1em;
+    width: 0.8em;
   }
 `;
 
@@ -89,7 +70,6 @@ const Popover = css`
   overflow-y: auto;
   padding: 1em;
   position: absolute;
-  right: 0;
   scrollbar-color: #b0b0b0 #f9f9f9;
   scrollbar-width: thin;
   top: auto;
