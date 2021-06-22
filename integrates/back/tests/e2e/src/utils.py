@@ -53,6 +53,14 @@ def wait_for_text(driver: WebDriver, text: str, timeout: int) -> WebDriverWait:
     )
 
 
+def wait_for_class_name(
+    driver: WebDriver, text: str, timeout: int
+) -> WebDriverWait:
+    return WebDriverWait(driver, timeout).until(
+        ec.presence_of_element_located((By.CLASS_NAME, text))
+    )
+
+
 def wait_for_hide_text(
     driver: WebDriver, text: str, timeout: int
 ) -> WebDriverWait:
@@ -63,6 +71,14 @@ def wait_for_hide_text(
                 f"//*[text()[contains(., '{text}')]]",
             )
         )
+    )
+
+
+def wait_for_hide_class_name(
+    driver: WebDriver, text: str, timeout: int
+) -> WebDriverWait:
+    return WebDriverWait(driver, timeout).until_not(
+        ec.presence_of_element_located((By.CLASS_NAME, text))
     )
 
 

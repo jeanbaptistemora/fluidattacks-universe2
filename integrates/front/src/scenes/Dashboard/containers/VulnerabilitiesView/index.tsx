@@ -163,8 +163,9 @@ export const VulnsView: React.FC = (): JSX.Element => {
     vulns,
     treatmentFilter
   );
-  const filterCurrentStatusVulnerabilities: IVulnRowAttr[] =
-    filterCurrentStatus(vulns, currentStatusFilter);
+  const filterCurrentStatusVulnerabilities: IVulnRowAttr[] = isRequestingVerify
+    ? vulns
+    : filterCurrentStatus(vulns, currentStatusFilter);
   const filterTreatmentCurrentStatusVulnerabilities: IVulnRowAttr[] =
     filterTreatmentCurrentStatus(vulns, treatmentCurrentStatusFilter);
   const filterVerificationVulnerabilities: IVulnRowAttr[] = filterVerification(
@@ -321,7 +322,13 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 isRequestingReattack={isRequestingVerify}
                 isVerifyingRequest={isVerifying}
                 onVulnSelect={openRemediationModal}
-                vulnerabilities={filterZeroRisk(vulnerabilities)}
+                vulnerabilities={
+                  isRequestingVerify
+                    ? filterZeroRisk(
+                        filterCurrentStatus(vulnerabilities, "open")
+                      )
+                    : filterZeroRisk(vulnerabilities)
+                }
               />
             </div>
           </div>

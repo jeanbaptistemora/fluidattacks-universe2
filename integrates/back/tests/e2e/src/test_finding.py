@@ -180,7 +180,7 @@ def test_finding_reattack(
     driver.get(f"{integrates_endpoint}/orgs/okada/groups/unittesting/vulns")
     finding = utils.wait_for_text(
         driver,
-        "F060. Insecure exceptions",
+        "F014. Funcionalidad insegura",
         timeout,
     )
     finding.click()
@@ -191,7 +191,30 @@ def test_finding_reattack(
         "start-reattack",
         timeout,
     )
+    assert utils.wait_for_class_name(
+        driver,
+        "bg-lbl-red",
+        timeout,
+    )
+    assert utils.wait_for_class_name(
+        driver,
+        "bg-lbl-green",
+        timeout,
+    )
     start_reattack.click()
+
+    # hide closed vulnerabilities
+    assert utils.wait_for_hide_class_name(
+        driver,
+        "bg-lbl-green",
+        timeout,
+    )
+    assert utils.wait_for_class_name(
+        driver,
+        "bg-lbl-red",
+        timeout,
+    )
+
     checkboxes = driver.find_elements_by_css_selector(
         "#vulnerabilitiesTable input[type='checkbox']"
     )
@@ -219,6 +242,25 @@ def test_finding_reattack(
     assert "Which was the applied solution?" in driver.page_source
     treatment.send_keys("test-justification")
     cancel_reattack.click()
+
+    # show closed vulnerabilities again
+    cancel_reattack.click()
+    utils.wait_for_hide_text(
+        driver,
+        "Justification",
+        timeout,
+    )
+    start_reattack.click()
+    assert utils.wait_for_class_name(
+        driver,
+        "bg-lbl-green",
+        timeout,
+    )
+    assert utils.wait_for_class_name(
+        driver,
+        "bg-lbl-red",
+        timeout,
+    )
 
 
 def test_finding_vulnerabilities(
