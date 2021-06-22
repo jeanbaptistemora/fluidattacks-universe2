@@ -54,10 +54,12 @@ F075_APK_CP.recommendation:
 F075_APK_CP.threat:
   en: >
     Unauthorized attacker
-    from internet network.
+    owner of a third party application
+    installed in the device.
   es: >
     Atacante sin autorización
-    desde internet.
+    propietario de una aplicación de terceros
+    instalada en el dispositivo.
 F075_APK_CP.title:
   en: F075. Unauthorized access to files - APK Content Provider
   es: F075. Acceso no autorizado a archivos - APK Content Provider
