@@ -21,6 +21,9 @@ from newutils import (
     utils,
     virus_scan,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from resources import (
     domain as resources_domain,
 )
@@ -45,26 +48,26 @@ async def mutate(
     uploaded_file = parameters["file"]
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
-    project_name = parameters["project_name"]
+    group_name: str = resolve_kwargs(parameters)
 
-    virus_scan.scan_file(uploaded_file, user_email, project_name)
+    virus_scan.scan_file(uploaded_file, user_email, group_name)
 
     success = await resources_domain.create_file(
-        new_files_data, uploaded_file, project_name, user_email
+        new_files_data, uploaded_file, group_name, user_email
     )
     if success:
-        info.context.loaders.group.clear(project_name)
+        info.context.loaders.group.clear(group_name)
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Added resource files to {project_name} "
-            f"project successfully",
+            f"Security: Added resource files to {group_name} "
+            f"group successfully",
         )
     else:
         LOGGER.error("Couldn't upload file", extra={"extra": parameters})
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Attempted to add resource files "
-            f"from {project_name} project",
+            f"from {group_name} project",
         )
 
     return SimplePayloadType(success=success)

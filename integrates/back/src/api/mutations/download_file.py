@@ -21,6 +21,9 @@ from newutils import (
     resources as resources_utils,
     token as token_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from typing import (
     Any,
 )
@@ -39,20 +42,20 @@ async def mutate(
 ) -> DownloadFilePayloadType:
     success = False
     file_info = parameters["files_data"]
-    project_name = parameters["project_name"].lower()
+    group_name = resolve_kwargs(parameters).lower()
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
-    signed_url = await resources_utils.download_file(file_info, project_name)
+    signed_url = await resources_utils.download_file(file_info, group_name)
     if signed_url:
         msg = (
             f'Security: Downloaded file {parameters["files_data"]} '
-            f"in project {project_name} successfully"
+            f"in group {group_name} successfully"
         )
         logs_utils.cloudwatch_log(info.context, msg)
         await analytics.mixpanel_track(
             user_email,
             "DownloadProjectFile",
-            Group=project_name.upper(),
+            Group=group_name.upper(),
             FileName=parameters["files_data"],
         )
         success = True
@@ -60,7 +63,7 @@ async def mutate(
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Attempted to download file "
-            f'{parameters["files_data"]} in project {project_name}',
+            f'{parameters["files_data"]} in group {group_name}',
         )
         LOGGER.error(
             "Couldn't generate signed URL", extra={"extra": parameters}

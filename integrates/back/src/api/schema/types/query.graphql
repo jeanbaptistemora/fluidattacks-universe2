@@ -52,8 +52,8 @@ type Query {
     lang: ReportLang
   ): Report
 
-  "Get resources from project"
-  resources(projectName: String!): Resource
+  "Get resources from group"
+  resources(projectName: String, groupName: String): Resource
 
   "Get user info from group"
   stakeholder(

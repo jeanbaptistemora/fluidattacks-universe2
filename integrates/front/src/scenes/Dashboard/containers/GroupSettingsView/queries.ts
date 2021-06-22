@@ -98,7 +98,7 @@ const GET_ENVIRONMENTS: DocumentNode = gql`
 
 const GET_FILES: DocumentNode = gql`
   query GetFilesQuery($groupName: String!) {
-    resources(projectName: $groupName) {
+    resources(groupName: $groupName) {
       files
     }
   }
@@ -106,7 +106,7 @@ const GET_FILES: DocumentNode = gql`
 
 const DOWNLOAD_FILE_MUTATION: DocumentNode = gql`
   mutation DownloadFileMutation($filesData: JSONString!, $groupName: String!) {
-    downloadFile(filesData: $filesData, projectName: $groupName) {
+    downloadFile(filesData: $filesData, groupName: $groupName) {
       success
       url
     }
@@ -115,7 +115,7 @@ const DOWNLOAD_FILE_MUTATION: DocumentNode = gql`
 
 const REMOVE_FILE_MUTATION: DocumentNode = gql`
   mutation RemoveFileMutation($filesData: JSONString!, $groupName: String!) {
-    removeFiles(filesData: $filesData, projectName: $groupName) {
+    removeFiles(filesData: $filesData, groupName: $groupName) {
       success
     }
   }
@@ -127,7 +127,7 @@ const UPLOAD_FILE_MUTATION: DocumentNode = gql`
     $filesData: JSONString!
     $groupName: String!
   ) {
-    addFiles(file: $file, filesData: $filesData, projectName: $groupName) {
+    addFiles(file: $file, filesData: $filesData, groupName: $groupName) {
       success
     }
   }

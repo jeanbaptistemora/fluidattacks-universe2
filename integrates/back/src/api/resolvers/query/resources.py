@@ -20,6 +20,7 @@ from graphql.type.definition import (
 )
 from newutils.utils import (
     resolve_kwargs,
+    resolve_kwargs_key,
 )
 from typing import (
     cast,
@@ -38,10 +39,11 @@ async def resolve(
 ) -> Resources:
     group_name: str
     group_name = resolve_kwargs(kwargs).lower()
+    group_name_key = resolve_kwargs_key(kwargs)
     group_loader: DataLoader = info.context.loaders.group
     group: Group = await group_loader.load(group_name)
 
     return {
         "files": cast(List[Resource], group.get("files", [])),
-        "project_name": group_name,
+        f"{group_name_key}": group_name,
     }

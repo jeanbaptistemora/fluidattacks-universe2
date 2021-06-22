@@ -18,6 +18,9 @@ import logging.config
 from newutils import (
     logs as logs_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 import re
 from resources import (
     domain as resources_domain,
@@ -40,20 +43,20 @@ async def mutate(
     _: Any,
     info: GraphQLResolveInfo,
     files_data: Dict[str, Any],
-    project_name: str,
+    **kwargs: Any,
 ) -> SimplePayloadType:
+    group_name: str = resolve_kwargs(kwargs)
     files_data = {
         re.sub(r"_([a-z])", lambda x: x.group(1).upper(), k): v
         for k, v in files_data.items()
     }
     file_name = files_data.get("fileName")
-    success = await resources_domain.remove_file(str(file_name), project_name)
+    success = await resources_domain.remove_file(str(file_name), group_name)
     if success:
-        info.context.loaders.group.clear(project_name)
+        info.context.loaders.group.clear(group_name)
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Removed Files from {project_name} "
-            "project successfully",
+            f"Security: Removed Files from {group_name} " "group successfully",
         )
     else:
         LOGGER.error(
@@ -61,13 +64,13 @@ async def mutate(
             extra={
                 "extra": {
                     "file_name": file_name,
-                    "project_name": project_name,
+                    "group_name": group_name,
                 }
             },
         )
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Attempted to remove files from {project_name} project",
+            f"Security: Attempted to remove files from {group_name} project",
         )
 
     return SimplePayloadType(success=success)

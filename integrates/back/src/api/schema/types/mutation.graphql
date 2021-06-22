@@ -19,7 +19,8 @@ type Mutation {
   addFiles(
     file: Upload!
     filesData: JSONString!
-    projectName: String!
+    projectName: String
+    groupName: String
   ): SimplePayload!
 
   addFindingConsult(
@@ -218,7 +219,8 @@ type Mutation {
 
   downloadFile(
     filesData: JSONString!
-    projectName: String!
+    projectName: String,
+    groupName: String
   ): DownloadFilePayload!
 
   downloadVulnFile(findingId: String!): DownloadFilePayload!
@@ -309,7 +311,11 @@ type Mutation {
     evidenceId: EvidenceType!
   ): SimpleFindingPayload!
 
-  removeFiles(filesData: JSONString!, projectName: String!): SimplePayload!
+  removeFiles(
+    filesData: JSONString!
+    projectName: String
+    groupName: String
+  ): SimplePayload!
 
   removeGroup(groupName: String!): SimplePayload!
 
