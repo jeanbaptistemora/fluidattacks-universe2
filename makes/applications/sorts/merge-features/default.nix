@@ -14,6 +14,7 @@ makeEntrypoint {
     ];
     envUtils = [
       "/makes/utils/aws"
+      "/makes/utils/sops"
     ];
   };
   template = path "/makes/applications/sorts/merge-features/entrypoint.sh";
