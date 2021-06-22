@@ -231,68 +231,100 @@ F046_APK,inputs,examples/android/abcore/app-prod-debug.apk (namespace),android/s
   17 | }
      ^ Col 0
 "
-F046_APK,inputs,examples/android/Invalid/Invalid.apk (namespace),android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl is not obfuscated,1269,"home,apk,bytecodes",F046. Missing secure obfuscation - APK,android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl is not obfuscated,"
+F046_APK,inputs,examples/android/TestsAndroguard/bin/TestActivity.apk (namespace),android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat is not obfuscated,1269,"home,apk,bytecodes",F046. Missing secure obfuscation - APK,android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat is not obfuscated,"
 >  1 | package android.support.v4.accessibilityservice;
-   2 | interface AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl {
-   3 |
-   4 |     public abstract boolean getCanRetrieveWindowContent();
+   2 | public class AccessibilityServiceInfoCompat {
+   3 |     public static final int FEEDBACK_ALL_MASK = 255;
+   4 |     private static final android.support.v4.accessibilityservice.AccessibilityServiceInfoCompat$AccessibilityServiceInfo
+     | VersionImpl IMPL;
    5 |
-   6 |     public abstract String getDescription();
-   7 |
-   8 |     public abstract String getId();
-   9 |
-  10 |     public abstract android.content.pm.ResolveInfo getResolveInfo();
-  11 |
-  12 |     public abstract String getSettingsActivityName();
-  13 | }
+   6 |     static AccessibilityServiceInfoCompat()
+   7 |     {
+   8 |         if (android.os.Build$VERSION.SDK_INT < 14) {
+   9 |             android.support.v4.accessibilityservice.AccessibilityServiceInfoCompat.IMPL = new android.support.v4.accessi
+     | bilityservice.AccessibilityServiceInfoCompat$AccessibilityServiceInfoStubImpl();
+  10 |         } else {
+  11 |             android.support.v4.accessibilityservice.AccessibilityServiceInfoCompat.IMPL = new android.support.v4.accessi
+     | bilityservice.AccessibilityServiceInfoCompat$AccessibilityServiceInfoIcsImpl();
+  12 |         }
+  13 |         return;
+  14 |     }
+  15 |
+  16 |     private AccessibilityServiceInfoCompat()
+  17 |     {
+  18 |         return;
      ^ Col 0
 "
-F046_APK,inputs,examples/android/TestsAndroguard/bin/TestActivity.apk (namespace),android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl is not obfuscated,1269,"home,apk,bytecodes",F046. Missing secure obfuscation - APK,android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl is not obfuscated,"
+F046_APK,inputs,examples/android/TestsAndroguard/bin/TestActivity_unsigned.apk (namespace),android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat is not obfuscated,1269,"home,apk,bytecodes",F046. Missing secure obfuscation - APK,android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat is not obfuscated,"
 >  1 | package android.support.v4.accessibilityservice;
-   2 | interface AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl {
-   3 |
-   4 |     public abstract boolean getCanRetrieveWindowContent();
+   2 | public class AccessibilityServiceInfoCompat {
+   3 |     public static final int FEEDBACK_ALL_MASK = 255;
+   4 |     private static final android.support.v4.accessibilityservice.AccessibilityServiceInfoCompat$AccessibilityServiceInfo
+     | VersionImpl IMPL;
    5 |
-   6 |     public abstract String getDescription();
-   7 |
-   8 |     public abstract String getId();
-   9 |
-  10 |     public abstract android.content.pm.ResolveInfo getResolveInfo();
-  11 |
-  12 |     public abstract String getSettingsActivityName();
-  13 | }
+   6 |     static AccessibilityServiceInfoCompat()
+   7 |     {
+   8 |         if (android.os.Build$VERSION.SDK_INT < 14) {
+   9 |             android.support.v4.accessibilityservice.AccessibilityServiceInfoCompat.IMPL = new android.support.v4.accessi
+     | bilityservice.AccessibilityServiceInfoCompat$AccessibilityServiceInfoStubImpl();
+  10 |         } else {
+  11 |             android.support.v4.accessibilityservice.AccessibilityServiceInfoCompat.IMPL = new android.support.v4.accessi
+     | bilityservice.AccessibilityServiceInfoCompat$AccessibilityServiceInfoIcsImpl();
+  12 |         }
+  13 |         return;
+  14 |     }
+  15 |
+  16 |     private AccessibilityServiceInfoCompat()
+  17 |     {
+  18 |         return;
      ^ Col 0
 "
-F046_APK,inputs,examples/android/TestsAndroguard/bin/TestActivity_unsigned.apk (namespace),android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl is not obfuscated,1269,"home,apk,bytecodes",F046. Missing secure obfuscation - APK,android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl is not obfuscated,"
+F046_APK,inputs,examples/signing/TestActivity_signed_both.apk (namespace),android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat is not obfuscated,1269,"home,apk,bytecodes",F046. Missing secure obfuscation - APK,android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat is not obfuscated,"
 >  1 | package android.support.v4.accessibilityservice;
-   2 | interface AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl {
-   3 |
-   4 |     public abstract boolean getCanRetrieveWindowContent();
+   2 | public class AccessibilityServiceInfoCompat {
+   3 |     public static final int FEEDBACK_ALL_MASK = 255;
+   4 |     private static final android.support.v4.accessibilityservice.AccessibilityServiceInfoCompat$AccessibilityServiceInfo
+     | VersionImpl IMPL;
    5 |
-   6 |     public abstract String getDescription();
-   7 |
-   8 |     public abstract String getId();
-   9 |
-  10 |     public abstract android.content.pm.ResolveInfo getResolveInfo();
-  11 |
-  12 |     public abstract String getSettingsActivityName();
-  13 | }
+   6 |     static AccessibilityServiceInfoCompat()
+   7 |     {
+   8 |         if (android.os.Build$VERSION.SDK_INT < 14) {
+   9 |             android.support.v4.accessibilityservice.AccessibilityServiceInfoCompat.IMPL = new android.support.v4.accessi
+     | bilityservice.AccessibilityServiceInfoCompat$AccessibilityServiceInfoStubImpl();
+  10 |         } else {
+  11 |             android.support.v4.accessibilityservice.AccessibilityServiceInfoCompat.IMPL = new android.support.v4.accessi
+     | bilityservice.AccessibilityServiceInfoCompat$AccessibilityServiceInfoIcsImpl();
+  12 |         }
+  13 |         return;
+  14 |     }
+  15 |
+  16 |     private AccessibilityServiceInfoCompat()
+  17 |     {
+  18 |         return;
      ^ Col 0
 "
-F046_APK,inputs,examples/signing/TestActivity_signed_both.apk (namespace),android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl is not obfuscated,1269,"home,apk,bytecodes",F046. Missing secure obfuscation - APK,android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl is not obfuscated,"
+F046_APK,inputs,examples/android/Invalid/Invalid.apk (namespace),android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat$AccessibilityServiceInfoStubImpl is not obfuscated,1269,"home,apk,bytecodes",F046. Missing secure obfuscation - APK,android/support/v4/accessibilityservice/AccessibilityServiceInfoCompat$AccessibilityServiceInfoStubImpl is not obfuscated,"
 >  1 | package android.support.v4.accessibilityservice;
-   2 | interface AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl {
+   2 |  class AccessibilityServiceInfoCompat$AccessibilityServiceInfoStubImpl implements android.support.v4.accessibilityservic
+     | e.AccessibilityServiceInfoCompat$AccessibilityServiceInfoVersionImpl {
    3 |
-   4 |     public abstract boolean getCanRetrieveWindowContent();
-   5 |
-   6 |     public abstract String getDescription();
-   7 |
-   8 |     public abstract String getId();
-   9 |
-  10 |     public abstract android.content.pm.ResolveInfo getResolveInfo();
-  11 |
-  12 |     public abstract String getSettingsActivityName();
-  13 | }
+   4 |     AccessibilityServiceInfoCompat$AccessibilityServiceInfoStubImpl()
+   5 |     {
+   6 |         return;
+   7 |     }
+   8 |
+   9 |     public boolean getCanRetrieveWindowContent(android.accessibilityservice.AccessibilityServiceInfo p2)
+  10 |     {
+  11 |         return 0;
+  12 |     }
+  13 |
+  14 |     public String getDescription(android.accessibilityservice.AccessibilityServiceInfo p2)
+  15 |     {
+  16 |         return 0;
+  17 |     }
+  18 |
+  19 |     public String getId(android.accessibilityservice.AccessibilityServiceInfo p2)
+  20 |     {
      ^ Col 0
 "
 F048,inputs,examples/android/Invalid/Invalid.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",F048. Lack of root detection,Missing rooted device detection,"

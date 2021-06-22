@@ -485,8 +485,8 @@ def _no_obfuscation(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
             class_: ClassDefItem
             for class_ in dvm.get_classes():
                 class_name: str = class_.get_name()[1:-1]
-                # We could also use class_.get_fields and class_.get_methods
-                if not class_.interfaces and any(
+                class_is_interface: bool = 0x200 & class_.get_access_flags()
+                if not class_is_interface and any(
                     map(class_name.startswith, class_names_unobfuscated)
                 ):
                     _add_no_obfuscation_location(
