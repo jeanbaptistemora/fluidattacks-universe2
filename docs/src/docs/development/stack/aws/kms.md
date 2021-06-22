@@ -151,7 +151,7 @@ We do not use [AWS KMS][KMS] for:
     visit the
     [Terraform Guidelines](/development/stack/terraform#guidelines).
 
-[AWS]: https://aws.amazon.com/
+[AWS]: /development/stack/aws/
 [KMS]: https://aws.amazon.com/kms/
 [EBS]: /development/stack/aws/ebs/
 [OS]: https://en.wikipedia.org/wiki/Operating_system

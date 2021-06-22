@@ -95,7 +95,7 @@ We use [EKS][EKS] for:
     visit the
     [Terraform Guidelines](/development/stack/terraform#guidelines).
 
-[AWS]: https://aws.amazon.com/
+[AWS]: /development/stack/aws/
 [EKS]: https://aws.amazon.com/eks/
 [KUBERNETES]: /development/stack/kubernetes/
 [TERRAFORM]: /development/stack/terraform/

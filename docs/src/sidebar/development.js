@@ -68,6 +68,7 @@ const DEVELOPMENT = [
           'development/stack/aws/ebs',
           'development/stack/aws/ec2',
           'development/stack/aws/eks',
+          'development/stack/aws/elb',
           'development/stack/aws/iam',
           'development/stack/aws/kms',
           'development/stack/aws/s3',

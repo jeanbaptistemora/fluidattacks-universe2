@@ -87,5 +87,5 @@ You can access the
 [Cost Management][COST-MANAGEMENT] console
 after [authenticating on AWS](/development/stack/aws#guidelines).
 
-[AWS]: https://aws.amazon.com/
+[AWS]: /development/stack/aws/
 [COST-MANAGEMENT]: https://aws.amazon.com/aws-cost-management/

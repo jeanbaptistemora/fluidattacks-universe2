@@ -67,6 +67,8 @@ We use the following [AWS][AWS] services:
     [S3](/development/stack/aws/s3/).
 1. Elastic block store:
     [EBS](/development/stack/aws/ebs/).
+1. Elastic Load Balancing:
+    [ELB](/development/stack/aws/elb/).
 1. Key management system:
     [KMS](/development/stack/aws/kms/).
 1. Application cluster:
@@ -77,8 +79,6 @@ We use the following [AWS][AWS] services:
     [Lambda](https://aws.amazon.com/lambda/).
 1. Elastic Container Service:
     [ECS](https://aws.amazon.com/ecs/).
-1. Elastic Load Balancing:
-    [Elastic Load Balancing](https://aws.amazon.com/elasticloadbalancing/).
 1. NoSQL database:
     [DynamoDB](https://aws.amazon.com/dynamodb/).
 1. Data warehouse:
@@ -162,11 +162,11 @@ to generate a key pair:
 1. To get the credentials execute:
 
     ```bash
-    okta-login # To default role
+    okta-login # To use the default role
     ```
 
     ```bash
-    okta-login `<role>` # To specific role
+    okta-login `<role>` # To use a specific role
     ```
 
 1. Use the `--no-aws-cache` flag only in case you:
