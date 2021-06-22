@@ -35,7 +35,9 @@ const MenuDesktopTopBar: React.FC<IProps> = ({
     </CloseMenuButtonContainer>
     <li className={"fr pv4 dib dn-l show-item-m"}>
       <Link className={"no-underline"} to={"/contact-us/"}>
-        <NavbarContactButton>{"Contact now"}</NavbarContactButton>
+        <NavbarContactButton onClick={close}>
+          {"Contact now"}
+        </NavbarContactButton>
       </Link>
     </li>
     <li className={"fr mr3 pv4 hide-item-m"}>
