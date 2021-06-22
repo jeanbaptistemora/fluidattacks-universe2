@@ -157,7 +157,10 @@ async def main() -> None:
     async with http_session() as session, selenium_web_driver() as driver:
 
         # Organization reports
-        base = f"{TARGET_URL}/graphics-for-organization?reportMode=true"
+        base = (
+            f"{TARGET_URL}/graphics-for-organization?"
+            f"reportMode=true&bgChange=true"
+        )
         async for org_id, _, _ in utils.iterate_organizations_and_groups():
             await insert_cookies("organization", session)
             await in_thread(
@@ -172,7 +175,10 @@ async def main() -> None:
             clear_cookies(driver, session)
 
         # Group reports
-        base = f"{TARGET_URL}/graphics-for-group?reportMode=true"
+        base = (
+            f"{TARGET_URL}/graphics-for-group?"
+            f"reportMode=true&bgChange=true"
+        )
         async for group in utils.iterate_groups():
             await insert_cookies("group", session)
             await in_thread(
@@ -187,7 +193,10 @@ async def main() -> None:
             clear_cookies(driver, session)
 
         # Portfolio reports
-        base = f"{TARGET_URL}/graphics-for-portfolio?reportMode=true"
+        base = (
+            f"{TARGET_URL}/graphics-for-portfolio?"
+            f"reportMode=true&bgChange=true"
+        )
         separator = "PORTFOLIO#"
         async for org_id, org_name, _ in (
             utils.iterate_organizations_and_groups()

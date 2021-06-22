@@ -25,6 +25,7 @@ const ChartsForPortfolioView: React.FC<IChartsForPortfolioViewProps> = (
   return (
     <React.StrictMode>
       <ChartsGenericView
+        bgChange={searchParams.get("bgChange") === "true"}
         entity={"portfolio"}
         reportMode={searchParams.get("reportMode") === "true"}
         subject={subject}

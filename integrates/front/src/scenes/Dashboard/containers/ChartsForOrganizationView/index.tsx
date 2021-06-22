@@ -27,6 +27,7 @@ const ChartsForOrganizationView: React.FC<IChartsForOrganizationViewProps> = (
   return (
     <React.StrictMode>
       <ChartsGenericView
+        bgChange={searchParams.get("bgChange") === "true"}
         entity={"organization"}
         reportMode={searchParams.get("reportMode") === "true"}
         subject={auxOrganizationId}

@@ -19,6 +19,7 @@ const ChartsForGroupView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <ChartsGenericView
+        bgChange={searchParams.get("bgChange") === "true"}
         entity={"group"}
         reportMode={searchParams.get("reportMode") === "true"}
         subject={subject}

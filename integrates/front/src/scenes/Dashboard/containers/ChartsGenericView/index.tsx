@@ -22,7 +22,8 @@ import { translate } from "utils/translations/translate";
 const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
   props: IChartsGenericViewProps
 ): JSX.Element => {
-  const { entity, reportMode, subject } = props;
+  const ALT_BACKGROUND_COLOR: string = "#e9e9ed";
+  const { bgChange, entity, reportMode, subject } = props;
 
   const [isForcesDescriptionExpanded, setIsForcesDescriptionExpanded] =
     useState(reportMode);
@@ -41,7 +42,12 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
 
   return (
     <React.StrictMode>
-      <div className={"center"}>
+      <div
+        className={"center"}
+        style={{
+          backgroundColor: bgChange ? ALT_BACKGROUND_COLOR : "transparent",
+        }}
+      >
         {doesEntityMatch("group", "organization", "portfolio") ? (
           <React.Fragment>
             <RowCenter>
@@ -423,7 +429,11 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
         ) : undefined}
       </div>
       {doesEntityMatch("portfolio") ? (
-        <div className={"center"}>
+        <div
+          style={{
+            backgroundColor: bgChange ? ALT_BACKGROUND_COLOR : "transparent",
+          }}
+        >
           <RowCenter>
             <Col100>
               <Graphic
@@ -576,7 +586,11 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
         </div>
       ) : undefined}
       {doesEntityMatch("group", "organization", "portfolio") ? (
-        <React.Fragment>
+        <div
+          style={{
+            backgroundColor: bgChange ? ALT_BACKGROUND_COLOR : "transparent",
+          }}
+        >
           <RowCenter>
             <Col100>
               <Graphic
@@ -707,28 +721,38 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
               />
             </Col100>
           </RowCenter>
-        </React.Fragment>
+        </div>
       ) : undefined}
       {doesEntityMatch("organization", "portfolio") ? (
-        <RowCenter>
-          <Col100>
-            <Graphic
-              bsHeight={320}
-              className={"g1"}
-              documentName={"groupsByTag"}
-              documentType={"heatMapChart"}
-              entity={entity}
-              generatorName={"generic"}
-              generatorType={"heatMapChart"}
-              reportMode={reportMode}
-              subject={subject}
-              title={translate.t("analytics.heatMapChart.groupsByTag")}
-            />
-          </Col100>
-        </RowCenter>
+        <div
+          style={{
+            backgroundColor: bgChange ? ALT_BACKGROUND_COLOR : "transparent",
+          }}
+        >
+          <RowCenter>
+            <Col100>
+              <Graphic
+                bsHeight={320}
+                className={"g1"}
+                documentName={"groupsByTag"}
+                documentType={"heatMapChart"}
+                entity={entity}
+                generatorName={"generic"}
+                generatorType={"heatMapChart"}
+                reportMode={reportMode}
+                subject={subject}
+                title={translate.t("analytics.heatMapChart.groupsByTag")}
+              />
+            </Col100>
+          </RowCenter>
+        </div>
       ) : undefined}
       {doesEntityMatch("group") ? (
-        <React.Fragment>
+        <div
+          style={{
+            backgroundColor: bgChange ? ALT_BACKGROUND_COLOR : "transparent",
+          }}
+        >
           <RowCenter>
             <Col100>
               <Graphic
@@ -943,7 +967,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
               </Col50>
             </RowCenter>
           </div>
-        </React.Fragment>
+        </div>
       ) : undefined}
       {reportMode ? undefined : <ChartsGenericViewExtras {...props} />}
     </React.StrictMode>

@@ -7,6 +7,7 @@ declare type FrequencyType =
   | "weekly";
 
 interface IChartsGenericViewProps {
+  bgChange: boolean;
   entity: EntityType;
   reportMode: boolean;
   subject: string;
