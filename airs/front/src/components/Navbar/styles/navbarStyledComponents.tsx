@@ -176,18 +176,101 @@ const BlackWeightedParagraph: StyledComponent<
   `,
 })``;
 
+const TopBarButton: StyledComponent<
+  "button",
+  Record<string, unknown>
+> = styled.button.attrs({
+  className: `
+    c-fluid-gray
+    hv-fluid-black
+    outline-transparent
+    fw4
+    f-18
+    ba
+    b--transparent
+    bw1
+    ph0
+    pv2
+    bg-transparent
+    pointer
+  `,
+})``;
+
+const MenuDesktopContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    db-l
+    dn
+  `,
+})``;
+
+const MenuMobileContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    dn-l
+  `,
+})``;
+
+const MenuMobileInnerContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    t-all-5
+    fixed
+    h-100
+    top-0
+    left-0
+    z-100
+    flex
+  `,
+})``;
+
+const CloseMenuMobileContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    w-80-m
+    w-50
+    h-100
+  `,
+})``;
+
+const CloseMenuMobile: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    w-100
+    h-100
+    bg-gray-black
+    o-50
+  `,
+})``;
+
 export {
   BlackWeightedParagraph,
   CloseMenuButton,
   CloseMenuButtonContainer,
+  CloseMenuMobile,
+  CloseMenuMobileContainer,
   FlexMenuItems,
   HalfWidthContainer,
+  MenuDesktopContainer,
   MenuDesktopInnerContainer,
   MenuDesktopSectionList,
+  MenuMobileContainer,
+  MenuMobileInnerContainer,
   MenuSectionContainer,
   MenuSidebar,
   QuarterHeightContainer,
   SidebarList,
   SidebarListContainer,
   SidebarListItem,
+  TopBarButton,
 };
