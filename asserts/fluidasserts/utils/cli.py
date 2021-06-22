@@ -1205,7 +1205,6 @@ def exec_apk_package(apks):
             apk.uses_insecure_delete('{apk}')
             apk.uses_http_resources('{apk}')
             apk.socket_uses_getinsecure('{apk}')
-            apk.is_exported('{apk}')
             apk.has_frida('{apk}')
             """
         ).replace("{apk}", apk)

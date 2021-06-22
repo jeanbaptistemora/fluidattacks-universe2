@@ -407,33 +407,6 @@ def socket_uses_getinsecure(apk_file: str) -> tuple:
     )
 
 
-@api(risk=MEDIUM, kind=SAST)
-@unknown_if(FileNotFoundError, apk.Error, dvm.Error)
-def is_exported(apk_file: str) -> tuple:
-    """
-    Check if the given APK exports data to other installed apps.
-
-    :param apk_file: Path to the image to be tested.
-    :returns: - ``OPEN`` if APK have the **exported** attribute set to
-                **true**.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    apk_obj = apk.APK(apk_file)
-
-    is_data_exported: bool = (
-        apk_obj.get_attribute_value("provider", "exported") == "true"
-    )
-
-    return _get_result_as_tuple_sast(
-        path=apk_file,
-        msg_open="App data is being exported to other apps in device",
-        msg_closed="App data is not being exported to other apps in device",
-        open_if=is_data_exported,
-    )
-
-
 @api(risk=HIGH, kind=SAST)
 @unknown_if(FileNotFoundError, apk.Error, dvm.Error)
 def has_frida(apk_file: str) -> tuple:
