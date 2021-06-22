@@ -62,6 +62,19 @@ const MenuButton: StyledComponent<
   `,
 })``;
 
+const MobileMenuButton: StyledComponent<
+  "li",
+  Record<string, unknown>
+> = styled.li.attrs({
+  className: `
+    relative
+    fl
+    pv4
+    mv1
+    dn-l
+  `,
+})``;
+
 const NavbarContactButton: StyledComponent<
   "button",
   Record<string, unknown>
@@ -1367,6 +1380,7 @@ export {
   MarkedTitle,
   MenuButton,
   MenuItem,
+  MobileMenuButton,
   NavbarSubcategory,
   NavbarContactButton,
   NavbarContainer,
