@@ -97,6 +97,8 @@ async def get_url(
 ) -> Optional[URLContext]:
     async with create_session() as session:
         if response := await request(session, "GET", url):
+            url = str(response.url)  # Update with the redirected URL
+
             content_raw = await response.content.read(1048576)
             content = content_raw.decode("latin-1")
             soup = bs4.BeautifulSoup(content, features="html.parser")
