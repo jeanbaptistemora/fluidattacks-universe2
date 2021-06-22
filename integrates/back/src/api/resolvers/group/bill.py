@@ -35,7 +35,7 @@ async def resolve(
     group_name: str = cast(str, parent["name"])
     date: datetime = kwargs.get("date", datetime_utils.get_now())
     return {
-        "developers": await bill_domain.get_authors_data(
+        "authors": await bill_domain.get_authors_data(
             date=date,
             group=group_name,
         ),

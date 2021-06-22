@@ -224,7 +224,7 @@ async def test_project() -> None:  # pylint: disable=too-many-statements
                 }}
                 serviceAttributes
                 bill{{
-                    developers{{
+                    authors{{
                         actor
                     }}
                 }}
@@ -274,7 +274,7 @@ async def test_project() -> None:  # pylint: disable=too-many-statements
         "is_fluidattacks_customer",
         "must_only_have_fluidattacks_hackers",
     ]
-    assert result["data"]["project"]["bill"]["developers"] == []
+    assert result["data"]["project"]["bill"]["authors"] == []
 
     context = get_new_context()
     query = f"""

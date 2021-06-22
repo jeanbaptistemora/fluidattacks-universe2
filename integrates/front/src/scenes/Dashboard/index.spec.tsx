@@ -40,7 +40,7 @@ describe("Dashboard", (): void => {
         request: {
           query: GET_USER,
           variables: {
-            projectName: "TEST",
+            groupName: "TEST",
           },
         },
         result: {

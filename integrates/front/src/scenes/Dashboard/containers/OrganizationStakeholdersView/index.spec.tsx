@@ -182,8 +182,8 @@ describe("Organization users view", (): void => {
           query: GET_USER,
           variables: {
             entity: "ORGANIZATION",
+            groupName: "-",
             organizationId: mockProps.organizationId,
-            projectName: "-",
             userEmail: "testuser2@gmail.com",
           },
         },

@@ -12,7 +12,7 @@ const GET_FORCES_TOKEN: DocumentNode = gql`
 
 const UPDATE_FORCES_TOKEN_MUTATION: DocumentNode = gql`
   mutation ASMUpdateForcesAccessTokenMutation($groupName: String!) {
-    updateForcesAccessToken(projectName: $groupName) {
+    updateForcesAccessToken(groupName: $groupName) {
       success
       sessionJwt
     }

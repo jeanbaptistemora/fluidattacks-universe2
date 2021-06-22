@@ -24,6 +24,12 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
+from typing import (
+    Any,
+)
 from users import (
     domain as users_domain,
 )
@@ -32,11 +38,12 @@ from users import (
 @convert_kwargs_to_snake_case
 @enforce_group_level_auth_async
 async def mutate(
-    _parent: None, info: GraphQLResolveInfo, project_name: str
+    _parent: None, info: GraphQLResolveInfo, **kwargs: Any
 ) -> UpdateAccessTokenPayload:
+    group_name: str = resolve_kwargs(kwargs)
     user_info = await token_utils.get_jwt_content(info.context)
 
-    user_email = forces_domain.format_forces_user_email(project_name)
+    user_email = forces_domain.format_forces_user_email(group_name)
     if not await users_domain.ensure_user_exists(user_email):
         logs_utils.cloudwatch_log(
             info.context,
@@ -59,11 +66,11 @@ async def mutate(
                 info.context,
                 (
                     f'{user_info["user_email"]} update access token for '
-                    f"{project_name}"
+                    f"{group_name}"
                 ),
             )
             if await forces_domain.update_token(
-                project_name, result.session_jwt
+                group_name, result.session_jwt
             ):
                 logs_utils.cloudwatch_log(
                     info.context,
@@ -77,7 +84,7 @@ async def mutate(
                 info.context,
                 (
                     f'{user_info["user_email"]} attempted to update access '
-                    f"token for {project_name}"
+                    f"token for {group_name}"
                 ),
             )
         return result

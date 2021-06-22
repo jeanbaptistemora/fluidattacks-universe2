@@ -5,7 +5,7 @@ export const GET_BILL: DocumentNode = gql`
   query GetBill($date: DateTime, $groupName: String!) {
     group(groupName: $groupName) {
       bill(date: $date) {
-        authors: developers {
+        authors {
           actor
           commit
           groups

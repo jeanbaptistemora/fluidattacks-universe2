@@ -1,4 +1,4 @@
 "Bill type definition"
 type Bill {
-  developers: [BillAuthor]
+  authors: [BillAuthor]
 }

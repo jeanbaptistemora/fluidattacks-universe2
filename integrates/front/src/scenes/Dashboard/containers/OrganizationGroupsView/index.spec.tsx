@@ -290,10 +290,10 @@ describe("Organization groups view", (): void => {
           query: CREATE_GROUP_MUTATION,
           variables: {
             description: "Test group",
+            groupName: "AKAME",
             hasDrills: true,
             hasForces: true,
             organization: "OKADA",
-            projectName: "AKAME",
             subscription: "CONTINUOUS",
           },
         },

@@ -1546,8 +1546,7 @@ export const enTranslations: ResourceKey = {
         },
         title: "Files",
       },
-      groupToRemove:
-        "Please type: <strong>{{projectName}}</strong>, to proceed",
+      groupToRemove: "Please type: <strong>{{groupName}}</strong>, to proceed",
       https: "HTTPS",
       invalidChars: "File name has invalid characters.",
       modalEnvTitle: "Add environment information",

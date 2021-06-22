@@ -417,7 +417,10 @@ type Mutation {
     findingId: String!
   ): SimplePayload!
 
-  updateForcesAccessToken(projectName: String!): UpdateAccessTokenPayload!
+  updateForcesAccessToken(
+    projectName: String,
+    groupName: String
+  ): UpdateAccessTokenPayload!
 
   updateGitEnvironments(
     "Name of the group the root is associated with"
