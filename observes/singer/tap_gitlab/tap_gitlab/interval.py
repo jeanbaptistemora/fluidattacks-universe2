@@ -5,11 +5,13 @@ from returns.primitives.container import (
     BaseContainer,
 )
 from returns.primitives.hkt import (
+    SupportsKind1,
     SupportsKind2,
 )
 from typing import (
     final,
     Literal,
+    Tuple,
     TypeVar,
 )
 
@@ -80,3 +82,29 @@ def open_rt_interval(
     lower: _Point, upper: _Point
 ) -> OpenRightInterval[_Point]:
     return Interval(IntervalType.OPEN_RIGHT, lower, upper)
+
+
+@final
+class FragmentedInterval(
+    BaseContainer,
+    SupportsKind1["FragmentedInterval", _Point],
+):
+    def __init__(
+        self,
+        endpoints: Tuple[_Point, ...],
+        emptiness: Tuple[bool, ...],
+    ) -> None:
+        super().__init__(
+            {
+                "endpoints": endpoints,
+                "emptiness": emptiness,
+            }
+        )
+
+    @property
+    def endpoints(self) -> Tuple[_Point, ...]:
+        return self._inner_value["endpoints"]
+
+    @property
+    def emptiness(self) -> Tuple[bool, ...]:
+        return self._inner_value["emptiness"]
