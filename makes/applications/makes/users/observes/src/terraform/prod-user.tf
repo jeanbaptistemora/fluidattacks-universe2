@@ -4,6 +4,7 @@ data "aws_iam_policy_document" "prod-policy-data" {
   statement {
     effect = "Allow"
     actions = [
+      "s3:ListAllMyBuckets",
       "s3:ListBucket",
       "s3:PutObject",
       "s3:GetObject",
