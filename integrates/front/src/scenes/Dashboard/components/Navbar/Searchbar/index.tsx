@@ -1,12 +1,11 @@
+import { Field, Form, Formik } from "formik";
 import { track } from "mixpanel-browser";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { Field } from "redux-form";
 
-import { GenericForm } from "../../GenericForm";
-import { Text } from "utils/forms/fields";
-import { alphaNumeric } from "utils/validations";
+import { FormikText } from "utils/forms/fields";
+import { alphaNumeric, composeValidators } from "utils/validations";
 
 export const Searchbar: React.FC = (): JSX.Element => {
   const { push } = useHistory();
@@ -24,13 +23,19 @@ export const Searchbar: React.FC = (): JSX.Element => {
   );
 
   return (
-    <GenericForm name={"searchBar"} onSubmit={handleSubmit}>
-      <Field
-        component={Text}
-        name={"projectName"}
-        placeholder={t("navbar.searchPlaceholder")}
-        validate={[alphaNumeric]}
-      />
-    </GenericForm>
+    <Formik
+      initialValues={{ projectName: "" }}
+      name={"searchBar"}
+      onSubmit={handleSubmit}
+    >
+      <Form>
+        <Field
+          component={FormikText}
+          name={"projectName"}
+          placeholder={t("navbar.searchPlaceholder")}
+          validate={composeValidators([alphaNumeric])}
+        />
+      </Form>
+    </Formik>
   );
 };
