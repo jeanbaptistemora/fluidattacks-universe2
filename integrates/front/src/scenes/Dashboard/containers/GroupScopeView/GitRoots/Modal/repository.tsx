@@ -28,7 +28,7 @@ import { openUrl } from "utils/resourceHelpers";
 import { checked, required } from "utils/validations";
 
 interface IRepositoryProps {
-  initialValues: IGitRootAttr | undefined;
+  initialValues: IGitRootAttr;
   isEditing: boolean;
   nicknames: string[];
   onClose: () => void;
@@ -36,22 +36,7 @@ interface IRepositoryProps {
 }
 
 const Repository: React.FC<IRepositoryProps> = ({
-  initialValues = {
-    __typename: "GitRoot",
-    branch: "",
-    cloningStatus: {
-      message: "",
-      status: "UNKNOWN",
-    },
-    environment: "",
-    environmentUrls: [],
-    gitignore: [],
-    id: "",
-    includesHealthCheck: false,
-    nickname: "",
-    state: "ACTIVE",
-    url: "",
-  },
+  initialValues,
   isEditing,
   nicknames,
   onClose,

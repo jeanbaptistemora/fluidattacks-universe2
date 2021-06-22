@@ -1,11 +1,10 @@
+import { Field, Form, Formik } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Field } from "redux-form";
-import type { InjectedFormProps } from "redux-form";
+import { array, object, string } from "yup";
 
 import type { IGitRootAttr } from "../../types";
 import { Button } from "components/Button";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   ButtonToolbar,
   Col100,
@@ -13,11 +12,10 @@ import {
   RequiredField,
   Row,
 } from "styles/styledComponents";
-import { ArrayField, Text } from "utils/forms/fields";
-import { required } from "utils/validations";
+import { FormikArrayField, FormikText } from "utils/forms/fields";
 
 interface IEnvironmentsProps {
-  initialValues: IGitRootAttr | undefined;
+  initialValues: IGitRootAttr;
   onClose: () => void;
   onSubmit: (values: IGitRootAttr) => Promise<void>;
 }
@@ -28,41 +26,40 @@ const Environments: React.FC<IEnvironmentsProps> = ({
   onSubmit,
 }: IEnvironmentsProps): JSX.Element => {
   const { t } = useTranslation();
+  const validations = object().shape({
+    environmentUrls: array().of(string().required(t("validations.required"))),
+  });
 
   return (
-    <div>
-      <GenericForm
-        initialValues={initialValues}
-        name={"gitEnvs"}
-        onSubmit={onSubmit}
-      >
-        {({ pristine, submitting }: InjectedFormProps): JSX.Element => (
+    <Formik
+      initialValues={initialValues}
+      name={"gitEnvs"}
+      onSubmit={onSubmit}
+      validationSchema={validations}
+    >
+      {({ dirty, isSubmitting }): JSX.Element => (
+        <Form>
           <React.Fragment>
             <ControlLabel>
               <RequiredField>{"*"}&nbsp;</RequiredField>
               {t("group.scope.git.envUrls")}
             </ControlLabel>
-            <ArrayField
+            <FormikArrayField
               allowEmpty={true}
               initialValue={""}
               name={"environmentUrls"}
             >
               {(fieldName: string): JSX.Element => (
-                <Field
-                  component={Text}
-                  name={fieldName}
-                  type={"text"}
-                  validate={required}
-                />
+                <Field component={FormikText} name={fieldName} type={"text"} />
               )}
-            </ArrayField>
+            </FormikArrayField>
             <hr />
             <Row>
               <Col100>
                 <ButtonToolbar>
                   <Button onClick={onClose}>{t("confirmmodal.cancel")}</Button>
                   <Button
-                    disabled={pristine || submitting}
+                    disabled={!dirty || isSubmitting}
                     id={"envs-manage-proceed"}
                     type={"submit"}
                   >
@@ -72,9 +69,9 @@ const Environments: React.FC<IEnvironmentsProps> = ({
               </Col100>
             </Row>
           </React.Fragment>
-        )}
-      </GenericForm>
-    </div>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

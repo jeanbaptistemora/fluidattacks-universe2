@@ -5,6 +5,7 @@ import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
+import wait from "waait";
 
 import { ManagementModal } from "./Modal";
 
@@ -116,7 +117,7 @@ describe("GitRoots", (): void => {
     expect(wrapper.find({ name: "gitignore" }).find("input")).toHaveLength(0);
   });
 
-  it("should render envs modal", (): void => {
+  it("should render envs modal", async (): Promise<void> => {
     expect.hasAssertions();
 
     const handleClose: jest.Mock = jest.fn();
@@ -135,7 +136,7 @@ describe("GitRoots", (): void => {
       includesHealthCheck: false,
       nickname: "",
       state: "ACTIVE",
-      url: "",
+      url: "https://gitlab.com/fluidattacks/product",
     };
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
@@ -168,17 +169,20 @@ describe("GitRoots", (): void => {
     expect(firstInput).toHaveLength(1);
 
     firstInput.simulate("change", {
-      target: { value: "https://app.fluidattacks.com/" },
+      target: {
+        name: "environmentUrls[0]",
+        value: "https://app.fluidattacks.com/",
+      },
     });
 
     wrapper.find("form").simulate("submit");
+    await wait(0);
 
     expect(handleSubmit).toHaveBeenCalledWith(
       {
         ...initialValues,
         environmentUrls: ["https://app.fluidattacks.com/"],
       },
-      expect.anything(),
       expect.anything()
     );
 

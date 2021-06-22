@@ -20,14 +20,29 @@ interface IManagementModalProps {
 }
 
 const ManagementModal: React.FC<IManagementModalProps> = ({
-  initialValues,
+  initialValues = {
+    __typename: "GitRoot",
+    branch: "",
+    cloningStatus: {
+      message: "",
+      status: "UNKNOWN",
+    },
+    environment: "",
+    environmentUrls: [],
+    gitignore: [],
+    id: "",
+    includesHealthCheck: false,
+    nickname: "",
+    state: "ACTIVE",
+    url: "",
+  },
   nicknames,
   onClose,
   onSubmitEnvs,
   onSubmitRepo,
 }: IManagementModalProps): JSX.Element => {
   const { t } = useTranslation();
-  const isEditing: boolean = initialValues !== undefined;
+  const isEditing: boolean = initialValues.url !== "";
 
   return (
     <Modal
