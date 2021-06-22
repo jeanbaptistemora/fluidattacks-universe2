@@ -50,7 +50,6 @@ async def test_event() -> None:
     assert result["data"]["event"]["client"] == "Fluid Attacks"
     assert result["data"]["event"]["closingDate"] == "-"
     assert result["data"]["event"]["consulting"] == [
-        {"content": "Test customeradmin content"},
         {"content": "Test executive content"},
     ]
     assert result["data"]["event"]["context"] == "FLUID"
@@ -142,7 +141,6 @@ async def test_event() -> None:
     assert "errors" not in result
     assert "event" in result["data"]
     assert result["data"]["event"]["consulting"] == [
-        {"content": "Test customeradmin content"},
         {"content": "Test executive content"},
         {"content": event_content},
     ]
@@ -164,7 +162,6 @@ async def test_event() -> None:
     events = result["data"]["events"]
     event = [event for event in events if event["id"] == event_id][0]
     assert event["consulting"] == [
-        {"content": "Test customeradmin content"},
         {"content": "Test executive content"},
         {"content": event_content},
     ]

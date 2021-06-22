@@ -49,9 +49,7 @@ async def test_event() -> None:  # pylint: disable=too-many-statements
     assert result["data"]["event"]["affectedComponents"] == ""
     assert result["data"]["event"]["client"] == "Fluid Attacks"
     assert result["data"]["event"]["closingDate"] == "-"
-    assert result["data"]["event"]["consulting"] == [
-        {"content": "Test customeradmin content"}
-    ]
+    assert result["data"]["event"]["consulting"] == []
     assert result["data"]["event"]["context"] == "FLUID"
     assert result["data"]["event"]["detail"] == "test test test"
     assert result["data"]["event"]["eventDate"] == "2019-04-02 03:02:00"
@@ -141,7 +139,6 @@ async def test_event() -> None:  # pylint: disable=too-many-statements
     assert "errors" not in result
     assert "event" in result["data"]
     assert result["data"]["event"]["consulting"] == [
-        {"content": "Test customeradmin content"},
         {"content": consult_content},
     ]
 
@@ -162,6 +159,5 @@ async def test_event() -> None:  # pylint: disable=too-many-statements
     events = result["data"]["events"]
     event = [event for event in events if event["id"] == event_id][0]
     assert event["consulting"] == [
-        {"content": "Test customeradmin content"},
         {"content": consult_content},
     ]
