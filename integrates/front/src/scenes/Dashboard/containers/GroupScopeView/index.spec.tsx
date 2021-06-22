@@ -210,7 +210,7 @@ describe("GroupScopeView", (): void => {
       wrapper.update();
     });
 
-    const addButton: ReactWrapper = wrapper.find("button").at(0);
+    const addButton: ReactWrapper = wrapper.find({ id: "git-root-add" }).at(0);
     addButton.simulate("click");
 
     const url: ReactWrapper = wrapper.find({ name: "url" }).find("input");

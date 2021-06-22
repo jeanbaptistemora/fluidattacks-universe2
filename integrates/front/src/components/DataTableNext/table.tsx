@@ -84,7 +84,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   return (
     <div>
       <div className={`flex flex-wrap ${style.tableOptions}`}>
-        <div className={"w-40-ns"}>
+        <div className={"w-80"}>
           {exportCsv ||
           columnToggle ||
           !_.isUndefined(isFilterEnabled) ||

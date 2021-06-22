@@ -39,7 +39,6 @@ import {
 } from "components/DataTableNext/formatters";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
-import { ButtonToolbarRow } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
@@ -271,21 +270,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   return (
     <React.Fragment>
       <h2>{t("group.scope.git.title")}</h2>
-      <ButtonToolbarRow>
-        <Can do={"api_mutations_add_git_root_mutate"}>
-          <div className={"mb3"}>
-            <TooltipWrapper
-              id={t("group.scope.common.addTooltip.id")}
-              message={t("group.scope.common.addTooltip")}
-            >
-              <Button id={"git-root-add"} onClick={openAddModal}>
-                <FontAwesomeIcon icon={faPlus} />
-                &nbsp;{t("group.scope.common.add")}
-              </Button>
-            </TooltipWrapper>
-          </div>
-        </Can>
-      </ButtonToolbarRow>
       <ConfirmDialog title={t("group.scope.common.confirm")}>
         {(confirm: IConfirmFn): React.ReactNode => {
           const handleStateUpdate: (row: Record<string, string>) => void = (
@@ -307,6 +291,21 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                 columnToggle={true}
                 dataset={roots}
                 exportCsv={true}
+                extraButtons={
+                  <Can do={"api_mutations_add_git_root_mutate"}>
+                    <div className={"mb3"}>
+                      <TooltipWrapper
+                        id={t("group.scope.common.addTooltip.id")}
+                        message={t("group.scope.common.addTooltip")}
+                      >
+                        <Button id={"git-root-add"} onClick={openAddModal}>
+                          <FontAwesomeIcon icon={faPlus} />
+                          &nbsp;{t("group.scope.common.add")}
+                        </Button>
+                      </TooltipWrapper>
+                    </div>
+                  </Can>
+                }
                 headers={[
                   {
                     dataField: "url",

@@ -66,7 +66,7 @@ describe("GitRoots", (): void => {
       wrapper.update();
     });
 
-    const addButton: ReactWrapper = wrapper.find("button").at(0);
+    const addButton: ReactWrapper = wrapper.find({ id: "git-root-add" }).at(0);
 
     expect(addButton).toHaveLength(1);
     expect(wrapper.find(ManagementModal)).toHaveLength(0);
