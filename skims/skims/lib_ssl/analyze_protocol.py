@@ -1,6 +1,3 @@
-from contextlib import (
-    suppress,
-)
 from lib_ssl.types import (
     SSLContext,
 )
@@ -76,10 +73,13 @@ def _create_vulns(
 def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
 
-    with suppress(
-        tlslite.errors.TLSRemoteAlert, tlslite.errors.TLSAbruptCloseError
-    ):
-        with connect(ctx.target.host, ctx.target.port, max_version=(3, 0)):
+    with connect(
+        ctx.target.host,
+        ctx.target.port,
+        max_version=(3, 0),
+        expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
+    ) as connection:
+        if connection is not None:
             locations.append(
                 desc="sslv3_enabled",
             )

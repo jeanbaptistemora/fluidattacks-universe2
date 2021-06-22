@@ -5,3 +5,7 @@ ssl:
   include:
     - host: localhost
       port: 4446
+    - host: localhost
+      port: 9999
+    - host: wrong
+      port: 9999
