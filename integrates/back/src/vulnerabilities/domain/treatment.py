@@ -180,7 +180,9 @@ async def add_vuln_treatment(
         new_state["treatment_manager"] = updated_values["treatment_manager"]
     if new_treatment != "NEW":
         validations.validate_fields([updated_values["justification"]])
-        validations.validate_field_length(updated_values["justification"], 200)
+        validations.validate_field_length(
+            updated_values["justification"], 5000
+        )
         new_state["justification"] = updated_values["justification"]
 
     if new_treatment == "ACCEPTED":
@@ -265,7 +267,7 @@ async def handle_vulns_acceptation(
     user_email: str,
 ) -> bool:
     finding_vulns_loader = context.finding_vulns_all
-    validations.validate_field_length(justification, 200)
+    validations.validate_field_length(justification, 5000)
     validations.validate_fields([justification])
     vuln_ids: List[str] = accepted_vulns + rejected_vulns
     today = datetime_utils.get_now_as_str()

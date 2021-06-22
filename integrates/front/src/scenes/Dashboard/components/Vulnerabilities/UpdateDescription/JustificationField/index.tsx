@@ -11,7 +11,7 @@ import { TextArea } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 import { maxLength, required, validTextField } from "utils/validations";
 
-const MAX_TREATMENT_JUSTIFICATION_LENGTH: number = 200;
+const MAX_TREATMENT_JUSTIFICATION_LENGTH: number = 5000;
 const maxTreatmentJustificationLength: ConfigurableValidator = maxLength(
   MAX_TREATMENT_JUSTIFICATION_LENGTH
 );
