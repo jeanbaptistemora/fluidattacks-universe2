@@ -23,11 +23,10 @@ describe("Array field", (): void => {
         name={"test"}
         onSubmit={handleSubmit}
       >
-        {({ values }): JSX.Element => (
+        {(): JSX.Element => (
           <Form>
             <FormikArrayField
               allowEmpty={false}
-              arrayValues={values.names}
               initialValue={""}
               name={"names"}
             >

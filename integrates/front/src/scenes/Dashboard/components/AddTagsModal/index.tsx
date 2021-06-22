@@ -57,11 +57,10 @@ const AddTagsModal: React.FC<IAddTagsModalProps> = (
           name={"addTags"}
           onSubmit={onSubmit}
         >
-          {({ dirty, values }): JSX.Element => (
+          {({ dirty }): JSX.Element => (
             <Form>
               <FormikArrayField
                 allowEmpty={false}
-                arrayValues={values.tags}
                 initialValue={""}
                 name={"tags"}
               >

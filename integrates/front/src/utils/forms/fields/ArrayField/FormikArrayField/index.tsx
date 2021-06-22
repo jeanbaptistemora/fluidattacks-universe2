@@ -4,14 +4,13 @@ import { FieldArray } from "formik";
 import React from "react";
 
 import { Button } from "components/Button";
-import { Col80, RemoveTag, Row } from "styles/styledComponents";
+import { Col80, Row } from "styles/styledComponents";
 
 interface IArrayProps {
   allowEmpty: boolean;
   children: (fieldName: string) => React.ReactNode;
   initialValue: unknown;
   name: string;
-  arrayValues: unknown[];
 }
 
 const FormikArrayField: React.FC<IArrayProps> = ({
@@ -19,14 +18,16 @@ const FormikArrayField: React.FC<IArrayProps> = ({
   children,
   initialValue,
   name,
-  arrayValues,
 }: IArrayProps): JSX.Element => {
   return (
     <FieldArray name={name}>
-      {({ push, remove }): React.ReactNode => {
+      {({ form, push, remove }): React.ReactNode => {
         function addItem(): void {
           push(initialValue);
         }
+        const arrayValues = (form.values as Record<string, unknown>)[
+          name
+        ] as unknown[];
 
         return (
           <React.Fragment>
@@ -39,22 +40,17 @@ const FormikArrayField: React.FC<IArrayProps> = ({
 
               return (
                 <React.Fragment key={fieldName + String(index)}>
-                  {index > 0 ? (
-                    <React.Fragment>
-                      <br />
-                      <hr />
-                    </React.Fragment>
-                  ) : undefined}
                   <Row>
                     <Col80>{children(fieldName)}</Col80>
-                    {index > 0 || allowEmpty ? (
-                      <RemoveTag>
+                    <div>
+                      {index > 0 || allowEmpty ? (
                         <Button onClick={removeItem}>
                           <FontAwesomeIcon icon={faTrashAlt} />
                         </Button>
-                      </RemoveTag>
-                    ) : undefined}
+                      ) : undefined}
+                    </div>
                   </Row>
+                  <br />
                 </React.Fragment>
               );
             })}

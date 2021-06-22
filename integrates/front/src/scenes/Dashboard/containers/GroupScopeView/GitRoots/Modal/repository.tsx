@@ -218,7 +218,6 @@ const Repository: React.FC<IRepositoryProps> = ({
                   <GitIgnoreAlert gitignore={values.gitignore} />
                   <FormikArrayField
                     allowEmpty={true}
-                    arrayValues={values.gitignore}
                     initialValue={""}
                     name={"gitignore"}
                   >
