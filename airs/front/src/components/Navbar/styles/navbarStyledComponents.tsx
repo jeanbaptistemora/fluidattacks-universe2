@@ -25,8 +25,10 @@ const CloseMenuButtonContainer: StyledComponent<
 > = styled.div.attrs({
   className: `
     h-100
-    w-10
+    w-50
     dib
+    fl
+    ml1
   `,
 })``;
 
@@ -73,7 +75,7 @@ const FlexMenuItems: StyledComponent<
 > = styled.div.attrs({
   className: `
     h-100
-    w-60
+    w-100
     dib
     flex
   `,
@@ -107,25 +109,25 @@ const MenuSectionContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    vh-50
     w-100
     justify-center
     items-center
     flex
-    tc
   `,
 })``;
 
 const MenuDesktopSectionList: StyledComponent<
-  "ul",
+  "div",
   Record<string, unknown>
-> = styled.ul.attrs({
+> = styled.div.attrs({
   className: `
     list
     f5
     fw7
-    tc
     ph0
+    mh4
+    mb4
+    overlay-menu-col
   `,
 })``;
 

@@ -59,6 +59,8 @@ const MenuButton: StyledComponent<
     fl
     pv4
     mv1
+    db-l
+    dn
   `,
 })``;
 
@@ -796,12 +798,18 @@ const BannerSubtitle: StyledComponent<
 })``;
 
 const SocialMediaLink: StyledComponent<
-  "a",
+  "button",
   Record<string, unknown>
-> = styled.a.attrs({
+> = styled.button.attrs({
   className: `
-    pr3
-    no-underline
+    pa2-l
+    pa1
+    ba
+    br3
+    bg-transparent
+    pointer
+    bc-fluid-gray
+    mh1
   `,
 })``;
 

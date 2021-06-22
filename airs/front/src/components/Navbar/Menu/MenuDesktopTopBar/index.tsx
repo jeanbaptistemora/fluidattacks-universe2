@@ -33,14 +33,14 @@ const MenuDesktopTopBar: React.FC<IProps> = ({
       </CloseMenuButton>
       <Search indices={searchIndices} />
     </CloseMenuButtonContainer>
-    <li className={"fr pv4 dib dn-l show-item-m"}>
+    <li className={"fr pv4 dib-m dn"}>
       <Link className={"no-underline"} to={"/contact-us/"}>
         <NavbarContactButton onClick={close}>
           {"Contact now"}
         </NavbarContactButton>
       </Link>
     </li>
-    <li className={"fr mr3 pv4 hide-item-m"}>
+    <li className={"fr mr3 pv4 dn-m"}>
       <Link
         className={"no-underline"}
         to={"https://landing.fluidattacks.com/us/ebook/"}
@@ -48,7 +48,7 @@ const MenuDesktopTopBar: React.FC<IProps> = ({
         <TopBarButton>{"Download eBook"}</TopBarButton>
       </Link>
     </li>
-    <li className={"fr mr3 pv4 hide-item-m"}>
+    <li className={"fr mr3 pv4 dn-m"}>
       <Link className={"no-underline"} to={"/contact-us/"}>
         <TopBarButton onClick={close}>{"Get a Demo"}</TopBarButton>
       </Link>
