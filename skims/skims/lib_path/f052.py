@@ -2,24 +2,15 @@ from aioextensions import (
     in_process,
 )
 from lib_path.common import (
-    C_STYLE_COMMENT,
-    DOUBLE_QUOTED_STRING,
-    EXTENSIONS_JAVA,
     EXTENSIONS_JAVA_PROPERTIES,
-    get_vulnerabilities_blocking,
     get_vulnerabilities_from_iterator_blocking,
     SHIELD,
-    SINGLE_QUOTED_STRING,
 )
 from model import (
     core_model,
 )
 from parse_java_properties import (
     load as load_java_properties,
-)
-from pyparsing import (
-    Keyword,
-    MatchFirst,
 )
 from state.cache import (
     CACHE_ETERNALLY,
