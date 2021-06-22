@@ -7,9 +7,6 @@ from custom_exceptions import (
 from dataloaders import (
     get_new_context,
 )
-from decimal import (
-    Decimal,
-)
 import pytest
 
 
@@ -155,16 +152,10 @@ async def test_organization() -> None:  # pylint: disable=too-many-statements
     ]
     assert "errors" not in result
     assert result["data"]["organization"]["id"] == org_id
-    assert result["data"]["organization"]["maxAcceptanceDays"] == Decimal("5")
-    assert result["data"]["organization"]["maxAcceptanceSeverity"] == Decimal(
-        "8.5"
-    )
-    assert result["data"]["organization"]["maxNumberAcceptations"] == Decimal(
-        "3"
-    )
-    assert result["data"]["organization"]["minAcceptanceSeverity"] == Decimal(
-        "1.5"
-    )
+    assert result["data"]["organization"]["maxAcceptanceDays"] == 60
+    assert result["data"]["organization"]["maxAcceptanceSeverity"] == 10.0
+    assert result["data"]["organization"]["maxNumberAcceptations"] == 2
+    assert result["data"]["organization"]["minAcceptanceSeverity"] == 0.0
     assert result["data"]["organization"]["name"] == org_name.lower()
     assert group_name in groups
     assert "continuoushack2@gmail.com" in stakeholders
