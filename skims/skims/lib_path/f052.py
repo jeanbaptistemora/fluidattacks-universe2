@@ -44,56 +44,6 @@ from zone import (
 )
 
 
-def _java_insecure_pass(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    framework = "org.springframework.security"
-    grammar = MatchFirst(
-        [
-            Keyword(f"{framework}.authentication.encoding.ShaPasswordEncoder"),
-            Keyword(f"{framework}.authentication.encoding.Md5PasswordEncoder"),
-            Keyword(f"{framework}.crypto.password.LdapShaPasswordEncoder"),
-            Keyword(f"{framework}.crypto.password.Md4PasswordEncoder"),
-            Keyword(
-                f"{framework}.crypto.password.MessageDigestPasswordEncoder"
-            ),
-            Keyword(f"{framework}.crypto.password.NoOpPasswordEncoder"),
-            Keyword(f"{framework}.crypto.password.StandardPasswordEncoder"),
-            Keyword(f"{framework}.crypto.scrypt.SCryptPasswordEncoder"),
-        ]
-    )
-    grammar.ignore(C_STYLE_COMMENT)
-    grammar.ignore(DOUBLE_QUOTED_STRING)
-    grammar.ignore(SINGLE_QUOTED_STRING)
-
-    return get_vulnerabilities_blocking(
-        content=content,
-        cwe={"310", "327"},
-        description=t(
-            key="src.lib_path.f052.insecure_pass.description",
-            path=path,
-        ),
-        finding=core_model.FindingEnum.F052,
-        grammar=grammar,
-        path=path,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def java_insecure_pass(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _java_insecure_pass,
-        content=content,
-        path=path,
-    )
-
-
 def _java_properties_missing_ssl(
     content: str,
     path: str,
@@ -183,14 +133,7 @@ async def analyze(
 ) -> List[Awaitable[core_model.Vulnerabilities]]:
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
-    if file_extension in EXTENSIONS_JAVA:
-        coroutines.append(
-            java_insecure_pass(
-                content=await content_generator(),
-                path=path,
-            )
-        )
-    elif file_extension in EXTENSIONS_JAVA_PROPERTIES:
+    if file_extension in EXTENSIONS_JAVA_PROPERTIES:
         coroutines.append(
             java_properties_missing_ssl(
                 content=await content_generator(),

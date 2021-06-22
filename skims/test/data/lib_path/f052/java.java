@@ -37,5 +37,6 @@ public class Main {
         javax.crypto.KeyGenerator.getInstance("DES").generateKey();
         javax.crypto.KeyGenerator.getInstance("HmacSHA256").generateKey();
         javax.crypto.KeyGenerator.getInstance("AES").generateKey();
+        ShaPasswordEncoder encoder = new ShaPasswordEncoder(12);
     }
   }

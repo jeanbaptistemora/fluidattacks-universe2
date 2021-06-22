@@ -308,6 +308,27 @@ def _java_yield_insecure_key(
                 yield shard, param_id
 
 
+def _java_yield_insecure_pass(
+    graph_db: graph_model.GraphDB,
+) -> graph_model.GraphShardNodes:
+    framework = "org.springframework.security"
+    insecure_instances = complete_attrs_on_set(
+        {
+            f"{framework}.authentication.encoding.ShaPasswordEncoder",
+            f"{framework}.authentication.encoding.Md5PasswordEncoder",
+            f"{framework}.crypto.password.LdapShaPasswordEncoder",
+            f"{framework}.crypto.password.Md4PasswordEncoder",
+            f"{framework}.crypto.password.MessageDigestPasswordEncoder",
+            f"{framework}.crypto.password.NoOpPasswordEncoder",
+            f"{framework}.crypto.password.StandardPasswordEncoder",
+            f"{framework}.crypto.scrypt.SCryptPasswordEncoder",
+        }
+    )
+    for shard, object_id, type_name in _yield_java_object_creation(graph_db):
+        if type_name in insecure_instances:
+            yield shard, object_id
+
+
 def _csharp_yield_object_creation(
     graph_db: graph_model.GraphDB, members: Set[str]
 ) -> graph_model.GraphShardNodes:
@@ -423,6 +444,18 @@ def java_insecure_key(
     )
 
 
+def java_insecure_pass(
+    graph_db: graph_model.GraphDB,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_n_ids(
+        cwe=("310", "327"),
+        desc_key="src.lib_path.f052.insecure_pass.description",
+        desc_params=dict(lang="Java"),
+        finding=FINDING,
+        graph_shard_nodes=_java_yield_insecure_pass(graph_db),
+    )
+
+
 # Constants
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F052
 QUERIES: graph_model.Queries = (
@@ -431,4 +464,5 @@ QUERIES: graph_model.Queries = (
     (FINDING, java_insecure_cypher),
     (FINDING, java_insecure_hash),
     (FINDING, java_insecure_key),
+    (FINDING, java_insecure_pass),
 )
