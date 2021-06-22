@@ -4,11 +4,14 @@ data "aws_iam_policy_document" "prod-policy-data" {
   statement {
     effect = "Allow"
     actions = [
-      "s3:ListAllMyBuckets",
-      "s3:ListBucket",
-      "s3:PutObject",
-      "s3:GetObject",
+      "s3:CreateBucket",
       "s3:DeleteObject",
+      "s3:GetBucket*",
+      "s3:GetObject*",
+      "s3:ListBucket",
+      "s3:ListBucketVersions",
+      "s3:PutObject",
+      "s3:PutObjectTagging"
     ]
     resources = [
       "arn:aws:s3:::fluidattacks-terraform-states-prod",
@@ -16,7 +19,18 @@ data "aws_iam_policy_document" "prod-policy-data" {
       "arn:aws:s3:::continuous-repositories",
       "arn:aws:s3:::continuous-repositories/*",
       "arn:aws:s3:::fluidanalytics",
-      "arn:aws:s3:::fluidanalytics/*"
+      "arn:aws:s3:::fluidanalytics/*",
+      "arn:aws:s3:::observes.state",
+      "arn:aws:s3:::observes.state/*"
+    ]
+  }
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:ListBuckets",
+    ]
+    resources = [
+      "arn:aws:s3:::*"
     ]
   }
 
