@@ -1,4 +1,2716 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00046.java,50,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00046.java,"
+  40 |
+  41 |
+  42 | "");
+  43 |
+  44 | nchmarkTest00046"");
+  45 |
+  46 |  values[0];
+  47 |
+  48 |
+  49 |
+> 50 | ty.MessageDigest.getInstance(""MD5"");
+  51 |
+  52 |
+  53 | String) inputParam).getBytes();
+  54 | m) {
+  55 |
+  56 | m).read(strInput);
+  57 |
+  58 |
+  59 |
+  60 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+     ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00070.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00070.java,"
+   63 |
+   64 |
+   65 |
+   66 |
+   67 | on false condition
+   68 |
+   69 |
+   70 | happen"" : param;
+   71 |
+   72 |
+>  73 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   74 |
+   75 |
+   76 | String) inputParam).getBytes();
+   77 | m) {
+   78 |
+   79 | m).read(strInput);
+   80 |
+   81 |
+   82 |
+   83 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00071.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00071.java,"
+   63 |
+   64 |
+   65 |
+   66 |
+   67 |  on true condition
+   68 |
+   69 |
+   70 |
+   71 |
+   72 |
+>  73 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   74 |
+   75 |
+   76 | String) inputParam).getBytes();
+   77 | m) {
+   78 |
+   79 | m).read(strInput);
+   80 |
+   81 |
+   82 |
+   83 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00073.java,87,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00073.java,"
+   77 |
+   78 |
+   79 |
+   80 |
+   81 |
+   82 |
+   83 |
+   84 |
+   85 |
+   86 |
+>  87 | ty.MessageDigest.getInstance(""MD5"");
+   88 |
+   89 |
+   90 | String) inputParam).getBytes();
+   91 | m) {
+   92 |
+   93 | m).read(strInput);
+   94 |
+   95 |
+   96 |
+   97 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.java,64,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.java,"
+   54 |
+   55 |
+   56 | 00 ? ""This should never happen"" : param;
+   57 |
+   58 |  provider = java.security.Security.getProviders();
+   59 | est md;
+   60 |
+   61 |
+   62 | > 1) {
+   63 |
+>  64 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   65 |
+   66 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   67 |
+   68 | e) '?'};
+   69 | bar;
+   70 | nceof String) input = ((String) inputParam).getBytes();
+   71 | nceof java.io.InputStream) {
+   72 | = new byte[1000];
+   73 | o.InputStream) inputParam).read(strInput);
+   74 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.java,66,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00141.java,"
+   56 | 00 ? ""This should never happen"" : param;
+   57 |
+   58 |  provider = java.security.Security.getProviders();
+   59 | est md;
+   60 |
+   61 |
+   62 | > 1) {
+   63 |
+   64 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   65 |
+>  66 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   67 |
+   68 | e) '?'};
+   69 | bar;
+   70 | nceof String) input = ((String) inputParam).getBytes();
+   71 | nceof java.io.InputStream) {
+   72 | = new byte[1000];
+   73 | o.InputStream) inputParam).read(strInput);
+   74 |
+   75 | Writer()
+   76 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.java,"
+   63 | "", param); // put it in a collection
+   64 | other-Value""); // put some stuff in the collection
+   65 | get(""keyB-13848""); // get it back out
+   66 |
+   67 |  provider = java.security.Security.getProviders();
+   68 | est md;
+   69 |
+   70 |
+   71 | > 1) {
+   72 |
+>  73 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   74 |
+   75 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   76 |
+   77 | e) '?'};
+   78 | bar;
+   79 | nceof String) input = ((String) inputParam).getBytes();
+   80 | nceof java.io.InputStream) {
+   81 | = new byte[1000];
+   82 | o.InputStream) inputParam).read(strInput);
+   83 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.java,75,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00223.java,"
+   65 | get(""keyB-13848""); // get it back out
+   66 |
+   67 |  provider = java.security.Security.getProviders();
+   68 | est md;
+   69 |
+   70 |
+   71 | > 1) {
+   72 |
+   73 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   74 |
+>  75 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   76 |
+   77 | e) '?'};
+   78 | bar;
+   79 | nceof String) input = ((String) inputParam).getBytes();
+   80 | nceof java.io.InputStream) {
+   81 | = new byte[1000];
+   82 | o.InputStream) inputParam).read(strInput);
+   83 |
+   84 | Writer()
+   85 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.java,66,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.java,"
+   56 | "", param); // put it in a collection
+   57 | other-Value""); // put some stuff in the collection
+   58 | get(""keyB-42712""); // get it back out
+   59 |
+   60 |  provider = java.security.Security.getProviders();
+   61 | est md;
+   62 |
+   63 |
+   64 | > 1) {
+   65 |
+>  66 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   67 |
+   68 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   69 |
+   70 | e) '?'};
+   71 | bar;
+   72 | nceof String) input = ((String) inputParam).getBytes();
+   73 | nceof java.io.InputStream) {
+   74 | = new byte[1000];
+   75 | o.InputStream) inputParam).read(strInput);
+   76 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.java,68,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00266.java,"
+   58 | get(""keyB-42712""); // get it back out
+   59 |
+   60 |  provider = java.security.Security.getProviders();
+   61 | est md;
+   62 |
+   63 |
+   64 | > 1) {
+   65 |
+   66 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   67 |
+>  68 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   69 |
+   70 | e) '?'};
+   71 | bar;
+   72 | nceof String) input = ((String) inputParam).getBytes();
+   73 | nceof java.io.InputStream) {
+   74 | = new byte[1000];
+   75 | o.InputStream) inputParam).read(strInput);
+   76 |
+   77 | Writer()
+   78 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.java,62,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.java,"
+   52 |
+   53 |  = new StringBuilder(param);
+   54 | append(""_SafeStuff"").toString();
+   55 |
+   56 |  provider = java.security.Security.getProviders();
+   57 | est md;
+   58 |
+   59 |
+   60 | > 1) {
+   61 |
+>  62 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   63 |
+   64 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   65 |
+   66 | e) '?'};
+   67 | bar;
+   68 | nceof String) input = ((String) inputParam).getBytes();
+   69 | nceof java.io.InputStream) {
+   70 | = new byte[1000];
+   71 | o.InputStream) inputParam).read(strInput);
+   72 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.java,64,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00267.java,"
+   54 | append(""_SafeStuff"").toString();
+   55 |
+   56 |  provider = java.security.Security.getProviders();
+   57 | est md;
+   58 |
+   59 |
+   60 | > 1) {
+   61 |
+   62 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   63 |
+>  64 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   65 |
+   66 | e) '?'};
+   67 | bar;
+   68 | nceof String) input = ((String) inputParam).getBytes();
+   69 | nceof java.io.InputStream) {
+   70 | = new byte[1000];
+   71 | o.InputStream) inputParam).read(strInput);
+   72 |
+   73 | Writer()
+   74 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00268.java,61,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00268.java,"
+   51 | "");
+   52 |
+   53 |
+   54 |
+   55 | on false condition
+   56 |
+   57 |
+   58 | happen"" : param;
+   59 |
+   60 |
+>  61 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   62 |
+   63 |
+   64 | String) inputParam).getBytes();
+   65 | m) {
+   66 |
+   67 | m).read(strInput);
+   68 |
+   69 |
+   70 |
+   71 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00269.java,61,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00269.java,"
+   51 | "");
+   52 |
+   53 |
+   54 |
+   55 | bar on true condition
+   56 |
+   57 | ays_happen"";
+   58 |
+   59 |
+   60 |
+>  61 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   62 |
+   63 |
+   64 | String) inputParam).getBytes();
+   65 | m) {
+   66 |
+   67 | m).read(strInput);
+   68 |
+   69 |
+   70 |
+   71 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00272.java,75,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00272.java,"
+   65 |
+   66 |
+   67 |
+   68 |
+   69 |
+   70 |
+   71 |
+   72 |
+   73 |
+   74 |
+>  75 | ty.MessageDigest.getInstance(""MD5"");
+   76 |
+   77 |
+   78 | String) inputParam).getBytes();
+   79 | m) {
+   80 |
+   81 | m).read(strInput);
+   82 |
+   83 |
+   84 |
+   85 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.java,53,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.java,"
+   43 | m = request.getInputStream();
+   44 |
+   45 | = param;
+   46 |
+   47 |  provider = java.security.Security.getProviders();
+   48 | est md;
+   49 |
+   50 |
+   51 | > 1) {
+   52 |
+>  53 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   54 |
+   55 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   56 |
+   57 | e) '?'};
+   58 | bar;
+   59 | nceof String) input = ((String) inputParam).getBytes();
+   60 | nceof java.io.InputStream) {
+   61 | = new byte[1000];
+   62 | o.InputStream) inputParam).read(strInput);
+   63 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.java,55,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00346.java,"
+   45 | = param;
+   46 |
+   47 |  provider = java.security.Security.getProviders();
+   48 | est md;
+   49 |
+   50 |
+   51 | > 1) {
+   52 |
+   53 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   54 |
+>  55 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   56 |
+   57 | e) '?'};
+   58 | bar;
+   59 | nceof String) input = ((String) inputParam).getBytes();
+   60 | nceof java.io.InputStream) {
+   61 | = new byte[1000];
+   62 | o.InputStream) inputParam).read(strInput);
+   63 |
+   64 | Writer()
+   65 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00371.java,54,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00371.java,"
+   44 |
+   45 |
+   46 |
+   47 |
+   48 |  on true condition
+   49 |
+   50 |
+   51 |
+   52 |
+   53 |
+>  54 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   55 |
+   56 |
+   57 | String) inputParam).getBytes();
+   58 | m) {
+   59 |
+   60 | m).read(strInput);
+   61 |
+   62 |
+   63 |
+   64 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00372.java,54,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00372.java,"
+   44 |
+   45 |
+   46 |
+   47 |
+   48 | on false condition
+   49 |
+   50 |
+   51 | happen"" : param;
+   52 |
+   53 |
+>  54 | ty.MessageDigest.getInstance(""MD5"");
+   55 |
+   56 |
+   57 | String) inputParam).getBytes();
+   58 | m) {
+   59 |
+   60 | m).read(strInput);
+   61 |
+   62 |
+   63 |
+   64 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.java,68,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.java,"
+   58 |
+   59 | (0); // get the param value
+   60 |
+   61 |
+   62 |  provider = java.security.Security.getProviders();
+   63 | est md;
+   64 |
+   65 |
+   66 | > 1) {
+   67 |
+>  68 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   69 |
+   70 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   71 |
+   72 | e) '?'};
+   73 | bar;
+   74 | nceof String) input = ((String) inputParam).getBytes();
+   75 | nceof java.io.InputStream) {
+   76 | = new byte[1000];
+   77 | o.InputStream) inputParam).read(strInput);
+   78 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.java,70,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00462.java,"
+   60 |
+   61 |
+   62 |  provider = java.security.Security.getProviders();
+   63 | est md;
+   64 |
+   65 |
+   66 | > 1) {
+   67 |
+   68 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   69 |
+>  70 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   71 |
+   72 | e) '?'};
+   73 | bar;
+   74 | nceof String) input = ((String) inputParam).getBytes();
+   75 | nceof java.io.InputStream) {
+   76 | = new byte[1000];
+   77 | o.InputStream) inputParam).read(strInput);
+   78 |
+   79 | Writer()
+   80 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00464.java,56,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00464.java,"
+   46 | 4"");
+   47 |
+   48 |
+   49 |
+   50 |
+   51 |
+   52 | ;
+   53 |
+   54 |
+   55 |
+>  56 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   57 |
+   58 |
+   59 | String) inputParam).getBytes();
+   60 | m) {
+   61 |
+   62 | m).read(strInput);
+   63 |
+   64 |
+   65 |
+   66 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00465.java,56,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00465.java,"
+   46 | 5"");
+   47 |
+   48 |
+   49 |
+   50 |
+   51 |
+   52 | ;
+   53 |
+   54 |
+   55 |
+>  56 | ty.MessageDigest.getInstance(""MD5"");
+   57 |
+   58 |
+   59 | String) inputParam).getBytes();
+   60 | m) {
+   61 |
+   62 | m).read(strInput);
+   63 |
+   64 |
+   65 |
+   66 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.java,"
+   63 | "", param); // put it in a collection
+   64 | other-Value""); // put some stuff in the collection
+   65 | get(""keyB-38098""); // get it back out
+   66 |
+   67 |  provider = java.security.Security.getProviders();
+   68 | est md;
+   69 |
+   70 |
+   71 | > 1) {
+   72 |
+>  73 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   74 |
+   75 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   76 |
+   77 | e) '?'};
+   78 | bar;
+   79 | nceof String) input = ((String) inputParam).getBytes();
+   80 | nceof java.io.InputStream) {
+   81 | = new byte[1000];
+   82 | o.InputStream) inputParam).read(strInput);
+   83 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.java,75,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00531.java,"
+   65 | get(""keyB-38098""); // get it back out
+   66 |
+   67 |  provider = java.security.Security.getProviders();
+   68 | est md;
+   69 |
+   70 |
+   71 | > 1) {
+   72 |
+   73 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   74 |
+>  75 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   76 |
+   77 | e) '?'};
+   78 | bar;
+   79 | nceof String) input = ((String) inputParam).getBytes();
+   80 | nceof java.io.InputStream) {
+   81 | = new byte[1000];
+   82 | o.InputStream) inputParam).read(strInput);
+   83 |
+   84 | Writer()
+   85 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00532.java,83,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00532.java,"
+   73 |
+   74 | Base64.decodeBase64(
+   75 | .binary.Base64.encodeBase64(
+   76 | )))); // B64 encode and decode it
+   77 | t on a space
+   78 |  =
+   79 | .createThing();
+   80 | ction
+   81 |
+   82 |
+>  83 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   84 |
+   85 |
+   86 | String) inputParam).getBytes();
+   87 | m) {
+   88 |
+   89 | m).read(strInput);
+   90 |
+   91 |
+   92 |
+   93 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00533.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00533.java,"
+   63 |
+   64 |
+   65 |
+   66 |
+   67 |  value
+   68 |
+   69 | fe' value
+   70 |
+   71 |
+   72 |
+>  73 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   74 |
+   75 |
+   76 | String) inputParam).getBytes();
+   77 | m) {
+   78 |
+   79 | m).read(strInput);
+   80 |
+   81 |
+   82 |
+   83 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00534.java,82,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00534.java,"
+   72 |
+   73 |
+   74 |
+   75 |
+   76 |
+   77 |
+   78 |
+   79 |
+   80 |
+   81 |
+>  82 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   83 |
+   84 |
+   85 | String) inputParam).getBytes();
+   86 | m) {
+   87 |
+   88 | m).read(strInput);
+   89 |
+   90 |
+   91 |
+   92 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00536.java,68,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00536.java,"
+   58 |
+   59 |
+   60 |
+   61 |  java.util.HashMap<String, Object>();
+   62 | me stuff in the collection
+   63 | a collection
+   64 | me stuff in the collection
+   65 | t it back out
+   66 |
+   67 |
+>  68 | ty.MessageDigest.getInstance(""MD5"");
+   69 |
+   70 |
+   71 | String) inputParam).getBytes();
+   72 | m) {
+   73 |
+   74 | m).read(strInput);
+   75 |
+   76 |
+   77 |
+   78 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00537.java,63,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00537.java,"
+   53 |
+   54 |
+   55 |
+   56 |
+   57 |
+   58 |
+   59 |
+   60 | ils.htmlEscape(param);
+   61 |
+   62 |
+>  63 | ty.MessageDigest.getInstance(""MD5"");
+   64 |
+   65 |
+   66 | String) inputParam).getBytes();
+   67 | m) {
+   68 |
+   69 | m).read(strInput);
+   70 |
+   71 |
+   72 |
+   73 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.java,57,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.java,"
+   47 |
+   48 |  = new StringBuilder(param);
+   49 | append(""_SafeStuff"").toString();
+   50 |
+   51 |  provider = java.security.Security.getProviders();
+   52 | est md;
+   53 |
+   54 |
+   55 | > 1) {
+   56 |
+>  57 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   58 |
+   59 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   60 |
+   61 | e) '?'};
+   62 | bar;
+   63 | nceof String) input = ((String) inputParam).getBytes();
+   64 | nceof java.io.InputStream) {
+   65 | = new byte[1000];
+   66 | o.InputStream) inputParam).read(strInput);
+   67 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.java,59,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00631.java,"
+   49 | append(""_SafeStuff"").toString();
+   50 |
+   51 |  provider = java.security.Security.getProviders();
+   52 | est md;
+   53 |
+   54 |
+   55 | > 1) {
+   56 |
+   57 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   58 |
+>  59 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   60 |
+   61 | e) '?'};
+   62 | bar;
+   63 | nceof String) input = ((String) inputParam).getBytes();
+   64 | nceof java.io.InputStream) {
+   65 | = new byte[1000];
+   66 | o.InputStream) inputParam).read(strInput);
+   67 |
+   68 | Writer()
+   69 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00634.java,61,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00634.java,"
+   51 |
+   52 |
+   53 |
+   54 |
+   55 |  value
+   56 |
+   57 | lue
+   58 |
+   59 |
+   60 |
+>  61 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   62 |
+   63 |
+   64 | String) inputParam).getBytes();
+   65 | m) {
+   66 |
+   67 | m).read(strInput);
+   68 |
+   69 |
+   70 |
+   71 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00635.java,51,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00635.java,"
+   41 | "");
+   42 |
+   43 |  scr =
+   44 | ClassRequest(request);
+   45 | t00635"");
+   46 |
+   47 |
+   48 | odeForHTML(param);
+   49 |
+   50 |
+>  51 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   52 |
+   53 |
+   54 | String) inputParam).getBytes();
+   55 | m) {
+   56 |
+   57 | m).read(strInput);
+   58 |
+   59 |
+   60 |
+   61 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00636.java,51,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00636.java,"
+   41 | "");
+   42 |
+   43 |  scr =
+   44 | ClassRequest(request);
+   45 | t00636"");
+   46 |
+   47 |
+   48 | ils.htmlEscape(param);
+   49 |
+   50 |
+>  51 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   52 |
+   53 |
+   54 | String) inputParam).getBytes();
+   55 | m) {
+   56 |
+   57 | m).read(strInput);
+   58 |
+   59 |
+   60 |
+   61 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00637.java,56,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00637.java,"
+   46 |
+   47 |
+   48 |
+   49 |
+   50 | bar on true condition
+   51 |
+   52 | ays_happen"";
+   53 |
+   54 |
+   55 |
+>  56 | ty.MessageDigest.getInstance(""MD5"");
+   57 |
+   58 |
+   59 | String) inputParam).getBytes();
+   60 | m) {
+   61 |
+   62 | m).read(strInput);
+   63 |
+   64 |
+   65 |
+   66 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.java,66,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.java,"
+   56 |
+   57 | (0); // get the param value
+   58 |
+   59 |
+   60 |  provider = java.security.Security.getProviders();
+   61 | est md;
+   62 |
+   63 |
+   64 | > 1) {
+   65 |
+>  66 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   67 |
+   68 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   69 |
+   70 | e) '?'};
+   71 | bar;
+   72 | nceof String) input = ((String) inputParam).getBytes();
+   73 | nceof java.io.InputStream) {
+   74 | = new byte[1000];
+   75 | o.InputStream) inputParam).read(strInput);
+   76 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.java,68,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00703.java,"
+   58 |
+   59 |
+   60 |  provider = java.security.Security.getProviders();
+   61 | est md;
+   62 |
+   63 |
+   64 | > 1) {
+   65 |
+   66 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   67 |
+>  68 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   69 |
+   70 | e) '?'};
+   71 | bar;
+   72 | nceof String) input = ((String) inputParam).getBytes();
+   73 | nceof java.io.InputStream) {
+   74 | = new byte[1000];
+   75 | o.InputStream) inputParam).read(strInput);
+   76 |
+   77 | Writer()
+   78 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.java,59,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.java,"
+   49 | am.length() > 1) {
+   50 | g(0, param.length() - 1);
+   51 |
+   52 |
+   53 |  provider = java.security.Security.getProviders();
+   54 | est md;
+   55 |
+   56 |
+   57 | > 1) {
+   58 |
+>  59 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   60 |
+   61 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   62 |
+   63 | e) '?'};
+   64 | bar;
+   65 | nceof String) input = ((String) inputParam).getBytes();
+   66 | nceof java.io.InputStream) {
+   67 | = new byte[1000];
+   68 | o.InputStream) inputParam).read(strInput);
+   69 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.java,61,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00704.java,"
+   51 |
+   52 |
+   53 |  provider = java.security.Security.getProviders();
+   54 | est md;
+   55 |
+   56 |
+   57 | > 1) {
+   58 |
+   59 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   60 |
+>  61 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   62 |
+   63 | e) '?'};
+   64 | bar;
+   65 | nceof String) input = ((String) inputParam).getBytes();
+   66 | nceof java.io.InputStream) {
+   67 | = new byte[1000];
+   68 | o.InputStream) inputParam).read(strInput);
+   69 |
+   70 | Writer()
+   71 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00705.java,57,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00705.java,"
+   47 |
+   48 |
+   49 |  java.util.HashMap<String, Object>();
+   50 | me stuff in the collection
+   51 | a collection
+   52 | me stuff in the collection
+   53 | t it back out
+   54 | t safe value back out
+   55 |
+   56 |
+>  57 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   58 |
+   59 |
+   60 | String) inputParam).getBytes();
+   61 | m) {
+   62 |
+   63 | m).read(strInput);
+   64 |
+   65 |
+   66 |
+   67 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00708.java,53,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00708.java,"
+   43 | nchmarkTest00708"");
+   44 |
+   45 |  values[0];
+   46 |
+   47 |
+   48 |  =
+   49 | .createThing();
+   50 |
+   51 |
+   52 |
+>  53 | ty.MessageDigest.getInstance(""MD5"");
+   54 |
+   55 |
+   56 | String) inputParam).getBytes();
+   57 | m) {
+   58 |
+   59 | m).read(strInput);
+   60 |
+   61 |
+   62 |
+   63 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00789.java,80,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00789.java,"
+   70 |
+   71 |
+   72 |
+   73 |
+   74 | ary.Base64.decodeBase64(
+   75 | odec.binary.Base64.encodeBase64(
+   76 | es())));
+   77 |
+   78 |
+   79 |
+>  80 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   81 |
+   82 |
+   83 | String) inputParam).getBytes();
+   84 | m) {
+   85 |
+   86 | m).read(strInput);
+   87 |
+   88 |
+   89 |
+   90 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00790.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00790.java,"
+   63 |
+   64 | mLoc);
+   65 |
+   66 | amval.length(), ampersandLoc);
+   67 |
+   68 | "");
+   69 |
+   70 | odeForHTML(param);
+   71 |
+   72 |
+>  73 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   74 |
+   75 |
+   76 | String) inputParam).getBytes();
+   77 | m) {
+   78 |
+   79 | m).read(strInput);
+   80 |
+   81 |
+   82 |
+   83 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00794.java,76,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00794.java,"
+   66 | amval.length(), ampersandLoc);
+   67 |
+   68 | "");
+   69 |
+   70 |
+   71 |
+   72 | ;
+   73 |
+   74 |
+   75 |
+>  76 | ty.MessageDigest.getInstance(""MD5"");
+   77 |
+   78 |
+   79 | String) inputParam).getBytes();
+   80 | m) {
+   81 |
+   82 | m).read(strInput);
+   83 |
+   84 |
+   85 |
+   86 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.java,75,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.java,"
+   65 | ers.ThingInterface thing =
+   66 | ark.helpers.ThingFactory.createThing();
+   67 | ething(f51118); // reflection
+   68 |
+   69 |  provider = java.security.Security.getProviders();
+   70 | est md;
+   71 |
+   72 |
+   73 | > 1) {
+   74 |
+>  75 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   76 |
+   77 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   78 |
+   79 | e) '?'};
+   80 | bar;
+   81 | nceof String) input = ((String) inputParam).getBytes();
+   82 | nceof java.io.InputStream) {
+   83 | = new byte[1000];
+   84 | o.InputStream) inputParam).read(strInput);
+   85 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.java,77,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00868.java,"
+   67 | ething(f51118); // reflection
+   68 |
+   69 |  provider = java.security.Security.getProviders();
+   70 | est md;
+   71 |
+   72 |
+   73 | > 1) {
+   74 |
+   75 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   76 |
+>  77 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   78 |
+   79 | e) '?'};
+   80 | bar;
+   81 | nceof String) input = ((String) inputParam).getBytes();
+   82 | nceof java.io.InputStream) {
+   83 | = new byte[1000];
+   84 | o.InputStream) inputParam).read(strInput);
+   85 |
+   86 | Writer()
+   87 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.java,74,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.java,"
+   64 | _uncle"";
+   65 |
+   66 |
+   67 |
+   68 |  provider = java.security.Security.getProviders();
+   69 | est md;
+   70 |
+   71 |
+   72 | > 1) {
+   73 |
+>  74 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   75 |
+   76 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   77 |
+   78 | e) '?'};
+   79 | bar;
+   80 | nceof String) input = ((String) inputParam).getBytes();
+   81 | nceof java.io.InputStream) {
+   82 | = new byte[1000];
+   83 | o.InputStream) inputParam).read(strInput);
+   84 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.java,76,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00869.java,"
+   66 |
+   67 |
+   68 |  provider = java.security.Security.getProviders();
+   69 | est md;
+   70 |
+   71 |
+   72 | > 1) {
+   73 |
+   74 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   75 |
+>  76 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   77 |
+   78 | e) '?'};
+   79 | bar;
+   80 | nceof String) input = ((String) inputParam).getBytes();
+   81 | nceof java.io.InputStream) {
+   82 | = new byte[1000];
+   83 | o.InputStream) inputParam).read(strInput);
+   84 |
+   85 | Writer()
+   86 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00870.java,50,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00870.java,"
+   40 |
+   41 | "");
+   42 |
+   43 |  scr =
+   44 | ClassRequest(request);
+   45 | 70"");
+   46 |
+   47 | odeForHTML(param);
+   48 |
+   49 |
+>  50 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   51 |
+   52 |
+   53 | String) inputParam).getBytes();
+   54 | m) {
+   55 |
+   56 | m).read(strInput);
+   57 |
+   58 |
+   59 |
+   60 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00871.java,55,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00871.java,"
+   45 | 71"");
+   46 |
+   47 |
+   48 |  java.util.HashMap<String, Object>();
+   49 | me stuff in the collection
+   50 | a collection
+   51 | me stuff in the collection
+   52 | t it back out
+   53 |
+   54 |
+>  55 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   56 |
+   57 |
+   58 | String) inputParam).getBytes();
+   59 | m) {
+   60 |
+   61 | m).read(strInput);
+   62 |
+   63 |
+   64 |
+   65 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00872.java,51,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00872.java,"
+   41 | "");
+   42 |
+   43 |  scr =
+   44 | ClassRequest(request);
+   45 | 72"");
+   46 |
+   47 |
+   48 |
+   49 |
+   50 |
+>  51 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   52 |
+   53 |
+   54 | String) inputParam).getBytes();
+   55 | m) {
+   56 |
+   57 | m).read(strInput);
+   58 |
+   59 |
+   60 |
+   61 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00961.java,68,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00961.java,"
+   58 | kTest00961"")) {
+   59 | heCookie.getValue(), ""UTF-8"");
+   60 |
+   61 |
+   62 |
+   63 |
+   64 |
+   65 | am);
+   66 |
+   67 |
+>  68 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   69 |
+   70 |
+   71 | String) inputParam).getBytes();
+   72 | m) {
+   73 |
+   74 | m).read(strInput);
+   75 |
+   76 |
+   77 |
+   78 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00963.java,68,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00963.java,"
+   58 | kTest00963"")) {
+   59 | heCookie.getValue(), ""UTF-8"");
+   60 |
+   61 |
+   62 |
+   63 |
+   64 |
+   65 | am);
+   66 |
+   67 |
+>  68 | ty.MessageDigest.getInstance(""MD5"");
+   69 |
+   70 |
+   71 | String) inputParam).getBytes();
+   72 | m) {
+   73 |
+   74 | m).read(strInput);
+   75 |
+   76 |
+   77 |
+   78 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01038.java,54,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01038.java,"
+   44 | ull) {
+   45 | 8"");
+   46 |
+   47 |
+   48 | er() doesn't. Unlike req.getParameter().
+   49 | "");
+   50 |
+   51 | am);
+   52 |
+   53 |
+>  54 | ty.MessageDigest.getInstance(""MD5"");
+   55 |
+   56 |
+   57 | String) inputParam).getBytes();
+   58 | m) {
+   59 |
+   60 | m).read(strInput);
+   61 |
+   62 |
+   63 |
+   64 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01123.java,63,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01123.java,"
+   53 | ()) {
+   54 |
+   55 |
+   56 |
+   57 |
+   58 | e people don't normally do that
+   59 |
+   60 | am);
+   61 |
+   62 |
+>  63 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   64 |
+   65 |
+   66 | String) inputParam).getBytes();
+   67 | m) {
+   68 |
+   69 | m).read(strInput);
+   70 |
+   71 |
+   72 |
+   73 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01165.java,56,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01165.java,"
+   46 | ) {
+   47 | first element
+   48 |
+   49 |
+   50 | ers() doesn't. Unlike req.getParameters().
+   51 | "");
+   52 |
+   53 | am);
+   54 |
+   55 |
+>  56 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   57 |
+   58 |
+   59 | String) inputParam).getBytes();
+   60 | m) {
+   61 |
+   62 | m).read(strInput);
+   63 |
+   64 |
+   65 |
+   66 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01166.java,56,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01166.java,"
+   46 | ) {
+   47 | first element
+   48 |
+   49 |
+   50 | ers() doesn't. Unlike req.getParameters().
+   51 | "");
+   52 |
+   53 | am);
+   54 |
+   55 |
+>  56 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   57 |
+   58 |
+   59 | String) inputParam).getBytes();
+   60 | m) {
+   61 |
+   62 | m).read(strInput);
+   63 |
+   64 |
+   65 |
+   66 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01167.java,56,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01167.java,"
+   46 | ) {
+   47 | first element
+   48 |
+   49 |
+   50 | ers() doesn't. Unlike req.getParameters().
+   51 | "");
+   52 |
+   53 | am);
+   54 |
+   55 |
+>  56 | ty.MessageDigest.getInstance(""MD5"");
+   57 |
+   58 |
+   59 | String) inputParam).getBytes();
+   60 | m) {
+   61 |
+   62 | m).read(strInput);
+   63 |
+   64 |
+   65 |
+   66 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.java,54,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.java,"
+   44 |  = """";
+   45 |
+   46 | doSomething(request, param);
+   47 |
+   48 |  provider = java.security.Security.getProviders();
+   49 | est md;
+   50 |
+   51 |
+   52 | > 1) {
+   53 |
+>  54 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   55 |
+   56 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   57 |
+   58 | e) '?'};
+   59 | bar;
+   60 | nceof String) input = ((String) inputParam).getBytes();
+   61 | nceof java.io.InputStream) {
+   62 | = new byte[1000];
+   63 | o.InputStream) inputParam).read(strInput);
+   64 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.java,56,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01244.java,"
+   46 | doSomething(request, param);
+   47 |
+   48 |  provider = java.security.Security.getProviders();
+   49 | est md;
+   50 |
+   51 |
+   52 | > 1) {
+   53 |
+   54 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   55 |
+>  56 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   57 |
+   58 | e) '?'};
+   59 | bar;
+   60 | nceof String) input = ((String) inputParam).getBytes();
+   61 | nceof java.io.InputStream) {
+   62 | = new byte[1000];
+   63 | o.InputStream) inputParam).read(strInput);
+   64 |
+   65 | Writer()
+   66 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01246.java,49,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01246.java,"
+   39 | ervletResponse response)
+   40 |
+   41 | "");
+   42 |
+   43 | st01246"");
+   44 |
+   45 |
+   46 | am);
+   47 |
+   48 |
+>  49 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   50 |
+   51 |
+   52 | String) inputParam).getBytes();
+   53 | m) {
+   54 |
+   55 | m).read(strInput);
+   56 |
+   57 |
+   58 |
+   59 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01247.java,49,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01247.java,"
+   39 | ervletResponse response)
+   40 |
+   41 | "");
+   42 |
+   43 | st01247"");
+   44 |
+   45 |
+   46 | am);
+   47 |
+   48 |
+>  49 | ty.MessageDigest.getInstance(""MD5"");
+   50 |
+   51 |
+   52 | String) inputParam).getBytes();
+   53 | m) {
+   54 |
+   55 | m).read(strInput);
+   56 |
+   57 |
+   58 |
+   59 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01333.java,53,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01333.java,"
+   43 | tParameterMap();
+   44 |
+   45 |
+   46 | 3"");
+   47 |
+   48 |
+   49 |
+   50 | am);
+   51 |
+   52 |
+>  53 | ty.MessageDigest.getInstance(""MD5"");
+   54 |
+   55 |
+   56 | String) inputParam).getBytes();
+   57 | m) {
+   58 |
+   59 | m).read(strInput);
+   60 |
+   61 |
+   62 |
+   63 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01334.java,53,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01334.java,"
+   43 | tParameterMap();
+   44 |
+   45 |
+   46 | 4"");
+   47 |
+   48 |
+   49 |
+   50 | am);
+   51 |
+   52 |
+>  53 | ty.MessageDigest.getInstance(""MD5"");
+   54 |
+   55 |
+   56 | String) inputParam).getBytes();
+   57 | m) {
+   58 |
+   59 | m).read(strInput);
+   60 |
+   61 |
+   62 |
+   63 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01411.java,63,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01411.java,"
+   53 |
+   54 |
+   55 |
+   56 |
+   57 |
+   58 |
+   59 |
+   60 | am);
+   61 |
+   62 |
+>  63 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   64 |
+   65 |
+   66 | String) inputParam).getBytes();
+   67 | m) {
+   68 |
+   69 | m).read(strInput);
+   70 |
+   71 |
+   72 |
+   73 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.java,56,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.java,"
+   46 |  = """";
+   47 |
+   48 | doSomething(request, param);
+   49 |
+   50 |  provider = java.security.Security.getProviders();
+   51 | est md;
+   52 |
+   53 |
+   54 | > 1) {
+   55 |
+>  56 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   57 |
+   58 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   59 |
+   60 | e) '?'};
+   61 | bar;
+   62 | nceof String) input = ((String) inputParam).getBytes();
+   63 | nceof java.io.InputStream) {
+   64 | = new byte[1000];
+   65 | o.InputStream) inputParam).read(strInput);
+   66 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.java,58,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01503.java,"
+   48 | doSomething(request, param);
+   49 |
+   50 |  provider = java.security.Security.getProviders();
+   51 | est md;
+   52 |
+   53 |
+   54 | > 1) {
+   55 |
+   56 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   57 |
+>  58 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   59 |
+   60 | e) '?'};
+   61 | bar;
+   62 | nceof String) input = ((String) inputParam).getBytes();
+   63 | nceof java.io.InputStream) {
+   64 | = new byte[1000];
+   65 | o.InputStream) inputParam).read(strInput);
+   66 |
+   67 | Writer()
+   68 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01504.java,51,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01504.java,"
+   41 | "");
+   42 |
+   43 |  scr =
+   44 | ClassRequest(request);
+   45 | t01504"");
+   46 |
+   47 |
+   48 | am);
+   49 |
+   50 |
+>  51 | ty.MessageDigest.getInstance(""MD5"");
+   52 |
+   53 |
+   54 | String) inputParam).getBytes();
+   55 | m) {
+   56 |
+   57 | m).read(strInput);
+   58 |
+   59 |
+   60 |
+   61 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01577.java,51,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01577.java,"
+   41 | "");
+   42 |
+   43 | nchmarkTest01577"");
+   44 |
+   45 |  values[0];
+   46 |
+   47 |
+   48 | am);
+   49 |
+   50 |
+>  51 | ty.MessageDigest.getInstance(""MD5"");
+   52 |
+   53 |
+   54 | String) inputParam).getBytes();
+   55 | m) {
+   56 |
+   57 | m).read(strInput);
+   58 |
+   59 |
+   60 |
+   61 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01649.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01649.java,"
+   63 |
+   64 | mLoc);
+   65 |
+   66 | amval.length(), ampersandLoc);
+   67 |
+   68 | "");
+   69 |
+   70 | am);
+   71 |
+   72 |
+>  73 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   74 |
+   75 |
+   76 | String) inputParam).getBytes();
+   77 | m) {
+   78 |
+   79 | m).read(strInput);
+   80 |
+   81 |
+   82 |
+   83 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01650.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01650.java,"
+   63 |
+   64 | mLoc);
+   65 |
+   66 | amval.length(), ampersandLoc);
+   67 |
+   68 | "");
+   69 |
+   70 | am);
+   71 |
+   72 |
+>  73 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   74 |
+   75 |
+   76 | String) inputParam).getBytes();
+   77 | m) {
+   78 |
+   79 | m).read(strInput);
+   80 |
+   81 |
+   82 |
+   83 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01651.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01651.java,"
+   63 |
+   64 | mLoc);
+   65 |
+   66 | amval.length(), ampersandLoc);
+   67 |
+   68 | "");
+   69 |
+   70 | am);
+   71 |
+   72 |
+>  73 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   74 |
+   75 |
+   76 | String) inputParam).getBytes();
+   77 | m) {
+   78 |
+   79 | m).read(strInput);
+   80 |
+   81 |
+   82 |
+   83 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01653.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01653.java,"
+   63 |
+   64 | mLoc);
+   65 |
+   66 | amval.length(), ampersandLoc);
+   67 |
+   68 | "");
+   69 |
+   70 | am);
+   71 |
+   72 |
+>  73 | ty.MessageDigest.getInstance(""MD5"");
+   74 |
+   75 |
+   76 | String) inputParam).getBytes();
+   77 | m) {
+   78 |
+   79 | m).read(strInput);
+   80 |
+   81 |
+   82 |
+   83 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.java,55,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.java,"
+   45 | eValue(""BenchmarkTest01757"");
+   46 |
+   47 | doSomething(request, param);
+   48 |
+   49 |  provider = java.security.Security.getProviders();
+   50 | est md;
+   51 |
+   52 |
+   53 | > 1) {
+   54 |
+>  55 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   56 |
+   57 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   58 |
+   59 | e) '?'};
+   60 | bar;
+   61 | nceof String) input = ((String) inputParam).getBytes();
+   62 | nceof java.io.InputStream) {
+   63 | = new byte[1000];
+   64 | o.InputStream) inputParam).read(strInput);
+   65 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.java,57,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01757.java,"
+   47 | doSomething(request, param);
+   48 |
+   49 |  provider = java.security.Security.getProviders();
+   50 | est md;
+   51 |
+   52 |
+   53 | > 1) {
+   54 |
+   55 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   56 |
+>  57 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   58 |
+   59 | e) '?'};
+   60 | bar;
+   61 | nceof String) input = ((String) inputParam).getBytes();
+   62 | nceof java.io.InputStream) {
+   63 | = new byte[1000];
+   64 | o.InputStream) inputParam).read(strInput);
+   65 |
+   66 | Writer()
+   67 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01761.java,50,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01761.java,"
+   40 |
+   41 | "");
+   42 |
+   43 |  scr =
+   44 | ClassRequest(request);
+   45 | 61"");
+   46 |
+   47 | am);
+   48 |
+   49 |
+>  50 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   51 |
+   52 |
+   53 | String) inputParam).getBytes();
+   54 | m) {
+   55 |
+   56 | m).read(strInput);
+   57 |
+   58 |
+   59 |
+   60 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.java,"
+   63 |
+   64 |
+   65 | (request, param);
+   66 |
+   67 |  provider = java.security.Security.getProviders();
+   68 | est md;
+   69 |
+   70 |
+   71 | > 1) {
+   72 |
+>  73 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   74 |
+   75 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   76 |
+   77 | e) '?'};
+   78 | bar;
+   79 | nceof String) input = ((String) inputParam).getBytes();
+   80 | nceof java.io.InputStream) {
+   81 | = new byte[1000];
+   82 | o.InputStream) inputParam).read(strInput);
+   83 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.java,75,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01844.java,"
+   65 | (request, param);
+   66 |
+   67 |  provider = java.security.Security.getProviders();
+   68 | est md;
+   69 |
+   70 |
+   71 | > 1) {
+   72 |
+   73 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   74 |
+>  75 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   76 |
+   77 | e) '?'};
+   78 | bar;
+   79 | nceof String) input = ((String) inputParam).getBytes();
+   80 | nceof java.io.InputStream) {
+   81 | = new byte[1000];
+   82 | o.InputStream) inputParam).read(strInput);
+   83 |
+   84 | Writer()
+   85 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.java,"
+   63 |
+   64 |
+   65 | (request, param);
+   66 |
+   67 |  provider = java.security.Security.getProviders();
+   68 | est md;
+   69 |
+   70 |
+   71 | > 1) {
+   72 |
+>  73 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   74 |
+   75 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   76 |
+   77 | e) '?'};
+   78 | bar;
+   79 | nceof String) input = ((String) inputParam).getBytes();
+   80 | nceof java.io.InputStream) {
+   81 | = new byte[1000];
+   82 | o.InputStream) inputParam).read(strInput);
+   83 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.java,75,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01845.java,"
+   65 | (request, param);
+   66 |
+   67 |  provider = java.security.Security.getProviders();
+   68 | est md;
+   69 |
+   70 |
+   71 | > 1) {
+   72 |
+   73 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   74 |
+>  75 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   76 |
+   77 | e) '?'};
+   78 | bar;
+   79 | nceof String) input = ((String) inputParam).getBytes();
+   80 | nceof java.io.InputStream) {
+   81 | = new byte[1000];
+   82 | o.InputStream) inputParam).read(strInput);
+   83 |
+   84 | Writer()
+   85 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.java,"
+   63 |
+   64 |
+   65 | (request, param);
+   66 |
+   67 |  provider = java.security.Security.getProviders();
+   68 | est md;
+   69 |
+   70 |
+   71 | > 1) {
+   72 |
+>  73 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   74 |
+   75 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   76 |
+   77 | e) '?'};
+   78 | bar;
+   79 | nceof String) input = ((String) inputParam).getBytes();
+   80 | nceof java.io.InputStream) {
+   81 | = new byte[1000];
+   82 | o.InputStream) inputParam).read(strInput);
+   83 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.java,75,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01846.java,"
+   65 | (request, param);
+   66 |
+   67 |  provider = java.security.Security.getProviders();
+   68 | est md;
+   69 |
+   70 |
+   71 | > 1) {
+   72 |
+   73 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   74 |
+>  75 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   76 |
+   77 | e) '?'};
+   78 | bar;
+   79 | nceof String) input = ((String) inputParam).getBytes();
+   80 | nceof java.io.InputStream) {
+   81 | = new byte[1000];
+   82 | o.InputStream) inputParam).read(strInput);
+   83 |
+   84 | Writer()
+   85 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.java,59,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.java,"
+   49 | der.decode(param, ""UTF-8"");
+   50 |
+   51 | (request, param);
+   52 |
+   53 |  provider = java.security.Security.getProviders();
+   54 | est md;
+   55 |
+   56 |
+   57 | > 1) {
+   58 |
+>  59 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   60 |
+   61 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   62 |
+   63 | e) '?'};
+   64 | bar;
+   65 | nceof String) input = ((String) inputParam).getBytes();
+   66 | nceof java.io.InputStream) {
+   67 | = new byte[1000];
+   68 | o.InputStream) inputParam).read(strInput);
+   69 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.java,61,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01911.java,"
+   51 | (request, param);
+   52 |
+   53 |  provider = java.security.Security.getProviders();
+   54 | est md;
+   55 |
+   56 |
+   57 | > 1) {
+   58 |
+   59 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   60 |
+>  61 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   62 |
+   63 | e) '?'};
+   64 | bar;
+   65 | nceof String) input = ((String) inputParam).getBytes();
+   66 | nceof java.io.InputStream) {
+   67 | = new byte[1000];
+   68 | o.InputStream) inputParam).read(strInput);
+   69 |
+   70 | Writer()
+   71 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02042.java,56,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02042.java,"
+   46 | ) {
+   47 | first element
+   48 |
+   49 |
+   50 | ers() doesn't. Unlike req.getParameters().
+   51 | "");
+   52 |
+   53 |
+   54 |
+   55 |
+>  56 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   57 |
+   58 |
+   59 | String) inputParam).getBytes();
+   60 | m) {
+   61 |
+   62 | m).read(strInput);
+   63 |
+   64 |
+   65 |
+   66 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.java,54,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.java,"
+   44 |  = """";
+   45 |
+   46 | (request, param);
+   47 |
+   48 |  provider = java.security.Security.getProviders();
+   49 | est md;
+   50 |
+   51 |
+   52 | > 1) {
+   53 |
+>  54 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   55 |
+   56 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   57 |
+   58 | e) '?'};
+   59 | bar;
+   60 | nceof String) input = ((String) inputParam).getBytes();
+   61 | nceof java.io.InputStream) {
+   62 | = new byte[1000];
+   63 | o.InputStream) inputParam).read(strInput);
+   64 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.java,56,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02118.java,"
+   46 | (request, param);
+   47 |
+   48 |  provider = java.security.Security.getProviders();
+   49 | est md;
+   50 |
+   51 |
+   52 | > 1) {
+   53 |
+   54 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   55 |
+>  56 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   57 |
+   58 | e) '?'};
+   59 | bar;
+   60 | nceof String) input = ((String) inputParam).getBytes();
+   61 | nceof java.io.InputStream) {
+   62 | = new byte[1000];
+   63 | o.InputStream) inputParam).read(strInput);
+   64 |
+   65 | Writer()
+   66 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02211.java,53,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02211.java,"
+   43 | tParameterMap();
+   44 |
+   45 |
+   46 | 1"");
+   47 |
+   48 |
+   49 |
+   50 |
+   51 |
+   52 |
+>  53 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   54 |
+   55 |
+   56 | String) inputParam).getBytes();
+   57 | m) {
+   58 |
+   59 | m).read(strInput);
+   60 |
+   61 |
+   62 |
+   63 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02212.java,53,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02212.java,"
+   43 | tParameterMap();
+   44 |
+   45 |
+   46 | 2"");
+   47 |
+   48 |
+   49 |
+   50 |
+   51 |
+   52 |
+>  53 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   54 |
+   55 |
+   56 | String) inputParam).getBytes();
+   57 | m) {
+   58 |
+   59 | m).read(strInput);
+   60 |
+   61 |
+   62 |
+   63 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02213.java,53,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02213.java,"
+   43 | tParameterMap();
+   44 |
+   45 |
+   46 | 3"");
+   47 |
+   48 |
+   49 |
+   50 |
+   51 |
+   52 |
+>  53 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   54 |
+   55 |
+   56 | String) inputParam).getBytes();
+   57 | m) {
+   58 |
+   59 | m).read(strInput);
+   60 |
+   61 |
+   62 |
+   63 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02217.java,53,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02217.java,"
+   43 | tParameterMap();
+   44 |
+   45 |
+   46 | 7"");
+   47 |
+   48 |
+   49 |
+   50 |
+   51 |
+   52 |
+>  53 | ty.MessageDigest.getInstance(""MD5"");
+   54 |
+   55 |
+   56 | String) inputParam).getBytes();
+   57 | m) {
+   58 |
+   59 | m).read(strInput);
+   60 |
+   61 |
+   62 |
+   63 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.java,68,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.java,"
+   58 |
+   59 |
+   60 | (request, param);
+   61 |
+   62 |  provider = java.security.Security.getProviders();
+   63 | est md;
+   64 |
+   65 |
+   66 | > 1) {
+   67 |
+>  68 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   69 |
+   70 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   71 |
+   72 | e) '?'};
+   73 | bar;
+   74 | nceof String) input = ((String) inputParam).getBytes();
+   75 | nceof java.io.InputStream) {
+   76 | = new byte[1000];
+   77 | o.InputStream) inputParam).read(strInput);
+   78 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.java,70,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02307.java,"
+   60 | (request, param);
+   61 |
+   62 |  provider = java.security.Security.getProviders();
+   63 | est md;
+   64 |
+   65 |
+   66 | > 1) {
+   67 |
+   68 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   69 |
+>  70 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   71 |
+   72 | e) '?'};
+   73 | bar;
+   74 | nceof String) input = ((String) inputParam).getBytes();
+   75 | nceof java.io.InputStream) {
+   76 | = new byte[1000];
+   77 | o.InputStream) inputParam).read(strInput);
+   78 |
+   79 | Writer()
+   80 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02308.java,63,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02308.java,"
+   53 |
+   54 |
+   55 |
+   56 |
+   57 |
+   58 |
+   59 |
+   60 |
+   61 |
+   62 |
+>  63 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   64 |
+   65 |
+   66 | String) inputParam).getBytes();
+   67 | m) {
+   68 |
+   69 | m).read(strInput);
+   70 |
+   71 |
+   72 |
+   73 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02311.java,63,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02311.java,"
+   53 |
+   54 |
+   55 |
+   56 |
+   57 |
+   58 |
+   59 |
+   60 |
+   61 |
+   62 |
+>  63 | ty.MessageDigest.getInstance(""MD5"");
+   64 |
+   65 |
+   66 | String) inputParam).getBytes();
+   67 | m) {
+   68 |
+   69 | m).read(strInput);
+   70 |
+   71 |
+   72 |
+   73 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.java,56,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.java,"
+   46 |  = """";
+   47 |
+   48 | (request, param);
+   49 |
+   50 |  provider = java.security.Security.getProviders();
+   51 | est md;
+   52 |
+   53 |
+   54 | > 1) {
+   55 |
+>  56 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   57 |
+   58 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   59 |
+   60 | e) '?'};
+   61 | bar;
+   62 | nceof String) input = ((String) inputParam).getBytes();
+   63 | nceof java.io.InputStream) {
+   64 | = new byte[1000];
+   65 | o.InputStream) inputParam).read(strInput);
+   66 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.java,58,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02385.java,"
+   48 | (request, param);
+   49 |
+   50 |  provider = java.security.Security.getProviders();
+   51 | est md;
+   52 |
+   53 |
+   54 | > 1) {
+   55 |
+   56 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   57 |
+>  58 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   59 |
+   60 | e) '?'};
+   61 | bar;
+   62 | nceof String) input = ((String) inputParam).getBytes();
+   63 | nceof java.io.InputStream) {
+   64 | = new byte[1000];
+   65 | o.InputStream) inputParam).read(strInput);
+   66 |
+   67 | Writer()
+   68 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02386.java,51,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02386.java,"
+   41 | "");
+   42 |
+   43 |  scr =
+   44 | ClassRequest(request);
+   45 | t02386"");
+   46 |
+   47 |
+   48 |
+   49 |
+   50 |
+>  51 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   52 |
+   53 |
+   54 | String) inputParam).getBytes();
+   55 | m) {
+   56 |
+   57 | m).read(strInput);
+   58 |
+   59 |
+   60 |
+   61 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02387.java,51,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02387.java,"
+   41 | "");
+   42 |
+   43 |  scr =
+   44 | ClassRequest(request);
+   45 | t02387"");
+   46 |
+   47 |
+   48 |
+   49 |
+   50 |
+>  51 | ty.MessageDigest.getInstance(""MD5"");
+   52 |
+   53 |
+   54 | String) inputParam).getBytes();
+   55 | m) {
+   56 |
+   57 | m).read(strInput);
+   58 |
+   59 |
+   60 |
+   61 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02388.java,51,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02388.java,"
+   41 | "");
+   42 |
+   43 |  scr =
+   44 | ClassRequest(request);
+   45 | t02388"");
+   46 |
+   47 |
+   48 |
+   49 |
+   50 |
+>  51 | ty.MessageDigest.getInstance(""MD5"");
+   52 |
+   53 |
+   54 | String) inputParam).getBytes();
+   55 | m) {
+   56 |
+   57 | m).read(strInput);
+   58 |
+   59 |
+   60 |
+   61 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02474.java,51,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02474.java,"
+   41 | "");
+   42 |
+   43 | nchmarkTest02474"");
+   44 |
+   45 |  values[0];
+   46 |
+   47 |
+   48 |
+   49 |
+   50 |
+>  51 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   52 |
+   53 |
+   54 | String) inputParam).getBytes();
+   55 | m) {
+   56 |
+   57 | m).read(strInput);
+   58 |
+   59 |
+   60 |
+   61 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02475.java,51,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02475.java,"
+   41 | "");
+   42 |
+   43 | nchmarkTest02475"");
+   44 |
+   45 |  values[0];
+   46 |
+   47 |
+   48 |
+   49 |
+   50 |
+>  51 | ty.MessageDigest.getInstance(""MD5"");
+   52 |
+   53 |
+   54 | String) inputParam).getBytes();
+   55 | m) {
+   56 |
+   57 | m).read(strInput);
+   58 |
+   59 |
+   60 |
+   61 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02476.java,51,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02476.java,"
+   41 | "");
+   42 |
+   43 | nchmarkTest02476"");
+   44 |
+   45 |  values[0];
+   46 |
+   47 |
+   48 |
+   49 |
+   50 |
+>  51 | ty.MessageDigest.getInstance(""MD5"");
+   52 |
+   53 |
+   54 | String) inputParam).getBytes();
+   55 | m) {
+   56 |
+   57 | m).read(strInput);
+   58 |
+   59 |
+   60 |
+   61 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02573.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02573.java,"
+   63 |
+   64 | mLoc);
+   65 |
+   66 | amval.length(), ampersandLoc);
+   67 |
+   68 | "");
+   69 |
+   70 |
+   71 |
+   72 |
+>  73 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   74 |
+   75 |
+   76 | String) inputParam).getBytes();
+   77 | m) {
+   78 |
+   79 | m).read(strInput);
+   80 |
+   81 |
+   82 |
+   83 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02574.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02574.java,"
+   63 |
+   64 | mLoc);
+   65 |
+   66 | amval.length(), ampersandLoc);
+   67 |
+   68 | "");
+   69 |
+   70 |
+   71 |
+   72 |
+>  73 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   74 |
+   75 |
+   76 | String) inputParam).getBytes();
+   77 | m) {
+   78 |
+   79 | m).read(strInput);
+   80 |
+   81 |
+   82 |
+   83 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02575.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02575.java,"
+   63 |
+   64 | mLoc);
+   65 |
+   66 | amval.length(), ampersandLoc);
+   67 |
+   68 | "");
+   69 |
+   70 |
+   71 |
+   72 |
+>  73 | ty.MessageDigest.getInstance(""MD5"");
+   74 |
+   75 |
+   76 | String) inputParam).getBytes();
+   77 | m) {
+   78 |
+   79 | m).read(strInput);
+   80 |
+   81 |
+   82 |
+   83 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.java,55,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.java,"
+   45 | eValue(""BenchmarkTest02670"");
+   46 |
+   47 | (request, param);
+   48 |
+   49 |  provider = java.security.Security.getProviders();
+   50 | est md;
+   51 |
+   52 |
+   53 | > 1) {
+   54 |
+>  55 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   56 |
+   57 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   58 |
+   59 | e) '?'};
+   60 | bar;
+   61 | nceof String) input = ((String) inputParam).getBytes();
+   62 | nceof java.io.InputStream) {
+   63 | = new byte[1000];
+   64 | o.InputStream) inputParam).read(strInput);
+   65 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.java,57,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02670.java,"
+   47 | (request, param);
+   48 |
+   49 |  provider = java.security.Security.getProviders();
+   50 | est md;
+   51 |
+   52 |
+   53 | > 1) {
+   54 |
+   55 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   56 |
+>  57 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   58 |
+   59 | e) '?'};
+   60 | bar;
+   61 | nceof String) input = ((String) inputParam).getBytes();
+   62 | nceof java.io.InputStream) {
+   63 | = new byte[1000];
+   64 | o.InputStream) inputParam).read(strInput);
+   65 |
+   66 | Writer()
+   67 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.java,55,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.java,"
+   45 | eValue(""BenchmarkTest02671"");
+   46 |
+   47 | (request, param);
+   48 |
+   49 |  provider = java.security.Security.getProviders();
+   50 | est md;
+   51 |
+   52 |
+   53 | > 1) {
+   54 |
+>  55 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   56 |
+   57 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   58 |
+   59 | e) '?'};
+   60 | bar;
+   61 | nceof String) input = ((String) inputParam).getBytes();
+   62 | nceof java.io.InputStream) {
+   63 | = new byte[1000];
+   64 | o.InputStream) inputParam).read(strInput);
+   65 |
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.java,57,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02671.java,"
+   47 | (request, param);
+   48 |
+   49 |  provider = java.security.Security.getProviders();
+   50 | est md;
+   51 |
+   52 |
+   53 | > 1) {
+   54 |
+   55 | ty.MessageDigest.getInstance(""SHA1"", provider[0]);
+   56 |
+>  57 | ty.MessageDigest.getInstance(""SHA1"", ""SUN"");
+   58 |
+   59 | e) '?'};
+   60 | bar;
+   61 | nceof String) input = ((String) inputParam).getBytes();
+   62 | nceof java.io.InputStream) {
+   63 | = new byte[1000];
+   64 | o.InputStream) inputParam).read(strInput);
+   65 |
+   66 | Writer()
+   67 | ntln(
+      ^ Col 32
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02674.java,50,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02674.java,"
+   40 |
+   41 | "");
+   42 |
+   43 |  scr =
+   44 | ClassRequest(request);
+   45 | 74"");
+   46 |
+   47 |
+   48 |
+   49 |
+>  50 | ty.MessageDigest.getInstance(""MD5"");
+   51 |
+   52 |
+   53 | String) inputParam).getBytes();
+   54 | m) {
+   55 |
+   56 | m).read(strInput);
+   57 |
+   58 |
+   59 |
+   60 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02675.java,50,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02675.java,"
+   40 |
+   41 | "");
+   42 |
+   43 |  scr =
+   44 | ClassRequest(request);
+   45 | 75"");
+   46 |
+   47 |
+   48 |
+   49 |
+>  50 | ty.MessageDigest.getInstance(""MD5"");
+   51 |
+   52 |
+   53 | String) inputParam).getBytes();
+   54 | m) {
+   55 |
+   56 | m).read(strInput);
+   57 |
+   58 |
+   59 |
+   60 | equires a POST, not a GET. Incompatible UI for the InputStream source."");
+      ^ Col 56
+"
 F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01246.java,49,328,skims,F052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
 ","
    39 | doPost(HttpServletRequest request, HttpServletResponse response)

@@ -46,98 +46,6 @@ from zone import (
 )
 
 
-def _java_insecure_hash(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    grammar = MatchFirst(
-        [
-            (
-                Keyword("MessageDigest")
-                + "."
-                + Keyword("getInstance")
-                + "("
-                + DOUBLE_QUOTED_STRING.copy().addCondition(
-                    lambda tokens: tokens[0].lower()
-                    in {
-                        "md2",
-                        "md4",
-                        "md5",
-                        "sha1",
-                        "sha-1",
-                    }
-                )
-            ),
-            (
-                Keyword("DigestUtils")
-                + "."
-                + MatchFirst(
-                    [
-                        Keyword("getMd2Digest"),
-                        Keyword("getMd5Digest"),
-                        Keyword("getShaDigest"),
-                        Keyword("getSha1Digest"),
-                        Keyword("md2"),
-                        Keyword("md2Hex"),
-                        Keyword("md5"),
-                        Keyword("md5Hex"),
-                        Keyword("sha"),
-                        Keyword("shaHex"),
-                        Keyword("sha1"),
-                        Keyword("sha1Hex"),
-                    ]
-                )
-                + "("
-            ),
-            (
-                Keyword("Hashing")
-                + "."
-                + MatchFirst(
-                    [
-                        Keyword("adler32"),
-                        Keyword("crc32"),
-                        Keyword("crc32c"),
-                        Keyword("goodFastHash"),
-                        Keyword("hmacMd5"),
-                        Keyword("hmacSha1"),
-                        Keyword("md5"),
-                        Keyword("sha1"),
-                    ]
-                )
-                + "("
-            ),
-            Keyword("MGF1ParameterSpec") + "." + Keyword("SHA1"),
-        ]
-    )
-    grammar.ignore(C_STYLE_COMMENT)
-
-    return get_vulnerabilities_blocking(
-        content=content,
-        cwe={"310", "327"},
-        description=t(
-            key="src.lib_path.f052.insecure_hash.description",
-            path=path,
-        ),
-        finding=core_model.FindingEnum.F052,
-        grammar=grammar,
-        path=path,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def java_insecure_hash(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _java_insecure_hash,
-        content=content,
-        path=path,
-    )
-
-
 def _java_insecure_key(
     content: str,
     path: str,
@@ -376,12 +284,6 @@ async def analyze(
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
     if file_extension in EXTENSIONS_JAVA:
-        coroutines.append(
-            java_insecure_hash(
-                content=await content_generator(),
-                path=path,
-            )
-        )
         coroutines.append(
             java_insecure_key(
                 content=await content_generator(),

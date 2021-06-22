@@ -3681,76 +3681,76 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.java,9,310 + 327,skims,F
      ^ Col 0
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,7,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in skims/test/data/lib_path/f052/java.java,"
-   1 | import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-   2 | public class Main {
-   3 |     public static void main(String[] args) {
-   4 |         MessageDigest md = MessageDigest.getInstance(""ShA-256"");
-   5 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider);
-   6 |         MessageDigest md = MessageDigest.getInstance(""mD5"");
->  7 |         MessageDigest md = MessageDigest.getInstance(""Md2"");
-   8 |         DigestUtils.sha3_256(""test"");
-   9 |         DigestUtils.sha1Hex(""test"");
-  10 |         Hashing.md5().hashString(password,StandardCharsets.UTF_8).toString();
-  11 |         Hashing.sha256().hashString(password,StandardCharsets.UTF_8).toString();
-  12 |         Cipher c = Cipher.getInstance(""AES"");
-  13 |         Cipher c = Cipher.getInstance(""DES"");
-  14 |         Cipher c = Cipher.getInstance(""DESede"");
-  15 |         Cipher c = Cipher.getInstance(""RSA"");
-  16 |         Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");
-  17 |         Cipher c = Cipher.getInstance(""AES/CBC/NoPadding"");
-  18 |         Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");
-  19 |         Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");
-  20 |         Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");
-  21 |         Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");
-     ^ Col 0
+   1 | rk.security.crypto.password.NoOpPasswordEncoder;
+   2 |
+   3 | ain(String[] args) {
+   4 |  = MessageDigest.getInstance(""ShA-256"");
+   5 |  = MessageDigest.getInstance(""ShA-1"", provider);
+   6 |  = MessageDigest.getInstance(""mD5"");
+>  7 |  = MessageDigest.getInstance(""Md2"");
+   8 | _256(""test"");
+   9 | Hex(""test"");
+  10 | shString(password,StandardCharsets.UTF_8).toString();
+  11 | .hashString(password,StandardCharsets.UTF_8).toString();
+  12 | r.getInstance(""AES"");
+  13 | r.getInstance(""DES"");
+  14 | r.getInstance(""DESede"");
+  15 | r.getInstance(""RSA"");
+  16 | r.getInstance(""AES/CBC/PKCS5Padding"");
+  17 | r.getInstance(""AES/CBC/NoPadding"");
+  18 | r.getInstance(""AES/ECB/NoPadding"");
+  19 | r.getInstance(""AES/ECB/PKCS5Padding"");
+  20 | r.getInstance(""DES/CBC/NoPadding"");
+  21 | r.getInstance(""DES/CBC/PKCS5Padding"");
+     ^ Col 24
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,6,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in skims/test/data/lib_path/f052/java.java,"
-   1 | import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-   2 | public class Main {
-   3 |     public static void main(String[] args) {
-   4 |         MessageDigest md = MessageDigest.getInstance(""ShA-256"");
-   5 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider);
->  6 |         MessageDigest md = MessageDigest.getInstance(""mD5"");
-   7 |         MessageDigest md = MessageDigest.getInstance(""Md2"");
-   8 |         DigestUtils.sha3_256(""test"");
-   9 |         DigestUtils.sha1Hex(""test"");
-  10 |         Hashing.md5().hashString(password,StandardCharsets.UTF_8).toString();
-  11 |         Hashing.sha256().hashString(password,StandardCharsets.UTF_8).toString();
-  12 |         Cipher c = Cipher.getInstance(""AES"");
-  13 |         Cipher c = Cipher.getInstance(""DES"");
-  14 |         Cipher c = Cipher.getInstance(""DESede"");
-  15 |         Cipher c = Cipher.getInstance(""RSA"");
-  16 |         Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");
-  17 |         Cipher c = Cipher.getInstance(""AES/CBC/NoPadding"");
-  18 |         Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");
-  19 |         Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");
-  20 |         Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");
-  21 |         Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");
-     ^ Col 0
+   1 | rk.security.crypto.password.NoOpPasswordEncoder;
+   2 |
+   3 | ain(String[] args) {
+   4 |  = MessageDigest.getInstance(""ShA-256"");
+   5 |  = MessageDigest.getInstance(""ShA-1"", provider);
+>  6 |  = MessageDigest.getInstance(""mD5"");
+   7 |  = MessageDigest.getInstance(""Md2"");
+   8 | _256(""test"");
+   9 | Hex(""test"");
+  10 | shString(password,StandardCharsets.UTF_8).toString();
+  11 | .hashString(password,StandardCharsets.UTF_8).toString();
+  12 | r.getInstance(""AES"");
+  13 | r.getInstance(""DES"");
+  14 | r.getInstance(""DESede"");
+  15 | r.getInstance(""RSA"");
+  16 | r.getInstance(""AES/CBC/PKCS5Padding"");
+  17 | r.getInstance(""AES/CBC/NoPadding"");
+  18 | r.getInstance(""AES/ECB/NoPadding"");
+  19 | r.getInstance(""AES/ECB/PKCS5Padding"");
+  20 | r.getInstance(""DES/CBC/NoPadding"");
+  21 | r.getInstance(""DES/CBC/PKCS5Padding"");
+     ^ Col 24
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,5,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure hashing function in skims/test/data/lib_path/f052/java.java,"
-   1 | import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-   2 | public class Main {
-   3 |     public static void main(String[] args) {
-   4 |         MessageDigest md = MessageDigest.getInstance(""ShA-256"");
->  5 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider);
-   6 |         MessageDigest md = MessageDigest.getInstance(""mD5"");
-   7 |         MessageDigest md = MessageDigest.getInstance(""Md2"");
-   8 |         DigestUtils.sha3_256(""test"");
-   9 |         DigestUtils.sha1Hex(""test"");
-  10 |         Hashing.md5().hashString(password,StandardCharsets.UTF_8).toString();
-  11 |         Hashing.sha256().hashString(password,StandardCharsets.UTF_8).toString();
-  12 |         Cipher c = Cipher.getInstance(""AES"");
-  13 |         Cipher c = Cipher.getInstance(""DES"");
-  14 |         Cipher c = Cipher.getInstance(""DESede"");
-  15 |         Cipher c = Cipher.getInstance(""RSA"");
-  16 |         Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");
-  17 |         Cipher c = Cipher.getInstance(""AES/CBC/NoPadding"");
-  18 |         Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");
-  19 |         Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");
-  20 |         Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");
-  21 |         Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");
-     ^ Col 0
+   1 | rk.security.crypto.password.NoOpPasswordEncoder;
+   2 |
+   3 | ain(String[] args) {
+   4 |  = MessageDigest.getInstance(""ShA-256"");
+>  5 |  = MessageDigest.getInstance(""ShA-1"", provider);
+   6 |  = MessageDigest.getInstance(""mD5"");
+   7 |  = MessageDigest.getInstance(""Md2"");
+   8 | _256(""test"");
+   9 | Hex(""test"");
+  10 | shString(password,StandardCharsets.UTF_8).toString();
+  11 | .hashString(password,StandardCharsets.UTF_8).toString();
+  12 | r.getInstance(""AES"");
+  13 | r.getInstance(""DES"");
+  14 | r.getInstance(""DESede"");
+  15 | r.getInstance(""RSA"");
+  16 | r.getInstance(""AES/CBC/PKCS5Padding"");
+  17 | r.getInstance(""AES/CBC/NoPadding"");
+  18 | r.getInstance(""AES/ECB/NoPadding"");
+  19 | r.getInstance(""AES/ECB/PKCS5Padding"");
+  20 | r.getInstance(""DES/CBC/NoPadding"");
+  21 | r.getInstance(""DES/CBC/PKCS5Padding"");
+     ^ Col 24
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,36,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure parameters in skims/test/data/lib_path/f052/java.java,"
   21 |         Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");
