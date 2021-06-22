@@ -664,26 +664,6 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.none,
         ),
     )
-    F055_APK_UPDATES: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
-        code="F055_APK_UPDATES",
-        cwe=1277,
-        requirements=[266],
-        execution_queue=ExecutionQueue.none,
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.high,
-            attack_vector=cvss3_model.AttackVector.local,
-            availability_impact=cvss3_model.AvailabilityImpact.none,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.none,
-            exploitability=cvss3_model.Exploitability.unproven,
-            integrity_impact=cvss3_model.IntegrityImpact.low,
-            privileges_required=cvss3_model.PrivilegesRequired.low,
-            remediation_level=cvss3_model.RemediationLevel.official_fix,
-            report_confidence=cvss3_model.ReportConfidence.reasonable,
-            severity_scope=cvss3_model.SeverityScope.unchanged,
-            user_interaction=cvss3_model.UserInteraction.none,
-        ),
-    )
     F055_AWS_MISSING_ENCRYPTION: FindingMetadata = FindingMetadata.new(
         code="F055_AWS_MISSING_ENCRYPTION",
         cwe=311,

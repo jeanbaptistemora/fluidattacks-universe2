@@ -503,52 +503,6 @@ def _no_obfuscation(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
-def _add_no_update_enforce_location(
-    ctx: APKCheckCtx,
-    locations: Locations,
-) -> None:
-    locations.append(
-        desc="no_update_enforce",
-        snippet=make_snippet(
-            content=textwrap.dedent(
-                f"""
-                $ python3.8
-
-                >>> # We'll use the version 3.3.5 of "androguard"
-                >>> from androguard.misc import AnalyzeAPK
-
-                >>> # Parse all Dalvik Executables (classes*.dex) in the APK
-                >>> dvms = AnalyzeAPK({repr(ctx.apk_ctx.path)})[1]
-
-                >>> # Check if the source code calls the AppUpdateManager API
-                >>> any("AppUpdateManager" in class_def.get_source()
-                        for dvm in dvms
-                        for class_def in dvm.get_classes())
-                False # Code does not use the in-app updates API
-                """,
-            )
-        ),
-    )
-
-
-def _no_update_enforce(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
-    locations: Locations = Locations([])
-
-    if ctx.apk_ctx.analysis is not None:
-        if not any(
-            "AppUpdateManager" in class_.get_source()
-            for dvm in ctx.apk_ctx.analysis.vms
-            for class_ in dvm.get_classes()
-        ):
-            _add_no_update_enforce_location(ctx, locations)
-
-    return _create_vulns(
-        ctx=ctx,
-        finding=core_model.FindingEnum.F055_APK_UPDATES,
-        locations=locations,
-    )
-
-
 def get_check_ctx(apk_ctx: APKContext) -> APKCheckCtx:
     return APKCheckCtx(
         apk_ctx=apk_ctx,
@@ -563,7 +517,6 @@ CHECKS: Dict[
     core_model.FindingEnum.F048: _no_root_check,
     core_model.FindingEnum.F049_APK_PIN: _no_certs_pinning,
     core_model.FindingEnum.F055_APK_BACKUPS: _backups_enabled,
-    core_model.FindingEnum.F055_APK_UPDATES: _no_update_enforce,
     core_model.FindingEnum.F058_APK: _debugging_enabled,
     core_model.FindingEnum.F075_APK_CP: _exported_cp,
     core_model.FindingEnum.F103_APK_UNSIGNED: _apk_unsigned,
