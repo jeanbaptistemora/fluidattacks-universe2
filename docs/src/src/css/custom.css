@@ -20,6 +20,14 @@
   --ifm-code-font-size: 95%;
 }
 
+.navbar__search {
+  padding-left: 1rem;
+}
+
+.navbar__search-input {
+  width: 15rem;
+}
+
 .docusaurus-highlight-code-line {
   background-color: rgb(72, 77, 91);
   display: block;
