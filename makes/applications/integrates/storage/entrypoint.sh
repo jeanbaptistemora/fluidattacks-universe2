@@ -28,7 +28,6 @@ function serve {
     && echo -e "${TEST_PROJECTS//,/\\n}" > "${state_path}/projects" \
     && mapfile -t TEST_PROJECTS < "${state_path}/projects" \
     && makes-kill-port "${port}" 29000 \
-    && chmod +x __envMinioCli__ __envMinioLocal__ \
     && {
       MINIO_ACCESS_KEY='test' \
         MINIO_SECRET_KEY='testtest' \
