@@ -19,10 +19,19 @@ interface IAdditionalInfoProps {
   onClose: () => void;
 }
 
-const Row: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
+const OuterRow: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
   className: string;
 }>({
   className: "flex flex-wrap pb1",
+})``;
+
+const Row: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "flex flex-wrap-m pb1",
 })``;
 
 const Col40: StyledComponent<
@@ -31,7 +40,7 @@ const Col40: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "pl1 pr2 w-40-l w-100-m w-100-ns",
+  className: "pl1 pr2 w-40-l w-100-m w-100-ns w-auto",
 })``;
 
 const Col60: StyledComponent<
@@ -40,7 +49,7 @@ const Col60: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "pl1 pr2 w-60-l w-100-m w-100-ns",
+  className: "pl1 pr2 w-60-l w-100-m w-100-ns w-auto",
 })``;
 
 const Col100: StyledComponent<
@@ -116,15 +125,15 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
         <Col100>
           <b>{t("searchFindings.tabVuln.vulnTable.location")}</b>
         </Col100>
-        <Row>
+        <OuterRow>
           <Col100>
             <Field>{vulnerability.where}</Field>
             {_.isEmpty(vulnerability.stream) ? undefined : (
               <Field>{vulnerability.stream}</Field>
             )}
           </Col100>
-        </Row>
-        <Row>
+        </OuterRow>
+        <OuterRow>
           <div className={"pl1 pr2 w-10-l w-100-m w-100-ns"}>
             <Label>
               {t(
@@ -135,8 +144,8 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
           <div className={"pl1 pr2 w-90-l w-100-m w-100-ns"}>
             <Field>{vulnerability.specific}</Field>
           </div>
-        </Row>
-        <Row>
+        </OuterRow>
+        <OuterRow>
           <Col50>
             <Col100>
               <b>{t("searchFindings.tabVuln.vulnTable.reattacks")}</b>
@@ -243,8 +252,8 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
               </Col60>
             </Row>
           </Col50>
-        </Row>
-        <Row>
+        </OuterRow>
+        <OuterRow>
           <Col100>
             <b>{t("searchFindings.tabVuln.vulnTable.info")}</b>
           </Col100>
@@ -332,10 +341,10 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
               </Row>
             ) : undefined}
           </Col50>
-        </Row>
+        </OuterRow>
       </div>
       <hr />
-      <Row>
+      <OuterRow>
         <Col100>
           <ButtonToolbar>
             <Button id={"close-vuln-modal"} onClick={onClose}>
@@ -343,7 +352,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
             </Button>
           </ButtonToolbar>
         </Col100>
-      </Row>
+      </OuterRow>
     </React.StrictMode>
   );
 };

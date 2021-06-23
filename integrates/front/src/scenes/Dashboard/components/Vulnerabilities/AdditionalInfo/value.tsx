@@ -14,11 +14,7 @@ export const Value: React.FC<{ value: number | string | undefined }> = ({
 
   return (
     <React.StrictMode>
-      <p
-        className={
-          "f5 ma0 mid-gray pr2-l tr-l tl-m tl-ns w-fit-content ws-pre-wrap"
-        }
-      >
+      <p className={"f5 ma0 mid-gray pr2-l tr-l tl-m tl-ns ws-pre-wrap"}>
         {isEmpty ? t("searchFindings.tabVuln.notApplicable") : value}
       </p>
     </React.StrictMode>
