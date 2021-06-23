@@ -148,13 +148,6 @@ const pageTexts: ResourceKey = {
       },
     },
     elementsText: {
-      asserts: {
-        assertsButton: "Go to Asserts",
-        assertsDescription:
-          "It automates attacks to verify the status of vulnerabilities on your system",
-        assertsTitle:
-          "Asserts is an open-source tool that looks for deterministic and peripheral vulnerabilities",
-      },
       banner: {
         subTitle: "Find resources that help your company",
       },

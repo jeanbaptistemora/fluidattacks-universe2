@@ -77,19 +77,6 @@ const ResourcesPage: React.FC<IProps> = ({
       textSide={"pl5-l fl-l"}
       title={`${translate.t("resources.elementsText.rules.rulesTitle")}`}
     />
-    <ResourcesElement
-      buttonDescription={`${translate.t(
-        "resources.elementsText.asserts.assertsButton"
-      )}`}
-      description={`${translate.t(
-        "resources.elementsText.asserts.assertsDescription"
-      )}`}
-      direction={"/products/asserts/"}
-      image={"resources/resource-asserts_fraxty"}
-      imageSide={"fl-l"}
-      textSide={"pr5-l fr-l"}
-      title={`${translate.t("resources.elementsText.asserts.assertsTitle")}`}
-    />
     <MenuList>
       <ResourcesMenuElements />
     </MenuList>
