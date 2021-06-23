@@ -273,10 +273,10 @@ export const Graphic: React.FC<IGraphicProps> = (
           onMouseEnter={panelOnMouseEnter}
           onMouseLeave={panelOnMouseLeave}
         >
-          <div ref={headRef}>
+          <div className={"report-title-pad"} ref={headRef}>
             <GraphicPanelCollapseHeader>
               <div className={styles.titleBar}>
-                <div className={"w-100"}>
+                <div className={"w-100 report-title"}>
                   {title}
                   {expanded &&
                     !reportMode &&
@@ -370,7 +370,9 @@ export const Graphic: React.FC<IGraphicProps> = (
             </div>
           </GraphicPanelCollapseBody>
           {!_.isUndefined(footer) && (
-            <GraphicPanelCollapseFooter> {footer} </GraphicPanelCollapseFooter>
+            <GraphicPanelCollapseFooter>
+              <div className={"report-footer"}>{footer}</div>
+            </GraphicPanelCollapseFooter>
           )}
         </GraphicPanelCollapse>
       </div>
