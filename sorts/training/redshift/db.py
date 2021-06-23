@@ -69,6 +69,17 @@ def initialize() -> None:
                     PRIMARY KEY (
                         timestamp
                     )
+                );
+                CREATE TABLE IF NOT EXISTS sorts.models (
+                    timestamp TIMESTAMPTZ,
+                    model VARCHAR(256),
+                    features VARCHAR(256),
+                    f_score INT,
+                    tuned_parameters VARCHAR(256),
+
+                    PRIMARY KEY (
+                        timestamp
+                    )
                 )
             """
         )
