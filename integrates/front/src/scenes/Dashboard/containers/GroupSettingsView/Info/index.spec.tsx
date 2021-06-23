@@ -24,9 +24,9 @@ describe("Info", (): void => {
       result: {
         data: {
           group: {
-            hasDrills: true,
             hasForces: true,
-            hasSkims: true,
+            hasMachine: true,
+            hasSquad: true,
             language: "EN",
             name: "TEST",
             subscription: "TEST",

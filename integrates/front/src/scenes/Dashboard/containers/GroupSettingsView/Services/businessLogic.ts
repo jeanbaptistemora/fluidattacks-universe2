@@ -64,12 +64,12 @@ const computeConfirmationMessage: (
   ),
   serviceDiff(
     "machine",
-    serviceStateToString(data.group.hasSkims),
+    serviceStateToString(data.group.hasMachine),
     serviceStateToString(form.machine)
   ),
   serviceDiff(
     "squad",
-    serviceStateToString(data.group.hasDrills),
+    serviceStateToString(data.group.hasSquad),
     serviceStateToString(form.squad)
   ),
   serviceDiff(
@@ -93,8 +93,8 @@ const isDowngradingServices: (data: IGroupData, form: IFormData) => boolean = (
 ): boolean =>
   [
     isDowngrading(true, form.asm),
-    isDowngrading(data.group.hasSkims, form.machine),
-    isDowngrading(data.group.hasDrills, form.squad),
+    isDowngrading(data.group.hasMachine, form.machine),
+    isDowngrading(data.group.hasSquad, form.squad),
     isDowngrading(data.group.hasForces, form.forces),
   ].some((result: boolean): boolean => result);
 

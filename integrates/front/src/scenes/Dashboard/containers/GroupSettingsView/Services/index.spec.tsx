@@ -39,9 +39,9 @@ describe("Services", (): void => {
       result: {
         data: {
           group: {
-            hasDrills: true,
             hasForces: true,
-            hasSkims: true,
+            hasMachine: true,
+            hasSquad: true,
             language: "EN",
             name: "unittesting",
             subscription: "CoNtInUoUs",
@@ -59,9 +59,9 @@ describe("Services", (): void => {
       result: {
         data: {
           group: {
-            hasDrills: true,
             hasForces: true,
-            hasSkims: true,
+            hasMachine: true,
+            hasSquad: true,
             language: "EN",
             name: "unittesting",
             subscription: "CoNtInUoUs",
@@ -79,9 +79,9 @@ describe("Services", (): void => {
       result: {
         data: {
           group: {
-            hasDrills: false,
             hasForces: false,
-            hasSkims: false,
+            hasMachine: false,
+            hasSquad: false,
             language: "EN",
             name: "unittesting",
             subscription: "OnEsHoT",
@@ -94,9 +94,9 @@ describe("Services", (): void => {
         query: EDIT_GROUP_DATA,
         variables: {
           groupName: "unittesting",
-          hasDrills: false,
           hasForces: false,
-          hasSkims: false,
+          hasMachine: false,
+          hasSquad: false,
           language: "EN",
           subscription: "CONTINUOUS",
         },

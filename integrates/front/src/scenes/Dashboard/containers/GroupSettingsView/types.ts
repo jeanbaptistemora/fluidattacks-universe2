@@ -9,7 +9,7 @@ interface IGroupTagsAttr {
 
 interface IRemoveTagsAttr {
   removeTag: {
-    project: {
+    group: {
       deletionDate: string;
       name: string;
       subscription: string;
@@ -21,7 +21,7 @@ interface IRemoveTagsAttr {
 
 interface IAddTagsAttr {
   addTags: {
-    project: {
+    group: {
       deletionDate: string;
       name: string;
       subscription: string;

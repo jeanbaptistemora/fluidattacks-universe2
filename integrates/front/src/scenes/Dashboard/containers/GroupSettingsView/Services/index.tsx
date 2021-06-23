@@ -326,9 +326,9 @@ const Services: React.FC<IServicesProps> = (
             comments: "",
             confirmation: "",
             forces: data.group.hasForces,
-            machine: data.group.hasSkims,
+            machine: data.group.hasMachine,
             reason: "NONE",
-            squad: data.group.hasDrills,
+            squad: data.group.hasSquad,
             type: data.group.subscription.toUpperCase(),
           }}
           name={"editGroup"}

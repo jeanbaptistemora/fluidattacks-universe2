@@ -12,9 +12,9 @@ interface IFormData {
 
 interface IGroupData {
   group: {
-    hasDrills: boolean;
+    hasSquad: boolean;
     hasForces: boolean;
-    hasSkims: boolean;
+    hasMachine: boolean;
     organization: {
       name: string;
     };
