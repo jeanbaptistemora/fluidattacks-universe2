@@ -4,9 +4,17 @@
 import os
 import tempfile
 from training.constants import (
+    MODEL_HYPERPARAMETERS,
     S3_BUCKET,
     S3_BUCKET_NAME,
     S3_RESOURCE,
+)
+from training.redshift import (
+    db as redshift,
+)
+from typing import (
+    Any,
+    Dict,
 )
 
 
@@ -23,6 +31,27 @@ def get_best_model_name(model_name_file: str) -> str:
         best_model = file.read()
 
     return best_model
+
+
+def send_to_redshift(best_model_name: str) -> None:
+    item: Dict[str, Any] = {}
+    model_info = best_model_name.split("-")
+    item["model"] = model_info[0]
+    item["f_score"] = model_info[1]
+    item["features"] = ",".join(
+        part for part in model_info[2:] if len(part) == 2
+    )
+    if "tune" in best_model_name:
+        tuned_parameters = MODEL_HYPERPARAMETERS[item["model"]].keys()
+        tuned_parameters_values = model_info[item["features"].count(",") + 4 :]
+        item["tuned_parameters"] = ",".join(
+            f"{key}:{value}"
+            for key, value in dict(
+                zip(tuned_parameters, tuned_parameters_values)
+            ).items()
+        )
+
+    redshift.insert("models", item)
 
 
 def main() -> None:
@@ -59,9 +88,10 @@ def main() -> None:
                 os.path.join(tmp_dir, best_current_model),
                 ExtraArgs={"ACL": "public-read"},
             )
-            print("[INFO]: There is a new improved model available")
+            send_to_redshift(best_current_model)
+            print("[INFO] There is a new improved model available")
         else:
-            print("[INFO]: There have not been any improvements in the model")
+            print("[INFO] There have not been any improvements in the model")
 
 
 if __name__ == "__main__":
