@@ -1,9 +1,3 @@
-from PIL import (
-    Image,
-)
-from aioextensions import (
-    in_thread,
-)
 from analytics import (
     dal as analytics_dal,
 )
@@ -13,9 +7,6 @@ from ariadne import (
 import authz
 import base64
 import botocore.exceptions
-from context import (
-    FI_CHARTS_LOGO_PATH,
-)
 from custom_exceptions import (
     DocumentNotFound,
 )
@@ -26,9 +17,6 @@ from custom_types import (
 )
 from functools import (
     partial,
-)
-from io import (
-    BytesIO,
 )
 import json
 import logging
@@ -70,43 +58,6 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 ALLOWED_CHARS_IN_PARAMS: str = string.ascii_letters + string.digits + "#-"
 ENTITIES = {"group", "organization", "portfolio"}
-TRANSPARENCY_RATIO: float = 0.40
-
-
-def add_watermark(base_image: Image) -> bytes:
-    watermark: Image = clarify(FI_CHARTS_LOGO_PATH)
-    watermark_width, watermark_height = watermark.size
-    width = max(base_image.width, watermark_width)
-    height = max(base_image.height, watermark_height)
-
-    transparent = Image.new("RGB", (width, height), (0, 0, 0, 0))
-    transparent.paste(base_image, (0, 0))
-    transparent.paste(
-        watermark,
-        ((width - watermark_width) // 2, (height - watermark_height) // 2),
-        watermark,
-    )
-
-    stream: BytesIO = BytesIO()
-    transparent.save(stream, format="png")
-    stream.seek(0)
-
-    image_encoded = base64.b64encode(stream.read())
-
-    return image_encoded
-
-
-def clarify(image_path: str) -> Image:
-    if not os.path.exists(image_path):
-        raise FileNotFoundError(image_path)
-
-    watermark = Image.open(image_path)
-    watermark_mask = watermark.convert("L").point(
-        lambda x: x * TRANSPARENCY_RATIO
-    )
-    watermark.putalpha(watermark_mask)
-
-    return watermark
 
 
 async def get_document(
@@ -175,9 +126,7 @@ async def get_graphics_report_no_cache(
     document: bytes = await analytics_dal.get_snapshot(
         f"reports/{entity}:{safe_encode(subject.lower())}.png",
     )
-    base_image: Image = Image.open(BytesIO(document))
-
-    return await in_thread(add_watermark, base_image)
+    return base64.b64encode(document)
 
 
 async def handle_authz_claims(
