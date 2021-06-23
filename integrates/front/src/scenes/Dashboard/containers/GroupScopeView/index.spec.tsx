@@ -102,7 +102,6 @@ describe("GroupScopeView", (): void => {
         "\u00a0Active\u00a0",
         // Cloning status
         "Unknown",
-        // Last cloning status update
       ].join("")
     );
   });
@@ -243,7 +242,6 @@ describe("GroupScopeView", (): void => {
         "\u00a0Active\u00a0",
         // Cloning status
         "Unknown",
-        // Last cloning status update
       ].join("")
     );
   });
@@ -420,7 +418,6 @@ describe("GroupScopeView", (): void => {
         "\u00a0Active\u00a0",
         // Cloning status
         "Unknown",
-        // Last cloning status update
       ].join("")
     );
   });

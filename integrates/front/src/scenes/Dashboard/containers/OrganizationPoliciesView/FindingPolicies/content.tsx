@@ -26,7 +26,6 @@ import {
 import { Button } from "components/Button";
 import type { IConfirmFn } from "components/ConfirmDialog";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import { dateFormatter } from "components/DataTableNext/formatters";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { statusFormatter } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/formatter";
 import {
@@ -37,6 +36,7 @@ import {
 import type { IFindingPoliciesData } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/types";
 import { GET_ORGANIZATION_POLICIES } from "scenes/Dashboard/containers/OrganizationPoliciesView/queries";
 import { authzPermissionsContext } from "utils/authz/config";
+import { formatIsoDate } from "utils/date";
 
 const StyledText = styled.input.attrs({
   className: "w-100 pa2 lh-copy bg-white bw0",
@@ -198,7 +198,7 @@ const OrganizationFindingPolicy: React.FC<IOrganizationFindingPolicies> = ({
           </p>
         </div>
         <div className={"w-20-l w-20-m w-40"}>
-          <p className={"f5 ma1 fr"}>{dateFormatter(lastStatusUpdate)}</p>
+          <p className={"f5 ma1 fr"}>{formatIsoDate(lastStatusUpdate)}</p>
         </div>
         {canDeactivateFindingPolicy || canHandleFindingPolicy ? (
           <div className={"w-10-l w-20-m w-30"}>

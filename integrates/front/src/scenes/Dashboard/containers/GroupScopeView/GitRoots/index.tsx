@@ -42,26 +42,13 @@ import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
 
-const formatList: (list: string[]) => JSX.Element = (list): JSX.Element => (
-  <p>
-    {list.map(
-      (item: string): JSX.Element => (
-        <React.Fragment key={item}>
-          {item}
-          <br />
-        </React.Fragment>
-      )
-    )}
-  </p>
-);
-
 interface IGitRootsProps {
   groupName: string;
   onUpdate: () => void;
   roots: IGitRootAttr[];
 }
 
-const GitRoots: React.FC<IGitRootsProps> = ({
+export const GitRoots: React.FC<IGitRootsProps> = ({
   groupName,
   onUpdate,
   roots,
@@ -111,15 +98,7 @@ const GitRoots: React.FC<IGitRootsProps> = ({
     "rootTableSet",
     {
       branch: true,
-      "cloningStatus.message": false,
       "cloningStatus.status": true,
-      environment: false,
-      environmentUrls: false,
-      "filter.exclude": true,
-      "filter.include": true,
-      lastCloningStatusUpdate: true,
-      lastStateStatusUpdate: false,
-      nickname: false,
       state: true,
       url: true,
     },
@@ -398,5 +377,3 @@ const GitRoots: React.FC<IGitRootsProps> = ({
     </React.Fragment>
   );
 };
-
-export { formatList, GitRoots };
