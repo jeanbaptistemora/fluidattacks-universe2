@@ -18,8 +18,8 @@ from typing import (
 @click.option("--project", type=str, required=True)
 @click.option("--max-pages", type=int, default=1000)
 @click.option("--all-streams", is_flag=True)
-@click.option(
-    "--name",
+@click.argument(
+    "name",
     type=click.Choice(
         [x.value for x in iter(SupportedStreams)], case_sensitive=False
     ),
@@ -42,9 +42,9 @@ def stream(
 
     creds = Credentials(api_key)
     if name:
-        executor.emit(creds, name, project, max_pages)
+        executor.defautl_stream(creds, name, project, max_pages)
     if all_streams:
-        executor.stream_all(creds, project, max_pages)
+        raise NotImplementedError()
 
 
 @click.group()

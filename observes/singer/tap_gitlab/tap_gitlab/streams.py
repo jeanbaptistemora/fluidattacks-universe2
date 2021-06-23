@@ -56,3 +56,24 @@ class JobStream(NamedTuple):
                 "scopes": (scope.value for scope in self.scopes),
             },
         }
+
+
+def default_mr_streams(proj_name: str) -> Tuple[MrStream, ...]:
+    proj = ProjectId.from_name(proj_name)
+    return (
+        MrStream(proj, MrState.closed),
+        MrStream(proj, MrState.locked),
+        MrStream(proj, MrState.merged),
+    )
+
+
+def default_job_stream(proj_name: str) -> JobStream:
+    proj = ProjectId.from_name(proj_name)
+    scopes = (
+        JobScope.failed,
+        JobScope.success,
+        JobScope.canceled,
+        JobScope.skipped,
+        JobScope.manual,
+    )
+    return JobStream(proj, scopes)
