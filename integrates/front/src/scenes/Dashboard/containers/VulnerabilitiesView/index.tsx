@@ -280,7 +280,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 <SelectContainer>
                   <TooltipWrapper
                     id={"searchFindings.tabVuln.treatmentStatus.id"}
-                    message={"searchFindings.tabVuln.treatmentStatus"}
+                    message={t("searchFindings.tabVuln.treatmentStatus")}
                   >
                     <Select
                       defaultValue={treatmentCurrentStatusFilter}

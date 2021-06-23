@@ -52,10 +52,9 @@ const TrackingView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <Row>
+        {/* Disable to apply custom styles. */}
         {/* eslint-disable-next-line react/forbid-component-props */}
         <Col80 className={style.trackGraph}>
-          {/* Disable to apply custom styles. */}
-          {/* eslint-disable-next-line react/forbid-component-props */}
           <ul className={style.timelineContainer}>
             {data.finding.tracking.map(
               (closing: IClosing): JSX.Element => (

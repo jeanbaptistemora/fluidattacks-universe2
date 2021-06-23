@@ -2145,6 +2145,8 @@ export const enTranslations: ResourceKey = {
         "Filter vulnerabilities based on their open / closed status",
       tabTitle: "Locations",
       tooltip: "Open / Closed vulnerabilities",
+      treatmentStatus:
+        "Filter vulnerabilities based on eternally accepted treatment acceptation",
       verified: "Verified",
       vulnTable: {
         currentTreatment: "Current",
