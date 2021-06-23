@@ -44,13 +44,13 @@ const capitalizeDashedString: (words: string) => string = (
 };
 
 const stringToUri = (word: string): string => {
-  word
+  const newWord = word
     .toLowerCase()
     .replace(" ", "-")
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
 
-  return word;
+  return newWord;
 };
 
 export {
