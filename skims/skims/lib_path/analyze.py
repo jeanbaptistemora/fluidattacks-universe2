@@ -9,7 +9,6 @@ from lib_path import (
     f022,
     f024_aws,
     f031_aws,
-    f031_cwe378,
     f052,
     f055_aws_missing_encryption,
     f060,
@@ -57,7 +56,6 @@ CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
     (core_model.FindingEnum.F022, f022.analyze),
     (core_model.FindingEnum.F024_AWS, f024_aws.analyze),
     (core_model.FindingEnum.F031_AWS, f031_aws.analyze),
-    (core_model.FindingEnum.F031_CWE378, f031_cwe378.analyze),
     (core_model.FindingEnum.F052, f052.analyze),
     (
         core_model.FindingEnum.F055_AWS_MISSING_ENCRYPTION,

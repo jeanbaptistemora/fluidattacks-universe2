@@ -1,6 +1,10 @@
 from contextlib import (
     suppress,
 )
+from lib_root import (
+    yield_java_method_invocation,
+    yield_java_object_creation,
+)
 from model import (
     core_model,
     graph_model,
@@ -9,9 +13,7 @@ from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
 from typing import (
-    Iterable,
     Set,
-    Tuple,
 )
 from utils import (
     graph as g,
@@ -40,64 +42,6 @@ def _vuln_cipher_get_instance(transformation: str) -> bool:
     )
 
 
-def _yield_java_method_invocation(
-    graph_db: graph_model.GraphDB,
-) -> Iterable[Tuple[graph_model.GraphShard, str, str]]:
-    for shard in graph_db.shards_by_langauge(
-        graph_model.GraphShardMetadataLanguage.JAVA,
-    ):
-        for method_id in g.filter_nodes(
-            shard.graph,
-            nodes=shard.graph.nodes,
-            predicate=g.pred_has_labels(label_type="method_invocation"),
-        ):
-            match = g.match_ast_group(
-                shard.graph,
-                method_id,
-                "argument_list",
-                "identifier",
-                "field_access",
-            )
-            method_name = g.concatenate_label_text(
-                shard.graph, match["identifier"], separator="."
-            )
-            if match["field_access"]:
-                base_name = shard.graph.nodes[match["field_access"][0]][
-                    "label_text"
-                ]
-                method_name = base_name + "." + method_name
-            yield shard, method_id, method_name
-
-
-def _yield_java_object_creation(
-    graph_db: graph_model.GraphDB,
-) -> Iterable[Tuple[graph_model.GraphShard, str, str]]:
-    for shard in graph_db.shards_by_langauge(
-        graph_model.GraphShardMetadataLanguage.JAVA,
-    ):
-        for object_id in g.filter_nodes(
-            shard.graph,
-            nodes=shard.graph.nodes,
-            predicate=g.pred_has_labels(
-                label_type="object_creation_expression"
-            ),
-        ):
-            match = g.match_ast(
-                shard.graph,
-                object_id,
-                "new",
-                "argument_list",
-                "type_identifier",
-                "scoped_type_identifier",
-            )
-            if scoped_type := match["scoped_type_identifier"]:
-                type_name = shard.graph.nodes[scoped_type]["label_text"]
-                yield shard, object_id, type_name
-            elif type_identifier := match["type_identifier"]:
-                type_name = shard.graph.nodes[type_identifier]["label_text"]
-                yield shard, object_id, type_name
-
-
 def _csharp_yield_member_access(
     graph_db: graph_model.GraphDB, members: Set[str]
 ) -> graph_model.GraphShardNodes:
@@ -117,7 +61,7 @@ def _csharp_yield_member_access(
 def _java_yield_insecure_ciphers(
     graph_db: graph_model.GraphDB,
 ) -> graph_model.GraphShardNodes:
-    for shard, method_id, method_name in _yield_java_method_invocation(
+    for shard, method_id, method_name in yield_java_method_invocation(
         graph_db
     ):
         match = g.match_ast_group(
@@ -191,7 +135,7 @@ def _java_yield_insecure_hash(
         "com.google.common.hash.Hashing.sha1",
         "java.security.spec.MGF1ParameterSpec.SHA1",
     }
-    for shard, method_id, method_name in _yield_java_method_invocation(
+    for shard, method_id, method_name in yield_java_method_invocation(
         graph_db
     ):
         if method_name in complete_attrs_on_set(insecure_digests):
@@ -275,7 +219,7 @@ def _java_yield_insecure_key(
         "brainpoolp192r1",
         "brainpoolp192t1",
     }
-    for shard, object_id, type_name in _yield_java_object_creation(graph_db):
+    for shard, object_id, type_name in yield_java_object_creation(graph_db):
         match = g.match_ast(
             shard.graph,
             object_id,
@@ -324,7 +268,7 @@ def _java_yield_insecure_pass(
             f"{framework}.crypto.scrypt.SCryptPasswordEncoder",
         }
     )
-    for shard, object_id, type_name in _yield_java_object_creation(graph_db):
+    for shard, object_id, type_name in yield_java_object_creation(graph_db):
         if type_name in insecure_instances:
             yield shard, object_id
 

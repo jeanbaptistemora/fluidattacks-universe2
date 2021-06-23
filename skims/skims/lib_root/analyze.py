@@ -5,6 +5,7 @@ from lib_path.common import (
     SHIELD,
 )
 from lib_root import (
+    f031_cwe378,
     f052,
     f060,
     f061,
@@ -40,6 +41,7 @@ from utils.logs import (
 )
 
 QUERIES: graph_model.Queries = (
+    *f031_cwe378.QUERIES,
     *f052.QUERIES,
     *f060.QUERIES,
     *f061.QUERIES,
