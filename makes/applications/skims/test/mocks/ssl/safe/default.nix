@@ -3,6 +3,7 @@
 , makeTemplate
 , path
 , sslCerts
+, packages
 , ...
 }:
 makeEntrypoint {
@@ -45,8 +46,9 @@ makeEntrypoint {
       nixpkgs.openssl.out
     ];
     envPaths = [
+      packages.makes.kill-port
       nixpkgs.nginxLocal
     ];
   };
-  template = "nginx -c __envConfig__";
+  template = path "/makes/applications/skims/test/mocks/ssl/safe/entrypoint.sh";
 }

@@ -166,6 +166,13 @@ def _execute_command(cmd: List[str]) -> Iterator[None]:
             process.terminate()
 
 
+def _execute_and_wait_command(cmd: List[str]) -> int:
+    exit_code: int = -1
+    with subprocess.Popen(cmd) as process:
+        exit_code = process.wait()
+    return exit_code
+
+
 @pytest.fixture(autouse=False, scope="session")
 def test_mocks_http() -> Iterator[None]:
     yield from _execute_command(
@@ -176,8 +183,10 @@ def test_mocks_http() -> Iterator[None]:
 @pytest.fixture(autouse=False, scope="session")
 def test_mocks_ssl_safe() -> Iterator[None]:
     yield from _execute_command(["skims-test-mocks-ssl-safe"])
+    _execute_and_wait_command(["makes-kill-port", "4445"])
 
 
 @pytest.fixture(autouse=False, scope="session")
 def test_mocks_ssl_unsafe() -> Iterator[None]:
     yield from _execute_command(["skims-test-mocks-ssl-unsafe"])
+    _execute_and_wait_command(["makes-kill-port", "4446"])
