@@ -1,4 +1,5 @@
 from custom_exceptions import (
+    InvalidStream,
     InvalidVulnCommitHash,
     InvalidVulnerabilityAlreadyExists,
     InvalidVulnSpecific,
@@ -14,6 +15,9 @@ from string import (
 from typing import (
     List,
     Set,
+)
+from urllib.parse import (
+    urlparse,
 )
 from vulnerabilities.domain.utils import (
     get_hash,
@@ -51,6 +55,15 @@ def validate_commit_hash(vuln_commit: str) -> None:
         set(vuln_commit)
     ):
         raise InvalidVulnCommitHash.new()
+
+
+def validate_stream(where: str, stream: str) -> bool:
+    url_parsed = urlparse(where)
+    if len(url_parsed.path) == 0 or url_parsed.path == "/":
+        if stream.lower().startswith("home,"):
+            return True
+        raise InvalidStream()
+    return True
 
 
 def validate_where(where: str) -> None:
