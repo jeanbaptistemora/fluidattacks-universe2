@@ -4217,28 +4217,34 @@ F061,lines,namespace/skims/test/data/lib_path/f061/csharp.cs,12,390,skims,F061. 
      ^ Col 0
 "
 F061,lines,namespace/skims/test/data/lib_path/f031_cwe378/Test.java,7,390,skims,F061. Errors without traceability,Empty Java catch in skims/test/data/lib_path/f031_cwe378/Test.java,"
-   1 | import java.io.File;
+   1 | mport java.io.File;
    2 |
-   3 | public class Test {
-   4 |     public static void main(String[] args){
-   5 |         try {
-   6 |         System.out.println(File.createTempFile(""xxx"", null));
->  7 |         } catch (Exception e) {}
-   8 |     }
-   9 | }
+   3 | ublic class Test {
+   4 |    public static void main(String[] args){
+   5 |        try {
+   6 |        System.out.println(File.createTempFile(""xxx"", null));
+>  7 |        } catch (Exception e) {}
+   8 |    }
+   9 |
   10 |
-  11 | /*
-  12 |  * $ ls -al $(javac Test.java && java Test)
-  13 |  *
-  14 |  * -rw-r--r-- 1 kamado kamado 0 Aug 28 14:44 /tmp/xxx948760279845756007.tmp
-  15 |  *
-  16 |  */
-     ^ Col 0
+  11 | *
+  12 | * $ ls -al $(javac Test.java && java Test)
+  13 | *
+  14 | * -rw-r--r-- 1 kamado kamado 0 Aug 28 14:44 /tmp/xxx948760279845756007.tmp
+  15 | *
+  16 | */
+     ^ Col 1
 "
-F061,lines,namespace/skims/test/data/lib_path/f061/java.java,2,390,skims,F061. Errors without traceability,Empty Java catch in skims/test/data/lib_path/f061/java.java,"
-    | try {
-> 2 | } catch (ArithmeticException e) { /* Unhandled */ }
-    ^ Col 0
+F061,lines,namespace/skims/test/data/lib_path/f061/java.java,6,390,skims,F061. Errors without traceability,Empty Java catch in skims/test/data/lib_path/f061/java.java,"
+  1 |
+  2 | static void main(String[] args) {
+  3 |  {
+  4 |  int value = 39 / 0;
+  5 |  int value = 39 / 0;
+> 6 | atch (ArithmeticException e) { /* Unhandled */ }
+  7 |
+  8 |
+    ^ Col 11
 "
 F061,lines,namespace/skims/test/data/lib_path/f061/javascript.js,5,390,skims,F061. Errors without traceability,Empty Javascript catch in skims/test/data/lib_path/f061/javascript.js,"
   1 | try {
