@@ -33,7 +33,8 @@ def get_best_model_name(model_name_file: str) -> str:
     return best_model
 
 
-def send_to_redshift(best_model_name: str) -> None:
+def get_model_item(best_model_name: str) -> Dict[str, Any]:
+    """ Returns a dict containing model info ready to be sent to Redshift"""
     item: Dict[str, Any] = {}
     model_info = best_model_name.split("-")
     item["model"] = model_info[0]
@@ -51,7 +52,7 @@ def send_to_redshift(best_model_name: str) -> None:
             ).items()
         )
 
-    redshift.insert("models", item)
+    return item
 
 
 def main() -> None:
@@ -88,7 +89,7 @@ def main() -> None:
                 os.path.join(tmp_dir, best_current_model),
                 ExtraArgs={"ACL": "public-read"},
             )
-            send_to_redshift(best_current_model)
+            redshift.insert("models", get_model_item(best_current_model))
             print("[INFO] There is a new improved model available")
         else:
             print("[INFO] There have not been any improvements in the model")
