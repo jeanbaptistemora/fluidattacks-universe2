@@ -1,5 +1,8 @@
 import csv
 import os
+from training.evaluate_results import (
+    get_model_item,
+)
 from training.training_script.train import (
     get_best_combination,
     get_features_combinations,
@@ -62,3 +65,23 @@ def test_get_features_combinations() -> None:
         ["num_commits", "file_age", "seldom_contributors"]
     )
     assert combinations == expected_result
+
+
+def test_get_model_item() -> None:
+    expected_item = {
+        "model": "adaboostclassifier",
+        "f_score": "74",
+        "features": "au,lc",
+        "tuned_parameters": "algorithm:samme,n_estimators:52",
+    }
+    item = get_model_item("adaboostclassifier-74-au-lc-tune-samme-52")
+    assert item == expected_item
+
+    expected_item = {
+        "model": "mlpclassifier",
+        "f_score": "76",
+        "features": "au,cf,lc",
+        "tuned_parameters": "activation:tanh,solver:sgd",
+    }
+    item = get_model_item("mlpclassifier-76-au-cf-lc-tune-tanh-sgd")
+    assert item == expected_item

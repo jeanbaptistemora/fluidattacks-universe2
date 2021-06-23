@@ -40,7 +40,9 @@ def get_model_item(best_model_name: str) -> Dict[str, Any]:
     item["model"] = model_info[0]
     item["f_score"] = model_info[1]
     item["features"] = ",".join(
-        part for part in model_info[2:] if len(part) == 2
+        part
+        for part in model_info[2:]
+        if len(part) == 2 and not part.isnumeric()
     )
     if "tune" in best_model_name:
         tuned_parameters = MODEL_HYPERPARAMETERS[item["model"]].keys()
