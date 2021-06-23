@@ -50,7 +50,10 @@ from utils.encodings import (
             "findings",
         ),
         (
-            ("skims/test/data/sast/TestCFG.java",),
+            (
+                "skims/test/data/sast/TestCFG.java",
+                "skims/test/data/sast/test_cfg.go",
+            ),
             "cfg",
         ),
         (
