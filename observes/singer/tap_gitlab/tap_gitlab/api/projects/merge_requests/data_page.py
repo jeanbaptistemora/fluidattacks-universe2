@@ -69,8 +69,6 @@ class Options(NamedTuple):
     updated_before: Optional[datetime] = None
     scope: Optional[Scope] = None
     state: Optional[State] = None
-    order_by: Optional[OrderBy] = None
-    sort: Optional[Sort] = None
 
     def to_dict(self) -> Dict[str, str]:
         obj = {}
@@ -82,10 +80,8 @@ class Options(NamedTuple):
             obj["scope"] = self.scope.value
         if self.state:
             obj["state"] = self.state.value
-        if self.order_by:
-            obj["order_by"] = self.order_by.value
-        if self.sort:
-            obj["sort"] = self.sort.value
+        obj["order_by"] = OrderBy.updated_at.value
+        obj["sort"] = Sort.descendant.value
         return obj
 
 
@@ -118,7 +114,7 @@ def list_mrs(
     client: RawClient,
     proj: ProjectId,
     page: PageId[int],
-    options: Optional[Options],
+    options: Options,
 ) -> IO[Maybe[MrsPage]]:
     url = "/projects/{}/merge_requests".format(str(proj.proj_id))
     params = options.to_dict() if options else {}

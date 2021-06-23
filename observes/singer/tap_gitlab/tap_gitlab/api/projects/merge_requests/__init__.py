@@ -49,12 +49,6 @@ class InvalidPage(Exception):
 
 
 def _extract_next_item(page: MrsPage) -> Maybe[datetime]:
-    if not page.options:
-        raise InvalidPage("MrsPage must have explicit options")
-    if page.options.sort != Sort.descendant:
-        raise InvalidPage("MrsPage must have explicit sort=descendant")
-    if page.options.order_by != OrderBy.updated_at:
-        raise InvalidPage("MrsPage must have explicit order_by=updated_at")
     older_item = Maybe.from_optional(page.data[-1] if page.data else None)
     older_date = older_item.map(
         lambda item: dateutil.parser.parse(item["updated_at"])
@@ -96,8 +90,6 @@ class MrApi(NamedTuple):
                     updated_before=page.page,
                     scope=self.scope,
                     state=self.state,
-                    order_by=OrderBy.updated_at,
-                    sort=Sort.descendant,
                 ),
             ).map(_to_page_result)
 
@@ -117,7 +109,5 @@ class MrApi(NamedTuple):
                 updated_before=updated_before,
                 scope=self.scope,
                 state=self.state,
-                order_by=OrderBy.updated_at,
-                sort=sort,
             ),
         )

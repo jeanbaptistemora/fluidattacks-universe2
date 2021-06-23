@@ -89,7 +89,7 @@ class Emitter(Immutable):
         start = PageId(datetime.now(pytz.utc), 100)
         pages = (
             self.api.project(stream.project)
-            .mrs()
+            .mrs(stream.scope, stream.mr_state)
             .list_all_updated_before(start)
         )
         _stream_data(SupportedStreams.MERGE_REQUESTS, pages, self.max_pages)
@@ -98,5 +98,9 @@ class Emitter(Immutable):
         self, stream: JobStream, _state: Optional[JobStreamState] = None
     ) -> None:
         start = PageId(1, 100)
-        pages = self.api.project(stream.project).jobs().list_all(start)
+        pages = (
+            self.api.project(stream.project)
+            .jobs(list(stream.scopes))
+            .list_all(start)
+        )
         _stream_data(SupportedStreams.JOBS, pages, self.max_pages)

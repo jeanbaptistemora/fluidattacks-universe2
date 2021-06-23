@@ -13,6 +13,7 @@ from tap_gitlab.api.projects.jobs.page import (
 )
 from tap_gitlab.api.projects.merge_requests.data_page import (
     MrsPage,
+    Scope as MrScope,
     State as MrState,
 )
 from typing import (
@@ -32,6 +33,7 @@ ApiPage = Union[MrsPage, JobsPage]
 
 class MrStream(NamedTuple):
     project: ProjectId
+    scope: MrScope
     mr_state: MrState
 
     def to_json(self) -> JSON:
@@ -39,6 +41,7 @@ class MrStream(NamedTuple):
             "type": "MrStream",
             "obj": {
                 "project": self.project.proj_id,
+                "scope": self.scope.value,
                 "mr_state": self.mr_state.value,
             },
         }
@@ -61,9 +64,8 @@ class JobStream(NamedTuple):
 def default_mr_streams(proj_name: str) -> Tuple[MrStream, ...]:
     proj = ProjectId.from_name(proj_name)
     return (
-        MrStream(proj, MrState.closed),
-        MrStream(proj, MrState.locked),
-        MrStream(proj, MrState.merged),
+        MrStream(proj, MrScope.all, MrState.closed),
+        MrStream(proj, MrScope.all, MrState.merged),
     )
 
 
