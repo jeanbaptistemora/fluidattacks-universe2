@@ -88,7 +88,7 @@ def main() -> None:
             S3_RESOURCE.Object(
                 S3_BUCKET_NAME, "training-output/model.joblib"
             ).upload_file(
-                os.path.join(tmp_dir, best_current_model),
+                os.path.join(tmp_dir, best_current_model[:-7]),
                 ExtraArgs={"ACL": "public-read"},
             )
             redshift.insert("models", get_model_item(best_current_model))
