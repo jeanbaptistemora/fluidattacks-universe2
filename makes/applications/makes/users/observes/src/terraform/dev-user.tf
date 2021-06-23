@@ -12,7 +12,16 @@ data "aws_iam_policy_document" "dev-policy-data" {
       "arn:aws:s3:::fluidattacks-terraform-states-prod/*"
     ]
   }
-
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:ListBucket",
+      "s3:Get*"
+    ]
+    resources = [
+      "arn:aws:s3:::observes.*"
+    ]
+  }
   # IAM
   statement {
     effect = "Allow"
