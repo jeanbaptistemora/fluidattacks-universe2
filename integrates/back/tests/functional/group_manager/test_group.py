@@ -17,18 +17,18 @@ from typing import (
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("old")
-async def test_project() -> None:  # pylint: disable=too-many-statements
+async def test_group() -> None:  # pylint: disable=too-many-statements
     org_name = "okada"
     group_name = await get_name("group")
     query = f"""
         mutation {{
-            createProject(
+            createGroup(
                 organization: "{org_name}",
-                description: "This is a new project from pytest",
-                projectName: "{group_name}",
+                description: "This is a new group from pytest",
+                groupName: "{group_name}",
                 subscription: CONTINUOUS,
-                hasSkims: true,
-                hasDrills: true,
+                hasMachine: true,
+                hasSquad: true,
                 hasForces: true
             ) {{
             success
@@ -38,19 +38,19 @@ async def test_project() -> None:  # pylint: disable=too-many-statements
     data: Dict[str, Any] = {"query": query}
     result = await get_result(data, stakeholder="integratesmanager@gmail.com")
     assert "errors" not in result
-    assert "success" in result["data"]["createProject"]
-    assert result["data"]["createProject"]["success"]
+    assert "success" in result["data"]["createGroup"]
+    assert result["data"]["createGroup"]["success"]
 
     group_name2 = await get_name("group")
     query = f"""
         mutation {{
-            createProject(
+            createGroup(
                 organization: "{org_name}",
-                description: "This is a new project from pytest",
-                projectName: "{group_name2}",
+                description: "This is a new group from pytest",
+                groupName: "{group_name2}",
                 subscription: CONTINUOUS,
-                hasSkims: true,
-                hasDrills: true,
+                hasMachine: true,
+                hasSquad: true,
                 hasForces: true
             ) {{
             success
@@ -60,8 +60,8 @@ async def test_project() -> None:  # pylint: disable=too-many-statements
     data = {"query": query}
     result = await get_result(data, stakeholder="integratesmanager@gmail.com")
     assert "errors" not in result
-    assert "success" in result["data"]["createProject"]
-    assert result["data"]["createProject"]["success"]
+    assert "success" in result["data"]["createGroup"]
+    assert result["data"]["createGroup"]["success"]
 
     role = "GROUP_MANAGER"
     groupmanager_email = "unittest2@fluidattacks.com"
@@ -70,7 +70,7 @@ async def test_project() -> None:  # pylint: disable=too-many-statements
             editStakeholder (
                 email: "{groupmanager_email}",
                 phoneNumber: "-",
-                projectName: "{group_name}",
+                groupName: "{group_name}",
                 responsibility: "Group manager",
                 role: {role}
             ) {{
@@ -88,7 +88,7 @@ async def test_project() -> None:  # pylint: disable=too-many-statements
             editStakeholder (
                 email: "{groupmanager_email}",
                 phoneNumber: "-",
-                projectName: "{group_name2}",
+                groupName: "{group_name2}",
                 responsibility: "Group manager",
                 role: {role}
             ) {{
@@ -118,10 +118,10 @@ async def test_project() -> None:  # pylint: disable=too-many-statements
 
     query = f"""
         mutation {{
-            addProjectConsult(
+            addGroupConsult(
                 content: "Test consult",
                 parent: "0",
-                projectName: "{group_name}",
+                groupName: "{group_name}",
             ) {{
                 success
                 commentId
@@ -131,23 +131,23 @@ async def test_project() -> None:  # pylint: disable=too-many-statements
     data = {"query": query}
     result = await get_result(data)
     assert "errors" not in result
-    assert "success" in result["data"]["addProjectConsult"]
-    assert result["data"]["addProjectConsult"]["success"]
+    assert "success" in result["data"]["addGroupConsult"]
+    assert result["data"]["addGroupConsult"]["success"]
 
     query = """
         mutation AddTagsMutation(
-            $projectName: String!,
+            $groupName: String!,
             $tagsData: JSONString!
         ) {
             addTags (
                 tags: $tagsData,
-                projectName: $projectName) {
+                groupName: $groupName) {
                 success
             }
         }
     """
     variables = {
-        "projectName": group_name,
+        "groupName": group_name,
         "tagsData": json.dumps(["testing"]),
     }
     data = {"query": query, "variables": variables}
@@ -158,14 +158,14 @@ async def test_project() -> None:  # pylint: disable=too-many-statements
 
     query = f"""
         query {{
-            project(projectName: "{group_name}"){{
+            group(groupName: "{group_name}"){{
                 name
-                hasDrills
+                hasSquad
                 hasForces
                 findings {{
                     analyst
                 }}
-                hasIntegrates
+                hasAsm
                 openVulnerabilities
                 closedVulnerabilities
                 lastClosingVuln
@@ -208,43 +208,43 @@ async def test_project() -> None:  # pylint: disable=too-many-statements
     data = {"query": query}
     result = await get_result(data)
     assert "errors" not in result
-    assert result["data"]["project"]["name"] == group_name
-    assert result["data"]["project"]["hasDrills"]
-    assert result["data"]["project"]["hasForces"]
-    assert result["data"]["project"]["hasIntegrates"]
-    assert result["data"]["project"]["findings"] == []
-    assert result["data"]["project"]["openVulnerabilities"] == 0
-    assert result["data"]["project"]["closedVulnerabilities"] == 0
-    assert result["data"]["project"]["lastClosingVuln"] == 0
-    assert result["data"]["project"]["maxSeverity"] == 0.0
-    assert result["data"]["project"]["meanRemediate"] == 0
-    assert result["data"]["project"]["meanRemediateLowSeverity"] == 0
-    assert result["data"]["project"]["meanRemediateMediumSeverity"] == 0
-    assert result["data"]["project"]["openFindings"] == 0
-    assert result["data"]["project"]["totalFindings"] == 0
-    assert result["data"]["project"]["totalTreatment"] == "{}"
-    assert result["data"]["project"]["subscription"] == "continuous"
-    assert result["data"]["project"]["deletionDate"] == ""
-    assert result["data"]["project"]["userDeletion"] == ""
-    assert result["data"]["project"]["tags"] == ["testing"]
+    assert result["data"]["group"]["name"] == group_name
+    assert result["data"]["group"]["hasSquad"]
+    assert result["data"]["group"]["hasForces"]
+    assert result["data"]["group"]["hasAsm"]
+    assert result["data"]["group"]["findings"] == []
+    assert result["data"]["group"]["openVulnerabilities"] == 0
+    assert result["data"]["group"]["closedVulnerabilities"] == 0
+    assert result["data"]["group"]["lastClosingVuln"] == 0
+    assert result["data"]["group"]["maxSeverity"] == 0.0
+    assert result["data"]["group"]["meanRemediate"] == 0
+    assert result["data"]["group"]["meanRemediateLowSeverity"] == 0
+    assert result["data"]["group"]["meanRemediateMediumSeverity"] == 0
+    assert result["data"]["group"]["openFindings"] == 0
+    assert result["data"]["group"]["totalFindings"] == 0
+    assert result["data"]["group"]["totalTreatment"] == "{}"
+    assert result["data"]["group"]["subscription"] == "continuous"
+    assert result["data"]["group"]["deletionDate"] == ""
+    assert result["data"]["group"]["userDeletion"] == ""
+    assert result["data"]["group"]["tags"] == ["testing"]
     assert (
-        result["data"]["project"]["description"]
-        == "This is a new project from pytest"
+        result["data"]["group"]["description"]
+        == "This is a new group from pytest"
     )
-    assert result["data"]["project"]["consulting"] == [
+    assert result["data"]["group"]["consulting"] == [
         {"content": "Test consult"}
     ]
-    assert result["data"]["project"]["drafts"] == []
-    assert result["data"]["project"]["events"] == []
+    assert result["data"]["group"]["drafts"] == []
+    assert result["data"]["group"]["events"] == []
     assert {
         "email": "unittest2@fluidattacks.com",
         "role": "group_manager",
-    } in result["data"]["project"]["stakeholders"]
+    } in result["data"]["group"]["stakeholders"]
     assert {
         "email": f"forces.{group_name}@fluidattacks.com",
         "role": "service_forces",
-    } in result["data"]["project"]["stakeholders"]
-    assert result["data"]["project"]["serviceAttributes"] == [
+    } in result["data"]["group"]["stakeholders"]
+    assert result["data"]["group"]["serviceAttributes"] == [
         "has_drills_white",
         "has_forces",
         "has_integrates",
@@ -252,11 +252,11 @@ async def test_project() -> None:  # pylint: disable=too-many-statements
         "is_fluidattacks_customer",
         "must_only_have_fluidattacks_hackers",
     ]
-    assert result["data"]["project"]["bill"] == {"authors": []}
+    assert result["data"]["group"]["bill"] == {"authors": []}
 
     query = f"""
         query {{
-            project(projectName: "{group_name}"){{
+            group(groupName: "{group_name}"){{
                 findings(
                     filters: {{
                         affectedSystems: "test",
@@ -271,11 +271,11 @@ async def test_project() -> None:  # pylint: disable=too-many-statements
     data = {"query": query}
     result = await get_result(data)
     assert "errors" not in result
-    assert result["data"]["project"]["findings"] == []
+    assert result["data"]["group"]["findings"] == []
 
     query = f"""
         query {{
-            project(projectName: "{group_name}"){{
+            group(groupName: "{group_name}"){{
                 findings(filters: {{affectedSystems: "notexists"}}) {{
                     id
                 }}
@@ -285,13 +285,13 @@ async def test_project() -> None:  # pylint: disable=too-many-statements
     data = {"query": query}
     result = await get_result(data)
     assert "errors" not in result
-    assert result["data"]["project"]["findings"] == []
+    assert result["data"]["group"]["findings"] == []
 
     query = f"""
         mutation {{
             removeTag (
                 tag: "testing",
-                projectName: "{group_name}",
+                groupName: "{group_name}",
             ) {{
                 success
             }}
@@ -305,7 +305,7 @@ async def test_project() -> None:  # pylint: disable=too-many-statements
 
     query = f"""
         query {{
-            project(projectName: "{group_name}"){{
+            group(groupName: "{group_name}"){{
                 tags
             }}
         }}
@@ -313,7 +313,7 @@ async def test_project() -> None:  # pylint: disable=too-many-statements
     data = {"query": query}
     result = await get_result(data)
     assert "errors" not in result
-    assert result["data"]["project"]["tags"] == []
+    assert result["data"]["group"]["tags"] == []
 
     query = f"""
       mutation {{
@@ -335,7 +335,7 @@ async def test_project() -> None:  # pylint: disable=too-many-statements
 
     query = f"""
         query {{
-          group: project(projectName: "{group_name}") {{
+          group(groupName: "{group_name}") {{
             roots {{
               __typename
               ...on GitRoot {{
@@ -368,10 +368,10 @@ async def test_project() -> None:  # pylint: disable=too-many-statements
                 comments: "",
                 groupName: "{group_name}",
                 subscription: ONESHOT,
-                hasDrills: false,
+                hasSquad: false,
                 hasForces: false,
-                hasIntegrates: false,
-                hasSkims: false,
+                hasAsm: false,
+                hasMachine: false,
                 reason: NONE,
             ) {{
                 success
@@ -386,10 +386,10 @@ async def test_project() -> None:  # pylint: disable=too-many-statements
 
     query = f"""
         query {{
-            project(projectName: "{group_name}"){{
-                hasDrills
+            group(groupName: "{group_name}"){{
+                hasSquad
                 hasForces
-                hasIntegrates
+                hasAsm
                 subscription
                 __typename
             }}
