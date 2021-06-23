@@ -506,7 +506,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
             }
             to={"https://docs.fluidattacks.com/"}
           >
-            {"Community"}
+            {"Documentation"}
           </Link>
         </ListItem>
       </ContentList>
