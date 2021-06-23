@@ -14,8 +14,7 @@ F055_APK_BACKUPS.description:
     (Android Debug Bridge).
     The backups performed by this functionality
     are not encrypted.
-    Moreover,
-    sensitive data of authenticated users
+    Sensitive data of authenticated users
     can be included in the backup,
     and this data can be extracted
     by a non-authenticated attacker.
@@ -27,15 +26,14 @@ F055_APK_BACKUPS.description:
     La aplicación permite realizar copias de seguridad a través de ADB
     (Android Debug Bridge).
     Las copias de seguridad realizadas por esta funcionalidad
-    no están encriptados.
-    Es más,
-    datos sensibles de usuarios autenticados
+    no están cifradas.
+    Los datos sensibles de usuarios autenticados
     se puede incluir en la copia de seguridad,
     y estos datos se pueden extraer
     por un atacante no autenticado.
     Adicionalmente,
-    los datos se pueden copiar en una memoria USB
-    y ser sacado de la esfera de control
+    los datos pueden copiarse en una memoria USB
+    y llevarse fuera de la esfera de control
     de la aplicación.
 F055_APK_BACKUPS.impact:
   en: Leak sensitive information through backups.
