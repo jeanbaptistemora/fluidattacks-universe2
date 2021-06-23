@@ -42,7 +42,7 @@ def stream(
 
     creds = Credentials(api_key)
     if name:
-        executor.stream(creds, name, project, max_pages)
+        executor.emit(creds, name, project, max_pages)
     if all_streams:
         executor.stream_all(creds, project, max_pages)
 
