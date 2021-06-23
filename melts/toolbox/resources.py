@@ -8,6 +8,7 @@ from alive_progress import (
 import base64
 from contextlib import (
     contextmanager,
+    suppress,
 )
 from datetime import (
     datetime,
@@ -104,7 +105,8 @@ def ls_remote(url: str) -> Dict[str, Any]:
     try:
         for ref in remote.ls_remote(url).split("\n"):
             hash_ref_list = ref.split("\t")
-            remote_refs[hash_ref_list[1]] = hash_ref_list[0]
+            with suppress(IndexError):
+                remote_refs[hash_ref_list[1]] = hash_ref_list[0]
         return {"ok": remote_refs}
     except GitCommandError as exc:
         return {"error": {"message": exc.stderr, "status": exc.status}}
