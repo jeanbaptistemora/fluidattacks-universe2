@@ -14,7 +14,7 @@ import {
   NavbarSubcategory,
 } from "../../../styles/styledComponents";
 import { CloudImage } from "../../CloudImage";
-import { Menu } from "../Menu/newIndex";
+import { Menu } from "../Menu";
 
 const NavbarItems: React.FC = (): JSX.Element => (
   <NavbarList className={"roboto"} id={"navbar_list"}>
