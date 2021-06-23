@@ -24,6 +24,7 @@ import { setReportType } from "./helpers";
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { limitFormatter } from "components/DataTableNext/formatters";
+import { useRowExpand } from "components/DataTableNext/hooks/useRowExpand";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -38,10 +39,7 @@ import type {
   IFindingAttr,
   IGroupFindingsAttr,
 } from "scenes/Dashboard/containers/GroupFindingsView/types";
-import {
-  formatFindings,
-  getIndexFromIds,
-} from "scenes/Dashboard/containers/GroupFindingsView/utils";
+import { formatFindings } from "scenes/Dashboard/containers/GroupFindingsView/utils";
 import {
   ButtonToolbar,
   ButtonToolbarCenter,
@@ -293,50 +291,14 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     }
   };
 
-  const [expandedIdRows, setExpandedIdRows] = useStoredState<number[]>(
-    "findingExpandedIdRows",
-    [],
-    sessionStorage,
-    true
-  );
-
   const findings: IFindingAttr[] =
     data === undefined ? [] : formatFindings(data.group.findings);
 
-  const handleRowExpand = (row: IFindingAttr, isExpand: boolean): void => {
-    setExpandedIdRows((prevValues): number[] =>
-      isExpand
-        ? Array.from(new Set([...prevValues, Number(row.id)]))
-        : Array.from(
-            new Set(
-              prevValues.filter(
-                (selectedFinding: number): boolean =>
-                  selectedFinding !== Number(row.id)
-              )
-            )
-          )
-    );
-  };
-
-  const handleRowExpandAll = (
-    isExpandAll: boolean,
-    results: (IFindingAttr | undefined)[]
-  ): void => {
-    const resultFilterd: IFindingAttr[] = results.filter(
-      (finding: IFindingAttr | undefined): finding is IFindingAttr =>
-        Boolean(finding)
-    );
-    const resultsIds: number[] = resultFilterd.map(
-      (finding: IFindingAttr): number => Number(finding.id)
-    );
-    setExpandedIdRows((prevValues): number[] =>
-      isExpandAll ? Array.from(new Set([...prevValues, ...resultsIds])) : []
-    );
-  };
-
-  if (_.isUndefined(data) || _.isEmpty(data)) {
-    return <div />;
-  }
+  const { expandedRows, handleRowExpand, handleRowExpandAll } = useRowExpand({
+    rowId: "id",
+    rows: findings,
+    storageKey: "findingExpandedRows",
+  });
 
   return (
     <React.StrictMode>
@@ -352,7 +314,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           defaultSorted={JSON.parse(_.get(sessionStorage, "findingSort", "{}"))}
           expandRow={{
             expandByColumnOnly: true,
-            expanded: getIndexFromIds(expandedIdRows, findings),
+            expanded: expandedRows,
             onExpand: handleRowExpand,
             onExpandAll: handleRowExpandAll,
             renderer: renderDescription,
