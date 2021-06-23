@@ -8,6 +8,9 @@ from returns.primitives.hkt import (
     SupportsKind1,
     SupportsKind2,
 )
+from singer_io.common import (
+    JSON,
+)
 from typing import (
     final,
     Literal,
@@ -108,3 +111,12 @@ class FragmentedInterval(
     @property
     def emptiness(self) -> Tuple[bool, ...]:
         return self._inner_value["emptiness"]
+
+    def to_json(self) -> JSON:
+        return {
+            "type": "FragmentedInterval",
+            "obj": {
+                "endpoints": self.endpoints,
+                "emptiness": self.emptiness,
+            },
+        }
