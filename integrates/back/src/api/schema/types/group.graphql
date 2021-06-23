@@ -10,10 +10,13 @@ type Group {
   events: [Event!]
   findings(filters: GenericScalar): [Finding]
   forcesToken: String
-  hasDrills: Boolean
+  hasAsm: Boolean
+  hasDrills: Boolean @deprecated(reason: "Use `hasSquad` instead.")
   hasForces: Boolean
-  hasIntegrates: Boolean
-  hasSkims: Boolean
+  hasIntegrates: Boolean @deprecated(reason: "Use `hasAsm` instead.")
+  hasMachine: Boolean
+  hasSkims: Boolean @deprecated(reason: "Use `hasMachine` instead.")
+  hasSquad: Boolean
   language: Language
   lastClosingVuln: Int
   lastClosingVulnFinding: Finding

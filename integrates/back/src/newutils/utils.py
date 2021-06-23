@@ -10,6 +10,7 @@ import re
 from typing import (
     Any,
     Dict,
+    KeysView,
     List,
     Tuple,
 )
@@ -102,6 +103,21 @@ def clean_up_kwargs(
     for key in keys_to_remove:
         kwargs.pop(key, None)
     return kwargs
+
+
+def duplicate_dict_keys(
+    dictionary: Dict,
+    first_key: str,
+    second_key: str,
+) -> Dict:
+    """Checks which of these keys exist in the dict and copies its value on
+    the other key, if none exist, raises an error"""
+    keys: KeysView = dictionary.keys()
+    if first_key in keys and second_key not in keys:
+        dictionary[second_key] = dictionary.get(first_key)
+    elif second_key in keys and first_key not in keys:
+        dictionary[first_key] = dictionary.get(second_key)
+    return dictionary
 
 
 def resolve_kwargs(

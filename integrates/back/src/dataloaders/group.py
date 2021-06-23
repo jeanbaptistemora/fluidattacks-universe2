@@ -38,9 +38,9 @@ async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
         historic_configuration: List[Dict[str, str]] = cast(
             List[Dict[str, str]], group.get("historic_configuration", [{}])
         )
-        has_drills = historic_configuration[-1].get("has_drills", False)
-        has_forces = historic_configuration[-1].get("has_forces", False)
-        has_integrates = status == "ACTIVE"
+        has_asm = status == "ACTIVE"
+        has_machine = historic_configuration[-1].get("has_skims", False)
+        has_squad = historic_configuration[-1].get("has_drills", False)
         subscription = historic_configuration[-1].get("type", None)
 
         historic_deletion: List[Dict[str, str]] = cast(
@@ -57,10 +57,7 @@ async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
             ),
             description=group.get("description", ""),
             files=group.get("files", []),
-            has_skims=historic_configuration[-1].get("has_skims", False),
-            has_drills=has_drills,
-            has_forces=has_forces,
-            has_integrates=has_integrates,
+            has_forces=historic_configuration[-1].get("has_forces", False),
             language=group.get("language", "en"),
             last_closing_vuln=group.get("last_closing_date", 0),
             last_closing_vuln_finding=group.get("last_closing_vuln_finding"),
@@ -95,6 +92,13 @@ async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
                 if "historic_deletion" in group
                 else ""
             ),
+            # Compatibility with old API
+            has_squad=has_squad,
+            has_drills=has_squad,
+            has_machine=has_machine,
+            has_skims=has_machine,
+            has_asm=has_asm,
+            has_integrates=has_asm,
         )
     return [groups.get(group_name, {}) for group_name in group_names]
 
