@@ -60,7 +60,7 @@ slug: /development/writing/general/quotation-marks
   as an independent paragraph with a different style
   (using `[quote]` in AsciiDoc
   and the blockquote symbol (`>`) in Markdown)
-  when it is longer than 40 words.
+  when it is longer than **40 words**.
   However, we *can* do this also with shorter quotations
   when we want to give them some emphasis.
 

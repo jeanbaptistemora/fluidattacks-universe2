@@ -14,7 +14,7 @@ slug: /development/writing/general/bold
 
 * **GB04:** If we have already emphasized
   an important word or phrase within a text,
-  we *should* preferably *not* emphasize it again there.
+  we *should* preferably *not* emphasize it there again.
 
 * **GB05:** We *must not* use bold and italics in the same emphasis
   (e.g., ***bold-italics***).

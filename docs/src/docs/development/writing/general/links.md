@@ -6,7 +6,7 @@ slug: /development/writing/general/links
 ---
 
 * **GK01:** We *must* check that each hyperlink,
-  apart from leading to a working site,
+  in addition to leading to a working site,
   always leads to the right place.
 
 * **GK02:** We *must not* use hyperlinks
@@ -14,20 +14,20 @@ slug: /development/writing/general/links
   written in a language other than English
   unless strictly necessary.
 
-* **GK03:** We *must* put hyperlinks to our services and solutions
-  the first and the last time we mention them
+* **GK03:** We *must* use hyperlinks for our services and solutions
+  the first and last time we mention them
   within a subsection, page or blog post.
 
 * **GK04:** We *must* use internal links in the subsections and pages
   whenever we direct the reader to
-  (a) another part of them or to
+  (a) another part of these or to
   (b) other subsections or pages.
 
-* **GK05:** We *must* include the reference with hyperlink
+* **GK05:** We *must* include the reference with a hyperlink
   immediately before or after an external source fragment of text is used
   (e.g., [As Alan Turing said](https://www.brainyquote.com/quotes/alan_turing_164574),
-  "Science is a differential (...)").
-  It can also be just the link
+  "Science is a differential [...]").
+  It *can* also be just the link
   associated with some initial words of the textual quotation
   when we do not wish to mention the source within our text
   for reasons of repetition or space.
@@ -39,7 +39,7 @@ slug: /development/writing/general/links
   every time we mention it and have a corresponding link,
   we *must* associate both elements.
 
-* **GK07:** In the same block of text or list,
+* **GK07:** Within the same block of text or list,
   we *must not* give the reader the same link
   associated with the same word or group of words
   two or more times

@@ -28,7 +28,7 @@ slug: /development/writing/general/others
 * **GO03:** We *must* not repeat punctuation marks
   (e.g., exclamation marks!!) to emphasize a word or phrase.
 
-* **GO04:** We *must* use the monospace
+* **GO04:** We *must* use the monospace font
   only when referring to the name of our company (i.e., `Fluid Attacks`)
   and when exposing code commands within our texts.
 
@@ -36,10 +36,10 @@ slug: /development/writing/general/others
   (unlike what happens with dependent clauses and simple terms
   in [lists](https://docs.fluidattacks.com/development/writing/general/lists)).
 
-* **GO06:** We *must* present the disjunction in ordinary text
+* **GO06:** We *must* present disjunctions in ordinary texts
   with the word *or*, not with symbols (e.g., */*).
 
-* **GO07:** We *must* present the conjunction in ordinary text
+* **GO07:** We *must* present conjunctions in ordinary texts
   with the word *and*, not with symbols (e.g., *&*).
 
 * **GO08:** We *must* indicate the meaning of acronyms

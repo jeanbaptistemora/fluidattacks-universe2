@@ -5,9 +5,9 @@ sidebar_label: Lists
 slug: /development/writing/general/lists
 ---
 
-* **GL01:** We *must* use bullets for lists
+* **GL01:** We *must* use bullet points for lists
   that do not communicate a hierarchical order
-  and numbers (starting with 1, 2, 3...) otherwise.
+  and numbers (starting with 1, 2, 3...) for those that do.
 
 * **GL02:** We *must* place periods at the end of list items
   (except for lists that are paragraph divisions)
@@ -15,17 +15,20 @@ slug: /development/writing/general/lists
   or [independent clauses](https://www.grammar-monster.com/glossary/independent_clause.htm).
 
 * **GL03:** When we split a paragraph into a list,
-  we *must not* put a colon before the first item;
-  each line *must* be in a bullet point beginning with a lowercase letter
-  and *must* end with a semicolon, except for the last line.
-  This one *must* have a period
+  we *must not* put a colon before the first item.
+  Each line *must* be in a bullet point
+  beginning with a lowercase letter
+  and *must* end with a semicolon,
+  except for the last line,
+  which *must* have a period
   (the penultimate line can also end with a comma
   followed by the conjunction *and*).
 
-* **GL04:** We *can* also display lists in paragraphs (without bullets)
+* **GL04:** We *can* also display lists in paragraphs
+  (without bullet points)
   using letters in parentheses
   (e.g., These emails contain information on
-  (a) what data was leaked or compromised;
+  (a) what data was leaked or compromised,
   (b) when the data was...).
 
 * **GL05:** When all the items in a list begin with one or more words
@@ -36,8 +39,8 @@ slug: /development/writing/general/lists
   previous to the lists
   be repeated in the items of the lists.
 
-* **GL07:** We *must not* put numbers or bullets
-  to words or sentences that stand alone within a subsection,
+* **GL07:** We *must not* use numbers or bullet points
+  for words or sentences that stand alone within a subsection,
   page or blog post,
   as if they were part of a list.
 

@@ -8,11 +8,11 @@ slug: /development/writing/general/numbers
 * **GN01:** We *must not* put numbers in parentheses
   after they have already been mentioned (e.g., five (5)).
 
-* **GN02:** We *must* use words to express numbers below 10.
-  *Except* if the numbers precede a unit of measurement (e.g., 4.52 cm),
-  if they are part of statistical or mathematical operations
+* **GN02:** We *must* use words to express numbers below 10,
+  *unless* the numbers precede a unit of measurement (e.g., 4.52 cm),
+  they are part of statistical or mathematical operations
   (e.g., 5% of the participants; divided by 8),
-  or if they denote dates, exact amounts of money,
+  or they denote dates, exact amounts of money,
   specific places in numbered series, parts of books and tables,
   or each number in a list of four or more digits.
 
@@ -22,13 +22,13 @@ slug: /development/writing/general/numbers
   and common fractions and phrases
   (e.g., Three-fourths of the population).
 
-* **GN04:** We *must* separate integer parts of decimal numbers
+* **GN04:** We *must* separate the integer parts of decimal numbers
   from their fractional parts
   using decimal points, not commas.
 
 * **GN05:** We *must* place a zero before a decimal fraction less than 1
   if the statistic can exceed 1 (e.g., 0.49 in);
-  otherwise, zero is not necessary (e.g., *p* = .93).
+  otherwise, the zero is not necessary (e.g., *p* = .93).
 
 * **GN06:** For numbers over 1,000,
   we *must* use the comma to separate groups of three digits
@@ -38,7 +38,7 @@ slug: /development/writing/general/numbers
 * **GN07:** We *must not* add apostrophes
   when we write a plural of a number (e.g., the 90's).
 
-* **GN08:** When we need to write numbers side by side in a sentence,
+* **GN08:** When one number follows another in a sentence,
   we *should* mix numbers with words (e.g., 4 three-year-old dogs),
   but, in some cases, the wording may be modified for clarity.
 
@@ -50,7 +50,7 @@ slug: /development/writing/general/numbers
   with a different number of decimals.
 
 * **GN11:** We *must* use words instead of mathematical symbols
-  (e.g., plus, equal) in the narrative text.
+  (e.g., plus, equal) in narrative texts.
 
 * **GN12:** We *must* use spaces between elements in mathematical expressions
   to facilitate reading (e.g., a × -b = c;
