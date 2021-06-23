@@ -22,7 +22,6 @@ import { translate } from "utils/translations/translate";
 const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
   props: IChartsGenericViewProps
 ): JSX.Element => {
-  const ALT_BACKGROUND_COLOR: string = "#e9e9ed";
   const { bgChange, entity, reportMode, subject } = props;
 
   const [isForcesDescriptionExpanded, setIsForcesDescriptionExpanded] =
@@ -43,10 +42,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
   return (
     <React.StrictMode>
       <div
-        className={"center"}
-        style={{
-          backgroundColor: bgChange ? ALT_BACKGROUND_COLOR : "transparent",
-        }}
+        className={`center ${reportMode ? "report-mode" : ""} ${
+          bgChange ? "report-bg-change" : ""
+        }`}
       >
         {doesEntityMatch("group", "organization", "portfolio") ? (
           <React.Fragment>
@@ -398,7 +396,13 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 documentType={"disjointForceDirectedGraph"}
                 entity={entity}
                 footer={
-                  <ul>
+                  <ul
+                    // Override the bootstrap default style
+                    style={{
+                      marginBottom: "0",
+                      paddingBottom: "15px",
+                    }}
+                  >
                     <li>
                       {translate.t(
                         "analytics.disjointForceDirectedGraph.whereToFindings.footer.grey"
@@ -430,9 +434,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
       </div>
       {doesEntityMatch("portfolio") ? (
         <div
-          style={{
-            backgroundColor: bgChange ? ALT_BACKGROUND_COLOR : "transparent",
-          }}
+          className={`${reportMode ? "report-mode" : ""} ${
+            bgChange ? "report-bg-change" : ""
+          }`}
         >
           <RowCenter>
             <Col100>
@@ -587,9 +591,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
       ) : undefined}
       {doesEntityMatch("group", "organization", "portfolio") ? (
         <div
-          style={{
-            backgroundColor: bgChange ? ALT_BACKGROUND_COLOR : "transparent",
-          }}
+          className={`${reportMode ? "report-mode" : ""} ${
+            bgChange ? "report-bg-change" : ""
+          }`}
         >
           <RowCenter>
             <Col100>
@@ -725,9 +729,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
       ) : undefined}
       {doesEntityMatch("organization", "portfolio") ? (
         <div
-          style={{
-            backgroundColor: bgChange ? ALT_BACKGROUND_COLOR : "transparent",
-          }}
+          className={`${reportMode ? "report-mode" : ""} ${
+            bgChange ? "report-bg-change" : ""
+          }`}
         >
           <RowCenter>
             <Col100>
@@ -749,9 +753,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
       ) : undefined}
       {doesEntityMatch("group") ? (
         <div
-          style={{
-            backgroundColor: bgChange ? ALT_BACKGROUND_COLOR : "transparent",
-          }}
+          className={`${reportMode ? "report-mode" : ""} ${
+            bgChange ? "report-bg-change" : ""
+          }`}
         >
           <RowCenter>
             <Col100>

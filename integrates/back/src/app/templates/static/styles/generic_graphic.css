@@ -12,3 +12,11 @@ html, body, #root {
 .c3-legend-item {
   font-size: 14px;
 }
+
+.report-mode {
+  font-size: 18px;
+}
+
+.report-bg-change {
+  background-color: #e9e9ed;
+}
