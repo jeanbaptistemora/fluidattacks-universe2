@@ -5,7 +5,6 @@ import ast
 from lib_path.common import (
     C_STYLE_COMMENT,
     DOUBLE_QUOTED_STRING,
-    EXTENSIONS_JAVA,
     EXTENSIONS_PYTHON,
     EXTENSIONS_SWIFT,
     get_vulnerabilities_blocking,
@@ -18,10 +17,8 @@ from model import (
     core_model,
 )
 from pyparsing import (
-    delimitedList,
     Keyword,
     MatchFirst,
-    nestedExpr,
     Optional,
 )
 from state.cache import (
@@ -43,72 +40,6 @@ from utils.function import (
 from zone import (
     t,
 )
-
-
-def _java_insecure_exceptions(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    insecure_exceptions: Set[str] = {
-        # Unrecoverable
-        "RuntimeException",
-        "lang.RuntimeException",
-        "java.lang.RuntimeException",
-        # Don't do this
-        "NullPointerException",
-        "lang.NullPointerException",
-        "java.lang.NullPointerException",
-        # Generics
-        "Exception",
-        "Throwable",
-        "lang.Exception",
-        "lang.Throwable",
-        "java.lang.Exception",
-        "java.lang.Throwable",
-    }
-
-    exception_group = delimitedList(expr=VAR_ATTR_JAVA, delim="|")
-    exception_group.addCondition(
-        # Ensure that at least one exception in the group is the provided one
-        lambda tokens: any(token in insecure_exceptions for token in tokens),
-    )
-
-    grammar = Keyword("catch") + nestedExpr(
-        closer=")",
-        content=exception_group + Optional(VAR_ATTR_JAVA),
-        ignoreExpr=None,
-        opener="(",
-    )
-    grammar.ignore(C_STYLE_COMMENT)
-    grammar.ignore(DOUBLE_QUOTED_STRING)
-    grammar.ignore(SINGLE_QUOTED_STRING)
-
-    return get_vulnerabilities_blocking(
-        content=content,
-        cwe={"396"},
-        description=t(
-            key="src.lib_path.f060.insecure_exceptions.description",
-            lang="Java",
-            path=path,
-        ),
-        finding=core_model.FindingEnum.F060,
-        grammar=grammar,
-        path=path,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def java_insecure_exceptions(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _java_insecure_exceptions,
-        content=content,
-        path=path,
-    )
 
 
 def _python_insecure_exceptions(
@@ -233,17 +164,8 @@ async def analyze(
     **_: None,
 ) -> List[Awaitable[core_model.Vulnerabilities]]:
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
-    content: str
 
-    if file_extension in EXTENSIONS_JAVA:
-        content = await content_generator()
-        coroutines.append(
-            java_insecure_exceptions(
-                content=content,
-                path=path,
-            )
-        )
-    elif file_extension in EXTENSIONS_PYTHON:
+    if file_extension in EXTENSIONS_PYTHON:
         coroutines.append(
             python_insecure_exceptions(
                 content=await content_generator(),

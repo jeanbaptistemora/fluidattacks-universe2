@@ -14,6 +14,9 @@ from utils import (
 from utils.graph.transformation import (
     build_qualified_name,
 )
+from utils.string import (
+    complete_attrs_on_set,
+)
 
 
 def java_declaration_of_throws_for_generic_exception(
@@ -174,10 +177,65 @@ def c_sharp_throws_for_generic_exception(
     )
 
 
+def java_insecure_exceptions(
+    graph_db: graph_model.GraphDB,
+) -> core_model.Vulnerabilities:
+    def n_ids() -> graph_model.GraphShardNodes:
+        insecure_exceptions: Set[str] = complete_attrs_on_set(
+            {
+                # Unrecoverable
+                "java.lang.RuntimeException",
+                # Don't do this
+                "java.lang.NullPointerException",
+                # Generics
+                "java.lang.Exception",
+                "java.lang.Throwable",
+            }
+        )
+        for shard in graph_db.shards_by_langauge(
+            graph_model.GraphShardMetadataLanguage.JAVA,
+        ):
+            graph = shard.graph
+
+            for catch_type in g.filter_nodes(
+                graph,
+                nodes=graph.nodes,
+                predicate=g.pred_has_labels(label_type="catch_type"),
+            ):
+                match_identifiers = g.match_ast_group(
+                    graph,
+                    catch_type,
+                    "scoped_type_identifier",
+                    "type_identifier",
+                )
+                for scoped_id in match_identifiers["scoped_type_identifier"]:
+                    if (
+                        graph.nodes[scoped_id].get("label_text")
+                        in insecure_exceptions
+                    ):
+                        yield shard, scoped_id
+
+                for type_id in match_identifiers["type_identifier"]:
+                    if (
+                        graph.nodes[type_id].get("label_text")
+                        in insecure_exceptions
+                    ):
+                        yield shard, type_id
+
+    return get_vulnerabilities_from_n_ids(
+        cwe=("396",),
+        desc_key="src.lib_path.f060.insecure_exceptions.description",
+        desc_params=dict(lang="Java"),
+        finding=FINDING,
+        graph_shard_nodes=n_ids(),
+    )
+
+
 # Constants
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F060
 QUERIES: graph_model.Queries = (
     (FINDING, java_declaration_of_throws_for_generic_exception),
     (FINDING, c_sharp_insecure_exceptions),
     (FINDING, c_sharp_throws_for_generic_exception),
+    (FINDING, java_insecure_exceptions),
 )
