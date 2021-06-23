@@ -19,7 +19,7 @@ async def _get_vulns(finding_id: str) -> List[Dict[str, Any]]:
                 commit_hash=vuln.get("commit_hash", ""),
                 repo_nickname=vuln.get("repo_nickname", ""),
                 specific=vuln.get("specific", ""),
-                type=vuln.get("type", ""),
+                type=vuln.get("vuln_type", ""),
                 where=vuln.get("where", ""),
             )
             for vuln in await vulns_dal.get_by_finding(finding_id)
@@ -49,21 +49,28 @@ async def test_upload_file(populate: bool, email: str) -> None:
             "commit_hash": "",
             "repo_nickname": "product",
             "specific": "phone",
-            "type": "",
+            "type": "inputs",
             "where": "https://example.com",
+        },
+        {
+            "commit_hash": "111111111111111111111111111111111111111f",
+            "repo_nickname": "product",
+            "specific": "1",
+            "type": "lines",
+            "where": "product/test/1",
         },
         {
             "commit_hash": "5b5c92105b5c92105b5c92105b5c92105b5c9210",
             "repo_nickname": "product",
             "specific": "123",
-            "type": "",
+            "type": "lines",
             "where": "path/to/file1.ext",
         },
         {
             "commit_hash": "e17059d1e17059d1e17059d1e17059d1e17059d1",
             "repo_nickname": "product",
             "specific": "345",
-            "type": "",
+            "type": "lines",
             "where": "path/to/file3.ext",
         },
     ]
