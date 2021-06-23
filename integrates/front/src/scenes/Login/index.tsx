@@ -43,7 +43,7 @@ export const Login: React.FC = (): JSX.Element => {
   return (
     <LoginContainer>
       <LoginGrid>
-        <img alt={"logo"} src={logo} />
+        <img alt={"logo"} className={style.logo} src={logo} />
         <p className={`tc mt4 mb4 ${style["text-color"]}`}>{t("login.auth")}</p>
         <LoginButton
           className={"btn-lgoogle mb2"}

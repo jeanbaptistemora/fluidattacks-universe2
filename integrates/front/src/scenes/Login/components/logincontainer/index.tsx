@@ -7,7 +7,7 @@ const LoginContainer: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
-  className: `${style.container} h-100 flex items-center justify-center mv0 center overflow-y-scroll-l overflow-y-hidden-m overflow-y-hidden`,
+  className: `${style.container} h-100 flex items-center justify-center mv0 center overflow-y-auto-l overflow-y-hidden-m overflow-y-hidden`,
 })``;
 
 export { LoginContainer };

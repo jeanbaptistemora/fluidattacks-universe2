@@ -9,4 +9,10 @@
 
 :local .text-color {
   color: #272727;
+  line-height: 1.15;
+}
+
+:local .logo {
+  max-width: 100%;
+  min-width: 100%;
 }
