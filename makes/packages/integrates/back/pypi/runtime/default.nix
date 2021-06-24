@@ -15,6 +15,7 @@ let
         "aioextensions==20.8.2087641"
         "aiofiles==0.5.0"
         "amazon-dax-client==1.1.7"
+        "antlr4-python3-runtime==4.7.2"
         "ariadne[asgi-file-uploads]==0.12.0"
         "asgiref==3.2.10"
         "async-lru==1.0.2"
