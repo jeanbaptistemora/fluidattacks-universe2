@@ -2,4 +2,5 @@ inputs:
 - field: search
   state: open
   url: https://example.com/
+  repo_nickname: product
   stream: blog,articulo
