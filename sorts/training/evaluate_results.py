@@ -39,15 +39,15 @@ def get_model_item(best_model_name: str) -> Dict[str, Any]:
     model_info = best_model_name.split("-")
     item["model"] = model_info[0]
     item["f_score"] = model_info[1]
-    item["features"] = ",".join(
+    item["features"] = ", ".join(
         part
         for part in model_info[2:]
         if len(part) == 2 and not part.isnumeric()
-    )
+    ).upper()
     if "tune" in best_model_name:
         tuned_parameters = MODEL_HYPERPARAMETERS[item["model"]].keys()
         tuned_parameters_values = model_info[item["features"].count(",") + 4 :]
-        item["tuned_parameters"] = ",".join(
+        item["tuned_parameters"] = ", ".join(
             f"{key}:{value}"
             for key, value in dict(
                 zip(tuned_parameters, tuned_parameters_values)
