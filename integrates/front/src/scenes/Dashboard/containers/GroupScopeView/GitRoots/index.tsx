@@ -95,7 +95,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const [checkedItems, setCheckedItems] = useStoredState<
     Record<string, boolean>
   >(
-    "rootTableSet",
+    "gitRootsColumns",
     {
       branch: true,
       "cloningStatus.status": true,
@@ -328,6 +328,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                       : pointStatusFormatter,
                     header: t("group.scope.common.state"),
                     visible: checkedItems.state,
+                    width: canUpdateRootState ? "10%" : "100px",
                   },
                   {
                     align: "left",
@@ -341,6 +342,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     formatter: pointStatusFormatter,
                     header: t("group.scope.git.repo.cloning.status"),
                     visible: checkedItems["cloningStatus.status"],
+                    width: "105px",
                   },
                 ]}
                 id={"tblGitRoots"}
