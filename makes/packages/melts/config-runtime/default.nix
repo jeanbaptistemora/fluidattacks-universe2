@@ -92,7 +92,19 @@ makeTemplate {
       (path "/melts")
     ];
     envPython38Paths = [
+      nixpkgs.python38Packages.psycopg2
       pythonRequirements
+    ];
+    envSources = [
+      (makeTemplate {
+        arguments = {
+          envSrcMeltsStatic = path "/melts/static";
+        };
+        name = "melts-secrets-file";
+        template = ''
+          export MELTS_SECRETS='__envSrcMeltsStatic__/secrets.yaml'
+        '';
+      })
     ];
   };
   template = path "/makes/packages/melts/config-runtime/template.sh";
