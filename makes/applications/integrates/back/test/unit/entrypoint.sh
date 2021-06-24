@@ -10,6 +10,7 @@ function main {
     --cov-report 'annotate:build/coverage/annotate'
     --disable-warnings
     --exitfirst
+    --no-cov-on-fail
     --verbose
   )
 

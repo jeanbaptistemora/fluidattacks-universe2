@@ -10,6 +10,7 @@ function main {
     --cov-report "html:${PWD}/forces/coverage/"
     --cov-report "xml:${PWD}/forces/coverage.xml"
     --disable-pytest-warnings
+    --no-cov-on-fail
   )
 
   pushd forces/ \

@@ -12,6 +12,7 @@ function main {
     --cov-report 'html:build/functional/html'
     --disable-warnings
     --exitfirst
+    --no-cov-on-fail
     --resolver-test-group "${resolver_test_group}"
     --verbose
   )
