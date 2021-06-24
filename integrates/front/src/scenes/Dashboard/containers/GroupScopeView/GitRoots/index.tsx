@@ -189,7 +189,10 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   // Event handlers
   const handleRowClick = useCallback(
     (_0: React.SyntheticEvent, row: IGitRootAttr): void => {
-      if (permissions.can("api_mutations_update_git_root_mutate")) {
+      if (
+        permissions.can("api_mutations_update_git_root_mutate") &&
+        row.state === "ACTIVE"
+      ) {
         setCurrentRow(row);
         setManagingRoot({ mode: "EDIT" });
       }
@@ -309,7 +312,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     dataField: "branch",
                     header: t("group.scope.git.repo.branch"),
                     visible: checkedItems.branch,
-                    width: "5%",
                   },
                   {
                     align: "center",
@@ -319,14 +321,13 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                       defaultValue: _.get(sessionStorage, "stateScopeFilter"),
                       onFilter: onFilterState,
                       options: selectOptionsState,
+                      placeholder: "All",
                     }),
                     formatter: canUpdateRootState
                       ? changeFormatter
                       : pointStatusFormatter,
                     header: t("group.scope.common.state"),
                     visible: checkedItems.state,
-                    width: canUpdateRootState ? "10%" : "100px",
-                    wrapped: !canUpdateRootState,
                   },
                   {
                     align: "left",
@@ -335,12 +336,11 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                       defaultValue: _.get(sessionStorage, "statusScopeFilter"),
                       onFilter: onfilterStatus,
                       options: selectOptionsStatus,
+                      placeholder: "All",
                     }),
                     formatter: pointStatusFormatter,
                     header: t("group.scope.git.repo.cloning.status"),
                     visible: checkedItems["cloningStatus.status"],
-                    width: "105px",
-                    wrapped: true,
                   },
                 ]}
                 id={"tblGitRoots"}

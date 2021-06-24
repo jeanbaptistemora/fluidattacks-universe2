@@ -571,7 +571,7 @@ export const enTranslations: ResourceKey = {
             "Root name should not be included in gitignore pattern",
         },
         filter: {
-          exclude: "Gitignore",
+          exclude: "Exclusions",
           placeholder: "**/example.txt",
           title: "Filters",
           tooltip:
