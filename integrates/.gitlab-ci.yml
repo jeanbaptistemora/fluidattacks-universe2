@@ -206,7 +206,7 @@ integrates.back.test.functional.create_event:
 integrates.back.test.functional.create_organization:
   <<: *integrates_back_test_functional
 
-integrates.back.test.functional.create_project:
+integrates.back.test.functional.create_group:
   <<: *integrates_back_test_functional
 
 integrates.back.test.functional.deactivate_root:

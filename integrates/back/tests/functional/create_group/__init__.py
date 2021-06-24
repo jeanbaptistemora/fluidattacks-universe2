@@ -18,13 +18,13 @@ async def get_result(
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
-            createProject(
+            createGroup(
                 organization: "{org}",
                 description: "This is a new project from pytest",
-                projectName: "{group}",
+                groupName: "{group}",
                 subscription: CONTINUOUS,
-                hasSkims: true,
-                hasDrills: true,
+                hasMachine: true,
+                hasSquad: true,
                 hasForces: true
             ) {{
             success

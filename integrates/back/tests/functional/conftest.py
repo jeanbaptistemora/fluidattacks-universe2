@@ -20,7 +20,7 @@ TEST_GROUPS: Set[str] = {
     "create_draft_new",
     "create_event",
     "create_organization",
-    "create_project",
+    "create_group",
     "deactivate_root",
     "delete_finding",
     "delete_finding_new",
