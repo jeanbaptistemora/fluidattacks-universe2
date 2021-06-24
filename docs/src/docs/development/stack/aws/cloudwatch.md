@@ -27,7 +27,7 @@ over other alternatives are:
     [EC2][EC2],
     [S3](/development/stack/aws/s3/),
     and
-    [DynamoDB](https://aws.amazon.com/dynamodb/).
+    [DynamoDB](/development/stack/aws/dynamodb/).
 1. It supports
     [custom dashboards](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/create_dashboard.html)
     for visualizing metrics using diagrams like
@@ -72,9 +72,9 @@ We use [CloudWatch][CLOUDWATCH] for monitoring:
     load balancer performance.
 1. [Redshift](https://aws.amazon.com/redshift/)
     database usage and performance.
-1. [Redis cache cluster](https://aws.amazon.com/redis/)
+1. [Redis cache cluster](/development/stack/aws/redis/)
     usage and performance.
-1. [DynamoDB](https://aws.amazon.com/dynamodb/)
+1. [DynamoDB](/development/stack/aws/dynamodb/)
     tables usage and performance.
 1. [SQS](https://aws.amazon.com/sqs/)
     sent, delayed, received and deleted messages.

@@ -25,7 +25,7 @@ over other alternatives are:
     [integrates](https://aws.amazon.com/kms/features/#AWS_Service_Integration)
     with other [AWS][AWS]
     services like
-    [DynamoDB](https://aws.amazon.com/dynamodb/),
+    [DynamoDB](/development/stack/aws/dynamodb/),
     [EKS](/development/stack/aws/eks/),
     [S3](/development/stack/aws/s3/),
     [EBS][EBS],

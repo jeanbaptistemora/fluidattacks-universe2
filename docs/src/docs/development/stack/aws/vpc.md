@@ -30,7 +30,7 @@ over other alternatives are:
 1. It integrates with services that use
     networking-dependant infrastructure like
     [EC2](/development/stack/aws/ec2/),
-    [Redis](https://aws.amazon.com/redis/),
+    [Redis](/development/stack/aws/redis/),
     [Elastic Load Balancing](/development/stack/aws/elb/),
     [AWS Redshift](https://aws.amazon.com/redshift/),
     etc.
@@ -78,7 +78,7 @@ We use [VPC][VPC] for setting
 networking and security configurations for:
 
 1. [EC2](/development/stack/aws/ec2/) machines.
-1. [Redis cluster](https://aws.amazon.com/redis/) workers.
+1. [Redis cluster](/development/stack/aws/redis/) workers.
 1. [Kubernetes cluster](/development/stack/kubernetes/) workers.
 1. [Batch](https://aws.amazon.com/batch/) workers.
 1. [Elastic Load Balancing](/development/stack/aws/elb/)

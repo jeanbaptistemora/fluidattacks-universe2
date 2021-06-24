@@ -188,8 +188,11 @@ you can track progress
     for our database.
     Please make sure
     you keep all data within that table.
-1. Please adhere to our current [design][DESIGN]
-    so we can keep consistency.
+1. Please adhere to our current [design][DESIGN],
+    when modifying the
+    [DynamoDB logic](https://gitlab.com/fluidattacks/product/-/tree/master/integrates/back/src/dynamodb),
+    that way we can keep
+    a consistent architecture.
 1. You can open the [design][DESIGN] with
     [NoSQL Workbench for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.html).
 

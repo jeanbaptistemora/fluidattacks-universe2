@@ -79,12 +79,12 @@ We use the following [AWS][AWS] services:
     [VPC](/development/stack/aws/vpc/).
 1. NoSQL database:
     [DynamoDB](/development/stack/aws/dynamodb/).
+1. In-memory cache:
+    [Redis](/development/stack/aws/redis/).
 1. Elastic Container Service:
     [ECS](https://aws.amazon.com/ecs/).
 1. Data warehouse:
     [Redshift](https://aws.amazon.com/redshift/).
-1. Cache:
-    [Redis](https://aws.amazon.com/redis/).
 1. Batch processing:
     [Batch](https://aws.amazon.com/batch/).
 1. Machine learning:

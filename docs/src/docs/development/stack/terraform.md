@@ -85,7 +85,7 @@ We do not use [Terraform][TERRAFORM] in:
     Pending to implement.
 1. [Google Workspace](https://workspace.google.com/):
     Pending to implement.
-1. [Local AWS Redis](https://aws.amazon.com/redis/):
+1. [Local AWS Redis](/development/stack/aws/redis/):
     We use [local Redis clusters](https://redis.io/topics/cluster-tutorial)
     as it is not possible to locally deploy Redis clusters using
     [Terraform][TERRAFORM].
