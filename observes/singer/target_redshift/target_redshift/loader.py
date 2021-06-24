@@ -99,7 +99,7 @@ def load_data(
             #   RECREATE loading_schema
             schema_factory.recreate(loading_schema, cascade=True)
             #   LOAD loading_schema
-            target_redshift.persist_messages(batcher, str(loading_schema))
+            persist_messages(batcher, client.cursor, str(loading_schema))
             #   DROP backup_schema IF EXISTS
             schema_factory.try_retrieve(backup_schema).map(
                 partial(schema_factory.delete, cascade=True)
@@ -119,6 +119,6 @@ def load_data(
             #     - possible un-updated schema
             #     - and dangling/orphan/duplicated records
             batcher = Batcher(dbcur, str(target_schema))
-            target_redshift.persist_messages(batcher, str(target_schema))
+            persist_messages(batcher, client.cursor, str(target_schema), True)
     finally:
         client.close()

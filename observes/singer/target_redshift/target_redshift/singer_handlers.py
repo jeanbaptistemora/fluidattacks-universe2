@@ -59,7 +59,7 @@ def _translate_record(
     field_type_map = r_schema.table.field_type_map()
     new_record = {}
     for field, value in s_record.record.items():
-        escaped_field = escape(field)
+        escaped_field = escape(field).lower()
         if escaped_field not in field_type_map.keys():
             LOG.warning(
                 (
