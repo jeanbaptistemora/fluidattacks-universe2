@@ -19,6 +19,7 @@ class SchemaID(Immutable):
         return self.name
 
 
+# pylint: disable=too-few-public-methods
 class TableID(Immutable):
     schema: SchemaID
     table_name: str
@@ -28,6 +29,3 @@ class TableID(Immutable):
         object.__setattr__(self, "schema", schema)
         object.__setattr__(self, "table_name", table_name.lower())
         return self
-
-    def __str__(self) -> str:
-        return f'"{self.schema}"."{self.table_name}"'
