@@ -122,6 +122,10 @@ makeTemplate {
             url = "https://github.com/tree-sitter/tree-sitter-java/archive/8d6a858350475386b6fd58210c34750a8f361b6a.tar.gz";
             sha256 = "fhN+yKPfGkpA/QIUSkzczXF0EOGPbwoCYlyEjDUtgg0=";
           };
+          envSrcTreeSitterJavaScript = fetchzip {
+            url = "https://github.com/tree-sitter/tree-sitter-javascript/archive/45b9ce2a2588c0e6d616b0ee2a710b1fcb99c5b5.tar.gz";
+            sha256 = "nU0mVkGG6Sr4OstRFCIrbUGJnAHMZ9+lCDTJAFf392c=";
+          };
           envSrcTreeSitterTsx = fetchzip {
             url = "https://github.com/tree-sitter/tree-sitter-typescript/archive/3e897ea5925f037cfae2e551f8e6b12eec2a201a.tar.gz";
             sha256 = "1qJsaeJzcbSTDe9hqc9SjPhGG0RNaolTYQLuwgryIsw=";
@@ -141,6 +145,7 @@ makeTemplate {
           export SKIMS_TREE_SITTER_CSHARP='__envSrcTreeSitterCSharp__'
           export SKIMS_TREE_SITTER_GO='__envSrcTreeSitterGo__'
           export SKIMS_TREE_SITTER_JAVA='__envSrcTreeSitterJava__'
+          export SKIMS_TREE_SITTER_JAVASCRIPT='__envSrcTreeSitterJavaScript__'
           export SKIMS_TREE_SITTER_TSX='__envSrcTreeSitterTsx__/tsx'
           export SKIMS_VENDOR='__envSrcSkimsVendor__'
         '';
