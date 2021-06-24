@@ -1,0 +1,25 @@
+:page-slug: about-us/certifications/ewptv1/
+:page-description: Our team of ethical hackers and pentesters counts with high certifications related to cybersecurity information.
+:page-keywords: Fluid Attacks, Ethical Hackers, Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers
+:page-certificationlogo: logo-ewptv1
+:page-alt: Logo ewptv1
+:page-certification: yes
+
+= eLearnSecurity Web Application Penetration Tester (eWPTv1)
+
+`eWPTv1` is an exploit development certification,
+created by `eLearnSecurity`.
+`eWPTv1` is the only certification for Web Application Penetration testers
+that evaluates your ability to attack your target
+and provide thorough professional documentation and recommendation.
+The `eWPTv1` certification assess the expertise of a person
+in the following areas:
+
+- Penetration testing processes and methodologies
+- Web application analysis and inspection
+- OSINT and information gathering techniques
+- Vulnerability assessment of web applications
+- *OWASP TOP 10 2013* / OWASP Testing guide
+- Manual exploitation of XSS, SQLi, web services, HTML5, LFI/RFI
+- Exploit development for web environments
+- Advanced Reporting skills and remediation
