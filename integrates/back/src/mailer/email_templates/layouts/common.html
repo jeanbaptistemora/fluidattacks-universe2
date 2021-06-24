@@ -18,7 +18,6 @@
       font-size: 18px;
       margin: 0;
       padding: 0;
-      padding-bottom: 2rem;
     }
 
     html,
@@ -64,8 +63,11 @@
     .container {
       margin: 0 auto;
       max-width: 1000px;
-      padding: 0 2rem;
       width: 100%;
+    }
+
+    .main-content {
+      padding: 2rem 1rem;
     }
 
     .w-70 {
@@ -150,6 +152,12 @@
     .icon {
       width: 48px;
       height: 48px;
+    }
+
+    @media only screen and (min-width: 599px) {
+      .main-content {
+        padding: 2rem 2rem !important;
+      }
     }
   </style>
 </head>

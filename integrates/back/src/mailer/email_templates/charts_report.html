@@ -6,7 +6,7 @@
   {% include 'layouts/components/logo_header.html' %}
   {{ banner_project('Analytics') }}
 
-  <div style="padding: 30px 0 !important;">
+  <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
       Below you'll find the Analytics report for {{ report_entity }} <strong>{{ report_subject }}</strong>,
@@ -14,6 +14,7 @@
     </p>
     <p></p>
     {{ analytics_image(image_src, 1200) }}
+    <p></p>
     <p></p>
     {{ go_to_button('Download report', image_src) }}
     <p></p>
