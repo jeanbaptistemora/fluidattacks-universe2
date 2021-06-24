@@ -5192,77 +5192,53 @@ F001_JPA,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,23,89,skims
    33 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
       ^ Col 0
 "
-F001_JPA,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,26,89,skims,F001. SQL injection - Java Persistence API,LIKE statement without escape in skims/test/data/lib_path/f001_jpa/java.java,"
-   16 |     /* Secure */
-   17 |     @Query(""select u from User u where u.firstname like %?#{escape([0])}% escape ?#{escapeCharacter()}"")
-   18 |     List<User> findContainingEscaped(String namePart);
-   19 |
-   20 |     /* secure*/
-   21 |     @Query(""select u from User u where u.lastname like :#{[0]}"")
-   22 |     /* LIKE statement injection */
-   23 |     @SqlQuery(""select u from User u where u.lastname like %:#{[0]}%"")
-   24 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
-   25 |     /* LIKE statement injection */
->  26 |     @Query(""select u from User u where u.lastname like %:#{"" + ""[0]}%"")
-   27 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
-   28 |     /* LIKE statement secure */
-   29 |     @Query(""select u from User u where u.lastname like %?#{escape([0])}%"")
-   30 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
-   31 |     /* LIKE statement secure */
-   32 |     @Query(""select u from User u where u.firstname like %?#{esc"" + ""ape([0])}%"")
-   33 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
-   34 |
-   35 |     /* LIKE statement injection */
-   36 |     @Query(""select u from "" + ""User u where u.lastname like %:lastname%"")
-      ^ Col 0
-"
 F001_JPA,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,36,89,skims,F001. SQL injection - Java Persistence API,LIKE statement without escape in skims/test/data/lib_path/f001_jpa/java.java,"
-   26 |     @Query(""select u from User u where u.lastname like %:#{"" + ""[0]}%"")
-   27 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
-   28 |     /* LIKE statement secure */
-   29 |     @Query(""select u from User u where u.lastname like %?#{escape([0])}%"")
-   30 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
-   31 |     /* LIKE statement secure */
-   32 |     @Query(""select u from User u where u.firstname like %?#{esc"" + ""ape([0])}%"")
-   33 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
+   26 |    @Query(""select u from User u where u.lastname like %:#{"" + ""[0]}%"")
+   27 |    List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
+   28 |    /* LIKE statement secure */
+   29 |    @Query(""select u from User u where u.lastname like %?#{escape([0])}%"")
+   30 |    List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
+   31 |    /* LIKE statement secure */
+   32 |    @Query(""select u from User u where u.firstname like %?#{esc"" + ""ape([0])}%"")
+   33 |    List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
    34 |
-   35 |     /* LIKE statement injection */
->  36 |     @Query(""select u from "" + ""User u where u.lastname like %:lastname%"")
-   37 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
-   38 |     /* LIKE statement injection a little harder to find*/
-   39 |     @Query(""select u from "" + ""User u where u.lastname like %:last"" + ""name%"")
-   40 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
-   41 |     /* LIKE statement injection */
-   42 |     @Query(""SELECT e FROM ExamplePage e WHERE e.id LIKE CONCAT('%',:id,'%')"")
-   43 |     Page<ExamplePage> getRechargeEvents(@Param(""id"") Long id, Pageable pageable);
-   44 |     /* LIKE statement injection */
-   45 |     @SqlQuery(x = 123, y = ""a"", value = ""SEL"" +
-   46 |         ""ECT e FROM ExamplePage e WHERE e.id LIKE ?10%"",
-      ^ Col 0
+   35 |    /* LIKE statement injection */
+>  36 |    @Query(""select u from "" + ""User u where u.lastname like %:lastname%"")
+   37 |    List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
+   38 |    /* LIKE statement injection a little harder to find*/
+   39 |    @Query(""select u from "" + ""User u where u.lastname like %:last"" + ""name%"")
+   40 |    List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
+   41 |    /* LIKE statement injection */
+   42 |    @Query(""SELECT e FROM ExamplePage e WHERE e.id LIKE CONCAT('%',:id,'%')"")
+   43 |    Page<ExamplePage> getRechargeEvents(@Param(""id"") Long id, Pageable pageable);
+   44 |    /* LIKE statement injection */
+   45 |    @SqlQuery(x = 123, y = ""a"", value = ""SEL"" +
+   46 |        ""ECT e FROM ExamplePage e WHERE e.id LIKE ?10%"",
+      ^ Col 1
 "
 F001_JPA,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,39,89,skims,F001. SQL injection - Java Persistence API,LIKE statement without escape in skims/test/data/lib_path/f001_jpa/java.java,"
-   29 |     @Query(""select u from User u where u.lastname like %?#{escape([0])}%"")
-   30 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
-   31 |     /* LIKE statement secure */
-   32 |     @Query(""select u from User u where u.firstname like %?#{esc"" + ""ape([0])}%"")
-   33 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
+   29 |    @Query(""select u from User u where u.lastname like %?#{escape([0])}%"")
+   30 |    List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
+   31 |    /* LIKE statement secure */
+   32 |    @Query(""select u from User u where u.firstname like %?#{esc"" + ""ape([0])}%"")
+   33 |    List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
    34 |
-   35 |     /* LIKE statement injection */
-   36 |     @Query(""select u from "" + ""User u where u.lastname like %:lastname%"")
-   37 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
-   38 |     /* LIKE statement injection a little harder to find*/
->  39 |     @Query(""select u from "" + ""User u where u.lastname like %:last"" + ""name%"")
-   40 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
-   41 |     /* LIKE statement injection */
-   42 |     @Query(""SELECT e FROM ExamplePage e WHERE e.id LIKE CONCAT('%',:id,'%')"")
-   43 |     Page<ExamplePage> getRechargeEvents(@Param(""id"") Long id, Pageable pageable);
-   44 |     /* LIKE statement injection */
-   45 |     @SqlQuery(x = 123, y = ""a"", value = ""SEL"" +
-   46 |         ""ECT e FROM ExamplePage e WHERE e.id LIKE ?10%"",
-   47 |         z = 123
-   48 |     )
-   49 |     Page<ExamplePage> getRechargeEvents(@Param(""id"") Long id, Pageable pageable);
-      ^ Col 0
+   35 |    /* LIKE statement injection */
+   36 |    @Query(""select u from "" + ""User u where u.lastname like %:lastname%"")
+   37 |    List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
+   38 |    /* LIKE statement injection a little harder to find*/
+>  39 |    @Query(""select u from "" + ""User u where u.lastname like %:last"" + ""name%"")
+   40 |    List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
+   41 |    /* LIKE statement injection */
+   42 |    @Query(""SELECT e FROM ExamplePage e WHERE e.id LIKE CONCAT('%',:id,'%')"")
+   43 |    Page<ExamplePage> getRechargeEvents(@Param(""id"") Long id, Pageable pageable);
+   44 |    /* LIKE statement injection */
+   45 |    @SqlQuery(x = 123, y = ""a"", value = ""SEL"" +
+   46 |        ""ECT e FROM ExamplePage e WHERE e.id LIKE ?10%"",
+   47 |        z = 123
+   48 |    )
+   49 |    Page<ExamplePage> getRechargeEvents(@Param(""id"") Long id, Pageable pageable);
+      ^ Col 1
 "
 F001_JPA,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,42,89,skims,F001. SQL injection - Java Persistence API,LIKE statement without escape in skims/test/data/lib_path/f001_jpa/java.java,"
    32 |     @Query(""select u from User u where u.firstname like %?#{esc"" + ""ape([0])}%"")
@@ -5288,29 +5264,29 @@ F001_JPA,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,42,89,skims
    52 |         ""ECT e FROM ExamplePage e WHERE e.id LIKE ?10"")
       ^ Col 0
 "
-F001_JPA,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,45,89,skims,F001. SQL injection - Java Persistence API,LIKE statement without escape in skims/test/data/lib_path/f001_jpa/java.java,"
-   35 | E statement injection */
-   36 | (""select u from "" + ""User u where u.lastname like %:lastname%"")
-   37 | ser> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
-   38 | E statement injection a little harder to find*/
-   39 | (""select u from "" + ""User u where u.lastname like %:last"" + ""name%"")
-   40 | ser> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
-   41 | E statement injection */
-   42 | (""SELECT e FROM ExamplePage e WHERE e.id LIKE CONCAT('%',:id,'%')"")
-   43 | xamplePage> getRechargeEvents(@Param(""id"") Long id, Pageable pageable);
-   44 | E statement injection */
->  45 | ery(x = 123, y = ""a"", value = ""SEL"" +
-   46 | CT e FROM ExamplePage e WHERE e.id LIKE ?10%"",
-   47 | = 123
-   48 |
-   49 | xamplePage> getRechargeEvents(@Param(""id"") Long id, Pageable pageable);
-   50 | ure */
-   51 | ery(""SEL"" +
-   52 | CT e FROM ExamplePage e WHERE e.id LIKE ?10"")
-   53 | xamplePage> getRechargeEvents(@Param(""id"") Long id, Pageable pageable);
-   54 |
+F001_JPA,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,46,89,skims,F001. SQL injection - Java Persistence API,LIKE statement without escape in skims/test/data/lib_path/f001_jpa/java.java,"
+   36 |     @Query(""select u from "" + ""User u where u.lastname like %:lastname%"")
+   37 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
+   38 |     /* LIKE statement injection a little harder to find*/
+   39 |     @Query(""select u from "" + ""User u where u.lastname like %:last"" + ""name%"")
+   40 |     List<User> findByLastnameWithSpelExpression(@Param(""lastname"") String lastname);
+   41 |     /* LIKE statement injection */
+   42 |     @Query(""SELECT e FROM ExamplePage e WHERE e.id LIKE CONCAT('%',:id,'%')"")
+   43 |     Page<ExamplePage> getRechargeEvents(@Param(""id"") Long id, Pageable pageable);
+   44 |     /* LIKE statement injection */
+   45 |     @SqlQuery(x = 123, y = ""a"", value = ""SEL"" +
+>  46 |         ""ECT e FROM ExamplePage e WHERE e.id LIKE ?10%"",
+   47 |         z = 123
+   48 |     )
+   49 |     Page<ExamplePage> getRechargeEvents(@Param(""id"") Long id, Pageable pageable);
+   50 |     /* Secure */
+   51 |     @SqlQuery(""SEL"" +
+   52 |         ""ECT e FROM ExamplePage e WHERE e.id LIKE ?10"")
+   53 |     Page<ExamplePage> getRechargeEvents(@Param(""id"") Long id, Pageable pageable);
+   54 | }
    55 |
-      ^ Col 10
+   56 | /*
+      ^ Col 0
 "
 F085,lines,namespace/skims/test/data/lib_path/f085/react.jsx,6,922,skims,F085. Sensitive data stored in the client-side storage,Sensitive information storage in skims/test/data/lib_path/f085/react.jsx,"
   1 | localStorage.getItem('password');

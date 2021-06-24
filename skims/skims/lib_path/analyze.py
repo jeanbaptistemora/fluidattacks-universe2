@@ -3,7 +3,6 @@ from aioextensions import (
     CPU_CORES,
 )
 from lib_path import (
-    f001_jpa,
     f009,
     f011,
     f022,
@@ -50,7 +49,6 @@ MEBIBYTE: int = 1048576
 MAX_READ: int = 64 * MEBIBYTE
 
 CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
-    (core_model.FindingEnum.F001_JPA, f001_jpa.analyze),
     (core_model.FindingEnum.F009, f009.analyze),
     (core_model.FindingEnum.F011, f011.analyze),
     (core_model.FindingEnum.F022, f022.analyze),
