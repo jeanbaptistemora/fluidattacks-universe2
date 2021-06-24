@@ -34,22 +34,22 @@ const Row: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: "flex flex-wrap-m pb1",
 })``;
 
-const Col40: StyledComponent<
+const LabelField: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "pl1 pr2 w-40-l w-100-m w-100-ns w-auto",
+  className: "pl1 pr2 w-30-l w-100-m w-100-ns w-auto",
 })``;
 
-const Col60: StyledComponent<
+const InfoField: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "pl1 pr2 w-60-l w-100-m w-100-ns w-auto",
+  className: "pl1 pr2 w-70-l w-100-m w-100-ns w-auto",
 })``;
 
 const Col100: StyledComponent<
@@ -151,40 +151,40 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
               <b>{t("searchFindings.tabVuln.vulnTable.reattacks")}</b>
             </Col100>
             <Row>
-              <Col40>
+              <LabelField>
                 <Label>
                   {t(
                     "searchFindings.tabVuln.vulnTable.lastRequestedReattackDate"
                   )}
                 </Label>
-              </Col40>
-              <Col60>
+              </LabelField>
+              <InfoField>
                 <Value value={vulnerability.lastRequestedReattackDate} />
-              </Col60>
+              </InfoField>
             </Row>
             <Row>
-              <Col40>
+              <LabelField>
                 <Label>{t("searchFindings.tabVuln.vulnTable.requester")}</Label>
-              </Col40>
-              <Col60>
+              </LabelField>
+              <InfoField>
                 <Value value={vulnerability.lastReattackRequester} />
-              </Col60>
+              </InfoField>
             </Row>
             <Row>
-              <Col40>
+              <LabelField>
                 <Label>{t("searchFindings.tabVuln.vulnTable.cycles")}</Label>
-              </Col40>
-              <Col60>
+              </LabelField>
+              <InfoField>
                 <Value value={vulnerability.cycles} />
-              </Col60>
+              </InfoField>
             </Row>
             <Row>
-              <Col40>
+              <LabelField>
                 <Label>{t("searchFindings.tabVuln.vulnTable.efficacy")}</Label>
-              </Col40>
-              <Col60>
+              </LabelField>
+              <InfoField>
                 <Value value={vulnerability.efficacy} />
-              </Col60>
+              </InfoField>
             </Row>
           </Col50>
           <Col50>
@@ -192,64 +192,64 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
               <b>{t("searchFindings.tabVuln.vulnTable.treatments")}</b>
             </Col100>
             <Row>
-              <Col40>
+              <LabelField>
                 <Label>
                   {t("searchFindings.tabVuln.vulnTable.currentTreatment")}
                 </Label>
-              </Col40>
-              <Col60>
+              </LabelField>
+              <InfoField>
                 <Value value={vulnerability.treatment} />
-              </Col60>
+              </InfoField>
             </Row>
             <Row>
-              <Col40>
+              <LabelField>
                 <Label>
                   {t("searchFindings.tabVuln.vulnTable.treatmentManager")}
                 </Label>
-              </Col40>
-              <Col60>
+              </LabelField>
+              <InfoField>
                 <Value value={vulnerability.treatmentManager} />
-              </Col60>
+              </InfoField>
             </Row>
             <Row>
-              <Col40>
+              <LabelField>
                 <Label>
                   {t("searchFindings.tabVuln.vulnTable.treatmentDate")}
                 </Label>
-              </Col40>
-              <Col60>
+              </LabelField>
+              <InfoField>
                 <Value value={vulnerability.treatmentDate} />
-              </Col60>
+              </InfoField>
             </Row>
             <Row>
-              <Col40>
+              <LabelField>
                 <Label>
                   {t("searchFindings.tabVuln.vulnTable.treatmentExpiration")}
                 </Label>
-              </Col40>
-              <Col60>
+              </LabelField>
+              <InfoField>
                 <Value value={currentExpiration} />
-              </Col60>
+              </InfoField>
             </Row>
             <Row>
-              <Col40>
+              <LabelField>
                 <Label>
                   {t("searchFindings.tabVuln.vulnTable.treatmentJustification")}
                 </Label>
-              </Col40>
-              <Col60>
+              </LabelField>
+              <InfoField>
                 <Value value={currentJustification} />
-              </Col60>
+              </InfoField>
             </Row>
             <Row>
-              <Col40>
+              <LabelField>
                 <Label>
                   {t("searchFindings.tabVuln.vulnTable.treatmentChanges")}
                 </Label>
-              </Col40>
-              <Col60>
+              </LabelField>
+              <InfoField>
                 <Value value={vulnerability.treatmentChanges} />
-              </Col60>
+              </InfoField>
             </Row>
           </Col50>
         </OuterRow>
@@ -259,21 +259,21 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
           </Col100>
           <Col50>
             <Row>
-              <Col40>
+              <LabelField>
                 <Label>
                   {t("searchFindings.tabVuln.vulnTable.reportDate")}
                 </Label>
-              </Col40>
-              <Col60>
+              </LabelField>
+              <InfoField>
                 <Value value={vulnerability.reportDate} />
-              </Col60>
+              </InfoField>
             </Row>
             {_.isEmpty(vulnerability.commitHash) ? undefined : (
               <Row>
-                <Col40>
+                <LabelField>
                   <Label>{t("searchFindings.tabVuln.commitHash")}</Label>
-                </Col40>
-                <Col60>
+                </LabelField>
+                <InfoField>
                   <p
                     className={
                       "ma0 mid-gray pr2-l tr-l tl-m tl-ns w-fit-content ws-pre-wrap ww-break-word"
@@ -281,44 +281,44 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                   >
                     {commitFormatter(vulnerability.commitHash)}
                   </p>
-                </Col60>
+                </InfoField>
               </Row>
             )}
             <Row>
-              <Col40>
+              <LabelField>
                 <Label>{t("searchFindings.tabDescription.tag")}</Label>
-              </Col40>
-              <Col60>
+              </LabelField>
+              <InfoField>
                 <Value value={vulnerability.tag} />
-              </Col60>
+              </InfoField>
             </Row>
             <Row>
-              <Col40>
+              <LabelField>
                 <Label>
                   {t("searchFindings.tabDescription.businessCriticality")}
                 </Label>
-              </Col40>
-              <Col60>
+              </LabelField>
+              <InfoField>
                 <Value value={vulnerability.severity} />
-              </Col60>
+              </InfoField>
             </Row>
           </Col50>
           <Col50>
             <Row>
-              <Col40>
+              <LabelField>
                 <Label>
                   {t("searchFindings.tabVuln.vulnTable.vulnType.title")}
                 </Label>
-              </Col40>
-              <Col60>
+              </LabelField>
+              <InfoField>
                 <Value value={vulnerability.vulnType} />
-              </Col60>
+              </InfoField>
             </Row>
             <Row>
-              <Col40>
+              <LabelField>
                 <Label>{t("searchFindings.tabDescription.zeroRisk")}</Label>
-              </Col40>
-              <div className={"pl1 pr2 w-60-l w-100-m w-100-ns mr"}>
+              </LabelField>
+              <div className={"pl1 pr2 w-70-l w-100-m w-100-ns mr"}>
                 {_.isEmpty(vulnerability.zeroRisk) ? (
                   <Value value={vulnerability.zeroRisk} />
                 ) : (
@@ -332,12 +332,12 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
             </Row>
             {canDisplayAnalyst ? (
               <Row>
-                <Col40>
+                <LabelField>
                   <Label>{t("searchFindings.tabDescription.analyst")}</Label>
-                </Col40>
-                <Col60>
+                </LabelField>
+                <InfoField>
                   <Value value={vulnerability.analyst} />
-                </Col60>
+                </InfoField>
               </Row>
             ) : undefined}
           </Col50>
