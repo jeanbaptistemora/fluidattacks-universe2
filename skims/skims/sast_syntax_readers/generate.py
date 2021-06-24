@@ -33,6 +33,9 @@ from sast_syntax_readers.common import (
     object_creation_expression as common_object_creation_expression,
     return_statement as common_return_statement,
 )
+from sast_syntax_readers.go import (
+    function_declaration as go_function_declaration,
+)
 from sast_syntax_readers.java import (
     array_access as java_array_access,
     array_creation_expression as java_array_creation_expression,
@@ -346,6 +349,16 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "constructor_declaration",
         },
         syntax_readers=(c_sharp_method_declaration.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.GO,
+        },
+        applicable_node_label_types={
+            "function_declaration",
+            "method_declaration",
+        },
+        syntax_readers=(go_function_declaration.reader,),
     ),
     Dispatcher(
         applicable_languages={

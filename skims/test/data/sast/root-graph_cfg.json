@@ -29210,7 +29210,63 @@
         "language": "go"
       },
       "path": "skims/test/data/sast/test_cfg.go",
-      "syntax": {}
+      "syntax": {
+        "196": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "201",
+              "value": null
+            },
+            "modifiers": [],
+            "type": "SyntaxStepDeclaration",
+            "var": "r",
+            "var_type": "*http.Request"
+          }
+        ],
+        "285": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "290",
+              "value": null
+            },
+            "modifiers": [],
+            "type": "SyntaxStepDeclaration",
+            "var": "w",
+            "var_type": "http.ResponseWriter"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "297",
+              "value": null
+            },
+            "modifiers": [],
+            "type": "SyntaxStepDeclaration",
+            "var": "cookies",
+            "var_type": "[]string"
+          }
+        ],
+        "377": [],
+        "47": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "60",
+              "value": null
+            },
+            "modifiers": [],
+            "type": "SyntaxStepDeclaration",
+            "var": "h",
+            "var_type": "httprouter.Handle"
+          }
+        ]
+      }
     }
   ],
   "shards_by_language_class": {
