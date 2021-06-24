@@ -396,13 +396,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 documentType={"disjointForceDirectedGraph"}
                 entity={entity}
                 footer={
-                  <ul
-                    // Override the bootstrap default style
-                    style={{
-                      marginBottom: "0",
-                      paddingBottom: "15px",
-                    }}
-                  >
+                  <ul>
                     <li>
                       {translate.t(
                         "analytics.disjointForceDirectedGraph.whereToFindings.footer.grey"
