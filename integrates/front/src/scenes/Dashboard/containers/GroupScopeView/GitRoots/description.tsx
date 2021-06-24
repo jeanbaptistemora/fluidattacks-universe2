@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Col50, Row } from "styles/styledComponents";
+import { formatIsoDate } from "utils/date";
 
 interface IDescriptionProps {
   cloningStatus: { message: string };
@@ -66,11 +67,11 @@ const Description = ({
       <Row>
         <Col50>
           {t("group.scope.common.lastStateStatusUpdate")}
-          {":"}&nbsp;{lastStateStatusUpdate}
+          {":"}&nbsp;{formatIsoDate(lastStateStatusUpdate)}
         </Col50>
         <Col50>
           {t("group.scope.common.lastCloningStatusUpdate")}
-          {":"}&nbsp;{lastCloningStatusUpdate}
+          {":"}&nbsp;{formatIsoDate(lastCloningStatusUpdate)}
         </Col50>
       </Row>
       <hr />

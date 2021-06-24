@@ -9,6 +9,7 @@ import React, { useCallback, useState } from "react";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { useTranslation } from "react-i18next";
 
+import { renderDescription } from "./description";
 import {
   handleActivationError,
   handleCreationError,
@@ -33,10 +34,8 @@ import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import type { IConfirmFn } from "components/ConfirmDialog";
 import { DataTableNext } from "components/DataTableNext";
-import {
-  changeFormatter,
-  dateFormatter,
-} from "components/DataTableNext/formatters";
+import { changeFormatter } from "components/DataTableNext/formatters";
+import { useRowExpand } from "components/DataTableNext/hooks/useRowExpand";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { Can } from "utils/authz/Can";
@@ -62,7 +61,7 @@ interface IGitRootsProps {
   roots: IGitRootAttr[];
 }
 
-export const GitRoots: React.FC<IGitRootsProps> = ({
+const GitRoots: React.FC<IGitRootsProps> = ({
   groupName,
   onUpdate,
   roots,
@@ -267,6 +266,12 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     setFilterEnabled(!isFilterEnabled);
   }
 
+  const { expandedRows, handleRowExpand, handleRowExpandAll } = useRowExpand({
+    rowId: "id",
+    rows: roots,
+    storageKey: "gitRootsExpandedRows",
+  });
+
   return (
     <React.Fragment>
       <h2>{t("group.scope.git.title")}</h2>
@@ -290,6 +295,14 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                 bordered={true}
                 columnToggle={true}
                 dataset={roots}
+                expandRow={{
+                  expandByColumnOnly: true,
+                  expanded: expandedRows,
+                  onExpand: handleRowExpand,
+                  onExpandAll: handleRowExpandAll,
+                  renderer: renderDescription,
+                  showExpandColumn: true,
+                }}
                 exportCsv={true}
                 extraButtons={
                   <Can do={"api_mutations_add_git_root_mutate"}>
@@ -320,33 +333,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     width: "5%",
                   },
                   {
-                    dataField: "nickname",
-                    header: "Nickname",
-                    visible: checkedItems.nickname,
-                  },
-                  {
-                    dataField: "environment",
-                    header: t("group.scope.git.repo.environment"),
-                    visible: checkedItems.environment,
-                    width: "8%",
-                  },
-                  {
-                    dataField: "environmentUrls",
-                    formatter: formatList,
-                    header: t("group.scope.git.envUrls"),
-                    visible: checkedItems.environmentUrls,
-                    width: "12%",
-                    wrapped: true,
-                  },
-                  {
-                    dataField: "gitignore",
-                    formatter: formatList,
-                    header: t("group.scope.git.filter.exclude"),
-                    visible: checkedItems.gitignore,
-                    width: "12%",
-                    wrapped: true,
-                  },
-                  {
                     align: "center",
                     changeFunction: handleStateUpdate,
                     dataField: "state",
@@ -364,13 +350,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     wrapped: !canUpdateRootState,
                   },
                   {
-                    align: "center",
-                    dataField: "lastStateStatusUpdate",
-                    formatter: dateFormatter,
-                    header: t("group.scope.common.lastStateStatusUpdate"),
-                    visible: checkedItems.lastStateStatusUpdate,
-                  },
-                  {
                     align: "left",
                     dataField: "cloningStatus.status",
                     filter: selectFilter({
@@ -383,19 +362,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     visible: checkedItems["cloningStatus.status"],
                     width: "105px",
                     wrapped: true,
-                  },
-                  {
-                    align: "center",
-                    dataField: "lastCloningStatusUpdate",
-                    formatter: dateFormatter,
-                    header: t("group.scope.common.lastCloningStatusUpdate"),
-                    visible: checkedItems.lastCloningStatusUpdate,
-                  },
-                  {
-                    dataField: "cloningStatus.message",
-                    header: t("group.scope.git.repo.cloning.message"),
-                    visible: checkedItems["cloningStatus.message"],
-                    width: "15%",
                   },
                 ]}
                 id={"tblGitRoots"}
@@ -432,3 +398,5 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     </React.Fragment>
   );
 };
+
+export { formatList, GitRoots };

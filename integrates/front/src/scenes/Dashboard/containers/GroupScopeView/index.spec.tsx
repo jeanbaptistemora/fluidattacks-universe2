@@ -98,15 +98,11 @@ describe("GroupScopeView", (): void => {
         "https://gitlab.com/fluidattacks/product",
         // Branch
         "master",
-        // Exclude
-        "bower_components/*",
-        "node_modules/*",
         // State
         "\u00a0Active\u00a0",
         // Cloning status
         "Unknown",
         // Last cloning status update
-        "2021-01-05 06:16:48",
       ].join("")
     );
   });
@@ -248,7 +244,6 @@ describe("GroupScopeView", (): void => {
         // Cloning status
         "Unknown",
         // Last cloning status update
-        "2021-01-05 06:16:48",
       ].join("")
     );
   });
@@ -382,7 +377,7 @@ describe("GroupScopeView", (): void => {
       // eslint-disable-next-line
       wrapper.find("tr").at(1) as ReactWrapper; // NOSONAR
 
-    getFirstTableRow().find("td").at(0).simulate("click");
+    getFirstTableRow().simulate("click");
 
     const environment: ReactWrapper = wrapper
       .find({ name: "environment" })
@@ -421,14 +416,11 @@ describe("GroupScopeView", (): void => {
         "https://gitlab.com/fluidattacks/product",
         // Branch
         "master",
-        // Exclude
-        "node_modules/*",
         // State
         "\u00a0Active\u00a0",
         // Cloning status
         "Unknown",
         // Last cloning status update
-        "2021-01-05 06:16:48",
       ].join("")
     );
   });

@@ -4,9 +4,9 @@ import moment from "moment";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { getLastTreatment } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
+import { isWithInAWeek } from "utils/date";
 import { formatDropdownField } from "utils/formatHelpers";
 import { translate } from "utils/translations/translate";
-import { isWithInAWeek } from "utils/utils";
 
 const getVulnerabilitiesIds: (vulnerabilities: IVulnRowAttr[]) => string[] = (
   vulnerabilities: IVulnRowAttr[]

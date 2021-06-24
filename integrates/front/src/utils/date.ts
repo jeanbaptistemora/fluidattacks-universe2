@@ -10,4 +10,7 @@ function isWithInAWeek(date: Moment): boolean {
   return date.isAfter(weekOld);
 }
 
-export { isWithInAWeek };
+const formatIsoDate = (value: string): string =>
+  moment(value).format("YYYY-MM-DD hh:mm:ss");
+
+export { formatIsoDate, isWithInAWeek };
