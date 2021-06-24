@@ -72,7 +72,6 @@ let
         "aiogqlc==1.0.5"
         "aiohttp==3.7.3"
         "aioitertools==0.7.1"
-        "antlr4-python3-runtime==4.7.2"
         "async-timeout==3.0.1"
         "attrs==20.3.0"
         "autobahn==21.2.1"
