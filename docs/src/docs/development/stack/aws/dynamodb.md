@@ -68,7 +68,7 @@ over other alternatives are:
     [On-demand backups](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/backuprestore_HowItWorks.html),
     allowing us to have
     backups of all our data
-    [stored in the cloud](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/BackupRestore.html).
+    [stored in the cloud](https://gitlab.com/fluidattacks/product/-/blob/cc1e9585a9e94670d040f680d75667907c3c5733/integrates/deploy/backup/terraform/dynamodb.tf).
 1. It supports
     [Point-in-Time Recovery](https://gitlab.com/fluidattacks/product/-/blob/cc1e9585a9e94670d040f680d75667907c3c5733/integrates/deploy/database/terraform/integrates-table.tf#L75),
     which helps to
@@ -151,10 +151,10 @@ We use [DynamoDB][DYNAMODB] for:
     the business-related data
     in our [ASM][ASM].
 1. Storing
-    [Point-in-Time Recovery backups](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/PointInTimeRecovery.html)
+    [Point-in-Time Recovery backups](https://gitlab.com/fluidattacks/product/-/blob/cc1e9585a9e94670d040f680d75667907c3c5733/integrates/deploy/database/terraform/integrates-table.tf#L75)
     of all our data.
 1. Storing
-    [On-demand backups](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/backuprestore_HowItWorks.html)
+    [On-demand backups](https://gitlab.com/fluidattacks/product/-/blob/cc1e9585a9e94670d040f680d75667907c3c5733/integrates/deploy/backup/terraform/dynamodb.tf)
     of all our data.
 1. Keeping a
     [versioned design](https://gitlab.com/fluidattacks/product/-/blob/148eccecfb68b6d5cd2c0418679330c0d6c02c2b/integrates/arch/database-design.json)
@@ -163,6 +163,11 @@ We use [DynamoDB][DYNAMODB] for:
     [Terraform state locks](https://www.terraform.io/docs/language/settings/backends/s3.html#dynamodb-state-locking)
     for
     [all our infrastructure modules](https://gitlab.com/fluidattacks/product/-/blob/148eccecfb68b6d5cd2c0418679330c0d6c02c2b/makes/applications/makes/ci/src/terraform/dynamodb_lock.tf).
+
+We are currently migrating to the new
+[Database design][DESIGN],
+you can track progress
+[here](https://gitlab.com/fluidattacks/product/-/issues/4329).
 
 ## Guidelines
 
@@ -176,7 +181,19 @@ We use [DynamoDB][DYNAMODB] for:
 1. To learn how to test and apply infrastructure via [Terraform](/development/stack/terraform/),
     visit the
     [Terraform Guidelines](/development/stack/terraform#guidelines).
+1. In order to maximize peformance
+    and keeping a simple architecture,
+    we use a
+    [single table approach](https://gitlab.com/fluidattacks/product/-/blob/148eccecfb68b6d5cd2c0418679330c0d6c02c2b/integrates/deploy/database/terraform/integrates-table.tf#L52)
+    for our database.
+    Please make sure
+    you keep all data within that table.
+1. Please adhere to our current [design][DESIGN]
+    so we can keep consistency.
+1. You can open the [design][DESIGN] with
+    [NoSQL Workbench for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.html).
 
 [DYNAMODB]: https://aws.amazon.com/dynamodb/
 [ASM]: https://fluidattacks.com/categories/asm/
 [RDBMS]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SQLtoNoSQL.WhyDynamoDB.html
+[DESIGN]: https://gitlab.com/fluidattacks/product/-/blob/master/integrates/arch/database-design.json
