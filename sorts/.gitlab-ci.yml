@@ -146,6 +146,11 @@ sorts.train:
   <<: *makes
   <<: *sorts_in_schedule_train
   interruptible: false
-  script:
-    - ./m sorts.train && ./m sorts.tune
   stage: deploy-app
+
+sorts.tune:
+  <<: *makes
+  <<: *sorts_in_schedule_train
+  interruptible: false
+  needs: [sorts.train]
+  stage: post-deploy
