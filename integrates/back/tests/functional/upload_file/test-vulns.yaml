@@ -7,12 +7,12 @@ inputs:
 lines:
 - line: '123'
   commit_hash: 5b5c92105b5c92105b5c92105b5c92105b5c9210
-  path: path/to/file1.ext
+  path: product/path/to/file1.ext
   state: closed
   repo_nickname: product
 - line: '345'
   commit_hash: e17059d1e17059d1e17059d1e17059d1e17059d1
-  path: path/to/file3.ext
+  path: product/path/to/file3.ext
   state: closed
   repo_nickname: product
 - line: "1"

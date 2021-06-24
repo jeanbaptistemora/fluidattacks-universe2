@@ -19,6 +19,10 @@ class _SingleMessageException(CustomBaseException):
         return cls(cls.msg)
 
 
+class ExpectedPathToStartWithRepo(_SingleMessageException):
+    msg: str = "Expected path to start with the repo nickname"
+
+
 class ExpectedVulnToBeOfLinesType(_SingleMessageException):
     msg: str = "Expected vulnerability to be of type: lines"
 

@@ -318,7 +318,7 @@
             "S": "2019-08-01 12:29:23"
           },
           "where": {
-            "S": "path/to/file1.ext"
+            "S": "product/path/to/file1.ext"
           },
           "UUID": {
             "S": "5c689459-64c2-4687-9fef-e5f2dd3c710c"

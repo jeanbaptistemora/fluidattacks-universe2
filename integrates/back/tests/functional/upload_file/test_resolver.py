@@ -64,14 +64,14 @@ async def test_upload_file(populate: bool, email: str) -> None:
             "repo_nickname": "product",
             "specific": "123",
             "type": "lines",
-            "where": "path/to/file1.ext",
+            "where": "product/path/to/file1.ext",
         },
         {
             "commit_hash": "e17059d1e17059d1e17059d1e17059d1e17059d1",
             "repo_nickname": "product",
             "specific": "345",
             "type": "lines",
-            "where": "path/to/file3.ext",
+            "where": "product/path/to/file3.ext",
         },
     ]
 

@@ -967,7 +967,7 @@
             ]
           },
           "where": {
-            "S": "path/to/file1.ext"
+            "S": "product/path/to/file1.ext"
           },
           "UUID": {
             "S": "6f023c26-5x10-4ded-aa27-xx563c2206ax"
@@ -1174,7 +1174,7 @@
             ]
           },
           "where": {
-            "S": "path/to/file3.ext"
+            "S": "product/path/to/file3.ext"
           },
           "UUID": {
             "S": "3bcdb384-5547-4170-a0b6-3b397a245465"
@@ -1365,7 +1365,7 @@
             ]
           },
           "where": {
-            "S": "path/to/file1.ext"
+            "S": "product/path/to/file1.ext"
           },
           "UUID": {
             "S": "6f023c26-5b10-4ded-aa27-bb563c2206ab"
@@ -1460,7 +1460,7 @@
             ]
           },
           "where": {
-            "S": "path/to/file1.ext"
+            "S": "product/path/to/file1.ext"
           },
           "UUID": {
             "S": "74632c0c-db08-47c2-b013-c70e5b67c49f"
