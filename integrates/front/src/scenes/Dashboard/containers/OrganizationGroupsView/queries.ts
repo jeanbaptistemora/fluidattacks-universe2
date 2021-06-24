@@ -8,9 +8,9 @@ export const GET_ORGANIZATION_GROUPS: DocumentNode = gql`
       groups {
         name
         description
-        hasDrills
+        hasSquad
         hasForces
-        hasIntegrates
+        hasAsm
         subscription
         userRole
       }

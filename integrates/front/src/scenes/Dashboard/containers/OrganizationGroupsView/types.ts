@@ -2,9 +2,9 @@ interface IGroupData {
   description: string;
   squad: string;
   forces: string;
-  hasDrills: boolean;
+  hasSquad: boolean;
   hasForces: boolean;
-  hasIntegrates: boolean;
+  hasAsm: boolean;
   asm: string;
   name: string;
   subscription: string;

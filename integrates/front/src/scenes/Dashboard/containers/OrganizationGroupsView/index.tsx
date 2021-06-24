@@ -91,13 +91,13 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       const description: string = _.capitalize(group.description);
       const subscription: string = _.capitalize(group.subscription);
       const squad: string = translate.t(
-        servicesParameters[group.hasDrills.toString()]
+        servicesParameters[group.hasSquad.toString()]
       );
       const forces: string = translate.t(
         servicesParameters[group.hasForces.toString()]
       );
       const asm: string = translate.t(
-        servicesParameters[group.hasIntegrates.toString()]
+        servicesParameters[group.hasAsm.toString()]
       );
 
       return {

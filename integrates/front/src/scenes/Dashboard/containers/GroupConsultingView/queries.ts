@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
 const GET_GROUP_CONSULTING: DocumentNode = gql`
-  query GetProjectConsulting($groupName: String!) {
+  query GetGroupConsulting($groupName: String!) {
     group(groupName: $groupName) {
       consulting {
         id

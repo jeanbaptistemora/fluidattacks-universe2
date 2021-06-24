@@ -10,7 +10,7 @@ const UPLOAD_VULNERABILITIES: DocumentNode = gql`
 `;
 
 const GET_GROUP_USERS: DocumentNode = gql`
-  query GetProjectUsers($groupName: String!) {
+  query GetGroupUsers($groupName: String!) {
     group(groupName: $groupName) {
       name
       stakeholders {
