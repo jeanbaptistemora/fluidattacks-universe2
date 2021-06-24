@@ -48,6 +48,9 @@ from names import (
 from newutils.datetime import (
     get_from_str,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from organizations import (
     dal as dal_organizations,
 )
@@ -168,7 +171,7 @@ async def populate_findings(data: List[Any]) -> bool:
         [
             dal_findings.create(
                 finding["finding_id"],
-                finding["project_name"],
+                resolve_kwargs(finding),
                 finding,
             )
             for finding in data_parsed
@@ -260,7 +263,7 @@ async def populate_consultings(data: List[Any]) -> bool:
     coroutines.extend(
         [
             dal_group_comments.add_comment(
-                consulting["project_name"],
+                resolve_kwargs(consulting),
                 consulting["email"],
                 consulting,
             )
@@ -276,7 +279,7 @@ async def populate_events(data: List[Any]) -> bool:
         [
             dal_event.create(
                 event["event_id"],
-                event["project_name"],
+                resolve_kwargs(event),
                 event,
             )
             for event in data

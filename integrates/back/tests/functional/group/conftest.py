@@ -15,7 +15,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("project")
+@pytest.mark.resolver_test_group("group")
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
@@ -48,7 +48,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         "findings": [
             {
                 "finding_id": "475041521",
-                "project_name": "group1",
+                "group_name": "group1",
                 "files": [
                     {
                         "name": "file1",
@@ -121,7 +121,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             },
             {
                 "finding_id": "475041531",
-                "project_name": "group1",
+                "group_name": "group1",
                 "files": [
                     {
                         "name": "file1",
@@ -306,7 +306,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "fullname": "test one",
                 "modified": "2019-05-28 15:09:37",
                 "parent": 0,
-                "project_name": "group1",
+                "group_name": "group1",
                 "user_id": 123456789,
             },
         ],
@@ -340,7 +340,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ],
                 "event_type": "OTHER",
                 "hours_before_blocking": "1",
-                "project_name": "group1",
+                "group_name": "group1",
                 "subscription": "ONESHOT",
             },
         ],

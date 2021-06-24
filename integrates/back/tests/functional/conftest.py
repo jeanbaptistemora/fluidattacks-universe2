@@ -44,7 +44,7 @@ TEST_GROUPS: Set[str] = {
     "old",
     "organization",
     "organization_id",
-    "project",
+    "group",
     "reject_draft",
     "reject_draft_new",
     "remove_event_evidence",

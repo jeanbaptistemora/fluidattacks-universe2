@@ -17,12 +17,12 @@ async def get_result(
 ) -> Dict[str, Any]:
     query: str = f"""
         query {{
-            project(projectName: "{group}"){{
+            group(groupName: "{group}"){{
                 analytics(documentName: "", documentType: "")
                 name
-                hasDrills
+                hasSquad
                 hasForces
-                hasIntegrates
+                hasAsm
                 openVulnerabilities
                 closedVulnerabilities
                 lastClosingVuln
