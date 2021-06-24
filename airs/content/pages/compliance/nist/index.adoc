@@ -25,7 +25,7 @@ reports so that your team can take the necessary steps to adjust and maintain
 your information systems in line with such requirements.
 
 [role="fw3 f3 lh-2"]
-All our security testing is based on link:../../products/rules/[​Rules, role=basic-link], which is a set of security
+All our security testing is based on link:https://docs.fluidattacks.com/criteria/[Criteria, role=basic-link], which is a set of security
 requirements written by us in a comprehensible manner, using several
 international standards as a reference. It allows you to parameterize the
 assessments we make to your systems and determine what your company agrees to

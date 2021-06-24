@@ -27,7 +27,7 @@ so that your team can take the necessary steps
 to adjust and maintain your information systems in line with such requirements.
 
 [role="fw3 f3 lh-2"]
-All our security testing is based on link:../../products/rules/[​Rules, role=basic-link],
+All our security testing is based on link:https://docs.fluidattacks.com/criteria/[Criteria, role=basic-link],
 which is a set of security requirements
 written by us in a comprehensible manner,
 using several international standards as a reference.
@@ -154,7 +154,7 @@ already done a lot of damage.
 === OWASP Benchmark Project v1.2
 
 [role="fw3 f3 lh-2"]
-Our SAST tool achieved the best possible result against the OWASP Benchmark: 
+Our SAST tool achieved the best possible result against the OWASP Benchmark:
 A TPR (True Positive Rate) of 100% and an FPR (False Positive Rate) of 0%.
 
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1619725547/airs/compliance/OWASP_benchmark_clnlip.webp[]
