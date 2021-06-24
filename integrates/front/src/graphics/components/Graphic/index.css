@@ -21,31 +21,6 @@
   line-height: 1;
 }
 
-:local .modalDialog {
-  /* 210px is the fixed-sized of the left burger panel */
-  --burger-panel-size: 210px;
-
-  display: inline-block;
-  left: var(--burger-panel-size);
-  max-width: none !important;
-  margin: 0 !important;
-  position: absolute;
-  text-align: left;
-  vertical-align: middle;
-  width: calc(100% - var(--burger-panel-size));
-}
-
-:local .panelTitle {
-  /* Using important to override the global react-bootstrap style */
-  background-color: #fbfbfb !important;
-}
-
-:local .panelFooter {
-  /* Using important to override the global react-bootstrap style */
-  background-color: #fbfbfb !important;
-  text-align: left;
-}
-
 :local .tinyLine {
   margin: 0;
   padding: 0;

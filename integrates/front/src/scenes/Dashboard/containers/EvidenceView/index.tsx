@@ -26,7 +26,6 @@ import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
 import { EvidenceLightbox } from "scenes/Dashboard/components/EvidenceLightbox";
-import styles from "scenes/Dashboard/containers/EvidenceView/index.css";
 import {
   GET_FINDING_EVIDENCES,
   REMOVE_EVIDENCE_MUTATION,
@@ -200,8 +199,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
                     </TooltipWrapper>
                   </ButtonToolbarRow>
                 ) : undefined}
-                {/* eslint-disable-next-line react/forbid-component-props */}
-                <Row className={styles.evidenceGrid}>
+                <Row>
                   {evidenceList.map(
                     (name: string, index: number): JSX.Element => {
                       const evidence: IEvidenceItem = evidenceImages[name];
