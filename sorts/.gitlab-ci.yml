@@ -117,14 +117,6 @@ sorts.execute:
   stage: test-code
   interruptible: false
 
-sorts.train:
-  <<: *makes
-  <<: *sorts_in_master_branch_code_changes
-  script:
-    - ./m sorts.train && ./m sorts.tune
-  stage: deploy-app
-  interruptible: false
-
 # Sorts extract features scheduled pipeline
 sorts.extract-features:
   <<: *makes
