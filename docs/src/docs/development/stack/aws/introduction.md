@@ -77,10 +77,10 @@ We use the following [AWS][AWS] services:
     [EKS](/development/stack/aws/eks/).
 1. Virtual private cloud:
     [VPC](/development/stack/aws/vpc/).
+1. NoSQL database:
+    [DynamoDB](/development/stack/aws/dynamodb/).
 1. Elastic Container Service:
     [ECS](https://aws.amazon.com/ecs/).
-1. NoSQL database:
-    [DynamoDB](https://aws.amazon.com/dynamodb/).
 1. Data warehouse:
     [Redshift](https://aws.amazon.com/redshift/).
 1. Cache:

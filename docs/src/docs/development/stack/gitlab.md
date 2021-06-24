@@ -184,7 +184,7 @@ We use [Gitlab][GITLAB] for:
 1. Hosting our
     [product repository][PRODUCT].
 1. Hosting our
-    [issues][ISSUE].
+    [issues][ISSUES].
 1. Hosting our
     [milestones](https://gitlab.com/fluidattacks/product/-/milestones).
 1. Opening our
