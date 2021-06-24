@@ -41,7 +41,7 @@ DEBUGGING: bool = False
 TARGET_URL: str = "https://app.fluidattacks.com"
 INTEGRATES_API_TOKEN: str = os.environ["INTEGRATES_API_TOKEN"]
 PROXY = "http://127.0.0.1:9000" if DEBUGGING else None
-WIDTH: int = 800
+WIDTH: int = 1000
 
 
 @contextlib.asynccontextmanager
