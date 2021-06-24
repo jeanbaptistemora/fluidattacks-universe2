@@ -160,6 +160,7 @@ def format_vulnerabilities(
                             vuln.get("specific")
                         )
                     ),
+                    "repo_nickname": vuln.get("repo_nickname"),
                     "state": str(current_state),
                 }
             )
@@ -475,7 +476,7 @@ def update_treatment_values(updated_values: Dict[str, str]) -> Dict[str, str]:
 
 
 def validate_closed(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
-    """ Validate vuln closed """
+    """Validate vuln closed"""
     if (
         cast(List[Dict[str, FindingType]], vuln.get("historic_state", [{}]))[
             -1
@@ -489,7 +490,7 @@ def validate_closed(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
 def validate_requested_verification(
     vuln: Dict[str, FindingType]
 ) -> Dict[str, FindingType]:
-    """ Validate vuln is not resquested """
+    """Validate vuln is not resquested"""
     historic_verification = cast(
         List[Dict[str, FindingType]], vuln.get("historic_verification", [{}])
     )
@@ -499,7 +500,7 @@ def validate_requested_verification(
 
 
 def validate_verify(vuln: Dict[str, FindingType]) -> Dict[str, FindingType]:
-    """ Validate vuln is resquested """
+    """Validate vuln is resquested"""
     if not is_reattack_requested(vuln):
         raise NotVerificationRequested()
     return vuln

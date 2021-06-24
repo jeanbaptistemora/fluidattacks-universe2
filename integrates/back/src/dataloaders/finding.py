@@ -53,6 +53,7 @@ async def _batch_load_fn(
             recommendation=finding.get("effectSolution", ""),
             records=finding.get("records", ""),
             remediated=finding.get("remediated", False),
+            repo_nickname=finding.get("repo_nickname", ""),
             requirements=finding.get("requirements", ""),
             risk=finding.get("risk", ""),
             scenario=finding.get("scenario", ""),

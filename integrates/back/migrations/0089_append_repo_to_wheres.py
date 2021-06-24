@@ -37,6 +37,7 @@ def handle_response(table: Any, response: Any) -> None:
             correct_where: str = f"{repo}/{where}"
 
             print()
+            print(f"  uuid:          {uuid}")
             print(f"  where:         {where}")
             print(f"  correct_where: {correct_where}")
 
