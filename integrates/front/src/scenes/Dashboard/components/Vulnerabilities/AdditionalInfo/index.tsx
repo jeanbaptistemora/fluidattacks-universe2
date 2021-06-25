@@ -125,14 +125,14 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
         <Col100>
           <b>{t("searchFindings.tabVuln.vulnTable.location")}</b>
         </Col100>
-        <OuterRow>
-          <Col100>
+        <div className={"flex flex-wrap pb0"}>
+          <div className={"pl1 pr2 pb0 w-100"}>
             <Field>{vulnerability.where}</Field>
             {_.isEmpty(vulnerability.stream) ? undefined : (
               <Field>{vulnerability.stream}</Field>
             )}
-          </Col100>
-        </OuterRow>
+          </div>
+        </div>
         <OuterRow>
           <div className={"pl1 pr2 w-10-l w-100-m w-100-ns"}>
             <Label>
@@ -276,7 +276,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 <InfoField>
                   <p
                     className={
-                      "ma0 mid-gray pr2-l tr-l tl-m tl-ns w-fit-content ws-pre-wrap ww-break-word"
+                      "ma0 mid-gray pr2-l tr-l tl-m tl-ns ws-pre-wrap ww-break-word"
                     }
                   >
                     {commitFormatter(vulnerability.commitHash)}
