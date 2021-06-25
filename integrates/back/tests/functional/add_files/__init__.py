@@ -34,12 +34,12 @@ async def get_result(
         ]
         query: str = """
             mutation UploadFileMutation(
-                $file: Upload!, $filesData: JSONString!, $projectName: String!
+                $file: Upload!, $filesData: JSONString!, $groupName: String!
             ) {
                 addFiles (
                     file: $file,
                     filesData: $filesData,
-                    projectName: $projectName) {
+                    groupName: $groupName) {
                         success
                 }
             }
@@ -47,7 +47,7 @@ async def get_result(
         variables: Dict[str, Any] = {
             "file": uploaded_file,
             "filesData": json.dumps(file_data),
-            "projectName": group,
+            "groupName": group,
         }
         data: Dict[str, Any] = {"query": query, "variables": variables}
         result = await get_graphql_result(

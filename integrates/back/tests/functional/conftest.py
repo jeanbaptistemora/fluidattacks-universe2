@@ -12,7 +12,7 @@ TEST_GROUPS: Set[str] = {
     "add_files",
     "add_finding_consult",
     "add_git_root",
-    "add_project_consult",
+    "add_group_consult",
     "add_tags",
     "approve_draft",
     "approve_draft_new",

@@ -182,7 +182,7 @@ integrates.back.test.functional.add_finding_consult:
 integrates.back.test.functional.add_git_root:
   <<: *integrates_back_test_functional
 
-integrates.back.test.functional.add_project_consult:
+integrates.back.test.functional.add_group_consult:
   <<: *integrates_back_test_functional
 
 integrates.back.test.functional.add_tags:

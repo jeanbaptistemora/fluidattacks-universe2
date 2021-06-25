@@ -9,7 +9,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("add_project_consult")
+@pytest.mark.resolver_test_group("add_group_consult")
 @pytest.mark.parametrize(
     ["email"],
     [
@@ -28,12 +28,12 @@ async def test_add_project_consult(populate: bool, email: str) -> None:
         group=group_name,
     )
     assert "errors" not in result
-    assert "success" in result["data"]["addProjectConsult"]
-    assert result["data"]["addProjectConsult"]["success"]
+    assert "success" in result["data"]["addGroupConsult"]
+    assert result["data"]["addGroupConsult"]["success"]
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("add_project_consult")
+@pytest.mark.resolver_test_group("add_group_consult")
 @pytest.mark.parametrize(
     ["email"],
     [

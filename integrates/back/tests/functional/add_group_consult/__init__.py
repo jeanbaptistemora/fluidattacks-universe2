@@ -17,10 +17,10 @@ async def get_result(
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
-            addProjectConsult(
+            addGroupConsult(
                 content: "Test consult",
                 parent: "0",
-                projectName: "{group}",
+                groupName: "{group}",
             ) {{
                 success
                 commentId
