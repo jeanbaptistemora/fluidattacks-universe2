@@ -43,13 +43,13 @@ async def create_group() -> str:
     org_name = "okada"
     query = f"""
         mutation {{
-            createProject(
+            createGroup(
                 organization: "{org_name}",
-                description: "This is a new project from pytest",
+                description: "This is a new group from pytest",
                 projectName: "{group_name}",
                 subscription: CONTINUOUS,
-                hasSkims: true,
-                hasDrills: true,
+                hasMachine: true,
+                hasSquad: true,
                 hasForces: true
             ) {{
             success
@@ -58,8 +58,8 @@ async def create_group() -> str:
     """
     data = {"query": query}
     result = await get_result(data, stakeholder=MANAGER)
-    assert "success" in result["data"]["createProject"]
-    assert result["data"]["createProject"]["success"]
+    assert "success" in result["data"]["createGroup"]
+    assert result["data"]["createGroup"]["success"]
 
     role = "CUSTOMER"
     customer_email = CUSTOMER
@@ -68,7 +68,7 @@ async def create_group() -> str:
             grantStakeholderAccess (
                 email: "{customer_email}",
                 phoneNumber: "-",
-                projectName: "{group_name}",
+                groupName: "{group_name}",
                 responsibility: "Customer",
                 role: {role}
             ) {{

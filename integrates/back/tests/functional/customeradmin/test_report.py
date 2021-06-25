@@ -15,7 +15,7 @@ async def test_report() -> None:
     query = f"""
         query {{
             report(
-                projectName: "{group_name}",
+                groupName: "{group_name}",
                 reportType: PDF,
                 lang: EN
             ) {{
@@ -35,7 +35,7 @@ async def test_report() -> None:
     query = f"""
         query {{
             report(
-                projectName: "{group_name}",
+                groupName: "{group_name}",
                 reportType: XLS
             ) {{
                 url
@@ -54,7 +54,7 @@ async def test_report() -> None:
     query = f"""
         query {{
             report(
-                projectName: "{group_name}",
+                groupName: "{group_name}",
                 reportType: DATA) {{
                 url
             }}

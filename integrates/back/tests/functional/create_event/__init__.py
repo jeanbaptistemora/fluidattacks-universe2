@@ -18,7 +18,7 @@ async def get_result(
     query: str = f"""
         mutation {{
             createEvent(
-                projectName: "{group}",
+                groupName: "{group}",
                 actionAfterBlocking: TRAINING,
                 actionBeforeBlocking: DOCUMENT_PROJECT,
                 accessibility: ENVIRONMENT,

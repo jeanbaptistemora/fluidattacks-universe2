@@ -74,8 +74,6 @@ async def test_me() -> None:  # pylint: disable=too-many-statements
                 frequency: {frecuency},
                 reportEntity: {entity},
                 reportSubject: "{org_id}"
-
-
             ) {{
                 success
             }}
@@ -119,7 +117,7 @@ async def test_me() -> None:  # pylint: disable=too-many-statements
             }}
             tags(organizationId: "{org_id}") {{
                 name
-                projects {{
+                groups {{
                     name
                 }}
             }}
@@ -150,21 +148,21 @@ async def test_me() -> None:  # pylint: disable=too-many-statements
     assert result["data"]["me"]["tags"] == [
         {
             "name": "another-tag",
-            "projects": [
+            "groups": [
                 {"name": "continuoustesting"},
                 {"name": "oneshottest"},
             ],
         },
         {
             "name": "test-projects",
-            "projects": [
+            "groups": [
                 {"name": "oneshottest"},
                 {"name": "unittesting"},
             ],
         },
         {
             "name": "test-updates",
-            "projects": [
+            "groups": [
                 {"name": "oneshottest"},
                 {"name": "unittesting"},
             ],
@@ -175,8 +173,8 @@ async def test_me() -> None:  # pylint: disable=too-many-statements
     context = get_new_context()
     query = f"""{{
         me(callerOrigin: "API") {{
-            permissions(entity: PROJECT, identifier: "{group_name}")
-            role(entity: PROJECT, identifier: "{group_name}")
+            permissions(entity: GROUP, identifier: "{group_name}")
+            role(entity: GROUP, identifier: "{group_name}")
         }}
     }}"""
     data = {"query": query}
@@ -231,7 +229,7 @@ async def test_me() -> None:  # pylint: disable=too-many-statements
             }}
             tags(organizationId: "{org_id}") {{
                 name
-                projects {{
+                groups {{
                     name
                 }}
             }}

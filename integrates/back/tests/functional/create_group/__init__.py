@@ -20,7 +20,7 @@ async def get_result(
         mutation {{
             createGroup(
                 organization: "{org}",
-                description: "This is a new project from pytest",
+                description: "This is a new group from pytest",
                 groupName: "{group}",
                 subscription: CONTINUOUS,
                 hasMachine: true,
