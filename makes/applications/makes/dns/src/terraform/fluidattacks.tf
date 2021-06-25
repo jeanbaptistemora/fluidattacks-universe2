@@ -104,29 +104,11 @@ resource "cloudflare_record" "try" {
   ttl     = 1
 }
 
-resource "cloudflare_record" "landing_usa" {
-  zone_id = cloudflare_zone.fluidattacks_com.id
-  name    = "usa.${cloudflare_zone.fluidattacks_com.zone}"
-  type    = "CNAME"
-  value   = "60afa14d825c49689b84f58f10773196.unbouncepages.com"
-  proxied = false
-  ttl     = 1
-}
-
 resource "cloudflare_record" "landing_report2020" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "report2020.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "CNAME"
   value   = "64b61b566e6b494db43ea4242748637a.unbouncepages.com"
-  proxied = false
-  ttl     = 1
-}
-
-resource "cloudflare_record" "track" {
-  zone_id = cloudflare_zone.fluidattacks_com.id
-  name    = "track.${cloudflare_zone.fluidattacks_com.zone}"
-  type    = "CNAME"
-  value   = "mandrillapp.com"
   proxied = false
   ttl     = 1
 }
@@ -209,15 +191,6 @@ resource "cloudflare_record" "rebrandly" {
   type    = "CNAME"
   value   = "rebrandlydomain.com"
   proxied = true
-  ttl     = 1
-}
-
-resource "cloudflare_record" "zoho_desk" {
-  zone_id = cloudflare_zone.fluidattacks_com.id
-  name    = "help2.${cloudflare_zone.fluidattacks_com.zone}"
-  type    = "CNAME"
-  value   = "desk.cs.zohohost.com"
-  proxied = false
   ttl     = 1
 }
 
