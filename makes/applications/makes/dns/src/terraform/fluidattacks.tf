@@ -194,15 +194,6 @@ resource "cloudflare_record" "rebrandly" {
   ttl     = 1
 }
 
-resource "cloudflare_record" "community" {
-  zone_id = cloudflare_zone.fluidattacks_com.id
-  name    = "community.${cloudflare_zone.fluidattacks_com.zone}"
-  type    = "CNAME"
-  value   = "help.autonomicjump.com"
-  proxied = false
-  ttl     = 1
-}
-
 resource "cloudflare_record" "zd1_domainkey" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "zendesk1.domainkey.${cloudflare_zone.fluidattacks_com.zone}"
