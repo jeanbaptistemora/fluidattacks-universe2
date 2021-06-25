@@ -1,12 +1,19 @@
 # shellcheck shell=bash
 
 function populate {
-  sed "s/2020-09-04.*/$(date -u +%Y-%m-%dT%H:%M:%S.000000%z)\"/g" \
-    < '__envDb__/data/forces.json' \
+  local email="${1:-integratesmanager@gmail.com}"
+
+  echo "[INFO] Admin email: ${email}" \
+    && sed "s/2020-09-04.*/$(date -u +%Y-%m-%dT%H:%M:%S.000000%z)\"/g" \
+      < '__envDb__/data/forces.json' \
     | sed "s/33e5d863252940edbfb144ede56d56cf/aaa/g" \
-    | sed "s/a125217504d447ada2b81da3e4bdab0e/bbb/g" \
-      > "${STATE_PATH}/forces.now.json" \
-    && for data in '__envDb__/data/'*'.json' "${STATE_PATH}/"*'.json'; do
+      | sed "s/a125217504d447ada2b81da3e4bdab0e/bbb/g" \
+        > "${STATE_PATH}/forces.now.json" \
+    && for data in '__envDb__/data/'*'.json'; do
+      sed "s/__adminEmail__/${email}/g" "${data}" \
+        > "${STATE_PATH}/$(basename "${data}")"
+    done \
+    && for data in "${STATE_PATH}/"*'.json'; do
       echo "[INFO] Writing data from: ${data}" \
         && aws dynamodb batch-write-item \
           --endpoint-url "http://${HOST}:${PORT}" \
@@ -40,7 +47,7 @@ function serve {
     && terraform apply -auto-approve \
     && popd \
     && if test "${POPULATE}" != 'false'; then
-      populate "${STATE_PATH}"
+      populate "${@}"
     fi \
     && makes-done 28022 \
     && echo '[INFO] Dynamo DB is ready' \

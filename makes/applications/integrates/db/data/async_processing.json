@@ -16,7 +16,7 @@
             "S": "unittesting"
           },
           "subject": {
-            "S": "integratesmanager@gmail.com"
+            "S": "__adminEmail__"
           },
           "time": {
             "S": "1615834776"
@@ -40,7 +40,7 @@
             "S": "unittesting"
           },
           "subject": {
-            "S": "integratesmanager@gmail.com"
+            "S": "__adminEmail__"
           },
           "time": {
             "S": "1616116348"
@@ -64,7 +64,7 @@
             "S": "unittesting"
           },
           "subject": {
-            "S": "integratesmanager@gmail.com"
+            "S": "__adminEmail__"
           },
           "time": {
             "S": "1616116348"

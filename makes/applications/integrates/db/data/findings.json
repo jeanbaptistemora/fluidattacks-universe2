@@ -38,7 +38,7 @@
                     "S": "2018-04-07 19:43:18"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -54,7 +54,7 @@
                     "S": "2018-04-07 19:45:11"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -278,7 +278,7 @@
                     "S": "2019-11-22 15:07:57"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -291,7 +291,7 @@
             ]
           },
           "analyst": {
-            "S": "integratesmanager@gmail.com"
+            "S": "__adminEmail__"
           },
           "files": {
             "L": []
@@ -490,7 +490,7 @@
                     "S": "2018-04-07 19:43:18"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -506,7 +506,7 @@
                     "S": "2018-04-07 19:45:11"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -522,7 +522,7 @@
                     "S": "2018-07-09 00:00:00"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -647,7 +647,7 @@
                     "S": "2019-11-22 15:08:11"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -663,7 +663,7 @@
                     "S": "2019-11-22 15:10:04"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -751,7 +751,7 @@
             "N": "7.3"
           },
           "analyst": {
-            "S": "integratesmanager@gmail.com"
+            "S": "__adminEmail__"
           },
           "files": {
             "L": [
@@ -954,7 +954,7 @@
                     "S": "2019-04-07 19:43:18"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -970,7 +970,7 @@
                     "S": "2019-04-07 19:45:11"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -986,7 +986,7 @@
                     "S": "2019-04-08 00:00:00"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -1289,7 +1289,7 @@
                     "S": "2018-04-07 19:43:18"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -1305,7 +1305,7 @@
                     "S": "2018-04-07 19:45:11"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -1321,7 +1321,7 @@
                     "S": "2019-01-10 00:00:00"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -1807,7 +1807,7 @@
                     "S": "2018-04-07 19:43:18"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -1823,7 +1823,7 @@
                     "S": "2018-04-07 19:45:11"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -1839,7 +1839,7 @@
                     "S": "2018-12-17 00:00:00"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -1934,7 +1934,7 @@
                     "S": "2019-11-22 15:08:03"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -1950,7 +1950,7 @@
                     "S": "2019-11-22 15:10:56"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -1966,7 +1966,7 @@
             ]
           },
           "analyst": {
-            "S": "integratesmanager@gmail.com"
+            "S": "__adminEmail__"
           },
           "files": {
             "L": []
@@ -2093,7 +2093,7 @@
                     "S": "2018-04-07 19:43:18"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -2109,7 +2109,7 @@
                     "S": "2018-04-07 19:45:11"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -2125,7 +2125,7 @@
                     "S": "2018-11-27 00:00:00"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -2789,7 +2789,7 @@
                     "S": "2018-04-07 19:43:18"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -2805,7 +2805,7 @@
                     "S": "2018-04-07 19:45:11"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -2821,7 +2821,7 @@
                     "S": "2018-11-29 00:00:00"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -2940,7 +2940,7 @@
                     "S": "2019-04-07 19:43:18"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -2956,7 +2956,7 @@
                     "S": "2019-04-07 19:45:11"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -2972,7 +2972,7 @@
                     "S": "2019-04-07 19:45:15"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -3060,7 +3060,7 @@
             "N": "7.3"
           },
           "analyst": {
-            "S": "integratesmanager@gmail.com"
+            "S": "__adminEmail__"
           },
           "files": {
             "L": [
@@ -3089,7 +3089,7 @@
       "PutRequest": {
         "Item": {
           "leader": {
-            "S": "integratesmanager@gmail.com"
+            "S": "__adminEmail__"
           },
           "integrity_impact": {
             "N": "0.33"
@@ -3174,7 +3174,7 @@
                     "S": "2018-04-07 19:43:18"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -3190,7 +3190,7 @@
                     "S": "2018-05-01 19:45:11"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -3272,10 +3272,10 @@
             "N": "3.5"
           },
           "analyst": {
-            "S": "integratesmanager@gmail.com"
+            "S": "__adminEmail__"
           },
           "interested": {
-            "S": "integratesmanager@gmail.com"
+            "S": "__adminEmail__"
           },
           "threat": {
             "S": "This is a treat."
@@ -3287,7 +3287,7 @@
       "PutRequest": {
         "Item": {
           "leader": {
-            "S": "integratesmanager@gmail.com"
+            "S": "__adminEmail__"
           },
           "integrity_impact": {
             "N": "0.53"
@@ -3372,7 +3372,7 @@
                     "S": "2018-04-07 19:43:18"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -3388,7 +3388,7 @@
                     "S": "2018-05-01 19:45:11"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -3404,7 +3404,7 @@
                     "S": "2018-05-01 20:45:11"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -3486,10 +3486,10 @@
             "N": "3.5"
           },
           "analyst": {
-            "S": "integratesmanager@gmail.com"
+            "S": "__adminEmail__"
           },
           "interested": {
-            "S": "integratesmanager@gmail.com"
+            "S": "__adminEmail__"
           },
           "threat": {
             "S": "This is a treat."
@@ -3501,7 +3501,7 @@
       "PutRequest": {
         "Item": {
           "leader": {
-            "S": "integratesmanager@gmail.com"
+            "S": "__adminEmail__"
           },
           "integrity_impact": {
             "N": "0.57"
@@ -3586,7 +3586,7 @@
                     "S": "2020-04-03 12:43:18"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -3602,7 +3602,7 @@
                     "S": "2020-08-01 19:45:11"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -3618,7 +3618,7 @@
                     "S": "2020-08-01 20:45:11"
                   },
                   "analyst": {
-                    "S": "integratesmanager@gmail.com"
+                    "S": "__adminEmail__"
                   },
                   "source": {
                     "S": "integrates"
@@ -3700,10 +3700,10 @@
             "N": "3.5"
           },
           "analyst": {
-            "S": "integratesmanager@gmail.com"
+            "S": "__adminEmail__"
           },
           "interested": {
-            "S": "integratesmanager@gmail.com"
+            "S": "__adminEmail__"
           },
           "threat": {
             "S": "This is a treat."

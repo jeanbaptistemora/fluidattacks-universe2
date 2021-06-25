@@ -31,7 +31,7 @@
             "BOOL": true
           },
           "user_email": {
-            "S": "integratesmanager@gmail.com"
+            "S": "__adminEmail__"
           }
         }
       }
@@ -85,7 +85,7 @@
             "BOOL": true
           },
           "user_email": {
-            "S": "integratesmanager@gmail.com"
+            "S": "__adminEmail__"
           }
         }
       }
@@ -139,7 +139,7 @@
             "BOOL": true
           },
           "user_email": {
-            "S": "integratesmanager@gmail.com"
+            "S": "__adminEmail__"
           }
         }
       }
@@ -193,7 +193,7 @@
             "BOOL": true
           },
           "user_email": {
-            "S": "integratesmanager@gmail.com"
+            "S": "__adminEmail__"
           }
         }
       }
@@ -247,7 +247,7 @@
             "BOOL": true
           },
           "user_email": {
-            "S": "integratesmanager@gmail.com"
+            "S": "__adminEmail__"
           }
         }
       }

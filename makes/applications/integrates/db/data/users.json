@@ -99,7 +99,7 @@
             "S": "2019-12-29 11:50:17"
           },
           "email": {
-            "S": "integratesmanager@gmail.com"
+            "S": "__adminEmail__"
           },
           "registered": {
             "BOOL": true
