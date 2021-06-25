@@ -160,7 +160,7 @@ We do not use [GItlab CI][GITLAB-CI] for:
     [Analytics ETL's](https://en.wikipedia.org/wiki/Extract,_transform,_load),
     [Machine learning](https://en.wikipedia.org/wiki/Machine_learning) training,
     among others.
-    We use [AWS Batch](https://aws.amazon.com/batch/) instead.
+    We use [AWS Batch](/development/stack/aws/batch/) instead.
     The reason for this is that the
     [GItlab CI][GITLAB-CI]
     is not meant to run

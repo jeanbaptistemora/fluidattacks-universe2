@@ -80,7 +80,7 @@ networking and security configurations for:
 1. [EC2](/development/stack/aws/ec2/) machines.
 1. [Redis cluster](/development/stack/aws/redis/) workers.
 1. [Kubernetes cluster](/development/stack/kubernetes/) workers.
-1. [Batch](https://aws.amazon.com/batch/) workers.
+1. [Batch](/development/stack/aws/batch/) workers.
 1. [Elastic Load Balancing](/development/stack/aws/elb/)
     load balancers.
 

@@ -825,6 +825,7 @@ const Development = [
         label: 'AWS',
         items: [
           'development/stack/aws/introduction',
+          'development/stack/aws/batch',
           'development/stack/aws/cloudwatch',
           'development/stack/aws/cost-management',
           'development/stack/aws/dynamodb',

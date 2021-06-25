@@ -129,7 +129,7 @@ We do not use [AWS KMS][KMS] for:
     [Operating system][OS]
     is stored there, as described
     [here][EBS-USAGE].
-1. [Batch workers](https://aws.amazon.com/batch/):
+1. [Batch workers](/development/stack/aws/batch/):
     They do not use [EBS][EBS]
     encrypted disks as only the base
     [Operating system][OS]

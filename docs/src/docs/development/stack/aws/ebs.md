@@ -126,7 +126,7 @@ We use [AWS EBS][EBS] for:
     which are very useful
     for achieving as-fast-as-possible
     job performance within our [CI](/development/stack/gitlab-ci).
-1. [Batch](https://aws.amazon.com/batch/)
+1. [Batch](/development/stack/aws/batch/)
     processing
     [workers](https://gitlab.com/fluidattacks/product/-/blob/master/makes/applications/makes/compute/src/terraform/aws_batch.tf#L112):
     Just like with our

@@ -188,5 +188,5 @@ We use [AWS EC2][EC2] for:
 [EC2]: https://aws.amazon.com/ec2/
 [CI]: /development/stack/gitlab-ci
 [KUBERNETES]: /development/stack/gitlab-ci
-[BATCH]: https://aws.amazon.com/batch/
+[BATCH]: /development/stack/aws/batch/
 [SPOT]: https://aws.amazon.com/ec2/spot/
