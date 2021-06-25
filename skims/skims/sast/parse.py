@@ -52,6 +52,7 @@ from utils.ctx import (
     TREE_SITTER_CSHARP,
     TREE_SITTER_GO,
     TREE_SITTER_JAVA,
+    TREE_SITTER_JAVASCRIPT,
     TREE_SITTER_TSX,
 )
 from utils.encodings import (
@@ -81,6 +82,7 @@ Language.build_library(
         TREE_SITTER_CSHARP,
         TREE_SITTER_GO,
         TREE_SITTER_JAVA,
+        TREE_SITTER_JAVASCRIPT,
         TREE_SITTER_TSX,
     ],
 )
@@ -108,6 +110,7 @@ FIELDS_BY_LANGAUGE: Dict[
     GraphShardMetadataLanguage.CSHARP: get_fields(TREE_SITTER_CSHARP),
     GraphShardMetadataLanguage.GO: get_fields(TREE_SITTER_GO),
     GraphShardMetadataLanguage.JAVA: get_fields(TREE_SITTER_JAVA),
+    GraphShardMetadataLanguage.JAVASCRIPT: get_fields(TREE_SITTER_JAVASCRIPT),
     GraphShardMetadataLanguage.TSX: get_fields(TREE_SITTER_TSX),
 }
 
@@ -139,6 +142,22 @@ def _is_final_node(obj: Any, language: GraphShardMetadataLanguage) -> bool:
                     "scoped_type_identifier",
                     "this",
                     "type_identifier",
+                }
+            ),
+            (
+                language == GraphShardMetadataLanguage.JAVASCRIPT
+                and obj.type
+                in {
+                    "this",
+                    "super",
+                    "number",
+                    "string",
+                    "template_string",
+                    "regex",
+                    "true",
+                    "false",
+                    "null",
+                    "undefined",
                 }
             ),
             (
@@ -206,9 +225,8 @@ def _build_ast_graph(
 
     if not obj.children or _is_final_node(obj, language):
         # Consider it a final node, extract the text from it
-        _graph.nodes[n_id]["label_text"] = content[
-            obj.start_byte : obj.end_byte
-        ].decode("latin-1")
+        node_content = content[obj.start_byte : obj.end_byte].decode("latin-1")
+        _graph.nodes[n_id]["label_text"] = node_content
     elif language != GraphShardMetadataLanguage.NOT_SUPPORTED:
         parent_fields: Dict[int, str] = {}
         parent_fields = {
@@ -239,6 +257,7 @@ def decide_language(path: str) -> GraphShardMetadataLanguage:
         GraphShardMetadataLanguage.CSHARP: [".cs"],
         GraphShardMetadataLanguage.GO: [".go"],
         GraphShardMetadataLanguage.JAVA: [".java"],
+        GraphShardMetadataLanguage.JAVASCRIPT: [".js"],
         GraphShardMetadataLanguage.TSX: [".js", ".jsx", ".ts", ".tsx"],
     }
     language = GraphShardMetadataLanguage.NOT_SUPPORTED

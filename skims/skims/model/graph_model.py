@@ -323,6 +323,7 @@ class GraphShardMetadataLanguage(Enum):
     CSHARP: str = "c_sharp"
     GO: str = "go"
     JAVA: str = "java"
+    JAVASCRIPT: str = "javascript"
     NOT_SUPPORTED: str = "not_supported"
     TSX: str = "tsx"
 
