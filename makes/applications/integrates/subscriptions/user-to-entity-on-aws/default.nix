@@ -2,7 +2,7 @@
 , ...
 }:
 computeOnAws {
-  attempts = 1;
+  attempts = 2;
   command = [ "./m" "integrates.subscriptions.user-to-entity" ];
   jobname = "integrates-subscriptions-user-to-entity";
   jobqueue = "dedicated_later";
@@ -12,5 +12,5 @@ computeOnAws {
     "PRODUCT_API_TOKEN"
   ];
   timeout = 7200;
-  vcpus = 3;
+  vcpus = 4;
 }
