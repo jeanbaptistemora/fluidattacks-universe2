@@ -80,6 +80,7 @@ async def batch_load_fn_vulns(
                     HistoricType, vuln.get("historic_verification", [{}])
                 )[-1].get("status")
                 == "REQUESTED",
+                repo_nickname=vuln.get("repo_nickname"),
                 report_date=cast(HistoricType, vuln["historic_state"])[0][
                     "date"
                 ],

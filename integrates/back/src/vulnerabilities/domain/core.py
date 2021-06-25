@@ -4,7 +4,6 @@
 import aioboto3
 from aioextensions import (
     collect,
-    in_process,
     schedule,
 )
 from comments import (
@@ -409,12 +408,8 @@ async def get_vulnerabilities_by_type(
     """Get vulnerabilities group by type."""
     finding_vulns_loader = context.finding_vulns_nzr
     vulnerabilities = await finding_vulns_loader.load(finding_id)
-    vulnerabilities_grouped = cast(
-        List[Dict[str, FindingType]],
-        await in_process(group_vulnerabilities, vulnerabilities),
-    )
     vulnerabilities_formatted = vulns_utils.format_vulnerabilities(
-        vulnerabilities_grouped
+        vulnerabilities
     )
     return vulnerabilities_formatted
 
@@ -799,6 +794,8 @@ async def update_vuln_state(
         data_to_update["stream"] = item["stream"]
     if item["vuln_type"] == "lines":
         data_to_update["commit_hash"] = item["commit_hash"]
+    if "repo_nickname" in item:
+        data_to_update["repo_nickname"] = item["repo_nickname"]
 
     if data_to_update:
         return await vulns_dal.update(
@@ -808,7 +805,7 @@ async def update_vuln_state(
 
 
 def validate_justificaiton_length(justification: str) -> None:
-    """ Validate justification length"""
+    """Validate justification length"""
     max_justification_length = 2000
     if len(justification) > max_justification_length:
         raise InvalidJustificationMaxLength(max_justification_length)
@@ -817,7 +814,7 @@ def validate_justificaiton_length(justification: str) -> None:
 def validate_not_requested_zero_risk_vuln(
     vuln: Dict[str, FindingType]
 ) -> Dict[str, FindingType]:
-    """ Validate zero risk vuln is not already resquested """
+    """Validate zero risk vuln is not already resquested"""
     historic_zero_risk = cast(
         List[Dict[str, FindingType]], vuln.get("historic_zero_risk", [{}])
     )
@@ -829,7 +826,7 @@ def validate_not_requested_zero_risk_vuln(
 def validate_requested_zero_risk_vuln(
     vuln: Dict[str, FindingType]
 ) -> Dict[str, FindingType]:
-    """ Validate zero risk vuln is already resquested """
+    """Validate zero risk vuln is already resquested"""
     historic_zero_risk = cast(
         List[Dict[str, FindingType]], vuln.get("historic_zero_risk", [{}])
     )

@@ -160,10 +160,12 @@ def format_vulnerabilities(
                             vuln.get("specific")
                         )
                     ),
-                    "repo_nickname": vuln.get("repo_nickname"),
                     "state": str(current_state),
                 }
             )
+            for attr in ("commit_hash", "repo_nickname"):
+                if vuln.get(attr):
+                    finding[vuln_type][-1][attr] = vuln[attr]
         else:
             LOGGER.error(
                 "Vulnerability does not have the right type",
