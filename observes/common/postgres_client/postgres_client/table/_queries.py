@@ -49,10 +49,11 @@ def add_columns(
         )
     queries: List[Query] = []
     for column in diff_columns:
+        field_type = column.c_type.field_type.value
         statement: str = (
             "ALTER TABLE {table_schema}.{table_name} "
             "ADD COLUMN {column_name} "
-            "{field_type} default %(default_val)s"
+            f"{field_type} default %(default_val)s"
         )
         args = SqlArgs(
             values={"default_val": column.c_type.default_val},
@@ -60,7 +61,6 @@ def add_columns(
                 "table_schema": str(table.table_id.schema),
                 "table_name": str(table.table_id.table_name),
                 "column_name": column.name,
-                "field_type": column.c_type.field_type.value,
             },
         )
         query = Query(statement, args)
