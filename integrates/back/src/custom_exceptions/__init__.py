@@ -31,6 +31,10 @@ class ExpectedVulnToHaveNickname(_SingleMessageException):
     msg: str = "Expected vulnerability to have repo_nickname"
 
 
+class InvalidCannotModifyNicknameWhenClosing(_SingleMessageException):
+    msg: str = "Invalid, you cannot change the nickname while closing"
+
+
 class InvalidVulnerabilityAlreadyExists(_SingleMessageException):
     msg: str = "Invalid, vulnerability already exists"
 
