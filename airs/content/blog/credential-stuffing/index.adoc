@@ -18,7 +18,8 @@
 Data leakage is a daily occurrence phenomenon,
 or at least that's what I've read about.
 Lists of user/password pairs are stolen from various places on the Internet.
-Those mountains of information are then offered and sold in the 'dark web.'
+Those mountains of information are then offered and sold in the
+'link:../dark-web[dark web].'
 They are the required resources to be used in _Credential Stuffing_,
 the kind of attack we're going to discuss in this post.
 

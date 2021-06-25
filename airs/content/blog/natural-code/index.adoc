@@ -24,7 +24,7 @@ It is not too far a digression though,
 because the
 link:https://en.wikipedia.org/wiki/Natural_language_processing[Natural Language Processing]
 (`NLP`) field is also part of what
-link:https://en.wikipedia.org/wiki/AI_effect[is currently
+link:https://en.wikipedia.org/wiki/AI_effect[is currently]
 considered to be
 link:https://en.wikipedia.org/wiki/Artificial_intelligence[Artificial Intelligence].
 And, as we will state in this article,

@@ -165,13 +165,14 @@ At `Fluid Attacks`, we're committed to improving the safety of organizations
 by putting some pressure on their mission-critical systems.
 We do this by hacking those systems with a mix of automated tools
 and the expertise of a group of highly skilled security engineers.
-Check our [inner]#link:../../services/continuous-hacking/[hacking services]# and our [inner]#link:../../products/[products]#
+Check our [inner]#link:../../services/continuous-hacking/[hacking services]#
+and our [inner]#link:../../solutions/[solutions]#
 (there is one product you can access and use `FREE` of charge).
 Our distinctiveness lies in the approaches we offer to organizations,
 comprised of [inner]#link:../../services/continuous-hacking/[continuous hacking]# and [inner]#link:../../services/one-shot-hacking/[one-shot hacking]#.
 We detect weaknesses faster, featuring a rich characterization,
 and we also make it easier for clients
-to fix those defects through our ASM and [inner]#link:../../products/asserts/[Asserts]#.
+to fix those defects through our ASM and Asserts.
 
 Did you enjoy reading this post?
 We love to hear from our readers and customers.

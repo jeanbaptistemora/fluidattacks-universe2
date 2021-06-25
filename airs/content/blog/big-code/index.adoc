@@ -47,7 +47,7 @@ as in using that info to query a database,
 to continue with the previous example.
 These points are called _sinks_.
 
-.Taint analysis diagram via link:http://web.cs.iastate.edu/~weile/cs513x/5.TaintAnalysis1.pdf[Coseinc].
+.Taint analysis diagram via link:https://www.csa.iisc.ac.in/~vg/teaching/E0-256/slides/TaintAnalysis.pdf[Coseinc].
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330670/blog/big-code/taint-analysis_fz03sg.webp[Taint analysis diagram]
 
 Along the way in the case of a secure application,
@@ -212,7 +212,7 @@ where it is quite clear that tool misses most of the vulnerabilities as well.
 Now for a more realistic test,
 let's try running `DeepCode` on some of our own repos, namely, Integrates,
 our platform for vulnerability centralization and management and
-[inner]#link:../../products/asserts/[Asserts]#,
+asserts,
 our vulnerability automation framework.
 Both are
 link:https://gitlab.com/fluidattacks[open-source],

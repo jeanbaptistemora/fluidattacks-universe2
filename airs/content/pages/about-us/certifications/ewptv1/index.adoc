@@ -13,13 +13,6 @@ created by `eLearnSecurity`.
 that evaluates your ability to attack your target
 and provide thorough professional documentation and recommendation.
 The `eWPTv1` certification assess the expertise of a person
-in the following areas:
-
-- Penetration testing processes and methodologies
-- Web application analysis and inspection
-- OSINT and information gathering techniques
-- Vulnerability assessment of web applications
-- *OWASP TOP 10 2013* / OWASP Testing guide
-- Manual exploitation of XSS, SQLi, web services, HTML5, LFI/RFI
-- Exploit development for web environments
-- Advanced Reporting skills and remediation
+mainly in: (a) Penetration testing processes and methodologies,
+(b) Web application analysis and inspection
+(c) *OWASP TOP 10 2013* / OWASP Testing guide.

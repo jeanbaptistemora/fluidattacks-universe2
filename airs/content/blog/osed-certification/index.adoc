@@ -191,7 +191,7 @@ Suppose someone obtains the
 and *OSEP* certifications.
 In that case, they are given a new certificate called *OSCE3*,
 which replaces the
-link:../../recent-osce/[OSCE] that was withdrawn the previous year.
+link:../recent-osce/[OSCE] that was withdrawn the previous year.
 
 Thank you so much, Oscar,
 for your time in sharing your experience with the OSED certification.

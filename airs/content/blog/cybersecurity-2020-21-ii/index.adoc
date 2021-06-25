@@ -46,7 +46,8 @@ Some companies are ignoring the function of those requirements.
 Many of them focus only on avoiding any sanction or penalty from some standard
 but leaving aside the incorporation of solid cybersecurity strategies.
 At `Fluid Attacks`, we have maintained in construction and evaluation
-a set of requirements called link:../../products/rules/[Rules],
+a set of
+link:https://docs.fluidattacks.com/criteria/requirements/[requirements],
 which gathers information from more than ten international standards.
 The companies that work with us
 find it useful to go beyond mere security compliance.
@@ -101,7 +102,7 @@ image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330842/blog/cy
 Process automation is undoubtedly something
 that almost all humans benefit from in a variety of environments.
 In the field of information technology,
-the amounts of link:https://techyguru2021.medium.com/top-3-cybersecurity-trends-4d6b80af5545[data to be controlled are growing every day].
+the amounts of link:https://cutt.ly/nmwzTer[data to be controlled are growing every day].
 Moreover, in different industries, fast and efficient solutions
 to an assortment of problems are often requested.
 It is in such cases that automation has taken some prominence.
@@ -156,10 +157,11 @@ The latter provide high-speed but low-accuracy reports.
 The former, in longer times but using their astuteness and creativity,
 are more accurate and access more profound and complex issues.
 
-The activity of tools such as link:https:../../products/asserts/[Asserts],
+The activity of tools such as asserts],
 for example, searching for superficial vulnerabilities that are already known,
 facilitates and speeds up our ethical hackers' work,
-which is still indispensable (using techniques such as link:../../solutions/penetration-testing/[pentesting])
+which is still indispensable (using techniques such as
+link:../../solutions/penetration-testing/[pentesting])
 for comprehensive evaluations of our clients' IT systems.
 Organizations should no longer fall into the trap
 of relying only on these automated systems that generally check
