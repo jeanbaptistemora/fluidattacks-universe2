@@ -28,7 +28,7 @@ async def get_result(
             createDraft(
                 cwe: "{cwe}",
                 description: "{description}",
-                projectName: "{group}",
+                groupName: "{group}",
                 recommendation: "{recommendation}",
                 requirements: "{requirements}",
                 risk: "{risk}",

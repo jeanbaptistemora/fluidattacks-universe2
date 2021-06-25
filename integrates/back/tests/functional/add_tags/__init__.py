@@ -20,18 +20,18 @@ async def get_result(
 ) -> Dict[str, Any]:
     query: str = """
         mutation AddTagsMutation(
-            $projectName: String!,
+            $groupName: String!,
             $tagsData: JSONString!
         ) {
             addTags (
                 tags: $tagsData,
-                projectName: $projectName) {
+                groupName: $groupName) {
                 success
             }
         }
     """
     variables: Dict[str, Any] = {
-        "projectName": group,
+        "groupName": group,
         "tagsData": json.dumps(tags),
     }
     data: Dict[str, Any] = {"query": query, "variables": variables}
