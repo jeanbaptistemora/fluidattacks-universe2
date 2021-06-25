@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-main() {
+function main() {
   local name
   local signal="${1}"
   local pid="${2}"

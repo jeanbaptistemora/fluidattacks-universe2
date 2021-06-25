@@ -24,6 +24,7 @@ makeEntrypoint {
   name = "skims-test";
   searchPaths = {
     envPaths = [
+      packages.makes.wait
       packages.makes.kill-port
       packages.makes.kill-tree
       packages.skims.test.mocks.http

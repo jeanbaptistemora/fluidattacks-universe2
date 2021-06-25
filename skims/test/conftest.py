@@ -1,3 +1,4 @@
+import contextlib
 from glob import (
     iglob,
 )
@@ -158,35 +159,37 @@ def test_prepare_cfn_json_data() -> None:
             target.write(json.dumps(source_data, indent=2))
 
 
-def _execute_command(cmd: List[str]) -> Iterator[None]:
-    with subprocess.Popen(cmd) as process:
-        try:
-            yield
-        finally:
-            process.terminate()
-
-
-def _execute_and_wait_command(cmd: List[str]) -> int:
+def _exec_and_wait_command(cmd: List[str]) -> int:
     exit_code: int = -1
     with subprocess.Popen(cmd) as process:
         exit_code = process.wait()
     return exit_code
 
 
+@contextlib.contextmanager
+def _exec_command(cmd: List[str], signal: str = "15") -> Iterator[None]:
+    with subprocess.Popen(cmd, start_new_session=True) as sproc:
+        try:
+            yield
+        finally:
+            _exec_and_wait_command(["makes-kill-tree", signal, f"{sproc.pid}"])
+
+
 @pytest.fixture(autouse=False, scope="session")
 def test_mocks_http() -> Iterator[None]:
-    yield from _execute_command(
-        ["skims-test-mocks-http", "localhost", "48000"]
-    )
+    with _exec_command(["skims-test-mocks-http", "localhost", "48000"]):
+        yield
 
 
 @pytest.fixture(autouse=False, scope="session")
 def test_mocks_ssl_safe() -> Iterator[None]:
-    yield from _execute_command(["skims-test-mocks-ssl-safe"])
-    _execute_and_wait_command(["makes-kill-port", "4445"])
+    with _exec_command(["skims-test-mocks-ssl-safe"]):
+        _exec_and_wait_command(["makes-wait", "5", "localhost:4445"])
+        yield
 
 
 @pytest.fixture(autouse=False, scope="session")
 def test_mocks_ssl_unsafe() -> Iterator[None]:
-    yield from _execute_command(["skims-test-mocks-ssl-unsafe"])
-    _execute_and_wait_command(["makes-kill-port", "4446"])
+    with _exec_command(["skims-test-mocks-ssl-unsafe"]):
+        _exec_and_wait_command(["makes-wait", "5", "localhost:4446"])
+        yield
