@@ -17,6 +17,7 @@ from typing import (
         ["customer@gmail.com"],
         ["customeradmin@gmail.com"],
         ["analyst@gmail.com"],
+        ["executive@gmail.com"],
     ],
 )
 async def test_add_project_consult(populate: bool, email: str) -> None:

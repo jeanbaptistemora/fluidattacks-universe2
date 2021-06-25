@@ -37,6 +37,7 @@ async def test_create_group(populate: bool, email: str) -> None:
         ["closer@gmail.com"],
         ["customer@gmail.com"],
         ["customeradmin@gmail.com"],
+        ["executive@gmail.com"],
         ["resourcer@gmail.com"],
     ],
 )

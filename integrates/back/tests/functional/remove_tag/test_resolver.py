@@ -16,6 +16,7 @@ from typing import (
         ("admin@gmail.com", "test1"),
         ("customer@gmail.com", "test2"),
         ("customeradmin@gmail.com", "test3"),
+        ("executive@gmail.com", "test4"),
     ),
 )
 async def test_remove_tag(populate: bool, email: str, tag_name: str) -> None:
