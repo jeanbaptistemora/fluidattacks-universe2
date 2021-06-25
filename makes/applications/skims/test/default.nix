@@ -25,6 +25,7 @@ makeEntrypoint {
   searchPaths = {
     envPaths = [
       packages.makes.kill-port
+      packages.makes.kill-tree
       packages.skims.test.mocks.http
       packages.skims.test.mocks.ssl.safe
       packages.skims.test.mocks.ssl.unsafe
