@@ -35,6 +35,7 @@ from sast_syntax_readers.common import (
 )
 from sast_syntax_readers.go import (
     function_declaration as go_function_declaration,
+    variable_declaration as go_variable_declaration,
 )
 from sast_syntax_readers.java import (
     array_access as java_array_access,
@@ -332,6 +333,16 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     ),
     Dispatcher(
         applicable_languages={
+            graph_model.GraphShardMetadataLanguage.GO,
+        },
+        applicable_node_label_types={
+            "short_var_declaration",
+            "var_declaration",
+        },
+        syntax_readers=(go_variable_declaration.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
@@ -453,6 +464,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     ),
     Dispatcher(
         applicable_languages={
+            graph_model.GraphShardMetadataLanguage.GO,
             graph_model.GraphShardMetadataLanguage.JAVA,
             graph_model.GraphShardMetadataLanguage.CSHARP,
         },
@@ -461,7 +473,9 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "character_literal",
             "decimal_integer_literal",
             "false",
+            "int_literal",
             "integer_literal",
+            "interpreted_string_literal",
             "floating_point_type",
             "null_literal",
             "real_literal",

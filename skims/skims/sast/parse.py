@@ -175,6 +175,13 @@ def _is_final_node(obj: Any, language: GraphShardMetadataLanguage) -> bool:
                     "assignment_operator",
                 }
             ),
+            (
+                language == GraphShardMetadataLanguage.GO
+                and obj.type
+                in {
+                    "interpreted_string_literal",
+                }
+            ),
         )
     )
 
