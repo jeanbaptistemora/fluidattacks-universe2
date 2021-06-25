@@ -20,6 +20,7 @@ from toolbox.logger import (
     LOGGER,
 )
 from toolbox.utils import (
+    db_client,
     generic,
 )
 from toolbox.utils.function import (
@@ -166,6 +167,14 @@ def s3_sync_fusion_to_s3(
     return True
 
 
+def update_last_sync_date(table: str, group: str) -> None:
+    db_state = db_client.make_access_point()
+    try:
+        db_client.confirm_synced_group(db_state, group, table)
+    finally:
+        db_client.drop_access_point(db_state)
+
+
 @shield(retries=1)
 def main(
     subs: str,
@@ -195,5 +204,7 @@ def main(
     else:
         LOGGER.error("Either the subs or the fusion folder does not exist")
         passed = False
+    if passed and generic.is_branch_master():
+        update_last_sync_date("last_sync_date", subs)
 
     return passed
