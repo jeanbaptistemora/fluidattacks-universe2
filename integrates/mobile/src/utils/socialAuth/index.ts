@@ -12,6 +12,7 @@ interface IUser {
   email: string;
   firstName: string;
   fullName: string;
+  lastName?: string;
   photoUrl?: string;
 }
 

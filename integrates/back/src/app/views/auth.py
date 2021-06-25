@@ -56,15 +56,7 @@ async def authz_azure(request: Request) -> HTMLResponse:
                 "Host": "graph.microsoft.com",
             },
         ) as user:
-            raw_data = await user.json()
-            request = await handle_user(
-                request,
-                {
-                    "email": raw_data["userPrincipalName"],
-                    "family_name": raw_data["surname"] or "",
-                    "given_name": raw_data["givenName"],
-                },
-            )
+            request = await handle_user(request, await user.json())
     return RedirectResponse(url="/home")
 
 

@@ -130,12 +130,6 @@ async def get_provider_user_info(
                 user["family_name"] = (
                     user_name.split(" ")[1] if len(user_name) == 2 else ""
                 )
-            elif provider == "microsoft":
-                return {
-                    "email": user["userPrincipalName"],
-                    "family_name": user["surname"] or "",
-                    "given_name": user["givenName"],
-                }
 
             return cast(Optional[Dict[str, str]], user)
 

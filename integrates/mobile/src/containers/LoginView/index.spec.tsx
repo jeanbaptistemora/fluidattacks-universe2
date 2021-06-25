@@ -172,6 +172,7 @@ describe("LoginView", (): void => {
             email: "test@fluidattacks.com",
             firstName: "John",
             fullName: "John Doe",
+            lastName: "Doe",
           },
         })
     );
@@ -206,6 +207,7 @@ describe("LoginView", (): void => {
         email: "test@fluidattacks.com",
         firstName: "John",
         fullName: "John Doe",
+        lastName: "Doe",
       },
     });
 
@@ -228,6 +230,7 @@ describe("LoginView", (): void => {
             email: "test@fluidattacks.com",
             firstName: "John",
             fullName: "John Doe",
+            lastName: "DOE",
           },
         })
     );
@@ -262,6 +265,7 @@ describe("LoginView", (): void => {
         email: "test@fluidattacks.com",
         firstName: "John",
         fullName: "John Doe",
+        lastName: "DOE",
       },
     });
 

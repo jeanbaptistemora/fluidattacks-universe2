@@ -97,6 +97,7 @@ describe("WelcomeView", (): void => {
                     email: "test@fluidattacks.com",
                     firstName: "John",
                     fullName: "John Doe",
+                    lastName: "Doe",
                   },
                 },
               },
@@ -120,6 +121,7 @@ describe("WelcomeView", (): void => {
         email: "test@fluidattacks.com",
         firstName: "John",
         fullName: "John Doe",
+        lastName: "Doe",
       },
     });
 
