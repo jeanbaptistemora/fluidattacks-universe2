@@ -18,6 +18,7 @@ from typing import (
         ("closer@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
         ("customer@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce11"),
         ("customeradmin@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce12"),
+        ("executive@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce13"),
     ),
 )
 async def test_request_verification_vuln(
