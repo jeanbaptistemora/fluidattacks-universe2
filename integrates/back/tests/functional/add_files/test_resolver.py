@@ -16,6 +16,7 @@ from typing import (
         ["admin@gmail.com"],
         ["customer@gmail.com"],
         ["customeradmin@gmail.com"],
+        ["executive@gmail.com"],
     ],
 )
 async def test_add_files(populate: bool, email: str) -> None:

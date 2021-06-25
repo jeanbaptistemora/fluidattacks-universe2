@@ -18,6 +18,7 @@ from typing import (
         ["closer@gmail.com"],
         ["customer@gmail.com"],
         ["customeradmin@gmail.com"],
+        ["executive@gmail.com"],
     ],
 )
 async def test_download_file(populate: bool, email: str) -> None:
