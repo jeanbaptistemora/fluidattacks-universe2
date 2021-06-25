@@ -24,12 +24,7 @@ function job_code_mirror {
     && { USER=nobody melts resources --clone-from-customer-git "${group}" || true; } \
     && if find "groups/${group}/fusion/"* -maxdepth 0 -type d; then
       echo '[INFO] Pushing repositories to S3' \
-        && USER=nobody melts drills --push-repos "${group}" \
-        && echo '[INFO] Updating last sync date' \
-        && observes-bin-service-job-last-success compound-job \
-          --auth "${db_creds}" \
-          --job "mirror" \
-          --child "${group}"
+        && USER=nobody melts drills --push-repos "${group}"
     else
       echo '[INFO] Unable to clone repositories from source' \
         && echo '[INFO] Skipping push to S3' \
