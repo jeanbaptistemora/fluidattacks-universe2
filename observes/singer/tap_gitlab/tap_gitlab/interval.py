@@ -1,49 +1,53 @@
-from enum import (
-    Enum,
+from __future__ import (
+    annotations,
 )
+
 from returns.primitives.container import (
     BaseContainer,
 )
 from returns.primitives.hkt import (
     SupportsKind1,
-    SupportsKind2,
+)
+from returns.primitives.types import (
+    Immutable,
 )
 from singer_io.common import (
     JSON,
 )
 from typing import (
     final,
-    Literal,
     Tuple,
     TypeVar,
+    Union,
 )
 
 
-class IntervalType(Enum):
-    CLOSED = "CLOSED"
-    OPEN = "OPEN"
-    OPEN_LEFT = "OPEN_LEFT"
-    OPEN_RIGHT = "OPEN_RIGHT"
+class MIN(Immutable):
+    def __new__(cls) -> MIN:
+        return object.__new__(cls)
+
+    def __str__(self) -> str:
+        return "MIN"
 
 
-_IType = TypeVar(
-    "_IType",
-    Literal[IntervalType.CLOSED],
-    Literal[IntervalType.OPEN],
-    Literal[IntervalType.OPEN_LEFT],
-    Literal[IntervalType.OPEN_RIGHT],
-)
+class MAX(Immutable):
+    def __new__(cls) -> MAX:
+        return object.__new__(cls)
+
+    def __str__(self) -> str:
+        return "MAX"
+
+
 _Point = TypeVar("_Point")
 
 
 @final
-class Interval(
+class ClosedInterval(
     BaseContainer,
-    SupportsKind2["Interval", _IType, _Point],
+    SupportsKind1["ClosedInterval", _Point],
 ):
     def __init__(
         self,
-        _itype: _IType,
         lower: _Point,
         upper: _Point,
     ) -> None:
@@ -63,28 +67,82 @@ class Interval(
         return self._inner_value["upper"]
 
 
-ClosedInterval = Interval[Literal[IntervalType.CLOSED], _Point]
-OpenInterval = Interval[Literal[IntervalType.OPEN], _Point]
-OpenLeftInterval = Interval[Literal[IntervalType.OPEN_LEFT], _Point]
-OpenRightInterval = Interval[Literal[IntervalType.OPEN_RIGHT], _Point]
+@final
+class OpenInterval(
+    BaseContainer,
+    SupportsKind1["OpenInterval", _Point],
+):
+    def __init__(
+        self,
+        lower: Union[_Point, MIN],
+        upper: Union[_Point, MAX],
+    ) -> None:
+        super().__init__(
+            {
+                "lower": lower,
+                "upper": upper,
+            }
+        )
+
+    @property
+    def lower(self) -> Union[_Point, MIN]:
+        return self._inner_value["lower"]
+
+    @property
+    def upper(self) -> Union[_Point, MAX]:
+        return self._inner_value["upper"]
 
 
-def closed_interval(lower: _Point, upper: _Point) -> ClosedInterval[_Point]:
-    return Interval(IntervalType.CLOSED, lower, upper)
+@final
+class OpenLeftInterval(
+    BaseContainer,
+    SupportsKind1["OpenLeftInterval", _Point],
+):
+    def __init__(
+        self,
+        lower: Union[_Point, MIN],
+        upper: _Point,
+    ) -> None:
+        super().__init__(
+            {
+                "lower": lower,
+                "upper": upper,
+            }
+        )
+
+    @property
+    def lower(self) -> Union[_Point, MIN]:
+        return self._inner_value["lower"]
+
+    @property
+    def upper(self) -> _Point:
+        return self._inner_value["upper"]
 
 
-def open_interval(lower: _Point, upper: _Point) -> OpenInterval[_Point]:
-    return Interval(IntervalType.OPEN, lower, upper)
+@final
+class OpenRightInterval(
+    BaseContainer,
+    SupportsKind1["OpenRightInterval", _Point],
+):
+    def __init__(
+        self,
+        lower: _Point,
+        upper: Union[_Point, MAX],
+    ) -> None:
+        super().__init__(
+            {
+                "lower": lower,
+                "upper": upper,
+            }
+        )
 
+    @property
+    def lower(self) -> _Point:
+        return self._inner_value["lower"]
 
-def open_lf_interval(lower: _Point, upper: _Point) -> OpenLeftInterval[_Point]:
-    return Interval(IntervalType.OPEN_LEFT, lower, upper)
-
-
-def open_rt_interval(
-    lower: _Point, upper: _Point
-) -> OpenRightInterval[_Point]:
-    return Interval(IntervalType.OPEN_RIGHT, lower, upper)
+    @property
+    def upper(self) -> Union[_Point, MAX]:
+        return self._inner_value["upper"]
 
 
 @final
