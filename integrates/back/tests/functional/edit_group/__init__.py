@@ -21,10 +21,10 @@ async def get_result(
                 comments: "",
                 groupName: "{group}",
                 subscription: ONESHOT,
-                hasDrills: false,
+                hasSquad: false,
                 hasForces: false,
-                hasIntegrates: false,
-                hasSkims: false,
+                hasAsm: false,
+                hasMachine: false,
                 reason: NONE,
             ) {{
                 success

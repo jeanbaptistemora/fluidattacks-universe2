@@ -11,6 +11,9 @@ from graphql.type.definition import (
 from groups import (
     domain as groups_domain,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from typing import (
     cast,
     List,
@@ -20,7 +23,7 @@ from typing import (
 async def resolve(
     parent: Tag, info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[Group]:
-    group_names: str = cast(str, parent["projects"])
+    group_names: str = cast(str, resolve_kwargs(parent, "groups", "projects"))
     group_loader: DataLoader = info.context.loaders.group
     groups: List[Group] = await group_loader.load_many(group_names)
     groups_filtered = groups_domain.filter_active_groups(groups)

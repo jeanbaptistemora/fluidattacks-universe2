@@ -1,5 +1,6 @@
 "Tag type definition"
 type Tag {
+  groups: [Group]
   lastClosingVuln: Float
   maxOpenSeverity: Float
   maxSeverity: Float
@@ -10,5 +11,5 @@ type Tag {
   meanRemediateMediumSeverity: Float
   name: String
   organization: String
-  projects: [Group]
+  projects: [Group] @deprecated(reason: "Use `groups` instead.")
 }

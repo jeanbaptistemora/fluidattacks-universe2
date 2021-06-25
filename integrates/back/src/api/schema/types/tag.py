@@ -10,3 +10,6 @@ from ariadne import (
 
 TAG = ObjectType("Tag")
 TAG.set_field("projects", groups.resolve)
+
+# Standardization field
+TAG.set_field("groups", groups.resolve)
