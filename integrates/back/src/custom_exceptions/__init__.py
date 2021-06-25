@@ -27,6 +27,10 @@ class ExpectedVulnToBeOfLinesType(_SingleMessageException):
     msg: str = "Expected vulnerability to be of type: lines"
 
 
+class ExpectedVulnToHaveNickname(_SingleMessageException):
+    msg: str = "Expected vulnerability to have repo_nickname"
+
+
 class InvalidVulnerabilityAlreadyExists(_SingleMessageException):
     msg: str = "Invalid, vulnerability already exists"
 

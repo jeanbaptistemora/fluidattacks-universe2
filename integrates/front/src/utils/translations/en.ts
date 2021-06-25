@@ -726,6 +726,7 @@ export const enTranslations: ResourceKey = {
     errorTextsad: "There is an error :(",
     expectedPathToStartWithRepo:
       "Expected path to start with the repo nickname",
+    expectedVulnToHaveNickname: "Expected vulnerability to have repo_nickname",
     expiredInvitation: "The stakeholder has an expired invitation",
     fileTypeCsv: "The file must have .csv extension",
     fileTypeEvidence: "The image must be .png or .gif type",
