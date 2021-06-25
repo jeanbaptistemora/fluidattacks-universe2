@@ -204,7 +204,10 @@ def main(
     else:
         LOGGER.error("Either the subs or the fusion folder does not exist")
         passed = False
-    if passed and generic.is_branch_master():
+    if passed and (
+        (generic.is_env_ci() and generic.is_branch_master())
+        or not generic.is_env_ci()
+    ):
         update_last_sync_date("last_sync_date", subs)
 
     return passed
