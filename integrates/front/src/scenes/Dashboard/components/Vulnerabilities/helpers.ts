@@ -41,6 +41,8 @@ const errorMessageHelper = (message: string): void => {
     ${formatError("groupAlerts.value", errorObject.values)}`);
   } else if (message === "Exception - Error in specific value") {
     msgError(translate.t("groupAlerts.invalidSpecific"));
+  } else if (message === "Expected path to start with the repo nickname") {
+    msgError(translate.t("groupAlerts.expectedPathToStartWithRepo"));
   } else if (
     message ===
     "Exception - You can upload a maximum of 100 vulnerabilities per file"

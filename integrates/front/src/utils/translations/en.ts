@@ -724,6 +724,8 @@ export const enTranslations: ResourceKey = {
       "This finding can not been approved without vulnerabilities",
     errorNetwork: "Check your network connection",
     errorTextsad: "There is an error :(",
+    expectedPathToStartWithRepo:
+      "Expected path to start with the repo nickname",
     expiredInvitation: "The stakeholder has an expired invitation",
     fileTypeCsv: "The file must have .csv extension",
     fileTypeEvidence: "The image must be .png or .gif type",
