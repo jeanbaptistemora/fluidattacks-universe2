@@ -63,7 +63,11 @@ async def mutate(
     )
     if file_input and allowed_mime_type:
         success = await vuln_files_domain.upload_file(
-            info, file_input, finding_data, finding_policy
+            info,
+            file_input,
+            finding_data,
+            finding_policy,
+            support_roots=group["subscription"] == "continuous",
         )
     else:
         raise InvalidFileType()
