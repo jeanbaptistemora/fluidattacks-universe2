@@ -1,3 +1,6 @@
+from contextlib import (
+    suppress,
+)
 from model.graph_model import (
     Graph,
 )
@@ -76,7 +79,10 @@ def step_by_step(
     )
 
     # Skip { }
-    if graph.nodes[n_id]["label_type"] == "block":
+    if graph.nodes[n_id]["label_type"] in {
+        "block",
+        "statement_block",
+    }:
         stmt_ids = stmt_ids[1:-1]
 
     stmt_ids = tuple(
@@ -97,7 +103,8 @@ def step_by_step(
         _generic(graph, stmt_a_id, stack, edge_attrs=ALWAYS)
 
     # Link recursively the last statement in the block
-    propagate_next_id_from_parent(stack)
+    with suppress(IndexError):
+        propagate_next_id_from_parent(stack)
     _generic(graph, stmt_ids[-1], stack, edge_attrs=ALWAYS)
 
 

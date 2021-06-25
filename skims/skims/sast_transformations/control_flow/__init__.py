@@ -11,6 +11,9 @@ from sast_transformations.control_flow.go import (
 from sast_transformations.control_flow.java import (
     add as java_add,
 )
+from sast_transformations.control_flow.javascript import (
+    add as javascript_add,
+)
 
 
 def add(
@@ -19,6 +22,8 @@ def add(
 ) -> None:
     if language == GraphShardMetadataLanguage.JAVA:
         java_add(graph)
+    elif language == GraphShardMetadataLanguage.JAVASCRIPT:
+        javascript_add(graph)
     elif language == GraphShardMetadataLanguage.CSHARP:
         c_sharp_add(graph)
     elif language == GraphShardMetadataLanguage.GO:
