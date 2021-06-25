@@ -114,7 +114,7 @@ We use [AWS KMS][KMS] for:
 
 We do not use [AWS KMS][KMS] for:
 
-1. [Redshift](https://aws.amazon.com/redshift/):
+1. [Redshift](/development/stack/aws/redshift/):
     The database is not encrypted at rest. Pending to implement.
 1. [CI Bastion](/development/stack/gitlab-ci/):
     It does not use [EBS][EBS]

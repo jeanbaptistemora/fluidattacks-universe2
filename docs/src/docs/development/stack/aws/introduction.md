@@ -81,10 +81,10 @@ We use the following [AWS][AWS] services:
     [DynamoDB](/development/stack/aws/dynamodb/).
 1. In-memory cache:
     [Redis](/development/stack/aws/redis/).
+1. Data warehouse:
+    [Redshift](/development/stack/aws/redshift/).
 1. Elastic Container Service:
     [ECS](https://aws.amazon.com/ecs/).
-1. Data warehouse:
-    [Redshift](https://aws.amazon.com/redshift/).
 1. Batch processing:
     [Batch](https://aws.amazon.com/batch/).
 1. Machine learning:

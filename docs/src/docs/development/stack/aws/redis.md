@@ -123,6 +123,13 @@ We use [Redis][REDIS] for:
     [Redis logic](https://gitlab.com/fluidattacks/product/-/tree/master/integrates/back/src/redis_cluster),
     that way we can keep
     a consistent architecture.
+1. When working on our [ASM][ASM],
+    sometimes you will need
+    to invalidate [Redis][REDIS] cache,
+    you can do this
+    by using the `invalidateCache` mutation.
+    Please visit our [API Documentation section](https://app.fluidattacks.com/api)
+    for more information.
 
 [ASM]: https://fluidattacks.com/categories/asm/
 [REDIS]: https://aws.amazon.com/redis/

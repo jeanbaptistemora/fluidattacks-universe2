@@ -32,7 +32,7 @@ over other alternatives are:
     [EC2](/development/stack/aws/ec2/),
     [Redis](/development/stack/aws/redis/),
     [Elastic Load Balancing](/development/stack/aws/elb/),
-    [AWS Redshift](https://aws.amazon.com/redshift/),
+    [AWS Redshift](/development/stack/aws/redshift/),
     etc.
 1. It supports [Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html#vpc-subnet-basics),
     which allows to have multiple network segments,

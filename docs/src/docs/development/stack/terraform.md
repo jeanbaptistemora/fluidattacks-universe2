@@ -77,7 +77,7 @@ Some examples are:
 
 We do not use [Terraform][TERRAFORM] in:
 
-1. [AWS Redshift](https://aws.amazon.com/redshift/):
+1. [AWS Redshift](/development/stack/aws/redshift/):
     Pending to implement.
 1. [Gitlab](/development/stack/gitlab):
     Pending to implement.

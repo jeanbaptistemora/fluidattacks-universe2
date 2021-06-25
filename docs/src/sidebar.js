@@ -836,6 +836,7 @@ const Development = [
           'development/stack/aws/kms',
           'development/stack/aws/lambda',
           'development/stack/aws/redis',
+          'development/stack/aws/redshift',
           'development/stack/aws/s3',
           'development/stack/aws/vpc',
         ]

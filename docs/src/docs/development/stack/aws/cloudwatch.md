@@ -70,7 +70,7 @@ We use [CloudWatch][CLOUDWATCH] for monitoring:
     bucket size and object number.
 1. [Elastic load balancing](/development/stack/aws/elb/)
     load balancer performance.
-1. [Redshift](https://aws.amazon.com/redshift/)
+1. [Redshift](/development/stack/aws/redshift/)
     database usage and performance.
 1. [Redis cache cluster](/development/stack/aws/redis/)
     usage and performance.

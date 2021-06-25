@@ -78,7 +78,7 @@ over other alternatives are:
 1. It
     [Integrates](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/RedshiftforDynamoDB.html)
     with
-    [Redshift](https://aws.amazon.com/redshift/),
+    [Redshift](/development/stack/aws/redshift/),
     partially allowing us to move data to our
     [data warehouse](https://en.wikipedia.org/wiki/Data_warehouse).
 1. It supports
@@ -188,7 +188,7 @@ you can track progress
     for our database.
     Please make sure
     you keep all data within that table.
-1. Please adhere to our current [design][DESIGN],
+1. Please adhere to our current [design][DESIGN]
     when modifying the
     [DynamoDB logic](https://gitlab.com/fluidattacks/product/-/tree/master/integrates/back/src/dynamodb),
     that way we can keep
