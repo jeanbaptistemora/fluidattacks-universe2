@@ -51,8 +51,6 @@ const handleSquadBtnChangeHelper = (
   if (withSquad) {
     dispatch(change("editGroup", "asm", true));
     dispatch(change("editGroup", "machine", isContinuousType(type)));
-  } else {
-    dispatch(change("editGroup", "forces", false));
   }
 };
 
@@ -63,7 +61,6 @@ const handleForcesBtnChangeHelper = (
   if (withForces) {
     dispatch(change("editGroup", "asm", true));
     dispatch(change("editGroup", "machine", true));
-    dispatch(change("editGroup", "squad", true));
   }
 };
 

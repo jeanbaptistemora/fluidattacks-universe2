@@ -282,7 +282,7 @@ describe("Services", (): void => {
       forces: true,
       machine: true,
       reason: "NONE",
-      squad: true,
+      squad: false,
       type: "CONTINUOUS",
     });
 
@@ -292,10 +292,10 @@ describe("Services", (): void => {
       asm: true,
       comments: "",
       confirmation: "",
-      forces: false,
+      forces: true,
       machine: true,
       reason: "NONE",
-      squad: false,
+      squad: true,
       type: "CONTINUOUS",
     });
 
@@ -305,7 +305,7 @@ describe("Services", (): void => {
       asm: true,
       comments: "",
       confirmation: "",
-      forces: true,
+      forces: false,
       machine: true,
       reason: "NONE",
       squad: true,

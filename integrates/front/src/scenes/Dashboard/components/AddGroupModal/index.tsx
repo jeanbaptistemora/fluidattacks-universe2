@@ -424,7 +424,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                     </TooltipWrapper>
                   </Col40>
                 </Row>
-                {values.squad && isContinuousType(values.type) ? (
+                {values.machine && isContinuousType(values.type) ? (
                   <Row>
                     <Col40>
                       <TooltipWrapper

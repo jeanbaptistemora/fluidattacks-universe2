@@ -449,7 +449,7 @@ async def test_edit_group_good(  # type: ignore
             "NONE",
             "Exception - Forces is only available when Integrates is too",
         ],
-        # Configuration error, Forces requires Drills
+        # Configuration error, Forces requires Skims
         [
             "",
             "ONESHOTTEST",
@@ -459,7 +459,7 @@ async def test_edit_group_good(  # type: ignore
             "true",
             "false",
             "NONE",
-            "Exception - Forces is only available when Drills is too",
+            "Exception - Forces is only available when Skims is too",
         ],
         # Configuration error, Forces requires CONTINUOUS
         [

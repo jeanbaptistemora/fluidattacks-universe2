@@ -1206,9 +1206,9 @@ def validate_group_services_config(
                 raise InvalidGroupServicesConfig(
                     "Forces is only available when Integrates is too"
                 )
-            if not has_drills:
+            if not has_skims:
                 raise InvalidGroupServicesConfig(
-                    "Forces is only available when Drills is too"
+                    "Forces is only available when Skims is too"
                 )
 
     else:

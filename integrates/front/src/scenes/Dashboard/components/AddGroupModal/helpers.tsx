@@ -71,15 +71,13 @@ const getSwitchButtonHandlers = (
   function handleSquadBtnChange(): void {
     setFieldValue("squad", !values.squad);
 
-    if (values.squad) {
-      setFieldValue("forces", false);
-    } else {
+    if (!values.squad) {
       setFieldValue("machine", true);
     }
   }
 
   function handleForcesBtnChange(): void {
-    if (values.squad) {
+    if (values.machine) {
       setFieldValue("forces", !values.forces);
     } else {
       setFieldValue("forces", false);
