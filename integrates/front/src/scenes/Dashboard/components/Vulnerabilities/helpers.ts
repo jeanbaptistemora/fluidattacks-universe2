@@ -46,6 +46,10 @@ const errorMessageHelper = (message: string): void => {
   } else if (message === "Expected vulnerability to have repo_nickname") {
     msgError(translate.t("groupAlerts.expectedVulnToHaveNickname"));
   } else if (
+    message === "Invalid, you cannot change the nickname while closing"
+  ) {
+    msgError(translate.t("groupAlerts.invalidCannotModifyNicknameWhenClosing"));
+  } else if (
     message ===
     "Exception - You can upload a maximum of 100 vulnerabilities per file"
   ) {

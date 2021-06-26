@@ -735,6 +735,8 @@ export const enTranslations: ResourceKey = {
     fileTypeYaml: "The file must be .yaml or .yml type",
     fileUpdated: "File updated ;)",
     invalid: "is invalid",
+    invalidCannotModifyNicknameWhenClosing:
+      "Invalid, you cannot change the nickname while closing",
     invalidDate:
       "The date must be minor than six month and greater than current date",
     invalidNOfVulns: "You can upload a maximum of 100 vulnerabilities per file",
