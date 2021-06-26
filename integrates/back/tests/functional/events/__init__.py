@@ -19,7 +19,7 @@ async def get_result(
         events(projectName: "{group}"){{
             id
             eventStatus
-            projectName
+            groupName
             detail
             evidence
         }}

@@ -27,13 +27,18 @@ async def _batch_load_fn(event_ids: List[str]) -> List[EventType]:
     for event in evnts:
         history: Historic = cast(Historic, event.get("historic_state", []))
         event_id: str = cast(str, event["event_id"])
+        client_group: str = event.get(
+            "client_group", event.get("client_project", "")
+        )
+        group_name: str = event.get(
+            "group_name", event.get("project_name", "")
+        )
         events[event_id] = dict(
             accessibility=event.get("accessibility", ""),
             affectation=history[-1].get("affectation", ""),
             affected_components=event.get("affected_components", ""),
             analyst=event.get("analyst", ""),
             client=event.get("client", ""),
-            client_project=event.get("client_project", ""),
             closing_date=event.get("closing_date", "-"),
             context=event.get("context", ""),
             detail=event.get("detail", ""),
@@ -50,8 +55,12 @@ async def _batch_load_fn(event_ids: List[str]) -> List[EventType]:
             evidence=event.get("evidence", ""),
             historic_state=history,
             id=event.get("event_id", ""),
-            project_name=event.get("project_name", ""),
             subscription=event.get("subscription", ""),
+            # Compatibility with old API
+            client_group=client_group,
+            client_project=client_group,
+            project_name=group_name,
+            group_name=group_name,
         )
     return [events.get(event_id, dict()) for event_id in event_ids]
 

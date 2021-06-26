@@ -98,6 +98,8 @@ if FI_API_STATUS == "migration":
     FINDING.set_field("verified", verified_new.resolve)
     FINDING.set_field("vulnerabilities", vulnerabilities_new.resolve)
     FINDING.set_field("zeroRisk", zero_risk_new.resolve)
+    # Standardization field
+    FINDING.set_field("groupName", project_name_new.resolve)
 else:
     FINDING.set_field("age", age.resolve)
     FINDING.set_field("analyst", analyst.resolve)

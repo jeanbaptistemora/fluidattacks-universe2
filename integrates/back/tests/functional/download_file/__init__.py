@@ -20,7 +20,7 @@ async def get_result(
         mutation {{
             downloadFile (
                 filesData: \"\\\"{f_name}\\\"\",
-                projectName: "{group}"
+                groupName: "{group}"
             ) {{
                 success
                 url

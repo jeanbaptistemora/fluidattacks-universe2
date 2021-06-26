@@ -28,6 +28,10 @@ async def _batch_load_fn(
 
     fins = await findings_domain.get_findings_async(finding_ids)
     for finding in fins:
+        # Compatibility with old API
+        group_name: str = finding.get(
+            "groupName", finding.get("projectName", "")
+        )
         finding_id: str = cast(str, finding["findingId"])
         findings[finding_id] = dict(
             actor=finding.get("actor", ""),
@@ -49,7 +53,6 @@ async def _batch_load_fn(
             historic_verification=finding.get("historicVerification", []),
             id=finding.get("findingId", ""),
             is_exploitable=finding.get("exploitable", ""),
-            project_name=finding.get("projectName", ""),
             recommendation=finding.get("effectSolution", ""),
             records=finding.get("records", ""),
             remediated=finding.get("remediated", False),
@@ -63,6 +66,9 @@ async def _batch_load_fn(
             threat=finding.get("threat", ""),
             title=finding.get("finding", ""),
             type=finding.get("findingType", ""),
+            # Standardization field
+            group_name=group_name,
+            project_name=group_name,
         )
     return [findings.get(finding_id, dict()) for finding_id in finding_ids]
 

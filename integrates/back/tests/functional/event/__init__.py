@@ -19,7 +19,7 @@ async def get_result(
         event(identifier: "{event}"){{
             client
             evidence
-            projectName
+            groupName
             eventType
             detail
             eventDate

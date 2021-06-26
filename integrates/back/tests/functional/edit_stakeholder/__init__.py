@@ -24,7 +24,7 @@ async def get_result(
             editStakeholder (
                 email: "{stakeholder}",
                 phoneNumber: "{phone}",
-                projectName: "{group}",
+                groupName: "{group}",
                 responsibility: "{responsibility}",
                 role: {role}
             ) {{

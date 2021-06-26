@@ -19,7 +19,7 @@ async def get_result(
         query {{
             finding(identifier: "{finding}"){{
                 id
-                projectName
+                groupName
                 releaseDate
                 severity
                 cvssVersion

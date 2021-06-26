@@ -25,7 +25,7 @@ from typing import (
 async def test_get_finding(populate: bool, email: str) -> None:
     assert populate
     identifier: str = "475041513"
-    project_name: str = "group1"
+    group_name: str = "group1"
     release_date: str = "2018-04-07 19:45:11"
     severity: Dict[str, float] = {
         "attackComplexity": 0.44,
@@ -133,7 +133,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
     )
     assert "errors" not in result
     assert result["data"]["finding"]["id"] == identifier
-    assert result["data"]["finding"]["projectName"] == project_name
+    assert result["data"]["finding"]["groupName"] == group_name
     assert result["data"]["finding"]["releaseDate"] == release_date
     assert result["data"]["finding"]["severity"] == severity
     assert result["data"]["finding"]["cvssVersion"] == cvss_version
@@ -200,7 +200,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
 async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert populate
     identifier: str = "475041513"
-    project_name: str = "group1"
+    group_name: str = "group1"
     release_date: str = "2018-04-07 19:45:11"
     severity: Dict[str, float] = {
         "attackComplexity": 0.44,
@@ -299,7 +299,7 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     )
     assert "errors" in result
     assert result["data"]["finding"]["id"] == identifier
-    assert result["data"]["finding"]["projectName"] == project_name
+    assert result["data"]["finding"]["groupName"] == group_name
     assert result["data"]["finding"]["releaseDate"] == release_date
     assert result["data"]["finding"]["severity"] == severity
     assert result["data"]["finding"]["cvssVersion"] == cvss_version

@@ -59,5 +59,5 @@ async def test_get_event(populate: bool, email: str) -> None:
             "state": "CREATED",
         },
     ]
-    assert result["data"]["event"]["projectName"] == "group1"
+    assert result["data"]["event"]["groupName"] == "group1"
     assert result["data"]["event"]["subscription"] == "ONESHOT"

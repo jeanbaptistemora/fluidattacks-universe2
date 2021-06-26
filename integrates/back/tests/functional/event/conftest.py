@@ -15,7 +15,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
         "events": [
             {
-                "project_name": "group1",
+                "group_name": "group1",
                 "event_id": "418900971",
                 "accessibility": "Repositorio",
                 "affected_components": "affected_components_test",

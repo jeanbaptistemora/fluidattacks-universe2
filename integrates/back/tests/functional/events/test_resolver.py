@@ -27,14 +27,14 @@ async def test_get_events(populate: bool, email: str) -> None:
     expected: List[Dict[str, str]] = [
         {
             "id": "418900971",
-            "projectName": "group1",
+            "groupName": "group1",
             "eventStatus": "CREATED",
             "evidence": "evidence1",
             "detail": "Integrates unit test1",
         },
         {
             "id": "418900980",
-            "projectName": "group1",
+            "groupName": "group1",
             "eventStatus": "CREATED",
             "evidence": "evidence2",
             "detail": "Integrates unit test2",

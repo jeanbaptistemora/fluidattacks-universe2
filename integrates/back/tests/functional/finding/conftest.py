@@ -16,7 +16,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         "findings": [
             {
                 "finding_id": "475041513",
-                "project_name": "group1",
+                "group_name": "group1",
                 "files": [
                     {
                         "name": "evidence_route_1",

@@ -15,6 +15,7 @@ type Finding {
   cweUrl: String
   description: String
   evidence: GenericScalar
+  groupName: String
   historicState: [GenericScalar]
   id: String
   inputsVulns: [Vulnerability]
@@ -26,7 +27,7 @@ type Finding {
   openAge: Int
   openVulnerabilities: Int
   portsVulns: [Vulnerability]
-  projectName: String
+  projectName: String @deprecated(reason: "Use `groupName` instead.")
   recommendation: String
   records: JSONString
   releaseDate: String
