@@ -34,17 +34,25 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
         match = g.match_ast(args.graph, args.n_id, ":=", "__0__", "__1__")
         vars_n_id = match["__0__"]
         vals_n_id = match["__1__"]
-    elif declaration_label == "var_declaration":
-        vars_n_id = g.get_ast_childs(args.graph, args.n_id, "var_spec")[0]
-        vals_n_id = g.get_ast_childs(args.graph, vars_n_id, "expression_list")[
-            0
-        ]
+    elif declaration_label in ["const_declaration", "var_declaration"]:
+        spec_label = (
+            "var_spec"
+            if declaration_label == "var_declaration"
+            else "const_spec"
+        )
+        vars_n_id = g.get_ast_childs(args.graph, args.n_id, spec_label)[0]
+        vals_n_id = g.get_ast_childs(args.graph, vars_n_id, "expression_list")
+        vals_n_id = vals_n_id[0] if vals_n_id else ""
 
     vars_ids = g.get_ast_childs(args.graph, vars_n_id, "identifier")
-    vals_ids = tuple(
-        v
-        for _, v in g.match_ast(args.graph, vals_n_id, ",").items()
-        if v and args.graph.nodes[v]["label_type"] != ","
+    vals_ids = (
+        tuple(
+            v
+            for _, v in g.match_ast(args.graph, vals_n_id, ",").items()
+            if v and args.graph.nodes[v]["label_type"] != ","
+        )
+        if vals_n_id
+        else tuple()
     )
     if len(vars_ids) == len(vals_ids):
         for var_id, val_id in zip(vars_ids, vals_ids):

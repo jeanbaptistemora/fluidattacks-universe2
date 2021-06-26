@@ -34,6 +34,7 @@ from sast_syntax_readers.common import (
     return_statement as common_return_statement,
 )
 from sast_syntax_readers.go import (
+    call_expression as go_call_expression,
     function_declaration as go_function_declaration,
     variable_declaration as go_variable_declaration,
 )
@@ -195,6 +196,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     ),
     Dispatcher(
         applicable_languages={
+            graph_model.GraphShardMetadataLanguage.GO,
             graph_model.GraphShardMetadataLanguage.JAVA,
             graph_model.GraphShardMetadataLanguage.CSHARP,
         },
@@ -336,6 +338,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             graph_model.GraphShardMetadataLanguage.GO,
         },
         applicable_node_label_types={
+            "const_declaration",
             "short_var_declaration",
             "var_declaration",
         },
@@ -370,6 +373,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "method_declaration",
         },
         syntax_readers=(go_function_declaration.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.GO,
+        },
+        applicable_node_label_types={
+            "call_expression",
+        },
+        syntax_readers=(go_call_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={
@@ -478,6 +490,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "interpreted_string_literal",
             "floating_point_type",
             "null_literal",
+            "raw_string_literal",
             "real_literal",
             "string_literal",
             "verbatim_string_literal",

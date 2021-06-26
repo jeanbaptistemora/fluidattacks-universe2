@@ -28854,6 +28854,34 @@
       },
       "path": "skims/test/data/sast/test_cfg.go",
       "syntax": {
+        "139": [
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "146",
+              "value": null
+            },
+            "method": "err.Error",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "139",
+              "value": null
+            },
+            "method": "log.Println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "184": [
           {
             "meta": {
@@ -28866,6 +28894,54 @@
             "type": "SyntaxStepDeclaration",
             "var": "r",
             "var_type": "*http.Request"
+          }
+        ],
+        "201": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "210",
+              "value": null
+            },
+            "symbol": "r",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "212",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Level",
+            "value_type": "string"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "206",
+              "value": null
+            },
+            "method": "GetCookie",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "203",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "level",
+            "var_type": ""
           }
         ],
         "265": [
@@ -28894,6 +28970,41 @@
             "var_type": "[]string"
           }
         ],
+        "339": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "346",
+              "value": null
+            },
+            "symbol": "w",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "348",
+              "value": null
+            },
+            "symbol": "cookie",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "339",
+              "value": null
+            },
+            "method": "http.SetCookie",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "355": [],
         "37": [
           {
@@ -28907,6 +29018,69 @@
             "type": "SyntaxStepDeclaration",
             "var": "h",
             "var_type": "httprouter.Handle"
+          }
+        ],
+        "401": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "408",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "%s.",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "410",
+              "value": null
+            },
+            "symbol": "os",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "401",
+              "value": null
+            },
+            "method": "fmt.Printf",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "59": [
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "64",
+              "value": null
+            },
+            "method": "recover",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "61",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "r",
+            "var_type": ""
           }
         ]
       }

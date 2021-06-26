@@ -37,6 +37,7 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     elif n_attrs_label_type in {
         "character_literal",
         "interpreted_string_literal",
+        "raw_string_literal",
         "string_literal",
         "verbatim_string_literal",
     }:
