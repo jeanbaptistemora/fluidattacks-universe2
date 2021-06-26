@@ -11,18 +11,15 @@ from typing import (
     Any,
     cast,
     Dict,
-    Optional,
 )
 from uuid import (
     uuid4 as uuid,
 )
 
 
-def get_hash(
-    specific: str, type_: str, where: str, repo_nickname: Optional[str] = None
-) -> int:
+def get_hash(specific: str, type_: str, where: str) -> int:
     # Return a unique identifier according to the business rules
-    return hash((specific, type_, where, repo_nickname))
+    return hash((specific, type_, where))
 
 
 def get_hash_from_dict(vuln: Dict[str, Any]) -> int:
@@ -31,7 +28,6 @@ def get_hash_from_dict(vuln: Dict[str, Any]) -> int:
         specific=vuln.get("specific", nonce),
         type_=vuln.get("vuln_type", nonce),
         where=vuln.get("where", nonce),
-        repo_nickname=vuln.get("repo_nickname", None),
     )
 
 
