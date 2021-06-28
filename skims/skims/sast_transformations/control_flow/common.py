@@ -3,6 +3,7 @@ from contextlib import (
 )
 from model.graph_model import (
     Graph,
+    GraphShardMetadataLanguage,
 )
 from more_itertools import (
     pairwise,
@@ -22,12 +23,19 @@ from sast_transformations.control_flow.types import (
 )
 from typing import (
     Callable,
+    Dict,
     List,
     Optional,
 )
 from utils import (
     graph as g,
 )
+
+BLOCK_NAME: Dict[GraphShardMetadataLanguage, str] = {
+    GraphShardMetadataLanguage.JAVASCRIPT: "statement_block",
+    GraphShardMetadataLanguage.JAVA: "block",
+    GraphShardMetadataLanguage.CSHARP: "block",
+}
 
 # Constants
 GenericType = Callable[
@@ -222,6 +230,7 @@ def loop_statement(
     stack: Stack,
     *,
     _generic: GenericType,
+    language: Optional[GraphShardMetadataLanguage] = None,
 ) -> None:
     # If there is a next node, link it as `false`, this means
     # the predicate of the for did not hold
@@ -233,7 +242,8 @@ def loop_statement(
         graph.add_edge(n_id, next_id, **FALSE)
 
     # If the predicate holds as `true` then enter into the block
-    c_id = g.adj_ast(graph, n_id, label_type="block")[-1]
+    block_name = BLOCK_NAME.get(language) or "block"
+    c_id = g.adj_ast(graph, n_id, label_type=block_name)[-1]
     graph.add_edge(n_id, c_id, **TRUE)
 
     # Recurse into the for block

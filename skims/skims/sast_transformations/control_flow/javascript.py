@@ -6,11 +6,13 @@ from functools import (
 )
 from model.graph_model import (
     Graph,
+    GraphShardMetadataLanguage,
 )
 from sast_transformations import (
     ALWAYS,
 )
 from sast_transformations.control_flow.common import (
+    loop_statement,
     step_by_step,
 )
 from sast_transformations.control_flow.types import (
@@ -41,6 +43,21 @@ def _generic(
                 "program",
             },
             partial(step_by_step, _generic=_generic),
+        ),
+        (
+            {
+                "for_statement",
+                "do_statement",
+                "while_statement",
+                "for_each_statement",
+                "for_in_statement",
+                "for_of_statement",
+            },
+            partial(
+                loop_statement,
+                _generic=_generic,
+                language=GraphShardMetadataLanguage.JAVASCRIPT,
+            ),
         ),
     )
     for types, walker in walkers:
