@@ -5,6 +5,7 @@ import { Link } from "gatsby";
 import { decode } from "he";
 import React from "react";
 
+import { stringToUri } from "../../../utils/utilities";
 import {
   CardButton,
   CardButtonContainer,
@@ -56,11 +57,7 @@ export const BlogCard: React.FC<IProps> = ({
             {"Author:"}&nbsp;
             <Link
               className={"c-fluid-gray hv-fluid-black no-underline"}
-              to={`/blog/authors/${author
-                .toLowerCase()
-                .replace(" ", "-")
-                .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "")}`}
+              to={`/blog/authors/${stringToUri(author)}`}
             >
               {author}
             </Link>

@@ -13,6 +13,7 @@ import {
 } from "./StyledComponents";
 
 import { translate } from "../../utils/translations/translate";
+import { stringToUri } from "../../utils/utilities";
 import { CloudImage } from "../CloudImage";
 
 interface IProps {
@@ -39,11 +40,7 @@ const BlogFooter: React.FC<IProps> = ({
         />
         <Link
           className={"arrow-box br3 pa2 ml3 mv1"}
-          to={`/blog/authors/${author
-            .toLowerCase()
-            .replace(" ", "-")
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")}`}
+          to={`/blog/authors/${stringToUri(author)}`}
         >
           {author}
         </Link>

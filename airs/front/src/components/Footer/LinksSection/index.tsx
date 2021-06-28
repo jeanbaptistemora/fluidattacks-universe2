@@ -1,39 +1,13 @@
 /* eslint react/forbid-component-props: 0 */
 import React from "react";
-import type { StyledComponent } from "styled-components";
-import styled from "styled-components";
 
 import { BodyLink } from "./BodyLink";
 import { HeadLink } from "./HeadLink";
 
-const FooterMenuContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    pb4
-    w-100
-    tc
-    nowrap
-    flex-ns
-    justify-center
-    justify-around-xl
-  `,
-})``;
-
-const LinksContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    pt4-l
-    b
-    v-top
-    tl
-    mh2
-    lh-2
-  `,
-})``;
+import {
+  FooterMenuContainer,
+  LinksContainer,
+} from "../styles/styledComponents";
 
 const LinksSection: React.FC = (): JSX.Element => (
   <FooterMenuContainer>

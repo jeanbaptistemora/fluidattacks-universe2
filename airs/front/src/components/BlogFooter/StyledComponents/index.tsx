@@ -6,17 +6,17 @@ const BlogFooterContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-      flex
-      flex-wrap
-      w-100
-      tl
-      pt6-l
-      pt5
-      mw6-m
-      ml-auto
-      mr-auto
-      justify-center
-    `,
+    flex
+    flex-wrap
+    w-100
+    tl
+    pt6-l
+    pt5
+    mw6-m
+    ml-auto
+    mr-auto
+    justify-center
+  `,
 })``;
 
 const BlogFooterCols: StyledComponent<
@@ -26,7 +26,7 @@ const BlogFooterCols: StyledComponent<
   className: `
     ma2
     blog-footer-col
-    `,
+  `,
 })``;
 
 const BlogFooterColsBody: StyledComponent<
@@ -34,18 +34,18 @@ const BlogFooterColsBody: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-      flex
-      c-fluid-bk
-      fw4
-      f-1125
-      v-mid
-      mr4-l
-      pv0-l
-      pv3
-      mv1
-      justify-center
-      justify-start-l
-    `,
+    flex
+    c-fluid-bk
+    fw4
+    f-1125
+    v-mid
+    mr4-l
+    pv0-l
+    pv3
+    mv1
+    justify-center
+    justify-start-l
+  `,
 })``;
 
 const BlogFooterColsHeader: StyledComponent<
@@ -58,7 +58,7 @@ const BlogFooterColsHeader: StyledComponent<
     mv1
     justify-center
     justify-start-l
-    `,
+  `,
 })``;
 
 const RedButton: StyledComponent<
