@@ -175,21 +175,27 @@ def _exec_command(cmd: List[str], signal: str = "15") -> Iterator[None]:
             _exec_and_wait_command(["makes-kill-tree", signal, f"{sproc.pid}"])
 
 
+def _exec_mock_server(
+    cmd: List[str], port: str, signal: str = "15", wait_time: str = "5"
+) -> Iterator[None]:
+    _exec_and_wait_command(["makes-kill-port", port])
+    with _exec_command(cmd, signal):
+        _exec_and_wait_command(["makes-wait", wait_time, f"localhost:{port}"])
+        yield
+
+
 @pytest.fixture(autouse=False, scope="session")
 def test_mocks_http() -> Iterator[None]:
-    with _exec_command(["skims-test-mocks-http", "localhost", "48000"]):
-        yield
+    yield from _exec_mock_server(
+        ["skims-test-mocks-http", "localhost", "48000"], "48000"
+    )
 
 
 @pytest.fixture(autouse=False, scope="session")
 def test_mocks_ssl_safe() -> Iterator[None]:
-    with _exec_command(["skims-test-mocks-ssl-safe"]):
-        _exec_and_wait_command(["makes-wait", "5", "localhost:4445"])
-        yield
+    yield from _exec_mock_server(["skims-test-mocks-ssl-safe"], "4445")
 
 
 @pytest.fixture(autouse=False, scope="session")
 def test_mocks_ssl_unsafe() -> Iterator[None]:
-    with _exec_command(["skims-test-mocks-ssl-unsafe"]):
-        _exec_and_wait_command(["makes-wait", "5", "localhost:4446"])
-        yield
+    yield from _exec_mock_server(["skims-test-mocks-ssl-unsafe"], "4446")
