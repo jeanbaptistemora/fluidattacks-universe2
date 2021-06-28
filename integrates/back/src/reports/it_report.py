@@ -379,6 +379,10 @@ class ITReport:
         if row.get("vuln_type") == "lines":
             specific = str(int(specific))
 
+        commit = EMPTY
+        if "commitHash" in row:
+            commit = row.get("commitHash", "")
+
         tags = EMPTY
         if "tag" in row:
             tags = row.get("tag", "")
@@ -391,6 +395,7 @@ class ITReport:
         self.row_values[vuln["Vulnerability Id"]] = str(row.get("UUID", EMPTY))
         self.row_values[vuln["Where"]] = str(row.get("where"))
         self.row_values[vuln["Specific"]] = specific
+        self.row_values[vuln["Commit Hash"]] = commit
         self.row_values[vuln["Tags"]] = tags
 
         self.set_finding_data(finding, row)

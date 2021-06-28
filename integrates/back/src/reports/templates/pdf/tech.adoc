@@ -128,9 +128,9 @@ If you are reading this report and you are not {{user}}, you are not authorized 
 {% if 'linesVulns' in fin %}
 ===== {{lines}}
 |===
-|{{path}}|{{line}}
+|{{path}}|{{line}}|{{'Commit'}}
 {% for line in fin['linesVulns'] %}
-{{'|'+line['where']+'|'+line['specific']}}
+{{'|'+line['where']+'|'+line['specific']+'|'+line['commitHash']}}
 {% endfor %}
 |===
 {% endif %}
