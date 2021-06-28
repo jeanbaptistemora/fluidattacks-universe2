@@ -6,18 +6,13 @@ resource "github_branch_default" "default" {
 resource "github_branch_protection" "main" {
   allows_force_pushes    = false
   allows_deletions       = false
-  enforce_admins         = true
+  enforce_admins         = false
   pattern                = "main"
   repository_id          = github_repository.repo.node_id
   require_signed_commits = false
   required_status_checks {
     strict   = false
     contexts = []
-  }
-  required_pull_request_reviews {
-    dismiss_stale_reviews           = true
-    require_code_owner_reviews      = false
-    required_approving_review_count = 1
   }
 }
 
