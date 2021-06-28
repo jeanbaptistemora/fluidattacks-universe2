@@ -20,6 +20,7 @@ from typing import (
         ["customer@gmail.com"],
         ["customeradmin@gmail.com"],
         ["executive@gmail.com"],
+        ["resourcer@gmail.com"],
     ],
 )
 async def test_get_events(populate: bool, email: str) -> None:

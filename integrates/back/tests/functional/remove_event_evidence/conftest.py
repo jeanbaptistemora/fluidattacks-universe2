@@ -54,7 +54,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             },
             {
                 "project_name": "group1",
-                "event_id": "418900980",
+                "event_id": "418900972",
                 "accessibility": "Repositorio",
                 "affected_components": "affected_components_test",
                 "action_after_blocking": "EXECUTE_OTHER_PROJECT_SAME_CLIENT",
@@ -89,44 +89,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "evidence_date": "2019-03-11 11:57:45",
                 "evidence_file": "1mvStFSToOL3bl47zaVZHBpRMZUUhU0Ad",
                 "evidence_file_date": "2019-03-11 11:57:45",
-            },
-            {
-                "project_name": "group1",
-                "event_id": "418900995",
-                "accessibility": "Repositorio",
-                "affected_components": "affected_components_test",
-                "action_after_blocking": "EXECUTE_OTHER_PROJECT_SAME_CLIENT",
-                "action_before_blocking": "TEST_OTHER_PART_TOE",
-                "analyst": generic_data["global_vars"]["analyst_email"],
-                "client": "Fluid",
-                "client_project": "group1",
-                "closer": "unittest",
-                "closing_date": "2018-06-27 10:40:05",
-                "context": "FLUID",
-                "detail": "Integrates unit test2",
-                "historic_state": [
-                    {
-                        "analyst": generic_data["global_vars"][
-                            "analyst_email"
-                        ],
-                        "date": "2018-06-27 07:00:00",
-                        "state": "OPEN",
-                    },
-                    {
-                        "analyst": generic_data["global_vars"][
-                            "analyst_email"
-                        ],
-                        "date": "2018-06-27 09:40:05",
-                        "state": "CREATED",
-                    },
-                ],
-                "event_type": "OTHER",
-                "hours_before_blocking": "1",
-                "subscription": "ONESHOT",
-                "evidence": "1bhEW8rN33fq01SBmWjjEwEtK6HWkdMq6",
-                "evidence_date": "2019-03-11 12:57:45",
-                "evidence_file": "1mvStFSToOL3bl47zaVZHBpRMZUUhU0Ad",
-                "evidence_file_date": "2019-03-11 12:57:45",
             },
         ],
     }
