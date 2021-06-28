@@ -16,6 +16,7 @@ from sagemaker_provisioner import (
 )
 import tempfile
 from training.constants import (
+    DATASET_PATH,
     MODEL_HYPERPARAMETERS,
     SAGEMAKER_METRIC_DEFINITIONS,
 )
@@ -40,9 +41,7 @@ def deploy_hyperparameter_tuning_job() -> None:
         hyperparameter_ranges=MODEL_HYPERPARAMETERS[model],
     )
 
-    tuner.fit(
-        {"train": "s3://sorts/training/binary_encoded_training_data.csv"}
-    )
+    tuner.fit({"train": DATASET_PATH})
 
     # Here we get the best hyperparameters combination.
     # We can evaluate them and make desitions from here.

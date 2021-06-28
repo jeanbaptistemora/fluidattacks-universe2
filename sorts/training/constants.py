@@ -31,10 +31,21 @@ from typing import (
     List,
 )
 
+# AWS-related
 S3_BUCKET_NAME: str = "sorts"
 S3_RESOURCE = boto3.resource("s3")
 S3_BUCKET = S3_RESOURCE.Bucket(S3_BUCKET_NAME)
 
+DATASET_PATH: str = "s3://sorts/training/binary_encoded_training_data.csv"
+
+SAGEMAKER_METRIC_DEFINITIONS: List[Dict[str, str]] = [
+    {"Name": "precision", "Regex": "Precision: (.*?)%"},
+    {"Name": "recall", "Regex": "Recall: (.*?)%"},
+    {"Name": "fscore", "Regex": "F1-Score: (.*?)%"},
+    {"Name": "overfit", "Regex": "Overfit: (.*?)%"},
+]
+
+# Model-related
 FEATURES_DICTS: Dict[str, str] = {
     "num_commits": "CM",
     "num_unique_authors": "AU",
@@ -63,13 +74,6 @@ MODELS: Dict[str, ModelType] = {
     "mlpclassifier": MLPClassifier,
     "randomforestclassifier": RandomForestClassifier,
 }
-
-SAGEMAKER_METRIC_DEFINITIONS: List[Dict[str, str]] = [
-    {"Name": "precision", "Regex": "Precision: (.*?)%"},
-    {"Name": "recall", "Regex": "Recall: (.*?)%"},
-    {"Name": "fscore", "Regex": "F1-Score: (.*?)%"},
-    {"Name": "overfit", "Regex": "Overfit: (.*?)%"},
-]
 
 # Hyperparameters
 MODEL_HYPERPARAMETERS = {

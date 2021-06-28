@@ -13,6 +13,7 @@ from sagemaker.sklearn.estimator import (
 )
 import time
 from training.constants import (
+    DATASET_PATH,
     SAGEMAKER_METRIC_DEFINITIONS,
 )
 from typing import (
@@ -58,9 +59,7 @@ def deploy_training_job(model: str, delay: int) -> None:
 
     print(f"Deploying training job for {model}...")
     sklearn_estimator: SKLearnEstimator = get_estimator(model)
-    sklearn_estimator.fit(
-        {"train": "s3://sorts/training/binary_encoded_training_data.csv"}
-    )
+    sklearn_estimator.fit({"train": DATASET_PATH})
 
 
 if __name__ == "__main__":
