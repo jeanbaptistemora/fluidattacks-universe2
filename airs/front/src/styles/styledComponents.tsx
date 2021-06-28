@@ -1315,6 +1315,174 @@ const ButtonContainer: StyledComponent<
   `,
 })``;
 
+const SidebarContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    w-100
+    bg-white
+    overflow-y-auto
+    mw5
+    nowrap
+  `,
+})``;
+
+const HeaderContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    min-h-25
+  `,
+})``;
+
+const LogoContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    tl
+    pa3
+  `,
+})``;
+
+const ContentContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    pl4
+    overflow-y-auto
+    h-50
+  `,
+})``;
+
+const ContentList: StyledComponent<
+  "ul",
+  Record<string, unknown>
+> = styled.ul.attrs({
+  className: `
+    list
+    ma0
+    pa0
+    tl
+  `,
+})``;
+
+const ListItem: StyledComponent<
+  "li",
+  Record<string, unknown>
+> = styled.li.attrs({
+  className: `
+    db
+    pb3
+    pr3
+  `,
+})``;
+
+const ListItemCheckbox: StyledComponent<
+  "input",
+  Record<string, unknown>
+> = styled.input.attrs({
+  className: `
+    dn
+  `,
+  type: "checkbox",
+})``;
+
+const ListItemLabel: StyledComponent<
+  "label",
+  Record<string, unknown>
+> = styled.label.attrs({
+  className: `
+    pointer
+    hv-fluid-rd
+    f5
+    c-fluid-bk
+    fw4
+    t-color-2
+    roboto
+  `,
+})``;
+
+const InnerListContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    pv2
+  `,
+})`
+  display: none;
+`;
+
+const InnerContentList: StyledComponent<
+  "ul",
+  Record<string, unknown>
+> = styled.ul.attrs({
+  className: `
+    list
+    pl3
+  `,
+})``;
+
+const InnerListItem: StyledComponent<
+  "li",
+  Record<string, unknown>
+> = styled.li.attrs({
+  className: `
+    pv2
+  `,
+})``;
+
+const FooterContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    justify-center
+    items-center
+    flex
+    min-h-25
+  `,
+})``;
+
+const ContactButtonContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    w-100
+    tl
+    pb3
+    ph3
+  `,
+})``;
+
+const ContactButton: StyledComponent<
+  "button",
+  Record<string, unknown>
+> = styled.button.attrs({
+  className: `
+    outline-transparent
+    fw7
+    f-18
+    br2
+    bw1
+    ph5
+    pv2
+    bg-white
+    bc-fluid-red
+    ba
+    hv-fluid-rd
+    hv-bd-fluid-red
+    t-all-3-eio
+    c-dkred
+    pointer
+  `,
+})``;
+
 export {
   AdvisoriesContainer,
   AdvisoriesGrid,
@@ -1356,6 +1524,10 @@ export {
   CenteredSpacedContainer,
   ComplianceContainer,
   CompliancesGrid,
+  ContactButton,
+  ContactButtonContainer,
+  ContentContainer,
+  ContentList,
   CopyrightContainer,
   CopyrightParagraph,
   ErrorContainer,
@@ -1365,6 +1537,7 @@ export {
   Flex,
   FlexCenterItemsContainer,
   FontAwesomeContainerSmall,
+  FooterContainer,
   FooterInfoLinksContainer,
   FooterInfoLink,
   FullWidthContainer,
@@ -1373,10 +1546,18 @@ export {
   GrayDash,
   HalfScreenContainer,
   HalfScreenContainerSpaced,
+  HeaderContainer,
   IframeContainer,
+  InnerContentList,
+  InnerListContainer,
+  InnerListItem,
+  ListItem,
+  ListItemCheckbox,
+  ListItemLabel,
   LittleBannerContainer,
   LittleBannerTitle,
   LittleBlackParagraph,
+  LogoContainer,
   PlayItButtonContainer,
   CenteredMaxWidthContainer,
   InnerMainContentHome,
@@ -1404,6 +1585,7 @@ export {
   RadioLabel,
   RedMark,
   RegularRedButton,
+  SidebarContainer,
   SocialMediaLink,
   SolutionCardContainer,
   SolutionsParagraph,
