@@ -213,6 +213,33 @@ async def _get_finding(*, group_name: str, finding_id: str) -> Finding:
     )
 
 
+async def _get_group(*, finding_id: str) -> str:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["finding_metadata"],
+        values={"id": finding_id},
+    )
+    key_structure = TABLE.primary_key
+    results = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(TABLE.facets["finding_metadata"],),
+        table=TABLE,
+    )
+    inverted_index = TABLE.indexes["inverted_index"]
+    inverted_key_structure = inverted_index.primary_key
+    metadata = historics.get_metadata(
+        item_id=primary_key.partition_key,
+        key_structure=inverted_key_structure,
+        raw_items=results,
+    )
+    if not results:
+        raise FindingNotFound()
+
+    return metadata["group_name"]
+
+
 async def _get_non_deleted_finding(
     *, group_name: str, finding_id: str
 ) -> Finding:
