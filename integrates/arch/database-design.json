@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jun 25, 2021, 10:19 AM",
+    "DateLastModified": "Jun 28, 2021, 09:38 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -433,6 +433,14 @@
         {
           "AttributeName": "approval_status",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "hash",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "custom_severity",
+          "AttributeType": "N"
         }
       ],
       "TableFacets": [
@@ -2126,16 +2134,38 @@
                 "S": "FIN#475041513"
               },
               "type": {
-                "S": "lines"
+                "S": "LINES"
+              },
+              "tags": {
+                "L": [
+                  {
+                    "S": "tag1"
+                  },
+                  {
+                    "S": "tag2"
+                  }
+                ]
+              },
+              "commit": {
+                "S": "aacab599cec1dba8d8cb3d6f94832b9a0c903f76"
               },
               "source": {
-                "S": "skims"
+                "S": "SKIMS"
               },
               "where": {
                 "S": "test/data/lib_path/f073/Test.cs"
               },
               "specific": {
                 "S": "44"
+              },
+              "bts_url": {
+                "S": "https://gitlab.com/fluidattacks/product/-/issues/999"
+              },
+              "hash": {
+                "N": "-5062864885113993914"
+              },
+              "custom_severity": {
+                "N": "99"
               }
             }
           ],
@@ -2147,7 +2177,10 @@
             "source",
             "where",
             "specific",
-            "stream"
+            "stream",
+            "bts_url",
+            "custom_severity",
+            "hash"
           ],
           "DataAccess": {
             "MySql": {}
@@ -2177,7 +2210,7 @@
                 "S": "test@fluidattacks.com"
               },
               "source": {
-                "S": "skims"
+                "S": "SKIMS"
               }
             }
           ],
@@ -2347,7 +2380,7 @@
                 "S": "test@fluidattacks.com"
               },
               "source": {
-                "S": "skims"
+                "S": "SKIMS"
               }
             }
           ],
