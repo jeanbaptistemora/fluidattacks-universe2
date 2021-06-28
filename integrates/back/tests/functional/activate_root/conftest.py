@@ -87,6 +87,64 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     status=test_status,
                 ),
             ),
+            GitRootItem(
+                cloning=GitRootCloning(
+                    modified_date=test_date,
+                    reason="root creation",
+                    status="UNKNOWN",
+                ),
+                group_name="group2",
+                id="702b81b3-d741-4699-9173-ecbc30bfb0cb",
+                metadata=GitRootMetadata(
+                    branch="master",
+                    type="Git",
+                    url="https://gitlab.com/fluidattacks/repo",
+                ),
+                state=GitRootState(
+                    environment_urls=["https://test.com"],
+                    environment="production",
+                    gitignore=["bower_components/*", "node_modules/*"],
+                    includes_health_check=True,
+                    modified_by=test_email,
+                    modified_date=test_date,
+                    nickname="",
+                    other=None,
+                    reason=None,
+                    status=test_status,
+                ),
+            ),
+            IPRootItem(
+                group_name="group1",
+                id="44db9bee-c97d-4161-98c6-f124d7dc9a41",
+                metadata=IPRootMetadata(
+                    address="192.168.1.2", port="8080", type="IP"
+                ),
+                state=IPRootState(
+                    modified_by=test_email,
+                    modified_date=test_date,
+                    other=None,
+                    reason=None,
+                    status=test_status,
+                ),
+            ),
+            URLRootItem(
+                group_name="group1",
+                id="bd4e5e66-da26-4274-87ed-17de7c3bc2f1",
+                metadata=URLRootMetadata(
+                    host="test.fluidattacks.com",
+                    path="/",
+                    port="8080",
+                    protocol="HTTPS",
+                    type="URL",
+                ),
+                state=URLRootState(
+                    modified_by=test_email,
+                    modified_date=test_date,
+                    other=None,
+                    reason=None,
+                    status=test_status,
+                ),
+            ),
         )
     }
 
