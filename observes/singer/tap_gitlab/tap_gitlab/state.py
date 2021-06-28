@@ -9,16 +9,34 @@ from singer_io import (
 )
 from tap_gitlab.interval import (
     FragmentedInterval,
+    MAX,
+    MIN,
 )
 from tap_gitlab.streams import (
     JobStream,
     MrStream,
 )
 from typing import (
+    Any,
+    Callable,
     Dict,
     NamedTuple,
     Tuple,
+    TypeVar,
+    Union,
 )
+
+_DataType = TypeVar("_DataType")
+
+
+def _to_json(
+    item: Union[_DataType, MIN, MAX], format_item: Callable[[_DataType], Any]
+) -> Any:
+    if isinstance(item, MIN):
+        return "min"
+    if isinstance(item, MAX):
+        return "max"
+    return format_item(item)
 
 
 class MrStreamState(NamedTuple):
@@ -29,7 +47,8 @@ class MrStreamState(NamedTuple):
             "type": "JobStreamState",
             "obj": {
                 "endpoints": [
-                    endpoint.isoformat() for endpoint in self.state.endpoints
+                    _to_json(endpoint, lambda x: x.isoformat())
+                    for endpoint in self.state.endpoints
                 ],
                 "emptiness": self.state.emptiness,
             },
@@ -44,7 +63,9 @@ class JobStreamState(NamedTuple):
             "type": "JobStreamState",
             "obj": {
                 "endpoints": [
-                    (endpoint[0], endpoint[1].page, endpoint[1].per_page)
+                    _to_json(
+                        endpoint, lambda x: (x[0], x[1].page, x[1].per_page)
+                    )
                     for endpoint in self.state.endpoints
                 ],
                 "emptiness": self.state.emptiness,
