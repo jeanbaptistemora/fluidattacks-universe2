@@ -12,6 +12,9 @@ from custom_exceptions import (
     InvalidAuthorization,
     UserNotInOrganization,
 )
+from db_model.findings.types import (
+    Finding,
+)
 from findings import (
     domain as findings_domain,
 )
@@ -74,9 +77,14 @@ async def _resolve_from_event_id(context: Any, identifier: str) -> str:
 
 
 async def _resolve_from_finding_id(context: Any, identifier: str) -> str:
-    finding_loader = context.loaders.finding
-    data = await finding_loader.load(identifier)
-    group_name: str = data["project_name"]
+    if FI_API_STATUS == "migration":
+        finding_new_loader = context.loaders.finding_new
+        finding: Finding = await finding_new_loader.load(identifier)
+        group_name: str = finding.group_name
+    else:
+        finding_loader = context.loaders.finding
+        data = await finding_loader.load(identifier)
+        group_name = data["project_name"]
     return group_name
 
 
@@ -402,9 +410,8 @@ def require_finding_access(func: TVar) -> TVar:
 
         if FI_API_STATUS == "migration":
             finding_new_loader = context.loaders.finding_new
-            group_name = kwargs["group_name"]
             try:
-                await finding_new_loader.load((group_name, finding_id))
+                await finding_new_loader.load(finding_id)
             except FindingNotFound:
                 logs_utils.cloudwatch_log(context, UNAVAILABLE_FINDING_MSG)
                 raise
