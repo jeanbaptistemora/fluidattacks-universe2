@@ -5,6 +5,9 @@ from __future__ import (
 from datetime import (
     datetime,
 )
+from more_itertools import (
+    windowed,
+)
 from returns.primitives.container import (
     BaseContainer,
 )
@@ -46,6 +49,10 @@ class MAX(Immutable):
 
 
 class InvalidInterval(Exception):
+    pass
+
+
+class InvalidEndpoints(Exception):
     pass
 
 
@@ -94,7 +101,7 @@ class ClosedInterval(
         self,
         lower: _Point,
         upper: _Point,
-        greater_than: Optional[Callable[[_Point, _Point], bool]],
+        greater_than: Optional[Callable[[_Point, _Point], bool]] = None,
     ) -> None:
         super().__init__(
             _common_builder(type(lower), lower, upper, greater_than)
@@ -119,7 +126,7 @@ class OpenInterval(
         _type: Type[_Point],
         lower: Union[_Point, MIN],
         upper: Union[_Point, MAX],
-        greater_than: Optional[Callable[[_Point, _Point], bool]],
+        greater_than: Optional[Callable[[_Point, _Point], bool]] = None,
     ) -> None:
         super().__init__(_common_builder(_type, lower, upper, greater_than))
 
@@ -141,7 +148,7 @@ class OpenLeftInterval(
         self,
         lower: Union[_Point, MIN],
         upper: _Point,
-        greater_than: Optional[Callable[[_Point, _Point], bool]],
+        greater_than: Optional[Callable[[_Point, _Point], bool]] = None,
     ) -> None:
         super().__init__(
             _common_builder(type(upper), lower, upper, greater_than)
@@ -165,7 +172,7 @@ class OpenRightInterval(
         self,
         lower: _Point,
         upper: Union[_Point, MAX],
-        greater_than: Optional[Callable[[_Point, _Point], bool]],
+        greater_than: Optional[Callable[[_Point, _Point], bool]] = None,
     ) -> None:
         super().__init__(
             _common_builder(type(lower), lower, upper, greater_than)
@@ -180,6 +187,9 @@ class OpenRightInterval(
         return self._inner_value["upper"]
 
 
+IntervalPoint = Union[_Point, MIN, MAX]
+
+
 @final
 class FragmentedInterval(
     BaseContainer,
@@ -187,7 +197,7 @@ class FragmentedInterval(
 ):
     def __init__(
         self,
-        endpoints: Tuple[Union[_Point, MIN, MAX], ...],
+        endpoints: Tuple[IntervalPoint[_Point], ...],
         emptiness: Tuple[bool, ...],
     ) -> None:
         super().__init__(
@@ -198,12 +208,36 @@ class FragmentedInterval(
         )
 
     @property
-    def endpoints(self) -> Tuple[Union[_Point, MIN, MAX], ...]:
+    def endpoints(self) -> Tuple[IntervalPoint[_Point], ...]:
         return self._inner_value["endpoints"]
 
     @property
     def emptiness(self) -> Tuple[bool, ...]:
         return self._inner_value["emptiness"]
+
+    @property
+    def intervals(self) -> Tuple[OpenLeftInterval[_Point], ...]:
+        def _new_interval(
+            p_1: Optional[IntervalPoint[_Point]],
+            p_2: Optional[IntervalPoint[_Point]],
+        ) -> OpenLeftInterval[_Point]:
+            if (
+                p_1
+                and p_2
+                and not isinstance(p_1, MAX)
+                and not isinstance(p_2, (MIN, MAX))
+            ):
+                return OpenLeftInterval(p_1, p_2)
+            raise InvalidEndpoints()
+
+        return tuple(
+            _new_interval(p_1, p_2) for p_1, p_2 in windowed(self.endpoints, 2)
+        )
+
+    @property
+    def empty_intervals(self) -> Tuple[OpenLeftInterval[_Point], ...]:
+        intervals = zip(self.intervals, self.emptiness)
+        return tuple(item[0] for item in filter(lambda x: x[1], intervals))
 
     def to_json(self) -> JSON:
         return {
