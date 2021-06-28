@@ -64,7 +64,7 @@ def _build_root(
     state = historics.get_latest(
         item_id=item_id,
         key_structure=key_structure,
-        historic_prefix="STATE",
+        historic_suffix="STATE",
         raw_items=raw_items,
     )
 
@@ -72,7 +72,7 @@ def _build_root(
         cloning = historics.get_latest(
             item_id=item_id,
             key_structure=key_structure,
-            historic_prefix="CLON",
+            historic_suffix="CLON",
             raw_items=raw_items,
         )
 
@@ -583,7 +583,7 @@ def _build_vuln(
     state = historics.get_latest(
         item_id=item_id,
         key_structure=key_structure,
-        historic_prefix="STATE",
+        historic_suffix="STATE",
         raw_items=raw_items,
     )
 
@@ -705,7 +705,7 @@ def _build_org_policy_finding(
     state = historics.get_latest(
         item_id=item_id,
         key_structure=key_structure,
-        historic_prefix="STATE",
+        historic_suffix="STATE",
         raw_items=raw_items,
     )
 

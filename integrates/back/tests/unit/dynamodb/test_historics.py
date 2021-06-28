@@ -23,7 +23,7 @@ def test_get_latest() -> None:
     latest_state = historics.get_latest(
         item_id="ENTITY1#unittesting",
         key_structure=PrimaryKey(partition_key="sk", sort_key="pk"),
-        historic_prefix="STATE",
+        historic_suffix="STATE",
         raw_items=(
             {"pk": "ENTITY1#unittesting", "sk": "ENTITY2#123"},
             {"pk": "ENTITY1#unittesting#STATE", "sk": "ENTITY2#123"},

@@ -62,7 +62,7 @@ def _build_finding(
         historics.get_latest(
             item_id=item_id,
             key_structure=key_structure,
-            historic_prefix="STATE",
+            historic_suffix="STATE",
             raw_items=raw_items,
         )
     )
@@ -70,7 +70,7 @@ def _build_finding(
         historics.get_latest(
             item_id=item_id,
             key_structure=key_structure,
-            historic_prefix="UNRELIABLEINDICATORS",
+            historic_suffix="UNRELIABLEINDICATORS",
             raw_items=raw_items,
         )
     )
@@ -80,7 +80,7 @@ def _build_finding(
             historics.get_latest(
                 item_id=item_id,
                 key_structure=key_structure,
-                historic_prefix="APPROVAL",
+                historic_suffix="APPROVAL",
                 raw_items=raw_items,
             )
         )
@@ -91,7 +91,7 @@ def _build_finding(
             historics.get_latest(
                 item_id=item_id,
                 key_structure=key_structure,
-                historic_prefix="CREATION",
+                historic_suffix="CREATION",
                 raw_items=raw_items,
             )
         )
@@ -102,7 +102,7 @@ def _build_finding(
             historics.get_latest(
                 item_id=item_id,
                 key_structure=key_structure,
-                historic_prefix="SUBMISSION",
+                historic_suffix="SUBMISSION",
                 raw_items=raw_items,
             )
         )
@@ -112,7 +112,7 @@ def _build_finding(
         historics.get_latest(
             item_id=item_id,
             key_structure=key_structure,
-            historic_prefix="VERIFICATION",
+            historic_suffix="VERIFICATION",
             raw_items=raw_items,
         )
     )

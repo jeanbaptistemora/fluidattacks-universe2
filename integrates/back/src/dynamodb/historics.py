@@ -24,10 +24,10 @@ def get_latest(
     *,
     item_id: str,
     key_structure: PrimaryKey,
-    historic_prefix: str,
+    historic_suffix: str,
     raw_items: Tuple[Item, ...],
 ) -> Item:
-    historic_sort_key = f"{item_id}#{historic_prefix}"
+    historic_sort_key = f"{item_id}#{historic_suffix}"
 
     return next(
         item
