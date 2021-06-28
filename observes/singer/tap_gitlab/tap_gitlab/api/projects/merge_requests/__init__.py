@@ -75,31 +75,10 @@ class MrApi(NamedTuple):
     scope: Optional[Scope] = None  # use api default
     state: Optional[State] = None  # use api default
 
-    def list_all_updated_before(
-        self,
-        start: PageId[datetime],
-    ) -> IO[Iterator[MrsPage]]:
-        def getter(
-            page: PageId[datetime],
-        ) -> IO[Maybe[PageResult[datetime, MrsPage]]]:
-            return list_mrs(
-                self.client,
-                self.proj,
-                PageId(1, page.per_page),
-                Options(
-                    updated_before=page.page,
-                    scope=self.scope,
-                    state=self.state,
-                ),
-            ).map(_to_page_result)
-
-        return io_get_until_end(start, getter).map(_extract_page)
-
     def list_updated_before(
         self,
         updated_before: datetime,
         page: PageId[int],
-        sort: Sort = Sort.descendant,
     ) -> IO[Maybe[MrsPage]]:
         return list_mrs(
             self.client,
@@ -110,4 +89,49 @@ class MrApi(NamedTuple):
                 scope=self.scope,
                 state=self.state,
             ),
+        )
+
+    def list_between(
+        self, after: datetime, before: datetime, page: PageId[int]
+    ) -> IO[Maybe[MrsPage]]:
+        return list_mrs(
+            self.client,
+            self.proj,
+            page,
+            Options(
+                updated_after=after,
+                updated_before=before,
+                scope=self.scope,
+                state=self.state,
+            ),
+        )
+
+    def list_all_updated_before(
+        self,
+        start: PageId[datetime],
+    ) -> IO[Iterator[MrsPage]]:
+        def getter(
+            page: PageId[datetime],
+        ) -> IO[Maybe[PageResult[datetime, MrsPage]]]:
+            return self.list_updated_before(
+                page.page, PageId(1, page.per_page)
+            ).map(_to_page_result)
+
+        return io_get_until_end(start, getter).map(_extract_page)
+
+    def list_all_updated_between(
+        self,
+        after: datetime,
+        before: datetime,
+        per_page: int = 100,
+    ) -> IO[Iterator[MrsPage]]:
+        def getter(
+            page: PageId[datetime],
+        ) -> IO[Maybe[PageResult[datetime, MrsPage]]]:
+            return self.list_between(
+                after, page.page, PageId(1, page.per_page)
+            ).map(_to_page_result)
+
+        return io_get_until_end(PageId(before, per_page), getter).map(
+            _extract_page
         )
