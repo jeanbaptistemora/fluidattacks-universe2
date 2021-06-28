@@ -10,20 +10,6 @@ import { Seo } from "../components/Seo";
 
 import "modal-video-custom/scss/modal-video.scss";
 
-interface IQueryData {
-  data: {
-    site: {
-      siteMetadata: {
-        author: string;
-        description: string;
-        keywords: string;
-        siteUrl: string;
-        title: string;
-      };
-    };
-  };
-}
-
 const Index: React.FC<IQueryData> = ({ data }: IQueryData): JSX.Element => {
   const {
     author,

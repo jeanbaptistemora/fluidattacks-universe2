@@ -40,19 +40,23 @@ const PartnerPage: React.FC = (): JSX.Element => {
     <React.Fragment>
       <CardsContainer>
         {partnerInfo.map(
-          ({ node }): JSX.Element => (
-            <DropDownCard
-              alt={node.pageAttributes.alt}
-              cardType={"partners-cards"}
-              haveTitle={false}
-              htmlData={node.html}
-              key={node.pageAttributes.slug}
-              logo={node.pageAttributes.partnerlogo}
-              logoPaths={"/airs/partners"}
-              slug={node.pageAttributes.slug}
-              title={node.document.title}
-            />
-          )
+          ({ node }): JSX.Element => {
+            const { alt, partnerlogo, slug } = node.pageAttributes;
+
+            return (
+              <DropDownCard
+                alt={alt}
+                cardType={"partners-cards"}
+                haveTitle={false}
+                htmlData={node.html}
+                key={slug}
+                logo={partnerlogo}
+                logoPaths={"/airs/partners"}
+                slug={slug}
+                title={node.document.title}
+              />
+            );
+          }
         )}
       </CardsContainer>
       <div>

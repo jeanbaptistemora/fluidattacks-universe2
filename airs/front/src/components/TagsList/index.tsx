@@ -10,6 +10,7 @@ import {
   BlogItemName,
   BlogItemTitle,
 } from "../../styles/styledComponents";
+import { countCoincidences } from "../../utils/utilities";
 
 interface IData {
   allAsciidoc: {
@@ -56,13 +57,6 @@ const TagsList: React.FC = (): JSX.Element => {
     .map((edge): string[] => edge.node.pageAttributes.tags.split(", "))
     .flat();
 
-  const countCoincidences: (tag: string) => number = (tag: string): number => {
-    const tagCount: number = tagsListRaw.filter((item): boolean => item === tag)
-      .length;
-
-    return tagCount;
-  };
-
   const tagsSet = new Set(tagsListRaw);
 
   return (
@@ -75,7 +69,7 @@ const TagsList: React.FC = (): JSX.Element => {
               <BlogItemItem key={tag}>
                 <Link to={`/blog/tags/${tag}`}>
                   <BlogItemName>
-                    {`${decode(tag)} (${countCoincidences(tag)})`}
+                    {`${decode(tag)} (${countCoincidences(tag, tagsListRaw)})`}
                   </BlogItemName>
                 </Link>
               </BlogItemItem>

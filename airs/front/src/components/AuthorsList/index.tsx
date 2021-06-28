@@ -11,7 +11,7 @@ import {
   BlogItemName,
   BlogItemTitle,
 } from "../../styles/styledComponents";
-import { stringToUri } from "../../utils/utilities";
+import { countCoincidences, stringToUri } from "../../utils/utilities";
 
 const AuthorsList: React.FC = (): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
@@ -41,16 +41,6 @@ const AuthorsList: React.FC = (): JSX.Element => {
     (edge): string => edge.node.pageAttributes.author
   );
 
-  const countCoincidences: (author: string) => number = (
-    author: string
-  ): number => {
-    const authorsCount: number = authorsListRaw.filter(
-      (item): boolean => item === author
-    ).length;
-
-    return authorsCount;
-  };
-
   const authorsSet = new Set(authorsListRaw);
 
   return (
@@ -63,7 +53,10 @@ const AuthorsList: React.FC = (): JSX.Element => {
               <BlogItemItem key={author}>
                 <Link to={`/blog/authors/${stringToUri(author)}`}>
                   <BlogItemName>
-                    {`${decode(author)} (${countCoincidences(author)})`}
+                    {`${decode(author)} (${countCoincidences(
+                      author,
+                      authorsListRaw
+                    )})`}
                   </BlogItemName>
                 </Link>
               </BlogItemItem>

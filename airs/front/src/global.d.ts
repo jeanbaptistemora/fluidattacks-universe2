@@ -39,6 +39,15 @@ interface IQueryData {
         writer: string;
       };
     };
+    site: {
+      siteMetadata: {
+        author: string;
+        description: string;
+        keywords: string;
+        siteUrl: string;
+        title: string;
+      };
+    };
   };
   pageContext: {
     authorName: string;

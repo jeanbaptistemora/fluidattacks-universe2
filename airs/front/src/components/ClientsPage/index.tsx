@@ -7,30 +7,11 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { graphql, useStaticQuery } from "gatsby";
 import React from "react";
-import type { StyledComponent } from "styled-components";
-import styled from "styled-components";
 
 import { ClientsMenuButtons } from "./ClientsMenuButtons";
 
-import { CardsContainer } from "../../styles/styledComponents";
+import { CardsContainer, MenuList } from "../../styles/styledComponents";
 import { DropDownCard } from "../DropDownCard";
-
-const MenuList: StyledComponent<
-  "ul",
-  Record<string, unknown>
-> = styled.ul.attrs({
-  className: `
-      list
-      ph0-ns
-      ph3
-      ma0
-      tc
-      pv3
-      overflow-x-auto
-      nowrap
-      slide-show
-    `,
-})``;
 
 const ClientsPage: React.FC = (): JSX.Element => {
   const data: IData = useStaticQuery(graphql`

@@ -1483,6 +1483,38 @@ const ContactButton: StyledComponent<
   `,
 })``;
 
+const BannerH2Title: StyledComponent<
+  "h1",
+  Record<string, unknown>
+> = styled.h1.attrs({
+  className: `
+    white
+    fw7
+    f1
+    neue
+    tc
+    f-5-l
+    ma0
+  `,
+})``;
+
+const MenuList: StyledComponent<
+  "ul",
+  Record<string, unknown>
+> = styled.ul.attrs({
+  className: `
+    list
+    ph0-ns
+    ph3
+    ma0
+    tc
+    pv3
+    overflow-x-auto
+    nowrap
+    slide-show
+  `,
+})``;
+
 export {
   AdvisoriesContainer,
   AdvisoriesGrid,
@@ -1499,6 +1531,7 @@ export {
   BlogItemListContainer,
   BlogItemTitle,
   BannerContainer,
+  BannerH2Title,
   BannerSubtitle,
   BannerTitle,
   BigPageContainer,
@@ -1569,6 +1602,7 @@ export {
   MarkedTitle,
   MenuButton,
   MenuItem,
+  MenuList,
   MobileMenuButton,
   NavbarSubcategory,
   NavbarContactButton,

@@ -53,9 +53,20 @@ const stringToUri = (word: string): string => {
   return newWord;
 };
 
+const countCoincidences: (word: string, wordList: string[]) => number = (
+  word: string,
+  wordList: string[]
+): number => {
+  const tagCount: number = wordList.filter((item): boolean => item === word)
+    .length;
+
+  return tagCount;
+};
+
 export {
   capitalizeDashedString,
   capitalizeObject,
   capitalizePlainString,
+  countCoincidences,
   stringToUri,
 };

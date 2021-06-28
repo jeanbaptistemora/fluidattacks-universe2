@@ -1,11 +1,10 @@
 /* eslint react/forbid-component-props: 0 */
 import React from "react";
-import type { StyledComponent } from "styled-components";
-import styled from "styled-components";
 
 import {
   ArticleTitle,
   BannerContainer,
+  BannerH2Title,
   BannerSubtitle,
   BannerTitle,
   FullWidthContainer,
@@ -19,20 +18,6 @@ interface IProps {
   subtitle: string;
   title: string;
 }
-const BannerH2Title: StyledComponent<
-  "h1",
-  Record<string, unknown>
-> = styled.h1.attrs({
-  className: `
-    white
-    fw7
-    f1
-    neue
-    tc
-    f-5-l
-    ma0
-  `,
-})``;
 
 const PageHeader: React.FC<IProps> = ({
   banner,

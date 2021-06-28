@@ -10,6 +10,7 @@ import {
   BlogItemName,
   BlogItemTitle,
 } from "../../styles/styledComponents";
+import { countCoincidences } from "../../utils/utilities";
 
 const CategoriesList: React.FC = (): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
@@ -39,16 +40,6 @@ const CategoriesList: React.FC = (): JSX.Element => {
     (edge): string => edge.node.pageAttributes.category
   );
 
-  const countCoincidences: (category: string) => number = (
-    category: string
-  ): number => {
-    const categoriesCount: number = categoriesListRaw.filter(
-      (item): boolean => item === category
-    ).length;
-
-    return categoriesCount;
-  };
-
   const categoriesSet = new Set(categoriesListRaw);
 
   return (
@@ -61,7 +52,10 @@ const CategoriesList: React.FC = (): JSX.Element => {
               <BlogItemItem key={category}>
                 <Link to={`/blog/categories/${category}`}>
                   <BlogItemName>
-                    {`${decode(category)} (${countCoincidences(category)})`}
+                    {`${decode(category)} (${countCoincidences(
+                      category,
+                      categoriesListRaw
+                    )})`}
                   </BlogItemName>
                 </Link>
               </BlogItemItem>
