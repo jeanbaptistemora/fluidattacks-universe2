@@ -11,7 +11,7 @@ from dynamodb import (
 )
 
 
-async def create(*, vulnerability: Vulnerability) -> None:  # noqa: MC0001
+async def create(*, vulnerability: Vulnerability) -> None:
     items = []
     key_structure = TABLE.primary_key
     metadata_key = keys.build_key(
@@ -22,29 +22,20 @@ async def create(*, vulnerability: Vulnerability) -> None:  # noqa: MC0001
         },
     )
     vulnerability_metadata = {
+        "bts_url": vulnerability.bts_url,
+        "commit": vulnerability.commit,
+        "custom_severity": vulnerability.custom_severity,
         "finding_id": vulnerability.finding_id,
+        "hash": vulnerability.hash,
+        "repo": vulnerability.repo,
         "source": vulnerability.source.value,
         "specific": vulnerability.specific,
+        "stream": vulnerability.stream,
         "uuid": vulnerability.uuid,
+        "tags": vulnerability.tags,
         "type": vulnerability.type.value,
         "where": vulnerability.where,
     }
-    if vulnerability.bts_url:
-        vulnerability_metadata["bts_url"] = vulnerability.bts_url
-    if vulnerability.commit:
-        vulnerability_metadata["commit"] = vulnerability.commit
-    if vulnerability.custom_severity:
-        vulnerability_metadata[
-            "custom_severity"
-        ] = vulnerability.custom_severity
-    if vulnerability.hash:
-        vulnerability_metadata["hash"] = vulnerability.hash
-    if vulnerability.repo:
-        vulnerability_metadata["repo"] = vulnerability.repo
-    if vulnerability.stream:
-        vulnerability_metadata["stream"] = vulnerability.stream
-    if vulnerability.tags:
-        vulnerability_metadata["tags"] = vulnerability.tags
     initial_metadata = {
         key_structure.partition_key: metadata_key.partition_key,
         key_structure.sort_key: metadata_key.sort_key,
