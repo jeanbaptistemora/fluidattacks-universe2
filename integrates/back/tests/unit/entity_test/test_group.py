@@ -35,19 +35,19 @@ async def _get_result_async(
     return result
 
 
-async def test_project() -> None:
-    """Check for project mutation."""
-    variables = {"projectName": "unittesting"}
+async def test_group() -> None:
+    """Check for group mutation."""
+    variables = {"groupName": "unittesting"}
     query = """
-      query GetProjectInfo($projectName: String!) {
-        project(projectName: $projectName){
+      query GetGroupInfo($groupName: String!) {
+        group(groupName: $groupName){
           name
-          hasDrills
+          hasSquad
           hasForces
           findings {
               analyst
           }
-          hasIntegrates
+          hasAsm
           openVulnerabilities
           closedVulnerabilities
           lastClosingVuln
@@ -92,36 +92,36 @@ async def test_project() -> None:
     result = await _get_result_async(data)
 
     assert "errors" not in result
-    assert result["data"]["project"]["name"] == "unittesting"
-    assert result["data"]["project"]["hasDrills"]
-    assert result["data"]["project"]["hasForces"]
-    assert len(result["data"]["project"]["findings"]) == 6
-    assert result["data"]["project"]["openVulnerabilities"] == 31
-    assert result["data"]["project"]["closedVulnerabilities"] == 8
-    assert "lastClosingVuln" in result["data"]["project"]
-    assert result["data"]["project"]["maxSeverity"] == 6.3
-    assert result["data"]["project"]["meanRemediate"] == 245
-    assert result["data"]["project"]["meanRemediateLowSeverity"] == 232
-    assert result["data"]["project"]["meanRemediateMediumSeverity"] == 287
-    assert result["data"]["project"]["openFindings"] == 5
-    assert result["data"]["project"]["totalFindings"] == 6
-    assert "totalTreatment" in result["data"]["project"]
-    assert result["data"]["project"]["subscription"] == "continuous"
-    assert result["data"]["project"]["deletionDate"] == ""
-    assert result["data"]["project"]["userDeletion"] == ""
-    assert result["data"]["project"]["tags"][0] == "test-projects"
+    assert result["data"]["group"]["name"] == "unittesting"
+    assert result["data"]["group"]["hasSquad"]
+    assert result["data"]["group"]["hasForces"]
+    assert len(result["data"]["group"]["findings"]) == 6
+    assert result["data"]["group"]["openVulnerabilities"] == 31
+    assert result["data"]["group"]["closedVulnerabilities"] == 8
+    assert "lastClosingVuln" in result["data"]["group"]
+    assert result["data"]["group"]["maxSeverity"] == 6.3
+    assert result["data"]["group"]["meanRemediate"] == 245
+    assert result["data"]["group"]["meanRemediateLowSeverity"] == 232
+    assert result["data"]["group"]["meanRemediateMediumSeverity"] == 287
+    assert result["data"]["group"]["openFindings"] == 5
+    assert result["data"]["group"]["totalFindings"] == 6
+    assert "totalTreatment" in result["data"]["group"]
+    assert result["data"]["group"]["subscription"] == "continuous"
+    assert result["data"]["group"]["deletionDate"] == ""
+    assert result["data"]["group"]["userDeletion"] == ""
+    assert result["data"]["group"]["tags"][0] == "test-projects"
     assert (
-        result["data"]["project"]["description"]
+        result["data"]["group"]["description"]
         == "Integrates unit test project"
     )
-    assert len(result["data"]["project"]["drafts"]) == 1
-    assert result["data"]["project"]["drafts"][0]["openVulnerabilities"] == 0
-    assert len(result["data"]["project"]["events"]) == 5
+    assert len(result["data"]["group"]["drafts"]) == 1
+    assert result["data"]["group"]["drafts"][0]["openVulnerabilities"] == 0
+    assert len(result["data"]["group"]["events"]) == 5
     assert (
-        result["data"]["project"]["consulting"][0]["content"]
+        result["data"]["group"]["consulting"][0]["content"]
         == "Now we can post comments on projects"
     )
-    assert result["data"]["project"]["stakeholders"] == [
+    assert result["data"]["group"]["stakeholders"] == [
         {
             "email": "integratesserviceforces@gmail.com",
             "firstLogin": "2018-02-28 11:54:12",  # NOSONAR
@@ -197,11 +197,11 @@ async def test_project() -> None:
     ]
 
 
-async def test_project_filtered() -> None:
-    """Check for project mutation."""
+async def test_group_filtered() -> None:
+    """Check for group mutation."""
     query = """
       query {
-        project(projectName: "unittesting"){
+        group(groupName: "unittesting"){
           findings(filters: {affectedSystems: "test", actor: "ANY_EMPLOYEE"}) {
             id
           }
@@ -211,15 +211,15 @@ async def test_project_filtered() -> None:
     data = {"query": query}
     result = await _get_result_async(data)
     assert "errors" not in result
-    assert len(result["data"]["project"]["findings"]) == 1
-    assert result["data"]["project"]["findings"][0]["id"] == "463461507"
+    assert len(result["data"]["group"]["findings"]) == 1
+    assert result["data"]["group"]["findings"][0]["id"] == "463461507"
 
 
-async def test_project_filter_not_match() -> None:
-    """Check for project mutation."""
+async def test_group_filter_not_match() -> None:
+    """Check for group mutation."""
     query = """
       query {
-        project(projectName: "unittesting"){
+        group(groupName: "unittesting"){
           findings(filters: {affectedSystems: "notexists"}) {
             id
           }
@@ -229,21 +229,21 @@ async def test_project_filter_not_match() -> None:
     data = {"query": query}
     result = await _get_result_async(data)
     assert "errors" not in result
-    assert len(result["data"]["project"]["findings"]) == 0
+    assert len(result["data"]["group"]["findings"]) == 0
 
 
 @pytest.mark.changes_db
-async def test_create_project() -> None:
-    """Check for createProject mutation."""
+async def test_create_group() -> None:
+    """Check for createGroup mutation."""
     query = """
     mutation {
-        createProject(
+        createGroup(
             organization: "okada",
-            description: "This is a new project from pytest",
-            projectName: "%(name)s",
+            description: "This is a new group from pytest",
+            groupName: "%(name)s",
             subscription: CONTINUOUS,
-            hasSkims: true,
-            hasDrills: true,
+            hasMachine: true,
+            hasSquad: true,
             hasForces: true
         ) {
         success
@@ -253,8 +253,8 @@ async def test_create_project() -> None:
     data = {"query": query}
     result = await _get_result_async(data)
     assert "errors" not in result
-    assert "success" in result["data"]["createProject"]
-    assert result["data"]["createProject"]["success"]
+    assert "success" in result["data"]["createGroup"]
+    assert result["data"]["createGroup"]["success"]
 
 
 @pytest.mark.changes_db
@@ -262,18 +262,18 @@ async def test_add_tags() -> None:
     """Check for addTags mutation."""
     query = """
         mutation AddTagsMutation(
-          $projectName: String!,
+          $groupName: String!,
           $tagsData: JSONString!
         ) {
             addTags (
                 tags: $tagsData,
-                projectName: $projectName) {
+                groupName: $groupName) {
                 success
             }
         }
         """
     variables = {
-        "projectName": "unittesting",
+        "groupName": "unittesting",
         "tagsData": json.dumps(["testing"]),
     }
     data = {"query": query, "variables": variables}
@@ -289,17 +289,17 @@ async def test_remove_tag() -> None:
     query = """
         mutation RemoveTagMutation(
           $tagToRemove: String!,
-          $projectName: String!
+          $groupName: String!
         ) {
             removeTag (
             tag: $tagToRemove,
-            projectName: $projectName,
+            groupName: $groupName,
             ) {
             success
             }
         }
     """
-    variables = {"projectName": "oneshottest", "tagToRemove": "another-tag"}
+    variables = {"groupName": "oneshottest", "tagToRemove": "another-tag"}
     data = {"query": query, "variables": variables}
     result = await _get_result_async(data)
     assert "errors" not in result
@@ -308,14 +308,14 @@ async def test_remove_tag() -> None:
 
 
 @pytest.mark.changes_db
-async def test_add_project_consult_parent_zero() -> None:
-    """Check for addProjectConsult mutation."""
+async def test_add_group_consult_parent_zero() -> None:
+    """Check for addGroupConsult mutation."""
     query = """
       mutation {
-        addProjectConsult(
+        addGroupConsult(
           content: "Test comment",
           parent: "0",
-          projectName: "unittesting",
+          groupName: "unittesting",
         ) {
           success
           commentId
@@ -325,19 +325,19 @@ async def test_add_project_consult_parent_zero() -> None:
     data = {"query": query}
     result = await _get_result_async(data)
     assert "errors" not in result
-    assert "success" in result["data"]["addProjectConsult"]
-    assert result["data"]["addProjectConsult"]["success"]
+    assert "success" in result["data"]["addGroupConsult"]
+    assert result["data"]["addGroupConsult"]["success"]
 
 
 @pytest.mark.changes_db
-async def test_add_project_consult_parent_non_zero() -> None:
-    """Check for addProjectConsult mutation."""
+async def test_add_group_consult_parent_non_zero() -> None:
+    """Check for addGroupConsult mutation."""
     query = """
       mutation {
-        addProjectConsult(
+        addGroupConsult(
           content: "Test comment",
           parent: "1545946228675",
-          projectName: "unittesting",
+          groupName: "unittesting",
         ) {
           success
           commentId
@@ -347,8 +347,8 @@ async def test_add_project_consult_parent_non_zero() -> None:
     data = {"query": query}
     result = await _get_result_async(data)
     assert "errors" not in result
-    assert "success" in result["data"]["addProjectConsult"]
-    assert result["data"]["addProjectConsult"]["success"]
+    assert "success" in result["data"]["addGroupConsult"]
+    assert result["data"]["addGroupConsult"]["success"]
 
 
 @pytest.mark.changes_db
@@ -356,10 +356,10 @@ async def test_add_project_consult_parent_non_zero() -> None:
     [
         "group_name",
         "subscription",
-        "has_drills",
+        "has_squad",
         "has_forces",
-        "has_integrates",
-        "has_skims",
+        "has_asm",
+        "has_machine",
         "expected",
     ],
     [
@@ -370,10 +370,10 @@ async def test_add_project_consult_parent_non_zero() -> None:
 async def test_edit_group_good(  # type: ignore
     group_name,
     subscription,
-    has_drills,
+    has_squad,
     has_forces,
-    has_integrates,
-    has_skims,
+    has_asm,
+    has_machine,
     expected,
 ) -> None:
     query = f"""
@@ -382,10 +382,10 @@ async def test_edit_group_good(  # type: ignore
                 comments: "",
                 groupName: "{group_name}",
                 subscription: {subscription},
-                hasDrills: {has_drills},
+                hasSquad: {has_squad},
                 hasForces: {has_forces},
-                hasIntegrates: {has_integrates},
-                hasSkims: {has_skims},
+                hasAsm: {has_asm},
+                hasMachine: {has_machine},
                 reason: NONE,
             ) {{
                 success
@@ -405,10 +405,10 @@ async def test_edit_group_good(  # type: ignore
         "comments",
         "group_name",
         "subscription",
-        "has_drills",
+        "has_squad",
         "has_forces",
-        "has_integrates",
-        "has_skims",
+        "has_asm",
+        "has_machine",
         "reason",
         "expected",
     ],
@@ -472,7 +472,7 @@ async def test_edit_group_good(  # type: ignore
             "false",
             "NONE",
             "Exception - Forces is only available "
-            "in projects of type Continuous",
+            "in groups of type Continuous",
         ],
         # Input validation error, weird chars
         [
@@ -516,10 +516,10 @@ async def test_edit_group_bad(  # type: ignore
     comments,
     group_name,
     subscription,
-    has_drills,
+    has_squad,
     has_forces,
-    has_integrates,
-    has_skims,
+    has_asm,
+    has_machine,
     reason,
     expected,
 ) -> None:
@@ -528,10 +528,10 @@ async def test_edit_group_bad(  # type: ignore
             editGroup(
                 comments: "{comments}"
                 groupName: "{group_name}",
-                hasDrills: {has_drills},
+                hasSquad: {has_squad},
                 hasForces: {has_forces},
-                hasIntegrates: {has_integrates},
-                hasSkims: {has_skims},
+                hasAsm: {has_asm},
+                hasMachine: {has_machine},
                 reason: {reason},
                 subscription: {subscription},
             ) {{
@@ -548,7 +548,7 @@ async def test_edit_group_bad(  # type: ignore
 async def test_get_roots() -> None:
     query = """
         query {
-          drillsBlackGroup: project(projectName: "oneshottest") {
+          drillsBlackGroup: group(groupName: "oneshottest") {
             roots {
               __typename
               ...on IPRoot {
@@ -566,7 +566,7 @@ async def test_get_roots() -> None:
             }
             subscription
           }
-          drillsWhiteGroup: project(projectName: "unittesting") {
+          drillsWhiteGroup: group(groupName: "unittesting") {
             roots {
               __typename
               ...on GitRoot {
@@ -632,7 +632,7 @@ async def test_get_roots() -> None:
 async def test_get_toe_lines() -> None:
     query = """
       query {
-        project(projectName: "unittesting"){
+        group(groupName: "unittesting"){
           name
           roots{
             ... on GitRoot {
@@ -655,7 +655,7 @@ async def test_get_toe_lines() -> None:
         {"query": query}, user="unittest2@fluidattacks.com"
     )
     assert "errors" not in result
-    assert result["data"]["project"]["roots"] == [
+    assert result["data"]["group"]["roots"] == [
         {
             "id": "4039d098-ffc5-4984-8ed3-eb17bca98e19",
             "toeLines": [

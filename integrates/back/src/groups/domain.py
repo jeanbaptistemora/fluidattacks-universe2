@@ -1221,7 +1221,7 @@ def validate_group_services_config(
     else:
         if has_forces:
             raise InvalidGroupServicesConfig(
-                "Forces is only available in projects of type Continuous"
+                "Forces is only available in groups of type Continuous"
             )
 
 
