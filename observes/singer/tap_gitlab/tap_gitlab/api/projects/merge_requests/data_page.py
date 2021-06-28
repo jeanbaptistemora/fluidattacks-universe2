@@ -7,6 +7,9 @@ from __future__ import (
 from datetime import (
     datetime,
 )
+from dateutil.parser import (
+    isoparse,
+)
 from enum import (
     Enum,
 )
@@ -102,6 +105,12 @@ class MrsPage(Immutable):
         for prop, val in obj._asdict().items():
             object.__setattr__(self, prop, val)
         return self
+
+    def min_date(self) -> datetime:
+        return isoparse(self.data[-1]["updated_at"])
+
+    def max_date(self) -> datetime:
+        return isoparse(self.data[0]["updated_at"])
 
 
 def _ensure_non_empty_data(page: _MrsPage) -> Maybe[MrsPage]:
