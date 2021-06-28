@@ -31,9 +31,6 @@ from singer_io.singer import (
 from target_redshift.data_types import (
     from_json,
 )
-from target_redshift.utils import (
-    escape,
-)
 from typing import (
     NamedTuple,
 )
@@ -46,14 +43,14 @@ def _extract_meta_table(
 ) -> MetaTable:
     columns = frozenset(
         Column(
-            escape(field),
+            field,
             ColumnType(from_json(ftype)),
         )
         for field, ftype in singer_schema.schema["properties"].items()
     )
-    table_id = TableID(SchemaID(db_schema), escape(singer_schema.stream))
+    table_id = TableID(SchemaID(db_schema), singer_schema.stream)
     return MetaTable.new(
-        table_id, frozenset(map(escape, singer_schema.key_properties)), columns
+        table_id, frozenset(singer_schema.key_properties), columns
     )
 
 
