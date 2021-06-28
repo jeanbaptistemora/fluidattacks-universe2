@@ -13,6 +13,7 @@ slug: /development/writing/documentation/main
 * **DG02:** We *must* create short titles for the subsections
   (those that appear in the left side menu),
   not exceeding **32 characters**.
+  (This does not apply to the Requirements and Vulnerabilities subsections).
 
 * **DG03:** We *must not* be repetitive
   in the handling of titles and subtitles.
@@ -116,23 +117,25 @@ slug: /development/writing/documentation/main
   (i.e., including main sentence, description,
   associated vulnerabilities and references).
 
-* **DR02:** We *must* start in each case with the title of the requirement
-  and, below this, we *must* immediately put the main sentence
-  without using the word *Requirement* as a subtitle.
-
-* **DR03:** We *should* write the main sentence of the requirement
+* **DR02:** We *should* write the main sentence of each requirement
   starting with a subject in charge of fulfilling a specific task,
-  accompanied by the modal verb must.
+  accompanied by the modal verb *must*.
 
-* **DR04:** In the description of the requirement,
+* **DR03:** In the description of the requirements,
   we *should* expand the information of the main sentence
   with the exposition of the processes involved,
-  short definitions of elements and justifications of the requirement.
+  short definitions of elements and justifications of the requirements.
 
-* **DR05:** We *must* put in quotation marks
+* **DR04:** We *must* put in quotation marks
   all external information (copied from their sources)
   that is part of the references
   (e.g., [CWE](https://cwe.mitre.org/), [OWASP](https://owasp.org/)).
+
+* **DR05:** We *should* create short titles for the requirements,
+  preferably no longer than **32 characters**.
+
+* **DR06:** We *should* write the main sentence of each requirement,
+  preferably no longer than **150 characters**.
 
 ## [Vulnerabilities](https://docs.fluidattacks.com/criteria/vulnerabilities/)
 
