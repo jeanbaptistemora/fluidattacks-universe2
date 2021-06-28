@@ -38,7 +38,7 @@ makeOci {
         '';
         envEtcPasswd = ''
           makes:x:0:0::/home/makes:${nixpkgs.bash}/bin/bash
-          nobody:x:65534:65534:nobody:/nonexistent:/bin/bash
+          nobody:x:65534:65534:nobody:/nonexistent:/bin/false
         '';
         envEtcShadow = ''
           makes:!x:::::::
