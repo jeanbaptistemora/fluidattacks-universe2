@@ -600,6 +600,12 @@ integrates.scheduler.requeue_actions:
     refs: [schedules]
     variables: [$integrates_scheduler_requeue_actions]
 
+integrates.scheduler.requeue_skims:
+  <<: *integrates_schedulers
+  only:
+    refs: [schedules]
+    variables: [$integrates_scheduler_requeue_skims]
+
 integrates.scheduler.send_treatment_change:
   <<: *integrates_schedulers
   only:
