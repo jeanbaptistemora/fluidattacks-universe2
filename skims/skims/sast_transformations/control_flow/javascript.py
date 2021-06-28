@@ -30,6 +30,45 @@ from utils import (
 )
 
 
+def _next_declaration(
+    graph: Graph,
+    n_id: str,
+    stack: Stack,
+    *,
+    edge_attrs: EdgeAttrs,
+) -> None:
+    with suppress(IndexError):
+        if (
+            (next_id := stack[-2].pop("next_id", None))
+            # pylint: disable=used-before-assignment
+            and n_id != next_id
+            and n_id not in g.adj_cfg(graph, next_id)
+        ):
+            for statement in g.pred_cfg_lazy(graph, n_id, depth=-1):
+                if statement == next_id:
+                    break
+            else:
+                graph.add_edge(n_id, next_id, **edge_attrs)
+
+
+def function_declaration(
+    graph: Graph,
+    n_id: str,
+    stack: Stack,
+) -> None:
+    match = g.match_ast(
+        graph,
+        n_id,
+        "statement_block",
+    )
+    if block := match.get("statement_block"):
+        for pred_id in g.pred_cfg(graph, n_id):
+            graph.add_edge(pred_id, n_id, **ALWAYS)
+            graph.add_edge(n_id, block, **ALWAYS)
+            _generic(graph, block, stack=[], edge_attrs=ALWAYS)
+            _next_declaration(graph, n_id, stack, edge_attrs=ALWAYS)
+
+
 def if_statement(
     graph: Graph,
     n_id: str,
@@ -106,11 +145,13 @@ def _generic(
             {
                 "if_statement",
             },
-            partial(
-                if_statement,
-                _generic=_generic,
-                language=GraphShardMetadataLanguage.JAVASCRIPT,
-            ),
+            if_statement,
+        ),
+        (
+            {
+                "function_declaration",
+            },
+            function_declaration,
         ),
         (
             {
@@ -140,20 +181,10 @@ def _generic(
     )
     for types, walker in walkers:
         if n_attrs_label_type in types:
-            walker(graph, n_id, stack)
+            walker(graph, n_id, stack)  # type: ignore
             break
     else:
-        with suppress(IndexError):
-            if (
-                (next_id := stack[-2].pop("next_id", None))
-                and n_id != next_id
-                and n_id not in g.adj_cfg(graph, next_id)
-            ):
-                for statement in g.pred_cfg_lazy(graph, n_id, depth=-1):
-                    if statement == next_id:
-                        break
-                else:
-                    graph.add_edge(n_id, next_id, **edge_attrs)
+        _next_declaration(graph, n_id, stack, edge_attrs=edge_attrs)
 
     stack.pop()
 
