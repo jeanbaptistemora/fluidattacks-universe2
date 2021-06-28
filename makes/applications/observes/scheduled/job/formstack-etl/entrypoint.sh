@@ -24,6 +24,7 @@ function start_etl {
       --auth "${db_creds}" \
       --drop-schema \
       --schema-name 'formstack' \
+      --old-ver \
       < .singer \
     && observes-bin-service-job-last-success single-job \
       --auth "${db_creds}" \

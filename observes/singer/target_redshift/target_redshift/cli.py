@@ -28,5 +28,12 @@ from typing import (
     is_flag=True,
     help="Flag to specify that you want to delete the schema if exist",
 )
-def main(auth: IO[str], schema_name: str, drop_schema: bool) -> None:
-    load_data(auth, schema_name, drop_schema)
+@click.option(
+    "--old-ver",
+    is_flag=True,
+    help="Use old loader version",
+)
+def main(
+    auth: IO[str], schema_name: str, drop_schema: bool, old_ver: bool
+) -> None:
+    load_data(auth, schema_name, drop_schema, old_ver)

@@ -59,7 +59,7 @@ def persist_messages(
 
 
 def load_data(
-    auth_file: IO[str], schema_name: str, drop_schema_flag: bool
+    auth_file: IO[str], schema_name: str, drop_schema_flag: bool, old: bool
 ) -> None:
     """Usual entry point."""
 
@@ -99,7 +99,11 @@ def load_data(
             #   RECREATE loading_schema
             schema_factory.recreate(loading_schema, cascade=True)
             #   LOAD loading_schema
-            persist_messages(batcher, client.cursor, str(loading_schema))
+            if old:
+                # old version support
+                target_redshift.persist_messages(batcher, str(loading_schema))
+            else:
+                persist_messages(batcher, client.cursor, str(loading_schema))
             #   DROP backup_schema IF EXISTS
             schema_factory.try_retrieve(backup_schema).map(
                 partial(schema_factory.delete, cascade=True)
