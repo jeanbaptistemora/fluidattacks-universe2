@@ -13,7 +13,7 @@ import {
   CloseMenuButton,
   CloseMenuButtonContainer,
   TopBarButton,
-} from "../../styles/navbarStyledComponents";
+} from "../../styles/styledComponents";
 
 interface IProps {
   close: () => void;

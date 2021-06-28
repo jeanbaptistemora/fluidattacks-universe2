@@ -12,7 +12,7 @@ import {
   FlexMenuItems,
   MenuDesktopSectionList,
   MenuSectionContainer,
-} from "../../styles/navbarStyledComponents";
+} from "../../styles/styledComponents";
 
 const MenuDesktop: React.FC = (): JSX.Element => (
   <React.Fragment>

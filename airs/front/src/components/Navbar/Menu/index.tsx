@@ -23,7 +23,7 @@ import {
   MenuDesktopInnerContainer,
   MenuMobileContainer,
   MenuMobileInnerContainer,
-} from "../styles/navbarStyledComponents";
+} from "../styles/styledComponents";
 
 const Menu: React.FC = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
