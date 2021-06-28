@@ -9,7 +9,7 @@ resource "github_branch_protection" "main" {
   enforce_admins         = true
   pattern                = "main"
   repository_id          = github_repository.repo.node_id
-  require_signed_commits = true
+  require_signed_commits = false
   required_status_checks {
     strict   = false
     contexts = []
