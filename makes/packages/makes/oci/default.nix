@@ -24,9 +24,11 @@ makeOci {
       arguments = {
         envEtcGroup = ''
           makes:x:0:
+          nobody:x:65534:
         '';
         envEtcGshadow = ''
           makes:*::
+          nobody:*::
         '';
         envEtcPamdOther = ''
           account sufficient pam_unix.so
@@ -36,9 +38,11 @@ makeOci {
         '';
         envEtcPasswd = ''
           makes:x:0:0::/home/makes:${nixpkgs.bash}/bin/bash
+          nobody:x:65534:65534:nobody:/nonexistent:/bin/bash
         '';
         envEtcShadow = ''
           makes:!x:::::::
+          nobody:!x:::::::
         '';
         envSrc = path "/";
       };
