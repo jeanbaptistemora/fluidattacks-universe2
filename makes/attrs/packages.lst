@@ -44,6 +44,7 @@ integrates.secrets.lint
 integrates.secrets.list
 integrates.web.e2e.lint
 integrates.web.e2e.pypi
+makes.ajv
 makes.commitlint
 makes.dev.forces
 makes.dev.integrates.back
@@ -51,6 +52,7 @@ makes.dev.melts
 makes.dev.observes.tap-mixpanel
 makes.dev.skims
 makes.dev.vscode
+makes.lint.criteria
 makes.oci
 makes.python.safe-pickle
 makes.test
