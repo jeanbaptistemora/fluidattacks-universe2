@@ -3,7 +3,7 @@
 
 from custom_types import (
     GraphicParameters,
-    ProjectAccess as GroupAccessType,
+    GroupAccess as GroupAccessType,
 )
 import json
 from settings import (

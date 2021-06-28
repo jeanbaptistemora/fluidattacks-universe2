@@ -4,7 +4,7 @@ from aioextensions import (
 import authz
 from custom_types import (
     Group as GroupType,
-    ProjectAccess as GroupAccessType,
+    GroupAccess as GroupAccessType,
 )
 from group_access import (
     dal as group_access_dal,

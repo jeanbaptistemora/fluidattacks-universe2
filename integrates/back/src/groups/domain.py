@@ -29,9 +29,9 @@ from custom_exceptions import (
 )
 from custom_types import (
     Group as GroupType,
+    GroupAccess as GroupAccessType,
     Invitation as InvitationType,
     MailContent as MailContentType,
-    ProjectAccess as GroupAccessType,
     User as UserType,
 )
 from datetime import (
@@ -80,13 +80,16 @@ from newutils import (
     resources as resources_utils,
     vulnerabilities as vulns_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from newutils.validations import (
     validate_alphanumeric_field,
     validate_email_address,
     validate_field_length,
     validate_fields,
+    validate_group_name,
     validate_phone_field,
-    validate_project_name,
     validate_string_length_between,
 )
 from notifications import (
@@ -387,7 +390,7 @@ async def complete_register_for_group_invitation(
     if invitation["is_used"]:
         bugsnag.notify(Exception("Token already used"), severity="warning")
 
-    group_name = cast(str, group_access["project_name"])
+    group_name = cast(str, resolve_kwargs(group_access))
     phone_number = cast(str, invitation["phone_number"])
     responsibility = cast(str, invitation["responsibility"])
     role = cast(str, invitation["role"])
@@ -450,13 +453,13 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
     group_name: str,
     organization: str,
     description: str,
-    has_skims: bool = False,
-    has_drills: bool = False,
+    has_machine: bool = False,
+    has_squad: bool = False,
     has_forces: bool = False,
     subscription: str = "continuous",
     language: str = "en",
 ) -> bool:
-    validate_project_name(group_name)
+    validate_group_name(group_name)
     validate_fields([description])
     validate_field_length(group_name, 20)
     validate_field_length(description, 200)
@@ -468,10 +471,10 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
     if description.strip() and group_name.strip():
         validate_group_services_config(
             is_continuous_type,
-            has_skims,
-            has_drills,
+            has_machine,
+            has_squad,
             has_forces,
-            has_integrates=True,
+            has_asm=True,
         )
         is_group_avail, group_exists = await collect(
             [
@@ -486,20 +489,23 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
 
         if is_group_avail and not group_exists:
             group: GroupType = {
+                # Compatibility with old API
                 "project_name": group_name,
+                "group_name": group_name,
                 "description": description,
                 "language": language,
                 "historic_configuration": [
                     {
                         "date": datetime_utils.get_now_as_str(),
-                        "has_skims": has_skims,
-                        "has_drills": has_drills,
+                        "has_skims": has_machine,
+                        "has_drills": has_squad,
                         "has_forces": has_forces,
                         "requester": user_email,
                         "type": subscription,
                     }
                 ],
                 "project_status": "ACTIVE",
+                "group_status": "ACTIVE",
             }
             success = await groups_dal.create(group)
             await dynamomodel.create_group_metadata(
@@ -516,7 +522,7 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
                         names_domain.remove(group_name, "group"),
                     )
                 )
-                # Admins are not granted access to the project
+                # Admins are not granted access to the group
                 # they are omnipresent
                 if not is_user_admin:
                     success = success and all(
@@ -536,11 +542,11 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
     else:
         raise InvalidParameter()
     # Notify us in case the user wants any Fluid Service
-    if success and (has_drills or has_forces):
+    if success and (has_squad or has_forces):
         await notifications_domain.new_group(
             description=description,
             group_name=group_name,
-            has_drills=has_drills,
+            has_drills=has_squad,
             has_forces=has_forces,
             requester_email=user_email,
             subscription=subscription,
@@ -589,7 +595,7 @@ async def delete_group(
     historic_deletion = cast(
         List[Dict[str, str]], data.get("historic_deletion", [])
     )
-    if data.get("project_status") != "DELETED":
+    if resolve_kwargs(data, "group_status", "project_status") != "DELETED":
         all_resources_removed = await remove_resources(context, group_name)
         today = datetime_utils.get_now()
         new_state = {
@@ -600,6 +606,7 @@ async def delete_group(
         historic_deletion.append(new_state)
         new_data: GroupType = {
             "historic_deletion": historic_deletion,
+            "group_status": "DELETED",
             "project_status": "DELETED",
         }
         response = all(
@@ -652,7 +659,7 @@ async def edit(
     )
     item.setdefault("historic_configuration", [])
 
-    if item.get("project_name"):
+    if resolve_kwargs(item):
         success = await update(
             data={
                 "historic_configuration": cast(
@@ -1185,30 +1192,30 @@ async def update_tags(
 
 def validate_group_services_config(
     is_continuous_type: bool,
-    has_skims: bool,
-    has_drills: bool,
+    has_machine: bool,
+    has_squad: bool,
     has_forces: bool,
-    has_integrates: bool,
+    has_asm: bool,
 ) -> None:
     if is_continuous_type:
-        if has_drills:
-            if not has_integrates:
+        if has_squad:
+            if not has_asm:
                 raise InvalidGroupServicesConfig(
-                    "Drills is only available when Integrates is too"
+                    "Squad is only available when ASM is too"
                 )
-            if not has_skims:
+            if not has_machine:
                 raise InvalidGroupServicesConfig(
-                    "Drills is only available when Skims is too"
+                    "Squad is only available when Machine is too"
                 )
 
         if has_forces:
-            if not has_integrates:
+            if not has_asm:
                 raise InvalidGroupServicesConfig(
-                    "Forces is only available when Integrates is too"
+                    "Forces is only available when ASM is too"
                 )
-            if not has_skims:
+            if not has_machine:
                 raise InvalidGroupServicesConfig(
-                    "Forces is only available when Skims is too"
+                    "Forces is only available when Machine is too"
                 )
 
     else:

@@ -456,8 +456,8 @@ async def test_create_project_not_user_admin() -> None:
         group_name="NEWAVAILABLENAME",
         organization="okada",
         description="This is a new project",
-        has_skims=True,
-        has_drills=True,
+        has_machine=True,
+        has_squad=True,
         has_forces=True,
         subscription="continuous",
     )

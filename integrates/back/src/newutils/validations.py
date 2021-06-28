@@ -76,9 +76,9 @@ def validate_field_length(
     return True
 
 
-def validate_project_name(project_name: str) -> None:
-    if not project_name.isalnum():
-        raise InvalidField("project name")
+def validate_group_name(group_name: str) -> None:
+    if not group_name.isalnum():
+        raise InvalidField("group name")
 
 
 def validate_string_length_between(

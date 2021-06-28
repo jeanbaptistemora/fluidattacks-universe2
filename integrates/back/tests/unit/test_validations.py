@@ -9,8 +9,8 @@ from newutils.validations import (
     validate_field_length,
     validate_fields,
     validate_file_name,
+    validate_group_name,
     validate_phone_field,
-    validate_project_name,
 )
 import pytest
 from roots.validations import (
@@ -50,10 +50,10 @@ def test_validate_email_address() -> None:
         assert validate_email_address("test+1@unittesting.com")
 
 
-def test_validate_project_name() -> None:
-    assert not bool(validate_project_name("test"))
+def test_validate_group_name() -> None:
+    assert not bool(validate_group_name("test"))
     with pytest.raises(InvalidField):
-        assert validate_project_name("=test2@")
+        assert validate_group_name("=test2@")
 
 
 def test_validate_alphanumeric_field() -> None:

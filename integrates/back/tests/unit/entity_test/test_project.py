@@ -413,7 +413,7 @@ async def test_edit_group_good(  # type: ignore
         "expected",
     ],
     [
-        # Configuration error, Drills requires Integrates
+        # Configuration error, Squad requires ASM
         [
             "",
             "ONESHOTTEST",
@@ -423,9 +423,9 @@ async def test_edit_group_good(  # type: ignore
             "false",
             "true",
             "NONE",
-            "Exception - Drills is only available when Integrates is too",
+            "Exception - Squad is only available when ASM is too",
         ],
-        # Configuration error, Drills requires Skims
+        # Configuration error, Squad requires Machine
         [
             "",
             "ONESHOTTEST",
@@ -435,9 +435,9 @@ async def test_edit_group_good(  # type: ignore
             "true",
             "false",
             "NONE",
-            "Exception - Drills is only available when Skims is too",
+            "Exception - Squad is only available when Machine is too",
         ],
-        # Configuration error, Forces requires Integrates
+        # Configuration error, Forces requires ASM
         [
             "",
             "ONESHOTTEST",
@@ -447,7 +447,7 @@ async def test_edit_group_good(  # type: ignore
             "false",
             "false",
             "NONE",
-            "Exception - Forces is only available when Integrates is too",
+            "Exception - Forces is only available when ASM is too",
         ],
         # Configuration error, Forces requires Skims
         [
@@ -459,7 +459,7 @@ async def test_edit_group_good(  # type: ignore
             "true",
             "false",
             "NONE",
-            "Exception - Forces is only available when Skims is too",
+            "Exception - Forces is only available when Machine is too",
         ],
         # Configuration error, Forces requires CONTINUOUS
         [
