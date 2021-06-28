@@ -67,8 +67,13 @@ type Query {
   "Tag entity"
   tag(tag: String!): Tag
 
+  "List groups a user is subscribed to"
+  userListGroups(userEmail: String!): [Group]
+
   "List projects a user is subscribed to"
-  userListProjects(userEmail: String!): [Group]
+  userListProjects(
+    userEmail: String!
+  ): [Group] @deprecated(reason: "Use `userListGroups` instead.")
 
   "Vulnerability entity"
   vulnerability(uuid: String!): Vulnerability

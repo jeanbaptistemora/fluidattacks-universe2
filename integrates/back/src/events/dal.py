@@ -57,6 +57,8 @@ async def get_event(event_id: str) -> EventType:
     response_items = await dynamodb_ops.query(TABLE_NAME, query_attrs)
     if response_items:
         response = response_items[0]
+        # Compatibility with old API
+        response["group_name"] = response["project_name"]
     return response
 
 

@@ -58,11 +58,11 @@ pytestmark = [
 
 
 async def test_get_comment_recipients() -> None:
-    project_name = "unittesting"
+    group_name = "unittesting"
     comment_type = "comment"
 
     test_data = await mailer_utils.get_comment_recipients(
-        project_name, comment_type
+        group_name, comment_type
     )
     assert isinstance(test_data, list)
     assert isinstance(test_data[0], str)
@@ -391,8 +391,8 @@ async def test_approve_draft() -> None:
 
 async def test_list_findings() -> None:
     context = get_new_context()
-    project_name = "unittesting"
-    test_data = await list_findings(context, [project_name])
+    group_name = "unittesting"
+    test_data = await list_findings(context, [group_name])
     expected_output = [
         "988493279",
         "422286126",
@@ -405,29 +405,29 @@ async def test_list_findings() -> None:
 
 
 async def test_list_drafts() -> None:
-    project_name = "unittesting"
-    test_data = await list_drafts([project_name])
+    group_name = "unittesting"
+    test_data = await list_drafts([group_name])
     expected_output = ["560175507"]
     assert expected_output == test_data[0]
 
 
 async def test_list_drafts_deleted() -> None:
-    projects_name = ["continuoustesting"]
-    test_data = await list_drafts(projects_name)
+    groups_name = ["continuoustesting"]
+    test_data = await list_drafts(groups_name)
     expected_output = ["818828206", "836530833", "475041524"]
     assert sorted(expected_output) == sorted(test_data[0])
-    test_data = await list_drafts(projects_name, include_deleted=True)
+    test_data = await list_drafts(groups_name, include_deleted=True)
     expected_output = ["818828206", "836530833", "475041524", "991607942"]
     assert sorted(expected_output) == sorted(test_data[0])
 
 
 @freeze_time("2019-01-26")
 async def test_get_oldest_open_findings() -> None:
-    project_name = "unittesting"
+    group_name = "unittesting"
     oldest_requested = 1
     context = get_new_context()
     group_findings_loader = context.group_findings
-    findings = await group_findings_loader.load(project_name)
+    findings = await group_findings_loader.load(group_name)
     oldest_findings = await get_oldest_open_findings(
         context, findings, oldest_requested
     )
@@ -442,10 +442,10 @@ async def test_get_oldest_open_findings() -> None:
 
 @freeze_time("2021-05-27")
 async def test_get_oldest_no_treatment_findings() -> None:
-    project_name = "oneshottest"
+    group_name = "oneshottest"
     context = get_new_context()
     group_findings_loader = context.group_findings
-    findings = await group_findings_loader.load(project_name)
+    findings = await group_findings_loader.load(group_name)
     oldest_findings = await get_oldest_no_treatment_findings(context, findings)
     expected_output = [
         {
@@ -458,11 +458,11 @@ async def test_get_oldest_no_treatment_findings() -> None:
 
 @freeze_time("2018-12-27")
 async def test_get_total_treatment_stats() -> None:
-    project_name = "unittesting"
+    group_name = "unittesting"
     last_day = datetime_utils.get_now_minus_delta(hours=24)
     context = get_new_context()
     group_findings_loader = context.group_findings
-    findings = await group_findings_loader.load(project_name)
+    findings = await group_findings_loader.load(group_name)
     treatment_stats = await get_total_treatment_date(
         context, findings, last_day
     )
@@ -476,11 +476,11 @@ async def test_get_total_treatment_stats() -> None:
 
 @freeze_time("2018-12-27")
 async def test_get_total_reattacks_stats() -> None:
-    project_name = "unittesting"
+    group_name = "unittesting"
     last_day = datetime_utils.get_now_minus_delta(hours=24)
     context = get_new_context()
     group_findings_loader = context.group_findings
-    findings = await group_findings_loader.load(project_name)
+    findings = await group_findings_loader.load(group_name)
     reattacks_stats = await get_total_reattacks_stats(
         context, findings, last_day
     )

@@ -22,7 +22,7 @@ async def test_get_user() -> None:
         "phone_number": "-",
         "first_login": "2018-02-28 11:54:12",
         "last_login": "[186, 33677]",
-        "projects": [
+        "groups": [
             {"name": "asgard"},
             {"name": "barranquilla"},
             {"name": "gotham"},
@@ -34,8 +34,8 @@ async def test_get_user() -> None:
     }
     query = """
         query {
-            stakeholder(entity: PROJECT,
-                    projectName: "unittesting",
+            stakeholder(entity: GROUP,
+                    groupName: "unittesting",
                     userEmail: "continuoushacking@gmail.com") {
                 email
                 role
@@ -43,7 +43,7 @@ async def test_get_user() -> None:
                 phoneNumber
                 firstLogin
                 lastLogin
-                projects {
+                groups {
                     name
                 }
                 __typename
@@ -67,19 +67,19 @@ async def test_get_user() -> None:
     assert result["data"]["stakeholder"]["firstLogin"] == expected_output.get(
         "first_login"
     )
-    assert result["data"]["stakeholder"]["projects"] == expected_output.get(
-        "projects"
+    assert result["data"]["stakeholder"]["groups"] == expected_output.get(
+        "groups"
     )
     assert "stakeholder" in result["data"]
     assert "responsibility" in result["data"]["stakeholder"]
     assert "phoneNumber" in result["data"]["stakeholder"]
 
 
-async def test_user_list_projects() -> None:
+async def test_user_list_groups() -> None:
     """Check for user."""
     query = """
         query {
-            userListProjects(userEmail: "continuoushacking@gmail.com") {
+            userListGroups(userEmail: "continuoushacking@gmail.com") {
                 name
             }
         }
@@ -88,7 +88,7 @@ async def test_user_list_projects() -> None:
     request = await create_dummy_session()
     _, result = await graphql(SCHEMA, data, context_value=request)
     assert "errors" not in result
-    assert result["data"]["userListProjects"][0]["name"] == "asgard"
+    assert result["data"]["userListGroups"][0]["name"] == "asgard"
 
 
 @pytest.mark.changes_db
@@ -123,7 +123,7 @@ async def test_grant_stakeholder_access_1() -> None:
             grantStakeholderAccess (
             email: "test@test.test",
             phoneNumber: "3453453453"
-            projectName: "unittesting",
+            groupName: "unittesting",
             responsibility: "test",
             role: CUSTOMER) {
             success
@@ -158,7 +158,7 @@ async def test_grant_stakeholder_access_2() -> None:
             grantStakeholderAccess (
             email: "test@test.test",
             phoneNumber: "3453453453"
-            projectName: "unittesting",
+            groupName: "unittesting",
             responsibility: "test",
             role: ANALYST) {
                 success
@@ -191,7 +191,7 @@ async def test_grant_stakeholder_access_3() -> None:
             grantStakeholderAccess (
             email: "test@fluidattacks.com",
             phoneNumber: "3453453453"
-            projectName: "unittesting",
+            groupName: "unittesting",
             responsibility: "test",
             role: ANALYST) {
                 success
@@ -224,7 +224,7 @@ async def test_remove_stakeholder_access() -> None:
     query = """
         mutation {
             removeStakeholderAccess (
-            projectName: "unittesting"
+            groupName: "unittesting"
             userEmail: "test@test.test"
             )
             {
@@ -249,7 +249,7 @@ async def test_edit_stakeholder() -> None:
             editStakeholder (
             email: "integratescustomer@gmail.com",
             phoneNumber: "17364735",
-            projectName: "unittesting",
+            groupName: "unittesting",
             responsibility: "edited",
             role: CUSTOMER) {
                 success

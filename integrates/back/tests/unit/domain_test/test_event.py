@@ -45,7 +45,7 @@ async def test_get_event() -> None:
     event_id = "418900971"
     test_data = await events_domain.get_event(event_id)
     expected_output = "unittesting"
-    assert test_data.get("project_name") == expected_output
+    assert test_data.get("group_name") == expected_output
     with pytest.raises(EventNotFound):
         await events_domain.get_event("000001111")
 
