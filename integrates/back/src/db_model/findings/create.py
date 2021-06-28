@@ -6,6 +6,12 @@ from .utils import (
     format_state_item,
     format_unreliable_indicators_item,
 )
+from boto3.dynamodb.conditions import (
+    Attr,
+)
+from custom_exceptions import (
+    AlreadyCreated,
+)
 from db_model import (
     TABLE,
 )
@@ -14,13 +20,34 @@ from dynamodb import (
     keys,
     operations,
 )
+from dynamodb.exceptions import (
+    ConditionalCheckFailedException,
+)
 
 
 async def create(  # pylint: disable=too-many-locals
     *, finding: Finding
 ) -> None:
-    items = []
     key_structure = TABLE.primary_key
+    id_key = keys.build_key(
+        facet=TABLE.facets["finding_id"],
+        values={"id": finding.id},
+    )
+    id_item = {
+        key_structure.partition_key: id_key.partition_key,
+        key_structure.sort_key: id_key.sort_key,
+    }
+    condition_expression = Attr(key_structure.partition_key).not_exists()
+    try:
+        await operations.put_item(
+            condition_expression=condition_expression,
+            facet=TABLE.facets["finding_id"],
+            item=id_item,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException:
+        raise AlreadyCreated()
+    items = []
     metadata_key = keys.build_key(
         facet=TABLE.facets["finding_metadata"],
         values={"group_name": finding.group_name, "id": finding.id},
@@ -84,7 +111,6 @@ async def create(  # pylint: disable=too-many-locals
         key_structure.sort_key: creation_key.sort_key,
         **state_item,
     }
-
     items.append(creation)
     unreliable_indicators_key = keys.build_key(
         facet=TABLE.facets["finding_unreliable_indicators"],

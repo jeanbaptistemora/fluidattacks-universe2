@@ -73,6 +73,15 @@ class AlreadyApproved(CustomBaseException):
         super(AlreadyApproved, self).__init__(msg)
 
 
+class AlreadyCreated(CustomBaseException):
+    """Exception to control draft-only operations"""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = "Exception - This draft has already been created"
+        super(AlreadyCreated, self).__init__(msg)
+
+
 class AlreadyPendingDeletion(CustomBaseException):
     """Exception to control pending to delete groups"""
 
