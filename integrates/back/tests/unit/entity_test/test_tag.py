@@ -17,7 +17,7 @@ pytestmark = pytest.mark.asyncio
 
 @pytest.mark.asyncio
 async def test_get_tag_query() -> None:
-    """Check for project alert."""
+    """Check for group alert."""
     query = """
         query{
             tag(tag: "test-projects"){
@@ -28,7 +28,7 @@ async def test_get_tag_query() -> None:
                 meanRemediateMediumSeverity
                 meanRemediate
                 name
-                projects {
+                groups {
                     closedVulnerabilities
                     name
                     openVulnerabilities
@@ -42,7 +42,7 @@ async def test_get_tag_query() -> None:
     request = apply_context_attrs(request)
     _, result = await graphql(SCHEMA, data, context_value=request)
     assert "errors" not in result
-    assert "projects" in result["data"]["tag"]
+    assert "groups" in result["data"]["tag"]
     assert result["data"]["tag"]["lastClosingVuln"] == 50
     assert result["data"]["tag"]["meanRemediateLowSeverity"] == 116
     assert result["data"]["tag"]["meanRemediateMediumSeverity"] == 135.9
@@ -59,7 +59,7 @@ async def test_get_tag_query_access_denied() -> None:
                 maxOpenSeverity
                 meanRemediate
                 name
-                projects {
+                groups {
                     closedVulnerabilities
                     name
                     openVulnerabilities

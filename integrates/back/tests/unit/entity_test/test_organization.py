@@ -348,7 +348,7 @@ async def test_organization() -> None:
                 maxNumberAcceptations
                 minAcceptanceSeverity
                 name
-                projects {
+                groups {
                     name
                 }
                 stakeholders {
@@ -361,7 +361,7 @@ async def test_organization() -> None:
     data = {"query": query, "variables": variables}
     result = await _get_result_async(data)
     groups = [
-        group["name"] for group in result["data"]["organization"]["projects"]
+        group["name"] for group in result["data"]["organization"]["groups"]
     ]
     print(result["data"]["organization"]["stakeholders"])
     stakeholders = [

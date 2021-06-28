@@ -24,17 +24,17 @@ async def _get_result(data: Dict[str, Any]) -> Dict[str, Any]:
     return result
 
 
-async def test_project_name() -> None:
-    """Check for project_name field."""
+async def test_group_name() -> None:
+    """Check for group_name field."""
     query = """{
-      forcesExecutions(projectName: "unittesting"){
-        projectName
+      forcesExecutions(groupName: "unittesting"){
+        groupName
       }
     }"""
     data = {"query": query}
     result = await _get_result(data)
     assert "errors" not in result
-    assert result["data"]["forcesExecutions"]["projectName"] == "unittesting"
+    assert result["data"]["forcesExecutions"]["groupName"] == "unittesting"
 
 
 async def _test_executions() -> None:
@@ -42,13 +42,13 @@ async def _test_executions() -> None:
     query = """
       query {
         forcesExecutions(
-            projectName: "unittesting",
+            groupName: "unittesting",
             fromDate: "2020-02-01T00:00:00Z",
             toDate: "2020-02-28T23:59:59Z"
         ) {
           __typename
           executions {
-            projectName
+            groupName
             execution_id
             date
             exitCode

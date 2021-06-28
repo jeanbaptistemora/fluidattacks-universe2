@@ -26,7 +26,7 @@ async def test_me() -> None:
             accessToken
             tags(organizationId: "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3") {
                 name
-                projects {
+                groups {
                     name
                 }
             }
@@ -51,9 +51,9 @@ async def test_me() -> None:
     assert "tags" in result["data"]["me"]
     for tag in result["data"]["me"]["tags"]:
         assert "name" in tag
-        assert "projects" in tag
+        assert "groups" in tag
         if tag["name"] == "test-projects":
-            output = [proj["name"] for proj in tag["projects"]]
+            output = [proj["name"] for proj in tag["groups"]]
             assert sorted(output) == sorted(expected_groups)
 
 

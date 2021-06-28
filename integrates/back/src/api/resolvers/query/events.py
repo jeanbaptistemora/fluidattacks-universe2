@@ -19,6 +19,9 @@ from events import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from typing import (
     List,
 )
@@ -34,12 +37,7 @@ async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> List[Event]:
     # Compatibility with old API
-    group_name: str
-    if "group_name" in kwargs:
-        group_name = kwargs["group_name"].lower()
-    else:
-        group_name = kwargs["project_name"].lower()
-
+    group_name: str = resolve_kwargs(kwargs).lower()
     event_ids = await events_domain.list_group_events(group_name.lower())
     event_loader: DataLoader = info.context.loaders.event
     events: List[Event] = await event_loader.load_many(event_ids)

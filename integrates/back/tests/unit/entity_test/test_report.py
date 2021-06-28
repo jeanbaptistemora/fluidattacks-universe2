@@ -23,7 +23,7 @@ async def test_finding_report() -> None:
     query_pdf = """
         query test {
             report(
-                projectName: "oneshottest",
+                groupName: "oneshottest",
                 reportType: PDF,
                 lang: EN) {
                 url
@@ -33,7 +33,7 @@ async def test_finding_report() -> None:
     query_xls = """
         query test {
             report(
-                projectName: "oneshottest",
+                groupName: "oneshottest",
                 reportType: XLS) {
                 url
             }
@@ -42,7 +42,7 @@ async def test_finding_report() -> None:
     query_data = """
         query test {
             report(
-                projectName: "oneshottest",
+                groupName: "oneshottest",
                 reportType: DATA) {
                 url
             }

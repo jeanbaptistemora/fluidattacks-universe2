@@ -28,7 +28,7 @@ async def test_event() -> None:
         event(identifier: "418900971"){
             client
             evidence
-            projectName
+            groupName
             eventType
             detail
             eventDate
@@ -53,15 +53,15 @@ async def test_event() -> None:
     _, result = await graphql(SCHEMA, data, context_value=request)
     assert "errors" not in result
     assert "event" in result["data"]
-    assert result["data"]["event"]["projectName"] == "unittesting"
+    assert result["data"]["event"]["groupName"] == "unittesting"
     assert result["data"]["event"]["detail"] == "Integrates unit test"
 
 
 async def test_events() -> None:
     """Check for events."""
     query = """{
-        events(projectName: "unittesting"){
-            projectName
+        events(groupName: "unittesting"){
+            groupName
             detail
         }
     }"""
@@ -69,7 +69,7 @@ async def test_events() -> None:
     request = await create_dummy_session()
     _, result = await graphql(SCHEMA, data, context_value=request)
     assert "events" in result["data"]
-    assert result["data"]["events"][0]["projectName"] == "unittesting"
+    assert result["data"]["events"][0]["groupName"] == "unittesting"
     assert len(result["data"]["events"][0]["detail"]) >= 1
 
 
@@ -78,7 +78,7 @@ async def test_create_event() -> None:
     """Check for createEvent mutation."""
     query = """
         mutation {
-            createEvent(projectName: "unittesting",
+            createEvent(groupName: "unittesting",
                         actionAfterBlocking: TRAINING,
                         actionBeforeBlocking: DOCUMENT_PROJECT,
                         accessibility: ENVIRONMENT,

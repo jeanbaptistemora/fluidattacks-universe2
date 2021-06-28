@@ -41,10 +41,10 @@ async def _get_result(
 
 
 async def test_get_resources() -> None:
-    """Check for project resources"""
+    """Check for group resources"""
     query = """{
-      resources(projectName: "unittesting"){
-        projectName
+      resources(groupName: "unittesting"){
+        groupName
         files
         __typename
       }
@@ -55,7 +55,7 @@ async def test_get_resources() -> None:
     _, result = await graphql(SCHEMA, data, context_value=request)
     assert "errors" not in result
     assert "resources" in result["data"]
-    assert result["data"]["resources"]["projectName"] == "unittesting"
+    assert result["data"]["resources"]["groupName"] == "unittesting"
     assert "test.zip" in result["data"]["resources"]["files"]
     assert "shell.exe" in result["data"]["resources"]["files"]
     assert "shell2.exe" in result["data"]["resources"]["files"]
@@ -78,12 +78,12 @@ async def test_add_files() -> None:
         ]
         query = """
             mutation UploadFileMutation(
-                $file: Upload!, $filesData: JSONString!, $projectName: String!
+                $file: Upload!, $filesData: JSONString!, $groupName: String!
             ) {
                 addFiles (
                     file: $file,
                     filesData: $filesData,
-                    projectName: $projectName) {
+                    groupName: $groupName) {
                         success
                 }
             }
@@ -91,7 +91,7 @@ async def test_add_files() -> None:
         variables = {
             "file": uploaded_file,
             "filesData": json.dumps(file_data),
-            "projectName": "UNITTESTING",
+            "groupName": "UNITTESTING",
         }
     data = {"query": query, "variables": variables}
     result = await _get_result(data)
@@ -110,7 +110,7 @@ async def test_download_file() -> None:
         mutation {
           downloadFile (
             filesData: \"\\\"unittesting-422286126.yaml\\\"\",
-            projectName: "unittesting") {
+            groupName: "unittesting") {
               success
               url
             }
@@ -136,16 +136,16 @@ async def test_remove_files() -> None:
     query = """
         mutation RemoveFileMutation(
             $filesData: JSONString!,
-            $projectName: String!
+            $groupName: String!
         ) {
-            removeFiles(filesData: $filesData, projectName: $projectName) {
+            removeFiles(filesData: $filesData, groupName: $groupName) {
             success
             }
         }
     """
     variables = {
         "filesData": json.dumps(file_data),
-        "projectName": "UNITTESTING",
+        "groupName": "UNITTESTING",
     }
     data = {"query": query, "variables": variables}
     result = await _get_result(data, context=context)

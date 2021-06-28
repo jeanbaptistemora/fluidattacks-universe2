@@ -117,7 +117,7 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
     query = """{
       finding(identifier: "422286126"){
           id
-          projectName
+          groupName
           releaseDate
           openVulnerabilities
           closedVulnerabilities
@@ -202,7 +202,7 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
     result = await _get_result(data)
     assert "errors" not in result
     assert result["data"]["finding"]["id"] == "422286126"
-    assert result["data"]["finding"]["projectName"] == "unittesting"
+    assert result["data"]["finding"]["groupName"] == "unittesting"
     assert result["data"]["finding"]["openVulnerabilities"] == 1
     assert result["data"]["finding"]["closedVulnerabilities"] == 0
     assert result["data"]["finding"]["releaseDate"] == "2018-07-09 00:00:00"
@@ -609,7 +609,7 @@ async def test_create_draft() -> None:
         mutation CreateDraftMutation(
             $cwe: String,
             $description: String,
-            $projectName: String!,
+            $groupName: String!,
             $recommendation: String,
             $requirements: String,
             $risk: String,
@@ -620,7 +620,7 @@ async def test_create_draft() -> None:
             createDraft(
             cwe: $cwe,
             description: $description,
-            projectName: $projectName,
+            groupName: $groupName,
             recommendation: $recommendation,
             requirements: $requirements,
             risk: $risk,
@@ -635,7 +635,7 @@ async def test_create_draft() -> None:
     variables = {
         "cwe": "200",
         "description": "This is pytest created draft",
-        "projectName": "UNITTESTING",
+        "groupName": "UNITTESTING",
         "recommendation": "Solve this finding",
         "requirements": "REQ.0001. Apply filters",
         "risk": "Losing money",

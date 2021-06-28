@@ -4,7 +4,7 @@ type Query {
   event(identifier: String!): Event
 
   "List of events of a project"
-  events(projectName: String!): [Event]
+  events(groupName: String, projectName: String): [Event]
 
   "Finding entity"
   finding(identifier: String!): Finding
