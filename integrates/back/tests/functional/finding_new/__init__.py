@@ -58,7 +58,7 @@ async def get_result(
                 portsVulns {{
                     specific
                 }}
-                projectName
+                groupName
                 recommendation
                 records
                 releaseDate

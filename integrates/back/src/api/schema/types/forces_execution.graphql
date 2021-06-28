@@ -9,7 +9,7 @@ type ForcesExecution {
   groupName: String
   kind: String
   log: String
-  projectName: String
+  projectName: String @deprecated(reason: "Use `groupName` instead.")
   strictness: String
   vulnerabilities: ExecutionVulnerabilities
 }

@@ -48,7 +48,7 @@ LOGGER = logging.getLogger(__name__)
 
 async def add_forces_execution(
     *,
-    project_name: str,
+    group_name: str,
     log: Union[UploadFile, None] = None,
     **execution_attributes: Any,
 ) -> bool:
@@ -66,8 +66,8 @@ async def add_forces_execution(
         "num_of_accepted_vulnerabilities"
     ] = len(vulnerabilities["accepted"])
 
-    log_name = f'{project_name}/{execution_attributes["execution_id"]}.log'
-    vulns_name = f'{project_name}/{execution_attributes["execution_id"]}.json'
+    log_name = f'{group_name}/{execution_attributes["execution_id"]}.log'
+    vulns_name = f'{group_name}/{execution_attributes["execution_id"]}.json'
     # Create a file for vulnerabilities
     with tempfile.NamedTemporaryFile() as vulns_file:
         vulns_file.write(json.dumps(vulnerabilities).encode("utf-8"))
@@ -76,7 +76,7 @@ async def add_forces_execution(
             log, log_name
         ) and await forces_dal.save_log_execution(vulns_file, vulns_name):
             success = await forces_dal.create_execution(
-                project_name=project_name, **execution_attributes
+                group_name=group_name, **execution_attributes
             )
     return success
 
@@ -128,8 +128,8 @@ def format_execution(execution: Any) -> ForcesExecutionType:
     return cast(ForcesExecutionType, execution)
 
 
-def format_forces_user_email(project_name: str) -> str:
-    return f"forces.{project_name}@fluidattacks.com"
+def format_forces_user_email(group_name: str) -> str:
+    return f"forces.{group_name}@fluidattacks.com"
 
 
 async def get_execution(
@@ -163,8 +163,8 @@ async def get_log_execution(group_name: str, execution_id: str) -> str:
     return await forces_dal.get_log_execution(group_name, execution_id)
 
 
-async def get_token(project_name: str) -> Optional[str]:
-    return await forces_dal.get_secret_token(project_name)
+async def get_token(group_name: str) -> Optional[str]:
+    return await forces_dal.get_secret_token(group_name)
 
 
 async def get_vulns_execution(
@@ -208,5 +208,5 @@ def match_fields(my_dict: Dict[str, Any]) -> ForcesExecutionType:
     return new
 
 
-async def update_token(project_name: str, token: str) -> bool:
-    return await forces_dal.update_secret_token(project_name, token)
+async def update_token(group_name: str, token: str) -> bool:
+    return await forces_dal.update_secret_token(group_name, token)

@@ -31,7 +31,7 @@ type Mutation {
   ): AddConsultPayload!
 
   addForcesExecution(
-    projectName: String!
+    projectName: String
     execution_id: String!
     date: DateTime!
     exitCode: String!
@@ -39,6 +39,7 @@ type Mutation {
     gitCommit: String
     gitOrigin: String
     gitRepo: String
+    groupName: String
     kind: String
     log: Upload
     strictness: String!

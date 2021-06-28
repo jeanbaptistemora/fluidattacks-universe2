@@ -3,6 +3,6 @@ type ForcesExecutions {
   executions: [ForcesExecution]
   fromDate: String
   groupName: String
-  projectName: String
+  projectName: String @deprecated(reason: "Use `groupName` instead.")
   toDate: String
 }

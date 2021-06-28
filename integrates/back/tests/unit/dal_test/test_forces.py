@@ -20,7 +20,7 @@ async def test_create_execution() -> None:
     execution_id = "random_id"
     now = datetime_utils.get_now()
     assert await create_execution(
-        project_name=group,
+        group_name=group,
         execution_id=execution_id,
         date=now,
     )

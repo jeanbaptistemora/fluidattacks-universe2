@@ -16,6 +16,9 @@ from graphql.type.definition import (
 from newutils import (
     logs as logs_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from starlette.datastructures import (
     UploadFile,
 )
@@ -30,19 +33,19 @@ from typing import (
 async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
-    project_name: str,
     log: Optional[UploadFile] = None,
     **parameters: Any,
 ) -> SimplePayload:
+    group_name: str = resolve_kwargs(parameters)
     success = await forces_domain.add_forces_execution(
-        project_name=project_name, log=log, **parameters
+        group_name=group_name, log=log, **parameters
     )
     if success:
         logs_utils.cloudwatch_log(
             info.context,
             (
-                f"Security: Created forces execution in {project_name} "
-                "project successfully"
+                f"Security: Created forces execution in {group_name} "
+                "group successfully"
             ),
         )
     return SimplePayload(success=success)

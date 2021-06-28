@@ -49,7 +49,7 @@ TABLE_NAME = "FI_forces"
 
 
 async def create_execution(
-    project_name: str, **execution_attributes: Any
+    group_name: str, **execution_attributes: Any
 ) -> bool:
     """Create an execution of forces."""
     success = False
@@ -59,7 +59,7 @@ async def create_execution(
             date_format="%Y-%m-%dT%H:%M:%S.%f%z",
             zone="UTC",
         )
-        execution_attributes["subscription"] = project_name
+        execution_attributes["subscription"] = group_name
         execution_attributes = dynamodb_ops.serialize(execution_attributes)
         success = await dynamodb_ops.put_item(TABLE_NAME, execution_attributes)
     except ClientError as ex:
@@ -67,10 +67,10 @@ async def create_execution(
     return success
 
 
-async def get_execution(project_name: str, execution_id: str) -> Any:
+async def get_execution(group_name: str, execution_id: str) -> Any:
     key_condition_expresion = Key("execution_id").eq(execution_id) & Key(
         "subscription"
-    ).eq(project_name)
+    ).eq(group_name)
 
     async with aioboto3.resource(**dynamodb_ops.RESOURCE_OPTIONS) as resource:
         table = await resource.Table(TABLE_NAME)
@@ -85,35 +85,37 @@ async def get_execution(project_name: str, execution_id: str) -> Any:
                 result["vulnerabilities"]["open"] = []
             if "closed" not in result["vulnerabilities"]:
                 result["vulnerabilities"]["closed"] = []
+            # Compatibility with old API
             result["project_name"] = result.get("subscription")
+            result["group_name"] = result.get("subscription")
             return result
         return dict()
 
 
-async def get_log_execution(project_name: str, execution_id: str) -> str:
+async def get_log_execution(group_name: str, execution_id: str) -> str:
     with tempfile.NamedTemporaryFile(mode="w+") as file:
         await s3_ops.download_file(
             FI_AWS_S3_FORCES_BUCKET,
-            f"{project_name}/{execution_id}.log",
+            f"{group_name}/{execution_id}.log",
             file.name,
         )
         with open(file.name) as reader:
             return reader.read()
 
 
-async def get_secret_token(project_name: str) -> Optional[str]:
+async def get_secret_token(group_name: str) -> Optional[str]:
     try:
-        return await get_agent_token(group_name=project_name)
+        return await get_agent_token(group_name=group_name)
     except ClientError as error:
         LOGGER.exception(error, extra={"extra": locals()})
         return None
 
 
-async def get_vulns_execution(project_name: str, execution_id: str) -> Any:
+async def get_vulns_execution(group_name: str, execution_id: str) -> Any:
     with tempfile.NamedTemporaryFile(mode="w+") as file:
         await s3_ops.download_file(
             FI_AWS_S3_FORCES_BUCKET,
-            f"{project_name}/{execution_id}.json",
+            f"{group_name}/{execution_id}.json",
             file.name,
         )
         with open(file.name) as reader:
@@ -136,10 +138,10 @@ async def save_vulns_execution(file_object: object, file_name: str) -> bool:
     )
 
 
-async def update_secret_token(project_name: str, secret: str) -> bool:
+async def update_secret_token(group_name: str, secret: str) -> bool:
     try:
         await update_group_agent_token(
-            group_name=project_name,
+            group_name=group_name,
             agent_token=secret,
         )
     except ClientError as error:

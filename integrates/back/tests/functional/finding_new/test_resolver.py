@@ -201,7 +201,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["openAge"] == open_age
     assert result["data"]["finding"]["openVulnerabilities"] == 5
     assert result["data"]["finding"]["portsVulns"] == ports_vulns
-    assert result["data"]["finding"]["projectName"] == group_name
+    assert result["data"]["finding"]["groupName"] == group_name
     assert result["data"]["finding"]["recommendation"] == recommendation
     assert result["data"]["finding"]["records"] == "[]"
     assert result["data"]["finding"]["releaseDate"] == release_date
@@ -385,7 +385,7 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["openAge"] == open_age
     assert result["data"]["finding"]["openVulnerabilities"] == 5
     assert result["data"]["finding"]["portsVulns"] == ports_vulns
-    assert result["data"]["finding"]["projectName"] == group_name
+    assert result["data"]["finding"]["groupName"] == group_name
     assert result["data"]["finding"]["recommendation"] == recommendation
     assert result["data"]["finding"]["records"] == "[]"
     assert result["data"]["finding"]["releaseDate"] == release_date
