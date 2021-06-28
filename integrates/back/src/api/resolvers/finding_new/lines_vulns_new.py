@@ -28,7 +28,6 @@ async def resolve(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="finding_new",
         attr="lines_vulns_new",
-        group=parent.group_name,
         id=parent.id,
     )
     return response

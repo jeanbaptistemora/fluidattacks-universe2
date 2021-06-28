@@ -35,7 +35,6 @@ async def resolve(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="finding_new",
         attr="observations_new",
-        group=parent.group_name,
         id=parent.id,
     )
     return response

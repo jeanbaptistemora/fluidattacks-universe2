@@ -112,13 +112,12 @@ async def approve_draft(
 async def approve_draft_new(
     context: Any,
     finding_id: str,
-    group_name: str,
     user_email: str,
 ) -> str:
     finding_all_vulns_loader = context.loaders.finding_vulns_all
     finding_nzr_vulns_loader = context.loaders.finding_vulns_nzr
     finding_loader = context.loaders.finding_new
-    finding: Finding = await finding_loader.load((group_name, finding_id))
+    finding: Finding = await finding_loader.load(finding_id)
     if finding.state.status == FindingStateStatus.APPROVED:
         raise AlreadyApproved()
 
@@ -140,8 +139,8 @@ async def approve_draft_new(
         status=FindingStateStatus.APPROVED,
     )
     await findings_model.update_state(
-        finding_id=finding_id,
-        group_name=group_name,
+        finding_id=finding.id,
+        group_name=finding.group_name,
         state=new_state,
     )
     all_vulns = await finding_all_vulns_loader.load(finding_id)
@@ -297,10 +296,10 @@ async def reject_draft(
 
 
 async def reject_draft_new(
-    context: Any, finding_id: str, group_name: str, user_email: str
+    context: Any, finding_id: str, user_email: str
 ) -> None:
     finding_loader = context.loaders.finding_new
-    finding: Finding = await finding_loader.load((group_name, finding_id))
+    finding: Finding = await finding_loader.load(finding_id)
     if finding.state.status == FindingStateStatus.APPROVED:
         raise AlreadyApproved()
 
@@ -314,8 +313,8 @@ async def reject_draft_new(
         status=FindingStateStatus.REJECTED,
     )
     await findings_model.update_state(
-        finding_id=finding_id,
-        group_name=group_name,
+        finding_id=finding.id,
+        group_name=finding.group_name,
         state=new_state,
     )
 
@@ -372,11 +371,11 @@ async def submit_draft(  # pylint: disable=too-many-locals
 
 
 async def submit_draft_new(
-    context: Any, finding_id: str, group_name: str, user_email: str
+    context: Any, finding_id: str, user_email: str
 ) -> None:
     finding_vulns_loader = context.loaders.finding_vulns
     finding_loader = context.loaders.finding_new
-    finding: Finding = await finding_loader.load((group_name, finding_id))
+    finding: Finding = await finding_loader.load(finding_id)
     if finding.state.status == FindingStateStatus.APPROVED:
         raise AlreadyApproved()
 
@@ -403,7 +402,7 @@ async def submit_draft_new(
         status=FindingStateStatus.SUBMITTED,
     )
     await findings_model.update_state(
-        finding_id=finding_id,
-        group_name=group_name,
+        finding_id=finding.id,
+        group_name=finding.group_name,
         state=new_state,
     )

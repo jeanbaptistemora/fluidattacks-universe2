@@ -14,12 +14,10 @@ async def get_result(
     *,
     user: str,
     finding_id: str,
-    group_name: str,
 ) -> Dict[str, Any]:
     query: str = f"""
         query {{
             finding(
-                groupName: "{group_name}"
                 identifier: "{finding_id}"
             ){{
                 actor

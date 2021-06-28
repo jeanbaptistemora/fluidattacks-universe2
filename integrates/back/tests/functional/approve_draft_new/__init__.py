@@ -14,13 +14,11 @@ async def get_result(
     *,
     user: str,
     finding_id: str,
-    group_name: str,
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
             approveDraft(
                 draftId: "{finding_id}"
-                groupName: "{group_name}"
             ) {{
                 success
             }}

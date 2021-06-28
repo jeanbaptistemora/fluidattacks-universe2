@@ -19,9 +19,8 @@ from typing import (
 async def test_submit_draft(populate: bool, email: str) -> None:
     assert populate
     finding_id: str = "475041513"
-    group_name: str = "group1"
     result: Dict[str, Any] = await get_result(
-        user=email, finding_id=finding_id, group_name=group_name
+        user=email, finding_id=finding_id
     )
     assert "errors" not in result
     assert result["data"]["submitDraft"]["success"]
@@ -38,9 +37,8 @@ async def test_submit_draft(populate: bool, email: str) -> None:
 async def test_submit_draft_fail_1(populate: bool, email: str) -> None:
     assert populate
     finding_id: str = "475041513"
-    group_name: str = "group1"
     result: Dict[str, Any] = await get_result(
-        user=email, finding_id=finding_id, group_name=group_name
+        user=email, finding_id=finding_id
     )
     assert "errors" in result
     assert (
@@ -61,9 +59,8 @@ async def test_submit_draft_fail_1(populate: bool, email: str) -> None:
 async def test_submit_draft_fail_2(populate: bool, email: str) -> None:
     assert populate
     finding_id: str = "475041513"
-    group_name: str = "group1"
     result: Dict[str, Any] = await get_result(
-        user=email, finding_id=finding_id, group_name=group_name
+        user=email, finding_id=finding_id
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"

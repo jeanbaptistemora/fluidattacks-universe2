@@ -46,21 +46,20 @@ from redis_cluster.operations import (
     require_finding_access,
 )
 async def mutate(
-    _parent: None, info: GraphQLResolveInfo, finding_id: str, group_name: str
+    _parent: None, info: GraphQLResolveInfo, finding_id: str
 ) -> SimplePayload:
     try:
         finding_loader = info.context.loaders.finding_new
         user_info = await token_utils.get_jwt_content(info.context)
         user_email = user_info["user_email"]
         await findings_domain.submit_draft_new(
-            info.context, finding_id, group_name, user_email
+            info.context, finding_id, user_email
         )
         redis_del_by_deps_soon(
             "submit_draft_new",
             finding_new_id=finding_id,
-            finding_new_group=group_name,
         )
-        finding: Finding = await finding_loader.load((group_name, finding_id))
+        finding: Finding = await finding_loader.load(finding_id)
         schedule(
             findings_mail.send_mail_new_draft(
                 info.context.loaders,
@@ -72,14 +71,11 @@ async def mutate(
         )
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Submitted draft {finding_id} in {group_name} group "
-            "successfully",
+            f"Security: Submitted draft {finding_id} successfully",
         )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Attempted to submit draft {finding_id} in "
-            f"{group_name} group",
+            info.context, f"Security: Attempted to submit draft {finding_id}"
         )
         raise
     return SimplePayload(success=True)

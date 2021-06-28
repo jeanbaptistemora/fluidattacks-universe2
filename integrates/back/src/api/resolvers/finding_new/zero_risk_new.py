@@ -33,7 +33,6 @@ async def resolve(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="finding_new",
         attr="zero_risk_new",
-        group=parent.group_name,
         id=parent.id,
     )
     state: Optional[str] = kwargs.get("state")

@@ -14,12 +14,10 @@ async def get_result(
     *,
     user: str,
     finding_id: str,
-    group_name: str,
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
             deleteFinding(
-                groupName: "{group_name}"
                 findingId: "{finding_id}"
                 justification: NOT_REQUIRED
             ) {{

@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jun 28, 2021, 09:38 AM",
+    "DateLastModified": "Jun 28, 2021, 12:57 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1939,7 +1939,7 @@
           "FacetName": "finding_historic_state",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "FIN#id",
-            "SortKeyAlias": "GROUP#group_name#STATE#iso8601utc"
+            "SortKeyAlias": "STATE#iso8601utc"
           },
           "TableData": [
             {
@@ -1947,7 +1947,7 @@
                 "S": "FIN#475041513"
               },
               "sk": {
-                "S": "GROUP#unittesting#STATE#2021-02-15T14:01:16Z"
+                "S": "STATE#2021-02-15T14:01:16Z"
               },
               "status": {
                 "S": "CREATED"
@@ -2025,7 +2025,7 @@
           "FacetName": "finding_historic_verification",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "FIN#id",
-            "SortKeyAlias": "GROUP#group_name#VERIFICATION#iso8601utc"
+            "SortKeyAlias": "VERIFICATION#iso8601utc"
           },
           "TableData": [
             {
@@ -2033,7 +2033,7 @@
                 "S": "FIN#475041513"
               },
               "sk": {
-                "S": "GROUP#unittesting#VERIFICATION#2021-02-15T14:01:16Z"
+                "S": "VERIFICATION#2021-02-15T14:01:16Z"
               },
               "status": {
                 "S": "REQUESTED"

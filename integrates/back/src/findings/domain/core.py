@@ -230,13 +230,11 @@ async def delete_finding(
 async def delete_finding_new(
     context: Any,
     finding_id: str,
-    group_name: str,
     justification: FindingStateJustification,
     user_email: str,
 ) -> None:
-    # Load the finding to check that it exists and, it is not deleted
     finding_loader = context.loaders.finding_new
-    await finding_loader.load((group_name, finding_id))
+    finding: Finding = await finding_loader.load(finding_id)
     new_state = FindingState(
         justification=justification,
         modified_by=user_email,
@@ -245,8 +243,8 @@ async def delete_finding_new(
         status=FindingStateStatus.DELETED,
     )
     await findings_model.update_state(
-        finding_id=finding_id,
-        group_name=group_name,
+        finding_id=finding.id,
+        group_name=finding.group_name,
         state=new_state,
     )
     schedule(

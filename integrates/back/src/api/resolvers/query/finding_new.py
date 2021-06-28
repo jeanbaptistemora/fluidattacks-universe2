@@ -10,6 +10,7 @@ from db_model.findings.types import (
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
+    rename_kwargs,
     require_integrates,
     require_login,
 )
@@ -24,6 +25,7 @@ async def _get_draft(finding: Finding, _info: GraphQLResolveInfo) -> Finding:
 
 
 @convert_kwargs_to_snake_case
+@rename_kwargs({"identifier": "finding_id"})
 @concurrent_decorators(
     require_login, enforce_group_level_auth_async, require_integrates
 )
@@ -31,10 +33,9 @@ async def _get_draft(finding: Finding, _info: GraphQLResolveInfo) -> Finding:
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Finding:
-    finding_id: str = kwargs["identifier"]
-    group_name: str = kwargs["group_name"]
+    finding_id: str = kwargs["finding_id"]
     finding_loader: DataLoader = info.context.loaders.finding_new
-    finding: Finding = await finding_loader.load((group_name, finding_id))
+    finding: Finding = await finding_loader.load(finding_id)
     if finding.approval is None:
         return await _get_draft(finding, info)
 

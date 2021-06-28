@@ -194,7 +194,7 @@ async def get_comments_new(
     )
     historic_verification: Tuple[
         FindingVerification, ...
-    ] = await historic_verification_loader.load((group_name, finding_id))
+    ] = await historic_verification_loader.load(finding_id)
     verified = (
         verification
         for verification in historic_verification

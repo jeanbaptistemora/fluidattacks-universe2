@@ -7,7 +7,7 @@ type Query {
   events(projectName: String!): [Event]
 
   "Finding entity"
-  finding(identifier: String!, groupName: String): Finding
+  finding(identifier: String!): Finding
 
   "Get Forces execution"
   forcesExecution(

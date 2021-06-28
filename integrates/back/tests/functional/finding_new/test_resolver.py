@@ -153,7 +153,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
         },
     ]
     result: Dict[str, Any] = await get_result(
-        user=email, finding_id=finding_id, group_name=group_name
+        user=email, finding_id=finding_id
     )
     assert "errors" not in result
     assert result["data"]["finding"]["actor"] == actor
@@ -342,7 +342,7 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
         },
     ]
     result: Dict[str, Any] = await get_result(
-        user=email, finding_id=finding_id, group_name=group_name
+        user=email, finding_id=finding_id
     )
     assert "errors" in result
     assert result["data"]["finding"]["actor"] == actor

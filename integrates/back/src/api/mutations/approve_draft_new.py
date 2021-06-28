@@ -43,32 +43,29 @@ from redis_cluster.operations import (
     require_finding_access,
 )
 async def mutate(
-    _parent: None, info: GraphQLResolveInfo, finding_id: str, group_name: str
+    _parent: None, info: GraphQLResolveInfo, finding_id: str
 ) -> ApproveDraftPayload:
     try:
         user_info = await token_utils.get_jwt_content(info.context)
         user_email = user_info["user_email"]
         approval_date = await findings_domain.approve_draft_new(
-            info.context, finding_id, group_name, user_email
+            info.context, finding_id, user_email
         )
         redis_del_by_deps_soon(
             "approve_draft_new",
             finding_new_id=finding_id,
-            finding_new_group=group_name,
         )
         old_format_approval_date = datetime_utils.get_as_str(
             datetime.fromisoformat(approval_date)
         )
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Approved draft {finding_id} in {group_name} group "
+            f"Security: Approved draft {finding_id} in successfully"
             "successfully",
         )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Attempted to approve draft {finding_id} in "
-            f"{group_name} group",
+            info.context, f"Security: Attempted to approve draft {finding_id}"
         )
         raise
     return ApproveDraftPayload(

@@ -100,7 +100,6 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     finding_new=dict(
         args={
-            "group",
             "id",
         },
         attrs={

@@ -21,9 +21,8 @@ async def test_reject_draft(
     populate: bool, email: str, finding_id: str
 ) -> None:
     assert populate
-    group_name: str = "group1"
     result: Dict[str, Any] = await get_result(
-        user=email, finding_id=finding_id, group_name=group_name
+        user=email, finding_id=finding_id
     )
     assert "errors" not in result
     assert "success" in result["data"]["rejectDraft"]
@@ -43,9 +42,8 @@ async def test_reject_draft_fail(
     populate: bool, email: str, finding_id: str
 ) -> None:
     assert populate
-    group_name: str = "group1"
     result: Dict[str, Any] = await get_result(
-        user=email, finding_id=finding_id, group_name=group_name
+        user=email, finding_id=finding_id
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"

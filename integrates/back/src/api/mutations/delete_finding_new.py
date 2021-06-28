@@ -52,7 +52,6 @@ async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
     finding_id: str,
-    group_name: str,
     justification: str,
 ) -> SimplePayload:
     try:
@@ -60,18 +59,16 @@ async def mutate(
         user_info = await token_utils.get_jwt_content(info.context)
         user_email = user_info["user_email"]
         state_justification = FindingStateJustification[justification]
-        finding: Finding = await finding_loader.load((group_name, finding_id))
+        finding: Finding = await finding_loader.load(finding_id)
         await findings_domain.delete_finding_new(
             info.context,
             finding_id,
-            group_name,
             state_justification,
             user_email,
         )
         redis_del_by_deps_soon(
             "delete_finding_new",
             finding_new_id=finding_id,
-            finding_new_group=group_name,
         )
         schedule(
             findings_mail.send_mail_delete_finding(
@@ -84,14 +81,11 @@ async def mutate(
         )
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Deleted finding {finding_id} in {group_name} group "
-            "successfully",
+            f"Security: Deleted finding {finding_id} successfully ",
         )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Attempted to delete finding {finding_id} in "
-            f"{group_name} group",
+            info.context, f"Security: Attempted to delete finding {finding_id}"
         )
         raise
     return SimplePayload(success=True)

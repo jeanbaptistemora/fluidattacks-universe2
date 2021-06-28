@@ -240,9 +240,8 @@ async def _get_group(*, finding_id: str) -> str:
     return metadata["group_name"]
 
 
-async def _get_non_deleted_finding(
-    *, group_name: str, finding_id: str
-) -> Finding:
+async def _get_non_deleted_finding(*, finding_id: str) -> Finding:
+    group_name = await _get_group(finding_id=finding_id)
     finding = await _get_finding(group_name=group_name, finding_id=finding_id)
     if finding.state.status == FindingStateStatus.DELETED:
         raise FindingNotFound
@@ -250,11 +249,11 @@ async def _get_non_deleted_finding(
 
 
 async def _get_historic_verification(
-    *, group_name: str, finding_id: str
+    *, finding_id: str
 ) -> Tuple[FindingVerification, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["finding_historic_verification"],
-        values={"group_name": group_name, "id": finding_id},
+        values={"id": finding_id},
     )
     key_structure = TABLE.primary_key
     results = await operations.query(
@@ -268,12 +267,10 @@ async def _get_historic_verification(
     return tuple(map(format_verification, results))
 
 
-async def _get_historic_state(
-    *, group_name: str, finding_id: str
-) -> Tuple[FindingState, ...]:
+async def _get_historic_state(*, finding_id: str) -> Tuple[FindingState, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["finding_historic_state"],
-        values={"group_name": group_name, "id": finding_id},
+        values={"id": finding_id},
     )
     key_structure = TABLE.primary_key
     results = await operations.query(
@@ -292,13 +289,11 @@ class FindingNonDeletedNewLoader(DataLoader):
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, finding_ids: Tuple[Tuple[str, str], ...]
+        self, finding_ids: Tuple[str, ...]
     ) -> Tuple[Finding, ...]:
         return await collect(
-            _get_non_deleted_finding(
-                group_name=group_name, finding_id=finding_id
-            )
-            for group_name, finding_id in finding_ids
+            _get_non_deleted_finding(finding_id=finding_id)
+            for finding_id in finding_ids
         )
 
 
@@ -307,13 +302,11 @@ class FindingHistoricVerificationNewLoader(DataLoader):
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, finding_ids: Tuple[Tuple[str, str], ...]
+        self, finding_ids: Tuple[str, ...]
     ) -> Tuple[Tuple[FindingVerification], ...]:
         return await collect(
-            _get_historic_verification(
-                group_name=group_name, finding_id=finding_id
-            )
-            for group_name, finding_id in finding_ids
+            _get_historic_verification(finding_id=finding_id)
+            for finding_id in finding_ids
         )
 
 
@@ -322,9 +315,9 @@ class FindingHistoricStateNewLoader(DataLoader):
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, finding_ids: Tuple[Tuple[str, str], ...]
+        self, finding_ids: Tuple[str, ...]
     ) -> Tuple[Tuple[FindingState], ...]:
         return await collect(
-            _get_historic_state(group_name=group_name, finding_id=finding_id)
-            for group_name, finding_id in finding_ids
+            _get_historic_state(finding_id=finding_id)
+            for finding_id in finding_ids
         )

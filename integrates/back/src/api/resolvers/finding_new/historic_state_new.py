@@ -38,7 +38,6 @@ async def resolve(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="finding_new",
         attr="historic_state_new",
-        group=parent.group_name,
         id=parent.id,
     )
     return response
@@ -52,7 +51,7 @@ async def resolve_no_cache(
     )
     historic_state: Tuple[
         FindingState, ...
-    ] = await historic_state_loader.load((parent.group_name, parent.id))
+    ] = await historic_state_loader.load(parent.id)
     return [
         {
             "analyst": state.modified_by,
