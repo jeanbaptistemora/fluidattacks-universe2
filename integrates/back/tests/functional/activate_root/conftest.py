@@ -25,7 +25,6 @@ from typing import (
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
     test_email = "admin@gmail.com"
-    test_group = "group1"
     test_date = "2020-11-19T13:37:10+00:00"
     test_status = "INACTIVE"
     data: Dict[str, Any] = {
@@ -36,7 +35,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     reason="root creation",
                     status="UNKNOWN",
                 ),
-                group_name=test_group,
+                group_name="group1",
                 id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 metadata=GitRootMetadata(
                     branch="master",
@@ -57,7 +56,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
             ),
             IPRootItem(
-                group_name=test_group,
+                group_name="group2",
                 id="83cadbdc-23f3-463a-9421-f50f8d0cb1e5",
                 metadata=IPRootMetadata(
                     address="192.168.1.1", port="8080", type="IP"
@@ -71,7 +70,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
             ),
             URLRootItem(
-                group_name=test_group,
+                group_name="group2",
                 id="eee8b331-98b9-4e32-a3c7-ec22bd244ae8",
                 metadata=URLRootMetadata(
                     host="app.fluidattacks.com",

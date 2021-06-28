@@ -435,10 +435,9 @@ async def _has_open_vulns(root: GitRootItem) -> bool:
 
 
 async def activate_root(
-    *, context: Any, group_name: str, root_id: str, user_email: str
+    *, context: Any, group_name: str, root: RootItem, user_email: str
 ) -> None:
     new_status = "ACTIVE"
-    root = await get_root(group_name=group_name, root_id=root_id)
 
     if root.state.status != new_status:
         group_loader: DataLoader = context.group
@@ -453,7 +452,7 @@ async def activate_root(
 
             await roots_dal.update_root_state(
                 group_name=group_name,
-                root_id=root_id,
+                root_id=root.id,
                 state=GitRootState(
                     environment_urls=root.state.environment_urls,
                     environment=root.state.environment,
@@ -476,7 +475,7 @@ async def activate_root(
                     requester_email=user_email,
                 )
 
-        if isinstance(root, IPRootItem):
+        elif isinstance(root, IPRootItem):
             if not validations.is_ip_unique(
                 root.metadata.address, root.metadata.port, org_roots
             ):
@@ -484,7 +483,7 @@ async def activate_root(
 
             await roots_dal.update_root_state(
                 group_name=group_name,
-                root_id=root_id,
+                root_id=root.id,
                 state=IPRootState(
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
@@ -494,7 +493,7 @@ async def activate_root(
                 ),
             )
 
-        if isinstance(root, URLRootItem):
+        else:
             if not validations.is_url_unique(
                 root.metadata.host,
                 root.metadata.path,
@@ -506,7 +505,7 @@ async def activate_root(
 
             await roots_dal.update_root_state(
                 group_name=group_name,
-                root_id=root_id,
+                root_id=root.id,
                 state=URLRootState(
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
@@ -589,11 +588,12 @@ async def deactivate_root(
 async def update_root_state(
     context: Any, user_email: str, group_name: str, root_id: str, state: str
 ) -> None:
+    root = await get_root(group_name=group_name, root_id=root_id)
     if state == "ACTIVE":
         await activate_root(
             context=context,
             group_name=group_name,
-            root_id=root_id,
+            root=root,
             user_email=user_email,
         )
     else:

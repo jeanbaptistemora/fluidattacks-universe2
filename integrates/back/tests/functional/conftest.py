@@ -382,6 +382,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     ],
                     "groups": [
                         "group1",
+                        "group2",
                     ],
                     "policy": {},
                 },
@@ -398,6 +399,21 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                             "has_forces": True,
                             "requester": "unknown",
                             "type": "continuous",
+                        }
+                    ],
+                    "project_status": "ACTIVE",
+                },
+                {
+                    "project_name": "group2",
+                    "description": "-",
+                    "language": "en",
+                    "historic_configuration": [
+                        {
+                            "date": "2020-05-20 17:00:00",
+                            "has_drills": True,
+                            "has_forces": True,
+                            "requester": "unknown",
+                            "type": "oneshot",
                         }
                     ],
                     "project_status": "ACTIVE",
