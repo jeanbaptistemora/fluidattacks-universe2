@@ -10,12 +10,20 @@ from typing import (
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("create_event")
-async def test_admin(populate: bool) -> None:
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@gmail.com"],
+        ["analyst@gmail.com"],
+        ["closer@gmail.com"],
+        ["resourcer@gmail.com"],
+    ],
+)
+async def test_create_event(populate: bool, email: str) -> None:
     assert populate
-    admin: str = "admin@gmail.com"
     group_name: str = "group1"
     result: Dict[str, Any] = await get_result(
-        user=admin,
+        user=email,
         group=group_name,
     )
     assert "errors" not in result
@@ -24,27 +32,20 @@ async def test_admin(populate: bool) -> None:
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("create_event")
-async def test_analyst(populate: bool) -> None:
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["customer@gmail.com"],
+        ["customeradmin@gmail.com"],
+        ["executive@gmail.com"],
+    ],
+)
+async def test_create_event_fail(populate: bool, email: str) -> None:
     assert populate
-    analyst: str = "analyst@gmail.com"
     group_name: str = "group1"
     result: Dict[str, Any] = await get_result(
-        user=analyst,
+        user=email,
         group=group_name,
     )
-    assert "errors" not in result
-    assert result["data"]["createEvent"]
-
-
-@pytest.mark.asyncio
-@pytest.mark.resolver_test_group("create_event")
-async def test_closer(populate: bool) -> None:
-    assert populate
-    closer: str = "closer@gmail.com"
-    group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
-        user=closer,
-        group=group_name,
-    )
-    assert "errors" not in result
-    assert result["data"]["createEvent"]
+    assert "errors" in result
+    assert result["errors"][0]["message"] == "Access denied"
