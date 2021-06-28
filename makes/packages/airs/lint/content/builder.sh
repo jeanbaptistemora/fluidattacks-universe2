@@ -49,12 +49,6 @@ function main {
         && check_adoc_word_count "${path}" '800' '1600' \
         || return 1
     done \
-    && find_adoc "${envAirs}/content/pages/products/defends" | while read -r path; do
-      echo "[INFO] Verifying: ${path}" \
-      && check_adoc_lix "${path}" '60' \
-        && check_adoc_word_count "${path}" '400' '800' \
-        || return 1
-    done \
     && touch "${out}" \
     || return 1
 }
