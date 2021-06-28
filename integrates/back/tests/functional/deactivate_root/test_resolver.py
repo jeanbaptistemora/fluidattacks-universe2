@@ -10,11 +10,20 @@ from typing import (
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("deactivate_root")
 @pytest.mark.parametrize(
-    ("root_id",),
+    ("group_name", "root_id"),
     (
-        ("63298a73-9dff-46cf-b42d-9b2f01a56690",),
-        ("83cadbdc-23f3-463a-9421-f50f8d0cb1e5",),
-        ("eee8b331-98b9-4e32-a3c7-ec22bd244ae8",),
+        (
+            "group1",
+            "63298a73-9dff-46cf-b42d-9b2f01a56690",
+        ),
+        (
+            "group2",
+            "83cadbdc-23f3-463a-9421-f50f8d0cb1e5",
+        ),
+        (
+            "group2",
+            "eee8b331-98b9-4e32-a3c7-ec22bd244ae8",
+        ),
     ),
 )
 @pytest.mark.parametrize(
@@ -26,12 +35,16 @@ from typing import (
     ),
 )
 async def test_deactivate_root(
-    populate: bool, root_id: str, reason: str, new_root_id: Optional[str]
+    populate: bool,
+    group_name: str,
+    root_id: str,
+    reason: str,
+    new_root_id: Optional[str],
 ) -> None:
     assert populate
     result = await get_result(
         email="admin@gmail.com",
-        group_name="group1",
+        group_name=group_name,
         identifier=root_id,
         new_root_id=new_root_id,
         reason=reason,

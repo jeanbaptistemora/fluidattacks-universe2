@@ -521,11 +521,10 @@ async def deactivate_root(
     group_name: str,
     other: Optional[str],
     reason: str,
-    root_id: str,
+    root: RootItem,
     user_email: str,
 ) -> None:
     new_status = "INACTIVE"
-    root = await get_root(group_name=group_name, root_id=root_id)
     _other = other if reason == "OTHER" else None
 
     if root.state.status != new_status:
@@ -535,7 +534,7 @@ async def deactivate_root(
 
             await roots_dal.update_root_state(
                 group_name=group_name,
-                root_id=root_id,
+                root_id=root.id,
                 state=GitRootState(
                     environment_urls=root.state.environment_urls,
                     environment=root.state.environment,
@@ -558,10 +557,10 @@ async def deactivate_root(
                     requester_email=user_email,
                 )
 
-        if isinstance(root, IPRootItem):
+        elif isinstance(root, IPRootItem):
             await roots_dal.update_root_state(
                 group_name=group_name,
-                root_id=root_id,
+                root_id=root.id,
                 state=IPRootState(
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
@@ -571,10 +570,10 @@ async def deactivate_root(
                 ),
             )
 
-        if isinstance(root, URLRootItem):
+        else:
             await roots_dal.update_root_state(
                 group_name=group_name,
-                root_id=root_id,
+                root_id=root.id,
                 state=URLRootState(
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
@@ -601,7 +600,7 @@ async def update_root_state(
             group_name=group_name,
             other=None,
             reason="UNKNOWN",
-            root_id=root_id,
+            root=root,
             user_email=user_email,
         )
 
