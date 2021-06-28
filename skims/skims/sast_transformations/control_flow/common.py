@@ -187,14 +187,16 @@ def try_statement(
     *,
     _generic: GenericType,
     last_node: Optional[str] = None,
+    language: Optional[GraphShardMetadataLanguage] = None,
 ) -> None:
+    block_name = BLOCK_NAME.get(language) or "block"
     match = g.match_ast_group(
-        graph, n_id, "block", "catch_clause", "finally_clause"
+        graph, n_id, block_name, "catch_clause", "finally_clause"
     )
     # can be used by try_with_resources_statement
     last_node = last_node or n_id
 
-    if _block_id := match["block"]:
+    if _block_id := match[block_name]:
         block_id = _block_id.pop()
         graph.add_edge(last_node, block_id, **ALWAYS)
         propagate_next_id_from_parent(stack)

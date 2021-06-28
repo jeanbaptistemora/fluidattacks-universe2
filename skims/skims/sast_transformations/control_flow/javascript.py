@@ -12,8 +12,10 @@ from sast_transformations import (
     ALWAYS,
 )
 from sast_transformations.control_flow.common import (
+    catch_statement,
     loop_statement,
     step_by_step,
+    try_statement,
 )
 from sast_transformations.control_flow.types import (
     EdgeAttrs,
@@ -43,6 +45,20 @@ def _generic(
                 "program",
             },
             partial(step_by_step, _generic=_generic),
+        ),
+        (
+            {"catch_clause", "finally_clause"},
+            partial(catch_statement, _generic=_generic),
+        ),
+        (
+            {
+                "try_statement",
+            },
+            partial(
+                try_statement,
+                _generic=_generic,
+                language=GraphShardMetadataLanguage.JAVASCRIPT,
+            ),
         ),
         (
             {
