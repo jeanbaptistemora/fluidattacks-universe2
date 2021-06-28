@@ -17,6 +17,7 @@ from sagemaker_provisioner import (
 import tempfile
 from training.constants import (
     MODEL_HYPERPARAMETERS,
+    SAGEMAKER_METRIC_DEFINITIONS,
 )
 
 
@@ -33,12 +34,7 @@ def deploy_hyperparameter_tuning_job() -> None:
         estimator,
         max_jobs=250,
         max_parallel_jobs=8,
-        metric_definitions=[
-            {"Name": "precision", "Regex": "Precision: (.*?)%"},
-            {"Name": "recall", "Regex": "Recall: (.*?)%"},
-            {"Name": "fscore", "Regex": "F1-Score: (.*?)%"},
-            {"Name": "overfit", "Regex": "Overfit: (.*?)%"},
-        ],
+        metric_definitions=SAGEMAKER_METRIC_DEFINITIONS,
         objective_metric_name="fscore",
         objective_type="Maximize",
         hyperparameter_ranges=MODEL_HYPERPARAMETERS[model],

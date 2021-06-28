@@ -64,6 +64,13 @@ MODELS: Dict[str, ModelType] = {
     "randomforestclassifier": RandomForestClassifier,
 }
 
+SAGEMAKER_METRIC_DEFINITIONS: List[Dict[str, str]] = [
+    {"Name": "precision", "Regex": "Precision: (.*?)%"},
+    {"Name": "recall", "Regex": "Recall: (.*?)%"},
+    {"Name": "fscore", "Regex": "F1-Score: (.*?)%"},
+    {"Name": "overfit", "Regex": "Overfit: (.*?)%"},
+]
+
 # Hyperparameters
 MODEL_HYPERPARAMETERS = {
     "mlpclassifier": {

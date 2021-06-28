@@ -12,6 +12,9 @@ from sagemaker.sklearn.estimator import (
     SKLearn as SKLearnEstimator,
 )
 import time
+from training.constants import (
+    SAGEMAKER_METRIC_DEFINITIONS,
+)
 from typing import (
     Dict,
     List,
@@ -41,12 +44,7 @@ def get_estimator(
         output_path="s3://sorts/training-output",
         base_job_name=f"sorts-training-test-{model.lower()}",
         hyperparameters={"model": model, "envs": get_train_extra_envs()},
-        metric_definitions=[
-            {"Name": "precision", "Regex": "Precision: (.*?)%"},
-            {"Name": "recall", "Regex": "Recall: (.*?)%"},
-            {"Name": "fscore", "Regex": "F1-Score: (.*?)%"},
-            {"Name": "overfit", "Regex": "Overfit: (.*?)%"},
-        ],
+        metric_definitions=SAGEMAKER_METRIC_DEFINITIONS,
         debugger_hook_config=False,
     )
 
