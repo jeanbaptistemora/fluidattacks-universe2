@@ -61,9 +61,9 @@ over other alternatives are:
 
 ## Alternatives
 
-[Gitlab CI](/development/stack/gitlab-ci/):
+[Gitlab CI][GITLAB-CI]:
 We used it before implementing [Batch][BATCH].
-We migrated because [Gitlab CI](/development/stack/gitlab-ci/)
+We migrated because [Gitlab CI][GITLAB-CI]
 is not meant to run
 scheduled jobs
 that take many hours,
@@ -95,9 +95,15 @@ We use [Batch][BATCH] for:
 1. You can queue new jobs to [Batch][BATCH]
     by using the
     [compute-on-aws module](https://gitlab.com/fluidattacks/product/-/tree/89f27281c773baa55b70b8fd37cff8b802edf2e7/makes/utils/compute-on-aws).
+1. If a scheduled job
+    takes longer than six hours,
+    it generally should run in [Batch][BATCH],
+    otherwise it can use
+    the [Gitlab CI][GITLAB-CI].
 1. To learn how to test and apply infrastructure via [Terraform](/development/stack/terraform/),
     visit the
     [Terraform Guidelines](/development/stack/terraform#guidelines).
 
 [BATCH]: https://aws.amazon.com/batch/
 [EC2]: /development/stack/aws/ec2/
+[GITLAB-CI]: /development/stack/gitlab-ci/

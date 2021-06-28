@@ -85,10 +85,10 @@ We use the following [AWS][AWS] services:
     [Redshift](/development/stack/aws/redshift/).
 1. Batch processing:
     [Batch](/development/stack/aws/batch/).
+1. Machine learning:
+    [SageMaker](/development/stack/aws/sagemaker/).
 1. Elastic Container Service:
     [ECS](https://aws.amazon.com/ecs/).
-1. Machine learning:
-    [SageMaker](https://aws.amazon.com/sagemaker/).
 1. Simple queue service:
     [SQS](https://aws.amazon.com/sqs/).
 
