@@ -2,26 +2,23 @@ lib_ssl.analyze_protocol.sslv3_enabled:
   en: "supports SSL v3"
   es: "soporta SSL v3"
 F011_SSLV3.description:
-  en: >
-    The server allows the usage of a protocol version with well known
-    vulnerabilities.
-  es: >
-    El servidor permite utilizar una versión de un protocolo con
-    vulnerabilidades conocidas.
+  en: The server allows the usage of SSLv3 protocol.
+  es: El servidor permite utilizar el protocolo SSLv3.
 F011_SSLV3.impact:
-  en: Obtain sensitive information by exploiting the protocol vulnerability.
-  es: Obtener informacion sensible explotando la vulnerabilidad del protocolo.
+  en: >
+    Obtain sensitive information by performing a well known attack like POODLE.
+  es: Obtener informacion sensible haciendo un ataque como POODLE.
 F011_SSLV3.recommendation:
-  en: Update the affected protocol to a version with known fix.
-  es: Actualizar el protocolo afectado a una versión corregida.
+  en: Update SSLv3 protocol to a version with known fix.
+  es: Actualizar el protocolo SSLv3 a una version corregida.
 F011_SSLV3.requirements:
   en: R262. Verify third-party components.
   es: >
     R262. Los componentes provistos por terceros deben corresponder a versiones
     estables, probadas y actualizadas.
 F011_SSLV3.threat:
-  en: Unauthorized attacker from internet network exploiting a vulnerability.
-  es: Atacante sin autorización desde internet explotando la vulnerabilidad.
+  en: Unauthorized attacker from internet network performing POODLE attack.
+  es: Atacante sin autorización desde internet realizando un ataque POODLE.
 F011_SSLV3.title:
-  en: F011. Use of software with known vulnerabilities
-  es: F011. Uso de componentes con vulnerabilidades conocidas
+  en: F011. Use of software with known vulnerabilities - SSLv3
+  es: F011. Uso de componentes con vulnerabilidades conocidas - SSLv3
