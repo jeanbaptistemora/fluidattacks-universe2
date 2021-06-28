@@ -61,7 +61,6 @@ export const Search: React.FC<IProps> = ({ indices }: IProps): JSX.Element => {
         >
           <StyledSearchBox
             className={""}
-            hasFocus={hasFocus}
             onFocus={(): void => setFocus(true)}
           />
           <StyledSearchResult

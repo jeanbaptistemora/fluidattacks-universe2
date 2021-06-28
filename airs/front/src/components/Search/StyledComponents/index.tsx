@@ -33,8 +33,7 @@ const StyledSearchBox = styled(SearchBoxMain)`
   margin-bottom: 0;
 
   .SearchInput {
-    border: ${({ hasFocus }: { hasFocus: boolean }): string =>
-      hasFocus ? "none" : "none"};
+    border: none;
     border-color: #b0b0b0;
     border-width: 1px;
     color: ${({ theme }: IThemeProps): string => theme.foreground as string};
