@@ -14,6 +14,7 @@ function start_etl {
       --auth "${db_creds}" \
       --schema-name "${target_schema}" \
       --drop-schema \
+      --old-ver \
       < .singer \
     && observes-bin-service-job-last-success single-job \
       --auth "${db_creds}" \
