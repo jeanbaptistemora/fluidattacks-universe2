@@ -923,6 +923,41 @@ async def update_description_new(
     )
 
 
+async def update_severity_new(
+    context: Any,
+    finding_id: str,
+    severity: Union[Finding20Severity, Finding31Severity],
+) -> None:
+    finding_loader = context.loaders.finding_new
+    finding: Finding = await finding_loader.load(finding_id)
+    if isinstance(severity, Finding31Severity):
+        privileges = cvss.calculate_privileges(
+            float(severity.privileges_required),
+            float(severity.severity_scope),
+        )
+        privileges_required = Decimal(privileges).quantize(Decimal("0.01"))
+        modified_privileges = cvss.calculate_privileges(
+            float(severity.modified_privileges_required),
+            float(severity.modified_severity_scope),
+        )
+        modified_privileges_required = Decimal(modified_privileges).quantize(
+            Decimal("0.01")
+        )
+        updated_severity = severity._replace(
+            privileges_required=privileges_required,
+            modified_privileges_required=modified_privileges_required,
+        )
+    else:
+        updated_severity = severity
+
+    metadata = FindingMetadataToUpdate(severity=updated_severity)
+    await findings_model.update_medatada(
+        group_name=finding.group_name,
+        finding_id=finding.id,
+        metadata=metadata,
+    )
+
+
 async def validate_finding(
     finding_id: Union[str, int] = 0,
     finding: Optional[Dict[str, FindingType]] = None,
