@@ -212,27 +212,25 @@ async def test_get_max_open_severity() -> None:
 
 
 async def test_get_open_vulnerabilities() -> None:
-    project_name = "unittesting"
+    group_name = "unittesting"
     expected_output = 29
-    open_vulns = await get_open_vulnerabilities(
-        get_new_context(), project_name
-    )
+    open_vulns = await get_open_vulnerabilities(get_new_context(), group_name)
     assert open_vulns == expected_output
 
 
 async def test_get_closed_vulnerabilities() -> None:
-    project_name = "unittesting"
+    group_name = "unittesting"
     expected_output = 7
     closed_vulns = await get_closed_vulnerabilities(
-        get_new_context(), project_name
+        get_new_context(), group_name
     )
     assert closed_vulns == expected_output
 
 
 async def test_get_open_finding() -> None:
-    project_name = "unittesting"
+    group_name = "unittesting"
     expected_output = 5
-    open_findings = await get_open_finding(get_new_context(), project_name)
+    open_findings = await get_open_finding(get_new_context(), group_name)
     assert open_findings == expected_output
 
 
@@ -300,8 +298,8 @@ async def test_get_total_treatment() -> None:
 
 
 async def test_list_comments() -> None:
-    project_name = "unittesting"
-    test_data = await list_comments(project_name, "admin")
+    group_name = "unittesting"
+    test_data = await list_comments(group_name, "admin")
     expected_output = {
         "content": "Now we can post comments on projects",
         "parent": 0,
@@ -316,7 +314,7 @@ async def test_list_comments() -> None:
 
 @pytest.mark.changes_db
 async def test_add_comment() -> None:
-    project_name = "unittesting"
+    group_name = "unittesting"
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     comment_id = int(round(time.time() * 1000))
     request = await create_dummy_session("unittest@fluidattacks.com")
@@ -332,7 +330,7 @@ async def test_add_comment() -> None:
         "parent": "0",
     }
     assert await add_comment(
-        info, project_name, "unittest@fluidattacks.com", comment_data
+        info, group_name, "unittest@fluidattacks.com", comment_data
     )
 
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -340,7 +338,7 @@ async def test_add_comment() -> None:
     comment_data["modified"] = current_time
     comment_data["parent"] = str(comment_id)
     assert await add_comment(
-        info, project_name, "unittest@fluidattacks.com", comment_data
+        info, group_name, "unittest@fluidattacks.com", comment_data
     )
 
 
@@ -371,7 +369,7 @@ async def test_get_alive_group_names() -> None:
 
 
 async def test_list_events() -> None:
-    project_name = "unittesting"
+    group_name = "unittesting"
     expected_output = [
         "540462628",
         "538745942",
@@ -379,27 +377,27 @@ async def test_list_events() -> None:
         "484763304",
         "418900971",
     ]
-    assert expected_output == await list_group_events(project_name)
+    assert expected_output == await list_group_events(group_name)
 
 
 async def test_get_managers() -> None:
-    project_name = "unittesting"
+    group_name = "unittesting"
     expected_output = [
         "integratesuser@gmail.com",
         "continuoushacking@gmail.com",
         "continuoushack2@gmail.com",
     ]
-    assert expected_output == await get_managers(project_name)
+    assert expected_output == await get_managers(group_name)
 
 
 async def test_get_description() -> None:
-    project_name = "unittesting"
+    group_name = "unittesting"
     expected_output = "Integrates unit test project"
-    assert expected_output == await get_description(project_name)
+    assert expected_output == await get_description(group_name)
 
 
 async def test_get_users() -> None:
-    project_name = "unittesting"
+    group_name = "unittesting"
     expected_output = [
         "integratescloser@fluidattacks.com",
         "integratesserviceforces@gmail.com",
@@ -417,7 +415,7 @@ async def test_get_users() -> None:
         "continuoushack2@gmail.com",
         "integratesreviewer@fluidattacks.com",
     ]
-    assert expected_output == await get_group_users(project_name)
+    assert expected_output == await get_group_users(group_name)
 
 
 async def test_get_closers() -> None:
@@ -428,25 +426,25 @@ async def test_get_closers() -> None:
 @freeze_time("2020-04-12")
 async def test_get_mean_remediate_severity() -> None:
     context = get_new_context()
-    project_name = "unittesting"
+    group_name = "unittesting"
     min_severity = 0.1
     max_severity = 3.9
     mean_remediate_low_severity = await get_mean_remediate_severity(
-        context, project_name, min_severity, max_severity
+        context, group_name, min_severity, max_severity
     )
     expected_output = 181.0
     assert mean_remediate_low_severity == expected_output
     min_severity = 4
     max_severity = 6.9
     mean_remediate_medium_severity = await get_mean_remediate_severity(
-        context, project_name, min_severity, max_severity
+        context, group_name, min_severity, max_severity
     )
     expected_output = 236
     assert mean_remediate_medium_severity == expected_output
 
 
 @pytest.mark.changes_db
-async def test_create_project_not_user_admin() -> None:
+async def test_create_group_not_user_admin() -> None:
     await names_domain.create("NEWAVAILABLENAME", "group")
     user_email = "integratesuser@gmail.com"
     user_role = "customeradmin"
@@ -455,7 +453,7 @@ async def test_create_project_not_user_admin() -> None:
         user_role=user_role,
         group_name="NEWAVAILABLENAME",
         organization="okada",
-        description="This is a new project",
+        description="This is a new group",
         has_machine=True,
         has_squad=True,
         has_forces=True,
@@ -470,10 +468,10 @@ async def test_create_project_not_user_admin() -> None:
     [
         "group_name",
         "subscription",
-        "has_skims",
-        "has_drills",
+        "has_machine",
+        "has_squad",
         "has_forces",
-        "has_integrates",
+        "has_asm",
         "expected",
     ],
     [
@@ -486,10 +484,10 @@ async def test_create_project_not_user_admin() -> None:
 async def test_edit(
     group_name: str,
     subscription: str,
-    has_skims: bool,
-    has_drills: bool,
+    has_machine: bool,
+    has_squad: bool,
     has_forces: bool,
-    has_integrates: bool,
+    has_asm: bool,
     expected: bool,
 ) -> None:
     assert expected == await edit(
@@ -497,19 +495,19 @@ async def test_edit(
         comments="",
         group_name=group_name,
         subscription=subscription,
-        has_skims=has_skims,
-        has_drills=has_drills,
+        has_machine=has_machine,
+        has_squad=has_squad,
         has_forces=has_forces,
-        has_integrates=has_integrates,
+        has_asm=has_asm,
         reason="",
         requester_email="test@test.test",
     )
 
 
 async def test_get_pending_verification_findings() -> None:
-    project_name = "unittesting"
+    group_name = "unittesting"
     context = get_new_context()
-    findings = await get_pending_verification_findings(context, project_name)
+    findings = await get_pending_verification_findings(context, group_name)
     assert len(findings) >= 1
     assert "finding" in findings[0]
     assert "finding_id" in findings[0]
@@ -518,13 +516,13 @@ async def test_get_pending_verification_findings() -> None:
 
 @freeze_time("2018-12-27")
 async def test_get_total_comments_date() -> None:
-    project_name = "unittesting"
+    group_name = "unittesting"
     last_day = datetime_utils.get_now_minus_delta(hours=24)
     context = get_new_context()
     group_findings_loader = context.group_findings
-    findings = await group_findings_loader.load(project_name)
+    findings = await group_findings_loader.load(group_name)
     total_comments = await get_total_comments_date(
-        findings, project_name, last_day
+        findings, group_name, last_day
     )
     assert total_comments == 5
 

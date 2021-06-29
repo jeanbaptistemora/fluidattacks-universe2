@@ -633,10 +633,10 @@ async def edit(
     context: Any,
     comments: str,
     group_name: str,
-    has_drills: bool,
+    has_squad: bool,
     has_forces: bool,
-    has_integrates: bool,
-    has_skims: bool,
+    has_asm: bool,
+    has_machine: bool,
     reason: str,
     requester_email: str,
     subscription: str,
@@ -647,10 +647,10 @@ async def edit(
     validate_string_length_between(comments, 0, 250)
     validate_group_services_config(
         subscription == "continuous",
-        has_skims,
-        has_drills,
+        has_machine,
+        has_squad,
         has_forces,
-        has_integrates,
+        has_asm,
     )
 
     item = await groups_dal.get_attributes(
@@ -670,8 +670,10 @@ async def edit(
                     {
                         "comments": comments,
                         "date": datetime_utils.get_now_as_str(),
-                        "has_skims": has_skims,
-                        "has_drills": has_drills,
+                        "has_skims": has_machine,
+                        "has_machine": has_machine,
+                        "has_drills": has_squad,
+                        "has_squad": has_squad,
                         "has_forces": has_forces,
                         "reason": reason,
                         "requester": requester_email,
@@ -682,7 +684,7 @@ async def edit(
             group_name=group_name,
         )
 
-    if not has_integrates:
+    if not has_asm:
         group_loader = context.group
         group = await group_loader.load(group_name)
         org_id = group["organization"]
@@ -690,7 +692,7 @@ async def edit(
             context, group_name, requester_email, org_id
         )
 
-    if success and has_integrates:
+    if success and has_asm:
         await notifications_domain.edit_group(
             comments=comments,
             group_name=group_name,
@@ -720,15 +722,15 @@ async def edit(
                 else False
             ),
             had_integrates=True,
-            has_skims=has_skims,
-            has_drills=has_drills,
+            has_skims=has_machine,
+            has_drills=has_squad,
             has_forces=has_forces,
-            has_integrates=has_integrates,
+            has_integrates=has_asm,
             reason=reason,
             requester_email=requester_email,
             subscription=subscription,
         )
-    elif success and not has_integrates:
+    elif success and not has_asm:
         await notifications_domain.delete_group(
             deletion_date=datetime_utils.get_now_as_str(),
             group_name=group_name,

@@ -17,6 +17,9 @@ from dynamodb import (
 )
 import logging
 import logging.config
+from newutils.utils import (
+    duplicate_dict_keys,
+)
 from s3 import (
     operations as s3_ops,
 )
@@ -97,6 +100,11 @@ async def get_finding(finding_id: str) -> Dict[str, FindingType]:
     response_items = await dynamodb_ops.query(TABLE_NAME, query_attrs)
     if response_items:
         response = response_items[0]
+        # Compatibility with old API
+        if response["project_name"] is not None:
+            response = duplicate_dict_keys(
+                response, "group_name", "project_name"
+            )
     return response
 
 

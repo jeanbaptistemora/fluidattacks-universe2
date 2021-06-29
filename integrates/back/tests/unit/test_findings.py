@@ -120,6 +120,7 @@ async def test_format_data() -> None:
         "privilegesRequired",
         "interested",
         "projectName",
+        "groupName",
         "finding",
         "confidentialityImpact",
         "integrityRequirement",
