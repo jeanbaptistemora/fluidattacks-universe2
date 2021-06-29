@@ -67,6 +67,7 @@ from api.mutations import (
     update_evidence,
     update_evidence_description,
     update_finding_description,
+    update_finding_description_new,
     update_forces_access_token,
     update_git_environments,
     update_git_root,
@@ -175,7 +176,6 @@ MUTATION.set_field("addTags", add_group_tags.mutate)
 MUTATION.set_field("removeTag", remove_group_tag.mutate)
 MUTATION.set_field("removeEvidence", remove_finding_evidence.mutate)
 MUTATION.set_field("addFindingConsult", add_finding_consult.mutate)
-MUTATION.set_field("updateDescription", update_finding_description.mutate)
 MUTATION.set_field("unsubscribeFromGroup", unsubscribe_from_group.mutate)
 MUTATION.set_field("deleteTags", delete_vulnerability_tags.mutate)
 MUTATION.set_field(
@@ -201,9 +201,13 @@ if FI_API_STATUS == "migration":
     MUTATION.set_field("deleteFinding", delete_finding_new.mutate)
     MUTATION.set_field("rejectDraft", reject_draft_new.mutate)
     MUTATION.set_field("submitDraft", submit_draft_new.mutate)
+    MUTATION.set_field(
+        "updateDescription", update_finding_description_new.mutate
+    )
 else:
     MUTATION.set_field("approveDraft", approve_draft.mutate)
     MUTATION.set_field("createDraft", create_draft.mutate)
     MUTATION.set_field("deleteFinding", delete_finding.mutate)
     MUTATION.set_field("rejectDraft", reject_draft.mutate)
     MUTATION.set_field("submitDraft", submit_draft.mutate)
+    MUTATION.set_field("updateDescription", update_finding_description.mutate)
