@@ -45,6 +45,7 @@ from db_model.findings.types import (
     Finding,
     Finding20Severity,
     Finding31Severity,
+    FindingDescriptionToUpdate,
     FindingEvidence,
     FindingState,
 )
@@ -880,6 +881,26 @@ async def update_description(
     if re.match(r"^F[0-9]{3}\. .+", str(updated_values.get("finding", ""))):
         return await findings_dal.update(finding_id, updated_values)
     raise InvalidDraftTitle()
+
+
+async def update_description_new(
+    context: Any, finding_id: str, description: FindingDescriptionToUpdate
+) -> None:
+    validations.validate_fields(
+        list(filter(None, description._asdict().values()))
+    )
+    if description.title is not None and not re.match(
+        r"^F[0-9]{3}\. .+", description.title
+    ):
+        raise InvalidDraftTitle()
+
+    finding_loader = context.loaders.finding_new
+    finding: Finding = await finding_loader.load(finding_id)
+    await findings_model.update_description(
+        group_name=finding.group_name,
+        finding_id=finding.id,
+        description=description,
+    )
 
 
 async def validate_finding(
