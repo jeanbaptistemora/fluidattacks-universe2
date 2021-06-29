@@ -14,6 +14,9 @@ from dynamodb import (
 )
 import logging
 import logging.config
+from newutils.utils import (
+    duplicate_dict_keys,
+)
 from settings import (
     LOGGING,
 )
@@ -86,6 +89,13 @@ async def get_alive_groups(data_attr: str = "") -> List[GroupType]:
         "project_status"
     ).eq("SUSPENDED")
     groups: List[GroupType] = await get_all(filtering_exp, data_attr)
+    # Compatibility with old API
+    if "project_name" in groups[0]:
+        groups_with_gn: List[GroupType] = [
+            duplicate_dict_keys(group, "group_name", "project_name")
+            for group in groups
+        ]
+        return groups_with_gn
     return groups
 
 

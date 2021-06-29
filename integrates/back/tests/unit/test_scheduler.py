@@ -30,6 +30,9 @@ from newutils import (
     datetime as datetime_utils,
     git as git_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from organizations.domain import (
     get_id_by_name,
     get_pending_deletion_date_str,
@@ -122,9 +125,9 @@ async def test_get_by_time_range() -> None:
 
 async def test_create_register_by_week() -> None:
     context = get_new_context()
-    project_name = "unittesting"
+    group_name = "unittesting"
     test_data = await update_indicators.create_register_by_week(
-        context, project_name
+        context, group_name
     )
     assert isinstance(test_data, list)
     for item in test_data:
@@ -307,9 +310,11 @@ async def test_delete_obsolete_groups() -> None:
     expected_groups = [
         {
             "project_status": "SUSPENDED",
+            "group_name": "setpendingdeletion",
             "project_name": "setpendingdeletion",
         },
         {
+            "group_name": "deletegroup",
             "project_name": "deletegroup",
             "project_status": "ACTIVE",
             "pending_deletion_date": "2020-12-22 14:36:29",
@@ -326,12 +331,12 @@ async def test_delete_obsolete_groups() -> None:
     setpendingdeletion = [
         group
         for group in groups
-        if group["project_name"] == "setpendingdeletion"
+        if resolve_kwargs(group) == "setpendingdeletion"
     ][0]
     assert setpendingdeletion["project_status"] == "SUSPENDED"
     assert "pending_deletion_date" in setpendingdeletion
     deletegroup = [
-        group for group in groups if group["project_name"] == "deletegroup"
+        group for group in groups if resolve_kwargs(group) == "deletegroup"
     ][0]
     assert deletegroup["project_status"] == "DELETED"
 
