@@ -187,6 +187,37 @@ class OpenRightInterval(
         return self._inner_value["upper"]
 
 
+_DataType = TypeVar("_DataType")
+Interval = Union[
+    ClosedInterval[_DataType],
+    OpenInterval[_DataType],
+    OpenLeftInterval[_DataType],
+    OpenRightInterval[_DataType],
+]
+
+
+@final
+class ProgressInterval(
+    BaseContainer,
+    SupportsKind1["ProgressInterval", _DataType],
+):
+    def __init__(self, interval: Interval[_DataType], completed: bool) -> None:
+        super().__init__(
+            {
+                "interval": interval,
+                "completed": completed,
+            }
+        )
+
+    @property
+    def interval(self) -> Interval[_DataType]:
+        return self._inner_value["interval"]
+
+    @property
+    def completed(self) -> bool:
+        return self._inner_value["completed"]
+
+
 IntervalPoint = Union[_Point, MIN, MAX]
 
 
@@ -235,9 +266,13 @@ class FragmentedInterval(
         )
 
     @property
-    def empty_intervals(self) -> Tuple[OpenLeftInterval[_Point], ...]:
+    def progress_intervals(
+        self,
+    ) -> Tuple[ProgressInterval[_Point], ...]:
         intervals = zip(self.intervals, self.emptiness)
-        return tuple(item[0] for item in filter(lambda x: x[1], intervals))
+        return tuple(
+            ProgressInterval(item, not empty) for item, empty in intervals
+        )
 
     def to_json(self) -> JSON:
         return {
