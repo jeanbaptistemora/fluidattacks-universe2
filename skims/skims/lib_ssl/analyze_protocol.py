@@ -96,6 +96,7 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         ctx.target.host,
         ctx.target.port,
         ssl_settings,
+        intention="check if pfs is enabled",
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
         if connection is not None:
@@ -125,6 +126,7 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         ctx.target.host,
         ctx.target.port,
         ssl_settings,
+        intention="check if sslv3 enabled",
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
         if connection is not None:

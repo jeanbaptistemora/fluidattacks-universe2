@@ -43,6 +43,7 @@ def connect(
     hostname: str,
     port: int,
     ssl_settings: SSLSettings,
+    intention: str = "establish ssl connection",
     expected_exceptions: Tuple[tlslite.errors.BaseTLSException, ...] = (),
 ) -> Generator[Optional[tlslite.TLSConnection], None, None]:
 
@@ -63,18 +64,19 @@ def connect(
             connection.handshakeClientCert(settings=settings)
             yield connection
     except tlslite.errors.BaseTLSException as error:
-        if not any(
-            isinstance(error, exception) for exception in expected_exceptions
-        ):
+        if any(isinstance(error, excep) for excep in expected_exceptions):
+            yield connection
+        else:
             log_blocking(
-                "warning",
-                "%s %s occured with %s:%d",
+                "error",
+                "%s %s occured with %s:%d while %s",
                 type(error).__name__,
                 error,
                 hostname,
                 port,
+                intention,
             )
-        yield connection
+            yield None
     finally:
         if sock is not None:
             connection.close()
