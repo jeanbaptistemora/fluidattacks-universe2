@@ -355,7 +355,11 @@ def group_specific(
     lines = []
     vuln_keys = ["historic_state", "vuln_type", "UUID", "finding_id"]
     for key, group in itertools.groupby(
-        sorted_specific, key=lambda x: x["where"]  # type: ignore
+        sorted_specific,
+        key=lambda x: (
+            x["where"],  # type: ignore
+            x["commit_hash"],  # type: ignore
+        ),
     ):
         vuln_info = list(group)
         if vuln_type == "inputs":
@@ -363,7 +367,7 @@ def group_specific(
                 cast(Dict[str, str], i).get("specific", "") for i in vuln_info
             ]
             dictlines: Dict[str, FindingType] = {
-                "where": key,
+                "where": key[0],
                 "specific": ",".join(cast(List[str], specific_grouped)),
             }
         else:
@@ -372,8 +376,11 @@ def group_specific(
             ]
             specific_grouped.sort()
             dictlines = {
-                "where": key,
+                "where": key[0],
                 "specific": get_ranges(cast(List[int], specific_grouped)),
+                "commit_hash": str(
+                    cast(Dict[str, FindingType], vuln_info[0])["commit_hash"]
+                )[0:7],
             }
         if vuln_info and all(
             key_vuln in vuln_info[0] for key_vuln in vuln_keys

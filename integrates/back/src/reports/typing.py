@@ -138,6 +138,7 @@ class GroupVulnsReportHeader(GenericHeader):
     REPORT_CONFIDENCE: ColumnConfig = ColumnConfig(
         label="Report Confidence", width=25
     )
+    COMMIT_HASH: ColumnConfig = ColumnConfig(label="Commit Hash", width=25)
 
 
 # PDF report types definitions
@@ -163,6 +164,7 @@ class PDFWordlistEn(Wordlist):
     FINDING_SECTION_TITLE: WordlistItem = WordlistItem(
         "finding_section_title", "Resume"
     )
+    COMMIT_HASH: WordlistItem = WordlistItem("commit_hash", "Commit Hash")
     CONTENT_TITLE: WordlistItem = WordlistItem("content_title", "Content")
     CONTENT_LIST: WordlistItem = WordlistItem(
         "content_list",

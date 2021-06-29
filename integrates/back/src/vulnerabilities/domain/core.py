@@ -362,6 +362,7 @@ async def get_open_vuln_by_type(
                     {
                         "where": vuln.get("where"),
                         "specific": vuln.get("specific"),
+                        "commit_hash": vuln.get("commit_hash"),
                     }
                 )
             else:

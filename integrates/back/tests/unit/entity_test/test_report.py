@@ -4,8 +4,15 @@ from api.schema import (
 from ariadne import (
     graphql,
 )
+import asyncio
 from back.tests.unit.utils import (
     create_dummy_session,
+)
+from batch.dal import (
+    get_actions,
+)
+from batch.types import (
+    BatchProcessing,
 )
 from context import (
     STARTDIR,
@@ -15,8 +22,36 @@ from dataloaders import (
 )
 import os
 import pytest
+import subprocess
+from typing import (
+    List,
+)
 
 pytestmark = pytest.mark.asyncio
+
+
+async def _get_batch_job(*, entity: str) -> BatchProcessing:
+    all_actions = await get_actions()
+    return next((action for action in all_actions if action.entity == entity))
+
+
+async def _run(*, entity: str, additional_info: str) -> int:
+    batch_action = await _get_batch_job(entity=entity)
+    cmd_args: List[str] = [
+        "test",
+        "report",
+        entity,
+        batch_action.subject,
+        batch_action.time,
+        additional_info,
+    ]
+    process: asyncio.subprocess.Process = await asyncio.create_subprocess_exec(
+        os.environ["BATCH_BIN"],
+        *cmd_args,
+        stdin=subprocess.DEVNULL,
+    )
+
+    return await process.wait()
 
 
 async def test_finding_report() -> None:
@@ -59,6 +94,13 @@ async def test_finding_report() -> None:
     assert all(
         "url" in result["data"]["report"] and result["data"]["report"]["url"]
         for result in [result_xls, result_data, result_pdf]
+    )
+    assert (
+        await _run(
+            entity="oneshottest",
+            additional_info="DATA",
+        )
+        == 0
     )
 
 

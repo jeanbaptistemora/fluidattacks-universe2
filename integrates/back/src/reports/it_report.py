@@ -181,7 +181,7 @@ class ITReport:
 
     @classmethod
     def get_row_range(cls, row: int) -> List[str]:
-        return [f"A{row}", f"AW{row}"]
+        return [f"A{row}", f"AX{row}"]
 
     def parse_template(self) -> None:
         self.current_sheet.range(*self.get_row_range(self.row)).value = [
@@ -380,8 +380,8 @@ class ITReport:
             specific = str(int(specific))
 
         commit = EMPTY
-        if "commitHash" in row:
-            commit = row.get("commitHash", "")
+        if "commit_hash" in row:
+            commit = row["commit_hash"][0:7]
 
         tags = EMPTY
         if "tag" in row:
