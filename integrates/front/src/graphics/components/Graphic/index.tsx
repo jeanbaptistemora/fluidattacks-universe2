@@ -6,6 +6,7 @@ import {
   faDownload,
   faExpandArrowsAlt,
   faHourglassHalf,
+  faInfoCircle,
   faSyncAlt,
   faTimes,
   faWrench,
@@ -103,6 +104,7 @@ export const Graphic: React.FC<IGraphicProps> = (
     documentType,
     entity,
     footer,
+    infoLink,
     reportMode,
     subject,
     title,
@@ -224,6 +226,18 @@ export const Graphic: React.FC<IGraphicProps> = (
             <div className={styles.titleBar}>
               {title}
               <ButtonToolbar className={"f5"}>
+                {!_.isUndefined(infoLink) && (
+                  <GraphicButton>
+                    <a
+                      className={"g-a"}
+                      href={infoLink}
+                      rel={"noopener noreferrer"}
+                      target={"_blank"}
+                    >
+                      <FontAwesomeIcon icon={faInfoCircle} />
+                    </a>
+                  </GraphicButton>
+                )}
                 <GraphicButton>
                   <a
                     className={"g-a"}
@@ -304,6 +318,18 @@ export const Graphic: React.FC<IGraphicProps> = (
                             </GraphicButton>
                           </React.Fragment>
                         ) : undefined}
+                        {!_.isUndefined(infoLink) && (
+                          <GraphicButton>
+                            <a
+                              className={"g-a"}
+                              href={infoLink}
+                              rel={"noopener noreferrer"}
+                              target={"_blank"}
+                            >
+                              <FontAwesomeIcon icon={faInfoCircle} />
+                            </a>
+                          </GraphicButton>
+                        )}
                         <GraphicButton>
                           <a
                             className={"g-a"}

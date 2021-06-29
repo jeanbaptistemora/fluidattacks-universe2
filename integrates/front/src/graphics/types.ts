@@ -7,6 +7,7 @@ export interface IGraphicProps {
   generatorName: string;
   generatorType: string;
   className: string;
+  infoLink?: string;
   reportMode: boolean;
   subject: string;
   title: string;

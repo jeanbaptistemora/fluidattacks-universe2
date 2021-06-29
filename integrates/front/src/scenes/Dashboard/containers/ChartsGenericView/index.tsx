@@ -24,6 +24,8 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
 ): JSX.Element => {
   const { bgChange, entity, reportMode, subject } = props;
 
+  const graphInfoLink = "https://docs.fluidattacks.com/machine/web/analytics/";
+
   const [isForcesDescriptionExpanded, setIsForcesDescriptionExpanded] =
     useState(reportMode);
 
@@ -56,34 +58,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   documentName={"riskOverTime"}
                   documentType={"stackedBarChart"}
                   entity={entity}
-                  footer={
-                    <React.Fragment>
-                      <p>
-                        {translate.t(
-                          "analytics.stackedBarChart.riskOverTime.footer.intro"
-                        )}
-                      </p>
-                      <ul>
-                        <li>
-                          {translate.t(
-                            "analytics.stackedBarChart.riskOverTime.footer.opened"
-                          )}
-                        </li>
-                        <li>
-                          {translate.t(
-                            "analytics.stackedBarChart.riskOverTime.footer.accepted"
-                          )}
-                        </li>
-                        <li>
-                          {translate.t(
-                            "analytics.stackedBarChart.riskOverTime.footer.closed"
-                          )}
-                        </li>
-                      </ul>
-                    </React.Fragment>
-                  }
                   generatorName={"generic"}
                   generatorType={"c3"}
+                  infoLink={`${graphInfoLink}common#vulnerabilities-over-time`}
                   reportMode={reportMode}
                   subject={subject}
                   title={translate.t(
@@ -100,13 +77,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   documentName={"status"}
                   documentType={"pieChart"}
                   entity={entity}
-                  footer={
-                    <p>
-                      {translate.t("analytics.pieChart.status.footer.intro")}
-                    </p>
-                  }
                   generatorName={"generic"}
                   generatorType={"c3"}
+                  infoLink={`${graphInfoLink}common#vulnerabilities-status`}
                   reportMode={reportMode}
                   subject={subject}
                   title={translate.t("analytics.pieChart.status.title")}
@@ -119,39 +92,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   documentName={"treatment"}
                   documentType={"pieChart"}
                   entity={entity}
-                  footer={
-                    <React.Fragment>
-                      <p>
-                        {translate.t(
-                          "analytics.pieChart.treatment.footer.intro"
-                        )}
-                      </p>
-                      <ul>
-                        <li>
-                          {translate.t(
-                            "analytics.pieChart.treatment.footer.notDefined"
-                          )}
-                        </li>
-                        <li>
-                          {translate.t(
-                            "analytics.pieChart.treatment.footer.inProgress"
-                          )}
-                        </li>
-                        <li>
-                          {translate.t(
-                            "analytics.pieChart.treatment.footer.accepted"
-                          )}
-                        </li>
-                        <li>
-                          {translate.t(
-                            "analytics.pieChart.treatment.footer.eternally"
-                          )}
-                        </li>
-                      </ul>
-                    </React.Fragment>
-                  }
                   generatorName={"generic"}
                   generatorType={"c3"}
+                  infoLink={`${graphInfoLink}common#vulnerabilities-treatment`}
                   reportMode={reportMode}
                   subject={subject}
                   title={translate.t("analytics.pieChart.treatment.title")}
@@ -169,11 +112,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 documentName={"totalFindings"}
                 documentType={"textBox"}
                 entity={entity}
-                footer={
-                  <p>{translate.t("analytics.textBox.totalFindings.footer")}</p>
-                }
                 generatorName={"raw"}
                 generatorType={"textBox"}
+                infoLink={`${graphInfoLink}organization#total-findings`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t("analytics.textBox.totalFindings.title")}
@@ -186,15 +127,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 documentName={"totalVulnerabilities"}
                 documentType={"textBox"}
                 entity={entity}
-                footer={
-                  <p>
-                    {translate.t(
-                      "analytics.textBox.totalVulnerabilities.footer"
-                    )}
-                  </p>
-                }
                 generatorName={"raw"}
                 generatorType={"textBox"}
+                infoLink={`${graphInfoLink}common#total-vulnerabilities`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t(
@@ -209,15 +144,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 documentName={"vulnsWithUndefinedTreatment"}
                 documentType={"textBox"}
                 entity={entity}
-                footer={
-                  <p>
-                    {translate.t(
-                      "analytics.textBox.vulnsWithUndefinedTreatment.footer"
-                    )}
-                  </p>
-                }
                 generatorName={"raw"}
                 generatorType={"textBox"}
+                infoLink={`${graphInfoLink}group#vulnerabilities-with-not-defined-treatment`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t(
@@ -237,15 +166,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   documentName={"findingsBeingReattacked"}
                   documentType={"textBox"}
                   entity={entity}
-                  footer={
-                    <p>
-                      {translate.t(
-                        "analytics.textBox.findingsBeingReattacked.footer"
-                      )}
-                    </p>
-                  }
                   generatorName={"raw"}
                   generatorType={"textBox"}
+                  infoLink={`${graphInfoLink}common#findings-being-re-attacked`}
                   reportMode={reportMode}
                   subject={subject}
                   title={translate.t(
@@ -260,15 +183,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   documentName={"daysSinceLastRemediation"}
                   documentType={"textBox"}
                   entity={entity}
-                  footer={
-                    <p>
-                      {translate.t(
-                        "analytics.textBox.daysSinceLastRemediation.footer"
-                      )}
-                    </p>
-                  }
                   generatorName={"raw"}
                   generatorType={"textBox"}
+                  infoLink={`${graphInfoLink}common#days-since-last-remediation`}
                   reportMode={reportMode}
                   subject={subject}
                   title={translate.t(
@@ -285,15 +202,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   documentName={"meanTimeToRemediate"}
                   documentType={"textBox"}
                   entity={entity}
-                  footer={
-                    <p>
-                      {translate.t(
-                        "analytics.textBox.meanTimeToRemediate.footer"
-                      )}
-                    </p>
-                  }
                   generatorName={"raw"}
                   generatorType={"textBox"}
+                  infoLink={`${graphInfoLink}common#mean-time-to-remediate-all-vulnerabilities`}
                   reportMode={reportMode}
                   subject={subject}
                   title={translate.t(
@@ -308,15 +219,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   documentName={"meanTimeToRemediateNonTreated"}
                   documentType={"textBox"}
                   entity={entity}
-                  footer={
-                    <p>
-                      {translate.t(
-                        "analytics.textBox.meanTimeToRemediateNonTreated.footer"
-                      )}
-                    </p>
-                  }
                   generatorName={"raw"}
                   generatorType={"textBox"}
+                  infoLink={`${graphInfoLink}common#mean-time-to-remediate-non-treated-vulnerabilities`}
                   reportMode={reportMode}
                   subject={subject}
                   title={translate.t(
@@ -333,11 +238,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   documentName={"severity"}
                   documentType={"gauge"}
                   entity={entity}
-                  footer={
-                    <p>{translate.t("analytics.gauge.severity.footer")}</p>
-                  }
                   generatorName={"generic"}
                   generatorType={"c3"}
+                  infoLink={`${graphInfoLink}common#severity`}
                   reportMode={reportMode}
                   subject={subject}
                   title={translate.t("analytics.gauge.severity.title")}
@@ -350,34 +253,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   documentName={"rootResources"}
                   documentType={"pieChart"}
                   entity={entity}
-                  footer={
-                    <React.Fragment>
-                      <p>
-                        {translate.t(
-                          "analytics.pieChart.resources.footer.intro"
-                        )}
-                      </p>
-                      <ul>
-                        <li>
-                          {translate.t(
-                            "analytics.pieChart.resources.footer.environments"
-                          )}
-                        </li>
-                        <li>
-                          {translate.t(
-                            "analytics.pieChart.resources.footer.repositories"
-                          )}
-                        </li>
-                      </ul>
-                      <p>
-                        {translate.t(
-                          "analytics.pieChart.resources.footer.final"
-                        )}
-                      </p>
-                    </React.Fragment>
-                  }
                   generatorName={"generic"}
                   generatorType={"c3"}
+                  infoLink={`${graphInfoLink}common#active-resources-distribution`}
                   reportMode={reportMode}
                   subject={subject}
                   title={translate.t("analytics.pieChart.resources.title")}
@@ -395,27 +273,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 documentName={"whereToFindings"}
                 documentType={"disjointForceDirectedGraph"}
                 entity={entity}
-                footer={
-                  <ul>
-                    <li>
-                      {translate.t(
-                        "analytics.disjointForceDirectedGraph.whereToFindings.footer.grey"
-                      )}
-                    </li>
-                    <li>
-                      {translate.t(
-                        "analytics.disjointForceDirectedGraph.whereToFindings.footer.redAndGreen"
-                      )}
-                    </li>
-                    <li>
-                      {translate.t(
-                        "analytics.disjointForceDirectedGraph.whereToFindings.footer.size"
-                      )}
-                    </li>
-                  </ul>
-                }
                 generatorName={"whereToFindings"}
                 generatorType={"disjointForceDirectedGraph"}
+                infoLink={`${graphInfoLink}group#systems-risk`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t(
@@ -442,6 +302,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"c3"}
+                infoLink={`${graphInfoLink}portfolio#how-many-vulnerabilities-are-remediated-closed`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t("tagIndicator.remediatedVuln")}
@@ -458,6 +319,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"c3"}
+                infoLink={`${graphInfoLink}portfolio#how-many-vulnerabilities-are-remediated-and-accepted`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t("tagIndicator.remediatedAcceptedVuln")}
@@ -474,6 +336,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"c3"}
+                infoLink={`${graphInfoLink}portfolio#findings-by-group`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t("tagIndicator.findingsGroup")}
@@ -490,6 +353,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"c3"}
+                infoLink={`${graphInfoLink}portfolio#open-findings-by-group`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t("tagIndicator.openFindingsGroup")}
@@ -506,6 +370,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"c3"}
+                infoLink={`${graphInfoLink}portfolio#vulnerabilities-by-group`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t("tagIndicator.vulnsGroups")}
@@ -520,6 +385,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"c3"}
+                infoLink={`${graphInfoLink}portfolio#open-vulnerabilities-by-group`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t("tagIndicator.openVulnsGroups")}
@@ -536,6 +402,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"c3"}
+                infoLink={`${graphInfoLink}portfolio#top-oldest-findings`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t("tagIndicator.topOldestFindings")}
@@ -552,6 +419,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"c3"}
+                infoLink={`${graphInfoLink}portfolio#treatmentless-by-group`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t("tagIndicator.undefinedTitle")}
@@ -564,15 +432,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 documentName={"totalVulnerabilities"}
                 documentType={"textBox"}
                 entity={entity}
-                footer={
-                  <p>
-                    {translate.t(
-                      "analytics.textBox.totalVulnerabilities.footer"
-                    )}
-                  </p>
-                }
                 generatorName={"raw"}
                 generatorType={"textBox"}
+                infoLink={`${graphInfoLink}common#total-vulnerabilities`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t(
@@ -599,6 +461,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"c3"}
+                infoLink={`${graphInfoLink}common#vulnerabilities-by-tag`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t("tagIndicator.vulnerabilitiesByTag")}
@@ -615,6 +478,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"c3"}
+                infoLink={`${graphInfoLink}common#vulnerabilities-by-level`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t("tagIndicator.vulnerabilitiesByLevel")}
@@ -631,6 +495,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"c3"}
+                infoLink={`${graphInfoLink}common#accepted-vulnerabilities-by-user`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t(
@@ -649,6 +514,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"c3"}
+                infoLink={`${graphInfoLink}common#vulnerabilities-by-treatment`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t("tagIndicator.vulnerabilitiesByTreatments")}
@@ -663,6 +529,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"c3"}
+                infoLink={`${graphInfoLink}common#vulnerabilities-by-type`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t("tagIndicator.vulnerabilitiesByType")}
@@ -679,6 +546,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"c3"}
+                infoLink={`${graphInfoLink}common#top-findings-by-open-vulnerabilities`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t("tagIndicator.topFindingsByVulnerabilities")}
@@ -695,6 +563,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"c3"}
+                infoLink={`${graphInfoLink}common#accepted-vulnerabilities-by-severity`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t(
@@ -713,6 +582,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"c3"}
+                infoLink={`${graphInfoLink}common#mean-average-days-to-remediate`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t("tagIndicator.meanRemediate")}
@@ -737,6 +607,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"heatMapChart"}
+                infoLink={`${graphInfoLink}portfolio#tags-by-groups`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t("analytics.heatMapChart.groupsByTag")}
@@ -761,6 +632,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"heatMapChart"}
+                infoLink={`${graphInfoLink}group#findings-by-tags`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t("analytics.heatMapChart.findingsByTag")}
@@ -816,6 +688,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   entity={entity}
                   generatorName={"raw"}
                   generatorType={"textBox"}
+                  infoLink={`${graphInfoLink}groups#service-status`}
                   reportMode={reportMode}
                   subject={subject}
                   title={translate.t("analytics.textBox.forcesStatus.title")}
@@ -828,11 +701,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   documentName={"forcesUsage"}
                   documentType={"textBox"}
                   entity={entity}
-                  footer={
-                    <p>{translate.t("analytics.textBox.forcesUsage.footer")}</p>
-                  }
                   generatorName={"raw"}
                   generatorType={"textBox"}
+                  infoLink={`${graphInfoLink}groups#service-usage`}
                   reportMode={reportMode}
                   subject={subject}
                   title={translate.t("analytics.textBox.forcesUsage.title")}
@@ -845,15 +716,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   documentName={"forcesAutomatizedVulns"}
                   documentType={"textBox"}
                   entity={entity}
-                  footer={
-                    <p>
-                      {translate.t(
-                        "analytics.textBox.forcesAutomatizedVulns.footer"
-                      )}
-                    </p>
-                  }
                   generatorName={"raw"}
                   generatorType={"textBox"}
+                  infoLink={`${graphInfoLink}groups#automatized-vulnerabilities`}
                   reportMode={reportMode}
                   subject={subject}
                   title={translate.t(
@@ -868,15 +733,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   documentName={"forcesRepositoriesAndBranches"}
                   documentType={"textBox"}
                   entity={entity}
-                  footer={
-                    <p>
-                      {translate.t(
-                        "analytics.textBox.forcesRepositoriesAndBranches.footer"
-                      )}
-                    </p>
-                  }
                   generatorName={"raw"}
                   generatorType={"textBox"}
+                  infoLink={`${graphInfoLink}groups#repositories-and-branches`}
                   reportMode={reportMode}
                   subject={subject}
                   title={translate.t(
@@ -893,34 +752,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   documentName={"forcesSecurityCommitment"}
                   documentType={"gauge"}
                   entity={entity}
-                  footer={
-                    <React.Fragment>
-                      <p>
-                        {translate.t(
-                          "analytics.gauge.forcesSecurityCommitment.footer.intro"
-                        )}
-                      </p>
-                      <ul>
-                        <li>
-                          {translate.t(
-                            "analytics.gauge.forcesSecurityCommitment.footer.strictMode"
-                          )}
-                        </li>
-                        <li>
-                          {translate.t(
-                            "analytics.gauge.forcesSecurityCommitment.footer.acceptedRisk"
-                          )}
-                        </li>
-                      </ul>
-                      <p>
-                        {translate.t(
-                          "analytics.gauge.forcesSecurityCommitment.footer.conclusion"
-                        )}
-                      </p>
-                    </React.Fragment>
-                  }
                   generatorName={"generic"}
                   generatorType={"c3"}
+                  infoLink={`${graphInfoLink}groups#your-commitment-towards-security`}
                   reportMode={reportMode}
                   subject={subject}
                   title={translate.t(
@@ -935,29 +769,9 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   documentName={"forcesBuildsRisk"}
                   documentType={"gauge"}
                   entity={entity}
-                  footer={
-                    <React.Fragment>
-                      <p>
-                        {translate.t(
-                          "analytics.gauge.forcesBuildsRisk.footer.intro"
-                        )}
-                      </p>
-                      <ul>
-                        <li>
-                          {translate.t(
-                            "analytics.gauge.forcesBuildsRisk.footer.vulnerableBuilds"
-                          )}
-                        </li>
-                        <li>
-                          {translate.t(
-                            "analytics.gauge.forcesBuildsRisk.footer.preventedVulnerableBuilds"
-                          )}
-                        </li>
-                      </ul>
-                    </React.Fragment>
-                  }
                   generatorName={"generic"}
                   generatorType={"c3"}
+                  infoLink={`${graphInfoLink}groups#builds-risk`}
                   reportMode={reportMode}
                   subject={subject}
                   title={translate.t("analytics.gauge.forcesBuildsRisk.title")}
