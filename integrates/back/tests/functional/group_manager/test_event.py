@@ -24,7 +24,7 @@ async def test_event() -> None:  # pylint: disable=too-many-statements
     query = f"""
         mutation {{
             createEvent(
-                projectName: "{group_name}",
+                groupName: "{group_name}",
                 actionAfterBlocking: TRAINING,
                 actionBeforeBlocking: DOCUMENT_PROJECT,
                 accessibility: ENVIRONMENT,
@@ -45,7 +45,7 @@ async def test_event() -> None:  # pylint: disable=too-many-statements
     context = get_new_context()
     query = f"""
         query {{
-            project(projectName: "{group_name}"){{
+            group(groupName: "{group_name}"){{
                 events {{
                     id
                     analyst
@@ -57,8 +57,8 @@ async def test_event() -> None:  # pylint: disable=too-many-statements
     data = {"query": query}
     result = await get_result(data, context=context)
     assert "errors" not in result
-    assert "events" in result["data"]["project"]
-    events = result["data"]["project"]["events"]
+    assert "events" in result["data"]["group"]
+    events = result["data"]["group"]["events"]
     event = [event for event in events if event["detail"] == event_detail][0]
     event_id = event["id"]
 
@@ -85,7 +85,7 @@ async def test_event() -> None:  # pylint: disable=too-many-statements
         event(identifier: "{event_id}"){{
             client
             evidence
-            projectName
+            groupName
             eventType
             detail
             eventDate
@@ -141,14 +141,14 @@ async def test_event() -> None:  # pylint: disable=too-many-statements
             "state": "CREATED",
         },
     ]
-    assert result["data"]["event"]["projectName"] == group_name
+    assert result["data"]["event"]["groupName"] == group_name
     assert result["data"]["event"]["subscription"] == "CONTINUOUS"
 
     context = get_new_context()
     query = f"""{{
-        events(projectName: "{group_name}"){{
+        events(groupName: "{group_name}"){{
             id
-            projectName
+            groupName
             detail
         }}
     }}"""
@@ -157,7 +157,7 @@ async def test_event() -> None:  # pylint: disable=too-many-statements
     assert "events" in result["data"]
     events = result["data"]["events"]
     event = [event for event in events if event["id"] == event_id][0]
-    assert event["projectName"] == group_name
+    assert event["groupName"] == group_name
     assert event["detail"] == event_detail
 
     context = get_new_context()
@@ -210,7 +210,7 @@ async def test_event() -> None:  # pylint: disable=too-many-statements
 
     context = get_new_context()
     query = f"""{{
-        events(projectName: "{group_name}"){{
+        events(groupName: "{group_name}"){{
             id
             eventStatus
             detail

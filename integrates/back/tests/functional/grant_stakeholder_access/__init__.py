@@ -24,7 +24,7 @@ async def get_result(
             grantStakeholderAccess (
                 email: "{stakeholder}",
                 phoneNumber: "{phone}"
-                projectName: "{group}",
+                groupName: "{group}",
                 responsibility: "{responsibility}",
                 role: {role}
             ) {{

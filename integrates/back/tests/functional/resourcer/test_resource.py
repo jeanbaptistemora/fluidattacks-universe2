@@ -19,15 +19,15 @@ async def test_resource() -> None:
     group_name = "unittesting"
     file_name = "test.zip"
     query = f"""{{
-        resources(projectName: "{group_name}"){{
-            projectName
+        resources(groupName: "{group_name}"){{
+            groupName
             files
             __typename
         }}
     }}"""
     data: Dict[str, Any] = {"query": query}
     result = await get_result(data)
-    assert result["data"]["resources"]["projectName"] == "unittesting"
+    assert result["data"]["resources"]["groupName"] == "unittesting"
     assert file_name in result["data"]["resources"]["files"]
     assert "shell.exe" in result["data"]["resources"]["files"]
     assert "shell2.exe" in result["data"]["resources"]["files"]
@@ -38,7 +38,7 @@ async def test_resource() -> None:
         mutation {{
             downloadFile (
                 filesData: \"\\\"{file_name}\\\"\",
-                projectName: "{group_name}"
+                groupName: "{group_name}"
             ) {{
                 success
                 url
@@ -65,12 +65,12 @@ async def test_resource() -> None:
         ]
         query = """
             mutation UploadFileMutation(
-                $file: Upload!, $filesData: JSONString!, $projectName: String!
+                $file: Upload!, $filesData: JSONString!, $groupName: String!
             ) {
                 addFiles (
                     file: $file,
                     filesData: $filesData,
-                    projectName: $projectName) {
+                    groupName: $groupName) {
                         success
                 }
             }
@@ -78,7 +78,7 @@ async def test_resource() -> None:
         variables = {
             "file": uploaded_file,
             "filesData": json.dumps(files_data),
-            "projectName": group_name,
+            "groupName": group_name,
         }
     data = {"query": query, "variables": variables}
     result = await get_result(data)
@@ -88,23 +88,23 @@ async def test_resource() -> None:
     query = """
         mutation RemoveFileMutation(
             $filesData: JSONString!,
-            $projectName: String!
+            $groupName: String!
         ) {
-            removeFiles(filesData: $filesData, projectName: $projectName) {
+            removeFiles(filesData: $filesData, groupName: $groupName) {
                 success
             }
         }
     """
     file_data = {"description": "", "fileName": "", "uploadDate": ""}
-    variables = {"filesData": json.dumps(file_data), "projectName": group_name}
+    variables = {"filesData": json.dumps(file_data), "groupName": group_name}
     data = {"query": query, "variables": variables}
     result = await get_result(data)
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
 
     query = f"""{{
-        resources(projectName: "{group_name}"){{
-            projectName
+        resources(groupName: "{group_name}"){{
+            groupName
             files
             __typename
         }}

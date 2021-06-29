@@ -87,7 +87,7 @@ async def test_organization() -> None:  # pylint: disable=too-many-statements
                     organizationId: "{org_id}",
                     userEmail: "{stakeholder}") {{
                 email
-                projects{{
+                groups{{
                     name
                 }}
                 phoneNumber
@@ -132,7 +132,7 @@ async def test_organization() -> None:  # pylint: disable=too-many-statements
                 maxNumberAcceptations
                 minAcceptanceSeverity
                 name
-                projects {{
+                groups {{
                     name
                 }}
                 stakeholders {{
@@ -144,7 +144,7 @@ async def test_organization() -> None:  # pylint: disable=too-many-statements
     data = {"query": query}
     result = await get_result(data, context=context)
     groups = [
-        group["name"] for group in result["data"]["organization"]["projects"]
+        group["name"] for group in result["data"]["organization"]["groups"]
     ]
     stakeholders = [
         stakeholder["email"]
