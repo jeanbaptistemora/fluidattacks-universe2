@@ -7,11 +7,17 @@ import fetchMock from "fetch-mock";
 Object.assign(global, {
   // Mock fetch
   fetch: fetchMock,
+});
+
+Object.assign(global, {
   /**
    * Mock jest 27 removed globals
    *
    * @see https://github.com/facebook/jest/pull/11222
    */
+  clearImmediate: (id: number): void => {
+    clearTimeout(id);
+  },
   setImmediate: (handler: () => void): number => setTimeout(handler, 0),
 });
 

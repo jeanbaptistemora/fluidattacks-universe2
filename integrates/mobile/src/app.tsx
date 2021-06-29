@@ -1,9 +1,10 @@
 import { registerRootComponent } from "expo";
+import { isRootedExperimentalAsync } from "expo-device";
 import { getItemAsync } from "expo-secure-store";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
-import { I18nextProvider } from "react-i18next";
-import { StatusBar, View, useColorScheme } from "react-native";
+import { I18nextProvider, useTranslation } from "react-i18next";
+import { Alert, StatusBar, View, useColorScheme } from "react-native";
 import type { ColorSchemeName } from "react-native";
 import {
   DarkTheme,
@@ -47,6 +48,7 @@ const darkTheme: ReactNativePaper.Theme = {
 
 const App: React.FunctionComponent = (): JSX.Element => {
   const colorScheme: ColorSchemeName = useColorScheme();
+  const { t } = useTranslation();
 
   // State management
   const [isLoggedIn, setLoggedIn] = useState<boolean | undefined>(undefined);
@@ -62,11 +64,16 @@ const App: React.FunctionComponent = (): JSX.Element => {
     }
   };
 
-  const onMount: () => void = (): void => {
-    checkAuth();
-  };
-
-  useEffect(onMount, []);
+  useEffect((): void => {
+    const onMount = async (): Promise<void> => {
+      if (await isRootedExperimentalAsync()) {
+        Alert.alert(t("root.title"), t("root.msg"), [], { cancelable: false });
+      } else {
+        checkAuth();
+      }
+    };
+    void onMount();
+  }, [t]);
 
   const theme: ReactNativePaper.Theme =
     colorScheme === "dark" ? darkTheme : lightTheme;

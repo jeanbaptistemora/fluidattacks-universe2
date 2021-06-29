@@ -5,6 +5,7 @@
         "backgroundImage": "./assets/adaptiveBackground.png",
         "foregroundImage": "./assets/adaptiveForeground.png"
       },
+      "allowBackup": false,
       "googleServicesFile": "./google-services.json",
       "icon": "./assets/icon.png",
       "package": "com.fluidattacks.integrates",

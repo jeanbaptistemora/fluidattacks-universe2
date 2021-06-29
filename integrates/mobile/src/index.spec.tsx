@@ -1,10 +1,20 @@
-import { shallow } from "enzyme";
+import { mount, shallow } from "enzyme";
 import type { ShallowWrapper } from "enzyme";
+import { isRootedExperimentalAsync } from "expo-device";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { useColorScheme } from "react-native";
+import { Alert, useColorScheme } from "react-native";
+import wait from "waait";
 
 import { App } from "./app";
+
+jest.mock(
+  "expo-device",
+  (): Record<string, jest.Mock> => ({
+    ...jest.requireActual("expo-device"),
+    isRootedExperimentalAsync: jest.fn(),
+  })
+);
 
 describe("App root", (): void => {
   it("should return a function", (): void => {
@@ -45,6 +55,29 @@ describe("App root", (): void => {
 
     expect(wrapper.find("StatusBar").prop("barStyle")).toStrictEqual(
       "light-content"
+    );
+
+    jest.clearAllMocks();
+  });
+
+  it("should display root error", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    (isRootedExperimentalAsync as jest.Mock).mockResolvedValue(true);
+
+    jest.mock("react-native/Libraries/Alert/Alert");
+
+    const wrapper = mount(<App />);
+
+    expect(wrapper).toHaveLength(1);
+
+    await wait(0);
+
+    expect(Alert.alert).toHaveBeenCalledWith(
+      "Insecure device",
+      expect.anything(),
+      expect.anything(),
+      expect.anything()
     );
 
     jest.clearAllMocks();

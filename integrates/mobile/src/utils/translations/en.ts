@@ -44,6 +44,10 @@ export const enTranslations: ResourceLanguage = {
       title: "New version available",
     },
   },
+  root: {
+    msg: "This device cannot be trusted to run the app safely",
+    title: "Insecure device",
+  },
   welcome: {
     greetingText: "Hello",
   },
