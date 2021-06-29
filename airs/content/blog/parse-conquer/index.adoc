@@ -26,9 +26,9 @@ we showed you the essentials of `Pyparsing` and
 we also showed how to leverage its power
 to find `SQL` injections in a `PHP` application.
 Here we will extend those essentials to show you
-how we use parser combinators in
-link:https://fluidattacks.gitlab.io/asserts/[Asserts],
-our vulnerability closure checker engine.
+how we used parser combinators in
+Asserts, our vulnerability closure checker engine
+(considering that we not longer support this product).
 Feel free to refer to that article
 for more details on how `Pyparsing` works,
 though I'll try my best to explain every keyword used here.

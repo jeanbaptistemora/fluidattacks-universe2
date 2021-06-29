@@ -176,9 +176,8 @@ enterprise-level systems. We can detect small changes
 that could pose risks to your business.
 We combine automated tools with the best-trained cybersecurity professionals.
 - We automate almost everything we know and do.
-Our product
-link:https://fluidattacks.gitlab.io/asserts/[Asserts]
-allow us to evaluate the state of your systems quickly.
+A product we used to offer, Asserts
+allowed us to evaluate the state of your systems quickly.
 - We store, describe, and track almost everything
 in our Attack Surface Manager (ASM).
 ASM makes it easier for our customers

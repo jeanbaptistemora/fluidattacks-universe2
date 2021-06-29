@@ -155,9 +155,6 @@ because we think functional, there is no room for ambiguity or side effects.
 Something does what it says and nothing else, period.
 All this on a clean and understandable code
 even for the freshmen in the deep waters of coding.
-Don't you believe us?
-Check it out for yourself in one of our flagship products:
-link:https://fluidattacks.gitlab.io/asserts/[Asserts].
 
 == Functional in non-functionals
 

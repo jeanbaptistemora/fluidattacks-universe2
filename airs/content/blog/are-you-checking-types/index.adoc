@@ -267,8 +267,7 @@ now, with a single command
 and a few seconds we can check the variable types.
 
 We already use mypy in our product
-link:https://fluidattacks.gitlab.io/asserts/[Asserts]
-and the benefits have been questionless.
+Asserts and the benefits have been questionless.
 We have even found that mypy helps directly to the documentation task,
 thanks to the fact that it is no longer necessary to write
 what is the type of the variables in the documentation
