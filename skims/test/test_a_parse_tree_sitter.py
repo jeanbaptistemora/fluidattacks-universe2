@@ -52,6 +52,7 @@ from utils.encodings import (
         (
             (
                 "skims/test/data/sast/TestCFG.java",
+                "skims/test/data/sast/test_cfg.js",
                 "skims/test/data/sast/test_cfg.go",
             ),
             "cfg",
