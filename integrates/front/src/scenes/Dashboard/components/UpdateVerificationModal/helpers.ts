@@ -20,7 +20,7 @@ const handleRequestVerification = (
 ): void => {
   if (data.requestVerificationVuln.success) {
     msgSuccess(
-      translate.t("groupAlerts.verifiedSuccess"),
+      translate.t("groupAlerts.requestedReattackSuccess"),
       translate.t("groupAlerts.updatedTitle")
     );
     refetchData();
@@ -54,11 +54,16 @@ const handleVerifyRequest = (
   refetchData: () => void,
   clearSelected: () => void,
   setVerifyState: () => void,
-  data: IVerifyRequestVulnResult
+  data: IVerifyRequestVulnResult,
+  numberOfVulneabilities: number
 ): void => {
   if (data.verifyRequestVuln.success) {
     msgSuccess(
-      translate.t("groupAlerts.verifiedSuccess"),
+      translate.t(
+        `groupAlerts.verifiedSuccess${
+          numberOfVulneabilities > 1 ? "Plural" : ""
+        }`
+      ),
       translate.t("groupAlerts.updatedTitle")
     );
     refetchData();

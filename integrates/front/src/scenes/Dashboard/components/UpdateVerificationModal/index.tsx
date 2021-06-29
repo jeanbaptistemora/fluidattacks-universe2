@@ -111,7 +111,13 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
     VERIFY_VULNERABILITIES,
     {
       onCompleted: (data: IVerifyRequestVulnResult): void => {
-        handleVerifyRequest(refetchData, clearSelected, setVerifyState, data);
+        handleVerifyRequest(
+          refetchData,
+          clearSelected,
+          setVerifyState,
+          data,
+          vulns.length
+        );
       },
       onError: ({ graphQLErrors }: ApolloError): void => {
         handleVerifyRequestError(graphQLErrors);
