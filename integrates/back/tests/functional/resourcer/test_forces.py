@@ -15,12 +15,12 @@ async def _test_forces() -> None:  # pylint: disable=too-many-statements
     query = f"""
         query {{
             forcesExecutions(
-                projectName: "{group_name}",
+                groupName: "{group_name}",
                 fromDate: "2020-02-01T00:00:00Z",
                 toDate: "2020-02-28T23:59:59Z"
             ) {{
                 executions {{
-                    projectName
+                    groupName
                     execution_id
                     date
                     exitCode
@@ -153,14 +153,14 @@ async def _test_forces() -> None:  # pylint: disable=too-many-statements
     query = f"""
         query {{
             forcesExecutions(
-                projectName: "{group_name}",
+                groupName: "{group_name}",
                 fromDate: "2020-02-01T00:00:00Z",
                 toDate: "2020-02-28T23:59:59Z"
             ) {{
                 fromDate
                 toDate
                 executions{{
-                    projectName
+                    groupName
                 }}
                 __typename
             }}
@@ -184,10 +184,10 @@ async def _test_forces() -> None:  # pylint: disable=too-many-statements
     query = f"""
         query {{
             forcesExecution(
-                projectName: "{group_name}",
+                groupName: "{group_name}",
                 executionId: "{execution_id}"
             ) {{
-                projectName
+                groupName
                 execution_id
                 exitCode
                 gitBranch
@@ -203,7 +203,7 @@ async def _test_forces() -> None:  # pylint: disable=too-many-statements
     data = {"query": query}
     result = await get_result(data, context=context)
     assert "errors" not in result
-    assert result["data"]["forcesExecution"]["projectName"] == group_name
+    assert result["data"]["forcesExecution"]["groupName"] == group_name
     assert result["data"]["forcesExecution"]["execution_id"] == execution_id
     assert result["data"]["forcesExecution"]["exitCode"] == "0"
     assert (

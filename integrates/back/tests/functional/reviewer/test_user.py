@@ -21,7 +21,7 @@ async def test_user() -> None:
             grantStakeholderAccess (
                 email: "{stakeholder}",
                 phoneNumber: "{phone_number}"
-                projectName: "{group_name}",
+                groupName: "{group_name}",
                 responsibility: "{responsibility}",
                 role: {role}
             ) {{
@@ -40,8 +40,8 @@ async def test_user() -> None:
     context = get_new_context()
     query = f"""
         query {{
-            stakeholder(entity: PROJECT,
-                    projectName: "{group_name}",
+            stakeholder(entity: GROUP,
+                    groupName: "{group_name}",
                     userEmail: "{stakeholder}") {{
                 email
                 role
@@ -49,7 +49,7 @@ async def test_user() -> None:
                 phoneNumber
                 firstLogin
                 lastLogin
-                projects {{
+                groups {{
                     name
                 }}
                 __typename
@@ -73,7 +73,7 @@ async def test_user() -> None:
             editStakeholder (
                 email: "{stakeholder}",
                 phoneNumber: "{phone_number}",
-                projectName: "{group_name}"
+                groupName: "{group_name}"
                 responsibility: "{responsibility}",
                 role: {role}
             ) {{
@@ -90,7 +90,7 @@ async def test_user() -> None:
     query = f"""
         mutation {{
             removeStakeholderAccess (
-                projectName: "{group_name}",
+                groupName: "{group_name}",
                 userEmail: "{stakeholder}"
             )
             {{
