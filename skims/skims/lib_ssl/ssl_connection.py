@@ -1,4 +1,7 @@
 import contextlib
+from lib_ssl.types import (
+    SSLSettings,
+)
 import socket
 import tlslite
 from typing import (
@@ -35,14 +38,11 @@ def _socket_connect(
         return None
 
 
-# pylint: disable=too-many-arguments
 @contextlib.contextmanager
 def connect(
     hostname: str,
     port: int,
-    min_version: Tuple[int, int] = (3, 0),
-    max_version: Tuple[int, int] = (3, 4),
-    key_exchange_names: Tuple[str, ...] = (),
+    ssl_settings: SSLSettings,
     expected_exceptions: Tuple[tlslite.errors.BaseTLSException, ...] = (),
 ) -> Generator[Optional[tlslite.TLSConnection], None, None]:
 
@@ -52,13 +52,13 @@ def connect(
             yield None
         else:
             connection = tlslite.TLSConnection(sock)
+
             settings = tlslite.HandshakeSettings()
-
-            settings.minVersion = min_version
-            settings.maxVersion = max_version
-
-            if key_exchange_names:
-                settings.keyExchangeNames = key_exchange_names
+            settings.minVersion = ssl_settings.min_version
+            settings.maxVersion = ssl_settings.max_version
+            settings.macNames = ssl_settings.mac_names
+            settings.cipherNames = ssl_settings.cipher_names
+            settings.keyExchangeNames = ssl_settings.key_exchange_names
 
             connection.handshakeClientCert(settings=settings)
             yield connection
