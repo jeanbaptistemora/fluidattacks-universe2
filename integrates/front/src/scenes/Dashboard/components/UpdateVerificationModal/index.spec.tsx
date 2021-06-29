@@ -32,7 +32,7 @@ describe("update verification component", (): void => {
       data: {
         finding: {
           id: "",
-          newRemediated: true,
+          remediated: true,
           state: "open",
           verified: false,
           vulnerabilities: [],

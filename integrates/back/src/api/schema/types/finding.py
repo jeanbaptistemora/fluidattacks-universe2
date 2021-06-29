@@ -17,6 +17,7 @@ from api.resolvers.finding import (
     ports_vulns,
     records,
     release_date,
+    remediated,
     report_date,
     sorts,
     state,
@@ -116,6 +117,7 @@ else:
     FINDING.set_field("portsVulns", ports_vulns.resolve)
     FINDING.set_field("records", records.resolve)
     FINDING.set_field("releaseDate", release_date.resolve)
+    FINDING.set_field("remediated", remediated.resolve)
     FINDING.set_field("reportDate", report_date.resolve)
     FINDING.set_field("sorts", sorts.resolve)
     FINDING.set_field("state", state.resolve)

@@ -30,8 +30,8 @@ describe("VulnerabilitiesView", (): void => {
         finding: {
           __typename: "Finding",
           id: "422286126",
-          newRemediated: true,
           releaseDate: "2019-07-05 08:56:40",
+          remediated: true,
           state: "open",
           verified: false,
           vulnerabilities: [

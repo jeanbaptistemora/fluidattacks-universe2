@@ -24,6 +24,7 @@ const GET_FINDINGS: DocumentNode = gql`
             user
             treatment
           }
+          id
           where
           zeroRisk
         }

@@ -7,7 +7,7 @@ interface IGroupAttr {
 
 interface IFindingAttr {
   id: string;
-  newRemediated: boolean;
+  remediated: boolean;
   releaseDate: string;
   state: "closed" | "open";
   verified: boolean;

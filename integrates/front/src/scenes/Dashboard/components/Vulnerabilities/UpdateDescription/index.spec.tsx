@@ -73,7 +73,7 @@ describe("Update Description component", (): void => {
       data: {
         finding: {
           id: "480857698",
-          newRemediated: false,
+          remediated: false,
           state: "open",
           verified: false,
           vulnerabilities: {

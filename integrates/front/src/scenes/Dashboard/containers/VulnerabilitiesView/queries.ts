@@ -45,7 +45,7 @@ export const GET_FINDING_VULN_INFO: DocumentNode = gql`
   ) {
     finding(identifier: $findingId) {
       id
-      newRemediated
+      remediated
       releaseDate
       state
       verified

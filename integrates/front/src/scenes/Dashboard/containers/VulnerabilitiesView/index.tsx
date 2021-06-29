@@ -299,7 +299,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 }
                 isEditing={isEditing}
                 isFindingReleased={isFindingReleased}
-                isReattackRequestedInAllVuln={data.finding.newRemediated}
+                isReattackRequestedInAllVuln={data.finding.remediated}
                 isRequestingReattack={isRequestingVerify}
                 isVerified={data.finding.verified}
                 isVerifying={isVerifying}

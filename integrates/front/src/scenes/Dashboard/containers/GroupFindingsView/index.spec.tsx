@@ -51,7 +51,10 @@ describe("GroupFindingsView", (): void => {
                 vulnerabilities: [
                   {
                     __typename: "Vulnerability",
+                    historicTreatment: [],
+                    id: "547be2a2-03d4-47d8-9f66-9ca9512f8eb1",
                     where: "This is a test where",
+                    zeroRisk: "",
                   },
                 ],
               },
@@ -110,6 +113,7 @@ describe("GroupFindingsView", (): void => {
                   {
                     __typename: "Vulnerability",
                     historicTreatment: [],
+                    id: "a4185d47-65c3-44fc-b461-a15ee7a7e47f",
                     where: "This is a test where",
                     zeroRisk: "",
                   },
