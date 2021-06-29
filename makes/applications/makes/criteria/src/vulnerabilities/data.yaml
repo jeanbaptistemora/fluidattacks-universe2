@@ -1,26 +1,20 @@
----
-  id: "055"
-  name: Insecure service configuration
-  textDescription:
-    One of the system services has a configuration
-    that is considered insecure or enables the exploitation
-    of other vulnerabilities
-  details:
-    title: AWS EBS Encryption
-    detailDescription:
-        When dealing with sensitive data
-        that is crucial to your business,
-        it is required by regulations
-        to implement encryption in order to protect it
-        from attackers or unauthorized personnel.
-        Using EBS Encryption
-        will enable Amazon to encrypt your data at rest,
-        volume snapshots and disk I/O.
-        Data protected is encrypted with 256-bit
-        Advanced Encryption Standard (AES-256)
-  requirements:
-    id: "119"
-  metadata:
-    id: insecure-service-configuration
-    sidebar_label: Insecure service configuration
-    slug": /criteria/vulnerabilities/055
+001:
+  title: SQL Injection
+002:
+  title: Asymmetric denial of service
+003:
+  title: Symmetric denial of service
+004:
+  title: Remote command execution
+005:
+  title: Privilege escalation
+006:
+  title: Authentication mechanism absence or evasion
+007:
+  title: Cross-site request forgery
+008:
+  title: Reflected cross-site scripting (XSS)
+009:
+  title: Source code with sensitive information
+010: 
+  title: Stored cross-site scripting (XSS)

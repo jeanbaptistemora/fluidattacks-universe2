@@ -104,7 +104,7 @@ makes.k8s.test:
   <<: *makes_in_dev_branch
   stage: test-infra
 
-makes.lint.criteria:
+.makes.lint.criteria:
   <<: *makes
   <<: *makes_in_dev_branch
   stage: lint-code
