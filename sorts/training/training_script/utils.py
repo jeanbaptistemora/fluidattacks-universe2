@@ -18,6 +18,9 @@ from sklearn.model_selection import (
 from sorts.typings import (
     Model as ModelType,
 )
+from sorts.utils.logs import (
+    log_exception,
+)
 import tempfile
 from training.constants import (
     S3_BUCKET,
@@ -113,8 +116,15 @@ def get_previous_training_results(results_filename: str) -> List[List[str]]:
             with open(local_file, "r") as csv_file:
                 csv_reader = csv.reader(csv_file)
                 previous_results.extend(csv_reader)
-        except ClientError:
-            pass
+        except ClientError as exc:
+            log_exception(
+                "error",
+                exc,
+                message=(
+                    f"Error downloading {remote_file} while "
+                    "getting previous training results"
+                ),
+            )
 
     return previous_results
 
