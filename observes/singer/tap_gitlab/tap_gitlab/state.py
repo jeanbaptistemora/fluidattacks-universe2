@@ -7,12 +7,12 @@ from paginator.pages import (
 from singer_io import (
     JSON,
 )
-from tap_gitlab.intervals.fragmented import (
-    FragmentedInterval,
-)
 from tap_gitlab.intervals.interval import (
     MAX,
     MIN,
+)
+from tap_gitlab.intervals.progress import (
+    FragmentedProgressInterval,
 )
 from tap_gitlab.streams import (
     JobStream,
@@ -42,35 +42,25 @@ def _to_json(
 
 
 class MrStreamState(NamedTuple):
-    state: FragmentedInterval[datetime]
+    state: FragmentedProgressInterval[datetime]
 
     def to_json(self) -> JSON:
         return {
             "type": "JobStreamState",
             "obj": {
-                "endpoints": [
-                    _to_json(endpoint, lambda x: x.isoformat())
-                    for endpoint in self.state.endpoints
-                ],
-                "emptiness": self.state.emptiness,
+                "state": self.state.to_json(),
             },
         }
 
 
 class JobStreamState(NamedTuple):
-    state: FragmentedInterval[Tuple[int, PageId[int]]]
+    state: FragmentedProgressInterval[Tuple[int, PageId[int]]]
 
     def to_json(self) -> JSON:
         return {
             "type": "JobStreamState",
             "obj": {
-                "endpoints": [
-                    _to_json(
-                        endpoint, lambda x: (x[0], x[1].page, x[1].per_page)
-                    )
-                    for endpoint in self.state.endpoints
-                ],
-                "emptiness": self.state.emptiness,
+                "state": self.state.to_json(),
             },
         }
 
