@@ -7,8 +7,10 @@ from paginator.pages import (
 from singer_io import (
     JSON,
 )
-from tap_gitlab.interval import (
+from tap_gitlab.intervals.fragmented import (
     FragmentedInterval,
+)
+from tap_gitlab.intervals.interval import (
     MAX,
     MIN,
 )
