@@ -18,3 +18,39 @@
   title: Source code with sensitive information
 010: 
   title: Stored cross-site scripting (XSS)
+011:
+  title: Use of software with known vulnerabilities
+013:
+  title: Insecure object reference
+014:
+  title: Insecure functionality
+015:
+  title: Insecure authentication method
+017:
+  title: Sensitive information sent insecurely
+018:
+  title: Improper authentication for shared folders
+019:
+  title: Administrative credentials stored in cache memory
+020:
+  title: Non-encrypted confidential information
+021:
+  title: XPath Injection
+022:
+  title: Use of an insecure channel
+023:
+  title: Uncontrolled external site redirect
+024:
+  title: Unrestricted access between network segments
+025:
+  title: Call interception
+026:
+  title: User enumeration
+027:
+  title: Insecure file upload
+028:
+  title: Insecure temporary files
+029:
+  title: Inadequate file size control
+030:
+  title: Sensitive information sent via URL parameters
