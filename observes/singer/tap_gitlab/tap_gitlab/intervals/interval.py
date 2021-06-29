@@ -17,6 +17,7 @@ from returns.primitives.types import (
 from typing import (
     Any,
     Callable,
+    cast,
     final,
     Optional,
     Type,
@@ -46,22 +47,40 @@ class InvalidInterval(Exception):
 
 
 _Point = TypeVar("_Point")
+IntervalPoint = Union[_Point, MIN, MAX]
 
 
-def default_greater(_type: Type[_Point]) -> Callable[[_Point, _Point], bool]:
-    if isinstance(_type, int):
+def default_greater(
+    _type: Type[_Point],
+) -> Callable[[_Point, _Point], bool]:
+    if issubclass(_type, int):
 
-        def greater_int(_x: int, _y: int) -> bool:
-            return _x > _y
+        def greater_int(_x: _Point, _y: _Point) -> bool:
+            return cast(int, _x) > cast(int, _y)
 
         return greater_int
-    if isinstance(_type, datetime):
+    if issubclass(_type, datetime):
 
-        def greater_dt(_x: datetime, _y: datetime) -> bool:
-            return _x > _y
+        def greater_dt(_x: _Point, _y: _Point) -> bool:
+            return cast(datetime, _x) > cast(datetime, _y)
 
         return greater_dt
     raise NotImplementedError(f"No default greater for type {_type}")
+
+
+def build_greater(
+    greater: Callable[[_Point, _Point], bool]
+) -> Callable[[IntervalPoint[_Point], IntervalPoint[_Point]], bool]:
+    def _greater(_x: IntervalPoint[_Point], _y: IntervalPoint[_Point]) -> bool:
+        if _x == _y:
+            return False
+        if isinstance(_x, MIN) or isinstance(_y, MAX):
+            return False
+        if isinstance(_x, MAX) or isinstance(_y, MIN):
+            return True
+        return greater(_x, _y)
+
+    return _greater
 
 
 def _common_builder(
@@ -70,7 +89,9 @@ def _common_builder(
     upper: Union[_Point, MAX],
     greater_than: Optional[Callable[[_Point, _Point], bool]],
 ) -> Any:
-    _greater_than = greater_than if greater_than else default_greater(_type)
+    _greater_than: Callable[
+        [IntervalPoint[_Point], IntervalPoint[_Point]], bool
+    ] = build_greater(greater_than if greater_than else default_greater(_type))
     if not isinstance(lower, MIN) and not isinstance(upper, MAX):
         if _greater_than(lower, upper):
             raise InvalidInterval()
@@ -182,4 +203,3 @@ Interval = Union[
     OpenLeftInterval[_Point],
     OpenRightInterval[_Point],
 ]
-IntervalPoint = Union[_Point, MIN, MAX]
