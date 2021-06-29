@@ -33,7 +33,7 @@ async def test_get_organization_ver_1(populate: bool, email: str) -> None:
     ]
     result: Dict[str, Any] = await get_result(user=email, org=org_id)
     groups: List[str] = [
-        group["name"] for group in result["data"]["organization"]["projects"]
+        group["name"] for group in result["data"]["organization"]["groups"]
     ]
     stakeholders: List[str] = [
         stakeholder["email"]
@@ -69,7 +69,7 @@ async def test_get_organization_ver_e(populate: bool, email: str) -> None:
     ]
     result: Dict[str, Any] = await get_result(user=email, org=org_id)
     groups: List[str] = [
-        group["name"] for group in result["data"]["organization"]["projects"]
+        group["name"] for group in result["data"]["organization"]["groups"]
     ]
     assert result["data"]["organization"]["id"] == org_id
     assert result["data"]["organization"]["maxAcceptanceDays"] == 90

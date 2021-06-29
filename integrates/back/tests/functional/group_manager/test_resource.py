@@ -33,12 +33,12 @@ async def test_resource() -> None:
         ]
         query = """
             mutation UploadFileMutation(
-                $file: Upload!, $filesData: JSONString!, $projectName: String!
+                $file: Upload!, $filesData: JSONString!, $groupName: String!
             ) {
                 addFiles (
                     file: $file,
                     filesData: $filesData,
-                    projectName: $projectName) {
+                    groupName: $groupName) {
                         success
                 }
             }
@@ -46,7 +46,7 @@ async def test_resource() -> None:
         variables = {
             "file": uploaded_file,
             "filesData": json.dumps(files_data),
-            "projectName": group_name,
+            "groupName": group_name,
         }
         data = {"query": query, "variables": variables}
         result = await get_result(data)
@@ -55,8 +55,8 @@ async def test_resource() -> None:
     assert result["data"]["addFiles"]["success"]
 
     query = f"""{{
-        resources(projectName: "{group_name}"){{
-            projectName
+        resources(groupName: "{group_name}"){{
+            groupName
             files
             __typename
         }}
@@ -72,7 +72,7 @@ async def test_resource() -> None:
         mutation {{
             downloadFile (
             filesData: \"\\\"{file_name}\\\"\",
-            projectName: "{group_name}") {{
+            groupName: "{group_name}") {{
                 success
                 url
             }}
@@ -88,15 +88,15 @@ async def test_resource() -> None:
     query = """
         mutation RemoveFileMutation(
             $filesData: JSONString!,
-            $projectName: String!
+            $groupName: String!
         ) {
-            removeFiles(filesData: $filesData, projectName: $projectName) {
+            removeFiles(filesData: $filesData, groupName: $groupName) {
                 success
             }
         }
     """
     file_data = {"description": "", "fileName": file_name, "uploadDate": ""}
-    variables = {"filesData": json.dumps(file_data), "projectName": group_name}
+    variables = {"filesData": json.dumps(file_data), "groupName": group_name}
     data = {"query": query, "variables": variables}
     result = await get_result(data)
     assert "errors" not in result
@@ -104,8 +104,8 @@ async def test_resource() -> None:
     assert result["data"]["removeFiles"]["success"]
 
     query = f"""{{
-        resources(projectName: "{group_name}"){{
-            projectName
+        resources(groupName: "{group_name}"){{
+            groupName
             files
             __typename
         }}

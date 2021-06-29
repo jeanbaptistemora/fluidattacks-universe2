@@ -19,9 +19,9 @@ async def get_result(
     query: str = """
         mutation RemoveFileMutation(
             $filesData: JSONString!,
-            $projectName: String!
+            $groupName: String!
         ) {
-            removeFiles(filesData: $filesData, projectName: $projectName) {
+            removeFiles(filesData: $filesData, groupName: $groupName) {
                 success
             }
         }
@@ -33,7 +33,7 @@ async def get_result(
     }
     variables: Dict[str, Any] = {
         "filesData": json.dumps(file_data),
-        "projectName": group,
+        "groupName": group,
     }
     data: Dict[str, Any] = {"query": query, "variables": variables}
     return await get_graphql_result(

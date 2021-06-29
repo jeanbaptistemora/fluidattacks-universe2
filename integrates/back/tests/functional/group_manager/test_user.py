@@ -23,7 +23,7 @@ async def test_user() -> None:  # pylint: disable=too-many-statements
             grantStakeholderAccess (
                 email: "{stakeholder}",
                 phoneNumber: "{phone_number}"
-                projectName: "{group_name}",
+                groupName: "{group_name}",
                 responsibility: "{responsibility}",
                 role: {role}
             ) {{
@@ -45,7 +45,7 @@ async def test_user() -> None:  # pylint: disable=too-many-statements
 
     query = f"""
         {{
-            project(projectName: "{group_name}") {{
+            group(groupName: "{group_name}") {{
                 stakeholders {{
                     email
                     role
@@ -60,7 +60,7 @@ async def test_user() -> None:  # pylint: disable=too-many-statements
     data = {"query": query}
     result = await get_result(data)
     assert "errors" not in result
-    group_stakeholders = result["data"]["project"]["stakeholders"]
+    group_stakeholders = result["data"]["group"]["stakeholders"]
     new_granted_access_stakeholder = list(
         filter(
             lambda group_stakeholder: group_stakeholder["email"]
@@ -76,8 +76,8 @@ async def test_user() -> None:  # pylint: disable=too-many-statements
 
     query = f"""
         query {{
-            stakeholder(entity: PROJECT,
-                    projectName: "{group_name}",
+            stakeholder(entity: GROUP,
+                    groupName: "{group_name}",
                     userEmail: "{stakeholder}") {{
                 email
                 role
@@ -85,7 +85,7 @@ async def test_user() -> None:  # pylint: disable=too-many-statements
                 phoneNumber
                 firstLogin
                 lastLogin
-                projects {{
+                groups {{
                     name
                 }}
                 __typename
@@ -101,7 +101,7 @@ async def test_user() -> None:  # pylint: disable=too-many-statements
     assert result["data"]["stakeholder"]["phoneNumber"] == phone_number
     assert result["data"]["stakeholder"]["firstLogin"] == ""
     assert result["data"]["stakeholder"]["lastLogin"] == ""
-    assert result["data"]["stakeholder"]["projects"] == [{"name": group_name}]
+    assert result["data"]["stakeholder"]["groups"] == [{"name": group_name}]
 
     phone_number = "17364735"
     responsibility = "edited"
@@ -111,7 +111,7 @@ async def test_user() -> None:  # pylint: disable=too-many-statements
             editStakeholder (
                 email: "{stakeholder}",
                 phoneNumber: "{phone_number}",
-                projectName: "{group_name}"
+                groupName: "{group_name}"
                 responsibility: "{responsibility}",
                 role: {role}
             ) {{
@@ -126,8 +126,8 @@ async def test_user() -> None:  # pylint: disable=too-many-statements
 
     query = f"""
         query {{
-            stakeholder(entity: PROJECT,
-                    projectName: "{group_name}",
+            stakeholder(entity: GROUP,
+                    groupName: "{group_name}",
                     userEmail: "{stakeholder}") {{
                 email
                 role
@@ -135,7 +135,7 @@ async def test_user() -> None:  # pylint: disable=too-many-statements
                 phoneNumber
                 firstLogin
                 lastLogin
-                projects {{
+                groups {{
                     name
                 }}
                 __typename
@@ -151,7 +151,7 @@ async def test_user() -> None:  # pylint: disable=too-many-statements
     assert result["data"]["stakeholder"]["phoneNumber"] == phone_number
     assert result["data"]["stakeholder"]["firstLogin"] == ""
     assert result["data"]["stakeholder"]["lastLogin"] == ""
-    assert result["data"]["stakeholder"]["projects"] == [{"name": group_name}]
+    assert result["data"]["stakeholder"]["groups"] == [{"name": group_name}]
 
     role = "ANALYST"
     query = f"""
@@ -159,7 +159,7 @@ async def test_user() -> None:  # pylint: disable=too-many-statements
             editStakeholder (
                 email: "{stakeholder}",
                 phoneNumber: "{phone_number}",
-                projectName: "{group_name}"
+                groupName: "{group_name}"
                 responsibility: "{responsibility}",
                 role: {role}
             ) {{
@@ -174,8 +174,8 @@ async def test_user() -> None:  # pylint: disable=too-many-statements
 
     query = f"""
         query {{
-            stakeholder(entity: PROJECT,
-                    projectName: "{group_name}",
+            stakeholder(entity: GROUP,
+                    groupName: "{group_name}",
                     userEmail: "{stakeholder}") {{
                 email
                 role
@@ -195,7 +195,7 @@ async def test_user() -> None:  # pylint: disable=too-many-statements
             editStakeholder (
                 email: "{stakeholder}",
                 phoneNumber: "{phone_number}",
-                projectName: "{group_name}"
+                groupName: "{group_name}"
                 responsibility: "{responsibility}",
                 role: {role}
             ) {{
@@ -210,8 +210,8 @@ async def test_user() -> None:  # pylint: disable=too-many-statements
 
     query = f"""
         query {{
-            stakeholder(entity: PROJECT,
-                    projectName: "{group_name}",
+            stakeholder(entity: GROUP,
+                    groupName: "{group_name}",
                     userEmail: "{stakeholder}") {{
                 email
                 role
@@ -231,7 +231,7 @@ async def test_user() -> None:  # pylint: disable=too-many-statements
             editStakeholder (
                 email: "{stakeholder}",
                 phoneNumber: "{phone_number}",
-                projectName: "{group_name}"
+                groupName: "{group_name}"
                 responsibility: "{responsibility}",
                 role: {role}
             ) {{
@@ -246,8 +246,8 @@ async def test_user() -> None:  # pylint: disable=too-many-statements
 
     query = f"""
         query {{
-            stakeholder(entity: PROJECT,
-                    projectName: "{group_name}",
+            stakeholder(entity: GROUP,
+                    groupName: "{group_name}",
                     userEmail: "{stakeholder}") {{
                 email
                 role
@@ -264,7 +264,7 @@ async def test_user() -> None:  # pylint: disable=too-many-statements
     query = f"""
         mutation {{
             removeStakeholderAccess (
-                projectName: "{group_name}",
+                groupName: "{group_name}",
                 userEmail: "{stakeholder}"
             )
             {{
@@ -284,8 +284,8 @@ async def test_user() -> None:  # pylint: disable=too-many-statements
 
     query = f"""
         query {{
-            stakeholder(entity: PROJECT,
-                projectName: "{group_name}",
+            stakeholder(entity: GROUP,
+                groupName: "{group_name}",
                 userEmail: "{stakeholder}"
             )
             {{
@@ -295,7 +295,7 @@ async def test_user() -> None:  # pylint: disable=too-many-statements
                 phoneNumber
                 firstLogin
                 lastLogin
-                projects {{
+                groups {{
                     name
                 }}
                 __typename

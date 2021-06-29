@@ -24,7 +24,7 @@ async def get_result(
                 maxNumberAcceptations
                 minAcceptanceSeverity
                 name
-                projects {{
+                groups {{
                     name
                 }}
                 stakeholders {{

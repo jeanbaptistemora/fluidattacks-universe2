@@ -19,7 +19,7 @@ async def get_result(
     query: str = f"""
         mutation {{
             removeStakeholderAccess (
-                projectName: "{group}",
+                groupName: "{group}",
                 userEmail: "{stakeholder}"
             )
             {{
