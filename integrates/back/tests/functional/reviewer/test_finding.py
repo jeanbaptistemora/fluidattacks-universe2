@@ -39,7 +39,7 @@ async def test_finding() -> None:
             createDraft(
                 cwe: "{cwe}",
                 description: "{description}",
-                projectName: "{group_name}",
+                groupName: "{group_name}",
                 recommendation: "{recommendation}",
                 requirements: "{requirements}",
                 risk: "{risk}",
@@ -62,7 +62,7 @@ async def test_finding() -> None:
     context = get_new_context()
     query = f"""
         query {{
-            project(projectName: "{group_name}"){{
+            group(groupName: "{group_name}"){{
                 drafts {{
                     id
                     age
@@ -76,7 +76,7 @@ async def test_finding() -> None:
     assert "errors" not in result
     draft = [
         draft
-        for draft in result["data"]["project"]["drafts"]
+        for draft in result["data"]["group"]["drafts"]
         if draft["title"] == title
     ][0]
     draft_id = draft["id"]
@@ -258,7 +258,7 @@ async def test_finding() -> None:
     finding_id = draft_id
     query = f"""
         query {{
-            project(projectName: "{group_name}"){{
+            group(groupName: "{group_name}"){{
                 findings {{
                     id
                 }}
@@ -268,7 +268,7 @@ async def test_finding() -> None:
     data = {"query": query}
     result = await get_result(data, context=context)
     assert "errors" not in result
-    group_findings = result["data"]["project"]["findings"]
+    group_findings = result["data"]["group"]["findings"]
     finding_ids = [finding["id"] for finding in group_findings]
     assert finding_id in finding_ids
 
@@ -276,7 +276,7 @@ async def test_finding() -> None:
     query = f"""{{
         finding(identifier: "{finding_id}"){{
             id
-            projectName
+            groupName
             releaseDate
             openVulnerabilities
             closedVulnerabilities
@@ -335,7 +335,7 @@ async def test_finding() -> None:
     result = await get_result(data, context=context)
     assert "errors" not in result
     assert result["data"]["finding"]["id"] == finding_id
-    assert result["data"]["finding"]["projectName"] == group_name
+    assert result["data"]["finding"]["groupName"] == group_name
     result["data"]["finding"]["releaseDate"] = result["data"]["finding"][
         "releaseDate"
     ][:-9]
@@ -653,7 +653,7 @@ async def test_finding() -> None:
     context = get_new_context()
     query = f"""
         query {{
-            project(projectName: "{group_name}"){{
+            group(groupName: "{group_name}"){{
                 findings {{
                     id
                 }}
@@ -663,6 +663,6 @@ async def test_finding() -> None:
     data = {"query": query}
     result = await get_result(data, context=context)
     assert "errors" not in result
-    group_findings = result["data"]["project"]["findings"]
+    group_findings = result["data"]["group"]["findings"]
     finding_ids = [finding["id"] for finding in group_findings]
     assert finding_id not in finding_ids

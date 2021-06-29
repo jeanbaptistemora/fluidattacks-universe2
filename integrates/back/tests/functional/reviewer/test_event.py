@@ -18,7 +18,7 @@ async def test_event() -> None:
             id
             client
             evidence
-            projectName
+            groupName
             eventType
             detail
             eventDate
@@ -69,14 +69,14 @@ async def test_event() -> None:
             "state": "CREATED",
         },
     ]
-    assert result["data"]["event"]["projectName"] == group_name
+    assert result["data"]["event"]["groupName"] == group_name
     assert result["data"]["event"]["subscription"] == "CONTINUOUS"
 
     context = get_new_context()
     query = f"""{{
-        events(projectName: "{group_name}"){{
+        events(groupName: "{group_name}"){{
             id
-            projectName
+            groupName
             detail
         }}
     }}"""
@@ -85,7 +85,7 @@ async def test_event() -> None:
     assert "events" in result["data"]
     events = result["data"]["events"]
     event = [event for event in events if event["id"] == event_id][0]
-    assert event["projectName"] == group_name
+    assert event["groupName"] == group_name
     assert len(event["detail"]) >= 1
 
     context = get_new_context()
@@ -144,9 +144,9 @@ async def test_event() -> None:
 
     context = get_new_context()
     query = f"""{{
-        events(projectName: "{group_name}"){{
+        events(groupName: "{group_name}"){{
             id
-            projectName
+            groupName
             detail
             consulting {{
                 content

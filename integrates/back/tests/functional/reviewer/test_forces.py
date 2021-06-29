@@ -14,7 +14,7 @@ async def _test_forces() -> None:
     group_name = "unittesting"
     query = f"""
         mutation {{
-            updateForcesAccessToken(projectName: "{group_name}"){{
+            updateForcesAccessToken(groupName: "{group_name}"){{
                 success
                 sessionJwt
             }}
@@ -29,15 +29,15 @@ async def _test_forces() -> None:
     query = f"""
         query {{
             forcesExecutions(
-                projectName: "{group_name}",
+                groupName: "{group_name}",
                 fromDate: "2020-02-01T00:00:00Z",
                 toDate: "2020-02-28T23:59:59Z"
             ) {{
                 fromDate
-                projectName
+                groupName
                 toDate
                 executions {{
-                    projectName
+                    groupName
                     execution_id
                     date
                     exitCode
@@ -192,14 +192,14 @@ async def _test_forces() -> None:
     query = f"""
         query {{
             forcesExecutions(
-                projectName: "{group_name}",
+                groupName: "{group_name}",
                 fromDate: "2020-02-01T00:00:00Z",
                 toDate: "2020-02-28T23:59:59Z"
             ) {{
                 fromDate
                 toDate
                 executions{{
-                    projectName
+                    groupName
                 }}
                 __typename
             }}
@@ -223,10 +223,10 @@ async def _test_forces() -> None:
     query = f"""
         query {{
             forcesExecution(
-                projectName: "{group_name}",
+                groupName: "{group_name}",
                 executionId: "{execution_id}"
             ) {{
-                projectName
+                groupName
                 execution_id
                 date
                 exitCode
@@ -269,7 +269,7 @@ async def _test_forces() -> None:
     data = {"query": query}
     result = await get_result(data, context=context)
     assert "errors" not in result
-    assert result["data"]["forcesExecution"]["projectName"] == group_name
+    assert result["data"]["forcesExecution"]["groupName"] == group_name
     assert result["data"]["forcesExecution"]["execution_id"] == execution_id
     assert result["data"]["forcesExecution"]["exitCode"] == "0"
     assert (
