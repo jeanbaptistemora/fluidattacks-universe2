@@ -171,12 +171,13 @@ As many of the cases reviewed here,
 it all began with one or more weaknesses exploited by an attacker.
 At `Fluid Attacks`, we excel in proactive security testing:
 
-- We are capable of #link:../../services/continuous-hacking/[continuously hacking]#
+- We are capable of link:../../services/continuous-hacking/[continuously hacking]
 enterprise-level systems. We can detect small changes
 that could pose risks to your business.
 We combine automated tools with the best-trained cybersecurity professionals.
 - We automate almost everything we know and do.
-Our product [inner]#link:../../products/asserts/[Asserts]#
+Our product
+link:https://fluidattacks.gitlab.io/asserts/[Asserts]
 allow us to evaluate the state of your systems quickly.
 - We store, describe, and track almost everything
 in our Attack Surface Manager (ASM).
@@ -184,4 +185,4 @@ ASM makes it easier for our customers
 to keep track of their security weaknesses as well as fixes.
 
 We hope you have enjoyed this post, and we look forward to hearing from you.
-#link:../../contact-us/[Do get in touch with us!]#
+link:../../contact-us/[Do get in touch with us!]

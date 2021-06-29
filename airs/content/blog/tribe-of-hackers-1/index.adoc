@@ -114,7 +114,8 @@ password length, and automatic updates."
 All this is linked to his other suggestion
 on the general defense of systems against attacks:
 put policies in place and follow them.
-By the way, have you heard about our link:../../products/rules/[Rules],
+By the way, have you heard about our
+link:https://docs.fluidattacks.com/development/stack/commitlint/syntax/commit#rules[Rules],
 `Fluid Attacks'` compilation of security requirements?
 Check them out to get an idea of how we do this!
 

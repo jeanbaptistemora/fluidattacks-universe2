@@ -163,7 +163,8 @@ and security standards, such as `GDPR`.
 
 By the way, `GDPR` is one of those standards
 we have recently link:../rules-new-standard/[synthesized here at `Fluid Attacks`]
-in our product link:../../products/rules/[Rules].
+in our product
+link:https://docs.fluidattacks.com/development/stack/commitlint/syntax/commit#rules[Rules].
 Finally, if you want to get more information
 on Schrems's cases, follow link:https://noyb.eu/en/news[this link].
 And if you also want some practical advice related to this situation,

@@ -212,7 +212,7 @@ where it is quite clear that tool misses most of the vulnerabilities as well.
 Now for a more realistic test,
 let's try running `DeepCode` on some of our own repos, namely, Integrates,
 our platform for vulnerability centralization and management and
-asserts,
+link:https://fluidattacks.gitlab.io/asserts/[asserts],
 our vulnerability automation framework.
 Both are
 link:https://gitlab.com/fluidattacks[open-source],
@@ -247,14 +247,16 @@ but should be sanitized anyway.
 .Asserts Dashboard
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330669/blog/big-code/asserts_vtzc8h.webp[Asserts Dashboard]
 
-In `Asserts`, however, the 15 issues
+In link:https://fluidattacks.gitlab.io/asserts/[`Asserts`], however, the 15 issues
 found by `DeepCode` are less worrisome, for two reasons:
 
-* `Asserts` is not a client-server application,
+* link:https://fluidattacks.gitlab.io/asserts/[`Asserts`] is not a client-server application,
 but an `API` that runs locally.
 
 * Most of the 15 issues are several instances of `SSRF`,
-when `Asserts` makes `HTTP` requests via
+when
+link:https://fluidattacks.gitlab.io/asserts/[`Asserts`]
+makes `HTTP` requests via
 link:https://2.python-requests.org/en/master/[Requests],
 generally to client's `ToEs` as one would in a browser.
 

@@ -15,7 +15,8 @@
 
 = Spoofing, Pokémon & Vulnerabilities
 
-link:../../products/rules/findings/032/[Spoofing] is not the name of any Pokémon
+link:https://docs.fluidattacks.com/criteria/vulnerabilities/032[Spoofing]
+is not the name of any Pokémon
 (although it might be), but that of a type of scam.
 Over the past year,
 it accounted for more than $216M in losses in the United States
@@ -95,7 +96,8 @@ Think, for example, that you want to send a gift to a friend who lives far away.
 For that, you decide that the best way is to trust a Courier.
 In this case, both your address
 and your friend's address would be two *Internet Protocol (IP)* addresses.
-The link:../../products/rules/findings/077[*Address Resolution Protocol (ARP)*]
+The
+link:https://docs.fluidattacks.com/criteria/vulnerabilities/077[*Address Resolution Protocol (ARP)*]
 would be the path that the Courier has to travel
 to send the package.
 And the *Media Access Control (MAC)*
@@ -115,7 +117,7 @@ but distort it and send it to the genuine recipient.
 === DNS-Website combo
 
 Criminals who know the
-link:../../products/rules/findings/084/[DNS]
+link:https://docs.fluidattacks.com/criteria/vulnerabilities/084/[DNS]
 can assign domains to previously forged IPs.
 When people access a web page using standard URLs (Uniform Resource Locators),
 criminals can store caches of those DNS for their convenient sides.
