@@ -6,5 +6,6 @@
 /.Cache
 /.Storage
 /out
+/result*
 /state
 /TEMP_FD

@@ -1,0 +1,6 @@
+{
+  formatBash = {
+    enable = true;
+    targets = [ "/" ];
+  };
+}
