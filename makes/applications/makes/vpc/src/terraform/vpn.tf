@@ -26,6 +26,10 @@ resource "aws_vpn_connection" "medellin" {
   customer_gateway_id = aws_customer_gateway.medellin.id
   type                = "ipsec.1"
 
+  static_routes_only       = true
+  local_ipv4_network_cidr  = "172.30.56.0/24"
+  remote_ipv4_network_cidr = "192.168.8.0/23"
+
   tags = {
     "Name"               = "medellin-vpn-connection"
     "management:type"    = "production"
