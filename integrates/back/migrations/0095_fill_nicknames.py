@@ -7,8 +7,8 @@
 # we'll guess the repo_nickname from the where
 # from the template repo_nickname/path/to/file
 #
-# Execution time:
-# Finalization time:
+# Execution time: 2021-06-25T17:42:10+00:00
+# Finalization time: 2021-06-29T15:31:55+00:00
 
 import boto3
 import os
@@ -18,7 +18,7 @@ from typing import (
     Optional,
 )
 
-PROD: bool = False
+PROD: bool = True
 
 
 def handle_response(table: Any, response: Any) -> None:
@@ -36,6 +36,9 @@ def handle_response(table: Any, response: Any) -> None:
             and "masked" not in where.lower()
         ):
             repo_nickname = os.path.basename(where[::-1])[::-1]
+            if not repo_nickname:
+                # can happen when where is /an/absolute/path
+                continue
 
             print()
             print(f"  finding_id:    {finding_id}")
