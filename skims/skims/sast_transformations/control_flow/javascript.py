@@ -8,9 +8,13 @@ from model.graph_model import (
     Graph,
     GraphShardMetadataLanguage,
 )
+from more_itertools import (
+    pairwise,
+)
 from sast_transformations import (
     ALWAYS,
     FALSE,
+    MAYBE,
     TRUE,
 )
 from sast_transformations.control_flow.common import (
@@ -18,6 +22,7 @@ from sast_transformations.control_flow.common import (
     get_next_id,
     loop_statement,
     propagate_next_id_from_parent,
+    set_next_id,
     step_by_step,
     try_statement,
 )
@@ -117,6 +122,40 @@ def if_statement(
             graph.add_edge(n_id, next_id, **FALSE)
 
 
+def switch_statement(
+    graph: Graph,
+    n_id: str,
+    stack: Stack,
+) -> None:
+    switch_body = g.match_ast(graph, n_id, "switch_body")["switch_body"]
+
+    switch_cases = g.match_ast_group(
+        graph,
+        switch_body,
+        "switch_case",
+        "switch_default",
+    )
+    for switch_case in [
+        *switch_cases["switch_case"],
+        *switch_cases["switch_default"],
+    ]:
+        graph.add_edge(n_id, switch_case, **MAYBE)
+        match_case = g.adj_ast(graph, switch_case)[3:]
+        if not match_case:
+            continue
+        # Link to the first statement in the block
+        graph.add_edge(switch_case, match_case[0], **ALWAYS)
+
+        for stmt_a_id, stmt_b_id in pairwise(match_case):
+            # Mark as next_id the next statement in chain
+            set_next_id(stack, stmt_b_id)
+            _generic(graph, stmt_a_id, stack, edge_attrs=ALWAYS)
+
+        # Link recursively the last statement in the block
+        propagate_next_id_from_parent(stack)
+        _generic(graph, match_case[-1], stack, edge_attrs=ALWAYS)
+
+
 def _generic(
     graph: Graph,
     n_id: str,
@@ -152,6 +191,12 @@ def _generic(
                 "function_declaration",
             },
             function_declaration,
+        ),
+        (
+            {
+                "switch_statement",
+            },
+            switch_statement,
         ),
         (
             {
