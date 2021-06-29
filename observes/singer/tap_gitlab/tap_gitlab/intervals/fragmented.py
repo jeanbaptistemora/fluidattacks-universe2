@@ -18,6 +18,7 @@ from tap_gitlab.intervals.alias import (
     NTuple,
 )
 from tap_gitlab.intervals.interval import (
+    IntervalFactory,
     IntervalPoint,
     MAX,
     MIN,
@@ -36,6 +37,15 @@ class InvalidEndpoints(Exception):
     pass
 
 
+def _validate_endpoints(points: NTuple[IntervalPoint[_Point]]) -> None:
+    if (
+        len(points) < 2
+        or isinstance(points[0], MAX)
+        or isinstance(points[-1], MIN)
+    ):
+        raise InvalidEndpoints()
+
+
 @final
 class FragmentedInterval(
     BaseContainer,
@@ -43,13 +53,19 @@ class FragmentedInterval(
 ):
     def __init__(
         self,
+        intvl_factory: IntervalFactory,
         endpoints: NTuple[IntervalPoint[_Point]],
     ) -> None:
         super().__init__(
             {
                 "endpoints": endpoints,
+                "intvl_factory": intvl_factory,
             }
         )
+
+    @property
+    def factory(self) -> IntervalFactory:
+        return self._inner_value["intvl_factory"]
 
     @property
     def endpoints(self) -> NTuple[IntervalPoint[_Point]]:
@@ -67,7 +83,7 @@ class FragmentedInterval(
                 and not isinstance(p_1, MAX)
                 and not isinstance(p_2, (MIN, MAX))
             ):
-                return OpenLeftInterval(p_1, p_2)
+                return self.factory.new_lopen(p_1, p_2)
             raise InvalidEndpoints()
 
         return tuple(

@@ -48,11 +48,12 @@ class InvalidInterval(Exception):
 
 _Point = TypeVar("_Point")
 IntervalPoint = Union[_Point, MIN, MAX]
+Comparison = Callable[[_Point, _Point], bool]
 
 
 def default_greater(
     _type: Type[_Point],
-) -> Callable[[_Point, _Point], bool]:
+) -> Comparison[_Point]:
     if issubclass(_type, int):
 
         def greater_int(_x: _Point, _y: _Point) -> bool:
@@ -69,8 +70,8 @@ def default_greater(
 
 
 def build_greater(
-    greater: Callable[[_Point, _Point], bool]
-) -> Callable[[IntervalPoint[_Point], IntervalPoint[_Point]], bool]:
+    greater: Comparison[_Point],
+) -> Comparison[IntervalPoint[_Point]]:
     def _greater(_x: IntervalPoint[_Point], _y: IntervalPoint[_Point]) -> bool:
         if _x == _y:
             return False
@@ -84,21 +85,16 @@ def build_greater(
 
 
 def _common_builder(
-    _type: Type[_Point],
-    lower: Union[_Point, MIN],
-    upper: Union[_Point, MAX],
-    greater_than: Optional[Callable[[_Point, _Point], bool]],
+    lower: IntervalPoint[_Point],
+    upper: IntervalPoint[_Point],
+    greater_than: Comparison[IntervalPoint[_Point]],
 ) -> Any:
-    _greater_than: Callable[
-        [IntervalPoint[_Point], IntervalPoint[_Point]], bool
-    ] = build_greater(greater_than if greater_than else default_greater(_type))
-    if not isinstance(lower, MIN) and not isinstance(upper, MAX):
-        if _greater_than(lower, upper):
-            raise InvalidInterval()
+    if not greater_than(upper, lower):
+        raise InvalidInterval()
     return {
         "lower": lower,
         "upper": upper,
-        "greater": _greater_than,
+        "greater": greater_than,
     }
 
 
@@ -109,13 +105,11 @@ class ClosedInterval(
 ):
     def __init__(
         self,
+        greater_than: Comparison[IntervalPoint[_Point]],
         lower: _Point,
         upper: _Point,
-        greater_than: Optional[Callable[[_Point, _Point], bool]] = None,
     ) -> None:
-        super().__init__(
-            _common_builder(type(lower), lower, upper, greater_than)
-        )
+        super().__init__(_common_builder(lower, upper, greater_than))
 
     @property
     def lower(self) -> _Point:
@@ -133,12 +127,11 @@ class OpenInterval(
 ):
     def __init__(
         self,
-        _type: Type[_Point],
+        greater_than: Comparison[IntervalPoint[_Point]],
         lower: Union[_Point, MIN],
         upper: Union[_Point, MAX],
-        greater_than: Optional[Callable[[_Point, _Point], bool]] = None,
     ) -> None:
-        super().__init__(_common_builder(_type, lower, upper, greater_than))
+        super().__init__(_common_builder(lower, upper, greater_than))
 
     @property
     def lower(self) -> Union[_Point, MIN]:
@@ -156,13 +149,11 @@ class OpenLeftInterval(
 ):
     def __init__(
         self,
+        greater_than: Comparison[IntervalPoint[_Point]],
         lower: Union[_Point, MIN],
         upper: _Point,
-        greater_than: Optional[Callable[[_Point, _Point], bool]] = None,
     ) -> None:
-        super().__init__(
-            _common_builder(type(upper), lower, upper, greater_than)
-        )
+        super().__init__(_common_builder(lower, upper, greater_than))
 
     @property
     def lower(self) -> Union[_Point, MIN]:
@@ -180,13 +171,11 @@ class OpenRightInterval(
 ):
     def __init__(
         self,
+        greater_than: Comparison[IntervalPoint[_Point]],
         lower: _Point,
         upper: Union[_Point, MAX],
-        greater_than: Optional[Callable[[_Point, _Point], bool]] = None,
     ) -> None:
-        super().__init__(
-            _common_builder(type(lower), lower, upper, greater_than)
-        )
+        super().__init__(_common_builder(lower, upper, greater_than))
 
     @property
     def lower(self) -> _Point:
@@ -203,3 +192,47 @@ Interval = Union[
     OpenLeftInterval[_Point],
     OpenRightInterval[_Point],
 ]
+
+
+@final
+class IntervalFactory(
+    BaseContainer,
+    SupportsKind1["IntervalFactory", _Point],
+):
+    def __init__(
+        self,
+        _type: Type[_Point],
+        greater_than: Optional[Comparison[_Point]],
+    ) -> None:
+        _greater_than: Comparison[IntervalPoint[_Point]] = build_greater(
+            greater_than if greater_than else default_greater(_type)
+        )
+        super().__init__({"greater_than": _greater_than})
+
+    @property
+    def _type(self) -> Type[_Point]:
+        return self._inner_value["_type"]
+
+    @property
+    def greater_than(self) -> Comparison[IntervalPoint[_Point]]:
+        return self._inner_value["greater_than"]
+
+    def new_closed(
+        self, lower: _Point, upper: _Point
+    ) -> ClosedInterval[_Point]:
+        return ClosedInterval(self.greater_than, lower, upper)
+
+    def new_open(
+        self, lower: Union[_Point, MIN], upper: Union[_Point, MAX]
+    ) -> OpenInterval[_Point]:
+        return OpenInterval(self.greater_than, lower, upper)
+
+    def new_ropen(
+        self, lower: _Point, upper: Union[_Point, MAX]
+    ) -> OpenRightInterval[_Point]:
+        return OpenRightInterval(self.greater_than, lower, upper)
+
+    def new_lopen(
+        self, lower: Union[_Point, MIN], upper: _Point
+    ) -> OpenLeftInterval[_Point]:
+        return OpenLeftInterval(self.greater_than, lower, upper)
