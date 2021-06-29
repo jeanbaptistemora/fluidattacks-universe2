@@ -5,7 +5,6 @@ import ast
 from lib_path.common import (
     C_STYLE_COMMENT,
     DOUBLE_QUOTED_STRING,
-    EXTENSIONS_JAVASCRIPT,
     EXTENSIONS_PYTHON,
     EXTENSIONS_SWIFT,
     get_vulnerabilities_blocking,
@@ -20,7 +19,6 @@ from model import (
 from pyparsing import (
     Empty,
     Keyword,
-    MatchFirst,
     nestedExpr,
     Optional,
 )
@@ -42,56 +40,6 @@ from utils.function import (
 from zone import (
     t,
 )
-
-
-def _javascript_swallows_exceptions(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    # Empty() grammar matches 'anything'
-    # ~Empty() grammar matches 'not anything' or 'nothing'
-    classic = (
-        Keyword("catch")
-        + Optional(nestedExpr(opener="(", closer=")"))
-        + nestedExpr(opener="{", closer="}", content=~Empty())
-    )
-    modern = (
-        "."
-        + Keyword("catch")
-        + nestedExpr(opener="(", closer=")", content=~Empty())
-    )
-
-    grammar = MatchFirst([classic, modern])
-    grammar.ignore(C_STYLE_COMMENT)
-    grammar.ignore(DOUBLE_QUOTED_STRING)
-    grammar.ignore(SINGLE_QUOTED_STRING)
-
-    return get_vulnerabilities_blocking(
-        content=content,
-        cwe={"390"},
-        description=t(
-            key="src.lib_path.f061.swallows_exceptions.description",
-            lang="Javascript",
-            path=path,
-        ),
-        finding=core_model.FindingEnum.F061,
-        grammar=grammar,
-        path=path,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def javascript_swallows_exceptions(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _javascript_swallows_exceptions,
-        content=content,
-        path=path,
-    )
 
 
 def _python_swallows_exceptions(
@@ -188,14 +136,7 @@ async def analyze(
 ) -> List[Awaitable[core_model.Vulnerabilities]]:
     coroutines: List[Awaitable[core_model.Vulnerabilities]] = []
 
-    if file_extension in EXTENSIONS_JAVASCRIPT:
-        coroutines.append(
-            javascript_swallows_exceptions(
-                content=await content_generator(),
-                path=path,
-            )
-        )
-    elif file_extension in EXTENSIONS_PYTHON:
+    if file_extension in EXTENSIONS_PYTHON:
         coroutines.append(
             python_swallows_exceptions(
                 content=await content_generator(),

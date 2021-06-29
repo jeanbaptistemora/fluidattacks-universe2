@@ -4263,12 +4263,12 @@ F061,lines,namespace/skims/test/data/lib_path/f061/javascript.js,4,390,skims,F06
     ^ Col 0
 "
 F061,lines,namespace/skims/test/data/lib_path/f061/javascript.js,3,390,skims,F061. Errors without traceability,Empty Javascript catch in skims/test/data/lib_path/f061/javascript.js,"
-  1 |
-  2 |
-> 3 | olve(x).then(alert('success')).catch();
-  4 |
-  5 |
-    ^ Col 15
+  1 | try {
+  2 |   try {
+> 3 |     Promise.resolve(x).then(alert('success')).catch();
+  4 |   } catch {}
+  5 | } catch (e) {}
+    ^ Col 0
 "
 F061,lines,namespace/skims/test/data/lib_path/f061/python.py,24,390,skims,F061. Errors without traceability,Empty Python catch in skims/test/data/lib_path/f061/python.py,"
    8 |
