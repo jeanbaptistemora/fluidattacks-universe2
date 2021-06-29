@@ -17,6 +17,10 @@ slug: /development/writing/documentation/main
 
 * **DG03:** We *must not* be repetitive
   in the handling of titles and subtitles.
+  Example (the subtitle *Criteria* would be unnecessary
+  in the introduction of the section with the same name):
+
+  ![DG03](https://res.cloudinary.com/fluid-attacks/image/upload/v1624900945/docs/development/writing/dgb_qdmbql.png)
 
 * **DG04:** We *must* express the names of the sections and subsections
   in the same way wherever we refer to them.
@@ -84,7 +88,7 @@ slug: /development/writing/documentation/main
 * **DG16:** In cases of warnings for the reader,
   pointing out something that *is not* part of the content,
   we *must* use the following command in Markdown
-  (the word *note* is just an option): `> **NOTE:** > [Text]`.
+  (the word *Note* is just an option): `> **NOTE:** > [Text]`.
   Example:
 
   ![DG16](https://res.cloudinary.com/fluid-attacks/image/upload/v1624050029/docs/development/writing/dga_kqtp4r.webp)
@@ -113,29 +117,29 @@ slug: /development/writing/documentation/main
 
 ## [Requirements](https://docs.fluidattacks.com/criteria/requirements/)
 
-* **DR01:** We *must* make a complete exposition of each requirement
+* **DR01:** We *should* create short titles for the requirements,
+  preferably no longer than **32 characters**.
+
+* **DR02:** We *must* make a complete exposition of each requirement
   (i.e., including main sentence, description,
   associated vulnerabilities and references).
 
-* **DR02:** We *should* write the main sentence of each requirement
+* **DR03:** We *should* write the main sentence of each requirement,
+  preferably no longer than **150 characters**.
+
+* **DR04:** We *should* write the main sentence of each requirement
   starting with a subject in charge of fulfilling a specific task,
   accompanied by the modal verb *must*.
 
-* **DR03:** In the description of the requirements,
+* **DR05:** In the description of the requirements,
   we *should* expand the information of the main sentence
   with the exposition of the processes involved,
   short definitions of elements and justifications of the requirements.
 
-* **DR04:** We *must* put in quotation marks
+* **DR06:** We *must* put in quotation marks
   all external information (copied from their sources)
   that is part of the references
   (e.g., [CWE](https://cwe.mitre.org/), [OWASP](https://owasp.org/)).
-
-* **DR05:** We *should* create short titles for the requirements,
-  preferably no longer than **32 characters**.
-
-* **DR06:** We *should* write the main sentence of each requirement,
-  preferably no longer than **150 characters**.
 
 ## [Vulnerabilities](https://docs.fluidattacks.com/criteria/vulnerabilities/)
 
