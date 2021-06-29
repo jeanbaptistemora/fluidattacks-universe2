@@ -45,6 +45,6 @@ async def resolve_no_cache(
     finding_id: str = cast(Dict[str, str], parent)["id"]
 
     vulns: List[Vulnerability] = await finding_vulns_loader.load(finding_id)
-    vulns = vulns_domain.filter_non_confirmed_zero_risk_vuln(vulns)
+    vulns = vulns_domain.filter_zero_risk(vulns)
     open_vulns = vulns_domain.filter_open_vulnerabilities(vulns)
     return "open" if open_vulns else "closed"
