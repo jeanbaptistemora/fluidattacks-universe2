@@ -441,6 +441,19 @@ resource "cloudflare_page_rule" "install_profiles" {
   }
 }
 
+resource "cloudflare_page_rule" "install_makes" {
+  zone_id  = cloudflare_zone.fluidattacks_com.id
+  target   = "${cloudflare_zone.fluidattacks_com.zone}/makes/install"
+  status   = "active"
+  priority = 101
+
+  actions {
+    forwarding_url {
+      url         = "https://github.com/fluidattacks/makes/archive/main.tar.gz"
+      status_code = 301
+    }
+  }
+}
 
 # Workers
 
