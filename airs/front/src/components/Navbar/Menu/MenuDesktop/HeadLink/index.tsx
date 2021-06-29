@@ -1,5 +1,5 @@
 /* eslint react/forbid-component-props: 0 */
-import { Link } from "gatsby";
+import AniLink from "gatsby-plugin-transition-link/AniLink";
 import React from "react";
 
 interface IProps {
@@ -27,9 +27,16 @@ const HeadLink: React.FC<IProps> = ({
   margin,
 }: IProps): JSX.Element => (
   <li className={margin}>
-    <Link className={headLinksStyles} onClick={closeMenu} to={link}>
+    <AniLink
+      bg={"#f4f4f6"}
+      className={headLinksStyles}
+      cover={true}
+      direction={"bottom"}
+      onClick={closeMenu}
+      to={link}
+    >
       {name}
-    </Link>
+    </AniLink>
   </li>
 );
 

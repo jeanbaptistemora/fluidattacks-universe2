@@ -107,11 +107,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-sitemap",
       options: {
-        excludes: [
-          `/blog/authors/**`,
-          `/blog/tags/**`,
-          `/blog/categories/**`,
-        ],
+        excludes: [`/blog/authors/**`, `/blog/tags/**`, `/blog/categories/**`],
       },
     },
     {
@@ -128,5 +124,6 @@ module.exports = {
     "gatsby-plugin-typescript",
     "gatsby-transformer-asciidoc",
     "gatsby-transformer-sharp",
+    "gatsby-plugin-transition-link",
   ],
 };
