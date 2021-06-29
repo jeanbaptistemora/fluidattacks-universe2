@@ -45,8 +45,8 @@ from db_model.findings.types import (
     Finding,
     Finding20Severity,
     Finding31Severity,
-    FindingDescriptionToUpdate,
     FindingEvidence,
+    FindingMetadataToUpdate,
     FindingState,
 )
 from decimal import (
@@ -57,6 +57,9 @@ from dynamodb.operations_legacy import (
 )
 from findings import (
     dal as findings_dal,
+)
+from findings.types import (
+    FindingDescriptionToUpdate,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -896,10 +899,27 @@ async def update_description_new(
 
     finding_loader = context.loaders.finding_new
     finding: Finding = await finding_loader.load(finding_id)
-    await findings_model.update_description(
+    metadata = FindingMetadataToUpdate(
+        actor=description.actor,
+        affected_systems=description.affected_systems,
+        attack_vector_desc=description.attack_vector_desc,
+        compromised_attributes=description.compromised_attributes,
+        compromised_records=description.compromised_records,
+        cwe=description.cwe,
+        description=description.description,
+        recommendation=description.recommendation,
+        requirements=description.requirements,
+        risk=description.risk,
+        scenario=description.sorts,
+        sorts=description.sorts,
+        threat=description.threat,
+        title=description.title,
+        type=description.type,
+    )
+    await findings_model.update_medatada(
         group_name=finding.group_name,
         finding_id=finding.id,
-        description=description,
+        metadata=metadata,
     )
 
 

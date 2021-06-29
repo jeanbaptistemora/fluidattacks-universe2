@@ -2,7 +2,9 @@ from .enums import (
     FindingStateStatus,
 )
 from .types import (
-    FindingDescriptionToUpdate,
+    Finding20Severity,
+    Finding31Severity,
+    FindingMetadataToUpdate,
     FindingState,
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
@@ -33,26 +35,30 @@ from enum import (
 )
 
 
-async def update_description(
+async def update_medatada(
     *,
     group_name: str,
     finding_id: str,
-    description: FindingDescriptionToUpdate,
+    metadata: FindingMetadataToUpdate,
 ) -> None:
     key_structure = TABLE.primary_key
     metadata_key = keys.build_key(
         facet=TABLE.facets["finding_metadata"],
         values={"group_name": group_name, "id": finding_id},
     )
-    metadata = {
-        key: value.value if isinstance(value, Enum) else value
-        for key, value in description._asdict().items()
+    metadata_item = {
+        key: value.value
+        if isinstance(value, Enum)
+        else value._asdict()
+        if isinstance(value, (Finding20Severity, Finding31Severity))
+        else value
+        for key, value in metadata._asdict().items()
         if value is not None
     }
     condition_expression = Attr(key_structure.partition_key).exists()
     await operations.update_item(
         condition_expression=condition_expression,
-        item=metadata,
+        item=metadata_item,
         key=metadata_key,
         table=TABLE,
     )

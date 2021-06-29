@@ -173,7 +173,7 @@ class Finding(NamedTuple):
     verification: Optional[FindingVerification] = None
 
 
-class FindingDescriptionToUpdate(NamedTuple):
+class FindingMetadataToUpdate(NamedTuple):
     actor: Optional[str] = None
     affected_systems: Optional[str] = None
     attack_vector_desc: Optional[str] = None
@@ -185,6 +185,7 @@ class FindingDescriptionToUpdate(NamedTuple):
     requirements: Optional[str] = None
     risk: Optional[str] = None
     scenario: Optional[str] = None
+    severity: Optional[Union[Finding20Severity, Finding31Severity]] = None
     sorts: Optional[FindingSorts] = None
     threat: Optional[str] = None
     title: Optional[str] = None

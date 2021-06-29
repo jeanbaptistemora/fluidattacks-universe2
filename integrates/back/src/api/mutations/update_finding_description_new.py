@@ -13,7 +13,6 @@ from db_model.findings.enums import (
 )
 from db_model.findings.types import (
     Finding,
-    FindingDescriptionToUpdate,
 )
 from decorators import (
     concurrent_decorators,
@@ -24,6 +23,9 @@ from decorators import (
 )
 from findings import (
     domain as findings_domain,
+)
+from findings.types import (
+    FindingDescriptionToUpdate,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
