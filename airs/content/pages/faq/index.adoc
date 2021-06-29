@@ -387,13 +387,9 @@ No. Reviewing your code in no way compromises
 your proprietary rights to that code.
 
 === 50. Does Fluid Attacks have a tool that enables automatic remediation and closing of previously confirmed vulnerabilities?
-Yes. link:../../products/asserts/[Asserts] is `Fluid Attacks'` automated engine,
+No. We used to have Asserts, an automated engine,
 checking remediation of previously confirmed vulnerabilities.
-link:../../products/asserts/[Asserts] operates in the `JOB` of continuous integration.
-It can break the build sent by the programmer in the event
-of a breach of security requirements.
-We have recently released link:https://gitlab.com/fluidattacks/asserts[`Asserts`]
-source code to our link:https://gitlab.com/fluidattacks[public repository].
+Now we *don't offer* that product.
 
 === 51. Does Continuous Hacking only focus on source code? Is it possible to include the infrastructure associated with the app?
 We have improved the Continuous Hacking model
@@ -499,12 +495,10 @@ they may request validation of their repairs through `ASM`.
 . Steps `3` - `7` are repeated until the subscription ends.
 
 === 62. What technical conditions do I need to meet if I want to use Asserts inside my continuous integrator?
-Asserts runs on any continuous integration platform
-that supports `Docker` (`Docker engine 18.03.1`)
-and has access to the internet.
+We are not offering this product anymore.
 
 === 63. Is there documentation for Asserts?
-Yes, it is available on the link:/products/asserts/[Asserts page].
+Yes, it is available on the link:https://fluidattacks.gitlab.io/asserts/[Asserts page].
 
 === 64. Is it possible to group multiple applications into one subscription? How would I recognize the vulnerabilities within each application?
 According to the active authors model,
