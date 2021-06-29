@@ -134,9 +134,8 @@ which is an essential part of the exam.
 But it is also important to clarify that
 the course material is sufficient to pass the certification.
 
-*The exam is a roller coaster of emotions*.
-
-- There are moments where you feel bad
+- *The exam is a roller coaster of emotions*.
+There are moments where you feel bad
 because you have not advanced for a while,
 but then you find something that had been missed
 and allows you to move forward.
