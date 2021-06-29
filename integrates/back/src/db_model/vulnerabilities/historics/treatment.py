@@ -35,10 +35,14 @@ class VulnerabilityTreatment(NamedTuple):
 
 def format_treatment(item: Item) -> VulnerabilityTreatment:
     return VulnerabilityTreatment(
-        accepted_until=item["accepted_until"],
-        acceptance_status=item["acceptance_status"],
-        justification=item["justification"],
-        manager=item["manager"],
+        accepted_until=item.get("accepted_until", None),
+        acceptance_status=VulnerabilityAcceptanceStatus[
+            item["acceptance_status"]
+        ]
+        if "acceptance_status" in item
+        else None,
+        justification=item.get("justification", None),
+        manager=item.get("manager", None),
         modified_by=item["modified_by"],
         modified_date=item["modified_date"],
         status=VulnerabilityTreatmentStatus[item["status"]],
@@ -48,7 +52,9 @@ def format_treatment(item: Item) -> VulnerabilityTreatment:
 def format_treatment_item(state: VulnerabilityTreatment) -> Item:
     return {
         "accepted_until": state.accepted_until,
-        "acceptance_status": state.acceptance_status,
+        "acceptance_status": state.acceptance_status.value
+        if state.acceptance_status
+        else None,
         "justification": state.justification,
         "modified_by": state.modified_by,
         "modified_date": state.modified_date,
