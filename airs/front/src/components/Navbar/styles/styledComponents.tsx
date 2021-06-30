@@ -255,12 +255,30 @@ const CloseMenuMobile: StyledComponent<
   `,
 })``;
 
+const DesktopTopbarItemsContainer = styled.div.attrs({
+  className: `
+    w-50
+    flex
+    flex-nowrap
+    justify-end
+  `,
+})``;
+
+const DesktopTopbarItem = styled.li.attrs<{ className: string }>({
+  className: `
+    mr3
+    pv4
+  `,
+})``;
+
 export {
   BlackWeightedParagraph,
   CloseMenuButton,
   CloseMenuButtonContainer,
   CloseMenuMobile,
   CloseMenuMobileContainer,
+  DesktopTopbarItem,
+  DesktopTopbarItemsContainer,
   FlexMenuItems,
   HalfWidthContainer,
   MenuDesktopContainer,

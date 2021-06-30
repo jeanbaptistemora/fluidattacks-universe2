@@ -100,6 +100,15 @@ const NavbarContactButton: StyledComponent<
   `,
 })``;
 
+const NavbarItem = styled.li.attrs<{ className: string }>({
+  className: `
+    dn
+    mr3
+    pr2
+    pv4
+  `,
+})``;
+
 const NavbarLoginButton: StyledComponent<
   "button",
   Record<string, unknown>
@@ -148,9 +157,7 @@ const NavbarSubcategory: StyledComponent<
 > = styled.div.attrs({
   className: `
     roboto
-    br3
-    br--bottom
-    pt4
+    mt4
     fadein
   `,
 })``;
@@ -1606,6 +1613,7 @@ export {
   NavbarSubcategory,
   NavbarContactButton,
   NavbarContainer,
+  NavbarItem,
   NavbarInnerContainer,
   NavbarList,
   NavbarLoginButton,
