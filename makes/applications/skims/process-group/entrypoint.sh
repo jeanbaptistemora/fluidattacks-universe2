@@ -31,6 +31,7 @@ function clone_group {
   export SERVICES_PROD_AWS_ACCESS_KEY_ID
   export SERVICES_PROD_AWS_SECRET_ACCESS_KEY
   local group="${1}"
+  local namespace
 
   echo '[INFO] Cloning repositories' \
     && CI='true' \
@@ -113,11 +114,13 @@ function skims_scan {
 function main {
   local group="${1:-}"
   local check="${2:-}"
+  local namespace="${3:-}"
   local config
   local success='true'
 
   check_cli_arg 1 group "${group}" \
     && check_cli_arg 2 check "${check}" \
+    && check_cli_arg 3 namespace "${namespace}" \
     && shopt -s nullglob \
     && ensure_gitlab_env_vars \
       INTEGRATES_API_TOKEN \
@@ -128,9 +131,8 @@ function main {
     && clone_group "${group}" \
     && aws_login_prod 'skims' \
     && skims_cache pull "${group}" \
-    && for repo_path in "groups/${group}/fusion/"*; do
-      namespace="$(basename "${repo_path}")" \
-        && skims_rebase "${group}" "${namespace}" \
+    && if test -e "groups/${group}/fusion/${namespace}"; then
+      skims_rebase "${group}" "${namespace}" \
         && skims_should_run "${group}" "${namespace}" "${check}" \
         && if skims_scan "${group}" "${namespace}" "${check}" "${config}"; then
           echo "[INFO] Succesfully processed: ${group} ${namespace}"
@@ -138,8 +140,10 @@ function main {
           echo "[ERROR] While running skims on: ${group} ${namespace}" \
             && success='false'
         fi \
-        || continue
-    done \
+        || true
+    else
+      echo "[ERROR] Namespace not cloned: ${namespace}"
+    fi \
     && skims_cache push "${group}" \
     && popd \
     && echo "[INFO] Success: ${success}" \
