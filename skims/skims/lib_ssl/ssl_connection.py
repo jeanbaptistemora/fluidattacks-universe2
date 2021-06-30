@@ -2,7 +2,9 @@ import contextlib
 from lib_ssl.types import (
     SSLSettings,
 )
-import socket
+from socket import (
+    socket,
+)
 import tlslite
 from typing import (
     Generator,
@@ -12,30 +14,9 @@ from typing import (
 from utils.logs import (
     log_blocking,
 )
-
-
-def _socket_connect(
-    hostname: str,
-    port: int,
-) -> Optional[socket.socket]:
-    try:
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.connect((hostname, port))
-        return sock
-    except (
-        socket.error,
-        socket.herror,
-        socket.gaierror,
-        socket.timeout,
-    ) as error:
-        log_blocking(
-            "error",
-            "%s occured with %s:%d",
-            type(error).__name__,
-            hostname,
-            port,
-        )
-        return None
+from utils.sockets import (
+    tcp_connect,
+)
 
 
 @contextlib.contextmanager
@@ -48,7 +29,7 @@ def connect(
 ) -> Generator[Optional[tlslite.TLSConnection], None, None]:
 
     try:
-        sock: Optional[socket.socket] = _socket_connect(hostname, port)
+        sock: Optional[socket] = tcp_connect(hostname, port, intention)
         if sock is None:
             yield None
         else:
@@ -64,7 +45,7 @@ def connect(
             connection.handshakeClientCert(settings=settings)
             yield connection
     except tlslite.errors.BaseTLSException as error:
-        if any(isinstance(error, excep) for excep in expected_exceptions):
+        if isinstance(error, expected_exceptions):
             yield connection
         else:
             log_blocking(
