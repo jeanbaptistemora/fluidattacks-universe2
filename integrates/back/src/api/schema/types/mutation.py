@@ -75,6 +75,7 @@ from api.mutations import (
     update_root_cloning_status,
     update_root_state,
     update_severity,
+    update_severity_new,
     update_toe_lines_sorts,
     update_treatment_vulnerability,
     update_vuln_commit,
@@ -148,7 +149,6 @@ MUTATION.set_field("updateRootState", update_root_state.mutate)
 MUTATION.set_field(
     "updateRootCloningStatus", update_root_cloning_status.mutate
 )
-MUTATION.set_field("updateSeverity", update_severity.mutate)
 MUTATION.set_field("uploadFile", upload_file.mutate)
 
 MUTATION.set_field("signIn", sign_in.mutate)
@@ -204,6 +204,7 @@ if FI_API_STATUS == "migration":
     MUTATION.set_field(
         "updateDescription", update_finding_description_new.mutate
     )
+    MUTATION.set_field("updateSeverity", update_severity_new.mutate)
 else:
     MUTATION.set_field("approveDraft", approve_draft.mutate)
     MUTATION.set_field("createDraft", create_draft.mutate)
@@ -211,3 +212,4 @@ else:
     MUTATION.set_field("rejectDraft", reject_draft.mutate)
     MUTATION.set_field("submitDraft", submit_draft.mutate)
     MUTATION.set_field("updateDescription", update_finding_description.mutate)
+    MUTATION.set_field("updateSeverity", update_severity.mutate)

@@ -33,6 +33,7 @@ from .core import (
     save_severity,
     update_description,
     update_description_new,
+    update_severity_new,
     validate_finding,
     verify_vulnerabilities,
 )
@@ -94,6 +95,7 @@ __all__ = [
     "save_severity",
     "update_description",
     "update_description_new",
+    "update_severity_new",
     "validate_finding",
     "verify_vulnerabilities",
     # drafts
