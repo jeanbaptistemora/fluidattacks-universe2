@@ -18,7 +18,7 @@ from typing import (
 )
 
 logging.config.dictConfig(LOGGING)
-LOGGER = logging.getLogger(__name__)
+LOGGER = logging.getLogger("console")
 
 
 def _info(*args: Any, extra: Any = None) -> None:
