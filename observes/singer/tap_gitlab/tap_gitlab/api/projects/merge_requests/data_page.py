@@ -106,9 +106,11 @@ class MrsPage(Immutable):
             object.__setattr__(self, prop, val)
         return self
 
+    @property
     def min_date(self) -> datetime:
         return isoparse(self.data[-1]["updated_at"])
 
+    @property
     def max_date(self) -> datetime:
         return isoparse(self.data[0]["updated_at"])
 

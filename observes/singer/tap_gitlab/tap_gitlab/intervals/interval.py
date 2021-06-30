@@ -202,7 +202,7 @@ class IntervalFactory(
     def __init__(
         self,
         _type: Type[_Point],
-        greater_than: Optional[Comparison[_Point]],
+        greater_than: Optional[Comparison[_Point]] = None,
     ) -> None:
         _greater_than: Comparison[IntervalPoint[_Point]] = build_greater(
             greater_than if greater_than else default_greater(_type)

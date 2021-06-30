@@ -122,10 +122,14 @@ class Emitter(Immutable):
     interval_factory: IntervalFactory
     max_pages: int
 
-    def __new__(cls, creds: Credentials, max_pages: int = 10) -> Emitter:
+    def __new__(
+        cls, creds: Credentials, factory: IntervalFactory, max_pages: int = 10
+    ) -> Emitter:
         self = object.__new__(cls)
         object.__setattr__(self, "api", ApiClient(creds))
         object.__setattr__(self, "max_pages", max_pages)
+        object.__setattr__(self, "interval_factory", factory)
+
         return self
 
     def emit_mrs_interval(
@@ -189,12 +193,12 @@ class Emitter(Immutable):
 
     def emit_mrs(
         self, stream: MrStream, state: Optional[MrStreamState] = None
-    ) -> None:
+    ) -> Optional[NTuple[ProgressInterval[datetime]]]:
         if state:
-            state.state.process_until_incomplete(
+            LOG.debug("Emitting with a state")
+            return state.state.process_until_incomplete(
                 partial(self.emit_mrs_interval, stream), 0
             )
-            return None
         start = PageId(datetime.now(pytz.utc), 100)
         pages = (
             self.api.project(stream.project)
@@ -204,6 +208,7 @@ class Emitter(Immutable):
         _old_stream_data(
             SupportedStreams.MERGE_REQUESTS, pages, self.max_pages
         )
+        return None
 
     def emit_jobs(
         self, stream: JobStream, _state: Optional[JobStreamState] = None

@@ -1,9 +1,15 @@
+from datetime import (
+    datetime,
+)
 import logging
 from tap_gitlab.api.auth import (
     Credentials,
 )
 from tap_gitlab.emitter import (
     Emitter,
+)
+from tap_gitlab.intervals.interval import (
+    IntervalFactory,
 )
 from tap_gitlab.streams import (
     default_job_stream,
@@ -28,14 +34,17 @@ def defautl_stream(
         if isinstance(target_stream, str)
         else target_stream
     )
-    emitter = Emitter(creds, max_pages)
+    factory: IntervalFactory[datetime] = IntervalFactory(datetime)
+    emitter = Emitter(creds, factory, max_pages)
     if _target_stream == SupportedStreams.JOBS:
         LOG.info("Executing stream: %s", _target_stream)
         emitter.emit_jobs(default_job_stream(project))
     elif _target_stream == SupportedStreams.MERGE_REQUESTS:
         LOG.info("Executing stream: %s", _target_stream)
         streams = default_mr_streams(project)
+
         for stream in streams:
-            emitter.emit_mrs(stream)
+            result = emitter.emit_mrs(stream)
+            LOG.debug("new status: %s", result)
     else:
         raise NotImplementedError(f"for {_target_stream}")
