@@ -1,9 +1,4 @@
-/* eslint-disable react/forbid-component-props, react/jsx-props-no-spreading
-  --------
-  We need className to override default styles and props spreading in
-  order to pass down props to react-bootstrap DropdownButton.
-*/
-import React from "react";
+import React, { useRef } from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
@@ -15,6 +10,7 @@ interface IDropdownButtonProps {
   content: React.ReactNode;
   id: string;
   items: React.ReactNode;
+  scrollInto: boolean;
 }
 
 const StyledDropdownButton: StyledComponent<
@@ -31,13 +27,26 @@ const ItemsContainer: StyledComponent<
   className: `absolute dn z-1 ${style.itemsContainer}`,
 })``;
 
-const DropdownButton: React.FC<IDropdownButtonProps> = (
-  props: Readonly<IDropdownButtonProps>
-): JSX.Element => {
-  const { content, id, items } = props;
+const DropdownButton: React.FC<IDropdownButtonProps> = ({
+  content,
+  id,
+  items,
+  scrollInto,
+}: IDropdownButtonProps): JSX.Element => {
+  const dropdownRef: React.MutableRefObject<HTMLDivElement | null> =
+    useRef(null);
+
+  function onMouseEnter(): void {
+    if (dropdownRef.current !== null && scrollInto) {
+      dropdownRef.current.scrollIntoView({
+        behavior: "auto",
+        block: "center",
+      });
+    }
+  }
 
   return (
-    <StyledDropdownButton id={id}>
+    <StyledDropdownButton id={id} onMouseEnter={onMouseEnter} ref={dropdownRef}>
       {content}
       <ItemsContainer>{items}</ItemsContainer>
     </StyledDropdownButton>

@@ -1,6 +1,7 @@
 :local .dropdownButton {
   border: solid 1px;
   border-radius: 0 !important;
+  cursor: pointer;
   font-family: 'Montserrat', sans-serif;
   font-size: 16px !important;
   white-space: normal;
@@ -88,6 +89,7 @@
   background: transparent;
   font-size: small;
   border-color: #fff;
+  cursor: pointer;
 }
 
 :local .menuItem:hover {

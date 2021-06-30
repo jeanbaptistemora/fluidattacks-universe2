@@ -28,6 +28,7 @@ export const SizePerPageRenderer = (props: ISizePerPageProps): JSX.Element => {
           />
         )
       )}
+      scrollInto={true}
     />
   );
 };

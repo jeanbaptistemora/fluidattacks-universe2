@@ -198,6 +198,7 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = (
                             </TooltipWrapper>
                           )
                         )}
+                        scrollInto={false}
                       />
                     </ButtonToolbarCenter>
                   </div>
