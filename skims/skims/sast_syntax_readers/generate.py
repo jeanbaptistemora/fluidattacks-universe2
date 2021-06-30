@@ -34,6 +34,7 @@ from sast_syntax_readers.common import (
     return_statement as common_return_statement,
 )
 from sast_syntax_readers.go import (
+    assignment_statement as go_assignment_statement,
     call_expression as go_call_expression,
     function_declaration as go_function_declaration,
     variable_declaration as go_variable_declaration,
@@ -124,6 +125,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "assignment_expression",
         },
         syntax_readers=(java_assignment_expression.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.GO,
+        },
+        applicable_node_label_types={
+            "assignment_statement",
+        },
+        syntax_readers=(go_assignment_statement.reader,),
     ),
     Dispatcher(
         applicable_languages={

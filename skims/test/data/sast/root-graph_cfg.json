@@ -28854,6 +28854,64 @@
       },
       "path": "skims/test/data/sast/test_cfg.go",
       "syntax": {
+        "112": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "117",
+              "value": null
+            },
+            "symbol": "t",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "114",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "err"
+          }
+        ],
+        "122": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "134",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Unknown error",
+            "value_type": "string"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "127",
+              "value": null
+            },
+            "method": "errors.New",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "124",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "err"
+          }
+        ],
         "139": [
           {
             "current_instance": {
@@ -29081,6 +29139,41 @@
             "type": "SyntaxStepDeclaration",
             "var": "r",
             "var_type": ""
+          }
+        ],
+        "93": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "105",
+              "value": null
+            },
+            "symbol": "t",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "98",
+              "value": null
+            },
+            "method": "errors.New",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "95",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "err"
           }
         ]
       }
