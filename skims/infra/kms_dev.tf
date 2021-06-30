@@ -71,6 +71,7 @@ resource "aws_kms_key" "key_skims_dev" {
   policy                  = data.aws_iam_policy_document.key_skims_dev.json
   deletion_window_in_days = 30
   is_enabled              = true
+  enable_key_rotation     = true
 
   tags = {
     "Name"               = "skims-development"
