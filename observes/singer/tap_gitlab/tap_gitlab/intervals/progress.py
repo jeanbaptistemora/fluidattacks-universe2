@@ -9,9 +9,6 @@ from returns.primitives.hkt import (
     SupportsKind1,
     SupportsKind2,
 )
-from singer_io.common import (
-    JSON,
-)
 from tap_gitlab.intervals.alias import (
     NTuple,
 )
@@ -154,12 +151,3 @@ class FragmentedProgressInterval(
         for interval in self.progress_intervals:
             status = _process(status, interval)
         return status.p_intervals
-
-    def to_json(self) -> JSON:
-        return {
-            "type": "FragmentedProgressInterval",
-            "obj": {
-                "f_interval": self.f_interval.to_json(),
-                "completeness": self.completeness,
-            },
-        }

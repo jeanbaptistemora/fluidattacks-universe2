@@ -8,9 +8,6 @@ from returns.primitives.container import (
 from returns.primitives.hkt import (
     SupportsKind1,
 )
-from singer_io.common import (
-    JSON,
-)
 from tap_gitlab.intervals.alias import (
     NTuple,
 )
@@ -81,11 +78,3 @@ class FragmentedInterval(
     @property
     def intervals(self) -> NTuple[OpenLeftInterval[_Point]]:
         return self._inner_value["intervals"]
-
-    def to_json(self) -> JSON:
-        return {
-            "type": "FragmentedInterval",
-            "obj": {
-                "endpoints": self.endpoints,
-            },
-        }

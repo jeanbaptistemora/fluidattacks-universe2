@@ -7,9 +7,8 @@ from paginator.pages import (
 from singer_io import (
     JSON,
 )
-from tap_gitlab.intervals.interval import (
-    MAX,
-    MIN,
+from tap_gitlab.intervals.encoder import (
+    IntervalEncoder,
 )
 from tap_gitlab.intervals.progress import (
     FragmentedProgressInterval,
@@ -19,26 +18,17 @@ from tap_gitlab.streams import (
     MrStream,
 )
 from typing import (
-    Any,
-    Callable,
     Dict,
     NamedTuple,
     Tuple,
-    TypeVar,
-    Union,
 )
 
-_DataType = TypeVar("_DataType")
-
-
-def _to_json(
-    item: Union[_DataType, MIN, MAX], format_item: Callable[[_DataType], Any]
-) -> Any:
-    if isinstance(item, MIN):
-        return "min"
-    if isinstance(item, MAX):
-        return "max"
-    return format_item(item)
+i_encoder: IntervalEncoder[datetime] = IntervalEncoder(
+    lambda time: {"datetime": time.isoformat()}
+)
+i_encoder_2: IntervalEncoder[Tuple[int, PageId[int]]] = IntervalEncoder(
+    lambda item: {"id-page": (item[0], item[1].page, item[1].per_page)}
+)
 
 
 class MrStreamState(NamedTuple):
@@ -48,7 +38,7 @@ class MrStreamState(NamedTuple):
         return {
             "type": "JobStreamState",
             "obj": {
-                "state": self.state.to_json(),
+                "state": i_encoder.encode_f_progress(self.state),
             },
         }
 
@@ -60,7 +50,7 @@ class JobStreamState(NamedTuple):
         return {
             "type": "JobStreamState",
             "obj": {
-                "state": self.state.to_json(),
+                "state": i_encoder_2.encode_f_progress(self.state),
             },
         }
 
