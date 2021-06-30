@@ -114,6 +114,7 @@ resource "aws_kms_key" "dev" {
   policy                  = data.aws_iam_policy_document.dev.json
   deletion_window_in_days = 30
   is_enabled              = true
+  enable_key_rotation     = true
 
   tags = {
     "Name"               = "docs_dev"
@@ -238,6 +239,7 @@ resource "aws_kms_key" "prod" {
   policy                  = data.aws_iam_policy_document.prod.json
   deletion_window_in_days = 30
   is_enabled              = true
+  enable_key_rotation     = true
 
   tags = {
     "Name"               = "docs_prod"
