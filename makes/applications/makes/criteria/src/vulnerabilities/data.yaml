@@ -54,3 +54,61 @@
   title: Inadequate file size control
 030:
   title: Sensitive information sent via URL parameters
+031:
+  title: Excessive Privileges
+032:
+  title: Spoofing
+033:
+  title: Password change without identity check
+034:
+  title: Insecure generation of random numbers
+035:
+  title: Weak credential policy
+036:
+  title: ViewState not encrypted
+037:
+  title: Technical information leak
+038:
+  title: Business information leak
+039:
+  title: Improper authorization control for web services
+040:
+  title: Exposed web services
+041:
+  title: Enabled default credentials
+042:
+  title: Insecurely generated cookies
+043:
+  title: Improper set HTTP headers
+044:
+  title: Insecure HTTP methods enabled
+045:
+  title: HTML code injection
+046:
+  title: Missing secure obfuscation
+047:
+  title: Automatic information enumeration
+048:
+  title: Lack of root detection
+049:
+  title: Insecure digital certificates
+050:
+  title: Guessed weak credentials
+051:
+  title: Cracked weak credentials
+052:
+  title: Insecure encryption algorithm
+053:
+  title: Lack of protection against brute force attacks
+054:
+  title: Exposed administrative services
+055:
+  title: Insecure service configuration
+056:
+  title: Anonymous connection
+058:
+  title: Debugging enabled in production
+059:
+  title: Sensitive information stored in logs
+060:
+  title: Insecure exceptions
