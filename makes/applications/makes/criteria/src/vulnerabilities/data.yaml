@@ -20,12 +20,16 @@
   title: Stored cross-site scripting (XSS)
 011:
   title: Use of software with known vulnerabilities
+012:
+  title: Spring Data Java Persistence API
 013:
   title: Insecure object reference
 014:
   title: Insecure functionality
 015:
   title: Insecure authentication method
+016:
+  title: AWS iam:PassRole
 017:
   title: Sensitive information sent insecurely
 018:
@@ -106,6 +110,8 @@
   title: Insecure service configuration
 056:
   title: Anonymous connection
+057:
+  title: java.io.File.createTempFile
 058:
   title: Debugging enabled in production
 059:
@@ -122,6 +128,8 @@
   title: Traceability loss
 065:
   title: Cached form fields
+066:
+  title: JavaScript Console
 067:
   title: Improper resource allocation
 068:
@@ -130,6 +138,8 @@
   title: Weak CAPTCHA
 070:
   title: Inappropriate coding practices
+071:
+  title: Strict Transport Security
 072:
   title: Duplicate code
 073:
@@ -166,14 +176,22 @@
   title: Code injection (CSV)
 091:
   title: Log injection
+092:
+  title: Cipher Suites
 093:
   title: Hidden fields manipulation
+094:
+  title: SSL
+095:
+  title: AWS EBS Encryption
 096:
   title: Insecure deserialization
 097:
   title: Reverse tabnabbing
 098:
   title: External control of file name or path
+099:
+  title: AWS S3 Server Side Encryption
 100:
   title: Server-side request forgery (SSRF)
 101:
