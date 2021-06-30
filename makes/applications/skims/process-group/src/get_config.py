@@ -19,23 +19,23 @@ from ruamel.yaml import (
 from typing import (
     List,
     Set,
+    Tuple,
 )
 from urllib.parse import (
     urlparse,
 )
 
 
-async def get_urls_from_group(group: str, namespace: str) -> List[str]:
-    scopes: Set[str] = {
+async def get_scopes_from_group(group: str, namespace: str) -> Set[str]:
+    return {
         environment_url
         for root in await get_group_roots(group=group)
         for environment_url in root.environment_urls
         if root.nickname == namespace
     }
 
-    urls: Set[str] = set()
-    urls.update(scopes)
 
+def get_components_from_group(group: str) -> List[str]:
     with open(f"groups/{group}/toe/inputs.csv") as inputs_handle:
         components = list(
             map(
@@ -43,6 +43,12 @@ async def get_urls_from_group(group: str, namespace: str) -> List[str]:
                 csv.DictReader(inputs_handle),
             )
         )
+    return components
+
+
+def get_urls_from_scopes(scopes: Set[str], components: List[str]) -> List[str]:
+    urls: Set[str] = set()
+    urls.update(scopes)
 
     for scope in scopes:
         scope_c = urlparse(scope)
@@ -64,6 +70,18 @@ async def get_urls_from_group(group: str, namespace: str) -> List[str]:
     return sorted(urls)
 
 
+def get_ssl_targets(urls: List[str]) -> List[Tuple[str, str]]:
+    targets: List[Tuple[str, str]] = []
+
+    for netloc in {urlparse(url).netloc for url in urls}:
+        if ":" not in netloc:
+            targets.append((netloc, "443"))
+        else:
+            targets.append(netloc.split(":"))
+
+    return targets
+
+
 async def main() -> None:
     parser = argparse.ArgumentParser()
     for arg in ("check", "group", "language", "namespace", "out"):
@@ -71,6 +89,11 @@ async def main() -> None:
     args = parser.parse_args()
 
     create_session(os.environ["INTEGRATES_API_TOKEN"])
+
+    scopes: Str[str] = await get_scopes_from_group(args.group, args.namespace)
+    components: List[str] = get_components_from_group(args.group)
+    urls: List[str] = get_urls_from_scopes(scopes, components)
+    ssl_targets: List[Tuple[str, str]] = get_ssl_targets(urls)
 
     data: str = safe_dump(
         dict(
@@ -80,7 +103,7 @@ async def main() -> None:
             language=args.language,
             namespace=args.namespace,
             http=dict(
-                include=await get_urls_from_group(args.group, args.namespace),
+                include=urls,
             ),
             path=dict(
                 include=sorted(["glob(*)"]),
@@ -105,6 +128,12 @@ async def main() -> None:
                         "glob(**/.buildpath)",
                     ]
                 ),
+            ),
+            ssl=dict(
+                include=[
+                    dict(host=host, port=int(port))
+                    for host, port in ssl_targets
+                ],
             ),
             timeout=10800,
             working_dir=f"groups/{args.group}/fusion/{args.namespace}",
