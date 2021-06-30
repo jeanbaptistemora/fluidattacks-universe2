@@ -132,7 +132,7 @@ describe("Finding Description", (): void => {
     });
     const EXPECTED_LENGTH: number = 7;
 
-    expect(editingComponents).toHaveLength(1);
+    expect(editingComponents).toHaveLength(2);
     expect(fieldsAsEditable).toHaveLength(EXPECTED_LENGTH);
 
     const titleInput: ReactWrapper = wrapper
