@@ -10,9 +10,6 @@ from .historics.verification import (
 from .historics.zero_risk import (
     VulnerabilityZeroRisk,
 )
-from db_model.enums import (
-    Source,
-)
 from enum import (
     Enum,
 )
@@ -36,7 +33,6 @@ class Vulnerability(NamedTuple):
     finding_id: str
     hash: Optional[int]
     repo: Optional[str]
-    source: Source
     specific: str
     state: VulnerabilityState
     stream: Optional[List[str]]

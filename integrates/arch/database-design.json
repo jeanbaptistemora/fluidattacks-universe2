@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jun 28, 2021, 12:57 PM",
+    "DateLastModified": "Jun 30, 2021, 12:37 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -2149,9 +2149,6 @@
               "commit": {
                 "S": "aacab599cec1dba8d8cb3d6f94832b9a0c903f76"
               },
-              "source": {
-                "S": "SKIMS"
-              },
               "where": {
                 "S": "test/data/lib_path/f073/Test.cs"
               },
@@ -2174,13 +2171,12 @@
             "tags",
             "commit",
             "repo",
-            "source",
             "where",
             "specific",
-            "stream",
             "bts_url",
-            "custom_severity",
-            "hash"
+            "stream",
+            "hash",
+            "custom_severity"
           ],
           "DataAccess": {
             "MySql": {}

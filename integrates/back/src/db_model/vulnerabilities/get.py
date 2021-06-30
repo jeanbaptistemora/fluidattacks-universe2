@@ -32,9 +32,6 @@ from custom_exceptions import (
 from db_model import (
     TABLE,
 )
-from db_model.enums import (
-    Source,
-)
 from dynamodb import (
     historics,
     keys,
@@ -113,7 +110,6 @@ def _build_vulnerability(
         finding_id=metadata["finding_id"],
         hash=metadata.get("hash", None),
         repo=metadata.get("bts_url", None),
-        source=Source[metadata["source"]],
         specific=metadata["specific"],
         state=state,
         stream=metadata.get("stream", None),

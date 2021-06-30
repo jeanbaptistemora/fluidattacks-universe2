@@ -28,7 +28,6 @@ async def create(*, vulnerability: Vulnerability) -> None:
         "finding_id": vulnerability.finding_id,
         "hash": vulnerability.hash,
         "repo": vulnerability.repo,
-        "source": vulnerability.source.value,
         "specific": vulnerability.specific,
         "stream": vulnerability.stream,
         "uuid": vulnerability.uuid,
