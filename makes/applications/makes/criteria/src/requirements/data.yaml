@@ -258,3 +258,75 @@
   title: Ascertain human interaction
 238:
   title: Establish safe recovery
+247:
+  title: Hide SSID on private networks
+248:
+  title: SSID without dictionary words
+249:
+  title: Locate access points
+250:
+  title: Manage access points
+251:
+  title: Change access point IP
+252:
+  title: Configure key encryption
+253:
+  title: Restrict network access
+254:
+  title: Change SSID name
+255:
+  title: Allow access only to the necessary ports
+257:
+  title: Access based on user credentials
+258:
+  title: Filter website content
+259:
+  title: Segment the organization network
+260:
+  title: Use alternative emails
+261:
+  title: Avoid exposing sensitive information
+262:
+  title: Verify third-party components
+264:
+  title: Request authentication
+265:
+  title: Restrict access to critical processes
+266:
+  title: Disable insecure functionalities
+273:
+  title: Define a fixed security suite
+280:
+  title: Restrict service root directory
+284:
+  title: Define maximum number of connections
+300:
+  title: Mask sensitive data
+301:
+  title: Notify configuration changes
+302:
+  title: Declare dependencies explicitly
+305:
+  title: Prioritize token usage
+310:
+  title: Request user consent
+311:
+  title: Demonstrate user consent
+312:
+  title: Allow user consent revocation
+313:
+  title: Inform inability to identify users
+314:
+  title: Provide processing confirmation
+315:
+  title: Provide processed data information
+316:
+  title: Allow rectification requests
+317:
+  title: Allow erasure requests
+318:
+  title: Notify third parties of changes
+319:
+  title: Make authentication options equally secure
+320:
+  title: Avoid client-side control enforcement
