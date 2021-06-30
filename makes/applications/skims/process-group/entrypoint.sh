@@ -48,13 +48,15 @@ function clone_group {
 function skims_cache {
   local command="${1}"
   local group="${2}"
+  local check="${3}"
+  local namespace="${4}"
   local cache_local=~/.skims/cache
-  local cache_remote="s3://skims.data/cache/${group}"
+  local cache_remote="s3://skims.data/cache/${group}/${check}/${namespace}"
 
   echo "[INFO] Cache ${command}" \
     && case "${command}" in
-      pull) aws_s3_sync "${cache_remote}" "${cache_local}" ;;
-      push) aws_s3_sync "${cache_local}" "${cache_remote}" ;;
+      pull) aws_s3_sync "${cache_remote}" "${cache_local}" --delete ;;
+      push) aws_s3_sync "${cache_local}" "${cache_remote}" --delete ;;
       *) abort "[CRITICAL] cache command must be one of: pull, push" ;;
     esac
 }
@@ -129,10 +131,10 @@ function main {
     && config="$(mktemp)" \
     && use_git_repo_services \
     && clone_group "${group}" \
-    && aws_login_prod 'skims' \
-    && skims_cache pull "${group}" \
     && if test -e "groups/${group}/fusion/${namespace}"; then
-      skims_rebase "${group}" "${namespace}" \
+      aws_login_prod 'skims' \
+        && skims_cache pull "${group}" "${check}" "${namespace}" \
+        && skims_rebase "${group}" "${namespace}" \
         && skims_should_run "${group}" "${namespace}" "${check}" \
         && if skims_scan "${group}" "${namespace}" "${check}" "${config}"; then
           echo "[INFO] Succesfully processed: ${group} ${namespace}"
@@ -140,11 +142,11 @@ function main {
           echo "[ERROR] While running skims on: ${group} ${namespace}" \
             && success='false'
         fi \
+        && skims_cache push "${group}" "${check}" "${namespace}" \
         || true
     else
       echo "[ERROR] Namespace not cloned: ${namespace}"
     fi \
-    && skims_cache push "${group}" \
     && popd \
     && echo "[INFO] Success: ${success}" \
     && test "${success}" = 'true'
