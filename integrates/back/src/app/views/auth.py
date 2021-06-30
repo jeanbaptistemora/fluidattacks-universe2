@@ -108,7 +108,7 @@ def get_azure_client(request: Request) -> OAuth:
 
 
 async def handle_user(request: Request, user: Dict[str, str]) -> Request:
-    user_email = user["email"].lower()
+    user_email = user.get("email", user.get("upn", "")).lower()
     session_key = str(uuid.uuid4())
 
     request.session["username"] = user_email

@@ -148,8 +148,8 @@ async def mutate(
         session_jwt = token_helper.new_encoded_jwt(
             {
                 "user_email": email,
-                "first_name": user.get("given_name"),
-                "last_name": user.get("family_name"),
+                "first_name": user["given_name"],
+                "last_name": user.get("family_name", ""),
                 "exp": datetime_utils.get_now_plus_delta(
                     seconds=MOBILE_SESSION_AGE
                 ),
