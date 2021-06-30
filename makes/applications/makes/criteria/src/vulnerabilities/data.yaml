@@ -16,7 +16,7 @@
   title: Reflected cross-site scripting (XSS)
 009:
   title: Source code with sensitive information
-010: 
+010:
   title: Stored cross-site scripting (XSS)
 011:
   title: Use of software with known vulnerabilities
