@@ -6,12 +6,9 @@ import subprocess  # nosec
 from typing import (
     List,
     Optional,
+    Set,
     Tuple,
 )
-
-# None, NEVER, PLEASE !
-
-# None NEVER, PLEASE !
 
 
 async def _run(
@@ -39,6 +36,7 @@ async def queue(
     finding_code: Optional[str],
     finding_title: Optional[str],
     group: str,
+    roots: Set[str],  # pylint: disable=unused-argument
     urgent: bool,
     *,
     product_api_token: str,

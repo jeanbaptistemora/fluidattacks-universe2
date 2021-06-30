@@ -11,6 +11,8 @@ from typing import (
     Any,
     cast,
     Dict,
+    List,
+    Set,
 )
 from uuid import (
     uuid4 as uuid,
@@ -70,3 +72,27 @@ async def validate_treatment_manager(
     if not enforcer(group_name, "valid_treatment_manager"):
         raise InvalidTreatmentManager()
     return treatment_manager
+
+
+async def get_root_nicknames_for_skims(
+    dataloaders: Any,
+    group: str,
+    vulnerabilities: List[Dict[str, Any]],
+) -> Set[str]:
+    # If a vuln is linked to a root, return it
+    # otherwise return all roots, the vuln must belong to one of them
+    include_all: bool = False
+    root_nicknames: Set[str] = set()
+
+    for vuln in vulnerabilities:
+        if "repo_nickname" in vuln:
+            root_nicknames.add(vuln["repo_nickname"])
+        else:
+            include_all = True
+
+    if include_all:
+        root_nicknames.update(
+            root.nickname for root in await dataloaders.group_roots.load(group)
+        )
+
+    return root_nicknames

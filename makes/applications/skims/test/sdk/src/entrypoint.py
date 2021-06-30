@@ -12,6 +12,7 @@ async def main() -> None:
         finding_code=None,
         finding_title="F117. Archivos no auditables 123",
         group=group,
+        roots={"test"},
         urgent=True,
         product_api_token=environ["PRODUCT_API_TOKEN"],
         stderr=subprocess.PIPE,

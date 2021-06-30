@@ -10,9 +10,6 @@ import authz
 from comments import (
     domain as comments_domain,
 )
-from context import (
-    PRODUCT_API_TOKEN,
-)
 from contextlib import (
     AsyncExitStack,
 )
@@ -22,7 +19,6 @@ from custom_exceptions import (
     InvalidDraftTitle,
     NotVerificationRequested,
     PermissionDenied,
-    UnableToSkimsQueue,
     VulnNotFound,
 )
 from custom_types import (
@@ -88,7 +84,6 @@ from settings import (
     LOGGING,
     NOEXTRA,
 )
-import skims_sdk
 from time import (
     time,
 )
@@ -804,20 +799,6 @@ async def request_vulnerability_verification(
             )
         )
 
-        skims_queue_kwargs = dict(
-            finding_code=None,
-            finding_title=finding["finding"],
-            group=finding["project_name"],
-            urgent=True,
-            product_api_token=PRODUCT_API_TOKEN,
-        )
-
-        if not await skims_sdk.queue(**skims_queue_kwargs):
-            LOGGER.error(
-                "Could not queue a skims execution",
-                extra={"extra": skims_queue_kwargs},
-            )
-            raise UnableToSkimsQueue()
     else:
         LOGGER.error("An error occurred remediating", **NOEXTRA)
         raise NotVerificationRequested()
