@@ -19,6 +19,10 @@ class _SingleMessageException(CustomBaseException):
         return cls(cls.msg)
 
 
+class ExpectedEscaperField(_SingleMessageException):
+    msg: str = "Expected escaper field for vuln with source 'escape'"
+
+
 class ExpectedPathToStartWithRepo(_SingleMessageException):
     msg: str = "Expected path to start with the repo nickname"
 
