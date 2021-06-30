@@ -190,9 +190,63 @@ async def _get_vulnerability(*, uuid: str) -> Vulnerability:
     )
 
 
+async def _get_historic_state(*, uuid: str) -> Tuple[VulnerabilityState, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["vulnerability_historic_state"],
+        values={"uuid": uuid},
+    )
+    key_structure = TABLE.primary_key
+    results = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(TABLE.facets["vulnerability_historic_state"],),
+        table=TABLE,
+    )
+    return tuple(map(format_state, results))
+
+
+async def _get_historic_treatment(
+    *, uuid: str
+) -> Tuple[VulnerabilityTreatment, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["vulnerability_historic_treatment"],
+        values={"uuid": uuid},
+    )
+    key_structure = TABLE.primary_key
+    results = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(TABLE.facets["vulnerability_historic_treatment"],),
+        table=TABLE,
+    )
+    return tuple(map(format_treatment, results))
+
+
 class VulnerabilityNewLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, uuids: Tuple[str, ...]
     ) -> Tuple[Vulnerability, ...]:
         return await collect(_get_vulnerability(uuid=uuid) for uuid in uuids)
+
+
+class VulnerabilityHistoricStateNewLoader(DataLoader):
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, uuids: Tuple[str, ...]
+    ) -> Tuple[Tuple[VulnerabilityState], ...]:
+        return await collect(_get_historic_state(uuid=uuid) for uuid in uuids)
+
+
+class VulnerabilityHistoricTreatmentNewLoader(DataLoader):
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, uuids: Tuple[str, ...]
+    ) -> Tuple[Tuple[VulnerabilityTreatment], ...]:
+        return await collect(
+            _get_historic_treatment(uuid=uuid) for uuid in uuids
+        )
