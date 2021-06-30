@@ -1,8 +1,13 @@
 checks:
+- F052_PFS
 - F117
 namespace: namespace
 output: skims/test/outputs/integrates.csv
 path:
   include:
     - skims/test/data/lib_path/f117
+ssl:
+  include:
+    - host: localhost
+      port: 4446
 timeout: 900

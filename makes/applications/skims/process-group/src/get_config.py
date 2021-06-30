@@ -77,7 +77,8 @@ def get_ssl_targets(urls: List[str]) -> List[Tuple[str, str]]:
         if ":" not in netloc:
             targets.append((netloc, "443"))
         else:
-            targets.append(netloc.split(":"))
+            host, port = netloc.rsplit(":", maxsplit=1)
+            targets.append((host, port))
 
     return targets
 
@@ -90,7 +91,7 @@ async def main() -> None:
 
     create_session(os.environ["INTEGRATES_API_TOKEN"])
 
-    scopes: Str[str] = await get_scopes_from_group(args.group, args.namespace)
+    scopes: Set[str] = await get_scopes_from_group(args.group, args.namespace)
     components: List[str] = get_components_from_group(args.group)
     urls: List[str] = get_urls_from_scopes(scopes, components)
     ssl_targets: List[Tuple[str, str]] = get_ssl_targets(urls)

@@ -1,4 +1,14 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
+F052_PFS,inputs,localhost:4446 (namespace2),pfs is not enabled,310,"home,socket-send,socket-response",F052. Insecure encryption algorithm - Perfect Forward Secrecy,pfs is not enabled,"
+  1 | SSL connection request to localhost:4446
+  2 | min version: SSLv3.0
+  3 | max version: TLSv1.3
+  4 | chiphers: chacha20-poly1305, aes256gcm, aes128gcm, aes256ccm, aes128ccm, aes256, aes128, 3des
+  5 | mac: sha, sha256, sha384, aead
+> 6 | key exchange: dhe_rsa, ecdhe_rsa, ecdh_anon, dh_anon
+  7 | connection established: False
+    ^ Col 0
+"
 F117,lines,namespace2/skims/test/data/lib_path/f117/.project,1,377,skims,F117. Unverifiable files,Unverifiable file in skims/test/data/lib_path/f117/.project,"
 
 "

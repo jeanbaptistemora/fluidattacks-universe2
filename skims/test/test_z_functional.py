@@ -464,6 +464,7 @@ async def test_should_report_nothing_to_integrates_verify(
 
 
 @pytest.mark.skims_test_group("functional")
+@pytest.mark.usefixtures("test_mocks_ssl_unsafe")
 def test_should_report_vulns_to_namespace_run(test_group: str) -> None:
     suite: str = "integrates"
     code, stdout, stderr = skims(
@@ -492,6 +493,11 @@ async def test_should_report_vulns_to_namespace_verify(
     assert await get_group_data(test_group) == {
         # Finding, status, open vulnerabilities
         (
+            "F052_PFS",
+            "SUBMITTED",
+            (("localhost:4446 (namespace)", "pfs is not enabled"),),
+        ),
+        (
             "F117",
             "APPROVED",
             (
@@ -504,6 +510,7 @@ async def test_should_report_vulns_to_namespace_verify(
 
 
 @pytest.mark.skims_test_group("functional")
+@pytest.mark.usefixtures("test_mocks_ssl_unsafe")
 def test_should_report_vulns_to_namespace2_run(test_group: str) -> None:
     suite: str = "integrates2"
     code, stdout, stderr = skims(
@@ -531,6 +538,11 @@ async def test_should_report_vulns_to_namespace2_verify(
     # The following findings must be met
     assert await get_group_data(test_group) == {
         # Finding, status, open vulnerabilities
+        (
+            "F052_PFS",
+            "SUBMITTED",
+            (("localhost:4446 (namespace2)", "pfs is not enabled"),),
+        ),
         (
             "F117",
             "APPROVED",
@@ -574,6 +586,11 @@ async def test_should_close_vulns_to_namespace_verify(
     assert await get_group_data(test_group) == {
         # Finding, status, open vulnerabilities
         (
+            "F052_PFS",
+            "SUBMITTED",
+            (("localhost:4446 (namespace2)", "pfs is not enabled"),),
+        ),
+        (
             "F117",
             "APPROVED",
             (
@@ -612,5 +629,6 @@ async def test_should_close_vulns_on_namespace2_verify(
     # Skims should persist the null state, closing everything on Integrates
     assert await get_group_data(test_group) == {
         # Finding, status, open vulnerabilities
+        ("F052_PFS", "SUBMITTED", ()),
         ("F117", "APPROVED", ()),
     }

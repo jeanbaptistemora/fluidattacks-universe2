@@ -72,6 +72,7 @@ async def test_build_vulnerabilities_stream() -> None:
             """
         inputs:
         - field: test
+          repo_nickname: test
           state: open
           stream: a,b,c
           url: https://example.com (test)

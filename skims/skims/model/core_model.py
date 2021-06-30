@@ -1167,6 +1167,7 @@ class IntegratesVulnerabilitiesLines(NamedTuple):
 
 class IntegratesVulnerabilitiesInputs(NamedTuple):
     field: str
+    repo_nickname: str
     state: VulnerabilityStateEnum
     stream: str
     url: str

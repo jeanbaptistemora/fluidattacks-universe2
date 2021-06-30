@@ -1,6 +1,3 @@
-from aioextensions import (
-    in_process,
-)
 from integrates.dal import (
     do_approve_draft,
     do_create_draft,
@@ -64,6 +61,7 @@ def _build_vulnerabilities_stream(
         core_model.VulnerabilityKindEnum.INPUTS: tuple(
             core_model.IntegratesVulnerabilitiesInputs(
                 field=result.where,
+                repo_nickname=CTX.config.namespace,
                 state=result.state,
                 stream=result.stream,
                 url=result.what_on_integrates,
@@ -93,9 +91,7 @@ async def build_vulnerabilities_stream(
     *,
     results: core_model.Vulnerabilities,
 ) -> str:
-    return await yaml_dumps(
-        await in_process(_build_vulnerabilities_stream, results),
-    )
+    return await yaml_dumps(_build_vulnerabilities_stream(results))
 
 
 async def get_closest_finding_ids(
