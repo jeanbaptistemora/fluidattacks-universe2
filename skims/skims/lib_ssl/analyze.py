@@ -18,6 +18,7 @@ from typing import (
     Any,
     Callable,
     Dict,
+    List,
     Set,
     Tuple,
 )
@@ -36,7 +37,7 @@ CHECKS: Tuple[
         Callable[[SSLContext], Any],
         Dict[
             core_model.FindingEnum,
-            Callable[[Any], core_model.Vulnerabilities],
+            List[Callable[[Any], core_model.Vulnerabilities]],
         ],
     ],
     ...,
@@ -55,10 +56,13 @@ async def analyze_one(
     await log("info", "Analyzing ssl %s of %s: %s", index, count, ssl_ctx)
 
     for get_check_ctx, checks in CHECKS:
-        for finding, check in checks.items():
+        for finding, check_list in checks.items():
             if finding in CTX.config.checks:
-                for vulnerability in check(get_check_ctx(ssl_ctx)):
-                    await stores[vulnerability.finding].store(vulnerability)
+                for check in check_list:
+                    for vulnerability in check(get_check_ctx(ssl_ctx)):
+                        await stores[vulnerability.finding].store(
+                            vulnerability
+                        )
 
 
 async def get_ssl_contexts() -> Set[SSLContext]:

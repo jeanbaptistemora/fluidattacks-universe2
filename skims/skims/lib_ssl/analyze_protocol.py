@@ -152,8 +152,8 @@ def get_check_ctx(ssl_ctx: SSLContext) -> SSLContext:
 
 CHECKS: Dict[
     core_model.FindingEnum,
-    Callable[[SSLContext], core_model.Vulnerabilities],
+    List[Callable[[SSLContext], core_model.Vulnerabilities]],
 ] = {
-    core_model.FindingEnum.F011_SSLV3: _sslv3_enabled,
-    core_model.FindingEnum.F052_PFS: _pfs_disabled,
+    core_model.FindingEnum.F011_SSLV3: [_sslv3_enabled],
+    core_model.FindingEnum.F052_PFS: [_pfs_disabled],
 }
