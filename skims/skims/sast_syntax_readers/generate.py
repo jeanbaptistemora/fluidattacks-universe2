@@ -14,7 +14,6 @@ from sast_syntax_readers.c_sharp import (
     default_switch_label as c_sharp_default_switch_label,
     element_access_expression as c_sharp_element_access_expression,
     for_statement as c_sharp_for_statement,
-    if_statement as c_sharp_if_statement,
     invocation_expression as c_sharp_invocation_expression,
     local_declaration_statement as c_sharp_local_declaration_statement,
     member_access_expression as c_sharp_member_access_expression,
@@ -29,6 +28,7 @@ from sast_syntax_readers.common import (
     binary_expression as common_binary_expression,
     cast_expression as common_cast_expression,
     identifier as common_identifier,
+    if_statement as common_if_statement,
     literal as common_literal,
     object_creation_expression as common_object_creation_expression,
     return_statement as common_return_statement,
@@ -146,6 +146,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     ),
     Dispatcher(
         applicable_languages={
+            graph_model.GraphShardMetadataLanguage.GO,
             graph_model.GraphShardMetadataLanguage.JAVA,
             graph_model.GraphShardMetadataLanguage.CSHARP,
         },
@@ -219,11 +220,12 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.CSHARP,
+            graph_model.GraphShardMetadataLanguage.GO,
         },
         applicable_node_label_types={
             "if_statement",
         },
-        syntax_readers=(c_sharp_if_statement.reader,),
+        syntax_readers=(common_if_statement.reader,),
     ),
     Dispatcher(
         applicable_languages={
@@ -499,6 +501,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "integer_literal",
             "interpreted_string_literal",
             "floating_point_type",
+            "nil",
             "null_literal",
             "raw_string_literal",
             "real_literal",

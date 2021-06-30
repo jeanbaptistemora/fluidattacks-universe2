@@ -28,7 +28,7 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
             value=n_attrs["label_text"],
             value_type="boolean",
         )
-    elif n_attrs_label_type == "null_literal":
+    elif n_attrs_label_type in {"nil", "null_literal"}:
         yield graph_model.SyntaxStepLiteral(
             meta=graph_model.SyntaxStepMeta.default(args.n_id),
             value=n_attrs["label_text"],
