@@ -29,11 +29,9 @@ async def complete_register(
     email: str,
     group_name: str,
 ) -> bool:
-    project_access = await group_access_domain.get_user_access(
-        email, group_name
-    )
+    group_access = await group_access_domain.get_user_access(email, group_name)
     success = await groups_domain.complete_register_for_group_invitation(
-        project_access
+        group_access
     )
 
     return success

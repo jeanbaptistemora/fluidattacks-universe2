@@ -50,12 +50,10 @@ async def test_get_evidence() -> None:
 
 
 async def test_download_evidence_file() -> None:
-    project_name = "unittesting"
+    group_name = "unittesting"
     finding_id = "422286126"
     file_name = "unittesting-422286126-evidence_route_1.png"
-    test_data = await download_evidence_file(
-        project_name, finding_id, file_name
-    )
+    test_data = await download_evidence_file(group_name, finding_id, file_name)
     expected_output = os.path.abspath(
         "/tmp/unittesting-422286126-evidence_route_1.png"
     )
@@ -63,12 +61,10 @@ async def test_download_evidence_file() -> None:
 
 
 async def test_get_records_from_file() -> None:
-    project_name = "unittesting"
+    group_name = "unittesting"
     finding_id = "422286126"
     file_name = "unittesting-422286126-evidence_file.csv"
-    test_data = await get_records_from_file(
-        project_name, finding_id, file_name
-    )
+    test_data = await get_records_from_file(group_name, finding_id, file_name)
     expected_output = [
         OrderedDict(
             [

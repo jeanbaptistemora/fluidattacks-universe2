@@ -12,7 +12,7 @@ import pytest
 
 @pytest.mark.asyncio
 async def test_internal_project() -> None:
-    """Check for internal project"""
+    """Check for internal group"""
     query = """{
         internalNames(entity: GROUP){
             name

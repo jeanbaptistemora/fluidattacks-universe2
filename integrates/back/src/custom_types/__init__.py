@@ -205,6 +205,13 @@ SimpleFindingPayload = NamedTuple(
         ("finding", Dict[str, Finding]),
     ],
 )
+SimpleGroupPayload = NamedTuple(
+    "SimpleGroupPayload",
+    [
+        ("success", bool),
+        ("group", Group),
+    ],
+)
 SimplePayload = NamedTuple(
     "SimplePayload",
     [

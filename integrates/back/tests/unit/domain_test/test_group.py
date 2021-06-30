@@ -128,7 +128,7 @@ async def test_validate_tags() -> None:
 
 async def test_is_alive() -> None:
     assert await is_alive("unittesting")
-    assert not await is_alive("unexisting_project")
+    assert not await is_alive("unexisting_group")
 
 
 async def test_get_pending_closing_checks() -> None:

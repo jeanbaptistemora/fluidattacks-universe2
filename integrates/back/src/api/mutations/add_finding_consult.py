@@ -30,6 +30,9 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
@@ -57,7 +60,7 @@ async def mutate(
     finding_id = str(parameters.get("finding_id"))
     finding_loader = info.context.loaders.finding
     finding = await finding_loader.load(finding_id)
-    group = finding.get("project_name")
+    group = resolve_kwargs(finding)
     content = parameters["content"]
 
     user_email = user_data["user_email"]

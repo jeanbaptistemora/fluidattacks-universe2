@@ -3,7 +3,7 @@ type Query {
   "Get event"
   event(identifier: String!): Event
 
-  "List of events of a project"
+  "List of events from a specific group"
   events(groupName: String, projectName: String): [Event]
 
   "Finding entity"
@@ -41,8 +41,10 @@ type Query {
 
   organizationId(organizationName: String!): Organization
 
-  "Group entity"
-  project(projectName: String!): Group
+  "Project entity"
+  project(
+    projectName: String!
+  ): Group @deprecated(reason: "Use `group` instead.")
 
   "Report entity"
   report(
