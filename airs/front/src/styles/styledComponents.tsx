@@ -1060,7 +1060,6 @@ const IframeContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    mw-615
     center
     overflow-x-auto
   `,

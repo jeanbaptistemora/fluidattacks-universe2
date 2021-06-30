@@ -63,12 +63,16 @@ const ContacUsIndex: React.FC<IQueryData> = ({
 
             <IframeContainer>
               <iframe
-                height={"500px"}
                 src={
-                  "https://crm.zoho.com/crm/WebFormServeServlet?rid=78c3d7dacbbcd07154bafdf9da4878771131756c5fc0387baa3f5706a0968b4bgid1a8b1be45eb673e71a5b1925197e4664b5207c89778ad1e7315be647827aaa2d"
+                  "https://forms.zohopublic.com/fluidattacks1/form/ContactForm/formperma/g4Je_6zumBrCA3iMMJMHU6b4JrVrUzItp_cfyb3ad74"
                 }
+                style={{
+                  border: "0",
+                  height: "830px",
+                  marginBottom: "-7px",
+                  width: "100%",
+                }}
                 title={"Contact Us Form"}
-                width={"610px"}
               />
             </IframeContainer>
           </PageArticle>
