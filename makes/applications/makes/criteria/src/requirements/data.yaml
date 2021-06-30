@@ -98,3 +98,91 @@
   title: Inspect attachments
 119:
   title: Hide recipients
+121:
+  title: Guarantee uniqueness of emails
+122:
+  title: Validate credential ownership
+123:
+  title: Restrict the reading of emails
+126:
+  title: Set a password regeneration mechanism
+127:
+  title: Store hashed passwords
+128:
+  title: Define unique data source
+129:
+  title: Validate previous passwords
+130:
+  title: Limit password lifespan
+131:
+  title: Deny multiple password changing attempts
+132:
+  title: Passphrases with at least 4 words
+133:
+  title: Passwords with at least 20 characters
+134:
+  title: Store passwords with salt
+135:
+  title: Passwords with random salt
+136:
+  title: Force temporary password change
+137:
+  title: Change temporary passwords of third parties
+138:
+  title: Define lifespan for temporary passwords
+139:
+  title: Set minimum OTP length
+140:
+  title: Define OTP lifespan
+141:
+  title: Force re-authentication
+142:
+  title: Change system default credentials
+143:
+  title: Unique access credentials
+144:
+  title: Remove inactive accounts periodically
+145:
+  title: Protect system cryptographic keys
+146:
+  title: Remove cryptographic keys from RAM
+147:
+  title: Use pre-existent mechanisms
+148:
+  title: Set minimum size of asymmetric encryption
+149:
+  title: Set minimum size of symmetric encryption
+150:
+  title: Set minimum size for hash functions
+151:
+  title: Separate keys for encryption and signatures
+152:
+  title: Reuse database connections
+153:
+  title: Out of band transactions
+154:
+  title: Eliminate backdoors
+155:
+  title: Application free of malicious code
+156:
+  title: Source code without sensitive information
+157:
+  title: Use the strict mode
+158:
+  title: Use a secure programming language
+159:
+  title: Obfuscate code
+160:
+  title: Encode system outputs
+161:
+  title: Define secure default options
+162:
+  title: Avoid duplicate code
+164:
+  title: Use optimized structures
+167:
+  title: Close unused resources
+168:
+  title: Initialize variables explicitly
+169:
+  title: Use parameterized queries
