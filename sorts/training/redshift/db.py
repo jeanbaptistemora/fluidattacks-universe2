@@ -80,14 +80,14 @@ def initialize() -> None:
                     PRIMARY KEY (
                         timestamp
                     )
-                )
+                );
                 CREATE TABLE IF NOT EXISTS sorts.features (
                     timestamp TIMESTAMPTZ,
-                    group VARCHAR(256),
+                    group_name VARCHAR(256),
                     n_vulns INTEGER,
 
                     PRIMARY KEY (
-                        group
+                        group_name
                     )
                 )
             """
