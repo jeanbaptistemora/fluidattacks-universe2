@@ -6,7 +6,6 @@ import subprocess  # nosec
 from typing import (
     List,
     Optional,
-    Set,
     Tuple,
 )
 
@@ -36,7 +35,7 @@ async def queue(
     finding_code: Optional[str],
     finding_title: Optional[str],
     group: str,
-    roots: Set[str],  # pylint: disable=unused-argument
+    namespace: str,
     urgent: bool,
     *,
     product_api_token: str,
@@ -52,6 +51,7 @@ async def queue(
         cmd.extend(["--finding-title", finding_title])
 
     cmd.extend(["--group", group])
+    cmd.extend(["--namespace", namespace])
 
     if urgent:
         cmd.extend(["--urgent"])

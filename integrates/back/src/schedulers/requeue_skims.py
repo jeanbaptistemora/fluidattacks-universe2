@@ -15,7 +15,6 @@ from settings import (
 import skims_sdk
 from typing import (
     Any,
-    Set,
 )
 from vulnerabilities.domain.utils import (
     get_root_nicknames_for_skims,
@@ -36,13 +35,13 @@ def _error(*args: Any, extra: Any = None) -> None:
 async def skims_queue(
     finding_title: str,
     group_name: str,
-    roots: Set[str],
+    namespace: str,
 ) -> None:
     skims_queue_kwargs = dict(
         finding_code=None,
         finding_title=finding_title,
         group=group_name,
-        roots=roots,
+        namespace=namespace,
         urgent=True,
         product_api_token=PRODUCT_API_TOKEN,
     )
@@ -75,14 +74,13 @@ async def main() -> None:
             ]
 
             if vulns_to_reattack:
-                roots_to_reattack = await get_root_nicknames_for_skims(
+                for root in await get_root_nicknames_for_skims(
                     dataloaders=dataloaders,
                     group=finding["project_name"],
                     vulnerabilities=vulns_to_reattack,
-                )
-                if roots_to_reattack:
+                ):
                     await skims_queue(
                         finding_title=finding_title,
                         group_name=group,
-                        roots=roots_to_reattack,
+                        namespace=root,
                     )

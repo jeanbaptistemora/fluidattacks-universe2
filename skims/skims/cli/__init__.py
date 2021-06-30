@@ -159,6 +159,7 @@ def cli_language(
 @FINDING_CODE()
 @FINDING_TITLE()
 @GROUP(required=True)
+@NAMESPACE(required=True)
 @click.option(
     "--urgent",
     help="Queue the job with the highest priority.",
@@ -168,6 +169,7 @@ def cli_queue(
     finding_code: Optional[str],
     finding_title: Optional[str],
     group: str,
+    namespace: str,
     urgent: bool,
 ) -> None:
     success: bool = run(
@@ -175,6 +177,7 @@ def cli_queue(
             finding_code=finding_code,
             finding_title=finding_title,
             group=group,
+            namespace=namespace,
             urgent=urgent,
         )
     )
@@ -284,6 +287,7 @@ async def cli_queue_wrapped(
     finding_code: Optional[str],
     finding_title: Optional[str],
     group: str,
+    namespace: str,
     urgent: bool,
 ) -> bool:
     import core.queue
@@ -293,12 +297,14 @@ async def cli_queue_wrapped(
         finding_code=str(finding_code),
         finding_title=str(finding_title),
         group=group,
+        namespace=namespace,
         urgent=str(urgent),
     )
     success: bool = await core.queue.main(
         finding_code=finding_code,
         finding_title=finding_title,
         group=group,
+        namespace=namespace,
         urgent=urgent,
     )
 
