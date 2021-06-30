@@ -35,7 +35,6 @@ def get_train_extra_envs() -> Dict[str, str]:
 def get_estimator(
     model: str,
     training_script: str = "training/training_script/train.py",
-    max_job_wait: int = 28800,
 ) -> SKLearnEstimator:
     sklearn_estimator: SKLearnEstimator = SKLearn(
         entry_point=training_script,
@@ -50,7 +49,7 @@ def get_estimator(
         metric_definitions=SAGEMAKER_METRIC_DEFINITIONS,
         debugger_hook_config=False,
         use_spot_instances=True,
-        max_wait=max_job_wait,
+        max_wait=86400,
     )
 
     return sklearn_estimator

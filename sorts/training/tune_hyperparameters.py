@@ -28,9 +28,7 @@ def deploy_hyperparameter_tuning_job() -> None:
         model: str = get_best_model_name(model_name_file)
         model = model.split("-")[0]
     estimator: SKLearnEstimator = get_estimator(
-        model,
-        training_script="training/training_script/tune.py",
-        max_job_wait=1800,
+        model, training_script="training/training_script/tune.py"
     )
 
     tuner = HyperparameterTuner(
