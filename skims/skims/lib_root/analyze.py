@@ -12,6 +12,7 @@ from lib_root import (
     f061,
     f070_wildcard_import,
     f073,
+    f085,
 )
 from model import (
     core_model,
@@ -49,6 +50,7 @@ QUERIES: graph_model.Queries = (
     *f061.QUERIES,
     *f070_wildcard_import.QUERIES,
     *f073.QUERIES,
+    *f085.QUERIES,
     *sast_query.QUERIES,
 )
 

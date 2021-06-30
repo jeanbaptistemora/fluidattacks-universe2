@@ -416,11 +416,12 @@ def match_ast(
     graph: Graph,
     n_id: str,
     *label_type: str,
+    depth: int = 1,
 ) -> Dict[str, Optional[str]]:
     index: int = 0
     nodes: Dict[str, Optional[str]] = dict.fromkeys(label_type)
 
-    for c_id in adj_ast(graph, n_id):
+    for c_id in adj_ast(graph, n_id, depth=depth):
         c_type = graph.nodes[c_id]["label_type"]
         if c_type in nodes and nodes[c_type] is None:
             nodes[c_type] = c_id
@@ -443,11 +444,12 @@ def match_ast_group(
     graph: Graph,
     n_id: str,
     *label_type: str,
+    depth: int = 1,
 ) -> Dict[str, List[str]]:
     index: int = 0
     nodes: Dict[str, List[str]] = {label: list() for label in label_type}
 
-    for c_id in adj_ast(graph, n_id):
+    for c_id in adj_ast(graph, n_id, depth=depth):
         c_type = graph.nodes[c_id]["label_type"]
         if c_type in nodes:
             nodes[c_type].append(c_id)

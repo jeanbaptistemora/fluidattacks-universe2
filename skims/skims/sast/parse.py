@@ -161,6 +161,22 @@ def _is_final_node(obj: Any, language: GraphShardMetadataLanguage) -> bool:
                 }
             ),
             (
+                language == GraphShardMetadataLanguage.TSX
+                and obj.type
+                in {
+                    "this",
+                    "super",
+                    "number",
+                    "string",
+                    "template_string",
+                    "regex",
+                    "true",
+                    "false",
+                    "null",
+                    "undefined",
+                }
+            ),
+            (
                 language == GraphShardMetadataLanguage.CSHARP
                 and obj.type
                 in {
@@ -264,8 +280,8 @@ def decide_language(path: str) -> GraphShardMetadataLanguage:
         GraphShardMetadataLanguage.CSHARP: [".cs"],
         GraphShardMetadataLanguage.GO: [".go"],
         GraphShardMetadataLanguage.JAVA: [".java"],
-        GraphShardMetadataLanguage.JAVASCRIPT: [".js"],
-        GraphShardMetadataLanguage.TSX: [".js", ".jsx", ".ts", ".tsx"],
+        GraphShardMetadataLanguage.JAVASCRIPT: [".js", ".jsx"],
+        GraphShardMetadataLanguage.TSX: [".ts", ".tsx"],
     }
     language = GraphShardMetadataLanguage.NOT_SUPPORTED
 
