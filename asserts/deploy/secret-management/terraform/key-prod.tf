@@ -107,6 +107,7 @@ resource "aws_kms_key" "asserts-prod-key" {
   policy                  = data.aws_iam_policy_document.asserts-prod-key.json
   deletion_window_in_days = 30
   is_enabled              = true
+  enable_key_rotation     = true
 
   tags = {
     "Name"               = "asserts-production"
