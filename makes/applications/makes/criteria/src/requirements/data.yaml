@@ -38,3 +38,63 @@
   title: Validate file format
 043:
   title: Define an explicit content type
+044:
+  title: Define an explicit charset
+045:
+  title: Remove metadata when sharing files
+046:
+  title: Manage the integrity of critical files
+048:
+  title: Components with minimal dependencies
+050:
+  title: Control calls to interpreted code
+051:
+  title: Store source code in a repository
+062:
+  title: Define standard configurations
+072:
+  title: Set maximum response time
+075:
+  title: Record exceptional events in logs
+077:
+  title: Avoid disclosing technical information
+078:
+  title: Disable debugging events
+079:
+  title: Record exact occurrence time of events
+080:
+  title: Prevent log modification
+083:
+  title: Avoid logging sensitive data
+084:
+  title: Allow transaction history queries
+085:
+  title: Allow session history queries
+088:
+  title: Request client certificates
+089:
+  title: Limit validity of certificates
+090:
+  title: Use valid certificates
+091:
+  title: Use internally signed certificates
+092:
+  title: Use externally signed certificates
+093:
+  title: Use consistent certificates
+095:
+  title: Define users with privileges
+096:
+  title: Set users' required privileges
+114:
+  title: Deny access with inactive credentials
+115:
+  title: Filter malicious emails
+116:
+  title: Disable images of unknown origin
+117:
+  title: Do not interpret HTML code
+118:
+  title: Inspect attachments
+119:
+  title: Hide recipients
