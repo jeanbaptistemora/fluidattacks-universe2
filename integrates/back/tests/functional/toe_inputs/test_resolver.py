@@ -27,7 +27,7 @@ from typing import (
 async def test_get_toe_inputs(populate: bool, email: str) -> None:
     assert populate
     result: Dict[str, Any] = await get_result(user=email, group_name="group1")
-    assert result["data"]["project"]["toeInputs"] == [
+    assert result["data"]["group"]["toeInputs"] == [
         {
             "commit": "hh66uu5",
             "component": "test.com/api/Test",

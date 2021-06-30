@@ -17,7 +17,7 @@ async def get_result(
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
-            updateForcesAccessToken(projectName: "{group}"){{
+            updateForcesAccessToken(groupName: "{group}"){{
                 success
                 sessionJwt
             }}

@@ -34,7 +34,7 @@ async def get_result(
 
 async def query_get(*, user: str, group_name: str) -> Dict[str, Any]:
     query: str = f"""{{
-        group: project(projectName: "{group_name}") {{
+        group(groupName: "{group_name}") {{
             name
             roots {{
                 ... on GitRoot {{

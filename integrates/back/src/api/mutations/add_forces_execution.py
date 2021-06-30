@@ -17,6 +17,7 @@ from newutils import (
     logs as logs_utils,
 )
 from newutils.utils import (
+    clean_up_kwargs,
     resolve_kwargs,
 )
 from starlette.datastructures import (
@@ -36,7 +37,9 @@ async def mutate(
     log: Optional[UploadFile] = None,
     **parameters: Any,
 ) -> SimplePayload:
+    # Compatibility with old API
     group_name: str = resolve_kwargs(parameters)
+    parameters = clean_up_kwargs(parameters)
     success = await forces_domain.add_forces_execution(
         group_name=group_name, log=log, **parameters
     )

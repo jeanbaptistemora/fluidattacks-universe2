@@ -23,7 +23,7 @@ async def test_forces() -> None:  # pylint: disable=too-many-statements
     group_name = "unittesting"
     query = f"""
         mutation {{
-            updateForcesAccessToken(projectName: "{group_name}"){{
+            updateForcesAccessToken(groupName: "{group_name}"){{
                 success
                 sessionJwt
             }}
@@ -48,7 +48,7 @@ async def test_forces() -> None:  # pylint: disable=too-many-statements
                 $executionId: String!
             ) {
                 addForcesExecution (
-                    projectName: $groupName,
+                    groupName: $groupName,
                     execution_id: $executionId,
                     date: $date,
                     exitCode: "1",
@@ -108,14 +108,14 @@ async def test_forces() -> None:  # pylint: disable=too-many-statements
     query = f"""
         query {{
             forcesExecutions(
-                projectName: "{group_name}",
+                groupName: "{group_name}",
                 fromDate: "2020-02-01T00:00:00Z",
                 toDate: "2020-02-28T23:59:59Z"
             ) {{
                 fromDate
                 toDate
                 executions {{
-                    projectName
+                    groupName
                     execution_id
                     date
                     exitCode
@@ -176,7 +176,7 @@ async def test_forces() -> None:  # pylint: disable=too-many-statements
         for execution in executions
         if execution["execution_id"] == execution_id
     ][0]
-    assert execution["projectName"] == group_name
+    assert execution["groupName"] == group_name
     assert execution["date"] == "2020-02-20T00:00:00+00:00"
     assert execution["exitCode"] == "1"
     assert execution["gitBranch"] == "master"
@@ -235,10 +235,10 @@ async def test_forces() -> None:  # pylint: disable=too-many-statements
     query = f"""
         query {{
             forcesExecution(
-                projectName: "{group_name}",
+                groupName: "{group_name}",
                 executionId: "{execution_id}"
             ) {{
-                projectName
+                groupName
                 execution_id
                 date
                 exitCode
@@ -283,7 +283,7 @@ async def test_forces() -> None:  # pylint: disable=too-many-statements
         data, stakeholder="integratesmanager@gmail.com", context=context
     )
     assert "errors" not in result
-    assert result["data"]["forcesExecution"]["projectName"] == group_name
+    assert result["data"]["forcesExecution"]["groupName"] == group_name
     assert (
         result["data"]["forcesExecution"]["date"]
         == "2020-02-20T00:00:00+00:00"

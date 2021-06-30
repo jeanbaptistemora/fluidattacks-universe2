@@ -28,7 +28,7 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
     assert populate
     comments: str = "comment test"
     result: Dict[str, Any] = await get_result(user=email, group_name="group1")
-    assert result["data"]["project"]["roots"] == [
+    assert result["data"]["group"]["roots"] == [
         {
             "id": "63298a73-9dff-46cf-b42d-9b2f01a56690",
             "toeLines": [

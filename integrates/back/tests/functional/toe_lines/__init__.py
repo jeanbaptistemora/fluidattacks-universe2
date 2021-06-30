@@ -16,7 +16,7 @@ async def get_result(
     group_name: str,
 ) -> Dict[str, Any]:
     query: str = f"""{{
-        project(projectName: "{group_name}"){{
+        group(groupName: "{group_name}"){{
             name
             roots {{
                 ... on GitRoot {{
