@@ -20,7 +20,7 @@ async def get_result(
         mutation {{
             removeTag (
             tag: "{tag}",
-            projectName: "{group}",
+            groupName: "{group}",
             ) {{
             success
             }}

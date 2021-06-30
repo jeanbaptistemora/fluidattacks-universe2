@@ -14,7 +14,7 @@ async def test_finding() -> None:
     finding_id = "463558592"
     expected_output = {
         "id": finding_id,
-        "project_name": "unittesting",
+        "group_name": "unittesting",
         "release_date": "2018-12-17 00:00:00",
         "open_vulnerabilities": 1,
         "closed_vulnerabilities": 1,
@@ -153,7 +153,7 @@ async def test_finding() -> None:
     query = f"""{{
         finding(identifier: "{finding_id}"){{
             id
-            projectName
+            groupName
             releaseDate
             openVulnerabilities
             closedVulnerabilities
@@ -206,8 +206,8 @@ async def test_finding() -> None:
     result = await get_result(data, context=context)
     assert "errors" not in result
     assert result["data"]["finding"]["id"] == expected_output.get("id")
-    assert result["data"]["finding"]["projectName"] == expected_output.get(
-        "project_name"
+    assert result["data"]["finding"]["groupName"] == expected_output.get(
+        "group_name"
     )
     assert result["data"]["finding"]["releaseDate"] == expected_output.get(
         "release_date"

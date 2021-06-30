@@ -18,8 +18,8 @@ async def get_result(
 ) -> Dict[str, Any]:
     query: str = f"""
         query {{
-            stakeholder(entity: PROJECT,
-                    projectName: "{group}",
+            stakeholder(entity: GROUP,
+                    groupName: "{group}",
                     userEmail: "{stakeholder}") {{
                 email
                 role
@@ -27,7 +27,7 @@ async def get_result(
                 phoneNumber
                 firstLogin
                 lastLogin
-                projects {{
+                groups {{
                     name
                 }}
                 __typename

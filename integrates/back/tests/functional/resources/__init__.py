@@ -16,8 +16,8 @@ async def get_result(
     group: str,
 ) -> Dict[str, Any]:
     query: str = f"""{{
-        resources(projectName: "{group}"){{
-            projectName
+        resources(groupName: "{group}"){{
+            groupName
             files
             __typename
         }}
