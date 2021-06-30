@@ -47,6 +47,8 @@ const NavbarList: StyledComponent<
     pa0
     overflow-hidden
     h-navbar
+    flex
+    flex-nowrap
   `,
 })``;
 
@@ -102,7 +104,7 @@ const NavbarContactButton: StyledComponent<
 
 const NavbarItem = styled.li.attrs<{ className: string }>({
   className: `
-    dn
+    display-none
     mr3
     pr2
     pv4

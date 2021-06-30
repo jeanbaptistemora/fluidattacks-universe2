@@ -8,6 +8,7 @@ import React from "react";
 import {
   FontAwesomeContainerSmall,
   NavbarContactButton,
+  NavbarItem,
   NavbarList,
   NavbarLoginButton,
   NavbarRegularButton,
@@ -18,124 +19,125 @@ import { Menu } from "../Menu";
 
 const NavbarItems: React.FC = (): JSX.Element => (
   <NavbarList className={"roboto"} id={"navbar_list"}>
-    <Menu />
-
-    <li className={"fl"}>
-      <Link className={"db tc pa1 no-underline"} to={"/"}>
-        <CloudImage
-          alt={"Fluid Attacks logo navbar"}
-          src={"logo-fluid-attacks-light"}
-          styles={"h-5 ml3 pv2"}
-        />
-      </Link>
-    </li>
-
-    <li className={"fr pv4 db-l dn"}>
-      <Link className={"no-underline"} to={"/contact-us/"}>
-        <NavbarContactButton>{"Contact now"}</NavbarContactButton>
-      </Link>
-    </li>
-
-    <li className={"fr mr3 pr2 pv4 db-l dn"}>
-      <Link className={"no-underline"} to={"https://app.fluidattacks.com/"}>
-        <NavbarLoginButton>{"Log in"}</NavbarLoginButton>
-      </Link>
-    </li>
-
-    <li className={"fr mr4 pv3 mv1 db-l dn"}>
-      <div className={"h3 w1 b--moon-gray br"} />
-    </li>
-
-    <li className={"db-xl display-none fr mr3 pv4"}>
-      <Link className={"no-underline"} to={"/blog/"}>
-        <NavbarRegularButton>{"Blog"}</NavbarRegularButton>
-      </Link>
-    </li>
-
-    <li className={"db-xl display-none fr mr3 pr2 pv4"}>
-      <Link className={"no-underline"} to={"/resources/"}>
-        <NavbarRegularButton>{"Resources"}</NavbarRegularButton>
-      </Link>
-    </li>
-
-    <li className={"db-xl display-none fr mr3 pr2 pv4"}>
-      <Link className={"no-underline"} to={"/plans/"}>
-        <NavbarRegularButton>{"Plans"}</NavbarRegularButton>
-      </Link>
-    </li>
-
-    <li className={"db-l dn fr mr3 pr2 pv4 solutions-index"}>
-      <Link className={"no-underline"} to={"/solutions/"}>
-        <NavbarRegularButton>
-          {"Solutions"}
-          <FontAwesomeContainerSmall>
-            <FontAwesomeIcon icon={faAngleDown} />
-          </FontAwesomeContainerSmall>
-        </NavbarRegularButton>
-      </Link>
-
-      <NavbarSubcategory className={"solutions-content"}>
-        <Link className={"f-18 fw4"} to={"/solutions/devsecops/"}>
-          {"DevSecOps"}
+    <div className={"w-auto flex flex-nowrap"}>
+      <Menu />
+      <li>
+        <Link className={"db tc pa1 no-underline"} to={"/"}>
+          <CloudImage
+            alt={"Fluid Attacks logo navbar"}
+            src={"logo-fluid-attacks-light"}
+            styles={"h-5 ml3 pv2"}
+          />
+        </Link>
+      </li>
+    </div>
+    <div className={"w-auto dn flex-l center"}>
+      <NavbarItem className={"db-l services-index"}>
+        <Link className={"no-underline"} to={"/services/continuous-hacking/"}>
+          <NavbarRegularButton>
+            {"Services"}
+            <FontAwesomeContainerSmall>
+              <FontAwesomeIcon icon={faAngleDown} />
+            </FontAwesomeContainerSmall>
+          </NavbarRegularButton>
         </Link>
 
-        <Link className={"f-18 fw4"} to={"/solutions/security-testing/"}>
-          {"Security Testing"}
+        <NavbarSubcategory className={"services-content nl-3125"}>
+          <Link className={"f-18 fw4"} to={"/services/continuous-hacking/"}>
+            {"Continuous Hacking"}
+          </Link>
+
+          <Link className={"f-18 fw4"} to={"/services/one-shot-hacking/"}>
+            {"One Shot Hacking"}
+          </Link>
+
+          <Link className={"f-18 fw4"} to={"/services/comparative/"}>
+            {"Comparative"}
+          </Link>
+        </NavbarSubcategory>
+      </NavbarItem>
+
+      <NavbarItem className={"db-l solutions-index"}>
+        <Link className={"no-underline"} to={"/solutions/"}>
+          <NavbarRegularButton>
+            {"Solutions"}
+            <FontAwesomeContainerSmall>
+              <FontAwesomeIcon icon={faAngleDown} />
+            </FontAwesomeContainerSmall>
+          </NavbarRegularButton>
         </Link>
 
-        <Link className={"f-18 fw4"} to={"/solutions/penetration-testing/"}>
-          {"Penetration Testing"}
-        </Link>
+        <NavbarSubcategory className={"solutions-content nl-5"}>
+          <Link className={"f-18 fw4"} to={"/solutions/devsecops/"}>
+            {"DevSecOps"}
+          </Link>
 
-        <Link className={"f-18 fw4"} to={"/solutions/ethical-hacking/"}>
-          {"Ethical Hacking"}
-        </Link>
+          <Link className={"f-18 fw4"} to={"/solutions/security-testing/"}>
+            {"Security Testing"}
+          </Link>
 
-        <Link className={"f-18 fw4"} to={"/solutions/red-teaming/"}>
-          {"Red Teaming"}
-        </Link>
+          <Link className={"f-18 fw4"} to={"/solutions/penetration-testing/"}>
+            {"Penetration Testing"}
+          </Link>
 
-        <Link className={"f-18 fw4"} to={"/solutions/attack-simulation/"}>
-          {"Breach and Attack Simulation"}
-        </Link>
+          <Link className={"f-18 fw4"} to={"/solutions/ethical-hacking/"}>
+            {"Ethical Hacking"}
+          </Link>
 
-        <Link className={"f-18 fw4"} to={"/solutions/secure-code-review/"}>
-          {"Secure Code Review"}
-        </Link>
+          <Link className={"f-18 fw4"} to={"/solutions/red-teaming/"}>
+            {"Red Teaming"}
+          </Link>
 
-        <Link
-          className={"f-18 fw4"}
-          to={"/solutions/vulnerability-management/"}
-        >
-          {"Vulnerability Management"}
-        </Link>
-      </NavbarSubcategory>
-    </li>
+          <Link className={"f-18 fw4"} to={"/solutions/attack-simulation/"}>
+            {"Breach and Attack Simulation"}
+          </Link>
 
-    <li className={"db-l dn fr mr3 pr2 pv4 services-index"}>
-      <Link className={"no-underline"} to={"/services/continuous-hacking/"}>
-        <NavbarRegularButton>
-          {"Services"}
-          <FontAwesomeContainerSmall>
-            <FontAwesomeIcon icon={faAngleDown} />
-          </FontAwesomeContainerSmall>
-        </NavbarRegularButton>
-      </Link>
+          <Link className={"f-18 fw4"} to={"/solutions/secure-code-review/"}>
+            {"Secure Code Review"}
+          </Link>
 
-      <NavbarSubcategory className={"services-content"}>
-        <Link className={"f-18 fw4"} to={"/services/continuous-hacking/"}>
-          {"Continuous Hacking"}
+          <Link
+            className={"f-18 fw4"}
+            to={"/solutions/vulnerability-management/"}
+          >
+            {"Vulnerability Management"}
+          </Link>
+        </NavbarSubcategory>
+      </NavbarItem>
+      <NavbarItem className={"db-xl"}>
+        <Link className={"no-underline"} to={"/resources/"}>
+          <NavbarRegularButton>{"Resources"}</NavbarRegularButton>
         </Link>
+      </NavbarItem>
+      <NavbarItem className={"db-xl"}>
+        <Link className={"no-underline"} to={"/plans/"}>
+          <NavbarRegularButton>{"Plans"}</NavbarRegularButton>
+        </Link>
+      </NavbarItem>
+      <NavbarItem className={"db-xl"}>
+        <Link className={"no-underline"} to={"/advisories/"}>
+          <NavbarRegularButton>{"Advisories"}</NavbarRegularButton>
+        </Link>
+      </NavbarItem>
+      <NavbarItem className={"db-xl"}>
+        <Link className={"no-underline"} to={"/blog/"}>
+          <NavbarRegularButton>{"Blog"}</NavbarRegularButton>
+        </Link>
+      </NavbarItem>
+    </div>
+    <div className={"w-auto flex-l flex-nowrap dn"}>
+      <li className={"mr3 pr2 pv4 db-l dn"}>
+        <Link className={"no-underline"} to={"https://app.fluidattacks.com/"}>
+          <NavbarLoginButton>{"Log in"}</NavbarLoginButton>
+        </Link>
+      </li>
 
-        <Link className={"f-18 fw4"} to={"/services/one-shot-hacking/"}>
-          {"One Shot Hacking"}
+      <li className={"pv4"}>
+        <Link className={"no-underline"} to={"/contact-us/"}>
+          <NavbarContactButton>{"Contact now"}</NavbarContactButton>
         </Link>
-
-        <Link className={"f-18 fw4"} to={"/services/comparative/"}>
-          {"Comparative"}
-        </Link>
-      </NavbarSubcategory>
-    </li>
+      </li>
+    </div>
   </NavbarList>
 );
 
