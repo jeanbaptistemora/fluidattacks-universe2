@@ -39,6 +39,7 @@ async def test_remove_stakeholder_access(populate: bool, email: str) -> None:
         ["closer@gmail.com"],
         ["customer@gmail.com"],
         ["executive@gmail.com"],
+        ["resourcer@gmail.com"],
     ],
 )
 async def test_remove_stakeholder_access_fail(
