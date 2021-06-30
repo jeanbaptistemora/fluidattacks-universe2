@@ -164,3 +164,63 @@
   title: Privacy violation
 090:
   title: Code injection (CSV)
+091:
+  title: Log injection
+093:
+  title: Hidden fields manipulation
+096:
+  title: Insecure deserialization
+097:
+  title: Reverse tabnabbing
+098:
+  title: External control of file name or path
+100:
+  title: Server-side request forgery (SSRF)
+101:
+  title: Lack of protection against deletion
+102:
+  title: Email uniqueness not properly verified
+103:
+  title: Insufficient data authenticity validation
+104:
+  title: USB flash drive attacks
+105:
+  title: Apache Lucene query injection
+106:
+  title: NoSQL injection
+107:
+  title: LDAP injection
+108:
+  title: Improper control of interaction frequency
+110:
+  title: HTTP request smuggling
+111:
+  title: Out-of-bounds read
+113:
+  title: Improper type assignation
+114:
+  title: Phishing
+115:
+  title: Security controls bypass
+116:
+  title: XS-Leaks
+117:
+  title: Unverifiable files
+118:
+  title: Regulation infringement
+119:
+  title: Metadata with sensitive information
+120:
+  title: Improper dependency pinning
+121:
+  title: HTTP Parameter Pollution
+122:
+  title: Email Flooding
+123:
+  title: Local File Inclusion
+124:
+  title: Race condition
+125:
+  title: Directory Listing
+126:
+  title: Lack of isolation methods
