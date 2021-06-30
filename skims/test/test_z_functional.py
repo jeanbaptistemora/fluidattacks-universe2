@@ -388,6 +388,7 @@ def _run_no_group(
 @run_decorator
 @pytest.mark.skims_test_group("functional")
 @pytest.mark.usefixtures("test_integrates_session")
+@pytest.mark.usefixtures("test_mocks_ssl_unsafe")
 async def test_integrates_group_is_pristine_run(
     test_group: str,
 ) -> None:
@@ -464,7 +465,6 @@ async def test_should_report_nothing_to_integrates_verify(
 
 
 @pytest.mark.skims_test_group("functional")
-@pytest.mark.usefixtures("test_mocks_ssl_unsafe")
 def test_should_report_vulns_to_namespace_run(test_group: str) -> None:
     suite: str = "integrates"
     code, stdout, stderr = skims(
@@ -510,7 +510,6 @@ async def test_should_report_vulns_to_namespace_verify(
 
 
 @pytest.mark.skims_test_group("functional")
-@pytest.mark.usefixtures("test_mocks_ssl_unsafe")
 def test_should_report_vulns_to_namespace2_run(test_group: str) -> None:
     suite: str = "integrates2"
     code, stdout, stderr = skims(
