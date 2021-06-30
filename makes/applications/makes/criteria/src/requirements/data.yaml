@@ -186,3 +186,75 @@
   title: Initialize variables explicitly
 169:
   title: Use parameterized queries
+171:
+  title: Remove commented-out code
+172:
+  title: Encrypt connection strings
+173:
+  title: Discard unsafe inputs
+174:
+  title: Transactions without a distinguishable pattern
+175:
+  title: Protect pages from clickjacking
+176:
+  title: Restrict system objects
+177:
+  title: Avoid caching and temporary files
+178:
+  title: Use digital signatures
+180:
+  title: Use mock data
+181:
+  title: Transmit data using secure protocols
+183:
+  title: Delete sensitive data securely
+184:
+  title: Obfuscate application data
+185:
+  title: Encrypt sensitive information
+186:
+  title: Use the principle of least privilege
+189:
+  title: Specify the purpose of data collection
+205:
+  title: Configure PIN
+206:
+  title: Configure communication protocols
+209:
+  title: Manage passwords in cache
+210:
+  title: Delete information from mobile devices
+213:
+  title: Allow geographic location
+214:
+  title: Allow data destruction
+221:
+  title: Disconnect unnecessary input devices
+222:
+  title: Deny access to the host machine
+223:
+  title: Uniform distribution in random numbers
+224:
+  title: Use secure cryptographic mechanisms
+225:
+  title: Proper authentication responses
+226:
+  title: Proper authentication responses
+227:
+  title: Display access notification
+228:
+  title: Authenticate using standard protocols
+229:
+  title: Request access credentials
+231:
+  title: Implement a biometric verification component
+232:
+  title: Require equipment identity
+235:
+  title: Define credential interface
+236:
+  title: Establish authentication time
+237:
+  title: Ascertain human interaction
+238:
+  title: Establish safe recovery
