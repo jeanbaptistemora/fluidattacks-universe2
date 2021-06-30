@@ -419,7 +419,10 @@
         <div style="height: {{ -40 + 20 * findings|length }}px;" class="icon-div"></div>
         <img alt="Findings logo"
           src="https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/48b502a4-b33f-4a29-be67-66e87147d669.png">
-        <h4>Oldest Findings</h4>
+        <h4>
+          Oldest Findings
+          <span style="display: none;">{{ hash }}</span>
+        </h4>
       </div>
       <div class="content">
         {%- for finding in findings %}
@@ -428,6 +431,7 @@
           <tr>
             <td style="text-align: left;">
               <span><strong>[{{ finding['finding_group'] }}] </strong>{{ finding['finding_name'] }}</span>
+              <span style="display: none;">{{ hash }}</span>
             </td>
             <td style="text-align: right; width: 85px; vertical-align: bottom;">
               <span class="content-number">

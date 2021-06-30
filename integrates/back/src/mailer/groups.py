@@ -37,6 +37,9 @@ async def send_mail_daily_digest(
     email_to: List[str], context: MailContentType
 ) -> None:
     date = datetime_utils.get_as_str(datetime_utils.get_now(), "%Y/%m/%d")
+    # Unique number needed to avoid the email client generating unwanted html
+    # code in the template
+    context["hash"] = hash((email_to[0], datetime_utils.get_now().timestamp()))
     await send_mails_async_new(
         email_to,
         context,
