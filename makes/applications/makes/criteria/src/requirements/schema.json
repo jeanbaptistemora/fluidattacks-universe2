@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "/criteria/vulnerabilities",
-  "title": "Vulnerabilities",
-  "description": "This is a standardization of the set of vulnerabilities that serve as a basis for the security analysis",
+  "$id": "/criteria/requirements",
+  "title": "Requirements",
+  "description": "This is a standardization of the set of requirements that serve as a basis for the security analysis",
   "type": "object",
   "propertyNames": { "pattern": "^[0-9]+$" },
   "patternProperties": {

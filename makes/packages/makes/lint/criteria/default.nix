@@ -6,8 +6,7 @@
 }:
 makeDerivation {
   arguments = {
-    envSrcVulnerabilitiesSchema = path "/makes/applications/makes/criteria/src/vulnerabilities/schema.json";
-    envSrcVulnerabilitiesSchemaData = path "/makes/applications/makes/criteria/src/vulnerabilities/data.yaml";
+    envSrc = path "/makes/applications/makes/criteria/src/";
   };
   builder = path "/makes/packages/makes/lint/criteria/builder.sh";
   name = "makes-lint-criteria";
