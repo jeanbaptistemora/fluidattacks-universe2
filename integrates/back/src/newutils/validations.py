@@ -1,11 +1,21 @@
 from custom_exceptions import (
+    IncompleteSeverity,
     InvalidChar,
+    InvalidCvssVersion,
     InvalidField,
     InvalidFieldLength,
+)
+from db_model.findings.types import (
+    Finding20Severity,
+    Finding31Severity,
+)
+from newutils import (
+    utils,
 )
 import re
 from typing import (
     List,
+    Set,
 )
 
 
@@ -47,7 +57,7 @@ def validate_url(url: str) -> None:
 
 
 def validate_file_name(name: str) -> bool:
-    """ Verify that filename has valid characters. """
+    """Verify that filename has valid characters."""
     name = str(name)
     name_len = len(name.split("."))
     if name_len <= 2:
@@ -79,6 +89,27 @@ def validate_field_length(
 def validate_group_name(group_name: str) -> None:
     if not group_name.isalnum():
         raise InvalidField("group name")
+
+
+def validate_missing_severity_field_names(
+    field_names: Set[str], css_version: str
+) -> None:
+    if css_version == "2.0":
+        missing_field_names = {
+            utils.snakecase_to_camelcase(field)
+            for field in Finding20Severity._fields
+            if field not in field_names
+        }
+    elif css_version == "3.1":
+        missing_field_names = {
+            utils.snakecase_to_camelcase(field)
+            for field in Finding31Severity._fields
+            if field not in field_names
+        }
+    else:
+        raise InvalidCvssVersion()
+    if missing_field_names:
+        raise IncompleteSeverity(missing_field_names)
 
 
 def validate_string_length_between(

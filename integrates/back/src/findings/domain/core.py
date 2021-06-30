@@ -928,10 +928,14 @@ async def update_severity_new(
             privileges_required=privileges_required,
             modified_privileges_required=modified_privileges_required,
         )
+        cvss_version = "3.1"
     else:
         updated_severity = severity
+        cvss_version = "2.0"
 
-    metadata = FindingMetadataToUpdate(severity=updated_severity)
+    metadata = FindingMetadataToUpdate(
+        severity=updated_severity, cvss_version=cvss_version
+    )
     await findings_model.update_medatada(
         group_name=finding.group_name,
         finding_id=finding.id,

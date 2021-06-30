@@ -245,6 +245,15 @@ class IncompleteDraft(CustomBaseException):
         super(IncompleteDraft, self).__init__(msg)
 
 
+class IncompleteSeverity(CustomBaseException):
+    """Exception to control severity fields"""
+
+    def __init__(self, fields: Sequence[str]) -> None:
+        """Constructor"""
+        msg = f'Exception - Severity has missing fields: {", ".join(fields)}'
+        super(IncompleteSeverity, self).__init__(msg)
+
+
 class InvalidAcceptanceDays(CustomBaseException):
     """Exception to control correct input in organization settings"""
 
@@ -312,6 +321,24 @@ class InvalidCommentParent(CustomBaseException):
         """Constructor"""
         msg = "Exception - Comment parent is invalid"
         super(InvalidCommentParent, self).__init__(msg)
+
+
+class InvalidCvssField(CustomBaseException):
+    """Exception to control cvss field values"""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = "Exception - Cvss field value must be a number"
+        super(InvalidCvssField, self).__init__(msg)
+
+
+class InvalidCvssVersion(CustomBaseException):
+    """Exception to control cvss version"""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg: str = "Invalid, cvss version is not supported"
+        super(InvalidCvssVersion, self).__init__(msg)
 
 
 class InvalidDate(CustomBaseException):
@@ -599,6 +626,15 @@ class NotZeroRiskRequested(CustomBaseException):
         """Constructor"""
         msg = "Exception - Zero risk vulnerability is not requested"
         super(NotZeroRiskRequested, self).__init__(msg)
+
+
+class NotCvssVersion(CustomBaseException):
+    """Exception to control cvss version is required"""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = "Exception - CvssVersion is required"
+        super(NotCvssVersion, self).__init__(msg)
 
 
 class OrganizationNotFound(CustomBaseException):

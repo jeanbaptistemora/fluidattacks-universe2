@@ -49,26 +49,28 @@ from typing import (
     require_finding_access,
 )
 async def mutate(
-    _parent: None, info: GraphQLResolveInfo, finding_id: str, **kwags: Any
+    _parent: None, info: GraphQLResolveInfo, finding_id: str, **kwargs: Any
 ) -> SimplePayload:
     try:
         finding_loader = info.context.loaders.finding_new
         description = FindingDescriptionToUpdate(
-            actor=kwags["actor"],
-            affected_systems=kwags["affected_systems"],
-            attack_vector_desc=kwags["attack_vector_desc"],
-            compromised_attributes=kwags.get("records"),
-            compromised_records=kwags["records_number"],
-            cwe=kwags["cwe"],
-            description=kwags["description"],
-            recommendation=kwags["recommendation"],
-            requirements=kwags["requirements"],
-            risk=kwags.get("risk"),
-            scenario=kwags["scenario"],
-            sorts=FindingSorts[kwags["sorts"]] if kwags.get("sorts") else None,
-            threat=kwags["threat"],
-            title=kwags["title"],
-            type=kwags.get("finding_type"),
+            actor=kwargs["actor"],
+            affected_systems=kwargs["affected_systems"],
+            attack_vector_desc=kwargs["attack_vector_desc"],
+            compromised_attributes=kwargs.get("records"),
+            compromised_records=kwargs["records_number"],
+            cwe=kwargs["cwe"],
+            description=kwargs["description"],
+            recommendation=kwargs["recommendation"],
+            requirements=kwargs["requirements"],
+            risk=kwargs.get("risk"),
+            scenario=kwargs["scenario"],
+            sorts=FindingSorts[kwargs["sorts"]]
+            if kwargs.get("sorts")
+            else None,
+            threat=kwargs["threat"],
+            title=kwargs["title"],
+            type=kwargs.get("finding_type"),
         )
         await findings_domain.update_description_new(
             info.context, finding_id, description
