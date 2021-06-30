@@ -69,6 +69,7 @@ resource "aws_kms_key" "key_sorts" {
   policy                  = data.aws_iam_policy_document.key_sorts.json
   deletion_window_in_days = 30
   is_enabled              = true
+  enable_key_rotation     = true
 
   tags = {
     "Name"               = "sorts-kms"
