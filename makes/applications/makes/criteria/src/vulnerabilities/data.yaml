@@ -112,3 +112,55 @@
   title: Sensitive information stored in logs
 060:
   title: Insecure exceptions
+061:
+  title: Errors without traceability
+062:
+  title: Concurrent sessions
+063:
+  title: Lack of data validation
+064:
+  title: Traceability loss
+065:
+  title: Cached form fields
+067:
+  title: Improper resource allocation
+068:
+  title: Insecure session expiration time
+069:
+  title: Weak CAPTCHA
+070:
+  title: Inappropriate coding practices
+072:
+  title: Duplicate code
+073:
+  title: Conditional statement without a default option
+074:
+  title: Commented-out code
+075:
+  title: Unauthorized access to files
+076:
+  title: Insecure session management
+077:
+  title: ARP spoofing
+078:
+  title: Insecurely generated token
+079:
+  title: Non-upgradable dependencies
+081:
+  title: Lack of multi-factor authentication
+082:
+  title: Insecurely deleted files
+083:
+  title: XML Injection (XXE)
+084:
+  title: MDNS spoofing
+085:
+  title: Sensitive data stored in client-side storage
+086:
+  title: Missing subresource integrity check
+087:
+  title: Account lockout
+088:
+  title: Privacy violation
+090:
+  title: Code injection (CSV)
