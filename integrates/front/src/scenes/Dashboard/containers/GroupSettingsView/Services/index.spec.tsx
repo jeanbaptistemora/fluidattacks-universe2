@@ -121,8 +121,8 @@ describe("Services", (): void => {
   });
 
   [
-    { group: "unittesting", rows: 5 },
-    { group: "oneshottest", rows: 3 },
+    { group: "unittesting", rows: 4 },
+    { group: "oneshottest", rows: 2 },
     { group: "not-exists", rows: 0 },
   ].forEach((test: { group: string; rows: number }): void => {
     it(`should render services for: ${test.group}`, async (): Promise<void> => {
@@ -183,32 +183,31 @@ describe("Services", (): void => {
     const rows: () => ReactWrapper = (): ReactWrapper => tableBody().find("tr");
 
     const typeRow: () => ReactWrapper = (): ReactWrapper => rows().at(0);
-    const asmRow: () => ReactWrapper = (): ReactWrapper => rows().at(1);
-    const squadRowIndex = 3;
+    const machineRow = (): ReactWrapper => rows().at(1);
+    const squadRowIndex = 2;
     const squadRow = (): ReactWrapper => rows().at(squadRowIndex);
-    const TEST_FORCES_ROW_INDEX = 4;
+    const TEST_FORCES_ROW_INDEX = 3;
     const forcesRow: () => ReactWrapper = (): ReactWrapper =>
       rows().at(TEST_FORCES_ROW_INDEX);
 
     const typeRowLeft: () => ReactWrapper = (): ReactWrapper =>
       typeRow().find("td").first();
-    const asmRowLeft: () => ReactWrapper = (): ReactWrapper =>
-      asmRow().find("td").first();
+    const machineRowLeft = (): ReactWrapper => machineRow().find("td").first();
     const squadRowLeft: () => ReactWrapper = (): ReactWrapper =>
       squadRow().find("td").first();
     const forcesRowLeft: () => ReactWrapper = (): ReactWrapper =>
       forcesRow().find("td").first();
 
-    const totalRows = 5;
+    const totalRows = 4;
 
     expect(rows()).toHaveLength(totalRows);
     expect(typeRowLeft().text()).toStrictEqual("Subscription type");
-    expect(asmRowLeft().text()).toStrictEqual("ASM");
+    expect(machineRowLeft().text()).toStrictEqual("Machine");
     expect(squadRowLeft().text()).toStrictEqual("Squad");
     expect(forcesRowLeft().text()).toStrictEqual("DevSecOps agent");
 
-    const asmSwitch: () => ReactWrapper = (): ReactWrapper =>
-      asmRow().find("#asmSwitch").at(0);
+    const machineSwitch = (): ReactWrapper =>
+      machineRow().find("#machineSwitch").at(0);
     const squadSwitch: () => ReactWrapper = (): ReactWrapper =>
       squadRow().find("#squadSwitch").at(0);
     const forcesSwitch: () => ReactWrapper = (): ReactWrapper =>
@@ -225,10 +224,10 @@ describe("Services", (): void => {
       type: "CONTINUOUS",
     });
 
-    asmSwitch().simulate("click");
+    machineSwitch().simulate("click");
 
     expect(formValues()).toStrictEqual({
-      asm: false,
+      asm: true,
       comments: "",
       confirmation: "",
       forces: false,
@@ -251,19 +250,6 @@ describe("Services", (): void => {
       type: "CONTINUOUS",
     });
 
-    squadSwitch().simulate("click");
-
-    expect(formValues()).toStrictEqual({
-      asm: true,
-      comments: "",
-      confirmation: "",
-      forces: false,
-      machine: true,
-      reason: "NONE",
-      squad: false,
-      type: "CONTINUOUS",
-    });
-
     const proceedButton: () => ReactWrapper = (): ReactWrapper =>
       wrapper.find("Button").first();
     const genericForm: () => ReactWrapper = (): ReactWrapper =>
@@ -282,7 +268,7 @@ describe("Services", (): void => {
       forces: true,
       machine: true,
       reason: "NONE",
-      squad: false,
+      squad: true,
       type: "CONTINUOUS",
     });
 
@@ -295,7 +281,7 @@ describe("Services", (): void => {
       forces: true,
       machine: true,
       reason: "NONE",
-      squad: true,
+      squad: false,
       type: "CONTINUOUS",
     });
 
@@ -308,7 +294,7 @@ describe("Services", (): void => {
       forces: false,
       machine: true,
       reason: "NONE",
-      squad: true,
+      squad: false,
       type: "CONTINUOUS",
     });
 

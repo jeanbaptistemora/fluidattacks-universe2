@@ -842,11 +842,6 @@ export const enTranslations: ResourceKey = {
         disabled: "Disabled",
         enabled: "Enabled",
         newGroup: {
-          asm: {
-            text: "Include ASM?",
-            tooltip:
-              "Communication platform where all group stakeholders can interact",
-          },
           description: {
             text: "Description",
             tooltip: "Brief description to identify the group",

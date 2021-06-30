@@ -329,37 +329,6 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                     </FormGroup>
                   </Col100>
                 </Row>
-                <Row>
-                  <Col40>
-                    <TooltipWrapper
-                      id={"organization.tabs.groups.newGroup.asm.tooltip"}
-                      message={translate.t(
-                        "organization.tabs.groups.newGroup.asm.tooltip"
-                      )}
-                      placement={"top"}
-                    >
-                      <FormGroup>
-                        <ControlLabel>
-                          {translate.t(
-                            "organization.tabs.groups.newGroup.asm.text"
-                          )}
-                          {" *"}
-                        </ControlLabel>
-                        <SwitchButton
-                          checked={true}
-                          disabled={true}
-                          name={"asm"}
-                          offlabel={translate.t(
-                            "organization.tabs.groups.newGroup.switch.no"
-                          )}
-                          onlabel={translate.t(
-                            "organization.tabs.groups.newGroup.switch.yes"
-                          )}
-                        />
-                      </FormGroup>
-                    </TooltipWrapper>
-                  </Col40>
-                </Row>
                 {isContinuousType(values.type) ? (
                   <Row>
                     <Col40>

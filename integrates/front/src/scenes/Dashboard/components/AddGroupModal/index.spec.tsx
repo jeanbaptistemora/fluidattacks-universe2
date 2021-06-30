@@ -90,7 +90,7 @@ describe("AddGroupModal component", (): void => {
         element.contains("Proceed")
       )
       .at(0);
-    const SWITCH_BUTTON_LENGTH: number = 4;
+    const SWITCH_BUTTON_LENGTH: number = 3;
 
     expect(organizationField).toHaveLength(1);
     expect(groupNameField).toHaveLength(1);
@@ -119,7 +119,7 @@ describe("AddGroupModal component", (): void => {
       .find("select")
       .simulate("change", { target: { value: "ONESHOT" } });
 
-    const checkedLength = 2;
+    const checkedLength = 1;
 
     expect(wrapper.find({ checked: true })).toHaveLength(checkedLength);
   });
@@ -139,10 +139,10 @@ describe("AddGroupModal component", (): void => {
       </Provider>
     );
 
-    const squadSwitch: ReactWrapper = wrapper.find({ checked: true }).at(1);
+    const squadSwitch: ReactWrapper = wrapper.find({ checked: true }).at(0);
 
     squadSwitch.simulate("click");
 
-    expect(wrapper.find({ checked: true })).toHaveLength(1);
+    expect(wrapper.find({ checked: true })).toHaveLength(0);
   });
 });

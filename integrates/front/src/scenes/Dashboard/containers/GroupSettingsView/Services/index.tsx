@@ -16,7 +16,6 @@ import { Field, change, formValueSelector } from "redux-form";
 
 import {
   editGroupDataHelper,
-  getHandleASMBtnChange,
   getHandleMachineBtnChange,
   handleEditGroupDataError,
   handleForcesBtnChangeHelper,
@@ -114,7 +113,6 @@ const Services: React.FC<IServicesProps> = (
     },
     [dispatch]
   );
-  const handleASMBtnChange = getHandleASMBtnChange(dispatch);
   const handleMachineBtnChange = getHandleMachineBtnChange(dispatch);
   const handleSquadBtnChange: (withSquad: boolean) => void = (
     withSquad: boolean
@@ -212,12 +210,6 @@ const Services: React.FC<IServicesProps> = (
     },
   ];
   const servicesList: IServicesDataSet[] = [
-    {
-      canHave: true,
-      id: "asmSwitch",
-      onChange: handleASMBtnChange,
-      service: "asm",
-    },
     {
       canHave: isContinuousType(formValues.type),
       id: "machineSwitch",
