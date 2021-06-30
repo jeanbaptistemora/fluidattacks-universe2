@@ -20,7 +20,7 @@ slug: /development/writing/documentation/main
   Example (the subtitle *Criteria* would be unnecessary
   in the introduction of the section with the same name):
 
-  ![DG03](https://res.cloudinary.com/fluid-attacks/image/upload/v1624900945/docs/development/writing/dgb_qdmbql.png)
+  ![DG03](https://res.cloudinary.com/fluid-attacks/image/upload/v1624900945/docs/development/writing/dgb_qdmbql.webp)
 
 * **DG04:** We *must* express the names of the sections and subsections
   in the same way wherever we refer to them.

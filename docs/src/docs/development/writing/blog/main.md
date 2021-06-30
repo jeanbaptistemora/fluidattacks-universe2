@@ -96,5 +96,15 @@ slug: /development/writing/blog/main
   inside the *.adoc* files.
   (Only for `Fluid Attacks'` staff.)
 
+## Others
+
+* **BO01:** Whenever we create a post with an interview,
+  we *must* use the `[role="fluid-qanda"]` command
+  to present each answer in a special way
+  after each question.
+  Example:
+
+  ![BO01](https://res.cloudinary.com/fluid-attacks/image/upload/v1624999457/docs/development/writing/boa_a2rjeq.webp)
+
 > **NOTE:**
 > This section of our documentation is under construction.
