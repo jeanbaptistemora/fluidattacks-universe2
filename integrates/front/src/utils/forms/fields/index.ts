@@ -3,6 +3,7 @@ export { FormikArrayField } from "utils/forms/fields/ArrayField/FormikArrayField
 export { AutoCompleteText } from "utils/forms/fields/AutoCompleteText";
 export { FormikCheckbox } from "utils/forms/fields/Checkbox";
 export { Date } from "utils/forms/fields/Date";
+export { EditableField } from "utils/forms/fields/EditableField";
 export { FormikDate } from "utils/forms/fields/Date/FormikDate";
 export { DateTime } from "utils/forms/fields/DateTime";
 export { FormikDateTime } from "utils/forms/fields/DateTime/FormikDateTime";

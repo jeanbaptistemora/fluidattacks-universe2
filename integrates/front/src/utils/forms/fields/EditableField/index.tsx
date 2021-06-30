@@ -1,8 +1,7 @@
-import type { FieldConfig } from "formik";
+import type { FieldAttributes } from "formik";
 import { Field } from "formik";
 import _ from "lodash";
 import React from "react";
-import type { TextareaHTMLAttributes } from "react";
 
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
@@ -16,20 +15,19 @@ import {
   Row,
 } from "styles/styledComponents";
 
-/* eslint-disable @typescript-eslint/no-type-alias, @typescript-eslint/ban-types, react/require-default-props, react/no-unused-prop-types */
-type EditableFieldProps = FieldConfig &
-  TextareaHTMLAttributes<HTMLTextAreaElement> & {
-    alignField?: string;
-    className?: string;
-    currentValue: string;
-    id?: string;
-    label: string;
-    renderAsEditable: boolean;
-    tooltip?: string;
-    type?: string;
-    visibleWhileEditing?: boolean;
-  };
-/* eslint-disable react/require-default-props, react/no-unused-prop-types */
+/* eslint-disable @typescript-eslint/no-explicit-any, react/require-default-props, react/no-unused-prop-types */
+interface IEditableFieldProps extends FieldAttributes<any> {
+  alignField?: string;
+  className?: string;
+  currentValue: string;
+  id?: string;
+  label: string;
+  renderAsEditable: boolean;
+  tooltip?: string;
+  type?: string;
+  visibleWhileEditing?: boolean;
+}
+/* eslint-enable @typescript-eslint/no-explicit-any, react/require-default-props, react/no-unused-prop-types */
 
 const renderCurrentValue: (value: string) => JSX.Element = (
   value: string
@@ -45,8 +43,8 @@ const renderCurrentValue: (value: string) => JSX.Element = (
   );
 };
 
-const renderHorizontal: (props: EditableFieldProps) => JSX.Element = (
-  props: EditableFieldProps
+const renderHorizontal: (props: IEditableFieldProps) => JSX.Element = (
+  props: IEditableFieldProps
 ): JSX.Element => {
   const {
     id = "editableField",
@@ -81,8 +79,8 @@ const renderHorizontal: (props: EditableFieldProps) => JSX.Element = (
   );
 };
 
-const renderHorizontalWide: (props: EditableFieldProps) => JSX.Element = (
-  props: EditableFieldProps
+const renderHorizontalWide: (props: IEditableFieldProps) => JSX.Element = (
+  props: IEditableFieldProps
 ): JSX.Element => {
   // eslint-disable-next-line fp/no-rest-parameters
   const { label, currentValue, renderAsEditable, ...fieldProps } = props;
@@ -105,8 +103,8 @@ const renderHorizontalWide: (props: EditableFieldProps) => JSX.Element = (
   );
 };
 
-const renderVertical: (props: EditableFieldProps) => JSX.Element = (
-  props: EditableFieldProps
+const renderVertical: (props: IEditableFieldProps) => JSX.Element = (
+  props: IEditableFieldProps
 ): JSX.Element => {
   const {
     id = "editableField",
@@ -162,14 +160,14 @@ const renderVertical: (props: EditableFieldProps) => JSX.Element = (
   );
 };
 
-const FormikEditableField: React.FC<EditableFieldProps> = (
-  props: EditableFieldProps
+const EditableField: React.FC<IEditableFieldProps> = (
+  props: IEditableFieldProps
 ): JSX.Element => {
   const { alignField, visibleWhileEditing, renderAsEditable, currentValue } =
     props;
 
   function setRender(
-    properties: EditableFieldProps,
+    properties: IEditableFieldProps,
     alignF: string
   ): JSX.Element {
     if (alignF === "horizontal") {
@@ -193,4 +191,4 @@ const FormikEditableField: React.FC<EditableFieldProps> = (
   return shouldRender ? render : <div />;
 };
 
-export { FormikEditableField };
+export { EditableField };

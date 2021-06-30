@@ -2,20 +2,20 @@ import type { ShallowWrapper } from "enzyme";
 import { shallow } from "enzyme";
 import React from "react";
 
-import { FormikEditableField } from "scenes/Dashboard/components/EditableField/FormikEditableField";
+import { EditableField } from "utils/forms/fields";
 
 describe("Confirm dialog", (): void => {
   it("should return an function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof FormikEditableField).toStrictEqual("function");
+    expect(typeof EditableField).toStrictEqual("function");
   });
 
   it("should render a horizontal wide editable field", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <FormikEditableField
+      <EditableField
         alignField={"horizontalWide"}
         component={"input"}
         currentValue={"test"}
@@ -33,7 +33,7 @@ describe("Confirm dialog", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <FormikEditableField
+      <EditableField
         alignField={"horizontalWide"}
         component={"input"}
         currentValue={"test"}
@@ -51,7 +51,7 @@ describe("Confirm dialog", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <FormikEditableField
+      <EditableField
         alignField={"horizontal"}
         component={"input"}
         currentValue={"test"}
@@ -69,7 +69,7 @@ describe("Confirm dialog", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <FormikEditableField
+      <EditableField
         alignField={"horizontal"}
         component={"input"}
         currentValue={"test"}
@@ -87,7 +87,7 @@ describe("Confirm dialog", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <FormikEditableField
+      <EditableField
         component={"input"}
         currentValue={"test"}
         label={"Test Field"}
@@ -104,7 +104,7 @@ describe("Confirm dialog", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <FormikEditableField
+      <EditableField
         component={"input"}
         currentValue={"test"}
         label={"Test Field"}
@@ -121,7 +121,7 @@ describe("Confirm dialog", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <FormikEditableField
+      <EditableField
         alignField={"horizontal"}
         component={"input"}
         currentValue={"https://test.html"}
@@ -139,7 +139,7 @@ describe("Confirm dialog", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <FormikEditableField
+      <EditableField
         alignField={"horizontal"}
         component={"input"}
         currentValue={"https://test.html"}
