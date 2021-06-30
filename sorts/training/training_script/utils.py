@@ -1,6 +1,3 @@
-from botocore.exceptions import (
-    ClientError,
-)
 import csv
 import numpy as np
 from numpy import (
@@ -17,9 +14,6 @@ from sklearn.model_selection import (
 )
 from sorts.typings import (
     Model as ModelType,
-)
-from sorts.utils.logs import (
-    log_exception,
 )
 import tempfile
 from training.constants import (
@@ -111,20 +105,10 @@ def get_previous_training_results(results_filename: str) -> List[List[str]]:
     with tempfile.TemporaryDirectory() as tmp_dir:
         local_file: str = os.path.join(tmp_dir, results_filename)
         remote_file: str = f"training-output/results/{results_filename}"
-        try:
-            S3_BUCKET.Object(remote_file).download_file(local_file)
-            with open(local_file, "r") as csv_file:
-                csv_reader = csv.reader(csv_file)
-                previous_results.extend(csv_reader)
-        except ClientError as exc:
-            log_exception(
-                "error",
-                exc,
-                message=(
-                    f"Error downloading {remote_file} while "
-                    "getting previous training results"
-                ),
-            )
+        S3_BUCKET.Object(remote_file).download_file(local_file)
+        with open(local_file, "r") as csv_file:
+            csv_reader = csv.reader(csv_file)
+            previous_results.extend(csv_reader)
 
     return previous_results
 
