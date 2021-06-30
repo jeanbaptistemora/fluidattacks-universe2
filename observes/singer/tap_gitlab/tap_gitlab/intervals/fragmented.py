@@ -2,9 +2,6 @@ from __future__ import (
     annotations,
 )
 
-from more_itertools import (
-    windowed,
-)
 from returns.primitives.container import (
     BaseContainer,
 )
@@ -20,13 +17,11 @@ from tap_gitlab.intervals.alias import (
 from tap_gitlab.intervals.interval import (
     IntervalFactory,
     IntervalPoint,
-    MAX,
-    MIN,
+    InvalidInterval,
     OpenLeftInterval,
 )
 from typing import (
     final,
-    Optional,
     TypeVar,
 )
 
@@ -37,13 +32,23 @@ class InvalidEndpoints(Exception):
     pass
 
 
-def _validate_endpoints(points: NTuple[IntervalPoint[_Point]]) -> None:
-    if (
-        len(points) < 2
-        or isinstance(points[0], MAX)
-        or isinstance(points[-1], MIN)
-    ):
-        raise InvalidEndpoints()
+def _to_endpoints(
+    intervals: NTuple[OpenLeftInterval[_Point]],
+) -> NTuple[IntervalPoint[_Point]]:
+    endpoints: NTuple[IntervalPoint[_Point]] = tuple()
+    if not intervals:
+        raise InvalidInterval("Empty intervals")
+    for interval in intervals:
+        if not endpoints:
+            endpoints = endpoints + (interval.lower, interval.upper)
+        else:
+            if endpoints[-1] == interval.lower:
+                endpoints = endpoints + (interval.upper,)
+            else:
+                raise InvalidInterval(
+                    f"discontinuous: {endpoints[-1]} + {interval}"
+                )
+    return endpoints
 
 
 @final
@@ -54,11 +59,13 @@ class FragmentedInterval(
     def __init__(
         self,
         intvl_factory: IntervalFactory,
-        endpoints: NTuple[IntervalPoint[_Point]],
+        intervals: NTuple[OpenLeftInterval[_Point]],
     ) -> None:
+        endpoints = _to_endpoints(intervals)
         super().__init__(
             {
                 "endpoints": endpoints,
+                "intervals": intervals,
                 "intvl_factory": intvl_factory,
             }
         )
@@ -73,22 +80,7 @@ class FragmentedInterval(
 
     @property
     def intervals(self) -> NTuple[OpenLeftInterval[_Point]]:
-        def _new_interval(
-            p_1: Optional[IntervalPoint[_Point]],
-            p_2: Optional[IntervalPoint[_Point]],
-        ) -> OpenLeftInterval[_Point]:
-            if (
-                p_1
-                and p_2
-                and not isinstance(p_1, MAX)
-                and not isinstance(p_2, (MIN, MAX))
-            ):
-                return self.factory.new_lopen(p_1, p_2)
-            raise InvalidEndpoints()
-
-        return tuple(
-            _new_interval(p_1, p_2) for p_1, p_2 in windowed(self.endpoints, 2)
-        )
+        return self._inner_value["intervals"]
 
     def to_json(self) -> JSON:
         return {
