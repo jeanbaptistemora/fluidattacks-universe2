@@ -1,2 +1,40 @@
 023:
   title: Terminate inactive user sessions
+024:
+  title: Transfer information using session objects
+025:
+  title: Manage concurrent sessions
+026:
+  title: Encrypt client-side session information
+027:
+  title: Allow session lockout
+028:
+  title: Allow users to log out
+029:
+  title: Cookies with security attributes
+030:
+  title: Avoid object reutilization
+031:
+  title: Discard user session data
+032:
+  title: Avoid session ID leakages
+033:
+  title: Restrict administrative access
+034:
+  title: Manage user accounts
+035:
+  title: Manage privilege modifications
+036:
+  title: Do not deploy temporary files
+037:
+  title: Parameters without sensitive data
+039:
+  title: Define maximum file size
+040:
+  title: Compare file format and extension
+041:
+  title: Scan files for malicious code
+042:
+  title: Validate file format
+043:
+  title: Define an explicit content type
