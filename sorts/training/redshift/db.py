@@ -94,9 +94,9 @@ def initialize() -> None:
         )
 
 
-def delete(table: str) -> None:
+def delete(table: str, condition: str = "true") -> None:
     with db_cursor() as cursor:
-        cursor.execute(f"DELETE FROM sorts.{table}")
+        cursor.execute(f"DELETE FROM sorts.{table} WHERE {condition}")
 
 
 def insert(table: str, item: Dict[str, Any]) -> None:
