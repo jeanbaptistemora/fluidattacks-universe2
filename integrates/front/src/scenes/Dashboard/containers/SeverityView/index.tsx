@@ -2,14 +2,12 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import type { InjectedFormProps } from "redux-form";
-import { formValueSelector } from "redux-form";
 
 import { tooltipPropHelper } from "./helpers";
 import { validateValues } from "./SeverityContent/utils";
@@ -17,8 +15,6 @@ import { validateValues } from "./SeverityContent/utils";
 import { Button } from "components/Button/index";
 import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { EditableField } from "scenes/Dashboard/components/EditableField";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm/index";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
 import {
   GET_SEVERITY,
@@ -35,7 +31,7 @@ import { ButtonToolbarRow, Col100, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { calcCVSSv3 } from "utils/cvss";
-import { Dropdown } from "utils/forms/fields";
+import { EditableField, FormikDropdown } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -47,15 +43,17 @@ const SeverityView: React.FC = (): JSX.Element => {
 
   const [isEditing, setEditing] = useState(false);
 
-  const selector: (
-    state: Record<string, unknown>,
-    // eslint-disable-next-line fp/no-rest-parameters
-    ...field: string[]
-  ) => Dictionary<string> = formValueSelector("editSeverity");
-  const formValues: Dictionary<string> = useSelector(
-    (state: Record<string, unknown>): Dictionary<string> =>
-      selector(state, "cvssVersion", "severityScope", "modifiedSeverityScope")
-  );
+  const formValues = (values: Dictionary<string>): Dictionary<string> => {
+    return (({
+      cvssVersion,
+      modifiedSeverityScope,
+      severityScope,
+    }): Dictionary<string> => ({
+      cvssVersion,
+      modifiedSeverityScope,
+      severityScope,
+    }))(values);
+  };
 
   const handleErrors: (error: ApolloError) => void = ({
     graphQLErrors,
@@ -189,7 +187,8 @@ const SeverityView: React.FC = (): JSX.Element => {
             !validateValues(data.finding.severity) ||
             data.finding.severityScore <= 0 ||
             data.finding.cvssVersion !== "3.1" ? (
-              <GenericForm
+              <Formik
+                enableReinitialize={true}
                 initialValues={{
                   ...data.finding.severity,
                   cvssVersion: data.finding.cvssVersion,
@@ -198,13 +197,13 @@ const SeverityView: React.FC = (): JSX.Element => {
                 onChange={handleFormChange}
                 onSubmit={handleUpdateSeverity}
               >
-                {({ pristine }: InjectedFormProps): React.ReactNode => (
-                  <React.Fragment>
+                {({ dirty, values }): React.ReactNode => (
+                  <Form id={"editSeverity"}>
                     {isEditing ? (
                       <React.Fragment>
                         <ButtonToolbarRow>
                           <Button
-                            disabled={pristine || mutationRes.loading}
+                            disabled={!dirty || mutationRes.loading}
                             type={"submit"}
                           >
                             <FluidIcon icon={"loading"} />
@@ -214,7 +213,7 @@ const SeverityView: React.FC = (): JSX.Element => {
                         <Row>
                           <EditableField
                             alignField={"horizontal"}
-                            component={Dropdown}
+                            component={FormikDropdown}
                             currentValue={"3.1"}
                             label={translate.t(
                               "searchFindings.tabSeverity.cvssVersion"
@@ -232,7 +231,7 @@ const SeverityView: React.FC = (): JSX.Element => {
                     {castFieldsCVSS3(
                       data.finding.severity,
                       isEditing,
-                      formValues
+                      formValues(values)
                     ).map(
                       (field: ISeverityField, index: number): JSX.Element => {
                         const currentOption: string =
@@ -242,7 +241,7 @@ const SeverityView: React.FC = (): JSX.Element => {
                           <Row key={index.toString()}>
                             <EditableField
                               alignField={"horizontal"}
-                              component={Dropdown}
+                              component={FormikDropdown}
                               currentValue={`${Number(
                                 field.currentValue
                               ).toFixed(2)} | ${translate.t(currentOption)}`}
@@ -267,9 +266,9 @@ const SeverityView: React.FC = (): JSX.Element => {
                         );
                       }
                     )}
-                  </React.Fragment>
+                  </Form>
                 )}
-              </GenericForm>
+              </Formik>
             ) : (
               /* eslint-disable-next-line react/jsx-props-no-spreading -- Preferred for readability */
               <SeverityContent {...data.finding.severity} />
