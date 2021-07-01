@@ -13,6 +13,8 @@ import jinja2
 from jinja2 import (
     select_autoescape,
 )
+import logging
+import logging.config
 import matplotlib
 from newutils.vulnerabilities import (
     get_treatments,
@@ -25,6 +27,9 @@ from pylab import (  # noqa
     figure,
     pie,
     savefig,
+)
+from settings import (
+    LOGGING,
 )
 import subprocess  # nosec
 import sys
@@ -41,10 +46,12 @@ from typing_extensions import (
 )
 import uuid
 
+logging.config.dictConfig(LOGGING)
 matplotlib.use("Agg")
 
 
 # Constants
+LOGGER = logging.getLogger(__name__)
 VulnTable = TypedDict(  # pylint: disable=invalid-name
     "VulnTable",
     {
@@ -183,8 +190,8 @@ def get_severity(metric: str, metric_value: str) -> Optional[str]:
         metric_descriptions = metrics.get(metric)
         if metric_descriptions:
             description = metric_descriptions.get(str(metric_value))
-    except ValueError:
-        pass
+    except ValueError as ex:
+        LOGGER.exception(ex, extra={"extra": locals()})
     return description
 
 
