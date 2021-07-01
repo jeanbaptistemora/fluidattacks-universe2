@@ -1,3 +1,4 @@
+import json
 from model import (
     core_model,
 )
@@ -7,17 +8,18 @@ from utils.ctx import (
 )
 
 
-@pytest.mark.skims_test_group("unittesting")
+@pytest.mark.skims_test_group("_")
 def test_model_core_model_manifest() -> None:
     for queue in core_model.ExecutionQueue:
-        path: str = f"skims/manifests/findings.{queue.name}.lst"
+        path: str = f"skims/manifests/findings.{queue.name}.json"
         expected: str = (
-            "\n".join(
+            json.dumps(
                 sorted(
                     finding.name
                     for finding in core_model.FindingEnum
                     if finding.value.execution_queue == queue
-                )
+                ),
+                indent=2,
             )
             + "\n"
         )
