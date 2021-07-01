@@ -4,6 +4,9 @@ from __future__ import (
     annotations,
 )
 
+from dataclasses import (
+    dataclass,
+)
 from datetime import (
     datetime,
 )
@@ -44,6 +47,9 @@ from tap_gitlab.api.client import (
 from tap_gitlab.api.projects.merge_requests import (
     MrApi,
 )
+from tap_gitlab.api.projects.merge_requests.data_page import (
+    MrsPage,
+)
 from tap_gitlab.intervals.alias import (
     NTuple,
 )
@@ -67,6 +73,7 @@ from tap_gitlab.streams import (
     SupportedStreams,
 )
 from typing import (
+    final,
     Iterator,
     Optional,
     Tuple,
@@ -117,20 +124,22 @@ def _stream_data(
     return Success(count)
 
 
-class Emitter(Immutable):
+@final
+@dataclass(frozen=True)
+class Emitter:
     api: ApiClient
-    interval_factory: IntervalFactory
+    interval_factory: IntervalFactory[datetime]
     max_pages: int
 
-    def __new__(
-        cls, creds: Credentials, factory: IntervalFactory, max_pages: int = 10
-    ) -> Emitter:
-        self = object.__new__(cls)
+    def __init__(
+        self,
+        creds: Credentials,
+        factory: IntervalFactory[datetime],
+        max_pages: int = 10,
+    ) -> None:
         object.__setattr__(self, "api", ApiClient(creds))
-        object.__setattr__(self, "max_pages", max_pages)
         object.__setattr__(self, "interval_factory", factory)
-
-        return self
+        object.__setattr__(self, "max_pages", max_pages)
 
     def emit_mrs_interval(
         self,
@@ -159,32 +168,36 @@ class Emitter(Immutable):
                     self.max_pages,
                 )
                 emitted = result.value_or(self.max_pages)
+
+                def _transform_page(
+                    ol_interval: OpenLeftInterval[datetime], page: MrsPage
+                ) -> Result[NTuple[ProgressInterval[datetime]], None]:
+                    data = tuple(
+                        (
+                            ProgressInterval(
+                                self.interval_factory.new_lopen(
+                                    ol_interval.lower, page.max_date
+                                ),
+                                False,
+                            ),
+                            ProgressInterval(
+                                self.interval_factory.new_lopen(
+                                    page.max_date, ol_interval.upper
+                                ),
+                                True,
+                            ),
+                        )
+                    )
+                    return Success(data)
+
+                page_to_pinterval = partial(_transform_page, interval)
                 new_p_interval: NTuple[ProgressInterval[datetime]] = (
                     result.map(
                         lambda _: tuple(
                             (ProgressInterval(p_interval.interval, True),)
                         )
                     )
-                    .lash(
-                        lambda page: Success(
-                            tuple(
-                                (
-                                    ProgressInterval(
-                                        self.interval_factory.new_lopen(
-                                            interval.lower, page.max_date
-                                        ),
-                                        False,
-                                    ),
-                                    ProgressInterval(
-                                        self.interval_factory.new_lopen(
-                                            page.max_date, interval.upper
-                                        ),
-                                        True,
-                                    ),
-                                )
-                            )
-                        )
-                    )
+                    .lash(page_to_pinterval)
                     .unwrap()
                 )
                 return (emitted, new_p_interval)
