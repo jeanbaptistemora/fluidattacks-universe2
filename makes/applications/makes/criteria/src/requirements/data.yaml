@@ -330,3 +330,83 @@
   title: Make authentication options equally secure
 320:
   title: Avoid client-side control enforcement
+321:
+  title: Avoid deserializing untrusted data
+322:
+  title: Avoid excessive logging
+323:
+  title: Exclude unverifiable files
+324:
+  title: Control redirects
+325:
+  title: Protect WSDL files
+326:
+  title: Detect rooted devices
+327:
+  title: Set a rate limit
+328:
+  title: Request MFA for critical systems
+329:
+  title: Keep client-side storage without sensitive data
+330:
+  title: Verify Subresource Integrity
+331:
+  title: Guarantee legal compliance
+332:
+  title: Prevent the use of breached passwords
+333:
+  title: Store salt values separately
+334:
+  title: Avoid knowledge-based authentication
+335:
+  title: Define out of band token lifespan
+336:
+  title: Disable insecure TLS versions
+337:
+  title: Make critical logic flows thread safe
+338:
+  title: Implement perfect forward secrecy
+339:
+  title: Avoid storing sensitive files in the web root
+340:
+  title: Use octet stream downloads
+341:
+  title: Use the principle of deny by default
+342:
+  title: Validate request parameters
+343:
+  title: Respect the Do Not Track header
+344:
+  title: Avoid dynamic code execution
+345:
+  title: Establish protections against overflows
+346:
+  title: Use initialization vectors once
+347:
+  title: Invalidate previous OTPs
+348:
+  title: Use consistent encoding
+349:
+  title: Include HTTP security headers
+350:
+  title: Enable memory protection mechanisms
+351:
+  title: Assign unique keys to each device
+352:
+  title: Enable trusted execution
+353:
+  title: Schedule firmware updates
+354:
+  title: Prevent firmware downgrades
+355:
+  title: Serve files with specific extensions
+356:
+  title: Verify sub-domain names
+357:
+  title: Use stateless session tokens
+358:
+  title: Notify upcoming expiration dates
+359:
+  title: Avoid using generic exceptions
+360:
+  title: Remove unnecessary sensitive information
