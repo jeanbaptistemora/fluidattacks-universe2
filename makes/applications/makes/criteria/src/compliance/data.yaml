@@ -17,7 +17,25 @@ capec:
   es:
     description: __empty__
   definitions:
-    capec_1:
+    1:
       title: Accessing Functionality Not Properly Constrained by ACLs
       link: https://capec.mitre.org/data/definitions/1.html
+  metadata: {}
+hipaa:
+  title: HIPAA
+  en:
+    description: >
+      The Health Insurance Portability and Accountability Act of 1996
+      required the Secretary of the U.S. Department of Health and Human Services (HHS)
+      to develop regulations
+      protecting the privacy and security
+      of certain health information.
+      The version used in this section
+      is HIPAA Rules 2013 update.
+  es:
+    description: __empty__
+  definitions:
+    164_308:
+      title: 45 CFR § 164.308 - Administrative safeguards.
+      link: https://www.law.cornell.edu/cfr/text/45/164.308
   metadata: {}
