@@ -410,3 +410,45 @@
   title: Avoid using generic exceptions
 360:
   title: Remove unnecessary sensitive information
+361:
+  title: Replace cryptographic keys
+362:
+  title: Assign MFA mechanisms to a single account
+363:
+  title: Synchronize system clocks
+364:
+  title: Provide extended validation (EV) certificates
+365:
+  title: Avoid exposing technical information
+366:
+  title: Associate type to variables
+367:
+  title: Proper generation of temporary passwords
+368:
+  title: Use of indistinguishable response time
+369:
+  title: Set a maximum lifetime in sessions
+370:
+  title: Use OAEP padding with RSA
+371:
+  title: Use GCM Padding with AES
+372:
+  title: Proper Use of Initialization Vector (IV)
+373:
+  title: Use certificate pinning
+374:
+  title: Use of isolation methods in running applications
+375:
+  title: Remove sensitive data from client-side applications
+376:
+  title: Register severity level
+377:
+  title: Store logs based on valid regulation
+378:
+  title: Use of log management system
+379:
+  title: Keep low McCabe ciclomatic complexity
+380:
+  title: Define a password management tool
+381:
+  title: Use of absolute paths
