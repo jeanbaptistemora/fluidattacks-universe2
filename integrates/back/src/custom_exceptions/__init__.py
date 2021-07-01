@@ -39,6 +39,10 @@ class InvalidCannotModifyNicknameWhenClosing(_SingleMessageException):
     msg: str = "Invalid, you cannot change the nickname while closing"
 
 
+class InvalidNewVulnState(_SingleMessageException):
+    msg: str = "Invalid, only New vulnerabilities with Open state are allowed"
+
+
 class InvalidVulnerabilityAlreadyExists(_SingleMessageException):
     msg: str = "Invalid, vulnerability already exists"
 
@@ -451,17 +455,6 @@ class InvalidJustificationMaxLength(CustomBaseException):
             f"{field} characters"
         )
         super(InvalidJustificationMaxLength, self).__init__(msg)
-
-
-class InvalidNewVulnState(CustomBaseException):
-    """Exception for reporting new vulns as closed"""
-
-    def __init__(self) -> None:
-        msg = (
-            "Exception - Only New vulnerabilities with Open state "
-            "are allowed"
-        )
-        super(InvalidNewVulnState, self).__init__(msg)
 
 
 class InvalidNumberAcceptations(CustomBaseException):
