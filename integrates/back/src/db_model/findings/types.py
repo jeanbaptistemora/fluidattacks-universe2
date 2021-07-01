@@ -182,6 +182,7 @@ class FindingMetadataToUpdate(NamedTuple):
     cvss_version: Optional[str] = None
     cwe: Optional[str] = None
     description: Optional[str] = None
+    evidences: Optional[FindingEvidences] = None
     recommendation: Optional[str] = None
     requirements: Optional[str] = None
     risk: Optional[str] = None

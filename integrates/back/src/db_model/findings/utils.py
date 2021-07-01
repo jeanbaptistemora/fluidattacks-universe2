@@ -5,6 +5,7 @@ from .enums import (
     FindingVerificationStatus,
 )
 from .types import (
+    FindingEvidences,
     FindingState,
     FindingUnreliableIndicators,
     FindingVerification,
@@ -18,6 +19,14 @@ from dynamodb.types import (
 from typing import (
     Optional,
 )
+
+
+def format_evidences_item(evidences: FindingEvidences) -> Item:
+    return {
+        field: evidence._asdict()
+        for field, evidence in evidences._asdict().items()
+        if evidence is not None
+    }
 
 
 def format_state(state_item: Item) -> FindingState:

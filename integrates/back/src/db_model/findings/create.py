@@ -2,6 +2,7 @@ from .types import (
     Finding,
 )
 from .utils import (
+    format_evidences_item,
     format_optional_verification_item,
     format_state_item,
     format_unreliable_indicators_item,
@@ -52,11 +53,7 @@ async def create(  # pylint: disable=too-many-locals
         facet=TABLE.facets["finding_metadata"],
         values={"group_name": finding.group_name, "id": finding.id},
     )
-    metadata_evidences = {
-        field: evidence._asdict()
-        for field, evidence in finding.evidences._asdict().items()
-        if evidence is not None
-    }
+    metadata_evidences_item = format_evidences_item(finding.evidences)
     finding_metadata = {
         "actor": finding.actor,
         "affected_systems": finding.affected_systems,
@@ -68,7 +65,7 @@ async def create(  # pylint: disable=too-many-locals
         "cvss_version": finding.cvss_version,
         "cwe": finding.cwe,
         "description": finding.description,
-        "evidences": metadata_evidences,
+        "evidences": metadata_evidences_item,
         "group_name": finding.group_name,
         "id": finding.id,
         "scenario": finding.scenario,

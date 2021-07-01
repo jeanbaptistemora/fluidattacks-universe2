@@ -4,12 +4,14 @@ from .enums import (
 from .types import (
     Finding20Severity,
     Finding31Severity,
+    FindingEvidences,
     FindingMetadataToUpdate,
     FindingState,
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
 )
 from .utils import (
+    format_evidences_item,
     format_optional_verification_item,
     format_state_item,
 )
@@ -51,6 +53,8 @@ async def update_medatada(
         if isinstance(value, Enum)
         else value._asdict()
         if isinstance(value, (Finding20Severity, Finding31Severity))
+        else format_evidences_item(value)
+        if isinstance(value, FindingEvidences)
         else value
         for key, value in metadata._asdict().items()
         if value is not None
