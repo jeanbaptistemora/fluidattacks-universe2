@@ -17,8 +17,13 @@ from utils import (
 def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
     # Methods have an extra parameter_list object, but we only need the one
     # that describes the arguments received by the function
-    params = g.get_ast_childs(args.graph, args.n_id, "parameter_list")[-1]
-    for p_id in g.get_ast_childs(args.graph, params, "parameter_declaration"):
+    label_type = args.graph.nodes[args.n_id]["label_type"]
+    params = g.get_ast_childs(args.graph, args.n_id, "parameter_list")
+    if label_type == "method_declaration":
+        params = params[1:]
+    for p_id in g.get_ast_childs(
+        args.graph, params[0], "parameter_declaration"
+    ):
         yield from function_declaration_parameter(args.fork_n_id(p_id))
 
 

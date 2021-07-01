@@ -63,8 +63,10 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
                 var_type=get_var_type_if_present(args.fork_n_id(var_id)),
             )
     else:
-        deps = [args.generic(args.fork_n_id(val_id)) for val_id in vals_ids]
         for var_id in vars_ids:
+            deps = [
+                args.generic(args.fork_n_id(val_id)) for val_id in vals_ids
+            ]
             yield SyntaxStepDeclaration(
                 meta=SyntaxStepMeta.default(var_id, deps),
                 var=args.graph.nodes[var_id]["label_text"],
