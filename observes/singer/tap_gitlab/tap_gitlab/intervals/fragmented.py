@@ -2,11 +2,11 @@ from __future__ import (
     annotations,
 )
 
-from returns.primitives.container import (
-    BaseContainer,
+from dataclasses import (
+    dataclass,
 )
-from returns.primitives.hkt import (
-    SupportsKind1,
+from more_itertools import (
+    windowed,
 )
 from tap_gitlab.intervals.alias import (
     NTuple,
@@ -15,10 +15,14 @@ from tap_gitlab.intervals.interval import (
     IntervalFactory,
     IntervalPoint,
     InvalidInterval,
+    MAX,
+    MIN,
     OpenLeftInterval,
 )
 from typing import (
     final,
+    Generic,
+    Optional,
     TypeVar,
 )
 
@@ -48,33 +52,61 @@ def _to_endpoints(
     return endpoints
 
 
+def _to_intervals(
+    factory: IntervalFactory[_Point], endpoints: NTuple[IntervalPoint[_Point]]
+) -> NTuple[OpenLeftInterval[_Point]]:
+    def _new_interval(
+        p_1: Optional[IntervalPoint[_Point]],
+        p_2: Optional[IntervalPoint[_Point]],
+    ) -> OpenLeftInterval[_Point]:
+        if (
+            p_1
+            and p_2
+            and not isinstance(p_1, MAX)
+            and not isinstance(p_2, (MIN, MAX))
+        ):
+            return factory.new_lopen(p_1, p_2)
+        raise InvalidEndpoints()
+
+    return tuple(
+        _new_interval(p_1, p_2) for p_1, p_2 in windowed(endpoints, 2)
+    )
+
+
+@dataclass(frozen=True)
+class _FragmentedInterval(Generic[_Point]):
+    endpoints: NTuple[IntervalPoint[_Point]]
+    intervals: NTuple[OpenLeftInterval[_Point]]
+
+
 @final
-class FragmentedInterval(
-    BaseContainer,
-    SupportsKind1["FragmentedInterval", _Point],
-):
-    def __init__(
-        self,
-        intvl_factory: IntervalFactory,
-        intervals: NTuple[OpenLeftInterval[_Point]],
-    ) -> None:
-        endpoints = _to_endpoints(intervals)
-        super().__init__(
-            {
-                "endpoints": endpoints,
-                "intervals": intervals,
-                "intvl_factory": intvl_factory,
-            }
+@dataclass(frozen=True)
+class FragmentedInterval(Generic[_Point]):
+    endpoints: NTuple[IntervalPoint[_Point]]
+    intervals: NTuple[OpenLeftInterval[_Point]]
+
+    def __init__(self, obj: _FragmentedInterval) -> None:
+        for key, value in obj.__dict__.items():
+            object.__setattr__(self, key, value)
+
+
+@final
+@dataclass(frozen=True)
+class FIntervalFactory(Generic[_Point]):
+    factory: IntervalFactory[_Point]
+
+    def from_endpoints(
+        self, endpoints: NTuple[IntervalPoint[_Point]]
+    ) -> FragmentedInterval[_Point]:
+        draft = _FragmentedInterval(
+            endpoints, _to_intervals(self.factory, endpoints)
         )
+        return FragmentedInterval(draft)
 
-    @property
-    def factory(self) -> IntervalFactory:
-        return self._inner_value["intvl_factory"]
-
-    @property
-    def endpoints(self) -> NTuple[IntervalPoint[_Point]]:
-        return self._inner_value["endpoints"]
-
-    @property
-    def intervals(self) -> NTuple[OpenLeftInterval[_Point]]:
-        return self._inner_value["intervals"]
+    # pylint: disable=no-self-use
+    def from_intervals(
+        self, intervals: NTuple[OpenLeftInterval[_Point]]
+    ) -> FragmentedInterval[_Point]:
+        endpoints = _to_endpoints(intervals)
+        draft = _FragmentedInterval(endpoints, intervals)
+        return FragmentedInterval(draft)
