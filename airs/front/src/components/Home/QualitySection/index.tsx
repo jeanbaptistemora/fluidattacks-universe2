@@ -1,6 +1,7 @@
 /* eslint import/no-namespace:0 */
 /* eslint react/forbid-component-props: 0 */
 /* eslint import/no-unresolved:0 */
+import { Link } from "gatsby";
 import React from "react";
 
 import {
@@ -25,11 +26,13 @@ const QualitySection: React.FC = (): JSX.Element => (
       </InnerContainer>
       <InnerContainer className={"mr-auto-l ml0-l tc"}>
         <Title>{"OUR PUBLIC REVIEWS"}</Title>
-        <CloudImage
-          alt={"Logo OWASP"}
-          src={"clutch-review"}
-          styles={"tc w4 ba br3 bc-gray-64 pa2 bg-white"}
-        />
+        <Link to={"https://clutch.co/profile/fluid-attacks"}>
+          <CloudImage
+            alt={"Logo OWASP"}
+            src={"clutch-review"}
+            styles={"tc w4 ba br3 bc-gray-64 pa2 bg-white"}
+          />
+        </Link>
       </InnerContainer>
     </Container>
   </BlueContainer>
