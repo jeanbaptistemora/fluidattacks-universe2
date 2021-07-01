@@ -9,10 +9,14 @@
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      <a href="mailto:{{ admin_mail }}" target="_blank" rel="noopener" style="color: #ff3435;">{{ admin_mail }}</a>
+      <a href="mailto:{{ admin_mail }}" target="_blank" rel="noopener noreferrer" style="color: #ff3435;">
+        {{ admin_mail }}
+      </a>
       has returned the draft <strong>{{ finding_name }}</strong>
       of group <strong>{{ project }}</strong>, reported by
-      <a href="mailto:{{ analyst_mail }}" target="_blank" rel="noopener" style="color: #ff3435;">{{ analyst_mail }}</a>,
+      <a href="mailto:{{ analyst_mail }}" target="_blank" rel="noopener noreferrer" style="color: #ff3435;">
+        {{ analyst_mail }}
+      </a>,
       to the unsubmitted status.
     </p>
     {{ go_to_button('Go to draft', draft_url) }}

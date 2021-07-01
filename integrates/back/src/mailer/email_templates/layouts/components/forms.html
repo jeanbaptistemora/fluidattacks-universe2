@@ -1,7 +1,7 @@
 {# Generic Go to button: rounded and centered #}
 {% macro go_to_button(text, url) %}
 <div class="flex justify-center">
-  <a id="download" class="pa3 dim justify-center" title="{{ text }}" href="{{ url }}" target="_blank" rel="noopener">
+  <a id="download" class="pa3 dim justify-center" title="{{ text }}" href="{{ url }}" target="_blank" rel="noopener noreferrer">
     {{ text }}
   </a>
 </div>
@@ -101,7 +101,7 @@
   <ul>
   {% for finding in list %}
     <li>
-      <a href="{{ finding['finding_url'] }}" target="_blank" rel="noopener">
+      <a href="{{ finding['finding_url'] }}" target="_blank" rel="noopener noreferrer">
         {{ finding['project'] }} - {{ finding['finding_name'] }}
       </a>
     </li>

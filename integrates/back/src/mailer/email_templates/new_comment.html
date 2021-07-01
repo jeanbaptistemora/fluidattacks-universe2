@@ -9,7 +9,9 @@
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      <a href="mailto:{{ user_email }}" target="_blank" rel="noopener" style="color: #ff3435;">{{ user_email }}</a> has
+      <a href="mailto:{{ user_email }}" target="_blank" rel="noopener noreferrer" style="color: #ff3435;">
+        {{ user_email }}
+      </a> has
       {% if parent == '0' %} made {% else %} replied to {% endif %}
       {% if comment_type == 'observation' %} an observation {% else %} a comment {% endif %} on
       {% if comment_type != 'project' %} finding <strong>{{ finding_name }}</strong> of {% endif %}

@@ -9,7 +9,9 @@
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      <a href="mailto:{{ user_email }}" target="_blank" rel="noopener" style="color: #ff3435;">{{ user_email }}</a>
+      <a href="mailto:{{ user_email }}" target="_blank" rel="noopener noreferrer" style="color: #ff3435;">
+        {{ user_email }}
+      </a>
       has told us that finding:
       <strong>{{ finding_name }}</strong> of group <strong>{{ project }}</strong>
       was remediated.
