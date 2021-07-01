@@ -7,11 +7,11 @@ slug: /development/writing/blog/additional
 
 If you are not part of the `Fluid Attacks` team,
 *do not* forget to send with your piece of writing
-an image that represents you (preferably, a picture of you).
-We would show this image at the end of the blog post,
+an image that represents you (preferably, a picture of yourself).
+We will include this image at the end of the blog post,
 along with your name.
 
-You need to send the text in *.adoc* and *.pdf*
+You must send the text in *.adoc* and *.pdf*
 and the images for the blog post
 to fruiz@fluidattacks.com or fzarate@fluidattacks.com.
 Our editors will review these files
@@ -21,10 +21,11 @@ whether or not we will publish your writing on our website.
 ## Terms and conditions
 
 * At `Fluid Attacks`,
-  we are impartial in evaluating the writings,
-  i.e., we do not consider whether we agree with the author's opinion.
-  Instead, we mainly take into account
-  that the document meets the required guidelines described before.
+  we are impartial when evaluating the submitted posts,
+  i.e., we do not take into account
+  whether we agree with the author's opinion.
+  Instead, we focus on whether
+  the document meets the required guidelines described above.
 
 * We reserve the right to accept or reject any document sent to us.
 

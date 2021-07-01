@@ -9,14 +9,14 @@ Our texts in the lightweight markup languages
 [Markdown](https://daringfireball.net/projects/markdown/)
 and [AsciiDoc](https://asciidoc.org/)
 *must* have Semantic Line Breaks (SLBs).
-In them, SLBs, acting as semantic delimiters,
-can reflect the logical structure of the writing,
+Acting as semantic delimiters,
+SLBs reflect the logical structure of the writing,
 facilitate the identification of grammatical errors
 and the correction of the texts,
 and help keep an organized record of modifications
 in our version control system ([Gitlab](/development/stack/gitlab)).
 Based on [sembr.org](https://sembr.org/),
-we consider the following rules:
+we apply the following rules:
 
 * An SLB *should not* alter the intended meaning of the text.
 

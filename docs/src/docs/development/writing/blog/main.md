@@ -5,7 +5,7 @@ sidebar_label: Main
 slug: /development/writing/blog/main
 ---
 
-* **BM01:** Our target audience is everyone interested in cybersecurity.
+* **BM01:** Our target audience is anyone interested in cybersecurity.
   Therefore, we *must* use non-technical English as much as possible.
 
 * **BM02:** We *must* write blog posts
@@ -94,14 +94,13 @@ slug: /development/writing/blog/main
   changing their filename extensions to *.webp*
   (unless they are gifs)
   inside the *.adoc* files.
-  (Only for `Fluid Attacks'` staff.)
+  (Only for `Fluid Attacks` staff.)
 
 ## Others
 
 * **BO01:** Whenever we create a post with an interview,
   we *must* use the `[role="fluid-qanda"]` command
-  to present each answer in a special way
-  after each question.
+  to display each question and answer in a specific way.
   Example:
 
   ![BO01](https://res.cloudinary.com/fluid-attacks/image/upload/v1624999457/docs/development/writing/boa_a2rjeq.webp)

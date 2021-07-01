@@ -7,8 +7,8 @@ slug: /development/writing/documentation/main
 
 ## General
 
-* **DG01:** We *must* create titles for the sections
-  (those that appear in the top menu) of **a single word**.
+* **DG01:** We *must* create **one-word** titles for the sections
+  (those that appear in the top menu).
 
 * **DG02:** We *must* create short titles for the subsections
   (those that appear in the left side menu),
@@ -17,13 +17,13 @@ slug: /development/writing/documentation/main
 
 * **DG03:** We *must not* be repetitive
   in the handling of titles and subtitles.
-  Example (the subtitle *Criteria* would be unnecessary
+  Example (the subtitle *Criteria* is unnecessary
   in the introduction of the section with the same name):
 
   ![DG03](https://res.cloudinary.com/fluid-attacks/image/upload/v1624900945/docs/development/writing/dgb_qdmbql.webp)
 
 * **DG04:** We *must* express the names of the sections and subsections
-  in the same way wherever we refer to them.
+  in the same way whenever we refer to them.
 
 * **DG05:** We *must not* use the same section or subsection names
   in other subsections or elements within them.
@@ -36,7 +36,7 @@ slug: /development/writing/documentation/main
 
 * **DG07:** We *should* be consistent
   in the presentation of the introductions to all sections.
-  Based on recommendations by the American Lecturer
+  Based on recommendations by the American Lecturer,
   [Robert Pozen](https://www.amazon.com/Extreme-Productivity-Boost-Results-Reduce-ebook/dp/B007HBLNSS),
   we *can* follow three steps:
   **(a)** Contextualize the reader with facts or background data and issues
@@ -49,11 +49,11 @@ slug: /development/writing/documentation/main
   "In the first part, we will expose [...].
   In the second part, we will describe [...]."
 
-* **DG08:** Suppose a subsection in its text block
-  contains subtitles on at least two levels
+* **DG08:** Suppose a subsection contains subtitles in its text block
+  on at least two levels
   (i.e., a group of subtitles is part of a larger subtitle).
-  In that case, we *should* provide at least one introductory sentence
-  for that subsection
+  In this case, we *should* provide at least one introductory sentence
+  for this subsection
   unless a separate introduction already corresponds to it.
 
 * **DG09:** We *should* keep the presentation structure
@@ -69,9 +69,10 @@ slug: /development/writing/documentation/main
   second and third level subtitles of a subsection
   in the menu on the right side.
 
-* **DG12:** We *must* present the subtitles in the right-hand menu
+* **DG12:** We *must* present the subtitles of the subsections
+  in the right-hand menu
   in a homogeneous way
-  (e.g., in all subsections without bold).
+  (e.g., all without bold).
 
 * **DG13:** When we speak in the first person,
   we *must* do so as a group (i.e., using the pronoun *we*),
@@ -85,7 +86,7 @@ slug: /development/writing/documentation/main
   (which *must* have the filename extension *.webp*
   inside the *.md* files, unless they are gifs).
 
-* **DG16:** In cases of warnings for the reader,
+* **DG16:** In cases where we include warnings for the reader,
   pointing out something that *is not* part of the content,
   we *must* use the following command in Markdown
   (the word *Note* is just an option): `> **NOTE:** > [Text]`.
@@ -124,20 +125,21 @@ slug: /development/writing/documentation/main
   (i.e., including main sentence, description,
   associated vulnerabilities and references).
 
-* **DR03:** We *should* write the main sentence of each requirement,
-  preferably no longer than **150 characters**.
+* **DR03:** We *should* ideally write the main sentence of each requirement
+  in **150 characters** or less.
 
 * **DR04:** We *should* write the main sentence of each requirement
-  starting with a subject in charge of fulfilling a specific task,
+  starting with the subject in charge of fulfilling a specific task,
   accompanied by the modal verb *must*.
 
 * **DR05:** In the description of the requirements,
-  we *should* expand the information of the main sentence
-  with the exposition of the processes involved,
-  short definitions of elements and justifications of the requirements.
+  we *should* complement the information of the main sentence
+  with the explanation of the processes involved,
+  short definitions of elements
+  and justifications of the requirements.
 
 * **DR06:** We *must* put in quotation marks
-  all external information (copied from their sources)
+  all external information (copied from the source)
   that is part of the references
   (e.g., [CWE](https://cwe.mitre.org/), [OWASP](https://owasp.org/)).
 

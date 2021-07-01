@@ -11,7 +11,7 @@ slug: /development/writing/blog/code
 * **BC02:** We *must* indent with **two spaces** instead of one tab,
   except when the language used requires otherwise.
 
-* **BC03:** We *must* put braces
+* **BC03:** We *must* use braces
   following the [Stroustrup style](https://en.wikipedia.org/wiki/Indentation_style#Variant:_Stroustrup)
   (no one-liners; see [an example](https://eslint.org/docs/rules/brace-style#stroustrup)).
 
@@ -56,7 +56,7 @@ slug: /development/writing/blog/code
   under consideration.
 
 * **BE02:** We *must* add a description
-  with less than **80 characters**
+  that is less than **80 characters** in length
   for each gif.
   Example:
 
@@ -66,7 +66,7 @@ slug: /development/writing/blog/code
   </p>
 
 * **BE03:** We *must not* give technical explanations
-  irrelevant to cybersecurity
+  that are irrelevant to cybersecurity
   (e.g., introducing a programming language
   without mentioning how to use it securely).
 
