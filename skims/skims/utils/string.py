@@ -54,8 +54,12 @@ SNIPPETS_CONTEXT: int = 10
 SNIPPETS_COLUMNS: int = 12 * SNIPPETS_CONTEXT
 
 
+def similar_ratio(string_a: str, string_b: str) -> float:
+    return SequenceMatcher(None, string_a, string_b).ratio()
+
+
 def are_similar(string_a: str, string_b: str, threshold: float = 0.85) -> bool:
-    return SequenceMatcher(None, string_a, string_b).ratio() >= threshold
+    return similar_ratio(string_a, string_b) >= threshold
 
 
 def to_in_memory_file(string: str) -> BytesIO:
