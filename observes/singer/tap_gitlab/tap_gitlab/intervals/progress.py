@@ -14,11 +14,13 @@ from tap_gitlab.intervals.fragmented import (
 )
 from tap_gitlab.intervals.interval import (
     Interval,
+    OpenLeftInterval,
 )
 from typing import (
     Callable,
     final,
     Generic,
+    List,
     Tuple,
     TypeVar,
 )
@@ -123,3 +125,17 @@ class FProgressFactory(Generic[_DataType]):
             draft = _FragmentedProgressInterval(f_interval, completeness)
             return FragmentedProgressInterval(draft)
         raise CannotBuild("FragmentedProgressInterval")
+
+    def from_n_progress(
+        self, progress: NTuple[ProgressInterval[_DataType]]
+    ) -> FragmentedProgressInterval[_DataType]:
+        _progress: List[Tuple[OpenLeftInterval[_DataType], bool]] = []
+        for item in progress:
+            if isinstance(item.interval, OpenLeftInterval):
+                _progress.append((item.interval, item.completed))
+            else:
+                raise CannotBuild("Expected OpenLeftInterval")
+        intervals = tuple(item[0] for item in _progress)
+        f_interval = self.factory.from_intervals(intervals)
+        completeness = tuple(item[1] for item in _progress)
+        return self.new_fprogress(f_interval, completeness)

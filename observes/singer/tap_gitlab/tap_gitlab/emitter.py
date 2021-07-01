@@ -53,6 +53,9 @@ from tap_gitlab.api.projects.merge_requests.data_page import (
 from tap_gitlab.intervals.alias import (
     NTuple,
 )
+from tap_gitlab.intervals.fragmented import (
+    FIntervalFactory,
+)
 from tap_gitlab.intervals.interval import (
     IntervalFactory,
     InvalidInterval,
@@ -60,6 +63,7 @@ from tap_gitlab.intervals.interval import (
     OpenLeftInterval,
 )
 from tap_gitlab.intervals.progress import (
+    FProgressFactory,
     ProgressInterval,
 )
 from tap_gitlab.state import (
@@ -205,23 +209,16 @@ class Emitter:
         return (pages_emitted, (p_interval,))
 
     def emit_mrs(
-        self, stream: MrStream, state: Optional[MrStreamState] = None
-    ) -> Optional[NTuple[ProgressInterval[datetime]]]:
-        if state:
-            LOG.debug("Emitting with a state")
-            return state.state.process_until_incomplete(
+        self, stream: MrStream, state: MrStreamState
+    ) -> MrStreamState:
+        f_factory = FIntervalFactory(self.interval_factory)
+        pf_factory = FProgressFactory(f_factory)
+        f_progress = pf_factory.from_n_progress(
+            state.state.process_until_incomplete(
                 partial(self.emit_mrs_interval, stream), 0
             )
-        start = PageId(datetime.now(pytz.utc), 100)
-        pages = (
-            self.api.project(stream.project)
-            .mrs(stream.scope, stream.mr_state)
-            .list_all_updated_before(start)
         )
-        _old_stream_data(
-            SupportedStreams.MERGE_REQUESTS, pages, self.max_pages
-        )
-        return None
+        return MrStreamState(f_progress)
 
     def emit_jobs(
         self, stream: JobStream, _state: Optional[JobStreamState] = None

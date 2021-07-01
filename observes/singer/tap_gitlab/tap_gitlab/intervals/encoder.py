@@ -62,7 +62,7 @@ class IntervalEncoder(
         return {
             "type": "FragmentedInterval",
             "obj": {
-                "endpoints": (
+                "endpoints": tuple(
                     self.encode_ipoint(point) for point in interval.endpoints
                 ),
             },

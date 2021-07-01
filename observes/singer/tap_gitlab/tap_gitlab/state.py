@@ -36,7 +36,7 @@ class MrStreamState(NamedTuple):
 
     def to_json(self) -> JSON:
         return {
-            "type": "JobStreamState",
+            "type": "MrStreamState",
             "obj": {
                 "state": i_encoder.encode_f_progress(self.state),
             },

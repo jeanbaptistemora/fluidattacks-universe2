@@ -2,14 +2,25 @@ from datetime import (
     datetime,
 )
 import logging
+import pytz
 from tap_gitlab.api.auth import (
     Credentials,
 )
 from tap_gitlab.emitter import (
     Emitter,
 )
+from tap_gitlab.intervals.fragmented import (
+    FIntervalFactory,
+)
 from tap_gitlab.intervals.interval import (
     IntervalFactory,
+    MIN,
+)
+from tap_gitlab.intervals.progress import (
+    FProgressFactory,
+)
+from tap_gitlab.state import (
+    MrStreamState,
 )
 from tap_gitlab.streams import (
     default_job_stream,
@@ -21,6 +32,17 @@ from typing import (
 )
 
 LOG = logging.getLogger(__name__)
+
+
+def default_state() -> MrStreamState:
+    factory = IntervalFactory(datetime)
+    f_factory = FIntervalFactory(factory)
+    fp_factory = FProgressFactory(f_factory)
+    return MrStreamState(
+        fp_factory.new_fprogress(
+            f_factory.from_endpoints((MIN(), datetime.now(pytz.utc))), (False,)
+        )
+    )
 
 
 def defautl_stream(
@@ -44,7 +66,9 @@ def defautl_stream(
         streams = default_mr_streams(project)
 
         for stream in streams:
-            result = emitter.emit_mrs(stream)
+            result = emitter.emit_mrs(stream, default_state())
             LOG.debug("new status: %s", result)
+            LOG.debug("new status json: %s", result.to_json())
+
     else:
         raise NotImplementedError(f"for {_target_stream}")
