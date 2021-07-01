@@ -57,7 +57,7 @@ you need to do the following:
     - You can use `-v`, `-vv`, `-vvv`, `-vvvv`
     instead of `--verbose`.
 - `--strict / --lax`: Run forces in strict mode (default `--lax`).
-- `--repo-path`: Git repository path (optional)
+- `--repo-name`: Git repository name (optional)
 
 ## Examples
 
