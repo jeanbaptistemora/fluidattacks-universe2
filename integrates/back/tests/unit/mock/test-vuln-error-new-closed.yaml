@@ -1,0 +1,6 @@
+lines:
+- line: '314'
+  commit_hash: fffffff8eac80d60cfba7322791c0a9b1fffffff
+  path: product/path/to/new_closed.txt
+  state: closed
+  repo_nickname: product

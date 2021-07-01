@@ -94,7 +94,7 @@ async def test_finding() -> None:
 
     context = get_new_context()
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, "../../unit/mock/test-vulns.yaml")
+    filename = os.path.join(filename, "test-vulns.yaml")
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(test_file.name, test_file, "text/x-yaml")
         query = """
@@ -341,23 +341,13 @@ async def test_finding() -> None:
     ][:-9]
     assert result["data"]["finding"]["releaseDate"] == today
     assert result["data"]["finding"]["openVulnerabilities"] == 1
-    assert result["data"]["finding"]["closedVulnerabilities"] == 2
+    assert result["data"]["finding"]["closedVulnerabilities"] == 0
     assert result["data"]["finding"]["tracking"] == [
         {
             "accepted": 0,
             "accepted_undefined": 0,
-            "closed": 2,
-            "cycle": 0,
-            "date": today,
-            "justification": "",
-            "manager": "",
-            "open": 0,
-        },
-        {
-            "accepted": 0,
-            "accepted_undefined": 0,
             "closed": 0,
-            "cycle": 1,
+            "cycle": 0,
             "date": today,
             "justification": "",
             "manager": "",

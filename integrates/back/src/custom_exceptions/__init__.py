@@ -453,6 +453,17 @@ class InvalidJustificationMaxLength(CustomBaseException):
         super(InvalidJustificationMaxLength, self).__init__(msg)
 
 
+class InvalidNewVulnState(CustomBaseException):
+    """Exception for reporting new vulns as closed"""
+
+    def __init__(self) -> None:
+        msg = (
+            "Exception - Only New vulnerabilities with Open state "
+            "are allowed"
+        )
+        super(InvalidNewVulnState, self).__init__(msg)
+
+
 class InvalidNumberAcceptations(CustomBaseException):
     def __init__(self, expr: str = "") -> None:
         if expr:
