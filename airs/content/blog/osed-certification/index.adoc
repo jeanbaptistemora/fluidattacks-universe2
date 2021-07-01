@@ -46,11 +46,13 @@ image::https://res.cloudinary.com/fluid-attacks/image/upload/v1624543102/blog/os
 *On the Offensive Security page,
 they recommend taking the EXP-301 course.
 Did you take it to prepare yourself for the exam?*
+[role="fluid-qanda"]
 
   . Yes, it is necessary to take the course
   in order to obtain the certification.
 
 *Did you think the EXP-301 course was enough as a preparation course?*
+[role="fluid-qanda"]
 
   . The course met my expectations.
   All the issues are explained in great detail.
@@ -64,6 +66,7 @@ Did you take it to prepare yourself for the exam?*
 
 *What does the Windows User Mode Exploit Development course consist of?
 Why did you decide to take it?*
+[role="fluid-qanda"]
 
   . The course is aimed at exploiting vulnerabilities
   in Windows operating systems.
@@ -80,6 +83,7 @@ Why did you decide to take it?*
 *The exam takes 47 hours and 45 minutes plus 24
 hours to submit the documentation.* +
 *How to be prepared for such a long exam?*
+[role="fluid-qanda"]
 
   . Usually, Offensive Security certifications are very long.
   That means you always must be prepared for a long day.
@@ -91,6 +95,7 @@ hours to submit the documentation.* +
   This helped me to be prepared.
 
 *How did you manage the time they gave you?*
+[role="fluid-qanda"]
 
   . I divided the 48 hours into equal parts.
   This is the time I set out to use at most for each exercise.
@@ -117,6 +122,7 @@ basic 32-bit exploitation concepts and to be comfortable with
 link:../../road-to-functional-python/[Python] 3.
 Do you think they are sufficient requirements,
 or would you add some other skills to be prepared for the exam?*
+[role="fluid-qanda"]
 
   . The course begins by explaining the 32-bit architecture.
   Then Offensive Security explains how WinDbg, the used debugger, works.
@@ -130,6 +136,7 @@ or would you add some other skills to be prepared for the exam?*
 
 *Tell us a bit about your experience at the time of the exam.* +
 *How did you feel before and during the exam?*
+[role="fluid-qanda"]
 
   . Before the exam,
   I was a little nervous because
@@ -147,6 +154,7 @@ or would you add some other skills to be prepared for the exam?*
   and confidence to continue with the exam.
 
 *How were your preparation days?*
+[role="fluid-qanda"]
 
   . The course lasted two months in which
   I had access to the laboratory.
@@ -164,6 +172,7 @@ of this exam compared to others you've taken?*
   On the contrary, I think the pandemic gave me more time to study.
 
 *What was the hardest part of the exam? And how did you respond to that?*
+[role="fluid-qanda"]
 
   . For me, the most challenging thing
   about the exam was the part of finding the vulnerabilities
@@ -173,11 +182,13 @@ of this exam compared to others you've taken?*
   with already known vulnerabilities.
 
 *Will you have to take any certificate renewal exams?*
+[role="fluid-qanda"]
 
   . No, none of the Offensive Security certifications expire.
   It is enough to get them once.
 
 *Any tips for preparing for this particular exam?*
+[role="fluid-qanda"]
 
   . I would recommend that before starting the course,
   you should study Reverse Engineering,
@@ -186,6 +197,7 @@ of this exam compared to others you've taken?*
   the better your performance will be during the exam and the course.
 
 *What's next after this certification?*
+[role="fluid-qanda"]
 
   . After this certification,
   I want to present the *OSEP*.
