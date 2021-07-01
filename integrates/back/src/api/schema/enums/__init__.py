@@ -15,8 +15,14 @@ ENUMS: Tuple[EnumType, ...] = (
             "EXECUTE_OTHER_PROJECT_OTHER_CLIENT": (
                 "EXECUTE_OTHER_PROJECT_OTHER_CLIENT"
             ),
+            "EXECUTE_OTHER_GROUP_OTHER_CLIENT": (
+                "EXECUTE_OTHER_GROUP_OTHER_CLIENT"
+            ),
             "EXECUTE_OTHER_PROJECT_SAME_CLIENT": (
                 "EXECUTE_OTHER_PROJECT_SAME_CLIENT"
+            ),
+            "EXECUTE_OTHER_GROUP_SAME_CLIENT": (
+                "EXECUTE_OTHER_GROUP_SAME_CLIENT"
             ),
             "NONE": "NONE",
             "OTHER": "OTHER",
@@ -27,6 +33,7 @@ ENUMS: Tuple[EnumType, ...] = (
         "ActionsBeforeBlocking",
         {
             "DOCUMENT_PROJECT": "DOCUMENT_PROJECT",
+            "DOCUMENT_GROUP": "DOCUMENT_GROUP",
             "NONE": "NONE",
             "OTHER": "OTHER",
             "TEST_OTHER_PART_TOE": "TEST_OTHER_PART_TOE",
@@ -86,7 +93,9 @@ ENUMS: Tuple[EnumType, ...] = (
             "BUDGET": "BUDGET",
             "NONE": "NONE",
             "OTHER": "OTHER",
+            "GROUP_FINALIZATION": "GROUP_FINALIZATION",
             "PROJECT_FINALIZATION": "PROJECT_FINALIZATION",
+            "GROUP_SUSPENSION": "GROUP_SUSPENSION",
             "PROJECT_SUSPENSION": "PROJECT_SUSPENSION",
         },
     ),

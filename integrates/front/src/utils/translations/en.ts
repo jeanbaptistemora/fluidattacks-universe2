@@ -1143,13 +1143,13 @@ export const enTranslations: ResourceKey = {
         },
         downgrading:
           "Please let us know the reason for downgrading your services",
+        groupFinalization: "Group Finalization",
+        groupSuspension: "Group Suspension",
         none: "None",
         observations: "Observations",
         observationsPlaceholder:
           "Please type here any observation you may have",
         other: "Other",
-        projectFinalization: "Group Finalization",
-        projectSuspension: "Group Suspension",
         title: "Change contracted services",
         typeGroupName: "Please type the group name to proceed",
         warning: "Warning",

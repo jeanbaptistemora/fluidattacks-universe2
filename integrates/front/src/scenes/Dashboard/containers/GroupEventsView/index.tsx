@@ -707,7 +707,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
                       validate={required}
                     >
                       <option selected={true} value={""} />
-                      <option value={"DOCUMENT_PROJECT"}>
+                      <option value={"DOCUMENT_GROUP"}>
                         {translate.t("group.events.form.actionBefore.document")}
                       </option>
                       <option value={"TEST_OTHER_PART_TOE"}>
@@ -735,10 +735,10 @@ const GroupEventsView: React.FC = (): JSX.Element => {
                       validate={required}
                     >
                       <option selected={true} value={""} />
-                      <option value={"EXECUTE_OTHER_PROJECT_SAME_CLIENT"}>
+                      <option value={"EXECUTE_OTHER_GROUP_SAME_CLIENT"}>
                         {translate.t("group.events.form.actionAfter.otherSame")}
                       </option>
-                      <option value={"EXECUTE_OTHER_PROJECT_OTHER_CLIENT"}>
+                      <option value={"EXECUTE_OTHER_GROUP_OTHER_CLIENT"}>
                         {translate.t(
                           "group.events.form.actionAfter.otherOther"
                         )}

@@ -34,6 +34,9 @@ from newutils import (
     files as files_utils,
     validations,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 import pytz
 import random
 from settings import (
@@ -67,7 +70,7 @@ async def add_comment(
     content = str(comment_data["content"])
     event_loader = info.context.loaders.event
     event = await event_loader.load(event_id)
-    group_name = event["project_name"]
+    group_name = resolve_kwargs(event)
 
     await authz.validate_handle_comment_scope(
         content, user_email, group_name, parent, info.context.store
@@ -185,7 +188,7 @@ async def get_unsolved_events(group_name: str) -> List[str]:
 
 async def get_evidence_link(event_id: str, file_name: str) -> str:
     event = await get_event(event_id)
-    group_name = event["project_name"]
+    group_name = resolve_kwargs(event)
     file_url = f"{group_name}/{event_id}/{file_name}"
     return await events_dal.sign_url(file_url)
 
@@ -193,7 +196,7 @@ async def get_evidence_link(event_id: str, file_name: str) -> str:
 async def has_access_to_event(email: str, event_id: str) -> bool:
     """ Verify if the user has access to a event submission. """
     event = await get_event(event_id)
-    group = cast(str, event.get("project_name", ""))
+    group = cast(str, resolve_kwargs(event, fallback=""))
     return bool(await authz.has_access_to_group(email, group))
 
 
@@ -217,7 +220,7 @@ async def mask(event_id: str) -> bool:
         events_dal.update(event_id, {attr: "Masked" for attr in attrs_to_mask})
     )
 
-    group_name = str(event.get("project_name", ""))
+    group_name = str(resolve_kwargs(event, fallback=""))
     evidence_prefix = f"{group_name}/{event_id}"
     list_evidences = await events_dal.search_evidence(evidence_prefix)
     mask_events_coroutines.extend(
@@ -237,7 +240,7 @@ async def mask(event_id: str) -> bool:
 
 async def remove_evidence(evidence_type: str, event_id: str) -> bool:
     event = await get_event(event_id)
-    group_name = event["project_name"]
+    group_name = resolve_kwargs(event)
     success = False
 
     full_name = f"{group_name}/{event_id}/{event[evidence_type]}"
@@ -298,7 +301,7 @@ async def update_evidence(
     ):
         raise EventAlreadyClosed()
 
-    group_name = str(event.get("project_name", ""))
+    group_name = str(resolve_kwargs(event, fallback=""))
     extension = {
         "image/gif": ".gif",
         "image/jpeg": ".jpg",

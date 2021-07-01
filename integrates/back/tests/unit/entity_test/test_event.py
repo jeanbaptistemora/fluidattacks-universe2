@@ -80,7 +80,7 @@ async def test_create_event() -> None:
         mutation {
             createEvent(groupName: "unittesting",
                         actionAfterBlocking: TRAINING,
-                        actionBeforeBlocking: DOCUMENT_PROJECT,
+                        actionBeforeBlocking: DOCUMENT_GROUP,
                         accessibility: ENVIRONMENT,
                         context: CLIENT,
                         detail: "Test",

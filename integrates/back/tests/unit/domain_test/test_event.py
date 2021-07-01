@@ -54,7 +54,7 @@ async def test_get_event() -> None:
 async def test_create_event() -> None:
     attrs = {
         "action_after_blocking": "TRAINING",
-        "action_before_blocking": "DOCUMENT_PROJECT",
+        "action_before_blocking": "DOCUMENT_GROUP",
         "accessibility": "REPOSITORY",
         "context": "OTHER",
         "detail": "Something happened.",
@@ -73,7 +73,7 @@ async def test_create_event() -> None:
 async def test_create_event_file_image() -> None:
     attrs = {
         "action_after_blocking": "TRAINING",
-        "action_before_blocking": "DOCUMENT_PROJECT",
+        "action_before_blocking": "DOCUMENT_GROUP",
         "accessibility": "REPOSITORY",
         "context": "OTHER",
         "detail": "Something happened.",

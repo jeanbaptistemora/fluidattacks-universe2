@@ -313,7 +313,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         "events": [
             {
                 "accessibility": "Repositorio",
-                "action_after_blocking": "EXECUTE_OTHER_PROJECT_SAME_CLIENT",
+                "action_after_blocking": "EXECUTE_OTHER_GROUP_SAME_CLIENT",
                 "action_before_blocking": "TEST_OTHER_PART_TOE",
                 "analyst": generic_data["global_vars"]["analyst_email"],
                 "client": "Fluid",

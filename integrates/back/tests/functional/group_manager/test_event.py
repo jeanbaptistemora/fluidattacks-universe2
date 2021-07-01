@@ -26,7 +26,7 @@ async def test_event() -> None:  # pylint: disable=too-many-statements
             createEvent(
                 groupName: "{group_name}",
                 actionAfterBlocking: TRAINING,
-                actionBeforeBlocking: DOCUMENT_PROJECT,
+                actionBeforeBlocking: DOCUMENT_GROUP,
                 accessibility: ENVIRONMENT,
                 context: CLIENT,
                 detail: "{event_detail}",

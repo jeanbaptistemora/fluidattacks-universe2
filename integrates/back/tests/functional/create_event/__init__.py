@@ -20,7 +20,7 @@ async def get_result(
             createEvent(
                 groupName: "{group}",
                 actionAfterBlocking: TRAINING,
-                actionBeforeBlocking: DOCUMENT_PROJECT,
+                actionBeforeBlocking: DOCUMENT_GROUP,
                 accessibility: ENVIRONMENT,
                 context: CLIENT,
                 detail: "analyst create new event",

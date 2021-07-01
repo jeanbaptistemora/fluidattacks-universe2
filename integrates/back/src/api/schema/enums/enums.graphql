@@ -1,13 +1,18 @@
 enum ActionsAfterBlocking {
+  EXECUTE_OTHER_GROUP_OTHER_CLIENT
+  EXECUTE_OTHER_GROUP_SAME_CLIENT
   EXECUTE_OTHER_PROJECT_OTHER_CLIENT
+    @deprecated(reason: "Use `EXECUTE_OTHER_GROUP_OTHER_CLIENT` instead.")
   EXECUTE_OTHER_PROJECT_SAME_CLIENT
+    @deprecated(reason: "Use `EXECUTE_OTHER_GROUP_SAME_CLIENT` instead.")
   NONE
   OTHER
   TRAINING
 }
 
 enum ActionsBeforeBlocking {
-  DOCUMENT_PROJECT
+  DOCUMENT_GROUP
+  DOCUMENT_PROJECT @deprecated(reason: "Use `DOCUMENT_GROUP` instead.")
   NONE
   OTHER
   TEST_OTHER_PART_TOE
@@ -65,10 +70,12 @@ enum DeleteVulnerabilityJustification {
 
 enum EditGroupReason {
   BUDGET
+  GROUP_FINALIZATION
+  GROUP_SUSPENSION
   NONE
   OTHER
-  PROJECT_FINALIZATION
-  PROJECT_SUSPENSION
+  PROJECT_FINALIZATION @deprecated(reason: "Use `GROUP_FINALIZATION` instead.")
+  PROJECT_SUSPENSION @deprecated(reason: "Use `GROUP_SUSPENSION` instead.")
 }
 
 enum Entity {

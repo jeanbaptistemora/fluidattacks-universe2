@@ -61,8 +61,8 @@ import { maxLength, required, validTextField } from "utils/validations";
 
 const downgradeReasons: string[] = [
   "NONE",
-  "PROJECT_SUSPENSION",
-  "PROJECT_FINALIZATION",
+  "GROUP_SUSPENSION",
+  "GROUP_FINALIZATION",
   "BUDGET",
   "OTHER",
 ];
