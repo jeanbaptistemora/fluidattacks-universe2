@@ -67,14 +67,6 @@ skims.oci-deploy:
   <<: *skims_in_master_branch
   stage: deploy-app
 
-skims.process-groups-on-aws:
-  <<: *makes
-  interruptible: false
-  only:
-    refs: [schedules]
-    variables: [$skims_process_all_groups_on_aws]
-  stage: scheduler
-
 skims.security:
   <<: *makes
   <<: *skims_in_dev_branch

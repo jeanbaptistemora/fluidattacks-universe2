@@ -213,7 +213,6 @@ skims.owasp-benchmark-and-upload
 skims.owasp-benchmark-on-aws
 skims.process-group
 skims.process-group-on-aws
-skims.process-groups-on-aws
 skims.test
 skims.test.cli
 skims.test.mocks.http
