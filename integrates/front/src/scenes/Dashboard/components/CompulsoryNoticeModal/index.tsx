@@ -8,7 +8,6 @@ import { FormikCheckbox } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 
 interface ICompulsoryNoticeProps {
-  content: string;
   open: boolean;
   onAccept: (remember: boolean) => void;
 }
@@ -16,7 +15,9 @@ interface ICompulsoryNoticeProps {
 export const CompulsoryNotice: React.FC<ICompulsoryNoticeProps> = (
   props: ICompulsoryNoticeProps
 ): JSX.Element => {
-  const { open, content, onAccept } = props;
+  const { open, onAccept } = props;
+
+  const currentYear: number = new Date().getFullYear();
 
   const handleSubmit: (values: { remember: boolean }) => void = useCallback(
     (values: { remember: boolean }): void => {
@@ -33,7 +34,17 @@ export const CompulsoryNotice: React.FC<ICompulsoryNoticeProps> = (
         onSubmit={handleSubmit}
       >
         <Form>
-          <p>{content}</p>
+          <p>{translate.t("legalNotice.description.legal", { currentYear })}</p>
+          <p>
+            {translate.t("legalNotice.description.privacy")}
+            <a
+              href={"https://fluidattacks.com/privacy/"}
+              rel={"noopener noreferrer"}
+              target={"_blank"}
+            >
+              {translate.t("legalNotice.description.privacyLinkText")}
+            </a>
+          </p>
           <Field
             component={FormikCheckbox}
             label={translate.t("legalNotice.rememberCbo.text")}

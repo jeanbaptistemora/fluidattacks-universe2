@@ -786,18 +786,23 @@ export const enTranslations: ResourceKey = {
       text: "Accept and continue",
       tooltip: "Click if you understand and accept the terms above",
     },
-    description:
-      "ASM, Copyright (c) {{currentYear}} Fluid Attacks. This platform contains " +
-      "information property of Fluid Attacks. The client is only allowed " +
-      "to use such information for documentation purposes and without disclosing " +
-      "its content to third parties because it may contain ideas, concepts, prices " +
-      "and/or structures property of Fluid Attacks. Its 'proprietary' " +
-      "classification means that this information will only be used by those for " +
-      "whom it was meant. In case of requiring total or partial reproductions they " +
-      "must be done with express and written authorization of Fluid Attacks. " +
-      "The rules that fundament the classification of information are " +
-      "articles 72, Cartagena's agreement 344 of 1.993, article 238 of penal code " +
-      "and articles 16 and its following ones from 256 law of 1.996.",
+    description: {
+      legal:
+        "ASM, Copyright (c) {{currentYear}} Fluid Attacks. This platform contains " +
+        "information property of Fluid Attacks. The client is only allowed " +
+        "to use such information for documentation purposes and without disclosing " +
+        "its content to third parties because it may contain ideas, concepts, prices " +
+        "and/or structures property of Fluid Attacks. Its 'proprietary' " +
+        "classification means that this information will only be used by those for " +
+        "whom it was meant. In case of requiring total or partial reproductions they " +
+        "must be done with express and written authorization of Fluid Attacks. " +
+        "The rules that fundament the classification of information are " +
+        "articles 72, Cartagena's agreement 344 of 1.993, article 238 of penal code " +
+        "and articles 16 and its following ones from 256 law of 1.996.",
+      privacy:
+        "By using the Fluid Attacks' Attack Surface Manager, you agree to our ",
+      privacyLinkText: "Privacy Policy",
+    },
     rememberCbo: {
       text: "Remember my decision",
       tooltip: "Mark the checkbox if you want this decision to be permanent",

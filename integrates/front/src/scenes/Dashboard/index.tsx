@@ -151,8 +151,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
     [acceptLegal]
   );
 
-  const currentYear: number = new Date().getFullYear();
-
   return (
     <DashboardContainer>
       <Sidebar />
@@ -210,11 +208,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
         onClick={handleConcurrent}
         open={isCtSessionModalOpen}
       />
-      <CompulsoryNotice
-        content={translate.t("legalNotice.description", { currentYear })}
-        onAccept={handleAccept}
-        open={isLegalModalOpen}
-      />
+      <CompulsoryNotice onAccept={handleAccept} open={isLegalModalOpen} />
     </DashboardContainer>
   );
 };

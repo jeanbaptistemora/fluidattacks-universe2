@@ -18,7 +18,7 @@ describe("Compulsory notice modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <CompulsoryNotice content={""} onAccept={jest.fn()} open={true} />
+      <CompulsoryNotice onAccept={jest.fn()} open={true} />
     );
 
     expect(wrapper).toHaveLength(1);
@@ -28,7 +28,7 @@ describe("Compulsory notice modal", (): void => {
     expect.hasAssertions();
 
     const wrapper: ShallowWrapper = shallow(
-      <CompulsoryNotice content={""} onAccept={jest.fn()} open={true} />
+      <CompulsoryNotice onAccept={jest.fn()} open={true} />
     );
     const checkbox: ShallowWrapper = wrapper.find("Modal").dive().find("Field");
 
@@ -41,7 +41,7 @@ describe("Compulsory notice modal", (): void => {
     const handleAccept: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <CompulsoryNotice content={""} onAccept={handleAccept} open={true} />
+        <CompulsoryNotice onAccept={handleAccept} open={true} />
       </Provider>
     );
     const form: ReactWrapper = wrapper.find("Modal").find("Formik");
