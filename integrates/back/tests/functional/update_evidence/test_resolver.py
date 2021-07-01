@@ -32,7 +32,11 @@ async def test_update_evidence(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
+        ["customer@gmail.com"],
+        ["customeradmin@gmail.com"],
+        ["resourcer@gmail.com"],
         ["executive@gmail.com"],
+        ["reviewer@gmail.com"],
     ],
 )
 async def test_update_evidence_fail(populate: bool, email: str) -> None:

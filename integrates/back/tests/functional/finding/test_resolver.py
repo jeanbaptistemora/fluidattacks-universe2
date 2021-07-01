@@ -19,6 +19,7 @@ from typing import (
     [
         ["admin@gmail.com"],
         ["analyst@gmail.com"],
+        ["reviewer@gmail.com"],
     ],
 )  # pylint: disable=too-many-statements, too-many-locals
 @freeze_time("2021-03-31")

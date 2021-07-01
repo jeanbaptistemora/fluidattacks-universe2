@@ -15,6 +15,7 @@ from typing import (
     [
         ["admin@gmail.com"],
         ["analyst@gmail.com"],
+        ["closer@gmail.com"],
     ],
 )
 async def test_create_draft(populate: bool, email: str) -> None:
@@ -33,7 +34,10 @@ async def test_create_draft(populate: bool, email: str) -> None:
     ["email"],
     [
         ["customer@gmail.com"],
+        ["customeradmin@gmail.com"],
         ["executive@gmail.com"],
+        ["resourcer@gmail.com"],
+        ["reviewer@gmail.com"],
     ],
 )
 async def test_create_draft_fail(populate: bool, email: str) -> None:

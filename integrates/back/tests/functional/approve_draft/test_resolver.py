@@ -11,17 +11,19 @@ from typing import (
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("approve_draft")
 @pytest.mark.parametrize(
-    ["email"],
-    [
-        ["admin@gmail.com"],
-    ],
+    ("email", "draft_id"),
+    (
+        ("admin@gmail.com", "475041513"),
+        ("reviewer@gmail.com", "475041514"),
+    ),
 )
-async def test_approve_draft(populate: bool, email: str) -> None:
+async def test_approve_draft(
+    populate: bool, email: str, draft_id: str
+) -> None:
     assert populate
-    draft_name: str = "475041513"
     result: Dict[str, Any] = await get_result(
         user=email,
-        draft=draft_name,
+        draft=draft_id,
     )
     assert "errors" not in result
     assert "success" in result["data"]["approveDraft"]
@@ -33,17 +35,20 @@ async def test_approve_draft(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
+        ["customer@gmail.com"],
+        ["customeradmin@gmail.com"],
         ["analyst@gmail.com"],
         ["closer@gmail.com"],
         ["executive@gmail.com"],
+        ["resourcer@gmail.com"],
     ],
 )
 async def test_approve_draft_fail(populate: bool, email: str) -> None:
     assert populate
-    draft_name: str = "475041513"
+    draft_id: str = "475041513"
     result: Dict[str, Any] = await get_result(
         user=email,
-        draft=draft_name,
+        draft=draft_id,
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"

@@ -36,6 +36,7 @@ async def _get_vulns(finding_id: str) -> List[Dict[str, Any]]:
         ["admin@gmail.com"],
         ["analyst@gmail.com"],
         ["closer@gmail.com"],
+        ["reviewer@gmail.com"],
     ],
 )
 async def test_upload_file(populate: bool, email: str) -> None:
@@ -81,6 +82,9 @@ async def test_upload_file(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
+        ["customer@gmail.com"],
+        ["customeradmin@gmail.com"],
+        ["resourcer@gmail.com"],
         ["executive@gmail.com"],
     ],
 )

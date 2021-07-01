@@ -15,6 +15,7 @@ from typing import (
     [
         ["admin@gmail.com"],
         ["analyst@gmail.com"],
+        ["reviewer@gmail.com"],
     ],
 )
 async def test_update_severity(populate: bool, email: str) -> None:
@@ -32,6 +33,9 @@ async def test_update_severity(populate: bool, email: str) -> None:
     ["email"],
     [
         ["closer@gmail.com"],
+        ["customer@gmail.com"],
+        ["customeradmin@gmail.com"],
+        ["resourcer@gmail.com"],
         ["executive@gmail.com"],
     ],
 )

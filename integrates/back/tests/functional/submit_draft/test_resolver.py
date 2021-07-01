@@ -30,6 +30,7 @@ async def test_submit_draft(populate: bool, email: str) -> None:
     ["email"],
     [
         ["analyst@gmail.com"],
+        ["closer@gmail.com"],
     ],
 )
 async def test_submit_draft_fail_1(populate: bool, email: str) -> None:
@@ -49,7 +50,10 @@ async def test_submit_draft_fail_1(populate: bool, email: str) -> None:
     ["email"],
     [
         ["customer@gmail.com"],
+        ["customeradmin@gmail.com"],
         ["executive@gmail.com"],
+        ["resourcer@gmail.com"],
+        ["reviewer@gmail.com"],
     ],
 )
 async def test_submit_draft_fail_2(populate: bool, email: str) -> None:

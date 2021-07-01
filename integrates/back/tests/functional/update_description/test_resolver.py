@@ -16,6 +16,7 @@ from typing import (
         ["admin@gmail.com"],
         ["analyst@gmail.com"],
         ["closer@gmail.com"],
+        ["reviewer@gmail.com"],
     ],
 )
 async def test_update_finding_description(populate: bool, email: str) -> None:
@@ -31,6 +32,9 @@ async def test_update_finding_description(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
+        ["customer@gmail.com"],
+        ["customeradmin@gmail.com"],
+        ["resourcer@gmail.com"],
         ["executive@gmail.com"],
     ],
 )

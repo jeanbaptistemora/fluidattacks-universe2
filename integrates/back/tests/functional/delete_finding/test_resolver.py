@@ -35,7 +35,11 @@ async def test_delete_finding(populate: bool, email: str) -> None:
     [
         ["analyst@gmail.com"],
         ["closer@gmail.com"],
+        ["customer@gmail.com"],
+        ["customeradmin@gmail.com"],
         ["executive@gmail.com"],
+        ["resourcer@gmail.com"],
+        ["reviewer@gmail.com"],
     ],
 )
 async def test_delete_finding_fail(populate: bool, email: str) -> None:
