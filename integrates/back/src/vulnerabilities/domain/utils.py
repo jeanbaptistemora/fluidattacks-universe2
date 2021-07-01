@@ -85,7 +85,7 @@ async def get_root_nicknames_for_skims(
     root_nicknames: Set[str] = set()
 
     for vuln in vulnerabilities:
-        if "repo_nickname" in vuln:
+        if vuln.get("repo_nickname"):  # Exists and truthy
             root_nicknames.add(vuln["repo_nickname"])
         else:
             include_all = True

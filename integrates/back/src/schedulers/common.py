@@ -49,9 +49,8 @@ async def skims_queue(
         product_api_token=PRODUCT_API_TOKEN,
     )
 
-    if await skims_sdk.queue(**skims_queue_kwargs):
-        info("Successfully queued skims", extra=skims_queue_kwargs)
-    else:
+    info("Queueing Skims", extra=skims_queue_kwargs)
+    if not await skims_sdk.queue(**skims_queue_kwargs):
         error("Could not queue a skims execution", extra=skims_queue_kwargs)
 
 
