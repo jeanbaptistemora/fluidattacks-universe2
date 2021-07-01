@@ -68,7 +68,7 @@ class FindingMetadata(NamedTuple):
         *,
         code: str,
         cwe: int,
-        auto_approve: bool = True,
+        auto_approve: bool,
         execution_queue: ExecutionQueue = ExecutionQueue.prod,
         requirements: List[int],
         score: cvss3_model.Score,
@@ -109,6 +109,7 @@ class FindingEnum(Enum):
         ),
     )
     F001_JAVA_SQL: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F001_JAVA_SQL",
         cwe=89,
         requirements=[169],
@@ -127,6 +128,7 @@ class FindingEnum(Enum):
         ),
     )
     F001_JPA: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F001_JPA",
         cwe=89,
         requirements=[169],
@@ -145,6 +147,7 @@ class FindingEnum(Enum):
         ),
     )
     F004: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F004",
         cwe=78,
         requirements=[173, 265],
@@ -163,6 +166,7 @@ class FindingEnum(Enum):
         ),
     )
     F008: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F008",
         cwe=79,
         requirements=[173],
@@ -181,6 +185,7 @@ class FindingEnum(Enum):
         ),
     )
     F009: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F009",
         cwe=798,
         requirements=[156],
@@ -199,6 +204,7 @@ class FindingEnum(Enum):
         ),
     )
     F011: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F011",
         cwe=937,
         requirements=[262],
@@ -237,6 +243,7 @@ class FindingEnum(Enum):
         ),
     )
     F015_DAST_BASIC: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F015_DAST_BASIC",
         cwe=287,
         requirements=[228, 319],
@@ -255,6 +262,7 @@ class FindingEnum(Enum):
         ),
     )
     F020: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F020",
         cwe=311,
         requirements=[185],
@@ -273,6 +281,7 @@ class FindingEnum(Enum):
         ),
     )
     F021: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F021",
         cwe=643,
         requirements=[173],
@@ -291,6 +300,7 @@ class FindingEnum(Enum):
         ),
     )
     F022: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F022",
         cwe=319,
         requirements=[181],
@@ -309,6 +319,7 @@ class FindingEnum(Enum):
         ),
     )
     F023: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F023",
         cwe=601,
         requirements=[173, 324],
@@ -327,6 +338,7 @@ class FindingEnum(Enum):
         ),
     )
     F024_AWS: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F024_AWS",
         cwe=16,
         requirements=[255, 266],
@@ -345,6 +357,7 @@ class FindingEnum(Enum):
         ),
     )
     F031_AWS: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F031_AWS",
         cwe=250,
         requirements=[186],
@@ -363,6 +376,7 @@ class FindingEnum(Enum):
         ),
     )
     F031_CWE378: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F031_CWE378",
         cwe=378,
         requirements=[186],
@@ -381,6 +395,7 @@ class FindingEnum(Enum):
         ),
     )
     F034: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F034",
         cwe=330,
         requirements=[223, 224],
@@ -399,6 +414,7 @@ class FindingEnum(Enum):
         ),
     )
     F036: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F036",
         cwe=319,
         requirements=[26],
@@ -417,6 +433,7 @@ class FindingEnum(Enum):
         ),
     )
     F042: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F042",
         cwe=614,
         requirements=[29],
@@ -495,6 +512,7 @@ class FindingEnum(Enum):
         ),
     )
     F043_DAST_CSP: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F043_DAST_CSP",
         cwe=644,
         requirements=[62],
@@ -513,6 +531,7 @@ class FindingEnum(Enum):
         ),
     )
     F043_DAST_RP: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F043_DAST_RP",
         cwe=644,
         requirements=[62],
@@ -531,6 +550,7 @@ class FindingEnum(Enum):
         ),
     )
     F043_DAST_STS: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F043_DAST_STS",
         cwe=644,
         requirements=[62, 181],
@@ -549,6 +569,7 @@ class FindingEnum(Enum):
         ),
     )
     F043_DAST_XCTO: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F043_DAST_XCTO",
         cwe=644,
         requirements=[62],
@@ -627,6 +648,7 @@ class FindingEnum(Enum):
         ),
     )
     F052: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F052",
         cwe=310,
         requirements=[158, 149, 150, 181, 336],
@@ -685,6 +707,7 @@ class FindingEnum(Enum):
         ),
     )
     F055_AWS_MISSING_ENCRYPTION: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F055_AWS_MISSING_ENCRYPTION",
         cwe=311,
         requirements=[185],
@@ -703,6 +726,7 @@ class FindingEnum(Enum):
         ),
     )
     F055_CORS: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F055_CORS",
         cwe=942,
         requirements=[266],
@@ -741,6 +765,7 @@ class FindingEnum(Enum):
         ),
     )
     F059: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F059",
         cwe=532,
         requirements=[83],
@@ -759,6 +784,7 @@ class FindingEnum(Enum):
         ),
     )
     F060: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F060",
         cwe=396,
         requirements=[359],
@@ -777,6 +803,7 @@ class FindingEnum(Enum):
         ),
     )
     F061: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F061",
         cwe=390,
         requirements=[75],
@@ -795,6 +822,7 @@ class FindingEnum(Enum):
         ),
     )
     F063_PATH_TRAVERSAL: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F063_PATH_TRAVERSAL",
         cwe=22,
         requirements=[173],
@@ -813,6 +841,7 @@ class FindingEnum(Enum):
         ),
     )
     F063_TRUSTBOUND: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F063_TRUSTBOUND",
         cwe=501,
         requirements=[173],
@@ -831,6 +860,7 @@ class FindingEnum(Enum):
         ),
     )
     F064_SERVER_CLOCK: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F064_SERVER_CLOCK",
         cwe=778,
         requirements=[75],
@@ -849,6 +879,7 @@ class FindingEnum(Enum):
         ),
     )
     F070_WILDCARD_IMPORT: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F070_WILDCARD_IMPORT",
         cwe=155,
         requirements=[158, 302],
@@ -867,6 +898,7 @@ class FindingEnum(Enum):
         ),
     )
     F073: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F073",
         cwe=478,
         requirements=[161],
@@ -905,6 +937,7 @@ class FindingEnum(Enum):
         ),
     )
     F085: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F085",
         cwe=922,
         requirements=[329],
@@ -923,6 +956,7 @@ class FindingEnum(Enum):
         ),
     )
     F086: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F086",
         cwe=353,
         requirements=[178, 262, 330],
@@ -961,6 +995,7 @@ class FindingEnum(Enum):
         ),
     )
     F107: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F107",
         cwe=90,
         requirements=[173],
@@ -979,6 +1014,7 @@ class FindingEnum(Enum):
         ),
     )
     F117: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
         code="F117",
         cwe=377,
         requirements=[323],
