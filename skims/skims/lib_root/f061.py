@@ -25,12 +25,12 @@ def c_sharp_swallows_exceptions(
                 predicate=g.pred_has_labels(label_type="catch_clause"),
             ):
                 block = g.match_ast(graph, catch_clause, "block")["block"]
-                block_childs = g.adj_cfg(graph, block)
-                if not block_childs:
-                    yield shard, block
-                    continue
-                first_statement = block_childs[-1]
-                if graph.nodes[first_statement]["label_type"] == "comment":
+                block_childs = g.adj(graph, block)[1:-1]
+                only_comments = all(
+                    graph.nodes[node]["label_type"] == "comment"
+                    for node in block_childs
+                )
+                if not block_childs or only_comments:
                     yield shard, block
 
     return get_vulnerabilities_from_n_ids(
@@ -57,8 +57,12 @@ def java_swallows_exceptions(
                 predicate=g.pred_has_labels(label_type="catch_clause"),
             ):
                 block = g.match_ast(graph, catch_clause, "block")["block"]
-                block_childs = g.adj_cfg(graph, block)
-                if not block_childs:
+                block_childs = g.adj(graph, block)[1:-1]
+                only_comments = all(
+                    graph.nodes[node]["label_type"] == "comment"
+                    for node in block_childs
+                )
+                if not block_childs or only_comments:
                     yield shard, block
                     continue
 
@@ -87,8 +91,12 @@ def javascript_swallows_exceptions(
                 statement_block = g.match_ast(
                     graph, catch_clause, "statement_block"
                 )["statement_block"]
-                block_childs = g.adj_cfg(graph, statement_block)
-                if not block_childs:
+                block_childs = g.adj(graph, statement_block)[1:-1]
+                only_comments = all(
+                    graph.nodes[node]["label_type"] == "comment"
+                    for node in block_childs
+                )
+                if not block_childs or only_comments:
                     yield shard, catch_clause
 
             for call_expression in g.filter_nodes(
