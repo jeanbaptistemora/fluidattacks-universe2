@@ -1,6 +1,7 @@
 // Color Variables
 $black-gray: rgba(92, 92, 92, 1);
 $blue-gray: rgba(92, 92, 112, 1);
+$blue-gray-shadow: rgba(92, 92, 112, 0.3);
 $gray-64: rgba(64, 64, 79, 1);
 $button-red: rgba(191, 38, 38, 1);
 $hovered-red: rgba(255, 52, 53, 1);
@@ -501,7 +502,7 @@ $gray-244: rgba(244, 244, 246, 1);
 .services-content,
 .solutions-content {
   background-color: $light-gray;
-  box-shadow: 0 20px 20px $dark-shadow;
+  box-shadow: -1px 4px 9px 0.2px $blue-gray-shadow;
   display: none;
   min-width: 160px;
   position: absolute;
