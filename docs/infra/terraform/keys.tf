@@ -23,7 +23,6 @@ data "aws_iam_policy_document" "dev" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
@@ -58,7 +57,6 @@ data "aws_iam_policy_document" "dev" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
@@ -84,7 +82,6 @@ data "aws_iam_policy_document" "dev" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_dev",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
@@ -154,7 +151,6 @@ data "aws_iam_policy_document" "prod" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/docs_prod",
@@ -187,7 +183,6 @@ data "aws_iam_policy_document" "prod" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/docs_prod",
@@ -211,7 +206,6 @@ data "aws_iam_policy_document" "prod" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/docs_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/makes_prod",
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/docs_prod",
