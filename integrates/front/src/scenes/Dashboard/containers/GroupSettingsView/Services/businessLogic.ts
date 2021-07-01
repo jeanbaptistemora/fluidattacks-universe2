@@ -53,16 +53,6 @@ const computeConfirmationMessage: (
     serviceStateToString(form.type)
   ),
   serviceDiff(
-    "group",
-    serviceStateToString(true),
-    serviceStateToString(form.asm ? true : "deleted_soon")
-  ),
-  serviceDiff(
-    "asm",
-    serviceStateToString(true),
-    serviceStateToString(form.asm)
-  ),
-  serviceDiff(
     "machine",
     serviceStateToString(data.group.hasMachine),
     serviceStateToString(form.machine)
@@ -71,11 +61,6 @@ const computeConfirmationMessage: (
     "squad",
     serviceStateToString(data.group.hasSquad),
     serviceStateToString(form.squad)
-  ),
-  serviceDiff(
-    "forces",
-    serviceStateToString(data.group.hasForces),
-    serviceStateToString(form.forces)
   ),
 ];
 
@@ -92,10 +77,8 @@ const isDowngradingServices: (data: IGroupData, form: IFormData) => boolean = (
   form: IFormData
 ): boolean =>
   [
-    isDowngrading(true, form.asm),
     isDowngrading(data.group.hasMachine, form.machine),
     isDowngrading(data.group.hasSquad, form.squad),
-    isDowngrading(data.group.hasForces, form.forces),
   ].some((result: boolean): boolean => result);
 
 export { computeConfirmationMessage, isDowngrading, isDowngradingServices };

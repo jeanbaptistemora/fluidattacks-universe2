@@ -852,12 +852,6 @@ export const enTranslations: ResourceKey = {
             tooltip: "Brief description to identify the group",
           },
           extraChargesMayApply: "Extra charges may apply",
-          forces: {
-            text: "Include DevSecOps agent?",
-            tooltip:
-              "Changes to the target of evaluation can be continuously tested against the closing of confirmed " +
-              "vulnerabilities. The agent can be included in CI/CD",
-          },
           language: {
             EN: "English",
             ES: "Spanish",
@@ -1116,9 +1110,6 @@ export const enTranslations: ResourceKey = {
       deletedsoon: "Scheduled to be deleted in 1 month",
       errors: {
         expectedGroupName: "Expected: {{groupName}}",
-        forcesOnlyIfContinuous:
-          "Forces is only available in groups of type Continuous-Hacking",
-        forcesOnlyIfSquad: "Forces is only available when Squad is too",
         organizationNotExists: "Target organization does not exist",
         squadOnlyIfContinuous:
           "Squad is only available in groups of type Continuous-Hacking",
