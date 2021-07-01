@@ -606,11 +606,17 @@ integrates.scheduler.requeue_actions:
     refs: [schedules]
     variables: [$integrates_scheduler_requeue_actions]
 
-integrates.scheduler.requeue_skims:
+integrates.scheduler.skims_queue_all:
   <<: *integrates_schedulers
   only:
     refs: [schedules]
-    variables: [$integrates_scheduler_requeue_skims]
+    variables: [$integrates_scheduler_skims_queue_all]
+
+integrates.scheduler.skims_queue_re_attacks:
+  <<: *integrates_schedulers
+  only:
+    refs: [schedules]
+    variables: [$integrates_scheduler_skims_queue_re_attacks]
 
 integrates.scheduler.send_treatment_change:
   <<: *integrates_schedulers
