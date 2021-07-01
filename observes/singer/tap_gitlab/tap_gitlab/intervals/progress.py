@@ -2,17 +2,14 @@ from __future__ import (
     annotations,
 )
 
-from returns.primitives.container import (
-    BaseContainer,
-)
-from returns.primitives.hkt import (
-    SupportsKind1,
-    SupportsKind2,
+from dataclasses import (
+    dataclass,
 )
 from tap_gitlab.intervals.alias import (
     NTuple,
 )
 from tap_gitlab.intervals.fragmented import (
+    FIntervalFactory,
     FragmentedInterval,
 )
 from tap_gitlab.intervals.interval import (
@@ -21,6 +18,7 @@ from tap_gitlab.intervals.interval import (
 from typing import (
     Callable,
     final,
+    Generic,
     Tuple,
     TypeVar,
 )
@@ -29,86 +27,39 @@ _DataType = TypeVar("_DataType")
 
 
 @final
-class ProgressInterval(
-    BaseContainer,
-    SupportsKind1["ProgressInterval", _DataType],
-):
-    def __init__(self, interval: Interval[_DataType], completed: bool) -> None:
-        super().__init__(
-            {
-                "interval": interval,
-                "completed": completed,
-            }
-        )
-
-    @property
-    def interval(self) -> Interval[_DataType]:
-        return self._inner_value["interval"]
-
-    @property
-    def completed(self) -> bool:
-        return self._inner_value["completed"]
+@dataclass(frozen=True)
+class ProgressInterval(Generic[_DataType]):
+    interval: Interval[_DataType]
+    completed: bool
 
 
 _State = TypeVar("_State")
 
 
 @final
-class ProcessStatus(
-    BaseContainer,
-    SupportsKind2["ProcessStatus", _DataType, _State],
-):
-    def __init__(
-        self,
-        p_intervals: NTuple[ProgressInterval[_DataType]],
-        incomplete_is_present: bool,
-        function_state: _State,
-    ) -> None:
-        super().__init__(
-            {
-                "p_intervals": p_intervals,
-                "incomplete_is_present": incomplete_is_present,
-                "function_state": function_state,
-            }
-        )
-
-    @property
-    def p_intervals(self) -> NTuple[ProgressInterval[_DataType]]:
-        return self._inner_value["p_intervals"]
-
-    @property
-    def incomplete_is_present(self) -> bool:
-        return self._inner_value["incomplete_is_present"]
-
-    @property
-    def function_state(self) -> _State:
-        return self._inner_value["function_state"]
+@dataclass(frozen=True)
+class ProcessStatus(Generic[_DataType, _State]):
+    p_intervals: NTuple[ProgressInterval[_DataType]]
+    incomplete_is_present: bool
+    function_state: _State
 
 
 @final
-class FragmentedProgressInterval(
-    BaseContainer,
-    SupportsKind1["FragmentedProgressInterval", _DataType],
-):
-    def __init__(
-        self,
-        f_interval: FragmentedInterval[_DataType],
-        completeness: NTuple[bool],
-    ) -> None:
-        super().__init__(
-            {
-                "f_interval": f_interval,
-                "completeness": completeness,
-            }
-        )
+@dataclass(frozen=True)
+class _FragmentedProgressInterval(Generic[_DataType]):
+    f_interval: FragmentedInterval[_DataType]
+    completeness: NTuple[bool]
 
-    @property
-    def f_interval(self) -> FragmentedInterval[_DataType]:
-        return self._inner_value["f_interval"]
 
-    @property
-    def completeness(self) -> NTuple[bool]:
-        return self._inner_value["completeness"]
+@final
+@dataclass(frozen=True)
+class FragmentedProgressInterval(Generic[_DataType]):
+    f_interval: FragmentedInterval[_DataType]
+    completeness: NTuple[bool]
+
+    def __init__(self, obj: _FragmentedProgressInterval[_DataType]) -> None:
+        for key, value in obj.__dict__.items():
+            object.__setattr__(self, key, value)
 
     @property
     def progress_intervals(
@@ -151,3 +102,24 @@ class FragmentedProgressInterval(
         for interval in self.progress_intervals:
             status = _process(status, interval)
         return status.p_intervals
+
+
+class CannotBuild(Exception):
+    pass
+
+
+@final
+@dataclass(frozen=True)
+class FProgressFactory(Generic[_DataType]):
+    factory: FIntervalFactory[_DataType]
+
+    # pylint: disable=no-self-use
+    def new_fprogress(
+        self,
+        f_interval: FragmentedInterval[_DataType],
+        completeness: NTuple[bool],
+    ) -> FragmentedProgressInterval[_DataType]:
+        if len(f_interval.endpoints) - 1 == len(completeness):
+            draft = _FragmentedProgressInterval(f_interval, completeness)
+            return FragmentedProgressInterval(draft)
+        raise CannotBuild("FragmentedProgressInterval")

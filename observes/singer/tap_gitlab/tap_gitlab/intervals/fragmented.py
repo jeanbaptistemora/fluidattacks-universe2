@@ -85,7 +85,7 @@ class FragmentedInterval(Generic[_Point]):
     endpoints: NTuple[IntervalPoint[_Point]]
     intervals: NTuple[OpenLeftInterval[_Point]]
 
-    def __init__(self, obj: _FragmentedInterval) -> None:
+    def __init__(self, obj: _FragmentedInterval[_Point]) -> None:
         for key, value in obj.__dict__.items():
             object.__setattr__(self, key, value)
 
@@ -110,3 +110,8 @@ class FIntervalFactory(Generic[_Point]):
         endpoints = _to_endpoints(intervals)
         draft = _FragmentedInterval(endpoints, intervals)
         return FragmentedInterval(draft)
+
+    def append_to(
+        self, f_interval: FragmentedInterval[_Point], point: _Point
+    ) -> FragmentedInterval[_Point]:
+        return self.from_endpoints(f_interval.endpoints + (point,))

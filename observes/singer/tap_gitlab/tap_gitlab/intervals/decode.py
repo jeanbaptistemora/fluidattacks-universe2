@@ -17,6 +17,7 @@ from tap_gitlab.intervals.interval import (
     MIN,
 )
 from tap_gitlab.intervals.progress import (
+    FProgressFactory,
     FragmentedProgressInterval,
 )
 from typing import (
@@ -49,6 +50,7 @@ class Patch(Generic[_Point]):
 @dataclass
 class IntervalDecoder(Generic[_Point]):
     factory: FIntervalFactory[_Point]
+    p_factory: FProgressFactory[_Point]
     decode_point: Patch[Callable[[JSON], _Point]]
 
     def decode_ipoint(self, raw: JSON) -> IntervalPoint[_Point]:
@@ -86,5 +88,7 @@ class IntervalDecoder(Generic[_Point]):
                     completeness.append(item)
                 else:
                     raise DecodeError("Expected NTuple[bool]")
-            return FragmentedProgressInterval(f_interval, tuple(completeness))
+            return self.p_factory.new_fprogress(
+                f_interval, tuple(completeness)
+            )
         raise DecodeError()
