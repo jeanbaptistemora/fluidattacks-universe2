@@ -22,5 +22,5 @@ F042_SECURE.threat:
   en: Unauthorized attacker from adjacent network performing a MITM.
   es: Atacante sin autorización desde red adyacente ejecutando un MITM.
 F042_SECURE.title:
-  en: F042. Insecurely generated cookies - Secure
-  es: F042. Cookies generadas de forma insegura - Secure
+  en: F042. Insecurely generated cookies - Secure attribute
+  es: F042. Cookies generadas de forma insegura - atributo Secure

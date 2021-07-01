@@ -22,5 +22,5 @@ F042_SAMESITE.threat:
   en: Attacker from internet network performing a CSRF attack.
   es: Atacante desde internet ejecutando un ataque CSRF.
 F042_SAMESITE.title:
-  en: F042. Insecurely generated cookies - SameSite
-  es: F042. Cookies generadas de forma insegura - SameSite
+  en: F042. Insecurely generated cookies - SameSite protection
+  es: F042. Cookies generadas de forma insegura - protección SameSite

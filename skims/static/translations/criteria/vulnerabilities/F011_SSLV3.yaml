@@ -20,5 +20,5 @@ F011_SSLV3.threat:
   en: Unauthorized attacker from internet network performing POODLE attack.
   es: Atacante sin autorización desde internet realizando un ataque POODLE.
 F011_SSLV3.title:
-  en: F011. Use of software with known vulnerabilities - SSLv3
-  es: F011. Uso de componentes con vulnerabilidades conocidas - SSLv3
+  en: F011. Use of software with known vulnerabilities - insecure SSLv3
+  es: F011. Uso de componentes con vulnerabilidades conocidas - SSLv3 inseguro
