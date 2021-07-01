@@ -6,8 +6,8 @@
 makeTemplate {
   arguments = {
     envManifestFindingsDev = path "/skims/manifests/findings.dev.json";
-    envManifestFindingsProd = "/skims/manifests/findings.prod.json";
-    envManifestFindingsStaging = "/skims/manifests/findings.staging.json";
+    envManifestFindingsProd = path "/skims/manifests/findings.prod.json";
+    envManifestFindingsStaging = path "/skims/manifests/findings.staging.json";
     envSkimsBin = applications.skims;
   };
   name = "skims-config-sdk";

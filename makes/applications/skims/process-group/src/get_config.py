@@ -36,7 +36,12 @@ async def get_scopes_from_group(group: str, namespace: str) -> Set[str]:
 
 
 def get_components_from_group(group: str) -> List[str]:
-    with open(f"groups/{group}/toe/inputs.csv") as inputs_handle:
+    path: str = f"groups/{group}/toe/inputs.csv"
+
+    if not os.path.exists(path):
+        return []
+
+    with open(path) as inputs_handle:
         components = list(
             map(
                 itemgetter("component"),
