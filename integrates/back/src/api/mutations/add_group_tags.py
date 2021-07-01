@@ -2,7 +2,7 @@ from ariadne import (
     convert_kwargs_to_snake_case,
 )
 from custom_types import (
-    SimpleProjectPayload as SimpleProjectPayloadType,
+    SimpleGroupPayload as SimpleGroupPayloadType,
 )
 from decorators import (
     concurrent_decorators,
@@ -37,7 +37,7 @@ from typing import (
 )
 async def mutate(  # pylint: disable=too-many-arguments
     _: Any, info: GraphQLResolveInfo, tags: List[str], **kwargs: Any
-) -> SimpleProjectPayloadType:
+) -> SimpleGroupPayloadType:
     success = False
     group_name = resolve_kwargs(kwargs).lower()
     group_loader = info.context.loaders.group
@@ -67,5 +67,5 @@ async def mutate(  # pylint: disable=too-many-arguments
             f"Security: Added tag to {group_name} group successfully",
         )
 
-    project = await group_loader.load(group_name)
-    return SimpleProjectPayloadType(success=success, project=project)
+    group = await group_loader.load(group_name)
+    return SimpleGroupPayloadType(success=success, group=group)

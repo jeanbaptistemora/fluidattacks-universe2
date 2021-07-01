@@ -61,12 +61,6 @@ type ApproveDraftPayload implements Payload {
   success: Boolean!
 }
 
-type SimpleProjectPayload implements Payload {
-  project: Group
-    @deprecated(reason: "Use `group` from `SimpleGroupPayload` instead.")
-  success: Boolean!
-}
-
 type SimpleGroupPayload implements Payload {
   group: Group
   success: Boolean!

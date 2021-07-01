@@ -67,7 +67,7 @@ async def mutate(
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Attempted to add resource files "
-            f"from {group_name} project",
+            f"from {group_name} group",
         )
 
     return SimplePayloadType(success=success)

@@ -2,7 +2,7 @@ from ariadne import (
     convert_kwargs_to_snake_case,
 )
 from custom_types import (
-    SimpleProjectPayload as SimpleProjectPayloadType,
+    SimpleGroupPayload as SimpleGroupPayloadType,
 )
 from decorators import (
     concurrent_decorators,
@@ -48,7 +48,7 @@ LOGGER = logging.getLogger(__name__)
 )
 async def mutate(  # pylint: disable=too-many-arguments
     _: Any, info: GraphQLResolveInfo, tag: str, **kwargs: Any
-) -> SimpleProjectPayloadType:
+) -> SimpleGroupPayloadType:
     success = False
     group_name = resolve_kwargs(kwargs).lower()
     group_loader = info.context.loaders.group
@@ -77,4 +77,4 @@ async def mutate(  # pylint: disable=too-many-arguments
         )
 
     group = await group_loader.load(group_name)
-    return SimpleProjectPayloadType(success=success, project=group)
+    return SimpleGroupPayloadType(success=success, group=group)

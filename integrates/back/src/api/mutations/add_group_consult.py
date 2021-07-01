@@ -77,12 +77,12 @@ async def mutate(  # pylint: disable=too-many-arguments
 
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Added comment to {group_name} project successfully",
+            f"Security: Added comment to {group_name} group successfully",
         )
     else:
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Attempted to add comment in {group_name} project",
+            f"Security: Attempted to add comment in {group_name} group",
         )
 
     return AddConsultPayloadType(success=success, comment_id=str(comment_id))

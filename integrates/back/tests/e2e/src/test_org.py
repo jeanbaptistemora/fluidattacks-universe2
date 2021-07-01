@@ -90,12 +90,12 @@ def test_org_portfolios(
 
     # Enter portfolio
     driver.get(f"{integrates_endpoint}/orgs/okada/portfolios")
-    test_projects = utils.wait_for_text(
+    test_groups = utils.wait_for_text(
         driver,
         "test-projects",
         timeout,
     )
-    test_projects.click()
+    test_groups.click()
     for expected_chart in expected_charts:
         assert utils.wait_for_text(
             driver,

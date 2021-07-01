@@ -218,13 +218,6 @@ SimplePayload = NamedTuple(
         ("success", bool),
     ],
 )
-SimpleProjectPayload = NamedTuple(
-    "SimpleProjectPayload",
-    [
-        ("success", bool),
-        ("project", Group),
-    ],
-)
 UpdateAccessTokenPayload = NamedTuple(
     "UpdateAccessTokenPayload",
     [

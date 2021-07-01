@@ -65,7 +65,7 @@ async def mutate(
     if success:
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Created event in {group_name} project successfully",
+            f"Security: Created event in {group_name} group successfully",
         )
         redis_del_by_deps_soon("create_event", group_name=group_name)
 

@@ -105,7 +105,7 @@ type Mutation {
     projectName: String,
     groupName: String,
     tags: JSONString
-  ): SimpleProjectPayload!
+  ): SimpleGroupPayload!
 
   addUrlRoot(
     "URL of the environment to test"
@@ -334,7 +334,7 @@ type Mutation {
     projectName: String,
     groupName: String,
     tag: String!
-  ): SimpleProjectPayload!
+  ): SimpleGroupPayload!
 
   requestVerificationVuln(
     findingId: String!
