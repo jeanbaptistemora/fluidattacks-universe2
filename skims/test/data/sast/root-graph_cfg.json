@@ -29087,6 +29087,28 @@
             "type": "SyntaxStepIf"
           }
         ],
+        "229": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "232",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "false",
+            "value_type": "boolean"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "229",
+              "value": null
+            },
+            "type": "SyntaxStepReturn"
+          }
+        ],
         "237": [
           {
             "meta": {
@@ -29129,6 +29151,50 @@
             "n_id_false": "253",
             "n_id_true": "243",
             "type": "SyntaxStepIf"
+          }
+        ],
+        "245": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "248",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "true",
+            "value_type": "boolean"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "245",
+              "value": null
+            },
+            "type": "SyntaxStepReturn"
+          }
+        ],
+        "255": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "258",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "false",
+            "value_type": "boolean"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "255",
+              "value": null
+            },
+            "type": "SyntaxStepReturn"
           }
         ],
         "265": [
@@ -29207,6 +29273,50 @@
             "var_type": "httprouter.Handle"
           }
         ],
+        "383": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "386",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "OS X",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "383",
+              "value": null
+            },
+            "type": "SyntaxStepReturn"
+          }
+        ],
+        "393": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "396",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Linux",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "393",
+              "value": null
+            },
+            "type": "SyntaxStepReturn"
+          }
+        ],
         "401": [
           {
             "meta": {
@@ -29241,6 +29351,28 @@
             },
             "method": "fmt.Printf",
             "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "415": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "418",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "415",
+              "value": null
+            },
+            "type": "SyntaxStepReturn"
           }
         ],
         "59": [
