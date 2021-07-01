@@ -118,7 +118,7 @@ def insert(table: str, item: Dict[str, Any]) -> None:
         )
 
 
-def reset() -> None:
+def reset(model_name: str = "") -> None:
     """
     First deletes all info in our training table and
     then we iterate each training .csv to refill it.
@@ -135,7 +135,9 @@ def reset() -> None:
         "tuned_parameters",
     ]
     with tempfile.TemporaryDirectory() as tmpdir:
-        for obj in S3_BUCKET.objects.filter(Prefix="training-output/results"):
+        for obj in S3_BUCKET.objects.filter(
+            Prefix=f"training-output/results/{model_name}"
+        ):
             if obj.key.endswith(".csv"):
                 filename: str = os.path.basename(obj.key)
                 local_file: str = os.path.join(tmpdir, filename)
