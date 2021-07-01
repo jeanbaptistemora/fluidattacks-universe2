@@ -2,6 +2,7 @@
 
 function main {
   local paths=(
+    compliance
     requirements
     vulnerabilities
   )

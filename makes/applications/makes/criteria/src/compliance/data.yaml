@@ -1,0 +1,23 @@
+capec:
+  title: CAPEC™
+  en:
+    description: >
+      Common Attack Pattern Enumeration and Classification
+      helps by providing
+      a comprehensive dictionary
+      of known patterns of attack
+      employed by adversaries
+      to exploit known weaknesses
+      in cyber-enabled capabilities.
+      It can be used by
+      analysts, developers, testers, and educators
+      to advance community understanding
+      and enhance defenses.
+      The version used in this section is CAPEC List v3.4.
+  es:
+    description: __empty__
+  definitions:
+    capec_1:
+      title: Accessing Functionality Not Properly Constrained by ACLs
+      link: https://capec.mitre.org/data/definitions/1.html
+  metadata: {}
