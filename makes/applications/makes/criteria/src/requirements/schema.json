@@ -9,9 +9,30 @@
     "^[0-9]+$": {
       "type": "object",
       "additionalProperties": false,
-      "required": [ "title" ],
+      "required": [ "en", "es", "references", "metadata" ],
       "properties": {
-        "title": { "type": "string" }
+        "en": { "$ref": "#/definitions/language" },
+        "es": { "$ref": "#/definitions/language" },
+        "references": {
+          "uniqueItems": true,
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "metadata": { "type": "object" }
+      }
+    }
+  },
+  "definitions": {
+    "language": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [ "title", "summary", "description" ],
+      "properties": {
+        "title": { "type": "string" },
+        "summary": { "type": "string" },
+        "description": { "type": "string" }
       }
     }
   }
