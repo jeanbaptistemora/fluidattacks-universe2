@@ -119,6 +119,9 @@ const authWithGoogle: () => Promise<IAuthResult> =
           },
         };
       }
+      if (logInResult.type === "error") {
+        LOGGER.error("Couldn't authenticate with Google", logInResult);
+      }
     } catch (error: unknown) {
       LOGGER.error("Couldn't authenticate with Google", error);
     }

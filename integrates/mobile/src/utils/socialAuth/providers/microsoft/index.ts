@@ -106,6 +106,9 @@ const authWithMicrosoft: () => Promise<IAuthResult> =
           },
         };
       }
+      if (logInResult.type === "error") {
+        LOGGER.error("Couldn't authenticate with Microsoft", logInResult);
+      }
     } catch (error: unknown) {
       LOGGER.error("Couldn't authenticate with Microsoft", error);
     }

@@ -107,6 +107,9 @@ const authWithBitbucket: () => Promise<IAuthResult> =
           },
         };
       }
+      if (logInResult.type === "error") {
+        LOGGER.error("Couldn't authenticate with Bitbucket", logInResult);
+      }
     } catch (error: unknown) {
       LOGGER.error("Couldn't authenticate with Bitbucket", error);
     }

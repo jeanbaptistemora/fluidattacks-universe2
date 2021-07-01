@@ -53,7 +53,7 @@
     "platforms": ["android", "ios"],
     "primaryColor": "#000000",
     "privacy": "public",
-    "scheme": "com.fluidattacks.integrates",
+    "scheme": "fluidattacks",
     "slug": "asm",
     "splash": {
       "image": "./assets/splash.png",
