@@ -44,4 +44,5 @@ async def main() -> None:
                         finding_title=finding_title,
                         group_name=group,
                         namespace=root,
+                        urgent=True,
                     )

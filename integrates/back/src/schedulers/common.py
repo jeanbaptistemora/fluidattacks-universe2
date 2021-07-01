@@ -38,13 +38,14 @@ async def skims_queue(
     finding_title: Optional[str] = None,
     group_name: str,
     namespace: str,
+    urgent: bool,
 ) -> None:
     skims_queue_kwargs = dict(
         finding_code=finding_code,
         finding_title=finding_title,
         group=group_name,
         namespace=namespace,
-        urgent=True,
+        urgent=urgent,
         product_api_token=PRODUCT_API_TOKEN,
     )
 
