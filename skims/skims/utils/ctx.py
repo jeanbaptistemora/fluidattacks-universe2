@@ -36,7 +36,6 @@ SHOULD_UPDATE_TESTS: bool = "SKIMS_SHOULD_UPDATE_TESTS" in os.environ
 # Side effects
 CIPHER_SUITES_PATH: str = _get_artifact("SKIMS_CIPHER_SUITES_PATH")
 FLUID_WATERMARK = _get_artifact("SKIMS_FLUID_WATERMARK")
-PARSER_BABEL: str = _get_artifact("SKIMS_PARSER_BABEL")
 PROCESS_GROUP_ON_AWS: str = _get_artifact("SKIMS_PROCESS_GROUP_ON_AWS")
 ROBOTO_FONT = _get_artifact("SKIMS_ROBOTO_FONT")
 STATIC = _get_artifact("SKIMS_STATIC")

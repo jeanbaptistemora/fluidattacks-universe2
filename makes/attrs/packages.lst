@@ -185,7 +185,6 @@ skims.config-development
 skims.config-runtime
 skims.config-sdk
 skims.oci-build
-skims.parsers.babel
 skims.security
 skims.structure
 sorts.bundle
