@@ -9,44 +9,23 @@ from utils.ctx import (
 
 @pytest.mark.skims_test_group("unittesting")
 def test_model_core_model_manifest() -> None:
-    ready: str = (
-        "\n".join(
-            sorted(
-                finding.name
-                for finding in core_model.FindingEnum
-                if finding.value.execution_queue
-                == core_model.ExecutionQueue.prod
+    for queue in core_model.ExecutionQueue:
+        path: str = f"skims/manifests/findings.{queue.name}.lst"
+        expected: str = (
+            "\n".join(
+                sorted(
+                    finding.name
+                    for finding in core_model.FindingEnum
+                    if finding.value.execution_queue == queue
+                )
             )
+            + "\n"
         )
-        + "\n"
-    )
-    in_dev: str = (
-        "\n".join(
-            sorted(
-                finding.name
-                for finding in core_model.FindingEnum
-                if finding.value.execution_queue
-                == core_model.ExecutionQueue.dev
-            )
-        )
-        + "\n"
-    )
 
-    ready_path = "skims/manifests/findings.lst"
-    in_dev_path = "skims/manifests/findings.dev.lst"
-
-    if SHOULD_UPDATE_TESTS:
-        for path, expected in (
-            (in_dev_path, in_dev),
-            (ready_path, ready),
-        ):
+        if SHOULD_UPDATE_TESTS:
             with open(path, "w") as handle_w:
                 handle_w.write(expected)
 
-    for path, expected in (
-        (in_dev_path, in_dev),
-        (ready_path, ready),
-    ):
         with open(path) as handle_r:
             assert handle_r.read() == expected
 
