@@ -121,7 +121,7 @@ describe("Services", (): void => {
   });
 
   [
-    { group: "unittesting", rows: 4 },
+    { group: "unittesting", rows: 3 },
     { group: "oneshottest", rows: 2 },
     { group: "not-exists", rows: 0 },
   ].forEach((test: { group: string; rows: number }): void => {
@@ -186,32 +186,24 @@ describe("Services", (): void => {
     const machineRow = (): ReactWrapper => rows().at(1);
     const squadRowIndex = 2;
     const squadRow = (): ReactWrapper => rows().at(squadRowIndex);
-    const TEST_FORCES_ROW_INDEX = 3;
-    const forcesRow: () => ReactWrapper = (): ReactWrapper =>
-      rows().at(TEST_FORCES_ROW_INDEX);
 
     const typeRowLeft: () => ReactWrapper = (): ReactWrapper =>
       typeRow().find("td").first();
     const machineRowLeft = (): ReactWrapper => machineRow().find("td").first();
     const squadRowLeft: () => ReactWrapper = (): ReactWrapper =>
       squadRow().find("td").first();
-    const forcesRowLeft: () => ReactWrapper = (): ReactWrapper =>
-      forcesRow().find("td").first();
 
-    const totalRows = 4;
+    const totalRows = 3;
 
     expect(rows()).toHaveLength(totalRows);
     expect(typeRowLeft().text()).toStrictEqual("Subscription type");
     expect(machineRowLeft().text()).toStrictEqual("Machine");
     expect(squadRowLeft().text()).toStrictEqual("Squad");
-    expect(forcesRowLeft().text()).toStrictEqual("DevSecOps agent");
 
     const machineSwitch = (): ReactWrapper =>
       machineRow().find("#machineSwitch").at(0);
     const squadSwitch: () => ReactWrapper = (): ReactWrapper =>
       squadRow().find("#squadSwitch").at(0);
-    const forcesSwitch: () => ReactWrapper = (): ReactWrapper =>
-      forcesRow().find("#forcesSwitch").at(0);
 
     expect(formValues()).toStrictEqual({
       asm: true,
@@ -230,36 +222,19 @@ describe("Services", (): void => {
       asm: true,
       comments: "",
       confirmation: "",
-      forces: false,
+      forces: true,
       machine: false,
       reason: "NONE",
       squad: false,
       type: "CONTINUOUS",
     });
 
-    squadSwitch().simulate("click");
-
-    expect(formValues()).toStrictEqual({
-      asm: true,
-      comments: "",
-      confirmation: "",
-      forces: false,
-      machine: true,
-      reason: "NONE",
-      squad: true,
-      type: "CONTINUOUS",
-    });
-
     const proceedButton: () => ReactWrapper = (): ReactWrapper =>
       wrapper.find("Button").first();
-    const genericForm: () => ReactWrapper = (): ReactWrapper =>
-      wrapper.find("genericForm").first();
 
     expect(proceedButton().exists()).toStrictEqual(true);
 
-    genericForm().simulate("submit");
-
-    forcesSwitch().simulate("click");
+    squadSwitch().simulate("click");
 
     expect(formValues()).toStrictEqual({
       asm: true,
@@ -272,6 +247,11 @@ describe("Services", (): void => {
       type: "CONTINUOUS",
     });
 
+    const genericForm: () => ReactWrapper = (): ReactWrapper =>
+      wrapper.find("genericForm").first();
+
+    genericForm().simulate("submit");
+
     squadSwitch().simulate("click");
 
     expect(formValues()).toStrictEqual({
@@ -279,19 +259,6 @@ describe("Services", (): void => {
       comments: "",
       confirmation: "",
       forces: true,
-      machine: true,
-      reason: "NONE",
-      squad: false,
-      type: "CONTINUOUS",
-    });
-
-    forcesSwitch().simulate("click");
-
-    expect(formValues()).toStrictEqual({
-      asm: true,
-      comments: "",
-      confirmation: "",
-      forces: false,
       machine: true,
       reason: "NONE",
       squad: false,

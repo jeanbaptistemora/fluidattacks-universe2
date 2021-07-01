@@ -18,7 +18,6 @@ import {
   editGroupDataHelper,
   getHandleMachineBtnChange,
   handleEditGroupDataError,
-  handleForcesBtnChangeHelper,
   handleSquadBtnChangeHelper,
 } from "./helpers";
 
@@ -109,7 +108,6 @@ const Services: React.FC<IServicesProps> = (
     (_0: React.ChangeEvent<string> | undefined, subsType: string): void => {
       dispatch(change("editGroup", "machine", isContinuousType(subsType)));
       dispatch(change("editGroup", "squad", true));
-      dispatch(change("editGroup", "forces", isContinuousType(subsType)));
     },
     [dispatch]
   );
@@ -125,19 +123,6 @@ const Services: React.FC<IServicesProps> = (
       formValues.type,
       isContinuousType
     );
-  };
-  const handleForcesBtnChange: (withForces: boolean) => void = (
-    withForces: boolean
-  ): void => {
-    dispatch(
-      change(
-        "editGroup",
-        "forces",
-        isContinuousType(formValues.type) && withForces
-      )
-    );
-
-    handleForcesBtnChangeHelper(dispatch, withForces);
   };
 
   // GraphQL Logic
@@ -221,12 +206,6 @@ const Services: React.FC<IServicesProps> = (
       id: "squadSwitch",
       onChange: handleSquadBtnChange,
       service: "squad",
-    },
-    {
-      canHave: isContinuousType(formValues.type),
-      id: "forcesSwitch",
-      onChange: handleForcesBtnChange,
-      service: "forces",
     },
   ].filter((element: IServicesDataSet): boolean => element.canHave);
 
@@ -317,7 +296,7 @@ const Services: React.FC<IServicesProps> = (
             asm: true,
             comments: "",
             confirmation: "",
-            forces: data.group.hasForces,
+            forces: true,
             machine: data.group.hasMachine,
             reason: "NONE",
             squad: data.group.hasSquad,

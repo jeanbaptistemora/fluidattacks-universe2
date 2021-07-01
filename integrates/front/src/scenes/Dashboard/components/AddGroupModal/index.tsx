@@ -176,12 +176,6 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
               "squad"
             );
 
-            const handleForcesBtnChange = getSwitchButtonHandlers(
-              values,
-              setFieldValue,
-              "forces"
-            );
-
             return (
               <Form>
                 <Row>
@@ -393,39 +387,6 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                     </TooltipWrapper>
                   </Col40>
                 </Row>
-                {values.machine && isContinuousType(values.type) ? (
-                  <Row>
-                    <Col40>
-                      <TooltipWrapper
-                        id={"organization.tabs.groups.newGroup.forces.tooltip"}
-                        message={translate.t(
-                          "organization.tabs.groups.newGroup.forces.tooltip"
-                        )}
-                        placement={"top"}
-                      >
-                        <FormGroup>
-                          <ControlLabel>
-                            {translate.t(
-                              "organization.tabs.groups.newGroup.forces.text"
-                            )}
-                            {" *"}
-                          </ControlLabel>
-                          <SwitchButton
-                            checked={values.forces}
-                            name={"forces"}
-                            offlabel={translate.t(
-                              "organization.tabs.groups.newGroup.switch.no"
-                            )}
-                            onChange={handleForcesBtnChange}
-                            onlabel={translate.t(
-                              "organization.tabs.groups.newGroup.switch.yes"
-                            )}
-                          />
-                        </FormGroup>
-                      </TooltipWrapper>
-                    </Col40>
-                  </Row>
-                ) : undefined}
                 {" *"}
                 {translate.t(
                   "organization.tabs.groups.newGroup.extraChargesMayApply"

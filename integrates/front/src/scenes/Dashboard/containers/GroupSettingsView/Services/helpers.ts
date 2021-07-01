@@ -37,7 +37,6 @@ const getHandleMachineBtnChange = (
       dispatch(change("editGroup", "asm", true));
     } else {
       dispatch(change("editGroup", "squad", false));
-      dispatch(change("editGroup", "forces", false));
     }
   };
 };

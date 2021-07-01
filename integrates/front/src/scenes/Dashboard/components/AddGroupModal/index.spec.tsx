@@ -90,13 +90,12 @@ describe("AddGroupModal component", (): void => {
         element.contains("Proceed")
       )
       .at(0);
-    const SWITCH_BUTTON_LENGTH: number = 3;
 
     expect(organizationField).toHaveLength(1);
     expect(groupNameField).toHaveLength(1);
     expect(descriptionField).toHaveLength(1);
     expect(typeField).toHaveLength(1);
-    expect(switchButtons).toHaveLength(SWITCH_BUTTON_LENGTH);
+    expect(switchButtons).toHaveLength(2);
     expect(submitButton).toHaveLength(1);
   });
 
@@ -122,27 +121,5 @@ describe("AddGroupModal component", (): void => {
     const checkedLength = 1;
 
     expect(wrapper.find({ checked: true })).toHaveLength(checkedLength);
-  });
-
-  it("should remove Forces Service switch", (): void => {
-    expect.hasAssertions();
-
-    const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mocksMutation}>
-          <AddGroupModal
-            isOpen={true}
-            onClose={handleOnClose}
-            organization={"okada"}
-          />
-        </MockedProvider>
-      </Provider>
-    );
-
-    const squadSwitch: ReactWrapper = wrapper.find({ checked: true }).at(0);
-
-    squadSwitch.simulate("click");
-
-    expect(wrapper.find({ checked: true })).toHaveLength(0);
   });
 });
