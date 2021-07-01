@@ -124,7 +124,9 @@ def reset(model_name: str = "") -> None:
     then we iterate each training .csv to refill it.
     Result is that we have our table updated with the last results
     """
-    delete("training")
+    delete(
+        "training", condition=f"model = '{model_name}" if model_name else ""
+    )
     redshift_table_columns: List[str] = [
         "model",
         "features",
