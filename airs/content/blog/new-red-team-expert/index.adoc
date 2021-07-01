@@ -34,7 +34,7 @@ Well, he didn't actually perform the lab,
 but the Certification Exam associated with that lab;
 we'd better let him tell us about his experience.
 
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . I decided to take the Red Team Expert exam
   without taking the Red Team Professional one (the first on the list).
   You don't have to do them in order.
@@ -48,7 +48,7 @@ we'd better let him tell us about his experience.
   I ended up using all the time for the former,
   and almost *24* hours for the latter.
 
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . So, I just took the exam that comes with the lab.
   When you do the lab, you have to perform the stated objectives.
   There are around *60* flags you have to find there;
@@ -77,9 +77,10 @@ Kerberos delegation issues, `SQL` Servers, [and] forest trusts."
 .Advanced Red Team Lab (image taken from link:https://www.pentesteracademy.com/redteamlab[pentesteracademy.com])
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330960/blog/new-red-team-expert/lab_ymddtq.webp[Advanced Red Team Lab]
 
+[role="fluid-question"]
 *Why did you decide
 to get this "Certified Red Team Expert" (CRTE) certificate?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . I decided to get this certificate
   because I found the subject very interesting
   to reinforce/learn new techniques for different projects.
@@ -96,7 +97,7 @@ to get this "Certified Red Team Expert" (CRTE) certificate?*
   It also helps to reinforce the idea that obtaining Domain Admin
   is not the primary objective but part of the way to achieve a final goal.
 
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . I had already obtained the link:https://www.offensive-security.com/pwk-oscp/[`OSCP`]
   (Offensive Security Certified Professional) certificate.
   The most notable difference between the `OSCP`
@@ -108,8 +109,9 @@ to get this "Certified Red Team Expert" (CRTE) certificate?*
   some components of an active directory
   and identifying and abusing the misconfigurations that are present there.
 
+[role="fluid-question"]
 *What is the knowledge you believe is required to obtain this certificate?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . The knowledge I think someone should have
   before doing the lab is the following:
   some basics on how to approach this type of environment,
@@ -118,14 +120,15 @@ to get this "Certified Red Team Expert" (CRTE) certificate?*
   Furthermore, and as one of the most necessary knowledge
   is to have at least the basic ability to program in PowerShell.
 
+[role="fluid-question"]
 *What kind of tasks do you have to complete in this Red Team Lab exam?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . Well, I don't intend to talk about specific tasks,
   because that would literally be telling people
   what to study and what to expect.
   The most basic or essential tasks would be the following:
 
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . *Enumerate.* This is to do recon;
   that is, recognizing which users/machines/services are present.
   . *Privilege escalation.* This is moving
@@ -138,9 +141,10 @@ to get this "Certified Red Team Expert" (CRTE) certificate?*
   from one machine to another or others
   to obtain more information to reach the goal.
 
+[role="fluid-question"]
 *Which were the most difficult challenges?
 Any time did you feel at your wits' end?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . The hardest part was getting almost halfway through the exam
   and not knowing what the hell else to do.
   One important thing to achieve here is `RCE` (Remote Command Execution).
@@ -152,8 +156,9 @@ Any time did you feel at your wits' end?*
   But, in the end, it's an experience for the person taking the exam,
   and what is tough for me can be easy for someone else.
 
+[role="fluid-question"]
 *What would you recommend to those who want to get this certification?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . You should start by learning
   how to deal with active directory and Windows environments.
   You must learn how to do recon and evade antivirus,
@@ -163,7 +168,7 @@ Any time did you feel at your wits' end?*
   You must immerse yourself in this world,
   not forgetting that Google is your best friend.
 
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . So, do a lot of research, reading, and testing.
   Besides, if you can, go to the lab, or make a home lab,
   there are very good guidelines.
@@ -176,8 +181,9 @@ Any time did you feel at your wits' end?*
   and you can have a more general view of what can be presented,
   either in the exam or in a particular project.
 
+[role="fluid-question"]
 *Do you have any certification in mind as the next one to get?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . link:https://www.offensive-security.com/ctp-osce/[OSCE] or link:https://www.pentesteracademy.com/gcb[PACES].
 
 We are grateful to Daniel for sharing this information with us,

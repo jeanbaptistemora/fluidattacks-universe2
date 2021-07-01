@@ -75,7 +75,7 @@ specifically the Delaware version.
 Therefore, as a general description
 of the `OmniBallot` architecture, they proposed the following:
 
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . The web app runs in the browser and uses HTTPS to load files
   and call REST-like APIs from several domains.
   When voting online or marking a ballot,

@@ -155,8 +155,9 @@ Although we provide expert advice and curated resources
 on how to better protect information assets (check
 link:https://docs.fluidattacks.com/criteria/[*Criteria*], it's FREE).
 
+[role="fluid-question"]
 *Identify conflicts of interest and design environments to avoid them.*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . “...ethical systems designers should be ruthless in identifying
   conflicts of interest and finding ways to create or restructure rules,
   procedures, other controls, and incentives to minimize them.”
@@ -167,6 +168,7 @@ as “forward” players.
 Additionally, don’t rely on disclosure, as it could backfire.
 A stronger stand is a must.
 
+[role="fluid-question"]
 *“Consider the opposite.”*
 This is a strategy to improve decision-making
 discussed by Milkman, Chugh, & Bazerman (2009).
@@ -174,7 +176,7 @@ In short, putting yourself in the exact opposite perspective
 of what you believe, could change your judgment,
 eventually affecting your decisions.
 
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . “Ask yourself what you want to be true
   (i.e., what is in your personal interest)
   or what you are inclined to believe.

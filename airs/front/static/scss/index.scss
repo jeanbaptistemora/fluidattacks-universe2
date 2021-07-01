@@ -944,7 +944,13 @@ $gray-244: rgba(244, 244, 246, 1);
   }
 }
 
-.fluid-qanda ol li {
-  font-style: italic;
+.fluid-question p strong {
+  border-bottom: 1px solid $hovered-red;
+  font-weight: 400;
+}
+
+.fluid-answer ol li {
+  color: $blue-gray;
+  font-style: normal;
   list-style-type: none;
 }

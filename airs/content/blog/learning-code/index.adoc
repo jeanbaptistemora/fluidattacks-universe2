@@ -20,8 +20,9 @@ We continue our conversation with Ricardo.
 We threw him a question that was the source
 of interesting debates at `Fluid Attacks` some time ago.
 
+[role="fluid-question"]
 *Should a company invest in security awareness training?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . "You have two options:
   hiring people with the skills you need
   or supporting people to acquire those skills.
@@ -45,9 +46,10 @@ as Ricardo mentioned, starting at the hiring process.
 Take a look at our products,
 like asserts and link:https://docs.fluidattacks.com/criteria/[*Criteria*].
 
+[role="fluid-question"]
 *In cybersecurity strategy, what should organizations start*
 *and what should they stop doing?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . "Companies should migrate to the cloud if they haven’t done yet.
   You still get to know some companies that remain reluctant
   to make that decision arguing cybersecurity and information risks.
@@ -75,9 +77,10 @@ to link:https://thenewmedic.com/why-how-learn-to-code/[learn to program] in medi
 Likewise, the recognized statistician Nate Silver said
 link:https://www.geekwire.com/2014/nate-silver/[journalists should learn to code].
 
+[role="fluid-question"]
 *Now, concerning cybersecurity operations,*
 *what should companies start and stop doing?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . "Often, people in cybersecurity are seen as the bad guys,
   as those who will disturb your peace
   by requesting fixes by pointing out errors.
@@ -105,8 +108,9 @@ link:https://www.geekwire.com/2014/nate-silver/[journalists should learn to code
   to create business resources covering everything in synergy:
   functionality, quality, and security."
 
+[role="fluid-question"]
 *What cybersecurity providers are doing well? What is not so great?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . "I can only say `Fluid Attacks` is doing great stuff,
   by reinventing themselves.
   They started talking about `IaC` around four years ago
@@ -126,9 +130,10 @@ Want to know more?
 Visit our [inner]#link:../../services/continuous-hacking/[Continuous Hacking]#
 and [inner]#link:../../services/one-shot-hacking/[One-shot Hacking]# services.
 
+[role="fluid-question"]
 *Why do you think companies that know their weaknesses,*
 *do not fix them or do it too late?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . "I'm pessimistic.
   Companies fix their weaknesses
   because they have to comply with some regulations.
@@ -150,8 +155,9 @@ Click [inner]#link:../sensible-cybersecurity/[here]#
 
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330932/blog/learning-code/pc-lock_qtjvi0.webp[Computer and Lock]
 
+[role="fluid-question"]
 *What do you think are relevant misconceptions in cybersecurity?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . "A big misconception is that companies
   should protect primarily from individuals targeting your business:
   _“the attacker”_, _“the hacker”_, _“the terrorist”_, etc.
@@ -172,10 +178,11 @@ image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330932/blog/le
   It is the opposite: to build robust systems,
   less likely to have flaws.
 
+[role="fluid-question"]
 *Security is a behavioral problem; you and I know that.*
 *What do you think is the most critical challenge in cybersecurity*
 *from a behavioral perspective, and why?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . "I would say lack of curiosity or _'critical thinking'_.
   I find this as a good countermeasure
   for simple mistakes we make that can have a huge impact,

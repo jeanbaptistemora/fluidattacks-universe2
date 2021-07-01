@@ -29,8 +29,9 @@ by discussing the main threats companies face these days.
 .Splash link:https://commons.wikimedia.org/wiki/File:2017_Petya_cyberattack_screenshot.jpg[screen of the payload] of the original version of Petya
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330830/blog/chat-with-correa/petya_srfstk.webp[Petya]
 
+[role="fluid-question"]
 *What are the leading cybersecurity threats organizations currently face?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . You get to hear that newer threats are based on machine learning (`ML`)
   and artificial intelligence (`AI`), but I disagree.
   I don't think this is feasible for now.
@@ -39,20 +40,21 @@ image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330830/blog/ch
   there is 'big data' on network (traffic) and user behavior,
   required to train smart decision algorithms to prevent incidents.
 
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . Current threats aren't that different from those we have known for years.
   Organizations are focusing on containing malware.
   Perhaps, two newer variants are worth mentioning:
   malware that instantly wipes data and criptojacking.
 
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . Common [inner]#link:../ransomware/[ransomware]# looks to encrypt data,
   so that crooks can ask for money.
   In the wiper malware, organizations face data availability issues.
   With the wiper, attackers want to inflict damage right away.
 
+[role="fluid-question"]
 *Is _wiper_ worse than other types of malware?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . Not necessarily. It depends on the data and the backup policies in place.
   As with ransomware, if data is fully backed-up elsewhere, there's no damage.
   If it's not, there might be trouble.
@@ -68,13 +70,15 @@ by means of our [inner]#link:../../services/continuous-hacking/[Continuous]#
 and [inner]#link:../../services/one-shot-hacking/[One-shot Hacking]# services.
 As Daniel says, hacking skills are still not replaceable by machines.
 
+[role="fluid-question"]
 *And the other variant?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . [inner]#link:../cryptojacking-malware/[Cryptojacking]#. Capturing machines,
   so third party resources are devoted to mine cryptocurrencies.
 
+[role="fluid-question"]
 *What is your opinion of cryptocurrencies?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . I believe all financial transactions will be made over blockchain
   or similar technologies sometime in the future.
   Some big players and central banks are doing research
@@ -84,9 +88,10 @@ As Daniel says, hacking skills are still not replaceable by machines.
   without undermining one of the premises
   by which bitcoin was proposed back in 2008: decentralization.
 
+[role="fluid-question"]
 *What are other threats still out there
 causing troubles to organizations and people?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . [inner]#link:../phishing/[_Phishing_]#. link:https://www.thesslstore.com/blog/the-top-9-cyber-security-threats-that-will-ruin-your-day/[It still makes it to the ranks].
   Even with `ML`-based recognition on email providers,
   browsers extensions, and endpoint software protections against this threat,
@@ -94,7 +99,7 @@ causing troubles to organizations and people?*
   the odds of falling to well crafted phishing communications.
   Human psychology at play.
 
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . Other relevant threats are those coming
   from the _supply-chain_, often overlooked.
   All the hardware, a significant proportion of software,
@@ -120,7 +125,7 @@ causing troubles to organizations and people?*
 .CVSS Severity Distribution Over Time. Source: link:https://nvd.nist.gov/general/visualizations/vulnerability-visualizations/cvss-severity-distribution-over-time[NIST]
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330830/blog/chat-with-correa/cvss_wbm484.webp[CVSS]
 
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . Application and infrastructure weaknesses will always be major threats.
   As time passes, more and more vulnerabilities are found.
   All that's man-made is prone to error.
@@ -132,8 +137,9 @@ image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330830/blog/ch
   to gain administrative control through the faulty antivirus
   by leveraging on its privileges.
 
+[role="fluid-question"]
 *What do you think are the primarily blind spots when managing cybersecurity?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . I like an analogy: cybersecurity works as a 4-piston engine
   — people, processes, technology, and management.
   Pistons must be synchronized, lubricated, going at the same speed,
@@ -147,25 +153,28 @@ image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330830/blog/ch
   people still give information away they should not.
   Small actions are all attackers need.
 
+[role="fluid-question"]
 *Do you think the problem is that people fall into those attacks?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . Not only on those, but people also fall for other untargeted attacks.
   We invest in high technology; we streamline processes;
   managers are conscious and attentive to cybersecurity.
   But it takes only one person to open a breach.
   Perhaps, we should do more on awareness.
 
+[role="fluid-question"]
 *Are awareness programs the solution?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . I'm in favor of awareness programs.
   Nonetheless, it's not enough to focus on employees only.
   I think we have to start educating at an early age
   about risks in the information, digital, and technology domains.
   As the idiom says, _you can't teach an old dog new tricks_.
 
+[role="fluid-question"]
 *What about a more interactive approach
 where people could face a threat more realistically?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . A must. In the link:https://www.nist.gov/cyberframework[NIST Cybersecurity Framework], this is recommended.
   Some day I gave a one-hour talk.
   I described risks and how we can prevent them.
@@ -177,7 +186,7 @@ where people could face a threat more realistically?*
   many of them security professionals just fell.
   Just telling people what to do or not, is far from enough.
 
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . But, when people face and feel the downsides of risks, they learn;
   they increase their awareness;
   they really pay attention to their behaviors and change accordingly.
@@ -187,8 +196,9 @@ where people could face a threat more realistically?*
 .Cyber warfare specialists. June 3, 2017. link:https://media.defense.gov/2018/Mar/14/2001890169/-1/-1/0/180221-F-SK383-0012A.JPG[Air Force photo by J.M. Eddins Jr.]
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330831/blog/chat-with-correa/defense_y3aitn.webp[Defense]
 
+[role="fluid-question"]
 *How can organizations do better in their pen-testing?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . I would recommend two things:
   focus on testing `IT` assets where an incident can  endanger operations
   and the corporate mission.
@@ -198,7 +208,7 @@ image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330831/blog/ch
   Companies should devote time and effort
   to clarify business priorities and failure points in `IT`.
 
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . Second, use a red teaming approach.
   Diversity of perspective adds value.
   One or two security analysts —a typical setting— could do a good job,

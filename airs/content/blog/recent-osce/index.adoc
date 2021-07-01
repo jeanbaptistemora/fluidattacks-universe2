@@ -24,9 +24,10 @@ After reading it and showing more interest in his experience,
 we had some questions, which Andres was kind enough to answer.
 Here we share with you some of his insights:
 
+[role="fluid-question"]
 *Why do you think you gravitated to the issues
 of hacking and cybersecurity initially?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . I've always been curious about how things work.
   In college, while studying Business Administration, some 20 years ago,
   I once read or heard the word 'Hacker'
@@ -39,17 +40,19 @@ of hacking and cybersecurity initially?*
   That atmosphere of deep knowledge was what led me to change careers
   and start on the path of cybersecurity.
 
+[role="fluid-question"]
 *Why did you read Aleph One's article about exploitation
 if you didn't know anything about computers?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . If you searched in Altavista (the Google of 20 years ago)
   for terms related to 'hacking,' that was one of the results.
   That article was launched in Phrack magazine,
   which is still a reference point for security issues.
 
+[role="fluid-question"]
 *How and when did you discover Fluid Attacks? What were the requirements
 to fulfill at that time to become part of the company?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . Before `Fluid Attacks`, I had a cybersecurity company,
   but it was not successful.
   `Fluid Attacks` was created by some friends in 2001.
@@ -59,17 +62,19 @@ to fulfill at that time to become part of the company?*
   (in Linux, security, and hacking) by studying on my own
   was enough to get me into `Fluid Attacks`.
 
+[role="fluid-question"]
 *What kind of skills and knowledge do you think a person should possess
 to achieve this OSCE certification?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . The `CTP` course is designed to help you think in a creative way
   when you are doing an intrusion.
   Knowledge is gained through study and discipline,
   but the key is the ability to think outside the box to resolve problems.
 
+[role="fluid-question"]
 *You told us that you did the CTP course modules several times.
 Why did you do that?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . Because there are many variables
   to take into account when creating an exploit.
   You have to understand every step, every instruction, and why.
@@ -78,9 +83,10 @@ Why did you do that?*
   You have to understand the reason for each step,
   and that is accomplished by repetition.
 
+[role="fluid-question"]
 *What is it that changes so much
 between the laboratory in the course and the exam?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . The techniques to solve the exam are taught in the course.
   However, the exam exercises are not solved
   in the same way as the course exercises.
@@ -88,9 +94,10 @@ between the laboratory in the course and the exam?*
   understand the target's environment,
   and reuse what has been learned creatively.
 
+[role="fluid-question"]
 *How does the 'Hack The Box' machines' difficulty level
 compare to these lab and test exercises?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . Hack The Box machines do a great job making you think out-of-the-box.
   These machines use different techniques,
   commonly employed on `CTF` challenges, but are uncommon in the real world.
@@ -99,8 +106,9 @@ compare to these lab and test exercises?*
   using fuzzing and reverse engineering techniques
   and focused on finding 0-days.
 
+[role="fluid-question"]
 *Which were the most complex challenges in the exam?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . Due to Offensive Security certification policies,
   students can't talk much about the exam details.
   However, all of the exam points are not straightforward.
@@ -109,8 +117,9 @@ compare to these lab and test exercises?*
   Reading the objectives in detail for each exam point
   will give you a better understanding of how to approach the solution.
 
+[role="fluid-question"]
 *What would you recommend to those who want to obtain this certification?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . As I mentioned in link:../osce-journey/[the blog post],
   you should perform extra self-training after the `CTP` course.
   I, for instance, exploited several known vulnerabilities from scratch,
@@ -122,8 +131,9 @@ compare to these lab and test exercises?*
   and having experience with other certifications before `OSCE`
   will be an advantage.
 
+[role="fluid-question"]
 *Regarding certificates, what is the next goal you have in mind?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . The current version of `OSCE` certification will disappear this year.
   It will be replaced by 2 different certifications that,
   along with `OSWE`, would be a new `OSCE`.

@@ -48,7 +48,7 @@ Regarding the information above the above,
 we spoke with Andres of `Fluid Attacks`,
 When we asked him
 about the Red Team exercise done by `Fluid Attacks`, he said:
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . "First, the Red Team propose hacking objetives.
   For example: escalate privileges, modify system files or install backdoor
   to do it. We use the kill chain strategy"
@@ -144,7 +144,7 @@ Cyber Kill Chain 3.0 has the following phases<<r1, [2]>>:
 As you can see, version 3.0 has minor changes
 designed for better security defense,
 but those are not unique strategies, link:https://www.helpnetsecurity.com/2015/02/10/kill-chain-30-update-the-cyber-kill-chain-for-better-defense/[HelpNetSecurity.]
-[role="fluid-qanda"]
+[role="fluid-answer"]
  . "Security professionals have differing opinions
  on the effectiveness of the kill chain as a defense model.
  Some love it, pointing out how several successful

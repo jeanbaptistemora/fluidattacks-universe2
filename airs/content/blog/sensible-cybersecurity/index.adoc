@@ -30,8 +30,9 @@ Thinking about risks is not easy, and risks are everything in cybersecurity.
 Furthermore, fitting cybersecurity risks with those of business is challenging.
 We wanted to discuss a bit about this topic with Nicolás.
 
+[role="fluid-question"]
 *Is it difficult to quantify the risks you manage in monetary terms?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . "Remarkably difficult, as is usual in other fields.
   We have a traditional approach,
   and we face the same common issue: prioritization.
@@ -75,8 +76,9 @@ We wanted to discuss a bit about this topic with Nicolás.
 How companies and cybersecurity teams face struggles are diverse.
 Nicolás shared with us some of his setbacks as CISO.
 
+[role="fluid-question"]
 *What setback was particularly relevant for you as CISO?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . "I think of technical and managerial examples:
   . In one occasion, we should have waited to deploy a protection.
   We proceeded, and in doing so, we also hindered major operations
@@ -109,10 +111,11 @@ we talked about what Nicolás consider false in the discipline,
 as well as what is true.
 We wondered what a CISO like Nicolás could tell us.
 
+[role="fluid-question"]
 *What do you think is a ‘lie’ in cybersecurity,*
 *but most people seem to believe in?*
 
-[role="fluid-qanda"]
+[role="fluid-answer"]
 . "I sometimes see cybersecurity as a cult.
 For me, cybersecurity is not as severe as the market tries to show;
 people usually overestimate what happens.
@@ -152,9 +155,10 @@ I just accept that fact, and I protect from more likely scenarios.
 The lie is to go until the end. You have to know when to stop.
 Many professionals should discard the *go-until-the-end* idea".
 
+[role="fluid-question"]
 *And, what is ‘a truth,’ but most people don’t seem to believe in?*
 
-[role= "fluid-qanda"]
+[role= "fluid-answer"]
 . "People and organizations usually think
 that nothing will ever happen to them.
 You hear from time to time “It will never happen.”

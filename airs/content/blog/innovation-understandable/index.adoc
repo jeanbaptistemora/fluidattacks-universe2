@@ -32,10 +32,11 @@ and 3 in Central America.
 We started by speaking about the emergence of machine learning (`ML`)
 and artificial intelligence (`AI`) in cybersecurity, a hot topic right now.
 
+[role="fluid-question"]
 *What is your opinion on the potential applications of `ML` and `AI`*
 *in cybersecurity? Do you believe this potential is real,*
 *or it is just a hype?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . "My stand is halfway. A hype might be in one end,
   and a solve-it-all approach in the other.
 
@@ -69,9 +70,10 @@ and artificial intelligence (`AI`) in cybersecurity, a hot topic right now.
   There are operations in which `ML` and `AI` could add value to our business,
   but I don’t see it as a replacement for high-order decision-making."
 
+[role="fluid-question"]
 *Are you deploying `ML` or `AI` for your operations?*
 
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . "Not yet. Two reasons for that:
   first, we have made a strategic decision not to be early adopters
   of new technology.
@@ -109,11 +111,12 @@ Even more commonplace than `ML` and `AI`, is innovation.
 What we do at Fluid Attacks, many people describe it as innovation.
 Nicolás mentioned about innovation at Corona, and we were curious to know more.
 
+[role="fluid-question"]
 *What do you consider you are doing differently in cybersecurity?*
 *You mentioned you are convinced about the organization approach*
 *to innovation.*
 
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . "I am a critic of the traditional concept of innovation.
   Innovation is not an end for us; it is an attribute.
   For Corona, to innovate is to make things we already do, but differently;
@@ -172,8 +175,9 @@ Nicolás mentioned about innovation at Corona, and we were curious to know more.
   less than ten months.
   And we won Corona’s innovation prize, the Prisma award."
 
+[role="fluid-question"]
 *What does this software provides that you previously did not have?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
   . "Timely detections, quicker reaction.
   We now identify some cybersecurity anomalies in 1.5 hours or 2.
   Before, we knew about breaches two days after incidents.
