@@ -210,10 +210,14 @@
   title: LDAP injection
 108:
   title: Improper control of interaction frequency
+109:
+  title: SQL injection - C Sharp SQL API
 110:
   title: HTTP request smuggling
 111:
   title: Out-of-bounds read
+112:
+  title: SQL injection - Java SQL API
 113:
   title: Improper type assignation
 114:
@@ -242,3 +246,35 @@
   title: Directory Listing
 126:
   title: Lack of isolation methods
+127:
+  title: Use of software with known vulnerabilities - SSLv3
+128:
+  title: Uncontrolled external site redirect - Host header
+129:
+  title: Insecurely generated cookies - SameSite
+130:
+  title: Insecurely generated cookies - Secure
+131:
+  title: Missing HTTP security headers - Content-Security-Policy
+132:
+  title: Missing HTTP security headers - Referrer-Policy
+133:
+  title: Missing HTTP security headers - X-Content-Type-Options
+134:
+  title: Insecure encryption algorithm - Perfect Forward Secrecy
+135:
+  title: Insecure Service Configuration - ADB Backups
+136:
+  title: Insecure service configuration - CORS
+137:
+  title: Lack of data validation - Path Traversal
+138:
+  title: Lack of data validation - Trust boundary violation
+139:
+  title: Traceability loss - Server's clock
+140:
+  title: Inappropriate coding practices - Wildcard import
+141:
+  title: Unauthorized access to files - APK Content Provider
+142:
+  title: Insufficient data authenticity validation - APK signing
