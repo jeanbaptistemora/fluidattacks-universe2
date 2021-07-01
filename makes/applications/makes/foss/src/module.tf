@@ -6,4 +6,9 @@ module "github_makes" {
   name        = "makes"
   token       = var.GITHUB_API_TOKEN
   topics      = ["build", "devops", "nix"]
+
+  secrets_dev = {}
+  secrets_prod = {
+    API_TOKEN_GITHUB = var.GITHUB_API_TOKEN
+  }
 }
