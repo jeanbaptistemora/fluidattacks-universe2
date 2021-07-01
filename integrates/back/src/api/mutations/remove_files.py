@@ -70,7 +70,7 @@ async def mutate(
         )
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Attempted to remove files from {group_name} project",
+            f"Security: Attempted to remove files from {group_name} group",
         )
 
     return SimplePayloadType(success=success)

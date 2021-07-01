@@ -20,6 +20,9 @@ from newutils import (
     logs as logs_utils,
     utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
@@ -42,7 +45,7 @@ async def mutate(
     finding_id = parameters.get("finding_id", "")
     finding_loader = info.context.loaders.finding
     finding_data = await finding_loader.load(finding_id)
-    group_name = finding_data["project_name"]
+    group_name = resolve_kwargs(finding_data)
     success = False
     success = await findings_domain.save_severity(data)
     if success:

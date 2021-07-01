@@ -14,6 +14,9 @@ from graphql.type.definition import (
 from newutils import (
     token as token_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
 )
@@ -42,7 +45,7 @@ async def resolve_no_cache(
     parent: Finding, info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[Comment]:
     finding_id: str = cast(Dict[str, str], parent)["id"]
-    group_name: str = cast(Dict[str, str], parent)["project_name"]
+    group_name: str = resolve_kwargs(cast(Dict[str, str], parent))
 
     user_data: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data["user_email"]

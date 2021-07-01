@@ -10,6 +10,9 @@ from functools import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
 )
@@ -39,7 +42,7 @@ async def resolve_no_cache(
     parent: Finding, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[Dict[object, object]]:
     finding_id: str = cast(Dict[str, str], parent)["id"]
-    group_name: str = cast(Dict[str, str], parent)["project_name"]
+    group_name: str = resolve_kwargs(cast(Dict[str, str], parent))
 
     records_url: Optional[str] = cast(
         Dict[str, Dict[str, Optional[str]]], parent

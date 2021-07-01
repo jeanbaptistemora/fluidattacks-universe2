@@ -23,6 +23,9 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
@@ -50,8 +53,8 @@ async def mutate(
     if success:
         info.context.loaders.event.clear(event_id)
         event = await events_domain.get_event(event_id)
-        project_name = str(event.get("project_name", ""))
-        redis_del_by_deps_soon("solve_event", group_name=project_name)
+        group_name = str(resolve_kwargs(event, fallback=""))
+        redis_del_by_deps_soon("solve_event", group_name=group_name)
         logs_utils.cloudwatch_log(
             info.context, f"Security: Solved event {event_id} successfully"
         )

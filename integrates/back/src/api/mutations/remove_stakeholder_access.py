@@ -51,13 +51,13 @@ async def mutate(
         )
         msg = (
             f"Security: Removed stakeholder: {user_email} from {group_name} "
-            f"project successfully"
+            f"group successfully"
         )
         logs_utils.cloudwatch_log(info.context, msg)
     else:
         msg = (
             f"Security: Attempted to remove stakeholder: {user_email} "
-            f"from {group_name} project"
+            f"from {group_name} group"
         )
         logs_utils.cloudwatch_log(info.context, msg)
 

@@ -14,6 +14,9 @@ from graphql.type.definition import (
 from newutils import (
     token as token_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
 )
@@ -31,7 +34,7 @@ async def resolve_no_cache(
     **_kwargs: None,
 ) -> List[Comment]:
     event_id: str = cast(str, parent["id"])
-    group_name: str = cast(str, parent["project_name"])
+    group_name: str = cast(str, resolve_kwargs(parent))
 
     user_data: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data["user_email"]

@@ -21,6 +21,9 @@ from newutils import (
     files as files_utils,
     logs as logs_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from organizations_finding_policies import (
     domain as policies_domain,
 )
@@ -49,7 +52,7 @@ async def mutate(
     file_input = kwargs["file"]
     finding_loader = info.context.loaders.finding
     finding_data = await finding_loader.load(finding_id)
-    group_name = finding_data["project_name"]
+    group_name = resolve_kwargs(finding_data)
     allowed_mime_type = await files_utils.assert_uploaded_file_mime(
         file_input, ["text/x-yaml", "text/plain", "text/html"]
     )
