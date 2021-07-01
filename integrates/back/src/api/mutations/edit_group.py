@@ -15,9 +15,6 @@ from decorators import (
     require_login,
     turn_args_into_kwargs,
 )
-from forces import (
-    domain as forces_domain,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -37,9 +34,6 @@ from redis_cluster.operations import (
 from typing import (
     Any,
 )
-from users import (
-    domain as users_domain,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -54,7 +48,6 @@ async def mutate(  # pylint: disable=too-many-arguments
     info: GraphQLResolveInfo,
     comments: str,
     group_name: str,
-    has_forces: bool,
     reason: str,
     subscription: str,
     **kwargs: Any,
@@ -76,7 +69,6 @@ async def mutate(  # pylint: disable=too-many-arguments
             comments=comments,
             group_name=group_name,
             has_squad=has_squad,
-            has_forces=has_forces,
             has_asm=has_asm,
             has_machine=has_machine,
             reason=reason,
@@ -88,21 +80,6 @@ async def mutate(  # pylint: disable=too-many-arguments
             info.context, "Security: Unauthorized role attempted to edit group"
         )
 
-    if success and has_forces:
-        await forces_domain.create_forces_user(info, group_name)
-    elif (
-        success
-        and not has_forces
-        and has_asm
-        and await users_domain.ensure_user_exists(
-            forces_domain.format_forces_user_email(group_name)
-        )
-    ):
-        await groups_domain.remove_user(
-            loaders,
-            group_name,
-            forces_domain.format_forces_user_email(group_name),
-        )
     if success:
         loaders.group.clear(group_name)
         await redis_del_by_deps("edit_group", group_name=group_name)

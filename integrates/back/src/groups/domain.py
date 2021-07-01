@@ -455,7 +455,6 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
     description: str,
     has_machine: bool = False,
     has_squad: bool = False,
-    has_forces: bool = False,
     subscription: str = "continuous",
     language: str = "en",
 ) -> bool:
@@ -498,7 +497,7 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
                         "date": datetime_utils.get_now_as_str(),
                         "has_skims": has_machine,
                         "has_drills": has_squad,
-                        "has_forces": has_forces,
+                        "has_forces": True,
                         "requester": user_email,
                         "type": subscription,
                     }
@@ -541,12 +540,11 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
     else:
         raise InvalidParameter()
     # Notify us in case the user wants any Fluid Service
-    if success and (has_squad or has_forces):
+    if success:
         await notifications_domain.new_group(
             description=description,
             group_name=group_name,
             has_drills=has_squad,
-            has_forces=has_forces,
             requester_email=user_email,
             subscription=subscription,
         )
@@ -633,7 +631,6 @@ async def edit(
     comments: str,
     group_name: str,
     has_squad: bool,
-    has_forces: bool,
     has_asm: bool,
     has_machine: bool,
     reason: str,
@@ -672,7 +669,7 @@ async def edit(
                         "has_machine": has_machine,
                         "has_drills": has_squad,
                         "has_squad": has_squad,
-                        "has_forces": has_forces,
+                        "has_forces": True,
                         "reason": reason,
                         "requester": requester_email,
                         "type": subscription,
@@ -708,21 +705,9 @@ async def edit(
                 if item["historic_configuration"]
                 else False
             ),
-            had_forces=(
-                cast(
-                    bool,
-                    cast(
-                        List[Dict[str, Union[bool, str]]],
-                        item["historic_configuration"],
-                    )[-1]["has_forces"],
-                )
-                if item["historic_configuration"]
-                else False
-            ),
             had_integrates=True,
             has_skims=has_machine,
             has_drills=has_squad,
-            has_forces=has_forces,
             has_integrates=has_asm,
             reason=reason,
             requester_email=requester_email,

@@ -105,11 +105,9 @@ async def edit_group(
     group_name: str,
     had_skims: bool,
     had_drills: bool,
-    had_forces: bool,
     had_integrates: bool,
     has_skims: bool,
     has_drills: bool,
-    has_forces: bool,
     has_integrates: bool,
     reason: str,
     requester_email: str,
@@ -143,9 +141,6 @@ async def edit_group(
                 - Squad:
                     from: {translations[had_drills]}
                     to: {translations[has_drills]}
-                - DevSecOps agent:
-                    from: {translations[had_forces]}
-                    to: {translations[has_forces]}
                 - Comments: {html.escape(comments, quote=True)}
                 - Reason: {reason}
 
@@ -162,7 +157,6 @@ async def new_group(
     description: str,
     group_name: str,
     has_drills: bool,
-    has_forces: bool,
     requester_email: str,
     subscription: str,
 ) -> bool:
@@ -187,7 +181,6 @@ async def new_group(
                 - Description: {description}
                 - Type: {translations.get(subscription, subscription)}
                 - Drills: {translations[has_drills]}
-                - Forces: {translations[has_forces]}
 
                 If you require any further information,
                 do not hesitate to contact us.

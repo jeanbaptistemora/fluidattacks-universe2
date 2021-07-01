@@ -450,7 +450,6 @@ async def test_create_group_not_user_admin() -> None:
         description="This is a new group",
         has_machine=True,
         has_squad=True,
-        has_forces=True,
         subscription="continuous",
     )
     expected_output = True
@@ -464,15 +463,14 @@ async def test_create_group_not_user_admin() -> None:
         "subscription",
         "has_machine",
         "has_squad",
-        "has_forces",
         "has_asm",
         "expected",
     ],
     [
-        ["unittesting", "continuous", True, True, True, True, True],
-        ["oneshottest", "oneshot", False, False, False, True, True],
-        ["not-exists", "continuous", True, True, True, True, False],
-        ["not-exists", "continuous", False, False, False, False, False],
+        ["unittesting", "continuous", True, True, True, True],
+        ["oneshottest", "oneshot", False, False, True, True],
+        ["not-exists", "continuous", True, True, True, False],
+        ["not-exists", "continuous", False, False, False, False],
     ],  # pylint: disable=too-many-arguments
 )
 async def test_edit(
@@ -480,7 +478,6 @@ async def test_edit(
     subscription: str,
     has_machine: bool,
     has_squad: bool,
-    has_forces: bool,
     has_asm: bool,
     expected: bool,
 ) -> None:
@@ -491,7 +488,6 @@ async def test_edit(
         subscription=subscription,
         has_machine=has_machine,
         has_squad=has_squad,
-        has_forces=has_forces,
         has_asm=has_asm,
         reason="",
         requester_email="test@test.test",

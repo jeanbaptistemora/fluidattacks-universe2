@@ -42,7 +42,6 @@ async def mutate(  # pylint: disable=too-many-arguments
     description: str,
     organization: str,
     subscription: str = "continuous",
-    has_forces: bool = False,
     language: str = "en",
     **parameters: Any,
 ) -> SimplePayloadType:
@@ -67,15 +66,13 @@ async def mutate(  # pylint: disable=too-many-arguments
         description,
         has_machine,
         has_squad,
-        has_forces,
         subscription,
         language,
     )
 
-    if success and has_forces:
+    if success:
         info.context.loaders.group.clear(group_name)
         await forces_domain.create_forces_user(info, group_name)
-    if success:
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Created group {group_name.lower()} successfully",

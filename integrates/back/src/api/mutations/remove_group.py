@@ -54,7 +54,6 @@ async def mutate(
             group_name=group_name,
             has_machine=False,
             has_squad=False,
-            has_forces=False,
             has_asm=False,
             reason="",
             requester_email=requester_email,
