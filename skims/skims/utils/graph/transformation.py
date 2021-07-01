@@ -43,6 +43,43 @@ def _build_nested_identifier_ids(
     return keys
 
 
+def _build_nested_identifier_ids_js(
+    graph: graph_model.Graph,
+    n_id: str,
+    nested_key: str,
+    keys: Optional[List[str]] = None,
+) -> List[str]:
+    keys = keys or list()
+    match_access = g.match_ast_group(
+        graph,
+        n_id,
+        "identifier",
+        nested_key,
+        "this_expression",
+        "property_identifier",
+        "call_expression",
+        ".",
+    )
+    if identifiers := match_access["property_identifier"]:
+        keys = [*identifiers, *keys]
+    if (access := match_access[nested_key]) or (
+        access := match_access["call_expression"]
+    ):
+        keys = _build_nested_identifier_ids_js(
+            graph,
+            access.pop(),
+            nested_key=nested_key,
+            keys=keys,
+        )
+
+    if identifiers := match_access["identifier"]:
+        keys = [*identifiers, *keys]
+    if this := match_access["this_expression"]:
+        keys.append(this.pop())
+
+    return keys
+
+
 def build_member_access_expression_isd(
     graph: graph_model.Graph,
     n_id: str,
@@ -65,6 +102,16 @@ def build_member_access_expression_key(
 
 def build_qualified_name(graph: graph_model.Graph, qualified_id: str) -> str:
     keys = _build_nested_identifier_ids(graph, qualified_id, "qualified_name")
+    identifiers = tuple(graph.nodes[key]["label_text"] for key in keys)
+    return ".".join(identifiers)
+
+
+def build_js_member_expression(
+    graph: graph_model.Graph, qualified_id: str
+) -> str:
+    keys = _build_nested_identifier_ids_js(
+        graph, qualified_id, "member_expression"
+    )
     identifiers = tuple(graph.nodes[key]["label_text"] for key in keys)
     return ".".join(identifiers)
 

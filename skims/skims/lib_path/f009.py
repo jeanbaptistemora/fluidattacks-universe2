@@ -8,15 +8,11 @@ from jose.jwt import (
     decode as jwt_decode,
 )
 from lib_path.common import (
-    BACKTICK_QUOTED_STRING,
-    DOUBLE_QUOTED_STRING,
     EXTENSIONS_JAVA_PROPERTIES,
-    EXTENSIONS_JAVASCRIPT,
     get_vulnerabilities_blocking,
     get_vulnerabilities_from_iterator_blocking,
     NAMES_DOCKERFILE,
     SHIELD,
-    SINGLE_QUOTED_STRING,
 )
 from model import (
     core_model,
@@ -25,9 +21,6 @@ from parse_java_properties import (
     load as load_java_properties,
 )
 from pyparsing import (
-    Keyword,
-    MatchFirst,
-    nestedExpr,
     Regex,
 )
 import re
@@ -149,68 +142,6 @@ async def jwt_token(
     return await in_process(
         _jwt_token,
         content=content,
-        path=path,
-    )
-
-
-@CACHE_ETERNALLY
-@SHIELD
-@TIMEOUT_1MIN
-async def crypto_js_credentials(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    return await in_process(
-        _crypto_js_credentials,
-        content=content,
-        path=path,
-    )
-
-
-def _crypto_js_credentials(
-    content: str,
-    path: str,
-) -> core_model.Vulnerabilities:
-    grammar = (
-        "CryptoJS"
-        + "."
-        + "enc"
-        + "."
-        + MatchFirst(
-            {
-                Keyword("Base64"),
-                Keyword("Utf16"),
-                Keyword("Utf16LE"),
-                Keyword("Hex"),
-                Keyword("Latin1"),
-                Keyword("Utf8"),
-            }
-        )
-        + "."
-        + "parse"
-        + nestedExpr(
-            closer=")",
-            content=MatchFirst(
-                {
-                    BACKTICK_QUOTED_STRING.copy(),
-                    DOUBLE_QUOTED_STRING.copy(),
-                    SINGLE_QUOTED_STRING.copy(),
-                }
-            ),
-            ignoreExpr=None,
-            opener="(",
-        )
-    )
-
-    return get_vulnerabilities_blocking(
-        content=content,
-        cwe={"798"},
-        description=t(
-            key="src.lib_path.f009.crypto_js_credentials.description",
-            path=path,
-        ),
-        finding=core_model.FindingEnum.F009,
-        grammar=grammar,
         path=path,
     )
 
@@ -374,14 +305,7 @@ async def analyze(  # pylint: disable=too-many-arguments
                 path=path,
             )
         )
-    if file_extension in EXTENSIONS_JAVASCRIPT:
-        coroutines.append(
-            crypto_js_credentials(
-                content=await content_generator(),
-                path=path,
-            )
-        )
-    elif file_name in NAMES_DOCKERFILE:
+    if file_name in NAMES_DOCKERFILE:
         coroutines.append(
             dockerfile_env_secrets(
                 content=await content_generator(),
