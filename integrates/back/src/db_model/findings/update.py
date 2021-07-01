@@ -6,6 +6,7 @@ from .types import (
     Finding31Severity,
     FindingEvidences,
     FindingMetadataToUpdate,
+    FindingRecords,
     FindingState,
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
@@ -52,7 +53,9 @@ async def update_medatada(
         key: value.value
         if isinstance(value, Enum)
         else value._asdict()
-        if isinstance(value, (Finding20Severity, Finding31Severity))
+        if isinstance(
+            value, (Finding20Severity, Finding31Severity, FindingRecords)
+        )
         else format_evidences_item(value)
         if isinstance(value, FindingEvidences)
         else value

@@ -183,6 +183,7 @@ class FindingMetadataToUpdate(NamedTuple):
     cwe: Optional[str] = None
     description: Optional[str] = None
     evidences: Optional[FindingEvidences] = None
+    records: Optional[FindingRecords] = None
     recommendation: Optional[str] = None
     requirements: Optional[str] = None
     risk: Optional[str] = None
