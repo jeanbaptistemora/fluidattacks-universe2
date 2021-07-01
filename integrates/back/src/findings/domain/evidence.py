@@ -9,6 +9,15 @@ from custom_exceptions import (
     InvalidFileSize,
     InvalidFileType,
 )
+from db_model import (
+    findings as findings_model,
+)
+from db_model.findings.types import (
+    Finding,
+    FindingEvidence,
+    FindingMetadataToUpdate,
+    FindingRecords,
+)
 from findings import (
     dal as findings_dal,
 )
@@ -158,6 +167,62 @@ async def update_evidence(
                 ],
             )
     return success
+
+
+async def update_evidence_new(
+    context: Any, finding_id: str, evidence_id: str, file: UploadFile
+) -> None:
+    await validate_evidence(evidence_id, file)
+    finding_loader = context.loaders.finding_new
+    finding: Finding = await finding_loader.load(finding_id)
+    filename = f"{finding.group_name}-{finding.id}-{evidence_id}"
+    full_name = f"{finding.group_name}/{finding.id}/{filename}"
+    if evidence_id == "fileRecords":
+        old_filename = finding.records.url if finding.records else ""
+        if old_filename != "":
+            old_records = await get_records_from_file(
+                finding.group_name, finding.id, old_filename
+            )
+            if old_records:
+                file = await finding_utils.append_records_to_file(
+                    cast(List[Dict[str, str]], old_records), file
+                )
+        await findings_dal.save_evidence(file, full_name)
+        if finding.records:
+            updated_records = finding.records._replace(
+                url=filename, modified_date=datetime_utils.get_iso_date()
+            )
+        else:
+            updated_records = FindingRecords(
+                description="",
+                modified_date=datetime_utils.get_iso_date(),
+                url=filename,
+            )
+        metadata = FindingMetadataToUpdate(records=updated_records)
+    else:
+        await findings_dal.save_evidence(file, full_name)
+        evidence: Optional[FindingEvidence] = getattr(
+            finding.evidences, evidence_id
+        )
+        if evidence:
+            updated_evidence = evidence._replace(
+                url=filename, modified_date=datetime_utils.get_iso_date()
+            )
+        else:
+            updated_evidence = FindingEvidence(
+                description="",
+                modified_date=datetime_utils.get_iso_date(),
+                url=filename,
+            )
+        evidences = finding.evidences._replace(
+            **{evidence_id: updated_evidence}
+        )
+        metadata = FindingMetadataToUpdate(evidences=evidences)
+    await findings_model.update_medatada(
+        group_name=finding.group_name,
+        finding_id=finding.id,
+        metadata=metadata,
+    )
 
 
 async def update_evidence_description(

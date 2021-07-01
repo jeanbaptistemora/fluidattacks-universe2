@@ -55,6 +55,7 @@ from .evidence import (
     remove_evidence,
     update_evidence,
     update_evidence_description,
+    update_evidence_new,
     validate_and_upload_evidence,
     validate_evidence,
 )
@@ -115,6 +116,7 @@ __all__ = [
     "remove_evidence",
     "update_evidence",
     "update_evidence_description",
+    "update_evidence_new",
     "validate_and_upload_evidence",
     "validate_evidence",
 ]
