@@ -18,9 +18,9 @@ import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import {
   AdvisoryContainer,
+  BannerContainer,
   BannerTitle,
   FullWidthContainer,
-  LittleBannerContainer,
   PageArticle,
 } from "../styles/styledComponents";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
@@ -58,11 +58,11 @@ const AdvisoryIndex: React.FC<IQueryData> = ({
           />
 
           <PageArticle>
-            <LittleBannerContainer className={banner}>
+            <BannerContainer className={banner}>
               <FullWidthContainer>
                 <BannerTitle>{title}</BannerTitle>
               </FullWidthContainer>
-            </LittleBannerContainer>
+            </BannerContainer>
             <AdvisoryContainer
               dangerouslySetInnerHTML={{
                 __html: data.asciidoc.html,

@@ -19,9 +19,9 @@ import { PeopleSectionList } from "../../components/PeopleSectionsList";
 import { Seo } from "../../components/Seo";
 import {
   ArticleContainer,
+  BannerContainer,
   BannerTitle,
   FullWidthContainer,
-  LittleBannerContainer,
   PageArticle,
 } from "../../styles/styledComponents";
 import { capitalizeObject, capitalizePlainString } from "../../utils/utilities";
@@ -60,11 +60,11 @@ const PeopleIndex: React.FC<IQueryData> = ({
           />
 
           <PageArticle>
-            <LittleBannerContainer className={banner}>
+            <BannerContainer className={banner}>
               <FullWidthContainer>
                 <BannerTitle>{title}</BannerTitle>
               </FullWidthContainer>
-            </LittleBannerContainer>
+            </BannerContainer>
             <ArticleContainer>
               <PeopleSectionList />
             </ArticleContainer>

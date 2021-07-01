@@ -20,9 +20,9 @@ import { Seo } from "../components/Seo";
 import {
   AdvisoriesContainer,
   AdvisoriesGrid,
+  BannerContainer,
   BannerTitle,
   FullWidthContainer,
-  LittleBannerContainer,
   PageArticle,
   RegularRedButton,
 } from "../styles/styledComponents";
@@ -62,11 +62,11 @@ const AdvisoriesIndex: React.FC<IQueryData> = ({
           />
 
           <PageArticle>
-            <LittleBannerContainer className={banner}>
+            <BannerContainer className={banner}>
               <FullWidthContainer>
                 <BannerTitle>{title}</BannerTitle>
               </FullWidthContainer>
-            </LittleBannerContainer>
+            </BannerContainer>
             <div className={"flex"}>
               <AdvisoriesGrid>
                 <AdviseCard />

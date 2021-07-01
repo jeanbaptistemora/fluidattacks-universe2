@@ -17,10 +17,10 @@ import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import {
+  BannerContainer,
   BannerTitle,
   BlackH2,
   FullWidthContainer,
-  LittleBannerContainer,
   PageArticle,
   PlansCards,
   PlansContainer,
@@ -67,11 +67,11 @@ const PlansIndex: React.FC<IQueryData> = ({
           />
 
           <PageArticle>
-            <LittleBannerContainer className={banner}>
+            <BannerContainer className={banner}>
               <FullWidthContainer>
                 <BannerTitle>{title}</BannerTitle>
               </FullWidthContainer>
-            </LittleBannerContainer>
+            </BannerContainer>
 
             <PlansContainer>
               <BlackH2 className={"pv5"}>{phrase}</BlackH2>
