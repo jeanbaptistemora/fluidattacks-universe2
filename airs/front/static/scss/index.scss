@@ -479,6 +479,12 @@ $gray-244: rgba(244, 244, 246, 1);
   min-height: 300px;
 }
 
+.modal-video-close-btn {
+  right: 0 !important;
+  top: -30px !important;
+}
+
+
 .plans-feat {
   .sect2 {
     border: $lighter-gray solid;
