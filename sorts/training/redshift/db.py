@@ -96,7 +96,7 @@ def initialize() -> None:
 
 def delete(table: str) -> None:
     with db_cursor() as cursor:
-        cursor.execute(f"TRUNCATE TABLE sorts.{table}")
+        cursor.execute(f"DELETE FROM sorts.{table}")
 
 
 def insert(table: str, item: Dict[str, Any]) -> None:
