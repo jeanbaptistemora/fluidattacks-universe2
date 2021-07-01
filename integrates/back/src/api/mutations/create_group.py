@@ -23,6 +23,9 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from typing import (
     Any,
 )
@@ -38,14 +41,20 @@ async def mutate(  # pylint: disable=too-many-arguments
     info: GraphQLResolveInfo,
     description: str,
     organization: str,
-    project_name: str,
     subscription: str = "continuous",
-    has_skims: bool = False,
-    has_drills: bool = False,
     has_forces: bool = False,
     language: str = "en",
+    **parameters: Any,
 ) -> SimplePayloadType:
-    group_name = project_name
+    # Compatibility with old API
+    group_name = resolve_kwargs(parameters)
+    has_squad: bool = resolve_kwargs(
+        parameters, "has_squad", "has_drills", False
+    )
+    has_machine: bool = resolve_kwargs(
+        parameters, "has_machine", "has_skims", False
+    )
+
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
     user_role = await authz.get_user_level_role(user_email)
@@ -56,8 +65,8 @@ async def mutate(  # pylint: disable=too-many-arguments
         group_name.lower(),
         organization,
         description,
-        has_skims,
-        has_drills,
+        has_machine,
+        has_squad,
         has_forces,
         subscription,
         language,
@@ -73,31 +82,3 @@ async def mutate(  # pylint: disable=too-many-arguments
         )
 
     return SimplePayloadType(success=success)
-
-
-# Standardization Resolver
-@convert_kwargs_to_snake_case
-async def mutate_group(  # pylint: disable=too-many-arguments
-    _: Any,
-    info: GraphQLResolveInfo,
-    description: str,
-    organization: str,
-    group_name: str,
-    subscription: str = "continuous",
-    has_machine: bool = False,
-    has_squad: bool = False,
-    has_forces: bool = False,
-    language: str = "en",
-) -> SimplePayloadType:
-    return await mutate(
-        _,
-        info,
-        description,
-        organization,
-        group_name,
-        subscription,
-        has_machine,
-        has_squad,
-        has_forces,
-        language,
-    )

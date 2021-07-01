@@ -124,15 +124,19 @@ def resolve_kwargs(
     kwargs: Dict,
     current_key: str = "group_name",
     old_key: str = "project_name",
-) -> str:
-    """Tries to get current_key from kwargs, with a (lazy) old_key as a
-    fallback and raises an exception if none can be found"""
+    fallback: Any = None,
+) -> Any:
+    """Tries to get current_key's value from kwargs, with a (lazy) old_key as a
+    second option. If none of the keys can be found it returns a fallback value
+    if specified or raises an exception"""
     try:
         return kwargs.get(current_key, kwargs.get(old_key))
     except KeyError:
+        if fallback is not None:
+            return fallback
         raise KeyError(
-            f"Either {current_key} or {old_key} must be included, check "
-            + "your query/mutation args!"
+            f"No fallback provided, either {current_key} or {old_key} must be"
+            + "included in the dict, check your query/mutation args!"
         )
 
 

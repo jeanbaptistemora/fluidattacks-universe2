@@ -32,6 +32,9 @@ from mailer import (
 from newutils import (
     logs as logs_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
@@ -52,7 +55,7 @@ async def mutate(
 ) -> SimplePayload:
     finding_loader = info.context.loaders.finding
     finding_data = await finding_loader.load(finding_id)
-    group_name = finding_data["project_name"]
+    group_name = resolve_kwargs(finding_data)
 
     success = await findings_domain.delete_finding(
         info.context, finding_id, justification
