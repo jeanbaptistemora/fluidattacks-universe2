@@ -114,8 +114,6 @@ async def main() -> None:
                         "glob(**/*cordova*)",
                         "glob(**/*dynatrace*)",
                         "glob(**/*ibmmfpf.js*)",
-                        "glob(**/*jquery*)",
-                        "glob(**/*sjcl*)",
                         "glob(**/cryptojs/components/core.js)",
                         "glob(**/modernizr.js)",
                         "glob(**/UI/AutocompleteGenerico)",
