@@ -437,43 +437,6 @@ async def test_edit_group_good(  # type: ignore
             "NONE",
             "Exception - Squad is only available when Machine is too",
         ],
-        # Configuration error, Forces requires ASM
-        [
-            "",
-            "ONESHOTTEST",
-            "CONTINUOUS",
-            "false",
-            "true",
-            "false",
-            "false",
-            "NONE",
-            "Exception - Forces is only available when ASM is too",
-        ],
-        # Configuration error, Forces requires Skims
-        [
-            "",
-            "ONESHOTTEST",
-            "CONTINUOUS",
-            "false",
-            "true",
-            "true",
-            "false",
-            "NONE",
-            "Exception - Forces is only available when Machine is too",
-        ],
-        # Configuration error, Forces requires CONTINUOUS
-        [
-            "",
-            "ONESHOTTEST",
-            "ONESHOT",
-            "false",
-            "true",
-            "true",
-            "false",
-            "NONE",
-            "Exception - Forces is only available "
-            "in groups of type Continuous",
-        ],
         # Input validation error, weird chars
         [
             "\xFF",

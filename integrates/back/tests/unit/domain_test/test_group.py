@@ -94,15 +94,9 @@ pytestmark = [
 
 def test_validate_group_services_config() -> None:
     with pytest.raises(InvalidGroupServicesConfig):
-        validate_group_services_config(True, True, True, False, False)
+        validate_group_services_config(True, True, True, False)
     with pytest.raises(InvalidGroupServicesConfig):
-        validate_group_services_config(True, False, False, True, True)
-    with pytest.raises(InvalidGroupServicesConfig):
-        validate_group_services_config(True, True, True, True, False)
-    with pytest.raises(InvalidGroupServicesConfig):
-        validate_group_services_config(True, False, True, True, True)
-    with pytest.raises(InvalidGroupServicesConfig):
-        validate_group_services_config(False, False, False, True, True)
+        validate_group_services_config(True, False, True, True)
 
 
 @pytest.mark.changes_db

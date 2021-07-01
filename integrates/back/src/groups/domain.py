@@ -473,7 +473,6 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
             is_continuous_type,
             has_machine,
             has_squad,
-            has_forces,
             has_asm=True,
         )
         is_group_avail, group_exists = await collect(
@@ -649,7 +648,6 @@ async def edit(
         subscription == "continuous",
         has_machine,
         has_squad,
-        has_forces,
         has_asm,
     )
 
@@ -1196,7 +1194,6 @@ def validate_group_services_config(
     is_continuous_type: bool,
     has_machine: bool,
     has_squad: bool,
-    has_forces: bool,
     has_asm: bool,
 ) -> None:
     if is_continuous_type:
@@ -1209,22 +1206,6 @@ def validate_group_services_config(
                 raise InvalidGroupServicesConfig(
                     "Squad is only available when Machine is too"
                 )
-
-        if has_forces:
-            if not has_asm:
-                raise InvalidGroupServicesConfig(
-                    "Forces is only available when ASM is too"
-                )
-            if not has_machine:
-                raise InvalidGroupServicesConfig(
-                    "Forces is only available when Machine is too"
-                )
-
-    else:
-        if has_forces:
-            raise InvalidGroupServicesConfig(
-                "Forces is only available in groups of type Continuous"
-            )
 
 
 async def validate_group_tags(group_name: str, tags: List[str]) -> List[str]:
