@@ -13,16 +13,16 @@ async def main() -> None:
         finding_title="F117. Archivos no auditables 123",
         group=group,
         namespace="test",
-        urgent=True,
+        urgent=False,
         product_api_token=environ["PRODUCT_API_TOKEN"],
         stderr=subprocess.PIPE,
         stdout=subprocess.PIPE,
     )
     out = out_.decode()
 
-    assert code == 0
+    assert code == 0, out
     assert "Running on AWS" in out
-    assert "Job Queue: skims_soon" in out
+    assert "Job Queue: skims_prod_later" in out
     assert (
         f"skims-process-group-{group}-F117-test has been successfully sent"
         in out

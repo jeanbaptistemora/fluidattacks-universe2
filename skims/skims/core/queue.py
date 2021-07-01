@@ -26,6 +26,7 @@ async def process_group_on_aws(
     namespace: str,
     urgent: bool,
 ) -> bool:
+    queue_priority: str = "soon" if urgent else "later"
     process: asyncio.subprocess.Process = await call(
         PROCESS_GROUP_ON_AWS,
         group,
@@ -33,7 +34,7 @@ async def process_group_on_aws(
         namespace,
         env=dict(
             MAKES_COMPUTE_ON_AWS_JOB_QUEUE=(
-                "skims_soon" if urgent else "skims_later"
+                f"skims_{finding.value.execution_queue.name}_{queue_priority}"
             ),
         ),
         stderr=None,
