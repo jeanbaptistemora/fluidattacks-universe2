@@ -23,7 +23,6 @@ data "aws_iam_policy_document" "integrates-dev-key" {
       identifiers = [
         module.external.aws_iam_roles["integrates-dev"].arn,
         module.external.aws_iam_roles["makes_prod"].arn,
-        module.external.aws_iam_users["FLUIDServes_TF"].arn,
         module.external.aws_iam_users["integrates-dev"].arn,
         module.external.aws_iam_users["integrates-prod"].arn,
       ]
@@ -57,7 +56,6 @@ data "aws_iam_policy_document" "integrates-dev-key" {
       identifiers = [
         module.external.aws_iam_roles["integrates-dev"].arn,
         module.external.aws_iam_roles["makes_prod"].arn,
-        module.external.aws_iam_users["FLUIDServes_TF"].arn,
         module.external.aws_iam_users["integrates-dev"].arn,
         module.external.aws_iam_users["integrates-prod"].arn,
       ]
@@ -82,7 +80,6 @@ data "aws_iam_policy_document" "integrates-dev-key" {
       identifiers = [
         module.external.aws_iam_roles["integrates-dev"].arn,
         module.external.aws_iam_roles["makes_prod"].arn,
-        module.external.aws_iam_users["FLUIDServes_TF"].arn,
         module.external.aws_iam_users["integrates-dev"].arn,
         module.external.aws_iam_users["integrates-prod"].arn,
       ]

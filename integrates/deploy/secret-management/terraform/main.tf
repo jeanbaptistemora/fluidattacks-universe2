@@ -39,7 +39,6 @@ module "external" {
     "integrates-prod-policy" = ["us", "user-provision/integrates-prod-policy"]
   }
   aws_iam_users = [
-    "FLUIDServes_TF",
     "integrates-dev",
     "integrates-prod",
   ]
