@@ -66,6 +66,7 @@ from api.mutations import (
     update_event_evidence,
     update_evidence,
     update_evidence_description,
+    update_evidence_new,
     update_finding_description,
     update_finding_description_new,
     update_forces_access_token,
@@ -136,7 +137,6 @@ MUTATION.set_field("updateEventEvidence", update_event_evidence.mutate)
 MUTATION.set_field(
     "updateEvidenceDescription", update_evidence_description.mutate
 )
-MUTATION.set_field("updateEvidence", update_evidence.mutate)
 MUTATION.set_field(
     "updateForcesAccessToken", update_forces_access_token.mutate
 )
@@ -204,6 +204,7 @@ if FI_API_STATUS == "migration":
     MUTATION.set_field(
         "updateDescription", update_finding_description_new.mutate
     )
+    MUTATION.set_field("updateEvidence", update_evidence_new.mutate)
     MUTATION.set_field("updateSeverity", update_severity_new.mutate)
 else:
     MUTATION.set_field("approveDraft", approve_draft.mutate)
@@ -212,4 +213,5 @@ else:
     MUTATION.set_field("rejectDraft", reject_draft.mutate)
     MUTATION.set_field("submitDraft", submit_draft.mutate)
     MUTATION.set_field("updateDescription", update_finding_description.mutate)
+    MUTATION.set_field("updateEvidence", update_evidence.mutate)
     MUTATION.set_field("updateSeverity", update_severity.mutate)
