@@ -30,6 +30,13 @@ def main() -> None:
         for file in os.listdir(tmpdir):
             features: DataFrame = pd.read_csv(os.path.join(tmpdir, file))
             merged_features = pd.concat([merged_features, features])
+            redshift.insert(
+                "features",
+                {
+                    "group_name": file.split("_")[0],
+                    "n_vulns": len(features.index),
+                },
+            )
         merged_features.reset_index(drop=True, inplace=True)
 
         # Change appropriate columns to numeric type for future filtering
