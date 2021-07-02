@@ -206,6 +206,36 @@ def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     )
 
 
+def _tlsv1_3_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
+    locations = Locations(locations=[])
+
+    conn_established: bool = False
+    ssl_settings = SSLSettings(min_version=(3, 4), max_version=(3, 4))
+
+    with connect(
+        ctx.target.host,
+        ctx.target.port,
+        ssl_settings,
+        intention="check if tlsv1.3 disabled",
+        expected_exceptions=(tlslite.errors.TLSLocalAlert,),
+    ) as connection:
+        if connection is not None:
+            conn_established = not connection.closed
+            if connection.closed:
+                locations.append(
+                    desc="tlsv1_3_disabled",
+                )
+
+    return _create_vulns(
+        locations=locations,
+        finding=core_model.FindingEnum.F011_TLS,
+        ctx=ctx,
+        conn_established=conn_established,
+        line=SSLSnippetLine.max_version,
+        ssl_settings=ssl_settings,
+    )
+
+
 def get_check_ctx(ssl_ctx: SSLContext) -> SSLContext:
     return ssl_ctx
 
@@ -218,6 +248,7 @@ CHECKS: Dict[
     core_model.FindingEnum.F011_TLS: [
         _tlsv1_enabled,
         _tlsv1_1_enabled,
+        _tlsv1_3_disabled,
     ],
     core_model.FindingEnum.F052_PFS: [_pfs_disabled],
 }

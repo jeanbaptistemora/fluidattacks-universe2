@@ -1,4 +1,14 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
+F011_TLS,inputs,localhost:4446 (namespace),no support for TLS v1.3,310,"home,socket-send,socket-response",F011. Use of software with known vulnerabilities - old version of TLS,no support for TLS v1.3,"
+  1 | SSL connection request to localhost:4446
+  2 | min version: TLSv1.3
+> 3 | max version: TLSv1.3
+  4 | chiphers: chacha20-poly1305, aes256gcm, aes128gcm, aes256ccm, aes128ccm, aes256, aes128, 3des
+  5 | mac: sha, sha256, sha384, aead
+  6 | key exchange: rsa, dhe_rsa, ecdhe_rsa, srp_sha, srp_sha_rsa, ecdh_anon, dh_anon, ecdhe_ecdsa, dhe_dsa
+  7 | connection established: False
+    ^ Col 0
+"
 F052_PFS,inputs,localhost:4446 (namespace),pfs is not enabled,310,"home,socket-send,socket-response",F052. Insecure encryption algorithm - Perfect Forward Secrecy,pfs is not enabled,"
   1 | SSL connection request to localhost:4446
   2 | min version: SSLv3.0
