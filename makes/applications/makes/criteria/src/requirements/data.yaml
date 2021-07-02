@@ -741,7 +741,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Definir tiempo de duracion de OTP
     summary: __empty__
     description: __empty__
   references: []
@@ -752,7 +752,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Forzar re-autenticacion
     summary: __empty__
     description: __empty__
   references: []
@@ -763,7 +763,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Modificar las credenciales por defecto del sistema
     summary: __empty__
     description: __empty__
   references: []
@@ -774,7 +774,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Credenciales de acceso unicas
     summary: __empty__
     description: __empty__
   references: []
@@ -785,7 +785,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Eliminar cuentas inactivas periodicamente
     summary: __empty__
     description: __empty__
   references: []
@@ -796,7 +796,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Proteger llaves criptograficas del sistema 
     summary: __empty__
     description: __empty__
   references: []
@@ -807,7 +807,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Eliminar llaves criptograficas de la memoria RAM
     summary: __empty__
     description: __empty__
   references: []
@@ -818,7 +818,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Utilizar mecanismos pre-existentes
     summary: __empty__
     description: __empty__
   references: []
@@ -829,7 +829,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Establecer un tamano minimo de cifrado asimetrico
     summary: __empty__
     description: __empty__
   references: []
@@ -840,7 +840,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Establecer un tamano minimo de cifrado simetrico
     summary: __empty__
     description: __empty__
   references: []
@@ -851,7 +851,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Establecer un tamano minimo de funciones hash
     summary: __empty__
     description: __empty__
   references: []
@@ -862,7 +862,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Separar llaves para cifrado y firmas
     summary: __empty__
     description: __empty__
   references: []
@@ -873,7 +873,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Reutilizar conexiones de bases de datos
     summary: __empty__
     description: __empty__
   references: []
@@ -884,7 +884,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Transacciones fuera de banda
     summary: __empty__
     description: __empty__
   references: []
@@ -895,7 +895,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Eliminar puertas traseras
     summary: __empty__
     description: __empty__
   references: []
@@ -906,7 +906,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Aplicacion libre de codigo malicioso
     summary: __empty__
     description: __empty__
   references: []
@@ -917,7 +917,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Codigo fuente sin informacion sensible
     summary: __empty__
     description: __empty__
   references: []
@@ -928,7 +928,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Utilizar el modo estricto
     summary: __empty__
     description: __empty__
   references: []
@@ -939,7 +939,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Utilizar un lenguaje de programacion seguro
     summary: __empty__
     description: __empty__
   references: []
@@ -950,7 +950,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Ofuscar codigo
     summary: __empty__
     description: __empty__
   references: []
@@ -961,7 +961,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Codificar salidas del sistema
     summary: __empty__
     description: __empty__
   references: []
@@ -972,7 +972,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Definir opciones seguras por defecto
     summary: __empty__
     description: __empty__
   references: []
@@ -983,7 +983,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Evitar codigo duplicado
     summary: __empty__
     description: __empty__
   references: []
@@ -994,7 +994,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Utilizar estructuras optimizadas
     summary: __empty__
     description: __empty__
   references: []
@@ -1005,7 +1005,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Cerrar recursos sin utilizar
     summary: __empty__
     description: __empty__
   references: []
@@ -1016,7 +1016,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Inicializar variables explicitamente
     summary: __empty__
     description: __empty__
   references: []
@@ -1027,7 +1027,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Utilizar consultas parametrizadas
     summary: __empty__
     description: __empty__
   references: []
