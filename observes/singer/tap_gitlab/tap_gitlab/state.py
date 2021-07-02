@@ -4,6 +4,7 @@ from dataclasses import (
 from datetime import (
     datetime,
 )
+import json
 from paginator.pages import (
     PageId,
 )
@@ -28,7 +29,9 @@ from tap_gitlab.streams import (
     StreamDecoder,
     StreamEncoder,
 )
+import tempfile
 from typing import (
+    Any,
     Dict,
     NamedTuple,
     Optional,
@@ -182,3 +185,16 @@ class StateDecoder:
                 self.decode_mrstate_map(raw_mrs),
             )
         raise DecodeError("EtlState")
+
+
+@dataclass(frozen=True)
+class StateGetter:
+    s3_client: Any
+    decoder: StateDecoder
+
+    def get(self, bucket: str, obj_key: str) -> EtlState:
+        with tempfile.TemporaryFile() as temp:
+            self.s3_client.download_fileobj(bucket, obj_key, temp)
+            temp.seek(0)
+            raw = json.load(temp)
+            return self.decoder.decode_etl_state(raw)
