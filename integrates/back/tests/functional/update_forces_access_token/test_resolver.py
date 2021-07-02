@@ -10,10 +10,18 @@ from typing import (
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_forces_access_token")
-async def test_admin(populate: bool) -> None:
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@gmail.com"],
+        ["customer@gmail.com"],
+        ["customeradmin@gmail.com"],
+    ],
+)
+async def test_update_forces_access_token(populate: bool, email: str) -> None:
     assert populate
     result: Dict[str, Any] = await get_result(
-        user="admin@gmail.com",
+        user=email,
         group="group1",
     )
     assert "errors" not in result
@@ -22,22 +30,22 @@ async def test_admin(populate: bool) -> None:
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_forces_access_token")
-async def test_analyst(populate: bool) -> None:
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["analyst@gmail.com"],
+        ["closer@gmail.com"],
+        ["executive@gmail.com"],
+        ["resourcer@gmail.com"],
+        ["reviewer@gmail.com"],
+    ],
+)
+async def test_update_forces_access_token_fail(
+    populate: bool, email: str
+) -> None:
     assert populate
     result: Dict[str, Any] = await get_result(
-        user="analyst@gmail.com",
-        group="group1",
-    )
-    assert "errors" in result
-    assert result["errors"][0]["message"] == "Access denied"
-
-
-@pytest.mark.asyncio
-@pytest.mark.resolver_test_group("update_forces_access_token")
-async def test_closer(populate: bool) -> None:
-    assert populate
-    result: Dict[str, Any] = await get_result(
-        user="closer@gmail.com",
+        user=email,
         group="group1",
     )
     assert "errors" in result
