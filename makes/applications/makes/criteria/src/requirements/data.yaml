@@ -488,7 +488,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Denegar acceso con credenciales inactivas
     summary: __empty__
     description: __empty__
   references: []
@@ -499,7 +499,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Filtrar correos electronicos maliciosos
     summary: __empty__
     description: __empty__
   references: []
@@ -510,7 +510,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Deshabilitar imagenes con origen desconocido
     summary: __empty__
     description: __empty__
   references: []
@@ -521,7 +521,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: No interpretar codigo HTML
     summary: __empty__
     description: __empty__
   references: []
@@ -532,7 +532,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Inspeccionar archivos adjuntos
     summary: __empty__
     description: __empty__
   references: []
@@ -543,7 +543,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Ocultar destinatarios
     summary: __empty__
     description: __empty__
   references: []
@@ -554,7 +554,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Garantizar unicidad de los correos electronicos
     summary: __empty__
     description: __empty__
   references: []
@@ -565,7 +565,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Validar propiedad de las credenciales
     summary: __empty__
     description: __empty__
   references: []
@@ -576,7 +576,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Restringir la lectura de correos electronicos
     summary: __empty__
     description: __empty__
   references: []
@@ -587,7 +587,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Establecer un mecanismo de regeneracion de contrasenas
     summary: __empty__
     description: __empty__
   references: []
@@ -598,7 +598,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Almacenar contrasenas con hash
     summary: __empty__
     description: __empty__
   references: []
@@ -609,7 +609,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Definir una unica fuente de datos
     summary: __empty__
     description: __empty__
   references: []
@@ -620,7 +620,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Validar contrasenas previas
     summary: __empty__
     description: __empty__
   references: []
@@ -631,7 +631,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Limitar tiempo de duracion de contrasenas
     summary: __empty__
     description: __empty__
   references: []
@@ -642,7 +642,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Denegar multiples intentos de cambio de contrasena
     summary: __empty__
     description: __empty__
   references: []
@@ -653,7 +653,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Frase de contrasena con al menos 4 palabras
     summary: __empty__
     description: __empty__
   references: []
@@ -664,7 +664,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Contrasenas con al menos 20 caracteres
     summary: __empty__
     description: __empty__
   references: []
@@ -675,7 +675,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Almacenar contrasenas con salt
     summary: __empty__
     description: __empty__
   references: []
@@ -686,7 +686,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Contrasenas con salt aleatorio
     summary: __empty__
     description: __empty__
   references: []
@@ -697,7 +697,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Forzar el cambio de contrasenas temporales
     summary: __empty__
     description: __empty__
   references: []
@@ -708,7 +708,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Modificar contrasenas temporales de terceros
     summary: __empty__
     description: __empty__
   references: []
@@ -719,7 +719,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Definir un tiempo de duracion para contrasenas temporales
     summary: __empty__
     description: __empty__
   references: []
@@ -730,7 +730,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Establecer longitud minima para OTP
     summary: __empty__
     description: __empty__
   references: []
