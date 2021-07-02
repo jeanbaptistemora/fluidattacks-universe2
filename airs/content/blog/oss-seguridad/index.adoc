@@ -9,6 +9,7 @@
 :page-keywords: Ciberseguridad, OSS, Open Source, Código Abierto, Software, Compañía, Ethical Hacking, Pentesting
 :page-author: Felipe Ruiz
 :page-writer: fruiz
+:page-spanish: yes
 :name: Felipe Ruiz
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/2HlidfG6ihs

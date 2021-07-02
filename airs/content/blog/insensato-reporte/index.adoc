@@ -9,6 +9,7 @@
 :page-keywords: Vulnerabilidad, Cancillería, Colombia, Visa, Datos, Web, Ethical Hacking, Pentesting
 :page-author: Felipe Ruiz
 :page-writer: fruiz
+:page-spanish: yes
 :name: Felipe Ruiz
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/dKS6CQZ5mgo

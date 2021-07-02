@@ -100,6 +100,7 @@ interface IData {
             partnerlogo: string;
             product: string;
             slug: string;
+            spanish: string;
             subtitle: string;
             writer: string;
           };
@@ -126,6 +127,7 @@ interface INodes {
       tags: string;
       description: string;
       slug: string;
+      spanish: string;
       subtitle: string;
     };
   };

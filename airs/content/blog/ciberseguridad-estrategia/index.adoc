@@ -9,6 +9,7 @@
 :page-keywords: Ciberseguridad, Error, Riesgo, Estrategia, Negocio, Compañía, Ethical Hacking, Pentesting
 :page-author: Julian Arango
 :page-writer: jarango
+:page-spanish: yes
 :name: Julian Arango
 :about1: Estratega comportamental
 :about2: Científico de datos en formación.

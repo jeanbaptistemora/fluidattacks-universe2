@@ -9,6 +9,7 @@
 :page-keywords: Credential Stuffing, Relleno, Credenciales, Contraseña, Website, Aplicación, Ethical Hacking, Pentesting
 :page-author: Felipe Ruiz
 :page-writer: fruiz
+:page-spanish: yes
 :name: Felipe Ruiz
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/siNDDi9RpVY
