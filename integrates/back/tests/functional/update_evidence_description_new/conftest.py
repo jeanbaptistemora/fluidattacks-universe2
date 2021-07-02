@@ -13,6 +13,7 @@ from db_model.findings.types import (
     Finding31Severity,
     FindingEvidence,
     FindingEvidences,
+    FindingRecords,
     FindingState,
     FindingStatus,
     FindingUnreliableIndicatorsToUpdate,
@@ -29,7 +30,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("update_evidence_new")
+@pytest.mark.resolver_test_group("update_evidence_description_new")
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
@@ -91,6 +92,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                             url="group1-475041513-evidence1",
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
+                    ),
+                    records=FindingRecords(
+                        description="records",
+                        url="group1-475041513-records",
+                        modified_date="2111-11-19T13:37:10+00:00",
                     ),
                 ),
                 "historic_state": [

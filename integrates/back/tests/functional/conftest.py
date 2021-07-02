@@ -71,6 +71,7 @@ TEST_GROUPS: Set[str] = {
     "update_evidence",
     "update_evidence_new",
     "update_evidence_description",
+    "update_evidence_description_new",
     "update_finding_description",
     "update_finding_description_new",
     "update_forces_access_token",
